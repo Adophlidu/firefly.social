@@ -1,4 +1,4 @@
-import type { Post } from '@/providers/types/SocialMedia.js';
+import { type Post } from '@/providers/types/SocialMedia.js';
 
 export function isSamePost(post: Post | null | undefined, otherPost: Post | null | undefined) {
     if (!post || !otherPost) return false;

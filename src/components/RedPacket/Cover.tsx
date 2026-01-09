@@ -3,8 +3,8 @@ import { AuthorText } from '@/components/RedPacket/AuthorText.js';
 import { ClaimProgressText } from '@/components/RedPacket/ClaimProgressText.js';
 import { CoverContainer } from '@/components/RedPacket/CoverContainer.js';
 import { MessageText } from '@/components/RedPacket/MessageText.js';
-import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
-import { TokenType, UsageType } from '@/types/rp.js';
+import { type FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
+import { type TokenType, UsageType } from '@/types/rp.js';
 
 interface CoverProps {
     theme: FireflyRedPacketAPI.ThemeGroupSettings;

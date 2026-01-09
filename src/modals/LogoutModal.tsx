@@ -12,7 +12,7 @@ import { getProfileState } from '@/helpers/getProfileState.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
-import type { Account } from '@/providers/types/Account.js';
+import { type Account } from '@/providers/types/Account.js';
 import { removeAllAccounts, removeCurrentAccount } from '@/services/account.js';
 
 interface LogoutModalProps {

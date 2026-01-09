@@ -2,7 +2,7 @@ import urlcat from 'urlcat';
 
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import type { MetricsItemToUpload, Response } from '@/providers/types/Firefly.js';
+import { type MetricsItemToUpload, type Response } from '@/providers/types/Firefly.js';
 import { encryptPasscode } from '@/services/crypto.js';
 import { settings } from '@/settings/index.js';
 

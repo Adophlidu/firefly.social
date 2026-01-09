@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import { type Metadata } from 'next';
 
 import { TipsNotificationType } from '@/constants/enum.js';
 import { notFound } from '@/esm/navigation/server.js';

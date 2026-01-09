@@ -7,7 +7,7 @@ import {
     getPostVideoWidthMax,
     getPostVideoWidthMin,
 } from '@/helpers/getPostLimitation.js';
-import type { VideoMetadata } from '@/types/compose.js';
+import { type VideoMetadata } from '@/types/compose.js';
 
 export function validateVideoDuration(availableSources: SocialSource[], { duration }: VideoMetadata) {
     const minDuration = getPostVideoDurationMin(availableSources);

@@ -19,7 +19,7 @@ import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByFireflyProfile } from '@/helpers/getStampAvatarByProfileId.js';
 import { getUserTotalBalance } from '@/providers/debank/getUserTotalBalance.js';
 import { getUserSolanaTotalValue } from '@/providers/okx/getUserSolanaTotalValue.js';
-import type { FireflyProfile } from '@/providers/types/Firefly.js';
+import { type FireflyProfile } from '@/providers/types/Firefly.js';
 
 interface Props {
     profiles?: FireflyProfile[];

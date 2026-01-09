@@ -1,6 +1,6 @@
 import { compose } from '@dimensiondev/utils';
 import dayjs from 'dayjs';
-import { NextRequest } from 'next/server.js';
+import { type NextRequest } from 'next/server.js';
 import { mnemonicToAccount } from 'viem/accounts';
 import { z } from 'zod';
 

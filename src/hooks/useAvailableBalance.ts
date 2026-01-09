@@ -1,7 +1,7 @@
 'use client';
 
 import { unreachable } from '@dimensiondev/utils';
-import type { Address } from 'viem';
+import { type Address } from 'viem';
 
 import { NetworkType, RedpacketTxType } from '@/constants/enum.js';
 import { SOLANA_REDPACKET_CLAIM_GAS, SOLANA_REDPACKET_CREATE_GAS } from '@/constants/rp.js';

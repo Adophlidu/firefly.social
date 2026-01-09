@@ -1,7 +1,7 @@
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { compact } from 'lodash-es';
-import type { HTMLProps } from 'react';
+import { type HTMLProps } from 'react';
 
 import BuyIcon from '@/assets/polymarket-bought.svg';
 import SellIcon from '@/assets/polymarket-sold.svg';
@@ -12,7 +12,7 @@ import { Image } from '@/esm/Image.js';
 import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
 import { rightShift } from '@/helpers/number.js';
 import { toFixedTrimmed } from '@/helpers/polymarket.js';
-import type { BetsActivity } from '@/providers/types/Firefly.js';
+import { type BetsActivity } from '@/providers/types/Firefly.js';
 
 interface BetsTradeItemProps extends HTMLProps<HTMLDivElement> {
     trade: BetsActivity;

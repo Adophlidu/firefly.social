@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { type Meta, type StoryObj } from '@storybook/nextjs-vite';
 
 import BookmarkedTokens from '@/components/Token/BookmarkedTokens.js';
 

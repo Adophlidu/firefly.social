@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import { type Metadata } from 'next';
 
 import { ChannelInfoUI } from '@/components/Channel/ChannelInfoUI.js';
 import { Title } from '@/components/Channel/Title.js';
@@ -9,7 +9,7 @@ import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 import { createChannelMetadata } from '@/providers/firefly/metadata/createChannelMetadata.js';
-import type { NextPageProps } from '@/types/utility.js';
+import { type NextPageProps } from '@/types/utility.js';
 
 interface Props
     extends NextPageProps<{

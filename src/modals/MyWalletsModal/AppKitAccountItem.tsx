@@ -20,7 +20,7 @@ import { formatAddress } from '@/helpers/formatAddress.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { type AppKitAccount } from '@/hooks/useAppKitAccounts.js';
 import { useEnsName } from '@/hooks/useEnsName.js';
-import type { ChainNamespace } from '@/types/utility.js';
+import { type ChainNamespace } from '@/types/utility.js';
 
 const IconMap: Record<ChainNamespace, FunctionComponent<SVGAttributes<SVGElement>>> = {
     eip155: EvmIcon,

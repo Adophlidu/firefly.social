@@ -30,14 +30,14 @@ import { useIntersectionObserver } from '@/hooks/useIntersectionObserver.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useProfileHighlighted } from '@/hooks/useProfileHighlighted.js';
 import { getAllPlatformProfileFromFirefly } from '@/providers/firefly/endpoint/getAllPlatformProfileFromFirefly.js';
-import type {
-    FireflyAccountProfile,
-    FireflyIdentity,
-    FireflyProfile,
-    WalletProfile,
-    WalletProfiles,
+import {
+    type FireflyAccountProfile,
+    type FireflyIdentity,
+    type FireflyProfile,
+    type WalletProfile,
+    type WalletProfiles,
 } from '@/providers/types/Firefly.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import { type Profile } from '@/providers/types/SocialMedia.js';
 
 interface Props {
     walletProfile?: WalletProfile | null;

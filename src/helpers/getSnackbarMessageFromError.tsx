@@ -5,7 +5,7 @@ import { first } from 'lodash-es';
 import { EstimateGasExecutionError } from 'viem';
 import { z } from 'zod';
 
-import type { SnackbarMessage } from '@/components/Snackbar.js';
+import { type SnackbarMessage } from '@/components/Snackbar.js';
 import { SnackbarErrorMessage } from '@/components/SnackbarErrorMessage.js';
 import { DecryptionError, FarcasterInvalidSignerKey, FetchError } from '@/constants/error.js';
 import { getErrorMessageFromFetchError } from '@/helpers/getErrorMessageFromFetchError.js';

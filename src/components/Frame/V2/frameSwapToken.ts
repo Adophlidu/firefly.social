@@ -1,5 +1,5 @@
 import { delay } from '@dimensiondev/utils';
-import type { MiniAppHost } from '@farcaster/miniapp-host';
+import { type MiniAppHost } from '@farcaster/miniapp-host';
 
 import { SOLANA_CHAIN_ID_IN_FIREFLY } from '@/constants/debank.js';
 import { OkxProviderType } from '@/constants/enum.js';

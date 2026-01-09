@@ -1,5 +1,6 @@
-import { formatPolymarketNumber } from '@/components/Polymarket/formatPolymarketNumber.js';
 import { describe, expect, it } from 'vitest';
+
+import { formatPolymarketNumber } from '@/components/Polymarket/formatPolymarketNumber.js';
 
 describe('formatPolymarketNumber', () => {
     it('should return fallback for undefined', () => {

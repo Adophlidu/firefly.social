@@ -1,7 +1,7 @@
 'use client';
 
 import { safeUnreachable } from '@dimensiondev/utils';
-import type { SVGProps } from 'react';
+import { type SVGProps } from 'react';
 
 import AppleDarkIcon from '@/assets/apple.dark.svg';
 import AppleIcon from '@/assets/apple.svg';

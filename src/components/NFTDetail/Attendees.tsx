@@ -2,7 +2,7 @@
 
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
-import type { Address } from 'viem';
+import { type Address } from 'viem';
 
 import LinkIcon from '@/assets/link-square.svg';
 import { Avatar } from '@/components/Avatar.js';
@@ -18,7 +18,7 @@ import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { getPoapHolders } from '@/providers/firefly/nft/getPoapHolders.js';
-import type { PoapHolderToken } from '@/providers/types/NFTs.js';
+import { type PoapHolderToken } from '@/providers/types/NFTs.js';
 
 interface AttendeesProps {
     eventId: number;

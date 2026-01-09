@@ -1,6 +1,6 @@
 import { Signup } from '@/app/(whiteboard)/signup/pages/Signup.js';
-import type { SignupStep } from '@/constants/enum.js';
-import type { NextPageProps } from '@/types/utility.js';
+import { type SignupStep } from '@/constants/enum.js';
+import { type NextPageProps } from '@/types/utility.js';
 
 interface Props
     extends NextPageProps<

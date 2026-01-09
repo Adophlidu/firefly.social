@@ -1,6 +1,6 @@
-import type { Address, Hex } from 'viem';
+import { type Address, type Hex } from 'viem';
 
-import type { FrameButton, FrameV1 } from '@/types/frame.js';
+import { type FrameButton, type FrameV1 } from '@/types/frame.js';
 
 export async function getFrameMintTransaction(
     frame: FrameV1,

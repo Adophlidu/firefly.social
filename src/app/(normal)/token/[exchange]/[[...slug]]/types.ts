@@ -1,5 +1,5 @@
-import type { TokenCategory } from '@/constants/enum.js';
-import type { NextPageProps } from '@/types/utility.js';
+import { type TokenCategory } from '@/constants/enum.js';
+import { type NextPageProps } from '@/types/utility.js';
 
 export interface TokenPageProps
     extends NextPageProps<

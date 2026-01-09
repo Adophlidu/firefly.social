@@ -1,6 +1,6 @@
 import { classNames } from '@dimensiondev/utils';
-import type { HTMLProps, ReactNode } from 'react';
-import type { Address } from 'viem';
+import { type HTMLProps, type ReactNode } from 'react';
+import { type Address } from 'viem';
 
 import { ConditionalLink } from '@/components/ConditionalLink.js';
 import { Time } from '@/components/Semantic/Time.js';

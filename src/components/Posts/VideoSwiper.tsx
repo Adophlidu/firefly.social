@@ -2,8 +2,8 @@ import { useState } from 'react';
 
 import { SwiperIndicator } from '@/components/Posts/SwiperIndicator.js';
 import { VideoAsset } from '@/components/Posts/VideoAsset.js';
-import type { SocialSource } from '@/constants/enum.js';
-import type { Attachment } from '@/providers/types/SocialMedia.js';
+import { type SocialSource } from '@/constants/enum.js';
+import { type Attachment } from '@/providers/types/SocialMedia.js';
 
 interface VideoSwiperProps {
     videos: Attachment[];

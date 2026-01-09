@@ -1,10 +1,10 @@
 import urlcat from 'urlcat';
 
-import type { BetsPlatform } from '@/constants/enum.js';
+import { type BetsPlatform } from '@/constants/enum.js';
 import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import type { BetsPosition, Response as FireflyResponse } from '@/providers/types/Firefly.js';
+import { type BetsPosition, type Response as FireflyResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 interface Options {

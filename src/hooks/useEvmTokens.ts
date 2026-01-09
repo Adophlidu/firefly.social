@@ -8,7 +8,7 @@ import { formatBalance } from '@/helpers/formatBalance.js';
 import { isGreaterThan, multipliedBy } from '@/helpers/number.js';
 import { useCustomFungibleTokens } from '@/hooks/useCustomFungibleTokens.js';
 import { getTokensByAddress } from '@/providers/firefly/endpoint/getTokensByAddress.js';
-import type { Token } from '@/providers/types/Transfer.js';
+import { type Token } from '@/providers/types/Transfer.js';
 
 function sortTokensByUsdValue(tokens: Token[]) {
     return tokens.slice().sort((a, b) => b.usdValue - a.usdValue);

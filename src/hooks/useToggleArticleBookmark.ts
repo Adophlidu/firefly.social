@@ -7,7 +7,7 @@ import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { farcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { captureArticleBookmarkSuccessEvent } from '@/providers/telemetry/captureClickEvent.js';
-import type { Article } from '@/providers/types/Article.js';
+import { type Article } from '@/providers/types/Article.js';
 
 export function useToggleArticleBookmark() {
     return useMutation({

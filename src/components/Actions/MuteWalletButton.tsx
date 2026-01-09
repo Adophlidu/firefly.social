@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/react/macro';
 import { useMutation } from '@tanstack/react-query';
-import type { Address } from 'viem';
+import { type Address } from 'viem';
 
 import MuteIcon from '@/assets/mute.svg';
 import UnmuteIcon from '@/assets/unmute.svg';

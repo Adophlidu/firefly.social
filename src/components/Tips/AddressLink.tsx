@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 import LinkIcon from '@/assets/link-square.svg';
 import { Link } from '@/components/Link.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import type { NetworkType } from '@/constants/enum.js';
+import { type NetworkType } from '@/constants/enum.js';
 import { resolveNetworkProvider } from '@/helpers/resolveTokenTransfer.js';
 
 interface AddressLinkProps {

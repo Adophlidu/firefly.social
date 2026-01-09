@@ -1,6 +1,6 @@
 'use client';
 
-import type { WritableDraft } from 'immer';
+import { type WritableDraft } from 'immer';
 import { create } from 'zustand';
 import { persist, type PersistOptions } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
@@ -11,9 +11,9 @@ import { type CustomSelectors } from '@/helpers/createSelector.js';
 import { createSessionStorage, type SessionState } from '@/helpers/createSessionStorage.js';
 import { isSameAccount } from '@/helpers/isSameAccount.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
-import type { Account } from '@/providers/types/Account.js';
-import type { Session } from '@/providers/types/Session.js';
-import type { Profile, ProfileEditable } from '@/providers/types/SocialMedia.js';
+import { type Account } from '@/providers/types/Account.js';
+import { type Session } from '@/providers/types/Session.js';
+import { type Profile, type ProfileEditable } from '@/providers/types/SocialMedia.js';
 
 export interface ProfileState {
     // indicate the store is ready or not in its init phase

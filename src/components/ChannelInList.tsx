@@ -1,8 +1,7 @@
 import { classNames } from '@dimensiondev/utils';
 import { Plural, Trans } from '@lingui/react/macro';
 import { isUndefined } from 'lodash-es';
-import type { HTMLProps } from 'react';
-import { memo } from 'react';
+import { type HTMLProps, memo } from 'react';
 
 import { ToggleMutedChannelButton } from '@/components/Actions/ToggleMutedChannelButton.js';
 import { Avatar } from '@/components/Avatar.js';
@@ -16,7 +15,7 @@ import { Source } from '@/constants/enum.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
-import type { Channel } from '@/providers/types/SocialMedia.js';
+import { type Channel } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
 interface ChannelInListProps extends HTMLProps<HTMLDivElement> {

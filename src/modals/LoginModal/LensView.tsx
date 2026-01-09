@@ -45,7 +45,7 @@ import { lensClientHolder } from '@/providers/lens/LensClientHolder.js';
 import { reLoginLensCurrentAccountWithPrivy } from '@/providers/lens/reLoginLensCurrentAccountWithPrivy.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import { type Profile } from '@/providers/types/SocialMedia.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import { addAccount } from '@/services/account.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';

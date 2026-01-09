@@ -1,5 +1,5 @@
 import { safeUnreachable } from '@dimensiondev/utils';
-import type { Link, Root, Text } from 'mdast';
+import { type Link, type Root, type Text } from 'mdast';
 import flatMap from 'unist-util-flatmap';
 
 import { type SocialSource, Source } from '@/constants/enum.js';

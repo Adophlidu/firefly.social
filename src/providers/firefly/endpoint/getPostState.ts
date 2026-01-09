@@ -5,7 +5,7 @@ import urlcat from 'urlcat';
 import { KeyType } from '@/constants/enum.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
-import type { PostListState, PostState } from '@/providers/types/Firefly.js';
+import { type PostListState, type PostState } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 async function _getPostState(post_id: string) {

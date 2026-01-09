@@ -3,7 +3,7 @@ import { SetQueryDataForBookmarkNFT } from '@/decorators/SetQueryDataForBookmark
 import { SetQueryDataForBookmarkToken } from '@/decorators/SetQueryDataForBookmarkToken.js';
 import { resolveTokenBookmarkId } from '@/helpers/resolveTokenBookmarkId.js';
 import { fireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
-import type { BookmarkTokenOptions } from '@/providers/types/Bookmark.js';
+import { type BookmarkTokenOptions } from '@/providers/types/Bookmark.js';
 
 @SetQueryDataForBookmarkNFT()
 @SetQueryDataForBookmarkToken()

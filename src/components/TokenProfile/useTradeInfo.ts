@@ -6,7 +6,7 @@ import { useOkxSupportedChains } from '@/components/TokenProfile/useOkxSupported
 import { EMPTY_LIST } from '@/constants/static.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
 import { getChainIdByCoinId } from '@/providers/coingecko/getChainIdByCoinId.js';
-import type { CoinGeckoToken } from '@/providers/types/CoinGecko.js';
+import { type CoinGeckoToken } from '@/providers/types/CoinGecko.js';
 import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 export function useTradeInfo(token: CoinGeckoToken | null | undefined, argChainId?: number, argAddress?: string) {

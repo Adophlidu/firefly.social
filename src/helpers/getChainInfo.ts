@@ -1,6 +1,6 @@
 import { NetworkPluginID } from '@/constants/enum.js';
 import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
-import type { Runtime } from '@/providers/types/Trending.js';
+import { type Runtime } from '@/providers/types/Trending.js';
 
 interface Chain {
     name: string;

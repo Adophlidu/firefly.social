@@ -1,7 +1,7 @@
 import { bom } from '@dimensiondev/utils';
 import { z } from 'zod';
 
-import { NODE_ENV, STATUS, VERCEL_ENV } from '@/constants/enum.js';
+import { type NODE_ENV, STATUS, VERCEL_ENV } from '@/constants/enum.js';
 
 const InternalEnvSchema = z.object({
     TWITTER_CLIENT_ID: z.string(),

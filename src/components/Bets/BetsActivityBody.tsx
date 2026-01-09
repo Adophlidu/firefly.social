@@ -10,7 +10,7 @@ import { Image } from '@/components/Image.js';
 import { BetsPlatform } from '@/constants/enum.js';
 import { toFixedTrimmed } from '@/helpers/polymarket.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
-import type { BetsActivity } from '@/providers/types/Firefly.js';
+import { type BetsActivity } from '@/providers/types/Firefly.js';
 
 function floor(num: number | string) {
     return Number.isNaN(+num) ? 0 : Math.floor(+num);

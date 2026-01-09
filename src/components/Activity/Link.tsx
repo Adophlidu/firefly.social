@@ -1,4 +1,4 @@
-import type { LinkProps } from 'next/link.js';
+import { type LinkProps } from 'next/link.js';
 import { type HTMLProps, type PropsWithChildren, useCallback } from 'react';
 
 import { Link as OriginalLink } from '@/esm/Link.js';

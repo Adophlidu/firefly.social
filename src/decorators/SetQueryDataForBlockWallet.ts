@@ -2,16 +2,16 @@ import { type Draft, produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';
-import type { PageData } from '@/decorators/types.js';
+import { type PageData } from '@/decorators/types.js';
 import { isSameAddress, isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { patchActivitiesQuery } from '@/helpers/patchActivitiesQuery.js';
 import { patchTransactionsQuery } from '@/helpers/patchTransactionsQuery.js';
-import type { FireflyWallet } from '@/providers/firefly/Wallet.js';
-import type { SnapshotActivity } from '@/providers/snapshot/type.js';
+import { type FireflyWallet } from '@/providers/firefly/Wallet.js';
+import { type SnapshotActivity } from '@/providers/snapshot/type.js';
 import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
-import type { WalletProfile } from '@/providers/types/Firefly.js';
-import type { FollowingNFT, NFTFeedV3 } from '@/providers/types/NFTs.js';
-import type { ClassType } from '@/types/utility.js';
+import { type WalletProfile } from '@/providers/types/Firefly.js';
+import { type FollowingNFT, type NFTFeedV3 } from '@/providers/types/NFTs.js';
+import { type ClassType } from '@/types/utility.js';
 
 interface NFTPagesData {
     pages: Array<{ data: FollowingNFT[] | NFTFeedV3[] }>;

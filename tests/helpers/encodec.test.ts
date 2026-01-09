@@ -1,4 +1,4 @@
-import { describe, test, expect } from 'vitest';
+import { describe, expect, test } from 'vitest';
 
 import { decrypt, encrypt } from '@/helpers/encodec.js';
 
@@ -123,7 +123,7 @@ describe('encodec', () => {
             const originalPlaintext = 'test message for multiple cycles';
 
             let data = originalPlaintext;
-            for (let i = 0; i < 3; i++) {
+            for (let i = 0; i < 3; i += 1) {
                 const encrypted = await encrypt(data, testKey);
                 data = await decrypt(encrypted, testKey);
             }

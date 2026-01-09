@@ -12,7 +12,7 @@ import { createIndicator } from '@/helpers/pageable.js';
 import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { getTokenBookmarks } from '@/providers/firefly/endpoint/getTokenBookmarks.js';
-import type { Bookmarkable, TokenWithMarketData } from '@/providers/types/Firefly.js';
+import { type Bookmarkable, type TokenWithMarketData } from '@/providers/types/Firefly.js';
 
 function getTokenItemContent(token: Bookmarkable<TokenWithMarketData>) {
     return <BookmarkedTokenItem className="border-b border-line !p-4" token={token} showMarketInfo />;

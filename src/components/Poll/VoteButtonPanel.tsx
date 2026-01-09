@@ -18,7 +18,7 @@ import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolvePollProvider } from '@/helpers/resolvePollProvider.js';
 import { runInSafe } from '@/helpers/runInSafe.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
-import type { Poll, PollOption } from '@/providers/types/Poll.js';
+import { type Poll, type PollOption } from '@/providers/types/Poll.js';
 import { useOrbPollResultStore } from '@/store/useOrbPollResultStore.js';
 
 interface VoteButtonPanelProps {

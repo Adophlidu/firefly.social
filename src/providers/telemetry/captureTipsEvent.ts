@@ -3,7 +3,7 @@ import { resolveFireflyAccountId } from '@/helpers/resolveFireflyProfileId.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getWalletEventParameters } from '@/providers/telemetry/getWalletEventParameters.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
-import type { FireflyIdentity } from '@/providers/types/Firefly.js';
+import { type FireflyIdentity } from '@/providers/types/Firefly.js';
 import { EventId, type Events } from '@/providers/types/Telemetry.js';
 
 const resolveFireflyAccountIdCached = memoizePromise(

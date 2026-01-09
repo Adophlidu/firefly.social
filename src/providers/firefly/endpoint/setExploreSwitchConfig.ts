@@ -1,9 +1,9 @@
 import urlcat from 'urlcat';
 
-import { ExploreSwitchType } from '@/constants/enum.js';
+import { type ExploreSwitchType } from '@/constants/enum.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import type { Response } from '@/providers/types/Firefly.js';
+import { type Response } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 export async function setExploreSwitchConfig(switchType: ExploreSwitchType, status: boolean) {

@@ -3,9 +3,9 @@ import urlcat from 'urlcat';
 import { FIREFLY_WORKER_HOST } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';
-import type { Channel } from '@/providers/types/SocialMedia.js';
+import { type Channel } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
-import type { ResponseJson } from '@/types/utility.js';
+import { type ResponseJson } from '@/types/utility.js';
 
 function fetchInterfaceApi<T>(pathname: string, init?: RequestInit) {
     return fetchJson<ResponseJson<T>>(urlcat(FIREFLY_WORKER_HOST, pathname), {

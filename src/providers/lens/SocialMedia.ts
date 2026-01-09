@@ -127,18 +127,18 @@ import {
 } from '@/providers/lens/isNotification.js';
 import { lensSessionClientHolder } from '@/providers/lens/LensSessionClientHolder.js';
 import { account } from '@/providers/lens/metadata/Account.js';
-import type { MetadataAttribute } from '@/providers/lens/metadata/Base.js';
-import type { LensSession } from '@/providers/lens/Session.js';
+import { type MetadataAttribute } from '@/providers/lens/metadata/Base.js';
+import { type LensSession } from '@/providers/lens/Session.js';
 import { uploadLensMetadataToS3 } from '@/providers/lens/uploadLensMetadataToS3.js';
-import type { ExploreClubsData } from '@/providers/orb/type.js';
-import type { Account as FireflyAccount } from '@/providers/types/Account.js';
+import { type ExploreClubsData } from '@/providers/orb/type.js';
+import { type Account as FireflyAccount } from '@/providers/types/Account.js';
 import {
     NotificationPlatform,
     NotificationPushType,
     type NotificationSettings,
     NotificationTitle,
 } from '@/providers/types/Firefly.js';
-import type { Session } from '@/providers/types/Session.js';
+import { type Session } from '@/providers/types/Session.js';
 import {
     type Channel,
     type Friendship,
@@ -153,7 +153,7 @@ import {
     ReactionType,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
-import type { ResponseJson } from '@/types/utility.js';
+import { type ResponseJson } from '@/types/utility.js';
 
 @WithMutedProfilesQuery()
 @SetQueryDataForLikePost(Source.Lens)

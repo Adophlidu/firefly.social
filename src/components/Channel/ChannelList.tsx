@@ -6,7 +6,7 @@ import { ScrollListKey, type SocialSource } from '@/constants/enum.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
-import type { Channel } from '@/providers/types/SocialMedia.js';
+import { type Channel } from '@/providers/types/SocialMedia.js';
 
 const getChannelItemContent = (index: number, channel: Channel, listKey: string) => {
     return (

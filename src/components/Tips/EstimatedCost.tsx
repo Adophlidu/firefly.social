@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/react/macro';
-import type { BigNumber } from 'bignumber.js';
+import { type BigNumber } from 'bignumber.js';
 import { memo, useMemo } from 'react';
 
 import { formatPrice } from '@/helpers/formatPrice.js';

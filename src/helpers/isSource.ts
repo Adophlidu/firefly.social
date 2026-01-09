@@ -17,7 +17,7 @@ import {
     type SocialSource,
     type SocialSourceInURL,
     Source,
-    SourceInURL,
+    type SourceInURL,
 } from '@/constants/enum.js';
 import { resolveSourceInUrl, resolveSourceInUrlForApi } from '@/helpers/resolveSourceInUrl.js';
 

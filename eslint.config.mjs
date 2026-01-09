@@ -18,13 +18,12 @@ export default defineConfig([
         files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx', '**/*.mjs', '**/*.cjs'],
     },
     globalIgnores([
+        '.next/**',
+        'next-env.d.ts',
         '*.config.ts',
         '*.config.js',
         '*.config.cjs',
-        '*.d.ts',
-        '.storybook',
         '*.svg',
-        'tests',
         'eslint.config.mjs',
         'vitest.config.ts',
         'src/locales',
@@ -33,7 +32,6 @@ export default defineConfig([
         'scripts',
         'setups',
         'dist',
-        '.next/**',
         'prebuilt',
         'packages/**/dist',
         'packages/**/node_modules',
@@ -252,6 +250,14 @@ export default defineConfig([
             ],
 
             '@typescript-eslint/consistent-type-definitions': ['warn', 'interface'],
+
+            '@typescript-eslint/consistent-type-imports': [
+                'warn',
+                {
+                    prefer: 'type-imports',
+                    fixStyle: 'inline-type-imports',
+                },
+            ],
 
             '@typescript-eslint/await-thenable': 'warn',
             'no-return-await': 'error',

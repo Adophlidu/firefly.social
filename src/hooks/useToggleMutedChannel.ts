@@ -4,7 +4,7 @@ import { useAsyncFn } from 'react-use';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { captureMuteEvent } from '@/providers/telemetry/captureMuteEvent.js';
-import type { Channel } from '@/providers/types/SocialMedia.js';
+import { type Channel } from '@/providers/types/SocialMedia.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 
 /**

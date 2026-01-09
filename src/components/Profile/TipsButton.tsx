@@ -9,7 +9,7 @@ import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { TipsModalRef } from '@/modals/TipsModal/index.js';
-import type { FireflyIdentity, FireflyProfile } from '@/providers/types/Firefly.js';
+import { type FireflyIdentity, type FireflyProfile } from '@/providers/types/Firefly.js';
 
 interface Props {
     identity: FireflyIdentity;

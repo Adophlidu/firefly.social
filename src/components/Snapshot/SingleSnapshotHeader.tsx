@@ -12,7 +12,7 @@ import { Link } from '@/components/Link.js';
 import { SourceInURL } from '@/constants/enum.js';
 import { getWalletProfileAvatar } from '@/helpers/getWalletProfileAvatar.js';
 import { useEnsName } from '@/hooks/useEnsName.js';
-import type { SnapshotActivity } from '@/providers/snapshot/type.js';
+import { type SnapshotActivity } from '@/providers/snapshot/type.js';
 
 interface SingleSnapshotHeaderProps {
     data: SnapshotActivity;

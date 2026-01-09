@@ -1,9 +1,9 @@
-import type { Hex } from 'viem';
+import { type Hex } from 'viem';
 
-import type { NetworkType } from '@/constants/enum.js';
-import type { RedPacketMetadata } from '@/types/rp.js';
-import type { FungibleToken } from '@/web3-shared/base/specs.js';
-import type { EthereumChainId, EthereumSchemaType } from '@/web3-shared/evm/types.js';
+import { type NetworkType } from '@/constants/enum.js';
+import { type RedPacketMetadata } from '@/types/rp.js';
+import { type FungibleToken } from '@/web3-shared/base/specs.js';
+import { type EthereumChainId, type EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
 type WithoutChainId<T> = Omit<T, 'chain_id'>;
 type WithNumberChainId<T> = WithoutChainId<T> & { chain_id: number };

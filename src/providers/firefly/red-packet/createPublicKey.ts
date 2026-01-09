@@ -1,5 +1,5 @@
 import urlcat from 'urlcat';
-import type { Hex } from 'viem';
+import { type Hex } from 'viem';
 
 import { NetworkType } from '@/constants/enum.js';
 import { fetchJson } from '@/helpers/fetchJson.js';

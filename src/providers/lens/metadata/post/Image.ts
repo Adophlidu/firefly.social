@@ -17,7 +17,7 @@ import {
 import { mainContentFocus } from '@/providers/lens/metadata/post/mainContentFocus.js';
 import { metadataDetailsWith } from '@/providers/lens/metadata/post/metadataDetailsWith.js';
 import { postWith } from '@/providers/lens/metadata/post/postWith.js';
-import type { PartialWith } from '@/types/utility.js';
+import { type PartialWith } from '@/types/utility.js';
 
 type ImageMetadataDetails = PostMetadataCommon & {
     mainContentFocus: PostMainFocus.IMAGE;

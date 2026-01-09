@@ -1,8 +1,8 @@
-import type { HTMLProps } from 'react';
+import { type HTMLProps } from 'react';
 import urlcat from 'urlcat';
 
 import { FIREFLY_S3_URL } from '@/constants/static.js';
-import type { SparksAccountResponse } from '@/providers/types/Firefly.js';
+import { type SparksAccountResponse } from '@/providers/types/Firefly.js';
 
 interface SparksAccountOgImageProps {
     account: Required<SparksAccountResponse>['data'];

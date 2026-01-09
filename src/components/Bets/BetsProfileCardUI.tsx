@@ -12,7 +12,7 @@ import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { capturePolymarketProfileLinkClick } from '@/providers/telemetry/capturePolymarketEvent.js';
-import type { BetPortfolioItem } from '@/providers/types/Firefly.js';
+import { type BetPortfolioItem } from '@/providers/types/Firefly.js';
 
 interface BetsProfileCardUIProps {
     profile: BetPortfolioItem;

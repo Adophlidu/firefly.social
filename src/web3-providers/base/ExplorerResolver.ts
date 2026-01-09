@@ -1,6 +1,6 @@
 import urlcat from 'urlcat';
 
-import type { ChainDescriptor } from '@/web3-shared/base/specs.js';
+import { type ChainDescriptor } from '@/web3-shared/base/specs.js';
 
 interface ExplorerOptions {
     addressPathname?: string;

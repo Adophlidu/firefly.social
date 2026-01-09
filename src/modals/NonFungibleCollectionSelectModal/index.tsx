@@ -14,7 +14,7 @@ import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { AddCustomERC721ModalRef } from '@/modals/AddCustomERC721Modal.js';
-import type { Collection } from '@/modals/NonFungibleCollectionSelectModal/CollectionItem.js';
+import { type Collection } from '@/modals/NonFungibleCollectionSelectModal/CollectionItem.js';
 
 interface NonFungibleCollectionSelectModalOpenProps {
     selected?: Collection | Collection[];

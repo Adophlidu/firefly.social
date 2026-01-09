@@ -6,7 +6,7 @@ import { flatLenConnections } from '@/helpers/formatWalletConnection.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { farcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { lensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
-import type { AllConnections } from '@/providers/types/Firefly.js';
+import { type AllConnections } from '@/providers/types/Firefly.js';
 
 interface SocialConnections {
     [Source.Twitter]: AllConnections['twitter'];

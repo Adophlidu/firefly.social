@@ -1,5 +1,5 @@
 import { createLookupTableResolver } from '@dimensiondev/utils';
-import type { FunctionComponent, SVGAttributes } from 'react';
+import { type FunctionComponent, type SVGAttributes } from 'react';
 
 import MattersIcon from '@/assets/matters.svg';
 import ParagraphIcon from '@/assets/paragraph.svg';

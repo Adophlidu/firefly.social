@@ -17,7 +17,7 @@ import { Source } from '@/constants/enum.js';
 import { IMAGE_KIT_ATTACHMENT } from '@/constants/static.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { formatImageUrl } from '@/helpers/formatImageUrl.js';
-import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
+import { type Attachment, type Post } from '@/providers/types/SocialMedia.js';
 
 const Audio = dynamic(() => import('@/components/Posts/Audio.js').then((module) => module.Audio), { ssr: false });
 

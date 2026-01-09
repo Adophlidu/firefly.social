@@ -7,10 +7,10 @@ import { fetchJson } from '@/helpers/fetchJson.js';
 import { memoizePromiseWithTime } from '@/helpers/memoizePromise.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';
-import type { S3ConnectionConfig, UploadMediaTokenResponse } from '@/providers/types/Firefly.js';
+import { type S3ConnectionConfig, type UploadMediaTokenResponse } from '@/providers/types/Firefly.js';
 import { uploadToS3ByChunk } from '@/services/uploadToS3ByChunk.js';
 import { settings } from '@/settings/index.js';
-import type { ResponseJson } from '@/types/utility.js';
+import { type ResponseJson } from '@/types/utility.js';
 
 const FIVE_MB = 5 * 1024 * 1024;
 const uploadedCache = new WeakMap<File, string | Promise<string>>();

@@ -5,7 +5,7 @@ import { use } from 'react';
 
 import FireflyIcon from '@/assets/logo.svg';
 import { usePollingAppScanLogin } from '@/hooks/usePollingAppScanLogin.js';
-import type { NextPageProps } from '@/types/utility.js';
+import { type NextPageProps } from '@/types/utility.js';
 
 export default function Page({
     params,

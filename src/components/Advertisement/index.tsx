@@ -5,7 +5,7 @@ import { FIREFLY_S3_URL } from '@/constants/static.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { logger } from '@/libs/Logger.js';
-import type { Advertisement } from '@/types/advertisement.js';
+import { type Advertisement } from '@/types/advertisement.js';
 
 const AdvertisementSwiper = dynamic(
     () => import('@/components/Advertisement/AdvertisementSwiper.js').then((m) => m.AdvertisementSwiper),

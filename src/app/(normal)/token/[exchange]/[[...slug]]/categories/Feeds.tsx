@@ -2,7 +2,7 @@ import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQueries } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
-import type { ReadonlyURLSearchParams } from 'next/navigation.js';
+import { type ReadonlyURLSearchParams } from 'next/navigation.js';
 import { type HTMLProps, memo, Suspense, useMemo, useState, useTransition } from 'react';
 
 import TokenPageLoading from '@/app/(normal)/token/[exchange]/[[...slug]]/loading.js';
@@ -25,8 +25,8 @@ import { useX3ProTokenInfo } from '@/hooks/token/useX3ProTokenInfo.js';
 import { useX3ProTokenMention } from '@/hooks/token/useX3ProTokenMention.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { twitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
-import type { UserV2 } from '@/providers/types/Firefly.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import { type UserV2 } from '@/providers/types/Firefly.js';
+import { type Profile } from '@/providers/types/SocialMedia.js';
 import { PostOrderType, type TokenMentionUser } from '@/providers/x3pro/types.js';
 
 interface Props extends HTMLProps<HTMLDivElement> {

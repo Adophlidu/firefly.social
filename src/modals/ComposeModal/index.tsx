@@ -30,14 +30,14 @@ import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
-import type { ComposeModalCloseProps, ComposeModalOpenProps } from '@/modals/ComposeModal/types.js';
+import { type ComposeModalCloseProps, type ComposeModalOpenProps } from '@/modals/ComposeModal/types.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
 import { captureComposeDraftPostEvent } from '@/providers/telemetry/captureComposeEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import { useComposeDraftStateStore } from '@/store/useComposeDraftStore.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
-import type { Chars } from '@/types/chars.js';
+import { type Chars } from '@/types/chars.js';
 
 export enum CloseAction {
     Saved = 'saved',

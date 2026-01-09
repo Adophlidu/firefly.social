@@ -7,7 +7,7 @@ import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { patchBetsActivityData } from '@/helpers/patchBetsActivityData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { fireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
-import type { BetsActivity } from '@/providers/types/Firefly.js';
+import { type BetsActivity } from '@/providers/types/Firefly.js';
 
 export function useToggleBetsBookmark() {
     return useMutation({

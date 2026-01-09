@@ -3,8 +3,8 @@
 import { compose, safeUnreachable } from '@dimensiondev/utils';
 import dayjs from 'dayjs';
 import { ImageResponse } from 'next/og.js';
-import type { NextRequest } from 'next/server.js';
-import type { HTMLProps } from 'react';
+import { type NextRequest } from 'next/server.js';
+import { type HTMLProps } from 'react';
 import urlcat from 'urlcat';
 import { z } from 'zod';
 
@@ -17,10 +17,10 @@ import { getPublicSvgUrl } from '@/helpers/getPublicSvgUrl.js';
 import { removeCombiningCharacters } from '@/helpers/removeCombiningCharacters.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
-import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
+import { type Attachment, type Post } from '@/providers/types/SocialMedia.js';
 import { SocialSourceSchema } from '@/schemas/Source.js';
 import { getSatoriFonts } from '@/services/getSatoriFonts.js';
-import type { NextRequestContext } from '@/types/utility.js';
+import { type NextRequestContext } from '@/types/utility.js';
 
 const OG_FONT_FAMILY = ['Inter', 'Noto Sans Symbols 2'];
 

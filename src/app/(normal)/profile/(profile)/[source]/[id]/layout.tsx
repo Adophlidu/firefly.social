@@ -21,9 +21,9 @@ import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 import { resolveSpecialProfileIdentity } from '@/helpers/resolveSpecialProfileIdentity.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
-import type { FireflyIdentity, FireflyProfile } from '@/providers/types/Firefly.js';
+import { type FireflyIdentity, type FireflyProfile } from '@/providers/types/Firefly.js';
 import { getAllRelatedProfilesWithDefault } from '@/services/getAllRelatedProfilesWithDefault.js';
-import type { NextPageProps } from '@/types/utility.js';
+import { type NextPageProps } from '@/types/utility.js';
 
 interface Props extends NextPageProps<{ id: string; source: ProfilePageSourceInURL }> {}
 

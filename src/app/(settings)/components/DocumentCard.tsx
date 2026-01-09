@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
 import LinkIcon from '@/assets/link.svg';
 import { Link } from '@/components/Link.js';

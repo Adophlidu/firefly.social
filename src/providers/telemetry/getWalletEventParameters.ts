@@ -1,7 +1,7 @@
 import { CoreConnectorController } from '@reown/appkit';
 
 import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
-import type { WalletEventParameters } from '@/providers/types/Telemetry.js';
+import { type WalletEventParameters } from '@/providers/types/Telemetry.js';
 
 function getConnectorWalletType(address: string) {
     if (isValidAddressEthereum(address)) return 'evm';

@@ -2,7 +2,7 @@ import urlcat from 'urlcat';
 
 import { COINGECKO_ROOT_URL } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
-import type { CoinGeckoCoinInfo } from '@/providers/types/CoinGecko.js';
+import { type CoinGeckoCoinInfo } from '@/providers/types/CoinGecko.js';
 
 export function getCoinInfo(coinId: string) {
     if (coinId.trim().includes(' ')) {

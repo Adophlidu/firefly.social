@@ -1,9 +1,9 @@
-import type { Metadata } from 'next';
+import { type Metadata } from 'next';
 
 import { ChannelContentList } from '@/components/Channel/ChannelContentList.js';
 import { ChannelProvider } from '@/components/Channel/ChannelProvider.js';
 import { NoSSR } from '@/components/NoSSR.js';
-import { ChannelTabType, type SocialSourceInURL, Source, SourceInURL } from '@/constants/enum.js';
+import { type ChannelTabType, type SocialSourceInURL, Source, SourceInURL } from '@/constants/enum.js';
 import { notFound } from '@/esm/navigation/server.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
@@ -11,7 +11,7 @@ import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 import { createChannelMetadata } from '@/providers/firefly/metadata/createChannelMetadata.js';
-import type { NextPageProps } from '@/types/utility.js';
+import { type NextPageProps } from '@/types/utility.js';
 
 interface Props
     extends NextPageProps<

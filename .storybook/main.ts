@@ -1,6 +1,8 @@
-import { fileURLToPath } from 'node:url';
 import { dirname } from 'node:path';
-import type { StorybookConfig } from '@storybook/nextjs-vite';
+import { fileURLToPath } from 'node:url';
+
+import { type StorybookConfig } from '@storybook/nextjs-vite';
+import type { Plugin } from 'vite';
 import svgr from 'vite-plugin-svgr';
 
 const config: StorybookConfig = {
@@ -15,11 +17,13 @@ const config: StorybookConfig = {
         experimentalRSC: true,
     },
     async viteFinal(config) {
-        config.plugins.forEach((plugin) => {
+        config.plugins?.forEach((plugin) => {
             if (Array.isArray(plugin)) {
                 plugin.forEach((p) => {
-                    if (p.name === 'vite-plugin-storybook-nextjs-image') {
-                        p.enforce = undefined;
+                    const plugin = p as Plugin;
+
+                    if (plugin?.name === 'vite-plugin-storybook-nextjs-image') {
+                        plugin.enforce = undefined;
                     }
                 });
             }
@@ -55,6 +59,7 @@ const config: StorybookConfig = {
         });
     },
 };
+
 export default config;
 
 function getAbsolutePath(value: string): any {

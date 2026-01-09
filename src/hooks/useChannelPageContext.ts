@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { createContainer } from 'unstated-next';
 
-import type { Channel } from '@/providers/types/SocialMedia.js';
+import { type Channel } from '@/providers/types/SocialMedia.js';
 
 interface ChannelPageContext {
     channel: Channel | null;

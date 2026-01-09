@@ -1,10 +1,10 @@
 import { isServer } from '@tanstack/react-query';
 
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import type { FireflyIdentity } from '@/providers/types/Firefly.js';
-import type { Provider } from '@/providers/types/SocialMedia.js';
+import { type FireflyIdentity } from '@/providers/types/Firefly.js';
+import { type Provider } from '@/providers/types/SocialMedia.js';
 import { queryMutedProfiles } from '@/services/queryMutedProfiles.js';
-import type { ClassType } from '@/types/utility.js';
+import { type ClassType } from '@/types/utility.js';
 
 const METHODS_BE_OVERRIDDEN = [
     'getChannelMembers',

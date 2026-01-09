@@ -25,8 +25,8 @@ import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useFireflyProfileByIdentity } from '@/hooks/useFireflyProfileByIdentity.js';
 import { useToggleMutedProfile } from '@/hooks/useToggleMutedProfile.js';
-import type { FireflyIdentity } from '@/providers/types/Firefly.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import { type FireflyIdentity } from '@/providers/types/Firefly.js';
+import { type Profile } from '@/providers/types/SocialMedia.js';
 
 export interface ProfileMoreActionProps extends Omit<MenuProps<'div'>, 'className'> {
     className?: string;

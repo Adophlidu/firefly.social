@@ -8,9 +8,13 @@ import { type SocialSource, Source } from '@/constants/enum.js';
 import { toProfileId } from '@/helpers/isSameProfile.js';
 import { patchNotificationQueryDataOnAuthor } from '@/helpers/patchNotificationQueryData.js';
 import { type Matcher, patchPostQueryData } from '@/helpers/patchPostQueryData.js';
-import type { ScheduleNotification, TipsNotification, UnifiedNotification } from '@/providers/types/Firefly.js';
+import {
+    type ScheduleNotification,
+    type TipsNotification,
+    type UnifiedNotification,
+} from '@/providers/types/Firefly.js';
 import { type Notification, NotificationType, type Profile, type Provider } from '@/providers/types/SocialMedia.js';
-import type { ClassType } from '@/types/utility.js';
+import { type ClassType } from '@/types/utility.js';
 
 interface PagesData {
     pages: Array<{ data: Profile[] }>;

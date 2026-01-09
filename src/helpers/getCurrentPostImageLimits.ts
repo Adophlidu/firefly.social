@@ -8,7 +8,7 @@ import {
     MAX_VIDEO_SIZE_PRO_PER_POST,
 } from '@/constants/limitation.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
-import type { ComposeType } from '@/types/compose.js';
+import { type ComposeType } from '@/types/compose.js';
 
 export function getCurrentPostImageLimits(type: ComposeType, availableSources: SocialSource[]) {
     if (availableSources.length === 0) {

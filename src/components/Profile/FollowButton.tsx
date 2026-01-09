@@ -15,7 +15,7 @@ import { ToggleFollowButton } from '@/components/Profile/ToggleFollowButton.js';
 import { Source } from '@/constants/enum.js';
 import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import { type Profile } from '@/providers/types/SocialMedia.js';
 
 enum State {
     Follow = 'Follow',

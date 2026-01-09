@@ -3,7 +3,7 @@ import { type Hex } from 'viem';
 
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
-import type { GenerateFarcasterSignatureResponse } from '@/providers/types/Firefly.js';
+import { type GenerateFarcasterSignatureResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 export async function generateFarcasterSignatures(key: Hex, deadline: number, jwt: string, signal?: AbortSignal) {

@@ -1,6 +1,6 @@
 import { AuthenticationError } from '@dimensiondev/utils';
 
-import type { ResponseJson } from '@/types/utility.js';
+import { type ResponseJson } from '@/types/utility.js';
 
 export function resolveTwitterResponseData<T>(response: ResponseJson<T>, message?: string): T {
     if (response.success) return response.data;

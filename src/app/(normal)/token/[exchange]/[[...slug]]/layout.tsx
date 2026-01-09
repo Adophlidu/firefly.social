@@ -1,11 +1,11 @@
 import { headers } from 'next/headers.js';
 import { notFound, redirect, RedirectType } from 'next/navigation.js';
-import type { PropsWithChildren } from 'react';
+import { type PropsWithChildren } from 'react';
 import { z } from 'zod';
 
 import { CategoryTabs } from '@/app/(normal)/token/[exchange]/[[...slug]]/CategoryTabs.js';
 import { MobileSwapButton } from '@/app/(normal)/token/[exchange]/[[...slug]]/MobileSwapButton.js';
-import type { TokenPageSearch } from '@/app/(normal)/token/[exchange]/[[...slug]]/types.js';
+import { type TokenPageSearch } from '@/app/(normal)/token/[exchange]/[[...slug]]/types.js';
 import { WrapTokenMarketData } from '@/app/(normal)/token/[exchange]/[[...slug]]/WrapTokenMarketData.js';
 import { Comeback } from '@/components/Comeback.js';
 import { TokenContextProvider } from '@/components/Token/TokenContext.js';
@@ -15,8 +15,8 @@ import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 import { createTokenMetadata } from '@/providers/firefly/metadata/createTokenMetadata.js';
 import { searchToken } from '@/providers/firefly/worker/searchToken.js';
-import type { GetTokenOptions } from '@/providers/types/Firefly.js';
-import type { NextPageProps } from '@/types/utility.js';
+import { type GetTokenOptions } from '@/providers/types/Firefly.js';
+import { type NextPageProps } from '@/types/utility.js';
 
 const QueryOptionsSchema = z.object({
     address: z.string().optional(),

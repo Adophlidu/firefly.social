@@ -2,7 +2,7 @@ import { Trans } from '@lingui/react/macro';
 
 import FlagIcon from '@/assets/flag.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
-import type { ClickableButtonProps } from '@/components/ClickableButton.js';
+import { type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { useReportSpamNFT } from '@/hooks/useReportSpamNFT.js';
 
 interface Props extends Omit<ClickableButtonProps, 'children'> {

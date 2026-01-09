@@ -10,7 +10,7 @@ import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { handleOperationWithLensChain } from '@/providers/lens/handleOperationWithLensChain.js';
 import { lensSessionClientHolder } from '@/providers/lens/LensSessionClientHolder.js';
 import { captureLensBindManagerEvent } from '@/providers/telemetry/captureLensEvent.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import { type Profile } from '@/providers/types/SocialMedia.js';
 
 interface Props {
     manager: string;

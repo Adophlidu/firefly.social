@@ -5,7 +5,7 @@ import { memo, useState } from 'react';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { PostMarkup } from '@/components/Markup/PostMarkup.js';
 import { useDetectOverflow } from '@/hooks/useDetectOverflow.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
+import { type Post } from '@/providers/types/SocialMedia.js';
 
 interface Props {
     post: Post;

@@ -26,9 +26,8 @@ import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import { ConfirmLeavingModalRef } from '@/modals/ConfirmLeavingModal.js';
 import { PreviewMediaModalRef } from '@/modals/PreviewMediaModal/PreviewMediaModal.js';
 import { captureArticleViewSourceClickEvent } from '@/providers/telemetry/captureClickEvent.js';
-import type { Article } from '@/providers/types/Article.js';
-import { ArticlePlatform } from '@/providers/types/Article.js';
-import type { Attachment } from '@/providers/types/SocialMedia.js';
+import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
+import { type Attachment } from '@/providers/types/SocialMedia.js';
 
 interface ArticleDetailContentProps {
     article: Article;

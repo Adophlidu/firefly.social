@@ -9,7 +9,7 @@ import { createPageable } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { bskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { getCommentsByProfileId } from '@/providers/lens/getCommentsByProfileId.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
+import { type Post } from '@/providers/types/SocialMedia.js';
 
 function refreshThreadByPostId(postId: string) {
     return fetch(

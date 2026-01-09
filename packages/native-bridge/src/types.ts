@@ -1,5 +1,5 @@
-import type { Context, ReadyOptions } from '@farcaster/miniapp-host';
-import type { Address, Hex } from 'viem';
+import { type Context, type ReadyOptions } from '@farcaster/miniapp-host';
+import { type Address, type Hex } from 'viem';
 
 // Local copy to avoid depending on app-level utility types
 type PartialWith<T, K extends keyof T> = Partial<Pick<T, K>> & Omit<T, K>;

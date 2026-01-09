@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { createContainer } from 'unstated-next';
 
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import { type Profile } from '@/providers/types/SocialMedia.js';
 
 interface ProfileRelationContext {
     profile: Profile | null;

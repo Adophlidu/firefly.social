@@ -7,7 +7,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { SITE_URL } from '@/constants/static.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import { type Profile } from '@/providers/types/SocialMedia.js';
 
 export function ShareButton({ profile }: { profile: Profile }) {
     const [, handleCopy] = useCopyText(urlcat(SITE_URL, getProfileUrl(profile)));

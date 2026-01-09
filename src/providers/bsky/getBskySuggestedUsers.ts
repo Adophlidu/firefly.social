@@ -1,4 +1,4 @@
-import type { AppBskyActorDefs } from '@atproto/api';
+import { type AppBskyActorDefs } from '@atproto/api';
 import urlcat from 'urlcat';
 
 import { queryClient } from '@/configs/queryClient.js';

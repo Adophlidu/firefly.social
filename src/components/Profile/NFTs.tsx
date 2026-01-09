@@ -11,8 +11,8 @@ import { POAPList } from '@/components/Profile/POAPList.js';
 import { useWalletMixAddresses } from '@/components/Profile/useWalletMixAddresses.js';
 import { POAP_CONTRACT_ADDRESS } from '@/constants/static.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
-import type { EVM } from '@/providers/nft-scan/types.js';
-import { EthereumChainId } from '@/web3-shared/evm/types.js';
+import { type EVM } from '@/providers/nft-scan/types.js';
+import { type EthereumChainId } from '@/web3-shared/evm/types.js';
 
 interface SelectedCollection {
     chainId: EthereumChainId;

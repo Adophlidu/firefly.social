@@ -20,7 +20,7 @@ import { resolveNFTImageUrl } from '@/helpers/resolveNFTImageUrl.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
 import { getNFTBookmarks } from '@/providers/firefly/endpoint/getNFTBookmarks.js';
-import type { NFTDetail } from '@/providers/types/Firefly.js';
+import { type NFTDetail } from '@/providers/types/Firefly.js';
 
 function getNFTItemContent(id: string, nft: NFTDetail) {
     const chainId = nft.chain_id;

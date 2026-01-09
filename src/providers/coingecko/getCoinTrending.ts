@@ -5,8 +5,7 @@ import { resolveCoinGeckoChainId } from '@/helpers/resolveCoinGeckoChainId.js';
 import { getCoinInfo } from '@/providers/coingecko/getCoinInfo.js';
 import { getSupportedPlatforms } from '@/providers/coingecko/getSupportedPlatforms.js';
 import { trendingModifiers } from '@/providers/coingecko/trendingModifiers.js';
-import type { Contract, Trending } from '@/providers/types/Trending.js';
-import { TrendingProvider } from '@/providers/types/Trending.js';
+import { type Contract, type Trending, TrendingProvider } from '@/providers/types/Trending.js';
 
 export async function getCoinTrending(coinId: string): Promise<Trending> {
     const info = await getCoinInfo(coinId);

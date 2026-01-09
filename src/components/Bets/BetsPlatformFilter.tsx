@@ -7,8 +7,8 @@ import FilterIcon from '@/assets/filter.svg';
 import { BetsPlatformName } from '@/components/Bets/BetsPlatformName.js';
 import { TypeFilter } from '@/components/TypeFilter/index.js';
 import { SORTED_BETS_PLATFORM } from '@/constants/computed.js';
-import { BetsPlatform } from '@/constants/enum.js';
-import { BetsFilterNamespace, useBetsSourceFilterStore } from '@/store/useBetsSourceFilterStore.js';
+import { type BetsPlatform } from '@/constants/enum.js';
+import { type BetsFilterNamespace, useBetsSourceFilterStore } from '@/store/useBetsSourceFilterStore.js';
 
 interface BetsPlatformFilterProps {
     namespace: BetsFilterNamespace;

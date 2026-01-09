@@ -1,6 +1,6 @@
 import { NotImplementedError } from '@dimensiondev/utils';
 
-import { BookmarkType, FireflyPlatform, Source, SourceInURL } from '@/constants/enum.js';
+import { type BookmarkType, FireflyPlatform, Source, SourceInURL } from '@/constants/enum.js';
 import { UserDataType } from '@/constants/farcaster.js';
 import { AddAuthorHighlightStatusForPosts } from '@/decorators/AddProfileHighlightStatus.js';
 import { SetQueryDataForActPost } from '@/decorators/SetQueryDataForActPost.js';
@@ -17,13 +17,13 @@ import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
 import { SetQueryDataForReportPost } from '@/decorators/SetQueryDataForReportPost.js';
 import { WithMutedProfilesQuery } from '@/decorators/WithMutedProfilesQuery.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
-import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
+import { type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getFarcasterProfileById } from '@/providers/farcaster/getFarcasterProfileById.js';
 import { getFarcasterProfilesByIds } from '@/providers/farcaster/getFarcasterProfilesByIds.js';
 import { getFarcasterSessionType } from '@/providers/farcaster/getFarcasterSessionType.js';
 import { registerFarcasterAccount } from '@/providers/farcaster/registerFarcasterAccount.js';
-import type { FarcasterSession } from '@/providers/farcaster/Session.js';
+import { type FarcasterSession } from '@/providers/farcaster/Session.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { getFarcasterSuggestFollows } from '@/providers/firefly/endpoint/getFarcasterSuggestFollows.js';
 import { getNotificationPushSwitch } from '@/providers/firefly/endpoint/getNotificationPushSwitch.js';
@@ -34,14 +34,14 @@ import { reportProfile } from '@/providers/firefly/report/reportProfile.js';
 import { fireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
 import { userDataAdd } from '@/providers/neynar/userDataAdd.js';
-import type { Account } from '@/providers/types/Account.js';
+import { type Account } from '@/providers/types/Account.js';
 import {
     NotificationPlatform,
     NotificationPushType,
     type NotificationSettings,
     NotificationTitle,
 } from '@/providers/types/Firefly.js';
-import type { Session } from '@/providers/types/Session.js';
+import { type Session } from '@/providers/types/Session.js';
 import {
     type Channel,
     type Friendship,

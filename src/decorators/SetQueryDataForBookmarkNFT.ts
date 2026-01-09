@@ -3,13 +3,13 @@ import { type Draft, produce } from 'immer';
 import { queryClient } from '@/configs/queryClient.js';
 import { FireflyPlatform, Source } from '@/constants/enum.js';
 import { POAP_CONTRACT_ADDRESS } from '@/constants/static.js';
-import type { PageData } from '@/decorators/types.js';
+import { type PageData } from '@/decorators/types.js';
 import { patchTransactionsQuery } from '@/helpers/patchTransactionsQuery.js';
 import { resolveNFTId, resolveNFTIdFromAsset } from '@/helpers/resolveNFTIdFromAsset.js';
-import type { FireflyBookmark } from '@/providers/firefly/Bookmark.js';
-import type { EVM } from '@/providers/nft-scan/types.js';
-import type { FollowingNFT, NFTFeedV3, Poap } from '@/providers/types/NFTs.js';
-import type { ClassType } from '@/types/utility.js';
+import { type FireflyBookmark } from '@/providers/firefly/Bookmark.js';
+import { type EVM } from '@/providers/nft-scan/types.js';
+import { type FollowingNFT, type NFTFeedV3, type Poap } from '@/providers/types/NFTs.js';
+import { type ClassType } from '@/types/utility.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 const METHODS_BE_OVERRIDDEN = ['bookmarkNFT', 'unbookmarkNFT'] as const;

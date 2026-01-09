@@ -2,8 +2,8 @@ import { type Draft, produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { SearchType, Source } from '@/constants/enum.js';
-import type { PageData } from '@/decorators/types.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
+import { type PageData } from '@/decorators/types.js';
+import { type Post } from '@/providers/types/SocialMedia.js';
 
 export function updateQueryForPosts(source: Source, patcher: (posts: Array<Draft<Post>>) => void) {
     const postsPatcher = (old?: PageData<Post>) => {

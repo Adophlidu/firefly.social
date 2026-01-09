@@ -4,7 +4,7 @@ import { Source } from '@/constants/enum.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { parseFarcasterBioContext } from '@/providers/farcaster/formatFarcasterProfileFromFirefly.js';
 import { NeynarProStatus, type Profile as NeynarProfile } from '@/providers/types/Neynar.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import { type Profile } from '@/providers/types/SocialMedia.js';
 
 export function formatFarcasterProfileFromNeynar(user: NeynarProfile): Profile {
     return {

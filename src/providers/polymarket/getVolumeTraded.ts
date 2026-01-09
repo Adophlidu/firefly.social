@@ -2,7 +2,7 @@ import urlcat from 'urlcat';
 
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { resolvePolymarketResponse } from '@/providers/polymarket/resolvePolymarketResponse.js';
-import type { VolumeTradedResponse } from '@/providers/polymarket/type.js';
+import { type VolumeTradedResponse } from '@/providers/polymarket/type.js';
 
 const POLYMARKET_LAB_API_DOMAIN = 'https://lb-api.polymarket.com';
 

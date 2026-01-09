@@ -4,7 +4,7 @@ import urlcat from 'urlcat';
 
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { settings } from '@/settings/index.js';
-import { Language } from '@/types/language.js';
+import { type Language } from '@/types/language.js';
 
 interface Translation {
     text: string;

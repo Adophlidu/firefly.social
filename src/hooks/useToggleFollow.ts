@@ -8,7 +8,7 @@ import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { checkFarcasterInvalidSignerKey } from '@/providers/farcaster/checkFarcasterInvalidSignerKey.js';
 import { captureProfileActionEvent } from '@/providers/telemetry/captureProfileActionEvent.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import { type Profile } from '@/providers/types/SocialMedia.js';
 
 export function useToggleFollow(profile: Profile) {
     const { source } = profile;

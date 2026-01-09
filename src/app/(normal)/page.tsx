@@ -1,6 +1,6 @@
 'use client';
 
-import type { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
 import { NoSSR } from '@/components/NoSSR.js';
 import { DEFAULT_SOCIAL_SOURCE } from '@/constants/computed.js';

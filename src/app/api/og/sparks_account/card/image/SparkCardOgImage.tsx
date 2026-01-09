@@ -1,4 +1,4 @@
-import type { HTMLProps } from 'react';
+import { type HTMLProps } from 'react';
 import urlcat from 'urlcat';
 
 import { FIREFLY_S3_URL, SITE_URL } from '@/constants/static.js';

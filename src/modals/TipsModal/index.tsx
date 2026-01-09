@@ -9,14 +9,14 @@ import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
-import type {
-    FireflyIdentity,
-    FireflyProfile,
-    FireflyTipsProfile,
-    Profile,
-    WalletProfile,
+import {
+    type FireflyIdentity,
+    type FireflyProfile,
+    type FireflyTipsProfile,
+    type Profile,
+    type WalletProfile,
 } from '@/providers/types/Firefly.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
+import { type Post } from '@/providers/types/SocialMedia.js';
 import { useTipsStore } from '@/store/useTipsStore.js';
 
 interface TipsModalOpenProps {

@@ -8,9 +8,9 @@ import {
 import { memo, useMemo } from 'react';
 
 import { AuthWalletSignIn } from '@/modals/FrameViewerModal/AuthWalletSignIn.js';
-import type {
-    RelayConfirmationPopoverCloseProps,
-    RelayConfirmationPopoverOpenProps,
+import {
+    type RelayConfirmationPopoverCloseProps,
+    type RelayConfirmationPopoverOpenProps,
 } from '@/modals/FrameViewerModal/RelayConfirmationPopover.js';
 import { RelayServiceSignIn } from '@/modals/FrameViewerModal/RelayServiceSignIn.js';
 

@@ -1,12 +1,12 @@
-import { SessionClient } from '@lens-protocol/client';
+import { type SessionClient } from '@lens-protocol/client';
 import { mainnet } from 'viem/chains';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { createLensSession } from '@/providers/lens/createLensSession.js';
 import { loginLensProfile } from '@/providers/lens/loginLensProfile.js';
-import type { Account } from '@/providers/types/Account.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import { type Account } from '@/providers/types/Account.js';
+import { type Profile } from '@/providers/types/SocialMedia.js';
 import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';
 
 async function createAccountWithSessionClient(sessionClient: SessionClient, profile: Profile, signal?: AbortSignal) {

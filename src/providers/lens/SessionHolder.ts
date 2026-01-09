@@ -4,7 +4,7 @@ import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { lensClientHolder } from '@/providers/lens/LensClientHolder.js';
 import { lensSessionClientHolder } from '@/providers/lens/LensSessionClientHolder.js';
 import { refreshLensSession } from '@/providers/lens/refreshLensSession.js';
-import { LensSession } from '@/providers/lens/Session.js';
+import { type LensSession } from '@/providers/lens/Session.js';
 import { useLensProfileStore } from '@/store/useProfileStore/useLensProfileStore.js';
 
 class LensSessionHolder extends SessionHolder<LensSession> {

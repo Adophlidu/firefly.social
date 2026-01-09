@@ -5,10 +5,10 @@ import { Program, web3 } from '@coral-xyz/anchor';
 import { privySolanaProvider } from '@/connectors/PrivySolanaWalletAdapter.js';
 import { getAnchorProvider } from '@/helpers/getAnchorProvider.js';
 import { getSolanaRPCUrl } from '@/helpers/getSolanaRPCUrl.js';
-import type { Redpacket } from '@/idls/redpacket.js';
+import { type Redpacket } from '@/idls/redpacket.js';
 import RedPacketIDL from '@/idls/redpacket.json' with { type: 'json' };
 import { getWalletAdaptorConnected } from '@/providers/solana/getWalletAdapter.js';
-import type { SolanaChainId } from '@/web3-shared/solana/types.js';
+import { type SolanaChainId } from '@/web3-shared/solana/types.js';
 
 const storage = new Map<string, Program<Redpacket>>();
 

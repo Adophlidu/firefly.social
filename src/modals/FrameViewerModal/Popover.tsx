@@ -6,7 +6,7 @@ import { Fragment, memo, type ReactNode } from 'react';
 import FireflyLogo from '@/assets/firefly.logo.svg';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
-import type { FrameV2 } from '@/types/frame.js';
+import { type FrameV2 } from '@/types/frame.js';
 
 interface PopoverProps {
     open: boolean;

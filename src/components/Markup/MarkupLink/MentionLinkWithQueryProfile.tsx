@@ -1,6 +1,6 @@
 import { useQueries } from '@tanstack/react-query';
 import { compact, first } from 'lodash-es';
-import type { LinkProps } from 'next/link.js';
+import { type LinkProps } from 'next/link.js';
 import { memo, type ReactNode } from 'react';
 
 import { MentionLink } from '@/components/Markup/MarkupLink/MentionLink.js';

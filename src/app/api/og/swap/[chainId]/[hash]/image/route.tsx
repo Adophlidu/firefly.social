@@ -3,8 +3,8 @@
 import { compose } from '@dimensiondev/utils';
 import { first } from 'lodash-es';
 import { ImageResponse } from 'next/og.js';
-import type { NextRequest } from 'next/server.js';
-import type { HTMLProps } from 'react';
+import { type NextRequest } from 'next/server.js';
+import { type HTMLProps } from 'react';
 import urlcat from 'urlcat';
 import { z } from 'zod';
 
@@ -22,9 +22,9 @@ import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.j
 import { resolveChainIcon } from '@/helpers/resolveChainIcon.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { getSwapActivityByHash } from '@/providers/firefly/endpoint/getSwapActivityByHash.js';
-import type { SwapActivity } from '@/providers/types/Firefly.js';
+import { type SwapActivity } from '@/providers/types/Firefly.js';
 import { getSatoriFonts } from '@/services/getSatoriFonts.js';
-import type { NextRequestContext } from '@/types/utility.js';
+import { type NextRequestContext } from '@/types/utility.js';
 
 const OG_FONT_FAMILY = '"Inter", "NotoSans"';
 const OG_FALLBACK_AVATAR = urlcat(SITE_URL, '/image/firefly-light-avatar.png');

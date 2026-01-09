@@ -1,4 +1,4 @@
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import { type Profile } from '@/providers/types/SocialMedia.js';
 
 export interface Provider<T> {
     /**

@@ -7,7 +7,7 @@ import {
     POLL_STRATEGIES,
 } from '@/constants/poll.js';
 import { trimify } from '@/helpers/trimify.js';
-import type { CompositePoll, PollOption } from '@/providers/types/Poll.js';
+import { type CompositePoll, type PollOption } from '@/providers/types/Poll.js';
 
 export const createPollOption = (): PollOption => {
     return { id: crypto.randomUUID(), label: '' };

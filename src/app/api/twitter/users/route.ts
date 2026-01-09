@@ -1,5 +1,5 @@
 import { compose } from '@dimensiondev/utils';
-import { NextRequest } from 'next/server.js';
+import { type NextRequest } from 'next/server.js';
 import { z } from 'zod';
 
 import { TWITTER_USER_OPTIONS } from '@/constants/twitter.js';

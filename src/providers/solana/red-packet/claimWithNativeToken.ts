@@ -4,7 +4,7 @@ import { bs58 } from '@coral-xyz/anchor/dist/cjs/utils/bytes/index.js';
 import { getCreator } from '@/providers/solana/red-packet/getCreator.js';
 import { getProgram } from '@/providers/solana/red-packet/getProgram.js';
 import { runRPC } from '@/providers/solana/red-packet/runRPC.js';
-import type { ClaimNativeTokenContext } from '@/providers/solana/red-packet/types.js';
+import { type ClaimNativeTokenContext } from '@/providers/solana/red-packet/types.js';
 
 export async function claimWithNativeToken({ signedMessage, message, publicKey, accountId }: ClaimNativeTokenContext) {
     const program = getProgram(true);

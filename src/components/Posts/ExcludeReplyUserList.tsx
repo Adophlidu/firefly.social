@@ -12,7 +12,7 @@ import { Popover as PopoverModal } from '@/components/Popover.js';
 import { EMPTY_LIST } from '@/constants/static.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import type { Post, Profile } from '@/providers/types/SocialMedia.js';
+import { type Post, type Profile } from '@/providers/types/SocialMedia.js';
 
 function ExcludeReplyUserListItem({
     profile,

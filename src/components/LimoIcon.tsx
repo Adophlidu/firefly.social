@@ -1,4 +1,4 @@
-import type { SVGProps } from 'react';
+import { type SVGProps } from 'react';
 
 import LimoIconLight from '@/assets/limo.svg';
 import LimoIconDark from '@/assets/limo-dark.svg';

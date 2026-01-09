@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { getAllPlatformProfileFromFirefly } from '@/providers/firefly/endpoint/getAllPlatformProfileFromFirefly.js';
-import type { FireflyIdentity, WalletProfiles } from '@/providers/types/Firefly.js';
+import { type FireflyIdentity, type WalletProfiles } from '@/providers/types/Firefly.js';
 
 export function useFireflyProfileByIdentity(
     identity: FireflyIdentity,

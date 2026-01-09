@@ -1,8 +1,8 @@
 import { EMPTY_LIST } from '@/constants/static.js';
 import { isSameSession } from '@/helpers/isSameSession.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import type { Account } from '@/providers/types/Account.js';
-import type { FarcasterAccountInfoResponse } from '@/providers/types/Firefly.js';
+import { type Account } from '@/providers/types/Account.js';
+import { type FarcasterAccountInfoResponse } from '@/providers/types/Firefly.js';
 import { createFarcasterFromFirefly } from '@/providers/warpcast/createAccountByFireflyWallet.js';
 import { addAccounts } from '@/services/account.js';
 

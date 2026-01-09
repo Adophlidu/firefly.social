@@ -1,11 +1,15 @@
 import { delay, safeUnreachable, TimeoutError, UnreachableError } from '@dimensiondev/utils';
-import type { UploadMediaV1Params } from 'twitter-api-v2';
+import { type UploadMediaV1Params } from 'twitter-api-v2';
 import urlcat from 'urlcat';
 
-import { FileMimeType, UploadMediaStatus } from '@/constants/enum.js';
+import { type FileMimeType, UploadMediaStatus } from '@/constants/enum.js';
 import { getTwitterMediaCategory } from '@/providers/twitter/getTwitterMediaCategory.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
-import type { FinishUploadResponseV2, GetUploadStatusResponseV2, UploadMediaResponseV2 } from '@/types/twitter.js';
+import {
+    type FinishUploadResponseV2,
+    type GetUploadStatusResponseV2,
+    type UploadMediaResponseV2,
+} from '@/types/twitter.js';
 
 async function waitForUpload(media_id: string, retry = 30) {
     const { data } = await twitterSessionHolder.fetch<{ data: GetUploadStatusResponseV2 }>(

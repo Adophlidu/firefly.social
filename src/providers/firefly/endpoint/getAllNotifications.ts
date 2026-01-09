@@ -7,7 +7,7 @@ import { createIndicator, createNextIndicator, createPageable, type PageIndicato
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { type AllNotificationsResponse, type UnifiedNotification } from '@/providers/types/Firefly.js';
-import { NotificationType } from '@/providers/types/SocialMedia.js';
+import { type NotificationType } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
 
 export async function getAllNotifications(types?: string[], indicator?: PageIndicator) {

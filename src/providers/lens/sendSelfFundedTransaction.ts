@@ -1,4 +1,4 @@
-import type { Eip1559TransactionRequest, TxHash } from '@lens-protocol/client';
+import { type Eip1559TransactionRequest, type TxHash } from '@lens-protocol/client';
 import { sendTransaction } from 'viem/zksync';
 
 import { getWalletClientForLensChain } from '@/providers/lens/getWalletClientForLensChain.js';

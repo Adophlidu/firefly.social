@@ -12,8 +12,8 @@ import { isZeroAddress } from '@/helpers/isZeroAddress.js';
 import { resolveCoinGeckoChain } from '@/helpers/resolveCoinGeckoChain.js';
 import { resolveCoinGeckoCoinChainId } from '@/helpers/resolveCoingeckoCoinChainId.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
-import type { CoinGeckoToken } from '@/providers/types/CoinGecko.js';
-import type { Contract } from '@/providers/types/Trending.js';
+import { type CoinGeckoToken } from '@/providers/types/CoinGecko.js';
+import { type Contract } from '@/providers/types/Trending.js';
 import { useSwapStore } from '@/store/useSwapStore.js';
 
 const SwapModalContent = dynamic(

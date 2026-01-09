@@ -1,5 +1,5 @@
 import { HOME_CHANNEL } from '@/constants/channel.js';
-import type { Channel } from '@/providers/types/SocialMedia.js';
+import { type Channel } from '@/providers/types/SocialMedia.js';
 
 export function isSameChannel(channel: Channel | null, otherChannel: Channel | null) {
     if (!channel || !otherChannel) return false;

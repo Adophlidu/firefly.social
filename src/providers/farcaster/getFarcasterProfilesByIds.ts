@@ -3,8 +3,8 @@ import urlcat from 'urlcat';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { formatFarcasterProfileFromFireflyCache } from '@/providers/farcaster/formatFarcasterProfileFromFirefly.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import type { GetProfilesResponse } from '@/providers/types/Firefly.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import { type GetProfilesResponse } from '@/providers/types/Firefly.js';
+import { type Profile } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
 
 export async function getFarcasterProfilesByIds(ids: string[], sourceId?: string): Promise<Profile[]> {

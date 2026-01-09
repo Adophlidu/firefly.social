@@ -1,16 +1,16 @@
 import { NotImplementedError } from '@dimensiondev/utils';
 import { isServer } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
-import type {
-    TweetV2PaginableTimelineResult,
-    Tweetv2TimelineResult,
-    UserV2,
-    UserV2MuteResult,
-    UserV2TimelineResult,
+import {
+    type TweetV2PaginableTimelineResult,
+    type Tweetv2TimelineResult,
+    type UserV2,
+    type UserV2MuteResult,
+    type UserV2TimelineResult,
 } from 'twitter-api-v2';
 import urlcat from 'urlcat';
 
-import { FireflyPlatform, Locale, Source } from '@/constants/enum.js';
+import { FireflyPlatform, type Locale, Source } from '@/constants/enum.js';
 import { TWITTER_PROFILE_SEARCH_REGEXP } from '@/constants/regexp.js';
 import { EMPTY_LIST } from '@/constants/static.js';
 import { AddLikeStatusToTwitterPosts } from '@/decorators/AddLikeStatusToTwitterPosts.js';
@@ -49,13 +49,13 @@ import { resolveTwitterReplyRestriction } from '@/providers/twitter/resolveTwitt
 import { resolveTwitterResponseData } from '@/providers/twitter/resolveTwitterResponseData.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
-import type { Account } from '@/providers/types/Account.js';
+import { type Account } from '@/providers/types/Account.js';
 import {
     type NotificationSettings,
     TwitterUserInfoProfileImageShape,
     TwitterUserInfoVerifiedType,
 } from '@/providers/types/Firefly.js';
-import type { Session } from '@/providers/types/Session.js';
+import { type Session } from '@/providers/types/Session.js';
 import {
     type Channel,
     type Friendship,
@@ -71,7 +71,7 @@ import {
 } from '@/providers/types/SocialMedia.js';
 import { useTwitterLikeStore } from '@/store/useTwitterLikeStore.js';
 import { useTwitterRetweetStore } from '@/store/useTwitterRetweetStore.js';
-import type { PartialWith, ResponseJson } from '@/types/utility.js';
+import { type PartialWith, type ResponseJson } from '@/types/utility.js';
 
 export
 @SetQueryDataForLikePost(Source.Twitter)

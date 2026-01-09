@@ -3,7 +3,7 @@
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo, useState } from 'react';
-import type { Address } from 'viem';
+import { type Address } from 'viem';
 
 import FollowIcon from '@/assets/follow-bold.svg';
 import FollowedIcon from '@/assets/followed.svg';

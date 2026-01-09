@@ -3,8 +3,8 @@ import urlcat from 'urlcat';
 import { FIREFLY_WORKER_HOST } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';
-import type { SnapshotStrategy } from '@/providers/snapshot/type.js';
-import type { ResponseJson } from '@/types/utility.js';
+import { type SnapshotStrategy } from '@/providers/snapshot/type.js';
+import { type ResponseJson } from '@/types/utility.js';
 
 interface VotePowerResult {
     vp: number;

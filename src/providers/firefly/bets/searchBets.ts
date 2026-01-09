@@ -9,7 +9,7 @@ import {
     type PageIndicator,
 } from '@/helpers/pageable.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
-import type { PolymarketEventListData, Response } from '@/providers/types/Firefly.js';
+import { type PolymarketEventListData, type Response } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 interface GammaSearchResponse {

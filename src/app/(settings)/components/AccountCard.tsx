@@ -35,7 +35,7 @@ import { DisconnectFireflyAccountModalRef } from '@/modals/DisconnectFireflyAcco
 import { RecoveryPhraseModalRef } from '@/modals/RecoveryPhraseModal.js';
 import { VerifiedAddressModalRef } from '@/modals/VerifiedAddressModal/index.js';
 import { checkBatchCustodyWallet } from '@/providers/firefly/endpoint/checkBatchCustodyWallet.js';
-import type { Account } from '@/providers/types/Account.js';
+import { type Account } from '@/providers/types/Account.js';
 
 function DisconnectButton({ account }: { account: Pick<Account, 'profile' | 'origin'> }) {
     const all = useProfileStoreAll();

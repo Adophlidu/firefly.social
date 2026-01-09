@@ -10,8 +10,8 @@ import { ConfirmSyncSessionModalRef } from '@/modals/ConfirmSyncSessionModal.js'
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
 import { getMetricsStatus } from '@/providers/firefly/metrics/getMetricsStatus.js';
 import { uploadMetrics as uploadFireflyMetrics } from '@/providers/firefly/metrics/uploadMetrics.js';
-import { LensSession } from '@/providers/lens/Session.js';
-import type { Account } from '@/providers/types/Account.js';
+import { type LensSession } from '@/providers/lens/Session.js';
+import { type Account } from '@/providers/types/Account.js';
 import { type Profile } from '@/providers/types/SocialMedia.js';
 import { downloadAccounts, mergeMetrics, uploadMetrics } from '@/services/metrics.js';
 import { verifyAndGetPassword } from '@/services/verifyAndGetPassword.js';

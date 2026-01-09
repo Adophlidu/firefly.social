@@ -2,7 +2,7 @@ import { Trans } from '@lingui/react/macro';
 
 import { readChars } from '@/helpers/chars.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
-import type { CompositePost } from '@/types/compose.js';
+import { type CompositePost } from '@/types/compose.js';
 
 interface PlaceholderProps {
     post: CompositePost;

@@ -5,7 +5,7 @@ import { Trans } from '@lingui/react/macro';
 
 import CheckIcon from '@/assets/check.svg';
 import FilterIcon from '@/assets/filter.svg';
-import type { TradeRecord } from '@/types/token.js';
+import { type TradeRecord } from '@/types/token.js';
 
 interface Props {
     value: TradeRecord['type'] | undefined;

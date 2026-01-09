@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse, userAgent } from 'next/server.js';
+import { type NextRequest, NextResponse, userAgent } from 'next/server.js';
 
 export function handlePostRequests(request: NextRequest, next: () => NextResponse | undefined) {
     const pathname = request.nextUrl.pathname;

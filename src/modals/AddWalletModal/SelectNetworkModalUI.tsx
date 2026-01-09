@@ -9,7 +9,7 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { NetworkPluginID, NetworkType } from '@/constants/enum.js';
 import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
 import { useVerifyAndBindWallet } from '@/hooks/useVerifyAndBindWallet.js';
-import type { BindWalletResponse, FireflyWalletConnection } from '@/providers/types/Firefly.js';
+import { type BindWalletResponse, type FireflyWalletConnection } from '@/providers/types/Firefly.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
 import { SolanaChainId } from '@/web3-shared/solana/types.js';
 

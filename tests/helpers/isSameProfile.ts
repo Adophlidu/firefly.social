@@ -1,7 +1,8 @@
-import { Source, type SocialSource } from '@/constants/enum.js';
-import { isSameProfile } from '@/helpers/isSameProfile.js';
-import type { ProfileLike } from '@/providers/types/SocialMedia.js';
 import { describe, expect, it } from 'vitest';
+
+import { type SocialSource, Source } from '@/constants/enum.js';
+import { isSameProfile } from '@/helpers/isSameProfile.js';
+import { type ProfileLike } from '@/providers/types/SocialMedia.js';
 
 describe('isSameProfile (Integration)', () => {
     const sourceA: SocialSource = Source.Farcaster;

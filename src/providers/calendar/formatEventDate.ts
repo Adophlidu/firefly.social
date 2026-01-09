@@ -1,4 +1,4 @@
-import type { Event, ParsedEvent } from '@/types/calendar.js';
+import { type Event, type ParsedEvent } from '@/types/calendar.js';
 
 export function formatEventDate(event: Event): ParsedEvent {
     return {

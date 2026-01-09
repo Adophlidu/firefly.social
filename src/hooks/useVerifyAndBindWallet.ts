@@ -8,7 +8,7 @@ import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage }
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { MyWalletsModalRef } from '@/modals/MyWalletsModal/index.js';
-import type { BindWalletResponse, FireflyWalletConnection } from '@/providers/types/Firefly.js';
+import { type BindWalletResponse, type FireflyWalletConnection } from '@/providers/types/Firefly.js';
 import { verifyAndBindWallet } from '@/services/verifyAndBindWallet.js';
 
 export function useVerifyAndBindWallet(

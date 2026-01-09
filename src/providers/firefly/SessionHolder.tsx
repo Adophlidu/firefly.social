@@ -1,9 +1,9 @@
 import { nativeBridgeProvider, SupportedMethod } from '@dimensiondev/native-bridge';
 
-import type { NextFetchersOptions } from '@/helpers/fetch.js';
+import { type NextFetchersOptions } from '@/helpers/fetch.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { SessionHolder } from '@/providers/base/SessionHolder.js';
-import type { FireflySession } from '@/providers/firefly/Session.js';
+import { type FireflySession } from '@/providers/firefly/Session.js';
 
 class FireflySessionHolder extends SessionHolder<FireflySession> {
     override async fetchWithSession<T>(url: string, init?: RequestInit, options?: NextFetchersOptions) {

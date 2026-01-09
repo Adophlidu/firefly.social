@@ -4,7 +4,7 @@ import { signMessage } from 'viem/accounts';
 import { NetworkType } from '@/constants/enum.js';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
 import { getCurrentClaimProfile } from '@/providers/ethereum/getCurrentClaimProfile.js';
-import type { ClaimRedPacketContext } from '@/providers/ethereum/red-packet/types.js';
+import { type ClaimRedPacketContext } from '@/providers/ethereum/red-packet/types.js';
 import { createClaimSignature } from '@/providers/firefly/red-packet/createClaimSignature.js';
 
 export async function signClaimMessage(context: ClaimRedPacketContext): Promise<

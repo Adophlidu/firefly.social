@@ -1,6 +1,6 @@
 import { t } from '@lingui/core/macro';
 import { useAsyncFn } from 'react-use';
-import type { Address, Hex } from 'viem';
+import { type Address, type Hex } from 'viem';
 import { sendTransaction, waitForTransactionReceipt } from 'wagmi/actions';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
@@ -9,7 +9,7 @@ import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage }
 import { getSponsorMintStatus } from '@/providers/firefly/wallet-transaction/getSponsorMintStatus.js';
 import { mintNFTBySponsor } from '@/providers/firefly/wallet-transaction/mintNFTBySponsor.js';
 import { captureMintNFTEvent } from '@/providers/telemetry/captureMintEvent.js';
-import type { SponsorMintOptions } from '@/providers/types/Firefly.js';
+import { type SponsorMintOptions } from '@/providers/types/Firefly.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 
 export function useSponsorMintNFT(mintTarget: SponsorMintOptions, mintCount: number, onSuccess?: () => void) {

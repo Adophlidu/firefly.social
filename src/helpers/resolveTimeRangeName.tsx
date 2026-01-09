@@ -1,6 +1,6 @@
 import { createLookupTableResolver, UnreachableError } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
-import type { JSX } from 'react';
+import { type JSX } from 'react';
 
 import { TimeRangeFilter } from '@/constants/enum.js';
 

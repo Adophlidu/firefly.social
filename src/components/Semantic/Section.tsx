@@ -1,4 +1,4 @@
-import type { HTMLProps } from 'react';
+import { type HTMLProps } from 'react';
 
 interface SectionProps extends HTMLProps<HTMLDivElement> {
     title: string;

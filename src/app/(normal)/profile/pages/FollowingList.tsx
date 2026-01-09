@@ -7,7 +7,7 @@ import { ListInPage } from '@/components/ListInPage.js';
 import { ScrollListKey, type SocialSource } from '@/constants/enum.js';
 import { createIndicator, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import { type Profile } from '@/providers/types/SocialMedia.js';
 
 export function FollowingList({ profileId, source }: { profileId: string; source: SocialSource }) {
     const queryResult = useSuspenseInfiniteQuery({

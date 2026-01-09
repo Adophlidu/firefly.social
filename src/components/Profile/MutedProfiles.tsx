@@ -5,7 +5,7 @@ import { MutedProfileItem } from '@/components/Profile/MutedProfileItem.js';
 import { ScrollListKey, type SocialSource } from '@/constants/enum.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import { type Profile } from '@/providers/types/SocialMedia.js';
 
 interface MutedProfilesProps {
     source: SocialSource;

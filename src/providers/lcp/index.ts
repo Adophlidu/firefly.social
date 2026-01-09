@@ -1,6 +1,6 @@
 import { performanceStore } from '@/providers/lcp/store.js';
 import { initPerformanceTracker } from '@/providers/lcp/tracker.js';
-import type { PerformanceConfig } from '@/providers/lcp/types.js';
+import { type PerformanceConfig } from '@/providers/lcp/types.js';
 import { initWebVitalsTracking } from '@/providers/lcp/webVitals.js';
 
 /**

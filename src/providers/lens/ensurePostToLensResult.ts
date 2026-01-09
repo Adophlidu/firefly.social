@@ -1,4 +1,9 @@
-import type { PostResult, ResultAsync, UnauthenticatedError, UnexpectedError } from '@lens-protocol/client';
+import {
+    type PostResult,
+    type ResultAsync,
+    type UnauthenticatedError,
+    type UnexpectedError,
+} from '@lens-protocol/client';
 
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { getPostByTxHashWithPolling } from '@/providers/lens/getPostByTxHashWithPolling.js';

@@ -1,11 +1,11 @@
 import { delay, parseUrl, safeUnreachable, UnreachableError } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
-import { S3ConvertStatus, SourceInURL } from '@/constants/enum.js';
+import { S3ConvertStatus, type SourceInURL } from '@/constants/enum.js';
 import { getVideoMetadata } from '@/helpers/getVideoMetadata.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import type { ConvertM3u8Response, ConvertM3u8StatusResponse } from '@/providers/types/Firefly.js';
+import { type ConvertM3u8Response, type ConvertM3u8StatusResponse } from '@/providers/types/Firefly.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
 import { settings } from '@/settings/index.js';
 

@@ -36,8 +36,8 @@ import {
 } from '@/constants/regexp.js';
 import { isChannelSupported } from '@/helpers/isChannelSupported.js';
 import { trimifyPost } from '@/helpers/trimify.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
-import type { Pluggable } from '@/types/utility.js';
+import { type Post } from '@/providers/types/SocialMedia.js';
+import { type Pluggable } from '@/types/utility.js';
 
 export interface MarkupProps extends Omit<ReactMarkdownOptions, 'children'> {
     children?: ReactMarkdownOptions['children'] | null;

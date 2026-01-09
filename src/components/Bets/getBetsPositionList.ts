@@ -1,10 +1,10 @@
 import { unreachable } from '@dimensiondev/utils';
 
 import { BetsPlatform } from '@/constants/enum.js';
-import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
+import { type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { getBetsHistoryList } from '@/providers/firefly/bets/getBetsHistoryList.js';
 import { getPositionHistory } from '@/providers/firefly/bets/getPositionHistory.js';
-import type { BetsPositionDataForUI } from '@/types/bets.js';
+import { type BetsPositionDataForUI } from '@/types/bets.js';
 
 interface Options {
     address: string;

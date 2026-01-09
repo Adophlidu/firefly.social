@@ -15,7 +15,7 @@ import { EMPTY_LIST } from '@/constants/static.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { useAllProxyWallets } from '@/hooks/bets/useAllProxyWallets.js';
-import type { BetsPositionDataForUI } from '@/types/bets.js';
+import { type BetsPositionDataForUI } from '@/types/bets.js';
 
 interface Props {
     platform: BetsPlatform;

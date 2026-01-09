@@ -1,6 +1,6 @@
 import { Source } from '@/constants/enum.js';
 import { isSameEthereumAddress, isSameSolanaAddress } from '@/helpers/isSameAddress.js';
-import type { FireflyIdentity } from '@/providers/types/Firefly.js';
+import { type FireflyIdentity } from '@/providers/types/Firefly.js';
 
 export function isSameFireflyIdentity(identity?: FireflyIdentity, otherIdentity?: FireflyIdentity) {
     if (!identity || !otherIdentity) return false;

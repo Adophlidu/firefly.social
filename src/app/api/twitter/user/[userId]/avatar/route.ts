@@ -1,5 +1,5 @@
 import { compose } from '@dimensiondev/utils';
-import type { NextRequest } from 'next/server.js';
+import { type NextRequest } from 'next/server.js';
 import { z } from 'zod';
 
 import { KeyType } from '@/constants/enum.js';
@@ -11,7 +11,7 @@ import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { getTwitterHandleById } from '@/providers/firefly/worker/getTwitterHandleById.js';
 import { getTwitterProfileByOG } from '@/providers/twitter/getTwitterProfileByOG.js';
 import { nitterSocialMediaProvider } from '@/providers/twitter/NitterSocialMedia.js';
-import type { NextRequestContext } from '@/types/utility.js';
+import { type NextRequestContext } from '@/types/utility.js';
 
 const getTwitterAvatarById = memoizeWithRedis(
     async (twitterId: string) => {

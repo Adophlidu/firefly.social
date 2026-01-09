@@ -4,7 +4,7 @@ import { MAX_POST_SIZE_PER_THREAD } from '@/constants/static.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { getCommentsByPostId } from '@/providers/lens/getCommentsByPostId.js';
 import { getLensPostById } from '@/providers/lens/getLensPostById.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
+import { type Post } from '@/providers/types/SocialMedia.js';
 
 export async function getLensThreadByPostId(
     postId: string,

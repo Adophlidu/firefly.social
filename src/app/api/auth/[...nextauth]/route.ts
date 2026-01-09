@@ -4,7 +4,7 @@ import urlcat from 'urlcat';
 import { authOptions } from '@/app/api/auth/[...nextauth]/options.js';
 import { DeleteCookieScript, MaskDelegateCookieName } from '@/app/api/mask/delegate-x-token/shared.js';
 import { Auth } from '@/esm/Auth.js';
-import type { NextRequestContext } from '@/types/utility.js';
+import { type NextRequestContext } from '@/types/utility.js';
 
 const handler = Auth(authOptions);
 

@@ -3,11 +3,11 @@ import { ScheduleNotificationItem } from '@/components/Notification/ScheduleNoti
 import { TipsNotificationItem } from '@/components/Notification/TipsNotificationItem.js';
 import { UnifiedNotificationItem } from '@/components/Notification/UnifiedNotificationItem.js';
 import { UNIFIED_NOTIFICATION_TYPES } from '@/constants/computed.js';
-import type {
-    ScheduleNotification,
-    TipsNotification,
-    TipsNotificationData,
-    UnifiedNotification,
+import {
+    type ScheduleNotification,
+    type TipsNotification,
+    type TipsNotificationData,
+    type UnifiedNotification,
 } from '@/providers/types/Firefly.js';
 import { type Notification as NotificationObject, NotificationType } from '@/providers/types/SocialMedia.js';
 

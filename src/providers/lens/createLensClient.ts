@@ -20,7 +20,7 @@ import { refreshLensSession } from '@/providers/lens/refreshLensSession.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { SessionStorageProvider } from '@/providers/lens/SessionStorageProvider.js';
 import { captureAccountLoginEvent } from '@/providers/telemetry/captureAccountEvent.js';
-import type { Account } from '@/providers/types/Account.js';
+import { type Account } from '@/providers/types/Account.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { useTokenPasswordStore } from '@/store/useTokenPasswordStore.js';
 

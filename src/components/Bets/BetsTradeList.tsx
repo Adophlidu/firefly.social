@@ -6,10 +6,10 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { BetsTradeItem } from '@/components/Bets/BetsTradeItem.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { Loading } from '@/components/Loading.js';
-import { BetsPlatform, ScrollListKey, Source } from '@/constants/enum.js';
+import { type BetsPlatform, ScrollListKey, Source } from '@/constants/enum.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { getBetsTimelineByAddress } from '@/providers/firefly/bets/getBetsTimelineByAddress.js';
-import type { BetsActivity } from '@/providers/types/Firefly.js';
+import { type BetsActivity } from '@/providers/types/Firefly.js';
 
 interface BetsTradeListProps {
     address: string;

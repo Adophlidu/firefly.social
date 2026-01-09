@@ -4,7 +4,7 @@ import { BetsActivityItem } from '@/components/Bets/BetsActivityItem.js';
 import { getSingleNFTFeedItemContent } from '@/components/NFTs/VirtualListHelper.js';
 import { SwapActivityItem } from '@/components/Swap/SwapActivityItem.js';
 import { Source } from '@/constants/enum.js';
-import type { TransactionsItem } from '@/providers/types/Firefly.js';
+import { type TransactionsItem } from '@/providers/types/Firefly.js';
 
 export function getTransactionsItemContent(data: TransactionsItem, index: number, listKey: string) {
     switch (data.source) {

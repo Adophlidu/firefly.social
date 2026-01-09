@@ -4,7 +4,7 @@ import { type HTMLProps, memo, useMemo } from 'react';
 
 import { RemoveButton } from '@/components/RemoveButton.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
-import type { MediaObject } from '@/types/compose.js';
+import { type MediaObject } from '@/types/compose.js';
 
 interface ComposeVideoProps extends HTMLProps<HTMLDivElement> {
     video: MediaObject;

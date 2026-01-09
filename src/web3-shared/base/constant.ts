@@ -1,4 +1,4 @@
-import type { ChainIdEnum, Constants, Primitive } from '@/web3-shared/base/types.js';
+import { type ChainIdEnum, type Constants, type Primitive } from '@/web3-shared/base/types.js';
 
 function replaceAll(input: string, values: Record<string, string>) {
     if (!input.includes('${')) return input;

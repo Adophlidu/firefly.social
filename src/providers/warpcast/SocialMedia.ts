@@ -15,13 +15,13 @@ import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { formatFarcasterChannelFromWarpcast } from '@/providers/farcaster/formatFarcasterChannelFromWarpcast.js';
 import { getFarcasterAuthToken } from '@/providers/farcaster/getFarcasterAuthToken.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
-import type { Account } from '@/providers/types/Account.js';
-import type { NotificationSettings, WalletProfile } from '@/providers/types/Firefly.js';
-import type { Session } from '@/providers/types/Session.js';
+import { type Account } from '@/providers/types/Account.js';
+import { type NotificationSettings, type WalletProfile } from '@/providers/types/Firefly.js';
+import { type Session } from '@/providers/types/Session.js';
 import {
     type Channel,
     type Friendship,
-    NetworkType,
+    type NetworkType,
     type Notification,
     type Post,
     type Profile,
@@ -32,7 +32,7 @@ import {
     SessionType,
 } from '@/providers/types/SocialMedia.js';
 import { type Channel as WarpcastChannel } from '@/providers/types/Warpcast.js';
-import type { ResponseJson } from '@/types/utility.js';
+import { type ResponseJson } from '@/types/utility.js';
 
 class WarpcastSocialMedia implements Provider {
     blockWallet(address: string, networkType?: NetworkType): Promise<boolean> {

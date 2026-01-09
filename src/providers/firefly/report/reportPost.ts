@@ -1,6 +1,6 @@
 import urlcat from 'urlcat';
 
-import { FireflyPlatform } from '@/constants/enum.js';
+import { type FireflyPlatform } from '@/constants/enum.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { settings } from '@/settings/index.js';
 

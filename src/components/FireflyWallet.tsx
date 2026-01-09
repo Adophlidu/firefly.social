@@ -3,7 +3,7 @@
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useEffect, useMemo } from 'react';
-import type { Address } from 'viem';
+import { type Address } from 'viem';
 
 import ArrowLineDownIcon from '@/assets/arrow-line-down.svg';
 import WalletIcon from '@/assets/wallet.svg';

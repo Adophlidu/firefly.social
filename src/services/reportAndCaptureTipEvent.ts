@@ -3,9 +3,9 @@ import { resolveWagmiChain } from '@/helpers/resolveWagmiChain.js';
 import { logger } from '@/libs/Logger.js';
 import { reportTokenTips, UploadTokenTipsToken } from '@/providers/firefly/report/reportTokenTips.js';
 import { captureTipsSendEvent } from '@/providers/telemetry/captureTipsEvent.js';
-import type { FireflyTipsProfile } from '@/providers/types/Firefly.js';
+import { type FireflyTipsProfile } from '@/providers/types/Firefly.js';
 import { EventId } from '@/providers/types/Telemetry.js';
-import type { Token } from '@/providers/types/Transfer.js';
+import { type Token } from '@/providers/types/Transfer.js';
 
 interface ReportOptions {
     eventId: EventId.TIPS_SEND_SUBMIT | EventId.TIPS_SEND_SUCCESS;

@@ -1,4 +1,4 @@
-import type { BlobRef } from '@atproto/api';
+import { type BlobRef } from '@atproto/api';
 
 import { type MediaObject } from '@/types/compose.js';
 

@@ -20,6 +20,8 @@ function isWhitelisted(filePath) {
 
     // Specific file paths
     const whitelistedFiles = [
+        '.storybook/main.ts',
+        '.next/types/routes.d.ts',
         'src/constants/mentions.ts',
         'src/helpers/attemptUntil.ts',
         'src/helpers/fetchJson.ts',

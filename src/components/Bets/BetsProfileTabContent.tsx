@@ -6,7 +6,7 @@ import { Suspense } from 'react';
 import { BetsProfilePositionList } from '@/components/Bets/BetsProfilePositionList.js';
 import { BetsTradeList } from '@/components/Bets/BetsTradeList.js';
 import { Loading } from '@/components/Loading.js';
-import type { BetsPlatform } from '@/constants/enum.js';
+import { type BetsPlatform } from '@/constants/enum.js';
 import { Category, useBetsProfileTab } from '@/hooks/bets/useBetsProfileTab.js';
 
 interface Props {

@@ -1,6 +1,6 @@
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
-import type { HTMLProps } from 'react';
+import { type HTMLProps } from 'react';
 import { type Control, useFormState } from 'react-hook-form';
 
 interface ErrorMessageProps extends HTMLProps<HTMLParagraphElement> {

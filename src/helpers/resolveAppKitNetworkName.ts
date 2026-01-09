@@ -1,6 +1,6 @@
 import { createLookupTableResolver, safeUnreachable } from '@dimensiondev/utils';
 
-import type { ChainNamespace } from '@/types/utility.js';
+import { type ChainNamespace } from '@/types/utility.js';
 
 export const resolveAppKitNetworkName = createLookupTableResolver<ChainNamespace, string>(
     {

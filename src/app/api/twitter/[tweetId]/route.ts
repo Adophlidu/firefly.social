@@ -1,6 +1,6 @@
 import { compose } from '@dimensiondev/utils';
 import { pick } from 'lodash-es';
-import type { NextRequest } from 'next/server.js';
+import { type NextRequest } from 'next/server.js';
 import { z } from 'zod';
 
 import { TWITTER_TIMELINE_OPTIONS } from '@/constants/twitter.js';
@@ -14,7 +14,7 @@ import { createTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2
 import { createTwitterErrorResponseJSON } from '@/providers/twitter/createTwitterErrorResponse.js';
 import { tweetV2ToPost } from '@/providers/twitter/formatTwitterPost.js';
 import { withTwitterRequestErrorHandler } from '@/providers/twitter/withTwitterRequestErrorHandler.js';
-import type { NextRequestContext } from '@/types/utility.js';
+import { type NextRequestContext } from '@/types/utility.js';
 
 const ParamsSchema = z.object({ tweetId: z.string() });
 

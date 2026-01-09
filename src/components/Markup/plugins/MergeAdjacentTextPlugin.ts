@@ -1,4 +1,4 @@
-import type { PhrasingContent, Root, RootContent, Text } from 'mdast';
+import { type PhrasingContent, type Root, type RootContent, type Text } from 'mdast';
 
 function mergeAdjacentText<T extends PhrasingContent | RootContent>(nodes: T[]): Array<T | Text> {
     const result: Array<T | Text> = [];

@@ -1,5 +1,5 @@
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
-import type { SnapshotActivity } from '@/providers/snapshot/type.js';
+import { type SnapshotActivity } from '@/providers/snapshot/type.js';
 import { type FireflySnapshotActivity, WatchType } from '@/providers/types/Firefly.js';
 
 export function formatSnapshotActivityFromFirefly(snapshot: FireflySnapshotActivity): SnapshotActivity {

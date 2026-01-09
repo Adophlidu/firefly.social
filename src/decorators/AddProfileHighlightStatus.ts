@@ -6,9 +6,9 @@ import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { resolveSourceInUrlForApi } from '@/helpers/resolveSourceInUrl.js';
 import { runInSafe, runInSafeAsync } from '@/helpers/runInSafe.js';
 import { checkGenesisSparksAccounts } from '@/providers/firefly/endpoint/checkGenesisSparksAccounts.js';
-import type { SparksAccountInfo } from '@/providers/types/Firefly.js';
-import type { Post, Provider } from '@/providers/types/SocialMedia.js';
-import type { ClassType } from '@/types/utility.js';
+import { type SparksAccountInfo } from '@/providers/types/Firefly.js';
+import { type Post, type Provider } from '@/providers/types/SocialMedia.js';
+import { type ClassType } from '@/types/utility.js';
 
 function isSameProfileId(platform: SourceInURL, a: string, b: string) {
     if (platform === SourceInURL.Lens) {

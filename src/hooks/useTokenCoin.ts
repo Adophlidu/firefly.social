@@ -1,7 +1,7 @@
 import { pick } from 'lodash-es';
 import { useCallback } from 'react';
 
-import type { SearchTokenInfo } from '@/providers/types/Firefly.js';
+import { type SearchTokenInfo } from '@/providers/types/Firefly.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
 
 export function useTokenCoin(symbol: string | undefined) {

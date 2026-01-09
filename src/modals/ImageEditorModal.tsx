@@ -3,7 +3,7 @@ import { Trans } from '@lingui/react/macro';
 import { useState } from 'react';
 
 import { BackButton } from '@/components/IconButton.js';
-import type { ImageEditorContentProps } from '@/components/ImageEditorContent.js';
+import { type ImageEditorContentProps } from '@/components/ImageEditorContent.js';
 import { Loading } from '@/components/Loading.js';
 import { Modal } from '@/components/Modal.js';
 import { dynamic } from '@/esm/dynamic.js';

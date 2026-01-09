@@ -1,4 +1,4 @@
-import { MessageType, UserDataType } from '@/constants/farcaster.js';
+import { MessageType, type UserDataType } from '@/constants/farcaster.js';
 import { publishMessage } from '@/providers/neynar/publishMessage.js';
 
 export async function userDataAdd(type: UserDataType, value: string) {

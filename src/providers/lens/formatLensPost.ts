@@ -28,7 +28,13 @@ import { formatLensPostOperations, formatLensPostStats } from '@/providers/lens/
 import { formatLensProfileByMention, formatLensProfileV3 } from '@/providers/lens/formatLensProfile.js';
 import { isMutedLensAccount } from '@/providers/lens/isMutedLensAccount.js';
 import { LensMetadataAttributeKey } from '@/providers/types/Lens.js';
-import type { Attachment, MediaObject, Post, PostType, Profile } from '@/providers/types/SocialMedia.js';
+import {
+    type Attachment,
+    type MediaObject,
+    type Post,
+    type PostType,
+    type Profile,
+} from '@/providers/types/SocialMedia.js';
 
 const PLACEHOLDER_IMAGE = 'https://static-assets.hey.xyz/images/placeholder.webp';
 

@@ -11,7 +11,7 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Switch } from '@/components/Switch/index.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
-import type { NotificationPlatform, NotificationPushType } from '@/providers/types/Firefly.js';
+import { type NotificationPlatform, type NotificationPushType } from '@/providers/types/Firefly.js';
 
 interface NotificationConfigItemProps {
     label: ReactNode;

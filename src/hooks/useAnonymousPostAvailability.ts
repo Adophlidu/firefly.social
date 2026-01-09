@@ -6,7 +6,7 @@ import { type SocialSource, Source, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { getPostByAnonymousRateLimits } from '@/providers/firefly/endpoint/getPostByAnonymousRateLimits.js';
-import type { PostByAnonymousRateLimitsResponse } from '@/providers/types/Firefly.js';
+import { type PostByAnonymousRateLimitsResponse } from '@/providers/types/Firefly.js';
 
 export function useAnonymousPostAvailability(): {
     data: PostByAnonymousRateLimitsResponse['data'];

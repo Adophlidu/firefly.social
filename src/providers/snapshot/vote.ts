@@ -5,8 +5,8 @@ import { SNAPSHOT_RELAY_URL, SNAPSHOT_SEQ_URL } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { SNAPSHOT_NAME, SNAPSHOT_VERSION } from '@/providers/snapshot/constants.js';
-import type { SnapshotChoice } from '@/providers/snapshot/type.js';
 import {
+    type SnapshotChoice,
     vote2Types,
     voteArray2Types,
     voteArrayTypes,

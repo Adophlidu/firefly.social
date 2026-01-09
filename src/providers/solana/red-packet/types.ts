@@ -1,4 +1,4 @@
-import { web3 } from '@coral-xyz/anchor';
+import { type web3 } from '@coral-xyz/anchor';
 
 /**
  * Context for creating a red packet with native token.

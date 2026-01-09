@@ -1,5 +1,5 @@
 import { classNames } from '@dimensiondev/utils';
-import type { PropsWithChildren, ReactNode } from 'react';
+import { type PropsWithChildren, type ReactNode } from 'react';
 
 export function ContentCard({
     label,

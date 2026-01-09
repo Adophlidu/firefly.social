@@ -5,7 +5,7 @@ import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getProfileEventParameters } from '@/providers/telemetry/getProfileEventParameters.js';
 import { getWalletEventParameters } from '@/providers/telemetry/getWalletEventParameters.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import { type Profile } from '@/providers/types/SocialMedia.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 
 type ProfileActionType = 'follow' | 'unfollow' | 'super_follow' | 'super_follow_submit';

@@ -1,7 +1,7 @@
 import { safeUnreachable } from '@dimensiondev/utils';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
-import type { Channel } from '@/providers/types/SocialMedia.js';
+import { type Channel } from '@/providers/types/SocialMedia.js';
 
 function getChannelName(source: SocialSource, name: string, channelPrefix = true) {
     if (!channelPrefix || !name) return name;

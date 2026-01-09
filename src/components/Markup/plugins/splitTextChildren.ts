@@ -1,4 +1,4 @@
-import type { Link, Text } from 'mdast';
+import { type Link, type Text } from 'mdast';
 
 type Node = Link | Text;
 

@@ -4,7 +4,7 @@ import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
-import type { Address } from 'viem';
+import { type Address } from 'viem';
 import { useChainId, useConnection, useSwitchChain } from 'wagmi';
 
 import WebsiteIcon from '@/assets/website-circle.svg';
@@ -17,7 +17,7 @@ import { useSponsorMintStatus } from '@/hooks/useSponsorMintStatus.js';
 import { FreeMintModal, FreeMintModalRef } from '@/modals/FreeMintModal/index.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
 import { captureNFTMintClickEvent, captureNFTViewWebsiteClickEvent } from '@/providers/telemetry/captureClickEvent.js';
-import type { SponsorMintOptions } from '@/providers/types/Firefly.js';
+import { type SponsorMintOptions } from '@/providers/types/Firefly.js';
 
 function getMintButtonText(mintStatus?: MintStatus) {
     if (!mintStatus) return <Trans>Unknown status</Trans>;

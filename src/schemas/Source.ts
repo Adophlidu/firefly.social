@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { SourceInURL } from '@/constants/enum.js';
+import { type SourceInURL } from '@/constants/enum.js';
 import { narrowToSocialSourceInURL } from '@/helpers/narrowToSocialSource.js';
 import { resolveSocialSource, resolveSource } from '@/helpers/resolveSource.js';
 

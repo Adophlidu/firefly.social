@@ -2,13 +2,13 @@ import { NotFoundError } from '@dimensiondev/utils';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { notFound } from 'next/navigation.js';
 
-import type { PostEngagementListProps } from '@/components/Engagement/type.js';
+import { type PostEngagementListProps } from '@/components/Engagement/type.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { ProfileInList } from '@/components/ProfileInList.js';
 import { ScrollListKey } from '@/constants/enum.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import { type Profile } from '@/providers/types/SocialMedia.js';
 
 function getLikeReactorContent(index: number, profile: Profile, listKey: string) {
     return <ProfileInList key={profile.profileId} profile={profile} index={index} listKey={listKey} />;

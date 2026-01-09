@@ -2,10 +2,10 @@ import { safeUnreachable } from '@dimensiondev/utils';
 import { memo } from 'react';
 
 import { TokenCard } from '@/components/EmbedCards/TokenCard.js';
-import type { AddressCardProps } from '@/components/EmbedCards/types.js';
+import { type AddressCardProps } from '@/components/EmbedCards/types.js';
 import { CollectionPreviewer } from '@/components/NFTs/NFTPreview.js';
 import { useNFTCollection } from '@/hooks/useNFTCollection.js';
-import type { DetectedAddress } from '@/providers/types/Firefly.js';
+import { type DetectedAddress } from '@/providers/types/Firefly.js';
 
 interface ContractCardProps extends AddressCardProps {
     chainId: number;

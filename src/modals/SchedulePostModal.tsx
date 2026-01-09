@@ -7,7 +7,7 @@ import { Modal } from '@/components/Modal.js';
 import { stopEvent } from '@/helpers/stopEvent.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
-import type { ScheduleTask } from '@/providers/types/Firefly.js';
+import { type ScheduleTask } from '@/providers/types/Firefly.js';
 
 interface SchedulePostModalOpenProps {
     action: 'create' | 'update';

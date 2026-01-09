@@ -5,7 +5,7 @@ import { immer } from 'zustand/middleware/immer';
 import { NotificationSourceType } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/static.js';
 import { createSelectors } from '@/helpers/createSelector.js';
-import type { SearchTokenInfo } from '@/providers/types/Firefly.js';
+import { type SearchTokenInfo } from '@/providers/types/Firefly.js';
 
 /** critical data to identify a coin */
 type StoredCoinInfo = Pick<SearchTokenInfo, 'id' | 'chain' | 'contract_address'>;

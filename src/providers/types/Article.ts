@@ -1,6 +1,6 @@
-import type { Address } from 'viem';
+import { type Address } from 'viem';
 
-import type { FireflyDisplayInfo, FollowingSource } from '@/providers/types/Firefly.js';
+import { type FireflyDisplayInfo, type FollowingSource } from '@/providers/types/Firefly.js';
 
 export enum ArticlePlatform {
     Mirror = 'mirror',

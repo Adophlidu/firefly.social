@@ -1,7 +1,7 @@
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
-import { BigNumber } from 'bignumber.js';
+import { type BigNumber } from 'bignumber.js';
 import { type HTMLProps, memo, type ReactNode } from 'react';
 
 import { ChainIcon } from '@/components/ChainIcon.js';
@@ -9,7 +9,7 @@ import { chains } from '@/configs/chains.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { isZero, leftShift, multipliedBy, plus } from '@/helpers/number.js';
 import { getFungibleTokenPrice } from '@/providers/coingecko/getFungibleTokenPrice.js';
-import type { MintMetadata } from '@/providers/types/Firefly.js';
+import { type MintMetadata } from '@/providers/types/Firefly.js';
 import { EVMChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
 
 interface MintParamsPanelProps extends HTMLProps<HTMLUListElement> {

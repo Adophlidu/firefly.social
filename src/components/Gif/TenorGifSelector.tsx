@@ -7,7 +7,7 @@ import { TenorGifList } from '@/components/Gif/TenorGifList.js';
 import { Loading } from '@/components/Loading.js';
 import { SearchInput } from '@/components/Search/SearchInput.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import type { IGif } from '@/types/giphy.js';
+import { type IGif } from '@/types/giphy.js';
 
 interface TenorGifSelectorProps {
     onSelected: (gif: IGif) => void;

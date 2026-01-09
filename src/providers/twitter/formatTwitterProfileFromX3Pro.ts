@@ -3,10 +3,9 @@ import urlcat from 'urlcat';
 import { Source } from '@/constants/enum.js';
 import { TWITTER_MENTION_REGEX } from '@/constants/regexp.js';
 import { X3_PRO_AVATAR_URL } from '@/constants/static.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
-import { ProfileStatus } from '@/providers/types/SocialMedia.js';
+import { type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
 import { formatX3Id } from '@/providers/x3pro/formatX3Id.js';
-import type { Profile as X3ProProfile } from '@/providers/x3pro/types.js';
+import { type Profile as X3ProProfile } from '@/providers/x3pro/types.js';
 
 export function formatTwitterProfileFromX3Pro(user: X3ProProfile): Profile<X3ProProfile> {
     const bio = user.introLinks?.reduce(

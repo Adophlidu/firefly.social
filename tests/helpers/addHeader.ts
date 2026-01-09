@@ -50,7 +50,7 @@ describe('addHeader', () => {
 
     describe('when headers is an array', () => {
         test('should add new header when key does not exist (force=false by default)', () => {
-            const headers: [string, string][] = [['Content-Type', 'text/plain']];
+            const headers: Array<[string, string]> = [['Content-Type', 'text/plain']];
             const result = addHeader(headers, 'Authorization', 'Bearer token');
 
             expect(Array.isArray(result)).toBe(true);
@@ -60,7 +60,7 @@ describe('addHeader', () => {
         });
 
         test('should not add header when force=false (default) and key exists', () => {
-            const headers: [string, string][] = [['Content-Type', 'text/plain']];
+            const headers: Array<[string, string]> = [['Content-Type', 'text/plain']];
             const result = addHeader(headers, 'Content-Type', 'application/json');
 
             expect(result).toBe(headers); // Should return original array unchanged
@@ -69,7 +69,7 @@ describe('addHeader', () => {
         });
 
         test('should add duplicate header when force=true', () => {
-            const headers: [string, string][] = [['Content-Type', 'text/plain']];
+            const headers: Array<[string, string]> = [['Content-Type', 'text/plain']];
             const result = addHeader(headers, 'Content-Type', 'application/json', true);
 
             expect(Array.isArray(result)).toBe(true);
@@ -79,7 +79,7 @@ describe('addHeader', () => {
         });
 
         test('should add new header when force=false and key does not exist', () => {
-            const headers: [string, string][] = [['Content-Type', 'text/plain']];
+            const headers: Array<[string, string]> = [['Content-Type', 'text/plain']];
             const result = addHeader(headers, 'Authorization', 'Bearer token', false);
 
             expect(Array.isArray(result)).toBe(true);
@@ -89,7 +89,7 @@ describe('addHeader', () => {
         });
 
         test('should create new array (not mutate original)', () => {
-            const headers: [string, string][] = [['Content-Type', 'text/plain']];
+            const headers: Array<[string, string]> = [['Content-Type', 'text/plain']];
             const result = addHeader(headers, 'Authorization', 'Bearer token');
 
             expect(result).not.toBe(headers);
@@ -97,7 +97,7 @@ describe('addHeader', () => {
         });
 
         test('should handle empty array', () => {
-            const headers: [string, string][] = [];
+            const headers: Array<[string, string]> = [];
             const result = addHeader(headers, 'Authorization', 'Bearer token');
 
             expect(Array.isArray(result)).toBe(true);
@@ -268,7 +268,7 @@ describe('addHeaders', () => {
     });
 
     test('should add multiple headers to array headers', () => {
-        const headers: [string, string][] = [['X-Custom', 'value1']];
+        const headers: Array<[string, string]> = [['X-Custom', 'value1']];
         const otherHeaders = {
             'Content-Type': 'application/json',
             Authorization: 'Bearer token',

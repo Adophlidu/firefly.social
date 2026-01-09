@@ -1,7 +1,7 @@
 import urlcat from 'urlcat';
 
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import type { Response } from '@/providers/types/Firefly.js';
+import { type Response } from '@/providers/types/Firefly.js';
 import { encryptPasscode } from '@/services/crypto.js';
 import { settings } from '@/settings/index.js';
 

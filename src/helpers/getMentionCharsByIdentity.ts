@@ -5,7 +5,7 @@ import { CharTag, FireflyPlatform, type SocialSource, Source } from '@/constants
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
 import { resolveFireflyPlatform } from '@/helpers/resolveFireflyPlatform.js';
 import { getAllPlatformProfileByIdentity } from '@/providers/firefly/endpoint/getAllPlatformProfileByIdentity.js';
-import type { FireflyIdentity, FireflyProfile } from '@/providers/types/Firefly.js';
+import { type FireflyIdentity, type FireflyProfile } from '@/providers/types/Firefly.js';
 import { type MentionChars } from '@/types/chars.js';
 
 function getMatchedMentionProfile(fireflyProfiles: FireflyProfile[], source: SocialSource) {

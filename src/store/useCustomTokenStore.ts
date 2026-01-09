@@ -1,11 +1,11 @@
 import { safeUnreachable } from '@dimensiondev/utils';
-import type { Address } from 'viem';
+import { type Address } from 'viem';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
 import { createPersistStorage } from '@/helpers/createPersistStorage.js';
-import { EthereumChainId } from '@/web3-shared/evm/types.js';
+import { type EthereumChainId } from '@/web3-shared/evm/types.js';
 
 export enum CustomTokenType {
     ERC20 = 'ERC20',

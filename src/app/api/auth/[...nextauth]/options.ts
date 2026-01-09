@@ -1,7 +1,7 @@
 /* cspell:disable */
 
-import type { AuthOptions } from 'next-auth';
-import type { Provider } from 'next-auth/providers/index';
+import { type AuthOptions } from 'next-auth';
+import { type Provider } from 'next-auth/providers/index';
 
 import { NODE_ENV } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';

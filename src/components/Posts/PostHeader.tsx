@@ -23,7 +23,7 @@ import { stopPropagation } from '@/helpers/stopEvent.js';
 import { useIsPostDetailPage } from '@/hooks/post/useIsPostDetailPage.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useProfileHighlighted } from '@/hooks/useProfileHighlighted.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
+import { type Post } from '@/providers/types/SocialMedia.js';
 
 interface PostHeaderProps {
     post: Post;

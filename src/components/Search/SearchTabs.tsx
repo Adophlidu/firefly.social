@@ -7,7 +7,7 @@ import { type JSX, memo, useMemo } from 'react';
 
 import { Link } from '@/components/Link.js';
 import { SORTED_SEARCH_TYPE, SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
-import { ClubType, SearchType, type SocialSource, Source } from '@/constants/enum.js';
+import { type ClubType, SearchType, type SocialSource, Source } from '@/constants/enum.js';
 import { NFT_ENABLED } from '@/constants/static.js';
 import { usePathname } from '@/esm/navigation.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';

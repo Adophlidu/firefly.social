@@ -1,6 +1,6 @@
 'use client';
 
-import type { PropsWithChildren, ReactNode } from 'react';
+import { type PropsWithChildren, type ReactNode } from 'react';
 
 import { useSelectedLayoutSegments } from '@/esm/navigation.js';
 

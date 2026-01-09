@@ -18,7 +18,7 @@ import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
 import { fireflyWalletProvider } from '@/providers/firefly/Wallet.js';
-import type { WalletProfile } from '@/providers/types/Firefly.js';
+import { type WalletProfile } from '@/providers/types/Firefly.js';
 
 interface WalletItemProps {
     profile: WalletProfile;

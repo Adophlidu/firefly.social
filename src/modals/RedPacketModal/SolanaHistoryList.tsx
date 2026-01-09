@@ -2,7 +2,7 @@ import { memo, useCallback } from 'react';
 
 import { useRedPacketHistory } from '@/components/RedPacket/hooks/useRedPacketHistory.js';
 import { HistoryList } from '@/modals/RedPacketModal/HistoryList.js';
-import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
+import { type FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 
 interface SolanaHistoryListProps {
     address: string;

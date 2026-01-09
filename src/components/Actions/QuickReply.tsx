@@ -7,10 +7,10 @@ import SendIcon from '@/assets/send.svg';
 import { ActionButton } from '@/components/ActionButton.js';
 import { Avatar } from '@/components/Avatar.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
-import type { SocialSource } from '@/constants/enum.js';
+import { type SocialSource } from '@/constants/enum.js';
 import { useCommentPost } from '@/hooks/useCommentPost.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
+import { type Post } from '@/providers/types/SocialMedia.js';
 
 interface QuickReplyProps {
     source: SocialSource;

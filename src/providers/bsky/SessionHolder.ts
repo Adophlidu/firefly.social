@@ -1,7 +1,7 @@
 import { PUBLIC_SERVICE_URL } from '@/constants/bsky.js';
 import { SessionHolder } from '@/providers/base/SessionHolder.js';
 import { createBskyPublicAgent, createBskySessionAgent } from '@/providers/bsky/createBskyAgent.js';
-import { BskySession } from '@/providers/bsky/Session.js';
+import { type BskySession } from '@/providers/bsky/Session.js';
 
 class BskySessionHolder extends SessionHolder<BskySession> {
     private _agent = createBskyPublicAgent(PUBLIC_SERVICE_URL);

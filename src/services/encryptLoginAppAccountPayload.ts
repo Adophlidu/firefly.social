@@ -5,7 +5,7 @@ import { encrypt } from '@/helpers/encodec.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
-import type { AuthDataFromApp } from '@/services/loginWithAppScan.js';
+import { type AuthDataFromApp } from '@/services/loginWithAppScan.js';
 
 interface AuthDataToUpload extends AuthDataFromApp {
     account_id?: string;

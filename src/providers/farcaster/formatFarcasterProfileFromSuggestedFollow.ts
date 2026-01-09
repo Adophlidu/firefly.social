@@ -1,7 +1,7 @@
 import { Source } from '@/constants/enum.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { parseFarcasterBioContext } from '@/providers/farcaster/formatFarcasterProfileFromFirefly.js';
-import type { FarcasterSuggestedFollowUser } from '@/providers/types/Firefly.js';
+import { type FarcasterSuggestedFollowUser } from '@/providers/types/Firefly.js';
 import { type Profile } from '@/providers/types/SocialMedia.js';
 
 export function formatFarcasterProfileFromSuggestedFollow(user: FarcasterSuggestedFollowUser): Profile {

@@ -2,8 +2,7 @@
 
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
-import type { HTMLProps, ReactNode } from 'react';
-import { memo } from 'react';
+import { type HTMLProps, memo, type ReactNode } from 'react';
 
 import CloseIcon from '@/assets/close.svg';
 import CloseCircleIcon from '@/assets/close-circle.svg';

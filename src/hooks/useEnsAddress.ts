@@ -1,5 +1,5 @@
 import { skipToken, useQueries, useQuery } from '@tanstack/react-query';
-import type { Address } from 'viem';
+import { type Address } from 'viem';
 import { mainnet } from 'viem/chains';
 import { type GetEnsAddressParameters } from 'wagmi/actions';
 

@@ -1,26 +1,26 @@
-import type { BlobRef } from '@atproto/api';
+import { type BlobRef } from '@atproto/api';
 
 import {
     type BookmarkType,
     type FireflyPlatform,
-    Locale,
+    type Locale,
     type ProfileSource,
     type RestrictionType,
     type SocialSource,
 } from '@/constants/enum.js';
-import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
-import type { Account } from '@/providers/types/Account.js';
-import type {
-    FireflyIdentity,
-    NotificationSettings,
-    ScheduleNotification,
-    TipsNotification,
-    UnifiedNotification,
-    WalletProfile,
+import { type Pageable, type PageIndicator } from '@/helpers/pageable.js';
+import { type Account } from '@/providers/types/Account.js';
+import {
+    type FireflyIdentity,
+    type NotificationSettings,
+    type ScheduleNotification,
+    type TipsNotification,
+    type UnifiedNotification,
+    type WalletProfile,
 } from '@/providers/types/Firefly.js';
-import type { Poll } from '@/providers/types/Poll.js';
-import type { Session } from '@/providers/types/Session.js';
-import type { RedPacketPayload } from '@/types/rp.js';
+import { type Poll } from '@/providers/types/Poll.js';
+import { type Session } from '@/providers/types/Session.js';
+import { type RedPacketPayload } from '@/types/rp.js';
 
 // Strictly match the ProfileSource
 export enum SessionType {

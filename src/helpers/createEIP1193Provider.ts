@@ -1,7 +1,7 @@
 import { noop } from 'lodash-es';
 
 import { logger } from '@/libs/Logger.js';
-import type { RequestArguments } from '@/types/ethereum.js';
+import { type RequestArguments } from '@/types/ethereum.js';
 
 export function createEIP1193Provider(request: (requestArguments: RequestArguments) => Promise<unknown>) {
     return {

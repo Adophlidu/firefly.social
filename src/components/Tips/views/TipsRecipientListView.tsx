@@ -9,7 +9,7 @@ import { TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { captureTipsSwitchWalletEvent } from '@/providers/telemetry/captureTipsEvent.js';
-import type { FireflyTipsProfile } from '@/providers/types/Firefly.js';
+import { type FireflyTipsProfile } from '@/providers/types/Firefly.js';
 import { useTipsStore } from '@/store/useTipsStore.js';
 
 export function TipsRecipientListView() {

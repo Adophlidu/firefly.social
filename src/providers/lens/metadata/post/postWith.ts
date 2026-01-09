@@ -1,7 +1,7 @@
-import type { z } from 'zod';
+import { type z } from 'zod';
 
 import { SignatureSchema } from '@/providers/lens/metadata/Base.js';
-import type { metadataDetailsWith } from '@/providers/lens/metadata/post/metadataDetailsWith.js';
+import { type metadataDetailsWith } from '@/providers/lens/metadata/post/metadataDetailsWith.js';
 import { nftMetadataSchemaWith } from '@/providers/lens/metadata/post/nftMetadataSchemaWith.js';
 
 export function postWith<

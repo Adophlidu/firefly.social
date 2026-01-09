@@ -4,7 +4,7 @@ import { type Hex, toHex } from 'viem';
 import { NOT_DEPEND_SECRET } from '@/constants/static.js';
 import { getFarcasterProfileById } from '@/providers/farcaster/getFarcasterProfileById.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
-import type { Account } from '@/providers/types/Account.js';
+import { type Account } from '@/providers/types/Account.js';
 import { createSignedKey } from '@/providers/warpcast/createSignedKey.js';
 import { createSignedKeyPayloadWithPublicKey } from '@/providers/warpcast/createSignedKeyPayload.js';
 import { pollingSignerRequestToken } from '@/providers/warpcast/pollingSignerRequestToken.js';

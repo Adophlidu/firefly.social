@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import { compact, first, last } from 'lodash-es';
-import type { ApiV2Includes, TweetV2 } from 'twitter-api-v2';
+import { type ApiV2Includes, type TweetV2 } from 'twitter-api-v2';
 import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';
@@ -16,8 +16,8 @@ import { formatTwitterProfile, formatTwitterProfileStatus } from '@/providers/tw
 import { formatTwitterProfileFromNitter } from '@/providers/twitter/formatTwitterProfileFromNitter.js';
 import { getTwitterNitterPicOrigUrl, getTwitterNitterPicUrl } from '@/providers/twitter/getTwitterNitterPicUrl.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
-import type { Tweet } from '@/providers/types/Nitter.js';
-import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
+import { type Tweet } from '@/providers/types/Nitter.js';
+import { type Attachment, type Post } from '@/providers/types/SocialMedia.js';
 
 function parseTweetText(text: string) {
     const document = parseHtml(`<div>${text}</div>`);

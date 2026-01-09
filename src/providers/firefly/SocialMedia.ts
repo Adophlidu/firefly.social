@@ -35,7 +35,7 @@ import { getFarcasterProfileById } from '@/providers/farcaster/getFarcasterProfi
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
-import type { Account } from '@/providers/types/Account.js';
+import { type Account } from '@/providers/types/Account.js';
 import {
     type BlockChannelResponse,
     type BlockedChannelsResponse,
@@ -63,7 +63,7 @@ import {
     type User,
     type UsersResponse,
 } from '@/providers/types/Firefly.js';
-import type { Session } from '@/providers/types/Session.js';
+import { type Session } from '@/providers/types/Session.js';
 import {
     type Channel,
     type Notification,

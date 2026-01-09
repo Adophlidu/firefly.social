@@ -1,7 +1,7 @@
 import { type SocialSource } from '@/constants/enum.js';
 import { deletePostFromQueryData } from '@/helpers/deletePostFromQueryData.js';
-import type { Post, Provider } from '@/providers/types/SocialMedia.js';
-import type { ClassType } from '@/types/utility.js';
+import { type Post, type Provider } from '@/providers/types/SocialMedia.js';
+import { type ClassType } from '@/types/utility.js';
 
 export function SetQueryDataForReportPost(source: SocialSource) {
     return function decorator<T extends ClassType<Provider>>(target: T): T {

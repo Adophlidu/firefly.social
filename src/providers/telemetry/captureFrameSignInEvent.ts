@@ -4,7 +4,7 @@ import { isFrameV1, isFrameV2 } from '@/helpers/frame.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import { EventId } from '@/providers/types/Telemetry.js';
-import type { Frame } from '@/types/frame.js';
+import { type Frame } from '@/types/frame.js';
 
 const resolveEventId = (type: 'siwf' | 'auth-wallet' | 'mnemonic' | 'firefly-wallet') => {
     switch (type) {

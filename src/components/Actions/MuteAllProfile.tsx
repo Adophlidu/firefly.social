@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/react/macro';
 import { type HTMLProps, memo } from 'react';
 import { useAsyncFn } from 'react-use';
-import type { Address } from 'viem';
+import { type Address } from 'viem';
 
 import MuteIcon from '@/assets/mute.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
@@ -22,8 +22,8 @@ import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
 import { isProfileMutedAll } from '@/providers/firefly/endpoint/isProfileMutedAll.js';
 import { muteProfileAll } from '@/providers/firefly/endpoint/muteProfileAll.js';
 import { captureMuteEvent } from '@/providers/telemetry/captureMuteEvent.js';
-import type { FireflyIdentity } from '@/providers/types/Firefly.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import { type FireflyIdentity } from '@/providers/types/Firefly.js';
+import { type Profile } from '@/providers/types/SocialMedia.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import { muteAllSocialProfiles } from '@/services/muteAllSocialProfiles.js';
 

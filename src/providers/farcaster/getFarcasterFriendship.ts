@@ -2,8 +2,8 @@ import urlcat from 'urlcat';
 
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
-import type { FriendshipResponse } from '@/providers/types/Firefly.js';
-import type { Friendship } from '@/providers/types/SocialMedia.js';
+import { type FriendshipResponse } from '@/providers/types/Firefly.js';
+import { type Friendship } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
 
 export async function getFarcasterFriendship(sourceFid: string, destFid: string) {

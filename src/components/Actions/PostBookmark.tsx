@@ -6,7 +6,7 @@ import { BookmarkType } from '@/constants/enum.js';
 import { resolveFireflyPlatformFromSocialSource } from '@/helpers/resolveFireflyPlatform.js';
 import { useHasBookmarked } from '@/hooks/useHasBookmarked.js';
 import { useToggleBookmark } from '@/hooks/useToggleBookmark.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
+import { type Post } from '@/providers/types/SocialMedia.js';
 
 interface PostBookmarkProps extends HTMLProps<HTMLButtonElement> {
     post: Post;

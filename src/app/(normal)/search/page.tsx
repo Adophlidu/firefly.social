@@ -1,11 +1,11 @@
 import { msg } from '@lingui/core/macro';
 
-import type { SearchType } from '@/constants/enum.js';
+import { type SearchType } from '@/constants/enum.js';
 import { redirect } from '@/esm/navigation/server.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
-import type { NextPageProps } from '@/types/utility.js';
+import { type NextPageProps } from '@/types/utility.js';
 
 interface Props extends NextPageProps<{}, { type: SearchType; q: string }> {}
 

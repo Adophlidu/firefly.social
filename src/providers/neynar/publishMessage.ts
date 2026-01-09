@@ -4,7 +4,7 @@ import urlcat from 'urlcat';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { encodeMessageData, type WithMessageData } from '@/providers/neynar/encodeMessageData.js';
-import type { Response } from '@/providers/types/Firefly.js';
+import { type Response } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 export async function publishMessage<T>(withMessageData: WithMessageData) {

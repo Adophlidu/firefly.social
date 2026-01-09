@@ -1,8 +1,8 @@
 import { produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
-import type { PageData } from '@/decorators/types.js';
-import type { BetsActivity } from '@/providers/types/Firefly.js';
+import { type PageData } from '@/decorators/types.js';
+import { type BetsActivity } from '@/providers/types/Firefly.js';
 
 export function patchBetsActivityData(updater: (item: BetsActivity) => void) {
     const patcher = (old?: PageData<BetsActivity>) => {

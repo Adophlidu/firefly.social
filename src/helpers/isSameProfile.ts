@@ -1,6 +1,6 @@
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
-import type { FireflyIdentity, Profile as FireflyProfile } from '@/providers/types/Firefly.js';
-import type { Profile, ProfileLike } from '@/providers/types/SocialMedia.js';
+import { type FireflyIdentity, type Profile as FireflyProfile } from '@/providers/types/Firefly.js';
+import { type Profile, type ProfileLike } from '@/providers/types/SocialMedia.js';
 
 export function isSameProfile(profile: ProfileLike | null | undefined, otherProfile: ProfileLike | null | undefined) {
     if (!profile || !otherProfile) return false;

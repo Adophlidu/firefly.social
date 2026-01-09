@@ -1,9 +1,9 @@
 import { produce } from 'immer';
 
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
-import type { Post, Provider } from '@/providers/types/SocialMedia.js';
+import { type Post, type Provider } from '@/providers/types/SocialMedia.js';
 import { useTwitterLikeStore } from '@/store/useTwitterLikeStore.js';
-import type { ClassType } from '@/types/utility.js';
+import { type ClassType } from '@/types/utility.js';
 
 function addLikeStatusToTweet(profileId: string, post: Post): Post {
     return produce(post, (draft) => {

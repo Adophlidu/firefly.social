@@ -12,7 +12,7 @@ import { farcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.
 import { lensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { capturePostActionEvent } from '@/providers/telemetry/capturePostActionEvent.js';
 import { twitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
+import { type Post } from '@/providers/types/SocialMedia.js';
 
 export function useMirror(post: Post) {
     const { postId, source, hasMirrored } = post;

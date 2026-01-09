@@ -1,4 +1,4 @@
-import type { EVM } from '@/providers/nft-scan/types.js';
+import { type EVM } from '@/providers/nft-scan/types.js';
 
 export function fixCollection(collection: EVM.Collection): EVM.Collection {
     return {

@@ -12,7 +12,7 @@ import { formatPolymarketNumber } from '@/components/Polymarket/formatPolymarket
 import { Source } from '@/constants/enum.js';
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
-import type { PolymarketRankItem } from '@/providers/firefly/bets/getPolymarketRank.js';
+import { type PolymarketRankItem } from '@/providers/firefly/bets/getPolymarketRank.js';
 
 interface BetsLeaderboardItemProps {
     item: PolymarketRankItem;

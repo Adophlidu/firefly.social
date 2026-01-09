@@ -1,10 +1,13 @@
+import '@/app/globals.css';
+
+import { i18n } from '@lingui/core';
+import { type Preview } from '@storybook/nextjs-vite';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { Buffer } from 'buffer';
+import type { ComponentType } from 'react';
+
 import { LinguiClientProvider } from '@/components/LinguiClientProvider.js';
 import { WagmiProvider } from '@/components/WagmiProvider.js';
-import { i18n } from '@lingui/core';
-import type { Preview } from '@storybook/nextjs-vite';
-import '../src/app/globals.css';
-import { Buffer } from 'buffer';
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -17,8 +20,9 @@ const queryClient = new QueryClient({
 
 i18n.activate('en');
 globalThis.Buffer = Buffer;
+
 export const decorators = [
-    (Story) => {
+    (Story: ComponentType) => {
         return (
             <LinguiClientProvider>
                 <WagmiProvider>

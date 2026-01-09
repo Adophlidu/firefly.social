@@ -1,6 +1,6 @@
 import { env } from '@/constants/env.js';
 import { SITE_URL } from '@/constants/static.js';
-import type { NextFetchersOptions } from '@/helpers/fetch.js';
+import { type NextFetchersOptions } from '@/helpers/fetch.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 
 export function fetchOrbJson<T>(url: string, init?: RequestInit, options?: NextFetchersOptions) {

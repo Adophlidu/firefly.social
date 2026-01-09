@@ -8,20 +8,20 @@ import { fetch } from '@/helpers/fetch.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { getDidServiceHost } from '@/helpers/getDidServiceHost.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
-import type { BskySession } from '@/providers/bsky/Session.js';
+import { type BskySession } from '@/providers/bsky/Session.js';
 import { patchFarcasterSessionRequired } from '@/providers/farcaster/patchFarcasterSessionRequired.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { loginTelegram } from '@/providers/firefly/auth/loginTelegram.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
-import type { LensSession } from '@/providers/lens/Session.js';
-import type { ThirdPartySession } from '@/providers/third-party/Session.js';
+import { type LensSession } from '@/providers/lens/Session.js';
+import { type ThirdPartySession } from '@/providers/third-party/Session.js';
 import { resolveTwitterResponseData } from '@/providers/twitter/resolveTwitterResponseData.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
-import type { LoginResponse } from '@/providers/types/Firefly.js';
-import type { Session } from '@/providers/types/Session.js';
+import { type LoginResponse } from '@/providers/types/Firefly.js';
+import { type Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
-import type { ResponseJson } from '@/types/utility.js';
+import { type ResponseJson } from '@/types/utility.js';
 
 async function restoreFireflySessionFromLens(session: LensSession, signal?: AbortSignal) {
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v3/auth/lens/login');

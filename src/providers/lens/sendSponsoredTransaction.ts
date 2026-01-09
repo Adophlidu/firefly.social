@@ -1,4 +1,4 @@
-import type { Eip712TransactionRequest, TxHash } from '@lens-protocol/client';
+import { type Eip712TransactionRequest, type TxHash } from '@lens-protocol/client';
 
 import { LENS_CHAIN_ID } from '@/constants/static.js';
 import { sendCustomEip712Transaction } from '@/helpers/sendCustomEip712Transaction.js';

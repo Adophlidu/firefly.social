@@ -3,7 +3,7 @@ import { first } from 'lodash-es';
 import { Source } from '@/constants/enum.js';
 import { CHANNEL_REGEX, MENTION_REGEX } from '@/constants/regexp.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
-import type { FarcasterProfile, User } from '@/providers/types/Firefly.js';
+import { type FarcasterProfile, type User } from '@/providers/types/Firefly.js';
 import { type Profile } from '@/providers/types/SocialMedia.js';
 
 export function parseFarcasterBioContext(bio: string) {

@@ -2,9 +2,9 @@ import urlcat from 'urlcat';
 
 import { Locale } from '@/constants/enum.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
-import type { PageIndicator } from '@/helpers/pageable.js';
+import { type PageIndicator } from '@/helpers/pageable.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
-import type { RootdataPeopleResponse } from '@/providers/types/Firefly.js';
+import { type RootdataPeopleResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 export async function getTwitterTopPeople(indicator?: PageIndicator, locale?: Locale) {

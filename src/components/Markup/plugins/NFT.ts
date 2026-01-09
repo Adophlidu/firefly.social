@@ -1,4 +1,4 @@
-import type { Root } from 'mdast';
+import { type Root } from 'mdast';
 import flatMap from 'unist-util-flatmap';
 
 export function NFTPlugin() {

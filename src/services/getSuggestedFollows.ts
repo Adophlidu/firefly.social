@@ -3,7 +3,7 @@ import { type SocialSource, Source } from '@/constants/enum.js';
 import { getSessionFromStorageBySource } from '@/helpers/getSessionFromStorage.js';
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import { type Profile } from '@/providers/types/SocialMedia.js';
 
 async function getProfilesWithFixedTotal(
     queryCallback: (indicator?: PageIndicator) => Promise<Pageable<Profile>>,

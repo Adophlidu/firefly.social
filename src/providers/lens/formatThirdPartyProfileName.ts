@@ -1,7 +1,7 @@
 import { Source } from '@/constants/enum.js';
 import { EMAIL_REGEX } from '@/constants/regexp.js';
 import { formatEmail } from '@/helpers/formatEmail.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import { type Profile } from '@/providers/types/SocialMedia.js';
 
 export function formatThirdPartyProfileName(profile: Profile) {
     if (profile.profileSource === Source.Telegram) {

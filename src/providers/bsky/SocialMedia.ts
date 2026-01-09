@@ -1,4 +1,4 @@
-import { AppBskyActorProfile, AppBskyFeedDefs, moderatePost } from '@atproto/api';
+import { type AppBskyActorProfile, type AppBskyFeedDefs, moderatePost } from '@atproto/api';
 import { BlockedActorError } from '@atproto/api/dist/client/types/app/bsky/feed/getAuthorFeed.js';
 import { NotImplementedError, safeUnreachable } from '@dimensiondev/utils';
 import { isServer } from '@tanstack/react-query';
@@ -42,13 +42,13 @@ import { getBskyProfileBySession } from '@/providers/bsky/getBskyProfileBySessio
 import { getBskySuggestedUsers } from '@/providers/bsky/getBskySuggestedUsers.js';
 import { publishPostToBsky } from '@/providers/bsky/publishPostToBsky.js';
 import { resolveBskyResponseData, resolveBskyResponseDataAsync } from '@/providers/bsky/resolveBskyResponseData.js';
-import type { BskySession } from '@/providers/bsky/Session.js';
+import { type BskySession } from '@/providers/bsky/Session.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { fireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
-import type { Account } from '@/providers/types/Account.js';
-import type { BookmarkResponse, NotificationSettings, WalletProfile } from '@/providers/types/Firefly.js';
-import type { Session } from '@/providers/types/Session.js';
+import { type Account } from '@/providers/types/Account.js';
+import { type BookmarkResponse, type NotificationSettings, type WalletProfile } from '@/providers/types/Firefly.js';
+import { type Session } from '@/providers/types/Session.js';
 import {
     type Channel,
     type CommentNotification,
@@ -56,7 +56,7 @@ import {
     type Friendship,
     type MentionNotification,
     type MirrorNotification,
-    NetworkType,
+    type NetworkType,
     type Notification,
     NotificationType,
     type Post,

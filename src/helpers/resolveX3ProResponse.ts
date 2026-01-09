@@ -1,4 +1,4 @@
-import type { Response } from '@/providers/x3pro/types.js';
+import { type Response } from '@/providers/x3pro/types.js';
 
 export function resolveX3ProResponse<T>(res: Response<T>) {
     if (res.success) return res.data;

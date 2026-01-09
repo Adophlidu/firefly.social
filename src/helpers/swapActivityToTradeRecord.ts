@@ -2,8 +2,8 @@ import { Source } from '@/constants/enum.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { getWalletProfileAvatar } from '@/helpers/getWalletProfileAvatar.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
-import type { SwapActivity } from '@/providers/types/Firefly.js';
-import type { TradeRecord } from '@/types/token.js';
+import { type SwapActivity } from '@/providers/types/Firefly.js';
+import { type TradeRecord } from '@/types/token.js';
 
 export function swapActivityToTradeRecord(activity: SwapActivity, tokenAddress: string): TradeRecord | null {
     const isSell = isSameAddress(activity.from_token?.address, tokenAddress);

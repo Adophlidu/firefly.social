@@ -43,9 +43,9 @@ import { useIsPriceUp } from '@/hooks/useIsPriceUp.js';
 import { useSingleCoin } from '@/hooks/useSingleCoin.js';
 import { useTokenPrice } from '@/hooks/useTokenPrice.js';
 import { useTokenSecurity } from '@/hooks/useTokenSecurity.js';
-import type { CoinGeckoToken } from '@/providers/types/CoinGecko.js';
-import type { Contract } from '@/providers/types/Trending.js';
-import type { PriceRecord, TradeRecord } from '@/types/token.js';
+import { type CoinGeckoToken } from '@/providers/types/CoinGecko.js';
+import { type Contract } from '@/providers/types/Trending.js';
+import { type PriceRecord, type TradeRecord } from '@/types/token.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 function getRanges() {

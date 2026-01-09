@@ -1,7 +1,7 @@
 import { FormProvider, useForm } from 'react-hook-form';
 
 import { EditProfileForm, type ProfileFormValues } from '@/components/EditProfile/EditProfileForm.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import { type Profile } from '@/providers/types/SocialMedia.js';
 
 interface EditProfileDialogContentProps {
     profile: Profile;

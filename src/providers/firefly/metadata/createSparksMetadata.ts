@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import { type Metadata } from 'next';
 import urlcat from 'urlcat';
 
 import { FIREFLY_S3_URL, SITE_URL_OFFICIAL } from '@/constants/static.js';

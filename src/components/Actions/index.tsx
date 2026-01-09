@@ -22,7 +22,7 @@ import { useIsPostDetailPage } from '@/hooks/post/useIsPostDetailPage.js';
 import { useAsyncStatus } from '@/hooks/useAsyncStatus.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
+import { type Post } from '@/providers/types/SocialMedia.js';
 
 interface PostActionsWithGridProps extends HTMLProps<HTMLDivElement> {
     disablePadding?: boolean;

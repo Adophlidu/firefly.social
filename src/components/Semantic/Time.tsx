@@ -1,4 +1,4 @@
-import type { HTMLProps } from 'react';
+import { type HTMLProps } from 'react';
 
 interface TimeProps extends Omit<HTMLProps<HTMLTimeElement>, 'dateTime'> {
     dateTime: string | number | Date;

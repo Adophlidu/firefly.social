@@ -7,7 +7,7 @@ import { usePathname } from '@/esm/navigation.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useValueRef } from '@/hooks/useValueRef.js';
 import { ValueRef } from '@/libs/ValueRef.js';
-import type { Channel } from '@/providers/types/SocialMedia.js';
+import { type Channel } from '@/providers/types/SocialMedia.js';
 
 const currentVisitingChannel = new ValueRef<Channel | null>(null);
 

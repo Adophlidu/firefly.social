@@ -1,6 +1,6 @@
-import type { SocialSource } from '@/constants/enum.js';
+import { type SocialSource } from '@/constants/enum.js';
 import { POLL_STRATEGIES } from '@/constants/poll.js';
-import type { FireflyPoll, Poll } from '@/providers/types/Poll.js';
+import { type FireflyPoll, type Poll } from '@/providers/types/Poll.js';
 
 export function formatFireflyPoll(poll: FireflyPoll, source: SocialSource): Poll {
     return {

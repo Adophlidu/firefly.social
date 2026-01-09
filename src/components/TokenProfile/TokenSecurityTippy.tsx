@@ -3,7 +3,11 @@ import { type ReactElement } from 'react';
 
 import { InteractiveTippy } from '@/components/InteractiveTippy.js';
 import { RiskCard } from '@/components/TokenProfile/RiskCard.js';
-import { type AddressSecurity, SecurityMessageLevel, type TokenContractSecurity } from '@/providers/types/Security.js';
+import {
+    type AddressSecurity,
+    type SecurityMessageLevel,
+    type TokenContractSecurity,
+} from '@/providers/types/Security.js';
 
 interface Props {
     level: SecurityMessageLevel | SecurityMessageLevel[];

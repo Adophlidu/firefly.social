@@ -7,7 +7,7 @@ import { ChannelMoreAction } from '@/components/Channel/ChannelMoreAction.js';
 import { ToggleFollowChannelButton } from '@/components/Channel/ToggleFollowChannelButton.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
-import type { Channel } from '@/providers/types/SocialMedia.js';
+import { type Channel } from '@/providers/types/SocialMedia.js';
 
 interface ChannelInfoActionProps extends React.HTMLAttributes<HTMLDivElement> {
     channel: Channel;

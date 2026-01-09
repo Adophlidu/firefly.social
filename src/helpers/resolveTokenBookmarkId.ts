@@ -1,6 +1,6 @@
 import { assert } from '@dimensiondev/utils';
 
-import type { BookmarkTokenOptions } from '@/providers/types/Bookmark.js';
+import { type BookmarkTokenOptions } from '@/providers/types/Bookmark.js';
 
 /**
  * resolve token bookmark content id

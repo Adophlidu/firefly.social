@@ -14,8 +14,7 @@ import { formatNotificationConfigs } from '@/app/(settings)/settings/notificatio
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { getWebNotificationPushSwitch } from '@/providers/firefly/endpoint/getWebNotificationPushSwitch.js';
-import type { NotificationConfig } from '@/providers/types/Firefly.js';
-import { NotificationPlatform } from '@/providers/types/Firefly.js';
+import { type NotificationConfig, NotificationPlatform } from '@/providers/types/Firefly.js';
 import { setupFirebaseFcmConnection } from '@/services/setupFirebaseFcmConnection.js';
 
 interface NotificationGroup {

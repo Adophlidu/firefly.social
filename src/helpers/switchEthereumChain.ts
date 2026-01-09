@@ -1,10 +1,10 @@
-import type { Config } from 'wagmi';
+import { type Config } from 'wagmi';
 import { switchChain } from 'wagmi/actions';
 
 import { chains } from '@/configs/chains.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { logger } from '@/libs/Logger.js';
-import type { EthereumChainId } from '@/web3-shared/evm/types.js';
+import { type EthereumChainId } from '@/web3-shared/evm/types.js';
 
 export async function switchEthereumChain(
     chainId: EthereumChainId,

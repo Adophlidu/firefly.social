@@ -8,6 +8,8 @@ export default defineConfig({
     resolve: {
         alias: {
             '@': resolve(__dirname, 'src'),
+            // mdast is types-only, point to stub file for runtime
+            mdast: resolve(__dirname, 'src/stubs/mdast.ts'),
         },
     },
 });

@@ -7,7 +7,7 @@ import { minus } from '@/helpers/number.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { getClaimedRecord } from '@/providers/solana/red-packet/getClaimedRecord.js';
 import { getRedPacket } from '@/providers/solana/red-packet/getRedPacket.js';
-import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
+import { type RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 
 export function useSolanaAvailability(payload: RedPacketJSONPayload, options?: { enabled?: boolean }) {
     const networkType = getNetworkTypeFromRpPayload(payload);

@@ -3,12 +3,12 @@ import { useCallback, useState } from 'react';
 import { Modal } from '@/components/Modal.js';
 import { Popover } from '@/components/Popover.js';
 import { IS_IOS } from '@/constants/browser.js';
-import type { PasswordWorkflow } from '@/constants/enum.js';
+import { type PasswordWorkflow } from '@/constants/enum.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { PasswordModalContent } from '@/modals/PasswordModal/PasswordModalContent.js';
-import type { StepDescriptions } from '@/modals/PasswordModal/StepDescription.js';
+import { type StepDescriptions } from '@/modals/PasswordModal/StepDescription.js';
 
 export interface PasswordModalOpenProps {
     workflow: PasswordWorkflow;

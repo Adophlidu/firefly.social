@@ -4,8 +4,8 @@ import { immer } from 'zustand/middleware/immer';
 
 import { createSelectors } from '@/helpers/createSelector.js';
 import { getCurrentSourceFromUrl } from '@/helpers/getCurrentSourceFromUrl.js';
-import type { FireflyIdentity, WalletProfile } from '@/providers/types/Firefly.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import { type FireflyIdentity, type WalletProfile } from '@/providers/types/Firefly.js';
+import { type Profile } from '@/providers/types/SocialMedia.js';
 
 interface FireflyIdentityState {
     identity: FireflyIdentity;

@@ -4,7 +4,7 @@ import urlcat from 'urlcat';
 import { SORTED_ENGAGEMENT_TAB_TYPE } from '@/constants/computed.js';
 import { EngagementType, type SocialSource, Source } from '@/constants/enum.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
+import { type Post } from '@/providers/types/SocialMedia.js';
 
 export function resolveEngagementUrl(id: string, source: SocialSource, type: EngagementType) {
     return urlcat(`/post/:source/:id/:type`, {

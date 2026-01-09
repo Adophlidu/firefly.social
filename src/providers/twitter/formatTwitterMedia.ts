@@ -1,6 +1,6 @@
 import { safeUnreachable } from '@dimensiondev/utils';
 import { first, last } from 'lodash-es';
-import type { MediaObjectV2, MediaVariantsV2 } from 'twitter-api-v2';
+import { type MediaObjectV2, type MediaVariantsV2 } from 'twitter-api-v2';
 
 import { FileMimeType } from '@/constants/enum.js';
 import { type Attachment } from '@/providers/types/SocialMedia.js';

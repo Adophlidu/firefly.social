@@ -2,7 +2,7 @@ import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 
 import { computeVolume } from '@/helpers/polymarket.js';
-import type { BetsActivity } from '@/providers/types/Firefly.js';
+import { type BetsActivity } from '@/providers/types/Firefly.js';
 
 interface ActivityResultProps {
     activity: BetsActivity;

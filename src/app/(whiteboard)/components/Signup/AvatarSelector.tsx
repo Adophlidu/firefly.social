@@ -23,7 +23,7 @@ import { Source } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { ImageEditorModalRef } from '@/modals/ImageEditorModal.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import { type Profile } from '@/providers/types/SocialMedia.js';
 
 type AvatarType = 'pfp' | 'random' | 'custom';
 

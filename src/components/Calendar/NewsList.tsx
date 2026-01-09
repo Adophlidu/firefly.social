@@ -10,7 +10,7 @@ import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
 import { Loading } from '@/components/Loading.js';
 import { EMPTY_LIST } from '@/constants/static.js';
-import type { ParsedEvent } from '@/types/calendar.js';
+import { type ParsedEvent } from '@/types/calendar.js';
 
 interface NewsListProps {
     date: Date;

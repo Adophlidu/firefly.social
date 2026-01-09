@@ -1,4 +1,4 @@
-import type { Root } from 'mdast';
+import { type Root } from 'mdast';
 import { visit } from 'unist-util-visit';
 
 export const preserveListNumbers = () => (tree: Root) => {

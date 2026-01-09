@@ -5,7 +5,7 @@ import { ProfileContext } from '@/components/Profile/ProfileContext.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import { type Profile } from '@/providers/types/SocialMedia.js';
 
 export function useRefreshedProfile(profile: Profile, enabled = true) {
     const isLogin = useIsLogin(profile.source);

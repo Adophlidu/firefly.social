@@ -3,7 +3,7 @@
 import { Feeds } from '@/app/(normal)/token/[exchange]/[[...slug]]/categories/Feeds.js';
 import { Transactions } from '@/app/(normal)/token/[exchange]/[[...slug]]/categories/Transactions.js';
 import TokenPageLoading from '@/app/(normal)/token/[exchange]/[[...slug]]/loading.js';
-import type { TokenPageProps } from '@/app/(normal)/token/[exchange]/[[...slug]]/types.js';
+import { type TokenPageProps } from '@/app/(normal)/token/[exchange]/[[...slug]]/types.js';
 import { TokenCategory } from '@/constants/enum.js';
 import { useTokenPageParams } from '@/hooks/useTokenPageParams.js';
 

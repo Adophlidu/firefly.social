@@ -7,7 +7,7 @@ import { ListInPage } from '@/components/ListInPage.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { getDiscoverBetsList } from '@/providers/firefly/bets/getDiscoverBetsList.js';
-import type { BetsActivity } from '@/providers/types/Firefly.js';
+import { type BetsActivity } from '@/providers/types/Firefly.js';
 import { BetsFilterNamespace, useBetsSourceFilterStore } from '@/store/useBetsSourceFilterStore.js';
 
 function getBetsActivityItem(index: number, activity: BetsActivity, onClick?: () => void) {

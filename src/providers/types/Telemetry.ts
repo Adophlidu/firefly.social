@@ -1,6 +1,6 @@
 // cspell:disable
 
-import type { ClickOrigin, ProfilePageSource } from '@/constants/enum.js';
+import { type ClickOrigin, type ProfilePageSource } from '@/constants/enum.js';
 
 export enum VersionFilter {
     // the current working version

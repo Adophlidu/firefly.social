@@ -1,11 +1,11 @@
 // Utility types for improved type safety
 
 // Replace any for better type safety
-import type { ConnectorControllerState } from '@reown/appkit';
-import type { PropsWithChildren, ReactNode } from 'react';
-import ReactMarkdown from 'react-markdown';
+import { type ConnectorControllerState } from '@reown/appkit';
+import { type PropsWithChildren, type ReactNode } from 'react';
+import type ReactMarkdown from 'react-markdown';
 
-import { ServerErrorCodes } from '@/helpers/createResponseJson.js';
+import { type ServerErrorCodes } from '@/helpers/createResponseJson.js';
 
 // Non-nullable type
 type NonNullable<T> = T extends null | undefined ? never : T;

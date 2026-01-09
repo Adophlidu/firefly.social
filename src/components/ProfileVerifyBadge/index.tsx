@@ -1,7 +1,7 @@
 'use client';
 
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
-import type { HTMLProps } from 'react';
+import { type HTMLProps } from 'react';
 
 import PolymarketSquare from '@/assets/polymarket-square.svg';
 import PolymarketSquareWhite from '@/assets/polymarket-square-white.svg';

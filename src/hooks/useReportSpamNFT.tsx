@@ -10,9 +10,9 @@ import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
 import { reportNFT } from '@/providers/firefly/report/reportNFT.js';
-import type { FollowingNFT, NFTFeedV3 } from '@/providers/types/NFTs.js';
-import type { NonFungibleAsset } from '@/web3-shared/base/specs.js';
-import { EthereumChainId, EthereumSchemaType } from '@/web3-shared/evm/types.js';
+import { type FollowingNFT, type NFTFeedV3 } from '@/providers/types/NFTs.js';
+import { type NonFungibleAsset } from '@/web3-shared/base/specs.js';
+import { type EthereumChainId, type EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
 interface PagesData {
     pages: Array<{ data: FollowingNFT[] | NFTFeedV3[] }>;

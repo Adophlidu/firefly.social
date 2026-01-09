@@ -1,6 +1,12 @@
 import { NotImplementedError } from '@dimensiondev/utils';
 
-import type { CompositePoll, Poll, PollOption, Provider, VoteResponseData } from '@/providers/types/Poll.js';
+import {
+    type CompositePoll,
+    type Poll,
+    type PollOption,
+    type Provider,
+    type VoteResponseData,
+} from '@/providers/types/Poll.js';
 
 class BskyPoll implements Provider {
     async createPoll(poll: CompositePoll): Promise<Poll> {

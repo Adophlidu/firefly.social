@@ -28,7 +28,7 @@ import {
     captureMobileQrLoginClickEvent,
     captureMultiDeviceLoginClickEvent,
 } from '@/providers/telemetry/captureSyncTokenEvent.js';
-import type { AllConnections, FireflyAccountProfile } from '@/providers/types/Firefly.js';
+import { type AllConnections, type FireflyAccountProfile } from '@/providers/types/Firefly.js';
 import { mergeMetrics } from '@/services/metrics.js';
 import { verifyAndGetPassword } from '@/services/verifyAndGetPassword.js';
 

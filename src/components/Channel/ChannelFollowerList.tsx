@@ -6,7 +6,7 @@ import { ScrollListKey, type SocialSource } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/static.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import { type Profile } from '@/providers/types/SocialMedia.js';
 
 interface ChannelFollowerListProps {
     channelId: string;

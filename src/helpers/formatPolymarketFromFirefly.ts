@@ -1,4 +1,4 @@
-import type { BetsActivity } from '@/providers/types/Firefly.js';
+import { type BetsActivity } from '@/providers/types/Firefly.js';
 
 interface FireflyPolymarketActivity extends Partial<Omit<BetsActivity, 'hasBookmarked' | 'isLiked' | 'likeCount'>> {
     has_bookmarked?: boolean;

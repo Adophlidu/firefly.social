@@ -11,7 +11,7 @@ import { NFTNavbar } from '@/components/NFTs/NFTNavbar.js';
 import { EMPTY_LIST, POAP_CONTRACT_ADDRESS } from '@/constants/static.js';
 import { notFound } from '@/esm/navigation.js';
 import { getPOAP } from '@/providers/firefly/nft/getPOAP.js';
-import type { NonFungibleTokenTrait } from '@/web3-shared/base/specs.js';
+import { type NonFungibleTokenTrait } from '@/web3-shared/base/specs.js';
 import { EthereumChainId, EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
 export function PoapDetailPage({ tokenId }: { tokenId: string }) {

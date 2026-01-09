@@ -6,7 +6,7 @@ import { NoSSR } from '@/components/NoSSR.js';
 import { NotificationSettings } from '@/components/Notification/NotificationSettings.js';
 import { NotificationTabs } from '@/components/Notification/NotificationTabs.js';
 import { TimelineTitle } from '@/components/TimelineTitle.js';
-import type { NotificationSourceInURL } from '@/constants/enum.js';
+import { type NotificationSourceInURL } from '@/constants/enum.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolveNotificationSource } from '@/helpers/resolveSourceInUrl.js';

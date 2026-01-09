@@ -8,7 +8,7 @@ import { Image } from '@/components/Image.js';
 import { ProfileVerifyBadge } from '@/components/ProfileVerifyBadge/index.js';
 import { NetworkType } from '@/constants/enum.js';
 import { useFrameAuthor } from '@/hooks/frame/useFrameAuthor.js';
-import type { FrameViewerModalOpenProps } from '@/modals/FrameViewerModal/FrameViewerModalContent.js';
+import { type FrameViewerModalOpenProps } from '@/modals/FrameViewerModal/FrameViewerModalContent.js';
 import { MoreAction } from '@/modals/FrameViewerModal/MoreActionMenu.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
 

@@ -13,7 +13,7 @@ import { ProfileInList } from '@/components/Login/ProfileInList.js';
 import { Modal } from '@/components/Modal.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { SORTED_THIRD_PARTY_SOURCES } from '@/constants/computed.js';
-import type { ThirdPartySource } from '@/constants/enum.js';
+import { type ThirdPartySource } from '@/constants/enum.js';
 import { enqueueErrorMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { resolveConnectionPlatform } from '@/helpers/resolveConnectionPlatform.js';
 import { stopEvent } from '@/helpers/stopEvent.js';
@@ -22,7 +22,7 @@ import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { disconnectAccount } from '@/providers/firefly/endpoint/disconnectAccount.js';
 import { captureAccountDisconnectEvent } from '@/providers/telemetry/captureAccountEvent.js';
-import type { Account } from '@/providers/types/Account.js';
+import { type Account } from '@/providers/types/Account.js';
 import { removeAccountByProfileId } from '@/services/account.js';
 
 interface DisconnectFireflyAccountModalProps {

@@ -4,7 +4,7 @@ import urlcat from 'urlcat';
 import { OTPExceededMaximumLimit } from '@/constants/error.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
-import type { GenerateOTPResponse } from '@/providers/types/Firefly.js';
+import { type GenerateOTPResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 export async function generateEmailOTP(email: string) {

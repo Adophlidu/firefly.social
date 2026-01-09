@@ -35,11 +35,11 @@ import { captureAccountLoginEvent } from '@/providers/telemetry/captureAccountEv
 import { TwitterAuthProvider } from '@/providers/twitter/Auth.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import { type SessionPayload } from '@/providers/twitter/SessionPayload.js';
-import type { Account } from '@/providers/types/Account.js';
-import type { FarcasterMetricsData, LensMetricsData } from '@/providers/types/Firefly.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import { type Account } from '@/providers/types/Account.js';
+import { type FarcasterMetricsData, type LensMetricsData } from '@/providers/types/Firefly.js';
+import { type Profile } from '@/providers/types/SocialMedia.js';
 import { decryptAes256 } from '@/services/crypto.js';
-import type { ResponseJson } from '@/types/utility.js';
+import { type ResponseJson } from '@/types/utility.js';
 
 function decryptCipherText(passcode: string, text: string) {
     const key = sha256(toHex(passcode)).replace(/^0x/, '');

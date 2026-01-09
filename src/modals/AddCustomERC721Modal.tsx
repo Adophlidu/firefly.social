@@ -6,7 +6,7 @@ import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useCallback, useState } from 'react';
 import { useAsyncFn } from 'react-use';
-import type { Address } from 'viem';
+import { type Address } from 'viem';
 import { useConnection } from 'wagmi';
 
 import CloseIcon from '@/assets/close.svg';
@@ -24,7 +24,7 @@ import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useNFTCollections } from '@/hooks/useNFTCollections.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
-import type { AddCustomERC20ModalOpenProps } from '@/modals/AddCustomERC20Modal.js';
+import { type AddCustomERC20ModalOpenProps } from '@/modals/AddCustomERC20Modal.js';
 import { getCollection } from '@/providers/firefly/nft/getCollection.js';
 import { NFTSCAN_CHAIN_IDS } from '@/providers/nft-scan/constants.js';
 import { CustomTokenType, useCustomTokenStore } from '@/store/useCustomTokenStore.js';

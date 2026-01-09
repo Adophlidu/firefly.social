@@ -6,7 +6,7 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SearchTokenPanel } from '@/components/Search/SearchTokenPanel.js';
 import { TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { resolveNetworkProvider } from '@/helpers/resolveTokenTransfer.js';
-import type { Token } from '@/providers/types/Transfer.js';
+import { type Token } from '@/providers/types/Transfer.js';
 import { useTipsStore } from '@/store/useTipsStore.js';
 
 export const TokenSelectorView = memo(function TokenSelectorView() {

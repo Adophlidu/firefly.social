@@ -3,13 +3,13 @@ import { BigNumber } from 'bignumber.js';
 import { type HTMLProps, useMemo } from 'react';
 
 import { TokenIcon } from '@/components/Tips/TokenIcon.js';
-import type { NetworkType } from '@/constants/enum.js';
+import { type NetworkType } from '@/constants/enum.js';
 import { formatCurrency } from '@/helpers/formatCurrency.js';
 import { formatFungibleTokenToDebankToken } from '@/helpers/formatToken.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { useFungibleTokenPrice } from '@/hooks/useFungibleTokenPrice.js';
-import type { FungibleToken } from '@/web3-shared/base/specs.js';
-import { type EthereumChainId, EthereumSchemaType } from '@/web3-shared/evm/types.js';
+import { type FungibleToken } from '@/web3-shared/base/specs.js';
+import { type EthereumChainId, type EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
 interface Props extends HTMLProps<HTMLDivElement> {
     amount?: string;

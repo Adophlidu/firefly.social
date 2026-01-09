@@ -5,7 +5,7 @@ import { X3_PRO_AVATAR_URL } from '@/constants/static.js';
 import { formatTwitterProfileFromX3Pro } from '@/providers/twitter/formatTwitterProfileFromX3Pro.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
 import { formatX3Id } from '@/providers/x3pro/formatX3Id.js';
-import type { Post as X3ProPost } from '@/providers/x3pro/types.js';
+import { type Post as X3ProPost } from '@/providers/x3pro/types.js';
 
 export function formatX3ProPost(origin: X3ProPost, parent?: X3ProPost): Post {
     const postId = formatX3Id(origin.id);

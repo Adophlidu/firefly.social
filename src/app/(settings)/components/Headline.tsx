@@ -1,5 +1,5 @@
 import { classNames } from '@dimensiondev/utils';
-import type { HTMLProps } from 'react';
+import { type HTMLProps } from 'react';
 
 interface HeadlineProps extends HTMLProps<HTMLDivElement> {
     hideInMobile?: boolean;

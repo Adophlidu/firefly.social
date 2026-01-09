@@ -2,7 +2,7 @@ import { produce } from 'immer';
 import { compact } from 'lodash-es';
 import { useCallback } from 'react';
 
-import type { SocialSource } from '@/constants/enum.js';
+import { type SocialSource } from '@/constants/enum.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getCurrentPostVideoLimits } from '@/helpers/getCurrentPostImageLimits.js';
 import { getVideoMetadata } from '@/helpers/getVideoMetadata.js';

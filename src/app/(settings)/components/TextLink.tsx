@@ -1,6 +1,6 @@
 'use client';
 
-import type { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
 import RightArrowIcon from '@/assets/right-arrow.svg';
 import { Link } from '@/components/Link.js';

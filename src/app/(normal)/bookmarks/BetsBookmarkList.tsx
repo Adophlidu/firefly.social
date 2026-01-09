@@ -8,7 +8,7 @@ import { createIndicator } from '@/helpers/pageable.js';
 import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { getBetBookmarks } from '@/providers/firefly/endpoint/getBetBookmarks.js';
-import type { BetsActivity } from '@/providers/types/Firefly.js';
+import { type BetsActivity } from '@/providers/types/Firefly.js';
 
 function getBetsActivityItem(index: number, activity: BetsActivity, onClick?: () => void) {
     return <BetsActivityItem activity={activity} key={`${activity.slug}-${index}`} onLinkClick={onClick} />;

@@ -7,7 +7,7 @@ import { TypeFilter } from '@/components/TypeFilter/index.js';
 import { ActivitiesPlatform, Locale } from '@/constants/enum.js';
 import { useLocale } from '@/helpers/getCookies.js';
 import { captureArticlePlatformFilterTabEvent } from '@/providers/telemetry/captureFilterTabEvent.js';
-import { ActivitiesFilterNamespace, useActivitiesFilterStore } from '@/store/useActivitiesFilterStore.js';
+import { type ActivitiesFilterNamespace, useActivitiesFilterStore } from '@/store/useActivitiesFilterStore.js';
 
 interface ActivitiesFilterProps {
     namespace: ActivitiesFilterNamespace;

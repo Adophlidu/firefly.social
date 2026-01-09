@@ -13,7 +13,7 @@ import {
     type GetUserTimelineResponse,
     type Response,
     type SearchResponse,
-    UserTimelineTab,
+    type UserTimelineTab,
 } from '@/providers/types/Nitter.js';
 
 function resolveNitterJsonResponse<T>(url: string, { data, error }: Response<T>): T {

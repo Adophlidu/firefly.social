@@ -1,5 +1,5 @@
 import { createLookupTableResolver } from '@dimensiondev/utils';
-import type { MessageDescriptor } from '@lingui/core';
+import { type MessageDescriptor } from '@lingui/core';
 import { msg } from '@lingui/core/macro';
 import { type ReactNode } from 'react';
 
@@ -8,7 +8,7 @@ import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
-import type { NextPageProps } from '@/types/utility.js';
+import { type NextPageProps } from '@/types/utility.js';
 
 const resolveMuteTitle = createLookupTableResolver<string, MessageDescriptor>(
     {

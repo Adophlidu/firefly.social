@@ -5,11 +5,11 @@ import { decodeAsciiPayload, decodeNoAsciiPayload } from '@/helpers/encodeSessio
 import { logger } from '@/libs/Logger.js';
 import { BskySession } from '@/providers/bsky/Session.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
-import { FireflySession, FireflySessionPayload, FireflySessionSignature } from '@/providers/firefly/Session.js';
+import { FireflySession, FireflySessionPayload, type FireflySessionSignature } from '@/providers/firefly/Session.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import { ThirdPartySession } from '@/providers/third-party/Session.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
-import type { Session } from '@/providers/types/Session.js';
+import { type Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 
 const SessionSchema = z.object({

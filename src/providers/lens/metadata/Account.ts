@@ -6,7 +6,7 @@ import {
     NonEmptyStringSchema,
 } from '@/providers/lens/metadata/Base.js';
 import { evaluate } from '@/providers/lens/metadata/evaluate.js';
-import type { PartialWith } from '@/types/utility.js';
+import { type PartialWith } from '@/types/utility.js';
 
 enum AccountMetadataSchemaId {
     LATEST = 'https://json-schemas.lens.dev/account/1.0.0.json',

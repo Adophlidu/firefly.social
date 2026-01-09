@@ -1,7 +1,7 @@
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo, type ReactNode, useMemo } from 'react';
-import type { RegisterOptions } from 'react-hook-form';
+import { type RegisterOptions } from 'react-hook-form';
 
 import { ErrorMessage, ValidationErrorCode } from '@/components/Form/ErrorMessage.js';
 import { FormInput } from '@/components/Form/FormInput.js';

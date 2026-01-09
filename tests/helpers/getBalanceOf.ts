@@ -1,6 +1,7 @@
-import { describe, expect, it, vi, beforeEach } from 'vitest';
+import { type Address } from 'viem';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
 import { getBalanceOf } from '@/helpers/getBalanceOf.js';
-import type { Address } from 'viem';
 
 // Mock wagmi actions
 const mockGetBalance = vi.fn();

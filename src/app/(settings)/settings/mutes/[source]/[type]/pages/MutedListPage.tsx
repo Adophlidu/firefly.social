@@ -6,7 +6,7 @@ import ComebackIcon from '@/assets/comeback.svg';
 import { MutedChannels } from '@/components/Channel/MutedChannels.js';
 import { Loading } from '@/components/Loading.js';
 import { MutedProfiles } from '@/components/Profile/MutedProfiles.js';
-import { MuteType, PageRoute, Source } from '@/constants/enum.js';
+import { MuteType, PageRoute, type Source } from '@/constants/enum.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 

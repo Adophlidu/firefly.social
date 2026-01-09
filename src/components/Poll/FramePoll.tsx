@@ -2,13 +2,13 @@ import { useQuery } from '@tanstack/react-query';
 import { memo } from 'react';
 
 import { PollCard } from '@/components/Poll/PollCard.js';
-import type { SocialSource } from '@/constants/enum.js';
+import { type SocialSource } from '@/constants/enum.js';
 import { patchNotificationQueryDataOnPost } from '@/helpers/patchNotificationQueryData.js';
 import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { getPoll } from '@/providers/firefly/poll/getPoll.js';
-import type { Poll } from '@/providers/types/Poll.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
+import { type Poll } from '@/providers/types/Poll.js';
+import { type Post } from '@/providers/types/SocialMedia.js';
 
 interface FramePollProps {
     pollId: string;

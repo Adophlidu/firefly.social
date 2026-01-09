@@ -1,9 +1,9 @@
 import { NotImplementedError } from '@dimensiondev/utils';
 
 import { queryClient } from '@/configs/queryClient.js';
-import type { NextFetchersOptions } from '@/helpers/fetch.js';
+import { type NextFetchersOptions } from '@/helpers/fetch.js';
 import { resolveSourceFromSessionType } from '@/helpers/resolveSource.js';
-import type { Session } from '@/providers/types/Session.js';
+import { type Session } from '@/providers/types/Session.js';
 
 export class SessionHolder<T extends Session> {
     protected internalSession: T | null = null;

@@ -22,8 +22,8 @@ import { formatPolymarketFromFirefly } from '@/helpers/formatPolymarketFromFiref
 import { formatSnapshotChoice } from '@/helpers/formatSnapshotChoice.js';
 import { formatSnapshotActivityFromNotification } from '@/helpers/formatSnapshotFromNotification.js';
 import { getArticleUrl } from '@/helpers/getArticleUrl.js';
-import type { SnapshotActivity } from '@/providers/snapshot/type.js';
-import type { UnifiedNotification } from '@/providers/types/Firefly.js';
+import { type SnapshotActivity } from '@/providers/snapshot/type.js';
+import { type UnifiedNotification } from '@/providers/types/Firefly.js';
 import { NotificationType } from '@/providers/types/SocialMedia.js';
 
 interface UnifiedNotificationItemProps {

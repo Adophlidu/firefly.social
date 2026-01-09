@@ -12,10 +12,10 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { CloseButton } from '@/components/IconButton.js';
 import { SUPPORTED_PREVIEW_MEDIA_TYPES } from '@/constants/computed.js';
-import type { Source } from '@/constants/enum.js';
+import { type Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/static.js';
 import { PreviewContent } from '@/modals/PreviewMediaModal/PreviewContent.js';
-import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
+import { type Attachment, type Post } from '@/providers/types/SocialMedia.js';
 
 export interface PreviewMediaModalContentProps {
     index: number;

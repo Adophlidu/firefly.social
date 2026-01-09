@@ -13,7 +13,7 @@ import { createIndicator } from '@/helpers/pageable.js';
 import { bskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { searchIdentity } from '@/providers/firefly/endpoint/searchIdentity.js';
 import { twitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
-import type { Profile as FireflyProfile } from '@/providers/types/Firefly.js';
+import { type Profile as FireflyProfile } from '@/providers/types/Firefly.js';
 import { searchWalletAddress } from '@/services/searchWalletAddress.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
 

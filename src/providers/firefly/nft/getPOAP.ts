@@ -1,7 +1,7 @@
 import urlcat from 'urlcat';
 
 import { fetchJson } from '@/helpers/fetchJson.js';
-import type { PoapDetailResponse } from '@/providers/types/NFTs.js';
+import { type PoapDetailResponse } from '@/providers/types/NFTs.js';
 import { settings } from '@/settings/index.js';
 
 export async function getPOAP(tokenId: string) {

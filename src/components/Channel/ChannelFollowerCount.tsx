@@ -6,7 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Source } from '@/constants/enum.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
-import type { Channel } from '@/providers/types/SocialMedia.js';
+import { type Channel } from '@/providers/types/SocialMedia.js';
 
 interface ChannelFollowerCountProps {
     channel: Channel;

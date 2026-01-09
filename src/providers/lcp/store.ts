@@ -5,7 +5,7 @@
  */
 
 import { isSameUrl } from '@/helpers/isSameUrl.js';
-import type { ApiCallMetrics, DuplicateGroup, PerformanceReport } from '@/providers/lcp/types.js';
+import { type ApiCallMetrics, type DuplicateGroup, type PerformanceReport } from '@/providers/lcp/types.js';
 
 class PerformanceStore {
     private apiCalls: ApiCallMetrics[] = [];

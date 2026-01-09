@@ -2,7 +2,7 @@
 
 import { I18nProvider } from '@lingui/react';
 import { isServer } from '@tanstack/react-query';
-import type { PropsWithChildren } from 'react';
+import { type PropsWithChildren } from 'react';
 
 import { getLocaleFromCookies, getLocalFromClientCookies } from '@/helpers/getCookies.js';
 import { getI18nInstance, setupLocalForClient } from '@/i18n/index.js';

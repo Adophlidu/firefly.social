@@ -1,4 +1,4 @@
-import type { UserV2, UserV2TimelineResult } from 'twitter-api-v2';
+import { type UserV2, type UserV2TimelineResult } from 'twitter-api-v2';
 
 import { Source } from '@/constants/enum.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';

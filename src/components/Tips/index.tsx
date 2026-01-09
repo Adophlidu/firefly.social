@@ -19,8 +19,8 @@ import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { TipsModalRef } from '@/modals/TipsModal/index.js';
 import { getAllPlatformProfileFromFirefly } from '@/providers/firefly/endpoint/getAllPlatformProfileFromFirefly.js';
-import type { FireflyIdentity } from '@/providers/types/Firefly.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
+import { type FireflyIdentity } from '@/providers/types/Firefly.js';
+import { type Post } from '@/providers/types/SocialMedia.js';
 
 interface TipsProps extends HTMLProps<HTMLButtonElement> {
     identity: FireflyIdentity;

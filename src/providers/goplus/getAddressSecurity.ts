@@ -5,7 +5,7 @@ import { GO_PLUS_LABS_ROOT_URL } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { createSecurityResult } from '@/providers/goplus/createSecurityResult.js';
 import { AddressSecurityMessages } from '@/providers/goplus/rules.js';
-import type { AddressSecurity, GoPlusResponse } from '@/providers/types/Security.js';
+import { type AddressSecurity, type GoPlusResponse } from '@/providers/types/Security.js';
 
 export async function getAddressSecurity(address: string, chainId?: number) {
     const url = urlcat(GO_PLUS_LABS_ROOT_URL, 'api/v1/address_security/:address', {

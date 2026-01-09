@@ -1,5 +1,4 @@
-import type { NextFetchersOptions } from '@/helpers/fetch.js';
-import { fetch } from '@/helpers/fetch.js';
+import { fetch, type NextFetchersOptions } from '@/helpers/fetch.js';
 
 export async function fetchArrayBuffer(
     input: RequestInfo | URL,

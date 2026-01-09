@@ -7,7 +7,7 @@ import { ArticleDetailContent } from '@/components/Article/ArticleDetailContent.
 import { notFound } from '@/esm/navigation/server.js';
 import { getArticleById } from '@/providers/firefly/article/getArticleById.js';
 import { createArticleMetadata } from '@/providers/firefly/metadata/createArticleMetadata.js';
-import type { Article } from '@/providers/types/Article.js';
+import { type Article } from '@/providers/types/Article.js';
 
 async function getArticleCoverUrl(article: Article): Promise<string | null> {
     if (article.coverUrl) return article.coverUrl;

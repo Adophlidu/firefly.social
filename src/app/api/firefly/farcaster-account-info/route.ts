@@ -1,5 +1,5 @@
 import { compose, parseJson } from '@dimensiondev/utils';
-import type { NextRequest } from 'next/server.js';
+import { type NextRequest } from 'next/server.js';
 import urlcat from 'urlcat';
 import { z } from 'zod';
 
@@ -8,7 +8,7 @@ import { createErrorResponseJson, createSuccessResponseJson } from '@/helpers/cr
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { getHeadersWithZodSchema } from '@/helpers/getHeadersWithZodSchema.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
-import type { EncryptedAccountInfoResponse } from '@/providers/types/Firefly.js';
+import { type EncryptedAccountInfoResponse } from '@/providers/types/Firefly.js';
 import { decryptAes256 } from '@/services/crypto.js';
 import { settings } from '@/settings/index.js';
 

@@ -1,5 +1,5 @@
 import { Source } from '@/constants/enum.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import { type Profile } from '@/providers/types/SocialMedia.js';
 
 // ! only lens now
 export function isBadProfile(profile: Profile) {

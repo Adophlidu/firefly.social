@@ -1,4 +1,4 @@
-import { LensSession } from '@/providers/lens/Session.js';
+import { type LensSession } from '@/providers/lens/Session.js';
 import { lensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 
 export async function getLensProfileBySession(session: LensSession, signal?: AbortSignal) {

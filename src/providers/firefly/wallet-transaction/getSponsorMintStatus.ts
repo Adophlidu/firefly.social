@@ -2,7 +2,7 @@ import urlcat from 'urlcat';
 
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import type { GetSponsorMintStatusResponse, SponsorMintOptions } from '@/providers/types/Firefly.js';
+import { type GetSponsorMintStatusResponse, type SponsorMintOptions } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 export async function getSponsorMintStatus(options: Omit<SponsorMintOptions, 'contractExt'>) {

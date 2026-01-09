@@ -5,7 +5,7 @@ import { fetchJson } from '@/helpers/fetchJson.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fixCollection } from '@/providers/firefly/endpoint/fixCollection.js';
 import { NFTSCAN_CHAIN_IDS } from '@/providers/nft-scan/constants.js';
-import type { CollectionResponse } from '@/providers/types/Firefly.js';
+import { type CollectionResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 export async function getCollection(chainId: number, contractAddress: string) {

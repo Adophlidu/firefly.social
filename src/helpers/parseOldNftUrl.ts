@@ -1,4 +1,4 @@
-import type { EthereumChainId } from '@/web3-shared/evm/types.js';
+import { type EthereumChainId } from '@/web3-shared/evm/types.js';
 
 export function parseOldNftUrl(url: URL) {
     if (!/^\/nft\/0x[a-fA-F0-9]{40}/.test(url.pathname)) return null;

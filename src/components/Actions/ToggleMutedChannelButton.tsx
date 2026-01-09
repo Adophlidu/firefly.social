@@ -8,7 +8,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import { isSameChannel } from '@/helpers/isSameChannel.js';
 import { useToggleMutedChannel } from '@/hooks/useToggleMutedChannel.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
-import type { Channel } from '@/providers/types/SocialMedia.js';
+import { type Channel } from '@/providers/types/SocialMedia.js';
 
 interface Props extends Omit<ClickableButtonProps, 'children'> {
     channel: Channel;

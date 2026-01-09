@@ -1,7 +1,6 @@
-import { describe, expect, test } from 'vitest';
+import { describe, expect, it, test } from 'vitest';
 
 import { parseCAIP19 } from '@/helpers/parseCAIP19.js';
-import { it } from 'vitest';
 
 // Skip tests for unsupported networks.
 describe('parseCAIP19', () => {

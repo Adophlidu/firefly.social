@@ -4,7 +4,7 @@ import createBundleAnalyzer from '@next/bundle-analyzer';
 import StatoscopeWebpackPlugin from '@statoscope/webpack-plugin';
 import { execSync } from 'child_process';
 import { createRequire } from 'module';
-import type { NextConfig } from 'next';
+import { type NextConfig } from 'next';
 import { resolve } from 'path';
 
 const require = createRequire(import.meta.url);

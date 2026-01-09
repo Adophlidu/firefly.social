@@ -1,7 +1,7 @@
 import { env } from '@/constants/env.js';
 import { IS_PREVIEW, IS_PRODUCTION } from '@/constants/static.js';
 import { logger } from '@/libs/Logger.js';
-import type { ExceptionId } from '@/providers/types/Telemetry.js';
+import { type ExceptionId } from '@/providers/types/Telemetry.js';
 import { settings } from '@/settings/index.js';
 
 class SentryClient {

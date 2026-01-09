@@ -8,7 +8,7 @@ import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getWalletEventParameters } from '@/providers/telemetry/getWalletEventParameters.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import { EventId, type FrameActionType } from '@/providers/types/Telemetry.js';
-import type { Frame } from '@/types/frame.js';
+import { type Frame } from '@/types/frame.js';
 
 const resolveEventId = (action: FrameActionType, justSubmitted?: boolean) => {
     switch (action) {

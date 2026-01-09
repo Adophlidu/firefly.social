@@ -5,8 +5,8 @@ import { getProfilesFromStorage } from '@/helpers/getCurrentProfileFromStorage.j
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
-import type { Account } from '@/providers/types/Account.js';
-import type { Session } from '@/providers/types/Session.js';
+import { type Account } from '@/providers/types/Account.js';
+import { type Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { type AccountPairs, EventId, FarcasterLoginType } from '@/providers/types/Telemetry.js';
 

@@ -5,7 +5,7 @@ import { RedPacketMetaKey, SolanaRedPacketMetaKey } from '@/constants/rp.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { useProfileStore } from '@/hooks/useProfileStore.js';
 import { parse } from '@/providers/firefly/red-packet/parse.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
+import { type Post } from '@/providers/types/SocialMedia.js';
 
 /**
  * Parse RedPacket with post info.

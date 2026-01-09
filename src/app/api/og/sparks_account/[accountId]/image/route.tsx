@@ -1,6 +1,6 @@
 import { compose } from '@dimensiondev/utils';
 import { ImageResponse } from 'next/og.js';
-import type { NextRequest } from 'next/server.js';
+import { type NextRequest } from 'next/server.js';
 import urlcat from 'urlcat';
 import { z } from 'zod';
 
@@ -13,7 +13,7 @@ import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { getSparksAccountDetails } from '@/providers/firefly/endpoint/getSparksAccountDetails.js';
 import { FansStatus, OgStatus } from '@/providers/types/Firefly.js';
 import { getSatoriFonts } from '@/services/getSatoriFonts.js';
-import type { NextRequestContext } from '@/types/utility.js';
+import { type NextRequestContext } from '@/types/utility.js';
 
 const sparksDefaultOgImage = urlcat(FIREFLY_S3_URL, '/og/genesis_sparks.png');
 

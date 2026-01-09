@@ -7,7 +7,7 @@ import {
 import { lensSessionClientHolder } from '@/providers/lens/LensSessionClientHolder.js';
 import { sendSelfFundedTransaction } from '@/providers/lens/sendSelfFundedTransaction.js';
 import { sendSponsoredTransaction } from '@/providers/lens/sendSponsoredTransaction.js';
-import type { OperationResult } from '@/providers/types/Lens.js';
+import { type OperationResult } from '@/providers/types/Lens.js';
 
 function isSelfFundedTransactionRequest(x: { __typename: string }): x is SelfFundedTransactionRequest {
     return x.__typename === 'SelfFundedTransactionRequest';

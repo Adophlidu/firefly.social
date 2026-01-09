@@ -17,8 +17,8 @@ import { getTimeLeft } from '@/helpers/formatTimestamp.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isSendFromFirefly } from '@/helpers/isSendFromFirefly.js';
 import { resolvePostEngagementUrl } from '@/helpers/resolveEngagementUrl.js';
-import type { Poll } from '@/providers/types/Poll.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
+import { type Poll } from '@/providers/types/Poll.js';
+import { type Post } from '@/providers/types/SocialMedia.js';
 
 interface Props extends HTMLProps<HTMLDivElement> {
     post: Post;

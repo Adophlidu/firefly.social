@@ -1,5 +1,5 @@
 import { isValidChainIdSolana } from '@/helpers/isValidChainId.js';
-import type { EVM } from '@/providers/nft-scan/types.js';
+import { type EVM } from '@/providers/nft-scan/types.js';
 
 export function resolveNFTId(chainId: number, address: string, tokenId: string, lowerCase = true) {
     const formattedAddress = lowerCase ? address.toLowerCase() : address;

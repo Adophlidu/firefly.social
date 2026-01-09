@@ -6,7 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 import { memo } from 'react';
 import { useAsyncFn } from 'react-use';
 
-import type { ClickableButtonProps } from '@/components/ClickableButton.js';
+import { type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { ToggleJoinButton } from '@/components/ToggleJoinButton.js';
 import { Source } from '@/constants/enum.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
@@ -15,7 +15,7 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { captureFollowChannelEvent, captureUnfollowChannelEvent } from '@/providers/telemetry/captureChannelEvent.js';
-import type { Channel } from '@/providers/types/SocialMedia.js';
+import { type Channel } from '@/providers/types/SocialMedia.js';
 
 interface ToggleFollowChannelButtonProps extends ClickableButtonProps {
     channel: Channel;

@@ -6,7 +6,7 @@ import { Modal } from '@/components/Modal.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
-import type { AllConnections, FireflyAccountProfile } from '@/providers/types/Firefly.js';
+import { type AllConnections, type FireflyAccountProfile } from '@/providers/types/Firefly.js';
 
 interface EditFireflyProfileModalOpenProps {
     profile?: FireflyAccountProfile | null;

@@ -14,7 +14,7 @@ import { GiphyTabType } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { Image } from '@/esm/Image.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import type { IGif } from '@/types/giphy.js';
+import { type IGif } from '@/types/giphy.js';
 
 interface GiphyGifSelectorProps {
     onSelected: (gif: IGif) => void;

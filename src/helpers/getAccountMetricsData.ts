@@ -7,20 +7,20 @@ import { env } from '@/constants/env.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { getPublicKeyInHexFromPrivateKey } from '@/providers/farcaster/ed25519.js';
-import { FarcasterSession } from '@/providers/farcaster/Session.js';
-import { LensSession } from '@/providers/lens/Session.js';
+import { type FarcasterSession } from '@/providers/farcaster/Session.js';
+import { type LensSession } from '@/providers/lens/Session.js';
 import { resolveTwitterResponseData } from '@/providers/twitter/resolveTwitterResponseData.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
-import type { Account } from '@/providers/types/Account.js';
-import type {
-    CommonMetricsData,
-    FarcasterMetricsData,
-    LensMetricsData,
-    MetricsItemToUpload,
-    MetricsMetaInfo,
+import { type Account } from '@/providers/types/Account.js';
+import {
+    type CommonMetricsData,
+    type FarcasterMetricsData,
+    type LensMetricsData,
+    type MetricsItemToUpload,
+    type MetricsMetaInfo,
 } from '@/providers/types/Firefly.js';
 import { encryptAes256 } from '@/services/crypto.js';
-import type { ResponseJson } from '@/types/utility.js';
+import { type ResponseJson } from '@/types/utility.js';
 
 function encryptCipherText(passcode: string, text: string) {
     const key = sha256(toHex(passcode)).replace(/^0x/, '');

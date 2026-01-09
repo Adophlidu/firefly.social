@@ -1,5 +1,5 @@
 import { compose } from '@dimensiondev/utils';
-import type { NextRequest } from 'next/server.js';
+import { type NextRequest } from 'next/server.js';
 import urlcat from 'urlcat';
 import { z } from 'zod';
 
@@ -9,7 +9,7 @@ import { fetchJson } from '@/helpers/fetchJson.js';
 import { getSearchParamsWithZodSchema } from '@/helpers/getSearchParamsWithZodSchema.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { getFarcasterProfilesByIds } from '@/providers/farcaster/getFarcasterProfilesByIds.js';
-import type { ChannelMembersResponse } from '@/providers/types/Warpcast.js';
+import { type ChannelMembersResponse } from '@/providers/types/Warpcast.js';
 
 const Schema = z.object({
     channelId: z.string(),

@@ -1,8 +1,8 @@
-import type { Group, LoggedInGroupOperations, PostGroupInfo } from '@lens-protocol/client';
+import { type Group, type LoggedInGroupOperations, type PostGroupInfo } from '@lens-protocol/client';
 
 import { Source } from '@/constants/enum.js';
 import { formatLensImageUrl } from '@/helpers/formatImageUrl.js';
-import type { Channel } from '@/providers/types/SocialMedia.js';
+import { type Channel } from '@/providers/types/SocialMedia.js';
 
 function formatOperations(operations?: LoggedInGroupOperations) {
     return {

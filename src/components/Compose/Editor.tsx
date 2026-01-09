@@ -11,14 +11,14 @@ import { compact, debounce } from 'lodash-es';
 import { memo, type PropsWithChildren, useMemo, useTransition } from 'react';
 import { useDebounce } from 'react-use';
 
-import { $isMentionNode, MentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
+import { $isMentionNode, type MentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
 import { MentionsPlugin } from '@/components/Lexical/plugins/AtMentionsPlugin.js';
 import { LexicalAutoLinkPlugin } from '@/components/Lexical/plugins/AutoLinkPlugin.js';
 import { CharTag } from '@/constants/enum.js';
 import { writeChars } from '@/helpers/chars.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { type Chars, type ComplexChars } from '@/types/chars.js';
-import type { CompositePost } from '@/types/compose.js';
+import { type CompositePost } from '@/types/compose.js';
 
 function extractTextFromNode(node: LexicalNode): string {
     if ($isMentionNode(node)) {

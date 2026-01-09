@@ -5,7 +5,7 @@ import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
 import { Source, SourceInURL } from '@/constants/enum.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
-import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
+import { type FireflyWalletConnection } from '@/providers/types/Firefly.js';
 import { getProfilesByIds } from '@/services/getProfilesByIds.js';
 
 export async function getRelatedProfiles({ identities }: FireflyWalletConnection) {

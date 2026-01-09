@@ -1,6 +1,6 @@
 import { classNames } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
-import type { HTMLProps } from 'react';
+import { type HTMLProps } from 'react';
 
 import { Avatar } from '@/components/Avatar.js';
 import { Image } from '@/components/Image.js';
@@ -8,7 +8,7 @@ import { HighlightedText } from '@/components/Profile/HighlightedText.js';
 import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
-import type { FireflyAccountProfile } from '@/providers/types/Firefly.js';
+import { type FireflyAccountProfile } from '@/providers/types/Firefly.js';
 import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 
 function FireflyAccountAvatarBanner({ src }: { src: string }) {

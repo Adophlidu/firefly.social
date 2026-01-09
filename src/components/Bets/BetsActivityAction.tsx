@@ -1,5 +1,5 @@
 import { memo, useCallback } from 'react';
-import type { Address } from 'viem';
+import { type Address } from 'viem';
 
 import { Bookmark } from '@/components/Actions/Bookmark.js';
 import { LikeButton } from '@/components/Actions/LikeButton.js';
@@ -9,7 +9,7 @@ import { Source } from '@/constants/enum.js';
 import { POLYMARKET_URL } from '@/constants/static.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useToggleBetsBookmark } from '@/hooks/useToggleBetsBookmark.js';
-import type { BetsActivity } from '@/providers/types/Firefly.js';
+import { type BetsActivity } from '@/providers/types/Firefly.js';
 
 interface BetsActivityActionProps {
     activity: BetsActivity;

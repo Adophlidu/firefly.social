@@ -4,7 +4,7 @@ import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData
 import { formatFarcasterProfileFromFirefly } from '@/providers/farcaster/formatFarcasterProfileFromFirefly.js';
 import { getFarcasterFriendship } from '@/providers/farcaster/getFarcasterFriendship.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import type { UserResponse } from '@/providers/types/Firefly.js';
+import { type UserResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 export async function getFarcasterProfileById(profileId: string, viewerFid?: string) {

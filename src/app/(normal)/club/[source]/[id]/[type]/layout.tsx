@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import { type Metadata } from 'next';
 
 import { ChannelTabs } from '@/components/Channel/ChannelTabs.js';
 import { CHANNEL_TAB_TYPE } from '@/constants/computed.js';
@@ -7,7 +7,7 @@ import { notFound } from '@/esm/navigation/server.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 import { createChannelMetadata } from '@/providers/firefly/metadata/createChannelMetadata.js';
-import type { NextPageProps } from '@/types/utility.js';
+import { type NextPageProps } from '@/types/utility.js';
 
 interface Props
     extends NextPageProps<

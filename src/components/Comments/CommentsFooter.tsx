@@ -4,7 +4,7 @@ import { HideComments } from '@/components/HideComments.js';
 import { VirtualListFooter, type VirtualListFooterProps } from '@/components/VirtualList/VirtualListFooter.js';
 import { VirtualListFooterBottomText } from '@/components/VirtualList/VirtualListFooterBottomText.js';
 import { type SocialSource } from '@/constants/enum.js';
-import type { NonUndefined } from '@/types/utility.js';
+import { type NonUndefined } from '@/types/utility.js';
 
 interface Context extends NonUndefined<VirtualListFooterProps['context']> {
     source: SocialSource;

@@ -1,8 +1,7 @@
 'use client';
 
 import { classNames } from '@dimensiondev/utils';
-import type { HTMLProps } from 'react';
-import { memo } from 'react';
+import { type HTMLProps, memo } from 'react';
 
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 

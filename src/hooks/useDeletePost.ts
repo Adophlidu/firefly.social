@@ -9,7 +9,7 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import { useComeBack } from '@/hooks/useComeback.js';
 import { checkFarcasterInvalidSignerKey } from '@/providers/farcaster/checkFarcasterInvalidSignerKey.js';
 import { capturePostActionEvent } from '@/providers/telemetry/capturePostActionEvent.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
+import { type Post } from '@/providers/types/SocialMedia.js';
 
 export function useDeletePost(source: SocialSource) {
     const pathname = usePathname();

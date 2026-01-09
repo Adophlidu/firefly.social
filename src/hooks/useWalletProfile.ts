@@ -1,7 +1,7 @@
 import { Source } from '@/constants/enum.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { useWalletRelatedProfiles } from '@/hooks/useWalletRelatedProfiles.js';
-import type { WalletProfile } from '@/providers/types/Firefly.js';
+import { type WalletProfile } from '@/providers/types/Firefly.js';
 
 export function useWalletProfile(address: string, enabled = true) {
     const query = useWalletRelatedProfiles(address, enabled);

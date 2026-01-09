@@ -14,9 +14,9 @@ import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';
 import { removeAtEnd } from '@/helpers/removeAtEnd.js';
 import { resolveAllOembedUrls, resolveOembedUrl } from '@/helpers/resolveOembedUrl.js';
 import { useClassifyPostLink, useClassifyPostLinks } from '@/hooks/useClassifyPostLink.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
-import type { Chars } from '@/types/chars.js';
-import type { ComposeType } from '@/types/compose.js';
+import { type Post } from '@/providers/types/SocialMedia.js';
+import { type Chars } from '@/types/chars.js';
+import { type ComposeType } from '@/types/compose.js';
 
 interface Props {
     post: Post;

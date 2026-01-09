@@ -2,7 +2,7 @@
 
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
 import { compact } from 'lodash-es';
-import { type Address, type Hex, numberToHex, RpcError, SwitchChainError, UserRejectedRequestError } from 'viem';
+import { type Address, type Hex, numberToHex, type RpcError, SwitchChainError, UserRejectedRequestError } from 'viem';
 import { mainnet } from 'viem/chains';
 import { ChainNotConfiguredError, ConnectorChainMismatchError, createConnector, type CreateConnectorFn } from 'wagmi';
 

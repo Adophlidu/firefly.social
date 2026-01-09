@@ -1,5 +1,5 @@
-import type { Article } from '@/providers/types/Article.js';
-import type { UnifiedNotification } from '@/providers/types/Firefly.js';
+import { type Article } from '@/providers/types/Article.js';
+import { type UnifiedNotification } from '@/providers/types/Firefly.js';
 
 export function formatArticleFromNotification(data: UnifiedNotification['data']): Article {
     return {

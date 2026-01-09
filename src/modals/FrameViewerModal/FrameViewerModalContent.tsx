@@ -22,7 +22,7 @@ import {
 import { checkMiniAppBlocking } from '@/providers/firefly/worker/checkMiniAppBlocking.js';
 import { FarcasterFrameHost } from '@/providers/frame/Host.js';
 import { captureFrameActionEvent } from '@/providers/telemetry/captureFrameActionEvent.js';
-import type { Frame, FrameV2 } from '@/types/frame.js';
+import { type Frame, type FrameV2 } from '@/types/frame.js';
 import { EthereumMethodType } from '@/web3-shared/evm/types.js';
 
 function createEthProvider(frame: Frame) {

@@ -5,7 +5,7 @@ import { compact } from 'lodash-es';
 
 import { decryptAppScanLoginEncryptedData } from '@/actions/decryptAppScanLoginEncryptedData.js';
 import { queryClient } from '@/configs/queryClient.js';
-import { type SocialSource, Source, SourceInURL } from '@/constants/enum.js';
+import { type SocialSource, Source, type SourceInURL } from '@/constants/enum.js';
 import { DecryptionError } from '@/constants/error.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
@@ -14,13 +14,13 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import { resolveSourceFromSessionType } from '@/helpers/resolveSource.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { SessionFactory } from '@/providers/base/SessionFactory.js';
-import { BskySession } from '@/providers/bsky/Session.js';
-import { FarcasterSession } from '@/providers/farcaster/Session.js';
-import { FireflySession } from '@/providers/firefly/Session.js';
-import { LensSession } from '@/providers/lens/Session.js';
+import { type BskySession } from '@/providers/bsky/Session.js';
+import { type FarcasterSession } from '@/providers/farcaster/Session.js';
+import { type FireflySession } from '@/providers/firefly/Session.js';
+import { type LensSession } from '@/providers/lens/Session.js';
 import { setPrivyAsLensManager } from '@/providers/lens/setPrivyAsLensManager.js';
-import { TwitterSession } from '@/providers/twitter/Session.js';
-import type { Account } from '@/providers/types/Account.js';
+import { type TwitterSession } from '@/providers/twitter/Session.js';
+import { type Account } from '@/providers/types/Account.js';
 import { DesktopLinkInfoStatus, type DesktopLinkInfoStatusData } from '@/providers/types/Firefly.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { addAccounts } from '@/services/account.js';

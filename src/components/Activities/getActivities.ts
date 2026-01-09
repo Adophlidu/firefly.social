@@ -9,8 +9,8 @@ import { discoverArticlesByAddress } from '@/providers/firefly/article/discoverA
 import { getFollowingArticles } from '@/providers/firefly/article/getFollowingArticles.js';
 import { discoverSnapshotActivity } from '@/providers/firefly/endpoint/discoverSnapshotActivity.js';
 import { getFollowingSnapshotActivity } from '@/providers/firefly/endpoint/getFollowingSnapshotActivity.js';
-import type { Article, ArticlePlatform } from '@/providers/types/Article.js';
-import type { ActivitiesItem, FollowingSnapshotActivity } from '@/providers/types/Firefly.js';
+import { type Article, type ArticlePlatform } from '@/providers/types/Article.js';
+import { type ActivitiesItem, type FollowingSnapshotActivity } from '@/providers/types/Firefly.js';
 
 function createActivitiesFetcher(
     fetchArticles: (

@@ -1,4 +1,4 @@
-import type { SVGProps } from 'react';
+import { type SVGProps } from 'react';
 
 import XIconDark from '@/assets/x-circle-dark.svg';
 import XIconLight from '@/assets/x-circle-light.svg';

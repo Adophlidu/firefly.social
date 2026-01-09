@@ -1,7 +1,7 @@
 import { first } from 'lodash-es';
 
 import { HOME_CLUB } from '@/constants/channel.js';
-import { RestrictionType, Source, SourceInURL } from '@/constants/enum.js';
+import { type RestrictionType, Source, SourceInURL } from '@/constants/enum.js';
 import { readChars } from '@/helpers/chars.js';
 import { createDummyPost } from '@/helpers/createDummyPost.js';
 import { detectMentionsForLens } from '@/helpers/detectMentions.js';
@@ -12,19 +12,23 @@ import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { uploadVideoCover } from '@/helpers/uploadVideoCover.js';
 import { GroveStorageProvider } from '@/providers/lens/Grove.js';
-import type { MediaImage, MediaImageMimeType, MediaVideoMimeType } from '@/providers/lens/metadata/post/Base.js';
+import {
+    type MediaImage,
+    type MediaImageMimeType,
+    type MediaVideoMimeType,
+} from '@/providers/lens/metadata/post/Base.js';
 import { image } from '@/providers/lens/metadata/post/Image.js';
 import { link } from '@/providers/lens/metadata/post/Link.js';
 import { textOnly } from '@/providers/lens/metadata/post/TextOnly.js';
 import { video } from '@/providers/lens/metadata/post/Video.js';
 import { lensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { createPollPost } from '@/providers/orb/createPollPost.js';
-import type { CompositePoll } from '@/providers/types/Poll.js';
+import { type CompositePoll } from '@/providers/types/Poll.js';
 import { type Channel, SessionType } from '@/providers/types/SocialMedia.js';
 import { createPostTo } from '@/services/createPostTo.js';
 import { uploadAndConvertToM3u8 } from '@/services/uploadAndConvertToM3u8.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
-import type { ComposeType, CompositePost, MediaObject } from '@/types/compose.js';
+import { type ComposeType, type CompositePost, type MediaObject } from '@/types/compose.js';
 
 interface BaseMetadata {
     title: string;

@@ -14,7 +14,7 @@ import { BetsPlatform, Source } from '@/constants/enum.js';
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
-import type { BetsProfileDataForUI } from '@/types/bets.js';
+import { type BetsProfileDataForUI } from '@/types/bets.js';
 
 interface BetsProfileOverviewProps {
     profile: BetsProfileDataForUI;

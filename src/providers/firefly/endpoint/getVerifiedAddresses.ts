@@ -1,7 +1,7 @@
 import urlcat from 'urlcat';
 
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import type { GetVerifiedAddressesResponse } from '@/providers/types/Firefly.js';
+import { type GetVerifiedAddressesResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 export async function getVerifiedAddresses(): Promise<GetVerifiedAddressesResponse> {

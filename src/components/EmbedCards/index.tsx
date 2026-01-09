@@ -15,7 +15,7 @@ import { resolveOembedUrl } from '@/helpers/resolveOembedUrl.js';
 import { useClassifyPostLinks } from '@/hooks/useClassifyPostLink.js';
 import { useEnsAddresses } from '@/hooks/useEnsAddress.js';
 import { fireflyWalletProvider } from '@/providers/firefly/Wallet.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
+import { type Post } from '@/providers/types/SocialMedia.js';
 
 interface EmbedEntry {
     type: 'address' | 'domain' | 'url';

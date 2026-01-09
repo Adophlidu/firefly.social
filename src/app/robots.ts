@@ -1,4 +1,4 @@
-import type { MetadataRoute } from 'next';
+import { type MetadataRoute } from 'next';
 
 import { IS_PRODUCTION, SITE_URL_OFFICIAL } from '@/constants/static.js';
 

@@ -1,12 +1,12 @@
 import { notFound, redirect, RedirectType } from 'next/navigation.js';
-import type { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
 import { SORTED_PROFILE_SOURCES } from '@/constants/computed.js';
-import type { SocialSource } from '@/constants/enum.js';
+import { type SocialSource } from '@/constants/enum.js';
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { getAllRelatedProfileInfo } from '@/providers/firefly/endpoint/getAllRelatedProfileInfo.js';
-import type { FireflyProfile } from '@/providers/types/Firefly.js';
+import { type FireflyProfile } from '@/providers/types/Firefly.js';
 
 export async function RedirectWithFireflyUID({ uid }: { uid: string }): Promise<ReactNode | never> {
     const relatedProfile = await getAllRelatedProfileInfo({ uid }, false);

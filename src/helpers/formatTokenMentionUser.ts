@@ -1,6 +1,6 @@
 import { Source } from '@/constants/enum.js';
 import { type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
-import type { TokenMentionUser } from '@/providers/x3pro/types.js';
+import { type TokenMentionUser } from '@/providers/x3pro/types.js';
 
 export function formatTokenMentionUser(x: TokenMentionUser): Profile<TokenMentionUser> {
     return {

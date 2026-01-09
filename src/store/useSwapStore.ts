@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
 import { createSelectors } from '@/helpers/createSelector.js';
-import type { SwapModalOpenProps } from '@/modals/SwapModal/SwapModalContent.js';
+import { type SwapModalOpenProps } from '@/modals/SwapModal/SwapModalContent.js';
 
 interface SwapState {
     sidebarSwapReady: boolean;

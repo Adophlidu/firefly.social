@@ -1,10 +1,10 @@
 import { safeUnreachable, UnreachableError } from '@dimensiondev/utils';
 
-import type { BskySession } from '@/providers/bsky/Session.js';
-import type { LensSession } from '@/providers/lens/Session.js';
-import type { TwitterSession } from '@/providers/twitter/Session.js';
-import type { SessionPayload } from '@/providers/twitter/SessionPayload.js';
-import type { Session } from '@/providers/types/Session.js';
+import { type BskySession } from '@/providers/bsky/Session.js';
+import { type LensSession } from '@/providers/lens/Session.js';
+import { type TwitterSession } from '@/providers/twitter/Session.js';
+import { type SessionPayload } from '@/providers/twitter/SessionPayload.js';
+import { type Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 
 export function isSameSession(session: Session | null, otherSession: Session | null, strict = false) {

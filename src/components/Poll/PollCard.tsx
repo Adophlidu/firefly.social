@@ -5,7 +5,7 @@ import { VoteButtonPanel } from '@/components/Poll/VoteButtonPanel.js';
 import { VoteResult } from '@/components/Poll/VoteResult.js';
 import { POLL_ACTION_ENABLED } from '@/constants/poll.js';
 import { useRetrievePollFromPost } from '@/hooks/useRetrievePollFromPost.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
+import { type Post } from '@/providers/types/SocialMedia.js';
 
 interface PollCardProps {
     post: Post;

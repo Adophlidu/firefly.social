@@ -8,7 +8,7 @@ import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { humanize, nFormatter } from '@/helpers/formatCommentCounts.js';
 import { useCommentPost } from '@/hooks/useCommentPost.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
+import { type Post } from '@/providers/types/SocialMedia.js';
 
 interface CommentProps {
     post: Post;

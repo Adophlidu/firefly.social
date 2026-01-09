@@ -1,13 +1,13 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import type { HTMLProps } from 'react';
+import { type HTMLProps } from 'react';
 
 import { ChannelInfoUI } from '@/components/Channel/ChannelInfoUI.js';
 import { type SocialSource } from '@/constants/enum.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
-import type { Channel } from '@/providers/types/SocialMedia.js';
+import { type Channel } from '@/providers/types/SocialMedia.js';
 
 interface InfoProps extends HTMLProps<HTMLDivElement> {
     channel: Channel;

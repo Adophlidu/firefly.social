@@ -1,10 +1,10 @@
 import { classNames } from '@dimensiondev/utils';
-import type { AutoLinkNode } from '@lexical/link';
+import { type AutoLinkNode } from '@lexical/link';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext.js';
-import type { MenuTextMatch } from '@lexical/react/LexicalTypeaheadMenuPlugin.js';
 import {
     LexicalTypeaheadMenuPlugin,
     MenuOption,
+    type MenuTextMatch,
     useBasicTypeaheadTriggerMatch,
 } from '@lexical/react/LexicalTypeaheadMenuPlugin.js';
 import { useQuery } from '@tanstack/react-query';
@@ -31,7 +31,7 @@ import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { bskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { searchIdentity } from '@/providers/firefly/endpoint/searchIdentity.js';
 import { twitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
-import type { Profile } from '@/providers/types/Firefly.js';
+import { type Profile } from '@/providers/types/Firefly.js';
 
 const PUNCTUATION = '\\.,\\+\\*\\?\\$\\@\\|#{}\\(\\)\\^\\-\\[\\]\\\\/!%\'"~=<>_:;';
 const NAME = `\\b[A-Z][^\\s${PUNCTUATION}]`;

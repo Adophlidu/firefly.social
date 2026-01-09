@@ -1,5 +1,5 @@
 // cspell: disable
-import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { type Meta, type StoryObj } from '@storybook/nextjs-vite';
 import { useMemo, useState } from 'react';
 
 import { KolBar } from '@/components/TokenProfile/KolBar.js';

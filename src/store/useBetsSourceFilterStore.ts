@@ -5,7 +5,7 @@ import { createJSONStorage, persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
 import { SORTED_BETS_PLATFORM } from '@/constants/computed.js';
-import type { BetsPlatform } from '@/constants/enum.js';
+import { type BetsPlatform } from '@/constants/enum.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 
 export enum BetsFilterNamespace {

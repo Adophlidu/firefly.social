@@ -1,5 +1,5 @@
 import { safeUnreachable } from '@dimensiondev/utils';
-import type { UploadMediaV1Params } from 'twitter-api-v2';
+import { type UploadMediaV1Params } from 'twitter-api-v2';
 
 import { FileMimeType } from '@/constants/enum.js';
 

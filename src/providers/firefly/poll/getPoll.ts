@@ -6,7 +6,7 @@ import { getSessionFromStorageBySource } from '@/helpers/getSessionFromStorage.j
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import type { GetPollResponse, Poll } from '@/providers/types/Poll.js';
+import { type GetPollResponse, type Poll } from '@/providers/types/Poll.js';
 import { settings } from '@/settings/index.js';
 
 export async function getPoll(pollId: string, source: SocialSource): Promise<Poll | null> {

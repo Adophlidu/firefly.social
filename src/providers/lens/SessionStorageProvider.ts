@@ -1,5 +1,5 @@
 import { bom, parseJson } from '@dimensiondev/utils';
-import type { EnvironmentConfig, IStorageProvider } from '@lens-protocol/client';
+import { type EnvironmentConfig, type IStorageProvider } from '@lens-protocol/client';
 import z from 'zod';
 
 import { Source } from '@/constants/enum.js';

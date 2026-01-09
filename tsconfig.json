@@ -28,14 +28,16 @@
         }
     },
     "include": [
+        "globals.d.ts",
+        "next-auth.d.ts",
+        ".storybook/**/*.ts",
+        ".storybook/**/*.tsx",
         "src/**/*.ts",
         "src/**/*.tsx",
         "stories/**/*.ts",
         "stories/**/*.tsx",
         "tests/**/*.ts",
         "tests/**/*.tsx",
-        "globals.d.ts",
-        "next-auth.d.ts",
         ".next/types/**/*.ts"
     ],
     "exclude": ["node_modules", "src/service-workers"]

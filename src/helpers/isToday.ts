@@ -1,5 +1,4 @@
-import type { ConfigType } from 'dayjs';
-import dayjs from 'dayjs';
+import dayjs, { type ConfigType } from 'dayjs';
 
 export function isToday(value: ConfigType) {
     const today = dayjs();

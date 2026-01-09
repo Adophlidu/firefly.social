@@ -1,10 +1,10 @@
 import { describe, expect, test, vi } from 'vitest';
 
+import { extractEmbedResources } from '@/components/EmbedCards/helpers.js';
+
 vi.mock('@/constants/index.js', () => ({
     EMPTY_LIST: [],
 }));
-
-import { extractEmbedResources } from '@/components/EmbedCards/helpers.js';
 
 describe('extractEmbedResources', () => {
     describe('basic functionality', () => {

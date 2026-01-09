@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/react/macro';
-import type { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
 import FarcasterIcon from '@/assets/farcaster-fill.svg';
 import LensIcon from '@/assets/lens-fill.svg';

@@ -9,7 +9,7 @@ import { Source } from '@/constants/enum.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { computeSize } from '@/helpers/computeSize.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
-import type { Attachment } from '@/providers/types/SocialMedia.js';
+import { type Attachment } from '@/providers/types/SocialMedia.js';
 
 const Video = dynamic(() => import('@/components/Posts/Video.js').then((module) => module.Video), { ssr: false });
 

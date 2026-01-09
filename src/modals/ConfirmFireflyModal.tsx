@@ -17,7 +17,7 @@ import {
     captureAccountConflictNoEvent,
     captureAccountConflictYesEvent,
 } from '@/providers/telemetry/captureSyncTokenEvent.js';
-import type { Account } from '@/providers/types/Account.js';
+import { type Account } from '@/providers/types/Account.js';
 
 interface ConfirmFireflyModalOpenProps {
     account: Account;

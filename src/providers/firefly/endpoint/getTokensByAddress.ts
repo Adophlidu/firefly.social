@@ -4,8 +4,8 @@ import { queryClient } from '@/configs/queryClient.js';
 import { EMPTY_LIST } from '@/constants/static.js';
 import { resolveDebankChain } from '@/helpers/resolveDebankChain.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import type { Token as DebankToken } from '@/providers/types/Debank.js';
-import type { DebankTokensResponse } from '@/providers/types/Firefly.js';
+import { type Token as DebankToken } from '@/providers/types/Debank.js';
+import { type DebankTokensResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 async function getAllTokenList(address: string) {

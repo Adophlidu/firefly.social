@@ -1,5 +1,6 @@
-import { formatSecondsToHours } from '@/helpers/formatSeconds.js';
 import { describe, expect, it } from 'vitest';
+
+import { formatSecondsToHours } from '@/helpers/formatSeconds.js';
 
 describe('formatSecondsToHours', () => {
     it('should return `0:00`', () => {

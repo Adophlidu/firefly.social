@@ -13,7 +13,7 @@ import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
 import { getCollectionHolders } from '@/providers/firefly/nft/getCollectionHolders.js';
-import type { CollectionHolder } from '@/providers/types/Firefly.js';
+import { type CollectionHolder } from '@/providers/types/Firefly.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 interface TopCollectorsProps {

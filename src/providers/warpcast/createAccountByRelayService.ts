@@ -5,7 +5,7 @@ import { FARCASTER_REPLY_URL, NOT_DEPEND_SECRET, SITE_HOSTNAME, SITE_URL } from 
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { getFarcasterProfileById } from '@/providers/farcaster/getFarcasterProfileById.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
-import type { Account } from '@/providers/types/Account.js';
+import { type Account } from '@/providers/types/Account.js';
 import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';
 
 interface FarcasterReplyResponse {

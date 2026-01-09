@@ -1,7 +1,7 @@
 import { compact } from 'lodash-es';
 
 import { formatEventDate } from '@/providers/calendar/formatEventDate.js';
-import type { Event, ParsedEvent } from '@/types/calendar.js';
+import { type Event, type ParsedEvent } from '@/types/calendar.js';
 
 interface LumaRawEvent {
     calendar: {

@@ -8,7 +8,7 @@ import linkifyRegex from 'remark-linkify-regex';
 import stripMarkdown from 'strip-markdown';
 
 import { Code } from '@/components/Code.js';
-import type { MarkupProps } from '@/components/Markup/Markup.js';
+import { type MarkupProps } from '@/components/Markup/Markup.js';
 import { MarkupLink } from '@/components/Markup/MarkupLink/index.js';
 import { DisableItalicPlugin } from '@/components/Markup/plugins/DisableItalicPlugin.js';
 import { HashTagLink } from '@/components/Markup/plugins/HashTagLink.js';
@@ -25,8 +25,8 @@ import {
 } from '@/constants/regexp.js';
 import { isChannelSupported } from '@/helpers/isChannelSupported.js';
 import { trimify } from '@/helpers/trimify.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
-import type { Pluggable } from '@/types/utility.js';
+import { type Profile } from '@/providers/types/SocialMedia.js';
+import { type Pluggable } from '@/types/utility.js';
 
 interface BioMarkupProps extends MarkupProps {
     source?: SocialSource;

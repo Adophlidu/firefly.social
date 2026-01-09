@@ -1,7 +1,7 @@
-import type { Address, Hex } from 'viem';
+import { type Address, type Hex } from 'viem';
 
 import { isValidAddressEthereum as isAddress } from '@/helpers/isValidAddress.js';
-import type { RequestArguments } from '@/types/ethereum.js';
+import { type RequestArguments } from '@/types/ethereum.js';
 import { EthereumMethodType } from '@/web3-shared/evm/types.js';
 
 interface Call {

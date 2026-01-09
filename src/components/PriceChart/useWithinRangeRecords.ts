@@ -2,7 +2,7 @@ import { sortBy } from 'lodash-es';
 import { useMemo } from 'react';
 
 import { EMPTY_LIST } from '@/constants/static.js';
-import type { PriceRecord, TradeRecord } from '@/types/token.js';
+import { type PriceRecord, type TradeRecord } from '@/types/token.js';
 
 /**
  * Filters trade records within the date range of price records and without an

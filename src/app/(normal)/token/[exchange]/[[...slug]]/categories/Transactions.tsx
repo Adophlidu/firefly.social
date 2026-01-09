@@ -1,7 +1,7 @@
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { compact } from 'lodash-es';
-import type { ReadonlyURLSearchParams } from 'next/navigation.js';
+import { type ReadonlyURLSearchParams } from 'next/navigation.js';
 import { type HTMLProps, memo, Suspense, useCallback, useContext, useMemo, useState, useTransition } from 'react';
 
 import TokenPageLoading from '@/app/(normal)/token/[exchange]/[[...slug]]/loading.js';
@@ -21,7 +21,7 @@ import { getWalletProfileAvatar } from '@/helpers/getWalletProfileAvatar.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { swapActivityToTradeRecord } from '@/helpers/swapActivityToTradeRecord.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
-import type { SwapActivity } from '@/providers/types/Firefly.js';
+import { type SwapActivity } from '@/providers/types/Firefly.js';
 import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 function resolveTab(pathname: string, params: ReadonlyURLSearchParams, category: string) {

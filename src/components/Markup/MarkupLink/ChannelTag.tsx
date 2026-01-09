@@ -5,7 +5,7 @@ import { ChannelCard } from '@/components/Channel/ChannelCard.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { InteractiveTippy } from '@/components/InteractiveTippy.js';
 import { TippyContext, useTippyContext } from '@/components/TippyContext/index.js';
-import type { SocialSource } from '@/constants/enum.js';
+import { type SocialSource } from '@/constants/enum.js';
 import { useRouter } from '@/esm/navigation.js';
 import { resolveChannelUrl } from '@/helpers/resolveChannelUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';

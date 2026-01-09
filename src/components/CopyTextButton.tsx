@@ -1,7 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import type { TippyProps } from '@tippyjs/react';
+import { type TippyProps } from '@tippyjs/react';
 import { type HTMLProps } from 'react';
 
 import CopyIcon from '@/assets/copy.svg';

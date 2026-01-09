@@ -5,7 +5,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import { ExploreSwitchType } from '@/constants/enum.js';
 import { getExploreSwitchConfigList } from '@/providers/firefly/endpoint/getExploreSwitchConfigList.js';
 import { setExploreSwitchConfig } from '@/providers/firefly/endpoint/setExploreSwitchConfig.js';
-import type { GetExploreSwitchConfigResponse } from '@/providers/types/Firefly.js';
+import { type GetExploreSwitchConfigResponse } from '@/providers/types/Firefly.js';
 import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 
 function updateQuery(accountId: string | number, switchType: ExploreSwitchType, status: boolean) {

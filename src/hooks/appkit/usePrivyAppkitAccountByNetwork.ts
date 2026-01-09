@@ -1,4 +1,4 @@
-import type { NetworkType } from '@/constants/enum.js';
+import { type NetworkType } from '@/constants/enum.js';
 import { usePrivyAppKitAccounts } from '@/hooks/useAppKitAccounts.js';
 
 export function usePrivyAppkitAccountByNetwork(networkType: NetworkType) {

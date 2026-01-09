@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { addDays, startOfMonth } from 'date-fns';
 
 import { getAvailableDates } from '@/providers/calendar/getAvailableDates.js';
-import type { EventProvider } from '@/types/calendar.js';
+import { type EventProvider } from '@/types/calendar.js';
 
 export function useAvailableDates(type: EventProvider, date: Date, enabled = true) {
     const startTime = startOfMonth(date).getTime();

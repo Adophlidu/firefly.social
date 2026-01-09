@@ -1,4 +1,9 @@
-import type { AppBskyEmbedExternal, AppBskyEmbedImages, AppBskyEmbedVideo, RichText } from '@atproto/api';
+import {
+    type AppBskyEmbedExternal,
+    type AppBskyEmbedImages,
+    type AppBskyEmbedVideo,
+    type RichText,
+} from '@atproto/api';
 import { first } from 'lodash-es';
 import urlcat from 'urlcat';
 
@@ -12,7 +17,7 @@ import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { AppBskyEmbed } from '@/providers/bsky/contentChecker.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import { getPostOembed } from '@/providers/firefly/worker/getPostOembed.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
+import { type Post } from '@/providers/types/SocialMedia.js';
 
 export async function resolveBskyEmbed(post: Post, richText?: RichText) {
     const images = post.mediaObjects?.filter((media) => media.type === 'Image' && !!media.blobRef);

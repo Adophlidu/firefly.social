@@ -2,7 +2,7 @@ import { NotImplementedError, safeUnreachable } from '@dimensiondev/utils';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
-import type { Account } from '@/providers/types/Account.js';
+import { type Account } from '@/providers/types/Account.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 
 export function captureSocialSignupEntryClickEvent(source: SocialSource) {

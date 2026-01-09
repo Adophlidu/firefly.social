@@ -25,8 +25,8 @@ import { useCollectionMarketInfo } from '@/hooks/useCollectionMarketInfo.js';
 import { useNFTCollection } from '@/hooks/useNFTCollection.js';
 import { useNFTDetail } from '@/hooks/useNFTDetail.js';
 import { usePoapTraits } from '@/hooks/usePoapTraits.js';
-import type { EVM } from '@/providers/nft-scan/types.js';
-import type { NFTDetail } from '@/providers/types/Firefly.js';
+import { type EVM } from '@/providers/nft-scan/types.js';
+import { type NFTDetail } from '@/providers/types/Firefly.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 interface NFTPreviewProps {

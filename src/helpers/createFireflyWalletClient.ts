@@ -5,7 +5,7 @@ import { createInstance } from 'localforage';
 import { toHex } from 'viem';
 
 import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
-import type { RequestArguments } from '@/types/ethereum.js';
+import { type RequestArguments } from '@/types/ethereum.js';
 import { EthereumChainId, EthereumMethodType } from '@/web3-shared/evm/types.js';
 
 const storage = createInstance({

@@ -8,7 +8,7 @@ import { GroveStorageProvider } from '@/providers/lens/Grove.js';
 import { createLensPostMetadata, createPayloadAttachments } from '@/providers/lens/postToLens.js';
 import { uploadAndConvertToM3u8 } from '@/services/uploadAndConvertToM3u8.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
-import type { ComposeType, CompositePost } from '@/types/compose.js';
+import { type ComposeType, type CompositePost } from '@/types/compose.js';
 
 export interface LensSchedulePayload {
     operationName: 'CreatePost';

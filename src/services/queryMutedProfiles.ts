@@ -9,7 +9,7 @@ import { formatBskyProfile } from '@/providers/bsky/formatBskyProfile.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import { getBlockRelation } from '@/providers/firefly/endpoint/getBlockRelation.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import type { FireflyIdentity } from '@/providers/types/Firefly.js';
+import { type FireflyIdentity } from '@/providers/types/Firefly.js';
 
 interface MutedProfilePayload {
     source: Source;

@@ -9,7 +9,7 @@ import { CloseButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-import type { SocialSource } from '@/constants/enum.js';
+import { type SocialSource } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/static.js';
 import { formatFireflyProfileToProfile } from '@/helpers/formatSearchProfile.js';
 import { resolveFireflyPlatformFromSocialSource } from '@/helpers/resolveFireflyPlatform.js';
@@ -18,7 +18,7 @@ import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { captureComposeCrossAtEvent } from '@/providers/telemetry/captureComposeEvent.js';
-import type { Profile } from '@/providers/types/Firefly.js';
+import { type Profile } from '@/providers/types/Firefly.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 
 interface EditCrossAtModalOpenProps {

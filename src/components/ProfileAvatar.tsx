@@ -1,6 +1,5 @@
 import { classNames } from '@dimensiondev/utils';
-import type { HTMLProps } from 'react';
-import { memo } from 'react';
+import { type HTMLProps, memo } from 'react';
 
 import { Avatar } from '@/components/Avatar.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
@@ -10,7 +9,7 @@ import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { useIsLarge } from '@/hooks/useMediaQuery.js';
 import { useSizeStyle } from '@/hooks/useSizeStyle.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import { type Profile } from '@/providers/types/SocialMedia.js';
 
 export interface ProfileAvatarProps extends HTMLProps<HTMLElement> {
     profile: Profile;

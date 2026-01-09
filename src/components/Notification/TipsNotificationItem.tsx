@@ -1,7 +1,7 @@
 import { safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
-import type { Address } from 'viem';
+import { type Address } from 'viem';
 
 import FireflyRoundIcon from '@/assets/firefly.round.svg';
 import TipIcon from '@/assets/tips.svg';
@@ -22,7 +22,7 @@ import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import { useDefaultFireflyAvatar } from '@/hooks/useDefaultFireflyAvatar.js';
-import type { TipsNotificationData } from '@/providers/types/Firefly.js';
+import { type TipsNotificationData } from '@/providers/types/Firefly.js';
 
 interface TipsNotificationItemProps {
     data: TipsNotificationData;

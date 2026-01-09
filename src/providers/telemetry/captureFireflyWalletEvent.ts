@@ -1,6 +1,6 @@
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
-import type { EventId, Events } from '@/providers/types/Telemetry.js';
+import { type EventId, type Events } from '@/providers/types/Telemetry.js';
 
 export function captureFireflyWalletEvent<
     E extends

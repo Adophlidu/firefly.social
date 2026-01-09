@@ -4,7 +4,7 @@ import { memo, useLayoutEffect } from 'react';
 
 import { ContractCard } from '@/components/EmbedCards/ContractCard.js';
 import { Indicator, type IndicatorProps } from '@/components/EmbedCards/Indicator.js';
-import type { AddressCardProps } from '@/components/EmbedCards/types.js';
+import { type AddressCardProps } from '@/components/EmbedCards/types.js';
 import { WalletCard } from '@/components/EmbedCards/WalletCard.js';
 import { useNFTCollection } from '@/hooks/useNFTCollection.js';
 import { useTokenInfo } from '@/hooks/useTokenInfo.js';

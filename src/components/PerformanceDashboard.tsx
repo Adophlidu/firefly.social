@@ -7,7 +7,7 @@ import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { IconButton } from '@/components/IconButton.js';
 import { isSameUrl } from '@/helpers/isSameUrl.js';
 import { clearPerformanceData, exportPerformanceData, getPerformanceReport } from '@/providers/lcp/index.js';
-import type { PerformanceReport } from '@/providers/lcp/types.js';
+import { type PerformanceReport } from '@/providers/lcp/types.js';
 
 interface PerformanceDashboardProps {
     /** Show dashboard by default */

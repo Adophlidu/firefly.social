@@ -12,7 +12,7 @@ import { getPostGifSizeLimit } from '@/helpers/getPostLimitation.js';
 import { createGifMediaObject } from '@/helpers/resolveMediaObjectUrl.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
-import type { IGif } from '@/types/giphy.js';
+import { type IGif } from '@/types/giphy.js';
 
 const DynamicGiphyGifSelector = dynamic(
     () => import('@/components/Gif/GiphyGifSelector.js').then(async (mod) => mod.GiphyGifSelector),

@@ -11,7 +11,7 @@ import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isBookmarkSource } from '@/helpers/isSource.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
-import type { NextPageProps } from '@/types/utility.js';
+import { type NextPageProps } from '@/types/utility.js';
 
 interface Props extends NextPageProps<{ source: string }> {}
 

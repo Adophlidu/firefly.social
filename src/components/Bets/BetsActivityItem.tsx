@@ -1,6 +1,6 @@
 import { first } from 'lodash-es';
 import { memo, useCallback } from 'react';
-import type { Address } from 'viem';
+import { type Address } from 'viem';
 
 import { Avatar } from '@/components/Avatar.js';
 import { BetsActivityAction } from '@/components/Bets/BetsActivityAction.js';
@@ -15,7 +15,7 @@ import { formatAddress } from '@/helpers/formatAddress.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getWalletProfileAvatar } from '@/helpers/getWalletProfileAvatar.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
-import type { BetsActivity } from '@/providers/types/Firefly.js';
+import { type BetsActivity } from '@/providers/types/Firefly.js';
 
 interface BetsActivityItemProps {
     activity: BetsActivity;

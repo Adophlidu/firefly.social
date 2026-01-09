@@ -10,7 +10,7 @@ import { useFormContext } from 'react-hook-form';
 import EditIcon from '@/assets/edit.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Path } from '@/components/EditFireflyProfile/EditFireflyProfileRouter.js';
-import type { EditFireflyProfileFromValues } from '@/components/EditFireflyProfile/EditFireflyProfileRouteRoot.js';
+import { type EditFireflyProfileFromValues } from '@/components/EditFireflyProfile/EditFireflyProfileRouteRoot.js';
 import { EditProfileAvatar } from '@/components/EditProfile/EditProfileAvatar.js';
 import { ErrorMessage } from '@/components/Form/ErrorMessage.js';
 import { FormInput } from '@/components/Form/FormInput.js';
@@ -21,7 +21,7 @@ import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueu
 import { ImageEditorModalRef } from '@/modals/ImageEditorModal.js';
 import { updateProfile } from '@/providers/firefly/endpoint/updateProfile.js';
 import { captureEditProfileSuccessEvent } from '@/providers/telemetry/captureProfileActionEvent.js';
-import type { FireflyProfileUpdateParams } from '@/providers/types/Firefly.js';
+import { type FireflyProfileUpdateParams } from '@/providers/types/Firefly.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
 
 export function EditFireflyProfileForm() {

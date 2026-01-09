@@ -1,6 +1,6 @@
 import { classNames } from '@dimensiondev/utils';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
-import type { LexicalEditor } from 'lexical';
+import { type LexicalEditor } from 'lexical';
 import { compact, first } from 'lodash-es';
 import { useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -12,7 +12,7 @@ import { FireflyPlatform } from '@/constants/enum.js';
 import { resolveSocialSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { EditCrossAtModal, EditCrossAtModalRef } from '@/modals/EditCrossAtModal.js';
-import type { Profile } from '@/providers/types/Firefly.js';
+import { type Profile } from '@/providers/types/Firefly.js';
 
 interface MentionsMenuProps {
     profiles: Profile[];

@@ -1,7 +1,7 @@
 import { classNames } from '@dimensiondev/utils';
 
 import { Markup } from '@/components/Markup/Markup.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
+import { type Post } from '@/providers/types/SocialMedia.js';
 
 interface PostMarkupProps {
     post: Post;

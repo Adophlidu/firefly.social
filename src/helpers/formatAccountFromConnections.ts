@@ -4,8 +4,8 @@ import { Source, SourceInURL } from '@/constants/enum.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { ThirdPartySession } from '@/providers/third-party/Session.js';
-import type { Account } from '@/providers/types/Account.js';
-import type { AllConnections } from '@/providers/types/Firefly.js';
+import { type Account } from '@/providers/types/Account.js';
+import { type AllConnections } from '@/providers/types/Firefly.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 
 export function formatAccountFromConnections(

@@ -1,7 +1,7 @@
 'use client';
 
 import { classNames } from '@dimensiondev/utils';
-import type { TippyProps } from '@tippyjs/react';
+import { type TippyProps } from '@tippyjs/react';
 import { cloneElement, memo, type ReactElement, type ReactNode } from 'react';
 
 import { Tippy } from '@/esm/Tippy.js';

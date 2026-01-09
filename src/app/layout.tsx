@@ -5,7 +5,7 @@ import '@/app/globals.css';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { headers } from 'next/headers.js';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
-import type { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
 import { LayoutBody } from '@/app/layout-body.js';
 import { ErrorBoundary } from '@/components/ErrorBoundary/index.js';

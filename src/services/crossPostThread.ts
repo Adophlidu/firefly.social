@@ -14,7 +14,7 @@ import { type Post, SessionType } from '@/providers/types/SocialMedia.js';
 import { crossPost } from '@/services/crossPost.js';
 import { reportCrossedPost } from '@/services/reportCrossedPost.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
-import type { CompositePost } from '@/types/compose.js';
+import { type CompositePost } from '@/types/compose.js';
 
 interface CrossPostThreadOptions {
     progressCallback?: (progress: number) => void;

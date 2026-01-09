@@ -19,12 +19,12 @@ namespace React {
 
         // https://github.com/remarkjs/react-markdown/issues/877
         interface IntrinsicElements {
-            a: React.JSX.IntrinsicElements['a'];
-            p: React.JSX.IntrinsicElements['p'];
-            br: React.JSX.IntrinsicElements['br'];
-            ol: React.JSX.IntrinsicElements['ol'];
-            img: React.JSX.IntrinsicElements['img'];
-            code: React.JSX.IntrinsicElements['code'];
+            a: IntrinsicElements['a'];
+            p: IntrinsicElements['p'];
+            br: IntrinsicElements['br'];
+            ol: IntrinsicElements['ol'];
+            img: IntrinsicElements['img'];
+            code: IntrinsicElements['code'];
         }
     }
 }
@@ -39,7 +39,7 @@ declare module 'dompurify' {
 }
 
 declare module 'dayjs-twitter' {
-    import type { PluginFunc } from 'dayjs';
+    import { type PluginFunc } from 'dayjs';
 
     declare const plugin: PluginFunc;
     export default plugin;
@@ -52,7 +52,7 @@ declare module 'dayjs-twitter' {
 }
 
 declare module 'unist-util-flatmap' {
-    import type { Link, Root, Text } from 'mdast';
+    import { type Link, type Root, type Text } from 'mdast';
 
     type Node = Text | Link;
 
@@ -64,7 +64,7 @@ declare module 'unist-util-flatmap' {
 }
 
 declare module 'remark-linkify-regex' {
-    import type { Root } from 'mdast';
+    import { type Root } from 'mdast';
 
     function linkifyRegex(regex: RegExp): () => (ast: Root) => Root;
     export = linkifyRegex;
@@ -85,18 +85,18 @@ declare module '*.svg?url' {
 declare module 'next/font/local' {
     type CssVariable = `--${string}`;
     type Display = 'auto' | 'block' | 'swap' | 'fallback' | 'optional';
-    type NextFont = {
+    interface NextFont {
         className: string;
         style: {
             fontFamily: string;
             fontWeight?: number;
             fontStyle?: string;
         };
-    };
+    }
     type NextFontWithVariable = NextFont & {
         variable: string;
     };
-    type LocalFont<T extends CssVariable | undefined = undefined> = {
+    interface LocalFont<T extends CssVariable | undefined = undefined> {
         src:
             | string
             | Array<{
@@ -115,7 +115,7 @@ declare module 'next/font/local' {
             prop: string;
             value: string;
         }>;
-    };
+    }
 
     function localFont<T extends CssVariable | undefined = undefined>(
         options: LocalFont<T>,

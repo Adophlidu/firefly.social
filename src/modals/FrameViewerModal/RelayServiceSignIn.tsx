@@ -15,7 +15,7 @@ import { fetchJson } from '@/helpers/fetchJson.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { logger } from '@/libs/Logger.js';
-import type { RelayConfirmationContext } from '@/modals/FrameViewerModal/RelayConfirmationRouter.js';
+import { type RelayConfirmationContext } from '@/modals/FrameViewerModal/RelayConfirmationRouter.js';
 import { captureFrameSignInEvent } from '@/providers/telemetry/captureFrameSignInEvent.js';
 import { type Profile, SessionType } from '@/providers/types/SocialMedia.js';
 import { pollingChannelToken } from '@/providers/warpcast/pollingChannelToken.js';

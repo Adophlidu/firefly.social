@@ -1,6 +1,6 @@
 import { compose } from '@dimensiondev/utils';
 import dayjs from 'dayjs';
-import type { NextRequest } from 'next/server.js';
+import { type NextRequest } from 'next/server.js';
 import { z } from 'zod';
 
 import { env } from '@/constants/env.js';

@@ -1,14 +1,14 @@
 import { Trans } from '@lingui/react/macro';
-import type { Metadata } from 'next';
-import type { PropsWithChildren } from 'react';
+import { type Metadata } from 'next';
+import { type PropsWithChildren } from 'react';
 
 import { Comeback } from '@/components/Comeback.js';
-import type { SocialSourceInURL } from '@/constants/enum.js';
+import { type SocialSourceInURL } from '@/constants/enum.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isSocialSourceInUrl } from '@/helpers/isSource.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 import { createPostMetadata } from '@/providers/firefly/metadata/createPostMetadata.js';
-import type { NextPageProps } from '@/types/utility.js';
+import { type NextPageProps } from '@/types/utility.js';
 
 interface Props extends NextPageProps<{ id: string; source: SocialSourceInURL }> {}
 

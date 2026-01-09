@@ -1,10 +1,10 @@
-import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { type Meta, type StoryObj } from '@storybook/nextjs-vite';
 import { useState } from 'react';
 
 import { MentionedByModal } from '@/components/TokenProfile/MentionedByModal.js';
 import { formatTokenMentionUser } from '@/helpers/formatTokenMentionUser.js';
 import { useX3ProTokenInfo } from '@/hooks/token/useX3ProTokenInfo.js';
-import type { TokenMentionUser } from '@/providers/x3pro/types.js';
+import { type TokenMentionUser } from '@/providers/x3pro/types.js';
 
 interface Args {
     open: boolean;

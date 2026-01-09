@@ -1,5 +1,5 @@
 import { compose } from '@dimensiondev/utils';
-import type { NextRequest } from 'next/server.js';
+import { type NextRequest } from 'next/server.js';
 import urlcat from 'urlcat';
 import { z } from 'zod';
 
@@ -8,7 +8,7 @@ import { createResponseJsonFromOrb } from '@/helpers/createResponseJsonFromOrb.j
 import { fetchOrbJson } from '@/helpers/fetchOrbJson.js';
 import { getJsonBodyWithZodSchema } from '@/helpers/getJsonBodyWithZodSchema.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
-import type { PollSignInResponse } from '@/providers/orb/type.js';
+import { type PollSignInResponse } from '@/providers/orb/type.js';
 
 const BodySchema = z.object({
     secret: z.string().min(1),

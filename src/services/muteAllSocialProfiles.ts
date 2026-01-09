@@ -12,7 +12,7 @@ import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { lensSessionClientHolder } from '@/providers/lens/LensSessionClientHolder.js';
 import { lensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { twitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
-import type { FireflyIdentity } from '@/providers/types/Firefly.js';
+import { type FireflyIdentity } from '@/providers/types/Firefly.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 
 export async function muteAllSocialProfiles(identity: FireflyIdentity) {

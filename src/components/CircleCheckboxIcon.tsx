@@ -1,5 +1,5 @@
 import { classNames } from '@dimensiondev/utils';
-import type { SVGProps } from 'react';
+import { type SVGProps } from 'react';
 
 import RadioDisableNoIcon from '@/assets/radio.disable-no.svg';
 import RadioYesIcon from '@/assets/radio.yes.svg';

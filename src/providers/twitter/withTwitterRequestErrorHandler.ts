@@ -1,8 +1,8 @@
-import type { NextRequest } from 'next/server.js';
+import { type NextRequest } from 'next/server.js';
 
 import { createErrorResponseJson } from '@/helpers/createResponseJson.js';
 import { getTwitterErrorMessage } from '@/providers/twitter/getTwitterErrorMessage.js';
-import type { NextRequestContext } from '@/types/utility.js';
+import { type NextRequestContext } from '@/types/utility.js';
 
 export function withTwitterRequestErrorHandler(
     handler: (request: NextRequest, context?: NextRequestContext) => Promise<Response>,

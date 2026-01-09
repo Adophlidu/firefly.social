@@ -27,10 +27,10 @@ import { useChainContext } from '@/hooks/useChainContext.js';
 import { useEnsName } from '@/hooks/useEnsName.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
 import { useRedPacketThemes } from '@/hooks/useRedPacketThemes.js';
-import type { Collection } from '@/modals/NonFungibleCollectionSelectModal/CollectionItem.js';
-import { FireflyRedPacketAPI, RequirementType } from '@/providers/types/FireflyRedPacket.js';
-import type { Channel } from '@/providers/types/SocialMedia.js';
-import type { FungibleToken } from '@/web3-shared/base/specs.js';
+import { type Collection } from '@/modals/NonFungibleCollectionSelectModal/CollectionItem.js';
+import { type FireflyRedPacketAPI, type RequirementType } from '@/providers/types/FireflyRedPacket.js';
+import { type Channel } from '@/providers/types/SocialMedia.js';
+import { type FungibleToken } from '@/web3-shared/base/specs.js';
 import { EthereumChainId, type EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
 export const redPacketRandomTabs = [

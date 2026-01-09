@@ -6,7 +6,7 @@ import { type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { createIndicator, createNextIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import type { BetsActivity, BookmarkResponse } from '@/providers/types/Firefly.js';
+import { type BetsActivity, type BookmarkResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 export async function getBetBookmarks(indicator?: PageIndicator): Promise<Pageable<BetsActivity, PageIndicator>> {

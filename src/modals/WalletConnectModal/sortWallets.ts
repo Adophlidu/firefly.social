@@ -1,6 +1,6 @@
 import { safeUnreachable } from '@dimensiondev/utils';
 
-import type { AppkitConnectorItem, AppkitWalletItem } from '@/hooks/appkit/useAppkitWalletList.js';
+import { type AppkitConnectorItem, type AppkitWalletItem } from '@/hooks/appkit/useAppkitWalletList.js';
 
 type AppkitWallet = AppkitConnectorItem | AppkitWalletItem;
 

@@ -15,7 +15,7 @@ import { createIndicator, type Pageable, type PageIndicator } from '@/helpers/pa
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { useAsyncStatus } from '@/hooks/useAsyncStatus.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import { type Profile } from '@/providers/types/SocialMedia.js';
 import { getSuggestedFollowsInPage } from '@/services/getSuggestedFollows.js';
 import { queryMutedProfiles } from '@/services/queryMutedProfiles.js';
 

@@ -5,7 +5,7 @@ import { NATIVE_TOKEN_ADDRESS } from '@/constants/okx.js';
 import { isZeroAddressEthereum } from '@/helpers/isZeroAddress.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import type { TokenPriceStatsOptions, TokenPriceStatsResponse } from '@/providers/types/Firefly.js';
+import { type TokenPriceStatsOptions, type TokenPriceStatsResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 export async function getTokenPriceStats(

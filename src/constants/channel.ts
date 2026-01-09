@@ -1,6 +1,6 @@
 import { Source } from '@/constants/enum.js';
 import { createDummyChannel } from '@/helpers/createDummyChannel.js';
-import type { Channel } from '@/providers/types/SocialMedia.js';
+import { type Channel } from '@/providers/types/SocialMedia.js';
 
 export const HOME_CHANNEL: Channel = createDummyChannel(Source.Farcaster, 'home' /* fake id */, 'Home');
 

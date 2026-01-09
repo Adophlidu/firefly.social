@@ -13,7 +13,7 @@ import {
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { getSingleCoin } from '@/providers/firefly/endpoint/getSingleCoin.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import type { Bookmarkable, BookmarkResponse, TokenWithMarketData } from '@/providers/types/Firefly.js';
+import { type Bookmarkable, type BookmarkResponse, type TokenWithMarketData } from '@/providers/types/Firefly.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
 

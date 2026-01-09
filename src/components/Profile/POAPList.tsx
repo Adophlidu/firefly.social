@@ -1,8 +1,8 @@
 'use client';
 
 import { classNames } from '@dimensiondev/utils';
-import type { GridItemProps, GridListProps } from 'react-virtuoso';
-import type { Hex } from 'viem';
+import { type GridItemProps, type GridListProps } from 'react-virtuoso';
+import { type Hex } from 'viem';
 
 import PoapIcon from '@/assets/poap.svg';
 import { ChainIcon } from '@/components/ChainIcon.js';
@@ -18,9 +18,9 @@ import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { usePoapsByWallet } from '@/hooks/nft/usePoapsByWallet.js';
 import { useEnsName } from '@/hooks/useEnsName.js';
-import type { EVM } from '@/providers/nft-scan/types.js';
-import type { NFTDetail } from '@/providers/types/Firefly.js';
-import type { Poap } from '@/providers/types/NFTs.js';
+import { type EVM } from '@/providers/nft-scan/types.js';
+import { type NFTDetail } from '@/providers/types/Firefly.js';
+import { type Poap } from '@/providers/types/NFTs.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 function GridList({ className, children, ...props }: GridListProps) {

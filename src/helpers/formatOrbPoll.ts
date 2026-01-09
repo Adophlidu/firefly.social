@@ -1,7 +1,7 @@
 import { Source } from '@/constants/enum.js';
 import { POLL_CHOICE_TYPE, POLL_STRATEGIES } from '@/constants/poll.js';
-import type { OrbPoll } from '@/providers/orb/type.js';
-import type { Poll } from '@/providers/types/Poll.js';
+import { type OrbPoll } from '@/providers/orb/type.js';
+import { type Poll } from '@/providers/types/Poll.js';
 
 export function formatOrbPoll(orbPoll: OrbPoll): Poll {
     return {

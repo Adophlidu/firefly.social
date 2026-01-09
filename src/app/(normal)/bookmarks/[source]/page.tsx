@@ -10,10 +10,10 @@ import { NFTBookmarkList } from '@/app/(normal)/bookmarks/NFTBookmarkList.js';
 import { TokenBookmarkList } from '@/app/(normal)/bookmarks/TokenBookmarkList.js';
 import { Loading } from '@/components/Loading.js';
 import { SnapshotBookmarkList } from '@/components/Snapshot/SnapshotBookmarkList.js';
-import { type BookmarkSource, Source, SourceInURL } from '@/constants/enum.js';
+import { type BookmarkSource, Source, type SourceInURL } from '@/constants/enum.js';
 import { resolveSource } from '@/helpers/resolveSource.js';
 import { useMounted } from '@/hooks/useMounted.js';
-import type { NextPageProps } from '@/types/utility.js';
+import { type NextPageProps } from '@/types/utility.js';
 
 function BookmarkListContent({ source }: { source: BookmarkSource }) {
     switch (source) {

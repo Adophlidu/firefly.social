@@ -11,7 +11,7 @@ import { Link } from '@/components/Link.js';
 import { SuggestCollectionList } from '@/components/Search/SuggestCollectionList.js';
 import { SuggestProfileList } from '@/components/Search/SuggestProfileList.js';
 import { SuggestTokenList } from '@/components/Search/SuggestTokenList.js';
-import { PageRoute, SearchType, Source } from '@/constants/enum.js';
+import { PageRoute, SearchType, type Source } from '@/constants/enum.js';
 import { usePathname } from '@/esm/navigation.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';

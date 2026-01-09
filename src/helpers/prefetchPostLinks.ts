@@ -5,7 +5,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import { FIREFLY_WORKER_HOST } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import type { GetClassifyPostLinksResponse } from '@/providers/firefly/worker/getClassifyPostLinks.js';
+import { type GetClassifyPostLinksResponse } from '@/providers/firefly/worker/getClassifyPostLinks.js';
 
 export async function prefetchPostLinks(urlGroups: string[][]) {
     return runInSafeAsync(async () => {

@@ -1,7 +1,7 @@
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';
-import type { SignInResponseData } from '@/providers/orb/type.js';
-import type { ResponseJson } from '@/types/utility.js';
+import { type SignInResponseData } from '@/providers/orb/type.js';
+import { type ResponseJson } from '@/types/utility.js';
 
 export async function initSignIn() {
     const response = await fetchJson<ResponseJson<SignInResponseData>>('/api/orb/init-sign-in');

@@ -3,7 +3,7 @@ import urlcat from 'urlcat';
 
 import { formatFarcasterPostFromFirefly } from '@/providers/farcaster/formatFarcasterPostFromFirefly.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import type { CastResponse } from '@/providers/types/Firefly.js';
+import { type CastResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 export async function getPostByShortId(shortId: string, handle: string, profileId?: string) {

@@ -5,9 +5,14 @@ import { PinnedPost } from '@/components/Posts/PinnedPost.js';
 import { SocialProfileContentList } from '@/components/Profile/SocialProfileContentList.js';
 import { WalletProfileContentList } from '@/components/Profile/WalletProfileContentList.js';
 import { SORTED_PROFILE_TAB_TYPE_REQUIRE_LOGIN } from '@/constants/computed.js';
-import { type ProfileCategory, SocialProfileCategory, Source, WalletProfileCategory } from '@/constants/enum.js';
+import {
+    type ProfileCategory,
+    type SocialProfileCategory,
+    Source,
+    type WalletProfileCategory,
+} from '@/constants/enum.js';
 import { isSocialSource } from '@/helpers/isSource.js';
-import type { FireflyIdentity } from '@/providers/types/Firefly.js';
+import { type FireflyIdentity } from '@/providers/types/Firefly.js';
 
 export function ProfilePageTimeline({
     identity = null,

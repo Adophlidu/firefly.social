@@ -7,7 +7,7 @@ import { shuffleTransactions } from '@/components/Transactions/shuffleTransactio
 import { NetworkType, ScrollListKey, Source } from '@/constants/enum.js';
 import { type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { useMultiInfiniteQueryPageable } from '@/hooks/useMultiInfiniteQueryPageable.js';
-import type { TransactionsItem } from '@/providers/types/Firefly.js';
+import { type TransactionsItem } from '@/providers/types/Firefly.js';
 import { useTransactionsStateStore } from '@/store/useTransactionsStore.js';
 
 export function ForYouTransactions() {

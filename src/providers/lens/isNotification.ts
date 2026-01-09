@@ -1,18 +1,18 @@
-import type {
-    AccountActionExecutedNotification,
-    FollowNotification,
-    FragmentOf,
-    GroupMembershipRequestApprovedNotification,
-    GroupMembershipRequestRejectedNotification,
-    MentionNotification,
-    Post,
-    PostActionExecutedNotification,
-    ReactionNotification,
-    RepostNotification,
+import {
+    type AccountActionExecutedNotification,
+    type FollowNotification,
+    type FragmentOf,
+    type GroupMembershipRequestApprovedNotification,
+    type GroupMembershipRequestRejectedNotification,
+    type MentionNotification,
+    type Post,
+    type PostActionExecutedNotification,
+    type ReactionNotification,
+    type RepostNotification,
 } from '@lens-protocol/client';
 
-import { CommentNotificationFragment } from '@/providers/lens/fragments/notification/CommentNotification.js';
-import { QuoteNotificationFragment } from '@/providers/lens/fragments/notification/QuoteNotification.js';
+import { type CommentNotificationFragment } from '@/providers/lens/fragments/notification/CommentNotification.js';
+import { type QuoteNotificationFragment } from '@/providers/lens/fragments/notification/QuoteNotification.js';
 
 function isNotification<
     T extends {

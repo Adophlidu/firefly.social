@@ -5,7 +5,7 @@ import { Comeback } from '@/components/Comeback.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
-import type { NextPageProps } from '@/types/utility.js';
+import { type NextPageProps } from '@/types/utility.js';
 
 export async function generateMetadata() {
     return createSiteMetadata(`/bets/leaderboard`, {

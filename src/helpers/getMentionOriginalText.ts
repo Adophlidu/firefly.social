@@ -1,4 +1,4 @@
-import { $isAutoLinkNode, AutoLinkNode } from '@lexical/link';
+import { $isAutoLinkNode, type AutoLinkNode } from '@lexical/link';
 import { $getSelection, $isRangeSelection, type LexicalEditor, type RangeSelection } from 'lexical';
 
 import { MENTION_REGEX } from '@/constants/regexp.js';

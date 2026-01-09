@@ -13,7 +13,7 @@ import { signClaimMessage } from '@/providers/ethereum/signClaimMessage.js';
 import { claimWithNativeToken } from '@/providers/solana/red-packet/claimWithNativeToken.js';
 import { claimWithSplToken } from '@/providers/solana/red-packet/claimWithSplToken.js';
 import { getClaimedRecord } from '@/providers/solana/red-packet/getClaimedRecord.js';
-import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
+import { type RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 export function useSolanaVerifyAndClaim(payload: RedPacketJSONPayload, source: SocialSource, enabled = true) {

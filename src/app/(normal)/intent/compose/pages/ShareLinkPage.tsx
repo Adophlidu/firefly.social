@@ -14,7 +14,7 @@ import { trimify } from '@/helpers/trimify.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { ComposeModalRef } from '@/modals/ComposeModal/index.js';
 import { searchIdentity } from '@/providers/firefly/endpoint/searchIdentity.js';
-import type { Profile } from '@/providers/types/Firefly.js';
+import { type Profile } from '@/providers/types/Firefly.js';
 
 export interface ShareLinkProps {
     text: string;

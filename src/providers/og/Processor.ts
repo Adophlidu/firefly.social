@@ -6,7 +6,7 @@ import { FIREFLY_WORKER_HOST } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { getMirrorPayload } from '@/providers/og/readers/payload.js';
 import { type LinkDigested, type OpenGraph } from '@/types/og.js';
-import type { ResponseJson } from '@/types/utility.js';
+import { type ResponseJson } from '@/types/utility.js';
 
 class Processor {
     digestDocumentUrl = async (documentUrl: string, signal?: AbortSignal): Promise<LinkDigested | null> => {

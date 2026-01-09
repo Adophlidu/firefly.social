@@ -5,7 +5,7 @@ import { memo, type ReactNode } from 'react';
 import { ListInPage } from '@/components/ListInPage.js';
 import { Empty } from '@/components/Search/Empty.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
-import { ScrollListKey, SearchType, Source } from '@/constants/enum.js';
+import { ScrollListKey, type SearchType, Source } from '@/constants/enum.js';
 import { EMPTY_LIST, REQUIRE_LOGIN_SOURCES_IN_SEARCH } from '@/constants/static.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
@@ -13,7 +13,7 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useMultiInfiniteQueryPageable } from '@/hooks/useMultiInfiniteQueryPageable.js';
 import { searchPosts } from '@/providers/x3pro/searchPosts.js';
-import { PostOrderType } from '@/providers/x3pro/types.js';
+import { type PostOrderType } from '@/providers/x3pro/types.js';
 
 interface Props {
     keyword: string | string[];

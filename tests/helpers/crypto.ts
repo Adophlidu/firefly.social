@@ -1,4 +1,6 @@
-import { describe, test, expect, vi } from 'vitest';
+import { describe, expect, test, vi } from 'vitest';
+
+import { decryptAes256, decryptPassword, encryptAes256, encryptPassword } from '@/services/crypto.js';
 
 vi.mock('@/constants/env.js', () => ({
     env: {
@@ -13,8 +15,6 @@ vi.mock('@/constants/env.js', () => ({
         },
     },
 }));
-
-import { encryptPassword, decryptPassword, encryptAes256, decryptAes256 } from '@/services/crypto.js';
 
 const key = '0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef';
 const iv = '0123456789abcdef0123456789abcdef';

@@ -1,7 +1,7 @@
-import { Source } from '@/constants/enum.js';
+import { type Source } from '@/constants/enum.js';
 import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';
 import { type Provider } from '@/providers/types/SocialMedia.js';
-import type { ClassType } from '@/types/utility.js';
+import { type ClassType } from '@/types/utility.js';
 
 function toggleAct(source: Source, postId: string, status: boolean) {
     patchPostQueryData(source, postId, (draft) => {

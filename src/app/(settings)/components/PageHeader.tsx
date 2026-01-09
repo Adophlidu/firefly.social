@@ -1,7 +1,7 @@
 'use client';
 
 import { classNames } from '@dimensiondev/utils';
-import type { PropsWithChildren } from 'react';
+import { type PropsWithChildren } from 'react';
 
 import { Headline } from '@/app/(settings)/components/Headline.js';
 import ComebackIcon from '@/assets/comeback.svg';

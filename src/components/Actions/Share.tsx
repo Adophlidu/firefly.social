@@ -15,7 +15,7 @@ import { SITE_URL } from '@/constants/static.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { openComposeModal } from '@/helpers/openComposeModal.js';
 import { capturePostActionEvent } from '@/providers/telemetry/capturePostActionEvent.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
+import { type Post } from '@/providers/types/SocialMedia.js';
 
 interface ShareProps extends HTMLProps<HTMLDivElement> {
     post: Post;

@@ -1,7 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import type { PropsWithChildren } from 'react';
+import { type PropsWithChildren } from 'react';
 
 import VoteIcon from '@/assets/vote.svg';
 import { ActivityCellAction } from '@/components/ActivityCell/ActivityCellAction.js';

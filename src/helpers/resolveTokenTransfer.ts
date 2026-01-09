@@ -5,8 +5,8 @@ import { EthereumNetwork } from '@/providers/ethereum/Network.js';
 import { EthereumTransfer } from '@/providers/ethereum/Transfer.js';
 import { SolanaNetwork } from '@/providers/solana/Network.js';
 import { SolanaTransfer } from '@/providers/solana/Transfer.js';
-import type { NetworkProvider } from '@/providers/types/Network.js';
-import type { TransferProvider } from '@/providers/types/Transfer.js';
+import { type NetworkProvider } from '@/providers/types/Network.js';
+import { type TransferProvider } from '@/providers/types/Transfer.js';
 
 export const resolveTransferProvider = createLookupTableResolver<NetworkType, TransferProvider>(
     {

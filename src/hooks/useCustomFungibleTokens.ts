@@ -13,9 +13,9 @@ import { leftShift } from '@/helpers/number.js';
 import { resolveWagmiChain } from '@/helpers/resolveWagmiChain.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getFungibleTokenPrice } from '@/providers/coingecko/getFungibleTokenPrice.js';
-import type { Token as TipsToken } from '@/providers/types/Transfer.js';
+import { type Token as TipsToken } from '@/providers/types/Transfer.js';
 import { CustomTokenType, useCustomTokenStore } from '@/store/useCustomTokenStore.js';
-import { EthereumChainId } from '@/web3-shared/evm/types.js';
+import { type EthereumChainId } from '@/web3-shared/evm/types.js';
 
 export interface Token extends TipsToken {
     custom?: boolean;

@@ -1,5 +1,5 @@
 import { msg } from '@lingui/core/macro';
-import type { PropsWithChildren } from 'react';
+import { type PropsWithChildren } from 'react';
 
 import { HomeTabs } from '@/components/HomeTab/index.js';
 import { NoSSR } from '@/components/NoSSR.js';

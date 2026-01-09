@@ -1,6 +1,6 @@
 import { classNames } from '@dimensiondev/utils';
 import { AnimatePresence, motion } from 'framer-motion';
-import type { PropsWithChildren } from 'react';
+import { type PropsWithChildren } from 'react';
 
 import BskyLogo from '@/assets/bsky-logo.svg';
 import CloudBigIcon from '@/assets/cloud-big.svg';

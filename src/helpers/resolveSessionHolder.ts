@@ -1,14 +1,14 @@
 import { createLookupTableResolver, UnreachableError } from '@dimensiondev/utils';
 
 import { type ProfileSource, type SocialSource, Source } from '@/constants/enum.js';
-import { SessionHolder } from '@/providers/base/SessionHolder.js';
+import { type SessionHolder } from '@/providers/base/SessionHolder.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { thirdPartySessionHolder } from '@/providers/third-party/SessionHolder.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
-import type { Session } from '@/providers/types/Session.js';
+import { type Session } from '@/providers/types/Session.js';
 
 export const resolveSessionHolder = createLookupTableResolver<SocialSource, SessionHolder<Session>>(
     {

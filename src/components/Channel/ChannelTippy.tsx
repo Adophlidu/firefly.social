@@ -3,7 +3,7 @@ import { type HTMLProps, memo, useState } from 'react';
 import { ChannelCard } from '@/components/Channel/ChannelCard.js';
 import { InteractiveTippy } from '@/components/InteractiveTippy.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import type { Channel } from '@/providers/types/SocialMedia.js';
+import { type Channel } from '@/providers/types/SocialMedia.js';
 
 interface ChannelTippyProps extends HTMLProps<HTMLDivElement> {
     channel: Channel;

@@ -3,8 +3,8 @@
 import { compose, safeUnreachable } from '@dimensiondev/utils';
 import { compact, first } from 'lodash-es';
 import { ImageResponse } from 'next/og.js';
-import type { NextRequest } from 'next/server.js';
-import type { HTMLProps } from 'react';
+import { type NextRequest } from 'next/server.js';
+import { type HTMLProps } from 'react';
 import urlcat from 'urlcat';
 import { z } from 'zod';
 
@@ -23,11 +23,11 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { getAllRelatedProfileInfo } from '@/providers/firefly/endpoint/getAllRelatedProfileInfo.js';
-import type { WalletProfiles } from '@/providers/types/Firefly.js';
+import { type WalletProfiles } from '@/providers/types/Firefly.js';
 import { SourceSchema } from '@/schemas/Source.js';
 import { getAllRelatedProfilesWithDefault } from '@/services/getAllRelatedProfilesWithDefault.js';
 import { getSatoriFonts } from '@/services/getSatoriFonts.js';
-import type { NextRequestContext } from '@/types/utility.js';
+import { type NextRequestContext } from '@/types/utility.js';
 
 const OG_FALLBACK_AVATAR = urlcat(SITE_URL, '/image/firefly-light-avatar.png');
 const OG_BACKGROUND = urlcat(SITE_URL, '/image/profile-og-background.png');

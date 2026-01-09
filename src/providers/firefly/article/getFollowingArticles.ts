@@ -5,8 +5,8 @@ import { isZero } from '@/helpers/number.js';
 import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { ArticlePlatform } from '@/providers/types/Article.js';
-import type { GetFollowingArticlesResponse } from '@/providers/types/Firefly.js';
+import { type ArticlePlatform } from '@/providers/types/Article.js';
+import { type GetFollowingArticlesResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 export async function getFollowingArticles(indicator?: PageIndicator, platforms?: ArticlePlatform[]) {

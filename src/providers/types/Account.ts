@@ -1,6 +1,6 @@
-import type { FireflySession } from '@/providers/firefly/Session.js';
-import type { Session } from '@/providers/types/Session.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import { type FireflySession } from '@/providers/firefly/Session.js';
+import { type Session } from '@/providers/types/Session.js';
+import { type Profile } from '@/providers/types/SocialMedia.js';
 
 /**
  * force_restore only works for lens now,

@@ -22,7 +22,7 @@ import { captureArticleClickEvent } from '@/providers/telemetry/captureClickEven
 import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { type LinkDigested, PayloadType } from '@/types/og.js';
-import type { ResponseJson } from '@/types/utility.js';
+import { type ResponseJson } from '@/types/utility.js';
 
 export interface SingleArticleProps {
     article: Article;

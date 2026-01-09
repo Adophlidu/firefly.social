@@ -1,4 +1,4 @@
-import type { ResponseJson } from '@/types/utility.js';
+import { type ResponseJson } from '@/types/utility.js';
 
 export function resolveResponseData<T>(response: ResponseJson<T>, message?: string): T {
     if (!response.success) {

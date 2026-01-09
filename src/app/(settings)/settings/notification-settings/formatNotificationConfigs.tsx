@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/react/macro';
 import { compact } from 'lodash-es';
-import type { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
 import {
     type NotificationConfig,

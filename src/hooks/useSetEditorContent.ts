@@ -1,6 +1,6 @@
 import { safeUnreachable } from '@dimensiondev/utils';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext.js';
-import { $createParagraphNode, $createTextNode, $getRoot, ParagraphNode } from 'lexical';
+import { $createParagraphNode, $createTextNode, $getRoot, type ParagraphNode } from 'lexical';
 import { useCallback } from 'react';
 
 import { $createMentionNode } from '@/components/Lexical/nodes/MentionsNode.js';

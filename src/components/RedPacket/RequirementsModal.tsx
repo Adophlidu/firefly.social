@@ -31,7 +31,7 @@ import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatform
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
 import { getCollection } from '@/providers/firefly/nft/getCollection.js';
 import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
+import { type Post } from '@/providers/types/SocialMedia.js';
 import { EVMExplorerResolver } from '@/web3-providers/evm/ResolverAPI.js';
 
 interface NFTListProps {

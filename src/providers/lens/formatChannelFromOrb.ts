@@ -1,7 +1,7 @@
 import { Source } from '@/constants/enum.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
-import type { ExploreClubsResponse } from '@/providers/orb/type.js';
-import type { Channel, Profile } from '@/providers/types/SocialMedia.js';
+import { type ExploreClubsResponse } from '@/providers/orb/type.js';
+import { type Channel, type Profile } from '@/providers/types/SocialMedia.js';
 
 type OrbClub = ExploreClubsResponse['data']['clubs'][number];
 

@@ -8,7 +8,7 @@ import { toFireflyIdentityId } from '@/helpers/isSameProfile.js';
 import { resolveFireflyIdentity } from '@/helpers/resolveFireflyProfileId.js';
 import { useAllProfiles } from '@/hooks/useAllProfiles.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
-import type { FireflyProfile } from '@/providers/types/Firefly.js';
+import { type FireflyProfile } from '@/providers/types/Firefly.js';
 
 function useCurrentFireflyProfiles() {
     const profilesAll = useCurrentProfilesAll();

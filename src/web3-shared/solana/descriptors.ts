@@ -1,5 +1,5 @@
 import { NetworkPluginID } from '@/constants/enum.js';
-import type { ChainDescriptor, NetworkDescriptor } from '@/web3-shared/base/specs.js';
+import { type ChainDescriptor, type NetworkDescriptor } from '@/web3-shared/base/specs.js';
 import { createFungibleToken } from '@/web3-shared/base/token.js';
 import { SolanaChainId, SolanaNetworkType, SolanaSchemaType } from '@/web3-shared/solana/types.js';
 

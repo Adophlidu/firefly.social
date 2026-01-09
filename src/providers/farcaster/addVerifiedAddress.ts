@@ -9,7 +9,7 @@ import { ensureHexPrefix } from '@/helpers/ensureHexPrefix.js';
 import { convertFarcasterAddressToBytes } from '@/providers/farcaster/convertFarcasterAddressToBytes.js';
 import { determineFarcasterProtocol } from '@/providers/farcaster/determineFarcasterProtocol.js';
 import { publishMessage } from '@/providers/neynar/publishMessage.js';
-import type { FarcasterHubMessage } from '@/providers/types/Firefly.js';
+import { type FarcasterHubMessage } from '@/providers/types/Firefly.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 const AddVerifiedAddressRequestSchema = z.object({

@@ -5,7 +5,7 @@ import { WalletItem } from '@/components/WalletItem.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { getBlockedWallets } from '@/providers/firefly/endpoint/getBlockedWallets.js';
-import type { WalletProfile } from '@/providers/types/Firefly.js';
+import { type WalletProfile } from '@/providers/types/Firefly.js';
 
 const getMutedWalletItem = (index: number, profile: WalletProfile, listKey: string) => {
     return <WalletItem profile={profile} key={`${listKey}-${index}`} />;

@@ -1,6 +1,6 @@
 import { web3 } from '@coral-xyz/anchor';
 import { NotImplementedError } from '@dimensiondev/utils';
-import type { EthereumProvider, JsonRpcRequest, SolanaProvider } from '@okxweb3/dex-widget';
+import { type EthereumProvider, type JsonRpcRequest, type SolanaProvider } from '@okxweb3/dex-widget';
 import { type Provider, type ProviderEventEmitterMethods } from '@reown/appkit-adapter-solana';
 import { type GetWalletClientReturnType, watchAccount } from 'wagmi/actions';
 

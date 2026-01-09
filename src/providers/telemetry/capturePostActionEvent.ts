@@ -5,7 +5,7 @@ import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getPostEventParameters, getSelfPostEventParameters } from '@/providers/telemetry/getPostEventParameters.js';
 import { getWalletEventParameters } from '@/providers/telemetry/getWalletEventParameters.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
+import { type Post } from '@/providers/types/SocialMedia.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 
 type PostActionType =

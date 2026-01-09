@@ -11,7 +11,7 @@ import { Source } from '@/constants/enum.js';
 import { useRouter } from '@/esm/navigation.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
-import type { Channel } from '@/providers/types/SocialMedia.js';
+import { type Channel } from '@/providers/types/SocialMedia.js';
 
 interface ChannelCardProps {
     channel?: Channel;

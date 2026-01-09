@@ -24,7 +24,7 @@ import { useTokenBalanceInPostCollect } from '@/hooks/useTokenBalanceInPostColle
 import { getWalletClientForLensChain } from '@/providers/lens/getWalletClientForLensChain.js';
 import { lensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { capturePostActionEvent } from '@/providers/telemetry/capturePostActionEvent.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
+import { type Post } from '@/providers/types/SocialMedia.js';
 import { EVMExplorerResolver } from '@/web3-providers/evm/ResolverAPI.js';
 
 function formatTimeLeft(endTime: string) {

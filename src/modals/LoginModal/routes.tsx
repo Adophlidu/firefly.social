@@ -4,7 +4,7 @@ import { createRootRoute, createRoute } from '@tanstack/react-router';
 import { BskyView, BskyViewBeforeLoad } from '@/modals/LoginModal/BskyView.js';
 import { EmailView, EmailViewBeforeLoad } from '@/modals/LoginModal/EmailView.js';
 import { FarcasterView, FarcasterViewBeforeLoad } from '@/modals/LoginModal/FarcasterView.js';
-import type { LoginModalOpenProps } from '@/modals/LoginModal/index.js';
+import { type LoginModalOpenProps } from '@/modals/LoginModal/index.js';
 import { LensView, LensViewBeforeLoad } from '@/modals/LoginModal/LensView.js';
 import { MainView } from '@/modals/LoginModal/MainView.js';
 import { OrbView, OrbViewBeforeLoad } from '@/modals/LoginModal/OrbView.js';

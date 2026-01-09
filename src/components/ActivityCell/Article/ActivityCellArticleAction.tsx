@@ -2,7 +2,7 @@
 
 import { safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
-import type { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
 import PostedIcon from '@/assets/posted.svg';
 import RevisedIcon from '@/assets/revised.svg';

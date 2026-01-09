@@ -5,7 +5,7 @@ import { mainnet } from 'viem/chains';
 
 import { chains } from '@/configs/chains.js';
 import { getRPCConstant } from '@/web3-shared/evm/constants.js';
-import { EthereumChainId } from '@/web3-shared/evm/types.js';
+import { type EthereumChainId } from '@/web3-shared/evm/types.js';
 
 const resolvePublicProviderUrl = createLookupTableResolver<number, string | undefined>(
     {

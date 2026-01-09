@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/react/macro';
-import type { Address } from 'viem';
+import { type Address } from 'viem';
 
 import FollowIcon from '@/assets/follow-user.svg';
 import UnfollowIcon from '@/assets/unfollow-user.svg';

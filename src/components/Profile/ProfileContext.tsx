@@ -6,8 +6,8 @@ import { createContext, type PropsWithChildren, useMemo } from 'react';
 import { Source } from '@/constants/enum.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
-import type { FireflyIdentity, FireflyProfile } from '@/providers/types/Firefly.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import { type FireflyIdentity, type FireflyProfile } from '@/providers/types/Firefly.js';
+import { type Profile } from '@/providers/types/SocialMedia.js';
 
 interface ProfileContextProviderProps {
     profiles: FireflyProfile[];

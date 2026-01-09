@@ -1,9 +1,9 @@
 'use client';
 
-import type { HTMLProps, PropsWithChildren, ReactNode } from 'react';
+import { type HTMLProps, type PropsWithChildren, type ReactNode } from 'react';
 
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
-import type { LoginFallbackSource } from '@/constants/enum.js';
+import { type LoginFallbackSource } from '@/constants/enum.js';
 import { isSocialSource } from '@/helpers/isSource.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 

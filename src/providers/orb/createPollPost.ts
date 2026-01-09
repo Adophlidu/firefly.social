@@ -5,9 +5,9 @@ import { resolveResponseData } from '@/helpers/resolveResponseData.js';
 import { ensureLensResultSync } from '@/providers/lens/ensureLensResultSync.js';
 import { getPostByTxHashWithPolling } from '@/providers/lens/getPostByTxHashWithPolling.js';
 import { lensSessionClientHolder } from '@/providers/lens/LensSessionClientHolder.js';
-import type { CreatePollResult } from '@/providers/orb/type.js';
-import type { CompositePoll } from '@/providers/types/Poll.js';
-import type { ResponseJson } from '@/types/utility.js';
+import { type CreatePollResult } from '@/providers/orb/type.js';
+import { type CompositePoll } from '@/providers/types/Poll.js';
+import { type ResponseJson } from '@/types/utility.js';
 
 export async function createPollPost(pollTitle: string, draftPoll: CompositePoll) {
     const credentials = ensureLensResultSync(lensSessionClientHolder.sessionClient.getCredentials());

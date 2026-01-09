@@ -1,6 +1,6 @@
 import { first } from 'lodash-es';
 
-import type { Response } from '@/providers/types/Firefly.js';
+import { type Response } from '@/providers/types/Firefly.js';
 
 export function resolveFireflyResponseData<T>({ data, error }: Response<T>, fallback?: string): T {
     if (error) {

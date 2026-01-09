@@ -22,8 +22,8 @@ import { getWalletClientForLensChain } from '@/providers/lens/getWalletClientFor
 import { handleOperationWithLensChain } from '@/providers/lens/handleOperationWithLensChain.js';
 import { account } from '@/providers/lens/metadata/Account.js';
 import { uploadLensMetadataToS3 } from '@/providers/lens/uploadLensMetadataToS3.js';
-import type { Account } from '@/providers/types/Account.js';
-import type { Profile, ProfileForSignup } from '@/providers/types/SocialMedia.js';
+import { type Account } from '@/providers/types/Account.js';
+import { type Profile, type ProfileForSignup } from '@/providers/types/SocialMedia.js';
 
 const loginOnboardingUser = memoizePromise(
     async (address: string) => {

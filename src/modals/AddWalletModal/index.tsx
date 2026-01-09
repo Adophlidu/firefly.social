@@ -10,7 +10,7 @@ import { dynamic } from '@/esm/dynamic.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
-import type { BindWalletResponse, FireflyWalletConnection } from '@/providers/types/Firefly.js';
+import { type BindWalletResponse, type FireflyWalletConnection } from '@/providers/types/Firefly.js';
 
 interface AddWalletModalProps {
     connections: FireflyWalletConnection[];

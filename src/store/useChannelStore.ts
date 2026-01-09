@@ -4,7 +4,7 @@ import { immer } from 'zustand/middleware/immer';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { createSelectors } from '@/helpers/createSelector.js';
-import type { Channel } from '@/providers/types/SocialMedia.js';
+import { type Channel } from '@/providers/types/SocialMedia.js';
 
 interface ChannelState {
     allChannelData: Record<SocialSource, Record<string, Channel | null>>;

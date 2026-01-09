@@ -4,13 +4,13 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
-import type { SocialSource } from '@/constants/enum.js';
+import { type SocialSource } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/static.js';
 import { createPersistStorage } from '@/helpers/createPersistStorage.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
-import type { ComposeType, CompositePost, MediaObject } from '@/types/compose.js';
+import { type Profile } from '@/providers/types/SocialMedia.js';
+import { type ComposeType, type CompositePost, type MediaObject } from '@/types/compose.js';
 
 export interface Draft {
     draftId: string;

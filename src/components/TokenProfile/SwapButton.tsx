@@ -17,7 +17,7 @@ import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { useIsLarge } from '@/hooks/useMediaQuery.js';
 import { SwapModalRef } from '@/modals/SwapModal/SwapModal.js';
-import type { SwapModalOpenProps } from '@/modals/SwapModal/SwapModalContent.js';
+import { type SwapModalOpenProps } from '@/modals/SwapModal/SwapModalContent.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
 import { captureSwapEvent } from '@/providers/telemetry/captureSwapEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';

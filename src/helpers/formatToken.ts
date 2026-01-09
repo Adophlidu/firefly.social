@@ -3,8 +3,8 @@ import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { isValidChainIdSolana } from '@/helpers/isValidChainId.js';
 import { ETH_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';
 import { isNativeToken } from '@/providers/ethereum/isNativeToken.js';
-import type { Token } from '@/providers/types/Transfer.js';
-import type { FungibleToken } from '@/web3-shared/base/specs.js';
+import { type Token } from '@/providers/types/Transfer.js';
+import { type FungibleToken } from '@/web3-shared/base/specs.js';
 import { type EthereumChainId, EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
 export function formatDebankTokenToFungibleToken(token: Token): FungibleToken<number, number, Token> {

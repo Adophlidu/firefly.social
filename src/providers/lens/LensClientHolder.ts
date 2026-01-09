@@ -1,4 +1,4 @@
-import { PublicClient } from '@lens-protocol/client';
+import { type PublicClient } from '@lens-protocol/client';
 
 import { createLensPublicClient } from '@/providers/lens/createLensClient.js';
 

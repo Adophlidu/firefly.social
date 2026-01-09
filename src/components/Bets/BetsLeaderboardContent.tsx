@@ -6,8 +6,8 @@ import { BetsLeaderboardItem } from '@/components/Bets/BetsLeaderboardItem.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import {
     BetsLeaderboardTab,
-    PolymarketRankOrder,
-    PolymarketRankPeriod,
+    type PolymarketRankOrder,
+    type PolymarketRankPeriod,
     ScrollListKey,
     Source,
 } from '@/constants/enum.js';

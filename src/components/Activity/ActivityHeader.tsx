@@ -5,7 +5,7 @@ import utc from 'dayjs/plugin/utc.js';
 import CalendarIcon from '@/assets/activity-calendar.svg';
 import { ActivityStatusTag } from '@/components/Activity/ActivityStatus.js';
 import { Image } from '@/components/Image.js';
-import type { ActivityInfoResponse } from '@/providers/types/Firefly.js';
+import { type ActivityInfoResponse } from '@/providers/types/Firefly.js';
 
 function parseDescription(description: string) {
     return description.split('\\n').map((line, index, array) => (

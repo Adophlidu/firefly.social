@@ -1,5 +1,5 @@
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
-import type { Hex } from 'viem';
+import { type Hex } from 'viem';
 
 import { createIndicator } from '@/helpers/pageable.js';
 import { getHistory } from '@/providers/firefly/red-packet/getHistory.js';

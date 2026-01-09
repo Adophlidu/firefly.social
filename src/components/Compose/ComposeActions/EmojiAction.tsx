@@ -1,6 +1,6 @@
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { Trans } from '@lingui/react/macro';
-import type { Theme } from 'emoji-picker-react';
+import { type Theme } from 'emoji-picker-react';
 import { $getRoot, $getSelection } from 'lexical';
 import { memo, useState } from 'react';
 

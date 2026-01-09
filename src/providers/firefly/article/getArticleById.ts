@@ -4,7 +4,7 @@ import urlcat from 'urlcat';
 import { formatArticleFromFirefly } from '@/helpers/formatArticleFromFirefly.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import type { GetArticleDetailResponse } from '@/providers/types/Firefly.js';
+import { type GetArticleDetailResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 export async function getArticleById(articleId: string) {

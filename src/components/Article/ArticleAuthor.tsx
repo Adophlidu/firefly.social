@@ -1,5 +1,5 @@
 import { classNames } from '@dimensiondev/utils';
-import type { HTMLProps } from 'react';
+import { type HTMLProps } from 'react';
 
 import { Avatar } from '@/components/Avatar.js';
 import { ConditionalLink } from '@/components/ConditionalLink.js';

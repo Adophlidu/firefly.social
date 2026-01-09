@@ -12,7 +12,7 @@ import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import type { Channel } from '@/providers/types/SocialMedia.js';
+import { type Channel } from '@/providers/types/SocialMedia.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
 
 const getSearchItemContent = (channel: Channel, index: number, listKey: string) => {

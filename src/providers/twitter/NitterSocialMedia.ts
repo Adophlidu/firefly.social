@@ -1,7 +1,7 @@
 import { NotFoundError, NotImplementedError } from '@dimensiondev/utils';
 import { isServer } from '@tanstack/react-query';
 import { compact, last, uniq } from 'lodash-es';
-import type { TweetV2LookupResult } from 'twitter-api-v2';
+import { type TweetV2LookupResult } from 'twitter-api-v2';
 import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';
@@ -28,12 +28,12 @@ import { formatTwitterPostFromNitter } from '@/providers/twitter/formatTwitterPo
 import { formatTwitterProfileFromNitter } from '@/providers/twitter/formatTwitterProfileFromNitter.js';
 import { NitterAPIProvider } from '@/providers/twitter/Nitter.js';
 import { resolveTwitterResponseData } from '@/providers/twitter/resolveTwitterResponseData.js';
-import { TwitterSession } from '@/providers/twitter/Session.js';
+import { type TwitterSession } from '@/providers/twitter/Session.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
-import type { Account } from '@/providers/types/Account.js';
-import type { NotificationSettings } from '@/providers/types/Firefly.js';
+import { type Account } from '@/providers/types/Account.js';
+import { type NotificationSettings } from '@/providers/types/Firefly.js';
 import { type Pagination, type Tweet, UserTimelineTab } from '@/providers/types/Nitter.js';
-import type { Session } from '@/providers/types/Session.js';
+import { type Session } from '@/providers/types/Session.js';
 import {
     type Channel,
     type Friendship,
@@ -46,7 +46,7 @@ import {
     type Provider,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
-import type { ResponseJson } from '@/types/utility.js';
+import { type ResponseJson } from '@/types/utility.js';
 
 async function withFullStatusTimeline(timeline: Tweet[]) {
     timeline = timeline.flat();

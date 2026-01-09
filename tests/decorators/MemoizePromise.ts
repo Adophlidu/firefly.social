@@ -1,4 +1,5 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
+
 import { MemoizePromise } from '@/decorators/MemoizePromise.js';
 
 vi.mock('@dimensiondev/utils', () => ({
@@ -12,7 +13,7 @@ describe('MemoizePromise', () => {
 
             @MemoizePromise((id: number) => `key:${id}`)
             async fetchData(id: number): Promise<string> {
-                this.callCount++;
+                this.callCount += 1;
                 return `data-${id}`;
             }
         }
@@ -32,13 +33,12 @@ describe('MemoizePromise', () => {
 
     it('should not cache the result of a failed function call', async () => {
         let callCount = 0;
+
         class TestService {
             @MemoizePromise((id: number) => id.toString())
             async fetchData(id: number): Promise<string> {
-                callCount++;
-                if (id === 1) {
-                    throw new Error('Failed to fetch');
-                }
+                callCount += 1;
+                if (id === 1) throw new Error('Failed to fetch');
                 return `data-${id}`;
             }
         }

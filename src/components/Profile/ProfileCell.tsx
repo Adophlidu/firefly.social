@@ -1,5 +1,5 @@
 import { classNames } from '@dimensiondev/utils';
-import type { HTMLProps } from 'react';
+import { type HTMLProps } from 'react';
 
 import { Avatar } from '@/components/Avatar.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
@@ -10,7 +10,7 @@ import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { type SocialSource } from '@/constants/enum.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { resolveFireflyIdentity } from '@/helpers/resolveFireflyProfileId.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import { type Profile } from '@/providers/types/SocialMedia.js';
 
 interface Props extends HTMLProps<HTMLAnchorElement> {
     profile: Profile;

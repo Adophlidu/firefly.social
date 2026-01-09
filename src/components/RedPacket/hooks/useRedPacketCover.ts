@@ -6,7 +6,7 @@ import { formatSenderName } from '@/components/RedPacket/helpers.js';
 import { DEFAULT_THEME } from '@/constants/rp.js';
 import { minus, toFixed } from '@/helpers/number.js';
 import { getTheme } from '@/providers/firefly/red-packet/getTheme.js';
-import type { FireflyRedPacketAPI, RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
+import { type FireflyRedPacketAPI, type RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 
 /** pass rpid or themeId */
 export interface RedPacketCoverOptions {

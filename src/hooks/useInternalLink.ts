@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import type { UrlObject } from 'url';
+import { type UrlObject } from 'url';
 
 import { formatExternalLink } from '@/helpers/formatExternalLink.js';
 

@@ -6,7 +6,7 @@ import { ListInPage } from '@/components/ListInPage.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { searchBets } from '@/providers/firefly/bets/searchBets.js';
-import type { PolymarketEventListData } from '@/providers/types/Firefly.js';
+import { type PolymarketEventListData } from '@/providers/types/Firefly.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
 
 function getBetsItemContent(_: number, data: PolymarketEventListData) {

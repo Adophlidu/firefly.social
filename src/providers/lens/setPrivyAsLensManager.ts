@@ -9,7 +9,7 @@ import { LoginModalRef } from '@/modals/LoginModal/index.js';
 import { getLensProfileOwner } from '@/providers/lens/getLensProfileOwner.js';
 import { getProfilesByAddress } from '@/providers/lens/getProfilesByAddress.js';
 import { getWalletClientForLensChain } from '@/providers/lens/getWalletClientForLensChain.js';
-import type { Account } from '@/providers/types/Account.js';
+import { type Account } from '@/providers/types/Account.js';
 
 export async function setPrivyAsLensManager(account: Account): Promise<Boolean> {
     if (account.profile.source !== Source.Lens) throw new Error('This function only works for Lens.');

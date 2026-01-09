@@ -7,7 +7,7 @@
 import { parseUrl } from '@dimensiondev/utils';
 
 import { performanceStore } from '@/providers/lcp/store.js';
-import type { ApiCallMetrics, PerformanceConfig } from '@/providers/lcp/types.js';
+import { type ApiCallMetrics, type PerformanceConfig } from '@/providers/lcp/types.js';
 
 let config: PerformanceConfig = {
     enabled: false,

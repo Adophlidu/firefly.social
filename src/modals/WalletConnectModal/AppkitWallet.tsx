@@ -2,8 +2,8 @@ import { CoreAssetUtil, CoreConnectionController, CoreRouterController } from '@
 import { memo, useEffect, useState } from 'react';
 import urlcat from 'urlcat';
 
-import { WalletChainConfig, walletConnectId, WalletId } from '@/constants/reown.js';
-import type { AppkitWalletItem } from '@/hooks/appkit/useAppkitWalletList.js';
+import { WalletChainConfig, walletConnectId, type WalletId } from '@/constants/reown.js';
+import { type AppkitWalletItem } from '@/hooks/appkit/useAppkitWalletList.js';
 import { findConnectorByWallet } from '@/modals/WalletConnectModal/findConnectorByWallet.js';
 import { walletRouter } from '@/modals/WalletConnectModal/routes.js';
 import { selectWallet } from '@/modals/WalletConnectModal/selectWallet.js';

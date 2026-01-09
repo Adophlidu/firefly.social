@@ -1,7 +1,7 @@
 /* cspell:disable */
 
 import { randomBytes } from 'crypto';
-import { NextRequest, NextResponse } from 'next/server.js';
+import { type NextRequest, NextResponse } from 'next/server.js';
 
 import { IS_DEVELOPMENT } from '@/constants/static.js';
 

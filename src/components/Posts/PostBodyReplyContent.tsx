@@ -8,7 +8,7 @@ import { IS_APPLE, IS_SAFARI } from '@/constants/browser.js';
 import { formatUrl } from '@/helpers/formatUrl.js';
 import { isValidUrl } from '@/helpers/isValidUrl.js';
 import { useDetectOverflow } from '@/hooks/useDetectOverflow.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
+import { type Post } from '@/providers/types/SocialMedia.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 interface PostBodyReplyContentProps {

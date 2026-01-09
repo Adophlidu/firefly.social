@@ -10,7 +10,7 @@ import { Image } from '@/esm/Image.js';
 import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
 import { resolveOpinionEventUrl } from '@/helpers/resolveOpinionEventUrl.js';
 import { resolvePolymarketEventUrl } from '@/helpers/resolvePolymarketEventUrl.js';
-import type { BetsPositionDataForUI } from '@/types/bets.js';
+import { type BetsPositionDataForUI } from '@/types/bets.js';
 
 interface BetsPositionItemProps {
     platform: BetsPlatform;

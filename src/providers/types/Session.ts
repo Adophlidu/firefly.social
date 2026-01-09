@@ -1,4 +1,4 @@
-import type { SessionType } from '@/providers/types/SocialMedia.js';
+import { type SessionType } from '@/providers/types/SocialMedia.js';
 
 export interface Session {
     profileId: string | number;

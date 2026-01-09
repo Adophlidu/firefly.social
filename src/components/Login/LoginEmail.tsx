@@ -22,9 +22,9 @@ import {
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
 import { createAccountByPasscode } from '@/providers/email/createAccountByPasscode.js';
-import { ThirdPartySession } from '@/providers/third-party/Session.js';
+import { type ThirdPartySession } from '@/providers/third-party/Session.js';
 import { thirdPartySessionHolder } from '@/providers/third-party/SessionHolder.js';
-import type { Account } from '@/providers/types/Account.js';
+import { type Account } from '@/providers/types/Account.js';
 import { type AccountOptions, addAccount } from '@/services/account.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 

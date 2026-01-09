@@ -7,7 +7,7 @@ import { parseChainId } from '@/helpers/parseChainId.js';
 import { resolveCollectionChain } from '@/helpers/resolveCollectionChain.js';
 import { createNftCollectionMetadata } from '@/providers/firefly/metadata/createNftCollectionMetadata.js';
 import { getCollection } from '@/providers/firefly/nft/getCollection.js';
-import type { NextPageProps } from '@/types/utility.js';
+import { type NextPageProps } from '@/types/utility.js';
 
 interface Props extends NextPageProps<{ addressOrTokenId: string; chainIdOrCollectionId: string }> {}
 

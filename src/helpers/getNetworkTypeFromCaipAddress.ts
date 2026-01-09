@@ -1,4 +1,4 @@
-import type { CaipAddress } from '@reown/appkit';
+import { type CaipAddress } from '@reown/appkit';
 
 import { NetworkType } from '@/constants/enum.js';
 

@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import type { Source } from '@/constants/enum.js';
+import { type Source } from '@/constants/enum.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 

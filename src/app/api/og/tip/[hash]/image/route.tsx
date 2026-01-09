@@ -2,8 +2,8 @@
 
 import { compose } from '@dimensiondev/utils';
 import { ImageResponse } from 'next/og.js';
-import type { NextRequest } from 'next/server.js';
-import type { HTMLProps } from 'react';
+import { type NextRequest } from 'next/server.js';
+import { type HTMLProps } from 'react';
 import urlcat from 'urlcat';
 import { z } from 'zod';
 
@@ -18,9 +18,9 @@ import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
 import { multipliedBy } from '@/helpers/number.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { getTipsTransactionDetail } from '@/providers/firefly/endpoint/getTipsTransactionDetail.js';
-import type { TipsDetail } from '@/providers/types/Firefly.js';
+import { type TipsDetail } from '@/providers/types/Firefly.js';
 import { getSatoriFonts } from '@/services/getSatoriFonts.js';
-import type { NextRequestContext } from '@/types/utility.js';
+import { type NextRequestContext } from '@/types/utility.js';
 
 const OG_FALLBACK_AVATAR = urlcat(SITE_URL, '/image/firefly-light-avatar.png');
 const ArrowRightTickerbitSVG = urlcat(SITE_URL, '/svg/arrow-right-tickerbit.svg');

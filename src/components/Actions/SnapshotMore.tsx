@@ -18,7 +18,7 @@ import { useEnsName } from '@/hooks/useEnsName.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useToggleSnapshotBookmark } from '@/hooks/useToggleSnapshotBookmark.js';
-import type { SnapshotActivity } from '@/providers/snapshot/type.js';
+import { type SnapshotActivity } from '@/providers/snapshot/type.js';
 
 interface MoreProps {
     data: SnapshotActivity;

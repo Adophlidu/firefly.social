@@ -1,10 +1,10 @@
 import { NotFoundError, parseJson, UnauthorizedError } from '@dimensiondev/utils';
-import type { NextRequest } from 'next/server.js';
+import { type NextRequest } from 'next/server.js';
 import { ZodError } from 'zod';
 
 import { MalformedRequestError } from '@/constants/error.js';
 import { createErrorResponseJson } from '@/helpers/createResponseJson.js';
-import type { NextRequestContext } from '@/types/utility.js';
+import { type NextRequestContext } from '@/types/utility.js';
 
 type Handler<T> = (request: NextRequest, context?: NextRequestContext<T>) => Promise<Response>;
 

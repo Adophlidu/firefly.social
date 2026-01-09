@@ -2,7 +2,7 @@ import { Trans } from '@lingui/react/macro';
 
 import { ActionButton } from '@/components/ActionButton.js';
 import { useRefundCallback } from '@/components/RedPacket/hooks/useRefundCallback.js';
-import type { NetworkType } from '@/constants/enum.js';
+import { type NetworkType } from '@/constants/enum.js';
 import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 
 interface Props {

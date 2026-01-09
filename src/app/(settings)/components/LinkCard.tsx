@@ -1,4 +1,4 @@
-import type { FunctionComponent, ReactNode, SVGAttributes } from 'react';
+import { type FunctionComponent, type ReactNode, type SVGAttributes } from 'react';
 
 import LinkIcon from '@/assets/link.svg';
 import { Link } from '@/components/Link.js';

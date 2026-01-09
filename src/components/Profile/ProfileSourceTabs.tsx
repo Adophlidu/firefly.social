@@ -47,7 +47,7 @@ import {
     type WalletProfile,
     WalletProfileDataSource,
 } from '@/providers/types/Firefly.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import { type Profile } from '@/providers/types/SocialMedia.js';
 import { getAllRelatedProfilesWithDefault } from '@/services/getAllRelatedProfilesWithDefault.js';
 
 const PROFILE_SOURCE_TABS_CONTAINER_ID = 'profile-source-tabs-container';

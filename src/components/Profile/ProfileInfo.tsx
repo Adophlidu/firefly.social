@@ -1,7 +1,7 @@
 import { SocialProfileInfo } from '@/components/Profile/SocialProfileInfo.js';
 import { WalletInfo } from '@/components/Profile/WalletInfo.js';
-import type { WalletProfile } from '@/providers/types/Firefly.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import { type WalletProfile } from '@/providers/types/Firefly.js';
+import { type Profile } from '@/providers/types/SocialMedia.js';
 
 interface Props {
     walletProfile?: WalletProfile | null;

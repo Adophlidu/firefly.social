@@ -5,9 +5,9 @@ import { Modal } from '@/components/Modal.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
-import type {
-    FrameViewerModalCloseProps,
-    FrameViewerModalOpenProps,
+import {
+    type FrameViewerModalCloseProps,
+    type FrameViewerModalOpenProps,
 } from '@/modals/FrameViewerModal/FrameViewerModalContent.js';
 import { FrameViewerModalHeader } from '@/modals/FrameViewerModal/FrameViewerModalHeader.js';
 

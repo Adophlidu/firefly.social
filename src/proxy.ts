@@ -1,5 +1,5 @@
 import { compose } from '@dimensiondev/utils';
-import { NextRequest, NextResponse } from 'next/server.js';
+import { type NextRequest, NextResponse } from 'next/server.js';
 
 import { handleClubRoutes } from '@/proxy/handlers/clubRoutes.js';
 import { handleCSP } from '@/proxy/handlers/cspHandler.js';

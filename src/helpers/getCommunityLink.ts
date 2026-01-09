@@ -1,6 +1,6 @@
 import { parseUrl } from '@dimensiondev/utils';
 
-import type { ClubUrl } from '@/providers/types/Trending.js';
+import { type ClubUrl } from '@/providers/types/Trending.js';
 
 export function getClubLink(links: string[]): ClubUrl[] {
     return links.map((x) => {

@@ -1,6 +1,6 @@
 import { safeUnreachable } from '@dimensiondev/utils';
 import { compact, find, first, last } from 'lodash-es';
-import type { ApiV2Includes, TweetV2, TweetV2PaginableTimelineResult } from 'twitter-api-v2';
+import { type ApiV2Includes, type TweetV2, type TweetV2PaginableTimelineResult } from 'twitter-api-v2';
 import urlcat from 'urlcat';
 
 import { RestrictionType, Source } from '@/constants/enum.js';

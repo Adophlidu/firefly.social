@@ -1,4 +1,4 @@
-import type { EVM } from '@/providers/nft-scan/types.js';
+import { type EVM } from '@/providers/nft-scan/types.js';
 import { resolveIPFS_URL } from '@/web3-shared/base/resolver.js';
 
 const isArweave = (url: string | undefined) => (url ? url.startsWith('ar://') : false);

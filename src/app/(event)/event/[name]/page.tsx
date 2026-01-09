@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import { type Metadata } from 'next';
 
 import { ActivityHeader } from '@/components/Activity/ActivityHeader.js';
 import { dynamic } from '@/esm/dynamic.js';
@@ -7,7 +7,7 @@ import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getFireflyActivityInfo } from '@/providers/firefly/activity/getFireflyActivityInfo.js';
 import { createEventMetadata } from '@/providers/firefly/metadata/createEventMetadata.js';
 import { ActivityStatus } from '@/providers/types/Firefly.js';
-import type { NextPageProps } from '@/types/utility.js';
+import { type NextPageProps } from '@/types/utility.js';
 
 const ActivityNavigationBar = dynamic(
     () => import('@/components/Activity/ActivityNavigationBar.js').then((m) => m.ActivityNavigationBar),

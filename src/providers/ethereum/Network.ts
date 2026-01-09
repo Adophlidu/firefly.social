@@ -4,9 +4,9 @@ import { getAccount, getChainId } from 'wagmi/actions';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
-import type { NetworkProvider } from '@/providers/types/Network.js';
+import { type NetworkProvider } from '@/providers/types/Network.js';
 import { EVMExplorerResolver } from '@/web3-providers/evm/ResolverAPI.js';
-import type { EthereumChainId } from '@/web3-shared/evm/types.js';
+import { type EthereumChainId } from '@/web3-shared/evm/types.js';
 
 class Provider implements NetworkProvider<EthereumChainId, Address, Hash> {
     async connect(): Promise<void> {

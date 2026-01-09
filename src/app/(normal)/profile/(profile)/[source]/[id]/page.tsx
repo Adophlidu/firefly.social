@@ -1,13 +1,13 @@
-import type { Metadata } from 'next';
+import { type Metadata } from 'next';
 
-import type { ProfilePageSourceInURL } from '@/constants/enum.js';
+import { type ProfilePageSourceInURL } from '@/constants/enum.js';
 import { notFound, redirect, RedirectType } from '@/esm/navigation/server.js';
 import { createMetadataProfileById } from '@/helpers/createMetadataProfileById.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isProfilePageSource } from '@/helpers/isSource.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
-import type { NextPageProps } from '@/types/utility.js';
+import { type NextPageProps } from '@/types/utility.js';
 
 type Props = NextPageProps<{ source: ProfilePageSourceInURL; id: string }>;
 

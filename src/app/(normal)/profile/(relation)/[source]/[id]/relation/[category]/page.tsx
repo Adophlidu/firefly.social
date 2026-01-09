@@ -1,6 +1,6 @@
 import { RelationContentList } from '@/app/(normal)/profile/pages/RelationContentList.js';
 import { type ProfileCategory, type ProfilePageSourceInURL } from '@/constants/enum.js';
-import type { NextPageProps } from '@/types/utility.js';
+import { type NextPageProps } from '@/types/utility.js';
 
 interface Props extends NextPageProps<{ id: string; category: ProfileCategory; source: ProfilePageSourceInURL }> {}
 

@@ -6,7 +6,7 @@ import { bedStead } from '@/fonts/bedStead/index.js';
 import { isZero } from '@/helpers/number.js';
 import { openPredictionPage } from '@/helpers/openPredictionPage.js';
 import { computeVolume, toFixedTrimmed } from '@/helpers/polymarket.js';
-import type { BetsActivity } from '@/providers/types/Firefly.js';
+import { type BetsActivity } from '@/providers/types/Firefly.js';
 
 export const BUTTON_COLORS = {
     success: {

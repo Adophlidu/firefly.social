@@ -8,7 +8,7 @@ import { ensureCreatedFireflyWallet } from '@/helpers/ensureCreatedFireflyWallet
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import type { PrivySignMessageResponse } from '@/providers/types/Firefly.js';
+import { type PrivySignMessageResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 async function signMessageWithNativePrivy(message: string) {

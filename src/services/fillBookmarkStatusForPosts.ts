@@ -4,8 +4,8 @@ import { type SocialSource } from '@/constants/enum.js';
 import { resolveFireflyPlatformFromSocialSource } from '@/helpers/resolveFireflyPlatform.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getFireflyBookmarksByIds } from '@/providers/firefly/endpoint/getFireflyBookmarkIds.js';
-import type { GetBookmarksResponse } from '@/providers/types/Firefly.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
+import { type GetBookmarksResponse } from '@/providers/types/Firefly.js';
+import { type Post } from '@/providers/types/SocialMedia.js';
 
 function fillBookmarkStatus(post: Post, bookmarkData: Required<GetBookmarksResponse>['data']['list']): Post {
     return {

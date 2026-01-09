@@ -1,7 +1,7 @@
 'use client';
 
 import { Swap } from '@/app/(normal)/@sidebar/token/[exchange]/[[...slug]]/Swap.js';
-import type { TokenPageProps } from '@/app/(normal)/token/[exchange]/[[...slug]]/types.js';
+import { type TokenPageProps } from '@/app/(normal)/token/[exchange]/[[...slug]]/types.js';
 import { Overview } from '@/components/TokenProfile/Overview.js';
 import { useTokenPageParams } from '@/hooks/useTokenPageParams.js';
 

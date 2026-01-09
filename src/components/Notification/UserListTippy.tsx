@@ -2,7 +2,7 @@ import { memo, type PropsWithChildren } from 'react';
 
 import { ProfileCell } from '@/components/Profile/ProfileCell.js';
 import { Tippy } from '@/esm/Tippy.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import { type Profile } from '@/providers/types/SocialMedia.js';
 
 interface Props extends PropsWithChildren {
     users: Profile[];

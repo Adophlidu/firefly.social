@@ -1,9 +1,9 @@
 'use client';
 
 import { classNames } from '@dimensiondev/utils';
-import type { UseSuspenseInfiniteQueryResult } from '@tanstack/react-query';
+import { type UseSuspenseInfiniteQueryResult } from '@tanstack/react-query';
 import { useCallback, useMemo } from 'react';
-import type { GridComponents } from 'react-virtuoso';
+import { type GridComponents } from 'react-virtuoso';
 
 import { NoResultsFallback, type NoResultsFallbackProps } from '@/components/NoResultsFallback.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';

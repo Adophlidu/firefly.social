@@ -24,7 +24,7 @@ import { formatTokenAmount } from '@/helpers/formatTokenAmount.js';
 import { getMaintainAccountInfo } from '@/helpers/getMaintainAccountInfo.js';
 import { multipliedBy } from '@/helpers/number.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
-import type { TipsDetail as TipsDetailType } from '@/providers/types/Firefly.js';
+import { type TipsDetail as TipsDetailType } from '@/providers/types/Firefly.js';
 
 interface TipsDetailProps {
     tipsData: TipsDetailType;

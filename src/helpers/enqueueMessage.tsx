@@ -4,9 +4,9 @@ import { omit } from 'lodash-es';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ErrorReportSnackbar, type ErrorReportSnackbarProps } from '@/components/ErrorReportSnackbar.js';
-import type { OptionsObject, SnackbarKey, SnackbarMessage } from '@/components/Snackbar.js';
+import { type OptionsObject, type SnackbarKey, type SnackbarMessage } from '@/components/Snackbar.js';
 import { WarnSnackbar } from '@/components/WarnSnackbar.js';
-import type { NODE_ENV } from '@/constants/enum.js';
+import { type NODE_ENV } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { getDetailedErrorMessage } from '@/helpers/getDetailedErrorMessage.js';
 import { getErrorMessageFromError, getWarningMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';

@@ -27,7 +27,7 @@ import { getAllConnections } from '@/providers/firefly/endpoint/getAllConnection
 import { reportFarcasterSigner } from '@/providers/firefly/farcaster-account/reportFarcasterSigner.js';
 import { checkAndSyncMetrics } from '@/providers/firefly/metrics/checkAndSyncMetrics.js';
 import { deleteMetrics } from '@/providers/firefly/metrics/deleteMetrics.js';
-import { FireflySession } from '@/providers/firefly/Session.js';
+import { type FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { autoLoginLensAccountsInSignup } from '@/providers/lens/autoLoginLensAccountsInSignup.js';
 import { ensureLensResultSync } from '@/providers/lens/ensureLensResultSync.js';
@@ -45,7 +45,7 @@ import {
 import { TwitterAuthProvider } from '@/providers/twitter/Auth.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
-import type { Account } from '@/providers/types/Account.js';
+import { type Account } from '@/providers/types/Account.js';
 import { type Profile, SessionType } from '@/providers/types/SocialMedia.js';
 import { ensureSessionIsValid } from '@/services/ensureSessionIsValid.js';
 import { downloadAccounts } from '@/services/metrics.js';

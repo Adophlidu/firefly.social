@@ -13,7 +13,7 @@ import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { twitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import { type Profile } from '@/providers/types/SocialMedia.js';
 
 interface Props extends ModalProps {
     users: Profile[];

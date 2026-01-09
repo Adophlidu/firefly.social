@@ -12,9 +12,9 @@ import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { trimify } from '@/helpers/trimify.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { translate } from '@/providers/firefly/endpoint/translate.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
+import { type Post } from '@/providers/types/SocialMedia.js';
 import { detectLanguage } from '@/services/detectLanguage.js';
-import { Language } from '@/types/language.js';
+import { type Language } from '@/types/language.js';
 
 function isValidContentToTranslate(content: string) {
     NUMBER_STRING_REGEX.lastIndex = 0;

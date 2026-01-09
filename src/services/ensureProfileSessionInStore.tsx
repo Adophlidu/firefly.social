@@ -6,9 +6,9 @@ import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { logger } from '@/libs/Logger.js';
-import type { Account } from '@/providers/types/Account.js';
+import { type Account } from '@/providers/types/Account.js';
 import { ensureSessionIsValid } from '@/services/ensureSessionIsValid.js';
-import type { ProfileState } from '@/store/useProfileStore/createProfileState.js';
+import { type ProfileState } from '@/store/useProfileStore/createProfileState.js';
 
 export async function ensureProfileSessionInStore(source: SocialSource, state: ProfileState) {
     if (!state.currentProfile || !state.currentProfileSession) {

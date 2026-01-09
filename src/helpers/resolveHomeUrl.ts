@@ -1,7 +1,7 @@
 import { unreachable } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
-import { HomeTab, PageRoute, Source } from '@/constants/enum.js';
+import { HomeTab, PageRoute, type Source } from '@/constants/enum.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 
 export function resolveHomeUrl(tab: HomeTab, source: Source) {

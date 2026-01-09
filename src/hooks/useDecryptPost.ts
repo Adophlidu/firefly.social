@@ -9,7 +9,7 @@ import { memoizePromise } from '@/helpers/memoizePromise.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
+import { type Post } from '@/providers/types/SocialMedia.js';
 
 const resolver = memoizePromise(
     async (post: Post) => {

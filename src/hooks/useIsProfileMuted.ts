@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { QUERY_MUTE_PROFILE_SOURCES } from '@/constants/computed.js';
-import { type SocialSource, Source } from '@/constants/enum.js';
+import { type SocialSource, type Source } from '@/constants/enum.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveFireflyPlatform } from '@/helpers/resolveFireflyPlatform.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
@@ -12,7 +12,7 @@ import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { isProfileMuted as isProfileMutedEndpoint } from '@/providers/firefly/endpoint/isProfileMuted.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import { type Profile } from '@/providers/types/SocialMedia.js';
 
 export function useIsProfileMuted(source: Source, profileId: string, blocking?: boolean, enabled = true) {
     const isLoginFirefly = useIsLoginFirefly();

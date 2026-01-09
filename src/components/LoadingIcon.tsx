@@ -1,6 +1,5 @@
 import { classNames } from '@dimensiondev/utils';
-import type { HTMLProps } from 'react';
-import { memo } from 'react';
+import { type HTMLProps, memo } from 'react';
 
 import Loading from '@/assets/loading.svg';
 

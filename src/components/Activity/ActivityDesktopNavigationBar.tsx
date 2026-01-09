@@ -1,6 +1,6 @@
 'use client';
 
-import type { PropsWithChildren } from 'react';
+import { type PropsWithChildren } from 'react';
 
 import ComeBack from '@/assets/comeback.svg';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';

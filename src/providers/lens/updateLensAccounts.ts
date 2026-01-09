@@ -1,8 +1,8 @@
 import { MAX_ACCOUNT_COUNT_PER_SOURCE } from '@/constants/static.js';
 import { isSameAccount } from '@/helpers/isSameAccount.js';
-import type { LensSession } from '@/providers/lens/Session.js';
+import { type LensSession } from '@/providers/lens/Session.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
-import type { Account } from '@/providers/types/Account.js';
+import { type Account } from '@/providers/types/Account.js';
 import { useLensProfileStore } from '@/store/useProfileStore/useLensProfileStore.js';
 
 export function updateLensAccounts(newAccounts: Account[]) {

@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 import RightAnswerIcon from '@/assets/right-answer.svg';
 import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
-import type { PollOption } from '@/providers/types/Poll.js';
+import { type PollOption } from '@/providers/types/Poll.js';
 
 interface VoteResultProps {
     option: PollOption;

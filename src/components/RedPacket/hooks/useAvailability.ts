@@ -4,7 +4,7 @@ import { useEthereumAvailability } from '@/components/RedPacket/hooks/useEthereu
 import { useSolanaAvailability } from '@/components/RedPacket/hooks/useSolanaAvailability.js';
 import { NetworkType } from '@/constants/enum.js';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
-import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
+import { type RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 
 export function useAvailability(payload: RedPacketJSONPayload) {
     const networkType = getNetworkTypeFromRpPayload(payload);

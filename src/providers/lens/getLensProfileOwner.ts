@@ -1,12 +1,12 @@
 import { fetchAccount } from '@lens-protocol/client/actions';
-import type { Address } from 'viem';
+import { type Address } from 'viem';
 
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { memoizePromise } from '@/helpers/memoizePromise.js';
 import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { lensClientHolder } from '@/providers/lens/LensClientHolder.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import { type Profile } from '@/providers/types/SocialMedia.js';
 
 const fetchAccountOwner = memoizePromise(
     async (address: string) => {

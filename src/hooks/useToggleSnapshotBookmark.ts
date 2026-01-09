@@ -6,7 +6,7 @@ import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueu
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { farcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import type { SnapshotActivity } from '@/providers/snapshot/type.js';
+import { type SnapshotActivity } from '@/providers/snapshot/type.js';
 
 export function useToggleSnapshotBookmark() {
     return useMutation({

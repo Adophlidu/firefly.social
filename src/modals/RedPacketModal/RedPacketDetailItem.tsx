@@ -19,7 +19,7 @@ import { useChainContext } from '@/hooks/useChainContext.js';
 import { RedPacketAccountItem } from '@/modals/RedPacketModal/RedPacketAccountItem.js';
 import { RedPacketActionButton } from '@/modals/RedPacketModal/RedPacketActionButton.js';
 import { RedPacketContext } from '@/modals/RedPacketModal/RedPacketContext.js';
-import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
+import { type FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 interface HistoryInfo {

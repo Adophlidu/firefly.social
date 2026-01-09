@@ -1,4 +1,4 @@
-import type { SVGAttributes } from 'react';
+import { type SVGAttributes } from 'react';
 
 import { measureChars } from '@/helpers/chars.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';

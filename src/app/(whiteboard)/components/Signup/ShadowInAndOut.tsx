@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import type { PropsWithChildren } from 'react';
+import { type PropsWithChildren } from 'react';
 
 export function ShadowInAndOut({
     className,

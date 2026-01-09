@@ -22,14 +22,18 @@ import { formatFarcasterProfileFromNeynar } from '@/providers/farcaster/formatFa
 import { getAllMentionsForFarcaster } from '@/providers/farcaster/getAllMentionsForFarcaster.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { publishMessage } from '@/providers/neynar/publishMessage.js';
-import type { Account } from '@/providers/types/Account.js';
-import type { Channel as FireflyChannel, NotificationSettings, WalletProfile } from '@/providers/types/Firefly.js';
-import type { CastResponse, Profile as NeynarProfile } from '@/providers/types/Neynar.js';
-import type { Session } from '@/providers/types/Session.js';
+import { type Account } from '@/providers/types/Account.js';
+import {
+    type Channel as FireflyChannel,
+    type NotificationSettings,
+    type WalletProfile,
+} from '@/providers/types/Firefly.js';
+import { type CastResponse, type Profile as NeynarProfile } from '@/providers/types/Neynar.js';
+import { type Session } from '@/providers/types/Session.js';
 import {
     type Channel,
     type Friendship,
-    NetworkType,
+    type NetworkType,
     type Notification,
     type Post,
     type Profile,

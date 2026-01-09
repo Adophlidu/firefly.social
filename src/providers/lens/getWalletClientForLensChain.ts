@@ -1,4 +1,4 @@
-import type { Account, Chain, Transport, WalletClient } from 'viem';
+import { type Account, type Chain, type Transport, type WalletClient } from 'viem';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { LENS_CHAIN_ID } from '@/constants/static.js';

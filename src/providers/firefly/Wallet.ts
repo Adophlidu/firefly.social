@@ -1,6 +1,6 @@
 import urlcat from 'urlcat';
 
-import type { ConnectionPlatform } from '@/constants/enum.js';
+import { type ConnectionPlatform } from '@/constants/enum.js';
 import { SetQueryDataForAddWallet } from '@/decorators/SetQueryDataForAddWallet.js';
 import { SetQueryDataForBlockWallet } from '@/decorators/SetQueryDataForBlockWallet.js';
 import { SetQueryDataForReportAndDeleteWallet } from '@/decorators/SetQueryDataForReportAndDeleteWallet.js';
@@ -11,16 +11,16 @@ import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData
 import { block } from '@/providers/firefly/endpoint/block.js';
 import { unblock } from '@/providers/firefly/endpoint/unblock.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import type {
-    BindWalletResponse,
-    DetectAddressResponse,
-    EmptyResponse,
-    FireflyWalletConnection,
-    HexResponse,
-    Response,
-    WalletRelationResponse,
+import {
+    type BindWalletResponse,
+    type DetectAddressResponse,
+    type EmptyResponse,
+    type FireflyWalletConnection,
+    type HexResponse,
+    type Response,
+    type WalletRelationResponse,
+    WatchType,
 } from '@/providers/types/Firefly.js';
-import { WatchType } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 @SetQueryDataForBlockWallet()

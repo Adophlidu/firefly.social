@@ -7,7 +7,7 @@ import { BigNumber } from 'bignumber.js';
 import { isUndefined, omit } from 'lodash-es';
 import { type ChangeEvent, useCallback, useContext, useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
-import type { Address } from 'viem';
+import { type Address } from 'viem';
 import { getChainId, switchChain, writeContract } from 'wagmi/actions';
 
 import QuestionIcon from '@/assets/question.svg';
@@ -36,8 +36,8 @@ import { useNativeTokenPrice } from '@/hooks/useNativeTokenPrice.js';
 import { RedPacketContext, redPacketRandomTabs } from '@/modals/RedPacketModal/RedPacketContext.js';
 import { TypeTabs } from '@/modals/RedPacketModal/TypeTabs.js';
 import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
-import type { FungibleToken } from '@/web3-shared/base/specs.js';
-import type { EthereumChainId, EthereumSchemaType } from '@/web3-shared/evm/types.js';
+import { type FungibleToken } from '@/web3-shared/base/specs.js';
+import { type EthereumChainId, type EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
 export default function MainView() {
     const { history } = useRouter();

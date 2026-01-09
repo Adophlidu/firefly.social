@@ -2,14 +2,14 @@
 
 import { safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
-import type { PropsWithChildren } from 'react';
+import { type PropsWithChildren } from 'react';
 
 import BuyIcon from '@/assets/bet-buy.svg';
 import SellIcon from '@/assets/bet-sell.svg';
 import { ActivityCellAction } from '@/components/ActivityCell/ActivityCellAction.js';
 import { ActivityCellActionTag } from '@/components/ActivityCell/ActivityCellActionTag.js';
 import { BetsPlatformName } from '@/components/Bets/BetsPlatformName.js';
-import { BetsPlatform, PolymarketBetType } from '@/constants/enum.js';
+import { type BetsPlatform, PolymarketBetType } from '@/constants/enum.js';
 import { toFixedTrimmed } from '@/helpers/polymarket.js';
 
 interface Props {

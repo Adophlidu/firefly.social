@@ -4,7 +4,7 @@ import { memo } from 'react';
 
 import { SwapButton, type SwapButtonProps } from '@/components/TokenProfile/SwapButton.js';
 import { useTradeInfo } from '@/components/TokenProfile/useTradeInfo.js';
-import type { CoinGeckoToken } from '@/providers/types/CoinGecko.js';
+import { type CoinGeckoToken } from '@/providers/types/CoinGecko.js';
 
 interface Props extends Omit<SwapButtonProps, 'swapProps'> {
     token: CoinGeckoToken;

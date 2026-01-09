@@ -15,7 +15,7 @@ import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
 import { formatLensChannelFromGroup } from '@/providers/lens/formatLensChannel.js';
 import { formatLensProfileV3 } from '@/providers/lens/formatLensProfile.js';
 import { getLensClient } from '@/providers/lens/getLensClient.js';
-import type { Channel } from '@/providers/types/SocialMedia.js';
+import { type Channel } from '@/providers/types/SocialMedia.js';
 
 export async function getGroupWithMemberCount(groupId: string): Promise<Channel> {
     const groupAddress = safeEvmAddress(groupId);

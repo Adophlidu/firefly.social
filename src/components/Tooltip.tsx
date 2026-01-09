@@ -1,7 +1,7 @@
 import '@/assets/css/tippy.css';
 
 import { classNames } from '@dimensiondev/utils';
-import type { TippyProps } from '@tippyjs/react';
+import { type TippyProps } from '@tippyjs/react';
 import { memo, type ReactElement, type ReactNode } from 'react';
 
 import { IS_MOBILE_DEVICE } from '@/constants/browser.js';

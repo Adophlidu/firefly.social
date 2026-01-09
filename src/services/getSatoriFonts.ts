@@ -1,6 +1,6 @@
 /* cspell:disable */
 
-import type { Font, FontStyle, FontWeight } from 'satori';
+import { type Font, type FontStyle, type FontWeight } from 'satori';
 import urlcat from 'urlcat';
 
 import { env } from '@/constants/env.js';

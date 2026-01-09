@@ -9,8 +9,7 @@ import {
     LENS_HANDLE_REGEXP,
     URL_REGEX,
 } from '@/constants/regexp.js';
-import { EMPTY_LIST } from '@/constants/static.js';
-import type { DetectAddressResponse } from '@/providers/types/Firefly.js';
+import { type DetectAddressResponse } from '@/providers/types/Firefly.js';
 
 type AddressRecord = NonNullable<DetectAddressResponse['data']>['list'][number];
 
@@ -51,8 +50,7 @@ function isTakoPost(link: string) {
 
 /** Extract links, addresses and domains */
 export function extractEmbedResources(postRawContent: string | undefined, oembedUrl: string | undefined) {
-    if (!postRawContent)
-        return { ignoredLinks: EMPTY_LIST, links: EMPTY_LIST, addresses: EMPTY_LIST, domains: EMPTY_LIST };
+    if (!postRawContent) return { ignoredLinks: [], links: [], addresses: [], domains: [] };
     const links = uniqBy(
         compact([...(postRawContent.match(URL_REGEX) || []).map((x) => x.trim()), oembedUrl]).filter(
             (x) => !FULL_ENS_REGEXP.test(x) && !LENS_HANDLE_REGEXP.test(x),

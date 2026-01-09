@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/react/macro';
-import { Ranger, useRanger } from '@tanstack/react-ranger';
+import { type Ranger, useRanger } from '@tanstack/react-ranger';
 import { Fragment, useCallback, useRef, useState } from 'react';
 import { type AvatarEditorProps } from 'react-avatar-editor';
 import AvatarEditor from 'react-avatar-editor';
