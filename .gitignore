@@ -63,6 +63,8 @@ src/locales/**/*.ts
 .cursor/
 .claude/
 
+.pnpm-store/
+
 # packages build output and dependencies
 packages/*/dist/
 packages/*/node_modules/

@@ -1,0 +1,47 @@
+diff --git a/dist/esm/exports/index.js b/dist/esm/exports/index.js
+index 27038068f7fa1e92f11509a2cb4ff121fa8cba62..409374e32b17ad704364731fe51afd305d8bcfce 100644
+--- a/dist/esm/exports/index.js
++++ b/dist/esm/exports/index.js
+@@ -3,7 +3,6 @@ import { AppKit } from '../src/client/appkit.js';
+ import { PACKAGE_VERSION } from './constants.js';
+ // -- Utils & Other -----------------------------------------------------
+ export * from '../src/utils/index.js';
+-export { CoreHelperUtil } from '@reown/appkit-controllers';
+ export function createAppKit(options) {
+     return new AppKit({
+         ...options,
+@@ -11,4 +10,12 @@ export function createAppKit(options) {
+     });
+ }
+ export { AppKit };
++export {
++    ApiController as CoreApiController,
++    AssetController as CoreAssetController,
++    AssetUtil as CoreAssetUtil,
++    ChainController as CoreChainController,
++    ConnectionController as CoreConnectionController,
++    ConnectionControllerUtil as CoreConnectionControllerUtil, ConnectorController as CoreConnectorController, CoreHelperUtil, OptionsController as CoreOptionsController, ProviderController as CoreProviderController, RouterController as CoreRouterController, StorageUtil as CoreStorageUtil
++} from '@reown/appkit-controllers';
+ //# sourceMappingURL=index.js.map
+\ No newline at end of file
+diff --git a/dist/types/exports/index.d.ts b/dist/types/exports/index.d.ts
+index c7fc9364d9b8f7d634e3b1064cda41d2a8c54aac..abe2c32e48c3659cad43370a06f324793b9d9888 100644
+--- a/dist/types/exports/index.d.ts
++++ b/dist/types/exports/index.d.ts
+@@ -3,8 +3,15 @@ import type { AppKitOptions } from '../src/utils/TypesUtil.js';
+ export * from '../src/utils/index.js';
+ export type * from '@reown/appkit-controllers';
+ export type { CaipNetwork, CaipAddress, CaipNetworkId } from '@reown/appkit-common';
+-export { CoreHelperUtil } from '@reown/appkit-controllers';
+ export type CreateAppKit = Omit<AppKitOptions, 'sdkType' | 'sdkVersion' | 'basic'>;
+ export declare function createAppKit(options: CreateAppKit): AppKit;
+ export { AppKit };
+ export type { AppKitOptions };
++export {
++    ApiController as CoreApiController,
++    AssetController as CoreAssetController,
++    AssetUtil as CoreAssetUtil,
++    ChainController as CoreChainController,
++    ConnectionController as CoreConnectionController,
++    ConnectionControllerUtil as CoreConnectionControllerUtil, ConnectorController as CoreConnectorController, CoreHelperUtil, OptionsController as CoreOptionsController, ProviderController as CoreProviderController, RouterController as CoreRouterController, StorageUtil as CoreStorageUtil
++} from '@reown/appkit-controllers';
