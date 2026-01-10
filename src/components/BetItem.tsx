@@ -328,7 +328,7 @@ export const BetItem = memo(function BetItem({ event, className }: BetItemProps)
                                                     BUTTON_COLORS.success.text,
                                                 )}
                                                 onClick={() => {
-                                                    openPredictionPage(event.slug, 0);
+                                                    openPredictionPage(market.slug, 0);
                                                 }}
                                             >
                                                 <span className="truncate">{firstOutcome}</span>
@@ -342,7 +342,7 @@ export const BetItem = memo(function BetItem({ event, className }: BetItemProps)
                                                         BUTTON_COLORS.danger.text,
                                                     )}
                                                     onClick={() => {
-                                                        openPredictionPage(event.slug, 1);
+                                                        openPredictionPage(market.slug, 1);
                                                     }}
                                                 >
                                                     <span className="truncate">{secondOutcome}</span>
@@ -425,7 +425,7 @@ export const BetItem = memo(function BetItem({ event, className }: BetItemProps)
                                             BUTTON_COLORS.success.text,
                                         )}
                                         onClick={() => {
-                                            openPredictionPage(event.slug, 0);
+                                            if (primaryMarket) openPredictionPage(primaryMarket.slug, 0);
                                         }}
                                     >
                                         <span className="truncate">
@@ -442,7 +442,7 @@ export const BetItem = memo(function BetItem({ event, className }: BetItemProps)
                                             BUTTON_COLORS.danger.text,
                                         )}
                                         onClick={() => {
-                                            openPredictionPage(event.slug, 1);
+                                            if (primaryMarket) openPredictionPage(primaryMarket.slug, 1);
                                         }}
                                     >
                                         <span className="truncate">
