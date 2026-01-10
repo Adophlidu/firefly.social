@@ -240,10 +240,10 @@ Packages with Single Version
  @adraffy/ens-normalize@1.11.1
  @alloc/quick-lru@5.2.0
  @ampproject/remapping@2.3.0
-*@atproto/api@0.18.9
- @atproto/common-web@0.4.9
- @atproto/lex-data@0.0.5
- @atproto/lex-json@0.0.5
+*@atproto/api@0.18.13
+ @atproto/common-web@0.4.11
+ @atproto/lex-data@0.0.7
+ @atproto/lex-json@0.0.7
  @atproto/lexicon@0.6.0
  @atproto/syntax@0.4.2
  @atproto/xrpc@0.7.7
