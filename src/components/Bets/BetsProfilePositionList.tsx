@@ -61,7 +61,6 @@ export const BetsProfilePositionList = memo<Props>(function BetsProfilePositionL
                 return await getBetsPositionList(platform, {
                     address: proxyAddress || address,
                     isProxyAddress: !!proxyAddress,
-                    limit: 10,
                     indicator,
                     isClaim: onlyHolding,
                 });

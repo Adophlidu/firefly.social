@@ -16,7 +16,7 @@ export async function getPositionHistory({
     address,
     indicator,
     isProxyAddress,
-    limit = 20,
+    limit = 20, // exactly the same as App's limit
     isClaim = false, // true: current positions; false: history positions
 }: {
     address: string;
