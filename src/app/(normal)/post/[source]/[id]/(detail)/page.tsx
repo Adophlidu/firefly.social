@@ -1,3 +1,4 @@
+import { UnauthorizedError } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import { headers } from 'next/headers.js';
@@ -10,7 +11,6 @@ import { Comeback } from '@/components/Comeback.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { queryClientConfig } from '@/configs/queryClient.js';
 import { type SocialSourceInURL } from '@/constants/enum.js';
-import { UnauthorizedError } from '@/constants/error.js';
 import { notFound } from '@/esm/navigation/server.js';
 import { isRequestedLoginSource } from '@/helpers/isRequestedLoginSource.js';
 import { isSocialSourceInUrl } from '@/helpers/isSource.js';
