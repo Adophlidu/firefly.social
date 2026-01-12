@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-01-09 07:51\n"
+"PO-Revision-Date: 2026-01-12 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -117,7 +117,7 @@ msgstr "展示少于 1 美元的资产"
 
 #. placeholder {0}: draft.availableProfiles.map((x) => `@${x.handle}`).join(', ')
 msgid "Selection disabled. Only editable by {0}"
-msgstr ""
+msgstr "已禁用选择。仅可由 {0} 编辑"
 
 msgid "Repost or quote"
 msgstr "转发或引用"
@@ -135,7 +135,7 @@ msgid "Refunded"
 msgstr "已退款"
 
 msgid "Content is not suitable for all audiences"
-msgstr ""
+msgstr "内容并非老少皆宜"
 
 msgid "Send a tip"
 msgstr "发送打赏"
@@ -770,7 +770,7 @@ msgid "[Video]"
 msgstr "[视频]"
 
 msgid "These posts are protected"
-msgstr ""
+msgstr "这些帖子受保护"
 
 msgid "The author is muted by you."
 msgstr "您已隐藏此作者。"
@@ -783,7 +783,7 @@ msgid "Failed to login profile by orb"
 msgstr "Orb 登录失败"
 
 msgid "Ensure the pair code matches"
-msgstr ""
+msgstr "请确保配对码一致"
 
 msgid "Report submitted"
 msgstr "已举报"
@@ -1032,7 +1032,7 @@ msgid "Host"
 msgstr "主持人"
 
 msgid "Sign in Confirmation"
-msgstr ""
+msgstr "登录确认"
 
 #. placeholder {0}: Math.floor(span / DAY_SPAN)
 msgid "{0, plural, one {# day} other {# days}}"
@@ -3425,7 +3425,7 @@ msgid "{days, plural, one {# day left} other {# days left}}"
 msgstr "{days, plural, one {剩余 # 天} other {剩余 # 天}}"
 
 msgid "Sign in to Firefly App"
-msgstr ""
+msgstr "使用 Firefly 应用登录"
 
 msgid "No cybercrime involved."
 msgstr "不涉及网络犯罪。"
@@ -4381,7 +4381,7 @@ msgid "Explore now"
 msgstr "开始探索"
 
 msgid "Adult content"
-msgstr ""
+msgstr "成人内容"
 
 msgid "Predictions"
 msgstr "Predictions"
@@ -4462,7 +4462,7 @@ msgstr "{0} <0> 项</0>"
 
 #. placeholder {0}: post.moderator?.displayName
 msgid "Labeled by <0>{0}</0>."
-msgstr ""
+msgstr "由 <0>{0}</0> 标记。"
 
 msgid "Collect"
 msgstr "收集"
@@ -4534,8 +4534,7 @@ msgid "Unexpected step for setting password: {step}."
 msgstr "验证密码时出现意外步骤：{step}。"
 
 msgid "If you have multiple Firefly accounts created with different social logins, deleting this account will help you consolidate your social accounts into one. However, if you're trying to access a different Firefly wallet linked to another social account, consider switching accounts instead of deleting."
-msgstr ""
-"如果你使用不同的社交账号创建了多个 Firefly 账户，删除此账户可以帮助你整合社交账号。\n"
+msgstr "如果你使用不同的社交账号创建了多个 Firefly 账户，删除此账户可以帮助你整合社交账号。\n"
 "但如果你仍想访问另一个社交账号绑定的 Firefly 钱包，建议你切换账户，而不是删除账户。"
 
 msgid "<0>You</0> recasted"
@@ -4821,3 +4820,4 @@ msgstr "周"
 
 msgid "Success"
 msgstr "成功"
+
