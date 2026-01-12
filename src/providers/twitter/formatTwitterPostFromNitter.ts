@@ -157,7 +157,7 @@ export function formatTwitterPostFromNitter(
         post.rootPostId = tweet.threadId;
     }
 
-    if (tweet.reply.length && tweet.replyId !== '0') {
+    if (tweet.replyId !== '0') {
         post.parentPostId = tweet.replyId;
         post.type = 'Comment';
     }
