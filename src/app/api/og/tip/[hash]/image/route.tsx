@@ -12,7 +12,7 @@ import { TipsDetailViewType, TipsNotificationType } from '@/constants/enum.js';
 import { CACHE_AGE_INDEFINITE_ON_DISK, SITE_URL } from '@/constants/static.js';
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
 import { fetchAvatarAsBase64 } from '@/helpers/fetchAvatarAsBase64.js';
-import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
+import { formatPrice } from '@/helpers/formatPrice.js';
 import { getMaintainAccountInfo } from '@/helpers/getMaintainAccountInfo.js';
 import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
 import { multipliedBy } from '@/helpers/number.js';
@@ -101,9 +101,11 @@ async function TipOpenGraphImage({ tip }: { tip: TipsDetail }) {
                     }}
                 >
                     $
-                    {tokenUSDValue.isGreaterThan(0.01)
-                        ? renderShrankPrice(formatPrice(tokenUSDValue.toString()) || '')
-                        : ''}
+                    {tokenUSDValue.isGreaterThan(1)
+                        ? tokenUSDValue.toFixed(2)
+                        : tokenUSDValue.isGreaterThan(0.01)
+                          ? tokenUSDValue.toFixed(4).replace(/\.?0+$/, '')
+                          : ''}
                 </span>
             </div>
 

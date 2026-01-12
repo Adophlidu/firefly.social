@@ -72,7 +72,7 @@ const state = createProfileState(
                 // show indicator if the session is from the server
                 state.__setStatus__(AsyncStatus.Pending);
 
-                await addTwitterAccount(sessionPayload, !session || isNewLogin);
+                await addTwitterAccount(sessionPayload, isNewLogin);
                 twitterSessionHolder.resumeSession(TwitterSession.from(sessionPayload.clientId, sessionPayload));
             } catch (error) {
                 if (error instanceof FetchError) return;

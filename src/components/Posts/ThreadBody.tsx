@@ -94,7 +94,7 @@ export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({
                 )}
 
                 <div
-                    className={classNames('w-full max-w-[calc(100%_-_53px)]', {
+                    className={classNames('w-full min-w-0 max-w-[calc(100%_-_53px)]', {
                         'pb-5': !isLast,
                         'md:-mt-[14px]': !isDetailPage || !isLast,
                     })}
