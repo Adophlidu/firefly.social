@@ -20,6 +20,7 @@ import { resolveSessionHolder, resolveSessionHolderFromProfileSource } from '@/h
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { runInSafe, runInSafeAsync } from '@/helpers/runInSafe.js';
+import { queryMyAllConnections } from '@/hooks/useAllConnections.js';
 import { logger } from '@/libs/Logger.js';
 import { ConfirmFireflyModalRef } from '@/modals/ConfirmFireflyModal.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
@@ -664,6 +665,8 @@ export async function removeAllAccounts() {
     );
 
     await removeFireflyAccountIfNeeded();
+
+    queryClient.invalidateQueries({ queryKey: queryMyAllConnections.queryKey });
 
     captureAccountLogoutAllEvent(allAccounts);
 }
