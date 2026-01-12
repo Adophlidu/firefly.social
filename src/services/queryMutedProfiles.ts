@@ -9,7 +9,7 @@ import { formatBskyProfile } from '@/providers/bsky/formatBskyProfile.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import { getBlockRelation } from '@/providers/firefly/endpoint/getBlockRelation.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { type FireflyIdentity } from '@/providers/types/Firefly.js';
+import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 
 interface MutedProfilePayload {
     source: Source;
@@ -44,7 +44,7 @@ async function fetcher(payloads: MutedProfilePayload[]): Promise<Record<string, 
                 profileId,
                 blocked,
             };
-            queryClient.setQueryData(['profile-is-muted', Source.Bsky, profileId, true], blocked);
+            queryClient.setQueryData(['profile-is-muted', Source.Bsky, profileId], blocked);
         });
     }
 
@@ -66,7 +66,7 @@ async function fetcher(payloads: MutedProfilePayload[]): Promise<Record<string, 
             });
 
             fireflyPayloads.forEach((payload) => {
-                const queryKey = ['profile-is-muted', payload.source, payload.profileId, true];
+                const queryKey = ['profile-is-muted', payload.source, payload.profileId];
                 const key = `${payload.source}:${payload.profileId}`;
                 const blocked = relationMap.get(key) ?? false;
 

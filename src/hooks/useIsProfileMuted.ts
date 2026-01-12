@@ -6,7 +6,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 import { queryMutedProfile } from '@/services/queryMutedProfiles.js';
 
 export function useIsProfileMuted(source: Source, profileId: string, blocking?: boolean, enabled = true) {
@@ -18,7 +18,7 @@ export function useIsProfileMuted(source: Source, profileId: string, blocking?: 
 
     const { data } = useQuery({
         enabled: canQuery,
-        queryKey: ['profile-is-muted', source, profileId, true],
+        queryKey: ['profile-is-muted', source, profileId],
         staleTime: 600_000,
         queryFn: () => queryMutedProfile(source, profileId),
     });
@@ -27,6 +27,6 @@ export function useIsProfileMuted(source: Source, profileId: string, blocking?: 
 }
 
 export function isProfileMuted(profile: Profile) {
-    const blocked = queryClient.getQueryData<boolean>(['profile-is-muted', profile.source, profile.profileId, true]);
+    const blocked = queryClient.getQueryData<boolean>(['profile-is-muted', profile.source, profile.profileId]);
     return blocked ?? profile.viewerContext?.blocking;
 }
