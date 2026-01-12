@@ -132,6 +132,12 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
         if (retweetedTweet) {
             ret.mirrorOn = tweetV2ToPost(retweetedTweet, includes);
             ret.postId = retweetedTweet.id;
+            // For retweets, show the original tweet's publish time (not the retweet time).
+            if (retweetedTweet.created_at) {
+                ret.timestamp = new Date(retweetedTweet.created_at).getTime();
+            } else if (ret.mirrorOn?.timestamp) {
+                ret.timestamp = ret.mirrorOn.timestamp;
+            }
             // @ts-expect-error twitter-api-v2 doesn't have `tweet.article` yet
             ret.metadata.article = retweetedTweet.article
                 ? {

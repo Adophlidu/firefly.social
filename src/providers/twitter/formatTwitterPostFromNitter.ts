@@ -172,6 +172,10 @@ export function formatTwitterPostFromNitter(
         post.reporter = post.author;
         post.author = formatTwitterProfileFromNitter(tweet.retweet.user);
         post.mirrorOn = formatTwitterPostFromNitter(tweet.retweet);
+        // For retweets, show the original tweet's publish time (not the retweet time).
+        if (typeof post.mirrorOn?.timestamp === 'number') {
+            post.timestamp = post.mirrorOn.timestamp;
+        }
         post.quoteOn = post.mirrorOn.quoteOn;
         post.metadata = post.mirrorOn.metadata;
         post.stats = post.mirrorOn.stats;

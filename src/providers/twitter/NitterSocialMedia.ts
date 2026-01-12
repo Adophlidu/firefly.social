@@ -1,4 +1,4 @@
-import { NotFoundError, NotImplementedError } from '@dimensiondev/utils';
+import { NotFoundError, NotImplementedError, UnauthorizedError } from '@dimensiondev/utils';
 import { isServer } from '@tanstack/react-query';
 import { compact, last, uniq } from 'lodash-es';
 import { type TweetV2LookupResult } from 'twitter-api-v2';
@@ -331,7 +331,12 @@ class NitterSocialMedia implements Provider {
         const commentOn = await patchPostClientToFirefly(
             before.tweets.length > 0 ? formatTwitterPostFromNitter(last(before.tweets)!) : undefined,
         );
-        return patchPostClientToFirefly(formatTwitterPostFromNitter(tweet, { base: { commentOn } }));
+        const post = formatTwitterPostFromNitter(tweet, { base: { commentOn } });
+        // If timestamp is invalid (missing / negative), treat as unauthorized so caller can fallback to client-side fetching.
+        if (typeof post.timestamp !== 'number' || post.timestamp < 0) {
+            throw new UnauthorizedError('[NitterSocialMedia] Invalid (negative) timestamp.');
+        }
+        return patchPostClientToFirefly(post);
     }
 
     async getProfileById(profileId: string): Promise<Profile> {

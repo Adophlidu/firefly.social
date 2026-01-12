@@ -4,9 +4,9 @@ import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 
 import PinnedIcon from '@/assets/pinned.svg';
+import { pinnedPostQueryOptions } from '@/components/Posts/queries/pinnedPostQueryOptions.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 
 interface Props {
     source: SocialSource;
@@ -16,13 +16,7 @@ interface Props {
 const AVAILABLE_SOURCE: SocialSource[] = [Source.Twitter];
 
 function PinnedPostContent({ source, profileId }: Props) {
-    const { data } = useQuery({
-        queryKey: ['pinned-post', source, profileId],
-        async queryFn() {
-            const provider = resolveSocialMediaProvider(source);
-            return provider.getPinnedPost(profileId);
-        },
-    });
+    const { data } = useQuery(pinnedPostQueryOptions(source, profileId));
 
     if (!data) return null;
 

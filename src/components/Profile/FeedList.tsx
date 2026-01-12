@@ -1,14 +1,16 @@
 'use client';
 
-import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
+import { useQuery, useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import ProtectedIcon from '@/assets/protected.svg';
 import { ProtectedPostsMessage } from '@/components/fallbacks/ProtectedPostsMessage.js';
 import { ListInPage } from '@/components/ListInPage.js';
+import { pinnedPostQueryOptions } from '@/components/Posts/queries/pinnedPostQueryOptions.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
 import { ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/static.js';
 import { getPostsSelector } from '@/helpers/getPostsSelector.js';
+import { isSamePost } from '@/helpers/isSamePost.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
@@ -25,6 +27,11 @@ export function FeedList({ profileId, source }: FeedListProps) {
     const isProtected = useIsProfileProtected(source, profileId);
     // Twitter API might returns incomplete data, so only force it when the user protects his account
     const forceTwitterOfficial = isLogin && isProtected;
+
+    const { data: pinnedPost } = useQuery({
+        ...pinnedPostQueryOptions(source, profileId),
+        enabled: source === Source.Twitter && !!profileId,
+    });
 
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['posts', source, 'posts-of', profileId, forceTwitterOfficial],
@@ -52,7 +59,13 @@ export function FeedList({ profileId, source }: FeedListProps) {
         <ListInPage
             source={source}
             key={source}
-            queryResult={queryResult}
+            queryResult={{
+                ...queryResult,
+                data:
+                    pinnedPost && isSamePost(queryResult.data?.[0], pinnedPost)
+                        ? queryResult.data?.slice(1)
+                        : queryResult.data,
+            }}
             VirtualListProps={{
                 listKey: `${ScrollListKey.Profile}:${profileId}`,
                 computeItemKey: (index, post) => `${post.publicationId}-${post.postId}-${index}`,
