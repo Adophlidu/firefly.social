@@ -56,10 +56,10 @@ export async function checkGenesisSparksAccount(source: ProfilePageSource, id: s
             queryClient.setQueryData(['profile-highlight-status', source, id, handle], info);
         }
 
-        return info;
+        return info ?? null;
     } catch (error) {
         queryClient.setQueryData(['profile-highlight-status', source, id, handle], false);
-        return;
+        return null;
     }
 }
 

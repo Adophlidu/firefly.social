@@ -3,52 +3,30 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { QUERY_MUTE_PROFILE_SOURCES } from '@/constants/computed.js';
-import { type SocialSource, type Source } from '@/constants/enum.js';
-import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
-import { resolveFireflyPlatform } from '@/helpers/resolveFireflyPlatform.js';
-import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
+import { Source } from '@/constants/enum.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
-import { isProfileMuted as isProfileMutedEndpoint } from '@/providers/firefly/endpoint/isProfileMuted.js';
 import { type Profile } from '@/providers/types/SocialMedia.js';
+import { queryMutedProfile } from '@/services/queryMutedProfiles.js';
 
 export function useIsProfileMuted(source: Source, profileId: string, blocking?: boolean, enabled = true) {
     const isLoginFirefly = useIsLoginFirefly();
-    const isLogin = useIsLogin(narrowToSocialSource(source));
-    const myProfile = useCurrentProfile(narrowToSocialSource(source));
+    const isLoginBsky = useIsLogin(Source.Bsky);
 
     const validParameters = !!source && !!profileId && enabled;
-    const queryStatusFromFirefly = validParameters && !QUERY_MUTE_PROFILE_SOURCES.includes(source) && isLoginFirefly;
-    const queryStatusFromSocial = validParameters && QUERY_MUTE_PROFILE_SOURCES.includes(source) && isLogin;
+    const canQuery = validParameters && ((source === Source.Bsky && isLoginBsky) || isLoginFirefly);
 
-    const { data: profile } = useQuery({
-        enabled: queryStatusFromSocial,
-        queryKey: ['profile', source, profileId, myProfile?.profileId],
-        staleTime: 600_000,
-        queryFn() {
-            return resolveSocialMediaProvider(source as SocialSource).getProfileById(profileId);
-        },
-    });
     const { data } = useQuery({
-        enabled: queryStatusFromFirefly,
-        queryKey: ['profile-is-muted', source, profileId, isLoginFirefly],
+        enabled: canQuery,
+        queryKey: ['profile-is-muted', source, profileId, true],
         staleTime: 600_000,
-        queryFn: async () => {
-            const platform = resolveFireflyPlatform(source);
-            if (!platform) return undefined;
-            return isProfileMutedEndpoint(platform, profileId);
-        },
+        queryFn: () => queryMutedProfile(source, profileId),
     });
 
-    if (queryStatusFromFirefly) return data ?? false;
-    if (queryStatusFromSocial) return profile?.viewerContext?.blocking ?? false;
-
-    return blocking ?? false;
+    return data ?? blocking ?? false;
 }
 
 export function isProfileMuted(profile: Profile) {
-    const blocked = queryClient.getQueryData<boolean>(['profile-is-muted', profile.source, profile.profileId]);
+    const blocked = queryClient.getQueryData<boolean>(['profile-is-muted', profile.source, profile.profileId, true]);
     return blocked ?? profile.viewerContext?.blocking;
 }
