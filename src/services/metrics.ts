@@ -1,6 +1,5 @@
 import { parseJson, safeUnreachable } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
-import { jwtDecode } from 'jwt-decode';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 import { sha256, toHex } from 'viem';
@@ -63,15 +62,6 @@ export async function uploadMetrics(passcode: string) {
 export async function downloadAccounts() {
     const response = await downloadMetaInfo();
     return response.metrics;
-}
-
-function isExpiredRefreshToken(token: string) {
-    try {
-        const payload = jwtDecode(token);
-        return !!payload.exp && Date.now() >= payload.exp * 1000 - 60 * 1000;
-    } catch {
-        return false;
-    }
 }
 
 /**

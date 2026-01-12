@@ -47,8 +47,6 @@ export type ResponseJson<T> =
           };
       };
 
-type SearchParams = Record<string, string | string[] | undefined>;
-
 export type PartialWith<T, K extends keyof T> = Partial<Pick<T, K>> & Omit<T, K>;
 
 export interface ClassType<T> extends Function {

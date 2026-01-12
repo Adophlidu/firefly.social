@@ -109,8 +109,6 @@ function Content({ enabled, onClose }: { enabled: boolean; onClose?: () => void 
 
     const loading = isLoading || isRefetching || isSigning;
 
-    console.log('loading,schemaURL', loading, schemaURL);
-
     return (
         <>
             {IS_MOBILE_DEVICE ? (

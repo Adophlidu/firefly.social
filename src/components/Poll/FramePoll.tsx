@@ -13,7 +13,6 @@ import { type Post } from '@/providers/types/SocialMedia.js';
 interface FramePollProps {
     pollId: string;
     post: Post;
-    frameUrl: string;
 }
 
 function updatePostPoll(source: SocialSource, postId: string, poll: Poll) {
@@ -28,7 +27,7 @@ function updatePostPoll(source: SocialSource, postId: string, poll: Poll) {
     });
 }
 
-export const FramePoll = memo<FramePollProps>(function FramePoll({ pollId, post, frameUrl }) {
+export const FramePoll = memo<FramePollProps>(function FramePoll({ pollId, post }) {
     const profile = useCurrentProfile(post.source);
     const { isLoading, data } = useQuery({
         queryKey: ['poll', post.source, pollId, profile?.profileId],
@@ -47,5 +46,5 @@ export const FramePoll = memo<FramePollProps>(function FramePoll({ pollId, post,
 
     if (isLoading || !data) return null;
 
-    return <PollCard frameUrl={frameUrl} post={{ ...post, poll: data }} />;
+    return <PollCard post={{ ...post, poll: data }} />;
 });

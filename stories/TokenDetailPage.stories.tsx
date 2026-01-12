@@ -21,14 +21,14 @@ const meta = {
                 </div>
                 <div className="flex gap-2">
                     <button
-                        className="border-gray size-8 rounded border p-1"
+                        className="size-8 rounded border border-gray-700 p-1"
                         onClick={() => setCount((v) => Math.max(0, v - 1))}
                     >
                         -
                     </button>
                     <span className="text-lg">{count}</span>
                     <button
-                        className="border-gray size-8 rounded border p-1"
+                        className="size-8 rounded border border-gray-700 p-1"
                         onClick={() => setCount((v) => Math.min(allUsers.length, v + 1))}
                     >
                         +

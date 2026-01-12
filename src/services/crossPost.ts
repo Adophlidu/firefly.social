@@ -156,7 +156,7 @@ export async function crossPost(
         signal,
     }: CrossPostOptions = {},
 ) {
-    const { updatePostInThread, updatePollId, disableSource } = useComposeStateStore.getState();
+    const { updatePostInThread, updatePollId } = useComposeStateStore.getState();
     const { availableSources, poll } = compositePost;
     let pollId = '';
 

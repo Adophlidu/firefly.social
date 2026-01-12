@@ -3019,6 +3019,7 @@ msgstr "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgid "Network cost"
 msgstr "Network cost"
 
+#. placeholder {0}: activity.is_cross_chain ? <Trans>Bridged</Trans> : <Trans>Swapped</Trans>
 #. placeholder {0}: isCrossChain ? <Trans>Bridged</Trans> : <Trans>Swapped</Trans>
 #. placeholder {1}: activity.dex_logo ? ( <Image src={activity.dex_logo} alt={activity.dex_name} className="size-4 rounded-full" width={16} height={16} /> ) : null
 #. placeholder {1}: activity.dex_logo ? ( <Image src={activity.dex_logo} alt={activity.dex_name} className="size-4 rounded-full" width={16} height={16} /> ) : null

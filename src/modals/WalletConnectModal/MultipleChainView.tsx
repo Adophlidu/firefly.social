@@ -2,7 +2,6 @@ import { Trans } from '@lingui/react/macro';
 import {
     type Connector,
     CoreAssetUtil,
-    CoreConnectionController,
     CoreConnectorController,
     CoreHelperUtil,
     CoreRouterController,
@@ -24,17 +23,8 @@ export default function MultipleChainView() {
     const { origin } = WalletConnectContext.useContainer();
 
     const [activeConnector, setActiveConnector] = useState(CoreConnectorController.state.activeConnector);
-    const [connections, setConnections] = useState(CoreConnectionController.state.connections);
 
-    useEffect(() => {
-        const unsubscribes = [
-            CoreConnectorController.subscribeKey('activeConnector', (val) => setActiveConnector(val)),
-            CoreConnectionController.subscribeKey('connections', (val) => setConnections(val)),
-        ];
-        return () => {
-            unsubscribes.forEach((unsubscribe) => unsubscribe());
-        };
-    }, []);
+    useEffect(() => CoreConnectorController.subscribeKey('activeConnector', (val) => setActiveConnector(val)), []);
 
     const [{ loading }, onConnect] = useAsyncFn(
         async (provider: Connector) => {

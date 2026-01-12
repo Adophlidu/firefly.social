@@ -21,16 +21,7 @@ interface CoverProps {
     };
 }
 
-export function RedPacketCover({
-    theme,
-    shares,
-    remainingShares = 0,
-    amount,
-    remainingAmount,
-    message,
-    from,
-    token,
-}: CoverProps) {
+export function RedPacketCover({ theme, shares, remainingShares = 0, amount, message, from, token }: CoverProps) {
     return (
         <CoverContainer
             ContainerStyle={{
@@ -39,7 +30,7 @@ export function RedPacketCover({
         >
             <MessageText theme={theme} message={message} ContainerStyle={{ top: 520 }} />
 
-            <AmountProgressText theme={theme} amount={amount} remainingAmount={remainingAmount} token={token} />
+            <AmountProgressText theme={theme} amount={amount} token={token} />
 
             <ClaimProgressText
                 theme={theme}

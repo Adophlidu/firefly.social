@@ -5,7 +5,7 @@ import { Link } from '@/components/Link.js';
 import { type Project } from '@/providers/types/Firefly.js';
 
 export const ProjectItem = memo<{ project: Project }>(function ProjectItem({
-    project: { project_name, logo, token_symbol, eval: evalNumber, rank, tags, one_liner, rootdataurl },
+    project: { project_name, logo, token_symbol, tags, one_liner, rootdataurl },
 }) {
     return (
         <Link

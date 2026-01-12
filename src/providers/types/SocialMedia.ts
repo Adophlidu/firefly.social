@@ -67,13 +67,6 @@ export enum ProfileStatus {
     Inactive = 'inactive',
 }
 
-interface Reaction {
-    reactionId: string;
-    type: ReactionType;
-    /** time in milliseconds */
-    timestamp: number;
-}
-
 interface Tag {
     tagId: string;
     label: string;

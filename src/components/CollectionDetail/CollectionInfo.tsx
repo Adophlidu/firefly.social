@@ -69,7 +69,7 @@ export function CollectionInfo(props: CollectionInfoProps) {
                         <CollectionMore chainId={chainId} address={address} externalUrl={externalUrl} />
                     </div>
                     {address ? (
-                        <div className="text-normal flex items-center gap-1 text-[14px] leading-[14px] text-secondary">
+                        <div className="flex items-center gap-1 text-[14px] leading-[14px] text-secondary">
                             <ChainIcon className="shrink-0" chainId={chainId} size={14} />
                             <span className="min-w-0 truncate">{isMedium ? address : formatAddress(address, 4)}</span>
                             <CopyTextButton size={14} text={address} />

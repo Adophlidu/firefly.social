@@ -34,7 +34,7 @@ export function DatePickerTab(props: DatePickerTabProps) {
                 return (
                     <div
                         className={classNames(
-                            'leading-20 flex size-[28px] cursor-pointer items-center justify-center rounded-full border border-secondary text-center text-sm text-secondary',
+                            'flex size-[28px] cursor-pointer items-center justify-center rounded-full border border-secondary text-center text-sm text-secondary',
                             {
                                 '!border-none bg-fireflyBrand text-white': date.getDate() === day.getDate(),
                                 'cursor-default': allowedDates.includes(localeDateString),

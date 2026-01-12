@@ -74,7 +74,7 @@ export function NonFungibleCollectionSelectModal({ ref }: Props) {
                         <Trans>Select Collection</Trans>
                     </span>
                     <ClickableButton
-                        className="text-md absolute right-0 top-1/2 flex -translate-y-1/2 cursor-pointer items-center space-x-2 text-main"
+                        className="absolute right-0 top-1/2 flex -translate-y-1/2 cursor-pointer items-center space-x-2 text-main"
                         onClick={() => {
                             AddCustomERC721ModalRef.open({
                                 initialChainId: props.initialAddTokenChainId ?? chainId,

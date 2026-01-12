@@ -44,7 +44,7 @@ async function loginBsky(createAccount: () => Promise<Account>, options?: Omit<A
         const done = await addAccount(account, {
             ...options,
             async setAsCurrent({ session }) {
-                await bskySessionHolder.resumeSession(session as BskySession, false);
+                await bskySessionHolder.resumeSession(session as BskySession);
             },
         });
         if (done) {

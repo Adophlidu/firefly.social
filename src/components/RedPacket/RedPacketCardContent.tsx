@@ -239,7 +239,6 @@ export function RedPacketCardContent({ payload, post }: Props) {
                                 <AmountProgressText
                                     theme={cover?.theme}
                                     amount={payload.total}
-                                    remainingAmount={payload.total_remaining}
                                     token={{
                                         type: TokenType.Fungible,
                                         symbol: payload.token?.symbol,

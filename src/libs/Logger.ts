@@ -5,6 +5,10 @@ const pinoLogger = pino({
 });
 
 export class Logger {
+    assert(condition: unknown, message: string): void {
+        if (!condition) throw new Error(message);
+    }
+
     debug(message: string, ...args: unknown[]): void {
         pinoLogger.debug({ args }, message);
     }

@@ -10,7 +10,7 @@ class BskySessionHolder extends SessionHolder<BskySession> {
         return this._agent;
     }
 
-    override async resumeSession(session: BskySession, refreshSession = true): Promise<void> {
+    override async resumeSession(session: BskySession): Promise<void> {
         this._agent = createBskySessionAgent();
 
         super.resumeSession(session);

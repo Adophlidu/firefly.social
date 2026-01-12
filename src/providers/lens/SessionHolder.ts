@@ -8,7 +8,7 @@ import { type LensSession } from '@/providers/lens/Session.js';
 import { useLensProfileStore } from '@/store/useProfileStore/useLensProfileStore.js';
 
 class LensSessionHolder extends SessionHolder<LensSession> {
-    override assertSession(message?: string): LensSession {
+    override assertSession(_?: string): LensSession {
         throw new Error('The Lens session holder does not maintain an internal session, yet the Lens client does.');
     }
 
@@ -19,7 +19,7 @@ class LensSessionHolder extends SessionHolder<LensSession> {
         return refreshLensSession(currentSession as LensSession);
     }
 
-    override async resumeSession(session: LensSession, refreshSession = false) {
+    override async resumeSession(session: LensSession) {
         const lensClient = createLensSessionClient();
         const sessionClient = await ensureLensResult(lensClient.resumeSession());
 

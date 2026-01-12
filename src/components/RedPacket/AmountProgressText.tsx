@@ -12,7 +12,6 @@ import { type TokenType } from '@/types/rp.js';
 interface AmountProgressTextProps {
     theme: FireflyRedPacketAPI.ThemeGroupSettings;
     amount: string; // bigint in str
-    remainingAmount?: string; // bigint in str
     shares?: number;
     remainingShares?: number;
     token: {
@@ -28,7 +27,6 @@ interface AmountProgressTextProps {
 export function AmountProgressText({
     theme,
     amount,
-    remainingAmount,
     token,
     shares,
     remainingShares,

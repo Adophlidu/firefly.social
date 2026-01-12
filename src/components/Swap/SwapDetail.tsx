@@ -26,7 +26,6 @@ import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
-import { resolveAddressLink } from '@/helpers/resolveExplorer.js';
 import { resolveExplorerLink } from '@/helpers/resolveExplorerLink.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
 import { type SwapActivity } from '@/providers/types/Firefly.js';
@@ -36,22 +35,16 @@ interface SwapDetailProps {
 }
 
 export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ activity }) {
+    if (!activity) notFound();
+
     const addressName = formatAddress(activity?.owner ?? '', 4);
     const profileUrl = getProfileUrl({ source: Source.Wallet, profileId: activity?.owner });
 
-    if (!activity) {
-        notFound();
-    }
-
+    const chain = activity.chain_id !== 101 ? chains.find((x) => x.id === activity.chain_id) : null;
     const explorerLink =
         activity.chain_id !== 101
             ? resolveExplorerLink(activity.chain_id, activity.hash, 'tx')
             : `https://solscan.io/tx/${activity.hash}`;
-
-    const contractLink = resolveAddressLink(activity.chain_id, activity.router_address);
-
-    const chain = activity.chain_id !== 101 ? chains.find((x) => x.id === activity.chain_id) : null;
-    const isCrossChain = activity.is_cross_chain;
 
     return (
         <div className="flex flex-col">
@@ -114,7 +107,7 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ activity }
                             <div className="flex items-center gap-x-1 rounded-lg border border-main px-2 text-main">
                                 <ExchangeIcon className="size-3" />
                                 <span className="text-medium leading-6">
-                                    {isCrossChain ? <Trans>Bridged</Trans> : <Trans>Swapped</Trans>}
+                                    {activity.is_cross_chain ? <Trans>Bridged</Trans> : <Trans>Swapped</Trans>}
                                 </span>
                             </div>
                             <span>on</span>

@@ -8,14 +8,12 @@ import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueu
 import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
 import { reportArticle } from '@/providers/firefly/report/reportArticle.js';
 import { type Article } from '@/providers/types/Article.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
 
 interface Props extends Omit<ClickableButtonProps, 'children'> {
     article: Article;
-    onReport?(profile: Profile): Promise<boolean>;
 }
 
-export function ReportArticleButton({ article, ref, onReport, onClick, ...rest }: Props) {
+export function ReportArticleButton({ article, ref, onClick, ...rest }: Props) {
     const mutation = useMutation({
         mutationFn: async () => {
             await reportArticle(article);

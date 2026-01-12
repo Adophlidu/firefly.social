@@ -9,10 +9,9 @@ import { type Post } from '@/providers/types/SocialMedia.js';
 
 interface PollCardProps {
     post: Post;
-    frameUrl: string;
 }
 
-export const PollCard = memo<PollCardProps>(function PollCard({ post, frameUrl }) {
+export const PollCard = memo<PollCardProps>(function PollCard({ post }) {
     const { poll } = useRetrievePollFromPost(post);
 
     if (!poll) return null;

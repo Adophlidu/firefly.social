@@ -1,7 +1,5 @@
 'use client';
 
-import { useConnection } from 'wagmi';
-
 import { getProfileActivities } from '@/components/Activities/getActivities.js';
 import { getActivitiesItemContent } from '@/components/Activities/getActivitiesItemContent.js';
 import { ListInPage } from '@/components/ListInPage.js';
@@ -22,14 +20,13 @@ export function ProfileActivities({ address }: ProfileActivitiesProps) {
         isSameEthereumAddress(address, VITALIK_ADDRESS) ? undefined : [ActivitiesPlatform.Limo],
     );
     const addresses = useWalletMixAddresses(address);
-    const account = useConnection();
 
     const queryResult = useMultiInfiniteQueryPageable(
         ['activities', 'profile', address, selectedPlatforms],
         ([Source.Article, Source.DAOs] as const).map((source) => ({
             key: source,
             async queryFn({ pageParam }) {
-                return getProfileActivities(source, addresses, selectedPlatforms, pageParam, account.address);
+                return getProfileActivities(source, addresses, selectedPlatforms, pageParam);
             },
         })),
         (data) => {

@@ -19,7 +19,7 @@ export default function Settings() {
 
     // mobile
     return (
-        <main className="grow-1 flex w-full">
+        <main className="flex w-full">
             <SettingsList />
         </main>
     );

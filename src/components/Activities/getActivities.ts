@@ -23,7 +23,6 @@ function createActivitiesFetcher(
         source: ActivitiesItem['source'],
         platforms?: ActivitiesPlatform[],
         pageParam?: string,
-        connectedAddress?: string,
     ) {
         switch (source) {
             case Source.Article: {
@@ -93,7 +92,6 @@ export function getProfileActivities(
     addresses: string[],
     platforms: ActivitiesPlatform[],
     pageParam?: string,
-    connectedAddress?: string,
 ) {
     return createActivitiesFetcher(
         (indicator, platform) => discoverArticlesByAddress(addresses, indicator, platform),
@@ -102,5 +100,5 @@ export function getProfileActivities(
                 indicator,
                 walletAddresses: addresses,
             }),
-    )(source, platforms || [], pageParam, connectedAddress);
+    )(source, platforms || [], pageParam);
 }

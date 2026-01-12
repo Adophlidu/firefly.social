@@ -1,6 +1,10 @@
 import { IS_PRODUCTION } from '@/constants/static.js';
 
-export class Logger {
+export class LoggerNative {
+    assert(condition: unknown, message: string): void {
+        if (!condition) throw new Error(message);
+    }
+
     debug(message: string, ...args: unknown[]): void {
         if (!IS_PRODUCTION) {
             console.debug(`[DEBUG] ${message}`, ...args);
@@ -24,4 +28,4 @@ export class Logger {
     }
 }
 
-export const logger = new Logger();
+export const logger = new LoggerNative();

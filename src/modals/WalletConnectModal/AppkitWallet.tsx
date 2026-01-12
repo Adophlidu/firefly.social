@@ -1,5 +1,5 @@
 import { CoreAssetUtil, CoreConnectionController, CoreRouterController } from '@reown/appkit';
-import { memo, useEffect, useState } from 'react';
+import { memo } from 'react';
 import urlcat from 'urlcat';
 
 import { WalletChainConfig, walletConnectId, type WalletId } from '@/constants/reown.js';
@@ -43,16 +43,6 @@ function onWalletClick(item: AppkitWalletItem) {
 }
 
 export const AppkitWallet = memo<AppkitWalletProps>(function AppkitWallet({ item }) {
-    const [connections, setConnections] = useState(CoreConnectionController.state.connections);
-
-    useEffect(() => {
-        const unsubscribes = [CoreConnectionController.subscribeKey('connections', (val) => setConnections(val))];
-
-        return () => {
-            unsubscribes.forEach((unsubscribe) => unsubscribe());
-        };
-    }, []);
-
     const wallet = item.wallet;
     const imageSrc = CoreAssetUtil.getWalletImage(wallet);
     const hasWcConnection = CoreConnectionController.hasAnyConnection(walletConnectId);

@@ -226,9 +226,9 @@ export function PostBodyContent({ ref, ...props }: PostBodyContentProps) {
             {/* Poll */}
             {!isParsingRedPacket && (!hasEncryptedPayload || supportMultipleEmbeds) ? (
                 pollId && oembedUrl ? (
-                    <FramePoll post={post} pollId={pollId} frameUrl={oembedUrl} />
+                    <FramePoll post={post} pollId={pollId} />
                 ) : post.poll || post.hasPoll ? (
-                    <PollCard post={post} frameUrl={''} />
+                    <PollCard post={post} />
                 ) : null
             ) : null}
 
