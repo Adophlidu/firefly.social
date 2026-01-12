@@ -5,6 +5,7 @@ import { createContext, type PropsWithChildren, useMemo } from 'react';
 
 import { Source } from '@/constants/enum.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { useAsyncStatus } from '@/hooks/useAsyncStatus.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { type FireflyIdentity, type FireflyProfile } from '@/providers/types/Firefly.js';
 import { type Profile } from '@/providers/types/SocialMedia.js';
@@ -28,9 +29,11 @@ export const ProfileContext = createContext<
 
 export function ProfileContextProvider({ children, ...value }: PropsWithChildren<ProfileContextProviderProps>) {
     const { socialProfile } = value;
-    const currentProfile = useCurrentProfile(socialProfile?.source || Source.Farcaster);
+    const source = socialProfile?.source || Source.Farcaster;
+    const isSyncing = useAsyncStatus(source);
+    const currentProfile = useCurrentProfile(source);
     const { data: refreshedProfile, isLoading } = useQuery({
-        enabled: !!socialProfile,
+        enabled: !!socialProfile && !isSyncing,
         staleTime: 1000 * 60, // 1 minute
         refetchOnWindowFocus: false,
         refetchOnReconnect: 'always',
@@ -43,10 +46,10 @@ export function ProfileContextProvider({ children, ...value }: PropsWithChildren
     const cachedValue = useMemo(
         () => ({
             ...value,
-            isRefreshing: isLoading,
+            isRefreshing: isLoading || isSyncing,
             refreshedSocialProfile: refreshedProfile || socialProfile,
         }),
-        [refreshedProfile, value, socialProfile, isLoading],
+        [refreshedProfile, value, socialProfile, isLoading, isSyncing],
     );
 
     return <ProfileContext.Provider value={cachedValue}>{children}</ProfileContext.Provider>;
