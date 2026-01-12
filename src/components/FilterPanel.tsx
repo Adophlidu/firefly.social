@@ -91,7 +91,9 @@ export const FilterPanel = memo(function FilterPanel({
                             </div>
                         )}
 
-                        <ArrowDownIcon className={classNames('ml-auto size-4', expanded ? 'rotate-180' : '')} />
+                        {!disableChainChange ? (
+                            <ArrowDownIcon className={classNames('ml-auto size-4', expanded ? 'rotate-180' : '')} />
+                        ) : null}
                     </div>
                     {expanded ? (
                         <div className="flex flex-col gap-0.5">
