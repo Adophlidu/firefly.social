@@ -39,7 +39,7 @@ export async function getPositionHistory({
             cursor: indicator?.id ? +indicator.id : undefined,
             wallet: address,
             is_claim: isClaim,
-            excuse_lose: false,
+            exclude_lose: false,
             exclude_win: false,
         }),
     });
