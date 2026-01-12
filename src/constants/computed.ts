@@ -194,7 +194,6 @@ export const SUPPORTED_CHANNEL_SOURCES: Source[] = [Source.Farcaster, Source.Len
 export const SOCIAL_DISCOVER_SOURCE: SocialDiscoverSource[] = [Source.Farcaster, Source.Lens, Source.Bsky] as const;
 export const SOCIAL_DISCOVER_SOURCE_LOGIN_REQUIRED: SocialDiscoverSource[] = [Source.Twitter];
 export const SOCIAL_DISCOVER_WHITELIST_SOURCE: SocialDiscoverSource[] = [Source.Twitter];
-export const QUERY_MUTE_PROFILE_SOURCES = [Source.Bsky, Source.Twitter, Source.Lens];
 export const DISCOVER_SOURCES: DiscoverSource[] = [
     Source.Posts,
     Source.Transactions,
