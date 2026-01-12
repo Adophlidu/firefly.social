@@ -19,7 +19,6 @@ import {
 } from '@/helpers/pageable.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { resolveSearchKeyword } from '@/helpers/resolveSearchKeyword.js';
-import { resolveSourceInUrlForApi } from '@/helpers/resolveSourceInUrl.js';
 import {
     formatBriefChannelFromFirefly,
     formatChannelFromFirefly,
@@ -34,12 +33,11 @@ import { getFarcasterFriendship } from '@/providers/farcaster/getFarcasterFriend
 import { getFarcasterProfileById } from '@/providers/farcaster/getFarcasterProfileById.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
+import { getChannelsByIds } from '@/providers/neynar/getChannelsByIds.js';
 import { type Account } from '@/providers/types/Account.js';
 import {
     type BlockChannelResponse,
     type BlockedChannelsResponse,
-    type BlockedUsersResponse,
     type BookmarkResponse,
     type Cast,
     type CastResponse,
@@ -75,7 +73,6 @@ import {
     type Provider,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
-import { getProfilesByIds } from '@/services/getProfilesByIds.js';
 import { settings } from '@/settings/index.js';
 
 /**
@@ -763,27 +760,7 @@ class FireflySocialMedia implements Provider {
         indicator?: PageIndicator,
         source?: SocialSourceInURL,
     ): Promise<Pageable<Profile, PageIndicator>> {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/platformMuteList', {
-            size: 20,
-            page: indicator?.id ?? 1,
-            platform: source,
-        });
-        const response = await fireflySessionHolder.fetch<BlockedUsersResponse>(url);
-        const data = resolveFireflyResponseData(response);
-        const ids = data.blocks.map((x) => x.snsId);
-        const profiles: Profile[] = ids?.length && source ? await getProfilesByIds(source, ids) : EMPTY_LIST;
-
-        const blockedProfiles: Profile[] = profiles.map((profile) => ({
-            ...profile,
-            // since we use our own mute system, we need to set blocking to true manually
-            viewerContext: { ...profile.viewerContext, blocking: true },
-        }));
-
-        return createPageable(
-            blockedProfiles,
-            createIndicator(indicator),
-            data.nextPage ? createNextIndicator(indicator, `${data.nextPage}`) : undefined,
-        );
+        throw new NotImplementedError();
     }
 
     async getBlockedChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
@@ -797,9 +774,7 @@ class FireflySocialMedia implements Provider {
             });
             const response = await fireflySessionHolder.fetch<BlockedChannelsResponse>(url);
             const channelIds = response.data?.blocks.map((x) => x.channel_id);
-            const channels = channelIds?.length
-                ? await NeynarSocialMediaProvider.getChannelsByIds(channelIds)
-                : EMPTY_LIST;
+            const channels = channelIds?.length ? await getChannelsByIds(channelIds) : EMPTY_LIST;
             return createPageable(channels, createIndicator(indicator), undefined);
         });
     }
@@ -911,20 +886,6 @@ class FireflySocialMedia implements Provider {
 
         if (response) return true;
         throw new Error('Failed to mute channel');
-    }
-
-    async reportPost(post: Post): Promise<boolean> {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/report/post/create');
-        await fireflySessionHolder.fetch<string>(url, {
-            method: 'POST',
-            body: JSON.stringify({
-                platform: resolveSourceInUrlForApi(post.source),
-                platform_id: post.author.profileId,
-                post_type: 'text',
-                post_id: post.postId,
-            }),
-        });
-        return true;
     }
 
     async joinChannel(channel: Channel): Promise<boolean> {

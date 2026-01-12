@@ -55,7 +55,7 @@ import {
 import { compact, first, flatMap, uniqBy, uniqWith } from 'lodash-es';
 import urlcat from 'urlcat';
 
-import { FireflyPlatform, MetadataAttributeType, Source, SourceInURL } from '@/constants/enum.js';
+import { FireflyPlatform, MetadataAttributeType, Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/static.js';
 import { AddAuthorHighlightStatusForPosts } from '@/decorators/AddProfileHighlightStatus.js';
 import { SetQueryDataForActPost } from '@/decorators/SetQueryDataForActPost.js';
@@ -85,10 +85,10 @@ import {
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
+import { reportPost as reportPostToFirefly } from '@/providers/firefly/endpoint/reportPost.js';
 import { blockProfileFor } from '@/providers/firefly/farcaster-account/blockProfileFor.js';
 import { unblockProfileFor } from '@/providers/firefly/farcaster-account/unblockProfileFor.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { fireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { createLensAccount } from '@/providers/lens/createLensAccount.js';
 import { ensureCursor } from '@/providers/lens/ensureCursor.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
@@ -1039,7 +1039,7 @@ class LensSocialMedia implements Provider {
     }
 
     async getBlockedProfiles(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        return fireflySocialMediaProvider.getBlockedProfiles(indicator, SourceInURL.Lens);
+        throw new NotImplementedError();
     }
 
     async getLikeReactors(postId: string, indicator?: PageIndicator) {
@@ -1169,8 +1169,7 @@ class LensSocialMedia implements Provider {
                 reason: PostReportReason.Scam, // TODO: user select reason
             }),
         );
-        // report to firefly
-        return fireflySocialMediaProvider.reportPost(post);
+        return reportPostToFirefly(post);
     }
 
     async updateProfile(profile: ProfileEditable): Promise<boolean> {

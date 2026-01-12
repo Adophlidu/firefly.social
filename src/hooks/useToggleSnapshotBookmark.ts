@@ -4,8 +4,8 @@ import { useMutation } from '@tanstack/react-query';
 import { BookmarkType, FireflyPlatform } from '@/constants/enum.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
-import { farcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
+import { fireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { type SnapshotActivity } from '@/providers/snapshot/type.js';
 
 export function useToggleSnapshotBookmark() {
@@ -15,15 +15,14 @@ export function useToggleSnapshotBookmark() {
                 openLoginModal();
                 return;
             }
-            const { hasBookmarked } = snapshot;
 
             try {
-                if (hasBookmarked) {
-                    const result = await farcasterSocialMediaProvider.unbookmark(snapshot.hash);
+                if (snapshot.hasBookmarked) {
+                    const result = await fireflySocialMediaProvider.unbookmark(snapshot.hash);
                     enqueueSuccessMessage(t`Snapshot removed from your Bookmarks`);
                     return result;
                 } else {
-                    const result = await farcasterSocialMediaProvider.bookmark(
+                    const result = await fireflySocialMediaProvider.bookmark(
                         snapshot.hash,
                         FireflyPlatform.DAOs,
                         snapshot.author.id,
@@ -35,7 +34,7 @@ export function useToggleSnapshotBookmark() {
             } catch (error) {
                 enqueueMessageFromError(
                     error,
-                    hasBookmarked ? t`Failed to un-bookmark snapshot.` : t`Failed to bookmark snapshot.`,
+                    snapshot.hasBookmarked ? t`Failed to un-bookmark snapshot.` : t`Failed to bookmark snapshot.`,
                 );
                 throw error;
             }

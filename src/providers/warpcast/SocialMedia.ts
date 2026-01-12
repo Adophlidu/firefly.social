@@ -444,4 +444,5 @@ class WarpcastSocialMedia implements Provider {
     }
 }
 
-export const WarpcastSocialMediaProvider = new WarpcastSocialMedia();
+export { WarpcastSocialMedia };
+export const warpcastSocialMediaProvider = new WarpcastSocialMedia();

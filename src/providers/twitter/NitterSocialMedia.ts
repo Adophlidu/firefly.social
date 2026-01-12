@@ -136,7 +136,6 @@ async function withReplyPostsToTimelineWithPagination(
     );
 }
 
-export
 @SetQueryDataForPosts
 @AddAuthorHighlightStatusForPosts(Source.Twitter)
 class NitterSocialMedia implements Provider {
@@ -543,4 +542,5 @@ class NitterSocialMedia implements Provider {
     }
 }
 
+export { NitterSocialMedia };
 export const nitterSocialMediaProvider = new NitterSocialMedia();

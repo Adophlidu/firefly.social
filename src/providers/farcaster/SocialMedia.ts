@@ -1,6 +1,6 @@
 import { NotImplementedError } from '@dimensiondev/utils';
 
-import { type BookmarkType, FireflyPlatform, Source, SourceInURL } from '@/constants/enum.js';
+import { type BookmarkType, FireflyPlatform, Source } from '@/constants/enum.js';
 import { UserDataType } from '@/constants/farcaster.js';
 import { AddAuthorHighlightStatusForPosts } from '@/decorators/AddProfileHighlightStatus.js';
 import { SetQueryDataForActPost } from '@/decorators/SetQueryDataForActPost.js';
@@ -27,12 +27,13 @@ import { type FarcasterSession } from '@/providers/farcaster/Session.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { getFarcasterSuggestFollows } from '@/providers/firefly/endpoint/getFarcasterSuggestFollows.js';
 import { getNotificationPushSwitch } from '@/providers/firefly/endpoint/getNotificationPushSwitch.js';
+import { reportPost } from '@/providers/firefly/endpoint/reportPost.js';
 import { setNotificationPushSwitch } from '@/providers/firefly/endpoint/setNotificationPushSwitch.js';
 import { blockProfileFor } from '@/providers/firefly/farcaster-account/blockProfileFor.js';
 import { unblockProfileFor } from '@/providers/firefly/farcaster-account/unblockProfileFor.js';
 import { reportProfile } from '@/providers/firefly/report/reportProfile.js';
 import { fireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
-import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
+import { neynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
 import { userDataAdd } from '@/providers/neynar/userDataAdd.js';
 import { type Account } from '@/providers/types/Account.js';
 import {
@@ -55,7 +56,7 @@ import {
     SessionType,
 } from '@/providers/types/SocialMedia.js';
 import { getChannelFollowStatus } from '@/providers/warpcast/getChannelFollowStatus.js';
-import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
+import { warpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
 
 @WithMutedProfilesQuery()
 @SetQueryDataForLikePost(Source.Farcaster)
@@ -75,11 +76,11 @@ import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js
 @AddAuthorHighlightStatusForPosts(Source.Farcaster)
 class FarcasterSocialMedia implements Provider {
     quotePost(postId: string, post: Post, authorId?: number): Promise<{ postId: string }> {
-        return NeynarSocialMediaProvider.quotePost(postId, post, authorId);
+        return neynarSocialMediaProvider.quotePost(postId, post, authorId);
     }
 
     commentPost(postId: string, post: Post): Promise<{ postId: string }> {
-        return NeynarSocialMediaProvider.commentPost(postId, post);
+        return neynarSocialMediaProvider.commentPost(postId, post);
     }
 
     collectPost(postId: string, collectionId?: string): Promise<void> {
@@ -125,7 +126,7 @@ class FarcasterSocialMedia implements Provider {
     }
 
     getChannelsByIds(ids: string[]): Promise<Channel[]> {
-        return NeynarSocialMediaProvider.getChannelsByIds(ids);
+        return neynarSocialMediaProvider.getChannelsByIds(ids);
     }
 
     getChannelByHandle(channelHandle: string, includeFollowingStatus?: boolean): Promise<Channel> {
@@ -157,11 +158,11 @@ class FarcasterSocialMedia implements Provider {
     }
 
     async getChannelMembers(channelId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        return WarpcastSocialMediaProvider.getChannelMembers(channelId, indicator);
+        return warpcastSocialMediaProvider.getChannelMembers(channelId, indicator);
     }
 
     async getChannelFollowers(channelId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        return WarpcastSocialMediaProvider.getChannelFollowers(channelId, indicator);
+        return warpcastSocialMediaProvider.getChannelFollowers(channelId, indicator);
     }
 
     get type() {
@@ -240,49 +241,49 @@ class FarcasterSocialMedia implements Provider {
 
     async publishPost(post: Post): Promise<{ postId: string }> {
         const { isGrantByPermission } = getFarcasterSessionType();
-        if (isGrantByPermission) return NeynarSocialMediaProvider.publishPost(post);
+        if (isGrantByPermission) return neynarSocialMediaProvider.publishPost(post);
         throw new Error('No session found.');
     }
 
     async deletePost(postId: string): Promise<boolean> {
         const { isGrantByPermission } = getFarcasterSessionType();
-        if (isGrantByPermission) return NeynarSocialMediaProvider.deletePost(postId);
+        if (isGrantByPermission) return neynarSocialMediaProvider.deletePost(postId);
         throw new Error('No session found.');
     }
 
     async upvotePost(postId: string, authorId?: number) {
         const { isGrantByPermission } = getFarcasterSessionType();
-        if (isGrantByPermission) return NeynarSocialMediaProvider.upvotePost(postId, authorId);
+        if (isGrantByPermission) return neynarSocialMediaProvider.upvotePost(postId, authorId);
         throw new Error('No session found.');
     }
 
     async unvotePost(postId: string, authorId?: number) {
         const { isGrantByPermission } = getFarcasterSessionType();
-        if (isGrantByPermission) return NeynarSocialMediaProvider.unvotePost(postId, authorId);
+        if (isGrantByPermission) return neynarSocialMediaProvider.unvotePost(postId, authorId);
         throw new Error('No session found.');
     }
 
     async mirrorPost(postId: string, authorId?: number) {
         const { isGrantByPermission } = getFarcasterSessionType();
-        if (isGrantByPermission) return NeynarSocialMediaProvider.mirrorPost(postId, authorId);
+        if (isGrantByPermission) return neynarSocialMediaProvider.mirrorPost(postId, authorId);
         throw new Error('No session found.');
     }
 
     async unmirrorPost(postId: string, authorId?: number) {
         const { isGrantByPermission } = getFarcasterSessionType();
-        if (isGrantByPermission) return NeynarSocialMediaProvider.unmirrorPost(postId, authorId);
+        if (isGrantByPermission) return neynarSocialMediaProvider.unmirrorPost(postId, authorId);
         throw new Error('No session found.');
     }
 
     async follow(profileId: string) {
         const { isGrantByPermission } = getFarcasterSessionType();
-        if (isGrantByPermission) return NeynarSocialMediaProvider.follow(profileId);
+        if (isGrantByPermission) return neynarSocialMediaProvider.follow(profileId);
         throw new Error('No session found.');
     }
 
     async unfollow(profileId: string) {
         const { isGrantByPermission } = getFarcasterSessionType();
-        if (isGrantByPermission) return NeynarSocialMediaProvider.unfollow(profileId);
+        if (isGrantByPermission) return neynarSocialMediaProvider.unfollow(profileId);
         throw new Error('No session found.');
     }
 
@@ -347,7 +348,7 @@ class FarcasterSocialMedia implements Provider {
     }
 
     async reportPost(post: Post) {
-        return fireflySocialMediaProvider.reportPost(post);
+        return reportPost(post);
     }
 
     async blockProfile(profileId: string) {
@@ -359,7 +360,7 @@ class FarcasterSocialMedia implements Provider {
     }
 
     async getBlockedProfiles(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        return fireflySocialMediaProvider.getBlockedProfiles(indicator, SourceInURL.Farcaster);
+        throw new NotImplementedError();
     }
 
     async blockChannel(channelId: string): Promise<boolean> {
@@ -383,10 +384,10 @@ class FarcasterSocialMedia implements Provider {
         profileId?: string,
         postType?: BookmarkType,
     ): Promise<boolean> {
-        return fireflySocialMediaProvider.bookmark(postId, platform, profileId, postType);
+        throw new NotImplementedError();
     }
     async unbookmark(postId: string): Promise<boolean> {
-        return fireflySocialMediaProvider.unbookmark(postId);
+        throw new NotImplementedError();
     }
     async getBookmarks(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         return fireflySocialMediaProvider.getBookmarks(indicator);
@@ -415,11 +416,11 @@ class FarcasterSocialMedia implements Provider {
     }
 
     async joinChannel(channel: Channel): Promise<boolean> {
-        return WarpcastSocialMediaProvider.joinChannel(channel);
+        return warpcastSocialMediaProvider.joinChannel(channel);
     }
 
     async leaveChannel(channel: Channel): Promise<boolean> {
-        return WarpcastSocialMediaProvider.leaveChannel(channel);
+        return warpcastSocialMediaProvider.leaveChannel(channel);
     }
 
     async getPinnedPost(profileId: string): Promise<Post | null> {

@@ -4,8 +4,8 @@ import { useMutation } from '@tanstack/react-query';
 import { BookmarkType, FireflyPlatform } from '@/constants/enum.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
-import { farcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
+import { fireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { captureArticleBookmarkSuccessEvent } from '@/providers/telemetry/captureClickEvent.js';
 import { type Article } from '@/providers/types/Article.js';
 
@@ -16,14 +16,14 @@ export function useToggleArticleBookmark() {
                 openLoginModal();
                 return;
             }
-            const { hasBookmarked } = article;
+
             try {
-                if (hasBookmarked) {
-                    const result = await farcasterSocialMediaProvider.unbookmark(article.id);
+                if (article.hasBookmarked) {
+                    const result = await fireflySocialMediaProvider.unbookmark(article.id);
                     enqueueSuccessMessage(t`Article removed from your Bookmarks`);
                     return result;
                 } else {
-                    const result = await farcasterSocialMediaProvider.bookmark(
+                    const result = await fireflySocialMediaProvider.bookmark(
                         article.id,
                         FireflyPlatform.Article,
                         article.author.id,
@@ -38,7 +38,7 @@ export function useToggleArticleBookmark() {
             } catch (error) {
                 enqueueMessageFromError(
                     error,
-                    hasBookmarked ? t`Failed to un-bookmark article.` : t`Failed to bookmark article.`,
+                    article.hasBookmarked ? t`Failed to un-bookmark article.` : t`Failed to bookmark article.`,
                 );
                 throw error;
             }

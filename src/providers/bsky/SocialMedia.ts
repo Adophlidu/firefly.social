@@ -40,12 +40,12 @@ import { formatBskyFeedPost, formatBskyPost, formatBskyThreadPosts } from '@/pro
 import { formatBskyProfile } from '@/providers/bsky/formatBskyProfile.js';
 import { getBskyProfileBySession } from '@/providers/bsky/getBskyProfileBySession.js';
 import { getBskySuggestedUsers } from '@/providers/bsky/getBskySuggestedUsers.js';
+import { getProfilesByIds } from '@/providers/bsky/getProfilesByIds.js';
 import { publishPostToBsky } from '@/providers/bsky/publishPostToBsky.js';
 import { resolveBskyResponseData, resolveBskyResponseDataAsync } from '@/providers/bsky/resolveBskyResponseData.js';
 import { type BskySession } from '@/providers/bsky/Session.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { fireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { type Account } from '@/providers/types/Account.js';
 import { type BookmarkResponse, type NotificationSettings, type WalletProfile } from '@/providers/types/Firefly.js';
 import { type Session } from '@/providers/types/Session.js';
@@ -186,9 +186,7 @@ class BskySocialMedia implements Provider {
         await bskySessionHolder.agent.deleteLike(data.thread.post.viewer.like);
     }
     async getProfilesByIds(ids: string[]): Promise<Profile[]> {
-        const response = await bskySessionHolder.agent.getProfiles({ actors: ids });
-        const data = resolveBskyResponseData(response, `Failed to get profiles ids = ${ids.join(',')}.`);
-        return data.profiles.map((profile) => formatBskyProfile(profile));
+        return getProfilesByIds(ids);
     }
     async getChannelsByIds(ids: string[]): Promise<Channel[]> {
         const response = await bskySessionHolder.agent.app.bsky.feed.getFeedGenerators({
@@ -641,15 +639,11 @@ class BskySocialMedia implements Provider {
             priority: settings.priority,
         });
         if (!response.success) return false;
-
         return true;
     }
 
     async getSuggestedFollows(indicator?: PageIndicator, includeFollowingStatus?: boolean) {
-        if (!bskySessionHolder.session) {
-            return createPageable([], indicator);
-        }
-
+        if (!bskySessionHolder.session) return createPageable([], indicator);
         return getBskySuggestedUsers(indicator, { limit: 20, queryStats: includeFollowingStatus });
     }
 
@@ -766,10 +760,10 @@ class BskySocialMedia implements Provider {
         profileId?: string,
         postType?: BookmarkType,
     ): Promise<boolean> {
-        return fireflySocialMediaProvider.bookmark(postId, FireflyPlatform.Bsky, profileId, postType);
+        throw new NotImplementedError();
     }
     async unbookmark(postId: string): Promise<boolean> {
-        return fireflySocialMediaProvider.unbookmark(postId);
+        throw new NotImplementedError();
     }
     async getBookmarks(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/bookmark/find', {
@@ -955,4 +949,5 @@ class BskySocialMedia implements Provider {
     }
 }
 
+export { BskySocialMedia };
 export const bskySocialMediaProvider = new BskySocialMedia();

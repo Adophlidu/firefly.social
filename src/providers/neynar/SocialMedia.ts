@@ -14,21 +14,21 @@ import { fetchNeynarJson } from '@/helpers/fetchNeynarJson.js';
 import { fixUrlProtocol } from '@/helpers/fixUrlProtocol.js';
 import { isYouTubeUrl } from '@/helpers/isYouTubeUrl.js';
 import { normalizeUrl } from '@/helpers/normalizeUrl.js';
-import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
+import { type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveNeynarResponseData } from '@/helpers/resolveNeynarResponseData.js';
 import { farcasterPostIdToHash } from '@/providers/farcaster/farcasterPostIdToHash.js';
 import { formatChannelFromFirefly } from '@/providers/farcaster/formatFarcasterChannelFromFirefly.js';
-import { formatFarcasterProfileFromNeynar } from '@/providers/farcaster/formatFarcasterProfileFromNeynar.js';
 import { getAllMentionsForFarcaster } from '@/providers/farcaster/getAllMentionsForFarcaster.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { publishMessage } from '@/providers/neynar/publishMessage.js';
+import { searchProfiles } from '@/providers/neynar/searchProfiles.js';
 import { type Account } from '@/providers/types/Account.js';
 import {
     type Channel as FireflyChannel,
     type NotificationSettings,
     type WalletProfile,
 } from '@/providers/types/Firefly.js';
-import { type CastResponse, type Profile as NeynarProfile } from '@/providers/types/Neynar.js';
+import { type CastResponse } from '@/providers/types/Neynar.js';
 import { type Session } from '@/providers/types/Session.js';
 import {
     type Channel,
@@ -496,17 +496,7 @@ class NeynarSocialMedia implements Provider {
     }
 
     async searchProfiles(q: string, indicator?: PageIndicator) {
-        return farcasterSessionHolder.withSession(async (session) => {
-            const url = urlcat(NEYNAR_URL, '/v2/farcaster/user/search', {
-                q,
-                viewer_fid: session?.profileId || 0,
-            });
-
-            const response = await fetchNeynarJson<{ result: { users: NeynarProfile[] } }>(url);
-            const { result } = resolveNeynarResponseData(response);
-            const profiles = result.users.map(formatFarcasterProfileFromNeynar);
-            return createPageable(profiles, createIndicator(indicator));
-        });
+        return searchProfiles(q, indicator);
     }
 
     async joinChannel(channel: Channel): Promise<boolean> {
@@ -537,4 +527,5 @@ class NeynarSocialMedia implements Provider {
     }
 }
 
-export const NeynarSocialMediaProvider = new NeynarSocialMedia();
+export { NeynarSocialMedia };
+export const neynarSocialMediaProvider = new NeynarSocialMedia();

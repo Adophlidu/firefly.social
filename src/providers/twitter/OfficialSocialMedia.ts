@@ -73,7 +73,6 @@ import { useTwitterLikeStore } from '@/store/useTwitterLikeStore.js';
 import { useTwitterRetweetStore } from '@/store/useTwitterRetweetStore.js';
 import { type PartialWith, type ResponseJson } from '@/types/utility.js';
 
-export
 @SetQueryDataForLikePost(Source.Twitter)
 @SetQueryDataForBookmarkPost(Source.Twitter)
 @SetQueryDataForMirrorPost(Source.Twitter)
@@ -701,4 +700,5 @@ class OfficialSocialMedia implements Provider {
     }
 }
 
+export { OfficialSocialMedia };
 export const officialSocialMediaProvider = new OfficialSocialMedia();

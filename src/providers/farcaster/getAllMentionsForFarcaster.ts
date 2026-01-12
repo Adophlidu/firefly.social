@@ -4,7 +4,7 @@ import { Source } from '@/constants/enum.js';
 import { CastType } from '@/constants/farcaster.js';
 import { FARCASTER_MENTION_REGEX } from '@/constants/regexp.js';
 import { logger } from '@/libs/Logger.js';
-import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
+import { searchProfiles } from '@/providers/neynar/searchProfiles.js';
 import { resolveLengthCalculator } from '@/services/resolveLengthCalculator.js';
 
 export async function getAllMentionsForFarcaster(text: string) {
@@ -25,7 +25,7 @@ export async function getAllMentionsForFarcaster(text: string) {
             let mentionTag = '';
             if (!match[0]) continue;
             mentionTag = match[0].substring(1);
-            const profiles = await NeynarSocialMediaProvider.searchProfiles(mentionTag);
+            const profiles = await searchProfiles(mentionTag);
             const profile = first(profiles.data);
             if (profile?.fullHandle !== mentionTag) continue;
             const fid = profile?.profileId;

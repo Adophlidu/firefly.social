@@ -2,13 +2,13 @@ import { parseUrl, safeUnreachable } from '@dimensiondev/utils';
 
 import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
 import { ExternalSiteDomain, Source } from '@/constants/enum.js';
+import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { getSiteTypeFromUrl } from '@/helpers/getSiteTypeFromUrl.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { logger } from '@/libs/Logger.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
 import { farcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { getArticleIdFromUrl } from '@/services/getArticleIdFromUrl.js';
-import { useFarcasterProfileStore } from '@/store/useProfileStore/useFarcasterProfileStore.js';
 
 async function interceptFarcasterUrl(u: URL) {
     switch (u.pathname) {
@@ -17,7 +17,7 @@ async function interceptFarcasterUrl(u: URL) {
             const text = u.searchParams.get('text');
             const channelKey = u.searchParams.get('channelKey');
             const parentCastHash = u.searchParams.get('parentCastHash');
-            const isLoginFarcaster = !!useFarcasterProfileStore.getState().currentProfile;
+            const isLoginFarcaster = !!getCurrentProfileFromStorage(Source.Farcaster);
 
             if (!isLoginFarcaster) {
                 LoginModalRef.open({

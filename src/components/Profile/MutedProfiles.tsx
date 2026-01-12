@@ -2,10 +2,12 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { MutedProfileItem } from '@/components/Profile/MutedProfileItem.js';
-import { ScrollListKey, type SocialSource } from '@/constants/enum.js';
+import { ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { type Profile } from '@/providers/types/SocialMedia.js';
+import { getBlockedProfiles } from '@/services/getBlockedProfiles.js';
 
 interface MutedProfilesProps {
     source: SocialSource;
@@ -22,7 +24,8 @@ export function MutedProfiles({ source }: MutedProfilesProps) {
         queryFn: async ({ pageParam }) => {
             const provider = resolveSocialMediaProvider(source);
             const indicator = pageParam ? createIndicator(undefined, pageParam) : undefined;
-            return provider.getBlockedProfiles(indicator);
+            if ([Source.Twitter, Source.Bsky].includes(source)) return provider.getBlockedProfiles(indicator);
+            return getBlockedProfiles(indicator, resolveSocialSourceInUrl(source));
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
