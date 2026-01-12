@@ -85,36 +85,8 @@ export const VerifiedAddressModalContent = forwardRef<HTMLDivElement, VerifiedAd
             ? data?.data?.farcaster?.connected?.find((conn) => conn.fid.toString() === fid)
             : undefined;
 
-        const checkAddressAlreadyVerified = async (
-            network: NetworkType,
-        ): Promise<{ address: string; isVerified: boolean } | null> => {
-            let currentAddress: string;
-
-            switch (network) {
-                case NetworkType.Ethereum: {
-                    const walletClient = await getWalletClientRequired(wagmiConfig, undefined, {
-                        origin: ClickOrigin.Settings,
-                    });
-                    currentAddress = walletClient.account.address.toLowerCase();
-                    break;
-                }
-                case NetworkType.Solana: {
-                    const adapter = await getWalletAdaptorRequired({
-                        origin: ClickOrigin.Settings,
-                    });
-                    currentAddress = adapter.publicKey.toBase58();
-                    break;
-                }
-                default:
-                    safeUnreachable(network);
-                    throw new WalletNotConnectedError();
-            }
-
-            const isVerified = farcasterConnection?.connectedAddresses?.some((addr) =>
-                isSameAddress(addr, currentAddress),
-            );
-
-            return { address: currentAddress, isVerified: isVerified ?? false };
+        const checkIfAlreadyVerified = (address: string): boolean => {
+            return farcasterConnection?.connectedAddresses?.some((addr) => isSameAddress(addr, address)) ?? false;
         };
 
         const handleVerifyAddress = useMutation({
@@ -127,21 +99,34 @@ export const VerifiedAddressModalContent = forwardRef<HTMLDivElement, VerifiedAd
                 if (!selectedWallet) return null;
 
                 const network = selectedWallet.networkType;
-                const checkResult = await checkAddressAlreadyVerified(network);
-                if (!checkResult) return null;
-
-                const addressToVerify = checkResult.address;
-
-                if (checkResult.isVerified) {
-                    enqueueSuccessMessage(<Trans>This address is already verified</Trans>);
-                    return null;
-                }
 
                 switch (network) {
-                    case NetworkType.Ethereum:
+                    case NetworkType.Ethereum: {
+                        const walletClient = await getWalletClientRequired(wagmiConfig, undefined, {
+                            origin: ClickOrigin.Settings,
+                        });
+                        const addressToVerify = walletClient.account.address.toLowerCase();
+
+                        if (checkIfAlreadyVerified(addressToVerify)) {
+                            enqueueSuccessMessage(<Trans>This address is already verified</Trans>);
+                            return null;
+                        }
+
                         return verifyEthereumAddress(fid, addressToVerify as `0x${string}`);
-                    case NetworkType.Solana:
+                    }
+                    case NetworkType.Solana: {
+                        const adapter = await getWalletAdaptorRequired({
+                            origin: ClickOrigin.Settings,
+                        });
+                        const addressToVerify = adapter.publicKey.toBase58();
+
+                        if (checkIfAlreadyVerified(addressToVerify)) {
+                            enqueueSuccessMessage(<Trans>This address is already verified</Trans>);
+                            return null;
+                        }
+
                         return verifySolanaAddress(fid);
+                    }
                     default:
                         safeUnreachable(network);
                         throw new WalletNotConnectedError();
