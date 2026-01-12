@@ -47,6 +47,7 @@ export enum EventId {
     ACCOUNT_CONFLICT_USE_NO = 'account_conflict_use_no',
     MOBILE_QR_LOGIN_CLICK = 'mobile_qr_login_click',
     MULTI_DEVICE_LOGIN_CLICK = 'multi_device_login_click',
+    SIGN_IN_TO_APP_CLICK = 'signin_to_app',
 
     // compose dialog
     COMPOSE_CROSS_POST_SEND_SUCCESS = 'cross_post_send_success', // ✅

@@ -38,6 +38,12 @@ export async function captureMobileQrLoginClickEvent() {
     });
 }
 
+export async function captureSignInToAppClickEvent() {
+    return runInSafeAsync(async () => {
+        return TelemetryProvider.captureEvent(EventId.SIGN_IN_TO_APP_CLICK, {});
+    });
+}
+
 export async function captureMultiDeviceLoginClickEvent() {
     return runInSafeAsync(async () => {
         const fireflySession = getSessionFromStorage(SessionType.Firefly);

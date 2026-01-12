@@ -1,9 +1,11 @@
-import { compact } from 'lodash-es';
-
 import { Source, SourceInURL } from '@/constants/enum.js';
 import { encrypt } from '@/helpers/encodec.js';
-import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
+import { getAccountsFromStorage } from '@/helpers/getAccountsFromStorage.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
+import { type BskySession } from '@/providers/bsky/Session.js';
+import { type FarcasterSession } from '@/providers/farcaster/Session.js';
+import { type LensSession } from '@/providers/lens/Session.js';
+import { type TwitterSession } from '@/providers/twitter/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { type AuthDataFromApp } from '@/services/loginWithAppScan.js';
 
@@ -58,56 +60,51 @@ export async function encryptLoginAppAccountPayload(cryptoKey: string): Promise<
     const fireflySession = getSessionFromStorage(SessionType.Firefly);
     if (!fireflySession?.token) throw new Error('Firefly session not found');
 
-    const farcasterProfile = getCurrentProfileFromStorage(Source.Farcaster);
-    const lensProfile = getCurrentProfileFromStorage(Source.Lens);
-    const twitterProfile = getCurrentProfileFromStorage(Source.Twitter);
-    const bskyProfile = getCurrentProfileFromStorage(Source.Bsky);
+    const farcasterAccounts = getAccountsFromStorage(Source.Farcaster);
+    const lensAccounts = getAccountsFromStorage(Source.Lens);
+    const twitterAccounts = getAccountsFromStorage(Source.Twitter);
+    const bskyAccounts = getAccountsFromStorage(Source.Bsky);
 
-    const farcasterSession = getSessionFromStorage(SessionType.Farcaster);
-    const lensSession = getSessionFromStorage(SessionType.Lens);
-    const twitterSession = getSessionFromStorage(SessionType.Twitter);
-    const bskySession = getSessionFromStorage(SessionType.Bsky);
+    const farcasterSocialAccounts: SocialAccountFarcaster[] = farcasterAccounts.map(({ profile, session }) => ({
+        type: SourceInURL.Farcaster,
+        user_id: session.profileId.toString(),
+        handle: profile.handle || profile.fullHandle || profile.displayName || '',
+        token: (session as FarcasterSession).token,
+    }));
 
-    const socialAccounts = compact<SocialAccount>([
-        farcasterProfile && farcasterSession
-            ? ({
-                  type: SourceInURL.Farcaster,
-                  user_id: farcasterSession.profileId.toString(),
-                  handle: farcasterProfile.handle || farcasterProfile.fullHandle || farcasterProfile.displayName || '',
-                  token: farcasterSession?.token,
-              } satisfies SocialAccountFarcaster)
-            : null,
-        lensProfile && lensSession
-            ? ({
-                  type: SourceInURL.Lens,
-                  user_id: lensSession.profileId.toString(),
-                  handle: lensProfile.handle || lensProfile.fullHandle || '',
-                  idToken: lensSession.identityToken || '',
-                  accessToken: lensSession.token,
-                  refreshToken: lensSession.refreshToken || '',
-              } satisfies SourceAccountLens)
-            : null,
-        twitterProfile && twitterSession
-            ? ({
-                  type: SourceInURL.X,
-                  user_id: twitterSession.profileId.toString(),
-                  handle: twitterProfile.handle || '',
-                  consumerKey: twitterSession.payload?.consumerKey || '',
-                  consumerKeySecret: twitterSession.payload?.consumerSecret || '',
-                  accessToken: twitterSession.payload?.accessToken || '',
-                  accessTokenSecret: twitterSession.payload?.accessTokenSecret || '',
-              } satisfies SocialAccountTwitter)
-            : null,
-        bskyProfile && bskySession
-            ? ({
-                  type: SourceInURL.Bsky,
-                  user_id: bskySession.profileId.toString(),
-                  handle: bskyProfile.handle || '',
-                  accessJwt: bskySession.sessionPayload?.accessJwt || '',
-                  refreshJwt: bskySession.sessionPayload?.refreshJwt || '',
-              } satisfies SocialAccountBsky)
-            : null,
-    ]);
+    const lensSocialAccounts: SourceAccountLens[] = lensAccounts.map(({ profile, session }) => ({
+        type: SourceInURL.Lens,
+        user_id: session.profileId.toString(),
+        handle: profile.handle || profile.fullHandle || '',
+        idToken: (session as LensSession).identityToken || '',
+        accessToken: session.token,
+        refreshToken: (session as LensSession).refreshToken || '',
+    }));
+
+    const twitterSocialAccounts: SocialAccountTwitter[] = twitterAccounts.map(({ profile, session }) => ({
+        type: SourceInURL.X,
+        user_id: session.profileId.toString(),
+        handle: profile.handle || '',
+        consumerKey: (session as TwitterSession).payload?.consumerKey || '',
+        consumerKeySecret: (session as TwitterSession).payload?.consumerSecret || '',
+        accessToken: (session as TwitterSession).payload?.accessToken || '',
+        accessTokenSecret: (session as TwitterSession).payload?.accessTokenSecret || '',
+    }));
+
+    const bskySocialAccounts: SocialAccountBsky[] = bskyAccounts.map(({ profile, session }) => ({
+        type: SourceInURL.Bsky,
+        user_id: session.profileId.toString(),
+        handle: profile.handle || '',
+        accessJwt: (session as BskySession).sessionPayload?.accessJwt || '',
+        refreshJwt: (session as BskySession).sessionPayload?.refreshJwt || '',
+    }));
+
+    const socialAccounts: SocialAccount[] = [
+        ...farcasterSocialAccounts,
+        ...lensSocialAccounts,
+        ...twitterSocialAccounts,
+        ...bskySocialAccounts,
+    ];
 
     const payload = {
         firefly_account_token: fireflySession.token,

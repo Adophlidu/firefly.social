@@ -20,6 +20,7 @@ import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
 import { confirmSyncChannel } from '@/providers/firefly/endpoint/confirmSyncChannel.js';
 import { getDesktopSyncLinkInfo } from '@/providers/firefly/endpoint/getDesktopSyncLinkInfo.js';
 import { uploadSyncData } from '@/providers/firefly/endpoint/uploadSyncData.js';
+import { captureSignInToAppClickEvent } from '@/providers/telemetry/captureSyncTokenEvent.js';
 import { encryptLoginAppAccountPayload } from '@/services/encryptLoginAppAccountPayload.js';
 
 interface Props {
@@ -117,7 +118,9 @@ function Content({ enabled, onClose }: { enabled: boolean; onClose?: () => void 
                 enableCloseButton: false,
             });
             if (confirmed) {
+                captureSignInToAppClickEvent();
                 confirmAndUpload();
+                onClose?.();
             } else {
                 handleCancel();
             }

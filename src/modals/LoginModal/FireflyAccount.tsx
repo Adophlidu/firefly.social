@@ -24,10 +24,7 @@ import { PasswordModalRef } from '@/modals/PasswordModal/index.js';
 import { SignInToFireflyAppModalRef } from '@/modals/SignInToFireflyAppModal.js';
 import { getMetricsStatus } from '@/providers/firefly/metrics/getMetricsStatus.js';
 import { captureEditProfileClickEvent } from '@/providers/telemetry/captureProfileActionEvent.js';
-import {
-    captureMobileQrLoginClickEvent,
-    captureMultiDeviceLoginClickEvent,
-} from '@/providers/telemetry/captureSyncTokenEvent.js';
+import { captureMultiDeviceLoginClickEvent } from '@/providers/telemetry/captureSyncTokenEvent.js';
 import { type AllConnections, type FireflyAccountProfile } from '@/providers/types/Firefly.js';
 import { mergeMetrics } from '@/services/metrics.js';
 import { verifyAndGetPassword } from '@/services/verifyAndGetPassword.js';
@@ -142,7 +139,6 @@ export const FireflyAccount = memo<FireflyAccountProps>(function FireflyAccount(
                                             onClick={() => {
                                                 close();
                                                 LoginModalRef.close();
-                                                captureMobileQrLoginClickEvent();
                                                 SignInToFireflyAppModalRef.open();
                                             }}
                                         >
