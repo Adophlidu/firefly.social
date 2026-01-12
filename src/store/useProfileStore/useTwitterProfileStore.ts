@@ -43,23 +43,25 @@ const state = createProfileState(
             state.upgrade();
 
             try {
-                const session = state.currentProfileSession as TwitterSession | null;
+                const currentSession = state.currentProfileSession as TwitterSession | null;
                 // clean the local store if the consumer secret is not hidden
-                if (session?.payload.consumerSecret && session.payload.consumerSecret !== HIDDEN_SECRET) {
+                if (currentSession?.payload.consumerSecret && currentSession.payload.consumerSecret !== HIDDEN_SECRET) {
                     state.clear();
                     return;
                 }
 
-                const nextSession = (await runInSafeAsync(() => getSession())) as TwitterNextSession | null;
-                const idFromSession = nextSession?.type === SessionType.Twitter ? nextSession?.user?.id : undefined;
-                const createdAt = dayjs((nextSession?.token.createdAt || 0) * 1000);
+                const OAuthSession = (
+                    currentSession ? null : await runInSafeAsync(() => getSession())
+                ) as TwitterNextSession | null;
+                const idFromSession = OAuthSession?.type === SessionType.Twitter ? OAuthSession?.user?.id : undefined;
+                const createdAt = dayjs((OAuthSession?.token.createdAt || 0) * 1000);
                 const isNewLogin =
                     !!idFromSession &&
                     !state.accounts.some((x) => x.session.profileId === idFromSession) &&
                     dayjs().diff(createdAt, 'minute') < 5;
 
                 // resume the session if it exists
-                if (session && !isNewLogin) twitterSessionHolder.resumeSession(session);
+                if (currentSession && !isNewLogin) twitterSessionHolder.resumeSession(currentSession);
 
                 // no remote session found
                 const sessionPayload = await TwitterAuthProvider.login(isNewLogin);
