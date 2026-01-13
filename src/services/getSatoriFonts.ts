@@ -3,7 +3,6 @@
 import { type Font, type FontStyle, type FontWeight } from 'satori';
 import urlcat from 'urlcat';
 
-import { env } from '@/constants/env.js';
 import { SITE_URL } from '@/constants/static.js';
 import { fetchArrayBuffer } from '@/helpers/fetchArrayBuffer.js';
 
@@ -38,9 +37,6 @@ export async function getSatoriFonts(
             fetchArrayBuffer(config.url, {
                 cache: 'force-cache',
                 signal,
-                headers: env.internal.INTERNAL_STATIC_REQUEST_BYPASS
-                    ? { 'x-vercel-protection-bypass': env.internal.INTERNAL_STATIC_REQUEST_BYPASS }
-                    : undefined,
             }),
         ),
     );

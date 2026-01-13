@@ -80,9 +80,9 @@ const trustedHosts = [
     // articles platforms
     'matters.town',
 
-    /^([a-zA-Z0-9-]+\.)*firefly\.land$/,
-    /^([a-zA-Z0-9-]+\.)*firefly\.social$/,
-    /^([a-zA-Z0-9-]+\.)*mask\.social$/,
+    /^([\w-]+\.)*firefly\.land$/,
+    /^([\w-]+\.)*firefly\.social$/,
+    /^([\w-]+\.)*mask\.social$/,
 ];
 
 export function isTrustedUrl(href: LinkProps['href']) {

@@ -42,18 +42,33 @@ function resolveRequestUrl(input: RequestInfo | URL) {
     return parseUrl(url, { autoFixProtocol: false });
 }
 
+function patchServerHeaders(headers: HeadersInit | undefined, u: URL) {
+    const fireflyHeaders = isFireflyApi(u)
+        ? {
+              Referer: SITE_URL_OFFICIAL,
+              'User-Agent': FIREFLY_USER_AGENT,
+          }
+        : null;
+    const bypassHeaders =
+        process.env.INTERNAL_STATIC_REQUEST_BYPASS &&
+        /^([\w-]+\.firefly\.social|firefly-social-[\w-]+-dimension-dev\.vercel\.app)$/.test(u.origin)
+            ? {
+                  'x-vercel-protection-bypass': process.env.INTERNAL_STATIC_REQUEST_BYPASS,
+              }
+            : null;
+
+    return addHeaders(headers ?? {}, {
+        ...fireflyHeaders,
+        ...bypassHeaders,
+    });
+}
+
 function defaultFetcher(input: RequestInfo | URL, init?: RequestInit | undefined) {
     const u = resolveRequestUrl(input);
     return originalFetch(input, {
         signal: AbortSignal.timeout(3 * 60 * 1000 /* 3 mins */),
         ...init,
-        headers:
-            u && isFireflyApi(u) && isServer
-                ? addHeaders(init?.headers ?? {}, {
-                      Referer: SITE_URL_OFFICIAL,
-                      'User-Agent': FIREFLY_USER_AGENT,
-                  })
-                : init?.headers,
+        headers: u && isServer ? patchServerHeaders(init?.headers, u) : init?.headers,
     });
 }
 
