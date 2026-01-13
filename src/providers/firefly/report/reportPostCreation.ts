@@ -4,7 +4,7 @@ import { type FireflyPlatform } from '@/constants/enum.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { settings } from '@/settings/index.js';
 
-export async function reportPost(
+export async function reportPostCreation(
     platform: FireflyPlatform,
     platformId: string,
     mediaType: string[],

@@ -7,7 +7,7 @@ import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
 import { FireflyPlatform, type SocialSource, Source } from '@/constants/enum.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { logger } from '@/libs/Logger.js';
-import { reportPost } from '@/providers/firefly/report/reportPost.js';
+import { reportPostCreation } from '@/providers/firefly/report/reportPostCreation.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { type ReportCrossPostResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
@@ -71,7 +71,7 @@ async function report(post: CompositePost) {
     const allSettled = await Promise.allSettled(
         reports.map(async (x) => {
             if (!x) return null;
-            await reportPost(
+            await reportPostCreation(
                 x.platform as FireflyPlatform,
                 x.platform_id,
                 resolvePlatformType(post),
