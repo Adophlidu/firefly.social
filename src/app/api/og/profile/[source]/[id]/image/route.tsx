@@ -12,7 +12,7 @@ import { SORTED_SOCIAL_ACCOUNT_AVATAR_SOURCE } from '@/constants/computed.js';
 import { NetworkType, type ProfilePageSource, type SocialSource, Source } from '@/constants/enum.js';
 import { CACHE_AGE_INDEFINITE_ON_DISK, SITE_URL } from '@/constants/static.js';
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
-import { fetchAvatarAsBase64 } from '@/helpers/fetchAvatarAsBase64.js';
+import { fetchImageAsBase64 } from '@/helpers/fetchAvatarAsBase64.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
 import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
@@ -90,7 +90,7 @@ function getFontPreferences(displayName: string): string[] {
 }
 
 async function ProfileOpenGraphImage({ avatar, displayName, sources, source }: ProfileOpenGraphImageProps) {
-    const avatarBase64 = (await fetchAvatarAsBase64(avatar)) ?? OG_FALLBACK_AVATAR;
+    const avatarBase64 = await fetchImageAsBase64(avatar, OG_FALLBACK_AVATAR);
     const displayNameFontFamily = getFontPreferences(displayName);
 
     return (

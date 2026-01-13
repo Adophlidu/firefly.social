@@ -11,7 +11,7 @@ import { z } from 'zod';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { CACHE_AGE_INDEFINITE_ON_DISK, SITE_URL } from '@/constants/static.js';
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
-import { fetchAvatarAsBase64 } from '@/helpers/fetchAvatarAsBase64.js';
+import { fetchImageAsBase64 } from '@/helpers/fetchAvatarAsBase64.js';
 import { getImageMetaFromUrl } from '@/helpers/getImageMetaFromUrl.js';
 import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
 import { getPublicSvgUrl } from '@/helpers/getPublicSvgUrl.js';
@@ -134,7 +134,8 @@ async function PostOpenGraphImage({ post }: { post: Post }) {
         .split('\n')
         .map((x) => x.trim())
         .join('\n');
-    const avatarBase64 = (await fetchAvatarAsBase64(post.author.pfp)) ?? OG_FALLBACK_AVATAR;
+
+    const avatarBase64 = await fetchImageAsBase64(post.author.pfp, OG_FALLBACK_AVATAR);
 
     return (
         <div

@@ -18,6 +18,7 @@ function formatTipsAccount(address: string, accountInfo?: TipsAccountInfo) {
         avatar,
         address,
         displayName,
+        fireflyUid: accountInfo?.firefly_uid,
         link: RouteResolver.profile({
             source: accountInfo?.firefly_uid ? Source.Firefly : Source.Wallet,
             profileId: accountInfo?.firefly_uid || address,

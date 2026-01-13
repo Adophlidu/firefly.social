@@ -8,13 +8,14 @@ import urlcat from 'urlcat';
 import { z } from 'zod';
 
 import { ShrankPrice } from '@/components/ShrankPrice.js';
-import { TipsDetailViewType, TipsNotificationType } from '@/constants/enum.js';
+import { Source, TipsDetailViewType, TipsNotificationType } from '@/constants/enum.js';
 import { CACHE_AGE_INDEFINITE_ON_DISK, SITE_URL } from '@/constants/static.js';
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
-import { fetchAvatarAsBase64 } from '@/helpers/fetchAvatarAsBase64.js';
+import { fetchImageAsBase64, fetchImageAsBase64FromUrls } from '@/helpers/fetchAvatarAsBase64.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
 import { getMaintainAccountInfo } from '@/helpers/getMaintainAccountInfo.js';
 import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
+import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { multipliedBy } from '@/helpers/number.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { getTipsTransactionDetail } from '@/providers/firefly/endpoint/getTipsTransactionDetail.js';
@@ -51,18 +52,22 @@ function Image({ src, ...props }: Pick<HTMLProps<'img'>, 'src' | 'alt' | 'width'
     return <img alt="img" {...props} src={src} />;
 }
 
+async function fetchAvatarImageAsBase64(info: { avatar?: string; fireflyUid?: string } | undefined) {
+    return fetchImageAsBase64FromUrls(
+        [info?.avatar, info?.fireflyUid ? getStampAvatarByProfileId(Source.Firefly, info.fireflyUid) : undefined],
+        OG_FALLBACK_AVATAR,
+    );
+}
+
 async function TipOpenGraphImage({ tip }: { tip: TipsDetail }) {
-    const tokenIcon = await fetchAvatarAsBase64(tip.token_icon ?? OG_FALLBACK_AVATAR);
-
-    const accountInfo = getMaintainAccountInfo(tip, TipsDetailViewType.Sender);
-
+    const tokenIcon = await fetchImageAsBase64(tip.token_icon, OG_FALLBACK_AVATAR);
     const tokenAmount = Number(tip.amount);
     const tokenSymbol = tip.token_symbol;
-
     const tokenUSDValue = multipliedBy(tip.token_price, tip.amount);
 
-    const fromAvatar = await fetchAvatarAsBase64(accountInfo?.maintainAccountInfo.avatar ?? OG_FALLBACK_AVATAR);
-    const toAvatar = await fetchAvatarAsBase64(accountInfo?.targetAccountInfo.avatar ?? OG_FALLBACK_AVATAR);
+    const accountInfo = getMaintainAccountInfo(tip, TipsDetailViewType.Sender);
+    const fromAvatar = await fetchAvatarImageAsBase64(accountInfo?.maintainAccountInfo);
+    const toAvatar = await fetchAvatarImageAsBase64(accountInfo?.targetAccountInfo);
 
     return (
         <div

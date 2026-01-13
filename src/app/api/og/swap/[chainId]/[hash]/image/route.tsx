@@ -12,7 +12,7 @@ import { ShrankPrice } from '@/components/ShrankPrice.js';
 import { Source } from '@/constants/enum.js';
 import { CACHE_AGE_INDEFINITE_ON_DISK, SITE_URL } from '@/constants/static.js';
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
-import { fetchAvatarAsBase64 } from '@/helpers/fetchAvatarAsBase64.js';
+import { fetchImageAsBase64 } from '@/helpers/fetchAvatarAsBase64.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
@@ -38,20 +38,20 @@ function Image({ src, ...props }: Pick<HTMLProps<'img'>, 'src' | 'alt' | 'width'
 }
 
 async function SwapOpenGraphImage({ swap }: { swap: SwapActivity }) {
-    const fromToken = await fetchAvatarAsBase64(swap.from_token?.logo || OG_FALLBACK_AVATAR);
-    const toToken = await fetchAvatarAsBase64(swap.to_token?.logo || OG_FALLBACK_AVATAR);
+    const fromToken = await fetchImageAsBase64(swap.from_token?.logo, OG_FALLBACK_AVATAR);
+    const toToken = await fetchImageAsBase64(swap.to_token?.logo, OG_FALLBACK_AVATAR);
 
     const chainIconUrl = resolveChainIcon(swap.chain_id);
-    const chainIcon = chainIconUrl ? await fetchAvatarAsBase64(chainIconUrl) : null;
+    const chainIcon = await fetchImageAsBase64(chainIconUrl);
 
     const toChainIconUrl = swap.to_chain_id ? resolveChainIcon(swap.to_chain_id) : null;
-    const toChainIcon = toChainIconUrl ? await fetchAvatarAsBase64(toChainIconUrl) : null;
+    const toChainIcon = await fetchImageAsBase64(toChainIconUrl);
 
     const fromTokenAmountNum = Number(swap.from_token?.amount_num);
     const toTokenAmountNum = Number(swap.to_token?.amount_num);
 
     const avatarUrl = swap.displayInfo?.avatarUrl || getStampAvatarByProfileId(Source.Wallet, swap.owner);
-    const avatar = avatarUrl ? await fetchAvatarAsBase64(avatarUrl) : null;
+    const avatar = await fetchImageAsBase64(avatarUrl, OG_FALLBACK_AVATAR);
 
     // Use absolute paths for SVG files
     const backgroundImageUrl = swap.is_cross_chain ? BRIDGE_OG_BACKGROUND_SVG : SWAP_OG_BACKGROUND_SVG;
