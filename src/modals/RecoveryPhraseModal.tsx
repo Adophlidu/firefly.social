@@ -58,7 +58,7 @@ export function RecoveryPhraseModal({ ref }: Props) {
         } catch (error) {
             enqueueErrorMessage(
                 error instanceof FireflyFidNotRegisteredError ? (
-                    <Trans>Your account has not registered this fid on Firefly</Trans>
+                    <Trans>Your account has not registered on Firefly</Trans>
                 ) : (
                     <Trans>Failed to get recovery phrase. Please try again.</Trans>
                 ),

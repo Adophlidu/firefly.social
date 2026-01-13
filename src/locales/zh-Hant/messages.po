@@ -2674,6 +2674,9 @@ msgstr "選擇登入方式"
 msgid "Encrypt your login session with a 6-digit password to enable one-click login across devices."
 msgstr "請設定 6 位數字密碼加密您的登入授權，以啟用跨裝置一鍵登入。"
 
+msgid "Your account has not registered on Firefly"
+msgstr ""
+
 #. placeholder {0}: getRpMaxShares(networkType)
 msgid "At most {0} recipients"
 msgstr "最多{0}個接收方"
@@ -3014,9 +3017,6 @@ msgstr "貼文發布至 {0} 失敗，點擊「重試」再次發布。"
 
 msgid "7D"
 msgstr "7日"
-
-msgid "Your account has not registered this fid on Firefly"
-msgstr ""
 
 msgid "My Wallets"
 msgstr "我的錢包"

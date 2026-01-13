@@ -9,9 +9,11 @@ import MedalGoldIcon from '@/assets/medal-gold.svg';
 import MedalSilverIcon from '@/assets/medal-silver.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { formatPolymarketNumber } from '@/components/Polymarket/formatPolymarketNumber.js';
-import { Source } from '@/constants/enum.js';
+import { BetsPlatform, Source } from '@/constants/enum.js';
+import { Link } from '@/esm/Link.js';
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
+import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { type PolymarketRankItem } from '@/providers/firefly/bets/getPolymarketRank.js';
 
 interface BetsLeaderboardItemProps {
@@ -38,15 +40,27 @@ export const BetsLeaderboardItem = memo<BetsLeaderboardItemProps>(function BetsL
     rank,
     showPnLRate = false,
 }) {
-    const address = item.owner || item.wallet;
+    const address = item.proxy || item.wallet;
     const avatarUrl = item.displayInfo?.avatarUrl || getStampAvatarByProfileId(Source.Wallet, address, 36);
-    const displayName = item.displayInfo?.fireflyName || item.polymarketUserName || formatAddressEthereum(address, 4);
+    const displayName =
+        item.displayInfo?.fireflyName ||
+        item.polymarketUserName ||
+        item.displayInfo?.ensHandle ||
+        formatAddressEthereum(address, 4);
     const medal = getMedalIcon(rank);
 
-    const pnlValue = formatPolymarketNumber(Number(item.pnl), {
-        prefix: '$',
-        symbol: true,
-    });
+    const pnlNumber = Number(item.pnl);
+    const pnlValue =
+        Math.abs(pnlNumber) > 1
+            ? formatPolymarketNumber(pnlNumber, {
+                  prefix: '$',
+                  symbol: true,
+                  digits: 0,
+              })
+            : formatPolymarketNumber(pnlNumber, {
+                  prefix: '$',
+                  symbol: true,
+              });
 
     const rateValue = !isNil(item.pnl_rate)
         ? typeof item.pnl_rate === 'string'
@@ -59,9 +73,21 @@ export const BetsLeaderboardItem = memo<BetsLeaderboardItemProps>(function BetsL
         : '-';
     const pnlRateColorClass = !isNil(rate) ? (rate >= 0 ? 'text-success' : 'text-danger') : 'text-success';
 
-    const volumeValue = formatPolymarketNumber(Number(item.volume), {
-        prefix: '$',
-        symbol: false,
+    const volumeNumber = Number(item.volume);
+    const volumeValue =
+        Math.abs(volumeNumber) > 1
+            ? formatPolymarketNumber(Math.trunc(volumeNumber), {
+                  prefix: '$',
+                  symbol: false,
+                  digits: 0,
+              })
+            : formatPolymarketNumber(volumeNumber, {
+                  prefix: '$',
+                  symbol: false,
+              });
+
+    const profileLink = RouteResolver.betsProfile(address, {
+        platform: BetsPlatform.Polymarket,
     });
 
     return (
@@ -69,22 +95,22 @@ export const BetsLeaderboardItem = memo<BetsLeaderboardItemProps>(function BetsL
             <div className="flex w-[30px] shrink-0 items-center justify-center">
                 <span className="text-base font-bold leading-5 text-lightMain">{rank}</span>
             </div>
-            <div className="flex flex-1 items-center gap-2">
+            <Link href={profileLink} className="flex flex-1 items-center gap-2" data-disable-progress>
                 <div className="relative shrink-0">
                     <Avatar size={36} src={avatarUrl} alt={displayName} className="rounded-full" />
                     {medal ? <div className="absolute -bottom-1 right-0">{medal}</div> : null}
                 </div>
                 <div className="flex min-w-0 flex-1 flex-col gap-0.5">
                     <span className="max-w-[100px] truncate text-[13px] font-semibold leading-5 text-lightMain">
-                        {item.polymarketUserName || formatAddressEthereum(address, 4)}
+                        {displayName}
                     </span>
-                    {item.polymarketUserName ? (
+                    {displayName ? (
                         <span className="text-lightSecond text-xs leading-[14px]">
                             {formatAddressEthereum(address, 4)}
                         </span>
                     ) : null}
                 </div>
-            </div>
+            </Link>
             <div className="flex items-center gap-2">
                 <div className="flex w-[120px] shrink-0 flex-col items-end justify-center">
                     <span className="whitespace-nowrap text-[13px] font-medium leading-5 text-lightMain">

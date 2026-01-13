@@ -47,7 +47,7 @@ export const BetsLeaderboardFilters = memo<BetsLeaderboardFiltersProps>(function
 
     return (
         <div className="flex items-center gap-2">
-            <div className="border-lightLine2 flex items-center overflow-hidden rounded-md">
+            <div className="border-lightLine2 flex shrink-0 items-center rounded-md">
                 {PERIODS.map((p, index) => (
                     <ClickableButton
                         key={p.value}

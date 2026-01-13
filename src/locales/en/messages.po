@@ -2669,6 +2669,9 @@ msgstr "Pick a way to sign in"
 msgid "Encrypt your login session with a 6-digit password to enable one-click login across devices."
 msgstr "Encrypt your login session with a 6-digit password to enable one-click login across devices."
 
+msgid "Your account has not registered on Firefly"
+msgstr "Your account has not registered on Firefly"
+
 #. placeholder {0}: getRpMaxShares(networkType)
 msgid "At most {0} recipients"
 msgstr "At most {0} recipients"
@@ -3009,9 +3012,6 @@ msgstr "Your post failed to send to {0}. Click 'Retry' to attempt posting again.
 
 msgid "7D"
 msgstr "7D"
-
-msgid "Your account has not registered this fid on Firefly"
-msgstr "Your account has not registered this fid on Firefly"
 
 msgid "My Wallets"
 msgstr "My Wallets"
