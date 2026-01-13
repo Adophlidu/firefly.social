@@ -1,3 +1,4 @@
+import type { SessionClient } from '@lens-protocol/client';
 import { Trans } from '@lingui/react/macro';
 import { useCallback, useState } from 'react';
 
@@ -21,6 +22,7 @@ const AddLensManagerModalContent = dynamic(
 interface ModalOpenProps {
     manager: string;
     profile: Profile;
+    sessionClient?: SessionClient;
 }
 type ModalCloseProps = boolean | void;
 

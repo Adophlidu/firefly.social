@@ -1,6 +1,5 @@
 'use client';
 
-import { MenuItem } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
@@ -8,19 +7,14 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
 
+import { FarcasterAccountActions } from '@/app/(settings)/components/FarcasterAccountActions.js';
+import { LensAccountActions } from '@/app/(settings)/components/LensAccountActions.js';
 import { PrimaryButton } from '@/app/(settings)/components/PrimaryButton.js';
 import DisconnectIcon from '@/assets/disconnect.svg';
 import InfoIcon from '@/assets/info-outline.svg';
-import MoreIcon from '@/assets/more-fill.svg';
-import SecurityIcon from '@/assets/security2.svg';
-import WalletBoldIcon from '@/assets/wallet-bold2.svg';
-import { MenuButton } from '@/components/Actions/MenuButton.js';
-import { ClickableButton } from '@/components/ClickableButton.js';
 import { ErrorHandler } from '@/components/ErrorHandler.js';
+import { IconButton } from '@/components/IconButton.js';
 import { Loading } from '@/components/Loading.js';
-import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { MenuGroup } from '@/components/MenuGroup.js';
-import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
 import { Tooltip } from '@/components/Tooltip.js';
@@ -32,8 +26,6 @@ import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAllConnectionsFormattedWithProfiles } from '@/hooks/useAllConnectionsFormattedWithProfiles.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
 import { DisconnectFireflyAccountModalRef } from '@/modals/DisconnectFireflyAccountModal.js';
-import { RecoveryPhraseModalRef } from '@/modals/RecoveryPhraseModal.js';
-import { VerifiedAddressModalRef } from '@/modals/VerifiedAddressModal/index.js';
 import { checkBatchCustodyWallet } from '@/providers/firefly/endpoint/checkBatchCustodyWallet.js';
 import { type Account } from '@/providers/types/Account.js';
 
@@ -72,20 +64,15 @@ function DisconnectButton({ account }: { account: Pick<Account, 'profile' | 'ori
     }, [account, all, data]);
 
     return (
-        <Tooltip placement="top" content={<Trans>Disconnect</Trans>}>
-            <ClickableButton
-                className="flex items-center text-medium font-bold leading-none text-main"
-                disabled={loading}
-                onClick={disconnect}
-                aria-label="Disconnect"
-            >
-                {loading ? (
-                    <LoadingIcon size={20} />
-                ) : (
-                    <DisconnectIcon width={20} height={20} className="size-5 shrink-0" />
-                )}
-            </ClickableButton>
-        </Tooltip>
+        <IconButton
+            onlyLoading
+            aria-label="Disconnect"
+            loading={loading}
+            tooltip={<Trans>Disconnect</Trans>}
+            onClick={disconnect}
+        >
+            <DisconnectIcon width={20} height={20} className="size-5 shrink-0" />
+        </IconButton>
     );
 }
 
@@ -152,7 +139,6 @@ export function AccountCards() {
                                         ('connectedAt' in connection && connection.connectedAt) ||
                                         ('connected' in connection && connection.connected);
 
-                                    const isCustodyWallet = custodyWalletData?.[profile.profileId] === true;
                                     return (
                                         <motion.div
                                             key={profile.profileId}
@@ -199,66 +185,17 @@ export function AccountCards() {
                                             <div className="ml-auto flex items-center gap-2">
                                                 {isConnected ? (
                                                     <>
-                                                        {source === Source.Farcaster && (
-                                                            <MoreActionMenu
-                                                                button={
-                                                                    <motion.div
-                                                                        whileTap={{ scale: 0.9 }}
-                                                                        className="inline-flex size-5 items-center justify-center rounded-full hover:bg-link/[0.2] hover:text-link"
-                                                                    >
-                                                                        <MoreIcon
-                                                                            width={20}
-                                                                            height={20}
-                                                                            className="size-5 shrink-0 text-second"
-                                                                        />
-                                                                    </motion.div>
+                                                        {source === Source.Farcaster ? (
+                                                            <FarcasterAccountActions
+                                                                profile={profile}
+                                                                isCustodyWallet={
+                                                                    custodyWalletData?.[profile.profileId] === true
                                                                 }
-                                                                loginRequired={false}
-                                                            >
-                                                                <MenuGroup>
-                                                                    <MenuItem>
-                                                                        {({ close }) => (
-                                                                            <MenuButton
-                                                                                onClick={() => {
-                                                                                    VerifiedAddressModalRef.open({
-                                                                                        fid: profile.profileId,
-                                                                                    });
-                                                                                    close();
-                                                                                }}
-                                                                            >
-                                                                                <span className="flex items-center gap-2 font-bold leading-[22px] text-main">
-                                                                                    <WalletBoldIcon className="size-[18px]" />
-                                                                                    <Trans>Verified addresses</Trans>
-                                                                                </span>
-                                                                            </MenuButton>
-                                                                        )}
-                                                                    </MenuItem>
-                                                                    {isCustodyWallet ? (
-                                                                        <MenuItem>
-                                                                            {({ close }) => (
-                                                                                <MenuButton
-                                                                                    onClick={async () => {
-                                                                                        close();
-                                                                                        await RecoveryPhraseModalRef.openAndWaitForClose(
-                                                                                            {
-                                                                                                fid: profile.profileId,
-                                                                                            },
-                                                                                        );
-                                                                                    }}
-                                                                                >
-                                                                                    <span className="flex items-center gap-2 font-bold leading-[22px] text-main">
-                                                                                        <SecurityIcon className="size-[18px]" />
-                                                                                        <Trans>
-                                                                                            Export recovery phrase
-                                                                                        </Trans>
-                                                                                    </span>
-                                                                                </MenuButton>
-                                                                            )}
-                                                                        </MenuItem>
-                                                                    ) : null}
-                                                                </MenuGroup>
-                                                            </MoreActionMenu>
-                                                        )}
+                                                            />
+                                                        ) : null}
+                                                        {source === Source.Lens ? (
+                                                            <LensAccountActions profile={profile} />
+                                                        ) : null}
                                                         <DisconnectButton
                                                             account={{ profile, origin: account?.origin }}
                                                         />

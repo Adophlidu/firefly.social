@@ -1117,6 +1117,9 @@ msgstr "Connect Ethereum Wallet"
 msgid "<0/>EVM wallets"
 msgstr "<0/>EVM wallets"
 
+msgid "Failed to bind Lens manager, please try again later."
+msgstr "Failed to bind Lens manager, please try again later."
+
 msgid "or"
 msgstr "or"
 
@@ -4373,6 +4376,9 @@ msgstr "No blackmail activities involved."
 msgid "No Lens profile found,"
 msgstr "No Lens profile found,"
 
+msgid "Successfully bound Lens manager."
+msgstr "Successfully bound Lens manager."
+
 msgid "No one you follow has traded this token."
 msgstr "No one you follow has traded this token."
 
@@ -4439,6 +4445,9 @@ msgstr "Prediction unliked."
 #. placeholder {1}: feed.deployPlatform && feed.deployPlatformLogo ? ( <div className="flex items-center gap-1"> on <Image src={feed.deployPlatformLogo} className="size-[18px] rounded-full" alt={feed.deployPlatform} width={18} height={18} /> <span className="h-6 capitalize leading-6">{feed.deployPlatform}</span> </div> ) : null
 msgid "<0>Minted</0><1/>{0}{1}"
 msgstr "<0>Minted</0><1/>{0}{1}"
+
+msgid "Lens Auto login"
+msgstr "Lens Auto login"
 
 msgid "Download App"
 msgstr "Download App"
@@ -4725,11 +4734,11 @@ msgstr "Different Account Detected"
 msgid "No connected wallet."
 msgstr "No connected wallet."
 
+msgid "Assign your Firefly Wallet as your Lens account manager to authorize Firefly for auto login."
+msgstr "Assign your Firefly Wallet as your Lens account manager to authorize Firefly for auto login."
+
 msgid "Failed to unlike snapshot."
 msgstr "Failed to unlike snapshot."
-
-msgid "Sign to grant Firefly permission for auto login"
-msgstr "Sign to grant Firefly permission for auto login"
 
 msgid "Hide assets < 1 USD"
 msgstr "Hide assets < 1 USD"

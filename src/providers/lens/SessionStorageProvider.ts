@@ -6,6 +6,7 @@ import { Source } from '@/constants/enum.js';
 import { SEVEN_DAYS } from '@/constants/static.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { updateCurrentSessionToStorage } from '@/helpers/updateCurrentSessionToStorage.js';
+import { resolveLensSessionKey } from '@/providers/lens/resolveLensSessionKey.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 
@@ -26,7 +27,7 @@ export class SessionStorageProvider implements IStorageProvider {
     constructor(private environment: EnvironmentConfig) {}
 
     get sessionKey() {
-        return `lens.${this.environment.name}.credentials`;
+        return resolveLensSessionKey(this.environment);
     }
 
     getItem(key: string) {

@@ -1,3 +1,4 @@
+import type { SessionClient } from '@lens-protocol/client';
 import { addAccountManager } from '@lens-protocol/client/actions';
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
@@ -15,6 +16,7 @@ import { type Profile } from '@/providers/types/SocialMedia.js';
 interface Props {
     manager: string;
     profile: Profile;
+    sessionClient?: SessionClient;
     onFinished?: (status: boolean) => void;
     onLoadingChange?: (loading: boolean) => void;
 }
@@ -22,6 +24,7 @@ interface Props {
 export const AddLensManagerModalContent = memo<Props>(function AddLensManagerModalContent({
     manager,
     profile,
+    sessionClient = lensSessionClientHolder.sessionClient,
     onFinished,
     onLoadingChange,
 }) {
@@ -31,7 +34,7 @@ export const AddLensManagerModalContent = memo<Props>(function AddLensManagerMod
 
             // bind manager
             const txData = await ensureLensResult(
-                addAccountManager(lensSessionClientHolder.sessionClient, {
+                addAccountManager(sessionClient, {
                     address: safeEvmAddress(manager),
                     permissions: {
                         canSetMetadataUri: true,
@@ -53,7 +56,7 @@ export const AddLensManagerModalContent = memo<Props>(function AddLensManagerMod
         } finally {
             onLoadingChange?.(false);
         }
-    }, [profile, manager, onFinished, onLoadingChange]);
+    }, [profile, manager, sessionClient, onFinished, onLoadingChange]);
 
     return (
         <div>
@@ -65,7 +68,9 @@ export const AddLensManagerModalContent = memo<Props>(function AddLensManagerMod
                 </div>
             </div>
             <p className="mt-2 py-1 text-center text-medium font-medium text-second">
-                <Trans>Sign to grant Firefly permission for auto login</Trans>
+                <Trans>
+                    Assign your Firefly Wallet as your Lens account manager to authorize Firefly for auto login.
+                </Trans>
             </p>
             <ClickableButton
                 loading={loading}

@@ -1117,6 +1117,9 @@ msgstr ""
 msgid "<0/>EVM wallets"
 msgstr ""
 
+msgid "Failed to bind Lens manager, please try again later."
+msgstr ""
+
 msgid "or"
 msgstr ""
 
@@ -4373,6 +4376,9 @@ msgstr ""
 msgid "No Lens profile found,"
 msgstr ""
 
+msgid "Successfully bound Lens manager."
+msgstr ""
+
 msgid "No one you follow has traded this token."
 msgstr ""
 
@@ -4438,6 +4444,9 @@ msgstr ""
 #. placeholder {0}: tokenCount && tokenCount > 1 ? <div className={tagClassName}>× {tokenCount}</div> : null
 #. placeholder {1}: feed.deployPlatform && feed.deployPlatformLogo ? ( <div className="flex items-center gap-1"> on <Image src={feed.deployPlatformLogo} className="size-[18px] rounded-full" alt={feed.deployPlatform} width={18} height={18} /> <span className="h-6 capitalize leading-6">{feed.deployPlatform}</span> </div> ) : null
 msgid "<0>Minted</0><1/>{0}{1}"
+msgstr ""
+
+msgid "Lens Auto login"
 msgstr ""
 
 msgid "Download App"
@@ -4725,10 +4734,10 @@ msgstr ""
 msgid "No connected wallet."
 msgstr ""
 
-msgid "Failed to unlike snapshot."
+msgid "Assign your Firefly Wallet as your Lens account manager to authorize Firefly for auto login."
 msgstr ""
 
-msgid "Sign to grant Firefly permission for auto login"
+msgid "Failed to unlike snapshot."
 msgstr ""
 
 msgid "Hide assets < 1 USD"

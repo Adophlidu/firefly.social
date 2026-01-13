@@ -1122,6 +1122,9 @@ msgstr "连接 EVM 兼容钱包"
 msgid "<0/>EVM wallets"
 msgstr "<0/>EVM 钱包"
 
+msgid "Failed to bind Lens manager, please try again later."
+msgstr ""
+
 msgid "or"
 msgstr "或"
 
@@ -4378,6 +4381,9 @@ msgstr "未发现勒索行为。"
 msgid "No Lens profile found,"
 msgstr "未找到 Lens 账号，"
 
+msgid "Successfully bound Lens manager."
+msgstr ""
+
 msgid "No one you follow has traded this token."
 msgstr "你关注的人没有交易过这个代币哦。"
 
@@ -4444,6 +4450,9 @@ msgstr "已取消点赞。"
 #. placeholder {1}: feed.deployPlatform && feed.deployPlatformLogo ? ( <div className="flex items-center gap-1"> on <Image src={feed.deployPlatformLogo} className="size-[18px] rounded-full" alt={feed.deployPlatform} width={18} height={18} /> <span className="h-6 capitalize leading-6">{feed.deployPlatform}</span> </div> ) : null
 msgid "<0>Minted</0><1/>{0}{1}"
 msgstr "<0>铸造</0><1/>{0}{1}"
+
+msgid "Lens Auto login"
+msgstr ""
 
 msgid "Download App"
 msgstr "下载 App"
@@ -4732,11 +4741,11 @@ msgstr "检测到账户冲突"
 msgid "No connected wallet."
 msgstr "没有连接任何钱包。"
 
+msgid "Assign your Firefly Wallet as your Lens account manager to authorize Firefly for auto login."
+msgstr ""
+
 msgid "Failed to unlike snapshot."
 msgstr "取消点赞失败。"
-
-msgid "Sign to grant Firefly permission for auto login"
-msgstr "签名授权 Firefly 自动登录权限"
 
 msgid "Hide assets < 1 USD"
 msgstr "隐藏少于 1 美元的资产"
