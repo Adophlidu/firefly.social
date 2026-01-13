@@ -24,7 +24,7 @@ import { updateClaimStrategy } from '@/providers/firefly/red-packet/updateClaimS
 import { captureComposeEvent } from '@/providers/telemetry/captureComposeEvent.js';
 import { captureCreatePollEvent } from '@/providers/telemetry/capturePollEvent.js';
 import { type FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 import { reportCrossedPost } from '@/services/reportCrossedPost.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { type ComposeType, type CompositePost } from '@/types/compose.js';
@@ -97,7 +97,8 @@ async function setQueryDataForComment(post: CompositePost, updatedPost: Composit
     const parentPost = post.parentPost[source];
     if (!parentPost) return;
 
-    const mockPost = createDummyCommentPost(source, updatedPost);
+    // only Twitter needs to mock comment post
+    const mockPost = source === Source.Twitter ? createDummyCommentPost(source, updatedPost) : null;
     const queryKey = ['posts', source, 'comments', parentPost.postId];
 
     if (mockPost) {
@@ -108,6 +109,7 @@ async function setQueryDataForComment(post: CompositePost, updatedPost: Composit
             });
         });
     }
+
     if (![Source.Twitter].includes(source)) await queryClient.refetchQueries({ queryKey });
 }
 
