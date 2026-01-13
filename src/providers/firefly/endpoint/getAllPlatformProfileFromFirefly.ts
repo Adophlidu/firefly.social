@@ -3,6 +3,7 @@ import { isHex } from 'viem';
 
 import { NetworkType, Source } from '@/constants/enum.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
+import { isAbnormalFarHandle, resolveFidFromAbnormalFarHandle } from '@/providers/farcaster/isAbnormalFarHandle.js';
 import { getAllRelatedProfileInfo } from '@/providers/firefly/endpoint/getAllRelatedProfileInfo.js';
 import { type FireflyIdentity } from '@/providers/types/Firefly.js';
 
@@ -12,6 +13,9 @@ function getQueryKey(identity: FireflyIdentity, forceHandle: boolean) {
             if (isHex(identity.id) && !forceHandle) return 'lensProfileId';
             return 'lensHandle';
         case Source.Farcaster:
+            // ex: !1019423
+            if (isAbnormalFarHandle(identity.id)) return 'fid';
+
             return forceHandle ? 'farcasterUsername' : 'fid';
         case Source.Twitter:
             return /^\d+$/.test(identity.id) && !forceHandle ? 'twitterId' : 'twitterHandle';
@@ -62,9 +66,14 @@ export async function getAllPlatformProfileFromFirefly(
     forceHandle = false,
 ) {
     const queryKey = getQueryKey(identity, forceHandle);
+    const identityId =
+        identity.source === Source.Farcaster
+            ? resolveFidFromAbnormalFarHandle(identity.id) || identity.id
+            : identity.id;
+
     return getAllRelatedProfileInfo(
         {
-            [queryKey]: identity.id,
+            [queryKey]: identityId,
         },
         isAuthRequired,
     );

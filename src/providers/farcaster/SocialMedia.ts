@@ -22,6 +22,7 @@ import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getFarcasterProfileById } from '@/providers/farcaster/getFarcasterProfileById.js';
 import { getFarcasterProfilesByIds } from '@/providers/farcaster/getFarcasterProfilesByIds.js';
 import { getFarcasterSessionType } from '@/providers/farcaster/getFarcasterSessionType.js';
+import { resolveFidFromAbnormalFarHandle } from '@/providers/farcaster/isAbnormalFarHandle.js';
 import { registerFarcasterAccount } from '@/providers/farcaster/registerFarcasterAccount.js';
 import { type FarcasterSession } from '@/providers/farcaster/Session.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
@@ -100,6 +101,11 @@ class FarcasterSocialMedia implements Provider {
     }
 
     getProfileByHandle(handle: string): Promise<Profile> {
+        const fid = resolveFidFromAbnormalFarHandle(handle);
+        if (fid) {
+            return farcasterSocialMediaProvider.getProfileById(fid);
+        }
+
         return fireflySocialMediaProvider.getProfileByHandle(handle);
     }
 
