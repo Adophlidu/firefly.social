@@ -11,6 +11,7 @@ import { z } from 'zod';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { CACHE_AGE_INDEFINITE_ON_DISK, SITE_URL } from '@/constants/static.js';
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
+import { fetchAvatarAsBase64 } from '@/helpers/fetchAvatarAsBase64.js';
 import { getImageMetaFromUrl } from '@/helpers/getImageMetaFromUrl.js';
 import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
 import { getPublicSvgUrl } from '@/helpers/getPublicSvgUrl.js';
@@ -23,6 +24,7 @@ import { getSatoriFonts } from '@/services/getSatoriFonts.js';
 import { type NextRequestContext } from '@/types/utility.js';
 
 const OG_FONT_FAMILY = ['Inter', 'Noto Sans Symbols 2'];
+const OG_FALLBACK_AVATAR = urlcat(SITE_URL, '/image/firefly-light-avatar.png');
 
 const BskySVG = getPublicSvgUrl('bsky-circle.svg');
 const FarcasterSVG = getPublicSvgUrl('farcaster.svg');
@@ -132,6 +134,7 @@ async function PostOpenGraphImage({ post }: { post: Post }) {
         .split('\n')
         .map((x) => x.trim())
         .join('\n');
+    const avatarBase64 = (await fetchAvatarAsBase64(post.author.pfp)) ?? OG_FALLBACK_AVATAR;
 
     return (
         <div
@@ -171,7 +174,7 @@ async function PostOpenGraphImage({ post }: { post: Post }) {
 
                 <div style={{ display: 'flex', position: 'relative', width: '120px' }}>
                     <Image
-                        src={post.author.pfp}
+                        src={avatarBase64}
                         alt="pfp"
                         style={{
                             width: '120px',
