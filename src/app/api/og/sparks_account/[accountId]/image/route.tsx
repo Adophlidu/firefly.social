@@ -1,13 +1,13 @@
 import { compose } from '@dimensiondev/utils';
 import { ImageResponse } from 'next/og.js';
 import { type NextRequest } from 'next/server.js';
-import urlcat from 'urlcat';
 import { z } from 'zod';
 
 import { SparksAccountOgImage } from '@/app/api/og/sparks_account/[accountId]/image/SparksAccountOgImage.js';
-import { CACHE_AGE_INDEFINITE_ON_DISK, FIREFLY_S3_URL } from '@/constants/static.js';
+import { CACHE_AGE_INDEFINITE_ON_DISK } from '@/constants/static.js';
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
 import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
+import { getPublicS3Url } from '@/helpers/getPublicUrl.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { getSparksAccountDetails } from '@/providers/firefly/endpoint/getSparksAccountDetails.js';
@@ -15,7 +15,7 @@ import { FansStatus, OgStatus } from '@/providers/types/Firefly.js';
 import { getSatoriFonts } from '@/services/getSatoriFonts.js';
 import { type NextRequestContext } from '@/types/utility.js';
 
-const sparksDefaultOgImage = urlcat(FIREFLY_S3_URL, '/og/genesis_sparks.png');
+const sparksDefaultOgImage = getPublicS3Url('/og/genesis_sparks.png');
 
 const ParamsSchema = z.object({
     accountId: z.string().optional(),

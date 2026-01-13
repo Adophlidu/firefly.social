@@ -49,9 +49,9 @@ function patchServerHeaders(headers: HeadersInit | undefined, u: URL) {
               'User-Agent': FIREFLY_USER_AGENT,
           }
         : null;
-    const bypassHeaders = process.env.INTERNAL_STATIC_REQUEST_BYPASS
+    const bypassHeaders = process.env.VERCEL_AUTOMATION_BYPASS_SECRET
         ? {
-              'x-vercel-protection-bypass': process.env.INTERNAL_STATIC_REQUEST_BYPASS,
+              'x-vercel-protection-bypass': process.env.VERCEL_AUTOMATION_BYPASS_SECRET,
           }
         : null;
 

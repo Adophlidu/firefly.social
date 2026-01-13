@@ -1,10 +1,9 @@
 import { type HTMLProps } from 'react';
-import urlcat from 'urlcat';
 
-import { FIREFLY_S3_URL, SITE_URL } from '@/constants/static.js';
+import { getPublicS3Url, getPublicUrl } from '@/helpers/getPublicUrl.js';
 
-const bgImageUrl = urlcat(SITE_URL, '/image/sparks-default-card.png');
-const defaultAvatar = urlcat(FIREFLY_S3_URL, '/og/sparks_account_avatar.png');
+const bgImageUrl = getPublicUrl('/image/sparks-default-card.png');
+const defaultAvatar = getPublicS3Url('/og/sparks_account_avatar.png');
 
 /* eslint-disable @next/next/no-img-element */
 function Image({ src, ...props }: Pick<HTMLProps<'img'>, 'src' | 'alt' | 'width' | 'height' | 'style'>) {

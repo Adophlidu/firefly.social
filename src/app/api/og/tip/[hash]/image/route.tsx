@@ -4,17 +4,17 @@ import { compose } from '@dimensiondev/utils';
 import { ImageResponse } from 'next/og.js';
 import { type NextRequest } from 'next/server.js';
 import { type HTMLProps } from 'react';
-import urlcat from 'urlcat';
 import { z } from 'zod';
 
 import { ShrankPrice } from '@/components/ShrankPrice.js';
 import { Source, TipsDetailViewType, TipsNotificationType } from '@/constants/enum.js';
-import { CACHE_AGE_INDEFINITE_ON_DISK, SITE_URL } from '@/constants/static.js';
+import { CACHE_AGE_INDEFINITE_ON_DISK } from '@/constants/static.js';
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
 import { fetchImageAsBase64, fetchImageAsBase64FromUrls } from '@/helpers/fetchAvatarAsBase64.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
 import { getMaintainAccountInfo } from '@/helpers/getMaintainAccountInfo.js';
 import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
+import { getPublicUrl } from '@/helpers/getPublicUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { multipliedBy } from '@/helpers/number.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
@@ -23,13 +23,13 @@ import { type TipsDetail } from '@/providers/types/Firefly.js';
 import { getSatoriFonts } from '@/services/getSatoriFonts.js';
 import { type NextRequestContext } from '@/types/utility.js';
 
-const OG_FALLBACK_AVATAR = urlcat(SITE_URL, '/image/firefly-light-avatar.png');
-const ArrowRightTickerbitSVG = urlcat(SITE_URL, '/svg/arrow-right-tickerbit.svg');
-const LeftBottomTickerbitSVG = urlcat(SITE_URL, '/svg/left-bottom-tickerbit.svg');
-const LeftTopTickerbitSVG = urlcat(SITE_URL, '/svg/left-top-tickerbit.svg');
-const RightBottomTickerbitSVG = urlcat(SITE_URL, '/svg/right-bottom-tickerbit.svg');
-const RightTopTickerbitSVG = urlcat(SITE_URL, '/svg/right-top-tickerbit.svg');
-const TipOGBackgroundSVG = urlcat(SITE_URL, '/svg/tip-og-background.svg');
+const OG_FALLBACK_AVATAR = getPublicUrl('/image/firefly-light-avatar.png');
+const ArrowRightTickerbitSVG = getPublicUrl('/svg/arrow-right-tickerbit.svg');
+const LeftBottomTickerbitSVG = getPublicUrl('/svg/left-bottom-tickerbit.svg');
+const LeftTopTickerbitSVG = getPublicUrl('/svg/left-top-tickerbit.svg');
+const RightBottomTickerbitSVG = getPublicUrl('/svg/right-bottom-tickerbit.svg');
+const RightTopTickerbitSVG = getPublicUrl('/svg/right-top-tickerbit.svg');
+const TipOGBackgroundSVG = getPublicUrl('/svg/tip-og-background.svg');
 
 function breakLines(str: string, maxCharsPerLine = 15, maxLines = 2) {
     if (!str) return '';
@@ -324,10 +324,10 @@ const ParamsSchema = z.object({
 
 export const GET = compose(withRequestErrorHandler(), async (request: NextRequest, context?: NextRequestContext) => {
     const { hash } = await getParamsWithZodSchema(ParamsSchema, context);
-    if (!hash) return createProxyImageResponse(urlcat(SITE_URL, '/image/og.png'));
+    if (!hash) return createProxyImageResponse(getPublicUrl('/image/og.png'));
 
     const tip = await getTipsTransactionDetail(hash, TipsNotificationType.Tip);
-    if (!tip) return createProxyImageResponse(urlcat(SITE_URL, '/image/og.png'));
+    if (!tip) return createProxyImageResponse(getPublicUrl('/image/og.png'));
 
     return createTipOpenGraphImageResponse({ tip });
 });

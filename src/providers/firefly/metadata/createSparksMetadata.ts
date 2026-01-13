@@ -1,15 +1,17 @@
 import { type Metadata } from 'next';
 import urlcat from 'urlcat';
 
-import { FIREFLY_S3_URL, SITE_URL_OFFICIAL } from '@/constants/static.js';
+import { SITE_URL_OFFICIAL } from '@/constants/static.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
+import { getPublicS3Url } from '@/helpers/getPublicUrl.js';
+
+const ogImageUrl = getPublicS3Url('/og/genesis_sparks.png');
 
 export function createSparksMetadata(): Metadata {
     const title = 'Are you the next Genesis Sparks✨ on Firefly?';
     const description =
         'Unlock Genesis Sparks status to enjoy faster points, premium invite rewards, and a guaranteed airdrop.';
     const url = urlcat(SITE_URL_OFFICIAL, '/sparks');
-    const ogImageUrl = urlcat(FIREFLY_S3_URL, '/og/genesis_sparks.png');
 
     return createSiteMetadata('/sparks', {
         title,

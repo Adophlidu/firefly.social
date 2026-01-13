@@ -5,18 +5,17 @@ import { compact, first } from 'lodash-es';
 import { ImageResponse } from 'next/og.js';
 import { type NextRequest } from 'next/server.js';
 import { type HTMLProps } from 'react';
-import urlcat from 'urlcat';
 import { z } from 'zod';
 
 import { SORTED_SOCIAL_ACCOUNT_AVATAR_SOURCE } from '@/constants/computed.js';
 import { NetworkType, type ProfilePageSource, type SocialSource, Source } from '@/constants/enum.js';
-import { CACHE_AGE_INDEFINITE_ON_DISK, SITE_URL } from '@/constants/static.js';
+import { CACHE_AGE_INDEFINITE_ON_DISK } from '@/constants/static.js';
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
 import { fetchImageAsBase64 } from '@/helpers/fetchAvatarAsBase64.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
 import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
-import { getPublicSvgUrl } from '@/helpers/getPublicSvgUrl.js';
+import { getPublicUrl } from '@/helpers/getPublicUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { isSocialSource, isWalletSource } from '@/helpers/isSource.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
@@ -29,25 +28,25 @@ import { getAllRelatedProfilesWithDefault } from '@/services/getAllRelatedProfil
 import { getSatoriFonts } from '@/services/getSatoriFonts.js';
 import { type NextRequestContext } from '@/types/utility.js';
 
-const OG_FALLBACK_AVATAR = urlcat(SITE_URL, '/image/firefly-light-avatar.png');
-const OG_BACKGROUND = urlcat(SITE_URL, '/image/profile-og-background.png');
+const OG_FALLBACK_AVATAR = getPublicUrl('/image/firefly-light-avatar.png');
+const OG_BACKGROUND = getPublicUrl('/image/profile-og-background.png');
 const OG_AVATAR_SIZE = 284;
 const BASE_FONT_FAMILY = ['Bedstead'];
 const CJK_FONT_FAMILY = ['NotoSansSC'];
 const CJK_CHARACTER_REGEX = /\p{Script=Han}|\p{Script=Hiragana}|\p{Script=Katakana}|\p{Script=Hangul}/u;
 
-const ColoredBskySVG = getPublicSvgUrl('bsky-circle.svg');
-const BskySVG = getPublicSvgUrl('bsky-fill.svg');
-const ColoredEthSVG = getPublicSvgUrl('eth-circle.svg');
-const ColoredFarcasterSVG = getPublicSvgUrl('farcaster.svg');
-const FarcasterSVG = getPublicSvgUrl('farcaster-fill.svg');
-const ColoredFireflySVG = getPublicSvgUrl('firefly-circle2.svg');
-const ColoredLensSVG = getPublicSvgUrl('lens.svg');
-const LensSVG = getPublicSvgUrl('lens-fill.svg');
-const ColoredSolanaSVG = getPublicSvgUrl('solana-circle.svg');
-const WalletSVG = getPublicSvgUrl('wallet3.svg');
-const ColoredTwitterSVG = getPublicSvgUrl('x-circle-light.svg');
-const TwitterSVG = getPublicSvgUrl('x-fill.svg');
+const ColoredBskySVG = getPublicUrl('/svg/bsky-circle.svg');
+const BskySVG = getPublicUrl('/svg/bsky-fill.svg');
+const ColoredEthSVG = getPublicUrl('/svg/eth-circle.svg');
+const ColoredFarcasterSVG = getPublicUrl('/svg/farcaster.svg');
+const FarcasterSVG = getPublicUrl('/svg/farcaster-fill.svg');
+const ColoredFireflySVG = getPublicUrl('/svg/firefly-circle2.svg');
+const ColoredLensSVG = getPublicUrl('/svg/lens.svg');
+const LensSVG = getPublicUrl('/svg/lens-fill.svg');
+const ColoredSolanaSVG = getPublicUrl('/svg/solana-circle.svg');
+const WalletSVG = getPublicUrl('/svg/wallet3.svg');
+const ColoredTwitterSVG = getPublicUrl('/svg/x-circle-light.svg');
+const TwitterSVG = getPublicUrl('/svg/x-fill.svg');
 
 function resolveSourceIcon(source: ProfilePageSource) {
     return {
@@ -287,11 +286,11 @@ const ParamsSchema = z.object({
 
 export const GET = compose(withRequestErrorHandler(), async (request: NextRequest, context?: NextRequestContext) => {
     const { id, debug, source } = await getParamsWithZodSchema(ParamsSchema, context);
-    if (!id || !source) return createProxyImageResponse(urlcat(SITE_URL, '/image/og.png'));
+    if (!id || !source) return createProxyImageResponse(getPublicUrl('/image/og.png'));
 
     if (source === Source.Firefly) {
         const profiles = await getAllRelatedProfileInfo({ uid: id });
-        if (!profiles.account) return createProxyImageResponse(urlcat(SITE_URL, '/image/og.png'));
+        if (!profiles.account) return createProxyImageResponse(getPublicUrl('/image/og.png'));
 
         const avatar = walletProfilesToAvatar(profiles) ?? OG_FALLBACK_AVATAR;
         return createProfileOpenGraphImageResponse({
@@ -304,7 +303,7 @@ export const GET = compose(withRequestErrorHandler(), async (request: NextReques
     }
 
     if (!isSocialSource(source) && !isWalletSource(source)) {
-        return createProxyImageResponse(urlcat(SITE_URL, '/image/og.png'));
+        return createProxyImageResponse(getPublicUrl('/image/og.png'));
     }
 
     const identity = { source, id };
@@ -312,7 +311,7 @@ export const GET = compose(withRequestErrorHandler(), async (request: NextReques
 
     if (isWalletSource(source)) {
         const networkType = getAddressType(id);
-        if (!networkType) return createProxyImageResponse(urlcat(SITE_URL, '/image/og.png'));
+        if (!networkType) return createProxyImageResponse(getPublicUrl('/image/og.png'));
 
         return createProfileOpenGraphImageResponse({
             avatar: getStampAvatarByProfileId(Source.Wallet, id, OG_AVATAR_SIZE * 2),
@@ -326,7 +325,7 @@ export const GET = compose(withRequestErrorHandler(), async (request: NextReques
     const profile = await runInSafeAsync(() =>
         resolveSocialMediaProvider(source as SocialSource).getProfileByIdOrHandle(id),
     );
-    if (!profile) return createProxyImageResponse(urlcat(SITE_URL, '/image/og.png'));
+    if (!profile) return createProxyImageResponse(getPublicUrl('/image/og.png'));
 
     return createProfileOpenGraphImageResponse({
         avatar: profile.pfp,

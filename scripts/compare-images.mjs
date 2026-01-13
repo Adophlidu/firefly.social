@@ -46,7 +46,7 @@ async function downloadImage(url) {
     try {
         const response = await fetch(url, {
             headers: {
-                'x-vercel-protection-bypass': process.env.INTERNAL_STATIC_REQUEST_BYPASS,
+                'x-vercel-protection-bypass': process.env.VERCEL_AUTOMATION_BYPASS_SECRET,
             },
         });
         if (!response.ok) {

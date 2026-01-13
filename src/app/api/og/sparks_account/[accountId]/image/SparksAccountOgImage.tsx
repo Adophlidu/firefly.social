@@ -1,15 +1,14 @@
 import { type HTMLProps } from 'react';
-import urlcat from 'urlcat';
 
-import { FIREFLY_S3_URL } from '@/constants/static.js';
+import { getPublicS3Url } from '@/helpers/getPublicUrl.js';
 import { type SparksAccountResponse } from '@/providers/types/Firefly.js';
 
 interface SparksAccountOgImageProps {
     account: Required<SparksAccountResponse>['data'];
 }
 
-const bgImageUrl = urlcat(FIREFLY_S3_URL, '/og/genesis_sparks_bg.png');
-const defaultAvatar = urlcat(FIREFLY_S3_URL, '/og/sparks_account_avatar.png');
+const bgImageUrl = getPublicS3Url('/og/genesis_sparks_bg.png');
+const defaultAvatar = getPublicS3Url('/og/sparks_account_avatar.png');
 
 /* eslint-disable @next/next/no-img-element */
 function Image({ src, ...props }: Pick<HTMLProps<'img'>, 'src' | 'alt' | 'width' | 'height' | 'style'>) {

@@ -24,9 +24,6 @@ const InternalEnvSchema = z.object({
     FIREFLY_JWT_SECRET: z.string(),
 
     ORB_API_KEY: z.string(),
-
-    // Protection Bypass
-    INTERNAL_STATIC_REQUEST_BYPASS: z.string().optional(),
 });
 
 const ExternalEnvSchema = z.object({

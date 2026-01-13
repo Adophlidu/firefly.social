@@ -5,19 +5,18 @@ import { first } from 'lodash-es';
 import { ImageResponse } from 'next/og.js';
 import { type NextRequest } from 'next/server.js';
 import { type HTMLProps } from 'react';
-import urlcat from 'urlcat';
 import { z } from 'zod';
 
 import { ShrankPrice } from '@/components/ShrankPrice.js';
 import { Source } from '@/constants/enum.js';
-import { CACHE_AGE_INDEFINITE_ON_DISK, SITE_URL } from '@/constants/static.js';
+import { CACHE_AGE_INDEFINITE_ON_DISK } from '@/constants/static.js';
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
 import { fetchImageAsBase64 } from '@/helpers/fetchAvatarAsBase64.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
 import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
-import { getPublicSvgUrl } from '@/helpers/getPublicSvgUrl.js';
+import { getPublicUrl } from '@/helpers/getPublicUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { resolveChainIcon } from '@/helpers/resolveChainIcon.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
@@ -27,11 +26,11 @@ import { getSatoriFonts } from '@/services/getSatoriFonts.js';
 import { type NextRequestContext } from '@/types/utility.js';
 
 const OG_FONT_FAMILY = '"Inter", "NotoSans"';
-const OG_FALLBACK_AVATAR = urlcat(SITE_URL, '/image/firefly-light-avatar.png');
+const OG_FALLBACK_AVATAR = getPublicUrl('/image/firefly-light-avatar.png');
 
-const BRIDGE_OG_BACKGROUND_SVG = getPublicSvgUrl('bridge-og-background.svg');
-const COPY_TRADE_BUTTON_SVG = getPublicSvgUrl('copy-trade-button.svg');
-const SWAP_OG_BACKGROUND_SVG = getPublicSvgUrl('swap-og-background.svg');
+const BRIDGE_OG_BACKGROUND_SVG = getPublicUrl('/svg/bridge-og-background.svg');
+const COPY_TRADE_BUTTON_SVG = getPublicUrl('/svg/copy-trade-button.svg');
+const SWAP_OG_BACKGROUND_SVG = getPublicUrl('/svg/swap-og-background.svg');
 
 function Image({ src, ...props }: Pick<HTMLProps<'img'>, 'src' | 'alt' | 'width' | 'height' | 'style'>) {
     return <img alt="img" {...props} src={src} />;
@@ -259,10 +258,10 @@ const ParamsSchema = z.object({
 
 export const GET = compose(withRequestErrorHandler(), async (request: NextRequest, context?: NextRequestContext) => {
     const { hash, chainId } = await getParamsWithZodSchema(ParamsSchema, context);
-    if (!hash || !chainId) return createProxyImageResponse(urlcat(SITE_URL, '/image/og.png'));
+    if (!hash || !chainId) return createProxyImageResponse(getPublicUrl('/image/og.png'));
 
     const activity = await getSwapActivityByHash(hash, chainId);
-    if (!activity) return createProxyImageResponse(urlcat(SITE_URL, '/image/og.png'));
+    if (!activity) return createProxyImageResponse(getPublicUrl('/image/og.png'));
 
     return createSwapOpenGraphImageResponse({ swap: activity });
 });

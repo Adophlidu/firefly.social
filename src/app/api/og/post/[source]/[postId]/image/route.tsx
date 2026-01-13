@@ -5,16 +5,15 @@ import dayjs from 'dayjs';
 import { ImageResponse } from 'next/og.js';
 import { type NextRequest } from 'next/server.js';
 import { type HTMLProps } from 'react';
-import urlcat from 'urlcat';
 import { z } from 'zod';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { CACHE_AGE_INDEFINITE_ON_DISK, SITE_URL } from '@/constants/static.js';
+import { CACHE_AGE_INDEFINITE_ON_DISK } from '@/constants/static.js';
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
 import { fetchImageAsBase64 } from '@/helpers/fetchAvatarAsBase64.js';
 import { getImageMetaFromUrl } from '@/helpers/getImageMetaFromUrl.js';
 import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
-import { getPublicSvgUrl } from '@/helpers/getPublicSvgUrl.js';
+import { getPublicUrl } from '@/helpers/getPublicUrl.js';
 import { removeCombiningCharacters } from '@/helpers/removeCombiningCharacters.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
@@ -24,13 +23,13 @@ import { getSatoriFonts } from '@/services/getSatoriFonts.js';
 import { type NextRequestContext } from '@/types/utility.js';
 
 const OG_FONT_FAMILY = ['Inter', 'Noto Sans Symbols 2'];
-const OG_FALLBACK_AVATAR = urlcat(SITE_URL, '/image/firefly-light-avatar.png');
+const OG_FALLBACK_AVATAR = getPublicUrl('/image/firefly-light-avatar.png');
 
-const BskySVG = getPublicSvgUrl('bsky-circle.svg');
-const FarcasterSVG = getPublicSvgUrl('farcaster.svg');
-const LensSVG = getPublicSvgUrl('lens.svg');
-const OGBackgroundSVG = getPublicSvgUrl('og-background.svg');
-const TwitterSVG = getPublicSvgUrl('x-circle-light.svg');
+const BskySVG = getPublicUrl('/svg/bsky-circle.svg');
+const FarcasterSVG = getPublicUrl('/svg/farcaster.svg');
+const LensSVG = getPublicUrl('/svg/lens.svg');
+const OGBackgroundSVG = getPublicUrl('/svg/og-background.svg');
+const TwitterSVG = getPublicUrl('/svg/x-circle-light.svg');
 
 function resolveSourceIcon(source: SocialSource) {
     return {
@@ -248,10 +247,10 @@ const ParamsSchema = z.object({
 
 export const GET = compose(withRequestErrorHandler(), async (request: NextRequest, context?: NextRequestContext) => {
     const { postId, source } = await getParamsWithZodSchema(ParamsSchema, context);
-    if (!postId || !source) return createProxyImageResponse(urlcat(SITE_URL, '/image/og.png'));
+    if (!postId || !source) return createProxyImageResponse(getPublicUrl('/image/og.png'));
 
     const post = await resolveSocialMediaProvider(source).getPostById(postId);
-    if (!post) return createProxyImageResponse(urlcat(SITE_URL, '/image/og.png'));
+    if (!post) return createProxyImageResponse(getPublicUrl('/image/og.png'));
 
     return new ImageResponse(await PostOpenGraphImage({ post }), {
         width: 1200,
