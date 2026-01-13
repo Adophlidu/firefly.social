@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-01-09 12:01\n"
+"PO-Revision-Date: 2026-01-13 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -135,7 +135,7 @@ msgid "Refunded"
 msgstr "已退款"
 
 msgid "Content is not suitable for all audiences"
-msgstr ""
+msgstr "內容不適合所有受眾"
 
 msgid "Send a tip"
 msgstr "發送打賞"
@@ -705,7 +705,7 @@ msgid "Get {0}"
 msgstr "獲取 {0}"
 
 msgid "Only approved followers can see these posts.<0/>To request access, click Follow."
-msgstr ""
+msgstr "只有獲得批准的追蹤者才能查看這些貼文。<0/>如需申請存取權限，請點擊「追蹤」。"
 
 msgid "Show less"
 msgstr "折疊"
@@ -968,7 +968,7 @@ msgid "Close lost position"
 msgstr "平倉虧損部位"
 
 msgid "No predictions found"
-msgstr ""
+msgstr "未發現任何預測"
 
 msgid "Functions with retrievable ownership"
 msgstr "具有可回收所有權的函式"
@@ -1123,7 +1123,7 @@ msgid "<0/>EVM wallets"
 msgstr "<0/>EVM 錢包"
 
 msgid "Failed to bind Lens manager, please try again later."
-msgstr ""
+msgstr "無法綁定 Lens 管理器，請稍後再試。"
 
 msgid "or"
 msgstr "或"
@@ -2414,7 +2414,7 @@ msgid "Scan the QR code with the <0>Camera app</0> <1/>and give <2>edit permissi
 msgstr "使用<0>相機應用</0><1/>掃描QR碼並授予<2>編輯權限</2>以即時登入"
 
 msgid "This mini app works only inside Farcaster. Open it there to check it out."
-msgstr ""
+msgstr "此迷你應用程式僅限在 Farcaster 內運行。請在該處開啟以查看詳情。"
 
 msgid "Standard"
 msgstr "標準"
@@ -3115,7 +3115,7 @@ msgid "Available"
 msgstr "可用的"
 
 msgid "<0>Firefly is launching <1>Polymarket trading</1>, connecting onchain prediction markets with your social feed! We welcome you to join as an early contributor, starting with our <2>content bounty tasks</2>!</0><3>💰 Users who produce high-quality content can each earn <4>100 USDC</4>.</3><5>🧩 Create a post on Firefly to share your Polymarket trading story. You can talk about your predictions, trading strategies, insights, successes, or even failures on Polymarket. Submissions will be evaluated based on content quality, creativity, depth, readability, and reach. Winners will be announced on <6>@thefireflyapp</6> and contacted via DM.</5><7>📌 How to participate:</7><8><9><10>Create</10> an article or long thread sharing your <11>Polymarket trading story</11>, and publish it on any social platform supported by Firefly.</9><12><13>Follow & Mention</13> <14>@thefireflyapp</14>.</12><15><16>Register</16> your submission by filling out this form.</15></8>"
-msgstr ""
+msgstr "<0>Firefly 正式推出 <1>Polymarket 交易功能</1>，將鏈上預測市場與您的社交動態完美結合！我們誠邀您作為早期貢獻者加入，從參與我們的 <2>內容賞金任務</2>開始！</0><3>💰 創作高品質內容的用戶，每人可獲得 <4>100 USDC</4> 獎勵。</3><5>🧩 在 Firefly 上發佈貼文，分享您的 Polymarket 交易故事。您可以聊聊您的預測、交易策略、見解、成功的經驗，甚至是失敗的教訓。我們將根據內容品質、創意、深度、可讀性和影響力進行評選。獲獎名單將在 <6>@thefireflyapp</6> 公佈，並透過私訊聯繫。</5><7>📌 如何參與：</7><8><9><10>撰寫</10>一篇文章或長推文，分享您的 <11>Polymarket 交易故事</11>，並發佈在 Firefly 支援的任何社交平台上。</9><12><13>關注並標記</13> <14>@thefireflyapp</14>。</12><15><16>填寫</16>此表單以登記您的參賽作品。</15></8>"
 
 msgid "So sorry, we cant mint this NFT. Please try again later."
 msgstr "很抱歉，無法鑄造此NFT。請稍後再試。"
@@ -3166,7 +3166,7 @@ msgid "<0/> PnL"
 msgstr "<0/> 盈虧"
 
 msgid "Your account is requesting to sign in to mobile. Please confirm that the device is with you and that it is you who is signing in"
-msgstr ""
+msgstr "您的帳戶正請求登入行動裝置。請確認該裝置在您身邊，且是由您本人進行登入"
 
 msgid "Failed to like the post."
 msgstr "按讚貼文失敗。"
@@ -3178,7 +3178,7 @@ msgid "Newest"
 msgstr "最新"
 
 msgid "User Name should not exceed {extra} characters"
-msgstr ""
+msgstr "用戶名稱不應超過 {extra} 個字元"
 
 #. placeholder {0}: post.author.handle
 msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0} !"
@@ -3219,7 +3219,7 @@ msgstr "{0, plural, one {轉發} other {轉發}}"
 #. placeholder {0}: account.profile.handle
 #. placeholder {1}: resolveSourceName(source)
 msgid "Failed to resume session for @{0} on {1}, you can refresh the page to try again."
-msgstr ""
+msgstr "無法為 {1} 上的 @{0} 恢復工作階段，您可以重新整理頁面再試一次。"
 
 msgid "Total Value"
 msgstr "交易量"
@@ -4382,7 +4382,7 @@ msgid "No Lens profile found,"
 msgstr "未找到 Lens 帳號，"
 
 msgid "Successfully bound Lens manager."
-msgstr ""
+msgstr "已成功綁定 Lens 管理器。"
 
 msgid "No one you follow has traded this token."
 msgstr "你追蹤的人中沒有人交易過此代幣。"
@@ -4391,7 +4391,7 @@ msgid "Explore now"
 msgstr "開始探索"
 
 msgid "Adult content"
-msgstr ""
+msgstr "成人內容"
 
 msgid "Predictions"
 msgstr "預測"
@@ -4452,7 +4452,7 @@ msgid "<0>Minted</0><1/>{0}{1}"
 msgstr "<0>已鑄造</0><1/>{0}{1}"
 
 msgid "Lens Auto login"
-msgstr ""
+msgstr "Lens 自動登錄"
 
 msgid "Download App"
 msgstr "下載 App"
@@ -4475,7 +4475,7 @@ msgstr "{0} <0> 項</0>"
 
 #. placeholder {0}: post.moderator?.displayName
 msgid "Labeled by <0>{0}</0>."
-msgstr ""
+msgstr "由 <0>{0}</0> 標註。"
 
 msgid "Collect"
 msgstr "收集"
@@ -4547,8 +4547,7 @@ msgid "Unexpected step for setting password: {step}."
 msgstr "驗證密碼時出現意外步驟：{step}。"
 
 msgid "If you have multiple Firefly accounts created with different social logins, deleting this account will help you consolidate your social accounts into one. However, if you're trying to access a different Firefly wallet linked to another social account, consider switching accounts instead of deleting."
-msgstr ""
-"如果你使用不同的社交帳號建立了多個 Firefly 帳戶，刪除此帳戶可以幫助你整合所有社交帳戶。\n"
+msgstr "如果你使用不同的社交帳號建立了多個 Firefly 帳戶，刪除此帳戶可以幫助你整合所有社交帳戶。\n"
 "但如果你仍想存取綁定至另一個社交帳號的 Firefly 錢包，建議你切換帳戶，而不是刪除帳戶。"
 
 msgid "<0>You</0> recasted"
@@ -4742,7 +4741,7 @@ msgid "No connected wallet."
 msgstr "未連接任意錢包。"
 
 msgid "Assign your Firefly Wallet as your Lens account manager to authorize Firefly for auto login."
-msgstr ""
+msgstr "將您的 Firefly 錢包設定為您的 Lens 帳戶管理器，以授權 Firefly 進行自動登錄。"
 
 msgid "Failed to unlike snapshot."
 msgstr "取消按赞失敗。"
@@ -4834,3 +4833,4 @@ msgstr "週"
 
 msgid "Success"
 msgstr "成功"
+
