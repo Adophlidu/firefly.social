@@ -49,13 +49,11 @@ function patchServerHeaders(headers: HeadersInit | undefined, u: URL) {
               'User-Agent': FIREFLY_USER_AGENT,
           }
         : null;
-    const bypassHeaders =
-        process.env.INTERNAL_STATIC_REQUEST_BYPASS &&
-        /^([\w-]+\.firefly\.social|firefly-social-[\w-]+-dimension-dev\.vercel\.app)$/.test(u.origin)
-            ? {
-                  'x-vercel-protection-bypass': process.env.INTERNAL_STATIC_REQUEST_BYPASS,
-              }
-            : null;
+    const bypassHeaders = process.env.INTERNAL_STATIC_REQUEST_BYPASS
+        ? {
+              'x-vercel-protection-bypass': process.env.INTERNAL_STATIC_REQUEST_BYPASS,
+          }
+        : null;
 
     return addHeaders(headers ?? {}, {
         ...fireflyHeaders,
