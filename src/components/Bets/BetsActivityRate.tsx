@@ -2,6 +2,7 @@ import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { BetsPlatform } from '@/constants/enum.js';
 import { bedStead } from '@/fonts/bedStead/index.js';
 import { isZero } from '@/helpers/number.js';
 import { openPredictionPage } from '@/helpers/openPredictionPage.js';
@@ -57,38 +58,40 @@ export function BetsActivityRate({ activity }: ActivityRateProps) {
                     );
                 })}
             </div>
-            <div className="mt-3 flex gap-2">
-                {firstOutcome ? (
-                    <ClickableButton
-                        className={classNames(
-                            'flex-1 rounded-lg px-4 py-2 text-sm font-bold leading-6',
-                            BUTTON_COLORS.success.bg,
-                            BUTTON_COLORS.success.hover,
-                            BUTTON_COLORS.success.text,
-                        )}
-                        onClick={() => {
-                            if (activity.rawData.slug) openPredictionPage(activity.rawData.slug, 0);
-                        }}
-                    >
-                        <Trans>Buy {firstOutcome}</Trans>
-                    </ClickableButton>
-                ) : null}
-                {secondOutcome ? (
-                    <ClickableButton
-                        className={classNames(
-                            'flex-1 rounded-lg px-4 py-2 text-sm font-bold leading-6',
-                            BUTTON_COLORS.danger.bg,
-                            BUTTON_COLORS.danger.hover,
-                            BUTTON_COLORS.danger.text,
-                        )}
-                        onClick={() => {
-                            if (activity.rawData.slug) openPredictionPage(activity.rawData.slug, 1);
-                        }}
-                    >
-                        <Trans>Buy {secondOutcome}</Trans>
-                    </ClickableButton>
-                ) : null}
-            </div>
+            {activity.platform === BetsPlatform.Polymarket ? (
+                <div className="mt-3 flex gap-2">
+                    {firstOutcome ? (
+                        <ClickableButton
+                            className={classNames(
+                                'flex-1 rounded-lg px-4 py-2 text-sm font-bold leading-6',
+                                BUTTON_COLORS.success.bg,
+                                BUTTON_COLORS.success.hover,
+                                BUTTON_COLORS.success.text,
+                            )}
+                            onClick={() => {
+                                if (activity.rawData.slug) openPredictionPage(activity.rawData.slug, 0);
+                            }}
+                        >
+                            <Trans>Buy {firstOutcome}</Trans>
+                        </ClickableButton>
+                    ) : null}
+                    {secondOutcome ? (
+                        <ClickableButton
+                            className={classNames(
+                                'flex-1 rounded-lg px-4 py-2 text-sm font-bold leading-6',
+                                BUTTON_COLORS.danger.bg,
+                                BUTTON_COLORS.danger.hover,
+                                BUTTON_COLORS.danger.text,
+                            )}
+                            onClick={() => {
+                                if (activity.rawData.slug) openPredictionPage(activity.rawData.slug, 1);
+                            }}
+                        >
+                            <Trans>Buy {secondOutcome}</Trans>
+                        </ClickableButton>
+                    ) : null}
+                </div>
+            ) : null}
             <div className="mt-3 flex items-center justify-between">
                 {activity.conditionOutcomes.map((outcome, index) => {
                     const isLast = index === activity.conditionOutcomes.length - 1;

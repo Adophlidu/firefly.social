@@ -1,6 +1,7 @@
 import { produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
+import { Source } from '@/constants/enum.js';
 import { type PageData } from '@/decorators/types.js';
 import { type BetsActivity } from '@/providers/types/Firefly.js';
 
@@ -26,6 +27,12 @@ export function patchBetsActivityData(updater: (item: BetsActivity) => void) {
     queryClient.setQueriesData<PageData<BetsActivity>>(
         {
             queryKey: ['bets', 'list'],
+        },
+        patcher,
+    );
+    queryClient.setQueriesData<PageData<BetsActivity>>(
+        {
+            queryKey: ['bookmarks', Source.Bets],
         },
         patcher,
     );

@@ -3007,6 +3007,9 @@ msgstr "Your post failed to send to {0}. Click 'Retry' to attempt posting again.
 msgid "7D"
 msgstr "7D"
 
+msgid "Your account has not registered this fid on Firefly"
+msgstr "Your account has not registered this fid on Firefly"
+
 msgid "My Wallets"
 msgstr "My Wallets"
 

@@ -102,6 +102,14 @@ export class FireflyBindTimeoutError extends Error {
     }
 }
 
+export class FireflyFidNotRegisteredError extends Error {
+    override name = 'FireflyFidNotRegisteredError';
+
+    constructor(message?: string) {
+        super(message ?? 'Your account has not registered this fid on Firefly');
+    }
+}
+
 export class InvalidOrbPermissionError extends Error {
     override name = 'InvalidOrbPermissionError';
 

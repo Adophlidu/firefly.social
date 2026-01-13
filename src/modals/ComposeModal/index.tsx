@@ -30,6 +30,7 @@ import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
+import { ComposeModalContext } from '@/modals/ComposeModal/context.js';
 import { type ComposeModalCloseProps, type ComposeModalOpenProps } from '@/modals/ComposeModal/types.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
 import { captureComposeDraftPostEvent } from '@/providers/telemetry/captureComposeEvent.js';
@@ -257,7 +258,9 @@ function ComposeModalUI({ ref }: Props) {
                     </div>
                 ) : null}
 
-                <RouterProvider router={router} context={{ onClose }} />
+                <ComposeModalContext.Provider value={{ onClose }}>
+                    <RouterProvider router={router} context={{ onClose }} />
+                </ComposeModalContext.Provider>
             </div>
         </Modal>
     );

@@ -2,6 +2,7 @@ import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { BookmarkType } from '@/constants/enum.js';
+import { type FireflyPolymarketActivity, formatPolymarketFromFirefly } from '@/helpers/formatPolymarketFromFirefly.js';
 import { type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { createIndicator, createNextIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
@@ -16,11 +17,11 @@ export async function getBetBookmarks(indicator?: PageIndicator): Promise<Pageab
         limit: 25,
         cursor: indicator?.id || undefined,
     });
-    const response = await fireflySessionHolder.fetch<BookmarkResponse<BetsActivity>>(url);
+    const response = await fireflySessionHolder.fetch<BookmarkResponse<FireflyPolymarketActivity>>(url);
     const data = resolveFireflyResponseData(response);
 
     return createPageable(
-        compact(data.list.map((x) => x.post_content)),
+        compact(data.list.map((x) => (x.post_content ? formatPolymarketFromFirefly(x.post_content) : undefined))),
         createIndicator(indicator),
         data.cursor ? createNextIndicator(indicator, `${data.cursor}`) : undefined,
     );

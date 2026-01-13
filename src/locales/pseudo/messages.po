@@ -3007,6 +3007,9 @@ msgstr ""
 msgid "7D"
 msgstr ""
 
+msgid "Your account has not registered this fid on Firefly"
+msgstr ""
+
 msgid "My Wallets"
 msgstr ""
 

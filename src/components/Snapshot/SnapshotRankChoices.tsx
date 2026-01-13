@@ -38,16 +38,16 @@ export const SnapshotRankChoices = memo<SnapshotRankChoicesProps>(function Snaps
                             <Reorder.Item key={choice} value={choice}>
                                 <div
                                     className={classNames(
-                                        'flex items-center justify-between rounded-[10px] border border-lightHighlight bg-white px-5 py-2 text-lightHighlight',
+                                        'flex w-full items-center justify-between rounded-[10px] border border-lightHighlight bg-white px-5 py-2 text-lightHighlight',
                                         {
                                             'opacity-40': disabled,
                                         },
                                     )}
                                 >
-                                    <span className="text-sm font-bold leading-[18px]">
+                                    <span className="flex-1 truncate pr-2 text-sm font-bold leading-[18px]">
                                         #{index + 1} {choice}
                                     </span>
-                                    <ReorderIcon width={16} height={16} />
+                                    <ReorderIcon width={16} height={16} className="shrink-0" />
                                 </div>
                             </Reorder.Item>
                         );
@@ -61,7 +61,7 @@ export const SnapshotRankChoices = memo<SnapshotRankChoicesProps>(function Snaps
                         <div
                             key={choice}
                             className={classNames(
-                                'flex items-center justify-between rounded-[10px] border border-transparent bg-white px-5 py-2 text-commonMain',
+                                'flex w-full items-center justify-between rounded-[10px] border border-transparent bg-white px-5 py-2 text-commonMain',
                                 {
                                     'hover:border-lightHighlight hover:text-lightHighlight': !disabled,
                                     'opacity-40': disabled,
@@ -71,7 +71,7 @@ export const SnapshotRankChoices = memo<SnapshotRankChoicesProps>(function Snaps
                                 onChange?.([...selectedChoices, choice].map((x) => choices.indexOf(x) + 1));
                             }}
                         >
-                            <span className="text-sm font-bold leading-[18px]">{choice}</span>
+                            <span className="flex-1 truncate text-sm font-bold leading-[18px]">{choice}</span>
                         </div>
                     ))}
             </div>

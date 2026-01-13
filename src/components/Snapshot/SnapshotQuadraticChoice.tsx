@@ -25,7 +25,7 @@ export const SnapshotQuadraticChoice = memo<SnapshotQuadraticChoiceProps>(functi
     return (
         <ClickableArea
             className={classNames(
-                'flex cursor-pointer items-center justify-between rounded-[10px] border bg-white px-5 py-2',
+                'flex w-full cursor-pointer items-center justify-between rounded-[10px] border bg-white px-5 py-2',
                 {
                     'hover:border-lightHighlight': !disabled,
                     'border-transparent text-commonMain': !quantity,
@@ -34,9 +34,9 @@ export const SnapshotQuadraticChoice = memo<SnapshotQuadraticChoiceProps>(functi
                 },
             )}
         >
-            <span className="text-sm font-bold leading-[18px]">{label}</span>
+            <span className="flex-1 truncate pr-2 text-sm font-bold leading-[18px]">{label}</span>
 
-            <div className="flex items-center gap-[6px]">
+            <div className="flex shrink-0 items-center gap-[6px]">
                 <div
                     className={classNames('flex min-w-[100px] items-center justify-between rounded-full', {
                         'bg-bg03': !quantity,

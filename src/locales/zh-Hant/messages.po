@@ -3012,6 +3012,9 @@ msgstr "貼文發布至 {0} 失敗，點擊「重試」再次發布。"
 msgid "7D"
 msgstr "7日"
 
+msgid "Your account has not registered this fid on Firefly"
+msgstr ""
+
 msgid "My Wallets"
 msgstr "我的錢包"
 

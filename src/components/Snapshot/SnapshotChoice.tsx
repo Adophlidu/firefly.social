@@ -20,7 +20,7 @@ export const SnapshotChoice = memo<SnapshotChoiceProps>(function SnapshotChoice(
     return (
         <ClickableArea
             className={classNames(
-                'flex cursor-pointer items-center justify-between rounded-[10px] border bg-white px-5 py-2.5',
+                'flex w-full cursor-pointer items-center justify-between rounded-[10px] border bg-white px-5 py-2.5',
                 {
                     'hover:border-lightHighlight hover:text-lightHighlight': !disabled,
                     'border-transparent text-commonMain': !selected,
@@ -33,8 +33,8 @@ export const SnapshotChoice = memo<SnapshotChoiceProps>(function SnapshotChoice(
                 onClick(value);
             }}
         >
-            <span className="text-sm font-bold leading-[18px]">{value}</span>
-            {selected ? <SelectedIcon width={24} height={24} /> : null}
+            <span className="flex-1 truncate text-left text-sm font-bold leading-[18px]">{value}</span>
+            {selected ? <SelectedIcon width={24} height={24} className="ml-2 shrink-0" /> : null}
         </ClickableArea>
     );
 });

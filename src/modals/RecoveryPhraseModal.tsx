@@ -12,6 +12,7 @@ import Warning2Icon from '@/assets/warning-2.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Modal } from '@/components/Modal.js';
 import { ModalTitle } from '@/components/ModalTitle.js';
+import { FireflyFidNotRegisteredError } from '@/constants/error.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
@@ -55,7 +56,14 @@ export function RecoveryPhraseModal({ ref }: Props) {
             setShowPhrase(true);
             return mnemonic;
         } catch (error) {
-            enqueueErrorMessage(<Trans>Failed to get recovery phrase. Please try again.</Trans>, { error });
+            enqueueErrorMessage(
+                error instanceof FireflyFidNotRegisteredError ? (
+                    <Trans>Your account has not registered this fid on Firefly</Trans>
+                ) : (
+                    <Trans>Failed to get recovery phrase. Please try again.</Trans>
+                ),
+                { error },
+            );
             throw error;
         }
     }, [props?.fid]);
@@ -152,36 +160,42 @@ export function RecoveryPhraseModal({ ref }: Props) {
                             </p>
                         </div>
 
-                        <div className="flex items-start justify-between gap-2 rounded-2xl border border-line px-6 py-3">
-                            <div className="flex w-[60px] flex-col gap-1">
+                        <div className="flex items-start justify-between gap-4 rounded-2xl border border-line px-6 py-3">
+                            <div className="flex flex-1 flex-col gap-1">
                                 {getColumnWords(0).map((word: string, index: number) => (
                                     <div
                                         key={index}
-                                        className="flex items-center gap-1 text-sm font-semibold leading-[21px]"
+                                        className="flex items-center gap-0 text-sm font-semibold leading-[21px]"
                                     >
-                                        <span className="text-second">{String(index + 1).padStart(2, '0')}</span>
+                                        <span className="w-8 shrink-0 text-left text-second">
+                                            {String(index + 1).padStart(2, '0')}
+                                        </span>
                                         <span className="text-main">{word}</span>
                                     </div>
                                 ))}
                             </div>
-                            <div className="flex w-[60px] flex-col gap-1">
+                            <div className="flex flex-1 flex-col gap-1">
                                 {getColumnWords(8).map((word: string, index: number) => (
                                     <div
                                         key={index}
-                                        className="flex items-center gap-1 text-sm font-semibold leading-[21px]"
+                                        className="flex items-center gap-0 text-sm font-semibold leading-[21px]"
                                     >
-                                        <span className="text-second">{String(index + 9).padStart(2, '0')}</span>
+                                        <span className="w-8 shrink-0 text-left text-second">
+                                            {String(index + 9).padStart(2, '0')}
+                                        </span>
                                         <span className="text-main">{word}</span>
                                     </div>
                                 ))}
                             </div>
-                            <div className="flex w-[60px] flex-col gap-1">
+                            <div className="flex flex-1 flex-col gap-1">
                                 {getColumnWords(16).map((word: string, index: number) => (
                                     <div
                                         key={index}
-                                        className="flex items-center gap-1 text-sm font-semibold leading-[21px]"
+                                        className="flex items-center gap-0 text-sm font-semibold leading-[21px]"
                                     >
-                                        <span className="text-second">{String(index + 17).padStart(2, '0')}</span>
+                                        <span className="w-8 shrink-0 text-left text-second">
+                                            {String(index + 17).padStart(2, '0')}
+                                        </span>
                                         <span className="text-main">{word}</span>
                                     </div>
                                 ))}

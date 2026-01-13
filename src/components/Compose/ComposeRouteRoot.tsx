@@ -1,16 +1,17 @@
 import { Trans } from '@lingui/react/macro';
-import { Outlet, rootRouteId, useMatch, useRouter } from '@tanstack/react-router';
+import { Outlet, useRouter } from '@tanstack/react-router';
 
 import { ComposeSend } from '@/components/Compose/ComposeSend.js';
 import { DraftButton } from '@/components/IconButton.js';
 import { ModalTitle } from '@/components/ModalTitle.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import { useComposeModalContext } from '@/modals/ComposeModal/context.js';
 import { captureDraftClickEvent } from '@/providers/telemetry/captureClickEvent.js';
 
 export function ComposeRouteRoot() {
     const isMedium = useIsMedium();
     const { history, state } = useRouter();
-    const { context } = useMatch({ from: rootRouteId });
+    const { onClose } = useComposeModalContext();
 
     const pathname = history.location.pathname;
 
@@ -45,7 +46,7 @@ export function ComposeRouteRoot() {
                     enableClose={!enableBack}
                     enableBack={enableBack}
                     onBack={() => history.replace('/')}
-                    onClose={context.onClose}
+                    onClose={onClose}
                 />
             </div>
             <Outlet />

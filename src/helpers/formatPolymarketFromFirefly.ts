@@ -1,6 +1,7 @@
 import { type BetsActivity } from '@/providers/types/Firefly.js';
 
-interface FireflyPolymarketActivity extends Partial<Omit<BetsActivity, 'hasBookmarked' | 'isLiked' | 'likeCount'>> {
+export interface FireflyPolymarketActivity
+    extends Partial<Omit<BetsActivity, 'hasBookmarked' | 'isLiked' | 'likeCount'>> {
     has_bookmarked?: boolean;
     is_like?: boolean;
     like_count?: number;
