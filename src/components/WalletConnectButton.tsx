@@ -1,7 +1,7 @@
 import { classNames, delay } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { compact, first } from 'lodash-es';
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 import { useEffectOnce } from 'react-use';
 import { useConnections } from 'wagmi';
 
@@ -13,8 +13,10 @@ import { ClickOrigin, NetworkPluginID, NetworkType } from '@/constants/enum.js';
 import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import { fetchEnsName } from '@/hooks/useEnsName.js';
+import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { MyWalletsModalRef } from '@/modals/MyWalletsModal/index.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
+import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
 import { SolanaChainId } from '@/web3-shared/solana/types.js';
@@ -33,11 +35,18 @@ export const WalletConnectButton = memo<WalletConnectButtonProps>(function Walle
     const { ethereum, solana } = useWalletAccountAll();
     const { sidebarOpen, updateSidebarOpen } = useNavigatorState();
     const connections = useConnections();
+    const isLoginFirefly = useIsLoginFirefly();
+    const { isAuthorized, wallets } = useFireflyWalletStore();
 
-    const connectedNetworks = compact([
-        ethereum.isConnected ? NetworkType.Ethereum : null,
-        solana.isConnected ? NetworkType.Solana : null,
-    ]);
+    const privyConnected = isLoginFirefly && isAuthorized;
+    const connectedNetworks = useMemo(
+        () =>
+            compact([
+                ethereum.isConnected || (privyConnected && wallets.ethereum.length > 0) ? NetworkType.Ethereum : null,
+                solana.isConnected || (privyConnected && wallets.solana.length > 0) ? NetworkType.Solana : null,
+            ]),
+        [privyConnected, solana.isConnected, ethereum.isConnected, wallets.solana.length, wallets.ethereum.length],
+    );
 
     useEffectOnce(() => {
         if (!connections.length) return;
