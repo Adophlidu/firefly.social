@@ -292,7 +292,7 @@ export const BetItem = memo(function BetItem({ event, className }: BetItemProps)
                             const secondOutcome = outcomes[1] || 'No';
 
                             return (
-                                <div key={market.id} className="flex items-center gap-4">
+                                <div key={market.id} className="flex items-center gap-3 sm:gap-4">
                                     <div className="min-w-0 flex-1">
                                         <p className="truncate text-sm leading-5 text-lightMain">
                                             {market.groupItemTitle || market.question}
@@ -319,10 +319,10 @@ export const BetItem = memo(function BetItem({ event, className }: BetItemProps)
                                             </span>
                                         </div>
                                     ) : (
-                                        <div className="flex shrink-0 gap-2">
+                                        <div className="flex min-w-0 shrink-0 gap-2">
                                             <ClickableButton
                                                 className={classNames(
-                                                    'min-w-0 flex-1 rounded-lg px-3 py-1.5 text-sm font-bold leading-6 md:min-w-[120px]',
+                                                    'min-w-0 flex-1 overflow-hidden rounded-lg px-3 py-1.5 text-sm font-bold leading-6 sm:w-[100px] md:w-[120px]',
                                                     BUTTON_COLORS.success.bg,
                                                     BUTTON_COLORS.success.hover,
                                                     BUTTON_COLORS.success.text,
@@ -331,12 +331,12 @@ export const BetItem = memo(function BetItem({ event, className }: BetItemProps)
                                                     openPredictionPage(market.slug, 0);
                                                 }}
                                             >
-                                                <span className="truncate">{firstOutcome}</span>
+                                                <span className="block truncate">{firstOutcome}</span>
                                             </ClickableButton>
                                             {secondOutcome ? (
                                                 <ClickableButton
                                                     className={classNames(
-                                                        'min-w-0 flex-1 rounded-lg px-3 py-1.5 text-sm font-bold leading-6 md:min-w-[120px]',
+                                                        'min-w-0 flex-1 overflow-hidden rounded-lg px-3 py-1.5 text-sm font-bold leading-6 sm:w-[100px] md:w-[120px]',
                                                         BUTTON_COLORS.danger.bg,
                                                         BUTTON_COLORS.danger.hover,
                                                         BUTTON_COLORS.danger.text,
@@ -345,7 +345,7 @@ export const BetItem = memo(function BetItem({ event, className }: BetItemProps)
                                                         openPredictionPage(market.slug, 1);
                                                     }}
                                                 >
-                                                    <span className="truncate">{secondOutcome}</span>
+                                                    <span className="block truncate">{secondOutcome}</span>
                                                 </ClickableButton>
                                             ) : null}
                                         </div>
@@ -415,11 +415,11 @@ export const BetItem = memo(function BetItem({ event, className }: BetItemProps)
                         )}
 
                         {!isResolved || !resolvedOutcome ? (
-                            <div className="flex gap-2">
+                            <div className="flex min-w-0 gap-2">
                                 {firstOutcome ? (
                                     <ClickableButton
                                         className={classNames(
-                                            'min-w-0 flex-1 rounded-lg px-4 py-2 text-sm font-bold leading-6',
+                                            'min-w-0 flex-1 overflow-hidden rounded-lg px-4 py-2 text-sm font-bold leading-6',
                                             BUTTON_COLORS.success.bg,
                                             BUTTON_COLORS.success.hover,
                                             BUTTON_COLORS.success.text,
@@ -428,7 +428,7 @@ export const BetItem = memo(function BetItem({ event, className }: BetItemProps)
                                             if (primaryMarket) openPredictionPage(primaryMarket.slug, 0);
                                         }}
                                     >
-                                        <span className="truncate">
+                                        <span className="block truncate">
                                             <Trans>Buy {firstOutcome}</Trans>
                                         </span>
                                     </ClickableButton>
@@ -436,7 +436,7 @@ export const BetItem = memo(function BetItem({ event, className }: BetItemProps)
                                 {secondOutcome ? (
                                     <ClickableButton
                                         className={classNames(
-                                            'min-w-0 flex-1 rounded-lg px-4 py-2 text-sm font-bold leading-6',
+                                            'min-w-0 flex-1 overflow-hidden rounded-lg px-4 py-2 text-sm font-bold leading-6',
                                             BUTTON_COLORS.danger.bg,
                                             BUTTON_COLORS.danger.hover,
                                             BUTTON_COLORS.danger.text,
@@ -445,7 +445,7 @@ export const BetItem = memo(function BetItem({ event, className }: BetItemProps)
                                             if (primaryMarket) openPredictionPage(primaryMarket.slug, 1);
                                         }}
                                     >
-                                        <span className="truncate">
+                                        <span className="block truncate">
                                             <Trans>Buy {secondOutcome}</Trans>
                                         </span>
                                     </ClickableButton>
