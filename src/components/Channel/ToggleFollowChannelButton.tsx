@@ -27,15 +27,47 @@ function getFollowSuccessMessage(channel: Channel, isFollowing: boolean) {
 
     switch (channel.source) {
         case Source.Bsky:
-            return `${isFollowing ? 'Removed' : 'Added'} #${channel.name} on ${sourceName}`;
+            return isFollowing ? (
+                <Trans>
+                    Removed {`#${channel.name}`} on {sourceName}
+                </Trans>
+            ) : (
+                <Trans>
+                    Added {`#${channel.name}`} on {sourceName}
+                </Trans>
+            );
         case Source.Lens:
-            return `${isFollowing ? 'Left' : 'Joined'} #${channel.name} on ${sourceName}`;
+            return isFollowing ? (
+                <Trans>
+                    Left {`#${channel.name}`} on {sourceName}
+                </Trans>
+            ) : (
+                <Trans>
+                    Joined {`#${channel.name}`} on {sourceName}
+                </Trans>
+            );
         case Source.Farcaster:
         case Source.Twitter:
-            return `${isFollowing ? 'Unfollowed' : 'Followed'} /${channel.id} on ${sourceName}`;
+            return isFollowing ? (
+                <Trans>
+                    Unfollowed {`/${channel.id}`} on {sourceName}
+                </Trans>
+            ) : (
+                <Trans>
+                    Followed {`/${channel.id}`} on {sourceName}
+                </Trans>
+            );
         default:
             safeUnreachable(channel.source);
-            return `${isFollowing ? 'Unfollowed' : 'Followed'} /${channel.id} on ${sourceName}`;
+            return isFollowing ? (
+                <Trans>
+                    Unfollowed {`/${channel.id}`} on {sourceName}
+                </Trans>
+            ) : (
+                <Trans>
+                    Followed {`/${channel.id}`} on {sourceName}
+                </Trans>
+            );
     }
 }
 
@@ -44,15 +76,47 @@ function getFollowErrorMessage(channel: Channel, isFollowing: boolean) {
 
     switch (channel.source) {
         case Source.Bsky:
-            return `Failed to ${isFollowing ? 'remove' : 'add'} #${channel.name} on ${sourceName}`;
+            return isFollowing ? (
+                <Trans>
+                    Failed to remove {`#${channel.name}`} on {sourceName}
+                </Trans>
+            ) : (
+                <Trans>
+                    Failed to add {`#${channel.name}`} on {sourceName}
+                </Trans>
+            );
         case Source.Lens:
-            return `Failed to ${isFollowing ? 'leave' : 'join'} #${channel.name} on ${sourceName}`;
+            return isFollowing ? (
+                <Trans>
+                    Failed to leave {`#${channel.name}`} on {sourceName}
+                </Trans>
+            ) : (
+                <Trans>
+                    Failed to join {`#${channel.name}`} on {sourceName}
+                </Trans>
+            );
         case Source.Farcaster:
         case Source.Twitter:
-            return `Failed to ${isFollowing ? 'unfollow' : 'follow'} /${channel.id} on ${sourceName}`;
+            return isFollowing ? (
+                <Trans>
+                    Failed to unfollow {`/${channel.id}`} on {sourceName}
+                </Trans>
+            ) : (
+                <Trans>
+                    Failed to follow {`/${channel.id}`} on {sourceName}
+                </Trans>
+            );
         default:
             safeUnreachable(channel.source);
-            return `Failed to ${isFollowing ? 'unfollow' : 'follow'} /${channel.id} on ${sourceName}`;
+            return isFollowing ? (
+                <Trans>
+                    Failed to unfollow {`/${channel.id}`} on {sourceName}
+                </Trans>
+            ) : (
+                <Trans>
+                    Failed to follow {`/${channel.id}`} on {sourceName}
+                </Trans>
+            );
     }
 }
 

@@ -1733,6 +1733,10 @@ msgstr "Show more users"
 msgid "View detail"
 msgstr "View detail"
 
+#. placeholder {0}: channel.id
+msgid "Followed /{0} on {sourceName}"
+msgstr "Followed /{0} on {sourceName}"
+
 msgid "Try again"
 msgstr "Try again"
 
@@ -2008,6 +2012,10 @@ msgstr "This token is not issued by its declared team. Some scams will create a 
 
 msgid "Search post"
 msgstr "Search post"
+
+#. placeholder {0}: channel.name
+msgid "Added #{0} on {sourceName}"
+msgstr "Added #{0} on {sourceName}"
 
 msgid "Failed to switch chain"
 msgstr "Failed to switch chain"
@@ -2569,6 +2577,10 @@ msgstr "Invalid signer key"
 msgid "👀 Firefly notifications are off. "
 msgstr "👀 Firefly notifications are off. "
 
+#. placeholder {0}: channel.id
+msgid "Unfollowed /{0} on {sourceName}"
+msgstr "Unfollowed /{0} on {sourceName}"
+
 msgid "Farcaster"
 msgstr "Farcaster"
 
@@ -2659,6 +2671,10 @@ msgstr "Super Follow"
 
 msgid "Cryptocurrency mixer found."
 msgstr "Cryptocurrency mixer found."
+
+#. placeholder {0}: channel.name
+msgid "Left #{0} on {sourceName}"
+msgstr "Left #{0} on {sourceName}"
 
 msgid "Export recovery phrase"
 msgstr "Export recovery phrase"
@@ -3811,6 +3827,10 @@ msgstr "Invalid website format"
 msgid "Something went wrong. Please try again later."
 msgstr "Something went wrong. Please try again later."
 
+#. placeholder {0}: channel.name
+msgid "Removed #{0} on {sourceName}"
+msgstr "Removed #{0} on {sourceName}"
+
 msgid "Follow @masknetwork on X"
 msgstr "Follow @masknetwork on X"
 
@@ -4245,6 +4265,10 @@ msgstr "Add Token"
 msgid "View on explorer"
 msgstr "View on explorer"
 
+#. placeholder {0}: channel.name
+msgid "Failed to remove #{0} on {sourceName}"
+msgstr "Failed to remove #{0} on {sourceName}"
+
 msgid "Wallet"
 msgstr "Wallet"
 
@@ -4312,6 +4336,10 @@ msgstr "Failed to report spam NFT."
 msgid "Polymarket"
 msgstr "Polymarket"
 
+#. placeholder {0}: channel.name
+msgid "Failed to join #{0} on {sourceName}"
+msgstr "Failed to join #{0} on {sourceName}"
+
 msgid "Unfollow {handleOrEnsOrAddress}"
 msgstr "Unfollow {handleOrEnsOrAddress}"
 
@@ -4351,6 +4379,10 @@ msgstr "Quote posts disabled"
 
 msgid "How to do?"
 msgstr "How to do?"
+
+#. placeholder {0}: channel.id
+msgid "Failed to follow /{0} on {sourceName}"
+msgstr "Failed to follow /{0} on {sourceName}"
 
 msgid "Choose Wallet"
 msgstr "Choose Wallet"
@@ -4486,8 +4518,16 @@ msgstr "Video"
 msgid "Firefly Wallet"
 msgstr "Firefly Wallet"
 
+#. placeholder {0}: channel.name
+msgid "Joined #{0} on {sourceName}"
+msgstr "Joined #{0} on {sourceName}"
+
 msgid "Confirm to remove this verified address from your Farcaster profile?"
 msgstr "Confirm to remove this verified address from your Farcaster profile?"
+
+#. placeholder {0}: channel.name
+msgid "Failed to add #{0} on {sourceName}"
+msgstr "Failed to add #{0} on {sourceName}"
 
 msgid "Language"
 msgstr "Language"
@@ -4710,6 +4750,10 @@ msgstr "Post"
 msgid "Creator:"
 msgstr "Creator:"
 
+#. placeholder {0}: channel.name
+msgid "Failed to leave #{0} on {sourceName}"
+msgstr "Failed to leave #{0} on {sourceName}"
+
 msgid "Something went wrong, please try again."
 msgstr "Something went wrong, please try again."
 
@@ -4818,6 +4862,10 @@ msgstr "Golden"
 
 msgid "Multi-device login"
 msgstr "Multi-device login"
+
+#. placeholder {0}: channel.id
+msgid "Failed to unfollow /{0} on {sourceName}"
+msgstr "Failed to unfollow /{0} on {sourceName}"
 
 msgid "This can’t be undone, and the scheduled send will be cancelled."
 msgstr "This can’t be undone, and the scheduled send will be cancelled."

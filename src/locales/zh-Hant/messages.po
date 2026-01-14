@@ -1738,6 +1738,10 @@ msgstr "顯示更多用戶"
 msgid "View detail"
 msgstr "查看詳情"
 
+#. placeholder {0}: channel.id
+msgid "Followed /{0} on {sourceName}"
+msgstr ""
+
 msgid "Try again"
 msgstr "重試"
 
@@ -2013,6 +2017,10 @@ msgstr "此代幣非聲明團隊發行，可能是同名詐騙代幣。"
 
 msgid "Search post"
 msgstr "搜尋貼文"
+
+#. placeholder {0}: channel.name
+msgid "Added #{0} on {sourceName}"
+msgstr ""
 
 msgid "Failed to switch chain"
 msgstr "切換鏈失敗"
@@ -2574,6 +2582,10 @@ msgstr "簽名金鑰無效"
 msgid "👀 Firefly notifications are off. "
 msgstr "👀 Firefly 通知未開啟！"
 
+#. placeholder {0}: channel.id
+msgid "Unfollowed /{0} on {sourceName}"
+msgstr ""
+
 msgid "Farcaster"
 msgstr "Farcaster"
 
@@ -2664,6 +2676,10 @@ msgstr "超級追蹤"
 
 msgid "Cryptocurrency mixer found."
 msgstr "發現加密貨幣混幣器。"
+
+#. placeholder {0}: channel.name
+msgid "Left #{0} on {sourceName}"
+msgstr ""
 
 msgid "Export recovery phrase"
 msgstr "匯出助記詞"
@@ -3816,6 +3832,10 @@ msgstr "網站格式無效"
 msgid "Something went wrong. Please try again later."
 msgstr "哎呀... 發生錯誤，請重試。"
 
+#. placeholder {0}: channel.name
+msgid "Removed #{0} on {sourceName}"
+msgstr ""
+
 msgid "Follow @masknetwork on X"
 msgstr "在 X 上追蹤 @masknetwork"
 
@@ -4250,6 +4270,10 @@ msgstr "添加代幣"
 msgid "View on explorer"
 msgstr "在區塊瀏覽器查看"
 
+#. placeholder {0}: channel.name
+msgid "Failed to remove #{0} on {sourceName}"
+msgstr ""
+
 msgid "Wallet"
 msgstr "錢包"
 
@@ -4317,6 +4341,10 @@ msgstr "檢舉垃圾 NFT 失敗"
 msgid "Polymarket"
 msgstr "Polymarket"
 
+#. placeholder {0}: channel.name
+msgid "Failed to join #{0} on {sourceName}"
+msgstr ""
+
 msgid "Unfollow {handleOrEnsOrAddress}"
 msgstr "取消追蹤 {handleOrEnsOrAddress}"
 
@@ -4356,6 +4384,10 @@ msgstr "無法轉發"
 
 msgid "How to do?"
 msgstr "該怎麼做？"
+
+#. placeholder {0}: channel.id
+msgid "Failed to follow /{0} on {sourceName}"
+msgstr ""
 
 msgid "Choose Wallet"
 msgstr "選擇錢包"
@@ -4491,8 +4523,16 @@ msgstr "影片"
 msgid "Firefly Wallet"
 msgstr "Firefly 錢包"
 
+#. placeholder {0}: channel.name
+msgid "Joined #{0} on {sourceName}"
+msgstr ""
+
 msgid "Confirm to remove this verified address from your Farcaster profile?"
 msgstr "確定要從 Farcaster 個人資料中移除此已驗證地址？"
+
+#. placeholder {0}: channel.name
+msgid "Failed to add #{0} on {sourceName}"
+msgstr ""
 
 msgid "Language"
 msgstr "語言"
@@ -4717,6 +4757,10 @@ msgstr "發帖"
 msgid "Creator:"
 msgstr "創作者："
 
+#. placeholder {0}: channel.name
+msgid "Failed to leave #{0} on {sourceName}"
+msgstr ""
+
 msgid "Something went wrong, please try again."
 msgstr "哎呀... 發生錯誤，請重試。"
 
@@ -4825,6 +4869,10 @@ msgstr "黃金版"
 
 msgid "Multi-device login"
 msgstr "多裝置登入"
+
+#. placeholder {0}: channel.id
+msgid "Failed to unfollow /{0} on {sourceName}"
+msgstr ""
 
 msgid "This can’t be undone, and the scheduled send will be cancelled."
 msgstr "此操作無法撤銷，預約發送將被取消。"
