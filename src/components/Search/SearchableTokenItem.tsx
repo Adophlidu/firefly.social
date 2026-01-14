@@ -90,8 +90,8 @@ export const SearchableTokenItem = memo(function SearchableTokenItem({
             />
             <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-x-1 text-medium font-bold text-secondary">
-                    <span className="truncate leading-6 text-lightMain">{token.name}</span>
-                    {showSymbol ? <span>{token.symbol}</span> : null}
+                    <span className="inline-block truncate leading-6 text-lightMain">{token.name}</span>
+                    {showSymbol ? <span className="whitespace-nowrap">{token.symbol}</span> : null}
                     {showRank && token.market_cap_rank && token.market_cap_rank <= MAX_TOP_TOKENS ? (
                         <span className="whitespace-nowrap rounded bg-lightBg px-1 py-0.5 text-[10px]">
                             <Trans>Rank #{token.market_cap_rank}</Trans>

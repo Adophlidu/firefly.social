@@ -175,7 +175,7 @@ export const TokenMarketData = memo(function TokenMarketData({
             <TextOverflowTooltip content={token.name} placement="top">
                 <strong className="ml-0.5 min-w-0 truncate text-medium font-bold text-main">{token.name}</strong>
             </TextOverflowTooltip>
-            <span className="font-inter text-medium font-bold uppercase">{token.symbol}</span>
+            <span className="whitespace-nowrap font-inter text-medium font-bold uppercase">{token.symbol}</span>
         </>
     );
 
