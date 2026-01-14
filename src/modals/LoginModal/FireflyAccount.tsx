@@ -13,9 +13,11 @@ import ScanIcon from '@/assets/scan.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { PageRoute, PasswordWorkflow } from '@/constants/enum.js';
+import { PageRoute, PasswordWorkflow, Source } from '@/constants/enum.js';
 import { useRouter as useNextRouter } from '@/esm/navigation.js';
-import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
+import { enqueueMessageFromError, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
+import { getAccountsFromStorage } from '@/helpers/getAccountsFromStorage.js';
+import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { useFireflyAccountAvatar } from '@/hooks/useFireflyAccountAvatar.js';
 import { EditFireflyProfileModalRef } from '@/modals/EditFireflyProfileModal/EditFireflyProfileModal.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
@@ -26,6 +28,7 @@ import { getMetricsStatus } from '@/providers/firefly/metrics/getMetricsStatus.j
 import { captureEditProfileClickEvent } from '@/providers/telemetry/captureProfileActionEvent.js';
 import { captureMultiDeviceLoginClickEvent } from '@/providers/telemetry/captureSyncTokenEvent.js';
 import { type AllConnections, type FireflyAccountProfile } from '@/providers/types/Firefly.js';
+import { SessionType } from '@/providers/types/SocialMedia.js';
 import { mergeMetrics } from '@/services/metrics.js';
 import { verifyAndGetPassword } from '@/services/verifyAndGetPassword.js';
 
@@ -44,6 +47,20 @@ function HandleMenuOpen({ open, onChange }: HandleMenuOpenProps) {
         onChange?.(open);
     }, [open, onChange]);
     return null;
+}
+
+function hasOnlyTwitterAccounts(): boolean {
+    const fireflySession = getSessionFromStorage(SessionType.Firefly);
+    const farcasterAccounts = getAccountsFromStorage(Source.Farcaster);
+    const lensAccounts = getAccountsFromStorage(Source.Lens);
+    const twitterAccounts = getAccountsFromStorage(Source.Twitter);
+    const bskyAccounts = getAccountsFromStorage(Source.Bsky);
+
+    const hasTwitter = twitterAccounts.length > 0;
+    const hasOtherAccounts =
+        !!fireflySession?.token || farcasterAccounts.length > 0 || lensAccounts.length > 0 || bskyAccounts.length > 0;
+
+    return hasTwitter && !hasOtherAccounts;
 }
 
 export const FireflyAccount = memo<FireflyAccountProps>(function FireflyAccount({
@@ -138,6 +155,14 @@ export const FireflyAccount = memo<FireflyAccountProps>(function FireflyAccount(
                                             className="flex w-full items-center whitespace-nowrap px-3 py-1 text-base font-bold"
                                             onClick={() => {
                                                 close();
+                                                if (hasOnlyTwitterAccounts()) {
+                                                    enqueueWarningMessage(
+                                                        <Trans>
+                                                            X desktop login is currently unavailable on mobile.
+                                                        </Trans>,
+                                                    );
+                                                    return;
+                                                }
                                                 LoginModalRef.close();
                                                 SignInToFireflyAppModalRef.open();
                                             }}

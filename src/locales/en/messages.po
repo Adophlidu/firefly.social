@@ -870,6 +870,9 @@ msgstr "Only {0}"
 msgid "Orb Mobile"
 msgstr "Orb Mobile"
 
+msgid "X desktop login is currently unavailable on mobile."
+msgstr "X desktop login is currently unavailable on mobile."
+
 msgid "Type something here..."
 msgstr "Type something here..."
 
@@ -1269,6 +1272,9 @@ msgstr "Set a 6-digit password to verify your identity for multi-device login."
 msgid "Whitelist function"
 msgstr "Whitelist function"
 
+msgid "Sign in via Firefly App"
+msgstr "Sign in via Firefly App"
+
 msgid "Profile could not be found."
 msgstr "Profile could not be found."
 
@@ -1438,6 +1444,9 @@ msgstr "Oops... Not all the requirements have been met"
 
 msgid "Prediction Leaderboard"
 msgstr "Prediction Leaderboard"
+
+msgid "Sign in within Firefly App"
+msgstr "Sign in within Firefly App"
 
 msgid "Unmuting..."
 msgstr "Unmuting..."
@@ -2831,6 +2840,9 @@ msgstr "Transaction completed!"
 msgid "Choose or set the handles for cross at."
 msgstr "Choose or set the handles for cross at."
 
+msgid "Note: X desktop login is currently unavailable on mobile."
+msgstr "Note: X desktop login is currently unavailable on mobile."
+
 msgid "Exclusivity"
 msgstr "Exclusivity"
 
@@ -2851,6 +2863,9 @@ msgstr "Copy Trade"
 
 msgid "Loading..."
 msgstr "Loading..."
+
+msgid "Scan the QR code with the <0>Firefly mobile app</0><1/>to sign in directly within the app."
+msgstr "Scan the QR code with the <0>Firefly mobile app</0><1/>to sign in directly within the app."
 
 msgid "Share"
 msgstr "Share"
@@ -3442,9 +3457,6 @@ msgstr "Cancel Repost"
 msgid "{days, plural, one {# day left} other {# days left}}"
 msgstr "{days, plural, one {# day left} other {# days left}}"
 
-msgid "Sign in to Firefly App"
-msgstr "Sign in to Firefly App"
-
 msgid "No cybercrime involved."
 msgstr "No cybercrime involved."
 
@@ -3892,9 +3904,6 @@ msgstr "Claims"
 
 msgid "Failed to bookmark snapshot."
 msgstr "Failed to bookmark snapshot."
-
-msgid "Sign in with Firefly App"
-msgstr "Sign in with Firefly App"
 
 msgid "Failed to verify password."
 msgstr "Failed to verify password."

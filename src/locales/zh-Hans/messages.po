@@ -875,6 +875,9 @@ msgstr "仅支持{0}"
 msgid "Orb Mobile"
 msgstr "Orb 移动端"
 
+msgid "X desktop login is currently unavailable on mobile."
+msgstr ""
+
 msgid "Type something here..."
 msgstr "从这里开始..."
 
@@ -1274,6 +1277,9 @@ msgstr "请设置6位数字密码用于跨设备登录认证。"
 msgid "Whitelist function"
 msgstr "白名单功能"
 
+msgid "Sign in via Firefly App"
+msgstr ""
+
 msgid "Profile could not be found."
 msgstr "未找到相关个人资料。"
 
@@ -1443,6 +1449,9 @@ msgstr "哎呀... 并未满足所有要求"
 
 msgid "Prediction Leaderboard"
 msgstr "预测排行榜"
+
+msgid "Sign in within Firefly App"
+msgstr ""
 
 msgid "Unmuting..."
 msgstr "正在取消隐藏…"
@@ -2836,6 +2845,9 @@ msgstr "交易完成！"
 msgid "Choose or set the handles for cross at."
 msgstr "选择或设置跨平台@所使用的用户名。"
 
+msgid "Note: X desktop login is currently unavailable on mobile."
+msgstr ""
+
 msgid "Exclusivity"
 msgstr "独占性"
 
@@ -2856,6 +2868,9 @@ msgstr "一键跟单"
 
 msgid "Loading..."
 msgstr "加载中..."
+
+msgid "Scan the QR code with the <0>Firefly mobile app</0><1/>to sign in directly within the app."
+msgstr ""
 
 msgid "Share"
 msgstr "分享"
@@ -3447,9 +3462,6 @@ msgstr "取消转发"
 msgid "{days, plural, one {# day left} other {# days left}}"
 msgstr "{days, plural, one {剩余 # 天} other {剩余 # 天}}"
 
-msgid "Sign in to Firefly App"
-msgstr "使用 Firefly 应用登录"
-
 msgid "No cybercrime involved."
 msgstr "不涉及网络犯罪。"
 
@@ -3897,9 +3909,6 @@ msgstr "领取"
 
 msgid "Failed to bookmark snapshot."
 msgstr "收藏提案失败。"
-
-msgid "Sign in with Firefly App"
-msgstr "使用 Firefly App 登录"
 
 msgid "Failed to verify password."
 msgstr "密码验证失败。"

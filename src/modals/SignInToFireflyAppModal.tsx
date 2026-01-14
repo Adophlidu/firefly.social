@@ -44,7 +44,7 @@ export const SignInToFireflyAppModal = memo(function SignInToFireflyAppModal({ r
     }, [dispatch, queryClient]);
 
     return (
-        <Modal size="md" title={<Trans>Sign in to Firefly App</Trans>} enableClose onClose={onClose} open={open}>
+        <Modal size="md" title={<Trans>Sign in within Firefly App</Trans>} enableClose onClose={onClose} open={open}>
             <div className="relative rounded-[12px] bg-lightBottom text-second transition-all dark:bg-darkBottom">
                 <div className="flex w-full flex-col items-center space-y-3 text-xs">
                     <Content enabled={open} onClose={onClose} />
@@ -152,7 +152,7 @@ function Content({ enabled, onClose }: { enabled: boolean; onClose?: () => void 
                         Firefly mobile app
                     </Link>
                     <br />
-                    or <b className="font-bold">Camera app</b> to sign in instantly
+                    to sign in directly within the app.
                 </Trans>
             </p>
             <div
@@ -178,6 +178,11 @@ function Content({ enabled, onClose }: { enabled: boolean; onClose?: () => void 
                 ) : isInvalid ? (
                     <ReloadIcon className="absolute inset-0 m-auto text-white" width={80} height={80} />
                 ) : null}
+            </div>
+            <div className="align-center flex w-full flex-col justify-center">
+                <div className="leading-6">
+                    <Trans>Note: X desktop login is currently unavailable on mobile.</Trans>
+                </div>
             </div>
         </>
     );

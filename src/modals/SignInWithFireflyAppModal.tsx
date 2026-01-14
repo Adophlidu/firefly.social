@@ -45,7 +45,7 @@ export const SignInWithFireflyAppModal = memo(function SignInWithFireflyAppModal
     }, [dispatch, queryClient]);
 
     return (
-        <Modal size="md" title={<Trans>Sign in with Firefly App</Trans>} enableClose onClose={onClose} open={open}>
+        <Modal size="md" title={<Trans>Sign in via Firefly App</Trans>} enableClose onClose={onClose} open={open}>
             <div className="relative rounded-[12px] bg-lightBottom text-second transition-all dark:bg-darkBottom">
                 <div className="flex w-full flex-col items-center space-y-3 text-xs">
                     <Content enabled={open} onClose={onClose} />

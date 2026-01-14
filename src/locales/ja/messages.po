@@ -875,6 +875,9 @@ msgstr ""
 msgid "Orb Mobile"
 msgstr ""
 
+msgid "X desktop login is currently unavailable on mobile."
+msgstr ""
+
 msgid "Type something here..."
 msgstr ""
 
@@ -1274,6 +1277,9 @@ msgstr ""
 msgid "Whitelist function"
 msgstr ""
 
+msgid "Sign in via Firefly App"
+msgstr ""
+
 msgid "Profile could not be found."
 msgstr ""
 
@@ -1442,6 +1448,9 @@ msgid "Oops... Not all the requirements have been met"
 msgstr ""
 
 msgid "Prediction Leaderboard"
+msgstr ""
+
+msgid "Sign in within Firefly App"
 msgstr ""
 
 msgid "Unmuting..."
@@ -2836,6 +2845,9 @@ msgstr ""
 msgid "Choose or set the handles for cross at."
 msgstr ""
 
+msgid "Note: X desktop login is currently unavailable on mobile."
+msgstr ""
+
 msgid "Exclusivity"
 msgstr ""
 
@@ -2855,6 +2867,9 @@ msgid "Copy Trade"
 msgstr ""
 
 msgid "Loading..."
+msgstr ""
+
+msgid "Scan the QR code with the <0>Firefly mobile app</0><1/>to sign in directly within the app."
 msgstr ""
 
 msgid "Share"
@@ -3447,9 +3462,6 @@ msgstr ""
 msgid "{days, plural, one {# day left} other {# days left}}"
 msgstr ""
 
-msgid "Sign in to Firefly App"
-msgstr ""
-
 msgid "No cybercrime involved."
 msgstr ""
 
@@ -3896,9 +3908,6 @@ msgid "Claims"
 msgstr ""
 
 msgid "Failed to bookmark snapshot."
-msgstr ""
-
-msgid "Sign in with Firefly App"
 msgstr ""
 
 msgid "Failed to verify password."
