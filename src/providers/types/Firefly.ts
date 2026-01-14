@@ -985,6 +985,7 @@ export interface ActivityListItem {
     start_time: string;
     end_time: string;
     status: ActivityStatus;
+    web_banner_url: string | null;
 }
 
 export type ActivityListResponse = Response<{

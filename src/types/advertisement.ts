@@ -5,5 +5,5 @@ export interface Advertisement {
     image: string;
     link: string;
     type: AdvertisementType;
-    function: AdFunctionType;
+    function?: AdFunctionType;
 }
