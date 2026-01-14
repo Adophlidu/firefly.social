@@ -9,7 +9,7 @@ import { getSearchParamsWithZodSchema } from '@/helpers/getSearchParamsWithZodSc
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { createTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
 import { withTwitterRequestErrorHandler } from '@/providers/twitter/withTwitterRequestErrorHandler.js';
-import { SearchPageable } from '@/schemas/index.js';
+import { SearchPageable } from '@/schemas/Pageable.js';
 
 export const GET = compose(
     withTwitterRequestErrorHandler,

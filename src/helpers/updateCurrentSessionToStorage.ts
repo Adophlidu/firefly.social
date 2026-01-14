@@ -8,7 +8,7 @@ import { resolveProfileStorageKey } from '@/helpers/resolveProfileStorageKey.js'
 import { logger } from '@/libs/Logger.js';
 import { SessionFactory } from '@/providers/base/SessionFactory.js';
 import { type Session } from '@/providers/types/Session.js';
-import { ProfileStoreSchema } from '@/schemas/profile.js';
+import { ProfileStoreSchema } from '@/schemas/ProfileStore.js';
 
 function updateProfileStorage(source: ProfileSource, session: Session) {
     const storageKey = resolveProfileStorageKey(source);

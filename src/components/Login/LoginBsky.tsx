@@ -33,7 +33,7 @@ import { retryOnBskyWhenNetworkError } from '@/providers/bsky/retryOnBskyWhenNet
 import { BskySession } from '@/providers/bsky/Session.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import { type Account } from '@/providers/types/Account.js';
-import { HttpsUrl } from '@/schemas/index.js';
+import { HttpsUrl } from '@/schemas/HttpsUrl.js';
 import { type AccountOptions, addAccount } from '@/services/account.js';
 import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';

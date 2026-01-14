@@ -11,7 +11,7 @@ import { logger } from '@/libs/Logger.js';
 import { createTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
 import { createTwitterErrorResponseJSON } from '@/providers/twitter/createTwitterErrorResponse.js';
 import { withTwitterRequestErrorHandler } from '@/providers/twitter/withTwitterRequestErrorHandler.js';
-import { Pageable } from '@/schemas/index.js';
+import { Pageable } from '@/schemas/Pageable.js';
 
 const ParamsSchema = z.object({ userId: z.string() });
 

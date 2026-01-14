@@ -8,7 +8,7 @@ import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { logger } from '@/libs/Logger.js';
 import { createTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
 import { withTwitterRequestErrorHandler } from '@/providers/twitter/withTwitterRequestErrorHandler.js';
-import { Pageable } from '@/schemas/index.js';
+import { Pageable } from '@/schemas/Pageable.js';
 
 export const GET = compose(
     withTwitterRequestErrorHandler,

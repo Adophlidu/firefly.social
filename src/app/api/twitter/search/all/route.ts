@@ -13,7 +13,7 @@ import {
     withoutReferencedTweetExpansions,
 } from '@/providers/twitter/twitterV2ErrorUtils.js';
 import { withTwitterRequestErrorHandler } from '@/providers/twitter/withTwitterRequestErrorHandler.js';
-import { SearchPageable } from '@/schemas/index.js';
+import { SearchPageable } from '@/schemas/Pageable.js';
 
 function removeUnknownOperator(query: string) {
     let result = query.trimStart();

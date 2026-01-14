@@ -4,7 +4,7 @@ import { type z } from 'zod';
 import { type ProfileSource, Source } from '@/constants/enum.js';
 import { resolveProfileStorageKey } from '@/helpers/resolveProfileStorageKey.js';
 import { logger } from '@/libs/Logger.js';
-import { type ProfileSchema, ProfileStoreSchema } from '@/schemas/profile.js';
+import { type ProfileSchema, ProfileStoreSchema } from '@/schemas/ProfileStore.js';
 
 export type StateProfile = z.infer<typeof ProfileSchema>;
 

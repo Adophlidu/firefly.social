@@ -1,4 +1,3 @@
-import { type Hex } from 'viem';
 import { z } from 'zod';
 
 export const Pageable = z.object({
@@ -31,13 +30,3 @@ export const SearchPageable = z.object({
             return true;
         }),
 });
-
-export const HttpsUrl = z
-    .string()
-    .url()
-    .regex(/^(https:\/\/)/);
-
-export const HexString = z
-    .string()
-    .regex(/^0x[a-fA-F0-9]+$/)
-    .transform((v) => v as Hex);

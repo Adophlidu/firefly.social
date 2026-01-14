@@ -6,7 +6,7 @@ import { logger } from '@/libs/Logger.js';
 import { SessionFactory } from '@/providers/base/SessionFactory.js';
 import { type Session } from '@/providers/types/Session.js';
 import { type Profile } from '@/providers/types/SocialMedia.js';
-import { ProfileStoreSchema } from '@/schemas/profile.js';
+import { ProfileStoreSchema } from '@/schemas/ProfileStore.js';
 
 export interface AccountWithSession {
     profile: Profile;

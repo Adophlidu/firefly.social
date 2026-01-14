@@ -8,7 +8,7 @@ import { env } from '@/constants/env.js';
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { getJsonBodyWithZodSchema } from '@/helpers/getJsonBodyWithZodSchema.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
-import { HexString } from '@/schemas/index.js';
+import { HexString } from '@/schemas/HexString.js';
 
 const SIGNED_KEY_REQUEST_VALIDATOR_EIP_712_DOMAIN = {
     name: 'Farcaster SignedKeyRequestValidator',

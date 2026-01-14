@@ -14,7 +14,7 @@ import {
     withoutReferencedTweetExpansions,
 } from '@/providers/twitter/twitterV2ErrorUtils.js';
 import { withTwitterRequestErrorHandler } from '@/providers/twitter/withTwitterRequestErrorHandler.js';
-import { Pageable } from '@/schemas/index.js';
+import { Pageable } from '@/schemas/Pageable.js';
 
 const ParamsSchema = z.object({ tweetId: z.string() });
 

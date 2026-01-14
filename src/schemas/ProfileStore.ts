@@ -3,6 +3,17 @@ import z from 'zod';
 import { AsyncStatus, Source } from '@/constants/enum.js';
 import { type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
 
+export const ProfileSchema = z.custom<Profile>(
+    (data) => {
+        // Validate only the necessary fields
+        const parsed = ProfileRequiredSchema.safeParse(data);
+        return parsed.success;
+    },
+    {
+        message: 'Profile validation failed',
+    },
+);
+
 const ProfileRequiredSchema = z.object({
     profileId: z.string(),
     profileSource: z.union([
@@ -21,17 +32,6 @@ const ProfileRequiredSchema = z.object({
     status: z.union([z.literal(ProfileStatus.Active), z.literal(ProfileStatus.Inactive)]),
     handle: z.string().nullable(),
 });
-
-export const ProfileSchema = z.custom<Profile>(
-    (data) => {
-        // Validate only the necessary fields
-        const parsed = ProfileRequiredSchema.safeParse(data);
-        return parsed.success;
-    },
-    {
-        message: 'Profile validation failed',
-    },
-);
 
 export const AccountSchema = z.object({
     profile: ProfileSchema,

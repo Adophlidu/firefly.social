@@ -9,7 +9,7 @@ import { getJsonBodyWithZodSchema } from '@/helpers/getJsonBodyWithZodSchema.js'
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { JWTGenerator } from '@/libs/JWTGenerator.js';
 import { generateFarcasterSignatures } from '@/providers/firefly/auth/generateFarcasterSignatures.js';
-import { HexString } from '@/schemas/index.js';
+import { HexString } from '@/schemas/HexString.js';
 
 const BodySchema = z.object({
     key: HexString,
