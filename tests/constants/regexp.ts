@@ -66,6 +66,25 @@ function matchUrl(regExp: RegExp) {
                 'the article can be read here:\nhttps://paragraph.xyz/@nfa/wildcard-reflections',
                 'https://paragraph.xyz/@nfa/wildcard-reflections',
             ],
+            [
+                `
+                This is what we mean by "build a hammer that is a tool you buy once and it's yours, not a corposlop AI dishwasher that requires you to register for a google account and charges a subscription fee per month for extra washing modes, and probably spies on you and stops working if you get politically disfavored by a foreign country".
+
+                If you think this criticism of corposlop is hyperbolic, well turns out, it's literally a concatenation of these three:
+
+                * https://mein-mmo.de/en/user-buys-new-dishwasher-can-only-use-some-features-if-he-subscribes,1186249/
+                In 2014, decentralized applications were toys, hundreds of times more difficult to use in web2. In 2026, fileverse is now usable enough that I regularly write documents in it and send them to other people to collaborate. The decentralized renaissance is coming, and you can be part of making it happen.
+                `,
+                'https://mein-mmo.de/en/user-buys-new-dishwasher-can-only-use-some-features-if-he-subscribes,1186249/',
+            ],
+            ['Visit https://foo.bar, and continue', 'https://foo.bar'],
+            ['Check https://foo.bar,abc for more info', 'https://foo.bar'],
+            ['Go to https://foo.bar/, now', 'https://foo.bar/'],
+            ['See https://foo.bar/,abc for details', 'https://foo.bar/,abc'],
+            ['URL ending with comma: https://foo.bar/,', 'https://foo.bar/'],
+            ['URL with comma in path: https://example.com/path,123/end', 'https://example.com/path,123/end'],
+            ['URL with comma before space: https://test.com/page, text after', 'https://test.com/page'],
+            ['URL with comma in query: https://site.com?param,value', 'https://site.com?param,value'],
         ] as Array<[string, string | null]>;
 
         cases.forEach(([input, expectedOutput]) => {
@@ -143,6 +162,26 @@ function matchCorrectUrl(regExp: RegExp) {
                 'mint your score on https://lensreputation.xyz/a/b/c/?referral=W2CKDOF5 (hurry, so you still can get the genesis badge!)',
                 'https://lensreputation.xyz/a/b/c/?referral=W2CKDOF5',
             ],
+            [
+                `
+                This is what we mean by "build a hammer that is a tool you buy once and it's yours, not a corposlop AI dishwasher that requires you to register for a google account and charges a subscription fee per month for extra washing modes, and probably spies on you and stops working if you get politically disfavored by a foreign country".
+
+                If you think this criticism of corposlop is hyperbolic, well turns out, it's literally a concatenation of these three:
+
+                * https://mein-mmo.de/en/user-buys-new-dishwasher-can-only-use-some-features-if-he-subscribes,1186249/
+                In 2014, decentralized applications were toys, hundreds of times more difficult to use in web2. In 2026, fileverse is now usable enough that I regularly write documents in it and send them to other people to collaborate. The decentralized renaissance is coming, and you can be part of making it happen.
+                `,
+                'https://mein-mmo.de/en/user-buys-new-dishwasher-can-only-use-some-features-if-he-subscribes,1186249/',
+            ],
+            // Test cases for comma handling
+            ['Visit https://foo.bar, and continue', 'https://foo.bar'],
+            ['Check https://foo.bar,abc for more info', 'https://foo.bar'],
+            ['Go to https://foo.bar/, now', 'https://foo.bar/'],
+            ['See https://foo.bar/,abc for details', 'https://foo.bar/,abc'],
+            ['URL ending with comma: https://foo.bar/,', 'https://foo.bar/'],
+            ['URL with comma in path: https://example.com/path,123/end', 'https://example.com/path,123/end'],
+            ['URL with comma before space: https://test.com/page, text after', 'https://test.com/page'],
+            ['URL with comma in query: https://site.com?param,value', 'https://site.com?param,value'],
         ];
 
         cases.forEach(([input, expectedOutput]) => {
