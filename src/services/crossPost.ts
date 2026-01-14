@@ -4,7 +4,7 @@ import { compact, difference, first } from 'lodash-es';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { SORTED_SOCIAL_SOURCES, SUPPORTED_FRAME_SOURCES } from '@/constants/computed.js';
-import { NODE_ENV, type SocialSource, Source } from '@/constants/enum.js';
+import { NODE_ENV, type SocialSource } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { SessionExpiredError } from '@/constants/error.js';
 import { readChars } from '@/helpers/chars.js';
@@ -97,8 +97,12 @@ async function setQueryDataForComment(post: CompositePost, updatedPost: Composit
     const parentPost = post.parentPost[source];
     if (!parentPost) return;
 
-    // only Twitter needs to mock comment post
-    const mockPost = source === Source.Twitter ? createDummyCommentPost(source, updatedPost) : null;
+    /**
+     * we use mock post to update the comments list optimistically
+     * because the real comment data may not be available immediately after posting
+     * so we don't refresh the comments list from server here, but invalidate the query to mark it as stale
+     */
+    const mockPost = createDummyCommentPost(source, updatedPost);
     const queryKey = ['posts', source, 'comments', parentPost.postId];
 
     if (mockPost) {
@@ -109,8 +113,7 @@ async function setQueryDataForComment(post: CompositePost, updatedPost: Composit
             });
         });
     }
-
-    if (![Source.Twitter].includes(source)) await queryClient.refetchQueries({ queryKey });
+    queryClient.invalidateQueries({ queryKey, refetchType: 'none' });
 }
 
 async function setQueryDataForQuote(post: CompositePost) {
