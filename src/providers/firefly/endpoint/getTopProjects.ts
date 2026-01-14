@@ -11,7 +11,7 @@ export async function getTopProjects(locale: Locale) {
         days: 1,
         language: locale === Locale.en ? 'en' : 'cn',
     });
-    const response = await fetchJson<ProjectResponse>(url, { method: 'GET' });
+    const response = await fetchJson<ProjectResponse>(url);
 
     return resolveFireflyResponseData(response);
 }

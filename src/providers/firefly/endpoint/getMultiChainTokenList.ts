@@ -11,8 +11,6 @@ export async function getMultiChainTokenList(addresses: string[], chains: number
         chains: chains.join(','),
         addresses: addresses.join(','),
     });
-    const response = await fetchJson<GetMultiChainTokenListResponse>(url, {
-        method: 'GET',
-    });
+    const response = await fetchJson<GetMultiChainTokenListResponse>(url);
     return (response.data?.data?.tokenAssets ?? EMPTY_LIST) as TokenAsset[];
 }

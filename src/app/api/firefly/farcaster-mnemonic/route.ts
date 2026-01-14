@@ -32,7 +32,6 @@ export const POST = compose(withRequestErrorHandler(), async (request: NextReque
     const response = await fetchJson<GetMnemonicPhraseByFidResponse>(
         url,
         {
-            method: 'GET',
             headers: {
                 Authorization: token,
             },

@@ -13,9 +13,6 @@ export async function getFarcasterProfileById(profileId: string, viewerFid?: str
             fid: profileId,
             sourceFid: viewerFid,
         }),
-        {
-            method: 'GET',
-        },
     );
     const user = resolveFireflyResponseData(response);
     const friendship = viewerFid ? await getFarcasterFriendship(viewerFid, profileId) : null;

@@ -21,9 +21,7 @@ export async function discoverNFTs({
         chainId,
         cursor: indicator?.id,
     });
-    const response = await fireflySessionHolder.fetch<DiscoverNFTResponseV3>(url, {
-        method: 'GET',
-    });
+    const response = await fireflySessionHolder.fetch<DiscoverNFTResponseV3>(url);
     const data = resolveFireflyResponseData(response);
     const feeds = data.result.map<NFTFeedV3>((feed) => ({
         ...feed,

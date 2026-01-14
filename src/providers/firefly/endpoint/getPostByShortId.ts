@@ -13,9 +13,7 @@ export async function getPostByShortId(shortId: string, handle: string, profileI
         needRootParentHash: true,
         hashHandle: handle,
     });
-    const { data: cast } = await fireflySessionHolder.fetch<CastResponse>(url, {
-        method: 'GET',
-    });
+    const { data: cast } = await fireflySessionHolder.fetch<CastResponse>(url);
 
     const post = cast ? formatFarcasterPostFromFirefly(cast) : null;
     if (!post) throw new NotFoundError('Post not found');

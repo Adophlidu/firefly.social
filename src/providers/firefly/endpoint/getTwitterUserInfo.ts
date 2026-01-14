@@ -9,8 +9,6 @@ export async function getTwitterUserInfo(screenName: string) {
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/twitter/userinfo', {
         screenName,
     });
-    const response = await fetchJson<TwitterUserInfoResponse>(url, {
-        method: 'GET',
-    });
+    const response = await fetchJson<TwitterUserInfoResponse>(url);
     return resolveFireflyResponseData(response);
 }

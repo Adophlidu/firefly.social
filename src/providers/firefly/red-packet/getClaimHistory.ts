@@ -14,8 +14,6 @@ export async function getClaimHistory(
         cursor: indicator?.id,
         size: 20,
     });
-    const { data } = await fetchJson<FireflyRedPacketAPI.ClaimHistoryResponse>(url, {
-        method: 'GET',
-    });
+    const { data } = await fetchJson<FireflyRedPacketAPI.ClaimHistoryResponse>(url);
     return { ...data, chain_id: Number(data.chain_id) };
 }

@@ -6,8 +6,6 @@ import { settings } from '@/settings/index.js';
 
 export async function getVerifiedAddresses(): Promise<GetVerifiedAddressesResponse> {
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/accountConnection');
-    const response = await fireflySessionHolder.fetchWithSession<GetVerifiedAddressesResponse>(url, {
-        method: 'GET',
-    });
+    const response = await fireflySessionHolder.fetchWithSession<GetVerifiedAddressesResponse>(url);
     return response;
 }

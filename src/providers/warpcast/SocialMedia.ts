@@ -133,9 +133,7 @@ class WarpcastSocialMedia implements Provider {
                 cursor: indicator?.id,
                 fid: session?.profileId,
             });
-            const response = await fetchJson<ResponseJson<{ members: Profile[]; cursor?: string }>>(url, {
-                method: 'GET',
-            });
+            const response = await fetchJson<ResponseJson<{ members: Profile[]; cursor?: string }>>(url);
             const data = resolveResponseData(response);
 
             return createPageable(
@@ -154,9 +152,7 @@ class WarpcastSocialMedia implements Provider {
                 cursor: indicator?.id,
                 fid: session?.profileId,
             });
-            const response = await fetchJson<ResponseJson<{ followers: Profile[]; cursor?: string }>>(url, {
-                method: 'GET',
-            });
+            const response = await fetchJson<ResponseJson<{ followers: Profile[]; cursor?: string }>>(url);
             const data = resolveResponseData(response);
             return createPageable(
                 data.followers,

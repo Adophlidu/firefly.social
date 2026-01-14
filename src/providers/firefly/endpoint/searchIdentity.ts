@@ -56,7 +56,6 @@ export async function searchIdentity(
         platform,
     });
     const response = await fireflySessionHolder.fetch<SearchProfileResponse>(url, {
-        method: 'GET',
         signal,
     });
     const data = resolveFireflyResponseData(response);

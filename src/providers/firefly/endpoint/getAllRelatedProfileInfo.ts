@@ -59,7 +59,6 @@ export async function getAllRelatedProfileInfo(
     const response = await fireflySessionHolder.fetch<WalletProfileResponse>(
         url,
         {
-            method: 'GET',
             next: {
                 revalidate: 1,
             },

@@ -12,9 +12,6 @@ export async function getFarcasterFriendship(sourceFid: string, destFid: string)
             sourceFid,
             destFid,
         }),
-        {
-            method: 'GET',
-        },
     );
     return resolveFireflyResponseData<Friendship>(response);
 }

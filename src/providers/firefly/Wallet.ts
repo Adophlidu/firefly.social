@@ -47,9 +47,7 @@ class FireflyWallet {
             address,
         });
 
-        const response = await fireflySessionHolder.fetch<HexResponse>(url, {
-            method: 'GET',
-        });
+        const response = await fireflySessionHolder.fetch<HexResponse>(url);
 
         const data = resolveFireflyResponseData(response);
         if (!data) throw new Error('Failed to get message to sign');
@@ -121,7 +119,7 @@ class FireflyWallet {
             address,
             chainId,
         });
-        const response = await fireflySessionHolder.fetch<DetectAddressResponse>(url, { method: 'GET' });
+        const response = await fireflySessionHolder.fetch<DetectAddressResponse>(url);
 
         return resolveFireflyResponseData(response);
     }

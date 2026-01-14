@@ -43,7 +43,6 @@ export async function pollingChannelToken(token: string, signal?: AbortSignal) {
             const signed = await fetchJson<ChannelPendingResponse | ChannelCompleteResponse>(
                 urlcat(FARCASTER_REPLY_URL, '/v1/channel/status'),
                 {
-                    method: 'GET',
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },

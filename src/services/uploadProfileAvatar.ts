@@ -15,6 +15,5 @@ export async function uploadProfileAvatar(source: SocialSource, file: File) {
             return URL.createObjectURL(file);
         default:
             unreachable(source);
-            return;
     }
 }

@@ -34,9 +34,7 @@ export async function getHistory<
         cursor: indicator?.id,
         size: 20,
     });
-    const { data } = await fetchJson<FireflyRedPacketAPI.HistoryResponse>(url, {
-        method: 'GET',
-    });
+    const { data } = await fetchJson<FireflyRedPacketAPI.HistoryResponse>(url);
     return createPageable(
         data.list.map((v) => ({ ...v, chain_id: Number(v.chain_id) })) as R[],
         createIndicator(indicator),

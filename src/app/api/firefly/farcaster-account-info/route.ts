@@ -37,7 +37,6 @@ export const GET = compose(withRequestErrorHandler(), async (request: NextReques
     const response = await fetchJson<EncryptedAccountInfoResponse>(
         url,
         {
-            method: 'GET',
             headers: {
                 Authorization: token,
             },
