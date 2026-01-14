@@ -1,6 +1,6 @@
 import z from 'zod';
 
-import { Source } from '@/constants/enum.js';
+import { AsyncStatus, Source } from '@/constants/enum.js';
 import { type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
 
 const ProfileRequiredSchema = z.object({
@@ -42,5 +42,6 @@ export const ProfileStoreSchema = z.object({
     state: z.object({
         accounts: z.array(AccountSchema),
         currentProfile: ProfileSchema.nullable(),
+        status: z.nativeEnum(AsyncStatus),
     }),
 });

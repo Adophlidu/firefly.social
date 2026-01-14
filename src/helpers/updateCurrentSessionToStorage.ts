@@ -1,11 +1,12 @@
 import { bom, parseJson } from '@dimensiondev/utils';
-import { type StorageValue } from 'zustand/middleware';
+import { type z } from 'zod';
 
 import { type ProfileSource, type SocialSource } from '@/constants/enum.js';
-import { type SessionState, setSessionStateToStorage } from '@/helpers/createSessionStorage.js';
+import { setSessionStateToStorage } from '@/helpers/createSessionStorage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveProfileStorageKey } from '@/helpers/resolveProfileStorageKey.js';
 import { logger } from '@/libs/Logger.js';
+import { SessionFactory } from '@/providers/base/SessionFactory.js';
 import { type Session } from '@/providers/types/Session.js';
 import { ProfileStoreSchema } from '@/schemas/profile.js';
 
@@ -14,7 +15,7 @@ function updateProfileStorage(source: ProfileSource, session: Session) {
     const stateStr = bom.localStorage?.getItem(storageKey);
     if (!stateStr) return;
 
-    const jsonData = parseJson<StorageValue<SessionState>>(stateStr);
+    const jsonData = parseJson<z.infer<typeof ProfileStoreSchema>>(stateStr);
     const parsed = ProfileStoreSchema.safeParse(jsonData);
     if (!parsed.success || !jsonData) {
         logger.error('Failed to parse profile state from storage', parsed.error);
@@ -29,14 +30,12 @@ function updateProfileStorage(source: ProfileSource, session: Session) {
         state: {
             ...jsonData.state,
             accounts: jsonData.state.accounts.map((x) => {
-                if (isSameProfile(x.profile, currentProfile)) {
-                    return {
-                        ...x,
-                        session,
-                    };
-                }
-
-                return x;
+                return {
+                    ...x,
+                    session: isSameProfile(x.profile, currentProfile)
+                        ? session
+                        : SessionFactory.createSession(x.session),
+                };
             }),
             currentProfileSession: session,
         },
