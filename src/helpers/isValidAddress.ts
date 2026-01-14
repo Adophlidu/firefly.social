@@ -1,7 +1,7 @@
 import { web3 } from '@coral-xyz/anchor';
 import { type Address, isAddress } from 'viem';
 
-export function isValidAddressSolana(address?: string, strict = true) {
+export function isValidAddressSolana(address: string | null | undefined, strict = true) {
     const length = address?.length;
     if (!length || length < 32 || length > 44) return false;
 
@@ -14,7 +14,7 @@ export function isValidAddressSolana(address?: string, strict = true) {
     }
 }
 
-export function isValidAddressEthereum(address: string | undefined): address is Address {
+export function isValidAddressEthereum(address: string | null | undefined): address is Address {
     const address_ = address?.toLowerCase();
     if (!address_) return false;
     if (!address_.startsWith('0x') && !address_.startsWith('0X')) return false;
@@ -34,6 +34,6 @@ export function isValidTokenAddressSui(address?: string): boolean {
     return suiTokenPattern.test(address) || suiTokenPatternWithZeros.test(address);
 }
 
-export function isValidAddress(address?: string, strict = true) {
+export function isValidAddress(address: string | null | undefined, strict = true) {
     return isValidAddressSolana(address, strict) || isValidAddressEthereum(address);
 }

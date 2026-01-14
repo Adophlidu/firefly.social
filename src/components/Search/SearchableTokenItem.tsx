@@ -68,8 +68,8 @@ export const SearchableTokenItem = memo(function SearchableTokenItem({
 
     const tokenPageUrl = resolveTokenPageUrl(
         isValidAddress(token.id)
-            ? { identity: token.id, chainId: token.chainId }
-            : { identity: token.id, isCoinId: true, chainId: isCex ? undefined : token.chainId },
+            ? { identity: token.id as string, chainId: token.chainId }
+            : { identity: token.id || identityId, isCoinId: true, chainId: isCex ? undefined : token.chainId },
     );
 
     return (

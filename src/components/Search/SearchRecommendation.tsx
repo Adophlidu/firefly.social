@@ -69,7 +69,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                     }
                 >
                     <SearchIcon width={20} height={20} className="ml-0.5 shrink-0" />
-                    <div className="flex flex-col">
+                    <div className="flex min-w-0 flex-col">
                         <Link
                             className="link-overlay block min-w-0 truncate leading-[18px]"
                             href={fixSearchUrl(!isSearchPage, keyword, searchType, source)}

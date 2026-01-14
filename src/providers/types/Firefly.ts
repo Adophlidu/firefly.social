@@ -1302,7 +1302,7 @@ export interface SearchableToken {
     platform_type?: TokenPlatformType;
     api_symbol: string;
     /** coin id or address */
-    id: string;
+    id: string | null;
     chainId?: number;
     address?: string;
     largeLogo: string;
