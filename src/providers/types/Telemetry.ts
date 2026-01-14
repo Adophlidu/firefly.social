@@ -281,12 +281,21 @@ export enum EventId {
     EVENT_CLAIM_PREMIUM_SUCCESS = 'event_claim_premium_success',
 
     // swap
-    EVENT_FOLLOWING_SWAP_CLICK = 'following_swap_click',
     EVENT_LIKE_SWAP_CLICK = 'swap_like_success',
     EVENT_SWAP_DETAIL_CLICK = 'swap_detail_click',
     EVENT_SWAP_COPY_TRADE_CLICK = 'swap_copy_trade_click',
     EVENT_SWAP_SUBMIT = 'swap_submit',
     EVENT_SWAP_SUCCESS = 'swap_success',
+
+    // home tab
+    EVENT_FOLLOWING_POSTS_CLICK = 'following_posts_click',
+    EVENT_FOLLOWING_BETS_CLICK = 'following_predictions_click',
+    EVENT_FOLLOWING_ACTIVITIES_CLICK = 'following_activities_click',
+    EVENT_FOLLOWING_SWAP_CLICK = 'following_swap_click',
+    EVENT_FOR_YOU_POSTS_CLICK = 'for_you_posts_click',
+    EVENT_FOR_YOU_SWAP_CLICK = 'for_you_swap_click',
+    EVENT_FOR_YOU_BETS_CLICK = 'for_you_bets_click',
+    EVENT_FOR_YOU_ACTIVITIES_CLICK = 'for_you_activities_click',
 
     // token
     TOKEN_BOOKMARK_CLICK = 'token_bookmark_click',
@@ -328,7 +337,6 @@ export enum EventId {
     // polymarket
     POLYMARKET_PROFILE_DETAIL_LINK_CLICK = 'profile_wallet_bets_detail_click',
     PROFILE_POLYMARKET_LINK_CLICK = 'profile_wallet_bets_click',
-    FOLLOWING_POLYMARKET_LINK_CLICK = 'following_bets_click',
 }
 
 export enum ExceptionId {
@@ -1507,6 +1515,38 @@ export interface Events extends Record<EventId, Event> {
             time: string;
             tx_hash?: string;
         };
+    };
+    [EventId.EVENT_FOLLOWING_SWAP_CLICK]: {
+        type: EventType.Interact;
+        parameters: Record<string, never>;
+    };
+    [EventId.EVENT_FOLLOWING_POSTS_CLICK]: {
+        type: EventType.Interact;
+        parameters: Record<string, never>;
+    };
+    [EventId.EVENT_FOLLOWING_BETS_CLICK]: {
+        type: EventType.Interact;
+        parameters: Record<string, never>;
+    };
+    [EventId.EVENT_FOLLOWING_ACTIVITIES_CLICK]: {
+        type: EventType.Interact;
+        parameters: Record<string, never>;
+    };
+    [EventId.EVENT_FOR_YOU_POSTS_CLICK]: {
+        type: EventType.Interact;
+        parameters: Record<string, never>;
+    };
+    [EventId.EVENT_FOR_YOU_SWAP_CLICK]: {
+        type: EventType.Interact;
+        parameters: Record<string, never>;
+    };
+    [EventId.EVENT_FOR_YOU_BETS_CLICK]: {
+        type: EventType.Interact;
+        parameters: Record<string, never>;
+    };
+    [EventId.EVENT_FOR_YOU_ACTIVITIES_CLICK]: {
+        type: EventType.Interact;
+        parameters: Record<string, never>;
     };
 
     // token

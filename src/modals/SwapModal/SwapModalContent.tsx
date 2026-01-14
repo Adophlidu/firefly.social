@@ -1,5 +1,6 @@
 'use client';
 
+import { web3 } from '@coral-xyz/anchor';
 import { classNames, createLookupTableResolver, delay, UnreachableError } from '@dimensiondev/utils';
 import {
     createOkxSwapWidget,
@@ -13,7 +14,7 @@ import {
 import { CoreChainController } from '@reown/appkit';
 import { produce } from 'immer';
 import { uniq } from 'lodash-es';
-import { type HTMLProps, memo, useEffect, useMemo, useRef, useState } from 'react';
+import { type HTMLProps, memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { mainnet } from 'viem/chains';
 import { getConnections } from 'wagmi/actions';
 
@@ -24,14 +25,17 @@ import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { Locale, OkxProviderType } from '@/constants/enum.js';
 import { NATIVE_SOLANA_TOKEN_ADDRESS, NATIVE_TOKEN_ADDRESS, SOLANA_CHAIN_ID_IN_OKX } from '@/constants/okx.js';
 import { useLocale } from '@/helpers/getCookies.js';
+import { getSolanaRPCUrl } from '@/helpers/getSolanaRPCUrl.js';
 import { getWagmiCurrentConnectionId } from '@/helpers/getWagmiCurrentConnectionId.js';
 import { resolveWagmiChain } from '@/helpers/resolveWagmiChain.js';
+import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
 import { useSolanaAccount } from '@/hooks/useAccountByNetwork.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { logger } from '@/libs/Logger.js';
 import { EthereumWalletProvider, SolanaWalletProvider } from '@/providers/okx/WalletProvider.js';
 import { captureSwapEvent } from '@/providers/telemetry/captureSwapEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
+import { type EthereumChainId } from '@/web3-shared/evm/types.js';
 import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 const LangMap = {
@@ -159,6 +163,26 @@ function SwapModalContentWidget({ providerType, embed, ...props }: WidgetProps) 
 
     const theme = isDarkMode ? THEME.DARK : THEME.LIGHT;
 
+    const waitForSwapTransactionSuccess = useCallback(
+        async (chainId: number, txHash: string, eventParams: Parameters<typeof captureSwapEvent>[1]) => {
+            try {
+                if (isEvm) {
+                    await waitForEthereumTransaction(chainId as EthereumChainId, txHash as `0x${string}`);
+                } else {
+                    const connection = new web3.Connection(getSolanaRPCUrl(), 'confirmed');
+                    await connection.confirmTransaction(txHash, 'confirmed');
+                }
+                captureSwapEvent(EventId.EVENT_SWAP_SUCCESS, {
+                    ...eventParams,
+                    time: new Date().toISOString(),
+                });
+            } catch (error) {
+                logger.error('Failed to wait for swap transaction', error);
+            }
+        },
+        [isEvm],
+    );
+
     useEffect(() => {
         if (!instanceRef.current) return;
         instanceRef.current.updateParams({ theme });
@@ -221,8 +245,8 @@ function SwapModalContentWidget({ providerType, embed, ...props }: WidgetProps) 
                     event: OkxEvents.ON_SUBMIT_TX,
                     handler: (params) => {
                         const { chainId, txType, txHash } = params.data;
-                        if (txType === 'SWAP') {
-                            captureSwapEvent(EventId.EVENT_SWAP_SUBMIT, {
+                        if (txType === 'SWAP' && txHash) {
+                            const eventParams = {
                                 chain_id: chainId as number,
                                 chain_name: resolveWagmiChain(chainId)?.name,
                                 wallet_type: isEvm ? 'evm' : 'solana',
@@ -232,7 +256,11 @@ function SwapModalContentWidget({ providerType, embed, ...props }: WidgetProps) 
                                     : solanaProvider.publicKey?.toString(),
                                 time: new Date().toISOString(),
                                 tx_hash: txHash,
-                            });
+                            };
+
+                            captureSwapEvent(EventId.EVENT_SWAP_SUBMIT, eventParams);
+
+                            waitForSwapTransactionSuccess(chainId as number, txHash, eventParams);
                         }
                     },
                 },

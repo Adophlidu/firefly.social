@@ -20,7 +20,7 @@ import { parseFollowingPageUrl } from '@/helpers/parseFollowingPageUrl.js';
 import { resolveHomeUrl } from '@/helpers/resolveHomeUrl.js';
 import { resolveSourceUIName } from '@/helpers/resolveSourceName.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
-import { captureSwapEvent } from '@/providers/telemetry/captureSwapEvent.js';
+import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import { ActivitiesFilterNamespace } from '@/store/useActivitiesFilterStore.js';
 import { BetsFilterNamespace } from '@/store/useBetsSourceFilterStore.js';
@@ -36,6 +36,36 @@ const tabLabels = {
     [HomeTab.Discover]: <Trans>For You</Trans>,
     [HomeTab.Following]: <Trans>Following</Trans>,
 };
+
+function resolveHomeTabEventId(tab: HomeTab, source: Source): EventId | null {
+    if (tab === HomeTab.Following) {
+        switch (source) {
+            case Source.Posts:
+                return EventId.EVENT_FOLLOWING_POSTS_CLICK;
+            case Source.Transactions:
+                return EventId.EVENT_FOLLOWING_SWAP_CLICK;
+            case Source.Bets:
+                return EventId.EVENT_FOLLOWING_BETS_CLICK;
+            case Source.Activities:
+                return EventId.EVENT_FOLLOWING_ACTIVITIES_CLICK;
+            default:
+                return null;
+        }
+    } else {
+        switch (source) {
+            case Source.Posts:
+                return EventId.EVENT_FOR_YOU_POSTS_CLICK;
+            case Source.Transactions:
+                return EventId.EVENT_FOR_YOU_SWAP_CLICK;
+            case Source.Bets:
+                return EventId.EVENT_FOR_YOU_BETS_CLICK;
+            case Source.Activities:
+                return EventId.EVENT_FOR_YOU_ACTIVITIES_CLICK;
+            default:
+                return null;
+        }
+    }
+}
 
 export function HomeTabs({
     onlyFilter = false,
@@ -96,7 +126,9 @@ export function HomeTabs({
                                             'mr-auto inline-flex h-full items-center text-xl font-bold',
                                             buttonClass,
                                         )}
-                                        onMouseEnter={(e) => e.currentTarget.click()}
+                                        onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) =>
+                                            e.currentTarget.click()
+                                        }
                                     >
                                         {tabLabels[currentTab]}
                                         <ArrowDownCircleIcon width={24} height={24} className="ml-2 size-6 shrink-0" />
@@ -159,9 +191,13 @@ export function HomeTabs({
                             return resolveSourceUIName(x);
                         }}
                         onChange={(source) => {
-                            if (source === Source.Swap) {
-                                if (!hasOpenSwap) setHasOpenSwap(true);
-                                captureSwapEvent(EventId.EVENT_FOLLOWING_SWAP_CLICK);
+                            const eventId = resolveHomeTabEventId(currentTab, source);
+                            if (eventId) {
+                                TelemetryProvider.captureEvent(eventId, {} as never);
+                            }
+
+                            if (source === Source.Transactions && !hasOpenSwap) {
+                                setHasOpenSwap(true);
                             }
                         }}
                     />

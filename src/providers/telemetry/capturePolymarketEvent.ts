@@ -10,5 +10,5 @@ export function captureProfilePolymarketLinkClick() {
 }
 
 export function captureFollowingPolymarketLinkClick() {
-    return TelemetryProvider.captureEventInSafe(EventId.FOLLOWING_POLYMARKET_LINK_CLICK, {});
+    return TelemetryProvider.captureEventInSafe(EventId.EVENT_FOLLOWING_BETS_CLICK, {});
 }
