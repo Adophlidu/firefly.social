@@ -189,7 +189,9 @@ export function AccountCards() {
                                                             <FarcasterAccountActions
                                                                 profile={profile}
                                                                 isCustodyWallet={
-                                                                    custodyWalletData?.[profile.profileId] === true
+                                                                    custodyWalletData?.[profile.profileId] === true &&
+                                                                    'source' in connection &&
+                                                                    connection.source === 'fid_reg'
                                                                 }
                                                             />
                                                         ) : null}
