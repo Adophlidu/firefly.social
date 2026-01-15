@@ -560,9 +560,6 @@ msgstr ""
 msgid "Back to list"
 msgstr ""
 
-msgid "Bets"
-msgstr ""
-
 msgid "Scheduled"
 msgstr ""
 

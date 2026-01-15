@@ -1,5 +1,4 @@
 import { safeUnreachable } from '@dimensiondev/utils';
-import { Trans } from '@lingui/react/macro';
 import { first } from 'lodash-es';
 
 import { BetsProfileCategoryTabs } from '@/components/Bets/BetsProfileCategoryTabs.js';
@@ -50,7 +49,7 @@ export async function BetsProfileDetailContent({ address, platform }: Props) {
 
     return (
         <div>
-            <BetsProfilePageHeader pageTitle={<Trans>Bets</Trans>} />
+            <BetsProfilePageHeader />
             <BetsProfileOverview address={address} profile={betsProfile} platform={platform} />
             <BetsProfileCategoryTabs />
             <BetsProfileTabContent platform={platform} address={address} proxyAddress={betsProfile?.proxy} />
