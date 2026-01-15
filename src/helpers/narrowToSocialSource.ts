@@ -26,7 +26,6 @@ export const narrowToSocialSource = createLookupTableResolver<Source, SocialSour
         [Source.Swap]: Source.Farcaster,
         [Source.Transactions]: Source.Farcaster,
         [Source.Activities]: Source.Farcaster,
-        [Source.X3Pro]: Source.Twitter,
     },
     (source) => {
         throw new UnreachableError('source', source);

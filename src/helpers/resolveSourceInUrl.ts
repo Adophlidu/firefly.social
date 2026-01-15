@@ -37,7 +37,6 @@ export const resolveSourceInUrlForApi = createLookupTableResolver<Source, Source
         [Source.Swap]: SourceInURL.Swap,
         [Source.Transactions]: SourceInURL.Transactions,
         [Source.Activities]: SourceInURL.Activities,
-        [Source.X3Pro]: SourceInURL.Twitter,
     },
     (source) => {
         throw new UnreachableError('source', source);

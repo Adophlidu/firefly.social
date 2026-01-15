@@ -12,15 +12,12 @@ import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useMultiInfiniteQueryPageable } from '@/hooks/useMultiInfiniteQueryPageable.js';
-import { searchPosts } from '@/providers/x3pro/searchPosts.js';
-import { type PostOrderType } from '@/providers/x3pro/types.js';
 
 interface Props {
     keyword: string | string[];
     source: Source;
     searchType: SearchType;
     emptyMessage?: ReactNode | ((keyword: string | string[]) => ReactNode);
-    orderType?: PostOrderType;
     loading?: ReactNode;
 }
 
@@ -29,18 +26,17 @@ export const SearchPostList = memo<Props>(function SearchPostList({
     searchType,
     source,
     emptyMessage,
-    orderType,
     loading,
 }) {
     const socialSource = narrowToSocialSource(source);
     const isLogin = useIsLogin(socialSource);
-    const loginRequired = source !== Source.X3Pro && REQUIRE_LOGIN_SOURCES_IN_SEARCH.includes(socialSource);
+    const loginRequired = REQUIRE_LOGIN_SOURCES_IN_SEARCH.includes(socialSource);
     const keywordIsString = typeof searchKeyword === 'string';
     const invalidQuery = source === Source.Twitter && keywordIsString && (searchKeyword?.trim() || '').length < 2;
     const keywords = keywordIsString ? [searchKeyword] : searchKeyword;
 
     const queryResult = useMultiInfiniteQueryPageable(
-        ['search', searchType, source, searchKeyword, orderType, isLogin],
+        ['search', searchType, source, searchKeyword, isLogin],
         keywords.map((keyword) => ({
             key: keyword,
             queryFn: async ({ pageParam }) => {
@@ -49,9 +45,6 @@ export const SearchPostList = memo<Props>(function SearchPostList({
                         return createPageable(EMPTY_LIST, createIndicator(undefined, pageParam));
                     }
                     const indicator = pageParam ? createIndicator(undefined, pageParam) : undefined;
-                    if (source === Source.X3Pro) {
-                        return searchPosts(keyword, indicator, orderType);
-                    }
                     const provider = resolveSocialMediaProvider(socialSource);
                     return await provider.searchPosts(keyword.replace(/^#/, ''), indicator, keyword.includes(' '));
                 } catch {
@@ -65,7 +58,7 @@ export const SearchPostList = memo<Props>(function SearchPostList({
         },
     );
 
-    const listKey = `${ScrollListKey.Search}:${searchType}:${keywords.join(',')}:${source}:${orderType}`;
+    const listKey = `${ScrollListKey.Search}:${searchType}:${keywords.join(',')}:${source}`;
 
     if (queryResult.isPending && !queryResult.data) {
         return loading;
@@ -79,7 +72,7 @@ export const SearchPostList = memo<Props>(function SearchPostList({
             queryResult={queryResult}
             VirtualListProps={{
                 listKey,
-                computeItemKey: (index, post) => `${post.postId}-${orderType}-${index}`,
+                computeItemKey: (index, post) => `${post.postId}-${index}`,
                 itemContent: (index, post) => getPostItemContent(index, post, listKey),
             }}
             NoResultsFallbackProps={{

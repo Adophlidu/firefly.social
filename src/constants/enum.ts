@@ -78,7 +78,6 @@ export enum Source {
     Swap = 'Swap',
     Transactions = 'Transactions',
     Activities = 'Activities',
-    X3Pro = 'X3Pro',
     Bets = 'Prediction',
 }
 

@@ -51,7 +51,6 @@ function getQueryKey(identity: FireflyIdentity, forceHandle: boolean) {
         case Source.Swap:
         case Source.Transactions:
         case Source.Activities:
-        case Source.X3Pro:
         case Source.Bets:
             return '';
         default:

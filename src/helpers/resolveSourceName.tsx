@@ -27,7 +27,6 @@ export const resolveSourceName = createLookupTableResolver<Source, string>(
         [Source.Swap]: 'Swaps',
         [Source.Transactions]: 'Transactions',
         [Source.Activities]: 'Activities',
-        [Source.X3Pro]: 'X3',
     },
     (source) => {
         throw new UnreachableError('source', source);
@@ -56,7 +55,6 @@ export const resolveSourceUIName = createLookupTableResolver<Source, string | JS
         [Source.Swap]: <Trans>Swaps</Trans>,
         [Source.Transactions]: <Trans>Transactions</Trans>,
         [Source.Activities]: <Trans>Activities</Trans>,
-        [Source.X3Pro]: 'X3',
     },
     (source) => {
         throw new UnreachableError('source', source);

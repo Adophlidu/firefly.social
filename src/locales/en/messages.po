@@ -1976,9 +1976,6 @@ msgstr "Failed to unmute @{0} on {sourceName}."
 msgid "Others in the conversation"
 msgstr "Others in the conversation"
 
-msgid "Mentioned by"
-msgstr "Mentioned by"
-
 msgid "Insufficient Balance"
 msgstr "Insufficient Balance"
 
@@ -2308,9 +2305,6 @@ msgstr "Mute"
 
 msgid "Confirm to log out this account?"
 msgstr "Confirm to log out this account?"
-
-msgid "No posts found for this token."
-msgstr "No posts found for this token."
 
 msgid "A measure of a cryptocurrency trading volume across all tracked platforms in the last 24 hours. This is tracked on a rolling 24-hour basis with no open/closing times."
 msgstr "A measure of a cryptocurrency trading volume across all tracked platforms in the last 24 hours. This is tracked on a rolling 24-hour basis with no open/closing times."
@@ -2905,15 +2899,6 @@ msgstr "Create your Firefly profile"
 msgid "Collect Price"
 msgstr "Collect Price"
 
-#. placeholder {0}: users.length
-#. placeholder {1}: <> <strong>{theFirst.displayName}</strong> on X mentioned this CA </>
-#. placeholder {2}: <> <strong>{theFirst.displayName}</strong> and <strong>{theSecond?.displayName}</strong> on X mentioned this CA </>
-#. placeholder {3}: <> <strong>{theFirst.displayName},</strong> <strong>{theSecond?.displayName},</strong> and{' '} <strong>{theThird?.displayName}</strong> on X mentioned this CA </>
-#. placeholder {4}: <> <strong>{theFirst.displayName},</strong> <strong>{theSecond?.displayName},</strong> and{' '} <strong>{theThird?.displayName}</strong> and another KOL on X mentioned this CA </>
-#. placeholder {5}: <> <strong>{theFirst.displayName},</strong> <strong>{theSecond?.displayName},</strong>{' '} <strong>{theThird?.displayName}</strong> and {remains} other KOLs on X mentioned this CA </>
-msgid "{0, plural, =1 {{1}} =2 {{2}} =3 {{3}} =4 {{4}} other {{5}}}"
-msgstr "{0, plural, =1 {{1}} =2 {{2}} =3 {{3}} =4 {{4}} other {{5}}}"
-
 msgid "View engagements"
 msgstr "View engagements"
 
@@ -3128,9 +3113,6 @@ msgstr "Replying to <0>@{0}</0> and <1>@{1}</1> on {2}"
 
 msgid "Content preference"
 msgstr "Content preference"
-
-msgid "Now only supporting Solana and BSC tokens. Powered by <0>X3.pro</0>"
-msgstr "Now only supporting Solana and BSC tokens. Powered by <0>X3.pro</0>"
 
 msgid "Community"
 msgstr "Community"
@@ -3494,9 +3476,6 @@ msgstr "Financial crime found."
 msgid "Failed to like tip."
 msgstr "Failed to like tip."
 
-msgid "Feeds for tokens on this chain will be available soon."
-msgstr "Feeds for tokens on this chain will be available soon."
-
 msgid "No stealing attack found."
 msgstr "No stealing attack found."
 
@@ -3659,10 +3638,6 @@ msgstr "Show more collections"
 
 msgid "No verified addresses found"
 msgstr "No verified addresses found"
-
-#. placeholder {0}: user.followerCount
-msgid "{0, plural, one {<0>{count}</0> Follower} other {<1>{count}</1> Followers}}"
-msgstr "{0, plural, one {<0>{count}</0> Follower} other {<1>{count}</1> Followers}}"
 
 msgid "Forgot your password? <0>Reset password</0>"
 msgstr "Forgot your password? <0>Reset password</0>"

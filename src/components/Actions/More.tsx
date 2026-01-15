@@ -49,7 +49,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author: 
 
     const isMyPost = isSameProfile(propAuthor, currentProfile);
     const isMyProfile = useIsMyRelatedProfile(source, resolveFireflyProfileId(propAuthor) ?? '');
-    // profile in x3pro (also tweet) doesn't have viewerContext status
+    // profile from external data source (e.g. tweets) doesn't have viewerContext status
     const needToRefreshAuthor =
         !isMyProfile && seen && source === Source.Twitter && propAuthor?.viewerContext?.following === undefined;
     const { data: refreshedAuthor } = useRefreshedProfile(propAuthor, needToRefreshAuthor);

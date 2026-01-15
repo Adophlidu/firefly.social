@@ -1981,9 +1981,6 @@ msgstr "在 {sourceName} 上取消隐藏 @{0} 失败。"
 msgid "Others in the conversation"
 msgstr "对话中的其他人"
 
-msgid "Mentioned by"
-msgstr "被提及于"
-
 msgid "Insufficient Balance"
 msgstr "余额不足"
 
@@ -2313,9 +2310,6 @@ msgstr "隐藏"
 
 msgid "Confirm to log out this account?"
 msgstr "确认登出该账户吗？"
-
-msgid "No posts found for this token."
-msgstr "未找到该代币的相关帖子。"
 
 msgid "A measure of a cryptocurrency trading volume across all tracked platforms in the last 24 hours. This is tracked on a rolling 24-hour basis with no open/closing times."
 msgstr "衡量过去 24 小时内所有平台上加密货币交易量的指标。该指标以 24 小时为单位进行连续跟踪，没有开盘/收盘时间。"
@@ -2910,15 +2904,6 @@ msgstr "创建你的 Firefly 个人资料"
 msgid "Collect Price"
 msgstr "铸造收集费"
 
-#. placeholder {0}: users.length
-#. placeholder {1}: <> <strong>{theFirst.displayName}</strong> on X mentioned this CA </>
-#. placeholder {2}: <> <strong>{theFirst.displayName}</strong> and <strong>{theSecond?.displayName}</strong> on X mentioned this CA </>
-#. placeholder {3}: <> <strong>{theFirst.displayName},</strong> <strong>{theSecond?.displayName},</strong> and{' '} <strong>{theThird?.displayName}</strong> on X mentioned this CA </>
-#. placeholder {4}: <> <strong>{theFirst.displayName},</strong> <strong>{theSecond?.displayName},</strong> and{' '} <strong>{theThird?.displayName}</strong> and another KOL on X mentioned this CA </>
-#. placeholder {5}: <> <strong>{theFirst.displayName},</strong> <strong>{theSecond?.displayName},</strong>{' '} <strong>{theThird?.displayName}</strong> and {remains} other KOLs on X mentioned this CA </>
-msgid "{0, plural, =1 {{1}} =2 {{2}} =3 {{3}} =4 {{4}} other {{5}}}"
-msgstr "{0, plural, =1 {{1}} =2 {{2}} =3 {{3}} =4 {{4}} other {{5}}}"
-
 msgid "View engagements"
 msgstr "查看互动"
 
@@ -3133,9 +3118,6 @@ msgstr "在{2}回复 <0>@{0}</0> 和 <1>@{1}</1>"
 
 msgid "Content preference"
 msgstr "内容偏好"
-
-msgid "Now only supporting Solana and BSC tokens. Powered by <0>X3.pro</0>"
-msgstr "目前仅支持 Solana 和 BSC 代币。由 <0>X3.pro</0> 提供技术支持"
 
 msgid "Community"
 msgstr "圈子"
@@ -3499,9 +3481,6 @@ msgstr "识别为金融犯罪。"
 msgid "Failed to like tip."
 msgstr "点赞失败。"
 
-msgid "Feeds for tokens on this chain will be available soon."
-msgstr "暂不支持该链代币的帖子搜索。"
-
 msgid "No stealing attack found."
 msgstr "未涉及盗窃攻击。"
 
@@ -3664,10 +3643,6 @@ msgstr "展示更多系列"
 
 msgid "No verified addresses found"
 msgstr "未找到验证地址"
-
-#. placeholder {0}: user.followerCount
-msgid "{0, plural, one {<0>{count}</0> Follower} other {<1>{count}</1> Followers}}"
-msgstr "{0, plural, one {<0>{count}</0> 关注者} other {<1>{count}</1> 关注者}}"
 
 msgid "Forgot your password? <0>Reset password</0>"
 msgstr "忘记密码？<0>重置密码</0>"
