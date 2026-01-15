@@ -32,4 +32,7 @@ export interface BetsPositionDataForUI {
     is_closed: boolean;
     topicId?: number;
     is_mutil?: number;
+    isClaimable?: boolean;
+    isWin?: boolean;
+    conditionId: string;
 }

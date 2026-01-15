@@ -1,6 +1,7 @@
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { compact, first, isUndefined } from 'lodash-es';
+import urlcat from 'urlcat';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Link } from '@/components/Link.js';
@@ -10,6 +11,7 @@ import { Image } from '@/esm/Image.js';
 import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
 import { resolveOpinionEventUrl } from '@/helpers/resolveOpinionEventUrl.js';
 import { resolvePolymarketEventUrl } from '@/helpers/resolvePolymarketEventUrl.js';
+import { useOpenFireflyWallet } from '@/hooks/useOpenFireflyWallet.js';
 import { type BetsPositionDataForUI } from '@/types/bets.js';
 
 interface BetsPositionItemProps {
@@ -43,6 +45,7 @@ export function BetsPositionItem({ positionData: position, platform, showAction 
         platform === BetsPlatform.Opinion
             ? compact([position.parent_title, position.title]).join(' - ')
             : position.title;
+    const openFireflyWallet = useOpenFireflyWallet();
     if (isUndefined(displayTitle)) return null;
 
     const isGreen = ['yes', 'up'].includes(position.vote_status.toLowerCase());
@@ -116,24 +119,54 @@ export function BetsPositionItem({ positionData: position, platform, showAction 
                 </div>
                 {showAction && platform === BetsPlatform.Polymarket ? (
                     <div className="flex flex-1 items-center justify-end">
-                        <ClickableButton
-                            className={classNames(
-                                'box-border h-8 w-[128px] whitespace-nowrap rounded-lg py-2 text-xs text-white',
-                                {
-                                    'bg-highlight': !position.IsClaim && !position.is_closed,
-                                    'bg-danger': position.IsClaim,
-                                    'bg-[#ff564d]': position.is_closed,
-                                },
-                            )}
-                        >
-                            {position.IsClaim ? (
-                                <Trans>Claim Proceed</Trans>
-                            ) : position.is_closed ? (
-                                <Trans>Close lost position</Trans>
+                        {position.isClaimable ? (
+                            position.isWin ? (
+                                <ClickableButton
+                                    className="box-border h-8 w-[128px] whitespace-nowrap rounded-lg bg-[#429F37] py-2 text-xs text-white"
+                                    onClick={() => {
+                                        // There is no such an API endpoint for querying a single position,
+                                        // so we need to pass the whole position object
+                                        openFireflyWallet({
+                                            path: urlcat('/bet/position', {
+                                                position: JSON.stringify(position),
+                                                action: 'claim-proceeds',
+                                            }),
+                                        });
+                                    }}
+                                >
+                                    <Trans>Claim Proceed</Trans>
+                                </ClickableButton>
                             ) : (
+                                <ClickableButton
+                                    className="box-border h-8 w-[128px] whitespace-nowrap rounded-lg bg-[#ff564d] py-2 text-xs text-white"
+                                    onClick={async () => {
+                                        // There is no such an API endpoint for querying a single position,
+                                        // so we need to pass the whole position object
+                                        openFireflyWallet({
+                                            path: urlcat('/bet/position', {
+                                                position: JSON.stringify(position),
+                                                action: 'close-lost-position',
+                                            }),
+                                        });
+                                    }}
+                                >
+                                    <Trans>Close lost position</Trans>
+                                </ClickableButton>
+                            )
+                        ) : (
+                            <ClickableButton
+                                className="box-border h-8 w-[128px] whitespace-nowrap rounded-lg bg-highlight py-2 text-xs text-white"
+                                onClick={() => {
+                                    const eventSlug = position.event_slugs?.[0] || position.conditionId || position.Id;
+                                    const outcomeIndex = position.vote_status === 'No' ? 1 : 0;
+                                    openFireflyWallet({
+                                        path: `/bet/event/${encodeURIComponent(eventSlug)}?side=sell&outcome=${outcomeIndex}`,
+                                    });
+                                }}
+                            >
                                 <Trans>Sell</Trans>
-                            )}
-                        </ClickableButton>
+                            </ClickableButton>
+                        )}
                     </div>
                 ) : null}
             </div>

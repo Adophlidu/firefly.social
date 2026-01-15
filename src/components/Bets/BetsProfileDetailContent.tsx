@@ -53,11 +53,7 @@ export async function BetsProfileDetailContent({ address, platform }: Props) {
             <BetsProfilePageHeader pageTitle={<Trans>Bets</Trans>} />
             <BetsProfileOverview address={address} profile={betsProfile} platform={platform} />
             <BetsProfileCategoryTabs />
-            <BetsProfileTabContent
-                platform={platform}
-                address={betsProfile?.wallet || address}
-                proxyAddress={betsProfile?.proxy}
-            />
+            <BetsProfileTabContent platform={platform} address={address} proxyAddress={betsProfile?.proxy} />
         </div>
     );
 }

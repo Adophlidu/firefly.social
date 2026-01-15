@@ -10,7 +10,7 @@ export function useAllProxyWallets() {
     const { data: { evmConnections = EMPTY_LIST } = {} } = useAllConnections();
     const externalWallets = useMemo(() => {
         const addresses = evmConnections
-            .filter((x) => x.source !== WalletSource.Privy)
+            .filter((x) => x.source === WalletSource.Privy)
             .map((x) => x.address.toLowerCase());
         return addresses.sort();
     }, [evmConnections]);

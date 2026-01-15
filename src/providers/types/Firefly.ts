@@ -2607,6 +2607,8 @@ export interface PolymarketPositionData {
     total_buy: number;
     vote_status: string;
     wallet: string;
+    isClaimable: boolean;
+    isWin: boolean;
 }
 
 export type PrivySignMessageResponse = Response<{

@@ -4,7 +4,6 @@ import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { parseAsBoolean, useQueryState } from 'nuqs';
 import { memo, useMemo } from 'react';
-import { useConnection } from 'wagmi';
 
 import { BetsPositionFilter } from '@/components/Bets/BetsPositionFilter.js';
 import { BetsPositionItem } from '@/components/Bets/BetsPositionItem.js';
@@ -46,11 +45,10 @@ export const BetsProfilePositionList = memo<Props>(function BetsProfilePositionL
     proxyAddress,
 }) {
     const [onlyHolding] = useQueryState('holding', parseAsBoolean.withDefault(false));
-    const { address: myAddress } = useConnection();
     const { data: allProxyWallets = EMPTY_LIST } = useAllProxyWallets();
     const isMyAddress = useMemo(
-        () => allProxyWallets.some((x) => isSameEthereumAddress(x, myAddress)),
-        [allProxyWallets, myAddress],
+        () => allProxyWallets.some((x) => isSameEthereumAddress(x, address)),
+        [address, allProxyWallets],
     );
 
     const queryResult = useSuspenseInfiniteQuery({
