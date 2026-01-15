@@ -3803,9 +3803,6 @@ msgstr "Customize your Lucky Drop sender: Choose from your social account handle
 msgid "<0>Sent</0><1/><2>to</2><3><4>{0}</4></3>"
 msgstr "<0>Sent</0><1/><2>to</2><3><4>{0}</4></3>"
 
-msgid "P&L Rate"
-msgstr "P&L Rate"
-
 msgid "Channels"
 msgstr "Channels"
 
@@ -4652,6 +4649,9 @@ msgstr "Followers"
 
 msgid "Search channel"
 msgstr "Search channel"
+
+msgid "PnL%"
+msgstr "PnL%"
 
 msgid "Mint function"
 msgstr "Mint function"

@@ -28,6 +28,17 @@ export const SearchTabs = memo(function SearchTabs() {
     const { searchKeyword, source, clubType } = useSearchStateStore();
 
     const tabs = useMemo<Array<{ label: JSX.Element; link: string }>>(() => {
+        const isFromSearch = typeof searchKeyword === 'string' && searchKeyword.trim().startsWith('from:');
+
+        if (isFromSearch) {
+            return [
+                {
+                    label: <Trans>Posts</Trans>,
+                    link: fixSearchUrl(searchKeyword, SearchType.Posts, source, clubType),
+                },
+            ];
+        }
+
         return compact([
             {
                 label: <Trans>Posts</Trans>,

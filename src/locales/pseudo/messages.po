@@ -3803,9 +3803,6 @@ msgstr ""
 msgid "<0>Sent</0><1/><2>to</2><3><4>{0}</4></3>"
 msgstr ""
 
-msgid "P&L Rate"
-msgstr ""
-
 msgid "Channels"
 msgstr ""
 
@@ -4651,6 +4648,9 @@ msgid "Followers"
 msgstr ""
 
 msgid "Search channel"
+msgstr ""
+
+msgid "PnL%"
 msgstr ""
 
 msgid "Mint function"

@@ -38,25 +38,28 @@ export const BetsLeaderboardFilters = memo<BetsLeaderboardFiltersProps>(function
     const ORDERS = useMemo(
         () =>
             compact([
-                { value: PolymarketRankOrder.Pnl, label: <Trans>Profit/Loss</Trans> },
-                !isGlobal ? { value: PolymarketRankOrder.PnlRate, label: <Trans>P&L Rate</Trans> } : null,
-                { value: PolymarketRankOrder.Volume, label: <Trans>Volume</Trans> },
+                { value: PolymarketRankOrder.Pnl, label: <Trans>Profit/Loss</Trans>, width: 'w-[120px]' },
+                !isGlobal
+                    ? { value: PolymarketRankOrder.PnlRate, label: <Trans>PnL%</Trans>, width: 'w-[80px]' }
+                    : null,
+                { value: PolymarketRankOrder.Volume, label: <Trans>Volume</Trans>, width: 'w-[100px]' },
             ]),
         [isGlobal],
     );
 
     return (
         <div className="flex items-center gap-2">
-            <div className="border-lightLine2 flex shrink-0 items-center rounded-md">
+            <div className="border-lightLine2 flex shrink-0 items-center gap-0 rounded-md border">
                 {PERIODS.map((p, index) => (
                     <ClickableButton
                         key={p.value}
                         onClick={() => onPeriodChange(p.value)}
                         className={classNames('px-2 py-1.5 text-xs capitalize leading-4 transition-colors', {
-                            'border-0 bg-lightBg py-[7px] font-semibold text-lightMain': period === p.value,
-                            'text-lightSecond border-lightLine2 border font-medium': period !== p.value,
+                            'bg-lightBg py-[6px] font-semibold text-lightMain': period === p.value,
+                            'font-medium text-second': period !== p.value,
                             'rounded-l-md': index === 0,
                             'rounded-r-md': index === PERIODS.length - 1,
+                            'border-lightLine2 border-l': index > 0,
                         })}
                     >
                         {p.label}
@@ -69,10 +72,11 @@ export const BetsLeaderboardFilters = memo<BetsLeaderboardFiltersProps>(function
                     key={o.value}
                     onClick={() => onOrderChange(o.value)}
                     className={classNames(
-                        'flex w-[120px] items-center justify-end gap-1 px-0 py-1 text-xs font-semibold capitalize leading-4 transition-colors',
+                        'flex shrink-0 items-center justify-end gap-1 px-0 py-1 text-xs font-semibold capitalize leading-4 transition-colors',
+                        o.width,
                         {
                             'text-lightMain': order === o.value,
-                            'text-lightSecond': order !== o.value,
+                            'text-second': order !== o.value,
                         },
                     )}
                 >

@@ -53,7 +53,7 @@ export const resolveSourceUIName = createLookupTableResolver<Source, string | JS
         [Source.Notifications]: <Trans>Notifications</Trans>,
         [Source.Email]: <Trans>Email</Trans>,
         [Source.Swap]: <Trans>Swaps</Trans>,
-        [Source.Transactions]: <Trans>Transactions</Trans>,
+        [Source.Transactions]: <Trans>Trades</Trans>,
         [Source.Activities]: <Trans>Activities</Trans>,
     },
     (source) => {

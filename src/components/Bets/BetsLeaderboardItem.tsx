@@ -8,10 +8,10 @@ import MedalBronzeIcon from '@/assets/medal-bronze.svg';
 import MedalGoldIcon from '@/assets/medal-gold.svg';
 import MedalSilverIcon from '@/assets/medal-silver.svg';
 import { Avatar } from '@/components/Avatar.js';
-import { formatPolymarketNumber } from '@/components/Polymarket/formatPolymarketNumber.js';
 import { BetsPlatform, Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
+import { humanize } from '@/helpers/formatCommentCounts.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { type PolymarketRankItem } from '@/providers/firefly/bets/getPolymarketRank.js';
@@ -50,17 +50,9 @@ export const BetsLeaderboardItem = memo<BetsLeaderboardItemProps>(function BetsL
     const medal = getMedalIcon(rank);
 
     const pnlNumber = Number(item.pnl);
-    const pnlValue =
-        Math.abs(pnlNumber) > 1
-            ? formatPolymarketNumber(pnlNumber, {
-                  prefix: '$',
-                  symbol: true,
-                  digits: 0,
-              })
-            : formatPolymarketNumber(pnlNumber, {
-                  prefix: '$',
-                  symbol: true,
-              });
+    const pnlFormatted = humanize(Math.trunc(Math.abs(pnlNumber)));
+    const pnlSign = pnlNumber >= 0 ? '+' : '-';
+    const pnlValue = `${pnlSign}$${pnlFormatted}`;
 
     const rateValue = !isNil(item.pnl_rate)
         ? typeof item.pnl_rate === 'string'
@@ -68,23 +60,12 @@ export const BetsLeaderboardItem = memo<BetsLeaderboardItemProps>(function BetsL
             : item.pnl_rate
         : null;
     const rate = !isNil(rateValue) && !Number.isNaN(rateValue) ? rateValue * 100 : null;
-    const pnlRateValue = !isNil(rate)
-        ? `${formatPolymarketNumber(rate, { prefix: '', symbol: false, digits: 2 })}%`
-        : '-';
+    const pnlRateValue = !isNil(rate) ? `${rate.toFixed(2)}%` : '-';
     const pnlRateColorClass = !isNil(rate) ? (rate >= 0 ? 'text-success' : 'text-danger') : 'text-success';
 
     const volumeNumber = Number(item.volume);
-    const volumeValue =
-        Math.abs(volumeNumber) > 1
-            ? formatPolymarketNumber(Math.trunc(volumeNumber), {
-                  prefix: '$',
-                  symbol: false,
-                  digits: 0,
-              })
-            : formatPolymarketNumber(volumeNumber, {
-                  prefix: '$',
-                  symbol: false,
-              });
+    const volumeFormatted = humanize(Math.trunc(Math.abs(volumeNumber)));
+    const volumeValue = `$${volumeFormatted}`;
 
     const profileLink = RouteResolver.betsProfile(address, {
         platform: BetsPlatform.Polymarket,

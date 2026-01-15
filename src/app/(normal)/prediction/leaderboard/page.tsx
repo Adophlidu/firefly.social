@@ -12,12 +12,12 @@ import { BetsLeaderboardTab, PolymarketRankOrder, PolymarketRankPeriod } from '@
 
 export default function BetsLeaderboardPage() {
     const [tab, setTab] = useState<BetsLeaderboardTab>(BetsLeaderboardTab.Global);
-    const [period, setPeriod] = useState<PolymarketRankPeriod>(PolymarketRankPeriod.OneDay);
+    const [period, setPeriod] = useState<PolymarketRankPeriod>(PolymarketRankPeriod.All);
     const [order, setOrder] = useState<PolymarketRankOrder>(PolymarketRankOrder.Pnl);
 
     const handleTabChange = useCallback((tab: BetsLeaderboardTab) => {
         setTab(tab);
-        setPeriod(PolymarketRankPeriod.OneDay);
+        setPeriod(PolymarketRankPeriod.All);
         setOrder(PolymarketRankOrder.Pnl);
     }, []);
 

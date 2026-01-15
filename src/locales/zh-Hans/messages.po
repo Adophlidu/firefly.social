@@ -3808,9 +3808,6 @@ msgstr "自定义你的红包发送者名称：可选择你的社交账号或钱
 msgid "<0>Sent</0><1/><2>to</2><3><4>{0}</4></3>"
 msgstr "<0>已发送</0><1/><2>到</2><3><4>{0}</4></3>"
 
-msgid "P&L Rate"
-msgstr "损益率"
-
 msgid "Channels"
 msgstr "圈子"
 
@@ -4659,6 +4656,9 @@ msgstr "关注者"
 
 msgid "Search channel"
 msgstr "搜索圈子"
+
+msgid "PnL%"
+msgstr ""
 
 msgid "Mint function"
 msgstr "铸造功能"

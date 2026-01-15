@@ -75,7 +75,7 @@ const formatPriceCents = (price: string | null): string => {
 
 const formatWinRate = (percentage: number): string => {
     if (percentage < 1) return '<1%';
-    return `${Math.floor(percentage)}%`;
+    return `${Math.ceil(percentage)}%`;
 };
 
 const tryParseIntOrMax = (value: string | null | undefined): number => {
