@@ -5,7 +5,7 @@ import { compact } from 'lodash-es';
 
 import { decryptAppScanLoginEncryptedData } from '@/actions/decryptAppScanLoginEncryptedData.js';
 import { queryClient } from '@/configs/queryClient.js';
-import { type SocialSource, Source, type SourceInURL } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { DecryptionError } from '@/constants/error.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
@@ -27,46 +27,6 @@ import { addAccounts } from '@/services/account.js';
 import { ensureSessionIsValid } from '@/services/ensureSessionIsValid.js';
 import { restoreFarcasterAccountsIfNeeded } from '@/services/restoreFarcasterAccounts.js';
 
-export interface AuthDataFromApp {
-    firefly_account_token: string;
-    social_accounts: SocialAccount[];
-}
-
-interface SocialAccountTwitter {
-    type: SourceInURL.X;
-    user_id: string;
-    handle: string;
-    consumerKey: string;
-    consumerKeySecret: string;
-    accessToken: string;
-    accessTokenSecret: string;
-}
-
-interface SocialAccountFarcaster {
-    type: SourceInURL.Farcaster;
-    user_id: string; // fid
-    handle: string;
-    token: string; // privateKey
-}
-
-interface SourceAccountLens {
-    type: SourceInURL.Lens;
-    user_id: string; // address
-    handle: string;
-    idToken: string;
-    accessToken: string; // accessToken
-    refreshToken: string; // refreshToken
-}
-
-interface SocialAccountBsky {
-    type: SourceInURL.Bsky;
-    user_id: string; // did
-    handle: string;
-    accessJwt: string; // accessJwt
-    refreshJwt: string; // refreshJwt
-}
-
-type SocialAccount = SocialAccountTwitter | SocialAccountFarcaster | SourceAccountLens | SocialAccountBsky;
 type SocialSession = FarcasterSession | LensSession | TwitterSession | BskySession;
 
 export async function loginWithAppScan(data: DesktopLinkInfoStatusData, otp: string) {

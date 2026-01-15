@@ -13,25 +13,18 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Modal } from '@/components/Modal.js';
 import { SITE_URL_OFFICIAL } from '@/constants/static.js';
 import { Link } from '@/esm/Link.js';
+import { generateCryptoKey } from '@/helpers/generateCryptoKey.js';
 import { usePollingSyncChannelStatus } from '@/hooks/usePollingSyncChannelStatus.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
 import { confirmSyncChannel } from '@/providers/firefly/endpoint/confirmSyncChannel.js';
 import { getDesktopSyncLinkInfo } from '@/providers/firefly/endpoint/getDesktopSyncLinkInfo.js';
-import { uploadSyncData } from '@/providers/firefly/endpoint/uploadSyncData.js';
 import { captureSignInToAppClickEvent } from '@/providers/telemetry/captureSyncTokenEvent.js';
-import { encryptLoginAppAccountPayload } from '@/services/encryptLoginAppAccountPayload.js';
+import { syncDesktopAccounts } from '@/services/syncDesktopAccounts.js';
 
 interface Props {
     ref: React.Ref<SingletonModalRefCreator>;
-}
-
-function generateCryptoKey() {
-    const array = new Uint32Array(1);
-    crypto.getRandomValues(array);
-    const number = array[0] % 1000000;
-    return number.toString().padStart(6, '0');
 }
 
 export const SignInToFireflyAppModal = memo(function SignInToFireflyAppModal({ ref }: Props) {
@@ -81,12 +74,7 @@ function Content({ enabled, onClose }: { enabled: boolean; onClose?: () => void 
     const [{ loading: isUploading }, confirmAndUpload] = useAsyncFn(async () => {
         if (!session || !cryptoKey) return;
 
-        await confirmSyncChannel(session, 'confirm');
-
-        // Get all profiles and encrypt the account data
-        const encryptedData = await encryptLoginAppAccountPayload(cryptoKey);
-
-        await uploadSyncData(session, encryptedData);
+        await syncDesktopAccounts(session, cryptoKey);
 
         onClose?.();
     }, [session, cryptoKey, onClose]);
