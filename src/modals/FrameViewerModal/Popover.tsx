@@ -17,7 +17,8 @@ interface PopoverProps {
 }
 
 export const Popover = memo(function Popover({ frame, open, onClose, title, content }: PopoverProps) {
-    const u = frame?.x_url ? parseUrl(frame.x_url) : null;
+    const url = frame?.button.action.url || frame?.x_url;
+    const u = url ? parseUrl(url) : null;
 
     return (
         <Transition appear show={open} as="div">

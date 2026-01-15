@@ -44,7 +44,7 @@ export async function signInWithAuthWallet(
 
     logger.info(`[signInWithAuthWallet] sign in with wallet address=${address}`);
 
-    const url = frame.x_url || SITE_URL;
+    const url = frame.button.action.url || frame.x_url || SITE_URL;
 
     const u = parseUrl(url);
     if (!u) throw new Error(`Invalid URL: ${url}`);
