@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-01-14 12:01\n"
+"PO-Revision-Date: 2026-01-15 12:33\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -355,7 +355,7 @@ msgid "Ended"
 msgstr "已结束"
 
 msgid "Profit/Loss"
-msgstr "损益"
+msgstr "盈亏"
 
 msgid "Failed to follow {handleOrEnsOrAddress} on Firefly."
 msgstr "未能在 Firefly 上关注 @{handleOrEnsOrAddress}。"
@@ -373,7 +373,7 @@ msgid "Translate post"
 msgstr "翻译帖子"
 
 msgid "Global"
-msgstr "全球"
+msgstr "总榜"
 
 #. placeholder {0}: resolveSourceName(source)
 msgid "Your {0} login token has expired. Please sign in again."
@@ -435,7 +435,7 @@ msgstr "🤑刚刚在领取了一个 #FireflyLuckyDrop 🧧💰✨ {postUrl}"
 
 #. placeholder {0}: publishedByFirefly ? ( <FireflyMonochromeIcon fontSize={15} width={15} height={15} className="mb-1 inline" /> ) : null
 msgid "Posted via {0} <0>{platformName}</0>"
-msgstr ""
+msgstr "通过 {0}<0>{platformName}</0> 发布"
 
 msgid "No bets found"
 msgstr "未找到投注"
@@ -880,7 +880,7 @@ msgid "Orb Mobile"
 msgstr "Orb 移动端"
 
 msgid "X desktop login is currently unavailable on mobile."
-msgstr ""
+msgstr "移动端暂不支持 X 的桌面版登录。"
 
 msgid "Type something here..."
 msgstr "从这里开始..."
@@ -1282,7 +1282,7 @@ msgid "Whitelist function"
 msgstr "白名单功能"
 
 msgid "Sign in via Firefly App"
-msgstr ""
+msgstr "通过 Firefly App 登录"
 
 msgid "Profile could not be found."
 msgstr "未找到相关个人资料。"
@@ -1455,7 +1455,7 @@ msgid "Prediction Leaderboard"
 msgstr "预测排行榜"
 
 msgid "Sign in within Firefly App"
-msgstr ""
+msgstr "在 Firefly App 内登录"
 
 msgid "Unmuting..."
 msgstr "正在取消隐藏…"
@@ -1753,7 +1753,7 @@ msgstr "查看详情"
 
 #. placeholder {0}: channel.id
 msgid "Followed /{0} on {sourceName}"
-msgstr ""
+msgstr "在 {sourceName} 关注了 /{0}"
 
 msgid "Try again"
 msgstr "请重试"
@@ -2030,7 +2030,7 @@ msgstr "搜索帖子"
 
 #. placeholder {0}: channel.name
 msgid "Added #{0} on {sourceName}"
-msgstr ""
+msgstr "在 {sourceName} 添加了 #{0}"
 
 msgid "Failed to switch chain"
 msgstr "切换失败"
@@ -2591,7 +2591,7 @@ msgstr "👀 Firefly 通知未开启！"
 
 #. placeholder {0}: channel.id
 msgid "Unfollowed /{0} on {sourceName}"
-msgstr ""
+msgstr "在 {sourceName} 取消关注 /{0}"
 
 msgid "Farcaster"
 msgstr "Farcaster"
@@ -2686,7 +2686,7 @@ msgstr "发现加密货币混合器。"
 
 #. placeholder {0}: channel.name
 msgid "Left #{0} on {sourceName}"
-msgstr ""
+msgstr "在 {sourceName} 退出了 #{0}"
 
 msgid "Export recovery phrase"
 msgstr "导出助记词"
@@ -2844,7 +2844,7 @@ msgid "Choose or set the handles for cross at."
 msgstr "选择或设置跨平台@所使用的用户名。"
 
 msgid "Note: X desktop login is currently unavailable on mobile."
-msgstr ""
+msgstr "注意：移动端暂不支持 X 的桌面版登录。"
 
 msgid "Exclusivity"
 msgstr "独占性"
@@ -2868,7 +2868,7 @@ msgid "Loading..."
 msgstr "加载中..."
 
 msgid "Scan the QR code with the <0>Firefly mobile app</0><1/>to sign in directly within the app."
-msgstr ""
+msgstr "使用<0>Firefly 移动应用</0><1/>扫描二维码，即可在应用内直接登录。"
 
 msgid "Share"
 msgstr "分享"
@@ -2983,7 +2983,7 @@ msgid "Top 200 Web3 profiles powered by <0>Rootdata</0>"
 msgstr "热门前 200 榜单｜数据来源：<0> Rootdata </0>"
 
 msgid "Buy {firstOutcome}"
-msgstr "买 {firstOutcome}"
+msgstr "买入 {firstOutcome}"
 
 msgid "Minutes"
 msgstr "分钟"
@@ -3822,7 +3822,7 @@ msgstr "哎呀！出错了。 请再试一次。"
 
 #. placeholder {0}: channel.name
 msgid "Removed #{0} on {sourceName}"
-msgstr ""
+msgstr "在 {sourceName} 移除了 #{0}"
 
 msgid "Follow @masknetwork on X"
 msgstr "在 X 上关注 @ masknetwork"
@@ -4165,7 +4165,7 @@ msgid "Repost or Quote"
 msgstr "转发或者引用"
 
 msgid "Buy"
-msgstr "买"
+msgstr "买入"
 
 msgid "NFT ID"
 msgstr "NFT ID"
@@ -4253,7 +4253,7 @@ msgstr "在区块链浏览器查看"
 
 #. placeholder {0}: channel.name
 msgid "Failed to remove #{0} on {sourceName}"
-msgstr ""
+msgstr "在 {sourceName} 移除 #{0} 失败"
 
 msgid "Wallet"
 msgstr "钱包"
@@ -4324,7 +4324,7 @@ msgstr "Polymarket"
 
 #. placeholder {0}: channel.name
 msgid "Failed to join #{0} on {sourceName}"
-msgstr ""
+msgstr "加入 {sourceName} 的 #{0} 失败"
 
 msgid "Unfollow {handleOrEnsOrAddress}"
 msgstr "取消关注 @{handleOrEnsOrAddress}"
@@ -4368,7 +4368,7 @@ msgstr "该怎么做？"
 
 #. placeholder {0}: channel.id
 msgid "Failed to follow /{0} on {sourceName}"
-msgstr ""
+msgstr "在 {sourceName} 关注 /{0} 失败"
 
 msgid "Choose Wallet"
 msgstr "选择钱包"
@@ -4407,7 +4407,7 @@ msgid "Adult content"
 msgstr "成人内容"
 
 msgid "Predictions"
-msgstr "Predictions"
+msgstr "预测"
 
 msgid "Hidden owner."
 msgstr "隐蔽的所有者。"
@@ -4506,14 +4506,14 @@ msgstr "Firefly 钱包"
 
 #. placeholder {0}: channel.name
 msgid "Joined #{0} on {sourceName}"
-msgstr ""
+msgstr "在 {sourceName} 加入了 #{0}"
 
 msgid "Confirm to remove this verified address from your Farcaster profile?"
 msgstr "确认要删除这个验证地址么？"
 
 #. placeholder {0}: channel.name
 msgid "Failed to add #{0} on {sourceName}"
-msgstr ""
+msgstr "在 {sourceName} 添加 #{0} 失败"
 
 msgid "Language"
 msgstr "语言"
@@ -4568,8 +4568,7 @@ msgid "Unexpected step for setting password: {step}."
 msgstr "验证密码时出现意外步骤：{step}。"
 
 msgid "If you have multiple Firefly accounts created with different social logins, deleting this account will help you consolidate your social accounts into one. However, if you're trying to access a different Firefly wallet linked to another social account, consider switching accounts instead of deleting."
-msgstr ""
-"如果你使用不同的社交账号创建了多个 Firefly 账户，删除此账户可以帮助你整合社交账号。\n"
+msgstr "如果你使用不同的社交账号创建了多个 Firefly 账户，删除此账户可以帮助你整合社交账号。\n"
 "但如果你仍想访问另一个社交账号绑定的 Firefly 钱包，建议你切换账户，而不是删除账户。"
 
 msgid "<0>You</0> recasted"
@@ -4743,7 +4742,7 @@ msgstr "创建者："
 
 #. placeholder {0}: channel.name
 msgid "Failed to leave #{0} on {sourceName}"
-msgstr ""
+msgstr "退出 {sourceName} 的 #{0} 失败"
 
 msgid "Something went wrong, please try again."
 msgstr "哎呀！出错了。 请再试一次。"
@@ -4856,7 +4855,7 @@ msgstr "多设备登录"
 
 #. placeholder {0}: channel.id
 msgid "Failed to unfollow /{0} on {sourceName}"
-msgstr ""
+msgstr "在 {sourceName} 取消关注 /{0} 失败"
 
 msgid "This can’t be undone, and the scheduled send will be cancelled."
 msgstr "操作无法回滚，并且定时发布任务将会被取消。"
@@ -4866,3 +4865,4 @@ msgstr "周"
 
 msgid "Success"
 msgstr "成功"
+

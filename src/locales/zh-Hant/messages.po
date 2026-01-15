@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-01-14 12:01\n"
+"PO-Revision-Date: 2026-01-15 12:33\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -355,7 +355,7 @@ msgid "Ended"
 msgstr "已結束"
 
 msgid "Profit/Loss"
-msgstr "損益"
+msgstr "盈虧"
 
 msgid "Failed to follow {handleOrEnsOrAddress} on Firefly."
 msgstr "無法在 Firefly 上追蹤 {handleOrEnsOrAddress}。"
@@ -373,7 +373,7 @@ msgid "Translate post"
 msgstr "翻譯貼文"
 
 msgid "Global"
-msgstr "全球"
+msgstr "總榜"
 
 #. placeholder {0}: resolveSourceName(source)
 msgid "Your {0} login token has expired. Please sign in again."
@@ -435,7 +435,7 @@ msgstr "🤑 剛領取了一個 #FireflyLuckyDrop 🧧💰✨ {postUrl}"
 
 #. placeholder {0}: publishedByFirefly ? ( <FireflyMonochromeIcon fontSize={15} width={15} height={15} className="mb-1 inline" /> ) : null
 msgid "Posted via {0} <0>{platformName}</0>"
-msgstr ""
+msgstr "透過 {0}<0>{platformName}</0> 發佈"
 
 msgid "No bets found"
 msgstr "未發現投注"
@@ -880,7 +880,7 @@ msgid "Orb Mobile"
 msgstr "Orb 流動端"
 
 msgid "X desktop login is currently unavailable on mobile."
-msgstr ""
+msgstr "移動端暫不支援 X 桌面版登入。"
 
 msgid "Type something here..."
 msgstr "在此輸入內容..."
@@ -1282,7 +1282,7 @@ msgid "Whitelist function"
 msgstr "白名單功能"
 
 msgid "Sign in via Firefly App"
-msgstr ""
+msgstr "透過 Firefly App 登入"
 
 msgid "Profile could not be found."
 msgstr "找不到相關個人檔案。"
@@ -1455,7 +1455,7 @@ msgid "Prediction Leaderboard"
 msgstr "預測排行榜"
 
 msgid "Sign in within Firefly App"
-msgstr ""
+msgstr "在 Firefly App 內登入"
 
 msgid "Unmuting..."
 msgstr "正在取消隐藏……"
@@ -1572,7 +1572,7 @@ msgstr "您確定要檢舉此系列嗎？"
 #. placeholder {2}: data.token_symbol
 #. placeholder {3}: getChainName(data.chain_id)
 msgid "{0} tipped you <0>{1} ${2}</0> on <1>{3}</1>"
-msgstr "{0} 在 <1>{3}</1> 發送了你小費 <0>{1} ${2}</0>"
+msgstr "{0} 在 <1>{3}</1> 給你發送了 <0>{1} ${2}</0> 打賞"
 
 msgid "Custom token amount"
 msgstr "自訂代幣數額"
@@ -1753,7 +1753,7 @@ msgstr "查看詳情"
 
 #. placeholder {0}: channel.id
 msgid "Followed /{0} on {sourceName}"
-msgstr ""
+msgstr "在 {sourceName} 關注了 /{0}"
 
 msgid "Try again"
 msgstr "重試"
@@ -2030,7 +2030,7 @@ msgstr "搜尋貼文"
 
 #. placeholder {0}: channel.name
 msgid "Added #{0} on {sourceName}"
-msgstr ""
+msgstr "在 {sourceName} 新增了 #{0}"
 
 msgid "Failed to switch chain"
 msgstr "切換鏈失敗"
@@ -2112,7 +2112,7 @@ msgid "Failed to mint NFT."
 msgstr "鑄造 NFT 失敗"
 
 msgid "PnL"
-msgstr "損益"
+msgstr "盈虧"
 
 msgid "Unlike"
 msgstr "收回讚"
@@ -2591,7 +2591,7 @@ msgstr "👀 Firefly 通知未開啟！"
 
 #. placeholder {0}: channel.id
 msgid "Unfollowed /{0} on {sourceName}"
-msgstr ""
+msgstr "在 {sourceName} 取消追蹤 /{0}"
 
 msgid "Farcaster"
 msgstr "Farcaster"
@@ -2686,7 +2686,7 @@ msgstr "發現加密貨幣混幣器。"
 
 #. placeholder {0}: channel.name
 msgid "Left #{0} on {sourceName}"
-msgstr ""
+msgstr "在 {sourceName} 退出了 #{0}"
 
 msgid "Export recovery phrase"
 msgstr "匯出助記詞"
@@ -2698,7 +2698,7 @@ msgid "Encrypt your login session with a 6-digit password to enable one-click lo
 msgstr "請設定 6 位數字密碼加密您的登入授權，以啟用跨裝置一鍵登入。"
 
 msgid "Your account has not registered on Firefly"
-msgstr ""
+msgstr "您的帳戶尚未在 Firefly 上註冊"
 
 #. placeholder {0}: getRpMaxShares(networkType)
 msgid "At most {0} recipients"
@@ -2844,7 +2844,7 @@ msgid "Choose or set the handles for cross at."
 msgstr "選擇或設定跨平台@所使用的用戶名稱。"
 
 msgid "Note: X desktop login is currently unavailable on mobile."
-msgstr ""
+msgstr "注意：移動端暫不支援 X 桌面版登入。"
 
 msgid "Exclusivity"
 msgstr "獨佔性"
@@ -2868,7 +2868,7 @@ msgid "Loading..."
 msgstr "載入中……"
 
 msgid "Scan the QR code with the <0>Firefly mobile app</0><1/>to sign in directly within the app."
-msgstr ""
+msgstr "使用<0>Firefly 行動應用</0><1/>掃描 QR 碼，即可在應用內直接登入。"
 
 msgid "Share"
 msgstr "分享"
@@ -3822,7 +3822,7 @@ msgstr "哎呀... 發生錯誤，請重試。"
 
 #. placeholder {0}: channel.name
 msgid "Removed #{0} on {sourceName}"
-msgstr ""
+msgstr "在 {sourceName} 移除了 #{0}"
 
 msgid "Follow @masknetwork on X"
 msgstr "在 X 上追蹤 @masknetwork"
@@ -4253,7 +4253,7 @@ msgstr "在區塊瀏覽器查看"
 
 #. placeholder {0}: channel.name
 msgid "Failed to remove #{0} on {sourceName}"
-msgstr ""
+msgstr "在 {sourceName} 移除 #{0} 失敗"
 
 msgid "Wallet"
 msgstr "錢包"
@@ -4324,7 +4324,7 @@ msgstr "Polymarket"
 
 #. placeholder {0}: channel.name
 msgid "Failed to join #{0} on {sourceName}"
-msgstr ""
+msgstr "加入 {sourceName} 的 #{0} 失敗"
 
 msgid "Unfollow {handleOrEnsOrAddress}"
 msgstr "取消追蹤 {handleOrEnsOrAddress}"
@@ -4368,7 +4368,7 @@ msgstr "該怎麼做？"
 
 #. placeholder {0}: channel.id
 msgid "Failed to follow /{0} on {sourceName}"
-msgstr ""
+msgstr "在 {sourceName} 追蹤 /{0} 失敗"
 
 msgid "Choose Wallet"
 msgstr "選擇錢包"
@@ -4506,14 +4506,14 @@ msgstr "Firefly 錢包"
 
 #. placeholder {0}: channel.name
 msgid "Joined #{0} on {sourceName}"
-msgstr ""
+msgstr "在 {sourceName} 加入了 #{0}"
 
 msgid "Confirm to remove this verified address from your Farcaster profile?"
 msgstr "確定要從 Farcaster 個人資料中移除此已驗證地址？"
 
 #. placeholder {0}: channel.name
 msgid "Failed to add #{0} on {sourceName}"
-msgstr ""
+msgstr "在 {sourceName} 新增 #{0} 失敗"
 
 msgid "Language"
 msgstr "語言"
@@ -4568,8 +4568,7 @@ msgid "Unexpected step for setting password: {step}."
 msgstr "驗證密碼時出現意外步驟：{step}。"
 
 msgid "If you have multiple Firefly accounts created with different social logins, deleting this account will help you consolidate your social accounts into one. However, if you're trying to access a different Firefly wallet linked to another social account, consider switching accounts instead of deleting."
-msgstr ""
-"如果你使用不同的社交帳號建立了多個 Firefly 帳戶，刪除此帳戶可以幫助你整合所有社交帳戶。\n"
+msgstr "如果你使用不同的社交帳號建立了多個 Firefly 帳戶，刪除此帳戶可以幫助你整合所有社交帳戶。\n"
 "但如果你仍想存取綁定至另一個社交帳號的 Firefly 錢包，建議你切換帳戶，而不是刪除帳戶。"
 
 msgid "<0>You</0> recasted"
@@ -4743,7 +4742,7 @@ msgstr "創作者："
 
 #. placeholder {0}: channel.name
 msgid "Failed to leave #{0} on {sourceName}"
-msgstr ""
+msgstr "退出 {sourceName} 的 #{0} 失敗"
 
 msgid "Something went wrong, please try again."
 msgstr "哎呀... 發生錯誤，請重試。"
@@ -4856,7 +4855,7 @@ msgstr "多裝置登入"
 
 #. placeholder {0}: channel.id
 msgid "Failed to unfollow /{0} on {sourceName}"
-msgstr ""
+msgstr "在 {sourceName} 取消追蹤 /{0} 失敗"
 
 msgid "This can’t be undone, and the scheduled send will be cancelled."
 msgstr "此操作無法撤銷，預約發送將被取消。"
@@ -4866,3 +4865,4 @@ msgstr "週"
 
 msgid "Success"
 msgstr "成功"
+
