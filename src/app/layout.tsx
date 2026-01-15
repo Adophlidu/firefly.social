@@ -48,6 +48,8 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
     return (
         <html className={rootClass}>
             <head>
+                {/* Videos from twitter can not play on firefly, so we add this to fix */}
+                <meta name="referrer" content="no-referrer" />
                 <meta name="theme-color" content="#ffffff" />
                 <meta name="googlebot" content="notranslate" />
                 {IS_PRODUCTION ? null : <meta name="robots" content="noindex, nofollow" />}
