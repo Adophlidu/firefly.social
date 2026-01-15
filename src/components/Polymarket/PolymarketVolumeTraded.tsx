@@ -24,6 +24,6 @@ export const PolymarketVolumeTraded = memo<PolymarketVolumeTradedProps>(function
     });
 
     if (isLoading) return <span className="inline-block h-3 w-16 animate-pulse rounded-sm bg-third" />;
-    if (!data) return '';
+    if (!data) return '0';
     return data > 1 ? Math.floor(data) : formatPolymarketNumber(data, { prefix: '' });
 });

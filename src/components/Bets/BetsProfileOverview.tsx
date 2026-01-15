@@ -51,7 +51,7 @@ export function BetsProfileOverview({ profile, platform, address }: BetsProfileO
                     profile.volume && profile.volume > 1 ? (
                         Math.floor(profile.volume)
                     ) : (
-                        formatPolymarketNumber(profile.volume)
+                        formatPolymarketNumber(profile.volume) || '0'
                     )
                 ) : (
                     <PolymarketVolumeTraded key="volume-traded" address={address} proxyAddress={profile.proxy} />
