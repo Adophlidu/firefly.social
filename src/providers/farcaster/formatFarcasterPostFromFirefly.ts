@@ -146,6 +146,7 @@ export function formatFarcasterPostFromFirefly(cast: Cast, type?: PostType): Pos
         sendFrom: {
             displayName: cast.sendFrom?.display_name ?? cast.sendFrom?.name,
             name: cast.sendFrom?.name,
+            id: cast.sendFrom?.fid?.toString(),
         },
         incomplete,
         partialContent: incomplete ? content?.content : undefined,

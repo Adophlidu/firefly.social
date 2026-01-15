@@ -433,6 +433,10 @@ msgstr "用户名只能包含小写字母、数字和短横线（-），且不�
 msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
 msgstr "🤑刚刚在领取了一个 #FireflyLuckyDrop 🧧💰✨ {postUrl}"
 
+#. placeholder {0}: publishedByFirefly ? ( <FireflyMonochromeIcon fontSize={15} width={15} height={15} className="mb-1 inline" /> ) : null
+msgid "Posted via {0} <0>{platformName}</0>"
+msgstr ""
+
 msgid "No bets found"
 msgstr "未找到投注"
 
@@ -4086,10 +4090,6 @@ msgstr "您的 {0} 账号已连接。"
 
 msgid "Not Found"
 msgstr "未发现内容"
-
-#. placeholder {0}: isSendFromFirefly(post) ? ( <FireflyMonochromeIcon fontSize={15} width={15} height={15} className="mb-1 inline" /> ) : null
-msgid "Posted via {0} <0>{sendFrom}</0>"
-msgstr "发布于 {0} <0>{sendFrom}</0>"
 
 msgid "The contract owner has no restrictions on personal slippage."
 msgstr "合约所有者对个人滑点没有限制。"

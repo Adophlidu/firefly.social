@@ -313,6 +313,7 @@ export interface Post {
     sendFrom?: {
         displayName?: string;
         name?: string;
+        id?: string;
     };
 
     /**

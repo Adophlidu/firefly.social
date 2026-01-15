@@ -428,6 +428,10 @@ msgstr ""
 msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
 msgstr ""
 
+#. placeholder {0}: publishedByFirefly ? ( <FireflyMonochromeIcon fontSize={15} width={15} height={15} className="mb-1 inline" /> ) : null
+msgid "Posted via {0} <0>{platformName}</0>"
+msgstr ""
+
 msgid "No bets found"
 msgstr ""
 
@@ -4080,10 +4084,6 @@ msgid "Your {0} account is now connected."
 msgstr ""
 
 msgid "Not Found"
-msgstr ""
-
-#. placeholder {0}: isSendFromFirefly(post) ? ( <FireflyMonochromeIcon fontSize={15} width={15} height={15} className="mb-1 inline" /> ) : null
-msgid "Posted via {0} <0>{sendFrom}</0>"
 msgstr ""
 
 msgid "The contract owner has no restrictions on personal slippage."

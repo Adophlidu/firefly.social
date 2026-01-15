@@ -428,6 +428,10 @@ msgstr "User Name can only contain lowercase letters, numbers, and -, and should
 msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
 msgstr "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
 
+#. placeholder {0}: publishedByFirefly ? ( <FireflyMonochromeIcon fontSize={15} width={15} height={15} className="mb-1 inline" /> ) : null
+msgid "Posted via {0} <0>{platformName}</0>"
+msgstr "Posted via {0} <0>{platformName}</0>"
+
 msgid "No bets found"
 msgstr "No bets found"
 
@@ -4081,10 +4085,6 @@ msgstr "Your {0} account is now connected."
 
 msgid "Not Found"
 msgstr "Not Found"
-
-#. placeholder {0}: isSendFromFirefly(post) ? ( <FireflyMonochromeIcon fontSize={15} width={15} height={15} className="mb-1 inline" /> ) : null
-msgid "Posted via {0} <0>{sendFrom}</0>"
-msgstr "Posted via {0} <0>{sendFrom}</0>"
 
 msgid "The contract owner has no restrictions on personal slippage."
 msgstr "The contract owner has no restrictions on personal slippage."

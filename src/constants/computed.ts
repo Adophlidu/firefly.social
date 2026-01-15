@@ -191,6 +191,7 @@ export const SUPPORTED_FRAME_SOURCES: SocialSource[] = [Source.Farcaster];
 export const SUPPORTED_VIDEO_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens, Source.Twitter, Source.Bsky];
 export const SUPPORTED_MEDIA_CORS_SOURCES: Source[] = [Source.Farcaster, Source.Lens, Source.Twitter];
 export const SUPPORTED_CHANNEL_SOURCES: Source[] = [Source.Farcaster, Source.Lens];
+export const SUPPORTED_FETCH_POST_PUBLISH_INFO_SOURCES: SocialSource[] = [Source.Bsky];
 export const SOCIAL_DISCOVER_SOURCE: SocialDiscoverSource[] = [Source.Farcaster, Source.Lens, Source.Bsky] as const;
 export const SOCIAL_DISCOVER_SOURCE_LOGIN_REQUIRED: SocialDiscoverSource[] = [Source.Twitter];
 export const SOCIAL_DISCOVER_WHITELIST_SOURCE: SocialDiscoverSource[] = [Source.Twitter];

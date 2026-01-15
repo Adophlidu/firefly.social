@@ -6,7 +6,7 @@ import dayjs from 'dayjs';
 import { compact, sumBy } from 'lodash-es';
 import { Fragment, type HTMLProps, memo, type ReactNode, useMemo } from 'react';
 
-import FireflyMonochromeIcon from '@/assets/firefly-monochrome.svg';
+import { PostPublishPlatform } from '@/components/Actions/PostPublishPlatform.js';
 import { Link } from '@/components/Link.js';
 import { ChannelAnchor } from '@/components/Posts/ChannelAnchor.js';
 import { Time } from '@/components/Semantic/Time.js';
@@ -15,7 +15,6 @@ import { usePathname } from '@/esm/navigation.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getTimeLeft } from '@/helpers/formatTimestamp.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
-import { isSendFromFirefly } from '@/helpers/isSendFromFirefly.js';
 import { resolvePostEngagementUrl } from '@/helpers/resolveEngagementUrl.js';
 import { type Poll } from '@/providers/types/Poll.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
@@ -157,9 +156,6 @@ export const PostStatistics = memo<Props>(function PostStatistics({
         </EngagementLink>
     ) : null;
     const pollVotes = post.poll ? <PollVotes poll={post.poll} /> : null;
-
-    const sendFrom = post.sendFrom?.displayName === 'Firefly App' ? 'Firefly' : post.sendFrom?.displayName;
-
     const isDetailPage = isRoutePathname(pathname, PageRoute.PostDetail, true);
     const isChannelPage = isRoutePathname(pathname, PageRoute.Channel, true);
 
@@ -191,15 +187,7 @@ export const PostStatistics = memo<Props>(function PostStatistics({
                   quotes,
                   collects,
                   pollVotes,
-                  sendFrom && !hideSource ? (
-                      <Trans>
-                          Posted via{' '}
-                          {isSendFromFirefly(post) ? (
-                              <FireflyMonochromeIcon fontSize={15} width={15} height={15} className="mb-1 inline" />
-                          ) : null}{' '}
-                          <span className="capitalize">{sendFrom}</span>
-                      </Trans>
-                  ) : null,
+                  !hideSource ? <PostPublishPlatform post={post} /> : null,
               ]);
 
     if (!statisticsItems.length) return null;
