@@ -202,10 +202,12 @@ describe('MENTION_REGEXP', () => {
             ['handle @', null],
             ['@handle_name', '@handle_name'],
             ['handle @name', '@name'],
-            ['@handle.lens', '@handle'],
+            ['@handle.lens', '@handle.lens'],
             ['@lens/handle', '@lens/handle'],
             ['@club/handle', '@club/handle'],
             ['@yup_io', '@yup_io'],
+            ['@corbansteward.base.eth', '@corbansteward.base.eth'],
+            ['@user.name', '@user.name'],
             [['This is message', 'with a @mention'].join('\n'), '@mention'],
         ] as Array<[string, string | null]>;
 

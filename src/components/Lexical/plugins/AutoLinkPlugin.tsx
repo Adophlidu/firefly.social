@@ -11,10 +11,14 @@ const MATCHERS = [
         if (match === null) return null;
 
         const fullMatch = match[0];
+        const matchIndex = match.index;
+
+        if (text[matchIndex - 1] === '@' || fullMatch.startsWith('@')) return null;
+
         const url = fixUrlProtocol(fullMatch);
         if (!isTopLevelDomain(url)) return null;
         return {
-            index: match.index,
+            index: matchIndex,
             length: fullMatch.length,
             text: fullMatch,
             url,

@@ -80,6 +80,7 @@ function getMatchedProfile(
         identity.ens,
         identity.eth,
         identity.solana,
+        identity['base.eth'],
     ]
         .flat()
         .find((x) => x?.hit);

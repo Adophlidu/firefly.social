@@ -33,7 +33,7 @@ import { searchIdentity } from '@/providers/firefly/endpoint/searchIdentity.js';
 import { twitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 import { type Profile } from '@/providers/types/Firefly.js';
 
-const PUNCTUATION = '\\.,\\+\\*\\?\\$\\@\\|#{}\\(\\)\\^\\-\\[\\]\\\\/!%\'"~=<>_:;';
+const PUNCTUATION = '\\.,\\+\\*\\?\\$\\@\\|#{}\\(\\)\\^\\[\\]\\\\/!%\'"~=<>_:;\\-';
 const NAME = `\\b[A-Z][^\\s${PUNCTUATION}]`;
 
 const DocumentMentionsRegex = {
@@ -41,20 +41,19 @@ const DocumentMentionsRegex = {
     PUNCTUATION,
 };
 
-const PUNC = DocumentMentionsRegex.PUNCTUATION;
 const TRIGGERS = ['@'].join('');
-const VALID_CHARS = `[^${TRIGGERS}${PUNC}\\s]`;
-const VALID_JOINS = `(?:\\.[ |$]| |[${PUNC}]|)`;
+
+const VALID_CHARS = `[a-zA-Z0-9_-]`;
 const LENGTH_LIMIT = 32;
 const ALIAS_LENGTH_LIMIT = 50;
 const SUGGESTION_LIST_LENGTH_LIMIT = 90;
 
-const AtSignMentionsRegex = new RegExp(
-    `(^|\\s|\\()([${TRIGGERS}]((?:${VALID_CHARS}${VALID_JOINS}){0,${LENGTH_LIMIT}}))$`,
-);
+const MENTION_PATTERN = `${VALID_CHARS}{1,${LENGTH_LIMIT}}(?:\\.${VALID_CHARS}+)*\\.?`;
+
+const AtSignMentionsRegex = new RegExp(`(^|\\s|\\()([${TRIGGERS}](${MENTION_PATTERN}))$`);
 
 const AtSignMentionsRegexAliasRegex = new RegExp(
-    `(^|\\s|\\()([${TRIGGERS}]((?:${VALID_CHARS}){0,${ALIAS_LENGTH_LIMIT}}))$`,
+    `(^|\\s|\\()([${TRIGGERS}](${VALID_CHARS}{1,${ALIAS_LENGTH_LIMIT}}(?:\\.${VALID_CHARS}+)*\\.?))$`,
 );
 
 const checkForAtSignMentions = (text: string, minMatchLength: number): MenuTextMatch | null => {

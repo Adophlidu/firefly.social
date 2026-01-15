@@ -9,7 +9,7 @@ export const EMAIL_REGEX =
 
 export const LITE_EMAIL_REGEX = /^[\w.-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i;
 
-export const MENTION_REGEX = /@[^\s()@:%+~#?&=,!?'.]+/g;
+export const MENTION_REGEX = /@[\w-]+(?:(?:\.[\w-]+)+|(?:\/[\w-]+)+|\.?)/g;
 export const TWITTER_MENTION_REGEX = /@([A-Za-z0-9_]{1,15})/g;
 export const BSKY_MENTION_REGEX = /@([a-zA-Z0-9.-]+)/g;
 export const LENS_MENTION_REGEX = /@(?:lens\/[^\s/@]+|[^\s/@]+\.lens)/gi;

@@ -373,7 +373,10 @@ export type SearchCastsResponse = Response<
       }
 >;
 
-type SearchProfileListItem = Record<SocialSourceInURL | 'eth' | 'solana' | 'ens' | 'account', Profile[] | null>;
+type SearchProfileListItem = Record<
+    SocialSourceInURL | 'eth' | 'solana' | 'ens' | 'account' | 'base.eth',
+    Profile[] | null
+>;
 
 export type SearchProfileResponse = Response<{
     list?: SearchProfileListItem[];
