@@ -43,7 +43,7 @@ export function ComposeActions() {
     const mediaDisabled = videos.length >= maxVideoCount || !!poll || !!rpPayload || images.length >= maxImageCount;
     const showFarcasterChannel =
         availableSources.includes(Source.Farcaster) && (type === 'compose' || type === 'quote');
-    const showLensChannel = availableSources.includes(Source.Lens) && type === 'compose';
+    const showLensChannel = false;
     const showReplyScope = type !== 'reply' && !(type === 'quote' && availableSources.includes(Source.Farcaster));
 
     return (
