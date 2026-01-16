@@ -95,14 +95,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author: 
     );
 
     // all menu items are hidden
-    if (
-        !isMyPost &&
-        isMyProfile &&
-        !(channel && currentProfile) &&
-        !(post && post.source !== Source.Twitter) &&
-        !(post?.postId && post.source !== Source.Twitter)
-    )
-        return null;
+    if (!isMyPost && isMyProfile && !(channel && currentProfile) && !post) return null;
 
     return (
         <MoreActionMenu
@@ -189,7 +182,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author: 
                 {post && ENABLED_BOOKMARK_SOURCES.includes(post.source) ? (
                     <MenuItem>{({ close }) => <PostBookmark onlyIcon={false} post={post} onClick={close} />}</MenuItem>
                 ) : null}
-                {post?.postId && post.source !== Source.Twitter ? (
+                {post?.postId ? (
                     <MenuItem>
                         <Link
                             shallow

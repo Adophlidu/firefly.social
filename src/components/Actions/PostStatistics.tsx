@@ -39,9 +39,7 @@ function EngagementLink({
     children?: ReactNode;
     onSetScrollIndex?: () => void;
 }) {
-    if (props.post.source === Source.Twitter) {
-        return <span>{children}</span>;
-    }
+    if (props.post.source === Source.Twitter) return children;
     return (
         <Link
             prefetch={prefetch}
@@ -200,12 +198,10 @@ export const PostStatistics = memo<Props>(function PostStatistics({
             )}
         >
             <div className="flex flex-wrap items-center gap-1">
-                {statisticsItems.map((item, i, arr) => {
-                    const isLast = arr.length - 1 === i;
+                {statisticsItems.map((item, i) => {
                     return (
                         <Fragment key={i}>
-                            <div>{item}</div>
-                            {!isLast ? <span>{' · '}</span> : null}
+                            <span className="empty:hidden [&:not(:first-of-type)]:before:content-['_·_']">{item}</span>
                         </Fragment>
                     );
                 })}

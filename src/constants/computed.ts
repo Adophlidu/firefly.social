@@ -98,7 +98,8 @@ export const SORTED_ENGAGEMENT_TAB_TYPE: Record<SocialSource, EngagementType[]> 
     [Source.Lens]: [EngagementType.Likes, EngagementType.Quotes, EngagementType.Mirrors],
     // TODO No API to fetch recasts for now.
     [Source.Farcaster]: [EngagementType.Likes, EngagementType.Quotes, EngagementType.Recasts],
-    [Source.Twitter]: [EngagementType.Likes, EngagementType.Quotes],
+    // Twitter/X API no longer provides likes data
+    [Source.Twitter]: [EngagementType.Quotes, EngagementType.Mirrors],
     [Source.Bsky]: [EngagementType.Likes, EngagementType.Quotes, EngagementType.Mirrors],
 };
 export const SORTED_SEARCH_TYPE: Record<SocialSource, SearchType[]> = {

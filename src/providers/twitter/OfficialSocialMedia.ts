@@ -267,11 +267,29 @@ class OfficialSocialMedia implements Provider {
     getLikeReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         throw new NotImplementedError();
     }
+
     getRepostReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        throw new NotImplementedError();
+        const cursor = indicator?.id;
+        const url = urlcat('/api/twitter/:postId/retweeters', { postId, limit: 100, cursor });
+        return twitterSessionHolder
+            .fetch<ResponseJson<{ data: UserV2[]; meta: { next_token?: string } }>>(url)
+            .then((response) => {
+                const data = resolveTwitterResponseData(response);
+                return createPageable(
+                    data.data?.map(formatTwitterProfile) ?? EMPTY_LIST,
+                    createIndicator(indicator),
+                    data.meta?.next_token ? createNextIndicator(indicator, data.meta.next_token) : undefined,
+                );
+            });
     }
+
     getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new NotImplementedError();
+        const cursor = indicator?.id;
+        const url = urlcat('/api/twitter/:postId/quotes', { postId, limit: 25, cursor });
+        return twitterSessionHolder.fetch<ResponseJson<TweetV2PaginableTimelineResult>>(url).then((response) => {
+            const data = resolveTwitterResponseData(response);
+            return formatTweetsPage(data, indicator);
+        });
     }
 
     async unmirrorPost(postId: string, authorId?: number | undefined): Promise<void> {
