@@ -7,12 +7,10 @@ import { memo } from 'react';
 
 import MoreIcon from '@/assets/more-fill.svg';
 import SecurityIcon from '@/assets/security2.svg';
-import WalletBoldIcon from '@/assets/wallet-bold2.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { RecoveryPhraseModalRef } from '@/modals/RecoveryPhraseModal.js';
-import { VerifiedAddressModalRef } from '@/modals/VerifiedAddressModal/index.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface Props {
@@ -34,7 +32,7 @@ export const FarcasterAccountActions = memo<Props>(function FarcasterAccountActi
             loginRequired={false}
         >
             <MenuGroup>
-                <MenuItem>
+                {/* <MenuItem>
                     {({ close }) => (
                         <MenuButton
                             onClick={() => {
@@ -50,7 +48,7 @@ export const FarcasterAccountActions = memo<Props>(function FarcasterAccountActi
                             </span>
                         </MenuButton>
                     )}
-                </MenuItem>
+                </MenuItem> */}
                 {isCustodyWallet ? (
                     <MenuItem>
                         {({ close }) => (
