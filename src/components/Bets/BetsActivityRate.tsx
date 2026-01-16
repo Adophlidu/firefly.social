@@ -45,7 +45,10 @@ export function BetsActivityRate({ activity }: ActivityRateProps) {
                             style={{
                                 flex: isZeroPrice ? 1 : price,
                             }}
-                            className={isLast ? 'text-right text-danger' : 'text-left text-success'}
+                            className={classNames(
+                                'min-w-0 overflow-hidden',
+                                isLast ? 'text-right text-danger' : 'text-left text-success',
+                            )}
                         >
                             <div className="w-full whitespace-nowrap text-sm">
                                 <span className={`font-bold ${bedStead.className}`}>{outcome}</span>
