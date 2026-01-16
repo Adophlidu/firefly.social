@@ -16,6 +16,8 @@ const REQUEST_ONLY_METHODS = [
     IframeBridgeMethod.NAVIGATE,
     IframeBridgeMethod.FIREFLY_WALLET_VISIBILITY,
     IframeBridgeMethod.FIREFLY_WALLET_NAVIGATE,
+    IframeBridgeMethod.FIREFLY_WALLET_OPEN,
+    IframeBridgeMethod.FIREFLY_WALLET_CLOSE,
     IframeBridgeMethod.FIREFLY_WALLET_ADD_SESSION_SIGNER,
 ];
 

@@ -8,6 +8,7 @@ import { Link } from '@/components/Link.js';
 import { formatPolymarketNumber } from '@/components/Polymarket/formatPolymarketNumber.js';
 import { BetsPlatform } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
+import { createBetEventPath } from '@/helpers/createBetEventPath.js';
 import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
 import { resolveOpinionEventUrl } from '@/helpers/resolveOpinionEventUrl.js';
 import { resolvePolymarketEventUrl } from '@/helpers/resolvePolymarketEventUrl.js';
@@ -160,7 +161,7 @@ export function BetsPositionItem({ positionData: position, platform, showAction 
                                     const eventSlug = position.event_slugs?.[0] || position.conditionId || position.Id;
                                     const outcomeIndex = position.vote_status === 'No' ? 1 : 0;
                                     openFireflyWallet({
-                                        path: `/bet/event/${encodeURIComponent(eventSlug)}?side=sell&outcome=${outcomeIndex}`,
+                                        path: createBetEventPath(eventSlug, { side: 'sell', outcome: outcomeIndex }),
                                     });
                                 }}
                             >

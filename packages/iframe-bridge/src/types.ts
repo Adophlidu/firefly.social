@@ -11,6 +11,8 @@ export enum IframeBridgeMethod {
     ENQUEUE_MESSAGE = 'enqueueMessage',
     DOWNLOAD_APP = 'downloadApp',
     FIREFLY_WALLET_NAVIGATE = 'firefly_wallet_navigate',
+    FIREFLY_WALLET_OPEN = 'firefly_wallet_open',
+    FIREFLY_WALLET_CLOSE = 'firefly_wallet_close',
     FIREFLY_WALLET_EVM_RPC = 'evm_rpc',
     FIREFLY_WALLET_SOLANA_RPC = 'solana_rpc',
     FIREFLY_WALLET_AUTHORIZED = 'firefly_wallet_authorized',
@@ -48,6 +50,8 @@ export interface IframeBridgeRequestArguments {
         path: string;
         replace?: boolean;
     };
+    [IframeBridgeMethod.FIREFLY_WALLET_OPEN]: {};
+    [IframeBridgeMethod.FIREFLY_WALLET_CLOSE]: {};
     [IframeBridgeMethod.FIREFLY_WALLET_EVM_RPC]: {
         method: string;
         params?: unknown[] | object;
@@ -81,6 +85,8 @@ export interface IframeBridgeResponseResult {
     [IframeBridgeMethod.LOGIN]: void;
     [IframeBridgeMethod.DOWNLOAD_APP]: void;
     [IframeBridgeMethod.FIREFLY_WALLET_NAVIGATE]: void;
+    [IframeBridgeMethod.FIREFLY_WALLET_OPEN]: void;
+    [IframeBridgeMethod.FIREFLY_WALLET_CLOSE]: void;
     [IframeBridgeMethod.FIREFLY_WALLET_EVM_RPC]: EvmRpcResult;
     [IframeBridgeMethod.FIREFLY_WALLET_SOLANA_RPC]: SolanaResponse;
     [IframeBridgeMethod.FIREFLY_WALLET_AUTHORIZED]: void;

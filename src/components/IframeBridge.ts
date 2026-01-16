@@ -23,6 +23,7 @@ import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { reconnectPrivyWallet } from '@/helpers/reconnectPrivyWallet.js';
 import { DownloadMobileAppModalRef } from '@/modals/DownloadMobileAppModal/index.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
+import { useGlobalState } from '@/store/useGlobalStore.js';
 
 const allEvents: {
     [K in IframeBridgeMethod]: (params: IframeBridgeRequestArguments[K]) => Promise<IframeBridgeResponseResult[K]>;
@@ -71,6 +72,12 @@ const allEvents: {
     },
     [IframeBridgeMethod.FIREFLY_WALLET_NAVIGATE]: async () => {
         throw new NotImplementedError();
+    },
+    [IframeBridgeMethod.FIREFLY_WALLET_OPEN]: async () => {
+        useGlobalState.getState().updateFireflyWalletIsOpen(true);
+    },
+    [IframeBridgeMethod.FIREFLY_WALLET_CLOSE]: async () => {
+        useGlobalState.getState().updateFireflyWalletIsOpen(false);
     },
     [IframeBridgeMethod.FIREFLY_WALLET_EVM_RPC]: async () => {
         throw new NotImplementedError();
