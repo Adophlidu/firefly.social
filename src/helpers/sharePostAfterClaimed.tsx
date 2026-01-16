@@ -26,7 +26,7 @@ function ClaimMessage({ amount, symbol, networkType, chainId, txHash }: Props) {
     const openFireflyWallet = useOpenFireflyWallet();
     return (
         <Trans>
-            Your claimed {amount} {symbol} to your{' '}
+            You claimed {amount} {symbol} to your{' '}
             <span
                 className="cursor-pointer text-highlight"
                 onClick={() => {

@@ -95,7 +95,7 @@ function Content({ enabled, onClose }: { enabled: boolean; onClose?: () => void 
                 title: <Trans>Sign in Confirmation</Trans>,
                 variant: 'normal',
                 content: (
-                    <div className="mb-3 mt-4 text-center text-sm font-normal leading-[18px] text-[rgba(70,70,70,0.8)]">
+                    <div className="mb-3 mt-4 text-center text-sm font-normal leading-[18px] text-[rgba(70,70,70,0.8)] dark:text-secondary">
                         <Trans>
                             Your account is requesting to sign in to mobile. Please confirm that the device is with you
                             and that it is you who is signing in

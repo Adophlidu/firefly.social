@@ -557,6 +557,9 @@ msgstr ""
 msgid "Back to list"
 msgstr ""
 
+msgid "You claimed {amount} {symbol} to your <0>Firefly Wallet</0>."
+msgstr ""
+
 msgid "Scheduled"
 msgstr ""
 
@@ -1206,9 +1209,6 @@ msgid "The contract owner has no restrictions on trading cooldown."
 msgstr ""
 
 msgid "Connect Wallet"
-msgstr ""
-
-msgid "Your claimed {amount} {symbol} to your <0>Firefly Wallet</0>."
 msgstr ""
 
 msgid "Mobile QR login is interrupted. Please try again."

@@ -562,6 +562,9 @@ msgstr "投票"
 msgid "Back to list"
 msgstr "返回列表"
 
+msgid "You claimed {amount} {symbol} to your <0>Firefly Wallet</0>."
+msgstr ""
+
 msgid "Scheduled"
 msgstr "已預約"
 
@@ -1212,9 +1215,6 @@ msgstr "合約擁有者未設定交易冷卻限制。"
 
 msgid "Connect Wallet"
 msgstr "連接錢包"
-
-msgid "Your claimed {amount} {symbol} to your <0>Firefly Wallet</0>."
-msgstr "您領取的 {amount} {symbol} 已發送至您的 <0>Firefly 錢包</0>。"
 
 msgid "Mobile QR login is interrupted. Please try again."
 msgstr "行動版二維碼登入已中斷。請重試。"
