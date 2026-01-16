@@ -2688,6 +2688,7 @@ export interface PolymarketPositionData {
     conditionId: string;
     cur_price: number;
     event_slugs: string[];
+    marketSlug: string;
     image?: string;
     is_closed: boolean;
     negRisk: boolean;
@@ -2785,6 +2786,7 @@ export interface BetsPosition {
     cur_price: number;
     closed_time: number;
     offset: 0 | 1; // 0-left 1-right
+    marketSlug: string;
 }
 
 export enum DesktopSyncChannelStatus {

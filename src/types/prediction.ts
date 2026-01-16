@@ -20,6 +20,7 @@ export interface PredictionPositionDataForUI {
     title?: string;
     vote_status: string;
     event_slugs: string[];
+    marketSlug: string;
     Id: string;
     image?: string;
     shares: number;

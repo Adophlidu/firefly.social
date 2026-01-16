@@ -157,10 +157,9 @@ export function PredictionPositionItem({ positionData: position, platform, showA
                             <ClickableButton
                                 className="box-border h-8 w-[128px] whitespace-nowrap rounded-lg bg-highlight py-2 text-xs text-white"
                                 onClick={() => {
-                                    const eventSlug = position.event_slugs?.[0] || position.conditionId || position.Id;
                                     const outcomeIndex = position.vote_status === 'No' ? 1 : 0;
                                     openFireflyWallet({
-                                        path: `/bet/event/${encodeURIComponent(eventSlug)}?side=sell&outcome=${outcomeIndex}`,
+                                        path: `/bet/event/${encodeURIComponent(position.marketSlug)}?side=sell&outcome=${outcomeIndex}`,
                                     });
                                 }}
                             >
