@@ -2384,6 +2384,97 @@ export interface BetPortfolioItem {
     volume?: number;
 }
 
+export interface WalletProfileInfo {
+    walletProfiles: Array<{
+        address: string;
+        ens?: string[];
+        blockchain: string;
+        is_connected: boolean;
+        verifiedSources: unknown[];
+        dataSource: string | null;
+        avatar: string;
+        primary_ens: string | null;
+        isDefault?: boolean;
+        connectedAt?: string;
+    }>;
+    lensProfiles: unknown[];
+    lensV2Profiles: unknown[];
+    lensProfilesV3: Array<{
+        id: string;
+        ownedBy: string;
+        nameSpace: string;
+        localName: string;
+        fullHandle: string;
+        sortIndex: string;
+        isDefault?: boolean;
+        connectedAt?: string;
+    }>;
+    farcasterProfiles: Array<{
+        avatar: { url: string; verified: boolean };
+        bio: string;
+        followerCount: number;
+        followingCount: number;
+        fid: number;
+        username: string;
+        display_name: string;
+        isPowerUser: boolean;
+        isProUser?: boolean;
+        raw_data: string;
+        signer_address: string;
+        addresses: string[];
+        solanaAddresses?: string[];
+        id: number;
+        banner?: string | null;
+        sortIndex?: string;
+        isDefault?: boolean;
+        connectedAt?: string;
+    }>;
+    twitterProfiles: Array<{
+        twitter_id: string;
+        handle: string;
+        source: string;
+        provider: string;
+        isDefault?: boolean;
+    }>;
+    fireflyAccountId: string;
+    fireflyAccountIdV2?: string;
+    solanaWalletProfiles: Array<{
+        address: string;
+        blockchain: string;
+        is_connected: boolean;
+        dataSource: string | null;
+        avatar: string;
+        verifiedSources: unknown[];
+        isDefault?: boolean;
+    }>;
+    bskyProfiles: Array<{
+        did: string;
+        handle: string;
+        isDefault?: boolean;
+    }>;
+    baseEthProfiles: unknown[];
+    SnsProfiles: unknown[];
+    SeekeridProfiles: unknown[];
+    manyAccountProfiles: Array<{
+        account_id: string;
+        uid: string;
+        account_uuid: string;
+        display_name: string;
+    }>;
+    account?: {
+        displayName: string;
+        avatar: string;
+        account_uuid: string;
+        accountID: string;
+        uid: string;
+        createdAt: string;
+    };
+}
+
+export type WalletProfileInfoListResponse = Response<{
+    walletAddress: Array<Record<string, WalletProfileInfo>>;
+}>;
+
 export interface PolymarketEventSlugListData {
     slug: string;
     label: string;

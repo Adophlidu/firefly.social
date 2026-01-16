@@ -1,7 +1,8 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import { compact } from 'lodash-es';
+import { useQuery } from '@tanstack/react-query';
+import { compact, first } from 'lodash-es';
 import { useMemo } from 'react';
 
 import { Avatar } from '@/components/Avatar.js';
@@ -9,12 +10,15 @@ import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { formatPolymarketNumber } from '@/components/Polymarket/formatPolymarketNumber.js';
 import { PolymarketVolumeTraded } from '@/components/Polymarket/PolymarketVolumeTraded.js';
 import { toRate } from '@/components/Polymarket/toRate.js';
+import { extractFallbackInfo } from '@/components/Prediction/extractFallbackInfo.js';
 import { PredictionPlatformName } from '@/components/Prediction/PredictionPlatformName.js';
 import { BetsPlatform, Source } from '@/constants/enum.js';
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
-import { type PredictionProfileDataForUI } from '@/types/prediction.js';
+import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
+import { getWalletProfileInfoList } from '@/providers/firefly/prediction/getWalletProfileInfoList.js';
+import type { PredictionProfileDataForUI } from '@/types/prediction.js';
 
 interface PredictionProfileOverviewProps {
     profile: PredictionProfileDataForUI;
@@ -24,6 +28,29 @@ interface PredictionProfileOverviewProps {
 
 export function PredictionProfileOverview({ profile, platform, address }: PredictionProfileOverviewProps) {
     const isOpinion = platform === BetsPlatform.Opinion;
+
+    const { data: fallbackProfile } = useQuery({
+        enabled: !profile.platform_avatar || !profile.platform_name,
+        queryKey: ['wallet-profile-info-list', address, platform],
+        queryFn: () => getWalletProfileInfoList(address, platform, true),
+        select: (data) => {
+            const walletAddresses = data?.data?.walletAddress;
+            if (!walletAddresses || walletAddresses.length === 0) return null;
+            const firstEntry = first(walletAddresses);
+            if (!firstEntry) return null;
+
+            for (const key in firstEntry) {
+                if (isSameEthereumAddress(key, address)) return firstEntry[key];
+            }
+
+            return null;
+        },
+    });
+
+    const { name: fallbackName, avatar: fallbackAvatar } = useMemo(() => {
+        if (!fallbackProfile) return { name: undefined, avatar: undefined };
+        return extractFallbackInfo(fallbackProfile);
+    }, [fallbackProfile]);
 
     const dataConfig = useMemo(() => {
         return compact([
@@ -106,14 +133,14 @@ export function PredictionProfileOverview({ profile, platform, address }: Predic
         <div className="flex flex-col">
             <div className="flex items-center gap-4 px-4 pt-3">
                 <Avatar
-                    src={profile.platform_avatar ?? getStampAvatarByProfileId(Source.Wallet, address)}
+                    src={profile.platform_avatar || fallbackAvatar || getStampAvatarByProfileId(Source.Wallet, address)}
                     alt="avatar"
                     size={40}
                     className="size-10 rounded-full border border-highlight"
                 />
-                <div>
-                    <div className="text-lg font-semibold text-main">
-                        {profile.platform_name || <PredictionPlatformName platform={platform} />}
+                <div className="min-w-0">
+                    <div className="truncate whitespace-nowrap text-lg font-semibold text-main">
+                        {profile.platform_name || fallbackName || <PredictionPlatformName platform={platform} />}
                     </div>
                     <div className="ml-auto flex items-center text-[13px] font-medium text-second">
                         {formatAddressEthereum(address, 4, 2)}
