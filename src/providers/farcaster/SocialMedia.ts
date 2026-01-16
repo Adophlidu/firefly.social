@@ -390,10 +390,10 @@ class FarcasterSocialMedia implements Provider {
         profileId?: string,
         postType?: BookmarkType,
     ): Promise<boolean> {
-        throw new NotImplementedError();
+        return fireflySocialMediaProvider.bookmark(postId, platform, profileId, postType);
     }
     async unbookmark(postId: string): Promise<boolean> {
-        throw new NotImplementedError();
+        return fireflySocialMediaProvider.unbookmark(postId);
     }
     async getBookmarks(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         return fireflySocialMediaProvider.getBookmarks(indicator);

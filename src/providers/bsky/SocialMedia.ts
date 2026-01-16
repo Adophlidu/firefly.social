@@ -46,6 +46,7 @@ import { resolveBskyResponseData, resolveBskyResponseDataAsync } from '@/provide
 import { type BskySession } from '@/providers/bsky/Session.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
+import { fireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { type Account } from '@/providers/types/Account.js';
 import { type BookmarkResponse, type NotificationSettings, type WalletProfile } from '@/providers/types/Firefly.js';
 import { type Session } from '@/providers/types/Session.js';
@@ -760,10 +761,10 @@ class BskySocialMedia implements Provider {
         profileId?: string,
         postType?: BookmarkType,
     ): Promise<boolean> {
-        throw new NotImplementedError();
+        return fireflySocialMediaProvider.bookmark(postId, platform, profileId, postType);
     }
     async unbookmark(postId: string): Promise<boolean> {
-        throw new NotImplementedError();
+        return fireflySocialMediaProvider.unbookmark(postId);
     }
     async getBookmarks(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/bookmark/find', {

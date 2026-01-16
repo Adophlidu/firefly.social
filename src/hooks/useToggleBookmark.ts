@@ -1,13 +1,12 @@
 import { t } from '@lingui/core/macro';
 import { useMutation } from '@tanstack/react-query';
 
-import { BookmarkType, type SocialSource, Source } from '@/constants/enum.js';
+import { BookmarkType, type SocialSource } from '@/constants/enum.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveFireflyPlatformFromSocialSource } from '@/helpers/resolveFireflyPlatform.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { fireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { capturePostActionEvent } from '@/providers/telemetry/capturePostActionEvent.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
 
@@ -23,9 +22,7 @@ export function useToggleBookmark(source: SocialSource) {
             const { hasBookmarked, postId } = post;
 
             try {
-                const provider = [Source.Lens, Source.Twitter].includes(post.source)
-                    ? resolveSocialMediaProvider(post.source)
-                    : fireflySocialMediaProvider;
+                const provider = resolveSocialMediaProvider(post.source);
                 const result = hasBookmarked
                     ? await provider.unbookmark(postId)
                     : await provider.bookmark(
