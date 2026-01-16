@@ -116,7 +116,7 @@ function NFTBookmarkListContent() {
 
 export function NFTBookmarkList() {
     return (
-        <LoginRequiredGuard source={Source.Bets}>
+        <LoginRequiredGuard source={Source.Prediction}>
             <NFTBookmarkListContent />
         </LoginRequiredGuard>
     );

@@ -8,7 +8,7 @@ import { setupLocaleForSSR } from '@/i18n/index.js';
 import { type NextPageProps } from '@/types/utility.js';
 
 export async function generateMetadata() {
-    return createSiteMetadata(`/bets/leaderboard`, {
+    return createSiteMetadata(`/prediction/leaderboard`, {
         title: await createPageTitleSSR(msg`Prediction Leaderboard`),
     });
 }

@@ -1,4 +1,4 @@
-import { BetsProfileDetailContent } from '@/components/Bets/BetsProfileDetailContent.js';
+import { PredictionProfileDetailContent } from '@/components/Prediction/PredictionProfileDetailContent.js';
 import { BetsPlatform } from '@/constants/enum.js';
 import { type NextPageProps } from '@/types/utility.js';
 
@@ -10,5 +10,5 @@ interface Props
 export default async function OpinionProfilePage(props: Props) {
     const { address } = await props.params;
 
-    return <BetsProfileDetailContent address={address} platform={BetsPlatform.Opinion} />;
+    return <PredictionProfileDetailContent address={address} platform={BetsPlatform.Opinion} />;
 }

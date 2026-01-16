@@ -51,7 +51,7 @@ function getQueryKey(identity: FireflyIdentity, forceHandle: boolean) {
         case Source.Swap:
         case Source.Transactions:
         case Source.Activities:
-        case Source.Bets:
+        case Source.Prediction:
             return '';
         default:
             safeUnreachable(identity.source);

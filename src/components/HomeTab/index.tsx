@@ -6,10 +6,10 @@ import { Trans } from '@lingui/react/macro';
 import { useMemo } from 'react';
 
 import ArrowDownCircleIcon from '@/assets/arrow-circle-down.svg';
-import { BetsPlatformFilter } from '@/components/Bets/BetsPlatformFilter.js';
 import { ActivitiesFilter } from '@/components/HomeTab/ActivitiesFilter.js';
 import { DiscoverFilter } from '@/components/HomeTab/DiscoverFilter.js';
 import { Link } from '@/components/Link.js';
+import { PredictionPlatformFilter } from '@/components/Prediction/PredictionPlatformFilter.js';
 import { ChainFilter } from '@/components/Swap/ChainFilter.js';
 import { SolidTabs } from '@/components/Tabs/SolidTabs.js';
 import { HomeTab, NetworkType, Source } from '@/constants/enum.js';
@@ -23,14 +23,14 @@ import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import { ActivitiesFilterNamespace } from '@/store/useActivitiesFilterStore.js';
-import { BetsFilterNamespace } from '@/store/useBetsSourceFilterStore.js';
+import { PredictionFilterNamespace } from '@/store/usePredictionSourceFilterStore.js';
 import { useTransactionsStateStore } from '@/store/useTransactionsStore.js';
 
 const types = {
     [HomeTab.Discover]: NFT_ENABLED
-        ? [Source.Posts, Source.Transactions, Source.Bets, Source.Activities]
-        : [Source.Posts, Source.Bets, Source.Activities],
-    [HomeTab.Following]: [Source.Posts, Source.Transactions, Source.Bets, Source.Activities],
+        ? [Source.Posts, Source.Transactions, Source.Prediction, Source.Activities]
+        : [Source.Posts, Source.Prediction, Source.Activities],
+    [HomeTab.Following]: [Source.Posts, Source.Transactions, Source.Prediction, Source.Activities],
 };
 const tabLabels = {
     [HomeTab.Discover]: <Trans>For You</Trans>,
@@ -44,7 +44,7 @@ function resolveHomeTabEventId(tab: HomeTab, source: Source): EventId | null {
                 return EventId.EVENT_FOLLOWING_POSTS_CLICK;
             case Source.Transactions:
                 return EventId.EVENT_FOLLOWING_SWAP_CLICK;
-            case Source.Bets:
+            case Source.Prediction:
                 return EventId.EVENT_FOLLOWING_BETS_CLICK;
             case Source.Activities:
                 return EventId.EVENT_FOLLOWING_ACTIVITIES_CLICK;
@@ -57,7 +57,7 @@ function resolveHomeTabEventId(tab: HomeTab, source: Source): EventId | null {
                 return EventId.EVENT_FOR_YOU_POSTS_CLICK;
             case Source.Transactions:
                 return EventId.EVENT_FOR_YOU_SWAP_CLICK;
-            case Source.Bets:
+            case Source.Prediction:
                 return EventId.EVENT_FOR_YOU_BETS_CLICK;
             case Source.Activities:
                 return EventId.EVENT_FOR_YOU_ACTIVITIES_CLICK;
@@ -209,9 +209,13 @@ export function HomeTabs({
                         />
                     ) : source === Source.Activities ? (
                         <ActivitiesFilter namespace={ActivitiesFilterNamespace.Home} hasMatters={!isFollowingTab} />
-                    ) : source === Source.Bets ? (
-                        <BetsPlatformFilter
-                            namespace={isFollowingTab ? BetsFilterNamespace.Following : BetsFilterNamespace.Discover}
+                    ) : source === Source.Prediction ? (
+                        <PredictionPlatformFilter
+                            namespace={
+                                isFollowingTab
+                                    ? PredictionFilterNamespace.Following
+                                    : PredictionFilterNamespace.Discover
+                            }
                         />
                     ) : null}
                 </div>

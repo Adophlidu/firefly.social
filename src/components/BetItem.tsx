@@ -7,10 +7,10 @@ import { capitalize, first } from 'lodash-es';
 import { memo, useMemo } from 'react';
 
 import TimeIcon from '@/assets/time.svg';
-import { BUTTON_COLORS } from '@/components/Bets/BetsActivityRate.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
+import { BUTTON_COLORS } from '@/components/Prediction/PredictionActivityRate.js';
 import { Timer } from '@/components/RedPacket/Timer.js';
 import { EMPTY_LIST } from '@/constants/static.js';
 import { bedStead } from '@/fonts/bedStead/index.js';
@@ -324,7 +324,6 @@ export const BetItem = memo(function BetItem({ event, className }: BetItemProps)
                                                 className={classNames(
                                                     'min-w-0 flex-1 overflow-hidden rounded-lg px-3 py-1.5 text-sm font-bold leading-6 sm:w-[100px] md:w-[120px]',
                                                     BUTTON_COLORS.success.bg,
-                                                    BUTTON_COLORS.success.hover,
                                                     BUTTON_COLORS.success.text,
                                                 )}
                                                 onClick={() => {
@@ -338,7 +337,6 @@ export const BetItem = memo(function BetItem({ event, className }: BetItemProps)
                                                     className={classNames(
                                                         'min-w-0 flex-1 overflow-hidden rounded-lg px-3 py-1.5 text-sm font-bold leading-6 sm:w-[100px] md:w-[120px]',
                                                         BUTTON_COLORS.danger.bg,
-                                                        BUTTON_COLORS.danger.hover,
                                                         BUTTON_COLORS.danger.text,
                                                     )}
                                                     onClick={() => {
@@ -421,7 +419,6 @@ export const BetItem = memo(function BetItem({ event, className }: BetItemProps)
                                         className={classNames(
                                             'min-w-0 flex-1 overflow-hidden rounded-lg px-4 py-2 text-sm font-bold leading-6',
                                             BUTTON_COLORS.success.bg,
-                                            BUTTON_COLORS.success.hover,
                                             BUTTON_COLORS.success.text,
                                         )}
                                         onClick={() => {
@@ -438,7 +435,6 @@ export const BetItem = memo(function BetItem({ event, className }: BetItemProps)
                                         className={classNames(
                                             'min-w-0 flex-1 overflow-hidden rounded-lg px-4 py-2 text-sm font-bold leading-6',
                                             BUTTON_COLORS.danger.bg,
-                                            BUTTON_COLORS.danger.hover,
                                             BUTTON_COLORS.danger.text,
                                         )}
                                         onClick={() => {

@@ -24,7 +24,7 @@ export function parseOldFollowingUrl(url: URL) {
     const source =
         resolveSourceFromUrlNoFallback(url.searchParams.get('source')) ||
         (sourceFromPath === 'polymarket'
-            ? Source.Bets
+            ? Source.Prediction
             : fixFollowingSource(resolveSourceFromUrlNoFallback(sourceFromPath)));
 
     if (!source || !isFollowingSource(source)) return null;

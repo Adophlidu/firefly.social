@@ -199,13 +199,13 @@ export const SOCIAL_DISCOVER_WHITELIST_SOURCE: SocialDiscoverSource[] = [Source.
 export const DISCOVER_SOURCES: DiscoverSource[] = [
     Source.Posts,
     Source.Transactions,
-    Source.Bets,
+    Source.Prediction,
     Source.Activities,
 ] as const;
 export const FOLLOWING_SOURCES: FollowingSource[] = [
     Source.Posts,
     Source.Transactions,
-    Source.Bets,
+    Source.Prediction,
     Source.Activities,
 ] as const;
 export const FOLLOWING_CATEGORY = [FollowCategory.Followers, FollowCategory.Mutuals, FollowCategory.Following] as const;
@@ -248,7 +248,7 @@ export const BOOKMARK_SOURCES: BookmarkSource[] = [
     Source.Lens,
     Source.Bsky,
     Source.Tokens,
-    Source.Bets,
+    Source.Prediction,
     Source.NFTs,
     Source.Article,
     Source.DAOs,

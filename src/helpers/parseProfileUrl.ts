@@ -16,14 +16,18 @@ export function parseProfileUrl(pathname: string) {
             source,
         };
     }
-    const isSocialProfile = isSocialSource(source) && isSocialProfileCategory(source, category);
+
+    // Handle old /bets URL - convert to prediction
+    const normalizedCategory = category === 'bets' ? WalletProfileCategory.Bets : category;
+
+    const isSocialProfile = isSocialSource(source) && isSocialProfileCategory(source, normalizedCategory);
     const isWalletProfile =
-        (source === Source.Wallet || source === Source.WalletMix) && isWalletProfileCategory(category);
-    const isProfileFollowPage = isSocialSource(source) && isFollowCategory(category);
+        (source === Source.Wallet || source === Source.WalletMix) && isWalletProfileCategory(normalizedCategory);
+    const isProfileFollowPage = isSocialSource(source) && isFollowCategory(normalizedCategory);
     if (isSocialProfile || isWalletProfile || isProfileFollowPage) {
         return {
             id,
-            category,
+            category: normalizedCategory,
             source,
         };
     }
@@ -37,7 +41,7 @@ function fixWalletProfileCategory(category: WalletProfileCategory) {
     if (['swap'].includes(category)) {
         return WalletProfileCategory.Transactions;
     }
-    if (['polymarket'].includes(category)) {
+    if (['polymarket', 'bets'].includes(category)) {
         return WalletProfileCategory.Bets;
     }
 

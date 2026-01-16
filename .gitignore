@@ -71,3 +71,4 @@ packages/*/node_modules/
 
 # image comparison artifacts
 .image-comparison/
+.next-env.d.ts

@@ -4,7 +4,7 @@ import { produce } from 'immer';
 import { queryClient } from '@/configs/queryClient.js';
 import { ExtraLikeType, Source, TxReactionType } from '@/constants/enum.js';
 import { type PageData } from '@/decorators/types.js';
-import { patchBetsActivityData } from '@/helpers/patchBetsActivityData.js';
+import { patchPredictionActivityData } from '@/helpers/patchPredictionActivityData.js';
 import { patchTransactionsQuery } from '@/helpers/patchTransactionsQuery.js';
 import { updateTipsReactionStatus } from '@/helpers/updateTipsReactionStatus.js';
 import { type LikeTarget } from '@/hooks/useToggleLike.js';
@@ -94,7 +94,7 @@ function updateQueryForSnapshot(activity: SnapshotActivity, isLiked: boolean) {
     );
 }
 function updateQueryForPolymarket(activity: BetsActivity, isLiked: boolean) {
-    patchBetsActivityData((oldData) => {
+    patchPredictionActivityData((oldData) => {
         if (oldData.transactionHash === activity.transactionHash) {
             oldData.isLiked = !isLiked;
             oldData.likeCount = (activity.likeCount || 0) + (isLiked ? -1 : 1);
@@ -145,7 +145,7 @@ export function updateQueryForLikeReaction(target: LikeTarget, isLiked: boolean)
             return updateQueryForArticle(target.data, isLiked);
         case Source.DAOs:
             return updateQueryForSnapshot(target.data, isLiked);
-        case Source.Bets:
+        case Source.Prediction:
             return updateQueryForPolymarket(target.data, isLiked);
         case Source.Swap:
             return updateQueryForSwap(target.data, isLiked);

@@ -4,10 +4,10 @@ import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { Suspense, useCallback, useState } from 'react';
 
-import { BetsLeaderboardContent } from '@/components/Bets/BetsLeaderboardContent.js';
-import { BetsLeaderboardFilters } from '@/components/Bets/BetsLeaderboardFilters.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Loading } from '@/components/Loading.js';
+import { PredictionLeaderboardContent } from '@/components/Prediction/PredictionLeaderboardContent.js';
+import { PredictionLeaderboardFilters } from '@/components/Prediction/PredictionLeaderboardFilters.js';
 import { BetsLeaderboardTab, PolymarketRankOrder, PolymarketRankPeriod } from '@/constants/enum.js';
 
 export default function BetsLeaderboardPage() {
@@ -56,7 +56,7 @@ export default function BetsLeaderboardPage() {
                 </nav>
             </div>
             <div className="flex flex-col gap-4 p-3">
-                <BetsLeaderboardFilters
+                <PredictionLeaderboardFilters
                     period={period}
                     order={order}
                     onPeriodChange={setPeriod}
@@ -64,7 +64,7 @@ export default function BetsLeaderboardPage() {
                     isGlobal={tab === BetsLeaderboardTab.Global}
                 />
                 <Suspense fallback={<Loading />}>
-                    <BetsLeaderboardContent tab={tab} period={period} order={order} />
+                    <PredictionLeaderboardContent tab={tab} period={period} order={order} />
                 </Suspense>
             </div>
         </div>

@@ -29,7 +29,7 @@ function createTransactionsFetcher(
                     })),
                 };
             }
-            case Source.Bets: {
+            case Source.Prediction: {
                 if (chainId && chainId !== polygon.id) {
                     return createPageable([], createIndicator(undefined, pageParam));
                 }

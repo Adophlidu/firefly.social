@@ -21,7 +21,7 @@ export function ProfileTransactions({ address }: ProfileTransactionsProps) {
 
     const queryResult = useMultiInfiniteQueryPageable<TransactionsItem, Pageable<TransactionsItem, PageIndicator>>(
         ['profile', 'transactions', address.toLowerCase(), selectedChainId],
-        ([Source.Swap, Source.NFTs, Source.Bets] as const).map((source) => ({
+        ([Source.Swap, Source.NFTs, Source.Prediction] as const).map((source) => ({
             key: source,
             async queryFn({ pageParam }) {
                 const result = await getProfileTransactions(

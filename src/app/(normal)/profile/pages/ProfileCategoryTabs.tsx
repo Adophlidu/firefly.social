@@ -4,9 +4,9 @@ import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { type ReactNode, useMemo } from 'react';
 
-import { BetsPlatformFilter } from '@/components/Bets/BetsPlatformFilter.js';
 import { ActivitiesFilter } from '@/components/HomeTab/ActivitiesFilter.js';
 import { Link } from '@/components/Link.js';
+import { PredictionPlatformFilter } from '@/components/Prediction/PredictionPlatformFilter.js';
 import { ChainFilter } from '@/components/Swap/ChainFilter.js';
 import { ToggleEnableButton } from '@/components/TrumpTruthSocial/ToggleEnableButton.js';
 import {
@@ -31,7 +31,7 @@ import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useExploreDataSwitchConfig } from '@/hooks/useExploreDataSwitchConfig.js';
 import { ActivitiesFilterNamespace } from '@/store/useActivitiesFilterStore.js';
-import { BetsFilterNamespace } from '@/store/useBetsSourceFilterStore.js';
+import { PredictionFilterNamespace } from '@/store/usePredictionSourceFilterStore.js';
 
 export function ProfileCategoryTabs({
     source,
@@ -149,7 +149,7 @@ export function ProfileCategoryTabs({
                 <ChainFilter networkType={addressType || undefined} />
             ) : null}
             {category === WalletProfileCategory.Bets ? (
-                <BetsPlatformFilter namespace={BetsFilterNamespace.Profile} />
+                <PredictionPlatformFilter namespace={PredictionFilterNamespace.Profile} />
             ) : null}
         </div>
     );

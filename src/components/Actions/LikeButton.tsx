@@ -21,7 +21,7 @@ function resolveInitialLikeData({ type, data }: LikeTarget) {
         case Source.Article:
         case Source.DAOs:
         case ExtraLikeType.Tips:
-        case Source.Bets:
+        case Source.Prediction:
             return { isLiked: data.isLiked, likeCount: data.likeCount || 0 };
         case Source.Swap:
             return { isLiked: data.is_like, likeCount: data.like_count || 0 };

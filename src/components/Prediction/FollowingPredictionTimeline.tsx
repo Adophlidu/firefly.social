@@ -1,0 +1,67 @@
+'use client';
+
+import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
+import { useCallback } from 'react';
+
+import { ListInPage } from '@/components/ListInPage.js';
+import { Loading } from '@/components/Loading.js';
+import { PredictionActivityItem } from '@/components/Prediction/PredictionActivityItem.js';
+import { ScrollListKey, Source } from '@/constants/enum.js';
+import { createIndicator, createPageable } from '@/helpers/pageable.js';
+import { getFollowingPredictionList } from '@/providers/firefly/prediction/getFollowingPredictionList.js';
+import { captureFollowingPolymarketLinkClick } from '@/providers/telemetry/capturePolymarketEvent.js';
+import { type BetsActivity } from '@/providers/types/Firefly.js';
+import { PredictionFilterNamespace, usePredictionSourceFilterStore } from '@/store/usePredictionSourceFilterStore.js';
+import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
+
+function getPredictionActivityItem(index: number, activity: BetsActivity, onClick?: () => void) {
+    return <PredictionActivityItem activity={activity} key={`${activity.slug}-${index}`} onLinkClick={onClick} />;
+}
+
+export function FollowingPredictionTimeline() {
+    const { currentProfileSession } = useFireflyProfileStore();
+    const { platforms } = usePredictionSourceFilterStore(PredictionFilterNamespace.Following);
+
+    const queryResult = useSuspenseInfiniteQuery({
+        queryKey: ['bets', 'list', 'following', currentProfileSession?.profileId, platforms.join(',')],
+        queryFn: async ({ pageParam }) => {
+            const indicator = createIndicator(undefined, pageParam);
+            try {
+                return await getFollowingPredictionList({
+                    indicator,
+                    platforms,
+                });
+            } catch {
+                return createPageable([], indicator);
+            }
+        },
+        initialPageParam: '',
+        getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
+        select: (data) => data.pages.flatMap((x) => x.data),
+    });
+
+    const onPredictionLinkClick = useCallback(() => {
+        captureFollowingPolymarketLinkClick();
+    }, []);
+
+    if (!queryResult.isFetchingNextPage && queryResult.isFetching) {
+        return <Loading />;
+    }
+
+    return (
+        <ListInPage
+            source={Source.Prediction}
+            key={Source.Prediction}
+            queryResult={queryResult}
+            VirtualListProps={{
+                useWindowScroll: true,
+                listKey: `${ScrollListKey.Bets}:following`,
+                computeItemKey: (index, activity) => `${activity.slug}-${index}`,
+                itemContent: (index, activity) => getPredictionActivityItem(index, activity, onPredictionLinkClick),
+            }}
+            NoResultsFallbackProps={{
+                className: 'mt-20',
+            }}
+        />
+    );
+}

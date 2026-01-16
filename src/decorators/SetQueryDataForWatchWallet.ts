@@ -42,7 +42,7 @@ function toggleWatch(address: string, status: boolean) {
     });
     queryClient.setQueryData(['follow-wallet', address.toLowerCase()], status);
 
-    patchTransactionsQuery(Source.Bets, undefined, ({ followingSources }) => {
+    patchTransactionsQuery(Source.Prediction, undefined, ({ followingSources }) => {
         return !(
             followingSources?.length === 1 &&
             followingSources[0]?.type === WatchType.Wallet &&

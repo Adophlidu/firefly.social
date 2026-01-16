@@ -9,6 +9,14 @@ import { resolveProfileSourceInURL } from '@/helpers/resolveSourceInUrl.js';
 
 export function handleProfileRoutes(request: NextRequest, next: () => NextResponse | undefined) {
     const pathname = request.nextUrl.pathname;
+
+    // Redirect old /bets URLs to /prediction
+    if (pathname.includes('/bets') && !pathname.includes('/prediction')) {
+        const destination = request.nextUrl.clone();
+        destination.pathname = pathname.replace('/bets', '/prediction');
+        return NextResponse.redirect(destination, { status: 301 });
+    }
+
     const parsedProfileUrl = parseProfileUrl(pathname);
 
     if (parsedProfileUrl?.category && isFollowCategory(parsedProfileUrl.category)) {

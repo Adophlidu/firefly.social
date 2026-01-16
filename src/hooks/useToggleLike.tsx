@@ -26,7 +26,7 @@ export type LikeTarget =
           data: SnapshotActivity;
       }
     | {
-          type: Source.Bets;
+          type: Source.Prediction;
           data: BetsActivity;
       }
     | {
@@ -95,7 +95,7 @@ function resolveLikeParams({ type, data }: LikeTarget): LikeParams | undefined {
                 reactionId: data.hash,
                 reactionOwnerId: data.owner,
             };
-        case Source.Bets:
+        case Source.Prediction:
             return {
                 reactionType: TxReactionType.LikeBets,
                 platformId: PlatformId.Others,
@@ -127,7 +127,7 @@ function getSuccessMessage(type: LikeTarget['type'], liked: boolean) {
             return liked ? <Trans>Article liked.</Trans> : <Trans>Article unliked.</Trans>;
         case Source.DAOs:
             return liked ? <Trans>Snapshot liked.</Trans> : <Trans>Snapshot unliked.</Trans>;
-        case Source.Bets:
+        case Source.Prediction:
             return liked ? <Trans>Prediction liked.</Trans> : <Trans>Prediction unliked.</Trans>;
         case Source.Swap:
             return liked ? <Trans>Swap liked.</Trans> : <Trans>Swap unliked.</Trans>;
@@ -144,7 +144,7 @@ function getErrorMessage(type: LikeTarget['type'], liked: boolean) {
             return liked ? <Trans>Failed to like article.</Trans> : <Trans>Failed to unlike article.</Trans>;
         case Source.DAOs:
             return liked ? <Trans>Failed to like snapshot.</Trans> : <Trans>Failed to unlike snapshot.</Trans>;
-        case Source.Bets:
+        case Source.Prediction:
             return liked ? <Trans>Failed to like prediction.</Trans> : <Trans>Failed to unlike prediction.</Trans>;
         case Source.Swap:
             return liked ? <Trans>Failed to like swap.</Trans> : <Trans>Failed to unlike swap.</Trans>;
@@ -162,7 +162,7 @@ function captureLikeEvent({ type, data }: LikeTarget, liked: boolean) {
         case Source.Swap:
             return liked ? captureSwapEvent(EventId.EVENT_LIKE_SWAP_CLICK) : undefined;
         case Source.DAOs:
-        case Source.Bets:
+        case Source.Prediction:
         case ExtraLikeType.Tips:
             return;
         default:

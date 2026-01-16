@@ -78,7 +78,7 @@ export enum Source {
     Swap = 'Swap',
     Transactions = 'Transactions',
     Activities = 'Activities',
-    Bets = 'Prediction',
+    Prediction = 'Prediction',
 }
 
 export enum SourceInURL {
@@ -104,7 +104,7 @@ export enum SourceInURL {
     X = 'x',
     Transactions = 'transactions',
     Activities = 'activities',
-    Bets = 'bets',
+    Bets = 'prediction',
 }
 
 export const enum CharTag {
@@ -178,7 +178,7 @@ export type SocialSourceInURL =
 export type ProfilePageSource = SocialSource | Source.Wallet | Source.WalletMix;
 export type ProfilePageSourceInURL = SocialSourceInURL | SourceInURL.Wallet | SourceInURL.WalletMix;
 export type SocialDiscoverSource = Source.Farcaster | Source.Lens | Source.Bsky | Source.Twitter;
-export type DiscoverSource = Source.Posts | Source.Activities | Source.Transactions | Source.Bets;
+export type DiscoverSource = Source.Posts | Source.Activities | Source.Transactions | Source.Prediction;
 export type BookmarkSource =
     | Source.Farcaster
     | Source.Lens
@@ -187,8 +187,8 @@ export type BookmarkSource =
     | Source.NFTs
     | Source.Tokens
     | Source.Bsky
-    | Source.Bets;
-export type FollowingSource = DiscoverSource | Source.Transactions | Source.Activities | Source.Bets;
+    | Source.Prediction;
+export type FollowingSource = DiscoverSource | Source.Transactions | Source.Activities | Source.Prediction;
 export type ExploreSource = Source.Farcaster | Source.Lens | Source.Bsky | Source.Twitter | TrendingType;
 export type ExploreSourceInURL =
     | SourceInURL.Farcaster
@@ -207,7 +207,7 @@ export type LoginFallbackSource =
     | SocialSource
     | Source.Article
     | Source.DAOs
-    | Source.Bets
+    | Source.Prediction
     | Source.Tokens
     | Source.Posts
     | Source.Notifications
@@ -222,7 +222,7 @@ export enum ExploreType {
     TopChannels = 'clubs',
     TruthSocial = 'truth-social',
     NFTs = 'nfts',
-    Bets = 'bets',
+    Bets = 'prediction',
 }
 
 export enum TrendingType {
@@ -239,7 +239,7 @@ export enum SearchType {
     NFTs = 'nfts',
     Tokens = 'tokens',
     Clubs = 'clubs',
-    Bets = 'bets',
+    Bets = 'prediction',
 }
 
 /**
@@ -269,7 +269,7 @@ export enum WalletProfileCategory {
     NFTs = 'nfts',
     Activities = 'activities',
     Transactions = 'transactions',
-    Bets = 'bets',
+    Bets = 'prediction',
 }
 
 export enum EngagementType {

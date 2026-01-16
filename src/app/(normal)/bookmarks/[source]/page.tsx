@@ -4,9 +4,9 @@ import { safeUnreachable } from '@dimensiondev/utils';
 import { Suspense, use } from 'react';
 
 import { ArticleBookmarkList } from '@/app/(normal)/bookmarks/ArticleBookmarkList.js';
-import { BetsBookmarkList } from '@/app/(normal)/bookmarks/BetsBookmarkList.js';
 import { BookmarkList } from '@/app/(normal)/bookmarks/BookmarkList.js';
 import { NFTBookmarkList } from '@/app/(normal)/bookmarks/NFTBookmarkList.js';
+import { PredictionBookmarkList } from '@/app/(normal)/bookmarks/PredictionBookmarkList.js';
 import { TokenBookmarkList } from '@/app/(normal)/bookmarks/TokenBookmarkList.js';
 import { Loading } from '@/components/Loading.js';
 import { SnapshotBookmarkList } from '@/components/Snapshot/SnapshotBookmarkList.js';
@@ -25,8 +25,8 @@ function BookmarkListContent({ source }: { source: BookmarkSource }) {
             return <NFTBookmarkList />;
         case Source.Tokens:
             return <TokenBookmarkList />;
-        case Source.Bets:
-            return <BetsBookmarkList />;
+        case Source.Prediction:
+            return <PredictionBookmarkList />;
         case Source.Farcaster:
         case Source.Lens:
         case Source.Bsky:

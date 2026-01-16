@@ -2,7 +2,7 @@ import { safeUnreachable } from '@dimensiondev/utils';
 import { memo } from 'react';
 
 import { ProfileActivities } from '@/components/Activities/ProfileActivities.js';
-import { ProfileBetsTimeline } from '@/components/Bets/ProfileBetsTimeline.js';
+import { ProfilePredictionTimeline } from '@/components/Prediction/ProfilePredictionTimeline.js';
 import { ProfileNFTs } from '@/components/Profile/NFTs.js';
 import { ProfileTransactions } from '@/components/Transactions/ProfileTransactions.js';
 import { WalletProfileCategory } from '@/constants/enum.js';
@@ -22,7 +22,7 @@ export const WalletProfileContentList = memo(function WalletProfileContentList({
         case WalletProfileCategory.Transactions:
             return <ProfileTransactions address={address} />;
         case WalletProfileCategory.Bets:
-            return <ProfileBetsTimeline address={address} />;
+            return <ProfilePredictionTimeline address={address} />;
         default:
             safeUnreachable(type);
             return null;

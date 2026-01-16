@@ -7,7 +7,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import { ExploreType } from '@/constants/enum.js';
 import { notFound, redirect, RedirectType } from '@/esm/navigation/server.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
-import { getEventSlugList } from '@/providers/firefly/bets/getEventSlugList.js';
+import { getEventSlugList } from '@/providers/firefly/prediction/getEventSlugList.js';
 import { type NextPageProps } from '@/types/utility.js';
 
 interface Props extends NextPageProps<{ explore: ExploreType }> {}

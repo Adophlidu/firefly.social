@@ -9,7 +9,7 @@ export function patchTransactionsQuery<
     T extends TransactionsItem['source'],
     D = T extends Source.Swap
         ? WritableDraft<SwapActivity>
-        : T extends Source.Bets
+        : T extends Source.Prediction
           ? WritableDraft<BetsActivity>
           : T extends Source.NFTs
             ? WritableDraft<NFTFeedV3>

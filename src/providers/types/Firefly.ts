@@ -1818,7 +1818,7 @@ export type TransactionsItem = {
           data: SwapActivity;
       }
     | {
-          source: Source.Bets;
+          source: Source.Prediction;
           data: BetsActivity;
       }
     | {

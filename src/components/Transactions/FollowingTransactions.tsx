@@ -31,7 +31,7 @@ function shuffleTransactions(list: TransactionsItem[]) {
     return preferredSwaps.concat(shuffle(others));
 }
 
-const availableSources = [Source.Swap, Source.Bets] as const;
+const availableSources = [Source.Swap, Source.Prediction] as const;
 
 export function FollowingTransactions() {
     const isLogin = useIsLoginFirefly();
@@ -64,7 +64,7 @@ export function FollowingTransactions() {
     );
 
     if (!profileIds.length) {
-        return <NotLoginFallback source={Source.Bets} />;
+        return <NotLoginFallback source={Source.Prediction} />;
     }
 
     return (
