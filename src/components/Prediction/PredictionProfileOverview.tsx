@@ -29,8 +29,7 @@ interface PredictionProfileOverviewProps {
 export function PredictionProfileOverview({ profile, platform, address }: PredictionProfileOverviewProps) {
     const isOpinion = platform === BetsPlatform.Opinion;
 
-    const { data: fallbackProfile } = useQuery({
-        enabled: !profile.platform_avatar || !profile.platform_name,
+    const { data: socialProfile } = useQuery({
         queryKey: ['wallet-profile-info-list', address, platform],
         queryFn: () => getWalletProfileInfoList(address, platform, true),
         select: (data) => {
@@ -47,10 +46,10 @@ export function PredictionProfileOverview({ profile, platform, address }: Predic
         },
     });
 
-    const { name: fallbackName, avatar: fallbackAvatar } = useMemo(() => {
-        if (!fallbackProfile) return { name: undefined, avatar: undefined };
-        return extractFallbackInfo(fallbackProfile);
-    }, [fallbackProfile]);
+    const { name: socialName, avatar: socialAvatar } = useMemo(() => {
+        if (!socialProfile) return { name: undefined, avatar: undefined };
+        return extractFallbackInfo(socialProfile);
+    }, [socialProfile]);
 
     const dataConfig = useMemo(() => {
         return compact([
@@ -133,14 +132,14 @@ export function PredictionProfileOverview({ profile, platform, address }: Predic
         <div className="flex flex-col">
             <div className="flex items-center gap-4 px-4 pt-3">
                 <Avatar
-                    src={profile.platform_avatar || fallbackAvatar || getStampAvatarByProfileId(Source.Wallet, address)}
+                    src={socialAvatar || getStampAvatarByProfileId(Source.Wallet, address)}
                     alt="avatar"
                     size={40}
                     className="size-10 rounded-full border border-highlight"
                 />
                 <div className="min-w-0">
                     <div className="truncate whitespace-nowrap text-lg font-semibold text-main">
-                        {profile.platform_name || fallbackName || <PredictionPlatformName platform={platform} />}
+                        {socialName || <PredictionPlatformName platform={platform} />}
                     </div>
                     <div className="ml-auto flex items-center text-[13px] font-medium text-second">
                         {formatAddressEthereum(address, 4, 2)}
