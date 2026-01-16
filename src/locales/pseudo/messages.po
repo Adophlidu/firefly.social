@@ -215,9 +215,6 @@ msgstr ""
 msgid "Delete post"
 msgstr ""
 
-msgid "Sign In to Mobile"
-msgstr ""
-
 msgid "This account has expired, please log in again."
 msgstr ""
 
@@ -3664,6 +3661,9 @@ msgid "Sorry, the provider you entered is invalid"
 msgstr ""
 
 msgid "<0>You</0> liked"
+msgstr ""
+
+msgid "Sign in on mobile"
 msgstr ""
 
 msgid "You've hit rock bottom."

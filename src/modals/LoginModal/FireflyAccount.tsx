@@ -168,7 +168,7 @@ export const FireflyAccount = memo<FireflyAccountProps>(function FireflyAccount(
                                             }}
                                         >
                                             <ScanIcon className="mr-2 size-[18px]" />
-                                            <Trans>Sign In to Mobile</Trans>
+                                            <Trans>Sign in on mobile</Trans>
                                         </button>
                                     )}
                                 </MenuItem>

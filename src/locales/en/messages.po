@@ -215,9 +215,6 @@ msgstr "{followerCount, plural, one {Follower} other {Followers}}"
 msgid "Delete post"
 msgstr "Delete post"
 
-msgid "Sign In to Mobile"
-msgstr "Sign In to Mobile"
-
 msgid "This account has expired, please log in again."
 msgstr "This account has expired, please log in again."
 
@@ -3665,6 +3662,9 @@ msgstr "Sorry, the provider you entered is invalid"
 
 msgid "<0>You</0> liked"
 msgstr "<0>You</0> liked"
+
+msgid "Sign in on mobile"
+msgstr "Sign in on mobile"
 
 msgid "You've hit rock bottom."
 msgstr "You've hit rock bottom."

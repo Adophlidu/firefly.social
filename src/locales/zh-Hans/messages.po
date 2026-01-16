@@ -220,9 +220,6 @@ msgstr "{followerCount, plural, one {关注者} other {关注者}}"
 msgid "Delete post"
 msgstr "删除帖子"
 
-msgid "Sign In to Mobile"
-msgstr "登录到移动端"
-
 msgid "This account has expired, please log in again."
 msgstr "该账号已过期，请重新登录。"
 
@@ -3671,6 +3668,9 @@ msgstr "抱歉，您输入的服务提供商无效"
 msgid "<0>You</0> liked"
 msgstr "<0>你</0> 点赞了"
 
+msgid "Sign in on mobile"
+msgstr ""
+
 msgid "You've hit rock bottom."
 msgstr "你已经滑到底部啦～"
 
@@ -4565,7 +4565,8 @@ msgid "Unexpected step for setting password: {step}."
 msgstr "验证密码时出现意外步骤：{step}。"
 
 msgid "If you have multiple Firefly accounts created with different social logins, deleting this account will help you consolidate your social accounts into one. However, if you're trying to access a different Firefly wallet linked to another social account, consider switching accounts instead of deleting."
-msgstr "如果你使用不同的社交账号创建了多个 Firefly 账户，删除此账户可以帮助你整合社交账号。\n"
+msgstr ""
+"如果你使用不同的社交账号创建了多个 Firefly 账户，删除此账户可以帮助你整合社交账号。\n"
 "但如果你仍想访问另一个社交账号绑定的 Firefly 钱包，建议你切换账户，而不是删除账户。"
 
 msgid "<0>You</0> recasted"
@@ -4862,4 +4863,3 @@ msgstr "周"
 
 msgid "Success"
 msgstr "成功"
-
