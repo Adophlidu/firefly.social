@@ -4,6 +4,7 @@ import { useMutation } from '@tanstack/react-query';
 import { BookmarkType, type SocialSource, Source } from '@/constants/enum.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
+import { resolveFireflyPlatformFromSocialSource } from '@/helpers/resolveFireflyPlatform.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { fireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
@@ -27,7 +28,12 @@ export function useToggleBookmark(source: SocialSource) {
                     : fireflySocialMediaProvider;
                 const result = hasBookmarked
                     ? await provider.unbookmark(postId)
-                    : await provider.bookmark(postId, undefined, post.author.profileId, BookmarkType.Text);
+                    : await provider.bookmark(
+                          postId,
+                          resolveFireflyPlatformFromSocialSource(post.source),
+                          post.author.profileId,
+                          BookmarkType.Text,
+                      );
                 capturePostActionEvent(hasBookmarked ? 'unbookmark' : 'bookmark', post);
                 enqueueSuccessMessage(
                     hasBookmarked ? t`Post removed from your Bookmarks` : t`Post added to your Bookmarks`,
