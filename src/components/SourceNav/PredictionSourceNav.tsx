@@ -27,9 +27,8 @@ export const PredictionSourceNav = memo<Props>(function PredictionSourceNav({ cl
     useLayoutEffect(() => {
         if (activeTabRef.current && !hasScrolledRef.current) {
             activeTabRef.current.scrollIntoView({
-                behavior: 'smooth',
+                behavior: 'instant',
                 block: 'nearest',
-                inline: 'center',
             });
             hasScrolledRef.current = true;
         }
