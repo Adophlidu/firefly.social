@@ -3448,9 +3448,6 @@ msgstr "不涉及网络犯罪。"
 msgid "Sent"
 msgstr "发送"
 
-msgid "Token could not be found."
-msgstr "未找到该代币。"
-
 msgid "Claim Proceed"
 msgstr "成功领取"
 

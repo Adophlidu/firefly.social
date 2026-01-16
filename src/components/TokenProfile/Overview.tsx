@@ -12,7 +12,6 @@ import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
 import { Loading } from '@/components/Loading.js';
-import NotFound from '@/components/NotFound.js';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { ClubLink } from '@/components/TokenProfile/CommunityLink.js';
 import { ContractList } from '@/components/TokenProfile/ContractList.js';
@@ -320,7 +319,7 @@ const DexCoinOverview = memo<DexCoinOverviewProps>(function DexCoinOverview({ ch
     if (!detail) {
         return (
             <div {...rest} className={classNames('flex justify-center', rest.className)}>
-                {isLoading ? <Loading /> : <NotFound text={<Trans>Token could not be found.</Trans>} />}
+                {isLoading ? <Loading /> : null}
             </div>
         );
     }

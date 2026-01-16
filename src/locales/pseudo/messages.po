@@ -3443,9 +3443,6 @@ msgstr ""
 msgid "Sent"
 msgstr ""
 
-msgid "Token could not be found."
-msgstr ""
-
 msgid "Claim Proceed"
 msgstr ""
 

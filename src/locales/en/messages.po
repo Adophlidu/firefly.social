@@ -3443,9 +3443,6 @@ msgstr "No cybercrime involved."
 msgid "Sent"
 msgstr "Sent"
 
-msgid "Token could not be found."
-msgstr "Token could not be found."
-
 msgid "Claim Proceed"
 msgstr "Claim Proceed"
 
