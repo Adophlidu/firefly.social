@@ -270,6 +270,8 @@ export function formatBskyFeedPost(original: AppBskyFeedDefs.FeedViewPost | AppB
             post.reporter = formatBskyProfile(original.reason.by);
             post.hasMirrored = post.reporter.profileId === getSessionFromStorage(SessionType.Bsky)?.profileId;
         }
+
+        return post;
     }
     if (AppBskyEmbedRecord.isView(original.post.embed) && AppBskyEmbedRecord.isViewRecord(original.post.embed.record)) {
         post.type = 'Quote';
