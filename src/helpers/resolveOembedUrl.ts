@@ -1,24 +1,27 @@
 import { uniq } from 'lodash-es';
 
+import { isSameUrl } from '@/helpers/isSameUrl.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
 
 export function resolveOembedUrl(post: Pick<Post, 'metadata'>) {
-    if (
-        !post.metadata.content?.oembedUrl ||
-        !post.metadata.content?.attachments ||
-        !post.metadata.content?.oembedUrls
-    ) {
-        return post.metadata.content?.oembedUrl;
-    }
-    const attachmentsUrls = post.metadata.content.attachments.map((x) => x.uri);
-    if (!attachmentsUrls.includes(post.metadata.content.oembedUrl)) return post.metadata.content.oembedUrl;
+    const oembedUrl = post.metadata.content?.oembedUrl;
+    const oembedUrls = post.metadata.content?.oembedUrls;
+    const attachmentsUrls = post.metadata.content?.attachments?.map((x) => x.uri) || [];
 
-    for (let i = post.metadata.content?.oembedUrls.length - 1; i >= 0; i -= 1) {
-        const url = post.metadata.content?.oembedUrls[i];
-        if (!attachmentsUrls.includes(url)) return url;
+    if (oembedUrl && !attachmentsUrls.some((url) => isSameUrl(url, oembedUrl))) {
+        return oembedUrl;
     }
 
-    return post.metadata.content.oembedUrl;
+    const findNonAttachmentUrl = (urls: string[]) => {
+        return urls.findLast((url) => !attachmentsUrls.some((attachmentUrl) => isSameUrl(attachmentUrl, url)));
+    };
+
+    if (oembedUrls?.length) {
+        const foundUrl = findNonAttachmentUrl(oembedUrls);
+        if (foundUrl) return foundUrl;
+    }
+
+    return oembedUrl;
 }
 
 export function resolveAllOembedUrls(post: Pick<Post, 'metadata'>) {
@@ -26,5 +29,5 @@ export function resolveAllOembedUrls(post: Pick<Post, 'metadata'>) {
     const attachmentsUrls = post.metadata.content?.attachments?.map((x) => x.uri);
     if (!oembedUrls?.length || !attachmentsUrls?.length) return oembedUrls || [];
 
-    return uniq(oembedUrls.filter((url) => !attachmentsUrls.includes(url)));
+    return uniq(oembedUrls.filter((url) => !attachmentsUrls.some((attachmentUrl) => isSameUrl(attachmentUrl, url))));
 }
