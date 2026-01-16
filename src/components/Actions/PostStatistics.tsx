@@ -39,7 +39,7 @@ function EngagementLink({
     children?: ReactNode;
     onSetScrollIndex?: () => void;
 }) {
-    if (props.post.source === Source.Twitter) return children;
+    if (props.post.source === Source.Twitter && props.type === EngagementType.Likes) return children;
     return (
         <Link
             prefetch={prefetch}
