@@ -20,6 +20,7 @@ import { farcasterPostIdToHash } from '@/providers/farcaster/farcasterPostIdToHa
 import { formatChannelFromFirefly } from '@/providers/farcaster/formatFarcasterChannelFromFirefly.js';
 import { getAllMentionsForFarcaster } from '@/providers/farcaster/getAllMentionsForFarcaster.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
+import { encodeMessageData } from '@/providers/neynar/encodeMessageData.js';
 import { publishMessage } from '@/providers/neynar/publishMessage.js';
 import { searchProfiles } from '@/providers/neynar/searchProfiles.js';
 import { type Account } from '@/providers/types/Account.js';
@@ -89,7 +90,7 @@ class NeynarSocialMedia implements Provider {
     async mirrorPost(postId: string, authorId?: number): Promise<string> {
         if (!authorId) throw new Error('Failed to recast post');
 
-        await publishMessage(() => ({
+        const messageJson = await encodeMessageData({
             type: MessageType.REACTION_ADD,
             reactionBody: {
                 type: ReactionType.RECAST,
@@ -98,7 +99,8 @@ class NeynarSocialMedia implements Provider {
                     hash: farcasterPostIdToHash(postId),
                 },
             },
-        }));
+        });
+        await publishMessage(messageJson);
         // FIXME: should return post id here
         return null!;
     }
@@ -106,7 +108,7 @@ class NeynarSocialMedia implements Provider {
     async unmirrorPost(postId: string, authorId?: number): Promise<void> {
         if (!authorId) throw new Error('Failed to unmirror post.');
 
-        await publishMessage(() => ({
+        const messageJson = await encodeMessageData({
             type: MessageType.REACTION_REMOVE,
             reactionBody: {
                 type: ReactionType.RECAST,
@@ -115,14 +117,16 @@ class NeynarSocialMedia implements Provider {
                     hash: farcasterPostIdToHash(postId),
                 },
             },
-        }));
+        });
+        await publishMessage(messageJson);
+        return;
     }
 
     async quotePost(postId: string, post: Post, authorId?: number): Promise<{ postId: string }> {
         const result = await getAllMentionsForFarcaster(post.metadata.content?.content ?? '');
         if (!postId || !post || !authorId) throw new Error('Failed to quote post.');
 
-        const { hash } = await publishMessage<CastResponse>(() => ({
+        const messageJson = await encodeMessageData({
             type: MessageType.CAST_ADD,
             castAddBody: {
                 ...result,
@@ -148,7 +152,8 @@ class NeynarSocialMedia implements Provider {
                         ? post.parentChannelUrl
                         : undefined,
             },
-        }));
+        });
+        const { hash } = await publishMessage<CastResponse>(messageJson);
         return { postId: toHex(new Uint8Array(hash.data)) };
     }
 
@@ -169,12 +174,13 @@ class NeynarSocialMedia implements Provider {
     }
 
     async deletePost(postId: string): Promise<boolean> {
-        await publishMessage(() => ({
+        const messageJson = await encodeMessageData({
             type: MessageType.CAST_REMOVE,
             castRemoveBody: {
                 targetHash: farcasterPostIdToHash(postId),
             },
-        }));
+        });
+        await publishMessage(messageJson);
         return true;
     }
 
@@ -250,7 +256,7 @@ class NeynarSocialMedia implements Provider {
             0,
             imageCountLimit,
         );
-        const { hash } = await publishMessage<CastResponse>(() => ({
+        const messageJson = await encodeMessageData({
             type: MessageType.CAST_ADD,
             castAddBody: {
                 ...result,
@@ -268,14 +274,15 @@ class NeynarSocialMedia implements Provider {
                         ? post.parentChannelUrl
                         : undefined,
             },
-        }));
+        });
+        const { hash } = await publishMessage<CastResponse>(messageJson);
         return { postId: toHex(new Uint8Array(hash.data)) };
     }
 
     async upvotePost(postId: string, authorId?: number): Promise<void> {
         if (!authorId) throw new Error('Failed to upvote post.');
 
-        await publishMessage(() => ({
+        const messageJson = await encodeMessageData({
             type: MessageType.REACTION_ADD,
             reactionBody: {
                 type: ReactionType.LIKE,
@@ -284,13 +291,15 @@ class NeynarSocialMedia implements Provider {
                     hash: farcasterPostIdToHash(postId),
                 },
             },
-        }));
+        });
+        await publishMessage(messageJson);
+        return;
     }
 
     async unvotePost(postId: string, authorId?: number): Promise<void> {
         if (!authorId) throw new Error('Failed to unvote post.');
 
-        await publishMessage(() => ({
+        const messageJson = await encodeMessageData({
             type: MessageType.REACTION_REMOVE,
             reactionBody: {
                 type: ReactionType.LIKE,
@@ -299,7 +308,9 @@ class NeynarSocialMedia implements Provider {
                     hash: farcasterPostIdToHash(postId),
                 },
             },
-        }));
+        });
+        await publishMessage(messageJson);
+        return;
     }
 
     getProfileByHandle(handle: string): Promise<Profile> {
@@ -343,24 +354,26 @@ class NeynarSocialMedia implements Provider {
     }
 
     async follow(profileId: string): Promise<boolean> {
-        await publishMessage(() => ({
+        const messageJson = await encodeMessageData({
             type: MessageType.LINK_ADD,
             linkBody: {
                 type: 'follow',
                 targetFid: Number(profileId),
             },
-        }));
+        });
+        await publishMessage(messageJson);
         return true;
     }
 
     async unfollow(profileId: string): Promise<boolean> {
-        await publishMessage(() => ({
+        const messageJson = await encodeMessageData({
             type: MessageType.LINK_REMOVE,
             linkBody: {
                 type: 'follow',
                 targetFid: Number(profileId),
             },
-        }));
+        });
+        await publishMessage(messageJson);
         return true;
     }
 

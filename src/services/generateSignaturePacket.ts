@@ -4,12 +4,10 @@ import { encodeMessageData } from '@/providers/neynar/encodeMessageData.js';
 import { type SignaturePacket } from '@/providers/types/Neynar.js';
 
 export async function generateSignaturePacket(): Promise<SignaturePacket> {
-    const { signer, messageDataHash, messageDataSignature } = await encodeMessageData(() => {
-        return {
-            type: MessageType.CAST_ADD,
-            timestamp: toFarcasterTime(Date.now()),
-            castAddBody: undefined,
-        };
+    const { signer, messageDataHash, messageDataSignature } = await encodeMessageData({
+        type: MessageType.CAST_ADD,
+        timestamp: toFarcasterTime(Date.now()),
+        castAddBody: undefined,
     });
     return {
         signer,

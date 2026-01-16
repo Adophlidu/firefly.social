@@ -1,5 +1,5 @@
 import { parseJson } from '@dimensiondev/utils';
-import { z } from 'zod';
+import { type z } from 'zod';
 import { type PersistStorage, type StorageValue } from 'zustand/middleware';
 
 import { AsyncStatus } from '@/constants/enum.js';
@@ -8,33 +8,9 @@ import { SessionFactory } from '@/providers/base/SessionFactory.js';
 import { type Account } from '@/providers/types/Account.js';
 import { type Session } from '@/providers/types/Session.js';
 import { type Profile } from '@/providers/types/SocialMedia.js';
+import { ProfileStoreSchema } from '@/schemas/ProfileStore.js';
 
-const STATE_SCHEMA = z.object({
-    state: z.object({
-        status: z.nativeEnum(AsyncStatus),
-        accounts: z.array(
-            z.object({
-                session: z.string().nullable(),
-            }),
-        ),
-        currentProfileSession: z.string().nullable(),
-    }),
-    version: z.number(),
-});
-
-interface State {
-    state: {
-        status?: AsyncStatus;
-        // for legacy version don't have accounts field
-        accounts?: Array<{
-            profile: Profile;
-            session: string;
-        }>;
-        currentProfile: Profile | null;
-        currentProfileSession: string | null;
-    };
-    version: number;
-}
+type State = z.infer<typeof ProfileStoreSchema>;
 
 export interface SessionState {
     status: AsyncStatus;
@@ -70,7 +46,7 @@ export function createSessionStorage(): PersistStorage<SessionState> {
             const parsedState = parseJson<State>(raw);
             if (!parsedState) return null;
 
-            const output = STATE_SCHEMA.safeParse({
+            const output = ProfileStoreSchema.safeParse({
                 ...parsedState,
                 state: {
                     ...parsedState.state,

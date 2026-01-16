@@ -1,5 +1,4 @@
 import { bom, createLookupTableResolver, parseJson } from '@dimensiondev/utils';
-import { z } from 'zod';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { resolveProfileStorageKeyBySessionType } from '@/helpers/resolveProfileStorageKey.js';
@@ -12,12 +11,7 @@ import { type LensSession } from '@/providers/lens/Session.js';
 import { type ThirdPartySession } from '@/providers/third-party/Session.js';
 import { type TwitterSession } from '@/providers/twitter/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
-
-const Schema = z.object({
-    state: z.object({
-        currentProfileSession: z.string().nullable(),
-    }),
-});
+import { ProfileStoreSchema } from '@/schemas/ProfileStore.js';
 
 interface SessionTypes {
     [SessionType.Bsky]: BskySession;
@@ -49,7 +43,7 @@ export function getSessionFromStorage<T extends SessionType>(sessionType: T) {
     const state = bom.localStorage.getItem(resolveProfileStorageKeyBySessionType(sessionType));
     if (!state) return null;
 
-    const parsed = Schema.safeParse(parseJson(state));
+    const parsed = ProfileStoreSchema.safeParse(parseJson(state));
     if (!parsed.success) {
         logger.error('Failed to parse session state from storage', parsed.error);
         return null;
@@ -67,6 +61,35 @@ export function getSessionFromStorage<T extends SessionType>(sessionType: T) {
     }
 }
 
+export function getSessionsFromStorage<T extends SessionType>(sessionType: T) {
+    if (!bom.localStorage) return [];
+
+    const state = bom.localStorage.getItem(resolveProfileStorageKeyBySessionType(sessionType));
+    if (!state) return [];
+
+    const parsed = ProfileStoreSchema.safeParse(parseJson(state));
+    if (!parsed.success) {
+        logger.error('Failed to parse session state from storage', parsed.error);
+        return [];
+    }
+
+    // No sessions found
+    if (parsed.data.state.accounts.length === 0) return [];
+
+    try {
+        return parsed.data.state.accounts.map((x) => SessionFactory.createSession(x.session)) as Array<
+            SessionTypes[typeof sessionType]
+        >;
+    } catch (error) {
+        logger.error(`Failed to create sessions from storage for type ${sessionType}:`, error);
+        return [];
+    }
+}
+
 export function getSessionFromStorageBySource(source: SocialSource) {
     return getSessionFromStorage(resolveStorageKeyBySource(source));
+}
+
+export function getSessionsFromStorageBySource(source: SocialSource) {
+    return getSessionsFromStorage(resolveStorageKeyBySource(source));
 }

@@ -1,23 +1,17 @@
 import { safeUnreachable } from '@dimensiondev/utils';
 import bs58 from 'bs58';
 import { toBytes } from 'viem';
-import { z } from 'zod';
 
 import { MessageType, Protocol } from '@/constants/farcaster.js';
 import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
 import { ensureHexPrefix } from '@/helpers/ensureHexPrefix.js';
 import { convertFarcasterAddressToBytes } from '@/providers/farcaster/convertFarcasterAddressToBytes.js';
 import { determineFarcasterProtocol } from '@/providers/farcaster/determineFarcasterProtocol.js';
+import type { FarcasterSession } from '@/providers/farcaster/Session.js';
+import { encodeMessageData } from '@/providers/neynar/encodeMessageData.js';
 import { publishMessage } from '@/providers/neynar/publishMessage.js';
 import { type FarcasterHubMessage } from '@/providers/types/Firefly.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
-
-const AddVerifiedAddressRequestSchema = z.object({
-    address: z.string().min(1, 'Address is required and must be a string'),
-    blockHash: z.string().min(1, 'BlockHash is required and must be a string'),
-    signature: z.string().min(1, 'Signature is required and must be a string'),
-    protocol: z.nativeEnum(Protocol).optional(),
-});
 
 function convertHexStringToBytes(hexString: string): Uint8Array {
     try {
@@ -50,16 +44,17 @@ async function checkEthereumAddressType(address: string): Promise<AddressType> {
 }
 
 export async function addVerifiedAddress(
-    request: z.infer<typeof AddVerifiedAddressRequestSchema>,
+    request: {
+        address: string;
+        blockHash: string;
+        signature: string;
+        protocol?: Protocol;
+        fid?: string;
+    },
+    session?: FarcasterSession,
 ): Promise<FarcasterHubMessage> {
-    const {
-        address,
-        blockHash,
-        signature,
-        protocol: providedProtocol,
-    } = AddVerifiedAddressRequestSchema.parse(request);
-
-    const protocol = providedProtocol ?? determineFarcasterProtocol(address);
+    const { address, blockHash, signature } = request;
+    const protocol = request.protocol ?? determineFarcasterProtocol(address);
 
     // IMPORTANT: Normalize Ethereum address to lowercase to match signature recovery
     const normalizedAddress = protocol === Protocol.ETHEREUM ? address.toLowerCase() : address;
@@ -85,15 +80,19 @@ export async function addVerifiedAddress(
 
     const addressType = protocol === Protocol.ETHEREUM ? await checkEthereumAddressType(address) : AddressType.EOA;
 
-    return publishMessage(() => ({
-        type: MessageType.VERIFICATION_ADD_ETH_ADDRESS,
-        verificationAddAddressBody: {
-            address: convertFarcasterAddressToBytes(normalizedAddress, protocol),
-            claimSignature: signatureBytes,
-            blockHash: blockHashBytes,
-            verificationType: addressType,
-            chainId: 0,
-            protocol,
+    const { messageJson } = await encodeMessageData(
+        {
+            type: MessageType.VERIFICATION_ADD_ETH_ADDRESS,
+            verificationAddAddressBody: {
+                address: convertFarcasterAddressToBytes(normalizedAddress, protocol),
+                claimSignature: signatureBytes,
+                blockHash: blockHashBytes,
+                verificationType: addressType,
+                chainId: 0,
+                protocol,
+            },
         },
-    }));
+        session,
+    );
+    return publishMessage(messageJson);
 }

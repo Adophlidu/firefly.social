@@ -4,8 +4,11 @@ import urlcat from 'urlcat';
 import { FIREFLY_WORKER_HOST } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';
+import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { type PartialWith, type ResponseJson } from '@/types/utility.js';
+
+type PartialMessageData = PartialWith<MessageData, 'type' | 'fid' | 'timestamp' | 'network'>;
 
 type EncodeMessageDataResponse = ResponseJson<{
     signer: `0x${string}`;
@@ -16,10 +19,12 @@ type EncodeMessageDataResponse = ResponseJson<{
     messageDataSignature: `0x${string}`;
 }>;
 
-export type WithMessageData = (fid: number) => PartialWith<MessageData, 'type' | 'fid' | 'timestamp' | 'network'>;
+type WithMessageData = PartialMessageData | ((fid: number) => PartialMessageData);
 
-export async function encodeMessageData(withMessageData: WithMessageData) {
-    const { token, profileId } = farcasterSessionHolder.sessionRequired;
+export async function encodeMessageData(withMessageData: WithMessageData, session?: FarcasterSession) {
+    const { token, profileId } = session ?? farcasterSessionHolder.sessionRequired;
+    const messageData =
+        typeof withMessageData === 'function' ? withMessageData(Number.parseInt(profileId, 10)) : withMessageData;
 
     const response = await fetchJson<EncodeMessageDataResponse>(
         urlcat(FIREFLY_WORKER_HOST, '/farcaster-message/encode'),
@@ -27,8 +32,8 @@ export async function encodeMessageData(withMessageData: WithMessageData) {
             method: 'POST',
             body: JSON.stringify({
                 profileId,
-                token /* TODO: encrypt the private key */,
-                data: withMessageData(Number.parseInt(profileId, 10)),
+                token,
+                data: messageData,
             }),
         },
     );

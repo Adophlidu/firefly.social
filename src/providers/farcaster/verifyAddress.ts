@@ -1,6 +1,7 @@
 import { wagmiConfig } from '@/configs/wagmiClient.js';
-import { ClickOrigin } from '@/constants/enum.js';
+import { ClickOrigin, Source } from '@/constants/enum.js';
 import { Protocol } from '@/constants/farcaster.js';
+import { getSessionsFromStorageBySource } from '@/helpers/getSessionFromStorage.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { addVerifiedAddress } from '@/providers/farcaster/addVerifiedAddress.js';
 import {
@@ -8,6 +9,7 @@ import {
     createSolanaVerificationMessage,
 } from '@/providers/farcaster/createVerificationMessage.js';
 import { getEthereumBlockHash, getSolanaBlockHash } from '@/providers/farcaster/getBlockHash.js';
+import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { getWalletAdaptorRequired } from '@/providers/solana/getWalletAdapter.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
@@ -36,12 +38,19 @@ export async function verifyEthereumAddress(fid: string, account?: `0x${string}`
         primaryType: typedData.primaryType,
         message: typedData.message,
     });
-    await addVerifiedAddress({
-        address,
-        blockHash,
-        signature: signature.toString(),
-        protocol: Protocol.ETHEREUM,
-    });
+
+    const session = getSessionsFromStorageBySource(Source.Farcaster).find((x) => x.profileId === fid) as
+        | FarcasterSession
+        | undefined;
+    await addVerifiedAddress(
+        {
+            address,
+            blockHash,
+            signature: signature.toString(),
+            protocol: Protocol.ETHEREUM,
+        },
+        session,
+    );
     return address;
 }
 
@@ -63,11 +72,18 @@ export async function verifySolanaAddress(fid: string): Promise<string> {
         blockHash,
     });
     const signature = Buffer.from(await adapter.signMessage(new TextEncoder().encode(message))).toString('hex');
-    await addVerifiedAddress({
-        address,
-        blockHash,
-        signature,
-        protocol: Protocol.SOLANA,
-    });
+
+    const session = getSessionsFromStorageBySource(Source.Farcaster).find((x) => x.profileId === fid) as
+        | FarcasterSession
+        | undefined;
+    await addVerifiedAddress(
+        {
+            address,
+            blockHash,
+            signature,
+            protocol: Protocol.SOLANA,
+        },
+        session,
+    );
     return address;
 }

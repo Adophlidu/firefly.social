@@ -42,6 +42,8 @@ export const ProfileStoreSchema = z.object({
     state: z.object({
         accounts: z.array(AccountSchema),
         currentProfile: ProfileSchema.nullable(),
+        currentProfileSession: z.string().nullable(),
         status: z.nativeEnum(AsyncStatus),
     }),
+    version: z.number(),
 });
