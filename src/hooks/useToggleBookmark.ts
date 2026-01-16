@@ -22,7 +22,7 @@ export function useToggleBookmark(source: SocialSource) {
             const { hasBookmarked, postId } = post;
 
             try {
-                const provider = [Source.Lens, Source.Twitter, Source.Bsky].includes(post.source)
+                const provider = [Source.Lens, Source.Twitter].includes(post.source)
                     ? resolveSocialMediaProvider(post.source)
                     : fireflySocialMediaProvider;
                 const result = hasBookmarked
