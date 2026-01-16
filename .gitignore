@@ -42,6 +42,7 @@ yarn-error.log*
 
 # vercel
 .vercel
+next-env.d.ts
 
 # typescript
 *.tsbuildinfo
@@ -71,4 +72,3 @@ packages/*/node_modules/
 
 # image comparison artifacts
 .image-comparison/
-.next-env.d.ts
