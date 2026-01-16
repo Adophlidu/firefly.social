@@ -205,7 +205,7 @@ class LensSocialMedia implements Provider {
             fetchGroups(getLensClient(), {
                 cursor: ensureCursor(indicator),
                 pageSize: PageSize.Fifty,
-                orderBy: GroupsOrderBy.Alphabetical,
+                orderBy: 'LATEST_FIRST',
                 filter: {
                     member: safeEvmAddress(profileId),
                 },

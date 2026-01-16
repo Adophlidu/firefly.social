@@ -124,7 +124,7 @@ export function ChannelSearchPanel({ onSelected, className, source, ...rest }: C
 
     const content = (
         <div className="flex flex-col gap-2 md:bg-lightBottom md:dark:bg-darkBottom">
-            {[Source.Farcaster, Source.Lens].includes(source) ? InputBox : null}
+            {[Source.Farcaster].includes(source) ? InputBox : null}
             {ListBox}
         </div>
     );
