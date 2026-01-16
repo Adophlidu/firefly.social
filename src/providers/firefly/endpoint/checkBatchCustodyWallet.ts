@@ -8,6 +8,7 @@ import { settings } from '@/settings/index.js';
 export async function checkBatchCustodyWallet(fids: string[]) {
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/farcaster_account/checkBatchCustodyWallet', {
         fids: fids.join(','),
+        register: true,
     });
 
     const response = await fireflySessionHolder.fetch<CheckBatchCustodyWalletResponse>(url);
