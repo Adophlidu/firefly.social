@@ -3451,9 +3451,6 @@ msgstr "发送"
 msgid "Claim Proceed"
 msgstr "成功领取"
 
-msgid "Casts + Replies"
-msgstr "帖子 + 评论"
-
 msgid "Image"
 msgstr "图片"
 

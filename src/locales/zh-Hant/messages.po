@@ -3451,9 +3451,6 @@ msgstr "發送"
 msgid "Claim Proceed"
 msgstr "領取處理中"
 
-msgid "Casts + Replies"
-msgstr "貼文 + 留言"
-
 msgid "Image"
 msgstr "圖片"
 

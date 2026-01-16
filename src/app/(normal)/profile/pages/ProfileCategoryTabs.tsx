@@ -75,7 +75,7 @@ export function ProfileCategoryTabs({
             },
             {
                 type: SocialProfileCategory.Replies,
-                title: source === Source.Farcaster ? <Trans>Casts + Replies</Trans> : <Trans>Replies</Trans>,
+                title: <Trans>Replies</Trans>,
             },
             {
                 type: SocialProfileCategory.Likes,

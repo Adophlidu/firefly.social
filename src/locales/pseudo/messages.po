@@ -3446,9 +3446,6 @@ msgstr ""
 msgid "Claim Proceed"
 msgstr ""
 
-msgid "Casts + Replies"
-msgstr ""
-
 msgid "Image"
 msgstr ""
 
