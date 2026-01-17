@@ -90,7 +90,7 @@ class NeynarSocialMedia implements Provider {
     async mirrorPost(postId: string, authorId?: number): Promise<string> {
         if (!authorId) throw new Error('Failed to recast post');
 
-        const messageJson = await encodeMessageData({
+        const { messageJson } = await encodeMessageData({
             type: MessageType.REACTION_ADD,
             reactionBody: {
                 type: ReactionType.RECAST,
@@ -108,7 +108,7 @@ class NeynarSocialMedia implements Provider {
     async unmirrorPost(postId: string, authorId?: number): Promise<void> {
         if (!authorId) throw new Error('Failed to unmirror post.');
 
-        const messageJson = await encodeMessageData({
+        const { messageJson } = await encodeMessageData({
             type: MessageType.REACTION_REMOVE,
             reactionBody: {
                 type: ReactionType.RECAST,
@@ -126,7 +126,7 @@ class NeynarSocialMedia implements Provider {
         const result = await getAllMentionsForFarcaster(post.metadata.content?.content ?? '');
         if (!postId || !post || !authorId) throw new Error('Failed to quote post.');
 
-        const messageJson = await encodeMessageData({
+        const { messageJson } = await encodeMessageData({
             type: MessageType.CAST_ADD,
             castAddBody: {
                 ...result,
@@ -174,7 +174,7 @@ class NeynarSocialMedia implements Provider {
     }
 
     async deletePost(postId: string): Promise<boolean> {
-        const messageJson = await encodeMessageData({
+        const { messageJson } = await encodeMessageData({
             type: MessageType.CAST_REMOVE,
             castRemoveBody: {
                 targetHash: farcasterPostIdToHash(postId),
@@ -256,7 +256,7 @@ class NeynarSocialMedia implements Provider {
             0,
             imageCountLimit,
         );
-        const messageJson = await encodeMessageData({
+        const { messageJson } = await encodeMessageData({
             type: MessageType.CAST_ADD,
             castAddBody: {
                 ...result,
@@ -282,7 +282,7 @@ class NeynarSocialMedia implements Provider {
     async upvotePost(postId: string, authorId?: number): Promise<void> {
         if (!authorId) throw new Error('Failed to upvote post.');
 
-        const messageJson = await encodeMessageData({
+        const { messageJson } = await encodeMessageData({
             type: MessageType.REACTION_ADD,
             reactionBody: {
                 type: ReactionType.LIKE,
@@ -299,7 +299,7 @@ class NeynarSocialMedia implements Provider {
     async unvotePost(postId: string, authorId?: number): Promise<void> {
         if (!authorId) throw new Error('Failed to unvote post.');
 
-        const messageJson = await encodeMessageData({
+        const { messageJson } = await encodeMessageData({
             type: MessageType.REACTION_REMOVE,
             reactionBody: {
                 type: ReactionType.LIKE,
@@ -354,7 +354,7 @@ class NeynarSocialMedia implements Provider {
     }
 
     async follow(profileId: string): Promise<boolean> {
-        const messageJson = await encodeMessageData({
+        const { messageJson } = await encodeMessageData({
             type: MessageType.LINK_ADD,
             linkBody: {
                 type: 'follow',
@@ -366,7 +366,7 @@ class NeynarSocialMedia implements Provider {
     }
 
     async unfollow(profileId: string): Promise<boolean> {
-        const messageJson = await encodeMessageData({
+        const { messageJson } = await encodeMessageData({
             type: MessageType.LINK_REMOVE,
             linkBody: {
                 type: 'follow',
