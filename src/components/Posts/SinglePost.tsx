@@ -57,6 +57,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
     const isChannelPage = isRoutePathname(pathname, '/club/:detail');
     const isBookmarkPage = isRoutePathname(pathname, PageRoute.Bookmarks);
     const isFollowingPage = isRoutePathname(pathname, PageRoute.FollowingPosts, true);
+    const isEngagementPage = isRoutePathname(pathname, '/post/:source/:id/:type');
     const postLink = getPostUrl(post);
     const muted =
         useIsProfileMuted(
@@ -101,7 +102,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
                     return;
                 }
 
-                if (!isPostPage || isComment) {
+                if (!isPostPage || isComment || isEngagementPage) {
                     if (listKey && !isUndefined(index) && !disableScrollRestore) setScrollIndex(listKey, index);
                     router.push(postLink);
                 }
