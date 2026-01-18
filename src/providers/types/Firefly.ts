@@ -2725,6 +2725,7 @@ export interface PolymarketPositionData {
     wallet: string;
     isClaimable: boolean;
     isWin: boolean;
+    resolvedResult?: string;
 }
 
 export type PrivySignMessageResponse = Response<{

@@ -36,4 +36,5 @@ export interface PredictionPositionDataForUI {
     isClaimable?: boolean;
     isWin?: boolean;
     conditionId: string;
+    resolvedResult?: string;
 }

@@ -118,7 +118,7 @@ export function PredictionPositionItem({ positionData: position, platform, showA
                     </span>
                 </div>
                 {showAction && platform === BetsPlatform.Polymarket ? (
-                    <div className="flex flex-1 items-center justify-end">
+                    <div className="flex flex-1 items-center justify-end empty:hidden">
                         {position.isClaimable ? (
                             position.isWin ? (
                                 <ClickableButton
@@ -153,7 +153,7 @@ export function PredictionPositionItem({ positionData: position, platform, showA
                                     <Trans>Close lost position</Trans>
                                 </ClickableButton>
                             )
-                        ) : (
+                        ) : !position.resolvedResult ? (
                             <ClickableButton
                                 className="box-border h-8 w-[128px] whitespace-nowrap rounded-lg bg-highlight py-2 text-xs text-white"
                                 onClick={() => {
@@ -165,7 +165,7 @@ export function PredictionPositionItem({ positionData: position, platform, showA
                             >
                                 <Trans>Sell</Trans>
                             </ClickableButton>
-                        )}
+                        ) : null}
                     </div>
                 ) : null}
             </div>
