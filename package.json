@@ -34,7 +34,7 @@
         "packages:publish": "pnpm -r --filter='./packages/*' publish --no-git-checks"
     },
     "dependencies": {
-        "@atproto/api": "^0.18.13",
+        "@atproto/api": "^0.18.16",
         "@bprogress/next": "^3.2.11",
         "@coral-xyz/anchor": "^0.32.1",
         "@dimensiondev/iframe-bridge": "workspace:^",

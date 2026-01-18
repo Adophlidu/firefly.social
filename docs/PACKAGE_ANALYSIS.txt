@@ -239,7 +239,7 @@ Packages with Multiple Versions
  yargs@15.4.1,17.7.2
  yargs-parser@18.1.3,21.1.1
  yocto-queue@0.1.0,1.2.2
-*zod@3.22.4,3.25.76,4.2.1
+*zod@3.22.4,3.25.76,4.3.5
 *zustand@4.5.7,5.0.0,5.0.10,5.0.3
 
 Packages with Single Version
@@ -250,10 +250,10 @@ Packages with Single Version
  @adraffy/ens-normalize@1.11.1
  @alloc/quick-lru@5.2.0
  @ampproject/remapping@2.3.0
-*@atproto/api@0.18.13
- @atproto/common-web@0.4.11
- @atproto/lex-data@0.0.7
- @atproto/lex-json@0.0.7
+*@atproto/api@0.18.16
+ @atproto/common-web@0.4.12
+ @atproto/lex-data@0.0.8
+ @atproto/lex-json@0.0.8
  @atproto/lexicon@0.6.0
  @atproto/syntax@0.4.2
  @atproto/xrpc@0.7.7
@@ -1763,7 +1763,7 @@ Packages with Single Version
  unicode-match-property-ecmascript@2.0.0
  unicode-match-property-value-ecmascript@2.2.0
  unicode-property-aliases-ecmascript@2.1.0
- unicode-segmenter@0.14.4
+ unicode-segmenter@0.14.5
  unicode-trie@2.0.0
  unicode-word-regex@1.1.0
  unified@11.0.5
