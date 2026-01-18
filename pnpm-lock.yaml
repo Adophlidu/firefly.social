@@ -23,7 +23,7 @@ overrides:
   crypto-js@<4.2.0: '>=4.2.0'
   elliptic: '>=6.6.1'
   isows: 1.0.7
-  pino: 10.1.0
+  pino: 10.1.1
   react: 19.2.3
   react-dom: 19.2.3
   react-use: 17.6.0
@@ -266,8 +266,8 @@ importers:
         specifier: ^2.7.3
         version: 2.7.3(@tanstack/react-router@1.115.3)(next@16.0.10)(react@19.2.3)
       pino:
-        specifier: 10.1.0
-        version: 10.1.0
+        specifier: 10.1.1
+        version: 10.1.1
       plyr-react:
         specifier: ^5.3.0
         version: 5.3.0(plyr@3.8.4)(react@19.2.3)
@@ -10036,7 +10036,7 @@ packages:
     resolution: {integrity: sha512-DDktPBFdmt5d7U3sbp4e3fQHNS1b6amsR8FmtOnt6L2SnV7VfcZr8VmAGL12zetAR+4fndegbREmX0P8Mw6eDg==}
     dependencies:
       '@walletconnect/safe-json': 1.0.2
-      pino: 10.1.0
+      pino: 10.1.1
     dev: false
 
   /@walletconnect/relay-api@1.0.11:
@@ -15940,31 +15940,31 @@ packages:
     engines: {node: '>=10'}
     dev: false
 
-  /pino-abstract-transport@2.0.0:
-    resolution: {integrity: sha512-F63x5tizV6WCh4R6RHyi2Ml+M70DNRXt/+HANowMflpgGFMAym/VKm6G7ZOQRjqN7XbGxK1Lg9t6ZrtzOaivMw==}
+  /pino-abstract-transport@3.0.0:
+    resolution: {integrity: sha512-wlfUczU+n7Hy/Ha5j9a/gZNy7We5+cXp8YL+X+PG8S0KXxw7n/JXA3c46Y0zQznIJ83URJiwy7Lh56WLokNuxg==}
     dependencies:
       split2: 4.2.0
     dev: false
 
-  /pino-std-serializers@7.0.0:
-    resolution: {integrity: sha512-e906FRY0+tV27iq4juKzSYPbUj2do2X2JX4EzSca1631EB2QJQUqGbDuERal7LCtOpxl6x3+nvo9NPZcmjkiFA==}
+  /pino-std-serializers@7.1.0:
+    resolution: {integrity: sha512-BndPH67/JxGExRgiX1dX0w1FvZck5Wa4aal9198SrRhZjH3GxKQUKIBnYJTdj2HDN3UQAS06HlfcSbQj2OHmaw==}
     dev: false
 
-  /pino@10.1.0:
-    resolution: {integrity: sha512-0zZC2ygfdqvqK8zJIr1e+wT1T/L+LF6qvqvbzEQ6tiMAoTqEVK9a1K3YRu8HEUvGEvNqZyPJTtb2sNIoTkB83w==}
+  /pino@10.1.1:
+    resolution: {integrity: sha512-3qqVfpJtRQUCAOs4rTOEwLH6mwJJ/CSAlbis8fKOiMzTtXh0HN/VLsn3UWVTJ7U8DsWmxeNon2IpGb+wORXH4g==}
     hasBin: true
     dependencies:
       '@pinojs/redact': 0.4.0
       atomic-sleep: 1.0.0
       on-exit-leak-free: 2.1.2
-      pino-abstract-transport: 2.0.0
-      pino-std-serializers: 7.0.0
+      pino-abstract-transport: 3.0.0
+      pino-std-serializers: 7.1.0
       process-warning: 5.0.0
       quick-format-unescaped: 4.0.4
       real-require: 0.2.0
       safe-stable-stringify: 2.5.0
       sonic-boom: 4.2.0
-      thread-stream: 3.1.0
+      thread-stream: 4.0.0
     dev: false
 
   /pirates@4.0.7:
@@ -18024,6 +18024,13 @@ packages:
       real-require: 0.2.0
     dev: false
 
+  /thread-stream@4.0.0:
+    resolution: {integrity: sha512-4iMVL6HAINXWf1ZKZjIPcz5wYaOdPhtO8ATvZ+Xqp3BTdaqtAwQkNmKORqcIo5YkQqGXq5cwfswDwMqqQNrpJA==}
+    engines: {node: '>=20'}
+    dependencies:
+      real-require: 0.2.0
+    dev: false
+
   /threads@1.7.0:
     resolution: {integrity: sha512-Mx5NBSHX3sQYR6iI9VYbgHKBLisyB+xROCBGjjWm1O9wb9vfLxdaGtmT/KCjUqMsSNW6nERzCW3T6H43LqjDZQ==}
     dependencies:
@@ -19883,7 +19890,7 @@ time:
   /next-auth@4.24.13: '2025-10-29T20:52:19.822Z'
   /next@16.0.10: '2025-12-11T22:56:10.472Z'
   /nuqs@2.7.3: '2025-11-07T16:29:58.363Z'
-  /pino@10.1.0: '2025-10-18T11:39:51.488Z'
+  /pino@10.1.1: '2026-01-09T18:24:49.278Z'
   /pixelmatch@5.3.0: '2022-04-25T08:10:51.159Z'
   /plyr-react@5.3.0: '2023-06-12T22:50:21.153Z'
   /pngjs@7.0.0: '2023-02-20T06:59:21.772Z'
