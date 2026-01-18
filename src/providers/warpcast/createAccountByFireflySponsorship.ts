@@ -1,8 +1,8 @@
 import { getPublicKey, utils } from '@noble/ed25519';
 import { bytesToHex, toHex } from 'viem';
 
-import { getFarcasterProfileById } from '@/providers/farcaster/getFarcasterProfileById.js';
 import { FarcasterSession, FarcasterSponsorship } from '@/providers/farcaster/Session.js';
+import { getFarcasterProfileById } from '@/providers/firefly/farcaster-hub/getFarcasterProfileById.js';
 import { type Account } from '@/providers/types/Account.js';
 import { createSignedKey } from '@/providers/warpcast/createSignedKey.js';
 import { createSignedKeyPayloadWithSponsorship } from '@/providers/warpcast/createSignedKeyPayload.js';

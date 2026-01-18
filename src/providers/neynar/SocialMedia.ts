@@ -20,8 +20,8 @@ import { farcasterPostIdToHash } from '@/providers/farcaster/farcasterPostIdToHa
 import { formatChannelFromFirefly } from '@/providers/farcaster/formatFarcasterChannelFromFirefly.js';
 import { getAllMentionsForFarcaster } from '@/providers/farcaster/getAllMentionsForFarcaster.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
+import { publishMessage } from '@/providers/firefly/farcaster-hub/publishMessage.js';
 import { encodeMessageData } from '@/providers/neynar/encodeMessageData.js';
-import { publishMessage } from '@/providers/neynar/publishMessage.js';
 import { searchProfiles } from '@/providers/neynar/searchProfiles.js';
 import { type Account } from '@/providers/types/Account.js';
 import {

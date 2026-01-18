@@ -1,7 +1,7 @@
 import { Source } from '@/constants/enum.js';
 import { FireflyAccountAbsentError, FireflyAlreadyBoundError } from '@/constants/error.js';
-import { getFarcasterProfileById } from '@/providers/farcaster/getFarcasterProfileById.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
+import { getFarcasterProfileById } from '@/providers/firefly/farcaster-hub/getFarcasterProfileById.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { type Account } from '@/providers/types/Account.js';
 import { type FarcasterAccountInfo } from '@/providers/types/Firefly.js';

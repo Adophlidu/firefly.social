@@ -2,7 +2,7 @@ import urlcat from 'urlcat';
 
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { formatFarcasterProfileFromFirefly } from '@/providers/farcaster/formatFarcasterProfileFromFirefly.js';
-import { getFarcasterFriendship } from '@/providers/farcaster/getFarcasterFriendship.js';
+import { getFarcasterFriendship } from '@/providers/firefly/farcaster-hub/getFarcasterFriendship.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { type UserResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';

@@ -4,7 +4,7 @@ import { Source } from '@/constants/enum.js';
 import { createDummyChannel } from '@/helpers/createDummyChannel.js';
 import { ComposeModalRef } from '@/modals/ComposeModal/index.js';
 import { FrameViewerModalRef } from '@/modals/FrameViewerModal/FrameViewerModal.js';
-import { fireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { getPostById } from '@/providers/firefly/farcaster-hub/getPostById.js';
 
 export const frameComposeCast = async function (options) {
     const result = await ComposeModalRef.openAndWaitForClose({
@@ -13,7 +13,7 @@ export const frameComposeCast = async function (options) {
         chars: options.text,
         embeds: options.embeds,
         channel: options.channelKey ? createDummyChannel(Source.Farcaster, options.channelKey) : undefined,
-        post: options.parent ? await fireflySocialMediaProvider.getPostById(options.parent.hash) : undefined,
+        post: options.parent ? await getPostById(options.parent.hash) : undefined,
     });
 
     if (options.close) {

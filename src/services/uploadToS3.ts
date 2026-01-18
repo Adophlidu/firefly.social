@@ -1,44 +1,18 @@
-import urlcat from 'urlcat';
-
 import { SUFFIX_NAMES } from '@/constants/computed.js';
-import { FIREFLY_WORKER_HOST } from '@/constants/static.js';
-import { blobToBase64 } from '@/helpers/blobToBase64.js';
-import { fetchJson } from '@/helpers/fetchJson.js';
 import { memoizePromiseWithTime } from '@/helpers/memoizePromise.js';
-import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
-import { resolveResponseData } from '@/helpers/resolveResponseData.js';
-import { type S3ConnectionConfig, type UploadMediaTokenResponse } from '@/providers/types/Firefly.js';
-import { uploadToS3ByChunk } from '@/services/uploadToS3ByChunk.js';
-import { settings } from '@/settings/index.js';
-import { type ResponseJson } from '@/types/utility.js';
+import { uploadMediaToken } from '@/providers/firefly/farcaster-hub/uploadMediaToken.js';
+import { uploadToS3ByBase64 } from '@/providers/firefly/worker/uploadToS3ByBase64.js';
+import { uploadToS3ByChunk } from '@/providers/firefly/worker/uploadToS3ByChunk.js';
 
 const FIVE_MB = 5 * 1024 * 1024;
 const uploadedCache = new WeakMap<File, string | Promise<string>>();
 
 const getS3ConnectionConfig = memoizePromiseWithTime(
-    async function getS3ConnectionConfig() {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/uploadMediaToken');
-        const response = await fetchJson<UploadMediaTokenResponse>(url);
-        return resolveFireflyResponseData(response);
-    },
+    uploadMediaToken,
     () => 'getS3ConnectionConfig',
     // https://github.com/DimensionDev/Mask-X-Backend/blob/develop/src/farcaster-hub/farcaster-hub.service.ts
     { cacheTime: 60 * 10 }, // 10 minutes
 );
-
-async function uploadToS3ByBase64(file: File, fileKey: string, s3Config: S3ConnectionConfig) {
-    const response = await fetchJson<ResponseJson<{ url: string }>>(urlcat(FIREFLY_WORKER_HOST, '/s3/upload/upload'), {
-        method: 'POST',
-        body: JSON.stringify({
-            file: await blobToBase64(file),
-            fileKey,
-            mediaToken: s3Config,
-        }),
-    });
-
-    const { url } = resolveResponseData(response);
-    return url;
-}
 
 async function uploadToDirectory(
     file: File,

@@ -45,8 +45,9 @@ import { publishPostToBsky } from '@/providers/bsky/publishPostToBsky.js';
 import { resolveBskyResponseData, resolveBskyResponseDataAsync } from '@/providers/bsky/resolveBskyResponseData.js';
 import { type BskySession } from '@/providers/bsky/Session.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
+import { bookmark } from '@/providers/firefly/endpoint/bookmark.js';
+import { unbookmark } from '@/providers/firefly/endpoint/unbookmark.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { fireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { type Account } from '@/providers/types/Account.js';
 import { type BookmarkResponse, type NotificationSettings, type WalletProfile } from '@/providers/types/Firefly.js';
 import { type Session } from '@/providers/types/Session.js';
@@ -761,10 +762,10 @@ class BskySocialMedia implements Provider {
         profileId?: string,
         postType?: BookmarkType,
     ): Promise<boolean> {
-        return fireflySocialMediaProvider.bookmark(postId, platform, profileId, postType);
+        return bookmark(postId, platform, profileId, postType);
     }
     async unbookmark(postId: string): Promise<boolean> {
-        return fireflySocialMediaProvider.unbookmark(postId);
+        return unbookmark(postId);
     }
     async getBookmarks(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/bookmark/find', {

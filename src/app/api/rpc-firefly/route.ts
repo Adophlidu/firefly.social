@@ -6,9 +6,9 @@ import { createErrorResponseJson, createSuccessResponseJson } from '@/helpers/cr
 import { getHeadersWithZodSchema } from '@/helpers/getHeadersWithZodSchema.js';
 import { getJsonBodyWithZodSchema } from '@/helpers/getJsonBodyWithZodSchema.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
-import { getPostByShortId } from '@/providers/firefly/endpoint/getPostByShortId.js';
 import { getTruthSocialPostById } from '@/providers/firefly/endpoint/getTruthSocialPostById.js';
 import { getWalletProfileByAddressOrEns } from '@/providers/firefly/endpoint/getWalletProfileByAddressOrEns.js';
+import { getPostByShortId } from '@/providers/firefly/farcaster-hub/getPostByShortId.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 

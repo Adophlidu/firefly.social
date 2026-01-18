@@ -5,8 +5,9 @@ import { BookmarkType, FireflyPlatform } from '@/constants/enum.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { patchPredictionActivityData } from '@/helpers/patchPredictionActivityData.js';
+import { bookmark } from '@/providers/firefly/endpoint/bookmark.js';
+import { unbookmark } from '@/providers/firefly/endpoint/unbookmark.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { fireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { type BetsActivity } from '@/providers/types/Firefly.js';
 
 export function useTogglePredictionBookmark() {
@@ -19,15 +20,10 @@ export function useTogglePredictionBookmark() {
             const hasBookmarked = activity.hasBookmarked;
             try {
                 if (hasBookmarked) {
-                    await fireflySocialMediaProvider.unbookmark(activity.transactionHash);
+                    await unbookmark(activity.transactionHash);
                     enqueueSuccessMessage(t`Removed from bookmarks`);
                 } else {
-                    await fireflySocialMediaProvider.bookmark(
-                        activity.transactionHash,
-                        FireflyPlatform.Bets,
-                        undefined,
-                        BookmarkType.All,
-                    );
+                    await bookmark(activity.transactionHash, FireflyPlatform.Bets, undefined, BookmarkType.All);
                     enqueueSuccessMessage(t`Added to bookmarks`);
                 }
                 patchPredictionActivityData((oldData) => {
