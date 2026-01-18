@@ -9,11 +9,11 @@ import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { ConfirmSyncSessionModalRef } from '@/modals/ConfirmSyncSessionModal.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
 import { getMetricsStatus } from '@/providers/firefly/metrics/getMetricsStatus.js';
-import { uploadMetrics as uploadFireflyMetrics } from '@/providers/firefly/metrics/uploadMetrics.js';
 import { type LensSession } from '@/providers/lens/Session.js';
 import { type Account } from '@/providers/types/Account.js';
 import { type Profile } from '@/providers/types/SocialMedia.js';
-import { downloadAccounts, mergeMetrics, uploadMetrics } from '@/services/metrics.js';
+import { downloadAccounts, mergeMetrics, uploadLocalMetrics } from '@/services/metrics.js';
+import { uploadMetricsToFirefly } from '@/services/uploadMetrics.js';
 import { verifyAndGetPassword } from '@/services/verifyAndGetPassword.js';
 
 interface Options {
@@ -73,7 +73,7 @@ async function syncMetrics(account: Account, options?: Options) {
         }
     } else if (profilesToUpload.length > 0 && !isOrbTemporaryAccount) {
         metricsPassword = await verifyAndGetPassword();
-        if (metricsPassword) uploadMetrics(metricsPassword);
+        if (metricsPassword) uploadLocalMetrics(metricsPassword);
     }
 
     // force upload
@@ -82,7 +82,7 @@ async function syncMetrics(account: Account, options?: Options) {
         if (metricsPassword) {
             const metricsData = await getAccountMetricsData(account, metricsPassword);
             if (metricsData) {
-                await uploadFireflyMetrics(metricsPassword, [metricsData]);
+                await uploadMetricsToFirefly(metricsPassword, [metricsData]);
             }
         }
     }

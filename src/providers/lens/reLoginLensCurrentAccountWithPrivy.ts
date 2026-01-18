@@ -4,11 +4,11 @@ import { isSameAccount } from '@/helpers/isSameAccount.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { logger } from '@/libs/Logger.js';
 import { checkPasscode } from '@/providers/firefly/metrics/checkPasscode.js';
-import { uploadMetrics as uploadFireflyMetrics } from '@/providers/firefly/metrics/uploadMetrics.js';
 import { autoLoginWithPrivy } from '@/providers/lens/autoLoginWithPrivy.js';
 import { type LensSession } from '@/providers/lens/Session.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { type Account } from '@/providers/types/Account.js';
+import { uploadMetricsToFirefly } from '@/services/uploadMetrics.js';
 import { useLensProfileStore } from '@/store/useProfileStore/useLensProfileStore.js';
 import { useTokenPasswordStore } from '@/store/useTokenPasswordStore.js';
 
@@ -31,7 +31,7 @@ export async function reLoginLensCurrentAccountWithPrivy(account: Account) {
 
                 const metricsData = await getAccountMetricsData(accountByPrivy, localPassword);
                 if (metricsData) {
-                    await uploadFireflyMetrics(localPassword, [metricsData]);
+                    await uploadMetricsToFirefly(localPassword, [metricsData]);
                 }
             });
         }

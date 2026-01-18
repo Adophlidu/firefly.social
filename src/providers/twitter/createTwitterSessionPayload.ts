@@ -13,7 +13,7 @@ interface TwitterAuthPayload {
     oauthTokenSecret?: string;
 }
 
-async function createTwitterSessionPayloadFromHeaders() {
+export async function createTwitterSessionPayloadFromHeaders() {
     const payload = TwitterSession.payloadFromHeaders(await headers());
     if (!payload) return null;
 

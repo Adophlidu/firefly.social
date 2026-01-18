@@ -25,7 +25,6 @@ import { FAKE_SIGNER_REQUEST_TOKEN, FarcasterSession } from '@/providers/farcast
 import { deleteMetrics } from '@/providers/firefly/metrics/deleteMetrics.js';
 import { downloadMetaInfo } from '@/providers/firefly/metrics/downloadMetaInfo.js';
 import { downloadMetrics } from '@/providers/firefly/metrics/downloadMetrics.js';
-import { uploadMetrics as uploadFireflyMetrics } from '@/providers/firefly/metrics/uploadMetrics.js';
 import { ensureLensSessionIsValid } from '@/providers/lens/ensureLensSessionIsValid.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
@@ -35,9 +34,14 @@ import { TwitterAuthProvider } from '@/providers/twitter/Auth.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import { type SessionPayload } from '@/providers/twitter/SessionPayload.js';
 import { type Account } from '@/providers/types/Account.js';
-import { type FarcasterMetricsData, type LensMetricsData } from '@/providers/types/Firefly.js';
+import {
+    type FarcasterMetricsData,
+    type LensMetricsData,
+    type MetricsItemToUpload,
+} from '@/providers/types/Firefly.js';
 import { type Profile } from '@/providers/types/SocialMedia.js';
 import { decryptAes256 } from '@/services/crypto.js';
+import { uploadMetricsToFirefly } from '@/services/uploadMetrics.js';
 import { type ResponseJson } from '@/types/utility.js';
 
 function decryptCipherText(passcode: string, text: string) {
@@ -50,13 +54,13 @@ async function getLocalMetrics(passcode: string) {
     return Promise.all(allAccounts.map((account) => getAccountMetricsData(account, passcode)));
 }
 
-export async function uploadMetrics(passcode: string) {
+export async function uploadLocalMetrics(passcode: string) {
     const localMetrics = await getLocalMetrics(passcode);
 
     const validMetrics = compact(localMetrics);
     if (!validMetrics.length) throw new Error('No valid metrics data to upload.');
 
-    return uploadFireflyMetrics(passcode, validMetrics);
+    return uploadMetricsToFirefly(passcode, validMetrics);
 }
 
 export async function downloadAccounts() {
@@ -77,9 +81,15 @@ export async function mergeMetrics(passcode: string, enqueueMessage = true) {
     const remoteMetrics = remoteMetricsResponse.metrics.map(({ identity, ...metric }) => metric);
 
     // merge local metrics with remote metrics, if local metrics is not in remote metrics, add it to remote metrics
-    const mergedMetrics = [...remoteMetrics];
+    const mergedMetrics: MetricsItemToUpload[] = remoteMetrics.map((item) => {
+        const platform = item.metaInfo.platform;
+        return {
+            source: platform === 'bluesky' ? Source.Bsky : resolveSocialSource(platform),
+            metrics: { ...item },
+        };
+    });
     for (const localMetric of validLocalMetrics) {
-        const { platform, profileId } = localMetric.metaInfo;
+        const { platform, profileId } = localMetric.metrics.metaInfo;
         const index = remoteMetrics.findIndex(
             (metric) => metric.metaInfo.platform === platform && metric.metaInfo.profileId === profileId,
         );
@@ -91,7 +101,7 @@ export async function mergeMetrics(passcode: string, enqueueMessage = true) {
         }
     }
 
-    await uploadFireflyMetrics(passcode, compact(mergedMetrics));
+    await uploadMetricsToFirefly(passcode, compact(mergedMetrics));
 
     const metricIdsToDelete: string[] = [];
     const newAccounts: Account[] = [];
@@ -100,7 +110,8 @@ export async function mergeMetrics(passcode: string, enqueueMessage = true) {
             info.metaInfo.platform === 'bluesky' ||
             validLocalMetrics.some(
                 (x) =>
-                    x.metaInfo.profileId === info.metaInfo.profileId && x.metaInfo.platform === info.metaInfo.platform,
+                    x.metrics.metaInfo.profileId === info.metaInfo.profileId &&
+                    x.metrics.metaInfo.platform === info.metaInfo.platform,
             )
         ) {
             continue;

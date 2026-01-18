@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/react/macro';
 
 import { PasswordStep, PasswordWorkflow } from '@/constants/enum.js';
-import { uploadMetrics } from '@/services/metrics.js';
+import { uploadLocalMetrics } from '@/services/metrics.js';
 import { verifyAndGetPassword } from '@/services/verifyAndGetPassword.js';
 import { useLensProfileStore } from '@/store/useProfileStore/useLensProfileStore.js';
 
@@ -24,7 +24,7 @@ export async function ensureSchedulePostPassword() {
     if (!password) return null;
 
     await useLensProfileStore.getState().refreshCurrentAccount();
-    await uploadMetrics(password);
+    await uploadLocalMetrics(password);
 
     return password;
 }

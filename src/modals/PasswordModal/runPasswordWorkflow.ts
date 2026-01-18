@@ -12,7 +12,7 @@ import { checkPasscode } from '@/providers/firefly/metrics/checkPasscode.js';
 import { resetPasscode } from '@/providers/firefly/metrics/resetPasscode.js';
 import { setPasscode } from '@/providers/firefly/metrics/setPasscode.js';
 import { updatePasscode } from '@/providers/firefly/metrics/updatePasscode.js';
-import { mergeMetrics, uploadMetrics } from '@/services/metrics.js';
+import { mergeMetrics, uploadLocalMetrics } from '@/services/metrics.js';
 
 type NextStepConfig =
     | {
@@ -88,7 +88,7 @@ async function setPassword(
             }
             await setPasscode(password);
             if (autoUploadMetrics) {
-                await runInSafeAsync(() => uploadMetrics(password));
+                await runInSafeAsync(() => uploadLocalMetrics(password));
             }
             enqueueSuccessMessage(
                 shouldReset

@@ -12,7 +12,6 @@ import { updateCurrentSessionToStorage } from '@/helpers/updateCurrentSessionToS
 import { logger } from '@/libs/Logger.js';
 import { checkPasscode } from '@/providers/firefly/metrics/checkPasscode.js';
 import { getMetricsStatus } from '@/providers/firefly/metrics/getMetricsStatus.js';
-import { uploadMetrics as uploadFireflyMetrics } from '@/providers/firefly/metrics/uploadMetrics.js';
 import { fragments } from '@/providers/lens/fragments/index.js';
 import { LocalStorageProvider } from '@/providers/lens/LocalStorageProvider.js';
 import { MemoryStorageProvider } from '@/providers/lens/MemoryStorageProvider.js';
@@ -22,6 +21,7 @@ import { SessionStorageProvider } from '@/providers/lens/SessionStorageProvider.
 import { captureAccountLoginEvent } from '@/providers/telemetry/captureAccountEvent.js';
 import { type Account } from '@/providers/types/Account.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
+import { uploadMetricsToFirefly } from '@/services/uploadMetrics.js';
 import { useTokenPasswordStore } from '@/store/useTokenPasswordStore.js';
 
 async function uploadMetricsAfterForceRefresh(account: Account) {
@@ -38,7 +38,7 @@ async function uploadMetricsAfterForceRefresh(account: Account) {
         const metricsData = await getAccountMetricsData(account, localPassword);
         if (!metricsData) return;
 
-        await uploadFireflyMetrics(localPassword, [metricsData]);
+        await uploadMetricsToFirefly(localPassword, [metricsData]);
     } catch (error) {
         logger.error('Failed to upload metrics after force refresh.', error);
     }

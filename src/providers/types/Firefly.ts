@@ -10,6 +10,7 @@ import {
     type NetworkType,
     type PolymarketBetType,
     type S3ConvertStatus,
+    type SocialSource,
     type SocialSourceInURL,
     type Source,
     type SourceInURL,
@@ -19,12 +20,13 @@ import {
 } from '@/constants/enum.js';
 import { type ErcType, type EVM } from '@/providers/nft-scan/types.js';
 import { type SnapshotActivity, type SnapshotChoice, type SnapshotProposal } from '@/providers/snapshot/type.js';
+import type { TwitterSession } from '@/providers/twitter/Session.js';
 import { type Article as FormattedArticle, type ArticlePlatform, type ArticleType } from '@/providers/types/Article.js';
 import { type CoinGeckoAsset } from '@/providers/types/CoinGecko.js';
 import { type Token as DebankToken } from '@/providers/types/Debank.js';
 import { type NFTFeedV3 } from '@/providers/types/NFTs.js';
 import { type NotificationType as SocialNotificationType } from '@/providers/types/SocialMedia.js';
-import { type LiteralOrString } from '@/types/utility.js';
+import { type LiteralOrString, type PartialWith } from '@/types/utility.js';
 
 export enum EmbedMediaType {
     IMAGE = 'image',
@@ -1974,10 +1976,29 @@ export type LensMetricsData = CommonMetricsData & {
     address: string;
 };
 
-export interface MetricsItemToUpload {
+export interface MetricsData {
     ciphertext: string;
     metaInfo: MetricsMetaInfo;
 }
+
+export interface MetricsUploadResponseData {
+    metrics: Array<
+        MetricsData & {
+            identity: string;
+        }
+    >;
+}
+
+export type MetricsItemToUpload =
+    | {
+          source: Exclude<SocialSource, Source.Twitter>;
+          metrics: MetricsData;
+      }
+    | {
+          source: Source.Twitter;
+          session?: TwitterSession;
+          metrics: PartialWith<MetricsData, 'ciphertext'>;
+      };
 
 interface PostStateEntry {
     post_id: string;
