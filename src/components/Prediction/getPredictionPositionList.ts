@@ -1,6 +1,6 @@
 import { unreachable } from '@dimensiondev/utils';
 
-import { BetsPlatform } from '@/constants/enum.js';
+import { PredictionPlatform } from '@/constants/enum.js';
 import { type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { getPositionHistory } from '@/providers/firefly/prediction/getPositionHistory.js';
 import { getPredictionHistoryList } from '@/providers/firefly/prediction/getPredictionHistoryList.js';
@@ -15,19 +15,19 @@ interface Options {
 }
 
 export async function getPredictionPositionList(
-    platform: BetsPlatform,
+    platform: PredictionPlatform,
     options: Options,
 ): Promise<Pageable<PredictionPositionDataForUI, PageIndicator>> {
     switch (platform) {
-        case BetsPlatform.Polymarket:
+        case PredictionPlatform.Polymarket:
             return getPositionHistory(options);
-        case BetsPlatform.Opinion: {
+        case PredictionPlatform.Opinion: {
             const result = await getPredictionHistoryList({
                 wallet: options.address,
                 is_proxy: options.isProxyAddress ?? false,
                 limit: options.limit,
                 indicator: options.indicator,
-                platform: BetsPlatform.Opinion,
+                platform: PredictionPlatform.Opinion,
             });
 
             return {

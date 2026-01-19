@@ -690,9 +690,25 @@ export enum ConnectionSource {
     Privy = 'privy',
 }
 
-export enum BetsPlatform {
+export enum PredictionPlatform {
     Polymarket = 'polymarket',
     Opinion = 'opinion',
+}
+
+export enum BetsPriceTimeRange {
+    OneHour = 1,
+    SixHours = 2,
+    OneDay = 3,
+    OneWeek = 4,
+    OneMonth = 5,
+    All = 6,
+}
+
+export enum BetsMarketResolveStatus {
+    Proposed = 'proposed',
+    Disputed = 'disputed',
+    Resolved = 'resolved',
+    NoDisputed = 'no_disputed',
 }
 
 export enum RedpacketTxType {

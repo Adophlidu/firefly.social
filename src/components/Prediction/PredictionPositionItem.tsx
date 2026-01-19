@@ -6,7 +6,7 @@ import urlcat from 'urlcat';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Link } from '@/components/Link.js';
 import { formatPolymarketNumber } from '@/components/Polymarket/formatPolymarketNumber.js';
-import { BetsPlatform } from '@/constants/enum.js';
+import { PredictionPlatform } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
 import { resolveOpinionEventUrl } from '@/helpers/resolveOpinionEventUrl.js';
@@ -15,18 +15,18 @@ import { useOpenFireflyWallet } from '@/hooks/useOpenFireflyWallet.js';
 import { type PredictionPositionDataForUI } from '@/types/prediction.js';
 
 interface PredictionPositionItemProps {
-    platform: BetsPlatform;
+    platform: PredictionPlatform;
     positionData: PredictionPositionDataForUI;
     showAction?: boolean;
 }
 
-function resolveEventUrl(platform: BetsPlatform, positionData: PredictionPositionDataForUI) {
+function resolveEventUrl(platform: PredictionPlatform, positionData: PredictionPositionDataForUI) {
     switch (platform) {
-        case BetsPlatform.Polymarket: {
+        case PredictionPlatform.Polymarket: {
             const eventSlug = first(positionData.event_slugs);
             return eventSlug ? resolvePolymarketEventUrl(eventSlug) : undefined;
         }
-        case BetsPlatform.Opinion:
+        case PredictionPlatform.Opinion:
             return positionData.topicId
                 ? resolveOpinionEventUrl(positionData.topicId, Boolean(positionData.is_mutil))
                 : undefined;
@@ -42,7 +42,7 @@ function formatBetsPrice(price: number) {
 
 export function PredictionPositionItem({ positionData: position, platform, showAction }: PredictionPositionItemProps) {
     const displayTitle =
-        platform === BetsPlatform.Opinion
+        platform === PredictionPlatform.Opinion
             ? compact([position.parent_title, position.title]).join(' - ')
             : position.title;
     const openFireflyWallet = useOpenFireflyWallet();
@@ -117,7 +117,7 @@ export function PredictionPositionItem({ positionData: position, platform, showA
                         {formatPolymarketNumber(position.total_buy)}
                     </span>
                 </div>
-                {showAction && platform === BetsPlatform.Polymarket ? (
+                {showAction && platform === PredictionPlatform.Polymarket ? (
                     <div className="flex flex-1 items-center justify-end empty:hidden">
                         {position.isClaimable ? (
                             position.isWin ? (

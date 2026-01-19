@@ -1,6 +1,6 @@
 import urlcat from 'urlcat';
 
-import { type BetsPlatform } from '@/constants/enum.js';
+import { type PredictionPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/static.js';
 import { formatPolymarketFromFirefly } from '@/helpers/formatPolymarketFromFirefly.js';
 import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@/helpers/pageable.js';
@@ -12,7 +12,7 @@ import { settings } from '@/settings/index.js';
 interface Options {
     size?: number;
     cursor?: string;
-    platform?: BetsPlatform[];
+    platform?: PredictionPlatform[];
     indicator?: PageIndicator;
 }
 

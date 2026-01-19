@@ -9,7 +9,7 @@ import { ListInPage } from '@/components/ListInPage.js';
 import { getPredictionPositionList } from '@/components/Prediction/getPredictionPositionList.js';
 import { PredictionPositionFilter } from '@/components/Prediction/PredictionPositionFilter.js';
 import { PredictionPositionItem } from '@/components/Prediction/PredictionPositionItem.js';
-import { BetsPlatform, ScrollListKey, Source } from '@/constants/enum.js';
+import { PredictionPlatform, ScrollListKey, Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/static.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
@@ -17,12 +17,12 @@ import { useAllProxyWallets } from '@/hooks/prediction/useAllProxyWallets.js';
 import { type PredictionPositionDataForUI } from '@/types/prediction.js';
 
 interface Props {
-    platform: BetsPlatform;
+    platform: PredictionPlatform;
     address: string;
     proxyAddress?: string;
 }
 interface Options {
-    platform: BetsPlatform;
+    platform: PredictionPlatform;
     index: number;
     positionData: PredictionPositionDataForUI;
     isMyAddress: boolean;
@@ -73,7 +73,7 @@ export const PredictionProfilePositionList = memo<Props>(function PredictionProf
 
     return (
         <div className="p-4">
-            {platform === BetsPlatform.Polymarket ? <PredictionPositionFilter /> : null}
+            {platform === PredictionPlatform.Polymarket ? <PredictionPositionFilter /> : null}
             <ListInPage
                 source={Source.Prediction}
                 key={Source.Prediction}

@@ -2,7 +2,7 @@ import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { BetsPlatform } from '@/constants/enum.js';
+import { PredictionPlatform } from '@/constants/enum.js';
 import { bedStead } from '@/fonts/bedStead/index.js';
 import { isZero } from '@/helpers/number.js';
 import { openPredictionPage } from '@/helpers/openPredictionPage.js';
@@ -59,7 +59,7 @@ export function PredictionActivityRate({ activity }: ActivityRateProps) {
                     );
                 })}
             </div>
-            {activity.platform === BetsPlatform.Polymarket ? (
+            {activity.platform === PredictionPlatform.Polymarket ? (
                 <div className="mt-3 flex gap-2">
                     {firstOutcome ? (
                         <ClickableButton

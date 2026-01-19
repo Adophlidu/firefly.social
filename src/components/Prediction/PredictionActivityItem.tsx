@@ -14,6 +14,7 @@ import { Source, WalletProfileCategory } from '@/constants/enum.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getWalletProfileAvatar } from '@/helpers/getWalletProfileAvatar.js';
+import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { type BetsActivity } from '@/providers/types/Firefly.js';
 
@@ -33,11 +34,21 @@ export const PredictionActivityItem = memo<PredictionActivityItemProps>(function
 
     const wrapper = useCallback(
         (children: React.ReactNode) => (
-            <Link target="_blank" href={activity.url} onClick={onLinkClick}>
+            <Link
+                target="_blank"
+                href={
+                    activity.topicId
+                        ? RouteResolver.betsEventDetail(activity.platform, activity.topicId, {
+                              multiple: activity.isMutil === 1,
+                          })
+                        : activity.url
+                }
+                onClick={onLinkClick}
+            >
                 {children}
             </Link>
         ),
-        [activity.url, onLinkClick],
+        [activity.platform, activity.topicId, activity.isMutil, activity.url, onLinkClick],
     );
 
     return (

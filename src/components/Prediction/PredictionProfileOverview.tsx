@@ -12,7 +12,7 @@ import { PolymarketVolumeTraded } from '@/components/Polymarket/PolymarketVolume
 import { toRate } from '@/components/Polymarket/toRate.js';
 import { extractFallbackInfo } from '@/components/Prediction/extractFallbackInfo.js';
 import { PredictionPlatformName } from '@/components/Prediction/PredictionPlatformName.js';
-import { BetsPlatform, Source } from '@/constants/enum.js';
+import { PredictionPlatform, Source } from '@/constants/enum.js';
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
@@ -23,11 +23,11 @@ import type { PredictionProfileDataForUI } from '@/types/prediction.js';
 interface PredictionProfileOverviewProps {
     profile: PredictionProfileDataForUI;
     address: string;
-    platform: BetsPlatform;
+    platform: PredictionPlatform;
 }
 
 export function PredictionProfileOverview({ profile, platform, address }: PredictionProfileOverviewProps) {
-    const isOpinion = platform === BetsPlatform.Opinion;
+    const isOpinion = platform === PredictionPlatform.Opinion;
 
     const { data: socialProfile } = useQuery({
         queryKey: ['wallet-profile-info-list', address, platform],

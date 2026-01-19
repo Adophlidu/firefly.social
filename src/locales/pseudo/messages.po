@@ -97,6 +97,9 @@ msgstr ""
 msgid "Report @{0}"
 msgstr ""
 
+msgid "No bids"
+msgstr ""
+
 #. placeholder {0}: percentageToNumber(info.sell_tax)
 msgid "Sell Tax: {0}%"
 msgstr ""
@@ -276,6 +279,9 @@ msgid "We are not aware of any code that prevents the sale of tokens."
 msgstr ""
 
 msgid "Positions"
+msgstr ""
+
+msgid "No trades found"
 msgstr ""
 
 #. placeholder {0}: space.participant_count?.toLocaleString()
@@ -646,7 +652,14 @@ msgstr ""
 msgid "Sign in"
 msgstr ""
 
+#. placeholder {0}: nFormatter(+market.volume, 2)
+msgid "${0} Vol."
+msgstr ""
+
 msgid "Signing in"
+msgstr ""
+
+msgid "Top Holders"
 msgstr ""
 
 msgid "Overview"
@@ -688,6 +701,9 @@ msgid "Copied"
 msgstr ""
 
 msgid "Failed to vote."
+msgstr ""
+
+msgid "Markets"
 msgstr ""
 
 msgid "Your posts have published successfully."
@@ -797,6 +813,9 @@ msgstr ""
 msgid "Blockchain"
 msgstr ""
 
+msgid "Outcome proposed: {outcomeLabel}"
+msgstr ""
+
 #. placeholder {0}: notification.followers.length
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}}<4> followed you</4>"
 msgstr ""
@@ -859,6 +878,9 @@ msgid "Honeypot related address."
 msgstr ""
 
 msgid "Custom"
+msgstr ""
+
+msgid "Polymarket Event"
 msgstr ""
 
 msgid "Connect Email"
@@ -1015,6 +1037,9 @@ msgstr ""
 msgid "Muted {walletHandle}."
 msgstr ""
 
+msgid "Scroll to center"
+msgstr ""
+
 msgid "Confirm Lucky Drop"
 msgstr ""
 
@@ -1025,6 +1050,9 @@ msgid "Claim requirements"
 msgstr ""
 
 msgid "Failed to refund red packet."
+msgstr ""
+
+msgid "Toggle trade view"
 msgstr ""
 
 msgid "Host"
@@ -1057,6 +1085,9 @@ msgstr ""
 msgid "24 Hour Trading Vol"
 msgstr ""
 
+msgid "No {outcomeLabel} holders found"
+msgstr ""
+
 msgid "Failed to delete scheduled post."
 msgstr ""
 
@@ -1073,6 +1104,12 @@ msgid "The blacklist function is included. Some addresses may not be able to tra
 msgstr ""
 
 msgid "<0/>Delete Firefly account"
+msgstr ""
+
+msgid "Shares"
+msgstr ""
+
+msgid "1D"
 msgstr ""
 
 msgid "POST"
@@ -1119,6 +1156,10 @@ msgid "Connect Ethereum Wallet"
 msgstr ""
 
 msgid "<0/>EVM wallets"
+msgstr ""
+
+#. placeholder {0}: outcome.label
+msgid "Buy {0}"
 msgstr ""
 
 msgid "Failed to bind Lens manager, please try again later."
@@ -1303,6 +1344,9 @@ msgid "Sign in to {0}"
 msgstr ""
 
 msgid "Bio"
+msgstr ""
+
+msgid "{outcomeLabel} Holders"
 msgstr ""
 
 msgid "[Photo]"
@@ -1620,6 +1664,14 @@ msgstr ""
 msgid "Failed to change password."
 msgstr ""
 
+#. placeholder {0}: trade.displayInfo?.ensHandle || addressName
+#. placeholder {1}: toFixedTrimmed(+trade.size, 2)
+#. placeholder {2}: trade.outcome
+#. placeholder {3}: toFixedTrimmed(+trade.price * 100, 1)
+#. placeholder {4}: toFixedTrimmed(multipliedBy(trade.size, trade.price).toNumber(), 2)
+msgid "<0>{0}</0> {txType} <1>{1} {2}</1> for <2>{marketTitle}</2> at <3>{3}¢</3> (${4})"
+msgstr ""
+
 msgid "Blacklist function"
 msgstr ""
 
@@ -1695,6 +1747,10 @@ msgstr ""
 msgid "The user canceled the operation."
 msgstr ""
 
+#. placeholder {0}: toFixedTrimmed(holder.shares, 1)
+msgid "{0} Shares"
+msgstr ""
+
 msgid "Owned By"
 msgstr ""
 
@@ -1745,6 +1801,9 @@ msgid "Followed /{0} on {sourceName}"
 msgstr ""
 
 msgid "Try again"
+msgstr ""
+
+msgid "Opinion Event"
 msgstr ""
 
 msgid "Reset Password"
@@ -2082,6 +2141,10 @@ msgstr ""
 msgid "Like / Repost / Comment"
 msgstr ""
 
+#. placeholder {0}: spreads !== null ? `${(spreads * 100).toFixed(1)}¢` : '-'
+msgid "Spread: {0}"
+msgstr ""
+
 msgid "Estimated cost"
 msgstr ""
 
@@ -2161,6 +2224,9 @@ msgid "5m"
 msgstr ""
 
 msgid "Tip sent successfully!"
+msgstr ""
+
+msgid "Open Interest"
 msgstr ""
 
 #. placeholder {0}: activeConnector.name
@@ -2266,7 +2332,14 @@ msgstr ""
 msgid "Verified by Farcaster"
 msgstr ""
 
+msgid "No asks"
+msgstr ""
+
 msgid "OR"
+msgstr ""
+
+#. placeholder {0}: outcomeLabel || '-'
+msgid "Trade {0}"
 msgstr ""
 
 msgid "Phishing activities."
@@ -2578,8 +2651,14 @@ msgstr ""
 msgid "👀 Firefly notifications are off. "
 msgstr ""
 
+msgid "No opinion event found."
+msgstr ""
+
 #. placeholder {0}: channel.id
 msgid "Unfollowed /{0} on {sourceName}"
+msgstr ""
+
+msgid "End Date"
 msgstr ""
 
 msgid "Farcaster"
@@ -3036,6 +3115,9 @@ msgstr ""
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr ""
 
+msgid "Disputed"
+msgstr ""
+
 msgid "Network cost"
 msgstr ""
 
@@ -3048,6 +3130,23 @@ msgid "<0><1/><2>{0}</2></0><3>on</3>{1}<4>{2}</4>"
 msgstr ""
 
 msgid "Failed to update profile."
+msgstr ""
+
+#. js-lingui-explicit-id
+#. placeholder {0}: lastPrice !== null ? `${(lastPrice * 100).toFixed(1)}¢` : '-'
+msgid "bets-last-price"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "bets-resolution"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "bets-trades-following"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "bets-trades-global"
 msgstr ""
 
 msgid "Password cannot be a sequence or repeated digits. Please try again."
@@ -3079,6 +3178,9 @@ msgstr ""
 msgid "Multi-device login is required for schedule post. Set a 6-digit password to verify your identity."
 msgstr ""
 
+msgid "Event detail"
+msgstr ""
+
 msgid "Light Mode"
 msgstr ""
 
@@ -3106,6 +3208,9 @@ msgid "Replying to <0>@{0}</0> and <1>@{1}</1> on {2}"
 msgstr ""
 
 msgid "Content preference"
+msgstr ""
+
+msgid "No polymarket event found."
 msgstr ""
 
 msgid "Community"
@@ -3161,6 +3266,11 @@ msgid "Post on"
 msgstr ""
 
 msgid "Failed to un-bookmark snapshot."
+msgstr ""
+
+#. placeholder {0}: outcome.label
+#. placeholder {1}: Math.ceil(price * 100)
+msgid "Buy {0} {1}¢"
 msgstr ""
 
 #. placeholder {0}: dayjs(task.schedule_at).format('ddd, MMM DD, YYYY')
@@ -3298,6 +3408,9 @@ msgid "error-reported"
 msgstr ""
 
 msgid "Wallets"
+msgstr ""
+
+msgid "Spread {spread}¢"
 msgstr ""
 
 msgid "firefly.eth liked your tips"
@@ -3492,6 +3605,7 @@ msgstr ""
 msgid "Connection failed. {0}"
 msgstr ""
 
+#. placeholder {0}: resolvedLabel || '-'
 #. placeholder {0}: resolvedOutcome.outcome
 msgid "Settled as {0}"
 msgstr ""
@@ -3519,6 +3633,9 @@ msgid "Login to enable all features"
 msgstr ""
 
 msgid "Owner can change balance"
+msgstr ""
+
+msgid "Select up to {MAX_MARKETS_COUNT_SELECTABLE} options"
 msgstr ""
 
 msgid "Sign in with Lens"
@@ -3875,6 +3992,9 @@ msgstr ""
 msgid "Failed to verify password."
 msgstr ""
 
+msgid "6H"
+msgstr ""
+
 msgid "Mint Again"
 msgstr ""
 
@@ -4080,6 +4200,9 @@ msgstr ""
 msgid "Display Name should not exceed {maxDisplayNameSize} characters"
 msgstr ""
 
+msgid "ALL"
+msgstr ""
+
 msgid "Failed to send tip."
 msgstr ""
 
@@ -4184,6 +4307,9 @@ msgid "Post collected successfully!"
 msgstr ""
 
 msgid "Reposts"
+msgstr ""
+
+msgid "Final outcome: {outcomeLabel}"
 msgstr ""
 
 msgid "The contract owner has no restrictions on anti whale."
@@ -4366,6 +4492,9 @@ msgid "Final results"
 msgstr ""
 
 msgid "Transaction failed"
+msgstr ""
+
+msgid "1W"
 msgstr ""
 
 msgid "All Chains"
@@ -4708,6 +4837,9 @@ msgid "No malicious mining activities involved."
 msgstr ""
 
 msgid "Refund successfully."
+msgstr ""
+
+msgid "No dispute"
 msgstr ""
 
 msgid "Remind me later"

@@ -1,6 +1,6 @@
 import urlcat from 'urlcat';
 
-import { type BetsPlatform, type SourceInURL } from '@/constants/enum.js';
+import { type PredictionPlatform, type SourceInURL } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/static.js';
 import { formatPolymarketFromFirefly } from '@/helpers/formatPolymarketFromFirefly.js';
 import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@/helpers/pageable.js';
@@ -13,7 +13,7 @@ interface Options {
     platformFollowing?: SourceInURL | 'all';
     indicator?: PageIndicator;
     size?: number;
-    platforms?: BetsPlatform[];
+    platforms?: PredictionPlatform[];
 }
 
 export async function getFollowingPredictionList({

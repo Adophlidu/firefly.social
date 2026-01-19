@@ -1,12 +1,12 @@
 import urlcat from 'urlcat';
 
-import { type BetsPlatform } from '@/constants/enum.js';
+import { type PredictionPlatform } from '@/constants/enum.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { type WalletProfileInfoListResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 // cspell:ignore platorm
-export async function getWalletProfileInfoList(address: string, platform: BetsPlatform, isProxyAddress = false) {
+export async function getWalletProfileInfoList(address: string, platform: PredictionPlatform, isProxyAddress = false) {
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/wallet/profileinfo/list');
     const response = await fireflySessionHolder.fetch<WalletProfileInfoListResponse>(url, {
         method: 'POST',

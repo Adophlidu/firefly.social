@@ -3,7 +3,7 @@ import { memo } from 'react';
 
 import { formatPolymarketNumber } from '@/components/Polymarket/formatPolymarketNumber.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
-import { getVolumeTraded } from '@/providers/polymarket/getVolumeTraded.js';
+import { getVolumeTraded } from '@/providers/prediction/polymarket/getVolumeTraded.js';
 
 interface PolymarketVolumeTradedProps {
     address: string;

@@ -1,4 +1,4 @@
-import { type PolymarketResponse } from '@/providers/polymarket/type.js';
+import type { PolymarketResponse } from '@/providers/prediction/polymarket/type.js';
 
 export function resolvePolymarketResponse<T extends object>(response: PolymarketResponse<T>) {
     if ('error' in response) {

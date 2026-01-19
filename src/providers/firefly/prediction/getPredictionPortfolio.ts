@@ -1,6 +1,6 @@
 import urlcat from 'urlcat';
 
-import { type BetsPlatform } from '@/constants/enum.js';
+import { type PredictionPlatform } from '@/constants/enum.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { type BetPortfolioItem, type Response } from '@/providers/types/Firefly.js';
@@ -10,7 +10,7 @@ export async function getPredictionPortfolio(
     addresses: string[],
     options?: {
         isProxyAddress?: boolean;
-        platform: BetsPlatform;
+        platform: PredictionPlatform;
     },
 ) {
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/bets/portfolio');

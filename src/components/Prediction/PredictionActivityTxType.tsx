@@ -9,13 +9,13 @@ import SellIcon from '@/assets/bet-sell.svg';
 import { ActivityCellAction } from '@/components/ActivityCell/ActivityCellAction.js';
 import { ActivityCellActionTag } from '@/components/ActivityCell/ActivityCellActionTag.js';
 import { PredictionPlatformName } from '@/components/Prediction/PredictionPlatformName.js';
-import { type BetsPlatform, PolymarketBetType } from '@/constants/enum.js';
+import { PolymarketBetType, type PredictionPlatform } from '@/constants/enum.js';
 import { toFixedTrimmed } from '@/helpers/polymarket.js';
 
 interface Props {
     type: PolymarketBetType;
     usdcSize: string;
-    platform: BetsPlatform;
+    platform: PredictionPlatform;
 }
 
 export function PredictionActivityTxType({ type, platform, children, usdcSize }: PropsWithChildren<Props>) {

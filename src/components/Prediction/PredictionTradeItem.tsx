@@ -7,7 +7,7 @@ import BuyIcon from '@/assets/polymarket-bought.svg';
 import SellIcon from '@/assets/polymarket-sold.svg';
 import { Link } from '@/components/Link.js';
 import { PredictionTime } from '@/components/Prediction/PredictionTime.js';
-import { BetsPlatform } from '@/constants/enum.js';
+import { PredictionPlatform } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
 import { rightShift } from '@/helpers/number.js';
@@ -16,7 +16,7 @@ import { type BetsActivity } from '@/providers/types/Firefly.js';
 
 interface PredictionTradeItemProps extends HTMLProps<HTMLDivElement> {
     trade: BetsActivity;
-    platform: BetsPlatform;
+    platform: PredictionPlatform;
 }
 interface BetsTradeTypeProps extends HTMLProps<HTMLDivElement> {
     type: string;
@@ -45,7 +45,7 @@ function BetsTradeType({ type, onlyIcon = false, className }: BetsTradeTypeProps
 export function PredictionTradeItem({ trade, platform, className }: PredictionTradeItemProps) {
     const isGreen = trade.outcome.toLowerCase() === 'yes';
     const displayTitle =
-        platform === BetsPlatform.Opinion ? compact([trade.parent_title, trade.title]).join(' - ') : trade.title;
+        platform === PredictionPlatform.Opinion ? compact([trade.parent_title, trade.title]).join(' - ') : trade.title;
 
     return (
         <div className={classNames('flex items-center border-t border-line px-4 py-2', className)}>

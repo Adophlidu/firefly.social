@@ -1,7 +1,7 @@
 import urlcat from 'urlcat';
 
 import {
-    type BetsPlatform,
+    type PredictionPlatform,
     type ProfileCategory,
     type ProfilePageSource,
     type SignupStep,
@@ -45,13 +45,20 @@ export class RouteResolver {
             subPath,
             platform,
         }: {
-            platform: BetsPlatform;
+            platform: PredictionPlatform;
             subPath?: 'trades' | 'positions';
         },
     ) {
         return urlcat(SITE_URL, `/${platform}/profile/:address`, {
             address,
             tab: subPath,
+        });
+    }
+    static betsEventDetail(platform: PredictionPlatform, eventId: string, options?: { multiple?: boolean }) {
+        return urlcat(SITE_URL, '/:platform/event/:eventId', {
+            platform,
+            eventId,
+            type: options?.multiple ? 'multi' : undefined,
         });
     }
 }

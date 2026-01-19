@@ -8,7 +8,7 @@ import MedalBronzeIcon from '@/assets/medal-bronze.svg';
 import MedalGoldIcon from '@/assets/medal-gold.svg';
 import MedalSilverIcon from '@/assets/medal-silver.svg';
 import { Avatar } from '@/components/Avatar.js';
-import { BetsPlatform, Source } from '@/constants/enum.js';
+import { PredictionPlatform, Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { humanize } from '@/helpers/formatCommentCounts.js';
@@ -68,7 +68,7 @@ export const PredictionLeaderboardItem = memo<PredictionLeaderboardItemProps>(fu
     const volumeValue = `$${volumeFormatted}`;
 
     const profileLink = RouteResolver.betsProfile(address, {
-        platform: BetsPlatform.Polymarket,
+        platform: PredictionPlatform.Polymarket,
     });
 
     return (

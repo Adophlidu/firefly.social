@@ -157,7 +157,7 @@ export const AvatarSelector = memo<AvatarSelectorProps>(function AvatarSelector(
                         ) : null
                     ) : (
                         <ClickableButton
-                            className="absolute bottom-0.5 right-1.5 size-7 rounded-full border-2 border-white bg-[#5E69FF]"
+                            className="absolute bottom-0.5 right-1.5 size-7 rounded-full border-2 border-white bg-[#5E69FF] text-white"
                             onClick={onAvatarMenuClick}
                         >
                             <Icon width={24} height={24} />

@@ -102,6 +102,9 @@ msgstr "图片格式 X 不支持。上传失败。"
 msgid "Report @{0}"
 msgstr "举报 @{0}"
 
+msgid "No bids"
+msgstr ""
+
 #. placeholder {0}: percentageToNumber(info.sell_tax)
 msgid "Sell Tax: {0}%"
 msgstr "卖出税率: {0}%"
@@ -282,6 +285,9 @@ msgstr "我们没察觉到有任何阻止代币出售的代码逻辑。"
 
 msgid "Positions"
 msgstr "持仓"
+
+msgid "No trades found"
+msgstr ""
 
 #. placeholder {0}: space.participant_count?.toLocaleString()
 msgid "{0} listening"
@@ -651,8 +657,15 @@ msgstr "点赞失败。"
 msgid "Sign in"
 msgstr "登录"
 
+#. placeholder {0}: nFormatter(+market.volume, 2)
+msgid "${0} Vol."
+msgstr ""
+
 msgid "Signing in"
 msgstr "登录中"
+
+msgid "Top Holders"
+msgstr ""
 
 msgid "Overview"
 msgstr "概览"
@@ -694,6 +707,9 @@ msgstr "已复制"
 
 msgid "Failed to vote."
 msgstr "投票失败。"
+
+msgid "Markets"
+msgstr ""
 
 msgid "Your posts have published successfully."
 msgstr "您的帖子已成功发布。"
@@ -802,6 +818,9 @@ msgstr "无隐藏的所有者。"
 msgid "Blockchain"
 msgstr "区块链"
 
+msgid "Outcome proposed: {outcomeLabel}"
+msgstr ""
+
 #. placeholder {0}: notification.followers.length
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}}<4> followed you</4>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/>}}<4> 关注了你</4>"
@@ -865,6 +884,9 @@ msgstr "诈骗相关地址。"
 
 msgid "Custom"
 msgstr "自定义"
+
+msgid "Polymarket Event"
+msgstr ""
 
 msgid "Connect Email"
 msgstr "绑定邮箱"
@@ -1020,6 +1042,9 @@ msgstr "或从您<0>当前钱包</0>中选择账户"
 msgid "Muted {walletHandle}."
 msgstr "已隐藏 {walletHandle}。"
 
+msgid "Scroll to center"
+msgstr ""
+
 msgid "Confirm Lucky Drop"
 msgstr "确认你的红包"
 
@@ -1031,6 +1056,9 @@ msgstr "领取条件"
 
 msgid "Failed to refund red packet."
 msgstr "红包退款失败。"
+
+msgid "Toggle trade view"
+msgstr ""
 
 msgid "Host"
 msgstr "主持人"
@@ -1062,6 +1090,9 @@ msgstr "过期"
 msgid "24 Hour Trading Vol"
 msgstr "24h 交易总额"
 
+msgid "No {outcomeLabel} holders found"
+msgstr ""
+
 msgid "Failed to delete scheduled post."
 msgstr "删除定时任务失败。"
 
@@ -1079,6 +1110,12 @@ msgstr "黑名单功能已启用。有些地址可能无法正常交易（欺诈
 
 msgid "<0/>Delete Firefly account"
 msgstr "<0/>删除 Firefly 账号"
+
+msgid "Shares"
+msgstr ""
+
+msgid "1D"
+msgstr ""
 
 msgid "POST"
 msgstr "发帖"
@@ -1125,6 +1162,10 @@ msgstr "连接 EVM 兼容钱包"
 
 msgid "<0/>EVM wallets"
 msgstr "<0/>EVM 钱包"
+
+#. placeholder {0}: outcome.label
+msgid "Buy {0}"
+msgstr ""
 
 msgid "Failed to bind Lens manager, please try again later."
 msgstr "绑定 Lens 管理员失败，请稍后重试。"
@@ -1309,6 +1350,9 @@ msgstr "登录到 {0}"
 
 msgid "Bio"
 msgstr "个人简介"
+
+msgid "{outcomeLabel} Holders"
+msgstr ""
 
 msgid "[Photo]"
 msgstr "[照片]"
@@ -1625,6 +1669,14 @@ msgstr "{0}{1} <0>地板价</0>"
 msgid "Failed to change password."
 msgstr "修改密码失败。"
 
+#. placeholder {0}: trade.displayInfo?.ensHandle || addressName
+#. placeholder {1}: toFixedTrimmed(+trade.size, 2)
+#. placeholder {2}: trade.outcome
+#. placeholder {3}: toFixedTrimmed(+trade.price * 100, 1)
+#. placeholder {4}: toFixedTrimmed(multipliedBy(trade.size, trade.price).toNumber(), 2)
+msgid "<0>{0}</0> {txType} <1>{1} {2}</1> for <2>{marketTitle}</2> at <3>{3}¢</3> (${4})"
+msgstr ""
+
 msgid "Blacklist function"
 msgstr "黑名单功能"
 
@@ -1700,6 +1752,10 @@ msgstr "投票成功！"
 msgid "The user canceled the operation."
 msgstr "用户已取消操作。"
 
+#. placeholder {0}: toFixedTrimmed(holder.shares, 1)
+msgid "{0} Shares"
+msgstr ""
+
 msgid "Owned By"
 msgstr "属于"
 
@@ -1751,6 +1807,9 @@ msgstr "在 {sourceName} 关注了 /{0}"
 
 msgid "Try again"
 msgstr "请重试"
+
+msgid "Opinion Event"
+msgstr ""
 
 msgid "Reset Password"
 msgstr "重置密码"
@@ -2087,6 +2146,10 @@ msgstr "切换钱包失败，请重试"
 msgid "Like / Repost / Comment"
 msgstr "点赞/转发/评论"
 
+#. placeholder {0}: spreads !== null ? `${(spreads * 100).toFixed(1)}¢` : '-'
+msgid "Spread: {0}"
+msgstr ""
+
 msgid "Estimated cost"
 msgstr "预估成本"
 
@@ -2167,6 +2230,9 @@ msgstr "5 分钟"
 
 msgid "Tip sent successfully!"
 msgstr "打赏发送成功！"
+
+msgid "Open Interest"
+msgstr ""
 
 #. placeholder {0}: activeConnector.name
 msgid "Select Chain for {0}"
@@ -2271,8 +2337,15 @@ msgstr "该二维码已失效，请刷新后重试。"
 msgid "Verified by Farcaster"
 msgstr "由 Farcaster 验证"
 
+msgid "No asks"
+msgstr ""
+
 msgid "OR"
 msgstr "或"
+
+#. placeholder {0}: outcomeLabel || '-'
+msgid "Trade {0}"
+msgstr ""
 
 msgid "Phishing activities."
 msgstr "钓鱼活动。"
@@ -2583,9 +2656,15 @@ msgstr "签名密钥无效"
 msgid "👀 Firefly notifications are off. "
 msgstr "👀 Firefly 通知未开启！"
 
+msgid "No opinion event found."
+msgstr ""
+
 #. placeholder {0}: channel.id
 msgid "Unfollowed /{0} on {sourceName}"
 msgstr "在 {sourceName} 取消关注 /{0}"
+
+msgid "End Date"
+msgstr ""
 
 msgid "Farcaster"
 msgstr "Farcaster"
@@ -3041,6 +3120,9 @@ msgstr "等待关注请求通过"
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr "{shares, plural, one {转发或引用} other {转发或引用}}"
 
+msgid "Disputed"
+msgstr ""
+
 msgid "Network cost"
 msgstr "手续费"
 
@@ -3054,6 +3136,23 @@ msgstr "<0><1/><2>{0}</2></0><3>on</3>{1}<4>{2}</4>"
 
 msgid "Failed to update profile."
 msgstr "更新个人资料失败。"
+
+#. js-lingui-explicit-id
+#. placeholder {0}: lastPrice !== null ? `${(lastPrice * 100).toFixed(1)}¢` : '-'
+msgid "bets-last-price"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "bets-resolution"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "bets-trades-following"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "bets-trades-global"
+msgstr ""
 
 msgid "Password cannot be a sequence or repeated digits. Please try again."
 msgstr "密码不能是连续或重复的数字。请重试。"
@@ -3084,6 +3183,9 @@ msgstr "在 X 上关注 @thefireflyapp"
 msgid "Multi-device login is required for schedule post. Set a 6-digit password to verify your identity."
 msgstr "定时发布需启用多设备登录。请设置 6 位数字密码以验证身份。"
 
+msgid "Event detail"
+msgstr ""
+
 msgid "Light Mode"
 msgstr "明亮模式"
 
@@ -3112,6 +3214,9 @@ msgstr "在{2}回复 <0>@{0}</0> 和 <1>@{1}</1>"
 
 msgid "Content preference"
 msgstr "内容偏好"
+
+msgid "No polymarket event found."
+msgstr ""
 
 msgid "Community"
 msgstr "圈子"
@@ -3167,6 +3272,11 @@ msgstr "发布于"
 
 msgid "Failed to un-bookmark snapshot."
 msgstr "取消收藏投票失败。"
+
+#. placeholder {0}: outcome.label
+#. placeholder {1}: Math.ceil(price * 100)
+msgid "Buy {0} {1}¢"
+msgstr ""
 
 #. placeholder {0}: dayjs(task.schedule_at).format('ddd, MMM DD, YYYY')
 #. placeholder {1}: dayjs(task.schedule_at).format('hh:mm A')
@@ -3304,6 +3414,9 @@ msgstr "已上报"
 
 msgid "Wallets"
 msgstr "钱包"
+
+msgid "Spread {spread}¢"
+msgstr ""
 
 msgid "firefly.eth liked your tips"
 msgstr "firefly.eth 赞了你的打赏"
@@ -3497,6 +3610,7 @@ msgstr "firefly.eth 点赞了你的交易"
 msgid "Connection failed. {0}"
 msgstr "连接失败。{0}"
 
+#. placeholder {0}: resolvedLabel || '-'
 #. placeholder {0}: resolvedOutcome.outcome
 msgid "Settled as {0}"
 msgstr "已结算为 {0}"
@@ -3525,6 +3639,9 @@ msgstr "登录以启用所有功能"
 
 msgid "Owner can change balance"
 msgstr "所有者可以更改余额"
+
+msgid "Select up to {MAX_MARKETS_COUNT_SELECTABLE} options"
+msgstr ""
 
 msgid "Sign in with Lens"
 msgstr "通过 Lens 登录"
@@ -3880,6 +3997,9 @@ msgstr "收藏提案失败。"
 msgid "Failed to verify password."
 msgstr "密码验证失败。"
 
+msgid "6H"
+msgstr ""
+
 msgid "Mint Again"
 msgstr "再次铸造"
 
@@ -4085,6 +4205,9 @@ msgstr "已点赞。"
 msgid "Display Name should not exceed {maxDisplayNameSize} characters"
 msgstr "全名不可以超过 {maxDisplayNameSize} 个字"
 
+msgid "ALL"
+msgstr ""
+
 msgid "Failed to send tip."
 msgstr "发送打赏失败。"
 
@@ -4190,6 +4313,9 @@ msgstr "帖子铸造收集成功！"
 
 msgid "Reposts"
 msgstr "转发"
+
+msgid "Final outcome: {outcomeLabel}"
+msgstr ""
 
 msgid "The contract owner has no restrictions on anti whale."
 msgstr "合约所有者对反鲸鱼机制没有限制。"
@@ -4372,6 +4498,9 @@ msgstr "最终结果"
 
 msgid "Transaction failed"
 msgstr "交易失败"
+
+msgid "1W"
+msgstr ""
 
 msgid "All Chains"
 msgstr "所有链"
@@ -4716,6 +4845,9 @@ msgstr "未发现恶意挖矿活动。"
 
 msgid "Refund successfully."
 msgstr "退款成功。"
+
+msgid "No dispute"
+msgstr ""
 
 msgid "Remind me later"
 msgstr "稍后提醒我"

@@ -1,3 +1,8 @@
+import type { SPREAD_SETTING_OPTIONS } from '@/constants/bets.js';
+import type { BetsMarketResolveStatus, PredictionPlatform, SocialSource } from '@/constants/enum.js';
+
+export type MarketOrderBookSpread = (typeof SPREAD_SETTING_OPTIONS)[number];
+
 export interface PredictionProfileDataForUI {
     balance: number;
     cash_balance: number;
@@ -37,4 +42,65 @@ export interface PredictionPositionDataForUI {
     isWin?: boolean;
     conditionId: string;
     resolvedResult?: string;
+}
+
+export interface BetsMarketOutcome {
+    id: string;
+    label: string;
+    price: string;
+    rate?: string;
+}
+
+export interface BetsMarketDataForUI {
+    id: string;
+    conditionId: string;
+    questionId: string;
+    title: string;
+    volume: string;
+    isResolved: boolean;
+    isClosed: boolean;
+    createTime: number;
+    resolvedOutcomeId?: string;
+    slug?: string;
+    image?: string;
+    outcomes: BetsMarketOutcome[];
+    statusList?: BetsMarketResolveStatus[];
+}
+
+export interface BetsEventDataForUI {
+    id: string;
+    title: string;
+    image?: string;
+    endTime: number;
+    isSingleEvent: boolean;
+    platform: PredictionPlatform;
+    status: 'active' | 'ended';
+    markets: BetsMarketDataForUI[];
+    tags?: string[];
+    description?: string;
+    volume: string;
+}
+
+export interface BetsTopHolderForUI {
+    wallet: string;
+    shares: number;
+    name?: string;
+    avatar?: string;
+    source?: SocialSource;
+}
+
+export type BetsMarketWithSettings = Omit<BetsMarketDataForUI, 'outcomes'> & {
+    color: string;
+    selected: boolean;
+    totalPrice: number;
+    outcomes: Array<
+        BetsMarketDataForUI['outcomes'][number] & {
+            color: string;
+        }
+    >;
+};
+
+export interface BetsOrderBookItem {
+    price: number;
+    size: number;
 }

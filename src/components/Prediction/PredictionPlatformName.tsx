@@ -1,17 +1,17 @@
 import { safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 
-import { BetsPlatform } from '@/constants/enum.js';
+import { PredictionPlatform } from '@/constants/enum.js';
 
 interface PredictionPlatformNameProps {
-    platform: BetsPlatform;
+    platform: PredictionPlatform;
 }
 
 export function PredictionPlatformName({ platform }: PredictionPlatformNameProps) {
     switch (platform) {
-        case BetsPlatform.Polymarket:
+        case PredictionPlatform.Polymarket:
             return <Trans>Polymarket</Trans>;
-        case BetsPlatform.Opinion:
+        case PredictionPlatform.Opinion:
             return <Trans>Opinion</Trans>;
         default:
             safeUnreachable(platform);

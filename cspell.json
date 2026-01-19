@@ -567,10 +567,10 @@
         "DTSA",
         "urql",
         "okex",
-        "Clob",
-        "cyom",
-        "okex",
-        "mutil"
+        "mutil",
+        "clob",
+        "errmsg",
+        "cyom"
     ],
     "flagWords": [],
     "ignorePaths": [

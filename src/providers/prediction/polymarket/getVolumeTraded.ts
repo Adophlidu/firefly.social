@@ -1,10 +1,9 @@
 import urlcat from 'urlcat';
 
 import { fetchJson } from '@/helpers/fetchJson.js';
-import { resolvePolymarketResponse } from '@/providers/polymarket/resolvePolymarketResponse.js';
-import { type VolumeTradedResponse } from '@/providers/polymarket/type.js';
-
-const POLYMARKET_LAB_API_DOMAIN = 'https://lb-api.polymarket.com';
+import { POLYMARKET_LAB_API_DOMAIN } from '@/providers/prediction/polymarket/constants.js';
+import { resolvePolymarketResponse } from '@/providers/prediction/polymarket/resolvePolymarketResponse.js';
+import type { VolumeTradedResponse } from '@/providers/prediction/polymarket/type.js';
 
 export async function getVolumeTraded(address: string) {
     const url = urlcat(POLYMARKET_LAB_API_DOMAIN, '/volume', {

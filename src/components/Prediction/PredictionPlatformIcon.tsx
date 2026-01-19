@@ -2,19 +2,19 @@ import { safeUnreachable } from '@dimensiondev/utils';
 
 import OpinionIcon from '@/assets/opinion.svg';
 import PolymarketIcon from '@/assets/polymarket.svg';
-import { BetsPlatform } from '@/constants/enum.js';
+import { PredictionPlatform } from '@/constants/enum.js';
 
 interface PredictionPlatformIconProps {
-    platform: BetsPlatform;
+    platform: PredictionPlatform;
     className?: string;
     size?: number;
 }
 
 export function PredictionPlatformIcon({ platform, size = 15, className }: PredictionPlatformIconProps) {
     switch (platform) {
-        case BetsPlatform.Polymarket:
+        case PredictionPlatform.Polymarket:
             return <PolymarketIcon width={size} height={size} className={className} />;
-        case BetsPlatform.Opinion:
+        case PredictionPlatform.Opinion:
             return <OpinionIcon width={size} height={size} className={className} />;
         default:
             safeUnreachable(platform);

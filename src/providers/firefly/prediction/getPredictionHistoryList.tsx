@@ -1,6 +1,6 @@
 import urlcat from 'urlcat';
 
-import { type BetsPlatform } from '@/constants/enum.js';
+import { type PredictionPlatform } from '@/constants/enum.js';
 import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
@@ -9,7 +9,7 @@ import { settings } from '@/settings/index.js';
 
 interface Options {
     wallet: string;
-    platform: BetsPlatform;
+    platform: PredictionPlatform;
     is_proxy?: boolean;
     is_history?: boolean;
     is_mutil?: number;

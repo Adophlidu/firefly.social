@@ -6,7 +6,7 @@ import { PredictionProfileCategoryTabs } from '@/components/Prediction/Predictio
 import { PredictionProfileOverview } from '@/components/Prediction/PredictionProfileOverview.js';
 import { PredictionProfilePageHeader } from '@/components/Prediction/PredictionProfilePageHeader.js';
 import { PredictionProfileTabContent } from '@/components/Prediction/PredictionProfileTabContent.js';
-import { BetsPlatform } from '@/constants/enum.js';
+import { PredictionPlatform } from '@/constants/enum.js';
 import { notFound } from '@/esm/navigation/server.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
@@ -16,7 +16,7 @@ import { getProfile } from '@/providers/firefly/prediction/getProfile.js';
 
 interface Props {
     address: string;
-    platform: BetsPlatform;
+    platform: PredictionPlatform;
 }
 
 export async function PredictionProfileDetailContent({ address, platform }: Props) {
@@ -26,14 +26,14 @@ export async function PredictionProfileDetailContent({ address, platform }: Prop
         setupLocaleForSSR(),
         runInSafeAsync(async () => {
             switch (platform) {
-                case BetsPlatform.Polymarket: {
+                case PredictionPlatform.Polymarket: {
                     const profile = await getProfile(address, true);
                     return profile ? formatPolymarketProfile(profile) : undefined;
                 }
-                case BetsPlatform.Opinion: {
+                case PredictionPlatform.Opinion: {
                     const res = await getPredictionPortfolio([address], {
                         isProxyAddress: true,
-                        platform: BetsPlatform.Opinion,
+                        platform: PredictionPlatform.Opinion,
                     });
                     const profile = first(res?.result);
                     return profile ? formatOpinionProfile(profile) : undefined;

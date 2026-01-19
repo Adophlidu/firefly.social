@@ -6,19 +6,19 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { ListInPage } from '@/components/ListInPage.js';
 import { Loading } from '@/components/Loading.js';
 import { PredictionTradeItem } from '@/components/Prediction/PredictionTradeItem.js';
-import { type BetsPlatform, ScrollListKey, Source } from '@/constants/enum.js';
+import { type PredictionPlatform, ScrollListKey, Source } from '@/constants/enum.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { getPredictionTimelineByAddress } from '@/providers/firefly/prediction/getPredictionTimelineByAddress.js';
 import { type BetsActivity } from '@/providers/types/Firefly.js';
 
 interface PredictionTradeListProps {
     address: string;
-    platform: BetsPlatform;
+    platform: PredictionPlatform;
 }
 interface Options {
     trade: BetsActivity;
     listKey: string;
-    platform: BetsPlatform;
+    platform: PredictionPlatform;
     index: number;
 }
 

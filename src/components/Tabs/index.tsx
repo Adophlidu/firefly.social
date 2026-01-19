@@ -3,7 +3,7 @@
 import { classNames } from '@dimensiondev/utils';
 import { createContext, type HTMLProps, type PropsWithChildren, useContext, useMemo } from 'react';
 
-type Variant = 'default' | 'second' | 'solid' | 'subtle';
+type Variant = 'default' | 'second' | 'solid' | 'subtle' | 'main';
 
 export interface TabsProps<T = string>
     extends PropsWithChildren,
@@ -42,6 +42,7 @@ export function Tabs<T = string>(props: TabsProps<T>) {
             second: 'space-x-0',
             solid: 'space-x-0 border border-secondaryLine py-1 px-[5px] rounded-[6px] min-w-0',
             subtle: 'space-x-2 py-1.6',
+            main: 'border-b border-b-line space-x-6',
         } satisfies Record<Variant, string>
     )[variant];
 
@@ -67,6 +68,7 @@ export function Tab({ children, value, className, disabled, ...props }: TabProps
             second: 'flex-1 text-sm sm:text-base',
             solid: 'text-sm leading-5 font-medium',
             subtle: 'text-sm font-semibold cursor-pointer',
+            main: '',
         } satisfies Record<Variant, string>
     )[variant];
     const variantClassName = (
@@ -85,7 +87,11 @@ export function Tab({ children, value, className, disabled, ...props }: TabProps
             ),
             subtle: classNames(
                 'h-8 rounded-full border px-4 leading-8 text-main duration-100',
-                currentTab === value ? 'border-line2 bg-bg' : 'border-transparent text-third',
+                currentTab === value ? 'border-secondaryLine bg-bg' : 'border-transparent text-third',
+            ),
+            main: classNames(
+                'h-12 cursor-pointer border-b-4 text-base font-bold !leading-[48px] duration-100 hover:text-highlight',
+                currentTab === value ? 'border-highlight text-highlight' : 'border-transparent text-third',
             ),
         } satisfies Record<Variant, string>
     )[variant];

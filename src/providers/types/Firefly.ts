@@ -2,13 +2,13 @@ import { type ReactNode } from 'react';
 import { type Address, type Hex } from 'viem';
 
 import {
-    type BetsPlatform,
     type BookmarkType,
     type ExploreSwitchType,
     type FireflyPlatform,
     type MintStatus,
     type NetworkType,
     type PolymarketBetType,
+    type PredictionPlatform,
     type S3ConvertStatus,
     type SocialSource,
     type SocialSourceInURL,
@@ -18,15 +18,15 @@ import {
     type TipsNotificationType,
     type WalletSource,
 } from '@/constants/enum.js';
-import { type ErcType, type EVM } from '@/providers/nft-scan/types.js';
-import { type SnapshotActivity, type SnapshotChoice, type SnapshotProposal } from '@/providers/snapshot/type.js';
+import type { ErcType, EVM } from '@/providers/nft-scan/types.js';
+import type { SnapshotActivity, SnapshotChoice, SnapshotProposal } from '@/providers/snapshot/type.js';
 import type { TwitterSession } from '@/providers/twitter/Session.js';
-import { type Article as FormattedArticle, type ArticlePlatform, type ArticleType } from '@/providers/types/Article.js';
-import { type CoinGeckoAsset } from '@/providers/types/CoinGecko.js';
-import { type Token as DebankToken } from '@/providers/types/Debank.js';
-import { type NFTFeedV3 } from '@/providers/types/NFTs.js';
+import type { Article as FormattedArticle, ArticlePlatform, ArticleType } from '@/providers/types/Article.js';
+import type { CoinGeckoAsset } from '@/providers/types/CoinGecko.js';
+import type { Token as DebankToken } from '@/providers/types/Debank.js';
+import type { NFTFeedV3 } from '@/providers/types/NFTs.js';
 import { type NotificationType as SocialNotificationType } from '@/providers/types/SocialMedia.js';
-import { type LiteralOrString, type PartialWith } from '@/types/utility.js';
+import type { LiteralOrString, PartialWith } from '@/types/utility.js';
 
 export enum EmbedMediaType {
     IMAGE = 'image',
@@ -1241,12 +1241,13 @@ export interface BetsActivity {
     hasBookmarked: boolean;
     isLiked: boolean;
     likeCount: number;
-    platform: BetsPlatform;
+    platform: PredictionPlatform;
     parent_title: string;
     is_like: boolean;
     like_count: number;
     has_bookmarked: boolean;
     url: string;
+    isMutil?: 0 | 1;
     rawData: PolymarketMarketData;
     topicId: string;
 }
@@ -2392,7 +2393,7 @@ export interface PolymarketProfileData {
 }
 
 export interface BetPortfolioItem {
-    platform: BetsPlatform;
+    platform: PredictionPlatform;
     wallet: string;
     proxy: string;
     /** url */
@@ -2809,6 +2810,87 @@ export interface BetsPosition {
     closed_time: number;
     offset: 0 | 1; // 0-left 1-right
     marketSlug: string;
+}
+
+export interface OpinionMarketDetail {
+    title: string;
+    titleShort: string;
+    topicId: number;
+    totalPrice: string;
+    volume: string;
+    volume7d: string;
+    volume24h: string;
+    /**
+     * 4-resolved, 3-resolving, 2-activated, else-created
+     */
+    status: number;
+    thumbnailUrl: string;
+    cutoffTime: number;
+    yesLabel: string;
+    yesMarketPrice: string;
+    yesPos: string;
+    yesRemainToken: string;
+    noLabel: string;
+    noMarketPrice: string;
+    noPos: string;
+    noRemainToken: string;
+    conditionId: string;
+    rules: string;
+    questionId: string;
+    resultPos: string;
+    createTime: number; // timestamp in seconds
+    childList?: Array<Omit<OpinionMarketDetail, 'childList'>>;
+}
+
+export interface OpinionHolder {
+    avatar: string;
+    profit: string;
+    proxy: string;
+    sharesAmount: string;
+    userName: string;
+    walletAddress: string;
+    profile: WalletProfiles | null;
+}
+
+export interface OpinionPriceHistory {
+    question_id: string;
+    symbols: Array<{
+        symbol_type: number;
+        data: Array<{
+            amount: string;
+            close: string;
+            count: number;
+            high: string;
+            id: number;
+            low: string;
+            open: string;
+            vol: string;
+        }>;
+    }>;
+}
+
+export interface PolymarketOrderBookData {
+    market: string;
+    asset_id: string;
+    timestamp: string;
+    hash: string;
+    bids: Array<{
+        price: string;
+        size: string;
+    }>;
+    asks: Array<{
+        price: string;
+        size: string;
+    }>;
+    min_order_size: string;
+    tick_size: string;
+    neg_risk: boolean;
+}
+
+export interface PolymarketLastPriceData {
+    price: string;
+    side: string;
+    token_id: string;
 }
 
 export enum DesktopSyncChannelStatus {

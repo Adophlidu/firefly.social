@@ -6,11 +6,11 @@ import { Suspense } from 'react';
 import { Loading } from '@/components/Loading.js';
 import { PredictionProfilePositionList } from '@/components/Prediction/PredictionProfilePositionList.js';
 import { PredictionTradeList } from '@/components/Prediction/PredictionTradeList.js';
-import { type BetsPlatform } from '@/constants/enum.js';
+import { type PredictionPlatform } from '@/constants/enum.js';
 import { Category, usePredictionProfileTab } from '@/hooks/prediction/usePredictionProfileTab.js';
 
 interface Props {
-    platform: BetsPlatform;
+    platform: PredictionPlatform;
     address: string;
     proxyAddress?: string;
 }

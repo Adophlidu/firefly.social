@@ -1,7 +1,6 @@
 /* cspell:disable */
 
 import {
-    BetsPlatform,
     type BookmarkSource,
     ChannelTabType,
     type DiscoverSource,
@@ -13,6 +12,7 @@ import {
     type FollowingSource,
     NetworkType,
     type NotificationSource,
+    PredictionPlatform,
     ProfileEditableField,
     type ProfilePageSource,
     SearchType,
@@ -356,4 +356,4 @@ export const SOCIAL_NOTIFICATION_TYPES: NotificationType[] = [
     NotificationType.Act,
 ];
 
-export const SORTED_BETS_PLATFORM: BetsPlatform[] = [BetsPlatform.Polymarket, BetsPlatform.Opinion];
+export const SORTED_BETS_PLATFORM: PredictionPlatform[] = [PredictionPlatform.Polymarket, PredictionPlatform.Opinion];

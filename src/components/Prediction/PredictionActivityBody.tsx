@@ -7,7 +7,7 @@ import { Image } from '@/components/Image.js';
 import { PredictionActivityRate } from '@/components/Prediction/PredictionActivityRate.js';
 import { PredictionActivityResult } from '@/components/Prediction/PredictionActivityResult.js';
 import { PredictionActivityTxType } from '@/components/Prediction/PredictionActivityTxType.js';
-import { BetsPlatform } from '@/constants/enum.js';
+import { PredictionPlatform } from '@/constants/enum.js';
 import { toFixedTrimmed } from '@/helpers/polymarket.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { type BetsActivity } from '@/providers/types/Firefly.js';
@@ -39,7 +39,7 @@ export const PredictionActivityBody = memo<PredictionActivityBodyProps>(function
         ...style,
     } as CSSProperties;
     const displayTitle =
-        activity.platform === BetsPlatform.Opinion
+        activity.platform === PredictionPlatform.Opinion
             ? compact([activity.parent_title, activity.title]).join(' - ')
             : activity.title;
 

@@ -5,7 +5,7 @@ import { createJSONStorage, persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
 import { SORTED_BETS_PLATFORM } from '@/constants/computed.js';
-import { type BetsPlatform } from '@/constants/enum.js';
+import { type PredictionPlatform } from '@/constants/enum.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 
 export enum PredictionFilterNamespace {
@@ -15,8 +15,8 @@ export enum PredictionFilterNamespace {
 }
 
 interface FilterState {
-    platforms: Record<PredictionFilterNamespace, BetsPlatform[]>;
-    setPlatforms: (namespace: PredictionFilterNamespace, platforms: BetsPlatform[]) => void;
+    platforms: Record<PredictionFilterNamespace, PredictionPlatform[]>;
+    setPlatforms: (namespace: PredictionFilterNamespace, platforms: PredictionPlatform[]) => void;
 }
 
 const useStateStore = create<FilterState, [['zustand/persist', unknown], ['zustand/immer', unknown]]>(
@@ -50,7 +50,7 @@ export function usePredictionSourceFilterStore(namespace: PredictionFilterNamesp
 
     return {
         platforms: filteredPlatforms,
-        setPlatforms(platforms: BetsPlatform[]) {
+        setPlatforms(platforms: PredictionPlatform[]) {
             setPlatforms(namespace, platforms);
         },
     };
