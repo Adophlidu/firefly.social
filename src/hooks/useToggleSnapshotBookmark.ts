@@ -4,8 +4,7 @@ import { useMutation } from '@tanstack/react-query';
 import { BookmarkType, FireflyPlatform } from '@/constants/enum.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
-import { bookmark } from '@/providers/firefly/endpoint/bookmark.js';
-import { unbookmark } from '@/providers/firefly/endpoint/unbookmark.js';
+import { farcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { type SnapshotActivity } from '@/providers/snapshot/type.js';
 
@@ -19,11 +18,11 @@ export function useToggleSnapshotBookmark() {
 
             try {
                 if (snapshot.hasBookmarked) {
-                    const result = await unbookmark(snapshot.hash);
+                    const result = await farcasterSocialMediaProvider.unbookmark(snapshot.hash);
                     enqueueSuccessMessage(t`Snapshot removed from your Bookmarks`);
                     return result;
                 } else {
-                    const result = await bookmark(
+                    const result = await farcasterSocialMediaProvider.bookmark(
                         snapshot.hash,
                         FireflyPlatform.DAOs,
                         snapshot.author.id,
