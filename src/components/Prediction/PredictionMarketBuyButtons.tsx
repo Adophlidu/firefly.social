@@ -7,6 +7,7 @@ import { memo } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import type { PredictionPlatform } from '@/constants/enum.js';
+import { openPredictionPage } from '@/helpers/openPredictionPage.js';
 import { getBetsMarketPrice } from '@/providers/prediction/getBetsMarketPrice.js';
 import type { BetsMarketDataForUI } from '@/types/prediction.js';
 
@@ -57,6 +58,11 @@ export const PredictionMarketBuyButtons = memo<PredictionMarketBuyButtonsProps>(
                                   ? 'bg-danger'
                                   : 'bg-danger/20 text-danger',
                         )}
+                        onClick={() => {
+                            if (market.slug) {
+                                openPredictionPage(market.slug, i);
+                            }
+                        }}
                     >
                         {showPrice ? (
                             <Trans>

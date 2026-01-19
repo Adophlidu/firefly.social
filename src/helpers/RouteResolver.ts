@@ -61,4 +61,9 @@ export class RouteResolver {
             type: options?.multiple ? 'multi' : undefined,
         });
     }
+    static explorePrediction(slug?: string) {
+        return urlcat(SITE_URL, `/explore/prediction/:slug`, {
+            slug: slug || 'trending',
+        });
+    }
 }

@@ -7,14 +7,17 @@ import { memo, type ReactNode } from 'react';
 
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { PredictionPlatform } from '@/constants/enum.js';
+import { Link } from '@/esm/Link.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
+import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { getPolymarketOpenInterest } from '@/providers/firefly/prediction/getPolymarketOpenInterest.js';
+import type { BetsEventTagForUI } from '@/types/prediction.js';
 
 interface PredictionEventInfoProps {
     platform: PredictionPlatform;
     volume: string;
     endDate: number;
-    tags?: string[];
+    tags?: BetsEventTagForUI[];
     description?: string;
     eventId?: string;
     marketId?: string;
@@ -69,12 +72,14 @@ export const PredictionEventInfo = memo<PredictionEventInfoProps>(function Predi
             {props.tags?.length ? (
                 <div className="flex flex-wrap gap-2">
                     {props.tags?.map((tag) => (
-                        <span
-                            key={tag}
+                        <Link
+                            key={tag.id}
+                            target="_blank"
+                            href={RouteResolver.explorePrediction(tag.slug)}
                             className="h-[26px] rounded-full border border-secondary px-3 text-xs font-medium !leading-[26px] text-main"
                         >
-                            {tag}
-                        </span>
+                            {tag.label}
+                        </Link>
                     ))}
                 </div>
             ) : null}

@@ -2,9 +2,10 @@
 
 import { classNames } from '@dimensiondev/utils';
 import { useQuery } from '@tanstack/react-query';
-import { type HTMLProps, memo, useLayoutEffect, useRef } from 'react';
+import { type HTMLProps, memo, useLayoutEffect, useMemo, useRef } from 'react';
 
 import { Link } from '@/components/Link.js';
+import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { getEventSlugList } from '@/providers/firefly/prediction/getEventSlugList.js';
 
 interface Props extends HTMLProps<HTMLDivElement> {
@@ -24,6 +25,18 @@ export const PredictionSourceNav = memo<Props>(function PredictionSourceNav({ cl
     const activeTabRef = useRef<HTMLAnchorElement>(null);
     const hasScrolledRef = useRef(false);
 
+    const tags = useMemo(() => {
+        const apiTags = (data || []).map((item) => ({
+            slug: item.slug,
+            label: item.label,
+        }));
+        if (source && !apiTags.some((x) => x.slug === source)) {
+            apiTags.unshift({ slug: source, label: `${source.slice(0, 1).toUpperCase()}${source.slice(1)}` });
+        }
+
+        return apiTags;
+    }, [data, source]);
+
     useLayoutEffect(() => {
         if (activeTabRef.current && !hasScrolledRef.current) {
             activeTabRef.current.scrollIntoView({
@@ -39,10 +52,10 @@ export const PredictionSourceNav = memo<Props>(function PredictionSourceNav({ cl
     return (
         <div className={classNames('no-scrollbar flex items-center justify-between overflow-x-auto', className)}>
             <nav className="flex space-x-2 px-1.5 pb-1.5 pt-3" aria-label="Tabs">
-                {data.map((slug) => (
+                {tags.map((slug) => (
                     <Link
                         ref={source === slug.slug ? activeTabRef : undefined}
-                        href={`/explore/prediction/${slug.slug}`}
+                        href={RouteResolver.explorePrediction(slug.slug)}
                         key={slug.slug}
                         className={classNames(
                             'flex h-6 shrink-0 cursor-pointer list-none justify-center whitespace-nowrap rounded-md px-1.5 text-xs leading-6 lg:flex-initial lg:justify-start',

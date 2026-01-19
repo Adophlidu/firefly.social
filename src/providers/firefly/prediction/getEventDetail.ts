@@ -105,6 +105,7 @@ function formatPolymarketEvent(detail: PolymarketEvent): BetsEventDataForUI {
 
         return {
             id: market.id,
+            slug: market.slug,
             questionId: market.id,
             volume: market.volume,
             title: market.groupItemTitle || market.question,
@@ -132,7 +133,7 @@ function formatPolymarketEvent(detail: PolymarketEvent): BetsEventDataForUI {
         platform: PredictionPlatform.Polymarket,
         description: detail.description,
         isSingleEvent: detail.markets?.length === 0,
-        tags: detail.tags.map((tag) => tag.label),
+        tags: detail.tags.map((tag) => tag),
         endTime: new Date(detail.endDate).getTime(),
         volume: detail.volume,
         markets: sortMarkets(markets),
@@ -211,7 +212,6 @@ export async function getEventDetail(
         }
         case PredictionPlatform.Polymarket: {
             const detail = await getPolymarketEvent({ slug: id });
-            console.log('Polymarket detail:', detail);
             return detail ? formatPolymarketEvent(detail) : null;
         }
         default:

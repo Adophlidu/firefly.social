@@ -67,6 +67,12 @@ export interface BetsMarketDataForUI {
     statusList?: BetsMarketResolveStatus[];
 }
 
+export interface BetsEventTagForUI {
+    id: string;
+    label: string;
+    slug?: string;
+}
+
 export interface BetsEventDataForUI {
     id: string;
     title: string;
@@ -76,7 +82,7 @@ export interface BetsEventDataForUI {
     platform: PredictionPlatform;
     status: 'active' | 'ended';
     markets: BetsMarketDataForUI[];
-    tags?: string[];
+    tags?: BetsEventTagForUI[];
     description?: string;
     volume: string;
 }
