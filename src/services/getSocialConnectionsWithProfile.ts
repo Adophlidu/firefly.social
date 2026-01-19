@@ -5,7 +5,7 @@ import { EMPTY_LIST } from '@/constants/static.js';
 import { flatLenConnections } from '@/helpers/formatWalletConnection.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { farcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
-import { lensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { getLensProfilesByIds } from '@/providers/lens/getLensProfilesById.js';
 import { type AllConnections } from '@/providers/types/Firefly.js';
 
 interface SocialConnections {
@@ -48,7 +48,7 @@ export async function getProfileFromSocialConnections(source: SocialSource, soci
             const connections = flatLenConnections([...social[source].connected, ...social[source].unconnected]);
             const ids = getProfileIdsFromSocialConnections(source, social);
             if (!ids.length) return EMPTY_LIST;
-            return lensSocialMediaProvider.getProfilesByIds(connections.map((x) => x.id));
+            return getLensProfilesByIds(connections.map((x) => x.id));
         default:
             unreachable(source);
     }

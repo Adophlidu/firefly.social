@@ -1,62 +1,6 @@
-import { NotFoundError, NotImplementedError, unreachable } from '@dimensiondev/utils';
-import {
-    type Account,
-    AccountReportReason,
-    AccountsOrderBy,
-    GroupsOrderBy,
-    MainContentFocus,
-    PageSize,
-    postId as toPostId,
-    PostReactionType,
-    PostReferenceType,
-    PostReportReason,
-    PostType,
-    PostVisibilityFilter,
-    ReferenceRelevancyFilter,
-    TimelineEventItemType,
-} from '@lens-protocol/client';
-import {
-    addReaction,
-    bookmarkPost,
-    deletePost,
-    executePostAction,
-    fetchAccount,
-    fetchAccountRecommendations,
-    fetchAccounts,
-    fetchAccountsBulk,
-    fetchFollowers,
-    fetchFollowersYouKnow,
-    fetchFollowing,
-    fetchFollowStatus,
-    fetchGroupMembers,
-    fetchGroups,
-    fetchNotifications,
-    fetchPostBookmarks,
-    fetchPostReactions,
-    fetchPostReferences,
-    fetchPosts,
-    fetchPostsToExplore,
-    fetchTimeline,
-    fetchWhoReferencedPost,
-    follow,
-    joinGroup as joinLensGroup,
-    leaveGroup as leaveLensGroup,
-    muteAccount,
-    post,
-    reportAccount,
-    reportPost,
-    repost,
-    setAccountMetadata,
-    undoBookmarkPost,
-    undoReaction,
-    unfollow,
-    unmuteAccount,
-} from '@lens-protocol/client/actions';
-import { compact, first, flatMap, uniqBy, uniqWith } from 'lodash-es';
-import urlcat from 'urlcat';
+import { NotImplementedError } from '@dimensiondev/utils';
 
-import { FireflyPlatform, MetadataAttributeType, Source } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/static.js';
+import { Source } from '@/constants/enum.js';
 import { AddAuthorHighlightStatusForPosts } from '@/decorators/AddProfileHighlightStatus.js';
 import { SetQueryDataForActPost } from '@/decorators/SetQueryDataForActPost.js';
 import { SetQueryDataForBlockProfile } from '@/decorators/SetQueryDataForBlockProfile.js';
@@ -70,90 +14,83 @@ import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPos
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
 import { SetQueryDataForReportPost } from '@/decorators/SetQueryDataForReportPost.js';
 import { WithMutedProfilesQuery } from '@/decorators/WithMutedProfilesQuery.js';
-import { fetchJson } from '@/helpers/fetchJson.js';
-import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
-import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
-import { isSamePost } from '@/helpers/isSamePost.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
-import {
-    createIndicator,
-    createNextIndicator,
-    createPageable,
-    type Pageable,
-    type PageIndicator,
-} from '@/helpers/pageable.js';
-import { resolveResponseData } from '@/helpers/resolveResponseData.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
-import { reportPost as reportPostToFirefly } from '@/providers/firefly/endpoint/reportPost.js';
-import { blockProfileFor } from '@/providers/firefly/farcaster-account/blockProfileFor.js';
-import { unblockProfileFor } from '@/providers/firefly/farcaster-account/unblockProfileFor.js';
-import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
+import { type Pageable, type PageIndicator } from '@/helpers/pageable.js';
+import { actLensPost } from '@/providers/lens/actLensPost.js';
+import { blockLensProfile } from '@/providers/lens/blockLensProfile.js';
+import { bookmarkLensPost } from '@/providers/lens/bookmarkLensPost.js';
+import { collectLensPost } from '@/providers/lens/collectLensPost.js';
+import { commentLensPost } from '@/providers/lens/commentLensPost.js';
 import { createLensAccount } from '@/providers/lens/createLensAccount.js';
-import { ensureCursor } from '@/providers/lens/ensureCursor.js';
-import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
-import { ensurePostToLensResult } from '@/providers/lens/ensurePostToLensResult.js';
-import { filterNotifications } from '@/providers/lens/filterNotifications.js';
-import { formatChannelFromOrb } from '@/providers/lens/formatChannelFromOrb.js';
-import { formatLensChannelFromGroup } from '@/providers/lens/formatLensChannel.js';
-import {
-    filterFeedsV3,
-    formatLensPostByFeedV3,
-    formatLensPostV3,
-    formatLensQuoteOrCommentV3,
-} from '@/providers/lens/formatLensPost.js';
-import { formatLensPostRules } from '@/providers/lens/formatLensPostRules.js';
-import { formatLensProfileV3 } from '@/providers/lens/formatLensProfile.js';
-import { getAccountWithStatsById } from '@/providers/lens/getAccountWithStats.js';
+import { deleteLensPost } from '@/providers/lens/deleteLensPost.js';
+import { discoverLensChannels } from '@/providers/lens/discoverLensChannels.js';
+import { discoverLensPosts } from '@/providers/lens/discoverLensPosts.js';
+import { discoverLensPostsById } from '@/providers/lens/discoverLensPostsById.js';
+import { followLensProfile } from '@/providers/lens/followLensProfile.js';
 import { getCommentsByPostId } from '@/providers/lens/getCommentsByPostId.js';
-import { getGroupWithMemberCount, getGroupWithOwner } from '@/providers/lens/getFullGroup.js';
-import { getLensClient } from '@/providers/lens/getLensClient.js';
+import { getLensBookmarks } from '@/providers/lens/getLensBookmarks.js';
+import { getLensChannelById } from '@/providers/lens/getLensChannelById.js';
+import { getLensChannelMembers } from '@/providers/lens/getLensChannelMembers.js';
+import { getLensChannelsByProfileId } from '@/providers/lens/getLensChannelsByProfileId.js';
+import { getLensCollectedPostsByProfileId } from '@/providers/lens/getLensCollectedPostsByProfileId.js';
+import { getLensFollowers } from '@/providers/lens/getLensFollowers.js';
+import { getLensFollowings } from '@/providers/lens/getLensFollowings.js';
+import { getLensHiddenComments } from '@/providers/lens/getLensHiddenComments.js';
+import { getLensLikeReactors } from '@/providers/lens/getLensLikeReactors.js';
+import { getLensMediaPostsByProfileId } from '@/providers/lens/getLensMediaPostsByProfileId.js';
+import { getLensMutualFollowers } from '@/providers/lens/getLensMutualFollowers.js';
+import { getLensNotifications } from '@/providers/lens/getLensNotifications.js';
+import { getLensNotificationSettings } from '@/providers/lens/getLensNotificationSettings.js';
 import { getLensPostById } from '@/providers/lens/getLensPostById.js';
+import { getLensPostsBeMentioned } from '@/providers/lens/getLensPostsBeMentioned.js';
+import { getLensPostsByChannelId } from '@/providers/lens/getLensPostsByChannelId.js';
+import { getLensPostsByProfileId } from '@/providers/lens/getLensPostsByProfileId.js';
+import { getLensPostsQuoteOn } from '@/providers/lens/getLensPostsQuoteOn.js';
+import { getLensPostsReplies } from '@/providers/lens/getLensPostsReplies.js';
 import { getLensProfileByHandle } from '@/providers/lens/getLensProfileByHandle.js';
+import { getLensProfileById } from '@/providers/lens/getLensProfileById.js';
 import { getLensProfileBySession } from '@/providers/lens/getLensProfileBySession.js';
-import { handleOperationWithLensChain } from '@/providers/lens/handleOperationWithLensChain.js';
-import { isMutedLensAccount } from '@/providers/lens/isMutedLensAccount.js';
-import {
-    isAccountActionExecutedNotification,
-    isCommentNotification,
-    isFollowNotification,
-    isGroupMembershipRequestApprovedNotification,
-    isGroupMembershipRequestRejectedNotification,
-    isMentionNotification,
-    isPostActionExecutedNotification,
-    isQuoteNotification,
-    isReactionNotification,
-    isRepostNotification,
-} from '@/providers/lens/isNotification.js';
-import { lensSessionClientHolder } from '@/providers/lens/LensSessionClientHolder.js';
-import { account } from '@/providers/lens/metadata/Account.js';
-import { type MetadataAttribute } from '@/providers/lens/metadata/Base.js';
+import { getLensProfilesByIds } from '@/providers/lens/getLensProfilesById.js';
+import { getLensRepliesPostsByProfileId } from '@/providers/lens/getLensRepliesPostsByProfileId.js';
+import { getLensRepostReactors } from '@/providers/lens/getLensRepostReactors.js';
+import { getLensSuggestedFollows } from '@/providers/lens/getLensSuggestedFollows.js';
+import { getLensThreadByPostId } from '@/providers/lens/getLensThreadByPostId.js';
+import { isLensFollowedByMe } from '@/providers/lens/isLensFollowedByMe.js';
+import { isLensFollowingMe } from '@/providers/lens/isLensFollowingMe.js';
+import { joinLensChannel } from '@/providers/lens/joinLensChannel.js';
+import { leaveLensChannel } from '@/providers/lens/leaveLensChannel.js';
+import { mirrorLensPost } from '@/providers/lens/mirrorLensPost.js';
+import { publishLensPost } from '@/providers/lens/publishLensPost.js';
+import { quoteLensPost } from '@/providers/lens/quoteLensPost.js';
+import { reportLensPost } from '@/providers/lens/reportLensPost.js';
+import { reportLensProfile } from '@/providers/lens/reportLensProfile.js';
+import { searchLensChannels } from '@/providers/lens/searchLensChannels.js';
+import { searchLensPosts } from '@/providers/lens/searchLensPosts.js';
+import { searchLensProfiles } from '@/providers/lens/searchLensProfiles.js';
 import { type LensSession } from '@/providers/lens/Session.js';
-import { uploadLensMetadataToS3 } from '@/providers/lens/uploadLensMetadataToS3.js';
-import { type ExploreClubsData } from '@/providers/orb/type.js';
+import { setLensNotificationSettings } from '@/providers/lens/setLensNotificationSettings.js';
+import { unblockLensProfile } from '@/providers/lens/unblockLensProfile.js';
+import { unbookmarkLensPost } from '@/providers/lens/unbookmarkLensPost.js';
+import { unfollowLensProfile } from '@/providers/lens/unfollowLensProfile.js';
+import { unmirrorLensPost } from '@/providers/lens/unmirrorLensPost.js';
+import { unvoteLensPost } from '@/providers/lens/unvoteLensPost.js';
+import { updateLensProfile } from '@/providers/lens/updateLensProfile.js';
+import { upvoteLensPost } from '@/providers/lens/upvoteLensPost.js';
 import { type Account as FireflyAccount } from '@/providers/types/Account.js';
-import {
-    NotificationPlatform,
-    NotificationPushType,
-    type NotificationSettings,
-    NotificationTitle,
-} from '@/providers/types/Firefly.js';
+import { type NotificationSettings } from '@/providers/types/Firefly.js';
 import { type Session } from '@/providers/types/Session.js';
 import {
     type Channel,
     type Friendship,
     type Notification,
-    NotificationType,
     type Post,
     type Profile,
     type ProfileBadge,
     type ProfileEditable,
     type ProfileForSignup,
     type Provider,
-    ReactionType,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
-import { type ResponseJson } from '@/types/utility.js';
 
 @WithMutedProfilesQuery()
 @SetQueryDataForLikePost(Source.Lens)
@@ -178,19 +115,11 @@ class LensSocialMedia implements Provider {
     }
 
     async getChannelById(channelId: string, includeFollowingStatus?: boolean, ownerId?: string): Promise<Channel> {
-        if (ownerId) {
-            return getGroupWithOwner(channelId, ownerId);
-        }
-        const group = await getGroupWithMemberCount(channelId);
-        const owner = group.ownerId
-            ? await runInSafeAsync(() => lensSocialMediaProvider.getProfileById(group.ownerId!))
-            : undefined;
-
-        return { ...group, lead: owner };
+        return getLensChannelById(channelId, includeFollowingStatus, ownerId);
     }
 
     async getChannelsByIds(ids: string[]): Promise<Channel[]> {
-        return Promise.all(ids.map((id) => lensSocialMediaProvider.getChannelById(id)));
+        return Promise.all(ids.map((id) => getLensChannelById(id)));
     }
 
     getChannelByHandle(channelHandle: string): Promise<Channel> {
@@ -201,69 +130,15 @@ class LensSocialMedia implements Provider {
         profileId: string,
         indicator?: PageIndicator,
     ): Promise<Pageable<Channel, PageIndicator>> {
-        const result = await ensureLensResult(
-            fetchGroups(getLensClient(), {
-                cursor: ensureCursor(indicator),
-                pageSize: PageSize.Fifty,
-                orderBy: 'LATEST_FIRST',
-                filter: {
-                    member: safeEvmAddress(profileId),
-                },
-            }),
-        );
-        const channels = compact(result.items.map((x) => (x.feed ? formatLensChannelFromGroup(x) : null)));
-
-        return createPageable(
-            channels,
-            createIndicator(indicator),
-            result?.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
-        );
+        return getLensChannelsByProfileId(profileId, indicator);
     }
 
     async discoverChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
-        const skip = indicator?.id ? Number.parseInt(indicator.id, 10) || 0 : 0;
-        const limit = 20;
-
-        const url = urlcat('/api/orb/explore-clubs', {
-            category: 'TRENDING_CLUBS',
-            skip,
-            limit,
-        });
-        const response = await fireflySessionHolder.fetch<ResponseJson<ExploreClubsData>>(url);
-        const data = resolveResponseData(response, 'Failed to fetch explore clubs');
-
-        const ownerIds = compact(data.clubs.map((club) => club.metadata?.ownedBy));
-        const owners = await runInSafeAsync(() => lensSocialMediaProvider.getProfilesByIds(ownerIds));
-
-        const channels = data.clubs.map((club) => formatChannelFromOrb(club, owners));
-
-        const hasMore = data.pageInfo?.hasMore ?? channels.length === limit;
-        const nextSkip = data.pageInfo?.next ? Number.parseInt(data.pageInfo.next, 10) : skip + channels.length;
-
-        return createPageable(
-            channels,
-            createIndicator(indicator),
-            hasMore ? createNextIndicator(indicator, `${nextSkip}`) : undefined,
-        );
+        return discoverLensChannels(indicator);
     }
 
     async getPostsByChannelId(channelId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        const result = await ensureLensResult(
-            fetchPosts(getLensClient(), {
-                cursor: ensureCursor(indicator),
-                pageSize: indicator?.size && indicator.size <= 10 ? PageSize.Ten : PageSize.Fifty,
-                filter: {
-                    feeds: [{ feed: safeEvmAddress(channelId) }],
-                    metadata: null,
-                },
-            }),
-        );
-
-        return createPageable(
-            filterFeedsV3(compact(result.items)).map(formatLensPostV3),
-            createIndicator(indicator),
-            result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
-        );
+        return getLensPostsByChannelId(channelId, indicator);
     }
 
     getPostsByChannelHandle(channelHandle: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
@@ -271,28 +146,7 @@ class LensSocialMedia implements Provider {
     }
 
     async searchChannels(q: string, indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
-        const result = await ensureLensResult(
-            fetchGroups(getLensClient(), {
-                cursor: ensureCursor(indicator),
-                pageSize: PageSize.Fifty,
-                orderBy: GroupsOrderBy.LatestFirst,
-                filter: {
-                    searchQuery: q || undefined,
-                },
-            }),
-        );
-
-        const ownerIds = result.items.map((x) => x.owner);
-        const owners = await runInSafeAsync(() => lensSocialMediaProvider.getProfilesByIds(ownerIds));
-
-        return createPageable(
-            (result?.items.map(formatLensChannelFromGroup) ?? EMPTY_LIST).map((x) => ({
-                ...x,
-                lead: owners?.find((profile) => isSameEthereumAddress(profile.profileId, x.ownerId)),
-            })),
-            createIndicator(indicator),
-            result?.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
-        );
+        return searchLensChannels(q, indicator);
     }
 
     getChannelTrendingPosts(channel: Channel, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
@@ -300,19 +154,7 @@ class LensSocialMedia implements Provider {
     }
 
     async getChannelMembers(channelId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        const result = await ensureLensResult(
-            fetchGroupMembers(getLensClient(), {
-                cursor: ensureCursor(indicator),
-                pageSize: PageSize.Fifty,
-                group: safeEvmAddress(channelId),
-            }),
-        );
-
-        return createPageable(
-            result.items.map((x) => formatLensProfileV3(x.account as Account)),
-            createIndicator(indicator),
-            result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
-        );
+        return getLensChannelMembers(channelId, indicator);
     }
 
     async getChannelFollowers(channelId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
@@ -340,133 +182,53 @@ class LensSocialMedia implements Provider {
     }
 
     async deletePost(postId: string): Promise<boolean> {
-        const result = await ensureLensResult(deletePost(lensSessionClientHolder.sessionClient, { post: postId }));
-        await handleOperationWithLensChain(result);
-        return true;
+        return deleteLensPost(postId);
     }
 
     async publishPost(draftPost: Post): Promise<{ postId: string }> {
-        if (!draftPost.metadata.contentURI) throw new Error('No content to publish.');
-
-        return ensurePostToLensResult(
-            post(lensSessionClientHolder.sessionClient, {
-                contentUri: draftPost.metadata.contentURI,
-                rules: formatLensPostRules(draftPost.restrictions),
-                feed: draftPost.channel?.feedId ? safeEvmAddress(draftPost.channel.feedId) : undefined,
-            }),
-        );
+        return publishLensPost(draftPost);
     }
 
     async mirrorPost(postId: string): Promise<string> {
-        const result = await ensurePostToLensResult(
-            repost(lensSessionClientHolder.sessionClient, {
-                post: postId,
-            }),
-            false,
-        );
-
-        return result.postId;
+        return mirrorLensPost(postId);
     }
 
     async unmirrorPost(postId: string): Promise<void> {
-        await lensSocialMediaProvider.deletePost(postId);
+        await unmirrorLensPost(postId);
     }
 
     // intro is the contentURI of the post
     async quotePost(postId: string, draftPost: Post): Promise<{ postId: string }> {
-        const intro = draftPost.metadata.content?.content ?? '';
-        return ensurePostToLensResult(
-            post(lensSessionClientHolder.sessionClient, {
-                contentUri: intro,
-                quoteOf: { post: postId },
-                rules: formatLensPostRules(draftPost.restrictions),
-                feed: draftPost.channel?.id ? safeEvmAddress(draftPost.channel.id) : undefined,
-            }),
-        );
+        return quoteLensPost(postId, draftPost);
     }
 
     async collectPost(postId: string): Promise<void> {
-        await ensureLensResult(bookmarkPost(lensSessionClientHolder.sessionClient, { post: postId }));
+        await collectLensPost(postId);
     }
 
     async actPost(postId: string) {
-        const result = await ensureLensResult(
-            executePostAction(lensSessionClientHolder.sessionClient, {
-                post: toPostId(postId),
-                action: {
-                    simpleCollect: { selected: true },
-                },
-            }),
-        );
-        await handleOperationWithLensChain(result);
+        await actLensPost(postId);
     }
 
     // comment is the contentURI of the post
     async commentPost(postId: string, draftPost: Post, signless?: boolean): Promise<{ postId: string }> {
-        const comment = draftPost.metadata.content?.content ?? '';
-        return ensurePostToLensResult(
-            post(lensSessionClientHolder.sessionClient, {
-                contentUri: comment,
-                commentOn: { post: postId },
-                feed: draftPost.channel?.id ? safeEvmAddress(draftPost.channel.id) : undefined,
-            }),
-        );
+        return commentLensPost(postId, draftPost, signless);
     }
 
     async upvotePost(postId: string) {
-        const result = await ensureLensResult(
-            addReaction(lensSessionClientHolder.sessionClient, { post: postId, reaction: PostReactionType.Upvote }),
-        );
-        switch (result.__typename) {
-            case 'AddReactionResponse':
-                if (!result.success) {
-                    throw new Error(`Failed to upvote`);
-                }
-                break;
-            case 'AddReactionFailure':
-                throw new Error(`Failed to upvote`);
-            default:
-                unreachable(result);
-        }
+        await upvoteLensPost(postId);
     }
 
     async unvotePost(postId: string): Promise<void> {
-        const result = await ensureLensResult(
-            undoReaction(lensSessionClientHolder.sessionClient, { post: postId, reaction: PostReactionType.Downvote }),
-        );
-        switch (result.__typename) {
-            case 'UndoReactionResponse':
-                if (!result.success) {
-                    throw new Error(`Failed to unvote`);
-                }
-                break;
-            case 'UndoReactionFailure':
-                throw new Error(`Failed to unvote`);
-            default:
-                unreachable(result);
-        }
+        await unvoteLensPost(postId);
     }
 
     async getProfileById(profileId: string, includeGraphStats?: boolean): Promise<Profile> {
-        if (includeGraphStats) {
-            return getAccountWithStatsById(profileId);
-        }
-        const result = await ensureLensResult(fetchAccount(getLensClient(), { address: safeEvmAddress(profileId) }));
-        if (!result) throw new NotFoundError('No profile found');
-
-        return formatLensProfileV3(result);
+        return getLensProfileById(profileId, includeGraphStats);
     }
 
     async getProfilesByIds(ids: string[]): Promise<Profile[]> {
-        if (!ids.length) return [];
-        const result = await ensureLensResult(
-            fetchAccountsBulk(getLensClient(), {
-                addresses: ids.map(safeEvmAddress),
-            }),
-        );
-        const profiles = result.map(formatLensProfileV3);
-
-        return profiles;
+        return getLensProfilesByIds(ids);
     }
 
     async getProfileByHandle(handle: string, includeGraphStats?: boolean): Promise<Profile> {
@@ -478,9 +240,8 @@ class LensSocialMedia implements Provider {
     }
 
     async getProfileByIdOrHandle(profileIdOrHandle: string, includeGraphStats?: boolean): Promise<Profile> {
-        if (isValidAddressEthereum(profileIdOrHandle))
-            return lensSocialMediaProvider.getProfileById(profileIdOrHandle, includeGraphStats);
-        return lensSocialMediaProvider.getProfileByHandle(profileIdOrHandle, includeGraphStats);
+        if (isValidAddressEthereum(profileIdOrHandle)) return getLensProfileById(profileIdOrHandle, includeGraphStats);
+        return getLensProfileByHandle(profileIdOrHandle, includeGraphStats);
     }
 
     async getPostById(postId: string, isLegacy = false): Promise<Post> {
@@ -496,155 +257,41 @@ class LensSocialMedia implements Provider {
     }
 
     async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        const result = await ensureLensResult(
-            fetchPostsToExplore(getLensClient(), {
-                cursor: ensureCursor(indicator),
-                pageSize: PageSize.Fifty,
-            }),
-        );
-
-        if (!result) return createPageable([], createIndicator(indicator));
-
-        const posts = filterFeedsV3(compact(result.items)).map(formatLensPostV3);
-        return createPageable(
-            posts,
-            createIndicator(indicator),
-            result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
-        );
+        return discoverLensPosts(indicator);
     }
 
     async discoverPostsById(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        const result = await ensureLensResult(
-            fetchTimeline(lensSessionClientHolder.sessionClient, {
-                cursor: ensureCursor(indicator),
-                filter: {
-                    eventType: [TimelineEventItemType.Post, TimelineEventItemType.Quote, TimelineEventItemType.Repost],
-                },
-                account: safeEvmAddress(profileId),
-            }),
-        );
-
-        const posts = compact(result.items.map(formatLensPostByFeedV3)).filter(
-            (post) => !post.author.viewerContext?.blocking && !post.hasReported,
-        );
-        return createPageable(
-            posts,
-            createIndicator(indicator),
-            result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
-        );
+        return discoverLensPostsById(profileId, indicator);
     }
 
     async getCollectedPostsByProfileId(
         profileId: string,
         indicator?: PageIndicator,
     ): Promise<Pageable<Post, PageIndicator>> {
-        const result = await ensureLensResult(
-            fetchPosts(getLensClient(), {
-                cursor: ensureCursor(indicator),
-                pageSize: PageSize.Fifty,
-                filter: {
-                    metadata: null,
-                    collectedBy: {
-                        account: safeEvmAddress(profileId),
-                    },
-                },
-            }),
-        );
-
-        const posts = uniqWith(result.items.map(formatLensPostV3), isSamePost);
-        return createPageable(
-            posts,
-            createIndicator(indicator),
-            result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
-        );
+        return getLensCollectedPostsByProfileId(profileId, indicator);
     }
 
     async getPostsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        const result = await ensureLensResult(
-            fetchPosts(getLensClient(), {
-                cursor: ensureCursor(indicator),
-                pageSize: PageSize.Fifty,
-                filter: {
-                    metadata: null,
-                    authors: [safeEvmAddress(profileId)],
-                    postTypes: [PostType.Root, PostType.Repost, PostType.Quote],
-                },
-            }),
-        );
-
-        return createPageable(
-            result.items.map(formatLensPostV3),
-            createIndicator(indicator),
-            result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
-        );
+        return getLensPostsByProfileId(profileId, indicator);
     }
 
     async getRepliesPostsByProfileId(
         profileId: string,
         indicator?: PageIndicator,
     ): Promise<Pageable<Post, PageIndicator>> {
-        const result = await ensureLensResult(
-            fetchPosts(getLensClient(), {
-                cursor: ensureCursor(indicator),
-                pageSize: PageSize.Fifty,
-                filter: {
-                    metadata: null,
-                    authors: [safeEvmAddress(profileId)],
-                    postTypes: [PostType.Comment],
-                },
-            }),
-        );
-
-        return createPageable(
-            result.items.map(formatLensPostV3),
-            createIndicator(indicator),
-            result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
-        );
+        return getLensRepliesPostsByProfileId(profileId, indicator);
     }
 
     async getMediaPostsByProfileId(
         profileId: string,
         indicator?: PageIndicator,
     ): Promise<Pageable<Post, PageIndicator>> {
-        const result = await ensureLensResult(
-            fetchPosts(getLensClient(), {
-                cursor: ensureCursor(indicator),
-                pageSize: PageSize.Fifty,
-                filter: {
-                    authors: [safeEvmAddress(profileId)],
-                    metadata: {
-                        mainContentFocus: [MainContentFocus.Image, MainContentFocus.Audio, MainContentFocus.Video],
-                    },
-                    postTypes: [PostType.Root, PostType.Repost, PostType.Quote, PostType.Comment],
-                },
-            }),
-        );
-
-        return createPageable(
-            result.items.map(formatLensPostV3),
-            createIndicator(indicator),
-            result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
-        );
+        return getLensMediaPostsByProfileId(profileId, indicator);
     }
 
     // TODO: Invalid
     async getPostsBeMentioned(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post>> {
-        const result = await ensureLensResult(
-            fetchPosts(getLensClient(), {
-                cursor: ensureCursor(indicator),
-                pageSize: PageSize.Fifty,
-                filter: {
-                    metadata: null,
-                    authors: [safeEvmAddress(profileId)],
-                },
-            }),
-        );
-
-        return createPageable(
-            result.items.map(formatLensPostV3),
-            createIndicator(indicator),
-            result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
-        );
+        return getLensPostsBeMentioned(profileId, indicator);
     }
 
     async getPostsLiked(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post>> {
@@ -652,390 +299,73 @@ class LensSocialMedia implements Provider {
     }
 
     async getPostsReplies(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post>> {
-        const result = await ensureLensResult(
-            fetchPosts(getLensClient(), {
-                cursor: ensureCursor(indicator),
-                pageSize: PageSize.Fifty,
-                filter: {
-                    metadata: null,
-                    authors: [safeEvmAddress(profileId)],
-                    postTypes: [PostType.Comment],
-                },
-            }),
-        );
-
-        return createPageable(
-            result.items.map(formatLensPostV3),
-            createIndicator(indicator),
-            result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
-        );
+        return getLensPostsReplies(profileId, indicator);
     }
 
     async follow(profileId: string): Promise<boolean> {
-        const result = await ensureLensResult(
-            follow(lensSessionClientHolder.sessionClient, { account: safeEvmAddress(profileId) }),
-        );
-        await handleOperationWithLensChain(result);
-        return true;
+        return followLensProfile(profileId);
     }
 
     async unfollow(profileId: string): Promise<boolean> {
-        const result = await ensureLensResult(
-            unfollow(lensSessionClientHolder.sessionClient, { account: safeEvmAddress(profileId) }),
-        );
-        await handleOperationWithLensChain(result);
-        return true;
+        return unfollowLensProfile(profileId);
     }
 
     async getFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile>> {
-        const result = await ensureLensResult(
-            fetchFollowers(getLensClient(), {
-                cursor: ensureCursor(indicator),
-                pageSize: PageSize.Fifty,
-                account: safeEvmAddress(profileId),
-            }),
-        );
-
-        return createPageable(
-            result.items.map((x) => formatLensProfileV3(x.follower as Account)),
-            createIndicator(indicator),
-            result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
-        );
+        return getLensFollowers(profileId, indicator);
     }
 
     async getFollowings(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile>> {
-        const result = await ensureLensResult(
-            fetchFollowing(getLensClient(), {
-                cursor: ensureCursor(indicator),
-                pageSize: PageSize.Fifty,
-                account: safeEvmAddress(profileId),
-            }),
-        );
-
-        return createPageable(
-            result.items.map((x) => formatLensProfileV3(x.following as Account)),
-            createIndicator(indicator),
-            result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
-        );
+        return getLensFollowings(profileId, indicator);
     }
     async getMutualFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        const session = getSessionFromStorage(SessionType.Lens);
-
-        if (!session?.profileId || isSameEthereumAddress(session.profileId, profileId))
-            return createPageable([], createIndicator(indicator));
-
-        const result = await ensureLensResult(
-            fetchFollowersYouKnow(getLensClient(), {
-                cursor: ensureCursor(indicator),
-                pageSize: PageSize.Fifty,
-                observer: session.profileId,
-                target: safeEvmAddress(profileId),
-            }),
-        );
-
-        return createPageable(
-            result.items.map((x) => formatLensProfileV3(x.follower as Account)),
-            createIndicator(indicator),
-            result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
-        );
+        return getLensMutualFollowers(profileId, indicator);
     }
 
     async isFollowedByMe(profileId: string): Promise<boolean> {
-        const session = getSessionFromStorage(SessionType.Lens);
-        if (!session) return false;
-
-        const result = await ensureLensResult(
-            fetchFollowStatus(getLensClient(), {
-                pairs: [
-                    {
-                        account: safeEvmAddress(profileId),
-                        follower: safeEvmAddress(session.profileId),
-                    },
-                ],
-            }),
-        );
-
-        return first(result)?.isFollowing.onChain ?? false;
+        return isLensFollowedByMe(profileId);
     }
 
     async isFollowingMe(profileId: string): Promise<boolean> {
-        const session = getSessionFromStorage(SessionType.Lens);
-        if (!session) return false;
-
-        const result = await ensureLensResult(
-            fetchFollowStatus(getLensClient(), {
-                pairs: [
-                    {
-                        account: safeEvmAddress(session.profileId),
-                        follower: safeEvmAddress(profileId),
-                    },
-                ],
-            }),
-        );
-
-        return first(result)?.isFollowing.onChain ?? false;
+        return isLensFollowingMe(profileId);
     }
 
     async getNotifications(
         indicator?: PageIndicator,
         highSignalFilter?: boolean,
     ): Promise<Pageable<Notification, PageIndicator>> {
-        const result = await ensureLensResult(
-            fetchNotifications(lensSessionClientHolder.sessionClient, {
-                cursor: ensureCursor(indicator),
-                filter: {
-                    includeLowScore: !highSignalFilter,
-                },
-            }),
-        );
-
-        const data = filterNotifications(result.items).map<Notification | null>((item) => {
-            if (isRepostNotification(item)) {
-                if (!item.reposts.length) return null;
-                if (item.reposts.some((x) => isMutedLensAccount(x.account))) return null;
-
-                const time = first(item.reposts)?.repostedAt;
-                const post = formatLensQuoteOrCommentV3(item.post);
-                if (!post) return null;
-
-                return {
-                    source: Source.Lens,
-                    notificationId: item.id,
-                    type: NotificationType.Mirror,
-                    mirrors: item.reposts.map((x) => formatLensProfileV3(x.account)),
-                    post,
-                    timestamp: time ? new Date(time).getTime() : undefined,
-                };
-            }
-
-            if (isQuoteNotification(item)) {
-                if (isMutedLensAccount(item.quote.author)) return null;
-
-                const time = item.quote.timestamp;
-                const quoteOf = formatLensQuoteOrCommentV3(item.quote.quoteOf, 'Quote');
-                if (!quoteOf) return null;
-
-                return {
-                    source: Source.Lens,
-                    notificationId: item.id,
-                    type: NotificationType.Quote,
-                    quote: formatLensPostV3(item.quote),
-                    post: quoteOf,
-                    timestamp: time ? new Date(time).getTime() : undefined,
-                };
-            }
-
-            if (isReactionNotification(item)) {
-                if (!item.reactions.length) return null;
-                if (item.reactions.some((x) => isMutedLensAccount(x.account))) return null;
-
-                const time = first(flatMap(item.reactions.map((x) => x.reactions)))?.reactedAt;
-                const post = formatLensQuoteOrCommentV3(item.post);
-                if (!post) return null;
-
-                return {
-                    source: Source.Lens,
-                    notificationId: item.id,
-                    type: NotificationType.Reaction,
-                    reaction: ReactionType.Upvote,
-                    reactors: item.reactions.map((x) => formatLensProfileV3(x.account)),
-                    post,
-                    timestamp: time ? new Date(time).getTime() : undefined,
-                };
-            }
-
-            if (isCommentNotification(item)) {
-                if (isMutedLensAccount(item.comment.author)) return null;
-
-                const commentOn = formatLensQuoteOrCommentV3(item.comment.commentOn, 'Comment');
-                if (!commentOn) return null;
-
-                return {
-                    source: Source.Lens,
-                    notificationId: item.id,
-                    type: NotificationType.Comment,
-                    comment: formatLensPostV3(item.comment),
-                    post: commentOn,
-                    timestamp: new Date(item.comment.timestamp).getTime(),
-                };
-            }
-
-            if (isFollowNotification(item)) {
-                if (!item.followers.length) return null;
-                if (item.followers.some((x) => isMutedLensAccount(x.account))) return null;
-
-                return {
-                    source: Source.Lens,
-                    notificationId: item.id,
-                    type: NotificationType.Follow,
-                    followers: uniqBy(
-                        item.followers.map((x) => formatLensProfileV3(x.account)),
-                        (x) => x.profileId,
-                    ),
-                };
-            }
-
-            if (isMentionNotification(item)) {
-                if (isMutedLensAccount(item.post.author)) return null;
-
-                const post = formatLensQuoteOrCommentV3(item.post);
-                if (!post) return null;
-
-                return {
-                    source: Source.Lens,
-                    notificationId: item.id,
-                    type: NotificationType.Mention,
-                    post,
-                    timestamp: new Date(item.post.timestamp).getTime(),
-                };
-            }
-
-            if (isAccountActionExecutedNotification(item)) {
-                return null;
-            }
-
-            if (isGroupMembershipRequestApprovedNotification(item)) {
-                return null;
-            }
-
-            if (isGroupMembershipRequestRejectedNotification(item)) {
-                return null;
-            }
-
-            if (isPostActionExecutedNotification(item)) {
-                return null;
-            }
-
-            return null;
-        });
-
-        return createPageable(
-            compact(data),
-            createIndicator(indicator),
-            result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
-        );
+        return getLensNotifications(indicator, highSignalFilter);
     }
 
     async getNotificationSettings(): Promise<NotificationSettings> {
-        const { getNotificationPushSwitch } = await import('@/providers/firefly/endpoint/getNotificationPushSwitch.js');
-        const settings = await getNotificationPushSwitch();
-        const current = settings.list.find((x) => x.title === NotificationTitle.NotificationsMode);
-
-        return {
-            priority:
-                current?.list.find(
-                    (x) => x.platform === NotificationPlatform.Priority && x.push_type === NotificationPushType.Lens,
-                )?.state ?? false,
-        };
+        return getLensNotificationSettings();
     }
 
     async setNotificationSettings(settings: NotificationSettings) {
-        const { setNotificationPushSwitch } = await import('@/providers/firefly/endpoint/setNotificationPushSwitch.js');
-        await setNotificationPushSwitch({
-            list: [
-                {
-                    platform: NotificationPlatform.Priority,
-                    push_type: NotificationPushType.Lens,
-                    state: settings.priority,
-                },
-            ],
-        });
-        return true;
+        return setLensNotificationSettings(settings);
     }
 
     async getSuggestedFollows(indicator?: PageIndicator): Promise<Pageable<Profile>> {
-        const session = getSessionFromStorage(SessionType.Lens);
-        const result = await ensureLensResult(
-            session
-                ? fetchAccountRecommendations(getLensClient(), {
-                      cursor: ensureCursor(indicator),
-                      pageSize: PageSize.Fifty,
-                      account: safeEvmAddress(session.profileId),
-                  })
-                : fetchAccounts(getLensClient(), {
-                      cursor: ensureCursor(indicator),
-                      pageSize: PageSize.Fifty,
-                      orderBy: AccountsOrderBy.AccountScore,
-                  }),
-        );
-
-        return createPageable(
-            result?.items.map(formatLensProfileV3) || EMPTY_LIST,
-            createIndicator(indicator),
-            result?.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
-        );
+        return getLensSuggestedFollows(indicator);
     }
 
     async searchProfiles(q: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        const result = await ensureLensResult(
-            fetchAccounts(getLensClient(), {
-                cursor: ensureCursor(indicator),
-                pageSize: PageSize.Fifty,
-                orderBy: AccountsOrderBy.BestMatch,
-                filter: {
-                    searchBy: { localNameQuery: q, namespaces: [] },
-                },
-            }),
-        );
-        return createPageable(
-            result.items.map(formatLensProfileV3),
-            createIndicator(indicator),
-            result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
-        );
+        return searchLensProfiles(q, indicator);
     }
 
     async searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        const result = await ensureLensResult(
-            fetchPosts(getLensClient(), {
-                cursor: ensureCursor(indicator),
-                pageSize: PageSize.Fifty,
-                filter: {
-                    metadata: null,
-                    searchQuery: q,
-                },
-            }),
-        );
-        return createPageable(
-            result.items.map(formatLensPostV3),
-            createIndicator(indicator),
-            result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
-        );
+        return searchLensPosts(q, indicator);
     }
 
     async getThreadByPostId(postId: string) {
-        const response = await fetchJson<ResponseJson<string[]>>(urlcat('/api/thread', { id: postId }));
-        if (!response.success) return EMPTY_LIST;
-
-        const posts = await ensureLensResult(
-            fetchPosts(getLensClient(), {
-                pageSize: PageSize.Fifty,
-                filter: {
-                    metadata: {
-                        tags: { all: [postId, ...response.data] }, // TODO
-                    },
-                },
-            }),
-        );
-
-        return Promise.all(posts.items.map(formatLensPostV3));
+        return getLensThreadByPostId(postId);
     }
 
     async blockProfile(profileId: string) {
-        await ensureLensResult(
-            muteAccount(lensSessionClientHolder.sessionClient, { account: safeEvmAddress(profileId) }),
-        );
-        await runInSafeAsync(() => blockProfileFor(FireflyPlatform.Lens, profileId));
-        return true;
+        return blockLensProfile(profileId);
     }
 
     async unblockProfile(profileId: string) {
-        await ensureLensResult(
-            unmuteAccount(lensSessionClientHolder.sessionClient, {
-                account: safeEvmAddress(profileId),
-            }),
-        );
-        await runInSafeAsync(() => unblockProfileFor(FireflyPlatform.Lens, profileId));
-        return true;
+        return unblockLensProfile(profileId);
     }
 
     async getBlockedProfiles(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
@@ -1043,189 +373,49 @@ class LensSocialMedia implements Provider {
     }
 
     async getLikeReactors(postId: string, indicator?: PageIndicator) {
-        const result = await ensureLensResult(
-            fetchPostReactions(getLensClient(), {
-                cursor: ensureCursor(indicator),
-                pageSize: PageSize.Fifty,
-                post: postId,
-                filter: {
-                    anyOf: [PostReactionType.Upvote],
-                },
-            }),
-        );
-        if (!result) throw new Error('No one likes this post yet.');
-        const profiles = result.items.map((item) => formatLensProfileV3(item.account as Account));
-        return createPageable(
-            profiles,
-            createIndicator(indicator),
-            result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
-        );
+        return getLensLikeReactors(postId, indicator);
     }
     async getRepostReactors(postId: string, indicator?: PageIndicator) {
-        const result = await ensureLensResult(
-            fetchWhoReferencedPost(getLensClient(), {
-                cursor: ensureCursor(indicator),
-                pageSize: PageSize.Fifty,
-                post: postId,
-                referenceTypes: [PostReferenceType.RepostOf],
-            }),
-        );
-        if (!result) throw new Error('No one likes this post yet.');
-        const profiles = result.items.map(formatLensProfileV3);
-        return createPageable(
-            profiles,
-            createIndicator(indicator),
-            result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
-        );
+        return getLensRepostReactors(postId, indicator);
     }
 
     async getPostsQuoteOn(postId: string, indicator?: PageIndicator) {
-        const result = await ensureLensResult(
-            fetchPostReferences(getLensClient(), {
-                cursor: ensureCursor(indicator),
-                pageSize: PageSize.Fifty,
-                referencedPost: postId,
-                referenceTypes: [PostReferenceType.QuoteOf],
-            }),
-        );
-        if (!result) throw new Error('No one likes this post yet.');
-        const posts = result.items.map(formatLensPostV3);
-        return createPageable(
-            posts,
-            createIndicator(indicator),
-            result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
-        );
+        return getLensPostsQuoteOn(postId, indicator);
     }
     async bookmark(postId: string): Promise<boolean> {
-        await ensureLensResult(
-            bookmarkPost(lensSessionClientHolder.sessionClient, {
-                post: postId,
-            }),
-        );
-        return true;
+        return bookmarkLensPost(postId);
     }
 
     async unbookmark(postId: string): Promise<boolean> {
-        await ensureLensResult(
-            undoBookmarkPost(lensSessionClientHolder.sessionClient, {
-                post: postId,
-            }),
-        );
-        return true;
+        return unbookmarkLensPost(postId);
     }
 
     async getBookmarks(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        const result = await ensureLensResult(
-            fetchPostBookmarks(lensSessionClientHolder.sessionClient, {
-                cursor: ensureCursor(indicator),
-                pageSize: PageSize.Fifty,
-            }),
-        );
-        const posts = result.items.map(formatLensPostV3);
-        return createPageable(
-            posts,
-            createIndicator(indicator),
-            result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
-        );
+        return getLensBookmarks(indicator);
     }
 
     async getHiddenComments(postId: string, indicator?: PageIndicator) {
-        const result = await ensureLensResult(
-            fetchPostReferences(getLensClient(), {
-                cursor: ensureCursor(indicator),
-                pageSize: PageSize.Fifty,
-                referenceTypes: [PostReferenceType.CommentOn],
-                referencedPost: postId,
-                relevancyFilter: ReferenceRelevancyFilter.NotRelevant,
-                visibilityFilter: PostVisibilityFilter.Visible,
-            }),
-        );
-
-        if (!result) throw new Error('No comments found');
-
-        return createPageable(
-            result.items.map(formatLensPostV3),
-            createIndicator(indicator),
-            result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
-        );
+        return getLensHiddenComments(postId, indicator);
     }
 
     async reportProfile(profileId: string) {
-        await ensureLensResult(
-            reportAccount(lensSessionClientHolder.sessionClient, {
-                account: safeEvmAddress(profileId),
-                reason: AccountReportReason.RepetitiveSpam, // TODO: user select reason
-            }),
-        );
-
-        return true;
+        return reportLensProfile(profileId);
     }
 
     async reportPost(post: Post) {
-        const postId = post.postId;
-        await ensureLensResult(
-            reportPost(lensSessionClientHolder.sessionClient, {
-                post: postId,
-                reason: PostReportReason.Scam, // TODO: user select reason
-            }),
-        );
-        return reportPostToFirefly(post);
+        return reportLensPost(post);
     }
 
     async updateProfile(profile: ProfileEditable): Promise<boolean> {
-        const attributes: MetadataAttribute[] = compact([
-            profile.website
-                ? {
-                      __typename: 'MetadataAttribute',
-                      type: MetadataAttributeType.STRING,
-                      key: 'website',
-                      value: profile.website,
-                  }
-                : null,
-            profile.location
-                ? {
-                      __typename: 'MetadataAttribute',
-                      type: MetadataAttributeType.STRING,
-                      key: 'location',
-                      value: profile.location,
-                  }
-                : null,
-        ]);
-        const metadata = account({
-            id: crypto.randomUUID(),
-            name: profile.displayName,
-            bio: profile.bio || undefined,
-            picture: profile.pfp || undefined,
-            attributes: attributes.length ? attributes : undefined,
-        });
-        const metadataURI = await uploadLensMetadataToS3(metadata);
-        const result = await ensureLensResult(
-            setAccountMetadata(lensSessionClientHolder.sessionClient, {
-                metadataUri: metadataURI,
-            }),
-        );
-        await handleOperationWithLensChain(result);
-        return true;
+        return updateLensProfile(profile);
     }
 
     async joinChannel(channel: Channel): Promise<boolean> {
-        const result = await ensureLensResult(
-            joinLensGroup(lensSessionClientHolder.sessionClient, {
-                group: safeEvmAddress(channel.id),
-            }),
-        );
-        await handleOperationWithLensChain(result);
-        return true;
+        return joinLensChannel(channel);
     }
 
     async leaveChannel(channel: Channel): Promise<boolean> {
-        const result = await ensureLensResult(
-            leaveLensGroup(lensSessionClientHolder.sessionClient, {
-                group: safeEvmAddress(channel.id),
-            }),
-        );
-        await handleOperationWithLensChain(result);
-        return true;
+        return leaveLensChannel(channel);
     }
 
     async getPinnedPost(profileId: string): Promise<Post | null> {

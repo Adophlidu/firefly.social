@@ -3,7 +3,7 @@ import { safeUnreachable, UnreachableError } from '@dimensiondev/utils';
 import { type SocialSourceInURL, SourceInURL } from '@/constants/enum.js';
 import { bskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { farcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
-import { lensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { getLensProfilesByIds } from '@/providers/lens/getLensProfilesById.js';
 import { twitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 
 export async function getProfilesByIds(source: SocialSourceInURL, ids: string[]) {
@@ -11,7 +11,7 @@ export async function getProfilesByIds(source: SocialSourceInURL, ids: string[])
         case SourceInURL.Farcaster:
             return farcasterSocialMediaProvider.getProfilesByIds(ids);
         case SourceInURL.Lens:
-            return lensSocialMediaProvider.getProfilesByIds(ids);
+            return getLensProfilesByIds(ids);
         case SourceInURL.X:
         case SourceInURL.Twitter:
             return twitterSocialMediaProxy.getProfilesByIds(ids);

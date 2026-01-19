@@ -9,7 +9,8 @@ import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { bskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { checkFarcasterInvalidSignerKey } from '@/providers/farcaster/checkFarcasterInvalidSignerKey.js';
 import { farcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
-import { lensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { mirrorLensPost } from '@/providers/lens/mirrorLensPost.js';
+import { unmirrorLensPost } from '@/providers/lens/unmirrorLensPost.js';
 import { capturePostActionEvent } from '@/providers/telemetry/capturePostActionEvent.js';
 import { twitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
@@ -36,9 +37,7 @@ export function useMirror(post: Post) {
                         return;
                     }
                     case Source.Lens: {
-                        await (unmirror
-                            ? lensSocialMediaProvider.unmirrorPost(post.publicationId)
-                            : lensSocialMediaProvider.mirrorPost(postId));
+                        await (unmirror ? unmirrorLensPost(post.publicationId) : mirrorLensPost(postId));
                         enqueueSuccessMessage(unmirror ? t`Cancel repost successfully` : t`Reposted`);
                         return;
                     }

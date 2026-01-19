@@ -9,7 +9,7 @@ import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { type Matcher, patchPostQueryData } from '@/helpers/patchPostQueryData.js';
 import { bskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { farcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
-import { lensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { updateLensProfile } from '@/providers/lens/updateLensProfile.js';
 import { twitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 import { type Profile, type ProfileEditable, type ProfileLike } from '@/providers/types/SocialMedia.js';
 import { useBskyProfileStore } from '@/store/useProfileStore/useBskyProfileStore.js';
@@ -49,7 +49,7 @@ export async function updateProfile(profile: Profile, profileEditable: ProfileEd
             await farcasterSocialMediaProvider.updateProfile(pickProfileDiff(profile, profileEditable));
             break;
         case Source.Lens:
-            await lensSocialMediaProvider.updateProfile(profileEditable);
+            await updateLensProfile(profileEditable);
             break;
         case Source.Twitter:
             await twitterSocialMediaProxy.updateProfile(profileEditable);

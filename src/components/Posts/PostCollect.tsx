@@ -21,8 +21,8 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useToggleFollow } from '@/hooks/useToggleFollow.js';
 import { useTokenBalanceInPostCollect } from '@/hooks/useTokenBalanceInPostCollect.js';
+import { actLensPost } from '@/providers/lens/actLensPost.js';
 import { getWalletClientForLensChain } from '@/providers/lens/getWalletClientForLensChain.js';
-import { lensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { capturePostActionEvent } from '@/providers/telemetry/capturePostActionEvent.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
 import { EVMExplorerResolver } from '@/web3-providers/evm/ResolverAPI.js';
@@ -87,7 +87,7 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
                 freeToCollect,
             };
             capturePostActionEvent('submit_collect', post, eventOptions);
-            await lensSocialMediaProvider.actPost(post.postId);
+            await actLensPost(post.postId);
             enqueueSuccessMessage(<Trans>Post collected successfully!</Trans>);
             capturePostActionEvent('collect', post, eventOptions);
             onClose?.();

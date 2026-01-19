@@ -4,7 +4,7 @@ import { Link } from '@/components/Link.js';
 import { LoadingBase } from '@/components/RedPacket/LoadingBase.js';
 import { resolvePlatformProfileUrl } from '@/helpers/resolvePlatformProfile.js';
 import { getUserInfoById } from '@/providers/firefly/endpoint/getUserInfoById.js';
-import { lensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { getLensProfileById } from '@/providers/lens/getLensProfileById.js';
 import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 
 interface MentionLinkProps {
@@ -28,7 +28,7 @@ export function MentionLink({ platform, profileId, handle }: MentionLinkProps) {
     const { data: lensHandle } = useQuery({
         enabled: isLens && !handle,
         queryKey: ['lens-user-info', profileId],
-        queryFn: () => lensSocialMediaProvider.getProfileById(profileId),
+        queryFn: () => getLensProfileById(profileId),
         select(data) {
             return data.handle;
         },

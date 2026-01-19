@@ -27,9 +27,9 @@ import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { retry } from '@/helpers/retry.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
+import { getLensProfileById } from '@/providers/lens/getLensProfileById.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
-import { lensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { initSignIn } from '@/providers/orb/initSignIn.js';
 import { pollSignIn } from '@/providers/orb/pollSignIn.js';
 import { getAccountPairs } from '@/providers/telemetry/captureAccountEvent.js';
@@ -84,8 +84,7 @@ export function OrbView() {
             setScanned(true);
             setAsyncStatus(Source.Lens, AsyncStatus.Pending);
 
-            const profile = await lensSocialMediaProvider.getProfileById(result.user_id);
-
+            const profile = await getLensProfileById(result.user_id);
             if (!profile.address) throw new Error(t`Failed to login profile by orb`);
 
             if (!result.accessToken) {

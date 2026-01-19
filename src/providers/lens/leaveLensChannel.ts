@@ -1,0 +1,17 @@
+import { leaveGroup as leaveLensGroup } from '@lens-protocol/client/actions';
+
+import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
+import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
+import { handleOperationWithLensChain } from '@/providers/lens/handleOperationWithLensChain.js';
+import { lensSessionClientHolder } from '@/providers/lens/LensSessionClientHolder.js';
+import { type Channel } from '@/providers/types/SocialMedia.js';
+
+export async function leaveLensChannel(channel: Channel): Promise<boolean> {
+    const result = await ensureLensResult(
+        leaveLensGroup(lensSessionClientHolder.sessionClient, {
+            group: safeEvmAddress(channel.id),
+        }),
+    );
+    await handleOperationWithLensChain(result);
+    return true;
+}

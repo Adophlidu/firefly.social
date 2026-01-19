@@ -8,7 +8,7 @@ import { bskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { farcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { getScheduleNotifications } from '@/providers/firefly/endpoint/getScheduleNotifications.js';
 import { getTipsNotifications } from '@/providers/firefly/endpoint/getTipsNotifications.js';
-import { lensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { getLensNotifications } from '@/providers/lens/getLensNotifications.js';
 import { type Notification as NotificationObject } from '@/providers/types/SocialMedia.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
 
@@ -40,7 +40,7 @@ const sourceConfig: Config[] = [
         timeout: 1000 * 60 * 2,
         type: NotificationSourceType.Lens,
         loginSource: Source.Lens,
-        getNotifications: () => lensSocialMediaProvider.getNotifications(),
+        getNotifications: () => getLensNotifications(),
     },
     {
         timeout: 1000 * 60 * 2,
