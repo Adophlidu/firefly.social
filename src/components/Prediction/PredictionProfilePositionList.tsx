@@ -45,7 +45,7 @@ export const PredictionProfilePositionList = memo<Props>(function PredictionProf
     address,
     proxyAddress,
 }) {
-    const [onlyHolding] = useQueryState('holding', parseAsBoolean.withDefault(false));
+    const [onlyHolding] = useQueryState('holding', parseAsBoolean.withDefault(true));
     const { data: allProxyWallets = EMPTY_LIST } = useAllProxyWallets();
     const isMyAddress = useMemo(
         () => allProxyWallets.some((x) => isSameEthereumAddress(x, address)),
@@ -55,7 +55,7 @@ export const PredictionProfilePositionList = memo<Props>(function PredictionProf
     const subscribeToWalletEvents = useGlobalState((state) => state.subscribeToWalletEvents);
 
     useEffect(() => {
-        if (platform !== PredictionPlatform.Polymarket) return;
+        if (platform !== BetsPlatform.Polymarket) return;
 
         const unsubscribe = subscribeToWalletEvents('position-operation', () => {
             queryClient.refetchQueries({
@@ -101,8 +101,12 @@ export const PredictionProfilePositionList = memo<Props>(function PredictionProf
                         getPositionItem({ index, positionData, isMyAddress, platform }),
                 }}
                 NoResultsFallbackProps={{
-                    className: 'mt-20',
-                    message: <Trans>No positions found in this wallet</Trans>,
+                    icon: <div />,
+                    message: onlyHolding ? (
+                        <Trans>No current positions found in this wallet</Trans>
+                    ) : (
+                        <Trans>No any positions found in this wallet</Trans>
+                    ),
                 }}
             />
         </div>

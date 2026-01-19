@@ -8,7 +8,7 @@ import RadioOff from '@/assets/radio.disable-no.svg';
 import RadioOn from '@/assets/radio.yes.svg';
 
 export const PredictionPositionFilter = memo(function PredictionPositionFilter() {
-    const [onlyHolding, setOnlyHolding] = useQueryState('holding', parseAsBoolean.withDefault(false));
+    const [onlyHolding, setOnlyHolding] = useQueryState('holding', parseAsBoolean.withDefault(true));
 
     return (
         <label
@@ -22,7 +22,7 @@ export const PredictionPositionFilter = memo(function PredictionPositionFilter()
                 <RadioOff className="size-4 text-secondaryLine" />
             )}
             <span className="cursor-pointer select-none text-xs font-bold text-second">
-                <Trans>Only show holding</Trans>
+                <Trans>Only show current positions</Trans>
             </span>
         </label>
     );

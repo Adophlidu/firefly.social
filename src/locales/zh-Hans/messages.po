@@ -1808,6 +1808,9 @@ msgstr "在 {sourceName} 关注了 /{0}"
 msgid "Try again"
 msgstr "请重试"
 
+msgid "No any positions found in this wallet"
+msgstr ""
+
 msgid "Opinion Event"
 msgstr ""
 
@@ -2182,9 +2185,6 @@ msgstr "<0>铸造收集了</0><1/>"
 
 msgid "Post was deleted"
 msgstr "帖子已被删除"
-
-msgid "No positions found in this wallet"
-msgstr "当前钱包未找到任何持仓"
 
 msgid "Website"
 msgstr "网站"
@@ -3051,6 +3051,9 @@ msgstr "这里空空如也"
 
 msgid "User Name is not available"
 msgstr "用户名不可用"
+
+msgid "Only show current positions"
+msgstr ""
 
 msgid "Top 200 Web3 profiles powered by <0>Rootdata</0>"
 msgstr "热门前 200 榜单｜数据来源：<0> Rootdata </0>"
@@ -4544,9 +4547,6 @@ msgstr "未发现钓鱼活动。"
 msgid "Multi-device login is now turned off and all previously sessions are cleared."
 msgstr "多设备登录功能已关闭，将清除所有已加密的登录授权。"
 
-msgid "Only show holding"
-msgstr "近展示持有中"
-
 msgid "Failed to get recovery phrase. Please try again."
 msgstr "获取助记词失败，请重试。"
 
@@ -4724,6 +4724,9 @@ msgstr "<0>{0}</0><1>市值</1>{1}"
 
 msgid "Last sale"
 msgstr "最新价"
+
+msgid "No current positions found in this wallet"
+msgstr ""
 
 msgid "Bridged"
 msgstr "已桥接"

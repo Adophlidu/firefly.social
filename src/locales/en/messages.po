@@ -1803,6 +1803,9 @@ msgstr "Followed /{0} on {sourceName}"
 msgid "Try again"
 msgstr "Try again"
 
+msgid "No any positions found in this wallet"
+msgstr "No any positions found in this wallet"
+
 msgid "Opinion Event"
 msgstr "Opinion Event"
 
@@ -2177,9 +2180,6 @@ msgstr "<0>Collected</0><1/>"
 
 msgid "Post was deleted"
 msgstr "Post was deleted"
-
-msgid "No positions found in this wallet"
-msgstr "No positions found in this wallet"
 
 msgid "Website"
 msgstr "Website"
@@ -3046,6 +3046,9 @@ msgstr "No activity yet"
 
 msgid "User Name is not available"
 msgstr "User Name is not available"
+
+msgid "Only show current positions"
+msgstr "Only show current positions"
 
 msgid "Top 200 Web3 profiles powered by <0>Rootdata</0>"
 msgstr "Top 200 Web3 profiles powered by <0>Rootdata</0>"
@@ -4539,9 +4542,6 @@ msgstr "No phishing activities involved."
 msgid "Multi-device login is now turned off and all previously sessions are cleared."
 msgstr "Multi-device login is now turned off and all previously sessions are cleared."
 
-msgid "Only show holding"
-msgstr "Only show holding"
-
 msgid "Failed to get recovery phrase. Please try again."
 msgstr "Failed to get recovery phrase. Please try again."
 
@@ -4717,6 +4717,9 @@ msgstr "<0>{0}</0><1>MC</1>{1}"
 
 msgid "Last sale"
 msgstr "Last sale"
+
+msgid "No current positions found in this wallet"
+msgstr "No current positions found in this wallet"
 
 msgid "Bridged"
 msgstr "Bridged"
