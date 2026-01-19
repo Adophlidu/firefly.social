@@ -1,5 +1,6 @@
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
+import { useMemo } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { PredictionPlatform } from '@/constants/enum.js';
@@ -25,40 +26,62 @@ interface ActivityRateProps {
 }
 
 export function PredictionActivityRate({ activity }: ActivityRateProps) {
-    const isZeroPrice = activity.conditionOutcomePrices.every((price) => isZero(price));
+    const totalPrice = activity.conditionOutcomePrices.reduce(
+        (sum, price) => (!Number.isNaN(+price) ? sum + Number(price) : sum),
+        0,
+    );
+    const isZeroPrice = isZero(totalPrice);
     const firstOutcome = activity.conditionOutcomes[0] || 'Yes';
     const secondOutcome = activity.conditionOutcomes[1] || 'No';
 
+    const computedOutcomes = useMemo(() => {
+        return activity.conditionOutcomes.map((outcome, index) => {
+            const price = activity.conditionOutcomePrices[index] || '0';
+            const rate = totalPrice > 0 ? Number(price) / totalPrice : 0;
+            const isLast = index === activity.conditionOutcomes.length - 1;
+
+            return {
+                outcome,
+                rate,
+                isLast,
+                price,
+            };
+        });
+    }, [activity.conditionOutcomes, activity.conditionOutcomePrices, totalPrice]);
+
     return (
         <div className="mt-3">
-            <div className="flex items-center gap-1">
-                {activity.conditionOutcomes.map((outcome, index) => {
-                    const price = activity.conditionOutcomePrices[index] || '0';
-                    const rate = toFixedTrimmed(+price * 100, 2);
-                    const isLast = index === activity.conditionOutcomes.length - 1;
-
+            <div className="flex items-end justify-between gap-1">
+                {computedOutcomes.map((outcomeData) => {
                     return (
                         <div
-                            key={outcome}
-                            style={{
-                                flex: isZeroPrice ? 1 : price,
-                            }}
+                            key={outcomeData.outcome}
                             className={classNames(
-                                'min-w-0 overflow-hidden',
-                                isLast ? 'text-right text-danger' : 'text-left text-success',
+                                'min-w-0 flex-1 shrink-0 break-all text-sm',
+                                outcomeData.isLast ? 'text-right text-danger' : 'text-left text-success',
                             )}
                         >
-                            <div className="w-full whitespace-nowrap text-sm">
-                                <span className={`font-bold ${bedStead.className}`}>{outcome}</span>
-                                <span className="ml-1 font-semibold">{rate}¢</span>
-                            </div>
-                            {isZeroPrice ? null : (
-                                <div className={classNames('mt-1 h-1 w-full', isLast ? 'bg-danger' : 'bg-success')} />
-                            )}
+                            <span className={`font-bold ${bedStead.className}`}>{outcomeData.outcome}</span>
+                            <span className="ml-1 font-semibold">{toFixedTrimmed(+outcomeData.price * 100, 2)}¢</span>
                         </div>
                     );
                 })}
             </div>
+            {!isZeroPrice ? (
+                <div className="flex items-center gap-1">
+                    {computedOutcomes.map((outcomeData) => {
+                        return (
+                            <div
+                                key={outcomeData.outcome}
+                                className={classNames('h-1 min-w-2', outcomeData.isLast ? 'bg-danger' : 'bg-success')}
+                                style={{
+                                    flex: outcomeData.rate,
+                                }}
+                            />
+                        );
+                    })}
+                </div>
+            ) : null}
             {activity.platform === PredictionPlatform.Polymarket ? (
                 <div className="mt-3 flex gap-2">
                     {firstOutcome ? (
