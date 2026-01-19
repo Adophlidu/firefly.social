@@ -139,6 +139,8 @@ export function AccountCards() {
                                         ('connectedAt' in connection && connection.connectedAt) ||
                                         ('connected' in connection && connection.connected);
 
+                                    const isCustodyWallet = custodyWalletData?.[profile.profileId] === true;
+
                                     return (
                                         <motion.div
                                             key={profile.profileId}
@@ -185,12 +187,10 @@ export function AccountCards() {
                                             <div className="ml-auto flex items-center gap-2">
                                                 {isConnected ? (
                                                     <>
-                                                        {source === Source.Farcaster ? (
+                                                        {source === Source.Farcaster && isCustodyWallet ? (
                                                             <FarcasterAccountActions
                                                                 profile={profile}
-                                                                isCustodyWallet={
-                                                                    custodyWalletData?.[profile.profileId] === true
-                                                                }
+                                                                isCustodyWallet={isCustodyWallet}
                                                             />
                                                         ) : null}
                                                         {source === Source.Lens ? (
