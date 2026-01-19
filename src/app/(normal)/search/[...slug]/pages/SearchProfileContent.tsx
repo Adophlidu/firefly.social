@@ -10,7 +10,7 @@ import { ScrollListKey } from '@/constants/enum.js';
 import { composeSearchProfiles, formatSearchProfile, sortSearchProfiles } from '@/helpers/formatSearchProfile.js';
 import { toFireflyPlatformId } from '@/helpers/isSameProfile.js';
 import { createIndicator } from '@/helpers/pageable.js';
-import { bskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
+import { searchBskyProfiles } from '@/providers/bsky/searchBskyProfiles.js';
 import { searchIdentity } from '@/providers/firefly/endpoint/searchIdentity.js';
 import { twitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 import { type Profile as FireflyProfile } from '@/providers/types/Firefly.js';
@@ -63,9 +63,7 @@ export function SearchProfileContent() {
                 pageParam.twitter !== noNextPage && trimmed
                     ? twitterSocialMediaProxy.searchProfiles(trimmed, twitterIndicator, 7)
                     : undefined,
-                pageParam.bsky !== noNextPage
-                    ? bskySocialMediaProvider.searchProfiles(searchKeyword, bskyIndicator, 3)
-                    : undefined,
+                pageParam.bsky !== noNextPage ? searchBskyProfiles(searchKeyword, bskyIndicator, 3) : undefined,
             ]);
             const data = fireflyRes.status === 'fulfilled' ? fireflyRes.value : undefined;
             const twitterProfiles = xRes.status === 'fulfilled' ? xRes.value : undefined;

@@ -1,7 +1,7 @@
 import { safeUnreachable, UnreachableError } from '@dimensiondev/utils';
 
 import { type SocialSourceInURL, SourceInURL } from '@/constants/enum.js';
-import { bskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
+import { getBskyProfilesByIds } from '@/providers/bsky/getBskyProfilesByIds.js';
 import { farcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { getLensProfilesByIds } from '@/providers/lens/getLensProfilesById.js';
 import { twitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
@@ -16,7 +16,7 @@ export async function getProfilesByIds(source: SocialSourceInURL, ids: string[])
         case SourceInURL.Twitter:
             return twitterSocialMediaProxy.getProfilesByIds(ids);
         case SourceInURL.Bsky:
-            return bskySocialMediaProvider.getProfilesByIds(ids);
+            return getBskyProfilesByIds(ids);
         default:
             safeUnreachable(source);
             throw new UnreachableError('Unknown source', source);

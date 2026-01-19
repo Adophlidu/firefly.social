@@ -26,7 +26,6 @@ export function MediaList({ profileId, source }: MediaListProps) {
             if (!profileId) return createPageable<Post>(EMPTY_LIST, createIndicator());
             const provider = resolveSocialMediaProvider(source, { [Source.Twitter]: 'nitter' });
             const posts = await provider.getMediaPostsByProfileId(profileId, createIndicator(undefined, pageParam));
-
             return posts;
         },
         initialPageParam: '',

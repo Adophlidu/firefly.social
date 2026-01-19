@@ -7,7 +7,7 @@ import { isSamePost } from '@/helpers/isSamePost.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { createPageable } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { bskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
+import { getBskyThreadByPostId } from '@/providers/bsky/getBskyThreadByPostId.js';
 import { getCommentsByProfileId } from '@/providers/lens/getCommentsByProfileId.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
 
@@ -28,7 +28,7 @@ async function getTwitterThreads(post: Post) {
 }
 
 async function getBskyThreads(post: Post) {
-    const posts = await bskySocialMediaProvider.getThreadByPostId(post.postId);
+    const posts = await getBskyThreadByPostId(post.postId);
     return createPageable(posts, undefined);
 }
 

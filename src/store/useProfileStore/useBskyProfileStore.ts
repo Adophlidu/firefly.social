@@ -9,9 +9,9 @@ import { FetchError } from '@/constants/error.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { runInSafe } from '@/helpers/runInSafe.js';
 import { logger } from '@/libs/Logger.js';
+import { getBskyProfileById } from '@/providers/bsky/getBskyProfileById.js';
 import { type BskySession } from '@/providers/bsky/Session.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
-import { bskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { type Profile } from '@/providers/types/SocialMedia.js';
 import { ExceptionId } from '@/providers/types/Telemetry.js';
 import { ensureProfileSessionInStore } from '@/services/ensureProfileSessionInStore.js';
@@ -19,7 +19,7 @@ import { createProfileState, customSelectors } from '@/store/useProfileStore/cre
 
 const state = createProfileState(
     {
-        getUpdatedProfile: (profile: Profile) => bskySocialMediaProvider.getProfileById(profile.profileId),
+        getUpdatedProfile: (profile: Profile) => getBskyProfileById(profile.profileId),
     },
     {
         name: 'bsky-state',

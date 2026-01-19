@@ -1,0 +1,30 @@
+import {
+    createIndicator,
+    createNextIndicator,
+    createPageable,
+    type Pageable,
+    type PageIndicator,
+} from '@/helpers/pageable.js';
+import { formatBskyProfile } from '@/providers/bsky/formatBskyProfile.js';
+import { resolveBskyResponseData } from '@/providers/bsky/resolveBskyResponseData.js';
+import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
+import { type Profile } from '@/providers/types/SocialMedia.js';
+
+export async function searchBskyProfiles(
+    q: string,
+    indicator?: PageIndicator,
+    limit = 25,
+): Promise<Pageable<Profile, PageIndicator>> {
+    const response = await bskySessionHolder.agent.searchActors({
+        q,
+        limit,
+        cursor: indicator?.id,
+    });
+    const data = resolveBskyResponseData(response, `Failed to search profiles by query = ${q}.`);
+
+    return createPageable(
+        data.actors.map((x) => formatBskyProfile(x)),
+        createIndicator(indicator),
+        data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
+    );
+}

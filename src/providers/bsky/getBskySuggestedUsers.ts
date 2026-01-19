@@ -7,7 +7,7 @@ import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { formatBskyProfile } from '@/providers/bsky/formatBskyProfile.js';
-import { getProfilesByIds } from '@/providers/bsky/getProfilesByIds.js';
+import { getBskyProfilesByIds } from '@/providers/bsky/getBskyProfilesByIds.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import { type Profile, SessionType } from '@/providers/types/SocialMedia.js';
 
@@ -50,7 +50,7 @@ export async function getBskySuggestedUsers(
 
     const profiles = result.actors.map((x) => formatBskyProfile(x));
     const profilesWithStats = queryStats
-        ? await runInSafeAsync(() => getProfilesByIds(profiles.map((profile) => profile.profileId)))
+        ? await runInSafeAsync(() => getBskyProfilesByIds(profiles.map((profile) => profile.profileId)))
         : undefined;
     if (!profilesWithStats?.length) {
         return createPageable(profiles, indicator);
