@@ -13,10 +13,12 @@ import { toRate } from '@/components/Polymarket/toRate.js';
 import { extractFallbackInfo } from '@/components/Prediction/extractFallbackInfo.js';
 import { PredictionPlatformName } from '@/components/Prediction/PredictionPlatformName.js';
 import { PredictionPlatform, Source } from '@/constants/enum.js';
+import { Link } from '@/esm/Link.js';
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
+import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { getWalletProfileInfoList } from '@/providers/firefly/prediction/getWalletProfileInfoList.js';
 import type { PredictionProfileDataForUI } from '@/types/prediction.js';
 
@@ -131,16 +133,25 @@ export function PredictionProfileOverview({ profile, platform, address }: Predic
     return (
         <div className="flex flex-col">
             <div className="flex items-center gap-4 px-4 pt-3">
-                <Avatar
-                    src={socialAvatar || getStampAvatarByProfileId(Source.Wallet, address)}
-                    alt="avatar"
-                    size={40}
-                    className="size-10 rounded-full border border-highlight"
-                />
+                <Link href={resolveProfileUrl(Source.Wallet, profile.wallet)}>
+                    <Avatar
+                        src={
+                            socialAvatar ||
+                            profile.platform_avatar ||
+                            getStampAvatarByProfileId(Source.Wallet, profile.wallet)
+                        }
+                        alt="avatar"
+                        size={40}
+                        className="size-10 rounded-full border border-highlight"
+                    />
+                </Link>
                 <div className="min-w-0">
-                    <div className="truncate whitespace-nowrap text-lg font-semibold text-main">
-                        {socialName || <PredictionPlatformName platform={platform} />}
-                    </div>
+                    <Link
+                        className="truncate whitespace-nowrap text-lg font-semibold text-main"
+                        href={resolveProfileUrl(Source.Wallet, profile.wallet)}
+                    >
+                        {socialName || profile.platform_name || <PredictionPlatformName platform={platform} />}
+                    </Link>
                     <div className="ml-auto flex items-center text-[13px] font-medium text-second">
                         {formatAddressEthereum(address, 4, 2)}
                         <CopyTextButton

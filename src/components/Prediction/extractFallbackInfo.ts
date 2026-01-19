@@ -13,6 +13,15 @@ export function extractFallbackInfo(fallback: WalletProfileInfo): {
             avatar: fallback.account.avatar,
         };
     }
+
+    const farcasterProfile = first(fallback.farcasterProfiles);
+    if (farcasterProfile) {
+        return {
+            name: farcasterProfile.display_name || farcasterProfile.username,
+            avatar: farcasterProfile.avatar?.url,
+        };
+    }
+
     // Priority aligned with iOS: Farcaster > Twitter > Lens > bSky > Account > Wallet
     const twitterProfile = first(fallback.twitterProfiles);
     if (twitterProfile) {
@@ -24,14 +33,6 @@ export function extractFallbackInfo(fallback: WalletProfileInfo): {
         return {
             name: lensV3Profile.localName || lensV3Profile.fullHandle,
             avatar: undefined,
-        };
-    }
-
-    const farcasterProfile = first(fallback.farcasterProfiles);
-    if (farcasterProfile) {
-        return {
-            name: farcasterProfile.display_name || farcasterProfile.username,
-            avatar: farcasterProfile.avatar?.url,
         };
     }
 
