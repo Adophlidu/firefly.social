@@ -42,7 +42,7 @@ export async function searchPosts(
         return createPageable(
             posts,
             createIndicator(indicator),
-            !Array.isArray(data) && casts.length === 25 ? createNextIndicator(indicator, `${+page + 1}`) : undefined,
+            casts.length ? createNextIndicator(indicator, `${+page + 1}`) : undefined,
         );
     });
 }
