@@ -19,6 +19,7 @@ export enum IframeBridgeMethod {
     FIREFLY_WALLET_VISIBILITY = 'firefly_wallet_visibility',
     FIREFLY_WALLET_SIGN_MESSAGE = 'firefly_wallet_sign_message',
     FIREFLY_WALLET_ADD_SESSION_SIGNER = 'firefly_wallet_add_session_signer',
+    FIREFLY_WALLET_NOTIFY = 'firefly_wallet_notify',
 }
 
 export interface IframeBridgeMessage {
@@ -77,6 +78,10 @@ export interface IframeBridgeRequestArguments {
             policyIds?: string[];
         }>;
     };
+    [IframeBridgeMethod.FIREFLY_WALLET_NOTIFY]: {
+        type: string;
+        data?: unknown;
+    };
 }
 
 export interface IframeBridgeResponseResult {
@@ -94,4 +99,5 @@ export interface IframeBridgeResponseResult {
     [IframeBridgeMethod.FIREFLY_WALLET_VISIBILITY]: void;
     [IframeBridgeMethod.FIREFLY_WALLET_SIGN_MESSAGE]: string;
     [IframeBridgeMethod.FIREFLY_WALLET_ADD_SESSION_SIGNER]: void;
+    [IframeBridgeMethod.FIREFLY_WALLET_NOTIFY]: void;
 }

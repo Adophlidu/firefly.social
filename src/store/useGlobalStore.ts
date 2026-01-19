@@ -7,6 +7,11 @@ import { AsyncStatus, type ProfileSource, Source } from '@/constants/enum.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { getCurrentSourceFromUrl } from '@/helpers/getCurrentSourceFromUrl.js';
 
+type WalletEventCallback = (data?: unknown) => void;
+
+// Subscriptions stored outside of persisted state
+const walletEventSubscriptions = new Map<string, Set<WalletEventCallback>>();
+
 interface GlobalState {
     routeChanged: boolean;
 
@@ -27,6 +32,9 @@ interface GlobalState {
 
     fireflyWalletIsOpen: boolean;
     updateFireflyWalletIsOpen: (isOpen: boolean) => void;
+
+    publishWalletEvent: (type: string, data?: unknown) => void;
+    subscribeToWalletEvents: (eventType: string, callback: WalletEventCallback) => () => void;
 
     web3StateAsyncStatus: AsyncStatus;
     setWeb3StateAsyncStatus: (status: AsyncStatus) => void;
@@ -96,6 +104,22 @@ const useGlobalStateBase = create<GlobalState, [['zustand/persist', unknown], ['
                 set((state) => {
                     state.fireflyWalletIsOpen = isOpen;
                 });
+            },
+
+            publishWalletEvent: (type, data) => {
+                const callbacks = walletEventSubscriptions.get(type);
+                callbacks?.forEach((cb) => cb(data));
+            },
+            subscribeToWalletEvents: (eventType, callback) => {
+                if (!walletEventSubscriptions.has(eventType)) {
+                    walletEventSubscriptions.set(eventType, new Set());
+                }
+                walletEventSubscriptions.get(eventType)!.add(callback);
+                return () => {
+                    const callbacks = walletEventSubscriptions.get(eventType);
+                    callbacks?.delete(callback);
+                    if (callbacks?.size === 0) walletEventSubscriptions.delete(eventType);
+                };
             },
 
             web3StateAsyncStatus: AsyncStatus.Pending,

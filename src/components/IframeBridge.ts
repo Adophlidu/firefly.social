@@ -101,6 +101,9 @@ const allEvents: {
     [IframeBridgeMethod.FIREFLY_WALLET_ADD_SESSION_SIGNER]: async () => {
         throw new NotImplementedError();
     },
+    [IframeBridgeMethod.FIREFLY_WALLET_NOTIFY]: async (params) => {
+        useGlobalState.getState().publishWalletEvent(params.type, params.data);
+    },
 };
 
 export const IframeBridge = memo(function IframeBridge() {

@@ -1,9 +1,9 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
+import { useQueryClient, useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { parseAsBoolean, useQueryState } from 'nuqs';
-import { memo, useMemo } from 'react';
+import { memo, useEffect, useMemo } from 'react';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { getPredictionPositionList } from '@/components/Prediction/getPredictionPositionList.js';
@@ -14,6 +14,7 @@ import { EMPTY_LIST } from '@/constants/static.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { useAllProxyWallets } from '@/hooks/prediction/useAllProxyWallets.js';
+import { useGlobalState } from '@/store/useGlobalStore.js';
 import { type PredictionPositionDataForUI } from '@/types/prediction.js';
 
 interface Props {
@@ -50,6 +51,20 @@ export const PredictionProfilePositionList = memo<Props>(function PredictionProf
         () => allProxyWallets.some((x) => isSameEthereumAddress(x, address)),
         [address, allProxyWallets],
     );
+    const queryClient = useQueryClient();
+    const subscribeToWalletEvents = useGlobalState((state) => state.subscribeToWalletEvents);
+
+    useEffect(() => {
+        if (platform !== BetsPlatform.Polymarket) return;
+
+        const unsubscribe = subscribeToWalletEvents('position-operation', () => {
+            queryClient.refetchQueries({
+                queryKey: ['bets', 'positions', address.toLowerCase(), onlyHolding],
+            });
+        });
+
+        return unsubscribe;
+    }, [platform, address, onlyHolding, queryClient, subscribeToWalletEvents]);
 
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['bets', 'positions', address.toLowerCase(), onlyHolding],
