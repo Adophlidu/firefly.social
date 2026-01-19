@@ -104,6 +104,9 @@ const allEvents: {
     [IframeBridgeMethod.FIREFLY_WALLET_NOTIFY]: async (params) => {
         useGlobalState.getState().publishWalletEvent(params.type, params.data);
     },
+    [IframeBridgeMethod.FIREFLY_WALLET_REFRESH]: async () => {
+        throw new NotImplementedError();
+    },
 };
 
 export const IframeBridge = memo(function IframeBridge() {

@@ -1,11 +1,15 @@
 'use client';
 
+import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
-import { useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { type Address } from 'viem';
 
 import ArrowLineDownIcon from '@/assets/arrow-line-down.svg';
+import MoreIcon from '@/assets/more-fill.svg';
+import ReloadIcon from '@/assets/reload.svg';
 import WalletIcon from '@/assets/wallet.svg';
 import { NetworkType, PageRoute, WalletSource } from '@/constants/enum.js';
 import { usePathname } from '@/esm/navigation.js';
@@ -24,8 +28,20 @@ export function FireflyWallet() {
     const pathname = usePathname();
     const { isAuthorized, setWallet } = useFireflyWalletStore();
     const { updateFireflyWalletIsOpen } = useGlobalState();
+    const prevIsOpenRef = useRef(isOpen);
 
     const allConnectionsQuery = useAllConnections();
+
+    const handleRefresh = useCallback(() => {
+        iframeBridgeProvider.request(IframeBridgeMethod.FIREFLY_WALLET_REFRESH, {});
+    }, []);
+
+    useEffect(() => {
+        if (isOpen && !prevIsOpenRef.current) {
+            handleRefresh();
+        }
+        prevIsOpenRef.current = isOpen;
+    }, [isOpen, handleRefresh]);
     const privyConnections = useMemo(() => {
         if (!allConnectionsQuery.data) return [];
         const { connected } = allConnectionsQuery.data;
@@ -82,18 +98,49 @@ export function FireflyWallet() {
                             <WalletIcon width={24} height={24} className="mr-2" />
                             <Trans>Firefly Wallet</Trans>
                         </div>
-                        <button
-                            className="flex size-8 cursor-pointer items-center justify-center rounded-full bg-bg"
-                            onClick={() => updateFireflyWalletIsOpen(false)}
-                        >
-                            <ArrowLineDownIcon
-                                width={20}
-                                height={20}
-                                className={classNames({
-                                    'rotate-180': !isOpen,
-                                })}
-                            />
-                        </button>
+                        <div className="flex items-center gap-2">
+                            {isOpen ? (
+                                <Menu as="div" className="relative" onClick={(e) => e.stopPropagation()}>
+                                    <MenuButton className="flex size-6 cursor-pointer items-center justify-center rounded-full border border-secondaryLine bg-bg text-main">
+                                        <MoreIcon width={12} height={12} />
+                                    </MenuButton>
+                                    <MenuItems
+                                        portal
+                                        anchor="bottom end"
+                                        className="z-50 flex w-max min-w-[110px] flex-col overflow-hidden rounded-lg border border-line bg-primaryBottom py-3 text-base text-main shadow-lg"
+                                    >
+                                        <MenuItem>
+                                            {({ close }) => (
+                                                <button
+                                                    className="flex cursor-pointer items-center gap-2 px-3 py-1 hover:bg-bg"
+                                                    onClick={() => {
+                                                        close();
+                                                        handleRefresh();
+                                                    }}
+                                                >
+                                                    <ReloadIcon width={18} height={18} className="-scale-x-100" />
+                                                    <span className="text-base font-bold">
+                                                        <Trans>Refresh</Trans>
+                                                    </span>
+                                                </button>
+                                            )}
+                                        </MenuItem>
+                                    </MenuItems>
+                                </Menu>
+                            ) : null}
+                            <button
+                                className="flex size-6 cursor-pointer items-center justify-center rounded-full border border-secondaryLine bg-bg"
+                                onClick={() => updateFireflyWalletIsOpen(!isOpen)}
+                            >
+                                <ArrowLineDownIcon
+                                    width={12}
+                                    height={12}
+                                    className={classNames({
+                                        'rotate-180': !isOpen,
+                                    })}
+                                />
+                            </button>
+                        </div>
                     </div>
                     <iframe
                         id={FIREFLY_WALLET_IFRAME_ID}
