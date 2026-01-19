@@ -8,7 +8,8 @@ import { getSiteTypeFromUrl } from '@/helpers/getSiteTypeFromUrl.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { logger } from '@/libs/Logger.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
-import { farcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
+import { getChannelById } from '@/providers/firefly/farcaster-hub/getChannelById.js';
+import { getPostById } from '@/providers/firefly/farcaster-hub/getPostById.js';
 
 async function interceptFarcasterUrl(u: URL) {
     switch (u.pathname) {
@@ -26,10 +27,8 @@ async function interceptFarcasterUrl(u: URL) {
                 return true;
             }
 
-            const channel = channelKey ? await farcasterSocialMediaProvider.getChannelById(channelKey) : undefined;
-            const parentPost = parentCastHash
-                ? await farcasterSocialMediaProvider.getPostById(parentCastHash)
-                : undefined;
+            const channel = channelKey ? await getChannelById(channelKey) : undefined;
+            const parentPost = parentCastHash ? await getPostById(parentCastHash) : undefined;
 
             // dynamic import to avoid circular dependency
             const { openComposeModal } = await import('@/helpers/openComposeModal.js');

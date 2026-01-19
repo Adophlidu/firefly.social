@@ -62,4 +62,5 @@ class FarcasterPoll implements Provider {
     }
 }
 
+export { FarcasterPoll };
 export const FarcasterPollProvider = new FarcasterPoll();

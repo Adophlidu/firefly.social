@@ -6,12 +6,10 @@ import { Source } from '@/constants/enum.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { mirrorBskyPost } from '@/providers/bsky/mirrorBskyPost.js';
-import { unmirrorBskyPost } from '@/providers/bsky/unmirrorBskyPost.js';
+import { bskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { checkFarcasterInvalidSignerKey } from '@/providers/farcaster/checkFarcasterInvalidSignerKey.js';
 import { farcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
-import { mirrorLensPost } from '@/providers/lens/mirrorLensPost.js';
-import { unmirrorLensPost } from '@/providers/lens/unmirrorLensPost.js';
+import { lensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { capturePostActionEvent } from '@/providers/telemetry/capturePostActionEvent.js';
 import { twitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
@@ -38,7 +36,9 @@ export function useMirror(post: Post) {
                         return;
                     }
                     case Source.Lens: {
-                        await (unmirror ? unmirrorLensPost(post.publicationId) : mirrorLensPost(postId));
+                        await (unmirror
+                            ? lensSocialMediaProvider.unmirrorPost(post.publicationId)
+                            : lensSocialMediaProvider.mirrorPost(postId));
                         enqueueSuccessMessage(unmirror ? t`Cancel repost successfully` : t`Reposted`);
                         return;
                     }
@@ -50,7 +50,9 @@ export function useMirror(post: Post) {
                         return;
                     }
                     case Source.Bsky: {
-                        await (hasMirrored ? unmirrorBskyPost(postId) : mirrorBskyPost(postId));
+                        await (hasMirrored
+                            ? bskySocialMediaProvider.unmirrorPost(postId)
+                            : bskySocialMediaProvider.mirrorPost(postId));
                         enqueueSuccessMessage(hasMirrored ? t`Cancel repost successfully` : t`Reposted`);
                         return;
                     }

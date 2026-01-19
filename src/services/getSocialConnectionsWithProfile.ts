@@ -4,7 +4,7 @@ import { type SocialSource, Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/static.js';
 import { flatLenConnections } from '@/helpers/formatWalletConnection.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { farcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
+import { getFarcasterProfilesByIds } from '@/providers/farcaster/getFarcasterProfilesByIds.js';
 import { getLensProfilesByIds } from '@/providers/lens/getLensProfilesById.js';
 import { type AllConnections } from '@/providers/types/Firefly.js';
 
@@ -36,7 +36,7 @@ export async function getProfileFromSocialConnections(source: SocialSource, soci
         case Source.Farcaster: {
             const ids = getProfileIdsFromSocialConnections(source, social);
             if (!ids.length) return EMPTY_LIST;
-            return farcasterSocialMediaProvider.getProfilesByIds(ids);
+            return getFarcasterProfilesByIds(ids);
         }
         case Source.Twitter:
         case Source.Bsky: {

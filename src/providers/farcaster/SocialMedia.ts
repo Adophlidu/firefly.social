@@ -1,7 +1,6 @@
 import { NotImplementedError } from '@dimensiondev/utils';
 
 import { type BookmarkType, FireflyPlatform, Source } from '@/constants/enum.js';
-import { UserDataType } from '@/constants/farcaster.js';
 import { AddAuthorHighlightStatusForPosts } from '@/decorators/AddProfileHighlightStatus.js';
 import { SetQueryDataForActPost } from '@/decorators/SetQueryDataForActPost.js';
 import { SetQueryDataForBlockChannel } from '@/decorators/SetQueryDataForBlockChannel.js';
@@ -16,9 +15,7 @@ import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPos
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
 import { SetQueryDataForReportPost } from '@/decorators/SetQueryDataForReportPost.js';
 import { WithMutedProfilesQuery } from '@/decorators/WithMutedProfilesQuery.js';
-import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { type Pageable, type PageIndicator } from '@/helpers/pageable.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getFarcasterProfilesByIds } from '@/providers/farcaster/getFarcasterProfilesByIds.js';
 import { getFarcasterSessionType } from '@/providers/farcaster/getFarcasterSessionType.js';
 import { resolveFidFromAbnormalFarHandle } from '@/providers/farcaster/isAbnormalFarHandle.js';
@@ -42,7 +39,7 @@ import { unblockProfileFor } from '@/providers/firefly/farcaster-account/unblock
 import { blockChannel } from '@/providers/firefly/farcaster-hub/blockChannel.js';
 import { discoverChannels } from '@/providers/firefly/farcaster-hub/discoverChannels.js';
 import { getBlockedChannels } from '@/providers/firefly/farcaster-hub/getBlockedChannels.js';
-import { getChannelByHandle } from '@/providers/firefly/farcaster-hub/getChannelByHandle.js';
+import { getChannelById } from '@/providers/firefly/farcaster-hub/getChannelById.js';
 import { getChannelsByProfileId } from '@/providers/firefly/farcaster-hub/getChannelsByProfileId.js';
 import { getChannelTrendingPosts } from '@/providers/firefly/farcaster-hub/getChannelTrendingPosts.js';
 import { getCommentsById } from '@/providers/firefly/farcaster-hub/getCommentsById.js';
@@ -65,7 +62,7 @@ import { searchPosts } from '@/providers/firefly/farcaster-hub/searchPosts.js';
 import { unblockChannel } from '@/providers/firefly/farcaster-hub/unblockChannel.js';
 import { reportProfile } from '@/providers/firefly/report/reportProfile.js';
 import { neynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
-import { userDataAdd } from '@/providers/neynar/userDataAdd.js';
+import { updateProfile } from '@/providers/neynar/updateProfile.js';
 import { type Account } from '@/providers/types/Account.js';
 import {
     NotificationPlatform,
@@ -86,7 +83,6 @@ import {
     type Provider,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
-import { getChannelFollowStatus } from '@/providers/warpcast/getChannelFollowStatus.js';
 import { warpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
 
 @WithMutedProfilesQuery()
@@ -106,6 +102,10 @@ import { warpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js
 @SetQueryDataForPosts
 @AddAuthorHighlightStatusForPosts(Source.Farcaster)
 class FarcasterSocialMedia implements Provider {
+    get type() {
+        return SessionType.Farcaster;
+    }
+
     quotePost(postId: string, post: Post, authorId?: number): Promise<{ postId: string }> {
         return neynarSocialMediaProvider.quotePost(postId, post, authorId);
     }
@@ -132,16 +132,13 @@ class FarcasterSocialMedia implements Provider {
 
     getProfileByHandle(handle: string): Promise<Profile> {
         const fid = resolveFidFromAbnormalFarHandle(handle);
-        if (fid) {
-            return farcasterSocialMediaProvider.getProfileById(fid);
-        }
-
+        if (fid) return getProfileById(fid);
         return getProfileByHandle(handle);
     }
 
     getProfileBySession(session: Session): Promise<Profile> {
         const farcasterSession = session as FarcasterSession;
-        return farcasterSocialMediaProvider.getProfileById(farcasterSession.profileId);
+        return getProfileById(farcasterSession.profileId);
     }
 
     actPost(postId: string, options: unknown): Promise<void> {
@@ -149,16 +146,7 @@ class FarcasterSocialMedia implements Provider {
     }
 
     async getChannelById(channelId: string, includeFollowingStatus?: boolean): Promise<Channel> {
-        const channel = await getChannelByHandle(channelId);
-        if (!includeFollowingStatus) return channel;
-
-        const session = getSessionFromStorage(SessionType.Farcaster);
-        if (!session?.profileId) return channel;
-
-        const following = await runInSafeAsync(() => getChannelFollowStatus(channelId, session.profileId));
-        channel.isMember = following ?? false;
-
-        return channel;
+        return getChannelById(channelId, includeFollowingStatus);
     }
 
     getChannelsByIds(ids: string[]): Promise<Channel[]> {
@@ -166,7 +154,7 @@ class FarcasterSocialMedia implements Provider {
     }
 
     getChannelByHandle(channelHandle: string, includeFollowingStatus?: boolean): Promise<Channel> {
-        return farcasterSocialMediaProvider.getChannelById(channelHandle, includeFollowingStatus);
+        return getChannelById(channelHandle, includeFollowingStatus);
     }
 
     getChannelsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
@@ -199,10 +187,6 @@ class FarcasterSocialMedia implements Provider {
 
     async getChannelFollowers(channelId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         return warpcastSocialMediaProvider.getChannelFollowers(channelId, indicator);
-    }
-
-    get type() {
-        return SessionType.Farcaster;
     }
 
     async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
@@ -429,13 +413,7 @@ class FarcasterSocialMedia implements Provider {
         return getBookmarks(indicator);
     }
     async updateProfile(profile: ProfileEditable): Promise<boolean> {
-        await Promise.all([
-            typeof profile.displayName === 'string' ? userDataAdd(UserDataType.DISPLAY, profile.displayName) : null,
-            typeof profile.bio === 'string' ? userDataAdd(UserDataType.BIO, profile.bio) : null,
-            profile.pfp ? userDataAdd(UserDataType.PFP, profile.pfp) : null,
-            typeof profile.website === 'string' ? userDataAdd(UserDataType.URL, profile.website) : null,
-        ]);
-        return true;
+        return updateProfile(profile);
     }
     async getHiddenComments(postId: string, indicator?: PageIndicator) {
         return getHiddenComments(postId, indicator);
@@ -479,4 +457,5 @@ class FarcasterSocialMedia implements Provider {
     }
 }
 
+export { FarcasterSocialMedia };
 export const farcasterSocialMediaProvider = new FarcasterSocialMedia();

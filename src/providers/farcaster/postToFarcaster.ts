@@ -3,6 +3,7 @@ import { toInteger } from 'lodash-es';
 import { Source, SourceInURL } from '@/constants/enum.js';
 import { MAX_IMAGE_SIZE_PER_POST, MAX_IMAGE_SIZE_PRO_PER_POST } from '@/constants/limitation.js';
 import { readChars } from '@/helpers/chars.js';
+import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { isHomeChannel } from '@/helpers/isSameChannel.js';
 import { createS3MediaObject, resolveImageUrl, resolveVideoUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
@@ -14,7 +15,6 @@ import { type Post, type PostType } from '@/providers/types/SocialMedia.js';
 import { createPostTo } from '@/services/createPostTo.js';
 import { uploadAndConvertToM3u8 } from '@/services/uploadAndConvertToM3u8.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
-import { useFarcasterProfileStore } from '@/store/useProfileStore/useFarcasterProfileStore.js';
 import { type ComposeType, type CompositePost, type MediaObject } from '@/types/compose.js';
 
 export async function postToFarcaster(type: ComposeType, compositePost: CompositePost, signal?: AbortSignal) {
@@ -28,10 +28,10 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
     if (farcasterPostId) return;
 
     // login required
-    const { currentProfile } = useFarcasterProfileStore.getState();
-    if (!currentProfile?.profileId) throw new Error(`Login required to post on ${sourceName}.`);
+    const farcasterProfile = getCurrentProfileFromStorage(Source.Farcaster);
+    if (!farcasterProfile?.profileId) throw new Error(`Login required to post on ${sourceName}.`);
 
-    const maxImageConfig = currentProfile.isProUser ? MAX_IMAGE_SIZE_PRO_PER_POST : MAX_IMAGE_SIZE_PER_POST;
+    const maxImageConfig = farcasterProfile.isProUser ? MAX_IMAGE_SIZE_PRO_PER_POST : MAX_IMAGE_SIZE_PER_POST;
     const composeDraft = (postType: PostType, images: MediaObject[], videos: MediaObject[], polls?: Poll[]) => {
         if (
             images.some((image) => !resolveImageUrl(Source.Farcaster, image)) ||
@@ -52,7 +52,7 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
             type: postType,
             postId: '',
             source: Source.Farcaster,
-            author: currentProfile,
+            author: farcasterProfile,
             metadata: {
                 locale: '',
                 content: {
