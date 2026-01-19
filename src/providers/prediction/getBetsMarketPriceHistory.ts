@@ -13,6 +13,7 @@ interface Options {
     markets: BetsMarketDataForUI[];
     timeRange: BetsPriceTimeRange;
     outcomeId: string;
+    isSingleMarket?: boolean;
     signal?: AbortSignal;
 }
 
@@ -200,13 +201,15 @@ function formatPolymarketPricesData(
 
 export async function getBetsMarketPriceHistory(
     platform: PredictionPlatform,
-    { markets, timeRange, outcomeId, signal }: Options,
+    { markets, timeRange, outcomeId, isSingleMarket, signal }: Options,
 ) {
     switch (platform) {
         case PredictionPlatform.Polymarket: {
             const result = await Promise.all(
                 markets.map(async (market) => {
-                    const clobId = outcomeId || first(market.outcomes)?.id;
+                    const clobId = isSingleMarket
+                        ? outcomeId || first(market.outcomes)?.id
+                        : first(market.outcomes)?.id;
                     if (!clobId) return null;
 
                     return getPriceHistory({

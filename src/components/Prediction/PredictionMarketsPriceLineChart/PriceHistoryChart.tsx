@@ -84,6 +84,7 @@ export const PriceHistoryChart = memo<PriceHistoryChartProps>(function PriceHist
         queryFn: async ({ signal }) => {
             return getBetsMarketPriceHistory(platform, {
                 markets: selectedMarkets,
+                isSingleMarket: markets.length === 1,
                 timeRange,
                 outcomeId,
                 signal,
