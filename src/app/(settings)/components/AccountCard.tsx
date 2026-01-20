@@ -187,7 +187,7 @@ export function AccountCards() {
                                             <div className="ml-auto flex items-center gap-2">
                                                 {isConnected ? (
                                                     <>
-                                                        {source === Source.Farcaster && isCustodyWallet ? (
+                                                        {source === Source.Farcaster ? (
                                                             <FarcasterAccountActions
                                                                 profile={profile}
                                                                 isCustodyWallet={isCustodyWallet}
