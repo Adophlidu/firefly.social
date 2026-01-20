@@ -55,7 +55,7 @@ export const PredictionProfilePositionList = memo<Props>(function PredictionProf
     const subscribeToWalletEvents = useGlobalState((state) => state.subscribeToWalletEvents);
 
     useEffect(() => {
-        if (platform !== BetsPlatform.Polymarket) return;
+        if (platform !== PredictionPlatform.Polymarket) return;
 
         const unsubscribe = subscribeToWalletEvents('position-operation', () => {
             queryClient.refetchQueries({
