@@ -2,11 +2,11 @@
 
 import { classNames } from '@dimensiondev/utils';
 import { useQuery } from '@tanstack/react-query';
-import { useParams } from 'next/navigation';
 import { type HTMLProps, memo, useLayoutEffect, useMemo, useRef } from 'react';
 
 import { Link } from '@/components/Link.js';
 import { EMPTY_LIST } from '@/constants/static.js';
+import { useParams } from '@/esm/navigation.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { getEventSlugList } from '@/providers/firefly/prediction/getEventSlugList.js';
 

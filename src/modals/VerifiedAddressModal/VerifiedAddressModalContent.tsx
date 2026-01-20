@@ -5,6 +5,7 @@ import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { forwardRef } from 'react';
+import { getAccount, getConnections } from 'wagmi/actions';
 
 import EvmIcon from '@/assets/evm.svg';
 import SolanaIcon from '@/assets/solana.svg';
@@ -12,10 +13,12 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ModalTitle } from '@/components/ModalTitle.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
+import { PRIVY_CONNECTOR_ID } from '@/connectors/PrivyConnector.js';
 import { ClickOrigin, NetworkType, Source } from '@/constants/enum.js';
 import { WalletNotConnectedError } from '@/constants/error.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSessionsFromStorageBySource } from '@/helpers/getSessionFromStorage.js';
+import { getWagmiCurrentConnectionId } from '@/helpers/getWagmiCurrentConnectionId.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
@@ -27,9 +30,6 @@ import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { verifyEthereumAddress, verifySolanaAddress } from '@/providers/farcaster/verifyAddress.js';
 import { getVerifiedAddresses } from '@/providers/firefly/endpoint/getVerifiedAddresses.js';
 import { getWalletAdaptorRequired } from '@/providers/solana/getWalletAdapter.js';
-import { getWagmiCurrentConnectionId } from '@/helpers/getWagmiCurrentConnectionId.js';
-import { PRIVY_CONNECTOR_ID } from '@/connectors/PrivyConnector.js';
-import { getAccount, getConnections } from 'wagmi/actions';
 
 export interface VerifiedAddressModalProps {
     fid?: string;

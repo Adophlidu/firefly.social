@@ -2,10 +2,7 @@
 
 import { compact } from 'lodash-es';
 import {
-    Children,
-    cloneElement,
     type DetailedHTMLProps,
-    isValidElement,
     memo,
     type OlHTMLAttributes,
     type PropsWithChildren,
@@ -45,24 +42,9 @@ export interface MarkupProps extends Omit<ReactMarkdownOptions, 'children'> {
 }
 
 function Ol({ children, ...props }: DetailedHTMLProps<OlHTMLAttributes<HTMLOListElement>, HTMLOListElement>) {
-    const start = props.start ?? 1;
-    let validIndex = 0;
-
     return (
-        <ol {...props} style={{ counterReset: `list-counter ${props.start ? props.start - 1 : ''}` }}>
-            {Children.map(children, (child) => {
-                if (!isValidElement(child)) return child;
-
-                const currentIndex = validIndex;
-                validIndex += 1;
-
-                // @ts-ignore augment li to carry ordered/index for our custom renderer
-                return cloneElement(child, {
-                    // @ts-ignore
-                    ordered: true,
-                    index: start + currentIndex,
-                });
-            })}
+        <ol {...props} style={{ listStyleType: 'none' }}>
+            {children}
         </ol>
     );
 }

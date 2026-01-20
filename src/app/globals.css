@@ -718,11 +718,14 @@ body {
 
 .markup ol {
     counter-reset: list-counter;
-    list-style-type: none;
+    list-style: none;
 }
 .markup ol li::before {
     counter-increment: list-counter;
     content: counter(list-counter) '. ';
+    display: inline-block;
+    width: 1.5em;
+    text-align: left;
 }
 .markup code {
     word-break: break-all;
