@@ -40,6 +40,8 @@ function formatBetsPrice(price: number) {
     return removeTrailingZeros((price * 100).toFixed(2)) + '¢';
 }
 
+const MIN_SELLABLE_SHARES = 0.01;
+
 export function PredictionPositionItem({ positionData: position, platform, showAction }: PredictionPositionItemProps) {
     const displayTitle =
         platform === PredictionPlatform.Opinion
@@ -153,7 +155,7 @@ export function PredictionPositionItem({ positionData: position, platform, showA
                                     <Trans>Close lost position</Trans>
                                 </ClickableButton>
                             )
-                        ) : position.shares ? (
+                        ) : position.shares && position.shares >= MIN_SELLABLE_SHARES ? (
                             <ClickableButton
                                 className="box-border h-8 w-[128px] whitespace-nowrap rounded-lg bg-highlight py-2 text-xs text-white"
                                 onClick={() => {
