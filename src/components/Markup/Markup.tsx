@@ -36,32 +36,15 @@ export interface MarkupProps extends Omit<ReactMarkdownOptions, 'children'> {
 }
 
 function Ol({ children, ...props }: DetailedHTMLProps<OlHTMLAttributes<HTMLOListElement>, HTMLOListElement>) {
-    return (
-        <ol {...props} style={{ listStyleType: 'none' }}>
-            {children}
-        </ol>
-    );
+    return <ol {...props}>{children}</ol>;
 }
 
 function Ul({ children }: React.HTMLAttributes<HTMLUListElement>) {
     return <div>{children}</div>;
 }
 
-function Li({
-    children,
-    ordered,
-    index,
-}: PropsWithChildren<{
-    ordered?: boolean;
-    index?: number;
-}>) {
-    const prefix = ordered ? `${index}. ` : '- ';
-    return (
-        <div>
-            {prefix}
-            {children}
-        </div>
-    );
+function Li({ children }: PropsWithChildren) {
+    return <li>{children}</li>;
 }
 
 function Strong({ children }: PropsWithChildren) {
