@@ -54,7 +54,6 @@ import { getLensProfilesByIds } from '@/providers/lens/getLensProfilesById.js';
 import { getLensRepliesPostsByProfileId } from '@/providers/lens/getLensRepliesPostsByProfileId.js';
 import { getLensRepostReactors } from '@/providers/lens/getLensRepostReactors.js';
 import { getLensSuggestedFollows } from '@/providers/lens/getLensSuggestedFollows.js';
-import { getLensThreadByPostId } from '@/providers/lens/getLensThreadByPostId.js';
 import { isLensFollowedByMe } from '@/providers/lens/isLensFollowedByMe.js';
 import { isLensFollowingMe } from '@/providers/lens/isLensFollowingMe.js';
 import { joinLensChannel } from '@/providers/lens/joinLensChannel.js';
@@ -356,8 +355,8 @@ class LensSocialMedia implements Provider {
         return searchLensPosts(q, indicator);
     }
 
-    async getThreadByPostId(postId: string) {
-        return getLensThreadByPostId(postId);
+    async getThreadByPostId(postId: string): Promise<Post[]> {
+        throw new NotImplementedError();
     }
 
     async blockProfile(profileId: string) {

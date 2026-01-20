@@ -1,28 +1,29 @@
-import { PageSize } from '@lens-protocol/client';
-import { fetchPosts } from '@lens-protocol/client/actions';
-import urlcat from 'urlcat';
+import { first } from 'lodash-es';
 
-import { EMPTY_LIST } from '@/constants/static.js';
-import { fetchJson } from '@/helpers/fetchJson.js';
-import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
-import { formatLensPostV3 } from '@/providers/lens/formatLensPost.js';
-import { getLensClient } from '@/providers/lens/getLensClient.js';
-import { type ResponseJson } from '@/types/utility.js';
+import { MAX_POST_SIZE_PER_THREAD } from '@/constants/static.js';
+import { isSameProfile } from '@/helpers/isSameProfile.js';
+import { getCommentsByPostId } from '@/providers/lens/getCommentsByPostId.js';
+import { getLensPostById } from '@/providers/lens/getLensPostById.js';
+import { type Post } from '@/providers/types/SocialMedia.js';
 
-export async function getLensThreadByPostId(postId: string) {
-    const response = await fetchJson<ResponseJson<string[]>>(urlcat('/api/thread', { id: postId }));
-    if (!response.success) return EMPTY_LIST;
+export async function getLensThreadByPostId(
+    postId: string,
+    post?: Post,
+    maxDepth = MAX_POST_SIZE_PER_THREAD,
+): Promise<string[]> {
+    const result: string[] = [];
 
-    const posts = await ensureLensResult(
-        fetchPosts(getLensClient(), {
-            pageSize: PageSize.Fifty,
-            filter: {
-                metadata: {
-                    tags: { all: [postId, ...response.data] }, // TODO
-                },
-            },
-        }),
-    );
+    if (maxDepth === 0) return result;
 
-    return Promise.all(posts.items.map(formatLensPostV3));
+    const author = post?.author ?? (await getLensPostById(postId)).author;
+
+    const comments = await getCommentsByPostId(postId, undefined, false);
+    const firstComment = first(comments.data);
+
+    if (firstComment && isSameProfile(firstComment?.author, author)) {
+        result.push(firstComment.postId);
+        return result.concat(await getLensThreadByPostId(firstComment.postId, firstComment, maxDepth - 1));
+    }
+
+    return result;
 }

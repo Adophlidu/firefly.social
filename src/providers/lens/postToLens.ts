@@ -11,7 +11,6 @@ import { createS3MediaObject, resolveImageUrl, resolveVideoUrl } from '@/helpers
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { uploadVideoCover } from '@/helpers/uploadVideoCover.js';
-import { commentLensPost } from '@/providers/lens/commentLensPost.js';
 import { getLensProfileById } from '@/providers/lens/getLensProfileById.js';
 import { GroveStorageProvider } from '@/providers/lens/Grove.js';
 import {
@@ -23,8 +22,7 @@ import { image } from '@/providers/lens/metadata/post/Image.js';
 import { link } from '@/providers/lens/metadata/post/Link.js';
 import { textOnly } from '@/providers/lens/metadata/post/TextOnly.js';
 import { video } from '@/providers/lens/metadata/post/Video.js';
-import { publishLensPost } from '@/providers/lens/publishLensPost.js';
-import { quoteLensPost } from '@/providers/lens/quoteLensPost.js';
+import { lensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { createPollPost } from '@/providers/orb/createPollPost.js';
 import { type CompositePoll } from '@/providers/types/Poll.js';
 import { type Channel, SessionType } from '@/providers/types/SocialMedia.js';
@@ -200,7 +198,7 @@ async function publishPostForLens(
     );
 
     const contentURI = await GroveStorageProvider.uploadJson(metadata);
-    const publicationId = await publishLensPost({
+    const publicationId = await lensSocialMediaProvider.publishPost({
         publicationId: '',
         postId: metadata.lens.id,
         author: profile,
@@ -236,7 +234,7 @@ async function commentPostForLens(
     );
 
     const contentURI = await GroveStorageProvider.uploadJson(metadata);
-    return commentLensPost(
+    return lensSocialMediaProvider.commentPost(
         postId,
         {
             ...createDummyPost(Source.Lens, contentURI.uri),
@@ -266,7 +264,7 @@ async function quotePostForLens(
     );
 
     const contentURI = await GroveStorageProvider.uploadJson(metadata);
-    const post = await quoteLensPost(postId, {
+    const post = await lensSocialMediaProvider.quotePost(postId, {
         ...createDummyPost(Source.Lens, contentURI.uri),
         restrictions,
         channel: resolveValidChannel(channel),
