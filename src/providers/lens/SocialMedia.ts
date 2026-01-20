@@ -90,6 +90,7 @@ import {
     type Provider,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
+import { getLensThreadByPostId } from '@/providers/lens/getLensThreadByPostId.js';
 
 @WithMutedProfilesQuery()
 @SetQueryDataForLikePost(Source.Lens)
@@ -355,8 +356,8 @@ class LensSocialMedia implements Provider {
         return searchLensPosts(q, indicator);
     }
 
-    async getThreadByPostId(postId: string): Promise<Post[]> {
-        throw new NotImplementedError();
+    async getThreadByPostId(postId: string, post?: Post) {
+        return getLensThreadByPostId(postId, post);
     }
 
     async blockProfile(profileId: string) {

@@ -249,7 +249,7 @@ export enum SearchType {
  * The final redis key is alike: `/[version]/[name]:[sequence_id]`
  */
 export enum KeyType {
-    GetLensThreadByPostId = '/v2/getLensThreadByPostId',
+    GetLensThreadByPostId = '/v3/getLensThreadByPostId',
     ConsumerSecret = '/v2/consumerSecret',
     GetTwitterAvatarById = '/v2/getTwitterAvatar',
     PostState = '/v2/post-state',
