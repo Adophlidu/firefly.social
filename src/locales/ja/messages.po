@@ -1463,6 +1463,9 @@ msgstr ""
 msgid "Anti_whale(Limited number of transactions)"
 msgstr ""
 
+msgid "View resolved"
+msgstr ""
+
 #. placeholder {0}: notification.reactors.length
 #. placeholder {1}: notification.post.type
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</5>"
@@ -1887,6 +1890,9 @@ msgid "Your draft was saved."
 msgstr ""
 
 msgid "Verify and Claim"
+msgstr ""
+
+msgid "Hide resolved"
 msgstr ""
 
 msgid "Opinion Profile"
@@ -3613,7 +3619,6 @@ msgstr ""
 msgid "Connection failed. {0}"
 msgstr ""
 
-#. placeholder {0}: resolvedLabel || '-'
 #. placeholder {0}: resolvedOutcome.outcome
 msgid "Settled as {0}"
 msgstr ""

@@ -1458,6 +1458,9 @@ msgstr "Set as primary wallet"
 msgid "Anti_whale(Limited number of transactions)"
 msgstr "Anti_whale(Limited number of transactions)"
 
+msgid "View resolved"
+msgstr "View resolved"
+
 #. placeholder {0}: notification.reactors.length
 #. placeholder {1}: notification.post.type
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</5>"
@@ -1883,6 +1886,9 @@ msgstr "Your draft was saved."
 
 msgid "Verify and Claim"
 msgstr "Verify and Claim"
+
+msgid "Hide resolved"
+msgstr "Hide resolved"
 
 msgid "Opinion Profile"
 msgstr "Opinion Profile"
@@ -3608,7 +3614,6 @@ msgstr "firefly.eth liked your transaction"
 msgid "Connection failed. {0}"
 msgstr "Connection failed. {0}"
 
-#. placeholder {0}: resolvedLabel || '-'
 #. placeholder {0}: resolvedOutcome.outcome
 msgid "Settled as {0}"
 msgstr "Settled as {0}"

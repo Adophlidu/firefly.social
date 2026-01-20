@@ -1,14 +1,15 @@
 'use client';
 
 import { classNames } from '@dimensiondev/utils';
+import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { Trans } from '@lingui/react/macro';
 import { first, sumBy } from 'lodash-es';
-import { memo, useCallback, useMemo, useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Loading } from '@/components/Loading.js';
 import { PredictionMarketBuyButtons } from '@/components/Prediction/PredictionMarketBuyButtons.js';
-import { MAX_MARKETS_COUNT_SELECTABLE, PLATFORMS_SUPPORTING_ORDER_BOOK } from '@/constants/bets.js';
+import { PLATFORMS_SUPPORTING_ORDER_BOOK } from '@/constants/bets.js';
 import { PredictionPlatform } from '@/constants/enum.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { Image } from '@/esm/Image.js';
@@ -16,6 +17,7 @@ import { bedStead } from '@/fonts/bedStead/index.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { isZero } from '@/helpers/number.js';
 import { toFixedTrimmed } from '@/helpers/polymarket.js';
+import { useToggleMarkets } from '@/hooks/prediction/useToggleMarkets.js';
 import type { BetsMarketDataForUI } from '@/types/prediction.js';
 
 const PredictionMarketOrderBook = dynamic(
@@ -35,10 +37,10 @@ export const PredictionMarketList = memo(function PredictionMarketList({
     markets,
     platform,
 }: PredictionMarketListProps) {
-    const [showMore, setShowMore] = useState(false);
     const [marketId, setMarketId] = useState(
         markets.find((market) => !market.isResolved && !market.isClosed)?.id || null,
     );
+    const { displayedMarkets, showMore, toggleType, setShowMore } = useToggleMarkets(markets);
 
     const onMarketClick = useCallback(
         (market: BetsMarketDataForUI) => {
@@ -48,14 +50,6 @@ export const PredictionMarketList = memo(function PredictionMarketList({
         },
         [marketId, platform],
     );
-
-    const displayedMarkets = useMemo(() => {
-        if (!showMore) {
-            return markets.slice(0, MAX_MARKETS_COUNT_SELECTABLE);
-        }
-
-        return markets;
-    }, [markets, showMore]);
 
     const supportOrderBook = PLATFORMS_SUPPORTING_ORDER_BOOK.includes(platform);
     const firstMarket = markets[0];
@@ -112,23 +106,23 @@ export const PredictionMarketList = memo(function PredictionMarketList({
                                     <Trans>{`$${nFormatter(+market.volume, 2)}`} Vol.</Trans>
                                 </span>
                             </div>
-                            <span
-                                className={classNames('text-2xl font-bold text-main', bedStead.className)}
-                            >{`${yesPercent < 1 ? '<1' : Math.round(yesPercent)}%`}</span>
-                        </div>
-                        {market.isResolved ? (
-                            <div>
+                            {market.isResolved ? (
                                 <span
                                     className={classNames(
-                                        'text-sm font-semibold',
+                                        'text-base font-bold',
+                                        bedStead.className,
                                         isGreen ? 'text-success' : 'text-danger',
                                     )}
                                 >
-                                    <Trans>Settled as {resolvedLabel || '-'}</Trans>
+                                    {resolvedLabel}
                                 </span>
-                                <div className={classNames('mt-1 h-1 w-full', isGreen ? 'bg-success' : 'bg-danger')} />
-                            </div>
-                        ) : (
+                            ) : (
+                                <span
+                                    className={classNames('text-2xl font-bold text-main', bedStead.className)}
+                                >{`${yesPercent < 1 ? '<1' : Math.round(yesPercent)}%`}</span>
+                            )}
+                        </div>
+                        {!market.isResolved && platform !== PredictionPlatform.Polymarket ? (
                             <div>
                                 <div className="flex justify-between">
                                     {market.outcomes.map((outcome, i) => {
@@ -158,9 +152,9 @@ export const PredictionMarketList = memo(function PredictionMarketList({
                                     </div>
                                 ) : null}
                             </div>
-                        )}
+                        ) : null}
                         {actionEnabled && platform === PredictionPlatform.Polymarket ? (
-                            <PredictionMarketBuyButtons platform={platform} market={market} />
+                            <PredictionMarketBuyButtons showPrice platform={platform} market={market} />
                         ) : null}
                         {showOrderBook && marketId === market.id ? (
                             <PredictionMarketOrderBook key={market.id} market={market} platform={platform} />
@@ -168,13 +162,29 @@ export const PredictionMarketList = memo(function PredictionMarketList({
                     </div>
                 );
             })}
-            {markets.length > MAX_MARKETS_COUNT_SELECTABLE ? (
+            {toggleType !== 'none' ? (
                 <div className="flex items-center justify-center">
                     <ClickableButton
-                        className="rounded-full bg-bg px-4 py-2 text-xs font-semibold text-main"
+                        className="flex h-9 items-center gap-2 rounded-full bg-bg px-6 text-sm font-semibold text-main"
                         onClick={() => setShowMore((v) => !v)}
                     >
-                        {showMore ? <Trans>Show Less</Trans> : <Trans>Show More</Trans>}
+                        {showMore ? (
+                            toggleType === 'resolved' ? (
+                                <Trans>Hide resolved</Trans>
+                            ) : (
+                                <Trans>Show Less</Trans>
+                            )
+                        ) : toggleType === 'resolved' ? (
+                            <Trans>View resolved</Trans>
+                        ) : (
+                            <Trans>Show More</Trans>
+                        )}
+                        <ChevronDownIcon
+                            className={classNames(
+                                'size-3.5 transition-all duration-200 ease-in-out',
+                                showMore ? 'rotate-180' : '',
+                            )}
+                        />
                     </ClickableButton>
                 </div>
             ) : null}
