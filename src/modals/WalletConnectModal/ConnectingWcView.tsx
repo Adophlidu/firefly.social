@@ -1,9 +1,11 @@
 import { CoreChainController, CoreRouterController } from '@reown/appkit';
 import { useLocation } from '@tanstack/react-router';
+import { last } from 'lodash-es';
 import { memo, useEffect } from 'react';
 import urlcat from 'urlcat';
 
 import { getNetworkTypeFromCaipAddress } from '@/helpers/getNetworkTypeFromCaipAddress.js';
+import { isPrivyAddress } from '@/helpers/isPrivyAddress.js';
 import { WalletConnectContext } from '@/hooks/useWalletConnectContext.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
 import { walletRouter } from '@/modals/WalletConnectModal/routes.js';
@@ -33,7 +35,7 @@ export default memo(function ConnectingWcView() {
 
     useEffect(() => {
         const unsubscribe = CoreChainController.subscribeKey('activeCaipAddress', (address) => {
-            if (!address) return;
+            if (!address || isPrivyAddress(last(address.split(':')) || '')) return;
 
             const networkType = getNetworkTypeFromCaipAddress(address);
             WalletConnectModalRef.close(networkType ? { networkType } : undefined);

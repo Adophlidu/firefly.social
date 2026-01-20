@@ -1,8 +1,10 @@
 import { CoreChainController } from '@reown/appkit';
 import { useLocation } from '@tanstack/react-router';
+import { last } from 'lodash-es';
 import { memo, useEffect, useState } from 'react';
 
 import { getNetworkTypeFromCaipAddress } from '@/helpers/getNetworkTypeFromCaipAddress.js';
+import { isPrivyAddress } from '@/helpers/isPrivyAddress.js';
 import { WalletConnectContext } from '@/hooks/useWalletConnectContext.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
 import { captureConnectWalletEvent } from '@/providers/telemetry/captureConnectWalletEvent.js';
@@ -16,7 +18,7 @@ export default memo(function ConnectingView() {
     useEffect(
         () =>
             CoreChainController.subscribeKey('activeCaipAddress', (address) => {
-                if (!address) return;
+                if (!address || isPrivyAddress(last(address.split(':')) || '')) return;
 
                 const networkType = getNetworkTypeFromCaipAddress(address);
                 WalletConnectModalRef.close(networkType ? { networkType } : undefined);
