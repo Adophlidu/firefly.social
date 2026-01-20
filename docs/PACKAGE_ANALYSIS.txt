@@ -1,7 +1,7 @@
 Package Analysis
 ================
 
-Total packages: 1817
+Total packages: 1848
 Packages with multiple versions: 231
 
 Legend:
@@ -130,7 +130,7 @@ Packages with Multiple Versions
 *core-js@2.6.12,3.42.0,3.47.0
  cosmiconfig@8.0.0,8.3.6
 *cross-fetch@3.2.0,4.1.0
- css-tree@1.1.3,2.2.1,2.3.1
+ css-tree@1.1.3,2.2.1,2.3.1,3.1.0
 *date-fns@2.30.0,3.6.0
  debug@3.2.7,4.3.4,4.4.0,4.4.3
  doctrine@2.1.0,3.0.0
@@ -171,8 +171,8 @@ Packages with Multiple Versions
  json5@1.0.2,2.2.3
  locate-path@5.0.0,6.0.0,7.2.0
  loupe@3.1.3,3.2.1
- lru-cache@10.4.3,11.2.2,5.1.1,6.0.0
- mdn-data@2.0.14,2.0.28,2.0.30
+ lru-cache@10.4.3,11.2.2,11.2.4,5.1.1,6.0.0
+ mdn-data@2.0.14,2.0.28,2.0.30,2.12.2
  minimatch@10.1.1,3.1.2,5.1.6,9.0.5
  ms@2.1.2,2.1.3
  multiformats@13.4.2,9.9.0
@@ -217,7 +217,7 @@ Packages with Multiple Versions
 *thread-stream@3.1.0,4.0.0
  tinyglobby@0.2.13,0.2.15
  tinyspy@3.0.2,4.0.4
- tr46@0.0.3,1.0.1
+ tr46@0.0.3,1.0.1,6.0.0
  tsconfig-paths@3.15.0,4.2.0
  tslib@1.14.1,2.8.1
 *twemoji-parser@11.0.2,14.0.0
@@ -229,9 +229,9 @@ Packages with Multiple Versions
 *viem@2.23.2,2.43.5
 *wagmi@2.19.5,3.1.4
  watchpack@2.4.4,2.5.1
- webidl-conversions@3.0.1,4.0.2
+ webidl-conversions@3.0.1,4.0.2,8.0.1
  webpack@5.103.0,5.104.1
- whatwg-url@5.0.0,7.1.0
+ whatwg-url@15.1.0,5.0.0,7.1.0
  wrap-ansi@6.2.0,7.0.0,8.1.0
  ws@7.5.10,8.18.0,8.18.3,8.19.0
  y18n@4.0.3,5.0.8
@@ -246,10 +246,14 @@ Packages with Single Version
 ----------------------------
  @0no-co/graphql.web@1.1.2
  @0no-co/graphqlsp@1.12.16
+ @acemir/cssom@0.9.31
  @adobe/css-tools@4.4.4
  @adraffy/ens-normalize@1.11.1
  @alloc/quick-lru@5.2.0
  @ampproject/remapping@2.3.0
+ @asamuzakjp/css-color@4.1.1
+ @asamuzakjp/dom-selector@6.7.6
+ @asamuzakjp/nwsapi@2.3.9
 *@atproto/api@0.18.16
  @atproto/common-web@0.4.12
  @atproto/lex-data@0.0.8
@@ -410,6 +414,12 @@ Packages with Single Version
  @cspell/dict-vue@3.0.4
  @cspell/dynamic-import@7.3.9
  @cspell/strong-weak-map@7.3.9
+ @csstools/color-helpers@5.1.0
+ @csstools/css-calc@2.1.4
+ @csstools/css-color-parser@3.1.0
+ @csstools/css-parser-algorithms@3.0.5
+ @csstools/css-syntax-patches-for-csstree@1.0.25
+ @csstools/css-tokenizer@3.0.4
  @discoveryjs/json-ext@0.5.7
  @discoveryjs/natural-compare@1.1.0
  @ecies/ciphers@0.2.5
@@ -432,6 +442,7 @@ Packages with Single Version
  @ethereumjs/rlp@4.0.1
  @ethereumjs/tx@4.2.0
  @ethereumjs/util@8.1.0
+ @exodus/bytes@1.8.0
  @faker-js/faker@7.6.0
 *@farcaster/core@0.18.9
  @farcaster/miniapp-core@0.4.1
@@ -994,6 +1005,7 @@ Packages with Single Version
  acorn-import-phases@1.0.4
  acorn-jsx@5.3.2
  acorn-walk@8.3.4
+ agent-base@7.1.4
  agentkeepalive@4.6.0
  ajv-formats@2.1.1
  ajv-keywords@5.1.0
@@ -1032,6 +1044,7 @@ Packages with Single Version
  bail@2.0.2
  balanced-match@1.0.2
  baseline-browser-mapping@2.9.7
+ bidi-js@1.0.3
  big.js@6.2.2
  bigint-buffer@1.1.5
 *bignumber.js@9.3.1
@@ -1123,6 +1136,7 @@ Packages with Single Version
  cssesc@3.0.0
  csso@5.0.5
  cssom@0.5.0
+ cssstyle@5.3.7
  csstype@3.2.3
  custom-event-polyfill@1.0.7
  d3-array@3.2.4
@@ -1137,6 +1151,7 @@ Packages with Single Version
  d3-time-format@4.1.0
  d3-timer@3.0.1
  damerau-levenshtein@1.0.8
+ data-urls@6.0.0
  data-view-buffer@1.0.2
  data-view-byte-length@1.0.2
  data-view-byte-offset@1.0.1
@@ -1144,6 +1159,7 @@ Packages with Single Version
 *dayjs-twitter@0.5.0
  debounce@1.2.1
  decamelize@1.2.0
+ decimal.js@10.6.0
  decimal.js-light@2.5.1
  decode-named-character-reference@1.1.0
  decode-uri-component@0.2.2
@@ -1307,9 +1323,12 @@ Packages with Single Version
  hex-rgb@4.3.0
  hls.js@1.6.1
  hono@4.11.3
+ html-encoding-sniffer@6.0.0
  html-url-attributes@3.0.1
  htmlparser2@10.0.0
  http-parser-js@0.5.10
+ http-proxy-agent@7.0.2
+ https-proxy-agent@7.0.6
  human-signals@2.1.0
  humanize-ms@1.2.1
  hyphenate-style-name@1.1.0
@@ -1363,6 +1382,7 @@ Packages with Single Version
  is-observable@2.1.0
  is-plain-obj@4.1.0
  is-plain-object@5.0.0
+ is-potential-custom-element-name@1.0.1
  is-reference@1.2.1
  is-regex@1.2.1
  is-retry-allowed@2.2.0
@@ -1393,6 +1413,7 @@ Packages with Single Version
  js-sha256@0.10.1
  js-tokens@4.0.0
  js-yaml@4.1.1
+*jsdom@27.4.0
  json-buffer@3.0.1
  json-parse-even-better-errors@2.3.1
  json-rpc-engine@6.1.0
@@ -1535,6 +1556,7 @@ Packages with Single Version
  parse-css-color@0.2.1
  parse-entities@4.0.2
  parse-json@5.2.0
+ parse5@8.0.0
  path-is-absolute@1.0.1
  path-key@3.1.1
  path-parse@1.0.7
@@ -1643,6 +1665,7 @@ Packages with Single Version
  safe-regex-test@1.1.0
  safe-stable-stringify@2.5.0
 *satori@0.18.3
+ saxes@6.0.0
  scheduler@0.27.0
  schema-utils@4.3.3
  screenfull@5.2.0
@@ -1708,6 +1731,7 @@ Packages with Single Version
  svgo@3.3.2
 *svgo-loader@4.0.0
 *swiper@12.0.3
+ symbol-tree@3.2.4
  tabbable@6.2.0
 *tailwindcss@3.4.19
 *tailwindcss-safe-area@0.6.0
@@ -1729,11 +1753,14 @@ Packages with Single Version
  tinyrainbow@2.0.0
  tippy.js@6.3.7
  tlds@1.261.0
+ tldts@7.0.19
+ tldts-core@7.0.19
  to-buffer@1.2.2
  to-regex-range@5.0.1
  toggle-selection@1.0.6
  toml@3.0.0
  totalist@3.0.1
+ tough-cookie@6.0.0
  tree-kill@1.2.2
  trigram-utils@2.0.1
  trim-lines@3.0.1
@@ -1799,6 +1826,7 @@ Packages with Single Version
 *vitest@3.1.4
  vscode-languageserver-textdocument@1.0.12
  vscode-uri@3.1.0
+ w3c-xmlserializer@5.0.0
  wcwidth@1.0.1
  web-vitals@4.2.4
  web3-errors@1.3.1
@@ -1811,6 +1839,7 @@ Packages with Single Version
  webpack-virtual-modules@0.6.2
  websocket-driver@0.7.4
  websocket-extensions@0.1.4
+ whatwg-mimetype@4.0.0
  which@2.0.2
  which-boxed-primitive@1.1.1
  which-builtin-type@1.2.1
@@ -1823,6 +1852,8 @@ Packages with Single Version
  wrappy@1.0.2
  write-file-atomic@3.0.3
  xdg-basedir@5.1.0
+ xml-name-validator@5.0.0
+ xmlchars@2.2.0
  xmlhttprequest-ssl@2.1.2
  xtend@4.0.2
  yauzl@3.2.0

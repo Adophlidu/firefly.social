@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 
 /**
  * Type-safe state machine hook configuration
@@ -78,14 +78,15 @@ export function useStateMachine<TStates extends string>(
     config: StateMachineConfig<TStates>,
 ): StateMachineReturn<TStates> {
     const { initialState, transitions, onStateChange } = config;
-    const [state, setState] = useState<TStates>(initialState);
+    const stateRef = useRef<TStates>(initialState);
+    const [, forceUpdate] = useState({});
 
     const canTransition = useCallback(
         (to: TStates): boolean => {
-            const allowedTransitions = transitions[state];
+            const allowedTransitions = transitions[stateRef.current];
             return allowedTransitions.includes(to);
         },
-        [state, transitions],
+        [transitions],
     );
 
     const transition = useCallback(
@@ -94,38 +95,37 @@ export function useStateMachine<TStates extends string>(
                 return false;
             }
 
-            const from = state;
-            setState(to);
+            const from = stateRef.current;
+            stateRef.current = to;
+            forceUpdate({});
             onStateChange?.(from, to);
             return true;
         },
-        [state, canTransition, onStateChange],
+        [canTransition, onStateChange],
     );
 
     const reset = useCallback(() => {
-        const from = state;
-        setState(initialState);
+        const from = stateRef.current;
+        stateRef.current = initialState;
+        forceUpdate({});
         if (from !== initialState) {
             onStateChange?.(from, initialState);
         }
-    }, [state, initialState, onStateChange]);
+    }, [initialState, onStateChange]);
 
-    const is = useCallback(
-        (states: TStates | TStates[]): boolean => {
-            const statesArray = Array.isArray(states) ? states : [states];
-            return statesArray.includes(state);
-        },
-        [state],
-    );
+    const is = useCallback((states: TStates | TStates[]): boolean => {
+        const statesArray = Array.isArray(states) ? states : [states];
+        return statesArray.includes(stateRef.current);
+    }, []);
 
     return useMemo(
         () => ({
-            state,
+            state: stateRef.current,
             transition,
             canTransition,
             reset,
             is,
         }),
-        [state, transition, canTransition, reset, is],
+        [transition, canTransition, reset, is],
     );
 }
