@@ -105,9 +105,12 @@ export default function FrameViewerModalContent({ open, props, setProps }: Props
     }, [props?.ready]);
 
     useAsync(async () => {
+        // after 5 seconds, check if the mini app is blocked
         await delay(5000);
+
         const response = iframeUrl ? await checkMiniAppBlocking(iframeUrl) : null;
         if (response?.isBlocked) machine.transition('blocking');
+        else machine.transition('ready');
     }, [iframeUrl]);
 
     useEffect(() => {

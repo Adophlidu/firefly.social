@@ -14,7 +14,6 @@ import { getCurrentProfileFromStorage, type StateProfile } from '@/helpers/getCu
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
-import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { logger } from '@/libs/Logger.js';
 import { FrameViewerModalRef } from '@/modals/FrameViewerModal/FrameViewerModal.js';
@@ -133,13 +132,12 @@ export const Card = memo<CardProps>(function Card({ post, frame }) {
 
     const [primaryButton, setPrimaryButton] = useState<Parameters<SetPrimaryButton>[0] | null>(null);
 
-    const profile = useCurrentProfile(Source.Farcaster);
     const frameHost = useMemo(() => {
         return createFrameHost(frame, post, router, {
             setPrimaryButton,
-            profile,
+            profile: getCurrentProfileFromStorage(Source.Farcaster),
         });
-    }, [frame, post, profile, router]);
+    }, [frame, post, router]);
 
     const onClick = () => {
         const session = getSessionFromStorage(SessionType.Farcaster);
