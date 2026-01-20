@@ -1,13 +1,7 @@
 'use client';
 
 import { compact } from 'lodash-es';
-import {
-    type DetailedHTMLProps,
-    memo,
-    type OlHTMLAttributes,
-    type PropsWithChildren,
-    useMemo,
-} from 'react';
+import { type DetailedHTMLProps, memo, type OlHTMLAttributes, type PropsWithChildren, useMemo } from 'react';
 import ReactMarkdown, { type Options as ReactMarkdownOptions } from 'react-markdown';
 import remarkBreaks from 'remark-breaks';
 import linkifyRegex from 'remark-linkify-regex';

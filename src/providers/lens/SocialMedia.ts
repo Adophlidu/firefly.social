@@ -54,6 +54,7 @@ import { getLensProfilesByIds } from '@/providers/lens/getLensProfilesById.js';
 import { getLensRepliesPostsByProfileId } from '@/providers/lens/getLensRepliesPostsByProfileId.js';
 import { getLensRepostReactors } from '@/providers/lens/getLensRepostReactors.js';
 import { getLensSuggestedFollows } from '@/providers/lens/getLensSuggestedFollows.js';
+import { getLensThreadByPostId } from '@/providers/lens/getLensThreadByPostId.js';
 import { isLensFollowedByMe } from '@/providers/lens/isLensFollowedByMe.js';
 import { isLensFollowingMe } from '@/providers/lens/isLensFollowingMe.js';
 import { joinLensChannel } from '@/providers/lens/joinLensChannel.js';
@@ -90,7 +91,6 @@ import {
     type Provider,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
-import { getLensThreadByPostId } from '@/providers/lens/getLensThreadByPostId.js';
 
 @WithMutedProfilesQuery()
 @SetQueryDataForLikePost(Source.Lens)
