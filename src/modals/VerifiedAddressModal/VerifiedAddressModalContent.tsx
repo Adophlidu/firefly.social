@@ -27,6 +27,9 @@ import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { verifyEthereumAddress, verifySolanaAddress } from '@/providers/farcaster/verifyAddress.js';
 import { getVerifiedAddresses } from '@/providers/firefly/endpoint/getVerifiedAddresses.js';
 import { getWalletAdaptorRequired } from '@/providers/solana/getWalletAdapter.js';
+import { getWagmiCurrentConnectionId } from '@/helpers/getWagmiCurrentConnectionId.js';
+import { PRIVY_CONNECTOR_ID } from '@/connectors/PrivyConnector.js';
+import { getAccount, getConnections } from 'wagmi/actions';
 
 export interface VerifiedAddressModalProps {
     fid?: string;
@@ -111,9 +114,36 @@ export const VerifiedAddressModalContent = forwardRef<HTMLDivElement, VerifiedAd
 
                 switch (network) {
                     case NetworkType.Ethereum: {
-                        const walletClient = await getWalletClientRequired(wagmiConfig, undefined, {
-                            origin: ClickOrigin.Settings,
-                        });
+                        const recentConnectionId = getWagmiCurrentConnectionId();
+
+                        const connections = getConnections(wagmiConfig);
+
+                        let targetConnector = connections.find(
+                            (conn) =>
+                                conn.connector.id === recentConnectionId || conn.connector.uid === recentConnectionId,
+                        )?.connector;
+
+                        if (!targetConnector) {
+                            const account = getAccount(wagmiConfig);
+                            targetConnector = account.connector;
+                        }
+
+                        // fallback to first non-privy
+                        if (!targetConnector || targetConnector.id === PRIVY_CONNECTOR_ID) {
+                            targetConnector = connections.find(
+                                (conn) => conn.connector.id !== PRIVY_CONNECTOR_ID,
+                            )?.connector;
+                        }
+
+                        if (!targetConnector) {
+                            throw new WalletNotConnectedError();
+                        }
+
+                        const walletClient = await getWalletClientRequired(
+                            wagmiConfig,
+                            { connector: targetConnector },
+                            { origin: ClickOrigin.Settings },
+                        );
                         const addressToVerify = walletClient.account.address.toLowerCase();
 
                         if (checkIfAlreadyVerified(addressToVerify)) {
