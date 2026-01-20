@@ -1,14 +1,10 @@
 import { msg } from '@lingui/core/macro';
-import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 
 import { ExploreSourceNav } from '@/components/SourceNav/ExploreSourceNav.js';
-import { PredictionSourceNav } from '@/components/SourceNav/PredictionSourceNav.js';
-import { queryClientConfig } from '@/configs/queryClient.js';
 import { type ExploreSourceInURL, ExploreType } from '@/constants/enum.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
-import { getEventSlugList } from '@/providers/firefly/prediction/getEventSlugList.js';
 import { type NextPageProps } from '@/types/utility.js';
 
 interface Props extends NextPageProps<{ source: string; explore: ExploreType }> {}
@@ -32,30 +28,18 @@ export default async function Layout(props: Props) {
 
     const { source, explore } = await props.params;
 
-    const queryClient = new QueryClient(queryClientConfig);
-
     if (explore === ExploreType.Bets) {
-        await queryClient.prefetchQuery({
-            queryKey: ['bets', 'slugs-list'],
-            queryFn: () => getEventSlugList(),
-        });
+        return props.children;
     }
 
     return (
-        <HydrationBoundary state={dehydrate(queryClient)}>
-            {explore === ExploreType.Bets ? (
-                <PredictionSourceNav
-                    className="sticky top-[98px] z-20 bg-primaryBottom md:!top-[103px]"
-                    source={source}
-                />
-            ) : (
-                <ExploreSourceNav
-                    explore={explore}
-                    source={source as ExploreSourceInURL}
-                    className="sticky top-[98px] z-20 bg-primaryBottom md:!top-[103px]"
-                />
-            )}
+        <>
+            <ExploreSourceNav
+                explore={explore}
+                source={source as ExploreSourceInURL}
+                className="sticky top-[98px] z-20 bg-primaryBottom md:!top-[103px]"
+            />
             {props.children}
-        </HydrationBoundary>
+        </>
     );
 }

@@ -1,11 +1,14 @@
 import { msg } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
+import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import { type ReactNode } from 'react';
 
 import { NoSSR } from '@/components/NoSSR.js';
+import { PredictionSourceNav } from '@/components/SourceNav/PredictionSourceNav.js';
 import { SourceTabs } from '@/components/SourceTabs/index.js';
 import { SourceTab } from '@/components/SourceTabs/SourceTab.js';
 import { ToggleEnableButton } from '@/components/TrumpTruthSocial/ToggleEnableButton.js';
+import { queryClientConfig } from '@/configs/queryClient.js';
 import { EXPLORE_TYPES } from '@/constants/computed.js';
 import { ExploreType } from '@/constants/enum.js';
 import { NFT_ENABLED } from '@/constants/static.js';
@@ -13,6 +16,7 @@ import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
+import { getEventSlugList } from '@/providers/firefly/prediction/getEventSlugList.js';
 import { type NextPageProps } from '@/types/utility.js';
 
 interface Props extends NextPageProps<{ explore: ExploreType }> {}
@@ -40,6 +44,15 @@ export default async function Layout(props: Props) {
         [ExploreType.Bets]: <Trans>Predictions</Trans>,
     };
 
+    const queryClient = new QueryClient(queryClientConfig);
+
+    if (explore === ExploreType.Bets) {
+        await queryClient.prefetchQuery({
+            queryKey: ['bets', 'slugs-list'],
+            queryFn: () => getEventSlugList(),
+        });
+    }
+
     return (
         <>
             <SourceTabs className="!z-20 md:!top-[57px]">
@@ -64,6 +77,11 @@ export default async function Layout(props: Props) {
                     ),
                 )}
             </SourceTabs>
+            {explore === ExploreType.Bets ? (
+                <HydrationBoundary state={dehydrate(queryClient)}>
+                    <PredictionSourceNav className="sticky top-[98px] z-20 bg-primaryBottom md:!top-[103px]" />
+                </HydrationBoundary>
+            ) : null}
             {props.children}
         </>
     );

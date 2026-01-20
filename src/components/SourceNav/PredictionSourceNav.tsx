@@ -2,18 +2,20 @@
 
 import { classNames } from '@dimensiondev/utils';
 import { useQuery } from '@tanstack/react-query';
+import { useParams } from 'next/navigation';
 import { type HTMLProps, memo, useLayoutEffect, useMemo, useRef } from 'react';
 
 import { Link } from '@/components/Link.js';
+import { EMPTY_LIST } from '@/constants/static.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { getEventSlugList } from '@/providers/firefly/prediction/getEventSlugList.js';
 
 interface Props extends HTMLProps<HTMLDivElement> {
     className?: string;
-    source: string;
 }
 
-export const PredictionSourceNav = memo<Props>(function PredictionSourceNav({ className, source }) {
+export const PredictionSourceNav = memo<Props>(function PredictionSourceNav({ className }) {
+    const { source } = useParams<{ source: string }>();
     const { data } = useQuery({
         queryKey: ['bets', 'slugs-list'],
         queryFn: () => getEventSlugList(),
@@ -23,34 +25,39 @@ export const PredictionSourceNav = memo<Props>(function PredictionSourceNav({ cl
     });
 
     const activeTabRef = useRef<HTMLAnchorElement>(null);
-    const hasScrolledRef = useRef(false);
+    const containerRef = useRef<HTMLDivElement>(null);
 
     const tags = useMemo(() => {
-        const apiTags = (data || []).map((item) => ({
-            slug: item.slug,
-            label: item.label,
-        }));
-        if (source && !apiTags.some((x) => x.slug === source)) {
-            apiTags.unshift({ slug: source, label: `${source.slice(0, 1).toUpperCase()}${source.slice(1)}` });
-        }
+        if (!data) return EMPTY_LIST;
 
-        return apiTags;
+        if (source && !data.some((x) => x.slug === source)) {
+            return [
+                { slug: source, label: `${source.slice(0, 1).toUpperCase()}${source.slice(1)}`, sub_slug: EMPTY_LIST },
+                ...data,
+            ];
+        }
+        return data;
     }, [data, source]);
 
     useLayoutEffect(() => {
-        if (activeTabRef.current && !hasScrolledRef.current) {
-            activeTabRef.current.scrollIntoView({
-                behavior: 'instant',
-                block: 'nearest',
-            });
-            hasScrolledRef.current = true;
+        if (!activeTabRef.current) {
+            return;
         }
-    }, [source]);
+
+        activeTabRef.current.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center',
+            inline: 'center',
+        });
+    }, []);
 
     if (!data) return null;
 
     return (
-        <div className={classNames('no-scrollbar flex items-center justify-between overflow-x-auto', className)}>
+        <div
+            ref={containerRef}
+            className={classNames('no-scrollbar flex items-center justify-between overflow-x-auto', className)}
+        >
             <nav className="flex space-x-2 px-1.5 pb-1.5 pt-3" aria-label="Tabs">
                 {tags.map((slug) => (
                     <Link
