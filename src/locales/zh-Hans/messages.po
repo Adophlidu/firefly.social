@@ -1722,6 +1722,9 @@ msgstr "市值"
 msgid "Confirm you want to mute /{0}?"
 msgstr "你确定要隐藏 /{0} 吗？"
 
+msgid "Please sign in to your Farcaster account again"
+msgstr ""
+
 msgid "Refund"
 msgstr "退款"
 

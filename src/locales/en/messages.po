@@ -1717,6 +1717,9 @@ msgstr "Volume(24h) · Market Cap"
 msgid "Confirm you want to mute /{0}?"
 msgstr "Confirm you want to mute /{0}?"
 
+msgid "Please sign in to your Farcaster account again"
+msgstr "Please sign in to your Farcaster account again"
+
 msgid "Refund"
 msgstr "Refund"
 
