@@ -2923,6 +2923,9 @@ msgstr "Choose or set the handles for cross at."
 msgid "Note: X desktop login is currently unavailable on mobile."
 msgstr "Note: X desktop login is currently unavailable on mobile."
 
+msgid "Confirm to remove this Lucky drop? You can request a refund from your history after 24 hours."
+msgstr "Confirm to remove this Lucky drop? You can request a refund from your history after 24 hours."
+
 msgid "Exclusivity"
 msgstr "Exclusivity"
 

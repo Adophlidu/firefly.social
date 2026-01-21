@@ -1,6 +1,7 @@
 import { classNames } from '@dimensiondev/utils';
+import { Trans } from '@lingui/react/macro';
 import { first } from 'lodash-es';
-import { type HTMLProps, memo } from 'react';
+import { type HTMLProps, memo, useCallback } from 'react';
 
 import { ImageAsset } from '@/components/Posts/ImageAsset.js';
 import { RemoveButton } from '@/components/RemoveButton.js';
@@ -8,6 +9,7 @@ import { IMAGE_KIT_ATTACHMENT } from '@/constants/static.js';
 import { formatImageUrl } from '@/helpers/formatImageUrl.js';
 import { resolveMediaObjectUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import { sanitizeDStorageUrl } from '@/helpers/sanitizeDStorageUrl.js';
+import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { type MediaObject } from '@/types/compose.js';
 
@@ -50,6 +52,31 @@ export const ComposeImages = memo(function ComposeImages({ images, readonly = fa
     const moreImageCount = size - 9;
     const showSize = Math.min(size, 9);
 
+    const handleRemoveImage = useCallback(
+        async (image: MediaObject) => {
+            if (image.isRpPayloadImage) {
+                const confirmed = await ConfirmModalRef.openAndWaitForClose({
+                    title: <Trans>Remove</Trans>,
+                    content: (
+                        <span className="text-center text-[15px] leading-normal text-secondary">
+                            <Trans>
+                                Confirm to remove this Lucky drop? You can request a refund from your history after 24
+                                hours.
+                            </Trans>
+                        </span>
+                    ),
+                    enableCancelButton: true,
+                    enableConfirmButton: true,
+                    enableCloseButton: false,
+                    variant: 'normal',
+                });
+                if (!confirmed) return;
+            }
+            removeImage(image);
+        },
+        [removeImage],
+    );
+
     if (size === 1) {
         const target = first(images);
         if (!target) return null;
@@ -64,7 +91,7 @@ export const ComposeImages = memo(function ComposeImages({ images, readonly = fa
                     overSize={!target.isRpPayloadImage}
                 />
                 {!readonly ? (
-                    <RemoveButton className="absolute right-1 top-1 z-10" onClick={() => removeImage(target)} />
+                    <RemoveButton className="absolute right-1 top-1 z-10" onClick={() => handleRemoveImage(target)} />
                 ) : null}
             </div>
         );
@@ -98,7 +125,10 @@ export const ComposeImages = memo(function ComposeImages({ images, readonly = fa
                             </div>
                         ) : null}
                         {!readonly ? (
-                            <RemoveButton className="absolute right-1 top-1 z-10" onClick={() => removeImage(image)} />
+                            <RemoveButton
+                                className="absolute right-1 top-1 z-10"
+                                onClick={() => handleRemoveImage(image)}
+                            />
                         ) : null}
                     </div>
                 );

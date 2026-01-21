@@ -2928,6 +2928,9 @@ msgstr "選擇或設定跨平台@所使用的用戶名稱。"
 msgid "Note: X desktop login is currently unavailable on mobile."
 msgstr "注意：移動端暫不支援 X 桌面版登入。"
 
+msgid "Confirm to remove this Lucky drop? You can request a refund from your history after 24 hours."
+msgstr ""
+
 msgid "Exclusivity"
 msgstr "獨佔性"
 

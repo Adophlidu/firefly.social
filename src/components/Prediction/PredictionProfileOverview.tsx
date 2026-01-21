@@ -133,7 +133,7 @@ export function PredictionProfileOverview({ profile, platform, address }: Predic
     return (
         <div className="flex flex-col">
             <div className="flex items-center gap-4 px-4 pt-3">
-                <Link href={resolveProfileUrl(Source.Wallet, profile.wallet)}>
+                <Link href={resolveProfileUrl(Source.Wallet, profile.wallet || profile.proxy)}>
                     <Avatar
                         src={
                             socialAvatar ||
@@ -148,7 +148,7 @@ export function PredictionProfileOverview({ profile, platform, address }: Predic
                 <div className="min-w-0">
                     <Link
                         className="truncate whitespace-nowrap text-lg font-semibold text-main"
-                        href={resolveProfileUrl(Source.Wallet, profile.wallet)}
+                        href={resolveProfileUrl(Source.Wallet, profile.wallet || profile.proxy)}
                     >
                         {socialName || profile.platform_name || <PredictionPlatformName platform={platform} />}
                     </Link>

@@ -1,7 +1,12 @@
 import { Trans } from '@lingui/react/macro';
+import { useMemo } from 'react';
 
 import { ActionButton } from '@/components/ActionButton.js';
 import { useRefundCallback } from '@/components/RedPacket/hooks/useRefundCallback.js';
+import {
+    type ResendRedPacketInfo,
+    useResendRedPacketCallback,
+} from '@/components/RedPacket/hooks/useResendRedPacketCallback.js';
 import { type NetworkType } from '@/constants/enum.js';
 import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 
@@ -10,11 +15,11 @@ interface Props {
     account: string;
     redpacketStatus: FireflyRedPacketAPI.RedPacketStatus;
     chainId: number;
-    // TODO: mark this required
-    networkType?: NetworkType;
+    networkType: NetworkType;
+    resendInfo?: Omit<ResendRedPacketInfo, 'rpid' | 'chainId' | 'networkType'>;
 }
 
-export function RedPacketActionButton({ rpid, redpacketStatus, chainId, networkType }: Props) {
+export function RedPacketActionButton({ rpid, redpacketStatus, chainId, networkType, resendInfo }: Props) {
     const statusToTransMap = {
         [FireflyRedPacketAPI.RedPacketStatus.Send]: <Trans>Send</Trans>,
         [FireflyRedPacketAPI.RedPacketStatus.Expired]: <Trans>Expired</Trans>,
@@ -26,11 +31,35 @@ export function RedPacketActionButton({ rpid, redpacketStatus, chainId, networkT
 
     const [{ loading: refundLoading }, refund] = useRefundCallback(rpid, { chainId, networkType });
 
-    if (
-        redpacketStatus === FireflyRedPacketAPI.RedPacketStatus.Send ||
-        redpacketStatus === FireflyRedPacketAPI.RedPacketStatus.View
-    )
-        return;
+    const resendFullInfo = {
+        rpid,
+        chainId,
+        networkType: networkType!,
+        message: resendInfo?.message ?? '',
+        shareFrom: resendInfo?.shareFrom ?? '',
+        themeId: resendInfo?.themeId ?? '',
+        tokenSymbol: resendInfo?.tokenSymbol ?? '',
+        tokenDecimal: resendInfo?.tokenDecimal ?? 18,
+        totalAmounts: resendInfo?.totalAmounts ?? '0',
+        totalNumbers: resendInfo?.totalNumbers ?? '0',
+        claimStrategy: resendInfo?.claimStrategy ?? [],
+    }
+
+    const [{ loading: resendLoading }, resend] = useResendRedPacketCallback(resendFullInfo);
+
+    if (redpacketStatus === FireflyRedPacketAPI.RedPacketStatus.View) return null;
+
+    if (redpacketStatus === FireflyRedPacketAPI.RedPacketStatus.Send) {
+        return (
+            <ActionButton
+                className="h-[32px] !w-[88px] min-w-[88px] !grow-0 px-6 py-2 text-xs"
+                loading={resendLoading}
+                onClick={resend}
+            >
+                <Trans>Send</Trans>
+            </ActionButton>
+        );
+    }
 
     return (
         <ActionButton

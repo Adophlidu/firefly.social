@@ -109,6 +109,8 @@ export const RedPacketDetailItem = memo<Props>(function RedPacketDetailItem({
         token_logo,
         token_amounts,
         share_from,
+        claim_strategy,
+        theme_id,
     },
 }) {
     const { history } = useRouter();
@@ -224,6 +226,16 @@ export const RedPacketDetailItem = memo<Props>(function RedPacketDetailItem({
                                 account={account}
                                 chainId={chain_id}
                                 networkType={networkType}
+                                resendInfo={{
+                                    message: rp_msg,
+                                    shareFrom: share_from || '',
+                                    themeId: theme_id || '',
+                                    tokenSymbol: token_symbol,
+                                    tokenDecimal: token_decimal,
+                                    totalAmounts: total_amounts || '0',
+                                    totalNumbers: total_numbers || '0',
+                                    claimStrategy: claim_strategy || [],
+                                }}
                             />
                         ) : null}
                     </div>

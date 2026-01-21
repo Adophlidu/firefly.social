@@ -2923,6 +2923,9 @@ msgstr ""
 msgid "Note: X desktop login is currently unavailable on mobile."
 msgstr ""
 
+msgid "Confirm to remove this Lucky drop? You can request a refund from your history after 24 hours."
+msgstr ""
+
 msgid "Exclusivity"
 msgstr ""
 
