@@ -1313,7 +1313,8 @@ export interface SearchableToken {
     chainId?: number;
     address?: string;
     largeLogo: string;
-    market_cap_rank?: number;
+    market_cap_rank?: number | null;
+    market_cap_rank_with_rehypothecated?: number | null;
     name: string;
     symbol: string;
     thumbnail: string;
@@ -1658,7 +1659,8 @@ export interface TokenWithMarketData {
     web_slug: string;
     chain_id: number;
     contract_address: string;
-    market_cap_rank: number;
+    market_cap_rank: number | null;
+    market_cap_rank_with_rehypothecated?: number | null;
 }
 
 export type Bookmarkable<T> = T & {

@@ -60,14 +60,15 @@ export interface CoinGeckoCoinInfo {
         twitter_screen_name: string;
     };
     liquidity_score: string;
-    market_cap_rank: number;
+    market_cap_rank: number | null;
+    market_cap_rank_with_rehypothecated?: number | null;
     market_data: {
         current_price: Record<string, number>;
         high_24h: Record<string, number>;
         low_24h: Record<string, number>;
         market_cap: Record<string, number>;
-        market_cap_rank: number;
-
+        market_cap_rank: number | null;
+        market_cap_rank_with_rehypothecated?: number | null;
         price_change_percentage_1h_in_currency: number;
         price_change_percentage_1y_in_currency: number;
         price_change_percentage_7d_in_currency: number;
@@ -143,7 +144,8 @@ export interface CoinGeckoCoinMarketInfo {
     market_cap: number;
     market_cap_change_24h: number;
     market_cap_change_percentage_24h: number;
-    market_cap_rank: number;
+    market_cap_rank: number | null;
+    market_cap_rank_with_rehypothecated?: number | null;
     max_supply: number;
     name: string;
     price_change_24h: number;

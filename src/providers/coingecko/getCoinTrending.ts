@@ -36,7 +36,8 @@ export async function getCoinTrending(coinId: string): Promise<Trending> {
             symbol: info.symbol.toUpperCase(),
             type: 'Fungible',
             description: info.description.en,
-            market_cap_rank: info.market_cap_rank,
+            // Use market_cap_rank_with_rehypothecated as fallback for rehypothecated tokens
+            market_cap_rank: info.market_cap_rank ?? info.market_cap_rank_with_rehypothecated ?? undefined,
             image_url: info.image.small,
             tags: info.categories.filter(Boolean),
             announcement_urls: info.links.announcement_url.filter(Boolean),
