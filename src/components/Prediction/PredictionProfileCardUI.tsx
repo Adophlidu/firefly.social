@@ -54,7 +54,7 @@ export const PredictionProfileCardUI = memo<PredictionProfileCardUIProps>(functi
                     <Trans>Portfolio</Trans>
                 </div>
                 <div className="relative text-sm font-semibold text-main">
-                    {`$${profile ? formatPrice(profile.balance.toFixed(4)) : '-'}`}
+                    {`$${profile ? formatPrice(profile.balance.toFixed(2)) : '-'}`}
                 </div>
             </div>
             <div className="flex h-9 flex-1 shrink-0 flex-col items-end justify-between gap-1">
