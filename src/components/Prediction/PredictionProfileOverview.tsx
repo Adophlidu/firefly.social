@@ -130,10 +130,12 @@ export function PredictionProfileOverview({ profile, platform, address }: Predic
         ]);
     }, [address, profile, isOpinion, platform]);
 
+    const profileUrl = resolveProfileUrl(Source.Wallet, profile.wallet || profile.proxy);
+
     return (
         <div className="flex flex-col">
             <div className="flex items-center gap-4 px-4 pt-3">
-                <Link href={resolveProfileUrl(Source.Wallet, profile.wallet || profile.proxy)}>
+                <Link href={profileUrl}>
                     <Avatar
                         src={
                             socialAvatar ||
@@ -148,7 +150,7 @@ export function PredictionProfileOverview({ profile, platform, address }: Predic
                 <div className="min-w-0">
                     <Link
                         className="truncate whitespace-nowrap text-lg font-semibold text-main"
-                        href={resolveProfileUrl(Source.Wallet, profile.wallet || profile.proxy)}
+                        href={profileUrl}
                     >
                         {socialName || profile.platform_name || <PredictionPlatformName platform={platform} />}
                     </Link>
