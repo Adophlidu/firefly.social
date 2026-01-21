@@ -17,6 +17,7 @@ interface PredictionMarketBuyButtonsProps {
     size?: 'default' | 'large';
     autoRefreshPrice?: boolean;
     showPrice?: boolean;
+    className?: string;
 }
 
 export const PredictionMarketBuyButtons = memo<PredictionMarketBuyButtonsProps>(function PredictionMarketBuyButtons({
@@ -25,6 +26,7 @@ export const PredictionMarketBuyButtons = memo<PredictionMarketBuyButtonsProps>(
     size = 'default',
     showPrice = false,
     autoRefreshPrice = false,
+    className,
 }) {
     const { data } = useQuery({
         queryKey: ['bets', 'market-price', market.id],
@@ -38,7 +40,7 @@ export const PredictionMarketBuyButtons = memo<PredictionMarketBuyButtonsProps>(
     const isLarge = size === 'large';
 
     return (
-        <div className={classNames('flex', isLarge ? 'gap-4' : 'gap-2')}>
+        <div className={classNames('flex', isLarge ? 'gap-4' : 'gap-2', className)}>
             {market.outcomes.map((outcome, i) => {
                 const newPrice = data?.find((item) => item.outcomeId === outcome.id)?.price;
                 const priceToShow = newPrice ?? outcome.price;

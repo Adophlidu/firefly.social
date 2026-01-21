@@ -42,6 +42,7 @@ export interface PredictionPositionDataForUI {
     isWin?: boolean;
     conditionId: string;
     resolvedResult?: string;
+    outcomeIndex?: number;
 }
 
 export interface BetsMarketOutcome {

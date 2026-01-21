@@ -6,10 +6,11 @@ import { useMemo, useState } from 'react';
 import ToggleIcon from '@/assets/toggle.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Loading } from '@/components/Loading.js';
+import { PredictionMarketBuyButtons } from '@/components/Prediction/PredictionMarketBuyButtons.js';
 import { ChartLabels } from '@/components/Prediction/PredictionMarketsPriceLineChart/ChartLabels.js';
 import { MarketSettings } from '@/components/Prediction/PredictionMarketsPriceLineChart/MarketSettings.js';
 import { TimeRangeSettings } from '@/components/Prediction/PredictionMarketsPriceLineChart/TimeRangeSettings.js';
-import { MAX_MARKETS_COUNT_SELECTABLE } from '@/constants/bets.js';
+import { MAX_MARKETS_COUNT_SELECTABLE, PLATFORMS_SUPPORTING_ORDER_BOOK } from '@/constants/bets.js';
 import { BetsPriceTimeRange, type PredictionPlatform } from '@/constants/enum.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { toFixedTrimmed } from '@/helpers/polymarket.js';
@@ -87,6 +88,9 @@ export function PredictionMarketsPriceLineChart({ platform, markets }: Predictio
         ];
     }, [markets, marketsWithSettings, payload, outcomeId]);
 
+    const supportOrderBook = PLATFORMS_SUPPORTING_ORDER_BOOK.includes(platform);
+    const firstMarket = markets[0];
+
     return (
         <div className="p-4">
             <ChartLabels labels={labels} />
@@ -118,6 +122,16 @@ export function PredictionMarketsPriceLineChart({ platform, markets }: Predictio
                     </ClickableButton>
                 )}
             </div>
+            {markets.length === 1 && supportOrderBook && !firstMarket.isResolved && !firstMarket.isClosed ? (
+                <PredictionMarketBuyButtons
+                    className="mt-6"
+                    platform={platform}
+                    market={firstMarket}
+                    size="large"
+                    showPrice
+                    autoRefreshPrice
+                />
+            ) : null}
         </div>
     );
 }

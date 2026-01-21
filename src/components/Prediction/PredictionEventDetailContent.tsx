@@ -4,7 +4,7 @@ import { first } from 'lodash-es';
 import { PredictionBaseInfoTabContent } from '@/components/Prediction/PredictionBaseInfoTabContent.js';
 import { PredictionBaseInfoTabs } from '@/components/Prediction/PredictionBaseInfoTabs.js';
 import { PredictionEventOverview } from '@/components/Prediction/PredictionEventOverview.js';
-import { PredictionMarketList } from '@/components/Prediction/PredictionMarketList.js';
+import { PredictionMarketsAccountTab } from '@/components/Prediction/PredictionMarketsAccountTab/index.js';
 import { PredictionMarketsPriceLineChart } from '@/components/Prediction/PredictionMarketsPriceLineChart/index.js';
 import { PredictionProfilePageHeader } from '@/components/Prediction/PredictionProfilePageHeader.js';
 import type { PredictionPlatform } from '@/constants/enum.js';
@@ -35,7 +35,7 @@ export async function PredictionEventDetailContent({ id, isMutil, platform }: Pr
             <PredictionProfilePageHeader pageTitle={<Trans>Event detail</Trans>} />
             <PredictionEventOverview detail={detail} />
             <PredictionMarketsPriceLineChart platform={platform} markets={markets} />
-            <PredictionMarketList markets={markets} platform={platform} />
+            <PredictionMarketsAccountTab markets={markets} platform={platform} />
             <PredictionBaseInfoTabs showResolution={showResolution} />
             <PredictionBaseInfoTabContent showResolution={showResolution} platform={platform} detail={detail} />
         </div>

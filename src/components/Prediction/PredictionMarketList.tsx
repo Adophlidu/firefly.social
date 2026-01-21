@@ -55,14 +55,7 @@ export const PredictionMarketList = memo(function PredictionMarketList({
     const firstMarket = markets[0];
     if (markets.length === 1 && supportOrderBook && !firstMarket.isResolved && !firstMarket.isClosed) {
         return (
-            <div className="mt-2 space-y-8 px-4">
-                <PredictionMarketBuyButtons
-                    platform={platform}
-                    market={firstMarket}
-                    size="large"
-                    showPrice
-                    autoRefreshPrice
-                />
+            <div className="mt-2 px-4">
                 <PredictionMarketOrderBook key={firstMarket.id} market={firstMarket} platform={platform} />
             </div>
         );

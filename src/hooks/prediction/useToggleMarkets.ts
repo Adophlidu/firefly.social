@@ -5,7 +5,9 @@ import type { BetsMarketDataForUI } from '@/types/prediction.js';
 export function useToggleMarkets(markets: BetsMarketDataForUI[]) {
     const [showMore, setShowMore] = useState(false);
     const toggleType = useMemo(() => {
-        if (markets.filter((market) => market.isResolved || market.isClosed).length > 0) {
+        const unresolvedMarkets = markets.filter((market) => !market.isResolved && !market.isClosed);
+        const resolvedMarkets = markets.filter((market) => market.isResolved || market.isClosed);
+        if (unresolvedMarkets.length > 0 && resolvedMarkets.length > 0) {
             return 'resolved';
         }
 

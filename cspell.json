@@ -571,7 +571,10 @@
         "mutil",
         "clob",
         "errmsg",
-        "cyom"
+        "cyom",
+        "mergeable",
+        "CASHPNL",
+        "PERCENTPNL"
     ],
     "flagWords": [],
     "ignorePaths": [
