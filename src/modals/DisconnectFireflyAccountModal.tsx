@@ -48,12 +48,12 @@ export function DisconnectFireflyAccountModal({ ref }: Props) {
             await removeAccountByProfileId(source, account.profile.profileId);
             captureAccountDisconnectEvent(account);
 
-            await queryClient.refetchQueries({
+            await queryClient.invalidateQueries({
                 queryKey: ['allConnections'],
             });
 
             await queryClient.invalidateQueries({
-                queryKey: ['allConnections'],
+                queryKey: ['profiles', source],
             });
 
             enqueueSuccessMessage(<Trans>Disconnected from your social graph</Trans>);
