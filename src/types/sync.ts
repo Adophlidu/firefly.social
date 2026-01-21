@@ -8,6 +8,7 @@ export interface SocialAccountTwitter {
     consumerKeySecret: string;
     accessToken: string;
     accessTokenSecret: string;
+    cookie?: string; // Upload from Maskbook
 }
 
 export interface SocialAccountFarcaster {
