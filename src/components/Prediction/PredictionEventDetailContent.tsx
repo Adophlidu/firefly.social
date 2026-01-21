@@ -29,12 +29,13 @@ export async function PredictionEventDetailContent({ id, isMutil, platform }: Pr
 
     const markets = detail.markets || EMPTY_LIST;
     const showResolution = markets.length === 1 && !!first(markets)?.statusList?.length;
+    const isActive = detail.markets.some((market) => !market.isClosed && !market.isResolved);
 
     return (
         <div>
             <PredictionProfilePageHeader pageTitle={<Trans>Event detail</Trans>} />
-            <PredictionEventOverview detail={detail} />
-            <PredictionMarketsPriceLineChart platform={platform} markets={markets} />
+            <PredictionEventOverview detail={detail} isActive={isActive} />
+            <PredictionMarketsPriceLineChart platform={platform} markets={markets} isActive={isActive} />
             <PredictionMarketsAccountTab markets={markets} platform={platform} />
             <PredictionBaseInfoTabs showResolution={showResolution} />
             <PredictionBaseInfoTabContent showResolution={showResolution} platform={platform} detail={detail} />

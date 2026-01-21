@@ -1,3 +1,6 @@
+import { classNames } from '@dimensiondev/utils';
+import { Trans } from '@lingui/react/macro';
+
 import TimeIcon from '@/assets/time.svg';
 import { PredictionPlatformIcon } from '@/components/Prediction/PredictionPlatformIcon.js';
 import { Image } from '@/esm/Image.js';
@@ -5,9 +8,10 @@ import type { BetsEventDataForUI } from '@/types/prediction.js';
 
 interface PredictionEventOverviewProps {
     detail: BetsEventDataForUI;
+    isActive: boolean;
 }
 
-export function PredictionEventOverview({ detail }: PredictionEventOverviewProps) {
+export function PredictionEventOverview({ detail, isActive }: PredictionEventOverviewProps) {
     return (
         <div className="flex items-start gap-4 p-4">
             {detail.image ? (
@@ -23,6 +27,14 @@ export function PredictionEventOverview({ detail }: PredictionEventOverviewProps
                 <h1 className="text-xl font-semibold leading-6 text-main">{detail.title}</h1>
                 <div className="mt-3 flex items-center gap-1.5">
                     <PredictionPlatformIcon platform={detail.platform} size={20} />
+                    <span
+                        className={classNames(
+                            'h-5 rounded-full px-1.5 text-xs font-medium leading-5',
+                            isActive ? 'bg-success/10 text-success' : 'bg-secondaryMain text-white',
+                        )}
+                    >
+                        {isActive ? <Trans>Active</Trans> : <Trans>Ended</Trans>}
+                    </span>
                     <div className="flex items-center gap-1 text-second">
                         <TimeIcon width={12} height={12} />
                         {detail.endTime ? (

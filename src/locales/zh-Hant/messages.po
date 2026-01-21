@@ -3236,6 +3236,9 @@ msgstr "免費鑄造收集"
 msgid "Delete"
 msgstr "刪除"
 
+msgid "Final Outcome"
+msgstr ""
+
 msgid "Available"
 msgstr "可用的"
 

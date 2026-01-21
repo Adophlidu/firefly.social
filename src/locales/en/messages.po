@@ -3231,6 +3231,9 @@ msgstr "Free Collect"
 msgid "Delete"
 msgstr "Delete"
 
+msgid "Final Outcome"
+msgstr "Final Outcome"
+
 msgid "Available"
 msgstr "Available"
 

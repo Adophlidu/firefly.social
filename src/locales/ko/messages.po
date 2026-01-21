@@ -3236,6 +3236,9 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
+msgid "Final Outcome"
+msgstr ""
+
 msgid "Available"
 msgstr ""
 

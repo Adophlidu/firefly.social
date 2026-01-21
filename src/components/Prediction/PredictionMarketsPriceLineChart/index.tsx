@@ -30,12 +30,13 @@ const PriceHistoryChart = dynamic(
 interface PredictionMarketsPriceLineChartProps {
     platform: PredictionPlatform;
     markets: BetsMarketDataForUI[];
+    isActive: boolean;
 }
 
 const lineColors = ['#FF209B', '#5E69FF', '#FF372B', '#FFAA16', '#00D2FF', '#00FF85', '#FF6EC4', '#8C56FF'];
 const outcomeColors = ['#5E69FF', '#FF372B', '#FFAA16', '#00D2FF', '#00FF85', '#FF6EC4', '#8C56FF', '#FF209B'];
 
-export function PredictionMarketsPriceLineChart({ platform, markets }: PredictionMarketsPriceLineChartProps) {
+export function PredictionMarketsPriceLineChart({ platform, markets, isActive }: PredictionMarketsPriceLineChartProps) {
     const [outcomeId, setOutcomeId] = useState(first(markets)?.outcomes?.[0]?.id || '');
     const [timeRange, setTimeRange] = useState(BetsPriceTimeRange.All);
     const [payload] = useState<Array<{ dataKey: string; value?: number }>>();
@@ -67,7 +68,10 @@ export function PredictionMarketsPriceLineChart({ platform, markets }: Predictio
                         id: market.id,
                         label: market.title,
                         color: market.color,
-                        value: isUndefined(yesPercent) ? undefined : `${toFixedTrimmed(yesPercent * 100, 1)}%`,
+                        value:
+                            isUndefined(yesPercent) || !isActive
+                                ? undefined
+                                : `${toFixedTrimmed(yesPercent * 100, 1)}%`,
                     };
                 });
         }
@@ -82,18 +86,19 @@ export function PredictionMarketsPriceLineChart({ platform, markets }: Predictio
             {
                 id: outcome.id,
                 label: outcome.label,
-                value: `${toFixedTrimmed(Number(outcome.price || 0) * 100, 1)}%`,
+                value: !isActive ? undefined : `${toFixedTrimmed(Number(outcome.price || 0) * 100, 1)}%`,
                 color: outcome.color,
+                isResolved: firstMarket?.resolvedOutcomeId === outcome.id,
             },
         ];
-    }, [markets, marketsWithSettings, payload, outcomeId]);
+    }, [markets, marketsWithSettings, payload, outcomeId, isActive]);
 
     const supportOrderBook = PLATFORMS_SUPPORTING_ORDER_BOOK.includes(platform);
     const firstMarket = markets[0];
 
     return (
         <div className="p-4">
-            <ChartLabels labels={labels} />
+            <ChartLabels labels={labels} isSingleMarket={markets.length === 1} />
             <PriceHistoryChart
                 outcomeId={outcomeId}
                 platform={platform}
