@@ -24,9 +24,9 @@ import {
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getTwitterHandleById } from '@/providers/firefly/worker/getTwitterHandleById.js';
 import { tweetV2ToPost } from '@/providers/twitter/formatTwitterPost.js';
-import { formatTwitterPostFromNitter } from '@/providers/twitter/formatTwitterPostFromNitter.js';
-import { formatTwitterProfileFromNitter } from '@/providers/twitter/formatTwitterProfileFromNitter.js';
-import { NitterAPIProvider } from '@/providers/twitter/Nitter.js';
+import { formatTwitterPostFromNitter } from '@/providers/nitter/formatTwitterPostFromNitter.js';
+import { formatTwitterProfileFromNitter } from '@/providers/nitter/formatTwitterProfileFromNitter.js';
+import { NitterAPIProvider } from '@/providers/nitter/Nitter.js';
 import { resolveTwitterResponseData } from '@/providers/twitter/resolveTwitterResponseData.js';
 import { type TwitterSession } from '@/providers/twitter/Session.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';

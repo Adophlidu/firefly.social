@@ -10,7 +10,7 @@ import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { getTwitterHandleById } from '@/providers/firefly/worker/getTwitterHandleById.js';
 import { getTwitterProfileByOG } from '@/providers/twitter/getTwitterProfileByOG.js';
-import { nitterSocialMediaProvider } from '@/providers/twitter/NitterSocialMedia.js';
+import { nitterSocialMediaProvider } from '@/providers/nitter/NitterSocialMedia.js';
 import { type NextRequestContext } from '@/types/utility.js';
 
 const getTwitterAvatarById = memoizeWithRedis(

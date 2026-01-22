@@ -43,7 +43,7 @@ export function RedPacketActionButton({ rpid, redpacketStatus, chainId, networkT
         totalAmounts: resendInfo?.totalAmounts ?? '0',
         totalNumbers: resendInfo?.totalNumbers ?? '0',
         claimStrategy: resendInfo?.claimStrategy ?? [],
-    }
+    };
 
     const [{ loading: resendLoading }, resend] = useResendRedPacketCallback(resendFullInfo);
 

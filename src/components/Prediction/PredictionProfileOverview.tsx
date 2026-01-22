@@ -148,10 +148,7 @@ export function PredictionProfileOverview({ profile, platform, address }: Predic
                     />
                 </Link>
                 <div className="min-w-0">
-                    <Link
-                        className="truncate whitespace-nowrap text-lg font-semibold text-main"
-                        href={profileUrl}
-                    >
+                    <Link className="truncate whitespace-nowrap text-lg font-semibold text-main" href={profileUrl}>
                         {socialName || profile.platform_name || <PredictionPlatformName platform={platform} />}
                     </Link>
                     <div className="ml-auto flex items-center text-[13px] font-medium text-second">

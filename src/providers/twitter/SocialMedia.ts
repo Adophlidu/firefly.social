@@ -1,6 +1,6 @@
 import { NotImplementedError } from '@dimensiondev/utils';
 
-import { nitterSocialMediaProvider } from '@/providers/twitter/NitterSocialMedia.js';
+import { nitterSocialMediaProvider } from '@/providers/nitter/NitterSocialMedia.js';
 import { type OfficialSocialMedia, officialSocialMediaProvider } from '@/providers/twitter/OfficialSocialMedia.js';
 
 function createProxy<T>(providers: Array<Partial<T>>): T {
