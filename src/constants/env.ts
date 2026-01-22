@@ -24,6 +24,7 @@ const InternalEnvSchema = z.object({
     FIREFLY_JWT_SECRET: z.string(),
 
     ORB_API_KEY: z.string(),
+    X_WEBHOOK_RECEIVER_API_KEY: z.string(),
 });
 
 const ExternalEnvSchema = z.object({

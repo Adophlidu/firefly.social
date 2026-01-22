@@ -25,6 +25,7 @@ async function createTwitterSessionPayloadFromJWT(request: NextRequest): Promise
         req: request,
         secret: env.internal.NEXTAUTH_SECRET,
     });
+
     const payload = token?.twitter as TwitterAuthPayload | undefined;
     if (!payload?.oauthToken || !payload?.oauthTokenSecret) return null;
 

@@ -28,8 +28,6 @@ export async function getThreads(post: Post, source: SocialSource) {
 
     const provider = resolveSocialMediaProvider(source);
     const posts = await provider.getThreadByPostId(root.postId, isSamePost(root, post) ? post : undefined);
-
-    console.log('posts', posts);
     if (!posts.some((x) => isSamePost(x, post))) return createPageable(EMPTY_LIST, undefined);
 
     return createPageable(posts, undefined);
