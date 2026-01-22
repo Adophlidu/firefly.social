@@ -1,5 +1,4 @@
 import { Trans } from '@lingui/react/macro';
-import { useMemo } from 'react';
 
 import { ActionButton } from '@/components/ActionButton.js';
 import { useRefundCallback } from '@/components/RedPacket/hooks/useRefundCallback.js';
