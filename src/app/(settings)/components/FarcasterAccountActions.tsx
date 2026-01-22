@@ -11,9 +11,6 @@ import WalletBoldIcon from '@/assets/wallet-bold2.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
-import { Source } from '@/constants/enum.js';
-import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
-import { getSessionsFromStorageBySource } from '@/helpers/getSessionFromStorage.js';
 import { RecoveryPhraseModalRef } from '@/modals/RecoveryPhraseModal.js';
 import { VerifiedAddressModalRef } from '@/modals/VerifiedAddressModal/index.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -24,20 +21,6 @@ interface Props {
 }
 
 export const FarcasterAccountActions = memo<Props>(function FarcasterAccountActions({ profile, isCustodyWallet }) {
-    const checkSessionAndExecute = (close: () => void, action: () => void) => {
-        const hasSession = getSessionsFromStorageBySource(Source.Farcaster).some(
-            (x) => x.profileId === profile.profileId,
-        );
-
-        if (!hasSession) {
-            close();
-            enqueueErrorMessage(<Trans>Please sign in to your Farcaster account again</Trans>);
-            return;
-        }
-
-        action();
-    };
-
     return (
         <MoreActionMenu
             button={
@@ -55,12 +38,10 @@ export const FarcasterAccountActions = memo<Props>(function FarcasterAccountActi
                     {({ close }) => (
                         <MenuButton
                             onClick={() => {
-                                checkSessionAndExecute(close, () => {
-                                    VerifiedAddressModalRef.open({
-                                        fid: profile.profileId,
-                                    });
-                                    close();
+                                VerifiedAddressModalRef.open({
+                                    fid: profile.profileId,
                                 });
+                                close();
                             }}
                         >
                             <span className="flex items-center gap-2 font-bold leading-[22px] text-main">
@@ -74,12 +55,10 @@ export const FarcasterAccountActions = memo<Props>(function FarcasterAccountActi
                     <MenuItem>
                         {({ close }) => (
                             <MenuButton
-                                onClick={async () => {
-                                    checkSessionAndExecute(close, () => {
-                                        close();
-                                        RecoveryPhraseModalRef.open({
-                                            fid: profile.profileId,
-                                        });
+                                onClick={() => {
+                                    close();
+                                    RecoveryPhraseModalRef.open({
+                                        fid: profile.profileId,
                                     });
                                 }}
                             >

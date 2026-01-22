@@ -1722,9 +1722,6 @@ msgstr ""
 msgid "Confirm you want to mute /{0}?"
 msgstr ""
 
-msgid "Please sign in to your Farcaster account again"
-msgstr ""
-
 msgid "Refund"
 msgstr ""
 

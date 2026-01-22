@@ -20,6 +20,7 @@ import { ProfileName } from '@/components/ProfileName.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
+import { getSessionsFromStorageBySource } from '@/helpers/getSessionFromStorage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveConnectionPlatform } from '@/helpers/resolveConnectionPlatform.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
@@ -187,7 +188,10 @@ export function AccountCards() {
                                             <div className="ml-auto flex items-center gap-2">
                                                 {isConnected ? (
                                                     <>
-                                                        {source === Source.Farcaster ? (
+                                                        {source === Source.Farcaster &&
+                                                        getSessionsFromStorageBySource(Source.Farcaster).some(
+                                                            (x) => x.profileId === profile.profileId,
+                                                        ) ? (
                                                             <FarcasterAccountActions
                                                                 profile={profile}
                                                                 isCustodyWallet={isCustodyWallet}
