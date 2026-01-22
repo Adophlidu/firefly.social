@@ -62,6 +62,20 @@ export const GET = compose(
             );
         }
 
+        // Handle Mirror's quoted post - fetch full media data for the quoted tweet
+        const mirrorQuoteOn = post.mirrorOn?.quoteOn;
+        if (post.type === 'Mirror' && mirrorQuoteOn) {
+            const quoteTarget = await runInSafeAsync(() =>
+                client.v2.singleTweet(mirrorQuoteOn.postId, { ...TWITTER_TIMELINE_OPTIONS }),
+            );
+            if (quoteTarget?.data) {
+                post.mirrorOn!.quoteOn = await patchPostClientToFirefly(
+                    tweetV2ToPost(quoteTarget.data, quoteTarget.includes),
+                );
+                post.quoteOn = post.mirrorOn!.quoteOn;
+            }
+        }
+
         return createSuccessResponseJson(post);
     },
 );

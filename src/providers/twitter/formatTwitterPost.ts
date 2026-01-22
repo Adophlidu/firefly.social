@@ -229,6 +229,11 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
         });
     }
 
+    // For Mirror (retweet), copy quoteOn from mirrorOn if it exists
+    if (ret.type === 'Mirror' && ret.mirrorOn?.quoteOn && !ret.quoteOn) {
+        ret.quoteOn = ret.mirrorOn.quoteOn;
+    }
+
     ret.metadata.content = {
         ...ret.metadata.content,
         oembedUrls,
