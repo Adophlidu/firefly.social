@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-01-16 04:27\n"
+"PO-Revision-Date: 2026-01-21 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -103,7 +103,7 @@ msgid "Report @{0}"
 msgstr "举报 @{0}"
 
 msgid "No bids"
-msgstr ""
+msgstr "无出价"
 
 #. placeholder {0}: percentageToNumber(info.sell_tax)
 msgid "Sell Tax: {0}%"
@@ -581,7 +581,7 @@ msgid "Failed to add wallet"
 msgstr "添加钱包失败"
 
 msgid "Markets Traded"
-msgstr "参与过的市场"
+msgstr "参与过的交易对"
 
 msgid "Solana"
 msgstr "Solana"
@@ -665,7 +665,7 @@ msgid "Signing in"
 msgstr "登录中"
 
 msgid "Top Holders"
-msgstr ""
+msgstr "持仓大户"
 
 msgid "Overview"
 msgstr "概览"
@@ -709,7 +709,7 @@ msgid "Failed to vote."
 msgstr "投票失败。"
 
 msgid "Markets"
-msgstr ""
+msgstr "交易对"
 
 msgid "Your posts have published successfully."
 msgstr "您的帖子已成功发布。"
@@ -886,7 +886,7 @@ msgid "Custom"
 msgstr "自定义"
 
 msgid "Polymarket Event"
-msgstr ""
+msgstr "Polymarket 市场"
 
 msgid "Connect Email"
 msgstr "绑定邮箱"
@@ -1043,7 +1043,7 @@ msgid "Muted {walletHandle}."
 msgstr "已隐藏 {walletHandle}。"
 
 msgid "Scroll to center"
-msgstr ""
+msgstr "滚动至居中"
 
 msgid "Confirm Lucky Drop"
 msgstr "确认你的红包"
@@ -1058,7 +1058,7 @@ msgid "Failed to refund red packet."
 msgstr "红包退款失败。"
 
 msgid "Toggle trade view"
-msgstr ""
+msgstr "切换交易视图"
 
 msgid "Host"
 msgstr "主持人"
@@ -1112,10 +1112,10 @@ msgid "<0/>Delete Firefly account"
 msgstr "<0/>删除 Firefly 账号"
 
 msgid "Shares"
-msgstr ""
+msgstr "份额"
 
 msgid "1D"
-msgstr ""
+msgstr "1 天"
 
 msgid "POST"
 msgstr "发帖"
@@ -1165,7 +1165,7 @@ msgstr "<0/>EVM 钱包"
 
 #. placeholder {0}: outcome.label
 msgid "Buy {0}"
-msgstr ""
+msgstr "买 {0}"
 
 msgid "Failed to bind Lens manager, please try again later."
 msgstr "绑定 Lens 管理员失败，请稍后重试。"
@@ -1352,7 +1352,7 @@ msgid "Bio"
 msgstr "个人简介"
 
 msgid "{outcomeLabel} Holders"
-msgstr ""
+msgstr "{outcomeLabel} 持仓者"
 
 msgid "[Photo]"
 msgstr "[照片]"
@@ -1896,7 +1896,7 @@ msgid "Verify and Claim"
 msgstr "校验并且领取"
 
 msgid "Hide resolved"
-msgstr ""
+msgstr "隐藏已结算"
 
 msgid "Opinion Profile"
 msgstr "Opinion 个人信息"
@@ -2160,7 +2160,7 @@ msgstr "点赞/转发/评论"
 
 #. placeholder {0}: spreads !== null ? `${(spreads * 100).toFixed(1)}¢` : '-'
 msgid "Spread: {0}"
-msgstr ""
+msgstr "价差： {0}"
 
 msgid "Estimated cost"
 msgstr "预估成本"
@@ -2241,7 +2241,7 @@ msgid "Tip sent successfully!"
 msgstr "打赏发送成功！"
 
 msgid "Open Interest"
-msgstr ""
+msgstr "未平仓权益"
 
 #. placeholder {0}: activeConnector.name
 msgid "Select Chain for {0}"
@@ -2673,7 +2673,7 @@ msgid "Unfollowed /{0} on {sourceName}"
 msgstr "在 {sourceName} 取消关注 /{0}"
 
 msgid "End Date"
-msgstr ""
+msgstr "结束日期"
 
 msgid "Farcaster"
 msgstr "Farcaster"
@@ -3065,7 +3065,7 @@ msgid "User Name is not available"
 msgstr "用户名不可用"
 
 msgid "Only show current positions"
-msgstr ""
+msgstr "仅显示当前持仓"
 
 msgid "Top 200 Web3 profiles powered by <0>Rootdata</0>"
 msgstr "热门前 200 榜单｜数据来源：<0> Rootdata </0>"
@@ -3136,7 +3136,7 @@ msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr "{shares, plural, one {转发或引用} other {转发或引用}}"
 
 msgid "Disputed"
-msgstr ""
+msgstr "争议中"
 
 msgid "Network cost"
 msgstr "手续费"
@@ -3167,7 +3167,7 @@ msgstr ""
 
 #. js-lingui-explicit-id
 msgid "bets-trades-global"
-msgstr ""
+msgstr "全局"
 
 msgid "Password cannot be a sequence or repeated digits. Please try again."
 msgstr "密码不能是连续或重复的数字。请重试。"
@@ -3199,7 +3199,7 @@ msgid "Multi-device login is required for schedule post. Set a 6-digit password 
 msgstr "定时发布需启用多设备登录。请设置 6 位数字密码以验证身份。"
 
 msgid "Event detail"
-msgstr ""
+msgstr "市场明细"
 
 msgid "Light Mode"
 msgstr "明亮模式"
@@ -3231,7 +3231,7 @@ msgid "Content preference"
 msgstr "内容偏好"
 
 msgid "No polymarket event found."
-msgstr ""
+msgstr "未找到相关的 Polymarket 事件。"
 
 msgid "Community"
 msgstr "圈子"
@@ -3243,7 +3243,7 @@ msgid "Delete"
 msgstr "删除"
 
 msgid "Final Outcome"
-msgstr ""
+msgstr "最终结果"
 
 msgid "Available"
 msgstr "可用的"
@@ -3294,7 +3294,7 @@ msgstr "取消收藏投票失败。"
 #. placeholder {0}: outcome.label
 #. placeholder {1}: Math.ceil(price * 100)
 msgid "Buy {0} {1}¢"
-msgstr ""
+msgstr "买 {0} {1}¢"
 
 #. placeholder {0}: dayjs(task.schedule_at).format('ddd, MMM DD, YYYY')
 #. placeholder {1}: dayjs(task.schedule_at).format('hh:mm A')
@@ -3434,7 +3434,7 @@ msgid "Wallets"
 msgstr "钱包"
 
 msgid "Spread {spread}¢"
-msgstr ""
+msgstr "价差 {spread}¢"
 
 msgid "firefly.eth liked your tips"
 msgstr "firefly.eth 赞了你的打赏"
@@ -3658,7 +3658,7 @@ msgid "Owner can change balance"
 msgstr "所有者可以更改余额"
 
 msgid "Select up to {MAX_MARKETS_COUNT_SELECTABLE} options"
-msgstr ""
+msgstr "最多可选择 {MAX_MARKETS_COUNT_SELECTABLE} 个选项"
 
 msgid "Sign in with Lens"
 msgstr "通过 Lens 登录"
@@ -3797,7 +3797,7 @@ msgid "<0>You</0> liked"
 msgstr "<0>你</0> 点赞了"
 
 msgid "Sign in on mobile"
-msgstr ""
+msgstr "在手机端登录"
 
 msgid "You've hit rock bottom."
 msgstr "你已经滑到底部啦～"
@@ -4015,7 +4015,7 @@ msgid "Failed to verify password."
 msgstr "密码验证失败。"
 
 msgid "6H"
-msgstr ""
+msgstr "6 小时"
 
 msgid "Mint Again"
 msgstr "再次铸造"
@@ -4223,7 +4223,7 @@ msgid "Display Name should not exceed {maxDisplayNameSize} characters"
 msgstr "全名不可以超过 {maxDisplayNameSize} 个字"
 
 msgid "ALL"
-msgstr ""
+msgstr "全部"
 
 msgid "Failed to send tip."
 msgstr "发送打赏失败。"
@@ -4332,7 +4332,7 @@ msgid "Reposts"
 msgstr "转发"
 
 msgid "Final outcome: {outcomeLabel}"
-msgstr ""
+msgstr "最终结果：{outcomeLabel}"
 
 msgid "The contract owner has no restrictions on anti whale."
 msgstr "合约所有者对反鲸鱼机制没有限制。"
@@ -4517,7 +4517,7 @@ msgid "Transaction failed"
 msgstr "交易失败"
 
 msgid "1W"
-msgstr ""
+msgstr "一周"
 
 msgid "All Chains"
 msgstr "所有链"
@@ -4702,8 +4702,7 @@ msgid "Unexpected step for setting password: {step}."
 msgstr "验证密码时出现意外步骤：{step}。"
 
 msgid "If you have multiple Firefly accounts created with different social logins, deleting this account will help you consolidate your social accounts into one. However, if you're trying to access a different Firefly wallet linked to another social account, consider switching accounts instead of deleting."
-msgstr ""
-"如果你使用不同的社交账号创建了多个 Firefly 账户，删除此账户可以帮助你整合社交账号。\n"
+msgstr "如果你使用不同的社交账号创建了多个 Firefly 账户，删除此账户可以帮助你整合社交账号。\n"
 "但如果你仍想访问另一个社交账号绑定的 Firefly 钱包，建议你切换账户，而不是删除账户。"
 
 msgid "<0>You</0> recasted"
@@ -4740,7 +4739,7 @@ msgid "Last sale"
 msgstr "最新价"
 
 msgid "No current positions found in this wallet"
-msgstr ""
+msgstr "当前钱包未找到任何持仓"
 
 msgid "Bridged"
 msgstr "已桥接"
@@ -4864,7 +4863,7 @@ msgid "Refund successfully."
 msgstr "退款成功。"
 
 msgid "No dispute"
-msgstr ""
+msgstr "无争议"
 
 msgid "Remind me later"
 msgstr "稍后提醒我"
@@ -5006,3 +5005,4 @@ msgstr "周"
 
 msgid "Success"
 msgstr "成功"
+
