@@ -18,7 +18,7 @@ import {
     type TipsNotificationType,
     type WalletSource,
 } from '@/constants/enum.js';
-import type { ErcType, EVM } from '@/providers/nft-scan/types.js';
+import type { ErcType, EVM } from '@/providers/nftscan/types.js';
 import type { SnapshotActivity, SnapshotChoice, SnapshotProposal } from '@/providers/snapshot/type.js';
 import type { TwitterSession } from '@/providers/twitter/Session.js';
 import type { Article as FormattedArticle, ArticlePlatform, ArticleType } from '@/providers/types/Article.js';

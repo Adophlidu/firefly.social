@@ -1,5 +1,5 @@
 import { type Collection } from '@/modals/NonFungibleCollectionSelectModal/CollectionItem.js';
-import { type EVM } from '@/providers/nft-scan/types.js';
+import { type EVM } from '@/providers/nftscan/types.js';
 
 export function formatCustomNFTScanCollection(collection: EVM.Collection, custom: boolean): Collection {
     return {

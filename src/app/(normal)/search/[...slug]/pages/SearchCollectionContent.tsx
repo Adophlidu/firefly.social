@@ -7,7 +7,7 @@ import { ListInPage } from '@/components/ListInPage.js';
 import { Empty } from '@/components/Search/Empty.js';
 import { SearchableCollectionItem } from '@/components/Search/SearchableCollectionItem.js';
 import { ScrollListKey } from '@/constants/enum.js';
-import { type EVM } from '@/providers/nft-scan/types.js';
+import { type EVM } from '@/providers/nftscan/types.js';
 import { searchCollections } from '@/services/searchCollections.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
 

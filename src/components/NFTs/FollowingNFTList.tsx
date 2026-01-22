@@ -10,7 +10,7 @@ import { EMPTY_LIST } from '@/constants/static.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { useMultiInfiniteQueryPageable } from '@/hooks/useMultiInfiniteQueryPageable.js';
 import { getFollowingNFTs } from '@/providers/firefly/endpoint/getFollowingNFTs.js';
-import { NFTSCAN_CHAIN_IDS } from '@/providers/nft-scan/constants.js';
+import { NFTSCAN_CHAIN_IDS } from '@/providers/nftscan/constants.js';
 
 export function FollowingNFTList({ walletAddress }: { walletAddress?: string }) {
     const queryKey = walletAddress ? ['nfts-of', walletAddress.toLowerCase()] : ['nfts', 'following', Source.NFTs];

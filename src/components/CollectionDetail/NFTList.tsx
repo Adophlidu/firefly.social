@@ -6,7 +6,7 @@ import { GridListInPage, type GridListInPageProps } from '@/components/GridListI
 import { getNFTItemContent, POAPGridListComponent } from '@/components/Profile/POAPList.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { getCollectionItems } from '@/providers/firefly/nft/getCollectionItems.js';
-import { ErcType } from '@/providers/nft-scan/types.js';
+import { ErcType } from '@/providers/nftscan/types.js';
 import { fillBookmarkStatusForNonFungibleAssets } from '@/services/fillBookmarkStatusForNFT.js';
 
 interface NFTListProps extends Partial<GridListInPageProps> {

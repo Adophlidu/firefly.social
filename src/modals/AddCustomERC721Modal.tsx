@@ -26,7 +26,7 @@ import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { type AddCustomERC20ModalOpenProps } from '@/modals/AddCustomERC20Modal.js';
 import { getCollection } from '@/providers/firefly/nft/getCollection.js';
-import { NFTSCAN_CHAIN_IDS } from '@/providers/nft-scan/constants.js';
+import { NFTSCAN_CHAIN_IDS } from '@/providers/nftscan/constants.js';
 import { CustomTokenType, useCustomTokenStore } from '@/store/useCustomTokenStore.js';
 import { EthereumChainId, EthereumSchemaType } from '@/web3-shared/evm/types.js';
 

@@ -2,7 +2,7 @@ import urlcat from 'urlcat';
 
 import { adjustAssetUris } from '@/helpers/adjustAssetUris.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
-import { NFTSCAN_CHAIN_IDS } from '@/providers/nft-scan/constants.js';
+import { NFTSCAN_CHAIN_IDS } from '@/providers/nftscan/constants.js';
 import { type NFTDetailResponse } from '@/providers/types/NFTs.js';
 import { settings } from '@/settings/index.js';
 

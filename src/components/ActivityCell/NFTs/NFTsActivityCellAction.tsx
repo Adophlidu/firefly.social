@@ -19,7 +19,7 @@ import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
-import { type EVM as NFTScanEVM, TransEventType } from '@/providers/nft-scan/types.js';
+import { type EVM as NFTScanEVM, TransEventType } from '@/providers/nftscan/types.js';
 import { type NFTFeedV3 } from '@/providers/types/NFTs.js';
 import { type EthereumChainId } from '@/web3-shared/evm/types.js';
 

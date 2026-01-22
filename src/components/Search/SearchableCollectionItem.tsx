@@ -7,7 +7,7 @@ import { Link } from '@/components/Link.js';
 import { NFTImage } from '@/components/NFTImage.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
-import { type EVM } from '@/providers/nft-scan/types.js';
+import { type EVM } from '@/providers/nftscan/types.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 interface CollectionItemProps extends HTMLProps<HTMLAnchorElement> {

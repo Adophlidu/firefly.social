@@ -25,7 +25,7 @@ import { useCollectionMarketInfo } from '@/hooks/useCollectionMarketInfo.js';
 import { useEnsName } from '@/hooks/useEnsName.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { usePoapTraits } from '@/hooks/usePoapTraits.js';
-import { type EVM } from '@/providers/nft-scan/types.js';
+import { type EVM } from '@/providers/nftscan/types.js';
 import { type NonFungibleTokenTrait } from '@/web3-shared/base/specs.js';
 
 interface NFTInfoProps {

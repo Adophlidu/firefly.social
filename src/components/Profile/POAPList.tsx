@@ -18,7 +18,7 @@ import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { usePoapsByWallet } from '@/hooks/nft/usePoapsByWallet.js';
 import { useEnsName } from '@/hooks/useEnsName.js';
-import { type EVM } from '@/providers/nft-scan/types.js';
+import { type EVM } from '@/providers/nftscan/types.js';
 import { type NFTDetail } from '@/providers/types/Firefly.js';
 import { type Poap } from '@/providers/types/NFTs.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';

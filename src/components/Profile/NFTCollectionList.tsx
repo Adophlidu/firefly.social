@@ -15,8 +15,8 @@ import { createIndicator } from '@/helpers/pageable.js';
 import { usePoapsByWallet } from '@/hooks/nft/usePoapsByWallet.js';
 import { useMultiInfiniteQueryPageable } from '@/hooks/useMultiInfiniteQueryPageable.js';
 import { getUserCollections } from '@/providers/firefly/nft/getUserCollections.js';
-import { NFTSCAN_CHAIN_IDS } from '@/providers/nft-scan/constants.js';
-import { type EVM } from '@/providers/nft-scan/types.js';
+import { NFTSCAN_CHAIN_IDS } from '@/providers/nftscan/constants.js';
+import { type EVM } from '@/providers/nftscan/types.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 interface NFTCollectionItemProps {

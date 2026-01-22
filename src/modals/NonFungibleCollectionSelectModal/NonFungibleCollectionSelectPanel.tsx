@@ -12,7 +12,7 @@ import { useCustomNonFungibleTokens } from '@/hooks/useCustomNonFungibleTokens.j
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useNFTCollections } from '@/hooks/useNFTCollections.js';
 import { type Collection, CollectionItem } from '@/modals/NonFungibleCollectionSelectModal/CollectionItem.js';
-import { NFTSCAN_CHAIN_IDS } from '@/providers/nft-scan/constants.js';
+import { NFTSCAN_CHAIN_IDS } from '@/providers/nftscan/constants.js';
 import { EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
 interface NonFungibleCollectionSelectPanelProps {

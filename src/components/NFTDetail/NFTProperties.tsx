@@ -4,7 +4,7 @@ import { Trans } from '@lingui/react/macro';
 
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { getNFTPropertyValue } from '@/helpers/getNFTPropertyValue.js';
-import { type EVM } from '@/providers/nft-scan/types.js';
+import { type EVM } from '@/providers/nftscan/types.js';
 import { type NonFungibleTokenTrait } from '@/web3-shared/base/specs.js';
 
 interface NFTPropertiesProps {

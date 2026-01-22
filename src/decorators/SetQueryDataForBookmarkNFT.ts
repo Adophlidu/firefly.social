@@ -7,7 +7,7 @@ import { type PageData } from '@/decorators/types.js';
 import { patchTransactionsQuery } from '@/helpers/patchTransactionsQuery.js';
 import { resolveNFTId, resolveNFTIdFromAsset } from '@/helpers/resolveNFTIdFromAsset.js';
 import { type FireflyBookmark } from '@/providers/firefly/Bookmark.js';
-import { type EVM } from '@/providers/nft-scan/types.js';
+import { type EVM } from '@/providers/nftscan/types.js';
 import { type FollowingNFT, type NFTFeedV3, type Poap } from '@/providers/types/NFTs.js';
 import { type ClassType } from '@/types/utility.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';

@@ -1,6 +1,6 @@
 import { type Address } from 'viem';
 
-import { type EVM, type TransEventType } from '@/providers/nft-scan/types.js';
+import { type EVM, type TransEventType } from '@/providers/nftscan/types.js';
 import { type FireflyDisplayInfo, type FollowingSource, type NFTDetail } from '@/providers/types/Firefly.js';
 
 interface Response<T> {
