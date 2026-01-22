@@ -30,6 +30,7 @@ function isWhitelisted(filePath) {
         'src/helpers/q.ts',
         'src/proxy.ts',
         'src/types/ethereum.ts',
+        'src/providers/twitter/getWebhookMessagesByUserId.ts',
     ];
     if (whitelistedFiles.includes(pathname)) return true;
 
