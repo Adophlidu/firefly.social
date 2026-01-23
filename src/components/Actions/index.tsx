@@ -14,6 +14,7 @@ import { PostStatistics } from '@/components/Actions/PostStatistics.js';
 import { Share } from '@/components/Actions/Share.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tips } from '@/components/Tips/index.js';
+import { queryClient } from '@/configs/queryClient.js';
 import { ENABLED_BOOKMARK_SOURCES } from '@/constants/computed.js';
 import { Source } from '@/constants/enum.js';
 import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
@@ -49,6 +50,22 @@ export const PostActionsWithGrid = memo<PostActionsWithGridProps>(function PostA
                 const provider = resolveSocialMediaProvider(initialPost.source);
                 const post = await provider.getPostById(postId);
                 if (!post) return;
+                if (initialPost.source === Source.Twitter) {
+                    queryClient.setQueryData(
+                        [initialPost.source, 'post-detail', initialPost.postId],
+                        (oldData: Post | undefined) => {
+                            if (!oldData) return post;
+                            return {
+                                ...post,
+                                metadata: {
+                                    ...post.metadata,
+                                    article: post.metadata?.article ?? oldData.metadata?.article,
+                                },
+                            };
+                        },
+                    );
+                }
+
                 return post;
             } catch (error) {
                 if (error instanceof NotFoundError) return;
