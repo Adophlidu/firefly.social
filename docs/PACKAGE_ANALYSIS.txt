@@ -865,7 +865,7 @@ Packages with Single Version
  @tanstack/virtual-core@3.13.6
  @testing-library/dom@10.4.1
  @testing-library/jest-dom@6.9.1
-*@testing-library/react@16.3.1
+*@testing-library/react@16.3.2
  @testing-library/user-event@14.6.1
 *@tippyjs/react@4.2.6
  @trysound/sax@0.2.0

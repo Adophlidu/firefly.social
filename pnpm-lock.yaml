@@ -408,8 +408,8 @@ importers:
         specifier: ^0.5.11
         version: 0.5.11(tailwindcss@3.4.19)
       '@testing-library/react':
-        specifier: ^16.3.1
-        version: 16.3.1(@testing-library/dom@10.4.1)(@types/react-dom@19.2.3)(@types/react@19.2.8)(react-dom@19.2.3)(react@19.2.3)
+        specifier: ^16.3.2
+        version: 16.3.2(@testing-library/dom@10.4.1)(@types/react-dom@19.2.3)(@types/react@19.2.8)(react-dom@19.2.3)(react@19.2.3)
       '@types/bs58':
         specifier: ^4.0.4
         version: 4.0.4
@@ -2057,7 +2057,6 @@ packages:
   /@babel/runtime@7.28.6:
     resolution: {integrity: sha512-05WQkdpL9COIMz4LjTxGpPNCdlpyimKppYNoJ5Di5EUObifl8t4tuLuUBBZEpoLYOmfvIWrsp9fCl0HoPRVTdA==}
     engines: {node: '>=6.9.0'}
-    dev: true
 
   /@babel/template@7.27.2:
     resolution: {integrity: sha512-LPDZ85aEJyYSd18/DkjNh4/y1ntkE5KwUHWTiqgRxruuZL2F1yuHligVHLvcHY2vMHXttKFpJn6LwfI7cw7ODw==}
@@ -4672,7 +4671,7 @@ packages:
         optional: true
     dependencies:
       '@babel/core': 7.28.5
-      '@babel/runtime': 7.28.4
+      '@babel/runtime': 7.28.6
       '@babel/types': 7.28.5
       '@lingui/conf': 5.5.2(typescript@5.9.3)
       '@lingui/core': 5.5.2(@lingui/babel-plugin-lingui-macro@5.5.2)
@@ -5076,7 +5075,7 @@ packages:
   /@metamask/sdk@0.33.1:
     resolution: {integrity: sha512-1mcOQVGr9rSrVcbKPNVzbZ8eCl1K0FATsYH3WJ/MH4WcZDWGECWrXJPNMZoEAkLxWiMe8jOQBumg2pmcDa9zpQ==}
     dependencies:
-      '@babel/runtime': 7.28.4
+      '@babel/runtime': 7.28.6
       '@metamask/onboarding': 1.0.1
       '@metamask/providers': 16.1.0
       '@metamask/sdk-analytics': 0.0.5
@@ -8101,7 +8100,7 @@ packages:
   /@solana/web3.js@1.98.4(typescript@5.9.3):
     resolution: {integrity: sha512-vv9lfnvjUsRiq//+j5pBdXig0IQdtzA0BRZ3bXEP4KaIyF1CcaydWqgyzQgfZMNIsWNWmG+AUHwPy4AHOD6gpw==}
     dependencies:
-      '@babel/runtime': 7.28.4
+      '@babel/runtime': 7.28.6
       '@noble/curves': 1.9.2
       '@noble/hashes': 1.8.0
       '@solana/buffer-layout': 4.0.1
@@ -8874,8 +8873,8 @@ packages:
       redent: 3.0.0
     dev: true
 
-  /@testing-library/react@16.3.1(@testing-library/dom@10.4.1)(@types/react-dom@19.2.3)(@types/react@19.2.8)(react-dom@19.2.3)(react@19.2.3):
-    resolution: {integrity: sha512-gr4KtAWqIOQoucWYD/f6ki+j5chXfcPc74Col/6poTyqTmn7zRmodWahWRCp8tYd+GMqBonw6hstNzqjbs6gjw==}
+  /@testing-library/react@16.3.2(@testing-library/dom@10.4.1)(@types/react-dom@19.2.3)(@types/react@19.2.8)(react-dom@19.2.3)(react@19.2.3):
+    resolution: {integrity: sha512-XU5/SytQM+ykqMnAnvB2umaJNIOsLF3PVv//1Ew4CTcpz0/BRyy/af40qqrt7SjKpDdT1saBMc42CUok5gaw+g==}
     engines: {node: '>=18'}
     peerDependencies:
       '@testing-library/dom': ^10.0.0
@@ -8889,7 +8888,7 @@ packages:
       '@types/react-dom':
         optional: true
     dependencies:
-      '@babel/runtime': 7.28.4
+      '@babel/runtime': 7.28.6
       '@testing-library/dom': 10.4.1
       '@types/react': 19.2.8
       '@types/react-dom': 19.2.3(@types/react@19.2.8)
@@ -12351,7 +12350,7 @@ packages:
   /dom-helpers@5.2.1:
     resolution: {integrity: sha512-nRCa7CK3VTrM2NmGkIy4cbK7IZlgBE/PYMn55rrXefr5xXDP0LdtfPnblFDoVdcAfslJ7or6iqAUnx0CCGIWQA==}
     dependencies:
-      '@babel/runtime': 7.28.4
+      '@babel/runtime': 7.28.6
       csstype: 3.2.3
     dev: false
 
@@ -16790,7 +16789,7 @@ packages:
     peerDependencies:
       react: 19.2.3
     dependencies:
-      '@babel/runtime': 7.28.4
+      '@babel/runtime': 7.28.6
       react: 19.2.3
     dev: false
 
@@ -16916,7 +16915,7 @@ packages:
       react: 19.2.3
       react-dom: 19.2.3
     dependencies:
-      '@babel/runtime': 7.28.4
+      '@babel/runtime': 7.28.6
       dom-helpers: 5.2.1
       loose-envify: 1.4.0
       prop-types: 15.8.1
@@ -17097,7 +17096,7 @@ packages:
   /regenerator-transform@0.15.2:
     resolution: {integrity: sha512-hfMp2BoF0qOk3uc5V20ALGDS2ddjQaLrdl7xrGXvAIow7qeWRM2VA2HuCHkUKk9slq3VwEwLNK3DFBqDfPGYtg==}
     dependencies:
-      '@babel/runtime': 7.28.4
+      '@babel/runtime': 7.28.6
     dev: true
 
   /regexp-tree@0.1.27:
@@ -17356,7 +17355,7 @@ packages:
   /rtl-css-js@1.16.1:
     resolution: {integrity: sha512-lRQgou1mu19e+Ya0LsTvKrVJ5TYUbqCVPAiImX3UfLTenarvPUl1QFdvu5Z3PYmHT9RCcwIfbjRQBntExyj3Zg==}
     dependencies:
-      '@babel/runtime': 7.28.4
+      '@babel/runtime': 7.28.6
     dev: false
 
   /run-parallel@1.2.0:
@@ -20243,7 +20242,7 @@ time:
   /@tanstack/react-query@5.85.5: '2025-08-19T09:41:51.252Z'
   /@tanstack/react-ranger@0.0.5: '2025-12-06T12:17:28.691Z'
   /@tanstack/react-router@1.115.3: '2025-04-11T17:19:55.545Z'
-  /@testing-library/react@16.3.1: '2025-12-15T14:00:32.140Z'
+  /@testing-library/react@16.3.2: '2026-01-19T10:59:08.185Z'
   /@tippyjs/react@4.2.6: '2021-10-29T12:39:32.094Z'
   /@types/bs58@4.0.4: '2023-11-07T19:50:29.016Z'
   /@types/js-yaml@4.0.9: '2023-11-07T20:20:13.264Z'
