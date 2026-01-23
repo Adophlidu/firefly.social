@@ -15,9 +15,10 @@ import { PredictionPlatformName } from '@/components/Prediction/PredictionPlatfo
 import { PredictionPlatform, Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
-import { formatPrice } from '@/helpers/formatPrice.js';
+import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
+import { isZero } from '@/helpers/number.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { getWalletProfileInfoList } from '@/providers/firefly/prediction/getWalletProfileInfoList.js';
 import type { PredictionProfileDataForUI } from '@/types/prediction.js';
@@ -91,7 +92,7 @@ export function PredictionProfileOverview({ profile, platform, address }: Predic
             },
             {
                 label: <Trans>Available Balance</Trans>,
-                value: <span>{`$${formatPrice(profile.cash_balance)}`}</span>,
+                value: <span>{isZero(profile.cash_balance) ? '$0' : `$${formatTokenUSD(profile.cash_balance)}`}</span>,
             },
             isOpinion
                 ? null
