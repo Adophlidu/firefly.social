@@ -406,12 +406,16 @@ class NitterSocialMedia implements Provider {
 
     async getCommentsById(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         if (!isServer && twitterSessionHolder.session) throw new NotImplementedError();
-        const { replies, after } = await NitterAPIProvider.getTweetStatus('web', postId, {
+        const { tweet, replies, after } = await NitterAPIProvider.getTweetStatus('web', postId, {
             cursor: indicator?.id,
         });
         const pageable = await runInSafeAsync(async () => {
+            // Format the parent tweet as the commentOn for all comments
+            // This ensures that when navigating from a comment list to a comment page,
+            // the parent post (with all its media/attachments) is properly loaded
+            const commentOn = formatTwitterPostFromNitter(tweet);
             const data = [...(!indicator?.id ? [...after.tweets] : []), ...replies.tweets].map((tweet) =>
-                formatTwitterPostFromNitter(tweet),
+                formatTwitterPostFromNitter(tweet, { base: { commentOn } }),
             );
             return createPageable(
                 await patchPostsClientToFirefly(data),
@@ -424,11 +428,21 @@ class NitterSocialMedia implements Provider {
 
     async getThreadByPostId(postId: string): Promise<Post[]> {
         const { tweet, before, after } = await NitterAPIProvider.getTweetStatus('web', postId);
-        return patchPostsClientToFirefly([
-            ...before.tweets.map((x) => formatTwitterPostFromNitter(x)),
-            formatTwitterPostFromNitter(tweet),
-            ...after.tweets.map((x) => formatTwitterPostFromNitter(x)),
-        ]);
+
+        // Combine all tweets into one array for processing
+        const allTweets = [...before.tweets, tweet, ...after.tweets];
+
+        // Build a map of tweets by ID for parent lookup
+        const tweetMap = new Map(allTweets.map((t) => [t.id, t]));
+
+        // Format each tweet with its parent as commentOn (if parent exists)
+        const posts = allTweets.map((tweet) => {
+            const parentTweet = tweet.replyId && tweet.replyId !== '0' ? tweetMap.get(tweet.replyId) : undefined;
+            const commentOn = parentTweet ? formatTwitterPostFromNitter(parentTweet) : undefined;
+            return formatTwitterPostFromNitter(tweet, { base: { commentOn } });
+        });
+
+        return patchPostsClientToFirefly(posts);
     }
 
     upvotePost(postId: string): Promise<void> {
