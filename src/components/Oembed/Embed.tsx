@@ -24,14 +24,7 @@ export function Embed({ og }: EmbedProps) {
         : null;
 
     if (!imageProps) {
-        return (
-            <PureLink
-                url={og.url}
-                title={og.title || u.host}
-                description={og.description || u.hostname}
-                className="mt-2"
-            />
-        );
+        return <PureLink url={og.url} title={og.title || og.site} description={og.description} className="mt-2" />;
     }
 
     return (
@@ -66,8 +59,8 @@ export function Embed({ og }: EmbedProps) {
                             </div>
                         ) : null}
                         <div className="truncate px-3 py-2 text-left text-second">
-                            <div className="line-clamp-1 max-w-full text-base font-semibold text-main first-letter:uppercase">
-                                {og.title || u.host}
+                            <div className="line-clamp-1 max-w-full text-base font-semibold text-main first-letter:uppercase empty:hidden">
+                                {og.title || og.site}
                             </div>
                             <div className="line-clamp-1 max-w-full text-sm font-medium text-highlight">
                                 {u?.hostname || og.url}
