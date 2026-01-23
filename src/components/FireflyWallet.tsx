@@ -1,6 +1,5 @@
 'use client';
 
-import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
@@ -33,7 +32,10 @@ export function FireflyWallet() {
     const allConnectionsQuery = useAllConnections();
 
     const handleRefresh = useCallback(() => {
-        iframeBridgeProvider.request(IframeBridgeMethod.FIREFLY_WALLET_REFRESH, {});
+        const iframe = document.getElementById(FIREFLY_WALLET_IFRAME_ID) as HTMLIFrameElement | null;
+        if (iframe) {
+            iframe.contentWindow?.location.reload();
+        }
     }, []);
 
     useEffect(() => {
