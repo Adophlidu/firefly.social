@@ -264,32 +264,38 @@ class OfficialSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    getLikeReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        throw new NotImplementedError();
+    async getLikeReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        const cursor = indicator?.id;
+        const url = urlcat('/api/twitter/:postId/likers', { postId, limit: 100, cursor });
+        const response =
+            await twitterSessionHolder.fetch<ResponseJson<{ data: UserV2[]; meta: { next_token?: string } }>>(url);
+        const data = resolveTwitterResponseData(response);
+        return createPageable(
+            data.data?.map(formatTwitterProfile) ?? EMPTY_LIST,
+            createIndicator(indicator),
+            data.meta?.next_token ? createNextIndicator(indicator, data.meta.next_token) : undefined,
+        );
     }
 
-    getRepostReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+    async getRepostReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         const cursor = indicator?.id;
         const url = urlcat('/api/twitter/:postId/retweeters', { postId, limit: 100, cursor });
-        return twitterSessionHolder
-            .fetch<ResponseJson<{ data: UserV2[]; meta: { next_token?: string } }>>(url)
-            .then((response) => {
-                const data = resolveTwitterResponseData(response);
-                return createPageable(
-                    data.data?.map(formatTwitterProfile) ?? EMPTY_LIST,
-                    createIndicator(indicator),
-                    data.meta?.next_token ? createNextIndicator(indicator, data.meta.next_token) : undefined,
-                );
-            });
+        const response =
+            await twitterSessionHolder.fetch<ResponseJson<{ data: UserV2[]; meta: { next_token?: string } }>>(url);
+        const data = resolveTwitterResponseData(response);
+        return createPageable(
+            data.data?.map(formatTwitterProfile) ?? EMPTY_LIST,
+            createIndicator(indicator),
+            data.meta?.next_token ? createNextIndicator(indicator, data.meta.next_token) : undefined,
+        );
     }
 
-    getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+    async getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const cursor = indicator?.id;
         const url = urlcat('/api/twitter/:postId/quotes', { postId, limit: 25, cursor });
-        return twitterSessionHolder.fetch<ResponseJson<TweetV2PaginableTimelineResult>>(url).then((response) => {
-            const data = resolveTwitterResponseData(response);
-            return formatTweetsPage(data, indicator);
-        });
+        const response = await twitterSessionHolder.fetch<ResponseJson<TweetV2PaginableTimelineResult>>(url);
+        const data = resolveTwitterResponseData(response);
+        return formatTweetsPage(data, indicator);
     }
 
     async unmirrorPost(postId: string, authorId?: number | undefined): Promise<void> {
