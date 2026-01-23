@@ -92,7 +92,7 @@
         "lexical": "^0.18.0",
         "linkedom": "^0.18.12",
         "localforage": "^1.10.0",
-        "lodash-es": "^4.17.22",
+        "lodash-es": "^4.17.23",
         "next": "^16.0.10",
         "next-auth": "^4.24.13",
         "nuqs": "^2.7.3",

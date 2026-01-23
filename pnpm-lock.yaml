@@ -254,8 +254,8 @@ importers:
         specifier: ^1.10.0
         version: 1.10.0
       lodash-es:
-        specifier: ^4.17.22
-        version: 4.17.22
+        specifier: ^4.17.23
+        version: 4.17.23
       next:
         specifier: ^16.0.10
         version: 16.0.10(@babel/core@7.28.6)(react-dom@19.2.3)(react@19.2.3)
@@ -543,8 +543,8 @@ importers:
         specifier: workspace:^
         version: link:../utils
       lodash-es:
-        specifier: ^4.17.22
-        version: 4.17.22
+        specifier: ^4.17.23
+        version: 4.17.23
     devDependencies:
       '@types/lodash-es':
         specifier: ^4.17.12
@@ -562,8 +562,8 @@ importers:
         specifier: workspace:^
         version: link:../utils
       lodash-es:
-        specifier: ^4.17.22
-        version: 4.17.22
+        specifier: ^4.17.23
+        version: 4.17.23
     devDependencies:
       '@types/lodash-es':
         specifier: ^4.17.12
@@ -14872,8 +14872,8 @@ packages:
       p-locate: 6.0.0
     dev: true
 
-  /lodash-es@4.17.22:
-    resolution: {integrity: sha512-XEawp1t0gxSi9x01glktRZ5HDy0HXqrM0x5pXQM98EaI0NxO6jVM7omDOxsuEo5UIASAnm2bRp1Jt/e0a2XU8Q==}
+  /lodash-es@4.17.23:
+    resolution: {integrity: sha512-kVI48u3PZr38HdYz98UmfPnXl2DXrpdctLrFLCd3kOx1xUkOmpFPx7gCWWM5MPkL/fD8zb+Ph0QzjGFs4+hHWg==}
     dev: false
 
   /lodash.camelcase@4.3.0:
@@ -20293,7 +20293,7 @@ time:
   /lexical@0.18.0: '2024-09-26T17:26:17.141Z'
   /linkedom@0.18.12: '2025-08-21T08:56:47.934Z'
   /localforage@1.10.0: '2021-08-18T21:22:08.980Z'
-  /lodash-es@4.17.22: '2025-12-16T16:55:47.833Z'
+  /lodash-es@4.17.23: '2026-01-21T17:28:42.265Z'
   /next-auth@4.24.13: '2025-10-29T20:52:19.822Z'
   /next@16.0.10: '2025-12-11T22:56:10.472Z'
   /nuqs@2.7.3: '2025-11-07T16:29:58.363Z'

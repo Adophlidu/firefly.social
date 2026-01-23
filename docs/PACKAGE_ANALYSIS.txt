@@ -1444,7 +1444,7 @@ Packages with Single Version
  loadjs@4.3.0
 *localforage@1.10.0
  lodash@4.17.21
-*lodash-es@4.17.22
+*lodash-es@4.17.23
  lodash.camelcase@4.3.0
  lodash.debounce@4.0.8
  lodash.merge@4.6.2
