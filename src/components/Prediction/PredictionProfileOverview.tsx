@@ -110,9 +110,11 @@ export function PredictionProfileOverview({ profile, platform, address }: Predic
                       label: <Trans>Total Losses</Trans>,
                       value: (
                           <span>
-                              {`${formatPolymarketNumber(profile.losses, {
-                                  symbol: false,
-                              })}`}
+                              {profile.losses
+                                  ? `${formatPolymarketNumber(-Math.abs(profile.losses), {
+                                        symbol: true,
+                                    })}`
+                                  : 0}
                           </span>
                       ),
                   },
