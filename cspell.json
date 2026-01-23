@@ -574,7 +574,8 @@
         "cyom",
         "mergeable",
         "CASHPNL",
-        "PERCENTPNL"
+        "PERCENTPNL",
+        "vfile"
     ],
     "flagWords": [],
     "ignorePaths": [

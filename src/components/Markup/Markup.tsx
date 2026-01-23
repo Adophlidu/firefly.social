@@ -1,7 +1,16 @@
 'use client';
 
 import { compact } from 'lodash-es';
-import { type DetailedHTMLProps, memo, type OlHTMLAttributes, type PropsWithChildren, useMemo } from 'react';
+import {
+    Children,
+    cloneElement,
+    type DetailedHTMLProps,
+    isValidElement,
+    memo,
+    type OlHTMLAttributes,
+    type PropsWithChildren,
+    useMemo,
+} from 'react';
 import ReactMarkdown, { type Options as ReactMarkdownOptions } from 'react-markdown';
 import remarkBreaks from 'remark-breaks';
 import linkifyRegex from 'remark-linkify-regex';
@@ -13,7 +22,6 @@ import { HashTagLink } from '@/components/Markup/plugins/HashTagLink.js';
 import { MergeAdjacentTextPlugin } from '@/components/Markup/plugins/MergeAdjacentTextPlugin.js';
 import { preserveListNumbers } from '@/components/Markup/plugins/preserveListNumber.js';
 import { UrlPlugin } from '@/components/Markup/plugins/UrlPlugin.js';
-import { Source } from '@/constants/enum.js';
 import {
     CHANNEL_REGEX,
     EMAIL_REGEX,
@@ -36,19 +44,49 @@ export interface MarkupProps extends Omit<ReactMarkdownOptions, 'children'> {
 }
 
 function Ol({ children, ...props }: DetailedHTMLProps<OlHTMLAttributes<HTMLOListElement>, HTMLOListElement>) {
-    return <ol {...props}>{children}</ol>;
+    const start = props.start ?? 1;
+    let validIndex = 0;
+
+    return (
+        <ol {...props} style={{ counterReset: `list-counter ${props.start ? props.start - 1 : ''}` }}>
+            {Children.map(children, (child) => {
+                if (!isValidElement(child)) return child;
+
+                const currentIndex = validIndex;
+                validIndex += 1;
+
+                // @ts-ignore augment li to carry ordered/index for our custom renderer
+                return cloneElement(child, {
+                    // @ts-ignore
+                    ordered: true,
+                    index: start + currentIndex,
+                });
+            })}
+        </ol>
+    );
 }
 
 function Ul({ children }: React.HTMLAttributes<HTMLUListElement>) {
     return <div>{children}</div>;
 }
 
-function Li({ children }: PropsWithChildren) {
-    return <li>{children}</li>;
-}
-
-function Strong({ children }: PropsWithChildren) {
-    return <span>**{children}**</span>;
+function Li({
+    children,
+    ordered,
+    index,
+    'data-marker': marker,
+}: PropsWithChildren<{
+    ordered?: boolean;
+    index?: number;
+    'data-marker'?: string;
+}>) {
+    const prefix = ordered ? `${index}. ` : `${marker || '-'} `;
+    return (
+        <div className="flex">
+            <span className="shrink-0 whitespace-pre">{prefix}</span>
+            <span>{children}</span>
+        </div>
+    );
 }
 
 export const Markup = memo<MarkupProps>(function Markup({ children, post, ...rest }) {
@@ -100,13 +138,8 @@ export const Markup = memo<MarkupProps>(function Markup({ children, post, ...res
                 a: (props) => <MarkupLink {...props} post={post} source={post?.source} />,
                 code: Code,
                 ol: Ol,
-                ...(post?.source !== Source.Lens
-                    ? {
-                          ul: Ul,
-                          li: Li,
-                          strong: Strong,
-                      }
-                    : {}),
+                ul: Ul,
+                li: Li,
                 ...rest.components,
             }}
             unwrapDisallowed={false}
