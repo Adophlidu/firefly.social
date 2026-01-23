@@ -1,19 +1,27 @@
 import { classNames } from '@dimensiondev/utils';
+import { useMemo } from 'react';
 
+import { Link } from '@/components/Link.js';
 import { ArticleMarkup } from '@/components/Markup/ArticleMarkup.js';
 import { ImageAsset } from '@/components/Posts/ImageAsset.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/browser.js';
 import { Source } from '@/constants/enum.js';
+import { TWITTER_ARTICLE_REGEX } from '@/constants/regexp.js';
 import { PreviewMediaModalRef } from '@/modals/PreviewMediaModal/PreviewMediaModal.js';
 
 interface Props {
     cover?: string;
     title: string;
     content?: string;
+    oembedUrls?: string[];
 }
 
-export function TwitterArticleBody({ cover, title, content }: Props) {
-    return (
+export function TwitterArticleBody({ cover, title, content, oembedUrls }: Props) {
+    const articleUrl = useMemo(() => {
+        return oembedUrls?.find((url) => TWITTER_ARTICLE_REGEX.test(url));
+    }, [oembedUrls]);
+
+    const body = (
         <article className="relative mt-[6px] flex flex-col gap-2 overflow-hidden rounded-2xl border border-line bg-bg p-3 text-left text-main">
             {cover ? (
                 <ImageAsset
@@ -70,4 +78,14 @@ export function TwitterArticleBody({ cover, title, content }: Props) {
             ) : null}
         </article>
     );
+
+    if (articleUrl) {
+        return (
+            <Link href={articleUrl} target="_blank" onClick={(e) => e.stopPropagation()}>
+                {body}
+            </Link>
+        );
+    }
+
+    return body;
 }

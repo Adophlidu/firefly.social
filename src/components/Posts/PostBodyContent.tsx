@@ -7,7 +7,6 @@ import { useMemo } from 'react';
 import { TwitterArticleBody } from '@/components/Article/TwitterArticleBody.js';
 import { EmbedCards } from '@/components/EmbedCards/index.js';
 import { ErrorBoundary } from '@/components/ErrorBoundary/index.js';
-import { Link } from '@/components/Link.js';
 import { NakedMarkup } from '@/components/Markup/NakedMarkup.js';
 import { PostMarkup } from '@/components/Markup/PostMarkup.js';
 import { FramePoll } from '@/components/Poll/FramePoll.js';
@@ -32,7 +31,6 @@ import { getPollIdFromLink } from '@/helpers/getPollIdFromLink.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { resolveOembedUrl } from '@/helpers/resolveOembedUrl.js';
-import { resolvePostArticleUrl } from '@/helpers/resolvePostArticleUrl.js';
 import { trimify } from '@/helpers/trimify.js';
 import { useEverSeen } from '@/hooks/useEverSeen.js';
 import { useForkRef } from '@/hooks/useForkRef.js';
@@ -190,9 +188,7 @@ export function PostBodyContent({ ref, ...props }: PostBodyContentProps) {
             )}
 
             {post.metadata.article ? (
-                <Link href={resolvePostArticleUrl(post)} target="_blank" onClick={(e) => e.stopPropagation()}>
-                    <TwitterArticleBody {...post.metadata.article} />
-                </Link>
+                <TwitterArticleBody {...post.metadata.article} oembedUrls={post.metadata.content?.oembedUrls} />
             ) : null}
 
             {showTranslate &&

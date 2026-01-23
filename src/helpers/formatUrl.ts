@@ -6,7 +6,12 @@
  * @returns truncated url
  */
 export function formatUrl(url: string, maxLength: number): string {
-    const strippedUrl = url.replace(/^(http|https):\/\//, '').replace(/^www\./, '');
+    let strippedUrl = url.replace(/^(http|https):\/\//, '').replace(/^www\./, '');
+
+    // Remove trailing slash if it's just the domain (no path)
+    if (/^[^/]+\/$/.test(strippedUrl)) {
+        strippedUrl = strippedUrl.slice(0, -1);
+    }
 
     if (strippedUrl.length > maxLength) {
         return strippedUrl.substring(0, maxLength - 1) + '…';

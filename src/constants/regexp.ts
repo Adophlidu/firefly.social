@@ -71,3 +71,5 @@ export const TWITTER_PROFILE_SEARCH_REGEXP = /^[A-Za-z0-9_' ]{1,50}$/;
 /* cspell:ignore youtu */
 export const YOUTUBE_URL_REGEX = /^https?:\/\/(?:www\.)?youtu(?:be\.com\/watch\?v=|\.be\/)([\w-]+)(?:\?.*)?$/;
 export const YOUTUBE_SHORT_URL_REGEX = /^https?:\/\/(?:www\.)?youtu(?:be\.com\/shorts\/|\.be\/)([\w-]+)(?:\?.*)?$/;
+
+export const TWITTER_ARTICLE_REGEX = /^https?:\/\/(x|twitter)\.com\/i\/article\/\d+$/;
