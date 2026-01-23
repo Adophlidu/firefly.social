@@ -911,7 +911,7 @@ Packages with Single Version
  @types/pako@2.0.3
  @types/pixelmatch@5.2.4
  @types/pngjs@6.0.5
-*@types/react@19.2.8
+*@types/react@19.2.9
 *@types/react-avatar-editor@13.0.4
 *@types/react-dom@19.2.3
  @types/resolve@1.20.2
