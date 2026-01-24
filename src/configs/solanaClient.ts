@@ -16,4 +16,4 @@ export const solanaAdapter = new SolanaAdapterWithPrivy({
     wallets: [new PhantomWalletAdapter() as unknown as BaseWalletAdapter, privySolanaWalletAdapter],
 });
 
-export const solanaNetworks: AppKitNetwork[] = [solana];
+export const solanaNetworks = [solana] as AppKitNetwork[];

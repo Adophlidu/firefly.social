@@ -72,3 +72,6 @@ packages/*/node_modules/
 
 # image comparison artifacts
 .image-comparison/
+
+# eslint cache
+.eslintcache

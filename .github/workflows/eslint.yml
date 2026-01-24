@@ -36,4 +36,4 @@ jobs:
               run: pnpm install
 
             - name: Run ESLint
-              run: npx eslint . --quiet
+              run: NODE_OPTIONS=--max_old_space_size=8192 npx eslint . --quiet --cache --cache-location .eslintcache

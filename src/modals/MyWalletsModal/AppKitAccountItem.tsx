@@ -1,6 +1,6 @@
 import { t } from '@lingui/core/macro';
 import { CoreConnectionController, CoreConnectorController } from '@reown/appkit';
-import { mainnet, solana } from '@reown/appkit/networks';
+import { type AppKitNetwork, mainnet, solana } from '@reown/appkit/networks';
 import { type FunctionComponent, type SVGAttributes } from 'react';
 import { useAsyncFn } from 'react-use';
 
@@ -70,7 +70,7 @@ export function AppKitAccountItem({
                     connection?.caipNetwork ||
                     (network === NetworkType.Solana ? solana : network === NetworkType.Ethereum ? mainnet : null);
                 if (appkitNetwork) {
-                    await appkit.switchNetwork(appkitNetwork);
+                    await appkit.switchNetwork(appkitNetwork as AppKitNetwork);
                 }
                 if (source === ConnectionSource.Privy) {
                     onOpenPrivy?.();
