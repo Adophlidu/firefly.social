@@ -92,7 +92,7 @@ export function PredictionProfileOverview({ profile, platform, address }: Predic
             },
             {
                 label: <Trans>Available Balance</Trans>,
-                value: <span>{isZero(profile.cash_balance) ? '$0' : `$${formatTokenUSD(profile.cash_balance)}`}</span>,
+                value: <span>{isZero(profile.cash_balance) ? '$0' : `${formatTokenUSD(profile.cash_balance)}`}</span>,
             },
             isOpinion
                 ? null
