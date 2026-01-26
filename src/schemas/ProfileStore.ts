@@ -1,6 +1,7 @@
 import z from 'zod';
 
-import { AsyncStatus, Source } from '@/constants/enum.js';
+import { SORTED_SOCIAL_SOURCES, SORTED_THIRD_PARTY_SOURCES } from '@/constants/computed.js';
+import { AsyncStatus, type ProfileSource, type SocialSource, Source } from '@/constants/enum.js';
 import { type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
 
 export const ProfileSchema = z.custom<Profile>(
@@ -16,23 +17,15 @@ export const ProfileSchema = z.custom<Profile>(
 
 const ProfileRequiredSchema = z.object({
     profileId: z.string(),
-    profileSource: z.union([
-        z.literal(Source.Firefly),
-        z.literal(Source.Farcaster),
-        z.literal(Source.Lens),
-        z.literal(Source.Twitter),
-        z.literal(Source.Bsky),
-        z.literal(Source.Telegram),
-        z.literal(Source.Apple),
-        z.literal(Source.Google),
-        z.literal(Source.Email),
-    ]),
-    source: z.union([
-        z.literal(Source.Farcaster),
-        z.literal(Source.Lens),
-        z.literal(Source.Twitter),
-        z.literal(Source.Bsky),
-    ]),
+    profileSource: z.custom<ProfileSource>(
+        (data) => [Source.Firefly, ...SORTED_SOCIAL_SOURCES, ...SORTED_THIRD_PARTY_SOURCES].includes(data),
+        {
+            message: 'Invalid profile source',
+        },
+    ),
+    source: z.custom<SocialSource>((data) => SORTED_SOCIAL_SOURCES.includes(data), {
+        message: 'Invalid social source',
+    }),
     status: z.union([z.literal(ProfileStatus.Active), z.literal(ProfileStatus.Inactive)]),
     handle: z.string().nullable(),
 });
