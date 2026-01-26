@@ -22,6 +22,10 @@ const ProfileRequiredSchema = z.object({
         z.literal(Source.Lens),
         z.literal(Source.Twitter),
         z.literal(Source.Bsky),
+        z.literal(Source.Telegram),
+        z.literal(Source.Apple),
+        z.literal(Source.Google),
+        z.literal(Source.Email),
     ]),
     source: z.union([
         z.literal(Source.Farcaster),
