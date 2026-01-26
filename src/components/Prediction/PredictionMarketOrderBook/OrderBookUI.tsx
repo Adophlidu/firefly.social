@@ -98,7 +98,7 @@ export const OrderBookUI = memo<OrderBookUIProps>(function OrderBookUI({ bids, a
                 <OrderBookList data={asks} side="asks" emptyMessage={<Trans>No asks</Trans>} />
                 <div ref={forkedRef} className="flex h-[14px] items-center text-third">
                     <span className="flex-1">
-                        <Trans id="bets-last-price">
+                        <Trans id="bets-last-price" comment="Last: {lastPrice}">
                             Last: {lastPrice !== null ? `${(lastPrice * 100).toFixed(1)}¢` : '-'}
                         </Trans>
                     </span>

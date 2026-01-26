@@ -12,7 +12,14 @@ const tabs = [
     { value: BetsEventInfoTab.TopHolders, label: <Trans>Top Holders</Trans> },
     { value: BetsEventInfoTab.Trades, label: <Trans>Trades</Trans> },
     { value: BetsEventInfoTab.Info, label: <Trans>Info</Trans> },
-    { value: BetsEventInfoTab.Resolution, label: <Trans id="bets-resolution">Resolution</Trans> },
+    {
+        value: BetsEventInfoTab.Resolution,
+        label: (
+            <Trans id="bets-resolution" comment="Resolution">
+                Resolution
+            </Trans>
+        ),
+    },
 ];
 
 export const PredictionBaseInfoTabs = memo<{

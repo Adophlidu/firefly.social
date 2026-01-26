@@ -86,7 +86,9 @@ export const PredictionTradeTimeline = memo<Props>(function PredictionTradeTimel
                     )}
                     onClick={() => setIsFollowing(false)}
                 >
-                    <Trans id="bets-trades-global">Global</Trans>
+                    <Trans id="bets-trades-global" comment="Global">
+                        Global
+                    </Trans>
                 </ClickableButton>
                 <ClickableButton
                     className={classNames(
@@ -95,7 +97,9 @@ export const PredictionTradeTimeline = memo<Props>(function PredictionTradeTimel
                     )}
                     onClick={() => setIsFollowing(true)}
                 >
-                    <Trans id="bets-trades-following">Following</Trans>
+                    <Trans id="bets-trades-following" comment="Following">
+                        Following
+                    </Trans>
                 </ClickableButton>
             </div>
             <ErrorBoundary>

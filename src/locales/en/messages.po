@@ -3144,19 +3144,23 @@ msgstr "<0><1/><2>{0}</2></0><3>on</3>{1}<4>{2}</4>"
 msgid "Failed to update profile."
 msgstr "Failed to update profile."
 
+#. Last: {lastPrice}
 #. js-lingui-explicit-id
 #. placeholder {0}: lastPrice !== null ? `${(lastPrice * 100).toFixed(1)}¢` : '-'
 msgid "bets-last-price"
 msgstr "Last: {0}"
 
+#. Resolution
 #. js-lingui-explicit-id
 msgid "bets-resolution"
 msgstr "Resolution"
 
+#. Following
 #. js-lingui-explicit-id
 msgid "bets-trades-following"
 msgstr "Following"
 
+#. Global
 #. js-lingui-explicit-id
 msgid "bets-trades-global"
 msgstr "Global"
