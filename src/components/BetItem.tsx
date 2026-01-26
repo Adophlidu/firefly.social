@@ -12,12 +12,13 @@ import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
 import { BUTTON_COLORS } from '@/components/Prediction/PredictionActivityRate.js';
 import { Timer } from '@/components/RedPacket/Timer.js';
+import { PredictionPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/static.js';
 import { bedStead } from '@/fonts/bedStead/index.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { isZero } from '@/helpers/number.js';
 import { openPredictionPage } from '@/helpers/openPredictionPage.js';
-import { resolvePolymarketEventUrl } from '@/helpers/resolvePolymarketEventUrl.js';
+import { RouteResolver } from '@/helpers/RouteResolver.js';
 import {
     type PolymarketEventListData,
     type PolymarketMarketData,
@@ -257,7 +258,7 @@ export const BetItem = memo(function BetItem({ event, className }: BetItemProps)
                 'mb-4 flex flex-col gap-3 rounded-2xl border border-line bg-primaryBottom p-4 hover:bg-bg',
                 className,
             )}
-            href={resolvePolymarketEventUrl(event.slug)}
+            href={RouteResolver.betsEventDetail(PredictionPlatform.Polymarket, event.slug)}
             target="_blank"
         >
             <div className="flex items-center gap-2">

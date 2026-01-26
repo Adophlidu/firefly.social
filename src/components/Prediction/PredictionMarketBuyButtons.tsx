@@ -48,7 +48,7 @@ export const PredictionMarketBuyButtons = memo<PredictionMarketBuyButtonsProps>(
 
                 return (
                     <ClickableButton
-                        key={outcome.id}
+                        key={`${outcome.id}-${i}`}
                         className={classNames(
                             'min-w-0 flex-1 shrink-0 truncate px-3 font-bold hover:opacity-80',
                             isLarge ? 'h-12 rounded-full text-base text-white' : 'h-9 rounded-lg text-sm',

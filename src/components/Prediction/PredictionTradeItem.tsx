@@ -12,6 +12,7 @@ import { Image } from '@/esm/Image.js';
 import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
 import { rightShift } from '@/helpers/number.js';
 import { toFixedTrimmed } from '@/helpers/polymarket.js';
+import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { type BetsActivity } from '@/providers/types/Firefly.js';
 
 interface PredictionTradeItemProps extends HTMLProps<HTMLDivElement> {
@@ -43,9 +44,20 @@ function BetsTradeType({ type, onlyIcon = false, className }: BetsTradeTypeProps
 }
 
 export function PredictionTradeItem({ trade, platform, className }: PredictionTradeItemProps) {
-    const isGreen = trade.outcome.toLowerCase() === 'yes';
+    const isGreen = trade.outcomeIndex === 0 || trade.outcome.toLowerCase() === 'yes';
     const displayTitle =
         platform === PredictionPlatform.Opinion ? compact([trade.parent_title, trade.title]).join(' - ') : trade.title;
+    const eventUrl = trade.topicId
+        ? RouteResolver.betsEventDetail(
+              platform,
+              trade.topicId,
+              platform === PredictionPlatform.Opinion
+                  ? {
+                        multiple: Boolean(trade.isMutil),
+                    }
+                  : undefined,
+          )
+        : trade.url;
 
     return (
         <div className={classNames('flex items-center border-t border-line px-4 py-2', className)}>
@@ -63,11 +75,7 @@ export function PredictionTradeItem({ trade, platform, className }: PredictionTr
                     ) : null}
                 </div>
                 <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-                    <Link
-                        target="_blank"
-                        href={trade.url}
-                        className="text-[13px] font-medium text-main hover:underline"
-                    >
+                    <Link target="_blank" href={eventUrl} className="text-[13px] font-medium text-main hover:underline">
                         {displayTitle}
                     </Link>
                     <div className="flex items-center gap-1">

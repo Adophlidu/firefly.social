@@ -19,8 +19,16 @@ export async function getPredictionPositionList(
     options: Options,
 ): Promise<Pageable<PredictionPositionDataForUI, PageIndicator>> {
     switch (platform) {
-        case PredictionPlatform.Polymarket:
-            return getPositionHistory(options);
+        case PredictionPlatform.Polymarket: {
+            const result = await getPositionHistory(options);
+            return {
+                ...result,
+                data: result.data.map((item) => ({
+                    ...item,
+                    outcomeIndex: item.offset,
+                })),
+            };
+        }
         case PredictionPlatform.Opinion: {
             const result = await getPredictionHistoryList({
                 wallet: options.address,

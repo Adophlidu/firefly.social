@@ -8,8 +8,7 @@ import { PredictionPositionAction } from '@/components/Prediction/PredictionPosi
 import { PredictionPlatform } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
-import { resolveOpinionEventUrl } from '@/helpers/resolveOpinionEventUrl.js';
-import { resolvePolymarketEventUrl } from '@/helpers/resolvePolymarketEventUrl.js';
+import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { type PredictionPositionDataForUI } from '@/types/prediction.js';
 
 interface PredictionPositionItemProps {
@@ -21,12 +20,14 @@ interface PredictionPositionItemProps {
 function resolveEventUrl(platform: PredictionPlatform, positionData: PredictionPositionDataForUI) {
     switch (platform) {
         case PredictionPlatform.Polymarket: {
-            const eventSlug = first(positionData.event_slugs);
-            return eventSlug ? resolvePolymarketEventUrl(eventSlug) : undefined;
+            const eventSlug = positionData.marketSlug || first(positionData.event_slugs);
+            return eventSlug ? RouteResolver.betsEventDetail(PredictionPlatform.Polymarket, eventSlug) : undefined;
         }
         case PredictionPlatform.Opinion:
             return positionData.topicId
-                ? resolveOpinionEventUrl(positionData.topicId, Boolean(positionData.is_mutil))
+                ? RouteResolver.betsEventDetail(PredictionPlatform.Opinion, positionData.topicId.toString(), {
+                      multiple: Boolean(positionData.is_mutil),
+                  })
                 : undefined;
         default:
             safeUnreachable(platform);
@@ -38,8 +39,6 @@ function formatBetsPrice(price: number) {
     return removeTrailingZeros((price * 100).toFixed(2)) + '¢';
 }
 
-const MIN_SELLABLE_SHARES = 0.01;
-
 export function PredictionPositionItem({ positionData: position, platform, showAction }: PredictionPositionItemProps) {
     const displayTitle =
         platform === PredictionPlatform.Opinion
@@ -47,7 +46,7 @@ export function PredictionPositionItem({ positionData: position, platform, showA
             : position.title;
     if (isUndefined(displayTitle)) return null;
 
-    const isGreen = ['yes', 'up'].includes(position.vote_status.toLowerCase());
+    const isGreen = position.outcomeIndex === 0 || ['yes', 'up'].includes(position.vote_status.toLowerCase());
     const eventUrl = resolveEventUrl(platform, position);
 
     return (

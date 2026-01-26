@@ -60,7 +60,7 @@ function sortPolymarketMarkets(detail: PolymarketEvent) {
             markets.sort((a, b) => {
                 const aThreshold = a.groupItemThreshold || '0';
                 const bThreshold = b.groupItemThreshold || '0';
-                return parseFloat(bThreshold) - parseFloat(aThreshold);
+                return parseFloat(aThreshold) - parseFloat(bThreshold);
             });
         }
 
