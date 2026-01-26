@@ -48,8 +48,8 @@ export async function getPredictionPositionList(
                     is_closed: false,
                     pnl: position.notfill_pnl,
                     pnl_rate: position.pnl_rate,
-                    total_buy: (position.cur_price || 0) * (position.shares || 0),
                     outcomeIndex: position.offset,
+                    total_buy: (position.cur_price || 0) * (position.shares || 0),
                 })),
             };
         }
