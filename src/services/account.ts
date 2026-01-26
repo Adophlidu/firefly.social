@@ -3,7 +3,7 @@ import { compact, first } from 'lodash-es';
 import { signOut } from 'next-auth/react';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { SORTED_SOCIAL_SOURCES, SORTED_THIRD_PARTY_SOURCES } from '@/constants/computed.js';
+import { NEXT_AUTH_SOURCES, SORTED_SOCIAL_SOURCES, SORTED_THIRD_PARTY_SOURCES } from '@/constants/computed.js';
 import { type ProfileSource, type SocialSource, Source } from '@/constants/enum.js';
 import { SessionExpiredError } from '@/constants/error.js';
 import { EVENT_SOCIAL_ACCOUNT_EXPIRED } from '@/constants/event.js';
@@ -554,11 +554,10 @@ async function removeAccount(account: Account, signal?: AbortSignal) {
         }
     }
     await runInSafeAsync(async () => {
-        if (TwitterSession.isNextAuth(account.session)) {
-            await signOut({
-                redirect: false,
-            });
-            twitterSessionHolder.removeSession();
+        const isNextAuthAccount = NEXT_AUTH_SOURCES.some((source) => account.profile.profileSource === source);
+        if (isNextAuthAccount) {
+            await signOut({ redirect: false });
+            resolveSessionHolderFromProfileSource(account.profile.profileSource)?.removeSession();
         }
     });
     captureAccountLogoutEvent(account);
@@ -585,11 +584,10 @@ export async function removeAccountsByProfiles(profiles: Profile[], signal?: Abo
         }
 
         await runInSafeAsync(async () => {
-            if (TwitterSession.isNextAuth(account.session)) {
-                await signOut({
-                    redirect: false,
-                });
-                twitterSessionHolder.removeSession();
+            const isNextAuthAccount = NEXT_AUTH_SOURCES.some((source) => account.profile.profileSource === source);
+            if (isNextAuthAccount) {
+                await signOut({ redirect: false });
+                resolveSessionHolderFromProfileSource(account.profile.profileSource)?.removeSession();
             }
         });
 

@@ -148,6 +148,7 @@ export const SORTED_SOCIAL_ACCOUNT_AVATAR_SOURCE = [
     Source.Bsky,
 ] as const;
 export const SORTED_THIRD_PARTY_SOURCES = [Source.Google, Source.Telegram, Source.Apple, Source.Email] as const;
+export const NEXT_AUTH_SOURCES = [Source.Twitter, ...SORTED_THIRD_PARTY_SOURCES] as const;
 export const SORTED_THIRD_PARTY_SOURCES_IN_URL = [
     SourceInURL.Google,
     SourceInURL.Telegram,

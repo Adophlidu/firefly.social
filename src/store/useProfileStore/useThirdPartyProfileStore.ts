@@ -2,8 +2,10 @@
 
 import { bom, ForbiddenError } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
+import dayjs from 'dayjs';
 import { getSession, signOut } from 'next-auth/react';
 
+import { queryClient } from '@/configs/queryClient.js';
 import { AsyncStatus, Source } from '@/constants/enum.js';
 import { FireflyAlreadyBoundError } from '@/constants/error.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
@@ -16,6 +18,8 @@ import {
 } from '@/helpers/enqueueMessage.js';
 import { isSameSession } from '@/helpers/isSameSession.js';
 import { resolveSourceFromSessionType } from '@/helpers/resolveSource.js';
+import { queryMyAllConnections } from '@/hooks/useAllConnections.js';
+import { logger } from '@/libs/Logger.js';
 import { ThirdPartySession } from '@/providers/third-party/Session.js';
 import { thirdPartySessionHolder } from '@/providers/third-party/SessionHolder.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
@@ -36,7 +40,13 @@ const state = createProfileState(
             let session: ThirdPartySessionType | null = null;
             try {
                 session = (await getSession()) as unknown as ThirdPartySessionType;
-                if (!session?.user || !session.token || session.type === SessionType.Twitter) return;
+                if (
+                    !session?.user ||
+                    !session.token ||
+                    (session.type !== SessionType.Google && session.type !== SessionType.Apple)
+                ) {
+                    return;
+                }
 
                 const thirdPartySession = session.user?.id
                     ? new ThirdPartySession(
@@ -52,14 +62,20 @@ const state = createProfileState(
                     : null;
                 if (!thirdPartySession) return;
 
-                const foundNewSessionFromServer = !!(
-                    thirdPartySession &&
-                    !state.accounts.some((x) => isSameSession(thirdPartySession, x.session as ThirdPartySession))
+                const createdAt = dayjs((session.token.createdAt || 0) * 1000);
+                const isRecentLogin = dayjs().diff(createdAt, 'minute') < 5;
+
+                const isNewSession = !state.accounts.some((x) =>
+                    isSameSession(thirdPartySession, x.session as ThirdPartySession),
                 );
+
+                const foundNewSessionFromServer = isNewSession && isRecentLogin;
                 if (!foundNewSessionFromServer) return;
 
                 state.__setStatus__(AsyncStatus.Pending);
 
+                logger.info('[useThirdPartyProfileStore] state.accounts:', state.accounts.length);
+                logger.info('[useThirdPartyProfileStore] getSession result:', session?.type, session?.user?.id);
                 const result = await addAccount(
                     {
                         profile: {
@@ -72,19 +88,18 @@ const state = createProfileState(
                             profileSource: resolveSourceFromSessionType(session.type),
                         },
                         session: thirdPartySession,
-                        fireflySession: foundNewSessionFromServer
-                            ? await bindOrRestoreFireflySession(thirdPartySession)
-                            : undefined,
+                        fireflySession: await bindOrRestoreFireflySession(thirdPartySession),
                     },
                     {
-                        skipBelongsToCheck: !foundNewSessionFromServer,
-                        skipResumeFireflyAccounts: !foundNewSessionFromServer,
-                        skipResumeFireflySession: !foundNewSessionFromServer,
-                        skipSyncAccounts: !foundNewSessionFromServer,
+                        skipBelongsToCheck: false,
+                        skipResumeFireflyAccounts: false,
+                        skipResumeFireflySession: false,
+                        skipSyncAccounts: false,
                     },
                 );
                 if (!result) return;
 
+                queryClient.refetchQueries({ queryKey: queryMyAllConnections.queryKey });
                 enqueueSuccessMessage(t`Your ${session.type} account is now connected`);
             } catch (error) {
                 if (error instanceof ForbiddenError) {

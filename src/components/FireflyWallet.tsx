@@ -3,7 +3,7 @@
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
-import { useCallback, useEffect, useMemo, useRef } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { type Address } from 'viem';
 
 import ArrowLineDownIcon from '@/assets/arrow-line-down.svg';
@@ -27,8 +27,6 @@ export function FireflyWallet() {
     const pathname = usePathname();
     const { isAuthorized, setWallet } = useFireflyWalletStore();
     const { updateFireflyWalletIsOpen } = useGlobalState();
-    const prevIsOpenRef = useRef(isOpen);
-
     const allConnectionsQuery = useAllConnections();
 
     const handleRefresh = useCallback(() => {
@@ -38,12 +36,6 @@ export function FireflyWallet() {
         }
     }, []);
 
-    useEffect(() => {
-        if (isOpen && !prevIsOpenRef.current) {
-            handleRefresh();
-        }
-        prevIsOpenRef.current = isOpen;
-    }, [isOpen, handleRefresh]);
     const privyConnections = useMemo(() => {
         if (!allConnectionsQuery.data) return [];
         const { connected } = allConnectionsQuery.data;
