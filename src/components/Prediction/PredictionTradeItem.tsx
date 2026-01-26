@@ -44,7 +44,7 @@ function BetsTradeType({ type, onlyIcon = false, className }: BetsTradeTypeProps
 }
 
 export function PredictionTradeItem({ trade, platform, className }: PredictionTradeItemProps) {
-    const isGreen = trade.outcomeIndex === 0 || trade.outcome.toLowerCase() === 'yes';
+    const isGreen = trade.outcomeIndex === 0;
     const displayTitle =
         platform === PredictionPlatform.Opinion ? compact([trade.parent_title, trade.title]).join(' - ') : trade.title;
     const eventUrl = trade.topicId
