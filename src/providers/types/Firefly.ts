@@ -1232,7 +1232,7 @@ export interface BetsActivity {
     timestamp: number;
     title: string;
     transactionHash: string;
-    umaResolutionStatus: string;
+    umaResolutionStatus: 'activated' | 'resolved' | 'created';
     usdcSize: string;
     volume: string;
     wallet: string;
@@ -1250,6 +1250,7 @@ export interface BetsActivity {
     isMutil?: 0 | 1;
     rawData: PolymarketMarketData;
     topicId: string;
+    resolvedResult?: number;
 }
 
 export interface Project {
