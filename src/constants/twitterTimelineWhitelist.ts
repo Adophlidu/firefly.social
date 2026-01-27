@@ -114,4 +114,5 @@ export const TWITTER_TIMELINE_WHITELIST_UID_SET: ReadonlySet<string> = new Set([
     '3353723555', // x: @off_thetarget
     '3361761077', // x: @0xKirara
     '3361871179', // x: @akibablade
+    '3008110106', // x: @monkeyd_long
 ]);
