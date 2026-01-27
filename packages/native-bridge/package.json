@@ -1,6 +1,6 @@
 {
     "name": "@dimensiondev/native-bridge",
-    "version": "0.1.9",
+    "version": "0.1.10",
     "description": "Native bridge for Firefly webview integration (Android/iOS)",
     "type": "module",
     "main": "./dist/index.js",
