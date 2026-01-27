@@ -46,7 +46,7 @@ export enum SupportedMethod {
     SEND_EVM_TRANSACTION = 'sendEvmTransaction',
     SEND_SOLANA_TRANSACTION = 'sendSolanaTransaction',
     LOGIN_OR_BIND_EMAIL = 'loginOrBindEmail',
-    FUND_PRVIY_ACCOUNT = 'fund_prviy_account',
+    FUND_PRIVY_ACCOUNT = 'fund_privy_account',
 }
 
 export enum SupportedEvent {
@@ -186,7 +186,7 @@ export interface RequestArguments {
         };
     };
     [SupportedMethod.LOGIN_OR_BIND_EMAIL]: {};
-    [SupportedMethod.FUND_PRVIY_ACCOUNT]: {
+    [SupportedMethod.FUND_PRIVY_ACCOUNT]: {
         status: 'completed' | 'cancelled';
         address: string;
         fundingMethod?: 'moonpay' | 'coinbase-onramp' | 'external';
@@ -255,7 +255,7 @@ export interface ResponseResult {
     [SupportedMethod.SEND_EVM_TRANSACTION]: Hex;
     [SupportedMethod.SEND_SOLANA_TRANSACTION]: string;
     [SupportedMethod.LOGIN_OR_BIND_EMAIL]: string;
-    [SupportedMethod.FUND_PRVIY_ACCOUNT]: void;
+    [SupportedMethod.FUND_PRIVY_ACCOUNT]: void;
 }
 
 export interface EventPayload {

@@ -18,7 +18,7 @@ const REQUEST_ONLY_METHODS = [
     SupportedMethod.CLOSE,
     SupportedMethod.SET_PRIMARY_BUTTON,
     SupportedMethod.SET_FRAME_READY_OPTIONS,
-    SupportedMethod.FUND_PRVIY_ACCOUNT,
+    SupportedMethod.FUND_PRIVY_ACCOUNT,
 ];
 
 interface Payload {
