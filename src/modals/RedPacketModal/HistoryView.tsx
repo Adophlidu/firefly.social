@@ -26,7 +26,7 @@ export default memo(function HistoryView() {
                         <Trans>Claimed</Trans>
                     </Tab>
                     <Tab value={FireflyRedPacketAPI.ActionType.Send} key="sent">
-                        <Trans>Sent</Trans>
+                        <Trans>Created</Trans>
                     </Tab>
                 </Tabs>
                 <TypeTabs />

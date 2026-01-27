@@ -3253,6 +3253,9 @@ msgstr "So sorry, we cant mint this NFT. Please try again later."
 msgid "{minutes, plural, one {# minute left} other {# minutes left}}"
 msgstr "{minutes, plural, one {# minute left} other {# minutes left}}"
 
+msgid "Created"
+msgstr "Created"
+
 #. placeholder {0}: channel.id
 msgid "All posts from /{0} will be hidden from you"
 msgstr "All posts from /{0} will be hidden from you"
@@ -3571,9 +3574,6 @@ msgstr "{days, plural, one {# day left} other {# days left}}"
 
 msgid "No cybercrime involved."
 msgstr "No cybercrime involved."
-
-msgid "Sent"
-msgstr "Sent"
 
 msgid "Claim Proceed"
 msgstr "Claim Proceed"

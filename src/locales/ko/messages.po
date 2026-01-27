@@ -3258,6 +3258,9 @@ msgstr ""
 msgid "{minutes, plural, one {# minute left} other {# minutes left}}"
 msgstr ""
 
+msgid "Created"
+msgstr ""
+
 #. placeholder {0}: channel.id
 msgid "All posts from /{0} will be hidden from you"
 msgstr ""
@@ -3575,9 +3578,6 @@ msgid "{days, plural, one {# day left} other {# days left}}"
 msgstr ""
 
 msgid "No cybercrime involved."
-msgstr ""
-
-msgid "Sent"
 msgstr ""
 
 msgid "Claim Proceed"

@@ -3258,6 +3258,9 @@ msgstr "很抱歉，無法鑄造此NFT。請稍後再試。"
 msgid "{minutes, plural, one {# minute left} other {# minutes left}}"
 msgstr "{minutes, plural, one {剩餘 # 分鐘} other {剩餘 # 分鐘}}"
 
+msgid "Created"
+msgstr ""
+
 #. placeholder {0}: channel.id
 msgid "All posts from /{0} will be hidden from you"
 msgstr "您將不會看到來自 /{0} 的所有貼文"
@@ -3576,9 +3579,6 @@ msgstr "{days, plural, one {剩餘 # 日} other {剩餘 # 日}}"
 
 msgid "No cybercrime involved."
 msgstr "未涉及網路犯罪。"
-
-msgid "Sent"
-msgstr "發送"
 
 msgid "Claim Proceed"
 msgstr "領取處理中"
