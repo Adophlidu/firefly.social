@@ -1,7 +1,7 @@
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 
-import { BetsPlatform } from '@/constants/enum.js';
+import { PredictionPlatform } from '@/constants/enum.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { computeVolume } from '@/helpers/polymarket.js';
 import { type BetsActivity } from '@/providers/types/Firefly.js';
@@ -22,7 +22,7 @@ export function PredictionActivityResult({ activity }: ActivityResultProps) {
             <div className={classNames('mt-1 h-1', isLeft ? 'bg-success' : 'bg-danger')} />
             <div className="mt-3 text-xs font-medium text-second">
                 $
-                {activity.platform === BetsPlatform.Opinion
+                {activity.platform === PredictionPlatform.Opinion
                     ? nFormatter(parseFloat(activity.volume), 2)
                     : computeVolume(activity, isLeft ? 0 : 1)}
             </div>

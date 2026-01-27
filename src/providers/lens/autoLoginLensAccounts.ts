@@ -1,3 +1,4 @@
+import { SeverityError } from '@dimensiondev/utils';
 import { compact } from 'lodash-es';
 
 import { queryClient } from '@/configs/queryClient.js';
@@ -19,15 +20,16 @@ interface Options {
 export async function autoLoginLensAccounts({ updateStore = true }: Options = {}) {
     // 1. check firefly session
     const lastFireflyAccountId = useFireflyProfileStore.getState().currentProfileSession?.profileId;
-    if (!lastFireflyAccountId) throw new Error('No firefly session found.');
+    if (!lastFireflyAccountId) throw new SeverityError('No firefly session found.');
 
     // 2. get privy evm wallet
     const privyEvmAddress = (await ensureCreatedFireflyWallet('eth'))?.address;
-    if (!privyEvmAddress) throw new Error('No privy evm wallet found.');
+    if (!privyEvmAddress) throw new SeverityError('No privy evm wallet found.');
 
     // 3. ensure current profiles count less than max
     const lensProfiles = useLensProfileStore.getState().accounts.map((x) => x.profile);
-    if (lensProfiles.length >= MAX_ACCOUNT_COUNT_PER_SOURCE) throw new Error('Reached max lens accounts limit.');
+    if (lensProfiles.length >= MAX_ACCOUNT_COUNT_PER_SOURCE)
+        throw new SeverityError('Reached max lens accounts limit.');
 
     // 4. get managed profiles by privy wallet and filter those already logged in
     const managedProfiles = await getProfilesByAddress(privyEvmAddress);
@@ -39,7 +41,7 @@ export async function autoLoginLensAccounts({ updateStore = true }: Options = {}
             connectedAccounts.some((x) => isSameEthereumAddress(x.id, profile.profileId))
         );
     });
-    if (!filteredManagedProfiles.length) throw new Error('No managed lens profiles found to login.');
+    if (!filteredManagedProfiles.length) throw new SeverityError('No managed lens profiles found to login.');
 
     // 5. auto login with privy
     const loginResult = await Promise.allSettled(
@@ -50,12 +52,12 @@ export async function autoLoginLensAccounts({ updateStore = true }: Options = {}
     const newAccounts = compact(
         loginResult.map((result) => (result.status === 'fulfilled' ? result.value.account : null)),
     );
-    if (!newAccounts.length) throw new Error('No lens accounts logged in successfully.');
+    if (!newAccounts.length) throw new SeverityError('No lens accounts logged in successfully.');
 
     // 6. verify firefly session is still the same
     const latestFireflySession = useFireflyProfileStore.getState().currentProfileSession;
     if (latestFireflySession?.profileId !== lastFireflyAccountId)
-        throw new Error('Firefly session changed during lens auto login.');
+        throw new SeverityError('Firefly session changed during lens auto login.');
 
     // 7. update profile store
     if (updateStore) {

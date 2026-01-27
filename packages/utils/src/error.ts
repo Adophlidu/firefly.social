@@ -1,3 +1,14 @@
+export class SeverityError extends Error {
+    override name = 'SeverityError';
+
+    constructor(
+        message: string,
+        public level: 'fatal' | 'error' | 'warning' | 'log' | 'info' | 'debug' = 'log',
+    ) {
+        super(message);
+    }
+}
+
 export class AbortError extends Error {
     override name = 'AbortError';
 
@@ -58,7 +69,7 @@ export class NotFoundError extends Error {
     }
 }
 
-export class AuthenticationError extends Error {
+export class AuthenticationError extends SeverityError {
     override name = 'AuthenticationError';
 
     constructor(message?: string) {

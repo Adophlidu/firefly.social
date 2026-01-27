@@ -1,3 +1,5 @@
+import { SeverityError } from '@dimensiondev/utils';
+
 import { ensureCreatedFireflyWallet } from '@/helpers/ensureCreatedFireflyWallet.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { signMessageWithPrivy } from '@/providers/firefly/endpoint/signMessageWithPrivy.js';
@@ -10,13 +12,14 @@ import { type Profile } from '@/providers/types/SocialMedia.js';
 
 async function getProfileNeedToLogin(profileId: string) {
     const privyEvmWallet = (await ensureCreatedFireflyWallet('eth'))?.address;
-    if (!privyEvmWallet) throw new Error('No privy evm wallet found.');
+    if (!privyEvmWallet) throw new SeverityError('No privy evm wallet found.');
 
     const profiles = await getProfilesByAddress(privyEvmWallet);
-    if (!profiles.length) throw new Error('The privy wallet does not have managed or owned lens profile.');
+    if (!profiles.length) throw new SeverityError('The privy wallet does not have managed or owned lens profile.');
 
     const profileToLogin = profiles.find((x) => isSameEthereumAddress(x.profileId, profileId));
-    if (!profileToLogin) throw new Error('The privy wallet is not a manager or owner for current lens profile.');
+    if (!profileToLogin)
+        throw new SeverityError('The privy wallet is not a manager or owner for current lens profile.');
 
     return {
         profileToLogin,

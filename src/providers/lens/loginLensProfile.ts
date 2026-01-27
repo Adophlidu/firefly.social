@@ -1,3 +1,4 @@
+import { SeverityError } from '@dimensiondev/utils';
 import { type ChallengeRequest, type SignMessage } from '@lens-protocol/client';
 
 import { env } from '@/constants/env.js';
@@ -36,7 +37,7 @@ export async function loginLensProfile(profile: Profile, options: LoginOptions) 
         ...requestOptions,
     });
     if (!loginRes.isOk()) {
-        throw new Error(`Failed to login on Lens`);
+        throw new SeverityError(`Failed to login on Lens`);
     }
 
     return loginRes.value;

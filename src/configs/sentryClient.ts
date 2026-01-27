@@ -1,3 +1,5 @@
+import { SeverityError } from '@dimensiondev/utils';
+
 import { env } from '@/constants/env.js';
 import { IS_PREVIEW, IS_PRODUCTION } from '@/constants/static.js';
 import { logger } from '@/libs/Logger.js';
@@ -31,6 +33,14 @@ class SentryClient {
                 release: process.version,
                 environment: IS_PRODUCTION ? 'prod' : IS_PREVIEW ? 'preview' : 'development',
                 ignoreErrors: ['AbortError', 'The element has no supported sources.'],
+                beforeSend(event, hint) {
+                    const error = hint?.originalException;
+                    if (error instanceof SeverityError) {
+                        event.level = error.level;
+                    }
+
+                    return event;
+                },
             });
 
             Object.entries(tags).forEach(([key, value]) => {
