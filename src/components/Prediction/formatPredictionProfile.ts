@@ -12,7 +12,7 @@ export function formatPolymarketProfile(data: PolymarketProfileData): Prediction
         platform_avatar: data.platform_avatar,
         pnl: data.pnl,
         proxy: data.proxy,
-        wallet: data.wallet,
+        wallet: data.wallet || data.proxy,
         tags: compact([data.pnl1m, data.win_rate67, data.join1year, data.pnl100]),
         position_traded: data.position_traded,
         win_rate: data.win_rate,
@@ -30,7 +30,7 @@ export function formatOpinionProfile(data: BetPortfolioItem): PredictionProfileD
         platform_avatar: data.platform_avatar,
         pnl: data.pnl,
         proxy: data.proxy,
-        wallet: data.wallet,
+        wallet: data.wallet || data.proxy,
         volume: data.volume,
     };
 }
