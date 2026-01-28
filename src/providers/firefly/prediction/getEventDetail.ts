@@ -45,8 +45,8 @@ function sortMarkets(markets: BetsMarketDataForUI[]) {
     ];
 }
 
-function sortPolymarketMarkets(detail: PolymarketEvent) {
-    const markets = detail.markets || [];
+function filterAndSortPolymarketMarkets(detail: PolymarketEvent) {
+    const markets = (detail.markets || []).filter((market) => market.active);
     try {
         if (detail.sortBy === 'price') {
             markets.sort((a, b) => {
@@ -71,7 +71,7 @@ function sortPolymarketMarkets(detail: PolymarketEvent) {
 }
 
 function formatPolymarketEvent(detail: PolymarketEvent): BetsEventDataForUI {
-    const markets: BetsMarketDataForUI[] = sortPolymarketMarkets(detail).map((market) => {
+    const markets: BetsMarketDataForUI[] = filterAndSortPolymarketMarkets(detail).map((market) => {
         const outcomeLabels = parseJson<string[]>(market.outcomes);
         const outcomeIds = parseJson<string[]>(market.clobTokenIds);
         const prices = parseJson<string[]>(market.outcomePrices);
