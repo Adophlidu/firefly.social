@@ -19,7 +19,7 @@ async function fetchMe(session: LensSession) {
     }>('https://api.lens.xyz/graphql', {
         method: 'POST',
         headers: {
-            authorization: `Bearer ${session.token}`,
+            'X-Access-Token': session.token,
         },
         body: JSON.stringify({
             operationName: 'Me',
