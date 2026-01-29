@@ -112,7 +112,7 @@ export function PredictionPositionItem({ positionData: position, platform, showA
                         {`(${removeTrailingZeros((Math.abs(position.pnl_rate) * 100).toFixed(2))}%)`}
                     </span>
                     <span className="text-sm font-medium leading-[21px] tracking-[0.15px] text-second">
-                        {formatPolymarketNumber(position.total_buy)}
+                        {formatPolymarketNumber(position.current_value)}
                     </span>
                 </div>
                 {showAction && platform === PredictionPlatform.Polymarket ? (

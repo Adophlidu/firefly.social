@@ -44,6 +44,10 @@ export interface PredictionPositionDataForUI {
     conditionId: string;
     resolvedResult?: string;
     outcomeIndex?: number;
+    /**
+     * calculated at runtime: .cur_price * .shares
+     */
+    current_value?: number;
 }
 
 export interface BetsMarketOutcome {

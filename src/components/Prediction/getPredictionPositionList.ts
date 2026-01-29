@@ -23,9 +23,10 @@ export async function getPredictionPositionList(
             const result = await getPositionHistory(options);
             return {
                 ...result,
-                data: result.data.map((item) => ({
-                    ...item,
-                    outcomeIndex: item.offset,
+                data: result.data.map((position) => ({
+                    ...position,
+                    outcomeIndex: position.offset,
+                    current_value: (position.cur_price || 0) * (position.shares || 0),
                 })),
             };
         }
@@ -49,7 +50,8 @@ export async function getPredictionPositionList(
                     pnl: position.notfill_pnl,
                     pnl_rate: position.pnl_rate,
                     outcomeIndex: position.offset,
-                    total_buy: (position.cur_price || 0) * (position.shares || 0),
+                    total_buy: position.shares || 0,
+                    current_value: (position.cur_price || 0) * (position.shares || 0),
                 })),
             };
         }
