@@ -1672,14 +1672,6 @@ msgstr "{0}{1} <0>地板价</0>"
 msgid "Failed to change password."
 msgstr "修改密码失败。"
 
-#. placeholder {0}: trade.displayInfo?.ensHandle || addressName
-#. placeholder {1}: toFixedTrimmed(+trade.size, 2)
-#. placeholder {2}: trade.outcome
-#. placeholder {3}: toFixedTrimmed(+trade.price * 100, 1)
-#. placeholder {4}: toFixedTrimmed(multipliedBy(trade.size, trade.price).toNumber(), 2)
-msgid "<0>{0}</0> {txType} <1>{1} {2}</1> for <2>{marketTitle}</2> at <3>{3}¢</3> (${4})"
-msgstr ""
-
 msgid "Blacklist function"
 msgstr "黑名单功能"
 
@@ -4165,6 +4157,14 @@ msgstr "链"
 msgid "Unfollow"
 msgstr "取消关注"
 
+#. placeholder {0}: trade.displayInfo?.ensHandle || addressName
+#. placeholder {1}: toFixedTrimmed(+trade.size, 2)
+#. placeholder {2}: trade.outcome
+#. placeholder {3}: toFixedTrimmed(+trade.price * 100, 1)
+#. placeholder {4}: usdValue < 0.01 ? '< $0.01' : `$${toFixedTrimmed(usdValue, 2)}`
+msgid "<0>{0}</0> Sold <1>{1} {2}</1> for <2>{marketTitle}</2> at <3>{3}¢</3> ({4})"
+msgstr ""
+
 #. placeholder {0}: snapshot.title
 msgid "🙌 Just voted on “{0}”"
 msgstr "🙌 刚刚投了 “{0}”"
@@ -4408,6 +4408,14 @@ msgstr "上传失败。视频尺寸超过限制 {minWidth}x{minHeight} ~ {maxWid
 
 msgid "Mask Network"
 msgstr "Mask Network"
+
+#. placeholder {0}: trade.displayInfo?.ensHandle || addressName
+#. placeholder {1}: toFixedTrimmed(+trade.size, 2)
+#. placeholder {2}: trade.outcome
+#. placeholder {3}: toFixedTrimmed(+trade.price * 100, 1)
+#. placeholder {4}: usdValue < 0.01 ? '< $0.01' : `$${toFixedTrimmed(usdValue, 2)}`
+msgid "<0>{0}</0> Bought <1>{1} {2}</1> for <2>{marketTitle}</2> at <3>{3}¢</3> ({4})"
+msgstr ""
 
 msgid "Sanctioned address found."
 msgstr "黑名单地址。"

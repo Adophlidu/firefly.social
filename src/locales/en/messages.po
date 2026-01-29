@@ -1667,14 +1667,6 @@ msgstr "{0}{1} <0>Floor</0>"
 msgid "Failed to change password."
 msgstr "Failed to change password."
 
-#. placeholder {0}: trade.displayInfo?.ensHandle || addressName
-#. placeholder {1}: toFixedTrimmed(+trade.size, 2)
-#. placeholder {2}: trade.outcome
-#. placeholder {3}: toFixedTrimmed(+trade.price * 100, 1)
-#. placeholder {4}: toFixedTrimmed(multipliedBy(trade.size, trade.price).toNumber(), 2)
-msgid "<0>{0}</0> {txType} <1>{1} {2}</1> for <2>{marketTitle}</2> at <3>{3}¢</3> (${4})"
-msgstr "<0>{0}</0> {txType} <1>{1} {2}</1> for <2>{marketTitle}</2> at <3>{3}¢</3> (${4})"
-
 msgid "Blacklist function"
 msgstr "Blacklist function"
 
@@ -4160,6 +4152,14 @@ msgstr "Chain filter"
 msgid "Unfollow"
 msgstr "Unfollow"
 
+#. placeholder {0}: trade.displayInfo?.ensHandle || addressName
+#. placeholder {1}: toFixedTrimmed(+trade.size, 2)
+#. placeholder {2}: trade.outcome
+#. placeholder {3}: toFixedTrimmed(+trade.price * 100, 1)
+#. placeholder {4}: usdValue < 0.01 ? '< $0.01' : `$${toFixedTrimmed(usdValue, 2)}`
+msgid "<0>{0}</0> Sold <1>{1} {2}</1> for <2>{marketTitle}</2> at <3>{3}¢</3> ({4})"
+msgstr "<0>{0}</0> Sold <1>{1} {2}</1> for <2>{marketTitle}</2> at <3>{3}¢</3> ({4})"
+
 #. placeholder {0}: snapshot.title
 msgid "🙌 Just voted on “{0}”"
 msgstr "🙌 Just voted on “{0}”"
@@ -4403,6 +4403,14 @@ msgstr "Failed to upload. Video size exceeds {minWidth}x{minHeight} ~ {maxWidth}
 
 msgid "Mask Network"
 msgstr "Mask Network"
+
+#. placeholder {0}: trade.displayInfo?.ensHandle || addressName
+#. placeholder {1}: toFixedTrimmed(+trade.size, 2)
+#. placeholder {2}: trade.outcome
+#. placeholder {3}: toFixedTrimmed(+trade.price * 100, 1)
+#. placeholder {4}: usdValue < 0.01 ? '< $0.01' : `$${toFixedTrimmed(usdValue, 2)}`
+msgid "<0>{0}</0> Bought <1>{1} {2}</1> for <2>{marketTitle}</2> at <3>{3}¢</3> ({4})"
+msgstr "<0>{0}</0> Bought <1>{1} {2}</1> for <2>{marketTitle}</2> at <3>{3}¢</3> ({4})"
 
 msgid "Sanctioned address found."
 msgstr "Sanctioned address found."
