@@ -122,29 +122,29 @@ export const GIF_MEDIA_SOURCE_CONFIG: Record<SocialSource, MediaSource[]> = {
 };
 
 export const PROFILE_PAGE_SOURCES = [
-    Source.Farcaster,
     Source.Twitter,
-    Source.Bsky,
     Source.Lens,
+    Source.Farcaster,
+    Source.Bsky,
     Source.Wallet,
     Source.WalletMix,
 ];
 export const SORTED_PROFILE_SOURCES: ProfilePageSource[] = [
-    Source.Farcaster,
     Source.Twitter,
-    Source.Bsky,
     Source.Lens,
+    Source.Farcaster,
+    Source.Bsky,
     Source.Wallet,
 ];
-export const SORTED_SOCIAL_SOURCES = [Source.Farcaster, Source.Twitter, Source.Lens, Source.Bsky] as const;
-export const SORTED_TOKEN_FEEDS_SOURCES = [Source.Twitter, Source.Farcaster, Source.Lens, Source.Bsky];
-export const SORTED_CROSS_AT_SOCIAL_SOURCES = [Source.Twitter, Source.Farcaster, Source.Lens, Source.Bsky] as const;
-export const SORTED_SCHEDULE_POST_SOURCES = [Source.Twitter, Source.Farcaster, Source.Lens, Source.Bsky] as const;
-export const SORTED_LOGIN_SOCIAL_SOURCES = [Source.Twitter, Source.Farcaster, Source.Bsky, Source.Lens] as const;
+export const SORTED_SOCIAL_SOURCES = [Source.Twitter, Source.Lens, Source.Farcaster, Source.Bsky] as const;
+export const SORTED_TOKEN_FEEDS_SOURCES = [Source.Twitter, Source.Lens, Source.Farcaster, Source.Bsky];
+export const SORTED_CROSS_AT_SOCIAL_SOURCES = [Source.Twitter, Source.Lens, Source.Farcaster, Source.Bsky] as const;
+export const SORTED_SCHEDULE_POST_SOURCES = [Source.Twitter, Source.Lens, Source.Farcaster, Source.Bsky] as const;
+export const SORTED_LOGIN_SOCIAL_SOURCES = [Source.Twitter, Source.Lens, Source.Farcaster, Source.Bsky] as const;
 export const SORTED_SOCIAL_ACCOUNT_AVATAR_SOURCE = [
     Source.Twitter,
-    Source.Farcaster,
     Source.Lens,
+    Source.Farcaster,
     Source.Bsky,
 ] as const;
 export const SORTED_THIRD_PARTY_SOURCES = [Source.Google, Source.Telegram, Source.Apple, Source.Email] as const;
@@ -167,7 +167,7 @@ export const SORTED_MEDIA_SOURCES: MediaSource[] = [
     MediaSource.Local,
 ];
 export const SORTED_SEARCHABLE_POST_BY_PROFILE_SOURCES = [Source.Farcaster];
-export const NOTIFICATION_SOURCES = [Source.Notifications, Source.Farcaster, Source.Lens, Source.Bsky];
+export const NOTIFICATION_SOURCES = [Source.Notifications, Source.Lens, Source.Farcaster, Source.Bsky];
 
 export const ENABLED_SCHEDULE_POST_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens, Source.Twitter];
 export const ENABLED_REPLY_SOURCES = [Source.Farcaster, Source.Lens, Source.Bsky];
@@ -183,7 +183,7 @@ export const ENABLED_DECRYPT_SOURCES = [Source.Lens];
 export const ENABLED_RP_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens, Source.Twitter];
 
 export const DEFAULT_SOCIAL_SOURCE = Source.Posts;
-export const DEFAULT_BOOKMARK_SOURCE = Source.Farcaster;
+export const DEFAULT_BOOKMARK_SOURCE = Source.Lens;
 export const DEFAULT_NOTIFICATION_SOURCE = Source.Notifications;
 export const DEFAULT_EXPLORE_TYPE = ExploreType.Bets;
 
@@ -194,7 +194,7 @@ export const SUPPORTED_VIDEO_SOURCES: SocialSource[] = [Source.Farcaster, Source
 export const SUPPORTED_MEDIA_CORS_SOURCES: Source[] = [Source.Farcaster, Source.Lens, Source.Twitter];
 export const SUPPORTED_CHANNEL_SOURCES: Source[] = [Source.Farcaster, Source.Lens];
 export const SUPPORTED_FETCH_POST_PUBLISH_INFO_SOURCES: SocialSource[] = [Source.Bsky];
-export const SOCIAL_DISCOVER_SOURCE: SocialDiscoverSource[] = [Source.Farcaster, Source.Lens, Source.Bsky] as const;
+export const SOCIAL_DISCOVER_SOURCE: SocialDiscoverSource[] = [Source.Lens, Source.Farcaster, Source.Bsky] as const;
 export const SOCIAL_DISCOVER_SOURCE_LOGIN_REQUIRED: SocialDiscoverSource[] = [Source.Twitter];
 export const SOCIAL_DISCOVER_WHITELIST_SOURCE: SocialDiscoverSource[] = [Source.Twitter];
 export const DISCOVER_SOURCES: DiscoverSource[] = [
@@ -224,14 +224,14 @@ export const EXPLORE_TYPES: ExploreType[] = [
 ];
 
 export const EXPLORE_SOURCES: Partial<Record<ExploreType, ExploreSource[]>> = {
-    [ExploreType.TopProfiles]: [Source.Twitter, Source.Farcaster, Source.Lens, Source.Bsky],
+    [ExploreType.TopProfiles]: [Source.Twitter, Source.Lens, Source.Farcaster, Source.Bsky],
     [ExploreType.CryptoTrends]: [
         TrendingType.Trending,
         TrendingType.Stocks,
         TrendingType.Newest,
         TrendingType.TopSearches,
     ],
-    [ExploreType.TopChannels]: [Source.Farcaster, Source.Lens, Source.Bsky],
+    [ExploreType.TopChannels]: [Source.Lens, Source.Farcaster, Source.Bsky],
 };
 
 export const EXPLORE_DEFAULT_SOURCE: Record<ExploreType, ExploreSource | undefined> = {
@@ -239,14 +239,14 @@ export const EXPLORE_DEFAULT_SOURCE: Record<ExploreType, ExploreSource | undefin
     [ExploreType.Projects]: undefined,
     [ExploreType.TruthSocial]: undefined,
     [ExploreType.CryptoTrends]: TrendingType.Trending,
-    [ExploreType.TopChannels]: Source.Farcaster,
+    [ExploreType.TopChannels]: Source.Lens,
     [ExploreType.NFTs]: TrendingType.Trending,
     [ExploreType.Bets]: undefined,
 };
 
 export const BOOKMARK_SOURCES: BookmarkSource[] = [
-    Source.Farcaster,
     Source.Lens,
+    Source.Farcaster,
     Source.Bsky,
     Source.Tokens,
     Source.Prediction,
@@ -257,9 +257,9 @@ export const BOOKMARK_SOURCES: BookmarkSource[] = [
 
 export const SORTED_NOTIFICATIONS_SOURCES: NotificationSource[] = [
     Source.Notifications,
+    Source.Lens,
     Source.Farcaster,
     Source.Bsky,
-    Source.Lens,
 ];
 
 export const TIPS_SUPPORT_NETWORKS = [NetworkType.Ethereum, NetworkType.Solana];

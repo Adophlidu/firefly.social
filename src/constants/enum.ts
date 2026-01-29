@@ -197,11 +197,11 @@ export type ExploreSourceInURL =
     | SourceInURL.Twitter
     | SourceInURL.X
     | TrendingType;
-export type NotificationSource = Source.Notifications | Source.Farcaster | Source.Lens | Source.Bsky;
+export type NotificationSource = Source.Notifications | Source.Lens | Source.Farcaster | Source.Bsky;
 export type NotificationSourceInURL =
     | SourceInURL.Notifications
-    | SourceInURL.Farcaster
     | SourceInURL.Lens
+    | SourceInURL.Farcaster
     | SourceInURL.Bsky;
 export type LoginFallbackSource =
     | SocialSource

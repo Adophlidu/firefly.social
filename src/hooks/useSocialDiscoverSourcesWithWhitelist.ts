@@ -7,5 +7,5 @@ export function useSocialDiscoverSourcesWithWhitelist(tab: HomeTab) {
     const fireflyUID = useCurrentFireflyAccountUID();
     const isWhitelist = fireflyUID ? TWITTER_TIMELINE_WHITELIST_UID_SET.has(fireflyUID) : false;
     if (tab !== HomeTab.Following) return SOCIAL_DISCOVER_SOURCE;
-    return isWhitelist ? [...SOCIAL_DISCOVER_SOURCE, ...SOCIAL_DISCOVER_WHITELIST_SOURCE] : SOCIAL_DISCOVER_SOURCE;
+    return isWhitelist ? [...SOCIAL_DISCOVER_WHITELIST_SOURCE, ...SOCIAL_DISCOVER_SOURCE] : SOCIAL_DISCOVER_SOURCE;
 }

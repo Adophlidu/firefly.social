@@ -96,8 +96,8 @@ export const resolveExploreSource = createLookupTableResolver<ExploreSourceInURL
 export const resolveNotificationSource = createLookupTableResolver<NotificationSourceInURL, NotificationSource>(
     {
         [SourceInURL.Notifications]: Source.Notifications,
-        [SourceInURL.Farcaster]: Source.Farcaster,
         [SourceInURL.Lens]: Source.Lens,
+        [SourceInURL.Farcaster]: Source.Farcaster,
         [SourceInURL.Bsky]: Source.Bsky,
     },
     (source) => {

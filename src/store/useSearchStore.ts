@@ -66,7 +66,7 @@ function getPathParams(path: string):
 
     if (isRoutePathname(path, '/search/:type', true)) {
         return {
-            source: Source.Farcaster,
+            source: Source.Twitter,
             searchType: pathArray[2] as SearchType,
             clubType: undefined,
         };
@@ -103,7 +103,7 @@ export function useSearchStateStore() {
     const { source, searchType, clubType, updateSearchType, updateClubType } = useStore();
 
     const pathParams = getPathParams(pathname);
-    const currentSource = pathParams?.source || source || Source.Farcaster;
+    const currentSource = pathParams?.source || source || Source.Twitter;
     const currentType = pathParams?.searchType || searchType || SearchType.Posts;
     const currentClubType = pathParams?.clubType || clubType || ClubType.FarcasterChannel;
 

@@ -22,7 +22,7 @@ function resolveClubType(source: Source, clubType?: ClubType) {
 
 export function resolveSearchUrl(query: string, type?: SearchType, source?: Source, clubType?: ClubType) {
     // TODO: Support search articles
-    const resolvedSource = !source || source === Source.Article ? Source.Farcaster : source;
+    const resolvedSource = !source || source === Source.Article ? Source.Twitter : source;
     const resolvedType = type === SearchType.Channels ? SearchType.Clubs : type || SearchType.Posts;
 
     if (resolvedType === SearchType.Clubs) {
