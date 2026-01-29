@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-01-21 12:01\n"
+"PO-Revision-Date: 2026-01-29 02:45\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -103,7 +103,7 @@ msgid "Report @{0}"
 msgstr "檢舉 @{0}"
 
 msgid "No bids"
-msgstr ""
+msgstr "暫無買單"
 
 #. placeholder {0}: percentageToNumber(info.sell_tax)
 msgid "Sell Tax: {0}%"
@@ -287,7 +287,7 @@ msgid "Positions"
 msgstr "倉位"
 
 msgid "No trades found"
-msgstr ""
+msgstr "未找到交易紀錄"
 
 #. placeholder {0}: space.participant_count?.toLocaleString()
 msgid "{0} listening"
@@ -569,7 +569,7 @@ msgid "Back to list"
 msgstr "返回列表"
 
 msgid "You claimed {amount} {symbol} to your <0>Firefly Wallet</0>."
-msgstr ""
+msgstr "您領取的 {amount} {symbol} 已發送至您的 <0>Firefly 錢包</0>。"
 
 msgid "Scheduled"
 msgstr "已預約"
@@ -659,13 +659,13 @@ msgstr "登入"
 
 #. placeholder {0}: nFormatter(+market.volume, 2)
 msgid "${0} Vol."
-msgstr ""
+msgstr "${0} 成交額。"
 
 msgid "Signing in"
 msgstr "登入中"
 
 msgid "Top Holders"
-msgstr ""
+msgstr "持倉大戶"
 
 msgid "Overview"
 msgstr "總覽"
@@ -709,7 +709,7 @@ msgid "Failed to vote."
 msgstr "投票失敗。"
 
 msgid "Markets"
-msgstr ""
+msgstr "市场"
 
 msgid "Your posts have published successfully."
 msgstr "您的貼文已成功發佈。"
@@ -819,7 +819,7 @@ msgid "Blockchain"
 msgstr "區塊鏈"
 
 msgid "Outcome proposed: {outcomeLabel}"
-msgstr ""
+msgstr "建議結果：{outcomeLabel}"
 
 #. placeholder {0}: notification.followers.length
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}}<4> followed you</4>"
@@ -886,7 +886,7 @@ msgid "Custom"
 msgstr "自訂"
 
 msgid "Polymarket Event"
-msgstr ""
+msgstr "Polymarket 市場"
 
 msgid "Connect Email"
 msgstr "綁定電子郵件"
@@ -1043,7 +1043,7 @@ msgid "Muted {walletHandle}."
 msgstr "已隱藏 {walletHandle}。"
 
 msgid "Scroll to center"
-msgstr ""
+msgstr "捲動至置中"
 
 msgid "Confirm Lucky Drop"
 msgstr "確認你的紅包"
@@ -1058,7 +1058,7 @@ msgid "Failed to refund red packet."
 msgstr "退款紅包失敗"
 
 msgid "Toggle trade view"
-msgstr ""
+msgstr "切換交易視圖"
 
 msgid "Host"
 msgstr "主持人"
@@ -1091,7 +1091,7 @@ msgid "24 Hour Trading Vol"
 msgstr "24 小時交易量"
 
 msgid "No {outcomeLabel} holders found"
-msgstr ""
+msgstr "未找到 {outcomeLabel} 持有者"
 
 msgid "Failed to delete scheduled post."
 msgstr "刪除預約貼文失敗。"
@@ -1112,10 +1112,10 @@ msgid "<0/>Delete Firefly account"
 msgstr "<0/>刪除 Firefly 帳戶"
 
 msgid "Shares"
-msgstr ""
+msgstr "份"
 
 msgid "1D"
-msgstr ""
+msgstr "1 天"
 
 msgid "POST"
 msgstr "貼文"
@@ -1165,7 +1165,7 @@ msgstr "<0/>EVM 錢包"
 
 #. placeholder {0}: outcome.label
 msgid "Buy {0}"
-msgstr ""
+msgstr "購買 {0}"
 
 msgid "Failed to bind Lens manager, please try again later."
 msgstr "無法綁定 Lens 管理器，請稍後再試。"
@@ -1352,7 +1352,7 @@ msgid "Bio"
 msgstr "個人簡介"
 
 msgid "{outcomeLabel} Holders"
-msgstr ""
+msgstr "{outcomeLabel} 持有者"
 
 msgid "[Photo]"
 msgstr "[照片]"
@@ -1464,7 +1464,7 @@ msgid "Anti_whale(Limited number of transactions)"
 msgstr "反巨鯨機制(交易次數限制)"
 
 msgid "View resolved"
-msgstr ""
+msgstr "查看已結算"
 
 #. placeholder {0}: notification.reactors.length
 #. placeholder {1}: notification.post.type
@@ -1749,7 +1749,7 @@ msgstr "用戶已取消操作。"
 
 #. placeholder {0}: toFixedTrimmed(holder.shares, 1)
 msgid "{0} Shares"
-msgstr ""
+msgstr "{0} 份"
 
 msgid "Owned By"
 msgstr "擁有者"
@@ -1804,10 +1804,10 @@ msgid "Try again"
 msgstr "重試"
 
 msgid "No any positions found in this wallet"
-msgstr ""
+msgstr "此錢包內查無任何持倉"
 
 msgid "Opinion Event"
-msgstr ""
+msgstr "Opinion 市場"
 
 msgid "Reset Password"
 msgstr "重設密碼"
@@ -1885,7 +1885,7 @@ msgid "Verify and Claim"
 msgstr "驗證並領取"
 
 msgid "Hide resolved"
-msgstr ""
+msgstr "隱藏已結束"
 
 msgid "Opinion Profile"
 msgstr "觀點個人檔案"
@@ -2149,7 +2149,7 @@ msgstr "按讚/轉發/留言"
 
 #. placeholder {0}: spreads !== null ? `${(spreads * 100).toFixed(1)}¢` : '-'
 msgid "Spread: {0}"
-msgstr ""
+msgstr "價差：{0}"
 
 msgid "Estimated cost"
 msgstr "預估成本"
@@ -2230,7 +2230,7 @@ msgid "Tip sent successfully!"
 msgstr "打賞發送成功！"
 
 msgid "Open Interest"
-msgstr ""
+msgstr "未平倉總量"
 
 #. placeholder {0}: activeConnector.name
 msgid "Select Chain for {0}"
@@ -2336,14 +2336,14 @@ msgid "Verified by Farcaster"
 msgstr "由 Farcaster 驗證"
 
 msgid "No asks"
-msgstr ""
+msgstr "暫無賣單"
 
 msgid "OR"
 msgstr "或"
 
 #. placeholder {0}: outcomeLabel || '-'
 msgid "Trade {0}"
-msgstr ""
+msgstr "交易 {0}"
 
 msgid "Phishing activities."
 msgstr "釣魚活動。"
@@ -2655,14 +2655,14 @@ msgid "👀 Firefly notifications are off. "
 msgstr "👀 Firefly 通知未開啟！"
 
 msgid "No opinion event found."
-msgstr ""
+msgstr "未找到 Opinion 市場。"
 
 #. placeholder {0}: channel.id
 msgid "Unfollowed /{0} on {sourceName}"
 msgstr "在 {sourceName} 取消追蹤 /{0}"
 
 msgid "End Date"
-msgstr ""
+msgstr "結束日期"
 
 msgid "Farcaster"
 msgstr "Farcaster"
@@ -2918,7 +2918,7 @@ msgid "Note: X desktop login is currently unavailable on mobile."
 msgstr "注意：移動端暫不支援 X 桌面版登入。"
 
 msgid "Confirm to remove this Lucky drop? You can request a refund from your history after 24 hours."
-msgstr ""
+msgstr "確定要移除此紅包嗎？您可以在 24 小時後從歷史紀錄中申請退款。"
 
 msgid "Exclusivity"
 msgstr "獨佔性"
@@ -3054,7 +3054,7 @@ msgid "User Name is not available"
 msgstr "此使用者名稱已被佔用"
 
 msgid "Only show current positions"
-msgstr ""
+msgstr "僅顯示當前持倉"
 
 msgid "Top 200 Web3 profiles powered by <0>Rootdata</0>"
 msgstr "Web3 前 200 大個人檔案（由 <0>Rootdata</0> 提供技術支持）"
@@ -3125,7 +3125,7 @@ msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr "{shares, plural, one {轉發或引用} other {轉發或引用}}"
 
 msgid "Disputed"
-msgstr ""
+msgstr "爭議中"
 
 msgid "Network cost"
 msgstr "手續費"
@@ -3145,22 +3145,22 @@ msgstr "更新個人檔案失敗。"
 #. js-lingui-explicit-id
 #. placeholder {0}: lastPrice !== null ? `${(lastPrice * 100).toFixed(1)}¢` : '-'
 msgid "bets-last-price"
-msgstr ""
+msgstr "最新成交價"
 
 #. Resolution
 #. js-lingui-explicit-id
 msgid "bets-resolution"
-msgstr ""
+msgstr "結算"
 
 #. Following
 #. js-lingui-explicit-id
 msgid "bets-trades-following"
-msgstr ""
+msgstr "追蹤中"
 
 #. Global
 #. js-lingui-explicit-id
 msgid "bets-trades-global"
-msgstr ""
+msgstr "全球"
 
 msgid "Password cannot be a sequence or repeated digits. Please try again."
 msgstr "密碼不能是連續或重複的數字。請重試。"
@@ -3192,7 +3192,7 @@ msgid "Multi-device login is required for schedule post. Set a 6-digit password 
 msgstr "定時發佈需啟用多裝置登入。請設定 6 位數字密碼以驗證身份。"
 
 msgid "Event detail"
-msgstr ""
+msgstr "市場詳情"
 
 msgid "Light Mode"
 msgstr "淺色模式"
@@ -3224,7 +3224,7 @@ msgid "Content preference"
 msgstr "內容偏好"
 
 msgid "No polymarket event found."
-msgstr ""
+msgstr "未發現 Polymarket 市場。"
 
 msgid "Community"
 msgstr "群組"
@@ -3236,7 +3236,7 @@ msgid "Delete"
 msgstr "刪除"
 
 msgid "Final Outcome"
-msgstr ""
+msgstr "最終結果"
 
 msgid "Available"
 msgstr "可用的"
@@ -3251,7 +3251,7 @@ msgid "{minutes, plural, one {# minute left} other {# minutes left}}"
 msgstr "{minutes, plural, one {剩餘 # 分鐘} other {剩餘 # 分鐘}}"
 
 msgid "Created"
-msgstr ""
+msgstr "已建立"
 
 #. placeholder {0}: channel.id
 msgid "All posts from /{0} will be hidden from you"
@@ -3290,7 +3290,7 @@ msgstr "取消收藏投票失敗。"
 #. placeholder {0}: outcome.label
 #. placeholder {1}: Math.ceil(price * 100)
 msgid "Buy {0} {1}¢"
-msgstr ""
+msgstr "以 {1}¢ 購買 {0}"
 
 #. placeholder {0}: dayjs(task.schedule_at).format('ddd, MMM DD, YYYY')
 #. placeholder {1}: dayjs(task.schedule_at).format('hh:mm A')
@@ -3430,7 +3430,7 @@ msgid "Wallets"
 msgstr "錢包"
 
 msgid "Spread {spread}¢"
-msgstr ""
+msgstr "價差 {spread}¢"
 
 msgid "firefly.eth liked your tips"
 msgstr "firefly.eth 讚了你的打賞"
@@ -3651,7 +3651,7 @@ msgid "Owner can change balance"
 msgstr "持有者可變更餘額"
 
 msgid "Select up to {MAX_MARKETS_COUNT_SELECTABLE} options"
-msgstr ""
+msgstr "最多可選擇 {MAX_MARKETS_COUNT_SELECTABLE} 個項目"
 
 msgid "Sign in with Lens"
 msgstr "透過 Lens 登入"
@@ -3790,7 +3790,7 @@ msgid "<0>You</0> liked"
 msgstr "<0>您</0>讚了"
 
 msgid "Sign in on mobile"
-msgstr ""
+msgstr "登入行動應用程式"
 
 msgid "You've hit rock bottom."
 msgstr "你已經滾到底部啦～"
@@ -4008,7 +4008,7 @@ msgid "Failed to verify password."
 msgstr "密碼驗證失敗。"
 
 msgid "6H"
-msgstr ""
+msgstr "6 小時"
 
 msgid "Mint Again"
 msgstr "再次鑄造"
@@ -4224,7 +4224,7 @@ msgid "Display Name should not exceed {maxDisplayNameSize} characters"
 msgstr "名稱不得超過 {maxDisplayNameSize} 字元"
 
 msgid "ALL"
-msgstr ""
+msgstr "全部"
 
 msgid "Failed to send tip."
 msgstr "打賞失敗。"
@@ -4333,7 +4333,7 @@ msgid "Reposts"
 msgstr "轉發"
 
 msgid "Final outcome: {outcomeLabel}"
-msgstr ""
+msgstr "最終結果：{outcomeLabel}"
 
 msgid "The contract owner has no restrictions on anti whale."
 msgstr "合約持有者未設反巨鯨機制。"
@@ -4526,7 +4526,7 @@ msgid "Transaction failed"
 msgstr "交易失敗"
 
 msgid "1W"
-msgstr ""
+msgstr "1 週"
 
 msgid "All Chains"
 msgstr "所有鏈"
@@ -4711,8 +4711,7 @@ msgid "Unexpected step for setting password: {step}."
 msgstr "驗證密碼時出現意外步驟：{step}。"
 
 msgid "If you have multiple Firefly accounts created with different social logins, deleting this account will help you consolidate your social accounts into one. However, if you're trying to access a different Firefly wallet linked to another social account, consider switching accounts instead of deleting."
-msgstr ""
-"如果你使用不同的社交帳號建立了多個 Firefly 帳戶，刪除此帳戶可以幫助你整合所有社交帳戶。\n"
+msgstr "如果你使用不同的社交帳號建立了多個 Firefly 帳戶，刪除此帳戶可以幫助你整合所有社交帳戶。\n"
 "但如果你仍想存取綁定至另一個社交帳號的 Firefly 錢包，建議你切換帳戶，而不是刪除帳戶。"
 
 msgid "<0>You</0> recasted"
@@ -4749,7 +4748,7 @@ msgid "Last sale"
 msgstr "最新售價"
 
 msgid "No current positions found in this wallet"
-msgstr ""
+msgstr "此錢包內查無任何持倉"
 
 msgid "Bridged"
 msgstr "已跨鏈"
@@ -4873,7 +4872,7 @@ msgid "Refund successfully."
 msgstr "退款成功。"
 
 msgid "No dispute"
-msgstr ""
+msgstr "無爭議"
 
 msgid "Remind me later"
 msgstr "稍後提醒"
@@ -5015,3 +5014,4 @@ msgstr "週"
 
 msgid "Success"
 msgstr "成功"
+

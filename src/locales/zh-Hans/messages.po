@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-01-21 12:01\n"
+"PO-Revision-Date: 2026-01-29 02:45\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -287,7 +287,7 @@ msgid "Positions"
 msgstr "持仓"
 
 msgid "No trades found"
-msgstr ""
+msgstr "暂无成交"
 
 #. placeholder {0}: space.participant_count?.toLocaleString()
 msgid "{0} listening"
@@ -569,7 +569,7 @@ msgid "Back to list"
 msgstr "返回列表"
 
 msgid "You claimed {amount} {symbol} to your <0>Firefly Wallet</0>."
-msgstr ""
+msgstr "你领取的 {amount} {symbol} 已转入你的 <0>Firefly 钱包</0>。"
 
 msgid "Scheduled"
 msgstr "已定时"
@@ -659,7 +659,7 @@ msgstr "登录"
 
 #. placeholder {0}: nFormatter(+market.volume, 2)
 msgid "${0} Vol."
-msgstr ""
+msgstr "${0} 交易量"
 
 msgid "Signing in"
 msgstr "登录中"
@@ -819,7 +819,7 @@ msgid "Blockchain"
 msgstr "区块链"
 
 msgid "Outcome proposed: {outcomeLabel}"
-msgstr ""
+msgstr "已提议结果：{outcomeLabel}"
 
 #. placeholder {0}: notification.followers.length
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}}<4> followed you</4>"
@@ -1091,7 +1091,7 @@ msgid "24 Hour Trading Vol"
 msgstr "24h 交易总额"
 
 msgid "No {outcomeLabel} holders found"
-msgstr ""
+msgstr "未找到 {outcomeLabel} 持有者"
 
 msgid "Failed to delete scheduled post."
 msgstr "删除定时任务失败。"
@@ -1464,7 +1464,7 @@ msgid "Anti_whale(Limited number of transactions)"
 msgstr "反鲸鱼（有限的交易次数）"
 
 msgid "View resolved"
-msgstr ""
+msgstr "查看已结算"
 
 #. placeholder {0}: notification.reactors.length
 #. placeholder {1}: notification.post.type
@@ -1749,7 +1749,7 @@ msgstr "用户已取消操作。"
 
 #. placeholder {0}: toFixedTrimmed(holder.shares, 1)
 msgid "{0} Shares"
-msgstr ""
+msgstr "{0} 份"
 
 msgid "Owned By"
 msgstr "属于"
@@ -1804,10 +1804,10 @@ msgid "Try again"
 msgstr "请重试"
 
 msgid "No any positions found in this wallet"
-msgstr ""
+msgstr "当前钱包未找到任何持仓"
 
 msgid "Opinion Event"
-msgstr ""
+msgstr "Opinion 市场"
 
 msgid "Reset Password"
 msgstr "重置密码"
@@ -2314,7 +2314,7 @@ msgstr "发帖"
 
 #. placeholder {0}: notification.post.type
 msgid "<0/> mentioned you in a <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</1>"
-msgstr "<0/>提到了你的 <1>{0, select, Post {帖子} Comment {评论} Quote {引用} Mirror {引用} other {帖子}}</1>"
+msgstr "<0/>在一个<1>{0, select, Post {帖子} Comment {评论} Quote {引用} Mirror {转发} other {帖子}}中提到了你</1>"
 
 #. placeholder {0}: first(post.reactions)?.displayName
 msgid "<0>{0}</0> liked"
@@ -2336,14 +2336,14 @@ msgid "Verified by Farcaster"
 msgstr "由 Farcaster 验证"
 
 msgid "No asks"
-msgstr ""
+msgstr "暂无卖单"
 
 msgid "OR"
 msgstr "或"
 
 #. placeholder {0}: outcomeLabel || '-'
 msgid "Trade {0}"
-msgstr ""
+msgstr "交易 {0}"
 
 msgid "Phishing activities."
 msgstr "钓鱼活动。"
@@ -2655,7 +2655,7 @@ msgid "👀 Firefly notifications are off. "
 msgstr "👀 Firefly 通知未开启！"
 
 msgid "No opinion event found."
-msgstr ""
+msgstr "未找到 Opinion 市场。"
 
 #. placeholder {0}: channel.id
 msgid "Unfollowed /{0} on {sourceName}"
@@ -2918,7 +2918,7 @@ msgid "Note: X desktop login is currently unavailable on mobile."
 msgstr "注意：移动端暂不支持 X 的桌面版登录。"
 
 msgid "Confirm to remove this Lucky drop? You can request a refund from your history after 24 hours."
-msgstr ""
+msgstr "确认移除此 Lucky drop 吗？您可以在 24 小时后在历史记录中申请退款。"
 
 msgid "Exclusivity"
 msgstr "独占性"
@@ -3145,17 +3145,17 @@ msgstr "更新个人资料失败。"
 #. js-lingui-explicit-id
 #. placeholder {0}: lastPrice !== null ? `${(lastPrice * 100).toFixed(1)}¢` : '-'
 msgid "bets-last-price"
-msgstr ""
+msgstr "最新价格"
 
 #. Resolution
 #. js-lingui-explicit-id
 msgid "bets-resolution"
-msgstr ""
+msgstr "决议"
 
 #. Following
 #. js-lingui-explicit-id
 msgid "bets-trades-following"
-msgstr ""
+msgstr "正在关注"
 
 #. Global
 #. js-lingui-explicit-id
@@ -3251,7 +3251,7 @@ msgid "{minutes, plural, one {# minute left} other {# minutes left}}"
 msgstr "{minutes, plural, one {剩余 # 分钟} other {剩余 # 分钟}}"
 
 msgid "Created"
-msgstr ""
+msgstr "已创建"
 
 #. placeholder {0}: channel.id
 msgid "All posts from /{0} will be hidden from you"
@@ -4711,8 +4711,7 @@ msgid "Unexpected step for setting password: {step}."
 msgstr "验证密码时出现意外步骤：{step}。"
 
 msgid "If you have multiple Firefly accounts created with different social logins, deleting this account will help you consolidate your social accounts into one. However, if you're trying to access a different Firefly wallet linked to another social account, consider switching accounts instead of deleting."
-msgstr ""
-"如果你使用不同的社交账号创建了多个 Firefly 账户，删除此账户可以帮助你整合社交账号。\n"
+msgstr "如果你使用不同的社交账号创建了多个 Firefly 账户，删除此账户可以帮助你整合社交账号。\n"
 "但如果你仍想访问另一个社交账号绑定的 Firefly 钱包，建议你切换账户，而不是删除账户。"
 
 msgid "<0>You</0> recasted"
@@ -5015,3 +5014,4 @@ msgstr "周"
 
 msgid "Success"
 msgstr "成功"
+
