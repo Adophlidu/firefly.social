@@ -199,7 +199,7 @@ function SwapModalContentWidget({ providerType, embed, ...props }: WidgetProps) 
         const isSwap = chainId === toChainId;
         const tokenPair = {
             fromChain: chainId,
-            toChain: chainId,
+            toChain: toChainId,
             fromToken: props.fromToken ?? (isEvm ? NATIVE_TOKEN_ADDRESS : NATIVE_SOLANA_TOKEN_ADDRESS),
             toToken: props.toToken,
         };
