@@ -122,6 +122,8 @@ function formatPolymarketEvent(detail: PolymarketEvent): BetsEventDataForUI {
             conditionId: market.conditionId,
             outcomes,
             statusList,
+            bestAsk: market.bestAsk,
+            bestBid: market.bestBid,
         };
     });
 

@@ -70,6 +70,8 @@ export interface PolymarketMarket {
     oneWeekPriceChange: string;
     events: PolymarketEvent[];
     orderPriceMinTickSize: string;
+    bestAsk?: number;
+    bestBid?: number;
 }
 
 export interface PolymarketSeries {

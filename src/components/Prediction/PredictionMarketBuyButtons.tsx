@@ -3,6 +3,7 @@
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
+import { isUndefined } from 'lodash-es';
 import { memo } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -45,6 +46,7 @@ export const PredictionMarketBuyButtons = memo<PredictionMarketBuyButtonsProps>(
                 const newPrice = data?.find((item) => item.outcomeId === outcome.id)?.price;
                 const priceToShow = newPrice ?? outcome.price;
                 const price = Number.isNaN(+priceToShow) ? 0 : +priceToShow;
+                const bestPrice = i === 1 ? (isUndefined(market.bestBid) ? 0 : price) : price;
 
                 return (
                     <ClickableButton
@@ -69,7 +71,7 @@ export const PredictionMarketBuyButtons = memo<PredictionMarketBuyButtonsProps>(
                         {showPrice ? (
                             <Trans>
                                 <span className="min-w-0 truncate">Buy {outcome.label}</span>
-                                <span className="shrink-0">{Math.ceil(price * 100)}¢</span>
+                                <span className="shrink-0">{(bestPrice * 100).toFixed(1)}¢</span>
                             </Trans>
                         ) : (
                             <Trans>Buy {outcome.label}</Trans>

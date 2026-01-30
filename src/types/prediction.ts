@@ -66,6 +66,8 @@ export interface BetsMarketDataForUI {
     image?: string;
     outcomes: BetsMarketOutcome[];
     statusList?: BetsMarketResolveStatus[];
+    bestAsk?: number;
+    bestBid?: number;
 }
 
 export interface BetsEventTagForUI {
