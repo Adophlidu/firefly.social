@@ -12,12 +12,14 @@ import { PolymarketVolumeTraded } from '@/components/Polymarket/PolymarketVolume
 import { toRate } from '@/components/Polymarket/toRate.js';
 import { extractFallbackInfo } from '@/components/Prediction/extractFallbackInfo.js';
 import { PredictionPlatformName } from '@/components/Prediction/PredictionPlatformName.js';
+import { ProfileSourceIcon } from '@/components/ProfileSourceIcon.js';
 import { PredictionPlatform, Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
+import { isSocialSource } from '@/helpers/isSource.js';
 import { isZero } from '@/helpers/number.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { getWalletProfileInfoList } from '@/providers/firefly/prediction/getWalletProfileInfoList.js';
@@ -49,7 +51,11 @@ export function PredictionProfileOverview({ profile, platform, address }: Predic
         },
     });
 
-    const { name: socialName, avatar: socialAvatar } = useMemo(() => {
+    const {
+        name: socialName,
+        avatar: socialAvatar,
+        source,
+    } = useMemo(() => {
         if (!socialProfile) return { name: undefined, avatar: undefined };
         return extractFallbackInfo(socialProfile);
     }, [socialProfile]);
@@ -138,7 +144,7 @@ export function PredictionProfileOverview({ profile, platform, address }: Predic
     return (
         <div className="flex flex-col">
             <div className="flex items-center gap-4 px-4 pt-3">
-                <Link href={profileUrl}>
+                <Link href={profileUrl} className="relative">
                     <Avatar
                         src={
                             socialAvatar ||
@@ -149,6 +155,13 @@ export function PredictionProfileOverview({ profile, platform, address }: Predic
                         size={40}
                         className="size-10 rounded-full border border-highlight"
                     />
+                    {isSocialSource(source) ? (
+                        <ProfileSourceIcon
+                            source={source}
+                            size={16}
+                            className="absolute -bottom-1 -right-2 z-10 size-4 rounded-full border border-white"
+                        />
+                    ) : null}
                 </Link>
                 <div className="min-w-0">
                     <Link className="truncate whitespace-nowrap text-lg font-semibold text-main" href={profileUrl}>

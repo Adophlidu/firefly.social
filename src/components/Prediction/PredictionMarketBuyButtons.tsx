@@ -50,7 +50,7 @@ export const PredictionMarketBuyButtons = memo<PredictionMarketBuyButtonsProps>(
                     <ClickableButton
                         key={`${outcome.id}-${i}`}
                         className={classNames(
-                            'min-w-0 flex-1 shrink-0 truncate px-3 font-bold hover:opacity-80',
+                            'flex min-w-0 flex-1 shrink-0 items-center justify-center gap-1 truncate px-3 font-bold hover:opacity-80',
                             isLarge ? 'h-12 rounded-full text-base text-white' : 'h-9 rounded-lg text-sm',
                             i === 0
                                 ? isLarge
@@ -68,7 +68,8 @@ export const PredictionMarketBuyButtons = memo<PredictionMarketBuyButtonsProps>(
                     >
                         {showPrice ? (
                             <Trans>
-                                Buy {outcome.label} {Math.ceil(price * 100)}¢
+                                <span className="min-w-0 truncate">Buy {outcome.label}</span>
+                                <span className="shrink-0">{Math.ceil(price * 100)}¢</span>
                             </Trans>
                         ) : (
                             <Trans>Buy {outcome.label}</Trans>

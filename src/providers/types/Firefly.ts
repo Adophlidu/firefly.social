@@ -1723,11 +1723,11 @@ export interface SwapActivity {
 }
 
 export interface FireflyDisplayInfo {
-    ensHandle: string;
-    avatarUrl: string;
-    fireflyName: string;
-    fireflyUid: string;
-    fireflyAvatarUrl: string;
+    ensHandle: string | null;
+    avatarUrl: string | null;
+    fireflyName: string | null;
+    fireflyUid: string | null;
+    fireflyAvatarUrl: string | null;
 }
 
 export type SwapActivityDetail = Response<SwapActivity[]>;
@@ -2679,6 +2679,7 @@ export interface PolymarketMarketData {
     feesEnabled: boolean;
     requiresTranslation: boolean;
     umaResolutionStatus?: PolymarketUmaResolutionStatus;
+    events?: PolymarketMarketData[];
 }
 
 export interface PolymarketClobRewardData {

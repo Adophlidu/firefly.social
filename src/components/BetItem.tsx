@@ -164,9 +164,10 @@ const getMarketData = (market: PolymarketMarketData) => {
 interface BetItemProps {
     event: PolymarketEventListData;
     className?: string;
+    openLinkInNewTab?: boolean;
 }
 
-export const BetItem = memo(function BetItem({ event, className }: BetItemProps) {
+export const BetItem = memo(function BetItem({ event, className, openLinkInNewTab = true }: BetItemProps) {
     const endTime = new Date(event.endDate).getTime();
 
     const sortedMarkets = useMemo(() => {
@@ -259,7 +260,7 @@ export const BetItem = memo(function BetItem({ event, className }: BetItemProps)
                 className,
             )}
             href={RouteResolver.betsEventDetail(PredictionPlatform.Polymarket, event.slug)}
-            target="_blank"
+            target={openLinkInNewTab ? '_blank' : '_self'}
         >
             <div className="flex items-center gap-2">
                 <Image

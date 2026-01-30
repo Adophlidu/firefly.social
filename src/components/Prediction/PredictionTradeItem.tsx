@@ -1,6 +1,6 @@
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
-import { compact } from 'lodash-es';
+import { compact, first } from 'lodash-es';
 import { type HTMLProps } from 'react';
 
 import BuyIcon from '@/assets/polymarket-bought.svg';
@@ -58,15 +58,16 @@ export function PredictionTradeItem({ trade, platform, className }: PredictionTr
                   : undefined,
           )
         : trade.url;
+    const eventImage = trade.image || first(trade.rawData?.events)?.image;
 
     return (
         <div className={classNames('flex items-center border-t border-line px-4 py-2', className)}>
             <BetsTradeType className="hidden md:flex" type={trade.side} />
             <div className="flex min-w-0 flex-1 gap-3 md:items-center">
                 <div className="flex size-11 shrink-0 items-center overflow-hidden rounded">
-                    {trade.image ? (
+                    {eventImage ? (
                         <Image
-                            src={trade.image}
+                            src={eventImage}
                             alt={displayTitle}
                             className="size-full object-cover"
                             width={44}

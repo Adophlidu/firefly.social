@@ -2245,6 +2245,13 @@ msgstr ""
 msgid "Block transactions under $100"
 msgstr ""
 
+#. placeholder {0}: toFixedTrimmed(+trade.size, 2)
+#. placeholder {1}: trade.outcome
+#. placeholder {2}: toFixedTrimmed(+trade.price * 100, 1)
+#. placeholder {3}: usdValue < 0.01 ? '< $0.01' : `$${toFixedTrimmed(usdValue, 2)}`
+msgid "<0>{displayName}</0> Bought <1>{0} {1}</1> for <2>{marketTitle}</2> at <3>{2}¢</3> ({3})"
+msgstr ""
+
 msgid "Sorry, the passcode you entered is invalid"
 msgstr ""
 
@@ -3291,11 +3298,6 @@ msgid "Post on"
 msgstr ""
 
 msgid "Failed to un-bookmark snapshot."
-msgstr ""
-
-#. placeholder {0}: outcome.label
-#. placeholder {1}: Math.ceil(price * 100)
-msgid "Buy {0} {1}¢"
 msgstr ""
 
 #. placeholder {0}: dayjs(task.schedule_at).format('ddd, MMM DD, YYYY')
@@ -4362,6 +4364,11 @@ msgstr ""
 msgid "Unmute"
 msgstr ""
 
+#. placeholder {0}: outcome.label
+#. placeholder {1}: Math.ceil(price * 100)
+msgid "<0>Buy {0}</0><1>{1}¢</1>"
+msgstr ""
+
 msgid "Congratulations!"
 msgstr ""
 
@@ -4416,14 +4423,6 @@ msgid "Failed to upload. Video size exceeds {minWidth}x{minHeight} ~ {maxWidth}x
 msgstr ""
 
 msgid "Mask Network"
-msgstr ""
-
-#. placeholder {0}: trade.displayInfo?.ensHandle || addressName
-#. placeholder {1}: toFixedTrimmed(+trade.size, 2)
-#. placeholder {2}: trade.outcome
-#. placeholder {3}: toFixedTrimmed(+trade.price * 100, 1)
-#. placeholder {4}: usdValue < 0.01 ? '< $0.01' : `$${toFixedTrimmed(usdValue, 2)}`
-msgid "<0>{0}</0> Bought <1>{1} {2}</1> for <2>{marketTitle}</2> at <3>{3}¢</3> ({4})"
 msgstr ""
 
 msgid "Sanctioned address found."

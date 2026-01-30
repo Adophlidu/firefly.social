@@ -2245,6 +2245,13 @@ msgstr "書籤"
 msgid "Block transactions under $100"
 msgstr "屏蔽 $100 以下交易"
 
+#. placeholder {0}: toFixedTrimmed(+trade.size, 2)
+#. placeholder {1}: trade.outcome
+#. placeholder {2}: toFixedTrimmed(+trade.price * 100, 1)
+#. placeholder {3}: usdValue < 0.01 ? '< $0.01' : `$${toFixedTrimmed(usdValue, 2)}`
+msgid "<0>{displayName}</0> Bought <1>{0} {1}</1> for <2>{marketTitle}</2> at <3>{2}¢</3> ({3})"
+msgstr ""
+
 msgid "Sorry, the passcode you entered is invalid"
 msgstr "抱歉，您輸入的驗證碼無效"
 
@@ -3292,11 +3299,6 @@ msgstr "發佈於"
 
 msgid "Failed to un-bookmark snapshot."
 msgstr "取消收藏投票失敗。"
-
-#. placeholder {0}: outcome.label
-#. placeholder {1}: Math.ceil(price * 100)
-msgid "Buy {0} {1}¢"
-msgstr "以 {1}¢ 購買 {0}"
 
 #. placeholder {0}: dayjs(task.schedule_at).format('ddd, MMM DD, YYYY')
 #. placeholder {1}: dayjs(task.schedule_at).format('hh:mm A')
@@ -4362,6 +4364,11 @@ msgstr "打賞"
 msgid "Unmute"
 msgstr "取消隱藏"
 
+#. placeholder {0}: outcome.label
+#. placeholder {1}: Math.ceil(price * 100)
+msgid "<0>Buy {0}</0><1>{1}¢</1>"
+msgstr ""
+
 msgid "Congratulations!"
 msgstr "恭喜！"
 
@@ -4417,14 +4424,6 @@ msgstr "影片尺寸需介於 {minWidth}x{minHeight} 至 {maxWidth}x{maxHeight}"
 
 msgid "Mask Network"
 msgstr "Mask Network"
-
-#. placeholder {0}: trade.displayInfo?.ensHandle || addressName
-#. placeholder {1}: toFixedTrimmed(+trade.size, 2)
-#. placeholder {2}: trade.outcome
-#. placeholder {3}: toFixedTrimmed(+trade.price * 100, 1)
-#. placeholder {4}: usdValue < 0.01 ? '< $0.01' : `$${toFixedTrimmed(usdValue, 2)}`
-msgid "<0>{0}</0> Bought <1>{1} {2}</1> for <2>{marketTitle}</2> at <3>{3}¢</3> ({4})"
-msgstr ""
 
 msgid "Sanctioned address found."
 msgstr "黑名單地址。"

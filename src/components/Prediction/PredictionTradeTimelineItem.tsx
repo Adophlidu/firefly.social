@@ -2,12 +2,14 @@ import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 
 import { Avatar } from '@/components/Avatar.js';
-import { PredictionPlatform, Source } from '@/constants/enum.js';
+import { ProfileSourceIcon } from '@/components/ProfileSourceIcon.js';
+import { PredictionPlatform } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
-import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
+import { isSocialSource } from '@/helpers/isSource.js';
 import { multipliedBy } from '@/helpers/number.js';
 import { toFixedTrimmed } from '@/helpers/polymarket.js';
+import { resolveBetActivityTraderInfo } from '@/helpers/resolveTraderInfoForBetActivity.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import type { BetsActivity } from '@/providers/types/Firefly.js';
 
@@ -19,22 +21,29 @@ interface PredictionTradeTimelineItemProps {
 export function PredictionTradeTimelineItem({ trade, platform }: PredictionTradeTimelineItemProps) {
     const walletAddress = trade.proxyWallet || trade.wallet;
     const addressName = formatAddress(walletAddress, 4);
-    const avatarUrl = trade.displayInfo?.avatarUrl || getStampAvatarByProfileId(Source.Wallet, walletAddress);
     const betsProfileUrl = RouteResolver.betsProfile(walletAddress, { platform });
     const marketTitle =
         platform === PredictionPlatform.Polymarket ? trade.rawData?.groupItemTitle || trade.title : trade.title;
     const usdValue = multipliedBy(trade.size, trade.price).toNumber();
+    const { displayName, avatarUrl, source } = resolveBetActivityTraderInfo(trade);
 
     return (
         <div className="flex items-center gap-2 border-b border-line px-4 py-3">
-            <Link href={betsProfileUrl} target="_blank">
+            <Link href={betsProfileUrl} target="_blank" className="relative">
                 <Avatar src={avatarUrl} size={36} alt={walletAddress} />
+                {isSocialSource(source) ? (
+                    <ProfileSourceIcon
+                        source={source}
+                        size={16}
+                        className="absolute -bottom-1 -right-2 z-10 size-4 rounded-full border border-white"
+                    />
+                ) : null}
             </Link>
             <div className="text-sm font-medium text-second">
                 {trade.side === 'buy' ? (
                     <Trans>
                         <Link href={betsProfileUrl} target="_blank" className="text-main hover:underline">
-                            {trade.displayInfo?.ensHandle || addressName}
+                            {displayName}
                         </Link>{' '}
                         Bought{' '}
                         <span

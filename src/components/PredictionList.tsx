@@ -11,7 +11,7 @@ import { getEventList } from '@/providers/firefly/prediction/getEventList.js';
 import { type PolymarketEventListData } from '@/providers/types/Firefly.js';
 
 function getBetsItemContent(_: number, data: PolymarketEventListData) {
-    return <BetItem key={data.id} event={data} />;
+    return <BetItem key={data.id} event={data} openLinkInNewTab={false} />;
 }
 
 interface Props {
