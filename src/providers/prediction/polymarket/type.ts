@@ -170,3 +170,5 @@ export type PolymarketPriceHistoryResponse = PolymarketResponse<{
 export type PriceHistoryInterval = '1m' | '1w' | '1d' | '6h' | '1h' | 'max';
 
 export type PolymarketMarketPriceResponse = PolymarketResponse<Record<string, Record<'BUY' | 'SELL', string>>>;
+
+export type PolymarketEventLocale = 'zh' | 'zh-Hant' | 'ja' | 'ko';

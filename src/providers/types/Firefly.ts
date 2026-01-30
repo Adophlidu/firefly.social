@@ -19,6 +19,7 @@ import {
     type WalletSource,
 } from '@/constants/enum.js';
 import type { ErcType, EVM } from '@/providers/nftscan/types.js';
+import type { PolymarketEventLocale } from '@/providers/prediction/polymarket/type.js';
 import type { SnapshotActivity, SnapshotChoice, SnapshotProposal } from '@/providers/snapshot/type.js';
 import type { TwitterSession } from '@/providers/twitter/Session.js';
 import type { Article as FormattedArticle, ArticlePlatform, ArticleType } from '@/providers/types/Article.js';
@@ -2909,3 +2910,12 @@ export enum DesktopSyncChannelStatus {
 export type SyncChannelStatusResponse = Response<{
     status: DesktopSyncChannelStatus;
 }>;
+
+export interface PolymarketTranslationData {
+    event_id: string;
+    language: PolymarketEventLocale;
+    original_title: string;
+    original_description: string;
+    title?: string;
+    description?: string;
+}

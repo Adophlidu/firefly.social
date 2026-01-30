@@ -7,6 +7,7 @@ import linkifyRegex from 'remark-linkify-regex';
 import stripMarkdown from 'strip-markdown';
 
 import { Code } from '@/components/Code.js';
+import { ExternalLink } from '@/components/Markup/MarkupLink/ExternalLink.js';
 import { DisableItalicPlugin } from '@/components/Markup/plugins/DisableItalicPlugin.js';
 import { HashTagLink } from '@/components/Markup/plugins/HashTagLink.js';
 import { MentionPlugin } from '@/components/Markup/plugins/MentionPlugin.js';
@@ -44,6 +45,8 @@ export const PredictionDescription = memo<PredictionDescriptionProps>(function P
             {...rest}
             remarkPlugins={plugins}
             components={{
+                // eslint-disable-next-line react/no-unstable-nested-components
+                a: (props) => <ExternalLink {...props} title={props.title || ''} />,
                 code: Code,
                 ...rest.components,
             }}

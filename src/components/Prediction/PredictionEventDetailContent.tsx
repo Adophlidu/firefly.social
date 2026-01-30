@@ -7,12 +7,14 @@ import { PredictionEventOverview } from '@/components/Prediction/PredictionEvent
 import { PredictionMarketsAccountTab } from '@/components/Prediction/PredictionMarketsAccountTab/index.js';
 import { PredictionMarketsPriceLineChart } from '@/components/Prediction/PredictionMarketsPriceLineChart/index.js';
 import { PredictionProfilePageHeader } from '@/components/Prediction/PredictionProfilePageHeader.js';
-import type { PredictionPlatform } from '@/constants/enum.js';
+import { Locale, type PredictionPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/static.js';
 import { notFound } from '@/esm/navigation/server.js';
+import { getLocaleFromCookies } from '@/helpers/getCookies.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 import { getEventDetail } from '@/providers/firefly/prediction/getEventDetail.js';
+import { translateBetEventData } from '@/providers/prediction/translateBetEventData.js';
 
 interface PredictionEventDetailContentProps {
     id: string;
@@ -27,18 +29,28 @@ export async function PredictionEventDetailContent({ id, isMutil, platform }: Pr
     ]);
     if (!detail) notFound();
 
-    const markets = detail.markets || EMPTY_LIST;
+    const locale = await runInSafeAsync(() => getLocaleFromCookies());
+    const translatedEvent = await runInSafeAsync(() =>
+        translateBetEventData({
+            platform,
+            event: detail,
+            locale: locale || Locale.en,
+        }),
+    );
+
+    const event = translatedEvent || detail;
+    const markets = event.markets || EMPTY_LIST;
     const showResolution = markets.length === 1 && !!first(markets)?.statusList?.length;
-    const isActive = detail.markets.some((market) => !market.isClosed && !market.isResolved);
+    const isActive = event.markets.some((market) => !market.isClosed && !market.isResolved);
 
     return (
         <div>
             <PredictionProfilePageHeader pageTitle={<Trans>Event detail</Trans>} />
-            <PredictionEventOverview detail={detail} isActive={isActive} />
+            <PredictionEventOverview detail={event} isActive={isActive} />
             <PredictionMarketsPriceLineChart platform={platform} markets={markets} isActive={isActive} />
             <PredictionMarketsAccountTab markets={markets} platform={platform} />
             <PredictionBaseInfoTabs showResolution={showResolution} />
-            <PredictionBaseInfoTabContent showResolution={showResolution} platform={platform} detail={detail} />
+            <PredictionBaseInfoTabContent showResolution={showResolution} platform={platform} detail={event} />
         </div>
     );
 }
