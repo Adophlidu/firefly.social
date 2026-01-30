@@ -6,8 +6,17 @@ import { bom, defer, timeout } from '@dimensiondev/utils';
  * @returns Promise that resolves when the window is loaded, or rejects if timeout
  */
 function checkWindowLoaded(window: Window): Promise<Window> {
-    // If the window is already loaded, resolve immediately
-    if (window.document.readyState === 'complete') {
+    // Try to check if the window is already loaded
+    // This may fail for cross-origin windows due to security restrictions
+    try {
+        if (window.document.readyState === 'complete') {
+            return Promise.resolve(window);
+        }
+    } catch (error) {
+        // Cross-origin access error - we can't check the document state
+        // For cross-origin windows, we can't reliably check if they're loaded
+        // so we just resolve immediately as postMessage works regardless
+        console.warn('[iframe-bridge] Cannot check window load state (likely cross-origin):', error);
         return Promise.resolve(window);
     }
 
@@ -35,6 +44,19 @@ function isIframe(): boolean {
     }
 }
 
+/**
+ * Check if a window is same-origin by trying to access its document
+ */
+function isSameOrigin(win: Window): boolean {
+    try {
+        // Try to access document - this will throw for cross-origin windows
+        void win.document;
+        return true;
+    } catch {
+        return false;
+    }
+}
+
 export async function getTargetWindow(): Promise<Window | null> {
     if (!bom.window) {
         console.warn(`[iframe-bridge] Window object is not available.`);
@@ -47,17 +69,22 @@ export async function getTargetWindow(): Promise<Window | null> {
         targetWindow = bom.window.parent;
     } else {
         // If we're the parent, we need to find the iframe window
-        // This is a simplified approach - in practice you might need to track specific iframe references
         if (!bom.document) {
             console.warn(`[iframe-bridge] Document object is not available.`);
             return null;
         }
 
+        // Find the first same-origin iframe
         const iframes = bom.document.querySelectorAll('iframe');
-        if (iframes.length > 0) {
-            targetWindow = iframes[0].contentWindow!;
-        } else {
-            console.warn(`[iframe-bridge] No iframe found in the document.`);
+        for (const iframe of iframes) {
+            if (iframe.contentWindow && isSameOrigin(iframe.contentWindow)) {
+                targetWindow = iframe.contentWindow;
+                break;
+            }
+        }
+
+        if (!targetWindow) {
+            console.warn(`[iframe-bridge] No same-origin iframe found in the document.`);
             return null;
         }
     }
