@@ -2804,7 +2804,6 @@ msgid "Show more tokens"
 msgstr "Show more tokens"
 
 #. placeholder {0}: formatPolymarketNumber(position.shares, { prefix: null })
-#. placeholder {0}: toFixedTrimmed(+trade.size, 2)
 msgid "{0} shares"
 msgstr "{0} shares"
 
@@ -3653,6 +3652,10 @@ msgstr "No available wallet."
 
 msgid "Added"
 msgstr "Added"
+
+#. placeholder {0}: removeTrailingZeros(toFixedTrimmed(+trade.size, 2))
+msgid "{0, plural, one {# share} other {# shares}}"
+msgstr "{0, plural, one {# share} other {# shares}}"
 
 msgid "No phishing activities found."
 msgstr "No phishing activities found."

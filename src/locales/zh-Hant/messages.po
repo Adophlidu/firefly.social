@@ -2809,7 +2809,6 @@ msgid "Show more tokens"
 msgstr "顯示更多代幣"
 
 #. placeholder {0}: formatPolymarketNumber(position.shares, { prefix: null })
-#. placeholder {0}: toFixedTrimmed(+trade.size, 2)
 msgid "{0} shares"
 msgstr "{0} 份"
 
@@ -3658,6 +3657,10 @@ msgstr "無可用錢包"
 
 msgid "Added"
 msgstr "已增加"
+
+#. placeholder {0}: removeTrailingZeros(toFixedTrimmed(+trade.size, 2))
+msgid "{0, plural, one {# share} other {# shares}}"
+msgstr ""
 
 msgid "No phishing activities found."
 msgstr "未檢測到釣魚活動。"

@@ -1,5 +1,5 @@
 import { classNames } from '@dimensiondev/utils';
-import { Trans } from '@lingui/react/macro';
+import { Plural, Trans } from '@lingui/react/macro';
 import { compact, first } from 'lodash-es';
 import { type HTMLProps } from 'react';
 
@@ -91,7 +91,11 @@ export function PredictionTradeItem({ trade, platform, className }: PredictionTr
                             <span>{removeTrailingZeros(rightShift(trade.price, 2).toFixed(1))}¢</span>
                         </div>
                         <span className="text-xs font-medium text-second">
-                            <Trans>{toFixedTrimmed(+trade.size, 2)} shares</Trans>
+                            <Plural
+                                value={removeTrailingZeros(toFixedTrimmed(+trade.size, 2))}
+                                one="# share"
+                                other="# shares"
+                            />
                         </span>
                     </div>
                     <div className="mt-1.5 flex items-end justify-between md:hidden">
