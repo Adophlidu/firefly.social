@@ -3,13 +3,13 @@ import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { memo, useMemo } from 'react';
 
-import LinkIcon from '@/assets/link-square.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { SecurityBadge } from '@/components/EmbedCards/TokenSecurityBadge.js';
 import { type AddressCardProps } from '@/components/EmbedCards/types.js';
 import { Image } from '@/components/Image.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
+import { AddressLink } from '@/components/Tips/AddressLink.js';
 import { Tips } from '@/components/Tips/index.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
 import { NetworkType, type ProfilePageSource, Source } from '@/constants/enum.js';
@@ -124,11 +124,7 @@ export const WalletCard = memo<AddressCardProps>(function WalletCard({ address, 
                             {formatAddress(address, 4)}
                         </Link>
                         <CopyTextButton size={11} className="size-3.5" text={address} />
-                        {addressLink ? (
-                            <Link href={addressLink} className="inline-flex">
-                                <LinkIcon className="size-3.5" />
-                            </Link>
-                        ) : null}
+                        <AddressLink address={address} networkType={networkType ?? NetworkType.Ethereum} size={14} />
                     </div>
                 </div>
                 <div className="ml-auto flex flex-col items-end gap-1">
