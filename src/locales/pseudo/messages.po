@@ -1885,6 +1885,9 @@ msgstr ""
 msgid "Opinion Profile"
 msgstr ""
 
+msgid "Please enter your 2FA confirmation code"
+msgstr ""
+
 msgid "Failed to connect on {source}"
 msgstr ""
 
@@ -3096,6 +3099,9 @@ msgstr ""
 msgid "It is wallet retrieved from public verifiable data registries or our entity algorithm. Please add this wallet to set as primary wallet."
 msgstr ""
 
+msgid "2FA confirmation code"
+msgstr ""
+
 msgid "Visit mask.io"
 msgstr ""
 
@@ -3364,6 +3370,9 @@ msgid "Legacy Firefly wallet"
 msgstr ""
 
 msgid "Social accounts"
+msgstr ""
+
+msgid "Invalid 2FA code. Please try again."
 msgstr ""
 
 msgid "Installed"
@@ -4539,6 +4548,9 @@ msgid "Successfully bound Lens manager."
 msgstr ""
 
 msgid "No one you follow has traded this token."
+msgstr ""
+
+msgid "Verify"
 msgstr ""
 
 msgid "Explore now"

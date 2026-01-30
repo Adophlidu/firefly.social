@@ -1,10 +1,11 @@
 /* cspell:disable */
 
+import type { AuthFactorTokenRequiredError } from '@atproto/api/dist/client/types/com/atproto/server/createSession.js';
 import { AbortError, classNames, ForbiddenError, parseUrl } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
-import { useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useAsyncFn } from 'react-use';
 import { z } from 'zod';
@@ -12,6 +13,7 @@ import { z } from 'zod';
 import AtIcon from '@/assets/at.svg';
 import GlobalIcon from '@/assets/global.svg';
 import LockIcon from '@/assets/lock.svg';
+import SecurityIcon from '@/assets/shield-security.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ClearButton } from '@/components/IconButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
@@ -20,6 +22,7 @@ import { AsyncStatus, Source } from '@/constants/enum.js';
 import { FireflyAlreadyBoundError } from '@/constants/error.js';
 import {
     enqueueForbiddenMessage,
+    enqueueInfoMessage,
     enqueueMessageFromError,
     enqueueSuccessMessage,
     enqueueWarningMessage,
@@ -99,6 +102,7 @@ const schema = z.object({
     account: z.string().min(1),
     password: z.string().min(1),
     serviceUrl: z.union([HttpsUrl, z.literal('')]).optional(),
+    authFactorToken: z.string().optional().or(z.literal('')),
 });
 
 function createFormResolver<T extends z.ZodSchema>(schema: T) {
@@ -139,12 +143,36 @@ export function LoginBsky() {
             account: '',
             password: '',
             serviceUrl: '',
+            authFactorToken: '',
         },
     });
 
     const [editServiceUrl, setEditServiceUrl] = useState(false);
+    const [show2FAInput, setShow2FAInput] = useState(false);
 
     const { account, password, serviceUrl } = watch();
+
+    const prevValuesRef = useRef({ account: '', password: '', serviceUrl: '' });
+
+    const reset2FAFlow = useCallback(() => {
+        setShow2FAInput(false);
+        resetField('authFactorToken');
+    }, [resetField]);
+
+    useEffect(() => {
+        if (show2FAInput) {
+            const prevValues = prevValuesRef.current;
+
+            if (
+                account !== prevValues.account ||
+                password !== prevValues.password ||
+                serviceUrl !== prevValues.serviceUrl
+            ) {
+                reset2FAFlow();
+            }
+        }
+        prevValuesRef.current = { account, password, serviceUrl: serviceUrl || '' };
+    }, [account, password, serviceUrl, show2FAInput, resetField, setShow2FAInput, reset2FAFlow]);
 
     const { data: serverDescription, isLoading } = useQuery({
         enabled: !!serviceUrl && !editServiceUrl,
@@ -178,7 +206,7 @@ export function LoginBsky() {
 
     const { setAsyncStatus } = useGlobalState();
     const [{ loading }, login] = useAsyncFn(
-        async (username: string, password: string, serviceUrl?: string) => {
+        async (username: string, password: string, serviceUrl?: string, authFactorToken?: string) => {
             controller.current.renew();
 
             try {
@@ -188,7 +216,12 @@ export function LoginBsky() {
                     async () => {
                         const serviceUrl_ = serviceUrl || DEFAULT_SERVICE_URL;
                         const agent = createBskyPublicAgent(serviceUrl_);
-                        const response = await agent.com.atproto.server.createSession({
+                        const request: {
+                            identifier: string;
+                            password: string;
+                            allowTakendown: boolean;
+                            authFactorToken?: string;
+                        } = {
                             identifier: formatBskyLoginIdentifier(
                                 username,
                                 serviceUrl_,
@@ -196,7 +229,11 @@ export function LoginBsky() {
                             ),
                             password,
                             allowTakendown: true,
-                        });
+                        };
+                        if (authFactorToken) {
+                            request.authFactorToken = authFactorToken;
+                        }
+                        const response = await agent.com.atproto.server.createSession(request);
                         if (!response.success) throw new Error(`Failed to login username = ${username}.`);
 
                         const profileResponse = await retryOnBskyWhenNetworkError(2, () =>
@@ -232,6 +269,22 @@ export function LoginBsky() {
                     },
                 );
             } catch (error) {
+                if (
+                    error instanceof Error &&
+                    (error as AuthFactorTokenRequiredError).error === 'AuthFactorTokenRequired'
+                ) {
+                    setShow2FAInput(true);
+                    setFocus('authFactorToken');
+                    enqueueInfoMessage(<Trans>Please enter your 2FA confirmation code</Trans>);
+                    return;
+                }
+
+                if (show2FAInput && error instanceof Error) {
+                    enqueueWarningMessage(<Trans>Invalid 2FA code. Please try again.</Trans>);
+                    setFocus('authFactorToken');
+                    return;
+                }
+
                 if (error instanceof Error && error.message === 'Invalid identifier or password') {
                     enqueueWarningMessage(<Trans>Sorry, the username or password you entered is incorrect</Trans>);
                     setFocus('account');
@@ -243,7 +296,7 @@ export function LoginBsky() {
                 setAsyncStatus(Source.Bsky, AsyncStatus.Idle);
             }
         },
-        [controller, serverDescription, setAsyncStatus, setFocus],
+        [controller, serverDescription, setAsyncStatus, setFocus, show2FAInput],
     );
 
     const isValidServiceUrl =
@@ -254,7 +307,7 @@ export function LoginBsky() {
         <form
             className="box-border flex w-[500px] flex-col items-center gap-3 p-6 max-md:w-full"
             onSubmit={handleSubmit((form) => {
-                login(form.account, form.password, form.serviceUrl);
+                login(form.account, form.password, form.serviceUrl, form.authFactorToken);
             })}
         >
             <div className="flex w-[300px] flex-col gap-5 max-md:w-full">
@@ -283,6 +336,7 @@ export function LoginBsky() {
                             size={16}
                             onClick={() => {
                                 resetField('account');
+                                if (show2FAInput) reset2FAFlow();
                                 setFocus('account');
                             }}
                         />
@@ -308,6 +362,7 @@ export function LoginBsky() {
                             size={16}
                             onClick={() => {
                                 resetField('password');
+                                if (show2FAInput) reset2FAFlow();
                                 setFocus('password');
                             }}
                         />
@@ -329,6 +384,7 @@ export function LoginBsky() {
                         )}
                         onFocus={() => {
                             setEditServiceUrl(true);
+                            if (show2FAInput) reset2FAFlow();
                         }}
                         {...register('serviceUrl', {
                             required: true,
@@ -361,15 +417,51 @@ export function LoginBsky() {
                             size={16}
                             onClick={async () => {
                                 setEditServiceUrl(true);
+                                if (show2FAInput) reset2FAFlow();
                                 resetField('serviceUrl');
                                 setFocus('serviceUrl');
                             }}
                         />
                     ) : null}
                 </div>
+                {show2FAInput ? (
+                    <div className="group relative mx-0 flex h-10 grow items-center overflow-hidden rounded-xl bg-lightBg text-main ring-highlight focus-within:bg-bottom focus-within:ring-1">
+                        <SecurityIcon width={18} height={18} className="absolute left-3 shrink-0" />
+                        <input
+                            disabled={loading}
+                            type="text"
+                            autoComplete="one-time-code"
+                            spellCheck="false"
+                            placeholder={t`2FA confirmation code`}
+                            className="w-full border-0 bg-transparent py-2 pl-9 placeholder:text-secondary focus:border-0 focus:outline-0 focus:ring-0 dark:text-input sm:text-sm sm:leading-6"
+                            {...register('authFactorToken')}
+                        />
+                        {watch('authFactorToken') ? (
+                            <ClearButton
+                                tabIndex={-1}
+                                type="button"
+                                className="absolute right-3 hidden group-focus-within:inline-block group-hover:inline-block"
+                                IconProps={{
+                                    className: 'group-hover:text-highlight group-focus-within:text-highlight',
+                                }}
+                                size={16}
+                                onClick={() => {
+                                    resetField('authFactorToken');
+                                    setFocus('authFactorToken');
+                                }}
+                            />
+                        ) : null}
+                    </div>
+                ) : null}
                 <ClickableButton
                     className="flex h-[42px] w-full items-center justify-center gap-1 rounded-full border border-line bg-lightMain text-primaryBottom"
-                    disabled={loading || isLoading || !formState.isValid || !isValidServiceUrl}
+                    disabled={
+                        loading ||
+                        isLoading ||
+                        !formState.isValid ||
+                        !isValidServiceUrl ||
+                        (show2FAInput && !watch('authFactorToken'))
+                    }
                     type="submit"
                 >
                     {loading ? (
@@ -377,6 +469,8 @@ export function LoginBsky() {
                             <Trans>Signing in</Trans>
                             <LoadingIcon className="size-[18px] text-primaryBottom" />
                         </>
+                    ) : show2FAInput ? (
+                        <Trans>Verify</Trans>
                     ) : (
                         <Trans>Sign In</Trans>
                     )}

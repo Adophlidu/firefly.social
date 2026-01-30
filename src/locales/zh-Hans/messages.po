@@ -1890,6 +1890,9 @@ msgstr "隐藏已结算"
 msgid "Opinion Profile"
 msgstr "Opinion 个人信息"
 
+msgid "Please enter your 2FA confirmation code"
+msgstr ""
+
 msgid "Failed to connect on {source}"
 msgstr "在 {source} 上连接失败。"
 
@@ -3101,6 +3104,9 @@ msgstr "买入 {secondOutcome}"
 msgid "It is wallet retrieved from public verifiable data registries or our entity algorithm. Please add this wallet to set as primary wallet."
 msgstr "这是从公开数据库或我们的算法中检索到的钱包。请先添加此钱包再设置为主钱包。"
 
+msgid "2FA confirmation code"
+msgstr ""
+
 msgid "Visit mask.io"
 msgstr "访问 mask.io"
 
@@ -3370,6 +3376,9 @@ msgstr "旧版 Firefly 钱包"
 
 msgid "Social accounts"
 msgstr "社交账户"
+
+msgid "Invalid 2FA code. Please try again."
+msgstr ""
 
 msgid "Installed"
 msgstr "已安装"
@@ -4545,6 +4554,9 @@ msgstr "成功设置Lens 管理员。"
 
 msgid "No one you follow has traded this token."
 msgstr "你关注的人没有交易过这个代币哦。"
+
+msgid "Verify"
+msgstr ""
 
 msgid "Explore now"
 msgstr "开始探索"
