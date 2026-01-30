@@ -9,7 +9,7 @@ import { type Attachment } from '@/providers/types/SocialMedia.js';
  * use mp4 link with highest bitrate
  * TODO: Maybe we can choose video on network speed
  */
-function getBestVideoUrl(variants: MediaVariantsV2[]) {
+export function getBestVideoUrl(variants: MediaVariantsV2[]) {
     const m3u8Variant = variants.find((v) => v.content_type === 'application/x-mpegURL');
     if (m3u8Variant?.url) return m3u8Variant.url;
 

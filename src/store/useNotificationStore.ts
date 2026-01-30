@@ -36,6 +36,10 @@ const useNotificationStateBase = create<NotificationState, [['zustand/persist', 
                 types: [],
                 enableQualityFilter: true,
             },
+            [Source.Twitter]: {
+                types: [],
+                enableQualityFilter: true,
+            },
             setTypes: (source, types) => {
                 set((state) => {
                     state[source].types = types;

@@ -9,7 +9,6 @@ import { type NotificationSource, ScrollListKey, type Source } from '@/constants
 import { EMPTY_LIST } from '@/constants/static.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { listenNotifications } from '@/services/listenNotifications.js';
 import { useNotificationStateStore } from '@/store/useNotificationStore.js';
@@ -21,17 +20,16 @@ interface SocialNotificationsProps {
 export const SocialNotifications = memo<SocialNotificationsProps>(function SocialNotifications({ source }) {
     const profile = useCurrentProfile(source);
     const typesState = useNotificationStateStore();
-    const asyncStatusAll = useAsyncStatusAll();
 
     const isLogin = !!profile?.profileId;
     const { types, enableQualityFilter } = typesState[source];
 
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['notifications', source, isLogin, enableQualityFilter, asyncStatusAll],
+        queryKey: ['notifications', source, profile?.profileId, enableQualityFilter],
         initialPageParam: '',
         queryFn: async ({ pageParam }) => {
             const indicator = createIndicator(undefined, pageParam);
-            if (!isLogin || asyncStatusAll) return createPageable(EMPTY_LIST, indicator);
+            if (!isLogin) return createPageable(EMPTY_LIST, indicator);
 
             try {
                 return await resolveSocialMediaProvider(source).getNotifications(indicator, enableQualityFilter);
@@ -50,7 +48,7 @@ export const SocialNotifications = memo<SocialNotificationsProps>(function Socia
         },
     });
 
-    if (asyncStatusAll || (!queryResult.isFetchingNextPage && queryResult.isFetching)) {
+    if (!queryResult.isFetchingNextPage && queryResult.isFetching) {
         return <Loading />;
     }
 

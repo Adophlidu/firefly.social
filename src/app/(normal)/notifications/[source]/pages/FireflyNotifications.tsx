@@ -4,15 +4,15 @@ import { getNotificationItemContent } from '@/app/(normal)/notifications/[source
 import { updateNotificationReadStatus } from '@/app/(normal)/notifications/[source]/pages/updateNotificationReadStatus.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { Loading } from '@/components/Loading.js';
-import { SOCIAL_DISCOVER_SOURCE, SOCIAL_NOTIFICATION_TYPES, UNIFIED_NOTIFICATION_TYPES } from '@/constants/computed.js';
+import { SOCIAL_NOTIFICATION_TYPES, UNIFIED_NOTIFICATION_TYPES } from '@/constants/computed.js';
 import { ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/static.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { useMultiInfiniteQueryPageable } from '@/hooks/useMultiInfiniteQueryPageable.js';
+import { useNotificationSources } from '@/hooks/useNotificationSources.js';
 import { getAllNotifications } from '@/providers/firefly/endpoint/getAllNotifications.js';
 import { getScheduleNotifications } from '@/providers/firefly/endpoint/getScheduleNotifications.js';
 import { getTipsNotifications } from '@/providers/firefly/endpoint/getTipsNotifications.js';
@@ -24,7 +24,7 @@ export const FireflyNotifications = memo(function FireflyNotifications() {
     const allProfiles = useCurrentProfilesAll();
     const isLogin = useIsLoginFirefly();
     const typesState = useNotificationStateStore();
-    const asyncStatusAll = useAsyncStatusAll();
+    const notificationSources = useNotificationSources();
 
     const { types, enableQualityFilter } = typesState[Source.Notifications];
 
@@ -46,10 +46,11 @@ export const FireflyNotifications = memo(function FireflyNotifications() {
         );
         const needsTips = types.length === 0 || types.includes(NotificationType.Tips);
         const needsSchedule = types.length === 0 || types.includes(NotificationType.Schedule);
+        const socialSources = notificationSources.filter((source) => source !== Source.Notifications);
 
         if (types.length === 0) {
             return [
-                ...SOCIAL_DISCOVER_SOURCE.filter((x) => !!allProfiles[x]?.profileId),
+                ...socialSources.filter((x) => !!allProfiles[x]?.profileId),
                 NotificationType.Tips,
                 NotificationType.Schedule,
                 'unified',
@@ -61,7 +62,7 @@ export const FireflyNotifications = memo(function FireflyNotifications() {
         }
 
         if (socialMediaTypes.length > 0) {
-            sources.push(...SOCIAL_DISCOVER_SOURCE.filter((x) => !!allProfiles[x]?.profileId));
+            sources.push(...socialSources.filter((x) => !!allProfiles[x]?.profileId));
         }
 
         if (needsTips) {
@@ -72,15 +73,15 @@ export const FireflyNotifications = memo(function FireflyNotifications() {
             sources.push(NotificationType.Schedule);
         }
         return sources;
-    }, [types, allProfiles, unifiedAPITypes]);
+    }, [types, allProfiles, unifiedAPITypes, notificationSources]);
 
     const queryResult = useMultiInfiniteQueryPageable(
-        ['notifications', Source.Notifications, isLogin, enableQualityFilter, asyncStatusAll, ...querySources],
+        ['notifications', Source.Notifications, isLogin, enableQualityFilter, ...querySources],
         querySources.map((x) => ({
             key: x,
             queryFn: async ({ pageParam }) => {
                 const indicator = createIndicator(undefined, pageParam);
-                if (!isLogin || asyncStatusAll) return createPageable(EMPTY_LIST, indicator);
+                if (!isLogin) return createPageable(EMPTY_LIST, indicator);
 
                 if (x === 'unified') {
                     return getAllNotifications(
@@ -110,7 +111,7 @@ export const FireflyNotifications = memo(function FireflyNotifications() {
         },
     );
 
-    if (asyncStatusAll || (!queryResult.isFetchingNextPage && queryResult.isFetching)) {
+    if (!queryResult.isFetchingNextPage && queryResult.isFetching) {
         return <Loading />;
     }
 

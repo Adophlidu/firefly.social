@@ -197,9 +197,10 @@ export type ExploreSourceInURL =
     | SourceInURL.Twitter
     | SourceInURL.X
     | TrendingType;
-export type NotificationSource = Source.Notifications | Source.Lens | Source.Farcaster | Source.Bsky;
+export type NotificationSource = Source.Notifications | Source.Twitter | Source.Lens | Source.Farcaster | Source.Bsky;
 export type NotificationSourceInURL =
     | SourceInURL.Notifications
+    | SourceInURL.X
     | SourceInURL.Lens
     | SourceInURL.Farcaster
     | SourceInURL.Bsky;
@@ -650,6 +651,7 @@ export enum NotificationSourceType {
     Farcaster = 'farcaster',
     Lens = 'lens',
     Bsky = 'bsky',
+    X = 'x',
 }
 
 export enum SparksAccountStatus {

@@ -1,13 +1,15 @@
 import { isServer } from '@tanstack/react-query';
 import urlcat from 'urlcat';
 
+import { X_WEBHOOK_WHITELIST_CLIENT_IDS } from '@/constants/computed.js';
 import { env } from '@/constants/env.js';
 import { X_WEBHOOK_RECEIVER_URL } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { logger } from '@/libs/Logger.js';
 import { type SessionPayload, TwitterSessionPayload } from '@/providers/twitter/SessionPayload.js';
 
-const WEBHOOK_ID = '2014001057232240641';
+const WEBHOOK_ID = env.internal.X_WEBHOOK_ID;
+const WEBHOOK_API_KEY = env.internal.X_WEBHOOK_RECEIVER_API_KEY;
 
 interface SubscriptionResponse {
     message: string;
@@ -15,10 +17,16 @@ interface SubscriptionResponse {
 
 export async function subscribeWebhook(payload: SessionPayload) {
     if (!isServer) throw new Error('This function can only be executed on the server.');
+    if (!WEBHOOK_ID || !WEBHOOK_API_KEY) {
+        logger.info('[subscribeWebhook] WEBHOOK_ID or WEBHOOK_API_KEY is not set. Skipping webhook subscription.');
+        return;
+    }
+    if (payload.clientId && !X_WEBHOOK_WHITELIST_CLIENT_IDS.includes(payload.clientId)) {
+        logger.info(`[subscribeWebhook] Client ${payload.clientId} is not whitelisted for webhook subscription.`);
+        return;
+    }
 
     logger.info(`[subscribeWebhook] Subscribing to webhook for user ${payload.clientId}`);
-
-    if (payload.clientId !== 'vk') return;
 
     try {
         const url = urlcat(X_WEBHOOK_RECEIVER_URL, `/api/webhooks/${WEBHOOK_ID}/subscriptions`);

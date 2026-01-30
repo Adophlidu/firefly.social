@@ -4,8 +4,10 @@ import { use } from 'react';
 
 import { FireflyNotifications } from '@/app/(normal)/notifications/[source]/pages/FireflyNotifications.js';
 import { SocialNotifications } from '@/app/(normal)/notifications/[source]/pages/SocialNotifications.js';
+import { Loading } from '@/components/Loading.js';
 import { type NotificationSource, Source, type SourceInURL } from '@/constants/enum.js';
 import { resolveSource } from '@/helpers/resolveSource.js';
+import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { type NextPageProps } from '@/types/utility.js';
 
 interface Props extends NextPageProps<{ source: SourceInURL }> {}
@@ -13,6 +15,11 @@ interface Props extends NextPageProps<{ source: SourceInURL }> {}
 export default function Page(props: Props) {
     const params = use(props.params);
     const source = resolveSource(params.source) as NotificationSource;
+    const syncing = useAsyncStatusAll();
+
+    if (syncing) {
+        return <Loading />;
+    }
 
     if (source === Source.Notifications) {
         return <FireflyNotifications />;

@@ -2,19 +2,21 @@
 
 import { SolidTabs } from '@/components/Tabs/SolidTabs.js';
 import { queryClient } from '@/configs/queryClient.js';
-import { SORTED_NOTIFICATIONS_SOURCES } from '@/constants/computed.js';
 import { type NotificationSource } from '@/constants/enum.js';
 import { resolveNotificationUrl } from '@/helpers/resolveNotificationUrl.js';
 import { resolveNotificationSourceName } from '@/helpers/resolveSourceName.js';
+import { useNotificationSources } from '@/hooks/useNotificationSources.js';
 
 interface NotificationTabsProps {
     source: NotificationSource;
 }
 
 export function NotificationTabs({ source }: NotificationTabsProps) {
+    const sources = useNotificationSources();
+
     return (
         <SolidTabs
-            data={SORTED_NOTIFICATIONS_SOURCES}
+            data={sources}
             link={resolveNotificationUrl}
             itemRender={resolveNotificationSourceName}
             isSelected={(x) => x === source}

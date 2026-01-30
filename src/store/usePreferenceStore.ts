@@ -39,6 +39,7 @@ const defaultPreferences: Preferences = {
         [NotificationSourceType.Farcaster]: EMPTY_LIST,
         [NotificationSourceType.Lens]: EMPTY_LIST,
         [NotificationSourceType.Bsky]: EMPTY_LIST,
+        [NotificationSourceType.X]: EMPTY_LIST,
     },
 };
 

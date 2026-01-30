@@ -25,6 +25,7 @@ import {
     TrendingType,
     WalletProfileCategory,
 } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
 import { type Attachment, NotificationType } from '@/providers/types/SocialMedia.js';
 import { type Runtime } from '@/providers/types/Trending.js';
 import { MediaSource } from '@/types/compose.js';
@@ -257,6 +258,7 @@ export const BOOKMARK_SOURCES: BookmarkSource[] = [
 
 export const SORTED_NOTIFICATIONS_SOURCES: NotificationSource[] = [
     Source.Notifications,
+    Source.Twitter,
     Source.Lens,
     Source.Farcaster,
     Source.Bsky,
@@ -358,3 +360,10 @@ export const SOCIAL_NOTIFICATION_TYPES: NotificationType[] = [
 ];
 
 export const SORTED_BETS_PLATFORM: PredictionPlatform[] = [PredictionPlatform.Polymarket, PredictionPlatform.Opinion];
+
+export const X_WEBHOOK_WHITELIST_CLIENT_IDS: string[] = (() => {
+    const ids = env.external.NEXT_PUBLIC_X_WEBHOOK_RECEIVER_IDS;
+    if (!ids) return [];
+
+    return ids.split(',').map((id) => id.trim());
+})();

@@ -57,6 +57,12 @@ const state = createProfileState(
                     !!idFromSession &&
                     !state.accounts.some((x) => x.session.profileId === idFromSession) &&
                     dayjs().diff(createdAt, 'minute') < 5;
+                console.log('Twitter session rehydration', {
+                    isNewLogin,
+                    idFromSession,
+                    nextSession,
+                    accounts: state.accounts,
+                });
 
                 // resume the session if it exists
                 if (session && !isNewLogin) twitterSessionHolder.resumeSession(session);

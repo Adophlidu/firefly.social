@@ -33,6 +33,8 @@ function resolveNotificationSource(source: NotificationSourceType) {
             return Source.Bsky;
         case NotificationSourceType.Lens:
             return Source.Lens;
+        case NotificationSourceType.X:
+            return Source.Twitter;
         default:
             safeUnreachable(source);
             return Source.Notifications;

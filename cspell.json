@@ -575,7 +575,8 @@
         "mergeable",
         "CASHPNL",
         "PERCENTPNL",
-        "vfile"
+        "vfile",
+        "favorited"
     ],
     "flagWords": [],
     "ignorePaths": [

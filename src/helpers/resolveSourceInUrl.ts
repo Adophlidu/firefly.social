@@ -99,6 +99,7 @@ export const resolveNotificationSource = createLookupTableResolver<NotificationS
         [SourceInURL.Lens]: Source.Lens,
         [SourceInURL.Farcaster]: Source.Farcaster,
         [SourceInURL.Bsky]: Source.Bsky,
+        [SourceInURL.X]: Source.Twitter,
     },
     (source) => {
         throw new UnreachableError('source', source);

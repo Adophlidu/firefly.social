@@ -4,6 +4,7 @@ import { compact, first } from 'lodash-es';
 import { RedPacketMetaKey, SolanaRedPacketMetaKey } from '@/constants/rp.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { useProfileStore } from '@/hooks/useProfileStore.js';
+import { logger } from '@/libs/Logger.js';
 import { parse } from '@/providers/firefly/red-packet/parse.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
 
@@ -21,17 +22,24 @@ export function useParseRedPacket(account: string | undefined, post: Post, enabl
 
     const { data, refetch, isLoading } = useQuery({
         enabled,
+        staleTime: 1000 * 60 * 10, // 10 minutes
         queryKey: ['red-packet', 'parse', source, image, account?.toLowerCase(), currentProfile?.profileId],
         queryFn: async () => {
             if (!image) return null;
-            return parse({
-                image: {
-                    imageUrl: image,
-                },
-                walletAddress: account,
-                platform: resolveRedPacketPlatformType(source),
-                profileId: currentProfile?.profileId,
-            });
+
+            try {
+                return await parse({
+                    image: {
+                        imageUrl: image,
+                    },
+                    walletAddress: account,
+                    platform: resolveRedPacketPlatformType(source),
+                    profileId: currentProfile?.profileId,
+                });
+            } catch (error) {
+                logger.error('useParseRedPacket', 'Failed to parse red packet', { error, source, image, account });
+                return null;
+            }
         },
     });
 

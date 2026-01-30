@@ -32,10 +32,8 @@ export function NotificationSettings({ source }: { source: NotificationSource })
     } = useQuery({
         queryKey: ['bsky-notification-push-switch', asyncStatus],
         staleTime: 1000 * 60 * 3, // 3 minutes
-        async queryFn() {
-            if (source !== Source.Bsky) return;
-            return getBskyNotificationSettings();
-        },
+        enabled: source === Source.Bsky,
+        queryFn: () => getBskyNotificationSettings(),
     });
 
     const [{ loading: switching }, onSwitch] = useAsyncFn(
@@ -83,7 +81,7 @@ export function NotificationSettings({ source }: { source: NotificationSource })
             },
         ];
 
-        return [Source.Farcaster, Source.Bsky].includes(source)
+        return [Source.Farcaster, Source.Bsky, Source.Twitter].includes(source)
             ? baseItems
             : [
                   ...baseItems,
@@ -138,18 +136,20 @@ export function NotificationSettings({ source }: { source: NotificationSource })
             </PopoverButton>
             <PopoverPanel className="absolute right-0 top-10 z-50 flex min-w-[320px] flex-col gap-2 rounded-lg bg-lightBottom text-main shadow-lightS3 dark:bg-darkBottom">
                 <div className={'flex flex-col gap-4 p-4'}>
-                    <div className="flex justify-between">
-                        <span className="text-sm font-semibold">
-                            <Trans>Quality filter</Trans>
-                        </span>
-                        <Switch
-                            checked={enabledState}
-                            loading={loading}
-                            disabled={loading}
-                            onChange={onSwitch}
-                            size="small"
-                        />
-                    </div>
+                    {source !== Source.Twitter ? (
+                        <div className="flex justify-between">
+                            <span className="text-sm font-semibold">
+                                <Trans>Quality filter</Trans>
+                            </span>
+                            <Switch
+                                checked={enabledState}
+                                loading={loading}
+                                disabled={loading}
+                                onChange={onSwitch}
+                                size="small"
+                            />
+                        </div>
+                    ) : null}
                     <TypeFilter
                         multiple
                         options={filterOptions}

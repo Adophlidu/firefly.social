@@ -9,6 +9,7 @@ import { farcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.
 import { getScheduleNotifications } from '@/providers/firefly/endpoint/getScheduleNotifications.js';
 import { getTipsNotifications } from '@/providers/firefly/endpoint/getTipsNotifications.js';
 import { getLensNotifications } from '@/providers/lens/getLensNotifications.js';
+import { officialSocialMediaProvider } from '@/providers/twitter/OfficialSocialMedia.js';
 import { type Notification as NotificationObject } from '@/providers/types/SocialMedia.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
 
@@ -47,6 +48,12 @@ const sourceConfig: Config[] = [
         type: NotificationSourceType.Bsky,
         loginSource: Source.Bsky,
         getNotifications: () => getBskyNotifications(),
+    },
+    {
+        timeout: 1000 * 60 * 2,
+        type: NotificationSourceType.X,
+        loginSource: Source.Twitter,
+        getNotifications: () => officialSocialMediaProvider.getNotifications(),
     },
 ];
 const jobIds = new Set<NodeJS.Timeout>();
