@@ -3,6 +3,7 @@ import { exposeToIframe } from '@farcaster/miniapp-host';
 import { Trans } from '@lingui/react/macro';
 import { useEffect, useRef } from 'react';
 import { useAsync } from 'react-use';
+import type { Address, Hex } from 'viem';
 import { useChainId, useConnection } from 'wagmi';
 
 import { frameSwapToken } from '@/components/Frame/V2/frameSwapToken.js';
@@ -48,9 +49,14 @@ function createEthProvider(frame: Frame) {
                     return;
                 case EthereumMethodType.ETH_SEND_TRANSACTION: {
                     await captureFrameActionEvent('others', frame, client.account.address, true);
-                    await client.request(parameters as Parameters<typeof client.request>[0]);
+                    const txParams = parameters.params[0] as { to: Address; data?: Hex; value?: string };
+                    const hash = await client.sendTransaction({
+                        to: txParams.to,
+                        data: txParams.data,
+                        value: txParams.value ? BigInt(txParams.value) : undefined,
+                    });
                     await captureFrameActionEvent('others', frame, client.account.address);
-                    return;
+                    return hash;
                 }
                 default:
                     const result = await client.request(parameters as Parameters<typeof client.request>[0]);
