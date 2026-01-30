@@ -57,9 +57,13 @@ export const PredictionPositionAction = memo<Props>(function PredictionPositionA
                 <ClickableButton
                     className="box-border h-8 w-[128px] whitespace-nowrap rounded-lg bg-highlight py-2 text-xs text-white"
                     onClick={() => {
-                        const outcomeIndex = position.vote_status === 'No' ? 1 : 0;
+                        const outcomeIndex = position.outcomeIndex ?? 0;
+                        const params = new URLSearchParams();
+                        params.set('side', 'sell');
+                        params.set('outcome', String(outcomeIndex));
+                        if (position.conditionId) params.set('conditionId', position.conditionId);
                         openFireflyWallet({
-                            path: `/bet/event/${encodeURIComponent(position.marketSlug)}?side=sell&outcome=${outcomeIndex}`,
+                            path: `/bet/event/${encodeURIComponent(position.marketSlug)}?${params.toString()}`,
                         });
                     }}
                 >
