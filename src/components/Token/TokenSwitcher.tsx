@@ -23,7 +23,7 @@ export const TokenSwitcher = memo<Props>(function TokenSwitcher({
     onSelect,
     ...rest
 }) {
-    const tabs = [
+    const allTabs = [
         {
             label: <Trans>Coins</Trans>,
             platformType: TokenPlatformType.Cex,
@@ -33,7 +33,11 @@ export const TokenSwitcher = memo<Props>(function TokenSwitcher({
             platformType: TokenPlatformType.Dex,
         },
     ];
-    const [platform = platformType, setPlatform] = useState<TokenPlatformType>();
+    // Only show tabs that have tokens
+    const tabs = allTabs.filter((tab) => tokenInfos.some((tokenInfo) => tokenInfo.platform_type === tab.platformType));
+    const [platform = platformType, setPlatform] = useState<TokenPlatformType>(
+        () => tabs.find((tab) => tab.platformType === platformType)?.platformType ?? tabs[0]?.platformType,
+    );
 
     const filteredTokens = platform
         ? tokenInfos.filter((tokenInfo) => tokenInfo.platform_type === platform)
