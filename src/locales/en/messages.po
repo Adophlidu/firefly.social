@@ -1389,6 +1389,13 @@ msgstr "The token can not be bought."
 msgid "More Details"
 msgstr "More Details"
 
+#. placeholder {0}: toFixedTrimmed(+trade.size, 2)
+#. placeholder {1}: trade.outcome
+#. placeholder {2}: toFixedTrimmed(+trade.price * 100, 1)
+#. placeholder {3}: usdValue < 0.01 ? '< $0.01' : `$${toFixedTrimmed(usdValue, 2)}`
+msgid "<0>{displayName}</0> Bought <1>{0} {1}</1> for <2>{marketTitle}</2> at <3>{2}¢</3> <4>({3})</4>"
+msgstr "<0>{displayName}</0> Bought <1>{0} {1}</1> for <2>{marketTitle}</2> at <3>{2}¢</3> <4>({3})</4>"
+
 msgid "Verified by Lens"
 msgstr "Verified by Lens"
 
@@ -2247,13 +2254,6 @@ msgstr "Bookmark"
 
 msgid "Block transactions under $100"
 msgstr "Block transactions under $100"
-
-#. placeholder {0}: toFixedTrimmed(+trade.size, 2)
-#. placeholder {1}: trade.outcome
-#. placeholder {2}: toFixedTrimmed(+trade.price * 100, 1)
-#. placeholder {3}: usdValue < 0.01 ? '< $0.01' : `$${toFixedTrimmed(usdValue, 2)}`
-msgid "<0>{displayName}</0> Bought <1>{0} {1}</1> for <2>{marketTitle}</2> at <3>{2}¢</3> ({3})"
-msgstr "<0>{displayName}</0> Bought <1>{0} {1}</1> for <2>{marketTitle}</2> at <3>{2}¢</3> ({3})"
 
 msgid "Sorry, the passcode you entered is invalid"
 msgstr "Sorry, the passcode you entered is invalid"
@@ -4618,14 +4618,6 @@ msgstr "Lens Auto login"
 
 msgid "Download App"
 msgstr "Download App"
-
-#. placeholder {0}: trade.displayInfo?.ensHandle || addressName
-#. placeholder {1}: toFixedTrimmed(+trade.size, 2)
-#. placeholder {2}: trade.outcome
-#. placeholder {3}: toFixedTrimmed(+trade.price * 100, 1)
-#. placeholder {4}: usdValue < 0.01 ? '< $0.01' : `$${toFixedTrimmed(usdValue, 2)}`
-msgid "<0>{0}</0> Bought <1>{1} {2}</1> for <2>{marketTitle}</2> at <3>{3}¢</3> <4>({4})</4>"
-msgstr "<0>{0}</0> Bought <1>{1} {2}</1> for <2>{marketTitle}</2> at <3>{3}¢</3> <4>({4})</4>"
 
 msgid "Profile"
 msgstr "Profile"

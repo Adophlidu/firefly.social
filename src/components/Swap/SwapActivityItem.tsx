@@ -48,8 +48,9 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
 
     const detailUrl = resolveTxPageUrl(activity.hash, activity.chain_id);
     const disableScrollRestore = useDisableScrollRestore();
-
+    const ensHandle = activity.displayInfo?.ensHandle ?? undefined;
     const isCrossChain = activity.is_cross_chain;
+
     return (
         <motion.article
             initial={{ opacity: 0 }}
@@ -93,18 +94,16 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
                                 className="min-w-0 max-w-full truncate font-bold text-lightMain"
                                 onClick={stopPropagation}
                             >
-                                {activity.displayInfo?.ensHandle ? (
+                                {ensHandle ? (
                                     <span>
-                                        {activity.displayInfo.ensHandle.split('.')[0]}
-                                        <span className="text-second">
-                                            .{activity.displayInfo.ensHandle.split('.')[1]}
-                                        </span>
+                                        {ensHandle.split('.')[0]}
+                                        <span className="text-second">.{ensHandle.split('.')[1]}</span>
                                     </span>
                                 ) : (
                                     addressName
                                 )}
                             </Link>
-                            {activity.displayInfo?.ensHandle ? (
+                            {ensHandle ? (
                                 <Link href={profileUrl} className="ml-2 max-md:hidden" onClick={stopPropagation}>
                                     {addressName}
                                 </Link>
@@ -118,10 +117,7 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
                         </div>
 
                         <ClickableArea>
-                            <WalletBaseMoreAction
-                                address={activity.owner as Address}
-                                ens={activity.displayInfo?.ensHandle}
-                            />
+                            <WalletBaseMoreAction address={activity.owner as Address} ens={ensHandle} />
                         </ClickableArea>
                     </div>
                     {activity.dex_name || activity.router_address ? (
@@ -157,7 +153,7 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
                                     identity: activity.from_token.symbol,
                                     chainId: activity.chain_id,
                                     trader: activity.owner,
-                                    traderName: activity.displayInfo?.ensHandle,
+                                    traderName: ensHandle,
                                     address: activity.from_token.address,
                                 })}
                                 className="flex items-center gap-2 rounded-lg bg-bg p-2"
@@ -194,7 +190,7 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
                                     identity: activity.to_token.symbol,
                                     chainId: activity.chain_id,
                                     trader: activity.owner,
-                                    traderName: activity.displayInfo?.ensHandle,
+                                    traderName: ensHandle,
                                     address: activity.to_token.address,
                                 })}
                                 className="flex items-center gap-2 rounded-lg bg-bg p-2"

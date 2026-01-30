@@ -8,8 +8,8 @@ export function formatSnapshotActivityFromFirefly(snapshot: FireflySnapshotActiv
     return {
         author: {
             id: authorId,
-            handle: snapshot.displayInfo.ensHandle,
-            avatar: snapshot.displayInfo.avatarUrl,
+            handle: snapshot.displayInfo.ensHandle ?? '',
+            avatar: snapshot.displayInfo.avatarUrl ?? '',
             isFollowing: snapshot.followingSources.some(
                 (x) => x.type === WatchType.Wallet && isSameEthereumAddress(x.walletAddress, authorId),
             ),

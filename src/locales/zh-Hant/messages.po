@@ -1394,6 +1394,13 @@ msgstr "此代幣無法購買。"
 msgid "More Details"
 msgstr "更多詳情"
 
+#. placeholder {0}: toFixedTrimmed(+trade.size, 2)
+#. placeholder {1}: trade.outcome
+#. placeholder {2}: toFixedTrimmed(+trade.price * 100, 1)
+#. placeholder {3}: usdValue < 0.01 ? '< $0.01' : `$${toFixedTrimmed(usdValue, 2)}`
+msgid "<0>{displayName}</0> Bought <1>{0} {1}</1> for <2>{marketTitle}</2> at <3>{2}¢</3> <4>({3})</4>"
+msgstr ""
+
 msgid "Verified by Lens"
 msgstr "由 Lens 驗證"
 
@@ -2252,13 +2259,6 @@ msgstr "書籤"
 
 msgid "Block transactions under $100"
 msgstr "屏蔽 $100 以下交易"
-
-#. placeholder {0}: toFixedTrimmed(+trade.size, 2)
-#. placeholder {1}: trade.outcome
-#. placeholder {2}: toFixedTrimmed(+trade.price * 100, 1)
-#. placeholder {3}: usdValue < 0.01 ? '< $0.01' : `$${toFixedTrimmed(usdValue, 2)}`
-msgid "<0>{displayName}</0> Bought <1>{0} {1}</1> for <2>{marketTitle}</2> at <3>{2}¢</3> ({3})"
-msgstr ""
 
 msgid "Sorry, the passcode you entered is invalid"
 msgstr "抱歉，您輸入的驗證碼無效"
@@ -4624,14 +4624,6 @@ msgstr "Lens 自動登錄"
 msgid "Download App"
 msgstr "下載 App"
 
-#. placeholder {0}: trade.displayInfo?.ensHandle || addressName
-#. placeholder {1}: toFixedTrimmed(+trade.size, 2)
-#. placeholder {2}: trade.outcome
-#. placeholder {3}: toFixedTrimmed(+trade.price * 100, 1)
-#. placeholder {4}: usdValue < 0.01 ? '< $0.01' : `$${toFixedTrimmed(usdValue, 2)}`
-msgid "<0>{0}</0> Bought <1>{1} {2}</1> for <2>{marketTitle}</2> at <3>{3}¢</3> <4>({4})</4>"
-msgstr ""
-
 msgid "Profile"
 msgstr "個人檔案"
 
@@ -4730,7 +4722,8 @@ msgid "Unexpected step for setting password: {step}."
 msgstr "驗證密碼時出現意外步驟：{step}。"
 
 msgid "If you have multiple Firefly accounts created with different social logins, deleting this account will help you consolidate your social accounts into one. However, if you're trying to access a different Firefly wallet linked to another social account, consider switching accounts instead of deleting."
-msgstr "如果你使用不同的社交帳號建立了多個 Firefly 帳戶，刪除此帳戶可以幫助你整合所有社交帳戶。\n"
+msgstr ""
+"如果你使用不同的社交帳號建立了多個 Firefly 帳戶，刪除此帳戶可以幫助你整合所有社交帳戶。\n"
 "但如果你仍想存取綁定至另一個社交帳號的 Firefly 錢包，建議你切換帳戶，而不是刪除帳戶。"
 
 msgid "<0>You</0> recasted"
@@ -5033,4 +5026,3 @@ msgstr "週"
 
 msgid "Success"
 msgstr "成功"
-

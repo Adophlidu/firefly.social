@@ -13,7 +13,7 @@ export function swapActivityToTradeRecord(activity: SwapActivity, tokenAddress: 
         chainId: activity.chain_id,
         hash: activity.hash,
         user: {
-            name: activity.displayInfo?.ensHandle,
+            name: activity.displayInfo?.ensHandle ?? undefined,
             avatar:
                 getWalletProfileAvatar(activity.displayInfo) ||
                 getStampAvatarByProfileId(Source.Wallet, activity.owner),

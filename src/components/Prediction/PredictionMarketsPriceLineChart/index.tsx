@@ -71,7 +71,7 @@ export function PredictionMarketsPriceLineChart({ platform, markets, isActive }:
                         value:
                             isUndefined(yesPercent) || !isActive
                                 ? undefined
-                                : `${toFixedTrimmed(yesPercent * 100, 1)}%`,
+                                : `${toFixedTrimmed(yesPercent * 100, 2)}%`,
                     };
                 });
         }
@@ -86,7 +86,7 @@ export function PredictionMarketsPriceLineChart({ platform, markets, isActive }:
             {
                 id: outcome.id,
                 label: outcome.label,
-                value: !isActive ? undefined : `${toFixedTrimmed(Number(outcome.price || 0) * 100, 1)}%`,
+                value: !isActive ? undefined : `${toFixedTrimmed(Number(outcome.price || 0) * 100, 2)}%`,
                 color: outcome.color,
                 isResolved: firstMarket?.resolvedOutcomeId === outcome.id,
             },

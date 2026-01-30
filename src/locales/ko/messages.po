@@ -1394,6 +1394,13 @@ msgstr ""
 msgid "More Details"
 msgstr ""
 
+#. placeholder {0}: toFixedTrimmed(+trade.size, 2)
+#. placeholder {1}: trade.outcome
+#. placeholder {2}: toFixedTrimmed(+trade.price * 100, 1)
+#. placeholder {3}: usdValue < 0.01 ? '< $0.01' : `$${toFixedTrimmed(usdValue, 2)}`
+msgid "<0>{displayName}</0> Bought <1>{0} {1}</1> for <2>{marketTitle}</2> at <3>{2}¢</3> <4>({3})</4>"
+msgstr ""
+
 msgid "Verified by Lens"
 msgstr ""
 
@@ -2251,13 +2258,6 @@ msgid "Bookmark"
 msgstr ""
 
 msgid "Block transactions under $100"
-msgstr ""
-
-#. placeholder {0}: toFixedTrimmed(+trade.size, 2)
-#. placeholder {1}: trade.outcome
-#. placeholder {2}: toFixedTrimmed(+trade.price * 100, 1)
-#. placeholder {3}: usdValue < 0.01 ? '< $0.01' : `$${toFixedTrimmed(usdValue, 2)}`
-msgid "<0>{displayName}</0> Bought <1>{0} {1}</1> for <2>{marketTitle}</2> at <3>{2}¢</3> ({3})"
 msgstr ""
 
 msgid "Sorry, the passcode you entered is invalid"
@@ -4624,14 +4624,6 @@ msgstr ""
 msgid "Download App"
 msgstr ""
 
-#. placeholder {0}: trade.displayInfo?.ensHandle || addressName
-#. placeholder {1}: toFixedTrimmed(+trade.size, 2)
-#. placeholder {2}: trade.outcome
-#. placeholder {3}: toFixedTrimmed(+trade.price * 100, 1)
-#. placeholder {4}: usdValue < 0.01 ? '< $0.01' : `$${toFixedTrimmed(usdValue, 2)}`
-msgid "<0>{0}</0> Bought <1>{1} {2}</1> for <2>{marketTitle}</2> at <3>{3}¢</3> <4>({4})</4>"
-msgstr ""
-
 msgid "Profile"
 msgstr ""
 
@@ -5032,4 +5024,3 @@ msgstr ""
 
 msgid "Success"
 msgstr ""
-

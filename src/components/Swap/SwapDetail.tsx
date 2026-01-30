@@ -45,6 +45,7 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ activity }
         activity.chain_id !== 101
             ? resolveExplorerLink(activity.chain_id, activity.hash, 'tx')
             : `https://solscan.io/tx/${activity.hash}`;
+    const ensHandle = activity.displayInfo?.ensHandle ?? undefined;
 
     return (
         <div className="flex flex-col">
@@ -58,7 +59,7 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ activity }
                 <WalletBaseMoreAction
                     icon={<MoreIcon width={24} height={24} className="text-main" />}
                     address={activity.owner as Address}
-                    ens={activity.displayInfo?.ensHandle}
+                    ens={ensHandle}
                 />
             </div>
             <div className="flex items-center justify-between px-4 py-3">
@@ -77,12 +78,10 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ activity }
                     <div className="flex items-center gap-1">
                         <div className="flex items-center gap-x-1 text-medium">
                             <Link href={profileUrl} className="min-w-0 truncate font-bold text-lightMain">
-                                {activity.displayInfo?.ensHandle ? (
+                                {ensHandle ? (
                                     <span>
-                                        {activity.displayInfo.ensHandle.split('.')[0]}
-                                        <span className="text-second">
-                                            .{activity.displayInfo.ensHandle.split('.')[1]}
-                                        </span>
+                                        {ensHandle.split('.')[0]}
+                                        <span className="text-second">.{ensHandle.split('.')[1]}</span>
                                     </span>
                                 ) : (
                                     addressName
@@ -90,7 +89,7 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ activity }
                             </Link>
                         </div>
                         <div className="flex items-center gap-x-1 text-sm text-second">
-                            {activity.displayInfo?.ensHandle ? (
+                            {ensHandle ? (
                                 <Link href={profileUrl} className="text-second">
                                     {addressName}
                                 </Link>
@@ -136,7 +135,7 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ activity }
                                     identity: activity.from_token.symbol,
                                     chainId: activity.chain_id,
                                     trader: activity.owner,
-                                    traderName: activity.displayInfo?.ensHandle,
+                                    traderName: ensHandle,
                                     address: activity.from_token.address,
                                 })}
                                 className="flex items-center gap-2 rounded-lg bg-bg p-3"
@@ -183,7 +182,7 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ activity }
                                     identity: activity.to_token.symbol,
                                     chainId: activity.chain_id,
                                     trader: activity.owner,
-                                    traderName: activity.displayInfo?.ensHandle,
+                                    traderName: ensHandle,
                                     address: activity.to_token.address,
                                 })}
                                 className="flex items-center gap-2 rounded-lg bg-bg p-3"

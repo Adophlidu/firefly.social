@@ -84,7 +84,7 @@ export const PredictionActivityItem = memo<PredictionActivityItemProps>(function
                         {isMyProfile ? null : (
                             <WalletBaseMoreAction
                                 address={activity.wallet as Address}
-                                ens={activity.displayInfo?.ensHandle}
+                                ens={activity.displayInfo?.ensHandle ?? undefined}
                             />
                         )}
                     </div>

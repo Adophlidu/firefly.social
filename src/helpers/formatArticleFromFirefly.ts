@@ -6,8 +6,7 @@ import { formatAddress } from '@/helpers/formatAddress.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { parseParagraphHtml } from '@/helpers/parseParagraphHtml.js';
 import { type Article, ArticlePlatform, ArticleType } from '@/providers/types/Article.js';
-import { type Article as FireflyArticle } from '@/providers/types/Firefly.js';
-import { WatchType } from '@/providers/types/Firefly.js';
+import { type Article as FireflyArticle, WatchType } from '@/providers/types/Firefly.js';
 
 function resolveArticleAuthor(article: FireflyArticle): Article['author'] {
     const isMattersArticle = article.platform === ArticlePlatform.Matters;
@@ -53,7 +52,7 @@ function resolveArticleAuthor(article: FireflyArticle): Article['author'] {
     }
     return {
         handle,
-        avatar: article.displayInfo.avatarUrl,
+        avatar: article.displayInfo.avatarUrl ?? '',
         id: authorId,
         isFollowing: article.followingSources.some(
             (x) => x.type === WatchType.Wallet && isSameEthereumAddress(x.walletAddress, authorId),
