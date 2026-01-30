@@ -31,7 +31,7 @@ export async function createSiwfMessage(url: string, address: string, fid: strin
 }
 
 export async function signInWithFarcaster(frame: FrameV2, fid: string, options: SignInOptions) {
-    const url = frame.x_url || SITE_URL;
+    const url = frame.button.action.url || SITE_URL;
 
     const u = parseUrl(url);
     if (!u) throw new Error(`Invalid URL: ${url}`);
