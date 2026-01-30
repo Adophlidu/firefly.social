@@ -10,6 +10,7 @@ import { PureLink } from '@/components/Posts/PureLink.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { TweetSpace } from '@/components/Posts/TweetSpace.js';
 import { SnapshotBody } from '@/components/Snapshot/SnapshotBody.js';
+import { TWITTER_ARTICLE_REGEX } from '@/constants/regexp.js';
 import { useRouter } from '@/esm/navigation.js';
 import { getArticleUrl } from '@/helpers/getArticleUrl.js';
 import { isLinkMatchingHost } from '@/helpers/isLinkMatchingHost.js';
@@ -48,6 +49,8 @@ export function PostLinkContent({ data, url, post, isInCompose }: PostLinkConten
         return null;
     }
 
+    const hasTwitterArticle = post.metadata.article ? TWITTER_ARTICLE_REGEX.test(url) : false;
+
     return (
         <>
             {data.article ? (
@@ -74,7 +77,7 @@ export function PostLinkContent({ data, url, post, isInCompose }: PostLinkConten
                 <Player html={data.html} isSpotify={isLinkMatchingHost(url, 'open.spotify.com', false)} />
             ) : null}
             {data.frame ? <FrameLayout frame={data.frame} post={post} /> : null}
-            {data.oembed && !post.quoteOn ? (
+            {data.oembed && !post.quoteOn && !hasTwitterArticle ? (
                 <OembedLayout
                     data={{
                         ...data.oembed,
