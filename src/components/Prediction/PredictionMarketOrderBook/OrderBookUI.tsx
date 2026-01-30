@@ -103,7 +103,12 @@ export const OrderBookUI = memo<OrderBookUIProps>(function OrderBookUI({ bids, a
                         </Trans>
                     </span>
                     <span className="flex-1">
-                        <Trans>Spread: {spreads !== null ? `${(spreads * 100).toFixed(1)}¢` : '-'}</Trans>
+                        <Trans>
+                            Spread:{' '}
+                            {spreads !== null && !!asks.length && !!bids.length
+                                ? `${(spreads * 100).toFixed(1)}¢`
+                                : '0.0¢'}
+                        </Trans>
                     </span>
                 </div>
                 <OrderBookList data={reversedBids} side="bids" emptyMessage={<Trans>No bids</Trans>} />

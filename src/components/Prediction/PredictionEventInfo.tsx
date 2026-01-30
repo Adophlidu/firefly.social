@@ -6,6 +6,7 @@ import dayjs from 'dayjs';
 import { memo, type ReactNode } from 'react';
 
 import { LoadingIcon } from '@/components/LoadingIcon.js';
+import { PredictionDescription } from '@/components/Prediction/PredictionDescription.js';
 import { PredictionPlatform } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
@@ -58,12 +59,12 @@ export const PredictionEventInfo = memo<PredictionEventInfoProps>(function Predi
     return (
         <div className="space-y-4 p-4">
             <div className="flex gap-3">
-                <InfoItem label={<Trans>Volume</Trans>} value={nFormatter(+props.volume, 2)} />
+                <InfoItem label={<Trans>Volume</Trans>} value={nFormatter(+props.volume, 2, undefined, true)} />
                 {props.platform === PredictionPlatform.Polymarket ? (
                     <InfoItem
                         loading={isLoading}
                         label={<Trans>Open Interest</Trans>}
-                        value={nFormatter(data ?? 0, 2)}
+                        value={nFormatter(data ?? 0, 2, undefined, true)}
                     />
                 ) : (
                     <InfoItem label={<Trans>End Date</Trans>} value={dayjs(props.endDate).format('MMM DD, YYYY')} />
@@ -83,7 +84,9 @@ export const PredictionEventInfo = memo<PredictionEventInfoProps>(function Predi
                     ))}
                 </div>
             ) : null}
-            {props.description ? <p className="break-words text-sm text-main">{props.description}</p> : null}
+            {props.description ? (
+                <PredictionDescription className="text-sm text-main">{props.description}</PredictionDescription>
+            ) : null}
         </div>
     );
 });

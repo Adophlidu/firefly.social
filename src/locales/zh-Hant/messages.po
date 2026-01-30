@@ -825,6 +825,14 @@ msgstr "建議結果：{outcomeLabel}"
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}}<4> followed you</4>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/>}}<4> 追蹤了您</4>"
 
+#. placeholder {0}: trade.displayInfo?.ensHandle || addressName
+#. placeholder {1}: toFixedTrimmed(+trade.size, 2)
+#. placeholder {2}: trade.outcome
+#. placeholder {3}: toFixedTrimmed(+trade.price * 100, 1)
+#. placeholder {4}: usdValue < 0.01 ? '< $0.01' : `$${toFixedTrimmed(usdValue, 2)}`
+msgid "<0>{0}</0> Sold <1>{1} {2}</1> for <2>{marketTitle}</2> at <3>{3}¢</3> <4>({4})</4>"
+msgstr ""
+
 #. placeholder {0}: channel.followerCount
 #. placeholder {0}: profile.followerCount
 msgid "{0, plural, one {Follower} other {Followers}}"
@@ -2150,7 +2158,7 @@ msgstr "切換錢包失敗。請再試一次"
 msgid "Like / Repost / Comment"
 msgstr "按讚/轉發/留言"
 
-#. placeholder {0}: spreads !== null ? `${(spreads * 100).toFixed(1)}¢` : '-'
+#. placeholder {0}: spreads !== null && !!asks.length && !!bids.length ? `${(spreads * 100).toFixed(1)}¢` : '0.0¢'
 msgid "Spread: {0}"
 msgstr "價差：{0}"
 
@@ -4168,14 +4176,6 @@ msgstr "鏈篩選"
 msgid "Unfollow"
 msgstr "取消追蹤"
 
-#. placeholder {0}: trade.displayInfo?.ensHandle || addressName
-#. placeholder {1}: toFixedTrimmed(+trade.size, 2)
-#. placeholder {2}: trade.outcome
-#. placeholder {3}: toFixedTrimmed(+trade.price * 100, 1)
-#. placeholder {4}: usdValue < 0.01 ? '< $0.01' : `$${toFixedTrimmed(usdValue, 2)}`
-msgid "<0>{0}</0> Sold <1>{1} {2}</1> for <2>{marketTitle}</2> at <3>{3}¢</3> ({4})"
-msgstr ""
-
 #. placeholder {0}: snapshot.title
 msgid "🙌 Just voted on “{0}”"
 msgstr "🙌 剛投票「{0}」"
@@ -4623,6 +4623,14 @@ msgstr "Lens 自動登錄"
 
 msgid "Download App"
 msgstr "下載 App"
+
+#. placeholder {0}: trade.displayInfo?.ensHandle || addressName
+#. placeholder {1}: toFixedTrimmed(+trade.size, 2)
+#. placeholder {2}: trade.outcome
+#. placeholder {3}: toFixedTrimmed(+trade.price * 100, 1)
+#. placeholder {4}: usdValue < 0.01 ? '< $0.01' : `$${toFixedTrimmed(usdValue, 2)}`
+msgid "<0>{0}</0> Bought <1>{1} {2}</1> for <2>{marketTitle}</2> at <3>{3}¢</3> <4>({4})</4>"
+msgstr ""
 
 msgid "Profile"
 msgstr "個人檔案"

@@ -1,3 +1,5 @@
+import { truncateDecimal } from '@/helpers/truncateDecimal.js';
+
 /**
  * Returns the specified number as a string with commas added to separate groups of three digits.
  *
@@ -20,7 +22,7 @@ export const humanize = (number: number): string => {
  * @param useFloor If true, uses Math.floor for rounding down; otherwise uses toFixed for rounding. Default is false.
  * @returns The formatted number as a string with the appropriate prefix.
  */
-export const nFormatter = (num: number, digits = 1, useFloor = false): string => {
+export const nFormatter = (num: number, digits = 1, useFloor = false, clip = false): string => {
     const lookup = [
         { value: 1, symbol: '' },
         { value: 1e3, symbol: 'k' },
@@ -36,7 +38,9 @@ export const nFormatter = (num: number, digits = 1, useFloor = false): string =>
     const formatToDigits = (value: number, decimalPlaces: number): string => {
         const factor = Math.pow(10, decimalPlaces);
         const floored = useFloor ? Math.floor(value * factor) / factor : value;
-        return floored.toFixed(decimalPlaces).replace(rx, '$1');
+        return !clip
+            ? floored.toFixed(decimalPlaces).replace(rx, '$1')
+            : truncateDecimal(floored, decimalPlaces).replace(rx, '$1');
     };
 
     if (num < 1 && num > 0) {

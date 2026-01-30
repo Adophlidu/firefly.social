@@ -53,8 +53,10 @@ export function PredictionTradeTimelineItem({ trade, platform }: PredictionTrade
                             )}
                         >{`${toFixedTrimmed(+trade.size, 2)} ${trade.outcome}`}</span>{' '}
                         for <span className="text-main">{marketTitle}</span> at{' '}
-                        <span className="text-main">{`${toFixedTrimmed(+trade.price * 100, 1)}¢`}</span>
-                        {` (${usdValue < 0.01 ? '< $0.01' : `$${toFixedTrimmed(usdValue, 2)}`})`}
+                        <span className="text-main">{`${toFixedTrimmed(+trade.price * 100, 1)}¢`}</span>{' '}
+                        <span className="inline-block">
+                            {`(${usdValue < 0.01 ? '< $0.01' : `$${toFixedTrimmed(usdValue, 2)}`})`}
+                        </span>
                     </Trans>
                 ) : (
                     <Trans>
@@ -69,8 +71,10 @@ export function PredictionTradeTimelineItem({ trade, platform }: PredictionTrade
                             )}
                         >{`${toFixedTrimmed(+trade.size, 2)} ${trade.outcome}`}</span>{' '}
                         for <span className="text-main">{marketTitle}</span> at{' '}
-                        <span className="text-main">{`${toFixedTrimmed(+trade.price * 100, 1)}¢`}</span>
-                        {` (${usdValue < 0.01 ? '< $0.01' : `$${toFixedTrimmed(usdValue, 2)}`})`}
+                        <span className="text-main">{`${toFixedTrimmed(+trade.price * 100, 1)}¢`}</span>{' '}
+                        <span className="inline-block">
+                            {`(${usdValue < 0.01 ? '< $0.01' : `$${toFixedTrimmed(usdValue, 2)}`})`}
+                        </span>
                     </Trans>
                 )}
             </div>
