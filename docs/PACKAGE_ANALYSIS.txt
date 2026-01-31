@@ -633,7 +633,7 @@ Packages with Single Version
  @napi-rs/magic-string-win32-arm64-msvc@0.3.4
  @napi-rs/magic-string-win32-ia32-msvc@0.3.4
  @napi-rs/magic-string-win32-x64-msvc@0.3.4
-*@next/bundle-analyzer@16.0.10
+*@next/bundle-analyzer@16.0.11
  @next/eslint-plugin-next@16.0.11
  @next/swc-darwin-arm64@16.0.10
  @next/swc-darwin-x64@16.0.10

@@ -381,8 +381,8 @@ importers:
         specifier: ^0.2.1
         version: 0.2.1
       '@next/bundle-analyzer':
-        specifier: ^16.0.10
-        version: 16.0.10
+        specifier: ^16.0.11
+        version: 16.0.11
       '@rollup/plugin-commonjs':
         specifier: ^25.0.8
         version: 25.0.8(rollup@4.39.0)
@@ -5481,8 +5481,8 @@ packages:
     dev: true
     optional: true
 
-  /@next/bundle-analyzer@16.0.10:
-    resolution: {integrity: sha512-AHA6ZomhQuRsJtkoRvsq+hIuwA6F26mQzQT8ICcc2dL3BvHRcWOA+EiFr+BgWFY++EE957xVDqMIJjLApyxnwA==}
+  /@next/bundle-analyzer@16.0.11:
+    resolution: {integrity: sha512-S0YacTm/HVpt8LzF/DTUBU+VPzty9dhon4c7kyQ0fqX/PRrOxBa0pHEgpNuZns0ThR06tCJuV26XypfG++foHg==}
     dependencies:
       webpack-bundle-analyzer: 4.10.1
     transitivePeerDependencies:
@@ -20510,7 +20510,7 @@ time:
   /@livepeer/react@4.2.9: '2024-12-02T08:02:16.848Z'
   /@masknet/config@0.2.1: '2023-11-07T04:28:24.916Z'
   /@napi-rs/image@1.7.0: '2023-09-27T03:49:48.940Z'
-  /@next/bundle-analyzer@16.0.10: '2025-12-11T22:55:51.725Z'
+  /@next/bundle-analyzer@16.0.11: '2026-01-26T18:33:18.085Z'
   /@next/third-parties@16.0.11: '2026-01-26T18:34:30.913Z'
   /@noble/ed25519@1.7.5: '2025-04-16T10:48:42.894Z'
   /@okxweb3/dex-widget@1.3.16: '2025-06-26T09:31:27.414Z'
