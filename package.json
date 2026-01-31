@@ -42,7 +42,7 @@
         "@dimensiondev/native-bridge": "workspace:^",
         "@dimensiondev/utils": "workspace:^",
         "@farcaster/core": "^0.18.9",
-        "@farcaster/miniapp-host": "^0.2.14",
+        "@farcaster/miniapp-host": "^0.2.15",
         "@floating-ui/react": "^0.27.17",
         "@giphy/js-fetch-api": "^5.7.0",
         "@giphy/react-components": "^10.1.1",
