@@ -7,7 +7,7 @@ settings:
 onlyBuiltDependencies: []
 
 overrides:
-  '@floating-ui/react': 0.27.16
+  '@floating-ui/react': 0.27.17
   '@noble/curves': 1.9.2
   '@reown/appkit': 1.8.16
   '@solana/wallet-adapter-base': 0.9.27
@@ -104,8 +104,8 @@ importers:
         specifier: ^0.2.14
         version: 0.2.14(react@19.2.3)(typescript@5.9.3)(zod@3.25.76)
       '@floating-ui/react':
-        specifier: 0.27.16
-        version: 0.27.16(react-dom@19.2.3)(react@19.2.3)
+        specifier: 0.27.17
+        version: 0.27.17(react-dom@19.2.3)(react@19.2.3)
       '@giphy/js-fetch-api':
         specifier: ^5.7.0
         version: 5.7.0
@@ -3744,41 +3744,41 @@ packages:
     resolution: {integrity: sha512-2xCRM9q9FlzGZCdgDMJwc0gyUkWFtkosy7Xxr6sFgQwn+wMNIWd7xIvYNauU1r64B5L5rsGKy/n9TKJ0aAFeqQ==}
     dev: false
 
-  /@floating-ui/core@1.7.3:
-    resolution: {integrity: sha512-sGnvb5dmrJaKEZ+LDIpguvdX3bDlEllmv4/ClQ9awcmCZrlx5jQyyMWFM5kBI+EyNOCDDiKk8il0zeuX3Zlg/w==}
+  /@floating-ui/core@1.7.4:
+    resolution: {integrity: sha512-C3HlIdsBxszvm5McXlB8PeOEWfBhcGBTZGkGlWc2U0KFY5IwG5OQEuQ8rq52DZmcHDlPLd+YFBK+cZcytwIFWg==}
     dependencies:
       '@floating-ui/utils': 0.2.10
     dev: false
 
-  /@floating-ui/dom@1.7.4:
-    resolution: {integrity: sha512-OOchDgh4F2CchOX94cRVqhvy7b3AFb+/rQXyswmzmGakRfkMgoWVjfnLWkRirfLEfuD4ysVW16eXzwt3jHIzKA==}
+  /@floating-ui/dom@1.7.5:
+    resolution: {integrity: sha512-N0bD2kIPInNHUHehXhMke1rBGs1dwqvC9O9KYMyyjK7iXt7GAhnro7UlcuYcGdS/yYOlq0MAVgrow8IbWJwyqg==}
     dependencies:
-      '@floating-ui/core': 1.7.3
+      '@floating-ui/core': 1.7.4
       '@floating-ui/utils': 0.2.10
     dev: false
 
-  /@floating-ui/react-dom@2.1.6(react-dom@19.2.3)(react@19.2.3):
-    resolution: {integrity: sha512-4JX6rEatQEvlmgU80wZyq9RT96HZJa88q8hp0pBd+LrczeDI4o6uA2M+uvxngVHo4Ihr8uibXxH6+70zhAFrVw==}
+  /@floating-ui/react-dom@2.1.7(react-dom@19.2.3)(react@19.2.3):
+    resolution: {integrity: sha512-0tLRojf/1Go2JgEVm+3Frg9A3IW8bJgKgdO0BN5RkF//ufuz2joZM63Npau2ff3J6lUVYgDSNzNkR+aH3IVfjg==}
     peerDependencies:
       react: 19.2.3
       react-dom: 19.2.3
     dependencies:
-      '@floating-ui/dom': 1.7.4
+      '@floating-ui/dom': 1.7.5
       react: 19.2.3
       react-dom: 19.2.3(react@19.2.3)
     dev: false
 
-  /@floating-ui/react@0.27.16(react-dom@19.2.3)(react@19.2.3):
-    resolution: {integrity: sha512-9O8N4SeG2z++TSM8QA/KTeKFBVCNEz/AGS7gWPJf6KFRzmRWixFRnCnkPHRDwSVZW6QPDO6uT0P2SpWNKCc9/g==}
+  /@floating-ui/react@0.27.17(react-dom@19.2.3)(react@19.2.3):
+    resolution: {integrity: sha512-LGVZKHwmWGg6MRHjLLgsfyaX2y2aCNgnD1zT/E6B+/h+vxg+nIJUqHPAlTzsHDyqdgEpJ1Np5kxWuFEErXzoGg==}
     peerDependencies:
       react: 19.2.3
       react-dom: 19.2.3
     dependencies:
-      '@floating-ui/react-dom': 2.1.6(react-dom@19.2.3)(react@19.2.3)
+      '@floating-ui/react-dom': 2.1.7(react-dom@19.2.3)(react@19.2.3)
       '@floating-ui/utils': 0.2.10
       react: 19.2.3
       react-dom: 19.2.3(react@19.2.3)
-      tabbable: 6.2.0
+      tabbable: 6.4.0
     dev: false
 
   /@floating-ui/utils@0.2.10:
@@ -3905,7 +3905,7 @@ packages:
       react: 19.2.3
       react-dom: 19.2.3
     dependencies:
-      '@floating-ui/react': 0.27.16(react-dom@19.2.3)(react@19.2.3)
+      '@floating-ui/react': 0.27.17(react-dom@19.2.3)(react@19.2.3)
       '@react-aria/focus': 3.20.1(react-dom@19.2.3)(react@19.2.3)
       '@react-aria/interactions': 3.24.1(react-dom@19.2.3)(react@19.2.3)
       '@tanstack/react-virtual': 3.13.6(react-dom@19.2.3)(react@19.2.3)
@@ -6026,7 +6026,7 @@ packages:
       '@types/react-dom':
         optional: true
     dependencies:
-      '@floating-ui/react-dom': 2.1.6(react-dom@19.2.3)(react@19.2.3)
+      '@floating-ui/react-dom': 2.1.7(react-dom@19.2.3)(react@19.2.3)
       '@radix-ui/react-arrow': 1.1.3(@types/react-dom@19.2.3)(@types/react@19.2.9)(react-dom@19.2.3)(react@19.2.3)
       '@radix-ui/react-compose-refs': 1.1.2(@types/react@19.2.9)(react@19.2.3)
       '@radix-ui/react-context': 1.1.2(@types/react@19.2.9)(react@19.2.3)
@@ -18450,8 +18450,8 @@ packages:
     resolution: {integrity: sha512-9QNk5KwDF+Bvz+PyObkmSYjI5ksVUYtjW7AU22r2NKcfLJcXp96hkDWU3+XndOsUb+AQ9QhfzfCT2O+CNWT5Tw==}
     dev: true
 
-  /tabbable@6.2.0:
-    resolution: {integrity: sha512-Cat63mxsVJlzYvN51JmVXIgNoUokrIaT2zLclCXjRd8boZ0004U4KCs/sToJ75C6sdlByWxpYnb5Boif1VSFew==}
+  /tabbable@6.4.0:
+    resolution: {integrity: sha512-05PUHKSNE8ou2dwIxTngl4EzcnsCDZGJ/iCLtDflR/SHB/ny14rXc+qU5P4mG9JkusiV7EivzY9Mhm55AzAvCg==}
     dev: false
 
   /tailwindcss-safe-area@0.6.0(tailwindcss@3.4.19):
@@ -20490,7 +20490,7 @@ time:
   /@crowdin/cli@4.12.0: '2025-12-02T09:07:19.880Z'
   /@farcaster/core@0.18.9: '2025-10-13T15:59:22.123Z'
   /@farcaster/miniapp-host@0.2.14: '2025-10-16T16:10:18.601Z'
-  /@floating-ui/react@0.27.16: '2025-08-21T06:33:44.461Z'
+  /@floating-ui/react@0.27.17: '2026-01-27T16:27:18.745Z'
   /@giphy/js-fetch-api@5.7.0: '2025-07-08T16:16:15.332Z'
   /@giphy/react-components@10.1.1: '2025-12-19T20:57:21.199Z'
   /@heroicons/react@2.2.0: '2024-11-18T15:33:27.317Z'
