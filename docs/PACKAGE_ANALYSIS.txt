@@ -265,12 +265,12 @@ Packages with Single Version
  @asamuzakjp/css-color@4.1.1
  @asamuzakjp/dom-selector@6.7.6
  @asamuzakjp/nwsapi@2.3.9
-*@atproto/api@0.18.16
- @atproto/common-web@0.4.12
- @atproto/lex-data@0.0.8
- @atproto/lex-json@0.0.8
- @atproto/lexicon@0.6.0
- @atproto/syntax@0.4.2
+*@atproto/api@0.18.18
+ @atproto/common-web@0.4.14
+ @atproto/lex-data@0.0.9
+ @atproto/lex-json@0.0.9
+ @atproto/lexicon@0.6.1
+ @atproto/syntax@0.4.3
  @atproto/xrpc@0.7.7
  @babel/helper-annotate-as-pure@7.25.9
  @babel/helper-create-class-features-plugin@7.27.0
