@@ -15,6 +15,7 @@ export const TWITTER_TIMELINE_WHITELIST_UID_SET: ReadonlySet<string> = new Set([
     '1478815551', // x: @salmon_pi
     '1507589147', // x: @cyrilxuq
     '1509864609', // x: @Paris13Jeanne
+    '1512066671', // x: @0xPickleCati
     '1541574285', // x: @SOU_BTC
     '1544180057', // lowenwen
     '1552107477', // x: @RootDataCrypto
