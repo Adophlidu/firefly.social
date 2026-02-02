@@ -4349,6 +4349,9 @@ msgstr "最終結果：{outcomeLabel}"
 msgid "The contract owner has no restrictions on anti whale."
 msgstr "合約持有者未設反巨鯨機制。"
 
+msgid "Final review"
+msgstr ""
+
 msgid "Exclusive Events"
 msgstr "專屬活動"
 

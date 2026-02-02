@@ -4344,6 +4344,9 @@ msgstr "Final outcome: {outcomeLabel}"
 msgid "The contract owner has no restrictions on anti whale."
 msgstr "The contract owner has no restrictions on anti whale."
 
+msgid "Final review"
+msgstr "Final review"
+
 msgid "Exclusive Events"
 msgstr "Exclusive Events"
 

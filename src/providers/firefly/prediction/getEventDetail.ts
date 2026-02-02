@@ -101,6 +101,9 @@ function formatPolymarketEvent(detail: PolymarketEvent): BetsEventDataForUI {
                     statusList.push(BetsMarketResolveStatus.Resolved);
                 }
             }
+            if (last(statusList) === BetsMarketResolveStatus.Disputed && !isResolved) {
+                statusList.push(BetsMarketResolveStatus.Review);
+            }
         }
 
         return {

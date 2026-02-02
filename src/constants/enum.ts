@@ -711,6 +711,7 @@ export enum BetsMarketResolveStatus {
     Disputed = 'disputed',
     Resolved = 'resolved',
     NoDisputed = 'no_disputed',
+    Review = 'review',
 }
 
 export enum RedpacketTxType {

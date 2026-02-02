@@ -19,6 +19,8 @@ function StatusLabel({ status, outcomeLabel }: { status: BetsMarketResolveStatus
             return <Trans>No dispute</Trans>;
         case BetsMarketResolveStatus.Resolved:
             return <Trans>Final outcome: {outcomeLabel}</Trans>;
+        case BetsMarketResolveStatus.Review:
+            return <Trans>Final review</Trans>;
         default:
             safeUnreachable(status);
             return null;
