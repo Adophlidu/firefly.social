@@ -2,18 +2,15 @@
 
 import { Trans } from '@lingui/react/macro';
 import { uniqBy } from 'lodash-es';
-import { memo, useState } from 'react';
-import { useTimeout } from 'usehooks-ts';
+import { memo } from 'react';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { Loading } from '@/components/Loading.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
-import { AsyncStatus, HomeTab, ScrollListKey, Source } from '@/constants/enum.js';
+import { HomeTab, ScrollListKey, Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/static.js';
-import { getProfileStoreStatusFromStorage } from '@/helpers/getProfileStoreStatusFromStorage.js';
-import { getSessionFromStorageBySource } from '@/helpers/getSessionFromStorage.js';
 import { mergeThreadPostsWithoutSource } from '@/helpers/mergeThreadPosts.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
@@ -23,7 +20,6 @@ import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useDiscoverSources } from '@/hooks/useDiscoverSources.js';
 import { useIsLoginDiscoverSource } from '@/hooks/useIsLogin.js';
 import { useMultiInfiniteQueryPageable } from '@/hooks/useMultiInfiniteQueryPageable.js';
-import { useDiscoverStoreWithTab } from '@/store/useDiscoverStore.js';
 
 const FollowingPostsTimeline = memo(function FollowingPostsTimeline() {
     const { sources } = useDiscoverSources(HomeTab.Following);
@@ -85,30 +81,8 @@ const FollowingPostsTimeline = memo(function FollowingPostsTimeline() {
 export const FollowingPosts = memo(function FollowingPosts() {
     const asyncStatusAll = useAsyncStatusAll();
     const isLogin = useIsLoginDiscoverSource();
-    const { setFilteredPlatform } = useDiscoverStoreWithTab(HomeTab.Following);
-    const [forceRender, setForceRender] = useState(false);
 
-    /**
-     * After 3 seconds, automatically select all logged-in sources except Twitter
-     * And no need to wait for all profile store loading completion
-     */
-    useTimeout(() => {
-        if (!isLogin || !asyncStatusAll) return;
-
-        const selectedSources = SORTED_SOCIAL_SOURCES.filter((x) => {
-            const session = getSessionFromStorageBySource(x);
-            if (!session) return false;
-
-            const status = getProfileStoreStatusFromStorage(x);
-            return status === AsyncStatus.Idle;
-        });
-        if (selectedSources.length) {
-            setFilteredPlatform(selectedSources);
-            setForceRender(true);
-        }
-    }, 3000);
-
-    if (asyncStatusAll && !forceRender) return <Loading />;
+    if (asyncStatusAll) return <Loading />;
     if (!isLogin) return <NotLoginFallback source={Source.Posts} />;
 
     return <FollowingPostsTimeline />;
