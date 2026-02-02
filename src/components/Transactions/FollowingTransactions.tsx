@@ -1,11 +1,10 @@
 'use client';
 
-import { shuffle } from 'lodash-es';
-
 import { ListInPage } from '@/components/ListInPage.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { getFollowingTransactions } from '@/components/Transactions/getTransactions.js';
 import { getTransactionsItemContent } from '@/components/Transactions/getTransactionsItemContent.js';
+import { shuffleTransactions } from '@/components/Transactions/shuffleTransactions.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
@@ -14,22 +13,6 @@ import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { useMultiInfiniteQueryPageable } from '@/hooks/useMultiInfiniteQueryPageable.js';
 import { type TransactionsItem } from '@/providers/types/Firefly.js';
 import { useTransactionsStateStore } from '@/store/useTransactionsStore.js';
-
-function shuffleTransactions(list: TransactionsItem[]) {
-    const count = Math.floor(Math.random() * 3 + 1); // [1, 3]
-    const preferredSwaps: TransactionsItem[] = [];
-    const others: TransactionsItem[] = [];
-
-    list.forEach((item) => {
-        if (preferredSwaps.length < count && item.source === Source.Swap) {
-            preferredSwaps.push(item);
-        } else {
-            others.push(item);
-        }
-    });
-
-    return preferredSwaps.concat(shuffle(others));
-}
 
 const availableSources = [Source.Swap, Source.Prediction] as const;
 
