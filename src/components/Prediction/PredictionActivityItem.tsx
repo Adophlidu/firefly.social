@@ -35,7 +35,6 @@ export const PredictionActivityItem = memo<PredictionActivityItemProps>(function
     const wrapper = useCallback(
         (children: React.ReactNode) => (
             <Link
-                target="_blank"
                 href={
                     activity.topicId
                         ? RouteResolver.betsEventDetail(activity.platform, activity.topicId, {
