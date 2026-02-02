@@ -45,7 +45,6 @@ export async function reportException(payload: ReportExceptionPayload): Promise<
             environment: IS_PRODUCTION ? 'production' : 'development',
             request_url: bom.location?.href,
         }),
-        referrerPolicy: 'origin',
     });
 
     if (!response.ok) {
