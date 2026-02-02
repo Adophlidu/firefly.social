@@ -77,12 +77,12 @@ export function useCurrentFireflyProfilesAll() {
     const profilesAll = useCurrentProfilesAll();
     const fireflyProfiles = useCurrentFireflyProfiles();
 
+    const twitterIdentity = resolveFireflyIdentity(profilesAll[Source.Twitter]);
     const lensIdentity = resolveFireflyIdentity(profilesAll[Source.Lens]);
     const farcasterIdentity = resolveFireflyIdentity(profilesAll[Source.Farcaster]);
-    const twitterIdentity = resolveFireflyIdentity(profilesAll[Source.Twitter]);
     const bskyIdentity = resolveFireflyIdentity(profilesAll[Source.Bsky]);
 
-    const identity = first(compact([lensIdentity, farcasterIdentity, twitterIdentity, bskyIdentity]));
+    const identity = first(compact([twitterIdentity, lensIdentity, farcasterIdentity, bskyIdentity]));
 
     const { data: profiles = EMPTY_LIST } = useAllProfiles(identity);
 
