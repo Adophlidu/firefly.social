@@ -18,7 +18,7 @@ interface PredictionActivityActionProps {
 export const PredictionActivityAction = memo<PredictionActivityActionProps>(function PredictionActivityAction({
     activity,
 }) {
-    const identity = useFireflyIdentity(Source.Wallet, activity.wallet as Address);
+    const identity = useFireflyIdentity(Source.Wallet, (activity.wallet || activity.proxyWallet) as Address);
     const { mutate: toggleBookmark, isPending: isBookmarkPending } = useTogglePredictionBookmark();
 
     const { hasBookmarked, has_bookmarked } = activity;

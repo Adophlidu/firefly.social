@@ -27,10 +27,11 @@ export const PredictionActivityItem = memo<PredictionActivityItemProps>(function
     activity,
     onLinkClick,
 }) {
-    const isMyProfile = useIsMyRelatedProfile(Source.Wallet, activity.wallet);
+    const walletAddress = activity.wallet || activity.proxyWallet;
+    const isMyProfile = useIsMyRelatedProfile(Source.Wallet, walletAddress);
 
-    const addressName = formatAddress(activity.wallet, 4);
-    const profileUrl = getProfileUrl({ source: Source.Wallet, profileId: activity.wallet }, WalletProfileCategory.Bets);
+    const addressName = formatAddress(walletAddress, 4);
+    const profileUrl = getProfileUrl({ source: Source.Wallet, profileId: walletAddress }, WalletProfileCategory.Bets);
 
     const wrapper = useCallback(
         (children: React.ReactNode) => (
@@ -57,7 +58,7 @@ export const PredictionActivityItem = memo<PredictionActivityItemProps>(function
                 <div>
                     <Link href={profileUrl}>
                         <Avatar
-                            alt={activity.wallet}
+                            alt={walletAddress}
                             className="size-10 rounded-full"
                             src={getWalletProfileAvatar(activity.displayInfo)}
                             size={40}
@@ -82,7 +83,7 @@ export const PredictionActivityItem = memo<PredictionActivityItemProps>(function
                         <PredictionPlatformIcon platform={activity.platform} size={15} className="mr-auto shrink-0" />
                         {isMyProfile ? null : (
                             <WalletBaseMoreAction
-                                address={activity.wallet as Address}
+                                address={walletAddress as Address}
                                 ens={activity.displayInfo?.ensHandle ?? undefined}
                             />
                         )}
