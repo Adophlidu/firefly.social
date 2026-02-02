@@ -3,9 +3,9 @@ import { t } from '@lingui/core/macro';
 import { useRef, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
-import { sentryClient } from '@/configs/sentryClient.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { logger } from '@/libs/Logger.js';
+import { reportException } from '@/providers/firefly/report/reportException.js';
 import { ExceptionId } from '@/providers/types/Telemetry.js';
 
 interface Options {
@@ -27,9 +27,11 @@ export function useReportFeedback(
     const [{ loading }, handleReport] = useAsyncFn(async () => {
         try {
             setReported(false);
-            await sentryClient.captureException(options.exceptionId, {
-                name,
-                comments,
+            await reportException({
+                message: name,
+                stack_trace: comments,
+                exception_type: options.exceptionId,
+                severity: 'error',
             });
             await delay(1000);
             setReported(true);

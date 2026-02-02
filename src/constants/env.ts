@@ -70,6 +70,9 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_SENTRY_DSN: z.string().optional(),
     NEXT_PUBLIC_SENTRY_REPORT_URL: z.string().optional(),
 
+    // exception tracker
+    NEXT_PUBLIC_FIREFLY_EXCEPTION_TRACKER_API_KEY: z.string().optional(),
+
     // app url scheme
     NEXT_PUBLIC_FIREFLY_DOWNLOAD_LINK: z.string().default('https://5euxu.app.link/PHvNiyVemIb'),
 
@@ -148,6 +151,9 @@ export const env = {
         // sentry
         NEXT_PUBLIC_SENTRY_DSN: process.env.NEXT_PUBLIC_SENTRY_DSN,
         NEXT_PUBLIC_SENTRY_REPORT_URL: process.env.NEXT_PUBLIC_SENTRY_REPORT_URL,
+
+        // exception tracker
+        NEXT_PUBLIC_FIREFLY_EXCEPTION_TRACKER_API_KEY: process.env.NEXT_PUBLIC_FIREFLY_EXCEPTION_TRACKER_API_KEY,
 
         // app scheme url
         NEXT_PUBLIC_FIREFLY_DOWNLOAD_LINK: process.env.NEXT_PUBLIC_FIREFLY_DOWNLOAD_LINK,

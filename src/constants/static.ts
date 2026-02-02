@@ -53,6 +53,7 @@ export const ACCOUNT_CONFLICT_SOLUTION_ZH_URL = 'https://mask.notion.site/2327d9
 export const FARCASTER_POLL_MINI_APP_URL = 'https://polls-miniapps.firefly.social';
 export const FARCASTER_POLL_MINI_APP_URL_DEV = 'https://polls-miniapps-staging.firefly.social';
 export const X_WEBHOOK_RECEIVER_URL = 'https://x-webhook-receiver.r2d2.to';
+export const FIREFLY_EXCEPTION_TRACKER_URL = 'https://firefly-exception-tracker.r2d2.to';
 
 export const FARCASTER_REPLY_COUNTDOWN = 50; // in seconds
 export const ORB_REPLY_COUNTDOWN = 60; // in seconds
