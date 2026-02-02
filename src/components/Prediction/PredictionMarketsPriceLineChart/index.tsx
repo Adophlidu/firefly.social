@@ -39,7 +39,7 @@ const outcomeColors = ['#5E69FF', '#FF372B', '#FFAA16', '#00D2FF', '#00FF85', '#
 export function PredictionMarketsPriceLineChart({ platform, markets, isActive }: PredictionMarketsPriceLineChartProps) {
     const [outcomeId, setOutcomeId] = useState(first(markets)?.outcomes?.[0]?.id || '');
     const [timeRange, setTimeRange] = useState(BetsPriceTimeRange.All);
-    const [payload] = useState<Array<{ dataKey: string; value?: number }>>();
+    const [payload, setPayload] = useState<Array<{ dataKey: string; value?: number }>>();
     const [marketsWithSettings, setMarketsWithSettings] = useState<BetsMarketWithSettings[]>(
         markets.map((market, index) => ({
             ...market,
@@ -80,13 +80,19 @@ export function PredictionMarketsPriceLineChart({ platform, markets, isActive }:
         const outcomeIndex = firstMarket?.outcomes.findIndex((o) => o.id === outcomeId);
         const outcome =
             outcomeIndex !== undefined && outcomeIndex !== -1 ? firstMarket?.outcomes?.[outcomeIndex] : undefined;
-        if (!outcome) return [];
+        if (!outcome || !firstMarket) return [];
+
+        const yesPercent = payload?.length
+            ? payload.find((p) => p.dataKey === firstMarket.questionId)?.value
+            : firstMarket.totalPrice > 0
+              ? Number(first(firstMarket.outcomes)?.price || 0) / firstMarket.totalPrice
+              : 0;
 
         return [
             {
                 id: outcome.id,
                 label: outcome.label,
-                value: !isActive ? undefined : `${toFixedTrimmed(Number(outcome.price || 0) * 100, 2)}%`,
+                value: isUndefined(yesPercent) || !isActive ? undefined : `${toFixedTrimmed(yesPercent * 100, 2)}%`,
                 color: outcome.color,
                 isResolved: firstMarket?.resolvedOutcomeId === outcome.id,
             },
@@ -104,6 +110,7 @@ export function PredictionMarketsPriceLineChart({ platform, markets, isActive }:
                 platform={platform}
                 markets={marketsWithSettings}
                 timeRange={timeRange}
+                onPayloadChange={setPayload}
             />
             <div className="mt-4 flex items-start gap-3">
                 <TimeRangeSettings platform={platform} timeRange={timeRange} onTimeRangeChange={setTimeRange} />
