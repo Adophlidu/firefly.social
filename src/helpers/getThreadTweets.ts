@@ -3,20 +3,45 @@ import { type TwitterApi } from 'twitter-api-v2';
 import { TWITTER_TIMELINE_OPTIONS } from '@/constants/twitter.js';
 import { patchTweetsClientToFirefly } from '@/helpers/patchPostClientToFirefly.js';
 
-function buildChainAlongPath(
+function buildCompleteChain(
     currentId: string,
+    targetId: string,
     childrenMap: Map<string, Set<string>>,
     pathToRoot: Set<string>,
+    tweetTimeMap: Map<string, Date>,
+    reachedTarget = false,
 ): string[] {
     const children = childrenMap.get(currentId);
     if (!children || children.size === 0) {
         return [currentId];
     }
 
-    const nextInPath = Array.from(children).find((childId) => pathToRoot.has(childId));
+    let nextId: string | undefined;
 
-    if (nextInPath) {
-        return [currentId, ...buildChainAlongPath(nextInPath, childrenMap, pathToRoot)];
+    if (!reachedTarget) {
+        nextId = Array.from(children).find((childId) => pathToRoot.has(childId));
+        const hasReachedTarget = currentId === targetId || nextId === targetId;
+
+        if (nextId) {
+            return [
+                currentId,
+                ...buildCompleteChain(nextId, targetId, childrenMap, pathToRoot, tweetTimeMap, hasReachedTarget),
+            ];
+        }
+    } else {
+        let earliestTime: Date | undefined;
+
+        children.forEach((childId) => {
+            const childTime = tweetTimeMap.get(childId);
+            if (childTime && (!earliestTime || childTime < earliestTime)) {
+                earliestTime = childTime;
+                nextId = childId;
+            }
+        });
+
+        if (nextId) {
+            return [currentId, ...buildCompleteChain(nextId, targetId, childrenMap, pathToRoot, tweetTimeMap, true)];
+        }
     }
 
     return [currentId];
@@ -71,6 +96,14 @@ export async function getThreadTweets(client: TwitterApi, id: string) {
 
     const tweets = searchResult.data.data;
 
+    const tweetTimeMap = new Map<string, Date>();
+    tweets.forEach((tweet) => {
+        if (tweet.author_id !== authorId) return;
+        if (tweet.created_at) {
+            tweetTimeMap.set(tweet.id, new Date(tweet.created_at));
+        }
+    });
+
     const childrenMap = new Map<string, Set<string>>();
     tweets.forEach((tweet) => {
         if (tweet.author_id !== authorId) return;
@@ -98,7 +131,7 @@ export async function getThreadTweets(client: TwitterApi, id: string) {
         currentId = repliedTo?.id;
     }
 
-    const tweetIds = buildChainAlongPath(rootId, childrenMap, pathToRoot);
+    const tweetIds = buildCompleteChain(rootId, id, childrenMap, pathToRoot, tweetTimeMap);
 
     const result = await client.v2.tweets(tweetIds, {
         ...TWITTER_TIMELINE_OPTIONS,
