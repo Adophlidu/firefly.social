@@ -22,6 +22,6 @@ export const GET = compose(
         const { data, includes, errors } = await getThreadTweets(client, tweetId);
         if (errors?.length) logger.error('[twitter] v2.tweets', errors);
 
-        return createSuccessResponseJson(data.reverse().map((tweet) => tweetV2ToPost(tweet, includes)));
+        return createSuccessResponseJson(data.map((tweet) => tweetV2ToPost(tweet, includes)));
     },
 );
