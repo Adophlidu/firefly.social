@@ -153,7 +153,14 @@ const config: NextConfig = {
     },
     async rewrites() {
         if (process.env.WALLET_IFRAME_REWRITE) {
+            // Extract base URL (remove /:path* suffix if present)
+            const baseUrl = process.env.WALLET_IFRAME_REWRITE.replace(/\/:path\*$/, '');
             return [
+                {
+                    // Handle /wallet-iframe without trailing path - must proxy to URL with trailing slash
+                    source: '/wallet-iframe',
+                    destination: `${baseUrl}/`,
+                },
                 {
                     source: '/wallet-iframe/:path*',
                     destination: process.env.WALLET_IFRAME_REWRITE,

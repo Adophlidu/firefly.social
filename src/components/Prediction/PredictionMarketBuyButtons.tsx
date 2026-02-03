@@ -62,6 +62,7 @@ export const PredictionMarketBuyButtons = memo<PredictionMarketBuyButtonsProps>(
                                   ? 'bg-danger'
                                   : 'bg-danger/20 text-danger',
                         )}
+                        data-prevent-progress
                         onClick={() => {
                             if (market.slug) {
                                 openPredictionPage(market.slug, i);

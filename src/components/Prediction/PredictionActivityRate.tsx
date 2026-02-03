@@ -92,6 +92,7 @@ export function PredictionActivityRate({ activity }: ActivityRateProps) {
                                 BUTTON_COLORS.success.bg,
                                 BUTTON_COLORS.success.text,
                             )}
+                            data-prevent-progress
                             onClick={() => {
                                 if (activity.rawData?.slug) openPredictionPage(activity.rawData.slug, 0);
                             }}
@@ -106,6 +107,7 @@ export function PredictionActivityRate({ activity }: ActivityRateProps) {
                                 BUTTON_COLORS.danger.bg,
                                 BUTTON_COLORS.danger.text,
                             )}
+                            data-prevent-progress
                             onClick={() => {
                                 if (activity.rawData?.slug) openPredictionPage(activity.rawData.slug, 1);
                             }}

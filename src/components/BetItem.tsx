@@ -4,7 +4,8 @@ import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import dayjs from 'dayjs';
 import { capitalize, first } from 'lodash-es';
-import { memo, useMemo } from 'react';
+import { memo, type ReactNode, useMemo } from 'react';
+import { useAsyncFn } from 'react-use';
 
 import TimeIcon from '@/assets/time.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -167,6 +168,35 @@ interface BetItemProps {
     openLinkInNewTab?: boolean;
 }
 
+interface PredictionOutcomeButtonProps {
+    className: string;
+    slug?: string;
+    outcome: number;
+    children: ReactNode;
+}
+
+function PredictionOutcomeButton({ className, slug, outcome, children }: PredictionOutcomeButtonProps) {
+    const [{ loading }, handleOpenPredictionPage] = useAsyncFn(async () => {
+        if (!slug) return;
+        await openPredictionPage(slug, outcome);
+    }, [slug, outcome]);
+
+    return (
+        <ClickableButton
+            className={className}
+            data-prevent-progress
+            type="button"
+            loading={loading}
+            onClick={() => {
+                if (!slug || loading) return;
+                handleOpenPredictionPage();
+            }}
+        >
+            {children}
+        </ClickableButton>
+    );
+}
+
 export const BetItem = memo(function BetItem({ event, className, openLinkInNewTab = true }: BetItemProps) {
     const endTime = new Date(event.endDate).getTime();
 
@@ -322,31 +352,29 @@ export const BetItem = memo(function BetItem({ event, className, openLinkInNewTa
                                         </div>
                                     ) : (
                                         <div className="flex min-w-0 shrink-0 gap-2">
-                                            <ClickableButton
+                                            <PredictionOutcomeButton
                                                 className={classNames(
                                                     'min-w-0 flex-1 overflow-hidden rounded-lg px-3 py-1.5 text-sm font-bold leading-6 sm:w-[100px] md:w-[120px]',
                                                     BUTTON_COLORS.success.bg,
                                                     BUTTON_COLORS.success.text,
                                                 )}
-                                                onClick={() => {
-                                                    openPredictionPage(market.slug, 0);
-                                                }}
+                                                slug={market.slug}
+                                                outcome={0}
                                             >
                                                 <span className="block truncate">{firstOutcome}</span>
-                                            </ClickableButton>
+                                            </PredictionOutcomeButton>
                                             {secondOutcome ? (
-                                                <ClickableButton
+                                                <PredictionOutcomeButton
                                                     className={classNames(
                                                         'min-w-0 flex-1 overflow-hidden rounded-lg px-3 py-1.5 text-sm font-bold leading-6 sm:w-[100px] md:w-[120px]',
                                                         BUTTON_COLORS.danger.bg,
                                                         BUTTON_COLORS.danger.text,
                                                     )}
-                                                    onClick={() => {
-                                                        openPredictionPage(market.slug, 1);
-                                                    }}
+                                                    slug={market.slug}
+                                                    outcome={1}
                                                 >
                                                     <span className="block truncate">{secondOutcome}</span>
-                                                </ClickableButton>
+                                                </PredictionOutcomeButton>
                                             ) : null}
                                         </div>
                                     )}
@@ -417,36 +445,34 @@ export const BetItem = memo(function BetItem({ event, className, openLinkInNewTa
                         {!isResolved || !resolvedOutcome ? (
                             <div className="flex min-w-0 gap-2">
                                 {firstOutcome ? (
-                                    <ClickableButton
+                                    <PredictionOutcomeButton
                                         className={classNames(
                                             'min-w-0 flex-1 overflow-hidden rounded-lg px-4 py-2 text-sm font-bold leading-6',
                                             BUTTON_COLORS.success.bg,
                                             BUTTON_COLORS.success.text,
                                         )}
-                                        onClick={() => {
-                                            if (primaryMarket) openPredictionPage(primaryMarket.slug, 0);
-                                        }}
+                                        slug={primaryMarket?.slug}
+                                        outcome={0}
                                     >
                                         <span className="block truncate">
                                             <Trans>Buy {firstOutcome}</Trans>
                                         </span>
-                                    </ClickableButton>
+                                    </PredictionOutcomeButton>
                                 ) : null}
                                 {secondOutcome ? (
-                                    <ClickableButton
+                                    <PredictionOutcomeButton
                                         className={classNames(
                                             'min-w-0 flex-1 overflow-hidden rounded-lg px-4 py-2 text-sm font-bold leading-6',
                                             BUTTON_COLORS.danger.bg,
                                             BUTTON_COLORS.danger.text,
                                         )}
-                                        onClick={() => {
-                                            if (primaryMarket) openPredictionPage(primaryMarket.slug, 1);
-                                        }}
+                                        slug={primaryMarket?.slug}
+                                        outcome={1}
                                     >
                                         <span className="block truncate">
                                             <Trans>Buy {secondOutcome}</Trans>
                                         </span>
-                                    </ClickableButton>
+                                    </PredictionOutcomeButton>
                                 ) : null}
                             </div>
                         ) : null}
