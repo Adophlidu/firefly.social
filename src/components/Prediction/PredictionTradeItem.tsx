@@ -76,7 +76,7 @@ export function PredictionTradeItem({ trade, platform, className }: PredictionTr
                     ) : null}
                 </div>
                 <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-                    <Link target="_blank" href={eventUrl} className="text-[13px] font-medium text-main hover:underline">
+                    <Link href={eventUrl} className="text-[13px] font-medium text-main hover:underline">
                         {displayTitle}
                     </Link>
                     <div className="flex items-center gap-1">
