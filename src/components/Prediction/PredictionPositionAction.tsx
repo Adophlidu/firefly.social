@@ -53,7 +53,7 @@ export const PredictionPositionAction = memo<Props>(function PredictionPositionA
                         <Trans>Close lost position</Trans>
                     </ClickableButton>
                 )
-            ) : !position.shares && position.shares >= MIN_SELLABLE_SHARES ? (
+            ) : position.shares && position.shares >= MIN_SELLABLE_SHARES ? (
                 <ClickableButton
                     className="box-border h-8 w-[128px] whitespace-nowrap rounded-lg bg-highlight py-2 text-xs text-white"
                     onClick={() => {
