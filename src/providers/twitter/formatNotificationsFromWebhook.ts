@@ -190,7 +190,9 @@ function formatFollowNotification(data: FollowEvent, viewerId: string): FollowNo
     };
 }
 
-function formatFavoriteNotification(data: FavoriteEvent): ReactionNotification {
+function formatFavoriteNotification(data: FavoriteEvent, viewerId: string): ReactionNotification | null {
+    if (data.user.id_str === viewerId) return null; // favorite by viewer self
+
     return {
         source: Source.Twitter,
         notificationId: data.id,
@@ -287,7 +289,7 @@ export function formatNotificationsFromWebhook(
 
             if ('favorite_events' in message) {
                 const favoriteEvent = first(message.favorite_events);
-                return favoriteEvent ? formatFavoriteNotification(favoriteEvent) : null;
+                return favoriteEvent ? formatFavoriteNotification(favoriteEvent, viewerId) : null;
             }
 
             if ('tweet_create_events' in message) {
