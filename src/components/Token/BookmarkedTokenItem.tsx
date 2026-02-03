@@ -2,6 +2,7 @@ import { classNames } from '@dimensiondev/utils';
 import { type HTMLProps, memo } from 'react';
 
 import { Link } from '@/components/Link.js';
+import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { TokenBookmarkButton } from '@/components/Token/TokenBookmarkButton.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
@@ -48,7 +49,7 @@ export const BookmarkedTokenItem = memo(function BookmarkedTokenItem({
                     e.preventDefault();
                 }}
             />
-            <Link className="flex grow items-center gap-3" shallow href={tokenPageUrl}>
+            <Link className="flex min-w-0 grow items-center gap-3" shallow href={tokenPageUrl}>
                 <TokenIcon
                     className="size-11 shrink-0 rounded-full"
                     size={44}
@@ -61,7 +62,9 @@ export const BookmarkedTokenItem = memo(function BookmarkedTokenItem({
                 />
                 <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-x-1 text-medium font-bold text-secondary">
-                        <span className="truncate leading-6 text-lightMain">{token.name}</span>
+                        <TextOverflowTooltip content={token.name}>
+                            <span className="truncate leading-6 text-lightMain">{token.name}</span>
+                        </TextOverflowTooltip>
                     </div>
                     {showMarketInfo ? (
                         <div className="flex gap-2">
