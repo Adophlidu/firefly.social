@@ -4,10 +4,11 @@ import { classNames } from '@dimensiondev/utils';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { Trans } from '@lingui/react/macro';
 import { first, sumBy } from 'lodash-es';
-import { memo, useCallback, useState } from 'react';
+import { memo, use, useCallback } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Loading } from '@/components/Loading.js';
+import { PredictionContext } from '@/components/Prediction/PredictionContext.js';
 import { PredictionMarketBuyButtons } from '@/components/Prediction/PredictionMarketBuyButtons.js';
 import { PLATFORMS_SUPPORTING_ORDER_BOOK } from '@/constants/bets.js';
 import { PredictionPlatform } from '@/constants/enum.js';
@@ -37,9 +38,7 @@ export const PredictionMarketList = memo(function PredictionMarketList({
     markets,
     platform,
 }: PredictionMarketListProps) {
-    const [marketId, setMarketId] = useState(
-        markets.find((market) => !market.isResolved && !market.isClosed)?.id || null,
-    );
+    const { marketId, setMarketId } = use(PredictionContext);
     const { displayedMarkets, showMore, toggleType, setShowMore } = useToggleMarkets(markets);
 
     const onMarketClick = useCallback(
@@ -48,7 +47,7 @@ export const PredictionMarketList = memo(function PredictionMarketList({
 
             setMarketId(market.id === marketId ? null : market.id);
         },
-        [marketId, platform],
+        [marketId, platform, setMarketId],
     );
 
     const supportOrderBook = PLATFORMS_SUPPORTING_ORDER_BOOK.includes(platform);

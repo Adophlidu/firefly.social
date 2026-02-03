@@ -98,6 +98,9 @@ msgstr "編輯圖片"
 msgid "Failed to upload. File type is not supported on X."
 msgstr "上傳失敗。X 暫不支持該文件類型。"
 
+msgid "Open Orders"
+msgstr ""
+
 #. placeholder {0}: profile.handle
 msgid "Report @{0}"
 msgstr "檢舉 @{0}"
@@ -1596,6 +1599,9 @@ msgstr "未找到 {0} 的連接器"
 msgid "Unmute /{0}"
 msgstr "取消隱藏 /{0}"
 
+msgid "No open orders found."
+msgstr ""
+
 msgid "No trades found in this wallet"
 msgstr "此錢包中未發現交易記錄"
 
@@ -2221,6 +2227,9 @@ msgstr "發布分享連結"
 
 msgid "Rank #{tokenRank}"
 msgstr "排名 #{tokenRank}"
+
+msgid "No positions found."
+msgstr ""
 
 msgid "Votes"
 msgstr "票數"

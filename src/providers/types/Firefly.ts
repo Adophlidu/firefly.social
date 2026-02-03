@@ -2919,3 +2919,24 @@ export interface PolymarketTranslationData {
     title?: string;
     description?: string;
 }
+
+export interface PolymarketOpenOrderDetail {
+    id: string;
+    status: 'LIVE' | 'MATCHED' | 'DELAYED' | 'UNMATCHED' | 'CANCELED' | string;
+    owner: string;
+    maker_address: string;
+    market: string;
+    asset_id: string;
+    side: 'BUY' | 'SELL' | string;
+    title: string;
+    icon: string;
+    outcome_index: number;
+    original_size: string;
+    size_matched: string;
+    price: string;
+    outcome: string;
+    expiration: string;
+    order_type: 'GTC' | 'FOK' | 'IOC' | string;
+    associate_trades: string[];
+    created_at: number;
+}

@@ -3,6 +3,7 @@ import { first } from 'lodash-es';
 
 import { PredictionBaseInfoTabContent } from '@/components/Prediction/PredictionBaseInfoTabContent.js';
 import { PredictionBaseInfoTabs } from '@/components/Prediction/PredictionBaseInfoTabs.js';
+import { PredictionContextProvider } from '@/components/Prediction/PredictionContext.js';
 import { PredictionEventOverview } from '@/components/Prediction/PredictionEventOverview.js';
 import { PredictionMarketsAccountTab } from '@/components/Prediction/PredictionMarketsAccountTab/index.js';
 import { PredictionMarketsPriceLineChart } from '@/components/Prediction/PredictionMarketsPriceLineChart/index.js';
@@ -48,9 +49,11 @@ export async function PredictionEventDetailContent({ id, isMutil, platform }: Pr
             <PredictionProfilePageHeader pageTitle={<Trans>Event detail</Trans>} />
             <PredictionEventOverview detail={event} isActive={isActive} />
             <PredictionMarketsPriceLineChart platform={platform} markets={markets} isActive={isActive} />
-            <PredictionMarketsAccountTab markets={markets} platform={platform} />
-            <PredictionBaseInfoTabs showResolution={showResolution} />
-            <PredictionBaseInfoTabContent showResolution={showResolution} platform={platform} detail={event} />
+            <PredictionContextProvider platform={platform} markets={markets}>
+                <PredictionMarketsAccountTab markets={markets} platform={platform} />
+                <PredictionBaseInfoTabs showResolution={showResolution} />
+                <PredictionBaseInfoTabContent showResolution={showResolution} platform={platform} detail={event} />
+            </PredictionContextProvider>
         </div>
     );
 }

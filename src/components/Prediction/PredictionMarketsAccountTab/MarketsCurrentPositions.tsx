@@ -117,7 +117,7 @@ export const MarketsCurrentPositions = memo<Props>(function MarketsCurrentPositi
                     )}
                 </div>
             ) : (
-                <NoResultsFallback />
+                <NoResultsFallback message={<Trans>No positions found.</Trans>} />
             )}
         </div>
     );

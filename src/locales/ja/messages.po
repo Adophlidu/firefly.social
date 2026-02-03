@@ -98,6 +98,9 @@ msgstr ""
 msgid "Failed to upload. File type is not supported on X."
 msgstr ""
 
+msgid "Open Orders"
+msgstr ""
+
 #. placeholder {0}: profile.handle
 msgid "Report @{0}"
 msgstr ""
@@ -1596,6 +1599,9 @@ msgstr ""
 msgid "Unmute /{0}"
 msgstr ""
 
+msgid "No open orders found."
+msgstr ""
+
 msgid "No trades found in this wallet"
 msgstr ""
 
@@ -2220,6 +2226,9 @@ msgid "Post with link"
 msgstr ""
 
 msgid "Rank #{tokenRank}"
+msgstr ""
+
+msgid "No positions found."
 msgstr ""
 
 msgid "Votes"

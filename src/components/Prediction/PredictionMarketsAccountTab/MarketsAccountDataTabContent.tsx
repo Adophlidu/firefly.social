@@ -5,6 +5,7 @@ import { memo } from 'react';
 
 import { PredictionMarketList } from '@/components/Prediction/PredictionMarketList.js';
 import { MarketsCurrentPositions } from '@/components/Prediction/PredictionMarketsAccountTab/MarketsCurrentPositions.js';
+import { PredictionOpenOrders } from '@/components/Prediction/PredictionMarketsAccountTab/PredictionOpenOrders.js';
 import type { PredictionPlatform } from '@/constants/enum.js';
 import { MarketsAccountTabType, useMarketsAccountTab } from '@/hooks/prediction/useMarketsAccountTab.js';
 import type { BetsMarketDataForUI } from '@/types/prediction.js';
@@ -31,7 +32,7 @@ export const MarketsAccountDataTabContent = memo<Props>(function MarketsAccountD
         case MarketsAccountTabType.Positions:
             return <MarketsCurrentPositions markets={markets} platform={platform} wallets={wallets} />;
         case MarketsAccountTabType.Orders:
-            return null;
+            return <PredictionOpenOrders platform={platform} />;
         default:
             safeUnreachable(currentTab);
             return null;

@@ -1,5 +1,6 @@
 import type { SPREAD_SETTING_OPTIONS } from '@/constants/bets.js';
 import type { BetsMarketResolveStatus, PredictionPlatform, SocialSource } from '@/constants/enum.js';
+import type { PolymarketOpenOrderDetail } from '@/providers/types/Firefly.js';
 
 export type MarketOrderBookSpread = (typeof SPREAD_SETTING_OPTIONS)[number];
 
@@ -113,3 +114,5 @@ export interface BetsOrderBookItem {
     price: number;
     size: number;
 }
+
+export type PredictionOpenOrder = PolymarketOpenOrderDetail;

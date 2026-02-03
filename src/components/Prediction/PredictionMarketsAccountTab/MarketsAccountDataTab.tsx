@@ -24,6 +24,7 @@ export const MarketsAccountDataTab = memo(function MarketsAccountDataTab() {
             {[
                 { value: MarketsAccountTabType.Markets, label: <Trans>Markets</Trans> },
                 { value: MarketsAccountTabType.Positions, label: <Trans>Positions</Trans> },
+                { value: MarketsAccountTabType.Orders, label: <Trans>Open Orders</Trans> },
             ].map((tab) => (
                 <Tab value={tab.value} key={tab.value}>
                     {tab.label}
