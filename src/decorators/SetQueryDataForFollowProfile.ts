@@ -73,13 +73,13 @@ export function setFollowStatus(source: Source, profileId: string, status: boole
     queryClient.setQueriesData<Profile[]>({ queryKey: ['suggested-follows-lite'] }, (profiles) => {
         if (!profiles) return profiles;
 
-        for (const profile of profiles) {
-            if (profile.profileId === profileId) {
-                patcher(profile, status);
+        return produce(profiles, (draft) => {
+            for (const profile of draft) {
+                if (profile.profileId === profileId) {
+                    patcher(profile, status);
+                }
             }
-        }
-
-        return profiles;
+        });
     });
 
     patchNotificationQueryDataOnAuthor(source, (profile) => {
