@@ -29,7 +29,7 @@ export const TopHoldersContent = memo<TopHoldersContentProps>(function TopHolder
             }),
     });
 
-    if (isLoading || isRefetchError || isPending) return <Loading />;
+    if (isLoading || isRefetchError || isPending) return <Loading minHeight={112} />;
     if (error) {
         return (
             <div className="flex h-28 w-full items-center justify-center">
