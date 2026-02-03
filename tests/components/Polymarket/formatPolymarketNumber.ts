@@ -42,7 +42,7 @@ describe('formatPolymarketNumber', () => {
     it('should handle small numbers (< 1)', () => {
         expect(formatPolymarketNumber(0.5)).toBe('$0.5');
         expect(formatPolymarketNumber(0.123)).toBe('$0.12');
-        expect(formatPolymarketNumber(0.001)).toBe('$0');
+        expect(formatPolymarketNumber(0.001)).toBe('<$0.01');
     });
 
     it('should format large numbers with K suffix', () => {
@@ -106,6 +106,6 @@ describe('formatPolymarketNumber', () => {
     });
 
     it('should handle very small positive numbers', () => {
-        expect(formatPolymarketNumber(0.00001)).toBe('<$0.0001');
+        expect(formatPolymarketNumber(0.001)).toBe('<$0.01');
     });
 });
