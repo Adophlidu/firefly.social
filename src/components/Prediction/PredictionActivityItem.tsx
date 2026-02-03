@@ -27,11 +27,14 @@ export const PredictionActivityItem = memo<PredictionActivityItemProps>(function
     activity,
     onLinkClick,
 }) {
-    const walletAddress = activity.wallet || activity.proxyWallet;
+    const walletAddress = activity.wallet || activity.proxyWallet || activity.owner || '';
     const isMyProfile = useIsMyRelatedProfile(Source.Wallet, walletAddress);
 
-    const addressName = formatAddress(walletAddress, 4);
-    const profileUrl = getProfileUrl({ source: Source.Wallet, profileId: walletAddress }, WalletProfileCategory.Bets);
+    const addressName = walletAddress ? formatAddress(walletAddress, 4) : '';
+    const profileUrl = walletAddress
+        ? getProfileUrl({ source: Source.Wallet, profileId: walletAddress }, WalletProfileCategory.Bets)
+        : '';
+    const displayName = activity.displayInfo?.ensHandle || addressName || walletAddress || '';
 
     const wrapper = useCallback(
         (children: React.ReactNode) => (
@@ -56,24 +59,41 @@ export const PredictionActivityItem = memo<PredictionActivityItemProps>(function
             {activity.followingSources?.length ? <FeedFollowSource source={first(activity.followingSources)} /> : null}
             <div className="flex gap-x-3">
                 <div>
-                    <Link href={profileUrl}>
+                    {profileUrl ? (
+                        <Link href={profileUrl}>
+                            <Avatar
+                                alt={walletAddress}
+                                className="size-10 rounded-full"
+                                src={getWalletProfileAvatar(activity.displayInfo)}
+                                size={40}
+                            />
+                        </Link>
+                    ) : (
                         <Avatar
                             alt={walletAddress}
                             className="size-10 rounded-full"
                             src={getWalletProfileAvatar(activity.displayInfo)}
                             size={40}
                         />
-                    </Link>
+                    )}
                 </div>
                 <div className="min-w-0 flex-1 overflow-hidden">
                     <div className="flex items-center gap-x-1 text-medium text-second">
-                        <Link href={profileUrl} className="min-w-0 truncate font-bold text-lightMain">
-                            {activity.displayInfo?.ensHandle || addressName}
-                        </Link>
-                        {activity.displayInfo?.ensHandle ? (
-                            <Link href={profileUrl} className="ml-2 max-md:hidden">
-                                {addressName}
+                        {profileUrl ? (
+                            <Link href={profileUrl} className="min-w-0 truncate font-bold text-lightMain">
+                                {displayName}
                             </Link>
+                        ) : (
+                            <span className="min-w-0 truncate font-bold text-lightMain">{displayName}</span>
+                        )}
+                        {activity.displayInfo?.ensHandle ? (
+                            profileUrl ? (
+                                <Link href={profileUrl} className="ml-2 max-md:hidden">
+                                    {addressName}
+                                </Link>
+                            ) : (
+                                <span className="ml-2 max-md:hidden">{addressName}</span>
+                            )
                         ) : null}
                         {activity.timestamp ? (
                             <span className="whitespace-nowrap pl-1">
@@ -81,7 +101,7 @@ export const PredictionActivityItem = memo<PredictionActivityItemProps>(function
                             </span>
                         ) : null}
                         <PredictionPlatformIcon platform={activity.platform} size={15} className="mr-auto shrink-0" />
-                        {isMyProfile ? null : (
+                        {isMyProfile || !walletAddress ? null : (
                             <WalletBaseMoreAction
                                 address={walletAddress as Address}
                                 ens={activity.displayInfo?.ensHandle ?? undefined}

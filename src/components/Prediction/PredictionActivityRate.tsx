@@ -26,19 +26,20 @@ interface ActivityRateProps {
 }
 
 export function PredictionActivityRate({ activity }: ActivityRateProps) {
-    const totalPrice = activity.conditionOutcomePrices.reduce(
+    const { conditionOutcomes, conditionOutcomePrices } = activity;
+    const totalPrice = conditionOutcomePrices.reduce(
         (sum, price) => (!Number.isNaN(+price) ? sum + Number(price) : sum),
         0,
     );
     const isZeroPrice = isZero(totalPrice);
-    const firstOutcome = activity.conditionOutcomes[0] || 'Yes';
-    const secondOutcome = activity.conditionOutcomes[1] || 'No';
+    const firstOutcome = conditionOutcomes[0] || 'Yes';
+    const secondOutcome = conditionOutcomes[1] || 'No';
 
     const computedOutcomes = useMemo(() => {
-        return activity.conditionOutcomes.map((outcome, index) => {
-            const price = activity.conditionOutcomePrices[index] || '0';
+        return conditionOutcomes.map((outcome, index) => {
+            const price = conditionOutcomePrices[index] || '0';
             const rate = totalPrice > 0 ? Number(price) / totalPrice : 0;
-            const isLast = index === activity.conditionOutcomes.length - 1;
+            const isLast = index === conditionOutcomes.length - 1;
 
             return {
                 outcome,
@@ -47,7 +48,7 @@ export function PredictionActivityRate({ activity }: ActivityRateProps) {
                 price,
             };
         });
-    }, [activity.conditionOutcomes, activity.conditionOutcomePrices, totalPrice]);
+    }, [conditionOutcomes, conditionOutcomePrices, totalPrice]);
 
     return (
         <div className="mt-3">
@@ -92,7 +93,7 @@ export function PredictionActivityRate({ activity }: ActivityRateProps) {
                                 BUTTON_COLORS.success.text,
                             )}
                             onClick={() => {
-                                if (activity.rawData.slug) openPredictionPage(activity.rawData.slug, 0);
+                                if (activity.rawData?.slug) openPredictionPage(activity.rawData.slug, 0);
                             }}
                         >
                             <Trans>Buy {firstOutcome}</Trans>
@@ -106,7 +107,7 @@ export function PredictionActivityRate({ activity }: ActivityRateProps) {
                                 BUTTON_COLORS.danger.text,
                             )}
                             onClick={() => {
-                                if (activity.rawData.slug) openPredictionPage(activity.rawData.slug, 1);
+                                if (activity.rawData?.slug) openPredictionPage(activity.rawData.slug, 1);
                             }}
                         >
                             <Trans>Buy {secondOutcome}</Trans>
@@ -115,8 +116,8 @@ export function PredictionActivityRate({ activity }: ActivityRateProps) {
                 </div>
             ) : null}
             <div className="mt-3 flex items-center justify-between">
-                {activity.conditionOutcomes.map((outcome, index) => {
-                    const isLast = index === activity.conditionOutcomes.length - 1;
+                {conditionOutcomes.map((outcome, index) => {
+                    const isLast = index === conditionOutcomes.length - 1;
                     return (
                         <div
                             key={outcome}

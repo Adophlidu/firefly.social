@@ -18,12 +18,15 @@ interface PredictionActivityActionProps {
 export const PredictionActivityAction = memo<PredictionActivityActionProps>(function PredictionActivityAction({
     activity,
 }) {
-    const identity = useFireflyIdentity(Source.Wallet, (activity.wallet || activity.proxyWallet) as Address);
+    const walletAddress = activity.wallet || activity.proxyWallet || activity.owner;
+    const identity = useFireflyIdentity(Source.Wallet, walletAddress as Address);
     const { mutate: toggleBookmark, isPending: isBookmarkPending } = useTogglePredictionBookmark();
 
     const { hasBookmarked, has_bookmarked } = activity;
 
-    const polymarketUrl = `${POLYMARKET_URL}/event/${activity.rawData.slug}`;
+    const polymarketUrl = activity.rawData?.slug
+        ? `${POLYMARKET_URL}/event/${activity.rawData.slug}`
+        : (activity.url ?? '');
 
     const handleBookmark = useCallback(() => {
         toggleBookmark(activity);

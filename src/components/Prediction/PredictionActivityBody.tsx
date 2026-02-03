@@ -30,8 +30,10 @@ export const PredictionActivityBody = memo<PredictionActivityBodyProps>(function
     wrapper,
 }) {
     const isDarkMode = useIsDarkMode();
-    const isLeft = activity.outcomeIndex === 0;
-    const outcome = activity.conditionOutcomes[activity.outcomeIndex] || activity.outcome;
+    const conditionOutcomes = activity.conditionOutcomes ?? [];
+    const outcomeIndex = activity.outcomeIndex ?? 0;
+    const isLeft = outcomeIndex === 0;
+    const outcome = conditionOutcomes[outcomeIndex] || activity.outcome;
 
     const containerStyle = {
         '--success-color': isDarkMode ? '#1F4B1A' : '#C1E7BD',
