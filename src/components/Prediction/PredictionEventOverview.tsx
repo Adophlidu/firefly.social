@@ -2,8 +2,8 @@ import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 
 import TimeIcon from '@/assets/time.svg';
+import { PredictionEventImage } from '@/components/Prediction/PredictionEventImage.js';
 import { PredictionPlatformIcon } from '@/components/Prediction/PredictionPlatformIcon.js';
-import { Image } from '@/esm/Image.js';
 import type { BetsEventDataForUI } from '@/types/prediction.js';
 
 interface PredictionEventOverviewProps {
@@ -15,7 +15,8 @@ export function PredictionEventOverview({ detail, isActive }: PredictionEventOve
     return (
         <div className="flex items-start gap-4 p-4">
             {detail.image ? (
-                <Image
+                <PredictionEventImage
+                    platform={detail.platform}
                     alt={detail.title}
                     src={detail.image}
                     width={52}

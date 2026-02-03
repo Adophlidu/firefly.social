@@ -9,11 +9,11 @@ import { memo, use, useCallback } from 'react';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Loading } from '@/components/Loading.js';
 import { PredictionContext } from '@/components/Prediction/PredictionContext.js';
+import { PredictionEventImage } from '@/components/Prediction/PredictionEventImage.js';
 import { PredictionMarketBuyButtons } from '@/components/Prediction/PredictionMarketBuyButtons.js';
 import { PLATFORMS_SUPPORTING_ORDER_BOOK } from '@/constants/bets.js';
 import { PredictionPlatform } from '@/constants/enum.js';
 import { dynamic } from '@/esm/dynamic.js';
-import { Image } from '@/esm/Image.js';
 import { bedStead } from '@/fonts/bedStead/index.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { isZero } from '@/helpers/number.js';
@@ -77,7 +77,8 @@ export const PredictionMarketList = memo(function PredictionMarketList({
                     <div key={market.id} className="space-y-3">
                         <div className="flex items-start gap-2">
                             {market.image ? (
-                                <Image
+                                <PredictionEventImage
+                                    platform={platform}
                                     src={market.image}
                                     alt={market.title}
                                     width={40}
