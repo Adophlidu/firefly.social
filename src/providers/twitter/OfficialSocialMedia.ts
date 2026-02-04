@@ -46,6 +46,7 @@ import { formatNotificationsFromWebhook } from '@/providers/twitter/formatNotifi
 import { formatTweetsPage } from '@/providers/twitter/formatTwitterPost.js';
 import { formatTwitterProfile, formatTwitterProfilePage } from '@/providers/twitter/formatTwitterProfile.js';
 import { formatTwitterProfileFromRootdata } from '@/providers/twitter/formatTwitterProfileFromRootdata.js';
+import { getProfilesByIdsFromOfficial } from '@/providers/twitter/getProfilesByIdsFromOfficial.js';
 import { getTwitterProfileHandleFromUrl } from '@/providers/twitter/getTwitterProfileHandleFromUrl.js';
 import { resolveTwitterReplyRestriction } from '@/providers/twitter/resolveTwitterReplyRestriction.js';
 import { resolveTwitterResponseData } from '@/providers/twitter/resolveTwitterResponseData.js';
@@ -344,20 +345,7 @@ class OfficialSocialMedia implements Provider {
     }
 
     async getProfilesByIds(ids: string[]): Promise<Profile[]> {
-        if (!ids.length) return [];
-        const response = await twitterSessionHolder.fetch<ResponseJson<UserV2[]>>('/api/twitter/users', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                ids,
-            }),
-        });
-        const data = resolveTwitterResponseData(response);
-        if (!data.length) return [];
-
-        return data.map(formatTwitterProfile);
+        return getProfilesByIdsFromOfficial(ids);
     }
 
     async follow(profileId: string): Promise<boolean> {

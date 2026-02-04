@@ -32,13 +32,15 @@ export function ProfileContextProvider({ children, ...value }: PropsWithChildren
     const source = socialProfile?.source || Source.Farcaster;
     const isSyncing = useAsyncStatus(source);
     const currentProfile = useCurrentProfile(source);
+
+    const enabled = !!socialProfile && !isSyncing;
     const { data: refreshedProfile, isLoading } = useQuery({
-        enabled: !!socialProfile && !isSyncing,
+        enabled,
         staleTime: 1000 * 60, // 1 minute
         refetchOnWindowFocus: false,
         refetchOnReconnect: 'always',
         queryKey: ['profile', socialProfile?.source, socialProfile?.profileId, currentProfile?.profileId, 'refreshed'],
-        queryFn: !socialProfile
+        queryFn: !enabled
             ? skipToken
             : () => resolveSocialMediaProvider(socialProfile.source).getProfileById(socialProfile.profileId, true),
     });

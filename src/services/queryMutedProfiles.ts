@@ -9,6 +9,8 @@ import { formatBskyProfile } from '@/providers/bsky/formatBskyProfile.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import { getBlockRelation } from '@/providers/firefly/endpoint/getBlockRelation.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
+import { getProfilesByIdsFromOfficial } from '@/providers/twitter/getProfilesByIdsFromOfficial.js';
+import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 
 interface MutedProfilePayload {
@@ -27,24 +29,48 @@ async function fetcher(payloads: MutedProfilePayload[]): Promise<Record<string, 
 
     const results: Record<string, MutedProfileResult> = {};
 
-    // Separate Bsky and Firefly payloads
+    // Separate Bsky, X and Firefly payloads
     const bskyPayloads = payloads.filter((p) => p.source === Source.Bsky);
-    const fireflyPayloads = payloads.filter((p) => p.source !== Source.Bsky);
+    const xPayloads = payloads.filter((p) => p.source === Source.Twitter);
+    const fireflyPayloads = payloads.filter((p) => p.source !== Source.Bsky && p.source !== Source.Twitter);
 
-    // Handle Bsky profiles
-    if (bskyPayloads.length > 0 && bskySessionHolder.session) {
-        const response = await bskySessionHolder.agent.getProfiles({
-            actors: bskyPayloads.map((p) => p.profileId),
-        });
-        const profiles = response.data.profiles.map((profile) => formatBskyProfile(profile));
-        profiles.forEach(({ profileId, viewerContext }) => {
+    // Batch fetch profiles for Bsky and X
+    if (bskyPayloads.length > 0 || xPayloads.length > 0) {
+        const result = await Promise.allSettled(
+            (
+                [
+                    { source: Source.Bsky, payloads: bskyPayloads },
+                    { source: Source.Twitter, payloads: xPayloads },
+                ] as const
+            ).map(async ({ source, payloads }) => {
+                if (!payloads.length) return;
+
+                switch (source) {
+                    case Source.Bsky: {
+                        if (!bskySessionHolder.session) return;
+
+                        const response = await bskySessionHolder.agent.getProfiles({
+                            actors: payloads.map((p) => p.profileId),
+                        });
+                        return response.data.profiles.map((profile) => formatBskyProfile(profile));
+                    }
+                    case Source.Twitter: {
+                        if (!twitterSessionHolder.session) return;
+
+                        return getProfilesByIdsFromOfficial(payloads.map((p) => p.profileId));
+                    }
+                }
+            }),
+        );
+        const allProfiles = compact(result.map((res) => (res.status === 'fulfilled' ? res.value : null))).flat();
+        allProfiles.forEach(({ profileId, viewerContext, source }) => {
             const blocked = !!viewerContext?.blocking;
-            results[`${Source.Bsky}:${profileId}`] = {
-                source: Source.Bsky,
+            results[`${source}:${profileId}`] = {
+                source,
                 profileId,
                 blocked,
             };
-            queryClient.setQueryData(['profile-is-muted', Source.Bsky, profileId], blocked);
+            queryClient.setQueryData(['profile-is-muted', source, profileId], blocked);
         });
     }
 

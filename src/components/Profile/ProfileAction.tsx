@@ -48,6 +48,7 @@ export function ProfileAction({ profile: initialProfile, ProfileMoreActionProps 
             <FollowButton
                 profile={profile}
                 variant={isMedium ? 'text' : 'icon'}
+                autoQueryMuted={profile.source !== Source.Twitter}
                 className="z-1 max-md:!w-[50px] max-md:!min-w-[50px] max-md:!max-w-[50px]"
                 followButtonClassName={socialThemeClassName}
                 followingButtonClassName={classNames({

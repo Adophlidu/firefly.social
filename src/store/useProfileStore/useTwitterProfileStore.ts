@@ -43,6 +43,9 @@ const state = createProfileState(
             state.upgrade();
 
             try {
+                // show indicator if the session is from the server
+                state.__setStatus__(AsyncStatus.Pending);
+
                 const session = state.currentProfileSession as TwitterSession | null;
                 // clean the local store if the consumer secret is not hidden
                 if (session?.payload.consumerSecret && session.payload.consumerSecret !== HIDDEN_SECRET) {
@@ -74,9 +77,6 @@ const state = createProfileState(
                     twitterSessionHolder.removeSession();
                     return;
                 }
-
-                // show indicator if the session is from the server
-                state.__setStatus__(AsyncStatus.Pending);
 
                 await addTwitterAccount(sessionPayload, isNewLogin);
                 twitterSessionHolder.resumeSession(TwitterSession.from(sessionPayload.clientId, sessionPayload));

@@ -30,6 +30,7 @@ interface FollowButtonProps extends Omit<ClickableButtonProps, 'children'> {
     hasMutedButton?: boolean;
     followButtonClassName?: string;
     followingButtonClassName?: string;
+    autoQueryMuted?: boolean;
 }
 
 export const FollowButton = memo(function FollowButton({
@@ -39,6 +40,7 @@ export const FollowButton = memo(function FollowButton({
     followButtonClassName = '',
     followingButtonClassName = '',
     hasMutedButton = true,
+    autoQueryMuted = true,
     ...rest
 }: FollowButtonProps) {
     const isMedium = useIsMedium();
@@ -47,7 +49,7 @@ export const FollowButton = memo(function FollowButton({
         profile.source,
         profile.profileId,
         profile.viewerContext?.blocking,
-        hasMutedButton && profile.viewerContext?.blocking === undefined,
+        hasMutedButton && profile.viewerContext?.blocking === undefined && autoQueryMuted,
     );
 
     const isFollowing = !!profile.viewerContext?.following;
