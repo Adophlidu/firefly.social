@@ -68,7 +68,7 @@ export function reportException(payload: ReportExceptionPayload): boolean {
         service_name: 'firefly-web',
 
         // version
-        release_version: process.version,
+        release_version: env.shared.VERSION,
 
         // environment
         vercel_environment: env.external.NEXT_PUBLIC_VERCEL_ENV,
