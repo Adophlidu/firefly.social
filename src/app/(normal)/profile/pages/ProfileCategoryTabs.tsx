@@ -2,11 +2,12 @@
 
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
-import { type ReactNode, useMemo } from 'react';
+import { type ReactNode, useContext, useMemo } from 'react';
 
 import { ActivitiesFilter } from '@/components/HomeTab/ActivitiesFilter.js';
 import { Link } from '@/components/Link.js';
 import { PredictionPlatformFilter } from '@/components/Prediction/PredictionPlatformFilter.js';
+import { ProfileContext } from '@/components/Profile/ProfileContext.js';
 import { ChainFilter } from '@/components/Swap/ChainFilter.js';
 import { ToggleEnableButton } from '@/components/TrumpTruthSocial/ToggleEnableButton.js';
 import {
@@ -30,7 +31,11 @@ import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useExploreDataSwitchConfig } from '@/hooks/useExploreDataSwitchConfig.js';
-import { captureProfileTabClickSimple, type ProfileTabType } from '@/providers/telemetry/captureProfileTabEvent.js';
+import {
+    captureProfileTabClick,
+    captureProfileTabClickSimple,
+    type ProfileTabType,
+} from '@/providers/telemetry/captureProfileTabEvent.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import { ActivitiesFilterNamespace } from '@/store/useActivitiesFilterStore.js';
@@ -48,6 +53,7 @@ export function ProfileCategoryTabs({
     const { status } = useExploreDataSwitchConfig(ExploreSwitchType.TruthSocial);
     const currentProfiles = useCurrentFireflyProfilesAll();
     const isCurrentProfile = currentProfiles.some((x) => isSameFireflyIdentity(x.identity, { id, source }));
+    const { refreshedSocialProfile } = useContext(ProfileContext);
 
     const tabTitles: Record<WalletProfileCategory, ReactNode> = useMemo(
         () => ({
@@ -122,6 +128,13 @@ export function ProfileCategoryTabs({
         const tabType = mapCategoryToTabType(cat, source);
         if (!tabType) return;
 
+        // Use the non-simple version if Profile object is available
+        if (refreshedSocialProfile && tabType) {
+            captureProfileTabClick(refreshedSocialProfile, tabType);
+            return;
+        }
+
+        // Fall back to simple version for wallet profiles or when Profile is not available
         if (source === Source.Wallet || source === Source.WalletMix) {
             if (cat === WalletProfileCategory.Activities) {
                 captureProfileTabClickSimple(source, id, id, 'Feed');
