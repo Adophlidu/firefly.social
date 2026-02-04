@@ -26,6 +26,8 @@ const InternalEnvSchema = z.object({
     ORB_API_KEY: z.string(),
     X_WEBHOOK_RECEIVER_API_KEY: z.string(),
     X_WEBHOOK_ID: z.string().optional(),
+
+    FIREFLY_EXCEPTION_TRACKER_API_KEY: z.string().optional(),
 });
 
 const ExternalEnvSchema = z.object({
@@ -66,9 +68,6 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_FARCASTER_SIGNUP: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_NFT_FEATURES: z.nativeEnum(STATUS).default(STATUS.Enabled),
     NEXT_PUBLIC_X_WEBHOOK_RECEIVER_IDS: z.string().optional(), // comma separated client ids: id1,id2,...
-
-    // exception tracker
-    NEXT_PUBLIC_FIREFLY_EXCEPTION_TRACKER_API_KEY: z.string().optional(),
 
     // app url scheme
     NEXT_PUBLIC_FIREFLY_DOWNLOAD_LINK: z.string().default('https://5euxu.app.link/PHvNiyVemIb'),
@@ -144,9 +143,6 @@ export const env = {
         NEXT_PUBLIC_FARCASTER_SIGNUP: process.env.NEXT_PUBLIC_FARCASTER_SIGNUP,
         NEXT_PUBLIC_NFT_FEATURES: process.env.NEXT_PUBLIC_NFT_FEATURES,
         NEXT_PUBLIC_X_WEBHOOK_RECEIVER_IDS: process.env.NEXT_PUBLIC_X_WEBHOOK_RECEIVER_IDS,
-
-        // exception tracker
-        NEXT_PUBLIC_FIREFLY_EXCEPTION_TRACKER_API_KEY: process.env.NEXT_PUBLIC_FIREFLY_EXCEPTION_TRACKER_API_KEY,
 
         // app scheme url
         NEXT_PUBLIC_FIREFLY_DOWNLOAD_LINK: process.env.NEXT_PUBLIC_FIREFLY_DOWNLOAD_LINK,
