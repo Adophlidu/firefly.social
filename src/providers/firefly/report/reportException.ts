@@ -18,23 +18,17 @@ export interface ReportExceptionPayload {
     severity?: 'error' | 'warning' | 'critical';
     ip_address?: string;
 
-    // version
-    release_version?: string;
-
     // environment
     environment?: string;
     vercel_environment?: string;
 
-    // user agent
-    os?: string;
-    browser?: string;
-    user_agent?: string;
+    // build information
+    release_version?: string;
     commit_hash?: string;
 
     // urls
     root_url?: string;
     site_url?: string;
-    frame_server_url?: string;
     request_url?: string;
 
     // vercel region
@@ -57,7 +51,7 @@ export interface ReportExceptionPayload {
 /**
  * Sends an exception report to the remote exception tracker via sendBeacon.
  * Uses sendBeacon so the request is queued and sent even when the page is unloading.
- * Returns true if the beacon was queued; the backend must accept api_key in the body (sendBeacon cannot set headers).
+ * Payload is encoded into the URL search parameters (no request body).
  */
 export function reportException(payload: ReportExceptionPayload): boolean {
     const apiKey = env.external.NEXT_PUBLIC_FIREFLY_EXCEPTION_TRACKER_API_KEY;
@@ -66,30 +60,26 @@ export function reportException(payload: ReportExceptionPayload): boolean {
     }
 
     const { tags, ...rest } = payload;
-    const body = {
+    const url = urlcat(FIREFLY_EXCEPTION_TRACKER_URL, '/api/exceptions', {
+        api_key: apiKey,
+
         ...rest,
 
         // service name
         service_name: 'firefly-web',
 
-        // version
-        release_version: process.version,
-
         // environment
-        vercel_environment: env.external.NEXT_PUBLIC_VERCEL_ENV,
         environment: IS_PRODUCTION ? 'production' : 'development',
+        vercel_environment: env.external.NEXT_PUBLIC_VERCEL_ENV,
 
-        // user agent
-        os: bom.navigator?.platform,
-        browser: bom.navigator?.userAgent,
-        user_agent: bom.navigator?.userAgent,
+        // build information
+        release_version: process.version,
         commit_hash: env.shared.COMMIT_HASH,
 
         // urls
         root_url: settings.FIREFLY_ROOT_URL,
         site_url: env.external.NEXT_PUBLIC_SITE_URL,
         request_url: bom.location?.href,
-        frame_server_url: settings.FRAME_SERVER_URL,
 
         // vercel region
         ip_timezone: bom.window?.VERCEL_IP_TIMEZONE,
@@ -108,11 +98,6 @@ export function reportException(payload: ReportExceptionPayload): boolean {
         ...(tags && {
             tags: Object.fromEntries(Object.entries(tags).map(([k, v]) => [k, String(v)])),
         }),
-    };
-
-    const url = urlcat(FIREFLY_EXCEPTION_TRACKER_URL, '/api/exceptions', {
-        api_key: apiKey,
     });
-    const blob = new Blob([JSON.stringify(body)], { type: 'application/json' });
-    return bom.navigator?.sendBeacon?.(url, blob) ?? false;
+    return bom.navigator?.sendBeacon?.(url) ?? false;
 }
