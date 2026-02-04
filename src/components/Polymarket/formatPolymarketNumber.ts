@@ -53,7 +53,8 @@ export function formatPolymarketNumber(
     const isNegative = num < 0;
     const absNum = Math.abs(num);
 
-    if (num > 0 && num < 0.01) return `<${defaultPrefix}0.01`;
+    const prefix = defaultPrefix ?? '';
+    if (num > 0 && num < 0.01) return `<${prefix}0.01`;
 
     const match = SUFFIXES.find((s) => absNum >= s.threshold);
     const formattedNum = match
@@ -62,7 +63,6 @@ export function formatPolymarketNumber(
 
     const sign = isNegative ? '-' : '';
     const symbol = defaultSymbol && num !== 0 ? (isNegative ? '-' : '+') : '';
-    const prefix = defaultPrefix ?? '';
 
     if (defaultSymbol) {
         return `${symbol}${prefix}${formattedNum}`;
