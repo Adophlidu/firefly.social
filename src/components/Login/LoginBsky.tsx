@@ -22,7 +22,6 @@ import { AsyncStatus, Source } from '@/constants/enum.js';
 import { FireflyAlreadyBoundError } from '@/constants/error.js';
 import {
     enqueueForbiddenMessage,
-    enqueueInfoMessage,
     enqueueMessageFromError,
     enqueueSuccessMessage,
     enqueueWarningMessage,
@@ -275,7 +274,7 @@ export function LoginBsky() {
                 ) {
                     setShow2FAInput(true);
                     setFocus('authFactorToken');
-                    enqueueInfoMessage(<Trans>Please enter your 2FA confirmation code</Trans>);
+                    enqueueWarningMessage(<Trans>Please enter your 2FA confirmation code</Trans>);
                     return;
                 }
 
