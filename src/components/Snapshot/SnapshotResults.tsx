@@ -34,7 +34,7 @@ export const SnapshotResults = memo<SnapshotResultsProps>(function SnapshotResul
             </div>
             <div className="mt-2 flex flex-col gap-2 rounded-lg bg-farcasterBg p-4">
                 {choices.map((choice, index) => {
-                    const score = scores[index];
+                    const score = scores[index] || 0;
                     return (
                         <div key={index}>
                             <div className="flex items-center justify-between">
