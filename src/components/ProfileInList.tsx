@@ -1,6 +1,7 @@
 import { classNames } from '@dimensiondev/utils';
 import { Plural, Trans } from '@lingui/react/macro';
 import { isUndefined } from 'lodash-es';
+import { memo } from 'react';
 import { type Components } from 'react-markdown';
 
 import { Avatar } from '@/components/Avatar.js';
@@ -23,6 +24,7 @@ interface ProfileInListProps {
     noFollowButton?: boolean;
     listKey?: string;
     index?: number;
+    watchingFollowStatus?: boolean;
 }
 
 const overrideComponents: Components = {
@@ -30,7 +32,13 @@ const overrideComponents: Components = {
     br: VoidLineBreak,
 };
 
-export function ProfileInList({ profile, noFollowButton, listKey, index }: ProfileInListProps) {
+export const ProfileInList = memo<ProfileInListProps>(function ProfileInList({
+    profile,
+    noFollowButton,
+    listKey,
+    index,
+    watchingFollowStatus = false,
+}) {
     const isMedium = useIsMedium('max');
 
     const setScrollIndex = useGlobalState.use.setScrollIndex();
@@ -124,6 +132,7 @@ export function ProfileInList({ profile, noFollowButton, listKey, index }: Profi
                     {!noFollowButton && !isCurrentProfile(profile) ? (
                         <FollowButton
                             profile={profile}
+                            watching={watchingFollowStatus}
                             variant={isMedium ? 'icon' : 'text'}
                             className={isMedium ? 'w-[50px] max-w-[50px]' : 'w-auto !min-w-0'}
                         />
@@ -144,4 +153,4 @@ export function ProfileInList({ profile, noFollowButton, listKey, index }: Profi
             </div>
         </div>
     );
-}
+});

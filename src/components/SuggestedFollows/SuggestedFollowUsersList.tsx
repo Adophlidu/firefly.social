@@ -24,7 +24,7 @@ interface Props {
 }
 
 function getSuggestedFollowUserInList(index: number, profile: Profile) {
-    return <ProfileInList profile={profile} key={`${profile.profileId}-${index}`} />;
+    return <ProfileInList profile={profile} key={`${profile.profileId}-${index}`} watchingFollowStatus />;
 }
 
 const SuggestedFollowers = memo<Props>(function SuggestedFollowers({ source }) {
@@ -32,12 +32,13 @@ const SuggestedFollowers = memo<Props>(function SuggestedFollowers({ source }) {
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['suggested-follows', source, profile?.profileId],
         queryFn: async ({ pageParam }) => {
-            const result = await getSuggestedFollowsInPage(
-                source,
-                profile?.profileId,
-                createIndicator(undefined, pageParam),
-                true,
-            );
+            const result = await getSuggestedFollowsInPage(source, {
+                viewerId: profile?.profileId,
+                indicator: createIndicator(undefined, pageParam),
+                queryStats: true,
+            });
+            if (source === Source.Twitter && !!profile?.profileId) return result;
+
             await runInSafeAsync(() =>
                 queryMutedProfiles(result.data.map((x) => ({ source: x.source, id: x.profileId }))),
             );

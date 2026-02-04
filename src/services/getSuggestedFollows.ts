@@ -28,9 +28,22 @@ async function getProfilesWithFixedTotal(
     return createPageable(data, createIndicator(undefined), indicator);
 }
 
-export async function getSuggestedFollowsInCard(source: SocialSource, viewerId?: string, queryStats?: boolean) {
-    const provider = resolveSocialMediaProvider(source, { [Source.Twitter]: 'twitter' });
+function filterSuggestedFollowers(profiles: Profile[], source: SocialSource) {
     const session = getSessionFromStorageBySource(source);
+
+    return profiles.filter(
+        (x) => !x.viewerContext?.blocking && !x.viewerContext?.following && session?.profileId !== x.profileId,
+    );
+}
+
+interface Options {
+    viewerId?: string;
+    indicator?: PageIndicator;
+    queryStats?: boolean;
+}
+
+export async function getSuggestedFollowsInCard(source: SocialSource, { viewerId, queryStats }: Options = {}) {
+    const provider = resolveSocialMediaProvider(source, { [Source.Twitter]: 'twitter' });
     const result = await getProfilesWithFixedTotal(
         (indicator) => {
             const queryKey: any[] = ['@internal', 'suggested-follows', source, viewerId, indicator?.id || undefined];
@@ -46,17 +59,7 @@ export async function getSuggestedFollowsInCard(source: SocialSource, viewerId?:
                 },
             });
         },
-        (oldData, newData) =>
-            [
-                ...oldData,
-                ...newData.filter((item) => {
-                    return (
-                        !item.viewerContext?.blocking &&
-                        !item.viewerContext?.following &&
-                        session?.profileId !== item.profileId
-                    );
-                }),
-            ].slice(0, 50),
+        (oldData, newData) => [...oldData, ...filterSuggestedFollowers(newData, source)].slice(0, 50),
         50,
     );
     return result.data ?? [];
@@ -64,11 +67,8 @@ export async function getSuggestedFollowsInCard(source: SocialSource, viewerId?:
 
 export async function getSuggestedFollowsInPage(
     source: SocialSource,
-    viewerId?: string,
-    indicator?: PageIndicator,
-    queryStats?: boolean,
+    { viewerId, indicator, queryStats }: Options = {},
 ) {
-    const session = getSessionFromStorageBySource(source);
     const provider = resolveSocialMediaProvider(source);
     return getProfilesWithFixedTotal(
         (indicator) => {
@@ -85,12 +85,7 @@ export async function getSuggestedFollowsInPage(
                 },
             });
         },
-        (oldData, newData) => [
-            ...oldData,
-            ...newData.filter(
-                (x) => !x.viewerContext?.blocking && !x.viewerContext?.following && session?.profileId !== x.profileId,
-            ),
-        ],
+        (oldData, newData) => [...oldData, ...filterSuggestedFollowers(newData, source)],
         1,
         indicator,
     );

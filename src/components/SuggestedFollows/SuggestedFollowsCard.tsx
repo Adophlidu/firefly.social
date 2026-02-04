@@ -50,7 +50,9 @@ export function SuggestedFollowsCard() {
         queryFn: async () => {
             const suggestedProfiles = await Promise.allSettled(
                 SORTED_SOCIAL_SOURCES.map((source) =>
-                    runInSafeAsync(() => getSuggestedFollowsInCard(source, profileAll[source]?.profileId)),
+                    runInSafeAsync(() =>
+                        getSuggestedFollowsInCard(source, { viewerId: profileAll[source]?.profileId }),
+                    ),
                 ),
             );
             const results = mergeLists(

@@ -1,14 +1,15 @@
 import { type Draft, produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { SearchType, type Source } from '@/constants/enum.js';
+import { SearchType, type SocialSource } from '@/constants/enum.js';
 import { type PageData } from '@/decorators/types.js';
+import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { patchNotificationQueryDataOnAuthor } from '@/helpers/patchNotificationQueryData.js';
 import { type Matcher, patchPostQueryData } from '@/helpers/patchPostQueryData.js';
 import { type Notification, type Profile, type Provider } from '@/providers/types/SocialMedia.js';
 import { type ClassType } from '@/types/utility.js';
 
-export function setFollowStatus(source: Source, profileId: string, status: boolean) {
+export function setFollowStatus(source: SocialSource, profileId: string, status: boolean) {
     const matcher: Matcher = (post) => post?.author.profileId === profileId;
     const resolveViewerContextField = (
         profile: Profile,
@@ -116,11 +117,16 @@ export function setFollowStatus(source: Source, profileId: string, status: boole
             }
         });
     });
+
+    const currentProfile = getCurrentProfileFromStorage(source);
+    if (currentProfile?.profileId) {
+        queryClient.setQueryData(['profile-follow-status', source, profileId, currentProfile.profileId], status);
+    }
 }
 
 const METHODS_BE_OVERRIDDEN = ['follow', 'unfollow'] as const;
 
-export function SetQueryDataForFollowProfile(source: Source) {
+export function SetQueryDataForFollowProfile(source: SocialSource) {
     return function decorator<T extends ClassType<Provider>>(target: T): T {
         function overrideMethod<K extends (typeof METHODS_BE_OVERRIDDEN)[number]>(key: K) {
             const method = target.prototype[key] as Provider[K];

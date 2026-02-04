@@ -6,25 +6,34 @@ import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useToggleFollow } from '@/hooks/useToggleFollow.js';
+import { useWatchProfileFollowStatus } from '@/hooks/useWatchProfileFollowStatus.js';
 import { type Profile } from '@/providers/types/SocialMedia.js';
 import { useTwitterProfileStore } from '@/store/useProfileStore/useTwitterProfileStore.js';
 
 interface ToggleFollowButtonProps extends Omit<ClickableButtonProps, 'children'> {
     profile: Profile;
+    watching?: boolean;
     children: (isSuperFollow: boolean, loading: boolean) => ReactNode;
 }
 
 export const ToggleFollowButton = memo(function ToggleFollowButton({
     ref,
     profile,
+    watching,
     onClick,
     children,
     ...rest
 }: ToggleFollowButtonProps) {
-    const [loading, toggleFollow] = useToggleFollow(profile);
     const isLogin = useIsLogin(profile.source);
+    const following = useWatchProfileFollowStatus(profile, watching);
+    const [loading, toggleFollow] = useToggleFollow({
+        ...profile,
+        viewerContext: {
+            ...profile.viewerContext,
+            following,
+        },
+    });
 
-    const following = !!profile.viewerContext?.following;
     const isMyTwitterProfilePending = useTwitterProfileStore((state) => state.status === AsyncStatus.Pending);
 
     const showSuperFollow = false;

@@ -15,6 +15,7 @@ import { ToggleFollowButton } from '@/components/Profile/ToggleFollowButton.js';
 import { Source } from '@/constants/enum.js';
 import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import { useWatchProfileFollowStatus } from '@/hooks/useWatchProfileFollowStatus.js';
 import { type Profile } from '@/providers/types/SocialMedia.js';
 
 enum State {
@@ -31,6 +32,7 @@ interface FollowButtonProps extends Omit<ClickableButtonProps, 'children'> {
     followButtonClassName?: string;
     followingButtonClassName?: string;
     autoQueryMuted?: boolean;
+    watching?: boolean;
 }
 
 export const FollowButton = memo(function FollowButton({
@@ -41,6 +43,7 @@ export const FollowButton = memo(function FollowButton({
     followingButtonClassName = '',
     hasMutedButton = true,
     autoQueryMuted = true,
+    watching,
     ...rest
 }: FollowButtonProps) {
     const isMedium = useIsMedium();
@@ -51,8 +54,8 @@ export const FollowButton = memo(function FollowButton({
         profile.viewerContext?.blocking,
         hasMutedButton && profile.viewerContext?.blocking === undefined && autoQueryMuted,
     );
+    const isFollowing = useWatchProfileFollowStatus(profile, watching);
 
-    const isFollowing = !!profile.viewerContext?.following;
     const isFollowedBy = !!profile.viewerContext?.followedBy;
     const isPending = !!profile.viewerContext?.followPending;
 
@@ -117,6 +120,7 @@ export const FollowButton = memo(function FollowButton({
 
     return (
         <ToggleFollowButton
+            watching={watching}
             profile={profile}
             className={classNames(
                 'flex h-8 items-center justify-center rounded-lg text-medium font-semibold transition-all',
