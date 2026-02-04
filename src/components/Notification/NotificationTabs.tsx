@@ -6,6 +6,7 @@ import { type NotificationSource } from '@/constants/enum.js';
 import { resolveNotificationUrl } from '@/helpers/resolveNotificationUrl.js';
 import { resolveNotificationSourceName } from '@/helpers/resolveSourceName.js';
 import { useNotificationSources } from '@/hooks/useNotificationSources.js';
+import { captureNotificationTabClick } from '@/providers/telemetry/captureNotificationTabEvent.js';
 
 interface NotificationTabsProps {
     source: NotificationSource;
@@ -21,6 +22,7 @@ export function NotificationTabs({ source }: NotificationTabsProps) {
             itemRender={resolveNotificationSourceName}
             isSelected={(x) => x === source}
             onChange={(target) => {
+                captureNotificationTabClick(target);
                 if (target !== source) return;
 
                 queryClient.refetchQueries({

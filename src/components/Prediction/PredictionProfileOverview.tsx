@@ -23,6 +23,10 @@ import { isSocialSource } from '@/helpers/isSource.js';
 import { isZero } from '@/helpers/number.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { getWalletProfileInfoList } from '@/providers/firefly/prediction/getWalletProfileInfoList.js';
+import {
+    captureOpinionProfileDetailClick,
+    capturePolymarketProfileDetailClick,
+} from '@/providers/telemetry/capturePolymarketEvent.js';
 import type { PredictionProfileDataForUI } from '@/types/prediction.js';
 
 interface PredictionProfileOverviewProps {
@@ -141,10 +145,33 @@ export function PredictionProfileOverview({ profile, platform, address }: Predic
 
     const profileUrl = resolveProfileUrl(Source.Wallet, profile.wallet || profile.proxy);
 
+    const handleWalletProfileClick = () => {
+        const isFireflyUser = !!socialProfile?.account;
+        const targetFireflyAccountId = socialProfile?.account?.accountID || socialProfile?.fireflyAccountId;
+
+        if (platform === PredictionPlatform.Polymarket) {
+            capturePolymarketProfileDetailClick({
+                target_polymarket_name: profile.platform_name,
+                target_proxy_wallet_address: profile.proxy,
+                target_wallet_address: profile.wallet,
+                is_firefly_user: isFireflyUser,
+                target_firefly_account_id: targetFireflyAccountId,
+            });
+        } else if (platform === PredictionPlatform.Opinion) {
+            captureOpinionProfileDetailClick({
+                target_opinion_name: profile.platform_name,
+                target_proxy_wallet_address: profile.proxy,
+                target_wallet_address: profile.wallet,
+                is_firefly_user: isFireflyUser,
+                target_firefly_account_id: targetFireflyAccountId,
+            });
+        }
+    };
+
     return (
         <div className="flex flex-col">
             <div className="flex items-center gap-4 px-4 pt-3">
-                <Link href={profileUrl} className="relative">
+                <Link href={profileUrl} className="relative" onClick={handleWalletProfileClick}>
                     <Avatar
                         src={
                             socialAvatar ||
@@ -167,6 +194,7 @@ export function PredictionProfileOverview({ profile, platform, address }: Predic
                     <Link
                         className="block truncate whitespace-nowrap text-lg font-semibold text-main"
                         href={profileUrl}
+                        onClick={handleWalletProfileClick}
                     >
                         {socialName || profile.platform_name || <PredictionPlatformName platform={platform} />}
                     </Link>

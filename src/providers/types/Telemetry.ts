@@ -337,6 +337,42 @@ export enum EventId {
     // polymarket
     POLYMARKET_PROFILE_DETAIL_LINK_CLICK = 'profile_wallet_bets_detail_click',
     PROFILE_POLYMARKET_LINK_CLICK = 'profile_wallet_bets_click',
+
+    // bookmarks tab click
+    BOOKMARK_FARCASTER_TAB_CLICK = 'bookmark_farcaster_click',
+    BOOKMARK_LENS_TAB_CLICK = 'bookmark_lens_click',
+    BOOKMARK_BSKY_TAB_CLICK = 'bookmark_bsky_click',
+    BOOKMARK_PREDICTIONS_TAB_CLICK = 'bookmark_predictions_click',
+    BOOKMARK_ARTICLE_TAB_CLICK = 'bookmark_article_click',
+    BOOKMARK_DAO_TAB_CLICK = 'bookmark_dao_click',
+
+    // notifications tab click
+    NOTIFICATION_ALL_TAB_CLICK = 'notification_all_click',
+    NOTIFICATION_X_TAB_CLICK = 'notification_X_click',
+    NOTIFICATION_LENS_TAB_CLICK = 'notification_lens_click',
+    NOTIFICATION_FARCASTER_TAB_CLICK = 'notification_farcaster_click',
+    NOTIFICATION_BSKY_TAB_CLICK = 'notification_bsky_click',
+
+    // profile wallet tabs
+    PROFILE_WALLET_ACTIVITIES_TAB_CLICK = 'profile_wallet_activities_click',
+    PROFILE_WALLET_PREDICTIONS_TAB_CLICK = 'profile_wallet_predictions_click',
+
+    // profile account switching
+    PROFILE_X_ACCOUNT_CLICK = 'profile_x_account_click',
+    PROFILE_LENS_ACCOUNT_CLICK = 'profile_lens_account_click',
+    PROFILE_FARCASTER_ACCOUNT_CLICK = 'profile_farcaster_account_click',
+    PROFILE_BSKY_ACCOUNT_CLICK = 'profile_bsky_account_click',
+    PROFILE_WALLET_ACCOUNT_CLICK = 'profile_wallet_account_click',
+
+    // profile content tabs
+    PROFILE_X_TAB_CLICK = 'profile_x_tab_click',
+    PROFILE_LENS_TAB_CLICK = 'profile_lens_tab_click',
+    PROFILE_FARCASTER_TAB_CLICK = 'profile_farcaster_tab_click',
+    PROFILE_BSKY_TAB_CLICK = 'profile_bsky_tab_click',
+
+    // profile polymarket/opinion clicks
+    PROFILE_WALLET_POLYMARKET_PROFILE_CLICK = 'profile_wallet_polymarket_profile_click',
+    PROFILE_WALLET_OPINION_PROFILE_CLICK = 'profile_wallet_opinion_profile_click',
 }
 
 export enum ExceptionId {
@@ -1699,6 +1735,193 @@ export interface Events extends Record<EventId, Event> {
         type: EventType.Interact;
         parameters: {
             firefly_account_id: string;
+        };
+    };
+
+    // bookmarks tab click
+    [EventId.BOOKMARK_FARCASTER_TAB_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+        };
+    };
+    [EventId.BOOKMARK_LENS_TAB_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+        };
+    };
+    [EventId.BOOKMARK_BSKY_TAB_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+        };
+    };
+    [EventId.BOOKMARK_PREDICTIONS_TAB_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+        };
+    };
+    [EventId.BOOKMARK_ARTICLE_TAB_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+        };
+    };
+    [EventId.BOOKMARK_DAO_TAB_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+        };
+    };
+
+    // notifications tab click
+    [EventId.NOTIFICATION_ALL_TAB_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+        };
+    };
+    [EventId.NOTIFICATION_X_TAB_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+        };
+    };
+    [EventId.NOTIFICATION_LENS_TAB_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+        };
+    };
+    [EventId.NOTIFICATION_FARCASTER_TAB_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+        };
+    };
+    [EventId.NOTIFICATION_BSKY_TAB_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+        };
+    };
+
+    // profile wallet tabs
+    [EventId.PROFILE_WALLET_ACTIVITIES_TAB_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+        };
+    };
+    [EventId.PROFILE_WALLET_PREDICTIONS_TAB_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+        };
+    };
+
+    // profile account switching
+    [EventId.PROFILE_X_ACCOUNT_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            x_id: string;
+            x_handle: string;
+        };
+    };
+    [EventId.PROFILE_LENS_ACCOUNT_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            lens_id: string;
+            lens_handle: string;
+        };
+    };
+    [EventId.PROFILE_FARCASTER_ACCOUNT_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            farcaster_id: string;
+            farcaster_handle: string;
+        };
+    };
+    [EventId.PROFILE_BSKY_ACCOUNT_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            bsky_id: string;
+            bsky_handle: string;
+        };
+    };
+    [EventId.PROFILE_WALLET_ACCOUNT_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            wallet_address: string;
+        };
+    };
+
+    // profile content tabs
+    [EventId.PROFILE_X_TAB_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            x_id: string;
+            x_handle: string;
+            tab: 'Feed' | 'Replies' | 'Media';
+        };
+    };
+    [EventId.PROFILE_LENS_TAB_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            lens_id: string;
+            lens_handle: string;
+            tab: 'Feed' | 'Replies' | 'Media' | 'Collected';
+        };
+    };
+    [EventId.PROFILE_FARCASTER_TAB_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            farcaster_id: string;
+            farcaster_handle: string;
+            tab: 'Cast' | 'Replies' | 'Likes' | 'Channels';
+        };
+    };
+    [EventId.PROFILE_BSKY_TAB_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            bsky_id: string;
+            bsky_handle: string;
+            tab: 'Feed' | 'Replies' | 'Likes' | 'Media';
+        };
+    };
+
+    // profile polymarket/opinion clicks
+    [EventId.PROFILE_WALLET_POLYMARKET_PROFILE_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            target_polymarket_name?: string;
+            target_proxy_wallet_address: string;
+            target_wallet_address?: string;
+            is_firefly_user: boolean;
+            target_firefly_account_id?: string;
+        };
+    };
+    [EventId.PROFILE_WALLET_OPINION_PROFILE_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            target_opinion_name?: string;
+            target_proxy_wallet_address: string;
+            target_wallet_address?: string;
+            is_firefly_user: boolean;
+            target_firefly_account_id?: string;
         };
     };
 }

@@ -1,17 +1,25 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import { memo } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { first } from 'lodash-es';
+import { memo, useMemo } from 'react';
 
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { formatPolymarketNumber } from '@/components/Polymarket/formatPolymarketNumber.js';
 import { PredictionPlatformIcon } from '@/components/Prediction/PredictionPlatformIcon.js';
 import { PredictionPlatformName } from '@/components/Prediction/PredictionPlatformName.js';
+import { PredictionPlatform } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
+import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
-import { capturePolymarketProfileLinkClick } from '@/providers/telemetry/capturePolymarketEvent.js';
+import { getWalletProfileInfoList } from '@/providers/firefly/prediction/getWalletProfileInfoList.js';
+import {
+    captureOpinionProfileDetailClick,
+    capturePolymarketProfileDetailClick,
+} from '@/providers/telemetry/capturePolymarketEvent.js';
 import { type BetPortfolioItem } from '@/providers/types/Firefly.js';
 
 interface PredictionProfileCardUIProps {
@@ -19,13 +27,56 @@ interface PredictionProfileCardUIProps {
 }
 
 export const PredictionProfileCardUI = memo<PredictionProfileCardUIProps>(function BetsProfileCard({ profile }) {
+    const { data: socialProfile } = useQuery({
+        queryKey: ['wallet-profile-info-list', profile.proxy, profile.platform],
+        queryFn: () => getWalletProfileInfoList(profile.proxy, profile.platform, true),
+        select: (data) => {
+            const walletAddresses = data?.data?.walletAddress;
+            if (!walletAddresses || walletAddresses.length === 0) return null;
+            const firstEntry = first(walletAddresses);
+            if (!firstEntry) return null;
+
+            for (const key in firstEntry) {
+                if (isSameEthereumAddress(key, profile.proxy)) return firstEntry[key];
+            }
+
+            return null;
+        },
+    });
+
+    const isFireflyUser = useMemo(() => !!socialProfile?.account, [socialProfile]);
+    const targetFireflyAccountId = useMemo(
+        () => socialProfile?.account?.accountID || socialProfile?.fireflyAccountId,
+        [socialProfile],
+    );
+
+    const handleProfileClick = () => {
+        if (profile.platform === PredictionPlatform.Polymarket) {
+            capturePolymarketProfileDetailClick({
+                target_polymarket_name: profile.platform_name,
+                target_proxy_wallet_address: profile.proxy,
+                target_wallet_address: profile.wallet,
+                is_firefly_user: isFireflyUser,
+                target_firefly_account_id: targetFireflyAccountId,
+            });
+        } else if (profile.platform === PredictionPlatform.Opinion) {
+            captureOpinionProfileDetailClick({
+                target_opinion_name: profile.platform_name,
+                target_proxy_wallet_address: profile.proxy,
+                target_wallet_address: profile.wallet,
+                is_firefly_user: isFireflyUser,
+                target_firefly_account_id: targetFireflyAccountId,
+            });
+        }
+    };
+
     return (
         <Link
             className="flex justify-evenly gap-3 rounded-xl bg-primaryBottom p-3"
             href={RouteResolver.betsProfile(profile.proxy, {
                 platform: profile.platform,
             })}
-            onClick={() => capturePolymarketProfileLinkClick()}
+            onClick={handleProfileClick}
             data-disable-progress
         >
             <div className="flex flex-1 items-center gap-2 text-main">

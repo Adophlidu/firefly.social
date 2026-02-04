@@ -30,6 +30,9 @@ import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useExploreDataSwitchConfig } from '@/hooks/useExploreDataSwitchConfig.js';
+import { captureProfileTabClickSimple, type ProfileTabType } from '@/providers/telemetry/captureProfileTabEvent.js';
+import { TelemetryProvider } from '@/providers/telemetry/index.js';
+import { EventId } from '@/providers/types/Telemetry.js';
 import { ActivitiesFilterNamespace } from '@/store/useActivitiesFilterStore.js';
 import { PredictionFilterNamespace } from '@/store/usePredictionSourceFilterStore.js';
 
@@ -108,6 +111,28 @@ export function ProfileCategoryTabs({
 
     const hasLimo = source === Source.Wallet && isSameEthereumAddress(id, VITALIK_ADDRESS);
 
+    const mapCategoryToTabType = (cat: typeof category, src: ProfilePageSource): ProfileTabType | undefined => {
+        if (cat === SocialProfileCategory.TruthSocial) return undefined;
+        if (cat === WalletProfileCategory.Bets) return undefined;
+        if (src === Source.Farcaster && cat === SocialProfileCategory.Feed) return 'Cast';
+        return cat as unknown as ProfileTabType;
+    };
+
+    const handleTabClick = (cat: typeof category) => {
+        const tabType = mapCategoryToTabType(cat, source);
+        if (!tabType) return;
+
+        if (source === Source.Wallet || source === Source.WalletMix) {
+            if (cat === WalletProfileCategory.Activities) {
+                captureProfileTabClickSimple(source, id, id, 'Feed');
+            } else if (cat === WalletProfileCategory.Bets) {
+                TelemetryProvider.captureEvent(EventId.PROFILE_WALLET_PREDICTIONS_TAB_CLICK, {});
+            }
+        } else {
+            captureProfileTabClickSimple(source, id, id, tabType);
+        }
+    };
+
     return (
         <div className="sticky top-0 z-20 mt-[-60px] flex h-[110px] items-center border-b border-lightLineSecond bg-primaryBottom px-3 pt-[60px] dark:border-line">
             <nav className="scrollable-tab flex min-w-0 flex-1 gap-1.5">
@@ -134,6 +159,7 @@ export function ProfileCategoryTabs({
                                     'flex h-[45px] items-center whitespace-nowrap px-3 font-extrabold transition-all hover:text-highlight',
                                     category === type ? 'text-highlight' : 'text-third',
                                 )}
+                                onClick={() => handleTabClick(type)}
                             >
                                 {title}
                             </Link>

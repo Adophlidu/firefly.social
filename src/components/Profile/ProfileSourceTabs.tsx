@@ -41,6 +41,7 @@ import { useCurrentProfile, useCurrentProfilesAll } from '@/hooks/useCurrentProf
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useThrottledCallback } from '@/hooks/useThrottledCallback.js';
 import { captureProfileChangeAccountClick } from '@/providers/telemetry/captureProfileActionEvent.js';
+import { captureProfileAccountClickSimple } from '@/providers/telemetry/captureProfileAccountEvent.js';
 import {
     type FireflyIdentity,
     type FireflyProfile,
@@ -215,6 +216,7 @@ function TriggerButton({
             className={triggerClassName}
             onClick={() => {
                 captureProfileChangeAccountClick(source, identity.id);
+                captureProfileAccountClickSimple(source, profile.identity.id, profile.displayName || '');
             }}
         >
             <ProfileTriggerContent active={isCurrentSource} source={source} square>
@@ -255,6 +257,7 @@ function TopProfileMenuItem({ profile, identity }: { profile: FireflyProfile; id
                 className={className}
                 onClick={() => {
                     captureProfileChangeAccountClick(source, profile.identity.id);
+                    captureProfileAccountClickSimple(source, profile.identity.id, profile.displayName || '');
                 }}
             >
                 <span
@@ -281,6 +284,7 @@ function TopProfileMenuItem({ profile, identity }: { profile: FireflyProfile; id
             className={className}
             onClick={() => {
                 captureProfileChangeAccountClick(source, profile.identity.id);
+                captureProfileAccountClickSimple(source, profile.identity.id, profile.displayName || '');
             }}
         >
             <span
@@ -315,6 +319,7 @@ function ProfileMenuItem({ profile }: { profile: FireflyProfile }) {
                 href={getProfileUrl({ source, profileId: profile.identity.id, handle: profile.displayName })}
                 onClick={() => {
                     captureProfileChangeAccountClick(source, profile.identity.id);
+                    captureProfileAccountClickSimple(source, profile.identity.id, profile.displayName || '');
                 }}
                 key={profile.identity.id}
                 className="flex h-6 w-full items-center space-x-1 truncate leading-6 hover:opacity-60"
