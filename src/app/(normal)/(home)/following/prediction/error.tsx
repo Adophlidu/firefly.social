@@ -4,8 +4,7 @@ import { useEffect } from 'react';
 
 import { ErrorHandler } from '@/components/ErrorHandler.js';
 import { IS_PRODUCTION } from '@/constants/static.js';
-import { captureException } from '@/providers/telemetry/captureException.js';
-import { ExceptionId } from '@/providers/types/Telemetry.js';
+import { captureException, ExceptionId } from '@/providers/errorCapture/captureException.js';
 
 export default function Error({ error, reset }: { error: Error; reset: () => void }) {
     useEffect(() => {

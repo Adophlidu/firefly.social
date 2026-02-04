@@ -11,9 +11,8 @@ import { logger } from '@/libs/Logger.js';
 import { getBskyProfileById } from '@/providers/bsky/getBskyProfileById.js';
 import { type BskySession } from '@/providers/bsky/Session.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
-import { captureException } from '@/providers/telemetry/captureException.js';
+import { captureException, ExceptionId } from '@/providers/errorCapture/captureException.js';
 import { type Profile } from '@/providers/types/SocialMedia.js';
-import { ExceptionId } from '@/providers/types/Telemetry.js';
 import { ensureProfileSessionInStore } from '@/services/ensureProfileSessionInStore.js';
 import { createProfileState, customSelectors } from '@/store/useProfileStore/createProfileState.js';
 

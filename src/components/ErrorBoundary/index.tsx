@@ -1,21 +1,55 @@
 'use client';
 
-import { Component } from 'react';
+import { Component, type ErrorInfo } from 'react';
 
 import { type CrashProps, CrashUI, type ErrorBoundaryError } from '@/components/ErrorBoundary/Crash.js';
+import { captureClientException, ExceptionId } from '@/providers/errorCapture/captureException.js';
 
-export class ErrorBoundary extends Component<Partial<CrashProps>> {
+interface ErrorBoundaryProps extends Partial<CrashProps> {
+    /** Disable automatic error reporting */
+    disableAutoReport?: boolean;
+}
+
+interface ErrorBoundaryState {
+    error: Error | null;
+    reported: boolean;
+}
+
+export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
     static getDerivedStateFromError(error: unknown) {
-        return { error };
+        return { error, reported: false };
     }
 
-    override state: {
-        error: Error | null;
-    } = { error: null };
+    override state: ErrorBoundaryState = { error: null, reported: false };
+
+    override componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
+        // Skip if auto-reporting is disabled or already reported
+        if (this.props.disableAutoReport || this.state.reported) {
+            return;
+        }
+
+        // Mark as reported to prevent duplicates
+        this.setState({ reported: true });
+
+        // Report the error with component stack information
+        captureClientException(ExceptionId.UI_CRASH, error, {
+            tags: {
+                componentStack: errorInfo.componentStack?.substring(0, 1000) ?? 'unavailable',
+                errorType: error.name,
+                handler: 'ErrorBoundary.componentDidCatch',
+            },
+        });
+    }
 
     override render() {
         if (!this.state.error) return <>{this.props.children}</>;
-        return <CrashUI onRetry={() => this.setState({ error: null })} {...this.props} {...this.normalizedError} />;
+        return (
+            <CrashUI
+                onRetry={() => this.setState({ error: null, reported: false })}
+                {...this.props}
+                {...this.normalizedError}
+            />
+        );
     }
 
     private get normalizedError(): ErrorBoundaryError {

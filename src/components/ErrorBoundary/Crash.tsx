@@ -3,7 +3,7 @@
 import { env } from '@/constants/env.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
 import { useReportFeedback } from '@/hooks/useReportFeedback.js';
-import { ExceptionId } from '@/providers/types/Telemetry.js';
+import { ExceptionId } from '@/providers/errorCapture/captureException.js';
 import { useDeveloperSettingsState } from '@/store/useDeveloperSettingsStore.js';
 
 export interface ErrorBoundaryError {

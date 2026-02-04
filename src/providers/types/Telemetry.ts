@@ -1,6 +1,7 @@
 // cspell:disable
 
 import { type ClickOrigin, type ProfilePageSource } from '@/constants/enum.js';
+import { type ExceptionId } from '@/providers/errorCapture/captureException.js';
 
 export enum VersionFilter {
     // the current working version
@@ -373,16 +374,6 @@ export enum EventId {
     // profile polymarket/opinion clicks
     PROFILE_WALLET_POLYMARKET_PROFILE_CLICK = 'profile_wallet_polymarket_profile_click',
     PROFILE_WALLET_OPINION_PROFILE_CLICK = 'profile_wallet_opinion_profile_click',
-}
-
-export enum ExceptionId {
-    BIND_OR_RESTORE_FIREFLY_SESSION = 'bind_or_restore_firefly_session',
-    RESUME_LENS_SESSION = 'resume_lens_session',
-    RESUME_BSKY_SESSION = 'resume_bsky_session',
-    RESUME_TWITTER_SESSION = 'resume_twitter_session',
-    CREATE_PRIVY_WALLET = 'create_privy_wallet',
-    UI_CRASH = 'ui_crash',
-    USER_REPORT = 'user_report',
 }
 
 interface Event {

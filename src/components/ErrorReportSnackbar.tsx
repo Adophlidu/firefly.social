@@ -10,7 +10,7 @@ import { type SnackbarMessage, useSnackbar } from '@/components/Snackbar.js';
 import { env } from '@/constants/env.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
 import { useReportFeedback } from '@/hooks/useReportFeedback.js';
-import { ExceptionId } from '@/providers/types/Telemetry.js';
+import { ExceptionId } from '@/providers/errorCapture/captureException.js';
 
 export interface ErrorReportSnackbarProps {
     id: string;

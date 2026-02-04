@@ -5,8 +5,8 @@ import { useAsyncFn } from 'react-use';
 
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { logger } from '@/libs/Logger.js';
+import { ExceptionId } from '@/providers/errorCapture/captureException.js';
 import { reportException } from '@/providers/firefly/report/reportException.js';
-import { ExceptionId } from '@/providers/types/Telemetry.js';
 
 interface Options {
     enqueueSuccessMessage?: boolean;
