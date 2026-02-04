@@ -6,9 +6,7 @@ import { env } from '@/constants/env.js';
 import { FIREFLY_EXCEPTION_TRACKER_URL, IS_PRODUCTION } from '@/constants/static.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
-import { logger } from '@/libs/Logger.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
-import { type ExceptionId } from '@/providers/types/Telemetry.js';
 import { settings } from '@/settings/index.js';
 
 export interface ReportExceptionPayload {
@@ -56,16 +54,12 @@ export interface ReportExceptionPayload {
     tags?: Record<string, string | number | boolean>;
 }
 
-export interface ReportExceptionResponse {
-    success: boolean;
-    id?: number;
-    message: string;
-}
-
 /**
- * Sends an exception report to the remote exception tracker.
+ * Sends an exception report to the remote exception tracker via sendBeacon.
+ * Uses sendBeacon so the request is queued and sent even when the page is unloading.
+ * Returns true if the beacon was queued; the backend must accept api_key in the body (sendBeacon cannot set headers).
  */
-export async function reportException(payload: ReportExceptionPayload): Promise<ReportExceptionResponse> {
+export function reportException(payload: ReportExceptionPayload): boolean {
     const apiKey = env.external.NEXT_PUBLIC_FIREFLY_EXCEPTION_TRACKER_API_KEY;
     if (!apiKey) {
         throw new Error('reportException: NEXT_PUBLIC_FIREFLY_EXCEPTION_TRACKER_API_KEY is not set');
@@ -74,6 +68,7 @@ export async function reportException(payload: ReportExceptionPayload): Promise<
     const { tags, ...rest } = payload;
     const body = {
         ...rest,
+        api_key: apiKey,
 
         // service name
         service_name: 'firefly-web',
@@ -117,41 +112,6 @@ export async function reportException(payload: ReportExceptionPayload): Promise<
     };
 
     const url = urlcat(FIREFLY_EXCEPTION_TRACKER_URL, '/api/exceptions');
-    const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-API-Key': apiKey,
-        },
-        body: JSON.stringify(body),
-    });
-
-    if (!response.ok) {
-        throw new Error(`reportException failed: ${response.status} ${response.statusText}`);
-    }
-
-    return response.json() as Promise<ReportExceptionResponse>;
-}
-
-/**
- * Captures an exception via reportException. Use this instead of Sentry.
- * Does not throw; logs a warning if reporting fails (e.g. API key not set).
- */
-export async function captureException(
-    exceptionId: ExceptionId,
-    error: unknown,
-    tags?: Record<string, string | number>,
-): Promise<void> {
-    try {
-        const err = error instanceof Error ? error : new Error(String(error));
-        await reportException({
-            message: err.message,
-            exception_type: exceptionId,
-            stack_trace: err.stack,
-            severity: 'error',
-            tags: { exceptionId, ...tags } as Record<string, string | number | boolean>,
-        });
-    } catch (e) {
-        logger.warn(`[captureException] failed to report exception: ${exceptionId}`, e);
-    }
+    const blob = new Blob([JSON.stringify(body)], { type: 'application/json' });
+    return bom.navigator?.sendBeacon?.(url, blob) ?? false;
 }

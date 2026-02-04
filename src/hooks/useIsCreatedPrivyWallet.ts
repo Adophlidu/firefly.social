@@ -8,7 +8,7 @@ import { retry } from '@/helpers/retry.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { getPrivyWalletConnectionsQuery, usePrivyConnections } from '@/hooks/usePrivyConnections.js';
 import { createPrivyWallet } from '@/providers/firefly/endpoint/createPrivyWallet.js';
-import { captureException } from '@/providers/firefly/report/reportException.js';
+import { captureException } from '@/providers/telemetry/captureException.js';
 import { ExceptionId } from '@/providers/types/Telemetry.js';
 import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 

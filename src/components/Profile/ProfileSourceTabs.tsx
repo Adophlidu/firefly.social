@@ -40,8 +40,8 @@ import { resolveValue } from '@/helpers/resolveValue.js';
 import { useCurrentProfile, useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useThrottledCallback } from '@/hooks/useThrottledCallback.js';
-import { captureProfileChangeAccountClick } from '@/providers/telemetry/captureProfileActionEvent.js';
 import { captureProfileAccountClickSimple } from '@/providers/telemetry/captureProfileAccountEvent.js';
+import { captureProfileChangeAccountClick } from '@/providers/telemetry/captureProfileActionEvent.js';
 import {
     type FireflyIdentity,
     type FireflyProfile,

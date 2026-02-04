@@ -1,8 +1,8 @@
 import { AbortError, AuthenticationError } from '@dimensiondev/utils';
 
 import { FarcasterPatchSignerError, FireflyAlreadyBoundError, FireflyBindTimeoutError } from '@/constants/error.js';
-import { captureException } from '@/providers/firefly/report/reportException.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
+import { captureException } from '@/providers/telemetry/captureException.js';
 import { type Session } from '@/providers/types/Session.js';
 import { ExceptionId } from '@/providers/types/Telemetry.js';
 import { bindFireflySession } from '@/services/bindFireflySession.js';
