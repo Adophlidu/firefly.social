@@ -3,10 +3,10 @@ import { Trans } from '@lingui/react/macro';
 import { compact } from 'lodash-es';
 import { type CSSProperties, memo, type ReactNode } from 'react';
 
-import { Image } from '@/components/Image.js';
 import { PredictionActivityRate } from '@/components/Prediction/PredictionActivityRate.js';
 import { PredictionActivityResult } from '@/components/Prediction/PredictionActivityResult.js';
 import { PredictionActivityTxType } from '@/components/Prediction/PredictionActivityTxType.js';
+import { PredictionEventImage } from '@/components/Prediction/PredictionEventImage.js';
 import { PredictionPlatform } from '@/constants/enum.js';
 import { toFixedTrimmed } from '@/helpers/polymarket.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
@@ -50,7 +50,8 @@ export const PredictionActivityBody = memo<PredictionActivityBodyProps>(function
             <PredictionActivityTxType type={activity.side} usdcSize={activity.usdcSize} platform={activity.platform} />
             <div className="mt-1.5 rounded-2xl border border-line p-4">
                 <div className="flex gap-x-2">
-                    <Image
+                    <PredictionEventImage
+                        platform={activity.platform}
                         alt={activity.title}
                         width={24}
                         height={24}

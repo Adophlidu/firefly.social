@@ -9,11 +9,11 @@ import { useAsyncFn } from 'react-use';
 
 import TimeIcon from '@/assets/time.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
 import { BUTTON_COLORS } from '@/components/Prediction/PredictionActivityRate.js';
+import { PredictionEventImage } from '@/components/Prediction/PredictionEventImage.js';
 import { Timer } from '@/components/RedPacket/Timer.js';
-import { PredictionPlatform } from '@/constants/enum.js';
+import { type PredictionPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/static.js';
 import { bedStead } from '@/fonts/bedStead/index.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
@@ -164,6 +164,7 @@ const getMarketData = (market: PolymarketMarketData) => {
 
 interface BetItemProps {
     event: PolymarketEventListData;
+    platform: PredictionPlatform;
     className?: string;
     openLinkInNewTab?: boolean;
 }
@@ -197,7 +198,7 @@ function PredictionOutcomeButton({ className, slug, outcome, children }: Predict
     );
 }
 
-export const BetItem = memo(function BetItem({ event, className, openLinkInNewTab = true }: BetItemProps) {
+export const BetItem = memo(function BetItem({ event, className, platform, openLinkInNewTab = true }: BetItemProps) {
     const endTime = new Date(event.endDate).getTime();
 
     const sortedMarkets = useMemo(() => {
@@ -289,11 +290,12 @@ export const BetItem = memo(function BetItem({ event, className, openLinkInNewTa
                 'mb-4 flex flex-col gap-3 rounded-2xl border border-line bg-primaryBottom p-4 hover:bg-bg',
                 className,
             )}
-            href={RouteResolver.betsEventDetail(PredictionPlatform.Polymarket, event.slug)}
+            href={RouteResolver.betsEventDetail(platform, event.slug)}
             target={openLinkInNewTab ? '_blank' : '_self'}
         >
             <div className="flex items-center gap-2">
-                <Image
+                <PredictionEventImage
+                    platform={platform}
                     src={event.image || event.icon}
                     alt={event.title}
                     className="size-10 shrink-0 rounded-lg object-cover"

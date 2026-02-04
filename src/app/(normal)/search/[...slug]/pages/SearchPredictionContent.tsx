@@ -3,14 +3,14 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { BetItem } from '@/components/BetItem.js';
 import { ListInPage } from '@/components/ListInPage.js';
-import { ScrollListKey, Source } from '@/constants/enum.js';
+import { PredictionPlatform, ScrollListKey, Source } from '@/constants/enum.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { searchPrediction } from '@/providers/firefly/prediction/searchPrediction.js';
 import { type PolymarketEventListData } from '@/providers/types/Firefly.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
 
 function getBetsItemContent(_: number, data: PolymarketEventListData) {
-    return <BetItem key={data.id} event={data} />;
+    return <BetItem key={data.id} event={data} platform={PredictionPlatform.Polymarket} />;
 }
 
 export function SearchPredictionContent() {
