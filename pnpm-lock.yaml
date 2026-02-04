@@ -53,9 +53,6 @@ patchedDependencies:
   '@reown/appkit@1.8.16':
     hash: kyc5ehzpgru7a7goqtkjnfyoem
     path: patches/@reown__appkit@1.8.16.patch
-  '@sentry/browser@7.120.4':
-    hash: q3jtvrbjgr6ukw2eq3ks4v5qdm
-    path: patches/@sentry__browser@7.120.4.patch
   '@tippyjs/react@4.2.6':
     hash: csyheqfflg57avxgdk2soslbcy
     path: patches/@tippyjs__react@4.2.6.patch
@@ -166,9 +163,6 @@ importers:
       '@reown/appkit-adapter-wagmi':
         specifier: 1.8.16
         version: 1.8.16(@types/react@19.2.9)(@vercel/kv@1.0.1)(@wagmi/core@3.0.2)(fastestsmallesttextencoderdecoder@1.0.22)(immer@10.1.3)(react@19.2.3)(typescript@5.9.3)(viem@2.43.5)(wagmi@3.1.4)(zod@3.25.76)
-      '@sentry/browser':
-        specifier: ^7.120.4
-        version: 7.120.4(patch_hash=q3jtvrbjgr6ukw2eq3ks4v5qdm)
       '@solana/spl-token':
         specifier: ^0.4.14
         version: 0.4.14(@solana/web3.js@1.98.4)(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.9.3)
@@ -7200,89 +7194,6 @@ packages:
     dependencies:
       '@noble/hashes': 1.8.0
       '@scure/base': 1.2.6
-    dev: false
-
-  /@sentry-internal/feedback@7.120.4:
-    resolution: {integrity: sha512-eSwgvTdrh03zYYaI6UVOjI9p4VmKg6+c2+CBQfRZX++6wwnCVsNv7XF7WUIpVGBAkJ0N2oapjQmCzJKGKBRWQg==}
-    engines: {node: '>=12'}
-    dependencies:
-      '@sentry/core': 7.120.4
-      '@sentry/types': 7.120.4
-      '@sentry/utils': 7.120.4
-    dev: false
-
-  /@sentry-internal/replay-canvas@7.120.4:
-    resolution: {integrity: sha512-2+W4CgUL1VzrPjArbTid4WhKh7HH21vREVilZdvffQPVwOEpgNTPAb69loQuTlhJVveh9hWTj2nE5UXLbLP+AA==}
-    engines: {node: '>=12'}
-    dependencies:
-      '@sentry/core': 7.120.4
-      '@sentry/replay': 7.120.4
-      '@sentry/types': 7.120.4
-      '@sentry/utils': 7.120.4
-    dev: false
-
-  /@sentry-internal/tracing@7.120.4:
-    resolution: {integrity: sha512-Fz5+4XCg3akeoFK+K7g+d7HqGMjmnLoY2eJlpONJmaeT9pXY7yfUyXKZMmMajdE2LxxKJgQ2YKvSCaGVamTjHw==}
-    engines: {node: '>=8'}
-    dependencies:
-      '@sentry/core': 7.120.4
-      '@sentry/types': 7.120.4
-      '@sentry/utils': 7.120.4
-    dev: false
-
-  /@sentry/browser@7.120.4(patch_hash=q3jtvrbjgr6ukw2eq3ks4v5qdm):
-    resolution: {integrity: sha512-ymlNtIPG6HAKzM/JXpWVGCzCNufZNADfy+O/olZuVJW5Be1DtOFyRnBvz0LeKbmxJbXb2lX/XMhuen6PXPdoQw==}
-    engines: {node: '>=8'}
-    dependencies:
-      '@sentry-internal/feedback': 7.120.4
-      '@sentry-internal/replay-canvas': 7.120.4
-      '@sentry-internal/tracing': 7.120.4
-      '@sentry/core': 7.120.4
-      '@sentry/integrations': 7.120.4
-      '@sentry/replay': 7.120.4
-      '@sentry/types': 7.120.4
-      '@sentry/utils': 7.120.4
-    dev: false
-    patched: true
-
-  /@sentry/core@7.120.4:
-    resolution: {integrity: sha512-TXu3Q5kKiq8db9OXGkWyXUbIxMMuttB5vJ031yolOl5T/B69JRyAoKuojLBjRv1XX583gS1rSSoX8YXX7ATFGA==}
-    engines: {node: '>=8'}
-    dependencies:
-      '@sentry/types': 7.120.4
-      '@sentry/utils': 7.120.4
-    dev: false
-
-  /@sentry/integrations@7.120.4:
-    resolution: {integrity: sha512-kkBTLk053XlhDCg7OkBQTIMF4puqFibeRO3E3YiVc4PGLnocXMaVpOSCkMqAc1k1kZ09UgGi8DxfQhnFEjUkpA==}
-    engines: {node: '>=8'}
-    dependencies:
-      '@sentry/core': 7.120.4
-      '@sentry/types': 7.120.4
-      '@sentry/utils': 7.120.4
-      localforage: 1.10.0
-    dev: false
-
-  /@sentry/replay@7.120.4:
-    resolution: {integrity: sha512-FW8sPenNFfnO/K7sncsSTX4rIVak9j7VUiLIagJrcqZIC7d1dInFNjy8CdVJUlyz3Y3TOgIl3L3+ZpjfyMnaZg==}
-    engines: {node: '>=12'}
-    dependencies:
-      '@sentry-internal/tracing': 7.120.4
-      '@sentry/core': 7.120.4
-      '@sentry/types': 7.120.4
-      '@sentry/utils': 7.120.4
-    dev: false
-
-  /@sentry/types@7.120.4:
-    resolution: {integrity: sha512-cUq2hSSe6/qrU6oZsEP4InMI5VVdD86aypE+ENrQ6eZEVLTCYm1w6XhW1NvIu3UuWh7gZec4a9J7AFpYxki88Q==}
-    engines: {node: '>=8'}
-    dev: false
-
-  /@sentry/utils@7.120.4:
-    resolution: {integrity: sha512-zCKpyDIWKHwtervNK2ZlaK8mMV7gVUijAgFeJStH+CU/imcdquizV3pFLlSQYRswG+Lbyd6CT/LGRh3IbtkCFw==}
-    engines: {node: '>=8'}
-    dependencies:
-      '@sentry/types': 7.120.4
     dev: false
 
   /@shuding/opentype.js@1.4.0-beta.0:
@@ -20519,7 +20430,6 @@ time:
   /@reown/appkit-adapter-wagmi@1.8.16: '2026-01-06T16:06:41.369Z'
   /@rollup/plugin-commonjs@25.0.8: '2024-05-22T17:15:13.512Z'
   /@rollup/plugin-node-resolve@15.3.1: '2024-12-15T16:16:40.190Z'
-  /@sentry/browser@7.120.4: '2025-07-29T14:59:05.555Z'
   /@solana/spl-token@0.4.14: '2025-09-02T11:33:12.906Z'
   /@solana/wallet-adapter-base@0.9.27: '2025-06-10T19:19:27.185Z'
   /@solana/wallet-adapter-phantom@0.9.28: '2025-06-10T19:19:38.614Z'

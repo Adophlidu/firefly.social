@@ -40,11 +40,6 @@ function buildCSPWithNonce(nonce: string): string {
         `worker-src ${workerSrc.join(' ')}`,
     ];
 
-    // Add report-uri if Sentry is configured
-    if (process.env.NEXT_PUBLIC_SENTRY_REPORT_URL) {
-        directives.push(`report-uri ${process.env.NEXT_PUBLIC_SENTRY_REPORT_URL}`);
-    }
-
     return directives.join('; ');
 }
 

@@ -34,7 +34,7 @@ export class FetchError extends Error {
     }
 
     toThrow(): never {
-        // for sentry will truncate the message if it's too long
+        // exception tracker may truncate the message if it's too long
         logger.error(
             `[fetch error]: ${this.url} ${this.status} ${this.statusText} ${[this.message, this.text].join('\n')}`,
         );

@@ -3,7 +3,6 @@
 import { bom } from '@dimensiondev/utils';
 import { jwtDecode } from 'jwt-decode';
 
-import { sentryClient } from '@/configs/sentryClient.js';
 import { AsyncStatus, Source } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';
 import { createSelectors } from '@/helpers/createSelector.js';
@@ -12,6 +11,7 @@ import { logger } from '@/libs/Logger.js';
 import { getBskyProfileById } from '@/providers/bsky/getBskyProfileById.js';
 import { type BskySession } from '@/providers/bsky/Session.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
+import { captureException } from '@/providers/firefly/report/reportException.js';
 import { type Profile } from '@/providers/types/SocialMedia.js';
 import { ExceptionId } from '@/providers/types/Telemetry.js';
 import { ensureProfileSessionInStore } from '@/services/ensureProfileSessionInStore.js';
@@ -43,7 +43,7 @@ const state = createProfileState(
                 const bskySession = state.currentProfileSession as BskySession | null;
                 if (!bskySession) return;
 
-                sentryClient.captureException(ExceptionId.RESUME_BSKY_SESSION, error, {
+                captureException(ExceptionId.RESUME_BSKY_SESSION, error, {
                     profileId: bskySession.did,
                     now: Date.now().toString(),
                     accessTokenExp: runInSafe(() => jwtDecode(bskySession.sessionPayload.accessJwt)?.exp) || '',

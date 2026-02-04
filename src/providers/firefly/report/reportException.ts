@@ -6,7 +6,9 @@ import { env } from '@/constants/env.js';
 import { FIREFLY_EXCEPTION_TRACKER_URL, IS_PRODUCTION } from '@/constants/static.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
+import { logger } from '@/libs/Logger.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
+import { type ExceptionId } from '@/providers/types/Telemetry.js';
 import { settings } from '@/settings/index.js';
 
 export interface ReportExceptionPayload {
@@ -129,4 +131,27 @@ export async function reportException(payload: ReportExceptionPayload): Promise<
     }
 
     return response.json() as Promise<ReportExceptionResponse>;
+}
+
+/**
+ * Captures an exception via reportException. Use this instead of Sentry.
+ * Does not throw; logs a warning if reporting fails (e.g. API key not set).
+ */
+export async function captureException(
+    exceptionId: ExceptionId,
+    error: unknown,
+    tags?: Record<string, string | number>,
+): Promise<void> {
+    try {
+        const err = error instanceof Error ? error : new Error(String(error));
+        await reportException({
+            message: err.message,
+            exception_type: exceptionId,
+            stack_trace: err.stack,
+            severity: 'error',
+            tags: { exceptionId, ...tags } as Record<string, string | number | boolean>,
+        });
+    } catch (e) {
+        logger.warn(`[captureException] failed to report exception: ${exceptionId}`, e);
+    }
 }

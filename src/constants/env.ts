@@ -67,10 +67,6 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_NFT_FEATURES: z.nativeEnum(STATUS).default(STATUS.Enabled),
     NEXT_PUBLIC_X_WEBHOOK_RECEIVER_IDS: z.string().optional(), // comma separated client ids: id1,id2,...
 
-    // sentry
-    NEXT_PUBLIC_SENTRY_DSN: z.string().optional(),
-    NEXT_PUBLIC_SENTRY_REPORT_URL: z.string().optional(),
-
     // exception tracker
     NEXT_PUBLIC_FIREFLY_EXCEPTION_TRACKER_API_KEY: z.string().optional(),
 
@@ -148,10 +144,6 @@ export const env = {
         NEXT_PUBLIC_FARCASTER_SIGNUP: process.env.NEXT_PUBLIC_FARCASTER_SIGNUP,
         NEXT_PUBLIC_NFT_FEATURES: process.env.NEXT_PUBLIC_NFT_FEATURES,
         NEXT_PUBLIC_X_WEBHOOK_RECEIVER_IDS: process.env.NEXT_PUBLIC_X_WEBHOOK_RECEIVER_IDS,
-
-        // sentry
-        NEXT_PUBLIC_SENTRY_DSN: process.env.NEXT_PUBLIC_SENTRY_DSN,
-        NEXT_PUBLIC_SENTRY_REPORT_URL: process.env.NEXT_PUBLIC_SENTRY_REPORT_URL,
 
         // exception tracker
         NEXT_PUBLIC_FIREFLY_EXCEPTION_TRACKER_API_KEY: process.env.NEXT_PUBLIC_FIREFLY_EXCEPTION_TRACKER_API_KEY,

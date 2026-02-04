@@ -1,7 +1,7 @@
 Package Analysis
 ================
 
-Total packages: 1850
+Total packages: 1841
 Packages with multiple versions: 242
 
 Legend:
@@ -755,15 +755,6 @@ Packages with Single Version
  @safe-global/safe-apps-provider@0.18.6
  @safe-global/safe-apps-sdk@9.1.0
  @safe-global/safe-gateway-typescript-sdk@3.23.1
- @sentry-internal/feedback@7.120.4
- @sentry-internal/replay-canvas@7.120.4
- @sentry-internal/tracing@7.120.4
-*@sentry/browser@7.120.4
- @sentry/core@7.120.4
- @sentry/integrations@7.120.4
- @sentry/replay@7.120.4
- @sentry/types@7.120.4
- @sentry/utils@7.120.4
  @shuding/opentype.js@1.4.0-beta.0
  @sinclair/typebox@0.27.8
  @socket.io/component-emitter@3.1.2

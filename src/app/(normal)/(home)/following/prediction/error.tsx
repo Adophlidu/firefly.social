@@ -3,13 +3,13 @@
 import { useEffect } from 'react';
 
 import { ErrorHandler } from '@/components/ErrorHandler.js';
-import { sentryClient } from '@/configs/sentryClient.js';
 import { IS_PRODUCTION } from '@/constants/static.js';
+import { captureException } from '@/providers/firefly/report/reportException.js';
 import { ExceptionId } from '@/providers/types/Telemetry.js';
 
 export default function Error({ error, reset }: { error: Error; reset: () => void }) {
     useEffect(() => {
-        sentryClient.captureException(ExceptionId.UI_CRASH, error, {
+        captureException(ExceptionId.UI_CRASH, error, {
             route: '/following/prediction',
         });
     }, [error]);

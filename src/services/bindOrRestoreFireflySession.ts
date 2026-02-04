@@ -1,7 +1,7 @@
 import { AbortError, AuthenticationError } from '@dimensiondev/utils';
 
-import { sentryClient } from '@/configs/sentryClient.js';
 import { FarcasterPatchSignerError, FireflyAlreadyBoundError, FireflyBindTimeoutError } from '@/constants/error.js';
+import { captureException } from '@/providers/firefly/report/reportException.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { type Session } from '@/providers/types/Session.js';
 import { ExceptionId } from '@/providers/types/Telemetry.js';
@@ -21,7 +21,7 @@ export async function bindOrRestoreFireflySession(session: Session, signal?: Abo
             throw new AuthenticationError('[bindOrRestoreFireflySession] Firefly session is not available.');
         }
     } catch (error) {
-        sentryClient.captureException(ExceptionId.BIND_OR_RESTORE_FIREFLY_SESSION, error, {
+        captureException(ExceptionId.BIND_OR_RESTORE_FIREFLY_SESSION, error, {
             profileId: session.profileId,
             sessionType: session.type,
         });

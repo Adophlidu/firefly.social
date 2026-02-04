@@ -6,7 +6,6 @@ import { memo, type ReactNode, useEffect, useLayoutEffect, useRef } from 'react'
 import { useEffectOnce } from 'react-use';
 
 import { SnackbarProvider } from '@/components/Snackbar.js';
-import { sentryClient } from '@/configs/sentryClient.js';
 import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { usePathname } from '@/esm/navigation.js';
@@ -37,7 +36,6 @@ export const InitialProviders = memo(function Providers(props: { children: React
     }, [isDarkMode, themeMode]);
 
     useLayoutEffect(() => {
-        sentryClient.init();
         // Initialize API performance profiling only if enabled
         if (env.external.NEXT_PUBLIC_API_PERFORMANCE_PROFILING === STATUS.Enabled) {
             // Dynamic import to avoid loading the module when disabled
