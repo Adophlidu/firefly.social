@@ -68,7 +68,6 @@ export function reportException(payload: ReportExceptionPayload): boolean {
     const { tags, ...rest } = payload;
     const body = {
         ...rest,
-        api_key: apiKey,
 
         // service name
         service_name: 'firefly-web',
@@ -111,7 +110,9 @@ export function reportException(payload: ReportExceptionPayload): boolean {
         }),
     };
 
-    const url = urlcat(FIREFLY_EXCEPTION_TRACKER_URL, '/api/exceptions');
+    const url = urlcat(FIREFLY_EXCEPTION_TRACKER_URL, '/api/exceptions', {
+        api_key: apiKey,
+    });
     const blob = new Blob([JSON.stringify(body)], { type: 'application/json' });
     return bom.navigator?.sendBeacon?.(url, blob) ?? false;
 }
