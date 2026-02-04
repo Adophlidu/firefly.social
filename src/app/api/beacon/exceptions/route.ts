@@ -21,10 +21,7 @@ const EXCLUDED_HEADERS = new Set([
 
 export const POST = compose(withRequestErrorHandler(), async (request: NextRequest) => {
     const apiKey = env.internal.FIREFLY_EXCEPTION_TRACKER_API_KEY;
-
-    if (!apiKey) {
-        throw new Error('Exception tracker API key is not configured');
-    }
+    if (!apiKey) throw new Error('Exception tracker API key is not configured');
 
     const body = await request.text();
 
