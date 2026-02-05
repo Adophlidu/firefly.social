@@ -19,6 +19,7 @@ import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { isZero } from '@/helpers/number.js';
 import { toFixedTrimmed } from '@/helpers/polymarket.js';
 import { useToggleMarkets } from '@/hooks/prediction/useToggleMarkets.js';
+import { capturePolymarketEventMarketClick } from '@/providers/telemetry/capturePolymarketEvent.js';
 import type { BetsMarketDataForUI } from '@/types/prediction.js';
 
 const PredictionMarketOrderBook = dynamic(
@@ -32,11 +33,15 @@ const PredictionMarketOrderBook = dynamic(
 interface PredictionMarketListProps {
     markets: BetsMarketDataForUI[];
     platform: PredictionPlatform;
+    eventSlug?: string;
+    eventTitle?: string;
 }
 
 export const PredictionMarketList = memo(function PredictionMarketList({
     markets,
     platform,
+    eventSlug,
+    eventTitle,
 }: PredictionMarketListProps) {
     const { marketId, setMarketId } = use(PredictionContext);
     const { displayedMarkets, showMore, toggleType, setShowMore } = useToggleMarkets(markets);
@@ -45,9 +50,20 @@ export const PredictionMarketList = memo(function PredictionMarketList({
         (market: BetsMarketDataForUI) => {
             if (market.isResolved || market.isClosed || platform !== PredictionPlatform.Polymarket) return;
 
+            // Track market click for Polymarket
+            if (platform === PredictionPlatform.Polymarket && eventSlug && eventTitle) {
+                capturePolymarketEventMarketClick(
+                    eventSlug,
+                    eventTitle,
+                    market.slug || market.id,
+                    market.title,
+                    (market as any).groupItemTitle,
+                );
+            }
+
             setMarketId(market.id === marketId ? null : market.id);
         },
-        [marketId, platform, setMarketId],
+        [marketId, platform, setMarketId, eventSlug, eventTitle],
     );
 
     const supportOrderBook = PLATFORMS_SUPPORTING_ORDER_BOOK.includes(platform);

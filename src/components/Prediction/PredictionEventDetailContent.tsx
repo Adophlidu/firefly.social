@@ -1,6 +1,8 @@
 import { Trans } from '@lingui/react/macro';
 import { first } from 'lodash-es';
 
+// Client component for tracking
+import { PolymarketEventTracker } from '@/components/Prediction/PolymarketEventTracker.js';
 import { PredictionBaseInfoTabContent } from '@/components/Prediction/PredictionBaseInfoTabContent.js';
 import { PredictionBaseInfoTabs } from '@/components/Prediction/PredictionBaseInfoTabs.js';
 import { PredictionContextProvider } from '@/components/Prediction/PredictionContext.js';
@@ -46,12 +48,13 @@ export async function PredictionEventDetailContent({ id, isMutil, platform }: Pr
 
     return (
         <div>
+            <PolymarketEventTracker platform={platform} eventSlug={id} detail={event} />
             <PredictionProfilePageHeader pageTitle={<Trans>Event detail</Trans>} />
             <PredictionEventOverview detail={event} isActive={isActive} />
             <PredictionMarketsPriceLineChart platform={platform} markets={markets} isActive={isActive} />
             <PredictionContextProvider platform={platform} markets={markets}>
                 <PredictionMarketsAccountTab markets={markets} platform={platform} />
-                <PredictionBaseInfoTabs showResolution={showResolution} />
+                <PredictionBaseInfoTabs showResolution={showResolution} eventSlug={id} />
                 <PredictionBaseInfoTabContent showResolution={showResolution} platform={platform} detail={event} />
             </PredictionContextProvider>
         </div>

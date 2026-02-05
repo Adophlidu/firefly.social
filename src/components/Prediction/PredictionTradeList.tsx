@@ -10,23 +10,50 @@ import { type PredictionPlatform, ScrollListKey, Source } from '@/constants/enum
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { getPredictionTimelineByAddress } from '@/providers/firefly/prediction/getPredictionTimelineByAddress.js';
 import { type BetsActivity } from '@/providers/types/Firefly.js';
+import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 
 interface PredictionTradeListProps {
     address: string;
     platform: PredictionPlatform;
+    proxyAddress?: string;
+    polymarketName?: string;
+    opinionName?: string;
 }
 interface Options {
     trade: BetsActivity;
     listKey: string;
     platform: PredictionPlatform;
     index: number;
+    targetProfileInfo?: {
+        address: string;
+        proxyAddress?: string;
+        polymarketName?: string;
+        opinionName?: string;
+        isFireflyUser?: boolean;
+        fireflyAccountId?: string;
+    };
 }
 
-const getTradeItem = ({ trade, platform, index }: Options) => {
-    return <PredictionTradeItem trade={trade} key={`${trade.slug}-${index}`} platform={platform} />;
+const getTradeItem = ({ trade, platform, index, targetProfileInfo }: Options) => {
+    return (
+        <PredictionTradeItem
+            trade={trade}
+            key={`${trade.slug}-${index}`}
+            platform={platform}
+            targetProfileInfo={targetProfileInfo}
+        />
+    );
 };
 
-export function PredictionTradeList({ address, platform }: PredictionTradeListProps) {
+export function PredictionTradeList({
+    address,
+    platform,
+    proxyAddress,
+    polymarketName,
+    opinionName,
+}: PredictionTradeListProps) {
+    const { currentProfileSession } = useFireflyProfileStore();
+
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['bets', 'trades', address.toLowerCase()],
         queryFn: async ({ pageParam }) => {
@@ -78,6 +105,14 @@ export function PredictionTradeList({ address, platform }: PredictionTradeListPr
                             trade,
                             listKey: `${ScrollListKey.Bets}:trades`,
                             platform,
+                            targetProfileInfo: {
+                                address,
+                                proxyAddress,
+                                polymarketName,
+                                opinionName,
+                                isFireflyUser: !!currentProfileSession,
+                                fireflyAccountId: currentProfileSession?.profileId?.toString(),
+                            },
                         }),
                 }}
                 NoResultsFallbackProps={{

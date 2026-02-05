@@ -6,18 +6,23 @@ import { Fragment, memo } from 'react';
 
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { capturePolymarketEventTopHolderChangeMarketClick } from '@/providers/telemetry/capturePolymarketEvent.js';
 import type { BetsMarketDataForUI } from '@/types/prediction.js';
 
 interface PredictionMarketFilterProps {
     markets: BetsMarketDataForUI[];
     marketId: string;
     onSelect: (marketId: string) => void;
+    eventSlug?: string;
+    eventTitle?: string;
 }
 
 export const PredictionMarketFilter = memo<PredictionMarketFilterProps>(function PredictionMarketFilter({
     markets,
     marketId,
     onSelect,
+    eventSlug,
+    eventTitle,
 }) {
     const market = markets.find((m) => m.id === marketId);
 
@@ -56,6 +61,15 @@ export const PredictionMarketFilter = memo<PredictionMarketFilterProps>(function
                                             market.id === marketId ? 'font-semibold' : '',
                                         )}
                                         onClick={() => {
+                                            if (eventSlug && eventTitle) {
+                                                capturePolymarketEventTopHolderChangeMarketClick(
+                                                    eventSlug,
+                                                    eventTitle,
+                                                    market.slug || market.id,
+                                                    market.title,
+                                                    (market as any).groupItemTitle || '',
+                                                );
+                                            }
                                             onSelect(market.id);
                                             close();
                                         }}

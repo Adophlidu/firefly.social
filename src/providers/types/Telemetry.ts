@@ -290,13 +290,16 @@ export enum EventId {
 
     // home tab
     EVENT_FOLLOWING_POSTS_CLICK = 'following_posts_click',
-    EVENT_FOLLOWING_BETS_CLICK = 'following_predictions_click',
+    EVENT_FOLLOWING_PREDICTIONS_CLICK = 'following_predictions_click',
     EVENT_FOLLOWING_ACTIVITIES_CLICK = 'following_activities_click',
     EVENT_FOLLOWING_SWAP_CLICK = 'following_swap_click',
     EVENT_FOR_YOU_POSTS_CLICK = 'for_you_posts_click',
     EVENT_FOR_YOU_SWAP_CLICK = 'for_you_swap_click',
-    EVENT_FOR_YOU_BETS_CLICK = 'for_you_bets_click',
+    EVENT_FOR_YOU_PREDICTIONS_CLICK = 'for_you_predictions_click',
     EVENT_FOR_YOU_ACTIVITIES_CLICK = 'for_you_activities_click',
+    EVENT_EXPLORE_PREDICTIONS_CLICK = 'explore_predictions_click',
+    EVENT_EXPLORE_PREDICTIONS_CATEGORY_CLICK = 'explore_predictions_category_click',
+    EVENT_SEARCH_PREDICTIONS_CLICK = 'search_predictions_click',
 
     // token
     TOKEN_BOOKMARK_CLICK = 'token_bookmark_click',
@@ -336,8 +339,20 @@ export enum EventId {
     NEW_NOTIFICATION_CLICK = 'notification_update_click',
 
     // polymarket
-    POLYMARKET_PROFILE_DETAIL_LINK_CLICK = 'profile_wallet_bets_detail_click',
     PROFILE_POLYMARKET_LINK_CLICK = 'profile_wallet_bets_click',
+    POLYMARKET_EVENT_OPEN_SUCCESS = 'polymarket_event_open_success',
+    OPINION_EVENT_OPEN_SUCCESS = 'opinion_event_open_success',
+    POLYMARKET_CATEGORY_VIEW = 'polymarket_category_view',
+    POLYMARKET_EVENT_TAB_CLICK = 'polymarket_event_tab_click',
+    OPINION_EVENT_TAB_CLICK = 'opinion_event_tab_click',
+    POLYMARKET_EVENT_MARKET_CLICK = 'polymarket_event_market_click',
+    POLYMARKET_EVENT_TOP_HOLDER_CHANGE_MARKET_CLICK = 'polymarket_event_top_holder_change_market_click',
+    POLYMARKET_EVENT_TRADES_TAB_CLICK = 'polymarket_event_trades_tab_click',
+    POLYMARKET_PROFILE_POSITIONS_EVENT_CLICK = 'polymarket_profile_positions_event_click',
+    POLYMARKET_PROFILE_TRADES_EVENT_CLICK = 'polymarket_profile_trades_event_click',
+    POLYMARKET_SEARCH_EVENT_CLICK = 'polymarket_search_event_click',
+    OPINION_PROFILE_POSITIONS_EVENT_CLICK = 'opinion_profile_positions_event_click',
+    OPINION_PROFILE_TRADES_EVENT_CLICK = 'opinion_profile_trades_event_click',
 
     // bookmarks tab click
     BOOKMARK_FARCASTER_TAB_CLICK = 'bookmark_farcaster_click',
@@ -479,6 +494,22 @@ interface ConnectWalletEventParameters extends WalletEventParameters {
     click_time: number;
     connect_success_time: number;
     connect_duration: number;
+}
+
+// Polymarket/Opinion profile click events with detailed parameters
+interface BasePredictionProfileClickParams {
+    target_proxy_wallet_address: string;
+    target_wallet_address?: string;
+    is_firefly_user: boolean;
+    target_firefly_account_id?: string;
+}
+
+export interface PolymarketProfileClickParams extends BasePredictionProfileClickParams {
+    target_polymarket_name?: string;
+}
+
+export interface OpinionProfileClickParams extends BasePredictionProfileClickParams {
+    target_opinion_name?: string;
 }
 
 export interface ComposeEventParameters {
@@ -1551,7 +1582,7 @@ export interface Events extends Record<EventId, Event> {
         type: EventType.Interact;
         parameters: Record<string, never>;
     };
-    [EventId.EVENT_FOLLOWING_BETS_CLICK]: {
+    [EventId.EVENT_FOLLOWING_PREDICTIONS_CLICK]: {
         type: EventType.Interact;
         parameters: Record<string, never>;
     };
@@ -1567,11 +1598,26 @@ export interface Events extends Record<EventId, Event> {
         type: EventType.Interact;
         parameters: Record<string, never>;
     };
-    [EventId.EVENT_FOR_YOU_BETS_CLICK]: {
+    [EventId.EVENT_FOR_YOU_PREDICTIONS_CLICK]: {
         type: EventType.Interact;
         parameters: Record<string, never>;
     };
     [EventId.EVENT_FOR_YOU_ACTIVITIES_CLICK]: {
+        type: EventType.Interact;
+        parameters: Record<string, never>;
+    };
+    [EventId.EVENT_EXPLORE_PREDICTIONS_CLICK]: {
+        type: EventType.Interact;
+        parameters: Record<string, never>;
+    };
+    [EventId.EVENT_EXPLORE_PREDICTIONS_CATEGORY_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            category_name: string;
+        };
+    };
+    [EventId.EVENT_SEARCH_PREDICTIONS_CLICK]: {
         type: EventType.Interact;
         parameters: Record<string, never>;
     };
@@ -1895,6 +1941,102 @@ export interface Events extends Record<EventId, Event> {
     // profile polymarket/opinion clicks
     [EventId.PROFILE_WALLET_POLYMARKET_PROFILE_CLICK]: {
         type: EventType.Interact;
+        parameters: PolymarketProfileClickParams;
+    };
+    [EventId.PROFILE_WALLET_OPINION_PROFILE_CLICK]: {
+        type: EventType.Interact;
+        parameters: OpinionProfileClickParams;
+    };
+
+    // ----------------
+    // polymarket
+    // ----------------
+    [EventId.POLYMARKET_EVENT_OPEN_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            event_slug: string;
+            source?:
+                | 'for you'
+                | 'following'
+                | 'explore'
+                | 'search'
+                | 'predict profile detail'
+                | 'wallet profile'
+                | 'firefly wallet';
+        };
+    };
+    [EventId.OPINION_EVENT_OPEN_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            event_slug: string;
+            source?:
+                | 'for you'
+                | 'following'
+                | 'explore'
+                | 'search'
+                | 'predict profile detail'
+                | 'wallet profile'
+                | 'firefly wallet';
+        };
+    };
+    [EventId.POLYMARKET_CATEGORY_VIEW]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            category_slug: string;
+            category_name: string;
+        };
+    };
+    [EventId.POLYMARKET_EVENT_TAB_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            event_slug: string;
+            tab: 'Order book' | 'Positions' | 'Open order' | 'Top holders' | 'Trades' | 'Info';
+        };
+    };
+    [EventId.OPINION_EVENT_TAB_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            event_slug: string;
+            tab: 'Top holders' | 'Trades' | 'Info';
+        };
+    };
+    [EventId.POLYMARKET_EVENT_MARKET_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            event_slug: string;
+            event_title: string;
+            market_slug: string;
+            market_title: string;
+            market_group_item_name?: string;
+        };
+    };
+    [EventId.POLYMARKET_EVENT_TOP_HOLDER_CHANGE_MARKET_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            event_slug: string;
+            event_title: string;
+            market_slug: string;
+            market_title: string;
+            market_group_item_name: string;
+        };
+    };
+    [EventId.POLYMARKET_EVENT_TRADES_TAB_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            event_slug: string;
+            tab: 'Global' | 'Following';
+        };
+    };
+    [EventId.POLYMARKET_PROFILE_POSITIONS_EVENT_CLICK]: {
+        type: EventType.Interact;
         parameters: {
             firefly_account_id: string;
             target_polymarket_name?: string;
@@ -1902,9 +2044,34 @@ export interface Events extends Record<EventId, Event> {
             target_wallet_address?: string;
             is_firefly_user: boolean;
             target_firefly_account_id?: string;
+            event_slug: string;
+            market_title: string;
+            outcome_name: string;
         };
     };
-    [EventId.PROFILE_WALLET_OPINION_PROFILE_CLICK]: {
+    [EventId.POLYMARKET_PROFILE_TRADES_EVENT_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            target_polymarket_name?: string;
+            target_proxy_wallet_address: string;
+            target_wallet_address?: string;
+            is_firefly_user: boolean;
+            target_firefly_account_id?: string;
+            event_slug: string;
+            market_title: string;
+            outcome_name: string;
+        };
+    };
+    [EventId.POLYMARKET_SEARCH_EVENT_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            event_slug: string;
+            event_title: string;
+        };
+    };
+    [EventId.OPINION_PROFILE_POSITIONS_EVENT_CLICK]: {
         type: EventType.Interact;
         parameters: {
             firefly_account_id: string;
@@ -1913,6 +2080,23 @@ export interface Events extends Record<EventId, Event> {
             target_wallet_address?: string;
             is_firefly_user: boolean;
             target_firefly_account_id?: string;
+            event_slug: string;
+            market_title: string;
+            outcome_name: string;
+        };
+    };
+    [EventId.OPINION_PROFILE_TRADES_EVENT_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            target_opinion_name?: string;
+            target_proxy_wallet_address: string;
+            target_wallet_address?: string;
+            is_firefly_user: boolean;
+            target_firefly_account_id?: string;
+            event_slug: string;
+            market_title: string;
+            outcome_name: string;
         };
     };
 }

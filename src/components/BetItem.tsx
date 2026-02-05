@@ -167,6 +167,7 @@ interface BetItemProps {
     platform: PredictionPlatform;
     className?: string;
     openLinkInNewTab?: boolean;
+    onLinkClick?: () => void;
 }
 
 interface PredictionOutcomeButtonProps {
@@ -198,7 +199,13 @@ function PredictionOutcomeButton({ className, slug, outcome, children }: Predict
     );
 }
 
-export const BetItem = memo(function BetItem({ event, className, platform, openLinkInNewTab = true }: BetItemProps) {
+export const BetItem = memo(function BetItem({
+    event,
+    className,
+    platform,
+    openLinkInNewTab = true,
+    onLinkClick,
+}: BetItemProps) {
     const endTime = new Date(event.endDate).getTime();
 
     const sortedMarkets = useMemo(() => {
@@ -292,6 +299,7 @@ export const BetItem = memo(function BetItem({ event, className, platform, openL
             )}
             href={RouteResolver.betsEventDetail(platform, event.slug)}
             target={openLinkInNewTab ? '_blank' : '_self'}
+            onClick={onLinkClick}
         >
             <div className="flex items-center gap-2">
                 <PredictionEventImage

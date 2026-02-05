@@ -13,11 +13,23 @@ import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
 import { rightShift } from '@/helpers/number.js';
 import { toFixedTrimmed } from '@/helpers/polymarket.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
+import {
+    captureOpinionProfileTradesEventClick,
+    capturePolymarketProfileTradesEventClick,
+} from '@/providers/telemetry/capturePolymarketEvent.js';
 import { type BetsActivity } from '@/providers/types/Firefly.js';
 
 interface PredictionTradeItemProps extends HTMLProps<HTMLDivElement> {
     trade: BetsActivity;
     platform: PredictionPlatform;
+    targetProfileInfo?: {
+        address: string;
+        proxyAddress?: string;
+        polymarketName?: string;
+        opinionName?: string;
+        isFireflyUser?: boolean;
+        fireflyAccountId?: string;
+    };
 }
 interface BetsTradeTypeProps extends HTMLProps<HTMLDivElement> {
     type: string;
@@ -43,7 +55,7 @@ function BetsTradeType({ type, onlyIcon = false, className }: BetsTradeTypeProps
     );
 }
 
-export function PredictionTradeItem({ trade, platform, className }: PredictionTradeItemProps) {
+export function PredictionTradeItem({ trade, platform, className, targetProfileInfo }: PredictionTradeItemProps) {
     const isGreen = trade.outcomeIndex === 0;
     const displayTitle =
         platform === PredictionPlatform.Opinion ? compact([trade.parent_title, trade.title]).join(' - ') : trade.title;
@@ -59,6 +71,32 @@ export function PredictionTradeItem({ trade, platform, className }: PredictionTr
           )
         : trade.url;
     const eventImage = trade.image || first(trade.rawData?.events)?.image;
+
+    const handleEventClick = () => {
+        if (!targetProfileInfo) return;
+
+        const baseParams = {
+            target_proxy_wallet_address: targetProfileInfo.proxyAddress || targetProfileInfo.address,
+            target_wallet_address: targetProfileInfo.proxyAddress ? targetProfileInfo.address : undefined,
+            is_firefly_user: targetProfileInfo.isFireflyUser ?? false,
+            target_firefly_account_id: targetProfileInfo.fireflyAccountId,
+            event_slug: trade.topicId?.toString() || trade.slug || '',
+            market_title: displayTitle,
+            outcome_name: trade.outcome?.toString() || '',
+        };
+
+        if (platform === PredictionPlatform.Polymarket) {
+            capturePolymarketProfileTradesEventClick({
+                ...baseParams,
+                target_polymarket_name: targetProfileInfo.polymarketName,
+            });
+        } else if (platform === PredictionPlatform.Opinion) {
+            captureOpinionProfileTradesEventClick({
+                ...baseParams,
+                target_opinion_name: targetProfileInfo.opinionName,
+            });
+        }
+    };
 
     return (
         <div className={classNames('flex items-center border-t border-line px-4 py-2', className)}>
@@ -76,7 +114,11 @@ export function PredictionTradeItem({ trade, platform, className }: PredictionTr
                     ) : null}
                 </div>
                 <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-                    <Link href={eventUrl} className="text-[13px] font-medium text-main hover:underline">
+                    <Link
+                        href={eventUrl}
+                        className="text-[13px] font-medium text-main hover:underline"
+                        onClick={handleEventClick}
+                    >
                         {displayTitle}
                     </Link>
                     <div className="flex items-center gap-1">

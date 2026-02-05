@@ -6,11 +6,21 @@ import { ListInPage } from '@/components/ListInPage.js';
 import { PredictionPlatform, ScrollListKey, Source } from '@/constants/enum.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { searchPrediction } from '@/providers/firefly/prediction/searchPrediction.js';
+import { capturePolymarketSearchEventClick } from '@/providers/telemetry/capturePolymarketEvent.js';
 import { type PolymarketEventListData } from '@/providers/types/Firefly.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
 
 function getBetsItemContent(_: number, data: PolymarketEventListData) {
-    return <BetItem key={data.id} event={data} platform={PredictionPlatform.Polymarket} />;
+    return (
+        <BetItem
+            key={data.id}
+            event={data}
+            platform={PredictionPlatform.Polymarket}
+            onLinkClick={() => {
+                capturePolymarketSearchEventClick(data.slug, data.title);
+            }}
+        />
+    );
 }
 
 export function SearchPredictionContent() {

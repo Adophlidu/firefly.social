@@ -45,7 +45,7 @@ function resolveHomeTabEventId(tab: HomeTab, source: Source): EventId | null {
             case Source.Transactions:
                 return EventId.EVENT_FOLLOWING_SWAP_CLICK;
             case Source.Prediction:
-                return EventId.EVENT_FOLLOWING_BETS_CLICK;
+                return EventId.EVENT_FOLLOWING_PREDICTIONS_CLICK;
             case Source.Activities:
                 return EventId.EVENT_FOLLOWING_ACTIVITIES_CLICK;
             default:
@@ -58,7 +58,7 @@ function resolveHomeTabEventId(tab: HomeTab, source: Source): EventId | null {
             case Source.Transactions:
                 return EventId.EVENT_FOR_YOU_SWAP_CLICK;
             case Source.Prediction:
-                return EventId.EVENT_FOR_YOU_BETS_CLICK;
+                return EventId.EVENT_FOR_YOU_PREDICTIONS_CLICK;
             case Source.Activities:
                 return EventId.EVENT_FOR_YOU_ACTIVITIES_CLICK;
             default:

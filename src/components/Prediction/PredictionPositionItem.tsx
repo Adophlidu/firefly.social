@@ -9,12 +9,24 @@ import { PredictionPlatform } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
+import {
+    captureOpinionProfilePositionsEventClick,
+    capturePolymarketProfilePositionsEventClick,
+} from '@/providers/telemetry/capturePolymarketEvent.js';
 import { type PredictionPositionDataForUI } from '@/types/prediction.js';
 
 interface PredictionPositionItemProps {
     platform: PredictionPlatform;
     positionData: PredictionPositionDataForUI;
     showAction?: boolean;
+    targetProfileInfo?: {
+        address: string;
+        proxyAddress?: string;
+        polymarketName?: string;
+        opinionName?: string;
+        isFireflyUser?: boolean;
+        fireflyAccountId?: string;
+    };
 }
 
 function resolveEventUrl(platform: PredictionPlatform, positionData: PredictionPositionDataForUI) {
@@ -39,7 +51,12 @@ function formatBetsPrice(price: number) {
     return removeTrailingZeros(formatPolymarketNumber(price * 100, { digits: 1, symbol: false })) + '¢';
 }
 
-export function PredictionPositionItem({ positionData: position, platform, showAction }: PredictionPositionItemProps) {
+export function PredictionPositionItem({
+    positionData: position,
+    platform,
+    showAction,
+    targetProfileInfo,
+}: PredictionPositionItemProps) {
     const displayTitle =
         platform === PredictionPlatform.Opinion
             ? compact([position.parent_title, position.title]).join(' - ')
@@ -48,6 +65,32 @@ export function PredictionPositionItem({ positionData: position, platform, showA
 
     const isGreen = position.outcomeIndex === 0 || ['yes', 'up'].includes(position.vote_status.toLowerCase());
     const eventUrl = resolveEventUrl(platform, position);
+
+    const handleEventClick = () => {
+        if (!targetProfileInfo) return;
+
+        const baseParams = {
+            target_proxy_wallet_address: targetProfileInfo.proxyAddress || targetProfileInfo.address,
+            target_wallet_address: targetProfileInfo.proxyAddress ? targetProfileInfo.address : undefined,
+            is_firefly_user: targetProfileInfo.isFireflyUser ?? false,
+            target_firefly_account_id: targetProfileInfo.fireflyAccountId,
+            event_slug: position.marketSlug || position.event_slugs[0] || '',
+            market_title: displayTitle,
+            outcome_name: position.vote_status,
+        };
+
+        if (platform === PredictionPlatform.Polymarket) {
+            capturePolymarketProfilePositionsEventClick({
+                ...baseParams,
+                target_polymarket_name: targetProfileInfo.polymarketName,
+            });
+        } else if (platform === PredictionPlatform.Opinion) {
+            captureOpinionProfilePositionsEventClick({
+                ...baseParams,
+                target_opinion_name: targetProfileInfo.opinionName,
+            });
+        }
+    };
 
     return (
         <div key={position.Id} className="mb-4 flex flex-col items-start gap-3 rounded-xl border border-line p-3">
@@ -68,6 +111,7 @@ export function PredictionPositionItem({ positionData: position, platform, showA
                         <Link
                             target="_blank"
                             href={eventUrl}
+                            onClick={handleEventClick}
                             className="line-clamp-5 w-full break-words text-sm font-bold text-main hover:underline"
                         >
                             {displayTitle}

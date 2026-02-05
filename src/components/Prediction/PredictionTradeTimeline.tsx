@@ -11,14 +11,16 @@ import { ErrorBoundary } from '@/components/ErrorBoundary/index.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { Loading } from '@/components/Loading.js';
 import { PredictionTradeTimelineItem } from '@/components/Prediction/PredictionTradeTimelineItem.js';
-import { type PredictionPlatform, ScrollListKey, Source } from '@/constants/enum.js';
+import { PredictionPlatform, ScrollListKey, Source } from '@/constants/enum.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { getBetsTradeList } from '@/providers/firefly/prediction/getBetsTradeList.js';
+import { capturePolymarketEventTradesTabClick } from '@/providers/telemetry/capturePolymarketEvent.js';
 import type { BetsActivity } from '@/providers/types/Firefly.js';
 
 interface Props {
     platform: PredictionPlatform;
     marketIds: string[];
+    eventSlug?: string;
 }
 
 function getTradeItem(trade: BetsActivity, platform: PredictionPlatform) {
@@ -73,7 +75,11 @@ const PredictionTradeTimelineContent = memo<
     );
 });
 
-export const PredictionTradeTimeline = memo<Props>(function PredictionTradeTimeline({ platform, marketIds }) {
+export const PredictionTradeTimeline = memo<Props>(function PredictionTradeTimeline({
+    platform,
+    marketIds,
+    eventSlug,
+}) {
     const [isFollowing, setIsFollowing] = useQueryState('isFollowing', parseAsBoolean.withDefault(false));
 
     return (
@@ -84,7 +90,12 @@ export const PredictionTradeTimeline = memo<Props>(function PredictionTradeTimel
                         'px-2',
                         !isFollowing ? 'bg-lightBg font-semibold text-main' : 'font-medium text-second',
                     )}
-                    onClick={() => setIsFollowing(false)}
+                    onClick={() => {
+                        if (platform === PredictionPlatform.Polymarket && eventSlug) {
+                            capturePolymarketEventTradesTabClick(eventSlug, 'Global');
+                        }
+                        setIsFollowing(false);
+                    }}
                 >
                     <Trans id="bets-trades-global" comment="Global">
                         Global
@@ -95,7 +106,12 @@ export const PredictionTradeTimeline = memo<Props>(function PredictionTradeTimel
                         'px-2',
                         isFollowing ? 'bg-lightBg font-semibold text-main' : 'font-medium text-second',
                     )}
-                    onClick={() => setIsFollowing(true)}
+                    onClick={() => {
+                        if (platform === PredictionPlatform.Polymarket && eventSlug) {
+                            capturePolymarketEventTradesTabClick(eventSlug, 'Following');
+                        }
+                        setIsFollowing(true);
+                    }}
                 >
                     <Trans id="bets-trades-following" comment="Following">
                         Following

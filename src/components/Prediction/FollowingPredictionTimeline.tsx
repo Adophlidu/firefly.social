@@ -1,7 +1,6 @@
 'use client';
 
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
-import { useCallback } from 'react';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { Loading } from '@/components/Loading.js';
@@ -9,7 +8,7 @@ import { PredictionActivityItem } from '@/components/Prediction/PredictionActivi
 import { ScrollListKey, Source } from '@/constants/enum.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { getFollowingPredictionList } from '@/providers/firefly/prediction/getFollowingPredictionList.js';
-import { captureFollowingPolymarketLinkClick } from '@/providers/telemetry/capturePolymarketEvent.js';
+import { captureFollowingPredictionsClick } from '@/providers/telemetry/capturePolymarketEvent.js';
 import { type BetsActivity } from '@/providers/types/Firefly.js';
 import { PredictionFilterNamespace, usePredictionSourceFilterStore } from '@/store/usePredictionSourceFilterStore.js';
 import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
@@ -40,10 +39,6 @@ export function FollowingPredictionTimeline() {
         select: (data) => data.pages.flatMap((x) => x.data),
     });
 
-    const onPredictionLinkClick = useCallback(() => {
-        captureFollowingPolymarketLinkClick();
-    }, []);
-
     if (!queryResult.isFetchingNextPage && queryResult.isFetching) {
         return <Loading />;
     }
@@ -57,7 +52,8 @@ export function FollowingPredictionTimeline() {
                 useWindowScroll: true,
                 listKey: `${ScrollListKey.Bets}:following`,
                 computeItemKey: (index, activity) => `${activity.slug}-${index}`,
-                itemContent: (index, activity) => getPredictionActivityItem(index, activity, onPredictionLinkClick),
+                itemContent: (index, activity) =>
+                    getPredictionActivityItem(index, activity, captureFollowingPredictionsClick),
             }}
             NoResultsFallbackProps={{
                 className: 'mt-20',

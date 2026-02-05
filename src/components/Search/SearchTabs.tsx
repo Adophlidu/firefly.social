@@ -12,6 +12,7 @@ import { NFT_ENABLED } from '@/constants/static.js';
 import { usePathname } from '@/esm/navigation.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
+import { captureSearchPredictionsClick } from '@/providers/telemetry/capturePolymarketEvent.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
 
 function fixSearchUrl(query: string, type: SearchType, source: Source, clubType: ClubType) {
@@ -27,7 +28,7 @@ export const SearchTabs = memo(function SearchTabs() {
     const pathname = usePathname();
     const { searchKeyword, source, clubType } = useSearchStateStore();
 
-    const tabs = useMemo<Array<{ label: JSX.Element; link: string }>>(() => {
+    const tabs = useMemo<Array<{ label: JSX.Element; link: string; onClick?: () => void }>>(() => {
         const isFromSearch = typeof searchKeyword === 'string' && searchKeyword.trim().startsWith('from:');
 
         if (isFromSearch) {
@@ -55,6 +56,7 @@ export const SearchTabs = memo(function SearchTabs() {
             {
                 label: <Trans>Predictions</Trans>,
                 link: fixSearchUrl(searchKeyword, SearchType.Bets, source, clubType),
+                onClick: captureSearchPredictionsClick,
             },
             NFT_ENABLED
                 ? {
@@ -85,6 +87,7 @@ export const SearchTabs = memo(function SearchTabs() {
                             },
                         )}
                         href={tab.link}
+                        onClick={tab.onClick}
                     >
                         <span className="px-2 md:px-4">{tab.label}</span>
                     </Link>

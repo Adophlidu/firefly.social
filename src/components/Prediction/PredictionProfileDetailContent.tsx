@@ -52,7 +52,12 @@ export async function PredictionProfileDetailContent({ address, platform }: Prop
             <PredictionProfilePageHeader />
             <PredictionProfileOverview address={address} profile={betsProfile} platform={platform} />
             <PredictionProfileCategoryTabs />
-            <PredictionProfileTabContent platform={platform} address={address} proxyAddress={betsProfile?.proxy} />
+            <PredictionProfileTabContent
+                platform={platform}
+                address={address}
+                proxyAddress={betsProfile?.proxy}
+                platformName={betsProfile?.platform_name}
+            />
         </div>
     );
 }
