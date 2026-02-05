@@ -3,6 +3,7 @@ import { first } from 'lodash-es';
 import { Source } from '@/constants/enum.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
+import { resolveSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { resolveWatchTypeToSource } from '@/helpers/resolveWatchTypeToSource.js';
 import { runInSafe } from '@/helpers/runInSafe.js';
 import { type BetsActivity } from '@/providers/types/Firefly.js';
@@ -15,6 +16,16 @@ export function resolveBetActivityTraderInfo(activity: BetsActivity): {
     const walletAddress = activity.proxyWallet || activity.wallet;
     const addressName = formatAddress(walletAddress, 4);
     const walletAvatarUrl = getStampAvatarByProfileId(Source.Wallet, walletAddress);
+
+    if (activity.displayInfoV2?.name && activity.displayInfoV2.avatarUrl) {
+        const platform = activity.displayInfoV2.platform;
+
+        return {
+            displayName: activity.displayInfoV2.name,
+            avatarUrl: activity.displayInfoV2.avatarUrl,
+            source: platform ? runInSafe(() => resolveSourceFromFireflyPlatform(platform)) : undefined,
+        };
+    }
 
     if (activity.displayInfo?.fireflyUid) {
         return {

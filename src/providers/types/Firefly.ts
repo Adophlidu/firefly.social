@@ -1218,6 +1218,7 @@ export interface BetsActivity {
     conditionOutcomes: string[];
     conditionRawData: {};
     displayInfo: FireflyDisplayInfo;
+    displayInfoV2?: FireflyDisplayInfoV2;
     endDate: string;
     followingSources: FollowingSource[];
     icon: string;
@@ -1729,6 +1730,18 @@ export interface FireflyDisplayInfo {
     fireflyName: string | null;
     fireflyUid: string | null;
     fireflyAvatarUrl: string | null;
+}
+
+export interface FireflyDisplayInfoV2 {
+    avatarUrl: string | null;
+    id: string | null;
+    name: string | null;
+    platform:
+        | FireflyPlatform.Firefly
+        | FireflyPlatform.Twitter
+        | FireflyPlatform.Lens
+        | FireflyPlatform.Farcaster
+        | FireflyPlatform.Wallet;
 }
 
 export type SwapActivityDetail = Response<SwapActivity[]>;
