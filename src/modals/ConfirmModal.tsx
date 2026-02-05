@@ -29,6 +29,7 @@ interface ConfirmModalOpenProps {
     onCancel?: () => void;
     variant?: 'normal' | 'secondary' | 'danger';
     textOverflowTooltip?: boolean;
+    errorMessage?: ReactNode;
 }
 
 /** Dismissing dialog returns null */
@@ -105,36 +106,41 @@ export function ConfirmModal({ ref }: Props) {
                 >
                     {props.content}
                     {props.enableCancelButton || props.enableConfirmButton ? (
-                        <div className="flex flex-col-reverse gap-4 md:flex-row md:gap-3">
-                            {props.enableCancelButton ? (
-                                <ClickableButton
-                                    className="flex flex-1 items-center justify-center rounded-full border border-lightMain py-2 font-bold text-fourMain"
-                                    onClick={() => {
-                                        props.onCancel?.();
-                                        dispatch?.close(false);
-                                    }}
-                                >
-                                    {props.cancelButtonText || <Trans>Cancel</Trans>}
-                                </ClickableButton>
-                            ) : null}
-                            {props.enableConfirmButton ? (
-                                <ClickableButton
-                                    className={classNames(
-                                        'flex flex-1 items-center justify-center rounded-full py-2 font-bold',
-                                        {
-                                            'bg-main text-primaryBottom': props.variant === 'normal',
-                                            'bg-commonDanger text-white': props.variant === 'danger',
-                                            'border border-main bg-bottom text-main': props.variant === 'secondary',
-                                        },
-                                        props.confirmButtonClass,
-                                    )}
-                                    onClick={() => {
-                                        props.onConfirm?.();
-                                        dispatch?.close(true);
-                                    }}
-                                >
-                                    {props.confirmButtonText || <Trans>Confirm</Trans>}
-                                </ClickableButton>
+                        <div className="flex flex-col gap-2">
+                            <div className="flex flex-col-reverse gap-4 md:flex-row md:gap-3">
+                                {props.enableCancelButton ? (
+                                    <ClickableButton
+                                        className="flex flex-1 items-center justify-center rounded-full border border-lightMain py-2 font-bold text-fourMain"
+                                        onClick={() => {
+                                            props.onCancel?.();
+                                            dispatch?.close(false);
+                                        }}
+                                    >
+                                        {props.cancelButtonText || <Trans>Cancel</Trans>}
+                                    </ClickableButton>
+                                ) : null}
+                                {props.enableConfirmButton ? (
+                                    <ClickableButton
+                                        className={classNames(
+                                            'flex flex-1 items-center justify-center rounded-full py-2 font-bold',
+                                            {
+                                                'bg-main text-primaryBottom': props.variant === 'normal',
+                                                'bg-commonDanger text-white': props.variant === 'danger',
+                                                'border border-main bg-bottom text-main': props.variant === 'secondary',
+                                            },
+                                            props.confirmButtonClass,
+                                        )}
+                                        onClick={() => {
+                                            props.onConfirm?.();
+                                            dispatch?.close(true);
+                                        }}
+                                    >
+                                        {props.confirmButtonText || <Trans>Confirm</Trans>}
+                                    </ClickableButton>
+                                ) : null}
+                            </div>
+                            {props.errorMessage ? (
+                                <p className="text-center text-sm text-danger">{props.errorMessage}</p>
                             ) : null}
                         </div>
                     ) : null}
