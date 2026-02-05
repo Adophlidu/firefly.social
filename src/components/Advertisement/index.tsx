@@ -37,7 +37,7 @@ async function fetchAdvertisements(): Promise<AdvertisementInterface[]> {
             sort: index + 100,
         }));
 
-    return [...STATIC_ADS, ...activityBannerAds];
+    return [...activityBannerAds, ...STATIC_ADS];
 }
 
 export async function Advertisement() {
