@@ -14,7 +14,7 @@ interface PredictionEventImageProps extends ImageProps {
 }
 
 const platformDefaultImages: Record<PredictionPlatform, string | null> = {
-    [PredictionPlatform.Polymarket]: '/image/polymarket-fallback-image.png',
+    [PredictionPlatform.Polymarket]: null,
     [PredictionPlatform.Opinion]: null,
 };
 
