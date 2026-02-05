@@ -30,7 +30,7 @@ function ActivityListItem({ data }: { data: TypeActivityListItem; index?: number
                 />
             ) : null}
             <Link
-                href={`/event/${data.name}`}
+                href={data.url || `/event/${data.name}`}
                 data-disable-progress={data.status === ActivityStatus.Ended}
                 className="relative mb-4 flex w-full flex-col rounded-2xl border border-line bg-bg"
                 onClick={(e) => {
