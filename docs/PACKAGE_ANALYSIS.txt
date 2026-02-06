@@ -265,10 +265,10 @@ Packages with Single Version
  @asamuzakjp/css-color@4.1.1
  @asamuzakjp/dom-selector@6.7.6
  @asamuzakjp/nwsapi@2.3.9
-*@atproto/api@0.18.18
- @atproto/common-web@0.4.14
- @atproto/lex-data@0.0.9
- @atproto/lex-json@0.0.9
+*@atproto/api@0.18.20
+ @atproto/common-web@0.4.15
+ @atproto/lex-data@0.0.10
+ @atproto/lex-json@0.0.10
  @atproto/lexicon@0.6.1
  @atproto/syntax@0.4.3
  @atproto/xrpc@0.7.7
