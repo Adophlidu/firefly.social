@@ -5,11 +5,14 @@ import { type EvmRpcResult, type SolanaRequestArgument, type SolanaResponse } fr
 export type Chars = string;
 
 export enum IframeBridgeMethod {
+    // firefly.social
     COMPOSE = 'compose',
     LOGIN = 'login',
     NAVIGATE = 'navigate',
     ENQUEUE_MESSAGE = 'enqueueMessage',
     DOWNLOAD_APP = 'downloadApp',
+
+    // firefly.social/wallet-iframe
     FIREFLY_WALLET_NAVIGATE = 'firefly_wallet_navigate',
     FIREFLY_WALLET_OPEN = 'firefly_wallet_open',
     FIREFLY_WALLET_CLOSE = 'firefly_wallet_close',
@@ -21,6 +24,10 @@ export enum IframeBridgeMethod {
     FIREFLY_WALLET_ADD_SESSION_SIGNER = 'firefly_wallet_add_session_signer',
     FIREFLY_WALLET_NOTIFY = 'firefly_wallet_notify',
     FIREFLY_WALLET_REFRESH = 'firefly_wallet_refresh',
+
+    // firefly.social/masko-iframe
+    MASKO_PLAY_ANIMATION = 'masko_play_animation',
+    MASKO_SHOW_TEXT = 'masko_show_text',
 }
 
 export interface IframeBridgeMessage {
@@ -84,6 +91,12 @@ export interface IframeBridgeRequestArguments {
         data?: unknown;
     };
     [IframeBridgeMethod.FIREFLY_WALLET_REFRESH]: {};
+    [IframeBridgeMethod.MASKO_PLAY_ANIMATION]: {
+        motionType: number;
+    };
+    [IframeBridgeMethod.MASKO_SHOW_TEXT]: {
+        text: string;
+    };
 }
 
 export interface IframeBridgeResponseResult {
@@ -103,4 +116,6 @@ export interface IframeBridgeResponseResult {
     [IframeBridgeMethod.FIREFLY_WALLET_ADD_SESSION_SIGNER]: void;
     [IframeBridgeMethod.FIREFLY_WALLET_NOTIFY]: void;
     [IframeBridgeMethod.FIREFLY_WALLET_REFRESH]: void;
+    [IframeBridgeMethod.MASKO_PLAY_ANIMATION]: void;
+    [IframeBridgeMethod.MASKO_SHOW_TEXT]: void;
 }
