@@ -235,6 +235,9 @@ msgstr "關閉多裝置登入功能將清除所有已加密的登入授權。重
 msgid "Enter a new password to verify your identity."
 msgstr "請輸入新密碼以驗證身份。"
 
+msgid "Failed to apply draft post."
+msgstr ""
+
 #. placeholder {0}: profile.handle
 msgid "Mute @{0}"
 msgstr "隱藏 @{0}"
@@ -1787,6 +1790,9 @@ msgstr "未找到群組。"
 msgid "No fake KYC found."
 msgstr "未發現虛假 KYC"
 
+msgid "Unsaved draft found"
+msgstr ""
+
 msgid "No function found that retrieves ownership"
 msgstr "未找到所有權查詢功能"
 
@@ -2545,6 +2551,9 @@ msgstr "您需要連接您的 {0} 帳號才可使用此功能。"
 
 msgid "Bad Request. Please check your request."
 msgstr "錯誤的請求。請檢查您的請求。"
+
+msgid "Would you like to restore it?”"
+msgstr ""
 
 msgid "✨ Turn on browser notifications to never miss a trade update."
 msgstr "✨ 啟用瀏覽器通知，交易資訊即時掌握。"
@@ -3908,6 +3917,9 @@ msgstr "結果"
 
 msgid "Properties"
 msgstr "屬性"
+
+msgid "Yes"
+msgstr ""
 
 msgid "Failed to set schedule time."
 msgstr "設定預約時間失敗。"

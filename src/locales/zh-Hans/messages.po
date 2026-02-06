@@ -235,6 +235,9 @@ msgstr "关闭多设备登录功能将清除所有已加密的登录授权。重
 msgid "Enter a new password to verify your identity."
 msgstr "请输入新密码以验证身份。"
 
+msgid "Failed to apply draft post."
+msgstr ""
+
 #. placeholder {0}: profile.handle
 msgid "Mute @{0}"
 msgstr "隐藏 @{0}"
@@ -1787,6 +1790,9 @@ msgstr "未找到圈子。"
 msgid "No fake KYC found."
 msgstr "不涉及虚假 KYC。"
 
+msgid "Unsaved draft found"
+msgstr ""
+
 msgid "No function found that retrieves ownership"
 msgstr "没有找到检索所有权的功能"
 
@@ -2545,6 +2551,9 @@ msgstr "您需要连接您的 {0} 账号才可使用此功能。"
 
 msgid "Bad Request. Please check your request."
 msgstr "请求错误。请检查你的请求。"
+
+msgid "Would you like to restore it?”"
+msgstr ""
 
 msgid "✨ Turn on browser notifications to never miss a trade update."
 msgstr "✨ 开启浏览器通知，交易动态实时掌握。"
@@ -3908,6 +3917,9 @@ msgstr "结果"
 
 msgid "Properties"
 msgstr "属性"
+
+msgid "Yes"
+msgstr ""
 
 msgid "Failed to set schedule time."
 msgstr "设置定时时间失败。"

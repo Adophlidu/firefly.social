@@ -230,6 +230,9 @@ msgstr "Turning off Multi-device login will clear all previously encrypted login
 msgid "Enter a new password to verify your identity."
 msgstr "Enter a new password to verify your identity."
 
+msgid "Failed to apply draft post."
+msgstr "Failed to apply draft post."
+
 #. placeholder {0}: profile.handle
 msgid "Mute @{0}"
 msgstr "Mute @{0}"
@@ -1782,6 +1785,9 @@ msgstr "Club could not be found."
 msgid "No fake KYC found."
 msgstr "No fake KYC found."
 
+msgid "Unsaved draft found"
+msgstr "Unsaved draft found"
+
 msgid "No function found that retrieves ownership"
 msgstr "No function found that retrieves ownership"
 
@@ -2540,6 +2546,9 @@ msgstr "You need to connect your {0} account to use this feature."
 
 msgid "Bad Request. Please check your request."
 msgstr "Bad Request. Please check your request."
+
+msgid "Would you like to restore it?”"
+msgstr "Would you like to restore it?”"
 
 msgid "✨ Turn on browser notifications to never miss a trade update."
 msgstr "✨ Turn on browser notifications to never miss a trade update."
@@ -3903,6 +3912,9 @@ msgstr "Results"
 
 msgid "Properties"
 msgstr "Properties"
+
+msgid "Yes"
+msgstr "Yes"
 
 msgid "Failed to set schedule time."
 msgstr "Failed to set schedule time."
