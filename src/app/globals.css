@@ -52,31 +52,31 @@ html {
 }
 
 :root {
-    --foreground-rgb: 0 0 0;
-    --background-start-rgb: 214, 219, 220;
-    --background-end-rgb: 255, 255, 255;
+    --foreground-rgb: 0 0 0; /* #000000 */
+    --background-start-rgb: 214, 219, 220; /* #d6dbdc */
+    --background-end-rgb: 255, 255, 255; /* #ffffff */
     --color-main: 7 16 27; /* #07101b */
-    --color-main-light: 7 16 27;
-    --color-link: 142 150 255;
-    --color-bottom: 255 255 255;
+    --color-main-light: 7 16 27; /* #07101b */
+    --color-link: 142 150 255; /* #8e96ff */
+    --color-bottom: 255 255 255; /* #ffffff */
     --color-dark-bottom: #181818;
     --color-third-bottom: #fff;
     --color-secondary-success: 24 195 123; /* #18C37B */
     --color-second: #767676;
-    --color-primary-pink: 255 150 142;
-    --color-danger: 255 53 69;
-    --color-warn: 255 177 0;
-    --color-lens-primary: 154 227 42;
-    --color-farcaster-primary: 133 93 205;
-    --color-twitter-primary: 29 161 243;
-    --color-bsky-primary: 10 122 255;
+    --color-primary-pink: 255 150 142; /* #ff968e */
+    --color-danger: 255 53 69; /* #ff3545 */
+    --color-warn: 255 177 0; /* #ffb100 */
+    --color-lens-primary: 154 227 42; /* #9ae32a */
+    --color-farcaster-primary: 133 93 205; /* #855dcd */
+    --color-twitter-primary: 29 161 243; /* #1da1f3 */
+    --color-bsky-primary: 10 122 255; /* #0a7aff */
     --color-secondary: rgba(118, 127, 141, 1); /* #767f8d */
-    --color-collected: 24 195 123;
-    --color-bottom80: rgba(255, 255, 255, 0.8);
+    --color-collected: 24 195 123; /* #18c37b */
+    --color-bottom80: rgba(255, 255, 255, 0.8); /* #ffffffcc */
     --color-bottom-blue: rgba(36, 107, 253, 1); /* #246bfd */
     --color-bg: rgba(249, 249, 249, 1); /* #f9f9f9 */
     --color-bg-modal: rgba(249, 249, 249, 1); /* #f9f9f9 */
-    --color-bg-modal-layer: 217 217 217;
+    --color-bg-modal-layer: 217 217 217; /* #d9d9d9 */
     --m-modal-title-bg:
         linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 100%),
         linear-gradient(
@@ -88,8 +88,8 @@ html {
     --color-main1: rgba(183, 183, 183, 1); /* #b7b7b7 */
     --color-main2: rgba(207, 207, 207, 1); /* #cfcfcf */
     --color-main3: rgba(243, 243, 243, 1); /* #f3f3f3 */
-    --color-main4: rgba(24, 24, 24, 1);
-    --color-tooltip-bg: rgba(24, 24, 24, 0.9);
+    --color-main4: rgba(24, 24, 24, 1); /* #181818 */
+    --color-tooltip-bg: rgba(24, 24, 24, 0.9); /* #181818e6 */
     --color-third: rgba(177, 177, 177, 1); /* #b1b1b1 */
     --color-input: rgba(245, 245, 245, 1); /* #f5f5f5 */
     --color-line: #f4f4f4;
@@ -97,18 +97,18 @@ html {
     --color-line2: rgba(231, 231, 231, 1); /* #e7e7e7 */
     --color-light-bg: #f5f5f9;
     --color-light-main: #181818;
-    --color-bottom-bg: rgba(0, 0, 0, 0.05);
+    --color-bottom-bg: rgba(0, 0, 0, 0.05); /* #0000000d */
     --color-tab-line: rgba(29, 155, 240, 1); /* #1d9bf0 */
     --color-firefly-brand: rgba(146, 80, 255, 1); /* #9250ff */
     --m-common-danger: #ff3545;
-    --m-common-warn: 255 177 0;
+    --m-common-warn: 255 177 0; /* #ffb100 */
     --m-light-bottom: #fff;
     --plyr-audio-controls-background: rgba(243, 243, 243, 1); /* #f3f3f3 */
     --plyr-range-thumb-height: 0px;
     --plyr-range-track-height: 12px;
     --plyr-control-radius: 12px;
     --plyr-range-fill-background: rgba(118, 118, 118, 1); /* #767676 */
-    --plyr-audio-progress-buffered-background: rgba(207, 207, 207, 1);
+    --plyr-audio-progress-buffered-background: rgba(207, 207, 207, 1); /* #cfcfcf */
     --plyr-control-icon-size: 16px;
     --color-success: 61 194 51; /* #3dc233 */
     --color-fail: 255 53 69; /* #ff3545 */
@@ -147,72 +147,72 @@ html {
 
 .calendar-tab-list .activeTabItem {
     background-color: #fff;
-    color: rgba(7 16 27);
+    color: rgba(7 16 27); /* #07101b */
 }
 
 @media (prefers-color-scheme: dark) {
     :root {
-        --foreground-rgb: 255 255 255;
-        --background-start-rgb: 0, 0, 0;
-        --background-end-rgb: 0, 0, 0;
-        --color-main: 245 245 245;
-        --color-link: 142 150 255;
-        --color-bottom: 3 3 3;
+        --foreground-rgb: 255 255 255; /* #ffffff */
+        --background-start-rgb: 0, 0, 0; /* #000000 */
+        --background-end-rgb: 0, 0, 0; /* #000000 */
+        --color-main: 245 245 245; /* #f5f5f5 */
+        --color-link: 142 150 255; /* #8e96ff */
+        --color-bottom: 3 3 3; /* #030303 */
         --color-dark-bottom: #181818;
         --color-third-bottom: #181818;
-        --color-second: rgba(255, 255, 255, 0.78);
+        --color-second: rgba(255, 255, 255, 0.78); /* #ffffffc7 */
         --color-secondary-success: 24 195 123; /* #18c37b */
         --color-primary-pink: 255 150 142; /* #ff968e */
         --color-danger: 255 53 69; /* #ff3545 */
-        --color-warn: 255 177 0;
-        --color-lens-primary: 154 227 42;
-        --color-twitter-primary: 29 161 243;
-        --color-farcaster-primary: 146 80 255;
-        --color-collected: 24 195 123;
-        --color-bottom80: rgba(0, 0, 0, 0.8);
-        --color-bottom-blue: rgba(36, 107, 253, 1);
-        --color-main1: rgba(255, 255, 255, 0.28);
-        --color-main2: rgba(255, 255, 255, 0.13);
-        --color-main3: rgba(255, 255, 255, 0.11);
-        --color-main4: rgba(245, 245, 245, 1);
-        --color-tooltip-bg: rgba(255, 255, 255, 0.9);
-        --color-third: rgba(255, 255, 255, 0.44);
-        --color-secondary: rgba(255, 255, 255, 0.78);
-        --color-bg: rgba(255, 255, 255, 0.08);
-        --color-bg-modal: rgba(0, 0, 0);
-        --color-bg-modal-layer: 217 217 217;
+        --color-warn: 255 177 0; /* #ffb100 */
+        --color-lens-primary: 154 227 42; /* #9ae32a */
+        --color-twitter-primary: 29 161 243; /* #1da1f3 */
+        --color-farcaster-primary: 146 80 255; /* #9250ff */
+        --color-collected: 24 195 123; /* #18c37b */
+        --color-bottom80: rgba(0, 0, 0, 0.8); /* #000000cc */
+        --color-bottom-blue: rgba(36, 107, 253, 1); /* #246bfd */
+        --color-main1: rgba(255, 255, 255, 0.28); /* #ffffff47 */
+        --color-main2: rgba(255, 255, 255, 0.13); /* #ffffff21 */
+        --color-main3: rgba(255, 255, 255, 0.11); /* #ffffff1c */
+        --color-main4: rgba(245, 245, 245, 1); /* #f5f5f5 */
+        --color-tooltip-bg: rgba(255, 255, 255, 0.9); /* #ffffffe6 */
+        --color-third: rgba(255, 255, 255, 0.44); /* #ffffff70 */
+        --color-secondary: rgba(255, 255, 255, 0.78); /* #ffffffc7 */
+        --color-bg: rgba(255, 255, 255, 0.08); /* #ffffff14 */
+        --color-bg-modal: rgba(0, 0, 0); /* #000000 */
+        --color-bg-modal-layer: 217 217 217; /* #d9d9d9 */
         --m-modal-title-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.06) 100%);
-        --color-input: rgba(255, 255, 255, 1);
-        --color-line: rgba(255, 255, 255, 0.18);
+        --color-input: rgba(255, 255, 255, 1); /* #ffffff */
+        --color-line: rgba(255, 255, 255, 0.18); /* #ffffff2e */
         --color-line1: #e4e8f1;
-        --color-line2: rgba(255, 255, 255, 0.25);
-        --color-light-bg: rgba(255, 255, 255, 0.08);
+        --color-line2: rgba(255, 255, 255, 0.25); /* #ffffff40 */
+        --color-light-bg: rgba(255, 255, 255, 0.08); /* #ffffff14 */
         --color-light-main: #f5f5f5;
         --color-light-third: #f5f5f5;
         --color-tab-line: var(--color-firefly-brand);
-        --color-firefly-brand: rgba(146, 80, 255, 1);
+        --color-firefly-brand: rgba(146, 80, 255, 1); /* #9250ff */
         --plyr-audio-controls-background: transparent;
         --plyr-range-thumb-height: 0px;
         --plyr-range-track-height: 12px;
         --plyr-control-radius: 12px;
-        --plyr-range-fill-background: rgba(255, 255, 255, 0.78);
-        --plyr-audio-progress-buffered-background: rgba(255, 255, 255, 0.13);
+        --plyr-range-fill-background: rgba(255, 255, 255, 0.78); /* #ffffffc7 */
+        --plyr-audio-progress-buffered-background: rgba(255, 255, 255, 0.13); /* #ffffff21 */
         --plyr-control-icon-size: 16px;
         --color-card: white;
-        --color-light-warn: 255 122 85;
-        --color-light-highlight: 76 74 169;
-        --color-highlight: 172 157 246;
-        --color-common-main: 24 26 32;
-        --color-bg02: 38 42 52; /* #262A34 */
-        --color-bg03: 230 230 237;
-        --color-light-rebranding-bg: 245 245 249;
-        --color-farcaster-bg: 43 39 51;
-        --color-lens-bg: 31 41 35;
-        --color-bsky-bg: 27 38 51;
+        --color-light-warn: 255 122 85; /* #ff7a55 */
+        --color-light-highlight: 76 74 169; /* #4c4aa9 */
+        --color-highlight: 172 157 246; /* #ac9df6 */
+        --color-common-main: 24 26 32; /* #181a20 */
+        --color-bg02: 38 42 52; /* #262a34 */
+        --color-bg03: 230 230 237; /* #e6e6ed */
+        --color-light-rebranding-bg: 245 245 249; /* #f5f5f9 */
+        --color-farcaster-bg: 43 39 51; /* #2b2733 */
+        --color-lens-bg: 31 41 35; /* #1f2923 */
+        --color-bsky-bg: 27 38 51; /* #1b2633 */
         --color-x-bg: var(--color-light-bg);
-        --color-wallet-bg: 42 42 61;
-        --color-danger-bg: rgba(255, 53, 69, 0.16);
-        --color-lens-button: 171 254 44;
+        --color-wallet-bg: 42 42 61; /* #2a2a3d */
+        --color-danger-bg: rgba(255, 53, 69, 0.16); /* #ff354529 */
+        --color-lens-button: 171 254 44; /* #abfe2c */
     }
 
     .sidebar-light-logo {
@@ -244,31 +244,31 @@ html {
 
 /* Please maintain this order, the light class (user settings) needs to be at the end, so that user settings will take priority. */
 .light {
-    --foreground-rgb: 0 0 0;
-    --background-start-rgb: 214, 219, 220;
-    --background-end-rgb: 255, 255, 255;
-    --color-main: 7 16 27;
-    --color-main-light: 7 16 27;
-    --color-link: 142 150 255;
-    --color-bottom: 255 255 255;
+    --foreground-rgb: 0 0 0; /* #000000 */
+    --background-start-rgb: 214, 219, 220; /* #d6dbdc */
+    --background-end-rgb: 255, 255, 255; /* #ffffff */
+    --color-main: 7 16 27; /* #07101b */
+    --color-main-light: 7 16 27; /* #07101b */
+    --color-link: 142 150 255; /* #8e96ff */
+    --color-bottom: 255 255 255; /* #ffffff */
     --color-dark-bottom: #181818;
     --color-third-bottom: #fff;
-    --color-secondary-success: 24 195 123;
+    --color-secondary-success: 24 195 123; /* #18c37b */
     --color-second: #767676;
-    --color-primary-pink: 255 150 142;
-    --color-danger: 255 53 69;
-    --color-warn: 255 177 0;
-    --color-lens-primary: 154 227 42;
-    --color-farcaster-primary: 133 93 205;
-    --color-twitter-primary: 29 161 243;
-    --color-bsky-primary: 10 122 255;
+    --color-primary-pink: 255 150 142; /* #ff968e */
+    --color-danger: 255 53 69; /* #ff3545 */
+    --color-warn: 255 177 0; /* #ffb100 */
+    --color-lens-primary: 154 227 42; /* #9ae32a */
+    --color-farcaster-primary: 133 93 205; /* #855dcd */
+    --color-twitter-primary: 29 161 243; /* #1da1f3 */
+    --color-bsky-primary: 10 122 255; /* #0a7aff */
     --color-secondary: rgba(118, 127, 141, 1); /* #767f8d */
-    --color-collected: 24 195 123;
-    --color-bottom80: rgba(255, 255, 255, 0.8);
+    --color-collected: 24 195 123; /* #18c37b */
+    --color-bottom80: rgba(255, 255, 255, 0.8); /* #ffffffcc */
     --color-bottom-blue: rgba(36, 107, 253, 1); /* #246bfd */
     --color-bg: rgba(249, 249, 249, 1); /* #f9f9f9 */
     --color-bg-modal: rgba(249, 249, 249, 1); /* #f9f9f9 */
-    --color-bg-modal-layer: 217 217 217;
+    --color-bg-modal-layer: 217 217 217; /* #d9d9d9 */
     --m-modal-title-bg:
         linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 100%),
         linear-gradient(
@@ -280,8 +280,8 @@ html {
     --color-main1: rgba(183, 183, 183, 1); /* #b7b7b7 */
     --color-main2: rgba(207, 207, 207, 1); /* #cfcfcf */
     --color-main3: rgba(243, 243, 243, 1); /* #f3f3f3 */
-    --color-main4: rgba(24, 24, 24, 1);
-    --color-tooltip-bg: rgba(24, 24, 24, 0.9);
+    --color-main4: rgba(24, 24, 24, 1); /* #181818 */
+    --color-tooltip-bg: rgba(24, 24, 24, 0.9); /* #181818e6 */
     --color-third: rgba(177, 177, 177, 1); /* #b1b1b1 */
     --color-input: rgba(245, 245, 245, 1); /* #f5f5f5 */
     --color-line: #f4f4f4;
@@ -289,36 +289,36 @@ html {
     --color-line2: rgba(231, 231, 231, 1); /* #e7e7e7 */
     --color-light-bg: #f5f5f9;
     --color-light-main: #181818;
-    --color-bottom-bg: rgba(0, 0, 0, 0.05);
+    --color-bottom-bg: rgba(0, 0, 0, 0.05); /* #0000000d */
     --color-tab-line: rgba(29, 155, 240, 1); /* #1d9bf0 */
     --color-firefly-brand: rgba(146, 80, 255, 1); /* #9250ff */
     --m-common-danger: #ff3545;
-    --m-common-warn: 255 177 0;
+    --m-common-warn: 255 177 0; /* #ffb100 */
     --m-light-bottom: #fff;
     --plyr-audio-controls-background: rgba(243, 243, 243, 1); /* #f3f3f3 */
     --plyr-range-thumb-height: 0px;
     --plyr-range-track-height: 12px;
     --plyr-control-radius: 12px;
     --plyr-range-fill-background: rgba(118, 118, 118, 1); /* #767676 */
-    --plyr-audio-progress-buffered-background: rgba(207, 207, 207, 1);
+    --plyr-audio-progress-buffered-background: rgba(207, 207, 207, 1); /* #cfcfcf */
     --plyr-control-icon-size: 16px;
-    --color-success: 61 194 51;
-    --color-fail: 255 53 69;
-    --color-light-warn: 255 122 85;
-    --color-light-highlight: 172 157 246;
-    --color-highlight: 76 74 169;
-    --color-common-main: 24 26 32;
+    --color-success: 61 194 51; /* #3dc233 */
+    --color-fail: 255 53 69; /* #ff3545 */
+    --color-light-warn: 255 122 85; /* #ff7a55 */
+    --color-light-highlight: 172 157 246; /* #ac9df6 */
+    --color-highlight: 76 74 169; /* #4c4aa9 */
+    --color-common-main: 24 26 32; /* #181a20 */
     --color-bg02: 247 248 249; /* #f7f8f9 */
-    --color-bg03: 230 230 237;
-    --color-light-rebranding-bg: 245 245 249;
-    --color-farcaster-bg: 243 240 250;
-    --color-lens-bg: 237 247 241;
-    --color-bsky-bg: 240 247 255;
+    --color-bg03: 230 230 237; /* #e6e6ed */
+    --color-light-rebranding-bg: 245 245 249; /* #f5f5f9 */
+    --color-farcaster-bg: 243 240 250; /* #f3f0fa */
+    --color-lens-bg: 237 247 241; /* #edf7f1 */
+    --color-bsky-bg: 240 247 255; /* #f0f7ff */
     --color-x-bg: var(--color-light-bg);
-    --color-wallet-bg: 243 242 255;
+    --color-wallet-bg: 243 242 255; /* #f3f2ff */
     --color-danger-bg: #fff5f6;
     --w3m-modal-width: 400px !important;
-    --color-lens-button: 0 80 30;
+    --color-lens-button: 0 80 30; /* #00501e */
 }
 
 .light .sidebar-light-logo {
@@ -340,71 +340,71 @@ html {
 
 .light .calendar-tab-list .activeTabItem {
     background-color: #fff;
-    color: rgba(7 16 27);
+    color: rgba(7 16 27); /* #07101b */
 }
 
 .dark {
-    --foreground-rgb: 255 255 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --foreground-rgb: 255 255 255; /* #ffffff */
+    --background-start-rgb: 0, 0, 0; /* #000000 */
+    --background-end-rgb: 0, 0, 0; /* #000000 */
     --color-main: 245 245 245; /* #f5f5f5 */
-    --color-link: 142 150 255;
-    --color-bottom: 3 3 3;
+    --color-link: 142 150 255; /* #8e96ff */
+    --color-bottom: 3 3 3; /* #030303 */
     --color-dark-bottom: #181818;
     --color-third-bottom: #181818;
-    --color-second: rgba(255, 255, 255, 0.78);
+    --color-second: rgba(255, 255, 255, 0.78); /* #ffffffc7 */
     --color-secondary-success: 24 195 123; /* #18c37b */
-    --color-primary-pink: 255 150 142;
-    --color-danger: 255 53 69;
-    --color-warn: 255 177 0;
-    --color-lens-primary: 154 227 42;
-    --color-twitter-primary: 29 161 243;
-    --color-farcaster-primary: 146 80 255;
-    --color-collected: 24 195 123;
-    --color-bottom80: rgba(0, 0, 0, 0.8);
-    --color-bottom-blue: rgba(36, 107, 253, 1);
-    --color-main1: rgba(255, 255, 255, 0.28);
-    --color-main2: rgba(255, 255, 255, 0.13);
-    --color-main3: rgba(255, 255, 255, 0.11);
-    --color-main4: rgba(245, 245, 245, 1);
-    --color-tooltip-bg: rgba(255, 255, 255, 0.9);
-    --color-third: rgba(255, 255, 255, 0.44);
-    --color-secondary: rgba(255, 255, 255, 0.78);
-    --color-bg: rgba(255, 255, 255, 0.08);
-    --color-bg-modal: rgba(0, 0, 0);
-    --color-bg-modal-layer: 217 217 217;
+    --color-primary-pink: 255 150 142; /* #ff968e */
+    --color-danger: 255 53 69; /* #ff3545 */
+    --color-warn: 255 177 0; /* #ffb100 */
+    --color-lens-primary: 154 227 42; /* #9ae32a */
+    --color-twitter-primary: 29 161 243; /* #1da1f3 */
+    --color-farcaster-primary: 146 80 255; /* #9250ff */
+    --color-collected: 24 195 123; /* #18c37b */
+    --color-bottom80: rgba(0, 0, 0, 0.8); /* #000000cc */
+    --color-bottom-blue: rgba(36, 107, 253, 1); /* #246bfd */
+    --color-main1: rgba(255, 255, 255, 0.28); /* #ffffff47 */
+    --color-main2: rgba(255, 255, 255, 0.13); /* #ffffff21 */
+    --color-main3: rgba(255, 255, 255, 0.11); /* #ffffff1c */
+    --color-main4: rgba(245, 245, 245, 1); /* #f5f5f5 */
+    --color-tooltip-bg: rgba(255, 255, 255, 0.9); /* #ffffffe6 */
+    --color-third: rgba(255, 255, 255, 0.44); /* #ffffff70 */
+    --color-secondary: rgba(255, 255, 255, 0.78); /* #ffffffc7 */
+    --color-bg: rgba(255, 255, 255, 0.08); /* #ffffff14 */
+    --color-bg-modal: rgba(0, 0, 0); /* #000000 */
+    --color-bg-modal-layer: 217 217 217; /* #d9d9d9 */
     --m-modal-title-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.06) 100%);
-    --color-input: rgba(255, 255, 255, 1);
-    --color-line: rgba(255, 255, 255, 0.18);
+    --color-input: rgba(255, 255, 255, 1); /* #ffffff */
+    --color-line: rgba(255, 255, 255, 0.18); /* #ffffff2e */
     --color-line1: #e4e8f1;
-    --color-line2: rgba(255, 255, 255, 0.43);
-    --color-light-bg: rgba(255, 255, 255, 0.08);
+    --color-line2: rgba(255, 255, 255, 0.43); /* #ffffff6e */
+    --color-light-bg: rgba(255, 255, 255, 0.08); /* #ffffff14 */
     --color-light-main: #f5f5f5;
     --color-tab-line: var(--color-firefly-brand);
-    --color-firefly-brand: rgba(146, 80, 255, 1);
+    --color-firefly-brand: rgba(146, 80, 255, 1); /* #9250ff */
     --m-light-bottom: #000;
     --plyr-audio-controls-background: transparent;
     --plyr-range-thumb-height: 0px;
     --plyr-range-track-height: 12px;
     --plyr-control-radius: 12px;
-    --plyr-range-fill-background: rgba(255, 255, 255, 0.78);
-    --plyr-audio-progress-buffered-background: rgba(255, 255, 255, 0.13);
+    --plyr-range-fill-background: rgba(255, 255, 255, 0.78); /* #ffffffc7 */
+    --plyr-audio-progress-buffered-background: rgba(255, 255, 255, 0.13); /* #ffffff21 */
     --plyr-control-icon-size: 16px;
     --color-card: white;
-    --color-light-warn: 255 122 85;
-    --color-light-highlight: 76 74 169;
+    --color-light-warn: 255 122 85; /* #ff7a55 */
+    --color-light-highlight: 76 74 169; /* #4c4aa9 */
     --color-highlight: 172 157 246; /* #ac9df6 */
-    --color-common-main: 24 26 32;
-    --color-bg02: 38 42 52; /* #262A34 */
+    --color-common-main: 24 26 32; /* #181a20 */
+    --color-bg02: 38 42 52; /* #262a34 */
     --color-bg03: 230 230 237; /* #e6e6ed */
-    --color-light-rebranding-bg: 245 245 249;
-    --color-farcaster-bg: 43 39 51;
-    --color-lens-bg: 31 41 35;
-    --color-bsky-bg: 27 38 51;
+    --color-light-rebranding-bg: 245 245 249; /* #f5f5f9 */
+    --color-farcaster-bg: 43 39 51; /* #2b2733 */
+    --color-lens-bg: 31 41 35; /* #1f2923 */
+    --color-bsky-bg: 27 38 51; /* #1b2633 */
     --color-x-bg: var(--color-light-bg);
-    --color-wallet-bg: 42 42 61;
-    --color-danger-bg: rgba(255, 53, 69, 0.16);
-    --color-lens-button: 171 254 44;
+    --color-wallet-bg: 42 42 61; /* #2a2a3d */
+    --color-danger-bg: rgba(255, 53, 69, 0.16); /* #ff354529 */
+    --color-lens-button: 171 254 44; /* #abfe2c */
 }
 
 .dark .sidebar-light-logo {
@@ -444,30 +444,30 @@ html {
 
 .preview-actions,
 .link-preview {
-    --foreground-rgb: 0 0 0;
-    --background-start-rgb: 214, 219, 220;
-    --background-end-rgb: 255, 255, 255;
-    --color-main: 7 16 27;
-    --color-main-light: 7 16 27;
-    --color-link: 142 150 255;
-    --color-bottom: 255 255 255;
+    --foreground-rgb: 0 0 0; /* #000000 */
+    --background-start-rgb: 214, 219, 220; /* #d6dbdc */
+    --background-end-rgb: 255, 255, 255; /* #ffffff */
+    --color-main: 7 16 27; /* #07101b */
+    --color-main-light: 7 16 27; /* #07101b */
+    --color-link: 142 150 255; /* #8e96ff */
+    --color-bottom: 255 255 255; /* #ffffff */
     --color-dark-bottom: #181818;
     --color-third-bottom: #fff;
-    --color-secondary-success: 24 195 123;
+    --color-secondary-success: 24 195 123; /* #18c37b */
     --color-second: #767676;
-    --color-primary-pink: 255 150 142;
-    --color-danger: 255 53 69;
-    --color-warn: 255 177 0;
-    --color-lens-primary: 154 227 42;
-    --color-farcaster-primary: 146 80 255;
-    --color-twitter-primary: 29 161 243;
+    --color-primary-pink: 255 150 142; /* #ff968e */
+    --color-danger: 255 53 69; /* #ff3545 */
+    --color-warn: 255 177 0; /* #ffb100 */
+    --color-lens-primary: 154 227 42; /* #9ae32a */
+    --color-farcaster-primary: 146 80 255; /* #9250ff */
+    --color-twitter-primary: 29 161 243; /* #1da1f3 */
     --color-secondary: rgba(118, 127, 141, 1); /* #767f8d */
-    --color-collected: 24 195 123;
-    --color-bottom80: rgba(255, 255, 255, 0.8);
-    --color-bottom-blue: rgba(36, 107, 253, 1); /* #246BFD */
+    --color-collected: 24 195 123; /* #18c37b */
+    --color-bottom80: rgba(255, 255, 255, 0.8); /* #ffffffcc */
+    --color-bottom-blue: rgba(36, 107, 253, 1); /* #246bfd */
     --color-bg: rgba(249, 249, 249, 1); /* #f9f9f9 */
     --color-bg-modal: rgba(249, 249, 249, 1); /* #f9f9f9 */
-    --color-bg-modal-layer: 217 217 217;
+    --color-bg-modal-layer: 217 217 217; /* #d9d9d9 */
     --m-modal-title-bg:
         linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 100%),
         linear-gradient(
@@ -479,36 +479,36 @@ html {
     --color-main1: rgba(183, 183, 183, 1); /* #b7b7b7 */
     --color-main2: rgba(207, 207, 207, 1); /* #cfcfcf */
     --color-main3: rgba(243, 243, 243, 1); /* #f3f3f3 */
-    --color-main4: rgba(24, 24, 24, 1);
-    --color-tooltip-bg: rgba(24, 24, 24, 0.9);
+    --color-main4: rgba(24, 24, 24, 1); /* #181818 */
+    --color-tooltip-bg: rgba(24, 24, 24, 0.9); /* #181818e6 */
     --color-third: rgba(177, 177, 177, 1); /* #b1b1b1 */
-    --color-input: rgba(245, 245, 245, 1);
+    --color-input: rgba(245, 245, 245, 1); /* #f5f5f5 */
     --color-line: #f4f4f4;
     --color-line2: rgba(231, 231, 231, 1); /* #e7e7e7 */
     --color-light-bg: #f5f5f9;
     --color-light-main: #181818;
-    --color-bottom-bg: rgba(0, 0, 0, 0.05);
+    --color-bottom-bg: rgba(0, 0, 0, 0.05); /* #0000000d */
     --color-tab-line: rgba(29, 155, 240, 1); /* #1d9bf0 */
     --color-firefly-brand: rgba(146, 80, 255, 1); /* #9250ff */
     --m-common-danger: #ff3545;
-    --m-common-warn: 255 177 0;
+    --m-common-warn: 255 177 0; /* #ffb100 */
     --m-light-bottom: #fff;
-    --plyr-audio-controls-background: rgba(243, 243, 243, 1);
+    --plyr-audio-controls-background: rgba(243, 243, 243, 1); /* #f3f3f3 */
     --plyr-range-thumb-height: 0px;
     --plyr-range-track-height: 12px;
     --plyr-control-radius: 12px;
     --plyr-range-fill-background: rgba(118, 118, 118, 1); /* #767676 */
     --plyr-audio-progress-buffered-background: rgba(207, 207, 207, 1); /* #cfcfcf */
     --plyr-control-icon-size: 16px;
-    --color-success: 61 194 51;
-    --color-fail: 255 53 69;
-    --color-light-warn: 255 122 85;
-    --color-light-highlight: 76 74 169;
-    --color-highlight: 76 74 169;
-    --color-common-main: 24 26 32;
+    --color-success: 61 194 51; /* #3dc233 */
+    --color-fail: 255 53 69; /* #ff3545 */
+    --color-light-warn: 255 122 85; /* #ff7a55 */
+    --color-light-highlight: 76 74 169; /* #4c4aa9 */
+    --color-highlight: 76 74 169; /* #4c4aa9 */
+    --color-common-main: 24 26 32; /* #181a20 */
     --color-bg02: 247 248 249; /* #f7f8f9 */
-    --color-bg03: 230 230 237;
-    --color-light-rebranding-bg: 245 245 249;
+    --color-bg03: 230 230 237; /* #e6e6ed */
+    --color-light-rebranding-bg: 245 245 249; /* #f5f5f9 */
 }
 
 html,
