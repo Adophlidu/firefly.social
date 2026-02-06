@@ -98,8 +98,8 @@ importers:
         specifier: ^0.18.10
         version: 0.18.10(typescript@5.9.3)(zod@3.25.76)
       '@farcaster/miniapp-host':
-        specifier: ^0.2.15
-        version: 0.2.15(react@19.2.3)(typescript@5.9.3)(zod@3.25.76)
+        specifier: ^0.2.16
+        version: 0.2.16(react@19.2.3)(typescript@5.9.3)(zod@3.25.76)
       '@floating-ui/react':
         specifier: 0.27.17
         version: 0.27.17(react-dom@19.2.3)(react@19.2.3)
@@ -3306,8 +3306,8 @@ packages:
       - zod
     dev: false
 
-  /@farcaster/miniapp-core@0.5.0(typescript@5.9.3):
-    resolution: {integrity: sha512-3d4rMjKrSv6z2eUHczAP00p3+0zRaoSNUgQUyLM2BLpoi43cXmXmSP5E/tX0xE5//vkBKPLRzXE+nKoMyNL5kQ==}
+  /@farcaster/miniapp-core@0.5.1(typescript@5.9.3):
+    resolution: {integrity: sha512-5QFn9zTV8GHUqZF31X9iwq9tNlnoOgP/o0UXb+QmdNeJsWXrhUFBKYl+C7KQOhVw2xqWKhBSDgYIHOkSRua3vg==}
     dependencies:
       '@solana/web3.js': 1.98.4(typescript@5.9.3)
       ox: 0.4.4(typescript@5.9.3)(zod@3.25.76)
@@ -3319,12 +3319,12 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@farcaster/miniapp-host@0.2.15(react@19.2.3)(typescript@5.9.3)(zod@3.25.76):
-    resolution: {integrity: sha512-j4TnSYETNXooD8khaFuhkdaQtDh16wJqMvYm0MWAPTvvdGZEMVn+3R/zs6HQuAHdkqj5nKhFUGqaNzE1hSHF/A==}
+  /@farcaster/miniapp-host@0.2.16(react@19.2.3)(typescript@5.9.3)(zod@3.25.76):
+    resolution: {integrity: sha512-w+t+gmhvbCB4NZMtmAfrdl0/ZJPrzFmA7RD93nqqD1G1QIy9KX6LAmBLLEtW6XBXdf8aDSKCnPYOnADacBdINQ==}
     peerDependencies:
       react: 19.2.3
     dependencies:
-      '@farcaster/miniapp-core': 0.5.0(typescript@5.9.3)
+      '@farcaster/miniapp-core': 0.5.1(typescript@5.9.3)
       ox: 0.4.4(typescript@5.9.3)(zod@3.25.76)
       react: 19.2.3
     transitivePeerDependencies:
@@ -7563,7 +7563,7 @@ packages:
       typescript: '>=5.3.3'
     dependencies:
       chalk: 5.6.2
-      commander: 14.0.2
+      commander: 14.0.3
       typescript: 5.9.3
     dev: false
 
@@ -11910,6 +11910,11 @@ packages:
 
   /commander@14.0.2:
     resolution: {integrity: sha512-TywoWNNRbhoD0BXs1P3ZEScW8W5iKrnbithIl0YH+uCmBd0QpPOA8yc82DS3BIE5Ma6FnBVUsJ7wVUDz4dvOWQ==}
+    engines: {node: '>=20'}
+    dev: false
+
+  /commander@14.0.3:
+    resolution: {integrity: sha512-H+y0Jo/T1RZ9qPP4Eh1pkcQcLRglraJaSLoyOtHxu6AapkjWVCy2Sit1QQ4x3Dng8qDlSsZEet7g5Pq06MvTgw==}
     engines: {node: '>=20'}
     dev: false
 
@@ -20388,7 +20393,7 @@ time:
   /@coral-xyz/anchor@0.32.1: '2025-10-10T02:34:12.654Z'
   /@crowdin/cli@4.12.0: '2025-12-02T09:07:19.880Z'
   /@farcaster/core@0.18.10: '2026-02-04T23:24:46.700Z'
-  /@farcaster/miniapp-host@0.2.15: '2026-01-26T19:41:40.831Z'
+  /@farcaster/miniapp-host@0.2.16: '2026-02-05T00:52:21.049Z'
   /@floating-ui/react@0.27.17: '2026-01-27T16:27:18.745Z'
   /@giphy/js-fetch-api@5.7.0: '2025-07-08T16:16:15.332Z'
   /@giphy/react-components@10.1.1: '2025-12-19T20:57:21.199Z'

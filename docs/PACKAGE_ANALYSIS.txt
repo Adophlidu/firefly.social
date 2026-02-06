@@ -136,7 +136,7 @@ Packages with Multiple Versions
  chokidar@3.5.1,3.6.0,4.0.3,5.0.0
  cliui@6.0.0,8.0.1
  clsx@1.2.1,2.1.1
- commander@10.0.1,11.1.0,12.1.0,14.0.2,2.20.3,4.1.1,7.2.0
+ commander@10.0.1,11.1.0,12.1.0,14.0.2,14.0.3,2.20.3,4.1.1,7.2.0
 *core-js@2.6.12,3.42.0,3.48.0
  cosmiconfig@8.0.0,8.3.6
 *cross-fetch@3.2.0,4.1.0
@@ -456,8 +456,8 @@ Packages with Single Version
  @exodus/bytes@1.8.0
  @faker-js/faker@7.6.0
 *@farcaster/core@0.18.10
- @farcaster/miniapp-core@0.5.0
-*@farcaster/miniapp-host@0.2.15
+ @farcaster/miniapp-core@0.5.1
+*@farcaster/miniapp-host@0.2.16
  @fastify/deepmerge@1.3.0
  @firebase/analytics@0.10.12
  @firebase/analytics-compat@0.2.18
