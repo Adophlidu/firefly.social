@@ -16,6 +16,7 @@ import { ChainIcon } from '@/components/ChainIcon.js';
 import { Comeback } from '@/components/Comeback.js';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
+import { NoSSR } from '@/components/NoSSR.js';
 import { SwapActions } from '@/components/Swap/SwapActions.js';
 import { WalletBaseMoreAction } from '@/components/WalletBaseMoreAction.js';
 import { chains } from '@/configs/chains.js';
@@ -223,7 +224,9 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ activity }
                         </div>
                     ) : null}
 
-                    <SwapActions activity={activity} isDetail />
+                    <NoSSR>
+                        <SwapActions activity={activity} isDetail />
+                    </NoSSR>
                 </div>
 
                 <div className="mt-4 space-y-2">
