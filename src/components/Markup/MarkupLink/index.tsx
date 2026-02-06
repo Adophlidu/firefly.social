@@ -18,6 +18,7 @@ import { SymbolTag } from '@/components/Markup/MarkupLink/SymbolTag.js';
 import { TcoLink } from '@/components/Markup/MarkupLink/TcoLink.js';
 import { ToggleMore } from '@/components/Markup/MarkupLink/ToggleMore.js';
 import { type MarkupLinkProps } from '@/components/Markup/MarkupLink/type.js';
+import { NoSSR } from '@/components/NoSSR.js';
 import { ProfileTippy } from '@/components/Profile/ProfileTippy.js';
 import { Source } from '@/constants/enum.js';
 import {
@@ -154,7 +155,9 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
             <>
                 {start}
                 {group ? (
-                    <ChannelTag title={trimmed} source={source} id={group.id} />
+                    <NoSSR>
+                        <ChannelTag title={trimmed} source={source} id={group.id} />
+                    </NoSSR>
                 ) : (
                     <Hashtag title={trimmed} source={source} />
                 )}
@@ -188,7 +191,9 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
         return (
             <>
                 {start}
-                <ChannelTag title={trimmed} source={source} />
+                <NoSSR>
+                    <ChannelTag title={trimmed} source={source} />
+                </NoSSR>
                 {end}
             </>
         );
