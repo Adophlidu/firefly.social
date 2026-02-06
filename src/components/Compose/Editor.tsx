@@ -8,17 +8,14 @@ import { $dfs } from '@lexical/utils';
 import { Select, Trans } from '@lingui/react/macro';
 import { $getRoot, $isElementNode, $isLineBreakNode, $isTextNode, type EditorState, type LexicalNode } from 'lexical';
 import { compact, debounce } from 'lodash-es';
-import { memo, type PropsWithChildren, useEffect, useMemo, useTransition } from 'react';
+import { memo, type PropsWithChildren, useMemo, useTransition } from 'react';
 import { useDebounce } from 'react-use';
 
 import { $isMentionNode, type MentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
 import { MentionsPlugin } from '@/components/Lexical/plugins/AtMentionsPlugin.js';
 import { LexicalAutoLinkPlugin } from '@/components/Lexical/plugins/AutoLinkPlugin.js';
-import { CharTag, DraftPostType } from '@/constants/enum.js';
+import { CharTag } from '@/constants/enum.js';
 import { writeChars } from '@/helpers/chars.js';
-import { isEmptyPost } from '@/helpers/isEmptyPost.js';
-import { useSaveDraftInCompose } from '@/hooks/useSaveDraftInCompose.js';
-import { useComposeDraftStateStore } from '@/store/useComposeDraftStore.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { type Chars, type ComplexChars } from '@/types/chars.js';
 import { type CompositePost } from '@/types/compose.js';
@@ -79,8 +76,6 @@ interface EditorProps {
 export const Editor = memo(function Editor({ post, replying }: EditorProps) {
     const { type, posts, updateChars, updateFocused, loadComponentsFromChars } = useComposeStateStore();
     const [, startTransition] = useTransition();
-    const { removeTempDrafts } = useComposeDraftStateStore();
-    const [, saveDraftInCompose] = useSaveDraftInCompose(DraftPostType.LocalTemp);
 
     const { chars } = post;
     const index = posts.findIndex((x) => x.id === post.id);
@@ -91,18 +86,6 @@ export const Editor = memo(function Editor({ post, replying }: EditorProps) {
         },
         300,
         [chars, loadComponentsFromChars],
-    );
-
-    useEffect(
-        () =>
-            useComposeStateStore.subscribe((state) => {
-                if (state.posts.some((x) => !isEmptyPost(x))) {
-                    saveDraftInCompose();
-                } else {
-                    removeTempDrafts();
-                }
-            }),
-        [saveDraftInCompose, removeTempDrafts],
     );
 
     const onChange = useMemo(

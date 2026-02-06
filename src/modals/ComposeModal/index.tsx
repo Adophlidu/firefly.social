@@ -36,6 +36,7 @@ import { type ComposeModalCloseProps, type ComposeModalOpenProps } from '@/modal
 import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
 import { captureComposeDraftPostEvent } from '@/providers/telemetry/captureComposeEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
+import { useComposeDraftState } from '@/store/useComposeDraftStore.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { type Chars } from '@/types/chars.js';
@@ -85,6 +86,7 @@ function ComposeModalUI({ ref }: Props) {
     } = useComposeStateStore();
     const { clearScheduleTime } = useComposeScheduleStateStore();
     const [, applyTempDraftPost] = useApplyTempDraftPost();
+    const { removeTempDrafts } = useComposeDraftState();
 
     const [editor] = useLexicalComposerContext();
 
@@ -202,12 +204,13 @@ function ComposeModalUI({ ref }: Props) {
                 return CloseAction.Saved;
             } else {
                 dispatch?.close();
+                removeTempDrafts();
             }
         } else {
             dispatch?.close();
         }
         return CloseAction.Discard;
-    }, [isSmall, dispatch, posts, cursor, saveDraftInCompose]);
+    }, [isSmall, dispatch, posts, cursor, saveDraftInCompose, removeTempDrafts]);
 
     useUpdateEffect(() => {
         if (type !== 'quote') return;

@@ -4,13 +4,14 @@ import { useAsyncFn } from 'react-use';
 
 import { DraftPostType, type SocialSource } from '@/constants/enum.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
+import { isEmptyPost } from '@/helpers/isEmptyPost.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useCurrentProfiles } from '@/hooks/useCurrentProfile.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
-import { type Draft, useComposeDraftStateStore } from '@/store/useComposeDraftStore.js';
+import { type Draft, useComposeDraftState } from '@/store/useComposeDraftStore.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import { createInitPostState, useComposeStateStore } from '@/store/useComposeStore.js';
 import { MediaSource } from '@/types/compose.js';
@@ -83,10 +84,13 @@ export function useApplyDraftPost() {
 export function useApplyTempDraftPost() {
     const isSmall = useIsSmall('max');
     const profiles = useCurrentProfiles();
-    const { drafts, removeTempDrafts } = useComposeDraftStateStore();
+    const { posts } = useComposeStateStore();
+    const { drafts, removeTempDrafts } = useComposeDraftState();
     const [, applyDraftPost] = useApplyDraftPost();
 
     return useAsyncFn(async () => {
+        if (posts.some((x) => !isEmptyPost(x))) return;
+
         const tempDraft = drafts.find((draft) => draft.draftType === DraftPostType.LocalTemp);
         if (!tempDraft) return;
 
@@ -116,5 +120,5 @@ export function useApplyTempDraftPost() {
 
         await applyDraftPost(tempDraft, true);
         setTimeout(() => removeTempDrafts(), 200);
-    }, [drafts, isSmall, profiles, applyDraftPost, removeTempDrafts]);
+    }, [drafts, isSmall, profiles, posts, applyDraftPost, removeTempDrafts]);
 }

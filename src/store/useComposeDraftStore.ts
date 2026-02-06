@@ -104,12 +104,14 @@ const useComposeStateBase = create<ComposeDraftState, [['zustand/persist', unkno
 export const useComposeDraftStateStore = createSelectors(useComposeStateBase);
 
 export function useComposeDraftState() {
-    const { drafts, removeDraft, getDrafts } = useComposeDraftStateStore();
+    const { drafts, removeDraft, getDrafts, removeTempDrafts, addDraft } = useComposeDraftStateStore();
 
     const result = useMemo(() => getDrafts(), [drafts]);
 
     return {
         drafts: result,
+        addDraft,
         removeDraft,
+        removeTempDrafts,
     };
 }

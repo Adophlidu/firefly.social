@@ -1,17 +1,26 @@
 import { Trans } from '@lingui/react/macro';
 import { Outlet, useRouter } from '@tanstack/react-router';
+import { isEqual } from 'lodash-es';
+import { useEffect } from 'react';
 
 import { ComposeSend } from '@/components/Compose/ComposeSend.js';
 import { DraftButton } from '@/components/IconButton.js';
 import { ModalTitle } from '@/components/ModalTitle.js';
+import { DraftPostType } from '@/constants/enum.js';
+import { isEmptyPost } from '@/helpers/isEmptyPost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import { useSaveDraftInCompose } from '@/hooks/useSaveDraftInCompose.js';
 import { useComposeModalContext } from '@/modals/ComposeModal/context.js';
 import { captureDraftClickEvent } from '@/providers/telemetry/captureClickEvent.js';
+import { useComposeDraftState } from '@/store/useComposeDraftStore.js';
+import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 export function ComposeRouteRoot() {
     const isMedium = useIsMedium();
     const { history, state } = useRouter();
     const { onClose } = useComposeModalContext();
+    const { removeTempDrafts } = useComposeDraftState();
+    const [, saveDraftInCompose] = useSaveDraftInCompose(DraftPostType.LocalTemp);
 
     const pathname = history.location.pathname;
 
@@ -28,6 +37,20 @@ export function ComposeRouteRoot() {
                 captureDraftClickEvent();
             }}
         />
+    );
+
+    useEffect(
+        () =>
+            useComposeStateStore.subscribe((state, prevState) => {
+                if (isEqual(state.posts, prevState.posts)) return;
+
+                if (state.posts.some((x) => !isEmptyPost(x))) {
+                    saveDraftInCompose();
+                } else {
+                    removeTempDrafts();
+                }
+            }),
+        [saveDraftInCompose, removeTempDrafts],
     );
 
     return (

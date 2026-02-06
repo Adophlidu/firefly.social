@@ -7,19 +7,20 @@ import { getCompositePost } from '@/helpers/getCompositePost.js';
 import { isEmptyPost } from '@/helpers/isEmptyPost.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { logger } from '@/libs/Logger.js';
-import { type Draft, useComposeDraftStateStore } from '@/store/useComposeDraftStore.js';
+import { type Draft, useComposeDraftState } from '@/store/useComposeDraftStore.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 export function useSaveDraftInCompose(draftType: DraftPostType.LocalNormal | DraftPostType.LocalTemp) {
-    const { posts, type, cursor, currentDraftId, sealedSource } = useComposeStateStore();
     const { scheduleTime } = useComposeScheduleStateStore();
     const profilesAll = useCurrentProfilesAll();
 
-    const { addDraft, removeTempDrafts } = useComposeDraftStateStore();
+    const { addDraft, removeTempDrafts } = useComposeDraftState();
 
     return useAsyncFn(async () => {
         try {
+            const { posts, cursor, type, currentDraftId, sealedSource } = useComposeStateStore.getState();
+
             if (!posts.length || posts.every((x) => isEmptyPost(x))) return null;
 
             const compositePost = getCompositePost(cursor);
@@ -57,16 +58,5 @@ export function useSaveDraftInCompose(draftType: DraftPostType.LocalNormal | Dra
             logger.error('Failed to save draft in compose', error);
             return null;
         }
-    }, [
-        posts,
-        type,
-        cursor,
-        currentDraftId,
-        scheduleTime,
-        sealedSource,
-        profilesAll,
-        draftType,
-        addDraft,
-        removeTempDrafts,
-    ]);
+    }, [scheduleTime, profilesAll, draftType, addDraft, removeTempDrafts]);
 }
