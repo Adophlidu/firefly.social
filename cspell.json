@@ -577,7 +577,8 @@
         "CASHPNL",
         "PERCENTPNL",
         "vfile",
-        "favorited"
+        "favorited",
+        "masko"
     ],
     "flagWords": [],
     "ignorePaths": [

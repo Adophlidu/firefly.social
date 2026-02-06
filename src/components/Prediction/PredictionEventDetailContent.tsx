@@ -47,7 +47,7 @@ export async function PredictionEventDetailContent({ id, isMutil, platform }: Pr
     const isActive = event.markets.some((market) => !market.isClosed && !market.isResolved);
 
     return (
-        <div>
+        <div className="pb-20">
             <PolymarketEventTracker platform={platform} eventSlug={id} detail={event} />
             <PredictionProfilePageHeader pageTitle={<Trans>Event detail</Trans>} />
             <PredictionEventOverview detail={event} isActive={isActive} />
