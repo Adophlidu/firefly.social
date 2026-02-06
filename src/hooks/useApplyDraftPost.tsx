@@ -23,62 +23,65 @@ export function useApplyDraftPost() {
     const { updateScheduleTime } = useComposeScheduleStateStore();
     const setEditorContent = useSetEditorContent();
 
-    return useAsyncFn(async (draft: Draft, full = false) => {
-        try {
-            if (draft.type === 'reply' || draft.type === 'quote') {
-                const target = first(draft.posts);
-                const post = first(compact(values(target?.parentPost)));
+    return useAsyncFn(
+        async (draft: Draft, full = false) => {
+            try {
+                if (draft.type === 'reply' || draft.type === 'quote') {
+                    const target = first(draft.posts);
+                    const post = first(compact(values(target?.parentPost)));
 
-                if (post) {
-                    const provider = resolveSocialMediaProvider(post.source);
-                    const detail = await provider.getPostById(post.postId);
-                    if (detail.isHidden) {
-                        enqueueErrorMessage(<Trans>The post you quoted/replied has already deleted</Trans>);
-                        return;
+                    if (post) {
+                        const provider = resolveSocialMediaProvider(post.source);
+                        const detail = await provider.getPostById(post.postId);
+                        if (detail.isHidden) {
+                            enqueueErrorMessage(<Trans>The post you quoted/replied has already deleted</Trans>);
+                            return;
+                        }
                     }
                 }
-            }
 
-            const availableProfiles = draft.availableProfiles.filter((x) =>
-                profiles.some((profile) => isSameProfile(profile, x)),
-            );
-            const availableSource =
-                draft.type !== 'compose' ? draft.sealedSource || first(draft.posts)?.availableSources?.[0] : null;
-            apply({
-                ...draft,
-                focused,
-                sealedSource: availableSource || null,
-                posts: draft.posts.map((x) => ({
-                    ...x,
-                    ...(full
-                        ? {
-                              postId: createInitPostState(),
-                              postError: createInitPostState(),
-                              parentPost: createInitPostState(),
-                          }
-                        : {}),
-                    availableSources: availableProfiles.map((x) => x.source as SocialSource),
-                    images: x.images.map((image) => ({
-                        ...image,
-                        urls: {
-                            ...image.urls,
-                            [MediaSource.Local]: URL.createObjectURL(image.file),
-                        },
+                const availableProfiles = draft.availableProfiles.filter((x) =>
+                    profiles.some((profile) => isSameProfile(profile, x)),
+                );
+                const availableSource =
+                    draft.type !== 'compose' ? draft.sealedSource || first(draft.posts)?.availableSources?.[0] : null;
+                apply({
+                    ...draft,
+                    focused,
+                    sealedSource: availableSource || null,
+                    posts: draft.posts.map((x) => ({
+                        ...x,
+                        ...(full
+                            ? {
+                                  postId: createInitPostState(),
+                                  postError: createInitPostState(),
+                                  parentPost: createInitPostState(),
+                              }
+                            : {}),
+                        availableSources: availableProfiles.map((x) => x.source as SocialSource),
+                        images: x.images.map((image) => ({
+                            ...image,
+                            urls: {
+                                ...image.urls,
+                                [MediaSource.Local]: URL.createObjectURL(image.file),
+                            },
+                        })),
                     })),
-                })),
-                currentDraftId: draft.draftId,
-            });
-            const post = draft.posts.find((x) => x.id === draft.cursor);
-            if (post) {
-                updateChars(post.chars, post.id);
-                setEditorContent(post.chars);
+                    currentDraftId: draft.draftId,
+                });
+                const post = draft.posts.find((x) => x.id === draft.cursor);
+                if (post) {
+                    updateChars(post.chars, post.id);
+                    setEditorContent(post.chars);
+                }
+                if (draft.scheduleTime) updateScheduleTime(draft.scheduleTime);
+            } catch (error) {
+                enqueueErrorMessage(<Trans>Failed to apply draft post.</Trans>);
+                throw error;
             }
-            if (draft.scheduleTime) updateScheduleTime(draft.scheduleTime);
-        } catch (error) {
-            enqueueErrorMessage(<Trans>Failed to apply draft post.</Trans>);
-            throw error;
-        }
-    });
+        },
+        [profiles, focused, setEditorContent, updateChars, updateScheduleTime, apply],
+    );
 }
 
 export function useApplyTempDraftPost() {
