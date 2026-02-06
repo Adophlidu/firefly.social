@@ -10,20 +10,17 @@ import Trash from '@/assets/trash2.svg';
 import { Link } from '@/components/Link.js';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-import { type SocialSource } from '@/constants/enum.js';
+import { DraftPostType } from '@/constants/enum.js';
 import { readChars } from '@/helpers/chars.js';
-import { enqueueErrorMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
-import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { useApplyDraftPost } from '@/hooks/useApplyDraftPost.js';
 import { useCurrentProfiles } from '@/hooks/useCurrentProfile.js';
-import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
 import { captureDraftDeleteClickEvent } from '@/providers/telemetry/captureClickEvent.js';
 import { type Draft, useComposeDraftState } from '@/store/useComposeDraftStore.js';
-import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
-import { createInitPostState, useComposeStateStore } from '@/store/useComposeStore.js';
-import { MediaSource } from '@/types/compose.js';
+import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 interface DraftListItemProps {
     draft: Draft;
@@ -146,14 +143,10 @@ const DraftListItem = memo<DraftListItemProps>(function DraftListItem({ draft, h
 });
 
 export const DraftList = memo(function DraftList() {
-    const profiles = useCurrentProfiles();
-
     const { drafts, removeDraft } = useComposeDraftState();
-    const { updateChars, apply, focused, currentDraftId, clear } = useComposeStateStore();
-    const { updateScheduleTime } = useComposeScheduleStateStore();
-    const setEditorContent = useSetEditorContent();
-
+    const { currentDraftId, clear } = useComposeStateStore();
     const router = useRouter();
+
     const handleRemove = useCallback(
         async (id: string) => {
             const confirmed = await ConfirmModalRef.openAndWaitForClose({
@@ -175,63 +168,20 @@ export const DraftList = memo(function DraftList() {
         [removeDraft, currentDraftId, clear],
     );
 
+    const [, applyDraftPost] = useApplyDraftPost();
     const handleApply = useCallback(
-        async (draft: Draft, full = false) => {
-            if (draft.type === 'reply' || draft.type === 'quote') {
-                const target = first(draft.posts);
-                const post = first(compact(values(target?.parentPost)));
-
-                if (post) {
-                    const provider = resolveSocialMediaProvider(post.source);
-                    const detail = await provider.getPostById(post.postId);
-                    if (detail.isHidden) {
-                        enqueueErrorMessage(<Trans>The post you quoted/replied has already deleted</Trans>);
-                        return;
-                    }
-                }
-            }
-
-            const availableProfiles = draft.availableProfiles.filter((x) =>
-                profiles.some((profile) => isSameProfile(profile, x)),
-            );
-            const availableSource =
-                draft.type !== 'compose' ? draft.sealedSource || first(draft.posts)?.availableSources?.[0] : null;
-            apply({
-                ...draft,
-                focused,
-                sealedSource: availableSource || null,
-                posts: draft.posts.map((x) => ({
-                    ...x,
-                    ...(full
-                        ? {
-                              postId: createInitPostState(),
-                              postError: createInitPostState(),
-                              parentPost: createInitPostState(),
-                          }
-                        : {}),
-                    availableSources: availableProfiles.map((x) => x.source as SocialSource),
-                    images: x.images.map((image) => ({
-                        ...image,
-                        urls: {
-                            ...image.urls,
-                            [MediaSource.Local]: URL.createObjectURL(image.file),
-                        },
-                    })),
-                })),
-                currentDraftId: draft.draftId,
-            });
-            const post = draft.posts.find((x) => x.id === draft.cursor);
-            if (post) {
-                updateChars(post.chars, post.id);
-                setEditorContent(post.chars);
-            }
-            if (draft.scheduleTime) updateScheduleTime(draft.scheduleTime);
+        async (draft: Draft, full?: boolean) => {
+            await applyDraftPost(draft, full);
             router.history.push('/');
         },
-        [apply, router, setEditorContent, updateChars, updateScheduleTime, profiles, focused],
+        [router, applyDraftPost],
     );
 
-    if (!drafts.length) {
+    const filteredDrafts = useMemo(
+        () => drafts.filter((draft) => draft.draftType !== DraftPostType.LocalTemp),
+        [drafts],
+    );
+    if (!filteredDrafts.length) {
         return (
             <div className="flex min-h-[478px] flex-col justify-center">
                 <NoResultsFallback className="h-full" />
@@ -242,7 +192,7 @@ export const DraftList = memo(function DraftList() {
     return (
         <div className="no-scrollbar h-[478px] overflow-auto px-6">
             {orderBy(
-                drafts,
+                filteredDrafts,
                 (x) => {
                     return dayjs(x.createdAt).unix();
                 },

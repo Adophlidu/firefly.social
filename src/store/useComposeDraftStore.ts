@@ -4,7 +4,7 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
-import { type SocialSource } from '@/constants/enum.js';
+import { DraftPostType, type SocialSource } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/static.js';
 import { createPersistStorage } from '@/helpers/createPersistStorage.js';
 import { createSelectors } from '@/helpers/createSelector.js';
@@ -24,6 +24,7 @@ export interface Draft {
     sealedSource?: SocialSource | null;
     // the fid when creating a draft.
     createBy?: string;
+    draftType?: DraftPostType;
 }
 
 interface ComposeDraftState {
@@ -31,6 +32,7 @@ interface ComposeDraftState {
     getDrafts: (accountId?: string | null) => Draft[];
     addDraft: (draft: Draft) => void;
     removeDraft: (id: string) => void;
+    removeTempDrafts: () => void;
 }
 
 const getCurrentAccountId = () => fireflySessionHolder.session?.profileId;
@@ -46,7 +48,11 @@ const useComposeStateBase = create<ComposeDraftState, [['zustand/persist', unkno
             addDraft: (draft: Draft) =>
                 set((state) => {
                     const newDraft = draft.createBy ? draft : { ...draft, createBy: getCurrentAccountId() };
-                    const index = state.drafts.findIndex((x) => x.draftId === newDraft.draftId);
+                    const index = state.drafts.findIndex((x) =>
+                        newDraft.draftType === DraftPostType.LocalTemp
+                            ? x.draftType === DraftPostType.LocalTemp
+                            : x.draftId === newDraft.draftId,
+                    );
                     if (index === -1) {
                         state.drafts = [...state.drafts, newDraft] as Array<WritableDraft<Draft>>;
                     } else {
@@ -60,6 +66,11 @@ const useComposeStateBase = create<ComposeDraftState, [['zustand/persist', unkno
             removeDraft: (draftId: string) => {
                 set((state) => {
                     state.drafts = state.drafts.filter((x) => x.draftId !== draftId);
+                });
+            },
+            removeTempDrafts: () => {
+                set((state) => {
+                    state.drafts = state.drafts.filter((x) => x.draftType !== DraftPostType.LocalTemp);
                 });
             },
         })),

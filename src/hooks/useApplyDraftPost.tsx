@@ -1,0 +1,120 @@
+import { Trans } from '@lingui/react/macro';
+import { compact, first, values } from 'lodash-es';
+import { useAsyncFn } from 'react-use';
+
+import { DraftPostType, type SocialSource } from '@/constants/enum.js';
+import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
+import { isSameProfile } from '@/helpers/isSameProfile.js';
+import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { useCurrentProfiles } from '@/hooks/useCurrentProfile.js';
+import { useIsSmall } from '@/hooks/useMediaQuery.js';
+import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
+import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
+import { type Draft, useComposeDraftStateStore } from '@/store/useComposeDraftStore.js';
+import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
+import { createInitPostState, useComposeStateStore } from '@/store/useComposeStore.js';
+import { MediaSource } from '@/types/compose.js';
+
+export function useApplyDraftPost() {
+    const profiles = useCurrentProfiles();
+
+    const { updateChars, apply, focused } = useComposeStateStore();
+    const { updateScheduleTime } = useComposeScheduleStateStore();
+    const setEditorContent = useSetEditorContent();
+
+    return useAsyncFn(async (draft: Draft, full = false) => {
+        try {
+            if (draft.type === 'reply' || draft.type === 'quote') {
+                const target = first(draft.posts);
+                const post = first(compact(values(target?.parentPost)));
+
+                if (post) {
+                    const provider = resolveSocialMediaProvider(post.source);
+                    const detail = await provider.getPostById(post.postId);
+                    if (detail.isHidden) {
+                        enqueueErrorMessage(<Trans>The post you quoted/replied has already deleted</Trans>);
+                        return;
+                    }
+                }
+            }
+
+            const availableProfiles = draft.availableProfiles.filter((x) =>
+                profiles.some((profile) => isSameProfile(profile, x)),
+            );
+            const availableSource =
+                draft.type !== 'compose' ? draft.sealedSource || first(draft.posts)?.availableSources?.[0] : null;
+            apply({
+                ...draft,
+                focused,
+                sealedSource: availableSource || null,
+                posts: draft.posts.map((x) => ({
+                    ...x,
+                    ...(full
+                        ? {
+                              postId: createInitPostState(),
+                              postError: createInitPostState(),
+                              parentPost: createInitPostState(),
+                          }
+                        : {}),
+                    availableSources: availableProfiles.map((x) => x.source as SocialSource),
+                    images: x.images.map((image) => ({
+                        ...image,
+                        urls: {
+                            ...image.urls,
+                            [MediaSource.Local]: URL.createObjectURL(image.file),
+                        },
+                    })),
+                })),
+                currentDraftId: draft.draftId,
+            });
+            const post = draft.posts.find((x) => x.id === draft.cursor);
+            if (post) {
+                updateChars(post.chars, post.id);
+                setEditorContent(post.chars);
+            }
+            if (draft.scheduleTime) updateScheduleTime(draft.scheduleTime);
+        } catch (error) {
+            enqueueErrorMessage(<Trans>Failed to apply draft post.</Trans>);
+            throw error;
+        }
+    });
+}
+
+export function useApplyTempDraftPost() {
+    const isSmall = useIsSmall('max');
+    const profiles = useCurrentProfiles();
+    const { drafts, removeTempDrafts } = useComposeDraftStateStore();
+    const [, applyDraftPost] = useApplyDraftPost();
+
+    return useAsyncFn(async () => {
+        const tempDraft = drafts.find((draft) => draft.draftType === DraftPostType.LocalTemp);
+        if (!tempDraft) return;
+
+        const isDisabled = !tempDraft.availableProfiles.some((x) =>
+            profiles.some((profile) => isSameProfile(profile, x)),
+        );
+        if (isDisabled) return;
+
+        const confirmed = await ConfirmModalRef.openAndWaitForClose({
+            title: <Trans>Unsaved draft found</Trans>,
+            content: (
+                <div className="text-medium text-main md:text-base">
+                    <Trans>Would you like to restore it?”</Trans>
+                </div>
+            ),
+            enableCloseButton: !isSmall,
+            enableCancelButton: true,
+            cancelButtonText: <Trans>Discard</Trans>,
+            confirmButtonText: <Trans>Yes</Trans>,
+            variant: 'normal',
+        });
+        if (confirmed === null) return;
+        if (confirmed === false) {
+            removeTempDrafts();
+            return;
+        }
+
+        await applyDraftPost(tempDraft, true);
+        setTimeout(() => removeTempDrafts(), 200);
+    }, [drafts, isSmall, profiles, applyDraftPost, removeTempDrafts]);
+}

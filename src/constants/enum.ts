@@ -718,3 +718,9 @@ export enum RedpacketTxType {
     create = 'create',
     claim = 'claim',
 }
+
+export enum DraftPostType {
+    LocalNormal = 'local_normal',
+    LocalTemp = 'local_temp',
+    Cloud = 'cloud',
+}

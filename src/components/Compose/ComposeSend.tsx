@@ -36,7 +36,7 @@ export function ComposeSend(props: ComposeSendProps) {
     const post = useCompositePost();
     const { type, posts, currentDraftId } = useComposeStateStore();
     const { scheduleTime } = useComposeScheduleStateStore();
-    const { removeDraft } = useComposeDraftStateStore();
+    const { removeDraft, removeTempDrafts } = useComposeDraftStateStore();
 
     const isMedium = useIsMedium();
 
@@ -76,6 +76,7 @@ export function ComposeSend(props: ComposeSendProps) {
                 await delay(300);
                 // If the draft is applied and sent successfully, remove the draft.
                 if (currentDraftId) removeDraft(currentDraftId);
+                removeTempDrafts();
                 ComposeModalRef.close({
                     post: postResult,
                 });
@@ -84,7 +85,17 @@ export function ComposeSend(props: ComposeSendProps) {
                 throw error;
             }
         },
-        [checkPostMedias, controller, hasMultiplePosts, currentDraftId, removeDraft, scheduleTime, type, post],
+        [
+            controller,
+            hasMultiplePosts,
+            currentDraftId,
+            scheduleTime,
+            type,
+            post,
+            checkPostMedias,
+            removeDraft,
+            removeTempDrafts,
+        ],
     );
 
     const hasError = useMemo(() => {

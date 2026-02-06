@@ -8,7 +8,7 @@ import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext
 import { Trans } from '@lingui/react/macro';
 import { RouterProvider } from '@tanstack/react-router';
 import { $getRoot } from 'lexical';
-import { compact, values } from 'lodash-es';
+import { compact } from 'lodash-es';
 import { useCallback, useRef } from 'react';
 import { useUpdateEffect } from 'react-use';
 import urlcat from 'urlcat';
@@ -17,16 +17,17 @@ import { router } from '@/components/Compose/ComposeRouter.js';
 import { MentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Modal } from '@/components/Modal.js';
-import { CharTag, type SocialSource } from '@/constants/enum.js';
-import { EMPTY_LIST, SITE_URL } from '@/constants/static.js';
+import { CharTag, DraftPostType, type SocialSource } from '@/constants/enum.js';
+import { SITE_URL } from '@/constants/static.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getCompositePost } from '@/helpers/getCompositePost.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
 import { isEmptyPost } from '@/helpers/isEmptyPost.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
-import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
+import { useApplyTempDraftPost } from '@/hooks/useApplyDraftPost.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
+import { useSaveDraftInCompose } from '@/hooks/useSaveDraftInCompose.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
@@ -35,7 +36,6 @@ import { type ComposeModalCloseProps, type ComposeModalOpenProps } from '@/modal
 import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
 import { captureComposeDraftPostEvent } from '@/providers/telemetry/captureComposeEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
-import { useComposeDraftStateStore } from '@/store/useComposeDraftStore.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { type Chars } from '@/types/chars.js';
@@ -66,12 +66,12 @@ function ComposeModalUI({ ref }: Props) {
     const contentRef = useRef<HTMLDivElement>(null);
     const controller = useAbortController();
 
-    const profilesAll = useCurrentProfilesAll();
-
     const {
         posts,
-        addUrl,
+        isBusy,
+        cursor,
         type,
+        addUrl,
         updateType,
         updateAvailableSources,
         updateParentPost,
@@ -82,12 +82,9 @@ function ComposeModalUI({ ref }: Props) {
         clear,
         updateIsFailedSchedulePost,
         updateDisabledSources,
-        isBusy,
-        cursor,
-        currentDraftId,
-        sealedSource,
     } = useComposeStateStore();
-    const { clearScheduleTime, scheduleTime } = useComposeScheduleStateStore();
+    const { clearScheduleTime } = useComposeScheduleStateStore();
+    const [, applyTempDraftPost] = useApplyTempDraftPost();
 
     const [editor] = useLexicalComposerContext();
 
@@ -123,6 +120,10 @@ function ComposeModalUI({ ref }: Props) {
             if (initialPath) router.navigate({ to: initialPath });
             embeds?.forEach((embedUrl) => addUrl(embedUrl));
             if (isFailedSchedulePost) updateIsFailedSchedulePost(true);
+
+            setTimeout(() => {
+                applyTempDraftPost();
+            }, 500); // wait for modal animation
         },
         onClose: async (_props) => {
             // wait for animation to finish
@@ -143,11 +144,11 @@ function ComposeModalUI({ ref }: Props) {
 
     const isSmall = useIsSmall('max');
 
-    const { addDraft } = useComposeDraftStateStore();
+    const [_, saveDraftInCompose] = useSaveDraftInCompose(DraftPostType.LocalNormal);
 
     const onClose = useCallback(async () => {
         const compositePost = getCompositePost(cursor);
-        const { availableSources = EMPTY_LIST, isAnonymous } = compositePost ?? {};
+        const { isAnonymous } = compositePost ?? {};
         if (posts.some((x) => !isEmptyPost(x))) {
             const errorsSource = [
                 ...new Set(
@@ -159,8 +160,6 @@ function ComposeModalUI({ ref }: Props) {
             ] as SocialSource[];
 
             const hasError = !!errorsSource.length;
-
-            const sources = hasError ? errorsSource : availableSources;
             const confirmed = await ConfirmModalRef.openAndWaitForClose({
                 title: isAnonymous ? (
                     <Trans>Discard Post</Trans>
@@ -189,18 +188,11 @@ function ComposeModalUI({ ref }: Props) {
             if (confirmed === null || (confirmed && isAnonymous)) return CloseAction.None;
 
             if (confirmed) {
-                const draft = {
-                    draftId: currentDraftId || crypto.randomUUID(),
-                    createdAt: new Date(),
-                    cursor,
-                    posts: hasError ? posts.map((x) => ({ ...x, availableSources: sources })) : posts,
-                    type,
-                    availableProfiles: compact(values(profilesAll)).filter((x) => sources.includes(x.source)),
-                    scheduleTime,
-                    sealedSource,
-                };
-
-                addDraft(draft);
+                const draft = await saveDraftInCompose();
+                if (!draft) {
+                    dispatch?.close();
+                    return;
+                }
                 ComposeModalRef.close();
                 enqueueSuccessMessage(<Trans>Your draft was saved.</Trans>);
                 captureComposeDraftPostEvent(EventId.COMPOSE_DRAFT_CREATE_SUCCESS, posts[0], {
@@ -215,7 +207,7 @@ function ComposeModalUI({ ref }: Props) {
             dispatch?.close();
         }
         return CloseAction.Discard;
-    }, [isSmall, profilesAll, dispatch, addDraft, posts, cursor, currentDraftId, type, sealedSource, scheduleTime]);
+    }, [isSmall, dispatch, posts, cursor, saveDraftInCompose]);
 
     useUpdateEffect(() => {
         if (type !== 'quote') return;
