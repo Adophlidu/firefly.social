@@ -5,6 +5,7 @@ import { LINK_MARK_RE } from '@/constants/linkRegExp.js';
 import {
     BSKY_MENTION_REGEX,
     CHANNEL_REGEX,
+    FARCASTER_MENTION_REGEX,
     LENS_MENTION_REGEX,
     MENTION_REGEX,
     SYMBOL_REGEX,
@@ -383,6 +384,26 @@ describe('LENS_MENTION_REGEX', () => {
         ] as const;
         cases.forEach(([input, expected]) => {
             const [matched] = input.match(LENS_MENTION_REGEX) ?? [null];
+            expect(matched).toBe(expected);
+        });
+    });
+});
+
+describe('FARCASTER_MENTION_REGEX', () => {
+    it('should match farcaster mention - single level ENS', () => {
+        const cases = [
+            // Single level .eth domains
+            ['@vitalik.eth', '@vitalik.eth'],
+            ['@alice.eth', '@alice.eth'],
+            ['@bob-123.eth', '@bob-123.eth'],
+            ['@user_name.eth', '@user_name.eth'],
+            ['@jesse.base.eth', '@jesse.base.eth'],
+            ['@a.eth', '@a.eth'],
+        ] as const;
+
+        cases.forEach(([input, expected]) => {
+            FARCASTER_MENTION_REGEX.lastIndex = 0;
+            const [matched] = input.match(FARCASTER_MENTION_REGEX) ?? [null];
             expect(matched).toBe(expected);
         });
     });
