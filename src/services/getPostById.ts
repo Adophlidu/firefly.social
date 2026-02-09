@@ -1,12 +1,55 @@
+import { last } from 'lodash-es';
+
 import { type SocialSource, Source } from '@/constants/enum.js';
+import { extractArticleIdFromUrl } from '@/helpers/fireflyPostUrl.js';
+import { matchUrls } from '@/helpers/matchUrls.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { getArticleById } from '@/providers/firefly/article/getArticleById.js';
 import { getLensPostById } from '@/providers/lens/getLensPostById.js';
 import { isLensV2PostId } from '@/providers/lens/isLensV2PostId.js';
+import { type Post } from '@/providers/types/SocialMedia.js';
 
 export async function getPostById(source: SocialSource, postId: string) {
+    let post: Post;
+
     if (source === Source.Lens && isLensV2PostId(postId)) {
-        return getLensPostById(postId, true);
+        post = await getLensPostById(postId, true);
+    } else {
+        const provider = resolveSocialMediaProvider(source);
+        post = await provider.getPostById(postId);
     }
-    const provider = resolveSocialMediaProvider(source);
-    return provider.getPostById(postId);
+    return enrichPostWithFireflyArticle(post);
+}
+
+async function enrichPostWithFireflyArticle(post: Post): Promise<Post> {
+    // Only support Bsky for now
+    if (post.source !== Source.Bsky) return post;
+
+    const content = post.metadata.content?.content;
+    if (!content) return post;
+
+    const urls = matchUrls(content);
+    const articleIds = urls.map(extractArticleIdFromUrl).filter((id) => id !== null);
+
+    const articleId = articleIds.length > 0 ? last(articleIds) : null;
+
+    if (!articleId) return post;
+
+    try {
+        const article = await getArticleById(articleId);
+        if (!article?.content) return post;
+
+        return {
+            ...post,
+            metadata: {
+                ...post.metadata,
+                content: {
+                    ...post.metadata.content,
+                    content: article.content,
+                },
+            },
+        };
+    } catch {
+        return post;
+    }
 }

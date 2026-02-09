@@ -6,14 +6,21 @@ export const MAX_CHAR_SIZE_PER_POST: Limitation = {
     [Source.Farcaster]: 1024,
     [Source.Lens]: 5000,
     [Source.Twitter]: 280,
-    [Source.Bsky]: 300,
+    [Source.Bsky]: 5000,
 };
+
+/**
+ * Bsky short post character limit
+ * Posts within this limit can be posted directly to Bsky
+ * Posts exceeding this limit will be stored as Firefly articles with truncated preview
+ */
+export const BSKY_SHORT_POST_LIMIT = 300;
 
 export const MAX_CHAR_SIZE_VERIFY_PER_POST: Limitation = {
     [Source.Farcaster]: 1024,
     [Source.Lens]: 5000,
     [Source.Twitter]: 25000,
-    [Source.Bsky]: 300,
+    [Source.Bsky]: 5000,
 };
 
 export const MAX_CHAR_SIZE_PRO_PER_POST: Limitation = {

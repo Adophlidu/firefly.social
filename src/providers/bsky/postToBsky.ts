@@ -1,18 +1,22 @@
-import { FileMimeType, Source } from '@/constants/enum.js';
-import { BSKY_IMAGE_LIMITATION, MAX_IMAGE_SIZE_PER_POST } from '@/constants/limitation.js';
+import { FileMimeType, FireflyPlatform, Source } from '@/constants/enum.js';
+import { BSKY_IMAGE_LIMITATION, BSKY_SHORT_POST_LIMIT, MAX_IMAGE_SIZE_PER_POST } from '@/constants/limitation.js';
 import { readChars } from '@/helpers/chars.js';
 import { compressImage } from '@/helpers/compressImage.js';
 import { downloadMediaObjects } from '@/helpers/downloadMediaObjects.js';
+import { formatFireflyPostUrl } from '@/helpers/fireflyPostUrl.js';
 import { getCompositePost } from '@/helpers/getCompositePost.js';
 import { getVideoMetadata } from '@/helpers/getVideoMetadata.js';
 import { resolveImageUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { truncateTextForBsky } from '@/helpers/truncateTextForBsky.js';
+import { PostAtUri } from '@/providers/bsky/AtUri.js';
 import { createBskyMediaObject } from '@/providers/bsky/createBskyMediaObject.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import { bskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { uploadVideoToBsky } from '@/providers/bsky/uploadVideoToBsky.js';
-import { type Poll } from '@/providers/types/Poll.js';
+import { postArticle } from '@/providers/firefly/article/postArticle.js';
+import { updateArticle } from '@/providers/firefly/article/updateArticle.js';
 import { type Post, type PostType } from '@/providers/types/SocialMedia.js';
 import { createPostTo } from '@/services/createPostTo.js';
 import { useBskyProfileStore } from '@/store/useProfileStore/useBskyProfileStore.js';
@@ -46,7 +50,7 @@ export async function postToBsky(
     const { currentProfile } = useBskyProfileStore.getState();
     if (!currentProfile?.profileId) throw new Error(`Login required to post on ${sourceName}.`);
 
-    const composeDraft = async (postType: PostType, images: MediaObject[], videos: MediaObject[], polls?: Poll[]) => {
+    const composeDraft = async (postType: PostType, images: MediaObject[], videos: MediaObject[]) => {
         if (images.some((media) => !media.blobRef)) {
             throw new Error('There are images that were not uploaded successfully.');
         }
@@ -130,6 +134,33 @@ export async function postToBsky(
             return [];
         },
         async compose(images, videos) {
+            const textContent = readChars(chars, 'visible', Source.Bsky);
+            const textLength = textContent.length;
+
+            if (textLength > BSKY_SHORT_POST_LIMIT) {
+                const { articleId } = await postArticle('', textContent, currentProfile.profileId);
+
+                const fireflyArticleUrl = formatFireflyPostUrl(Source.Bsky, articleId);
+
+                const truncatedContent = truncateTextForBsky(textContent, fireflyArticleUrl);
+
+                const draftWithTruncatedText = await composeDraft('Post', images, videos);
+                draftWithTruncatedText.metadata.content = {
+                    content: truncatedContent,
+                };
+
+                const result = await bskySocialMediaProvider.publishPost(draftWithTruncatedText);
+
+                if (result?.contentURI) {
+                    await runInSafeAsync(() =>
+                        updateArticle(articleId, FireflyPlatform.Bsky, PostAtUri.from(result.contentURI).toId()),
+                    );
+                }
+
+                return result;
+            }
+
+            // Normal flow for posts <= 300 characters
             const draft = await composeDraft('Post', images, videos);
             return bskySocialMediaProvider.publishPost(draft);
         },

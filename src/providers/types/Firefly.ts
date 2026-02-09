@@ -286,6 +286,9 @@ export interface Article {
     };
     is_like?: boolean;
     like_count?: number;
+    custom_payload: {
+        posts: ArticlePostInfo[];
+    };
 }
 
 export interface FireflySnapshotActivity {
@@ -2953,3 +2956,36 @@ export interface PolymarketOpenOrderDetail {
     associate_trades: string[];
     created_at: number;
 }
+
+/** Post Article API types */
+export interface PostArticlePayload {
+    content_title: string;
+    content_body: string;
+    platform_uid: string;
+}
+
+export interface PostArticleResult {
+    articleId: string;
+}
+
+export type PostArticleResponse = Response<PostArticleResult>;
+
+/** Update Article API types */
+export interface ArticlePostInfo {
+    platform: string;
+    postId: string;
+}
+
+export interface UpdateArticlePayload {
+    articleId: string;
+    custom_payload: {
+        posts?: ArticlePostInfo[];
+    };
+}
+
+export interface UpdateArticleResult {
+    articleId: string;
+    custom_payload: Record<string, unknown>;
+}
+
+export type UpdateArticleResponse = Response<UpdateArticleResult>;

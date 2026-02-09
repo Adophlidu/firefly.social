@@ -98,5 +98,7 @@ export function formatArticleFromFirefly(article: FireflyArticle): Article {
         displayInfo: article.displayInfo,
         // matters only
         htmlContent: isMattersArticle ? article.contents.body : undefined,
+        // firefly only
+        customPayload: article.custom_payload,
     };
 }
