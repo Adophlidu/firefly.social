@@ -4,6 +4,17 @@ import type { PolymarketOpenOrderDetail } from '@/providers/types/Firefly.js';
 
 export type MarketOrderBookSpread = (typeof SPREAD_SETTING_OPTIONS)[number];
 
+export interface PredictionPnlHistoryItem {
+    timestamp: number;
+    pnl: number;
+}
+
+export interface PredictionPnlHistory {
+    pnl_items: PredictionPnlHistoryItem[];
+    net_pnl: number;
+    net_pnl_rate: number;
+}
+
 export interface PredictionProfileDataForUI {
     balance: number;
     cash_balance: number;
@@ -19,6 +30,7 @@ export interface PredictionProfileDataForUI {
     losses?: number;
     gains?: number;
     volume?: number;
+    pnl_history?: PredictionPnlHistory;
 }
 
 export interface PredictionPositionDataForUI {
