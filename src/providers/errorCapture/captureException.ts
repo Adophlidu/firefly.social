@@ -37,7 +37,7 @@ export function captureException(
         exception_type: exceptionId,
         stack_trace: err.stack,
         severity: 'error',
-        tags: { exceptionId, ...tags },
+        tags,
     });
     if (!queued) {
         logger.warn(`[captureException] beacon not queued for exception: ${exceptionId}`);

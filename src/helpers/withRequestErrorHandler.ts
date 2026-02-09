@@ -43,8 +43,7 @@ export function withRequestErrorHandler<P>(options?: { throwError?: boolean }) {
                     await reportExceptionServer(error, {
                         exception_type: ExceptionId.API_ROUTE_ERROR,
                         tags: {
-                            exceptionId: ExceptionId.API_ROUTE_ERROR,
-                            path: request.nextUrl?.pathname ?? request.url ?? 'unknown',
+                            path: request.url,
                         },
                     });
                     const err = error instanceof Error ? error : new Error(String(error));
