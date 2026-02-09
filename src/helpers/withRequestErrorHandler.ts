@@ -40,17 +40,14 @@ export function withRequestErrorHandler<P>(options?: { throwError?: boolean }) {
                 }
                 if (!throwError) {
                     // Report server-side API errors to firefly-exception-tracker
-                    const err = error instanceof Error ? error : new Error(String(error));
-                    await reportExceptionServer({
-                        message: err.message,
+                    await reportExceptionServer(error, {
                         exception_type: ExceptionId.API_ROUTE_ERROR,
-                        stack_trace: err.stack,
-                        severity: 'error',
                         tags: {
                             exceptionId: ExceptionId.API_ROUTE_ERROR,
                             path: request.nextUrl?.pathname ?? request.url ?? 'unknown',
                         },
                     });
+                    const err = error instanceof Error ? error : new Error(String(error));
                     return createErrorResponseJson(err.message, {
                         status: 500,
                     });

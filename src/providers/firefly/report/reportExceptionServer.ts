@@ -15,16 +15,28 @@ export interface ReportExceptionServerPayload {
     tags?: Record<string, string | number | boolean>;
 }
 
+function normalizeError(error: unknown): Error {
+    return error instanceof Error ? error : new Error(String(error));
+}
+
 /**
  * Reports an exception from the server (e.g. API route) to the firefly-exception-tracker.
+ * Message and stack_trace are derived from error; payload supplies the rest.
  * No-op if FIREFLY_EXCEPTION_TRACKER_API_KEY is not configured.
  */
-export async function reportExceptionServer(payload: ReportExceptionServerPayload): Promise<void> {
+export async function reportExceptionServer(
+    error: unknown,
+    payload: Partial<ReportExceptionServerPayload> = {},
+): Promise<void> {
     const apiKey = env.internal.FIREFLY_EXCEPTION_TRACKER_API_KEY;
     if (!apiKey) return;
 
+    const err = normalizeError(error);
     const body = {
         ...payload,
+        message: err.message,
+        stack_trace: err.stack,
+        severity: 'error',
         service_name: 'firefly-server',
         release_version: env.shared.VERSION,
         commit_hash: env.shared.COMMIT_HASH,
