@@ -36,7 +36,7 @@ export function PageDetail({ id: postId, source }: Props) {
     const allPosts = threads?.data || EMPTY_LIST;
 
     return (
-        <article className="min-h-svh">
+        <article className="min-h-svh pb-20 md:pb-0">
             {post.channel?.name ? (
                 <Section title="Post Channel">
                     <ChannelInfo channel={post.channel} source={post.source} className="border-b border-line p-3" />

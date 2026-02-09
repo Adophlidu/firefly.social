@@ -32,7 +32,7 @@ interface PredictionPositionItemProps {
 function resolveEventUrl(platform: PredictionPlatform, positionData: PredictionPositionDataForUI) {
     switch (platform) {
         case PredictionPlatform.Polymarket: {
-            const eventSlug = positionData.marketSlug || first(positionData.event_slugs);
+            const eventSlug = first(positionData.event_slugs) || positionData.marketSlug;
             return eventSlug ? RouteResolver.betsEventDetail(PredictionPlatform.Polymarket, eventSlug) : undefined;
         }
         case PredictionPlatform.Opinion:
