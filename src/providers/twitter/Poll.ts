@@ -16,7 +16,11 @@ class TwitterPoll implements Provider {
     async createPoll(poll: CompositePoll): Promise<Poll> {
         return {
             id: '',
-            options: poll.options.map((option) => ({ id: option.id, label: option.label })),
+            options: poll.options.map((option) => ({
+                id: option.id,
+                label: option.label,
+                imageUrl: option.imageUrl,
+            })),
             durationSeconds: getPollDurationSeconds(poll.duration),
             source: Source.Twitter,
             type: poll.type,
@@ -25,7 +29,7 @@ class TwitterPoll implements Provider {
         };
     }
 
-    vote(options: {
+    vote(_options: {
         postId: string;
         pollId: string;
         frameUrl: string;
@@ -34,7 +38,7 @@ class TwitterPoll implements Provider {
         throw new NotImplementedError();
     }
 
-    getPollById(pollId: string): Promise<Poll> {
+    getPollById(_pollId: string): Promise<Poll> {
         throw new NotImplementedError();
     }
 }

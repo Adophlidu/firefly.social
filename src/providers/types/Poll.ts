@@ -10,6 +10,9 @@ export interface PollOption {
     votes?: number;
     isVoted?: boolean;
     percent?: number;
+    // Twitter poll option image support
+    imageUrl?: string;
+    imageFile?: File;
 }
 
 export interface Poll {

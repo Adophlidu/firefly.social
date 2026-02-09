@@ -99,10 +99,13 @@ export function formatTwitterPostFromNitter(
 ): Post {
     const includesUser = options?.includes?.users?.find((u) => u.id === tweet.user.id);
     const attachments = [
-        ...(tweet.photos?.map<Attachment>((photo) => ({
-            type: 'Image',
-            uri: getTwitterNitterPicOrigUrl(photo),
-        })) ?? []),
+        // Filter out empty photo strings to prevent redundant empty image attachments
+        ...(tweet.photos
+            ?.filter((photo) => photo.trim())
+            .map<Attachment>((photo) => ({
+                type: 'Image',
+                uri: getTwitterNitterPicOrigUrl(photo),
+            })) ?? []),
         ...compact(tweet.gifs).map<Attachment>(({ url, thumb }) => ({
             type: 'AnimatedGif',
             uri: getTwitterNitterPicUrl(url),
@@ -191,11 +194,14 @@ export function formatTwitterPostFromNitter(
     if (tweet.poll) {
         const poll = tweet.poll;
         const cardPrefix = 'card://';
-        const id = poll.url.startsWith(cardPrefix) ? tweet.poll.url.substring(cardPrefix.length) : tweet.poll.url;
+        const id = poll.url.startsWith(cardPrefix) ? poll.url.substring(cardPrefix.length) : poll.url;
         const durationMinutes = poll.durationMinutes ? Number.parseInt(poll.durationMinutes, 10) : 0;
+        // Filter out empty poll options to handle nitter API returning fixed-size arrays
+        const validOptions = poll.options.filter((x) => x.trim());
+        const validValues = poll.values.filter((_, i) => poll.options[i].trim());
         post.poll = {
             id,
-            options: tweet.poll.options.map((x, i) => ({ label: x, id: x, votes: poll.values[i] })),
+            options: validOptions.map((x, i) => ({ label: x, id: x, votes: validValues[i] ?? 0 })),
             durationSeconds: durationMinutes * 60,
             votingStatus: dayjs(poll.endTime).isBefore(dayjs()) ? 'open' : 'closed',
             endDatetime: poll.endTime,
