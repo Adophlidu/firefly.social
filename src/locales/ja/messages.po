@@ -4392,7 +4392,7 @@ msgid "Unmute"
 msgstr ""
 
 #. placeholder {0}: outcome.label
-#. placeholder {1}: (bestPrice * 100).toFixed(1)
+#. placeholder {1}: removeTrailingZeros((bestPrice * 100).toFixed(1))
 msgid "<0>Buy {0}</0><1>{1}¢</1>"
 msgstr ""
 

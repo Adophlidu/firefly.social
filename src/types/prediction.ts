@@ -55,6 +55,8 @@ export interface BetsMarketOutcome {
     label: string;
     price: string;
     rate?: string;
+    bestAsk?: string;
+    bestBid?: string;
 }
 
 export interface BetsMarketDataForUI {

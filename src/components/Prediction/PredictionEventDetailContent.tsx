@@ -53,8 +53,8 @@ export async function PredictionEventDetailContent({ id, isMutil, platform }: Pr
             <PolymarketEventTracker platform={platform} eventSlug={id} detail={event} />
             <PredictionProfilePageHeader pageTitle={<Trans>Event detail</Trans>} />
             <PredictionEventOverview detail={event} isActive={isActive} />
-            <PredictionMarketsPriceLineChart platform={platform} markets={markets} isActive={isActive} />
             <PredictionContextProvider platform={platform} markets={markets}>
+                <PredictionMarketsPriceLineChart platform={platform} markets={markets} isActive={isActive} />
                 <PredictionMarketsAccountTab eventSlug={id} event={event} platform={platform} />
                 <PredictionBaseInfoTabs showResolution={showResolution} eventSlug={eventSlug} />
                 <PredictionBaseInfoTabContent

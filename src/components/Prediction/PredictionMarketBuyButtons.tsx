@@ -2,14 +2,14 @@
 
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
-import { useQuery } from '@tanstack/react-query';
 import { isUndefined } from 'lodash-es';
-import { memo } from 'react';
+import { memo, use } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { PredictionContext } from '@/components/Prediction/PredictionContext.js';
 import type { PredictionPlatform } from '@/constants/enum.js';
+import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
 import { openPredictionPage } from '@/helpers/openPredictionPage.js';
-import { getBetsMarketPrice } from '@/providers/prediction/getBetsMarketPrice.js';
 import type { BetsMarketDataForUI } from '@/types/prediction.js';
 
 interface PredictionMarketBuyButtonsProps {
@@ -22,20 +22,15 @@ interface PredictionMarketBuyButtonsProps {
 }
 
 export const PredictionMarketBuyButtons = memo<PredictionMarketBuyButtonsProps>(function PredictionMarketBuyButtons({
-    market,
+    market: marketInProps,
     platform,
     size = 'default',
     showPrice = false,
-    autoRefreshPrice = false,
     className,
 }) {
-    const { data } = useQuery({
-        queryKey: ['bets', 'market-price', market.id],
-        enabled: !!autoRefreshPrice && market.outcomes.length > 0,
-        refetchInterval: 1000 * 10, // every 10 seconds
-        queryFn: () => getBetsMarketPrice(platform, { market }),
-    });
+    const { market: marketInContext } = use(PredictionContext);
 
+    const market = marketInContext?.id === marketInProps.id ? marketInContext : marketInProps;
     if (!market.outcomes.length) return null;
 
     const isLarge = size === 'large';
@@ -43,10 +38,12 @@ export const PredictionMarketBuyButtons = memo<PredictionMarketBuyButtonsProps>(
     return (
         <div className={classNames('flex', isLarge ? 'gap-4' : 'gap-2', className)}>
             {market.outcomes.map((outcome, i) => {
-                const newPrice = data?.find((item) => item.outcomeId === outcome.id)?.price;
-                const priceToShow = newPrice ?? outcome.price;
-                const price = Number.isNaN(+priceToShow) ? 0 : +priceToShow;
-                const bestPrice = i === 1 ? (isUndefined(market.bestBid) ? 0 : price) : price;
+                const price = !Number.isNaN(+outcome.price) ? parseFloat(outcome.price) : 0;
+                const bestPrice = !isUndefined(outcome.bestAsk)
+                    ? !Number.isNaN(+outcome.bestAsk)
+                        ? parseFloat(outcome.bestAsk)
+                        : price
+                    : price;
 
                 return (
                     <ClickableButton
@@ -72,7 +69,7 @@ export const PredictionMarketBuyButtons = memo<PredictionMarketBuyButtonsProps>(
                         {showPrice ? (
                             <Trans>
                                 <span className="min-w-0 truncate">Buy {outcome.label}</span>
-                                <span className="shrink-0">{(bestPrice * 100).toFixed(1)}¢</span>
+                                <span className="shrink-0">{removeTrailingZeros((bestPrice * 100).toFixed(1))}¢</span>
                             </Trans>
                         ) : (
                             <Trans>Buy {outcome.label}</Trans>
