@@ -10,6 +10,7 @@ import { FIREFLY_EXCEPTION_TRACKER_URL, IS_PRODUCTION } from '@/constants/static
 export interface ReportExceptionServerPayload {
     message: string;
     exception_type?: string;
+    request_url?: string;
     stack_trace?: string;
     severity?: 'error' | 'warning' | 'critical';
     tags?: Record<string, string | number | boolean>;

@@ -40,12 +40,13 @@ export function withRequestErrorHandler<P>(options?: { throwError?: boolean }) {
                 }
                 if (!throwError) {
                     // Report server-side API errors to firefly-exception-tracker
-                    await reportExceptionServer(error, {
-                        exception_type: ExceptionId.API_ROUTE_ERROR,
-                        tags: {
-                            path: request.url,
-                        },
-                    });
+                    if (!request.url.includes('/api/beacon/exceptions')) {
+                        await reportExceptionServer(error, {
+                            exception_type: ExceptionId.API_ROUTE_ERROR,
+                            request_url: request.url,
+                        });
+                    }
+
                     const err = error instanceof Error ? error : new Error(String(error));
                     return createErrorResponseJson(err.message, {
                         status: 500,
