@@ -11,11 +11,15 @@ import type { BetsMarketDataForUI } from '@/types/prediction.js';
 interface PredictionMarketTopHoldersProps {
     platform: PredictionPlatform;
     markets: BetsMarketDataForUI[];
+    eventSlug?: string;
+    eventTitle?: string;
 }
 
 export const PredictionMarketTopHolders = memo<PredictionMarketTopHoldersProps>(function PredictionMarketTopHolders({
     platform,
     markets,
+    eventSlug,
+    eventTitle,
 }) {
     const [marketId, setMarketId] = useState(first(markets)?.id || '');
 
@@ -26,7 +30,13 @@ export const PredictionMarketTopHolders = memo<PredictionMarketTopHoldersProps>(
     return (
         <div className="space-y-4 pb-4">
             {markets.length > 1 ? (
-                <PredictionMarketFilter markets={markets} marketId={marketId} onSelect={setMarketId} />
+                <PredictionMarketFilter
+                    markets={markets}
+                    marketId={marketId}
+                    onSelect={setMarketId}
+                    eventSlug={eventSlug}
+                    eventTitle={eventTitle}
+                />
             ) : null}
             <TopHoldersContent platform={platform} market={market} />
         </div>

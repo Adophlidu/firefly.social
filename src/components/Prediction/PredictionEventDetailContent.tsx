@@ -45,6 +45,8 @@ export async function PredictionEventDetailContent({ id, isMutil, platform }: Pr
     const markets = event.markets || EMPTY_LIST;
     const showResolution = markets.length === 1 && !!first(markets)?.statusList?.length;
     const isActive = event.markets.some((market) => !market.isClosed && !market.isResolved);
+    const eventSlug = id || event.id;
+    const eventTitle = event.title;
 
     return (
         <div className="pb-20">
@@ -53,9 +55,15 @@ export async function PredictionEventDetailContent({ id, isMutil, platform }: Pr
             <PredictionEventOverview detail={event} isActive={isActive} />
             <PredictionMarketsPriceLineChart platform={platform} markets={markets} isActive={isActive} />
             <PredictionContextProvider platform={platform} markets={markets}>
-                <PredictionMarketsAccountTab markets={markets} platform={platform} />
-                <PredictionBaseInfoTabs showResolution={showResolution} eventSlug={id} />
-                <PredictionBaseInfoTabContent showResolution={showResolution} platform={platform} detail={event} />
+                <PredictionMarketsAccountTab eventSlug={id} event={event} platform={platform} />
+                <PredictionBaseInfoTabs showResolution={showResolution} eventSlug={eventSlug} />
+                <PredictionBaseInfoTabContent
+                    showResolution={showResolution}
+                    platform={platform}
+                    detail={event}
+                    eventSlug={eventSlug}
+                    eventTitle={eventTitle}
+                />
             </PredictionContextProvider>
         </div>
     );

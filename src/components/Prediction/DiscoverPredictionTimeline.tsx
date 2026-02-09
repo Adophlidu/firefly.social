@@ -7,21 +7,11 @@ import { PredictionActivityItem } from '@/components/Prediction/PredictionActivi
 import { ScrollListKey, Source } from '@/constants/enum.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { getDiscoverPredictionList } from '@/providers/firefly/prediction/getDiscoverPredictionList.js';
-import { captureExplorePredictionsClick } from '@/providers/telemetry/capturePolymarketEvent.js';
 import { type BetsActivity } from '@/providers/types/Firefly.js';
 import { PredictionFilterNamespace, usePredictionSourceFilterStore } from '@/store/usePredictionSourceFilterStore.js';
 
 function getPredictionActivityItem(index: number, activity: BetsActivity, onClick?: () => void) {
-    return (
-        <PredictionActivityItem
-            activity={activity}
-            key={`${activity.slug}-${index}`}
-            onLinkClick={() => {
-                captureExplorePredictionsClick();
-                onClick?.();
-            }}
-        />
-    );
+    return <PredictionActivityItem activity={activity} key={`${activity.slug}-${index}`} onLinkClick={onClick} />;
 }
 
 export function DiscoverPredictionTimeline() {

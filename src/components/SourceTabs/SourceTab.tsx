@@ -5,13 +5,21 @@ import { type LinkProps } from 'next/link.js';
 import { memo, type PropsWithChildren, useLayoutEffect, useRef } from 'react';
 
 import { Link } from '@/components/Link.js';
+import { TelemetryProvider } from '@/providers/telemetry/index.js';
+import type { EventId } from '@/providers/types/Telemetry.js';
 
 interface SourceTabProps extends PropsWithChildren<LinkProps> {
     isActive: boolean;
+    telemetryEventId?: EventId;
     className?: string;
 }
 
-export const SourceTab = memo(function SourceTab({ isActive, className, ...rest }: SourceTabProps) {
+export const SourceTab = memo(function SourceTab({
+    className,
+    isActive,
+    telemetryEventId: eventId,
+    ...rest
+}: SourceTabProps) {
     const tabRef = useRef<HTMLAnchorElement>(null);
     useLayoutEffect(() => {
         if (isActive && tabRef.current) {
@@ -28,6 +36,10 @@ export const SourceTab = memo(function SourceTab({ isActive, className, ...rest 
             aria-current={isActive ? 'page' : undefined}
             ref={tabRef}
             {...rest}
+            onClick={(e) => {
+                if (eventId) TelemetryProvider.captureEventInSafe(eventId, {});
+                rest.onClick?.(e);
+            }}
         />
     );
 });

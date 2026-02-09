@@ -9,6 +9,7 @@ import { EMPTY_LIST } from '@/constants/static.js';
 import { useParams } from '@/esm/navigation.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { getEventSlugList } from '@/providers/firefly/prediction/getEventSlugList.js';
+import { captureExplorePredictionsCategoryClick } from '@/providers/telemetry/capturePolymarketEvent.js';
 
 interface Props extends HTMLProps<HTMLDivElement> {
     className?: string;
@@ -70,6 +71,9 @@ export const PredictionSourceNav = memo<Props>(function PredictionSourceNav({ cl
                                 ? 'bg-highlight text-white'
                                 : 'bg-thirdMain text-second hover:text-highlight',
                         )}
+                        onClick={() => {
+                            captureExplorePredictionsCategoryClick(slug.label);
+                        }}
                     >
                         {slug.label}
                     </Link>

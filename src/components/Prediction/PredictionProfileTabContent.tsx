@@ -8,28 +8,35 @@ import { PredictionProfilePositionList } from '@/components/Prediction/Predictio
 import { PredictionTradeList } from '@/components/Prediction/PredictionTradeList.js';
 import { PredictionPlatform } from '@/constants/enum.js';
 import { Category, usePredictionProfileTab } from '@/hooks/prediction/usePredictionProfileTab.js';
+import type { PredictionProfileDataForUI } from '@/types/prediction.js';
 
 interface Props {
     platform: PredictionPlatform;
+    predictionProfile: PredictionProfileDataForUI;
     address: string;
-    proxyAddress?: string;
-    platformName?: string;
 }
 
-function PredictionProfileTabContentList({ platform, address, proxyAddress, platformName }: Props) {
+function PredictionProfileTabContentList({ platform, predictionProfile: profile, address }: Props) {
     const [currentTab] = usePredictionProfileTab();
 
     switch (currentTab) {
         case Category.Positions:
-            return <PredictionProfilePositionList platform={platform} address={address} proxyAddress={proxyAddress} />;
+            return (
+                <PredictionProfilePositionList
+                    platform={platform}
+                    address={address}
+                    proxyAddress={profile.proxy}
+                    predictionProfile={profile}
+                />
+            );
         case Category.Trades:
             return (
                 <PredictionTradeList
                     platform={platform}
                     address={address}
-                    proxyAddress={proxyAddress}
-                    polymarketName={platform === PredictionPlatform.Polymarket ? platformName : undefined}
-                    opinionName={platform === PredictionPlatform.Opinion ? platformName : undefined}
+                    proxyAddress={profile.proxy}
+                    polymarketName={platform === PredictionPlatform.Polymarket ? profile.platform_name : undefined}
+                    opinionName={platform === PredictionPlatform.Opinion ? profile.platform_name : undefined}
                 />
             );
         default:

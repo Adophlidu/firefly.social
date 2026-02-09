@@ -22,7 +22,7 @@ interface Props {
 export async function PredictionProfileDetailContent({ address, platform }: Props) {
     if (!address || !isValidAddressEthereum(address)) notFound();
 
-    const [, betsProfile] = await Promise.all([
+    const [, predictionProfile] = await Promise.all([
         setupLocaleForSSR(),
         runInSafeAsync(async () => {
             switch (platform) {
@@ -45,19 +45,14 @@ export async function PredictionProfileDetailContent({ address, platform }: Prop
         }),
     ]);
 
-    if (!betsProfile) notFound();
+    if (!predictionProfile) notFound();
 
     return (
         <div>
             <PredictionProfilePageHeader />
-            <PredictionProfileOverview address={address} profile={betsProfile} platform={platform} />
+            <PredictionProfileOverview address={address} profile={predictionProfile} platform={platform} />
             <PredictionProfileCategoryTabs />
-            <PredictionProfileTabContent
-                platform={platform}
-                address={address}
-                proxyAddress={betsProfile?.proxy}
-                platformName={betsProfile?.platform_name}
-            />
+            <PredictionProfileTabContent platform={platform} address={address} predictionProfile={predictionProfile} />
         </div>
     );
 }

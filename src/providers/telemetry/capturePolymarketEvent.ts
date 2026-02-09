@@ -7,10 +7,6 @@ export function captureFollowingPredictionsClick() {
     return TelemetryProvider.captureEventInSafe(EventId.EVENT_FOLLOWING_PREDICTIONS_CLICK, {});
 }
 
-export function captureExplorePredictionsClick() {
-    return TelemetryProvider.captureEventInSafe(EventId.EVENT_EXPLORE_PREDICTIONS_CLICK, {});
-}
-
 export function captureExplorePredictionsCategoryClick(categoryName: string) {
     return TelemetryProvider.captureEventInSafe(EventId.EVENT_EXPLORE_PREDICTIONS_CATEGORY_CLICK, {
         category_name: categoryName,

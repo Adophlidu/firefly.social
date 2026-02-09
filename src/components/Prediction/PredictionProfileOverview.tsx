@@ -1,8 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import { useQuery } from '@tanstack/react-query';
-import { compact, first } from 'lodash-es';
+import { compact } from 'lodash-es';
 import { useMemo } from 'react';
 
 import { Avatar } from '@/components/Avatar.js';
@@ -18,11 +17,10 @@ import { Link } from '@/esm/Link.js';
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
-import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { isSocialSource } from '@/helpers/isSource.js';
 import { isZero } from '@/helpers/number.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
-import { getWalletProfileInfoList } from '@/providers/firefly/prediction/getWalletProfileInfoList.js';
+import { useProxyWalletInfo } from '@/hooks/prediction/useProxyWalletInfo.js';
 import {
     captureOpinionProfileDetailClick,
     capturePolymarketProfileDetailClick,
@@ -38,22 +36,7 @@ interface PredictionProfileOverviewProps {
 export function PredictionProfileOverview({ profile, platform, address }: PredictionProfileOverviewProps) {
     const isOpinion = platform === PredictionPlatform.Opinion;
 
-    const { data: socialProfile } = useQuery({
-        queryKey: ['wallet-profile-info-list', address, platform],
-        queryFn: () => getWalletProfileInfoList(address, platform, true),
-        select: (data) => {
-            const walletAddresses = data?.data?.walletAddress;
-            if (!walletAddresses || walletAddresses.length === 0) return null;
-            const firstEntry = first(walletAddresses);
-            if (!firstEntry) return null;
-
-            for (const key in firstEntry) {
-                if (isSameEthereumAddress(key, address)) return firstEntry[key];
-            }
-
-            return null;
-        },
-    });
+    const { data: socialProfile } = useProxyWalletInfo(platform, address);
 
     const {
         name: socialName,

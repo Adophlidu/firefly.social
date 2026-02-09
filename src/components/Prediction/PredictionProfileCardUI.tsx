@@ -1,8 +1,6 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import { useQuery } from '@tanstack/react-query';
-import { first } from 'lodash-es';
 import { memo, useMemo } from 'react';
 
 import { CopyTextButton } from '@/components/CopyTextButton.js';
@@ -13,9 +11,8 @@ import { PredictionPlatform } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
-import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
-import { getWalletProfileInfoList } from '@/providers/firefly/prediction/getWalletProfileInfoList.js';
+import { useProxyWalletInfo } from '@/hooks/prediction/useProxyWalletInfo.js';
 import {
     captureOpinionProfileDetailClick,
     capturePolymarketProfileDetailClick,
@@ -27,22 +24,7 @@ interface PredictionProfileCardUIProps {
 }
 
 export const PredictionProfileCardUI = memo<PredictionProfileCardUIProps>(function BetsProfileCard({ profile }) {
-    const { data: socialProfile } = useQuery({
-        queryKey: ['wallet-profile-info-list', profile.proxy, profile.platform],
-        queryFn: () => getWalletProfileInfoList(profile.proxy, profile.platform, true),
-        select: (data) => {
-            const walletAddresses = data?.data?.walletAddress;
-            if (!walletAddresses || walletAddresses.length === 0) return null;
-            const firstEntry = first(walletAddresses);
-            if (!firstEntry) return null;
-
-            for (const key in firstEntry) {
-                if (isSameEthereumAddress(key, profile.proxy)) return firstEntry[key];
-            }
-
-            return null;
-        },
-    });
+    const { data: socialProfile } = useProxyWalletInfo(profile.platform, profile.proxy);
 
     const isFireflyUser = useMemo(() => !!socialProfile?.account, [socialProfile]);
     const targetFireflyAccountId = useMemo(

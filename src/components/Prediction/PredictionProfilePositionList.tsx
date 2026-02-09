@@ -14,33 +14,53 @@ import { EMPTY_LIST } from '@/constants/static.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { useAllProxyWallets } from '@/hooks/prediction/useAllProxyWallets.js';
+import { useProxyWalletInfo } from '@/hooks/prediction/useProxyWalletInfo.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
-import { type PredictionPositionDataForUI } from '@/types/prediction.js';
+import { type PredictionPositionDataForUI, type PredictionProfileDataForUI } from '@/types/prediction.js';
 
 interface Props {
+    predictionProfile: PredictionProfileDataForUI;
     platform: PredictionPlatform;
     address: string;
-    proxyAddress?: string;
+    proxyAddress: string;
 }
 interface Options {
+    predictionProfile: PredictionProfileDataForUI;
+    fireflyAccountId?: string;
     platform: PredictionPlatform;
     index: number;
     positionData: PredictionPositionDataForUI;
     isMyAddress: boolean;
 }
 
-const getPositionItem = ({ platform, index, positionData, isMyAddress }: Options) => {
+const getPositionItem = ({
+    platform,
+    index,
+    positionData,
+    isMyAddress,
+    predictionProfile,
+    fireflyAccountId,
+}: Options) => {
     return (
         <PredictionPositionItem
             platform={platform}
             positionData={positionData}
             key={`${positionData.Id}-${index}`}
             showAction={isMyAddress}
+            targetProfileInfo={{
+                address: predictionProfile.wallet,
+                proxyAddress: predictionProfile.proxy,
+                polymarketName: predictionProfile.platform_name,
+                opinionName: predictionProfile.platform_name,
+                isFireflyUser: !!fireflyAccountId,
+                fireflyAccountId,
+            }}
         />
     );
 };
 
 export const PredictionProfilePositionList = memo<Props>(function PredictionProfilePositionList({
+    predictionProfile,
     platform,
     address,
     proxyAddress,
@@ -65,6 +85,8 @@ export const PredictionProfilePositionList = memo<Props>(function PredictionProf
 
         return unsubscribe;
     }, [platform, address, onlyHolding, queryClient, subscribeToWalletEvents]);
+    const { data: socialProfile } = useProxyWalletInfo(platform, proxyAddress);
+    const fireflyAccountId = socialProfile?.fireflyAccountId;
 
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['bets', 'positions', address.toLowerCase(), onlyHolding],
@@ -98,7 +120,14 @@ export const PredictionProfilePositionList = memo<Props>(function PredictionProf
                     listKey: `${ScrollListKey.Bets}:positions`,
                     computeItemKey: (index, positionData) => `${positionData.Id}-${index}`,
                     itemContent: (index, positionData) =>
-                        getPositionItem({ index, positionData, isMyAddress, platform }),
+                        getPositionItem({
+                            index,
+                            positionData,
+                            isMyAddress,
+                            platform,
+                            predictionProfile,
+                            fireflyAccountId,
+                        }),
                 }}
                 NoResultsFallbackProps={{
                     icon: <div />,

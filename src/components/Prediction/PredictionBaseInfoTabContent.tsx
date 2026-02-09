@@ -31,9 +31,17 @@ interface PredictionBaseInfoTabContentProps {
     platform: PredictionPlatform;
     detail: BetsEventDataForUI;
     showResolution?: boolean;
+    eventSlug?: string;
+    eventTitle?: string;
 }
 
-export function PredictionBaseInfoTabContent({ platform, detail, showResolution }: PredictionBaseInfoTabContentProps) {
+export function PredictionBaseInfoTabContent({
+    platform,
+    detail,
+    showResolution,
+    eventSlug,
+    eventTitle,
+}: PredictionBaseInfoTabContentProps) {
     const [tab] = useBetsEventInfoTab(showResolution);
 
     const marketIds = useMemo(
@@ -43,9 +51,16 @@ export function PredictionBaseInfoTabContent({ platform, detail, showResolution 
 
     switch (tab) {
         case BetsEventInfoTab.TopHolders:
-            return <PredictionMarketTopHolders platform={platform} markets={detail.markets} />;
+            return (
+                <PredictionMarketTopHolders
+                    platform={platform}
+                    markets={detail.markets}
+                    eventSlug={eventSlug}
+                    eventTitle={eventTitle}
+                />
+            );
         case BetsEventInfoTab.Trades:
-            return <PredictionTradeTimeline platform={platform} marketIds={marketIds} />;
+            return <PredictionTradeTimeline platform={platform} marketIds={marketIds} eventSlug={eventSlug} />;
         case BetsEventInfoTab.Info:
             return (
                 <PredictionEventInfo

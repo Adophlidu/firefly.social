@@ -17,18 +17,29 @@ interface Props {
         wallet: string;
         proxy: string;
     }>;
+    eventSlug?: string;
+    eventTitle?: string;
 }
 
 export const MarketsAccountDataTabContent = memo<Props>(function MarketsAccountDataTabContent({
     markets,
     platform,
     wallets,
+    eventSlug,
+    eventTitle,
 }) {
     const [currentTab] = useMarketsAccountTab();
 
     switch (currentTab) {
         case MarketsAccountTabType.Markets:
-            return <PredictionMarketList markets={markets} platform={platform} />;
+            return (
+                <PredictionMarketList
+                    markets={markets}
+                    platform={platform}
+                    eventSlug={eventSlug}
+                    eventTitle={eventTitle}
+                />
+            );
         case MarketsAccountTabType.Positions:
             return <MarketsCurrentPositions markets={markets} platform={platform} wallets={wallets} />;
         case MarketsAccountTabType.Orders:

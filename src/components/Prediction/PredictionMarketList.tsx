@@ -52,13 +52,7 @@ export const PredictionMarketList = memo(function PredictionMarketList({
 
             // Track market click for Polymarket
             if (platform === PredictionPlatform.Polymarket && eventSlug && eventTitle) {
-                capturePolymarketEventMarketClick(
-                    eventSlug,
-                    eventTitle,
-                    market.slug || market.id,
-                    market.title,
-                    (market as any).groupItemTitle,
-                );
+                capturePolymarketEventMarketClick(eventSlug, eventTitle, market.slug || market.id, market.title);
             }
 
             setMarketId(market.id === marketId ? null : market.id);

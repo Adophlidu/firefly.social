@@ -67,7 +67,7 @@ export const PredictionMarketFilter = memo<PredictionMarketFilterProps>(function
                                                     eventTitle,
                                                     market.slug || market.id,
                                                     market.title,
-                                                    (market as any).groupItemTitle || '',
+                                                    '',
                                                 );
                                             }
                                             onSelect(market.id);

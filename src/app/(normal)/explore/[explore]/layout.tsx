@@ -17,6 +17,7 @@ import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 import { getEventSlugList } from '@/providers/firefly/prediction/getEventSlugList.js';
+import { EventId } from '@/providers/types/Telemetry.js';
 import { type NextPageProps } from '@/types/utility.js';
 
 interface Props extends NextPageProps<{ explore: ExploreType }> {}
@@ -71,6 +72,9 @@ export default async function Layout(props: Props) {
                             key={x}
                             href={resolveExploreUrl(x)}
                             isActive={x === explore}
+                            telemetryEventId={
+                                x === ExploreType.Bets ? EventId.EVENT_EXPLORE_PREDICTIONS_CLICK : undefined
+                            }
                         >
                             {labels[x]}
                         </SourceTab>
