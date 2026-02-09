@@ -4,6 +4,8 @@ import { ZodError } from 'zod';
 
 import { MalformedRequestError } from '@/constants/error.js';
 import { createErrorResponseJson } from '@/helpers/createResponseJson.js';
+import { ExceptionId } from '@/providers/errorCapture/captureException.js';
+import { reportExceptionServer } from '@/providers/firefly/report/reportExceptionServer.js';
 import { type NextRequestContext } from '@/types/utility.js';
 
 type Handler<T> = (request: NextRequest, context?: NextRequestContext<T>) => Promise<Response>;
@@ -37,7 +39,19 @@ export function withRequestErrorHandler<P>(options?: { throwError?: boolean }) {
                     });
                 }
                 if (!throwError) {
-                    return createErrorResponseJson(error instanceof Error ? error.message : 'Internal Server Error', {
+                    // Report server-side API errors to firefly-exception-tracker
+                    const err = error instanceof Error ? error : new Error(String(error));
+                    await reportExceptionServer({
+                        message: err.message,
+                        exception_type: ExceptionId.API_ROUTE_ERROR,
+                        stack_trace: err.stack,
+                        severity: 'error',
+                        tags: {
+                            exceptionId: ExceptionId.API_ROUTE_ERROR,
+                            path: request.nextUrl?.pathname ?? request.url ?? 'unknown',
+                        },
+                    });
+                    return createErrorResponseJson(err.message, {
                         status: 500,
                     });
                 }

@@ -17,6 +17,9 @@ export enum ExceptionId {
     RESOURCE_LOAD_ERROR = 'resource_load_error',
     NETWORK_ERROR = 'network_error',
     CHUNK_LOAD_ERROR = 'chunk_load_error',
+
+    // Server-side
+    API_ROUTE_ERROR = 'api_route_error',
 }
 
 /**
@@ -34,7 +37,7 @@ export function captureException(
         exception_type: exceptionId,
         stack_trace: err.stack,
         severity: 'error',
-        tags: { exceptionId, ...tags } as Record<string, string | number | boolean>,
+        tags: { exceptionId, ...tags },
     });
     if (!queued) {
         logger.warn(`[captureException] beacon not queued for exception: ${exceptionId}`);
