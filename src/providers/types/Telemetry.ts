@@ -371,6 +371,7 @@ export enum EventId {
 
     // profile wallet tabs
     PROFILE_WALLET_ACTIVITIES_TAB_CLICK = 'profile_wallet_activities_click',
+    PROFILE_WALLET_TRANSACTIONS_TAB_CLICK = 'profile_wallet_txn_click',
     PROFILE_WALLET_PREDICTIONS_TAB_CLICK = 'profile_wallet_predictions_click',
 
     // profile account switching
@@ -1847,6 +1848,12 @@ export interface Events extends Record<EventId, Event> {
 
     // profile wallet tabs
     [EventId.PROFILE_WALLET_ACTIVITIES_TAB_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+        };
+    };
+    [EventId.PROFILE_WALLET_TRANSACTIONS_TAB_CLICK]: {
         type: EventType.Interact;
         parameters: {
             firefly_account_id: string;

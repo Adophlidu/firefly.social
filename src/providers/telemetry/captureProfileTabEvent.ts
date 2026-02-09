@@ -7,7 +7,7 @@ import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import { type Profile } from '@/providers/types/SocialMedia.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 
-export type ProfileTabType = 'Feed' | 'Replies' | 'Media' | 'Collected' | 'Cast' | 'Likes' | 'Channels';
+export type ProfileTabType = 'Feed' | 'Replies' | 'Media' | 'Collected' | 'Cast' | 'Likes' | 'Channels' | 'Prediction';
 
 type ProfileTabEventIds = Partial<Record<ProfileTabType, EventId>>;
 
@@ -65,10 +65,10 @@ export function captureProfileTabClickSimple(
     return runInSafeAsync(async () => {
         // Handle wallet tabs separately
         if (source === Source.Wallet || source === Source.WalletMix) {
-            // For wallet, we track Activities tab (Transactions already has existing tracking)
+            // For wallet, we track Activities tab
             if (tab === 'Feed') {
                 // Activities tab is labeled as "Feed" in the tabTitles
-                return TelemetryProvider.captureEvent(EventId.PROFILE_WALLET_ACTIVITIES_TAB_CLICK, {} as never);
+                return TelemetryProvider.captureEventInSafe(EventId.PROFILE_WALLET_ACTIVITIES_TAB_CLICK, {} as never);
             }
             return;
         }
@@ -114,6 +114,7 @@ export function captureProfileTabClickSimple(
             [Source.Bsky]: (id, h, t) => ({ bsky_id: id, bsky_handle: h, tab: t }),
         };
 
-        return TelemetryProvider.captureEvent(eventId, paramsMap[socialSource](profileId, handle, tab) as never);
+        const params = paramsMap[socialSource]?.(profileId, handle, tab);
+        return TelemetryProvider.captureEventInSafe(eventId, params);
     });
 }

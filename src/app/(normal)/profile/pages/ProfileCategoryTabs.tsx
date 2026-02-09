@@ -41,6 +41,35 @@ import { EventId } from '@/providers/types/Telemetry.js';
 import { ActivitiesFilterNamespace } from '@/store/useActivitiesFilterStore.js';
 import { PredictionFilterNamespace } from '@/store/usePredictionSourceFilterStore.js';
 
+const mapCategoryToTabType = (
+    cat: SocialProfileCategory | WalletProfileCategory,
+    src: ProfilePageSource,
+): ProfileTabType | undefined => {
+    if (cat === SocialProfileCategory.TruthSocial) return undefined;
+    if (cat === WalletProfileCategory.Bets) return 'Prediction';
+
+    // Special case: Farcaster uses 'Cast' instead of 'Feed'
+    if (src === Source.Farcaster && cat === SocialProfileCategory.Feed) return 'Cast';
+
+    // Map SocialProfileCategory (lowercase enum values like 'feed') to ProfileTabType (PascalCase like 'Feed')
+    switch (cat) {
+        case SocialProfileCategory.Feed:
+            return 'Feed';
+        case SocialProfileCategory.Replies:
+            return 'Replies';
+        case SocialProfileCategory.Media:
+            return 'Media';
+        case SocialProfileCategory.Collected:
+            return 'Collected';
+        case SocialProfileCategory.Likes:
+            return 'Likes';
+        case SocialProfileCategory.Channels:
+            return 'Channels';
+        default:
+            return cat as unknown as ProfileTabType;
+    }
+};
+
 export function ProfileCategoryTabs({
     source,
     id,
@@ -117,13 +146,6 @@ export function ProfileCategoryTabs({
 
     const hasLimo = source === Source.Wallet && isSameEthereumAddress(id, VITALIK_ADDRESS);
 
-    const mapCategoryToTabType = (cat: typeof category, src: ProfilePageSource): ProfileTabType | undefined => {
-        if (cat === SocialProfileCategory.TruthSocial) return undefined;
-        if (cat === WalletProfileCategory.Bets) return undefined;
-        if (src === Source.Farcaster && cat === SocialProfileCategory.Feed) return 'Cast';
-        return cat as unknown as ProfileTabType;
-    };
-
     const handleTabClick = (cat: typeof category) => {
         const tabType = mapCategoryToTabType(cat, source);
         if (!tabType) return;
@@ -138,8 +160,10 @@ export function ProfileCategoryTabs({
         if (source === Source.Wallet || source === Source.WalletMix) {
             if (cat === WalletProfileCategory.Activities) {
                 captureProfileTabClickSimple(source, id, id, 'Feed');
+            } else if (cat === WalletProfileCategory.Transactions) {
+                TelemetryProvider.captureEventInSafe(EventId.PROFILE_WALLET_TRANSACTIONS_TAB_CLICK, {});
             } else if (cat === WalletProfileCategory.Bets) {
-                TelemetryProvider.captureEvent(EventId.PROFILE_WALLET_PREDICTIONS_TAB_CLICK, {});
+                TelemetryProvider.captureEventInSafe(EventId.PROFILE_WALLET_PREDICTIONS_TAB_CLICK, {});
             }
         } else {
             captureProfileTabClickSimple(source, id, id, tabType);
