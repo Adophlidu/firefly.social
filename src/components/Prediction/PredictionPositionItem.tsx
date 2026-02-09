@@ -109,7 +109,6 @@ export function PredictionPositionItem({
                 <div className="flex min-w-0 flex-1 flex-col">
                     {eventUrl ? (
                         <Link
-                            target="_blank"
                             href={eventUrl}
                             onClick={handleEventClick}
                             className="line-clamp-5 w-full break-words text-sm font-bold text-main hover:underline"

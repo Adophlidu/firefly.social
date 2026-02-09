@@ -15,6 +15,7 @@ function getBetsItemContent(_: number, data: PolymarketEventListData) {
         <BetItem
             key={data.id}
             event={data}
+            openLinkInNewTab={false}
             platform={PredictionPlatform.Polymarket}
             onLinkClick={() => {
                 capturePolymarketSearchEventClick(data.slug, data.title);
