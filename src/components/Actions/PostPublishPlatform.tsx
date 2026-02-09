@@ -15,7 +15,7 @@ interface Props {
 }
 
 export const PostPublishPlatform = memo<Props>(function PostPublishPlatform({ post }) {
-    const enabled = SUPPORTED_FETCH_POST_PUBLISH_INFO_SOURCES.includes(post.source);
+    const enabled = SUPPORTED_FETCH_POST_PUBLISH_INFO_SOURCES.includes(post.source) && !post.sendFrom;
     const { data } = useQuery({
         queryKey: ['post-publish-platform-info', post.source, post.postId],
         staleTime: Infinity,
