@@ -1,13 +1,36 @@
 import { Source } from '@/constants/enum.js';
-import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { type ExploreClubsResponse } from '@/providers/orb/type.js';
 import { type Channel, type Profile } from '@/providers/types/SocialMedia.js';
 
 type OrbClub = ExploreClubsResponse['data']['clubs'][number];
 
-export function formatChannelFromOrb(club: OrbClub, owners?: Profile[]): Channel {
-    const createdAt = club.stats?.timeCreated ?? 0;
-    const ownerId = club.metadata?.ownedBy;
+export interface WorkerClub {
+    id: string;
+    name: string;
+    description: string;
+    imageUrl: string;
+    followerCount: number;
+    timestamp: number;
+    ownerId?: string;
+}
+
+export function formatChannelFromOrb(club: OrbClub | WorkerClub, owner?: Profile, overrideOwnerId?: string): Channel {
+    if ('imageUrl' in club) {
+        return {
+            source: Source.Lens,
+            id: club.id,
+            name: club.name,
+            description: club.description,
+            imageUrl: club.imageUrl,
+            url: '',
+            parentUrl: '',
+            followerCount: club.followerCount,
+            timestamp: club.timestamp,
+            ownerId: overrideOwnerId ?? club.ownerId,
+            lead: owner,
+            __original__: club,
+        } satisfies Channel;
+    }
 
     return {
         source: Source.Lens,
@@ -18,10 +41,9 @@ export function formatChannelFromOrb(club: OrbClub, owners?: Profile[]): Channel
         url: '',
         parentUrl: '',
         followerCount: club.stats?.totalMembers ?? 0,
-        timestamp: createdAt,
-        ownerId,
-        lead:
-            ownerId && owners ? owners.find((profile) => isSameEthereumAddress(profile.profileId, ownerId)) : undefined,
+        timestamp: club.stats?.timeCreated ?? 0,
+        ownerId: overrideOwnerId ?? club.metadata?.ownedBy,
+        lead: owner,
         __original__: club,
     } satisfies Channel;
 }
