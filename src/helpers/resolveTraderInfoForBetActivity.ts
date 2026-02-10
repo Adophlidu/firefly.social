@@ -3,10 +3,19 @@ import { first } from 'lodash-es';
 import { Source } from '@/constants/enum.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
+import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { resolveSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { resolveWatchTypeToSource } from '@/helpers/resolveWatchTypeToSource.js';
 import { runInSafe } from '@/helpers/runInSafe.js';
 import { type BetsActivity } from '@/providers/types/Firefly.js';
+
+function shortAddress(address: string) {
+    if (isValidAddressEthereum(address) || isValidAddressSolana(address)) {
+        return formatAddress(address, 4);
+    }
+
+    return address;
+}
 
 export function resolveBetActivityTraderInfo(activity: BetsActivity): {
     displayName: string;
@@ -21,7 +30,7 @@ export function resolveBetActivityTraderInfo(activity: BetsActivity): {
         const platform = activity.displayInfoV2.platform;
 
         return {
-            displayName: activity.displayInfoV2.name,
+            displayName: shortAddress(activity.displayInfoV2.name),
             avatarUrl: activity.displayInfoV2.avatarUrl,
             source: platform ? runInSafe(() => resolveSourceFromFireflyPlatform(platform)) : undefined,
         };
@@ -29,7 +38,9 @@ export function resolveBetActivityTraderInfo(activity: BetsActivity): {
 
     if (activity.displayInfo?.fireflyUid) {
         return {
-            displayName: activity.displayInfo.fireflyName || activity.displayInfo.ensHandle || addressName,
+            displayName: shortAddress(
+                activity.displayInfo.fireflyName || activity.displayInfo.ensHandle || addressName,
+            ),
             avatarUrl: activity.displayInfo.fireflyAvatarUrl || activity.displayInfo.avatarUrl || walletAvatarUrl,
             source: Source.Firefly,
         };
@@ -41,7 +52,7 @@ export function resolveBetActivityTraderInfo(activity: BetsActivity): {
         const source = runInSafe(() => resolveWatchTypeToSource(followingSource.type));
         return {
             source,
-            displayName: followingName,
+            displayName: shortAddress(followingName),
             avatarUrl:
                 source && followingSource.id ? getStampAvatarByProfileId(source, followingSource.id) : walletAvatarUrl,
         };
