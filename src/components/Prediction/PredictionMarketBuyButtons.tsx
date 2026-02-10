@@ -6,6 +6,7 @@ import { isUndefined } from 'lodash-es';
 import { memo, use } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { AnimatedText } from '@/components/Prediction/AnimatedText.js';
 import { PredictionContext } from '@/components/Prediction/PredictionContext.js';
 import type { PredictionPlatform } from '@/constants/enum.js';
 import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
@@ -70,9 +71,10 @@ export const PredictionMarketBuyButtons = memo<PredictionMarketBuyButtonsProps>(
                         {showPrice ? (
                             <Trans>
                                 <span className="min-w-0 truncate">Buy {outcome.label}</span>
-                                <span className="shrink-0">
-                                    {removeTrailingZeros((displayPrice * 100).toFixed(1))}¢
-                                </span>
+                                <AnimatedText
+                                    className="shrink-0"
+                                    text={`${removeTrailingZeros((displayPrice * 100).toFixed(1))}¢`}
+                                />
                             </Trans>
                         ) : (
                             <Trans>Buy {outcome.label}</Trans>

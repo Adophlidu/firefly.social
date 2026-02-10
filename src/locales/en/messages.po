@@ -2248,6 +2248,10 @@ msgstr "This Bluesky account is already linked to another Firefly account."
 msgid "{0, select, success {Success} failed {Failed} pending {Pending} other {Failed}}"
 msgstr "{0, select, success {Success} failed {Failed} pending {Pending} other {Failed}}"
 
+#. placeholder {0}: outcome.label
+msgid "<0>Buy {0}</0><1/>"
+msgstr "<0>Buy {0}</0><1/>"
+
 msgid "5m"
 msgstr "5m"
 
@@ -4385,11 +4389,6 @@ msgstr "Tip"
 
 msgid "Unmute"
 msgstr "Unmute"
-
-#. placeholder {0}: outcome.label
-#. placeholder {1}: removeTrailingZeros((displayPrice * 100).toFixed(1))
-msgid "<0>Buy {0}</0><1>{1}¢</1>"
-msgstr "<0>Buy {0}</0><1>{1}¢</1>"
 
 msgid "Congratulations!"
 msgstr "Congratulations!"

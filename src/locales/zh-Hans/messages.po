@@ -2253,6 +2253,10 @@ msgstr "这个 Bluesky 账号已绑定到另一个 Firefly 账户。"
 msgid "{0, select, success {Success} failed {Failed} pending {Pending} other {Failed}}"
 msgstr "{0, select, success {成功} failed {失败} pending {待处理} other {失败}}"
 
+#. placeholder {0}: outcome.label
+msgid "<0>Buy {0}</0><1/>"
+msgstr ""
+
 msgid "5m"
 msgstr "5 分钟"
 
@@ -4390,11 +4394,6 @@ msgstr "打赏"
 
 msgid "Unmute"
 msgstr "取消隐藏"
-
-#. placeholder {0}: outcome.label
-#. placeholder {1}: removeTrailingZeros((displayPrice * 100).toFixed(1))
-msgid "<0>Buy {0}</0><1>{1}¢</1>"
-msgstr ""
 
 msgid "Congratulations!"
 msgstr "恭喜！"
