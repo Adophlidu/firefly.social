@@ -8,10 +8,9 @@ import { AddressLink } from '@/components/Tips/AddressLink.js';
 import { RecipientAvatar } from '@/components/Tips/RecipientAvatar.js';
 import { TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
-import { isMPCWallet } from '@/helpers/isMPCWallet.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { captureTipsSwitchWalletEvent } from '@/providers/telemetry/captureTipsEvent.js';
-import { type FireflyTipsProfile, type WalletProfile } from '@/providers/types/Firefly.js';
+import { type FireflyTipsProfile, type WalletProfile, WalletProfileDataSource } from '@/providers/types/Firefly.js';
 import { useTipsStore } from '@/store/useTipsStore.js';
 
 export function TipsRecipientListView() {
@@ -42,9 +41,9 @@ export function TipsRecipientListView() {
                 </div>
                 <div className="mt-4 space-y-2">
                     {recipientList.map((recipient) => {
-                        const isFireflyWallet = recipient.__origin__
-                            ? isMPCWallet(recipient.__origin__ as WalletProfile)
-                            : false;
+                        const isFireflyWallet =
+                            (recipient.__origin__ as WalletProfile | null)?.dataSource ===
+                            WalletProfileDataSource.Privy;
 
                         return (
                             <ClickableButton
