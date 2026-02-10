@@ -44,6 +44,7 @@ export const PredictionMarketBuyButtons = memo<PredictionMarketBuyButtonsProps>(
                         ? parseFloat(outcome.bestAsk)
                         : price
                     : price;
+                const displayPrice = bestPrice === 1 ? 0 : bestPrice;
 
                 return (
                     <ClickableButton
@@ -69,7 +70,9 @@ export const PredictionMarketBuyButtons = memo<PredictionMarketBuyButtonsProps>(
                         {showPrice ? (
                             <Trans>
                                 <span className="min-w-0 truncate">Buy {outcome.label}</span>
-                                <span className="shrink-0">{removeTrailingZeros((bestPrice * 100).toFixed(1))}¢</span>
+                                <span className="shrink-0">
+                                    {removeTrailingZeros((displayPrice * 100).toFixed(1))}¢
+                                </span>
                             </Trans>
                         ) : (
                             <Trans>Buy {outcome.label}</Trans>
