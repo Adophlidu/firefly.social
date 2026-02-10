@@ -30,8 +30,8 @@ export function PredictionTopHoldersUI({
                 <Trans>{outcomeLabel} Holders</Trans>
             </span>
             {!holders.length ? (
-                <div className="pl-4 pt-9 text-left text-base font-semibold text-second">
-                    <Trans>No {outcomeLabel} holders found</Trans>
+                <div className="pl-4 pt-9 text-left text-xs font-semibold text-second">
+                    <Trans>No holders found.</Trans>
                 </div>
             ) : null}
             {holders.map((holder) => (

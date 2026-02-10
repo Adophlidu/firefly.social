@@ -1099,9 +1099,6 @@ msgstr ""
 msgid "24 Hour Trading Vol"
 msgstr ""
 
-msgid "No {outcomeLabel} holders found"
-msgstr ""
-
 msgid "Failed to delete scheduled post."
 msgstr ""
 
@@ -2322,6 +2319,9 @@ msgid "Custom amount is required for this token"
 msgstr ""
 
 msgid "Cover background"
+msgstr ""
+
+msgid "No holders found."
 msgstr ""
 
 msgid "Connected"

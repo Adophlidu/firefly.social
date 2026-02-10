@@ -1104,9 +1104,6 @@ msgstr "逾時"
 msgid "24 Hour Trading Vol"
 msgstr "24 小時交易量"
 
-msgid "No {outcomeLabel} holders found"
-msgstr "未找到 {outcomeLabel} 持有者"
-
 msgid "Failed to delete scheduled post."
 msgstr "刪除預約貼文失敗。"
 
@@ -2328,6 +2325,9 @@ msgstr "此代幣需要自訂數額"
 
 msgid "Cover background"
 msgstr "封面背景"
+
+msgid "No holders found."
+msgstr ""
 
 msgid "Connected"
 msgstr "已連接"

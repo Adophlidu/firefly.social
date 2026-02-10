@@ -1104,9 +1104,6 @@ msgstr "过期"
 msgid "24 Hour Trading Vol"
 msgstr "24h 交易总额"
 
-msgid "No {outcomeLabel} holders found"
-msgstr "未找到 {outcomeLabel} 持有者"
-
 msgid "Failed to delete scheduled post."
 msgstr "删除定时任务失败。"
 
@@ -2328,6 +2325,9 @@ msgstr "此代币需要自定义数额"
 
 msgid "Cover background"
 msgstr "封面背景"
+
+msgid "No holders found."
+msgstr ""
 
 msgid "Connected"
 msgstr "已连接"
