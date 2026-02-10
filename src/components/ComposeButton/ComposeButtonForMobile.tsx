@@ -13,6 +13,10 @@ import { useCurrentVisitingPost } from '@/hooks/useCurrentVisitingPost.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
+function isPredictionPage(pathname: string) {
+    return pathname.startsWith('/polymarket') || pathname.startsWith('/opinion');
+}
+
 export function ComposeButtonForMobile() {
     const currentSource = useGlobalState.use.currentSource();
     const currentSocialSource = narrowToSocialSource(currentSource);
@@ -28,7 +32,14 @@ export function ComposeButtonForMobile() {
 
     if (!isLogin) return null;
     if (isPostPage && !isCurrentLogin) return null;
-    if (isArticlePage || currentSource === Source.NFTs || currentSource === Source.Article || isNFTPage) return null;
+    if (
+        isArticlePage ||
+        currentSource === Source.NFTs ||
+        currentSource === Source.Article ||
+        isNFTPage ||
+        isPredictionPage(pathname)
+    )
+        return null;
 
     return (
         <ClickableButton
