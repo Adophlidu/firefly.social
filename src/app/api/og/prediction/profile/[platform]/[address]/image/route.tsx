@@ -411,7 +411,7 @@ export const GET = compose(
         const { address, platform } = await getParamsWithZodSchema(ParamsSchema, context);
         if (!address || !platform) return createProxyImageResponse(predictionDefaultOgImage);
 
-        const profileData = await fetchPredictionProfile(address, platform);
+        const profileData = await fetchPredictionProfile(address, platform, true);
         if (!profileData) {
             return createProxyImageResponse(predictionDefaultOgImage);
         }

@@ -20,16 +20,12 @@ import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { isZero } from '@/helpers/number.js';
 import { openPredictionPage } from '@/helpers/openPredictionPage.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
-import {
-    type PolymarketEventListData,
-    type PolymarketMarketData,
-    PolymarketUmaResolutionStatus,
-} from '@/providers/types/Firefly.js';
+import { type BetsEventDataForUI, type BetsMarketDataForUI } from '@/types/prediction.js';
 
 const MAX_DISPLAYED_MARKETS = 2;
 
-const calculateRatio = (market: PolymarketMarketData): number => {
-    const { prices } = parseMarketOutcomes(market);
+const calculateRatio = (market: BetsMarketDataForUI): number => {
+    const prices = market.outcomes.map((outcome) => outcome.price ?? '0');
 
     if (!prices || prices.length < 2) return 0;
 
@@ -48,18 +44,6 @@ const calculateRatio = (market: PolymarketMarketData): number => {
 
     const ratio = firstPrice / sum;
     return Math.max(0, Math.min(1, ratio));
-};
-
-const parseMarketOutcomes = (market?: PolymarketMarketData) => {
-    if (!market) return { outcomes: [], prices: [] };
-
-    try {
-        const outcomes = market.outcomes ? JSON.parse(market.outcomes) : [];
-        const prices: string[] = market.outcomePrices ? JSON.parse(market.outcomePrices) : [];
-        return { outcomes, prices };
-    } catch {
-        return { outcomes: [], prices: [] };
-    }
 };
 
 const formatPriceCents = (price: string | null): string => {
@@ -85,13 +69,11 @@ const tryParseIntOrMax = (value: string | null | undefined): number => {
     return Number.isNaN(parsed) ? Number.MAX_SAFE_INTEGER : parsed;
 };
 
-const sortMarkets = (markets: PolymarketMarketData[], sortBy?: string): PolymarketMarketData[] => {
-    const unresolved = markets.filter(
-        (market) => market.umaResolutionStatus !== PolymarketUmaResolutionStatus.Resolved,
-    );
-    const resolved = markets.filter((market) => market.umaResolutionStatus === PolymarketUmaResolutionStatus.Resolved);
+const sortMarkets = (markets: BetsMarketDataForUI[], sortBy?: string): BetsMarketDataForUI[] => {
+    const unresolved = markets.filter((market) => !market.isResolved && !market.isClosed);
+    const resolved = markets.filter((market) => market.isResolved || market.isClosed);
 
-    const sortInternal = (marketsToSort: PolymarketMarketData[]): PolymarketMarketData[] => {
+    const sortInternal = (marketsToSort: BetsMarketDataForUI[]): BetsMarketDataForUI[] => {
         if (sortBy === 'price') {
             return [...marketsToSort].sort((a, b) => {
                 const aRatio = calculateRatio(a);
@@ -122,14 +104,15 @@ const sortMarkets = (markets: PolymarketMarketData[], sortBy?: string): Polymark
     return sortInternal(unresolved).concat(sortInternal(resolved));
 };
 
-const getMarketData = (market: PolymarketMarketData) => {
-    const { outcomes, prices } = parseMarketOutcomes(market);
+const getMarketData = (market: BetsMarketDataForUI) => {
+    const outcomes = market.outcomes.map((outcome) => outcome.label);
+    const prices = market.outcomes.map((outcome) => outcome.price ?? '0');
     const firstPrice = prices[0];
     const secondPrice = prices[1];
     const firstPercentage = firstPrice ? parseFloat(firstPrice) * 100 : 0;
     const secondPercentage = secondPrice ? parseFloat(secondPrice) * 100 : 0;
 
-    const isMarketResolved = market.umaResolutionStatus === PolymarketUmaResolutionStatus.Resolved;
+    const isMarketResolved = market.isResolved;
 
     let winningOutcome: string | null = null;
     let winningPercentage = 0;
@@ -163,7 +146,7 @@ const getMarketData = (market: PolymarketMarketData) => {
 };
 
 interface BetItemProps {
-    event: PolymarketEventListData;
+    event: BetsEventDataForUI;
     platform: PredictionPlatform;
     className?: string;
     openLinkInNewTab?: boolean;
@@ -206,7 +189,11 @@ export const BetItem = memo(function BetItem({
     openLinkInNewTab = true,
     onLinkClick,
 }: BetItemProps) {
-    const endTime = new Date(event.endDate).getTime();
+    const endTime = event.endTime;
+    const eventSlug = event.slug || event.id;
+    const eventClosed = !!event.closed || event.status === 'ended';
+    const eventArchived = !!event.archived;
+    const eventVolume = typeof event.volume === 'string' ? Number(event.volume) : event.volume;
 
     const sortedMarkets = useMemo(() => {
         if (!event.markets || event.markets.length === 0) return EMPTY_LIST;
@@ -215,7 +202,8 @@ export const BetItem = memo(function BetItem({
 
     const primaryMarket = first(sortedMarkets);
 
-    const { outcomes: primaryOutcomes, prices: primaryPrices } = parseMarketOutcomes(primaryMarket);
+    const primaryOutcomes = primaryMarket?.outcomes.map((outcome) => outcome.label) ?? [];
+    const primaryPrices = primaryMarket?.outcomes.map((outcome) => outcome.price ?? '0') ?? [];
 
     const firstOutcome = primaryOutcomes[0];
     const secondOutcome = primaryOutcomes[1];
@@ -229,31 +217,26 @@ export const BetItem = memo(function BetItem({
 
     const isResolved = useMemo(() => {
         if (isMultiMarket) {
-            return (
-                event.markets?.some(
-                    (market) => market.umaResolutionStatus === PolymarketUmaResolutionStatus.Resolved,
-                ) ?? false
-            );
+            return event.markets?.some((market) => market.isResolved) ?? false;
         }
-        return primaryMarket?.umaResolutionStatus === PolymarketUmaResolutionStatus.Resolved;
+        return primaryMarket?.isResolved ?? false;
     }, [isMultiMarket, event.markets, primaryMarket]);
 
     const resolvedOutcome = useMemo(() => {
         if (!isResolved || isMultiMarket || !primaryMarket) return null;
-        const { prices } = parseMarketOutcomes(primaryMarket);
-        const firstPriceNum = prices[0] ? parseFloat(prices[0]) : 0;
-        const secondPriceNum = prices[1] ? parseFloat(prices[1]) : 0;
+        const firstPriceNum = primaryPrices[0] ? parseFloat(primaryPrices[0]) : 0;
+        const secondPriceNum = primaryPrices[1] ? parseFloat(primaryPrices[1]) : 0;
         if (firstPriceNum >= secondPriceNum) return { outcome: primaryOutcomes[0], isFirst: true };
         return { outcome: primaryOutcomes[1], isFirst: false };
-    }, [isResolved, isMultiMarket, primaryMarket, primaryOutcomes]);
+    }, [isResolved, isMultiMarket, primaryPrices, primaryOutcomes]);
 
-    const formatTime = useMemo(() => {
+    const formattedTime = useMemo(() => {
         if (isResolved) return null;
 
         const now = Date.now();
         const isExpired = dayjs(now).isAfter(endTime);
 
-        if (isMultiMarket || event.closed || event.archived || isExpired) {
+        if (isMultiMarket || eventClosed || eventArchived || isExpired) {
             return null;
         }
 
@@ -276,10 +259,10 @@ export const BetItem = memo(function BetItem({
                 <span className="text-xs leading-[14px] text-second">{dayjs(endTime).format('MMM D, YYYY')}</span>
             </div>
         );
-    }, [isResolved, isMultiMarket, event.closed, event.archived, endTime]);
+    }, [isResolved, isMultiMarket, eventClosed, eventArchived, endTime]);
 
     const displayedMarkets = sortedMarkets.slice(0, MAX_DISPLAYED_MARKETS);
-    const activeMarkets = sortedMarkets.filter((market) => market.active);
+    const activeMarkets = sortedMarkets.filter((market) => market.active ?? (!market.isClosed && !market.isResolved));
     const remainingCount = Math.max(0, activeMarkets.length - MAX_DISPLAYED_MARKETS);
     const series = event.series ? first(event.series) : undefined;
 
@@ -297,14 +280,14 @@ export const BetItem = memo(function BetItem({
                 'mb-4 flex flex-col gap-3 rounded-2xl border border-line bg-primaryBottom p-4 hover:bg-bg',
                 className,
             )}
-            href={RouteResolver.betsEventDetail(platform, event.slug)}
+            href={RouteResolver.betsEventDetail(platform, eventSlug)}
             target={openLinkInNewTab ? '_blank' : '_self'}
             onClick={onLinkClick}
         >
             <div className="flex items-center gap-2">
                 <PredictionEventImage
                     platform={platform}
-                    src={event.image || event.icon}
+                    src={event.image || event.icon || ''}
                     alt={event.title}
                     className="size-10 shrink-0 rounded-lg object-cover"
                     width={40}
@@ -313,7 +296,7 @@ export const BetItem = memo(function BetItem({
                 <div className="flex min-w-0 flex-1 flex-col gap-1">
                     <h3 className="line-clamp-1 text-base font-semibold leading-5 text-lightMain">{event.title}</h3>
 
-                    {formatTime}
+                    {formattedTime}
                 </div>
             </div>
 
@@ -337,7 +320,7 @@ export const BetItem = memo(function BetItem({
                                 <div key={market.id} className="flex items-center gap-3 sm:gap-4">
                                     <div className="min-w-0 flex-1">
                                         <p className="truncate text-sm leading-5 text-lightMain">
-                                            {market.groupItemTitle || market.question}
+                                            {market.groupItemTitle || market.question || market.title}
                                         </p>
                                     </div>
                                     <div className="flex shrink-0 flex-col text-right">
@@ -491,7 +474,7 @@ export const BetItem = memo(function BetItem({
 
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2 text-sm leading-[17px] text-second">
-                        <span>${nFormatter(event.volume, 2, true)} Vol.</span>
+                        <span>${nFormatter(eventVolume, 2, true)} Vol.</span>
                         {series?.recurrence ? <span>{capitalize(series.recurrence)}</span> : null}
                     </div>
                     {isNew ? (

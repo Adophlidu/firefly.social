@@ -6,12 +6,20 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { BetItem } from '@/components/BetItem.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { PredictionPlatform, ScrollListKey, Source } from '@/constants/enum.js';
+import { formatPolymarketEventListData } from '@/helpers/formatPolymarketEventListData.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { getEventList } from '@/providers/firefly/prediction/getEventList.js';
 import { type PolymarketEventListData } from '@/providers/types/Firefly.js';
 
 function getBetsItemContent(_: number, data: PolymarketEventListData) {
-    return <BetItem key={data.id} event={data} openLinkInNewTab={false} platform={PredictionPlatform.Polymarket} />;
+    return (
+        <BetItem
+            key={data.id}
+            event={formatPolymarketEventListData(data)}
+            openLinkInNewTab={false}
+            platform={PredictionPlatform.Polymarket}
+        />
+    );
 }
 
 interface Props {

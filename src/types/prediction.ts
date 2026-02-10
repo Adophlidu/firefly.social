@@ -87,6 +87,10 @@ export interface BetsMarketDataForUI {
     statusList?: BetsMarketResolveStatus[];
     bestAsk?: number;
     bestBid?: number;
+    question?: string;
+    active?: boolean;
+    groupItemTitle?: string;
+    groupItemThreshold?: string;
 }
 
 export interface BetsEventTagForUI {
@@ -107,6 +111,13 @@ export interface BetsEventDataForUI {
     tags?: BetsEventTagForUI[];
     description?: string;
     volume: string;
+    slug?: string;
+    icon?: string;
+    closed?: boolean;
+    archived?: boolean;
+    sortBy?: string;
+    series?: Array<{ recurrence?: string }>;
+    startDate?: string;
 }
 
 export interface BetsTopHolderForUI {

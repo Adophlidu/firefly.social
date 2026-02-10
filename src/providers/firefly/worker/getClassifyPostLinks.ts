@@ -5,10 +5,11 @@ import { fetchJson } from '@/helpers/fetchJson.js';
 import { type EVM } from '@/providers/nftscan/types.js';
 import { type SnapshotProposal } from '@/providers/snapshot/type.js';
 import { type Article } from '@/providers/types/Article.js';
-import { type NFTDetail } from '@/providers/types/Firefly.js';
+import { type BetPortfolioItem, type NFTDetail } from '@/providers/types/Firefly.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
 import { type Frame } from '@/types/frame.js';
 import { type LinkDigested } from '@/types/og.js';
+import { type BetsEventDataForUI } from '@/types/prediction.js';
 import { type ResponseJson } from '@/types/utility.js';
 
 export interface ClassifyPostLinkResult {
@@ -21,6 +22,8 @@ export interface ClassifyPostLinkResult {
     nft?: NFTDetail;
     collection?: EVM.Collection;
     quote?: Post;
+    prediction_event?: BetsEventDataForUI;
+    prediction_profile?: BetPortfolioItem;
 }
 
 export type GetClassifyPostLinksResponse = ResponseJson<

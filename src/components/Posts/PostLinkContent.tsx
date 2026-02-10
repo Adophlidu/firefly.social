@@ -6,6 +6,8 @@ import { CollectionPreviewer, NFTPreviewer } from '@/components/NFTs/NFTPreview.
 import { OembedLayout } from '@/components/Oembed/index.js';
 import { Player } from '@/components/Oembed/Player.js';
 import { checkIfHasRedPacket } from '@/components/Posts/PostBodyContent.js';
+import { PredictionEventCard } from '@/components/Posts/PredictionEventCard.js';
+import { PredictionProfileCard } from '@/components/Posts/PredictionProfileCard.js';
 import { PureLink } from '@/components/Posts/PureLink.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { TweetSpace } from '@/components/Posts/TweetSpace.js';
@@ -77,6 +79,8 @@ export function PostLinkContent({ data, url, post, isInCompose }: PostLinkConten
                 <Player html={data.html} isSpotify={isLinkMatchingHost(url, 'open.spotify.com', false)} />
             ) : null}
             {data.frame ? <FrameLayout frame={data.frame} post={post} /> : null}
+            {data.prediction_event ? <PredictionEventCard event={data.prediction_event} /> : null}
+            {data.prediction_profile ? <PredictionProfileCard profile={data.prediction_profile} /> : null}
             {data.oembed && !post.quoteOn && !hasTwitterArticle ? (
                 <OembedLayout
                     data={{

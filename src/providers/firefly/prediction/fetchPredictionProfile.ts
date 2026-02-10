@@ -12,6 +12,7 @@ import { type PredictionProfileDataForUI } from '@/types/prediction.js';
 export async function fetchPredictionProfile(
     address: string,
     platform: PredictionPlatform,
+    isProxyAddress?: boolean,
 ): Promise<PredictionProfileDataForUI | undefined> {
     return runInSafeAsync(async () => {
         switch (platform) {
@@ -27,8 +28,8 @@ export async function fetchPredictionProfile(
             }
             case PredictionPlatform.Opinion: {
                 const res = await getPredictionPortfolio([address], {
-                    isProxyAddress: true,
-                    platform: PredictionPlatform.Opinion,
+                    isProxyAddress,
+                    platform,
                 });
                 const profileData = first(res?.result);
                 const profile = profileData ? formatOpinionProfile(profileData) : undefined;

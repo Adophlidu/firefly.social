@@ -4,6 +4,7 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { BetItem } from '@/components/BetItem.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { PredictionPlatform, ScrollListKey, Source } from '@/constants/enum.js';
+import { formatPolymarketEventListData } from '@/helpers/formatPolymarketEventListData.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { searchPrediction } from '@/providers/firefly/prediction/searchPrediction.js';
 import { capturePolymarketSearchEventClick } from '@/providers/telemetry/capturePolymarketEvent.js';
@@ -14,7 +15,7 @@ function getBetsItemContent(_: number, data: PolymarketEventListData) {
     return (
         <BetItem
             key={data.id}
-            event={data}
+            event={formatPolymarketEventListData(data)}
             openLinkInNewTab={false}
             platform={PredictionPlatform.Polymarket}
             onLinkClick={() => {

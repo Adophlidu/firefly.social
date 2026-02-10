@@ -16,7 +16,10 @@ interface Props {
 export async function PredictionProfileDetailContent({ address, platform }: Props) {
     if (!address || !isValidAddressEthereum(address)) notFound();
 
-    const [, predictionProfile] = await Promise.all([setupLocaleForSSR(), fetchPredictionProfile(address, platform)]);
+    const [, predictionProfile] = await Promise.all([
+        setupLocaleForSSR(),
+        fetchPredictionProfile(address, platform, true),
+    ]);
 
     if (!predictionProfile) notFound();
 
