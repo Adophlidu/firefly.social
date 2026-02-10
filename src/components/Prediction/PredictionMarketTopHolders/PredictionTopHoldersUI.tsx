@@ -37,7 +37,6 @@ export function PredictionTopHoldersUI({
             {holders.map((holder) => (
                 <Link
                     href={RouteResolver.betsProfile(holder.wallet, { platform })}
-                    target="_blank"
                     className="flex items-center gap-2 border-b border-line py-2 pl-4"
                     key={holder.wallet}
                 >
