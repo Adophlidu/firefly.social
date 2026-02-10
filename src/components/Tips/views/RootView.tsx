@@ -30,13 +30,15 @@ export function RootView() {
         TipsModalRef.close();
     };
 
+    const isListView = pathname === TipsRoutePath.SELECT_RECIPIENT || pathname === TipsRoutePath.SELECT_TOKEN;
     const content = (
         <div
             className={classNames('flex w-full flex-col transition-all', {
                 'h-[292px]': pathname === TipsRoutePath.TIPS && showLoadingView,
                 'h-[240px]': pathname === TipsRoutePath.TIPS && showFailedView,
-                'h-[382px] md:h-[582px]': pathname === TipsRoutePath.SELECT_TOKEN,
+                'h-[311px]': pathname === TipsRoutePath.TIPS && !showLoadingView && !showFailedView,
                 'h-[424px]': pathname === TipsRoutePath.SUCCESS,
+                'h-[382px] md:h-[512px]': isListView,
             })}
         >
             <div className="no-scrollbar min-h-0 flex-1 overflow-y-auto">
@@ -46,14 +48,12 @@ export function RootView() {
     );
 
     if (isMedium) {
-        const enableBack = pathname === TipsRoutePath.SELECT_RECIPIENT || pathname === TipsRoutePath.SELECT_TOKEN;
-
         return (
             <Modal
                 title={<Trans>Tips</Trans>}
                 size="md"
-                enableClose={!enableBack}
-                enableBack={enableBack}
+                enableClose={!isListView}
+                enableBack={isListView}
                 open={open}
                 onBack={onBack}
                 onClose={onClose}

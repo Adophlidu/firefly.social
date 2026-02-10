@@ -6,6 +6,7 @@ import WalletIcon from '@/assets/wallet-icon.svg';
 import { Image } from '@/components/Image.js';
 import { NetworkPluginID, NetworkType } from '@/constants/enum.js';
 import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
+import { useDefaultFireflyAvatar } from '@/hooks/useDefaultFireflyAvatar.js';
 import { type FireflyTipsProfile } from '@/providers/types/Firefly.js';
 import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
@@ -16,7 +17,9 @@ interface RecipientAvatarProps {
 }
 
 export const RecipientAvatar = memo<RecipientAvatarProps>(function RecipientAvatar({ recipient }) {
-    const ensAvatar = recipient.ens ? recipient.avatar : null;
+    const defaultFallbackUrl = useDefaultFireflyAvatar();
+
+    const ensAvatar = (recipient.ens ? recipient.avatar : null) || defaultFallbackUrl;
     const isEvm = recipient.networkType === NetworkType.Ethereum;
 
     return (
