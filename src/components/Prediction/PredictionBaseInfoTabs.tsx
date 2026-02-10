@@ -31,6 +31,12 @@ interface PredictionBaseInfoTabsProps {
     showResolution?: boolean;
     eventSlug?: string;
 }
+const tabNameMap = {
+    [BetsEventInfoTab.TopHolders]: 'Top holders',
+    [BetsEventInfoTab.Trades]: 'Trades',
+    [BetsEventInfoTab.Info]: 'Info',
+    [BetsEventInfoTab.Resolution]: 'Resolution',
+} as const;
 
 export const PredictionBaseInfoTabs = memo<PredictionBaseInfoTabsProps>(function PredictionBaseInfoTabs({
     showResolution,
@@ -43,20 +49,13 @@ export const PredictionBaseInfoTabs = memo<PredictionBaseInfoTabsProps>(function
         setTab(newTab);
         if (!eventSlug) return;
 
-        const tabNameMap: Record<BetsEventInfoTab, string> = {
-            [BetsEventInfoTab.TopHolders]: 'Top holders',
-            [BetsEventInfoTab.Trades]: 'Trades',
-            [BetsEventInfoTab.Info]: 'Info',
-            [BetsEventInfoTab.Resolution]: 'Resolution',
-        };
-
         const tabName = tabNameMap[newTab];
         if (!tabName) return;
 
         if (platform === 'polymarket') {
-            capturePolymarketEventTabClick(eventSlug, tabName as any);
+            capturePolymarketEventTabClick(eventSlug, tabName);
         } else if (platform === 'opinion') {
-            captureOpinionEventTabClick(eventSlug, tabName as any);
+            captureOpinionEventTabClick(eventSlug, tabName);
         }
     };
 

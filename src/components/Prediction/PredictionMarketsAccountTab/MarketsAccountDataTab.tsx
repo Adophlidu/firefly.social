@@ -6,9 +6,25 @@ import { memo } from 'react';
 
 import { Tab, Tabs } from '@/components/Tabs/index.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/browser.js';
+import type { PredictionPlatform } from '@/constants/enum.js';
 import { MarketsAccountTabType, useMarketsAccountTab } from '@/hooks/prediction/useMarketsAccountTab.js';
+import {
+    captureOpinionEventTabClick,
+    capturePolymarketEventTabClick,
+} from '@/providers/telemetry/capturePolymarketEvent.js';
 
-export const MarketsAccountDataTab = memo(function MarketsAccountDataTab() {
+const tabNameMap = {
+    [MarketsAccountTabType.Markets]: 'Markets',
+    [MarketsAccountTabType.Positions]: 'Positions',
+    [MarketsAccountTabType.Orders]: 'Open order',
+} as const;
+
+interface Props {
+    platform: PredictionPlatform;
+    eventSlug: string;
+}
+
+export const MarketsAccountDataTab = memo<Props>(function MarketsAccountDataTab({ platform, eventSlug }) {
     const [currentTab, setCurrentTab] = useMarketsAccountTab();
 
     return (
@@ -26,7 +42,19 @@ export const MarketsAccountDataTab = memo(function MarketsAccountDataTab() {
                 { value: MarketsAccountTabType.Positions, label: <Trans>Positions</Trans> },
                 { value: MarketsAccountTabType.Orders, label: <Trans>Open Orders</Trans> },
             ].map((tab) => (
-                <Tab value={tab.value} key={tab.value}>
+                <Tab
+                    value={tab.value}
+                    key={tab.value}
+                    onClick={() => {
+                        const tabName = tabNameMap[tab.value];
+                        if (!tabName) return;
+                        if (platform === 'polymarket') {
+                            capturePolymarketEventTabClick(eventSlug, tabName);
+                        } else if (platform === 'opinion') {
+                            captureOpinionEventTabClick(eventSlug, tabName);
+                        }
+                    }}
+                >
                     {tab.label}
                 </Tab>
             ))}

@@ -64,7 +64,7 @@ export function capturePolymarketCategoryView(categorySlug: string, categoryName
 // Polymarket event tab click
 export function capturePolymarketEventTabClick(
     eventSlug: string,
-    tab: 'Order book' | 'Positions' | 'Open order' | 'Top holders' | 'Trades' | 'Info',
+    tab: 'Order book' | 'Positions' | 'Open order' | 'Top holders' | 'Trades' | 'Info' | 'Resolution' | 'Markets',
 ) {
     return TelemetryProvider.captureEventInSafe(EventId.POLYMARKET_EVENT_TAB_CLICK, {
         event_slug: eventSlug,
@@ -73,7 +73,10 @@ export function capturePolymarketEventTabClick(
 }
 
 // Opinion event tab click
-export function captureOpinionEventTabClick(eventSlug: string, tab: 'Top holders' | 'Trades' | 'Info') {
+export function captureOpinionEventTabClick(
+    eventSlug: string,
+    tab: 'Top holders' | 'Trades' | 'Info' | 'Resolution' | 'Markets' | 'Positions' | 'Open order',
+) {
     return TelemetryProvider.captureEventInSafe(EventId.OPINION_EVENT_TAB_CLICK, {
         event_slug: eventSlug,
         tab,

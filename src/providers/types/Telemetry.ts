@@ -2001,7 +2001,15 @@ export interface Events extends Record<EventId, Event> {
         parameters: {
             firefly_account_id: string;
             event_slug: string;
-            tab: 'Order book' | 'Positions' | 'Open order' | 'Top holders' | 'Trades' | 'Info';
+            tab:
+                | 'Order book'
+                | 'Positions'
+                | 'Open order'
+                | 'Top holders'
+                | 'Trades'
+                | 'Info'
+                | 'Resolution'
+                | 'Markets';
         };
     };
     [EventId.OPINION_EVENT_TAB_CLICK]: {
@@ -2009,7 +2017,7 @@ export interface Events extends Record<EventId, Event> {
         parameters: {
             firefly_account_id: string;
             event_slug: string;
-            tab: 'Top holders' | 'Trades' | 'Info';
+            tab: 'Top holders' | 'Trades' | 'Info' | 'Resolution' | 'Markets' | 'Positions' | 'Open order';
         };
     };
     [EventId.POLYMARKET_EVENT_MARKET_CLICK]: {

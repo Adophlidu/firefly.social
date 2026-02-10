@@ -62,7 +62,6 @@ export const PredictionMarketsAccountTab = memo<PredictionMarketsAccountTabProps
             ),
         [data],
     );
-    console.log('event', event);
 
     if (isLoading) return null;
     if (!wallets.length)
@@ -77,7 +76,7 @@ export const PredictionMarketsAccountTab = memo<PredictionMarketsAccountTabProps
 
     return (
         <div>
-            <MarketsAccountDataTab />
+            <MarketsAccountDataTab platform={platform} eventSlug={eventSlug || event.id} />
             <MarketsAccountDataTabContent
                 markets={markets}
                 platform={platform}
