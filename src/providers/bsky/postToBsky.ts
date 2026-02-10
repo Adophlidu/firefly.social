@@ -93,6 +93,42 @@ export async function postToBsky(
         } satisfies Post;
     };
 
+    const handleLongPost = async (
+        postType: PostType,
+        images: MediaObject[],
+        videos: MediaObject[],
+        publishFn: (draft: Post) => Promise<{ postId: string; contentURI?: string }>,
+    ): Promise<{ postId: string; contentURI?: string }> => {
+        const textContent = readChars(chars, 'visible', Source.Bsky);
+        const textLength = textContent.length;
+
+        if (textLength > BSKY_SHORT_POST_LIMIT) {
+            const { articleId } = await postArticle('', textContent, currentProfile.profileId);
+
+            const fireflyArticleUrl = formatFireflyPostUrl(Source.Bsky, articleId);
+
+            const truncatedContent = truncateTextForBsky(textContent, fireflyArticleUrl);
+
+            const draftWithTruncatedText = await composeDraft(postType, images, videos);
+            draftWithTruncatedText.metadata.content = {
+                content: truncatedContent,
+            };
+
+            const result = await publishFn(draftWithTruncatedText);
+
+            if (result.contentURI) {
+                await runInSafeAsync(() =>
+                    updateArticle(articleId, FireflyPlatform.Bsky, PostAtUri.from(result.contentURI!).toId()),
+                );
+            }
+
+            return result;
+        }
+
+        const draft = await composeDraft(postType, images, videos);
+        return publishFn(draft);
+    };
+
     const postTo = createPostTo(Source.Bsky, {
         uploadImages: async () => {
             if (!images.length) return [];
@@ -134,35 +170,7 @@ export async function postToBsky(
             return [];
         },
         async compose(images, videos) {
-            const textContent = readChars(chars, 'visible', Source.Bsky);
-            const textLength = textContent.length;
-
-            if (textLength > BSKY_SHORT_POST_LIMIT) {
-                const { articleId } = await postArticle('', textContent, currentProfile.profileId);
-
-                const fireflyArticleUrl = formatFireflyPostUrl(Source.Bsky, articleId);
-
-                const truncatedContent = truncateTextForBsky(textContent, fireflyArticleUrl);
-
-                const draftWithTruncatedText = await composeDraft('Post', images, videos);
-                draftWithTruncatedText.metadata.content = {
-                    content: truncatedContent,
-                };
-
-                const result = await bskySocialMediaProvider.publishPost(draftWithTruncatedText);
-
-                if (result?.contentURI) {
-                    await runInSafeAsync(() =>
-                        updateArticle(articleId, FireflyPlatform.Bsky, PostAtUri.from(result.contentURI).toId()),
-                    );
-                }
-
-                return result;
-            }
-
-            // Normal flow for posts <= 300 characters
-            const draft = await composeDraft('Post', images, videos);
-            return bskySocialMediaProvider.publishPost(draft);
+            return handleLongPost('Post', images, videos, (draft) => bskySocialMediaProvider.publishPost(draft));
         },
         async reply(images, videos) {
             if (
@@ -172,8 +180,8 @@ export async function postToBsky(
                 !bskyRootPostContentURI
             )
                 throw new Error('No parent post found.');
-            const draft = await composeDraft('Comment', images, videos);
-            return bskySocialMediaProvider.publishPost(draft);
+
+            return handleLongPost('Comment', images, videos, (draft) => bskySocialMediaProvider.publishPost(draft));
         },
         async quote(images, videos) {
             if (
@@ -183,8 +191,10 @@ export async function postToBsky(
                 !bskyRootPostContentURI
             )
                 throw new Error('No parent post found.');
-            const draft = await composeDraft('Quote', images, videos);
-            return bskySocialMediaProvider.quotePost(bskyParentPost.postId, draft);
+
+            return handleLongPost('Quote', images, videos, (draft) =>
+                bskySocialMediaProvider.quotePost(bskyParentPost.postId, draft),
+            );
         },
     });
 
