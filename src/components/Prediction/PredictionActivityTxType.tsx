@@ -6,7 +6,6 @@ import { type PropsWithChildren } from 'react';
 
 import BuyIcon from '@/assets/bet-buy.svg';
 import SellIcon from '@/assets/bet-sell.svg';
-import { ActivityCellAction } from '@/components/ActivityCell/ActivityCellAction.js';
 import { ActivityCellActionTag } from '@/components/ActivityCell/ActivityCellActionTag.js';
 import { PredictionPlatformName } from '@/components/Prediction/PredictionPlatformName.js';
 import { PolymarketBetType, type PredictionPlatform } from '@/constants/enum.js';
@@ -22,27 +21,31 @@ export function PredictionActivityTxType({ type, platform, children, usdcSize }:
     switch (type) {
         case PolymarketBetType.Buy:
             return (
-                <ActivityCellAction>
+                <div className="text-sm font-normal">
                     <Trans>
-                        <ActivityCellActionTag icon={<BuyIcon />}>Made a prediction</ActivityCellActionTag>
+                        <ActivityCellActionTag className="mr-1 !inline-flex" icon={<BuyIcon />}>
+                            Made a prediction
+                        </ActivityCellActionTag>
                         <span>
                             worth ${toFixedTrimmed(+usdcSize, 2)} at <PredictionPlatformName platform={platform} />
                         </span>
                     </Trans>
                     {children}
-                </ActivityCellAction>
+                </div>
             );
         case PolymarketBetType.Sell:
             return (
-                <ActivityCellAction>
+                <div className="text-sm font-normal">
                     <Trans>
-                        <ActivityCellActionTag icon={<SellIcon />}>Sold a position</ActivityCellActionTag>
+                        <ActivityCellActionTag className="mr-1 !inline-flex" icon={<SellIcon />}>
+                            Sold a position
+                        </ActivityCellActionTag>
                         <span>
                             worth ${toFixedTrimmed(+usdcSize, 2)} at <PredictionPlatformName platform={platform} />
                         </span>
                     </Trans>
                     {children}
-                </ActivityCellAction>
+                </div>
             );
         default:
             safeUnreachable(type);

@@ -58,12 +58,16 @@ export function PredictionActivityRate({ activity }: ActivityRateProps) {
                         <div
                             key={outcomeData.outcome}
                             className={classNames(
-                                'min-w-0 flex-1 shrink-0 break-all text-sm',
-                                outcomeData.isLast ? 'text-right text-danger' : 'text-left text-success',
+                                'flex min-w-0 flex-1 shrink-0 break-all text-sm',
+                                outcomeData.isLast ? 'justify-end text-right text-danger' : 'text-left text-success',
                             )}
                         >
-                            <span className={`font-bold ${bedStead.className}`}>{outcomeData.outcome}</span>
-                            <span className="ml-1 font-semibold">{toFixedTrimmed(+outcomeData.price * 100, 2)}¢</span>
+                            <span className={`min-w-0 truncate font-bold ${bedStead.className}`}>
+                                {outcomeData.outcome}
+                            </span>
+                            <span className="ml-1 shrink-0 font-semibold">
+                                {toFixedTrimmed(+outcomeData.price * 100, 2)}¢
+                            </span>
                         </div>
                     );
                 })}

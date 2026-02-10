@@ -69,7 +69,7 @@ export const PredictionActivityBody = memo<PredictionActivityBodyProps>(function
                     >
                         {outcome} - {floor(+activity.price * 100)}¢
                     </span>
-                    <span className="h-6 rounded-lg bg-lightBg px-2 leading-6 text-lightMain">
+                    <span className="min-h-6 rounded-lg bg-lightBg px-2 leading-6 text-lightMain">
                         <Trans>×{toFixedTrimmed(+activity.size, 2)} shares</Trans>
                     </span>
                 </div>
