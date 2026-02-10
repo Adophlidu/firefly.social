@@ -4,9 +4,12 @@ import { motion } from 'framer-motion';
 import { memo, useCallback } from 'react';
 
 import ArrowDownIcon from '@/assets/arrow-line-down.svg';
+import SmallFireflyAvatar from '@/assets/small-firefly.svg';
 import { RecipientAvatar } from '@/components/Tips/RecipientAvatar.js';
 import { TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
+import { isMPCWallet } from '@/helpers/isMPCWallet.js';
+import type { WalletProfile } from '@/providers/types/Firefly.js';
 import { useTipsStore } from '@/store/useTipsStore.js';
 
 export const TipsRecipient = memo(function TipsRecipient() {
@@ -23,6 +26,7 @@ export const TipsRecipient = memo(function TipsRecipient() {
 
     const ensName = recipient.ens;
     const isPrimary = recipient.__origin__?.isDefault;
+    const isFireflyWallet = recipient.__origin__ ? isMPCWallet(recipient.__origin__ as WalletProfile) : false;
 
     return (
         <motion.div
@@ -40,6 +44,11 @@ export const TipsRecipient = memo(function TipsRecipient() {
                                 <Trans>Primary</Trans>
                             </span>
                         ) : null}
+                        {isFireflyWallet ? (
+                            <span className="ml-1 inline-flex h-4 items-center rounded bg-[#DDDFFF] px-2 text-[10px] font-medium text-highlight">
+                                <SmallFireflyAvatar width={13} height={13} />
+                            </span>
+                        ) : null}
                     </div>
                 ) : (
                     <div className="flex flex-col items-start text-left">
@@ -49,6 +58,11 @@ export const TipsRecipient = memo(function TipsRecipient() {
                             {isPrimary ? (
                                 <span className="ml-1 inline-flex h-4 items-center rounded bg-[#DDDFFF] px-2 text-[10px] font-medium text-highlight">
                                     <Trans>Primary</Trans>
+                                </span>
+                            ) : null}
+                            {isFireflyWallet ? (
+                                <span className="ml-1 inline-flex h-4 items-center rounded bg-[#DDDFFF] px-2 text-[10px] font-medium text-highlight">
+                                    <SmallFireflyAvatar width={13} height={13} />
                                 </span>
                             ) : null}
                         </div>

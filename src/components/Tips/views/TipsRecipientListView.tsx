@@ -1,15 +1,17 @@
 import { Trans } from '@lingui/react/macro';
 import { useRouter } from '@tanstack/react-router';
 
+import SmallFireflyAvatar from '@/assets/small-firefly.svg';
 import WarnIcon from '@/assets/warning-circle.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { AddressLink } from '@/components/Tips/AddressLink.js';
 import { RecipientAvatar } from '@/components/Tips/RecipientAvatar.js';
 import { TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
+import { isMPCWallet } from '@/helpers/isMPCWallet.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { captureTipsSwitchWalletEvent } from '@/providers/telemetry/captureTipsEvent.js';
-import { type FireflyTipsProfile } from '@/providers/types/Firefly.js';
+import { type FireflyTipsProfile, type WalletProfile } from '@/providers/types/Firefly.js';
 import { useTipsStore } from '@/store/useTipsStore.js';
 
 export function TipsRecipientListView() {
@@ -40,6 +42,10 @@ export function TipsRecipientListView() {
                 </div>
                 <div className="mt-4 space-y-2">
                     {recipientList.map((recipient) => {
+                        const isFireflyWallet = recipient.__origin__
+                            ? isMPCWallet(recipient.__origin__ as WalletProfile)
+                            : false;
+
                         return (
                             <ClickableButton
                                 key={recipient.address}
@@ -56,6 +62,11 @@ export function TipsRecipientListView() {
                                                     <Trans>Primary</Trans>
                                                 </span>
                                             ) : null}
+                                            {isFireflyWallet ? (
+                                                <span className="ml-1 inline-flex h-4 items-center rounded bg-[#DDDFFF] px-2 text-[10px] font-medium text-highlight">
+                                                    <SmallFireflyAvatar width={13} height={13} />
+                                                </span>
+                                            ) : null}
                                         </div>
                                     ) : (
                                         <div className="flex flex-col items-start text-left">
@@ -67,6 +78,11 @@ export function TipsRecipientListView() {
                                                 {recipient.isDefault ? (
                                                     <span className="ml-1 inline-flex h-4 items-center rounded bg-[#DDDFFF] px-2 text-[10px] font-medium text-highlight">
                                                         <Trans>Primary</Trans>
+                                                    </span>
+                                                ) : null}
+                                                {isFireflyWallet ? (
+                                                    <span className="ml-1 inline-flex h-4 items-center rounded bg-[#DDDFFF] px-2 text-[10px] font-medium text-highlight">
+                                                        <SmallFireflyAvatar width={13} height={13} />
                                                     </span>
                                                 ) : null}
                                             </div>
