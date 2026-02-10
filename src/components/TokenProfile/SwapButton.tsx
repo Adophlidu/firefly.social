@@ -10,12 +10,14 @@ import { ClickableButton, type ClickableButtonProps } from '@/components/Clickab
 import { useOkxSupportedChains } from '@/components/TokenProfile/useOkxSupportedChains.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { SOLANA_CHAIN_ID_IN_FIREFLY } from '@/constants/debank.js';
-import { NetworkType, OkxProviderType } from '@/constants/enum.js';
+import { ConnectionSource, NetworkType, OkxProviderType } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/static.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
+import { useAppKitAccounts } from '@/hooks/useAppKitAccounts.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { useIsLarge } from '@/hooks/useMediaQuery.js';
+import { useOpenFireflyWallet } from '@/hooks/useOpenFireflyWallet.js';
 import { SwapModalRef } from '@/modals/SwapModal/SwapModal.js';
 import { type SwapModalOpenProps } from '@/modals/SwapModal/SwapModalContent.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
@@ -34,9 +36,14 @@ export function SwapButton({ className, swapProps: swapFromProps, loginRequired 
     const isLoginFirefly = useIsLoginFirefly();
     const isLarge = useIsLarge();
     const { sidebarSwapReady, setSidebarSwapOptions } = useSwapStore();
+    const openFireflyWallet = useOpenFireflyWallet();
+    const appkitAccounts = useAppKitAccounts();
 
     const chainId = swapFromProps?.chainId;
     const providerType = chainId !== SOLANA_CHAIN_ID_IN_FIREFLY ? OkxProviderType.EVM : OkxProviderType.SOLANA;
+
+    const currentWallet = appkitAccounts.find((account) => account.connected);
+    const isUsingFireflyWallet = currentWallet?.source === ConnectionSource.Privy;
 
     const chainIds = supportedChainIds.map((x) => x.chainId);
     const [{ loading }, handleClick] = useAsyncFn(async () => {
@@ -56,14 +63,29 @@ export function SwapButton({ className, swapProps: swapFromProps, loginRequired 
         }
         if (chainId && providerType === OkxProviderType.EVM) await switchChain(wagmiConfig, { chainId });
         captureSwapEvent(EventId.EVENT_SWAP_COPY_TRADE_CLICK);
-        const options = {
-            ...swapFromProps,
-            chainIds: swapFromProps?.chainIds ?? chainIds.map((x) => x.toString()),
-            providerType,
-        };
+
+        const params = new URLSearchParams();
+        params.set('modal', 'swap');
+        if (swapFromProps?.chainId) params.set('chain', swapFromProps.chainId.toString());
+        if (swapFromProps?.fromToken) params.set('from', swapFromProps.fromToken);
+        if (swapFromProps?.toToken) params.set('to', swapFromProps.toToken);
+
+        const swapPath = `/?${params.toString()}`;
+
         if (isLarge && sidebarSwapReady) {
-            setSidebarSwapOptions(options);
+            setSidebarSwapOptions({
+                ...swapFromProps,
+                chainIds: swapFromProps?.chainIds ?? chainIds.map((x) => x.toString()),
+                providerType,
+            });
+        } else if (isUsingFireflyWallet) {
+            openFireflyWallet({ path: swapPath });
         } else {
+            const options = {
+                ...swapFromProps,
+                chainIds: swapFromProps?.chainIds ?? chainIds.map((x) => x.toString()),
+                providerType,
+            };
             SwapModalRef.open(options);
         }
     }, [
@@ -78,6 +100,8 @@ export function SwapButton({ className, swapProps: swapFromProps, loginRequired 
         isLarge,
         sidebarSwapReady,
         setSidebarSwapOptions,
+        openFireflyWallet,
+        isUsingFireflyWallet,
     ]);
 
     if (providerType === OkxProviderType.EVM && chainId && !chainIds.includes(chainId)) return null;
