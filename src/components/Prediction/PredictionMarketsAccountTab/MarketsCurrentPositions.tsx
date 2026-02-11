@@ -88,7 +88,7 @@ export const MarketsCurrentPositions = memo<Props>(function MarketsCurrentPositi
                 isProxyAddress: true,
             });
         },
-        select: (result) => result?.data,
+        select: (result) => result?.data?.filter((position) => position.shares >= 0.01),
     });
 
     const isSingleMarket = markets.length === 1;
