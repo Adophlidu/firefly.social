@@ -1,11 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 
 import { compose } from '@dimensiondev/utils';
+import { first } from 'lodash-es';
 import { ImageResponse } from 'next/og.js';
 import { type NextRequest } from 'next/server.js';
 import { type HTMLProps } from 'react';
 import { z } from 'zod';
 
+import { extractFallbackInfo } from '@/components/Prediction/extractFallbackInfo.js';
 import { PredictionPlatform, Source } from '@/constants/enum.js';
 import { CACHE_AGE_INDEFINITE_ON_DISK } from '@/constants/static.js';
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
@@ -14,8 +16,10 @@ import { formatAddress } from '@/helpers/formatAddress.js';
 import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
 import { getPublicUrl } from '@/helpers/getPublicUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
+import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { fetchPredictionProfile } from '@/providers/firefly/prediction/fetchPredictionProfile.js';
+import { getWalletProfileInfoList } from '@/providers/firefly/prediction/getWalletProfileInfoList.js';
 import { getSatoriFonts } from '@/services/getSatoriFonts.js';
 import { type PredictionProfileDataForUI } from '@/types/prediction.js';
 import { type NextRequestContext } from '@/types/utility.js';
@@ -35,10 +39,41 @@ function Image({ src, ...props }: Pick<HTMLProps<'img'>, 'src' | 'alt' | 'width'
     return <img alt="img" {...props} src={src} />;
 }
 
-async function PredictionProfileOpenGraphImage({ profile }: { profile: PredictionProfileDataForUI }) {
-    const avatarUrl = profile.platform_avatar || getStampAvatarByProfileId(Source.Wallet, profile.wallet);
+async function getSocialProfile(
+    address: string,
+    platform: PredictionPlatform,
+): Promise<{ name?: string; avatar?: string }> {
+    try {
+        const res = await getWalletProfileInfoList(address, platform, true);
+        const firstEntry = first(res?.data?.walletAddress);
+        if (!firstEntry) return {};
+        for (const key in firstEntry) {
+            if (isSameEthereumAddress(key, address)) {
+                const { name, avatar } = extractFallbackInfo(firstEntry[key]);
+                return { name, avatar };
+            }
+        }
+        return {};
+    } catch {
+        return {};
+    }
+}
+
+async function PredictionProfileOpenGraphImage({
+    profile,
+    platform,
+    address,
+}: {
+    profile: PredictionProfileDataForUI;
+    platform: PredictionPlatform;
+    address: string;
+}) {
+    const { name: socialName, avatar: socialAvatar } = await getSocialProfile(address, platform);
+    const avatarUrl =
+        socialAvatar || profile.platform_avatar || getStampAvatarByProfileId(Source.Wallet, profile.wallet);
     const avatarBase64 = await fetchImageAsBase64(avatarUrl, OG_FALLBACK_AVATAR);
 
+    const displayName = socialName || profile.platform_name || '';
     const pnlHistory = profile.pnl_history;
     const hasHistory = pnlHistory?.pnl_items && pnlHistory.pnl_items.length > 0;
     const netPnl = pnlHistory?.net_pnl || 0;
@@ -196,7 +231,7 @@ async function PredictionProfileOpenGraphImage({ profile }: { profile: Predictio
                                     maxHeight: '460px',
                                 }}
                             >
-                                {profile.platform_name}
+                                {displayName}
                             </div>
 
                             <div
@@ -255,13 +290,12 @@ async function PredictionProfileOpenGraphImage({ profile }: { profile: Predictio
                                         whiteSpace: 'nowrap',
                                     }}
                                 >
-                                    {netPnl >= 0 ? '+' : ''}$
+                                    {netPnl >= 0 ? '+' : '-'}$
                                     {Math.abs(netPnl).toLocaleString('en-US', {
                                         minimumFractionDigits: 1,
                                         maximumFractionDigits: 1,
                                     })}
-                                    ({netPnl >= 0 ? '+' : ''}
-                                    {(netPnlRate * 100).toFixed(1)}%)
+                                    ({(netPnlRate * 100).toFixed(1)}%)
                                 </div>
                             </div>
 
@@ -340,7 +374,7 @@ async function PredictionProfileOpenGraphImage({ profile }: { profile: Predictio
                                     display: 'flex',
                                 }}
                             >
-                                {profile.platform_name}
+                                {displayName}
                             </div>
 
                             <div
@@ -369,7 +403,7 @@ async function PredictionProfileOpenGraphImage({ profile }: { profile: Predictio
                                 }}
                             >
                                 <span style={{ color: '#767676', marginRight: '8px', display: 'flex' }}>PnL</span>
-                                {profile.pnl >= 0 ? '+' : ''}$
+                                {profile.pnl >= 0 ? '+' : '-'}$
                                 {Math.abs(profile.pnl).toLocaleString('en-US', {
                                     minimumFractionDigits: 1,
                                     maximumFractionDigits: 1,
@@ -383,11 +417,19 @@ async function PredictionProfileOpenGraphImage({ profile }: { profile: Predictio
     );
 }
 
-async function createPredictionProfileOpenGraphImageResponse({ profile }: { profile: PredictionProfileDataForUI }) {
-    return new ImageResponse(await PredictionProfileOpenGraphImage({ profile }), {
+async function createPredictionProfileOpenGraphImageResponse({
+    profile,
+    platform,
+    address,
+}: {
+    profile: PredictionProfileDataForUI;
+    platform: PredictionPlatform;
+    address: string;
+}) {
+    return new ImageResponse(await PredictionProfileOpenGraphImage({ profile, platform, address }), {
         width: 1200,
         height: 630,
-        fonts: await getSatoriFonts(['Bedstead']),
+        fonts: await getSatoriFonts(['Bedstead', 'NotoSansSC']),
         headers: {
             'Cache-Control': CACHE_AGE_INDEFINITE_ON_DISK,
         },
@@ -416,6 +458,6 @@ export const GET = compose(
             return createProxyImageResponse(predictionDefaultOgImage);
         }
 
-        return createPredictionProfileOpenGraphImageResponse({ profile: profileData });
+        return createPredictionProfileOpenGraphImageResponse({ profile: profileData, platform, address });
     },
 );
