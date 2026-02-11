@@ -85,7 +85,13 @@ export const PredictionMarketList = memo(function PredictionMarketList({
 
                 return (
                     <div key={market.id} className="space-y-3">
-                        <div className="flex items-start gap-2">
+                        <ClickableButton
+                            className={classNames(
+                                'flex w-full items-start gap-2',
+                                showOrderBook ? 'cursor-pointer' : 'cursor-text',
+                            )}
+                            onClick={() => onMarketClick(market)}
+                        >
                             {market.image ? (
                                 <PredictionEventImage
                                     platform={platform}
@@ -96,14 +102,11 @@ export const PredictionMarketList = memo(function PredictionMarketList({
                                     className="size-10 rounded-lg object-cover"
                                 />
                             ) : null}
-                            <div className="min-w-0 flex-1">
+                            <div className="min-w-0 flex-1 text-left">
                                 <div className="text-base font-semibold text-main">
-                                    <ClickableButton
-                                        className={showOrderBook ? 'hover:underline' : 'cursor-text'}
-                                        onClick={() => onMarketClick(market)}
-                                    >
+                                    <span className={showOrderBook ? 'hover:underline' : 'cursor-text'}>
                                         {market.title}
-                                    </ClickableButton>
+                                    </span>
                                 </div>
                                 <span className="text-xs text-second">
                                     <Trans>{`$${nFormatter(+market.volume, 2)}`} Vol.</Trans>
@@ -124,7 +127,7 @@ export const PredictionMarketList = memo(function PredictionMarketList({
                                     className={classNames('text-2xl font-bold text-main', bedStead.className)}
                                 >{`${yesPercent < 1 ? '<1' : Math.round(yesPercent)}%`}</span>
                             )}
-                        </div>
+                        </ClickableButton>
                         {!market.isResolved && platform !== PredictionPlatform.Polymarket ? (
                             <div>
                                 <div className="flex justify-between">
