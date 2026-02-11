@@ -163,7 +163,7 @@ interface PredictionOutcomeButtonProps {
 function PredictionOutcomeButton({ className, slug, outcome, children }: PredictionOutcomeButtonProps) {
     const [{ loading }, handleOpenPredictionPage] = useAsyncFn(async () => {
         if (!slug) return;
-        await openPredictionPage(slug, outcome);
+        await openPredictionPage(slug, { outcome });
     }, [slug, outcome]);
 
     return (

@@ -14,14 +14,16 @@ interface OrderBookUIProps extends HTMLProps<HTMLDivElement> {
     asks: BetsOrderBookItem[];
     lastPrice: number | null;
     spreads: number | null;
+    onPriceClick?: (price: number) => void;
 }
 interface OrderBookListProps {
     data: BetsOrderBookItem[];
     emptyMessage: ReactNode;
     side: 'bids' | 'asks';
+    onPriceClick?: (price: number) => void;
 }
 
-function OrderBookList({ data, emptyMessage, side }: OrderBookListProps) {
+function OrderBookList({ data, emptyMessage, side, onPriceClick }: OrderBookListProps) {
     const maxCount = useMemo(() => Math.max(...data.map((item) => item.size)), [data]);
 
     if (!data.length) {
@@ -43,6 +45,7 @@ function OrderBookList({ data, emptyMessage, side }: OrderBookListProps) {
                             'flex size-full items-center justify-between gap-1 text-left',
                             isAsk ? 'hover:bg-danger/10' : 'hover:bg-success/10',
                         )}
+                        onClick={() => onPriceClick?.(item.price)}
                     >
                         <div
                             className={classNames(
@@ -50,7 +53,7 @@ function OrderBookList({ data, emptyMessage, side }: OrderBookListProps) {
                                 isAsk ? 'text-danger' : 'text-success',
                             )}
                         >
-                            {toFixedTrimmed(item.price * 100, 1)}¢
+                            {(item.price * 100).toFixed(1)}¢
                             <div
                                 className={classNames(
                                     'absolute inset-y-0 left-0 transition-all duration-300 ease-in-out',
@@ -70,7 +73,14 @@ function OrderBookList({ data, emptyMessage, side }: OrderBookListProps) {
     );
 }
 
-export const OrderBookUI = memo<OrderBookUIProps>(function OrderBookUI({ bids, asks, lastPrice, spreads, ref }) {
+export const OrderBookUI = memo<OrderBookUIProps>(function OrderBookUI({
+    bids,
+    asks,
+    lastPrice,
+    spreads,
+    onPriceClick,
+    ref,
+}) {
     const lastPriceRef = useRef<HTMLDivElement>(null);
     const forkedRef = useForkRef(lastPriceRef, ref);
 
@@ -95,7 +105,12 @@ export const OrderBookUI = memo<OrderBookUIProps>(function OrderBookUI({ bids, a
                 </span>
             </div>
             <div className="no-scrollbar max-h-[250px] space-y-2 overflow-y-auto text-xs font-medium">
-                <OrderBookList data={asks} side="asks" emptyMessage={<Trans>No asks</Trans>} />
+                <OrderBookList
+                    data={asks}
+                    side="asks"
+                    emptyMessage={<Trans>No asks</Trans>}
+                    onPriceClick={onPriceClick}
+                />
                 <div ref={forkedRef} className="flex h-[14px] items-center text-third">
                     <span className="flex-1">
                         <Trans id="bets-last-price" comment="Last: {lastPrice}">
@@ -111,7 +126,12 @@ export const OrderBookUI = memo<OrderBookUIProps>(function OrderBookUI({ bids, a
                         </Trans>
                     </span>
                 </div>
-                <OrderBookList data={reversedBids} side="bids" emptyMessage={<Trans>No bids</Trans>} />
+                <OrderBookList
+                    data={reversedBids}
+                    side="bids"
+                    emptyMessage={<Trans>No bids</Trans>}
+                    onPriceClick={onPriceClick}
+                />
             </div>
         </div>
     );

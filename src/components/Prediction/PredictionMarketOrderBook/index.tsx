@@ -5,6 +5,7 @@ import { Trans } from '@lingui/react/macro';
 import { skipToken, useQuery } from '@tanstack/react-query';
 import { first } from 'lodash-es';
 import { memo, useCallback, useMemo, useRef, useState } from 'react';
+import { useAsyncFn } from 'react-use';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Loading } from '@/components/Loading.js';
@@ -12,6 +13,7 @@ import { OrderBookHeader } from '@/components/Prediction/PredictionMarketOrderBo
 import { OrderBookUI } from '@/components/Prediction/PredictionMarketOrderBook/OrderBookUI.js';
 import { SPREAD_SETTING_OPTIONS } from '@/constants/bets.js';
 import type { PredictionPlatform } from '@/constants/enum.js';
+import { openPredictionPage } from '@/helpers/openPredictionPage.js';
 import { getBetsMarketOrderBook } from '@/providers/prediction/getBetsMarketOrderBook.js';
 import type { BetsMarketDataForUI, BetsOrderBookItem, MarketOrderBookSpread } from '@/types/prediction.js';
 
@@ -62,6 +64,19 @@ export const PredictionMarketOrderBook = memo<PredictionMarketOrderBookProps>(fu
         lastPriceRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center', container: 'nearest' });
     }, []);
 
+    const outcomeIndex = market.outcomes.findIndex((o) => o.id === outcomeId);
+    const [, handlePriceClick] = useAsyncFn(
+        async (price: number) => {
+            if (outcomeIndex === -1 || !market.slug) return;
+            await openPredictionPage(market.slug, {
+                outcome: outcomeIndex,
+                limitPrice: price,
+                type: 'limit',
+            });
+        },
+        [outcomeIndex, market.slug],
+    );
+
     const { asks, bids } = useMemo(() => {
         const validSpread = data?.showSpreadSetting ? spread : SPREAD_SETTING_OPTIONS[0];
 
@@ -102,6 +117,7 @@ export const PredictionMarketOrderBook = memo<PredictionMarketOrderBookProps>(fu
                     ref={lastPriceRef}
                     lastPrice={data?.lastPrice ?? null}
                     spreads={data?.spreads ?? null}
+                    onPriceClick={handlePriceClick}
                 />
             )}
         </div>

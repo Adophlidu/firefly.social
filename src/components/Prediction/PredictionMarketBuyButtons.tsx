@@ -83,7 +83,7 @@ export const PredictionMarketBuyButtons = memo<PredictionMarketBuyButtonsProps>(
                         data-prevent-progress
                         onClick={() => {
                             if (market.slug) {
-                                openPredictionPage(market.slug, i);
+                                openPredictionPage(market.slug, { outcome: i });
                             }
                         }}
                     >

@@ -98,7 +98,7 @@ export function PredictionActivityRate({ activity }: ActivityRateProps) {
                             )}
                             data-prevent-progress
                             onClick={() => {
-                                if (activity.rawData?.slug) openPredictionPage(activity.rawData.slug, 0);
+                                if (activity.rawData?.slug) openPredictionPage(activity.rawData.slug, { outcome: 0 });
                             }}
                         >
                             <Trans>Buy {firstOutcome}</Trans>
@@ -113,7 +113,7 @@ export function PredictionActivityRate({ activity }: ActivityRateProps) {
                             )}
                             data-prevent-progress
                             onClick={() => {
-                                if (activity.rawData?.slug) openPredictionPage(activity.rawData.slug, 1);
+                                if (activity.rawData?.slug) openPredictionPage(activity.rawData.slug, { outcome: 1 });
                             }}
                         >
                             <Trans>Buy {secondOutcome}</Trans>
