@@ -83,6 +83,7 @@ export const PredictionMarketsAccountTab = memo<PredictionMarketsAccountTabProps
                 wallets={wallets}
                 eventSlug={eventSlug || event.id}
                 eventTitle={event.title}
+                eventId={event.id}
             />
         </div>
     );

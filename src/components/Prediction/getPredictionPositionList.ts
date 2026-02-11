@@ -12,6 +12,7 @@ interface Options {
     limit?: number;
     indicator?: PageIndicator;
     isClaim?: boolean;
+    eventId?: string;
 }
 
 export async function getPredictionPositionList(

@@ -9,12 +9,12 @@ import { memo, useState } from 'react';
 import { Loading } from '@/components/Loading.js';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { formatPolymarketNumber } from '@/components/Polymarket/formatPolymarketNumber.js';
+import { getPredictionPositionList } from '@/components/Prediction/getPredictionPositionList.js';
 import { WalletsFilter } from '@/components/Prediction/PredictionMarketsAccountTab/WalletsFilter.js';
 import { PredictionPositionAction } from '@/components/Prediction/PredictionPositionAction.js';
 import { PredictionPositionItem } from '@/components/Prediction/PredictionPositionItem.js';
 import { PredictionPlatform, Source } from '@/constants/enum.js';
 import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
-import { getUserCurrentPositions } from '@/providers/prediction/getUserCurrentPositions.js';
 import type { BetsMarketDataForUI, PredictionPositionDataForUI } from '@/types/prediction.js';
 
 interface Props {
@@ -24,6 +24,7 @@ interface Props {
         wallet: string;
         proxy: string;
     }>;
+    eventId: string;
 }
 interface PositionItemProps {
     position: PredictionPositionDataForUI;
@@ -70,24 +71,24 @@ function PositionItemForSingleMarket({ position, platform }: PositionItemProps) 
     );
 }
 
-export const MarketsCurrentPositions = memo<Props>(function MarketsCurrentPositions({ markets, platform, wallets }) {
-    const marketIds = markets.map((x) => x.conditionId);
+export const MarketsCurrentPositions = memo<Props>(function MarketsCurrentPositions({
+    markets,
+    platform,
+    wallets,
+    eventId,
+}) {
     const [selectedWallet, setSelectedWallet] = useState(first(wallets)?.proxy || '');
     const { data, isLoading } = useQuery({
-        queryKey: [
-            Source.Prediction,
-            'user-current-positions',
-            platform,
-            marketIds.join(','),
-            selectedWallet.toLowerCase(),
-        ],
+        queryKey: [Source.Prediction, 'user-current-positions', platform, eventId, selectedWallet.toLowerCase()],
         enabled: !!selectedWallet,
         queryFn: async () => {
-            return getUserCurrentPositions(platform, {
-                wallet: selectedWallet,
-                marketIds,
+            return getPredictionPositionList(platform, {
+                address: selectedWallet,
+                eventId,
+                isProxyAddress: true,
             });
         },
+        select: (result) => result?.data,
     });
 
     const isSingleMarket = markets.length === 1;

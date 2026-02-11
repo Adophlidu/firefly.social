@@ -19,6 +19,7 @@ interface Props {
     }>;
     eventSlug?: string;
     eventTitle?: string;
+    eventId: string;
 }
 
 export const MarketsAccountDataTabContent = memo<Props>(function MarketsAccountDataTabContent({
@@ -27,6 +28,7 @@ export const MarketsAccountDataTabContent = memo<Props>(function MarketsAccountD
     wallets,
     eventSlug,
     eventTitle,
+    eventId,
 }) {
     const [currentTab] = useMarketsAccountTab();
 
@@ -41,7 +43,9 @@ export const MarketsAccountDataTabContent = memo<Props>(function MarketsAccountD
                 />
             );
         case MarketsAccountTabType.Positions:
-            return <MarketsCurrentPositions markets={markets} platform={platform} wallets={wallets} />;
+            return (
+                <MarketsCurrentPositions markets={markets} platform={platform} wallets={wallets} eventId={eventId} />
+            );
         case MarketsAccountTabType.Orders:
             return <PredictionOpenOrders platform={platform} />;
         default:

@@ -16,6 +16,7 @@ export async function getPositionHistory({
     address,
     indicator,
     isProxyAddress,
+    eventId,
     limit = 20, // exactly the same as App's limit
     isClaim = false, // true: current positions; false: history positions
 }: {
@@ -24,6 +25,7 @@ export async function getPositionHistory({
     isProxyAddress?: boolean;
     limit?: number;
     isClaim?: boolean;
+    eventId?: string;
 }): Promise<Pageable<PolymarketPositionData, PageIndicator>> {
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/polymarket/positions/info');
     const response = await fireflySessionHolder.fetch<
@@ -34,6 +36,7 @@ export async function getPositionHistory({
     >(url, {
         method: 'POST',
         body: JSON.stringify({
+            eventId,
             is_polymarketProxy: isProxyAddress,
             limit,
             cursor: indicator?.id ? +indicator.id : undefined,
