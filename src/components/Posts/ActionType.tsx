@@ -15,6 +15,7 @@ import { PageRoute, Source } from '@/constants/enum.js';
 import { usePathname } from '@/esm/navigation.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
+import { isSamePost } from '@/helpers/isSamePost.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
@@ -157,7 +158,12 @@ interface PostParentProps {
 
 function PostRoot({ post, isDetail, listKey, index }: PostParentProps) {
     if (post.type !== 'Comment') return null;
-    if (post.rootPostId === post.parentPostId) return null;
+    // avoid undefined === undefined
+    if (
+        (post.rootPostId && post.rootPostId === post.parentPostId) ||
+        (post.root && post.commentOn && isSamePost(post.root, post.commentOn))
+    )
+        return null;
     if (post.root) {
         return <ThreadBody isDetail={isDetail} post={post.root} listKey={listKey} index={index} />;
     }
