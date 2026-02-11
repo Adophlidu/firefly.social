@@ -47,7 +47,8 @@ function getProfileUrlWithAccount(profile: Profile, related: Profile[], source: 
         });
     }
 
-    return getProfileUrl({ source, profileId: profile.platform_id, handle: profile.handle });
+    // For search results, use profileId (fid) instead of handle for more stable URLs
+    return getProfileUrl({ source, profileId: profile.platform_id });
 }
 
 export const SearchableProfileItem = memo<CrossProfileItemProps>(function SearchableProfileItem({

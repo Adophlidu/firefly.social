@@ -19,11 +19,13 @@ export function getProfileUrl(
 ) {
     switch (profile.source) {
         case Source.Lens:
-        case Source.Farcaster:
         case Source.Twitter:
         case Source.Bsky:
             if (!profile.handle) return '';
             return resolveProfileUrl(profile.source, profile.handle, category, isCurrentProfile);
+        case Source.Farcaster:
+            if (!profile.handle && !profile.profileId) return '';
+            return resolveProfileUrl(profile.source, profile.handle || profile.profileId, category, isCurrentProfile);
         case Source.Wallet:
         case Source.WalletMix:
             if (!profile.profileId) return '';
