@@ -8,11 +8,12 @@ import {
 } from '@atproto/api';
 import { parseUrl } from '@dimensiondev/utils';
 import { produce } from 'immer';
-import { compact, first, isUndefined, omitBy } from 'lodash-es';
+import { compact, first, initial, isUndefined, omitBy } from 'lodash-es';
 
 import { RestrictionType, Source } from '@/constants/enum.js';
 import { TENOR_GIF_REGEXP } from '@/constants/regexp.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
+import { isFireflyPostUrl } from '@/helpers/fireflyPostUrl.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { PostAtUri } from '@/providers/bsky/AtUri.js';
 import { AppBskyEmbed, AppBskyFeed, AppBskyRecord } from '@/providers/bsky/contentChecker.js';
@@ -172,13 +173,20 @@ function formatBskyPostView(original: AppBskyFeedDefs.PostView): Post {
                 contentArr: [],
             },
         );
+
+        const lastOembedUrl = oembedUrls[oembedUrls.length - 1];
+        const fireflyArticleUrl = lastOembedUrl && isFireflyPostUrl(lastOembedUrl) ? lastOembedUrl : undefined;
+        const filteredOembedUrls = fireflyArticleUrl ? initial(oembedUrls) : oembedUrls;
+
         const content = contentArr.join(' ');
+
+        post.fireflyArticleUrl = fireflyArticleUrl;
         post.mentions = mentions;
         post.metadata.content = {
             ...formatBskyMedia(original.embed),
             content,
-            oembedUrls,
-            oembedUrl: first(oembedUrls),
+            oembedUrls: filteredOembedUrls,
+            oembedUrl: first(filteredOembedUrls),
         };
         if (record.reply?.parent.uri) {
             post.parentPostId = record.reply.parent.cid;

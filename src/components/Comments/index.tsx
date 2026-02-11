@@ -9,11 +9,12 @@ import { CommentsFooter, type CommentsFooterProps } from '@/components/Comments/
 import { HideComments } from '@/components/HideComments.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
-import { ScrollListKey, type SocialSource } from '@/constants/enum.js';
+import { ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/static.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
+import { enrichPostWithFireflyArticle } from '@/services/getPostById.js';
 
 interface CommentListProps {
     postId: string;
@@ -37,6 +38,11 @@ export const CommentList = memo<CommentListProps>(function CommentList({
 
             const provider = resolveSocialMediaProvider(source);
             const comments = await provider.getCommentsById(postId, createIndicator(undefined, pageParam));
+
+            if (source === Source.Bsky) {
+                const enrichedData = await Promise.all(comments.data.map(enrichPostWithFireflyArticle));
+                return { ...comments, data: enrichedData };
+            }
 
             return comments;
         },

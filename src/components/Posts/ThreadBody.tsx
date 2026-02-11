@@ -11,6 +11,7 @@ import { NoSSR } from '@/components/NoSSR.js';
 import { FeedActionType } from '@/components/Posts/ActionType.js';
 import { PostBody } from '@/components/Posts/PostBody.js';
 import { PostHeader } from '@/components/Posts/PostHeader.js';
+import { queryClient } from '@/configs/queryClient.js';
 import { PageRoute, Source } from '@/constants/enum.js';
 import { usePathname, useRouter } from '@/esm/navigation.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
@@ -70,6 +71,13 @@ export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({
                 const selection = window.getSelection();
                 if (selection && selection.toString().length !== 0) return;
                 if (isSamePost) return;
+
+                if (post.fireflyArticleUrl) {
+                    queryClient.removeQueries({
+                        queryKey: [post.source, 'post-detail', post.postId],
+                    });
+                }
+
                 router.push(link);
             }}
         >
@@ -99,7 +107,13 @@ export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({
                         'md:-mt-[14px]': !isDetailPage || !isLast,
                     })}
                 >
-                    <PostBody post={post} disablePadding showTranslate={showTranslate} isDetail={isDetail} />
+                    <PostBody
+                        post={post}
+                        disablePadding
+                        showTranslate={showTranslate}
+                        isDetail={isDetail}
+                        fireflyArticleToggle={!!isDetail && !isLast && !isSamePost}
+                    />
                     <NoSSR>
                         {showAction ? (
                             isDetail && isLast ? null : (

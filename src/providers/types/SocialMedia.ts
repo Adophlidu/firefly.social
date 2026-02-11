@@ -345,6 +345,8 @@ export interface Post {
     }>;
     /** Post from tako could be incomplete, the full content is stored in embedded ipfs */
     incomplete?: boolean;
+    /** Firefly long article URL detected from trailing link in Bluesky posts */
+    fireflyArticleUrl?: string;
 
     // ! Just for posts from truth-social
     isTruthSocial?: boolean;

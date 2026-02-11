@@ -2,9 +2,10 @@
 
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 
 import { TwitterArticleBody } from '@/components/Article/TwitterArticleBody.js';
+import { ClickableArea } from '@/components/ClickableArea.js';
 import { EmbedCards } from '@/components/EmbedCards/index.js';
 import { ErrorBoundary } from '@/components/ErrorBoundary/index.js';
 import { NakedMarkup } from '@/components/Markup/NakedMarkup.js';
@@ -20,6 +21,7 @@ import { Quote } from '@/components/Posts/Quote.js';
 import { useParseRedPacket } from '@/components/RedPacket/hooks/useParseRedPacket.js';
 import { RedPacketCard } from '@/components/RedPacket/RedPacketCard.js';
 import { TruthSocialPostMarkup } from '@/components/TrumpTruthSocial/TruthSocialPostMarkup.js';
+import { queryClient } from '@/configs/queryClient.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/browser.js';
 import { SUPPORTED_MULTIPLE_EMBED_SOURCES } from '@/constants/computed.js';
 import { PageRoute, Source, STATUS } from '@/constants/enum.js';
@@ -30,6 +32,7 @@ import { getEncryptedPayloadFromText } from '@/helpers/getEncryptedPayloadFromTe
 import { getPollIdFromLink } from '@/helpers/getPollIdFromLink.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
+import { removeAtEnd } from '@/helpers/removeAtEnd.js';
 import { resolveOembedUrl } from '@/helpers/resolveOembedUrl.js';
 import { trimify } from '@/helpers/trimify.js';
 import { useEverSeen } from '@/hooks/useEverSeen.js';
@@ -50,6 +53,7 @@ export interface PostBodyContentProps {
     showMore?: boolean;
     disablePadding?: boolean;
     showTranslate?: boolean;
+    fireflyArticleToggle?: boolean;
     ref?: React.Ref<HTMLDivElement>;
 }
 
@@ -79,8 +83,31 @@ export function PostBodyContent({ ref, ...props }: PostBodyContentProps) {
     const liteRawContent = metadata.content?.content?.slice(0, 2000);
     const isExpanded = post.incomplete && post.fullContent === post.metadata.content?.content;
     const canShowMore = !isExpanded && !!(postRawContent && postRawContent.length > 450) && showMore;
+    const hasFireflyArticle = !!post.fireflyArticleUrl && showMore;
+    const isFireflyCollapsible = !!post.fireflyArticleUrl && !!post.partialContent && !!props.fireflyArticleToggle;
+    const [isArticleExpanded, setIsArticleExpanded] = useState(false);
 
-    const postContent = metadata.content?.truncatedContent || postRawContent || '';
+    const postContent = useMemo(() => {
+        const base = metadata.content?.truncatedContent || postRawContent || '';
+
+        if (isFireflyCollapsible) {
+            if (isArticleExpanded) return base;
+            return removeAtEnd(post.partialContent || base, post.fireflyArticleUrl!).trimEnd();
+        }
+
+        if (hasFireflyArticle && post.fireflyArticleUrl) {
+            return removeAtEnd(base, post.fireflyArticleUrl).trimEnd();
+        }
+        return base;
+    }, [
+        metadata.content?.truncatedContent,
+        postRawContent,
+        hasFireflyArticle,
+        isFireflyCollapsible,
+        isArticleExpanded,
+        post.fireflyArticleUrl,
+        post.partialContent,
+    ]);
     const [seen, seenRef] = useEverSeen({ rootMargin: '300px 0px' });
     const mergedRef = useForkRef(ref, seenRef);
 
@@ -184,7 +211,11 @@ export function PostBodyContent({ ref, ...props }: PostBodyContentProps) {
             {post.isTruthSocial ? (
                 <TruthSocialPostMarkup post={post} postContent={postContent} />
             ) : (
-                <PostMarkup post={post} canShowMore={canShowMore} content={postContent} />
+                <PostMarkup
+                    post={post}
+                    canShowMore={canShowMore || hasFireflyArticle || (isFireflyCollapsible && !isArticleExpanded)}
+                    content={postContent}
+                />
             )}
 
             {post.metadata.article ? (
@@ -197,19 +228,34 @@ export function PostBodyContent({ ref, ...props }: PostBodyContentProps) {
                 <ContentTranslator content={trimify(postContent)} canShowMore={canShowMore} post={post} />
             ) : null}
 
-            {canShowMore ? (
-                <div className="text-medium font-bold text-highlight">
-                    <div
-                        onClick={() => {
-                            if (post.isTruthSocial) {
-                                return;
-                            }
-                            router.push(getPostUrl(post));
-                        }}
-                    >
+            {isFireflyCollapsible ? (
+                <ClickableArea
+                    className="cursor-pointer text-medium font-bold text-highlight"
+                    onClick={() => setIsArticleExpanded((prev) => !prev)}
+                >
+                    <div>{isArticleExpanded ? <Trans>Show Less</Trans> : <Trans>Show More</Trans>}</div>
+                </ClickableArea>
+            ) : canShowMore || hasFireflyArticle ? (
+                <ClickableArea
+                    className="cursor-pointer text-medium font-bold text-highlight"
+                    onClick={() => {
+                        if (post.isTruthSocial) {
+                            return;
+                        }
+                        if (post.fireflyArticleUrl) {
+                            queryClient.removeQueries({
+                                queryKey: [post.source, 'post-detail', post.postId],
+                            });
+                            router.push(post.fireflyArticleUrl);
+                            return;
+                        }
+                        router.push(getPostUrl(post));
+                    }}
+                >
+                    <div>
                         <Trans>Show More</Trans>
                     </div>
-                </div>
+                </ClickableArea>
             ) : null}
 
             {!isTokenPage ? (

@@ -21,7 +21,7 @@ export async function getPostById(source: SocialSource, postId: string) {
     return enrichPostWithFireflyArticle(post);
 }
 
-async function enrichPostWithFireflyArticle(post: Post): Promise<Post> {
+export async function enrichPostWithFireflyArticle(post: Post): Promise<Post> {
     // Only support Bsky for now
     if (post.source !== Source.Bsky) return post;
 
@@ -41,6 +41,7 @@ async function enrichPostWithFireflyArticle(post: Post): Promise<Post> {
 
         return {
             ...post,
+            partialContent: content,
             metadata: {
                 ...post.metadata,
                 content: {

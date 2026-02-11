@@ -141,6 +141,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
                 showTranslate={showTranslate}
                 isDetail={isDetail}
                 isComment={isComment}
+                fireflyArticleToggle={!!isPostPage && !postLink.includes(pathname)}
             />
             <NoSSR>
                 {showPostAction && !post.isTruthSocial ? (

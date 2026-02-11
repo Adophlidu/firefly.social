@@ -47,12 +47,14 @@ async function getSocialProfile(
         const res = await getWalletProfileInfoList(address, platform, true);
         const firstEntry = first(res?.data?.walletAddress);
         if (!firstEntry) return {};
+
         for (const key in firstEntry) {
             if (isSameEthereumAddress(key, address)) {
                 const { name, avatar } = extractFallbackInfo(firstEntry[key]);
                 return { name, avatar };
             }
         }
+
         return {};
     } catch {
         return {};

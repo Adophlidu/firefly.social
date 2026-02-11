@@ -6,6 +6,7 @@ import { createPageable } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { getBskyThreadByPostId } from '@/providers/bsky/getBskyThreadByPostId.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
+import { enrichPostWithFireflyArticle } from '@/services/getPostById.js';
 
 async function getTwitterThreads(post: Post) {
     const posts = await resolveSocialMediaProvider(Source.Twitter).getThreadByPostId(post.postId);
@@ -14,7 +15,8 @@ async function getTwitterThreads(post: Post) {
 
 async function getBskyThreads(post: Post) {
     const posts = await getBskyThreadByPostId(post.postId);
-    return createPageable(posts, undefined);
+    const enrichedPosts = await Promise.all(posts.map(enrichPostWithFireflyArticle));
+    return createPageable(enrichedPosts, undefined);
 }
 
 export async function getThreads(post: Post, source: SocialSource) {

@@ -47,8 +47,13 @@ function getProfileUrlWithAccount(profile: Profile, related: Profile[], source: 
         });
     }
 
-    // For search results, use profileId (fid) instead of handle for more stable URLs
-    return getProfileUrl({ source, profileId: profile.platform_id });
+    // For farcaster search results, use profileId (fid) instead of handle for more stable URLs
+    return getProfileUrl({
+        source,
+        // force use abnormal
+        profileId: source === Source.Farcaster ? `!${profile.platform_id}` : profile.platform_id,
+        handle: source === Source.Farcaster ? `!${profile.platform_id}` : profile.handle,
+    });
 }
 
 export const SearchableProfileItem = memo<CrossProfileItemProps>(function SearchableProfileItem({
