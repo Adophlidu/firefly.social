@@ -5,7 +5,7 @@ import { ZodError } from 'zod';
 import { MalformedRequestError } from '@/constants/error.js';
 import { createErrorResponseJson } from '@/helpers/createResponseJson.js';
 import { ExceptionId } from '@/providers/errorCapture/captureException.js';
-import { reportExceptionServer } from '@/providers/firefly/report/reportExceptionServer.js';
+import { reportExceptionServer } from '@/providers/errorCapture/reportExceptionServer.js';
 import { type NextRequestContext } from '@/types/utility.js';
 
 type Handler<T> = (request: NextRequest, context?: NextRequestContext<T>) => Promise<Response>;

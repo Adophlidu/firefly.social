@@ -23,7 +23,7 @@ export function useIsCreatedPrivyWallet() {
         async queryFn() {
             const data = await createPrivyWallet();
             if (!data) {
-                captureException(ExceptionId.CREATE_PRIVY_WALLET, new Error(`Create privy wallet failed`), {
+                captureException(ExceptionId.CREATE_PRIVY_WALLET, new Error('Create privy wallet failed'), {
                     profileId: currentProfileSession?.profileId as string,
                 });
                 return;

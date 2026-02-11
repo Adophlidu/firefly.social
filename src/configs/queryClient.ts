@@ -1,6 +1,7 @@
 import { MutationCache, QueryCache, QueryClient, type QueryClientConfig } from '@tanstack/react-query';
 
-import { captureClientException, ExceptionId } from '@/providers/errorCapture/captureException.js';
+import { captureClientException } from '@/providers/errorCapture/captureClientException.js';
+import { ExceptionId } from '@/providers/errorCapture/captureException.js';
 
 /**
  * Error types that should be ignored (handled elsewhere or expected)

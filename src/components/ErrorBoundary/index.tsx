@@ -3,7 +3,8 @@
 import { Component, type ErrorInfo } from 'react';
 
 import { type CrashProps, CrashUI, type ErrorBoundaryError } from '@/components/ErrorBoundary/Crash.js';
-import { captureClientException, ExceptionId } from '@/providers/errorCapture/captureException.js';
+import { captureClientException } from '@/providers/errorCapture/captureClientException.js';
+import { ExceptionId } from '@/providers/errorCapture/captureException.js';
 
 interface ErrorBoundaryProps extends Partial<CrashProps> {
     /** Disable automatic error reporting */

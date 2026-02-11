@@ -1,12 +1,8 @@
 /* cspell:disable */
 
-import {
-    captureClientException,
-    classifyError,
-    ExceptionId,
-    isChunkLoadError,
-    isNetworkError,
-} from '@/providers/errorCapture/captureException.js';
+import { captureClientException } from '@/providers/errorCapture/captureClientException.js';
+import { ExceptionId } from '@/providers/errorCapture/captureException.js';
+import { classifyError } from '@/providers/errorCapture/classifyError.js';
 
 let initialized = false;
 
@@ -117,14 +113,7 @@ function handleUnhandledRejection(event: PromiseRejectionEvent): void {
         return;
     }
 
-    // Determine exception ID based on error type
-    let exceptionId = ExceptionId.UNHANDLED_REJECTION;
-
-    if (isChunkLoadError(error)) {
-        exceptionId = ExceptionId.CHUNK_LOAD_ERROR;
-    } else if (isNetworkError(error)) {
-        exceptionId = ExceptionId.NETWORK_ERROR;
-    }
+    const exceptionId = classifyError(error, ExceptionId.UNHANDLED_REJECTION);
 
     captureClientException(exceptionId, error, {
         tags: {
