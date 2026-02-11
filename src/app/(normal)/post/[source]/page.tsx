@@ -45,12 +45,14 @@ export default async function Page(props: Props) {
 
     // Article handling: /post/{articleId}?s={source}
     if (searchParams.s) {
+        const source = searchParams.s;
+        const id = params.source;
         // Currently only supports Bsky
-        if (searchParams.s !== SourceInURL.Bsky) notFound();
+        if (source !== SourceInURL.Bsky) notFound();
         // only match firefly post id
-        if (!params.source.startsWith('ff-')) notFound();
+        if (!id.startsWith('ff-')) notFound();
 
-        const article = await getArticleById(params.source);
+        const article = await getArticleById(id);
 
         if (!article) {
             notFound();

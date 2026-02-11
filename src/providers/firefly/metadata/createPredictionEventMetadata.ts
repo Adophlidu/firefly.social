@@ -9,8 +9,8 @@ import { fetchMetadataApi } from '@/providers/firefly/metadata/fetchMetadataApi.
 export async function createPredictionEventMetadata(
     id: string,
     platform: PredictionPlatform,
-    type: 'multi' | string,
     pathname: string,
+    type?: 'multi' | string,
 ): Promise<Metadata> {
     try {
         const response = await fetchMetadataApi(

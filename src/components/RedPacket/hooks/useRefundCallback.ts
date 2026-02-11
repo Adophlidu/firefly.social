@@ -40,7 +40,7 @@ export function useRefundCallback(rpid?: string, overrides?: ChainContextOverrid
                 claimer: account,
             });
             queryClient.setQueriesData(
-                { queryKey: ['redpacket-history', account, FireflyRedPacketAPI.ActionType.Send] },
+                { queryKey: ['redpacket-history', account.toLowerCase(), FireflyRedPacketAPI.ActionType.Send] },
                 (
                     old:
                         | {

@@ -1,7 +1,7 @@
-import { msg } from '@lingui/core/macro';
+import { type Metadata } from 'next';
 
-import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
-import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
+import { PredictionPlatform } from '@/constants/enum.js';
+import { createPredictionEventMetadata } from '@/providers/firefly/metadata/createPredictionEventMetadata.js';
 import type { NextPageProps } from '@/types/utility.js';
 
 interface Props
@@ -9,12 +9,9 @@ interface Props
         id: string;
     }> {}
 
-export async function generateMetadata(props: Props) {
+export async function generateMetadata(props: Props): Promise<Metadata> {
     const { id } = await props.params;
-
-    return createSiteMetadata(`/polymarket/event/${id}`, {
-        title: await createPageTitleSSR(msg`Polymarket Event`),
-    });
+    return createPredictionEventMetadata(id, PredictionPlatform.Polymarket, `/polymarket/event/${id}`);
 }
 
 export default async function PolymarketEventLayout(props: Props) {

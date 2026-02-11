@@ -118,18 +118,21 @@ function mergeThreadPostsForBsky(posts: Post[]) {
         return x.publicationId;
     }).map((post) => {
         if (post.type === 'Comment' && isSameProfile(post.commentOn?.author, post.author)) {
+            const root =
+                post.rootPostId &&
+                post.parentPostId !== post.rootPostId &&
+                post.commentOn?.publicationId !== post.rootPostId
+                    ? rootPostMap.get(post.rootPostId)
+                    : undefined;
+            const commentOn = post.commentOn?.publicationId
+                ? (rootPostMap.get(post.commentOn?.publicationId) ?? post.commentOn)
+                : post.commentOn;
+
             return {
                 ...post,
-                root:
-                    post.rootPostId &&
-                    post.parentPostId !== post.rootPostId &&
-                    post.commentOn?.publicationId !== post.rootPostId
-                        ? rootPostMap.get(post.rootPostId)
-                        : undefined,
-                commentOn: post.commentOn?.publicationId
-                    ? (rootPostMap.get(post.commentOn?.publicationId) ?? post.commentOn) // There is full information in the post of the root timeline
-                    : post.commentOn,
-                isThread: true,
+                root,
+                commentOn,
+                isThread: !!(root && commentOn),
             };
         }
         return post;

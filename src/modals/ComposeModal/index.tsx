@@ -39,6 +39,7 @@ import { EventId } from '@/providers/types/Telemetry.js';
 import { useComposeDraftState } from '@/store/useComposeDraftStore.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
+import { useGlobalState } from '@/store/useGlobalStore.js';
 import { type Chars } from '@/types/chars.js';
 
 export enum CloseAction {
@@ -87,6 +88,7 @@ function ComposeModalUI({ ref }: Props) {
     const { clearScheduleTime } = useComposeScheduleStateStore();
     const [, applyTempDraftPost] = useApplyTempDraftPost();
     const { removeTempDrafts } = useComposeDraftState();
+    const { updateFireflyWalletIsOpen } = useGlobalState();
 
     const [editor] = useLexicalComposerContext();
 
@@ -105,6 +107,9 @@ function ComposeModalUI({ ref }: Props) {
             isAnonymous,
             disabledSources,
         }) => {
+            // Close firefly wallet when compose modal opens
+            updateFireflyWalletIsOpen(false);
+
             controller.current.abort();
             const newType = type || 'compose';
 

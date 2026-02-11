@@ -1,7 +1,7 @@
-import { msg } from '@lingui/core/macro';
+import type { Metadata } from 'next';
 
-import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
-import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
+import { PredictionPlatform } from '@/constants/enum.js';
+import { createPredictionProfileMetadata } from '@/providers/firefly/metadata/createPredictionProfileMetadata.js';
 import { type NextPageProps } from '@/types/utility.js';
 
 interface Props
@@ -9,14 +9,10 @@ interface Props
         address: string;
     }> {}
 
-export async function generateMetadata(props: Props) {
+export async function generateMetadata(props: Props): Promise<Metadata> {
     const { address } = await props.params;
-
-    return createSiteMetadata(`/opinion/profile/${address}`, {
-        title: await createPageTitleSSR(msg`Opinion Profile`),
-    });
+    return createPredictionProfileMetadata(address, PredictionPlatform.Opinion, `/opinion/profile/${address}`);
 }
-
 export default async function OpinionProfileLayout(props: Props) {
     return props.children;
 }

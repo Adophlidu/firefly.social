@@ -51,7 +51,7 @@ export function RedPacketActionButton({ rpid, redpacketStatus, chainId, networkT
     if (redpacketStatus === FireflyRedPacketAPI.RedPacketStatus.Send) {
         return (
             <ActionButton
-                className="h-[32px] !w-[88px] min-w-[88px] !grow-0 px-6 py-2 text-xs"
+                className="h-[32px] !w-[88px] min-w-[88px] !grow-0 whitespace-nowrap px-6 py-2 text-xs"
                 loading={resendLoading}
                 onClick={resend}
             >
@@ -62,7 +62,7 @@ export function RedPacketActionButton({ rpid, redpacketStatus, chainId, networkT
 
     return (
         <ActionButton
-            className="h-[32px] !w-[88px] min-w-[88px] !grow-0 px-6 py-2 text-xs"
+            className="h-[32px] !w-[88px] min-w-[88px] !grow-0 whitespace-nowrap px-6 py-2 text-xs"
             loading={refundLoading}
             onClick={() => {
                 if (redpacketStatus === FireflyRedPacketAPI.RedPacketStatus.Refunding) refund();

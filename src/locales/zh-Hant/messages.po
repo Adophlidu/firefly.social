@@ -899,9 +899,6 @@ msgstr "詐騙相關地址。"
 msgid "Custom"
 msgstr "自訂"
 
-msgid "Polymarket Event"
-msgstr "Polymarket 市場"
-
 msgid "Connect Email"
 msgstr "綁定電子郵件"
 
@@ -1228,9 +1225,6 @@ msgstr "最大值"
 
 msgid "Mute all"
 msgstr "全部隱藏"
-
-msgid "Polymarket Profile"
-msgstr "Polymarket 個人檔案"
 
 msgid "Failed to generate signature packet with source = {source}."
 msgstr "使用來源{source}生成簽名包失敗。"
@@ -1910,9 +1904,6 @@ msgstr "驗證並領取"
 
 msgid "Hide resolved"
 msgstr "隱藏已結算"
-
-msgid "Opinion Profile"
-msgstr "觀點個人檔案"
 
 msgid "Please enter your 2FA confirmation code"
 msgstr ""

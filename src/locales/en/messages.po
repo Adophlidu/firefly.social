@@ -894,9 +894,6 @@ msgstr "Honeypot related address."
 msgid "Custom"
 msgstr "Custom"
 
-msgid "Polymarket Event"
-msgstr "Polymarket Event"
-
 msgid "Connect Email"
 msgstr "Connect Email"
 
@@ -1223,9 +1220,6 @@ msgstr "Max"
 
 msgid "Mute all"
 msgstr "Mute all"
-
-msgid "Polymarket Profile"
-msgstr "Polymarket Profile"
 
 msgid "Failed to generate signature packet with source = {source}."
 msgstr "Failed to generate signature packet with source = {source}."
@@ -1905,9 +1899,6 @@ msgstr "Verify and Claim"
 
 msgid "Hide resolved"
 msgstr "Hide resolved"
-
-msgid "Opinion Profile"
-msgstr "Opinion Profile"
 
 msgid "Please enter your 2FA confirmation code"
 msgstr "Please enter your 2FA confirmation code"

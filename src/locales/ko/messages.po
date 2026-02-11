@@ -899,9 +899,6 @@ msgstr ""
 msgid "Custom"
 msgstr ""
 
-msgid "Polymarket Event"
-msgstr ""
-
 msgid "Connect Email"
 msgstr ""
 
@@ -1227,9 +1224,6 @@ msgid "Max"
 msgstr ""
 
 msgid "Mute all"
-msgstr ""
-
-msgid "Polymarket Profile"
 msgstr ""
 
 msgid "Failed to generate signature packet with source = {source}."
@@ -1909,9 +1903,6 @@ msgid "Verify and Claim"
 msgstr ""
 
 msgid "Hide resolved"
-msgstr ""
-
-msgid "Opinion Profile"
 msgstr ""
 
 msgid "Please enter your 2FA confirmation code"
