@@ -2038,6 +2038,9 @@ msgstr "Cross-post to multiple platforms, track friends' trades, uncover alpha i
 msgid "Resend"
 msgstr "Resend"
 
+msgid "Please log in with Firefly first. Then you can connect your X account."
+msgstr "Please log in with Firefly first. Then you can connect your X account."
+
 msgid "The contract owner has the authority to modify the balance of tokens at other addresses, which may result in a loss of assets."
 msgstr "The contract owner has the authority to modify the balance of tokens at other addresses, which may result in a loss of assets."
 

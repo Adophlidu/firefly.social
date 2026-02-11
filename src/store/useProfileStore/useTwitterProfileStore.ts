@@ -6,7 +6,7 @@ import dayjs from 'dayjs';
 import { getSession, signOut } from 'next-auth/react';
 
 import { AsyncStatus } from '@/constants/enum.js';
-import { FetchError, FireflyAlreadyBoundError } from '@/constants/error.js';
+import { FetchError, FireflyAlreadyBoundError, FireflySessionRequiredError } from '@/constants/error.js';
 import { HIDDEN_SECRET } from '@/constants/static.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { enqueueForbiddenMessage, enqueueMessageFromError, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
@@ -83,6 +83,15 @@ const state = createProfileState(
                 if (error instanceof FireflyAlreadyBoundError) {
                     enqueueWarningMessage(
                         t`The account you are trying to log in with is already linked to a different Firefly account.`,
+                    );
+                    return;
+                }
+                if (error instanceof FireflySessionRequiredError) {
+                    // Special handling for when Firefly session is required
+                    // User needs to establish session first via another login method
+                    enqueueMessageFromError(
+                        error,
+                        t`Please log in with Firefly first. Then you can connect your X account.`,
                     );
                     return;
                 }

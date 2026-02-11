@@ -257,3 +257,16 @@ export class NitterError extends Error {
         super(`[NitterError] ${url} ${message || 'Unknown nitter error.'}`);
     }
 }
+
+/**
+ * Error thrown when attempting to connect a social account without an active Firefly session.
+ * This typically happens when a returning user's session has expired but they're re-logging in via OAuth.
+ */
+export class FireflySessionRequiredError extends Error {
+    override name = 'FireflySessionRequiredError';
+    constructor(public socialSource: ProfileSource) {
+        super(
+            `Cannot connect your ${socialSource} account. Please log in with Firefly first or connect a different social account to establish your session.`,
+        );
+    }
+}

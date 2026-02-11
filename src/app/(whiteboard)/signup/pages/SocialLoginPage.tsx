@@ -12,11 +12,10 @@ import FireflyLogo from '@/assets/firefly-small.svg';
 import ShadowLeftArrow from '@/assets/left-arrow-shadow.svg';
 import OrbLogo from '@/assets/orb.svg';
 import QrScan from '@/assets/qr-scan.svg';
-import { LensSignType, SignupStep, Source } from '@/constants/enum.js';
+import { AsyncStatus, LensSignType, SignupStep, Source } from '@/constants/enum.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { useCheckFireflyAccount } from '@/hooks/useCheckFireflyAccount.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
 import { SignInWithFireflyAppModalRef } from '@/modals/SignInWithFireflyAppModal.js';
 import { autoLoginLensAccountsInSignup } from '@/providers/lens/autoLoginLensAccountsInSignup.js';
@@ -59,7 +58,9 @@ function QrScanLogin({ logo, title, description, onLogin }: QrScanLoginProps) {
 
 export function SocialLoginPage({ changeStep }: SocialLoginPageProps) {
     const isLogin = useIsLogin();
-    const isLoginFirefly = useIsLoginFirefly();
+    const { currentProfileSession, status: asyncStatus } = useFireflyProfileStore();
+    const isLoginFirefly = !!currentProfileSession;
+    const isAsyncPending = asyncStatus === AsyncStatus.Pending;
     const { accounts } = useThirdPartyProfileStore();
     const { isLoading } = useCheckFireflyAccount();
     const { isSyncingMetrics } = useGlobalState();
@@ -157,7 +158,7 @@ export function SocialLoginPage({ changeStep }: SocialLoginPageProps) {
                         <SquareButton
                             disabled={!canGoNext}
                             onClick={handleNext}
-                            loading={loading || isLoading || isSyncingMetrics}
+                            loading={loading || isLoading || isSyncingMetrics || isAsyncPending}
                         >
                             <span className="text-base font-medium">
                                 <Trans>Next</Trans>
