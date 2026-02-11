@@ -2,40 +2,43 @@
 
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
-import { memo, use } from 'react';
+import { memo } from 'react';
 
 import { Loading } from '@/components/Loading.js';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
-import { PredictionContext } from '@/components/Prediction/PredictionContext.js';
 import { OpenOrderItem } from '@/components/Prediction/PredictionMarketsAccountTab/OpenOrderItem.js';
 import { PredictionPlatform, Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/static.js';
 import { getPredictionOpenOrders } from '@/providers/prediction/getPredictionOpenOrders.js';
 import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
+import type { BetsMarketDataForUI } from '@/types/prediction.js';
 
 interface PredictionOpenOrdersProps {
     platform: PredictionPlatform;
+    markets: BetsMarketDataForUI[];
 }
 
-export const PredictionOpenOrders = memo<PredictionOpenOrdersProps>(function PredictionOpenOrders({ platform }) {
-    const { market } = use(PredictionContext);
+export const PredictionOpenOrders = memo<PredictionOpenOrdersProps>(function PredictionOpenOrders({
+    platform,
+    markets,
+}) {
     const { currentProfileSession } = useFireflyProfileStore();
 
-    const marketId = market?.id;
+    const marketIds = markets.map((x) => x.conditionId);
     const { data, isLoading } = useQuery({
         queryKey: [Source.Prediction, 'open-orders', platform, 'all', currentProfileSession?.profileId],
         staleTime: 1000 * 60 * 5, // 5 minutes
-        enabled: !!currentProfileSession && platform === PredictionPlatform.Polymarket && !!marketId,
+        enabled: !!currentProfileSession && platform === PredictionPlatform.Polymarket,
         queryFn: () => getPredictionOpenOrders({ platform }),
         select: (data) => {
             const orders = data?.data || EMPTY_LIST;
-            return market ? orders.filter((order) => order.market === market.conditionId) : orders;
+            return orders.filter((order) => marketIds.includes(order.market));
         },
     });
 
-    if (isLoading) return <Loading />;
-    if (!marketId || !data?.length)
-        return <NoResultsFallback className="m-4" message={<Trans>No open orders found.</Trans>} />;
+    if (isLoading) return <Loading minHeight={274} />;
+    if (!data?.length)
+        return <NoResultsFallback className="m-4 h-[274px]" message={<Trans>No open orders found.</Trans>} />;
 
     return (
         <div className="space-y-4 p-4">

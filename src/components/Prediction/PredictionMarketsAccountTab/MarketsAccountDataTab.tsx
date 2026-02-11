@@ -7,7 +7,7 @@ import { memo } from 'react';
 import { Tab, Tabs } from '@/components/Tabs/index.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/browser.js';
 import type { PredictionPlatform } from '@/constants/enum.js';
-import { MarketsAccountTabType, useMarketsAccountTab } from '@/hooks/prediction/useMarketsAccountTab.js';
+import { MarketsAccountTabType } from '@/providers/prediction/polymarket/constants.js';
 import {
     captureOpinionEventTabClick,
     capturePolymarketEventTabClick,
@@ -22,15 +22,20 @@ const tabNameMap = {
 interface Props {
     platform: PredictionPlatform;
     eventSlug: string;
+    currentTab: MarketsAccountTabType;
+    onTabChange: (tab: MarketsAccountTabType) => void;
 }
 
-export const MarketsAccountDataTab = memo<Props>(function MarketsAccountDataTab({ platform, eventSlug }) {
-    const [currentTab, setCurrentTab] = useMarketsAccountTab();
-
+export const MarketsAccountDataTab = memo<Props>(function MarketsAccountDataTab({
+    platform,
+    eventSlug,
+    currentTab,
+    onTabChange,
+}) {
     return (
         <Tabs
             value={currentTab}
-            onChange={setCurrentTab}
+            onChange={onTabChange}
             className={classNames(
                 'sticky z-30 mt-4 bg-primaryBottom px-4',
                 IS_APPLE && IS_SAFARI ? 'top-[53px]' : 'top-[54px]',

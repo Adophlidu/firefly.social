@@ -2,14 +2,14 @@
 
 import { skipToken, useQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
-import { memo, useMemo } from 'react';
+import { memo, useMemo, useState } from 'react';
 
-import { PredictionMarketList } from '@/components/Prediction/PredictionMarketList.js';
 import { MarketsAccountDataTab } from '@/components/Prediction/PredictionMarketsAccountTab/MarketsAccountDataTab.js';
 import { MarketsAccountDataTabContent } from '@/components/Prediction/PredictionMarketsAccountTab/MarketsAccountDataTabContent.js';
 import { PredictionPlatform, Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/static.js';
 import { getAccountMarketPositions } from '@/providers/firefly/prediction/getAccountMarketPositions.js';
+import { MarketsAccountTabType } from '@/providers/prediction/polymarket/constants.js';
 import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 import type { BetsEventDataForUI } from '@/types/prediction.js';
 
@@ -24,12 +24,13 @@ export const PredictionMarketsAccountTab = memo<PredictionMarketsAccountTabProps
     eventSlug,
     platform,
 }) {
+    const [currentTab, setCurrentTab] = useState(MarketsAccountTabType.Markets);
     const { currentProfileSession } = useFireflyProfileStore();
 
     const markets = event.markets || EMPTY_LIST;
     const marketIds = markets.map((x) => x.conditionId);
     const enabled = !!currentProfileSession && platform === PredictionPlatform.Polymarket && marketIds.length > 0;
-    const { data, isLoading } = useQuery({
+    const { data } = useQuery({
         queryKey: [
             Source.Prediction,
             'current-orders',
@@ -63,20 +64,16 @@ export const PredictionMarketsAccountTab = memo<PredictionMarketsAccountTabProps
         [data],
     );
 
-    if (isLoading) return null;
-    if (!wallets.length)
-        return (
-            <PredictionMarketList
-                markets={markets}
-                platform={platform}
-                eventSlug={eventSlug || event.id}
-                eventTitle={event.title}
-            />
-        );
-
     return (
         <div>
-            <MarketsAccountDataTab platform={platform} eventSlug={eventSlug || event.id} />
+            {wallets?.length > 0 ? (
+                <MarketsAccountDataTab
+                    platform={platform}
+                    eventSlug={eventSlug || event.id}
+                    currentTab={currentTab}
+                    onTabChange={setCurrentTab}
+                />
+            ) : null}
             <MarketsAccountDataTabContent
                 markets={markets}
                 platform={platform}
@@ -84,6 +81,7 @@ export const PredictionMarketsAccountTab = memo<PredictionMarketsAccountTabProps
                 eventSlug={eventSlug || event.id}
                 eventTitle={event.title}
                 eventId={event.id}
+                currentTab={currentTab}
             />
         </div>
     );
