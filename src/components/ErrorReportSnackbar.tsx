@@ -1,15 +1,15 @@
 'use client';
 
-import { BugAntIcon, ClipboardDocumentCheckIcon, ClipboardDocumentIcon, XCircleIcon } from '@heroicons/react/24/solid';
+import { ClipboardDocumentCheckIcon, ClipboardDocumentIcon, XCircleIcon } from '@heroicons/react/24/solid';
 import { Trans } from '@lingui/react/macro';
-import { type ForwardedRef, type ReactNode, useCallback, useState } from 'react';
+import { type ForwardedRef, type ReactNode, useCallback, useMemo, useState } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { CloseButton } from '@/components/IconButton.js';
 import { type SnackbarMessage, useSnackbar } from '@/components/Snackbar.js';
 import { env } from '@/constants/env.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
-import { useReportFeedback } from '@/hooks/useReportFeedback.js';
+import { useReportErrorOnce } from '@/hooks/useReportErrorOnce.js';
 import { ExceptionId } from '@/providers/errorCapture/captureException.js';
 
 export interface ErrorReportSnackbarProps {
@@ -53,10 +53,14 @@ export function ErrorReportSnackbar({ id, detail, noReport, icon, message, ref }
         `- Timestamp: ${new Date().toISOString()}`,
     ].join('\n');
 
-    const [reported, loading, handleReport] = useReportFeedback(name, comments, {
-        enqueueSuccessMessage: false,
-        exceptionId: ExceptionId.USER_REPORT,
-    });
+    const errorToReport = useMemo(() => {
+        if (noReport) return null;
+        const err = new Error(name);
+        err.stack = comments;
+        return err;
+    }, [noReport, name, comments]);
+
+    useReportErrorOnce(errorToReport, { exceptionId: ExceptionId.USER_REPORT });
 
     return (
         <div ref={ref} className="rounded-[4px] bg-danger">
@@ -110,23 +114,6 @@ export function ErrorReportSnackbar({ id, detail, noReport, icon, message, ref }
                                 )}
                                 {copied ? <Trans>Copied</Trans> : <Trans>Copy</Trans>}
                             </ClickableButton>
-                            {noReport ? null : (
-                                <ClickableButton
-                                    className="ml-1 inline-flex cursor-pointer items-center text-white"
-                                    disabled={loading}
-                                    onClick={() => {
-                                        if (!loading) handleReport();
-                                    }}
-                                    aria-label={reported ? 'Error reported' : 'Report error'}
-                                >
-                                    <BugAntIcon className="mr-1 size-3" />
-                                    {reported ? (
-                                        <Trans id="error-reported">Reported</Trans>
-                                    ) : (
-                                        <Trans id="error-report">Report</Trans>
-                                    )}
-                                </ClickableButton>
-                            )}
                         </div>
                     </div>
                 ) : null}

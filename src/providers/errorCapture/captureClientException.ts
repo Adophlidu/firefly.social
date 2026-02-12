@@ -38,7 +38,7 @@ function shouldReport(fingerprint: string): boolean {
     return true;
 }
 
-export interface CaptureClientExceptionOptions {
+interface CaptureClientExceptionOptions {
     /** Additional tags to include in the exception report */
     tags?: Record<string, string | number>;
     /** Skip deduplication check */

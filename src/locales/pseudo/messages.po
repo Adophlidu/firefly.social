@@ -3447,14 +3447,6 @@ msgstr ""
 msgid "Draft"
 msgstr ""
 
-#. js-lingui-explicit-id
-msgid "error-report"
-msgstr ""
-
-#. js-lingui-explicit-id
-msgid "error-reported"
-msgstr ""
-
 msgid "Wallets"
 msgstr ""
 

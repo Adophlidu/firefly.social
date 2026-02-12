@@ -5,7 +5,7 @@ import { useEffect, useRef } from 'react';
 import { captureClientException } from '@/providers/errorCapture/captureClientException.js';
 import { ExceptionId } from '@/providers/errorCapture/captureException.js';
 
-export interface UseReportErrorOnceOptions {
+interface UseReportErrorOnceOptions {
     /** Exception id to report (default: UI_CRASH) */
     exceptionId?: ExceptionId;
     /** Additional tags for the report */

@@ -7,12 +7,13 @@ import { useReportErrorOnce } from '@/hooks/useReportErrorOnce.js';
 
 export default function Error({ error, reset }: { error: Error; reset: () => void }) {
     const pathname = usePathname();
-    const isProfilePage = isRoutePathname(pathname, '/profile/:source');
 
     useReportErrorOnce(error, {
         tags: { handler: 'error.tsx', pathname: pathname ?? '' },
     });
 
+    const isProfilePage = isRoutePathname(pathname, '/profile/:source');
     if (isProfilePage) return null;
+
     return <ErrorHandler error={error} reset={reset} />;
 }

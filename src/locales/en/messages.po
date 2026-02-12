@@ -3447,14 +3447,6 @@ msgstr "Sorry, we are not able to find a wallet for {0}."
 msgid "Draft"
 msgstr "Draft"
 
-#. js-lingui-explicit-id
-msgid "error-report"
-msgstr "Report"
-
-#. js-lingui-explicit-id
-msgid "error-reported"
-msgstr "Reported"
-
 msgid "Wallets"
 msgstr "Wallets"
 

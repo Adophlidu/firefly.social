@@ -3452,14 +3452,6 @@ msgstr "对不起，我们未找到 {0} 的关联钱包。"
 msgid "Draft"
 msgstr "草稿"
 
-#. js-lingui-explicit-id
-msgid "error-report"
-msgstr "上报错误"
-
-#. js-lingui-explicit-id
-msgid "error-reported"
-msgstr "已上报"
-
 msgid "Wallets"
 msgstr "钱包"
 
