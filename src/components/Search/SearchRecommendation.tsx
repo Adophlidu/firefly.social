@@ -14,7 +14,7 @@ import { SuggestTokenList } from '@/components/Search/SuggestTokenList.js';
 import { PageRoute, SearchType, type Source } from '@/constants/enum.js';
 import { usePathname } from '@/esm/navigation.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
-import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
+import { isValidAddress } from '@/helpers/isValidAddress.js';
 import { resolveSearchTypeFromQuery } from '@/helpers/resolveSearchTypeFromQuery.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import { useSearchHistoryStateStore } from '@/store/useSearchHistoryStore.js';
@@ -126,7 +126,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                     </div>
                 </div>
 
-                {debouncedKeyword && (isSymbol || isValidAddressEthereum(debouncedKeyword)) ? (
+                {debouncedKeyword && (isSymbol || isValidAddress(debouncedKeyword)) ? (
                     <>
                         <SuggestTokenList query={debouncedKeyword} onSelect={onSelect} />
                         {!isSymbol ? <SuggestCollectionList query={debouncedKeyword} onSelect={onSelect} /> : null}
