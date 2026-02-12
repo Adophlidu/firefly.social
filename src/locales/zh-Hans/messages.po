@@ -2040,9 +2040,6 @@ msgstr "支持跨平台一键发帖，聚合好友交易动态，挖掘社交数
 msgid "Resend"
 msgstr "重新发布"
 
-msgid "Please log in with Firefly first. Then you can connect your X account."
-msgstr ""
-
 msgid "The contract owner has the authority to modify the balance of tokens at other addresses, which may result in a loss of assets."
 msgstr "合约所有人有权修改其他地址的代币余额，这可能造成资产损失。"
 

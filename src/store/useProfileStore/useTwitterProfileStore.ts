@@ -5,14 +5,12 @@ import { t } from '@lingui/core/macro';
 import dayjs from 'dayjs';
 import { getSession, signOut } from 'next-auth/react';
 
-import { AsyncStatus, Source } from '@/constants/enum.js';
-import { FetchError, FireflyAlreadyBoundError, FireflySessionRequiredError } from '@/constants/error.js';
+import { AsyncStatus } from '@/constants/enum.js';
+import { FetchError, FireflyAlreadyBoundError } from '@/constants/error.js';
 import { HIDDEN_SECRET } from '@/constants/static.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { enqueueForbiddenMessage, enqueueMessageFromError, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
-import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { addTwitterAccount } from '@/providers/twitter/addTwitterAccount.js';
 import { TwitterAuthProvider } from '@/providers/twitter/Auth.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
@@ -63,11 +61,6 @@ const state = createProfileState(
                     !state.accounts.some((x) => x.session.profileId === idFromSession) &&
                     dayjs().diff(createdAt, 'minute') < 5;
 
-                // if the user is not a new login and there is no active firefly session, throw an error
-                if (!isNewLogin && !fireflySessionHolder.session && !getSessionFromStorage(SessionType.Firefly)) {
-                    throw new FireflySessionRequiredError(Source.Twitter);
-                }
-
                 // resume the session if it exists
                 if (session && !isNewLogin) twitterSessionHolder.resumeSession(session);
 
@@ -90,15 +83,6 @@ const state = createProfileState(
                 if (error instanceof FireflyAlreadyBoundError) {
                     enqueueWarningMessage(
                         t`The account you are trying to log in with is already linked to a different Firefly account.`,
-                    );
-                    return;
-                }
-                if (error instanceof FireflySessionRequiredError) {
-                    // Special handling for when Firefly session is required
-                    // User needs to establish session first via another login method
-                    enqueueMessageFromError(
-                        error,
-                        t`Please log in with Firefly first. Then you can connect your X account.`,
                     );
                     return;
                 }

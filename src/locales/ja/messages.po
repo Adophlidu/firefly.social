@@ -2040,9 +2040,6 @@ msgstr ""
 msgid "Resend"
 msgstr ""
 
-msgid "Please log in with Firefly first. Then you can connect your X account."
-msgstr ""
-
 msgid "The contract owner has the authority to modify the balance of tokens at other addresses, which may result in a loss of assets."
 msgstr ""
 
