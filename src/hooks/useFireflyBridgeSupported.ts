@@ -1,8 +1,6 @@
 import { nativeBridgeProvider } from '@dimensiondev/native-bridge';
-import { InvalidResultError } from '@dimensiondev/utils';
+import { InvalidResultError, retry } from '@dimensiondev/utils';
 import { useAsyncRetry } from 'react-use';
-
-import { retry } from '@/helpers/retry.js';
 
 export function useFireflyBridgeSupported(signal?: AbortSignal) {
     return useAsyncRetry(async () => {

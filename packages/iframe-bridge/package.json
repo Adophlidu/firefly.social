@@ -1,6 +1,6 @@
 {
     "name": "@dimensiondev/iframe-bridge",
-    "version": "0.1.11",
+    "version": "0.1.12",
     "description": "IframeBridge provides communication between iframe and its host page",
     "type": "module",
     "main": "./dist/index.js",

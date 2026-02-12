@@ -1,4 +1,5 @@
-import { AbortError, delay, InvalidResultError } from '@dimensiondev/utils';
+import { delay } from '@/delay.js';
+import { AbortError, InvalidResultError } from '@/error.js';
 
 interface Options {
     times?: number;

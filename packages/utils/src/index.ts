@@ -13,6 +13,7 @@ export * from '@/hexToRGBA.js';
 export * from '@/once.js';
 export * from '@/parseJson.js';
 export * from '@/parseUrl.js';
+export * from '@/retry.js';
 export * from '@/squashCallback.js';
 export * from '@/timeout.js';
 export * from '@/ts.js';

@@ -2,7 +2,7 @@
 
 import { useEffectOnce } from 'react-use';
 
-import { initGlobalErrorHandlers } from './globalHandlers.js';
+import { initGlobalErrorHandlers } from '@/providers/errorCapture/globalHandlers.js';
 
 /**
  * Installs global error handlers (window.onerror, unhandledrejection, resource errors).

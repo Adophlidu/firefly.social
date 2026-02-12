@@ -1,8 +1,8 @@
+import { retry } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';
-import { retry } from '@/helpers/retry.js';
 import { type SignedKeyRequestResponse } from '@/providers/types/Warpcast.js';
 import { type ResponseJson } from '@/types/utility.js';
 

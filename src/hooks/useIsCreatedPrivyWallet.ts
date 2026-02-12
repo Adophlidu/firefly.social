@@ -1,10 +1,9 @@
 'use client';
 
-import { InvalidResultError } from '@dimensiondev/utils';
+import { InvalidResultError, retry } from '@dimensiondev/utils';
 import { useQuery } from '@tanstack/react-query';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { retry } from '@/helpers/retry.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { getPrivyWalletConnectionsQuery, usePrivyConnections } from '@/hooks/usePrivyConnections.js';
 import { captureException, ExceptionId } from '@/providers/errorCapture/captureException.js';

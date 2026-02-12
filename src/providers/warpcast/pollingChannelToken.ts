@@ -1,9 +1,8 @@
-import { InvalidResultError } from '@dimensiondev/utils';
+import { InvalidResultError, retry } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
 import { FARCASTER_REPLY_URL } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
-import { retry } from '@/helpers/retry.js';
 
 interface ChannelStatusResponse {
     nonce: string;

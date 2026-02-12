@@ -1,6 +1,6 @@
 'use client';
 
-import { AbortError, classNames, ForbiddenError, InvalidResultError } from '@dimensiondev/utils';
+import { AbortError, classNames, ForbiddenError, InvalidResultError, retry } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useState } from 'react';
@@ -24,7 +24,6 @@ import {
     enqueueWarningMessage,
 } from '@/helpers/enqueueMessage.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
-import { retry } from '@/helpers/retry.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
 import { getLensProfileById } from '@/providers/lens/getLensProfileById.js';
