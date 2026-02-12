@@ -3,7 +3,6 @@
 import { Trans } from '@lingui/react/macro';
 
 import { Source } from '@/constants/enum.js';
-import { FireflySessionRequiredError } from '@/constants/error.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
@@ -26,16 +25,7 @@ export async function addTwitterAccount(sessionPayload: SessionPayload, isNew = 
     });
 
     const session = TwitterSession.from(profile.profileId, sessionPayload);
-
-    // For returning users (isNew=false), handle case where there's no active Firefly session
-    // This can happen when user's session expired but they're re-logging in via OAuth
-    const fireflySession = isNew ? await bindOrRestoreFireflySession(session, signal) : undefined;
-
-    // If Firefly session creation failed for returning user, don't add account in broken state
-    // This prevents dangling accounts that appear connected but don't have Firefly bindings
-    if (!isNew && !fireflySession) {
-        throw new FireflySessionRequiredError(Source.Twitter);
-    }
+    const fireflySession = isNew ? await bindOrRestoreFireflySession(session) : undefined;
 
     await addAccount(
         {
@@ -46,7 +36,7 @@ export async function addTwitterAccount(sessionPayload: SessionPayload, isNew = 
         {
             skipBelongsToCheck: !isNew,
             skipResumeFireflyAccounts: !isNew,
-            skipResumeFireflySession: !isNew || !fireflySession,
+            skipResumeFireflySession: !isNew,
             skipSyncAccounts: !isNew,
             signal,
         },
