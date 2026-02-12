@@ -28,7 +28,7 @@ export default async function Layout(props: Props) {
 
     const { source, explore } = await props.params;
 
-    if (explore === ExploreType.Bets) {
+    if (explore === ExploreType.Prediction) {
         return props.children;
     }
 

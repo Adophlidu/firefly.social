@@ -104,7 +104,7 @@ export enum SourceInURL {
     X = 'x',
     Transactions = 'transactions',
     Activities = 'activities',
-    Bets = 'prediction',
+    Prediction = 'prediction',
 }
 
 export const enum CharTag {
@@ -133,7 +133,7 @@ export enum FireflyPlatform {
     Token = 'token',
     DAOs = 'snapshot',
     Polymarket = 'polymarket',
-    Bets = 'bets',
+    Prediction = 'bets',
 }
 
 export enum ConnectionPlatform {
@@ -223,7 +223,7 @@ export enum ExploreType {
     TopChannels = 'clubs',
     TruthSocial = 'truth-social',
     NFTs = 'nfts',
-    Bets = 'prediction',
+    Prediction = 'prediction',
 }
 
 export enum TrendingType {
@@ -240,7 +240,7 @@ export enum SearchType {
     NFTs = 'nfts',
     Tokens = 'tokens',
     Clubs = 'clubs',
-    Bets = 'prediction',
+    Prediction = 'prediction',
 }
 
 /**
@@ -270,7 +270,7 @@ export enum WalletProfileCategory {
     NFTs = 'nfts',
     Activities = 'activities',
     Transactions = 'transactions',
-    Bets = 'prediction',
+    Prediction = 'prediction',
 }
 
 export enum EngagementType {
@@ -319,8 +319,8 @@ export enum ScrollListKey {
     ChannelFollowers = 'channel-followers',
     Transactions = 'transactions-list',
     Activities = 'activities-list',
-    Bets = 'bets-list',
-    BetsLeaderboard = 'bets-leaderboard',
+    Prediction = 'prediction-list',
+    BetsLeaderboard = 'prediction-leaderboard',
 }
 
 export enum FarcasterSignType {

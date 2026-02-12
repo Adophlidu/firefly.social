@@ -29,7 +29,7 @@ export function useExploreTabs() {
         const firstNormalSlugData = data?.find((x) => x.slug !== POLYMARKET_FIREFLY_SLUG);
         if (firstNormalSlugData) {
             baseTypes = baseTypes.map((x) => {
-                if (x.type === ExploreType.Bets && x.id === ExploreType.Bets) {
+                if (x.type === ExploreType.Prediction && x.id === ExploreType.Prediction) {
                     return { ...x, link: RouteResolver.explorePrediction(firstNormalSlugData.slug) };
                 }
 
@@ -41,7 +41,7 @@ export function useExploreTabs() {
         if (fireflySlugData) {
             const firstSubSlug = first(fireflySlugData.sub_slug)?.slug;
             baseTypes.unshift({
-                type: ExploreType.Bets,
+                type: ExploreType.Prediction,
                 id: POLYMARKET_FIREFLY_SLUG,
                 label: fireflySlugData.label,
                 link: RouteResolver.explorePrediction(POLYMARKET_FIREFLY_SLUG, firstSubSlug),

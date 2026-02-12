@@ -42,7 +42,7 @@ export function DiscoverPredictionTimeline() {
             queryResult={queryResult}
             VirtualListProps={{
                 useWindowScroll: true,
-                listKey: `${ScrollListKey.Bets}:discover`,
+                listKey: `${ScrollListKey.Prediction}:discover`,
                 computeItemKey: (index, activity) => `${activity.slug}-${index}`,
                 itemContent: (index, activity) => getPredictionActivityItem(index, activity),
             }}

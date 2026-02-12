@@ -89,7 +89,7 @@ export const SORTED_PROFILE_TAB_TYPE_REQUIRE_LOGIN: Record<SocialSource, SocialP
 export const WALLET_PROFILE_TAB_TYPES: Record<NetworkType, WalletProfileCategory[]> = {
     [NetworkType.Ethereum]: [
         WalletProfileCategory.Transactions,
-        WalletProfileCategory.Bets,
+        WalletProfileCategory.Prediction,
         WalletProfileCategory.NFTs,
         WalletProfileCategory.Activities,
     ],
@@ -186,7 +186,7 @@ export const ENABLED_RP_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens
 export const DEFAULT_SOCIAL_SOURCE = Source.Posts;
 export const DEFAULT_BOOKMARK_SOURCE = Source.Lens;
 export const DEFAULT_NOTIFICATION_SOURCE = Source.Notifications;
-export const DEFAULT_EXPLORE_TYPE = ExploreType.Bets;
+export const DEFAULT_EXPLORE_TYPE = ExploreType.Prediction;
 
 export const SUPPORTED_MULTIPLE_EMBED_SOURCES: SocialSource[] = [Source.Farcaster];
 export const SUPPORTED_PREVIEW_MEDIA_TYPES: Array<Attachment['type']> = ['Image', 'AnimatedGif'];
@@ -215,7 +215,7 @@ export const REQUIRE_LOGIN_FOLLOWING_CATEGORY = [FollowCategory.Mutuals];
 export const SUPPORTED_ANONYMOUS_POST_SOURCES: SocialSource[] = [Source.Farcaster, Source.Twitter];
 
 export const EXPLORE_TYPES: ExploreType[] = [
-    ExploreType.Bets,
+    ExploreType.Prediction,
     ExploreType.TopProfiles,
     ExploreType.TruthSocial,
     ExploreType.CryptoTrends,
@@ -242,7 +242,7 @@ export const EXPLORE_DEFAULT_SOURCE: Record<ExploreType, ExploreSource | undefin
     [ExploreType.CryptoTrends]: TrendingType.Trending,
     [ExploreType.TopChannels]: Source.Lens,
     [ExploreType.NFTs]: TrendingType.Trending,
-    [ExploreType.Bets]: undefined,
+    [ExploreType.Prediction]: undefined,
 };
 
 export const BOOKMARK_SOURCES: BookmarkSource[] = [

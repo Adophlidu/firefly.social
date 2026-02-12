@@ -46,7 +46,7 @@ const mapCategoryToTabType = (
     src: ProfilePageSource,
 ): ProfileTabType | undefined => {
     if (cat === SocialProfileCategory.TruthSocial) return undefined;
-    if (cat === WalletProfileCategory.Bets) return 'Prediction';
+    if (cat === WalletProfileCategory.Prediction) return 'Prediction';
 
     // Special case: Farcaster uses 'Cast' instead of 'Feed'
     if (src === Source.Farcaster && cat === SocialProfileCategory.Feed) return 'Cast';
@@ -89,7 +89,7 @@ export function ProfileCategoryTabs({
             [WalletProfileCategory.Activities]: <Trans>Activities</Trans>,
             [WalletProfileCategory.NFTs]: <Trans>NFTs</Trans>,
             [WalletProfileCategory.Transactions]: <Trans>Transactions</Trans>,
-            [WalletProfileCategory.Bets]: <Trans>Predictions</Trans>,
+            [WalletProfileCategory.Prediction]: <Trans>Predictions</Trans>,
         }),
         [],
     );
@@ -162,7 +162,7 @@ export function ProfileCategoryTabs({
                 captureProfileTabClickSimple(source, id, id, 'Feed');
             } else if (cat === WalletProfileCategory.Transactions) {
                 TelemetryProvider.captureEventInSafe(EventId.PROFILE_WALLET_TRANSACTIONS_TAB_CLICK, {});
-            } else if (cat === WalletProfileCategory.Bets) {
+            } else if (cat === WalletProfileCategory.Prediction) {
                 TelemetryProvider.captureEventInSafe(EventId.PROFILE_WALLET_PREDICTIONS_TAB_CLICK, {});
             }
         } else {
@@ -211,7 +211,7 @@ export function ProfileCategoryTabs({
             {category === WalletProfileCategory.Transactions && addressType === NetworkType.Ethereum ? (
                 <ChainFilter networkType={addressType || undefined} />
             ) : null}
-            {category === WalletProfileCategory.Bets ? (
+            {category === WalletProfileCategory.Prediction ? (
                 <PredictionPlatformFilter namespace={PredictionFilterNamespace.Profile} />
             ) : null}
         </div>

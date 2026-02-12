@@ -41,7 +41,7 @@ export default async function Layout(props: Props) {
         <>
             <HydrationBoundary state={dehydrate(queryClient)}>
                 <ExploreSourceTabs explore={explore} />
-                {explore === ExploreType.Bets ? (
+                {explore === ExploreType.Prediction ? (
                     <PredictionSourceNav className="sticky top-[98px] z-20 bg-primaryBottom md:!top-[103px]" />
                 ) : null}
             </HydrationBoundary>

@@ -50,7 +50,7 @@ export function FollowingPredictionTimeline() {
             queryResult={queryResult}
             VirtualListProps={{
                 useWindowScroll: true,
-                listKey: `${ScrollListKey.Bets}:following`,
+                listKey: `${ScrollListKey.Prediction}:following`,
                 computeItemKey: (index, activity) => `${activity.slug}-${index}`,
                 itemContent: (index, activity) =>
                     getPredictionActivityItem(index, activity, captureFollowingPredictionsClick),

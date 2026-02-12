@@ -28,7 +28,7 @@ export default function Page() {
             return <SearchCollectionContent />;
         case SearchType.Clubs:
             return <SearchCommunityContent />;
-        case SearchType.Bets:
+        case SearchType.Prediction:
             return <SearchPredictionContent />;
         default:
             safeUnreachable(searchType);

@@ -23,7 +23,7 @@ export function useTogglePredictionBookmark() {
                     await unbookmark(activity.transactionHash);
                     enqueueSuccessMessage(t`Removed from bookmarks`);
                 } else {
-                    await bookmark(activity.transactionHash, FireflyPlatform.Bets, undefined, BookmarkType.All);
+                    await bookmark(activity.transactionHash, FireflyPlatform.Prediction, undefined, BookmarkType.All);
                     enqueueSuccessMessage(t`Added to bookmarks`);
                 }
                 patchPredictionActivityData((oldData) => {

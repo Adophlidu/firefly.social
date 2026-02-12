@@ -25,7 +25,7 @@ export const resolveSource = createLookupTableResolver<SourceInURL, Source>(
         [SourceInURL.NFTs]: Source.NFTs,
         [SourceInURL.Tokens]: Source.Tokens,
         [SourceInURL.DAOs]: Source.DAOs,
-        [SourceInURL.Bets]: Source.Prediction,
+        [SourceInURL.Prediction]: Source.Prediction,
         [SourceInURL.Telegram]: Source.Telegram,
         [SourceInURL.Google]: Source.Google,
         [SourceInURL.Apple]: Source.Apple,
@@ -109,7 +109,7 @@ export const resolveSourceFromFireflyPlatform = createLookupTableResolver<Firefl
         [FireflyPlatform.Token]: Source.Tokens,
         [FireflyPlatform.DAOs]: Source.DAOs,
         [FireflyPlatform.Polymarket]: Source.Prediction,
-        [FireflyPlatform.Bets]: Source.Prediction,
+        [FireflyPlatform.Prediction]: Source.Prediction,
     },
     (walletSource) => {
         throw new UnreachableError('FireflyPlatform', walletSource);

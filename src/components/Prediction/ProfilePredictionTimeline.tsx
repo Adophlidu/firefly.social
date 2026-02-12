@@ -50,7 +50,7 @@ export const ProfilePredictionTimeline = memo<ProfilePredictionTimelineProps>(fu
             key={Source.Prediction}
             queryResult={queryResult}
             VirtualListProps={{
-                listKey: `${ScrollListKey.Bets}:${address}`,
+                listKey: `${ScrollListKey.Prediction}:${address}`,
                 computeItemKey: (index, data) => `${data.transactionHash}-${index}`,
                 itemContent: (_, item) => getPredictionActivityItem(item, onPolymarketLinkClick),
             }}

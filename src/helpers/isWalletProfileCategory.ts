@@ -5,6 +5,6 @@ export function isWalletProfileCategory(category: string): category is WalletPro
         WalletProfileCategory.Activities,
         WalletProfileCategory.NFTs,
         WalletProfileCategory.Transactions,
-        WalletProfileCategory.Bets,
+        WalletProfileCategory.Prediction,
     ].includes(category as WalletProfileCategory);
 }

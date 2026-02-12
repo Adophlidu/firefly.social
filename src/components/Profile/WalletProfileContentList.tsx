@@ -21,7 +21,7 @@ export const WalletProfileContentList = memo(function WalletProfileContentList({
             return <ProfileActivities address={address} />;
         case WalletProfileCategory.Transactions:
             return <ProfileTransactions address={address} />;
-        case WalletProfileCategory.Bets:
+        case WalletProfileCategory.Prediction:
             return <ProfilePredictionTimeline address={address} />;
         default:
             safeUnreachable(type);

@@ -14,7 +14,7 @@ interface Props extends NextPageProps<{ source: string; explore: ExploreType }> 
 export default function Page(props: Props) {
     const { source, explore } = use(props.params);
 
-    if (explore === ExploreType.Bets) {
+    if (explore === ExploreType.Prediction) {
         return <ExplorePage source={source} type={explore} />;
     }
 

@@ -55,7 +55,7 @@ export const SearchTabs = memo(function SearchTabs() {
             },
             {
                 label: <Trans>Predictions</Trans>,
-                link: fixSearchUrl(searchKeyword, SearchType.Bets, source, clubType),
+                link: fixSearchUrl(searchKeyword, SearchType.Prediction, source, clubType),
                 onClick: captureSearchPredictionsClick,
             },
             NFT_ENABLED

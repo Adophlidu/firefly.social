@@ -18,7 +18,7 @@ export function parseProfileUrl(pathname: string) {
     }
 
     // Handle old /bets URL - convert to prediction
-    const normalizedCategory = category === 'bets' ? WalletProfileCategory.Bets : category;
+    const normalizedCategory = category === 'bets' ? WalletProfileCategory.Prediction : category;
 
     const isSocialProfile = isSocialSource(source) && isSocialProfileCategory(source, normalizedCategory);
     const isWalletProfile =
@@ -42,7 +42,7 @@ function fixWalletProfileCategory(category: WalletProfileCategory) {
         return WalletProfileCategory.Transactions;
     }
     if (['polymarket', 'bets'].includes(category)) {
-        return WalletProfileCategory.Bets;
+        return WalletProfileCategory.Prediction;
     }
 
     return;

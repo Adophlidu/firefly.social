@@ -40,7 +40,7 @@ export function ExplorePage({ source, type }: Props) {
         case ExploreType.Projects:
         case ExploreType.TruthSocial:
             return null;
-        case ExploreType.Bets:
+        case ExploreType.Prediction:
             return <PredictionList source={source} />;
         default:
             safeUnreachable(type);

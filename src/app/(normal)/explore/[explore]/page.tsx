@@ -17,7 +17,7 @@ export default async function Page(props: Props) {
 
     if (explore === ExploreType.Projects) return <ProjectTrendingList />;
     if (explore === ExploreType.TruthSocial) return <TrumpTruthSocialPosts />;
-    if (explore === ExploreType.Bets) {
+    if (explore === ExploreType.Prediction) {
         const slugList = await getEventSlugList();
         queryClient.setQueryData(['bets', 'slugs-list'], slugList);
         const slug = first(slugList);

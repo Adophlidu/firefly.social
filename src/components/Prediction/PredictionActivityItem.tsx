@@ -32,7 +32,7 @@ export const PredictionActivityItem = memo<PredictionActivityItemProps>(function
 
     const addressName = walletAddress ? formatAddress(walletAddress, 4) : '';
     const profileUrl = walletAddress
-        ? getProfileUrl({ source: Source.Wallet, profileId: walletAddress }, WalletProfileCategory.Bets)
+        ? getProfileUrl({ source: Source.Wallet, profileId: walletAddress }, WalletProfileCategory.Prediction)
         : '';
     const displayName = activity.displayInfo?.ensHandle || addressName || walletAddress || '';
 

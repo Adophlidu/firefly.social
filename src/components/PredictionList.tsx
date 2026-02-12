@@ -51,7 +51,7 @@ export function PredictionList({ source }: Props) {
                 queryResult={queryResult}
                 source={Source.Prediction}
                 VirtualListProps={{
-                    listKey: `${ScrollListKey.Bets}:explore:${source}`,
+                    listKey: `${ScrollListKey.Prediction}:explore:${source}`,
                     computeItemKey: (index, item) => `${item.id}-${index}`,
                     itemContent: getBetsItemContent,
                 }}

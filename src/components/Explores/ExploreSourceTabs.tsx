@@ -30,7 +30,7 @@ export const ExploreSourceTabs = memo<ExploreSourceTabsProps>(function ExploreSo
         [ExploreType.TopChannels]: <Trans>Clubs</Trans>,
         [ExploreType.TruthSocial]: <Trans>Truth Social</Trans>,
         [ExploreType.NFTs]: <Trans>NFTs</Trans>,
-        [ExploreType.Bets]: <Trans>Predictions</Trans>,
+        [ExploreType.Prediction]: <Trans>Predictions</Trans>,
     };
     const hasFireflySlug = exploreTypes.some((x) => x.id === POLYMARKET_FIREFLY_SLUG);
 
@@ -38,7 +38,7 @@ export const ExploreSourceTabs = memo<ExploreSourceTabsProps>(function ExploreSo
         <SourceTabs className="!z-20 md:!top-[57px]">
             {exploreTypes.map(({ type: x, id, link, label }) => {
                 const isActive =
-                    x === explore && x === ExploreType.Bets
+                    x === explore && x === ExploreType.Prediction
                         ? id === POLYMARKET_FIREFLY_SLUG
                             ? first(segments) === POLYMARKET_FIREFLY_SLUG
                             : !hasFireflySlug || first(segments) !== POLYMARKET_FIREFLY_SLUG
@@ -59,7 +59,9 @@ export const ExploreSourceTabs = memo<ExploreSourceTabsProps>(function ExploreSo
                         key={id}
                         href={href}
                         isActive={isActive}
-                        telemetryEventId={x === ExploreType.Bets ? EventId.EVENT_EXPLORE_PREDICTIONS_CLICK : undefined}
+                        telemetryEventId={
+                            x === ExploreType.Prediction ? EventId.EVENT_EXPLORE_PREDICTIONS_CLICK : undefined
+                        }
                     >
                         {label || labels[x]}
                     </SourceTab>

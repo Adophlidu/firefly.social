@@ -97,13 +97,13 @@ export function PredictionTradeList({
                 queryResult={queryResult}
                 VirtualListProps={{
                     useWindowScroll: true,
-                    listKey: `${ScrollListKey.Bets}:trades`,
+                    listKey: `${ScrollListKey.Prediction}:trades`,
                     computeItemKey: (index, trade) => `${trade.slug}-${index}`,
                     itemContent: (index, trade) =>
                         getTradeItem({
                             index,
                             trade,
-                            listKey: `${ScrollListKey.Bets}:trades`,
+                            listKey: `${ScrollListKey.Prediction}:trades`,
                             platform,
                             targetProfileInfo: {
                                 address,

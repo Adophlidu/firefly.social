@@ -62,7 +62,7 @@ const PredictionTradeTimelineContent = memo<
             queryResult={queryResult}
             VirtualListProps={{
                 useWindowScroll: true,
-                listKey: `${ScrollListKey.Bets}:trades-timeline:${tabKey}`,
+                listKey: `${ScrollListKey.Prediction}:trades-timeline:${tabKey}`,
                 computeItemKey: (index, trade) => `${trade.slug}-${tabKey}-${index}`,
                 itemContent: (index, trade) => getTradeItem(trade, platform),
             }}

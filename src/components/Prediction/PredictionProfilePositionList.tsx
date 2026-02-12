@@ -117,7 +117,7 @@ export const PredictionProfilePositionList = memo<Props>(function PredictionProf
                 queryResult={queryResult}
                 VirtualListProps={{
                     useWindowScroll: true,
-                    listKey: `${ScrollListKey.Bets}:positions`,
+                    listKey: `${ScrollListKey.Prediction}:positions`,
                     computeItemKey: (index, positionData) => `${positionData.Id}-${index}`,
                     itemContent: (index, positionData) =>
                         getPositionItem({
