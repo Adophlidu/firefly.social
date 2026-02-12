@@ -11,7 +11,7 @@ import { extractFallbackInfo } from '@/components/Prediction/extractFallbackInfo
 import { PredictionPlatform, Source } from '@/constants/enum.js';
 import { CACHE_AGE_INDEFINITE_ON_DISK } from '@/constants/static.js';
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
-import { fetchImageAsBase64 } from '@/helpers/fetchAvatarAsBase64.js';
+import { fetchImageAsBase64FromUrls } from '@/helpers/fetchAvatarAsBase64.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
 import { getPublicUrl } from '@/helpers/getPublicUrl.js';
@@ -71,9 +71,14 @@ async function PredictionProfileOpenGraphImage({
     address: string;
 }) {
     const { name: socialName, avatar: socialAvatar } = await getSocialProfile(address, platform);
-    const avatarUrl =
-        socialAvatar || profile.platform_avatar || getStampAvatarByProfileId(Source.Wallet, profile.wallet);
-    const avatarBase64 = await fetchImageAsBase64(avatarUrl, OG_FALLBACK_AVATAR);
+
+    const stampAvatarUrl = getStampAvatarByProfileId(Source.Wallet, profile.wallet);
+    const avatarUrl = socialAvatar || profile.platform_avatar || stampAvatarUrl;
+
+    const avatarBase64 = await fetchImageAsBase64FromUrls(
+        avatarUrl === stampAvatarUrl ? [avatarUrl] : [avatarUrl, stampAvatarUrl],
+        OG_FALLBACK_AVATAR,
+    );
 
     const displayName = socialName || profile.platform_name || '';
     const pnlHistory = profile.pnl_history;
@@ -205,19 +210,21 @@ async function PredictionProfileOpenGraphImage({
                                 width: '461px',
                             }}
                         >
-                            <Image
-                                src={avatarBase64}
-                                alt="avatar"
-                                width={192}
-                                height={192}
-                                style={{
-                                    width: '192px',
-                                    height: '192px',
-                                    borderRadius: '96px',
-                                    objectFit: 'cover',
-                                    marginBottom: '24px',
-                                }}
-                            />
+                            {avatarBase64 ? (
+                                <Image
+                                    src={avatarBase64}
+                                    alt="avatar"
+                                    width={192}
+                                    height={192}
+                                    style={{
+                                        width: '192px',
+                                        height: '192px',
+                                        borderRadius: '96px',
+                                        objectFit: 'cover',
+                                        marginBottom: '24px',
+                                    }}
+                                />
+                            ) : null}
 
                             <div
                                 style={{
@@ -344,18 +351,20 @@ async function PredictionProfileOpenGraphImage({
                             gap: '48px',
                         }}
                     >
-                        <Image
-                            src={avatarBase64}
-                            alt="avatar"
-                            width={192}
-                            height={192}
-                            style={{
-                                width: '192px',
-                                height: '192px',
-                                borderRadius: '96px',
-                                objectFit: 'cover',
-                            }}
-                        />
+                        {avatarBase64 ? (
+                            <Image
+                                src={avatarBase64}
+                                alt="avatar"
+                                width={192}
+                                height={192}
+                                style={{
+                                    width: '192px',
+                                    height: '192px',
+                                    borderRadius: '96px',
+                                    objectFit: 'cover',
+                                }}
+                            />
+                        ) : null}
 
                         <div
                             style={{

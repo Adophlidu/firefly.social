@@ -32,7 +32,8 @@ export const PredictionProfileCardUI = memo<PredictionProfileCardUIProps>(functi
         [socialProfile],
     );
 
-    const handleProfileClick = () => {
+    const handleProfileClick = (e: React.MouseEvent) => {
+        e.stopPropagation();
         if (profile.platform === PredictionPlatform.Polymarket) {
             capturePolymarketProfileDetailClick({
                 target_polymarket_name: profile.platform_name,

@@ -14,6 +14,7 @@ import { fetchImageAsBase64 } from '@/helpers/fetchAvatarAsBase64.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
 import { getPublicUrl } from '@/helpers/getPublicUrl.js';
+import { getSearchParamsWithZodSchema } from '@/helpers/getSearchParamsWithZodSchema.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { getEventDetail } from '@/providers/firefly/prediction/getEventDetail.js';
 import { getBetsMarketPriceHistory } from '@/providers/prediction/getBetsMarketPriceHistory.js';
@@ -118,7 +119,7 @@ async function PredictionEventOgImage({
             >
                 <div
                     style={{
-                        width: '630px',
+                        width: '570px',
                         height: '630px',
                         display: 'flex',
                     }}
@@ -127,10 +128,10 @@ async function PredictionEventOgImage({
                         <Image
                             src={eventImage}
                             alt="event"
-                            width={630}
+                            width={570}
                             height={630}
                             style={{
-                                width: '630px',
+                                width: '570px',
                                 height: '630px',
                                 objectFit: 'cover',
                             }}
@@ -140,11 +141,11 @@ async function PredictionEventOgImage({
 
                 <div
                     style={{
-                        width: '570px',
+                        width: '630px',
                         height: '630px',
                         display: 'flex',
                         flexDirection: 'column',
-                        padding: '48px 24px 64px 24px',
+                        padding: '48px 48px 64px 24px',
                         position: 'relative',
                     }}
                 >
@@ -207,7 +208,7 @@ async function PredictionEventOgImage({
                                     display: 'flex',
                                 }}
                             >
-                                <SimplePriceChart data={priceHistory} marketId={market.id} width={522} height={200} />
+                                <SimplePriceChart data={priceHistory} marketId={market.id} width={558} height={200} />
                             </div>
                         ) : null}
                         {firstOutcome || secondOutcome ? (
@@ -216,6 +217,7 @@ async function PredictionEventOgImage({
                                     <div
                                         style={{
                                             flex: 1,
+                                            minWidth: 0,
                                             height: '48px',
                                             backgroundColor: '#DCF1D9',
                                             color: '#48AD3C',
@@ -226,16 +228,27 @@ async function PredictionEventOgImage({
                                             justifyContent: 'center',
                                             borderRadius: '12px',
                                             gap: '8px',
+                                            padding: '0 16px',
+                                            overflow: 'hidden',
                                         }}
                                     >
-                                        <span>Buy {firstOutcome.label}</span>
-                                        <span>{firstCents}¢</span>
+                                        <span
+                                            style={{
+                                                overflow: 'hidden',
+                                                textOverflow: 'ellipsis',
+                                                whiteSpace: 'nowrap',
+                                            }}
+                                        >
+                                            Buy {firstOutcome.label}
+                                        </span>
+                                        <span style={{ flexShrink: 0 }}>{firstCents}¢</span>
                                     </div>
                                 ) : null}
                                 {secondOutcome ? (
                                     <div
                                         style={{
                                             flex: 1,
+                                            minWidth: 0,
                                             height: '48px',
                                             backgroundColor: '#FFE6E4',
                                             color: '#FF564D',
@@ -246,10 +259,20 @@ async function PredictionEventOgImage({
                                             justifyContent: 'center',
                                             borderRadius: '12px',
                                             gap: '8px',
+                                            padding: '0 16px',
+                                            overflow: 'hidden',
                                         }}
                                     >
-                                        <span>Buy {secondOutcome.label}</span>
-                                        <span>{secondCents}¢</span>
+                                        <span
+                                            style={{
+                                                overflow: 'hidden',
+                                                textOverflow: 'ellipsis',
+                                                whiteSpace: 'nowrap',
+                                            }}
+                                        >
+                                            Buy {secondOutcome.label}
+                                        </span>
+                                        <span style={{ flexShrink: 0 }}>{secondCents}¢</span>
                                     </div>
                                 ) : null}
                             </div>
@@ -274,7 +297,7 @@ async function PredictionEventOgImage({
         >
             <div
                 style={{
-                    width: '630px',
+                    width: '570px',
                     height: '630px',
                     display: 'flex',
                 }}
@@ -283,10 +306,10 @@ async function PredictionEventOgImage({
                     <Image
                         src={eventImage}
                         alt="event"
-                        width={630}
+                        width={570}
                         height={630}
                         style={{
-                            width: '630px',
+                            width: '570px',
                             height: '630px',
                             objectFit: 'cover',
                         }}
@@ -296,11 +319,11 @@ async function PredictionEventOgImage({
 
             <div
                 style={{
-                    width: '522px',
+                    width: '630px',
                     height: '630px',
                     display: 'flex',
                     flexDirection: 'column',
-                    padding: '48px 24px 64px 24px',
+                    padding: '48px 48px 64px 24px',
                     position: 'relative',
                 }}
             >
@@ -435,12 +458,21 @@ async function PredictionEventOgImage({
                                                         justifyContent: 'center',
                                                         borderRadius: '8px',
                                                         overflow: 'hidden',
-                                                        textOverflow: 'ellipsis',
                                                         whiteSpace: 'nowrap',
-                                                        padding: '0 4px',
+                                                        padding: '0 8px',
+                                                        gap: '4px',
                                                     }}
                                                 >
-                                                    {firstOutcome.label} {firstCents}¢
+                                                    <span
+                                                        style={{
+                                                            overflow: 'hidden',
+                                                            textOverflow: 'ellipsis',
+                                                            whiteSpace: 'nowrap',
+                                                        }}
+                                                    >
+                                                        {firstOutcome.label}
+                                                    </span>
+                                                    <span style={{ flexShrink: 0 }}>{firstCents}¢</span>
                                                 </div>
                                             ) : null}
                                             {secondOutcome ? (
@@ -457,12 +489,21 @@ async function PredictionEventOgImage({
                                                         justifyContent: 'center',
                                                         borderRadius: '8px',
                                                         overflow: 'hidden',
-                                                        textOverflow: 'ellipsis',
                                                         whiteSpace: 'nowrap',
-                                                        padding: '0 4px',
+                                                        padding: '0 8px',
+                                                        gap: '4px',
                                                     }}
                                                 >
-                                                    {secondOutcome.label} {secondCents}¢
+                                                    <span
+                                                        style={{
+                                                            overflow: 'hidden',
+                                                            textOverflow: 'ellipsis',
+                                                            whiteSpace: 'nowrap',
+                                                        }}
+                                                    >
+                                                        {secondOutcome.label}
+                                                    </span>
+                                                    <span style={{ flexShrink: 0 }}>{secondCents}¢</span>
                                                 </div>
                                             ) : null}
                                         </div>
@@ -497,11 +538,15 @@ async function createPredictionEventOgImageResponse({
 const ParamsSchema = z.object({
     platform: z.enum([PredictionPlatform.Polymarket, PredictionPlatform.Opinion]),
     id: z.string().optional(),
+});
+
+const SearchParamsSchema = z.object({
     type: z.string().optional(),
 });
 
 export const GET = compose(withRequestErrorHandler(), async (request: NextRequest, context?: NextRequestContext) => {
-    const { platform, id, type } = await getParamsWithZodSchema(ParamsSchema, context);
+    const { platform, id } = await getParamsWithZodSchema(ParamsSchema, context);
+    const { type } = getSearchParamsWithZodSchema(request, SearchParamsSchema);
     if (!id) return createProxyImageResponse(getPublicUrl('/image/og.png'));
 
     const isMutil = type === 'multi';

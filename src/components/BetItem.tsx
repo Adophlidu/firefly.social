@@ -294,7 +294,9 @@ export const BetItem = memo(function BetItem({
                     height={40}
                 />
                 <div className="flex min-w-0 flex-1 flex-col gap-1">
-                    <h3 className="line-clamp-1 text-base font-semibold leading-5 text-lightMain">{event.title}</h3>
+                    <h3 className="line-clamp-1 text-left text-base font-semibold leading-5 text-lightMain">
+                        {event.title}
+                    </h3>
 
                     {formattedTime}
                 </div>

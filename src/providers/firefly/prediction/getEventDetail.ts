@@ -26,11 +26,11 @@ export async function getOpinionMarketDetail(topicId: string, isMutil: boolean) 
         }>
     >(url);
     const data = resolveFireflyResponseData(response);
-    if (data.errno !== 0 || !data.result?.data) {
-        throw new Error(data.errmsg || 'Failed to fetch opinion market detail');
+    if (data?.errno !== 0 || !data.result?.data) {
+        throw new Error(data?.errmsg || 'Failed to fetch opinion market detail');
     }
 
-    return data.result.data;
+    return data?.result?.data;
 }
 
 interface Options {

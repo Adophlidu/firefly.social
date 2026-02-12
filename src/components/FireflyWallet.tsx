@@ -4,6 +4,7 @@ import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { useCallback, useEffect, useMemo } from 'react';
+import { useUpdateEffect } from 'react-use';
 import { type Address } from 'viem';
 
 import ArrowLineDownIcon from '@/assets/arrow-line-down.svg';
@@ -59,9 +60,15 @@ export function FireflyWallet() {
         }
     }, [privyConnections, isAuthorized, setWallet]);
 
-    if (!isLoginFirefly || !isCreatedPrivyWallet) return null;
-
     const isHidePath = pathname.startsWith(PageRoute.Settings);
+
+    useUpdateEffect(() => {
+        if (isHidePath && isOpen) {
+            updateFireflyWalletIsOpen(false);
+        }
+    }, [isHidePath, isOpen, updateFireflyWalletIsOpen]);
+
+    if (!isLoginFirefly || !isCreatedPrivyWallet) return null;
 
     return (
         <>
