@@ -8,7 +8,7 @@ import { useReportErrorOnce } from '@/providers/errorCapture/useReportErrorOnce.
 export default function Error({ error, reset }: { error: Error; reset: () => void }) {
     useReportErrorOnce(error, {
         exceptionId: ExceptionId.UI_CRASH,
-        tags: { handler: 'following/prediction/error.tsx' },
+        tags: { handler: '/following/prediction/error.tsx' },
     });
 
     return (

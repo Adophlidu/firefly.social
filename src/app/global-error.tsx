@@ -18,7 +18,20 @@ export default function GlobalError({ error, reset }: { error: Error & { digest?
 
     return (
         <html lang="en">
-            <body style={{ margin: 0, fontFamily: 'system-ui, sans-serif', padding: '2rem', textAlign: 'center' }}>
+            <body
+                style={{
+                    margin: 0,
+                    fontFamily: 'system-ui, sans-serif',
+                    padding: '2rem',
+                    textAlign: 'center',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    minHeight: '100vh',
+                    gap: '1rem',
+                }}
+            >
                 <h2>Something went wrong</h2>
                 <p>We&apos;ve been notified and are looking into it.</p>
                 <button
@@ -30,6 +43,7 @@ export default function GlobalError({ error, reset }: { error: Error & { digest?
                         cursor: 'pointer',
                         borderRadius: '0.5rem',
                         border: '1px solid #ccc',
+                        color: '#000',
                         background: '#fff',
                     }}
                 >
