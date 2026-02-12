@@ -106,7 +106,7 @@ export function useApplyTempDraftPost() {
             title: <Trans>Unsaved draft found</Trans>,
             content: (
                 <div className="text-medium text-main md:text-base">
-                    <Trans>Would you like to restore it?”</Trans>
+                    <Trans>Would you like to restore it?</Trans>
                 </div>
             ),
             enableCloseButton: !isSmall,
@@ -122,6 +122,5 @@ export function useApplyTempDraftPost() {
         }
 
         await applyDraftPost(tempDraft, true);
-        setTimeout(() => removeTempDrafts(), 200);
     }, [drafts, isSmall, profiles, posts, applyDraftPost, removeTempDrafts]);
 }

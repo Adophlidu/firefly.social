@@ -2550,9 +2550,6 @@ msgstr "您需要连接您的 {0} 账号才可使用此功能。"
 msgid "Bad Request. Please check your request."
 msgstr "请求错误。请检查你的请求。"
 
-msgid "Would you like to restore it?”"
-msgstr ""
-
 msgid "✨ Turn on browser notifications to never miss a trade update."
 msgstr "✨ 开启浏览器通知，交易动态实时掌握。"
 
@@ -5016,6 +5013,9 @@ msgstr "已铸造"
 
 msgid "OK"
 msgstr "确定"
+
+msgid "Would you like to restore it?"
+msgstr ""
 
 msgid "Posts from Trump on Truth Social (Explore, profile)"
 msgstr "来自特朗普的 Truth Social 帖子（探索、个人资料）"

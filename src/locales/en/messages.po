@@ -2545,9 +2545,6 @@ msgstr "You need to connect your {0} account to use this feature."
 msgid "Bad Request. Please check your request."
 msgstr "Bad Request. Please check your request."
 
-msgid "Would you like to restore it?”"
-msgstr "Would you like to restore it?”"
-
 msgid "✨ Turn on browser notifications to never miss a trade update."
 msgstr "✨ Turn on browser notifications to never miss a trade update."
 
@@ -5009,6 +5006,9 @@ msgstr "Minted"
 
 msgid "OK"
 msgstr "OK"
+
+msgid "Would you like to restore it?"
+msgstr "Would you like to restore it?"
 
 msgid "Posts from Trump on Truth Social (Explore, profile)"
 msgstr "Posts from Trump on Truth Social (Explore, profile)"

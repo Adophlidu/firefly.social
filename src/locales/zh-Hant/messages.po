@@ -2550,9 +2550,6 @@ msgstr "您需要連接您的 {0} 帳號才可使用此功能。"
 msgid "Bad Request. Please check your request."
 msgstr "錯誤的請求。請檢查您的請求。"
 
-msgid "Would you like to restore it?”"
-msgstr ""
-
 msgid "✨ Turn on browser notifications to never miss a trade update."
 msgstr "✨ 啟用瀏覽器通知，交易資訊即時掌握。"
 
@@ -5016,6 +5013,9 @@ msgstr "已鑄造"
 
 msgid "OK"
 msgstr "確認"
+
+msgid "Would you like to restore it?"
+msgstr ""
 
 msgid "Posts from Trump on Truth Social (Explore, profile)"
 msgstr "來自特朗普的 Truth Social 貼文（探索、個人檔案）"

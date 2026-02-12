@@ -2545,9 +2545,6 @@ msgstr ""
 msgid "Bad Request. Please check your request."
 msgstr ""
 
-msgid "Would you like to restore it?”"
-msgstr ""
-
 msgid "✨ Turn on browser notifications to never miss a trade update."
 msgstr ""
 
@@ -5008,6 +5005,9 @@ msgid "Minted"
 msgstr ""
 
 msgid "OK"
+msgstr ""
+
+msgid "Would you like to restore it?"
 msgstr ""
 
 msgid "Posts from Trump on Truth Social (Explore, profile)"
