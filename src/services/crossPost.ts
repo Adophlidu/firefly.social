@@ -50,7 +50,7 @@ async function updateRpClaimStrategy(compositePost: CompositePost) {
         }
     }
 
-    if (SORTED_SOCIAL_SOURCES.some((x) => postId[x]) && rpPayload?.publicKey) {
+    if (SORTED_SOCIAL_SOURCES.some((x) => postId[x]) && rpPayload) {
         const reactions = compact(
             SORTED_SOCIAL_SOURCES.map((x) => {
                 const id = postId[x];

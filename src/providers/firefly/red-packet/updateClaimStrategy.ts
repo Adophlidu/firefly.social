@@ -9,7 +9,7 @@ export async function updateClaimStrategy(
     reactions: FireflyRedPacketAPI.PostReaction[],
     claimPlatform: FireflyRedPacketAPI.ClaimPlatform[],
     postOn: FireflyRedPacketAPI.PostOn[],
-    publicKey: string,
+    publicKey?: string,
 ): Promise<void> {
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/redpacket/updateClaimStrategy');
     await fetchJson(url, {
