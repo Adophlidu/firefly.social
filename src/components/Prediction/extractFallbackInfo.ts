@@ -1,6 +1,7 @@
 import { first } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
+import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { type WalletProfileInfo } from '@/providers/types/Firefly.js';
 
 export function extractFallbackInfo(fallback: WalletProfileInfo): {
@@ -29,21 +30,29 @@ export function extractFallbackInfo(fallback: WalletProfileInfo): {
     // Priority aligned with iOS: Farcaster > Twitter > Lens > bSky > Account > Wallet
     const twitterProfile = first(fallback.twitterProfiles);
     if (twitterProfile) {
-        return { name: twitterProfile.handle, avatar: undefined, source: Source.Twitter };
+        return {
+            name: twitterProfile.handle,
+            avatar: getStampAvatarByProfileId(Source.Twitter, twitterProfile.twitter_id),
+            source: Source.Twitter,
+        };
     }
 
     const lensV3Profile = first(fallback.lensProfilesV3);
     if (lensV3Profile) {
         return {
             name: lensV3Profile.localName || lensV3Profile.fullHandle,
-            avatar: undefined,
+            avatar: getStampAvatarByProfileId(Source.Lens, lensV3Profile.id),
             source: Source.Lens,
         };
     }
 
     const bskyProfile = first(fallback.bskyProfiles);
     if (bskyProfile) {
-        return { name: bskyProfile.handle, avatar: undefined, source: Source.Bsky };
+        return {
+            name: bskyProfile.handle,
+            avatar: getStampAvatarByProfileId(Source.Bsky, bskyProfile.did),
+            source: Source.Bsky,
+        };
     }
 
     const walletProfile = first(fallback.walletProfiles);
