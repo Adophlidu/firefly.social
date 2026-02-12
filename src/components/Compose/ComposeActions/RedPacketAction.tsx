@@ -60,34 +60,40 @@ export const RedPacketAction = memo<RedPacketActionProps>(function RedPacketActi
         if (result) {
             const compositePost = getCompositePost(cursor);
             const firstChar = compositePost?.chars[0];
-            if (
+            const hasRpTag =
                 firstChar &&
                 typeof firstChar !== 'string' &&
                 'tag' in firstChar &&
-                firstChar.tag === CharTag.FIREFLY_RP
-            )
-                return;
+                firstChar.tag === CharTag.FIREFLY_RP;
+            const hasRpImage = compositePost?.images.some((image) => image.isRpPayloadImage);
+
+            if (hasRpTag && hasRpImage) return;
 
             updateIsBusy(true);
-            const chars: Chars = [
-                {
-                    tag: CharTag.FIREFLY_RP,
-                    content: RP_HASH_TAG,
-                    visible: false,
-                },
-                ...(compositePost ? compositePost.chars : []),
-                t`Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or desktop!`,
-                {
-                    tag: CharTag.PROMOTE_LINK,
-                    content: promoteLink,
-                    visible: false,
-                    sortNo: 5,
-                },
-            ];
+
             try {
                 const coverBlob = await fetchImageAsPNG(result, true);
-                updateChars(chars);
-                setEditorContent(chars);
+
+                if (!hasRpTag) {
+                    const chars: Chars = [
+                        {
+                            tag: CharTag.FIREFLY_RP,
+                            content: RP_HASH_TAG,
+                            visible: false,
+                        },
+                        ...(compositePost ? compositePost.chars : []),
+                        t`Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or desktop!`,
+                        {
+                            tag: CharTag.PROMOTE_LINK,
+                            content: promoteLink,
+                            visible: false,
+                            sortNo: 5,
+                        },
+                    ];
+                    updateChars(chars);
+                    setEditorContent(chars);
+                }
+
                 addImage(
                     createLocalMediaObject(new File([coverBlob], 'image.png', { type: FileMimeType.PNG }), true),
                     0,

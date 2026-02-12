@@ -1,4 +1,5 @@
 import { Trans } from '@lingui/react/macro';
+import { useCallback, useContext } from 'react';
 
 import { ActionButton } from '@/components/ActionButton.js';
 import { useRefundCallback } from '@/components/RedPacket/hooks/useRefundCallback.js';
@@ -7,6 +8,7 @@ import {
     useResendRedPacketCallback,
 } from '@/components/RedPacket/hooks/useResendRedPacketCallback.js';
 import { type NetworkType } from '@/constants/enum.js';
+import { HistoryActionContext } from '@/modals/RedPacketModal/HistoryList.js';
 import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 
 interface Props {
@@ -19,6 +21,8 @@ interface Props {
 }
 
 export function RedPacketActionButton({ rpid, redpacketStatus, chainId, networkType, resendInfo }: Props) {
+    const { actionLoading, setActionLoading } = useContext(HistoryActionContext);
+
     const statusToTransMap = {
         [FireflyRedPacketAPI.RedPacketStatus.Send]: <Trans>Send</Trans>,
         [FireflyRedPacketAPI.RedPacketStatus.Expired]: <Trans>Expired</Trans>,
@@ -46,6 +50,19 @@ export function RedPacketActionButton({ rpid, redpacketStatus, chainId, networkT
 
     const [{ loading: resendLoading }, resend] = useResendRedPacketCallback(resendFullInfo);
 
+    const withActionLoading = useCallback(
+        async (fn: () => Promise<unknown>) => {
+            setActionLoading(true);
+
+            try {
+                await fn();
+            } finally {
+                setActionLoading(false);
+            }
+        },
+        [setActionLoading],
+    );
+
     if (redpacketStatus === FireflyRedPacketAPI.RedPacketStatus.View) return null;
 
     if (redpacketStatus === FireflyRedPacketAPI.RedPacketStatus.Send) {
@@ -53,7 +70,8 @@ export function RedPacketActionButton({ rpid, redpacketStatus, chainId, networkT
             <ActionButton
                 className="h-[32px] !w-[88px] min-w-[88px] !grow-0 whitespace-nowrap px-6 py-2 text-xs"
                 loading={resendLoading}
-                onClick={resend}
+                disabled={!!(actionLoading && !resendLoading)}
+                onClick={() => withActionLoading(resend)}
             >
                 <Trans>Send</Trans>
             </ActionButton>
@@ -65,13 +83,16 @@ export function RedPacketActionButton({ rpid, redpacketStatus, chainId, networkT
             className="h-[32px] !w-[88px] min-w-[88px] !grow-0 whitespace-nowrap px-6 py-2 text-xs"
             loading={refundLoading}
             onClick={() => {
-                if (redpacketStatus === FireflyRedPacketAPI.RedPacketStatus.Refunding) refund();
+                if (redpacketStatus === FireflyRedPacketAPI.RedPacketStatus.Refunding) withActionLoading(refund);
             }}
-            disabled={[
-                FireflyRedPacketAPI.RedPacketStatus.Empty,
-                FireflyRedPacketAPI.RedPacketStatus.Expired,
-                FireflyRedPacketAPI.RedPacketStatus.Refund,
-            ].includes(redpacketStatus)}
+            disabled={
+                (actionLoading && !refundLoading) ||
+                [
+                    FireflyRedPacketAPI.RedPacketStatus.Empty,
+                    FireflyRedPacketAPI.RedPacketStatus.Expired,
+                    FireflyRedPacketAPI.RedPacketStatus.Refund,
+                ].includes(redpacketStatus)
+            }
         >
             {statusToTransMap[redpacketStatus]}
         </ActionButton>

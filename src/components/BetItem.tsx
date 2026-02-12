@@ -321,7 +321,7 @@ export const BetItem = memo(function BetItem({
                             return (
                                 <div key={market.id} className="flex items-center gap-3 sm:gap-4">
                                     <div className="min-w-0 flex-1">
-                                        <p className="truncate text-sm leading-5 text-lightMain">
+                                        <p className="truncate text-left text-sm leading-5 text-lightMain">
                                             {market.groupItemTitle || market.question || market.title}
                                         </p>
                                     </div>
