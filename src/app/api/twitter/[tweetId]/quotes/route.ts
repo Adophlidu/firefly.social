@@ -1,4 +1,5 @@
 import { compose } from '@dimensiondev/utils';
+import { compact } from 'lodash-es';
 import { z } from 'zod';
 
 import { EMPTY_LIST } from '@/constants/static.js';
@@ -34,6 +35,27 @@ export const GET = compose(
 
         const { data, errors } = await client.v2.quotes(tweetId, params);
         if (errors?.length) logger.error('[twitter] v2.search (quotes)', errors);
+
+        // Supplement media data if insufficient by performing an additional query
+        if (data.includes?.media) {
+            const includesTweetIds = data.includes?.tweets
+                ?.filter((x) => x.attachments?.media_keys?.length)
+                ?.map((x) => x.id);
+            if (includesTweetIds?.length) {
+                const mediaKeys = new Set(data.includes.media.map((x) => x.media_key));
+                const keySize = mediaKeys.size;
+                const mediaKeysInTweets = compact(
+                    data.includes?.tweets?.flatMap((tweet) => tweet.attachments?.media_keys),
+                );
+                mediaKeysInTweets.forEach((key) => mediaKeys.add(key));
+                if (mediaKeys.size > keySize) {
+                    const tweetV2LookupResult = await client.v2.tweets(includesTweetIds, TWITTER_TIMELINE_OPTIONS);
+                    if (data.includes?.media && tweetV2LookupResult.includes?.media) {
+                        data.includes.media = data.includes.media.concat(...tweetV2LookupResult.includes.media);
+                    }
+                }
+            }
+        }
 
         return createSuccessResponseJson({
             ...data,
