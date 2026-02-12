@@ -1824,9 +1824,6 @@ msgstr "重試"
 msgid "No any positions found in this wallet"
 msgstr "此錢包內查無任何持倉"
 
-msgid "Opinion Event"
-msgstr "Opinion 市場"
-
 msgid "Reset Password"
 msgstr "重設密碼"
 

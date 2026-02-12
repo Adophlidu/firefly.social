@@ -1,4 +1,4 @@
-import { type Metadata } from 'next';
+import type { Metadata } from 'next';
 
 import { PredictionEventDetailContent } from '@/components/Prediction/PredictionEventDetailContent.js';
 import { PredictionPlatform } from '@/constants/enum.js';
@@ -18,7 +18,13 @@ interface Props
 export async function generateMetadata(props: Props): Promise<Metadata> {
     const { id } = await props.params;
     const { type } = await props.searchParams;
-    return createPredictionEventMetadata(id, PredictionPlatform.Opinion, `/opinion/event/${id}`, type);
+
+    return createPredictionEventMetadata(
+        id,
+        PredictionPlatform.Opinion,
+        `/opinion/event/${id}${type ? `?type=${type}` : ''}`,
+        type,
+    );
 }
 
 export default async function OpinionEventPage(props: Props) {

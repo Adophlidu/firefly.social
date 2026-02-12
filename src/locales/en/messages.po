@@ -1819,9 +1819,6 @@ msgstr "Try again"
 msgid "No any positions found in this wallet"
 msgstr "No any positions found in this wallet"
 
-msgid "Opinion Event"
-msgstr "Opinion Event"
-
 msgid "Reset Password"
 msgstr "Reset Password"
 
