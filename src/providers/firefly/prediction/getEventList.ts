@@ -7,7 +7,13 @@ import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { type PolymarketEventListData, type Response } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
-export async function getEventList(slug?: string, indicator?: PageIndicator) {
+interface Options {
+    slug?: string;
+    subSlug?: string;
+    indicator?: PageIndicator;
+}
+
+export async function getEventList({ slug, subSlug, indicator }: Options = {}) {
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/polymarket/event/list');
     const response = await fireflySessionHolder.fetch<
         Response<{ data: PolymarketEventListData[] | null; pagination: { totalResults: number; hasMore: boolean } }>
@@ -22,6 +28,7 @@ export async function getEventList(slug?: string, indicator?: PageIndicator) {
             ascending: false,
             offset: indicator?.id ? +indicator.id : 0,
             tag_slug: slug !== 'trending' && slug !== 'new' ? slug : undefined,
+            children_tag_slug: subSlug,
         }),
     });
     const data = resolveFireflyResponseData(response);

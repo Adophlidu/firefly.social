@@ -6,6 +6,7 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { BetItem } from '@/components/BetItem.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { PredictionPlatform, ScrollListKey, Source } from '@/constants/enum.js';
+import { useSearchParams } from '@/esm/navigation.js';
 import { formatPolymarketEventListData } from '@/helpers/formatPolymarketEventListData.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { getEventList } from '@/providers/firefly/prediction/getEventList.js';
@@ -27,11 +28,14 @@ interface Props {
 }
 
 export function PredictionList({ source }: Props) {
+    const searchParams = useSearchParams();
+
+    const subSlug = searchParams.get('subSlug') || undefined;
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['explore', 'bets', source],
+        queryKey: ['explore', 'bets', source, subSlug],
         queryFn: async ({ pageParam }) => {
             const indicator = createIndicator(undefined, pageParam);
-            return getEventList(source, indicator);
+            return getEventList({ slug: source, indicator, subSlug });
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => {

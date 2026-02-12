@@ -8,3 +8,5 @@ export enum MarketsAccountTabType {
     Positions = 'positions',
     Orders = 'orders',
 }
+
+export const POLYMARKET_FIREFLY_SLUG = 'firefly-featured';
