@@ -9,8 +9,8 @@ import { CloseButton } from '@/components/IconButton.js';
 import { type SnackbarMessage, useSnackbar } from '@/components/Snackbar.js';
 import { env } from '@/constants/env.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
-import { useReportErrorOnce } from '@/hooks/useReportErrorOnce.js';
 import { ExceptionId } from '@/providers/errorCapture/captureException.js';
+import { useReportErrorOnce } from '@/providers/errorCapture/useReportErrorOnce.js';
 
 export interface ErrorReportSnackbarProps {
     id: string;
@@ -60,7 +60,10 @@ export function ErrorReportSnackbar({ id, detail, noReport, icon, message, ref }
         return err;
     }, [noReport, name, comments]);
 
-    useReportErrorOnce(errorToReport, { exceptionId: ExceptionId.USER_REPORT });
+    useReportErrorOnce(errorToReport, {
+        exceptionId: ExceptionId.SNACKBAR_ERROR,
+        tags: { handler: 'ErrorReportSnackbar.tsx' },
+    });
 
     return (
         <div ref={ref} className="rounded-[4px] bg-danger">

@@ -33,11 +33,12 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
         this.setState({ reported: true });
 
         // Report the error with component stack information
-        captureClientException(ExceptionId.UI_CRASH, error, {
+        captureClientException(error, {
+            exceptionId: ExceptionId.UI_CRASH,
             tags: {
+                handler: 'ErrorBoundary.tsx',
                 componentStack: errorInfo.componentStack?.substring(0, 1000) ?? 'unavailable',
                 errorType: error.name,
-                handler: 'ErrorBoundary.componentDidCatch',
             },
         });
     }

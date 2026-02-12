@@ -43,7 +43,8 @@ const queryCache = new QueryCache({
             return;
         }
 
-        captureClientException(ExceptionId.REACT_QUERY_ERROR, error, {
+        captureClientException(error, {
+            exceptionId: ExceptionId.REACT_QUERY_ERROR,
             tags: {
                 queryKey: JSON.stringify(query.queryKey).substring(0, 200),
                 handler: 'QueryCache.onError',
@@ -59,7 +60,8 @@ const mutationCache = new MutationCache({
             return;
         }
 
-        captureClientException(ExceptionId.REACT_QUERY_ERROR, error, {
+        captureClientException(error, {
+            exceptionId: ExceptionId.REACT_QUERY_ERROR,
             tags: {
                 mutationKey: mutation.options.mutationKey
                     ? JSON.stringify(mutation.options.mutationKey).substring(0, 200)

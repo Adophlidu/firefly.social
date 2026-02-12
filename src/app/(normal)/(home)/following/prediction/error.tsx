@@ -2,11 +2,13 @@
 
 import { ErrorHandler } from '@/components/ErrorHandler.js';
 import { IS_PRODUCTION } from '@/constants/static.js';
-import { useReportErrorOnce } from '@/hooks/useReportErrorOnce.js';
+import { ExceptionId } from '@/providers/errorCapture/captureException.js';
+import { useReportErrorOnce } from '@/providers/errorCapture/useReportErrorOnce.js';
 
 export default function Error({ error, reset }: { error: Error; reset: () => void }) {
     useReportErrorOnce(error, {
-        tags: { route: '/following/prediction' },
+        exceptionId: ExceptionId.UI_CRASH,
+        tags: { handler: 'following/prediction/error.tsx' },
     });
 
     return (

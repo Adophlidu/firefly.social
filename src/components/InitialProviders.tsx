@@ -13,7 +13,7 @@ import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { logger } from '@/libs/Logger.js';
-import { initGlobalErrorHandlers } from '@/providers/errorCapture/globalHandlers.js';
+import { useInitGlobalErrorHandlers } from '@/providers/errorCapture/useInitGlobalErrorHandlers.js';
 import { recordUserThemeMode } from '@/services/recordUserThemeMode.js';
 import { setupFirebaseFcmConnection } from '@/services/setupFirebaseFcmConnection.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
@@ -49,11 +49,10 @@ export const InitialProviders = memo(function Providers(props: { children: React
     const viewerId = useLeafwatchPersistStore.use.viewerId();
     const setViewerId = useLeafwatchPersistStore.use.setViewerId();
 
+    useInitGlobalErrorHandlers();
+
     useEffectOnce(() => {
         if (!viewerId) setViewerId(crypto.randomUUID());
-
-        // Initialize global error handlers for client-side error capturing
-        initGlobalErrorHandlers();
 
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker

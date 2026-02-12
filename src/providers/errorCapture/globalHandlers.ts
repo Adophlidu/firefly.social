@@ -75,7 +75,8 @@ function handleWindowError(
 
     // Classify and capture
     const exceptionId = classifyError(err);
-    captureClientException(exceptionId, err, {
+    captureClientException(err, {
+        exceptionId,
         tags: {
             source: source ?? 'unknown',
             lineno: lineno ?? 0,
@@ -115,7 +116,8 @@ function handleUnhandledRejection(event: PromiseRejectionEvent): void {
 
     const exceptionId = classifyError(error, ExceptionId.UNHANDLED_REJECTION);
 
-    captureClientException(exceptionId, error, {
+    captureClientException(error, {
+        exceptionId,
         tags: {
             handler: 'unhandledrejection',
         },
@@ -159,7 +161,8 @@ function handleResourceError(event: Event): void {
 
     const error = new Error(`Failed to load ${tagName.toLowerCase()}: ${src}`);
 
-    captureClientException(ExceptionId.RESOURCE_LOAD_ERROR, error, {
+    captureClientException(error, {
+        exceptionId: ExceptionId.RESOURCE_LOAD_ERROR,
         tags: {
             resourceType: tagName.toLowerCase(),
             resourceUrl: src.substring(0, 500), // Truncate long URLs

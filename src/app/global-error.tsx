@@ -1,6 +1,7 @@
 'use client';
 
-import { useReportErrorOnce } from '@/hooks/useReportErrorOnce.js';
+import { ExceptionId } from '@/providers/errorCapture/captureException.js';
+import { useReportErrorOnce } from '@/providers/errorCapture/useReportErrorOnce.js';
 
 /**
  * Root-level error boundary. Replaces the root layout when triggered.
@@ -8,8 +9,9 @@ import { useReportErrorOnce } from '@/hooks/useReportErrorOnce.js';
  */
 export default function GlobalError({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
     useReportErrorOnce(error, {
+        exceptionId: ExceptionId.UI_CRASH,
         tags: {
-            handler: 'global-error',
+            handler: 'global-error.tsx',
             digest: error?.digest ?? 'none',
         },
     });

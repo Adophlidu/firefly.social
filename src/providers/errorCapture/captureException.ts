@@ -7,10 +7,10 @@ export enum ExceptionId {
     RESUME_BSKY_SESSION = 'resume_bsky_session',
     RESUME_TWITTER_SESSION = 'resume_twitter_session',
     CREATE_PRIVY_WALLET = 'create_privy_wallet',
-    USER_REPORT = 'user_report',
 
     // Client-side error capturing
     UI_CRASH = 'ui_crash',
+    SNACKBAR_ERROR = 'snackbar_error',
     RUNTIME_ERROR = 'runtime_error',
     UNHANDLED_REJECTION = 'unhandled_rejection',
     REACT_QUERY_ERROR = 'react_query_error',

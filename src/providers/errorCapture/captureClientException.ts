@@ -39,6 +39,7 @@ function shouldReport(fingerprint: string): boolean {
 }
 
 interface CaptureClientExceptionOptions {
+    exceptionId: ExceptionId;
     /** Additional tags to include in the exception report */
     tags?: Record<string, string | number>;
     /** Skip deduplication check */
@@ -49,17 +50,13 @@ interface CaptureClientExceptionOptions {
  * Captures a client-side exception with deduplication.
  * Wrapper around captureException that adds error fingerprinting.
  */
-export function captureClientException(
-    exceptionId: ExceptionId,
-    error: unknown,
-    options?: CaptureClientExceptionOptions,
-): void {
+export function captureClientException(error: unknown, options: CaptureClientExceptionOptions): void {
     const err = error instanceof Error ? error : new Error(String(error));
-    const fingerprint = generateFingerprint(exceptionId, err.message, err.stack);
+    const fingerprint = generateFingerprint(options.exceptionId, err.message, err.stack);
 
     if (!options?.skipDedup && !shouldReport(fingerprint)) {
         return;
     }
 
-    captureException(exceptionId, err, options?.tags);
+    captureException(options.exceptionId, err, options?.tags);
 }
