@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/react/macro';
-import { Outlet, useRouter } from '@tanstack/react-router';
+import { Outlet, useRouter, useRouterState } from '@tanstack/react-router';
 import { isEqual } from 'lodash-es';
 import { useEffect } from 'react';
 
@@ -18,11 +18,12 @@ import { useComposeStateStore } from '@/store/useComposeStore.js';
 export function ComposeRouteRoot() {
     const isMedium = useIsMedium();
     const { history, state } = useRouter();
+    const { location } = useRouterState();
     const { onClose } = useComposeModalContext();
     const { removeTempDrafts } = useComposeDraftState();
     const [, saveDraftInCompose] = useSaveDraftInCompose(DraftPostType.LocalTemp);
 
-    const pathname = history.location.pathname;
+    const pathname = location.pathname;
 
     const isDraft = pathname === '/draft';
     const isGif = pathname === '/gif';
