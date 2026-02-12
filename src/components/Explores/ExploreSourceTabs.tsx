@@ -11,16 +11,17 @@ import { ToggleEnableButton } from '@/components/TrumpTruthSocial/ToggleEnableBu
 import { ExploreType } from '@/constants/enum.js';
 import { useSelectedLayoutSegments } from '@/esm/navigation.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
+import { useExploreTabs } from '@/hooks/useExploreTabs.js';
 import { POLYMARKET_FIREFLY_SLUG } from '@/providers/prediction/polymarket/constants.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 
 interface ExploreSourceTabsProps {
-    exploreTypes: Array<{ type: ExploreType; id: string; link?: string; label?: string }>;
     explore: ExploreType;
 }
 
-export const ExploreSourceTabs = memo<ExploreSourceTabsProps>(function ExploreSourceTabs({ exploreTypes, explore }) {
+export const ExploreSourceTabs = memo<ExploreSourceTabsProps>(function ExploreSourceTabs({ explore }) {
     const segments = useSelectedLayoutSegments();
+    const exploreTypes = useExploreTabs();
 
     const labels: Record<ExploreType, ReactNode> = {
         [ExploreType.TopProfiles]: <Trans>Users</Trans>,

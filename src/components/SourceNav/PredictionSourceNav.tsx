@@ -4,7 +4,6 @@ import { classNames } from '@dimensiondev/utils';
 import { useQuery } from '@tanstack/react-query';
 import { useQueryState } from 'nuqs';
 import { type HTMLProps, memo, useLayoutEffect, useMemo, useRef } from 'react';
-import urlcat from 'urlcat';
 
 import { Link } from '@/components/Link.js';
 import { EMPTY_LIST } from '@/constants/static.js';
@@ -22,36 +21,36 @@ export const PredictionSourceNav = memo<Props>(function PredictionSourceNav({ cl
     const { source } = useParams<{ source: string }>();
     const [subSlug] = useQueryState('subSlug', { defaultValue: '' });
 
-    const isFireflySlug = source === POLYMARKET_FIREFLY_SLUG;
     const { data } = useQuery({
         queryKey: ['bets', 'slugs-list'],
         queryFn: () => getEventSlugList(),
         staleTime: Infinity,
         refetchOnMount: false,
         refetchOnWindowFocus: false,
-        select: (data) => (isFireflySlug ? data : data?.filter((x) => x.slug !== POLYMARKET_FIREFLY_SLUG)),
     });
 
     const activeTabRef = useRef<HTMLAnchorElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
 
-    const hasFireflySlug = data?.some((x) => x.slug === POLYMARKET_FIREFLY_SLUG);
+    const isFireflySlugPage =
+        !!data?.some((x) => x.slug === POLYMARKET_FIREFLY_SLUG) && source === POLYMARKET_FIREFLY_SLUG;
     const tags = useMemo(() => {
         if (!data) return EMPTY_LIST;
 
-        if (isFireflySlug && hasFireflySlug) {
+        if (isFireflySlugPage) {
             const fireflySlugData = data.find((x) => x.slug === POLYMARKET_FIREFLY_SLUG);
             return fireflySlugData?.sub_slug || EMPTY_LIST;
         }
 
-        if (source && !data.some((x) => x.slug === source)) {
+        const filteredData = data.filter((x) => x.slug !== POLYMARKET_FIREFLY_SLUG);
+        if (source && !filteredData.some((x) => x.slug === source)) {
             return [
                 { slug: source, label: `${source.slice(0, 1).toUpperCase()}${source.slice(1)}`, sub_slug: EMPTY_LIST },
-                ...data,
+                ...filteredData,
             ];
         }
-        return data;
-    }, [data, source, isFireflySlug, hasFireflySlug]);
+        return filteredData;
+    }, [data, source, isFireflySlugPage]);
 
     useLayoutEffect(() => {
         if (!activeTabRef.current) {
@@ -74,14 +73,10 @@ export const PredictionSourceNav = memo<Props>(function PredictionSourceNav({ cl
         >
             <nav className="flex space-x-2 px-1.5 pb-1.5 pt-3" aria-label="Tabs">
                 {tags.map((slug) => {
-                    const isActive = isFireflySlug && hasFireflySlug ? subSlug === slug.slug : source === slug.slug;
-                    const href =
-                        isFireflySlug && hasFireflySlug
-                            ? urlcat('/explore/prediction/:slug', {
-                                  slug: POLYMARKET_FIREFLY_SLUG,
-                                  subSlug: slug.slug || undefined,
-                              })
-                            : RouteResolver.explorePrediction(slug.slug);
+                    const isActive = isFireflySlugPage ? subSlug === slug.slug : source === slug.slug;
+                    const href = isFireflySlugPage
+                        ? RouteResolver.explorePrediction(POLYMARKET_FIREFLY_SLUG, slug.slug)
+                        : RouteResolver.explorePrediction(slug.slug);
 
                     return (
                         <Link
