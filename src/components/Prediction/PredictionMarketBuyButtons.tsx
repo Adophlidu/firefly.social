@@ -4,7 +4,7 @@ import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { isUndefined, last } from 'lodash-es';
-import { memo, use } from 'react';
+import { memo, use, useMemo } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { AnimatedText } from '@/components/Prediction/AnimatedText.js';
@@ -48,24 +48,30 @@ export const PredictionMarketBuyButtons = memo<PredictionMarketBuyButtonsProps>(
         },
     });
 
-    if (!market.outcomes.length) return null;
+    const outcomes = useMemo(() => {
+        return market.outcomes.map((outcome) => {
+            const price = !Number.isNaN(+outcome.price) ? parseFloat(outcome.price) : 0;
+            const orderBook = orderBooks?.find((book) => book.asset_id === outcome.id);
+            const orderBookPrice = !!orderBook && !orderBook.asks.length ? '0' : last(orderBook?.asks)?.price;
+            const bestPrice = !isUndefined(outcome.bestAsk)
+                ? !Number.isNaN(+outcome.bestAsk)
+                    ? parseFloat(outcome.bestAsk)
+                    : price
+                : !isUndefined(orderBookPrice)
+                  ? parseFloat(orderBookPrice)
+                  : price;
+
+            return { ...outcome, displayPrice: bestPrice === 1 ? 0 : bestPrice };
+        });
+    }, [market.outcomes, orderBooks]);
+
+    if (!outcomes.length) return null;
 
     const isLarge = size === 'large';
 
     return (
         <div className={classNames('flex', isLarge ? 'gap-4' : 'gap-2', className)}>
-            {market.outcomes.map((outcome, i) => {
-                const price = !Number.isNaN(+outcome.price) ? parseFloat(outcome.price) : 0;
-                const orderBookPrice = last(orderBooks?.find((book) => book.asset_id === outcome.id)?.asks)?.price;
-                const bestPrice = !isUndefined(outcome.bestAsk)
-                    ? !Number.isNaN(+outcome.bestAsk)
-                        ? parseFloat(outcome.bestAsk)
-                        : price
-                    : !isUndefined(orderBookPrice)
-                      ? parseFloat(orderBookPrice)
-                      : price;
-                const displayPrice = bestPrice === 1 ? 0 : bestPrice;
-
+            {outcomes.map((outcome, i) => {
                 return (
                     <ClickableButton
                         key={`${outcome.id}-${i}`}
@@ -92,7 +98,7 @@ export const PredictionMarketBuyButtons = memo<PredictionMarketBuyButtonsProps>(
                                 <span className="min-w-0 truncate">Buy {outcome.label}</span>
                                 <AnimatedText
                                     className="shrink-0"
-                                    text={`${removeTrailingZeros((displayPrice * 100).toFixed(1))}¢`}
+                                    text={`${removeTrailingZeros((outcome.displayPrice * 100).toFixed(1))}¢`}
                                 />
                             </Trans>
                         ) : (
