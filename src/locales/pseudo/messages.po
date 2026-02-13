@@ -4716,6 +4716,9 @@ msgstr ""
 msgid "Snapshot removed from your Bookmarks"
 msgstr ""
 
+msgid "Logs"
+msgstr ""
+
 msgid "Max Supply"
 msgstr ""
 

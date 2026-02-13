@@ -7,7 +7,11 @@ import { IS_PRODUCTION, SITE_URL_OFFICIAL } from '@/constants/static.js';
 
 export function LinkCloud() {
     const links = [
-        { name: `v${env.shared.VERSION}`, link: '/next-debug.log', visible: !IS_PRODUCTION },
+        {
+            name: env.shared.VERSION ? `v${env.shared.VERSION}` : <Trans>Logs</Trans>,
+            link: '/next-debug.log',
+            visible: !IS_PRODUCTION,
+        },
         { name: <Trans>Communities</Trans>, link: '/settings/more', self: true, visible: true },
         {
             name: <Trans>Feedback</Trans>,

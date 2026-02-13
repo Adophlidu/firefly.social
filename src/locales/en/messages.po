@@ -4716,6 +4716,9 @@ msgstr "Please confirm the login with X."
 msgid "Snapshot removed from your Bookmarks"
 msgstr "Snapshot removed from your Bookmarks"
 
+msgid "Logs"
+msgstr "Logs"
+
 msgid "Max Supply"
 msgstr "Max Supply"
 

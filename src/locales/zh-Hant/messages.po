@@ -4721,6 +4721,9 @@ msgstr "請至 X 確認登入。"
 msgid "Snapshot removed from your Bookmarks"
 msgstr "提案已從書籤移除"
 
+msgid "Logs"
+msgstr ""
+
 msgid "Max Supply"
 msgstr "最大供應量"
 
