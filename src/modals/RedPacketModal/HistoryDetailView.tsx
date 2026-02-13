@@ -27,12 +27,14 @@ function ClaimHistoryItem({ data, networkType }: { data: FireflyRedPacketAPI.Cla
                 platformId={first(data.claim_platform)?.platform_id}
             />
             <div className="flex gap-1">
-                {formatBalance(data.token_amounts, data.token_decimal, {
-                    isFixed: true,
-                    fixedDecimals: data.token_decimal,
-                    isPrecise: true,
-                })}
-                {data.token_symbol}
+                <span>
+                    {formatBalance(data.token_amounts, data.token_decimal, {
+                        isFixed: true,
+                        fixedDecimals: data.token_decimal,
+                        isPrecise: true,
+                    })}
+                </span>
+                <span>{data.token_symbol}</span>
             </div>
         </div>
     );
