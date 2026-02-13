@@ -1,5 +1,6 @@
 import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
+import { first } from 'lodash-es';
 import { type ReactNode, useEffect } from 'react';
 import { useAsyncFn } from 'react-use';
 
@@ -12,13 +13,17 @@ import FireflyLogo from '@/assets/firefly-small.svg';
 import ShadowLeftArrow from '@/assets/left-arrow-shadow.svg';
 import OrbLogo from '@/assets/orb.svg';
 import QrScan from '@/assets/qr-scan.svg';
-import { AsyncStatus, LensSignType, SignupStep, Source } from '@/constants/enum.js';
+import { AsyncStatus, LensSignType, PageRoute, SignupStep, Source } from '@/constants/enum.js';
+import { useRouter } from '@/esm/navigation.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
+import { formatFireflyAccountProfileFromFireflyConnections } from '@/helpers/formatFireflyAccountProfileFromFireflyConnections.js';
+import { getAllAccounts } from '@/helpers/getAllProfiles.js';
 import { useCheckFireflyAccount } from '@/hooks/useCheckFireflyAccount.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
 import { SignInWithFireflyAppModalRef } from '@/modals/SignInWithFireflyAppModal.js';
 import { autoLoginLensAccountsInSignup } from '@/providers/lens/autoLoginLensAccountsInSignup.js';
+import { resumeFireflySession } from '@/services/account.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 import { useThirdPartyProfileStore } from '@/store/useProfileStore/useThirdPartyProfileStore.js';
@@ -64,16 +69,36 @@ export function SocialLoginPage({ changeStep }: SocialLoginPageProps) {
     const { accounts } = useThirdPartyProfileStore();
     const { isLoading } = useCheckFireflyAccount();
     const { isSyncingMetrics } = useGlobalState();
+    const router = useRouter();
 
     const canGoNext = isLogin || accounts.length > 0;
 
     const [{ loading }, handleNext] = useAsyncFn(async () => {
-        if (!isLoginFirefly) {
+        if (isLoginFirefly) {
+            changeStep(SignupStep.CreateAccountForm);
+            return;
+        }
+
+        const socialAccounts = getAllAccounts();
+        const firstAccount = first(socialAccounts);
+        if (!firstAccount) {
             enqueueErrorMessage(<Trans>Bad login state, please try to login again.</Trans>);
             return;
         }
-        changeStep(SignupStep.CreateAccountForm);
-    }, [isLoginFirefly, changeStep]);
+
+        try {
+            const connections = await resumeFireflySession(firstAccount);
+            const fireflyAccount = formatFireflyAccountProfileFromFireflyConnections(connections.account, false);
+            const hasFireflyAccount = !!fireflyAccount?.displayName || !!fireflyAccount?.avatar;
+            if (hasFireflyAccount) {
+                router.replace(PageRoute.FollowingPosts);
+            } else {
+                changeStep(SignupStep.CreateAccountForm);
+            }
+        } catch {
+            enqueueErrorMessage(<Trans>Failed to resume Firefly session. Please try again.</Trans>);
+        }
+    }, [isLoginFirefly, router, changeStep]);
 
     useEffect(() => {
         return useFireflyProfileStore.subscribe((state, prevState) => {

@@ -148,7 +148,7 @@ async function updateState(accounts: Account[], { setAsCurrent = true, overwrite
  * @param session
  * @param signal
  */
-async function resumeFireflySession(account: Account, signal?: AbortSignal): Promise<void> {
+export async function resumeFireflySession(account: Account, signal?: AbortSignal) {
     const fireflySession = getFireflySession(account) ?? (await restoreFireflySession(account.session, signal));
     const fireflyAccount = {
         profile: createDummyProfile(Source.Farcaster, Source.Firefly),
@@ -179,6 +179,8 @@ async function resumeFireflySession(account: Account, signal?: AbortSignal): Pro
         state.updateAccounts([fireflyAccount]);
         state.updateCurrentAccount(fireflyAccount);
     }
+
+    return allConnection;
 }
 
 /**

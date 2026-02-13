@@ -3746,6 +3746,9 @@ msgstr ""
 msgid "Display Name should not exceed 20 characters"
 msgstr ""
 
+msgid "Failed to resume Firefly session. Please try again."
+msgstr ""
+
 msgid "New"
 msgstr ""
 

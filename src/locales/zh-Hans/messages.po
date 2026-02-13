@@ -3746,6 +3746,9 @@ msgstr "<0>该 Firefly 钱包中的所有资产将永久丢失，无法恢复。
 msgid "Display Name should not exceed 20 characters"
 msgstr "名称不可超过 20 个字符"
 
+msgid "Failed to resume Firefly session. Please try again."
+msgstr ""
+
 msgid "New"
 msgstr "新建"
 

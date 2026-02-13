@@ -3741,6 +3741,9 @@ msgstr "<0>Any assets in this Firefly wallet will be permanently lost and cannot
 msgid "Display Name should not exceed 20 characters"
 msgstr "Display Name should not exceed 20 characters"
 
+msgid "Failed to resume Firefly session. Please try again."
+msgstr "Failed to resume Firefly session. Please try again."
+
 msgid "New"
 msgstr "New"
 
