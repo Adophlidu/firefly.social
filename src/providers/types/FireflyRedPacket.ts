@@ -456,4 +456,12 @@ export namespace FireflyRedPacketAPI {
         image: string;
     }
     export type CreateThemeResponse = Response<{ tid: string }>;
+
+    export type GetMaskTypedMessageResponse = Response<{
+        coverImageUrl: string;
+        shortenURL: string | null;
+        createdAt: number;
+        shareText: string | null;
+        payload: string;
+    }>;
 }

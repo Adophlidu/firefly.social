@@ -8,6 +8,7 @@ import { DEFAULT_THEME_ID } from '@/constants/rp.js';
 import { SITE_URL } from '@/constants/static.js';
 import { toFixed } from '@/helpers/number.js';
 import { RedPacketModalRef } from '@/modals/RedPacketModal/index.js';
+import { getMaskTypedMessage } from '@/providers/firefly/red-packet/getMaskTypedMessage.js';
 import { type FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
@@ -78,6 +79,8 @@ export function useResendRedPacketCallback(info: ResendRedPacketInfo) {
             },
         });
 
-        RedPacketModalRef.close(payloadImageUrl);
+        const { coverImageUrl } = await getMaskTypedMessage(rpid);
+
+        RedPacketModalRef.close(coverImageUrl);
     }, [info, updateRpPayload]);
 }
