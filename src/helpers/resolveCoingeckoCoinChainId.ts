@@ -11,6 +11,7 @@ export const resolveCoinGeckoCoinChainId = createLookupTableResolver<string, num
         binancecoin: 56,
         optimism: 10,
         'matic-network': 137,
+        'polygon-ecosystem-token': 137,
     },
     undefined,
 );
