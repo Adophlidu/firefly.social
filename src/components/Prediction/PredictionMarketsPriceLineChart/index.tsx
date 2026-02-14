@@ -85,7 +85,7 @@ export function PredictionMarketsPriceLineChart({ platform, markets, isActive }:
         const yesPercent = payload?.length
             ? payload.find((p) => p.dataKey === firstMarket.questionId)?.value
             : firstMarket.totalPrice > 0
-              ? Number(first(firstMarket.outcomes)?.price || 0) / firstMarket.totalPrice
+              ? Number(outcome.price || 0) / firstMarket.totalPrice
               : 0;
 
         return [
