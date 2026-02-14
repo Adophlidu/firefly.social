@@ -1,0 +1,44 @@
+'use client';
+
+import { Trans } from '@lingui/react/macro';
+import { first } from 'lodash-es';
+import { memo, useMemo } from 'react';
+
+import ExploreIcon from '@/assets/explore.svg';
+import SettingsSelectedIcon from '@/assets/setting.selected.svg';
+import { BaseMenuItem } from '@/components/SideBar/BaseMenuItem.js';
+import { DEFAULT_EXPLORE_TYPE } from '@/constants/computed.js';
+import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
+import { useExploreTabs } from '@/hooks/useExploreTabs.js';
+
+interface ExploreEntranceMenuProps {
+    isSelected: boolean;
+    collapsed: boolean;
+    size?: number;
+}
+
+export const ExploreEntranceMenu = memo<ExploreEntranceMenuProps>(function ExploreEntranceMenu({
+    isSelected,
+    collapsed,
+    size = 20,
+}) {
+    const exploreTabs = useExploreTabs();
+    const href = useMemo(() => {
+        const firstTab = first(exploreTabs);
+        if (firstTab?.type !== DEFAULT_EXPLORE_TYPE) return resolveExploreUrl(DEFAULT_EXPLORE_TYPE);
+
+        return firstTab.link || resolveExploreUrl(DEFAULT_EXPLORE_TYPE);
+    }, [exploreTabs]);
+
+    const Icon = isSelected ? SettingsSelectedIcon : ExploreIcon;
+
+    return (
+        <BaseMenuItem
+            href={href}
+            isSelected={isSelected}
+            collapsed={collapsed}
+            menuName={<Trans>Explore</Trans>}
+            icon={<Icon width={size} height={size} />}
+        />
+    );
+});

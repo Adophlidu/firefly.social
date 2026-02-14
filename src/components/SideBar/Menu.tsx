@@ -5,26 +5,23 @@ import { compact } from 'lodash-es';
 import { memo } from 'react';
 
 import CircleShareIcon from '@/assets/circle-share.svg';
-import ExploreSelectedIcon from '@/assets/explore.selected.svg';
-import ExploreIcon from '@/assets/explore.svg';
 import SettingsSelectedIcon from '@/assets/setting.selected.svg';
 import SettingsIcon from '@/assets/setting.svg';
 import { OpenFireflyAppButton } from '@/components/OpenFireflyAppButton.js';
 import { BaseMenuItem } from '@/components/SideBar/BaseMenuItem.js';
 import { BookmarkMenu } from '@/components/SideBar/BookmarkMenu.js';
 import { ExclusiveEvents } from '@/components/SideBar/ExclusiveEvents.js';
+import { ExploreEntranceMenu } from '@/components/SideBar/ExploreEntranceMenu.js';
 import { GenesisSparksMenu } from '@/components/SideBar/GenesisSparksMenu.js';
 import { HomeEntry } from '@/components/SideBar/HomeEntry.js';
 import { NotificationMenu } from '@/components/SideBar/NotificationMenu.js';
 import { Post } from '@/components/SideBar/Post.js';
 import { Profile } from '@/components/SideBar/Profile.js';
-import { DEFAULT_EXPLORE_TYPE } from '@/constants/computed.js';
 import { PageRoute, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { usePathname } from '@/esm/navigation.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
-import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 import { useIsLarge } from '@/hooks/useMediaQuery.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
 
@@ -49,10 +46,8 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                         <HomeEntry collapsed={collapsed} />
                         {compact([
                             {
-                                href: resolveExploreUrl(DEFAULT_EXPLORE_TYPE),
+                                href: PageRoute.Explore,
                                 name: <Trans>Explore</Trans>,
-                                icon: ExploreIcon,
-                                selectedIcon: ExploreSelectedIcon,
                                 match: () => pathname.startsWith(PageRoute.Explore),
                             },
                             {
@@ -113,6 +108,9 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                         ),
                                         [PageRoute.Sparks]: (
                                             <GenesisSparksMenu isSelected={isSelected} collapsed={collapsed} />
+                                        ),
+                                        [PageRoute.Explore]: (
+                                            <ExploreEntranceMenu isSelected={isSelected} collapsed={collapsed} />
                                         ),
                                     }[item.href] ?? (
                                         <BaseMenuItem
