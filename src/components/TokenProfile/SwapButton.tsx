@@ -67,6 +67,7 @@ export function SwapButton({ className, swapProps: swapFromProps, loginRequired 
         const params = new URLSearchParams();
         params.set('modal', 'swap');
         if (swapFromProps?.chainId) params.set('chain', swapFromProps.chainId.toString());
+        if (swapFromProps?.toChainId) params.set('toChain', swapFromProps.toChainId.toString());
         if (swapFromProps?.fromToken) params.set('from', swapFromProps.fromToken);
         if (swapFromProps?.toToken) params.set('to', swapFromProps.toToken);
 
