@@ -1,4 +1,6 @@
+import { parseUrl } from '@dimensiondev/utils';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
+import { headers } from 'next/headers.js';
 
 import { NoSSR } from '@/components/NoSSR.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
@@ -27,6 +29,12 @@ import { type NextPageProps } from '@/types/utility.js';
 
 interface Props extends NextPageProps<{ id: string; source: ProfilePageSourceInURL }> {}
 
+function getFidFromHeaders(headersList: Headers) {
+    const url = headersList.get('X-URL');
+    if (!url) return;
+    return parseUrl(url)?.searchParams.get('fid');
+}
+
 // Now we only support profile handle in url, so we fix the identity here
 function fixIdentity(identity: FireflyIdentity, profiles: FireflyProfile[]) {
     if (identity.source === Source.Farcaster || identity.source === Source.Twitter) {
@@ -40,11 +48,16 @@ export default async function Layout(props: Props) {
     await setupLocaleForSSR();
 
     const params = await props.params;
+    const headersList = await headers();
 
     const source = resolveSourceFromUrlNoFallback(params.source);
     if (!source || !isProfilePageSource(source)) notFound();
 
-    const identityFromUrl = resolveSpecialProfileIdentity({ source, id: params.id });
+    // Read fid from request headers since layouts don't receive searchParams
+    const fid = source === Source.Farcaster ? getFidFromHeaders(headersList) : null;
+    const id = fid ? `!${fid}` : params.id;
+
+    const identityFromUrl = resolveSpecialProfileIdentity({ source, id });
     const relatedProfile = await runInSafeAsync(() => getAllRelatedProfilesWithDefault(identityFromUrl));
     if (!relatedProfile) notFound();
     const profiles = formatFireflyProfilesFromWalletProfiles(relatedProfile) as FireflyProfile[];

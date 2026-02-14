@@ -1,6 +1,7 @@
 import { classNames } from '@dimensiondev/utils';
 import { first } from 'lodash-es';
 import { type HTMLProps, memo } from 'react';
+import urlcat from 'urlcat';
 import { useEnsAvatar } from 'wagmi';
 
 import WalletIcon from '@/assets/wallet-circle.svg';
@@ -47,13 +48,13 @@ function getProfileUrlWithAccount(profile: Profile, related: Profile[], source: 
         });
     }
 
-    // For farcaster search results, use profileId (fid) instead of handle for more stable URLs
-    return getProfileUrl({
+    const url = getProfileUrl({
         source,
-        // force use abnormal
-        profileId: source === Source.Farcaster ? `!${profile.platform_id}` : profile.platform_id,
-        handle: source === Source.Farcaster ? `!${profile.platform_id}` : profile.handle,
+        profileId: profile.platform_id,
+        handle: profile.handle,
     });
+    // For farcaster search results, add fid as search param for stable profile lookup
+    return source === Source.Farcaster && url ? urlcat(url, { fid: profile.platform_id }) : url;
 }
 
 export const SearchableProfileItem = memo<CrossProfileItemProps>(function SearchableProfileItem({

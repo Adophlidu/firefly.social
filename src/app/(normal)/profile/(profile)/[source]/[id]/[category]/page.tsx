@@ -8,7 +8,7 @@ import { LoginRequiredGuard } from '@/components/LoginRequiredGuard.js';
 import { ProfileContext } from '@/components/Profile/ProfileContext.js';
 import { ProfilePageTimeline } from '@/components/Profile/ProfilePageTimeline.js';
 import { type ProfileCategory, type ProfilePageSourceInURL, Source } from '@/constants/enum.js';
-import { notFound } from '@/esm/navigation.js';
+import { notFound, useSearchParams } from '@/esm/navigation.js';
 import { isRequestedLoginSource } from '@/helpers/isRequestedLoginSource.js';
 import { isProfilePageSource } from '@/helpers/isSource.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
@@ -21,17 +21,21 @@ interface Props extends NextPageProps<{ id: string; category: ProfileCategory; s
 export default function Page(props: Props) {
     const params = use(props.params);
     const { identity: cachedIdentity } = use(ProfileContext);
+    const searchParams = useSearchParams();
 
     const source = resolveSourceFromUrlNoFallback(params.source);
     if (!source || !isProfilePageSource(source)) notFound();
 
+    const idForQuery =
+        source === Source.Farcaster && searchParams.get('fid') ? `!${searchParams.get('fid')}` : params.id;
+
     // Lens used handle in profile page, while timeline can only be queried using profileId, it is necessary to convert handle to profileId.
     const { data: profile = null } = useQuery({
-        queryKey: ['profile', source, params.id],
+        queryKey: ['profile', source, idForQuery],
         queryFn: async () => {
             if (source === Source.Wallet || source === Source.WalletMix) return null;
             const provider = resolveSocialMediaProvider(source);
-            return provider.getProfileByHandle(params.id, true);
+            return provider.getProfileByHandle(idForQuery, true);
         },
     });
 
