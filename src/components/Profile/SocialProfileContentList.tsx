@@ -3,6 +3,7 @@
 import { safeUnreachable } from '@dimensiondev/utils';
 import { memo } from 'react';
 
+import { Loading } from '@/components/Loading.js';
 import { ChannelList } from '@/components/Profile/ChannelList.js';
 import { CollectedList } from '@/components/Profile/CollectedList.js';
 import { FeedList } from '@/components/Profile/FeedList.js';
@@ -11,6 +12,7 @@ import { MediaList } from '@/components/Profile/MediaList.js';
 import { RepliesList } from '@/components/Profile/RepliesList.js';
 import { TrumpTruthSocialPosts } from '@/components/TrumpTruthSocial/TrumpTruthSocialPosts.js';
 import { SocialProfileCategory, type SocialSource } from '@/constants/enum.js';
+import { useAsyncStatus } from '@/hooks/useAsyncStatus.js';
 
 export const SocialProfileContentList = memo(function SocialProfileContentList({
     type,
@@ -21,6 +23,9 @@ export const SocialProfileContentList = memo(function SocialProfileContentList({
     source: SocialSource;
     profileId: string;
 }) {
+    const isSyncing = useAsyncStatus(source);
+    if (isSyncing) return <Loading />;
+
     switch (type) {
         case SocialProfileCategory.Feed:
             return <FeedList source={source} profileId={profileId} />;
