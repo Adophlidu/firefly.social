@@ -7,7 +7,7 @@ settings:
 onlyBuiltDependencies: []
 
 overrides:
-  '@floating-ui/react': 0.27.17
+  '@floating-ui/react': 0.27.18
   '@noble/curves': 1.9.2
   '@reown/appkit': 1.8.16
   '@solana/wallet-adapter-base': 0.9.27
@@ -101,14 +101,14 @@ importers:
         specifier: ^0.2.16
         version: 0.2.16(react@19.2.3)(typescript@5.9.3)(zod@3.25.76)
       '@floating-ui/react':
-        specifier: 0.27.17
-        version: 0.27.17(react-dom@19.2.3)(react@19.2.3)
+        specifier: 0.27.18
+        version: 0.27.18(react-dom@19.2.3)(react@19.2.3)
       '@giphy/js-fetch-api':
         specifier: ^5.7.0
         version: 5.7.0
       '@giphy/react-components':
         specifier: ^10.1.1
-        version: 10.1.1(react-dom@19.2.3)(react@19.2.3)(styled-components@6.3.9)
+        version: 10.1.1(react-dom@19.2.3)(react@19.2.3)(styled-components@6.3.11)
       '@headlessui/react':
         specifier: 2.1.10
         version: 2.1.10(patch_hash=roq3pv4art7yqmupqbnd3ablue)(react-dom@19.2.3)(react@19.2.3)
@@ -2279,14 +2279,14 @@ packages:
   /@coinbase/wallet-sdk@3.9.3:
     resolution: {integrity: sha512-N/A2DRIf0Y3PHc1XAMvbBUu4zisna6qAdqABMZwBMNEfWrXpAwx16pZGkYCLGE+Rvv1edbcB2LYDRnACNcmCiw==}
     dependencies:
-      bn.js: 5.2.2
+      bn.js: 5.2.3
       buffer: 6.0.3
       clsx: 1.2.1
       eth-block-tracker: 7.1.0
       eth-json-rpc-filters: 6.0.1
       eventemitter3: 5.0.4
       keccak: 3.0.4
-      preact: 10.28.3
+      preact: 10.28.4
       sha.js: 2.4.12
     transitivePeerDependencies:
       - supports-color
@@ -3847,8 +3847,8 @@ packages:
       react-dom: 19.2.3(react@19.2.3)
     dev: false
 
-  /@floating-ui/react@0.27.17(react-dom@19.2.3)(react@19.2.3):
-    resolution: {integrity: sha512-LGVZKHwmWGg6MRHjLLgsfyaX2y2aCNgnD1zT/E6B+/h+vxg+nIJUqHPAlTzsHDyqdgEpJ1Np5kxWuFEErXzoGg==}
+  /@floating-ui/react@0.27.18(react-dom@19.2.3)(react@19.2.3):
+    resolution: {integrity: sha512-xJWJxvmy3a05j643gQt+pRbht5XnTlGpsEsAPnMi5F5YTOEEJymA90uZKBD8OvIv5XvZ1qi4GcccSlqT3Bq44Q==}
     peerDependencies:
       react: 19.2.3
       react-dom: 19.2.3
@@ -3907,7 +3907,7 @@ packages:
       uuid: 9.0.1
     dev: false
 
-  /@giphy/react-components@10.1.1(react-dom@19.2.3)(react@19.2.3)(styled-components@6.3.9):
+  /@giphy/react-components@10.1.1(react-dom@19.2.3)(react@19.2.3)(styled-components@6.3.11):
     resolution: {integrity: sha512-K5Qnipj+QEoZCMFRZ3PqxMv7FgTIP474xIUFFGFa9x6zJIx0OpilKOFqwNtJS/CtVu9VFmHNkDO/Y9xsHfdplA==}
     peerDependencies:
       react: 19.2.3
@@ -3921,7 +3921,7 @@ packages:
       intersection-observer: 0.12.2
       react: 19.2.3
       react-use: 17.6.0(patch_hash=dr2bwtweltv6hpd56xnanr357e)(react-dom@19.2.3)(react@19.2.3)
-      styled-components: 6.3.9(react-dom@19.2.3)(react@19.2.3)
+      styled-components: 6.3.11(react-dom@19.2.3)(react@19.2.3)
       throttle-debounce: 3.0.1
     transitivePeerDependencies:
       - react-dom
@@ -3984,7 +3984,7 @@ packages:
       react: 19.2.3
       react-dom: 19.2.3
     dependencies:
-      '@floating-ui/react': 0.27.17(react-dom@19.2.3)(react@19.2.3)
+      '@floating-ui/react': 0.27.18(react-dom@19.2.3)(react@19.2.3)
       '@react-aria/focus': 3.20.1(react-dom@19.2.3)(react@19.2.3)
       '@react-aria/interactions': 3.24.1(react-dom@19.2.3)(react@19.2.3)
       '@tanstack/react-virtual': 3.13.6(react-dom@19.2.3)(react@19.2.3)
@@ -6541,7 +6541,7 @@ packages:
       viem: 2.43.5(typescript@5.9.3)(zod@3.25.76)
       wagmi: 3.1.4(@tanstack/react-query@5.85.5)(@types/react@19.2.9)(immer@10.1.3)(react@19.2.3)(typescript@5.9.3)(viem@2.43.5)
     optionalDependencies:
-      '@wagmi/connectors': 7.1.7(@wagmi/core@3.0.2)(typescript@5.9.3)(viem@2.43.5)
+      '@wagmi/connectors': 7.2.1(@wagmi/core@3.0.2)(typescript@5.9.3)(viem@2.43.5)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -6553,7 +6553,6 @@ packages:
       - '@capacitor/preferences'
       - '@coinbase/wallet-sdk'
       - '@deno/kv'
-      - '@gemini-wallet/core'
       - '@metamask/sdk'
       - '@netlify/blobs'
       - '@planetscale/database'
@@ -7054,8 +7053,8 @@ packages:
     dev: true
     optional: true
 
-  /@rollup/rollup-linux-x64-gnu@4.57.1:
-    resolution: {integrity: sha512-ABca4ceT4N+Tv/GtotnWAeXZUZuM/9AQyCyKYyKnpk4yoA7QIAuBt6Hkgpw8kActYlew2mvckXkvx0FfoInnLg==}
+  /@rollup/rollup-linux-x64-gnu@4.58.0:
+    resolution: {integrity: sha512-+410Srdoh78MKSJxTQ+hZ/Mx+ajd6RjjPwBPNd0R3J9FtL6ZA0GqiiyNjCO9In0IzZkCNrpGymSfn+kgyPQocg==}
     cpu: [x64]
     os: [linux]
     dev: false
@@ -10061,16 +10060,15 @@ packages:
       viem: 2.43.5(typescript@5.9.3)(zod@3.25.76)
     dev: false
 
-  /@wagmi/connectors@7.1.7(@wagmi/core@3.0.2)(typescript@5.9.3)(viem@2.43.5):
-    resolution: {integrity: sha512-KCnbx6jgfIT6U5/s7v66W/Pgf+FbRUt4RVtJcKQPemvawu2lvBd81+BtDc0zHWcIRnO0KJrYQiuudpzMep+jhw==}
+  /@wagmi/connectors@7.2.1(@wagmi/core@3.0.2)(typescript@5.9.3)(viem@2.43.5):
+    resolution: {integrity: sha512-/tyDepUMDM8eNzNX3ofjqHNRFZ6XcZ3u0+cQp5x0/LHCpMA8tRh7A1/e7dTrYiIJeL7iLgHzfHUXCsU02OKMLQ==}
     peerDependencies:
       '@base-org/account': ^2.5.1
       '@coinbase/wallet-sdk': ^4.3.6
-      '@gemini-wallet/core': ~0.3.1
       '@metamask/sdk': ~0.33.1
       '@safe-global/safe-apps-provider': ~0.18.6
       '@safe-global/safe-apps-sdk': ^9.1.0
-      '@wagmi/core': 3.3.3
+      '@wagmi/core': 3.4.0
       '@walletconnect/ethereum-provider': ^2.21.1
       porto: ~0.2.35
       typescript: '>=5.7.3'
@@ -10079,8 +10077,6 @@ packages:
       '@base-org/account':
         optional: true
       '@coinbase/wallet-sdk':
-        optional: true
-      '@gemini-wallet/core':
         optional: true
       '@metamask/sdk':
         optional: true
@@ -10971,6 +10967,15 @@ packages:
       acorn: 8.15.0
     dev: true
 
+  /acorn-import-phases@1.0.4(acorn@8.16.0):
+    resolution: {integrity: sha512-wKmbr/DDiIXzEOiWrTTUcDm24kQ2vGfZQvM2fwg2vXqR5uW6aapr7ObPtj1th32b9u90/Pf4AItvdTh42fBmVQ==}
+    engines: {node: '>=10.13.0'}
+    peerDependencies:
+      acorn: ^8.14.0
+    dependencies:
+      acorn: 8.16.0
+    dev: true
+
   /acorn-jsx@5.3.2(acorn@8.15.0):
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
     peerDependencies:
@@ -10988,6 +10993,12 @@ packages:
 
   /acorn@8.15.0:
     resolution: {integrity: sha512-NZyJarBfL7nWwIq+FDL6Zp/yHEhePMNnnJ0y3qfieCrmNvYct8uvtiV41UvlSe6apAfk0fY1FbWx+NwfmpvtTg==}
+    engines: {node: '>=0.4.0'}
+    hasBin: true
+    dev: true
+
+  /acorn@8.16.0:
+    resolution: {integrity: sha512-UVJyE9MttOsBQIDKw1skb9nAwQuR5wuGD3+82K6JgJlm/Y+KI92oNsMNGZCYdDsVtRHSak0pcV5Dno5+4jh9sw==}
     engines: {node: '>=0.4.0'}
     hasBin: true
     dev: true
@@ -11460,6 +11471,10 @@ packages:
 
   /bn.js@5.2.2:
     resolution: {integrity: sha512-v2YAxEmKaBLahNwE1mjp4WON6huMNeuDvagFZW+ASCuA/ku0bXR9hSMw0XpiqMoA3+rmnyck/tPRSFQkoC9Cuw==}
+    dev: false
+
+  /bn.js@5.2.3:
+    resolution: {integrity: sha512-EAcmnPkxpntVL+DS7bO1zhcZNvCkxqtkd0ZY53h06GNQ3DEkkGZ/gKgmDv6DdZQGj9BgfSPKtJJ7Dp1GPP8f7w==}
     dev: false
 
   /boolbase@1.0.0:
@@ -15775,7 +15790,7 @@ packages:
     resolution: {integrity: sha512-kOCT/1MCPAxY5iUV3wytNFUMUolzuwd/VF/1KCx7kf6CutrOsTie+84zTGTpgQycjvfLdBBdvBvFLqFD2c0wkQ==}
     engines: {node: '>=18'}
     optionalDependencies:
-      '@rollup/rollup-linux-x64-gnu': 4.57.1
+      '@rollup/rollup-linux-x64-gnu': 4.58.0
     dev: false
 
   /next-auth@4.24.13(next@16.0.11)(react-dom@19.2.3)(react@19.2.3):
@@ -16717,8 +16732,8 @@ packages:
     resolution: {integrity: sha512-5SYSgFKSyhCbk6SrXyMpqjb5+MQBgfvEKE/OC+PujcY34sOpqtr+0AZQtPYx5IA6VxynQ7rUPCtKzyovpj9Bpg==}
     dev: false
 
-  /preact@10.28.3:
-    resolution: {integrity: sha512-tCmoRkPQLpBeWzpmbhryairGnhW9tKV6c6gr/w+RhoRoKEJwsjzipwp//1oCpGPOchvSLaAPlpcJi9MwMmoPyA==}
+  /preact@10.28.4:
+    resolution: {integrity: sha512-uKFfOHWuSNpRFVTnljsCluEFq57OKT+0QdOiQo8XWnQ/pSvg7OpX5eNOejELXJMWy+BwM2nobz0FkvzmnpCNsQ==}
     dev: false
 
   /prelude-ls@1.2.1:
@@ -18278,8 +18293,8 @@ packages:
       inline-style-parser: 0.2.4
     dev: false
 
-  /styled-components@6.3.9(react-dom@19.2.3)(react@19.2.3):
-    resolution: {integrity: sha512-J72R4ltw0UBVUlEjTzI0gg2STOqlI9JBhQOL4Dxt7aJOnnSesy0qJDn4PYfMCafk9cWOaVg129Pesl5o+DIh0Q==}
+  /styled-components@6.3.11(react-dom@19.2.3)(react@19.2.3):
+    resolution: {integrity: sha512-opzgceGlQ5rdZdGwf9ddLW7EM2F4L7tgsgLn6fFzQ2JgE5EVQ4HZwNkcgB1p8WfOBx1GEZP3fa66ajJmtXhSrA==}
     engines: {node: '>= 16'}
     peerDependencies:
       react: 19.2.3
@@ -18528,7 +18543,7 @@ packages:
     hasBin: true
     dependencies:
       '@jridgewell/source-map': 0.3.11
-      acorn: 8.15.0
+      acorn: 8.16.0
       commander: 2.20.3
       source-map-support: 0.5.21
     dev: true
@@ -19854,6 +19869,11 @@ packages:
     engines: {node: '>=10.13.0'}
     dev: true
 
+  /webpack-sources@3.3.4:
+    resolution: {integrity: sha512-7tP1PdV4vF+lYPnkMR0jMY5/la2ub5Fc/8VQrrU+lXkiM6C4TjVfGw7iKfyhnTQOsD+6Q/iKw0eFciziRgD58Q==}
+    engines: {node: '>=10.13.0'}
+    dev: true
+
   /webpack-virtual-modules@0.6.2:
     resolution: {integrity: sha512-66/V2i5hQanC51vBQKPH4aI8NMAcBW59FVBs+rC7eGHupMyfn34q7rZIE+ETlJ+XTevqfUhVVBgSUNSW2flEUQ==}
     dev: true
@@ -19915,8 +19935,8 @@ packages:
       '@webassemblyjs/ast': 1.14.1
       '@webassemblyjs/wasm-edit': 1.14.1
       '@webassemblyjs/wasm-parser': 1.14.1
-      acorn: 8.15.0
-      acorn-import-phases: 1.0.4(acorn@8.15.0)
+      acorn: 8.16.0
+      acorn-import-phases: 1.0.4(acorn@8.16.0)
       browserslist: 4.28.1
       chrome-trace-event: 1.0.4
       enhanced-resolve: 5.19.0
@@ -19933,7 +19953,7 @@ packages:
       tapable: 2.3.0
       terser-webpack-plugin: 5.3.16(@swc/core@1.15.11)(webpack@5.105.2)
       watchpack: 2.5.1
-      webpack-sources: 3.3.3
+      webpack-sources: 3.3.4
     transitivePeerDependencies:
       - '@swc/core'
       - esbuild
@@ -20394,7 +20414,7 @@ time:
   /@crowdin/cli@4.12.0: '2025-12-02T09:07:19.880Z'
   /@farcaster/core@0.18.10: '2026-02-04T23:24:46.700Z'
   /@farcaster/miniapp-host@0.2.16: '2026-02-05T00:52:21.049Z'
-  /@floating-ui/react@0.27.17: '2026-01-27T16:27:18.745Z'
+  /@floating-ui/react@0.27.18: '2026-02-17T05:43:01.596Z'
   /@giphy/js-fetch-api@5.7.0: '2025-07-08T16:16:15.332Z'
   /@giphy/react-components@10.1.1: '2025-12-19T20:57:21.199Z'
   /@heroicons/react@2.2.0: '2024-11-18T15:33:27.317Z'
