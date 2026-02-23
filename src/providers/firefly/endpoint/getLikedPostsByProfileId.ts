@@ -10,6 +10,7 @@ import {
 } from '@/helpers/pageable.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { formatFarcasterPostFromFirefly } from '@/providers/farcaster/formatFarcasterPostFromFirefly.js';
+import { resolveFidFromAbnormalFarHandle } from '@/providers/farcaster/isAbnormalFarHandle.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { type CastsResponse } from '@/providers/types/Firefly.js';
@@ -22,10 +23,11 @@ export async function getLikedPostsByProfileId(
 ): Promise<Pageable<Post, PageIndicator>> {
     return farcasterSessionHolder.withSession(async (session) => {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/user/timeline/farcaster/likes');
+        const fid = resolveFidFromAbnormalFarHandle(profileId) || profileId;
         const response = await fireflySessionHolder.fetch<CastsResponse>(url, {
             method: 'POST',
             body: JSON.stringify({
-                fids: [profileId],
+                fids: [fid],
                 size: 25,
                 sourceFid: session?.profileId,
                 cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
