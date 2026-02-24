@@ -2,6 +2,7 @@
 
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
+import { isUndefined } from 'lodash-es';
 import { useMemo, useState } from 'react';
 
 import { TwitterArticleBody } from '@/components/Article/TwitterArticleBody.js';
@@ -80,7 +81,9 @@ export function PostBodyContent({ ref, ...props }: PostBodyContentProps) {
     const { metadata, author } = post;
     const postRawContent = metadata.content?.content;
     // ! liteRawContent is used for reply and quote, only shows the first 2000 characters, because the text is foldable
-    const liteRawContent = metadata.content?.content?.slice(0, 2000);
+    const liteRawContent = !isUndefined(metadata.content?.truncatedContent)
+        ? metadata.content?.truncatedContent.slice(0, 2000)
+        : metadata.content?.content?.slice(0, 2000);
     const isExpanded = post.incomplete && post.fullContent === post.metadata.content?.content;
     const canShowMore = !isExpanded && !!(postRawContent && postRawContent.length > 450) && showMore;
     const hasFireflyArticle = !!post.fireflyArticleUrl && showMore;

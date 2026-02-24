@@ -64,9 +64,18 @@ export function patchNotificationQueryDataOnPost(source: Source, patcher: PostPa
                 break;
             }
             case NotificationType.Act:
-            case NotificationType.Follow:
             case NotificationType.Mirror:
-            case NotificationType.Reaction:
+            case NotificationType.Reaction: {
+                const postNotif = notif as Extract<
+                    SocialNotification,
+                    { type: NotificationType.Act | NotificationType.Mirror | NotificationType.Reaction }
+                >;
+                if (postNotif.post) {
+                    target = postNotif.post;
+                }
+                break;
+            }
+            case NotificationType.Follow:
             case NotificationType.LikeMatters:
             case NotificationType.LikeMirror:
             case NotificationType.LikeParagraph:

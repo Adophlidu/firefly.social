@@ -3,6 +3,7 @@ import { type Draft, produce } from 'immer';
 import { queryClient } from '@/configs/queryClient.js';
 import { type Source } from '@/constants/enum.js';
 import { type Pageable } from '@/helpers/pageable.js';
+import { patchNotificationQueryDataOnPost } from '@/helpers/patchNotificationQueryData.js';
 import { updateQueryForPosts } from '@/helpers/updateQueryForPosts.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
 
@@ -58,5 +59,11 @@ export function patchPostQueryData(source: Source, postId: Matcher, patcher: Pat
                 }
             }
         });
+    });
+
+    patchNotificationQueryDataOnPost(source, (post) => {
+        if (matcher(post)) {
+            patcher(post);
+        }
     });
 }
