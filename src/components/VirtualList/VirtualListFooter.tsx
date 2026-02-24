@@ -3,6 +3,7 @@ import { useInView } from 'react-cool-inview';
 
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { VirtualListFooterBottomText } from '@/components/VirtualList/VirtualListFooterBottomText.js';
+import { useVirtualListScrollable } from '@/hooks/useVirtualListScrollable.js';
 
 export interface VirtualListFooterProps {
     context?: {
@@ -11,10 +12,15 @@ export interface VirtualListFooterProps {
         isFetching?: boolean;
         itemsRendered: boolean;
         isScrollable?: boolean;
+        virtualListId?: string;
         footerText?: ReactNode;
     };
 }
 export const VirtualListFooter = memo<VirtualListFooterProps>(function VirtualListFooter({ context }) {
+    const [isScrollable, onDetectScrollable] = useVirtualListScrollable(context?.virtualListId);
+    const hasNextPage = context?.hasNextPage;
+    const isFetching = context?.isFetching;
+    const fetchNextPage = context?.fetchNextPage;
     /**
      * https://github.com/petyosi/react-virtuoso/issues/364
      * Similar to the problem mentioned above, sometimes when loading has already appeared within the window,
@@ -29,14 +35,21 @@ export const VirtualListFooter = memo<VirtualListFooterProps>(function VirtualLi
      * This prevents correctly fetching the next page, so we use effect to trigger fetching the next page.
      */
     useEffect(() => {
-        if (inView && context?.hasNextPage && !context.isFetching) {
-            context.fetchNextPage?.();
+        if (inView && hasNextPage && !isFetching) {
+            fetchNextPage?.();
         }
-    }, [context?.isFetching, context?.hasNextPage, inView, context?.fetchNextPage]);
+    }, [fetchNextPage, hasNextPage, inView, isFetching]);
 
-    if (!context?.hasNextPage) {
-        if (!context?.isScrollable) return null;
-        return <VirtualListFooterBottomText text={context.footerText} />;
+    useEffect(() => {
+        if (!hasNextPage) {
+            onDetectScrollable();
+        }
+    }, [hasNextPage, onDetectScrollable]);
+
+    if (!hasNextPage) {
+        const shouldShowBottomText = context?.isScrollable ?? isScrollable;
+        if (!shouldShowBottomText) return null;
+        return <VirtualListFooterBottomText text={context?.footerText} />;
     }
 
     if (!context.itemsRendered) return null;
