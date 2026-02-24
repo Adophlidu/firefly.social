@@ -1001,6 +1001,9 @@ msgstr "已取消点赞。"
 msgid "Sending"
 msgstr "发送中"
 
+msgid "Retry Stream"
+msgstr ""
+
 msgid "Close lost position"
 msgstr "关闭亏损仓位"
 
@@ -2401,6 +2404,9 @@ msgstr "隐藏"
 msgid "Confirm to log out this account?"
 msgstr "确认登出该账户吗？"
 
+msgid "Auto"
+msgstr ""
+
 msgid "A measure of a cryptocurrency trading volume across all tracked platforms in the last 24 hours. This is tracked on a rolling 24-hour basis with no open/closing times."
 msgstr "衡量过去 24 小时内所有平台上加密货币交易量的指标。该指标以 24 小时为单位进行连续跟踪，没有开盘/收盘时间。"
 
@@ -2715,6 +2721,9 @@ msgstr "Firefly 移动端"
 
 msgid "<0>The proportion of current market capitalization compares to market capitalization when meeting max supply.</0><1>The closer the Mkt Cap/FDV to 1, the closer the current market capitalization to its fully diluted valuation and vice versa.</1>"
 msgstr "<0>当前市值与满足最大供应量时的市值之比。</0> <1>Mkt Cap/FDV 越接近 1，当前市值越接近其完全摊薄估值（FDV），反之亦然。</1>"
+
+msgid "Streaming Error"
+msgstr ""
 
 msgid "Minting Date"
 msgstr "铸造日期"
@@ -3289,6 +3298,9 @@ msgstr "无法获取这个账户的内容"
 
 msgid "Failed to like article."
 msgstr "点赞文章失败。"
+
+msgid "Quality"
+msgstr ""
 
 msgid "Wallet added successfully"
 msgstr "添加钱包成功"

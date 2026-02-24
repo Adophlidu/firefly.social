@@ -1,7 +1,6 @@
 import { MutationCache, QueryCache, QueryClient, type QueryClientConfig } from '@tanstack/react-query';
 
-import { captureClientException } from '@/providers/errorCapture/captureClientException.js';
-import { ExceptionId } from '@/providers/errorCapture/captureException.js';
+import { captureException, ExceptionId } from '@/providers/errorCapture/captureException.js';
 
 /**
  * Error types that should be ignored (handled elsewhere or expected)
@@ -43,13 +42,10 @@ const queryCache = new QueryCache({
             return;
         }
 
-        captureClientException(error, {
-            exceptionId: ExceptionId.REACT_QUERY_ERROR,
-            tags: {
-                queryKey: JSON.stringify(query.queryKey).substring(0, 200),
-                handler: 'QueryCache.onError',
-                errorType: 'query',
-            },
+        captureException(ExceptionId.REACT_QUERY_ERROR, error, {
+            queryKey: JSON.stringify(query.queryKey).substring(0, 200),
+            handler: 'QueryCache.onError',
+            errorType: 'query',
         });
     },
 });
@@ -60,15 +56,12 @@ const mutationCache = new MutationCache({
             return;
         }
 
-        captureClientException(error, {
-            exceptionId: ExceptionId.REACT_QUERY_ERROR,
-            tags: {
-                mutationKey: mutation.options.mutationKey
-                    ? JSON.stringify(mutation.options.mutationKey).substring(0, 200)
-                    : 'unknown',
-                handler: 'MutationCache.onError',
-                errorType: 'mutation',
-            },
+        captureException(ExceptionId.REACT_QUERY_ERROR, error, {
+            mutationKey: mutation.options.mutationKey
+                ? JSON.stringify(mutation.options.mutationKey).substring(0, 200)
+                : 'unknown',
+            handler: 'MutationCache.onError',
+            errorType: 'mutation',
         });
     },
 });

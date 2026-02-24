@@ -3,8 +3,7 @@
 import { Component, type ErrorInfo } from 'react';
 
 import { type CrashProps, CrashUI, type ErrorBoundaryError } from '@/components/ErrorBoundary/Crash.js';
-import { captureClientException } from '@/providers/errorCapture/captureClientException.js';
-import { ExceptionId } from '@/providers/errorCapture/captureException.js';
+import { captureException, ExceptionId } from '@/providers/errorCapture/captureException.js';
 
 interface ErrorBoundaryProps extends Partial<CrashProps> {
     /** Disable automatic error reporting */
@@ -33,13 +32,9 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
         this.setState({ reported: true });
 
         // Report the error with component stack information
-        captureClientException(error, {
-            exceptionId: ExceptionId.UI_CRASH,
-            tags: {
-                handler: 'ErrorBoundary.tsx',
-                componentStack: errorInfo.componentStack?.substring(0, 1000) ?? 'unavailable',
-                errorType: error.name,
-            },
+        captureException(ExceptionId.UI_CRASH, error, {
+            handler: 'ErrorBoundary.tsx',
+            componentStack: errorInfo.componentStack?.substring(0, 1000) ?? 'unavailable',
         });
     }
 

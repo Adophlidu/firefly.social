@@ -1,5 +1,10 @@
+import { Source } from '@/constants/enum.js';
+import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
+import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { logger } from '@/libs/Logger.js';
-import { reportException } from '@/providers/errorCapture/reportException.js';
+import { normalizeError } from '@/providers/errorCapture/normalizeError.js';
+import { type ExceptionTags, reportException } from '@/providers/errorCapture/reportException.js';
+import { SessionType } from '@/providers/types/SocialMedia.js';
 
 export enum ExceptionId {
     BIND_OR_RESTORE_FIREFLY_SESSION = 'bind_or_restore_firefly_session',
@@ -26,17 +31,24 @@ export enum ExceptionId {
  * Captures an exception via reportException (sendBeacon). Use this instead of Sentry.
  * Logs a warning if the beacon was not queued.
  */
-export function captureException(
-    exceptionId: ExceptionId,
-    error: unknown,
-    tags?: Record<string, string | number>,
-): void {
-    const err = error instanceof Error ? error : new Error(String(error));
+export function captureException(exceptionId: ExceptionId, error: unknown, tags?: ExceptionTags): void {
+    const { message, stack } = normalizeError(error);
     const queued = reportException({
-        message: err.message,
         exception_type: exceptionId,
-        stack_trace: err.stack,
+
+        // message and stack trace
+        message,
+        stack_trace: stack,
         severity: 'error',
+
+        // social login parameters
+        user_id: getSessionFromStorage(SessionType.Firefly)?.profileId,
+        twitter_username: getCurrentProfileFromStorage(Source.Twitter)?.handle,
+        lens_handle: getCurrentProfileFromStorage(Source.Lens)?.handle,
+        farcaster_id: getCurrentProfileFromStorage(Source.Farcaster)?.profileId,
+        bsky_id: getCurrentProfileFromStorage(Source.Bsky)?.profileId,
+
+        // tags
         tags,
     });
     if (!queued) {

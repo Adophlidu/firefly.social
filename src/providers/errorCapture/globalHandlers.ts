@@ -1,7 +1,6 @@
 /* cspell:disable */
 
-import { captureClientException } from '@/providers/errorCapture/captureClientException.js';
-import { ExceptionId } from '@/providers/errorCapture/captureException.js';
+import { captureException, ExceptionId } from '@/providers/errorCapture/captureException.js';
 import { classifyError } from '@/providers/errorCapture/classifyError.js';
 
 let initialized = false;
@@ -75,14 +74,11 @@ function handleWindowError(
 
     // Classify and capture
     const exceptionId = classifyError(err);
-    captureClientException(err, {
-        exceptionId,
-        tags: {
-            source: source ?? 'unknown',
-            lineno: lineno ?? 0,
-            colno: colno ?? 0,
-            handler: 'window.onerror',
-        },
+    captureException(exceptionId, err, {
+        source: source ?? 'unknown',
+        lineno: lineno ?? 0,
+        colno: colno ?? 0,
+        handler: 'window.onerror',
     });
 
     // Don't prevent default error handling
@@ -116,11 +112,8 @@ function handleUnhandledRejection(event: PromiseRejectionEvent): void {
 
     const exceptionId = classifyError(error, ExceptionId.UNHANDLED_REJECTION);
 
-    captureClientException(error, {
-        exceptionId,
-        tags: {
-            handler: 'unhandledrejection',
-        },
+    captureException(exceptionId, error, {
+        handler: 'unhandledrejection',
     });
 }
 
@@ -161,13 +154,10 @@ function handleResourceError(event: Event): void {
 
     const error = new Error(`Failed to load ${tagName.toLowerCase()}: ${src}`);
 
-    captureClientException(error, {
-        exceptionId: ExceptionId.RESOURCE_LOAD_ERROR,
-        tags: {
-            resourceType: tagName.toLowerCase(),
-            resourceUrl: src.substring(0, 500), // Truncate long URLs
-            handler: 'resource.error',
-        },
+    captureException(ExceptionId.RESOURCE_LOAD_ERROR, error, {
+        resourceType: tagName.toLowerCase(),
+        resourceUrl: src.substring(0, 500), // Truncate long URLs
+        handler: 'resource.error',
     });
 }
 

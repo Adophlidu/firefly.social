@@ -1001,6 +1001,9 @@ msgstr ""
 msgid "Sending"
 msgstr ""
 
+msgid "Retry Stream"
+msgstr ""
+
 msgid "Close lost position"
 msgstr ""
 
@@ -2401,6 +2404,9 @@ msgstr ""
 msgid "Confirm to log out this account?"
 msgstr ""
 
+msgid "Auto"
+msgstr ""
+
 msgid "A measure of a cryptocurrency trading volume across all tracked platforms in the last 24 hours. This is tracked on a rolling 24-hour basis with no open/closing times."
 msgstr ""
 
@@ -2714,6 +2720,9 @@ msgid "Firefly Mobile"
 msgstr ""
 
 msgid "<0>The proportion of current market capitalization compares to market capitalization when meeting max supply.</0><1>The closer the Mkt Cap/FDV to 1, the closer the current market capitalization to its fully diluted valuation and vice versa.</1>"
+msgstr ""
+
+msgid "Streaming Error"
 msgstr ""
 
 msgid "Minting Date"
@@ -3288,6 +3297,9 @@ msgid "The content of this account is currently unavailable"
 msgstr ""
 
 msgid "Failed to like article."
+msgstr ""
+
+msgid "Quality"
 msgstr ""
 
 msgid "Wallet added successfully"

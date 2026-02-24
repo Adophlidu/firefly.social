@@ -6,18 +6,14 @@ import urlcat from 'urlcat';
 
 import { env } from '@/constants/env.js';
 import { FIREFLY_EXCEPTION_TRACKER_URL, IS_PRODUCTION } from '@/constants/static.js';
+import { logger } from '@/libs/Logger.js';
+import { normalizeError } from '@/providers/errorCapture/normalizeError.js';
 
-export interface ReportExceptionServerPayload {
+export interface ExceptionServerPayload {
     message: string;
-    exception_type?: string;
     request_url?: string;
     stack_trace?: string;
     severity?: 'error' | 'warning' | 'critical';
-    tags?: Record<string, string | number | boolean>;
-}
-
-function normalizeError(error: unknown): Error {
-    return error instanceof Error ? error : new Error(String(error));
 }
 
 /**
@@ -27,36 +23,44 @@ function normalizeError(error: unknown): Error {
  */
 export async function reportExceptionServer(
     error: unknown,
-    payload: Partial<ReportExceptionServerPayload> = {},
+    payload: Partial<ExceptionServerPayload> = {},
 ): Promise<void> {
     const apiKey = env.internal.FIREFLY_EXCEPTION_TRACKER_API_KEY;
-    if (!apiKey) return;
-
-    const err = normalizeError(error);
-    const body = {
-        ...payload,
-        message: err.message,
-        stack_trace: err.stack,
-        severity: 'error',
-        service_name: 'firefly-server',
-        release_version: env.shared.VERSION,
-        commit_hash: env.shared.COMMIT_HASH,
-        vercel_environment: env.external.NEXT_PUBLIC_VERCEL_ENV,
-        environment: IS_PRODUCTION ? 'production' : 'development',
-        ...(payload.tags && {
-            tags: Object.fromEntries(Object.entries(payload.tags).map(([k, v]) => [k, String(v)])),
-        }),
-    };
-
-    const url = urlcat(FIREFLY_EXCEPTION_TRACKER_URL, '/api/exceptions', {
-        api_key: apiKey,
-    });
+    if (!apiKey) {
+        logger.warn('[reportExceptionServer] FIREFLY_EXCEPTION_TRACKER_API_KEY is not configured');
+        return;
+    }
 
     try {
+        const err = normalizeError(error);
+        const url = urlcat(FIREFLY_EXCEPTION_TRACKER_URL, '/api/exceptions', {
+            api_key: apiKey,
+        });
         await fetch(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(body),
+            body: JSON.stringify({
+                ...payload,
+
+                // exception type
+                exception_type: 'api_route_error',
+
+                // message and stack trace
+                message: err.message,
+                stack_trace: err.stack,
+                severity: 'error',
+
+                // service name
+                service_name: 'firefly-server',
+
+                // version
+                release_version: env.shared.VERSION,
+                commit_hash: env.shared.COMMIT_HASH,
+
+                // environment
+                vercel_environment: env.external.NEXT_PUBLIC_VERCEL_ENV,
+                environment: IS_PRODUCTION ? 'production' : 'development',
+            }),
         });
     } catch {
         // Best-effort; avoid throwing and affecting the API response

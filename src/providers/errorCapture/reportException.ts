@@ -1,14 +1,15 @@
 import { bom } from '@dimensiondev/utils';
 
-import { Source } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { IS_PRODUCTION } from '@/constants/static.js';
-import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
-import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
-import { SessionType } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
 
-export interface ReportExceptionPayload {
+export type ExceptionTags = {
+    /** Handler name */
+    handler?: string;
+} & Record<string, string | number | boolean>;
+
+export interface ExceptionPayload {
     message: string;
     exception_type?: string;
     service_name?: string;
@@ -50,7 +51,7 @@ export interface ReportExceptionPayload {
     bsky_id?: string;
 
     // tags
-    tags?: Record<string, string | number | boolean>;
+    tags?: ExceptionTags;
 }
 
 /**
@@ -59,7 +60,7 @@ export interface ReportExceptionPayload {
  * The request is proxied through /api/beacon/exceptions which forwards it to the actual tracker.
  * Returns true if the beacon was queued.
  */
-export function reportException(payload: ReportExceptionPayload): boolean {
+export function reportException(payload: ExceptionPayload): boolean {
     const { tags, ...rest } = payload;
     const body = {
         ...rest,
@@ -69,6 +70,7 @@ export function reportException(payload: ReportExceptionPayload): boolean {
 
         // version
         release_version: env.shared.VERSION,
+        commit_hash: env.shared.COMMIT_HASH,
 
         // environment
         vercel_environment: env.external.NEXT_PUBLIC_VERCEL_ENV,
@@ -78,12 +80,11 @@ export function reportException(payload: ReportExceptionPayload): boolean {
         os: bom.navigator?.platform,
         browser: bom.navigator?.userAgent,
         user_agent: bom.navigator?.userAgent,
-        commit_hash: env.shared.COMMIT_HASH,
 
         // urls
+        request_url: bom.location?.href,
         root_url: settings.FIREFLY_ROOT_URL,
         site_url: env.external.NEXT_PUBLIC_SITE_URL,
-        request_url: bom.location?.href,
         frame_server_url: settings.FRAME_SERVER_URL,
 
         // vercel region
@@ -91,13 +92,6 @@ export function reportException(payload: ReportExceptionPayload): boolean {
         ip_city: bom.window?.VERCEL_IP_CITY,
         ip_country: bom.window?.VERCEL_IP_COUNTRY,
         ip_region: bom.window?.VERCEL_IP_REGION,
-
-        // social login parameters
-        user_id: getSessionFromStorage(SessionType.Firefly)?.profileId,
-        twitter_username: getCurrentProfileFromStorage(Source.Twitter)?.handle,
-        lens_handle: getCurrentProfileFromStorage(Source.Lens)?.handle,
-        farcaster_id: getCurrentProfileFromStorage(Source.Farcaster)?.profileId,
-        bsky_id: getCurrentProfileFromStorage(Source.Bsky)?.profileId,
 
         // tags
         ...(tags && {

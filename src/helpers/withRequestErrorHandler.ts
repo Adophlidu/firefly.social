@@ -4,7 +4,6 @@ import { ZodError } from 'zod';
 
 import { MalformedRequestError } from '@/constants/error.js';
 import { createErrorResponseJson } from '@/helpers/createResponseJson.js';
-import { ExceptionId } from '@/providers/errorCapture/captureException.js';
 import { reportExceptionServer } from '@/providers/errorCapture/reportExceptionServer.js';
 import { type NextRequestContext } from '@/types/utility.js';
 
@@ -42,7 +41,6 @@ export function withRequestErrorHandler<P>(options?: { throwError?: boolean }) {
                     // Report server-side API errors to firefly-exception-tracker
                     if (!request.url.includes('/api/beacon/exceptions')) {
                         await reportExceptionServer(error, {
-                            exception_type: ExceptionId.API_ROUTE_ERROR,
                             request_url: request.url,
                         });
                     }

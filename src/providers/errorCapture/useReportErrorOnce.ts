@@ -2,14 +2,14 @@
 
 import { useEffect, useRef } from 'react';
 
-import { captureClientException } from '@/providers/errorCapture/captureClientException.js';
-import { type ExceptionId } from '@/providers/errorCapture/captureException.js';
+import { captureException, type ExceptionId } from '@/providers/errorCapture/captureException.js';
+import type { ExceptionTags } from '@/providers/errorCapture/reportException.js';
 
 interface UseReportErrorOnceOptions {
     /** Exception id to report */
     exceptionId: ExceptionId;
     /** Additional tags for the report */
-    tags?: Record<string, string | number>;
+    tags?: ExceptionTags;
 }
 
 /**
@@ -26,7 +26,7 @@ export function useReportErrorOnce(error: Error | null | undefined, options: Use
         if (lastReportedRef.current === error) return;
 
         lastReportedRef.current = error;
-        captureClientException(error, { exceptionId, tags });
+        captureException(exceptionId, error, tags);
         // Intentionally depend only on error so we report once per error instance
         // with the options that were current when the effect first ran.
     }, [error]);
