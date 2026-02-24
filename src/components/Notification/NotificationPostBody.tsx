@@ -1,9 +1,11 @@
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 
 import { PostMarkup } from '@/components/Markup/PostMarkup.js';
 import { Attachments } from '@/components/Posts/Attachment.js';
 import { PostLinks } from '@/components/Posts/PostLinks.js';
 import { EMPTY_LIST } from '@/constants/static.js';
+import { removeAtEnd } from '@/helpers/removeAtEnd.js';
+import { resolveOembedUrl } from '@/helpers/resolveOembedUrl.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
 
 interface NotificationPostBodyProps {
@@ -11,7 +13,14 @@ interface NotificationPostBodyProps {
 }
 
 export const NotificationPostBody = memo<NotificationPostBodyProps>(function NotificationPostBody({ post }) {
-    const postContent = post.metadata.content?.truncatedContent || post.metadata.content?.content || '';
+    const oembedUrl = resolveOembedUrl(post);
+    const postContent = useMemo(() => {
+        const base = post.metadata.content?.truncatedContent || post.metadata.content?.content || '';
+        if (oembedUrl) {
+            return removeAtEnd(base, oembedUrl).trimEnd();
+        }
+        return base;
+    }, [post.metadata.content?.truncatedContent, post.metadata.content?.content, oembedUrl]);
     const attachments = post.metadata.content?.attachments ?? EMPTY_LIST;
 
     return (

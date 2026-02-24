@@ -9,17 +9,23 @@ import { Loading } from '@/components/Loading.js';
 import { PredictionLeaderboardContent } from '@/components/Prediction/PredictionLeaderboardContent.js';
 import { PredictionLeaderboardFilters } from '@/components/Prediction/PredictionLeaderboardFilters.js';
 import { BetsLeaderboardTab, PolymarketRankOrder, PolymarketRankPeriod } from '@/constants/enum.js';
+import { useBetsLeaderboardStore } from '@/store/useBetsLeaderboardStore.js';
 
 export default function BetsLeaderboardPage() {
-    const [tab, setTab] = useState<BetsLeaderboardTab>(BetsLeaderboardTab.Global);
+    const tab = useBetsLeaderboardStore.use.tab();
+    const setTab = useBetsLeaderboardStore.use.setTab();
+
     const [period, setPeriod] = useState<PolymarketRankPeriod>(PolymarketRankPeriod.All);
     const [order, setOrder] = useState<PolymarketRankOrder>(PolymarketRankOrder.Pnl);
 
-    const handleTabChange = useCallback((tab: BetsLeaderboardTab) => {
-        setTab(tab);
-        setPeriod(PolymarketRankPeriod.All);
-        setOrder(PolymarketRankOrder.Pnl);
-    }, []);
+    const handleTabChange = useCallback(
+        (newTab: BetsLeaderboardTab) => {
+            setTab(newTab);
+            setPeriod(PolymarketRankPeriod.All);
+            setOrder(PolymarketRankOrder.Pnl);
+        },
+        [setTab],
+    );
 
     return (
         <div className="flex flex-col gap-4">
