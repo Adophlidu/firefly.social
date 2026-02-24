@@ -4,7 +4,7 @@ import { type NextRequest } from 'next/server.js';
 import { z } from 'zod';
 
 import { TWITTER_TIMELINE_OPTIONS } from '@/constants/twitter.js';
-import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
+import { createErrorResponseJson, createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
 import { patchPostClientToFirefly } from '@/helpers/patchPostClientToFirefly.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
@@ -33,6 +33,7 @@ export const GET = compose(
             ...TWITTER_TIMELINE_OPTIONS,
         });
         if (errors?.length) logger.error('[twitter] v2.singleTweet', errors);
+        if (!data) return createErrorResponseJson('Post not found', { status: 404 });
 
         // The retweeted post may not receive attachment
         const retweeted = data.referenced_tweets?.find((tweet) => tweet.type === 'retweeted');
