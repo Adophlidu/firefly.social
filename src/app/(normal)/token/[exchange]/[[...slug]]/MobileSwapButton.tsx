@@ -4,6 +4,7 @@ import { memo } from 'react';
 
 import { SwapButton, type SwapButtonProps } from '@/components/TokenProfile/SwapButton.js';
 import { useTradeInfo } from '@/components/TokenProfile/useTradeInfo.js';
+import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { type CoinGeckoToken } from '@/providers/types/CoinGecko.js';
 
 interface Props extends Omit<SwapButtonProps, 'swapProps'> {
@@ -11,9 +12,10 @@ interface Props extends Omit<SwapButtonProps, 'swapProps'> {
 }
 
 export const MobileSwapButton = memo(function MobileSwapButton({ token, ...props }: Props) {
+    const isLoggedIn = useIsLoginFirefly();
     const tradeInfo = useTradeInfo(token);
     const tradeChainId = tradeInfo.chainId;
-    if (!tradeInfo.tradable) return null;
+    if (!tradeInfo.tradable || !isLoggedIn) return null;
 
     return (
         <SwapButton
