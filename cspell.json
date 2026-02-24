@@ -327,7 +327,6 @@
         "linkify",
         "LIVDSRZULELA",
         "LIVDSRZULELA",
-        "livepeer",
         "localforage",
         "localforage",
         "looksrare",
@@ -578,7 +577,8 @@
         "PERCENTPNL",
         "vfile",
         "favorited",
-        "masko"
+        "masko",
+        "nums"
     ],
     "flagWords": [],
     "ignorePaths": [

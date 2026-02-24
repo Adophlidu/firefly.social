@@ -1,6 +1,4 @@
-import { Trans } from '@lingui/react/macro';
-import { PauseIcon, PlayIcon } from '@livepeer/react/assets';
-import * as Player from '@livepeer/react/player';
+import { classNames } from '@dimensiondev/utils';
 
 import Play from '@/assets/play.svg';
 import { Image } from '@/components/Image.js';
@@ -8,10 +6,9 @@ import { VideoPoster } from '@/components/Posts/VideoPoster.js';
 import { Source } from '@/constants/enum.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { computeSize } from '@/helpers/computeSize.js';
-import { stopPropagation } from '@/helpers/stopEvent.js';
 import { type Attachment } from '@/providers/types/SocialMedia.js';
 
-const Video = dynamic(() => import('@/components/Posts/Video.js').then((module) => module.Video), { ssr: false });
+const HlsPlayer = dynamic(() => import('@/components/HlsPlayer/index.js').then((m) => m.HlsPlayer), { ssr: false });
 
 interface VideoAssetProps {
     asset: Attachment;
@@ -60,33 +57,14 @@ export function VideoAsset({ asset, minimal, source, autoPlay, videoClassName }:
                     : { width: '100%' }
             }
         >
-            <Video
-                className={videoClassName}
-                loop={isGif}
+            <HlsPlayer
+                className={classNames('size-full rounded-lg object-cover', videoClassName)}
                 autoPlay={autoPlay || isGif}
-                autoPlayInViewport={!isGif}
+                enableViewportAutoPlay={!isGif}
                 src={asset.uri}
+                mode={isGif ? 'gif' : 'video'}
                 poster={asset.coverUri}
-                forceNoToken={source === Source.Twitter}
-                useFetchLoader={source === Source.Twitter}
-                aspectRatio={width && height ? width / height : undefined}
-            >
-                {isGif ? (
-                    <span className="absolute bottom-[5px] left-2.5 flex items-center" onClick={stopPropagation}>
-                        <Player.PlayPauseTrigger className="size-[25px]">
-                            <Player.PlayingIndicator asChild matcher={false}>
-                                <PlayIcon />
-                            </Player.PlayingIndicator>
-                            <Player.PlayingIndicator asChild>
-                                <PauseIcon />
-                            </Player.PlayingIndicator>
-                        </Player.PlayPauseTrigger>
-                        <span className="font-bold text-white">
-                            <Trans>GIF</Trans>
-                        </span>
-                    </span>
-                ) : null}
-            </Video>
+            />
         </div>
     );
 }

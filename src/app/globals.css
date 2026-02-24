@@ -684,10 +684,6 @@ body {
     padding-right: 1.5rem;
 }
 
-.livepeer-aspect-ratio-container {
-    border-radius: 8px !important;
-}
-
 .mini-video > div > div > div > div:last-of-type > div:first-of-type > span[aria-label] {
     display: none;
 }

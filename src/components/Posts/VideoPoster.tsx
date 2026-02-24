@@ -1,9 +1,8 @@
 import { memo } from 'react';
 
-import Play from '@/assets/play.svg';
 import { dynamic } from '@/esm/dynamic.js';
 
-const Video = dynamic(() => import('@/components/Posts/Video.js').then((module) => module.Video), { ssr: false });
+const HlsPlayer = dynamic(() => import('@/components/HlsPlayer/index.js').then((m) => m.HlsPlayer), { ssr: false });
 
 interface VideoPosterProps {
     src: string;
@@ -12,13 +11,7 @@ interface VideoPosterProps {
 export const VideoPoster = memo<VideoPosterProps>(function VideoPoster({ src }) {
     return (
         <div className="flex size-[120px] items-center rounded-xl">
-            <Video className="w-full" src={src}>
-                <Play
-                    className="absolute left-1/2 top-1/2 -translate-x-2 -translate-y-2 text-white"
-                    width={16}
-                    height={16}
-                />
-            </Video>
+            <HlsPlayer className="w-full" src={src} />
         </div>
     );
 });

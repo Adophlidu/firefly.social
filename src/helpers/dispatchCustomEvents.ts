@@ -7,6 +7,7 @@ import { type Account } from '@/providers/types/Account.js';
 interface CustomEvents {
     [EVENT_FORBIDDEN]: void;
     [EVENT_SOCIAL_ACCOUNT_EXPIRED]: { account?: Account; removeFromStore?: boolean; source?: SocialSource };
+    'hls-player-play': HTMLVideoElement;
 }
 
 export function dispatchCustomEvent<K extends keyof CustomEvents>(
