@@ -32,6 +32,8 @@ export const MIRROR_HOSTNAME_REGEXP = /mirror\.xyz|.+\.mirror\.xyz/i;
 
 export const FARCASTER_DETAIL_REGEX = /^https:\/\/farcaster\.xyz\/([^/]+)\/(0x[a-fA-F0-9]+)$/;
 
+export const FARCASTER_TOKEN_PATH_RE = /^\/~\/c\/([^:]+):(0x[a-fA-F0-9]{40})$/;
+
 export const BIO_TWITTER_PROFILE_REGEX = /([^\s]+)\.twitter/;
 // cspell: disable-next-line
 export const TWITTER_NORMAL_AVATAR = /^https:\/\/pbs\.twimg\.com.*_normal(\.\w+)$/;

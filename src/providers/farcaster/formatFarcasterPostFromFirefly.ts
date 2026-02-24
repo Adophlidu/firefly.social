@@ -40,7 +40,7 @@ function formatContent(cast: Cast): Post['metadata']['content'] {
 
     const oembedUrls = uniqWith(
         getEmbedUrls(
-            cast.text,
+            '',
             compact(
                 embedUrls
                     .filter((x) => (x.type ? [EmbedMediaType.TEXT, EmbedMediaType.FRAME].includes(x.type) : true))

@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 
 import { ArticleBody } from '@/components/Article/ArticleBody.js';
+import { TokenCard } from '@/components/EmbedCards/TokenCard.js';
 import { FrameLayout } from '@/components/Frame/Layout.js';
 import { CollectionPreviewer, NFTPreviewer } from '@/components/NFTs/NFTPreview.js';
 import { OembedLayout } from '@/components/Oembed/index.js';
@@ -16,6 +17,7 @@ import { TWITTER_ARTICLE_REGEX } from '@/constants/regexp.js';
 import { useRouter } from '@/esm/navigation.js';
 import { getArticleUrl } from '@/helpers/getArticleUrl.js';
 import { isLinkMatchingHost } from '@/helpers/isLinkMatchingHost.js';
+import { parseFarcasterTokenUrl } from '@/helpers/parseFarcasterTokenUrl.js';
 import { type ClassifyPostLinkResult } from '@/providers/firefly/worker/getClassifyPostLinks.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
 
@@ -28,6 +30,9 @@ interface PostLinkContentProps {
 
 export function PostLinkContent({ data, url, post, isInCompose }: PostLinkContentProps) {
     const router = useRouter();
+
+    const farcasterToken = useMemo(() => parseFarcasterTokenUrl(url), [url]);
+
     const isLargeOembed = useMemo(() => {
         const hasAttachments = !!post.metadata.content?.attachments?.length;
         if (hasAttachments) return false;
@@ -45,6 +50,10 @@ export function PostLinkContent({ data, url, post, isInCompose }: PostLinkConten
 
     // If the url occurs in the content, it might be rendered as an embed card as well.
     const isInContent = !!post.metadata.content?.content?.includes(url);
+
+    if (farcasterToken) {
+        return <TokenCard className="mt-2" address={farcasterToken.address} />;
+    }
 
     if (!data) {
         if (isInContent) return <PureLink url={url} className="mt-2" />;
