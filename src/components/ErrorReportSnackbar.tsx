@@ -1,5 +1,7 @@
 'use client';
 
+import { ExceptionId } from '@dimensiondev/exception-tracker';
+import { useReportErrorOnce } from '@dimensiondev/exception-tracker/client';
 import { ClipboardDocumentCheckIcon, ClipboardDocumentIcon, XCircleIcon } from '@heroicons/react/24/solid';
 import { Trans } from '@lingui/react/macro';
 import { type ForwardedRef, type ReactNode, useCallback, useMemo, useState } from 'react';
@@ -9,8 +11,6 @@ import { CloseButton } from '@/components/IconButton.js';
 import { type SnackbarMessage, useSnackbar } from '@/components/Snackbar.js';
 import { env } from '@/constants/env.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
-import { ExceptionId } from '@/providers/errorCapture/captureException.js';
-import { useReportErrorOnce } from '@/providers/errorCapture/useReportErrorOnce.js';
 
 export interface ErrorReportSnackbarProps {
     id: string;

@@ -1,9 +1,10 @@
 'use client';
 
+import { ExceptionId } from '@dimensiondev/exception-tracker';
+import { useReportErrorOnce } from '@dimensiondev/exception-tracker/client';
+
 import { ErrorHandler } from '@/components/ErrorHandler.js';
 import { IS_PRODUCTION } from '@/constants/static.js';
-import { ExceptionId } from '@/providers/errorCapture/captureException.js';
-import { useReportErrorOnce } from '@/providers/errorCapture/useReportErrorOnce.js';
 
 export default function Error({ error, reset }: { error: Error; reset: () => void }) {
     useReportErrorOnce(error, {

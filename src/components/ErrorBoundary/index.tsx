@@ -1,9 +1,9 @@
 'use client';
 
+import { captureException, ExceptionId } from '@dimensiondev/exception-tracker';
 import { Component, type ErrorInfo } from 'react';
 
 import { type CrashProps, CrashUI, type ErrorBoundaryError } from '@/components/ErrorBoundary/Crash.js';
-import { captureException, ExceptionId } from '@/providers/errorCapture/captureException.js';
 
 interface ErrorBoundaryProps extends Partial<CrashProps> {
     /** Disable automatic error reporting */

@@ -1,7 +1,7 @@
+import { captureException, ExceptionId } from '@dimensiondev/exception-tracker';
 import { AbortError, AuthenticationError } from '@dimensiondev/utils';
 
 import { FarcasterPatchSignerError, FireflyAlreadyBoundError, FireflyBindTimeoutError } from '@/constants/error.js';
-import { captureException, ExceptionId } from '@/providers/errorCapture/captureException.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { type Session } from '@/providers/types/Session.js';
 import { bindFireflySession } from '@/services/bindFireflySession.js';
@@ -20,7 +20,8 @@ export async function bindOrRestoreFireflySession(session: Session, signal?: Abo
             throw new AuthenticationError('[bindOrRestoreFireflySession] Firefly session is not available.');
         }
     } catch (error) {
-        captureException(ExceptionId.BIND_OR_RESTORE_FIREFLY_SESSION, error, {
+        captureException(ExceptionId.CUSTOM_ERROR, error, {
+            type: 'bind_or_restore_firefly_session',
             profileId: session.profileId,
             sessionType: session.type,
         });

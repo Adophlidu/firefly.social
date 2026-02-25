@@ -1,8 +1,8 @@
 /* cspell:disable */
 
-import { captureException, ExceptionId } from '@/providers/errorCapture/captureException.js';
-import { classifyError } from '@/providers/errorCapture/classifyError.js';
-import { getErrorMessage } from '@/providers/errorCapture/getErrorMessage.js';
+import { captureException, ExceptionId } from '@/core/captureException.js';
+import { classifyError } from '@/helpers/classifyError.js';
+import { getErrorMessage } from '@/helpers/getErrorMessage.js';
 
 let initialized = false;
 

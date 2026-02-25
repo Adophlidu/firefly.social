@@ -1,11 +1,15 @@
+import { reportExceptionServer } from '@dimensiondev/exception-tracker';
 import { NotFoundError, parseJson, UnauthorizedError } from '@dimensiondev/utils';
 import { type NextRequest } from 'next/server.js';
 import { ZodError } from 'zod';
 
 import { MalformedRequestError } from '@/constants/error.js';
 import { createErrorResponseJson } from '@/helpers/createResponseJson.js';
-import { reportExceptionServer } from '@/providers/errorCapture/reportExceptionServer.js';
+import { configureErrorCapture } from '@/providers/errorCapture/configure.js';
 import { type NextRequestContext } from '@/types/utility.js';
+
+// Ensure exception tracker is configured for server-side reporting
+configureErrorCapture();
 
 type Handler<T> = (request: NextRequest, context?: NextRequestContext<T>) => Promise<Response>;
 

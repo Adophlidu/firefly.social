@@ -1,4 +1,4 @@
-import { ExceptionId } from '@/providers/errorCapture/captureException.js';
+import { ExceptionId } from '@/enums.js';
 
 /**
  * Detects if error is a Next.js chunk loading failure

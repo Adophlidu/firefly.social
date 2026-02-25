@@ -1,5 +1,6 @@
 'use client';
 
+import { useInitGlobalErrorHandlers } from '@dimensiondev/exception-tracker/client';
 import { classNames } from '@dimensiondev/utils';
 import { isServer } from '@tanstack/react-query';
 import { memo, type ReactNode, useEffect, useLayoutEffect, useRef } from 'react';
@@ -13,12 +14,15 @@ import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { logger } from '@/libs/Logger.js';
-import { useInitGlobalErrorHandlers } from '@/providers/errorCapture/useInitGlobalErrorHandlers.js';
+import { configureErrorCapture } from '@/providers/errorCapture/configure.js';
 import { recordUserThemeMode } from '@/services/recordUserThemeMode.js';
 import { setupFirebaseFcmConnection } from '@/services/setupFirebaseFcmConnection.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useLeafwatchPersistStore } from '@/store/useLeafwatchPersistStore.js';
 import { useThemeModeStore } from '@/store/useThemeModeStore.js';
+
+// Configure exception tracker at module load (runs before any component render)
+configureErrorCapture();
 
 export const InitialProviders = memo(function Providers(props: { children: ReactNode }) {
     const isDarkMode = useIsDarkMode();

@@ -1,5 +1,6 @@
 'use client';
 
+import { captureException, ExceptionId } from '@dimensiondev/exception-tracker';
 import { bom } from '@dimensiondev/utils';
 import { jwtDecode } from 'jwt-decode';
 
@@ -11,7 +12,6 @@ import { logger } from '@/libs/Logger.js';
 import { getBskyProfileById } from '@/providers/bsky/getBskyProfileById.js';
 import { type BskySession } from '@/providers/bsky/Session.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
-import { captureException, ExceptionId } from '@/providers/errorCapture/captureException.js';
 import { type Profile } from '@/providers/types/SocialMedia.js';
 import { ensureProfileSessionInStore } from '@/services/ensureProfileSessionInStore.js';
 import { createProfileState, customSelectors } from '@/store/useProfileStore/createProfileState.js';
@@ -42,7 +42,8 @@ const state = createProfileState(
                 const bskySession = state.currentProfileSession as BskySession | null;
                 if (!bskySession) return;
 
-                captureException(ExceptionId.RESUME_BSKY_SESSION, error, {
+                captureException(ExceptionId.CUSTOM_ERROR, error, {
+                    type: 'resume_bsky_session',
                     profileId: bskySession.did,
                     now: Date.now().toString(),
                     accessTokenExp: runInSafe(() => jwtDecode(bskySession.sessionPayload.accessJwt)?.exp) || '',

@@ -1,6 +1,5 @@
+import { captureException, ExceptionId } from '@dimensiondev/exception-tracker';
 import { MutationCache, QueryCache, QueryClient, type QueryClientConfig } from '@tanstack/react-query';
-
-import { captureException, ExceptionId } from '@/providers/errorCapture/captureException.js';
 
 /**
  * Error types that should be ignored (handled elsewhere or expected)

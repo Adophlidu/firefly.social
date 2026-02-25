@@ -1,12 +1,12 @@
 'use client';
 
+import { captureException, ExceptionId } from '@dimensiondev/exception-tracker';
 import { InvalidResultError, retry } from '@dimensiondev/utils';
 import { useQuery } from '@tanstack/react-query';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { getPrivyWalletConnectionsQuery, usePrivyConnections } from '@/hooks/usePrivyConnections.js';
-import { captureException, ExceptionId } from '@/providers/errorCapture/captureException.js';
 import { createPrivyWallet } from '@/providers/firefly/endpoint/createPrivyWallet.js';
 import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 
@@ -22,7 +22,8 @@ export function useIsCreatedPrivyWallet() {
         async queryFn() {
             const data = await createPrivyWallet();
             if (!data) {
-                captureException(ExceptionId.CREATE_PRIVY_WALLET, new Error('Create privy wallet failed'), {
+                captureException(ExceptionId.CUSTOM_ERROR, new Error('Create privy wallet failed'), {
+                    type: 'create_privy_wallet',
                     profileId: currentProfileSession?.profileId as string,
                 });
                 return;

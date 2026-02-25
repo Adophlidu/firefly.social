@@ -1,7 +1,7 @@
 'use client';
 
-import { ExceptionId } from '@/providers/errorCapture/captureException.js';
-import { useReportErrorOnce } from '@/providers/errorCapture/useReportErrorOnce.js';
+import { ExceptionId } from '@dimensiondev/exception-tracker';
+import { useReportErrorOnce } from '@dimensiondev/exception-tracker/client';
 
 /**
  * Root-level error boundary. Replaces the root layout when triggered.
