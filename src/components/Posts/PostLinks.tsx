@@ -33,7 +33,10 @@ function PostLinksSingle({ post, isInCompose = false }: Props) {
     useEffect(() => {
         if (!url || !content) return;
 
-        if (isLoading || data) {
+        const og = data?.oembed?.og;
+        const isEmptyOg = !!og && !og.image && !og.title && !og.description;
+
+        if (isLoading || (data && !isEmptyOg)) {
             patchPostQueryData(post.source, post.postId, (draft) => {
                 if (draft.metadata.content?.content) {
                     draft.metadata.content.truncatedContent = removeAtEnd(draft.metadata.content.content, url);
@@ -41,7 +44,7 @@ function PostLinksSingle({ post, isInCompose = false }: Props) {
             });
             return;
         }
-        if (!data) {
+        if (!data || isEmptyOg) {
             patchPostQueryData(post.source, post.postId, (draft) => {
                 if (draft.metadata.content?.content) {
                     draft.metadata.content.truncatedContent = draft.metadata.content.content;
