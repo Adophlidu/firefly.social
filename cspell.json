@@ -595,6 +595,7 @@
         "eslint.config.mjs",
         "node_modules/**",
         "dist/**",
+        "**/dist/**",
         "build/**",
         ".next/**",
         "docs/**",

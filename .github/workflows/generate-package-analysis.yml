@@ -21,20 +21,18 @@ jobs:
                   ref: ${{ github.event.pull_request.head.ref }}
                   token: ${{ secrets.GITHUB_TOKEN }}
 
-            - name: Authenticate NPM
-              uses: DimensionDev/github-token-action@latest
-              with:
-                  registry: true
-
             - name: Set up Node.js
               uses: actions/setup-node@v4
               with:
                   node-version-file: '.node-version'
 
-            - uses: pnpm/action-setup@v4
+            - name: Authenticate NPM
+              uses: DimensionDev/github-token-action@latest
+              with:
+                  registry: true
 
-            - name: Install dependencies
-              run: pnpm install
+            - name: Setup Github Actions
+              run: ./scripts/setup-gh-actions.sh
 
             - name: Generate Package Analysis
               run: node scripts/generate-package-analysis.mjs

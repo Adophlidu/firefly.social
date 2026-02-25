@@ -20,20 +20,18 @@ jobs:
             - name: Checkout code
               uses: actions/checkout@v2
 
-            - name: Authenticate NPM
-              uses: DimensionDev/github-token-action@latest
-              with:
-                  registry: true
-
             - name: Set up Node.js
               uses: actions/setup-node@v2
               with:
                   node-version-file: '.node-version'
 
-            - uses: pnpm/action-setup@v4
+            - name: Authenticate NPM
+              uses: DimensionDev/github-token-action@latest
+              with:
+                  registry: true
 
-            - name: Install dependencies
-              run: pnpm install
+            - name: Setup Github Actions
+              run: ./scripts/setup-gh-actions.sh
 
             - name: Run ESLint
               run: NODE_OPTIONS=--max_old_space_size=8192 npx eslint . --quiet --cache --cache-location .eslintcache

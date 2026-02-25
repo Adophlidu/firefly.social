@@ -15,24 +15,18 @@ jobs:
             - name: Checkout code
               uses: actions/checkout@v4
 
-            - name: Authenticate NPM
-              uses: DimensionDev/github-token-action@latest
-              with:
-                  registry: true
-
             - name: Set up Node.js
               uses: actions/setup-node@v4
               with:
                   node-version-file: '.node-version'
 
+            - name: Authenticate NPM
+              uses: DimensionDev/github-token-action@latest
+              with:
+                  registry: true
+
             - name: Setup GitHub Actions
               run: ./scripts/setup-gh-actions.sh
-
-            - name: Setup pnpm
-              uses: pnpm/action-setup@v4
-
-            - name: Install dependencies
-              run: pnpm install
 
             - name: Generate Statoscope report
               run: ANALYZE_STATOSCOPE=true pnpm build
