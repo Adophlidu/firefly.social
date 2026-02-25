@@ -1,5 +1,5 @@
 import { fetchNotifications } from '@lens-protocol/client/actions';
-import { compact, first, flatMap, uniqBy } from 'lodash-es';
+import { compact, first, flatMap } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
 import {
@@ -9,6 +9,7 @@ import {
     type Pageable,
     type PageIndicator,
 } from '@/helpers/pageable.js';
+import { uniqProfiles } from '@/helpers/uniqProfiles.js';
 import { ensureCursor } from '@/providers/lens/ensureCursor.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { filterNotifications } from '@/providers/lens/filterNotifications.js';
@@ -56,7 +57,7 @@ export async function getLensNotifications(
                 source: Source.Lens,
                 notificationId: item.id,
                 type: NotificationType.Mirror,
-                mirrors: item.reposts.map((x) => formatLensProfileV3(x.account)),
+                mirrors: uniqProfiles(item.reposts.map((x) => formatLensProfileV3(x.account))),
                 post,
                 timestamp: time ? new Date(time).getTime() : undefined,
             };
@@ -92,7 +93,7 @@ export async function getLensNotifications(
                 notificationId: item.id,
                 type: NotificationType.Reaction,
                 reaction: ReactionType.Upvote,
-                reactors: item.reactions.map((x) => formatLensProfileV3(x.account)),
+                reactors: uniqProfiles(item.reactions.map((x) => formatLensProfileV3(x.account))),
                 post,
                 timestamp: time ? new Date(time).getTime() : undefined,
             };
@@ -122,10 +123,7 @@ export async function getLensNotifications(
                 source: Source.Lens,
                 notificationId: item.id,
                 type: NotificationType.Follow,
-                followers: uniqBy(
-                    item.followers.map((x) => formatLensProfileV3(x.account)),
-                    (x) => x.profileId,
-                ),
+                followers: uniqProfiles(item.followers.map((x) => formatLensProfileV3(x.account))),
             };
         }
 

@@ -1,7 +1,8 @@
-import { last, uniqBy } from 'lodash-es';
+import { last } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
 import { isSamePost } from '@/helpers/isSamePost.js';
+import { uniqProfiles } from '@/helpers/uniqProfiles.js';
 import {
     type FollowNotification,
     type MirrorNotification,
@@ -26,10 +27,6 @@ function isSameNotificationInType(a: Notification, b: Notification): boolean {
     }
 
     return false;
-}
-
-function uniqProfiles(profiles: Profile[]): Profile[] {
-    return uniqBy(profiles, (profile) => `${profile.source}:${profile.profileId}`);
 }
 
 function mergeNotificationsByType(notifications: Notification[]): Notification[] {
