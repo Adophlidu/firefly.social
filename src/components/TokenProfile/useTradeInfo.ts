@@ -5,9 +5,22 @@ import { zeroAddress } from 'viem';
 import { useOkxSupportedChains } from '@/components/TokenProfile/useOkxSupportedChains.js';
 import { EMPTY_LIST } from '@/constants/static.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
-import { getChainIdByCoinId } from '@/providers/coingecko/getChainIdByCoinId.js';
 import { type CoinGeckoToken } from '@/providers/types/CoinGecko.js';
+import { EthereumChainId } from '@/web3-shared/evm/types.js';
 import { SolanaChainId } from '@/web3-shared/solana/types.js';
+
+function getChainIdByCoinId(coinId: string) {
+    const CoinIdToChainId: Record<string, EthereumChainId> = {
+        ethereum: EthereumChainId.Mainnet,
+        'polygon-ecosystem-token': EthereumChainId.Polygon,
+        binancecoin: EthereumChainId.BSC,
+        fantom: EthereumChainId.Fantom,
+        arbitrum: EthereumChainId.Arbitrum,
+        scroll: EthereumChainId.Scroll,
+        'avalanche-2': EthereumChainId.Avalanche,
+    };
+    return CoinIdToChainId[coinId];
+}
 
 export function useTradeInfo(token: CoinGeckoToken | null | undefined, argChainId?: number, argAddress?: string) {
     const { data: trending } = useCoinTrending(token?.id);

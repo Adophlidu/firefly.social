@@ -34,35 +34,3 @@ export function transformAll<ChainId extends number, T extends Constants>(
         return Object.fromEntries(entries) as Entries;
     };
 }
-
-function transform<ChainId extends number, T extends Constants>(
-    chainIdEnum: ChainIdEnum<ChainId>,
-    constants: T,
-    environment: Record<string, string> = {},
-) {
-    type Entries = {
-        [key in keyof T]?: T[key]['Mainnet'];
-    };
-    const getAllConstants = transformAll(chainIdEnum, constants, environment);
-    return <K extends keyof Entries, F extends Entries[K], R = F extends undefined ? Entries[K] : Required<Entries>[K]>(
-        chainId: ChainId,
-        key: K,
-        fallback?: F,
-    ) => (getAllConstants(chainId)[key] ?? fallback) as R;
-}
-
-export function transformFromJSON<ChainId extends number, T extends Constants>(
-    chainIdEnum: ChainIdEnum<ChainId>,
-    json: string,
-    fallbackConstants: T,
-    environment: Record<string, string> = {},
-) {
-    if (!json) return transform(chainIdEnum, fallbackConstants, environment);
-
-    try {
-        const constants = JSON.parse(json) as T;
-        return transform(chainIdEnum, constants, environment);
-    } catch {
-        return transform(chainIdEnum, fallbackConstants, environment);
-    }
-}
