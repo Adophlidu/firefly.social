@@ -134,32 +134,39 @@ export function PredictionPositionItem({
                     </div>
                 </div>
             </div>
-            <div className="flex w-full items-center justify-evenly gap-2">
-                <div className="flex flex-1 shrink-0 flex-col items-start">
-                    <span className="text-sm font-medium text-main">{formatBetsPrice(position.avg_price)}</span>
-                    <span className="text-[11px] text-second">
-                        <Trans>Avg</Trans>
-                    </span>
-                </div>
-                <div className="flex flex-1 shrink-0 flex-col items-start">
-                    <span className="text-sm font-medium text-main">{formatBetsPrice(position.cur_price)}</span>
-                    <span className="text-[11px] text-second">
-                        <Trans>Current</Trans>
-                    </span>
-                </div>
-                <div className="flex flex-1 shrink-0 flex-col items-start justify-center">
-                    <span
-                        className={classNames('text-xs font-medium', position.pnl < 0 ? 'text-danger' : 'text-success')}
-                    >
-                        {formatPolymarketNumber(position.pnl, { symbol: true })}
-                        {`(${removeTrailingZeros((Math.abs(position.pnl_rate) * 100).toFixed(2))}%)`}
-                    </span>
-                    <span className="text-sm font-medium leading-[21px] tracking-[0.15px] text-second">
-                        {formatPolymarketNumber(position.current_value)}
-                    </span>
+            <div className="flex w-full flex-col items-center gap-2 md:flex-row">
+                <div className="flex w-full min-w-0 flex-1 items-center justify-evenly gap-2 md:w-auto">
+                    <div className="flex min-w-0 flex-1 shrink-0 flex-col items-start truncate">
+                        <span className="text-sm font-medium text-main">{formatBetsPrice(position.avg_price)}</span>
+                        <span className="text-[11px] text-second">
+                            <Trans>Avg</Trans>
+                        </span>
+                    </div>
+                    <div className="flex min-w-0 flex-1 shrink-0 flex-col items-start truncate">
+                        <span className="text-sm font-medium text-main">{formatBetsPrice(position.cur_price)}</span>
+                        <span className="text-[11px] text-second">
+                            <Trans>Current</Trans>
+                        </span>
+                    </div>
+                    <div className="flex min-w-0 flex-1 shrink-0 flex-col items-start justify-center truncate">
+                        <span
+                            className={classNames(
+                                'text-xs font-medium',
+                                position.pnl < 0 ? 'text-danger' : 'text-success',
+                            )}
+                        >
+                            {formatPolymarketNumber(position.pnl, { symbol: true })}
+                            {`(${removeTrailingZeros((Math.abs(position.pnl_rate) * 100).toFixed(2))}%)`}
+                        </span>
+                        <span className="text-sm font-medium leading-[21px] tracking-[0.15px] text-second">
+                            {formatPolymarketNumber(position.current_value)}
+                        </span>
+                    </div>
                 </div>
                 {showAction && platform === PredictionPlatform.Polymarket ? (
-                    <PredictionPositionAction position={position} />
+                    <div className="w-full shrink-0 md:w-auto">
+                        <PredictionPositionAction position={position} />
+                    </div>
                 ) : null}
             </div>
         </div>

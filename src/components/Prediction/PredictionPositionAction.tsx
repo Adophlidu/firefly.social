@@ -22,7 +22,7 @@ export const PredictionPositionAction = memo<Props>(function PredictionPositionA
             {position.isClaimable ? (
                 position.isWin ? (
                     <ClickableButton
-                        className="box-border h-8 w-[128px] whitespace-nowrap rounded-lg bg-[#429F37] py-2 text-xs text-white"
+                        className="box-border h-8 w-full whitespace-nowrap rounded-lg bg-[#429F37] py-2 text-xs text-white md:w-[128px]"
                         onClick={() => {
                             // There is no such an API endpoint for querying a single position,
                             // so we need to pass the whole position object
@@ -38,7 +38,7 @@ export const PredictionPositionAction = memo<Props>(function PredictionPositionA
                     </ClickableButton>
                 ) : (
                     <ClickableButton
-                        className="box-border h-8 w-[128px] whitespace-nowrap rounded-lg bg-[#ff564d] py-2 text-xs text-white"
+                        className="box-border h-8 w-full whitespace-nowrap rounded-lg bg-[#ff564d] py-2 text-xs text-white md:w-[128px]"
                         onClick={async () => {
                             // There is no such an API endpoint for querying a single position,
                             // so we need to pass the whole position object
@@ -55,7 +55,7 @@ export const PredictionPositionAction = memo<Props>(function PredictionPositionA
                 )
             ) : position.shares && position.shares >= MIN_SELLABLE_SHARES ? (
                 <ClickableButton
-                    className="box-border h-8 w-[128px] whitespace-nowrap rounded-lg bg-highlight py-2 text-xs text-white"
+                    className="box-border h-8 w-full whitespace-nowrap rounded-lg bg-highlight py-2 text-xs text-white md:w-[128px]"
                     onClick={() => {
                         const outcomeIndex = position.outcomeIndex ?? 0;
                         const params = new URLSearchParams();
