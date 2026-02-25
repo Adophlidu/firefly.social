@@ -2,6 +2,7 @@
 
 import { captureException, ExceptionId } from '@/providers/errorCapture/captureException.js';
 import { classifyError } from '@/providers/errorCapture/classifyError.js';
+import { getErrorMessage } from '@/providers/errorCapture/getErrorMessage.js';
 
 let initialized = false;
 
@@ -102,8 +103,8 @@ function handleUnhandledRejection(event: PromiseRejectionEvent): void {
         error = new Error(reason);
         message = reason;
     } else {
-        error = new Error(String(reason));
-        message = String(reason);
+        message = getErrorMessage(reason);
+        error = new Error(message);
     }
 
     if (shouldIgnoreError(message)) {
