@@ -38,15 +38,19 @@ function formatContent(cast: Cast): Post['metadata']['content'] {
         return true;
     });
 
+    const embedUrlList = compact(
+        embedUrls
+            .filter((x) => (x.type ? [EmbedMediaType.TEXT, EmbedMediaType.FRAME].includes(x.type) : true))
+            .map((x) => x.url),
+    );
+
+    const allUrls = getEmbedUrls(cast.text, embedUrlList);
+    const content_source = allUrls.length <= 1 ? cast.text : '';
+
     const oembedUrls = uniqWith(
-        getEmbedUrls(
-            '',
-            compact(
-                embedUrls
-                    .filter((x) => (x.type ? [EmbedMediaType.TEXT, EmbedMediaType.FRAME].includes(x.type) : true))
-                    .map((x) => x.url),
-            ),
-        ).filter((x) => isTopLevelDomain(x) && !attachments.some((a) => a.url === x)),
+        getEmbedUrls(content_source, embedUrlList).filter(
+            (x) => isTopLevelDomain(x) && !attachments.some((a) => a.url === x),
+        ),
         (a, b) => isSameUrl(a, b),
     );
 
