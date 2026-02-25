@@ -1,3 +1,4 @@
+import { NotFoundError } from '@dimensiondev/utils';
 import { type TwitterApi } from 'twitter-api-v2';
 
 import { TWITTER_TIMELINE_OPTIONS } from '@/constants/twitter.js';
@@ -53,6 +54,10 @@ async function findRootTweet(client: TwitterApi, tweetId: string, authorId: stri
         'tweet.fields': ['referenced_tweets', 'author_id'],
     });
 
+    if (!tweet.data) {
+        return tweetId;
+    }
+
     const repliedToTweet = tweet.data.referenced_tweets?.find((ref) => ref.type === 'replied_to');
     if (!repliedToTweet) {
         return tweetId;
@@ -70,6 +75,10 @@ export async function getThreadTweets(client: TwitterApi, id: string) {
     const originalTweet = await client.v2.singleTweet(id, {
         'tweet.fields': ['conversation_id', 'author_id'],
     });
+
+    if (!originalTweet.data) {
+        throw new NotFoundError('Post not found');
+    }
 
     const conversationId = originalTweet.data.conversation_id || id;
     const authorId = originalTweet.data.author_id;
