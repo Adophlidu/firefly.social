@@ -192,7 +192,7 @@ export const HlsPlayer = memo<HlsPlayerProps>(function HlsPlayer({
                     video.pause();
                 }
             },
-            { threshold: 0.5 },
+            { threshold: 1 },
         );
 
         observer.observe(containerRef.current);
