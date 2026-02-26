@@ -1,6 +1,6 @@
 'use client';
 
-import { useInitGlobalErrorHandlers } from '@dimensiondev/exception-tracker/client';
+import { initGlobalErrorHandlers } from '@dimensiondev/exception-tracker';
 import { classNames } from '@dimensiondev/utils';
 import { isServer } from '@tanstack/react-query';
 import { memo, type ReactNode, useEffect, useLayoutEffect, useRef } from 'react';
@@ -23,6 +23,7 @@ import { useThemeModeStore } from '@/store/useThemeModeStore.js';
 
 // Configure exception tracker at module load (runs before any component render)
 configureErrorCapture();
+initGlobalErrorHandlers();
 
 export const InitialProviders = memo(function Providers(props: { children: ReactNode }) {
     const isDarkMode = useIsDarkMode();
@@ -52,8 +53,6 @@ export const InitialProviders = memo(function Providers(props: { children: React
 
     const viewerId = useLeafwatchPersistStore.use.viewerId();
     const setViewerId = useLeafwatchPersistStore.use.setViewerId();
-
-    useInitGlobalErrorHandlers();
 
     useEffectOnce(() => {
         if (!viewerId) setViewerId(crypto.randomUUID());

@@ -175,6 +175,8 @@ export function initGlobalErrorHandlers(): void {
         return;
     }
 
+    console.info(`[initGlobalErrorHandlers] init global error handlers`);
+
     // Runtime JavaScript errors
     window.onerror = handleWindowError;
 

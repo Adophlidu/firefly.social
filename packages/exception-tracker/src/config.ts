@@ -43,6 +43,7 @@ export interface ExceptionTrackerConfig {
 let config: ExceptionTrackerConfig | null = null;
 
 export function configureExceptionTracker(c: ExceptionTrackerConfig): void {
+    console.info(`[configureExceptionTracker] set config`, c);
     config = c;
 }
 
