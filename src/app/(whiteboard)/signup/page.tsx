@@ -1,5 +1,7 @@
+import { getEnumAsArray } from '@dimensiondev/utils';
+
 import { Signup } from '@/app/(whiteboard)/signup/pages/Signup.js';
-import { type SignupStep } from '@/constants/enum.js';
+import { SignupStep } from '@/constants/enum.js';
 import { type NextPageProps } from '@/types/utility.js';
 
 interface Props
@@ -13,5 +15,9 @@ interface Props
 export default async function Page(props: Props) {
     const searchParams = await props.searchParams;
 
-    return <Signup initialStep={searchParams.step} />;
+    const validStep = searchParams.step
+        ? getEnumAsArray(SignupStep).find((s) => s.value === searchParams.step)?.value || SignupStep.Welcome
+        : undefined;
+
+    return <Signup initialStep={validStep} />;
 }

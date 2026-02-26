@@ -45,7 +45,6 @@ export const BSKY_VIDEO_ENDPOINT = 'https://video.bsky.app/xrpc';
 export const NEYNAR_URL = 'https://neynar-proxy.r2d2.to';
 export const FIREFLY_NITTER_URL = 'https://nitter.r2d2.to';
 export const ORB_API_URL = 'https://orbapi.xyz';
-export const POLYMARKET_URL = 'https://polymarket.com';
 export const CALENDAR_BASE_URL = 'https://mask-network-dev.firefly.land/v1/calendar/';
 export const ACCOUNT_CONFLICT_SOLUTION_URL =
     'https://mask.notion.site/Experience-a-login-conflict-2227d90fdc9b819cabffe6a98d87f901';

@@ -36,21 +36,34 @@ interface PredictionMarketsPriceLineChartProps {
 const lineColors = ['#FF209B', '#5E69FF', '#FF372B', '#FFAA16', '#00D2FF', '#00FF85', '#FF6EC4', '#8C56FF'];
 const outcomeColors = ['#5E69FF', '#FF372B', '#FFAA16', '#00D2FF', '#00FF85', '#FF6EC4', '#8C56FF', '#FF209B'];
 
+function getMarketWinRatio(market: BetsMarketDataForUI) {
+    const totalPrice = sumBy(market.outcomes, (outcome) => (Number.isNaN(+outcome.price) ? 0 : +outcome.price));
+    return totalPrice > 0 ? (Number(first(market.outcomes)?.price || 0) / totalPrice) * 100 : 0;
+}
+
+function toMarketsWithSettings(markets: BetsMarketDataForUI[]): BetsMarketWithSettings[] {
+    const sortedMarkets = [...markets]
+        .sort((a, b) => getMarketWinRatio(b) - getMarketWinRatio(a))
+        .slice(0, MAX_MARKETS_COUNT_SELECTABLE);
+
+    return markets.map((market, index) => ({
+        ...market,
+        color: lineColors[index % lineColors.length],
+        selected: sortedMarkets.some((m) => m.id === market.id),
+        totalPrice: sumBy(market.outcomes, (outcome) => (Number.isNaN(+outcome.price) ? 0 : +outcome.price)),
+        outcomes: market.outcomes.map((outcome, i) => ({
+            ...outcome,
+            color: outcomeColors[i % outcomeColors.length],
+        })),
+    }));
+}
+
 export function PredictionMarketsPriceLineChart({ platform, markets, isActive }: PredictionMarketsPriceLineChartProps) {
     const [outcomeId, setOutcomeId] = useState(first(markets)?.outcomes?.[0]?.id || '');
     const [timeRange, setTimeRange] = useState(BetsPriceTimeRange.All);
     const [payload, setPayload] = useState<Array<{ dataKey: string; value?: number }>>();
     const [marketsWithSettings, setMarketsWithSettings] = useState<BetsMarketWithSettings[]>(
-        markets.map((market, index) => ({
-            ...market,
-            color: lineColors[index % lineColors.length],
-            selected: index < MAX_MARKETS_COUNT_SELECTABLE,
-            totalPrice: sumBy(market.outcomes, (outcome) => (Number.isNaN(+outcome.price) ? 0 : +outcome.price)),
-            outcomes: market.outcomes.map((outcome, i) => ({
-                ...outcome,
-                color: outcomeColors[i % outcomeColors.length],
-            })),
-        })),
+        toMarketsWithSettings(markets),
     );
 
     const labels = useMemo(() => {

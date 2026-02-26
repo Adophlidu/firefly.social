@@ -2,6 +2,7 @@ import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 
 import TimeIcon from '@/assets/time.svg';
+import { PredictionEventEndTime } from '@/components/Prediction/PredictionEventEndTime.js';
 import { PredictionEventImage } from '@/components/Prediction/PredictionEventImage.js';
 import { PredictionPlatformIcon } from '@/components/Prediction/PredictionPlatformIcon.js';
 import type { BetsEventDataForUI } from '@/types/prediction.js';
@@ -38,17 +39,7 @@ export function PredictionEventOverview({ detail, isActive }: PredictionEventOve
                     </span>
                     <div className="flex items-center gap-1 text-second">
                         <TimeIcon width={12} height={12} />
-                        {detail.endTime ? (
-                            <span className="text-xs">
-                                {new Date(detail.endTime).toLocaleString(undefined, {
-                                    year: 'numeric',
-                                    month: 'short',
-                                    day: 'numeric',
-                                    hour: '2-digit',
-                                    minute: '2-digit',
-                                })}
-                            </span>
-                        ) : null}
+                        {detail.endTime ? <PredictionEventEndTime endTime={detail.endTime} /> : null}
                     </div>
                 </div>
             </div>

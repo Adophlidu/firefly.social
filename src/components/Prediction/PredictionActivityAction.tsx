@@ -6,7 +6,7 @@ import { LikeButton } from '@/components/Actions/LikeButton.js';
 import { ShareAction } from '@/components/Actions/ShareAction.js';
 import { Tips } from '@/components/Tips/index.js';
 import { Source } from '@/constants/enum.js';
-import { POLYMARKET_URL } from '@/constants/static.js';
+import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useTogglePredictionBookmark } from '@/hooks/useTogglePredictionBookmark.js';
 import { type BetsActivity } from '@/providers/types/Firefly.js';
@@ -24,8 +24,10 @@ export const PredictionActivityAction = memo<PredictionActivityActionProps>(func
 
     const { hasBookmarked, has_bookmarked } = activity;
 
-    const polymarketUrl = activity.rawData?.slug
-        ? `${POLYMARKET_URL}/event/${activity.rawData.slug}`
+    const polymarketUrl = activity.topicId
+        ? RouteResolver.betsEventDetail(activity.platform, activity.topicId, {
+              multiple: activity.isMutil === 1,
+          })
         : (activity.url ?? '');
 
     const handleBookmark = useCallback(() => {
