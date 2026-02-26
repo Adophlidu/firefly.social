@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { TWITTER_USER_OPTIONS } from '@/constants/twitter.js';
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
+import { isNumericalProfileId } from '@/helpers/isNumericalProfileId.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { logger } from '@/libs/Logger.js';
 import { createTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
@@ -17,13 +18,14 @@ export const GET = compose(
     withRequestErrorHandler({ throwError: true }),
     async (request, context) => {
         const { userId } = await getParamsWithZodSchema(ParamsSchema, context);
+        const isNumericalId = isNumericalProfileId(userId);
 
         const client = await createTwitterClientV2();
-        const { data, errors } = await client.v2.user(userId, {
-            ...TWITTER_USER_OPTIONS,
-        });
+        const { data, errors } = !isNumericalId
+            ? await client.v2.userByUsername(userId, TWITTER_USER_OPTIONS)
+            : await client.v2.user(userId, TWITTER_USER_OPTIONS);
         if (errors?.length) {
-            logger.error('[twitter] v2.user', errors);
+            logger.error(`[twitter] ${!isNumericalId ? 'v2.userByUsername' : 'v2.user'}`, errors);
             if (!data) return createTwitterErrorResponseJSON(errors);
         }
 
