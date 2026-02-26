@@ -174,15 +174,15 @@ export const HlsPlayer = memo<HlsPlayerProps>(function HlsPlayer({
     }, [initPlayer]);
 
     useEffect(() => {
-        if (!enableViewportAutoPlay || hasInteracted || !containerRef.current) return;
+        if (!enableViewportAutoPlay || !containerRef.current) return;
 
         const observer = new IntersectionObserver(
             (entries) => {
                 const [entry] = entries;
                 const video = videoRef.current;
-                if (!video || hasInteracted) return;
+                if (!video) return;
 
-                if (entry.isIntersecting) {
+                if (entry.isIntersecting && !hasInteracted) {
                     video.play().catch(() => {
                         logger.warn('Autoplay blocked by browser. Muting to try again...');
                         video.muted = true;

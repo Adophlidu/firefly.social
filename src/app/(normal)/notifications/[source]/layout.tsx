@@ -31,7 +31,7 @@ export default async function Layout(props: Props) {
 
     return (
         <div className="flex w-full flex-col">
-            <div className="sticky top-[54px] z-20 flex w-full flex-col bg-primaryBottom md:top-0">
+            <div className="sticky top-[54px] z-30 flex w-full flex-col bg-primaryBottom md:top-0">
                 <TimelineTitle title={<Trans>Notifications</Trans>} />
                 <div className="flex items-center justify-between px-4">
                     <NotificationTabs source={resolveNotificationSource(source)} />

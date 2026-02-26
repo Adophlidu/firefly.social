@@ -103,7 +103,7 @@ export function HomeTabs({
     const isFollowingTab = currentTab === HomeTab.Following;
 
     return (
-        <div className="sticky top-[54px] z-20 flex w-full flex-col bg-primaryBottom md:top-0">
+        <div className="sticky top-[54px] z-30 flex w-full flex-col bg-primaryBottom md:top-0">
             <div className={!onlyFilter ? 'max-md:hidden' : ''}>
                 {!isLogin && currentTab === HomeTab.Discover ? (
                     <div className={classNames('flex h-[60px] flex-col px-4 pt-2.5', containerClass)}>
