@@ -150,6 +150,11 @@ const config: NextConfig = {
                 destination: '/profile/x/:path*',
                 permanent: true,
             },
+            {
+                source: '/following/transactions',
+                destination: '/following/trades',
+                permanent: true,
+            },
         ];
     },
     async rewrites() {

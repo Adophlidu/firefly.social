@@ -15,7 +15,7 @@ import { WithinDiscover } from '@/components/WithinDiscover.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 
 const parallelSidebarPatterns: Array<`/${string}`> = [
-    '/following/transactions',
+    '/following/trades',
     '/token/:symbol',
     '/token/cex/:coin',
     '/token/dex/:chain/:address',

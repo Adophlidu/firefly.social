@@ -102,7 +102,7 @@ export enum SourceInURL {
     Swap = 'swap',
     FarcasterV2 = 'far',
     X = 'x',
-    Transactions = 'transactions',
+    Transactions = 'trades',
     Activities = 'activities',
     Prediction = 'prediction',
 }
