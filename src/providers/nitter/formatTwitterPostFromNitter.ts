@@ -73,6 +73,7 @@ function parseTweetOembedUrls(text: string) {
     const anchorElements = document.querySelectorAll('a');
     return compact(
         [...anchorElements].map((el) => {
+            URL_REGEX.lastIndex = 0;
             if (el.href && URL_REGEX.test(el.href)) return el.href;
             return null;
         }),
