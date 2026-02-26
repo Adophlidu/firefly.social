@@ -20,13 +20,10 @@ interface WalletsFilterProps {
 }
 
 export const WalletsFilter = memo<WalletsFilterProps>(function WalletsFilter({ wallets, currentWallet, onChange }) {
-    if (!wallets.length) return null;
-    if (wallets.length === 1) {
-        return <div className="text-sm font-semibold text-main">{formatAddressEthereum(wallets[0].proxy, 4)}</div>;
-    }
+    if (wallets.length < 2) return null;
 
     return (
-        <Popover as="div" className="relative">
+        <Popover as="div" className="relative mb-4">
             {({ close }) => (
                 <>
                     <PopoverButton className="flex h-9 min-w-32 cursor-pointer items-center justify-between gap-1 rounded-md border border-secondaryLine bg-bottom px-2 text-sm font-semibold text-main focus:outline-none">

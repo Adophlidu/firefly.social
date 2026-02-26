@@ -102,12 +102,12 @@ export const MarketsCurrentPositions = memo<Props>(function MarketsCurrentPositi
     const isSingleMarket = markets.length === 1;
 
     return (
-        <div className="p-4">
+        <div className="px-4 pt-4">
             <WalletsFilter wallets={wallets} currentWallet={selectedWallet} onChange={setSelectedWallet} />
             {isLoading ? (
                 <Loading />
             ) : data?.length ? (
-                <div className="mt-4 space-y-4">
+                <div className="space-y-4">
                     {data?.map((position, i) =>
                         isSingleMarket ? (
                             <PositionItemForSingleMarket

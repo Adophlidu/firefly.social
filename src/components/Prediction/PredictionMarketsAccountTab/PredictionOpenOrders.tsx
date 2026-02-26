@@ -41,7 +41,7 @@ export const PredictionOpenOrders = memo<PredictionOpenOrdersProps>(function Pre
         return <NoResultsFallback className="m-4 h-[274px]" message={<Trans>No open orders found.</Trans>} />;
 
     return (
-        <div className="space-y-4 p-4">
+        <div className="space-y-4 px-4 pt-4">
             {data.map((order) => (
                 <OpenOrderItem key={`${platform}:${order.id}`} platform={platform} order={order} />
             ))}
