@@ -29,6 +29,7 @@ export const ContractList = memo<Props>(function ContractList({
     return (
         <MoreActionMenu
             loginRequired={false}
+            buttonClassName="active:!scale-100"
             button={
                 children ?? (
                     <Tooltip content={<Trans>More</Trans>} placement="top">

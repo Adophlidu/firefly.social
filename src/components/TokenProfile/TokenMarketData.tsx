@@ -14,6 +14,7 @@ import PriceArrow from '@/assets/price-arrow.svg';
 import TwitterIcon from '@/assets/x-fill.svg';
 import { ChainIcon } from '@/components/ChainIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { Link } from '@/components/Link.js';
 import { PriceChart } from '@/components/PriceChart/index.js';
 import { useWithinRangeRecords } from '@/components/PriceChart/useWithinRangeRecords.js';
@@ -36,9 +37,9 @@ import { resolveCoinGeckoCoinChainId } from '@/helpers/resolveCoingeckoCoinChain
 import { resolveDexScreenerUrl } from '@/helpers/resolveDexScreenerUrl.js';
 import { resolveAddressLink } from '@/helpers/resolveExplorer.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
+import { stopPropagation } from '@/helpers/stopEvent.js';
 import { useCoinPriceStats } from '@/hooks/useCoinPriceStats.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
-import { type ImmediateOptions, useCopyText } from '@/hooks/useCopyText.js';
 import { useIsPriceUp } from '@/hooks/useIsPriceUp.js';
 import { useSingleCoin } from '@/hooks/useSingleCoin.js';
 import { useTokenPrice } from '@/hooks/useTokenPrice.js';
@@ -81,14 +82,6 @@ export interface TokenMarketDataProps extends HTMLProps<HTMLDivElement> {
     onRangeChange?: (range: string) => void;
     onTradeSelect?: (tradeHash: string) => void;
 }
-
-const copyOptions = {
-    enqueueSuccessMessage: true,
-    messageOptions: {
-        anchorOrigin: { vertical: 'top', horizontal: 'center' },
-        duration: 3000,
-    },
-} satisfies ImmediateOptions;
 
 export const TokenMarketData = memo(function TokenMarketData({
     chainId: propChainId,
@@ -220,23 +213,23 @@ export const TokenMarketData = memo(function TokenMarketData({
         ].filter((x) => x.url);
     }, [address, chainId, twitter_url]);
 
-    const [, handleCopy] = useCopyText('');
     const contractSelect =
         chainId && address ? (
             <div
                 className="mt-0.5 inline-flex h-[30px] w-auto cursor-pointer items-center gap-1 rounded-full border border-lightLineSecond bg-bg02 px-2 text-sm text-main"
                 data-address={address}
             >
-                <div
-                    className="inline-flex items-center gap-1"
-                    onClick={(e) => {
-                        e.stopPropagation();
-                        handleCopy(address, copyOptions);
-                    }}
-                >
+                <div className="inline-flex items-center gap-1">
                     <ChainIcon size={14} chainId={chainId} />
                     {address ? formatAddress(address, 4) : null}
                 </div>
+                <CopyTextButton
+                    text={address}
+                    notification="toast"
+                    size={14}
+                    className="text-main"
+                    onClick={stopPropagation}
+                />
                 {contracts.length > 1 ? <ArrowDownIcon width={14} height={14} className="text-second" /> : null}
             </div>
         ) : null;
