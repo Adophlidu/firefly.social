@@ -10,15 +10,21 @@ function getTransformer() {
     return Transformer;
 }
 
+function isActuallyPng(buffer: Buffer): boolean {
+    // PNG magic bytes: 89 50 4E 47 0D 0A 1A 0A
+    return buffer.length >= 8 && buffer[0] === 0x89 && buffer[1] === 0x50 && buffer[2] === 0x4e && buffer[3] === 0x47;
+}
+
 async function fetchAndTransform(imageUrl: string) {
     try {
         const response = await fetch(imageUrl);
         if (!response.ok) return null;
 
-        const contentType = response.headers.get('content-type') || 'image/jpeg';
         const arrayBuffer = await response.arrayBuffer();
         const buffer = Buffer.from(arrayBuffer);
-        if (contentType === 'image/png') return `data:${contentType};base64,${buffer.toString('base64')}`;
+
+        // Sometimes, even though the image has a png extension and the content-type also returns png, the image is actually jpeg. This will cause the transform to fail.
+        if (isActuallyPng(buffer)) return `data:image/png;base64,${buffer.toString('base64')}`;
 
         const Transformer = getTransformer();
         const tf = new Transformer(buffer);
