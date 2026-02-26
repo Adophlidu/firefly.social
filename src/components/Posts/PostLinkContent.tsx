@@ -60,7 +60,7 @@ export function PostLinkContent({ data, url, post, isInCompose }: PostLinkConten
         return null;
     }
 
-    const hasTwitterArticle = post.metadata.article ? TWITTER_ARTICLE_REGEX.test(url) : false;
+    const isTwitterArticleUrl = TWITTER_ARTICLE_REGEX.test(url);
 
     return (
         <>
@@ -90,7 +90,7 @@ export function PostLinkContent({ data, url, post, isInCompose }: PostLinkConten
             {data.frame ? <FrameLayout frame={data.frame} post={post} /> : null}
             {data.prediction_event ? <PredictionEventCard event={data.prediction_event} /> : null}
             {data.prediction_profile ? <PredictionProfileCard profile={data.prediction_profile} /> : null}
-            {data.oembed && !post.quoteOn && !hasTwitterArticle ? (
+            {data.oembed && !post.quoteOn && !isTwitterArticleUrl ? (
                 <OembedLayout
                     data={{
                         ...data.oembed,
