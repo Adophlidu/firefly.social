@@ -5,9 +5,9 @@ import { z } from 'zod';
 
 import { env } from '@/constants/env.js';
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
+import { generateSHA256JWT } from '@/helpers/generateSHA256JWT.js';
 import { getJsonBodyWithZodSchema } from '@/helpers/getJsonBodyWithZodSchema.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
-import { JWTGenerator } from '@/libs/JWTGenerator.js';
 import { generateFarcasterSignatures } from '@/providers/firefly/auth/generateFarcasterSignatures.js';
 import { HexString } from '@/schemas/HexString.js';
 
@@ -18,8 +18,7 @@ const BodySchema = z.object({
 export const POST = compose(withRequestErrorHandler(), async (request: NextRequest) => {
     const { key } = await getJsonBodyWithZodSchema(request, BodySchema);
 
-    const generator = new JWTGenerator();
-    const jwt = await generator.generateSHA256JWT(
+    const jwt = await generateSHA256JWT(
         {
             client_from: 'web',
         },
