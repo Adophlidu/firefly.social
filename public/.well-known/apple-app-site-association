@@ -8,6 +8,8 @@
                 ],
                 "appID": "7LFDZ96332.io.mask.Mask",
                 "paths": [
+		            "/opinion/*",
+		            "/polymarket/*",
                     "/post/*",
                     "/profile/*",
                     "/nft/*",
@@ -80,6 +82,14 @@
                     {
                         "/": "/tx/*",
                         "comment": "Matches any URL with a path that starts with /tx/."
+                    },
+                    {
+                        "/": "/polymarket/*",
+                        "comment": "Matches any URL with a path that starts with /polymarket/."
+                    },
+                    {
+                        "/": "/opinion/*",
+                        "comment": "Matches any URL with a path that starts with /opinion/."
                     }
                 ]
             }
