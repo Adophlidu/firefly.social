@@ -1,14 +1,10 @@
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
-import { motion } from 'framer-motion';
 import { memo, useCallback } from 'react';
 
-import LikeIcon from '@/assets/like.svg';
-import LikedIcon from '@/assets/liked.svg';
+import { LikeButtonUI } from '@/components/Actions/LikeButtonUI.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
-import { Tooltip } from '@/components/Tooltip.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
-import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
@@ -77,28 +73,12 @@ export const Like = memo<LikeProps>(function Like({ post, disabled = false, hidd
                 handleClick();
             }}
         >
-            <Tooltip
-                content={hasLiked ? <Trans>Unlike</Trans> : <Trans>Like</Trans>}
-                placement="top"
+            <LikeButtonUI
+                isLiked={!!hasLiked}
                 disabled={disabled}
-            >
-                <motion.button
-                    disabled={disabled}
-                    whileTap={{ scale: 0.9 }}
-                    className="inline-flex size-7 items-center justify-center rounded-full hover:bg-danger/[.20]"
-                >
-                    {hasLiked ? <LikedIcon width={16} height={16} /> : <LikeIcon width={16} height={16} />}
-                </motion.button>
-            </Tooltip>
-            {!hiddenCount && post.stats?.reactions ? (
-                <span
-                    className={classNames('text-xs', {
-                        'font-bold text-danger': !!hasLiked,
-                    })}
-                >
-                    {nFormatter(post.stats?.reactions)}
-                </span>
-            ) : null}
+                likeCount={!hiddenCount ? post.stats?.reactions : undefined}
+                className="inline-flex size-7 items-center justify-center rounded-full hover:bg-danger/[.20]"
+            />
         </ClickableArea>
     );
 });
