@@ -13,8 +13,7 @@ type Props = PropsWithChildren<Omit<LinkProps, 'href'>> &
         trusted?: boolean;
     };
 
-export function Link({ children, trusted = false, ...props }: Props) {
-    const { href } = props;
+export function Link({ children, trusted = false, href, onClick, ...rest }: Props) {
     const { data: internalLink } = useInternalLink(href);
 
     const onLinkClick = useCallback(
@@ -27,14 +26,14 @@ export function Link({ children, trusted = false, ...props }: Props) {
                 const confirmed = await ConfirmLeavingModalRef.openAndWaitForClose(href);
                 if (!confirmed) return;
             }
-            await openUrl(props.href);
-            props.onClick?.(event);
+            await openUrl(href);
+            onClick?.(event);
         },
-        [href, trusted, internalLink, props],
+        [href, trusted, internalLink, onClick],
     );
 
     return (
-        <OriginalLink {...props} onClick={onLinkClick}>
+        <OriginalLink {...rest} href={href} onClick={onLinkClick}>
             {children}
         </OriginalLink>
     );

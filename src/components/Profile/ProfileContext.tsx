@@ -27,8 +27,12 @@ export const ProfileContext = createContext<
     refreshedSocialProfile: null,
 });
 
-export function ProfileContextProvider({ children, ...value }: PropsWithChildren<ProfileContextProviderProps>) {
-    const { socialProfile } = value;
+export function ProfileContextProvider({
+    children,
+    identity,
+    profiles,
+    socialProfile,
+}: PropsWithChildren<ProfileContextProviderProps>) {
     const source = socialProfile?.source || Source.Farcaster;
     const isSyncing = useAsyncStatus(source);
     const currentProfile = useCurrentProfile(source);
@@ -47,11 +51,13 @@ export function ProfileContextProvider({ children, ...value }: PropsWithChildren
 
     const cachedValue = useMemo(
         () => ({
-            ...value,
+            identity,
+            profiles,
+            socialProfile,
             isRefreshing: isLoading || isSyncing,
             refreshedSocialProfile: refreshedProfile || socialProfile,
         }),
-        [refreshedProfile, value, socialProfile, isLoading, isSyncing],
+        [identity, profiles, socialProfile, isLoading, isSyncing, refreshedProfile],
     );
 
     return <ProfileContext.Provider value={cachedValue}>{children}</ProfileContext.Provider>;
