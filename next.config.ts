@@ -42,10 +42,6 @@ const config: NextConfig = {
         },
     },
     env: {
-        WEB3_CONSTANTS_RPC: process.env.WEB3_CONSTANTS_RPC ?? '',
-        MASK_SENTRY_DSN: process.env.MASK_SENTRY_DSN ?? '',
-        MASK_SENTRY: 'disabled',
-        MASK_MIXPANEL: 'disabled',
         VERSION: process.env.npm_package_version || '',
         COMMIT_HASH: execSync('git rev-parse --short HEAD').toString().trim(),
     },
