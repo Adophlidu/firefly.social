@@ -174,7 +174,7 @@ export const MirrorUI = memo<MirrorUIProps>(function Mirror({
                     {canUndoMirror ? (
                         <MenuItem>
                             {({ close }) => (
-                                <div
+                                <MenuButton
                                     className="flex w-full cursor-pointer items-center space-x-1 text-danger md:space-x-2"
                                     onClick={() => {
                                         close();
@@ -185,7 +185,7 @@ export const MirrorUI = memo<MirrorUIProps>(function Mirror({
                                     <span className="font-medium">
                                         <Trans>Undo repost</Trans>
                                     </span>
-                                </div>
+                                </MenuButton>
                             )}
                         </MenuItem>
                     ) : null}
