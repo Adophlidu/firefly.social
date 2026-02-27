@@ -9,17 +9,21 @@ import { Fragment, memo } from 'react';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
+import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 
+interface PolymarketWallet {
+    wallet: string;
+    proxy: string;
+}
 interface WalletsFilterProps {
-    wallets: Array<{
-        wallet: string;
-        proxy: string;
-    }>;
+    wallets: PolymarketWallet[];
     currentWallet: string;
-    onChange: (newWallet: string) => void;
+    onChange: (newWallet: PolymarketWallet) => void;
 }
 
 export const WalletsFilter = memo<WalletsFilterProps>(function WalletsFilter({ wallets, currentWallet, onChange }) {
+    const { wallets: fireflyWallets } = useFireflyWalletStore();
+
     if (wallets.length < 2) return null;
 
     return (
@@ -27,7 +31,13 @@ export const WalletsFilter = memo<WalletsFilterProps>(function WalletsFilter({ w
             {({ close }) => (
                 <>
                     <PopoverButton className="flex h-9 min-w-32 cursor-pointer items-center justify-between gap-1 rounded-md border border-secondaryLine bg-bottom px-2 text-sm font-semibold text-main focus:outline-none">
-                        <span>{formatAddressEthereum(currentWallet, 4)}</span>
+                        <span>
+                            {fireflyWallets.ethereum.some((x) => isSameEthereumAddress(x.address, currentWallet)) ? (
+                                <Trans>Firefly Wallet</Trans>
+                            ) : (
+                                formatAddressEthereum(currentWallet, 4)
+                            )}
+                        </span>
                         <ChevronDownIcon className="size-4 text-secondary" />
                     </PopoverButton>
                     <Transition
@@ -51,6 +61,9 @@ export const WalletsFilter = memo<WalletsFilterProps>(function WalletsFilter({ w
                             <div className="mt-2 space-y-1">
                                 {wallets.map((wallet) => {
                                     const isSelected = isSameEthereumAddress(wallet.proxy, currentWallet);
+                                    const isFireflyWallet = fireflyWallets.ethereum.some((x) =>
+                                        isSameEthereumAddress(x.address, wallet.wallet),
+                                    );
 
                                     return (
                                         <ClickableButton
@@ -60,12 +73,12 @@ export const WalletsFilter = memo<WalletsFilterProps>(function WalletsFilter({ w
                                                 isSelected ? 'bg-lightBg font-semibold' : '',
                                             )}
                                             onClick={() => {
-                                                onChange(wallet.proxy);
+                                                onChange(wallet);
                                                 close();
                                             }}
                                         >
                                             <span className="min-w-0 flex-1 truncate text-left text-sm font-medium text-main">
-                                                {wallet.proxy}
+                                                {isFireflyWallet ? <Trans>Firefly Wallet</Trans> : wallet.proxy}
                                             </span>
                                         </ClickableButton>
                                     );

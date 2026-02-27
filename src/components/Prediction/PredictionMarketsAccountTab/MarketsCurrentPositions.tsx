@@ -15,6 +15,8 @@ import { PredictionPositionAction } from '@/components/Prediction/PredictionPosi
 import { PredictionPositionItem } from '@/components/Prediction/PredictionPositionItem.js';
 import { PredictionPlatform, Source } from '@/constants/enum.js';
 import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
+import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
+import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 import type { BetsMarketDataForUI, PredictionPositionDataForUI } from '@/types/prediction.js';
 
 interface Props {
@@ -85,25 +87,30 @@ export const MarketsCurrentPositions = memo<Props>(function MarketsCurrentPositi
     wallets,
     eventId,
 }) {
-    const [selectedWallet, setSelectedWallet] = useState(first(wallets)?.proxy || '');
+    const [selectedWallet, setSelectedWallet] = useState(first(wallets));
+    const { wallets: fireflyWallets } = useFireflyWalletStore();
+
+    const proxyAddress = selectedWallet?.proxy || '';
     const { data, isLoading } = useQuery({
-        queryKey: [Source.Prediction, 'user-current-positions', platform, eventId, selectedWallet.toLowerCase()],
-        enabled: !!selectedWallet,
-        queryFn: async () => {
-            return getPredictionPositionList(platform, {
-                address: selectedWallet,
+        queryKey: [Source.Prediction, 'user-current-positions', platform, eventId, proxyAddress.toLowerCase()],
+        enabled: !!proxyAddress,
+        queryFn: () =>
+            getPredictionPositionList(platform, {
+                address: proxyAddress,
                 eventId,
                 isProxyAddress: true,
-            });
-        },
+            }),
         select: (result) => result?.data?.filter((position) => position.shares >= 0.01),
     });
 
     const isSingleMarket = markets.length === 1;
+    const isFireflyWallet = fireflyWallets.ethereum.some((x) =>
+        isSameEthereumAddress(x.address, selectedWallet?.wallet),
+    );
 
     return (
         <div className="px-4 pt-4">
-            <WalletsFilter wallets={wallets} currentWallet={selectedWallet} onChange={setSelectedWallet} />
+            <WalletsFilter wallets={wallets} currentWallet={proxyAddress} onChange={setSelectedWallet} />
             {isLoading ? (
                 <Loading />
             ) : data?.length ? (
@@ -120,7 +127,7 @@ export const MarketsCurrentPositions = memo<Props>(function MarketsCurrentPositi
                                 key={`${position.conditionId}-${i}`}
                                 positionData={position}
                                 platform={platform}
-                                showAction={platform === PredictionPlatform.Polymarket}
+                                showAction={platform === PredictionPlatform.Polymarket && isFireflyWallet}
                             />
                         ),
                     )}
