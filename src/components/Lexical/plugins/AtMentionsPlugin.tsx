@@ -33,14 +33,6 @@ import { searchIdentity } from '@/providers/firefly/endpoint/searchIdentity.js';
 import { twitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 import { type Profile } from '@/providers/types/Firefly.js';
 
-const PUNCTUATION = '\\.,\\+\\*\\?\\$\\@\\|#{}\\(\\)\\^\\[\\]\\\\/!%\'"~=<>_:;\\-';
-const NAME = `\\b[A-Z][^\\s${PUNCTUATION}]`;
-
-const DocumentMentionsRegex = {
-    NAME,
-    PUNCTUATION,
-};
-
 const TRIGGERS = ['@'].join('');
 
 const VALID_CHARS = `[a-zA-Z0-9_-]`;
@@ -187,9 +179,9 @@ export function MentionsPlugin(): JSX.Element | null {
 
     const { data, isLoading } = useQuery({
         enabled: !!debounceQuery,
-        queryKey: ['searchProfiles', availableSources, debounceQuery, profileIds.join('_')],
+        queryKey: ['searchProfiles', availableSources, debounceQuery, profileIds],
         queryFn: async () => {
-            if (!debounceQuery) return;
+            if (!debounceQuery) return EMPTY_LIST;
             const data = await searchIdentity(debounceQuery, {
                 platforms: availableSources,
                 size: 50,
@@ -220,17 +212,23 @@ export function MentionsPlugin(): JSX.Element | null {
         return data
             .map(({ profile, related }) => {
                 const source = resolveSocialSourceFromFireflyPlatform(profile.platform);
+                // Filter related profiles to only include available sources and exclude non-social platforms (Wallet)
+                const filteredRelated = related.filter(
+                    (p) =>
+                        p.platform !== FireflyPlatform.Wallet &&
+                        availableSources.includes(resolveSocialSourceFromFireflyPlatform(p.platform)),
+                );
                 return new MentionTypeaheadOption(
                     profile.platform_id,
                     profile.name,
                     profile.handle,
                     profile.avatar || getStampAvatarByProfileId(source, profile.platform_id) || '',
                     source,
-                    related,
+                    filteredRelated,
                 );
             })
             .slice(0, SUGGESTION_LIST_LENGTH_LIMIT);
-    }, [data]);
+    }, [data, availableSources]);
 
     const checkForSlashTriggerMatch = useBasicTypeaheadTriggerMatch('/', {
         minLength: 0,
@@ -309,7 +307,7 @@ export function MentionsPlugin(): JSX.Element | null {
                                   </div>
                               ) : (
                                   <menu className="no-scrollbar max-h-[260px] overflow-auto">
-                                      {options.map((option, i: number) => (
+                                      {options.map((option, i) => (
                                           <MentionsTypeaheadMenuItem
                                               index={i}
                                               isSelected={selectedIndex === i}

@@ -26,11 +26,11 @@ export function MentionsMenu({ editor, text, isDarkMode, onEdit, ...props }: Men
     const compositePost = useCompositePost();
     const profiles = useMemo(() => {
         return (
-            props.profiles?.filter((x) =>
-                compositePost?.availableSources.includes(resolveSocialSourceFromFireflyPlatform(x.platform)),
+            props.profiles.filter((x) =>
+                compositePost.availableSources.includes(resolveSocialSourceFromFireflyPlatform(x.platform)),
             ) || []
         );
-    }, [compositePost?.availableSources, props.profiles]);
+    }, [compositePost.availableSources, props.profiles]);
 
     const [, handleEdit] = useAsyncFn(
         async (close: () => void) => {
@@ -58,7 +58,7 @@ export function MentionsMenu({ editor, text, isDarkMode, onEdit, ...props }: Men
         [editor, onEdit, profiles, text],
     );
 
-    if (!compositePost || profiles.length === 0) return null;
+    if (!compositePost || profiles.length === 0) return text;
 
     return (
         <>
@@ -74,7 +74,7 @@ export function MentionsMenu({ editor, text, isDarkMode, onEdit, ...props }: Men
                             onMouseEnter={(e) => e.currentTarget.click()}
                         >
                             <span className="flex items-center -space-x-1">
-                                {profiles.map(({ platform, handle, platform_id }, index) => {
+                                {profiles.map(({ platform, handle }, index) => {
                                     if (!handle) return null;
                                     return platform === FireflyPlatform.Wallet ? null : (
                                         <span

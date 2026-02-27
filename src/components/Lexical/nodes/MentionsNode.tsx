@@ -9,6 +9,7 @@ import {
 import { type ReactNode } from 'react';
 
 import { MentionsMenu } from '@/components/MentionsMenu.js';
+import { EMPTY_LIST } from '@/constants/static.js';
 import { type Profile } from '@/providers/types/Firefly.js';
 
 interface SerializedMentionNode extends SerializedLexicalNode {
@@ -56,7 +57,7 @@ export class MentionNode extends DecoratorNode<ReactNode> {
                 onEdit={(newText, result) => {
                     this.getWritable().replace($createMentionNode(newText, result));
                 }}
-                profiles={this.__profiles || []}
+                profiles={this.__profiles || EMPTY_LIST}
             />
         );
     }
