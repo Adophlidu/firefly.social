@@ -80,7 +80,7 @@ Packages with Multiple Versions
  @next/env@16.0.0,16.0.11
  @noble/ciphers@1.2.1,1.3.0
  @noble/hashes@1.4.0,1.7.0,1.7.1,1.8.0
- @rollup/rollup-linux-x64-gnu@4.39.0,4.58.0
+ @rollup/rollup-linux-x64-gnu@4.39.0,4.59.0
  @scure/base@1.1.9,1.2.6
  @scure/bip32@1.4.0,1.6.2,1.7.0
  @scure/bip39@1.3.0,1.5.4,1.6.0
@@ -241,7 +241,7 @@ Packages with Multiple Versions
 *wagmi@2.19.5,3.1.4
  watchpack@2.4.4,2.5.1
  webidl-conversions@3.0.1,4.0.2,8.0.1
- webpack@5.103.0,5.105.2
+ webpack@5.103.0,5.105.3
  webpack-sources@3.3.3,3.3.4
  whatwg-url@15.1.0,5.0.0,7.1.0
  wrap-ansi@6.2.0,7.0.0,8.1.0
@@ -808,17 +808,17 @@ Packages with Single Version
  @svgr/plugin-jsx@8.1.0
  @svgr/plugin-svgo@8.1.0
 *@svgr/webpack@8.1.0
- @swc/core@1.15.11
- @swc/core-darwin-arm64@1.15.11
- @swc/core-darwin-x64@1.15.11
- @swc/core-linux-arm-gnueabihf@1.15.11
- @swc/core-linux-arm64-gnu@1.15.11
- @swc/core-linux-arm64-musl@1.15.11
- @swc/core-linux-x64-gnu@1.15.11
- @swc/core-linux-x64-musl@1.15.11
- @swc/core-win32-arm64-msvc@1.15.11
- @swc/core-win32-ia32-msvc@1.15.11
- @swc/core-win32-x64-msvc@1.15.11
+ @swc/core@1.15.17
+ @swc/core-darwin-arm64@1.15.17
+ @swc/core-darwin-x64@1.15.17
+ @swc/core-linux-arm-gnueabihf@1.15.17
+ @swc/core-linux-arm64-gnu@1.15.17
+ @swc/core-linux-arm64-musl@1.15.17
+ @swc/core-linux-x64-gnu@1.15.17
+ @swc/core-linux-x64-musl@1.15.17
+ @swc/core-win32-arm64-msvc@1.15.17
+ @swc/core-win32-ia32-msvc@1.15.17
+ @swc/core-win32-x64-msvc@1.15.17
  @swc/counter@0.1.3
  @swc/types@0.1.25
 *@tailwindcss/forms@0.5.11
@@ -1234,7 +1234,7 @@ Packages with Single Version
  for-each@0.3.5
  foreground-child@3.3.1
  form-data@4.0.5
-*foxact@0.2.52
+*foxact@0.2.53
  fraction.js@5.3.4
 *framer-motion@12.23.28
 *franc-min@6.2.0
