@@ -43,6 +43,7 @@ function SimplePriceChart({ data, marketId, width, height }: SimplePriceChartPro
     const prices = data.map((item) => (Number.isNaN(+item[marketId]) ? 0 : +item[marketId]));
 
     const validPrices = prices.filter((p) => p > 0);
+
     if (validPrices.length < 2) return null;
 
     const minPrice = Math.min(...validPrices);
@@ -133,7 +134,7 @@ async function PredictionEventOgImage({
                             style={{
                                 width: '570px',
                                 height: '630px',
-                                objectFit: 'cover',
+                                objectFit: 'contain',
                             }}
                         />
                     ) : null}
@@ -208,7 +209,12 @@ async function PredictionEventOgImage({
                                     display: 'flex',
                                 }}
                             >
-                                <SimplePriceChart data={priceHistory} marketId={market.id} width={558} height={200} />
+                                <SimplePriceChart
+                                    data={priceHistory}
+                                    marketId={platform === PredictionPlatform.Opinion ? market.questionId : market.id}
+                                    width={558}
+                                    height={200}
+                                />
                             </div>
                         ) : null}
                         {firstOutcome || secondOutcome ? (
@@ -311,7 +317,7 @@ async function PredictionEventOgImage({
                         style={{
                             width: '570px',
                             height: '630px',
-                            objectFit: 'cover',
+                            objectFit: 'contain',
                         }}
                     />
                 ) : null}
