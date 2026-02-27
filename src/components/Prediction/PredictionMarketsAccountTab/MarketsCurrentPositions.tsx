@@ -4,16 +4,20 @@ import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { first } from 'lodash-es';
-import { memo, useState } from 'react';
+import { memo, useMemo, useState } from 'react';
 
 import { Loading } from '@/components/Loading.js';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { formatPolymarketNumber } from '@/components/Polymarket/formatPolymarketNumber.js';
 import { getPredictionPositionList } from '@/components/Prediction/getPredictionPositionList.js';
-import { WalletsFilter } from '@/components/Prediction/PredictionMarketsAccountTab/WalletsFilter.js';
+import {
+    type PolymarketWallet,
+    WalletsFilter,
+} from '@/components/Prediction/PredictionMarketsAccountTab/WalletsFilter.js';
 import { PredictionPositionAction } from '@/components/Prediction/PredictionPositionAction.js';
 import { PredictionPositionItem } from '@/components/Prediction/PredictionPositionItem.js';
 import { PredictionPlatform, Source } from '@/constants/enum.js';
+import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
@@ -87,8 +91,20 @@ export const MarketsCurrentPositions = memo<Props>(function MarketsCurrentPositi
     wallets,
     eventId,
 }) {
-    const [selectedWallet, setSelectedWallet] = useState(first(wallets));
     const { wallets: fireflyWallets } = useFireflyWalletStore();
+    const betAccounts = useMemo<PolymarketWallet[]>(
+        () =>
+            wallets.map((w) => {
+                const isFireflyWallet = fireflyWallets.ethereum.some((x) => isSameEthereumAddress(x.address, w.wallet));
+                return {
+                    ...w,
+                    isFireflyWallet,
+                    label: isFireflyWallet ? <Trans>Firefly Wallet</Trans> : formatAddressEthereum(w.proxy, 4),
+                };
+            }),
+        [wallets, fireflyWallets.ethereum],
+    );
+    const [selectedWallet, setSelectedWallet] = useState(first(betAccounts));
 
     const proxyAddress = selectedWallet?.proxy || '';
     const { data, isLoading } = useQuery({
@@ -104,13 +120,10 @@ export const MarketsCurrentPositions = memo<Props>(function MarketsCurrentPositi
     });
 
     const isSingleMarket = markets.length === 1;
-    const isFireflyWallet = fireflyWallets.ethereum.some((x) =>
-        isSameEthereumAddress(x.address, selectedWallet?.wallet),
-    );
 
     return (
         <div className="px-4 pt-4">
-            <WalletsFilter wallets={wallets} currentWallet={proxyAddress} onChange={setSelectedWallet} />
+            <WalletsFilter wallets={betAccounts} currentWallet={selectedWallet} onChange={setSelectedWallet} />
             {isLoading ? (
                 <Loading />
             ) : data?.length ? (
@@ -127,7 +140,9 @@ export const MarketsCurrentPositions = memo<Props>(function MarketsCurrentPositi
                                 key={`${position.conditionId}-${i}`}
                                 positionData={position}
                                 platform={platform}
-                                showAction={platform === PredictionPlatform.Polymarket && isFireflyWallet}
+                                showAction={
+                                    platform === PredictionPlatform.Polymarket && selectedWallet?.isFireflyWallet
+                                }
                             />
                         ),
                     )}
