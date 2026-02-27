@@ -5,7 +5,9 @@ import { type NextRequest, NextResponse } from 'next/server.js';
 
 import { IS_DEVELOPMENT } from '@/constants/static.js';
 
-const DEVELOPMENT_SOURCES = IS_DEVELOPMENT ? ['http://localhost:3000', 'ws://localhost:3000'] : [];
+const DEVELOPMENT_SOURCES = IS_DEVELOPMENT
+    ? ['http://localhost:3000', 'ws://localhost:3000', 'http://localhost:3001', 'ws://localhost:3001']
+    : [];
 
 /**
  * Builds CSP policy with nonce
@@ -24,7 +26,14 @@ function buildCSPWithNonce(nonce: string): string {
         ...DEVELOPMENT_SOURCES,
     ];
 
-    const defaultSrc = ["'self'", 'https:', 'wss:', 'data:', 'blob:', ...DEVELOPMENT_SOURCES];
+    const defaultSrc = [
+        "'self'",
+        'https:',
+        'wss:',
+        'data:',
+        'blob:',
+        ...(IS_DEVELOPMENT ? ['ws:', ...DEVELOPMENT_SOURCES] : DEVELOPMENT_SOURCES),
+    ];
 
     const imgSrc = ["'self'", 'https:', 'data:', 'blob:', ...DEVELOPMENT_SOURCES];
 
