@@ -1,12 +1,10 @@
-import { logger } from '@/libs/Logger.js';
-
 /**
  * Creates a batcher function that batches multiple requests together to reduce API calls.
  *
  * @param fetcher - Function that accepts an array of payloads and returns a Promise with a Record mapping keys to results
  * @param options - Configuration options
- * @param options.size - Maximum number of items per batch (default: 10)
- * @param options.wait - Wait time in milliseconds before flushing the batch (default: 10)
+ * @param options.size - Maximum number of items per batch (default: 30)
+ * @param options.wait - Wait time in milliseconds before flushing the batch (default: 30)
  * @param options.makeKey - Function to generate a unique key from a payload (used for deduplication and result mapping)
  * @returns A function that accepts a single payload and returns a Promise with the corresponding result
  *
@@ -46,12 +44,12 @@ export function createBatcher<Payload extends object, Result>(
     type RejectFn = (reason: unknown) => void;
 
     let queue: Array<{ payload: Payload; resolve: ResolveFn; reject: RejectFn }> = [];
-    let timer: NodeJS.Timeout | null = null;
+    let timer: ReturnType<typeof setTimeout> | null = null;
 
     async function flush() {
         const current = queue;
 
-        logger.info(`[batcher] ${name} flushing ${current.length} items`);
+        console.info(`[batcher] ${name} flushing ${current.length} items`);
 
         // Clean
         queue = [];
@@ -74,7 +72,7 @@ export function createBatcher<Payload extends object, Result>(
         const results = await Promise.allSettled(chunks.map((chunk) => fetcher(chunk)));
         const mergedResults: Record<string, Result> = results.reduce((final, x) => {
             if (x.status === 'fulfilled') return Object.assign(final, x.value);
-            logger.error(`[batcher] ${name} failed to fetch ${x.reason}`);
+            console.error(`[batcher] ${name} failed to fetch`, x.reason);
             return final;
         }, {});
 

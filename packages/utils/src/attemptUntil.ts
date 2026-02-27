@@ -1,5 +1,3 @@
-import { isUndefined } from 'lodash-es';
-
 export function createPredicate<T, P extends T>(candidates: T[]) {
     return (candidate?: unknown): candidate is P => !!candidate && candidates.includes(candidate as T);
 }
@@ -7,7 +5,7 @@ export function createPredicate<T, P extends T>(candidates: T[]) {
 export async function attemptUntil<T>(
     funcs: Array<() => Promise<T> | undefined>,
     fallback: T,
-    predicator: (result: Awaited<T> | undefined) => boolean = isUndefined,
+    predicator: (result: Awaited<T> | undefined) => boolean = (x) => x === undefined,
     onlyThrowWhenAllFails = false,
 ) {
     const errors: Error[] = [];
@@ -25,7 +23,9 @@ export async function attemptUntil<T>(
         }
     }
 
-    if (errors.length && (!onlyThrowWhenAllFails || errors.length === funcs.length))
+    if (errors.length && (!onlyThrowWhenAllFails || errors.length === funcs.length)) {
         throw new AggregateError(errors, 'At least one of the attempts fails.');
+    }
+
     return fallback;
 }
