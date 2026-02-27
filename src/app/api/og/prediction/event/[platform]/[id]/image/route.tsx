@@ -134,7 +134,7 @@ async function PredictionEventOgImage({
                             style={{
                                 width: '570px',
                                 height: '630px',
-                                objectFit: 'contain',
+                                objectFit: 'cover',
                             }}
                         />
                     ) : null}
@@ -317,7 +317,7 @@ async function PredictionEventOgImage({
                         style={{
                             width: '570px',
                             height: '630px',
-                            objectFit: 'contain',
+                            objectFit: 'cover',
                         }}
                     />
                 ) : null}
