@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { TWITTER_TIMELINE_OPTIONS } from '@/constants/twitter.js';
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
+import { isNumericalProfileId } from '@/helpers/isNumericalProfileId.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { logger } from '@/libs/Logger.js';
 import { createTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
@@ -18,6 +19,9 @@ export const GET = compose(
     withRequestErrorHandler({ throwError: true }),
     async (request, context) => {
         const { userId } = await getParamsWithZodSchema(ParamsSchema, context);
+        if (!isNumericalProfileId(userId)) {
+            throw new NotFoundError('user id is not numerical');
+        }
 
         const client = await createTwitterClientV2();
         const user = await client.v2.user(userId, {
