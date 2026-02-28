@@ -44,6 +44,11 @@ class NitterAPI {
                 revalidate: 5,
             },
         });
+
+        if (response.error?.includes('not found')) {
+            throw new NotFoundError(`The tweet not found with id: ${id}`);
+        }
+
         return resolveNitterJsonResponse(url, response);
     }
 
