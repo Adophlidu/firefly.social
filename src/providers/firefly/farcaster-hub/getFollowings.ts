@@ -1,5 +1,6 @@
 import urlcat from 'urlcat';
 
+import { EMPTY_LIST } from '@/constants/static.js';
 import {
     createIndicator,
     createNextIndicator,
@@ -27,7 +28,13 @@ export async function getFollowings(
             sourceFid: session?.profileId,
         });
         const response = await fireflySessionHolder.fetch<UsersResponse>(url);
-        const { list, next_cursor } = resolveFireflyResponseData(response);
+        const data = resolveFireflyResponseData(response);
+
+        if (!data) {
+            return createPageable(EMPTY_LIST, createIndicator(indicator));
+        }
+
+        const { list, next_cursor } = data;
 
         return createPageable(
             ensureFollowersIsNotEmpty(list),

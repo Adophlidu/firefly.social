@@ -1,5 +1,6 @@
 import urlcat from 'urlcat';
 
+import { EMPTY_LIST } from '@/constants/static.js';
 import { omitEmptyParams } from '@/helpers/omitEmptyParams.js';
 import {
     createIndicator,
@@ -30,8 +31,13 @@ export async function getMutualFollowers(
         });
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/followersmutual', params);
         const response = await fireflySessionHolder.fetch<MutualFollowersResponse>(url);
+        const data = resolveFireflyResponseData(response);
 
-        const { list, total } = resolveFireflyResponseData(response);
+        if (!data) {
+            return createPageable(EMPTY_LIST, createIndicator(indicator), undefined, 0);
+        }
+
+        const { list, total } = data;
         const currentCursor = Number.parseInt(params.cursor || '0', 10);
         const next_cursor = total > currentCursor + size ? currentCursor + size : undefined;
 

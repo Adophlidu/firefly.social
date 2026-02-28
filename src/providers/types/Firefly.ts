@@ -334,12 +334,12 @@ interface Relationship {
     snsPlatform: string;
 }
 
-export type UsersResponse = Response<UsersData>;
+export type UsersResponse = Response<UsersData | null>;
 
 export type MutualFollowersResponse = Response<{
     list: User[];
     total: number;
-}>;
+} | null>;
 
 export type BlockedUsersResponse = Response<{
     page: number;
