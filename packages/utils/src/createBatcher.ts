@@ -1,16 +1,19 @@
 /**
  * Creates a batcher function that batches multiple requests together to reduce API calls.
  *
+ * @param name - Name of the batcher for logging purposes
  * @param fetcher - Function that accepts an array of payloads and returns a Promise with a Record mapping keys to results
  * @param options - Configuration options
  * @param options.size - Maximum number of items per batch (default: 30)
  * @param options.wait - Wait time in milliseconds before flushing the batch (default: 30)
  * @param options.makeKey - Function to generate a unique key from a payload (used for deduplication and result mapping)
+ * @param options.onMissing - Optional function to generate a default result when a key is not found in fetcher response
  * @returns A function that accepts a single payload and returns a Promise with the corresponding result
  *
  * @example
  * ```ts
  * const batchedFetch = createBatcher(
+ *   'fetch-users',
  *   async (users) => {
  *     const response = await fetch('/api/users', {
  *       method: 'POST',
@@ -34,16 +37,17 @@ export function createBatcher<Payload extends object, Result>(
         size?: number;
         wait?: number; // ms
         makeKey: (payload: Payload) => string; // determines deduping and mapping
+        onMissing?: (payload: Payload) => Result; // called when key not found in fetcher response
     },
 ) {
     const size = options.size ?? 30;
     const wait = options.wait ?? 30;
     const makeKey = options.makeKey;
+    const onMissing = options.onMissing;
 
     type ResolveFn = (value: Result | undefined) => void;
-    type RejectFn = (reason: unknown) => void;
 
-    let queue: Array<{ payload: Payload; resolve: ResolveFn; reject: RejectFn }> = [];
+    let queue: Array<{ payload: Payload; resolve: ResolveFn }> = [];
     let timer: ReturnType<typeof setTimeout> | null = null;
 
     async function flush() {
@@ -77,17 +81,22 @@ export function createBatcher<Payload extends object, Result>(
         }, {});
 
         // Resolve callers
-        for (const { payload, resolve, reject } of current) {
+        for (const { payload, resolve } of current) {
             const key = makeKey(payload);
 
-            if (Object.hasOwn(mergedResults, key)) resolve(mergedResults[key]);
-            else reject(new Error(`Key ${key} not found in merged results`));
+            if (Object.hasOwn(mergedResults, key)) {
+                resolve(mergedResults[key]);
+            } else if (onMissing) {
+                resolve(onMissing(payload));
+            } else {
+                resolve(undefined);
+            }
         }
     }
 
     return function batched(payload: Payload): Promise<Result | undefined> {
-        return new Promise((resolve, reject) => {
-            queue.push({ payload, resolve, reject });
+        return new Promise((resolve) => {
+            queue.push({ payload, resolve });
             if (!timer) timer = setTimeout(flush, wait);
         });
     };

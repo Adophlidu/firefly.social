@@ -109,6 +109,15 @@ const batchedQueryMutedProfile = createBatcher<MutedProfilePayload, MutedProfile
     makeKey: (payload) => `${payload.source}:${payload.profileId}`,
     size: 1000,
     wait: 1000,
+    onMissing: (payload) => {
+        // Update cache with default value when profile not found
+        queryClient.setQueryData(['profile-is-muted', payload.source, payload.profileId], false);
+        return {
+            source: payload.source,
+            profileId: payload.profileId,
+            blocked: false,
+        };
+    },
 });
 
 /**
