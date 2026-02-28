@@ -7,6 +7,7 @@ export interface Response<T> {
     code: ResponseCode;
     data?: T;
     error?: string;
+    error_type?: string;
 }
 
 export type GetTweetStatusResponse = Response<{

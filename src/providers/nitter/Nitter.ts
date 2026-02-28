@@ -39,13 +39,17 @@ class NitterAPI {
             id,
             cursor: options?.cursor,
         });
-        const response = await fetchJson<GetTweetStatusResponse>(url, {
-            next: {
-                revalidate: 5,
+        const response = await fetchJson<GetTweetStatusResponse>(
+            url,
+            {
+                next: {
+                    revalidate: 5,
+                },
             },
-        });
+            { noStrictOK: true },
+        );
 
-        if (response.error?.includes('not found')) {
+        if (response.error_type === 'not_found') {
             throw new NotFoundError(`The tweet not found with id: ${id}`);
         }
 
@@ -57,13 +61,17 @@ class NitterAPI {
         const url = urlcat(FIREFLY_NITTER_URL, '/api/:handle/profile', {
             handle,
         });
-        const response = await fetchJson<GetProfileResponse>(url, {
-            next: {
-                revalidate: 5,
+        const response = await fetchJson<GetProfileResponse>(
+            url,
+            {
+                next: {
+                    revalidate: 5,
+                },
             },
-        });
+            { noStrictOK: true },
+        );
 
-        if (response.error?.includes('User not found')) {
+        if (response.error_type === 'not_found') {
             throw new NotFoundError(`The twitter profile not found with handle: ${handle}`);
         }
 
