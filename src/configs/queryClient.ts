@@ -8,6 +8,7 @@ const IGNORED_ERROR_NAMES = [
     'AbortError', // User-cancelled requests
     'ForbiddenError', // Handled by AuthGuard
     'SessionExpiredError', // Handled by session management
+    'AccountSuspendedError', // Handled by SuspendedAccountFallback
 ];
 
 /**

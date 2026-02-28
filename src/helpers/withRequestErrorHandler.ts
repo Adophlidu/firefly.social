@@ -3,7 +3,7 @@ import { NotFoundError, parseJson, UnauthorizedError } from '@dimensiondev/utils
 import { type NextRequest } from 'next/server.js';
 import { ZodError } from 'zod';
 
-import { MalformedRequestError } from '@/constants/error.js';
+import { AccountSuspendedError, MalformedRequestError } from '@/constants/error.js';
 import { createErrorResponseJson } from '@/helpers/createResponseJson.js';
 import { configureErrorCapture } from '@/providers/errorCapture/configure.js';
 import { type NextRequestContext } from '@/types/utility.js';
@@ -37,6 +37,11 @@ export function withRequestErrorHandler<P>(options?: { throwError?: boolean }) {
                     });
                 }
                 if (error instanceof NotFoundError) {
+                    return createErrorResponseJson(error.message, {
+                        status: 404,
+                    });
+                }
+                if (error instanceof AccountSuspendedError) {
                     return createErrorResponseJson(error.message, {
                         status: 404,
                     });
