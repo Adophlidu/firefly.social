@@ -9,7 +9,6 @@ import {
 } from '@lexical/react/LexicalTypeaheadMenuPlugin.js';
 import { useQuery } from '@tanstack/react-query';
 import { $getSelection, $isRangeSelection, type TextNode } from 'lexical';
-import { compact } from 'lodash-es';
 import { type JSX, memo, useCallback, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useDebounceValue, useOnClickOutside } from 'usehooks-ts';
@@ -21,17 +20,14 @@ import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { FireflyPlatform, type SocialSource, Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/static.js';
-import { composeSearchProfiles, formatSearchProfile, sortSearchProfiles } from '@/helpers/formatSearchProfile.js';
 import { getSafeMentionQueryText } from '@/helpers/getMentionOriginalText.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { resolveSocialSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
-import { searchBskyProfiles } from '@/providers/bsky/searchBskyProfiles.js';
-import { searchIdentity } from '@/providers/firefly/endpoint/searchIdentity.js';
-import { twitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 import { type Profile } from '@/providers/types/Firefly.js';
+import { searchProfilesByKeyword } from '@/services/searchProfilesByKeyword.js';
 
 const TRIGGERS = ['@'].join('');
 
@@ -182,27 +178,18 @@ export function MentionsPlugin(): JSX.Element | null {
         queryKey: ['searchProfiles', availableSources, debounceQuery, profileIds],
         queryFn: async () => {
             if (!debounceQuery) return EMPTY_LIST;
-            const data = await searchIdentity(debounceQuery, {
+            const { profiles } = await searchProfilesByKeyword({
+                keyword: debounceQuery,
                 platforms: availableSources,
-                size: 50,
+                identitySize: 50,
+                twitterSize: 30,
+                bskySize: 10,
+                skip: {
+                    twitter: !availableSources.includes(Source.Twitter),
+                    bsky: !availableSources.includes(Source.Bsky),
+                },
             });
-            const bskyProfiles = availableSources.includes(Source.Bsky)
-                ? await searchBskyProfiles(debounceQuery, undefined, 10)
-                : undefined;
-
-            const twitterProfiles = availableSources.includes(Source.Twitter)
-                ? await twitterSocialMediaProxy.searchProfiles(debounceQuery, undefined, 30)
-                : undefined;
-
-            if (!data?.data && !bskyProfiles?.data && !twitterProfiles) return EMPTY_LIST;
-            return sortSearchProfiles(
-                composeSearchProfiles(
-                    compact(data.data.map((x) => formatSearchProfile(x, debounceQuery))),
-                    twitterProfiles?.data || EMPTY_LIST,
-                    bskyProfiles?.data || EMPTY_LIST,
-                ),
-                debounceQuery,
-            );
+            return profiles;
         },
     });
 

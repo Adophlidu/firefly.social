@@ -72,6 +72,7 @@ const trustedHosts = [
     'discord.com',
     'pump.fun',
     'polymarket.com',
+    'app.opinion.trade',
     'x.com',
     'twitter.com',
     'vxtwitter.com', // third-party twitter url converter

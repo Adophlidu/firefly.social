@@ -5,13 +5,17 @@ import { memo, type ReactNode } from 'react';
 import { ListInPage } from '@/components/ListInPage.js';
 import { Empty } from '@/components/Search/Empty.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
-import { ScrollListKey, type SearchType, Source } from '@/constants/enum.js';
+import { ScrollListKey, type SearchType, type SocialSource, Source } from '@/constants/enum.js';
 import { EMPTY_LIST, REQUIRE_LOGIN_SOURCES_IN_SEARCH } from '@/constants/static.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
+import { resolveSearchUrlType, SearchUrlKind } from '@/helpers/resolveSearchUrlType.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useMultiInfiniteQueryPageable } from '@/hooks/useMultiInfiniteQueryPageable.js';
+import { logger } from '@/libs/Logger.js';
+import { getPostByShortId } from '@/providers/firefly/farcaster-hub/getPostByShortId.js';
+import { getPostById } from '@/services/getPostById.js';
 
 interface Props {
     keyword: string | string[];
@@ -40,13 +44,35 @@ export const SearchPostList = memo<Props>(function SearchPostList({
         keywords.map((keyword) => ({
             key: keyword,
             queryFn: async ({ pageParam }) => {
+                if (!keyword?.trim() || invalidQuery || (loginRequired && !isLogin)) {
+                    return createPageable(EMPTY_LIST, createIndicator(undefined, pageParam));
+                }
+
                 try {
-                    if (!keyword?.trim() || invalidQuery || (loginRequired && !isLogin)) {
-                        return createPageable(EMPTY_LIST, createIndicator(undefined, pageParam));
-                    }
                     const indicator = pageParam ? createIndicator(undefined, pageParam) : undefined;
                     const provider = resolveSocialMediaProvider(socialSource);
-                    return await provider.searchPosts(keyword.replace(/^#/, ''), indicator, keyword.includes(' '));
+                    const result = await provider.searchPosts(
+                        keyword.replace(/^#/, ''),
+                        indicator,
+                        keyword.includes(' '),
+                    );
+
+                    if (!pageParam) {
+                        const urlResult = resolveSearchUrlType(keyword);
+                        if (urlResult?.kind === SearchUrlKind.Post && urlResult.source && urlResult.identifier) {
+                            try {
+                                const post =
+                                    urlResult.source === Source.Farcaster && urlResult.secondaryId
+                                        ? await getPostByShortId(urlResult.identifier, urlResult.secondaryId)
+                                        : await getPostById(urlResult.source as SocialSource, urlResult.identifier);
+                                result.data.unshift(post);
+                            } catch (error) {
+                                logger.error('[Search] Failed to fetch pinned post', error);
+                            }
+                        }
+                    }
+
+                    return result;
                 } catch {
                     return createPageable(EMPTY_LIST, createIndicator(undefined, pageParam));
                 }

@@ -75,3 +75,12 @@ export const YOUTUBE_URL_REGEX = /^https?:\/\/(?:www\.)?youtu(?:be\.com\/watch\?
 export const YOUTUBE_SHORT_URL_REGEX = /^https?:\/\/(?:www\.)?youtu(?:be\.com\/shorts\/|\.be\/)([\w-]+)(?:\?.*)?$/;
 
 export const TWITTER_ARTICLE_REGEX = /^https?:\/\/(x|twitter)\.com\/i\/article\/\d+$/;
+
+// Search URL detection patterns
+export const ORB_POST_REGEX = /^\/p\/([^/?]+)/;
+export const ORB_PROFILE_REGEX = /^\/@([^/?]+)/;
+export const HEY_POST_REGEX = /^\/posts\/([^/?]+)/;
+export const HEY_PROFILE_REGEX = /^\/u\/([^/?]+)/;
+export const POLYMARKET_EVENT_REGEX = /^\/event\/([^/?]+)/;
+export const X_PROFILE_REGEX = /^\/([A-Za-z0-9_]{1,15})\/?$/;
+export const FARCASTER_PROFILE_REGEX = /^\/([^/]+)\/?$/;

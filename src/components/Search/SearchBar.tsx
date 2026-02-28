@@ -10,11 +10,13 @@ import { BackButton } from '@/components/IconButton.js';
 import { SearchInput } from '@/components/Search/SearchInput.js';
 import { SearchRecommendation } from '@/components/Search/SearchRecommendation.js';
 import { Section } from '@/components/Semantic/Section.js';
-import { PageRoute, SearchType } from '@/constants/enum.js';
-import { usePathname } from '@/esm/navigation.js';
+import { ExploreType, PageRoute, SearchType } from '@/constants/enum.js';
+import { usePathname, useRouter } from '@/esm/navigation.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isValidAddress, isValidAddressEthereum } from '@/helpers/isValidAddress.js';
+import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 import { resolveSearchTypeFromQuery } from '@/helpers/resolveSearchTypeFromQuery.js';
+import { resolveSearchUrlType, SearchUrlKind } from '@/helpers/resolveSearchUrlType.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 import { fireflyWalletProvider } from '@/providers/firefly/Wallet.js';
 import { useSearchHistoryStateStore } from '@/store/useSearchHistoryStore.js';
@@ -23,6 +25,20 @@ import { type SearchState, useSearchStateStore } from '@/store/useSearchStore.js
 interface SearchBarProps extends HTMLProps<HTMLDivElement> {
     slot: 'header' | 'secondary';
     autoSearchType?: boolean;
+}
+
+const SEARCH_TYPE_TO_EXPLORE: Partial<Record<SearchType, ExploreType>> = {
+    [SearchType.Profiles]: ExploreType.TopProfiles,
+    [SearchType.Tokens]: ExploreType.CryptoTrends,
+    [SearchType.NFTs]: ExploreType.NFTs,
+    [SearchType.Clubs]: ExploreType.TopChannels,
+    [SearchType.Prediction]: ExploreType.Prediction,
+};
+
+function resolveExploreUrlFromSearchType(searchType: SearchType): string {
+    const exploreType = SEARCH_TYPE_TO_EXPLORE[searchType];
+    if (!exploreType) return resolveExploreUrl(ExploreType.Prediction);
+    return resolveExploreUrl(exploreType);
 }
 
 function useDetectAddress(address?: string) {
@@ -40,7 +56,7 @@ function useDetectAddress(address?: string) {
 function SearchBar({ slot, autoSearchType = false, className, ...rest }: SearchBarProps) {
     const [showRecommendation, setShowRecommendation] = useState(false);
 
-    const { searchKeyword, updateState } = useSearchStateStore();
+    const { searchKeyword, searchType, updateState } = useSearchStateStore();
     const { addRecord } = useSearchHistoryStateStore();
 
     const pathname = usePathname();
@@ -51,6 +67,7 @@ function SearchBar({ slot, autoSearchType = false, className, ...rest }: SearchB
     const [inputText, setInputText] = useState(searchKeyword);
 
     const comeback = useComeBack();
+    const router = useRouter();
 
     useOnClickOutside(rootRef, () => {
         setShowRecommendation(false);
@@ -102,8 +119,24 @@ function SearchBar({ slot, autoSearchType = false, className, ...rest }: SearchB
                     className="w-full flex-1"
                     onSubmit={(ev) => {
                         ev.preventDefault();
+                        const urlResult = resolveSearchUrlType(inputText);
+                        if (urlResult) {
+                            if (urlResult.kind === SearchUrlKind.FireflyInternal && urlResult.internalPath) {
+                                router.push(urlResult.internalPath);
+                                setShowRecommendation(false);
+                                return;
+                            }
+
+                            handleInputSubmit({
+                                q: inputText,
+                                type: urlResult.searchType,
+                                source: urlResult.source,
+                            });
+                            return;
+                        }
+
                         const autoRouting = autoSearchType || isValidAddress(inputText);
-                        const searchType = isProfile
+                        const resolvedSearchType = isProfile
                             ? SearchType.Profiles
                             : isTokenAddress
                               ? SearchType.Tokens
@@ -113,7 +146,7 @@ function SearchBar({ slot, autoSearchType = false, className, ...rest }: SearchB
 
                         handleInputSubmit({
                             q: inputText,
-                            type: searchType,
+                            type: resolvedSearchType,
                         });
                     }}
                 >
@@ -122,7 +155,13 @@ function SearchBar({ slot, autoSearchType = false, className, ...rest }: SearchB
                         value={inputText}
                         onChange={(ev) => setInputText(ev.currentTarget.value)}
                         onFocus={() => setShowRecommendation(true)}
-                        onClear={() => setInputText('')}
+                        onClear={() => {
+                            setInputText('');
+                            if (isSearchPage) {
+                                const exploreUrl = resolveExploreUrlFromSearchType(searchType);
+                                router.push(exploreUrl);
+                            }
+                        }}
                     />
                 </form>
                 {showRecommendation ? (

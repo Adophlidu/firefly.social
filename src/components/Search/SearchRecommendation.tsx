@@ -109,6 +109,20 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                                 ,{' '}
                                 <Link
                                     className="relative z-1 text-highlight hover:underline"
+                                    href={fixSearchUrl(false, keyword, SearchType.Prediction, source)}
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        onSearch?.({
+                                            q: keyword,
+                                            type: SearchType.Prediction,
+                                        });
+                                    }}
+                                >
+                                    predictions
+                                </Link>{' '}
+                                and{' '}
+                                <Link
+                                    className="relative z-1 text-highlight hover:underline"
                                     href={fixSearchUrl(false, keyword, SearchType.Tokens, source)}
                                     onClick={(e) => {
                                         e.stopPropagation();
@@ -119,8 +133,8 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                                     }}
                                 >
                                     tokens
-                                </Link>
-                                ...
+                                </Link>{' '}
+                                by keyword or link
                             </Trans>
                         </div>
                     </div>

@@ -2229,9 +2229,6 @@ msgstr ""
 msgid "5 minutes"
 msgstr ""
 
-msgid "Search <0>posts</0>, <1>users</1>, <2>tokens</2>..."
-msgstr ""
-
 msgid "This Bluesky account is already linked to another Firefly account."
 msgstr ""
 
@@ -4901,6 +4898,9 @@ msgid "No dispute"
 msgstr ""
 
 msgid "Remind me later"
+msgstr ""
+
+msgid "Search <0>posts</0>, <1>users</1>, <2>predictions</2> and <3>tokens</3> by keyword or link"
 msgstr ""
 
 msgid "Choose a token to send"

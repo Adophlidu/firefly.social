@@ -6,14 +6,15 @@ import { compact, uniqBy } from 'lodash-es';
 import { ListInPage } from '@/components/ListInPage.js';
 import { Empty } from '@/components/Search/Empty.js';
 import { SearchableProfileItem } from '@/components/Search/SearchableProfileItem.js';
-import { ScrollListKey } from '@/constants/enum.js';
-import { composeSearchProfiles, formatSearchProfile, sortSearchProfiles } from '@/helpers/formatSearchProfile.js';
+import { FireflyPlatform, ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
 import { toFireflyPlatformId } from '@/helpers/isSameProfile.js';
 import { createIndicator } from '@/helpers/pageable.js';
-import { searchBskyProfiles } from '@/providers/bsky/searchBskyProfiles.js';
-import { searchIdentity } from '@/providers/firefly/endpoint/searchIdentity.js';
-import { twitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
+import { resolveFireflyPlatform } from '@/helpers/resolveFireflyPlatform.js';
+import { resolveSearchUrlType, SearchUrlKind } from '@/helpers/resolveSearchUrlType.js';
+import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { logger } from '@/libs/Logger.js';
 import { type Profile as FireflyProfile } from '@/providers/types/Firefly.js';
+import { searchProfilesByKeyword } from '@/services/searchProfilesByKeyword.js';
 import { searchWalletAddress } from '@/services/searchWalletAddress.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
 
@@ -28,15 +29,6 @@ const getSearchItemContent = ({ profile, related }: { profile: FireflyProfile; r
     );
 };
 
-function formatTwitterSearchKeyword(input: string) {
-    if (!input?.trim()) return;
-
-    return input
-        .replace(/[^A-Za-z0-9_'\s]/g, '')
-        .trim()
-        .replace(/\s+/g, ' ');
-}
-
 const noNextPage = '__no_next_page__';
 
 export function SearchProfileContent() {
@@ -50,52 +42,73 @@ export function SearchProfileContent() {
             const fireflyIndicator = pageParam.firefly ? createIndicator(undefined, pageParam.firefly) : undefined;
             const twitterIndicator = pageParam.twitter ? createIndicator(undefined, pageParam.twitter) : undefined;
             const bskyIndicator = pageParam.bsky ? createIndicator(undefined, pageParam.bsky) : undefined;
-            const trimmed = formatTwitterSearchKeyword(searchKeyword);
 
-            const [fireflyRes, xRes, bskyRes] = await Promise.allSettled([
-                pageParam.firefly !== noNextPage
-                    ? searchIdentity(searchKeyword, {
-                          signal,
-                          size: 10,
-                          indicator: fireflyIndicator,
-                      })
-                    : undefined,
-                pageParam.twitter !== noNextPage && trimmed
-                    ? twitterSocialMediaProxy.searchProfiles(trimmed, twitterIndicator, 7)
-                    : undefined,
-                pageParam.bsky !== noNextPage ? searchBskyProfiles(searchKeyword, bskyIndicator, 3) : undefined,
-            ]);
-            const data = fireflyRes.status === 'fulfilled' ? fireflyRes.value : undefined;
-            const twitterProfiles = xRes.status === 'fulfilled' ? xRes.value : undefined;
-            const bskyProfiles = bskyRes.status === 'fulfilled' ? bskyRes.value : undefined;
-
-            const socialProfiles = sortSearchProfiles(
-                composeSearchProfiles(
-                    compact(data?.data.map((x) => formatSearchProfile(x, searchKeyword))),
-                    twitterProfiles?.data || [],
-                    bskyProfiles?.data || [],
-                ),
-                searchKeyword,
-            );
+            const {
+                profiles: socialProfiles,
+                fireflyData,
+                twitterProfiles,
+                bskyProfiles,
+            } = await searchProfilesByKeyword({
+                keyword: searchKeyword,
+                signal,
+                identitySize: 10,
+                twitterSize: 7,
+                bskySize: 3,
+                indicators: {
+                    firefly: fireflyIndicator,
+                    twitter: twitterIndicator,
+                    bsky: bskyIndicator,
+                },
+                skip: {
+                    firefly: pageParam.firefly === noNextPage,
+                    twitter: pageParam.twitter === noNextPage,
+                    bsky: pageParam.bsky === noNextPage,
+                },
+            });
 
             const isFirstPage = !pageParam.firefly && !pageParam.twitter && !pageParam.bsky;
             const walletProfile =
                 !socialProfiles.length && isFirstPage ? await searchWalletAddress(searchKeyword) : undefined;
 
+            // Prepend pinned profile on first page
+            let pinnedProfile: { profile: FireflyProfile; related: FireflyProfile[] } | undefined;
+            if (isFirstPage) {
+                const urlResult = resolveSearchUrlType(searchKeyword);
+                if (urlResult?.kind === SearchUrlKind.Profile && urlResult.source && urlResult.identifier) {
+                    try {
+                        const provider = resolveSocialMediaProvider(urlResult.source as SocialSource);
+                        const profile = await provider.getProfileByHandle(urlResult.identifier);
+                        const platform =
+                            profile.source === Source.Bsky
+                                ? FireflyPlatform.Bsky
+                                : resolveFireflyPlatform(profile.source);
+                        const mapped = {
+                            platform,
+                            platform_id: profile.profileId,
+                            handle: profile.handle,
+                            name: profile.displayName,
+                            hit: true,
+                            score: 0,
+                            avatar: profile.pfp,
+                        } as FireflyProfile;
+                        pinnedProfile = { profile: mapped, related: [mapped] };
+                    } catch (error) {
+                        logger.error('[Search] Failed to fetch pinned profile', error);
+                    }
+                }
+            }
+
+            const data = socialProfiles.length
+                ? socialProfiles
+                : walletProfile
+                  ? [{ profile: walletProfile, related: [walletProfile] }]
+                  : [];
+
             return {
-                ...data,
+                ...fireflyData,
                 twitterNextIndicator: twitterProfiles?.nextIndicator,
                 bskyNextIndicator: bskyProfiles?.nextIndicator,
-                data: socialProfiles.length
-                    ? socialProfiles
-                    : walletProfile
-                      ? [
-                            {
-                                profile: walletProfile,
-                                related: [walletProfile],
-                            },
-                        ]
-                      : [],
+                data: pinnedProfile ? [pinnedProfile, ...data] : data,
             };
         },
         initialPageParam: { firefly: '', twitter: '', bsky: '' },

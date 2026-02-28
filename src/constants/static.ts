@@ -85,7 +85,7 @@ export const CACHE_AGE_INDEFINITE_ON_DISK = 'public, s-maxage=31536000, max-age=
 
 // Search Bar
 export const MAX_SEARCH_RECORD_SIZE = 5;
-export const MAX_RECOMMEND_PROFILE_SIZE = 5;
+export const MAX_RECOMMEND_PROFILE_SIZE = 6;
 
 // POST
 export const MAX_FRAME_SIZE_PER_POST = 1;

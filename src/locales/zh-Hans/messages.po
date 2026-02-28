@@ -2234,9 +2234,6 @@ msgstr "个人介绍不可以超过 {maxBioSize} 个字符"
 msgid "5 minutes"
 msgstr "5 分钟"
 
-msgid "Search <0>posts</0>, <1>users</1>, <2>tokens</2>..."
-msgstr "搜索 <0>帖子</0>，<1>用户</1>，<2>代币</2>……"
-
 msgid "This Bluesky account is already linked to another Firefly account."
 msgstr "这个 Bluesky 账号已绑定到另一个 Firefly 账户。"
 
@@ -4909,6 +4906,9 @@ msgstr "无争议"
 
 msgid "Remind me later"
 msgstr "稍后提醒我"
+
+msgid "Search <0>posts</0>, <1>users</1>, <2>predictions</2> and <3>tokens</3> by keyword or link"
+msgstr ""
 
 msgid "Choose a token to send"
 msgstr "选择要发送的代币"

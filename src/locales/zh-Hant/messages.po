@@ -2234,9 +2234,6 @@ msgstr "個人簡介不得超過 {maxBioSize} 字元"
 msgid "5 minutes"
 msgstr "5 分鐘"
 
-msgid "Search <0>posts</0>, <1>users</1>, <2>tokens</2>..."
-msgstr "搜尋 <0>貼文</0>、<1>用戶</1>、<2>代幣</2>..."
-
 msgid "This Bluesky account is already linked to another Firefly account."
 msgstr "此 Bluesky 帳戶已連結至另一個 Firefly 帳戶。"
 
@@ -4909,6 +4906,9 @@ msgstr "無爭議"
 
 msgid "Remind me later"
 msgstr "稍後提醒"
+
+msgid "Search <0>posts</0>, <1>users</1>, <2>predictions</2> and <3>tokens</3> by keyword or link"
+msgstr ""
 
 msgid "Choose a token to send"
 msgstr "選擇要發送的代幣"

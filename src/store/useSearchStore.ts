@@ -94,6 +94,7 @@ export interface SearchState {
     type?: SearchType;
     q?: string;
     clubType?: ClubType;
+    source?: Source;
 }
 
 export function useSearchStateStore() {
@@ -112,6 +113,7 @@ export function useSearchStateStore() {
             const newQuery = state.q || params.get('q');
             const newType = state.type || currentType;
             const newClubType = state.clubType || currentClubType;
+            const resolvedSource = state.source || currentSource;
 
             updateSearchType(newType);
             updateClubType(newClubType);
@@ -119,7 +121,7 @@ export function useSearchStateStore() {
             // search input is empty
             if (!newQuery) return;
 
-            const url = resolveSearchUrl(newQuery, newType, currentSource);
+            const url = resolveSearchUrl(newQuery, newType, resolvedSource);
             if (replace) router.replace(url);
             else router.push(url);
         },
