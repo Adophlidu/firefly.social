@@ -2,6 +2,7 @@ import { msg } from '@lingui/core/macro';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 
 import { ExploreSourceTabs } from '@/components/Explores/ExploreSourceTabs.js';
+import { NoSSR } from '@/components/NoSSR.js';
 import { PredictionSourceNav } from '@/components/SourceNav/PredictionSourceNav.js';
 import { queryClientConfig } from '@/configs/queryClient.js';
 import { ExploreType } from '@/constants/enum.js';
@@ -41,9 +42,11 @@ export default async function Layout(props: Props) {
         <>
             <HydrationBoundary state={dehydrate(queryClient)}>
                 <ExploreSourceTabs explore={explore} />
-                {explore === ExploreType.Prediction ? (
-                    <PredictionSourceNav className="sticky top-[98px] z-20 bg-primaryBottom md:!top-[103px]" />
-                ) : null}
+                <NoSSR>
+                    {explore === ExploreType.Prediction ? (
+                        <PredictionSourceNav className="sticky top-[98px] z-20 bg-primaryBottom md:!top-[103px]" />
+                    ) : null}
+                </NoSSR>
             </HydrationBoundary>
             {props.children}
         </>
