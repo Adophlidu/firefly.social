@@ -30,8 +30,9 @@ import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import { useSaveDraftInCompose } from '@/hooks/useSaveDraftInCompose.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
+import { type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { ComposeModalContext } from '@/modals/ComposeModal/context.js';
+import { CloseAction, ComposeModalRef } from '@/modals/ComposeModal/refs.js';
 import { type ComposeModalCloseProps, type ComposeModalOpenProps } from '@/modals/ComposeModal/types.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
 import { captureComposeDraftPostEvent } from '@/providers/telemetry/captureComposeEvent.js';
@@ -42,11 +43,7 @@ import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { type Chars } from '@/types/chars.js';
 
-export enum CloseAction {
-    Saved = 'saved',
-    Discard = 'discard',
-    None = 'none',
-}
+export { CloseAction, ComposeModalRef } from '@/modals/ComposeModal/refs.js';
 
 const initialConfig = {
     namespace: 'composer',
@@ -273,5 +270,3 @@ export function ComposeModal({ ref, ...props }: Props) {
         </LexicalComposer>
     );
 }
-
-export const ComposeModalRef = new SingletonModal<ComposeModalOpenProps, ComposeModalCloseProps>();

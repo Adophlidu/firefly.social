@@ -11,7 +11,8 @@ import { AddLensManagerModal, AddLensManagerModalRef } from '@/modals/AddLensMan
 import { AddWalletModal, AddWalletModalRef } from '@/modals/AddWalletModal/index.js';
 import { CollectArticleModal, CollectArticleModalRef } from '@/modals/CollectArticleModal.js';
 import { CollectPostModal, CollectPostModalRef } from '@/modals/CollectPostModal.js';
-import { ComposeModal, ComposeModalRef } from '@/modals/ComposeModal/index.js';
+import { ComposeModal } from '@/modals/ComposeModal/index.js';
+import { ComposeModalRef } from '@/modals/ComposeModal/refs.js';
 import { ConfirmFireflyModal, ConfirmFireflyModalRef } from '@/modals/ConfirmFireflyModal.js';
 import { ConfirmLeavingModal, ConfirmLeavingModalRef } from '@/modals/ConfirmLeavingModal.js';
 import { ConfirmModal, ConfirmModalRef } from '@/modals/ConfirmModal.js';

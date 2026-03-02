@@ -9,6 +9,7 @@ import { type ProfileSchema, ProfileStoreSchema } from '@/schemas/ProfileStore.j
 export type StateProfile = z.infer<typeof ProfileSchema>;
 
 export function getCurrentProfileFromStorage<T extends ProfileSource>(source: T): StateProfile | null {
+    if (typeof window === 'undefined') return null;
     const state = bom.localStorage?.getItem(resolveProfileStorageKey(source));
     if (!state) return null;
 
@@ -49,6 +50,7 @@ export function getCurrentProfileAllFromStorage(): Record<ProfileSource, StatePr
 }
 
 export function getProfilesFromStorage<T extends ProfileSource>(source: T): StateProfile[] {
+    if (typeof window === 'undefined') return [];
     const state = bom.localStorage?.getItem(resolveProfileStorageKey(source));
     if (!state) return [];
 

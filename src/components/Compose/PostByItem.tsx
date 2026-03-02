@@ -21,7 +21,7 @@ import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAccounts } from '@/hooks/useAccounts.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
-import { CloseAction, ComposeModalRef } from '@/modals/ComposeModal/index.js';
+import { CloseAction, ComposeModalRef } from '@/modals/ComposeModal/refs.js';
 import { captureShareToChangeClickEvent } from '@/providers/telemetry/captureClickEvent.js';
 import { type Account } from '@/providers/types/Account.js';
 import { type Profile } from '@/providers/types/SocialMedia.js';

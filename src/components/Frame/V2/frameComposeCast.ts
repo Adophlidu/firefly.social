@@ -2,7 +2,7 @@ import { type MiniAppHost } from '@farcaster/miniapp-host';
 
 import { Source } from '@/constants/enum.js';
 import { createDummyChannel } from '@/helpers/createDummyChannel.js';
-import { ComposeModalRef } from '@/modals/ComposeModal/index.js';
+import { ComposeModalRef } from '@/modals/ComposeModal/refs.js';
 import { FrameViewerModalRef } from '@/modals/FrameViewerModal/FrameViewerModal.js';
 import { getPostById } from '@/providers/firefly/farcaster-hub/getPostById.js';
 

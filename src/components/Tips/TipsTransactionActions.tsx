@@ -29,7 +29,7 @@ import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { updateTipsReactionStatus } from '@/helpers/updateTipsReactionStatus.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
-import { ComposeModalRef } from '@/modals/ComposeModal/index.js';
+import { ComposeModalRef } from '@/modals/ComposeModal/refs.js';
 import { type ComposeModalOpenProps } from '@/modals/ComposeModal/types.js';
 import { ShareImageModalRef } from '@/modals/ShareImageModal/index.js';
 import { createTxReaction } from '@/providers/firefly/endpoint/createTxReaction.js';

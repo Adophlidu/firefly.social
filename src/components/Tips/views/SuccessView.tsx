@@ -19,7 +19,7 @@ import { resolveFireflyMention } from '@/helpers/resolveFireflyMention.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { useCurrentVisitingChannel } from '@/hooks/useCurrentVisitingChannel.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
-import { ComposeModalRef } from '@/modals/ComposeModal/index.js';
+import { ComposeModalRef } from '@/modals/ComposeModal/refs.js';
 import { captureTipsSharePostEvent } from '@/providers/telemetry/captureTipsEvent.js';
 import { useTipsStore } from '@/store/useTipsStore.js';
 
