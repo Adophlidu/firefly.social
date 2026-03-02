@@ -6,6 +6,7 @@ import { type HTMLProps, memo, type ReactNode } from 'react';
 
 import { ChainIcon } from '@/components/ChainIcon.js';
 import { chains } from '@/configs/chains.js';
+import { STALE_TIMES } from '@/constants/query.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { isZero, leftShift, multipliedBy, plus } from '@/helpers/number.js';
 import { getFungibleTokenPrice } from '@/providers/coingecko/getFungibleTokenPrice.js';
@@ -46,7 +47,7 @@ export const MintParamsPanel = memo<MintParamsPanelProps>(function MintParamsPan
 
     const { data: totalCostInUsd } = useQuery({
         queryKey: ['token-cost', chainId, totalCost.toString()],
-        staleTime: 1000 * 60 * 1,
+        staleTime: STALE_TIMES.MINUTE_1,
         queryFn: async () => {
             try {
                 const nativeToken = EVMChainResolver.nativeCurrency(chainId);

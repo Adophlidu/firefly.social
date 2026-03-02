@@ -13,6 +13,7 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { EstimatedCost } from '@/components/Tips/EstimatedCost.js';
 import { TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { NetworkType } from '@/constants/enum.js';
+import { STALE_TIMES } from '@/constants/query.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { isUserRejectErrorInWallet } from '@/helpers/isUserRejectErrorInWallet.js';
@@ -51,7 +52,8 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
         isRefetching,
         error,
     } = useQuery({
-        staleTime: 1000 * 60 * 2, // 2 minutes
+        staleTime: STALE_TIMES.MINUTE_2,
+
         queryKey: [
             'tips-validate',
             recipient?.networkType,

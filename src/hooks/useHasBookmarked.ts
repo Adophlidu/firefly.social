@@ -2,6 +2,7 @@ import { skipToken, useQuery } from '@tanstack/react-query';
 import { uniq } from 'lodash-es';
 
 import { type BookmarkType, FireflyPlatform } from '@/constants/enum.js';
+import { STALE_TIMES } from '@/constants/query.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { getFireflyBookmarksByIds } from '@/providers/firefly/endpoint/getFireflyBookmarkIds.js';
 
@@ -12,7 +13,7 @@ export function useHasBookmarked(platform: FireflyPlatform, id: string, postType
 
     const result = useQuery({
         queryKey: ['has-bookmarked', platform, isNFT ? lowerCaseId : id, isLogin],
-        staleTime: 1000 * 60 * 5,
+        staleTime: STALE_TIMES.MINUTE_5,
         enabled: !disabled && isLogin,
         queryFn: disabled
             ? skipToken

@@ -3,6 +3,7 @@ import { memo } from 'react';
 
 import { PollCard } from '@/components/Poll/PollCard.js';
 import { type SocialSource } from '@/constants/enum.js';
+import { STALE_TIMES } from '@/constants/query.js';
 import { patchNotificationQueryDataOnPost } from '@/helpers/patchNotificationQueryData.js';
 import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
@@ -41,7 +42,7 @@ export const FramePoll = memo<FramePollProps>(function FramePoll({ pollId, post 
         refetchOnMount: false,
         refetchOnWindowFocus: false,
         retry: false,
-        staleTime: 1000 * 60 * 1,
+        staleTime: STALE_TIMES.MINUTE_1,
     });
 
     if (isLoading || !data) return null;

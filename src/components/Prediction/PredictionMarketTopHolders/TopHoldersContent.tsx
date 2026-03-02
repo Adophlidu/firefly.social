@@ -9,6 +9,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { Loading } from '@/components/Loading.js';
 import { PredictionTopHoldersUI } from '@/components/Prediction/PredictionMarketTopHolders/PredictionTopHoldersUI.js';
 import { PredictionPlatform } from '@/constants/enum.js';
+import { STALE_TIMES } from '@/constants/query.js';
 import { getBetsMarketTopHolders } from '@/providers/prediction/getBetsMarketTopHolders.js';
 import type { BetsMarketDataForUI } from '@/types/prediction.js';
 
@@ -20,7 +21,8 @@ interface TopHoldersContentProps {
 export const TopHoldersContent = memo<TopHoldersContentProps>(function TopHoldersContent({ platform, market }) {
     const { data, error, isLoading, isRefetchError, isPending, refetch } = useQuery({
         queryKey: ['bets', 'top-holders', platform, market.id],
-        staleTime: 1000 * 60 * 5, // 5 minutes
+        staleTime: STALE_TIMES.MINUTE_5,
+
         retry: false,
         queryFn: async ({ signal }) =>
             getBetsMarketTopHolders(platform, {

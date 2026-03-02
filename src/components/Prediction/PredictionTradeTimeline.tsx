@@ -12,6 +12,7 @@ import { ListInPage } from '@/components/ListInPage.js';
 import { Loading } from '@/components/Loading.js';
 import { PredictionTradeTimelineItem } from '@/components/Prediction/PredictionTradeTimelineItem.js';
 import { PredictionPlatform, ScrollListKey, Source } from '@/constants/enum.js';
+import { STALE_TIMES } from '@/constants/query.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { getBetsTradeList } from '@/providers/firefly/prediction/getBetsTradeList.js';
 import { capturePolymarketEventTradesTabClick } from '@/providers/telemetry/capturePolymarketEvent.js';
@@ -34,7 +35,8 @@ const PredictionTradeTimelineContent = memo<
 >(function PredictionTradeTimelineContent({ platform, marketIds, isFollowing }) {
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['bets', 'trades-timeline', platform, marketIds.join(','), `${isFollowing}`],
-        staleTime: 1000 * 60 * 2, // 2 minutes
+        staleTime: STALE_TIMES.MINUTE_2,
+
         queryFn: async ({ pageParam }) => {
             const indicator = createIndicator(undefined, pageParam);
             try {

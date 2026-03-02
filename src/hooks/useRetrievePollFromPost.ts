@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { sumBy } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
+import { STALE_TIMES } from '@/constants/query.js';
 import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { getPoll } from '@/providers/orb/getPoll.js';
@@ -18,7 +19,8 @@ export function useRetrievePollFromPost(post: Post) {
     const { data: lensPoll = null, isLoading } = useQuery({
         queryKey: ['post', 'poll', Source.Lens, post.postId, lensProfile?.profileId],
         enabled: queryLensPoll,
-        staleTime: 1000 * 60 * 2, // 2 minutes
+        staleTime: STALE_TIMES.MINUTE_2,
+
         queryFn: async () => {
             const poll = await getPoll(post.postId, lensProfile?.profileId);
             if (poll) {

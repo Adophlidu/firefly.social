@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import type BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
+import { STALE_TIMES } from '@/constants/query.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { isZeroAddressSolana } from '@/helpers/isZeroAddress.js';
 import { isGreaterThan } from '@/helpers/number.js';
@@ -22,7 +23,8 @@ export function useSolanaAvailableBalance(
     const { data } = useQuery({
         queryKey: ['solana', 'balance', account?.toLowerCase(), address?.toLowerCase()],
         enabled,
-        staleTime: 1000 * 60, // 1 minute
+        staleTime: STALE_TIMES.MINUTE_1,
+
         queryFn: async () => {
             const nativeBalance = await runInSafeAsync(() => getNativeTokenBalance(account, chainId));
             if (isNativeToken) {

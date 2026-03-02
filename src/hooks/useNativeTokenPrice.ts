@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { NetworkType } from '@/constants/enum.js';
+import { STALE_TIMES } from '@/constants/query.js';
 import { getNativeToken } from '@/helpers/getNativeToken.js';
 import { type ChainContextOverrides, useChainContext } from '@/hooks/useChainContext.js';
 import { getFungibleTokenPrice } from '@/providers/coingecko/getFungibleTokenPrice.js';
@@ -10,7 +11,8 @@ export function useNativeTokenPrice(override?: ChainContextOverrides, enabled = 
 
     return useQuery({
         enabled,
-        staleTime: 1000 * 60 * 2, // 2 minutes
+        staleTime: STALE_TIMES.MINUTE_2,
+
         queryKey: ['native-token', 'price', chainId],
         queryFn: async () => {
             const nativeToken = getNativeToken(override?.networkType ?? NetworkType.Ethereum, chainId);

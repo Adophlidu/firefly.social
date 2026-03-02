@@ -7,6 +7,7 @@ import { Link } from '@/components/Link.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SearchableTokenItem } from '@/components/Search/SearchableTokenItem.js';
 import { SearchType } from '@/constants/enum.js';
+import { STALE_TIMES } from '@/constants/query.js';
 import { EMPTY_LIST } from '@/constants/static.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import { searchTokens } from '@/providers/firefly/worker/searchTokens.js';
@@ -20,7 +21,8 @@ interface SuggestTokenListProps {
 export const SuggestTokenList = memo<SuggestTokenListProps>(function SuggestTokenList({ query, onSelect }) {
     const { data: tokens = EMPTY_LIST, isLoading } = useQuery({
         queryKey: ['search-tokens', query],
-        staleTime: 1000 * 60 * 5, // 5 minutes
+        staleTime: STALE_TIMES.MINUTE_5,
+
         queryFn: async () => {
             const data = await searchTokens(query, true);
             return data;

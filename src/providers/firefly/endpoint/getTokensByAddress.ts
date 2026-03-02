@@ -1,6 +1,7 @@
 import urlcat from 'urlcat';
 
 import { queryClient } from '@/configs/queryClient.js';
+import { STALE_TIMES } from '@/constants/query.js';
 import { EMPTY_LIST } from '@/constants/static.js';
 import { resolveDebankChain } from '@/helpers/resolveDebankChain.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
@@ -27,7 +28,7 @@ export async function getTokensByAddress(address: string): Promise<
     const tokens = await queryClient.fetchQuery({
         queryKey: ['debank', 'tokens', address.toLowerCase()],
         queryFn: () => getAllTokenList(address),
-        staleTime: 1000 * 60 * 1,
+        staleTime: STALE_TIMES.MINUTE_1,
     });
 
     return tokens.map((token) => {

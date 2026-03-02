@@ -11,6 +11,7 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { Source, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
+import { STALE_TIMES } from '@/constants/query.js';
 import { enqueueErrorMessage, enqueueInfoMessage } from '@/helpers/enqueueMessage.js';
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
@@ -58,7 +59,8 @@ export function Tips({
             }
             const fireflyProfiles = await queryClient.fetchQuery({
                 queryKey: ['firefly-profile', identity.source, identity.id],
-                staleTime: 1000 * 60 * 10, // 10 minutes
+                staleTime: STALE_TIMES.MINUTE_10,
+
                 queryFn: () => getAllPlatformProfileFromFirefly(identity, isAuthRequired),
             });
             const relatedProfiles = formatFireflyProfilesFromWalletProfiles(fireflyProfiles, {

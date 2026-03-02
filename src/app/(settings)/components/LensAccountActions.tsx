@@ -10,6 +10,7 @@ import { useConnection } from 'wagmi';
 import MoreIcon from '@/assets/more-fill.svg';
 import { IconButton } from '@/components/IconButton.js';
 import { Source } from '@/constants/enum.js';
+import { STALE_TIMES } from '@/constants/query.js';
 import { SEVEN_DAYS } from '@/constants/static.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
@@ -48,7 +49,8 @@ export const LensAccountActions = memo<Props>(function LensAccountActions({ prof
     const { data, isLoading, isRefetching } = useQuery({
         queryKey: [Source.Lens, 'profiles', privyEvm?.toLowerCase()],
         enabled: !disabled,
-        staleTime: 1000 * 60 * 5, // 5 minutes
+        staleTime: STALE_TIMES.MINUTE_5,
+
         queryFn: !privyEvm ? skipToken : () => getProfilesByAddress(privyEvm),
     });
     const { data: signerAddress } = useQuery({

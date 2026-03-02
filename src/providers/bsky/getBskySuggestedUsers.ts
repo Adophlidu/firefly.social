@@ -3,6 +3,7 @@ import urlcat from 'urlcat';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';
+import { STALE_TIMES } from '@/constants/query.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
@@ -27,7 +28,7 @@ export async function getBskySuggestedUsers(
     const preferences = await queryClient.fetchQuery({
         queryKey: ['preferences', Source.Bsky, session.profileId],
         queryFn: () => bskySessionHolder.agent.getPreferences(),
-        staleTime: 1000 * 60 * 30, // 30 minutes
+        staleTime: STALE_TIMES.MINUTE_30,
     });
 
     const response = await bskySessionHolder.agent.sessionManager.fetchHandler(

@@ -2,6 +2,7 @@ import { compact } from 'lodash-es';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { CharTag, FireflyPlatform, type SocialSource, Source } from '@/constants/enum.js';
+import { STALE_TIMES } from '@/constants/query.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
 import { resolveFireflyPlatform } from '@/helpers/resolveFireflyPlatform.js';
 import { getAllPlatformProfileByIdentity } from '@/providers/firefly/endpoint/getAllPlatformProfileByIdentity.js';
@@ -22,7 +23,8 @@ export async function getMentionCharsByIdentity(identity: FireflyIdentity, targe
 
     const fireflyProfiles = await queryClient.fetchQuery<FireflyProfile[]>({
         queryKey: ['related-profiles', identity.source, identity.id],
-        staleTime: 1000 * 60 * 60, // 1 hour
+        staleTime: STALE_TIMES.HOUR_1,
+
         queryFn: () => getAllPlatformProfileByIdentity(identity, false),
     });
 

@@ -8,6 +8,7 @@ import { Avatar } from '@/components/Avatar.js';
 import { ChannelTippy } from '@/components/Channel/ChannelTippy.js';
 import { Link } from '@/components/Link.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
+import { STALE_TIMES } from '@/constants/query.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
 import { resolveChannelName } from '@/helpers/resolveChannelName.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
@@ -26,7 +27,8 @@ export const ChannelAnchor = memo<ChannelAnchorProps>(function ChannelAnchor({
     const { id, source } = unresolvedChannel;
     const { data: channel } = useQuery({
         queryKey: ['channel', source, id],
-        staleTime: 1000 * 60 * 5, // 5 minutes
+        staleTime: STALE_TIMES.MINUTE_5,
+
         queryFn: () => {
             if (!unresolvedChannel.__lazy__) return unresolvedChannel;
             return runInSafeAsync(() => resolveSocialMediaProvider(source).getChannelById(id));

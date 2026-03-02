@@ -10,6 +10,7 @@ import { use } from 'react';
 
 import { Modal } from '@/components/Modal.js';
 import { type SocialSourceInURL } from '@/constants/enum.js';
+import { STALE_TIMES } from '@/constants/query.js';
 import { notFound, useRouter } from '@/esm/navigation.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
@@ -48,7 +49,7 @@ export default function Page(props: Props) {
             }
         },
         // The image data of the post will not be changed.
-        staleTime: Infinity,
+        staleTime: STALE_TIMES.INFINITY,
     });
 
     return (

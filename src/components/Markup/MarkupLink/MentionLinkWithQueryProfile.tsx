@@ -6,6 +6,7 @@ import { memo, type ReactNode } from 'react';
 import { MentionLink } from '@/components/Markup/MarkupLink/MentionLink.js';
 import { ProfileTippy } from '@/components/Profile/ProfileTippy.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
+import { STALE_TIMES } from '@/constants/query.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { convertBskyHandleToDid } from '@/providers/bsky/convertBskyHandleToDid.js';
@@ -36,7 +37,7 @@ export const MentionLinkWithQueryProfile = memo<Props>(function MentionLinkWithQ
                     return { source: Source.Bsky, profileId: did, handle } as const;
                 },
                 enabled: source === Source.Bsky && !!handle,
-                staleTime: 1000 * 60 * 60,
+                staleTime: STALE_TIMES.HOUR_1,
                 refetchOnReconnect: false,
                 refetchOnWindowFocus: false,
                 refetchOnMount: false,
@@ -48,7 +49,7 @@ export const MentionLinkWithQueryProfile = memo<Props>(function MentionLinkWithQ
                 },
                 enabled: !!handle && source !== Source.Bsky,
                 retry: false,
-                staleTime: 1000 * 60 * 60,
+                staleTime: STALE_TIMES.HOUR_1,
                 refetchOnReconnect: false,
                 refetchOnWindowFocus: false,
                 refetchOnMount: false,

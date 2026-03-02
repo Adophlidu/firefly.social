@@ -3,6 +3,7 @@
 import { skipToken, useQuery } from '@tanstack/react-query';
 
 import { PredictionProfileCardUI } from '@/components/Prediction/PredictionProfileCardUI.js';
+import { STALE_TIMES } from '@/constants/query.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { getPredictionPortfolio } from '@/providers/firefly/prediction/getPredictionPortfolio.js';
 
@@ -14,7 +15,7 @@ export function PredictionProfilesCard({ address }: PredictionProfilesCardProps)
     const isEvmAddress = isValidAddressEthereum(address);
     const { data, isLoading } = useQuery({
         queryKey: ['bets', 'profiles', address.toLowerCase()],
-        staleTime: 1000 * 60 * 5,
+        staleTime: STALE_TIMES.MINUTE_5,
         queryFn: isEvmAddress ? () => getPredictionPortfolio([address]) : skipToken,
     });
 

@@ -17,6 +17,7 @@ import { ProfileSlide } from '@/components/SuggestedFollows/ProfileSlide.js';
 import { SuggestedFollowsSkeleton } from '@/components/SuggestedFollows/SuggestedFollowsSkeleton.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
 import { ExploreType, Source } from '@/constants/enum.js';
+import { STALE_TIMES } from '@/constants/query.js';
 import { isSocialDiscoverSource } from '@/helpers/isSource.js';
 import { mergeLists } from '@/helpers/mergeLists.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
@@ -45,7 +46,8 @@ export function SuggestedFollowsCard() {
             asyncStatusAll,
             bskySession,
         ],
-        staleTime: 1000 * 60 * 30, // 30 minutes
+        staleTime: STALE_TIMES.MINUTE_30,
+
         enabled: !asyncStatusAll,
         queryFn: async () => {
             const suggestedProfiles = await Promise.allSettled(
@@ -67,7 +69,8 @@ export function SuggestedFollowsCard() {
     const { data: profilesWithStats } = useQuery({
         queryKey: ['profile-stats', ...commonKeys],
         enabled: !!suggestedFollows?.length && !isLoading,
-        staleTime: 1000 * 60 * 30, // 30 minutes
+        staleTime: STALE_TIMES.MINUTE_30,
+
         queryFn: async () => {
             if (!suggestedFollows?.length) return [];
 

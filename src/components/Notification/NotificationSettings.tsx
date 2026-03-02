@@ -11,6 +11,7 @@ import { Switch } from '@/components/Switch/index.js';
 import { TypeFilter } from '@/components/TypeFilter/index.js';
 import { UNIFIED_NOTIFICATION_TYPES } from '@/constants/computed.js';
 import { type NotificationSource, Source } from '@/constants/enum.js';
+import { STALE_TIMES } from '@/constants/query.js';
 import { useAsyncStatus } from '@/hooks/useAsyncStatus.js';
 import { getBskyNotificationSettings } from '@/providers/bsky/getBskyNotificationSettings.js';
 import { setBskyNotificationSettings } from '@/providers/bsky/setBskyNotificationSettings.js';
@@ -31,7 +32,8 @@ export function NotificationSettings({ source }: { source: NotificationSource })
         refetch,
     } = useQuery({
         queryKey: ['bsky-notification-push-switch', asyncStatus],
-        staleTime: 1000 * 60 * 3, // 3 minutes
+        staleTime: STALE_TIMES.MINUTE_3,
+
         enabled: source === Source.Bsky,
         queryFn: () => getBskyNotificationSettings(),
     });

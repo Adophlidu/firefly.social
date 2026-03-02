@@ -6,6 +6,7 @@ import { Link } from '@/components/Link.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SearchableProfileItem } from '@/components/Search/SearchableProfileItem.js';
 import { SearchType } from '@/constants/enum.js';
+import { STALE_TIMES } from '@/constants/query.js';
 import { EMPTY_LIST, MAX_RECOMMEND_PROFILE_SIZE } from '@/constants/static.js';
 import { toFireflyPlatformId } from '@/helpers/isSameProfile.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
@@ -19,7 +20,8 @@ interface SuggestProfileListProps {
 export const SuggestProfileList = memo<SuggestProfileListProps>(function SuggestProfileList({ query, onSelect }) {
     const { data: profiles = EMPTY_LIST, isLoading } = useQuery({
         queryKey: ['search-suggest', 'profiles', query],
-        staleTime: 1000 * 60 * 5, // 5 minutes
+        staleTime: STALE_TIMES.MINUTE_5,
+
         queryFn: async ({ signal }) => {
             const { profiles } = await searchProfilesByKeyword({
                 keyword: query,

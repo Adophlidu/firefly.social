@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { memo } from 'react';
 
 import { formatPolymarketNumber } from '@/components/Polymarket/formatPolymarketNumber.js';
+import { STALE_TIMES } from '@/constants/query.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { getVolumeTraded } from '@/providers/prediction/polymarket/getVolumeTraded.js';
 
@@ -16,7 +17,7 @@ export const PolymarketVolumeTraded = memo<PolymarketVolumeTradedProps>(function
 }) {
     const { data, isLoading } = useQuery({
         queryKey: ['polymarket', 'volume-traded', address.toLowerCase()],
-        staleTime: 1000 * 60 * 5,
+        staleTime: STALE_TIMES.MINUTE_5,
         queryFn: () => getVolumeTraded(proxyAddress || address),
         select(data) {
             return data.find((x) => isSameEthereumAddress(x.proxyWallet, address))?.amount;

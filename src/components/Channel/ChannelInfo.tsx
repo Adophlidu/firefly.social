@@ -5,6 +5,7 @@ import { type HTMLProps } from 'react';
 
 import { ChannelInfoUI } from '@/components/Channel/ChannelInfoUI.js';
 import { type SocialSource } from '@/constants/enum.js';
+import { STALE_TIMES } from '@/constants/query.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { type Channel } from '@/providers/types/SocialMedia.js';
@@ -21,7 +22,8 @@ export function ChannelInfo({ channel, source, ...rest }: InfoProps) {
     const needRefetch = !!(channel.__lazy__ && channel.id);
     const { data = channel } = useQuery({
         queryKey: ['channel', channel.source, channel.id, profile?.profileId],
-        staleTime: 1000 * 60 * 10, // 10 minutes
+        staleTime: STALE_TIMES.MINUTE_10,
+
         queryFn: async () => {
             if (!needRefetch) return channel;
             return resolveSocialMediaProvider(channel.source).getChannelById(channel.id);

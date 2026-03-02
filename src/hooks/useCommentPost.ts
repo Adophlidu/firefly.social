@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useCallback, useMemo } from 'react';
 
 import { RestrictionType } from '@/constants/enum.js';
+import { STALE_TIMES } from '@/constants/query.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { openComposeModal } from '@/helpers/openComposeModal.js';
@@ -22,7 +23,8 @@ export function useCommentPost(post: Post, disabled = false) {
 
     const { data: authorProfile = null } = useQuery({
         queryKey: ['profile', source, author.profileId, myProfile?.profileId],
-        staleTime: 1000 * 60 * 1, // 1 minute
+        staleTime: STALE_TIMES.MINUTE_1,
+
         queryFn: async () => {
             const provider = resolveSocialMediaProvider(source);
             return provider.getProfileById(author.profileId);

@@ -6,6 +6,7 @@ import { Link } from '@/components/Link.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SearchableCollectionItem } from '@/components/Search/SearchableCollectionItem.js';
 import { SearchType } from '@/constants/enum.js';
+import { STALE_TIMES } from '@/constants/query.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import { searchCollections } from '@/services/searchCollections.js';
 
@@ -20,7 +21,8 @@ export const SuggestCollectionList = memo<SuggestCollectionListProps>(function S
 }) {
     const { data: collections, isLoading } = useQuery({
         queryKey: ['search-suggest', 'collections', query],
-        staleTime: 1000 * 60 * 5, // 5 minutes
+        staleTime: STALE_TIMES.MINUTE_5,
+
         queryFn: async () => {
             const data = await searchCollections(query);
             return data.data;

@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { FetchError } from '@/constants/error.js';
+import { STALE_TIMES } from '@/constants/query.js';
 import { formatFireflyAccountProfileFromFireflyConnections } from '@/helpers/formatFireflyAccountProfileFromFireflyConnections.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { getAllConnections } from '@/providers/firefly/endpoint/getAllConnections.js';
@@ -37,7 +38,8 @@ export function useCheckFireflyAccount(withSyncing = true, forceQuery = false) {
                 avatar: fireflyAccount?.avatar,
             };
         },
-        staleTime: 1000 * 60 * 30, // 30 minutes
+        staleTime: STALE_TIMES.MINUTE_30,
+
         retry: (failureCount, error) => {
             // do not retry on unauthorized errors
             if (error instanceof FetchError && error.status === 401) return false;

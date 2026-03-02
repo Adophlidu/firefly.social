@@ -3,6 +3,7 @@ import { useAsyncFn } from 'react-use';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { ExploreSwitchType } from '@/constants/enum.js';
+import { STALE_TIMES } from '@/constants/query.js';
 import { getExploreSwitchConfigList } from '@/providers/firefly/endpoint/getExploreSwitchConfigList.js';
 import { setExploreSwitchConfig } from '@/providers/firefly/endpoint/setExploreSwitchConfig.js';
 import { type GetExploreSwitchConfigResponse } from '@/providers/types/Firefly.js';
@@ -39,7 +40,7 @@ export function useExploreDataSwitchConfig(switchType: ExploreSwitchType, update
     const { isLoading, data } = useQuery({
         queryKey: ['explore-switch', accountId],
         enabled: !!accountId,
-        staleTime: 1000 * 60 * 60,
+        staleTime: STALE_TIMES.HOUR_1,
         queryFn: () => getExploreSwitchConfigList(),
     });
 

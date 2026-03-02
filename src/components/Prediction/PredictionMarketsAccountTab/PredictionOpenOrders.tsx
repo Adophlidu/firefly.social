@@ -8,6 +8,7 @@ import { Loading } from '@/components/Loading.js';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { OpenOrderItem } from '@/components/Prediction/PredictionMarketsAccountTab/OpenOrderItem.js';
 import { PredictionPlatform, Source } from '@/constants/enum.js';
+import { STALE_TIMES } from '@/constants/query.js';
 import { EMPTY_LIST } from '@/constants/static.js';
 import { getPredictionOpenOrders } from '@/providers/prediction/getPredictionOpenOrders.js';
 import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
@@ -27,7 +28,8 @@ export const PredictionOpenOrders = memo<PredictionOpenOrdersProps>(function Pre
     const marketIds = markets.map((x) => x.conditionId);
     const { data, isLoading } = useQuery({
         queryKey: [Source.Prediction, 'open-orders', platform, 'all', currentProfileSession?.profileId],
-        staleTime: 1000 * 60 * 5, // 5 minutes
+        staleTime: STALE_TIMES.MINUTE_5,
+
         enabled: !!currentProfileSession && platform === PredictionPlatform.Polymarket,
         queryFn: () => getPredictionOpenOrders({ platform }),
         select: (data) => {

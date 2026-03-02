@@ -14,6 +14,7 @@ import { FollowersLink } from '@/components/Profile/FollowersLink.js';
 import { ProfileVerifyBadge } from '@/components/ProfileVerifyBadge/index.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { FollowCategory, Source } from '@/constants/enum.js';
+import { STALE_TIMES } from '@/constants/query.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
@@ -38,7 +39,8 @@ export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ identit
         : ['profile', source, id];
     const { data: profile, isLoading } = useQuery({
         queryKey,
-        staleTime: 1000 * 60 * 10, // 10 minutes
+        staleTime: STALE_TIMES.MINUTE_10,
+
         queryFn: async () => {
             if (!id || !source) return;
             const provider = resolveSocialMediaProvider(narrowToSocialSource(source));

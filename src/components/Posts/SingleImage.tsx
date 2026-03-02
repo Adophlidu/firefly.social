@@ -3,6 +3,7 @@ import { classNames } from '@dimensiondev/utils';
 import { useQuery } from '@tanstack/react-query';
 import { type HTMLProps, memo } from 'react';
 
+import { STALE_TIMES } from '@/constants/query.js';
 import { computeSize } from '@/helpers/computeSize.js';
 
 interface SingleImageProps extends HTMLProps<HTMLImageElement> {
@@ -26,7 +27,7 @@ export const SingleImage = memo<SingleImageProps>(function SingleImage({
 }) {
     const { data, error } = useQuery({
         queryKey: ['single-image', src],
-        staleTime: Infinity,
+        staleTime: STALE_TIMES.INFINITY,
         enabled: !!src,
         retry: false,
         queryFn: () =>

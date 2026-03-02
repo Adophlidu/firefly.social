@@ -4,6 +4,7 @@ import { compact } from 'lodash-es';
 import { SUPPORTED_ANONYMOUS_POST_SOURCES } from '@/constants/computed.js';
 import { type SocialSource, Source, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
+import { STALE_TIMES } from '@/constants/query.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { getPostByAnonymousRateLimits } from '@/providers/firefly/endpoint/getPostByAnonymousRateLimits.js';
 import { type PostByAnonymousRateLimitsResponse } from '@/providers/types/Firefly.js';
@@ -22,7 +23,8 @@ export function useAnonymousPostAvailability(): {
 
     const { isLoading, isRefetching, data } = useQuery({
         enabled,
-        staleTime: 1000 * 60, // 1 minute
+        staleTime: STALE_TIMES.MINUTE_1,
+
         queryKey: ['rate-limits', 'post-by-anonymous'],
         queryFn: () => getPostByAnonymousRateLimits(),
     });

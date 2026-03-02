@@ -10,6 +10,7 @@ import { Link } from '@/components/Link.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { SuggestedChannelsSkeleton } from '@/components/SuggestedChannels/SuggestedChannelsSkeleton.js';
 import { ExploreType } from '@/constants/enum.js';
+import { STALE_TIMES } from '@/constants/query.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
@@ -35,7 +36,8 @@ export function SuggestedChannelsCard() {
     const profileIds = useCurrentProfileIds();
     const { data, isLoading, isError } = useQuery({
         queryKey: ['suggest-channels', ...profileIds],
-        staleTime: 1000 * 60 * 5, // 5 minutes
+        staleTime: STALE_TIMES.MINUTE_5,
+
         queryFn: () => getTrendingChannels(),
     });
 

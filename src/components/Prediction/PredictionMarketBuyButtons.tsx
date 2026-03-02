@@ -10,6 +10,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { AnimatedText } from '@/components/Prediction/AnimatedText.js';
 import { PredictionContext } from '@/components/Prediction/PredictionContext.js';
 import { PredictionPlatform, Source } from '@/constants/enum.js';
+import { STALE_TIMES } from '@/constants/query.js';
 import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
 import { openPredictionPage } from '@/helpers/openPredictionPage.js';
 import { getPolymarketOrderBooks } from '@/providers/firefly/prediction/getPolymarketOrderBook.js';
@@ -39,7 +40,8 @@ export const PredictionMarketBuyButtons = memo<PredictionMarketBuyButtonsProps>(
     const { data: orderBooks } = useQuery({
         queryKey: [Source.Prediction, 'order-book', market.id],
         enabled: platform === PredictionPlatform.Polymarket && selected,
-        staleTime: 1000 * 60 * 30, // 30 minutes
+        staleTime: STALE_TIMES.MINUTE_30,
+
         queryFn: async ({ signal }) => {
             const outcomeIds = market.outcomes.map((o) => o.id);
             if (!outcomeIds.length) return null;

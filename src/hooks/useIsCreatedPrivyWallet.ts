@@ -5,6 +5,7 @@ import { InvalidResultError, retry } from '@dimensiondev/utils';
 import { useQuery } from '@tanstack/react-query';
 
 import { queryClient } from '@/configs/queryClient.js';
+import { STALE_TIMES } from '@/constants/query.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { getPrivyWalletConnectionsQuery, usePrivyConnections } from '@/hooks/usePrivyConnections.js';
 import { createPrivyWallet } from '@/providers/firefly/endpoint/createPrivyWallet.js';
@@ -41,7 +42,7 @@ export function useIsCreatedPrivyWallet() {
         refetchOnReconnect: false,
         refetchOnWindowFocus: false,
         refetchOnMount: false,
-        staleTime: Infinity,
+        staleTime: STALE_TIMES.INFINITY,
     });
 
     return {

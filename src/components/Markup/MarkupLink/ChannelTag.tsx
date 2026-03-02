@@ -6,6 +6,7 @@ import { ClickableArea } from '@/components/ClickableArea.js';
 import { InteractiveTippy } from '@/components/InteractiveTippy.js';
 import { TippyContext, useTippyContext } from '@/components/TippyContext/index.js';
 import { type SocialSource } from '@/constants/enum.js';
+import { STALE_TIMES } from '@/constants/query.js';
 import { useRouter } from '@/esm/navigation.js';
 import { resolveChannelUrl } from '@/helpers/resolveChannelUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
@@ -36,7 +37,8 @@ export const ChannelTag = memo<ChannelTagProps>(function ChannelTag({ title, sou
     const data = useQuery({
         enabled: !!channelId && !!source && viewed,
         queryKey: ['channel', source, channelId],
-        staleTime: 1000 * 60 * 5, // 5 minutes
+        staleTime: STALE_TIMES.MINUTE_5,
+
         queryFn: async () => {
             if (!channelId || !source) return;
 

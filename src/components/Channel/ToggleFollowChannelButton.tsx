@@ -9,6 +9,7 @@ import { useAsyncFn } from 'react-use';
 import { type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { ToggleJoinButton } from '@/components/ToggleJoinButton.js';
 import { Source } from '@/constants/enum.js';
+import { STALE_TIMES } from '@/constants/query.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
@@ -132,7 +133,8 @@ export const ToggleFollowChannelButton = memo<ToggleFollowChannelButtonProps>(fu
     const { data: channel = defaultChannel, isLoading } = useQuery({
         queryKey: ['channel', defaultChannel.source, defaultChannel.id, profile?.profileId],
         enabled: needRefetch && !!profile?.profileId,
-        staleTime: 1000 * 60 * 5, // 5 minutes
+        staleTime: STALE_TIMES.MINUTE_5,
+
         queryFn: async () => {
             const channel = await resolveSocialMediaProvider(defaultChannel.source).getChannelById(
                 defaultChannel?.id,

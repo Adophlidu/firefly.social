@@ -6,6 +6,7 @@ import { useQueryState } from 'nuqs';
 import { type HTMLProps, memo, useLayoutEffect, useMemo, useRef } from 'react';
 
 import { Link } from '@/components/Link.js';
+import { STALE_TIMES } from '@/constants/query.js';
 import { EMPTY_LIST } from '@/constants/static.js';
 import { useParams } from '@/esm/navigation.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
@@ -24,7 +25,7 @@ export const PredictionSourceNav = memo<Props>(function PredictionSourceNav({ cl
     const { data } = useQuery({
         queryKey: ['bets', 'slugs-list'],
         queryFn: () => getEventSlugList(),
-        staleTime: Infinity,
+        staleTime: STALE_TIMES.INFINITY,
         refetchOnMount: false,
         refetchOnWindowFocus: false,
     });

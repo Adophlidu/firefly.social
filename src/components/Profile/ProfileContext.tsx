@@ -4,6 +4,7 @@ import { skipToken, useQuery } from '@tanstack/react-query';
 import { createContext, type PropsWithChildren, useMemo } from 'react';
 
 import { Source } from '@/constants/enum.js';
+import { STALE_TIMES } from '@/constants/query.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useAsyncStatus } from '@/hooks/useAsyncStatus.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
@@ -40,7 +41,8 @@ export function ProfileContextProvider({
     const enabled = !!socialProfile && !isSyncing;
     const { data: refreshedProfile, isLoading } = useQuery({
         enabled,
-        staleTime: 1000 * 60, // 1 minute
+        staleTime: STALE_TIMES.MINUTE_1,
+
         refetchOnWindowFocus: false,
         refetchOnReconnect: 'always',
         queryKey: ['profile', socialProfile?.source, socialProfile?.profileId, currentProfile?.profileId, 'refreshed'],

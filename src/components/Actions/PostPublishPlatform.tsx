@@ -6,6 +6,7 @@ import { memo, useMemo } from 'react';
 
 import FireflyMonochromeIcon from '@/assets/firefly-monochrome.svg';
 import { SUPPORTED_FETCH_POST_PUBLISH_INFO_SOURCES } from '@/constants/computed.js';
+import { STALE_TIMES } from '@/constants/query.js';
 import { isSendFromFirefly } from '@/helpers/isSendFromFirefly.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { getPostPublishPlatformInfo } from '@/services/getPostPublishPlatformInfo.js';
@@ -18,7 +19,7 @@ export const PostPublishPlatform = memo<Props>(function PostPublishPlatform({ po
     const enabled = SUPPORTED_FETCH_POST_PUBLISH_INFO_SOURCES.includes(post.source) && !post.sendFrom;
     const { data } = useQuery({
         queryKey: ['post-publish-platform-info', post.source, post.postId],
-        staleTime: Infinity,
+        staleTime: STALE_TIMES.INFINITY,
         retry: false,
         enabled,
         queryFn: !enabled ? skipToken : () => getPostPublishPlatformInfo(post),

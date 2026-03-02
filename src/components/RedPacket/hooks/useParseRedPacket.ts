@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { compact, first } from 'lodash-es';
 
+import { STALE_TIMES } from '@/constants/query.js';
 import { RedPacketMetaKey, SolanaRedPacketMetaKey } from '@/constants/rp.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { useProfileStore } from '@/hooks/useProfileStore.js';
@@ -22,7 +23,8 @@ export function useParseRedPacket(account: string | undefined, post: Post, enabl
 
     const { data, refetch, isLoading } = useQuery({
         enabled,
-        staleTime: 1000 * 60 * 10, // 10 minutes
+        staleTime: STALE_TIMES.MINUTE_10,
+
         queryKey: ['red-packet', 'parse', source, image, account?.toLowerCase(), currentProfile?.profileId],
         queryFn: async () => {
             if (!image) return null;

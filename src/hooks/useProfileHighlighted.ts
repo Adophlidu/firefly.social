@@ -1,6 +1,7 @@
 import { skipToken, useQuery } from '@tanstack/react-query';
 
 import { type ProfilePageSource, SparksAccountStatus } from '@/constants/enum.js';
+import { STALE_TIMES } from '@/constants/query.js';
 import { checkGenesisSparksAccount } from '@/providers/firefly/endpoint/checkGenesisSparksAccounts.js';
 
 const checkedAccountIds = new Set<string>();
@@ -17,7 +18,7 @@ export function useProfileHighlighted(
     const enabled = !!profile;
     const query = useQuery({
         enabled,
-        staleTime: Infinity,
+        staleTime: STALE_TIMES.INFINITY,
         queryKey: ['profile-highlight-status', profile?.source, profile?.profileId, profile?.handle],
         queryFn: enabled
             ? async () => {

@@ -4,6 +4,7 @@ import { useMemo } from 'react';
 
 import { EXPLORE_TYPES } from '@/constants/computed.js';
 import { ExploreType } from '@/constants/enum.js';
+import { STALE_TIMES } from '@/constants/query.js';
 import { NFT_ENABLED } from '@/constants/static.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { getEventSlugList } from '@/providers/firefly/prediction/getEventSlugList.js';
@@ -13,7 +14,7 @@ export function useExploreTabs() {
     const { data } = useQuery({
         queryKey: ['bets', 'slugs-list'],
         queryFn: () => getEventSlugList(),
-        staleTime: Infinity,
+        staleTime: STALE_TIMES.INFINITY,
         refetchOnMount: false,
         refetchOnWindowFocus: false,
     });

@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { memo } from 'react';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
+import { STALE_TIMES } from '@/constants/query.js';
 import { MAX_ACCOUNT_COUNT_PER_SOURCE } from '@/constants/static.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { CurrentProfilesCard } from '@/modals/LoginModal/CurrentProfilesCard.js';
@@ -26,7 +27,8 @@ export const LensCurrentProfilesCard = memo<Props>(function LensCurrentProfilesC
     const lensAccounts = useLensProfileStore.use.accounts();
     const { isLoading, isRefetching } = useQuery({
         queryKey: ['auto-login', Source.Lens, currentProfileSession?.profileId],
-        staleTime: 1000 * 60 * 5, // 5 minutes
+        staleTime: STALE_TIMES.MINUTE_5,
+
         retry: false,
         enabled: !!currentProfileSession && lensAccounts.length < MAX_ACCOUNT_COUNT_PER_SOURCE,
         queryFn: async () => {

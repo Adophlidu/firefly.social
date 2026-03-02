@@ -1,11 +1,13 @@
 import { skipToken, useQuery } from '@tanstack/react-query';
 
+import { STALE_TIMES } from '@/constants/query.js';
 import { getClassifyPostLinks } from '@/providers/firefly/worker/getClassifyPostLinks.js';
 
 export function useClassifyPostLink(url: string | null | undefined) {
     return useQuery({
         queryKey: ['classify-post-links', url],
-        staleTime: 1000 * 60 * 30, // 30 minutes
+        staleTime: STALE_TIMES.MINUTE_30,
+
         queryFn: url ? () => getClassifyPostLinks([url]) : skipToken,
         refetchOnMount: false,
         refetchOnWindowFocus: false,
@@ -17,7 +19,8 @@ export function useClassifyPostLink(url: string | null | undefined) {
 export function useClassifyPostLinks(urls: string[]) {
     return useQuery({
         queryKey: ['classify-post-links', ...urls],
-        staleTime: 1000 * 60 * 30, // 30 minutes
+        staleTime: STALE_TIMES.MINUTE_30,
+
         queryFn: urls.length ? () => getClassifyPostLinks(urls) : skipToken,
         refetchOnMount: false,
         refetchOnWindowFocus: false,

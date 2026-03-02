@@ -11,6 +11,7 @@ import { SearchInput } from '@/components/Search/SearchInput.js';
 import { SearchRecommendation } from '@/components/Search/SearchRecommendation.js';
 import { Section } from '@/components/Semantic/Section.js';
 import { ExploreType, PageRoute, SearchType } from '@/constants/enum.js';
+import { STALE_TIMES } from '@/constants/query.js';
 import { usePathname, useRouter } from '@/esm/navigation.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isValidAddress, isValidAddressEthereum } from '@/helpers/isValidAddress.js';
@@ -46,7 +47,7 @@ function useDetectAddress(address?: string) {
 
     return useQuery({
         queryKey: ['detect-address', address?.toLowerCase()],
-        staleTime: 1000 * 60 * 60,
+        staleTime: STALE_TIMES.HOUR_1,
         enabled: isAddress,
         queryFn: isAddress ? () => fireflyWalletProvider.detectAddress(address) : skipToken,
         select: (data) => data?.list[0],

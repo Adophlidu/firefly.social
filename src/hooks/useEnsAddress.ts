@@ -3,6 +3,7 @@ import { type Address } from 'viem';
 import { mainnet } from 'viem/chains';
 import { type GetEnsAddressParameters } from 'wagmi/actions';
 
+import { STALE_TIMES } from '@/constants/query.js';
 import { lookup } from '@/services/ens.js';
 
 const runningQueries = new Map<string, Promise<string | null>>();
@@ -26,7 +27,7 @@ export function useEnsAddress(name?: string, enabled = true) {
     return useQuery({
         queryKey: ['ensAddress', name],
         enabled: !!name && enabled,
-        staleTime: Infinity,
+        staleTime: STALE_TIMES.INFINITY,
         retry: 5, // Retry 5 times
         queryFn: !name
             ? skipToken
@@ -45,7 +46,7 @@ export function useEnsAddresses(names?: string[], enabled = true) {
         queries: (names || []).map((name) => ({
             queryKey: ['ensAddress', name],
             enabled: !!name && enabled,
-            staleTime: Infinity,
+            staleTime: STALE_TIMES.INFINITY,
             retry: 5, // Retry 5 times
             queryFn: !name
                 ? skipToken

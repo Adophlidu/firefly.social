@@ -5,6 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { ChannelMoreAction } from '@/components/Channel/ChannelMoreAction.js';
 import { ToggleFollowChannelButton } from '@/components/Channel/ToggleFollowChannelButton.js';
+import { STALE_TIMES } from '@/constants/query.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { type Channel } from '@/providers/types/SocialMedia.js';
@@ -19,7 +20,8 @@ export function ChannelInfoAction({ channel: defaultChannel, className, needRefe
     const { data, isLoading } = useQuery({
         queryKey: ['channel', defaultChannel.source, defaultChannel.id, profile?.profileId],
         enabled: !!profile && needRefetch,
-        staleTime: 1000 * 60 * 5, // 5 minutes
+        staleTime: STALE_TIMES.MINUTE_5,
+
         queryFn: async () => {
             const channel = await resolveSocialMediaProvider(defaultChannel.source).getChannelById(
                 defaultChannel.id,

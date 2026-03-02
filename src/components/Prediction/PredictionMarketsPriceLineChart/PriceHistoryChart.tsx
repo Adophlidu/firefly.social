@@ -9,6 +9,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { Loading } from '@/components/Loading.js';
 import { ChartTooltip } from '@/components/Prediction/PredictionMarketsPriceLineChart/ChartTooltip.js';
 import { type BetsPriceTimeRange, type PredictionPlatform } from '@/constants/enum.js';
+import { STALE_TIMES } from '@/constants/query.js';
 import { toFixedTrimmed } from '@/helpers/polymarket.js';
 import { getBetsMarketPriceHistory } from '@/providers/prediction/getBetsMarketPriceHistory.js';
 import type { BetsMarketWithSettings } from '@/types/prediction.js';
@@ -79,7 +80,8 @@ export const PriceHistoryChart = memo<PriceHistoryChartProps>(function PriceHist
             selectedMarkets.map((m) => m.id).join(','),
             outcomeId,
         ],
-        staleTime: 1000 * 60 * 2, // 2 minutes
+        staleTime: STALE_TIMES.MINUTE_2,
+
         retry: false,
         queryFn: async ({ signal }) => {
             return getBetsMarketPriceHistory(platform, {

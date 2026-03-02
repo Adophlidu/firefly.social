@@ -5,6 +5,7 @@ import { memo } from 'react';
 
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { formatPolymarketNumber } from '@/components/Polymarket/formatPolymarketNumber.js';
+import { STALE_TIMES } from '@/constants/query.js';
 import { getTradedMarketsCount } from '@/providers/prediction/polymarket/getTradedMarketsCount.js';
 
 interface PolymarketMarketsTradedProps {
@@ -21,7 +22,7 @@ export const PolymarketMarketsTraded = memo<PolymarketMarketsTradedProps>(functi
     const { data, isLoading } = useQuery({
         queryKey: ['polymarket', 'markets-traded', address.toLowerCase()],
         enabled,
-        staleTime: 1000 * 60 * 5,
+        staleTime: STALE_TIMES.MINUTE_5,
         queryFn: () => getTradedMarketsCount(proxyAddress || address),
     });
 
