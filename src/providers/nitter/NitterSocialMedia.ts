@@ -5,6 +5,7 @@ import { type TweetV2LookupResult } from 'twitter-api-v2';
 import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';
+import { TweetUnavailableError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/static.js';
 import { AddAuthorHighlightStatusForPosts } from '@/decorators/AddProfileHighlightStatus.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
@@ -327,6 +328,11 @@ class NitterSocialMedia implements Provider {
     async getPostById(postId: string): Promise<Post> {
         if (!isServer && twitterSessionHolder.session) throw new NotImplementedError();
         const { tweet, before } = await NitterAPIProvider.getTweetStatus('web', postId);
+
+        if (!tweet.available) {
+            throw new TweetUnavailableError(tweet.text || tweet.tombstone || undefined);
+        }
+
         const commentOn = await patchPostClientToFirefly(
             before.tweets.length > 0 ? formatTwitterPostFromNitter(last(before.tweets)!) : undefined,
         );

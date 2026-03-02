@@ -257,3 +257,7 @@ export class NitterError extends Error {
         super(`[NitterError] ${url} ${message || 'Unknown nitter error.'}`);
     }
 }
+
+export class TweetUnavailableError extends Error {
+    override name = 'TweetUnavailableError';
+}

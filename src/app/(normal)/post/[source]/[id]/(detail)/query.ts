@@ -13,7 +13,9 @@ export function getPostDetailQuery(source: SocialSource, postId: string) {
             try {
                 return await getPostById(source, postId);
             } catch (error) {
-                if (error instanceof NotFoundError) return null;
+                if (error instanceof NotFoundError) {
+                    return null;
+                }
                 throw error;
             }
         },
