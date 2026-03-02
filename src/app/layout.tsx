@@ -59,17 +59,6 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
                 {IS_PRODUCTION || env.external.NEXT_PUBLIC_TELEMETRY === STATUS.Enabled ? (
                     <GoogleAnalytics nonce={CSP_NONCE} gaId="G-61NFDTK6LT" />
                 ) : null}
-                {IS_PRODUCTION || env.external.NEXT_PUBLIC_TELEMETRY === STATUS.Enabled ? (
-                    <Script
-                        src="/js/cookie3.analytics.js"
-                        integrity="sha384-ihnQ09PGDbDPthGB3QoQ2Heg2RwQIDyWkHkqxMzq91RPeP8OmydAZbQLgAakAOfI"
-                        crossOrigin="anonymous"
-                        async
-                        strategy="lazyOnload"
-                        site-id="4e0dc4ab-2a63-4303-ad25-8aa14275d2d4"
-                        nonce={CSP_NONCE}
-                    />
-                ) : null}
                 <Script nonce={CSP_NONCE}>
                     {`
                         setTimeout(function () {
