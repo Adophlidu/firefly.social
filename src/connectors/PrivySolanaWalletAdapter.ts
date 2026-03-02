@@ -56,9 +56,7 @@ class PrivySolanaWalletAdapter extends BaseMessageSignerWalletAdapter {
     private _connecting: boolean;
     private _publicKey: web3.PublicKey | null = null;
     private _readyState: WalletReadyState =
-        typeof window === 'undefined' || typeof document === 'undefined'
-            ? WalletReadyState.Unsupported
-            : WalletReadyState.NotDetected;
+        typeof window === 'undefined' ? WalletReadyState.Unsupported : WalletReadyState.NotDetected;
 
     constructor() {
         super();

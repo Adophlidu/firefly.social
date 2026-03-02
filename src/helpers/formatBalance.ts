@@ -1,7 +1,7 @@
 import { BigNumber } from 'bignumber.js';
 import { trimEnd } from 'lodash-es';
 
-import { isLessThan, leftShift, pow10, scale10 } from '@/helpers/number.js';
+import { isLessThan, leftShift, scale10 } from '@/helpers/number.js';
 import { logger } from '@/libs/Logger.js';
 
 /** Trim ending zeros of decimals */
@@ -64,8 +64,8 @@ export function formatBalance(rawValue: BigNumber.Value = '0', decimals = 0, opt
         return hasSeparators ? addThousandSeparators(result) : result;
     }
 
-    const base = pow10(decimals); // 10n ** decimals
-    if (balance.div(base).lt(pow10(-8)) && balance.isGreaterThan(0) && !isPrecise) return '<0.000001';
+    const base = scale10(1, decimals);
+    if (balance.div(base).lt(scale10(1, -8)) && balance.isGreaterThan(0) && !isPrecise) return '<0.000001';
 
     const negative = balance.isNegative(); // balance < 0n
     if (negative) balance = balance.absoluteValue(); // balance * -1n
@@ -75,7 +75,7 @@ export function formatBalance(rawValue: BigNumber.Value = '0', decimals = 0, opt
     // add leading zeros
     fraction = fraction.padStart(decimals, '0');
     // keep up to 6 decimal places
-    fraction = fraction.slice(0, balance.div(base).gt(pow10(-6)) ? 6 : 8);
+    fraction = fraction.slice(0, balance.div(base).gt(scale10(1, -6)) ? 6 : 8);
 
     // match significant digits
     const matchSignificantDigits = new RegExp(`^0*[1-9]\\d{0,${significant > 0 ? significant - 1 : 0}}`);

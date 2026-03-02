@@ -1,7 +1,7 @@
 Package Analysis
 ================
 
-Total packages: 1797
+Total packages: 1796
 Packages with multiple versions: 245
 
 Legend:
@@ -847,7 +847,6 @@ Packages with Single Version
  @types/babel__generator@7.27.0
  @types/babel__template@7.4.4
  @types/babel__traverse@7.20.7
-*@types/bs58@4.0.4
  @types/chai@5.2.3
  @types/connect@3.4.38
  @types/d3-array@3.2.2

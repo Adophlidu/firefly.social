@@ -1,4 +1,4 @@
-import { type Draft as WritableDraft, produce } from 'immer';
+import { type Draft as WritableDraft } from 'immer';
 import { useMemo } from 'react';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
@@ -10,7 +10,7 @@ import { createPersistStorage } from '@/helpers/createPersistStorage.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { type Profile } from '@/providers/types/SocialMedia.js';
-import { type ComposeType, type CompositePost, type MediaObject } from '@/types/compose.js';
+import { type ComposeType, type CompositePost } from '@/types/compose.js';
 
 export interface Draft {
     draftId: string;
@@ -81,20 +81,6 @@ const useComposeStateBase = create<ComposeDraftState, [['zustand/persist', unkno
             version: 1,
             migrate(persistedState, version) {
                 if (!persistedState) return { drafts: EMPTY_LIST };
-                // TODO Introduced in 2025/08/27, should be removed in 3 months after 2025/08/27
-                if (version === 0 && 'drafts' in (persistedState as any)) {
-                    return produce(persistedState as { drafts: Draft[] }, (state) => {
-                        state.drafts.forEach((draft) => {
-                            draft.posts.forEach((post) => {
-                                if (!post.videos) post.videos = [];
-
-                                if ('video' in post && post.video) {
-                                    post.videos = [post.video as MediaObject];
-                                }
-                            });
-                        });
-                    });
-                }
                 return persistedState as { drafts: Draft[] };
             },
         },

@@ -38,12 +38,6 @@ export function minus(a: BigNumber.Value, b: BigNumber.Value) {
     return new BigNumber(a).minus(b);
 }
 
-/** 10 ** n */
-/** @deprecated use scale10 */
-export function pow10(n: BigNumber.Value) {
-    return new BigNumber(10).pow(n);
-}
-
 /** scale 10 ** n * m */
 export function scale10(m: BigNumber.Value, n = 1) {
     const x = new BigNumber(1).shiftedBy(n);
