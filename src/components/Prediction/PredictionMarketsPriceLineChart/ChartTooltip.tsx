@@ -4,7 +4,7 @@ import { first, isUndefined } from 'lodash-es';
 import { type TooltipProps } from 'recharts';
 
 import { toFixedTrimmed } from '@/helpers/polymarket.js';
-import type { BetsMarketWithSettings } from '@/types/prediction.js';
+import { type BetsMarketWithSettings } from '@/types/prediction.js';
 
 export function ChartTooltip(markets: BetsMarketWithSettings[], outcomeId: string) {
     return function Content({ active, payload }: TooltipProps<string, string>) {

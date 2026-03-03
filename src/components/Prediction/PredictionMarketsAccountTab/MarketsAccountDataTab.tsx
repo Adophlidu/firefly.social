@@ -6,7 +6,7 @@ import { memo } from 'react';
 
 import { Tab, Tabs } from '@/components/Tabs/index.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/browser.js';
-import type { PredictionPlatform } from '@/constants/enum.js';
+import { type PredictionPlatform } from '@/constants/enum.js';
 import { MarketsAccountTabType } from '@/providers/prediction/polymarket/constants.js';
 import {
     captureOpinionEventTabClick,

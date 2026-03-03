@@ -1,6 +1,6 @@
 import { getExceptionTrackerConfig } from '@/config.js';
 import { normalizeError } from '@/helpers/normalizeError.js';
-import type { ExceptionServerPayload } from '@/types.js';
+import { type ExceptionServerPayload } from '@/types.js';
 
 /**
  * Reports an exception from the server (e.g. API route) to the firefly-exception-tracker.

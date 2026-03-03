@@ -6,10 +6,10 @@ import { BetsMarketResolveStatus, PredictionPlatform } from '@/constants/enum.js
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { getPolymarketEvent } from '@/providers/prediction/polymarket/getEvent.js';
-import type { PolymarketEvent } from '@/providers/prediction/polymarket/type.js';
-import type { OpinionMarketDetail, Response } from '@/providers/types/Firefly.js';
+import { type PolymarketEvent } from '@/providers/prediction/polymarket/type.js';
+import { type OpinionMarketDetail, type Response } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
-import type { BetsEventDataForUI, BetsMarketDataForUI } from '@/types/prediction.js';
+import { type BetsEventDataForUI, type BetsMarketDataForUI } from '@/types/prediction.js';
 
 export async function getOpinionMarketDetail(topicId: string, isMutil: boolean) {
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/opinion/market/detail', {

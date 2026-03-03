@@ -6,7 +6,7 @@ import urlcat from 'urlcat';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { useOpenFireflyWallet } from '@/hooks/useOpenFireflyWallet.js';
-import type { PredictionPositionDataForUI } from '@/types/prediction.js';
+import { type PredictionPositionDataForUI } from '@/types/prediction.js';
 
 interface Props {
     position: PredictionPositionDataForUI;

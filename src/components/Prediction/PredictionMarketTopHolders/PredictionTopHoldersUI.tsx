@@ -1,6 +1,6 @@
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
-import type { HTMLProps } from 'react';
+import { type HTMLProps } from 'react';
 
 import { Avatar } from '@/components/Avatar.js';
 import { type PredictionPlatform } from '@/constants/enum.js';
@@ -8,7 +8,7 @@ import { Link } from '@/esm/Link.js';
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { toFixedTrimmed } from '@/helpers/polymarket.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
-import type { BetsTopHolderForUI } from '@/types/prediction.js';
+import { type BetsTopHolderForUI } from '@/types/prediction.js';
 
 interface PredictionTopHoldersUIProps extends HTMLProps<HTMLDivElement> {
     holders: BetsTopHolderForUI[];

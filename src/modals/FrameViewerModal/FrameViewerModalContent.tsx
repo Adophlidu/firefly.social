@@ -3,7 +3,7 @@ import { exposeToIframe } from '@farcaster/miniapp-host';
 import { Trans } from '@lingui/react/macro';
 import { useEffect, useRef } from 'react';
 import { useAsync } from 'react-use';
-import type { Address, Hex } from 'viem';
+import { type Address, type Hex } from 'viem';
 import { useChainId, useConnection } from 'wagmi';
 
 import { frameSwapToken } from '@/components/Frame/V2/frameSwapToken.js';

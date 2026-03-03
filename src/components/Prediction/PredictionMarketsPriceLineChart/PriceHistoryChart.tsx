@@ -12,7 +12,7 @@ import { type BetsPriceTimeRange, type PredictionPlatform } from '@/constants/en
 import { STALE_TIMES } from '@/constants/query.js';
 import { toFixedTrimmed } from '@/helpers/polymarket.js';
 import { getBetsMarketPriceHistory } from '@/providers/prediction/getBetsMarketPriceHistory.js';
-import type { BetsMarketWithSettings } from '@/types/prediction.js';
+import { type BetsMarketWithSettings } from '@/types/prediction.js';
 
 interface PriceHistoryChartProps {
     markets: BetsMarketWithSettings[];

@@ -2,7 +2,7 @@ import urlcat from 'urlcat';
 
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import type { PolymarketOrderBookData, Response } from '@/providers/types/Firefly.js';
+import { type PolymarketOrderBookData, type Response } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 export async function getPolymarketOrderBook(token_id: string, signal?: AbortSignal) {

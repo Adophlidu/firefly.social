@@ -24,7 +24,7 @@ import { updateClaimStrategy } from '@/providers/firefly/red-packet/updateClaimS
 import { captureComposeEvent } from '@/providers/telemetry/captureComposeEvent.js';
 import { captureCreatePollEvent } from '@/providers/telemetry/capturePollEvent.js';
 import { type FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
+import { type Post } from '@/providers/types/SocialMedia.js';
 import { reportCrossedPost } from '@/services/reportCrossedPost.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { type ComposeType, type CompositePost } from '@/types/compose.js';

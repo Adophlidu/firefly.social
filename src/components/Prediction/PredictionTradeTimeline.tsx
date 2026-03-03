@@ -16,7 +16,7 @@ import { STALE_TIMES } from '@/constants/query.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { getBetsTradeList } from '@/providers/firefly/prediction/getBetsTradeList.js';
 import { capturePolymarketEventTradesTabClick } from '@/providers/telemetry/capturePolymarketEvent.js';
-import type { BetsActivity } from '@/providers/types/Firefly.js';
+import { type BetsActivity } from '@/providers/types/Firefly.js';
 
 interface Props {
     platform: PredictionPlatform;

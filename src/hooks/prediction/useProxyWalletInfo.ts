@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { first } from 'lodash-es';
 
-import type { PredictionPlatform } from '@/constants/enum.js';
+import { type PredictionPlatform } from '@/constants/enum.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { getWalletProfileInfoList } from '@/providers/firefly/prediction/getWalletProfileInfoList.js';
 

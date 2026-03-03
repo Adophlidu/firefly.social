@@ -20,7 +20,7 @@ import { isZero } from '@/helpers/number.js';
 import { toFixedTrimmed } from '@/helpers/polymarket.js';
 import { useToggleMarkets } from '@/hooks/prediction/useToggleMarkets.js';
 import { capturePolymarketEventMarketClick } from '@/providers/telemetry/capturePolymarketEvent.js';
-import type { BetsMarketDataForUI } from '@/types/prediction.js';
+import { type BetsMarketDataForUI } from '@/types/prediction.js';
 
 const PredictionMarketOrderBook = dynamic(
     () =>

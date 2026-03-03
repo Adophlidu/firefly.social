@@ -2,6 +2,13 @@ import { describe, expect, test, vi } from 'vitest';
 
 import { extractEmbedResources } from '@/components/EmbedCards/helpers.js';
 
+// Mock to avoid circular dependency (Account -> FireflySession -> BaseSession -> SocialMedia -> Account)
+vi.mock('@/providers/firefly/Session.js', () => ({
+    FireflySession: class {},
+    FireflySessionPayload: {},
+    FireflySessionSignature: {},
+}));
+
 vi.mock('@/constants/index.js', () => ({
     EMPTY_LIST: [],
 }));

@@ -6,7 +6,7 @@ import { memo, type PropsWithChildren, useLayoutEffect, useRef } from 'react';
 
 import { Link } from '@/components/Link.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
-import type { EventId } from '@/providers/types/Telemetry.js';
+import { type EventId } from '@/providers/types/Telemetry.js';
 
 interface SourceTabProps extends PropsWithChildren<LinkProps> {
     isActive: boolean;

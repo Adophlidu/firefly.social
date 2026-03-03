@@ -1,4 +1,4 @@
-import type { SessionClient } from '@lens-protocol/client';
+import { type SessionClient } from '@lens-protocol/client';
 import { Trans } from '@lingui/react/macro';
 import { useCallback, useState } from 'react';
 

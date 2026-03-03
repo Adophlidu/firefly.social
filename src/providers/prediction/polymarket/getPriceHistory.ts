@@ -3,7 +3,10 @@ import urlcat from 'urlcat';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { POLYMARKET_CLOB_API_DOMAIN } from '@/providers/prediction/polymarket/constants.js';
 import { resolvePolymarketResponse } from '@/providers/prediction/polymarket/resolvePolymarketResponse.js';
-import type { PolymarketPriceHistoryResponse, PriceHistoryInterval } from '@/providers/prediction/polymarket/type.js';
+import {
+    type PolymarketPriceHistoryResponse,
+    type PriceHistoryInterval,
+} from '@/providers/prediction/polymarket/type.js';
 
 interface Options {
     market: string;

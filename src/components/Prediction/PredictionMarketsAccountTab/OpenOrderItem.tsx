@@ -11,13 +11,13 @@ import urlcat from 'urlcat';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { formatTokenItemAmount } from '@/components/Tips/formatTokenItemAmount.js';
 import { waitForAuthorization } from '@/connectors/PrivyConnector.js';
-import type { PredictionPlatform } from '@/constants/enum.js';
+import { type PredictionPlatform } from '@/constants/enum.js';
 import { formatPriceToCents } from '@/helpers/formatPriceToCents.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { multipliedBy } from '@/helpers/number.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
-import type { PredictionOpenOrder } from '@/types/prediction.js';
+import { type PredictionOpenOrder } from '@/types/prediction.js';
 
 interface OpenOrderItemProps {
     platform: PredictionPlatform;

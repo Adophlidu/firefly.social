@@ -6,9 +6,13 @@ import { resolveResponseData } from '@/helpers/resolveResponseData.js';
 import { uploadMetrics } from '@/providers/firefly/metrics/uploadMetrics.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
-import type { MetricsData, MetricsItemToUpload, MetricsUploadResponseData } from '@/providers/types/Firefly.js';
+import {
+    type MetricsData,
+    type MetricsItemToUpload,
+    type MetricsUploadResponseData,
+} from '@/providers/types/Firefly.js';
 import { encryptPasscode } from '@/services/crypto.js';
-import type { ResponseJson } from '@/types/utility.js';
+import { type ResponseJson } from '@/types/utility.js';
 
 async function uploadTwitterMetricsInServer(passcode: string, metricsItem: MetricsItemToUpload) {
     if (metricsItem.source !== Source.Twitter) throw new Error('Invalid source for Twitter metrics upload');

@@ -4,7 +4,7 @@ import { Fragment, memo, useCallback } from 'react';
 
 import SettingsIcon from '@/assets/settings.svg';
 import { MarketsSelectionPanel } from '@/components/Prediction/PredictionMarketsPriceLineChart/MarketsSelectionPanel.js';
-import type { BetsMarketWithSettings } from '@/types/prediction.js';
+import { type BetsMarketWithSettings } from '@/types/prediction.js';
 
 interface MarketSettingsProps {
     markets: BetsMarketWithSettings[];

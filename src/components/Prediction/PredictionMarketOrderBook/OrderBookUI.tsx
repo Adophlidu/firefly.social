@@ -7,7 +7,7 @@ import { type HTMLProps, memo, type ReactNode, useEffect, useMemo, useRef } from
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { toFixedTrimmed } from '@/helpers/polymarket.js';
 import { useForkRef } from '@/hooks/useForkRef.js';
-import type { BetsOrderBookItem } from '@/types/prediction.js';
+import { type BetsOrderBookItem } from '@/types/prediction.js';
 
 interface OrderBookUIProps extends HTMLProps<HTMLDivElement> {
     bids: BetsOrderBookItem[];

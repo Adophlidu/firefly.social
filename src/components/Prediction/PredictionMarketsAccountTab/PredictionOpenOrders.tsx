@@ -12,7 +12,7 @@ import { STALE_TIMES } from '@/constants/query.js';
 import { EMPTY_LIST } from '@/constants/static.js';
 import { getPredictionOpenOrders } from '@/providers/prediction/getPredictionOpenOrders.js';
 import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
-import type { BetsMarketDataForUI } from '@/types/prediction.js';
+import { type BetsMarketDataForUI } from '@/types/prediction.js';
 
 interface PredictionOpenOrdersProps {
     platform: PredictionPlatform;

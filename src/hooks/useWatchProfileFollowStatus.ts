@@ -1,7 +1,7 @@
 import { skipToken, useQuery } from '@tanstack/react-query';
 
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import { type Profile } from '@/providers/types/SocialMedia.js';
 
 export function useWatchProfileFollowStatus(profile: Profile, watching = false) {
     const isFollowing = !!profile.viewerContext?.following;

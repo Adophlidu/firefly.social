@@ -10,7 +10,7 @@ import { PredictionDescription } from '@/components/Prediction/PredictionDescrip
 import { PredictionPlatform } from '@/constants/enum.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getPolymarketOpenInterest } from '@/providers/firefly/prediction/getPolymarketOpenInterest.js';
-import type { BetsEventTagForUI } from '@/types/prediction.js';
+import { type BetsEventTagForUI } from '@/types/prediction.js';
 
 interface PredictionEventInfoProps {
     platform: PredictionPlatform;

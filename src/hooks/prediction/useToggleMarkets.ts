@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 
-import type { BetsMarketDataForUI } from '@/types/prediction.js';
+import { type BetsMarketDataForUI } from '@/types/prediction.js';
 
 export function useToggleMarkets(markets: BetsMarketDataForUI[]) {
     const [showMore, setShowMore] = useState(false);

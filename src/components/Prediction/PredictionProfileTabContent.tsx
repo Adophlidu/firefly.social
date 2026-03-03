@@ -8,7 +8,7 @@ import { PredictionProfilePositionList } from '@/components/Prediction/Predictio
 import { PredictionTradeList } from '@/components/Prediction/PredictionTradeList.js';
 import { PredictionPlatform } from '@/constants/enum.js';
 import { Category, usePredictionProfileTab } from '@/hooks/prediction/usePredictionProfileTab.js';
-import type { PredictionProfileDataForUI } from '@/types/prediction.js';
+import { type PredictionProfileDataForUI } from '@/types/prediction.js';
 
 interface Props {
     platform: PredictionPlatform;

@@ -2,7 +2,7 @@ import { type Metadata } from 'next';
 
 import { PredictionPlatform } from '@/constants/enum.js';
 import { createPredictionEventMetadata } from '@/providers/firefly/metadata/createPredictionEventMetadata.js';
-import type { NextPageProps } from '@/types/utility.js';
+import { type NextPageProps } from '@/types/utility.js';
 
 interface Props
     extends NextPageProps<{

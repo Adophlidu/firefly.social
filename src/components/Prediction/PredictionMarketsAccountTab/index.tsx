@@ -11,7 +11,7 @@ import { EMPTY_LIST } from '@/constants/static.js';
 import { getAccountMarketPositions } from '@/providers/firefly/prediction/getAccountMarketPositions.js';
 import { MarketsAccountTabType } from '@/providers/prediction/polymarket/constants.js';
 import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
-import type { BetsEventDataForUI } from '@/types/prediction.js';
+import { type BetsEventDataForUI } from '@/types/prediction.js';
 
 interface PredictionMarketsAccountTabProps {
     event: BetsEventDataForUI;

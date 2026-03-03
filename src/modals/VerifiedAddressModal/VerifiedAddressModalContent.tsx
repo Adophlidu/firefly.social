@@ -26,7 +26,7 @@ import { updateCacheAfterAdd, updateCacheAfterDelete } from '@/helpers/updateVer
 import { WalletItem } from '@/modals/VerifiedAddressModal/WalletItem.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
 import { deleteVerifiedAddress } from '@/providers/farcaster/deleteVerifiedAddress.js';
-import type { FarcasterSession } from '@/providers/farcaster/Session.js';
+import { type FarcasterSession } from '@/providers/farcaster/Session.js';
 import { verifyEthereumAddress, verifySolanaAddress } from '@/providers/farcaster/verifyAddress.js';
 import { getVerifiedAddresses } from '@/providers/firefly/endpoint/getVerifiedAddresses.js';
 import { getWalletAdaptorRequired } from '@/providers/solana/getWalletAdapter.js';

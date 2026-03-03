@@ -8,7 +8,7 @@ import { PredictionMarketResolution } from '@/components/Prediction/PredictionMa
 import { PredictionPlatform } from '@/constants/enum.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { BetsEventInfoTab, useBetsEventInfoTab } from '@/hooks/prediction/useBetsEventInfoTab.js';
-import type { BetsEventDataForUI } from '@/types/prediction.js';
+import { type BetsEventDataForUI } from '@/types/prediction.js';
 
 const PredictionMarketTopHolders = dynamic(
     () =>

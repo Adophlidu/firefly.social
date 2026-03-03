@@ -19,7 +19,7 @@ import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { getEventDetail } from '@/providers/firefly/prediction/getEventDetail.js';
 import { getBetsMarketPriceHistory } from '@/providers/prediction/getBetsMarketPriceHistory.js';
 import { getSatoriFonts } from '@/services/getSatoriFonts.js';
-import type { BetsEventDataForUI } from '@/types/prediction.js';
+import { type BetsEventDataForUI } from '@/types/prediction.js';
 import { type NextRequestContext } from '@/types/utility.js';
 
 const OG_FONT_FAMILY = '"Inter", "NotoSansSC"';

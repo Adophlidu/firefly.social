@@ -11,7 +11,7 @@ import { multipliedBy } from '@/helpers/number.js';
 import { toFixedTrimmed } from '@/helpers/polymarket.js';
 import { resolveBetActivityTraderInfo } from '@/helpers/resolveTraderInfoForBetActivity.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
-import type { BetsActivity } from '@/providers/types/Firefly.js';
+import { type BetsActivity } from '@/providers/types/Firefly.js';
 
 interface PredictionTradeTimelineItemProps {
     trade: BetsActivity;

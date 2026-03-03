@@ -6,7 +6,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import { type Profile } from '@/providers/types/SocialMedia.js';
 import { queryMutedProfile } from '@/services/queryMutedProfiles.js';
 
 export function useIsProfileMuted(source: Source, profileId: string, blocking?: boolean, enabled = true) {

@@ -14,7 +14,7 @@ import { MAX_MARKETS_COUNT_SELECTABLE, PLATFORMS_SUPPORTING_ORDER_BOOK } from '@
 import { BetsPriceTimeRange, type PredictionPlatform } from '@/constants/enum.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { toFixedTrimmed } from '@/helpers/polymarket.js';
-import type { BetsMarketDataForUI, BetsMarketWithSettings } from '@/types/prediction.js';
+import { type BetsMarketDataForUI, type BetsMarketWithSettings } from '@/types/prediction.js';
 
 const PriceHistoryChart = dynamic(
     () =>

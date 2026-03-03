@@ -4,7 +4,7 @@ import { i18n } from '@lingui/core';
 import { type Preview } from '@storybook/nextjs-vite';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Buffer } from 'buffer';
-import type { ComponentType } from 'react';
+import { type ComponentType } from 'react';
 
 import { LinguiClientProvider } from '@/components/LinguiClientProvider.js';
 import { WagmiProvider } from '@/components/WagmiProvider.js';

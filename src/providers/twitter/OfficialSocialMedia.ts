@@ -72,7 +72,7 @@ import {
     type Provider,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
-import type { MessagesResponse } from '@/providers/types/WebhookReceiver.js';
+import { type MessagesResponse } from '@/providers/types/WebhookReceiver.js';
 import { useTwitterLikeStore } from '@/store/useTwitterLikeStore.js';
 import { useTwitterRetweetStore } from '@/store/useTwitterRetweetStore.js';
 import { type PartialWith, type ResponseJson } from '@/types/utility.js';

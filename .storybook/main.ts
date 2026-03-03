@@ -2,7 +2,7 @@ import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { type StorybookConfig } from '@storybook/nextjs-vite';
-import type { Plugin } from 'vite';
+import { type Plugin } from 'vite';
 import svgr from 'vite-plugin-svgr';
 
 const config: StorybookConfig = {

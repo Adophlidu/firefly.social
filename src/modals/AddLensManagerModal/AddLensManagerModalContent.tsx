@@ -1,4 +1,4 @@
-import type { SessionClient } from '@lens-protocol/client';
+import { type SessionClient } from '@lens-protocol/client';
 import { addAccountManager } from '@lens-protocol/client/actions';
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';

@@ -1,10 +1,10 @@
 import urlcat from 'urlcat';
 
-import type { SocialSource, SocialSourceInURL } from '@/constants/enum.js';
+import { type SocialSource, type SocialSourceInURL } from '@/constants/enum.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import type { Response } from '@/providers/types/Firefly.js';
+import { type Response } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 export async function getPostPublishInfoFromFirefly(source: SocialSource, postIds: string[]) {

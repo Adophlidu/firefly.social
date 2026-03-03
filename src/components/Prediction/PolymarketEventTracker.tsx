@@ -8,7 +8,7 @@ import {
     capturePolymarketCategoryView,
     capturePolymarketEventOpenSuccess,
 } from '@/providers/telemetry/capturePolymarketEvent.js';
-import type { BetsEventDataForUI } from '@/types/prediction.js';
+import { type BetsEventDataForUI } from '@/types/prediction.js';
 
 interface PolymarketEventTrackerProps {
     platform: PredictionPlatform;

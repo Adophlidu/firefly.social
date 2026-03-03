@@ -11,7 +11,7 @@ import { getBlockRelation } from '@/providers/firefly/endpoint/getBlockRelation.
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { getProfilesByIdsFromOfficial } from '@/providers/twitter/getProfilesByIdsFromOfficial.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
-import type { FireflyIdentity } from '@/providers/types/Firefly.js';
+import { type FireflyIdentity } from '@/providers/types/Firefly.js';
 
 interface MutedProfilePayload {
     source: Source;

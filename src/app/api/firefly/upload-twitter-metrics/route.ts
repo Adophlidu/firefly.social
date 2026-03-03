@@ -9,7 +9,7 @@ import { getJsonBodyWithZodSchema } from '@/helpers/getJsonBodyWithZodSchema.js'
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { uploadMetrics } from '@/providers/firefly/metrics/uploadMetrics.js';
 import { createTwitterSessionPayloadFromHeaders } from '@/providers/twitter/createTwitterSessionPayload.js';
-import type { TwitterMetricsData } from '@/providers/types/Firefly.js';
+import { type TwitterMetricsData } from '@/providers/types/Firefly.js';
 import { encryptAes256 } from '@/services/crypto.js';
 
 const BodySchema = z.object({

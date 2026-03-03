@@ -5,9 +5,9 @@ import { compact, first } from 'lodash-es';
 import { BetsPriceTimeRange, PredictionPlatform } from '@/constants/enum.js';
 import { getOpinionMarketPriceHistory } from '@/providers/firefly/prediction/getOpinionMarketPriceHistory.js';
 import { getPriceHistory } from '@/providers/prediction/polymarket/getPriceHistory.js';
-import type { PolymarketPriceHistory, PriceHistoryInterval } from '@/providers/prediction/polymarket/type.js';
-import type { OpinionPriceHistory } from '@/providers/types/Firefly.js';
-import type { BetsMarketDataForUI } from '@/types/prediction.js';
+import { type PolymarketPriceHistory, type PriceHistoryInterval } from '@/providers/prediction/polymarket/type.js';
+import { type OpinionPriceHistory } from '@/providers/types/Firefly.js';
+import { type BetsMarketDataForUI } from '@/types/prediction.js';
 
 interface Options {
     markets: BetsMarketDataForUI[];

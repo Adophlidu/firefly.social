@@ -3,7 +3,7 @@ import urlcat from 'urlcat';
 import { env } from '@/constants/env.js';
 import { X_WEBHOOK_RECEIVER_URL } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
-import type { MessagesResponse } from '@/providers/types/WebhookReceiver.js';
+import { type MessagesResponse } from '@/providers/types/WebhookReceiver.js';
 
 interface Options {
     size?: number;

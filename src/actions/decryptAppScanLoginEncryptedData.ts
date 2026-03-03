@@ -18,7 +18,7 @@ import { LensSession } from '@/providers/lens/Session.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import { TwitterSessionPayload } from '@/providers/twitter/SessionPayload.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
-import type { AuthDataFromApp } from '@/types/sync.js';
+import { type AuthDataFromApp } from '@/types/sync.js';
 
 export async function decryptAppScanLoginEncryptedData(
     data: string,

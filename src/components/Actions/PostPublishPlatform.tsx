@@ -8,7 +8,7 @@ import FireflyMonochromeIcon from '@/assets/firefly-monochrome.svg';
 import { SUPPORTED_FETCH_POST_PUBLISH_INFO_SOURCES } from '@/constants/computed.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { isSendFromFirefly } from '@/helpers/isSendFromFirefly.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
+import { type Post } from '@/providers/types/SocialMedia.js';
 import { getPostPublishPlatformInfo } from '@/services/getPostPublishPlatformInfo.js';
 
 interface Props {
