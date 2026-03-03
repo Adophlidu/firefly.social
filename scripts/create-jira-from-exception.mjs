@@ -63,6 +63,7 @@ const JIRA_BASE_URL = process.env.JIRA_BASE_URL || 'https://mask.atlassian.net';
 const { values, positionals } = parseArgs({
     options: {
         'dry-run': { type: 'boolean' },
+        update: { type: 'string' },
         help: { type: 'boolean', short: 'h' },
     },
     allowPositionals: true,
@@ -78,8 +79,9 @@ per .jira/ISSUE_TEMPLATE.md, and creates a Jira issue with:
   - Labels: ai, firefly-exception-tracker
 
 Options:
-  --dry-run    Show what would be created without creating
-  -h, --help   Show this help
+  --dry-run           Show what would be created without creating
+  --update <issue-key> Update existing Jira issue instead of creating
+  -h, --help          Show this help
 
 Environment variables:
   EXCEPTION_TRACKER_USER    Tracker admin username
@@ -91,6 +93,7 @@ Environment variables:
 
 const exceptionId = positionals[0];
 const dryRun = values['dry-run'];
+const updateIssueKey = values.update;
 
 async function loginAndFetchException() {
     if (!TRACKER_USER || !TRACKER_PASS) {
@@ -282,9 +285,15 @@ function markdownToADF(markdown) {
 
 function buildDescription(data) {
     const trackerUrl = `${TRACKER_URL}/admin/exceptions/${exceptionId}`;
+    const requestUrl = data.requestUrl || 'unknown URL';
+    const occurrences = data.occurrences || 'multiple';
+    const firstSeen = data.firstSeen || 'N/A';
+    const lastSeen = data.lastSeen || 'N/A';
+    const env = data.environment || 'production';
+
     return `# Problem
 
-Runtime error occurs when visiting \`${data.requestUrl || 'unknown URL'}\` in firefly-web. The error "Cannot read properties of null (reading 'info')" is thrown from \`cookie3.analytics.js\`, affecting the signup flow. Occurred ${data.occurrences || 'multiple'} times.
+Runtime error occurs when visiting \`${requestUrl}\` in firefly-web. The error "${data.message}" is thrown. Occurred ${occurrences} times.
 
 **Tracker:** Exception #${exceptionId} - ${trackerUrl}
 
@@ -302,27 +311,25 @@ ${data.message}
 ${data.stackTrace}
 \`\`\`
 
-**Timestamp:** ${data.timestamp || 'N/A'} (First: ${data.firstSeen || 'N/A'}, Last: ${data.lastSeen || 'N/A'})
+**Timestamp:** ${data.timestamp || 'N/A'} (First: ${firstSeen}, Last: ${lastSeen})
 
-**Environment:** ${data.environment || 'production'} (Vercel Production)
+**Environment:** ${env} (Vercel Production)
 
 # Expected Behavior
 
-- The signup page at \`/signup\` should load without JavaScript errors
-- \`cookie3.analytics.js\` should handle null/undefined values safely before accessing \`.info\`
-- No runtime errors should be thrown in the analytics script
+- The page at \`${requestUrl}\` should load without errors
+- The underlying service/component should handle edge cases safely
+- No runtime errors should be thrown
 
 # Current Behavior
 
-- Visiting \`https://firefly.social/signup\` triggers a TypeError in \`cookie3.analytics.js\`
-- The error occurs at line 1, column 6917 when accessing \`.info\` on a null value
-- Error is captured by \`window.onerror\` and reported to firefly-exception-tracker
-- 7+ occurrences observed (First: 2/5/2026, Last: 2/28/2026)
+- Visiting \`${requestUrl}\` triggers an error: "${data.message}"
+- Error is captured and reported to firefly-exception-tracker
+- ${occurrences} occurrence(s) observed (First: ${firstSeen}, Last: ${lastSeen})
 
 # Impact
 
-- Users may experience broken signup flow or degraded experience
-- Analytics may fail to track correctly on the signup page
+- Users may experience broken functionality or degraded experience
 - Error affects production environment and real users`;
 }
 
@@ -331,6 +338,13 @@ async function main() {
     const html = await loginAndFetchException();
     const data = parseExceptionHtml(html);
 
+    if (!data.message) {
+        // Try alternative patterns - error type may vary (e.g. "Error" instead of "runtime_error")
+        const msgMatchAlt = html.match(/<h3[^>]*>([^<]*)<\/h3>\s*<pre>([^<]*)<\/pre>/);
+        if (msgMatchAlt) {
+            data.message = msgMatchAlt[2].trim();
+        }
+    }
     if (!data.message) {
         console.error('Could not parse exception details from HTML');
         process.exit(1);
@@ -365,34 +379,66 @@ async function main() {
     }
 
     const auth = Buffer.from(`${JIRA_EMAIL}:${JIRA_API_TOKEN}`).toString('base64');
-    const res = await fetch(`${JIRA_BASE_URL}/rest/api/3/issue`, {
-        method: 'POST',
-        headers: {
-            Authorization: `Basic ${auth}`,
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-        },
-        body: JSON.stringify(issueData),
-    });
+    const headers = {
+        Authorization: `Basic ${auth}`,
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+    };
 
-    if (!res.ok) {
-        const errText = await res.text();
-        let msg = `Failed to create issue: ${res.status} ${res.statusText}`;
-        try {
-            const j = JSON.parse(errText);
-            if (j.errorMessages) msg += '\n' + j.errorMessages.join('\n');
-            if (j.errors) msg += '\n' + JSON.stringify(j.errors, null, 2);
-        } catch {
-            msg += '\n' + errText;
+    if (updateIssueKey) {
+        const updateData = {
+            fields: {
+                summary: title,
+                description: { type: 'doc', version: 1, content: adfContent },
+            },
+        };
+        const res = await fetch(`${JIRA_BASE_URL}/rest/api/3/issue/${updateIssueKey}`, {
+            method: 'PUT',
+            headers,
+            body: JSON.stringify(updateData),
+        });
+        if (!res.ok) {
+            const errText = await res.text();
+            let msg = `Failed to update issue: ${res.status} ${res.statusText}`;
+            try {
+                const j = JSON.parse(errText);
+                if (j.errorMessages) msg += '\n' + j.errorMessages.join('\n');
+                if (j.errors) msg += '\n' + JSON.stringify(j.errors, null, 2);
+            } catch {
+                msg += '\n' + errText;
+            }
+            console.error(msg);
+            process.exit(1);
         }
-        console.error(msg);
-        process.exit(1);
-    }
+        console.log('\n✅ Issue updated successfully!');
+        console.log(`Issue Key: ${updateIssueKey}`);
+        console.log(`Issue URL: ${JIRA_BASE_URL}/browse/${updateIssueKey}`);
+    } else {
+        const res = await fetch(`${JIRA_BASE_URL}/rest/api/3/issue`, {
+            method: 'POST',
+            headers,
+            body: JSON.stringify(issueData),
+        });
 
-    const result = await res.json();
-    console.log('\n✅ Issue created successfully!');
-    console.log(`Issue Key: ${result.key}`);
-    console.log(`Issue URL: ${JIRA_BASE_URL}/browse/${result.key}`);
+        if (!res.ok) {
+            const errText = await res.text();
+            let msg = `Failed to create issue: ${res.status} ${res.statusText}`;
+            try {
+                const j = JSON.parse(errText);
+                if (j.errorMessages) msg += '\n' + j.errorMessages.join('\n');
+                if (j.errors) msg += '\n' + JSON.stringify(j.errors, null, 2);
+            } catch {
+                msg += '\n' + errText;
+            }
+            console.error(msg);
+            process.exit(1);
+        }
+
+        const result = await res.json();
+        console.log('\n✅ Issue created successfully!');
+        console.log(`Issue Key: ${result.key}`);
+        console.log(`Issue URL: ${JIRA_BASE_URL}/browse/${result.key}`);
+    }
 }
 
 main().catch((err) => {
