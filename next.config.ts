@@ -42,7 +42,7 @@ const config: NextConfig = {
         },
     },
     env: {
-        VERSION: process.env.npm_package_version || '',
+        VERSION: require('./package.json').version,
         COMMIT_HASH: execSync('git rev-parse --short HEAD').toString().trim(),
     },
     experimental: {
