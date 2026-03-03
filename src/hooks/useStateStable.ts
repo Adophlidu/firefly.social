@@ -9,9 +9,21 @@ export function useStateStable<T>(value: T) {
     const [stableValue, setStableValue] = useState<T>(value);
     const hasUpdated = useRef<boolean>(false);
     const previousValue = useRef<T>(value);
+    const isInitialMount = useRef<boolean>(true);
 
     useEffect(() => {
-        // Only update once when the value changes
+        // On initial mount, sync if value differs from initial state (e.g. from async data)
+        if (isInitialMount.current) {
+            isInitialMount.current = false;
+            if (value !== stableValue) {
+                setStableValue(value);
+                hasUpdated.current = true;
+            }
+            previousValue.current = value;
+            return;
+        }
+
+        // Only update once when the value changes after initial mount
         if (value !== previousValue.current && !hasUpdated.current) {
             setStableValue(value);
             hasUpdated.current = true;

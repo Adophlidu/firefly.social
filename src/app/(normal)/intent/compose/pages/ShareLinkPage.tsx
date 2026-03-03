@@ -1,7 +1,7 @@
 'use client';
 
 import { compact } from 'lodash-es';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 import { CharTag, FireflyPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST, SITE_URL_OFFICIAL } from '@/constants/static.js';
@@ -79,8 +79,8 @@ async function openCompose(props: ShareLinkProps, onFinished: () => void) {
     }
 
     const expectedSources = matchedIdentity?.related
-        .map((x) => resolveSocialSourceFromFireflyPlatform(x.platform))
-        .filter((x) => !!currentProfiles[x]?.profileId);
+        ?.map((x) => resolveSocialSourceFromFireflyPlatform(x.platform))
+        ?.filter((x) => !!currentProfiles[x]?.profileId);
 
     await ComposeModalRef.openAndWaitForClose({
         type: 'compose',
@@ -108,10 +108,19 @@ async function openCompose(props: ShareLinkProps, onFinished: () => void) {
 export function ShareLinkPage(props: ShareLinkProps) {
     const isLogin = useIsLogin();
     const router = useRouter();
+    const abortedRef = useRef(false);
 
     useEffect(() => {
-        openCompose(props, () => router.replace('/'));
-    }, [isLogin, props, router]);
+        abortedRef.current = false;
+
+        openCompose(props, () => {
+            if (!abortedRef.current) router.replace('/');
+        });
+
+        return () => {
+            abortedRef.current = true;
+        };
+    }, [isLogin, props.text, props.url, props.via, router]);
 
     return null;
 }

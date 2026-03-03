@@ -49,7 +49,7 @@ export const InitialProviders = memo(function Providers(props: { children: React
                 module.initPerformanceProfilingFromEnv();
             });
         }
-    });
+    }, []);
 
     const viewerId = useLeafwatchPersistStore.use.viewerId();
     const setViewerId = useLeafwatchPersistStore.use.setViewerId();

@@ -10,6 +10,7 @@ import { createPersistStorage } from '@/helpers/createPersistStorage.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { type Profile } from '@/providers/types/SocialMedia.js';
+import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 import { type ComposeType, type CompositePost } from '@/types/compose.js';
 
 export interface Draft {
@@ -91,8 +92,9 @@ export const useComposeDraftStateStore = createSelectors(useComposeStateBase);
 
 export function useComposeDraftState() {
     const { drafts, removeDraft, getDrafts, removeTempDrafts, addDraft } = useComposeDraftStateStore();
+    const currentProfileId = useFireflyProfileStore.use.currentProfileSession()?.profileId ?? null;
 
-    const result = useMemo(() => getDrafts(), [drafts]);
+    const result = useMemo(() => getDrafts(), [drafts, currentProfileId]);
 
     return {
         drafts: result,
