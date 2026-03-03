@@ -1,6 +1,8 @@
 import { NotFoundError } from '@dimensiondev/utils';
+import { isServer } from '@tanstack/react-query';
 
 import { type SocialSource } from '@/constants/enum.js';
+import { TweetUnavailableError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/static.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
 import { getPostById } from '@/services/getPostById.js';
@@ -16,6 +18,12 @@ export function getPostDetailQuery(source: SocialSource, postId: string) {
                 if (error instanceof NotFoundError) {
                     return null;
                 }
+                // On server side, catch TweetUnavailableError to prevent SSR failure
+                // But throw a special marker error that won't be cached
+                if (error instanceof TweetUnavailableError && isServer) {
+                    return;
+                }
+
                 throw error;
             }
         },

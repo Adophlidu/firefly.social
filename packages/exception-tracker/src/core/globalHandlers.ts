@@ -39,6 +39,9 @@ const IGNORED_ERROR_PATTERNS = [
 
     // Network errors during page unload
     'Failed to fetch',
+
+    // Expected business errors
+    'TweetUnavailableError',
 ];
 
 /**
