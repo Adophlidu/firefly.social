@@ -44,7 +44,27 @@ export const SearchPostList = memo<Props>(function SearchPostList({
         keywords.map((keyword) => ({
             key: keyword,
             queryFn: async ({ pageParam }) => {
-                if (!keyword?.trim() || invalidQuery || (loginRequired && !isLogin)) {
+                if (!keyword?.trim() || invalidQuery) {
+                    return createPageable(EMPTY_LIST, createIndicator(undefined, pageParam));
+                }
+
+                // Check if this is a URL search (can fetch post directly without login)
+                const urlResult = !pageParam ? resolveSearchUrlType(keyword) : null;
+                const isUrlSearch = urlResult?.kind === SearchUrlKind.Post && urlResult.source && urlResult.identifier;
+
+                if (isUrlSearch && urlResult.identifier) {
+                    try {
+                        const post =
+                            urlResult.source === Source.Farcaster && urlResult.secondaryId
+                                ? await getPostByShortId(urlResult.identifier, urlResult.secondaryId)
+                                : await getPostById(urlResult.source as SocialSource, urlResult.identifier);
+                        return createPageable([post], createIndicator(undefined, pageParam));
+                    } catch (error) {
+                        logger.error('[Search] Failed to fetch post by URL', error);
+                    }
+                }
+
+                if (loginRequired && !isLogin) {
                     return createPageable(EMPTY_LIST, createIndicator(undefined, pageParam));
                 }
 
@@ -56,21 +76,6 @@ export const SearchPostList = memo<Props>(function SearchPostList({
                         indicator,
                         keyword.includes(' '),
                     );
-
-                    if (!pageParam) {
-                        const urlResult = resolveSearchUrlType(keyword);
-                        if (urlResult?.kind === SearchUrlKind.Post && urlResult.source && urlResult.identifier) {
-                            try {
-                                const post =
-                                    urlResult.source === Source.Farcaster && urlResult.secondaryId
-                                        ? await getPostByShortId(urlResult.identifier, urlResult.secondaryId)
-                                        : await getPostById(urlResult.source as SocialSource, urlResult.identifier);
-                                result.data.unshift(post);
-                            } catch (error) {
-                                logger.error('[Search] Failed to fetch pinned post', error);
-                            }
-                        }
-                    }
 
                     return result;
                 } catch {

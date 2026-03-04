@@ -75,7 +75,10 @@ function SearchBar({ slot, autoSearchType = false, className, ...rest }: SearchB
     });
 
     const handleInputSubmit = (state: SearchState) => {
-        if (state.q) addRecord(state.q);
+        if (state.q) {
+            addRecord(state.q);
+            setInputText(state.q);
+        }
         updateState(state);
         setShowRecommendation(false);
     };
@@ -169,7 +172,7 @@ function SearchBar({ slot, autoSearchType = false, className, ...rest }: SearchB
                     <SearchRecommendation
                         autoSearchType
                         keyword={inputText}
-                        onSearch={closeRecommendation}
+                        onSearch={handleInputSubmit}
                         onSelect={closeRecommendation}
                         onClear={() => inputRef.current?.focus()}
                     />
