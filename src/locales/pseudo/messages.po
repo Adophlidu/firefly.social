@@ -668,6 +668,9 @@ msgstr ""
 msgid "Top Holders"
 msgstr ""
 
+msgid "View closed positions"
+msgstr ""
+
 msgid "Overview"
 msgstr ""
 
@@ -997,9 +1000,6 @@ msgid "Sending"
 msgstr ""
 
 msgid "Retry Stream"
-msgstr ""
-
-msgid "Close lost position"
 msgstr ""
 
 msgid "No predictions found"

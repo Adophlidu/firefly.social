@@ -673,6 +673,9 @@ msgstr "登录中"
 msgid "Top Holders"
 msgstr "持仓大户"
 
+msgid "View closed positions"
+msgstr ""
+
 msgid "Overview"
 msgstr "概览"
 
@@ -1003,9 +1006,6 @@ msgstr "发送中"
 
 msgid "Retry Stream"
 msgstr ""
-
-msgid "Close lost position"
-msgstr "关闭亏损仓位"
 
 msgid "No predictions found"
 msgstr "未找到预测结果"

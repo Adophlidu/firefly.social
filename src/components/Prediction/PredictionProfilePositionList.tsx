@@ -1,10 +1,12 @@
 'use client';
 
+import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQueryClient, useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { parseAsBoolean, useQueryState } from 'nuqs';
-import { memo, useEffect, useMemo } from 'react';
+import { memo, useEffect, useMemo, useState } from 'react';
 
+import ArrowLineDownIcon from '@/assets/arrow-line-down.svg';
 import { ListInPage } from '@/components/ListInPage.js';
 import { getPredictionPositionList } from '@/components/Prediction/getPredictionPositionList.js';
 import { PredictionPositionFilter } from '@/components/Prediction/PredictionPositionFilter.js';
@@ -73,6 +75,7 @@ export const PredictionProfilePositionList = memo<Props>(function PredictionProf
     );
     const queryClient = useQueryClient();
     const subscribeToWalletEvents = useGlobalState((state) => state.subscribeToWalletEvents);
+    const [showClosed, setShowClosed] = useState(false);
 
     useEffect(() => {
         if (platform !== PredictionPlatform.Polymarket) return;
@@ -108,13 +111,34 @@ export const PredictionProfilePositionList = memo<Props>(function PredictionProf
         select: (data) => data.pages.flatMap((x) => x.data),
     });
 
+    const allPositions = queryResult.data || EMPTY_LIST;
+
+    // Filter positions into active and closed groups
+    // Active: not closed and not (claimable losses)
+    // Closed: is_closed OR (isClaimable && !isWin)
+    const { activePositions, closedPositions } = useMemo(() => {
+        const active: PredictionPositionDataForUI[] = [];
+        const closed: PredictionPositionDataForUI[] = [];
+
+        for (const position of allPositions) {
+            const isClosedLoss = position.isClaimable && !position.isWin;
+            if (position.is_closed || isClosedLoss) {
+                closed.push(position);
+            } else {
+                active.push(position);
+            }
+        }
+
+        return { activePositions: active, closedPositions: closed };
+    }, [allPositions]);
+
     return (
         <div className="p-4">
             {platform === PredictionPlatform.Polymarket ? <PredictionPositionFilter /> : null}
             <ListInPage
                 source={Source.Prediction}
                 key={Source.Prediction}
-                queryResult={queryResult}
+                queryResult={{ ...queryResult, data: activePositions }}
                 VirtualListProps={{
                     useWindowScroll: true,
                     listKey: `${ScrollListKey.Prediction}:positions`,
@@ -138,6 +162,40 @@ export const PredictionProfilePositionList = memo<Props>(function PredictionProf
                     ),
                 }}
             />
+
+            {closedPositions.length ? (
+                <div className="pt-4">
+                    <button
+                        type="button"
+                        className="mx-auto my-4 flex h-9 items-center justify-center gap-2 rounded-[20px] bg-lightBg px-6 py-2"
+                        onClick={() => setShowClosed((prev) => !prev)}
+                    >
+                        <span className="text-sm font-semibold text-main">
+                            <Trans>View closed positions</Trans>
+                        </span>
+                        <ArrowLineDownIcon
+                            width={14}
+                            height={14}
+                            className={classNames('text-main transition-transform', showClosed ? 'rotate-180' : null)}
+                        />
+                    </button>
+
+                    {showClosed ? (
+                        <div className="w-full">
+                            {closedPositions.map((positionData, index) =>
+                                getPositionItem({
+                                    index,
+                                    positionData,
+                                    isMyAddress,
+                                    platform,
+                                    predictionProfile,
+                                    fireflyAccountId,
+                                }),
+                            )}
+                        </div>
+                    ) : null}
+                </div>
+            ) : null}
         </div>
     );
 });

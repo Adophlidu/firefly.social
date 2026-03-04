@@ -673,6 +673,9 @@ msgstr "登入中"
 msgid "Top Holders"
 msgstr "持倉大戶"
 
+msgid "View closed positions"
+msgstr ""
+
 msgid "Overview"
 msgstr "總覽"
 
@@ -1003,9 +1006,6 @@ msgstr "發布中"
 
 msgid "Retry Stream"
 msgstr ""
-
-msgid "Close lost position"
-msgstr "平倉虧損部位"
 
 msgid "No predictions found"
 msgstr "未發現任何預測"
