@@ -1333,6 +1333,9 @@ msgstr "未找到相关个人资料。"
 msgid "Collections"
 msgstr "NFT 系列"
 
+msgid "Failed to remove draft. Please try again."
+msgstr ""
+
 msgid "Profile details"
 msgstr "个人资料详情"
 
@@ -2233,6 +2236,9 @@ msgstr "个人介绍不可以超过 {maxBioSize} 个字符"
 
 msgid "5 minutes"
 msgstr "5 分钟"
+
+msgid "Note: Cloud drafts save text only. Please upload original images or video again."
+msgstr ""
 
 msgid "This Bluesky account is already linked to another Firefly account."
 msgstr "这个 Bluesky 账号已绑定到另一个 Firefly 账户。"
@@ -3212,6 +3218,9 @@ msgstr "未知交易方法：{method}。"
 msgid "Discard"
 msgstr "放弃"
 
+msgid "REPLY"
+msgstr ""
+
 msgid "Switch wallet"
 msgstr "切换钱包"
 
@@ -3929,6 +3938,9 @@ msgstr "NFT 持有者"
 
 msgid "Select Network"
 msgstr "选择网络"
+
+msgid "The post you quoted/replied not found"
+msgstr ""
 
 msgid "Please select one EVM wallet and one Solana wallet for onchain features in Firefly."
 msgstr "请连接一个 EVM 钱包和一个 Solana 钱包以体验 Firefly 的链上功能。"

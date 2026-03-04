@@ -7,6 +7,7 @@ import { getCompositePost } from '@/helpers/getCompositePost.js';
 import { isEmptyPost } from '@/helpers/isEmptyPost.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { logger } from '@/libs/Logger.js';
+import { saveLocalDraftToCloud } from '@/services/saveLocalDraftToCloud.js';
 import { type Draft, useComposeDraftState } from '@/store/useComposeDraftStore.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
@@ -51,6 +52,9 @@ export function useSaveDraftInCompose(draftType: DraftPostType.LocalNormal | Dra
 
             if (draftType === DraftPostType.LocalNormal) {
                 removeTempDrafts();
+                saveLocalDraftToCloud(draft).catch((error) => {
+                    logger.error('Failed to save draft to cloud', error);
+                });
             }
 
             return draft;

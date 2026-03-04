@@ -1333,6 +1333,9 @@ msgstr ""
 msgid "Collections"
 msgstr ""
 
+msgid "Failed to remove draft. Please try again."
+msgstr ""
+
 msgid "Profile details"
 msgstr ""
 
@@ -2232,6 +2235,9 @@ msgid "Bio should not exceed {maxBioSize} characters"
 msgstr ""
 
 msgid "5 minutes"
+msgstr ""
+
+msgid "Note: Cloud drafts save text only. Please upload original images or video again."
 msgstr ""
 
 msgid "This Bluesky account is already linked to another Firefly account."
@@ -3212,6 +3218,9 @@ msgstr ""
 msgid "Discard"
 msgstr ""
 
+msgid "REPLY"
+msgstr ""
+
 msgid "Switch wallet"
 msgstr ""
 
@@ -3928,6 +3937,9 @@ msgid "NFT holder"
 msgstr ""
 
 msgid "Select Network"
+msgstr ""
+
+msgid "The post you quoted/replied not found"
 msgstr ""
 
 msgid "Please select one EVM wallet and one Solana wallet for onchain features in Firefly."

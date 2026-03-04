@@ -7,6 +7,7 @@ import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { isEmptyPost } from '@/helpers/isEmptyPost.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { useCurrentProfiles } from '@/hooks/useCurrentProfile.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
@@ -24,20 +25,30 @@ export function useApplyDraftPost() {
     const setEditorContent = useSetEditorContent();
 
     return useAsyncFn(
-        async (draft: Draft, full = false) => {
+        async (oldDraft: Draft, full = false) => {
+            const draft = { ...oldDraft };
+
             try {
                 if (draft.type === 'reply' || draft.type === 'quote') {
                     const target = first(draft.posts);
                     const post = first(compact(values(target?.parentPost)));
-
-                    if (post) {
-                        const provider = resolveSocialMediaProvider(post.source);
-                        const detail = await provider.getPostById(post.postId);
-                        if (detail.isHidden) {
-                            enqueueErrorMessage(<Trans>The post you quoted/replied has already deleted</Trans>);
-                            return;
-                        }
+                    if (!target || !post) {
+                        enqueueErrorMessage(<Trans>The post you quoted/replied not found</Trans>);
+                        return;
                     }
+
+                    const provider = resolveSocialMediaProvider(post.source);
+                    const detail = await runInSafeAsync(() => provider.getPostById(post.postId));
+                    if (!detail) {
+                        enqueueErrorMessage(<Trans>The post you quoted/replied not found</Trans>);
+                        return;
+                    }
+                    if (detail.isHidden) {
+                        enqueueErrorMessage(<Trans>The post you quoted/replied has already deleted</Trans>);
+                        return;
+                    }
+
+                    target.parentPost[post.source] = detail;
                 }
 
                 const availableProfiles = draft.availableProfiles.filter((x) =>
@@ -68,6 +79,7 @@ export function useApplyDraftPost() {
                         })),
                     })),
                     currentDraftId: draft.draftId,
+                    showMediaAlert: draft.draftType === DraftPostType.Cloud && !!draft.mediaAlert,
                 });
                 const post = draft.posts.find((x) => x.id === draft.cursor);
                 if (post) {

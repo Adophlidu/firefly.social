@@ -44,6 +44,9 @@ interface ComposeBaseState {
     isFailedSchedulePost?: boolean;
 
     isBusy?: boolean;
+
+    // for cloud draft with media, show alert to remind user that the media can not be retrieved
+    showMediaAlert: boolean;
 }
 
 interface ComposeState extends ComposeBaseState {
@@ -113,6 +116,7 @@ interface ComposeState extends ComposeBaseState {
     clear: () => void;
 
     updateFocused: (focused: boolean) => void;
+    setShowMediaAlert: (showMediaAlert: boolean) => void;
 }
 
 export function createInitPostState(): Record<SocialSource, null> {
@@ -124,7 +128,7 @@ export function createInitPostState(): Record<SocialSource, null> {
     };
 }
 
-function createInitSinglePostState(cursor: Cursor): CompositePost {
+export function createInitSinglePostState(cursor: Cursor): CompositePost {
     return {
         id: cursor,
         postId: createInitPostState(),
@@ -167,6 +171,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
         sealedSource: null,
         cursor: initialPostCursor,
         focused: false,
+        showMediaAlert: false,
         posts: [createInitSinglePostState(initialPostCursor)],
         computed: {
             get nextAvailablePost() {
@@ -645,6 +650,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     posts: [createInitSinglePostState(id)],
                     isFailedSchedulePost: false,
                     isBusy: false,
+                    showMediaAlert: false,
                 } satisfies ComposeBaseState;
 
                 Object.assign(state, nextState);
@@ -652,6 +658,10 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
         updateFocused: (focused) =>
             set((state) => {
                 state.focused = focused;
+            }),
+        setShowMediaAlert: (showMediaAlert) =>
+            set((state) => {
+                state.showMediaAlert = showMediaAlert;
             }),
     })),
 );

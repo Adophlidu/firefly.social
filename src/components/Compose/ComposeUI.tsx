@@ -12,6 +12,7 @@ import { SchedulePostEntryButton } from '@/components/Compose/SchedulePostEntryB
 import { UploadDropArea } from '@/components/Compose/UploadDropArea.js';
 import { useUpdateImages } from '@/components/Compose/useUpdateImages.js';
 import { useUpdateVideos } from '@/components/Compose/useUpdateVideos.js';
+import { CloseButton } from '@/components/IconButton.js';
 import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
@@ -43,7 +44,8 @@ export function Title() {
 export const ComposeUI = memo(function ComposeUI() {
     const isMedium = useIsMedium();
     const isDark = useIsDarkMode();
-    const { type, posts, isFailedSchedulePost, updateIsFailedSchedulePost } = useComposeStateStore();
+    const { type, posts, isFailedSchedulePost, showMediaAlert, setShowMediaAlert, updateIsFailedSchedulePost } =
+        useComposeStateStore();
     const { scheduleTime } = useComposeScheduleStateStore();
 
     const compositePost = useCompositePost();
@@ -106,6 +108,21 @@ export const ComposeUI = memo(function ComposeUI() {
                             onClick={() => {
                                 updateIsFailedSchedulePost(false);
                             }}
+                        />
+                    </div>
+                ) : null}
+                {showMediaAlert ? (
+                    <div className="mb-3 flex items-center gap-1.5 rounded bg-bg px-3 py-2 backdrop-blur-sm">
+                        <Info width={20} height={20} className="shrink-0 text-main" />
+                        <p className="min-w-0 flex-1 text-left text-xs leading-4 text-main">
+                            <Trans>
+                                Note: Cloud drafts save text only. Please upload original images or video again.
+                            </Trans>
+                        </p>
+                        <CloseButton
+                            size={20}
+                            className="shrink-0 text-main"
+                            onClick={() => setShowMediaAlert(false)}
                         />
                     </div>
                 ) : null}

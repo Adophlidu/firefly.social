@@ -321,6 +321,7 @@ export enum ScrollListKey {
     Activities = 'activities-list',
     Prediction = 'prediction-list',
     BetsLeaderboard = 'prediction-leaderboard',
+    DraftList = 'draft-list',
 }
 
 export enum FarcasterSignType {

@@ -26,6 +26,8 @@ export interface Draft {
     // the fid when creating a draft.
     createBy?: string;
     draftType?: DraftPostType;
+    cloudDraftId?: string;
+    mediaAlert?: boolean;
 }
 
 interface ComposeDraftState {

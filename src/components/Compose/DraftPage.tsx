@@ -5,7 +5,7 @@ import { memo, Suspense, useState } from 'react';
 import { useMount } from 'react-use';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { DraftList } from '@/components/Compose/DraftList.js';
+import { DraftList } from '@/components/Compose/DraftList/index.js';
 import { ScheduleTaskList } from '@/components/Compose/ScheduleTaskList.js';
 import { Loading } from '@/components/Loading.js';
 import { captureScheduleTabClickEvent } from '@/providers/telemetry/captureClickEvent.js';
@@ -62,13 +62,9 @@ export const DraftPage = memo(function DraftPage() {
                     </div>
                 ))}
             </div>
-            {currentTab === DraftPageTab.Draft ? (
-                <DraftList />
-            ) : (
-                <Suspense fallback={<Loading className="min-h-[478px] text-main" />}>
-                    <ScheduleTaskList />
-                </Suspense>
-            )}
+            <Suspense fallback={<Loading className="min-h-[478px] text-main" />}>
+                {currentTab === DraftPageTab.Draft ? <DraftList /> : <ScheduleTaskList />}
+            </Suspense>
         </div>
     );
 });

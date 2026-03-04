@@ -1328,6 +1328,9 @@ msgstr "Profile could not be found."
 msgid "Collections"
 msgstr "Collections"
 
+msgid "Failed to remove draft. Please try again."
+msgstr "Failed to remove draft. Please try again."
+
 msgid "Profile details"
 msgstr "Profile details"
 
@@ -2228,6 +2231,9 @@ msgstr "Bio should not exceed {maxBioSize} characters"
 
 msgid "5 minutes"
 msgstr "5 minutes"
+
+msgid "Note: Cloud drafts save text only. Please upload original images or video again."
+msgstr "Note: Cloud drafts save text only. Please upload original images or video again."
 
 msgid "This Bluesky account is already linked to another Firefly account."
 msgstr "This Bluesky account is already linked to another Firefly account."
@@ -3207,6 +3213,9 @@ msgstr "Unknown transaction method: {method}."
 msgid "Discard"
 msgstr "Discard"
 
+msgid "REPLY"
+msgstr "REPLY"
+
 msgid "Switch wallet"
 msgstr "Switch wallet"
 
@@ -3924,6 +3933,9 @@ msgstr "NFT holder"
 
 msgid "Select Network"
 msgstr "Select Network"
+
+msgid "The post you quoted/replied not found"
+msgstr "The post you quoted/replied not found"
 
 msgid "Please select one EVM wallet and one Solana wallet for onchain features in Firefly."
 msgstr "Please select one EVM wallet and one Solana wallet for onchain features in Firefly."
