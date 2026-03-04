@@ -1,5 +1,6 @@
 'use client';
 
+import { UnauthorizedError } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useEffect } from 'react';
 
@@ -15,7 +16,7 @@ export default function Error({ error }: { error: Error }) {
         }
     }, [error]);
 
-    if (error instanceof TweetUnavailableError) {
+    if (error instanceof TweetUnavailableError || error instanceof UnauthorizedError) {
         return (
             <NotFound
                 text={<Trans>Post could not be found.</Trans>}

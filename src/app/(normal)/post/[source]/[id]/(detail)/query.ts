@@ -1,4 +1,4 @@
-import { NotFoundError } from '@dimensiondev/utils';
+import { NotFoundError, UnauthorizedError } from '@dimensiondev/utils';
 import { isServer } from '@tanstack/react-query';
 
 import { type SocialSource } from '@/constants/enum.js';
@@ -18,9 +18,9 @@ export function getPostDetailQuery(source: SocialSource, postId: string) {
                 if (error instanceof NotFoundError) {
                     return null;
                 }
-                // On server side, catch TweetUnavailableError to prevent SSR failure
-                // But throw a special marker error that won't be cached
-                if (error instanceof TweetUnavailableError && isServer) {
+                // On server side, catch TweetUnavailableError and UnauthorizedError to prevent SSR failure
+                // The client will re-fetch and can fallback to client-side Twitter API
+                if ((error instanceof TweetUnavailableError || error instanceof UnauthorizedError) && isServer) {
                     return;
                 }
 
