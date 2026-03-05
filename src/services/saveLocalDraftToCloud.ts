@@ -116,7 +116,7 @@ export async function saveLocalDraftToCloud(draft: Draft) {
             platform: resolveSocialSourceInUrl(profile.source),
         })),
         content: draft.posts.map<CloudDraftContent>((post) => {
-            return {
+            const draftContent: CloudDraftContent = {
                 text: readChars(post.chars, 'both'),
                 hasMedia: !!post.images.length || !!post.videos.length,
                 mentions: compact(
@@ -135,13 +135,18 @@ export async function saveLocalDraftToCloud(draft: Draft) {
                         };
                     }),
                 ),
-                poll: post.poll
-                    ? {
-                          options: post.poll.options.map((option) => option.label),
-                          duration: getPollDurationSeconds(post.poll.duration),
-                      }
-                    : undefined,
             };
+            if (post.poll) {
+                draftContent.poll = {
+                    options: post.poll.options.map((option) => option.label || ''),
+                    duration: getPollDurationSeconds(post.poll.duration),
+                };
+            }
+            if (post.rpPayload?.metadata?.rpid) {
+                draftContent.rpid = post.rpPayload.metadata.rpid;
+            }
+
+            return draftContent;
         }),
         ...resolveChannelData(draft),
     });
