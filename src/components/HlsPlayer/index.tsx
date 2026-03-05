@@ -104,6 +104,7 @@ export const HlsPlayer = memo<HlsPlayerProps>(function HlsPlayer({
                 setLevels(availableLevels);
 
                 if (autoPlay && !enableViewportAutoPlay) {
+                    video.muted = true;
                     video.play().catch(() => setIsPlaying(false));
                 }
             });
@@ -145,6 +146,7 @@ export const HlsPlayer = memo<HlsPlayerProps>(function HlsPlayer({
             const onLoadedMetadata = () => {
                 setLoading(false);
                 if (autoPlay && !enableViewportAutoPlay) {
+                    video.muted = true;
                     video.play().catch(() => setIsPlaying(false));
                 }
             };
@@ -183,12 +185,13 @@ export const HlsPlayer = memo<HlsPlayerProps>(function HlsPlayer({
                 if (!video) return;
 
                 if (entry.isIntersecting && !hasInteracted) {
+                    video.muted = true;
                     video.play().catch(() => {
                         logger.warn('Autoplay blocked by browser. Muting to try again...');
                         video.muted = true;
                         video.play().catch((e) => logger.error('Playback failed even after mute:', e));
                     });
-                } else {
+                } else if (!entry.isIntersecting) {
                     video.pause();
                 }
             },

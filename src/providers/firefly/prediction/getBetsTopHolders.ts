@@ -42,11 +42,11 @@ export async function getOpinionBetsTopHolders(options: Options) {
         } | null>
     >(url, { signal: options.signal });
     const data = resolveFireflyResponseData(response);
-    if (data?.errno !== 0) {
+    if (data && data.errno !== 0) {
         throw new Error(data?.errmsg || 'Failed to fetch polymarket top holders');
     }
 
-    const holders = data.result?.list || [];
+    const holders = data?.result?.list || [];
     const nextIndicatorId = holders.length === limit ? Number(options.indicator.id || 0) + 1 : null;
     return createPageable(
         holders,
