@@ -5,7 +5,7 @@ import { Outlet, useLocation, useRouter, useRouterState } from '@tanstack/react-
 import { BackButton, CloseButton } from '@/components/IconButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { WalletConnectContext } from '@/hooks/useWalletConnectContext.js';
-import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
+import { WalletConnectModalRef } from '@/modals/WalletConnectModal/refs.js';
 
 export function RootView() {
     const router = useRouter();

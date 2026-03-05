@@ -5,13 +5,13 @@ import { Modal } from '@/components/Modal.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { type PreviewMediaModalContentProps } from '@/modals/PreviewMediaModal/PreviewMediaModalContent.js';
+import { type PreviewMediaModalRefType } from '@/modals/PreviewMediaModal/refs.js';
 
 interface PreviewMediaModalOpenProps extends Omit<PreviewMediaModalContentProps, 'open' | 'onClose'> {}
 
 interface Props {
-    ref: React.Ref<SingletonModalRefCreator<PreviewMediaModalOpenProps>>;
+    ref: React.Ref<PreviewMediaModalRefType>;
 }
 
 const PreviewMediaModalContent = dynamic(
@@ -44,5 +44,3 @@ export function PreviewMediaModal({ ref }: Props) {
         </Modal>
     );
 }
-
-export const PreviewMediaModalRef = new SingletonModal<PreviewMediaModalOpenProps>();

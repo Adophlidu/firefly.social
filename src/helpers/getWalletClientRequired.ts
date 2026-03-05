@@ -6,7 +6,7 @@ import { chains } from '@/configs/chains.js';
 import { NetworkType } from '@/constants/enum.js';
 import { SwitchChainError } from '@/constants/error.js';
 import { switchEthereumChain } from '@/helpers/switchEthereumChain.js';
-import { type WalletConnectModalOpenProps, WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
+import { type WalletConnectModalOpenProps, WalletConnectModalRef } from '@/modals/WalletConnectModal/refs.js';
 
 function resolveExpectChainId(error: ConnectorChainMismatchError) {
     const chainId = error.message.match(/Expected Chain ID: (\d+)/);

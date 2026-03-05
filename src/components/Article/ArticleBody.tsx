@@ -15,7 +15,7 @@ import { IS_APPLE, IS_SAFARI } from '@/constants/browser.js';
 import { Source } from '@/constants/enum.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { PreviewMediaModalRef } from '@/modals/PreviewMediaModal/PreviewMediaModal.js';
+import { PreviewMediaModalRef } from '@/modals/PreviewMediaModal/refs.js';
 import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
 
 interface Props {

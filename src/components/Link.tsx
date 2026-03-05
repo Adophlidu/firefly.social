@@ -8,7 +8,7 @@ import { isSelfReference } from '@/helpers/isLinkMatchingHost.js';
 import { isTrustedUrl } from '@/helpers/isTrustedUrl.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { useInternalLink } from '@/hooks/useInternalLink.js';
-import { ConfirmLeavingModalRef } from '@/modals/ConfirmLeavingModal.js';
+import { ConfirmLeavingModalRef } from '@/modals/ConfirmLeavingModal/refs.js';
 
 type LinkProps = React.ComponentProps<typeof OriginalLink>;
 

@@ -3,7 +3,7 @@ import { Trans } from '@lingui/react/macro';
 import FlagIcon from '@/assets/flag.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { type ClickableButtonProps } from '@/components/ClickableButton.js';
-import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
+import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
 
 interface Props extends Omit<ClickableButtonProps, 'children'> {

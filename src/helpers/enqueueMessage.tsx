@@ -10,7 +10,7 @@ import { type NODE_ENV } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { getDetailedErrorMessage } from '@/helpers/getDetailedErrorMessage.js';
 import { getErrorMessageFromError, getWarningMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
-import { SnackbarRef } from '@/modals/Snackbar.js';
+import { SnackbarRef } from '@/modals/Snackbar/refs.js';
 
 export enum MessageKey {
     COMPOSE_ERROR_NOTIFICATION_KEY = 'COMPOSE_NOTIFICATION_KEY',

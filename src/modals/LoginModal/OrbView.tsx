@@ -25,7 +25,7 @@ import {
 } from '@/helpers/enqueueMessage.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
-import { LoginModalRef } from '@/modals/LoginModal/index.js';
+import { LoginModalRef } from '@/modals/LoginModal/refs.js';
 import { getLensProfileById } from '@/providers/lens/getLensProfileById.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';

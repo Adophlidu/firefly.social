@@ -5,7 +5,7 @@ import { Loading } from '@/components/Loading.js';
 import { Modal } from '@/components/Modal.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
+import { type EditFireflyProfileModalRefType } from '@/modals/EditFireflyProfileModal/refs.js';
 import { type AllConnections, type FireflyAccountProfile } from '@/providers/types/Firefly.js';
 
 interface EditFireflyProfileModalOpenProps {
@@ -14,7 +14,7 @@ interface EditFireflyProfileModalOpenProps {
 }
 
 interface Props {
-    ref: React.Ref<SingletonModalRefCreator<EditFireflyProfileModalOpenProps>>;
+    ref: React.Ref<EditFireflyProfileModalRefType>;
 }
 
 const EditFireflyProfileModalContent = dynamic(
@@ -55,5 +55,3 @@ export function EditFireflyProfileModal({ ref }: Props) {
         </Modal>
     );
 }
-
-export const EditFireflyProfileModalRef = new SingletonModal<EditFireflyProfileModalOpenProps>();

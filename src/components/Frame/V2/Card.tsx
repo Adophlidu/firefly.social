@@ -16,7 +16,7 @@ import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { logger } from '@/libs/Logger.js';
-import { FrameViewerModalRef } from '@/modals/FrameViewerModal/FrameViewerModal.js';
+import { FrameViewerModalRef } from '@/modals/FrameViewerModal/refs.js';
 import { RelayConfirmationPopoverRef } from '@/modals/FrameViewerModal/RelayConfirmationPopover.js';
 import { FarcasterFrameHost } from '@/providers/frame/Host.js';
 import { captureFrameActionEvent } from '@/providers/telemetry/captureFrameActionEvent.js';

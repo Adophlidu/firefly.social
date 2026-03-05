@@ -36,7 +36,7 @@ import { usePreloadImage } from '@/helpers/preloadImage.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { usePrivyAppkitAccountByNetwork } from '@/hooks/appkit/usePrivyAppkitAccountByNetwork.js';
 import { useAvailableBalance } from '@/hooks/useAvailableBalance.js';
-import { RedPacketModalRef } from '@/modals/RedPacketModal/index.js';
+import { RedPacketModalRef } from '@/modals/RedPacketModal/refs.js';
 import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
 import { type RedPacketJSONPayload, RedPacketStatus } from '@/providers/types/FireflyRedPacket.js';
 import { type Post } from '@/providers/types/SocialMedia.js';

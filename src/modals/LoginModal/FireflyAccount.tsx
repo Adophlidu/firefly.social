@@ -19,11 +19,11 @@ import { enqueueMessageFromError, enqueueWarningMessage } from '@/helpers/enqueu
 import { getAccountsFromStorage } from '@/helpers/getAccountsFromStorage.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { useFireflyAccountAvatar } from '@/hooks/useFireflyAccountAvatar.js';
-import { EditFireflyProfileModalRef } from '@/modals/EditFireflyProfileModal/EditFireflyProfileModal.js';
-import { LoginModalRef } from '@/modals/LoginModal/index.js';
-import { LogoutModalRef } from '@/modals/LogoutModal.js';
-import { PasswordModalRef } from '@/modals/PasswordModal/index.js';
-import { SignInToFireflyAppModalRef } from '@/modals/SignInToFireflyAppModal.js';
+import { EditFireflyProfileModalRef } from '@/modals/EditFireflyProfileModal/refs.js';
+import { LoginModalRef } from '@/modals/LoginModal/refs.js';
+import { LogoutModalRef } from '@/modals/LogoutModal/refs.js';
+import { PasswordModalRef } from '@/modals/PasswordModal/refs.js';
+import { SignInToFireflyAppModalRef } from '@/modals/SignInToFireflyAppModal/refs.js';
 import { getMetricsStatus } from '@/providers/firefly/metrics/getMetricsStatus.js';
 import { captureEditProfileClickEvent } from '@/providers/telemetry/captureProfileActionEvent.js';
 import { captureMultiDeviceLoginClickEvent } from '@/providers/telemetry/captureSyncTokenEvent.js';

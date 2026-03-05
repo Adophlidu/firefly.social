@@ -4156,6 +4156,9 @@ msgstr ""
 msgid "Address removed on Farcaster"
 msgstr ""
 
+msgid "Let's go!"
+msgstr ""
+
 #. placeholder {0}: percentageToNumber(info.buy_tax)
 msgid "Buy Tax: {0}%"
 msgstr ""
@@ -4968,9 +4971,6 @@ msgid "Hours"
 msgstr ""
 
 msgid "Post decrypted successfully!"
-msgstr ""
-
-msgid "Let’s go!"
 msgstr ""
 
 msgid "Failed to create schedule post."

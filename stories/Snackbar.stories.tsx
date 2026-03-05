@@ -8,7 +8,8 @@ import {
     enqueueSuccessMessage,
     enqueueWarningMessage,
 } from '@/helpers/enqueueMessage.js';
-import { Snackbar, SnackbarRef } from '@/modals/Snackbar.js';
+import { SnackbarRef } from '@/modals/Snackbar/refs.js';
+import { Snackbar } from '@/modals/Snackbar/Snackbar.js';
 
 const meta: Meta<typeof SnackbarProvider> = {
     title: 'Components/Snackbar',

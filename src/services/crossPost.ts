@@ -18,7 +18,7 @@ import { resolvePostTo } from '@/helpers/resolvePostTo.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { resolveSourceName, resolveSourcesName } from '@/helpers/resolveSourceName.js';
 import { logger } from '@/libs/Logger.js';
-import { SnackbarRef } from '@/modals/Snackbar.js';
+import { SnackbarRef } from '@/modals/Snackbar/refs.js';
 import { commitPoll } from '@/providers/firefly/poll/commitPoll.js';
 import { updateClaimStrategy } from '@/providers/firefly/red-packet/updateClaimStrategy.js';
 import { captureComposeEvent } from '@/providers/telemetry/captureComposeEvent.js';

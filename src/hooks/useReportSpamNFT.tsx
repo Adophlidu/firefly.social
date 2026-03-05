@@ -8,7 +8,7 @@ import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueu
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
-import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
+import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
 import { reportNFT } from '@/providers/firefly/report/reportNFT.js';
 import { type FollowingNFT, type NFTFeedV3 } from '@/providers/types/NFTs.js';
 import { type NonFungibleAsset } from '@/web3-shared/base/specs.js';

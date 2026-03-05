@@ -8,7 +8,7 @@ import { ActionButton, type ActionButtonProps } from '@/components/ActionButton.
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { NetworkType } from '@/constants/enum.js';
 import { useAccountByNetwork } from '@/hooks/useAccountByNetwork.js';
-import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
+import { WalletConnectModalRef } from '@/modals/WalletConnectModal/refs.js';
 
 interface ChainGuardButtonProps extends ActionButtonProps {
     targetChainId?: number;

@@ -4161,6 +4161,9 @@ msgstr "该代币可以自我销毁。"
 msgid "Address removed on Farcaster"
 msgstr "已移除地址"
 
+msgid "Let's go!"
+msgstr ""
+
 #. placeholder {0}: percentageToNumber(info.buy_tax)
 msgid "Buy Tax: {0}%"
 msgstr "购买税率: {0}%"
@@ -4976,9 +4979,6 @@ msgstr "小时"
 
 msgid "Post decrypted successfully!"
 msgstr "帖子解密成功！"
-
-msgid "Let’s go!"
-msgstr "立即开始！"
 
 msgid "Failed to create schedule post."
 msgstr "创建定时帖失败。"

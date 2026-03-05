@@ -24,7 +24,7 @@ import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { updateCacheAfterAdd, updateCacheAfterDelete } from '@/helpers/updateVerifiedAddressesCache.js';
 import { WalletItem } from '@/modals/VerifiedAddressModal/WalletItem.js';
-import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
+import { WalletConnectModalRef } from '@/modals/WalletConnectModal/refs.js';
 import { deleteVerifiedAddress } from '@/providers/farcaster/deleteVerifiedAddress.js';
 import { type FarcasterSession } from '@/providers/farcaster/Session.js';
 import { verifyEthereumAddress, verifySolanaAddress } from '@/providers/farcaster/verifyAddress.js';

@@ -10,7 +10,7 @@ import { NetworkType } from '@/constants/enum.js';
 import { useFrameAuthor } from '@/hooks/frame/useFrameAuthor.js';
 import { type FrameViewerModalOpenProps } from '@/modals/FrameViewerModal/FrameViewerModalContent.js';
 import { MoreAction } from '@/modals/FrameViewerModal/MoreActionMenu.js';
-import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
+import { WalletConnectModalRef } from '@/modals/WalletConnectModal/refs.js';
 
 interface FrameViewerModalHeaderProps {
     onClose?: () => void;

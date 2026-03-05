@@ -5,7 +5,7 @@ import { useAsyncFn } from 'react-use';
 
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { type SocialSource } from '@/constants/enum.js';
-import { SignupModalRef } from '@/modals/SignupModal/index.js';
+import { SignupModalRef } from '@/modals/SignupModal/refs.js';
 import { captureSocialSignupEntryClickEvent } from '@/providers/telemetry/captureSocialAccountSignupEvent.js';
 
 interface SignupEntryProps extends ClickableButtonProps {

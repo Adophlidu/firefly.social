@@ -20,8 +20,8 @@ import { formatFireflyAccountProfileFromFireflyConnections } from '@/helpers/for
 import { getAllAccounts } from '@/helpers/getAllProfiles.js';
 import { useCheckFireflyAccount } from '@/hooks/useCheckFireflyAccount.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { LoginModalRef } from '@/modals/LoginModal/index.js';
-import { SignInWithFireflyAppModalRef } from '@/modals/SignInWithFireflyAppModal.js';
+import { LoginModalRef } from '@/modals/LoginModal/refs.js';
+import { SignInWithFireflyAppModalRef } from '@/modals/SignInWithFireflyAppModal/refs.js';
 import { autoLoginLensAccountsInSignup } from '@/providers/lens/autoLoginLensAccountsInSignup.js';
 import { resumeFireflySession } from '@/services/account.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';

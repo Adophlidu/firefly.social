@@ -8,7 +8,7 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Source, type ThirdPartySource } from '@/constants/enum.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
-import { LoginModalRef } from '@/modals/LoginModal/index.js';
+import { LoginModalRef } from '@/modals/LoginModal/refs.js';
 import { getTelegramLoginUrl } from '@/providers/firefly/auth/getTelegramLoginUrl.js';
 
 interface Props {

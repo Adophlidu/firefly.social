@@ -7,11 +7,11 @@ import { PasswordStep, PasswordWorkflow, PasswordWorkflowConfig } from '@/consta
 import { FetchError } from '@/constants/error.js';
 import { SESSION_PASSWORD_INPUT_ID } from '@/constants/static.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
-import { type PasswordModalOpenProps } from '@/modals/PasswordModal/index.js';
 import { isValidPassword } from '@/modals/PasswordModal/isValidPassword.js';
 import { ModalActions } from '@/modals/PasswordModal/ModalActions.js';
 import { ModalTitle } from '@/modals/PasswordModal/ModalTitle.js';
 import { PasswordInputPanel } from '@/modals/PasswordModal/PasswordInputPanel.js';
+import { type PasswordModalOpenProps } from '@/modals/PasswordModal/refs.js';
 import { runPasswordWorkflow } from '@/modals/PasswordModal/runPasswordWorkflow.js';
 import { StepFooterDescription, StepHeaderDescription } from '@/modals/PasswordModal/StepDescription.js';
 import {

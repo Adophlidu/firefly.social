@@ -8,7 +8,7 @@ import { SITE_URL } from '@/constants/static.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { openComposeModal } from '@/helpers/openComposeModal.js';
 import { useOpenFireflyWallet } from '@/hooks/useOpenFireflyWallet.js';
-import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
+import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
 
 interface ShareOptions {

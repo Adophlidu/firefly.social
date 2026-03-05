@@ -7,7 +7,7 @@ import { Modal } from '@/components/Modal.js';
 import { Popover } from '@/components/Popover.js';
 import { TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { TipsModalRef } from '@/modals/TipsModal/index.js';
+import { TipsModalRef } from '@/modals/TipsModal/refs.js';
 import { useTipsStore } from '@/store/useTipsStore.js';
 
 export const OpenTipsModalContext = createContext<boolean>(false);

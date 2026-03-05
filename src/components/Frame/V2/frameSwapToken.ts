@@ -6,7 +6,7 @@ import { OkxProviderType } from '@/constants/enum.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { parseCAIP19 } from '@/helpers/parseCAIP19.js';
 import { logger } from '@/libs/Logger.js';
-import { SwapModalRef } from '@/modals/SwapModal/SwapModal.js';
+import { SwapModalRef } from '@/modals/SwapModal/refs.js';
 
 export const frameSwapToken = async function frameSwapToken(options) {
     const buyToken = options.buyToken ? parseCAIP19(options.buyToken) : undefined;

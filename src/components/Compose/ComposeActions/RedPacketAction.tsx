@@ -22,7 +22,7 @@ import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
-import { RedPacketModalRef } from '@/modals/RedPacketModal/index.js';
+import { RedPacketModalRef } from '@/modals/RedPacketModal/refs.js';
 import { captureRedPacketClickEvent } from '@/providers/telemetry/captureClickEvent.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { type Chars } from '@/types/chars.js';

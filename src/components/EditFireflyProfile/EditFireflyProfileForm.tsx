@@ -18,7 +18,7 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ALLOWED_IMAGES_MIMES } from '@/constants/computed.js';
 import { FIREFLY_DISPLAY_NAME_REGEXP } from '@/constants/regexp.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { ImageEditorModalRef } from '@/modals/ImageEditorModal.js';
+import { ImageEditorModalRef } from '@/modals/ImageEditorModal/refs.js';
 import { updateProfile } from '@/providers/firefly/endpoint/updateProfile.js';
 import { captureEditProfileSuccessEvent } from '@/providers/telemetry/captureProfileActionEvent.js';
 import { type FireflyProfileUpdateParams } from '@/providers/types/Firefly.js';

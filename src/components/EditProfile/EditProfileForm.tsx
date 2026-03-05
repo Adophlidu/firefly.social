@@ -23,7 +23,7 @@ import {
 } from '@/constants/limitation.js';
 import { URL_INPUT_REGEX } from '@/constants/regexp.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { ImageEditorModalRef } from '@/modals/ImageEditorModal.js';
+import { ImageEditorModalRef } from '@/modals/ImageEditorModal/refs.js';
 import { type Profile, type ProfileEditable } from '@/providers/types/SocialMedia.js';
 import { resolveLengthCalculator } from '@/services/resolveLengthCalculator.js';
 import { updateProfile } from '@/services/updateProfile.js';

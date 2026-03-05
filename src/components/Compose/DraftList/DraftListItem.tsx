@@ -22,7 +22,7 @@ import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { useApplyDraftPost } from '@/hooks/useApplyDraftPost.js';
 import { useCurrentProfiles } from '@/hooks/useCurrentProfile.js';
-import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
+import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
 import { deleteCloudDraft } from '@/providers/firefly/cloud-draft/deleteCloudDraft.js';
 import { captureDraftDeleteClickEvent } from '@/providers/telemetry/captureClickEvent.js';
 import { type Draft, useComposeDraftState } from '@/store/useComposeDraftStore.js';

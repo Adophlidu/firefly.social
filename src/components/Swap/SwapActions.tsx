@@ -32,7 +32,7 @@ import { patchTransactionsQuery } from '@/helpers/patchTransactionsQuery.js';
 import { resolveTxPageUrl } from '@/helpers/resolveTxPageUrl.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { ComposeModalRef } from '@/modals/ComposeModal/refs.js';
-import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
+import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
 import { createTxReaction } from '@/providers/firefly/endpoint/createTxReaction.js';
 import { getSwapActivityByHash } from '@/providers/firefly/endpoint/getSwapActivityByHash.js';
 import { type SwapActivity } from '@/providers/types/Firefly.js';

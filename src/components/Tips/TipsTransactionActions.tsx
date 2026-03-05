@@ -31,7 +31,7 @@ import { updateTipsReactionStatus } from '@/helpers/updateTipsReactionStatus.js'
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { ComposeModalRef } from '@/modals/ComposeModal/refs.js';
 import { type ComposeModalOpenProps } from '@/modals/ComposeModal/types.js';
-import { ShareImageModalRef } from '@/modals/ShareImageModal/index.js';
+import { ShareImageModalRef } from '@/modals/ShareImageModal/refs.js';
 import { createTxReaction } from '@/providers/firefly/endpoint/createTxReaction.js';
 import { getTipsTransactionDetail } from '@/providers/firefly/endpoint/getTipsTransactionDetail.js';
 import { type TipsLikeStatusData } from '@/providers/types/Firefly.js';

@@ -4156,6 +4156,9 @@ msgstr "This token can self destruct."
 msgid "Address removed on Farcaster"
 msgstr "Address removed on Farcaster"
 
+msgid "Let's go!"
+msgstr "Let's go!"
+
 #. placeholder {0}: percentageToNumber(info.buy_tax)
 msgid "Buy Tax: {0}%"
 msgstr "Buy Tax: {0}%"
@@ -4969,9 +4972,6 @@ msgstr "Hours"
 
 msgid "Post decrypted successfully!"
 msgstr "Post decrypted successfully!"
-
-msgid "Let’s go!"
-msgstr "Let’s go!"
 
 msgid "Failed to create schedule post."
 msgstr "Failed to create schedule post."

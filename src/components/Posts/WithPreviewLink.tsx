@@ -4,7 +4,7 @@ import { Link } from '@/components/Link.js';
 import { getPostImageUrl } from '@/helpers/getPostImageUrl.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import { useIsPostDetailPage } from '@/hooks/post/useIsPostDetailPage.js';
-import { PreviewMediaModalRef } from '@/modals/PreviewMediaModal/PreviewMediaModal.js';
+import { PreviewMediaModalRef } from '@/modals/PreviewMediaModal/refs.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
 
 interface WithPreviewLinkProps {

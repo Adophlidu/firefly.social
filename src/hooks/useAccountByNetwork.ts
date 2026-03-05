@@ -9,7 +9,7 @@ import { useConnection } from 'wagmi';
 
 import { NetworkType, SolanaNetworkType } from '@/constants/enum.js';
 import { isSameSolanaAddress } from '@/helpers/isSameAddress.js';
-import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
+import { WalletConnectModalRef } from '@/modals/WalletConnectModal/refs.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 import { SolanaChainId } from '@/web3-shared/solana/types.js';
 

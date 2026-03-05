@@ -13,7 +13,7 @@ import { bedStead } from '@/fonts/bedStead/index.js';
 import { useCheckFireflyAccount } from '@/hooks/useCheckFireflyAccount.js';
 import { useThrottledCallback } from '@/hooks/useThrottledCallback.js';
 import { FireflyAccountSVG } from '@/modals/CreateFireflyAccountGuideModal/FireflyAccountSVG.js';
-import { DownloadMobileAppModalRef } from '@/modals/DownloadMobileAppModal/index.js';
+import { DownloadMobileAppModalRef } from '@/modals/DownloadMobileAppModal/refs.js';
 
 interface GuidePageProps {
     changeStep: (step: SignupStep) => void;

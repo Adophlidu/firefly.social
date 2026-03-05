@@ -4,7 +4,7 @@ import { WalletItem } from '@/app/(settings)/components/WalletItem.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
 import { Source, SourceInURL } from '@/constants/enum.js';
-import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
+import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
 import { type FireflyWalletConnection } from '@/providers/types/Firefly.js';
 import { getProfilesByIds } from '@/services/getProfilesByIds.js';
 

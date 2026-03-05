@@ -4,7 +4,7 @@ import { memo } from 'react';
 import { ToggleMutedButton } from '@/components/Actions/ToggleMutedButton.js';
 import { type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { useToggleMutedProfile } from '@/hooks/useToggleMutedProfile.js';
-import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
+import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
 import { type Profile } from '@/providers/types/SocialMedia.js';
 
 interface Props extends Omit<ClickableButtonProps, 'children'> {

@@ -29,14 +29,14 @@ import { useEnsName } from '@/hooks/useEnsName.js';
 import { useFungibleTokenPrice } from '@/hooks/useFungibleTokenPrice.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
 import { useSelectFiles } from '@/hooks/useSelectFiles.js';
-import { ImageEditorModalRef } from '@/modals/ImageEditorModal.js';
+import { ImageEditorModalRef } from '@/modals/ImageEditorModal/refs.js';
 import { REQUIREMENT_ICON_MAP, REQUIREMENT_TITLE_MAP } from '@/modals/RedPacketModal/common.js';
-import { RedPacketModalRef } from '@/modals/RedPacketModal/index.js';
 import {
     RedPacketContext,
     redPacketCoverTabs,
     redPacketFontColorTabs,
 } from '@/modals/RedPacketModal/RedPacketContext.js';
+import { RedPacketModalRef } from '@/modals/RedPacketModal/refs.js';
 import { ShareAccountsPopover } from '@/modals/RedPacketModal/ShareAccountsPopover.js';
 import { createPublicKey } from '@/providers/firefly/red-packet/createPublicKey.js';
 import { createTheme as createFireflyTheme } from '@/providers/firefly/red-packet/createTheme.js';

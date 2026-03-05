@@ -9,7 +9,7 @@ import { IMAGE_KIT_ATTACHMENT } from '@/constants/static.js';
 import { formatImageUrl } from '@/helpers/formatImageUrl.js';
 import { resolveMediaObjectUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import { sanitizeDStorageUrl } from '@/helpers/sanitizeDStorageUrl.js';
-import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
+import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { type MediaObject } from '@/types/compose.js';
 

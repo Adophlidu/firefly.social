@@ -26,7 +26,7 @@ import { resolveConnectionPlatform } from '@/helpers/resolveConnectionPlatform.j
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAllConnectionsFormattedWithProfiles } from '@/hooks/useAllConnectionsFormattedWithProfiles.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
-import { DisconnectFireflyAccountModalRef } from '@/modals/DisconnectFireflyAccountModal.js';
+import { DisconnectFireflyAccountModalRef } from '@/modals/DisconnectFireflyAccountModal/refs.js';
 import { checkBatchCustodyWallet } from '@/providers/firefly/endpoint/checkBatchCustodyWallet.js';
 import { type Account } from '@/providers/types/Account.js';
 

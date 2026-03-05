@@ -20,7 +20,7 @@ import {
     enqueueWarningMessage,
 } from '@/helpers/enqueueMessage.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
-import { LoginModalRef } from '@/modals/LoginModal/index.js';
+import { LoginModalRef } from '@/modals/LoginModal/refs.js';
 import { createAccountByPasscode } from '@/providers/email/createAccountByPasscode.js';
 import { type ThirdPartySession } from '@/providers/third-party/Session.js';
 import { thirdPartySessionHolder } from '@/providers/third-party/SessionHolder.js';

@@ -15,7 +15,7 @@ import { ImageAsset, type ImageAssetProps } from '@/components/Posts/ImageAsset.
 import { Source } from '@/constants/enum.js';
 import { BIO_TWITTER_PROFILE_REGEX, EMAIL_REGEX, URL_REGEX } from '@/constants/regexp.js';
 import { trimify } from '@/helpers/trimify.js';
-import { PreviewMediaModalRef } from '@/modals/PreviewMediaModal/PreviewMediaModal.js';
+import { PreviewMediaModalRef } from '@/modals/PreviewMediaModal/refs.js';
 import { type Pluggable } from '@/types/utility.js';
 
 const PLUGINS: Pluggable[] = [

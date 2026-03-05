@@ -7,7 +7,7 @@ import urlcat from 'urlcat';
 import { getNetworkTypeFromCaipAddress } from '@/helpers/getNetworkTypeFromCaipAddress.js';
 import { isPrivyAddress } from '@/helpers/isPrivyAddress.js';
 import { WalletConnectContext } from '@/hooks/useWalletConnectContext.js';
-import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
+import { WalletConnectModalRef } from '@/modals/WalletConnectModal/refs.js';
 import { walletRouter } from '@/modals/WalletConnectModal/routes.js';
 import { captureConnectWalletEvent } from '@/providers/telemetry/captureConnectWalletEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';

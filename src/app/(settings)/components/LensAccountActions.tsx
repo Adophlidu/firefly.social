@@ -17,7 +17,7 @@ import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { ETH_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { AddLensManagerModalRef } from '@/modals/AddLensManagerModal/index.js';
+import { AddLensManagerModalRef } from '@/modals/AddLensManagerModal/refs.js';
 import { createMemorySessionClient } from '@/providers/lens/createMemorySessionClient.js';
 import { ensureLensResultSync } from '@/providers/lens/ensureLensResultSync.js';
 import { getProfilesByAddress } from '@/providers/lens/getProfilesByAddress.js';

@@ -1,6 +1,6 @@
 import { PasswordWorkflow } from '@/constants/enum.js';
 import { FireflyResponseCode } from '@/constants/responseCode.js';
-import { PasswordModalRef } from '@/modals/PasswordModal/index.js';
+import { PasswordModalRef } from '@/modals/PasswordModal/refs.js';
 import { type StepDescriptions } from '@/modals/PasswordModal/StepDescription.js';
 import { checkPasscode } from '@/providers/firefly/metrics/checkPasscode.js';
 import { getMetricsStatus } from '@/providers/firefly/metrics/getMetricsStatus.js';

@@ -7,7 +7,7 @@ import { ImageAsset } from '@/components/Posts/ImageAsset.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/browser.js';
 import { Source } from '@/constants/enum.js';
 import { TWITTER_ARTICLE_REGEX } from '@/constants/regexp.js';
-import { PreviewMediaModalRef } from '@/modals/PreviewMediaModal/PreviewMediaModal.js';
+import { PreviewMediaModalRef } from '@/modals/PreviewMediaModal/refs.js';
 
 interface Props {
     cover?: string;

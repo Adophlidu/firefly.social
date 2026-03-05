@@ -12,7 +12,7 @@ import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { resolveNFTUrlByCollection } from '@/helpers/resolveNFTUrl.js';
-import { ConfirmLeavingModalRef } from '@/modals/ConfirmLeavingModal.js';
+import { ConfirmLeavingModalRef } from '@/modals/ConfirmLeavingModal/refs.js';
 
 interface CollectionMoreProps extends HTMLProps<HTMLDivElement> {
     chainId: number;

@@ -5,8 +5,8 @@ import { useAsyncFn } from 'react-use';
 
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { useVerifyAndBindWallet } from '@/hooks/useVerifyAndBindWallet.js';
-import { AddWalletModalRef } from '@/modals/AddWalletModal/index.js';
-import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
+import { AddWalletModalRef } from '@/modals/AddWalletModal/refs.js';
+import { WalletConnectModalRef } from '@/modals/WalletConnectModal/refs.js';
 import { type FireflyWalletConnection } from '@/providers/types/Firefly.js';
 
 interface AddWalletButtonProps extends Omit<ClickableButtonProps, 'children'> {

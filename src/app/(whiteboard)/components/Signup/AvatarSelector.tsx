@@ -22,7 +22,7 @@ import { ALLOWED_IMAGES_MIMES } from '@/constants/computed.js';
 import { Source } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
-import { ImageEditorModalRef } from '@/modals/ImageEditorModal.js';
+import { ImageEditorModalRef } from '@/modals/ImageEditorModal/refs.js';
 import { type Profile } from '@/providers/types/SocialMedia.js';
 
 type AvatarType = 'pfp' | 'random' | 'custom';

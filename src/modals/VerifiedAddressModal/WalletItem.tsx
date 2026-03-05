@@ -6,7 +6,7 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { useEnsName } from '@/hooks/useEnsName.js';
-import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
+import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
 
 interface WalletItemProps {
     address: string;

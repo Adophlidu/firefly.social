@@ -13,7 +13,7 @@ import { ExploreSwitchType } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { useRouter } from '@/esm/navigation.js';
 import { useExploreDataSwitchConfig } from '@/hooks/useExploreDataSwitchConfig.js';
-import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
+import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
 
 interface ToggleEnableButtonProps {
     className?: string;

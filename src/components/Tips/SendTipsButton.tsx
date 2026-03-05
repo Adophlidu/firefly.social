@@ -22,7 +22,7 @@ import { resolveCurrentFireflyAccountId, resolveFireflyAccountId } from '@/helpe
 import { resolveNetworkProvider, resolveTransferProvider } from '@/helpers/resolveTokenTransfer.js';
 import { trimify } from '@/helpers/trimify.js';
 import { useSolanaWalletProvider } from '@/hooks/useSolanaWalletProvider.js';
-import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
+import { WalletConnectModalRef } from '@/modals/WalletConnectModal/refs.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import { reportAndCaptureTipEvent } from '@/services/reportAndCaptureTipEvent.js';
 import { useTipsStore } from '@/store/useTipsStore.js';

@@ -9,7 +9,7 @@ import { useCountdown } from 'usehooks-ts';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { useRouter } from '@/esm/navigation.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
+import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
 import { deleteAccount } from '@/providers/firefly/auth/deleteAccount.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { captureAccountDeleteEvent } from '@/providers/telemetry/captureAccountEvent.js';

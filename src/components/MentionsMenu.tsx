@@ -11,7 +11,8 @@ import { SORTED_CROSS_AT_SOCIAL_SOURCES } from '@/constants/computed.js';
 import { FireflyPlatform } from '@/constants/enum.js';
 import { resolveSocialSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
-import { EditCrossAtModal, EditCrossAtModalRef } from '@/modals/EditCrossAtModal.js';
+import { EditCrossAtModal } from '@/modals/EditCrossAtModal/EditCrossAtModal.js';
+import { EditCrossAtModalRef } from '@/modals/EditCrossAtModal/refs.js';
 import { type Profile } from '@/providers/types/Firefly.js';
 
 interface MentionsMenuProps {

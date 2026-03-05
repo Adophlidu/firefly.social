@@ -21,7 +21,7 @@ import {
 import { openComposeModal } from '@/helpers/openComposeModal.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { reconnectPrivyWallet } from '@/helpers/reconnectPrivyWallet.js';
-import { DownloadMobileAppModalRef } from '@/modals/DownloadMobileAppModal/index.js';
+import { DownloadMobileAppModalRef } from '@/modals/DownloadMobileAppModal/refs.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 

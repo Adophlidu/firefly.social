@@ -7,7 +7,7 @@ import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromSto
 import { getSiteTypeFromUrl } from '@/helpers/getSiteTypeFromUrl.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { logger } from '@/libs/Logger.js';
-import { LoginModalRef } from '@/modals/LoginModal/index.js';
+import { LoginModalRef } from '@/modals/LoginModal/refs.js';
 import { getChannelById } from '@/providers/firefly/farcaster-hub/getChannelById.js';
 import { getPostById } from '@/providers/firefly/farcaster-hub/getPostById.js';
 

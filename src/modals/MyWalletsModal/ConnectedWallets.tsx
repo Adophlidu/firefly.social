@@ -13,7 +13,7 @@ import { env } from '@/constants/env.js';
 import { useAppKitAccounts, usePrivyAppKitAccounts } from '@/hooks/useAppKitAccounts.js';
 import { useIsCreatedPrivyWallet } from '@/hooks/useIsCreatedPrivyWallet.js';
 import { AppKitAccountItem } from '@/modals/MyWalletsModal/AppKitAccountItem.js';
-import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
+import { WalletConnectModalRef } from '@/modals/WalletConnectModal/refs.js';
 import { captureFireflyWalletEvent } from '@/providers/telemetry/captureFireflyWalletEvent.js';
 import { WalletProfileDataSource } from '@/providers/types/Firefly.js';
 import { EventId } from '@/providers/types/Telemetry.js';

@@ -11,9 +11,9 @@ import WalletBoldIcon from '@/assets/wallet-bold2.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
-import { RecoveryPhraseModalRef } from '@/modals/RecoveryPhraseModal.js';
-import { VerifiedAddressModalRef } from '@/modals/VerifiedAddressModal/index.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
+import { RecoveryPhraseModalRef } from '@/modals/RecoveryPhraseModal/refs.js';
+import { VerifiedAddressModalRef } from '@/modals/VerifiedAddressModal/refs.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface Props {
     profile: Profile;

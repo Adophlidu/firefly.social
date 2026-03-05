@@ -11,7 +11,7 @@ import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveFallbackImageUrl } from '@/helpers/resolveFallbackImageUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAsyncStatus } from '@/hooks/useAsyncStatus.js';
-import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
+import { WalletConnectModalRef } from '@/modals/WalletConnectModal/refs.js';
 
 const resolveConnectButtonClass = createLookupTableResolver<LoginFallbackSource, string>(
     {

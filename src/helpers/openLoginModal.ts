@@ -5,8 +5,8 @@ import { env } from '@/constants/env.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { isPathnameForceRedirect } from '@/helpers/isPathnameForceRedirect.js';
-import { CreateFireflyAccountGuideModalRef } from '@/modals/CreateFireflyAccountGuideModal/index.js';
-import { type LoginModalOpenProps, LoginModalRef } from '@/modals/LoginModal/index.js';
+import { CreateFireflyAccountGuideModalRef } from '@/modals/CreateFireflyAccountGuideModal/refs.js';
+import { type LoginModalOpenProps, LoginModalRef } from '@/modals/LoginModal/refs.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
 

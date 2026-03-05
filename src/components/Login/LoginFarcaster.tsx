@@ -38,8 +38,8 @@ import {
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { useCanBindMoreAccount } from '@/hooks/useCanBindMoreAccount.js';
-import { DraggablePopoverRef } from '@/modals/DraggablePopover.js';
-import { LoginModalRef } from '@/modals/LoginModal/index.js';
+import { DraggablePopoverRef } from '@/modals/DraggablePopover/refs.js';
+import { LoginModalRef } from '@/modals/LoginModal/refs.js';
 import {
     captureFirstTimeClickInLogin,
     captureReconnectClickInLogin,

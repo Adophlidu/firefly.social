@@ -33,7 +33,7 @@ import { formatSnapshotChoice } from '@/helpers/formatSnapshotChoice.js';
 import { openComposeModal } from '@/helpers/openComposeModal.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import { useEnsName } from '@/hooks/useEnsName.js';
-import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
+import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
 import { getVotePower } from '@/providers/snapshot/getVotePower.js';
 import { pathQueryVoteResultsByVoter } from '@/providers/snapshot/pathQueryVoteResultsByVoter.js';
 import { type SnapshotActivity, type SnapshotChoice, type SnapshotProposal } from '@/providers/snapshot/type.js';

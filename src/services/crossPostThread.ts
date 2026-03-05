@@ -8,7 +8,7 @@ import { enqueueErrorsMessage, enqueueSuccessMessage, MessageKey } from '@/helpe
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { getThreadFailedAt } from '@/helpers/getThreadFailedAt.js';
 import { resolveSourceName, resolveSourcesName } from '@/helpers/resolveSourceName.js';
-import { SnackbarRef } from '@/modals/Snackbar.js';
+import { SnackbarRef } from '@/modals/Snackbar/refs.js';
 import { captureComposeEvent } from '@/providers/telemetry/captureComposeEvent.js';
 import { type Post, SessionType } from '@/providers/types/SocialMedia.js';
 import { crossPost } from '@/services/crossPost.js';

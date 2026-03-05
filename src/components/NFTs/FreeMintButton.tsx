@@ -14,8 +14,9 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { chains } from '@/configs/chains.js';
 import { MintStatus, NetworkType } from '@/constants/enum.js';
 import { useSponsorMintStatus } from '@/hooks/useSponsorMintStatus.js';
-import { FreeMintModal, FreeMintModalRef } from '@/modals/FreeMintModal/index.js';
-import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
+import { FreeMintModal } from '@/modals/FreeMintModal/FreeMintModal.js';
+import { FreeMintModalRef } from '@/modals/FreeMintModal/refs.js';
+import { WalletConnectModalRef } from '@/modals/WalletConnectModal/refs.js';
 import { captureNFTMintClickEvent, captureNFTViewWebsiteClickEvent } from '@/providers/telemetry/captureClickEvent.js';
 import { type SponsorMintOptions } from '@/providers/types/Firefly.js';
 

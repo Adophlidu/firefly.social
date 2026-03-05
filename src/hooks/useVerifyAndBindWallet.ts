@@ -7,7 +7,7 @@ import { FetchError } from '@/constants/error.js';
 import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
-import { MyWalletsModalRef } from '@/modals/MyWalletsModal/index.js';
+import { MyWalletsModalRef } from '@/modals/MyWalletsModal/refs.js';
 import { type BindWalletResponse, type FireflyWalletConnection } from '@/providers/types/Firefly.js';
 import { verifyAndBindWallet } from '@/services/verifyAndBindWallet.js';
 

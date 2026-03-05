@@ -28,7 +28,7 @@ import {
 } from '@/helpers/enqueueMessage.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
-import { LoginModalRef } from '@/modals/LoginModal/index.js';
+import { LoginModalRef } from '@/modals/LoginModal/refs.js';
 import { createBskyPublicAgent } from '@/providers/bsky/createBskyAgent.js';
 import { formatBskyProfile } from '@/providers/bsky/formatBskyProfile.js';
 import { retryOnBskyWhenNetworkError } from '@/providers/bsky/retryOnBskyWhenNetworkError.js';

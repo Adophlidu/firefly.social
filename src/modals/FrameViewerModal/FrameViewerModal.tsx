@@ -4,15 +4,12 @@ import { Loading } from '@/components/Loading.js';
 import { Modal } from '@/components/Modal.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
-import {
-    type FrameViewerModalCloseProps,
-    type FrameViewerModalOpenProps,
-} from '@/modals/FrameViewerModal/FrameViewerModalContent.js';
+import { type FrameViewerModalOpenProps } from '@/modals/FrameViewerModal/FrameViewerModalContent.js';
 import { FrameViewerModalHeader } from '@/modals/FrameViewerModal/FrameViewerModalHeader.js';
+import { type FrameViewerModalRefType } from '@/modals/FrameViewerModal/refs.js';
 
 interface Props {
-    ref: React.Ref<SingletonModalRefCreator<FrameViewerModalOpenProps>>;
+    ref: React.Ref<FrameViewerModalRefType>;
 }
 
 const FrameViewerModalContent = dynamic(() => import('@/modals/FrameViewerModal/FrameViewerModalContent.js'), {
@@ -47,5 +44,3 @@ export function FrameViewerModal({ ref }: Props) {
         </Modal>
     );
 }
-
-export const FrameViewerModalRef = new SingletonModal<FrameViewerModalOpenProps, FrameViewerModalCloseProps>();
