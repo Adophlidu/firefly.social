@@ -20,8 +20,11 @@ class TwitterAuth implements Provider<SessionPayload> {
     }
 
     async logout(): Promise<void> {
-        await twitterSessionHolder.fetch<ResponseJson<SessionPayload>>('/api/twitter/logout', {
+        await twitterSessionHolder.fetchWithoutSession<ResponseJson<SessionPayload>>('/api/twitter/logout', {
             method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
         });
     }
 
