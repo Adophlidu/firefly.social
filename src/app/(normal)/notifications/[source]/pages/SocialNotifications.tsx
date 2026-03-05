@@ -5,8 +5,9 @@ import { getNotificationItemContent } from '@/app/(normal)/notifications/[source
 import { updateNotificationReadStatus } from '@/app/(normal)/notifications/[source]/pages/updateNotificationReadStatus.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { Loading } from '@/components/Loading.js';
-import { type NotificationSource, ScrollListKey, type Source } from '@/constants/enum.js';
+import { type NotificationSource, ScrollListKey, Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/static.js';
+import { mergeNotifications } from '@/helpers/mergeNotifications.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
@@ -43,8 +44,8 @@ export const SocialNotifications = memo<SocialNotificationsProps>(function Socia
             listenNotifications();
 
             const list = data.pages.flatMap((x) => x.data);
-            if (!types.length) return list;
-            return list.filter((x) => types.includes(x.type));
+            const filteredList = types.length ? list.filter((x) => types.includes(x.type)) : list;
+            return source === Source.Twitter ? mergeNotifications(filteredList) : filteredList;
         },
     });
 

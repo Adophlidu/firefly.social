@@ -2,7 +2,6 @@ import { compact, first, isUndefined } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
-import { mergeNotifications } from '@/helpers/mergeNotifications.js';
 import { getBestVideoUrl } from '@/providers/twitter/formatTwitterMedia.js';
 import { convertTwitterAvatar } from '@/providers/twitter/formatTwitterProfile.js';
 import {
@@ -204,7 +203,7 @@ function formatFavoriteNotification(data: FavoriteEvent, viewerId: string): Reac
 }
 
 function formatCreateTweetNotification(data: TweetCreateEvent, viewerId: string) {
-    if (data.is_quote_status && data.quoted_status?.user.id_str === viewerId) {
+    if (data.is_quote_status && data.quoted_status?.user.id_str === viewerId && data.user.id_str !== viewerId) {
         // quote tweet
         return {
             source: Source.Twitter,
@@ -280,7 +279,7 @@ export function formatNotificationsFromWebhook(
     messages: MessagesResponse['messages'],
     viewerId: string,
 ): Notification[] {
-    const notifications = compact(
+    return compact(
         messages.map((message) => {
             if ('follow_events' in message) {
                 const followEvent = first(message.follow_events);
@@ -300,6 +299,4 @@ export function formatNotificationsFromWebhook(
             return null;
         }),
     );
-
-    return mergeNotifications(notifications);
 }
