@@ -17,6 +17,7 @@ import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isValidAddress, isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 import { resolveSearchTypeFromQuery } from '@/helpers/resolveSearchTypeFromQuery.js';
+import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import { resolveSearchUrlType, SearchUrlKind } from '@/helpers/resolveSearchUrlType.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 import { fireflyWalletProvider } from '@/providers/firefly/Wallet.js';
@@ -56,6 +57,7 @@ function useDetectAddress(address?: string) {
 
 function SearchBar({ slot, autoSearchType = false, className, ...rest }: SearchBarProps) {
     const [showRecommendation, setShowRecommendation] = useState(false);
+    const keepOriginalInputRef = useRef(false);
 
     const { searchKeyword, searchType, updateState } = useSearchStateStore();
     const { addRecord } = useSearchHistoryStateStore();
@@ -84,7 +86,12 @@ function SearchBar({ slot, autoSearchType = false, className, ...rest }: SearchB
     };
 
     useLayoutEffect(() => {
-        setInputText(searchKeyword);
+        // Don't sync if we want to keep the original input (e.g., full URL)
+        if (!keepOriginalInputRef.current) {
+            setInputText(searchKeyword);
+        } else {
+            keepOriginalInputRef.current = false;
+        }
     }, [searchKeyword]);
 
     const closeRecommendation = useCallback(() => setShowRecommendation(false), []);
@@ -130,12 +137,13 @@ function SearchBar({ slot, autoSearchType = false, className, ...rest }: SearchB
                                 setShowRecommendation(false);
                                 return;
                             }
+                            const searchQuery = urlResult.identifier || inputText;
+                            addRecord(inputText);
+                            setShowRecommendation(false);
 
-                            handleInputSubmit({
-                                q: inputText,
-                                type: urlResult.searchType,
-                                source: urlResult.source,
-                            });
+                            keepOriginalInputRef.current = true;
+                            const searchUrl = resolveSearchUrl(searchQuery, urlResult.searchType, urlResult.source);
+                            router.push(searchUrl);
                             return;
                         }
 
@@ -152,12 +160,25 @@ function SearchBar({ slot, autoSearchType = false, className, ...rest }: SearchB
                             q: inputText,
                             type: resolvedSearchType,
                         });
+
+                        if (!isSearchPage) {
+                            const searchUrl = resolveSearchUrl(inputText, resolvedSearchType);
+                            router.push(searchUrl);
+                        }
                     }}
                 >
                     <SearchInput
                         className="box-border h-[35px] focus:text-main"
                         value={inputText}
-                        onChange={(ev) => setInputText(ev.currentTarget.value)}
+                        onChange={(ev) => {
+                            const newValue = ev.currentTarget.value;
+                            setInputText(newValue);
+
+                            if (!newValue && inputText && isSearchPage) {
+                                const exploreUrl = resolveExploreUrlFromSearchType(searchType);
+                                router.push(exploreUrl);
+                            }
+                        }}
                         onFocus={() => setShowRecommendation(true)}
                         onClear={() => {
                             setInputText('');
