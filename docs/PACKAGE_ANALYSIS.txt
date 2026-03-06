@@ -1,7 +1,7 @@
 Package Analysis
 ================
 
-Total packages: 1814
+Total packages: 1815
 Packages with multiple versions: 246
 
 Legend:
@@ -1207,6 +1207,7 @@ Packages with Single Version
  eth-query@2.1.2
  eth-rpc-errors@4.0.3
  ethereum-cryptography@2.2.1
+ event-target-bus@1.0.0
  event-target-shim@5.0.1
  eventemitter2@6.4.9
  events@3.3.0
@@ -1242,7 +1243,7 @@ Packages with Single Version
  for-each@0.3.5
  foreground-child@3.3.1
  form-data@4.0.5
-*foxact@0.2.53
+*foxact@0.2.54
  fraction.js@5.3.4
 *framer-motion@12.23.28
 *franc-min@6.2.0
