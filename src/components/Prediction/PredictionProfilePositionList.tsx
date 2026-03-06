@@ -113,16 +113,16 @@ export const PredictionProfilePositionList = memo<Props>(function PredictionProf
 
     const allPositions = queryResult.data || EMPTY_LIST;
 
-    // Filter positions into active and closed groups
-    // Active: not closed and not (claimable losses)
-    // Closed: is_closed OR (isClaimable && !isWin)
+    // Keep claimable winning positions in the main list even if backend marks them closed.
+    // Only settled losses and fully closed positions go into the collapsed section.
     const { activePositions, closedPositions } = useMemo(() => {
         const active: PredictionPositionDataForUI[] = [];
         const closed: PredictionPositionDataForUI[] = [];
 
         for (const position of allPositions) {
+            const isUnclaimedWin = position.isClaimable && position.isWin;
             const isClosedLoss = position.isClaimable && !position.isWin;
-            if (position.is_closed || isClosedLoss) {
+            if ((position.is_closed && !isUnclaimedWin) || isClosedLoss) {
                 closed.push(position);
             } else {
                 active.push(position);
