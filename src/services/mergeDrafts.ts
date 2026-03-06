@@ -48,6 +48,7 @@ function formatCloudDraftToLocalDraft(cloudDraft: CloudDraft): Draft | null {
     if (!composeType) return null;
 
     const farcasterChannel = raw_json.farcaster_channel;
+    const lensChannel = raw_json.lens_channel;
     const posts = compact(
         raw_json.content.map<CompositePost | null>((content) => {
             const availableSources = raw_json.platform.map((p) => resolveSocialSource(p.platform));
@@ -94,6 +95,19 @@ function formatCloudDraftToLocalDraft(cloudDraft: CloudDraft): Draft | null {
                     url: '',
                     parentUrl: '',
                     followerCount: farcasterChannel.follower_count,
+                    timestamp: Date.now(),
+                };
+            }
+            if (lensChannel) {
+                newPost.channel.Lens = {
+                    id: lensChannel.id,
+                    source: Source.Lens,
+                    name: lensChannel.name,
+                    description: lensChannel.description,
+                    imageUrl: lensChannel.image_url,
+                    url: '',
+                    parentUrl: '',
+                    followerCount: lensChannel.follower_count,
                     timestamp: Date.now(),
                 };
             }

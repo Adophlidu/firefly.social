@@ -75,28 +75,31 @@ function resolveCloudDraftType(draft: Draft): CreateCloudDraftRequest['type'] | 
     }
 }
 
-function resolveChannelData(draft: Draft): Record<'farcaster_channel', CloudDraftChannel> | null {
+function resolveChannelData(draft: Draft): {
+    farcaster_channel?: CloudDraftChannel;
+    lens_channel?: CloudDraftChannel;
+} | null {
     const post = first(draft.posts);
     if (!post) return null;
 
-    const source = first(post.availableSources);
-    if (source === Source.Farcaster) {
+    return ([Source.Farcaster, Source.Lens] as const).reduce<{
+        farcaster_channel?: CloudDraftChannel;
+        lens_channel?: CloudDraftChannel;
+    }>((acc, source) => {
         const channel = post.channel?.[source];
-        if (!channel) return null;
+        if (!channel || channel.id === 'home') return acc;
 
-        return {
-            farcaster_channel: {
-                id: channel.id,
-                name: channel.name,
-                description: channel.description || '',
-                image_url: channel.imageUrl,
-                created_at: channel.timestamp,
-                follower_count: channel.followerCount,
-            },
+        acc[source === Source.Farcaster ? 'farcaster_channel' : 'lens_channel'] = {
+            id: channel.id,
+            name: channel.name,
+            description: channel.description || '',
+            image_url: channel.imageUrl,
+            created_at: channel.timestamp,
+            follower_count: channel.followerCount,
         };
-    }
 
-    return null;
+        return acc;
+    }, {});
 }
 
 export async function saveLocalDraftToCloud(draft: Draft) {
