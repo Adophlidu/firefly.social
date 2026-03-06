@@ -8,8 +8,10 @@
         "install-deps": "pnpm install"
     },
     "dependencies": {
+        "archiver": "^7.0.1",
         "dotenv": "^16.4.7",
         "esbuild": "^0.25.12",
+        "glob": "^13.0.6",
         "js-yaml": "^4.1.0",
         "pixelmatch": "^5.3.0",
         "pngjs": "^7.0.0",

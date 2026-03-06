@@ -1,8 +1,8 @@
 Package Analysis
 ================
 
-Total packages: 1796
-Packages with multiple versions: 237
+Total packages: 1814
+Packages with multiple versions: 238
 
 Legend:
   * = Direct dependency (listed in package.json)
@@ -131,6 +131,7 @@ Packages with Multiple Versions
  browserslist@4.24.4,4.28.1
 *bs58@4.0.1,5.0.0,6.0.0
 *buffer@5.7.1,6.0.3
+ buffer-crc32@0.2.13,1.0.0
  camelcase@5.3.1,6.3.0
  caniuse-lite@1.0.30001766,1.0.30001774
  chai@5.2.0,5.3.3
@@ -164,7 +165,7 @@ Packages with Multiple Versions
  find-up@4.1.0,5.0.0,6.3.0
  flat-cache@3.2.0,4.0.1
  get-tsconfig@4.10.0,4.13.0
- glob@10.4.5,11.0.3,7.2.3,8.1.0
+ glob@10.4.5,11.0.3,13.0.6,7.2.3,8.1.0
  glob-parent@5.1.2,6.0.2
  globals@11.12.0,14.0.0,16.4.0
  html-escaper@2.0.2,3.0.3
@@ -184,7 +185,7 @@ Packages with Multiple Versions
  loupe@3.1.3,3.2.1
  lru-cache@10.4.3,11.2.5,5.1.1,6.0.0
  mdn-data@2.0.14,2.0.28,2.0.30,2.12.2
- minimatch@10.2.4,3.1.2,3.1.5,5.1.9,9.0.9
+ minimatch@10.2.4,3.1.2,3.1.5,5.1.9,9.0.8
  ms@2.1.2,2.1.3
  neverthrow@6.2.2,8.2.0
  object-hash@2.2.0,3.0.0
@@ -194,7 +195,7 @@ Packages with Multiple Versions
  pako@0.2.9,2.1.0
  parent-module@1.0.1,2.0.0
  path-exists@4.0.0,5.0.0
- path-scurry@1.11.1,2.0.0
+ path-scurry@1.11.1,2.0.2
  pathval@2.0.0,2.0.1
  picomatch@2.3.1,4.0.3
  pify@2.3.0,3.0.0,5.0.0
@@ -204,7 +205,7 @@ Packages with Multiple Versions
  pretty-format@27.5.1,29.7.0,3.8.0
 *punycode@1.4.1,2.3.1
  react-is@16.13.1,17.0.2,18.3.1
- readable-stream@2.3.8,3.6.2
+ readable-stream@2.3.8,3.6.2,4.7.0
  readdirp@3.5.0,3.6.0,4.1.2,5.0.0
  regjsparser@0.12.0,0.13.0
  resolve@1.22.10,1.22.11,2.0.0-next.5
@@ -954,6 +955,7 @@ Packages with Single Version
  @xobotyi/scrollbar-width@1.9.5
  @xtuc/ieee754@1.2.0
  @xtuc/long@4.2.2
+ abort-controller@3.0.0
  acorn-import-phases@1.0.4
  acorn-jsx@5.3.2
  acorn-walk@8.3.4
@@ -964,6 +966,8 @@ Packages with Single Version
  any-promise@1.3.0
  anymatch@3.1.3
  append-query@2.1.1
+ archiver@7.0.1
+ archiver-utils@5.0.2
  archy@1.0.0
  arg@5.0.2
  argparse@2.0.1
@@ -978,6 +982,7 @@ Packages with Single Version
  assertion-error@2.0.1
  ast-types@0.16.1
  ast-types-flow@0.0.8
+ async@3.2.6
  async-function@1.0.0
  async-mutex@0.2.6
  asynckit@0.4.0
@@ -989,10 +994,12 @@ Packages with Single Version
  axios@1.13.2
  axios-retry@4.5.0
  axobject-query@4.1.0
+ b4a@1.8.0
  babel-plugin-polyfill-corejs2@0.4.13
  babel-plugin-polyfill-corejs3@0.11.1
  babel-plugin-polyfill-regenerator@0.6.4
  bail@2.0.2
+ bare-events@2.8.2
  baseline-browser-mapping@2.10.0
  bidi-js@1.0.3
  big.js@6.2.2
@@ -1006,7 +1013,6 @@ Packages with Single Version
  borsh@0.7.0
  bowser@2.13.1
  braces@3.0.3
- buffer-crc32@0.2.13
  buffer-from@1.1.2
  buffer-layout@1.2.2
  bufferutil@4.1.0
@@ -1049,6 +1055,7 @@ Packages with Single Version
  command-exists-promise@2.0.2
  comment-json@4.2.5
  commondir@1.0.1
+ compress-commons@6.0.2
  concat-map@0.0.1
  confbox@0.1.8
  configstore@6.0.0
@@ -1060,6 +1067,7 @@ Packages with Single Version
 *core-js-compat@3.42.0
  core-util-is@1.0.3
  crc-32@1.2.2
+ crc32-stream@6.0.0
  cross-spawn@7.0.6
  crossws@0.3.5
  crypt@0.0.2
@@ -1194,14 +1202,17 @@ Packages with Single Version
  eth-query@2.1.2
  eth-rpc-errors@4.0.3
  ethereum-cryptography@2.2.1
+ event-target-shim@5.0.1
  eventemitter2@6.4.9
  events@3.3.0
+ events-universal@1.0.1
  execa@5.1.1
  expect-type@1.2.1
  extend@3.0.2
  extension-port-stream@3.0.0
  eyes@0.1.8
  fast-deep-equal@3.1.3
+ fast-fifo@1.3.2
  fast-json-stable-stringify@2.1.0
  fast-levenshtein@2.0.6
  fast-safe-stringify@2.1.1
@@ -1375,6 +1386,7 @@ Packages with Single Version
  keyvaluestorage-interface@1.0.0
  language-subtag-registry@0.3.23
  language-tags@1.0.9
+ lazystream@1.0.1
  leven@3.1.0
  levn@0.4.1
 *lexical@0.18.0
@@ -1447,7 +1459,7 @@ Packages with Single Version
  min-indent@1.0.1
  mini-svg-data-uri@1.4.4
  minimist@1.2.8
- minipass@7.1.2
+ minipass@7.1.3
  minizlib@3.1.0
  mipd@0.0.7
  mlly@1.8.0
@@ -1538,6 +1550,7 @@ Packages with Single Version
 *prettier@3.6.2
 *prettier-plugin-tailwindcss@0.6.14
  prismjs@1.30.0
+ process@0.11.10
  process-nextick-args@2.0.1
  process-warning@5.0.0
  prop-types@15.8.1
@@ -1573,6 +1586,7 @@ Packages with Single Version
 *react-use@17.6.0
 *react-virtuoso@4.12.8
  read-cache@1.0.0
+ readdir-glob@1.1.3
  real-require@0.2.0
  recast@0.23.11
 *recharts@2.15.4
@@ -1654,6 +1668,7 @@ Packages with Single Version
 *storybook@10.0.8
  stream-chain@2.2.5
  stream-json@1.9.1
+ streamx@2.23.0
  strict-uri-encode@2.0.0
  string.prototype.codepointat@0.2.1
  string.prototype.includes@2.0.1
@@ -1684,8 +1699,10 @@ Packages with Single Version
 *tailwindcss-safe-area@0.6.0
  tapable@2.3.0
  tar@7.5.2
+ tar-stream@3.1.7
  terser@5.39.0
  terser-webpack-plugin@5.3.14
+ text-decoder@1.2.7
  text-encoding-utf-8@1.0.2
  thenify@3.3.1
  thenify-all@1.6.0
@@ -1807,5 +1824,6 @@ Packages with Single Version
  yauzl@3.2.0
  yjs@13.6.29
  yoga-layout@3.2.1
+ zip-stream@6.0.1
  zod-validation-error@4.0.2
  zwitch@2.0.4
