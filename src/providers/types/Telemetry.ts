@@ -424,6 +424,7 @@ export interface FarcasterEventParameters {
 
 export interface FarcasterPostEventParameters extends FarcasterEventParameters {
     target_farcaster_cast_id: string;
+    is_self: boolean;
 }
 
 export interface LensEventParameters {
@@ -436,6 +437,7 @@ export interface LensEventParameters {
 
 export interface LensPostEventParameters extends LensEventParameters {
     target_lens_post_id: string;
+    is_self: boolean;
 }
 
 export interface TwitterEventParameters {
@@ -448,6 +450,7 @@ export interface TwitterEventParameters {
 
 export interface TwitterPostEventParameters extends TwitterEventParameters {
     target_x_post_id: string;
+    is_self: boolean;
 }
 
 export interface BskyEventParameters {
@@ -460,6 +463,7 @@ export interface BskyEventParameters {
 
 interface BskyPostEventParameters extends BskyEventParameters {
     target_bsky_post_id: string;
+    is_self: boolean;
 }
 
 interface WalletEventBaseParameters {

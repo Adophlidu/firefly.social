@@ -1,6 +1,7 @@
 import { createLookupTableResolver, safeUnreachable, UnreachableError } from '@dimensiondev/utils';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
+import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import {
     getProfileEventParameters,
     getSelfProfileEventParameters,
@@ -102,26 +103,33 @@ export function getPostEventParameters(post: Post) {
     const { source, postId, author } = post;
     const parameters = getProfileEventParameters(author);
 
+    const selfProfile = getCurrentProfileFromStorage(source);
+    const isSelf = selfProfile?.profileId === author.profileId;
+
     switch (source) {
         case Source.Farcaster:
             return {
                 ...(parameters as FarcasterEventParameters),
                 target_farcaster_cast_id: postId,
+                is_self: isSelf,
             } satisfies FarcasterPostEventParameters;
         case Source.Lens:
             return {
                 ...(parameters as LensEventParameters),
                 target_lens_post_id: postId,
+                is_self: isSelf,
             } satisfies LensPostEventParameters;
         case Source.Twitter:
             return {
                 ...(parameters as TwitterEventParameters),
                 target_x_post_id: postId,
+                is_self: isSelf,
             } satisfies TwitterPostEventParameters;
         case Source.Bsky:
             return {
                 ...parameters,
                 target_bsky_post_id: postId,
+                is_self: isSelf,
             };
         default:
             safeUnreachable(source);
