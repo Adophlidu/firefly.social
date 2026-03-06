@@ -19,10 +19,10 @@ export const SingleImage = memo<SingleImageProps>(function SingleImage({
     src,
     width,
     height,
-    minWidth = 60,
+    minWidth = 50,
     maxWidth = 550,
-    minHeight = 60,
-    maxHeight = 750,
+    minHeight = 50,
+    maxHeight = 450,
     ...props
 }) {
     const { data, error } = useQuery({
@@ -59,7 +59,7 @@ export const SingleImage = memo<SingleImageProps>(function SingleImage({
 
     return (
         <div
-            className="relative max-h-[280px] max-w-full rounded-lg bg-bg"
+            className="relative max-w-full rounded-lg bg-bg"
             style={{
                 aspectRatio: `${imageWidth}/${imageHeight}`,
                 width: renderWidth,
