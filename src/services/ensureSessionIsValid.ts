@@ -1,9 +1,9 @@
 import { unreachable } from '@dimensiondev/utils';
 
 import { ensureBskySessionIsValid } from '@/providers/bsky/ensureBskySessionIsValid.js';
-import { type BskySession } from '@/providers/bsky/Session.js';
+import type { BskySession } from '@/providers/bsky/Session.js';
 import { ensureLensSessionIsValid } from '@/providers/lens/ensureLensSessionIsValid.js';
-import { type LensSession } from '@/providers/lens/Session.js';
+import type { LensSession } from '@/providers/lens/Session.js';
 import { type Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 

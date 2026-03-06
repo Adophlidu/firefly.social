@@ -1,5 +1,6 @@
 import { SessionHolder } from '@/providers/base/SessionHolder.js';
-import { createLensPublicClient, createLensSessionClient } from '@/providers/lens/createLensClient.js';
+import { createLensPublicClient } from '@/providers/lens/createLensPublicClient.js';
+import { createLensSessionClient } from '@/providers/lens/createLensSessionClient.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { lensClientHolder } from '@/providers/lens/LensClientHolder.js';
 import { lensSessionClientHolder } from '@/providers/lens/LensSessionClientHolder.js';

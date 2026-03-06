@@ -13,8 +13,6 @@ import { logger } from '@/libs/Logger.js';
 import { checkPasscode } from '@/providers/firefly/metrics/checkPasscode.js';
 import { getMetricsStatus } from '@/providers/firefly/metrics/getMetricsStatus.js';
 import { fragments } from '@/providers/lens/fragments/index.js';
-import { LocalStorageProvider } from '@/providers/lens/LocalStorageProvider.js';
-import { MemoryStorageProvider } from '@/providers/lens/MemoryStorageProvider.js';
 import { refreshLensSession } from '@/providers/lens/refreshLensSession.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { SessionStorageProvider } from '@/providers/lens/SessionStorageProvider.js';
@@ -87,15 +85,5 @@ export function createLensSessionClient() {
         storage: new SessionStorageProvider(mainnet),
         fragments,
         retryOnAutoRefreshError,
-    });
-}
-
-export function createLensPublicClient(useLocalStorage = false) {
-    const storage = useLocalStorage ? new LocalStorageProvider() : new MemoryStorageProvider();
-
-    return PublicClient.create({
-        environment: mainnet,
-        storage,
-        fragments,
     });
 }

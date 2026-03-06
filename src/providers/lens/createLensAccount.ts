@@ -13,7 +13,7 @@ import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
 import { reportLensAccount } from '@/providers/firefly/report/reportLensAccount.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { createLensPublicClient } from '@/providers/lens/createLensClient.js';
+import { createLensPublicClient } from '@/providers/lens/createLensPublicClient.js';
 import { createLensSession } from '@/providers/lens/createLensSession.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { formatLensProfileV3 } from '@/providers/lens/formatLensProfile.js';

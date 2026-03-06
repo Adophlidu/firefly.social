@@ -8,7 +8,7 @@ import { FAKE_REFRESH_TOKEN } from '@/constants/lens.js';
 import { SEVEN_DAYS } from '@/constants/static.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { autoLoginWithPrivy } from '@/providers/lens/autoLoginWithPrivy.js';
-import { createLensPublicClient } from '@/providers/lens/createLensClient.js';
+import { createLensPublicClient } from '@/providers/lens/createLensPublicClient.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { LensSession } from '@/providers/lens/Session.js';
 

@@ -1,6 +1,6 @@
 import { type PublicClient } from '@lens-protocol/client';
 
-import { createLensPublicClient } from '@/providers/lens/createLensClient.js';
+import { createLensPublicClient } from '@/providers/lens/createLensPublicClient.js';
 
 class LensClientHolder {
     private lensClient: PublicClient | null = null;

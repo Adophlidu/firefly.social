@@ -3,7 +3,7 @@ import { type ChallengeRequest, type SignMessage } from '@lens-protocol/client';
 
 import { env } from '@/constants/env.js';
 import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
-import { createLensPublicClient } from '@/providers/lens/createLensClient.js';
+import { createLensPublicClient } from '@/providers/lens/createLensPublicClient.js';
 import { type Profile } from '@/providers/types/SocialMedia.js';
 
 interface LoginOptions {
