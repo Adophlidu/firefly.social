@@ -86,7 +86,8 @@ export function useApplyDraftPost() {
                     updateChars(post.chars, post.id);
                     setEditorContent(post.chars);
                 }
-                if (draft.scheduleTime) updateScheduleTime(draft.scheduleTime);
+                if (draft.scheduleTime && draft.scheduleTime.getTime() > Date.now())
+                    updateScheduleTime(draft.scheduleTime);
             } catch (error) {
                 enqueueErrorMessage(<Trans>Failed to apply draft post.</Trans>);
                 throw error;

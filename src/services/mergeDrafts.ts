@@ -129,6 +129,7 @@ function formatCloudDraftToLocalDraft(cloudDraft: CloudDraft): Draft | null {
         draftType: DraftPostType.Cloud,
         mediaAlert: raw_json.has_media || raw_json.content.some((c) => c.hasMedia),
         sealedSource: composeType === 'quote' || composeType === 'reply' ? first(first(posts)?.availableSources) : null,
+        scheduleTime: raw_json.send_time ? new Date(raw_json.send_time) : undefined,
     };
 }
 

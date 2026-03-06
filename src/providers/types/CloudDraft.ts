@@ -54,6 +54,7 @@ export interface CreateCloudDraftRequest {
     content: CloudDraftContent[];
     twitter_visibility?: number;
     farcaster_channel?: CloudDraftChannel;
+    send_time?: number; // for scheduled posts, timestamp in milliseconds
 }
 
 export interface CreateCloudDraftResponse {

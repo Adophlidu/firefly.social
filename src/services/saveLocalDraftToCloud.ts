@@ -148,6 +148,7 @@ export async function saveLocalDraftToCloud(draft: Draft) {
 
             return draftContent;
         }),
+        send_time: draft.scheduleTime?.getTime(),
         ...resolveChannelData(draft),
     });
 }
