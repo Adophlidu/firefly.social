@@ -8,6 +8,7 @@ import { Tips } from '@/components/Tips/index.js';
 import { Source } from '@/constants/enum.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
+import { useShareUrl } from '@/hooks/useShareUrl.js';
 import { useTogglePredictionBookmark } from '@/hooks/useTogglePredictionBookmark.js';
 import { type BetsActivity } from '@/providers/types/Firefly.js';
 
@@ -24,11 +25,12 @@ export const PredictionActivityAction = memo<PredictionActivityActionProps>(func
 
     const { hasBookmarked, has_bookmarked } = activity;
 
-    const polymarketUrl = activity.topicId
+    const basePolymarketUrl = activity.topicId
         ? RouteResolver.betsEventDetail(activity.platform, activity.topicId, {
               multiple: activity.isMutil === 1,
           })
         : (activity.url ?? '');
+    const polymarketUrl = useShareUrl(basePolymarketUrl);
 
     const handleBookmark = useCallback(() => {
         toggleBookmark(activity);

@@ -17,6 +17,7 @@ import { getPublicUrl } from '@/helpers/getPublicUrl.js';
 import { removeCombiningCharacters } from '@/helpers/removeCombiningCharacters.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
+import { getAllRelatedProfileInfo } from '@/providers/firefly/endpoint/getAllRelatedProfileInfo.js';
 import { type Attachment, type Post } from '@/providers/types/SocialMedia.js';
 import { SocialSourceSchema } from '@/schemas/Source.js';
 import { getSatoriFonts } from '@/services/getSatoriFonts.js';
@@ -30,6 +31,7 @@ const FarcasterSVG = getPublicUrl('/svg/farcaster.svg');
 const LensSVG = getPublicUrl('/svg/lens.svg');
 const OGBackgroundSVG = getPublicUrl('/svg/og-background.svg');
 const TwitterSVG = getPublicUrl('/svg/x-circle-light.svg');
+const SharerBackgroundSVG = getPublicUrl('/svg/sharer-background.svg');
 
 function resolveSourceIcon(source: SocialSource) {
     return {
@@ -127,7 +129,7 @@ async function AttachmentImage({ src }: { src: string }) {
     );
 }
 
-async function PostOpenGraphImage({ post }: { post: Post }) {
+async function PostOpenGraphImage({ post, sharerHandle }: { post: Post; sharerHandle?: string | null }) {
     const src = resolveAttachmentsSrc(post.metadata.content?.asset);
     const content = (post.metadata.content?.content ?? '')
         .split('\n')
@@ -155,6 +157,27 @@ async function PostOpenGraphImage({ post }: { post: Post }) {
                 width={1200}
                 height={630}
             />
+
+            {sharerHandle ? (
+                <div
+                    style={{
+                        backgroundImage: `url(${SharerBackgroundSVG})`,
+                        backgroundSize: '100% 100%',
+                        backgroundRepeat: 'no-repeat',
+                        backgroundPosition: 'center',
+                        position: 'absolute',
+                        top: '67px',
+                        left: '78px',
+                        fontSize: '20px',
+                        fontWeight: 700,
+                        color: '#ffffff',
+                        fontFamily: OG_FONT_FAMILY.join(','),
+                        display: 'flex',
+                    }}
+                >
+                    Shared by @{sharerHandle}
+                </div>
+            ) : null}
 
             <div
                 style={{
@@ -252,7 +275,22 @@ export const GET = compose(withRequestErrorHandler(), async (request: NextReques
     const post = await resolveSocialMediaProvider(source).getPostById(postId);
     if (!post) return createProxyImageResponse(getPublicUrl('/image/og.png'));
 
-    return new ImageResponse(await PostOpenGraphImage({ post }), {
+    // Get sharer information
+    const searchParams = request.nextUrl.searchParams;
+    const sharerUid = searchParams.get('s');
+    let sharerHandle: string | null = null;
+
+    if (sharerUid) {
+        try {
+            const profiles = await getAllRelatedProfileInfo({ uid: sharerUid }, false);
+            sharerHandle = profiles?.account?.displayName || null;
+        } catch {
+            // Silent failure, don't affect OG image generation
+            sharerHandle = null;
+        }
+    }
+
+    return new ImageResponse(await PostOpenGraphImage({ post, sharerHandle }), {
         width: 1200,
         height: 630,
         headers: {

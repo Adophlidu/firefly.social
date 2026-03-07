@@ -14,6 +14,7 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { SITE_URL } from '@/constants/static.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { openComposeModal } from '@/helpers/openComposeModal.js';
+import { useShareUrl } from '@/hooks/useShareUrl.js';
 import { capturePostActionEvent } from '@/providers/telemetry/capturePostActionEvent.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
 
@@ -23,7 +24,8 @@ interface ShareProps extends HTMLProps<HTMLDivElement> {
 }
 
 export const Share = memo<ShareProps>(function Share({ post, disabled = false }) {
-    const url = urlcat(SITE_URL, getPostUrl(post));
+    const baseUrl = urlcat(SITE_URL, getPostUrl(post));
+    const url = useShareUrl(baseUrl);
 
     return (
         <MoreActionMenu

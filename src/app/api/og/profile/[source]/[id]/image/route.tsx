@@ -82,13 +82,20 @@ interface ProfileOpenGraphImageProps {
     displayName: string;
     source?: ColoredSource;
     sources?: ProfilePageSource[];
+    sharerHandle?: string | null;
 }
 
 function getFontPreferences(displayName: string): string[] {
     return CJK_CHARACTER_REGEX.test(displayName) ? [...CJK_FONT_FAMILY, ...BASE_FONT_FAMILY] : BASE_FONT_FAMILY;
 }
 
-async function ProfileOpenGraphImage({ avatar, displayName, sources, source }: ProfileOpenGraphImageProps) {
+async function ProfileOpenGraphImage({
+    avatar,
+    displayName,
+    sources,
+    source,
+    sharerHandle,
+}: ProfileOpenGraphImageProps) {
     const avatarBase64 = await fetchImageAsBase64(avatar, OG_FALLBACK_AVATAR);
     const displayNameFontFamily = getFontPreferences(displayName);
 
@@ -110,6 +117,22 @@ async function ProfileOpenGraphImage({ avatar, displayName, sources, source }: P
                 width={1200}
                 height={630}
             />
+            {sharerHandle ? (
+                <div
+                    style={{
+                        position: 'absolute',
+                        top: '24px',
+                        left: '24px',
+                        fontSize: '16px',
+                        fontWeight: 600,
+                        color: '#767676',
+                        fontFamily: BASE_FONT_FAMILY.join(','),
+                        display: 'flex',
+                    }}
+                >
+                    Shared by @{sharerHandle}
+                </div>
+            ) : null}
             <div
                 style={{
                     position: 'absolute',
@@ -288,6 +311,21 @@ export const GET = compose(withRequestErrorHandler(), async (request: NextReques
     const { id, debug, source } = await getParamsWithZodSchema(ParamsSchema, context);
     if (!id || !source) return createProxyImageResponse(getPublicUrl('/image/og.png'));
 
+    // Get sharer information
+    const searchParams = request.nextUrl.searchParams;
+    const sharerUid = searchParams.get('s');
+    let sharerHandle: string | null = null;
+
+    if (sharerUid) {
+        try {
+            const profiles = await getAllRelatedProfileInfo({ uid: sharerUid }, false);
+            sharerHandle = profiles?.account?.displayName || null;
+        } catch {
+            // Silent failure, don't affect OG image generation
+            sharerHandle = null;
+        }
+    }
+
     if (source === Source.Firefly) {
         const profiles = await getAllRelatedProfileInfo({ uid: id });
         if (!profiles.account) return createProxyImageResponse(getPublicUrl('/image/og.png'));
@@ -298,6 +336,7 @@ export const GET = compose(withRequestErrorHandler(), async (request: NextReques
             displayName: profiles.account.displayName ?? 'Firefly User',
             source: Source.Firefly,
             sources: walletProfilesToSources(profiles),
+            sharerHandle,
             debug,
         });
     }
@@ -318,6 +357,7 @@ export const GET = compose(withRequestErrorHandler(), async (request: NextReques
             displayName: formatAddress(id, 4),
             source: networkType,
             sources: walletProfilesToSources(profiles),
+            sharerHandle,
             debug,
         });
     }
@@ -332,6 +372,7 @@ export const GET = compose(withRequestErrorHandler(), async (request: NextReques
         displayName: profile.displayName,
         source: profile.source,
         sources: walletProfilesToSources(profiles),
+        sharerHandle,
         debug,
     });
 });

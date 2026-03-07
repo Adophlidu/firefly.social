@@ -16,6 +16,7 @@ import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
 import { getPublicUrl } from '@/helpers/getPublicUrl.js';
 import { getSearchParamsWithZodSchema } from '@/helpers/getSearchParamsWithZodSchema.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
+import { getAllRelatedProfileInfo } from '@/providers/firefly/endpoint/getAllRelatedProfileInfo.js';
 import { getEventDetail } from '@/providers/firefly/prediction/getEventDetail.js';
 import { getBetsMarketPriceHistory } from '@/providers/prediction/getBetsMarketPriceHistory.js';
 import { getSatoriFonts } from '@/services/getSatoriFonts.js';
@@ -79,9 +80,11 @@ function SimplePriceChart({ data, marketId, width, height }: SimplePriceChartPro
 async function PredictionEventOgImage({
     event,
     platform,
+    sharerHandle,
 }: {
     event: BetsEventDataForUI;
     platform: PredictionPlatform;
+    sharerHandle?: string | null;
 }) {
     const eventImage = await fetchImageAsBase64(event.image, OG_FALLBACK_IMAGE);
     const isSingleMarket = event.markets.length === 1;
@@ -118,6 +121,22 @@ async function PredictionEventOgImage({
                     fontFamily: OG_FONT_FAMILY,
                 }}
             >
+                {sharerHandle ? (
+                    <div
+                        style={{
+                            position: 'absolute',
+                            top: '24px',
+                            left: '24px',
+                            fontSize: '16px',
+                            fontWeight: 600,
+                            color: '#767676',
+                            fontFamily: OG_FONT_FAMILY,
+                            display: 'flex',
+                        }}
+                    >
+                        Shared by @{sharerHandle}
+                    </div>
+                ) : null}
                 <div
                     style={{
                         width: '570px',
@@ -301,6 +320,22 @@ async function PredictionEventOgImage({
                 fontFamily: OG_FONT_FAMILY,
             }}
         >
+            {sharerHandle ? (
+                <div
+                    style={{
+                        position: 'absolute',
+                        top: '24px',
+                        left: '24px',
+                        fontSize: '16px',
+                        fontWeight: 600,
+                        color: '#767676',
+                        fontFamily: OG_FONT_FAMILY,
+                        display: 'flex',
+                    }}
+                >
+                    Shared by @{sharerHandle}
+                </div>
+            ) : null}
             <div
                 style={{
                     width: '570px',
@@ -527,11 +562,13 @@ async function PredictionEventOgImage({
 async function createPredictionEventOgImageResponse({
     event,
     platform,
+    sharerHandle,
 }: {
     event: BetsEventDataForUI;
     platform: PredictionPlatform;
+    sharerHandle?: string | null;
 }) {
-    return new ImageResponse(await PredictionEventOgImage({ event, platform }), {
+    return new ImageResponse(await PredictionEventOgImage({ event, platform, sharerHandle }), {
         width: 1200,
         height: 630,
         fonts: await getSatoriFonts(['Inter', 'NotoSansSC']),
@@ -560,5 +597,20 @@ export const GET = compose(withRequestErrorHandler(), async (request: NextReques
     const event = await getEventDetail(platform, { id, isMutil });
     if (!event) return createProxyImageResponse(getPublicUrl('/image/og.png'));
 
-    return createPredictionEventOgImageResponse({ event, platform });
+    // Get sharer information
+    const searchParams = request.nextUrl.searchParams;
+    const sharerUid = searchParams.get('s');
+    let sharerHandle: string | null = null;
+
+    if (sharerUid) {
+        try {
+            const profiles = await getAllRelatedProfileInfo({ uid: sharerUid }, false);
+            sharerHandle = profiles?.account?.displayName || null;
+        } catch {
+            // Silent failure, don't affect OG image generation
+            sharerHandle = null;
+        }
+    }
+
+    return createPredictionEventOgImageResponse({ event, platform, sharerHandle });
 });

@@ -18,6 +18,7 @@ import { useEnsName } from '@/hooks/useEnsName.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import { useShareUrl } from '@/hooks/useShareUrl.js';
 import { useToggleArticleBookmark } from '@/hooks/useToggleArticleBookmark.js';
 import { CollectArticleModalRef } from '@/modals/CollectArticleModal/refs.js';
 import { DraggablePopoverRef } from '@/modals/DraggablePopover/refs.js';
@@ -40,7 +41,8 @@ export const ArticleActions = memo<ArticleActionsProps>(function ArticleActions(
     const identity = useFireflyIdentity(Source.Wallet, address);
     const { data: ens } = useEnsName(address);
     const isMedium = useIsMedium();
-    const url = urlcat(location.origin, getArticleUrl(oldArticle));
+    const baseUrl = urlcat(location.origin, getArticleUrl(oldArticle));
+    const url = useShareUrl(baseUrl);
 
     const { data, isLoading } = useQuery({
         queryKey: ['article-detail', oldArticle.id],

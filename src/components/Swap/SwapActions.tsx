@@ -31,6 +31,7 @@ import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { patchTransactionsQuery } from '@/helpers/patchTransactionsQuery.js';
 import { resolveTxPageUrl } from '@/helpers/resolveTxPageUrl.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
+import { useShareUrl } from '@/hooks/useShareUrl.js';
 import { ComposeModalRef } from '@/modals/ComposeModal/refs.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
 import { createTxReaction } from '@/providers/firefly/endpoint/createTxReaction.js';
@@ -44,6 +45,7 @@ interface SwapActionsProps {
 
 export const SwapActions = memo<SwapActionsProps>(function SwapActions({ activity, isDetail = false }) {
     const isLoginFirefly = useIsLoginFirefly();
+    const shareUrl = useShareUrl(urlcat(SITE_URL, resolveTxPageUrl(activity.hash, activity.chain_id)));
 
     const { data = activity } = useQuery({
         enabled: isDetail,
@@ -66,7 +68,7 @@ export const SwapActions = memo<SwapActionsProps>(function SwapActions({ activit
             chars: [
                 t`🔥 Spotted a smart swap on Firefly! One-tap copy trading now available. #OnChainSocial`,
                 ' \n\n',
-                urlcat(SITE_URL, resolveTxPageUrl(activity.hash, activity.chain_id)),
+                shareUrl,
             ],
         });
 
@@ -140,14 +142,7 @@ export const SwapActions = memo<SwapActionsProps>(function SwapActions({ activit
                     }
                 >
                     <MenuGroup>
-                        <MenuItem>
-                            {({ close }) => (
-                                <CopyLinkButton
-                                    link={urlcat(SITE_URL, resolveTxPageUrl(activity.hash, activity.chain_id))}
-                                    onClick={close}
-                                />
-                            )}
-                        </MenuItem>
+                        <MenuItem>{({ close }) => <CopyLinkButton link={shareUrl} onClick={close} />}</MenuItem>
                         <MenuItem>
                             {({ close }) => (
                                 <MenuButton

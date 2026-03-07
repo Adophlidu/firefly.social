@@ -20,6 +20,7 @@ import { getPublicUrl } from '@/helpers/getPublicUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { resolveChainIcon } from '@/helpers/resolveChainIcon.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
+import { getAllRelatedProfileInfo } from '@/providers/firefly/endpoint/getAllRelatedProfileInfo.js';
 import { getSwapActivityByHash } from '@/providers/firefly/endpoint/getSwapActivityByHash.js';
 import { type SwapActivity } from '@/providers/types/Firefly.js';
 import { getSatoriFonts } from '@/services/getSatoriFonts.js';
@@ -36,7 +37,7 @@ function Image({ src, ...props }: Pick<HTMLProps<'img'>, 'src' | 'alt' | 'width'
     return <img alt="img" {...props} src={src} />;
 }
 
-async function SwapOpenGraphImage({ swap }: { swap: SwapActivity }) {
+async function SwapOpenGraphImage({ swap, sharerHandle }: { swap: SwapActivity; sharerHandle?: string | null }) {
     const fromToken = await fetchImageAsBase64(swap.from_token?.logo, OG_FALLBACK_AVATAR);
     const toToken = await fetchImageAsBase64(swap.to_token?.logo, OG_FALLBACK_AVATAR);
 
@@ -80,6 +81,22 @@ async function SwapOpenGraphImage({ swap }: { swap: SwapActivity }) {
                     objectFit: 'cover',
                 }}
             />
+            {sharerHandle ? (
+                <div
+                    style={{
+                        position: 'absolute',
+                        top: '24px',
+                        left: '24px',
+                        fontSize: '16px',
+                        fontWeight: 600,
+                        color: '#767676',
+                        fontFamily: OG_FONT_FAMILY,
+                        display: 'flex',
+                    }}
+                >
+                    Shared by @{sharerHandle}
+                </div>
+            ) : null}
             <div style={{ display: 'flex', position: 'absolute', top: '200px', left: '312px' }}>
                 {fromToken ? (
                     <Image
@@ -240,8 +257,14 @@ async function SwapOpenGraphImage({ swap }: { swap: SwapActivity }) {
     );
 }
 
-async function createSwapOpenGraphImageResponse({ swap }: { swap: SwapActivity }) {
-    return new ImageResponse(await SwapOpenGraphImage({ swap }), {
+async function createSwapOpenGraphImageResponse({
+    swap,
+    sharerHandle,
+}: {
+    swap: SwapActivity;
+    sharerHandle?: string | null;
+}) {
+    return new ImageResponse(await SwapOpenGraphImage({ swap, sharerHandle }), {
         width: 1200,
         height: 630,
         fonts: await getSatoriFonts(['Inter', 'NotoSans']),
@@ -263,5 +286,20 @@ export const GET = compose(withRequestErrorHandler(), async (request: NextReques
     const activity = await getSwapActivityByHash(hash, chainId);
     if (!activity) return createProxyImageResponse(getPublicUrl('/image/og.png'));
 
-    return createSwapOpenGraphImageResponse({ swap: activity });
+    // Get sharer information
+    const searchParams = request.nextUrl.searchParams;
+    const sharerUid = searchParams.get('s');
+    let sharerHandle: string | null = null;
+
+    if (sharerUid) {
+        try {
+            const profiles = await getAllRelatedProfileInfo({ uid: sharerUid }, false);
+            sharerHandle = profiles?.account?.displayName || null;
+        } catch {
+            // Silent failure, don't affect OG image generation
+            sharerHandle = null;
+        }
+    }
+
+    return createSwapOpenGraphImageResponse({ swap: activity, sharerHandle });
 });
