@@ -1,9 +1,9 @@
-import { NotFoundError, UnauthorizedError } from '@dimensiondev/utils';
-import { isServer } from '@tanstack/react-query';
+import { NotFoundError } from '@dimensiondev/utils';
 
-import { type SocialSource } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { TweetUnavailableError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/static.js';
+import { createDummyPost } from '@/helpers/createDummyPost.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
 import { getPostById } from '@/services/getPostById.js';
 import { getThreads } from '@/services/getThreads.js';
@@ -18,10 +18,10 @@ export function getPostDetailQuery(source: SocialSource, postId: string) {
                 if (error instanceof NotFoundError) {
                     return null;
                 }
-                // On server side, catch TweetUnavailableError and UnauthorizedError to prevent SSR failure
-                // The client will re-fetch and can fallback to client-side Twitter API
-                if ((error instanceof TweetUnavailableError || error instanceof UnauthorizedError) && isServer) {
-                    return;
+
+                if (error instanceof TweetUnavailableError) {
+                    const dummyPost = createDummyPost(Source.Twitter, TweetUnavailableError.message);
+                    return dummyPost as Post;
                 }
 
                 throw error;
@@ -35,7 +35,7 @@ export function getPostThreadQuery(source: SocialSource, postId: string, post?: 
         queryKey: [source, 'post-thread', postId],
         enabled: !!post,
         queryFn: async () => {
-            if (!post) return { data: EMPTY_LIST };
+            if (!post?.postId) return { data: EMPTY_LIST };
             return getThreads(post, source);
         },
     };

@@ -1,7 +1,8 @@
 'use client';
 
+import { Trans } from '@lingui/react/macro';
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 
 import { getPostDetailQuery, getPostThreadQuery } from '@/app/(normal)/post/[source]/[id]/(detail)/query.js';
 import { PostActionsWithGrid } from '@/components/Actions/index.js';
@@ -11,13 +12,16 @@ import { ChannelInfo } from '@/components/Channel/ChannelInfo.js';
 import { CommentList } from '@/components/Comments/index.js';
 import { Loading } from '@/components/Loading.js';
 import { NoSSR } from '@/components/NoSSR.js';
+import NotFound from '@/components/NotFound.js';
 import { PostDetailEffect } from '@/components/PostDetailEffect.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { ThreadBody } from '@/components/Posts/ThreadBody.js';
 import { Section } from '@/components/Semantic/Section.js';
-import { type SocialSource } from '@/constants/enum.js';
+import { SearchType, type SocialSource, Source } from '@/constants/enum.js';
+import { TweetUnavailableError } from '@/constants/error.js';
 import { EMPTY_LIST, MIN_POST_SIZE_PER_THREAD } from '@/constants/static.js';
 import { notFound } from '@/esm/navigation.js';
+import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 
 interface Props {
     id: string;
@@ -30,8 +34,26 @@ export function PageDetail({ id: postId, source }: Props) {
     const { data: post } = useSuspenseQuery(getPostDetailQuery(source, postId));
     const { data: threads } = useSuspenseQuery(getPostThreadQuery(source, postId, post));
 
+    const isUnavailableTweet =
+        post?.source === Source.Twitter && post.metadata.content?.content === TweetUnavailableError.message;
+
+    useEffect(() => {
+        if (isUnavailableTweet) {
+            enqueueWarningMessage(TweetUnavailableError.message);
+        }
+    }, [isUnavailableTweet]);
+
     // Check for null after queries - useSuspenseQuery handles loading states
     if (!post) notFound();
+
+    if (isUnavailableTweet) {
+        return (
+            <NotFound
+                text={<Trans>Post could not be found.</Trans>}
+                search={{ text: <Trans>Search post</Trans>, searchText: '', searchType: SearchType.Posts }}
+            />
+        );
+    }
 
     const allPosts = threads?.data || EMPTY_LIST;
 
