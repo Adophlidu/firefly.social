@@ -17,7 +17,9 @@ import { useAbortController } from '@/hooks/useAbortController.js';
 import { useCheckPostMedias } from '@/hooks/useCheckPostMedias.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import { logger } from '@/libs/Logger.js';
 import { ComposeModalRef } from '@/modals/ComposeModal/refs.js';
+import { deleteCloudDraft } from '@/providers/firefly/cloud-draft/deleteCloudDraft.js';
 import { createAnonymousPost } from '@/services/createAnonymousPost.js';
 import { crossPost } from '@/services/crossPost.js';
 import { crossPostThread } from '@/services/crossPostThread.js';
@@ -75,7 +77,12 @@ export function ComposeSend(props: ComposeSendProps) {
                 }
                 await delay(300);
                 // If the draft is applied and sent successfully, remove the draft.
-                if (currentDraftId) removeDraft(currentDraftId);
+                if (currentDraftId) {
+                    removeDraft(currentDraftId);
+                    deleteCloudDraft(currentDraftId).catch((error) => {
+                        logger.error('Failed to delete cloud draft', { draftId: currentDraftId, error });
+                    });
+                }
                 removeTempDrafts();
                 ComposeModalRef.close({
                     post: postResult,
