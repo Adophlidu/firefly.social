@@ -7,6 +7,7 @@ import { InteractiveTippy } from '@/components/InteractiveTippy.js';
 import { ProfileCard } from '@/components/Profile/ProfileCard.js';
 import { TippyContext, useTippyContext } from '@/components/TippyContext/index.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import { useMounted } from '@/hooks/useMounted.js';
 import { type FireflyIdentity } from '@/providers/types/Firefly.js';
 import { type Profile } from '@/providers/types/SocialMedia.js';
 
@@ -18,10 +19,11 @@ interface ProfileTippyProps extends TippyProps {
 
 export const ProfileTippy = memo<ProfileTippyProps>(function ProfileTippy({ identity, profile, children, ...rest }) {
     const isMedium = useIsMedium();
+    const isMounted = useMounted();
     const [enabled, setEnabled] = useState(false);
 
     const insideTippy = useTippyContext();
-    if (!isMedium || !children || insideTippy) return children;
+    if (!isMounted || !isMedium || !children || insideTippy) return children;
 
     return (
         <TippyContext.Provider value>

@@ -21,7 +21,6 @@ import { isSendFromFirefly } from '@/helpers/isSendFromFirefly.js';
 import { resolveFireflyIdentity } from '@/helpers/resolveFireflyProfileId.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import { useIsPostDetailPage } from '@/hooks/post/useIsPostDetailPage.js';
-import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useProfileHighlighted } from '@/hooks/useProfileHighlighted.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
 
@@ -43,20 +42,19 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
     const author = post.author;
     const profileLink = getProfileUrl(author);
 
-    const isMedium = useIsMedium('max');
     const isDetailPage = useIsPostDetailPage();
     const { data: highlighted } = useProfileHighlighted(author);
 
     const identity = resolveFireflyIdentity(author);
-    const newLine = !isQuote && (isMedium || (isDetailPage && !isComment && !showDate));
+    const shouldAlwaysBreakHandleLine = !isQuote && isDetailPage && !isComment && !showDate;
 
     if (!identity) return null;
 
-    const handle = (
+    const renderHandle = (className?: string) => (
         <ProfileTippy identity={identity} disabled={post.isTruthSocial}>
             <Link
                 href={profileLink}
-                className="shrink-0 truncate text-medium leading-5 text-secondary"
+                className={classNames('shrink-0 truncate text-medium leading-5 text-secondary', className)}
                 onClick={stopPropagation}
             >
                 @{author.handle}
@@ -114,7 +112,9 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
                     ) : (
                         <ProfileVerifyBadge className="flex shrink-0 items-center space-x-1 sm:mr-2" profile={author} />
                     )}
-                    {newLine ? null : handle}
+                    {!isQuote
+                        ? renderHandle(shouldAlwaysBreakHandleLine ? 'hidden' : 'hidden min-[620px]:block')
+                        : null}
                     {post.timestamp && (isComment || isQuote || !isDetailPage || showDate) ? (
                         <>
                             <span className="mx-1 leading-5 text-secondary">·</span>
@@ -141,7 +141,9 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
                         <SocialSourceIcon mono className="shrink-0 text-second" source={post.source} size={15} />
                     )}
                 </div>
-                {newLine ? <div>{handle}</div> : null}
+                {!isQuote ? (
+                    <div className={shouldAlwaysBreakHandleLine ? '' : 'min-[620px]:hidden'}>{renderHandle()}</div>
+                ) : null}
             </address>
             <div className="ml-auto flex items-center space-x-2 self-baseline">
                 <NoSSR>
