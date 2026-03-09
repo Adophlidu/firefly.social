@@ -14,6 +14,7 @@ import { type SocialSourceInURL } from '@/constants/enum.js';
 import { notFound } from '@/esm/navigation/server.js';
 import { isRequestedLoginSource } from '@/helpers/isRequestedLoginSource.js';
 import { isSocialSourceInUrl } from '@/helpers/isSource.js';
+import { isValidPostId } from '@/helpers/postId.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
@@ -30,6 +31,10 @@ export default async function Page(props: Props) {
     if (!isSocialSourceInUrl(params.source)) notFound();
 
     const source = resolveSocialSource(params.source);
+
+    if (!isValidPostId(source, params.id)) {
+        notFound();
+    }
 
     const queryClient = new QueryClient(queryClientConfig);
 

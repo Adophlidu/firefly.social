@@ -1,8 +1,10 @@
+import { NotFoundError } from '@dimensiondev/utils';
 import { last } from 'lodash-es';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { extractArticleIdFromUrl } from '@/helpers/fireflyPostUrl.js';
 import { matchUrls } from '@/helpers/matchUrls.js';
+import { isValidPostId } from '@/helpers/postId.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { getArticleById } from '@/providers/firefly/article/getArticleById.js';
 import { getLensPostById } from '@/providers/lens/getLensPostById.js';
@@ -10,6 +12,10 @@ import { isLensV2PostId } from '@/providers/lens/isLensV2PostId.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
 
 export async function getPostById(source: SocialSource, postId: string) {
+    if (!isValidPostId(source, postId)) {
+        throw new NotFoundError(`No post found for source=${source}, id=${postId}.`);
+    }
+
     let post: Post;
 
     if (source === Source.Lens && isLensV2PostId(postId)) {
