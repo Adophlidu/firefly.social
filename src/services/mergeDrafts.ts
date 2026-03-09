@@ -111,6 +111,26 @@ function formatCloudDraftToLocalDraft(cloudDraft: CloudDraft): Draft | null {
                     timestamp: Date.now(),
                 };
             }
+            if (content.rpid) {
+                newPost.rpPayload = {
+                    payloadImage: '',
+                    claimRequirements: [],
+                    metadata: {
+                        rpid: content.rpid,
+                        contract_address: '',
+                        contract_version: 0,
+                        creation_time: 0,
+                        duration: 0,
+                        is_random: false,
+                        network: '',
+                        password: '',
+                        sender: { address: '', name: '', message: '' },
+                        shares: 0,
+                        token: { decimals: 0, symbol: '', address: '', chainId: 0 },
+                        total: '',
+                    },
+                };
+            }
 
             return newPost;
         }),

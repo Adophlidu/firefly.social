@@ -202,6 +202,7 @@ export namespace FireflyRedPacketAPI {
         theme_id: string;
         share_from: string;
         networkType?: NetworkType;
+        duration?: number;
     }
 
     export interface RedPacketClaimedInfoItem {

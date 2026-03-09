@@ -7,6 +7,7 @@ import { compact, first, values } from 'lodash-es';
 import { memo, useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
 
+import CloudIcon from '@/assets/cloud.svg';
 import Trash from '@/assets/trash2.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { IconButton } from '@/components/IconButton.js';
@@ -209,7 +210,7 @@ export const DraftListItem = memo<DraftListItemProps>(function DraftListItem({ d
                     ]).join('')}
                 </div>
             </div>
-            <div className="flex gap-x-1">
+            <div className="flex items-center gap-x-1">
                 <span className="flex items-center gap-x-1 font-bold">
                     {post?.availableSources.map((y) => (
                         <SocialSourceIcon key={y} source={y} size={20} />
@@ -218,6 +219,9 @@ export const DraftListItem = memo<DraftListItemProps>(function DraftListItem({ d
                 <span className="text-[13px] font-medium leading-6 text-secondary">
                     <Trans>Saved on {dayjs(draft.createdAt).format('ddd, MMM DD, YYYY [at] h:mm A')}</Trans>
                 </span>
+                {draft.draftType === DraftPostType.Cloud ? (
+                    <CloudIcon width={16} height={16} className="text-secondary" />
+                ) : null}
             </div>
         </ClickableArea>
     );

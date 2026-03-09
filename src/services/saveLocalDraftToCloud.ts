@@ -147,6 +147,9 @@ export async function saveLocalDraftToCloud(draft: Draft) {
             }
             if (post.rpPayload?.metadata?.rpid) {
                 draftContent.rpid = post.rpPayload.metadata.rpid;
+                if (post.images.length === 1 && first(post.images)?.isRpPayloadImage && !post.videos.length) {
+                    draftContent.hasMedia = false;
+                }
             }
 
             return draftContent;
