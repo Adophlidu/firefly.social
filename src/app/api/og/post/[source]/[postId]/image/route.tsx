@@ -161,21 +161,32 @@ async function PostOpenGraphImage({ post, sharerHandle }: { post: Post; sharerHa
             {sharerHandle ? (
                 <div
                     style={{
-                        backgroundImage: `url(${SharerBackgroundSVG})`,
-                        backgroundSize: '100% 100%',
-                        backgroundRepeat: 'no-repeat',
-                        backgroundPosition: 'center',
+                        display: 'flex',
                         position: 'absolute',
                         top: '67px',
                         left: '78px',
-                        fontSize: '20px',
-                        fontWeight: 700,
-                        color: '#ffffff',
-                        fontFamily: OG_FONT_FAMILY.join(','),
-                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        height: '48px',
+                        paddingLeft: '24px',
+                        paddingRight: '24px',
+                        backgroundImage: `url(${SharerBackgroundSVG})`,
+                        backgroundSize: '100% 100%',
+                        backgroundRepeat: 'no-repeat',
                     }}
                 >
-                    Shared by @{sharerHandle}
+                    <div
+                        style={{
+                            fontSize: '20px',
+                            fontWeight: 700,
+                            color: '#ffffff',
+                            fontFamily: OG_FONT_FAMILY.join(','),
+                            display: 'flex',
+                            whiteSpace: 'nowrap',
+                        }}
+                    >
+                        Shared by @{sharerHandle}
+                    </div>
                 </div>
             ) : null}
 
