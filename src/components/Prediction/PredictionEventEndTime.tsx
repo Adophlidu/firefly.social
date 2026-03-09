@@ -1,13 +1,18 @@
 'use client';
 
+import { appLocaleToBrowserLocale } from '@/helpers/appLocaleToBrowserLocale.js';
+import { useLocale } from '@/helpers/getCookies.js';
+
 interface PredictionEventEndTimeProps {
     endTime: number | string;
 }
 
 export function PredictionEventEndTime({ endTime }: PredictionEventEndTimeProps) {
+    const locale = useLocale();
+
     return (
         <span className="text-xs">
-            {new Date(endTime).toLocaleString(undefined, {
+            {new Date(endTime).toLocaleString(appLocaleToBrowserLocale(locale), {
                 year: 'numeric',
                 month: 'short',
                 day: 'numeric',
