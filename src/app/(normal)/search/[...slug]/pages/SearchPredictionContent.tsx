@@ -41,7 +41,6 @@ export function SearchPredictionContent() {
                 indicator,
                 limit: 20,
                 sort: 'volume_24hr',
-                eventsStatus: 'active',
                 searchTags: true,
             });
 

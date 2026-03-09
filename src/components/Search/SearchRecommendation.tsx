@@ -17,6 +17,7 @@ import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isValidAddress } from '@/helpers/isValidAddress.js';
 import { resolveSearchTypeFromQuery } from '@/helpers/resolveSearchTypeFromQuery.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
+import { resolveSearchUrlType, SearchUrlKind } from '@/helpers/resolveSearchUrlType.js';
 import { useSearchHistoryStateStore } from '@/store/useSearchHistoryStore.js';
 import { type SearchState, useSearchStateStore } from '@/store/useSearchStore.js';
 
@@ -30,9 +31,39 @@ interface SearchRecommendationProps {
 }
 
 function fixSearchUrl(isBasicSearch: boolean, query: string, searchType: SearchType, source: Source) {
-    if (isBasicSearch) return resolveSearchUrl(query);
+    // Always check if the query is a URL first
+    const urlResult = resolveSearchUrlType(query);
+    if (urlResult && urlResult.kind !== SearchUrlKind.FireflyInternal) {
+        return resolveSearchUrl(query, urlResult.searchType, urlResult.source);
+    }
+
+    // If not a URL, use the original logic
+    if (isBasicSearch) {
+        return resolveSearchUrl(query, resolveSearchTypeFromQuery(query));
+    }
 
     return resolveSearchUrl(query, searchType, source);
+}
+
+function getSearchUrlForRecord(
+    record: string,
+    autoSearchType: boolean,
+    isSearchPage: boolean,
+    searchType: SearchType,
+    source: Source,
+) {
+    // Always check if the record is a URL first
+    const urlResult = resolveSearchUrlType(record);
+    if (urlResult && urlResult.kind !== SearchUrlKind.FireflyInternal) {
+        return resolveSearchUrl(record, urlResult.searchType, urlResult.source);
+    }
+
+    // If not a URL, use the original logic
+    if (autoSearchType && !isSearchPage) {
+        return resolveSearchUrl(record, resolveSearchTypeFromQuery(record));
+    }
+
+    return fixSearchUrl(isSearchPage, record, searchType, source);
 }
 
 export function SearchRecommendation(props: SearchRecommendationProps) {
@@ -175,11 +206,13 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                         <div className="flex cursor-pointer items-center px-3 hover:bg-bg" key={record}>
                             <Link
                                 className="flex min-w-0 flex-1 items-center truncate"
-                                href={
-                                    autoSearchType && !isSearchPage
-                                        ? resolveSearchUrl(record, resolveSearchTypeFromQuery(record))
-                                        : fixSearchUrl(isSearchPage, record, searchType, source)
-                                }
+                                href={getSearchUrlForRecord(
+                                    record,
+                                    autoSearchType || false,
+                                    isSearchPage,
+                                    searchType,
+                                    source,
+                                )}
                                 onClick={() => {
                                     addRecord(record);
                                     onSearch?.({ q: record });

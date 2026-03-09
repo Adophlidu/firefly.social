@@ -34,7 +34,7 @@ export async function searchPrediction({
     indicator,
     limit = 20,
     sort = 'volume_24hr',
-    eventsStatus = 'active',
+    eventsStatus,
     searchTags = true,
 }: SearchBetsOptions): Promise<Pageable<PolymarketEventListData, PageIndicator>> {
     const page = indicator?.id ? parseInt(indicator.id, 10) : 1;

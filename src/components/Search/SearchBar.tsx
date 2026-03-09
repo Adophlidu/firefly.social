@@ -81,6 +81,23 @@ function SearchBar({ slot, autoSearchType = false, className, ...rest }: SearchB
             addRecord(state.q);
             setInputText(state.q);
         }
+
+        // Check if the query is a URL and route accordingly
+        const urlResult = resolveSearchUrlType(state.q || '');
+        if (urlResult) {
+            if (urlResult.kind === SearchUrlKind.FireflyInternal && urlResult.internalPath) {
+                router.push(urlResult.internalPath);
+                setShowRecommendation(false);
+                return;
+            }
+
+            keepOriginalInputRef.current = true;
+            const searchUrl = resolveSearchUrl(state.q || '', urlResult.searchType, urlResult.source);
+            router.push(searchUrl);
+            setShowRecommendation(false);
+            return;
+        }
+
         updateState(state);
         setShowRecommendation(false);
     };
@@ -137,12 +154,12 @@ function SearchBar({ slot, autoSearchType = false, className, ...rest }: SearchB
                                 setShowRecommendation(false);
                                 return;
                             }
-                            const searchQuery = urlResult.identifier || inputText;
+
                             addRecord(inputText);
                             setShowRecommendation(false);
 
                             keepOriginalInputRef.current = true;
-                            const searchUrl = resolveSearchUrl(searchQuery, urlResult.searchType, urlResult.source);
+                            const searchUrl = resolveSearchUrl(inputText, urlResult.searchType, urlResult.source);
                             router.push(searchUrl);
                             return;
                         }
