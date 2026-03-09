@@ -27,7 +27,7 @@ export function VirtualList<ItemData = unknown, Context = unknown>({
             // Disable overscan on mobile to avoid react-virtuoso's urx signal loop
             // that causes "Maximum call stack size exceeded" on iOS.
             // See: https://github.com/petyosi/react-virtuoso/issues/946
-            overscan={isMedium ? height : undefined}
+            overscan={isMedium ? height : 0}
             increaseViewportBy={height}
             id={listId}
             {...rest}

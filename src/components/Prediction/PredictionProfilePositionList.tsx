@@ -44,20 +44,22 @@ const getPositionItem = ({
     fireflyAccountId,
 }: Options) => {
     return (
-        <PredictionPositionItem
-            platform={platform}
-            positionData={positionData}
-            key={`${positionData.Id}-${index}`}
-            showAction={isMyAddress}
-            targetProfileInfo={{
-                address: predictionProfile.wallet,
-                proxyAddress: predictionProfile.proxy,
-                polymarketName: predictionProfile.platform_name,
-                opinionName: predictionProfile.platform_name,
-                isFireflyUser: !!fireflyAccountId,
-                fireflyAccountId,
-            }}
-        />
+        <div key={`${positionData.Id}-${index}`} className="pb-4">
+            <PredictionPositionItem
+                key={positionData.Id}
+                platform={platform}
+                positionData={positionData}
+                showAction={isMyAddress}
+                targetProfileInfo={{
+                    address: predictionProfile.wallet,
+                    proxyAddress: predictionProfile.proxy,
+                    polymarketName: predictionProfile.platform_name,
+                    opinionName: predictionProfile.platform_name,
+                    isFireflyUser: !!fireflyAccountId,
+                    fireflyAccountId,
+                }}
+            />
+        </div>
     );
 };
 
@@ -164,10 +166,10 @@ export const PredictionProfilePositionList = memo<Props>(function PredictionProf
             />
 
             {closedPositions.length ? (
-                <div className="pt-4">
+                <div>
                     <button
                         type="button"
-                        className="mx-auto my-4 flex h-9 items-center justify-center gap-2 rounded-[20px] bg-lightBg px-6 py-2"
+                        className="mx-auto mb-4 flex h-9 items-center justify-center gap-2 rounded-[20px] bg-lightBg px-6 py-2"
                         onClick={() => setShowClosed((prev) => !prev)}
                     >
                         <span className="text-sm font-semibold text-main">

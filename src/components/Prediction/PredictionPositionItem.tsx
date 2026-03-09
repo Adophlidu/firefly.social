@@ -93,7 +93,7 @@ export function PredictionPositionItem({
     };
 
     return (
-        <div key={position.Id} className="mb-4 flex flex-col items-start gap-3 rounded-xl border border-line p-3">
+        <div key={position.Id} className="flex flex-col items-start gap-3 rounded-xl border border-line p-3">
             <div className="flex w-full gap-2">
                 <div className="size-10 shrink-0">
                     {position.image ? (
