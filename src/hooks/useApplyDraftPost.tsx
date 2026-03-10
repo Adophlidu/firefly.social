@@ -1,15 +1,17 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { compact, first, values } from 'lodash-es';
+import { compact, first, last, values } from 'lodash-es';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
 
 import { formatSenderName } from '@/components/RedPacket/helpers.js';
-import { DraftPostType, FileMimeType, type SocialSource } from '@/constants/enum.js';
+import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
+import { CharTag, DraftPostType, FileMimeType, type SocialSource } from '@/constants/enum.js';
 import { DEFAULT_THEME_ID } from '@/constants/rp.js';
-import { SITE_URL } from '@/constants/static.js';
+import { RP_HASH_TAG, SITE_URL } from '@/constants/static.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { fetchImageAsPNG } from '@/helpers/fetchImageAsPNG.js';
+import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isEmptyPost } from '@/helpers/isEmptyPost.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { toFixed } from '@/helpers/number.js';
@@ -110,6 +112,48 @@ async function recoverCompositePost({ draft, draftPost, full, availableProfiles 
             createLocalMediaObject(new File([coverBlob], 'image.png', { type: FileMimeType.PNG }), true),
             ...post.images,
         ];
+
+        // recover rp tag
+        let postChars = Array.isArray(post.chars) ? post.chars : [post.chars];
+        const firstChar = first(postChars);
+        if (firstChar && typeof firstChar === 'string' && firstChar.startsWith(`${RP_HASH_TAG}\n`)) {
+            const otherStr = firstChar.replace(`${RP_HASH_TAG}\n`, '');
+            postChars = [
+                {
+                    tag: CharTag.FIREFLY_RP,
+                    content: RP_HASH_TAG,
+                    visible: false,
+                },
+                otherStr,
+                ...postChars.slice(1),
+            ];
+        }
+        const lastChar = last(postChars);
+        const origin = location.origin;
+        if (lastChar && typeof lastChar === 'string' && availableProfiles.length) {
+            const profileLinkRegex = new RegExp(`\\n ${origin}/profile/(lens|farcaster|x|bsky)/([a-zA-Z0-9.-_]+)$`);
+            if (profileLinkRegex.test(lastChar)) {
+                const preferSource = SORTED_SOCIAL_SOURCES.find((source) =>
+                    availableProfiles.some((profile) => profile.source === source),
+                );
+                const preferProfile = availableProfiles.find((profile) => profile.source === preferSource);
+                const preferProfileLink = preferProfile ? urlcat(origin, getProfileUrl(preferProfile)) : '';
+                if (preferProfileLink) {
+                    postChars = [
+                        ...postChars.slice(0, -1),
+                        lastChar.replace(profileLinkRegex, ''),
+                        {
+                            tag: CharTag.PROMOTE_LINK,
+                            content: preferProfileLink,
+                            visible: false,
+                            sortNo: 5,
+                        },
+                    ];
+                }
+            }
+        }
+
+        post.chars = postChars;
     }
 
     return post;
@@ -172,7 +216,7 @@ export function useApplyDraftPost() {
                     currentDraftId: draft.draftId,
                     showMediaAlert: draft.draftType === DraftPostType.Cloud && !!draft.mediaAlert,
                 });
-                const post = draft.posts.find((x) => x.id === draft.cursor);
+                const post = posts.find((x) => x.id === draft.cursor);
                 if (post) {
                     updateChars(post.chars, post.id);
                     setEditorContent(post.chars);
