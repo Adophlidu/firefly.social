@@ -126,7 +126,7 @@ function ComposeModalUI({ ref }: Props) {
             if (isFailedSchedulePost) updateIsFailedSchedulePost(true);
 
             setTimeout(() => {
-                applyTempDraftPost();
+                applyTempDraftPost(newType, post || undefined);
             }, 500); // wait for modal animation
         },
         onClose: async (_props) => {

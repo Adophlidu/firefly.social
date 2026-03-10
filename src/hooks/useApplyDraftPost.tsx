@@ -25,11 +25,11 @@ import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
 import { getHistoryDataById } from '@/providers/firefly/red-packet/getHistoryDataById.js';
 import { getMaskTypedMessage } from '@/providers/firefly/red-packet/getMaskTypedMessage.js';
 import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import type { Post, Profile } from '@/providers/types/SocialMedia.js';
 import { type Draft, useComposeDraftState } from '@/store/useComposeDraftStore.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import { createInitPostState, useComposeStateStore } from '@/store/useComposeStore.js';
-import { type CompositePost, MediaSource } from '@/types/compose.js';
+import { type ComposeType, type CompositePost, MediaSource } from '@/types/compose.js';
 
 interface Options {
     draft: Draft;
@@ -239,36 +239,48 @@ export function useApplyTempDraftPost() {
     const { drafts, removeTempDrafts } = useComposeDraftState();
     const [, applyDraftPost] = useApplyDraftPost();
 
-    return useAsyncFn(async () => {
-        if (posts.some((x) => !isEmptyPost(x))) return;
+    return useAsyncFn(
+        async (type: ComposeType, post?: Post) => {
+            if (type !== 'compose' && !post) return;
+            if (posts.some((x) => !isEmptyPost(x))) return;
 
-        const tempDraft = drafts.find((draft) => draft.draftType === DraftPostType.LocalTemp);
-        if (!tempDraft) return;
+            const tempDraft = drafts.find((draft) => draft.draftType === DraftPostType.LocalTemp);
+            if (tempDraft?.type !== type) return;
 
-        const isDisabled = !tempDraft.availableProfiles.some((x) =>
-            profiles.some((profile) => isSameProfile(profile, x)),
-        );
-        if (isDisabled) return;
+            const firstPost = first(tempDraft.posts);
+            if (
+                (type === 'reply' || type === 'quote') &&
+                post &&
+                firstPost?.parentPost[post.source]?.postId !== post.postId
+            )
+                return;
 
-        const confirmed = await ConfirmModalRef.openAndWaitForClose({
-            title: <Trans>Unsaved draft found</Trans>,
-            content: (
-                <div className="text-medium text-main md:text-base">
-                    <Trans>Would you like to restore it?</Trans>
-                </div>
-            ),
-            enableCloseButton: !isSmall,
-            enableCancelButton: true,
-            cancelButtonText: <Trans>Discard</Trans>,
-            confirmButtonText: <Trans>Yes</Trans>,
-            variant: 'normal',
-        });
-        if (confirmed === null) return;
-        if (confirmed === false) {
-            removeTempDrafts();
-            return;
-        }
+            const isDisabled = !tempDraft.availableProfiles.some((x) =>
+                profiles.some((profile) => isSameProfile(profile, x)),
+            );
+            if (isDisabled) return;
 
-        await applyDraftPost(tempDraft, true);
-    }, [drafts, isSmall, profiles, posts, applyDraftPost, removeTempDrafts]);
+            const confirmed = await ConfirmModalRef.openAndWaitForClose({
+                title: <Trans>Unsaved draft found</Trans>,
+                content: (
+                    <div className="text-medium text-main md:text-base">
+                        <Trans>Would you like to restore it?</Trans>
+                    </div>
+                ),
+                enableCloseButton: !isSmall,
+                enableCancelButton: true,
+                cancelButtonText: <Trans>Discard</Trans>,
+                confirmButtonText: <Trans>Yes</Trans>,
+                variant: 'normal',
+            });
+            if (confirmed === null) return;
+            if (confirmed === false) {
+                removeTempDrafts();
+                return;
+            }
+
+            await applyDraftPost(tempDraft);
+        },
+        [drafts, isSmall, profiles, posts, applyDraftPost, removeTempDrafts],
+    );
 }
