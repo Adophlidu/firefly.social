@@ -12,6 +12,7 @@ import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { useEnsName } from '@/hooks/useEnsName.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
+import { useShareUrl } from '@/hooks/useShareUrl.js';
 import { type FireflyProfile, type WalletProfile } from '@/providers/types/Firefly.js';
 import { type Profile } from '@/providers/types/SocialMedia.js';
 
@@ -35,6 +36,11 @@ function MuteAllByWalletProfileMenuItem({ profile }: { profile: WalletProfile })
 }
 
 export function FireflyAccountMoreButton({ profile, walletProfile, profiles = [] }: Props) {
+    const profileUrl = useShareUrl(profile ? getProfileUrl(profile) : '');
+    const walletProfileUrl = useShareUrl(
+        walletProfile ? getProfileUrl({ source: Source.Wallet, profileId: walletProfile.address }) : '',
+    );
+
     return (
         <Menu>
             <MenuButton className="inline-flex size-8 items-center justify-center rounded-lg bg-bg text-second active:opacity-50 md:hover:opacity-60">
@@ -49,7 +55,7 @@ export function FireflyAccountMoreButton({ profile, walletProfile, profiles = []
                     <>
                         <MenuItem>
                             {({ close }) => (
-                                <CopyLinkButton link={getProfileUrl(profile)} onClick={close}>
+                                <CopyLinkButton link={profileUrl} onClick={close}>
                                     <Trans>Copy link to profile</Trans>
                                 </CopyLinkButton>
                             )}
@@ -63,10 +69,7 @@ export function FireflyAccountMoreButton({ profile, walletProfile, profiles = []
                     <>
                         <MenuItem>
                             {({ close }) => (
-                                <CopyLinkButton
-                                    link={getProfileUrl({ source: Source.Wallet, profileId: walletProfile.address })}
-                                    onClick={close}
-                                >
+                                <CopyLinkButton link={walletProfileUrl} onClick={close}>
                                     <Trans>Copy link to profile</Trans>
                                 </CopyLinkButton>
                             )}

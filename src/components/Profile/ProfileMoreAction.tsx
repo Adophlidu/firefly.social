@@ -24,6 +24,7 @@ import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useFireflyProfileByIdentity } from '@/hooks/useFireflyProfileByIdentity.js';
+import { useShareUrl } from '@/hooks/useShareUrl.js';
 import { useToggleMutedProfile } from '@/hooks/useToggleMutedProfile.js';
 import { type FireflyIdentity } from '@/providers/types/Firefly.js';
 import { type Profile } from '@/providers/types/SocialMedia.js';
@@ -43,6 +44,7 @@ export const ProfileMoreAction = memo<ProfileMoreActionProps>(function ProfileMo
     const profiles = useCurrentFireflyProfilesAll();
     const [, toggleMutedProfile] = useToggleMutedProfile(profile.source);
     const router = useRouter();
+    const profileUrl = useShareUrl(getProfileUrl(profile));
 
     const identity = {
         id: profile.profileId,
@@ -73,7 +75,7 @@ export const ProfileMoreAction = memo<ProfileMoreActionProps>(function ProfileMo
             <MenuGroup>
                 <MenuItem>
                     {({ close }) => (
-                        <CopyLinkButton link={getProfileUrl(profile)} onClick={close}>
+                        <CopyLinkButton link={profileUrl} onClick={close}>
                             <Trans>Copy link to profile</Trans>
                         </CopyLinkButton>
                     )}

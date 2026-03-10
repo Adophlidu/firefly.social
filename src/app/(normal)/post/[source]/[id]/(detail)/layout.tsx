@@ -1,5 +1,7 @@
+import { parseUrl } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { type Metadata } from 'next';
+import { headers } from 'next/headers.js';
 import { type PropsWithChildren } from 'react';
 
 import { Comeback } from '@/components/Comeback.js';
@@ -12,10 +14,19 @@ import { type NextPageProps } from '@/types/utility.js';
 
 interface Props extends NextPageProps<{ id: string; source: SocialSourceInURL }> {}
 
+function getShareIdFromHeaders(headersList: Headers) {
+    const url = headersList.get('X-URL');
+    if (!url) return;
+    return parseUrl(url)?.searchParams.get('s') || '';
+}
+
 export async function generateMetadata(props: Props): Promise<Metadata> {
     const { source, id } = await props.params;
+    const headersList = await headers();
+    const s = getShareIdFromHeaders(headersList);
+
     return isSocialSourceInUrl(source)
-        ? createPostMetadata(source, id, `/post/${source}/${id}`)
+        ? createPostMetadata(source, id, `/post/${source}/${id}`, { s })
         : createSiteMetadata(`/post/${source}/${id}`);
 }
 

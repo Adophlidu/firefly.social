@@ -5,13 +5,19 @@ import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';
 import { fetchMetadataApi } from '@/providers/firefly/metadata/fetchMetadataApi.js';
 
-export async function createPostMetadata(source: string, postId: string, pathname: string): Promise<Metadata> {
+export async function createPostMetadata(
+    source: string,
+    postId: string,
+    pathname: string,
+    searchParams?: Record<string, string | string[] | undefined>,
+): Promise<Metadata> {
     try {
         const response = await fetchMetadataApi(
             urlcat('/metadata/post', {
                 source,
                 postId,
                 pathname,
+                ...searchParams,
             }),
         );
         const metadata = resolveResponseData(response);
