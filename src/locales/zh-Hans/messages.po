@@ -638,6 +638,9 @@ msgstr "铸造"
 msgid "Market Cap"
 msgstr "市值"
 
+msgid "No closed positions found in this wallet"
+msgstr ""
+
 msgid "Contract source code verified"
 msgstr "已验证合约源代码"
 
@@ -3967,6 +3970,9 @@ msgstr "结束时间 {0}"
 msgid "Collect Article"
 msgstr "铸造收集文章"
 
+msgid "No active positions found in this wallet"
+msgstr ""
+
 msgid "Customize your Lucky Drop sender: Choose from your social account handles or wallets."
 msgstr "自定义你的红包发送者名称：可选择你的社交账号或钱包地址。"
 
@@ -4791,9 +4797,6 @@ msgstr "<0>{0}</0><1>市值</1>{1}"
 
 msgid "Last sale"
 msgstr "最新价"
-
-msgid "No current positions found in this wallet"
-msgstr "当前钱包未找到任何持仓"
 
 msgid "Bridged"
 msgstr "已桥接"

@@ -4,7 +4,7 @@ import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQueryClient, useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { parseAsBoolean, useQueryState } from 'nuqs';
-import { memo, useEffect, useMemo, useState } from 'react';
+import { memo, type ReactNode, useEffect, useMemo, useState } from 'react';
 
 import ArrowLineDownIcon from '@/assets/arrow-line-down.svg';
 import { ListInPage } from '@/components/ListInPage.js';
@@ -63,6 +63,14 @@ const getPositionItem = ({
     );
 };
 
+function PositionEmptyState({ message }: { message: ReactNode }) {
+    return (
+        <div className="flex h-40 items-center justify-center rounded-xl bg-primaryBottom p-4">
+            <div className="max-w-[303px] text-center text-base font-semibold text-second">{message}</div>
+        </div>
+    );
+}
+
 export const PredictionProfilePositionList = memo<Props>(function PredictionProfilePositionList({
     predictionProfile,
     platform,
@@ -114,6 +122,7 @@ export const PredictionProfilePositionList = memo<Props>(function PredictionProf
     });
 
     const allPositions = queryResult.data || EMPTY_LIST;
+    const hasAnyPositions = allPositions.length > 0;
 
     // Keep claimable winning positions in the main list even if backend marks them closed.
     // Only settled losses and fully closed positions go into the collapsed section.
@@ -137,54 +146,18 @@ export const PredictionProfilePositionList = memo<Props>(function PredictionProf
     return (
         <div className="p-4">
             {platform === PredictionPlatform.Polymarket ? <PredictionPositionFilter /> : null}
-            <ListInPage
-                source={Source.Prediction}
-                key={Source.Prediction}
-                queryResult={{ ...queryResult, data: activePositions }}
-                VirtualListProps={{
-                    useWindowScroll: true,
-                    listKey: `${ScrollListKey.Prediction}:positions`,
-                    computeItemKey: (index, positionData) => `${positionData.Id}-${index}`,
-                    itemContent: (index, positionData) =>
-                        getPositionItem({
-                            index,
-                            positionData,
-                            isMyAddress,
-                            platform,
-                            predictionProfile,
-                            fireflyAccountId,
-                        }),
-                }}
-                NoResultsFallbackProps={{
-                    icon: <div />,
-                    message: onlyHolding ? (
-                        <Trans>No current positions found in this wallet</Trans>
-                    ) : (
-                        <Trans>No any positions found in this wallet</Trans>
-                    ),
-                }}
-            />
-
-            {closedPositions.length ? (
-                <div>
-                    <button
-                        type="button"
-                        className="mx-auto mb-4 flex h-9 items-center justify-center gap-2 rounded-[20px] bg-lightBg px-6 py-2"
-                        onClick={() => setShowClosed((prev) => !prev)}
-                    >
-                        <span className="text-sm font-semibold text-main">
-                            <Trans>View closed positions</Trans>
-                        </span>
-                        <ArrowLineDownIcon
-                            width={14}
-                            height={14}
-                            className={classNames('text-main transition-transform', showClosed ? 'rotate-180' : null)}
-                        />
-                    </button>
-
-                    {showClosed ? (
-                        <div className="w-full">
-                            {closedPositions.map((positionData, index) =>
+            <div className="space-y-4">
+                {activePositions.length ? (
+                    <ListInPage
+                        source={Source.Prediction}
+                        key={Source.Prediction}
+                        queryResult={{ ...queryResult, data: activePositions }}
+                        noResultsFallbackRequired={false}
+                        VirtualListProps={{
+                            useWindowScroll: true,
+                            listKey: `${ScrollListKey.Prediction}:positions`,
+                            computeItemKey: (index, positionData) => `${positionData.Id}-${index}`,
+                            itemContent: (index, positionData) =>
                                 getPositionItem({
                                     index,
                                     positionData,
@@ -193,11 +166,64 @@ export const PredictionProfilePositionList = memo<Props>(function PredictionProf
                                     predictionProfile,
                                     fireflyAccountId,
                                 }),
-                            )}
-                        </div>
-                    ) : null}
-                </div>
-            ) : null}
+                            context: {
+                                isScrollable: false,
+                            },
+                        }}
+                    />
+                ) : (
+                    <PositionEmptyState
+                        message={
+                            hasAnyPositions ? (
+                                <Trans>No active positions found in this wallet</Trans>
+                            ) : (
+                                <Trans>No any positions found in this wallet</Trans>
+                            )
+                        }
+                    />
+                )}
+
+                {hasAnyPositions ? (
+                    <div className="space-y-4">
+                        <button
+                            type="button"
+                            className="mx-auto flex h-9 items-center justify-center gap-2 rounded-[20px] bg-lightBg px-6 py-2"
+                            onClick={() => setShowClosed((prev) => !prev)}
+                        >
+                            <span className="text-sm font-semibold text-main">
+                                <Trans>View closed positions</Trans>
+                            </span>
+                            <ArrowLineDownIcon
+                                width={14}
+                                height={14}
+                                className={classNames(
+                                    'text-main transition-transform',
+                                    showClosed ? 'rotate-180' : null,
+                                )}
+                            />
+                        </button>
+
+                        {showClosed ? (
+                            closedPositions.length ? (
+                                <div className="w-full">
+                                    {closedPositions.map((positionData, index) =>
+                                        getPositionItem({
+                                            index,
+                                            positionData,
+                                            isMyAddress,
+                                            platform,
+                                            predictionProfile,
+                                            fireflyAccountId,
+                                        }),
+                                    )}
+                                </div>
+                            ) : (
+                                <PositionEmptyState message={<Trans>No closed positions found in this wallet</Trans>} />
+                            )
+                        ) : null}
+                    </div>
+                ) : null}
+            </div>
         </div>
     );
 });

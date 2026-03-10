@@ -633,6 +633,9 @@ msgstr "Mint"
 msgid "Market Cap"
 msgstr "Market Cap"
 
+msgid "No closed positions found in this wallet"
+msgstr "No closed positions found in this wallet"
+
 msgid "Contract source code verified"
 msgstr "Contract source code verified"
 
@@ -3962,6 +3965,9 @@ msgstr "Ended on {0}"
 msgid "Collect Article"
 msgstr "Collect Article"
 
+msgid "No active positions found in this wallet"
+msgstr "No active positions found in this wallet"
+
 msgid "Customize your Lucky Drop sender: Choose from your social account handles or wallets."
 msgstr "Customize your Lucky Drop sender: Choose from your social account handles or wallets."
 
@@ -4784,9 +4790,6 @@ msgstr "<0>{0}</0><1>MC</1>{1}"
 
 msgid "Last sale"
 msgstr "Last sale"
-
-msgid "No current positions found in this wallet"
-msgstr "No current positions found in this wallet"
 
 msgid "Bridged"
 msgstr "Bridged"
