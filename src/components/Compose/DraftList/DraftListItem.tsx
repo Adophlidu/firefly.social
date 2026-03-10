@@ -19,7 +19,6 @@ import { DraftPostType } from '@/constants/enum.js';
 import { readChars } from '@/helpers/chars.js';
 import { enqueueErrorMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
-import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { useApplyDraftPost } from '@/hooks/useApplyDraftPost.js';
 import { useCurrentProfiles } from '@/hooks/useCurrentProfile.js';
@@ -75,7 +74,7 @@ export const DraftListItem = memo<DraftListItemProps>(function DraftListItem({ d
     const content = post ? readChars(post.chars, 'visible') : '';
 
     const isDisabled = useMemo(() => {
-        return !draft.availableProfiles.some((x) => profiles.some((profile) => isSameProfile(profile, x)));
+        return !draft.availableProfiles.some((x) => profiles.some((profile) => profile.source === x.source));
     }, [profiles, draft.availableProfiles]);
 
     const [{ loading: isRemoving }, handleRemove] = useAsyncFn(async () => {
@@ -124,11 +123,7 @@ export const DraftListItem = memo<DraftListItemProps>(function DraftListItem({ d
 
     const [{ loading: isApplying }, handleApply] = useAsyncFn(async () => {
         if (isDisabled) {
-            enqueueWarningMessage(
-                <Trans>
-                    Selection disabled. Only editable by {draft.availableProfiles.map((x) => `@${x.handle}`).join(', ')}
-                </Trans>,
-            );
+            enqueueWarningMessage(<Trans>Connect the required social profile to select.</Trans>);
             return;
         }
 

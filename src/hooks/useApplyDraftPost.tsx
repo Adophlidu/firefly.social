@@ -194,7 +194,7 @@ export function useApplyDraftPost() {
                 }
 
                 const availableProfiles = draft.availableProfiles.filter((x) =>
-                    profiles.some((profile) => isSameProfile(profile, x)),
+                    profiles.some((profile) => profile.source === x.source),
                 );
                 const availableSource =
                     draft.type !== 'compose' ? draft.sealedSource || first(draft.posts)?.availableSources?.[0] : null;

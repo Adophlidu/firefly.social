@@ -121,10 +121,6 @@ msgstr "帖子"
 msgid "Show assets < 1 USD"
 msgstr "展示少于 1 美元的资产"
 
-#. placeholder {0}: draft.availableProfiles.map((x) => `@${x.handle}`).join(', ')
-msgid "Selection disabled. Only editable by {0}"
-msgstr "已禁用选择。仅可由 {0} 编辑"
-
 msgid "Repost or quote"
 msgstr "转发或引用"
 
@@ -2082,6 +2078,9 @@ msgstr "当前结果"
 
 msgid "Comment"
 msgstr "评论"
+
+msgid "Connect the required social profile to select."
+msgstr ""
 
 msgid "You can withdraw any unclaimed amount 24 hours after creating this lucky drop."
 msgstr "发送红包 24 小时后可提取未领取数额。"

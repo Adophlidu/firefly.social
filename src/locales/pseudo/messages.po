@@ -116,10 +116,6 @@ msgstr ""
 msgid "Show assets < 1 USD"
 msgstr ""
 
-#. placeholder {0}: draft.availableProfiles.map((x) => `@${x.handle}`).join(', ')
-msgid "Selection disabled. Only editable by {0}"
-msgstr ""
-
 msgid "Repost or quote"
 msgstr ""
 
@@ -2076,6 +2072,9 @@ msgid "Current Results"
 msgstr ""
 
 msgid "Comment"
+msgstr ""
+
+msgid "Connect the required social profile to select."
 msgstr ""
 
 msgid "You can withdraw any unclaimed amount 24 hours after creating this lucky drop."
