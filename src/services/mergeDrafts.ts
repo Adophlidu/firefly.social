@@ -1,6 +1,6 @@
 import { safeUnreachable } from '@dimensiondev/utils';
 import dayjs from 'dayjs';
-import { compact, first, orderBy } from 'lodash-es';
+import { compact, first, orderBy, values } from 'lodash-es';
 
 import { DraftPostType, Source } from '@/constants/enum.js';
 import { POLL_CHOICE_TYPE, POLL_STRATEGIES } from '@/constants/poll.js';
@@ -129,6 +129,14 @@ function formatCloudDraftToLocalDraft(cloudDraft: CloudDraft): Draft | null {
                         token: { decimals: 0, symbol: '', address: '', chainId: 0 },
                         total: '',
                     },
+                };
+            }
+            if (content.postError && values(content.postError).some((error) => !!error)) {
+                newPost.postError = {
+                    [Source.Farcaster]: content.postError.farcaster ? new Error(content.postError.farcaster) : null,
+                    [Source.Lens]: content.postError.lens ? new Error(content.postError.lens) : null,
+                    [Source.Twitter]: content.postError.twitter ? new Error(content.postError.twitter) : null,
+                    [Source.Bsky]: content.postError.bsky ? new Error(content.postError.bsky) : null,
                 };
             }
 

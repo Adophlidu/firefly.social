@@ -29,6 +29,7 @@ export interface CloudDraftContent {
         options: string[];
         duration: number;
     };
+    postError?: Partial<Record<SocialSourceInURL, string | null>>;
 }
 
 export interface CloudDraftChannel {

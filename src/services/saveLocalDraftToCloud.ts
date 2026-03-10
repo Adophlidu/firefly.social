@@ -1,7 +1,7 @@
 import { safeUnreachable } from '@dimensiondev/utils';
-import { compact, first } from 'lodash-es';
+import { compact, entries, first, values } from 'lodash-es';
 
-import { CharTag, Source } from '@/constants/enum.js';
+import { CharTag, type SocialSource, type SocialSourceInURL, Source } from '@/constants/enum.js';
 import { readChars } from '@/helpers/chars.js';
 import { getPollDurationSeconds } from '@/helpers/polls.js';
 import { resolveSocialSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
@@ -150,6 +150,18 @@ export async function saveLocalDraftToCloud(draft: Draft) {
                 if (post.images.length === 1 && first(post.images)?.isRpPayloadImage && !post.videos.length) {
                     draftContent.hasMedia = false;
                 }
+            }
+            if (values(post.postError).some((error) => !!error)) {
+                draftContent.postError = entries(post.postError).reduce<Partial<Record<SocialSourceInURL, string>>>(
+                    (acc, [source, error]) => {
+                        if (error) {
+                            acc[resolveSocialSourceInUrl(source as SocialSource)] =
+                                (error instanceof Error ? error.message : String(error)) || 'Unknown error';
+                        }
+                        return acc;
+                    },
+                    {},
+                );
             }
 
             return draftContent;

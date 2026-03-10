@@ -12,6 +12,7 @@ import { AddThread } from '@/components/Compose/ComposeActions/AddThread.js';
 import { InteractiveTippy } from '@/components/InteractiveTippy.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { isValidPost } from '@/helpers/isValidPost.js';
+import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { useCheckPostMedias } from '@/hooks/useCheckPostMedias.js';
@@ -79,9 +80,11 @@ export function ComposeSend(props: ComposeSendProps) {
                 // If the draft is applied and sent successfully, remove the draft.
                 if (currentDraftId) {
                     removeDraft(currentDraftId);
-                    deleteCloudDraft(currentDraftId).catch((error) => {
-                        logger.error('Failed to delete cloud draft', { draftId: currentDraftId, error });
-                    });
+                    deleteCloudDraft(currentDraftId, post.availableSources.map(resolveSocialSourceInUrl)).catch(
+                        (error) => {
+                            logger.error('Failed to delete cloud draft', { draftId: currentDraftId, error });
+                        },
+                    );
                 }
                 removeTempDrafts();
                 ComposeModalRef.close({
