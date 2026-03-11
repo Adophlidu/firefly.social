@@ -146,6 +146,7 @@ export async function mergeMetrics(passcode: string, enqueueMessage = true) {
             displayName: name,
             pfp: avatar,
             isProUser: undefined,
+            verified: false,
         } satisfies Profile;
 
         const currentSession = getSessionFromStorageBySource(source);
