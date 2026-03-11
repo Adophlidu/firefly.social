@@ -79,6 +79,13 @@ jobs:
 
                   echo "pr_title=$pr_title" >> $GITHUB_ENV
 
+            - name: Check if branch already exists
+              run: |
+                  if git ls-remote --exit-code --heads origin "bump-version-${{ env.new_version }}" >/dev/null 2>&1; then
+                    echo "::error::Remote branch bump-version-${{ env.new_version }} already exists"
+                    exit 1
+                  fi
+
             - name: Commit and Push changes
               run: |
                   git add package.json
@@ -86,7 +93,7 @@ jobs:
                   git config --global user.email "github-actions[bot]@users.noreply.github.com"
                   git commit -m "chore: bump version to ${{ env.new_version }}"
                   git checkout -b "bump-version-${{ env.new_version }}"
-                  git push origin "bump-version-${{ env.new_version }}" -f
+                  git push origin "bump-version-${{ env.new_version }}"
 
             - name: Create pull request
               run: |
