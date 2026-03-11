@@ -27,7 +27,7 @@ const svgrOptions = {
     },
 };
 const config: NextConfig = {
-    productionBrowserSourceMaps: true,
+    productionBrowserSourceMaps: false,
 
     // Server-only external packages for Turbopack (native modules)
     serverExternalPackages: ['@napi-rs/image', 'canvas', 'pino', 'pino-pretty', 'thread-stream'],
