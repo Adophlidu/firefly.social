@@ -38,6 +38,8 @@ export async function discoverArticlesByAddress(
             size: 20,
             cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
         }),
+        //  the data in articles can be very large because it retrieves the details of all articles, so the timeout duration has been extended
+        signal: AbortSignal.timeout(5 * 60 * 1000 /* 5 mins */),
     });
 
     const data = resolveFireflyResponseData(response);

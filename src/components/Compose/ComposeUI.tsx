@@ -83,7 +83,7 @@ export const ComposeUI = memo(function ComposeUI() {
         <>
             <div
                 className={classNames(
-                    'flex min-h-[318px] flex-col overflow-auto px-4 pb-4',
+                    'no-scrollbar flex min-h-[318px] flex-col overflow-auto px-4 pb-4',
                     isMedium ? 'h-full' : available ? 'flex-1' : 'max-h-[300px] min-h-[300px]',
                     isFailedSchedulePost ? 'min-h-[398px]' : '',
                 )}
