@@ -4,9 +4,13 @@ import { type ResponseJson } from '@/types/utility.js';
 
 export function resolveTwitterResponseData<T>(response: ResponseJson<T>, message?: string): T {
     if (response.success) return response.data;
-    if (response.error.message === 'Post not found') throw new NotFoundError(response.error.message);
-    if (response.error.message.includes('The user used for authentication is suspended')) {
+    const errorMessage = response.error.message;
+    if (errorMessage === 'Post not found') throw new NotFoundError(errorMessage);
+    if (errorMessage.includes('The user used for authentication is suspended')) {
         throw new AuthenticationError('The user used for authentication is suspended');
     }
-    throw new Error(message ?? response.error.message);
+    if (errorMessage === 'Unauthorized') {
+        throw new AuthenticationError(errorMessage);
+    }
+    throw new Error(message ?? errorMessage);
 }
