@@ -8,7 +8,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useAsyncFn } from 'react-use';
-import { z } from 'zod';
+import { type z } from 'zod';
 
 import AtIcon from '@/assets/at.svg';
 import GlobalIcon from '@/assets/global.svg';
@@ -17,6 +17,8 @@ import SecurityIcon from '@/assets/shield-security.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ClearButton } from '@/components/IconButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
+import { createLoginBskyFormResolver, type loginBskySchema } from '@/components/Login/createFormResolver.js';
+import { formatBskyLoginIdentifier } from '@/components/Login/formatBskyLoginIdentifier.js';
 import { DEFAULT_SERVICE_URL } from '@/constants/bsky.js';
 import { AsyncStatus, Source } from '@/constants/enum.js';
 import { FireflyAlreadyBoundError } from '@/constants/error.js';
@@ -67,84 +69,22 @@ async function loginBsky(createAccount: () => Promise<Account>, options?: Omit<A
     }
 }
 
-function createBskyFullHandle(name: string, domain: string): string {
-    const parsedName = (name || '').replace(/[.]+$/, '');
-    const parsedDomain = (domain || '').replace(/^[.]+/, '');
-
-    return `${parsedName}.${parsedDomain}`;
-}
-
-function formatBskyLoginIdentifier(
-    username: string,
-    serviceUrl: string,
-    serviceDescription?: {
-        availableUserDomains: string[];
-    },
-) {
-    if (username.includes('@') || username.includes('.')) return username;
-
-    if (serviceUrl === DEFAULT_SERVICE_URL) {
-        return createBskyFullHandle(username, '.bsky.social');
-    }
-
-    if (serviceDescription && serviceDescription.availableUserDomains.length > 0) {
-        const matched = serviceDescription.availableUserDomains.some((x) => username.endsWith(x));
-        if (!matched) {
-            username = createBskyFullHandle(username, serviceDescription.availableUserDomains[0]);
-        }
-    }
-
-    return username;
-}
-
-const schema = z.object({
-    account: z.string().min(1),
-    password: z.string().min(1),
-    serviceUrl: z.union([HttpsUrl, z.literal('')]).optional(),
-    authFactorToken: z.string().optional().or(z.literal('')),
-});
-
-function createFormResolver<T extends z.ZodSchema>(schema: T) {
-    return (values: z.input<T>) => {
-        const result = schema.safeParse(values);
-
-        if (result.success) {
-            return {
-                values: result.data,
-                errors: {},
-            };
-        }
-
-        const errors: Record<string, { type: string; message: string }> = {};
-        result.error.issues.forEach((issue) => {
-            const path = issue.path.join('.');
-            errors[path] = {
-                type: 'validation',
-                message: issue.message,
-            };
-        });
-
-        return {
-            values: {},
-            errors,
-        };
-    };
-}
-
 export function LoginBsky() {
     const controller = useAbortController();
 
-    const resolver = useMemo(() => createFormResolver(schema), []);
-    const { register, handleSubmit, watch, formState, resetField, setFocus } = useForm<z.infer<typeof schema>>({
-        resolver,
-        mode: 'onChange',
-        defaultValues: {
-            account: '',
-            password: '',
-            serviceUrl: '',
-            authFactorToken: '',
+    const resolver = useMemo(() => createLoginBskyFormResolver(), []);
+    const { register, handleSubmit, watch, formState, resetField, setFocus } = useForm<z.infer<typeof loginBskySchema>>(
+        {
+            resolver,
+            mode: 'onChange',
+            defaultValues: {
+                account: '',
+                password: '',
+                serviceUrl: '',
+                authFactorToken: '',
+            },
         },
-    });
+    );
 
     const [editServiceUrl, setEditServiceUrl] = useState(false);
     const [show2FAInput, setShow2FAInput] = useState(false);
