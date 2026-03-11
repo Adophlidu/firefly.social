@@ -11,6 +11,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { AddThread } from '@/components/Compose/ComposeActions/AddThread.js';
 import { InteractiveTippy } from '@/components/InteractiveTippy.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
+import { queryClient } from '@/configs/queryClient.js';
 import { isValidPost } from '@/helpers/isValidPost.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
@@ -85,6 +86,7 @@ export function ComposeSend(props: ComposeSendProps) {
                             logger.error('Failed to delete cloud draft', { draftId: currentDraftId, error });
                         },
                     );
+                    queryClient.invalidateQueries({ queryKey: ['cloud-drafts'] });
                 }
                 removeTempDrafts();
                 ComposeModalRef.close({

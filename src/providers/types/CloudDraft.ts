@@ -49,7 +49,8 @@ export interface CreateCloudDraftRequest {
     last_update_time: number;
     type: {
         type: CloudDraftType;
-        id?: string;
+        id?: string; // for comment/quote drafts, the parent post ID
+        profileId?: string; // for Farcaster reply/quote to identify the parent post's author
     };
     platform: Array<{ uid: string; platform: SocialSourceInURL }>;
     content: CloudDraftContent[];

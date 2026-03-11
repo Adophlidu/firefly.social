@@ -39,7 +39,11 @@ function resolveCloudDraftType(draft: Draft): CreateCloudDraftRequest['type'] | 
 
             switch (source) {
                 case Source.Farcaster:
-                    return { type: CloudDraftType.FarcasterComment, id: parentPost.postId };
+                    return {
+                        type: CloudDraftType.FarcasterComment,
+                        id: parentPost.postId,
+                        profileId: parentPost.author.profileId,
+                    };
                 case Source.Lens:
                     return { type: CloudDraftType.LensComment, id: parentPost.postId };
                 case Source.Twitter:
@@ -57,7 +61,11 @@ function resolveCloudDraftType(draft: Draft): CreateCloudDraftRequest['type'] | 
 
             switch (source) {
                 case Source.Farcaster:
-                    return { type: CloudDraftType.FarcasterQuote, id: parentPost.postId };
+                    return {
+                        type: CloudDraftType.FarcasterQuote,
+                        id: parentPost.postId,
+                        profileId: parentPost.author.profileId,
+                    };
                 case Source.Lens:
                     return { type: CloudDraftType.LensQuote, id: parentPost.postId };
                 case Source.Twitter:
