@@ -62,7 +62,7 @@ export const DraftPage = memo(function DraftPage() {
                     </div>
                 ))}
             </div>
-            <Suspense fallback={<Loading className="min-h-[478px] text-main" />}>
+            <Suspense fallback={<Loading minHeight={478} />}>
                 {currentTab === DraftPageTab.Draft ? <DraftList /> : <ScheduleTaskList />}
             </Suspense>
         </div>
