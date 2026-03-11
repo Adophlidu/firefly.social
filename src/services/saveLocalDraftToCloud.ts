@@ -120,7 +120,7 @@ export async function saveLocalDraftToCloud(draft: Draft) {
     return createCloudDraft({
         id: draft.draftId,
         client: 'web',
-        last_update_time: Date.now(),
+        last_update_time: draft.createdAt.getTime(),
         type: cloudDraftType,
         platform: draft.availableProfiles.map((profile) => ({
             uid: profile.profileId,

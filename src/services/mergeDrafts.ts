@@ -147,7 +147,7 @@ function formatCloudDraftToLocalDraft(cloudDraft: CloudDraft): Draft | null {
 
     return {
         draftId: cloudDraft.draft_id,
-        createdAt: new Date(cloudDraft.created_at),
+        createdAt: new Date(cloudDraft.last_update_time || cloudDraft.created_at),
         availableProfiles: raw_json.platform.map((p) => {
             const source = resolveSocialSource(p.platform);
 
@@ -184,7 +184,11 @@ export function mergeDrafts(localDrafts: Draft[], cloudDrafts: Array<Pageable<Cl
             if (i === 0) {
                 const formattedDrafts = pageData.data.map((cloudDraft) => {
                     const localDraft = filteredDrafts.find((draft) => draft.draftId === cloudDraft.draft_id);
-                    if (localDraft) return { ...localDraft, cloudDraftId: cloudDraft.draft_id };
+                    if (
+                        localDraft &&
+                        localDraft.createdAt >= new Date(cloudDraft.last_update_time || cloudDraft.created_at)
+                    )
+                        return { ...localDraft, cloudDraftId: cloudDraft.draft_id };
 
                     return formatCloudDraftToLocalDraft(cloudDraft);
                 });
