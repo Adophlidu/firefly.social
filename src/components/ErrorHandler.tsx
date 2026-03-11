@@ -1,6 +1,6 @@
 'use client';
 
-import { classNames } from '@dimensiondev/utils';
+import { AuthenticationError, classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { type HTMLProps } from 'react';
 
@@ -22,6 +22,8 @@ export function ErrorHandler({ error, reset, className }: ErrorHandlerProps) {
             <div className="mt-11 break-all px-4 text-sm font-bold">
                 {error instanceof FetchError ? (
                     getErrorMessageFromFetchError(error)
+                ) : error instanceof AuthenticationError ? (
+                    <Trans>Unauthorized. Please check your login.</Trans>
                 ) : (
                     <Trans>Something went wrong. Please try again.</Trans>
                 )}
