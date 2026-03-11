@@ -22,10 +22,10 @@ export function VideoAsset({ asset, minimal, source, autoPlay, videoClassName }:
     const isGif = asset.type === 'AnimatedGif';
     const { width, height } = asset;
     const [renderWidth] = computeSize(width || 1000, height || 1000, {
-        minWidth: 60,
-        minHeight: 60,
+        minWidth: 50,
+        minHeight: 50,
         maxWidth: 550,
-        maxHeight: 750,
+        maxHeight: 450,
     });
 
     return minimal ? (

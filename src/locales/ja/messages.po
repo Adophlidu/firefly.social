@@ -2409,9 +2409,6 @@ msgstr ""
 msgid "Confirm to log out this account?"
 msgstr ""
 
-msgid "Auto"
-msgstr ""
-
 msgid "A measure of a cryptocurrency trading volume across all tracked platforms in the last 24 hours. This is tracked on a rolling 24-hour basis with no open/closing times."
 msgstr ""
 
@@ -3305,9 +3302,6 @@ msgid "The content of this account is currently unavailable"
 msgstr ""
 
 msgid "Failed to like article."
-msgstr ""
-
-msgid "Quality"
 msgstr ""
 
 msgid "Wallet added successfully"

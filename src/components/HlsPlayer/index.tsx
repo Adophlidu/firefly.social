@@ -320,7 +320,7 @@ export const HlsPlayer = memo<HlsPlayerProps>(function HlsPlayer({
             className={`group relative flex aspect-video cursor-pointer select-none items-center justify-center overflow-hidden rounded-2xl bg-black shadow-2xl ${className}`}
         >
             {(loading || isBuffering) && !error ? (
-                <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+                <div className="absolute inset-0 z-10 flex items-center justify-center rounded-lg bg-black/40 backdrop-blur-sm">
                     <LoadingIcon size={40} className="text-blue-500" />
                 </div>
             ) : null}
@@ -387,9 +387,8 @@ export const HlsPlayer = memo<HlsPlayerProps>(function HlsPlayer({
 
             <div
                 className={classNames(
-                    'absolute inset-x-0 bottom-0 z-20 bg-gradient-to-t from-black/90 via-black/40 to-transparent pt-20 transition-opacity duration-500',
+                    'absolute inset-x-0 bottom-0 z-20 bg-gradient-to-t from-black/90 via-black/40 to-transparent px-1 pb-1 pt-20 transition-opacity duration-500',
                     showControls || mode === 'gif' ? 'opacity-100' : 'opacity-0',
-                    mode === 'gif' ? 'px-2 pb-2' : 'px-4 pb-4',
                 )}
             >
                 {mode === 'video' ? (
@@ -406,14 +405,14 @@ export const HlsPlayer = memo<HlsPlayerProps>(function HlsPlayer({
                             />
                         </div>
 
-                        <div className="flex items-center justify-between gap-4">
-                            <div className="flex items-center gap-4">
+                        <div className="flex items-center justify-between gap-3">
+                            <div className="flex items-center gap-2">
                                 <button
                                     onClick={(e) => {
                                         e.stopPropagation();
                                         togglePlay();
                                     }}
-                                    className="p-1 text-white transition-colors hover:scale-110 hover:text-blue-400 active:scale-95"
+                                    className="text-white transition-colors hover:scale-110 hover:text-blue-400 active:scale-95"
                                 >
                                     {isPlaying ? (
                                         <svg className="size-8" fill="currentColor" viewBox="0 0 24 24">
@@ -426,7 +425,7 @@ export const HlsPlayer = memo<HlsPlayerProps>(function HlsPlayer({
                                     )}
                                 </button>
 
-                                <div className="group/volume flex items-center gap-2">
+                                <div className="group/volume relative flex items-center gap-2">
                                     <button
                                         onClick={(e) => {
                                             e.stopPropagation();
@@ -467,8 +466,8 @@ export const HlsPlayer = memo<HlsPlayerProps>(function HlsPlayer({
                                 </div>
                             </div>
 
-                            <div className="flex items-center gap-4">
-                                {isHls ? (
+                            <div className="flex items-center gap-2">
+                                {/* {isHls ? (
                                     <div className="relative">
                                         <button
                                             onClick={(e) => {
@@ -519,7 +518,7 @@ export const HlsPlayer = memo<HlsPlayerProps>(function HlsPlayer({
                                             </div>
                                         ) : null}
                                     </div>
-                                ) : null}
+                                ) : null} */}
 
                                 <button
                                     onClick={(e) => {
@@ -547,7 +546,7 @@ export const HlsPlayer = memo<HlsPlayerProps>(function HlsPlayer({
                                 e.stopPropagation();
                                 togglePlay();
                             }}
-                            className="p-1 text-white transition-colors hover:scale-110 hover:text-blue-400 active:scale-95"
+                            className="text-white transition-colors hover:scale-110 hover:text-blue-400 active:scale-95"
                         >
                             {isPlaying ? (
                                 <svg className="size-8" fill="currentColor" viewBox="0 0 24 24">

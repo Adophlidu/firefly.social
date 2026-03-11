@@ -2409,9 +2409,6 @@ msgstr "隱藏"
 msgid "Confirm to log out this account?"
 msgstr "確認登出此帳戶？"
 
-msgid "Auto"
-msgstr ""
-
 msgid "A measure of a cryptocurrency trading volume across all tracked platforms in the last 24 hours. This is tracked on a rolling 24-hour basis with no open/closing times."
 msgstr "24 小時交易量為全網追蹤平台統計數據，採滾動 24 小時計算。"
 
@@ -3306,9 +3303,6 @@ msgstr "此帳戶內容目前無法顯示"
 
 msgid "Failed to like article."
 msgstr "按赞文章失敗。"
-
-msgid "Quality"
-msgstr ""
 
 msgid "Wallet added successfully"
 msgstr "錢包新增成功"

@@ -64,6 +64,8 @@ function formatBskyMedia(embed: unknown): Post['metadata']['content'] {
             type: 'Video',
             uri: embed.playlist,
             coverUri: embed.thumbnail,
+            width: embed.aspectRatio?.width,
+            height: embed.aspectRatio?.height,
         });
     }
     const oembedUrl = AppBskyEmbed.isExternal(embed) ? embed.external.uri : undefined;
