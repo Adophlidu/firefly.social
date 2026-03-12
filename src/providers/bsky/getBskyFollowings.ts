@@ -12,13 +12,20 @@ import { type Profile } from '@/providers/types/SocialMedia.js';
 export async function getBskyFollowings(
     profileId: string,
     indicator?: PageIndicator,
+    signal?: AbortSignal,
 ): Promise<Pageable<Profile, PageIndicator>> {
-    const response = await bskySessionHolder.agent.getFollows({
-        actor: profileId,
-        cursor: indicator?.id,
-        limit: 25,
-    });
-    const data = await getBskyProfilesByIds(response.data.follows.map((x) => x.did));
+    const response = await bskySessionHolder.agent.getFollows(
+        {
+            actor: profileId,
+            cursor: indicator?.id,
+            limit: 25,
+        },
+        { signal },
+    );
+    const data = await getBskyProfilesByIds(
+        response.data.follows.map((x) => x.did),
+        signal,
+    );
     return createPageable(
         data,
         createIndicator(indicator),

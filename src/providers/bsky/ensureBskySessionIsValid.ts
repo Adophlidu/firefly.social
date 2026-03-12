@@ -3,13 +3,14 @@ import { refreshBskySession } from '@/providers/bsky/refreshBskySession.js';
 import { retryOnBskyWhenNetworkError } from '@/providers/bsky/retryOnBskyWhenNetworkError.js';
 import { BskySession } from '@/providers/bsky/Session.js';
 
-export async function ensureBskySessionIsValid(session: BskySession) {
+export async function ensureBskySessionIsValid(session: BskySession, signal?: AbortSignal) {
     const agent = createBskyPublicAgent(session.serviceUrl);
 
     try {
         const serverSession = await retryOnBskyWhenNetworkError(2, async () => {
             return agent.com.atproto.server.getSession(undefined, {
                 headers: { authorization: `Bearer ${session.sessionPayload.accessJwt}` },
+                signal,
             });
         });
         return new BskySession(session.did, session.createdAt, session.expiresAt, session.serviceUrl, {

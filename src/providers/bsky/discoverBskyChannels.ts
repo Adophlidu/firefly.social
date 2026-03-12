@@ -11,11 +11,17 @@ import { resolveBskyResponseData } from '@/providers/bsky/resolveBskyResponseDat
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import { type Channel } from '@/providers/types/SocialMedia.js';
 
-export async function discoverBskyChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
-    const response = await bskySessionHolder.agent.app.bsky.unspecced.getPopularFeedGenerators({
-        cursor: indicator?.id,
-        limit: 20,
-    });
+export async function discoverBskyChannels(
+    indicator?: PageIndicator,
+    signal?: AbortSignal,
+): Promise<Pageable<Channel, PageIndicator>> {
+    const response = await bskySessionHolder.agent.app.bsky.unspecced.getPopularFeedGenerators(
+        {
+            cursor: indicator?.id,
+            limit: 20,
+        },
+        { signal },
+    );
     const data = resolveBskyResponseData(response, 'Failed to discoverChannels');
     const result = bskySessionHolder.session
         ? data.feeds

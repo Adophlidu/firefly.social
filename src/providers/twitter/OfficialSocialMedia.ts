@@ -534,7 +534,11 @@ class OfficialSocialMedia implements Provider {
         return { postId: data.id };
     }
 
-    async publishPost(
+    async publishPost(post: Post): Promise<{ postId: string }> {
+        throw new NotImplementedError('Use publishPostWithOptions instead');
+    }
+
+    async publishPostWithOptions(
         post: Post,
         options: {
             excludeReplyProfileIds?: string[];

@@ -3,11 +3,15 @@ import { AppBskyFeed } from '@/providers/bsky/contentChecker.js';
 import { resolveBskyResponseData } from '@/providers/bsky/resolveBskyResponseData.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 
-export async function unmirrorBskyPost(postId: string, authorId?: number): Promise<void> {
-    const response = await bskySessionHolder.agent.getPostThread({
-        uri: PostAtUri.fromId(postId).toUri(),
-        depth: 0,
-    });
+export async function unmirrorBskyPost(postId: string, authorId?: number, signal?: AbortSignal): Promise<void> {
+    const response = await bskySessionHolder.agent.getPostThread(
+        {
+            uri: PostAtUri.fromId(postId).toUri(),
+            depth: 0,
+        },
+        { signal },
+    );
+
     const data = resolveBskyResponseData(response, `Failed to unmirror post postId = ${postId}`);
     if (!AppBskyFeed.isThreadViewPost(data.thread) || !data.thread.post.viewer?.repost)
         throw new Error(`Failed to unmirror post postId = ${postId}`);

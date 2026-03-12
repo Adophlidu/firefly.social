@@ -30,12 +30,15 @@ import {
 
 export async function getBskyNotifications(
     indicator?: PageIndicator,
-    highSignalFilter?: boolean,
+    signal?: AbortSignal,
 ): Promise<Pageable<Notification, PageIndicator>> {
-    const response = await bskySessionHolder.agent.listNotifications({
-        limit: 25,
-        cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
-    });
+    const response = await bskySessionHolder.agent.listNotifications(
+        {
+            limit: 25,
+            cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+        },
+        { signal },
+    );
     const data = resolveBskyResponseData(response, 'Failed to get notifications.');
 
     const postIds = uniq(
@@ -64,9 +67,12 @@ export async function getBskyNotifications(
     );
     const posts = postIds.length
         ? await runInSafeAsync(async () => {
-              const res = await bskySessionHolder.agent.getPosts({
-                  uris: postIds,
-              });
+              const res = await bskySessionHolder.agent.getPosts(
+                  {
+                      uris: postIds,
+                  },
+                  { signal },
+              );
               return resolveBskyResponseData(res).posts?.map((x) => formatBskyPost(x));
           })
         : EMPTY_LIST;

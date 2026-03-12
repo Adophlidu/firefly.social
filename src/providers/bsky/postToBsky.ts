@@ -139,7 +139,7 @@ export async function postToBsky(
                         ...BSKY_IMAGE_LIMITATION,
                         format: FileMimeType.JPEG,
                     });
-                    const { data } = await bskySessionHolder.agent.uploadBlob(file);
+                    const { data } = await bskySessionHolder.agent.uploadBlob(file, { signal });
                     return createBskyMediaObject(
                         {
                             ...media,
@@ -170,7 +170,9 @@ export async function postToBsky(
             return [];
         },
         async compose(images, videos) {
-            return handleLongPost('Post', images, videos, (draft) => bskySocialMediaProvider.publishPost(draft));
+            return handleLongPost('Post', images, videos, (draft) =>
+                bskySocialMediaProvider.publishPost(draft, signal),
+            );
         },
         async reply(images, videos) {
             if (
@@ -181,7 +183,9 @@ export async function postToBsky(
             )
                 throw new Error('No parent post found.');
 
-            return handleLongPost('Comment', images, videos, (draft) => bskySocialMediaProvider.publishPost(draft));
+            return handleLongPost('Comment', images, videos, (draft) =>
+                bskySocialMediaProvider.publishPost(draft, signal),
+            );
         },
         async quote(images, videos) {
             if (
@@ -193,7 +197,7 @@ export async function postToBsky(
                 throw new Error('No parent post found.');
 
             return handleLongPost('Quote', images, videos, (draft) =>
-                bskySocialMediaProvider.quotePost(bskyParentPost.postId, draft),
+                bskySocialMediaProvider.quotePost(bskyParentPost.postId, draft, undefined, signal),
             );
         },
     });

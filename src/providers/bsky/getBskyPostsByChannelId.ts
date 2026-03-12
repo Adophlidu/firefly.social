@@ -14,12 +14,16 @@ import { type Post } from '@/providers/types/SocialMedia.js';
 export async function getBskyPostsByChannelId(
     channelId: string,
     indicator?: PageIndicator,
+    signal?: AbortSignal,
 ): Promise<Pageable<Post, PageIndicator>> {
     const atUri = ChannelAtUri.fromId(channelId).toUri();
-    const response = await bskySessionHolder.agent.app.bsky.feed.getFeed({
-        feed: atUri,
-        cursor: indicator?.id,
-    });
+    const response = await bskySessionHolder.agent.app.bsky.feed.getFeed(
+        {
+            feed: atUri,
+            cursor: indicator?.id,
+        },
+        { signal },
+    );
     const data = resolveBskyResponseData(response, 'Failed to get posts');
     return createPageable(
         data.feed.map(formatBskyFeedPost),

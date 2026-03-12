@@ -24,7 +24,10 @@ interface MutedProfileResult {
     blocked: boolean;
 }
 
-async function fetcher(payloads: MutedProfilePayload[]): Promise<Record<string, MutedProfileResult>> {
+async function fetcher(
+    payloads: MutedProfilePayload[],
+    signal?: AbortSignal,
+): Promise<Record<string, MutedProfileResult>> {
     if (payloads.length === 0) return {};
 
     const results: Record<string, MutedProfileResult> = {};
@@ -49,9 +52,12 @@ async function fetcher(payloads: MutedProfilePayload[]): Promise<Record<string, 
                     case Source.Bsky: {
                         if (!bskySessionHolder.session) return;
 
-                        const response = await bskySessionHolder.agent.getProfiles({
-                            actors: payloads.map((p) => p.profileId),
-                        });
+                        const response = await bskySessionHolder.agent.getProfiles(
+                            {
+                                actors: payloads.map((p) => p.profileId),
+                            },
+                            { signal },
+                        );
                         return response.data.profiles.map((profile) => formatBskyProfile(profile));
                     }
                     case Source.Twitter: {

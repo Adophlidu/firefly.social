@@ -13,9 +13,9 @@ import { type Profile } from '@/providers/types/SocialMedia.js';
 export function FollowersList({ profileId, source }: { profileId: string; source: SocialSource }) {
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['profiles', source, 'followers', profileId],
-        async queryFn({ pageParam }) {
+        async queryFn({ pageParam, signal }) {
             const provider = resolveSocialMediaProvider(source);
-            return provider.getFollowers(profileId, createIndicator(undefined, pageParam));
+            return provider.getFollowers(profileId, createIndicator(undefined, pageParam), signal);
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => (lastPage as Pageable<Profile, PageIndicator>)?.nextIndicator?.id,

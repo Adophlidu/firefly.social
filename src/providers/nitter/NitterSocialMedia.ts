@@ -485,12 +485,7 @@ class NitterSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    async publishPost(
-        post: Post,
-        options: {
-            excludeReplyProfileIds?: string[];
-        } = {},
-    ): Promise<{ postId: string }> {
+    async publishPost(post: Post): Promise<{ postId: string }> {
         throw new NotImplementedError();
     }
 

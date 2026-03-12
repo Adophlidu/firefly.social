@@ -38,8 +38,8 @@ function resolveRestriction(
     );
 }
 
-async function resolvePostEmbed(post: Post, isQuote: boolean, richText?: RichText) {
-    const embed = await resolveBskyEmbed(post, richText);
+async function resolvePostEmbed(post: Post, isQuote: boolean, richText?: RichText, signal?: AbortSignal) {
+    const embed = await resolveBskyEmbed(post, richText, signal);
     if (!isQuote) return embed;
 
     return embed
@@ -69,9 +69,7 @@ interface Options {
     disableQuote?: boolean;
 }
 
-type PublishPostFunction = (post: Post, isQuote: boolean, options?: Options) => Promise<{ cid: string; uri: string }>;
-
-export const publishPostToBsky: PublishPostFunction = async (post, isQuote, options) => {
+export async function publishPostToBsky(post: Post, isQuote: boolean, options?: Options, signal?: AbortSignal) {
     const did = bskySessionHolder.agent.assertDid;
     const rkey = TID.next().toString();
     const uri = `at://${did}/app.bsky.feed.post/${rkey}`;
@@ -92,7 +90,7 @@ export const publishPostToBsky: PublishPostFunction = async (post, isQuote, opti
                 createdAt: new Date().toISOString(),
                 text: richText ? richText.text : (text ?? ''),
                 facets: richText ? richText.facets : undefined,
-                embed: await resolvePostEmbed(post, isQuote, richText),
+                embed: await resolvePostEmbed(post, isQuote, richText, signal),
                 reply:
                     post.parentPostId && post.parentContentURI && !isQuote
                         ? {
@@ -147,15 +145,18 @@ export const publishPostToBsky: PublishPostFunction = async (post, isQuote, opti
         });
     }
 
-    const result = await bskySessionHolder.agent.com.atproto.repo.applyWrites({
-        repo: did,
-        writes,
-        validate: true,
-    });
+    const result = await bskySessionHolder.agent.com.atproto.repo.applyWrites(
+        {
+            repo: did,
+            writes,
+            validate: true,
+        },
+        { signal },
+    );
     const postData = first(result.data?.results);
     if (!result.success || !postData || !ComAtprotoRepoApplyWrites.isCreateResult(postData)) {
         throw new Error('Failed to publish post to Bsky');
     }
 
     return { cid: postData.cid, uri: postData.uri } as { cid: string; uri: string };
-};
+}

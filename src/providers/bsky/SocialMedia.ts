@@ -103,8 +103,8 @@ class BskySocialMedia implements Provider {
         return SessionType.Bsky;
     }
 
-    async publishPost(post: Post) {
-        return publishBskyPost(post);
+    async publishPost(post: Post, signal?: AbortSignal) {
+        return publishBskyPost(post, signal);
     }
 
     async deletePost(postId: string): Promise<boolean> {
@@ -116,11 +116,20 @@ class BskySocialMedia implements Provider {
     async unmirrorPost(postId: string, authorId?: number): Promise<void> {
         await unmirrorBskyPost(postId, authorId);
     }
-    async quotePost(postId: string, post: Post): Promise<{ postId: string; contentURI?: string }> {
-        return quoteBskyPost(postId, post);
+    async quotePost(
+        postId: string,
+        post: Post,
+        authorId?: number,
+        signal?: AbortSignal,
+    ): Promise<{ postId: string; contentURI?: string }> {
+        return quoteBskyPost(postId, post, signal);
     }
-    async commentPost(postId: string, post: Post): Promise<{ postId: string; contentURI?: string }> {
-        return publishBskyPost(post);
+    async commentPost(
+        postId: string,
+        post: Post,
+        signal?: AbortSignal,
+    ): Promise<{ postId: string; contentURI?: string }> {
+        return publishBskyPost(post, signal);
     }
     async collectPost(postId: string, collectionId?: string): Promise<void> {
         throw new NotImplementedError();
@@ -241,16 +250,28 @@ class BskySocialMedia implements Provider {
         return unfollowBskyProfile(profileId);
     }
 
-    async getFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        return getBskyFollowers(profileId, indicator);
+    async getFollowers(
+        profileId: string,
+        indicator?: PageIndicator,
+        signal?: AbortSignal,
+    ): Promise<Pageable<Profile, PageIndicator>> {
+        return getBskyFollowers(profileId, indicator, signal);
     }
 
-    async getFollowings(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        return getBskyFollowings(profileId, indicator);
+    async getFollowings(
+        profileId: string,
+        indicator?: PageIndicator,
+        signal?: AbortSignal,
+    ): Promise<Pageable<Profile, PageIndicator>> {
+        return getBskyFollowings(profileId, indicator, signal);
     }
 
-    async getMutualFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        return getBskyMutualFollowers(profileId, indicator);
+    async getMutualFollowers(
+        profileId: string,
+        indicator?: PageIndicator,
+        signal?: AbortSignal,
+    ): Promise<Pageable<Profile, PageIndicator>> {
+        return getBskyMutualFollowers(profileId, indicator, signal);
     }
     async isFollowedByMe(profileId: string): Promise<boolean> {
         return isBskyFollowedByMe(profileId);

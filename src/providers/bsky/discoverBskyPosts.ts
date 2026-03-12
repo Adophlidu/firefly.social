@@ -11,11 +11,19 @@ import { resolveBskyResponseData } from '@/providers/bsky/resolveBskyResponseDat
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
 
-export async function discoverBskyPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-    const response = await bskySessionHolder.agent.app.bsky.feed.getFeed({
-        feed: DISCOVER_AT_URI,
-        cursor: indicator?.id,
-    });
+export async function discoverBskyPosts(
+    indicator?: PageIndicator,
+    signal?: AbortSignal,
+): Promise<Pageable<Post, PageIndicator>> {
+    const response = await bskySessionHolder.agent.app.bsky.feed.getFeed(
+        {
+            feed: DISCOVER_AT_URI,
+            cursor: indicator?.id,
+        },
+        {
+            signal,
+        },
+    );
     const data = resolveBskyResponseData(response, 'Failed to discoverPosts');
 
     return createPageable(

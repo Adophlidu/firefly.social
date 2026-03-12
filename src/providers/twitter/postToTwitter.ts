@@ -80,11 +80,12 @@ export async function postToTwitter(type: ComposeType, compositePost: CompositeP
             const uploaded = await uploadToTwitter(downloaded.map((x) => ({ file: x.file })));
             return uploaded.map((x, index) => createTwitterMediaObject(x, downloaded[index]));
         },
-        compose: (images, videos, polls) =>
-            twitterSocialMediaProxy.publishPost(composeDraft('Post', images, videos, polls)),
+        compose: (images, videos, polls) => {
+            return twitterSocialMediaProxy.publishPostWithOptions(composeDraft('Post', images, videos, polls));
+        },
         reply: (images, videos, polls) => {
             if (!twitterParentPost?.postId) throw new Error('No parent post found.');
-            return twitterSocialMediaProxy.publishPost(composeDraft('Comment', images, videos, polls), {
+            return twitterSocialMediaProxy.publishPostWithOptions(composeDraft('Comment', images, videos, polls), {
                 excludeReplyProfileIds,
             });
         },

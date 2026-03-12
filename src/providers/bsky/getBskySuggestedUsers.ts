@@ -16,11 +16,12 @@ interface Options {
     category?: string;
     limit?: number;
     queryStats?: boolean;
+    signal?: AbortSignal;
 }
 
 export async function getBskySuggestedUsers(
     indicator?: PageIndicator,
-    { category, queryStats, limit = 20 }: Options = {},
+    { category, queryStats, limit = 20, signal }: Options = {},
 ): Promise<Pageable<Profile, PageIndicator | undefined>> {
     const session = getSessionFromStorage(SessionType.Bsky);
     if (!session || !bskySessionHolder.session) return createPageable([], indicator);
@@ -38,6 +39,7 @@ export async function getBskySuggestedUsers(
                 'X-Bsky-Topics': preferences?.interests?.tags?.join(',') || '',
                 'Content-Type': 'application/json',
             },
+            signal,
         },
     );
     if (!response.ok) {

@@ -14,18 +14,22 @@ import { type Post } from '@/providers/types/SocialMedia.js';
 export async function getBskyCommentsById(
     postId: string,
     indicator?: PageIndicator,
+    signal?: AbortSignal,
 ): Promise<Pageable<Post, PageIndicator>> {
     const atUri = PostAtUri.fromId(postId).toUri();
-    const response = await bskySessionHolder.agent.getPostThread({
-        uri: atUri,
-        depth: 10,
-    });
+    const response = await bskySessionHolder.agent.getPostThread(
+        {
+            uri: atUri,
+            depth: 10,
+        },
+        { signal },
+    );
     const data = resolveBskyResponseData(response, `Failed to getCommentsById atUri = ${atUri}.`);
     const did = bskySessionHolder.session?.did;
     if (!AppBskyFeed.isThreadViewPost(data.thread)) {
         return createPageable(EMPTY_LIST, createIndicator(indicator));
     }
-    const preferences = await runInSafeAsync(() => bskySessionHolder.agent.getPreferences());
+    const preferences = await runInSafeAsync(() => bskySessionHolder.agent.getPreferences(), { signal });
     const replies = compact(
         data.thread.replies?.map((x) => {
             if (!AppBskyFeed.isThreadViewPost(x)) return null;

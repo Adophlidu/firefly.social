@@ -210,8 +210,11 @@ class LensSocialMedia implements Provider {
         await actLensPost(postId);
     }
 
-    // comment is the contentURI of the post
-    async commentPost(postId: string, draftPost: Post, signless?: boolean): Promise<{ postId: string }> {
+    async commentPost(postId: string, draftPost: Post): Promise<{ postId: string }> {
+        throw new NotImplementedError('Use commentPostWithSignless instead');
+    }
+
+    async commentPostWithSignless(postId: string, draftPost: Post, signless?: boolean): Promise<{ postId: string }> {
         return commentLensPost(postId, draftPost, signless);
     }
 

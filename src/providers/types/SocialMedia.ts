@@ -477,7 +477,7 @@ export interface Provider {
      * @param post The post to be published.
      * @returns A promise that resolves to post id.
      */
-    publishPost: (post: Post) => Promise<{ postId: string; contentURI?: string }>;
+    publishPost: (post: Post, signal?: AbortSignal) => Promise<{ postId: string; contentURI?: string }>;
 
     /**
      * Delete a post with the specified post ID.
@@ -513,7 +513,12 @@ export interface Provider {
      * @param authorId The ID of the author of the post to quote.
      * @returns A promise that resolves to post id.
      */
-    quotePost?: (postId: string, post: Post, authorId?: number) => Promise<{ postId: string; contentURI?: string }>;
+    quotePost?: (
+        postId: string,
+        post: Post,
+        authorId?: number,
+        signal?: AbortSignal,
+    ) => Promise<{ postId: string; contentURI?: string }>;
 
     /**
      * Comments on a post with the specified post ID and comment text.
@@ -522,7 +527,7 @@ export interface Provider {
      * @param post The comment post.
      * @returns A promise that resolves to comment id.
      */
-    commentPost: (postId: string, post: Post) => Promise<{ postId: string; contentURI?: string }>;
+    commentPost: (postId: string, post: Post, signal?: AbortSignal) => Promise<{ postId: string; contentURI?: string }>;
 
     /**
      * Collects a post with the specified post ID.
@@ -791,7 +796,7 @@ export interface Provider {
      * @param indicator Optional PageIndicator for pagination.
      * @returns A promise that resolves to a pageable list of Profile objects.
      */
-    getFollowers: (profileId: string, indicator?: PageIndicator) => Promise<Pageable<Profile>>;
+    getFollowers: (profileId: string, indicator?: PageIndicator, signal?: AbortSignal) => Promise<Pageable<Profile>>;
 
     /**
      * Retrieves users followed by a user by their profile ID.
@@ -800,9 +805,13 @@ export interface Provider {
      * @param indicator Optional PageIndicator for pagination.
      * @returns A promise that resolves to a pageable list of Profile objects.
      */
-    getFollowings: (profileId: string, indicator?: PageIndicator) => Promise<Pageable<Profile>>;
+    getFollowings: (profileId: string, indicator?: PageIndicator, signal?: AbortSignal) => Promise<Pageable<Profile>>;
 
-    getMutualFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>>;
+    getMutualFollowers(
+        profileId: string,
+        indicator?: PageIndicator,
+        signal?: AbortSignal,
+    ): Promise<Pageable<Profile, PageIndicator>>;
 
     /**
      * Checks if a user is followed by the current logged user by specifying their profile ID.

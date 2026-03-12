@@ -234,7 +234,7 @@ async function commentPostForLens(
     );
 
     const contentURI = await GroveStorageProvider.uploadJson(metadata);
-    return lensSocialMediaProvider.commentPost(
+    return lensSocialMediaProvider.commentPostWithSignless(
         postId,
         {
             ...createDummyPost(Source.Lens, contentURI.uri),

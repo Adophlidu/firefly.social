@@ -4,11 +4,14 @@ import { AppBskyFeed } from '@/providers/bsky/contentChecker.js';
 import { resolveBskyResponseData } from '@/providers/bsky/resolveBskyResponseData.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 
-export async function unvoteBskyPost(postId: string): Promise<void> {
-    const response = await bskySessionHolder.agent.getPostThread({
-        uri: PostAtUri.fromId(postId).toUri(),
-        depth: 0,
-    });
+export async function unvoteBskyPost(postId: string, signal?: AbortSignal): Promise<void> {
+    const response = await bskySessionHolder.agent.getPostThread(
+        {
+            uri: PostAtUri.fromId(postId).toUri(),
+            depth: 0,
+        },
+        { signal },
+    );
     const data = resolveBskyResponseData(response, `Failed to unlike post postId = ${postId}`);
     if (!AppBskyFeed.isThreadViewPost(data.thread)) throw new Error(`Failed to unlike post postId = ${postId}`);
     if (!data.thread.post.viewer?.like) {

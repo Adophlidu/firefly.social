@@ -17,17 +17,21 @@ import { type Profile } from '@/providers/types/SocialMedia.js';
 export async function getBskyRepostReactors(
     postId: string,
     indicator?: PageIndicator,
+    signal?: AbortSignal,
 ): Promise<Pageable<Profile, PageIndicator>> {
     const atUri = PostAtUri.fromId(postId).toUri();
-    const response = await bskySessionHolder.agent.getRepostedBy({
-        uri: atUri,
-        cursor: indicator?.id,
-        limit: 25,
-    });
+    const response = await bskySessionHolder.agent.getRepostedBy(
+        {
+            uri: atUri,
+            cursor: indicator?.id,
+            limit: 25,
+        },
+        { signal },
+    );
     const data = resolveBskyResponseData(response, `Failed to get repost reactors postId = ${postId}.`);
     const repostedBy = data.repostedBy || EMPTY_LIST;
     const profiles = repostedBy.length
-        ? await runInSafeAsync(() => getBskyProfilesByIds(repostedBy.map((x) => x.did)))
+        ? await runInSafeAsync(() => getBskyProfilesByIds(repostedBy.map((x) => x.did)), { signal })
         : EMPTY_LIST;
 
     return createPageable(

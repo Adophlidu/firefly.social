@@ -15,13 +15,17 @@ import { type Post } from '@/providers/types/SocialMedia.js';
 export async function getBskyPostsByProfileId(
     profileId: string,
     indicator?: PageIndicator,
+    signal?: AbortSignal,
 ): Promise<Pageable<Post, PageIndicator>> {
     try {
-        const response = await bskySessionHolder.agent.getAuthorFeed({
-            actor: profileId,
-            filter: 'posts_and_author_threads',
-            cursor: indicator?.id,
-        });
+        const response = await bskySessionHolder.agent.getAuthorFeed(
+            {
+                actor: profileId,
+                filter: 'posts_and_author_threads',
+                cursor: indicator?.id,
+            },
+            { signal },
+        );
         const data = resolveBskyResponseData(response, `Failed to get post by profile id = ${profileId}.`);
         return createPageable(
             data.feed.map(formatBskyFeedPost),

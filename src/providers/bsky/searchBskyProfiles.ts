@@ -13,13 +13,17 @@ import { type Profile } from '@/providers/types/SocialMedia.js';
 export async function searchBskyProfiles(
     q: string,
     indicator?: PageIndicator,
+    signal?: AbortSignal,
 ): Promise<Pageable<Profile, PageIndicator>> {
     const limit = indicator?.size ?? 25;
-    const response = await bskySessionHolder.agent.searchActors({
-        q,
-        limit,
-        cursor: indicator?.id,
-    });
+    const response = await bskySessionHolder.agent.searchActors(
+        {
+            q,
+            limit,
+            cursor: indicator?.id,
+        },
+        { signal },
+    );
     const data = resolveBskyResponseData(response, `Failed to search profiles by query = ${q}.`);
 
     return createPageable(

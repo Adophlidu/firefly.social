@@ -13,12 +13,16 @@ import { type Post } from '@/providers/types/SocialMedia.js';
 export async function getBskyMediaPostsByProfileId(
     profileId: string,
     indicator?: PageIndicator,
+    signal?: AbortSignal,
 ): Promise<Pageable<Post, PageIndicator>> {
-    const response = await bskySessionHolder.agent.getAuthorFeed({
-        actor: profileId,
-        filter: 'posts_with_media',
-        cursor: indicator?.id,
-    });
+    const response = await bskySessionHolder.agent.getAuthorFeed(
+        {
+            actor: profileId,
+            filter: 'posts_with_media',
+            cursor: indicator?.id,
+        },
+        { signal },
+    );
     const data = resolveBskyResponseData(response, `Failed to get media post by profile id = ${profileId}.`);
     return createPageable(
         data.feed.map(formatBskyFeedPost),

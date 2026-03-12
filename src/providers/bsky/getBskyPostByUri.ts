@@ -4,13 +4,16 @@ import { resolveBskyResponseDataAsync } from '@/providers/bsky/resolveBskyRespon
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
 
-export async function getBskyPostByUri(uri: string): Promise<Post> {
+export async function getBskyPostByUri(uri: string, signal?: AbortSignal): Promise<Post> {
     const data = await resolveBskyResponseDataAsync(
         () =>
-            bskySessionHolder.agent.getPostThread({
-                uri,
-                depth: 10,
-            }),
+            bskySessionHolder.agent.getPostThread(
+                {
+                    uri,
+                    depth: 10,
+                },
+                { signal },
+            ),
         `Failed to getSinglePost uri = ${uri}.`,
     );
 

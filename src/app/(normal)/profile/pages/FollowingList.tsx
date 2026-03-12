@@ -12,9 +12,9 @@ import { type Profile } from '@/providers/types/SocialMedia.js';
 export function FollowingList({ profileId, source }: { profileId: string; source: SocialSource }) {
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['profiles', source, 'following', profileId],
-        async queryFn({ pageParam }) {
+        async queryFn({ pageParam, signal }) {
             const provider = resolveSocialMediaProvider(source);
-            return provider.getFollowings(profileId, createIndicator(undefined, pageParam));
+            return provider.getFollowings(profileId, createIndicator(undefined, pageParam), signal);
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => (lastPage as Pageable<Profile, PageIndicator>)?.nextIndicator?.id,

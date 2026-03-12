@@ -10,10 +10,16 @@ import { resolveBskyResponseData } from '@/providers/bsky/resolveBskyResponseDat
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import { type Profile } from '@/providers/types/SocialMedia.js';
 
-export async function getBskyBlockedProfiles(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-    const response = await bskySessionHolder.agent.app.bsky.graph.getMutes({
-        cursor: indicator?.id,
-    });
+export async function getBskyBlockedProfiles(
+    indicator?: PageIndicator,
+    signal?: AbortSignal,
+): Promise<Pageable<Profile, PageIndicator>> {
+    const response = await bskySessionHolder.agent.app.bsky.graph.getMutes(
+        {
+            cursor: indicator?.id,
+        },
+        { signal },
+    );
     const data = resolveBskyResponseData(response, 'Failed to get blocked profiles.');
     return createPageable(
         data.mutes.map((x) => formatBskyProfile(x)),

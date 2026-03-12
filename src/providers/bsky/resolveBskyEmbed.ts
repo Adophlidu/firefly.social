@@ -19,7 +19,7 @@ import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import { getPostOembed } from '@/providers/firefly/worker/getPostOembed.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
 
-export async function resolveBskyEmbed(post: Post, richText?: RichText) {
+export async function resolveBskyEmbed(post: Post, richText?: RichText, signal?: AbortSignal) {
     const images = post.mediaObjects?.filter((media) => media.type === 'Image' && !!media.blobRef);
     const gifs = post.mediaObjects?.filter(
         (media) => media.type === 'Image' && media.mimeType === FileMimeType.GIF && !!media.blobRef,
@@ -77,7 +77,9 @@ export async function resolveBskyEmbed(post: Post, richText?: RichText) {
                   format: FileMimeType.JPEG,
               })
             : undefined;
-        const thumbBlob = compressed?.file ? await bskySessionHolder.agent.uploadBlob(compressed.file) : undefined;
+        const thumbBlob = compressed?.file
+            ? await bskySessionHolder.agent.uploadBlob(compressed.file, { signal })
+            : undefined;
 
         return {
             $type: BskyEmbedType.External,

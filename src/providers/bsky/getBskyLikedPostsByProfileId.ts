@@ -13,11 +13,15 @@ import { type Post } from '@/providers/types/SocialMedia.js';
 export async function getBskyLikedPostsByProfileId(
     profileId: string,
     indicator?: PageIndicator,
+    signal?: AbortSignal,
 ): Promise<Pageable<Post, PageIndicator>> {
-    const response = await bskySessionHolder.agent.getActorLikes({
-        actor: profileId,
-        cursor: indicator?.id,
-    });
+    const response = await bskySessionHolder.agent.getActorLikes(
+        {
+            actor: profileId,
+            cursor: indicator?.id,
+        },
+        { signal },
+    );
     const data = resolveBskyResponseData(response, `Failed to get liked post by profile id = ${profileId}.`);
     return createPageable(
         data.feed.map(formatBskyFeedPost),

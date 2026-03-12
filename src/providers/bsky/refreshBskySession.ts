@@ -3,7 +3,7 @@ import { SessionExpiredError } from '@/constants/error.js';
 import { createBskyPublicAgent } from '@/providers/bsky/createBskyAgent.js';
 import { BskySession } from '@/providers/bsky/Session.js';
 
-export async function refreshBskySession(oldSession: BskySession): Promise<BskySession> {
+export async function refreshBskySession(oldSession: BskySession, signal?: AbortSignal): Promise<BskySession> {
     const agent = createBskyPublicAgent(oldSession.serviceUrl);
     try {
         const refreshJwt = oldSession.sessionPayload.refreshJwt;
@@ -13,6 +13,7 @@ export async function refreshBskySession(oldSession: BskySession): Promise<BskyS
 
         const res = await agent.com.atproto.server.refreshSession(undefined, {
             headers: { authorization: `Bearer ${refreshJwt}` },
+            signal,
         });
         if (!res?.data?.accessJwt) {
             throw new Error('Failed to refresh bsky session: No accessJwt in response');

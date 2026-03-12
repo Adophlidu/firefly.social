@@ -5,7 +5,7 @@ import { fetchBlob } from '@/helpers/fetchBlob.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import { type ProfileEditable } from '@/providers/types/SocialMedia.js';
 
-export async function updateBskyProfile(profile: ProfileEditable): Promise<boolean> {
+export async function updateBskyProfile(profile: ProfileEditable, signal?: AbortSignal): Promise<boolean> {
     await bskySessionHolder.agent.upsertProfile(async (existing) => {
         const nextProfileData = (existing || {}) as AppBskyActorProfile.Main;
 
@@ -17,7 +17,7 @@ export async function updateBskyProfile(profile: ProfileEditable): Promise<boole
         }
         if (profile.pfp) {
             const avatarBlob = await fetchBlob(profile.pfp);
-            const avatarBlobUploaded = await bskySessionHolder.agent.uploadBlob(avatarBlob);
+            const avatarBlobUploaded = await bskySessionHolder.agent.uploadBlob(avatarBlob, { signal });
             nextProfileData.avatar = avatarBlobUploaded.data.blob;
         }
 
