@@ -70,6 +70,7 @@ export function PostBodyContent({ ref, ...props }: PostBodyContentProps) {
         isQuote = false,
         isReply = false,
         isDetail = false,
+        isComment = false,
         showMore = !isDetail,
         disablePadding = false,
         showTranslate = false,
@@ -87,11 +88,16 @@ export function PostBodyContent({ ref, ...props }: PostBodyContentProps) {
     const isExpanded = post.incomplete && post.fullContent === post.metadata.content?.content;
     const canShowMore = !isExpanded && !!(postRawContent && postRawContent.length > 450) && showMore;
     const hasFireflyArticle = !!post.fireflyArticleUrl && showMore;
-    const isFireflyCollapsible = !!post.fireflyArticleUrl && !!post.partialContent && !!props.fireflyArticleToggle;
+    const isFireflyCollapsible =
+        !isComment && !!post.fireflyArticleUrl && !!post.partialContent && !!props.fireflyArticleToggle;
     const [isArticleExpanded, setIsArticleExpanded] = useState(false);
 
     const postContent = useMemo(() => {
-        const base = metadata.content?.truncatedContent || postRawContent || '';
+        // In detail view, prioritize full content over truncated content
+        // truncatedContent is used in list views to hide URLs that are shown as link preview cards
+        const base = isDetail
+            ? postRawContent || metadata.content?.truncatedContent || ''
+            : metadata.content?.truncatedContent || postRawContent || '';
 
         if (isFireflyCollapsible) {
             if (isArticleExpanded) return base;
@@ -103,6 +109,7 @@ export function PostBodyContent({ ref, ...props }: PostBodyContentProps) {
         }
         return base;
     }, [
+        isDetail,
         metadata.content?.truncatedContent,
         postRawContent,
         hasFireflyArticle,
@@ -239,26 +246,34 @@ export function PostBodyContent({ ref, ...props }: PostBodyContentProps) {
                     <div>{isArticleExpanded ? <Trans>Show Less</Trans> : <Trans>Show More</Trans>}</div>
                 </ClickableArea>
             ) : canShowMore || hasFireflyArticle ? (
-                <ClickableArea
-                    className="cursor-pointer text-medium font-bold text-highlight"
-                    onClick={() => {
-                        if (post.isTruthSocial) {
-                            return;
-                        }
-                        if (post.fireflyArticleUrl) {
-                            queryClient.removeQueries({
-                                queryKey: [post.source, 'post-detail', post.postId],
-                            });
-                            router.push(post.fireflyArticleUrl);
-                            return;
-                        }
-                        router.push(getPostUrl(post));
-                    }}
-                >
-                    <div>
-                        <Trans>Show More</Trans>
+                isComment ? (
+                    <div className="cursor-pointer text-medium font-bold text-highlight">
+                        <div>
+                            <Trans>Show More</Trans>
+                        </div>
                     </div>
-                </ClickableArea>
+                ) : (
+                    <ClickableArea
+                        className="cursor-pointer text-medium font-bold text-highlight"
+                        onClick={() => {
+                            if (post.isTruthSocial) {
+                                return;
+                            }
+                            if (post.fireflyArticleUrl) {
+                                queryClient.removeQueries({
+                                    queryKey: [post.source, 'post-detail', post.postId],
+                                });
+                                router.push(post.fireflyArticleUrl);
+                                return;
+                            }
+                            router.push(getPostUrl(post));
+                        }}
+                    >
+                        <div>
+                            <Trans>Show More</Trans>
+                        </div>
+                    </ClickableArea>
+                )
             ) : null}
 
             {!isTokenPage ? (

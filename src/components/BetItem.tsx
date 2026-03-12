@@ -13,7 +13,7 @@ import { Link } from '@/components/Link.js';
 import { BUTTON_COLORS } from '@/components/Prediction/PredictionActivityRate.js';
 import { PredictionEventImage } from '@/components/Prediction/PredictionEventImage.js';
 import { Timer } from '@/components/RedPacket/Timer.js';
-import { type PredictionPlatform } from '@/constants/enum.js';
+import { PredictionPlatform, type PredictionPlatform as PredictionPlatformType } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/static.js';
 import { bedStead } from '@/fonts/bedStead/index.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
@@ -147,7 +147,7 @@ const getMarketData = (market: BetsMarketDataForUI) => {
 
 interface BetItemProps {
     event: BetsEventDataForUI;
-    platform: PredictionPlatform;
+    platform: PredictionPlatformType;
     className?: string;
     openLinkInNewTab?: boolean;
     onLinkClick?: () => void;
@@ -345,7 +345,7 @@ export const BetItem = memo(function BetItem({
                                                 {winningOutcome}
                                             </span>
                                         </div>
-                                    ) : (
+                                    ) : platform !== PredictionPlatform.Opinion ? (
                                         <div className="flex min-w-0 shrink-0 gap-2">
                                             <PredictionOutcomeButton
                                                 className={classNames(
@@ -372,7 +372,7 @@ export const BetItem = memo(function BetItem({
                                                 </PredictionOutcomeButton>
                                             ) : null}
                                         </div>
-                                    )}
+                                    ) : null}
                                 </div>
                             );
                         })}
@@ -438,38 +438,40 @@ export const BetItem = memo(function BetItem({
                         )}
 
                         {!isResolved || !resolvedOutcome ? (
-                            <div className="flex min-w-0 gap-2">
-                                {firstOutcome ? (
-                                    <PredictionOutcomeButton
-                                        className={classNames(
-                                            'min-w-0 flex-1 overflow-hidden rounded-lg px-4 py-2 text-sm font-bold leading-6',
-                                            BUTTON_COLORS.success.bg,
-                                            BUTTON_COLORS.success.text,
-                                        )}
-                                        slug={primaryMarket?.slug}
-                                        outcome={0}
-                                    >
-                                        <span className="block truncate">
-                                            <Trans>Buy {firstOutcome}</Trans>
-                                        </span>
-                                    </PredictionOutcomeButton>
-                                ) : null}
-                                {secondOutcome ? (
-                                    <PredictionOutcomeButton
-                                        className={classNames(
-                                            'min-w-0 flex-1 overflow-hidden rounded-lg px-4 py-2 text-sm font-bold leading-6',
-                                            BUTTON_COLORS.danger.bg,
-                                            BUTTON_COLORS.danger.text,
-                                        )}
-                                        slug={primaryMarket?.slug}
-                                        outcome={1}
-                                    >
-                                        <span className="block truncate">
-                                            <Trans>Buy {secondOutcome}</Trans>
-                                        </span>
-                                    </PredictionOutcomeButton>
-                                ) : null}
-                            </div>
+                            platform !== PredictionPlatform.Opinion ? (
+                                <div className="flex min-w-0 gap-2">
+                                    {firstOutcome ? (
+                                        <PredictionOutcomeButton
+                                            className={classNames(
+                                                'min-w-0 flex-1 overflow-hidden rounded-lg px-4 py-2 text-sm font-bold leading-6',
+                                                BUTTON_COLORS.success.bg,
+                                                BUTTON_COLORS.success.text,
+                                            )}
+                                            slug={primaryMarket?.slug}
+                                            outcome={0}
+                                        >
+                                            <span className="block truncate">
+                                                <Trans>Buy {firstOutcome}</Trans>
+                                            </span>
+                                        </PredictionOutcomeButton>
+                                    ) : null}
+                                    {secondOutcome ? (
+                                        <PredictionOutcomeButton
+                                            className={classNames(
+                                                'min-w-0 flex-1 overflow-hidden rounded-lg px-4 py-2 text-sm font-bold leading-6',
+                                                BUTTON_COLORS.danger.bg,
+                                                BUTTON_COLORS.danger.text,
+                                            )}
+                                            slug={primaryMarket?.slug}
+                                            outcome={1}
+                                        >
+                                            <span className="block truncate">
+                                                <Trans>Buy {secondOutcome}</Trans>
+                                            </span>
+                                        </PredictionOutcomeButton>
+                                    ) : null}
+                                </div>
+                            ) : null
                         ) : null}
                     </>
                 )}

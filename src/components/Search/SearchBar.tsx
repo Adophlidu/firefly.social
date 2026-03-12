@@ -67,6 +67,7 @@ function SearchBar({ slot, autoSearchType = false, className, ...rest }: SearchB
     const isExplorePage = isRoutePathname(pathname, PageRoute.Explore);
     const rootRef = useRef<HTMLDivElement>(null!);
     const inputRef = useRef<HTMLInputElement>(null);
+
     const [inputText, setInputText] = useState(searchKeyword);
 
     const comeback = useComeBack();
@@ -91,9 +92,18 @@ function SearchBar({ slot, autoSearchType = false, className, ...rest }: SearchB
                 return;
             }
 
+            // Keep the original URL in the input box for display
             keepOriginalInputRef.current = true;
-            const searchUrl = resolveSearchUrl(state.q || '', urlResult.searchType, urlResult.source);
-            router.push(searchUrl);
+            if (state.q) setInputText(state.q);
+
+            // Always use the full URL in the search query parameter
+            // The search components will detect and extract identifier if needed
+            updateState({
+                q: state.q,
+                type: urlResult.searchType,
+                source: urlResult.source,
+            });
+
             setShowRecommendation(false);
             return;
         }
@@ -103,13 +113,19 @@ function SearchBar({ slot, autoSearchType = false, className, ...rest }: SearchB
     };
 
     useLayoutEffect(() => {
-        // Don't sync if we want to keep the original input (e.g., full URL)
         if (!keepOriginalInputRef.current) {
-            setInputText(searchKeyword);
+            const currentUrlResult = resolveSearchUrlType(inputText);
+            const shouldKeepCurrentInput =
+                currentUrlResult?.identifier === searchKeyword && currentUrlResult?.searchType === searchType;
+
+            if (!shouldKeepCurrentInput) {
+                setInputText(searchKeyword);
+            }
         } else {
             keepOriginalInputRef.current = false;
         }
-    }, [searchKeyword]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [searchKeyword, searchType]);
 
     const closeRecommendation = useCallback(() => setShowRecommendation(false), []);
     const { data } = useDetectAddress(inputText);
@@ -147,23 +163,8 @@ function SearchBar({ slot, autoSearchType = false, className, ...rest }: SearchB
                     className="w-full flex-1"
                     onSubmit={(ev) => {
                         ev.preventDefault();
+
                         const urlResult = resolveSearchUrlType(inputText);
-                        if (urlResult) {
-                            if (urlResult.kind === SearchUrlKind.FireflyInternal && urlResult.internalPath) {
-                                router.push(urlResult.internalPath);
-                                setShowRecommendation(false);
-                                return;
-                            }
-
-                            addRecord(inputText);
-                            setShowRecommendation(false);
-
-                            keepOriginalInputRef.current = true;
-                            const searchUrl = resolveSearchUrl(inputText, urlResult.searchType, urlResult.source);
-                            router.push(searchUrl);
-                            return;
-                        }
-
                         const autoRouting = autoSearchType || isValidAddress(inputText);
                         const resolvedSearchType = isProfile
                             ? SearchType.Profiles
@@ -178,7 +179,9 @@ function SearchBar({ slot, autoSearchType = false, className, ...rest }: SearchB
                             type: resolvedSearchType,
                         });
 
-                        if (!isSearchPage) {
+                        // handleInputSubmit already handles URL navigation via updateState
+                        // Only push for non-URL searches on non-search pages
+                        if (!isSearchPage && !urlResult) {
                             const searchUrl = resolveSearchUrl(inputText, resolvedSearchType);
                             router.push(searchUrl);
                         }

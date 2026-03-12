@@ -35,9 +35,17 @@ export function SearchPredictionContent() {
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['search', searchType, searchKeyword, source],
         queryFn: async ({ pageParam }) => {
+            // Check if searchKeyword is a prediction URL and extract identifier if it matches
+            const urlResult = resolveSearchUrlType(searchKeyword);
+            const isPredictionUrl =
+                urlResult?.kind === SearchUrlKind.Prediction && urlResult.platform && urlResult.identifier;
+
+            // Use identifier if URL matches, otherwise use full searchKeyword
+            const keyword = isPredictionUrl && urlResult.identifier ? urlResult.identifier : searchKeyword;
+
             const indicator = createIndicator(undefined, pageParam);
             const result = await searchPrediction({
-                keyword: searchKeyword,
+                keyword,
                 indicator,
                 limit: 20,
                 sort: 'volume_24hr',
@@ -47,20 +55,17 @@ export function SearchPredictionContent() {
             const events = result.data.map(formatPolymarketEventListData);
 
             // Prepend pinned prediction on first page
-            if (!pageParam) {
-                const urlResult = resolveSearchUrlType(searchKeyword);
-                if (urlResult?.kind === SearchUrlKind.Prediction && urlResult.platform && urlResult.identifier) {
-                    try {
-                        const isMutil =
-                            urlResult.platform === PredictionPlatform.Opinion ? Boolean(urlResult.isMultiple) : false;
-                        const event = await getEventDetail(urlResult.platform, {
-                            id: urlResult.identifier,
-                            isMutil,
-                        });
-                        if (event) events.unshift(event);
-                    } catch (error) {
-                        logger.error('[Search] Failed to fetch pinned prediction', error);
-                    }
+            if (!pageParam && isPredictionUrl && urlResult.identifier && urlResult.platform) {
+                try {
+                    const isMutil =
+                        urlResult.platform === PredictionPlatform.Opinion ? Boolean(urlResult.isMultiple) : false;
+                    const event = await getEventDetail(urlResult.platform, {
+                        id: urlResult.identifier,
+                        isMutil,
+                    });
+                    if (event) events.unshift(event);
+                } catch (error) {
+                    logger.error('[Search] Failed to fetch pinned prediction', error);
                 }
             }
 

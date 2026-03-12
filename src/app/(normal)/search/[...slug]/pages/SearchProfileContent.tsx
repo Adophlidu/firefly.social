@@ -43,13 +43,20 @@ export function SearchProfileContent() {
             const twitterIndicator = pageParam.twitter ? createIndicator(undefined, pageParam.twitter) : undefined;
             const bskyIndicator = pageParam.bsky ? createIndicator(undefined, pageParam.bsky) : undefined;
 
+            // Check if searchKeyword is a profile URL and extract identifier if it matches
+            const urlResult = resolveSearchUrlType(searchKeyword);
+            const isProfileUrl = urlResult?.kind === SearchUrlKind.Profile && urlResult.source && urlResult.identifier;
+
+            // Use identifier if URL matches, otherwise use full searchKeyword
+            const keyword = isProfileUrl && urlResult.identifier ? urlResult.identifier : searchKeyword;
+
             const {
                 profiles: socialProfiles,
                 fireflyData,
                 twitterProfiles,
                 bskyProfiles,
             } = await searchProfilesByKeyword({
-                keyword: searchKeyword,
+                keyword,
                 signal,
                 identitySize: 10,
                 twitterSize: 7,
@@ -68,33 +75,29 @@ export function SearchProfileContent() {
 
             const isFirstPage = !pageParam.firefly && !pageParam.twitter && !pageParam.bsky;
             const walletProfile =
-                !socialProfiles.length && isFirstPage ? await searchWalletAddress(searchKeyword) : undefined;
+                !socialProfiles.length && isFirstPage ? await searchWalletAddress(keyword) : undefined;
 
             // Prepend pinned profile on first page
             let pinnedProfile: { profile: FireflyProfile; related: FireflyProfile[] } | undefined;
-            if (isFirstPage) {
-                const urlResult = resolveSearchUrlType(searchKeyword);
-                if (urlResult?.kind === SearchUrlKind.Profile && urlResult.source && urlResult.identifier) {
-                    try {
-                        const provider = resolveSocialMediaProvider(urlResult.source as SocialSource);
-                        const profile = await provider.getProfileByHandle(urlResult.identifier);
-                        const platform =
-                            profile.source === Source.Bsky
-                                ? FireflyPlatform.Bsky
-                                : resolveFireflyPlatform(profile.source);
-                        const mapped = {
-                            platform,
-                            platform_id: profile.profileId,
-                            handle: profile.handle,
-                            name: profile.displayName,
-                            hit: true,
-                            score: 0,
-                            avatar: profile.pfp,
-                        } as FireflyProfile;
-                        pinnedProfile = { profile: mapped, related: [mapped] };
-                    } catch (error) {
-                        logger.error('[Search] Failed to fetch pinned profile', error);
-                    }
+            if (isFirstPage && isProfileUrl && urlResult.identifier) {
+                try {
+                    const provider = resolveSocialMediaProvider(urlResult.source as SocialSource);
+                    const profile = await provider.getProfileByHandle(urlResult.identifier);
+                    const platform =
+                        profile.source === Source.Bsky ? FireflyPlatform.Bsky : resolveFireflyPlatform(profile.source);
+                    const mapped = {
+                        platform,
+                        platform_id: profile.profileId,
+                        handle: profile.handle,
+                        name: profile.displayName,
+                        hit: true,
+                        score: 0,
+                        avatar: profile.pfp,
+                    } as FireflyProfile;
+                    pinnedProfile = { profile: mapped, related: [mapped] };
+                } catch (error) {
+                    logger.error('[Search] Failed to fetch pinned profile', error);
+                    throw error;
                 }
             }
 

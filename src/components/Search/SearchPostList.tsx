@@ -50,9 +50,15 @@ export const SearchPostList = memo<Props>(function SearchPostList({
                     return createPageable(EMPTY_LIST, createIndicator(undefined, pageParam));
                 }
 
-                // Check if this is a URL search (can fetch post directly without login)
+                // Check if this is a URL search
+                // If the keyword is a URL and matches current source, extract identifier
+                // Otherwise use the keyword as-is for search
                 const urlResult = !pageParam ? resolveSearchUrlType(keyword) : null;
-                const isUrlSearch = urlResult?.kind === SearchUrlKind.Post && urlResult.source && urlResult.identifier;
+                const isUrlSearch =
+                    urlResult?.kind === SearchUrlKind.Post &&
+                    urlResult.source &&
+                    urlResult.source === socialSource &&
+                    urlResult.identifier;
 
                 if (isUrlSearch && urlResult.identifier) {
                     try {
@@ -70,6 +76,9 @@ export const SearchPostList = memo<Props>(function SearchPostList({
                     return createPageable(EMPTY_LIST, createIndicator(undefined, pageParam));
                 }
 
+                // Use identifier if URL matches current source, otherwise use full keyword
+                const searchKeyword = isUrlSearch && urlResult.identifier ? urlResult.identifier : keyword;
+
                 try {
                     const indicator =
                         pageParam || source === Source.Lens
@@ -77,8 +86,8 @@ export const SearchPostList = memo<Props>(function SearchPostList({
                             : undefined;
                     const provider = resolveSocialMediaProvider(socialSource);
                     const result = await provider.searchPosts(
-                        keyword.replace(/^#/, ''),
-                        keyword.includes(' '),
+                        searchKeyword.replace(/^#/, ''),
+                        searchKeyword.includes(' '),
                         indicator,
                     );
 

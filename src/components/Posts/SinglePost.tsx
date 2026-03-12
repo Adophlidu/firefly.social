@@ -106,8 +106,14 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
                 }
 
                 if (!isPostPage || isComment || isEngagementPage) {
-                    // Clear cache for Bsky long posts before navigation
-                    if (post.source === Source.Bsky && post.metadata.content?.content) {
+                    // Clear cache before navigation to ensure fresh data in detail page
+                    if (isComment && post.source === Source.Bsky) {
+                        // For Bsky comments, clear cache to get full content
+                        queryClient.removeQueries({
+                            queryKey: [post.source, 'post-detail', post.postId],
+                        });
+                    } else if (post.source === Source.Bsky && post.metadata.content?.content) {
+                        // Clear cache for Bsky long posts before navigation
                         const urls = matchUrls(post.metadata.content.content);
                         if (urls.some(isFireflyPostUrl)) {
                             queryClient.removeQueries({
