@@ -23,6 +23,7 @@ interface Props {
     searchType: SearchType;
     emptyMessage?: ReactNode | ((keyword: string | string[]) => ReactNode);
     loading?: ReactNode;
+    pageSize?: number;
 }
 
 export const SearchPostList = memo<Props>(function SearchPostList({
@@ -31,6 +32,7 @@ export const SearchPostList = memo<Props>(function SearchPostList({
     source,
     emptyMessage,
     loading,
+    pageSize,
 }) {
     const socialSource = narrowToSocialSource(source);
     const isLogin = useIsLogin(socialSource);
@@ -69,7 +71,10 @@ export const SearchPostList = memo<Props>(function SearchPostList({
                 }
 
                 try {
-                    const indicator = pageParam ? createIndicator(undefined, pageParam) : undefined;
+                    const indicator =
+                        pageParam || source === Source.Lens
+                            ? createIndicator(undefined, pageParam, pageSize)
+                            : undefined;
                     const provider = resolveSocialMediaProvider(socialSource);
                     const result = await provider.searchPosts(
                         keyword.replace(/^#/, ''),

@@ -14,11 +14,15 @@ import { formatLensPostV3 } from '@/providers/lens/formatLensPost.js';
 import { getLensClient } from '@/providers/lens/getLensClient.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
 
+function resolveLensPageSize(size?: number) {
+    return size && size <= 10 ? PageSize.Ten : PageSize.Fifty;
+}
+
 export async function searchLensPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
     const result = await ensureLensResult(
         fetchPosts(getLensClient(), {
             cursor: ensureCursor(indicator),
-            pageSize: PageSize.Fifty,
+            pageSize: resolveLensPageSize(indicator?.size),
             filter: {
                 metadata: null,
                 searchQuery: q,

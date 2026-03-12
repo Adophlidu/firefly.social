@@ -42,8 +42,11 @@ export const Feeds = memo<Props>(function Feeds({ address, symbol, name, ...prop
         if (!text) return address || [];
         const includesSpace = text.trim().includes(' ');
         if (includesSpace && [Source.Lens, Source.Bsky].includes(source)) return address || [];
-        // Only search by name for twitter
-        return compact([includesSpace ? `"${text}"` : `$${symbol}`, source === Source.Twitter ? null : address]);
+        // Only search by name for twitter/Lens
+        return compact([
+            includesSpace ? `"${text}"` : `$${symbol}`,
+            [Source.Twitter, Source.Lens].includes(source) ? null : address,
+        ]);
     }, [address, symbol, name, source]);
 
     const router = useRouter();
@@ -85,6 +88,7 @@ export const Feeds = memo<Props>(function Feeds({ address, symbol, name, ...prop
                         searchType={SearchType.Posts}
                         source={source}
                         loading={<TokenPageLoading />}
+                        pageSize={10}
                         emptyMessage={<Empty keyword={keywords[0]} message="" />}
                     />
                 </DisableScrollRestoreContext>
