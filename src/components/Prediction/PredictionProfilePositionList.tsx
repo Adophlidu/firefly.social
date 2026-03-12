@@ -63,6 +63,27 @@ const getPositionItem = ({
     );
 };
 
+export function partitionPredictionPositions(allPositions: PredictionPositionDataForUI[]) {
+    const activePositions: PredictionPositionDataForUI[] = [];
+    const closedPositions: PredictionPositionDataForUI[] = [];
+
+    for (const position of allPositions) {
+        const isUnclaimedWin = position.isClaimable && position.isWin;
+        const isClosedLoss = (position.isClaimable && !position.isWin) || (position.is_closed && position.pnl < 0);
+
+        if (isClosedLoss) {
+            closedPositions.push(position);
+            continue;
+        }
+
+        if (isUnclaimedWin || !position.is_closed) {
+            activePositions.push(position);
+        }
+    }
+
+    return { activePositions, closedPositions };
+}
+
 function PositionEmptyState({ message }: { message: ReactNode }) {
     return (
         <div className="flex h-40 items-center justify-center rounded-xl bg-primaryBottom p-4">
@@ -125,23 +146,11 @@ export const PredictionProfilePositionList = memo<Props>(function PredictionProf
     const hasAnyPositions = allPositions.length > 0;
 
     // Keep claimable winning positions in the main list even if backend marks them closed.
-    // Only settled losses and fully closed positions go into the collapsed section.
-    const { activePositions, closedPositions } = useMemo(() => {
-        const active: PredictionPositionDataForUI[] = [];
-        const closed: PredictionPositionDataForUI[] = [];
-
-        for (const position of allPositions) {
-            const isUnclaimedWin = position.isClaimable && position.isWin;
-            const isClosedLoss = position.isClaimable && !position.isWin;
-            if ((position.is_closed && !isUnclaimedWin) || isClosedLoss) {
-                closed.push(position);
-            } else {
-                active.push(position);
-            }
-        }
-
-        return { activePositions: active, closedPositions: closed };
-    }, [allPositions]);
+    // Only losing positions belong in the collapsed section.
+    const { activePositions, closedPositions } = useMemo(
+        () => partitionPredictionPositions(allPositions),
+        [allPositions],
+    );
 
     return (
         <div className="p-4">
