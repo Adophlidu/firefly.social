@@ -49,6 +49,7 @@ export interface PredictionPositionDataForUI {
     total_buy: number;
     IsClaim: boolean;
     is_closed: boolean;
+    closed_time?: number | null;
     topicId?: number;
     is_mutil?: number;
     isClaimable?: boolean;

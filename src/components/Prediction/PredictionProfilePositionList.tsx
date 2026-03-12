@@ -30,14 +30,14 @@ interface Options {
     platform: PredictionPlatform;
     index: number;
     positionData: PredictionPositionDataForUI;
-    isMyAddress: boolean;
+    showAction: boolean;
 }
 
 const getPositionItem = ({
     platform,
     index,
     positionData,
-    isMyAddress,
+    showAction,
     predictionProfile,
     fireflyAccountId,
 }: Options) => {
@@ -47,7 +47,7 @@ const getPositionItem = ({
                 key={positionData.Id}
                 platform={platform}
                 positionData={positionData}
-                showAction={isMyAddress}
+                showAction={showAction}
                 targetProfileInfo={{
                     address: predictionProfile.wallet,
                     proxyAddress: predictionProfile.proxy,
@@ -66,18 +66,16 @@ export function partitionPredictionPositions(allPositions: PredictionPositionDat
     const closedPositions: PredictionPositionDataForUI[] = [];
 
     for (const position of allPositions) {
-        const isUnclaimedWin = position.isClaimable && position.isWin;
-        const isClosedLoss = (position.isClaimable && !position.isWin) || (position.is_closed && position.pnl < 0);
+        const isResolved = position.isClaimable || position.is_closed || !!position.resolvedResult;
 
-        if (isClosedLoss) {
+        if (isResolved) {
             closedPositions.push(position);
-            continue;
-        }
-
-        if (isUnclaimedWin || !position.is_closed) {
+        } else {
             activePositions.push(position);
         }
     }
+
+    closedPositions.sort((a, b) => (b.closed_time ?? 0) - (a.closed_time ?? 0));
 
     return { activePositions, closedPositions };
 }
@@ -165,7 +163,7 @@ export const PredictionProfilePositionList = memo<Props>(function PredictionProf
                                 getPositionItem({
                                     index,
                                     positionData,
-                                    isMyAddress,
+                                    showAction: isMyAddress,
                                     platform,
                                     predictionProfile,
                                     fireflyAccountId,
@@ -214,7 +212,7 @@ export const PredictionProfilePositionList = memo<Props>(function PredictionProf
                                         getPositionItem({
                                             index,
                                             positionData,
-                                            isMyAddress,
+                                            showAction: false,
                                             platform,
                                             predictionProfile,
                                             fireflyAccountId,
