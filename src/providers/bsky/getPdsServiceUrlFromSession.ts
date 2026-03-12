@@ -1,6 +1,7 @@
 import { parseUrl } from '@dimensiondev/utils';
 import z from 'zod';
 
+import { DEFAULT_DID_SERVICE_URL } from '@/constants/bsky.js';
 import { type BskySession } from '@/providers/bsky/Session.js';
 
 const Service = z.object({
@@ -31,7 +32,7 @@ export function getPdsServiceUrlFromSession(session: BskySession) {
     return getPdsEndpoint(parsed.data) || session.serviceUrl;
 }
 
-export function getServiceEndpoint(session: BskySession) {
-    const pdsUrl = getPdsServiceUrlFromSession(session);
-    return pdsUrl instanceof URL ? pdsUrl.host : pdsUrl.replace(/\/+$/, '');
+export function getPdsServiceHostFromSession(session: BskySession) {
+    const url = getPdsServiceUrlFromSession(session);
+    return url instanceof URL ? url.host : (parseUrl(url)?.host ?? new URL(DEFAULT_DID_SERVICE_URL).host);
 }
