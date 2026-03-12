@@ -1,11 +1,18 @@
+import { parseUrl } from '@dimensiondev/utils';
 import { z } from 'zod';
-
-import { HttpsUrl } from '@/schemas/HttpsUrl.js';
 
 export const loginBskySchema = z.object({
     account: z.string().min(1),
     password: z.string().min(1),
-    serviceUrl: z.union([HttpsUrl, z.literal('')]).optional(),
+    serviceUrl: z.custom<string>(
+        (val) => {
+            if (!val) return true; // Allow empty string for default service URL
+
+            const u = parseUrl(val);
+            return u?.protocol === 'https:';
+        },
+        { message: 'Service URL must be a valid HTTPS URL or empty for default' },
+    ),
     authFactorToken: z.string().optional().or(z.literal('')),
 });
 

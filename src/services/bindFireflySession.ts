@@ -6,7 +6,7 @@ import { FireflyAlreadyBoundError, FireflyBindTimeoutError } from '@/constants/e
 import { NOT_DEPEND_SECRET } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
-import { getPdsServiceUrlFromSession } from '@/providers/bsky/getPdsServiceUrlFromSession.js';
+import { getServiceEndpoint } from '@/providers/bsky/getPdsServiceUrlFromSession.js';
 import { type BskySession } from '@/providers/bsky/Session.js';
 import { patchFarcasterSessionRequired } from '@/providers/farcaster/patchFarcasterSessionRequired.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
@@ -133,7 +133,7 @@ async function bindBskySessionToFirefly(session: BskySession, signal?: AbortSign
                 body: JSON.stringify({
                     did: session.did,
                     token: session.sessionPayload.accessJwt,
-                    serviceEndpoint: getPdsServiceUrlFromSession(session),
+                    serviceEndpoint: getServiceEndpoint(session),
                 }),
                 signal,
             },

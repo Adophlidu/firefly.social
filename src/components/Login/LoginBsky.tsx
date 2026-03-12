@@ -37,7 +37,6 @@ import { retryOnBskyWhenNetworkError } from '@/providers/bsky/retryOnBskyWhenNet
 import { BskySession } from '@/providers/bsky/Session.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import { type Account } from '@/providers/types/Account.js';
-import { HttpsUrl } from '@/schemas/HttpsUrl.js';
 import { type AccountOptions, addAccount } from '@/services/account.js';
 import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
@@ -120,17 +119,15 @@ export function LoginBsky() {
             const [, url, editServiceUrl] = queryKey as [string, string, boolean];
             if (!url || editServiceUrl) return null;
 
-            // default service url
-            if (url === DEFAULT_SERVICE_URL) return null;
-
             const u = parseUrl(url);
-            if (!u) return null;
+            if (u?.protocol !== 'https:') return null;
 
-            const parsed = HttpsUrl.safeParse(url);
-            if (!parsed.success) return null;
+            const origin = u.origin;
+            // default service url
+            if (origin === DEFAULT_SERVICE_URL) return null;
 
             try {
-                const agent = createBskyPublicAgent(url);
+                const agent = createBskyPublicAgent(origin);
                 const result = await agent.com.atproto.server.describeServer(undefined, { signal });
                 return result.data;
             } catch (error) {
@@ -153,7 +150,9 @@ export function LoginBsky() {
 
                 await loginBsky(
                     async () => {
-                        const serviceUrl_ = serviceUrl || DEFAULT_SERVICE_URL;
+                        const serviceUrl_ = parseUrl(serviceUrl || DEFAULT_SERVICE_URL)?.origin;
+                        if (!serviceUrl_) throw new Error('Invalid service URL');
+
                         const agent = createBskyPublicAgent(serviceUrl_);
                         const request: {
                             identifier: string;
@@ -308,7 +307,7 @@ export function LoginBsky() {
                     ) : null}
                 </div>
                 <div className="group relative mx-0 flex h-10 grow items-center overflow-hidden rounded-xl bg-lightBg text-main ring-highlight focus-within:bg-bottom focus-within:ring-1">
-                    <ServiceUrlIcon width={18} height={18} className="absolute left-3 shrink-0" />
+                    <ServiceUrlIcon className="absolute left-3 size-[18px] shrink-0" />
                     <input
                         disabled={loading}
                         type="text"

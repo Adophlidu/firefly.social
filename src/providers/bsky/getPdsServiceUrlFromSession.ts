@@ -30,3 +30,8 @@ export function getPdsServiceUrlFromSession(session: BskySession) {
     if (!parsed.success) return session.serviceUrl;
     return getPdsEndpoint(parsed.data) || session.serviceUrl;
 }
+
+export function getServiceEndpoint(session: BskySession) {
+    const pdsUrl = getPdsServiceUrlFromSession(session);
+    return pdsUrl instanceof URL ? pdsUrl.host : pdsUrl.replace(/\/+$/, '');
+}
