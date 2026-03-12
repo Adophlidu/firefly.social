@@ -389,7 +389,7 @@ class NeynarSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    getNotifications(): Promise<Pageable<Notification>> {
+    getNotifications(_highSignalFilter?: boolean, _indicator?: PageIndicator): Promise<Pageable<Notification>> {
         throw new NotImplementedError();
     }
 
@@ -401,11 +401,15 @@ class NeynarSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    getSuggestedFollows(): Promise<Pageable<Profile>> {
+    getSuggestedFollows(
+        _includeFollowingStatus?: boolean,
+        _locale?: unknown,
+        _indicator?: PageIndicator,
+    ): Promise<Pageable<Profile>> {
         throw new NotImplementedError();
     }
 
-    searchPosts(q: string): Promise<Pageable<Post>> {
+    searchPosts(q: string, _fullMatch?: boolean, _indicator?: PageIndicator): Promise<Pageable<Post>> {
         throw new NotImplementedError();
     }
 

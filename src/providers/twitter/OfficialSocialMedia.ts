@@ -160,9 +160,9 @@ class OfficialSocialMedia implements Provider {
     }
 
     async getSuggestedFollows(
-        indicator?: PageIndicator,
         _includeFollowingStatus?: boolean,
         locale?: Locale,
+        indicator?: PageIndicator,
     ): Promise<Pageable<Profile, PageIndicator>> {
         const pageNo = indicator?.id ? Number.parseInt(indicator.id, 10) : 1;
         const res = await getTwitterTopPeople(indicator, locale);
@@ -197,7 +197,10 @@ class OfficialSocialMedia implements Provider {
         return formatTweetsPage(data, indicator);
     }
 
-    async getNotifications(indicator?: PageIndicator): Promise<Pageable<Notification, PageIndicator>> {
+    async getNotifications(
+        _highSignalFilter?: boolean,
+        indicator?: PageIndicator,
+    ): Promise<Pageable<Notification, PageIndicator>> {
         return twitterSessionHolder.withSession(async (session) => {
             if (!session) return createPageable([] as Notification[], createIndicator(indicator));
 
@@ -489,7 +492,11 @@ class OfficialSocialMedia implements Provider {
         }
     }
 
-    async searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+    async searchPosts(
+        q: string,
+        _fullMatch?: boolean,
+        indicator?: PageIndicator,
+    ): Promise<Pageable<Post, PageIndicator>> {
         return twitterSessionHolder.withSession(async (session) => {
             if (!session) return createPageable([] as Post[], createIndicator(indicator));
             const url = urlcat(`/api/twitter/search/all`, {

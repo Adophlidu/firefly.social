@@ -55,7 +55,7 @@ export async function getSuggestedFollowsInCard(source: SocialSource, { viewerId
                 queryKey,
                 staleTime: 60 * 1000,
                 queryFn: async function querySuggestedFollowsInCard() {
-                    return provider.getSuggestedFollows(indicator, queryStats);
+                    return provider.getSuggestedFollows(queryStats, undefined, indicator);
                 },
             });
         },
@@ -81,7 +81,7 @@ export async function getSuggestedFollowsInPage(
                 queryKey,
                 staleTime: 60 * 1000,
                 queryFn: async function querySuggestedFollowsInPage() {
-                    return provider.getSuggestedFollows(indicator, queryStats);
+                    return provider.getSuggestedFollows(queryStats, undefined, indicator);
                 },
             });
         },

@@ -258,7 +258,10 @@ class BskySocialMedia implements Provider {
     async isFollowingMe(profileId: string): Promise<boolean> {
         return isBskyFollowingMe(profileId);
     }
-    async getNotifications(indicator?: PageIndicator): Promise<Pageable<Notification, PageIndicator>> {
+    async getNotifications(
+        _highSignalFilter?: boolean,
+        indicator?: PageIndicator,
+    ): Promise<Pageable<Notification, PageIndicator>> {
         return getBskyNotifications(indicator);
     }
     async getNotificationSettings(): Promise<NotificationSettings> {
@@ -267,13 +270,17 @@ class BskySocialMedia implements Provider {
     async setNotificationSettings(settings: NotificationSettings): Promise<boolean> {
         return setBskyNotificationSettings(settings);
     }
-    async getSuggestedFollows(indicator?: PageIndicator, includeFollowingStatus?: boolean) {
-        return getBskySuggestedFollows(indicator, includeFollowingStatus);
+    async getSuggestedFollows(includeFollowingStatus?: boolean, locale?: unknown, indicator?: PageIndicator) {
+        return getBskySuggestedFollows(includeFollowingStatus, locale, indicator);
     }
     async searchProfiles(q: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         return searchBskyProfiles(q, indicator);
     }
-    async searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+    async searchPosts(
+        q: string,
+        _fullMatch?: boolean,
+        indicator?: PageIndicator,
+    ): Promise<Pageable<Post, PageIndicator>> {
         return searchBskyPosts(q, indicator);
     }
     async searchChannels(q: string, indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {

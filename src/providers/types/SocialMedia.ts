@@ -823,11 +823,11 @@ export interface Provider {
     /**
      * Retrieves notifications.
      *
-     * @param indicator Optional PageIndicator for pagination.
      * @param highSignalFilter Optional filter for high signal notifications. (only lens)
+     * @param indicator Optional PageIndicator for pagination.
      * @returns A promise that resolves to a pageable list of Notification objects.
      */
-    getNotifications: (indicator?: PageIndicator, highSignalFilter?: boolean) => Promise<Pageable<Notification>>;
+    getNotifications: (highSignalFilter?: boolean, indicator?: PageIndicator) => Promise<Pageable<Notification>>;
 
     /**
      * Retrieves notification settings.
@@ -845,15 +845,15 @@ export interface Provider {
     /**
      * Retrieves suggested user profiles to follow.
      *
-     * @param indicator Optional PageIndicator for pagination.
      * @param includeFollowingStatus Optional boolean to include following status.
      * @param locale Optional locale to use.
+     * @param indicator Optional PageIndicator for pagination.
      * @returns A promise that resolves to a pageable list of Profile objects.
      */
     getSuggestedFollows: (
-        indicator?: PageIndicator,
         includeFollowingStatus?: boolean,
         locale?: Locale,
+        indicator?: PageIndicator,
     ) => Promise<Pageable<Profile>>;
 
     /**
@@ -865,10 +865,12 @@ export interface Provider {
 
     /**
      * Search posts.
-     * @param indicator
+     * @param q Search query.
+     * @param fullMatch Optional full match flag.
+     * @param indicator Optional PageIndicator for pagination.
      * @returns
      */
-    searchPosts: (q: string, indicator?: PageIndicator, fullMatch?: boolean) => Promise<Pageable<Post>>;
+    searchPosts: (q: string, fullMatch?: boolean, indicator?: PageIndicator) => Promise<Pageable<Post>>;
 
     /**
      * Search channels.

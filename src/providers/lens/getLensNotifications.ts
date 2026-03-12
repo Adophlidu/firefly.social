@@ -32,8 +32,8 @@ import { lensSessionClientHolder } from '@/providers/lens/LensSessionClientHolde
 import { type Notification, NotificationType, ReactionType } from '@/providers/types/SocialMedia.js';
 
 export async function getLensNotifications(
-    indicator?: PageIndicator,
     highSignalFilter?: boolean,
+    indicator?: PageIndicator,
 ): Promise<Pageable<Notification, PageIndicator>> {
     const result = await ensureLensResult(
         fetchNotifications(lensSessionClientHolder.sessionClient, {

@@ -33,7 +33,7 @@ export const SocialNotifications = memo<SocialNotificationsProps>(function Socia
             if (!isLogin) return createPageable(EMPTY_LIST, indicator);
 
             try {
-                return await resolveSocialMediaProvider(source).getNotifications(indicator, enableQualityFilter);
+                return await resolveSocialMediaProvider(source).getNotifications(enableQualityFilter, indicator);
             } catch {
                 return createPageable(EMPTY_LIST, indicator);
             }

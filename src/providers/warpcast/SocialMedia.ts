@@ -354,15 +354,22 @@ class WarpcastSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+    searchPosts(q: string, _fullMatch?: boolean, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         throw new NotImplementedError();
     }
 
-    getSuggestedFollows(indicator?: PageIndicator): Promise<Pageable<Profile>> {
+    getSuggestedFollows(
+        _includeFollowingStatus?: boolean,
+        _locale?: unknown,
+        indicator?: PageIndicator,
+    ): Promise<Pageable<Profile>> {
         throw new NotImplementedError();
     }
 
-    getNotifications(indicator?: PageIndicator): Promise<Pageable<Notification, PageIndicator>> {
+    getNotifications(
+        _highSignalFilter?: boolean,
+        indicator?: PageIndicator,
+    ): Promise<Pageable<Notification, PageIndicator>> {
         throw new NotImplementedError();
     }
 

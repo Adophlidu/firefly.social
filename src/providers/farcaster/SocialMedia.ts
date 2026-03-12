@@ -313,17 +313,24 @@ class FarcasterSocialMedia implements Provider {
 
     async searchPosts(
         q: string,
-        indicator?: PageIndicator,
         fullMatch?: boolean,
+        indicator?: PageIndicator,
     ): Promise<Pageable<Post, PageIndicator>> {
-        return searchPosts(q, indicator, fullMatch);
+        return searchPosts(q, fullMatch, indicator);
     }
 
-    async getSuggestedFollows(indicator?: PageIndicator): Promise<Pageable<Profile>> {
+    async getSuggestedFollows(
+        _includeFollowingStatus?: boolean,
+        _locale?: unknown,
+        indicator?: PageIndicator,
+    ): Promise<Pageable<Profile>> {
         return getFarcasterSuggestFollows(indicator);
     }
 
-    async getNotifications(indicator?: PageIndicator): Promise<Pageable<Notification, PageIndicator>> {
+    async getNotifications(
+        _highSignalFilter?: boolean,
+        indicator?: PageIndicator,
+    ): Promise<Pageable<Notification, PageIndicator>> {
         const { isGrantByPermission } = getFarcasterSessionType();
         if (isGrantByPermission) return getNotifications(indicator);
         throw new Error('No session found.');

@@ -93,7 +93,7 @@ export const FireflyNotifications = memo(function FireflyNotifications() {
                 if (x === NotificationType.Tips) return getTipsNotifications(indicator);
                 if (x === NotificationType.Schedule) return getScheduleNotifications(indicator);
 
-                return resolveSocialMediaProvider(x as SocialSource).getNotifications(indicator, enableQualityFilter);
+                return resolveSocialMediaProvider(x as SocialSource).getNotifications(enableQualityFilter, indicator);
             },
         })),
         (data) => {

@@ -46,6 +46,8 @@ const MethodParamSchemas = {
         ids: z.array(z.string()).max(299, 'Maximum 299 ids allowed'),
     }),
     getSuggestedFollows: z.object({
+        includeFollowingStatus: z.boolean().optional(),
+        locale: z.string().optional(),
         indicator: IndicatorSchema.optional(),
     }),
     discoverChannels: z.object({

@@ -78,8 +78,8 @@ export const SearchPostList = memo<Props>(function SearchPostList({
                     const provider = resolveSocialMediaProvider(socialSource);
                     const result = await provider.searchPosts(
                         keyword.replace(/^#/, ''),
-                        indicator,
                         keyword.includes(' '),
+                        indicator,
                     );
 
                     return result;

@@ -330,10 +330,10 @@ class LensSocialMedia implements Provider {
     }
 
     async getNotifications(
-        indicator?: PageIndicator,
         highSignalFilter?: boolean,
+        indicator?: PageIndicator,
     ): Promise<Pageable<Notification, PageIndicator>> {
-        return getLensNotifications(indicator, highSignalFilter);
+        return getLensNotifications(highSignalFilter, indicator);
     }
 
     async getNotificationSettings(): Promise<NotificationSettings> {
@@ -344,7 +344,11 @@ class LensSocialMedia implements Provider {
         return setLensNotificationSettings(settings);
     }
 
-    async getSuggestedFollows(indicator?: PageIndicator): Promise<Pageable<Profile>> {
+    async getSuggestedFollows(
+        _includeFollowingStatus?: boolean,
+        _locale?: unknown,
+        indicator?: PageIndicator,
+    ): Promise<Pageable<Profile>> {
         return getLensSuggestedFollows(indicator);
     }
 
@@ -352,7 +356,11 @@ class LensSocialMedia implements Provider {
         return searchLensProfiles(q, indicator);
     }
 
-    async searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+    async searchPosts(
+        q: string,
+        _fullMatch?: boolean,
+        indicator?: PageIndicator,
+    ): Promise<Pageable<Post, PageIndicator>> {
         return searchLensPosts(q, indicator);
     }
 

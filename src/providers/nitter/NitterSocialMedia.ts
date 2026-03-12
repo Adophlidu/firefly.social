@@ -208,7 +208,11 @@ class NitterSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    getSuggestedFollows(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+    getSuggestedFollows(
+        _includeFollowingStatus?: boolean,
+        _locale?: unknown,
+        indicator?: PageIndicator,
+    ): Promise<Pageable<Profile, PageIndicator>> {
         throw new NotImplementedError();
     }
 
@@ -216,7 +220,10 @@ class NitterSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    getNotifications(indicator?: PageIndicator): Promise<Pageable<Notification, PageIndicator>> {
+    getNotifications(
+        _highSignalFilter?: boolean,
+        indicator?: PageIndicator,
+    ): Promise<Pageable<Notification, PageIndicator>> {
         throw new NotImplementedError();
     }
 
@@ -459,7 +466,11 @@ class NitterSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    async searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+    async searchPosts(
+        q: string,
+        _fullMatch?: boolean,
+        indicator?: PageIndicator,
+    ): Promise<Pageable<Post, PageIndicator>> {
         if (!isServer && twitterSessionHolder.session) throw new NotImplementedError();
         const pageable = await runInSafeAsync(async () => {
             const { timeline, pagination } = await NitterAPIProvider.search(q, {

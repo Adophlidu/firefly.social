@@ -18,8 +18,8 @@ import { settings } from '@/settings/index.js';
 
 export async function searchPosts(
     q: string,
-    indicator?: PageIndicator,
     fullMatch?: boolean,
+    indicator?: PageIndicator,
 ): Promise<Pageable<Post, PageIndicator>> {
     const { handle, content } = resolveSearchKeyword(q);
     return farcasterSessionHolder.withSession(async (session) => {
