@@ -57,7 +57,7 @@ export function PredictionProfileOverview({ profile, platform, address }: Predic
                 ),
                 value: (
                     <span className={profile.pnl < 0 ? 'text-danger' : 'text-success'}>
-                        {formatPolymarketNumber(profile.pnl, { symbol: true })}
+                        {formatPolymarketNumber(profile.pnl, { sign: true })}
                     </span>
                 ),
             },
@@ -105,7 +105,7 @@ export function PredictionProfileOverview({ profile, platform, address }: Predic
                           <span>
                               {profile.losses
                                   ? `${formatPolymarketNumber(-Math.abs(profile.losses), {
-                                        symbol: true,
+                                        sign: true,
                                     })}`
                                   : 0}
                           </span>
@@ -118,7 +118,7 @@ export function PredictionProfileOverview({ profile, platform, address }: Predic
                       value: (
                           <span>
                               {formatPolymarketNumber(profile.gains, {
-                                  symbol: true,
+                                  sign: true,
                               })}
                           </span>
                       ),

@@ -73,16 +73,16 @@ describe('formatPolymarketNumber', () => {
         expect(formatPolymarketNumber(1_789_006)).toBe('$1.78M'); // 1.78 million
     });
 
-    it('should respect custom prefix', () => {
-        expect(formatPolymarketNumber(100, { prefix: '' })).toBe('100');
-        expect(formatPolymarketNumber(100, { prefix: '€' })).toBe('€100');
-        expect(formatPolymarketNumber(100, { prefix: null })).toBe('100');
+    it('should respect custom symbol', () => {
+        expect(formatPolymarketNumber(100, { symbol: '' })).toBe('100');
+        expect(formatPolymarketNumber(100, { symbol: '€' })).toBe('€100');
+        expect(formatPolymarketNumber(100, { symbol: null })).toBe('100');
     });
 
-    it('should add symbol when enabled', () => {
-        expect(formatPolymarketNumber(100, { symbol: true })).toBe('+$100');
-        expect(formatPolymarketNumber(-100, { symbol: true })).toBe('-$100');
-        expect(formatPolymarketNumber(0, { symbol: true })).toBe('$0');
+    it('should add sign prefix when sign enabled', () => {
+        expect(formatPolymarketNumber(100, { sign: true })).toBe('+$100');
+        expect(formatPolymarketNumber(-100, { sign: true })).toBe('-$100');
+        expect(formatPolymarketNumber(0, { sign: true })).toBe('$0');
     });
 
     it('should respect custom digits', () => {

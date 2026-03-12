@@ -2815,7 +2815,7 @@ msgstr ""
 msgid "Show more tokens"
 msgstr ""
 
-#. placeholder {0}: formatPolymarketNumber(position.shares, { prefix: null })
+#. placeholder {0}: formatPolymarketNumber(position.shares, { symbol: null })
 msgid "{0} shares"
 msgstr ""
 

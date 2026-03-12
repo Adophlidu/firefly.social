@@ -101,7 +101,7 @@ export const PredictionProfileCardUI = memo<PredictionProfileCardUIProps>(functi
                             !profile ? '' : profile.pnl < 0 ? 'text-danger' : 'text-success'
                         }`}
                     >
-                        {formatPolymarketNumber(profile?.pnl, { symbol: true })}
+                        {formatPolymarketNumber(profile?.pnl, { sign: true })}
                         {/* <span className="ml-0.5 text-xs font-normal">{toRate(profile?.pnl_rate)}</span> */}
                     </span>
                 </div>

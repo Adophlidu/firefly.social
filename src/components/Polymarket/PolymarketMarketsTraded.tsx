@@ -28,5 +28,5 @@ export const PolymarketMarketsTraded = memo<PolymarketMarketsTradedProps>(functi
 
     if (isLoading) return <LoadingIcon size={20} />;
 
-    return formatPolymarketNumber(data?.traded, { prefix: null });
+    return formatPolymarketNumber(data?.traded, { symbol: null });
 });

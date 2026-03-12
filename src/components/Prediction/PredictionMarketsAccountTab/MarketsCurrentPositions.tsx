@@ -55,7 +55,7 @@ function PositionItemForSingleMarket({ position, platform }: PositionItemProps) 
                         {position.vote_status} {formatBetsPrice(position.cur_price)}
                     </span>
                     <span className="text-[11px] text-second">
-                        <Trans>{formatPolymarketNumber(position.shares, { prefix: null })} shares</Trans>
+                        <Trans>{formatPolymarketNumber(position.shares, { symbol: null })} shares</Trans>
                     </span>
                 </div>
                 <div className="flex min-w-0 flex-1 shrink-0 flex-col items-start gap-1 truncate">
@@ -71,7 +71,7 @@ function PositionItemForSingleMarket({ position, platform }: PositionItemProps) 
                     <span
                         className={classNames('text-xs font-medium', position.pnl < 0 ? 'text-danger' : 'text-success')}
                     >
-                        {formatPolymarketNumber(position.pnl, { symbol: true })}
+                        {formatPolymarketNumber(position.pnl, { sign: true })}
                         {`(${removeTrailingZeros((Math.abs(position.pnl_rate) * 100).toFixed(2))}%)`}
                     </span>
                 </div>

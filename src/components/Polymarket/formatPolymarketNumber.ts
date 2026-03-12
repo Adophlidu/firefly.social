@@ -32,19 +32,19 @@ function formatTruncated(num: number, digits: number): string {
 export function formatPolymarketNumber(
     num?: number | null,
     options: {
-        prefix?: string | null;
-        symbol?: boolean | null;
+        symbol?: string | null;
+        sign?: boolean | null;
         fallback?: string | null;
         digits?: number | null;
     } = {
-        prefix: '$',
-        symbol: false,
+        symbol: '$',
+        sign: false,
         fallback: '-',
         digits: 2,
     },
 ) {
-    const defaultPrefix = options.prefix === undefined ? '$' : options.prefix;
-    const defaultSymbol = options.symbol === undefined ? false : options.symbol;
+    const defaultSymbol = options.symbol === undefined ? '$' : options.symbol;
+    const defaultSign = options.sign === undefined ? false : options.sign;
     const defaultFallback = options.fallback === undefined ? '-' : options.fallback;
     const defaultDigits = options.digits ?? 2;
 
@@ -53,8 +53,8 @@ export function formatPolymarketNumber(
     const isNegative = num < 0;
     const absNum = Math.abs(num);
 
-    const prefix = defaultPrefix ?? '';
-    if (num > 0 && num < 0.01) return `<${prefix}0.01`;
+    const symbol = defaultSymbol ?? '';
+    if (num > 0 && num < 0.01) return `<${symbol}0.01`;
 
     const match = SUFFIXES.find((s) => absNum >= s.threshold);
     const formattedNum = match
@@ -62,10 +62,10 @@ export function formatPolymarketNumber(
         : formatTruncated(absNum, defaultDigits);
 
     const sign = isNegative ? '-' : '';
-    const symbol = defaultSymbol && num !== 0 ? (isNegative ? '-' : '+') : '';
+    const signPrefix = defaultSign && num !== 0 ? (isNegative ? '-' : '+') : '';
 
-    if (defaultSymbol) {
-        return `${symbol}${prefix}${formattedNum}`;
+    if (defaultSign) {
+        return `${signPrefix}${symbol}${formattedNum}`;
     }
-    return `${sign}${prefix}${formattedNum}`;
+    return `${sign}${symbol}${formattedNum}`;
 }

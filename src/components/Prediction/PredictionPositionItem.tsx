@@ -48,7 +48,7 @@ function resolveEventUrl(platform: PredictionPlatform, positionData: PredictionP
 }
 
 function formatBetsPrice(price: number) {
-    return removeTrailingZeros(formatPolymarketNumber(price * 100, { digits: 1, symbol: false }));
+    return removeTrailingZeros(formatPolymarketNumber(price * 100, { digits: 1, sign: false, symbol: '' })) + '¢';
 }
 
 export function PredictionPositionItem({
@@ -129,7 +129,7 @@ export function PredictionPositionItem({
                             {position.vote_status}
                         </div>
                         <span className="text-xs text-second">
-                            <Trans>{formatPolymarketNumber(position.shares, { prefix: null })} shares</Trans>
+                            <Trans>{formatPolymarketNumber(position.shares, { symbol: null })} shares</Trans>
                         </span>
                     </div>
                 </div>
@@ -155,7 +155,7 @@ export function PredictionPositionItem({
                                 position.pnl < 0 ? 'text-danger' : 'text-success',
                             )}
                         >
-                            {formatPolymarketNumber(position.pnl, { symbol: true })}
+                            {formatPolymarketNumber(position.pnl, { sign: true })}
                             {`(${removeTrailingZeros((Math.abs(position.pnl_rate) * 100).toFixed(2))}%)`}
                         </span>
                         <span className="text-sm font-medium leading-[21px] tracking-[0.15px] text-second">
