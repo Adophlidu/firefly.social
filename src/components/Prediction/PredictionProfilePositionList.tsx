@@ -75,7 +75,7 @@ export function partitionPredictionPositions(allPositions: PredictionPositionDat
         }
     }
 
-    closedPositions.sort((a, b) => (b.closed_time ?? 0) - (a.closed_time ?? 0));
+    closedPositions.sort((a, b) => (b.closed_time ?? Date.now()) - (a.closed_time ?? Date.now()));
 
     return { activePositions, closedPositions };
 }
