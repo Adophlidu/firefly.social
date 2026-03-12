@@ -1,27 +1,20 @@
 /* cspell:disable */
 
 import { NotImplementedError } from '@dimensiondev/utils';
-import { sortBy, toInteger, uniqBy } from 'lodash-es';
 import urlcat from 'urlcat';
-import { toHex } from 'viem';
 
-import { Source } from '@/constants/enum.js';
 import { MessageType, ReactionType } from '@/constants/farcaster.js';
-import { MAX_IMAGE_SIZE_PER_POST, MAX_IMAGE_SIZE_PRO_PER_POST } from '@/constants/limitation.js';
-import { URL_REGEX } from '@/constants/regexp.js';
 import { EMPTY_LIST, NEYNAR_URL } from '@/constants/static.js';
 import { fetchNeynarJson } from '@/helpers/fetchNeynarJson.js';
-import { fixUrlProtocol } from '@/helpers/fixUrlProtocol.js';
-import { isYouTubeUrl } from '@/helpers/isYouTubeUrl.js';
-import { normalizeUrl } from '@/helpers/normalizeUrl.js';
 import { type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveNeynarResponseData } from '@/helpers/resolveNeynarResponseData.js';
 import { farcasterPostIdToHash } from '@/providers/farcaster/farcasterPostIdToHash.js';
 import { formatChannelFromFirefly } from '@/providers/farcaster/formatFarcasterChannelFromFirefly.js';
-import { getAllMentionsForFarcaster } from '@/providers/farcaster/getAllMentionsForFarcaster.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { publishMessage } from '@/providers/firefly/farcaster-hub/publishMessage.js';
 import { encodeMessageData } from '@/providers/neynar/encodeMessageData.js';
+import { publishPost } from '@/providers/neynar/publishPost.js';
+import { quotePost } from '@/providers/neynar/quotePost.js';
 import { searchProfiles } from '@/providers/neynar/searchProfiles.js';
 import { type Account } from '@/providers/types/Account.js';
 import {
@@ -29,7 +22,6 @@ import {
     type NotificationSettings,
     type WalletProfile,
 } from '@/providers/types/Firefly.js';
-import { type CastResponse } from '@/providers/types/Neynar.js';
 import { type Session } from '@/providers/types/Session.js';
 import {
     type Channel,
@@ -44,7 +36,6 @@ import {
     type Provider,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
-import { useFarcasterProfileStore } from '@/store/useProfileStore/useFarcasterProfileStore.js';
 
 class NeynarSocialMedia implements Provider {
     getChannelTrendingPosts(channel: Channel, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
@@ -123,38 +114,7 @@ class NeynarSocialMedia implements Provider {
     }
 
     async quotePost(postId: string, post: Post, authorId?: number): Promise<{ postId: string }> {
-        const result = await getAllMentionsForFarcaster(post.metadata.content?.content ?? '');
-        if (!postId || !post || !authorId) throw new Error('Failed to quote post.');
-
-        const { messageJson } = await encodeMessageData({
-            type: MessageType.CAST_ADD,
-            castAddBody: {
-                ...result,
-                embedsDeprecated: EMPTY_LIST,
-                embeds: [
-                    {
-                        castId: {
-                            fid: authorId,
-                            hash: farcasterPostIdToHash(postId),
-                        },
-                    },
-                    ...(post.mediaObjects?.map((v) => ({ url: v.url })) ?? []),
-                ],
-                parentCastId:
-                    post.commentOn?.postId && post.commentOn?.author.profileId
-                        ? {
-                              fid: toInteger(post.commentOn.author.profileId),
-                              hash: farcasterPostIdToHash(post.commentOn.postId),
-                          }
-                        : undefined,
-                parentUrl:
-                    !(post.commentOn?.postId && post.commentOn?.author.profileId) && post.parentChannelUrl
-                        ? post.parentChannelUrl
-                        : undefined,
-            },
-        });
-        const { hash } = await publishMessage<CastResponse>(messageJson);
-        return { postId: toHex(new Uint8Array(hash.data)) };
+        return quotePost(postId, post, authorId);
     }
 
     collectPost(postId: string, collectionId?: string): Promise<void> {
@@ -170,7 +130,7 @@ class NeynarSocialMedia implements Provider {
     }
 
     async commentPost(postId: string, post: Post): Promise<{ postId: string }> {
-        return this.publishPost(post);
+        return publishPost(post);
     }
 
     async deletePost(postId: string): Promise<boolean> {
@@ -233,50 +193,7 @@ class NeynarSocialMedia implements Provider {
     }
 
     async publishPost(post: Post): Promise<{ postId: string }> {
-        const result = await getAllMentionsForFarcaster(post.metadata.content?.content ?? '');
-
-        const urls = post.metadata.content?.content?.match(URL_REGEX) || EMPTY_LIST;
-        const mediaUrls = post.mediaObjects?.map((v) => ({ url: v.url })) ?? [];
-        const hasRp = !!post.metadata.rpPayload;
-        const contentUrls = !hasRp
-            ? sortBy(urls, (x) => (isYouTubeUrl(x) ? -1 : 0)).map((url) => ({
-                  url: fixUrlProtocol(url),
-              }))
-            : EMPTY_LIST;
-
-        // To refresh to pro status
-        const state = useFarcasterProfileStore.getState();
-        await state.refreshCurrentAccount();
-        const imageCountLimit = state.currentProfile?.isProUser
-            ? MAX_IMAGE_SIZE_PRO_PER_POST[Source.Farcaster]
-            : MAX_IMAGE_SIZE_PER_POST[Source.Farcaster];
-
-        // contentUrls might contain urls that already included in mediaUrls. see fw-5498
-        const embeds = uniqBy([...mediaUrls, ...contentUrls], (x) => normalizeUrl(x.url.toLowerCase())).slice(
-            0,
-            imageCountLimit,
-        );
-        const { messageJson } = await encodeMessageData({
-            type: MessageType.CAST_ADD,
-            castAddBody: {
-                ...result,
-                embedsDeprecated: [],
-                embeds,
-                parentCastId:
-                    post.commentOn?.postId && post.commentOn?.author.profileId
-                        ? {
-                              fid: toInteger(post.commentOn.author.profileId),
-                              hash: farcasterPostIdToHash(post.commentOn.postId),
-                          }
-                        : undefined,
-                parentUrl:
-                    !(post.commentOn?.postId && post.commentOn?.author.profileId) && post.parentChannelUrl
-                        ? post.parentChannelUrl
-                        : undefined,
-            },
-        });
-        const { hash } = await publishMessage<CastResponse>(messageJson);
-        return { postId: toHex(new Uint8Array(hash.data)) };
+        return publishPost(post);
     }
 
     async upvotePost(postId: string, authorId?: number): Promise<void> {
