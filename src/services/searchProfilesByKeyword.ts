@@ -3,7 +3,7 @@ import { compact } from 'lodash-es';
 import { type SocialSource } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/static.js';
 import { composeSearchProfiles, formatSearchProfile, sortSearchProfiles } from '@/helpers/formatSearchProfile.js';
-import { type PageIndicator } from '@/helpers/pageable.js';
+import { createIndicator, type PageIndicator } from '@/helpers/pageable.js';
 import { searchBskyProfiles } from '@/providers/bsky/searchBskyProfiles.js';
 import { searchIdentity } from '@/providers/firefly/endpoint/searchIdentity.js';
 import { twitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
@@ -74,9 +74,12 @@ export async function searchProfilesByKeyword(options: SearchProfilesOptions) {
               })
             : undefined,
         !skip?.twitter && trimmed
-            ? twitterSocialMediaProxy.searchProfiles(trimmed, indicators?.twitter, twitterSize)
+            ? twitterSocialMediaProxy.searchProfiles(
+                  trimmed,
+                  createIndicator(indicators?.twitter, undefined, twitterSize),
+              )
             : undefined,
-        !skip?.bsky ? searchBskyProfiles(keyword, indicators?.bsky, bskySize) : undefined,
+        !skip?.bsky ? searchBskyProfiles(keyword, createIndicator(indicators?.bsky, undefined, bskySize)) : undefined,
     ]);
 
     const fireflyData = fireflyRes.status === 'fulfilled' ? fireflyRes.value : undefined;

@@ -232,10 +232,11 @@ class OfficialSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    searchProfiles(q: string, indicator?: PageIndicator, limit = 25): Promise<Pageable<Profile, PageIndicator>> {
+    searchProfiles(q: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         return twitterSessionHolder.withSession(async (session) => {
             if (!session || !TWITTER_PROFILE_SEARCH_REGEXP.test(q))
                 return createPageable([] as Profile[], createIndicator(indicator));
+            const limit = indicator?.size ?? 25;
             const url = urlcat(`/api/twitter/user/search`, {
                 limit,
                 cursor: indicator?.id,

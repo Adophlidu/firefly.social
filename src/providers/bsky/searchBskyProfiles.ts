@@ -13,8 +13,8 @@ import { type Profile } from '@/providers/types/SocialMedia.js';
 export async function searchBskyProfiles(
     q: string,
     indicator?: PageIndicator,
-    limit = 25,
 ): Promise<Pageable<Profile, PageIndicator>> {
+    const limit = indicator?.size ?? 25;
     const response = await bskySessionHolder.agent.searchActors({
         q,
         limit,

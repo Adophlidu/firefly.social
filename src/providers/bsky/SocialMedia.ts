@@ -270,8 +270,8 @@ class BskySocialMedia implements Provider {
     async getSuggestedFollows(indicator?: PageIndicator, includeFollowingStatus?: boolean) {
         return getBskySuggestedFollows(indicator, includeFollowingStatus);
     }
-    async searchProfiles(q: string, indicator?: PageIndicator, limit = 25): Promise<Pageable<Profile, PageIndicator>> {
-        return searchBskyProfiles(q, indicator, limit);
+    async searchProfiles(q: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        return searchBskyProfiles(q, indicator);
     }
     async searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         return searchBskyPosts(q, indicator);
