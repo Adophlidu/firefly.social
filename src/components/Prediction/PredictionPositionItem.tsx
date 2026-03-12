@@ -48,7 +48,7 @@ function resolveEventUrl(platform: PredictionPlatform, positionData: PredictionP
 }
 
 function formatBetsPrice(price: number) {
-    return removeTrailingZeros(formatPolymarketNumber(price * 100, { digits: 1, symbol: false })) + '¢';
+    return removeTrailingZeros(formatPolymarketNumber(price * 100, { digits: 1, symbol: false }));
 }
 
 export function PredictionPositionItem({

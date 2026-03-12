@@ -496,6 +496,9 @@ msgstr "Avg"
 msgid "FAILED POST"
 msgstr "FAILED POST"
 
+msgid "Claim winnings"
+msgstr "Claim winnings"
+
 msgid "User Name must start with a letter/number, only _ allowed in between"
 msgstr "User Name must start with a letter/number, only _ allowed in between"
 
@@ -3083,9 +3086,6 @@ msgstr "No activity yet"
 msgid "User Name is not available"
 msgstr "User Name is not available"
 
-msgid "Only show current positions"
-msgstr "Only show current positions"
-
 msgid "Top 200 Web3 profiles powered by <0>Rootdata</0>"
 msgstr "Top 200 Web3 profiles powered by <0>Rootdata</0>"
 
@@ -3597,9 +3597,6 @@ msgstr "{days, plural, one {# day left} other {# days left}}"
 
 msgid "No cybercrime involved."
 msgstr "No cybercrime involved."
-
-msgid "Claim Proceed"
-msgstr "Claim Proceed"
 
 msgid "Image"
 msgstr "Image"

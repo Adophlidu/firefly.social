@@ -501,6 +501,9 @@ msgstr "平均"
 msgid "FAILED POST"
 msgstr "发帖失败"
 
+msgid "Claim winnings"
+msgstr ""
+
 msgid "User Name must start with a letter/number, only _ allowed in between"
 msgstr "用户名必须以字母或数字开头，中间只能包含下划线 (_)"
 
@@ -3088,9 +3091,6 @@ msgstr "这里空空如也"
 msgid "User Name is not available"
 msgstr "用户名不可用"
 
-msgid "Only show current positions"
-msgstr "仅显示当前持仓"
-
 msgid "Top 200 Web3 profiles powered by <0>Rootdata</0>"
 msgstr "热门前 200 榜单｜数据来源：<0> Rootdata </0>"
 
@@ -3602,9 +3602,6 @@ msgstr "{days, plural, one {剩余 # 天} other {剩余 # 天}}"
 
 msgid "No cybercrime involved."
 msgstr "不涉及网络犯罪。"
-
-msgid "Claim Proceed"
-msgstr "成功领取"
 
 msgid "Image"
 msgstr "图片"

@@ -501,6 +501,9 @@ msgstr "平均"
 msgid "FAILED POST"
 msgstr "發文失敗"
 
+msgid "Claim winnings"
+msgstr ""
+
 msgid "User Name must start with a letter/number, only _ allowed in between"
 msgstr "使用者名稱必須以字母或數字開頭，中間僅允許使用下劃線 (_)"
 
@@ -3088,9 +3091,6 @@ msgstr "这里空空如也"
 msgid "User Name is not available"
 msgstr "此使用者名稱已被佔用"
 
-msgid "Only show current positions"
-msgstr "僅顯示當前持倉"
-
 msgid "Top 200 Web3 profiles powered by <0>Rootdata</0>"
 msgstr "Web3 前 200 大個人檔案（由 <0>Rootdata</0> 提供技術支持）"
 
@@ -3602,9 +3602,6 @@ msgstr "{days, plural, one {剩餘 # 日} other {剩餘 # 日}}"
 
 msgid "No cybercrime involved."
 msgstr "未涉及網路犯罪。"
-
-msgid "Claim Proceed"
-msgstr "領取處理中"
 
 msgid "Image"
 msgstr "圖片"

@@ -3,13 +3,11 @@
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQueryClient, useSuspenseInfiniteQuery } from '@tanstack/react-query';
-import { parseAsBoolean, useQueryState } from 'nuqs';
 import { memo, type ReactNode, useEffect, useMemo, useState } from 'react';
 
 import ArrowLineDownIcon from '@/assets/arrow-line-down.svg';
 import { ListInPage } from '@/components/ListInPage.js';
 import { getPredictionPositionList } from '@/components/Prediction/getPredictionPositionList.js';
-import { PredictionPositionFilter } from '@/components/Prediction/PredictionPositionFilter.js';
 import { PredictionPositionItem } from '@/components/Prediction/PredictionPositionItem.js';
 import { PredictionPlatform, ScrollListKey, Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/static.js';
@@ -98,7 +96,6 @@ export const PredictionProfilePositionList = memo<Props>(function PredictionProf
     address,
     proxyAddress,
 }) {
-    const [onlyHolding] = useQueryState('holding', parseAsBoolean.withDefault(true));
     const { data: allProxyWallets = EMPTY_LIST } = useAllProxyWallets();
     const isMyAddress = useMemo(
         () => allProxyWallets.some((x) => isSameEthereumAddress(x, address)),
@@ -118,12 +115,12 @@ export const PredictionProfilePositionList = memo<Props>(function PredictionProf
         });
 
         return unsubscribe;
-    }, [platform, address, onlyHolding, queryClient, subscribeToWalletEvents]);
+    }, [platform, address, queryClient, subscribeToWalletEvents]);
     const { data: socialProfile } = useProxyWalletInfo(platform, proxyAddress);
     const fireflyAccountId = socialProfile?.fireflyAccountId;
 
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['bets', 'positions', address.toLowerCase(), onlyHolding],
+        queryKey: ['bets', 'positions', address.toLowerCase()],
         queryFn: async ({ pageParam }) => {
             const indicator = createIndicator(undefined, pageParam);
             try {
@@ -131,7 +128,6 @@ export const PredictionProfilePositionList = memo<Props>(function PredictionProf
                     address: proxyAddress || address,
                     isProxyAddress: !!proxyAddress,
                     indicator,
-                    isClaim: onlyHolding,
                 });
             } catch {
                 return createPageable([], indicator);
@@ -154,7 +150,6 @@ export const PredictionProfilePositionList = memo<Props>(function PredictionProf
 
     return (
         <div className="p-4">
-            {platform === PredictionPlatform.Polymarket ? <PredictionPositionFilter /> : null}
             <div className="space-y-4">
                 {activePositions.length ? (
                     <ListInPage

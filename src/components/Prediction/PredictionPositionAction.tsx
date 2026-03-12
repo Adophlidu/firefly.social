@@ -33,7 +33,7 @@ export const PredictionPositionAction = memo<Props>(function PredictionPositionA
                         });
                     }}
                 >
-                    <Trans>Claim Proceed</Trans>
+                    <Trans>Claim winnings</Trans>
                 </ClickableButton>
             ) : !position.isClaimable && position.shares && position.shares >= MIN_SELLABLE_SHARES ? (
                 <ClickableButton
