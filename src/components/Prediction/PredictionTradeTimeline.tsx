@@ -14,6 +14,7 @@ import { PredictionTradeTimelineItem } from '@/components/Prediction/PredictionT
 import { PredictionPlatform, ScrollListKey, Source } from '@/constants/enum.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
+import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { getBetsTradeList } from '@/providers/firefly/prediction/getBetsTradeList.js';
 import { capturePolymarketEventTradesTabClick } from '@/providers/telemetry/capturePolymarketEvent.js';
 import { type BetsActivity } from '@/providers/types/Firefly.js';
@@ -82,50 +83,53 @@ export const PredictionTradeTimeline = memo<Props>(function PredictionTradeTimel
     marketIds,
     eventSlug,
 }) {
+    const isLoginFirefly = useIsLoginFirefly();
     const [isFollowing, setIsFollowing] = useQueryState('isFollowing', parseAsBoolean.withDefault(false));
 
     return (
         <div className="min-h-[512px] space-y-4">
-            <div className="m-4 mb-0 inline-flex h-7 rounded-md border border-secondaryLine text-xs">
-                <ClickableButton
-                    className={classNames(
-                        'px-2',
-                        !isFollowing ? 'bg-lightBg font-semibold text-main' : 'font-medium text-second',
-                    )}
-                    onClick={() => {
-                        if (platform === PredictionPlatform.Polymarket && eventSlug) {
-                            capturePolymarketEventTradesTabClick(eventSlug, 'Global');
-                        }
-                        setIsFollowing(false);
-                    }}
-                >
-                    <Trans id="bets-trades-global" comment="Global">
-                        Global
-                    </Trans>
-                </ClickableButton>
-                <ClickableButton
-                    className={classNames(
-                        'px-2',
-                        isFollowing ? 'bg-lightBg font-semibold text-main' : 'font-medium text-second',
-                    )}
-                    onClick={() => {
-                        if (platform === PredictionPlatform.Polymarket && eventSlug) {
-                            capturePolymarketEventTradesTabClick(eventSlug, 'Following');
-                        }
-                        setIsFollowing(true);
-                    }}
-                >
-                    <Trans id="bets-trades-following" comment="Following">
-                        Following
-                    </Trans>
-                </ClickableButton>
-            </div>
+            {isLoginFirefly ? (
+                <div className="m-4 mb-0 inline-flex h-7 rounded-md border border-secondaryLine text-xs">
+                    <ClickableButton
+                        className={classNames(
+                            'px-2',
+                            !isFollowing ? 'bg-lightBg font-semibold text-main' : 'font-medium text-second',
+                        )}
+                        onClick={() => {
+                            if (platform === PredictionPlatform.Polymarket && eventSlug) {
+                                capturePolymarketEventTradesTabClick(eventSlug, 'Global');
+                            }
+                            setIsFollowing(false);
+                        }}
+                    >
+                        <Trans id="bets-trades-global" comment="Global">
+                            Global
+                        </Trans>
+                    </ClickableButton>
+                    <ClickableButton
+                        className={classNames(
+                            'px-2',
+                            isFollowing ? 'bg-lightBg font-semibold text-main' : 'font-medium text-second',
+                        )}
+                        onClick={() => {
+                            if (platform === PredictionPlatform.Polymarket && eventSlug) {
+                                capturePolymarketEventTradesTabClick(eventSlug, 'Following');
+                            }
+                            setIsFollowing(true);
+                        }}
+                    >
+                        <Trans id="bets-trades-following" comment="Following">
+                            Following
+                        </Trans>
+                    </ClickableButton>
+                </div>
+            ) : null}
             <ErrorBoundary>
                 <Suspense fallback={<Loading />}>
                     <PredictionTradeTimelineContent
                         platform={platform}
                         marketIds={marketIds}
-                        isFollowing={isFollowing}
+                        isFollowing={isLoginFirefly ? isFollowing : false}
                     />
                 </Suspense>
             </ErrorBoundary>
