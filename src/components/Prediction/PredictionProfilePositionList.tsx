@@ -61,12 +61,14 @@ const getPositionItem = ({
     );
 };
 
+const MIN_SELLABLE_SHARES = 0.01;
+
 export function partitionPredictionPositions(allPositions: PredictionPositionDataForUI[]) {
     const activePositions: PredictionPositionDataForUI[] = [];
     const closedPositions: PredictionPositionDataForUI[] = [];
 
     for (const position of allPositions) {
-        const isResolved = position.isClaimable || position.is_closed || !!position.resolvedResult;
+        const isResolved = position.isClaimable || position.is_closed || position.shares < MIN_SELLABLE_SHARES;
 
         if (isResolved) {
             closedPositions.push(position);
@@ -75,7 +77,11 @@ export function partitionPredictionPositions(allPositions: PredictionPositionDat
         }
     }
 
-    closedPositions.sort((a, b) => (b.closed_time ?? Date.now()) - (a.closed_time ?? Date.now()));
+    const now = Date.now();
+    closedPositions.sort((a, b) => {
+        if (!a.closed_time && !b.closed_time) return 0;
+        return (b.closed_time ?? now) - (a.closed_time ?? now);
+    });
 
     return { activePositions, closedPositions };
 }
