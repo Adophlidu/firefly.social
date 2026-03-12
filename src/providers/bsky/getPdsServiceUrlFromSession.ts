@@ -24,10 +24,9 @@ function getPdsEndpoint(doc: z.infer<typeof Scheme>) {
     return parseUrl(endpoint, { autoFixProtocol: false });
 }
 
-export function getPdsUrlFromSession(session: BskySession) {
+export function getPdsServiceUrlFromSession(session: BskySession) {
     const didDoc = session.sessionPayload.didDoc;
     const parsed = Scheme.safeParse(didDoc);
-    if (!parsed.success) return;
-
-    return getPdsEndpoint(parsed.data);
+    if (!parsed.success) return session.serviceUrl;
+    return getPdsEndpoint(parsed.data) || session.serviceUrl;
 }

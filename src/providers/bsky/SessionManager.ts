@@ -7,7 +7,7 @@ import { EVENT_SOCIAL_ACCOUNT_EXPIRED } from '@/constants/event.js';
 import { dispatchCustomEvent } from '@/helpers/dispatchCustomEvents.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { updateCurrentSessionToStorage } from '@/helpers/updateCurrentSessionToStorage.js';
-import { getPdsUrlFromSession } from '@/providers/bsky/getPdsUrlFromSession.js';
+import { getPdsServiceUrlFromSession } from '@/providers/bsky/getPdsServiceUrlFromSession.js';
 import { isErrorResponse } from '@/providers/bsky/isErrorResponse.js';
 import { refreshBskySession } from '@/providers/bsky/refreshBskySession.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
@@ -16,15 +16,6 @@ export class SessionManager {
     private refreshSessionPromise: Promise<void> | undefined;
 
     constructor(public fetch = globalThis.fetch) {}
-
-    get serviceUrl() {
-        if (isServer) return new URL(PUBLIC_SERVICE_URL);
-
-        const session = getSessionFromStorage(SessionType.Bsky);
-        if (!session) return new URL(PUBLIC_SERVICE_URL);
-
-        return new URL(session.serviceUrl);
-    }
 
     get did() {
         if (isServer) return;
@@ -41,7 +32,16 @@ export class SessionManager {
         const session = getSessionFromStorage(SessionType.Bsky);
         if (!session) return;
 
-        return getPdsUrlFromSession(session);
+        return getPdsServiceUrlFromSession(session);
+    }
+
+    get serviceUrl() {
+        if (isServer) return new URL(PUBLIC_SERVICE_URL);
+
+        const session = getSessionFromStorage(SessionType.Bsky);
+        if (!session) return new URL(PUBLIC_SERVICE_URL);
+
+        return new URL(session.serviceUrl);
     }
 
     get dispatchUrl() {

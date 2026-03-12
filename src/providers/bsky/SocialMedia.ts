@@ -258,11 +258,8 @@ class BskySocialMedia implements Provider {
     async isFollowingMe(profileId: string): Promise<boolean> {
         return isBskyFollowingMe(profileId);
     }
-    async getNotifications(
-        indicator?: PageIndicator,
-        highSignalFilter?: boolean,
-    ): Promise<Pageable<Notification, PageIndicator>> {
-        return getBskyNotifications(indicator, highSignalFilter);
+    async getNotifications(indicator?: PageIndicator): Promise<Pageable<Notification, PageIndicator>> {
+        return getBskyNotifications(indicator);
     }
     async getNotificationSettings(): Promise<NotificationSettings> {
         return getBskyNotificationSettings();
