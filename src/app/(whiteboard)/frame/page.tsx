@@ -46,7 +46,7 @@ export default function Page(props: Props) {
     const [ready, setReady] = useState(false);
     const endpointRef = useRef<ReturnType<typeof exposeToIframe>['endpoint']>(null);
 
-    const { loading: loadingSupported, value: supported = false } = useFireflyBridgeSupported();
+    const { isLoading: loadingSupported, data: supported = false } = useFireflyBridgeSupported();
 
     const { loading, error, value } = useAsyncRetry(async () => {
         if (!supported) return;

@@ -1,19 +1,12 @@
 import { nativeBridgeProvider } from '@dimensiondev/native-bridge';
-import { InvalidResultError, retry } from '@dimensiondev/utils';
-import { useAsyncRetry } from 'react-use';
+import { useQuery } from '@tanstack/react-query';
 
-export function useFireflyBridgeSupported(signal?: AbortSignal) {
-    return useAsyncRetry(async () => {
-        return retry(
-            async () => {
-                if (!nativeBridgeProvider.supported) throw new InvalidResultError();
-                return true;
-            },
-            {
-                times: 5,
-                interval: 300,
-                signal,
-            },
-        );
-    }, [signal]);
+export function useFireflyBridgeSupported() {
+    return useQuery({
+        queryKey: ['firefly-bridge-supported'],
+        queryFn: () => nativeBridgeProvider.supported,
+        retry: 5,
+        retryDelay: 300,
+        staleTime: Infinity,
+    });
 }

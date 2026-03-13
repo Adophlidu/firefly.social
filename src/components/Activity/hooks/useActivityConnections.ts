@@ -8,7 +8,7 @@ import { getAllActivityConnections } from '@/providers/firefly/activity/getAllAc
 export function useActivityConnections() {
     const currentProfileFirstAvailable = useCurrentProfileFirstAvailable();
     const { data: authToken } = useFireflyBridgeAuthorization();
-    const { value: supported } = useFireflyBridgeSupported();
+    const { data: supported } = useFireflyBridgeSupported();
     return useQuery({
         queryKey: ['allConnections', supported, currentProfileFirstAvailable, authToken],
         async queryFn() {

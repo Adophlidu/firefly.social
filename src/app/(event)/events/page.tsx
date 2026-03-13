@@ -1,6 +1,5 @@
 'use client';
 
-import { nativeBridgeProvider } from '@dimensiondev/native-bridge';
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
@@ -10,9 +9,11 @@ import { ActivityMobileNavigationBar } from '@/components/Activity/ActivityMobil
 import { ListInPage } from '@/components/ListInPage.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
 import { createIndicator } from '@/helpers/pageable.js';
+import { useFireflyBridgeSupported } from '@/hooks/useFireflyBridgeSupported.js';
 import { getFireflyActivityList } from '@/providers/firefly/activity/getFireflyActivityList.js';
 
 export default function Page() {
+    const { data: supported = false } = useFireflyBridgeSupported();
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['activity-list'],
         queryFn: async ({ pageParam }) => {
@@ -27,7 +28,7 @@ export default function Page() {
     });
     return (
         <div className="flex w-full flex-col">
-            {nativeBridgeProvider.supported ? (
+            {supported ? (
                 <ActivityMobileNavigationBar>
                     <Trans>Exclusive Events</Trans>
                 </ActivityMobileNavigationBar>

@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useFireflyBridgeSupported } from '@/hooks/useFireflyBridgeSupported.js';
 
 export function useFireflyBridgeAuthorization() {
-    const { value: supported = false } = useFireflyBridgeSupported();
+    const { data: supported = false } = useFireflyBridgeSupported();
     return useQuery({
         enabled: supported,
         queryKey: ['firefly-bridge-authorization', supported],
