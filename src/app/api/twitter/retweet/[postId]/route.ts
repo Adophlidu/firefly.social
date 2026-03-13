@@ -26,6 +26,13 @@ export const POST = compose(
 
         const { errors: retweetErrors } = await client.v2.retweet(me.id, postId);
         if (retweetErrors?.length) {
+            // Tolerate "already retweeted" error - treat as success
+            const alreadyRetweetedError = retweetErrors.find((error) =>
+                error.detail?.includes('You have already retweeted'),
+            );
+            if (alreadyRetweetedError && retweetErrors.length === 1) {
+                return createSuccessResponseJson(true);
+            }
             logger.error('[twitter] v2.retweet', retweetErrors);
             return createTwitterErrorResponseJSON(retweetErrors);
         }
