@@ -53,10 +53,7 @@ export function TwitterArticleBody({ cover, title, content, oembedUrls }: Props)
             </div>
             {content ? (
                 <div className="h-[100px]">
-                    <ArticleMarkup
-                        disableImage
-                        className="markup linkify break-words text-sm leading-[18px] text-second"
-                    >
+                    <ArticleMarkup disableImage className="markup break-words text-sm leading-[18px] text-second">
                         {content}
                     </ArticleMarkup>
                     <div

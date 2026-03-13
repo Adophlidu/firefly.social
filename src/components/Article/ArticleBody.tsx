@@ -90,10 +90,7 @@ export function ArticleBody({ cover, article, onClick }: Props) {
                             />
                         </div>
                     ) : (
-                        <ArticleMarkup
-                            disableImage
-                            className="markup linkify break-words text-sm leading-[18px] text-second"
-                        >
+                        <ArticleMarkup disableImage className="markup break-words text-sm leading-[18px] text-second">
                             {article.content}
                         </ArticleMarkup>
                     )}

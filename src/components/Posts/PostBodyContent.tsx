@@ -187,7 +187,7 @@ export function PostBodyContent({ ref, ...props }: PostBodyContentProps) {
                 <NakedMarkup
                     post={post}
                     className={classNames(
-                        'linkify line-clamp-5 w-full self-stretch break-words text-left text-medium opacity-75',
+                        'line-clamp-5 w-full self-stretch break-words text-left text-medium opacity-75',
                         {
                             'max-h-[7.8rem]': IS_SAFARI && IS_APPLE,
                         },
