@@ -5,6 +5,7 @@ import { Trans } from '@lingui/react/macro';
 import urlcat from 'urlcat';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { NoSSR } from '@/components/NoSSR.js';
 import { HackedButton } from '@/components/Profile/HackedButton.js';
 import { WalletMoreAction } from '@/components/Profile/WalletMoreAction.js';
 import { WatchButton } from '@/components/Profile/WatchButton.js';
@@ -61,7 +62,7 @@ export function WalletActions({ profile }: { profile: WalletProfile }) {
     if (profile.hacked) return <HackedButton className="ml-auto" />;
 
     return (
-        <>
+        <NoSSR>
             <WatchButton
                 className="ml-auto mr-1 max-md:min-w-[50px]"
                 watchButtonClassName="!bg-highlight dark:text-main"
@@ -71,6 +72,6 @@ export function WalletActions({ profile }: { profile: WalletProfile }) {
                 variant={isMedium ? 'text' : 'icon'}
             />
             <WalletMoreAction profile={profile} />
-        </>
+        </NoSSR>
     );
 }

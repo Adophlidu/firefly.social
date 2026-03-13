@@ -23,6 +23,7 @@ import { dynamic } from '@/esm/dynamic.js';
 import { usePathname } from '@/esm/navigation.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useIsLarge } from '@/hooks/useMediaQuery.js';
+import { useMounted } from '@/hooks/useMounted.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
 
 const Footer = dynamic(() => import('@/components/SideBar/Footer.js').then((x) => x.Footer), {
@@ -36,7 +37,10 @@ interface MenuProps {
 export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
     const pathname = usePathname();
     const isDesktop = useIsLarge();
+    const mounted = useMounted();
     const { updateSidebarOpen } = useNavigatorState();
+
+    const settingsHref = mounted && isDesktop ? '/settings/general' : PageRoute.Settings;
 
     return (
         <nav className="relative flex min-h-[658px] flex-1 flex-col">
@@ -77,7 +81,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                 match: () => isRoutePathname(pathname, PageRoute.Events),
                             },
                             {
-                                href: isDesktop ? '/settings/general' : PageRoute.Settings,
+                                href: settingsHref,
                                 name: <Trans>Settings</Trans>,
                                 icon: SettingsIcon,
                                 selectedIcon: SettingsSelectedIcon,
