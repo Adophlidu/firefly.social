@@ -1243,7 +1243,7 @@ Packages with Single Version
  for-each@0.3.5
  foreground-child@3.3.1
  form-data@4.0.5
-*foxact@0.2.54
+*foxact@0.2.55
  fraction.js@5.3.4
 *framer-motion@12.23.28
 *franc-min@6.2.0
