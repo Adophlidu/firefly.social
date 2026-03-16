@@ -1,4 +1,4 @@
-import { type Draft, produce } from 'immer';
+import { type Draft, isDraft, original, produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { type Source } from '@/constants/enum.js';
@@ -18,9 +18,12 @@ function patchPostTree(
     patcher: Patcher,
     visited = new WeakSet<object>(),
 ) {
-    if (!post || visited.has(post as object)) return;
+    if (!post) return;
 
-    visited.add(post as object);
+    const current = (isDraft(post) ? original(post) : post) as object;
+    if (visited.has(current)) return;
+
+    visited.add(current);
 
     if (matcher(post)) {
         patcher(post);
@@ -47,30 +50,31 @@ function patchPostTree(
  */
 export function patchPostQueryData(source: Source, postId: Matcher, patcher: Patcher) {
     const matcher: MatcherFn = typeof postId === 'string' ? (post) => post?.postId === postId : postId;
+    const createVisited = () => new WeakSet<object>();
 
     queryClient.setQueriesData<Post>({ queryKey: ['pinned-post', source] }, (old) => {
         if (!old) return old;
         return produce(old, (draft) => {
-            patchPostTree(draft, matcher, patcher);
+            patchPostTree(draft, matcher, patcher, createVisited());
         });
     });
 
-    const visited = new WeakSet<object>();
     queryClient.setQueriesData<Post>({ queryKey: [source, 'post-detail'] }, (old) => {
         if (!old) return old;
         return produce(old, (draft) => {
-            patchPostTree(draft, matcher, patcher, visited);
+            patchPostTree(draft, matcher, patcher, createVisited());
         });
     });
 
     queryClient.setQueriesData<Post>({ queryKey: [source, 'post-detail', 'actions'] }, (old) => {
         if (!old) return old;
         return produce(old, (draft) => {
-            patchPostTree(draft, matcher, patcher, visited);
+            patchPostTree(draft, matcher, patcher, createVisited());
         });
     });
 
     updateQueryForPosts(source, (posts) => {
+        const visited = createVisited();
         for (const post of posts) {
             patchPostTree(post, matcher, patcher, visited);
         }
@@ -80,13 +84,14 @@ export function patchPostQueryData(source: Source, postId: Matcher, patcher: Pat
         if (!old?.data?.length) return old;
 
         return produce(old, (draft) => {
+            const visited = createVisited();
             for (const post of draft.data) {
-                patchPostTree(post, matcher, patcher);
+                patchPostTree(post, matcher, patcher, visited);
             }
         });
     });
 
     patchNotificationQueryDataOnPost(source, (post) => {
-        patchPostTree(post, matcher, patcher);
+        patchPostTree(post, matcher, patcher, createVisited());
     });
 }
