@@ -307,8 +307,8 @@ importers:
         specifier: ^6.0.0
         version: 6.0.0
       swiper:
-        specifier: ^12.0.3
-        version: 12.0.3
+        specifier: ^12.1.2
+        version: 12.1.2
       thread-stream:
         specifier: ^3.1.0
         version: 3.1.0
@@ -17860,8 +17860,8 @@ packages:
       picocolors: 1.1.1
     dev: true
 
-  /swiper@12.0.3:
-    resolution: {integrity: sha512-BHd6U1VPEIksrXlyXjMmRWO0onmdNPaTAFduzqR3pgjvi7KfmUCAm/0cj49u2D7B0zNjMw02TSeXfinC1hDCXg==}
+  /swiper@12.1.2:
+    resolution: {integrity: sha512-4gILrI3vXZqoZh71I1PALqukCFgk+gpOwe1tOvz5uE9kHtl2gTDzmYflYCwWvR4LOvCrJi6UEEU+gnuW5BtkgQ==}
     engines: {node: '>= 4.7.0'}
     dev: false
 
@@ -19986,7 +19986,7 @@ time:
   /storybook@10.0.8: '2025-11-17T13:10:35.465Z'
   /strip-markdown@6.0.0: '2023-10-25T14:39:38.868Z'
   /svgo-loader@4.0.0: '2023-01-21T06:39:04.523Z'
-  /swiper@12.0.3: '2025-10-21T15:18:59.359Z'
+  /swiper@12.1.2: '2026-02-18T18:28:21.114Z'
   /tailwindcss-safe-area@0.6.0: '2024-08-25T17:31:22.552Z'
   /tailwindcss@3.4.19: '2025-12-10T18:40:42.410Z'
   /thread-stream@3.1.0: '2024-06-13T15:39:11.962Z'
