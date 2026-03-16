@@ -1,5 +1,4 @@
 import { compose } from '@dimensiondev/utils';
-import { type NextRequest } from 'next/server.js';
 
 import { TWITTER_TIMELINE_OPTIONS } from '@/constants/twitter.js';
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
@@ -7,7 +6,9 @@ import { getSearchParamsWithZodSchema } from '@/helpers/getSearchParamsWithZodSc
 import { patchTweetsClientToFirefly } from '@/helpers/patchPostClientToFirefly.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { logger } from '@/libs/Logger.js';
+import { attachRetweetedStatusToTweets } from '@/providers/twitter/attachRetweetedStatusToTweets.js';
 import { createAppOnlyTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
+import { createTwitterRetweetStatusClient } from '@/providers/twitter/createTwitterRetweetStatusClient.js';
 import {
     isReferencedTweetNotFoundError,
     withoutReferencedTweetExpansions,
@@ -28,7 +29,7 @@ function removeUnknownOperator(query: string) {
 export const GET = compose(
     withTwitterRequestErrorHandler,
     withRequestErrorHandler({ throwError: true }),
-    async (request: NextRequest) => {
+    async (request) => {
         const { cursor, limit, query } = getSearchParamsWithZodSchema(request, SearchPageable);
 
         const client = await createAppOnlyTwitterClientV2();
@@ -63,6 +64,13 @@ export const GET = compose(
         }
 
         const safeResult = result ?? { data: [] };
+        try {
+            const retweetStatusClient = await createTwitterRetweetStatusClient();
+            await attachRetweetedStatusToTweets(retweetStatusClient, safeResult.data, safeResult.includes);
+        } catch (error) {
+            logger.error('[twitter] attach retweeted status (search)', error);
+        }
+
         safeResult.data = await patchTweetsClientToFirefly(safeResult.data ?? []);
         return createSuccessResponseJson(safeResult);
     },

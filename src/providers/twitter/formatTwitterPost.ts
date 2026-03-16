@@ -13,6 +13,7 @@ import { isSamePost } from '@/helpers/isSamePost.js';
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { formatTwitterMedia } from '@/providers/twitter/formatTwitterMedia.js';
 import { convertTwitterAvatar, formatTwitterProfileStatus } from '@/providers/twitter/formatTwitterProfile.js';
+import { resolveTwitterRetweetStatus } from '@/providers/twitter/resolveTwitterRetweetStatus.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
 
@@ -54,6 +55,7 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
         postId: item.id,
         type: 'Post',
         source: Source.Twitter,
+        hasMirrored: item.retweeted || undefined,
         restrictions: resolveTweetReplySettings(item.reply_settings),
         author: {
             ...createDummyProfile(Source.Twitter),
@@ -128,7 +130,9 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
     }
     if (retweeted) {
         ret.type = 'Mirror';
-        if (retweeted && item.author_id === twitterSessionHolder.session?.profileId) ret.hasMirrored = true;
+        if (resolveTwitterRetweetStatus(item, twitterSessionHolder.session?.profileId, retweetedTweet)) {
+            ret.hasMirrored = true;
+        }
         if (retweetedTweet) {
             ret.mirrorOn = tweetV2ToPost(retweetedTweet, includes);
             ret.postId = retweetedTweet.id;

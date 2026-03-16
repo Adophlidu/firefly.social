@@ -344,7 +344,7 @@ class OfficialSocialMedia implements Provider {
         const response = await twitterSessionHolder.fetch<ResponseJson<void>>(`/api/twitter/retweet/${postId}`, {
             method: 'POST',
         });
-        const data = resolveTwitterResponseData(response);
+        resolveTwitterResponseData(response);
         return postId;
     }
 

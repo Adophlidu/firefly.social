@@ -7,6 +7,7 @@ import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
 import { isNumericalProfileId } from '@/helpers/isNumericalProfileId.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { logger } from '@/libs/Logger.js';
+import { attachRetweetedStatusToTweets } from '@/providers/twitter/attachRetweetedStatusToTweets.js';
 import { createTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
 import { createTwitterErrorResponseJSON } from '@/providers/twitter/createTwitterErrorResponse.js';
 import { tweetV2ToPost } from '@/providers/twitter/formatTwitterPost.js';
@@ -51,6 +52,7 @@ export const GET = compose(
             logger.error('[twitter] v2.singleTweet (pinned tweet) no data', user.data.pinned_tweet_id);
             throw new NotFoundError();
         }
+        await attachRetweetedStatusToTweets(client, [data], includes);
 
         return createSuccessResponseJson(tweetV2ToPost(data, includes));
     },

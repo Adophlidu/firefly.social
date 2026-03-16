@@ -10,6 +10,7 @@ import { patchPostClientToFirefly } from '@/helpers/patchPostClientToFirefly.js'
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { logger } from '@/libs/Logger.js';
+import { attachRetweetedStatusToTweets } from '@/providers/twitter/attachRetweetedStatusToTweets.js';
 import { createTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
 import { createTwitterErrorResponseJSON } from '@/providers/twitter/createTwitterErrorResponse.js';
 import { tweetV2ToPost } from '@/providers/twitter/formatTwitterPost.js';
@@ -34,6 +35,7 @@ export const GET = compose(
         });
         if (errors?.length) logger.error('[twitter] v2.singleTweet', errors);
         if (!data) return createErrorResponseJson('Post not found', { status: 404 });
+        await attachRetweetedStatusToTweets(client, [data], includes);
 
         // The retweeted post may not receive attachment
         const retweeted = data.referenced_tweets?.find((tweet) => tweet.type === 'retweeted');
@@ -58,6 +60,8 @@ export const GET = compose(
             const quoteTarget = await runInSafeAsync(() =>
                 client.v2.singleTweet(quoteOn.postId, { ...TWITTER_TIMELINE_OPTIONS }),
             );
+            if (quoteTarget?.data)
+                await attachRetweetedStatusToTweets(client, [quoteTarget.data], quoteTarget.includes);
             post.quoteOn = await patchPostClientToFirefly(
                 quoteTarget?.data ? tweetV2ToPost(quoteTarget.data, quoteTarget.includes) : quoteOn,
             );
@@ -70,6 +74,7 @@ export const GET = compose(
                 client.v2.singleTweet(mirrorQuoteOn.postId, { ...TWITTER_TIMELINE_OPTIONS }),
             );
             if (quoteTarget?.data) {
+                await attachRetweetedStatusToTweets(client, [quoteTarget.data], quoteTarget.includes);
                 post.mirrorOn!.quoteOn = await patchPostClientToFirefly(
                     tweetV2ToPost(quoteTarget.data, quoteTarget.includes),
                 );

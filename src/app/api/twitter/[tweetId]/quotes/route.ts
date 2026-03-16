@@ -9,7 +9,9 @@ import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
 import { getSearchParamsWithZodSchema } from '@/helpers/getSearchParamsWithZodSchema.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { logger } from '@/libs/Logger.js';
+import { attachRetweetedStatusToTweets } from '@/providers/twitter/attachRetweetedStatusToTweets.js';
 import { createAppOnlyTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
+import { createTwitterRetweetStatusClient } from '@/providers/twitter/createTwitterRetweetStatusClient.js';
 import { withTwitterRequestErrorHandler } from '@/providers/twitter/withTwitterRequestErrorHandler.js';
 import { Pageable } from '@/schemas/Pageable.js';
 
@@ -55,6 +57,13 @@ export const GET = compose(
                     }
                 }
             }
+        }
+
+        try {
+            const retweetStatusClient = await createTwitterRetweetStatusClient();
+            await attachRetweetedStatusToTweets(retweetStatusClient, data.data, data.includes);
+        } catch (error) {
+            logger.error('[twitter] attach retweeted status (quotes)', error);
         }
 
         return createSuccessResponseJson({

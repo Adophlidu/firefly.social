@@ -63,5 +63,7 @@ declare module 'twitter-api-v2' {
             displayName?: string;
             name?: string;
         };
+        /** patched from v1 lookup for authenticated viewer retweet state. */
+        retweeted?: boolean;
     }
 }

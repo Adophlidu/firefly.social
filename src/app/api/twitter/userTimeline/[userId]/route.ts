@@ -8,6 +8,7 @@ import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
 import { getSearchParamsWithZodSchema } from '@/helpers/getSearchParamsWithZodSchema.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { logger } from '@/libs/Logger.js';
+import { attachRetweetedStatusToTweets } from '@/providers/twitter/attachRetweetedStatusToTweets.js';
 import { createTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
 import { withTwitterRequestErrorHandler } from '@/providers/twitter/withTwitterRequestErrorHandler.js';
 import { Pageable } from '@/schemas/Pageable.js';
@@ -51,6 +52,7 @@ export const GET = compose(
 
         if (errors?.length) logger.error('[twitter] v2.userTimeline', errors);
 
+        await attachRetweetedStatusToTweets(client, data.data, data.includes);
         return createSuccessResponseJson(data);
     },
 );

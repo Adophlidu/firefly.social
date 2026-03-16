@@ -6,6 +6,7 @@ import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
 import { getThreadTweets } from '@/helpers/getThreadTweets.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { logger } from '@/libs/Logger.js';
+import { attachRetweetedStatusToTweets } from '@/providers/twitter/attachRetweetedStatusToTweets.js';
 import { createTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
 import { tweetV2ToPost } from '@/providers/twitter/formatTwitterPost.js';
 import { withTwitterRequestErrorHandler } from '@/providers/twitter/withTwitterRequestErrorHandler.js';
@@ -21,6 +22,7 @@ export const GET = compose(
         const client = await createTwitterClientV2();
         const { data, includes, errors } = await getThreadTweets(client, tweetId);
         if (errors?.length) logger.error('[twitter] v2.tweets', errors);
+        await attachRetweetedStatusToTweets(client, data, includes);
 
         return createSuccessResponseJson(data.map((tweet) => tweetV2ToPost(tweet, includes)));
     },

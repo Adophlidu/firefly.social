@@ -8,44 +8,71 @@ import { updateQueryForPosts } from '@/helpers/updateQueryForPosts.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
 
 type Patcher = (old: Draft<Post>) => void;
+type MatcherFn = (post: Draft<Post> | null | undefined) => boolean;
 
-export type Matcher = string | ((post: Draft<Post> | null | undefined) => boolean);
+export type Matcher = string | MatcherFn;
+
+function patchPostTree(
+    post: Draft<Post> | null | undefined,
+    matcher: MatcherFn,
+    patcher: Patcher,
+    visited = new WeakSet<object>(),
+) {
+    if (!post || visited.has(post as object)) return;
+
+    visited.add(post as object);
+
+    if (matcher(post)) {
+        patcher(post);
+    }
+
+    const children = [
+        post.root,
+        post.commentOn,
+        post.quoteOn,
+        post.mirrorOn,
+        post.firstComment,
+        ...(post.comments ?? []),
+        ...(post.embedPosts ?? []),
+        ...(post.threads ?? []),
+    ];
+
+    for (const child of children) {
+        patchPostTree(child, matcher, patcher, visited);
+    }
+}
 
 /**
  * Patch all post lists, including post searching result
  */
 export function patchPostQueryData(source: Source, postId: Matcher, patcher: Patcher) {
-    const matcher: Matcher = typeof postId === 'string' ? (post) => post?.postId === postId : postId;
+    const matcher: MatcherFn = typeof postId === 'string' ? (post) => post?.postId === postId : postId;
 
     queryClient.setQueriesData<Post>({ queryKey: ['pinned-post', source] }, (old) => {
         if (!old) return old;
         return produce(old, (draft) => {
-            for (const p of [draft, draft.root, draft.commentOn]) {
-                if (matcher(p)) {
-                    patcher(p!);
-                }
-            }
+            patchPostTree(draft, matcher, patcher);
         });
     });
 
+    const visited = new WeakSet<object>();
     queryClient.setQueriesData<Post>({ queryKey: [source, 'post-detail'] }, (old) => {
         if (!old) return old;
         return produce(old, (draft) => {
-            for (const p of [draft, draft.root, draft.commentOn]) {
-                if (matcher(p)) {
-                    patcher(p!);
-                }
-            }
+            patchPostTree(draft, matcher, patcher, visited);
+        });
+    });
+
+    queryClient.setQueriesData<Post>({ queryKey: [source, 'post-detail', 'actions'] }, (old) => {
+        if (!old) return old;
+        return produce(old, (draft) => {
+            patchPostTree(draft, matcher, patcher, visited);
         });
     });
 
     updateQueryForPosts(source, (posts) => {
         for (const post of posts) {
-            for (const p of [post, post.commentOn, post.root, post.quoteOn, ...(post.threads || [])]) {
-                if (matcher(p)) {
-                    patcher(p!);
-                }
-            }
+            patchPostTree(post, matcher, patcher, visited);
         }
     });
 
@@ -54,16 +81,12 @@ export function patchPostQueryData(source: Source, postId: Matcher, patcher: Pat
 
         return produce(old, (draft) => {
             for (const post of draft.data) {
-                if (matcher(post)) {
-                    patcher(post);
-                }
+                patchPostTree(post, matcher, patcher);
             }
         });
     });
 
     patchNotificationQueryDataOnPost(source, (post) => {
-        if (matcher(post)) {
-            patcher(post);
-        }
+        patchPostTree(post, matcher, patcher);
     });
 }

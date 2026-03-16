@@ -6,6 +6,7 @@ import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
 import { patchTweetsClientToFirefly } from '@/helpers/patchPostClientToFirefly.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
+import { attachRetweetedStatusToTweets } from '@/providers/twitter/attachRetweetedStatusToTweets.js';
 import { createTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
 import { withTwitterRequestErrorHandler } from '@/providers/twitter/withTwitterRequestErrorHandler.js';
 
@@ -21,6 +22,7 @@ export const GET = compose(
 
         const client = await createTwitterClientV2();
         const result = await client.v2.tweets(tweetIds, TWITTER_TIMELINE_OPTIONS);
+        await attachRetweetedStatusToTweets(client, result.data, result.includes);
         result.data = await patchTweetsClientToFirefly(result.data);
         return createSuccessResponseJson(result);
     },

@@ -8,7 +8,9 @@ import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
 import { getSearchParamsWithZodSchema } from '@/helpers/getSearchParamsWithZodSchema.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { logger } from '@/libs/Logger.js';
+import { attachRetweetedStatusToTweets } from '@/providers/twitter/attachRetweetedStatusToTweets.js';
 import { createAppOnlyTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
+import { createTwitterRetweetStatusClient } from '@/providers/twitter/createTwitterRetweetStatusClient.js';
 import {
     isReferencedTweetNotFoundError,
     withoutReferencedTweetExpansions,
@@ -59,6 +61,13 @@ export const GET = compose(
         }
 
         const safeData = data ?? { data: [], meta: { result_count: 0 } };
+        try {
+            const retweetStatusClient = await createTwitterRetweetStatusClient();
+            await attachRetweetedStatusToTweets(retweetStatusClient, safeData.data, safeData.includes);
+        } catch (error) {
+            logger.error('[twitter] attach retweeted status (comments)', error);
+        }
+
         return createSuccessResponseJson({
             ...safeData,
             data:

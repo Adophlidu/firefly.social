@@ -5,6 +5,7 @@ import { getSearchParamsWithZodSchema } from '@/helpers/getSearchParamsWithZodSc
 import { patchTweetsClientToFirefly } from '@/helpers/patchPostClientToFirefly.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { logger } from '@/libs/Logger.js';
+import { attachRetweetedStatusToTweets } from '@/providers/twitter/attachRetweetedStatusToTweets.js';
 import { createTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
 import { createTwitterErrorResponseJSON } from '@/providers/twitter/createTwitterErrorResponse.js';
 import { withTwitterRequestErrorHandler } from '@/providers/twitter/withTwitterRequestErrorHandler.js';
@@ -26,6 +27,7 @@ export const GET = compose(
             return createTwitterErrorResponseJSON(errors);
         }
 
+        await attachRetweetedStatusToTweets(client, result.data, result.includes);
         result.data = await patchTweetsClientToFirefly(result.data);
         return createSuccessResponseJson(result);
     },

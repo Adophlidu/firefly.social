@@ -36,7 +36,7 @@ export const useTwitterRetweetStore = create<
             },
             isUndoRepost: (profileId, tweetId) => {
                 const state = get();
-                return state.undoReposts[generateTwitterRetweetKey(profileId, tweetId)];
+                return !!state.undoReposts[generateTwitterRetweetKey(profileId, tweetId)];
             },
             size: () => {
                 const state = get();

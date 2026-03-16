@@ -6,6 +6,7 @@ import { getSearchParamsWithZodSchema } from '@/helpers/getSearchParamsWithZodSc
 import { patchTweetsClientToFirefly } from '@/helpers/patchPostClientToFirefly.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { logger } from '@/libs/Logger.js';
+import { attachRetweetedStatusToTweets } from '@/providers/twitter/attachRetweetedStatusToTweets.js';
 import { createTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
 import { withTwitterRequestErrorHandler } from '@/providers/twitter/withTwitterRequestErrorHandler.js';
 import { Pageable } from '@/schemas/Pageable.js';
@@ -24,6 +25,12 @@ export const GET = compose(
         });
 
         if (errors?.length) logger.error('[twitter] v2.homeTimeline', errors);
+
+        try {
+            await attachRetweetedStatusToTweets(client, result.data, result.includes);
+        } catch (error) {
+            logger.error('[twitter] attach retweeted status', error);
+        }
 
         result.data = await patchTweetsClientToFirefly(result.data);
         return createSuccessResponseJson(result);
