@@ -104,7 +104,7 @@ jobs:
             - name: Connect Domain on Vercel
               continue-on-error: true
               run: |
-                  curl -X POST https://api.vercel.com/v9/projects/firefly.social/domains/canary.firefly.social \
+                  curl -X PATCH https://api.vercel.com/v10/projects/prj_AbXOdfeEB7av0UPeVdCqbw9ZlSKZ/domains/canary.firefly.social \
                        -H "Authorization: Bearer ${{ secrets.VERCEL_TOKEN }}" \
                        -H "Content-Type: application/json" \
                        -d '{"gitBranch": "bump-version-${{ env.new_version }}"}'
