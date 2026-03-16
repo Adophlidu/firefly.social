@@ -5,14 +5,14 @@ import { isNumericalProfileId as isUID } from '@/helpers/isNumericalProfileId.js
 import { isSocialSource } from '@/helpers/isSource.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 import { createFireflyProfileMetadata } from '@/providers/firefly/metadata/createFireflyProfileMetadata.js';
-import { type NextPageProps } from '@/types/utility.js';
+import { type LayoutProps } from '@/types/utility.js';
 
 export async function generateMetadata(props: Props) {
     const { source } = await props.params;
     return createFireflyProfileMetadata(source, `/profile/${source}`);
 }
 
-interface Props extends NextPageProps<{ source: string }> {}
+interface Props extends LayoutProps<{ source: string }> {}
 
 export default async function Page(props: Props) {
     const { source } = await props.params;

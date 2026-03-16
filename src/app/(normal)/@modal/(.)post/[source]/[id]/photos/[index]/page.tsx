@@ -16,10 +16,10 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { PreviewMediaModalContent } from '@/modals/PreviewMediaModal/PreviewMediaModalContent.js';
-import { type NextPageProps } from '@/types/utility.js';
+import { type LayoutProps } from '@/types/utility.js';
 
 interface Props
-    extends NextPageProps<{
+    extends LayoutProps<{
         id: string;
         index: string;
         source: SocialSourceInURL;

@@ -25,9 +25,9 @@ import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 import { type FireflyIdentity, type FireflyProfile } from '@/providers/types/Firefly.js';
 import { getAllRelatedProfilesWithDefault } from '@/services/getAllRelatedProfilesWithDefault.js';
-import { type NextPageProps } from '@/types/utility.js';
+import { type LayoutProps } from '@/types/utility.js';
 
-interface Props extends NextPageProps<{ id: string; source: ProfilePageSourceInURL }> {}
+interface Props extends LayoutProps<{ id: string; source: ProfilePageSourceInURL }> {}
 
 function getFidFromHeaders(headersList: Headers) {
     const url = headersList.get('X-URL');

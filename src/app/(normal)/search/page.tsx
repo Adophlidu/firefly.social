@@ -5,9 +5,9 @@ import { redirect } from '@/esm/navigation/server.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
-import { type NextPageProps } from '@/types/utility.js';
+import { type LayoutProps } from '@/types/utility.js';
 
-interface Props extends NextPageProps<{}, { type: SearchType; q: string }> {}
+interface Props extends LayoutProps<{}, { type: SearchType; q: string }> {}
 
 export async function generateMetadata(props: Props) {
     const searchParams = await props.searchParams;

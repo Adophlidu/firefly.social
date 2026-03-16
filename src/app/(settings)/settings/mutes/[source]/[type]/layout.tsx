@@ -8,7 +8,7 @@ import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
-import { type NextPageProps } from '@/types/utility.js';
+import { type LayoutProps } from '@/types/utility.js';
 
 const resolveMuteTitle = createLookupTableResolver<string, MessageDescriptor>(
     {
@@ -23,7 +23,7 @@ const resolveMuteTitle = createLookupTableResolver<string, MessageDescriptor>(
 );
 
 interface Props
-    extends NextPageProps<{
+    extends LayoutProps<{
         source: SourceInURL;
         type: MuteType;
     }> {}

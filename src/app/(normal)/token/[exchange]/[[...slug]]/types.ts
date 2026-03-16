@@ -1,8 +1,8 @@
 import { type TokenCategory } from '@/constants/enum.js';
-import { type NextPageProps } from '@/types/utility.js';
+import { type LayoutProps } from '@/types/utility.js';
 
 export interface TokenPageProps
-    extends NextPageProps<
+    extends LayoutProps<
         {
             exchange: string;
             slug: [coingecko_id: string] | [chain_id: string, address: string];

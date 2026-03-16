@@ -1,7 +1,7 @@
-import { type NextPageProps } from '@/types/utility.js';
+import { type LayoutProps } from '@/types/utility.js';
 
 interface Props
-    extends NextPageProps<
+    extends LayoutProps<
         {
             id: string;
         },

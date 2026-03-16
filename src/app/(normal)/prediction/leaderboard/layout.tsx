@@ -5,7 +5,7 @@ import { Comeback } from '@/components/Comeback.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
-import { type NextPageProps } from '@/types/utility.js';
+import { type LayoutProps } from '@/types/utility.js';
 
 export async function generateMetadata() {
     return createSiteMetadata(`/prediction/leaderboard`, {
@@ -13,7 +13,7 @@ export async function generateMetadata() {
     });
 }
 
-export default async function BetsLeaderboardLayout(props: NextPageProps) {
+export default async function BetsLeaderboardLayout(props: LayoutProps) {
     await setupLocaleForSSR();
 
     return (

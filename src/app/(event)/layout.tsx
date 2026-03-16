@@ -14,10 +14,10 @@ import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getAgent } from '@/helpers/getAgent.js';
 import { isValidEnumValue } from '@/helpers/isValidEnumValue.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
-import { type NextPageProps } from '@/types/utility.js';
+import { type LayoutProps } from '@/types/utility.js';
 
 interface Props
-    extends NextPageProps<
+    extends LayoutProps<
         never,
         {
             agent: string;

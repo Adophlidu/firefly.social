@@ -7,7 +7,7 @@ import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getFireflyActivityInfo } from '@/providers/firefly/activity/getFireflyActivityInfo.js';
 import { createEventMetadata } from '@/providers/firefly/metadata/createEventMetadata.js';
 import { ActivityStatus } from '@/providers/types/Firefly.js';
-import { type NextPageProps } from '@/types/utility.js';
+import { type LayoutProps } from '@/types/utility.js';
 
 const ActivityNavigationBar = dynamic(
     () => import('@/components/Activity/ActivityNavigationBar.js').then((m) => m.ActivityNavigationBar),
@@ -22,7 +22,7 @@ const ActivityEndedDialog = dynamic(
     { ssr: false },
 );
 
-interface Props extends NextPageProps<{ name: string }> {}
+interface Props extends LayoutProps<{ name: string }> {}
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
     const { name } = await props.params;

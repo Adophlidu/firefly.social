@@ -11,10 +11,10 @@ import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 import { createChannelMetadata } from '@/providers/firefly/metadata/createChannelMetadata.js';
-import { type NextPageProps } from '@/types/utility.js';
+import { type LayoutProps } from '@/types/utility.js';
 
 interface Props
-    extends NextPageProps<
+    extends LayoutProps<
         {
             id: string;
             source: SocialSourceInURL;

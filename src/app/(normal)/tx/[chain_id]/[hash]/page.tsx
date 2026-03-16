@@ -7,10 +7,10 @@ import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getSwapActivityByHash } from '@/providers/firefly/endpoint/getSwapActivityByHash.js';
 import { getTipsTransactionDetail } from '@/providers/firefly/endpoint/getTipsTransactionDetail.js';
 import { createTransactionMetadata } from '@/providers/firefly/metadata/createTransactionMetadata.js';
-import { type NextPageProps } from '@/types/utility.js';
+import { type LayoutProps } from '@/types/utility.js';
 
 interface Props
-    extends NextPageProps<
+    extends LayoutProps<
         { chain_id: string; hash: string },
         {
             view?: TipsDetailViewType;

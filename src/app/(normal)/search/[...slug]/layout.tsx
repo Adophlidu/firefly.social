@@ -12,7 +12,7 @@ import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isValidEnumValue } from '@/helpers/isValidEnumValue.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
-import { type NextPageProps } from '@/types/utility.js';
+import { type LayoutProps } from '@/types/utility.js';
 
 const resolveSearchTypeTitle = createLookupTableResolver<SearchType, MessageDescriptor>(
     {
@@ -51,7 +51,7 @@ function checkSlug(slug: string[]) {
 }
 
 interface Props
-    extends NextPageProps<
+    extends LayoutProps<
         { slug: string[] },
         {
             q: string;

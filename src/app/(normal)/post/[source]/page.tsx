@@ -13,12 +13,12 @@ import { setupLocaleForSSR } from '@/i18n/index.js';
 import { getArticleById } from '@/providers/firefly/article/getArticleById.js';
 import { createFireflyArticleMetadata } from '@/providers/firefly/metadata/createFireflyArticleMetadata.js';
 import { createPostMetadata } from '@/providers/firefly/metadata/createPostMetadata.js';
-import { type NextPageProps } from '@/types/utility.js';
+import { type LayoutProps } from '@/types/utility.js';
 
 export const revalidate = 60;
 
 interface Props
-    extends NextPageProps<{ source: SocialSourceInURL }, { s?: SocialSourceInURL; source?: SocialSourceInURL }> {}
+    extends LayoutProps<{ source: SocialSourceInURL }, { s?: SocialSourceInURL; source?: SocialSourceInURL }> {}
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
     const searchParams = await props.searchParams;

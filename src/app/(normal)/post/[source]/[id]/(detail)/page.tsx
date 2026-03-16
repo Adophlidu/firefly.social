@@ -18,11 +18,11 @@ import { isValidPostId } from '@/helpers/postId.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
-import { type NextPageProps } from '@/types/utility.js';
+import { type LayoutProps } from '@/types/utility.js';
 
 export const revalidate = 60;
 
-interface Props extends NextPageProps<{ id: string; source: SocialSourceInURL }> {}
+interface Props extends LayoutProps<{ id: string; source: SocialSourceInURL }> {}
 
 export default async function Page(props: Props) {
     await setupLocaleForSSR();

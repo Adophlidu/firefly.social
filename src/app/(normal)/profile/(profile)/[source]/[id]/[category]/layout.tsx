@@ -16,9 +16,9 @@ import { isProfilePageSource } from '@/helpers/isSource.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 import { resolveSpecialProfileIdentity } from '@/helpers/resolveSpecialProfileIdentity.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
-import { type NextPageProps } from '@/types/utility.js';
+import { type LayoutProps } from '@/types/utility.js';
 
-interface Props extends NextPageProps<{ id: string; category: ProfileCategory; source: ProfilePageSourceInURL }> {}
+interface Props extends LayoutProps<{ id: string; category: ProfileCategory; source: ProfilePageSourceInURL }> {}
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
     const { source, id, category } = await props.params;
@@ -30,14 +30,14 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     return createSiteMetadata(`/profile/${resolvedSource}/${id}/${category}`);
 }
 
-interface LayoutProps
-    extends NextPageProps<{
+interface ProfileLayoutProps
+    extends LayoutProps<{
         id: string;
         category: SocialProfileCategory | WalletProfileCategory;
         source: ProfilePageSourceInURL;
     }> {}
 
-export default async function Layout(props: LayoutProps) {
+export default async function Layout(props: ProfileLayoutProps) {
     await setupLocaleForSSR();
 
     const { source, category, id } = await props.params;

@@ -8,9 +8,9 @@ import { Loading } from '@/components/Loading.js';
 import { type NotificationSource, Source, type SourceInURL } from '@/constants/enum.js';
 import { resolveSource } from '@/helpers/resolveSource.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
-import { type NextPageProps } from '@/types/utility.js';
+import { type LayoutProps } from '@/types/utility.js';
 
-interface Props extends NextPageProps<{ source: SourceInURL }> {}
+interface Props extends LayoutProps<{ source: SourceInURL }> {}
 
 export default function Page(props: Props) {
     const params = use(props.params);

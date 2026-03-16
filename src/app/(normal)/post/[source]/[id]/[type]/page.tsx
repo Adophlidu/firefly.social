@@ -9,7 +9,7 @@ import { RepostList } from '@/components/Engagement/RepostList.js';
 import { Loading } from '@/components/Loading.js';
 import { EngagementType, type SocialSource, type SocialSourceInURL } from '@/constants/enum.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
-import { type NextPageProps } from '@/types/utility.js';
+import { type LayoutProps } from '@/types/utility.js';
 
 interface ContentListProps {
     postId: string;
@@ -32,7 +32,7 @@ const ContentList = memo(function ContentList(props: ContentListProps) {
     }
 });
 
-interface Props extends NextPageProps<{ id: string; type: EngagementType; source: SocialSourceInURL }> {}
+interface Props extends LayoutProps<{ id: string; type: EngagementType; source: SocialSourceInURL }> {}
 
 export default function Page(props: Props) {
     const params = use(props.params);

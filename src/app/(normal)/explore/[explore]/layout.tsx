@@ -11,9 +11,9 @@ import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 import { logger } from '@/libs/Logger.js';
 import { getEventSlugList } from '@/providers/firefly/prediction/getEventSlugList.js';
-import { type NextPageProps } from '@/types/utility.js';
+import { type LayoutProps } from '@/types/utility.js';
 
-interface Props extends NextPageProps<{ explore: ExploreType }> {}
+interface Props extends LayoutProps<{ explore: ExploreType }> {}
 
 export async function generateMetadata(props: Props) {
     const { explore } = await props.params;

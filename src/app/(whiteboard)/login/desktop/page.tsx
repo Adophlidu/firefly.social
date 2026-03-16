@@ -7,10 +7,10 @@ import { use, useMemo } from 'react';
 import FullLogo from '@/assets/logo-full.svg';
 import { OpenFireflyAppButton } from '@/components/OpenFireflyAppButton.js';
 import { DeviceType } from '@/types/device.js';
-import { type NextPageProps } from '@/types/utility.js';
+import { type LayoutProps } from '@/types/utility.js';
 
 interface Props
-    extends NextPageProps<
+    extends LayoutProps<
         {},
         {
             session?: string;

@@ -5,9 +5,9 @@ import { type ExploreSourceInURL, ExploreType } from '@/constants/enum.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
-import { type NextPageProps } from '@/types/utility.js';
+import { type LayoutProps } from '@/types/utility.js';
 
-interface Props extends NextPageProps<{ source: string; explore: ExploreType }> {}
+interface Props extends LayoutProps<{ source: string; explore: ExploreType }> {}
 
 export async function generateMetadata(props: Props) {
     const { explore, source } = await props.params;

@@ -13,9 +13,9 @@ import { isSocialSource } from '@/helpers/isSource.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
-import { type NextPageProps } from '@/types/utility.js';
+import { type LayoutProps } from '@/types/utility.js';
 
-interface Props extends NextPageProps<{ id: string; category: ProfileCategory; source: ProfilePageSourceInURL }> {}
+interface Props extends LayoutProps<{ id: string; category: ProfileCategory; source: ProfilePageSourceInURL }> {}
 
 export default async function Layout(props: Props) {
     await setupLocaleForSSR();

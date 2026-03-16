@@ -14,9 +14,9 @@ import { isProfilePageSource } from '@/helpers/isSource.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 import { resolveSpecialProfileIdentity } from '@/helpers/resolveSpecialProfileIdentity.js';
-import { type NextPageProps } from '@/types/utility.js';
+import { type LayoutProps } from '@/types/utility.js';
 
-interface Props extends NextPageProps<{ id: string; category: ProfileCategory; source: ProfilePageSourceInURL }> {}
+interface Props extends LayoutProps<{ id: string; category: ProfileCategory; source: ProfilePageSourceInURL }> {}
 
 export default function Page(props: Props) {
     const params = use(props.params);

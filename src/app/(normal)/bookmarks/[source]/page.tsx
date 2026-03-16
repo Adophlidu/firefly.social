@@ -13,7 +13,7 @@ import { SnapshotBookmarkList } from '@/components/Snapshot/SnapshotBookmarkList
 import { type BookmarkSource, Source, type SourceInURL } from '@/constants/enum.js';
 import { resolveSource } from '@/helpers/resolveSource.js';
 import { useMounted } from '@/hooks/useMounted.js';
-import { type NextPageProps } from '@/types/utility.js';
+import { type LayoutProps } from '@/types/utility.js';
 
 function BookmarkListContent({ source }: { source: BookmarkSource }) {
     switch (source) {
@@ -38,7 +38,7 @@ function BookmarkListContent({ source }: { source: BookmarkSource }) {
     }
 }
 
-interface Props extends NextPageProps<{ source: SourceInURL }> {}
+interface Props extends LayoutProps<{ source: SourceInURL }> {}
 
 export default function Page(props: Props) {
     const params = use(props.params);

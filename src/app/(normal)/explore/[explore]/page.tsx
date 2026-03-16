@@ -8,9 +8,9 @@ import { ExploreType } from '@/constants/enum.js';
 import { notFound, redirect, RedirectType } from '@/esm/navigation/server.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 import { getEventSlugList } from '@/providers/firefly/prediction/getEventSlugList.js';
-import { type NextPageProps } from '@/types/utility.js';
+import { type LayoutProps } from '@/types/utility.js';
 
-interface Props extends NextPageProps<{ explore: ExploreType }> {}
+interface Props extends LayoutProps<{ explore: ExploreType }> {}
 
 export default async function Page(props: Props) {
     const { explore } = await props.params;

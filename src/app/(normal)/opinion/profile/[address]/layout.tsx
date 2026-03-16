@@ -2,10 +2,10 @@ import { type Metadata } from 'next';
 
 import { PredictionPlatform } from '@/constants/enum.js';
 import { createPredictionProfileMetadata } from '@/providers/firefly/metadata/createPredictionProfileMetadata.js';
-import { type NextPageProps } from '@/types/utility.js';
+import { type LayoutProps } from '@/types/utility.js';
 
 interface Props
-    extends NextPageProps<{
+    extends LayoutProps<{
         address: string;
     }> {}
 

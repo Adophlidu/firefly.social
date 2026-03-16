@@ -8,13 +8,13 @@ import { type LoginFallbackSource, Source } from '@/constants/enum.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
-import { type NextPageProps } from '@/types/utility.js';
+import { type LayoutProps } from '@/types/utility.js';
 
 function getSourceFromError(error: string): LoginFallbackSource {
     return Source.Twitter;
 }
 
-interface Props extends NextPageProps<never, { error: string }> {}
+interface Props extends LayoutProps<never, { error: string }> {}
 
 export async function generateMetadata() {
     return createSiteMetadata('/auth/error', {

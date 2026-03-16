@@ -16,7 +16,7 @@ import { setupLocaleForSSR } from '@/i18n/index.js';
 import { createTokenMetadata } from '@/providers/firefly/metadata/createTokenMetadata.js';
 import { searchToken } from '@/providers/firefly/worker/searchToken.js';
 import { type GetTokenOptions } from '@/providers/types/Firefly.js';
-import { type NextPageProps } from '@/types/utility.js';
+import { type LayoutProps } from '@/types/utility.js';
 
 const QueryOptionsSchema = z.object({
     address: z.string().optional(),
@@ -28,7 +28,7 @@ const QueryOptionsSchema = z.object({
 });
 
 interface Props
-    extends NextPageProps<
+    extends LayoutProps<
         {
             exchange: string;
             slug: [coingecko_id: string] | [chain_id: string, address: string] | undefined;

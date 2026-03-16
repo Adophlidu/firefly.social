@@ -10,9 +10,9 @@ import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isSocialSourceInUrl } from '@/helpers/isSource.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 import { createPostMetadata } from '@/providers/firefly/metadata/createPostMetadata.js';
-import { type NextPageProps } from '@/types/utility.js';
+import { type LayoutProps } from '@/types/utility.js';
 
-interface Props extends NextPageProps<{ id: string; source: SocialSourceInURL }> {}
+interface Props extends LayoutProps<{ id: string; source: SocialSourceInURL }> {}
 
 function getShareIdFromHeaders(headersList: Headers) {
     const url = headersList.get('X-URL');

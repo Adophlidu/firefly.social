@@ -3,9 +3,9 @@ import { DEFAULT_SOCIAL_SOURCE } from '@/constants/computed.js';
 import { redirect, RedirectType } from '@/esm/navigation/server.js';
 import { resolveDiscoverUrl } from '@/helpers/resolveDiscoverUrl.js';
 import { trimify } from '@/helpers/trimify.js';
-import { type NextPageProps } from '@/types/utility.js';
+import { type LayoutProps } from '@/types/utility.js';
 
-interface Props extends NextPageProps<{}, ShareLinkProps> {}
+interface Props extends LayoutProps<{}, ShareLinkProps> {}
 
 export default async function Page(props: Props) {
     const searchParams = await props.searchParams;

@@ -7,9 +7,9 @@ import { EMPTY_LIST } from '@/constants/static.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { type NextPageProps } from '@/types/utility.js';
+import { type LayoutProps } from '@/types/utility.js';
 
-interface Props extends NextPageProps<{ id: string; index: string; source: SocialSourceInURL }> {}
+interface Props extends LayoutProps<{ id: string; index: string; source: SocialSourceInURL }> {}
 
 export default async function Photo(props: Props) {
     const params = await props.params;

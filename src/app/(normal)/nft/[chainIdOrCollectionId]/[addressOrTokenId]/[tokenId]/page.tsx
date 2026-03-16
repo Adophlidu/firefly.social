@@ -2,10 +2,10 @@ import { NFTDetailPage } from '@/app/(normal)/nft/pages/NFTDetailPage.js';
 import { notFound } from '@/esm/navigation/server.js';
 import { parseChainId } from '@/helpers/parseChainId.js';
 import { createNftMetadata } from '@/providers/firefly/metadata/createNftMetadata.js';
-import { type NextPageProps } from '@/types/utility.js';
+import { type LayoutProps } from '@/types/utility.js';
 
 interface Props
-    extends NextPageProps<{
+    extends LayoutProps<{
         addressOrTokenId: string;
         tokenId: string;
         chainIdOrCollectionId: string;

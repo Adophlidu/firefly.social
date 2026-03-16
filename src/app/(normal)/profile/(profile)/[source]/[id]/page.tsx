@@ -7,9 +7,9 @@ import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isProfilePageSource } from '@/helpers/isSource.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
-import { type NextPageProps } from '@/types/utility.js';
+import { type LayoutProps } from '@/types/utility.js';
 
-type Props = NextPageProps<{ source: ProfilePageSourceInURL; id: string }>;
+type Props = LayoutProps<{ source: ProfilePageSourceInURL; id: string }>;
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
     const { source, id } = await props.params;
