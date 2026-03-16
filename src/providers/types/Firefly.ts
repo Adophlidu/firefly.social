@@ -261,6 +261,7 @@ export interface Article {
     };
     author: string;
     displayInfo: FireflyDisplayInfo;
+    displayInfoV2?: FireflyDisplayInfoV2;
     authorship:
         | {
               id: string;

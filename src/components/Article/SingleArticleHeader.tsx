@@ -71,7 +71,6 @@ export const SingleArticleHeader = memo<SingleArticleHeaderProps>(function Singl
                 displayName={ens || article.author.handle}
                 time={!isBookmark ? article.timestamp : undefined}
                 icon={Icon ? <Icon className="shrink-0" width={15} height={15} /> : null}
-                username={article.author.username}
                 authorUrl={authorUrl}
                 target={target}
                 onClickLink={onClickLink}

@@ -10,7 +10,7 @@ import { type Article as FireflyArticle, WatchType } from '@/providers/types/Fir
 
 function resolveArticleAuthor(article: FireflyArticle): Article['author'] {
     const isMattersArticle = article.platform === ArticlePlatform.Matters;
-    let handle: string = article.displayInfo.ensHandle || '';
+    let handle: string = article.displayInfoV2?.name || article.displayInfo.ensHandle || '';
     let userName: string = handle;
     let displayName: string = handle;
     let info = { ethAddress: '' };
