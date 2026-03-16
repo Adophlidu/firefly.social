@@ -628,7 +628,7 @@ interface TwitterProfile {
 
 interface BskyProfile {
     did: string;
-    handle: string;
+    handle?: string;
     isDefault?: boolean;
 }
 

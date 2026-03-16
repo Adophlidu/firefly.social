@@ -78,15 +78,15 @@ export function formatFireflyProfilesFromWalletProfiles(
             })),
             ...(profiles.bskyProfiles?.map((x) => {
                 const prefix = 'bsky_';
-                const identityId = x.handle.startsWith(prefix) ? x.handle.substring(prefix.length) : x.handle;
+                const identityId = x.handle?.startsWith(prefix) ? x.handle.substring(prefix.length) : x.handle;
                 return {
                     identity: {
-                        id: identityId,
+                        id: identityId ?? '',
                         source: Source.Bsky,
                     },
-                    handle: x.handle,
+                    handle: x.handle ?? '',
                     isDefault: x.isDefault,
-                    displayName: x.handle,
+                    displayName: x.handle ?? '',
                     __origin__: x,
                 };
             }) ?? []),
