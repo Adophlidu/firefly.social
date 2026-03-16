@@ -1,57 +1,10 @@
-'use client';
+import { EventsList } from '@/app/(event)/events/EventsList.js';
+import { Agent } from '@/constants/enum.js';
+import { getAgent } from '@/helpers/getAgent.js';
 
-import { Trans } from '@lingui/react/macro';
-import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
-import { compact } from 'lodash-es';
+export default async function Page() {
+    const agent = await getAgent();
+    const isFireflyApp = agent === Agent.FireflyApp;
 
-import { getActivityListItem } from '@/components/Activity/ActivityListItem.js';
-import { ActivityMobileNavigationBar } from '@/components/Activity/ActivityMobileNavigationBar.js';
-import { ListInPage } from '@/components/ListInPage.js';
-import { ScrollListKey, Source } from '@/constants/enum.js';
-import { createIndicator } from '@/helpers/pageable.js';
-import { useFireflyBridgeSupported } from '@/hooks/useFireflyBridgeSupported.js';
-import { getFireflyActivityList } from '@/providers/firefly/activity/getFireflyActivityList.js';
-
-export default function Page() {
-    const { data: supported = false } = useFireflyBridgeSupported();
-    const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['activity-list'],
-        queryFn: async ({ pageParam }) => {
-            return getFireflyActivityList({ indicator: createIndicator(undefined, pageParam) });
-        },
-        initialPageParam: '',
-        getNextPageParam: (lastPage) => {
-            if (lastPage?.data.length === 0) return;
-            return lastPage?.nextIndicator?.id;
-        },
-        select: (data) => compact(data.pages.flatMap((x) => x?.data)),
-    });
-    return (
-        <div className="flex w-full flex-col">
-            {supported ? (
-                <ActivityMobileNavigationBar>
-                    <Trans>Exclusive Events</Trans>
-                </ActivityMobileNavigationBar>
-            ) : (
-                <div className="sticky top-0 z-20 hidden h-[60px] w-full flex-row items-center bg-primaryBottom px-4 pt-2.5 text-xl font-bold md:flex">
-                    <span>
-                        <Trans>Exclusive Events</Trans>
-                    </span>
-                </div>
-            )}
-            <div className="mb-[72px] flex w-full flex-col px-4 pb-4">
-                <ListInPage
-                    source={Source.Wallet}
-                    queryResult={queryResult}
-                    VirtualListProps={{
-                        listKey: `${ScrollListKey.Activity}`,
-                        itemContent: getActivityListItem,
-                    }}
-                    NoResultsFallbackProps={{
-                        className: 'md:pt-[228px] max-md:py-20',
-                    }}
-                />
-            </div>
-        </div>
-    );
+    return <EventsList isFireflyApp={isFireflyApp} />;
 }
