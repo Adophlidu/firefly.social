@@ -88,7 +88,9 @@ const createAllEvents = (router: ReturnType<typeof useRouter>) => {
         },
         [IframeBridgeMethod.FIREFLY_WALLET_AUTHORIZED]: async () => {
             useFireflyWalletStore.getState().setIsAuthorized(true);
-            await reconnectPrivyWallet();
+            // This notification is retried by the iframe, so the bridge response should not wait
+            // on connector recovery work that can be slower than the message round trip.
+            void reconnectPrivyWallet();
         },
         [IframeBridgeMethod.NAVIGATE]: async (params: IframeBridgeRequestArguments[IframeBridgeMethod.NAVIGATE]) => {
             if (params.replace) {
