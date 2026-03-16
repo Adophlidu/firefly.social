@@ -10,7 +10,7 @@ import { NotImplementedError, safeUnreachable } from '@dimensiondev/utils';
 import { memo, useEffect } from 'react';
 
 import { IS_MOBILE_DEVICE } from '@/constants/browser.js';
-import { type ProfileSource } from '@/constants/enum.js';
+import { type ProfileSource, type SocialSource } from '@/constants/enum.js';
 import { useRouter } from '@/esm/navigation.js';
 import {
     enqueueErrorMessage,
@@ -18,12 +18,46 @@ import {
     enqueueSuccessMessage,
     enqueueWarningMessage,
 } from '@/helpers/enqueueMessage.js';
+import { getProfileState } from '@/helpers/getProfileState.js';
 import { openComposeModal } from '@/helpers/openComposeModal.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { reconnectPrivyWallet } from '@/helpers/reconnectPrivyWallet.js';
+import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { DownloadMobileAppModalRef } from '@/modals/DownloadMobileAppModal/refs.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
+
+interface FollowAccountsData {
+    accounts: Array<{ source: SocialSource; handle: string; profileId: string }>;
+}
+
+/**
+ * Handle FOLLOW_ACCOUNTS notification from mystery-box iframe.
+ * For each target account, if the user is logged in on that platform, follow the target.
+ * Fire-and-forget — the mystery-box backend polls to verify follow status.
+ */
+async function handleFollowAccounts({ accounts }: FollowAccountsData) {
+    if (!Array.isArray(accounts) || !accounts.length) return;
+
+    const results = await Promise.allSettled(
+        accounts.map(async (account) => {
+            if (!account.source || !account.profileId) return;
+
+            // Check if user is logged in on this source
+            const { currentProfile } = getProfileState(account.source);
+            if (!currentProfile?.profileId) return;
+
+            const provider = resolveSocialMediaProvider(account.source);
+            await provider.follow(account.profileId);
+        }),
+    );
+
+    for (const result of results) {
+        if (result.status === 'rejected') {
+            console.error('[IframeBridge] Failed to follow account:', result.reason);
+        }
+    }
+}
 
 const createAllEvents = (router: ReturnType<typeof useRouter>) => {
     const allEvents: {
@@ -71,8 +105,16 @@ const createAllEvents = (router: ReturnType<typeof useRouter>) => {
                 ? (window.location.href = 'https://5euxu.app.link/PHvNiyVemIb')
                 : DownloadMobileAppModalRef.open();
         },
-        [IframeBridgeMethod.FIREFLY_WALLET_NAVIGATE]: async () => {
-            throw new NotImplementedError();
+        [IframeBridgeMethod.FIREFLY_WALLET_NAVIGATE]: async (
+            params: IframeBridgeRequestArguments[IframeBridgeMethod.FIREFLY_WALLET_NAVIGATE],
+        ) => {
+            // Open wallet panel and forward navigation to wallet iframe
+            // (same pattern as useOpenFireflyWallet hook)
+            useGlobalState.getState().updateFireflyWalletIsOpen(true);
+            iframeBridgeProvider.request(IframeBridgeMethod.NAVIGATE, {
+                path: params.path,
+                replace: params.replace,
+            });
         },
         [IframeBridgeMethod.FIREFLY_WALLET_OPEN]: async () => {
             useGlobalState.getState().updateFireflyWalletIsOpen(true);
@@ -109,7 +151,15 @@ const createAllEvents = (router: ReturnType<typeof useRouter>) => {
         [IframeBridgeMethod.FIREFLY_WALLET_ADD_SESSION_SIGNER]: async () => {
             throw new NotImplementedError();
         },
-        [IframeBridgeMethod.FIREFLY_WALLET_NOTIFY]: async (params) => {
+        [IframeBridgeMethod.FIREFLY_WALLET_NOTIFY]: async (
+            params: IframeBridgeRequestArguments[IframeBridgeMethod.FIREFLY_WALLET_NOTIFY],
+        ) => {
+            // Handle mystery-box FOLLOW_ACCOUNTS request
+            if (params.type === 'FOLLOW_ACCOUNTS') {
+                await handleFollowAccounts(params.data as FollowAccountsData);
+                return;
+            }
+            // Default: forward to wallet event pub/sub system
             useGlobalState.getState().publishWalletEvent(params.type, params.data);
         },
         [IframeBridgeMethod.FIREFLY_WALLET_REFRESH]: async () => {

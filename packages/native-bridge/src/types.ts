@@ -26,6 +26,8 @@ export enum SupportedMethod {
     BIND_WALLET = 'bindWallet',
     IS_TWITTER_USER_FOLLOWING = 'isTwitterUserFollowing',
     FOLLOW_TWITTER_USER = 'followTwitterUser',
+    FOLLOW_LENS_USER = 'followLensUser',
+    FOLLOW_FARCASTER_USER = 'followFarcasterUser',
     UPDATE_NAVIGATOR_BAR = 'updateNavigatorBar',
     OPEN_URL = 'openUrl',
     LOGIN = 'login',
@@ -117,6 +119,12 @@ export interface RequestArguments {
         id: string;
     };
     [SupportedMethod.FOLLOW_TWITTER_USER]: {
+        id: string;
+    };
+    [SupportedMethod.FOLLOW_LENS_USER]: {
+        id: string;
+    };
+    [SupportedMethod.FOLLOW_FARCASTER_USER]: {
         id: string;
     };
     [SupportedMethod.UPDATE_NAVIGATOR_BAR]: {
@@ -232,6 +240,8 @@ export interface ResponseResult {
     [SupportedMethod.OPEN_URL]: void;
     [SupportedMethod.IS_TWITTER_USER_FOLLOWING]: StringifyBoolean;
     [SupportedMethod.FOLLOW_TWITTER_USER]: StringifyBoolean;
+    [SupportedMethod.FOLLOW_LENS_USER]: StringifyBoolean;
+    [SupportedMethod.FOLLOW_FARCASTER_USER]: StringifyBoolean;
     [SupportedMethod.LOGIN]: StringifyBoolean;
     [SupportedMethod.SHARE]: void;
     [SupportedMethod.COMPOSE]: void;
