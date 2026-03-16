@@ -132,6 +132,7 @@ function formatPolymarketEvent(detail: PolymarketEvent): BetsEventDataForUI {
 
     return {
         id: detail.id,
+        slug: detail.slug,
         title: detail.title,
         image: detail.image,
         status: detail.active ? 'active' : 'ended',
