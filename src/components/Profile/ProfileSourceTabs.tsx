@@ -30,6 +30,7 @@ import { type ProfilePageSource, type SocialSource, Source, STATUS } from '@/con
 import { env } from '@/constants/env.js';
 import { usePathname } from '@/esm/navigation.js';
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
+import { getFollowerCount } from '@/helpers/getFollowerCount.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByFireflyProfile } from '@/helpers/getStampAvatarByProfileId.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
@@ -425,13 +426,42 @@ function useSortFireflyProfiles() {
     return useCallback(
         (source: ProfilePageSource, identity: FireflyIdentity, a: FireflyProfile, b: FireflyProfile) => {
             const getSortLevel = (profile: FireflyProfile) => {
-                if (isSameFireflyIdentity(profile.identity, identity)) return 4;
-                if (profileAll?.[source as SocialSource]?.profileId === profile.identity.id) return 3;
-                if (profile?.isDefault) return 2;
-                if ((profile?.__origin__ as WalletProfile)?.dataSource === WalletProfileDataSource.Privy) return 1;
+                // Level 5: Currently viewed identity (highest priority)
+                if (isSameFireflyIdentity(profile.identity, identity)) return 5;
+
+                // Level 4: Logged-in profile for this source
+                if (profileAll?.[source as SocialSource]?.profileId === profile.identity.id) return 4;
+
+                // Level 3: Default profile
+                if (profile?.isDefault) return 3;
+
+                // Level 2: MPC wallet (wallet profiles only)
+                if (
+                    source === Source.Wallet &&
+                    (profile?.__origin__ as WalletProfile)?.dataSource === WalletProfileDataSource.Privy
+                )
+                    return 2;
+
+                // Level 1: Connected accounts (has connectedAt timestamp)
+                // Check if the profile has connectedAt field in __origin__
+                const origin = profile.__origin__ as any;
+                if (isSocialSource(source) && origin?.connectedAt) return 1;
+
+                // Level 0: Related accounts (no connectedAt)
                 return 0;
             };
-            return getSortLevel(b) - getSortLevel(a);
+
+            const levelDiff = getSortLevel(b) - getSortLevel(a);
+            if (levelDiff !== 0) return levelDiff;
+
+            // Within same level, sort social profiles by follower count
+            if (isSocialSource(source)) {
+                const followerDiff = getFollowerCount(b) - getFollowerCount(a);
+                if (followerDiff !== 0) return followerDiff;
+            }
+
+            // Fallback: alphabetical by display name
+            return (a.displayName || '').localeCompare(b.displayName || '');
         },
         [profileAll],
     );
