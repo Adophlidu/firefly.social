@@ -1,9 +1,10 @@
 import { safeUnreachable } from '@dimensiondev/utils';
 import dayjs from 'dayjs';
-import { compact, first, orderBy, values } from 'lodash-es';
+import { compact, first, isUndefined, orderBy, values } from 'lodash-es';
 
 import { DraftPostType, Source } from '@/constants/enum.js';
 import { POLL_CHOICE_TYPE, POLL_STRATEGIES } from '@/constants/poll.js';
+import { isValidRestrictionType } from '@/helpers/isValidRestrictionType.js';
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import { recoverCharsByMentions } from '@/helpers/recoverCharsByMentions.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
@@ -49,9 +50,13 @@ function formatCloudDraftToLocalDraft(cloudDraft: CloudDraft): Draft | null {
 
     const farcasterChannel = raw_json.farcaster_channel;
     const lensChannel = raw_json.lens_channel;
+    const availableSources = raw_json.platform.map((p) => resolveSocialSource(p.platform));
+    const restriction =
+        !isUndefined(raw_json.reply_settings) && isValidRestrictionType(raw_json.reply_settings, availableSources)
+            ? raw_json.reply_settings
+            : undefined;
     const posts = compact(
         raw_json.content.map<CompositePost | null>((content) => {
-            const availableSources = raw_json.platform.map((p) => resolveSocialSource(p.platform));
             const source = first(availableSources);
             if (!source) return null;
 
@@ -138,6 +143,9 @@ function formatCloudDraftToLocalDraft(cloudDraft: CloudDraft): Draft | null {
                     [Source.Twitter]: content.postError.twitter ? new Error(content.postError.twitter) : null,
                     [Source.Bsky]: content.postError.bsky ? new Error(content.postError.bsky) : null,
                 };
+            }
+            if (!isUndefined(restriction)) {
+                newPost.restriction = restriction;
             }
 
             return newPost;

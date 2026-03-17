@@ -1,5 +1,5 @@
 import { safeUnreachable } from '@dimensiondev/utils';
-import { compact, entries, first, values } from 'lodash-es';
+import { compact, entries, first, isUndefined, values } from 'lodash-es';
 
 import { CharTag, type SocialSource, type SocialSourceInURL, Source } from '@/constants/enum.js';
 import { readChars } from '@/helpers/chars.js';
@@ -117,6 +117,7 @@ export async function saveLocalDraftToCloud(draft: Draft) {
         return;
     }
 
+    const restriction = first(draft.posts)?.restriction;
     return createCloudDraft({
         id: draft.draftId,
         client: 'web',
@@ -175,6 +176,11 @@ export async function saveLocalDraftToCloud(draft: Draft) {
             return draftContent;
         }),
         send_time: draft.scheduleTime?.getTime(),
+        reply_settings: restriction,
+        twitter_visibility:
+            !isUndefined(restriction) && draft.availableProfiles.some((x) => x.source === Source.Twitter)
+                ? restriction
+                : undefined,
         ...resolveChannelData(draft),
     });
 }

@@ -1,4 +1,4 @@
-import type { SocialSourceInURL } from '@/constants/enum.js';
+import type { RestrictionType, SocialSourceInURL } from '@/constants/enum.js';
 
 export enum CloudDraftType {
     MainPost = 'main_compose',
@@ -55,6 +55,7 @@ export interface CreateCloudDraftRequest {
     platform: Array<{ uid: string; platform: SocialSourceInURL }>;
     content: CloudDraftContent[];
     twitter_visibility?: number;
+    reply_settings?: RestrictionType;
     farcaster_channel?: CloudDraftChannel;
     lens_channel?: CloudDraftChannel;
     send_time?: number; // for scheduled posts, timestamp in milliseconds
