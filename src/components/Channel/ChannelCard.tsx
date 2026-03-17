@@ -14,7 +14,7 @@ import { getChannelUrl } from '@/helpers/getChannelUrl.js';
 import { type Channel } from '@/providers/types/SocialMedia.js';
 
 interface ChannelCardProps {
-    channel?: Channel;
+    channel?: Channel | null;
     loading?: boolean;
 }
 

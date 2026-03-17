@@ -8,10 +8,12 @@ import { TippyContext, useTippyContext } from '@/components/TippyContext/index.j
 import { type SocialSource } from '@/constants/enum.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { useRouter } from '@/esm/navigation.js';
+import { isChannelNotFoundError } from '@/helpers/isChannelNotFoundError.js';
 import { resolveChannelUrl } from '@/helpers/resolveChannelUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useEverSeen } from '@/hooks/useEverSeen.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import { type Channel } from '@/providers/types/SocialMedia.js';
 import { useChannelStoreState } from '@/store/useChannelStore.js';
 
 interface ChannelTagProps {
@@ -34,22 +36,27 @@ export const ChannelTag = memo<ChannelTagProps>(function ChannelTag({ title, sou
         router.prefetch(resolveChannelUrl(title.trim().slice(1), source));
     }, [title, router, source, viewed]);
 
-    const data = useQuery({
+    const { data, isError, isLoading } = useQuery<Channel | null>({
         enabled: !!channelId && !!source && viewed,
         queryKey: ['channel', source, channelId],
         staleTime: STALE_TIMES.MINUTE_5,
 
         queryFn: async () => {
-            if (!channelId || !source) return;
+            if (!channelId || !source) return null;
 
             try {
                 const provider = resolveSocialMediaProvider(source);
                 const result = await provider.getChannelById(channelId);
-                addChannel(source, channelId, result ? result : null);
-                return result;
-            } catch {
+                const channel = result ?? null;
+                addChannel(source, channelId, channel);
+                return channel;
+            } catch (error) {
+                if (!isChannelNotFoundError(error)) {
+                    throw error;
+                }
+
                 addChannel(source, channelId, null);
-                return;
+                return null;
             }
         },
     });
@@ -74,7 +81,7 @@ export const ChannelTag = memo<ChannelTagProps>(function ChannelTag({ title, sou
 
     if (!channelId || !source) return;
 
-    if (allChannelData[source][channelId] === null) return title;
+    if (allChannelData[source][channelId] === null || isError) return title;
 
     if (!isMedium || insideTippy) return content;
 
@@ -87,7 +94,7 @@ export const ChannelTag = memo<ChannelTagProps>(function ChannelTag({ title, sou
                 onTrigger={() => {
                     setEnabled(true);
                 }}
-                content={enabled ? <ChannelCard loading={data.isLoading} channel={data.data} /> : null}
+                content={enabled ? <ChannelCard loading={isLoading} channel={data} /> : null}
             >
                 <span>{content}</span>
             </InteractiveTippy>

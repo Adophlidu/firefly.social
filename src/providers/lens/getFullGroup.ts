@@ -1,3 +1,4 @@
+import { NotFoundError } from '@dimensiondev/utils';
 import {
     type Account,
     AccountFragment,
@@ -52,7 +53,7 @@ export async function getGroupWithMemberCount(groupId: string): Promise<Channel>
         },
     );
     if (result.error) throw result.error;
-    if (!result.data?.group) throw new Error('Group not found');
+    if (!result.data?.group) throw new NotFoundError('Group not found');
 
     const { group, groupStats } = result.data;
 
@@ -112,7 +113,7 @@ export async function getGroupWithOwner(groupId: string, groupOwner: string): Pr
         throw result.error;
     }
     if (!result.data?.group) {
-        throw new Error('Group not found');
+        throw new NotFoundError('Group not found');
     }
 
     const { group, groupStats, account } = result.data;

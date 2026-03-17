@@ -12,7 +12,6 @@ import { STALE_TIMES } from '@/constants/query.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
 import { resolveChannelName } from '@/helpers/resolveChannelName.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { type Channel } from '@/providers/types/SocialMedia.js';
 
 interface ChannelAnchorProps extends HTMLProps<HTMLDivElement> {
@@ -20,21 +19,20 @@ interface ChannelAnchorProps extends HTMLProps<HTMLDivElement> {
 }
 
 export const ChannelAnchor = memo<ChannelAnchorProps>(function ChannelAnchor({
-    channel: unresolvedChannel,
+    channel: propChannel,
     onClick,
     ...rest
 }) {
-    const { id, source } = unresolvedChannel;
-    const { data: channel } = useQuery({
+    const { id, source } = propChannel;
+    const { data } = useQuery({
+        enabled: !!propChannel.__lazy__,
         queryKey: ['channel', source, id],
         staleTime: STALE_TIMES.MINUTE_5,
-
-        queryFn: () => {
-            if (!unresolvedChannel.__lazy__) return unresolvedChannel;
-            return runInSafeAsync(() => resolveSocialMediaProvider(source).getChannelById(id));
-        },
+        queryFn: () => resolveSocialMediaProvider(source).getChannelById(id),
+        select: (channel) => channel ?? propChannel,
     });
 
+    const channel = propChannel.__lazy__ ? data : propChannel;
     if (!channel) return null;
 
     return (
