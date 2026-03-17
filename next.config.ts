@@ -154,22 +154,40 @@ const config: NextConfig = {
         ];
     },
     async rewrites() {
+        const rules: Array<{ source: string; destination: string }> = [];
+
+        const iframeRewrites: Array<{ path: string; destination: string }> = (() => {
+            if (!process.env.IFRAME_REWRITES) return [];
+            try {
+                const parsed: unknown = JSON.parse(process.env.IFRAME_REWRITES);
+                if (!Array.isArray(parsed)) {
+                    console.error('[next.config] IFRAME_REWRITES must be a JSON array');
+                    return [];
+                }
+                for (const item of parsed) {
+                    if (!item?.path || !item?.destination) {
+                        console.error(`[next.config] Invalid entry in IFRAME_REWRITES: ${JSON.stringify(item)}`);
+                        return [];
+                    }
+                }
+                return parsed;
+            } catch {
+                console.error('[next.config] Failed to parse IFRAME_REWRITES as JSON');
+                return [];
+            }
+        })();
+
+        // Backward compatibility: migrate old WALLET_IFRAME_REWRITE env var (remove after migration)
         if (process.env.WALLET_IFRAME_REWRITE) {
-            // Extract base URL (remove /:path* suffix if present)
-            const baseUrl = process.env.WALLET_IFRAME_REWRITE.replace(/\/:path\*$/, '');
-            return [
-                {
-                    // Handle /wallet-iframe without trailing path - must proxy to URL with trailing slash
-                    source: '/wallet-iframe',
-                    destination: `${baseUrl}/`,
-                },
-                {
-                    source: '/wallet-iframe/:path*',
-                    destination: process.env.WALLET_IFRAME_REWRITE,
-                },
-            ];
+            iframeRewrites.push({ path: '/wallet-iframe', destination: process.env.WALLET_IFRAME_REWRITE });
         }
-        return [];
+
+        for (const { path, destination } of iframeRewrites) {
+            const baseUrl = destination.replace(/\/:path\*$/, '');
+            rules.push({ source: path, destination: `${baseUrl}/` }, { source: `${path}/:path*`, destination });
+        }
+
+        return rules;
     },
     async headers() {
         // Get the site URL for the payment method manifest Link header

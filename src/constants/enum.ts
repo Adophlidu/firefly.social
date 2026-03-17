@@ -55,6 +55,7 @@ export enum PageRoute {
     SettingsMutes = '/settings/mutes',
     Signup = '/signup',
     Sparks = '/sparks',
+    MysteryBox = '/mystery-box',
 }
 
 export enum Source {
