@@ -135,6 +135,7 @@ export const COINGECKO_SOL_COIN_ID = 'solana';
 export const SWAP_SOL_NATIVE_ADDRESS = '11111111111111111111111111111111';
 
 export const SIGNUP_AUDIO_ID = 'signup-audio';
+export const BET_PROFILE_FOLLOW_BUTTON_ID = 'bet-profile-follow-button';
 
 export const EIP6963_PROVIDER_DESCRIPTION = {
     name: SITE_NAME,

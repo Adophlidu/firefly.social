@@ -9,10 +9,11 @@ import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { formatPolymarketNumber } from '@/components/Polymarket/formatPolymarketNumber.js';
 import { PolymarketVolumeTraded } from '@/components/Polymarket/PolymarketVolumeTraded.js';
 import { toRate } from '@/components/Polymarket/toRate.js';
-import { extractFallbackInfo } from '@/components/Prediction/extractFallbackInfo.js';
 import { PredictionPlatformName } from '@/components/Prediction/PredictionPlatformName.js';
+import { PredictionProfileFollowButton } from '@/components/Prediction/PredictionProfileFollowButton.js';
 import { ProfileSourceIcon } from '@/components/ProfileSourceIcon.js';
 import { PredictionPlatform, Source } from '@/constants/enum.js';
+import { BET_PROFILE_FOLLOW_BUTTON_ID } from '@/constants/static.js';
 import { Link } from '@/esm/Link.js';
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
@@ -20,7 +21,7 @@ import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.j
 import { isSocialSource } from '@/helpers/isSource.js';
 import { isZero } from '@/helpers/number.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
-import { useProxyWalletInfo } from '@/hooks/prediction/useProxyWalletInfo.js';
+import { usePredictionProfileData } from '@/hooks/prediction/usePredictionProfileData.js';
 import {
     captureOpinionProfileDetailClick,
     capturePolymarketProfileDetailClick,
@@ -36,16 +37,11 @@ interface PredictionProfileOverviewProps {
 export function PredictionProfileOverview({ profile, platform, address }: PredictionProfileOverviewProps) {
     const isOpinion = platform === PredictionPlatform.Opinion;
 
-    const { data: socialProfile } = useProxyWalletInfo(platform, address);
-
-    const {
-        name: socialName,
-        avatar: socialAvatar,
-        source,
-    } = useMemo(() => {
-        if (!socialProfile) return { name: undefined, avatar: undefined };
-        return extractFallbackInfo(socialProfile);
-    }, [socialProfile]);
+    const { name, avatar, source, socialProfile } = usePredictionProfileData({
+        platform,
+        address,
+        fallbackInfo: { name: profile.platform_name, avatar: profile.platform_avatar },
+    });
 
     const dataConfig = useMemo(() => {
         return compact([
@@ -156,11 +152,7 @@ export function PredictionProfileOverview({ profile, platform, address }: Predic
             <div className="flex items-center gap-4 px-4 pt-3">
                 <Link href={profileUrl} className="relative" onClick={handleWalletProfileClick}>
                     <Avatar
-                        src={
-                            socialAvatar ||
-                            profile.platform_avatar ||
-                            getStampAvatarByProfileId(Source.Wallet, profile.wallet)
-                        }
+                        src={avatar || getStampAvatarByProfileId(Source.Wallet, profile.wallet)}
                         alt="avatar"
                         size={40}
                         className="size-10 rounded-full border border-highlight"
@@ -179,7 +171,7 @@ export function PredictionProfileOverview({ profile, platform, address }: Predic
                         href={profileUrl}
                         onClick={handleWalletProfileClick}
                     >
-                        {socialName || profile.platform_name || <PredictionPlatformName platform={platform} />}
+                        {name || <PredictionPlatformName platform={platform} />}
                     </Link>
                     <div className="ml-auto flex items-center text-[13px] font-medium text-second">
                         {formatAddressEthereum(address, 4, 2)}
@@ -194,6 +186,9 @@ export function PredictionProfileOverview({ profile, platform, address }: Predic
                             }}
                         />
                     </div>
+                </div>
+                <div className="ml-auto shrink-0" id={BET_PROFILE_FOLLOW_BUTTON_ID}>
+                    <PredictionProfileFollowButton address={address} platform={platform} />
                 </div>
             </div>
             {profile.tags?.length ? (

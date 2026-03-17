@@ -8,6 +8,7 @@ import { getWalletProfileInfoList } from '@/providers/firefly/prediction/getWall
 export function useProxyWalletInfo(platform: PredictionPlatform, proxyAddress: string) {
     return useQuery({
         queryKey: ['proxy-wallet-profile-info', proxyAddress, platform],
+        staleTime: 1000 * 60 * 5, // 5 minutes
         queryFn: async () => {
             const res = await getWalletProfileInfoList(proxyAddress, platform, true);
             const walletAddresses = res?.data?.walletAddress;

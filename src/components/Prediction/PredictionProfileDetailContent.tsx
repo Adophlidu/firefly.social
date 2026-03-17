@@ -25,7 +25,11 @@ export async function PredictionProfileDetailContent({ address, platform }: Prop
 
     return (
         <div>
-            <PredictionProfilePageHeader />
+            <PredictionProfilePageHeader
+                address={address}
+                platform={platform}
+                fallbackName={predictionProfile.platform_name}
+            />
             <PredictionProfileOverview address={address} profile={predictionProfile} platform={platform} />
             <PredictionProfileCategoryTabs />
             <PredictionProfileTabContent platform={platform} address={address} predictionProfile={predictionProfile} />

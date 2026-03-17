@@ -2,7 +2,7 @@
 
 import { type ExceptionId } from '@dimensiondev/exception-tracker';
 
-import { type ClickOrigin, type ProfilePageSource } from '@/constants/enum.js';
+import { type ClickOrigin, type ProfilePageSource, type SocialSource, type Source } from '@/constants/enum.js';
 
 export enum VersionFilter {
     // the current working version
@@ -354,6 +354,8 @@ export enum EventId {
     POLYMARKET_SEARCH_EVENT_CLICK = 'polymarket_search_event_click',
     OPINION_PROFILE_POSITIONS_EVENT_CLICK = 'opinion_profile_positions_event_click',
     OPINION_PROFILE_TRADES_EVENT_CLICK = 'opinion_profile_trades_event_click',
+    POLYMARKET_PROFILE_FOLLOW_CLICK = 'polymarket_profile_follow_click',
+    OPINION_PROFILE_FOLLOW_CLICK = 'opinion_profile_follow_click',
 
     // bookmarks tab click
     BOOKMARK_FARCASTER_TAB_CLICK = 'bookmark_farcaster_click',
@@ -2117,6 +2119,18 @@ export interface Events extends Record<EventId, Event> {
             event_slug: string;
             market_title: string;
             outcome_name: string;
+        };
+    };
+    [EventId.POLYMARKET_PROFILE_FOLLOW_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            follow_type: SocialSource | Source.Wallet | 'login' | 'proxy_wallet';
+        };
+    };
+    [EventId.OPINION_PROFILE_FOLLOW_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            follow_type: SocialSource | Source.Wallet | 'login' | 'proxy_wallet';
         };
     };
 }

@@ -7,9 +7,9 @@ import { PredictionBaseInfoTabContent } from '@/components/Prediction/Prediction
 import { PredictionBaseInfoTabs } from '@/components/Prediction/PredictionBaseInfoTabs.js';
 import { PredictionContextProvider } from '@/components/Prediction/PredictionContext.js';
 import { PredictionEventOverview } from '@/components/Prediction/PredictionEventOverview.js';
+import { PredictionEventPageHeader } from '@/components/Prediction/PredictionEventPageHeader.js';
 import { PredictionMarketsAccountTab } from '@/components/Prediction/PredictionMarketsAccountTab/index.js';
 import { PredictionMarketsPriceLineChart } from '@/components/Prediction/PredictionMarketsPriceLineChart/index.js';
-import { PredictionProfilePageHeader } from '@/components/Prediction/PredictionProfilePageHeader.js';
 import { Locale, type PredictionPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/static.js';
 import { notFound } from '@/esm/navigation/server.js';
@@ -51,7 +51,7 @@ export async function PredictionEventDetailContent({ id, isMutil, platform }: Pr
     return (
         <div className="pb-20">
             <PolymarketEventTracker platform={platform} eventSlug={id} detail={event} />
-            <PredictionProfilePageHeader pageTitle={<Trans>Event detail</Trans>} />
+            <PredictionEventPageHeader pageTitle={<Trans>Event detail</Trans>} />
             <PredictionEventOverview detail={event} isActive={isActive} />
             <PredictionContextProvider platform={platform} markets={markets}>
                 <PredictionMarketsPriceLineChart platform={platform} markets={markets} isActive={isActive} />
