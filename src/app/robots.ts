@@ -33,7 +33,7 @@ export default function robots(): MetadataRoute.Robots {
             {
                 userAgent: '*',
                 allow: '/',
-                disallow: '/nft',
+                disallow: ['/nft', '/settings', '/bookmarks', '/notifications', '/intent', '/auth'],
             },
         ],
         sitemap: `${SITE_URL_OFFICIAL}/sitemap/index.xml`,

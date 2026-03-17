@@ -17,7 +17,7 @@ import { Script } from '@/esm/Script.js';
 import { inter } from '@/fonts/inter.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getAgent } from '@/helpers/getAgent.js';
-import { getCookie } from '@/helpers/getCookies.js';
+import { getCookie, getLocaleFromCookies } from '@/helpers/getCookies.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 
 export const metadata = createSiteMetadata('/');
@@ -31,6 +31,7 @@ export const viewport = {
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
     await setupLocaleForSSR();
+    const locale = await getLocaleFromCookies();
 
     const rootClass = await getCookie(SiteCookies.FireflyRootClass);
     const agent = await getAgent();
@@ -46,10 +47,9 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
     ];
 
     return (
-        <html className={rootClass}>
+        <html lang={locale} className={rootClass}>
             <head>
-                {/* Videos from twitter can not play on firefly, so we add this to fix */}
-                <meta name="referrer" content="no-referrer" />
+                <meta name="referrer" content="no-referrer-when-downgrade" />
                 <meta name="theme-color" content="#ffffff" />
                 <meta name="googlebot" content="notranslate" />
                 {IS_PRODUCTION ? null : <meta name="robots" content="noindex, nofollow" />}
