@@ -22,7 +22,7 @@ export const MysteryBoxModal = memo(function MysteryBoxModal() {
             <div className="relative flex-1 md:rounded-t-[32px]" style={{ background: '#0a0a1a' }}>
                 <iframe
                     src={urlcat(SITE_URL, '/mystery-box-iframe')}
-                    className="h-full w-full md:rounded-t-[32px]"
+                    className="size-full md:rounded-t-[32px]"
                     title="Mystery Box"
                 />
             </div>

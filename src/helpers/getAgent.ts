@@ -1,9 +1,10 @@
+import type { ReadonlyHeaders } from 'next/dist/server/web/spec-extension/adapters/headers.js';
 import { headers } from 'next/headers.js';
 
 import { Agent } from '@/constants/enum.js';
 
-export async function getAgent() {
-    const url = (await headers()).get('X-URL');
+export async function getAgent(allHeaders?: ReadonlyHeaders) {
+    const url = (allHeaders ?? (await headers())).get('X-URL');
     if (!url) return null;
 
     const parsedUrl = new URL(url);
