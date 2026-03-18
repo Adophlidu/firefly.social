@@ -1,14 +1,16 @@
 'use client';
 
+import { useQuery } from '@tanstack/react-query';
 import { memo, useCallback, useMemo } from 'react';
 import type { Address } from 'viem';
 
 import { FollowButton } from '@/components/Profile/FollowButton.js';
 import { WatchButton } from '@/components/Profile/WatchButton.js';
-import { type PredictionPlatform, Source } from '@/constants/enum.js';
+import { type PredictionPlatform, type SocialSource, Source } from '@/constants/enum.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { isSocialSource } from '@/helpers/isSource.js';
+import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { usePredictionProfileData } from '@/hooks/prediction/usePredictionProfileData.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
@@ -26,14 +28,24 @@ export const PredictionProfileFollowButton = memo<Props>(function PredictionProf
     const isLoginFirefly = useIsLoginFirefly();
     const { source, profileId, name, isLoading } = usePredictionProfileData({ platform, address });
 
+    const { data, isLoading: isProfileLoading } = useQuery({
+        queryKey: ['profile', source, profileId, profilesAll[source as SocialSource]?.profileId],
+        enabled: !!profileId && isSocialSource(source) && !!profilesAll[source]?.profileId,
+        queryFn: async () => {
+            if (!isSocialSource(source) || !profileId) return null;
+            return resolveSocialMediaProvider(source).getProfileById(profileId);
+        },
+    });
+
     const socialProfile = useMemo(() => {
         if (!profileId || !isSocialSource(source)) return null;
+        if (data) return data;
 
         return {
             ...createDummyProfile(source, source),
             profileId,
         };
-    }, [source, profileId]);
+    }, [source, profileId, data]);
     const isRelatedProfile = useMemo(() => {
         if (!profileId || (!isSocialSource(source) && source !== Source.Wallet)) return false;
 
@@ -49,7 +61,7 @@ export const PredictionProfileFollowButton = memo<Props>(function PredictionProf
         return captureBetProfileFollowEvent(platform, 'proxy_wallet');
     }, [source, platform, isLoginFirefly, profilesAll]);
 
-    if (isLoading || isRelatedProfile) return null;
+    if (isLoading || isRelatedProfile || isProfileLoading) return null;
     if (socialProfile) {
         return <FollowButton profile={socialProfile} onClick={onBetProfileFollowButtonClick} />;
     }
