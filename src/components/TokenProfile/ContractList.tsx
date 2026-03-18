@@ -29,7 +29,6 @@ export const ContractList = memo<Props>(function ContractList({
     return (
         <MoreActionMenu
             loginRequired={false}
-            buttonClassName="active:!scale-100"
             button={
                 children ?? (
                     <Tooltip content={<Trans>More</Trans>} placement="top">
@@ -37,6 +36,7 @@ export const ContractList = memo<Props>(function ContractList({
                     </Tooltip>
                 )
             }
+            buttonProps={{ as: 'div', className: 'active:!scale-100' }}
         >
             <MenuItems
                 style={{ '--anchor-max-height': '225px' } as CSSProperties}
