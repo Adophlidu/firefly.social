@@ -106,8 +106,8 @@ export function PageBackground({ step, children }: PageBackgroundProps) {
             >
                 <CloudSmallIcon width="100%" />
             </motion.div>
-            <AnimatePresence>
-                {step !== SignupStep.Welcome ? (
+            {step !== SignupStep.Welcome ? (
+                <AnimatePresence mode="wait">
                     <motion.div
                         className="absolute inset-x-0 bottom-0 w-full"
                         style={{
@@ -205,8 +205,8 @@ export function PageBackground({ step, children }: PageBackgroundProps) {
                             <HouseIcon width="24.74vw" height="15.42vw" />
                         </div>
                     </motion.div>
-                ) : null}
-            </AnimatePresence>
+                </AnimatePresence>
+            ) : null}
             {children}
         </div>
     );
