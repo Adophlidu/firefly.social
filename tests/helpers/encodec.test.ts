@@ -26,7 +26,7 @@ describe('encodec', () => {
             expect(result1).toBe(result2);
         });
 
-        test('should handle empty string', (async) => {
+        test('should handle empty string', async () => {
             const plaintext = '';
 
             return expect(encrypt(plaintext, testKey)).resolves.toBeDefined();

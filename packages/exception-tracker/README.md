@@ -60,8 +60,20 @@ configureExceptionTracker({
         farcaster_id: '...',
         bsky_id: '...',
     }),
+    // Optional: error message patterns to ignore (merged with built-in defaults)
+    ignoredErrors: [
+        'MyCustomError', // string = substring match
+        /^NetworkError: \d+$/, // RegExp = regex test
+    ],
 });
 ```
+
+#### `ignoredErrors`
+
+Optional. Error message patterns to ignore (noise reduction). Merged with built-in defaults. Supports:
+
+- **String** – substring match (`message.includes(pattern)`)
+- **RegExp** – regex test (`pattern.test(message)`)
 
 ### 2. Use the APIs
 
@@ -103,6 +115,7 @@ await reportExceptionServer(error, {
 - `ExceptionId` - Enum of exception types
 - `classifyError` - Classify errors (chunk load, network, etc.)
 - `configureExceptionTracker` - Configure the tracker (required before use)
+- `IgnoredErrorPattern` - Type for `ignoredErrors` entries (`string | RegExp`)
 - `getErrorMessage` - Extract message from unknown value
 - `initGlobalErrorHandlers` - Init global handlers (non-hook version)
 - `normalizeError` - Normalize unknown to Error

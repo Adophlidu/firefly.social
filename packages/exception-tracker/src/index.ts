@@ -21,6 +21,7 @@ export {
     configureExceptionTracker,
     type ExceptionTrackerConfig,
     getExceptionTrackerConfig,
+    type IgnoredErrorPattern,
     type ServerReportConfig,
     type UserContext,
 } from '@/config.js';

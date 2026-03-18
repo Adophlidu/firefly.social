@@ -1,5 +1,7 @@
 /* cspell:disable */
 
+import { getExceptionTrackerConfig } from '@/config.js';
+import { type IgnoredErrorPattern } from '@/config.js';
 import { captureException, ExceptionId } from '@/core/captureException.js';
 import { classifyError } from '@/helpers/classifyError.js';
 import { getErrorMessage } from '@/helpers/getErrorMessage.js';
@@ -7,9 +9,9 @@ import { getErrorMessage } from '@/helpers/getErrorMessage.js';
 let initialized = false;
 
 /**
- * Error message patterns to ignore (noise reduction)
+ * Built-in error message patterns to ignore (noise reduction)
  */
-const IGNORED_ERROR_PATTERNS = [
+const DEFAULT_IGNORED_PATTERNS: IgnoredErrorPattern[] = [
     // Cross-origin script errors (no useful info)
     'Script error.',
     'Script error',
@@ -44,11 +46,24 @@ const IGNORED_ERROR_PATTERNS = [
     'TweetUnavailableError',
 ];
 
+function getIgnoredPatterns(): IgnoredErrorPattern[] {
+    const cfg = getExceptionTrackerConfig();
+    const custom = cfg?.ignoredErrors ?? [];
+    return [...DEFAULT_IGNORED_PATTERNS, ...custom];
+}
+
 /**
- * Checks if error message matches any ignored patterns
+ * Checks if error message matches any ignored patterns.
+ * Strings use substring match (includes); RegExp uses regex test.
  */
 function shouldIgnoreError(message: string): boolean {
-    return IGNORED_ERROR_PATTERNS.some((pattern) => message.includes(pattern));
+    const patterns = getIgnoredPatterns();
+    return patterns.some((pattern) => {
+        if (typeof pattern === 'string') {
+            return message.includes(pattern);
+        }
+        return pattern.test(message);
+    });
 }
 
 /**

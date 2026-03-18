@@ -34,10 +34,15 @@ export interface ServerReportConfig {
     serviceName?: string;
 }
 
+/** String = substring match (includes), RegExp = regex test */
+export type IgnoredErrorPattern = string | RegExp;
+
 export interface ExceptionTrackerConfig {
     getClient?: () => ClientReportConfig | undefined;
     getServer?: () => ServerReportConfig | undefined;
     getUserContext?: () => UserContext;
+    /** Error message patterns to ignore. Strings use substring match; RegExp uses regex test. Merged with built-in defaults. */
+    ignoredErrors?: IgnoredErrorPattern[];
 }
 
 let config: ExceptionTrackerConfig | null = null;
