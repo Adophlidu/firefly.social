@@ -31,6 +31,8 @@ interface PredictionMarketsPriceLineChartProps {
     platform: PredictionPlatform;
     markets: BetsMarketDataForUI[];
     isActive: boolean;
+    showBuyButtons?: boolean;
+    filterResolvedMarkets?: boolean;
 }
 
 const lineColors = ['#FF209B', '#5E69FF', '#FF372B', '#FFAA16', '#00D2FF', '#00FF85', '#FF6EC4', '#8C56FF'];
@@ -58,12 +60,18 @@ function toMarketsWithSettings(markets: BetsMarketDataForUI[]): BetsMarketWithSe
     }));
 }
 
-export function PredictionMarketsPriceLineChart({ platform, markets, isActive }: PredictionMarketsPriceLineChartProps) {
+export function PredictionMarketsPriceLineChart({
+    platform,
+    markets,
+    isActive,
+    showBuyButtons = true,
+    filterResolvedMarkets = true,
+}: PredictionMarketsPriceLineChartProps) {
     const [outcomeId, setOutcomeId] = useState(first(markets)?.outcomes?.[0]?.id || '');
     const [timeRange, setTimeRange] = useState(BetsPriceTimeRange.All);
     const [payload, setPayload] = useState<Array<{ dataKey: string; value?: number }>>();
     const [marketsWithSettings, setMarketsWithSettings] = useState<BetsMarketWithSettings[]>(
-        toMarketsWithSettings(markets),
+        toMarketsWithSettings(filterResolvedMarkets ? markets.filter((m) => !m.isResolved && !m.isClosed) : markets),
     );
 
     const labels = useMemo(() => {
@@ -147,7 +155,11 @@ export function PredictionMarketsPriceLineChart({ platform, markets, isActive }:
                     </ClickableButton>
                 )}
             </div>
-            {markets.length === 1 && supportOrderBook && !firstMarket.isResolved && !firstMarket.isClosed ? (
+            {markets.length === 1 &&
+            supportOrderBook &&
+            !firstMarket.isResolved &&
+            !firstMarket.isClosed &&
+            showBuyButtons ? (
                 <PredictionMarketBuyButtons
                     className="mt-6"
                     platform={platform}

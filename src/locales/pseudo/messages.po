@@ -1507,6 +1507,9 @@ msgstr ""
 msgid "Oops... Not all the requirements have been met"
 msgstr ""
 
+msgid "Resolution"
+msgstr ""
+
 msgid "Prediction Leaderboard"
 msgstr ""
 
@@ -4629,6 +4632,9 @@ msgstr ""
 msgid "{0}h: {1}m: {2}s"
 msgstr ""
 
+msgid "Order Book"
+msgstr ""
+
 #. placeholder {0}: resolveSourceName(source)
 #. placeholder {1}: error instanceof Error ? error.message : ''
 msgid "Failed to create {0} profile.{1}"
@@ -4819,6 +4825,9 @@ msgstr ""
 
 #. placeholder {0}: post.author.displayName
 msgid "<0>{0}</0> retruthed"
+msgstr ""
+
+msgid "Graph"
 msgstr ""
 
 msgid "Sign in with Farcaster"

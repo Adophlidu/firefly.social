@@ -1512,6 +1512,9 @@ msgstr "搜索预测"
 msgid "Oops... Not all the requirements have been met"
 msgstr "哎呀... 并未满足所有要求"
 
+msgid "Resolution"
+msgstr ""
+
 msgid "Prediction Leaderboard"
 msgstr "预测排行榜"
 
@@ -4634,6 +4637,9 @@ msgstr "登录成功"
 msgid "{0}h: {1}m: {2}s"
 msgstr "{0}时: {1}分: {2}秒"
 
+msgid "Order Book"
+msgstr ""
+
 #. placeholder {0}: resolveSourceName(source)
 #. placeholder {1}: error instanceof Error ? error.message : ''
 msgid "Failed to create {0} profile.{1}"
@@ -4827,6 +4833,9 @@ msgstr "翻译中..."
 #. placeholder {0}: post.author.displayName
 msgid "<0>{0}</0> retruthed"
 msgstr "<0>{0}</0> 转发了"
+
+msgid "Graph"
+msgstr ""
 
 msgid "Sign in with Farcaster"
 msgstr "使用 Farcaster 登录"

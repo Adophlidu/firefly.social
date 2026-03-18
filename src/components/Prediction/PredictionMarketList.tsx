@@ -29,6 +29,13 @@ const PredictionMarketOrderBook = dynamic(
         ),
     { ssr: false, loading: () => <Loading minHeight={148} /> },
 );
+const PredictionSingleMarketTab = dynamic(
+    () =>
+        import('@/components/Prediction/PredictionSingleMarketTab/index.js').then(
+            (mod) => mod.PredictionSingleMarketTab,
+        ),
+    { ssr: false, loading: () => <Loading minHeight={148} /> },
+);
 
 interface PredictionMarketListProps {
     markets: BetsMarketDataForUI[];
@@ -48,8 +55,6 @@ export const PredictionMarketList = memo(function PredictionMarketList({
 
     const onMarketClick = useCallback(
         (market: BetsMarketDataForUI) => {
-            if (market.isResolved || market.isClosed || platform !== PredictionPlatform.Polymarket) return;
-
             // Track market click for Polymarket
             if (platform === PredictionPlatform.Polymarket && eventSlug && eventTitle) {
                 capturePolymarketEventMarketClick(eventSlug, eventTitle, market.slug || market.id, market.title);
@@ -81,7 +86,7 @@ export const PredictionMarketList = memo(function PredictionMarketList({
                 const actionEnabled = !market.isResolved && !market.isClosed;
                 const isGreen = market.resolvedOutcomeId === market.outcomes[0]?.id;
                 const resolvedLabel = market.outcomes.find((o) => o.id === market.resolvedOutcomeId)?.label;
-                const showOrderBook = actionEnabled && supportOrderBook;
+                const showOrderBook = true;
 
                 return (
                     <div key={market.id} className="space-y-3">
@@ -163,7 +168,7 @@ export const PredictionMarketList = memo(function PredictionMarketList({
                             <PredictionMarketBuyButtons showPrice platform={platform} market={market} />
                         ) : null}
                         {showOrderBook && marketId === market.id ? (
-                            <PredictionMarketOrderBook key={market.id} market={market} platform={platform} />
+                            <PredictionSingleMarketTab key={market.id} market={market} platform={platform} />
                         ) : null}
                     </div>
                 );
