@@ -326,7 +326,7 @@ export const HlsPlayer = memo<HlsPlayerProps>(function HlsPlayer({
             ) : null}
 
             {error ? (
-                <div className="absolute inset-0 z-30 flex items-center justify-center bg-black/90 p-8 text-center backdrop-blur-xl">
+                <div className="absolute inset-0 z-20 flex items-center justify-center bg-black/90 p-8 text-center backdrop-blur-xl">
                     <div className="max-w-xs">
                         <div className="mx-auto mb-4 flex size-16 items-center justify-center rounded-full bg-red-500/20">
                             <svg className="size-8 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -387,7 +387,7 @@ export const HlsPlayer = memo<HlsPlayerProps>(function HlsPlayer({
 
             <div
                 className={classNames(
-                    'absolute inset-x-0 bottom-0 z-20 bg-gradient-to-t from-black/90 via-black/40 to-transparent px-1 pb-1 pt-20 transition-opacity duration-500',
+                    'absolute inset-x-0 bottom-0 z-1 bg-gradient-to-t from-black/90 via-black/40 to-transparent px-1 pb-1 pt-20 transition-opacity duration-500',
                     showControls || mode === 'gif' ? 'opacity-100' : 'opacity-0',
                 )}
             >
