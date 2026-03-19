@@ -37,6 +37,12 @@
             "src": "/android-chrome-384x384.png",
             "sizes": "384x384",
             "type": "image/png"
+        },
+        {
+            "src": "/web-app-manifest-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
         }
     ],
     "prefer_related_applications": true,
@@ -48,5 +54,11 @@
     ],
     "theme_color": "#ffffff",
     "background_color": "#ffffff",
-    "display": "standalone"
+    "display": "standalone",
+    "scope": "/",
+    "start_url": "/posts",
+    "launch_handler": {
+        "client_mode": "focus-existing"
+    },
+    "categories": ["social", "web3"]
 }
