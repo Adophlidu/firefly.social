@@ -24,7 +24,7 @@ export async function getBskyLikeReactors(
         {
             uri: atUri,
             cursor: indicator?.id,
-            limit: 25,
+            limit: 20,
         },
         { signal },
     );

@@ -18,7 +18,7 @@ export async function getBskyMutualFollowers(
         {
             actor: profileId,
             cursor: indicator?.id,
-            limit: 25,
+            limit: 20,
         },
         { signal },
     );

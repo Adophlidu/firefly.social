@@ -15,7 +15,7 @@ export async function searchBskyProfiles(
     indicator?: PageIndicator,
     signal?: AbortSignal,
 ): Promise<Pageable<Profile, PageIndicator>> {
-    const limit = indicator?.size ?? 25;
+    const limit = indicator?.size ?? 20;
     const response = await bskySessionHolder.agent.searchActors(
         {
             q,
