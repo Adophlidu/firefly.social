@@ -39,6 +39,10 @@ jobs:
                   TOLGEE_CLI_VERSION=$(node -pe "require('./package.json').devDependencies['@tolgee/cli'].replace(/^[\^~]/, '')")
                   npx --yes @tolgee/cli@$TOLGEE_CLI_VERSION pull
 
+            # Re-serialize POs with Lingui (orderBy: message) so PRs match `pnpm lingui` locally
+            - name: Normalize catalog order and merge source strings
+              run: pnpm run lingui:extract
+
             - name: Compile Lingui catalogs
               run: pnpm run lingui:compile
 

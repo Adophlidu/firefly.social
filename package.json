@@ -27,6 +27,7 @@
         "tolgee:push": "tolgee push",
         "tolgee:push-sources": "tolgee push --force-mode OVERRIDE",
         "tolgee:pull": "tolgee pull",
+        "tolgee:sync": "tolgee pull && pnpm run lingui:extract && pnpm run lingui:compile",
         "storybook": "storybook dev -p 6006",
         "build-storybook": "storybook build",
         "packages:build": "pnpm -r --filter='./packages/*' run build",
