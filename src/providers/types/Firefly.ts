@@ -123,6 +123,7 @@ export interface Profile {
     primary_address?: string;
     registrant?: string;
     wrapped_owner?: string;
+    owner_address?: string;
     // related social profiles
     related_profiles?: Profile[];
     special?: boolean;

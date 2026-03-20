@@ -20,17 +20,32 @@ const validPlatforms = [
     FireflyPlatform.Firefly,
 ];
 
-function fixProfilePlatform(profile: FireflyProfile) {
+/**
+ * For searching ens, resolves wallet address from various possible fields in a Firefly profile
+ */
+function resolveAddressFromProfile(profile: FireflyProfile) {
+    const keys = ['resolved_address', 'registrant', 'owner', 'wrapped_owner', 'owner_address'] as const;
+
+    for (const key of keys) {
+        const address = profile[key];
+        if (typeof address === 'string' && isValidAddress(address) && !isZeroAddress(address)) return address;
+    }
+
+    return null;
+}
+
+function fixProfilePlatform(profile: FireflyProfile): FireflyProfile | null {
     if (!validPlatforms.includes(profile.platform)) {
+        const walletAddress = ['ens', 'base.eth'].includes(profile.platform)
+            ? resolveAddressFromProfile(profile)
+            : profile.platform_id;
+        if (!walletAddress || !isValidAddress(walletAddress)) return null;
+
         return {
             ...profile,
             platform: FireflyPlatform.Wallet,
-            // for ens matched
-            platform_id:
-                (profile.platform as unknown) === 'ens'
-                    ? profile.resolved_address || profile.registrant || profile.owner || profile.wrapped_owner
-                    : profile.platform_id,
-        } as FireflyProfile;
+            platform_id: walletAddress,
+        };
     }
 
     if (profile.platform === FireflyPlatform.Bsky) {
@@ -117,7 +132,7 @@ export function formatSearchProfile(
                       ...result,
                       special: profiles?.some((x) => x.special) || false,
                       related_profiles: isSocialSource(source)
-                          ? identity[resolveSocialSourceInUrl(source)]?.map(fixProfilePlatform)
+                          ? compact(identity[resolveSocialSourceInUrl(source)]?.map(fixProfilePlatform))
                           : undefined,
                   })
                 : null;
@@ -140,9 +155,12 @@ export function formatSearchProfile(
 
     if (target.platform === FireflyPlatform.Firefly && !allProfile.length) return null;
 
+    const fixedTarget = fixProfilePlatform(target);
+    if (!fixedTarget) return null;
+
     return {
         account: identity.account?.[0],
-        profile: fixProfilePlatform(target),
+        profile: fixedTarget,
         related: allProfile,
         isSpecial: isSpecialSearchProfile({ profile: target, related: allProfile }, keyword),
         addresses: [
