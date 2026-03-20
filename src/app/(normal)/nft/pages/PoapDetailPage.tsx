@@ -1,5 +1,6 @@
 'use client';
 
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import { useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 
@@ -8,7 +9,7 @@ import { Attendees } from '@/components/NFTDetail/Attendees.js';
 import { NFTInfo } from '@/components/NFTDetail/NFTInfo.js';
 import { NFTOverflow } from '@/components/NFTDetail/NFTOverflow.js';
 import { NFTNavbar } from '@/components/NFTs/NFTNavbar.js';
-import { EMPTY_LIST, POAP_CONTRACT_ADDRESS } from '@/constants/static.js';
+import { POAP_CONTRACT_ADDRESS } from '@/constants/static.js';
 import { notFound } from '@/esm/navigation.js';
 import { getPOAP } from '@/providers/firefly/nft/getPOAP.js';
 import { type NonFungibleTokenTrait } from '@/web3-shared/base/specs.js';

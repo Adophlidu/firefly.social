@@ -1,5 +1,6 @@
 'use client';
 
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import { classNames } from '@dimensiondev/utils';
 import { Popover } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
@@ -9,7 +10,6 @@ import { Avatar } from '@/components/Avatar.js';
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Popover as PopoverModal } from '@/components/Popover.js';
-import { EMPTY_LIST } from '@/constants/static.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { type Post, type Profile } from '@/providers/types/SocialMedia.js';

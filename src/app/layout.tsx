@@ -2,6 +2,7 @@
 
 import '@/app/globals.css';
 
+import { IS_PRODUCTION } from '@dimensiondev/constants';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { compact } from 'lodash-es';
 import { cookies, headers } from 'next/headers.js';
@@ -13,7 +14,6 @@ import { ErrorBoundary } from '@/components/ErrorBoundary/index.js';
 import { GlobalLoadingIndicator } from '@/components/GlobalLoadingIndicator.js';
 import { Agent, Locale, SiteCookies, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { IS_PRODUCTION } from '@/constants/static.js';
 import { Script } from '@/esm/Script.js';
 import { inter } from '@/fonts/inter.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';

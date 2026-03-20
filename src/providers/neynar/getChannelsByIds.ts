@@ -1,8 +1,9 @@
 /* cspell:disable */
 
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import urlcat from 'urlcat';
 
-import { EMPTY_LIST, NEYNAR_URL } from '@/constants/static.js';
+import { NEYNAR_URL } from '@/constants/static.js';
 import { fetchNeynarJson } from '@/helpers/fetchNeynarJson.js';
 import { resolveNeynarResponseData } from '@/helpers/resolveNeynarResponseData.js';
 import { formatChannelFromFirefly } from '@/providers/farcaster/formatFarcasterChannelFromFirefly.js';

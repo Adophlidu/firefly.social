@@ -1,9 +1,9 @@
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import { type Address } from 'viem';
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
 import { NetworkType } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/static.js';
 
 interface Wallets {
     [NetworkType.Solana]: Array<{ address: string }>;

@@ -1,7 +1,7 @@
 import { moderatePost } from '@atproto/api';
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import { compact } from 'lodash-es';
 
-import { EMPTY_LIST } from '@/constants/static.js';
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { PostAtUri } from '@/providers/bsky/AtUri.js';

@@ -1,3 +1,4 @@
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import ProtectedIcon from '@/assets/protected.svg';
@@ -5,7 +6,6 @@ import { ProtectedPostsMessage } from '@/components/fallbacks/ProtectedPostsMess
 import { ListInPage } from '@/components/ListInPage.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
 import { ScrollListKey, SocialProfileCategory, type SocialSource } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/static.js';
 import { getPostsSelector } from '@/helpers/getPostsSelector.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';

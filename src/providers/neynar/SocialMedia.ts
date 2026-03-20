@@ -1,10 +1,11 @@
 /* cspell:disable */
 
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import { NotImplementedError } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
 import { MessageType, ReactionType } from '@/constants/farcaster.js';
-import { EMPTY_LIST, NEYNAR_URL } from '@/constants/static.js';
+import { NEYNAR_URL } from '@/constants/static.js';
 import { fetchNeynarJson } from '@/helpers/fetchNeynarJson.js';
 import { type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveNeynarResponseData } from '@/helpers/resolveNeynarResponseData.js';

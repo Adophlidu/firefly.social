@@ -1,7 +1,7 @@
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import urlcat from 'urlcat';
 
 import { type PredictionPlatform } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/static.js';
 import { formatPolymarketFromFirefly } from '@/helpers/formatPolymarketFromFirefly.js';
 import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';

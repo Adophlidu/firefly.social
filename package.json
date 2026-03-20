@@ -39,6 +39,7 @@
         "@atproto/api": "^0.18.21",
         "@bprogress/next": "^3.2.11",
         "@coral-xyz/anchor": "^0.32.1",
+        "@dimensiondev/constants": "workspace:^",
         "@dimensiondev/exception-tracker": "workspace:^",
         "@dimensiondev/iframe-bridge": "workspace:^",
         "@dimensiondev/native-bridge": "workspace:^",

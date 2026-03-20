@@ -1,5 +1,6 @@
 'use client';
 
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import { useQuery, useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import ProtectedIcon from '@/assets/protected.svg';
@@ -8,7 +9,6 @@ import { ListInPage } from '@/components/ListInPage.js';
 import { pinnedPostQueryOptions } from '@/components/Posts/queries/pinnedPostQueryOptions.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
 import { ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/static.js';
 import { getPostsSelector } from '@/helpers/getPostsSelector.js';
 import { isSamePost } from '@/helpers/isSamePost.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';

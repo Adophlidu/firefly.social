@@ -1,9 +1,8 @@
 /* cspell:disable */
 
+import { IS_DEVELOPMENT } from '@dimensiondev/constants';
 import { randomBytes } from 'crypto';
 import { type NextRequest, NextResponse } from 'next/server.js';
-
-import { IS_DEVELOPMENT } from '@/constants/static.js';
 
 const DEVELOPMENT_SOURCES = IS_DEVELOPMENT
     ? ['http://localhost:3000', 'ws://localhost:3000', 'http://localhost:3001', 'ws://localhost:3001']

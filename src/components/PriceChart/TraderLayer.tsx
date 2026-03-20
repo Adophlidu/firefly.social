@@ -1,10 +1,10 @@
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import { classNames } from '@dimensiondev/utils';
 import { sortBy } from 'lodash-es';
 import { createContext, type CSSProperties, useContext, useLayoutEffect, useMemo, useRef } from 'react';
 
 import { AvatarRadius, SafePadding } from '@/components/PriceChart/config.js';
 import { TraderAvatar } from '@/components/PriceChart/TraderAvatar.js';
-import { EMPTY_LIST } from '@/constants/static.js';
 import { type PriceRecord, type TradeRecord } from '@/types/token.js';
 
 export interface TooltipState {

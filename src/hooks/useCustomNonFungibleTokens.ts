@@ -1,7 +1,7 @@
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import { useQuery } from '@tanstack/react-query';
 import { useConnection } from 'wagmi';
 
-import { EMPTY_LIST } from '@/constants/static.js';
 import { getCollections } from '@/providers/firefly/nft/getCollections.js';
 import { CustomTokenType, useCustomTokenStore } from '@/store/useCustomTokenStore.js';
 

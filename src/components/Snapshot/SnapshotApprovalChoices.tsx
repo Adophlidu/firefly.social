@@ -1,8 +1,8 @@
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import { uniq } from 'lodash-es';
 import { memo } from 'react';
 
 import { SnapshotChoice } from '@/components/Snapshot/SnapshotChoice.js';
-import { EMPTY_LIST } from '@/constants/static.js';
 
 interface SnapshotApprovalChoicesProps {
     choices: string[];

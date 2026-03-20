@@ -1,3 +1,4 @@
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import { Trans } from '@lingui/react/macro';
 import { type Ref, useState } from 'react';
 
@@ -5,7 +6,6 @@ import { CloseButton } from '@/components/IconButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Modal } from '@/components/Modal.js';
 import { Popover } from '@/components/Popover.js';
-import { EMPTY_LIST } from '@/constants/static.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';

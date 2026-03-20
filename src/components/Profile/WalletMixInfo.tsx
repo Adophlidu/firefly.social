@@ -1,5 +1,6 @@
 'use client';
 
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
@@ -13,7 +14,6 @@ import SolanaIcon from '@/assets/solana.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { Link } from '@/components/Link.js';
 import { NetworkType, Source } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/static.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
 import { getAddressType } from '@/helpers/getAddressType.js';

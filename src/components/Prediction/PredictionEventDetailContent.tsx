@@ -1,3 +1,4 @@
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import { Trans } from '@lingui/react/macro';
 import { first } from 'lodash-es';
 
@@ -11,7 +12,6 @@ import { PredictionEventPageHeader } from '@/components/Prediction/PredictionEve
 import { PredictionMarketsAccountTab } from '@/components/Prediction/PredictionMarketsAccountTab/index.js';
 import { PredictionMarketsPriceLineChart } from '@/components/Prediction/PredictionMarketsPriceLineChart/index.js';
 import { Locale, type PredictionPlatform } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/static.js';
 import { notFound } from '@/esm/navigation/server.js';
 import { getLocaleFromCookies } from '@/helpers/getCookies.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';

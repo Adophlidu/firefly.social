@@ -1,9 +1,9 @@
 import { type AppBskyFeedDefs } from '@atproto/api';
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { compact, uniq } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/static.js';
 import { isZero } from '@/helpers/number.js';
 import {
     createIndicator,

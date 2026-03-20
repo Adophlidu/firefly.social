@@ -1,3 +1,4 @@
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { memo } from 'react';
@@ -7,7 +8,7 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SearchableProfileItem } from '@/components/Search/SearchableProfileItem.js';
 import { SearchType } from '@/constants/enum.js';
 import { STALE_TIMES } from '@/constants/query.js';
-import { EMPTY_LIST, MAX_RECOMMEND_PROFILE_SIZE } from '@/constants/static.js';
+import { MAX_RECOMMEND_PROFILE_SIZE } from '@/constants/static.js';
 import { toFireflyPlatformId } from '@/helpers/isSameProfile.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import { searchProfilesByKeyword } from '@/services/searchProfilesByKeyword.js';

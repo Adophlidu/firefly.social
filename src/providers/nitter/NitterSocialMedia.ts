@@ -1,3 +1,4 @@
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import { NotFoundError, NotImplementedError, UnauthorizedError } from '@dimensiondev/utils';
 import { isServer } from '@tanstack/react-query';
 import { compact, last, uniq } from 'lodash-es';
@@ -6,7 +7,6 @@ import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';
 import { TweetUnavailableError } from '@/constants/error.js';
-import { EMPTY_LIST } from '@/constants/static.js';
 import { AddAuthorHighlightStatusForPosts } from '@/decorators/AddProfileHighlightStatus.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
 import { isNumericalProfileId } from '@/helpers/isNumericalProfileId.js';

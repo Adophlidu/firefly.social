@@ -1,5 +1,6 @@
+import { EMPTY_LIST } from '@dimensiondev/constants';
+
 import { type SocialSourceInURL } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/static.js';
 import {
     createIndicator,
     createNextIndicator,

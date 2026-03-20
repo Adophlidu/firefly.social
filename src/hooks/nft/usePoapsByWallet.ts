@@ -1,7 +1,7 @@
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 
-import { EMPTY_LIST } from '@/constants/static.js';
 import { getPoapsByWallet } from '@/services/getPoapsByWallet.js';
 
 export function usePoapsByWallet(address: string) {

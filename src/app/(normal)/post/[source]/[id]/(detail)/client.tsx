@@ -1,5 +1,6 @@
 'use client';
 
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { Suspense, useEffect } from 'react';
@@ -19,7 +20,7 @@ import { ThreadBody } from '@/components/Posts/ThreadBody.js';
 import { Section } from '@/components/Semantic/Section.js';
 import { SearchType, type SocialSource, Source } from '@/constants/enum.js';
 import { TweetUnavailableError } from '@/constants/error.js';
-import { EMPTY_LIST, MIN_POST_SIZE_PER_THREAD } from '@/constants/static.js';
+import { MIN_POST_SIZE_PER_THREAD } from '@/constants/static.js';
 import { notFound } from '@/esm/navigation.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 

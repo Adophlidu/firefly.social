@@ -1,3 +1,4 @@
+import { EMPTY_LIST, IS_DEVELOPMENT } from '@dimensiondev/constants';
 import { classNames, delay } from '@dimensiondev/utils';
 import { exposeToIframe } from '@farcaster/miniapp-host';
 import { Trans } from '@lingui/react/macro';
@@ -9,7 +10,7 @@ import { useChainId, useConnection } from 'wagmi';
 import { frameSwapToken } from '@/components/Frame/V2/frameSwapToken.js';
 import { Image } from '@/components/Image.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
-import { EIP6963_PROVIDER_DESCRIPTION, EMPTY_LIST, IS_DEVELOPMENT } from '@/constants/static.js';
+import { EIP6963_PROVIDER_DESCRIPTION } from '@/constants/static.js';
 import { createEIP1193Provider } from '@/helpers/createEIP1193Provider.js';
 import { eip5792Polyfill } from '@/helpers/eip5792Polyfill.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';

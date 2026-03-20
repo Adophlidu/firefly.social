@@ -1,5 +1,7 @@
+import { EMPTY_LIST } from '@dimensiondev/constants';
+
 import { FireflyPlatform } from '@/constants/enum.js';
-import { EMPTY_LIST, POAP_CONTRACT_ADDRESS } from '@/constants/static.js';
+import { POAP_CONTRACT_ADDRESS } from '@/constants/static.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getFireflyBookmarksByIds } from '@/providers/firefly/endpoint/getFireflyBookmarkIds.js';
 import { getPOAPs } from '@/providers/firefly/nft/getPOAPs.js';

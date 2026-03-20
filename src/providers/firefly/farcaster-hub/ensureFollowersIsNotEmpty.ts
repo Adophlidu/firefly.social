@@ -1,4 +1,5 @@
-import { EMPTY_LIST } from '@/constants/static.js';
+import { EMPTY_LIST } from '@dimensiondev/constants';
+
 import { formatFarcasterProfileFromFirefly } from '@/providers/farcaster/formatFarcasterProfileFromFirefly.js';
 import { type User } from '@/providers/types/Firefly.js';
 

@@ -1,5 +1,6 @@
 'use client';
 
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import { delay } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 
@@ -12,7 +13,6 @@ import { Loading } from '@/components/Loading.js';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { Source } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/static.js';
 import { useAllConnections } from '@/hooks/useAllConnections.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 

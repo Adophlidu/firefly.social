@@ -1,3 +1,4 @@
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import { t } from '@lingui/core/macro';
 import { first, omit, pick } from 'lodash-es';
 import { useContext, useMemo } from 'react';
@@ -10,7 +11,7 @@ import RED_PACKET_ABI from '@/abis/RedPacket.json' with { type: 'json' };
 import { formatSenderName } from '@/components/RedPacket/helpers.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { DEFAULT_THEME_ID, RED_PACKET_CONTRACT_VERSION, RED_PACKET_DURATION } from '@/constants/rp.js';
-import { EMPTY_LIST, SITE_URL } from '@/constants/static.js';
+import { SITE_URL } from '@/constants/static.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { rightShift, toFixed } from '@/helpers/number.js';
 import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';

@@ -1,9 +1,10 @@
+import { IS_PRODUCTION } from '@dimensiondev/constants';
 import { configureExceptionTracker } from '@dimensiondev/exception-tracker';
 import { bom } from '@dimensiondev/utils';
 
 import { Source } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { FIREFLY_EXCEPTION_TRACKER_URL, IS_PRODUCTION } from '@/constants/static.js';
+import { EXCEPTION_TRACKER_URL } from '@/constants/static.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
@@ -34,7 +35,7 @@ export function configureErrorCapture(): void {
             }),
         }),
         getServer: () => ({
-            baseUrl: FIREFLY_EXCEPTION_TRACKER_URL,
+            baseUrl: EXCEPTION_TRACKER_URL,
             version: env.shared.VERSION,
             commitHash: env.shared.COMMIT_HASH,
             environment: IS_PRODUCTION ? 'production' : 'development',

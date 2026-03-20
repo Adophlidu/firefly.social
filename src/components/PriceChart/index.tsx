@@ -1,3 +1,4 @@
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import { classNames } from '@dimensiondev/utils';
 import { type CSSProperties, type HTMLProps, memo, useMemo, useState } from 'react';
 import { Area, AreaChart, Customized, ResponsiveContainer, Tooltip, YAxis } from 'recharts';
@@ -10,7 +11,6 @@ import {
     TraderLayerContext,
     type TraderLayerOptions,
 } from '@/components/PriceChart/TraderLayer.js';
-import { EMPTY_LIST } from '@/constants/static.js';
 import { formatBalance, trimZero } from '@/helpers/formatBalance.js';
 import { useIsPriceUp } from '@/hooks/useIsPriceUp.js';
 import { useThrottledCallback } from '@/hooks/useThrottledCallback.js';

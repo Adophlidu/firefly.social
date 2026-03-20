@@ -1,7 +1,7 @@
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import urlcat from 'urlcat';
 
 import { BookmarkType, FireflyPlatform } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/static.js';
 import {
     createIndicator,
     createNextIndicator,

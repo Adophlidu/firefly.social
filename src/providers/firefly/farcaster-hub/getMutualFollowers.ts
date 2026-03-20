@@ -1,6 +1,6 @@
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import urlcat from 'urlcat';
 
-import { EMPTY_LIST } from '@/constants/static.js';
 import { omitEmptyParams } from '@/helpers/omitEmptyParams.js';
 import {
     createIndicator,

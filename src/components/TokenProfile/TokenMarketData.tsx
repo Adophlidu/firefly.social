@@ -1,5 +1,6 @@
 'use client';
 
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import { assert, classNames } from '@dimensiondev/utils';
 import { i18n } from '@lingui/core';
 import { Plural, Trans } from '@lingui/react/macro';
@@ -27,7 +28,6 @@ import { TradeFilter } from '@/components/TokenProfile/TradeFilter.js';
 import { useTradeInfo } from '@/components/TokenProfile/useTradeInfo.js';
 import { TRACING_RUNTIME_LIST } from '@/constants/computed.js';
 import { NATIVE_TOKEN_ADDRESS } from '@/constants/okx.js';
-import { EMPTY_LIST } from '@/constants/static.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { isZeroAddress } from '@/helpers/isZeroAddress.js';

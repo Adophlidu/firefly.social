@@ -1,7 +1,7 @@
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import { compact } from 'lodash-es';
 
 import { type SocialSource } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/static.js';
 import { composeSearchProfiles, formatSearchProfile, sortSearchProfiles } from '@/helpers/formatSearchProfile.js';
 import { createIndicator, type PageIndicator } from '@/helpers/pageable.js';
 import { searchBskyProfiles } from '@/providers/bsky/searchBskyProfiles.js';

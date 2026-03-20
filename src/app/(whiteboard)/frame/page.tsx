@@ -1,5 +1,6 @@
 'use client';
 
+import { IS_DEVELOPMENT } from '@dimensiondev/constants';
 import { nativeBridgeProvider, SupportedMethod } from '@dimensiondev/native-bridge';
 import { bom, parseUrl } from '@dimensiondev/utils';
 import { exposeToIframe, type MiniAppHost, type ReadyOptions } from '@farcaster/miniapp-host';
@@ -14,7 +15,7 @@ import { frameSwapToken } from '@/components/Frame/V2/frameSwapToken.js';
 import { Image } from '@/components/Image.js';
 import { ProfileVerifyBadge } from '@/components/ProfileVerifyBadge/index.js';
 import { IS_IOS } from '@/constants/browser.js';
-import { EIP6963_PROVIDER_DESCRIPTION, IS_DEVELOPMENT } from '@/constants/static.js';
+import { EIP6963_PROVIDER_DESCRIPTION } from '@/constants/static.js';
 import { createEIP1193Provider } from '@/helpers/createEIP1193Provider.js';
 import { createFireflyWalletClient } from '@/helpers/createFireflyWalletClient.js';
 import { eip5792Polyfill } from '@/helpers/eip5792Polyfill.js';

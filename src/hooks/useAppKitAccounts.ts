@@ -1,3 +1,4 @@
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import {
     CoreAssetUtil,
     CoreChainController,
@@ -11,7 +12,6 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { ConnectionSource, NetworkType } from '@/constants/enum.js';
 import { walletConnectIcon, walletConnectId } from '@/constants/reown.js';
-import { EMPTY_LIST } from '@/constants/static.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { networkTypeToChainNamespace } from '@/helpers/networkTypeToChainNamespace.js';

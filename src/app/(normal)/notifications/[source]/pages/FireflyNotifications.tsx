@@ -1,3 +1,4 @@
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import { memo, useMemo } from 'react';
 
 import { getNotificationItemContent } from '@/app/(normal)/notifications/[source]/pages/getNotificationItemContent.js';
@@ -6,7 +7,6 @@ import { ListInPage } from '@/components/ListInPage.js';
 import { Loading } from '@/components/Loading.js';
 import { SOCIAL_NOTIFICATION_TYPES, UNIFIED_NOTIFICATION_TYPES } from '@/constants/computed.js';
 import { ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/static.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';

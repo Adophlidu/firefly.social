@@ -2,6 +2,7 @@
 
 'use client';
 
+import { IS_PRODUCTION } from '@dimensiondev/constants';
 import { type AppKitNetwork } from '@reown/appkit/networks';
 import { createAppKit } from '@reown/appkit/react';
 
@@ -11,7 +12,7 @@ import { wagmiAdapter, wagmiNetworks } from '@/configs/wagmiClient.js';
 import { IS_MOBILE_DEVICE } from '@/constants/browser.js';
 import { env } from '@/constants/env.js';
 import { WalletId } from '@/constants/reown.js';
-import { IS_PRODUCTION, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/constants/static.js';
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/constants/static.js';
 
 const networks = [...wagmiNetworks, ...solanaNetworks] as [AppKitNetwork, ...AppKitNetwork[]];
 

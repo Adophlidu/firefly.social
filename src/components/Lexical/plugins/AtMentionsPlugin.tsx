@@ -1,3 +1,4 @@
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import { classNames } from '@dimensiondev/utils';
 import { type AutoLinkNode } from '@lexical/link';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext.js';
@@ -19,7 +20,6 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { FireflyPlatform, type SocialSource, Source } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/static.js';
 import { getSafeMentionQueryText } from '@/helpers/getMentionOriginalText.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { resolveSocialSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';

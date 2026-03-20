@@ -3,7 +3,7 @@ import { type NextRequest } from 'next/server.js';
 import urlcat from 'urlcat';
 
 import { env } from '@/constants/env.js';
-import { FIREFLY_EXCEPTION_TRACKER_URL } from '@/constants/static.js';
+import { EXCEPTION_TRACKER_URL } from '@/constants/static.js';
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 
@@ -26,7 +26,7 @@ export const POST = compose(withRequestErrorHandler(), async (request: NextReque
     const body = await request.text();
 
     // Build the upstream URL with api_key as query parameter
-    const upstreamUrl = urlcat(FIREFLY_EXCEPTION_TRACKER_URL, '/api/exceptions', {
+    const upstreamUrl = urlcat(EXCEPTION_TRACKER_URL, '/api/exceptions', {
         api_key: apiKey,
     });
 

@@ -1,8 +1,8 @@
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import { toInteger } from 'lodash-es';
 import { toHex } from 'viem';
 
 import { MessageType } from '@/constants/farcaster.js';
-import { EMPTY_LIST } from '@/constants/static.js';
 import { farcasterPostIdToHash } from '@/providers/farcaster/farcasterPostIdToHash.js';
 import { getAllMentionsForFarcaster } from '@/providers/farcaster/getAllMentionsForFarcaster.js';
 import { publishMessage } from '@/providers/firefly/farcaster-hub/publishMessage.js';

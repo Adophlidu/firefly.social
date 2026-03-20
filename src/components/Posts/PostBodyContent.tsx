@@ -1,5 +1,6 @@
 'use client';
 
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { isUndefined } from 'lodash-es';
@@ -27,7 +28,7 @@ import { IS_APPLE, IS_SAFARI } from '@/constants/browser.js';
 import { SUPPORTED_MULTIPLE_EMBED_SOURCES } from '@/constants/computed.js';
 import { PageRoute, Source, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { EMPTY_LIST, MIN_CHAR_LENGTH_TO_TRANSLATE, RP_HASH_TAG } from '@/constants/static.js';
+import { MIN_CHAR_LENGTH_TO_TRANSLATE, RP_HASH_TAG } from '@/constants/static.js';
 import { usePathname, useRouter } from '@/esm/navigation.js';
 import { getEncryptedPayloadFromText } from '@/helpers/getEncryptedPayloadFromText.js';
 import { getPollIdFromLink } from '@/helpers/getPollIdFromLink.js';

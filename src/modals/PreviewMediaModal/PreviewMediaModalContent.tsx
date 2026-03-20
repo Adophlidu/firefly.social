@@ -4,6 +4,7 @@ import 'swiper/css';
 import 'swiper/css/keyboard';
 import 'swiper/css/navigation';
 
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
 import { useMemo, useRef } from 'react';
 import { Keyboard, Navigation } from 'swiper/modules';
@@ -13,7 +14,6 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { CloseButton } from '@/components/IconButton.js';
 import { SUPPORTED_PREVIEW_MEDIA_TYPES } from '@/constants/computed.js';
 import { type Source } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/static.js';
 import { PreviewContent } from '@/modals/PreviewMediaModal/PreviewContent.js';
 import { type Attachment, type Post } from '@/providers/types/SocialMedia.js';
 

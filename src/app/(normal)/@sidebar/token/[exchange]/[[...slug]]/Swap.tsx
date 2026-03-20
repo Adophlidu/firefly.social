@@ -1,3 +1,4 @@
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import { first } from 'lodash-es';
 import { memo, useEffect, useMemo } from 'react';
 
@@ -5,7 +6,6 @@ import { Loading } from '@/components/Loading.js';
 import { useTradeInfo } from '@/components/TokenProfile/useTradeInfo.js';
 import { TRACING_RUNTIME_LIST } from '@/constants/computed.js';
 import { NATIVE_TOKEN_ADDRESS } from '@/constants/okx.js';
-import { EMPTY_LIST } from '@/constants/static.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { useSearchParams } from '@/esm/navigation.js';
 import { isZeroAddress } from '@/helpers/isZeroAddress.js';

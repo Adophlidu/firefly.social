@@ -1,5 +1,6 @@
 'use client';
 
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import { Trans } from '@lingui/react/macro';
 import { uniqBy } from 'lodash-es';
 import { memo } from 'react';
@@ -10,7 +11,6 @@ import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
 import { HomeTab, ScrollListKey, Source } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/static.js';
 import { mergeThreadPostsWithoutSource } from '@/helpers/mergeThreadPosts.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';

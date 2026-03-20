@@ -1,3 +1,4 @@
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
@@ -13,7 +14,6 @@ import { AddressLink } from '@/components/Tips/AddressLink.js';
 import { Tips } from '@/components/Tips/index.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
 import { NetworkType, type ProfilePageSource, Source } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/static.js';
 import { Link } from '@/esm/Link.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { getAddressType } from '@/helpers/getAddressType.js';

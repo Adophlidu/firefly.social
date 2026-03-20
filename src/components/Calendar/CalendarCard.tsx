@@ -1,5 +1,6 @@
 'use client';
 
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import { classNames } from '@dimensiondev/utils';
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
@@ -9,7 +10,6 @@ import { DatePickerTab } from '@/components/Calendar/DatePickerTab.js';
 import { EventList } from '@/components/Calendar/EventList.js';
 import { useAvailableDates } from '@/components/Calendar/hooks/useAvailableDates.js';
 import { NewsList } from '@/components/Calendar/NewsList.js';
-import { EMPTY_LIST } from '@/constants/static.js';
 import { EventProvider } from '@/types/calendar.js';
 
 export function CalendarCard() {

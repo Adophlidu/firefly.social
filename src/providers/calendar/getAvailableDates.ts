@@ -1,6 +1,7 @@
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import urlcat from 'urlcat';
 
-import { CALENDAR_BASE_URL, EMPTY_LIST } from '@/constants/static.js';
+import { CALENDAR_BASE_URL } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { type EventDatesResponse, type EventProvider } from '@/types/calendar.js';
 

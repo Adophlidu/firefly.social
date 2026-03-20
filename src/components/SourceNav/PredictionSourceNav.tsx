@@ -1,5 +1,6 @@
 'use client';
 
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import { classNames } from '@dimensiondev/utils';
 import { useQuery } from '@tanstack/react-query';
 import { useQueryState } from 'nuqs';
@@ -7,7 +8,6 @@ import { type HTMLProps, memo, useLayoutEffect, useMemo, useRef } from 'react';
 
 import { Link } from '@/components/Link.js';
 import { STALE_TIMES } from '@/constants/query.js';
-import { EMPTY_LIST } from '@/constants/static.js';
 import { useParams } from '@/esm/navigation.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { getEventSlugList } from '@/providers/firefly/prediction/getEventSlugList.js';

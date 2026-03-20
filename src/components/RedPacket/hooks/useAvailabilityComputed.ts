@@ -1,3 +1,4 @@
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import { type QueryObserverResult, type RefetchOptions, useQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import { useCallback } from 'react';
@@ -7,7 +8,6 @@ import { useCheckSponsorableGasFee } from '@/components/RedPacket/hooks/useCheck
 import { useClaimStrategyStatus } from '@/components/RedPacket/hooks/useClaimStrategyStatus.js';
 import { useParseRedPacket } from '@/components/RedPacket/hooks/useParseRedPacket.js';
 import { NetworkType } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/static.js';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { usePrivyAppkitAccountByNetwork } from '@/hooks/appkit/usePrivyAppkitAccountByNetwork.js';

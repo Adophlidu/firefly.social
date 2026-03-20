@@ -1,3 +1,4 @@
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import { Trans } from '@lingui/react/macro';
 import { useAsyncFn } from 'react-use';
 
@@ -8,7 +9,6 @@ import {
 import DisconnectIcon from '@/assets/disconnect.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { WalletSource } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/static.js';
 import { enqueueErrorMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { resolveConnectionPlatform } from '@/helpers/resolveConnectionPlatform.js';
 import { useAllConnections } from '@/hooks/useAllConnections.js';

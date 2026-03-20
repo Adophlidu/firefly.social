@@ -1,9 +1,10 @@
+import { IS_PRODUCTION } from '@dimensiondev/constants';
 import { Trans } from '@lingui/react/macro';
 import { compact } from 'lodash-es';
 
 import { Link } from '@/components/Link.js';
 import { env } from '@/constants/env.js';
-import { IS_PRODUCTION, SITE_URL_OFFICIAL } from '@/constants/static.js';
+import { SITE_URL_OFFICIAL } from '@/constants/static.js';
 
 export function LinkCloud() {
     const links = [

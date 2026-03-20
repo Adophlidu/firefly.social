@@ -1,3 +1,4 @@
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import { NotImplementedError } from '@dimensiondev/utils';
 import { isServer } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
@@ -12,7 +13,6 @@ import urlcat from 'urlcat';
 
 import { FireflyPlatform, type Locale, Source } from '@/constants/enum.js';
 import { TWITTER_PROFILE_SEARCH_REGEXP } from '@/constants/regexp.js';
-import { EMPTY_LIST } from '@/constants/static.js';
 import { AddLikeStatusToTwitterPosts } from '@/decorators/AddLikeStatusToTwitterPosts.js';
 import { AddAuthorHighlightStatusForPosts } from '@/decorators/AddProfileHighlightStatus.js';
 import { SetQueryDataForActPost } from '@/decorators/SetQueryDataForActPost.js';

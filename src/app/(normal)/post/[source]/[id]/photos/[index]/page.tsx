@@ -1,9 +1,9 @@
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import { notFound } from 'next/navigation.js';
 
 import { PreviewImageModal } from '@/components/PreviewImageModal.js';
 import { SUPPORTED_PREVIEW_MEDIA_TYPES } from '@/constants/computed.js';
 import { type SocialSourceInURL } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/static.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';

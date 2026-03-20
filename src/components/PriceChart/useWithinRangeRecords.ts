@@ -1,7 +1,7 @@
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import { sortBy } from 'lodash-es';
 import { useMemo } from 'react';
 
-import { EMPTY_LIST } from '@/constants/static.js';
 import { type PriceRecord, type TradeRecord } from '@/types/token.js';
 
 /**

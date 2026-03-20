@@ -1,9 +1,9 @@
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import { useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 
 import { chains } from '@/configs/chains.js';
 import { NetworkType } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/static.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { isGreaterThan, multipliedBy } from '@/helpers/number.js';
 import { useCustomFungibleTokens } from '@/hooks/useCustomFungibleTokens.js';

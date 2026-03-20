@@ -1,7 +1,8 @@
+import { EMPTY_LIST } from '@dimensiondev/constants';
+
 import { AdvertisementItem } from '@/components/Advertisement/AdvertisementItem.js';
 import { AdvertisementSkeleton } from '@/components/Advertisement/AdvertisementSkeleton.js';
 import { AdvertisementType } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/static.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { logger } from '@/libs/Logger.js';

@@ -1,3 +1,4 @@
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import { classNames } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
@@ -15,7 +16,7 @@ import { PoapTrait } from '@/components/NFTDetail/PoapTrait.js';
 import { NFTImage } from '@/components/NFTImage.js';
 import { BookmarkInIcon } from '@/components/NFTs/BookmarkButton.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
-import { EMPTY_LIST, POAP_CONTRACT_ADDRESS } from '@/constants/static.js';
+import { POAP_CONTRACT_ADDRESS } from '@/constants/static.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { isValidChainIdSolana } from '@/helpers/isValidChainId.js';
 import { resolveNFTId } from '@/helpers/resolveNFTIdFromAsset.js';

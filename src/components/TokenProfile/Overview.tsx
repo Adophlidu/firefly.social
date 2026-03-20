@@ -1,3 +1,4 @@
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
@@ -16,7 +17,6 @@ import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { ClubLink } from '@/components/TokenProfile/CommunityLink.js';
 import { ContractList } from '@/components/TokenProfile/ContractList.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { EMPTY_LIST } from '@/constants/static.js';
 import { Link as OriginalLink } from '@/esm/Link.js';
 import { formatAddress, formatTokenAddressSui } from '@/helpers/formatAddress.js';
 import { formatAge } from '@/helpers/formatAge.js';

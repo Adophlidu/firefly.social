@@ -1,4 +1,4 @@
-import { IS_PRODUCTION } from '@/constants/static.js';
+import { IS_PRODUCTION } from '@dimensiondev/constants';
 
 export class LoggerNative {
     assert(condition: unknown, message: string): void {

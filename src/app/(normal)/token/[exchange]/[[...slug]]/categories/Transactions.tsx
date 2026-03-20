@@ -1,3 +1,4 @@
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { compact } from 'lodash-es';
@@ -12,7 +13,6 @@ import { SwapTimeline, type SwapTimelineProps } from '@/components/Swap/SwapTime
 import { TokenContext } from '@/components/Token/TokenContext.js';
 import { Source } from '@/constants/enum.js';
 import { NATIVE_TOKEN_ADDRESS } from '@/constants/okx.js';
-import { EMPTY_LIST } from '@/constants/static.js';
 import { Link } from '@/esm/Link.js';
 import { usePathname, useRouter, useSearchParams } from '@/esm/navigation.js';
 import { formatAddress } from '@/helpers/formatAddress.js';

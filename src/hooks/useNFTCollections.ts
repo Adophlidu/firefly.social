@@ -1,7 +1,7 @@
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import { asyncIteratorToArray } from '@dimensiondev/utils';
 import { useQuery } from '@tanstack/react-query';
 
-import { EMPTY_LIST } from '@/constants/static.js';
 import { pageableToIterator, type PageIndicator } from '@/helpers/pageable.js';
 import { getUserCollections } from '@/providers/firefly/nft/getUserCollections.js';
 import { type EthereumSchemaType } from '@/web3-shared/evm/types.js';

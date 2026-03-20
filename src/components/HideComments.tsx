@@ -1,5 +1,6 @@
 'use client';
 
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { type PropsWithChildren, useState } from 'react';
 
@@ -7,7 +8,6 @@ import { ListInPage } from '@/components/ListInPage.js';
 import { ShowMoreComments } from '@/components/ShowMoreComments.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
 import { ScrollListKey, type SocialSource } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/static.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { type Post } from '@/providers/types/SocialMedia.js';

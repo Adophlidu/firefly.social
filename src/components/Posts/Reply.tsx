@@ -1,3 +1,4 @@
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { uniqBy } from 'lodash-es';
@@ -10,7 +11,6 @@ import { ExcludeReplyUserListModal } from '@/components/Posts/ExcludeReplyUserLi
 import { PostBody } from '@/components/Posts/PostBody.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ENABLED_REPLY_SOURCES } from '@/constants/computed.js';
-import { EMPTY_LIST } from '@/constants/static.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';

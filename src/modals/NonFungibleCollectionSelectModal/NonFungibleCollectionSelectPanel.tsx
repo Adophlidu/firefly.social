@@ -1,3 +1,4 @@
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import { t } from '@lingui/core/macro';
 import Fuse from 'fuse.js';
 import { memo, useCallback, useMemo, useState } from 'react';
@@ -6,7 +7,6 @@ import { useChainId, useConnection } from 'wagmi';
 import { ChainIcon } from '@/components/ChainIcon.js';
 import { SearchContentPanel } from '@/components/Search/SearchContentPanel.js';
 import { chains } from '@/configs/chains.js';
-import { EMPTY_LIST } from '@/constants/static.js';
 import { formatCustomNFTScanCollection } from '@/helpers/formatCustomNFTScanCollection.js';
 import { useCustomNonFungibleTokens } from '@/hooks/useCustomNonFungibleTokens.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';

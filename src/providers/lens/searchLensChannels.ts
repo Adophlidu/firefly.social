@@ -1,7 +1,7 @@
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import { GroupsOrderBy, PageSize } from '@lens-protocol/client';
 import { fetchGroups } from '@lens-protocol/client/actions';
 
-import { EMPTY_LIST } from '@/constants/static.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import {
     createIndicator,

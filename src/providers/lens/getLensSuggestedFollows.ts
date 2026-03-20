@@ -1,7 +1,7 @@
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import { AccountsOrderBy, PageSize } from '@lens-protocol/client';
 import { fetchAccountRecommendations, fetchAccounts } from '@lens-protocol/client/actions';
 
-import { EMPTY_LIST } from '@/constants/static.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import {
     createIndicator,

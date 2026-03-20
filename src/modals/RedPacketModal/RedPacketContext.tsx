@@ -1,3 +1,4 @@
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import { Trans } from '@lingui/react/macro';
 import { useLocation } from '@tanstack/react-router';
 import { compact, first, flatten, noop, uniqBy } from 'lodash-es';
@@ -19,7 +20,6 @@ import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
 import { NetworkType } from '@/constants/enum.js';
 import { ChainConfigMismatchError } from '@/constants/error.js';
 import { RED_PACKET_DEFAULT_SHARES } from '@/constants/rp.js';
-import { EMPTY_LIST } from '@/constants/static.js';
 import { getNativeToken } from '@/helpers/getNativeToken.js';
 import { multipliedBy } from '@/helpers/number.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';

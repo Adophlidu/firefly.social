@@ -1,3 +1,4 @@
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { compact, find, first, last } from 'lodash-es';
 import { type ApiV2Includes, type TweetV2, type TweetV2PaginableTimelineResult } from 'twitter-api-v2';
@@ -6,7 +7,7 @@ import urlcat from 'urlcat';
 import { RestrictionType, Source } from '@/constants/enum.js';
 import { POLL_CHOICE_TYPE, POLL_STRATEGIES } from '@/constants/poll.js';
 import { TWEET_REGEX } from '@/constants/regexp.js';
-import { EMPTY_LIST, SITE_URL } from '@/constants/static.js';
+import { SITE_URL } from '@/constants/static.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { getEmbedUrls } from '@/helpers/getEmbedUrls.js';
 import { isSamePost } from '@/helpers/isSamePost.js';

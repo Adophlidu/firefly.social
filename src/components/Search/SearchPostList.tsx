@@ -1,3 +1,4 @@
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import { Trans } from '@lingui/react/macro';
 import { compact, isFunction, uniqBy } from 'lodash-es';
 import { memo, type ReactNode } from 'react';
@@ -6,7 +7,7 @@ import { ListInPage } from '@/components/ListInPage.js';
 import { Empty } from '@/components/Search/Empty.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
 import { ScrollListKey, type SearchType, type SocialSource, Source } from '@/constants/enum.js';
-import { EMPTY_LIST, REQUIRE_LOGIN_SOURCES_IN_SEARCH } from '@/constants/static.js';
+import { REQUIRE_LOGIN_SOURCES_IN_SEARCH } from '@/constants/static.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveSearchUrlType, SearchUrlKind } from '@/helpers/resolveSearchUrlType.js';

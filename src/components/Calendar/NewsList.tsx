@@ -1,3 +1,4 @@
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import { Trans } from '@lingui/react/macro';
 import { useMemo, useRef } from 'react';
 import { useUpdateEffect } from 'react-use';
@@ -9,7 +10,6 @@ import { ElementAnchor } from '@/components/ElementAnchor.js';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
 import { Loading } from '@/components/Loading.js';
-import { EMPTY_LIST } from '@/constants/static.js';
 import { type ParsedEvent } from '@/types/calendar.js';
 
 interface NewsListProps {

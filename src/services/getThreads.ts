@@ -1,5 +1,6 @@
+import { EMPTY_LIST } from '@dimensiondev/constants';
+
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/static.js';
 import { isSamePost } from '@/helpers/isSamePost.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { createPageable } from '@/helpers/pageable.js';

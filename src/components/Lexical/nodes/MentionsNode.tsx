@@ -1,3 +1,4 @@
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import {
     DecoratorNode,
     type EditorConfig,
@@ -9,7 +10,6 @@ import {
 import { type ReactNode } from 'react';
 
 import { MentionsMenu } from '@/components/MentionsMenu.js';
-import { EMPTY_LIST } from '@/constants/static.js';
 import { type Profile } from '@/providers/types/Firefly.js';
 
 interface SerializedMentionNode extends SerializedLexicalNode {

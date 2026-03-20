@@ -1,5 +1,6 @@
 'use client';
 
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import dayjs from 'dayjs';
@@ -14,7 +15,6 @@ import { BUTTON_COLORS } from '@/components/Prediction/PredictionActivityRate.js
 import { PredictionEventImage } from '@/components/Prediction/PredictionEventImage.js';
 import { Timer } from '@/components/RedPacket/Timer.js';
 import { PredictionPlatform, type PredictionPlatform as PredictionPlatformType } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/static.js';
 import { bedStead } from '@/fonts/bedStead/index.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { isZero } from '@/helpers/number.js';

@@ -1,3 +1,4 @@
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { sortBy, uniqBy } from 'lodash-es';
@@ -8,7 +9,6 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SearchableTokenItem } from '@/components/Search/SearchableTokenItem.js';
 import { SearchType } from '@/constants/enum.js';
 import { STALE_TIMES } from '@/constants/query.js';
-import { EMPTY_LIST } from '@/constants/static.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import { searchTokens } from '@/providers/firefly/worker/searchTokens.js';
 import { TokenPlatformType } from '@/providers/types/Firefly.js';

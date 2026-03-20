@@ -1,8 +1,8 @@
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import { useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 
 import { WalletSource } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/static.js';
 import { useAllConnections } from '@/hooks/useAllConnections.js';
 import { getPredictionPortfolio } from '@/providers/firefly/prediction/getPredictionPortfolio.js';
 

@@ -1,5 +1,6 @@
 'use client';
 
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
@@ -9,7 +10,6 @@ import { AsideTitle } from '@/components/AsideTitle.js';
 import AsideTokensSkeleton from '@/components/Token/AsideTokensSkeleton.js';
 import { BookmarkedTokenItem } from '@/components/Token/BookmarkedTokenItem.js';
 import { Source } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/static.js';
 import { Link } from '@/esm/Link.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
