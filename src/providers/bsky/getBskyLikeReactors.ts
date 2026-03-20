@@ -32,7 +32,16 @@ export async function getBskyLikeReactors(
     const data = resolveBskyResponseData(response, `Failed to get like reactors postId = ${postId}.`);
     const likes = data.likes || EMPTY_LIST;
     const profiles = likes.length
-        ? await runInSafeAsync(() => getBskyProfilesByIds(likes.map((x) => x.actor.did)), { signal })
+        ? await runInSafeAsync(
+              (signal) =>
+                  getBskyProfilesByIds(
+                      likes.map((x) => x.actor.did),
+                      signal,
+                  ),
+              {
+                  signal,
+              },
+          )
         : EMPTY_LIST;
 
     return createPageable(

@@ -1,47 +1,37 @@
 import { t } from '@lingui/core/macro';
-import { useMutation } from '@tanstack/react-query';
 
 import { BookmarkType, FireflyPlatform } from '@/constants/enum.js';
-import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { openLoginModal } from '@/helpers/openLoginModal.js';
+import { useToggleBookmarkMutation } from '@/hooks/useToggleBookmarkMutation.js';
 import { farcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { captureArticleBookmarkSuccessEvent } from '@/providers/telemetry/captureClickEvent.js';
 import { type Article } from '@/providers/types/Article.js';
 
 export function useToggleArticleBookmark() {
-    return useMutation({
-        mutationFn: async (article: Article) => {
-            if (!fireflySessionHolder.session) {
-                openLoginModal();
-                return;
+    return useToggleBookmarkMutation<Article>({
+        isLoggedIn: Boolean(fireflySessionHolder.session),
+        getHasBookmarked: (article) => Boolean(article.hasBookmarked),
+        mutationFn: async (article) => {
+            if (article.hasBookmarked) {
+                return farcasterSocialMediaProvider.unbookmark(article.id);
             }
-
-            try {
-                if (article.hasBookmarked) {
-                    const result = await farcasterSocialMediaProvider.unbookmark(article.id);
-                    enqueueSuccessMessage(t`Article removed from your Bookmarks`);
-                    return result;
-                } else {
-                    const result = await farcasterSocialMediaProvider.bookmark(
-                        article.id,
-                        FireflyPlatform.Article,
-                        article.author.id,
-                        BookmarkType.Text,
-                    );
-                    enqueueSuccessMessage(t`Article added to your Bookmarks`);
-
-                    captureArticleBookmarkSuccessEvent(article.id, fireflySessionHolder.session.profileId);
-
-                    return result;
-                }
-            } catch (error) {
-                enqueueMessageFromError(
-                    error,
-                    article.hasBookmarked ? t`Failed to un-bookmark article.` : t`Failed to bookmark article.`,
-                );
-                throw error;
-            }
+            const result = await farcasterSocialMediaProvider.bookmark(
+                article.id,
+                FireflyPlatform.Article,
+                article.author.id,
+                BookmarkType.Text,
+            );
+            const profileId = fireflySessionHolder.session?.profileId;
+            if (profileId) captureArticleBookmarkSuccessEvent(article.id, profileId);
+            return result;
+        },
+        successMessages: {
+            add: t`Article added to your Bookmarks`,
+            remove: t`Article removed from your Bookmarks`,
+        },
+        errorMessages: {
+            add: t`Failed to bookmark article.`,
+            remove: t`Failed to un-bookmark article.`,
         },
     });
 }

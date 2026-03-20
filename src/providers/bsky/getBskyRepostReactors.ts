@@ -32,7 +32,14 @@ export async function getBskyRepostReactors(
     const data = resolveBskyResponseData(response, `Failed to get repost reactors postId = ${postId}.`);
     const repostedBy = data.repostedBy || EMPTY_LIST;
     const profiles = repostedBy.length
-        ? await runInSafeAsync(() => getBskyProfilesByIds(repostedBy.map((x) => x.did)), { signal })
+        ? await runInSafeAsync(
+              (signal) =>
+                  getBskyProfilesByIds(
+                      repostedBy.map((x) => x.did),
+                      signal,
+                  ),
+              { signal },
+          )
         : EMPTY_LIST;
 
     return createPageable(

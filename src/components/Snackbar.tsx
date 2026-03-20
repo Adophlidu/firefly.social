@@ -133,7 +133,10 @@ export function SnackbarProvider({ maxSnack, autoHideDuration, children }: Snack
             const pausedTimer = pausedTimers.current[id];
             if (pausedTimer && pausedTimer.remainingTime > 0) {
                 timers.current[id] = setTimeout(() => closeSnackbar(id), pausedTimer.remainingTime);
-                delete pausedTimers.current[id];
+                // Reset startTime so the next pauseTimer call can compute elapsed correctly.
+                // Do NOT delete — without a startTime, elapsed would compute as 0 and
+                // remainingTime would reset to the full original duration.
+                pausedTimers.current[id] = { remainingTime: pausedTimer.remainingTime, startTime: Date.now() };
             }
         },
         [closeSnackbar],
