@@ -70,16 +70,22 @@ export function SnackbarProvider({ maxSnack, autoHideDuration, children }: Snack
     const timers = useRef<Record<string, NodeJS.Timeout>>({});
     const pausedTimers = useRef<Record<string, { remainingTime: number; startTime: number }>>({});
 
+    // Keep a ref in sync with items so callbacks don't need items in their dependency arrays.
+    // Assigning directly in the render body (not in useEffect) ensures the ref is always
+    // current before any event handler fires.
+    const itemsRef = useRef<Snackbar[]>(items);
+    itemsRef.current = items;
+
     const closeSnackbar = useCallback(
         (id?: string) => {
-            const targetId = id || (items.length > 0 ? items[0].id : null);
+            const targetId = id || (itemsRef.current.length > 0 ? itemsRef.current[0].id : null);
 
             if (!targetId) return;
 
             // Mark the snackbar as closing to trigger the fade animation
             setItems((prev) => prev.map((s) => (s.id === targetId ? { ...s, isClosing: true } : s)));
         },
-        [items],
+        [], // stable — reads items via ref
     );
 
     const handleSnackbarLeave = useCallback((id: string) => {
@@ -111,7 +117,7 @@ export function SnackbarProvider({ maxSnack, autoHideDuration, children }: Snack
                 // Store the remaining time and start time for resuming
                 const now = Date.now();
                 const elapsed = now - (pausedTimers.current[id]?.startTime || now);
-                const remainingTime = Math.max(0, (items.find((s) => s.id === id)?.duration || 0) - elapsed);
+                const remainingTime = Math.max(0, (itemsRef.current.find((s) => s.id === id)?.duration || 0) - elapsed);
 
                 pausedTimers.current[id] = {
                     remainingTime,
@@ -119,7 +125,7 @@ export function SnackbarProvider({ maxSnack, autoHideDuration, children }: Snack
                 };
             }
         },
-        [items],
+        [], // stable — reads items via ref
     );
 
     const resumeTimer = useCallback(
@@ -136,7 +142,7 @@ export function SnackbarProvider({ maxSnack, autoHideDuration, children }: Snack
     const enqueueSnackbar = useCallback(
         (message: SnackbarMessage, options: OptionsObject = {}) => {
             if (options.preventDuplicate && options.key) {
-                const existing = items.find((item) => item.key === options.key);
+                const existing = itemsRef.current.find((item) => item.key === options.key);
                 if (existing) {
                     // If a snackbar with the same key already exists, update it
                     setItems((prev) =>
@@ -176,7 +182,7 @@ export function SnackbarProvider({ maxSnack, autoHideDuration, children }: Snack
 
             return id;
         },
-        [autoHideDuration, items, closeSnackbar],
+        [autoHideDuration, closeSnackbar], // items removed — read via ref
     );
 
     const snackbarContent = useMemo(() => {
