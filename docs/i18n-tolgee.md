@@ -25,11 +25,11 @@ Remove obsolete `CROWDIN_*` secrets when the migration is done.
 
 ## Local commands
 
-| Script                     | Behavior                                                      |
-| -------------------------- | ------------------------------------------------------------- |
-| `pnpm tolgee:push-sources` | Upload **English** only (same as the `main` branch workflow). |
-| `pnpm tolgee:pull`         | Download all locales into `src/locales/*/messages.po`.        |
-| `pnpm tolgee:sync`         | Push English, pull, then `lingui compile`.                    |
+| Script                     | Behavior                                                               |
+| -------------------------- | ---------------------------------------------------------------------- |
+| `pnpm tolgee:push-sources` | Upload all locales under `src/locales/{tag}/messages.po` (same as CI). |
+| `pnpm tolgee:pull`         | Download all locales into `src/locales/*/messages.po`.                 |
+| `pnpm tolgee:sync`         | Push all locales, pull, then `lingui compile`.                         |
 
 Authenticate once with `pnpm exec tolgee login` (CLI stores credentials; use `--api-url` if not using `.tolgeerc.json`).
 

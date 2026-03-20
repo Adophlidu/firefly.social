@@ -18,10 +18,10 @@ jobs:
               with:
                   node-version-file: '.node-version'
 
-            - name: Push English sources to Tolgee
+            - name: Push locale files to Tolgee
               env:
                   TOLGEE_API_KEY: ${{ secrets.TOLGEE_API_KEY }}
                   TOLGEE_PROJECT_ID: ${{ secrets.TOLGEE_PROJECT_ID }}
               run: |
                   TOLGEE_CLI_VERSION=$(node -pe "require('./package.json').devDependencies['@tolgee/cli'].replace(/^[\^~]/, '')")
-                  npx --yes @tolgee/cli@$TOLGEE_CLI_VERSION push --languages en --force-mode OVERRIDE
+                  npx --yes @tolgee/cli@$TOLGEE_CLI_VERSION push --force-mode OVERRIDE
