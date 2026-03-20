@@ -24,9 +24,9 @@
         "lingui:compile": "lingui compile",
         "lingui:extract": "NODE_ENV=development lingui extract --clean",
         "lingui": "pnpm run lingui:extract && pnpm run lingui:compile",
-        "crowdin:sync": "crowdin push && crowdin pull",
-        "crowdin:sync:sources": "crowdin push",
-        "crowdin:sync:translations": "crowdin pull",
+        "tolgee:push": "tolgee push",
+        "tolgee:push-sources": "tolgee push --languages en --force-mode OVERRIDE",
+        "tolgee:pull": "tolgee pull",
         "storybook": "storybook dev -p 6006",
         "build-storybook": "storybook build",
         "packages:build": "pnpm -r --filter='./packages/*' run build",
@@ -132,7 +132,6 @@
         "zustand": "^5.0.11"
     },
     "devDependencies": {
-        "@crowdin/cli": "^4.12.0",
         "@lingui/cli": "^5.5.2",
         "@lingui/conf": "^5.5.2",
         "@lingui/loader": "^5.5.2",
@@ -148,6 +147,7 @@
         "@svgr/webpack": "^8.1.0",
         "@tailwindcss/forms": "^0.5.11",
         "@testing-library/react": "^16.3.2",
+        "@tolgee/cli": "^2.16.1",
         "@types/lodash-es": "^4.17.12",
         "@types/mdast": "^4.0.4",
         "@types/node": "22.10.7",

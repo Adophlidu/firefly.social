@@ -1,0 +1,14 @@
+{
+    "$schema": "https://docs.tolgee.io/cli-schema.json",
+    "apiUrl": "https://i18n.firefly.land",
+    "format": "PO_ICU",
+    "push": {
+        "filesTemplate": "./src/locales/{languageTag}/messages.po",
+        "forceMode": "OVERRIDE",
+        "convertPlaceholdersToIcu": false
+    },
+    "pull": {
+        "path": "./src/locales",
+        "fileStructureTemplate": "{languageTag}/messages.{extension}"
+    }
+}

@@ -26,7 +26,7 @@ const configDeps = new Set([
     '@lingui/conf',
     '@lingui/loader',
     '@lingui/swc-plugin',
-    '@crowdin/cli',
+    '@tolgee/cli',
     'autoprefixer',
     'postcss',
     'tailwindcss',

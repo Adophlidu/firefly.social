@@ -1,0 +1,57 @@
+name: Tolgee download
+
+on:
+    schedule:
+        - cron: '0 0 * * *' # every day at 00:00 UTC
+        - cron: '0 12 * * *' # every day at 12:00 UTC
+    workflow_dispatch:
+
+jobs:
+    download-translations:
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+            pull-requests: write
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version-file: '.node-version'
+
+            - name: Authenticate NPM
+              uses: DimensionDev/github-token-action@latest
+              with:
+                  registry: true
+
+            - name: Install pnpm and dependencies
+              run: |
+                  npm i -g pnpm@8.15.8
+                  pnpm install --frozen-lockfile
+
+            - name: Pull translations from Tolgee
+              env:
+                  TOLGEE_API_KEY: ${{ secrets.TOLGEE_API_KEY }}
+                  TOLGEE_PROJECT_ID: ${{ secrets.TOLGEE_PROJECT_ID }}
+              run: |
+                  TOLGEE_CLI_VERSION=$(node -pe "require('./package.json').devDependencies['@tolgee/cli'].replace(/^[\^~]/, '')")
+                  npx --yes @tolgee/cli@$TOLGEE_CLI_VERSION pull
+
+            - name: Compile Lingui catalogs
+              run: pnpm run lingui:compile
+
+            - name: Create pull request
+              uses: peter-evans/create-pull-request@v6
+              with:
+                  token: ${{ secrets.GITHUB_TOKEN }}
+                  commit-message: 'chore(i18n): sync translations from Tolgee'
+                  branch: l10n_tolgee_action
+                  base: main
+                  title: 'chore(i18n): sync translations from Tolgee'
+                  body: |
+                      FW-0000
+
+                      Automated sync from [Tolgee](https://i18n.firefly.land/).
+                  labels: automated

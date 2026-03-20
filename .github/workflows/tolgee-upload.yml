@@ -1,0 +1,27 @@
+name: Tolgee upload
+
+on:
+    push:
+        branches:
+            - main
+    workflow_dispatch:
+
+jobs:
+    upload-sources:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version-file: '.node-version'
+
+            - name: Push English sources to Tolgee
+              env:
+                  TOLGEE_API_KEY: ${{ secrets.TOLGEE_API_KEY }}
+                  TOLGEE_PROJECT_ID: ${{ secrets.TOLGEE_PROJECT_ID }}
+              run: |
+                  TOLGEE_CLI_VERSION=$(node -pe "require('./package.json').devDependencies['@tolgee/cli'].replace(/^[\^~]/, '')")
+                  npx --yes @tolgee/cli@$TOLGEE_CLI_VERSION push --languages en --force-mode OVERRIDE
