@@ -23,7 +23,7 @@ export const ArticleHeader = memo<ArticleHeaderProps>(function ArticleHeader({ a
         >
             <ArticleAuthor className="min-w-0" article={article} />
             <NoSSR>
-                <ArticleActions article={article} />
+                <ArticleActions article={article} queryDetail />
             </NoSSR>
         </div>
     );

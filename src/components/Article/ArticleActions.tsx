@@ -16,7 +16,6 @@ import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { useEnsName } from '@/hooks/useEnsName.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
-import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useShareUrl } from '@/hooks/useShareUrl.js';
 import { useToggleArticleBookmark } from '@/hooks/useToggleArticleBookmark.js';
@@ -26,13 +25,18 @@ import { WalletConnectModalRef } from '@/modals/WalletConnectModal/refs.js';
 import { getArticleById } from '@/providers/firefly/article/getArticleById.js';
 import { captureArticleShareClickEvent } from '@/providers/telemetry/captureClickEvent.js';
 import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
+import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 
 interface ArticleActionsProps {
     article: Article;
+    queryDetail?: boolean;
 }
 
-export const ArticleActions = memo<ArticleActionsProps>(function ArticleActions({ article: oldArticle }) {
-    const isLogin = useIsLoginFirefly();
+export const ArticleActions = memo<ArticleActionsProps>(function ArticleActions({
+    article: oldArticle,
+    queryDetail = false,
+}) {
+    const { currentProfileSession } = useFireflyProfileStore();
     const account = useConnection();
     const { mutate: onBookmarkChange, isPending: bookmarkMutationLoading } = useToggleArticleBookmark();
     const isMattersArticle = oldArticle.platform === ArticlePlatform.Matters;
@@ -44,8 +48,10 @@ export const ArticleActions = memo<ArticleActionsProps>(function ArticleActions(
     const baseUrl = urlcat(location.origin, getArticleUrl(oldArticle));
     const url = useShareUrl(baseUrl);
 
+    const isLogin = !!currentProfileSession?.profileId;
     const { data, isLoading } = useQuery({
         queryKey: ['article-detail', oldArticle.id],
+        enabled: queryDetail && isLogin,
         queryFn: () => getArticleById(oldArticle.id),
     });
 
