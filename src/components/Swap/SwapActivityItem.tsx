@@ -14,6 +14,7 @@ import { useDisableScrollRestore } from '@/components/DisableScrollRestore/index
 import { FeedFollowSource } from '@/components/FeedFollowSource.js';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
+import { EnsName } from '@/components/Profile/EnsName.js';
 import { SwapActions } from '@/components/Swap/SwapActions.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
@@ -23,6 +24,7 @@ import { useRouter } from '@/esm/navigation.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { formatTokenAmount } from '@/helpers/formatTokenAmount.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
+import { getEnsNameFromDisplayInfo } from '@/helpers/getEnsNameFromDisplayInfo.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { getWalletProfileAvatar } from '@/helpers/getWalletProfileAvatar.js';
@@ -48,7 +50,7 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
 
     const detailUrl = resolveTxPageUrl(activity.hash, activity.chain_id);
     const disableScrollRestore = useDisableScrollRestore();
-    const ensHandle = activity.displayInfo?.ensHandle ?? undefined;
+    const ensHandle = getEnsNameFromDisplayInfo(activity, activity.owner);
     const isCrossChain = activity.is_cross_chain;
 
     return (
@@ -94,14 +96,7 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
                                 className="min-w-0 max-w-full truncate font-bold text-lightMain"
                                 onClick={stopPropagation}
                             >
-                                {ensHandle ? (
-                                    <span>
-                                        {ensHandle.split('.')[0]}
-                                        <span className="text-second">.{ensHandle.split('.')[1]}</span>
-                                    </span>
-                                ) : (
-                                    addressName
-                                )}
+                                {ensHandle ? <EnsName ens={ensHandle} /> : addressName}
                             </Link>
                             {ensHandle ? (
                                 <Link href={profileUrl} className="ml-2 max-md:hidden" onClick={stopPropagation}>

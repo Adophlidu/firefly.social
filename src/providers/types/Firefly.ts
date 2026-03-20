@@ -545,6 +545,14 @@ export const enum WalletProfileDataSource {
     Privy = 'privy',
 }
 
+export interface WalletProfileIdentity {
+    handle: string;
+    id: string;
+    owner_address: string;
+    expire_time?: number;
+    is_primary?: boolean;
+}
+
 export interface WalletProfile {
     address: Address;
     ens?: string[];
@@ -557,6 +565,9 @@ export interface WalletProfile {
     hacked?: boolean;
     isDefault?: boolean;
     dataSource?: WalletProfileDataSource;
+    baseEth?: WalletProfileIdentity[];
+    sns?: WalletProfileIdentity[];
+    seekerId?: WalletProfileIdentity[];
 }
 
 export type WalletRelationResponse = Response<{
@@ -568,6 +579,10 @@ export type WalletRelationResponse = Response<{
     is_connected: boolean;
     avatar?: string;
     primary_ens?: string | null;
+    baseEth?: WalletProfileIdentity[];
+    // For solana
+    sns?: WalletProfileIdentity[];
+    seekerId?: WalletProfileIdentity[];
 }>;
 
 export interface LensV3Profile {
@@ -1725,6 +1740,7 @@ export interface SwapActivity {
     to_chain_id?: number;
     to_chain_hash?: string;
     displayInfo?: FireflyDisplayInfo;
+    displayInfoV2?: FireflyDisplayInfoV2;
     followingSources: FollowingSource[];
 }
 

@@ -1,39 +1,28 @@
 'use client';
 
-import { classNames, safeUnreachable } from '@dimensiondev/utils';
+import { safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 
-import EnsIcon from '@/assets/ens.svg';
-import MiniEnsIcon from '@/assets/ens-16.svg';
-import EvmIcon from '@/assets/evm.svg';
 import LinkIcon from '@/assets/link-square.svg';
-import SolanaIcon from '@/assets/solana.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
-import { InteractiveTippy } from '@/components/InteractiveTippy.js';
 import { Link } from '@/components/Link.js';
 import { NoSSR } from '@/components/NoSSR.js';
 import { PredictionProfilesCard } from '@/components/Prediction/PredictionProfilesCard.js';
 import { WalletActions } from '@/components/Profile/WalletActions.js';
-import { RelatedSourceIcon } from '@/components/RelatedSourceIcon.js';
-import { Tooltip } from '@/components/Tooltip.js';
+import { WalletProfileTags } from '@/components/Profile/WalletProfileTags.js';
 import { NetworkType, Source } from '@/constants/enum.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
+import { getEnsNameFromWalletProfile } from '@/helpers/getEnsNameFromWalletProfile.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { isMPCWallet } from '@/helpers/isMPCWallet.js';
 import { getUserTotalBalance } from '@/providers/debank/getUserTotalBalance.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
-import { fireflyWalletProvider } from '@/providers/firefly/Wallet.js';
 import { getUserSolanaTotalValue } from '@/providers/okx/getUserSolanaTotalValue.js';
-import {
-    RelatedWalletSource,
-    type VerifiedSource,
-    type WalletProfile,
-    WalletProfileDataSource,
-} from '@/providers/types/Firefly.js';
+import { type WalletProfile, WalletProfileDataSource } from '@/providers/types/Firefly.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 interface WalletInfoProps {
@@ -43,32 +32,6 @@ interface WalletInfoProps {
 export const WALLET_PROFILE_ACTION_ID = 'profile-action';
 
 const HIDDEN_NET_WORTH = true;
-
-function resolveVerifiedText({ source, provider }: VerifiedSource) {
-    switch (source) {
-        case RelatedWalletSource.farcaster:
-            return <Trans>Verified by Farcaster</Trans>;
-        case RelatedWalletSource.lens:
-            return <Trans>Verified by Lens</Trans>;
-        case RelatedWalletSource.firefly:
-        case RelatedWalletSource.twitter:
-            return <Trans>Verified by Firefly</Trans>;
-        case RelatedWalletSource.cyber:
-        case RelatedWalletSource.hand_writing:
-        case RelatedWalletSource.opensea:
-        case RelatedWalletSource.pfp:
-        case RelatedWalletSource.rss3:
-        case RelatedWalletSource.twitter_hexagon:
-        case RelatedWalletSource.uniswap:
-        case RelatedWalletSource.ethLeaderboard:
-        case RelatedWalletSource.other:
-        case RelatedWalletSource.particle:
-            return <Trans>Verified by {provider}</Trans>;
-        default:
-            safeUnreachable(source);
-            return <Trans>Verified by {provider}</Trans>;
-    }
-}
 
 function FireflyWalletText({ dataSource }: { dataSource: WalletProfileDataSource }) {
     switch (dataSource) {
@@ -96,15 +59,8 @@ export function WalletInfo({ profile }: WalletInfoProps) {
         isMPC && profile.dataSource ? (
             <FireflyWalletText dataSource={profile.dataSource} />
         ) : (
-            profile.primary_ens || formatAddress(profile.address, 4, undefined, false)
+            getEnsNameFromWalletProfile(profile) || formatAddress(profile.address, 4, undefined, false)
         );
-
-    const { data: walletRelation, isLoading: isLoadingWalletRelation } = useQuery({
-        queryKey: ['wallet-relation', profile.address.toLowerCase()],
-        async queryFn() {
-            return fireflyWalletProvider.getWalletRelation(profile.address);
-        },
-    });
 
     const address = profile.address;
     const { data: totalBalance } = useQuery({
@@ -124,8 +80,6 @@ export function WalletInfo({ profile }: WalletInfoProps) {
         },
         enabled: !HIDDEN_NET_WORTH,
     });
-
-    const iconSize = 16;
 
     return (
         <div className="flex w-full flex-col items-start p-4">
@@ -158,68 +112,7 @@ export function WalletInfo({ profile }: WalletInfoProps) {
                                         <div className="h-6 min-w-0 truncate text-lg font-black leading-6 text-lightMain max-md:hidden">
                                             {displayName}
                                         </div>
-                                        <div
-                                            className={classNames(
-                                                'ml-1 mr-auto flex h-6 flex-row items-center gap-1.5',
-                                                {
-                                                    'min-w-[120px] animate-pulse bg-bg': isLoadingWalletRelation,
-                                                },
-                                            )}
-                                        >
-                                            {!isLoadingWalletRelation ? (
-                                                <>
-                                                    {networkType === NetworkType.Ethereum ? (
-                                                        <EvmIcon width={iconSize} height={iconSize} />
-                                                    ) : null}
-                                                    {networkType === NetworkType.Solana ? (
-                                                        <SolanaIcon width={iconSize} height={iconSize} />
-                                                    ) : null}
-                                                    {walletRelation?.verifiedSources.map((x) => {
-                                                        return (
-                                                            <Tooltip
-                                                                key={x.source}
-                                                                content={resolveVerifiedText(x)}
-                                                                placement="bottom"
-                                                            >
-                                                                <RelatedSourceIcon source={x.source} size={iconSize} />
-                                                            </Tooltip>
-                                                        );
-                                                    })}
-                                                    {profile.ens?.length ? (
-                                                        <InteractiveTippy
-                                                            maxWidth={304}
-                                                            className="tippy-card"
-                                                            placement="bottom"
-                                                            content={
-                                                                <div className="no-scrollbar flex max-h-[100px] flex-wrap gap-x-[15px] overflow-auto rounded-2xl border-[0.5px] border-secondaryLine bg-primaryBottom p-3">
-                                                                    {profile.ens.map((ens) => {
-                                                                        return (
-                                                                            <div
-                                                                                className="flex items-center gap-[5px]"
-                                                                                key={ens}
-                                                                            >
-                                                                                <MiniEnsIcon width={16} height={16} />
-                                                                                <span className="text-[10px] font-bold leading-4 text-main">
-                                                                                    {ens}
-                                                                                </span>
-                                                                            </div>
-                                                                        );
-                                                                    })}
-                                                                </div>
-                                                            }
-                                                        >
-                                                            <span>
-                                                                <EnsIcon
-                                                                    width={iconSize}
-                                                                    height={iconSize}
-                                                                    className="grayscale"
-                                                                />
-                                                            </span>
-                                                        </InteractiveTippy>
-                                                    ) : null}
-                                                </>
-                                            ) : null}
-                                        </div>
+                                        <WalletProfileTags profile={profile} />
                                     </div>
                                     {!HIDDEN_NET_WORTH ? (
                                         <div className="mt-1 text-xl font-bold leading-6">

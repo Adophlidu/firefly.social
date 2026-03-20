@@ -8,10 +8,12 @@ import { Link } from '@/components/Link.js';
 import { PredictionActivityAction } from '@/components/Prediction/PredictionActivityAction.js';
 import { PredictionActivityBody } from '@/components/Prediction/PredictionActivityBody.js';
 import { PredictionPlatformIcon } from '@/components/Prediction/PredictionPlatformIcon.js';
+import { EnsName } from '@/components/Profile/EnsName.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { WalletBaseMoreAction } from '@/components/WalletBaseMoreAction.js';
 import { Source, WalletProfileCategory } from '@/constants/enum.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
+import { getEnsNameFromDisplayInfo } from '@/helpers/getEnsNameFromDisplayInfo.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getWalletProfileAvatar } from '@/helpers/getWalletProfileAvatar.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
@@ -34,7 +36,7 @@ export const PredictionActivityItem = memo<PredictionActivityItemProps>(function
     const profileUrl = walletAddress
         ? getProfileUrl({ source: Source.Wallet, profileId: walletAddress }, WalletProfileCategory.Prediction)
         : '';
-    const displayName = activity.displayInfo?.ensHandle || addressName || walletAddress || '';
+    const ensName = getEnsNameFromDisplayInfo(activity, walletAddress);
 
     const wrapper = useCallback(
         (children: React.ReactNode) => (
@@ -81,12 +83,14 @@ export const PredictionActivityItem = memo<PredictionActivityItemProps>(function
                     <div className="flex items-center gap-x-1 text-medium text-second">
                         {profileUrl ? (
                             <Link href={profileUrl} className="min-w-0 truncate font-bold text-lightMain">
-                                {displayName}
+                                {ensName ? <EnsName ens={ensName} /> : addressName}
                             </Link>
                         ) : (
-                            <span className="min-w-0 truncate font-bold text-lightMain">{displayName}</span>
+                            <span className="min-w-0 truncate font-bold text-lightMain">
+                                {ensName ? <EnsName ens={ensName} /> : addressName}
+                            </span>
                         )}
-                        {activity.displayInfo?.ensHandle ? (
+                        {ensName ? (
                             profileUrl ? (
                                 <Link href={profileUrl} className="ml-2 max-md:hidden">
                                     {addressName}
@@ -102,10 +106,7 @@ export const PredictionActivityItem = memo<PredictionActivityItemProps>(function
                         ) : null}
                         <PredictionPlatformIcon platform={activity.platform} size={15} className="mr-auto shrink-0" />
                         {isMyProfile || !walletAddress ? null : (
-                            <WalletBaseMoreAction
-                                address={walletAddress as Address}
-                                ens={activity.displayInfo?.ensHandle ?? undefined}
-                            />
+                            <WalletBaseMoreAction address={walletAddress as Address} ens={ensName} />
                         )}
                     </div>
                     <PredictionActivityBody activity={activity} wrapper={wrapper} />

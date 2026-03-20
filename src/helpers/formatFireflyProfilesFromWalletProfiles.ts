@@ -2,6 +2,7 @@ import { compact } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
 import { formatAddressEthereum, formatAddressSolana } from '@/helpers/formatAddress.js';
+import { getEnsNameFromWalletProfile } from '@/helpers/getEnsNameFromWalletProfile.js';
 import {
     RelatedWalletSource,
     type WalletProfile,
@@ -32,7 +33,7 @@ export function formatFireflyProfilesFromWalletProfiles(
                     source: Source.Wallet,
                 },
                 handle: x.address,
-                displayName: x.primary_ens || formatAddressEthereum(x.address, 4),
+                displayName: getEnsNameFromWalletProfile(x) || formatAddressEthereum(x.address, 4),
                 isDefault: x.isDefault,
                 __origin__: patchWalletProfile(x),
             })),
@@ -42,7 +43,7 @@ export function formatFireflyProfilesFromWalletProfiles(
                     source: Source.Wallet,
                 },
                 handle: x.address,
-                displayName: x.primary_ens || formatAddressSolana(x.address, 4),
+                displayName: getEnsNameFromWalletProfile(x) || formatAddressSolana(x.address, 4),
                 isDefault: x.isDefault,
                 __origin__: patchWalletProfile(x),
             })),

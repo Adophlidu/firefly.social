@@ -6,6 +6,7 @@ import { TIPS_SUPPORT_NETWORKS } from '@/constants/computed.js';
 import { NetworkType, Source } from '@/constants/enum.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
+import { getEnsNameFromWalletProfile } from '@/helpers/getEnsNameFromWalletProfile.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { type TipsModalRefType } from '@/modals/TipsModal/refs.js';
@@ -33,13 +34,14 @@ function formatTipsProfiles(profiles: FireflyProfile[]) {
             return profile.identity.source === Source.Wallet && TIPS_SUPPORT_NETWORKS.includes(origin.blockchain);
         })
         .map((profile) => {
-            const { address, primary_ens, blockchain, avatar } = profile.__origin__ as WalletProfile;
+            const { address, blockchain, avatar } = profile.__origin__ as WalletProfile;
+            const ens = getEnsNameFromWalletProfile(profile.__origin__ as WalletProfile);
             return {
                 ...profile,
-                displayName: primary_ens || formatAddressEthereum(address, 8),
+                displayName: ens || formatAddressEthereum(address, 8),
                 address,
                 avatar,
-                ens: primary_ens || undefined,
+                ens,
                 networkType: blockchain,
             };
         });

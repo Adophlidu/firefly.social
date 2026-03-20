@@ -17,6 +17,7 @@ import { Comeback } from '@/components/Comeback.js';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
 import { NoSSR } from '@/components/NoSSR.js';
+import { EnsName } from '@/components/Profile/EnsName.js';
 import { SwapActions } from '@/components/Swap/SwapActions.js';
 import { WalletBaseMoreAction } from '@/components/WalletBaseMoreAction.js';
 import { chains } from '@/configs/chains.js';
@@ -25,6 +26,7 @@ import { notFound } from '@/esm/navigation.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
+import { getEnsNameFromDisplayInfo } from '@/helpers/getEnsNameFromDisplayInfo.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { resolveExplorerLink } from '@/helpers/resolveExplorerLink.js';
@@ -46,7 +48,7 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ activity }
         activity.chain_id !== 101
             ? resolveExplorerLink(activity.chain_id, activity.hash, 'tx')
             : `https://solscan.io/tx/${activity.hash}`;
-    const ensHandle = activity.displayInfo?.ensHandle ?? undefined;
+    const ensHandle = getEnsNameFromDisplayInfo(activity, activity.owner);
 
     return (
         <div className="flex flex-col">
@@ -79,14 +81,7 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ activity }
                     <div className="flex items-center gap-1">
                         <div className="flex items-center gap-x-1 text-medium">
                             <Link href={profileUrl} className="min-w-0 truncate font-bold text-lightMain">
-                                {ensHandle ? (
-                                    <span>
-                                        {ensHandle.split('.')[0]}
-                                        <span className="text-second">.{ensHandle.split('.')[1]}</span>
-                                    </span>
-                                ) : (
-                                    addressName
-                                )}
+                                {ensHandle ? <EnsName ens={ensHandle} /> : addressName}
                             </Link>
                         </div>
                         <div className="flex items-center gap-x-1 text-sm text-second">

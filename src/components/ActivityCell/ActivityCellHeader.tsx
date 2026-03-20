@@ -3,6 +3,7 @@ import { type HTMLProps, type ReactNode } from 'react';
 import { type Address } from 'viem';
 
 import { ConditionalLink } from '@/components/ConditionalLink.js';
+import { EnsName } from '@/components/Profile/EnsName.js';
 import { Time } from '@/components/Semantic/Time.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { Source } from '@/constants/enum.js';
@@ -47,7 +48,7 @@ export function ActivityCellHeader({
                     target={target}
                     onClick={onClickLink}
                 >
-                    {mainContent}
+                    {displayName && typeof displayName === 'string' ? <EnsName ens={displayName} /> : mainContent}
                 </ConditionalLink>
 
                 {displayName ? (
