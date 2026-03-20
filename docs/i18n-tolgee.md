@@ -35,6 +35,8 @@ Authenticate once with `pnpm exec tolgee login` (CLI stores credentials; use `--
 
 Configuration lives in `.tolgeerc.json` (`apiUrl`, `PO_ICU`, paths).
 
+`pull.states` includes `UNTRANSLATED` so exported `.po` files keep every key per locale (empty `msgstr` where there is no translation). The Tolgee CLI default is to omit untranslated rows, which made diffs look like keys were removed.
+
 ## Optional: in-context / runtime SDK
 
 The [JavaScript SDK](https://docs.tolgee.io/js-sdk) is not required for Lingui + CLI. Add it only if you want in-context editing in the app.

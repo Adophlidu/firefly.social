@@ -15,6 +15,7 @@
     },
     "pull": {
         "path": "./src/locales",
-        "fileStructureTemplate": "{languageTag}/messages.{extension}"
+        "fileStructureTemplate": "{languageTag}/messages.{extension}",
+        "states": ["UNTRANSLATED", "TRANSLATED", "REVIEWED"]
     }
 }
