@@ -3,7 +3,13 @@
     "apiUrl": "https://i18n.firefly.land",
     "format": "PO_ICU",
     "push": {
-        "filesTemplate": "./src/locales/{languageTag}/messages.po",
+        "files": [
+            { "path": "./src/locales/en/messages.po", "language": "en" },
+            { "path": "./src/locales/ko/messages.po", "language": "ko" },
+            { "path": "./src/locales/ja/messages.po", "language": "ja" },
+            { "path": "./src/locales/zh-Hans/messages.po", "language": "zh-Hans" },
+            { "path": "./src/locales/zh-Hant/messages.po", "language": "zh-Hant" }
+        ],
         "forceMode": "OVERRIDE",
         "convertPlaceholdersToIcu": false
     },
