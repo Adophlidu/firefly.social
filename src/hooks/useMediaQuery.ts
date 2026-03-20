@@ -1,15 +1,16 @@
 import { useMediaQuery } from 'usehooks-ts';
 
+// Disable initializeWithValue to prevent hydration mismatch (React Error #418).
+const MEDIA_QUERY_OPTIONS = { initializeWithValue: false } as const;
+
 export function useIsLarge(constraintType: 'min' | 'max' = 'min') {
-    return useMediaQuery(`(${constraintType}-width: 1280px)`);
+    return useMediaQuery(`(${constraintType}-width: 1280px)`, MEDIA_QUERY_OPTIONS);
 }
 
 export function useIsMedium(constraintType: 'min' | 'max' = 'min') {
-    const isMediumMatched = useMediaQuery(`(${constraintType}-width: 619px)`);
-    return isMediumMatched;
+    return useMediaQuery(`(${constraintType}-width: 619px)`, MEDIA_QUERY_OPTIONS);
 }
 
 export function useIsSmall(constraintType: 'min' | 'max' = 'min') {
-    const isSmallMatched = useMediaQuery(`(${constraintType}-width: 320px)`);
-    return isSmallMatched;
+    return useMediaQuery(`(${constraintType}-width: 320px)`, MEDIA_QUERY_OPTIONS);
 }

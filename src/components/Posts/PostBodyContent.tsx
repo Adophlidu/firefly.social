@@ -41,6 +41,7 @@ import { useEverSeen } from '@/hooks/useEverSeen.js';
 import { useForkRef } from '@/hooks/useForkRef.js';
 import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import { useMounted } from '@/hooks/useMounted.js';
 import { type RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
 import { useTwitterProfileStore } from '@/store/useProfileStore/useTwitterProfileStore.js';
@@ -79,6 +80,7 @@ export function PostBodyContent({ ref, ...props }: PostBodyContentProps) {
     } = props;
 
     const router = useRouter();
+    const mounted = useMounted();
     const currentTwitterProfileSession = useTwitterProfileStore.use.currentProfileSession();
     const { metadata, author } = post;
     const postRawContent = metadata.content?.content;
@@ -190,7 +192,7 @@ export function PostBodyContent({ ref, ...props }: PostBodyContentProps) {
                     className={classNames(
                         'line-clamp-5 w-full self-stretch break-words text-left text-medium opacity-75',
                         {
-                            'max-h-[7.8rem]': IS_SAFARI && IS_APPLE,
+                            'max-h-[7.8rem]': mounted && IS_SAFARI && IS_APPLE,
                         },
                     )}
                 >

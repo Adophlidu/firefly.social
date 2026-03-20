@@ -8,6 +8,7 @@ import { IS_APPLE, IS_SAFARI } from '@/constants/browser.js';
 import { formatUrl } from '@/helpers/formatUrl.js';
 import { isValidUrl } from '@/helpers/isValidUrl.js';
 import { useDetectOverflow } from '@/hooks/useDetectOverflow.js';
+import { useMounted } from '@/hooks/useMounted.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
@@ -26,6 +27,7 @@ export const PostBodyReplyContent = memo<PostBodyReplyContentProps>(function Pos
     const [overflow, ref] = useDetectOverflow<HTMLDivElement>();
     const [multiple, setMultiple] = useState(1);
     const { focused } = useComposeStateStore();
+    const mounted = useMounted();
 
     useEffect(() => {
         if (focused) {
@@ -38,7 +40,7 @@ export const PostBodyReplyContent = memo<PostBodyReplyContentProps>(function Pos
             <div
                 ref={ref}
                 className={classNames('single-post line-clamp-4 w-full self-stretch break-words text-base text-main', {
-                    'max-h-[7.8rem]': IS_SAFARI && IS_APPLE,
+                    'max-h-[7.8rem]': mounted && IS_SAFARI && IS_APPLE,
                 })}
                 style={{ WebkitLineClamp: multiple * 4 }}
             >
