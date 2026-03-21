@@ -2222,9 +2222,6 @@ msgstr "網站"
 msgid "Top Searches"
 msgstr "熱門搜尋"
 
-msgid "Your TG account is now connected"
-msgstr "您的 Telegram 帳戶已綁定"
-
 #. placeholder {0}: article.title
 #. placeholder {0}: profile.handle
 msgid "Failed to report @{0}."
@@ -4456,6 +4453,9 @@ msgstr "影片尺寸需介於 {minWidth}x{minHeight} 至 {maxWidth}x{maxHeight}"
 
 msgid "Mask Network"
 msgstr "Mask Network"
+
+msgid "Your Telegram account is now connected"
+msgstr "您的 Telegram 帳戶已綁定"
 
 msgid "Sanctioned address found."
 msgstr "黑名單地址。"

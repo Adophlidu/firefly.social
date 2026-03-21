@@ -2222,9 +2222,6 @@ msgstr "网站"
 msgid "Top Searches"
 msgstr "热门搜索"
 
-msgid "Your TG account is now connected"
-msgstr "您的 TG 账户已绑定"
-
 #. placeholder {0}: article.title
 #. placeholder {0}: profile.handle
 msgid "Failed to report @{0}."
@@ -4456,6 +4453,9 @@ msgstr "上传失败。视频尺寸超过限制 {minWidth}x{minHeight} ~ {maxWid
 
 msgid "Mask Network"
 msgstr "Mask Network"
+
+msgid "Your Telegram account is now connected"
+msgstr "您的 Telegram 账户已绑定"
 
 msgid "Sanctioned address found."
 msgstr "黑名单地址。"

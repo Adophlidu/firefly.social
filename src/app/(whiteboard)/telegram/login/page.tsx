@@ -79,7 +79,7 @@ export default function Page(props: Props) {
                 return;
             }
 
-            enqueueSuccessMessage(<Trans>Your TG account is now connected</Trans>);
+            enqueueSuccessMessage(<Trans>Your Telegram account is now connected</Trans>);
 
             await delay(1000);
 

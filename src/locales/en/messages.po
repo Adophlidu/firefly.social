@@ -2217,9 +2217,6 @@ msgstr "Website"
 msgid "Top Searches"
 msgstr "Top Searches"
 
-msgid "Your TG account is now connected"
-msgstr "Your TG account is now connected"
-
 #. placeholder {0}: article.title
 #. placeholder {0}: profile.handle
 msgid "Failed to report @{0}."
@@ -4451,6 +4448,9 @@ msgstr "Failed to upload. Video size exceeds {minWidth}x{minHeight} ~ {maxWidth}
 
 msgid "Mask Network"
 msgstr "Mask Network"
+
+msgid "Your Telegram account is now connected"
+msgstr "Your Telegram account is now connected"
 
 msgid "Sanctioned address found."
 msgstr "Sanctioned address found."

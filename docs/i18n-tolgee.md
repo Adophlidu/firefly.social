@@ -25,10 +25,10 @@ Remove obsolete `CROWDIN_*` secrets when the migration is done.
 
 ## Local commands
 
-| Script                     | Behavior                                                                                           |
-| -------------------------- | -------------------------------------------------------------------------------------------------- |
-| `pnpm tolgee:push-sources` | Upload production locales listed in `.tolgeerc.json` `push.files` (same as CI; excludes `pseudo`). |
-| `pnpm tolgee:pull`         | Download all locales into `src/locales/*/messages.po`.                                             |
+| Script                     | Behavior                                                                                                                    |
+| -------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `pnpm tolgee:push-sources` | Upload production locales listed in `.tolgeerc.json` `push.files` (same as CI; excludes `pseudo`).                          |
+| `pnpm tolgee:pull`         | Download all locales into `src/locales/*/messages.po`.                                                                      |
 | `pnpm tolgee:sync`         | `tolgee pull`, then `lingui:extract` (sort / merge from source), then `lingui:compile` — same order as the download Action. |
 
 The **Tolgee download** GitHub Action runs `tolgee pull`, then `pnpm run lingui:extract`, then `lingui:compile`. Extract reapplies `lingui.config.js` sort order (`orderBy: 'message'`) and merges strings from the codebase so automated PRs stay consistent with local `pnpm lingui`.
