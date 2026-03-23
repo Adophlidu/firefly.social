@@ -24,10 +24,12 @@ function resolveComposeType(type?: CloudDraftType): ComposeType | null {
         case CloudDraftType.FarcasterComment:
         case CloudDraftType.LensComment:
         case CloudDraftType.TwitterComment:
+        case CloudDraftType.BskyComment:
             return 'reply';
         case CloudDraftType.FarcasterQuote:
         case CloudDraftType.LensQuote:
         case CloudDraftType.TwitterQuote:
+        case CloudDraftType.BskyQuote:
             return 'quote';
         default:
             safeUnreachable(type);

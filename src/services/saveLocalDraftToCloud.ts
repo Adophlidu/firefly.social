@@ -49,7 +49,7 @@ function resolveCloudDraftType(draft: Draft): CreateCloudDraftRequest['type'] | 
                 case Source.Twitter:
                     return { type: CloudDraftType.TwitterComment, id: parentPost.postId };
                 case Source.Bsky:
-                    return null;
+                    return { type: CloudDraftType.BskyComment, id: parentPost.postId };
                 default:
                     safeUnreachable(source);
                     return null;
@@ -71,7 +71,7 @@ function resolveCloudDraftType(draft: Draft): CreateCloudDraftRequest['type'] | 
                 case Source.Twitter:
                     return { type: CloudDraftType.TwitterQuote, id: parentPost.postId };
                 case Source.Bsky:
-                    return null;
+                    return { type: CloudDraftType.BskyQuote, id: parentPost.postId };
                 default:
                     safeUnreachable(source);
                     return null;

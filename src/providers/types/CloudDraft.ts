@@ -9,6 +9,8 @@ export enum CloudDraftType {
     FarcasterComment = 'farcaster_comment',
     FarcasterQuote = 'farcaster_quote',
     FarcasterComposeIntent = 'farcaster_compose_intent',
+    BskyComment = 'bsky_comment',
+    BskyQuote = 'bsky_quote',
 }
 
 export type CloudDraftSource = 'android' | 'ios' | 'web';
