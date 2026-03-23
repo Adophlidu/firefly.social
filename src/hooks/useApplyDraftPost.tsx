@@ -190,7 +190,15 @@ export function useApplyDraftPost() {
                         return;
                     }
 
-                    target.parentPost[post.source] = detail;
+                    draft.posts = [
+                        {
+                            ...target,
+                            parentPost: {
+                                ...target.parentPost,
+                                [post.source]: detail,
+                            },
+                        },
+                    ];
                 }
 
                 const availableProfiles = draft.availableProfiles.filter((x) =>
