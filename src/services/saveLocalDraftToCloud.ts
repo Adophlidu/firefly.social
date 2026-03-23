@@ -118,6 +118,7 @@ export async function saveLocalDraftToCloud(draft: Draft) {
     }
 
     const restriction = first(draft.posts)?.restriction;
+    const source = draft.availableProfiles.length === 1 ? first(draft.availableProfiles)?.source : undefined;
     return createCloudDraft({
         id: draft.draftId,
         client: 'web',
@@ -129,7 +130,7 @@ export async function saveLocalDraftToCloud(draft: Draft) {
         })),
         content: draft.posts.map<CloudDraftContent>((post) => {
             const draftContent: CloudDraftContent = {
-                text: readChars(post.chars, 'both'),
+                text: readChars(post.chars, 'both', source),
                 hasMedia: !!post.images.length || !!post.videos.length,
                 mentions: compact(
                     (Array.isArray(post.chars) ? post.chars : [post.chars]).map((char) => {
