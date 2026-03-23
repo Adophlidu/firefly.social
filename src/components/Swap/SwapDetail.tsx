@@ -243,8 +243,8 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ activity }
                         </div>
                     </div>
                     {explorerLink ? (
-                        <div className="flex items-center justify-between text-sm text-highlight">
-                            <span className="text-second">
+                        <div className="flex min-w-0 items-center justify-between gap-2 text-sm text-highlight">
+                            <span className="shrink-0 text-second">
                                 <Trans>Transaction Hash</Trans>
                             </span>
 
@@ -253,14 +253,14 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ activity }
                             </TxLink>
                         </div>
                     ) : null}
-                    <div className="flex items-center justify-between text-sm">
-                        <span className="text-second">
+                    <div className="flex min-w-0 items-center justify-between gap-2 text-sm">
+                        <span className="shrink-0 text-second">
                             <Trans>Block</Trans>
                         </span>
-                        <span className="text-lightMain">{activity.block_number}</span>
+                        <span className="truncate text-lightMain">{activity.block_number}</span>
                     </div>
-                    <div className="flex items-center justify-between text-sm">
-                        <span className="text-second">
+                    <div className="flex min-w-0 items-center justify-between gap-2 text-sm">
+                        <span className="shrink-0 text-second">
                             <Trans>Status</Trans>
                         </span>
                         <span

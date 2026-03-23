@@ -166,8 +166,8 @@ export const TipsDetail = memo<TipsDetailProps>(function TipsDetail({ tipsData, 
                         />
                     </NoSSR>
                     <div className="space-y-3 pt-4">
-                        <div className="flex items-center justify-between">
-                            <span className="text-sm text-second">
+                        <div className="flex min-w-0 items-center justify-between gap-2">
+                            <span className="shrink-0 text-sm text-second">
                                 <Trans>Transaction Hash</Trans>
                             </span>
                             {tipsData.tx_hash ? (
@@ -179,15 +179,15 @@ export const TipsDetail = memo<TipsDetailProps>(function TipsDetail({ tipsData, 
                             )}
                         </div>
                         {tipsData.height ? (
-                            <div className="flex items-center justify-between">
-                                <span className="text-sm text-second">
+                            <div className="flex min-w-0 items-center justify-between gap-2">
+                                <span className="shrink-0 text-sm text-second">
                                     <Trans>Block</Trans>
                                 </span>
-                                <span className="text-sm font-medium text-main">{tipsData.height}</span>
+                                <span className="truncate text-sm font-medium text-main">{tipsData.height}</span>
                             </div>
                         ) : null}
-                        <div className="flex items-center justify-between">
-                            <span className="text-sm text-second">
+                        <div className="flex min-w-0 items-center justify-between gap-2">
+                            <span className="shrink-0 text-sm text-second">
                                 <Trans>Status</Trans>
                             </span>
                             <span
