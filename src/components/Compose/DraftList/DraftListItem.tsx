@@ -7,12 +7,14 @@ import { compact, first, values } from 'lodash-es';
 import { memo, useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
 
+import CloudIcon from '@/assets/cloud.svg';
 import Trash from '@/assets/trash2.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { IconButton } from '@/components/IconButton.js';
 import { Link } from '@/components/Link.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
+import { Tooltip } from '@/components/Tooltip.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { DraftPostType } from '@/constants/enum.js';
 import { readChars } from '@/helpers/chars.js';
@@ -210,9 +212,14 @@ export const DraftListItem = memo<DraftListItemProps>(function DraftListItem({ d
                         <SocialSourceIcon key={y} source={y} size={20} />
                     ))}
                 </span>
-                <span className="text-[13px] font-medium leading-6 text-secondary">
+                <span className="text-left text-[13px] font-medium leading-6 text-secondary">
                     <Trans>Saved on {dayjs(draft.createdAt).format('ddd, MMM DD, YYYY [at] h:mm A')}</Trans>
                 </span>
+                {draft.draftType === DraftPostType.Cloud ? (
+                    <Tooltip placement="top" content={<Trans>Cloud Draft</Trans>}>
+                        <CloudIcon className="shrink-0 text-secondary" width={16} height={16} />
+                    </Tooltip>
+                ) : null}
             </div>
         </ClickableArea>
     );

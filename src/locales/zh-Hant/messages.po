@@ -3079,6 +3079,9 @@ msgstr "上傳至 {0} 失敗。影片大小超過 {1}"
 msgid "Received time:"
 msgstr "領取時間："
 
+msgid "Cloud Draft"
+msgstr ""
+
 msgid "Article unliked."
 msgstr "已取消按赞。"
 

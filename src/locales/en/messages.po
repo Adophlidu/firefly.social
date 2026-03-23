@@ -3074,6 +3074,9 @@ msgstr "Failed to upload on {0}. Video size exceeds {1}"
 msgid "Received time:"
 msgstr "Received time:"
 
+msgid "Cloud Draft"
+msgstr "Cloud Draft"
+
 msgid "Article unliked."
 msgstr "Article unliked."
 

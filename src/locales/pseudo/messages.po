@@ -3074,6 +3074,9 @@ msgstr ""
 msgid "Received time:"
 msgstr ""
 
+msgid "Cloud Draft"
+msgstr ""
+
 msgid "Article unliked."
 msgstr ""
 

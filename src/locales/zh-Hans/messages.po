@@ -3079,6 +3079,9 @@ msgstr "上传至 {0} 失败。视频超过最大限制 {1}"
 msgid "Received time:"
 msgstr "接收时间："
 
+msgid "Cloud Draft"
+msgstr ""
+
 msgid "Article unliked."
 msgstr "已取消点赞。"
 
