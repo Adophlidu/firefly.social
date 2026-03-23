@@ -166,13 +166,15 @@ function SearchBar({ slot, autoSearchType = false, className, ...rest }: SearchB
 
                         const urlResult = resolveSearchUrlType(inputText);
                         const autoRouting = autoSearchType || isValidAddress(inputText);
-                        const resolvedSearchType = isProfile
-                            ? SearchType.Profiles
-                            : isTokenAddress
-                              ? SearchType.Tokens
-                              : autoRouting
-                                ? resolveSearchTypeFromQuery(inputText, isTokenAddress)
-                                : undefined;
+                        const resolvedSearchType =
+                            urlResult?.searchType ??
+                            (isProfile
+                                ? SearchType.Profiles
+                                : isTokenAddress
+                                  ? SearchType.Tokens
+                                  : autoRouting
+                                    ? resolveSearchTypeFromQuery(inputText, isTokenAddress)
+                                    : undefined);
 
                         handleInputSubmit({
                             q: inputText,
