@@ -9,6 +9,7 @@ import { logger } from '@/libs/Logger.js';
 import { attachRetweetedStatusToTweets } from '@/providers/twitter/attachRetweetedStatusToTweets.js';
 import { createAppOnlyTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
 import { createTwitterRetweetStatusClient } from '@/providers/twitter/createTwitterRetweetStatusClient.js';
+import { resolveTwitterPaginationToken } from '@/providers/twitter/resolveTwitterPaginationToken.js';
 import {
     isReferencedTweetNotFoundError,
     withoutReferencedTweetExpansions,
@@ -36,7 +37,7 @@ export const GET = compose(
         const rawQuery = removeUnknownOperator(query);
         const params = {
             ...TWITTER_TIMELINE_OPTIONS,
-            next_token: cursor,
+            next_token: resolveTwitterPaginationToken(cursor),
             max_results: limit,
         };
 

@@ -48,6 +48,7 @@ import { formatTwitterProfile, formatTwitterProfilePage } from '@/providers/twit
 import { formatTwitterProfileFromRootdata } from '@/providers/twitter/formatTwitterProfileFromRootdata.js';
 import { getProfilesByIdsFromOfficial } from '@/providers/twitter/getProfilesByIdsFromOfficial.js';
 import { getTwitterProfileHandleFromUrl } from '@/providers/twitter/getTwitterProfileHandleFromUrl.js';
+import { resolveTwitterPaginationToken } from '@/providers/twitter/resolveTwitterPaginationToken.js';
 import { resolveTwitterReplyRestriction } from '@/providers/twitter/resolveTwitterReplyRestriction.js';
 import { resolveTwitterResponseData } from '@/providers/twitter/resolveTwitterResponseData.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
@@ -242,7 +243,7 @@ class OfficialSocialMedia implements Provider {
             const limit = indicator?.size ?? 25;
             const url = urlcat(`/api/twitter/user/search`, {
                 limit,
-                cursor: indicator?.id,
+                cursor: resolveTwitterPaginationToken(indicator?.id),
                 query: q,
             });
             const response = await twitterSessionHolder.fetchWithSession<ResponseJson<UserV2TimelineResult>>(url);

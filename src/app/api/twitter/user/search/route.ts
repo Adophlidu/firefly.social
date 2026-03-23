@@ -8,6 +8,7 @@ import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { getSearchParamsWithZodSchema } from '@/helpers/getSearchParamsWithZodSchema.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { createTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
+import { resolveTwitterPaginationToken } from '@/providers/twitter/resolveTwitterPaginationToken.js';
 import { withTwitterRequestErrorHandler } from '@/providers/twitter/withTwitterRequestErrorHandler.js';
 import { SearchPageable } from '@/schemas/Pageable.js';
 
@@ -21,7 +22,7 @@ export const GET = compose(
         const url = urlcat('users/search', {
             query,
             'user.fields': Array.isArray(userFields) ? userFields.join(',') : undefined,
-            next_token: cursor,
+            next_token: resolveTwitterPaginationToken(cursor),
             max_results: limit,
         });
 
