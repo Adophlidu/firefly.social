@@ -93,19 +93,19 @@ export function WalletInfo({ profile }: WalletInfoProps) {
                             className="size-10 rounded-full border border-highlight"
                         />
                     </div>
-                    <div className="relative flex flex-1 flex-col">
+                    <div className="relative flex min-w-0 flex-1 flex-col">
                         <div className="flex flex-col gap-2">
                             <div
-                                className="flex min-h-8 flex-row items-center justify-between"
+                                className="flex min-h-8 min-w-0 flex-row items-center justify-between gap-2"
                                 id={WALLET_PROFILE_ACTION_ID}
                             >
-                                <div className="flex flex-col">
+                                <div className="flex min-w-0 flex-1 flex-col">
                                     <div className="h-6 min-w-0 truncate text-lg font-black leading-6 text-lightMain md:hidden">
                                         {displayName}
                                     </div>
-                                    <div className="flex flex-row items-center">
+                                    <div className="flex min-w-0 flex-row items-center">
                                         {profile.isDefault ? (
-                                            <div className="my-auto mr-1 h-6 rounded bg-highlight bg-opacity-[0.16] px-2 text-[13px] font-medium leading-6 text-highlight">
+                                            <div className="my-auto mr-1 h-6 shrink-0 rounded bg-highlight bg-opacity-[0.16] px-2 text-[13px] font-medium leading-6 text-highlight">
                                                 <Trans>Primary</Trans>
                                             </div>
                                         ) : null}
@@ -128,8 +128,8 @@ export function WalletInfo({ profile }: WalletInfoProps) {
                                 </NoSSR>
                             </div>
 
-                            <div className="flex items-center gap-1 text-sm leading-[14px] text-secondary max-md:break-all max-md:text-xs">
-                                {profile.address}
+                            <div className="flex min-w-0 items-center gap-1 text-sm leading-[14px] text-secondary max-md:text-xs">
+                                <span className="truncate">{profile.address}</span>
                                 <NoSSR>
                                     <CopyTextButton text={profile.address} />
                                     {addressLink ? (
