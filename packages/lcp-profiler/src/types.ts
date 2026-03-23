@@ -1,7 +1,7 @@
 /**
  * API Performance Profiling Types
  *
- * This module provides types for tracking external API call performance
+ * Types for tracking external API call performance
  * to identify bottlenecks affecting LCP (Largest Contentful Paint).
  */
 
@@ -111,4 +111,9 @@ export interface PerformanceConfig {
     onApiCallComplete?: (metrics: ApiCallMetrics) => void;
     /** Callback when report is generated */
     onReportGenerated?: (report: PerformanceReport) => void;
+}
+
+export interface WebVitalsInitOptions {
+    /** Called when PerformanceObserver setup throws (e.g. unsupported browser) */
+    onObserverError?: (error: unknown) => void;
 }

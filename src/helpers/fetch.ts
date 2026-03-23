@@ -139,7 +139,7 @@ export async function fetch(
     if (env.external.NEXT_PUBLIC_API_PERFORMANCE_PROFILING === STATUS.Enabled) {
         // Dynamic import to avoid loading the module when disabled
         // This is safe because we've already checked the env variable synchronously
-        const performanceModule = await import('@/providers/lcp/tracker.js');
+        const performanceModule = await import('@dimensiondev/lcp-profiler');
         const urlString =
             u?.toString() || (typeof input === 'string' ? input : input instanceof URL ? input.toString() : input.url);
         if (performanceModule.isTrackingEnabled()) {

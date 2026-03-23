@@ -42,6 +42,7 @@
         "@coral-xyz/anchor": "^0.32.1",
         "@dimensiondev/constants": "workspace:^",
         "@dimensiondev/exception-tracker": "workspace:^",
+        "@dimensiondev/lcp-profiler": "workspace:^",
         "@dimensiondev/iframe-bridge": "workspace:^",
         "@dimensiondev/native-bridge": "workspace:^",
         "@dimensiondev/utils": "workspace:^",

@@ -6,8 +6,8 @@
 
 import { parseUrl } from '@dimensiondev/utils';
 
-import { performanceStore } from '@/providers/lcp/store.js';
-import { type ApiCallMetrics, type PerformanceConfig } from '@/providers/lcp/types.js';
+import { performanceStore } from '@/store.js';
+import { type ApiCallMetrics, type PerformanceConfig } from '@/types.js';
 
 let config: PerformanceConfig = {
     enabled: false,
@@ -21,9 +21,6 @@ let config: PerformanceConfig = {
 
 let callCounter = 0;
 
-/**
- * Initialize the performance tracker
- */
 export function initPerformanceTracker(customConfig?: Partial<PerformanceConfig>): void {
     config = {
         ...config,
@@ -31,16 +28,10 @@ export function initPerformanceTracker(customConfig?: Partial<PerformanceConfig>
     };
 }
 
-/**
- * Check if tracking is enabled
- */
 export function isTrackingEnabled(): boolean {
     return config.enabled;
 }
 
-/**
- * Check if URL should be tracked
- */
 function shouldTrackUrl(url: string): boolean {
     if (!config.enabled) return false;
 
@@ -50,18 +41,15 @@ function shouldTrackUrl(url: string): boolean {
 
         const domain = parsed.hostname;
 
-        // Check excluded domains
         if (config.excludedDomains.some((excluded) => domain.includes(excluded))) {
             return false;
         }
 
-        // If tracking external only, check if it's external
         if (config.trackExternalOnly) {
             if (typeof window !== 'undefined') {
                 const currentOrigin = window.location.origin;
                 return parsed.origin !== currentOrigin;
             }
-            // Server-side: consider all URLs as external for now
             return true;
         }
 
@@ -71,9 +59,6 @@ function shouldTrackUrl(url: string): boolean {
     }
 }
 
-/**
- * Extract domain from URL
- */
 function extractDomain(url: string): string {
     try {
         const parsed = parseUrl(url, { autoFixProtocol: false });
@@ -83,9 +68,6 @@ function extractDomain(url: string): string {
     }
 }
 
-/**
- * Get stack trace (client-side only)
- */
 function getStackTrace(): string | undefined {
     if (!config.captureStackTrace || typeof window === 'undefined') {
         return undefined;
@@ -95,7 +77,6 @@ function getStackTrace(): string | undefined {
         throw new Error();
     } catch (e) {
         if (e instanceof Error && e.stack) {
-            // Remove first few lines (this function and tracker calls)
             const lines = e.stack.split('\n');
             return lines.slice(3, 10).join('\n');
         }
@@ -104,9 +85,6 @@ function getStackTrace(): string | undefined {
     return undefined;
 }
 
-/**
- * Sanitize headers (remove sensitive data)
- */
 function sanitizeHeaders(headers?: HeadersInit): Record<string, string> | undefined {
     if (!headers) return undefined;
 
@@ -145,9 +123,6 @@ function sanitizeHeaders(headers?: HeadersInit): Record<string, string> | undefi
     return sanitized;
 }
 
-/**
- * Track an API call
- */
 export async function trackApiCall(
     url: string,
     init: RequestInit | undefined,
@@ -181,13 +156,11 @@ export async function trackApiCall(
         success = status >= 200 && status < 300;
         responseHeaders = sanitizeHeaders(response.headers);
 
-        // Try to get response size
         const contentLength = response.headers.get('content-length');
         if (contentLength) {
             responseSize = parseInt(contentLength, 10);
         }
 
-        // Get resource timing if available
         if (typeof performance !== 'undefined' && 'getEntriesByType' in performance) {
             const entries = performance.getEntriesByType('resource') as PerformanceResourceTiming[];
             const entry = entries.find((e) => e.name === url);
@@ -196,7 +169,6 @@ export async function trackApiCall(
             }
         }
 
-        // Record metrics
         const duration = endTime - startTime;
         if (duration >= config.minDurationThreshold) {
             const metrics: ApiCallMetrics = {
@@ -216,7 +188,6 @@ export async function trackApiCall(
                 stackTrace,
             };
 
-            // Update LCP correlation if LCP has been measured
             const lcpTime = performanceStore.lcpTime;
             if (lcpTime !== null) {
                 metrics.beforeLCP = endTime < lcpTime;
@@ -225,7 +196,6 @@ export async function trackApiCall(
 
             performanceStore.recordApiCall(metrics);
 
-            // Call callback if provided
             config.onApiCallComplete?.(metrics);
         }
 
@@ -258,9 +228,6 @@ export async function trackApiCall(
     }
 }
 
-/**
- * Get current configuration
- */
 export function getConfig(): PerformanceConfig {
     return { ...config };
 }

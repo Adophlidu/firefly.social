@@ -45,7 +45,7 @@ export const InitialProviders = memo(function Providers(props: { children: React
         // Initialize API performance profiling only if enabled
         if (env.external.NEXT_PUBLIC_API_PERFORMANCE_PROFILING === STATUS.Enabled) {
             // Dynamic import to avoid loading the module when disabled
-            import('@/providers/lcp/init.js').then((module) => {
+            import('@/helpers/initPerformanceProfilingFromEnv.js').then((module) => {
                 module.initPerformanceProfilingFromEnv();
             });
         }

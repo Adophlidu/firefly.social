@@ -1,10 +1,10 @@
 /* cspell:disable */
 
+import { initPerformanceProfiling, type PerformanceConfig } from '@dimensiondev/lcp-profiler';
+
 import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { logger } from '@/libs/Logger.js';
-import { initPerformanceProfiling } from '@/providers/lcp/index.js';
-import { type PerformanceConfig } from '@/providers/lcp/types.js';
 
 /**
  * Initialize performance profiling from environment variables

@@ -1,0 +1,61 @@
+{
+    "name": "@dimensiondev/lcp-profiler",
+    "version": "0.1.16",
+    "description": "API call performance profiling correlated with LCP for React and Next.js apps",
+    "type": "module",
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "require": "./dist/index.cjs"
+        }
+    },
+    "files": [
+        "dist",
+        "src",
+        "README.md"
+    ],
+    "scripts": {
+        "build": "tsup",
+        "dev": "tsup --watch",
+        "typecheck": "tsc --noEmit",
+        "clean": "rm -rf dist"
+    },
+    "keywords": [
+        "lcp",
+        "performance",
+        "web-vitals",
+        "nextjs",
+        "react",
+        "profiling"
+    ],
+    "author": "Firefly Team",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DimensionDev/firefly.mask.social",
+        "directory": "packages/lcp-profiler"
+    },
+    "publishConfig": {
+        "registry": "https://npm.pkg.github.com",
+        "access": "restricted"
+    },
+    "dependencies": {
+        "@dimensiondev/utils": "workspace:^"
+    },
+    "peerDependencies": {
+        "typescript": ">=5.0.0"
+    },
+    "peerDependenciesMeta": {
+        "typescript": {
+            "optional": true
+        }
+    },
+    "devDependencies": {
+        "tsup": "^8.5.1",
+        "typescript": "5.9.3"
+    }
+}
