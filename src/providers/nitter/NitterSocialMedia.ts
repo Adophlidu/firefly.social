@@ -1,14 +1,13 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { NotFoundError, NotImplementedError, UnauthorizedError } from '@dimensiondev/utils';
 import { isServer } from '@tanstack/react-query';
-import { compact, last, uniq } from 'lodash-es';
-import { type TweetV2LookupResult } from 'twitter-api-v2';
-import urlcat from 'urlcat';
+import { compact, last } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
 import { TweetUnavailableError } from '@/constants/error.js';
 import { AddAuthorHighlightStatusForPosts } from '@/decorators/AddProfileHighlightStatus.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
+import { Throw } from '@/decorators/Throw.js';
 import { isNumericalProfileId } from '@/helpers/isNumericalProfileId.js';
 import {
     createIndicator,
@@ -17,23 +16,19 @@ import {
     type Pageable,
     type PageIndicator,
 } from '@/helpers/pageable.js';
-import {
-    patchPostClientToFirefly,
-    patchPostsClientToFirefly,
-    patchTweetsClientToFirefly,
-} from '@/helpers/patchPostClientToFirefly.js';
+import { patchPostClientToFirefly, patchPostsClientToFirefly } from '@/helpers/patchPostClientToFirefly.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getTwitterHandleById } from '@/providers/firefly/worker/getTwitterHandleById.js';
 import { formatTwitterPostFromNitter } from '@/providers/nitter/formatTwitterPostFromNitter.js';
 import { formatTwitterProfileFromNitter } from '@/providers/nitter/formatTwitterProfileFromNitter.js';
 import { NitterAPIProvider } from '@/providers/nitter/Nitter.js';
-import { tweetV2ToPost } from '@/providers/twitter/formatTwitterPost.js';
-import { resolveTwitterResponseData } from '@/providers/twitter/resolveTwitterResponseData.js';
+import { withFullStatusTweetWithPagination } from '@/providers/nitter/withFullStatusTweetWithPagination.js';
+import { withReplyPostsToTimelineWithPagination } from '@/providers/nitter/withReplyPostsToTimelineWithPagination.js';
 import { type TwitterSession } from '@/providers/twitter/Session.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import { type Account } from '@/providers/types/Account.js';
 import { type NotificationSettings } from '@/providers/types/Firefly.js';
-import { type Pagination, type Tweet, UserTimelineTab } from '@/providers/types/Nitter.js';
+import { UserTimelineTab } from '@/providers/types/Nitter.js';
 import { type Session } from '@/providers/types/Session.js';
 import {
     type Channel,
@@ -47,94 +42,9 @@ import {
     type Provider,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
-import { type ResponseJson } from '@/types/utility.js';
 
-async function withFullStatusTimeline(timeline: Tweet[]) {
-    timeline = timeline.flat();
-    const tweetIds = uniq(timeline.map((x) => x.id).filter((x) => x && x !== '0')).join(',');
-    const response = await twitterSessionHolder.fetchWithSession<ResponseJson<TweetV2LookupResult>>(
-        urlcat(`/api/twitter/tweets/:tweetIds`, {
-            tweetIds,
-        }),
-    );
-    const data = resolveTwitterResponseData(response);
-    return timeline.map((tweet) => {
-        const tweetV2 = data.data?.find((x) => x.id === tweet.id);
-        return formatTwitterPostFromNitter(tweet, {
-            tweet: tweetV2,
-            includes: data.includes,
-        });
-    });
-}
-
-async function withFullStatusTweetWithPagination(timeline: Tweet[], pagination: Pagination, indicator?: PageIndicator) {
-    timeline = timeline.flat();
-    if (twitterSessionHolder.session) {
-        const data = await runInSafeAsync(() => withFullStatusTimeline(timeline));
-        if (data) {
-            return createPageable(
-                await patchPostsClientToFirefly(data),
-                createIndicator(indicator),
-                pagination.bottom ? createNextIndicator(indicator, pagination.bottom) : undefined,
-            );
-        }
-    }
-    const data = await patchPostsClientToFirefly(timeline.map((tweet) => formatTwitterPostFromNitter(tweet)));
-    return createPageable(
-        data,
-        createIndicator(indicator),
-        pagination.bottom ? createNextIndicator(indicator, pagination.bottom) : undefined,
-    );
-}
-
-async function withReplyPostsToTimeline(timeline: Tweet[]) {
-    timeline = timeline.flat();
-    const tweetIds = uniq(
-        [...timeline.map((x) => x.replyId), ...timeline.map((x) => x.id)].filter((x) => x && x !== '0').join(','),
-    );
-    const response = await twitterSessionHolder.fetchWithSession<ResponseJson<TweetV2LookupResult>>(
-        urlcat(`/api/twitter/tweets/:tweetIds`, {
-            tweetIds,
-        }),
-    );
-    const result = resolveTwitterResponseData(response);
-    result.data = result.data ? await patchTweetsClientToFirefly(result.data) : EMPTY_LIST;
-    return timeline.map((tweet) => {
-        const tweetV2 = result.data?.find((x) => x.id === tweet.id);
-        const commentTweetV2 = result.data?.find((x) => x.id === tweet.replyId);
-        const commentOn = commentTweetV2 ? tweetV2ToPost(commentTweetV2) : undefined;
-        return formatTwitterPostFromNitter(tweet, {
-            base: { commentOn, commentLoadable: !commentOn },
-            tweet: tweetV2,
-            includes: result.includes,
-        });
-    });
-}
-
-async function withReplyPostsToTimelineWithPagination(
-    timeline: Tweet[],
-    pagination: Pagination,
-    indicator?: PageIndicator,
-) {
-    timeline = timeline.flat();
-    if (twitterSessionHolder.session) {
-        const data = await runInSafeAsync(() => withReplyPostsToTimeline(timeline));
-        if (data) {
-            return createPageable(
-                await patchPostsClientToFirefly(data),
-                createIndicator(indicator),
-                pagination.bottom ? createNextIndicator(indicator, pagination.bottom) : undefined,
-            );
-        }
-    }
-    const data = await patchPostsClientToFirefly(
-        timeline.map((tweet) => formatTwitterPostFromNitter(tweet, { base: { commentLoadable: true } })),
-    );
-    return createPageable(
-        data,
-        createIndicator(indicator),
-        pagination.bottom ? createNextIndicator(indicator, pagination.bottom) : undefined,
-    );
+function notImplementedWhenClientHasTwitterSession(): boolean {
+    return !isServer && Boolean(twitterSessionHolder.session);
 }
 
 @SetQueryDataForPosts
@@ -235,8 +145,8 @@ class NitterSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
+    @Throw(() => new NotImplementedError(), notImplementedWhenClientHasTwitterSession)
     async searchProfiles(q: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        if (!isServer && twitterSessionHolder.session) throw new NotImplementedError();
         const pageable = await runInSafeAsync(async () => {
             const { users, pagination } = await NitterAPIProvider.search(q, {
                 cursor: indicator?.id,
@@ -314,8 +224,8 @@ class NitterSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
+    @Throw(() => new NotImplementedError(), notImplementedWhenClientHasTwitterSession)
     async getProfilesByIds(ids: string[]): Promise<Profile[]> {
-        if (!isServer && twitterSessionHolder.session) throw new NotImplementedError();
         const profilesSettledResult = await Promise.allSettled(ids.map((id) => this.getProfileById(id)));
         return compact(profilesSettledResult.map((x) => (x.status === 'fulfilled' ? x.value : null)));
     }
@@ -332,8 +242,8 @@ class NitterSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
+    @Throw(() => new NotImplementedError(), notImplementedWhenClientHasTwitterSession)
     async getPostById(postId: string): Promise<Post> {
-        if (!isServer && twitterSessionHolder.session) throw new NotImplementedError();
         const { tweet, before } = await NitterAPIProvider.getTweetStatus('web', postId);
 
         if (!tweet.available) {
@@ -351,23 +261,23 @@ class NitterSocialMedia implements Provider {
         return patchPostClientToFirefly(post);
     }
 
+    @Throw(() => new NotImplementedError(), notImplementedWhenClientHasTwitterSession)
     async getProfileById(profileId: string): Promise<Profile> {
-        if (!isServer && twitterSessionHolder.session) throw new NotImplementedError();
         const username = await getTwitterHandleById(profileId);
         const { user } = await NitterAPIProvider.getProfileByHandle(username);
         return formatTwitterProfileFromNitter(user);
     }
 
+    @Throw(() => new NotImplementedError(), notImplementedWhenClientHasTwitterSession)
     async getProfileByHandle(handle: string): Promise<Profile> {
-        if (!isServer && twitterSessionHolder.session) throw new NotImplementedError();
         const { user } = await NitterAPIProvider.getProfileByHandle(handle);
         if (!user.id || user.id === '0')
             throw new NotFoundError(`The twitter profile not found with handle: ${handle}`);
         return formatTwitterProfileFromNitter(user);
     }
 
+    @Throw(() => new NotImplementedError(), notImplementedWhenClientHasTwitterSession)
     async getProfileByIdOrHandle(profileIdOrHandle: string): Promise<Profile> {
-        if (!isServer && twitterSessionHolder.session) throw new NotImplementedError();
         if (isNumericalProfileId(profileIdOrHandle)) {
             // Using runInSafeAsync here to handle cases where a purely numerical handle might be passed
             const profile = await runInSafeAsync(() => this.getProfileById(profileIdOrHandle));
@@ -386,7 +296,6 @@ class NitterSocialMedia implements Provider {
     }
 
     async getPostsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        if (!isServer && twitterSessionHolder.session) throw new NotImplementedError();
         const username = await getTwitterHandleById(profileId);
         const pageable = await runInSafeAsync(async () => {
             const { timeline, pagination } = await NitterAPIProvider.getUserTimelineByHandle(username, {
@@ -405,7 +314,6 @@ class NitterSocialMedia implements Provider {
         profileId: string,
         indicator?: PageIndicator,
     ): Promise<Pageable<Post, PageIndicator>> {
-        if (!isServer && twitterSessionHolder.session) throw new NotImplementedError();
         const username = await getTwitterHandleById(profileId);
         const pageable = await runInSafeAsync(async () => {
             const { timeline, pagination } = await NitterAPIProvider.getUserTimelineByHandle(username, {
@@ -418,7 +326,6 @@ class NitterSocialMedia implements Provider {
     }
 
     async getCommentsById(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        if (!isServer && twitterSessionHolder.session) throw new NotImplementedError();
         const { tweet, replies, after } = await NitterAPIProvider.getTweetStatus('web', postId, {
             cursor: indicator?.id,
         });
@@ -466,12 +373,12 @@ class NitterSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
+    @Throw(() => new NotImplementedError(), notImplementedWhenClientHasTwitterSession)
     async searchPosts(
         q: string,
         _fullMatch?: boolean,
         indicator?: PageIndicator,
     ): Promise<Pageable<Post, PageIndicator>> {
-        if (!isServer && twitterSessionHolder.session) throw new NotImplementedError();
         const pageable = await runInSafeAsync(async () => {
             const { timeline, pagination } = await NitterAPIProvider.search(q, {
                 cursor: indicator?.id,
@@ -536,8 +443,8 @@ class NitterSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
+    @Throw(() => new NotImplementedError(), notImplementedWhenClientHasTwitterSession)
     async getPinnedPost(profileId: string): Promise<Post | null> {
-        if (!isServer && twitterSessionHolder.session) throw new NotImplementedError();
         const username = await getTwitterHandleById(profileId);
         const { pinned } = await NitterAPIProvider.getProfileByHandle(username);
         return patchPostClientToFirefly(formatTwitterPostFromNitter(pinned));

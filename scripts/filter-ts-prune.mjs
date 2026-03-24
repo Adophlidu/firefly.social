@@ -23,7 +23,6 @@ function isWhitelisted(filePath) {
         '.storybook/main.ts',
         '.next/types/routes.d.ts',
         'src/constants/mentions.ts',
-        'src/helpers/attemptUntil.ts',
         'src/helpers/fetchJson.ts',
         'src/libs/parseHtmlNative.ts',
         'src/libs/LoggerNative.ts',
