@@ -105,8 +105,8 @@ export function FireflyAccountCard() {
                                                     captureEditProfileClickEvent();
                                                 }}
                                             >
+                                                <EditIcon className="mr-2 size-[18px]" />
                                                 <Trans>
-                                                    <EditIcon className="mr-2 size-[18px]" />
                                                     Edit profile
                                                 </Trans>
                                             </button>

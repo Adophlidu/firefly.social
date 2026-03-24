@@ -1265,10 +1265,6 @@ msgstr ""
 msgid "Mobile QR login is interrupted. Please try again."
 msgstr ""
 
-#. placeholder {0}: error.url
-msgid "Not Found. Please check your URL[{0}]."
-msgstr ""
-
 msgid "Closed"
 msgstr ""
 
@@ -2819,9 +2815,6 @@ msgstr ""
 msgid "{0} shares"
 msgstr ""
 
-msgid "<0/>Edit profile"
-msgstr ""
-
 msgid "Failed to disconnect."
 msgstr ""
 
@@ -4232,6 +4225,10 @@ msgid "Number of winners"
 msgstr ""
 
 msgid "Multi-device login is now turned on and synced successfully."
+msgstr ""
+
+#. placeholder {0}: error.url
+msgid "Not Found. Please check your URL. [{0}]"
 msgstr ""
 
 #. placeholder {0}: profile.handle

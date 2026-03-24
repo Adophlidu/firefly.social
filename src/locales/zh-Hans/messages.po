@@ -1270,10 +1270,6 @@ msgstr "连接钱包"
 msgid "Mobile QR login is interrupted. Please try again."
 msgstr "移动端二维码登录已中断。请重试。"
 
-#. placeholder {0}: error.url
-msgid "Not Found. Please check your URL[{0}]."
-msgstr "未找到。请检查你的 URL [{0}]。"
-
 msgid "Closed"
 msgstr "已关闭"
 
@@ -2824,9 +2820,6 @@ msgstr "展示更多代币"
 msgid "{0} shares"
 msgstr "{0} 份"
 
-msgid "<0/>Edit profile"
-msgstr "<0/>编辑个人资料"
-
 msgid "Failed to disconnect."
 msgstr "断开绑定失败。"
 
@@ -4238,6 +4231,10 @@ msgstr "获奖人数"
 
 msgid "Multi-device login is now turned on and synced successfully."
 msgstr "多设备登录功能开启，登录状态已同步完成。"
+
+#. placeholder {0}: error.url
+msgid "Not Found. Please check your URL. [{0}]"
+msgstr ""
 
 #. placeholder {0}: profile.handle
 msgid "Unmuted @{0} on {sourceName}."

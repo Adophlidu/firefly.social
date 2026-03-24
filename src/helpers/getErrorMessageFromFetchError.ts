@@ -28,7 +28,7 @@ export function getErrorMessageFromFetchError(error: FetchError): string {
         case 403:
             return t`Forbidden. Please check your permissions.`;
         case 404:
-            return t`Not Found. Please check your URL[${error.url}].`;
+            return t`Not Found. Please check your URL. [${error.url}]`;
         case 500:
             return t`Internal Server Error. Please try again later.`;
         default:
