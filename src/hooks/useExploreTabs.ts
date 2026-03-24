@@ -31,7 +31,10 @@ export function useExploreTabs() {
         if (firstNormalSlugData) {
             baseTypes = baseTypes.map((x) => {
                 if (x.type === ExploreType.Prediction && x.id === ExploreType.Prediction) {
-                    return { ...x, link: RouteResolver.explorePrediction(firstNormalSlugData.slug) };
+                    return {
+                        ...x,
+                        link: RouteResolver.explorePrediction({ slug: firstNormalSlugData.slug, appendRoot: false }),
+                    };
                 }
 
                 return x;
@@ -45,7 +48,11 @@ export function useExploreTabs() {
                 type: ExploreType.Prediction,
                 id: POLYMARKET_FIREFLY_SLUG,
                 label: fireflySlugData.label,
-                link: RouteResolver.explorePrediction(POLYMARKET_FIREFLY_SLUG, firstSubSlug),
+                link: RouteResolver.explorePrediction({
+                    slug: POLYMARKET_FIREFLY_SLUG,
+                    subSlug: firstSubSlug,
+                    appendRoot: false,
+                }),
             });
         }
 

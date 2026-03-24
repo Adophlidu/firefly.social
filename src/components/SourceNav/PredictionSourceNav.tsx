@@ -76,8 +76,8 @@ export const PredictionSourceNav = memo<Props>(function PredictionSourceNav({ cl
                 {tags.map((slug) => {
                     const isActive = isFireflySlugPage ? subSlug === slug.slug : source === slug.slug;
                     const href = isFireflySlugPage
-                        ? RouteResolver.explorePrediction(POLYMARKET_FIREFLY_SLUG, slug.slug)
-                        : RouteResolver.explorePrediction(slug.slug);
+                        ? RouteResolver.explorePrediction({ slug: POLYMARKET_FIREFLY_SLUG, subSlug: slug.slug })
+                        : RouteResolver.explorePrediction({ slug: slug.slug });
 
                     return (
                         <Link

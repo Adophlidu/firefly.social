@@ -61,8 +61,16 @@ export class RouteResolver {
             type: options?.multiple ? 'multi' : undefined,
         });
     }
-    static explorePrediction(slug?: string, subSlug?: string) {
-        return urlcat(SITE_URL, `/explore/prediction/:slug`, {
+    static explorePrediction({
+        slug,
+        subSlug,
+        appendRoot = true,
+    }: {
+        slug?: string;
+        subSlug?: string;
+        appendRoot?: boolean;
+    }) {
+        return urlcat(appendRoot ? SITE_URL : '', `/explore/prediction/:slug`, {
             slug: slug || 'trending',
             subSlug: subSlug || undefined,
         });
