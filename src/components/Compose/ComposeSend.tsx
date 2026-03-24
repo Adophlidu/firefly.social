@@ -1,5 +1,5 @@
 import { classNames, delay } from '@dimensiondev/utils';
-import { Plural, Trans } from '@lingui/react/macro';
+import { Trans } from '@lingui/react/macro';
 import { ConnectorNotConnectedError } from '@wagmi/core';
 import { compact, values } from 'lodash-es';
 import { type HTMLProps, useMemo, useState } from 'react';
@@ -216,17 +216,7 @@ export function ComposeSend(props: ComposeSendProps) {
                     ) : (
                         <>
                             <SendIcon width={18} height={18} className="mr-1 text-primaryBottom" />
-                            <span>
-                                {scheduleTime ? (
-                                    <Trans>Send on schedule</Trans>
-                                ) : (
-                                    <Plural
-                                        value={posts.length}
-                                        one={<Trans>Send</Trans>}
-                                        other={<Trans>Send</Trans>}
-                                    />
-                                )}
-                            </span>
+                            <span>{scheduleTime ? <Trans>Send on schedule</Trans> : <Trans>Send</Trans>}</span>
                         </>
                     )}
                 </ClickableButton>

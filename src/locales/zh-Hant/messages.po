@@ -1939,12 +1939,6 @@ msgstr "開啟 Firefly App"
 msgid "Privacy Policy"
 msgstr "隱私政策"
 
-#. placeholder {0}: posts.length
-#. js-lingui:icu=%7B0%2C+plural%2C+one+%7BSend%7D+other+%7BSend%7D%7D&pluralize_on=0
-msgid "Send"
-msgid_plural "Send"
-msgstr[0] "發送"
-
 msgid "<0>Revised</0><1>an article on <2/></1>"
 msgstr "<0>修訂</0><1>一篇文章於 <2/></1>"
 
