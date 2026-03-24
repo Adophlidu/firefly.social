@@ -166,7 +166,7 @@ function TriggerButton({
     if (!isProfilePageSource(source)) return null;
 
     const triggerClassName = classNames(
-        'group mr-2.5 flex h-6 flex-row items-center rounded-lg px-2 py-1 text-xs outline-none duration-100',
+        'group mr-2.5 flex h-6 max-w-[200px] flex-row items-center rounded-lg px-2 py-1 text-xs outline-none duration-100',
         isCurrentSource
             ? {
                   'bg-farcasterPrimary text-white': source === Source.Farcaster,
