@@ -24,7 +24,10 @@ export async function attemptUntil<T>(
     }
 
     if (errors.length && (!onlyThrowWhenAllFails || errors.length === funcs.length)) {
-        throw new AggregateError(errors, 'At least one of the attempts fails.');
+        throw new AggregateError(
+            errors,
+            `At least one of the attempts fails: ${errors.map((x) => x.message).join('\n\n')}`,
+        );
     }
 
     return fallback;

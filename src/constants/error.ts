@@ -262,3 +262,11 @@ export class TweetUnavailableError extends Error {
     static message = 'You’re unable to view this Post because this account owner limits who can view their Posts.';
     override name = 'TweetUnavailableError';
 }
+
+export class TwitterTemporaryUnavailableError extends Error {
+    override name = 'TwitterTemporaryUnavailableError';
+
+    constructor(message?: string) {
+        super(message ?? 'Twitter is temporarily unavailable.');
+    }
+}
