@@ -2,6 +2,7 @@
 
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { assert, classNames } from '@dimensiondev/utils';
+import { i18n } from '@lingui/core';
 import { Plural, Trans } from '@lingui/react/macro';
 import dayjs from 'dayjs';
 import { first, isNumber } from 'lodash-es';
@@ -280,8 +281,8 @@ export const TokenMarketData = memo(function TokenMarketData({
                                 {traderCount ? (
                                     <Plural
                                         value={traderCount}
-                                        one="# person I follow has traded"
-                                        other="# people I follow have traded"
+                                        one={<>{i18n.number(traderCount)} person I follow has traded</>}
+                                        other={<>{i18n.number(traderCount)} people I follow have traded</>}
                                     />
                                 ) : null}
                             </div>
