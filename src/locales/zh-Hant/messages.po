@@ -2018,10 +2018,6 @@ msgstr "預約貼文"
 msgid "Searching tokens"
 msgstr "搜尋代幣中"
 
-#. placeholder {0}: remaining.length
-msgid "{0}+"
-msgstr "{0}+"
-
 msgid "Sold Out"
 msgstr "已售罄"
 

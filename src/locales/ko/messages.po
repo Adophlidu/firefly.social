@@ -2018,10 +2018,6 @@ msgstr ""
 msgid "Searching tokens"
 msgstr ""
 
-#. placeholder {0}: remaining.length
-msgid "{0}+"
-msgstr ""
-
 msgid "Sold Out"
 msgstr ""
 

@@ -85,7 +85,7 @@ export function WalletMixInfo({ profiles = EMPTY_LIST }: Props) {
                     {remaining.length > 0 ? (
                         <Menu>
                             <MenuButton className="flex h-6 flex-row items-center rounded bg-primaryBottom px-2">
-                                <Trans>{remaining.length}+</Trans>
+                                {remaining.length}+
                             </MenuButton>
                             <MenuItems
                                 transition

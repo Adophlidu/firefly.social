@@ -2013,10 +2013,6 @@ msgstr "Schedule Post"
 msgid "Searching tokens"
 msgstr "Searching tokens"
 
-#. placeholder {0}: remaining.length
-msgid "{0}+"
-msgstr "{0}+"
-
 msgid "Sold Out"
 msgstr "Sold Out"
 
