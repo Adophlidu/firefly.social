@@ -39,7 +39,7 @@ export function TrendingNFT({ collection, className, ...rest }: CollectionItemPr
                     <span className="whitespace-nowrap text-medium font-bold leading-[22px] text-lightMain">
                         <Trans>
                             {nFormatter(collection.collection.amounts_total || collection.items_total || 0)}{' '}
-                            <span className="font-normal text-second"> Items</span>
+                            <span className="font-normal text-second">Items</span>
                         </Trans>
                     </span>
                     {collection.floor_price && collection.price_symbol ? (
