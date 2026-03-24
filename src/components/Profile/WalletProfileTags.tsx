@@ -110,8 +110,18 @@ export const WalletProfileTags = memo<WalletProfileTagsProps>(function WalletPro
         return <div className="ml-1 mr-auto h-6 w-[120px] animate-pulse bg-bg" />;
     }
 
+    const dynamicTagsCount =
+        (walletRelation?.verifiedSources?.filter((x) =>
+            [RelatedWalletSource.lens, RelatedWalletSource.farcaster, RelatedWalletSource.twitter].includes(x.source),
+        )?.length ?? 0) + allEnsList.length;
+
     return (
-        <div className="ml-1 mr-auto flex h-6 flex-row items-center gap-1.5">
+        <div
+            className={classNames(
+                'ml-1 mr-auto flex h-6 flex-row items-center',
+                dynamicTagsCount >= 4 ? 'gap-0.5' : 'gap-1.5',
+            )}
+        >
             {networkType === NetworkType.Ethereum ? <EvmIcon width={ICON_SIZE} height={ICON_SIZE} /> : null}
             {networkType === NetworkType.Solana ? <SolanaIcon width={ICON_SIZE} height={ICON_SIZE} /> : null}
             {walletRelation?.verifiedSources?.map((x) => {
