@@ -852,13 +852,6 @@ msgstr ""
 msgid "<0>{0}</0> Sold <1>{1} {2}</1> for <2>{marketTitle}</2> at <3>{3}¢</3> <4>({4})</4>"
 msgstr ""
 
-#. placeholder {0}: channel.followerCount
-#. placeholder {0}: profile.followerCount
-#. js-lingui:icu=%7B0%2C+plural%2C+one+%7BFollower%7D+other+%7BFollowers%7D%7D&pluralize_on=0
-msgid "Follower"
-msgid_plural "Followers"
-msgstr[0] ""
-
 msgid "Oops! Your account is currently blocked. Reach out to support for more details."
 msgstr ""
 
@@ -956,12 +949,6 @@ msgstr ""
 
 msgid "Follow to Collect"
 msgstr ""
-
-#. placeholder {0}: channel.followerCount
-#. js-lingui:icu=%7B0%2C+plural%2C+one+%7BLike%7D+other+%7BLikes%7D%7D&pluralize_on=0
-msgid "Like"
-msgid_plural "Likes"
-msgstr[0] ""
 
 msgid "Scan this QR code and confirm on your Farcaster mobile app to register auth wallet."
 msgstr ""
@@ -2211,9 +2198,6 @@ msgstr ""
 msgid "PnL"
 msgstr ""
 
-msgid "Unlike"
-msgstr ""
-
 msgid "No blacklist"
 msgstr ""
 
@@ -2791,9 +2775,6 @@ msgstr ""
 msgid "24h"
 msgstr ""
 
-msgid "Like"
-msgstr ""
-
 msgid "Contract Address"
 msgstr ""
 
@@ -3114,6 +3095,14 @@ msgid "User Name is not available"
 msgstr ""
 
 msgid "Top 200 Web3 profiles powered by <0>Rootdata</0>"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "action-like"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "action-unlike"
 msgstr ""
 
 msgid "Buy {firstOutcome}"
@@ -3473,9 +3462,6 @@ msgid "Claimed lucky drop successfully"
 msgstr ""
 
 msgid "Rejected"
-msgstr ""
-
-msgid "Recast or Quote"
 msgstr ""
 
 #. placeholder {0}: handle ? '@' + handle : identity.id
@@ -4092,6 +4078,14 @@ msgstr ""
 msgid "6H"
 msgstr ""
 
+#. js-lingui-explicit-id
+msgid "mirror-tooltip-recast-or-quote"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "mirror-tooltip-repost-or-quote"
+msgstr ""
+
 msgid "Mint Again"
 msgstr ""
 
@@ -4374,9 +4368,6 @@ msgid "News"
 msgstr ""
 
 msgid "Truth Social"
-msgstr ""
-
-msgid "Repost or Quote"
 msgstr ""
 
 msgid "Buy"

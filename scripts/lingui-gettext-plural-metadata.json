@@ -1,19 +1,18 @@
 {
     "byRefKey": {
         "[\"Repost or Quote\",\"Reposts or Quotes\",\"\"]": "js-lingui:icu=%7Bshares%2C+plural%2C+one+%7BRepost+or+Quote%7D+other+%7BReposts+or+Quotes%7D%7D&pluralize_on=shares",
-        "[\"Follower\",\"Followers\",\"\"]": "js-lingui:icu=%7B0%2C+plural%2C+one+%7BFollower%7D+other+%7BFollowers%7D%7D&pluralize_on=0",
+        "[\"Follower\",\"Followers\",\"\"]": "js-lingui:icu=%7BfollowerCount%2C+plural%2C+one+%7BFollower%7D+other+%7BFollowers%7D%7D&pluralize_on=followerCount",
         "[\"# hour left\",\"# hours left\",\"\"]": "js-lingui:icu=%7Bhours%2C+plural%2C+one+%7B%23+hour+left%7D+other+%7B%23+hours+left%7D%7D&pluralize_on=hours",
         "[\"Member\",\"Members\",\"\"]": "js-lingui:icu=%7BfollowerCount%2C+plural%2C+one+%7BMember%7D+other+%7BMembers%7D%7D&pluralize_on=followerCount",
         "[\"quote\",\"quotes\",\"\"]": "js-lingui:icu=%7B0%2C+plural%2C+one+%7Bquote%7D+other+%7Bquotes%7D%7D&pluralize_on=0",
-        "[\"Like\",\"Likes\",\"\"]": "js-lingui:icu=%7BfollowerCount%2C+plural%2C+one+%7BLike%7D+other+%7BLikes%7D%7D&pluralize_on=followerCount",
         "[\"# day\",\"# days\",\"\"]": "js-lingui:icu=%7B0%2C+plural%2C+one+%7B%23+day%7D+other+%7B%23+days%7D%7D&pluralize_on=0",
-        "[\"Send\",\"Send\",\"\"]": "js-lingui:icu=%7B0%2C+plural%2C+one+%7BSend%7D+other+%7BSend%7D%7D&pluralize_on=0",
         "[\"# hour\",\"# hours\",\"\"]": "js-lingui:icu=%7B0%2C+plural%2C+one+%7B%23+hour%7D+other+%7B%23+hours%7D%7D&pluralize_on=0",
         "[\"# Attention item\",\"# Attention items\",\"\"]": "js-lingui:icu=%7BattentionFactors%2C+plural%2C+one+%7B%23+Attention+item%7D+other+%7B%23+Attention+items%7D%7D&pluralize_on=attentionFactors",
         "[\"# minute\",\"# minutes\",\"\"]": "js-lingui:icu=%7B0%2C+plural%2C+one+%7B%23+minute%7D+other+%7B%23+minutes%7D%7D&pluralize_on=0",
         "[\"# month\",\"# months\",\"\"]": "js-lingui:icu=%7B0%2C+plural%2C+one+%7B%23+month%7D+other+%7B%23+months%7D%7D&pluralize_on=0",
         "[\"# Risky item\",\"# Risky items\",\"\"]": "js-lingui:icu=%7BriskyFactors%2C+plural%2C+one+%7B%23+Risky+item%7D+other+%7B%23+Risky+items%7D%7D&pluralize_on=riskyFactors",
         "[\"Your posts failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.\",\"Your posts failed to publish due to an error. Click 'Retry' to attempt posting again.\",\"\"]": "js-lingui:icu=%7B0%2C+plural%2C+one+%7BYour+posts+failed+to+publish+on+%7BfirstPlatform%7D+due+to+an+error.+Click+%27Retry%27+to+attempt+posting+again.%7D+two+%7BYour+posts+failed+to+publish+on+%7BfirstPlatform%7D+and+%7BsecondPlatform%7D+due+to+an+error.+Click+%27Retry%27+to+attempt+posting+again.%7D+other+%7BYour+posts+failed+to+publish+due+to+an+error.+Click+%27Retry%27+to+attempt+posting+again.%7D%7D&pluralize_on=0",
+        "[\"Like\",\"Likes\",\"\"]": "js-lingui:icu=%7BfollowerCount%2C+plural%2C+one+%7BLike%7D+other+%7BLikes%7D%7D&pluralize_on=followerCount",
         "[\"{0}\",\"{1}\",\"\"]": "js-lingui:icu=%7BtraderCount%2C+plural%2C+one+%7B%7B0%7D%7D+other+%7B%7B1%7D%7D%7D&pluralize_on=traderCount",
         "[\"Recast or Quote\",\"Recasts or Quotes\",\"\"]": "js-lingui:icu=%7Bshares%2C+plural%2C+one+%7BRecast+or+Quote%7D+other+%7BRecasts+or+Quotes%7D%7D&pluralize_on=shares",
         "[\"# minute left\",\"# minutes left\",\"\"]": "js-lingui:icu=%7Bminutes%2C+plural%2C+one+%7B%23+minute+left%7D+other+%7B%23+minutes+left%7D%7D&pluralize_on=minutes",
@@ -34,10 +33,7 @@
         "{hours, plural, one {# hour left} other {# hours left}}": "js-lingui:icu=%7Bhours%2C+plural%2C+one+%7B%23+hour+left%7D+other+%7B%23+hours+left%7D%7D&pluralize_on=hours",
         "{followerCount, plural, one {Member} other {Members}}": "js-lingui:icu=%7BfollowerCount%2C+plural%2C+one+%7BMember%7D+other+%7BMembers%7D%7D&pluralize_on=followerCount",
         "{0, plural, one {quote} other {quotes}}": "js-lingui:icu=%7B0%2C+plural%2C+one+%7Bquote%7D+other+%7Bquotes%7D%7D&pluralize_on=0",
-        "{0, plural, one {Follower} other {Followers}}": "js-lingui:icu=%7B0%2C+plural%2C+one+%7BFollower%7D+other+%7BFollowers%7D%7D&pluralize_on=0",
-        "{0, plural, one {Like} other {Likes}}": "js-lingui:icu=%7B0%2C+plural%2C+one+%7BLike%7D+other+%7BLikes%7D%7D&pluralize_on=0",
         "{0, plural, one {# day} other {# days}}": "js-lingui:icu=%7B0%2C+plural%2C+one+%7B%23+day%7D+other+%7B%23+days%7D%7D&pluralize_on=0",
-        "{0, plural, one {Send} other {Send}}": "js-lingui:icu=%7B0%2C+plural%2C+one+%7BSend%7D+other+%7BSend%7D%7D&pluralize_on=0",
         "{0, plural, one {# hour} other {# hours}}": "js-lingui:icu=%7B0%2C+plural%2C+one+%7B%23+hour%7D+other+%7B%23+hours%7D%7D&pluralize_on=0",
         "{attentionFactors, plural, one {# Attention item} other {# Attention items}}": "js-lingui:icu=%7BattentionFactors%2C+plural%2C+one+%7B%23+Attention+item%7D+other+%7B%23+Attention+items%7D%7D&pluralize_on=attentionFactors",
         "{0, plural, one {# minute} other {# minutes}}": "js-lingui:icu=%7B0%2C+plural%2C+one+%7B%23+minute%7D+other+%7B%23+minutes%7D%7D&pluralize_on=0",
@@ -63,5 +59,15 @@
         "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</5>": "js-lingui:icu=%7B0%2C+plural%2C+offset%3A1+%3D1+%7B%3C0%2F%3E%7D+%3D2+%7B%3C1%2F%3E+and+%3C2%2F%3E%7D+other+%7B%3C3%2F%3E%7D%7D+%3C4%3Eliked+your+%3C%2F4%3E%3C5%3E%7B1%2C+select%2C+Post+%7Bpost%7D+Comment+%7Bcomment%7D+Quote+%7Bquote%7D+Mirror+%7Brepost%7D+other+%7Bpost%7D%7D%3C%2F5%3E&pluralize_on=0",
         "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>collected your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</5>": "js-lingui:icu=%7B0%2C+plural%2C+offset%3A1+%3D1+%7B%3C0%2F%3E%7D+%3D2+%7B%3C1%2F%3E+and+%3C2%2F%3E%7D+other+%7B%3C3%2F%3E%7D%7D+%3C4%3Ecollected+your+%3C%2F4%3E%3C5%3E%7B1%2C+select%2C+Post+%7Bpost%7D+Comment+%7Bcomment%7D+Quote+%7Bquote%7D+Mirror+%7Brepost%7D+other+%7Bpost%7D%7D%3C%2F5%3E&pluralize_on=0"
     },
-    "explicitMsgids": ["bets-last-price", "bets-resolution", "bets-trades-following", "bets-trades-global", "nft-items"]
+    "explicitMsgids": [
+        "action-like",
+        "action-unlike",
+        "bets-last-price",
+        "bets-resolution",
+        "bets-trades-following",
+        "bets-trades-global",
+        "mirror-tooltip-recast-or-quote",
+        "mirror-tooltip-repost-or-quote",
+        "nft-items"
+    ]
 }

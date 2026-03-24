@@ -852,13 +852,6 @@ msgstr "{0, plural, other {<3/><4> 关注了你</4>}}"
 msgid "<0>{0}</0> Sold <1>{1} {2}</1> for <2>{marketTitle}</2> at <3>{3}¢</3> <4>({4})</4>"
 msgstr ""
 
-#. placeholder {0}: channel.followerCount
-#. placeholder {0}: profile.followerCount
-#. js-lingui:icu=%7B0%2C+plural%2C+one+%7BFollower%7D+other+%7BFollowers%7D%7D&pluralize_on=0
-msgid "Follower"
-msgid_plural "Followers"
-msgstr[0] "关注者"
-
 msgid "Oops! Your account is currently blocked. Reach out to support for more details."
 msgstr "糟糕！你的账户当前已被封禁。请联系客服了解具体原因。"
 
@@ -956,12 +949,6 @@ msgstr "删除失败"
 
 msgid "Follow to Collect"
 msgstr "关注以铸造收集"
-
-#. placeholder {0}: channel.followerCount
-#. js-lingui:icu=%7B0%2C+plural%2C+one+%7BLike%7D+other+%7BLikes%7D%7D&pluralize_on=0
-msgid "Like"
-msgid_plural "Likes"
-msgstr[0] "点赞"
 
 msgid "Scan this QR code and confirm on your Farcaster mobile app to register auth wallet."
 msgstr "扫描此二维码，并在 Farcaster 移动端应用中确认注册认证钱包。"
@@ -2211,9 +2198,6 @@ msgstr "铸造 NFT 失败。"
 msgid "PnL"
 msgstr "盈亏"
 
-msgid "Unlike"
-msgstr "取消点赞"
-
 msgid "No blacklist"
 msgstr "无黑名单"
 
@@ -2791,9 +2775,6 @@ msgstr "取消点赞失败。"
 msgid "24h"
 msgstr "24 小时"
 
-msgid "Like"
-msgstr "点赞"
-
 msgid "Contract Address"
 msgstr "合约地址"
 
@@ -3115,6 +3096,14 @@ msgstr "用户名不可用"
 
 msgid "Top 200 Web3 profiles powered by <0>Rootdata</0>"
 msgstr "热门前 200 榜单｜数据来源：<0> Rootdata </0>"
+
+#. js-lingui-explicit-id
+msgid "action-like"
+msgstr "点赞"
+
+#. js-lingui-explicit-id
+msgid "action-unlike"
+msgstr "取消点赞"
 
 msgid "Buy {firstOutcome}"
 msgstr "买入 {firstOutcome}"
@@ -3474,9 +3463,6 @@ msgstr "红包领取成功"
 
 msgid "Rejected"
 msgstr "已拒绝"
-
-msgid "Recast or Quote"
-msgstr "转发或引用"
 
 #. placeholder {0}: handle ? '@' + handle : identity.id
 msgid "Sorry, we are not able to find a wallet for {0}."
@@ -4092,6 +4078,14 @@ msgstr "密码验证失败。"
 msgid "6H"
 msgstr "6 小时"
 
+#. js-lingui-explicit-id
+msgid "mirror-tooltip-recast-or-quote"
+msgstr "转发或引用"
+
+#. js-lingui-explicit-id
+msgid "mirror-tooltip-repost-or-quote"
+msgstr "转发或者引用"
+
 msgid "Mint Again"
 msgstr "再次铸造"
 
@@ -4375,9 +4369,6 @@ msgstr "新闻"
 
 msgid "Truth Social"
 msgstr "Truth Social"
-
-msgid "Repost or Quote"
-msgstr "转发或者引用"
 
 msgid "Buy"
 msgstr "买入"

@@ -10,7 +10,7 @@ import { RequirementType } from '@/providers/types/FireflyRedPacket.js';
 
 export const REQUIREMENT_TITLE_MAP: Record<RequirementType, ReactNode> = {
     [RequirementType.Follow]: <Trans>Follow me</Trans>,
-    [RequirementType.Like]: <Trans>Like</Trans>,
+    [RequirementType.Like]: <Trans id="action-like">Like</Trans>,
     [RequirementType.Repost]: <Trans>Repost</Trans>,
     [RequirementType.Comment]: <Trans>Comment</Trans>,
     [RequirementType.NFTHolder]: <Trans>NFT holder</Trans>,

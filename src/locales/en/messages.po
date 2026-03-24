@@ -857,14 +857,6 @@ msgstr "{0, plural, one {<3/><4> followed you</4>} other {<3/><4> followed you</
 msgid "<0>{0}</0> Sold <1>{1} {2}</1> for <2>{marketTitle}</2> at <3>{3}¢</3> <4>({4})</4>"
 msgstr "<0>{0}</0> Sold <1>{1} {2}</1> for <2>{marketTitle}</2> at <3>{3}¢</3> <4>({4})</4>"
 
-#. placeholder {0}: channel.followerCount
-#. placeholder {0}: profile.followerCount
-#. js-lingui:icu=%7B0%2C+plural%2C+one+%7BFollower%7D+other+%7BFollowers%7D%7D&pluralize_on=0
-msgid "Follower"
-msgid_plural "Followers"
-msgstr[0] "Follower"
-msgstr[1] "Followers"
-
 msgid "Oops! Your account is currently blocked. Reach out to support for more details."
 msgstr "Oops! Your account is currently blocked. Reach out to support for more details."
 
@@ -962,13 +954,6 @@ msgstr "Failed to delete"
 
 msgid "Follow to Collect"
 msgstr "Follow to Collect"
-
-#. placeholder {0}: channel.followerCount
-#. js-lingui:icu=%7B0%2C+plural%2C+one+%7BLike%7D+other+%7BLikes%7D%7D&pluralize_on=0
-msgid "Like"
-msgid_plural "Likes"
-msgstr[0] "Like"
-msgstr[1] "Likes"
 
 msgid "Scan this QR code and confirm on your Farcaster mobile app to register auth wallet."
 msgstr "Scan this QR code and confirm on your Farcaster mobile app to register auth wallet."
@@ -2221,9 +2206,6 @@ msgstr "Failed to mint NFT."
 msgid "PnL"
 msgstr "PnL"
 
-msgid "Unlike"
-msgstr "Unlike"
-
 msgid "No blacklist"
 msgstr "No blacklist"
 
@@ -2805,9 +2787,6 @@ msgstr "Failed to unlike."
 msgid "24h"
 msgstr "24h"
 
-msgid "Like"
-msgstr "Like"
-
 msgid "Contract Address"
 msgstr "Contract Address"
 
@@ -3131,6 +3110,14 @@ msgstr "User Name is not available"
 
 msgid "Top 200 Web3 profiles powered by <0>Rootdata</0>"
 msgstr "Top 200 Web3 profiles powered by <0>Rootdata</0>"
+
+#. js-lingui-explicit-id
+msgid "action-like"
+msgstr "Like"
+
+#. js-lingui-explicit-id
+msgid "action-unlike"
+msgstr "Unlike"
 
 msgid "Buy {firstOutcome}"
 msgstr "Buy {firstOutcome}"
@@ -3493,9 +3480,6 @@ msgstr "Claimed lucky drop successfully"
 
 msgid "Rejected"
 msgstr "Rejected"
-
-msgid "Recast or Quote"
-msgstr "Recast or Quote"
 
 #. placeholder {0}: handle ? '@' + handle : identity.id
 msgid "Sorry, we are not able to find a wallet for {0}."
@@ -4118,6 +4102,14 @@ msgstr "Failed to verify password."
 msgid "6H"
 msgstr "6H"
 
+#. js-lingui-explicit-id
+msgid "mirror-tooltip-recast-or-quote"
+msgstr "Recast or Quote"
+
+#. js-lingui-explicit-id
+msgid "mirror-tooltip-repost-or-quote"
+msgstr "Repost or Quote"
+
 msgid "Mint Again"
 msgstr "Mint Again"
 
@@ -4402,9 +4394,6 @@ msgstr "News"
 
 msgid "Truth Social"
 msgstr "Truth Social"
-
-msgid "Repost or Quote"
-msgstr "Repost or Quote"
 
 msgid "Buy"
 msgstr "Buy"

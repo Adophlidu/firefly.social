@@ -54,6 +54,7 @@ export const ChannelInList = memo(function ChannelInList({
     const avatarSize = isSmall || dense ? 40 : 44;
     const isBsky = channel.source === Source.Bsky;
     const isLens = channel.source === Source.Lens;
+    const followerCount = channel.followerCount;
 
     return (
         <div
@@ -112,15 +113,15 @@ export const ChannelInList = memo(function ChannelInList({
                             <>
                                 <span className="leading-[22px] text-secondary">·</span>
 
-                                <data value={channel.followerCount}>
+                                <data value={followerCount}>
                                     <span className="font-bold leading-[22px] text-lightMain">
-                                        {nFormatter(channel.followerCount)}{' '}
+                                        {nFormatter(followerCount)}{' '}
                                     </span>
                                     <span className="leading-[22px] text-secondary">
                                         {!isBsky ? (
-                                            <Plural value={channel.followerCount} one="Follower" other="Followers" />
+                                            <Plural value={followerCount} one="Follower" other="Followers" />
                                         ) : (
-                                            <Plural value={channel.followerCount} one="Like" other="Likes" />
+                                            <Plural value={followerCount} one="Like" other="Likes" />
                                         )}
                                     </span>
                                 </data>

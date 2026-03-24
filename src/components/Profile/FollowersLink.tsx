@@ -13,6 +13,8 @@ interface FollowersLinkProps extends HTMLProps<HTMLAnchorElement> {
 }
 
 export const FollowersLink = memo<FollowersLinkProps>(function FollowersLink({ profile, className }) {
+    const followerCount = profile.followerCount;
+
     return (
         <Link
             href={getProfileUrl(profile, FollowCategory.Followers)}
@@ -20,10 +22,10 @@ export const FollowersLink = memo<FollowersLinkProps>(function FollowersLink({ p
                 'pointer-events-none': profile.source !== Source.Farcaster && profile.source !== Source.Lens,
             })}
         >
-            <data value={profile.followerCount}>
-                <span className="font-bold text-lightMain">{nFormatter(profile.followerCount)} </span>
+            <data value={followerCount}>
+                <span className="font-bold text-lightMain">{nFormatter(followerCount)} </span>
                 <span className="text-secondary">
-                    <Plural value={profile.followerCount} one="Follower" other="Followers" />
+                    <Plural value={followerCount} one="Follower" other="Followers" />
                 </span>
             </data>
         </Link>

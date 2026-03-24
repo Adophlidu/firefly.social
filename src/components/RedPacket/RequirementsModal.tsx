@@ -128,7 +128,7 @@ export function RequirementsModal({
     onVerifyAndClaim,
 }: RequirementsModalProps) {
     const TitleMap = {
-        like: <Trans>Like</Trans>,
+        like: <Trans id="action-like">Like</Trans>,
         repost: <Trans>Repost</Trans>,
         quote: <Trans>Repost</Trans>,
         comment: <Trans>Comment</Trans>,

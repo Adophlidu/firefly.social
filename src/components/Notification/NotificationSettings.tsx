@@ -73,7 +73,7 @@ export function NotificationSettings({ source }: { source: NotificationSource })
             },
             {
                 type: NotificationType.Reaction,
-                text: <Trans>Like</Trans>,
+                text: <Trans id="action-like">Like</Trans>,
                 types: [NotificationType.Reaction, ...UNIFIED_NOTIFICATION_TYPES],
             },
             {

@@ -26,9 +26,9 @@ function getTooltipContent(source: SocialSource, shares: number) {
     if (shares === 0) {
         switch (source) {
             case Source.Lens:
-                return <Trans>Repost or Quote</Trans>;
+                return <Trans id="mirror-tooltip-repost-or-quote">Repost or Quote</Trans>;
             case Source.Farcaster:
-                return <Trans>Recast or Quote</Trans>;
+                return <Trans id="mirror-tooltip-recast-or-quote">Recast or Quote</Trans>;
             case Source.Twitter:
                 return <Trans>Repost</Trans>;
             case Source.Bsky:

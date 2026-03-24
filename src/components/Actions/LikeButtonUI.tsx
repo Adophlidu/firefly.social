@@ -133,7 +133,7 @@ export const LikeButtonUI = memo<LikeButtonUIProps>(function LikeButtonUI({
 
             {tooltip ? (
                 <Tooltip
-                    content={isLiked ? <Trans>Unlike</Trans> : <Trans>Like</Trans>}
+                    content={isLiked ? <Trans id="action-unlike">Unlike</Trans> : <Trans id="action-like">Like</Trans>}
                     placement="top"
                     disabled={isDisabled}
                 >
