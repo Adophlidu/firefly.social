@@ -28,6 +28,9 @@ export enum IframeBridgeMethod {
     // firefly.social/masko-iframe
     MASKO_PLAY_ANIMATION = 'masko_play_animation',
     MASKO_SHOW_TEXT = 'masko_show_text',
+
+    // firefly.social/mystery-box-iframe
+    ENABLE_SYNC_SESSION = 'enable_sync_session',
 }
 
 export interface IframeBridgeMessage {
@@ -97,6 +100,7 @@ export interface IframeBridgeRequestArguments {
     [IframeBridgeMethod.MASKO_SHOW_TEXT]: {
         text: string;
     };
+    [IframeBridgeMethod.ENABLE_SYNC_SESSION]: {};
 }
 
 export interface IframeBridgeResponseResult {
@@ -118,4 +122,5 @@ export interface IframeBridgeResponseResult {
     [IframeBridgeMethod.FIREFLY_WALLET_REFRESH]: void;
     [IframeBridgeMethod.MASKO_PLAY_ANIMATION]: void;
     [IframeBridgeMethod.MASKO_SHOW_TEXT]: void;
+    [IframeBridgeMethod.ENABLE_SYNC_SESSION]: void;
 }

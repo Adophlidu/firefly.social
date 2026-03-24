@@ -22,6 +22,7 @@ const REQUEST_ONLY_METHODS = [
     IframeBridgeMethod.FIREFLY_WALLET_NOTIFY,
     IframeBridgeMethod.MASKO_PLAY_ANIMATION,
     IframeBridgeMethod.MASKO_SHOW_TEXT,
+    IframeBridgeMethod.ENABLE_SYNC_SESSION,
 ];
 
 interface Payload {

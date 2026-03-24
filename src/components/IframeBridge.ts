@@ -24,11 +24,30 @@ import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { reconnectPrivyWallet } from '@/helpers/reconnectPrivyWallet.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { DownloadMobileAppModalRef } from '@/modals/DownloadMobileAppModal/refs.js';
+import { mergeMetrics } from '@/services/metrics.js';
+import { verifyAndGetPassword } from '@/services/verifyAndGetPassword.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
 interface FollowAccountsData {
     accounts: Array<{ source: SocialSource; handle: string; profileId: string }>;
+}
+
+/**
+ * Handle ENABLE_SYNC_SESSION request from mystery-box iframe.
+ * If passcode is not set, open the password setup modal.
+ * If passcode is already set, verify it and merge metrics.
+ * Fire-and-forget — the mystery-box backend polls to verify task completion.
+ */
+async function handleEnableSyncSession() {
+    const password = await verifyAndGetPassword({
+        requireSetPassword: true,
+        skipCheck: true,
+        autoUploadMetrics: false,
+    });
+    if (password) {
+        await mergeMetrics(password);
+    }
 }
 
 /**
@@ -171,6 +190,9 @@ const createAllEvents = (router: ReturnType<typeof useRouter>) => {
         [IframeBridgeMethod.MASKO_SHOW_TEXT]: async () => {
             throw new NotImplementedError();
         },
+        [IframeBridgeMethod.ENABLE_SYNC_SESSION]: async () => {
+            await handleEnableSyncSession();
+        },
     };
     return allEvents;
 };
@@ -180,7 +202,7 @@ export const IframeBridge = memo(function IframeBridge() {
 
     useEffect(() => {
         const allEvents = createAllEvents(router);
-        iframeBridgeProvider.onRequest(
+        const cleanup = iframeBridgeProvider.onRequest(
             <T extends IframeBridgeMethod>(
                 method: T,
                 params: IframeBridgeRequestArguments[T],
@@ -188,7 +210,7 @@ export const IframeBridge = memo(function IframeBridge() {
                 return allEvents[method](params);
             },
         );
-        return () => iframeBridgeProvider.destroy();
+        return cleanup;
     }, [router]);
 
     return null;
