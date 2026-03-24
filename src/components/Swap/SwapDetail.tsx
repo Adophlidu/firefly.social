@@ -66,11 +66,11 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ activity }
                 />
             </div>
             <div className="flex items-center justify-between px-4 py-3">
-                <div className="flex items-center gap-3">
+                <div className="flex min-w-0 items-center gap-3">
                     <Link href={profileUrl}>
                         <Avatar
                             alt={activity.owner}
-                            className="size-10 rounded-full"
+                            className="size-10 shrink-0 rounded-full"
                             src={
                                 activity.displayInfo?.avatarUrl ??
                                 getStampAvatarByProfileId(Source.Wallet, activity.owner)
@@ -78,10 +78,10 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ activity }
                             size={40}
                         />
                     </Link>
-                    <div className="flex items-center gap-1">
-                        <div className="flex items-center gap-x-1 text-medium">
+                    <div className="flex min-w-0 items-center gap-1">
+                        <div className="flex min-w-0 items-center gap-x-1 text-medium">
                             <Link href={profileUrl} className="min-w-0 truncate font-bold text-lightMain">
-                                {ensHandle ? <EnsName ens={ensHandle} /> : addressName}
+                                {ensHandle ? <EnsName className="min-w-0 truncate" ens={ensHandle} /> : addressName}
                             </Link>
                         </div>
                         <div className="flex items-center gap-x-1 text-sm text-second">

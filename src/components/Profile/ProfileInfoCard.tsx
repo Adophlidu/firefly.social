@@ -11,10 +11,9 @@ interface Props {
     socialProfile?: Profile | null;
     source: ProfilePageSource;
     profiles?: FireflyProfile[];
-    hasFireflyAccount?: boolean;
 }
 
-export function ProfileInfoCard({ walletProfile, socialProfile, source, profiles, hasFireflyAccount }: Props) {
+export function ProfileInfoCard({ walletProfile, socialProfile, source, profiles }: Props) {
     return (
         <div
             className={classNames('relative z-30 mx-4 mb-2 rounded-lg', {
@@ -27,7 +26,7 @@ export function ProfileInfoCard({ walletProfile, socialProfile, source, profiles
             })}
         >
             {profiles && source === Source.WalletMix ? (
-                <WalletMixInfo profiles={profiles} hasFireflyAccount={hasFireflyAccount} />
+                <WalletMixInfo profiles={profiles} />
             ) : (
                 <ProfileInfo walletProfile={walletProfile} socialProfile={socialProfile} />
             )}

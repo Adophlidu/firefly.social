@@ -2073,9 +2073,6 @@ msgstr "全部"
 msgid "Tax cannot be modified"
 msgstr "稅率不可修改"
 
-msgid "View all"
-msgstr ""
-
 msgid "This token contract has not been verified. We cannot check the contract code for details. Unsourced token contracts are likely to have malicious functions to defraud users of their assets."
 msgstr "此代幣合約未經驗證，無法檢查代碼。未驗證合約可能包含惡意功能。"
 
