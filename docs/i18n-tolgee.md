@@ -16,7 +16,7 @@ Remove obsolete `CROWDIN_*` secrets when the migration is done.
 ## Tolgee project
 
 1. Create a project on the self-hosted instance.
-2. Add languages to match real locales in `lingui.config.js`: `en` (base), `ko`, `ja`, `zh-Hans`, `zh-Hant`. The `pseudo` locale is Lingui-only for UI testing and is **not** uploaded; keep `push.files` in `.tolgeerc.json` in sync with Tolgee language tags if your project uses different codes (e.g. `zh_CN`).
+2. Add languages to match real locales in `lingui.config.js`: `en` (base), `ko`, `ja`, `zh-Hans`, `zh-Hant`. Keep `push.files` in `.tolgeerc.json` in sync with Tolgee language tags if your project uses different codes (e.g. `zh_CN`).
 3. **Initial content**: either import existing `.po` files from the repo / an export from Crowdin, or run locally (with auth):
 
     ```bash
@@ -27,7 +27,7 @@ Remove obsolete `CROWDIN_*` secrets when the migration is done.
 
 | Script                     | Behavior                                                                                                                    |
 | -------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| `pnpm tolgee:push-sources` | Upload production locales listed in `.tolgeerc.json` `push.files` (same as CI; excludes `pseudo`).                          |
+| `pnpm tolgee:push-sources` | Upload production locales listed in `.tolgeerc.json` `push.files` (same as CI).                                             |
 | `pnpm tolgee:pull`         | Download all locales into `src/locales/*/messages.po`.                                                                      |
 | `pnpm tolgee:sync`         | `tolgee pull`, then `lingui:extract` (sort / merge from source), then `lingui:compile` — same order as the download Action. |
 

@@ -1,12 +1,11 @@
 import { formatter } from '@lingui/format-po';
 
-const locales = ['en', 'ko', 'ja', 'zh-Hans', 'zh-Hant', 'pseudo'];
+const locales = ['en', 'ko', 'ja', 'zh-Hans', 'zh-Hant'];
 
 /** @type {import('@lingui/conf').LinguiConfig} */
 export default {
     locales,
     sourceLocale: 'en',
-    pseudoLocale: 'pseudo',
     compileNamespace: 'ts',
     catalogs: [
         {
@@ -27,9 +26,6 @@ export default {
             ],
         },
     ],
-    fallbackLocales: {
-        pseudo: 'en',
-    },
     formatOptions: {
         origins: true,
         lineNumbers: false,
