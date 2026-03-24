@@ -18,6 +18,7 @@ jobs:
               with:
                   node-version-file: '.node-version'
 
+            # Prunes Tolgee keys missing from push.files (push.removeOtherKeys in .tolgeerc.json).
             - name: Push locale files to Tolgee
               env:
                   TOLGEE_API_KEY: ${{ secrets.TOLGEE_API_KEY }}

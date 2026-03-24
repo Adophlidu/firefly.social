@@ -25,17 +25,17 @@ Remove obsolete `CROWDIN_*` secrets when the migration is done.
 
 ## Local commands
 
-| Script                     | Behavior                                                                                                                    |
-| -------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| `pnpm tolgee:push-sources` | Upload production locales listed in `.tolgeerc.json` `push.files` (same as CI).                                             |
-| `pnpm tolgee:pull`         | Download all locales into `src/locales/*/messages.po`.                                                                      |
-| `pnpm tolgee:sync`         | `tolgee pull`, then `lingui:extract` (sort / merge from source), then `lingui:compile` — same order as the download Action. |
+| Script                     | Behavior                                                                                                                      |
+| -------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `pnpm tolgee:push-sources` | Upload production locales listed in `.tolgeerc.json` `push.files` (same as CI). Deletes Tolgee keys missing from that import. |
+| `pnpm tolgee:pull`         | Download all locales into `src/locales/*/messages.po`.                                                                        |
+| `pnpm tolgee:sync`         | `tolgee pull`, then `lingui:extract` (sort / merge from source), then `lingui:compile` — same order as the download Action.   |
 
 The **Tolgee download** GitHub Action runs `tolgee pull`, then `pnpm run lingui:extract`, then `lingui:compile`. Extract reapplies `lingui.config.js` sort order (`orderBy: 'message'`) and merges strings from the codebase so automated PRs stay consistent with local `pnpm lingui`.
 
 Authenticate once with `pnpm exec tolgee login` (CLI stores credentials; use `--api-url` if not using `.tolgeerc.json`).
 
-Configuration lives in `.tolgeerc.json` (`apiUrl`, `PO_ICU`, paths).
+Configuration lives in `.tolgeerc.json` (`apiUrl`, `PO_ICU`, paths). Push sets `removeOtherKeys` so the **Tolgee upload** Action and `tolgee push` drop keys that are no longer present in the pushed `.po` files (for the affected namespaces). Add keys only via the repo (or expect them to be removed on the next push).
 
 `pull.states` includes `UNTRANSLATED` so exported `.po` files keep every key per locale (empty `msgstr` where there is no translation). The Tolgee CLI default is to omit untranslated rows, which made diffs look like keys were removed.
 
