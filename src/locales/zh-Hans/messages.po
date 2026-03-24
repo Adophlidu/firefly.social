@@ -1825,6 +1825,10 @@ msgstr "展示更多用户"
 msgid "View detail"
 msgstr "查看详情"
 
+#. placeholder {0}: post.reporter.displayName
+msgid "<0>{0}</0> <1>reposted</1>"
+msgstr "<0>{0}</0> <1>转发了</1>"
+
 #. placeholder {0}: channel.id
 msgid "Followed /{0} on {sourceName}"
 msgstr "在 {sourceName} 关注了 /{0}"
@@ -3671,10 +3675,6 @@ msgstr "未发现钓鱼活动。"
 
 msgid "No cryptocurrency mixer involved."
 msgstr "未涉及加密货币混合器。"
-
-#. placeholder {0}: post.reporter.displayName
-msgid "<0>{0}</0><1>reposted</1>"
-msgstr "<0>{0}</0><1>转发了</1>"
 
 msgid "Firefly User"
 msgstr "Firefly 用户"

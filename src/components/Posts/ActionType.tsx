@@ -74,7 +74,7 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({
                             </Trans>
                         ) : (
                             <Trans>
-                                <strong className="truncate">{post.reporter.displayName}</strong>
+                                <strong className="truncate">{post.reporter.displayName}</strong>{' '}
                                 <span className="shrink-0">reposted</span>
                             </Trans>
                         )}

@@ -1820,6 +1820,10 @@ msgstr "Show more users"
 msgid "View detail"
 msgstr "View detail"
 
+#. placeholder {0}: post.reporter.displayName
+msgid "<0>{0}</0> <1>reposted</1>"
+msgstr "<0>{0}</0> <1>reposted</1>"
+
 #. placeholder {0}: channel.id
 msgid "Followed /{0} on {sourceName}"
 msgstr "Followed /{0} on {sourceName}"
@@ -3666,10 +3670,6 @@ msgstr "No phishing activities found."
 
 msgid "No cryptocurrency mixer involved."
 msgstr "No cryptocurrency mixer involved."
-
-#. placeholder {0}: post.reporter.displayName
-msgid "<0>{0}</0><1>reposted</1>"
-msgstr "<0>{0}</0><1>reposted</1>"
 
 msgid "Firefly User"
 msgstr "Firefly User"
