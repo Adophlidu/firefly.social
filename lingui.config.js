@@ -1,4 +1,4 @@
-import { formatter } from '@lingui/format-po';
+import { formatter } from '@lingui/format-po-gettext';
 
 const locales = ['en', 'es', 'ko', 'ja', 'zh-Hans', 'zh-Hant'];
 
@@ -26,10 +26,11 @@ export default {
             ],
         },
     ],
-    formatOptions: {
-        origins: true,
-        lineNumbers: false,
-    },
     orderBy: 'messageId',
-    format: formatter({ origins: false }),
+    format: formatter({
+        origins: false,
+        lineNumbers: false,
+        disableSelectWarning: true,
+        mergePlurals: false,
+    }),
 };

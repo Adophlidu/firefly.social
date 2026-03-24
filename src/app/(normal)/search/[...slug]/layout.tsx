@@ -19,7 +19,7 @@ const resolveSearchTypeTitle = createLookupTableResolver<SearchType, MessageDesc
         [SearchType.Profiles]: msg`Search user`,
         [SearchType.Posts]: msg`Search post`,
         [SearchType.Channels]: msg`Search channel`,
-        [SearchType.NFTs]: msg`Search nft`,
+        [SearchType.NFTs]: msg`Search NFT`,
         [SearchType.Prediction]: msg`Search predictions`,
         [SearchType.Tokens]: msg`Search token`,
         [SearchType.Clubs]: msg`Search clubs`,

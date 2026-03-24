@@ -106,9 +106,7 @@ export function FireflyAccountCard() {
                                                 }}
                                             >
                                                 <EditIcon className="mr-2 size-[18px]" />
-                                                <Trans>
-                                                    Edit profile
-                                                </Trans>
+                                                <Trans>Edit profile</Trans>
                                             </button>
                                         )}
                                     </MenuItem>

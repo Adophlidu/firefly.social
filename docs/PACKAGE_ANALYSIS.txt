@@ -1,7 +1,7 @@
 Package Analysis
 ================
 
-Total packages: 1818
+Total packages: 1823
 Packages with multiple versions: 246
 
 Legend:
@@ -575,6 +575,7 @@ Packages with Single Version
 *@lingui/conf@5.5.2
 *@lingui/core@5.5.2
  @lingui/format-po@5.5.2
+*@lingui/format-po-gettext@5.5.2
 *@lingui/loader@5.5.2
  @lingui/message-utils@5.5.2
 *@lingui/react@5.5.2
@@ -1046,6 +1047,7 @@ Packages with Single Version
  check-error@2.1.1
  chrome-trace-event@1.0.4
  ci-info@4.3.1
+ cldr-core@45.0.0
  clean-regexp@1.0.0
  clear-module@4.1.2
  cli-cursor@3.1.0
@@ -1414,6 +1416,7 @@ Packages with Single Version
 *lodash-es@4.17.23
  lodash.camelcase@4.3.0
  lodash.debounce@4.0.8
+ lodash.get@4.4.2
  lodash.merge@4.6.2
  lodash.sortby@4.7.0
  log-symbols@4.1.0
@@ -1488,6 +1491,7 @@ Packages with Single Version
  node-addon-api@2.0.2
  node-fetch@2.7.0
  node-fetch-native@1.6.7
+ node-gettext@3.0.1
  node-gyp-build@4.8.4
  node-mock-http@1.0.4
  node-releases@2.0.27
@@ -1537,6 +1541,7 @@ Packages with Single Version
  pixelmatch@5.3.0
  pkg-types@1.3.1
  pluralize@8.0.0
+ plurals-cldr@2.0.1
  plyr@3.8.4
 *plyr-react@5.3.0
  pofile@1.1.4

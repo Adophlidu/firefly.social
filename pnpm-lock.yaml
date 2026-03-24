@@ -364,6 +364,9 @@ importers:
       '@lingui/conf':
         specifier: ^5.5.2
         version: 5.5.2(typescript@5.9.3)
+      '@lingui/format-po-gettext':
+        specifier: 5.5.2
+        version: 5.5.2(typescript@5.9.3)
       '@lingui/loader':
         specifier: ^5.5.2
         version: 5.5.2(typescript@5.9.3)(webpack@5.105.4)
@@ -4860,6 +4863,22 @@ packages:
       '@lingui/babel-plugin-lingui-macro': 5.5.2(typescript@5.9.3)
       '@lingui/message-utils': 5.5.2
 
+  /@lingui/format-po-gettext@5.5.2(typescript@5.9.3):
+    resolution: {integrity: sha512-HRp2/vOw7GXESQQd+bFAdXBTRM06fPNRTVtBA9TIIEBHS+eScJLA7WPKFu9jhvht/rOBzgXEojwAbdyX9ReCTA==}
+    engines: {node: '>=20.0.0'}
+    dependencies:
+      '@lingui/conf': 5.5.2(typescript@5.9.3)
+      '@lingui/format-po': 5.5.2(typescript@5.9.3)
+      '@lingui/message-utils': 5.5.2
+      '@messageformat/parser': 5.1.1
+      cldr-core: 45.0.0
+      node-gettext: 3.0.1
+      plurals-cldr: 2.0.1
+      pofile: 1.1.4
+    transitivePeerDependencies:
+      - typescript
+    dev: true
+
   /@lingui/format-po@5.5.2(typescript@5.9.3):
     resolution: {integrity: sha512-xqkrCzsdFlUxxa2WPEB1kJGUsH3iyzjzcMsNjE7VTRv6rddGwt9mEKfqO+VAKIXcbmGKHWMcvQ6bqzhlqTlACA==}
     engines: {node: '>=20.0.0'}
@@ -6620,7 +6639,7 @@ packages:
     resolution: {integrity: sha512-N5p/ulfnnA2Pi2M3YeWjULeWbjo7ei22JwU/IXnhoHzKq3pYCN6ynL9mJBOlvDVv892EgLPCWCOwQk/uBT2v0Q==}
     dependencies:
       '@safe-global/safe-gateway-typescript-sdk': 3.23.1
-      viem: 2.43.5(typescript@5.9.3)(zod@3.25.76)
+      viem: 2.37.9(typescript@5.9.3)(zod@3.25.76)
     transitivePeerDependencies:
       - bufferutil
       - typescript
@@ -11295,6 +11314,10 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
+  /cldr-core@45.0.0:
+    resolution: {integrity: sha512-gQVxy3gzOQpXiTRGmlKiRQFLYimrr1RgvqGKZCS61JgmdkeNm7+LZGx+Lhw5/AW0t8WMM/uZhf4CMva6LuUobQ==}
+    dev: true
+
   /clean-regexp@1.0.0:
     resolution: {integrity: sha512-GfisEZEJvzKrmGWkvfhgzcz/BllN1USeqD2V6tg14OAOgaCD2Z/PUEuxnAZ/nPvmaHRG7a8y77p1T/IRQ4D1Hw==}
     engines: {node: '>=4'}
@@ -14722,6 +14745,11 @@ packages:
   /lodash.debounce@4.0.8:
     resolution: {integrity: sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==}
 
+  /lodash.get@4.4.2:
+    resolution: {integrity: sha512-z+Uw/vLuy6gQe8cfaFWD7p0wVv8fJl3mbzXh33RS+0oW2wvUqiRXiQ69gLWSLpgB5/6sU+r6BlQR0MBILadqTQ==}
+    deprecated: This package is deprecated. Use the optional chaining (?.) operator instead.
+    dev: true
+
   /lodash.merge@4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
     dev: true
@@ -15414,6 +15442,12 @@ packages:
     dependencies:
       whatwg-url: 5.0.0
 
+  /node-gettext@3.0.1:
+    resolution: {integrity: sha512-foI20qQAV22OlCeFIUZiXZutPbe23nGuDp7hLvK6PanhOYlUJIgLAUZa4MB5pX0J62dubOM/MYVhQ2aYTUPbhA==}
+    dependencies:
+      lodash.get: 4.4.2
+    dev: true
+
   /node-gyp-build@4.8.4:
     resolution: {integrity: sha512-LA4ZjwlnUblHVgq0oBF3Jl/6h/Nvs5fzBLwdEF4nuxnFdsfajde4WfxtJr3CaiH+F6ewcIB/q4jQ4UzPyid+CQ==}
     hasBin: true
@@ -16058,6 +16092,10 @@ packages:
   /pluralize@8.0.0:
     resolution: {integrity: sha512-Nc3IT5yHzflTfbjgqWcCPpo7DaKy4FnpB0l/zCAW0Tc7jxAiuqSxHasntB3D7887LSrA93kDJ9IXovxJYxyLCA==}
     engines: {node: '>=4'}
+    dev: true
+
+  /plurals-cldr@2.0.1:
+    resolution: {integrity: sha512-7WLem4xl5C10kOqFUgqV5pNSgvlev0nPvWwgdXbCVGJN7BFqKWzVpHbARhIzS9TK9jWHZx5Nm8mr3aWtd0uldQ==}
     dev: true
 
   /plyr-react@5.3.0(plyr@3.8.4)(react@19.2.4):

@@ -1,22 +1,17 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2023-11-24 21:17+0800\n"
+"Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: @lingui/cli\n"
-"Language: ko\n"
-"Project-Id-Version: masksocial\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"X-Generator: Tolgee\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-02-02 12:04\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
 "Last-Translator: \n"
-"Language-Team: Korean\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Crowdin-Project: masksocial\n"
-"X-Crowdin-Project-ID: 636622\n"
-"X-Crowdin-Language: ko\n"
-"X-Crowdin-File: /src/locales/en/messages.po\n"
-"X-Crowdin-File-ID: 836\n"
+"Language-Team: \n"
 
 msgid "The gas abuse function is included. The project owner may have the ability to control the contract."
 msgstr ""
@@ -170,8 +165,10 @@ msgstr ""
 msgid "Volume"
 msgstr ""
 
-msgid "{shares, plural, one {Repost or Quote} other {Reposts or Quotes}}"
-msgstr ""
+#. js-lingui:icu=%7Bshares%2C+plural%2C+one+%7BRepost+or+Quote%7D+other+%7BReposts+or+Quotes%7D%7D&pluralize_on=shares
+msgid "Repost or Quote"
+msgid_plural "Reposts or Quotes"
+msgstr[0] ""
 
 msgid "Ask a question"
 msgstr ""
@@ -216,8 +213,10 @@ msgstr ""
 msgid "Failed to remove from Bookmarks. {0}"
 msgstr ""
 
-msgid "{followerCount, plural, one {Follower} other {Followers}}"
-msgstr ""
+#. js-lingui:icu=%7BfollowerCount%2C+plural%2C+one+%7BFollower%7D+other+%7BFollowers%7D%7D&pluralize_on=followerCount
+msgid "Follower"
+msgid_plural "Followers"
+msgstr[0] ""
 
 msgid "Delete post"
 msgstr ""
@@ -264,6 +263,9 @@ msgid "This space does not exist."
 msgstr ""
 
 msgid "Display Name"
+msgstr ""
+
+msgid "Search NFT"
 msgstr ""
 
 msgid "Blackmail activities found."
@@ -349,8 +351,10 @@ msgstr ""
 msgid "Failed to disable Multi-device login. Please try again later."
 msgstr ""
 
-msgid "{hours, plural, one {# hour left} other {# hours left}}"
-msgstr ""
+#. js-lingui:icu=%7Bhours%2C+plural%2C+one+%7B%23+hour+left%7D+other+%7B%23+hours+left%7D%7D&pluralize_on=hours
+msgid "# hour left"
+msgid_plural "# hours left"
+msgstr[0] ""
 
 #. placeholder {0}: snapshot.title
 msgid "🙌 Just voted “{choice}” on “{0}”"
@@ -460,8 +464,10 @@ msgstr ""
 msgid "It is related account retrieved from connected wallets. Please sign in to set as primary account."
 msgstr ""
 
-msgid "{followerCount, plural, one {Member} other {Members}}"
-msgstr ""
+#. js-lingui:icu=%7BfollowerCount%2C+plural%2C+one+%7BMember%7D+other+%7BMembers%7D%7D&pluralize_on=followerCount
+msgid "Member"
+msgid_plural "Members"
+msgstr[0] ""
 
 msgid "Mint Ended"
 msgstr ""
@@ -820,8 +826,10 @@ msgid "Username"
 msgstr ""
 
 #. placeholder {0}: post.stats.quotes
-msgid "{0, plural, one {quote} other {quotes}}"
-msgstr ""
+#. js-lingui:icu=%7B0%2C+plural%2C+one+%7Bquote%7D+other+%7Bquotes%7D%7D&pluralize_on=0
+msgid "quote"
+msgid_plural "quotes"
+msgstr[0] ""
 
 msgid "No hidden owner."
 msgstr ""
@@ -846,8 +854,10 @@ msgstr ""
 
 #. placeholder {0}: channel.followerCount
 #. placeholder {0}: profile.followerCount
-msgid "{0, plural, one {Follower} other {Followers}}"
-msgstr ""
+#. js-lingui:icu=%7B0%2C+plural%2C+one+%7BFollower%7D+other+%7BFollowers%7D%7D&pluralize_on=0
+msgid "Follower"
+msgid_plural "Followers"
+msgstr[0] ""
 
 msgid "Oops! Your account is currently blocked. Reach out to support for more details."
 msgstr ""
@@ -948,8 +958,10 @@ msgid "Follow to Collect"
 msgstr ""
 
 #. placeholder {0}: channel.followerCount
-msgid "{0, plural, one {Like} other {Likes}}"
-msgstr ""
+#. js-lingui:icu=%7B0%2C+plural%2C+one+%7BLike%7D+other+%7BLikes%7D%7D&pluralize_on=0
+msgid "Like"
+msgid_plural "Likes"
+msgstr[0] ""
 
 msgid "Scan this QR code and confirm on your Farcaster mobile app to register auth wallet."
 msgstr ""
@@ -1083,8 +1095,10 @@ msgid "Sign in Confirmation"
 msgstr ""
 
 #. placeholder {0}: Math.floor(span / DAY_SPAN)
-msgid "{0, plural, one {# day} other {# days}}"
-msgstr ""
+#. js-lingui:icu=%7B0%2C+plural%2C+one+%7B%23+day%7D+other+%7B%23+days%7D%7D&pluralize_on=0
+msgid "# day"
+msgid_plural "# days"
+msgstr[0] ""
 
 msgid "Suspected malicious address."
 msgstr ""
@@ -1926,8 +1940,10 @@ msgid "Privacy Policy"
 msgstr ""
 
 #. placeholder {0}: posts.length
-msgid "{0, plural, one {Send} other {Send}}"
-msgstr ""
+#. js-lingui:icu=%7B0%2C+plural%2C+one+%7BSend%7D+other+%7BSend%7D%7D&pluralize_on=0
+msgid "Send"
+msgid_plural "Send"
+msgstr[0] ""
 
 msgid "<0>Revised</0><1>an article on <2/></1>"
 msgstr ""
@@ -1959,8 +1975,10 @@ msgid "Expired"
 msgstr ""
 
 #. placeholder {0}: Math.floor(span / HOUR_SPAN)
-msgid "{0, plural, one {# hour} other {# hours}}"
-msgstr ""
+#. js-lingui:icu=%7B0%2C+plural%2C+one+%7B%23+hour%7D+other+%7B%23+hours%7D%7D&pluralize_on=0
+msgid "# hour"
+msgid_plural "# hours"
+msgstr[0] ""
 
 msgid "Failed to login lens with orb"
 msgstr ""
@@ -2160,8 +2178,10 @@ msgstr ""
 msgid "Disconnected from your social graph"
 msgstr ""
 
-msgid "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
-msgstr ""
+#. js-lingui:icu=%7BattentionFactors%2C+plural%2C+one+%7B%23+Attention+item%7D+other+%7B%23+Attention+items%7D%7D&pluralize_on=attentionFactors
+msgid "# Attention item"
+msgid_plural "# Attention items"
+msgstr[0] ""
 
 msgid "Hide more comments"
 msgstr ""
@@ -2286,8 +2306,10 @@ msgid "Failed to switch."
 msgstr ""
 
 #. placeholder {0}: Math.floor(span / MINUTE_SPAN)
-msgid "{0, plural, one {# minute} other {# minutes}}"
-msgstr ""
+#. js-lingui:icu=%7B0%2C+plural%2C+one+%7B%23+minute%7D+other+%7B%23+minutes%7D%7D&pluralize_on=0
+msgid "# minute"
+msgid_plural "# minutes"
+msgstr[0] ""
 
 msgid "Post has been deleted"
 msgstr ""
@@ -2302,8 +2324,10 @@ msgid "Everyone"
 msgstr ""
 
 #. placeholder {0}: Math.floor(span / MONTH_SPAN)
-msgid "{0, plural, one {# month} other {# months}}"
-msgstr ""
+#. js-lingui:icu=%7B0%2C+plural%2C+one+%7B%23+month%7D+other+%7B%23+months%7D%7D&pluralize_on=0
+msgid "# month"
+msgid_plural "# months"
+msgstr[0] ""
 
 msgid "This token is issued by its declared team. Some scams will create a well-known token with the same name to defraud their users of their assets."
 msgstr ""
@@ -2393,8 +2417,10 @@ msgstr ""
 msgid "Time range filter"
 msgstr ""
 
-msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
-msgstr ""
+#. js-lingui:icu=%7BriskyFactors%2C+plural%2C+one+%7B%23+Risky+item%7D+other+%7B%23+Risky+items%7D%7D&pluralize_on=riskyFactors
+msgid "# Risky item"
+msgid_plural "# Risky items"
+msgstr[0] ""
 
 msgid "The self-destruct function is included. The project owner may have the ability to destroy the contract."
 msgstr ""
@@ -2751,8 +2777,10 @@ msgid "If you enter it in another app, it can steal your funds and Farcaster acc
 msgstr ""
 
 #. placeholder {0}: failedAt.length
-msgid "{0, plural, one {Your posts failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your posts failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your posts failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
-msgstr ""
+#. js-lingui:icu=%7B0%2C+plural%2C+one+%7BYour+posts+failed+to+publish+on+%7BfirstPlatform%7D+due+to+an+error.+Click+%27Retry%27+to+attempt+posting+again.%7D+two+%7BYour+posts+failed+to+publish+on+%7BfirstPlatform%7D+and+%7BsecondPlatform%7D+due+to+an+error.+Click+%27Retry%27+to+attempt+posting+again.%7D+other+%7BYour+posts+failed+to+publish+due+to+an+error.+Click+%27Retry%27+to+attempt+posting+again.%7D%7D&pluralize_on=0
+msgid "Your posts failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again."
+msgid_plural "Your posts failed to publish due to an error. Click 'Retry' to attempt posting again."
+msgstr[0] ""
 
 msgid "Cybercrime found."
 msgstr ""
@@ -2823,8 +2851,10 @@ msgstr ""
 msgid "Failed to disconnect."
 msgstr ""
 
-msgid "{followerCount, plural, one {Like} other {Likes}}"
-msgstr ""
+#. js-lingui:icu=%7BfollowerCount%2C+plural%2C+one+%7BLike%7D+other+%7BLikes%7D%7D&pluralize_on=followerCount
+msgid "Like"
+msgid_plural "Likes"
+msgstr[0] ""
 
 msgid "No stealing attack involved."
 msgstr ""
@@ -2924,8 +2954,10 @@ msgstr ""
 
 #. placeholder {0}: <>{i18n.number(traderCount)} person I follow has traded</>
 #. placeholder {1}: <>{i18n.number(traderCount)} people I follow have traded</>
-msgid "{traderCount, plural, one {{0}} other {{1}}}"
-msgstr ""
+#. js-lingui:icu=%7BtraderCount%2C+plural%2C+one+%7B%7B0%7D%7D+other+%7B%7B1%7D%7D%7D&pluralize_on=traderCount
+msgid "{0}"
+msgid_plural "{1}"
+msgstr[0] ""
 
 msgid "Show more comments"
 msgstr ""
@@ -3155,8 +3187,10 @@ msgstr ""
 msgid "Follow Pending"
 msgstr ""
 
-msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
-msgstr ""
+#. js-lingui:icu=%7Bshares%2C+plural%2C+one+%7BRecast+or+Quote%7D+other+%7BRecasts+or+Quotes%7D%7D&pluralize_on=shares
+msgid "Recast or Quote"
+msgid_plural "Recasts or Quotes"
+msgstr[0] ""
 
 msgid "Disputed"
 msgstr ""
@@ -3284,8 +3318,10 @@ msgstr ""
 msgid "So sorry, we cant mint this NFT. Please try again later."
 msgstr ""
 
-msgid "{minutes, plural, one {# minute left} other {# minutes left}}"
-msgstr ""
+#. js-lingui:icu=%7Bminutes%2C+plural%2C+one+%7B%23+minute+left%7D+other+%7B%23+minutes+left%7D%7D&pluralize_on=minutes
+msgid "# minute left"
+msgid_plural "# minutes left"
+msgstr[0] ""
 
 msgid "Created"
 msgstr ""
@@ -3380,8 +3416,10 @@ msgid "The amount of coins that are circulating in the market and are tradeable 
 msgstr ""
 
 #. placeholder {0}: post.stats.mirrors
-msgid "{0, plural, one {repost} other {reposts}}"
-msgstr ""
+#. js-lingui:icu=%7B0%2C+plural%2C+one+%7Brepost%7D+other+%7Breposts%7D%7D&pluralize_on=0
+msgid "repost"
+msgid_plural "reposts"
+msgstr[0] ""
 
 #. placeholder {0}: account.profile.handle
 #. placeholder {1}: resolveSourceName(source)
@@ -3526,8 +3564,10 @@ msgstr ""
 msgid "User Name should be at least {extra} characters"
 msgstr ""
 
-msgid "{totalVotes, plural, one {{totalVotes} Vote} other {{totalVotes} Votes}}"
-msgstr ""
+#. js-lingui:icu=%7BtotalVotes%2C+plural%2C+one+%7B%7BtotalVotes%7D+Vote%7D+other+%7B%7BtotalVotes%7D+Votes%7D%7D&pluralize_on=totalVotes
+msgid "{totalVotes} Vote"
+msgid_plural "{totalVotes} Votes"
+msgstr[0] ""
 
 msgid "Full"
 msgstr ""
@@ -3593,8 +3633,10 @@ msgstr ""
 msgid "Cancel Repost"
 msgstr ""
 
-msgid "{days, plural, one {# day left} other {# days left}}"
-msgstr ""
+#. js-lingui:icu=%7Bdays%2C+plural%2C+one+%7B%23+day+left%7D+other+%7B%23+days+left%7D%7D&pluralize_on=days
+msgid "# day left"
+msgid_plural "# days left"
+msgstr[0] ""
 
 msgid "No cybercrime involved."
 msgstr ""
@@ -3656,8 +3698,10 @@ msgid "Added"
 msgstr ""
 
 #. placeholder {0}: removeTrailingZeros(toFixedTrimmed(+trade.size, 2))
-msgid "{0, plural, one {# share} other {# shares}}"
-msgstr ""
+#. js-lingui:icu=%7B0%2C+plural%2C+one+%7B%23+share%7D+other+%7B%23+shares%7D%7D&pluralize_on=0
+msgid "# share"
+msgid_plural "# shares"
+msgstr[0] ""
 
 msgid "No phishing activities found."
 msgstr ""
@@ -3792,8 +3836,10 @@ msgstr ""
 msgid "Everyone can reply"
 msgstr ""
 
-msgid "{seconds, plural, one {# second left} other {# seconds left}}"
-msgstr ""
+#. js-lingui:icu=%7Bseconds%2C+plural%2C+one+%7B%23+second+left%7D+other+%7B%23+seconds+left%7D%7D&pluralize_on=seconds
+msgid "# second left"
+msgid_plural "# seconds left"
+msgstr[0] ""
 
 msgid "Checking wallet status..."
 msgstr ""
@@ -3857,8 +3903,10 @@ msgid "Added to bookmarks"
 msgstr ""
 
 #. placeholder {0}: post.stats.comments
-msgid "{0, plural, one {comment} other {comments}}"
-msgstr ""
+#. js-lingui:icu=%7B0%2C+plural%2C+one+%7Bcomment%7D+other+%7Bcomments%7D%7D&pluralize_on=0
+msgid "comment"
+msgid_plural "comments"
+msgstr[0] ""
 
 msgid "<0/> Loading"
 msgstr ""
@@ -3890,8 +3938,10 @@ msgid "Snapshot added to your Bookmarks"
 msgstr ""
 
 #. placeholder {0}: Math.floor(span / YEAR_SPAN)
-msgid "{0, plural, one {# year} other {# years}}"
-msgstr ""
+#. js-lingui:icu=%7B0%2C+plural%2C+one+%7B%23+year%7D+other+%7B%23+years%7D%7D&pluralize_on=0
+msgid "# year"
+msgid_plural "# years"
+msgstr[0] ""
 
 msgid "We've detected logins available for sync."
 msgstr ""
@@ -3912,8 +3962,10 @@ msgid "Failed to set schedule time."
 msgstr ""
 
 #. placeholder {0}: post.stats.mirrors
-msgid "{0, plural, one {recast} other {recasts}}"
-msgstr ""
+#. js-lingui:icu=%7B0%2C+plural%2C+one+%7Brecast%7D+other+%7Brecasts%7D%7D&pluralize_on=0
+msgid "recast"
+msgid_plural "recasts"
+msgstr[0] ""
 
 msgid "Refresh"
 msgstr ""
@@ -4128,8 +4180,10 @@ msgid "Create time:"
 msgstr ""
 
 #. placeholder {0}: post.stats.countOpenActions
-msgid "{0, plural, one {collect} other {collects}}"
-msgstr ""
+#. js-lingui:icu=%7B0%2C+plural%2C+one+%7Bcollect%7D+other+%7Bcollects%7D%7D&pluralize_on=0
+msgid "collect"
+msgid_plural "collects"
+msgstr[0] ""
 
 msgid "Malicious mining activities."
 msgstr ""
@@ -4803,9 +4857,6 @@ msgstr ""
 msgid "Collect for {0} {1}"
 msgstr ""
 
-msgid "Search nft"
-msgstr ""
-
 msgid "Recast"
 msgstr ""
 
@@ -5004,8 +5055,10 @@ msgid "Failed to unlike swap."
 msgstr ""
 
 #. placeholder {0}: post.stats.reactions
-msgid "{0, plural, one {like} other {likes}}"
-msgstr ""
+#. js-lingui:icu=%7B0%2C+plural%2C+one+%7Blike%7D+other+%7Blikes%7D%7D&pluralize_on=0
+msgid "like"
+msgid_plural "likes"
+msgstr[0] ""
 
 msgid "Collectible"
 msgstr ""

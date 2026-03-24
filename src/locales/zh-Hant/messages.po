@@ -1,22 +1,17 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2023-11-24 21:17+0800\n"
+"Language: zh-Hant\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: @lingui/cli\n"
-"Language: zh\n"
-"Project-Id-Version: masksocial\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"X-Generator: Tolgee\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-02-02 12:04\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
 "Last-Translator: \n"
-"Language-Team: Chinese Traditional\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Crowdin-Project: masksocial\n"
-"X-Crowdin-Project-ID: 636622\n"
-"X-Crowdin-Language: zh-TW\n"
-"X-Crowdin-File: /src/locales/en/messages.po\n"
-"X-Crowdin-File-ID: 836\n"
+"Language-Team: \n"
 
 msgid "The gas abuse function is included. The project owner may have the ability to control the contract."
 msgstr "包含 Gas 濫用的機制。項目方可能擁有控制合約的權限。"
@@ -52,7 +47,7 @@ msgstr "無法隱藏所有錢包和帳號。"
 #. placeholder {1}: notification.source
 #. placeholder {2}: notification.post.type
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {reposted your} Farcaster {recasted your} Bsky {reposted your} other {reposted your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</4>"
-msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {轉發了你的} Farcaster {轉發了你的} Bsky {轉發了你的} other {轉發了你的}} <4>{2, select, Post {貼文} Comment {評論} Quote {引用} Mirror {轉發} other {貼文}}</4>"
+msgstr "{0, plural, other {<3/> {1, select, Lens {轉發了你的} Farcaster {轉發了你的} Bsky {轉發了你的} other {轉發了你的}} <4>{2, select, Post {貼文} Comment {評論} Quote {引用} Mirror {轉發} other {貼文}}</4>}}"
 
 #. placeholder {0}: dayjs(space.scheduled_start).format('HH:mm')
 msgid "Tomorrow at {0}"
@@ -170,8 +165,10 @@ msgstr "群組"
 msgid "Volume"
 msgstr "交易量"
 
-msgid "{shares, plural, one {Repost or Quote} other {Reposts or Quotes}}"
-msgstr "{shares, plural, one {轉發或引用} other {轉發或引用}}"
+#. js-lingui:icu=%7Bshares%2C+plural%2C+one+%7BRepost+or+Quote%7D+other+%7BReposts+or+Quotes%7D%7D&pluralize_on=shares
+msgid "Repost or Quote"
+msgid_plural "Reposts or Quotes"
+msgstr[0] "轉發或引用"
 
 msgid "Ask a question"
 msgstr "提問"
@@ -216,8 +213,10 @@ msgstr "搜尋 NFT 系列"
 msgid "Failed to remove from Bookmarks. {0}"
 msgstr "無法從書籤移除。{0}"
 
-msgid "{followerCount, plural, one {Follower} other {Followers}}"
-msgstr "{followerCount, plural, one {追蹤者} other {追蹤者}}"
+#. js-lingui:icu=%7BfollowerCount%2C+plural%2C+one+%7BFollower%7D+other+%7BFollowers%7D%7D&pluralize_on=followerCount
+msgid "Follower"
+msgid_plural "Followers"
+msgstr[0] "追蹤者"
 
 msgid "Delete post"
 msgstr "刪除貼文"
@@ -265,6 +264,9 @@ msgstr "該空間不存在。"
 
 msgid "Display Name"
 msgstr "名稱"
+
+msgid "Search NFT"
+msgstr ""
 
 msgid "Blackmail activities found."
 msgstr "發現勒索活動。"
@@ -349,8 +351,10 @@ msgstr "此代幣存在 Gas 濫用問題。"
 msgid "Failed to disable Multi-device login. Please try again later."
 msgstr "無法關閉多裝置登入功能，請稍後重試。"
 
-msgid "{hours, plural, one {# hour left} other {# hours left}}"
-msgstr "{hours, plural, one {剩餘 # 小時} other {剩餘 # 小時}}"
+#. js-lingui:icu=%7Bhours%2C+plural%2C+one+%7B%23+hour+left%7D+other+%7B%23+hours+left%7D%7D&pluralize_on=hours
+msgid "# hour left"
+msgid_plural "# hours left"
+msgstr[0] "剩餘 # 小時"
 
 #. placeholder {0}: snapshot.title
 msgid "🙌 Just voted “{choice}” on “{0}”"
@@ -460,8 +464,10 @@ msgstr "已封鎖"
 msgid "It is related account retrieved from connected wallets. Please sign in to set as primary account."
 msgstr "此為從連接錢包檢索到的關聯帳戶，請登入設為主要帳戶。"
 
-msgid "{followerCount, plural, one {Member} other {Members}}"
-msgstr "{followerCount, plural, one {成員} other {成員}}"
+#. js-lingui:icu=%7BfollowerCount%2C+plural%2C+one+%7BMember%7D+other+%7BMembers%7D%7D&pluralize_on=followerCount
+msgid "Member"
+msgid_plural "Members"
+msgstr[0] "成員"
 
 msgid "Mint Ended"
 msgstr "鑄造已結束"
@@ -820,8 +826,10 @@ msgid "Username"
 msgstr "用戶名"
 
 #. placeholder {0}: post.stats.quotes
-msgid "{0, plural, one {quote} other {quotes}}"
-msgstr "{0, plural, one {引用} other {引用}}"
+#. js-lingui:icu=%7B0%2C+plural%2C+one+%7Bquote%7D+other+%7Bquotes%7D%7D&pluralize_on=0
+msgid "quote"
+msgid_plural "quotes"
+msgstr[0] "引用"
 
 msgid "No hidden owner."
 msgstr "無隱藏的擁有者。"
@@ -834,7 +842,7 @@ msgstr "建議結果：{outcomeLabel}"
 
 #. placeholder {0}: notification.followers.length
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}}<4> followed you</4>"
-msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/>}}<4> 追蹤了您</4>"
+msgstr "{0, plural, other {<3/><4> 追蹤了您</4>}}"
 
 #. placeholder {0}: trade.displayInfo?.ensHandle || addressName
 #. placeholder {1}: toFixedTrimmed(+trade.size, 2)
@@ -846,8 +854,10 @@ msgstr ""
 
 #. placeholder {0}: channel.followerCount
 #. placeholder {0}: profile.followerCount
-msgid "{0, plural, one {Follower} other {Followers}}"
-msgstr "{0, plural, one {追蹤者} other {追蹤者}}"
+#. js-lingui:icu=%7B0%2C+plural%2C+one+%7BFollower%7D+other+%7BFollowers%7D%7D&pluralize_on=0
+msgid "Follower"
+msgid_plural "Followers"
+msgstr[0] "追蹤者"
 
 msgid "Oops! Your account is currently blocked. Reach out to support for more details."
 msgstr "您的帳戶已被封鎖，請聯繫客服了解詳情。"
@@ -948,8 +958,10 @@ msgid "Follow to Collect"
 msgstr "追蹤以鑄造收集"
 
 #. placeholder {0}: channel.followerCount
-msgid "{0, plural, one {Like} other {Likes}}"
-msgstr "{0, plural, one {讚} other {讚}}"
+#. js-lingui:icu=%7B0%2C+plural%2C+one+%7BLike%7D+other+%7BLikes%7D%7D&pluralize_on=0
+msgid "Like"
+msgid_plural "Likes"
+msgstr[0] "讚"
 
 msgid "Scan this QR code and confirm on your Farcaster mobile app to register auth wallet."
 msgstr "掃描此QR碼，並在 Farcaster 行動版應用中確認註冊認證錢包。"
@@ -1083,8 +1095,10 @@ msgid "Sign in Confirmation"
 msgstr "登入確認"
 
 #. placeholder {0}: Math.floor(span / DAY_SPAN)
-msgid "{0, plural, one {# day} other {# days}}"
-msgstr "{0, plural, one {# 日} other {# 日}}"
+#. js-lingui:icu=%7B0%2C+plural%2C+one+%7B%23+day%7D+other+%7B%23+days%7D%7D&pluralize_on=0
+msgid "# day"
+msgid_plural "# days"
+msgstr[0] "# 日"
 
 msgid "Suspected malicious address."
 msgstr "疑似惡意地址"
@@ -1485,7 +1499,7 @@ msgstr "查看已結算"
 #. placeholder {0}: notification.reactors.length
 #. placeholder {1}: notification.post.type
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</5>"
-msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/>}} <4>讚了你的</4><5>{1, select, Post {貼文} Comment {留言} Quote {引用} Mirror {轉發} other {貼文}}</5>"
+msgstr "{0, plural, other {<3/> <4>讚了你的</4><5>{1, select, Post {貼文} Comment {留言} Quote {引用} Mirror {轉發} other {貼文}}</5>}}"
 
 msgid "Failed to sign in with Firefly Wallet."
 msgstr "透過Firefly錢包登入失敗。"
@@ -1926,8 +1940,10 @@ msgid "Privacy Policy"
 msgstr "隱私政策"
 
 #. placeholder {0}: posts.length
-msgid "{0, plural, one {Send} other {Send}}"
-msgstr "{0, plural, one {發送} other {發送}}"
+#. js-lingui:icu=%7B0%2C+plural%2C+one+%7BSend%7D+other+%7BSend%7D%7D&pluralize_on=0
+msgid "Send"
+msgid_plural "Send"
+msgstr[0] "發送"
 
 msgid "<0>Revised</0><1>an article on <2/></1>"
 msgstr "<0>修訂</0><1>一篇文章於 <2/></1>"
@@ -1959,8 +1975,10 @@ msgid "Expired"
 msgstr "已過期"
 
 #. placeholder {0}: Math.floor(span / HOUR_SPAN)
-msgid "{0, plural, one {# hour} other {# hours}}"
-msgstr "{0, plural, one {# 小時} other {# 小時}}"
+#. js-lingui:icu=%7B0%2C+plural%2C+one+%7B%23+hour%7D+other+%7B%23+hours%7D%7D&pluralize_on=0
+msgid "# hour"
+msgid_plural "# hours"
+msgstr[0] "# 小時"
 
 msgid "Failed to login lens with orb"
 msgstr "使用 orb 登入 lens 失敗"
@@ -2160,8 +2178,10 @@ msgstr "Email"
 msgid "Disconnected from your social graph"
 msgstr "已從你的社交圖譜中斷開綁定"
 
-msgid "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
-msgstr "{attentionFactors, plural, one {# 中風險項} other {# 中風險項}}"
+#. js-lingui:icu=%7BattentionFactors%2C+plural%2C+one+%7B%23+Attention+item%7D+other+%7B%23+Attention+items%7D%7D&pluralize_on=attentionFactors
+msgid "# Attention item"
+msgid_plural "# Attention items"
+msgstr[0] "# 中風險項"
 
 msgid "Hide more comments"
 msgstr "隱藏更多留言"
@@ -2286,8 +2306,10 @@ msgid "Failed to switch."
 msgstr "切換失敗"
 
 #. placeholder {0}: Math.floor(span / MINUTE_SPAN)
-msgid "{0, plural, one {# minute} other {# minutes}}"
-msgstr "{0, plural, one {# 分鐘} other {# 分鐘}}"
+#. js-lingui:icu=%7B0%2C+plural%2C+one+%7B%23+minute%7D+other+%7B%23+minutes%7D%7D&pluralize_on=0
+msgid "# minute"
+msgid_plural "# minutes"
+msgstr[0] "# 分鐘"
 
 msgid "Post has been deleted"
 msgstr "貼文已刪除"
@@ -2302,8 +2324,10 @@ msgid "Everyone"
 msgstr "所有人"
 
 #. placeholder {0}: Math.floor(span / MONTH_SPAN)
-msgid "{0, plural, one {# month} other {# months}}"
-msgstr "{0, plural, one {# 月} other {# 月}}"
+#. js-lingui:icu=%7B0%2C+plural%2C+one+%7B%23+month%7D+other+%7B%23+months%7D%7D&pluralize_on=0
+msgid "# month"
+msgid_plural "# months"
+msgstr[0] "# 月"
 
 msgid "This token is issued by its declared team. Some scams will create a well-known token with the same name to defraud their users of their assets."
 msgstr "此代幣由聲明團隊發行，請注意同名詐騙代幣風險。"
@@ -2393,8 +2417,10 @@ msgstr "要求"
 msgid "Time range filter"
 msgstr "時間範圍篩選"
 
-msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
-msgstr "{riskyFactors, plural, one {# 高風險項} other {# 高風險項}}"
+#. js-lingui:icu=%7BriskyFactors%2C+plural%2C+one+%7B%23+Risky+item%7D+other+%7B%23+Risky+items%7D%7D&pluralize_on=riskyFactors
+msgid "# Risky item"
+msgid_plural "# Risky items"
+msgstr[0] "# 高風險項"
 
 msgid "The self-destruct function is included. The project owner may have the ability to destroy the contract."
 msgstr "包含自毀功能，項目方可能具備合約銷毀權限。"
@@ -2429,7 +2455,7 @@ msgstr "圖片下載失敗，請重試。"
 #. placeholder {0}: notification.actions.length
 #. placeholder {1}: notification.post.type
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>collected your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</5>"
-msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/>}} <4>鑄造收集了你的</4><5>{1, select, Post {貼文} Comment {留言} Quote {引用} Mirror {轉發} other {貼文}}</5>"
+msgstr "{0, plural, other {<3/> <4>鑄造收集了你的</4><5>{1, select, Post {貼文} Comment {留言} Quote {引用} Mirror {轉發} other {貼文}}</5>}}"
 
 msgid "Reset password"
 msgstr "重設密碼"
@@ -2751,8 +2777,10 @@ msgid "If you enter it in another app, it can steal your funds and Farcaster acc
 msgstr "如果您在其他應用程式中輸入助記詞，可能會導致您的資金和 Farcaster 帳戶被盜。"
 
 #. placeholder {0}: failedAt.length
-msgid "{0, plural, one {Your posts failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your posts failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your posts failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
-msgstr "{0, plural, one {由於某些錯誤，你的貼文在 {firstPlatform} 发布失败。请点击重试。} two {由於某些錯誤，你的貼文在 {firstPlatform} 和{secondPlatform} 发布失败。请点击重试。} other {你的帖子发布失败。请点击重试。}}"
+#. js-lingui:icu=%7B0%2C+plural%2C+one+%7BYour+posts+failed+to+publish+on+%7BfirstPlatform%7D+due+to+an+error.+Click+%27Retry%27+to+attempt+posting+again.%7D+two+%7BYour+posts+failed+to+publish+on+%7BfirstPlatform%7D+and+%7BsecondPlatform%7D+due+to+an+error.+Click+%27Retry%27+to+attempt+posting+again.%7D+other+%7BYour+posts+failed+to+publish+due+to+an+error.+Click+%27Retry%27+to+attempt+posting+again.%7D%7D&pluralize_on=0
+msgid "Your posts failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again."
+msgid_plural "Your posts failed to publish due to an error. Click 'Retry' to attempt posting again."
+msgstr[0] "你的帖子发布失败。请点击重试。"
 
 msgid "Cybercrime found."
 msgstr "發現网络犯罪。"
@@ -2823,8 +2851,10 @@ msgstr "{0} 份"
 msgid "Failed to disconnect."
 msgstr "斷開綁定失敗。"
 
-msgid "{followerCount, plural, one {Like} other {Likes}}"
-msgstr "{followerCount, plural, one {讚} other {讚}}"
+#. js-lingui:icu=%7BfollowerCount%2C+plural%2C+one+%7BLike%7D+other+%7BLikes%7D%7D&pluralize_on=followerCount
+msgid "Like"
+msgid_plural "Likes"
+msgstr[0] "讚"
 
 msgid "No stealing attack involved."
 msgstr "未檢測到竊取攻擊。"
@@ -2924,8 +2954,10 @@ msgstr "搜尋中..."
 
 #. placeholder {0}: <>{i18n.number(traderCount)} person I follow has traded</>
 #. placeholder {1}: <>{i18n.number(traderCount)} people I follow have traded</>
-msgid "{traderCount, plural, one {{0}} other {{1}}}"
-msgstr "{traderCount, plural, one {{0}} other {{1}}}"
+#. js-lingui:icu=%7BtraderCount%2C+plural%2C+one+%7B%7B0%7D%7D+other+%7B%7B1%7D%7D%7D&pluralize_on=traderCount
+msgid "{0}"
+msgid_plural "{1}"
+msgstr[0] "{1}"
 
 msgid "Show more comments"
 msgstr "顯示更多留言"
@@ -3155,8 +3187,10 @@ msgstr "我的錢包"
 msgid "Follow Pending"
 msgstr "等待追蹤請求通過"
 
-msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
-msgstr "{shares, plural, one {轉發或引用} other {轉發或引用}}"
+#. js-lingui:icu=%7Bshares%2C+plural%2C+one+%7BRecast+or+Quote%7D+other+%7BRecasts+or+Quotes%7D%7D&pluralize_on=shares
+msgid "Recast or Quote"
+msgid_plural "Recasts or Quotes"
+msgstr[0] "轉發或引用"
 
 msgid "Disputed"
 msgstr "爭議中"
@@ -3284,8 +3318,10 @@ msgstr "<0>Firefly 正式推出 <1>Polymarket 交易功能</1>，將鏈上預測
 msgid "So sorry, we cant mint this NFT. Please try again later."
 msgstr "很抱歉，無法鑄造此NFT。請稍後再試。"
 
-msgid "{minutes, plural, one {# minute left} other {# minutes left}}"
-msgstr "{minutes, plural, one {剩餘 # 分鐘} other {剩餘 # 分鐘}}"
+#. js-lingui:icu=%7Bminutes%2C+plural%2C+one+%7B%23+minute+left%7D+other+%7B%23+minutes+left%7D%7D&pluralize_on=minutes
+msgid "# minute left"
+msgid_plural "# minutes left"
+msgstr[0] "剩餘 # 分鐘"
 
 msgid "Created"
 msgstr "已建立"
@@ -3380,8 +3416,10 @@ msgid "The amount of coins that are circulating in the market and are tradeable 
 msgstr "流通量指市場可公開交易的代幣數量，類似於流通股概念"
 
 #. placeholder {0}: post.stats.mirrors
-msgid "{0, plural, one {repost} other {reposts}}"
-msgstr "{0, plural, one {轉發} other {轉發}}"
+#. js-lingui:icu=%7B0%2C+plural%2C+one+%7Brepost%7D+other+%7Breposts%7D%7D&pluralize_on=0
+msgid "repost"
+msgid_plural "reposts"
+msgstr[0] "轉發"
 
 #. placeholder {0}: account.profile.handle
 #. placeholder {1}: resolveSourceName(source)
@@ -3526,8 +3564,10 @@ msgstr "合約未包含代理機制。代理合約允許持有者修改代幣功
 msgid "User Name should be at least {extra} characters"
 msgstr "使用者名稱長度至少需為 {extra} 個字元"
 
-msgid "{totalVotes, plural, one {{totalVotes} Vote} other {{totalVotes} Votes}}"
-msgstr "{totalVotes, plural, one {{totalVotes} 票} other {{totalVotes} 票}}"
+#. js-lingui:icu=%7BtotalVotes%2C+plural%2C+one+%7B%7BtotalVotes%7D+Vote%7D+other+%7B%7BtotalVotes%7D+Votes%7D%7D&pluralize_on=totalVotes
+msgid "{totalVotes} Vote"
+msgid_plural "{totalVotes} Votes"
+msgstr[0] "{totalVotes} 票"
 
 msgid "Full"
 msgstr "完整的"
@@ -3593,8 +3633,10 @@ msgstr "定時發佈"
 msgid "Cancel Repost"
 msgstr "取消轉發"
 
-msgid "{days, plural, one {# day left} other {# days left}}"
-msgstr "{days, plural, one {剩餘 # 日} other {剩餘 # 日}}"
+#. js-lingui:icu=%7Bdays%2C+plural%2C+one+%7B%23+day+left%7D+other+%7B%23+days+left%7D%7D&pluralize_on=days
+msgid "# day left"
+msgid_plural "# days left"
+msgstr[0] "剩餘 # 日"
 
 msgid "No cybercrime involved."
 msgstr "未涉及網路犯罪。"
@@ -3656,8 +3698,10 @@ msgid "Added"
 msgstr "已增加"
 
 #. placeholder {0}: removeTrailingZeros(toFixedTrimmed(+trade.size, 2))
-msgid "{0, plural, one {# share} other {# shares}}"
-msgstr ""
+#. js-lingui:icu=%7B0%2C+plural%2C+one+%7B%23+share%7D+other+%7B%23+shares%7D%7D&pluralize_on=0
+msgid "# share"
+msgid_plural "# shares"
+msgstr[0] ""
 
 msgid "No phishing activities found."
 msgstr "未檢測到釣魚活動。"
@@ -3792,8 +3836,10 @@ msgstr "忘記密碼？<0>重設密碼</0>"
 msgid "Everyone can reply"
 msgstr "所有人皆可留言"
 
-msgid "{seconds, plural, one {# second left} other {# seconds left}}"
-msgstr "{seconds, plural, one {剩余 # 秒} other {剩余 # 秒}}"
+#. js-lingui:icu=%7Bseconds%2C+plural%2C+one+%7B%23+second+left%7D+other+%7B%23+seconds+left%7D%7D&pluralize_on=seconds
+msgid "# second left"
+msgid_plural "# seconds left"
+msgstr[0] "剩余 # 秒"
 
 msgid "Checking wallet status..."
 msgstr "錢包狀態檢查中……"
@@ -3857,8 +3903,10 @@ msgid "Added to bookmarks"
 msgstr "已加入書籤"
 
 #. placeholder {0}: post.stats.comments
-msgid "{0, plural, one {comment} other {comments}}"
-msgstr "{0, plural, one {留言} other {留言}}"
+#. js-lingui:icu=%7B0%2C+plural%2C+one+%7Bcomment%7D+other+%7Bcomments%7D%7D&pluralize_on=0
+msgid "comment"
+msgid_plural "comments"
+msgstr[0] "留言"
 
 msgid "<0/> Loading"
 msgstr "<0/> 載入中"
@@ -3890,8 +3938,10 @@ msgid "Snapshot added to your Bookmarks"
 msgstr "提案已加入書籤"
 
 #. placeholder {0}: Math.floor(span / YEAR_SPAN)
-msgid "{0, plural, one {# year} other {# years}}"
-msgstr "{0, plural, one {# 年} other {# 年}}"
+#. js-lingui:icu=%7B0%2C+plural%2C+one+%7B%23+year%7D+other+%7B%23+years%7D%7D&pluralize_on=0
+msgid "# year"
+msgid_plural "# years"
+msgstr[0] "# 年"
 
 msgid "We've detected logins available for sync."
 msgstr "我們偵測到有可同步的登入帳戶。"
@@ -3912,8 +3962,10 @@ msgid "Failed to set schedule time."
 msgstr "設定預約時間失敗。"
 
 #. placeholder {0}: post.stats.mirrors
-msgid "{0, plural, one {recast} other {recasts}}"
-msgstr "{0, plural, one {轉發} other {轉發}}"
+#. js-lingui:icu=%7B0%2C+plural%2C+one+%7Brecast%7D+other+%7Brecasts%7D%7D&pluralize_on=0
+msgid "recast"
+msgid_plural "recasts"
+msgstr[0] "轉發"
 
 msgid "Refresh"
 msgstr "刷新"
@@ -4128,8 +4180,10 @@ msgid "Create time:"
 msgstr "建立時間："
 
 #. placeholder {0}: post.stats.countOpenActions
-msgid "{0, plural, one {collect} other {collects}}"
-msgstr "{0, plural, one {收集} other {收集}}"
+#. js-lingui:icu=%7B0%2C+plural%2C+one+%7Bcollect%7D+other+%7Bcollects%7D%7D&pluralize_on=0
+msgid "collect"
+msgid_plural "collects"
+msgstr[0] "收集"
 
 msgid "Malicious mining activities."
 msgstr "惡意挖礦活動。"
@@ -4805,9 +4859,6 @@ msgstr "成員"
 msgid "Collect for {0} {1}"
 msgstr "花費 {0}{1} 鑄造收集"
 
-msgid "Search nft"
-msgstr "搜尋 NFT"
-
 msgid "Recast"
 msgstr "轉發"
 
@@ -5006,8 +5057,10 @@ msgid "Failed to unlike swap."
 msgstr "取消按赞失敗。"
 
 #. placeholder {0}: post.stats.reactions
-msgid "{0, plural, one {like} other {likes}}"
-msgstr "{0, plural, one {讚} other {讚}}"
+#. js-lingui:icu=%7B0%2C+plural%2C+one+%7Blike%7D+other+%7Blikes%7D%7D&pluralize_on=0
+msgid "like"
+msgid_plural "likes"
+msgstr[0] "讚"
 
 msgid "Collectible"
 msgstr "NFT"
