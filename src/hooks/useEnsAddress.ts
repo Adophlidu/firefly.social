@@ -4,23 +4,14 @@ import { mainnet } from 'viem/chains';
 import { type GetEnsAddressParameters } from 'wagmi/actions';
 
 import { STALE_TIMES } from '@/constants/query.js';
+import { createDeduplicatedFetch } from '@/helpers/memoizePromise.js';
 import { lookup } from '@/services/ens.js';
 
-const runningQueries = new Map<string, Promise<string | null>>();
+const deduplicated = createDeduplicatedFetch<string | null>();
 
 async function fetchEnsAddress(parameters: GetEnsAddressParameters) {
-    const { name } = parameters;
     const chainId = parameters.chainId || mainnet.id;
-    const cacheKey = `${name}-${chainId}`;
-
-    if (!runningQueries.has(cacheKey)) {
-        runningQueries.set(
-            cacheKey,
-            lookup(parameters.name).finally(() => runningQueries.delete(cacheKey)),
-        );
-    }
-
-    return runningQueries.get(cacheKey)!;
+    return deduplicated(`${parameters.name}-${chainId}`, () => lookup(parameters.name));
 }
 
 export function useEnsAddress(name?: string, enabled = true) {

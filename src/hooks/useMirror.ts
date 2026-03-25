@@ -72,11 +72,7 @@ export function useMirror(post: Post) {
                         enqueueMessageFromError(error, t`Failed to recast.`);
                         break;
                     case Source.Lens:
-                        enqueueMessageFromError(error, t`Failed to repost.`);
-                        break;
                     case Source.Twitter:
-                        enqueueMessageFromError(error, t`Failed to repost.`);
-                        break;
                     case Source.Bsky:
                         enqueueMessageFromError(error, t`Failed to repost.`);
                         break;
