@@ -2248,7 +2248,7 @@ msgid "Note: Cloud drafts save text only. Please upload original images or video
 msgstr "Note: Cloud drafts save text only. Please upload original images or video again."
 
 msgid "Turning off multi-device login will cause scheduled posts to fail. To ensure that posts are sent as scheduled, please make sure that multi-device login remains turned on."
-msgstr "Turning off multi-device login will cause scheduled posts to fail. To ensure that posts are sent as scheduled, please make sure that multi-device login remains turned on."
+msgstr ""
 
 msgid "This Bluesky account is already linked to another Firefly account."
 msgstr "This Bluesky account is already linked to another Firefly account."
