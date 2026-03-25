@@ -61,13 +61,50 @@ function resolveAttachmentsSrc(asset?: Attachment) {
     }
 }
 
+function getCompactImageSize(width: number, height: number) {
+    const aspectRatio = width / height;
+
+    if (aspectRatio > 1.2) {
+        const maxWidth = 364;
+        const maxHeight = 273;
+        const scale = Math.min(maxWidth / width, maxHeight / height);
+        return {
+            width: Math.round(width * scale),
+            height: Math.round(height * scale),
+            maxWidth,
+            maxHeight,
+        };
+    }
+
+    if (aspectRatio < 0.8) {
+        const maxWidth = 252;
+        const maxHeight = 336;
+        const scale = Math.min(maxWidth / width, maxHeight / height);
+        return {
+            width: Math.round(width * scale),
+            height: Math.round(height * scale),
+            maxWidth,
+            maxHeight,
+        };
+    }
+
+    const maxSize = 252;
+    const scale = Math.max(width, height) === 0 ? 1 : maxSize / Math.max(width, height);
+    return {
+        width: Math.round(width * scale),
+        height: Math.round(height * scale),
+        maxWidth: maxSize,
+        maxHeight: maxSize,
+    };
+}
+
 function Image({ src, ...props }: Pick<HTMLProps<'img'>, 'src' | 'alt' | 'width' | 'height' | 'style'>) {
     return <img alt="img" {...props} src={src} />;
 }
 
 async function AttachmentImage({ src }: { src: string }) {
-    const imageMeta = await getImageMetaFromUrl(src);
-    if (!imageMeta) return null;
+    const [imageMeta, base64] = await Promise.all([getImageMetaFromUrl(src), fetchImageAsBase64(src)]);
+    if (!imageMeta || !base64) return null;
 
     const maxSize = 280;
     const { width, height } = imageMeta;
@@ -117,7 +154,68 @@ async function AttachmentImage({ src }: { src: string }) {
                     }}
                 />
                 <Image
-                    src={src}
+                    src={base64}
+                    alt="image"
+                    style={{
+                        width: '100%',
+                        height: '100%',
+                    }}
+                />
+            </div>
+        </div>
+    );
+}
+
+async function CompactAttachmentImage({ src }: { src: string }) {
+    const [imageMeta, base64] = await Promise.all([getImageMetaFromUrl(src), fetchImageAsBase64(src)]);
+    if (!imageMeta || !base64) return null;
+
+    const { width, height } = imageMeta;
+    const { width: scaledWidth, height: scaledHeight, maxWidth, maxHeight } = getCompactImageSize(width, height);
+
+    return (
+        <div
+            style={{
+                display: 'flex',
+                position: 'absolute',
+                top: '-40px',
+                right: '56px',
+                width: `${maxWidth}px`,
+                height: `${maxHeight}px`,
+                alignItems: 'flex-start',
+                justifyContent: 'center',
+            }}
+        >
+            <div
+                style={{
+                    display: 'flex',
+                    position: 'relative',
+                    width: `${scaledWidth}px`,
+                    height: `${scaledHeight}px`,
+                }}
+            >
+                <div
+                    style={{
+                        position: 'absolute',
+                        top: '-24px',
+                        height: '24px',
+                        left: '24px',
+                        background: '#C7CAFF',
+                        width: `${scaledWidth - 24}px`,
+                    }}
+                />
+                <div
+                    style={{
+                        position: 'absolute',
+                        top: 0,
+                        width: '24px',
+                        right: '-24px',
+                        background: '#C7CAFF',
+                        height: `${scaledHeight - 24}px`,
+                    }}
+                />
+                <Image
+                    src={base64}
                     alt="image"
                     style={{
                         width: '100%',
@@ -135,6 +233,9 @@ async function PostOpenGraphImage({ post, sharerHandle }: { post: Post; sharerHa
         .split('\n')
         .map((x) => x.trim())
         .join('\n');
+
+    const originalContent = post.metadata.content?.content ?? '';
+    const isCompactLayout = originalContent.length < 50;
 
     const avatarBase64 = await fetchImageAsBase64(post.author.pfp, OG_FALLBACK_AVATAR);
 
@@ -190,86 +291,174 @@ async function PostOpenGraphImage({ post, sharerHandle }: { post: Post; sharerHa
                 </div>
             ) : null}
 
-            <div
-                style={{
-                    position: 'absolute',
-                    display: 'flex',
-                    top: '91px',
-                    left: '80px',
-                    padding: '56px',
-                    boxSizing: 'content-box',
-                    width: '766px',
-                    alignItems: src ? 'flex-start' : 'center',
-                    flexDirection: 'column',
-                    textAlign: src ? 'left' : 'center',
-                }}
-            >
-                {src ? await AttachmentImage({ src }) : null}
+            {isCompactLayout ? (
+                <div
+                    style={{
+                        position: 'absolute',
+                        display: 'flex',
+                        top: '91px',
+                        left: '80px',
+                        width: '766px',
+                        height: '456px',
+                        alignItems: 'flex-end',
+                        flexDirection: 'column',
+                        textAlign: 'left',
+                        justifyContent: 'flex-end',
+                        padding: '56px',
+                        boxSizing: 'border-box',
+                    }}
+                >
+                    {src ? await CompactAttachmentImage({ src }) : null}
 
-                <div style={{ display: 'flex', position: 'relative', width: '120px' }}>
-                    <Image
-                        src={avatarBase64}
-                        alt="pfp"
+                    <div
                         style={{
-                            width: '120px',
-                            height: '120px',
-                            borderRadius: '100%',
-                            objectFit: 'cover',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'flex-start',
+                            gap: '24px',
+                            width: '100%',
                         }}
-                    />
-                    <Image
-                        src={resolveSourceIcon(post.source)}
-                        style={{ width: '32px', height: '32px', position: 'absolute', bottom: 0, right: 0 }}
-                        alt="source"
-                    />
+                    >
+                        <div style={{ display: 'flex', position: 'relative', width: '120px' }}>
+                            <Image
+                                src={avatarBase64}
+                                alt="pfp"
+                                style={{
+                                    width: '120px',
+                                    height: '120px',
+                                    borderRadius: '100%',
+                                    objectFit: 'cover',
+                                }}
+                            />
+                            <Image
+                                src={resolveSourceIcon(post.source)}
+                                style={{ width: '32px', height: '32px', position: 'absolute', bottom: 0, right: 0 }}
+                                alt="source"
+                            />
+                        </div>
+                        <div
+                            style={{
+                                fontSize: '28px',
+                                lineHeight: '28px',
+                                fontWeight: 700,
+                                display: 'flex',
+                                alignItems: 'center',
+                                whiteSpace: 'nowrap',
+                                overflow: 'hidden',
+                                textOverflow: 'ellipsis',
+                                maxWidth: '100%',
+                            }}
+                        >
+                            {post.author.displayName}
+                        </div>
+                        <div
+                            style={{
+                                fontSize: '24px',
+                                fontWeight: 400,
+                                color: '#767676',
+                                lineHeight: '24px',
+                            }}
+                        >
+                            {dayjs(post.timestamp).format('hh:mm A · UTC · MMM D YYYY')}
+                        </div>
+                        {content ? (
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    whiteSpace: 'pre-line',
+                                    wordWrap: 'break-word',
+                                    fontSize: '24px',
+                                    lineHeight: '32px',
+                                    width: '100%',
+                                }}
+                            >
+                                {removeCombiningCharacters(content)}
+                            </div>
+                        ) : null}
+                    </div>
                 </div>
+            ) : (
                 <div
                     style={{
-                        fontSize: '28px',
-                        lineHeight: '28px',
-                        fontWeight: 700,
+                        position: 'absolute',
                         display: 'flex',
-                        alignItems: 'center',
-                        whiteSpace: 'nowrap',
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                        maxWidth: src ? '308px' : '100%',
-                        paddingTop: '24px',
-                        paddingBottom: '6px',
+                        top: '91px',
+                        left: '80px',
+                        padding: '56px',
+                        boxSizing: 'border-box',
+                        width: '766px',
+                        alignItems: src ? 'flex-start' : 'center',
+                        flexDirection: 'column',
+                        textAlign: src ? 'left' : 'center',
                     }}
                 >
-                    {post.author.displayName}
+                    {src ? await AttachmentImage({ src }) : null}
+
+                    <div style={{ display: 'flex', position: 'relative', width: '120px' }}>
+                        <Image
+                            src={avatarBase64}
+                            alt="pfp"
+                            style={{
+                                width: '120px',
+                                height: '120px',
+                                borderRadius: '100%',
+                                objectFit: 'cover',
+                            }}
+                        />
+                        <Image
+                            src={resolveSourceIcon(post.source)}
+                            style={{ width: '32px', height: '32px', position: 'absolute', bottom: 0, right: 0 }}
+                            alt="source"
+                        />
+                    </div>
+                    <div
+                        style={{
+                            fontSize: '28px',
+                            lineHeight: '28px',
+                            fontWeight: 700,
+                            display: 'flex',
+                            alignItems: 'center',
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            maxWidth: src ? '308px' : '100%',
+                            paddingTop: '24px',
+                            paddingBottom: '6px',
+                        }}
+                    >
+                        {post.author.displayName}
+                    </div>
+                    <div
+                        style={{
+                            fontSize: '24px',
+                            fontWeight: 400,
+                            color: '#767676',
+                            paddingTop: '6px',
+                            paddingBottom: '20px',
+                            lineHeight: '24px',
+                        }}
+                    >
+                        {dayjs(post.timestamp).format('hh:mm A · UTC · MMM D YYYY')}
+                    </div>
+                    <div
+                        style={{
+                            display: 'flex',
+                            whiteSpace: 'pre-line',
+                            wordWrap: 'break-word',
+                            height: '116px',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            fontSize: '24px',
+                            paddingTop: '20px',
+                            lineHeight: '32px',
+                            width: '100%',
+                            lineClamp: 3,
+                        }}
+                    >
+                        {removeCombiningCharacters(content)}
+                    </div>
                 </div>
-                <div
-                    style={{
-                        fontSize: '24px',
-                        fontWeight: 400,
-                        color: '#767676',
-                        paddingTop: '6px',
-                        paddingBottom: '20px',
-                        lineHeight: '24px',
-                    }}
-                >
-                    {dayjs(post.timestamp).format('hh:mm A · UTC · MMM D YYYY')}
-                </div>
-                <div
-                    style={{
-                        display: 'flex',
-                        whiteSpace: 'pre-line',
-                        wordWrap: 'break-word',
-                        height: '116px',
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                        fontSize: '24px',
-                        paddingTop: '20px',
-                        lineHeight: '32px',
-                        width: '100%',
-                        lineClamp: 3,
-                    }}
-                >
-                    {removeCombiningCharacters(content)}
-                </div>
-            </div>
+            )}
         </div>
     );
 }
