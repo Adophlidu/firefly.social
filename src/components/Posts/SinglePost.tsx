@@ -148,6 +148,8 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
                 isDetail={isDetail}
                 isComment={isComment}
                 fireflyArticleToggle={!!isPostPage && !postLink.includes(pathname)}
+                listKey={listKey}
+                index={index}
             />
             <NoSSR>
                 {showPostAction && !post.isTruthSocial ? (

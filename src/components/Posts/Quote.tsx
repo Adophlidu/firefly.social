@@ -2,6 +2,7 @@
 
 import { classNames } from '@dimensiondev/utils';
 import { motion } from 'framer-motion';
+import { isUndefined } from 'lodash-es';
 import { memo } from 'react';
 
 import { PostBody } from '@/components/Posts/PostBody.js';
@@ -10,15 +11,19 @@ import { useRouter } from '@/esm/navigation.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
+import { useGlobalState } from '@/store/useGlobalStore.js';
 
 interface QuoteProps {
     post: Post;
     className?: string;
     isInCompose?: boolean;
+    listKey?: string;
+    index?: number;
 }
 
-export const Quote = memo<QuoteProps>(function Quote({ post, className = '', isInCompose }) {
+export const Quote = memo<QuoteProps>(function Quote({ post, className = '', isInCompose, listKey, index }) {
     const router = useRouter();
+    const setScrollIndex = useGlobalState.use.setScrollIndex();
     return (
         <motion.article
             initial={{ opacity: 0 }}
@@ -35,6 +40,7 @@ export const Quote = memo<QuoteProps>(function Quote({ post, className = '', isI
                     return;
                 }
 
+                if (listKey && !isUndefined(index)) setScrollIndex(listKey, index);
                 router.push(getPostUrl(post));
             }}
         >

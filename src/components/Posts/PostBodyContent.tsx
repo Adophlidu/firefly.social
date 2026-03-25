@@ -57,6 +57,8 @@ export interface PostBodyContentProps {
     disablePadding?: boolean;
     showTranslate?: boolean;
     fireflyArticleToggle?: boolean;
+    listKey?: string;
+    index?: number;
     ref?: React.Ref<HTMLDivElement>;
 }
 
@@ -77,6 +79,8 @@ export function PostBodyContent({ ref, ...props }: PostBodyContentProps) {
         disablePadding = false,
         showTranslate = false,
         isInCompose = false,
+        listKey,
+        index,
     } = props;
 
     const router = useRouter();
@@ -301,7 +305,7 @@ export function PostBodyContent({ ref, ...props }: PostBodyContentProps) {
 
             {LinksContent}
 
-            {!!post.quoteOn && !isQuote ? <Quote post={post.quoteOn} /> : null}
+            {!!post.quoteOn && !isQuote ? <Quote post={post.quoteOn} listKey={listKey} index={index} /> : null}
         </article>
     );
 }
