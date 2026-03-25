@@ -1,7 +1,6 @@
+import { envs, NODE_ENV } from '@dimensiondev/envs';
 import crypto from 'crypto';
 
-import { NODE_ENV } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
 import { FIREFLY_ROOT_URL_DEV } from '@/constants/static.js';
 import { logger } from '@/libs/Logger.js';
 import { settings } from '@/settings/index.js';
@@ -19,8 +18,8 @@ export function encryptAes256(plaintext: string, key: string, iv: string) {
 export function encryptPasscode(passcode: string) {
     const pemContent =
         settings.FIREFLY_ROOT_URL === FIREFLY_ROOT_URL_DEV
-            ? env.external.NEXT_PUBLIC_PASSCODE_PUBLIC_KEY_STAGING
-            : env.external.NEXT_PUBLIC_PASSCODE_PUBLIC_KEY;
+            ? envs.external.NEXT_PUBLIC_PASSCODE_PUBLIC_KEY_STAGING
+            : envs.external.NEXT_PUBLIC_PASSCODE_PUBLIC_KEY;
 
     const encrypted = crypto.publicEncrypt(
         `-----BEGIN PUBLIC KEY-----\n${pemContent}\n-----END PUBLIC KEY-----`,
@@ -36,7 +35,7 @@ export function encryptPassword(password: string, accountId: string) {
         const encrypted = encryptAes256(password, key, iv);
         return iv + ':' + encrypted;
     } catch (error) {
-        if (env.shared.NODE_ENV === NODE_ENV.Development) logger.error('Encryption failed:', error);
+        if (envs.shared.NODE_ENV === NODE_ENV.Development) logger.error('Encryption failed:', error);
         return null;
     }
 }
@@ -49,7 +48,7 @@ export function decryptPassword(encryptedData: string, accountId: string): strin
         const key = crypto.createHash('sha256').update(accountId).digest('hex');
         return decryptAes256(encrypted, key, iv);
     } catch (error) {
-        if (env.shared.NODE_ENV === NODE_ENV.Development) logger.error('Decryption failed:', error);
+        if (envs.shared.NODE_ENV === NODE_ENV.Development) logger.error('Decryption failed:', error);
         return null;
     }
 }

@@ -1,11 +1,11 @@
+import { envs, STATUS } from '@dimensiondev/envs';
 import { type ReactNode, Suspense } from 'react';
 
 import { IfPathname } from '@/components/IfPathname.js';
 import { Providers } from '@/components/Providers.js';
 import { RouteProgressBar } from '@/components/RouteProgressBar.js';
 import { SideBar } from '@/components/SideBar/index.js';
-import { Agent, STATUS } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
+import { Agent } from '@/constants/enum.js';
 import { EVENT_ROUTES, INTERNAL_ROUTES, WHITEBOARD_ROUTES } from '@/constants/static.js';
 import { dynamic } from '@/esm/dynamic.js';
 
@@ -68,19 +68,19 @@ export function LayoutBody({ agent, children }: LayoutBodyProps) {
 
                     <Modals />
 
-                    {env.external.NEXT_PUBLIC_IFRAME_BRIDGE === STATUS.Enabled && agent !== Agent.FireflyApp ? (
+                    {envs.external.NEXT_PUBLIC_IFRAME_BRIDGE === STATUS.Enabled && agent !== Agent.FireflyApp ? (
                         <IfPathname isNotOneOf={WHITEBOARD_ROUTES}>
                             <IframeBridge />
                         </IfPathname>
                     ) : null}
 
-                    {env.external.NEXT_PUBLIC_FORCE_SIGNUP === STATUS.Enabled && agent !== Agent.FireflyApp ? (
+                    {envs.external.NEXT_PUBLIC_FORCE_SIGNUP === STATUS.Enabled && agent !== Agent.FireflyApp ? (
                         <IfPathname isNotOneOf={INTERNAL_ROUTES}>
                             <FireflyAccountChecker />
                         </IfPathname>
                     ) : null}
 
-                    {env.external.NEXT_PUBLIC_API_PERFORMANCE_PROFILING === STATUS.Enabled ? (
+                    {envs.external.NEXT_PUBLIC_API_PERFORMANCE_PROFILING === STATUS.Enabled ? (
                         <PerformanceDashboard />
                     ) : null}
                 </RouteProgressBar>

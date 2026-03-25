@@ -2,6 +2,7 @@
 
 'use client';
 
+import { envs } from '@dimensiondev/envs';
 import {
     type AppKitNetwork,
     arbitrum,
@@ -31,7 +32,6 @@ import { http } from 'wagmi';
 
 import { hyperEVM, lensMainnet, lensTestnet } from '@/configs/chains.js';
 import { createPrivyConnector } from '@/connectors/PrivyConnector.js';
-import { env } from '@/constants/env.js';
 
 export const wagmiNetworks = [
     mainnet,
@@ -63,7 +63,7 @@ export const wagmiNetworks = [
 const privyConnector = createPrivyConnector();
 
 export const wagmiAdapter = new WagmiAdapter({
-    projectId: env.external.NEXT_PUBLIC_W3M_PROJECT_ID,
+    projectId: envs.external.NEXT_PUBLIC_W3M_PROJECT_ID,
     networks: wagmiNetworks,
     transports: {
         [fantom.id]: http('https://rpc.ftm.tools'),

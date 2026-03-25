@@ -1,9 +1,9 @@
+import { envs } from '@dimensiondev/envs';
 import { compose } from '@dimensiondev/utils';
 import dayjs from 'dayjs';
 import { type NextRequest } from 'next/server.js';
 import { z } from 'zod';
 
-import { env } from '@/constants/env.js';
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { generateSHA256JWT } from '@/helpers/generateSHA256JWT.js';
 import { getJsonBodyWithZodSchema } from '@/helpers/getJsonBodyWithZodSchema.js';
@@ -22,7 +22,7 @@ export const POST = compose(withRequestErrorHandler(), async (request: NextReque
         {
             client_from: 'web',
         },
-        env.internal.FIREFLY_JWT_SECRET,
+        envs.internal.FIREFLY_JWT_SECRET,
     );
 
     const deadline = dayjs(Date.now()).add(1, 'y').unix();

@@ -1,5 +1,5 @@
-import { STATUS } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
+import { envs, STATUS } from '@dimensiondev/envs';
+
 import {
     FARCASTER_POLL_MINI_APP_URL,
     FARCASTER_POLL_MINI_APP_URL_DEV,
@@ -11,7 +11,7 @@ import {
 
 export const settings = {
     get dev() {
-        return env.external.NEXT_PUBLIC_FIREFLY_DEV_API === STATUS.Enabled;
+        return envs.external.NEXT_PUBLIC_FIREFLY_DEV_API === STATUS.Enabled;
     },
     get FIREFLY_ROOT_URL() {
         return this.dev ? FIREFLY_ROOT_URL_DEV : FIREFLY_ROOT_URL;

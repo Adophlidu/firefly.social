@@ -1,5 +1,6 @@
 'use client';
 
+import { envs, STATUS } from '@dimensiondev/envs';
 import { initGlobalErrorHandlers } from '@dimensiondev/exception-tracker';
 import { classNames } from '@dimensiondev/utils';
 import { isServer } from '@tanstack/react-query';
@@ -7,8 +8,6 @@ import { memo, type ReactNode, useEffect, useLayoutEffect, useRef } from 'react'
 import { useEffectOnce } from 'react-use';
 
 import { SnackbarProvider } from '@/components/Snackbar.js';
-import { STATUS } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
 import { usePathname } from '@/esm/navigation.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
@@ -43,7 +42,7 @@ export const InitialProviders = memo(function Providers(props: { children: React
 
     useLayoutEffect(() => {
         // Initialize API performance profiling only if enabled
-        if (env.external.NEXT_PUBLIC_API_PERFORMANCE_PROFILING === STATUS.Enabled) {
+        if (envs.external.NEXT_PUBLIC_API_PERFORMANCE_PROFILING === STATUS.Enabled) {
             // Dynamic import to avoid loading the module when disabled
             import('@/helpers/initPerformanceProfilingFromEnv.js').then((module) => {
                 module.initPerformanceProfilingFromEnv();

@@ -1,7 +1,7 @@
+import { envs } from '@dimensiondev/envs';
 import { compact, first } from 'lodash-es';
 import urlcat from 'urlcat';
 
-import { env } from '@/constants/env.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { MediaSource } from '@/types/compose.js';
 import { type IGif } from '@/types/giphy.js';
@@ -95,7 +95,7 @@ export async function fetchTenorGifs({ cursor, q, limit = 20 }: FetchTenorGifsOp
         next: string;
     }>(
         urlcat('https://g.tenor.com/v1/search', {
-            key: env.external.NEXT_PUBLIC_TENOR_API_KEY,
+            key: envs.external.NEXT_PUBLIC_TENOR_API_KEY,
             q,
             contentfilter: 'high', // content safety level
             media_filter: 'minimal',

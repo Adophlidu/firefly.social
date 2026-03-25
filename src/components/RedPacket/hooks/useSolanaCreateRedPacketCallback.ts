@@ -1,4 +1,5 @@
 import { web3 } from '@coral-xyz/anchor';
+import { envs, STATUS } from '@dimensiondev/envs';
 import { t } from '@lingui/core/macro';
 import { BigNumber } from 'bignumber.js';
 import { omit, pick } from 'lodash-es';
@@ -7,8 +8,6 @@ import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
 
 import { formatSenderName } from '@/components/RedPacket/helpers.js';
-import { STATUS } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
 import {
     DEFAULT_THEME_ID,
     RED_PACKET_CONTRACT_VERSION,
@@ -94,7 +93,7 @@ export function useSolanaCreateRedPacketCallback(
                 duration: baseParams.duration,
                 creation_time: Date.now(),
                 token,
-                network: env.external.NEXT_PUBLIC_SOLANA_DEV === STATUS.Enabled ? 'devnet' : 'Solana',
+                network: envs.external.NEXT_PUBLIC_SOLANA_DEV === STATUS.Enabled ? 'devnet' : 'Solana',
                 contract_address: RedPacketIDL.address,
                 contract_version: RED_PACKET_CONTRACT_VERSION,
                 txid: '',

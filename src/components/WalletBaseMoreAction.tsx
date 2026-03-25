@@ -1,5 +1,6 @@
 'use client';
 
+import { envs, STATUS } from '@dimensiondev/envs';
 import { MenuItem } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
@@ -13,8 +14,7 @@ import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Tips } from '@/components/Tips/index.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { Source, STATUS } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
+import { Source } from '@/constants/enum.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
@@ -59,7 +59,7 @@ export function WalletBaseMoreAction({
     const ensOrAddress = ens || formatAddress(address, 4);
 
     const shouldShowTips =
-        env.external.NEXT_PUBLIC_TIPS === STATUS.Enabled &&
+        envs.external.NEXT_PUBLIC_TIPS === STATUS.Enabled &&
         showTips &&
         isValidAddressEthereum(address) &&
         !profiles.some((profile) => isSameFireflyIdentity(profile.identity, identity));

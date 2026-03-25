@@ -1,7 +1,7 @@
+import { envs } from '@dimensiondev/envs';
 import { getToken } from 'firebase/messaging';
 
 import { firebaseClient } from '@/configs/firebaseClient.js';
-import { env } from '@/constants/env.js';
 import { NOTIFICATION_PERMISSION_KEY } from '@/constants/static.js';
 import { enqueuePermissionMessage } from '@/helpers/enqueuePermissionMessage.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
@@ -65,7 +65,7 @@ export async function setupFirebaseFcmConnection(
     await runInSafeAsync(async () => {
         await firebaseClient.init();
         const token = await getToken(firebaseClient.firebaseFcm, {
-            vapidKey: env.external.NEXT_PUBLIC_FIREBASE_VAPID_KEY,
+            vapidKey: envs.external.NEXT_PUBLIC_FIREBASE_VAPID_KEY,
         });
         if (!token) return;
 

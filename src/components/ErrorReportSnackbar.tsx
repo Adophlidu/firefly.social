@@ -1,5 +1,6 @@
 'use client';
 
+import { envs } from '@dimensiondev/envs';
 import { ExceptionId } from '@dimensiondev/exception-tracker';
 import { useReportErrorOnce } from '@dimensiondev/exception-tracker/client';
 import { ClipboardDocumentCheckIcon, ClipboardDocumentIcon, XCircleIcon } from '@heroicons/react/24/solid';
@@ -9,7 +10,6 @@ import { type ForwardedRef, type ReactNode, useCallback, useMemo, useState } fro
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { CloseButton } from '@/components/IconButton.js';
 import { type SnackbarMessage, useSnackbar } from '@/components/Snackbar.js';
-import { env } from '@/constants/env.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
 
 export interface ErrorReportSnackbarProps {
@@ -46,9 +46,9 @@ export function ErrorReportSnackbar({ id, detail, noReport, icon, message, ref }
         '## Description',
         description,
         '## Extra Information',
-        `- Version: ${env.shared.VERSION}`,
-        `- Environment: ${env.shared.NODE_ENV}`,
-        `- Commit Hash: ${env.shared.COMMIT_HASH}`,
+        `- Version: ${envs.shared.VERSION}`,
+        `- Environment: ${envs.shared.NODE_ENV}`,
+        `- Commit Hash: ${envs.shared.COMMIT_HASH}`,
         `- UserAgent: ${navigator.userAgent}`,
         `- Timestamp: ${new Date().toISOString()}`,
     ].join('\n');

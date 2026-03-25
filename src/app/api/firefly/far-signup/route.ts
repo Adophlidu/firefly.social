@@ -1,10 +1,10 @@
+import { envs } from '@dimensiondev/envs';
 import { compose, parseJson } from '@dimensiondev/utils';
 import { first } from 'lodash-es';
 import { type NextRequest } from 'next/server.js';
 import urlcat from 'urlcat';
 import { z } from 'zod';
 
-import { env } from '@/constants/env.js';
 import { createErrorResponseJson, createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { getHeadersWithZodSchema } from '@/helpers/getHeadersWithZodSchema.js';
@@ -63,7 +63,7 @@ export const POST = compose(withRequestErrorHandler(), async (request: NextReque
     }
 
     // 2. decrypt data
-    const decrypted = decryptAes256(result.userInfo, env.internal.SESSION_CIPHER_KEY, env.internal.SESSION_CIPHER_IV);
+    const decrypted = decryptAes256(result.userInfo, envs.internal.SESSION_CIPHER_KEY, envs.internal.SESSION_CIPHER_IV);
 
     const data = SignerDataScheme.parse(parseJson(decrypted));
     return createSuccessResponseJson(data);

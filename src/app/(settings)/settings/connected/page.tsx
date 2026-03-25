@@ -1,5 +1,6 @@
 'use client';
 
+import { envs, STATUS } from '@dimensiondev/envs';
 import { Trans } from '@lingui/react/macro';
 
 import { AccountCards } from '@/app/(settings)/components/AccountCard.js';
@@ -8,8 +9,7 @@ import { SettingsSection } from '@/app/(settings)/components/Section.js';
 import { ThirdPartAccounts } from '@/app/(settings)/components/ThirdPartAccounts.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
-import { Source, STATUS } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
+import { Source } from '@/constants/enum.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 
@@ -26,7 +26,7 @@ export default function Connected() {
 
                     <AccountCards />
 
-                    {env.external.NEXT_PUBLIC_THIRD_PARTY_AUTH === STATUS.Enabled ? <ThirdPartAccounts /> : null}
+                    {envs.external.NEXT_PUBLIC_THIRD_PARTY_AUTH === STATUS.Enabled ? <ThirdPartAccounts /> : null}
 
                     <div className="flex w-full flex-col items-center justify-center gap-4 md:flex-row">
                         <ClickableButton

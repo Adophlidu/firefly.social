@@ -1,9 +1,9 @@
 /* cspell:disable */
 
+import { envs } from '@dimensiondev/envs';
 import { kv } from '@vercel/kv';
 
 import { KeyType } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
 import { HIDDEN_SECRET } from '@/constants/static.js';
 
 export interface SessionPayload {
@@ -17,7 +17,8 @@ export interface SessionPayload {
 export class TwitterSessionPayload {
     static async recordPayload(payload: SessionPayload) {
         if (payload.consumerSecret === HIDDEN_SECRET) throw new Error('Cannot record hidden secret');
-        if (payload.consumerSecret === env.internal.TWITTER_CLIENT_ID) throw new Error('Cannot record internal secret');
+        if (payload.consumerSecret === envs.internal.TWITTER_CLIENT_ID)
+            throw new Error('Cannot record internal secret');
 
         // save the consumer secret to KV
         await kv.hsetnx(KeyType.ConsumerSecret, payload.consumerKey, payload.consumerSecret);
@@ -36,8 +37,8 @@ export class TwitterSessionPayload {
     static async revealPayload(payload: SessionPayload) {
         if (payload.consumerSecret !== HIDDEN_SECRET) return payload;
 
-        if (payload.consumerKey === env.internal.TWITTER_CLIENT_ID) {
-            payload.consumerSecret = env.internal.TWITTER_CLIENT_SECRET;
+        if (payload.consumerKey === envs.internal.TWITTER_CLIENT_ID) {
+            payload.consumerSecret = envs.internal.TWITTER_CLIENT_SECRET;
         } else {
             const secret = await kv.hget<string>(KeyType.ConsumerSecret, payload.consumerKey);
             if (!secret) throw new Error('Consumer secret not found');

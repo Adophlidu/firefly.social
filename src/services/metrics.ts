@@ -1,3 +1,4 @@
+import { envs } from '@dimensiondev/envs';
 import { parseJson, safeUnreachable } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { compact } from 'lodash-es';
@@ -5,7 +6,6 @@ import urlcat from 'urlcat';
 import { sha256, toHex } from 'viem';
 
 import { Source, SourceInURL } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
 import { SessionExpiredError } from '@/constants/error.js';
 import { SEVEN_DAYS } from '@/constants/static.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
@@ -46,7 +46,7 @@ import { type ResponseJson } from '@/types/utility.js';
 
 function decryptCipherText(passcode: string, text: string) {
     const key = sha256(toHex(passcode)).replace(/^0x/, '');
-    return decryptAes256(text, key, env.external.NEXT_PUBLIC_PASSCODE_IV);
+    return decryptAes256(text, key, envs.external.NEXT_PUBLIC_PASSCODE_IV);
 }
 
 async function getLocalMetrics(passcode: string) {

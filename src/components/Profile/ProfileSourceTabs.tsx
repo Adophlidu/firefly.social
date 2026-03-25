@@ -1,5 +1,6 @@
 'use client';
 
+import { envs, STATUS } from '@dimensiondev/envs';
 import { classNames, delay } from '@dimensiondev/utils';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
@@ -26,8 +27,7 @@ import { Avatar } from '@/components/Avatar.js';
 import { Link } from '@/components/Link.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { SORTED_PROFILE_SOURCES } from '@/constants/computed.js';
-import { type ProfilePageSource, type SocialSource, Source, STATUS } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
+import { type ProfilePageSource, type SocialSource, Source } from '@/constants/enum.js';
 import { usePathname } from '@/esm/navigation.js';
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
@@ -197,7 +197,7 @@ function TriggerButton({
                 onMouseEnter={(e) => e.currentTarget.click()}
             >
                 <ProfileTriggerContent active={isCurrentSource} source={source} square arrow>
-                    {env.external.NEXT_PUBLIC_WALLET_MIX === STATUS.Disabled ||
+                    {envs.external.NEXT_PUBLIC_WALLET_MIX === STATUS.Disabled ||
                     source !== Source.Wallet ||
                     isNotWalletMixIdentity ? (
                         displayName
@@ -242,7 +242,7 @@ function TopProfileMenuItem({ profile, identity }: { profile: FireflyProfile; id
         identity.source === source || (source === Source.Wallet && identity.source === Source.WalletMix);
 
     const href =
-        isWalletProfile && env.external.NEXT_PUBLIC_WALLET_MIX === STATUS.Enabled
+        isWalletProfile && envs.external.NEXT_PUBLIC_WALLET_MIX === STATUS.Enabled
             ? getProfileUrl({ source: Source.WalletMix, profileId: profile.identity.id })
             : getProfileUrl({ source, profileId: profile.identity.id, handle: profile.displayName });
 
@@ -250,7 +250,7 @@ function TopProfileMenuItem({ profile, identity }: { profile: FireflyProfile; id
         'pointer-events-none': !isMounted || pathname === href,
     });
 
-    if (env.external.NEXT_PUBLIC_WALLET_MIX === STATUS.Enabled && isWalletProfile) {
+    if (envs.external.NEXT_PUBLIC_WALLET_MIX === STATUS.Enabled && isWalletProfile) {
         return (
             <Link
                 href={href}
@@ -548,7 +548,7 @@ export function ProfileSourceTabs({
                                             );
                                             if (
                                                 isCurrentFireflyIdentity &&
-                                                env.external.NEXT_PUBLIC_WALLET_MIX === STATUS.Disabled &&
+                                                envs.external.NEXT_PUBLIC_WALLET_MIX === STATUS.Disabled &&
                                                 source === Source.Wallet
                                             )
                                                 return null;

@@ -1,9 +1,9 @@
 import { IS_PRODUCTION } from '@dimensiondev/constants';
+import { envs } from '@dimensiondev/envs';
 import { configureExceptionTracker } from '@dimensiondev/exception-tracker';
 import { bom } from '@dimensiondev/utils';
 
 import { Source } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
 import { EXCEPTION_TRACKER_URL } from '@/constants/static.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
@@ -17,10 +17,10 @@ import { settings } from '@/settings/index.js';
 export function configureErrorCapture(): void {
     configureExceptionTracker({
         getClient: () => ({
-            version: env.shared.VERSION,
-            commitHash: env.shared.COMMIT_HASH,
+            version: envs.shared.VERSION,
+            commitHash: envs.shared.COMMIT_HASH,
             environment: IS_PRODUCTION ? 'production' : 'development',
-            vercelEnvironment: env.external.NEXT_PUBLIC_VERCEL_ENV,
+            vercelEnvironment: envs.external.NEXT_PUBLIC_VERCEL_ENV,
             beaconUrl: '/api/beacon/exceptions',
             serviceName: 'firefly-web',
             getBom: () => ({
@@ -30,16 +30,16 @@ export function configureErrorCapture(): void {
             }),
             getUrls: () => ({
                 rootUrl: settings.FIREFLY_ROOT_URL,
-                siteUrl: env.external.NEXT_PUBLIC_SITE_URL,
+                siteUrl: envs.external.NEXT_PUBLIC_SITE_URL,
                 frameServerUrl: settings.FRAME_SERVER_URL,
             }),
         }),
         getServer: () => ({
             baseUrl: EXCEPTION_TRACKER_URL,
-            version: env.shared.VERSION,
-            commitHash: env.shared.COMMIT_HASH,
+            version: envs.shared.VERSION,
+            commitHash: envs.shared.COMMIT_HASH,
             environment: IS_PRODUCTION ? 'production' : 'development',
-            vercelEnvironment: env.external.NEXT_PUBLIC_VERCEL_ENV,
+            vercelEnvironment: envs.external.NEXT_PUBLIC_VERCEL_ENV,
             serviceName: 'firefly-server',
         }),
         getUserContext: () => {

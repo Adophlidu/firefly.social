@@ -1,9 +1,9 @@
+import { envs } from '@dimensiondev/envs';
 import { compose, parseJson } from '@dimensiondev/utils';
 import { type NextRequest } from 'next/server.js';
 import urlcat from 'urlcat';
 import { z } from 'zod';
 
-import { env } from '@/constants/env.js';
 import { createErrorResponseJson, createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { getHeadersWithZodSchema } from '@/helpers/getHeadersWithZodSchema.js';
@@ -49,7 +49,7 @@ export const GET = compose(withRequestErrorHandler(), async (request: NextReques
         return createErrorResponseJson(response.error?.[0] ?? 'Failed to get farcaster account info.', { status: 400 });
     }
     const encrypted = response.data.data;
-    const decrypted = decryptAes256(encrypted, env.internal.SESSION_CIPHER_KEY, env.internal.SESSION_CIPHER_IV);
+    const decrypted = decryptAes256(encrypted, envs.internal.SESSION_CIPHER_KEY, envs.internal.SESSION_CIPHER_IV);
     const data = AccountInfoScheme.parse(parseJson(decrypted));
     return createSuccessResponseJson(data);
 });

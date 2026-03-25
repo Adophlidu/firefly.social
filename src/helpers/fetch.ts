@@ -1,9 +1,8 @@
+import { envs, STATUS } from '@dimensiondev/envs';
 import { bom, ForbiddenError, NetworkError, parseUrl } from '@dimensiondev/utils';
 import { isServer } from '@tanstack/react-query';
 import urlcat from 'urlcat';
 
-import { STATUS } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
 import { FetchError, NftScanError } from '@/constants/error.js';
 import { EVENT_FORBIDDEN } from '@/constants/event.js';
 import { FIREFLY_USER_AGENT, SITE_URL, SITE_URL_OFFICIAL } from '@/constants/static.js';
@@ -136,7 +135,7 @@ export async function fetch(
     // Wrap fetch call with performance tracking if enabled
     // Only import and use performance tracking if the feature is enabled
     // Check env variable synchronously first to avoid any module loading when disabled
-    if (env.external.NEXT_PUBLIC_API_PERFORMANCE_PROFILING === STATUS.Enabled) {
+    if (envs.external.NEXT_PUBLIC_API_PERFORMANCE_PROFILING === STATUS.Enabled) {
         // Dynamic import to avoid loading the module when disabled
         // This is safe because we've already checked the env variable synchronously
         const performanceModule = await import('@dimensiondev/lcp-profiler');

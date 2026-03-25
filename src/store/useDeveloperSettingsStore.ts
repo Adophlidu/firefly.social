@@ -1,9 +1,8 @@
+import { envs, STATUS } from '@dimensiondev/envs';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
-import { STATUS } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 
 interface DeveloperSettingsState {
@@ -17,7 +16,7 @@ const useDeveloperSettingsBase = create<
 >(
     persist(
         immer((set) => ({
-            developmentAPI: env.external.NEXT_PUBLIC_FIREFLY_DEV_API === STATUS.Enabled,
+            developmentAPI: envs.external.NEXT_PUBLIC_FIREFLY_DEV_API === STATUS.Enabled,
             updateDevelopmentAPI: (value: boolean) =>
                 set((state) => {
                     state.developmentAPI = value;

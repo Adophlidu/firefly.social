@@ -1,9 +1,9 @@
+import { envs } from '@dimensiondev/envs';
 import { compose } from '@dimensiondev/utils';
 import { type NextRequest } from 'next/server.js';
 import z from 'zod';
 
 import { SourceInURL } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
 import { createErrorResponseJson, createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { getJsonBodyWithZodSchema } from '@/helpers/getJsonBodyWithZodSchema.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
@@ -46,7 +46,7 @@ export const POST = compose(withRequestErrorHandler(), async (request: NextReque
     const encryptData = encryptAes256(
         JSON.stringify(twitterMetricsData),
         encryptKey,
-        env.external.NEXT_PUBLIC_PASSCODE_IV,
+        envs.external.NEXT_PUBLIC_PASSCODE_IV,
     );
     const result = await uploadMetrics(
         encryptedPasscode,

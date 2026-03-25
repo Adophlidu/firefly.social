@@ -1,6 +1,7 @@
 'use client';
 
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { envs, STATUS } from '@dimensiondev/envs';
 import { AbortError, ForbiddenError } from '@dimensiondev/utils';
 import { lastLoggedInAccount } from '@lens-protocol/client/actions';
 import { Trans } from '@lingui/react/macro';
@@ -19,8 +20,7 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SignupEntry } from '@/components/Profile/SignupEntry.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { PRIVY_CONNECTOR_ID } from '@/connectors/PrivyConnector.js';
-import { AsyncStatus, Source, STATUS } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
+import { AsyncStatus, Source } from '@/constants/enum.js';
 import { FireflyAlreadyBoundError } from '@/constants/error.js';
 import {
     enqueueForbiddenMessage,
@@ -239,7 +239,7 @@ export const LensView = memo(function LensView() {
                                 </span>
                                 <br />
                                 {canBindMoreAccount &&
-                                env.external.NEXT_PUBLIC_LENS_SIGNUP === STATUS.Enabled &&
+                                envs.external.NEXT_PUBLIC_LENS_SIGNUP === STATUS.Enabled &&
                                 !isPrivy ? (
                                     <Trans>
                                         <ClickableButton

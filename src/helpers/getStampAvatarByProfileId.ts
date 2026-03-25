@@ -1,13 +1,13 @@
+import { envs, STATUS } from '@dimensiondev/envs';
 import { bom, safeUnreachable } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
-import { Source, STATUS } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
+import { Source } from '@/constants/enum.js';
 import { FIREFLY_STAMP_DEV_URL, FIREFLY_STAMP_URL, SITE_URL } from '@/constants/static.js';
 import { type FireflyProfile, type LensV3Profile, type WalletProfile } from '@/providers/types/Firefly.js';
 
 const STAMP_URL =
-    env.external.NEXT_PUBLIC_FIREFLY_DEV_API === STATUS.Enabled ? FIREFLY_STAMP_DEV_URL : FIREFLY_STAMP_URL;
+    envs.external.NEXT_PUBLIC_FIREFLY_DEV_API === STATUS.Enabled ? FIREFLY_STAMP_DEV_URL : FIREFLY_STAMP_URL;
 
 export function getStampAvatarByProfileId(source: Source, profileId: string, size = 240) {
     const s = Math.min(size, 500);

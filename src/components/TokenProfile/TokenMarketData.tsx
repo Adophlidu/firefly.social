@@ -1,6 +1,7 @@
 'use client';
 
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { NODE_ENV } from '@dimensiondev/envs';
 import { assert, classNames } from '@dimensiondev/utils';
 import { Plural, Trans } from '@lingui/react/macro';
 import dayjs from 'dayjs';
@@ -304,7 +305,7 @@ export const TokenMarketData = memo(function TokenMarketData({
                                 <ContractList
                                     contracts={contracts ?? EMPTY_LIST}
                                     onSelect={(contract) => {
-                                        if (process.env.NODE_ENV === 'development') {
+                                        if (process.env.NODE_ENV === NODE_ENV.Development) {
                                             assert(
                                                 contract.chainId,
                                                 'ChainId is required, it should be patched at runtime.',

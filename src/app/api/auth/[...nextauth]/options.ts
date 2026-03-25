@@ -1,10 +1,9 @@
 /* cspell:disable */
 
+import { envs, NODE_ENV } from '@dimensiondev/envs';
 import { type AuthOptions } from 'next-auth';
 import { type Provider } from 'next-auth/providers/index';
 
-import { NODE_ENV } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
 import { AppleProvider } from '@/esm/AppleProvider.js';
 import { GoogleProvider } from '@/esm/GoogleProvider.js';
 import { TwitterProvider } from '@/esm/TwitterProvider.js';
@@ -13,25 +12,25 @@ import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 const providers: Provider[] = [
     TwitterProvider({
         id: 'twitter',
-        clientId: env.internal.TWITTER_CLIENT_ID,
-        clientSecret: env.internal.TWITTER_CLIENT_SECRET,
+        clientId: envs.internal.TWITTER_CLIENT_ID,
+        clientSecret: envs.internal.TWITTER_CLIENT_SECRET,
     }),
     AppleProvider({
-        clientId: env.internal.APPLE_CLIENT_ID,
+        clientId: envs.internal.APPLE_CLIENT_ID,
         // will expire at 2025/5/9
-        clientSecret: env.internal.APPLE_CLIENT_SECRET,
+        clientSecret: envs.internal.APPLE_CLIENT_SECRET,
         checks: 'nonce',
     }),
     GoogleProvider({
-        clientId: env.internal.GOOGLE_CLIENT_ID,
-        clientSecret: env.internal.GOOGLE_CLIENT_SECRET,
+        clientId: envs.internal.GOOGLE_CLIENT_ID,
+        clientSecret: envs.internal.GOOGLE_CLIENT_SECRET,
     }),
 ];
 
 export const authOptions: AuthOptions = {
-    debug: env.shared.NODE_ENV === NODE_ENV.Development,
+    debug: envs.shared.NODE_ENV === NODE_ENV.Development,
     providers,
-    useSecureCookies: env.shared.NODE_ENV === NODE_ENV.Production,
+    useSecureCookies: envs.shared.NODE_ENV === NODE_ENV.Production,
     cookies: {
         nonce: {
             name: 'next-auth.nonce',

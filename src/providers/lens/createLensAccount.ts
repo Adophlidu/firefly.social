@@ -1,3 +1,4 @@
+import { envs } from '@dimensiondev/envs';
 import { InvalidResultError, retry } from '@dimensiondev/utils';
 import { type SessionClient } from '@lens-protocol/client';
 import { canCreateUsername, createAccountWithUsername, fetchAccount } from '@lens-protocol/client/actions';
@@ -5,7 +6,6 @@ import { mainnet } from 'viem/chains';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { Source } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { memoizePromise } from '@/helpers/memoizePromise.js';
@@ -32,7 +32,7 @@ const loginOnboardingUser = memoizePromise(
             client.login({
                 onboardingUser: {
                     wallet: address,
-                    app: env.external.NEXT_PUBLIC_LENS_APP_ADDRESS,
+                    app: envs.external.NEXT_PUBLIC_LENS_APP_ADDRESS,
                 },
                 signMessage: (message) => walletClient.signMessage({ message }),
             }),

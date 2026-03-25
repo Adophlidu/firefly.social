@@ -1,12 +1,13 @@
-import { STATUS, WalletSource } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
+import { envs, STATUS } from '@dimensiondev/envs';
+
+import { WalletSource } from '@/constants/enum.js';
 import { formatWalletConnections } from '@/helpers/formatWalletConnection.js';
 import { getAllConnections } from '@/providers/firefly/endpoint/getAllConnections.js';
 
 export async function getAllActivityConnections() {
     const connections = await getAllConnections();
 
-    if (env.external.NEXT_PUBLIC_ACTIVITY_PARTICLE === STATUS.Disabled) {
+    if (envs.external.NEXT_PUBLIC_ACTIVITY_PARTICLE === STATUS.Disabled) {
         connections.wallet.connected = connections.wallet.connected.filter((x) => x.source !== WalletSource.Particle);
     }
 

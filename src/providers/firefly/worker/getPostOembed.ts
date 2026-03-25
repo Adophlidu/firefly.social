@@ -1,8 +1,7 @@
+import { envs, STATUS } from '@dimensiondev/envs';
 import { parseUrl } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
-import { STATUS } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
 import { FIREFLY_WORKER_HOST } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { isValidDomainEthereum } from '@/helpers/isValidDomain.js';
@@ -38,7 +37,7 @@ function isValidPostLink(url: string, enableFilter = false) {
 }
 
 export async function getPostOembed(url: string, post?: Pick<Post, 'quoteOn'>): Promise<LinkDigested | null> {
-    if (env.external.NEXT_PUBLIC_OPENGRAPH !== STATUS.Enabled) return null;
+    if (envs.external.NEXT_PUBLIC_OPENGRAPH !== STATUS.Enabled) return null;
     if (post?.quoteOn) return null;
     if (!url || !isValidPostLink(url)) return null;
 

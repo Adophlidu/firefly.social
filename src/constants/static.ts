@@ -1,13 +1,14 @@
 /* cspell:disable */
 
-import { NODE_ENV, type RequestedLoginSource, type SocialSource, Source, STATUS } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
+import { envs, NODE_ENV, STATUS } from '@dimensiondev/envs';
+
+import { type RequestedLoginSource, type SocialSource, Source } from '@/constants/enum.js';
 
 export const SITE_NAME = 'Firefly ✨ Everything App for Web3 Natives';
 export const SITE_DESCRIPTION = "Firefly is a social app for exploring what's happening onchain.";
 export const SITE_HOSTNAME = 'firefly.social';
 export const SITE_URL_OFFICIAL = 'https://firefly.social';
-export const SITE_URL = env.external.NEXT_PUBLIC_SITE_URL ?? SITE_URL_OFFICIAL;
+export const SITE_URL = envs.external.NEXT_PUBLIC_SITE_URL ?? SITE_URL_OFFICIAL;
 
 export const FIREFLY_USER_AGENT = 'Mozilla/5.0 (compatible; Firefly/1.0)';
 export const FARCASTER_REPLY_URL = 'https://relay.farcaster.xyz';
@@ -139,11 +140,11 @@ export const EVENT_ROUTES: Array<`/${string}`> = ['/event', '/events'];
 export const INTERNAL_ROUTES: Array<`/${string}`> = ['/frame', '/login', '/redirect', '/telegram'];
 export const WHITEBOARD_ROUTES: Array<`/${string}`> = [...INTERNAL_ROUTES, '/signup'];
 
-export const NFT_ENABLED = env.external.NEXT_PUBLIC_NFT_FEATURES === STATUS.Enabled;
+export const NFT_ENABLED = envs.external.NEXT_PUBLIC_NFT_FEATURES === STATUS.Enabled;
 
-export const MAX_POST_SIZE_PER_THREAD = env.shared.NODE_ENV === NODE_ENV.Development ? 10 : 25;
+export const MAX_POST_SIZE_PER_THREAD = envs.shared.NODE_ENV === NODE_ENV.Development ? 10 : 25;
 
 export const REQUIRE_LOGIN_SOURCES: RequestedLoginSource[] =
-    env.external.NEXT_PUBLIC_NITTER === STATUS.Enabled ? [] : [Source.Twitter];
+    envs.external.NEXT_PUBLIC_NITTER === STATUS.Enabled ? [] : [Source.Twitter];
 export const REQUIRE_LOGIN_SOURCES_IN_SEARCH: SocialSource[] =
-    env.external.NEXT_PUBLIC_NITTER === STATUS.Enabled ? [Source.Bsky] : [Source.Twitter, Source.Bsky];
+    envs.external.NEXT_PUBLIC_NITTER === STATUS.Enabled ? [Source.Bsky] : [Source.Twitter, Source.Bsky];

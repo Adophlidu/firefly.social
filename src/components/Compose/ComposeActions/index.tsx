@@ -1,3 +1,4 @@
+import { envs, STATUS } from '@dimensiondev/envs';
 import { compact, values } from 'lodash-es';
 import { useMemo } from 'react';
 
@@ -12,8 +13,7 @@ import { ComposeSend } from '@/components/Compose/ComposeSend.js';
 import { SchedulePostEntryButton } from '@/components/Compose/SchedulePostEntryButton.js';
 import { GifEntryButton } from '@/components/Gif/GifEntryButton.js';
 import { PollButton } from '@/components/Poll/PollButton.js';
-import { Source, STATUS } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
+import { Source } from '@/constants/enum.js';
 import {
     getCurrentPostGifLimits,
     getCurrentPostImageLimits,
@@ -70,13 +70,13 @@ export function ComposeActions() {
                 <div className="flex items-center gap-x-3">
                     <MediaAction />
 
-                    {env.external.NEXT_PUBLIC_COMPOSE_GIF === STATUS.Enabled ? (
+                    {envs.external.NEXT_PUBLIC_COMPOSE_GIF === STATUS.Enabled ? (
                         <GifEntryButton disabled={mediaDisabled} />
                     ) : null}
 
                     <EmojiAction />
 
-                    {type === 'compose' && env.external.NEXT_PUBLIC_POLL === STATUS.Enabled && !isAnonymous ? (
+                    {type === 'compose' && envs.external.NEXT_PUBLIC_POLL === STATUS.Enabled && !isAnonymous ? (
                         <PollButton />
                     ) : null}
 

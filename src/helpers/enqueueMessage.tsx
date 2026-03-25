@@ -1,3 +1,4 @@
+import { envs, type NODE_ENV } from '@dimensiondev/envs';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { Trans } from '@lingui/react/macro';
 import { omit } from 'lodash-es';
@@ -6,8 +7,6 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { ErrorReportSnackbar, type ErrorReportSnackbarProps } from '@/components/ErrorReportSnackbar.js';
 import { type OptionsObject, type SnackbarKey, type SnackbarMessage } from '@/components/Snackbar.js';
 import { WarnSnackbar } from '@/components/WarnSnackbar.js';
-import { type NODE_ENV } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
 import { getDetailedErrorMessage } from '@/helpers/getDetailedErrorMessage.js';
 import { getErrorMessageFromError, getWarningMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { SnackbarRef } from '@/modals/Snackbar/refs.js';
@@ -48,12 +47,12 @@ function snackbarAction(key: SnackbarKey) {
 
 function versionFilter(message: SnackbarMessage, options?: MessageOptions) {
     if (!options?.version) return true;
-    return options.version === env.shared.VERSION;
+    return options.version === envs.shared.VERSION;
 }
 
 function environmentFilter(message: SnackbarMessage, options?: MessageOptions) {
     if (!options?.environment) return true;
-    return options.environment === env.shared.NODE_ENV;
+    return options.environment === envs.shared.NODE_ENV;
 }
 
 /**

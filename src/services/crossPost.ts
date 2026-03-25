@@ -1,11 +1,11 @@
+import { envs, NODE_ENV } from '@dimensiondev/envs';
 import { t } from '@lingui/core/macro';
 import { produce } from 'immer';
 import { compact, difference, first } from 'lodash-es';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { SORTED_SOCIAL_SOURCES, SUPPORTED_FRAME_SOURCES } from '@/constants/computed.js';
-import { NODE_ENV, type SocialSource } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
+import { type SocialSource } from '@/constants/enum.js';
 import { SessionExpiredError } from '@/constants/error.js';
 import { readChars } from '@/helpers/chars.js';
 import { createDummyCommentPost } from '@/helpers/createDummyPost.js';
@@ -44,7 +44,7 @@ async function refreshProfileFeed(source: SocialSource) {
 
 async function updateRpClaimStrategy(compositePost: CompositePost) {
     const { postId, rpPayload } = compositePost;
-    if (env.shared.NODE_ENV === NODE_ENV.Development) {
+    if (envs.shared.NODE_ENV === NODE_ENV.Development) {
         if (rpPayload?.publicKey && !SORTED_SOCIAL_SOURCES.some((x) => postId[x])) {
             logger.error("[cross post] No any post id for updating RedPacket's claim strategy.");
         }

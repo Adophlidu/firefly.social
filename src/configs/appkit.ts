@@ -3,6 +3,7 @@
 'use client';
 
 import { IS_PRODUCTION } from '@dimensiondev/constants';
+import { envs } from '@dimensiondev/envs';
 import { type AppKitNetwork } from '@reown/appkit/networks';
 import { createAppKit } from '@reown/appkit/react';
 
@@ -10,7 +11,6 @@ import { lensMainnet, lensTestnet } from '@/configs/chains.js';
 import { solanaAdapter, solanaNetworks } from '@/configs/solanaClient.js';
 import { wagmiAdapter, wagmiNetworks } from '@/configs/wagmiClient.js';
 import { IS_MOBILE_DEVICE } from '@/constants/browser.js';
-import { env } from '@/constants/env.js';
 import { WalletId } from '@/constants/reown.js';
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/constants/static.js';
 
@@ -31,7 +31,7 @@ export const appkit = createAppKit({
     adapters: [wagmiAdapter, solanaAdapter],
     networks,
     metadata,
-    projectId: env.external.NEXT_PUBLIC_W3M_PROJECT_ID,
+    projectId: envs.external.NEXT_PUBLIC_W3M_PROJECT_ID,
     showWallets: false,
     features: {
         email: false,

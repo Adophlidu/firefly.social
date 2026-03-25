@@ -1,10 +1,10 @@
+import { envs } from '@dimensiondev/envs';
 import { compose } from '@dimensiondev/utils';
 import dayjs from 'dayjs';
 import { type NextRequest } from 'next/server.js';
 import { mnemonicToAccount } from 'viem/accounts';
 import { z } from 'zod';
 
-import { env } from '@/constants/env.js';
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { getJsonBodyWithZodSchema } from '@/helpers/getJsonBodyWithZodSchema.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
@@ -31,7 +31,7 @@ export const POST = compose(withRequestErrorHandler(), async (request: NextReque
     const { key } = await getJsonBodyWithZodSchema(request, BodySchema);
 
     const deadline = dayjs(Date.now()).add(1, 'y').unix();
-    const account = mnemonicToAccount(env.internal.FARCASTER_SIGNER_MNEMONIC);
+    const account = mnemonicToAccount(envs.internal.FARCASTER_SIGNER_MNEMONIC);
 
     const signature = await account.signTypedData({
         domain: SIGNED_KEY_REQUEST_VALIDATOR_EIP_712_DOMAIN,
@@ -42,14 +42,14 @@ export const POST = compose(withRequestErrorHandler(), async (request: NextReque
         message: {
             key,
             deadline: BigInt(deadline),
-            requestFid: BigInt(env.internal.FARCASTER_SIGNER_FID),
+            requestFid: BigInt(envs.internal.FARCASTER_SIGNER_FID),
         },
     });
 
     return createSuccessResponseJson({
         body: {
             key,
-            requestFid: Number.parseInt(env.internal.FARCASTER_SIGNER_FID, 10),
+            requestFid: Number.parseInt(envs.internal.FARCASTER_SIGNER_FID, 10),
             signature,
             deadline,
         },

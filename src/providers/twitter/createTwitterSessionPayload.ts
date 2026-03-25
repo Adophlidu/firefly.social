@@ -1,9 +1,9 @@
+import { envs } from '@dimensiondev/envs';
 import { parseJson } from '@dimensiondev/utils';
 import { cookies, headers } from 'next/headers.js';
 import { type NextRequest } from 'next/server.js';
 import { getToken, type JWT } from 'next-auth/jwt';
 
-import { env } from '@/constants/env.js';
 import { logger } from '@/libs/Logger.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import { type SessionPayload, TwitterSessionPayload } from '@/providers/twitter/SessionPayload.js';
@@ -23,7 +23,7 @@ export async function createTwitterSessionPayloadFromHeaders() {
 async function createTwitterSessionPayloadFromJWT(request: NextRequest): Promise<SessionPayload | null> {
     const token: JWT | null = await getToken({
         req: request,
-        secret: env.internal.NEXTAUTH_SECRET,
+        secret: envs.internal.NEXTAUTH_SECRET,
     });
 
     const payload = token?.twitter as TwitterAuthPayload | undefined;
@@ -31,8 +31,8 @@ async function createTwitterSessionPayloadFromJWT(request: NextRequest): Promise
 
     return {
         clientId: payload.oauthToken.split('-')[0],
-        consumerKey: env.internal.TWITTER_CLIENT_ID,
-        consumerSecret: env.internal.TWITTER_CLIENT_SECRET,
+        consumerKey: envs.internal.TWITTER_CLIENT_ID,
+        consumerSecret: envs.internal.TWITTER_CLIENT_SECRET,
         accessToken: payload.oauthToken,
         accessTokenSecret: payload.oauthTokenSecret,
     };

@@ -1,7 +1,6 @@
+import { envs, STATUS } from '@dimensiondev/envs';
 import { bom } from '@dimensiondev/utils';
 
-import { STATUS } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { isPathnameForceRedirect } from '@/helpers/isPathnameForceRedirect.js';
@@ -11,7 +10,7 @@ import { SessionType } from '@/providers/types/SocialMedia.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
 
 export function openLoginModal(props: LoginModalOpenProps | void, forceOpen = false) {
-    if (env.external.NEXT_PUBLIC_FORCE_SIGNUP !== STATUS.Enabled) {
+    if (envs.external.NEXT_PUBLIC_FORCE_SIGNUP !== STATUS.Enabled) {
         LoginModalRef.open(props);
         return;
     }

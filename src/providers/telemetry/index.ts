@@ -1,9 +1,8 @@
+import { envs, STATUS } from '@dimensiondev/envs';
 import { NotImplementedError } from '@dimensiondev/utils';
 import { sendGAEvent } from '@next/third-parties/google';
 import { isHex } from 'viem';
 
-import { STATUS } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { logger } from '@/libs/Logger.js';
 import { getPublicParameters } from '@/providers/telemetry/getPublicParameters.js';
@@ -34,7 +33,7 @@ class Telemetry extends Provider<Events, never> {
         const [name, parameters, { version_filter = VersionFilter.Latest, provider_filter = ProviderFilter.All } = {}] =
             rest;
 
-        if (env.external.NEXT_PUBLIC_TELEMETRY === STATUS.Disabled) {
+        if (envs.external.NEXT_PUBLIC_TELEMETRY === STATUS.Disabled) {
             logger.info('[telemetry] event capture is disabled');
             return;
         }

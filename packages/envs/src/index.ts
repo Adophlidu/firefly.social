@@ -1,7 +1,22 @@
 import { bom } from '@dimensiondev/utils';
 import { z } from 'zod';
 
-import { type NODE_ENV, STATUS, VERCEL_ENV } from '@/constants/enum.js';
+export enum NODE_ENV {
+    Production = 'production',
+    Development = 'development',
+    Test = 'test',
+}
+
+export enum VERCEL_ENV {
+    Production = 'production',
+    Preview = 'preview',
+    Development = 'development',
+}
+
+export enum STATUS {
+    Enabled = 'enabled',
+    Disabled = 'disabled',
+}
 
 const InternalEnvSchema = z.object({
     TWITTER_CLIENT_ID: z.string(),
@@ -98,7 +113,7 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_PASSCODE_IV: z.string().default('invalid_passcode_iv'),
 });
 
-export const env = {
+export const envs = {
     shared: {
         NODE_ENV: process.env.NODE_ENV as NODE_ENV,
         VERSION: process.env.VERSION || '',

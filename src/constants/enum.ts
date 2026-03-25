@@ -1,20 +1,3 @@
-export enum NODE_ENV {
-    Production = 'production',
-    Development = 'development',
-    Test = 'test',
-}
-
-export enum VERCEL_ENV {
-    Production = 'production',
-    Preview = 'preview',
-    Development = 'development',
-}
-
-export enum STATUS {
-    Enabled = 'enabled',
-    Disabled = 'disabled',
-}
-
 // The maskbook blockchain network plugin ID
 export enum NetworkPluginID {
     PLUGIN_EVM = 'com.mask.evm',

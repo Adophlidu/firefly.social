@@ -1,3 +1,4 @@
+import { envs } from '@dimensiondev/envs';
 import { parseUrl } from '@dimensiondev/utils';
 import { type Analytics, getAnalytics, isSupported as isAnalyticsSupported, logEvent } from 'firebase/analytics';
 import { type FirebaseApp, type FirebaseOptions, initializeApp } from 'firebase/app';
@@ -9,19 +10,18 @@ import {
     type Unsubscribe,
 } from 'firebase/messaging';
 
-import { env } from '@/constants/env.js';
 import { SITE_NAME } from '@/constants/static.js';
 import { logger } from '@/libs/Logger.js';
 
 function createFirebaseApp() {
     const firebaseConfig: FirebaseOptions = {
-        apiKey: env.external.NEXT_PUBLIC_FIREBASE_API_KEY,
-        authDomain: env.external.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-        projectId: env.external.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-        storageBucket: env.external.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
-        messagingSenderId: env.external.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-        appId: env.external.NEXT_PUBLIC_FIREBASE_APP_ID,
-        measurementId: env.external.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
+        apiKey: envs.external.NEXT_PUBLIC_FIREBASE_API_KEY,
+        authDomain: envs.external.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+        projectId: envs.external.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+        storageBucket: envs.external.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+        messagingSenderId: envs.external.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+        appId: envs.external.NEXT_PUBLIC_FIREBASE_APP_ID,
+        measurementId: envs.external.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
     };
 
     const invalidKeys = (Object.keys(firebaseConfig) as Array<keyof FirebaseOptions>).filter(

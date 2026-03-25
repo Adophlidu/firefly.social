@@ -1,5 +1,6 @@
 'use client';
 
+import { envs, STATUS } from '@dimensiondev/envs';
 import { Trans } from '@lingui/react/macro';
 import { compact } from 'lodash-es';
 import { memo } from 'react';
@@ -17,8 +18,7 @@ import { HomeEntry } from '@/components/SideBar/HomeEntry.js';
 import { NotificationMenu } from '@/components/SideBar/NotificationMenu.js';
 import { Post } from '@/components/SideBar/Post.js';
 import { Profile } from '@/components/SideBar/Profile.js';
-import { PageRoute, STATUS } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
+import { PageRoute } from '@/constants/enum.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { usePathname } from '@/esm/navigation.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
@@ -68,7 +68,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                 href: '/profile',
                                 name: <Trans>Profile</Trans>,
                             },
-                            env.external.NEXT_PUBLIC_SPARKS === STATUS.Enabled
+                            envs.external.NEXT_PUBLIC_SPARKS === STATUS.Enabled
                                 ? {
                                       href: PageRoute.Sparks,
                                       name: <Trans>Genesis Sparks</Trans>,

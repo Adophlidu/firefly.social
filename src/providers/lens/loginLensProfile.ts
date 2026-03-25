@@ -1,7 +1,7 @@
+import { envs } from '@dimensiondev/envs';
 import { SeverityError } from '@dimensiondev/utils';
 import { type ChallengeRequest, type SignMessage } from '@lens-protocol/client';
 
-import { env } from '@/constants/env.js';
 import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
 import { createLensPublicClient } from '@/providers/lens/createLensPublicClient.js';
 import { type Profile } from '@/providers/types/SocialMedia.js';
@@ -22,14 +22,14 @@ export async function loginLensProfile(profile: Profile, options: LoginOptions) 
                   accountManager: {
                       manager: address,
                       account: safeEvmAddress(profile.profileId),
-                      app: env.external.NEXT_PUBLIC_LENS_APP_ADDRESS,
+                      app: envs.external.NEXT_PUBLIC_LENS_APP_ADDRESS,
                   },
               }
             : {
                   accountOwner: {
                       owner: address,
                       account: safeEvmAddress(profile.profileId),
-                      app: env.external.NEXT_PUBLIC_LENS_APP_ADDRESS,
+                      app: envs.external.NEXT_PUBLIC_LENS_APP_ADDRESS,
                   },
               };
     const loginRes = await client.login({

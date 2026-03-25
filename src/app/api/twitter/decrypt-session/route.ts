@@ -1,8 +1,8 @@
+import { envs } from '@dimensiondev/envs';
 import { compose, parseJson } from '@dimensiondev/utils';
 import { type NextRequest } from 'next/server.js';
 import { z } from 'zod';
 
-import { env } from '@/constants/env.js';
 import { createErrorResponseJson, createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { getSearchParamsWithZodSchema } from '@/helpers/getSearchParamsWithZodSchema.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
@@ -18,7 +18,7 @@ const SearchPageable = z.object({
 export const GET = compose(withRequestErrorHandler(), async (request: NextRequest) => {
     const { ciphertext, encryptKey } = getSearchParamsWithZodSchema(request, SearchPageable);
 
-    const decrypted = decryptAes256(ciphertext, encryptKey, env.external.NEXT_PUBLIC_PASSCODE_IV);
+    const decrypted = decryptAes256(ciphertext, encryptKey, envs.external.NEXT_PUBLIC_PASSCODE_IV);
     const data = parseJson<TwitterMetricsData>(decrypted);
     if (!data) return createErrorResponseJson('Invalid ciphertext', { status: 400 });
 

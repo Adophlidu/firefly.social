@@ -1,3 +1,4 @@
+import { NODE_ENV } from '@dimensiondev/envs';
 import urlcat from 'urlcat';
 
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
@@ -7,7 +8,7 @@ import { type SearchTokenInfosResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 export async function searchTokenInfos(keyword: string, fuzzy = false) {
-    if (process.env.NODE_ENV === 'development') logger.assert(keyword, 'keyword is required');
+    if (process.env.NODE_ENV === NODE_ENV.Development) logger.assert(keyword, 'keyword is required');
 
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/token/search', {
         query: keyword,

@@ -1,3 +1,4 @@
+import { envs, STATUS } from '@dimensiondev/envs';
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
@@ -13,8 +14,6 @@ import { UploadDropArea } from '@/components/Compose/UploadDropArea.js';
 import { useUpdateImages } from '@/components/Compose/useUpdateImages.js';
 import { useUpdateVideos } from '@/components/Compose/useUpdateVideos.js';
 import { CloseButton } from '@/components/IconButton.js';
-import { STATUS } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { isImageFileType, isMediaFileType, isVideoFileType } from '@/helpers/isMediaFileType.js';
 import { isValidPostImage } from '@/helpers/validatePostFile.js';
@@ -143,7 +142,7 @@ export const ComposeUI = memo(function ComposeUI() {
                             : undefined
                     }
                 >
-                    {scheduleTime && env.external.NEXT_PUBLIC_SCHEDULE_POST === STATUS.Enabled ? (
+                    {scheduleTime && envs.external.NEXT_PUBLIC_SCHEDULE_POST === STATUS.Enabled ? (
                         <SchedulePostEntryButton showText />
                     ) : null}
                     {posts.length === 1 ? <ComposeContent post={compositePost} /> : <ComposeThreadContent />}

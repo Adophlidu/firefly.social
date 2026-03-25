@@ -1,3 +1,4 @@
+import { NODE_ENV } from '@dimensiondev/envs';
 import { BigNumber } from 'bignumber.js';
 import { trimEnd } from 'lodash-es';
 
@@ -47,7 +48,7 @@ export function formatBalance(rawValue: BigNumber.Value = '0', decimals = 0, opt
     let balance = new BigNumber(rawValue);
     if (!balance.isInteger()) {
         const message = `Expected an integer but got ${balance.toFixed()}`;
-        if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
+        if (process.env.NODE_ENV === NODE_ENV.Development || process.env.NODE_ENV === NODE_ENV.Test) {
             throw new Error(message);
         } else {
             logger.error(message);

@@ -1,15 +1,15 @@
 import { IS_PRODUCTION } from '@dimensiondev/constants';
+import { envs } from '@dimensiondev/envs';
 import { Trans } from '@lingui/react/macro';
 import { compact } from 'lodash-es';
 
 import { Link } from '@/components/Link.js';
-import { env } from '@/constants/env.js';
 import { SITE_URL_OFFICIAL } from '@/constants/static.js';
 
 export function LinkCloud() {
     const links = [
         {
-            name: env.shared.VERSION ? `v${env.shared.VERSION}` : <Trans>Logs</Trans>,
+            name: envs.shared.VERSION ? `v${envs.shared.VERSION}` : <Trans>Logs</Trans>,
             link: '/next-debug.log',
             visible: !IS_PRODUCTION,
         },

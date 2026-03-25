@@ -1,6 +1,7 @@
 'use client';
 
-import { env } from '@/constants/env.js';
+import { envs } from '@dimensiondev/envs';
+
 import { useCopyText } from '@/hooks/useCopyText.js';
 import { useDeveloperSettingsState } from '@/store/useDeveloperSettingsStore.js';
 
@@ -33,8 +34,8 @@ Error stack:
 
 <pre>${error.stack}</pre>
 
-Version: ${env.shared.VERSION}
-Commit Hash: ${env.shared.COMMIT_HASH}
+Version: ${envs.shared.VERSION}
+Commit Hash: ${envs.shared.COMMIT_HASH}
 Developer Settings: ${developmentAPI}
 `;
 

@@ -1,7 +1,7 @@
+import { envs } from '@dimensiondev/envs';
 import { compact, last } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
 import { TRUMP_TWITTER_PROFILE } from '@/constants/mentions.js';
 import { MENTION_REGEX, URL_REGEX } from '@/constants/regexp.js';
 import { getEmbedUrls } from '@/helpers/getEmbedUrls.js';
@@ -10,8 +10,8 @@ import { type Attachment, type Post, type Profile, ProfileStatus } from '@/provi
 
 function formatAuthor(account: TruthSocialPost['account']): Profile {
     const pfp =
-        account.avatar && account.avatar === env.external.NEXT_PUBLIC_TRUTH_SOCIAL_AVATAR_ORIGINAL
-            ? env.external.NEXT_PUBLIC_TRUTH_SOCIAL_AVATAR_PROXY || account.avatar
+        account.avatar && account.avatar === envs.external.NEXT_PUBLIC_TRUTH_SOCIAL_AVATAR_ORIGINAL
+            ? envs.external.NEXT_PUBLIC_TRUTH_SOCIAL_AVATAR_PROXY || account.avatar
             : account.avatar;
 
     return {

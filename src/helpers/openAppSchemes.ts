@@ -1,8 +1,8 @@
+import { envs } from '@dimensiondev/envs';
 import { bom, delay } from '@dimensiondev/utils';
 import { once } from 'lodash-es';
 
 import { IS_IOS } from '@/constants/browser.js';
-import { env } from '@/constants/env.js';
 import { type Schemes } from '@/types/device.js';
 
 const eventIdSet = new Set<string>();
@@ -20,7 +20,7 @@ const initListener = once(() => {
 
 async function tryOpenScheme(tagType: 'a' | 'iframe', scheme: string) {
     // fallback to download link if the scheme is not supported
-    if (!scheme) location.href = env.external.NEXT_PUBLIC_FIREFLY_DOWNLOAD_LINK;
+    if (!scheme) location.href = envs.external.NEXT_PUBLIC_FIREFLY_DOWNLOAD_LINK;
 
     initListener();
 
@@ -43,7 +43,7 @@ async function tryOpenScheme(tagType: 'a' | 'iframe', scheme: string) {
     // app not installed since the page is still visible
     if (document.visibilityState === 'visible' && eventIdSet.has(eventId)) {
         eventIdSet.delete(eventId);
-        location.href = env.external.NEXT_PUBLIC_FIREFLY_DOWNLOAD_LINK;
+        location.href = envs.external.NEXT_PUBLIC_FIREFLY_DOWNLOAD_LINK;
         await delay(1000);
     }
 }

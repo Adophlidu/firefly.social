@@ -3,6 +3,7 @@
 import '@/app/globals.css';
 
 import { IS_PRODUCTION } from '@dimensiondev/constants';
+import { envs, STATUS } from '@dimensiondev/envs';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { compact } from 'lodash-es';
 import { cookies, headers } from 'next/headers.js';
@@ -12,8 +13,7 @@ import { type ReactNode } from 'react';
 import { LayoutBody } from '@/app/layout-body.js';
 import { ErrorBoundary } from '@/components/ErrorBoundary/index.js';
 import { GlobalLoadingIndicator } from '@/components/GlobalLoadingIndicator.js';
-import { Agent, Locale, SiteCookies, STATUS } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
+import { Agent, Locale, SiteCookies } from '@/constants/enum.js';
 import { Script } from '@/esm/Script.js';
 import { inter } from '@/fonts/inter.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
@@ -65,7 +65,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
                 <Script src="/js/home-redirect.js" strategy="beforeInteractive" nonce={CSP_NONCE} />
                 <Script src="/js/polyfills/base.js" strategy="beforeInteractive" nonce={CSP_NONCE} />
                 {VERCEL_REGION.length ? <Script nonce={CSP_NONCE}>{VERCEL_REGION.join('\n')}</Script> : null}
-                {IS_PRODUCTION || env.external.NEXT_PUBLIC_TELEMETRY === STATUS.Enabled ? (
+                {IS_PRODUCTION || envs.external.NEXT_PUBLIC_TELEMETRY === STATUS.Enabled ? (
                     <GoogleAnalytics nonce={CSP_NONCE} gaId="G-61NFDTK6LT" />
                 ) : null}
                 <Script nonce={CSP_NONCE}>

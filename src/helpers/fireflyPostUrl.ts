@@ -1,7 +1,7 @@
+import { envs } from '@dimensiondev/envs';
 import urlcat from 'urlcat';
 
 import { type SocialSource } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
 import { SITE_HOSTNAME } from '@/constants/static.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 
@@ -10,7 +10,7 @@ const FIREFLY_POST_URL_PATTERN = /^\/post\/([^/]+)$/;
 export function formatFireflyPostUrl(source: SocialSource, articleId: string): string {
     if (!articleId) return '';
 
-    return urlcat(env.external.NEXT_PUBLIC_SITE_URL, '/post/:id', {
+    return urlcat(envs.external.NEXT_PUBLIC_SITE_URL, '/post/:id', {
         id: articleId,
         s: resolveSourceInUrl(source),
     });

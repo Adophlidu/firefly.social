@@ -1,3 +1,4 @@
+import { envs } from '@dimensiondev/envs';
 import { classNames } from '@dimensiondev/utils';
 import { SearchBar, SearchContextManager } from '@giphy/react-components';
 import { IS_SAFARI } from '@lexical/utils';
@@ -11,7 +12,6 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { EmojiList } from '@/components/Gif/EmojiList.js';
 import { GiphyGifList } from '@/components/Gif/GiphyGifList.js';
 import { GiphyTabType } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
 import { Image } from '@/esm/Image.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { type IGif } from '@/types/giphy.js';
@@ -50,7 +50,7 @@ export function GiphyGifSelector({ onSelected }: GiphyGifSelectorProps) {
 
     return (
         <SearchContextManager
-            apiKey={env.external.NEXT_PUBLIC_GIPHY_API_KEY}
+            apiKey={envs.external.NEXT_PUBLIC_GIPHY_API_KEY}
             options={searchOptions}
             shouldFetchChannels={false}
         >

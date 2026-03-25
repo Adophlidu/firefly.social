@@ -41,6 +41,7 @@
         "@bprogress/next": "^3.2.11",
         "@coral-xyz/anchor": "^0.32.1",
         "@dimensiondev/constants": "workspace:^",
+        "@dimensiondev/envs": "workspace:^",
         "@dimensiondev/exception-tracker": "workspace:^",
         "@dimensiondev/iframe-bridge": "workspace:^",
         "@dimensiondev/lcp-profiler": "workspace:^",

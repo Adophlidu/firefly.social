@@ -1,8 +1,8 @@
+import { envs } from '@dimensiondev/envs';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { sha256, toHex } from 'viem';
 
 import { Source, SourceInURL } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { getPublicKeyInHexFromPrivateKey } from '@/providers/farcaster/ed25519.js';
 import { type FarcasterSession } from '@/providers/farcaster/Session.js';
@@ -20,7 +20,7 @@ import { encryptAes256 } from '@/services/crypto.js';
 
 function encryptCipherText(passcode: string, text: string) {
     const key = sha256(toHex(passcode)).replace(/^0x/, '');
-    return encryptAes256(text, key, env.external.NEXT_PUBLIC_PASSCODE_IV);
+    return encryptAes256(text, key, envs.external.NEXT_PUBLIC_PASSCODE_IV);
 }
 
 async function getMetricsDataToUpload(account: Account) {

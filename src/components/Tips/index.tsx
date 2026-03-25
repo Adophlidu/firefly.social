@@ -1,3 +1,4 @@
+import { envs, STATUS } from '@dimensiondev/envs';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
@@ -9,8 +10,7 @@ import { ClickableArea } from '@/components/ClickableArea.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { queryClient } from '@/configs/queryClient.js';
-import { Source, STATUS } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
+import { Source } from '@/constants/enum.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { enqueueErrorMessage, enqueueInfoMessage } from '@/helpers/enqueueMessage.js';
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
@@ -88,7 +88,7 @@ export function Tips({
     }, [identity, onClick, handle, pureWallet, post, isLogin, isAuthRequired]);
 
     if (
-        env.external.NEXT_PUBLIC_TIPS !== STATUS.Enabled ||
+        envs.external.NEXT_PUBLIC_TIPS !== STATUS.Enabled ||
         profiles.some((profile) => isSameFireflyIdentity(profile.identity, identity))
     )
         return null;

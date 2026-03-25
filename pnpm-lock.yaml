@@ -84,6 +84,9 @@ importers:
       '@dimensiondev/constants':
         specifier: workspace:^
         version: link:packages/constants
+      '@dimensiondev/envs':
+        specifier: workspace:^
+        version: link:packages/envs
       '@dimensiondev/exception-tracker':
         specifier: workspace:^
         version: link:packages/exception-tracker
@@ -534,6 +537,22 @@ importers:
         version: 3.1.4(@types/node@22.10.7)(jsdom@27.4.0)
 
   packages/constants:
+    devDependencies:
+      tsup:
+        specifier: ^8.5.1
+        version: 8.5.1(@swc/core@1.15.18)(postcss@8.5.8)(typescript@5.9.3)
+      typescript:
+        specifier: 5.9.3
+        version: 5.9.3
+
+  packages/envs:
+    dependencies:
+      '@dimensiondev/utils':
+        specifier: workspace:^
+        version: link:../utils
+      zod:
+        specifier: ^3.25.76
+        version: 3.25.76
     devDependencies:
       tsup:
         specifier: ^8.5.1

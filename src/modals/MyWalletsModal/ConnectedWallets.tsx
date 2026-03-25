@@ -1,3 +1,4 @@
+import { envs, STATUS } from '@dimensiondev/envs';
 import { Trans } from '@lingui/react/macro';
 import { memo, useCallback } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -8,8 +9,7 @@ import WalletIcon from '@/assets/wallet.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { appkit } from '@/configs/appkit.js';
-import { ConnectionSource, STATUS } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
+import { ConnectionSource } from '@/constants/enum.js';
 import { useAppKitAccounts, usePrivyAppKitAccounts } from '@/hooks/useAppKitAccounts.js';
 import { useIsCreatedPrivyWallet } from '@/hooks/useIsCreatedPrivyWallet.js';
 import { AppKitAccountItem } from '@/modals/MyWalletsModal/AppKitAccountItem.js';
@@ -94,7 +94,7 @@ export const ConnectedWallets = memo(function ConnectedWallets({ onOpenWallets }
 
     return (
         <div>
-            {env.external.NEXT_PUBLIC_PRIVY === STATUS.Enabled ? (
+            {envs.external.NEXT_PUBLIC_PRIVY === STATUS.Enabled ? (
                 <FireflyWalletPanel onOpenWallets={onOpenWallets} />
             ) : null}
             <div className="overflow-hidden rounded-lg border border-secondaryLine">

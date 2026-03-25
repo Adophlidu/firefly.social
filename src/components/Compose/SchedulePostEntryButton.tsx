@@ -1,3 +1,4 @@
+import { envs, STATUS } from '@dimensiondev/envs';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import dayjs from 'dayjs';
@@ -7,8 +8,6 @@ import ScheduleIcon from '@/assets/schedule.svg';
 import { SchedulePostSettings } from '@/components/Compose/SchedulePostSettings.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { ENABLED_SCHEDULE_POST_SOURCES } from '@/constants/computed.js';
-import { STATUS } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
 import { resolveSourcesName } from '@/helpers/resolveSourceName.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -48,7 +47,7 @@ export function SchedulePostEntryButton({ className, showText, disabled = false,
         captureSchedulePostClickEvent();
     }, [scheduleTime, isMedium, scheduleDisabled]);
 
-    if (env.external.NEXT_PUBLIC_SCHEDULE_POST !== STATUS.Enabled) return null;
+    if (envs.external.NEXT_PUBLIC_SCHEDULE_POST !== STATUS.Enabled) return null;
 
     const content = showText ? (
         <div

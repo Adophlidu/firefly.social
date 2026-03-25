@@ -1,3 +1,4 @@
+import { envs, STATUS } from '@dimensiondev/envs';
 import {
     AbortError,
     classNames,
@@ -19,8 +20,7 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SignupEntry } from '@/components/Profile/SignupEntry.js';
 import { ScannableQRCode } from '@/components/ScannableQRCode.js';
 import { IS_MOBILE_DEVICE } from '@/constants/browser.js';
-import { AsyncStatus, FarcasterSignType, FarcasterSignType as SignType, Source, STATUS } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
+import { AsyncStatus, FarcasterSignType, FarcasterSignType as SignType, Source } from '@/constants/enum.js';
 import {
     FarcasterPatchSignerError,
     FireflyAccountAbsentError,
@@ -397,7 +397,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                                     </button>
                                 ) : signType === SignType.RelayService &&
                                   canBindMoreAccount &&
-                                  env.external.NEXT_PUBLIC_FARCASTER_SIGNUP === STATUS.Enabled ? (
+                                  envs.external.NEXT_PUBLIC_FARCASTER_SIGNUP === STATUS.Enabled ? (
                                     <Trans>
                                         No Farcaster account?{' '}
                                         <SignupEntry

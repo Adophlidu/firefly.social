@@ -1,9 +1,9 @@
+import { envs, STATUS } from '@dimensiondev/envs';
 import { useQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 
 import { SUPPORTED_ANONYMOUS_POST_SOURCES } from '@/constants/computed.js';
-import { type SocialSource, Source, STATUS } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { getPostByAnonymousRateLimits } from '@/providers/firefly/endpoint/getPostByAnonymousRateLimits.js';
@@ -18,7 +18,7 @@ export function useAnonymousPostAvailability(): {
     const isLoginFirefly = useIsLoginFirefly();
     const enabled =
         isLoginFirefly &&
-        env.external.NEXT_PUBLIC_POST_BY_ANONYMOUS === STATUS.Enabled &&
+        envs.external.NEXT_PUBLIC_POST_BY_ANONYMOUS === STATUS.Enabled &&
         SUPPORTED_ANONYMOUS_POST_SOURCES.length > 0;
 
     const { isLoading, isRefetching, data } = useQuery({
