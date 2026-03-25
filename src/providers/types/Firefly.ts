@@ -310,6 +310,7 @@ export interface FireflySnapshotActivity {
         proposal_body: string;
     };
     displayInfo: FireflyDisplayInfo;
+    displayInfoV2?: FireflyDisplayInfoV2;
     followingSources: FollowingSource[];
     has_bookmarked: boolean;
 }

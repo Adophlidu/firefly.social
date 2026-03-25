@@ -1,3 +1,4 @@
+import { classNames } from '@dimensiondev/utils';
 import type { HTMLProps } from 'react';
 
 interface EnsNameProps extends HTMLProps<HTMLSpanElement> {
@@ -11,9 +12,9 @@ export function EnsName({ ens, className }: EnsNameProps) {
     const suffix = rest.length > 0 ? `.${rest.join('.')}` : '';
 
     return (
-        <span className={className}>
-            {name}
-            <span className="text-second">{suffix}</span>
+        <span className={classNames('flex w-full min-w-0', className)}>
+            <span className="min-w-0 truncate">{name}</span>
+            <span className="shrink-0 text-second">{suffix}</span>
         </span>
     );
 }

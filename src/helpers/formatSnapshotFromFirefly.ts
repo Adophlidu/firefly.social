@@ -1,3 +1,4 @@
+import { getEnsNameFromDisplayInfo } from '@/helpers/getEnsNameFromDisplayInfo.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { type SnapshotActivity } from '@/providers/snapshot/type.js';
 import { type FireflySnapshotActivity, WatchType } from '@/providers/types/Firefly.js';
@@ -8,7 +9,7 @@ export function formatSnapshotActivityFromFirefly(snapshot: FireflySnapshotActiv
     return {
         author: {
             id: authorId,
-            handle: snapshot.displayInfo.ensHandle ?? '',
+            handle: getEnsNameFromDisplayInfo(snapshot, authorId) ?? '',
             avatar: snapshot.displayInfo.avatarUrl ?? '',
             isFollowing: snapshot.followingSources.some(
                 (x) => x.type === WatchType.Wallet && isSameEthereumAddress(x.walletAddress, authorId),
@@ -17,7 +18,7 @@ export function formatSnapshotActivityFromFirefly(snapshot: FireflySnapshotActiv
         },
         isLiked: snapshot.is_like,
         likeCount: snapshot.like_count,
-        owner: snapshot.owner,
+        owner: authorId,
         choice: snapshot.metadata.choice,
         type: snapshot.type,
         id: snapshot.id,

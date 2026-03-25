@@ -10,6 +10,7 @@ import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { Link } from '@/components/Link.js';
 import { NoSSR } from '@/components/NoSSR.js';
 import { PredictionProfilesCard } from '@/components/Prediction/PredictionProfilesCard.js';
+import { EnsName } from '@/components/Profile/EnsName.js';
 import { WalletActions } from '@/components/Profile/WalletActions.js';
 import { WalletProfileTags } from '@/components/Profile/WalletProfileTags.js';
 import { NetworkType, Source } from '@/constants/enum.js';
@@ -55,12 +56,13 @@ export function WalletInfo({ profile }: WalletInfoProps) {
             : null;
 
     const isMPC = isMPCWallet(profile);
-    const displayName =
-        isMPC && profile.dataSource ? (
-            <FireflyWalletText dataSource={profile.dataSource} />
-        ) : (
-            getEnsNameFromWalletProfile(profile) || formatAddress(profile.address, 4, undefined, false)
-        );
+    const ensName = getEnsNameFromWalletProfile(profile);
+    const showFireflyWallet = isMPC && profile.dataSource;
+    const displayName = showFireflyWallet ? (
+        <FireflyWalletText dataSource={profile.dataSource!} />
+    ) : (
+        ensName || formatAddress(profile.address, 4, undefined, false)
+    );
 
     const address = profile.address;
     const { data: totalBalance } = useQuery({
@@ -101,7 +103,7 @@ export function WalletInfo({ profile }: WalletInfoProps) {
                             >
                                 <div className="flex min-w-0 flex-1 flex-col">
                                     <div className="h-6 min-w-0 truncate text-lg font-black leading-6 text-lightMain md:hidden">
-                                        {displayName}
+                                        {!showFireflyWallet && ensName ? <EnsName ens={ensName} /> : displayName}
                                     </div>
                                     <div className="flex min-w-0 flex-row items-center">
                                         {profile.isDefault ? (
@@ -110,7 +112,7 @@ export function WalletInfo({ profile }: WalletInfoProps) {
                                             </div>
                                         ) : null}
                                         <div className="h-6 min-w-0 truncate text-lg font-black leading-6 text-lightMain max-md:hidden">
-                                            {displayName}
+                                            {!showFireflyWallet && ensName ? <EnsName ens={ensName} /> : displayName}
                                         </div>
                                         <WalletProfileTags profile={profile} />
                                     </div>

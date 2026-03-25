@@ -38,11 +38,11 @@ export const SingleSnapshotHeader = memo<SingleSnapshotHeaderProps>(function Sin
                 />
             </Link>
             <ActivityCellHeader
-                className="w-full"
+                className="w-full min-w-0"
                 displayName={data.author.handle || ens}
                 address={data.author.id}
                 time={data.timestamp}
-                icon={<SnapshotIcon width={16} height={16} />}
+                icon={<SnapshotIcon className="shrink-0" width={16} height={16} />}
             >
                 <SnapshotMoreAction data={data} />
             </ActivityCellHeader>

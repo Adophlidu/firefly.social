@@ -32,7 +32,7 @@ export const SnapshotMoreAction = memo<MoreProps>(function SnapshotMoreAction({ 
     const identity = useFireflyIdentity(Source.Wallet, author.id);
     const isMyProfile = useIsMyRelatedProfile(identity.source, identity.id);
 
-    const { data: ens } = useEnsName(author.id);
+    const { data: ens } = useEnsName(author.id, !author.handle);
     const handleOrEnsOrAddress = author.handle || ens || formatAddress(author.id, 4);
 
     return (
