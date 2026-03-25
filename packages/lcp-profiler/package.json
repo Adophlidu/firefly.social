@@ -1,6 +1,6 @@
 {
     "name": "@dimensiondev/lcp-profiler",
-    "version": "0.1.16",
+    "version": "0.1.17",
     "description": "API call performance profiling correlated with LCP for React and Next.js apps",
     "type": "module",
     "main": "./dist/index.js",
