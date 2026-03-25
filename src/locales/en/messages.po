@@ -2247,6 +2247,9 @@ msgstr "5 minutes"
 msgid "Note: Cloud drafts save text only. Please upload original images or video again."
 msgstr "Note: Cloud drafts save text only. Please upload original images or video again."
 
+msgid "Turning off multi-device login will cause scheduled posts to fail. To ensure that posts are sent as scheduled, please make sure that multi-device login remains turned on."
+msgstr "Turning off multi-device login will cause scheduled posts to fail. To ensure that posts are sent as scheduled, please make sure that multi-device login remains turned on."
+
 msgid "This Bluesky account is already linked to another Firefly account."
 msgstr "This Bluesky account is already linked to another Firefly account."
 
@@ -3927,9 +3930,6 @@ msgstr "Will send on <0>{0} at <1>{1}</1></0>"
 
 msgid "Lens Auto Login"
 msgstr "Lens Auto Login"
-
-msgid "Turning off multi-device login will cause scheduled posts to fail. To ensure that posts<0/> are sent as scheduled, please make sure that multi-device login remains turned on."
-msgstr "Turning off multi-device login will cause scheduled posts to fail. To ensure that posts<0/> are sent as scheduled, please make sure that multi-device login remains turned on."
 
 msgid "Something went wrong."
 msgstr "Something went wrong."

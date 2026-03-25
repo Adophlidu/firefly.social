@@ -2239,6 +2239,9 @@ msgstr "5 分钟"
 msgid "Note: Cloud drafts save text only. Please upload original images or video again."
 msgstr "注意：云端草稿仅保存文本。请重新上传原图或视频。"
 
+msgid "Turning off multi-device login will cause scheduled posts to fail. To ensure that posts are sent as scheduled, please make sure that multi-device login remains turned on."
+msgstr ""
+
 msgid "This Bluesky account is already linked to another Firefly account."
 msgstr "这个 Bluesky 账号已绑定到另一个 Firefly 账户。"
 
@@ -3905,9 +3908,6 @@ msgstr "将在 <0>{0} <1>{1}</1></0> 发布"
 
 msgid "Lens Auto Login"
 msgstr "Lens 自动登录"
-
-msgid "Turning off multi-device login will cause scheduled posts to fail. To ensure that posts<0/> are sent as scheduled, please make sure that multi-device login remains turned on."
-msgstr "关闭多设备登录将导致定时帖发布失败。为确保帖子<0/>按计划发送，请保持多设备登录开启。"
 
 msgid "Something went wrong."
 msgstr "哎呀，出问题了。"

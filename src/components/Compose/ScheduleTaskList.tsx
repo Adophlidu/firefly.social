@@ -234,8 +234,8 @@ export function ScheduleTaskList() {
                     <Info width={20} height={20} className="shrink-0 text-main" />
                     <div className="min-w-0 flex-1 text-left text-xs leading-4 text-main">
                         <Trans>
-                            Turning off multi-device login will cause scheduled posts to fail. To ensure that posts
-                            <br /> are sent as scheduled, please make sure that multi-device login remains turned on.
+                            Turning off multi-device login will cause scheduled posts to fail. To ensure that posts are
+                            sent as scheduled, please make sure that multi-device login remains turned on.
                         </Trans>
                     </div>
                     <Close
