@@ -8,6 +8,7 @@ import { useEffect, useMemo } from 'react';
 import SettingIcon from '@/assets/setting.svg';
 import { Link } from '@/components/Link.js';
 import { ComeBackButton } from '@/components/Profile/ComeBackButton.js';
+import { EnsName } from '@/components/Profile/EnsName.js';
 import { FireflyAccountInfoUI } from '@/components/Profile/FireflyAccountInfoUI.js';
 import { FireflyAccountMoreButton } from '@/components/Profile/FireflyAccountMoreButton.js';
 import { ProfileAction } from '@/components/Profile/ProfileAction.js';
@@ -21,6 +22,7 @@ import { NetworkType, PageRoute, Source } from '@/constants/enum.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
+import { getEnsNameFromWalletProfile } from '@/helpers/getEnsNameFromWalletProfile.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { isRequestedLoginSource } from '@/helpers/isRequestedLoginSource.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
@@ -270,8 +272,10 @@ function NavigationBar({
 }) {
     const isLogin = useIsLogin(narrowToSocialSource(identity.source));
     const title = useMemo(() => {
-        if (walletProfile)
-            return walletProfile.primary_ens ?? formatAddress(walletProfile.address, 4, undefined, false);
+        if (walletProfile) {
+            const ensName = getEnsNameFromWalletProfile(walletProfile);
+            return ensName ? <EnsName ens={ensName} /> : formatAddress(walletProfile.address, 4, undefined, false);
+        }
         if (isRequestedLoginSource(identity.source) && !isLogin) return <Trans>Sign in to unlock</Trans>;
         return socialProfile?.displayName;
     }, [walletProfile, identity.source, isLogin, socialProfile?.displayName]);
@@ -285,7 +289,7 @@ function NavigationBar({
     }, [profileActionRef]);
     const showProfileAction = profileActionEntry && !profileActionEntry.isIntersecting;
     return (
-        <Title title={title}>
+        <Title title={title} className="gap-3">
             <div
                 className={classNames('flex shrink-0 transform-gpu gap-2 duration-200', {
                     'pointer-events-none opacity-0': !showProfileAction,

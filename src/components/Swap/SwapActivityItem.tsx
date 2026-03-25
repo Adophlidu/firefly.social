@@ -89,8 +89,8 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
                     </Link>
                 </div>
                 <div className="min-w-0 flex-1 overflow-hidden">
-                    <div className="mb-2 flex items-center justify-between">
-                        <div className="flex max-w-full flex-1 items-center gap-x-1 text-medium text-second">
+                    <div className="mb-2 flex items-center justify-between gap-2">
+                        <div className="flex min-w-0 max-w-full flex-1 items-center gap-x-1 text-medium text-second">
                             <Link
                                 href={profileUrl}
                                 className="min-w-0 max-w-full truncate font-bold text-lightMain"
@@ -111,7 +111,7 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
                             <ChainIcon chainId={activity.chain_id} size={15} />
                         </div>
 
-                        <ClickableArea>
+                        <ClickableArea className="shrink-0">
                             <WalletBaseMoreAction address={activity.owner as Address} ens={ensHandle} />
                         </ClickableArea>
                     </div>

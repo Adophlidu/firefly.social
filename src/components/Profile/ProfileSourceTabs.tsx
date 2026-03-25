@@ -109,7 +109,7 @@ function ProfileTriggerContent({
     className,
 }: ProfileMenuItemProps) {
     return (
-        <span className={classNames('inline-flex items-center justify-center', className)}>
+        <span className={classNames('inline-flex w-full items-center justify-center', className)}>
             <SourceIcon source={source} size={14} square={square} danger={danger} active={active} />
             <span className="mx-1 min-w-0 truncate">{children}</span>
             {arrow ? <ArrowLineDownIcon width={12} height={12} className="ml-auto shrink-0" /> : null}
