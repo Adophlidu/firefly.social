@@ -10,19 +10,27 @@ jobs:
     upload-sources:
         runs-on: ubuntu-latest
         steps:
-            - name: Checkout
-              uses: actions/checkout@v4
+            - name: Checkout code
+              uses: actions/checkout@v2
 
             - name: Set up Node.js
-              uses: actions/setup-node@v4
+              uses: actions/setup-node@v2
               with:
                   node-version-file: '.node-version'
 
+            - name: Authenticate NPM
+              uses: DimensionDev/github-token-action@latest
+              with:
+                  registry: true
+
+            - name: Setup Github Actions
+              run: ./scripts/setup-gh-actions.sh
+
             # Prunes Tolgee keys missing from push.files (push.removeOtherKeys in .tolgeerc.json).
+            # Uses the wrapper script to skip untranslated plural entries, which Tolgee would
+            # otherwise convert to empty ICU strings like `{value, plural, other {}}`.
             - name: Push locale files to Tolgee
               env:
                   TOLGEE_API_KEY: ${{ secrets.TOLGEE_API_KEY }}
                   TOLGEE_PROJECT_ID: ${{ secrets.TOLGEE_PROJECT_ID }}
-              run: |
-                  TOLGEE_CLI_VERSION=$(node -pe "require('./package.json').devDependencies['@tolgee/cli'].replace(/^[\^~]/, '')")
-                  npx --yes @tolgee/cli@$TOLGEE_CLI_VERSION push --force-mode OVERRIDE
+              run: pnpm run tolgee:push-sources

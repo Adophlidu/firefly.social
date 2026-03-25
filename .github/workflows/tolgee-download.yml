@@ -13,11 +13,11 @@ jobs:
             contents: write
             pull-requests: write
         steps:
-            - name: Checkout
+            - name: Checkout code
               uses: actions/checkout@v4
 
             - name: Set up Node.js
-              uses: actions/setup-node@v4
+              uses: actions/setup-node@v2
               with:
                   node-version-file: '.node-version'
 
@@ -26,25 +26,14 @@ jobs:
               with:
                   registry: true
 
-            - name: Install pnpm and dependencies
-              run: |
-                  npm i -g pnpm@8.15.8
-                  pnpm install --frozen-lockfile
+            - name: Setup Github Actions
+              run: ./scripts/setup-gh-actions.sh
 
-            - name: Pull translations from Tolgee
+            - name: Sync messages from Tolgee
               env:
                   TOLGEE_API_KEY: ${{ secrets.TOLGEE_API_KEY }}
                   TOLGEE_PROJECT_ID: ${{ secrets.TOLGEE_PROJECT_ID }}
-              run: |
-                  TOLGEE_CLI_VERSION=$(node -pe "require('./package.json').devDependencies['@tolgee/cli'].replace(/^[\^~]/, '')")
-                  npx --yes @tolgee/cli@$TOLGEE_CLI_VERSION pull
-
-            # Re-serialize POs with Lingui (orderBy: message) so PRs match `pnpm lingui` locally
-            - name: Normalize catalog order and merge source strings
-              run: pnpm run lingui:extract
-
-            - name: Compile Lingui catalogs
-              run: pnpm run lingui:compile
+              run: pnpm run tolgee:sync
 
             - name: Create pull request
               uses: peter-evans/create-pull-request@v6

@@ -94,7 +94,7 @@ msgid "Failed to upload. File type is not supported on X."
 msgstr "图片格式 X 不支持。上传失败。"
 
 msgid "Open Orders"
-msgstr ""
+msgstr "当前挂单"
 
 #. placeholder {0}: profile.handle
 msgid "Report @{0}"
@@ -231,7 +231,7 @@ msgid "Enter a new password to verify your identity."
 msgstr "请输入新密码以验证身份。"
 
 msgid "Failed to apply draft post."
-msgstr ""
+msgstr "应用草稿帖子失败"
 
 #. placeholder {0}: profile.handle
 msgid "Mute @{0}"
@@ -508,7 +508,7 @@ msgid "FAILED POST"
 msgstr "发帖失败"
 
 msgid "Claim winnings"
-msgstr ""
+msgstr "领取奖金"
 
 msgid "User Name must start with a letter/number, only _ allowed in between"
 msgstr "用户名必须以字母或数字开头，中间只能包含下划线 (_)"
@@ -644,7 +644,7 @@ msgid "Market Cap"
 msgstr "市值"
 
 msgid "No closed positions found in this wallet"
-msgstr ""
+msgstr "此钱包中未发现已平仓位"
 
 msgid "Contract source code verified"
 msgstr "已验证合约源代码"
@@ -682,7 +682,7 @@ msgid "Top Holders"
 msgstr "持仓大户"
 
 msgid "View closed positions"
-msgstr ""
+msgstr "查看已平仓位"
 
 msgid "Overview"
 msgstr "概览"
@@ -850,7 +850,7 @@ msgstr "{0, plural, other {<3/><4> 关注了你</4>}}"
 #. placeholder {3}: toFixedTrimmed(+trade.price * 100, 1)
 #. placeholder {4}: usdValue < 0.01 ? '< $0.01' : `$${toFixedTrimmed(usdValue, 2)}`
 msgid "<0>{0}</0> Sold <1>{1} {2}</1> for <2>{marketTitle}</2> at <3>{3}¢</3> <4>({4})</4>"
-msgstr ""
+msgstr "<0>{0}</0> 以 <3>{3}¢</3> 的价格卖出了 <1>{1} {2}</1>，预测市场为 <2>{marketTitle}</2> <4>({4})</4>"
 
 msgid "Oops! Your account is currently blocked. Reach out to support for more details."
 msgstr "糟糕！你的账户当前已被封禁。请联系客服了解具体原因。"
@@ -1006,7 +1006,7 @@ msgid "Sending"
 msgstr "发送中"
 
 msgid "Retry Stream"
-msgstr ""
+msgstr "重试"
 
 msgid "No predictions found"
 msgstr "未找到预测结果"
@@ -1333,7 +1333,7 @@ msgid "Collections"
 msgstr "NFT 系列"
 
 msgid "Failed to remove draft. Please try again."
-msgstr ""
+msgstr "删除草稿失败。请重试。"
 
 msgid "Profile details"
 msgstr "个人资料详情"
@@ -1401,7 +1401,7 @@ msgstr "详细信息"
 #. placeholder {2}: toFixedTrimmed(+trade.price * 100, 1)
 #. placeholder {3}: usdValue < 0.01 ? '< $0.01' : `$${toFixedTrimmed(usdValue, 2)}`
 msgid "<0>{displayName}</0> Bought <1>{0} {1}</1> for <2>{marketTitle}</2> at <3>{2}¢</3> <4>({3})</4>"
-msgstr ""
+msgstr "<0>{displayName}</0> 以 <3>{2}¢</3> 的价格买入了 <1>{0} {1}</1>，预测市场为 <2>{marketTitle}</2> <4>({3})</4>"
 
 msgid "Verified by Lens"
 msgstr "由 Lens 验证"
@@ -1510,7 +1510,7 @@ msgid "Oops... Not all the requirements have been met"
 msgstr "哎呀... 并未满足所有要求"
 
 msgid "Resolution"
-msgstr ""
+msgstr "结算结果"
 
 msgid "Prediction Leaderboard"
 msgstr "预测排行榜"
@@ -1602,7 +1602,7 @@ msgid "Unmute /{0}"
 msgstr "取消隐藏 /{0}"
 
 msgid "No open orders found."
-msgstr ""
+msgstr "未发现挂单"
 
 msgid "No trades found in this wallet"
 msgstr "当前钱包未找到任何交易"
@@ -1790,7 +1790,7 @@ msgid "No fake KYC found."
 msgstr "不涉及虚假 KYC。"
 
 msgid "Unsaved draft found"
-msgstr ""
+msgstr "发现未保存的草稿"
 
 msgid "No function found that retrieves ownership"
 msgstr "没有找到检索所有权的功能"
@@ -1915,7 +1915,7 @@ msgid "Hide resolved"
 msgstr "隐藏已结算"
 
 msgid "Please enter your 2FA confirmation code"
-msgstr ""
+msgstr "请输入您的 2FA 确认码"
 
 msgid "Failed to connect on {source}"
 msgstr "在 {source} 上连接失败。"
@@ -2081,7 +2081,7 @@ msgid "Comment"
 msgstr "评论"
 
 msgid "Connect the required social profile to select."
-msgstr ""
+msgstr "连接所需的社交账号以进行选择"
 
 msgid "You can withdraw any unclaimed amount 24 hours after creating this lucky drop."
 msgstr "发送红包 24 小时后可提取未领取数额。"
@@ -2225,7 +2225,7 @@ msgid "Rank #{tokenRank}"
 msgstr "排名 #{tokenRank}"
 
 msgid "No positions found."
-msgstr ""
+msgstr "未发现持仓"
 
 msgid "Votes"
 msgstr "投票"
@@ -2237,7 +2237,7 @@ msgid "5 minutes"
 msgstr "5 分钟"
 
 msgid "Note: Cloud drafts save text only. Please upload original images or video again."
-msgstr ""
+msgstr "注意：云端草稿仅保存文本。请重新上传原图或视频。"
 
 msgid "This Bluesky account is already linked to another Firefly account."
 msgstr "这个 Bluesky 账号已绑定到另一个 Firefly 账户。"
@@ -2248,7 +2248,7 @@ msgstr "{0, select, success {成功} failed {失败} pending {待处理} other {
 
 #. placeholder {0}: outcome.label
 msgid "<0>Buy {0}</0><1/>"
-msgstr ""
+msgstr "<0>买入 {0}</0><1/>"
 
 msgid "5m"
 msgstr "5 分钟"
@@ -2328,7 +2328,7 @@ msgid "Cover background"
 msgstr "封面背景"
 
 msgid "No holders found."
-msgstr ""
+msgstr "未发现持有人"
 
 msgid "Connected"
 msgstr "已连接"
@@ -2728,7 +2728,7 @@ msgid "<0>The proportion of current market capitalization compares to market cap
 msgstr "<0>当前市值与满足最大供应量时的市值之比。</0> <1>Mkt Cap/FDV 越接近 1，当前市值越接近其完全摊薄估值（FDV），反之亦然。</1>"
 
 msgid "Streaming Error"
-msgstr ""
+msgstr "推流错误"
 
 msgid "Minting Date"
 msgstr "铸造日期"
@@ -3075,7 +3075,7 @@ msgid "Received time:"
 msgstr "接收时间："
 
 msgid "Cloud Draft"
-msgstr ""
+msgstr "云端草稿"
 
 msgid "Article unliked."
 msgstr "已取消点赞。"
@@ -3146,7 +3146,7 @@ msgid "It is wallet retrieved from public verifiable data registries or our enti
 msgstr "这是从公开数据库或我们的算法中检索到的钱包。请先添加此钱包再设置为主钱包。"
 
 msgid "2FA confirmation code"
-msgstr ""
+msgstr "2FA 确认码"
 
 msgid "Visit mask.io"
 msgstr "访问 mask.io"
@@ -3229,7 +3229,7 @@ msgid "Discard"
 msgstr "放弃"
 
 msgid "REPLY"
-msgstr ""
+msgstr "回复"
 
 msgid "Switch wallet"
 msgstr "切换钱包"
@@ -3423,7 +3423,7 @@ msgid "Social accounts"
 msgstr "社交账户"
 
 msgid "Invalid 2FA code. Please try again."
-msgstr ""
+msgstr "2FA 验证码无效。请重试。"
 
 msgid "Installed"
 msgstr "已安装"
@@ -3772,7 +3772,7 @@ msgid "Display Name should not exceed 20 characters"
 msgstr "名称不可超过 20 个字符"
 
 msgid "Failed to resume Firefly session. Please try again."
-msgstr ""
+msgstr "恢复 Firefly 会话失败。请重试。"
 
 msgid "New"
 msgstr "新建"
@@ -3934,7 +3934,7 @@ msgid "Properties"
 msgstr "属性"
 
 msgid "Yes"
-msgstr ""
+msgstr "是"
 
 msgid "Failed to set schedule time."
 msgstr "设置定时时间失败。"
@@ -3955,7 +3955,7 @@ msgid "Select Network"
 msgstr "选择网络"
 
 msgid "The post you quoted/replied not found"
-msgstr ""
+msgstr "未找到您引用或回复的帖子"
 
 msgid "Please select one EVM wallet and one Solana wallet for onchain features in Firefly."
 msgstr "请连接一个 EVM 钱包和一个 Solana 钱包以体验 Firefly 的链上功能。"
@@ -3983,7 +3983,7 @@ msgid "Collect Article"
 msgstr "铸造收集文章"
 
 msgid "No active positions found in this wallet"
-msgstr ""
+msgstr "此钱包中未发现持仓"
 
 msgid "Customize your Lucky Drop sender: Choose from your social account handles or wallets."
 msgstr "自定义你的红包发送者名称：可选择你的社交账号或钱包地址。"
@@ -4190,7 +4190,7 @@ msgid "Address removed on Farcaster"
 msgstr "已移除地址"
 
 msgid "Let's go!"
-msgstr ""
+msgstr "出发！"
 
 #. placeholder {0}: percentageToNumber(info.buy_tax)
 msgid "Buy Tax: {0}%"
@@ -4411,7 +4411,7 @@ msgid "The contract owner has no restrictions on anti whale."
 msgstr "合约所有者对反鲸鱼机制没有限制。"
 
 msgid "Final review"
-msgstr ""
+msgstr "最终审核"
 
 msgid "Exclusive Events"
 msgstr "独家活动"
@@ -4617,7 +4617,7 @@ msgid "No one you follow has traded this token."
 msgstr "你关注的人没有交易过这个代币哦。"
 
 msgid "Verify"
-msgstr ""
+msgstr "验证"
 
 msgid "Explore now"
 msgstr "开始探索"
@@ -4668,7 +4668,7 @@ msgid "{0}h: {1}m: {2}s"
 msgstr "{0}时: {1}分: {2}秒"
 
 msgid "Order Book"
-msgstr ""
+msgstr "订单簿"
 
 #. placeholder {0}: resolveSourceName(source)
 #. placeholder {1}: error instanceof Error ? error.message : ''
@@ -4777,7 +4777,7 @@ msgid "Snapshot removed from your Bookmarks"
 msgstr "提案已从收藏夹移除"
 
 msgid "Logs"
-msgstr ""
+msgstr "日志"
 
 msgid "Max Supply"
 msgstr "最大供应量"
@@ -4859,7 +4859,7 @@ msgid "<0>{0}</0> retruthed"
 msgstr "<0>{0}</0> 转发了"
 
 msgid "Graph"
-msgstr ""
+msgstr "图表"
 
 msgid "Sign in with Farcaster"
 msgstr "使用 Farcaster 登录"
@@ -4952,7 +4952,7 @@ msgid "Remind me later"
 msgstr "稍后提醒我"
 
 msgid "Search <0>posts</0>, <1>users</1>, <2>predictions</2> and <3>tokens</3> by keyword or link"
-msgstr ""
+msgstr "通过关键词或链接搜索 <0>帖子</0>、<1>用户</1>、<2>预测市场</2> 及 <3>代币</3>"
 
 msgid "Choose a token to send"
 msgstr "选择要发送的代币"
@@ -5070,7 +5070,7 @@ msgid "OK"
 msgstr "确定"
 
 msgid "Would you like to restore it?"
-msgstr ""
+msgstr "是否恢复？"
 
 msgid "Posts from Trump on Truth Social (Explore, profile)"
 msgstr "来自特朗普的 Truth Social 帖子（探索、个人资料）"

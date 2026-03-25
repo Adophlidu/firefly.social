@@ -25,7 +25,7 @@
         "lingui:extract": "NODE_ENV=development lingui extract --clean",
         "lingui": "pnpm run lingui:extract && pnpm run lingui:compile",
         "tolgee:push": "tolgee push",
-        "tolgee:push-sources": "tolgee push --force-mode OVERRIDE",
+        "tolgee:push-sources": "node scripts/tolgee-push-sources.cjs --force-mode OVERRIDE",
         "tolgee:pull": "tolgee pull && node scripts/restore-lingui-gettext-plural-metadata.cjs",
         "tolgee:sync": "tolgee pull && node scripts/restore-lingui-gettext-plural-metadata.cjs && pnpm run lingui:extract && pnpm run lingui:compile",
         "storybook": "storybook dev -p 6006",
