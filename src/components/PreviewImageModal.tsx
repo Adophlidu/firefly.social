@@ -5,7 +5,7 @@ import 'swiper/css/keyboard';
 import 'swiper/css/navigation';
 
 import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
-import { useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { Keyboard, Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import urlcat from 'urlcat';
@@ -33,6 +33,20 @@ export function PreviewImageModal({
     const prevRef = useRef<HTMLButtonElement>(null);
     const nextRef = useRef<HTMLButtonElement>(null);
 
+    const close = useCallback(() => {
+        router.replace(urlcat('/post/:source/:id', { id: postId, source }));
+    }, [router, postId, source]);
+
+    useEffect(() => {
+        const onKeyDown = (event: KeyboardEvent) => {
+            if (event.key !== 'Escape') return;
+            event.preventDefault();
+            close();
+        };
+        window.addEventListener('keydown', onKeyDown);
+        return () => window.removeEventListener('keydown', onKeyDown);
+    }, [close]);
+
     return (
         <div className="fixed left-0 top-0 z-modal size-full">
             <div
@@ -40,15 +54,13 @@ export function PreviewImageModal({
                 onClick={(event) => {
                     event.preventDefault();
                     event.stopPropagation();
-                    router.replace(urlcat('/post/:source/:id', { id: postId, source }));
+                    close();
                 }}
             />
             <div className="size-full">
                 <div className="relative z-50 cursor-pointer pl-4 pt-4 text-main">
                     <CloseButton
-                        onClick={() => {
-                            router.replace(urlcat('/post/:source/:id', { id: postId, source }));
-                        }}
+                        onClick={close}
                         className="hover:!bg-transparent"
                         IconProps={{ className: '!text-white' }}
                     />
