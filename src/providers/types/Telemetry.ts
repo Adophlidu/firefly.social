@@ -288,6 +288,10 @@ export enum EventId {
     EVENT_SWAP_COPY_TRADE_CLICK = 'swap_copy_trade_click',
     EVENT_SWAP_SUBMIT = 'swap_submit',
     EVENT_SWAP_SUCCESS = 'swap_success',
+    EVENT_BRIDGE_SUBMIT = 'bridge_submit',
+    EVENT_BRIDGE_SUCCESS = 'bridge_success',
+    EVENT_SWAP_SKIP_REVIEWS_DISABLE = 'swap_skip_reviews_disable',
+    EVENT_SWAP_CUSTOM_SLIPPAGE = 'swap_custom_slippage',
 
     // home tab
     EVENT_FOLLOWING_POSTS_CLICK = 'following_posts_click',
@@ -1565,6 +1569,9 @@ export interface Events extends Record<EventId, Event> {
             wallet_name: string;
             time: string;
             tx_hash?: string;
+            sell_token?: string;
+            buy_token?: string;
+            access_path?: string;
         };
     };
     [EventId.EVENT_SWAP_SUCCESS]: {
@@ -1580,6 +1587,62 @@ export interface Events extends Record<EventId, Event> {
             wallet_name: string;
             time: string;
             tx_hash?: string;
+            sell_token?: string;
+            buy_token?: string;
+            access_path?: string;
+        };
+    };
+    [EventId.EVENT_BRIDGE_SUBMIT]: {
+        type: EventType.Interact;
+        parameters: {
+            wallet_address: string;
+            amount?: string;
+            currency?: string;
+            amount_usd?: string;
+            chain_id?: number;
+            chain_name?: string;
+            wallet_type: string;
+            wallet_name: string;
+            time: string;
+            tx_hash?: string;
+            sell_token?: string;
+            buy_token?: string;
+            sell_chain_id?: number;
+            buy_chain_id?: number;
+            access_path?: string;
+        };
+    };
+    [EventId.EVENT_BRIDGE_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {
+            wallet_address: string;
+            amount?: string;
+            currency?: string;
+            amount_usd?: string;
+            chain_id?: number;
+            chain_name?: string;
+            wallet_type: string;
+            wallet_name: string;
+            time: string;
+            tx_hash?: string;
+            sell_token?: string;
+            buy_token?: string;
+            sell_chain_id?: number;
+            buy_chain_id?: number;
+            access_path?: string;
+        };
+    };
+    [EventId.EVENT_SWAP_SKIP_REVIEWS_DISABLE]: {
+        type: EventType.Interact;
+        parameters: {
+            access_path?: string;
+        };
+    };
+    [EventId.EVENT_SWAP_CUSTOM_SLIPPAGE]: {
+        type: EventType.Interact;
+        parameters: {
+            value?: number;
+            access_path?: string;
         };
     };
     [EventId.EVENT_FOLLOWING_SWAP_CLICK]: {

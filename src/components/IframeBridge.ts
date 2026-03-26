@@ -23,6 +23,7 @@ import { openComposeModal } from '@/helpers/openComposeModal.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { reconnectPrivyWallet } from '@/helpers/reconnectPrivyWallet.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { useWalletTelemetrySubscriber } from '@/hooks/useWalletTelemetrySubscriber.js';
 import { DownloadMobileAppModalRef } from '@/modals/DownloadMobileAppModal/refs.js';
 import { mergeMetrics } from '@/services/metrics.js';
 import { verifyAndGetPassword } from '@/services/verifyAndGetPassword.js';
@@ -199,6 +200,8 @@ const createAllEvents = (router: ReturnType<typeof useRouter>) => {
 
 export const IframeBridge = memo(function IframeBridge() {
     const router = useRouter();
+
+    useWalletTelemetrySubscriber();
 
     useEffect(() => {
         const allEvents = createAllEvents(router);

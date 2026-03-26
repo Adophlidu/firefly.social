@@ -71,8 +71,6 @@ import { SignupModalRef } from '@/modals/SignupModal/refs.js';
 import { SignupModal } from '@/modals/SignupModal/SignupModal.js';
 import { SnackbarRef } from '@/modals/Snackbar/refs.js';
 import { Snackbar } from '@/modals/Snackbar/Snackbar.js';
-import { SwapModalRef } from '@/modals/SwapModal/refs.js';
-import { SwapModal } from '@/modals/SwapModal/SwapModal.js';
 import { TipsModalRef } from '@/modals/TipsModal/refs.js';
 import { TipsModal } from '@/modals/TipsModal/TipsModal.js';
 import { TokenSelectorModalRef } from '@/modals/TokenSelectorModal/refs.js';
@@ -122,7 +120,6 @@ export const Modals = memo(function Modals() {
                 <RedPacketModal ref={RedPacketModalRef.register} />
                 <SchedulePostModal ref={SchedulePostModalRef.register} />
                 <ShareImageModal ref={ShareImageModalRef.register} />
-                <SwapModal ref={SwapModalRef.register} />
                 <TipsModal ref={TipsModalRef.register} />
                 <TokenSelectorModal ref={TokenSelectorModalRef.register} />
                 <RecoveryPhraseModal ref={RecoveryPhraseModalRef.register} />

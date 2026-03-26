@@ -272,7 +272,6 @@ export const TokenProfileCard = memo<Props>(function TokenProfileCard({ symbol, 
                             className="flex shrink-0 grow-0 flex-row-reverse !gap-1 !px-3 !py-2"
                             swapProps={{
                                 chainId: +detected.chain_id,
-                                chainIds: tradeInfo.supportedChainIds?.map((x) => x.toString()),
                                 toToken: address,
                             }}
                         />

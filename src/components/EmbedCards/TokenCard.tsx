@@ -89,7 +89,6 @@ export const TokenCard = memo<AddressCardProps>(function TokenCard({ address, ..
                                 detected?.chain_id
                                     ? {
                                           chainId: +detected.chain_id,
-                                          chainIds: tradeInfo.supportedChainIds?.map((x) => x.toString()),
                                           toToken: attributes.address,
                                       }
                                     : undefined

@@ -1,12 +1,9 @@
-import { delay } from '@dimensiondev/utils';
+import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
 import { type MiniAppHost } from '@farcaster/miniapp-host';
 
-import { SOLANA_CHAIN_ID_IN_FIREFLY } from '@/constants/debank.js';
-import { OkxProviderType } from '@/constants/enum.js';
-import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { parseCAIP19 } from '@/helpers/parseCAIP19.js';
 import { logger } from '@/libs/Logger.js';
-import { SwapModalRef } from '@/modals/SwapModal/refs.js';
+import { useGlobalState } from '@/store/useGlobalStore.js';
 
 export const frameSwapToken = async function frameSwapToken(options) {
     const buyToken = options.buyToken ? parseCAIP19(options.buyToken) : undefined;
@@ -23,23 +20,18 @@ export const frameSwapToken = async function frameSwapToken(options) {
     const chainId = Number.parseInt(originChainId, 10);
     const buyTokenAddress = buyToken?.reference;
     const sellTokenAddress = sellToken?.reference;
-    const address = buyTokenAddress || sellTokenAddress;
 
-    const providerType =
-        chainId !== SOLANA_CHAIN_ID_IN_FIREFLY || isValidAddressEthereum(address)
-            ? OkxProviderType.EVM
-            : OkxProviderType.SOLANA;
+    const params = new URLSearchParams();
+    params.set('chain', chainId.toString());
+    if (sellTokenAddress) params.set('from', sellTokenAddress);
+    if (buyTokenAddress) params.set('to', buyTokenAddress);
 
-    // await for modal to register
-    await delay(1000);
-    SwapModalRef.open({
-        providerType,
-        chainId,
-        fromToken: sellTokenAddress || undefined,
-        toToken: buyTokenAddress,
-    });
+    const swapPath = `/swap?${params.toString()}`;
 
-    // TODO We can't get the result of the swap from OKX widget yet.
+    useGlobalState.getState().updateFireflyWalletIsOpen(true);
+    iframeBridgeProvider.request(IframeBridgeMethod.NAVIGATE, { path: swapPath });
+
+    // TODO We can't get the result of the swap yet.
     return {
         success: true,
         swap: {

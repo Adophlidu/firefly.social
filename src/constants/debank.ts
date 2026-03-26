@@ -374,5 +374,3 @@ export const DEBANK_CHAIN_TO_CHAIN_ID_MAP: Record<string, number> = {
     celo: EthereumChainId.Celo,
     plasma: EthereumChainId.Plasma,
 };
-
-export const SOLANA_CHAIN_ID_IN_FIREFLY = 101;

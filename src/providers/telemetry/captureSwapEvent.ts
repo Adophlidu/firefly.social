@@ -14,6 +14,18 @@ export function captureSwapEvent(
     eventId: EventId.EVENT_SWAP_SUCCESS | EventId.EVENT_SWAP_SUBMIT,
     options: Events[EventId.EVENT_SWAP_SUCCESS]['parameters'],
 ): void;
+export function captureSwapEvent(
+    eventId: EventId.EVENT_BRIDGE_SUCCESS | EventId.EVENT_BRIDGE_SUBMIT,
+    options: Events[EventId.EVENT_BRIDGE_SUCCESS]['parameters'],
+): void;
+export function captureSwapEvent(
+    eventId: EventId.EVENT_SWAP_SKIP_REVIEWS_DISABLE,
+    options: Events[EventId.EVENT_SWAP_SKIP_REVIEWS_DISABLE]['parameters'],
+): void;
+export function captureSwapEvent(
+    eventId: EventId.EVENT_SWAP_CUSTOM_SLIPPAGE,
+    options: Events[EventId.EVENT_SWAP_CUSTOM_SLIPPAGE]['parameters'],
+): void;
 
 export function captureSwapEvent(
     eventId:
@@ -23,8 +35,16 @@ export function captureSwapEvent(
         | EventId.EVENT_SWAP_DETAIL_CLICK
         | EventId.EVENT_SWAP_COPY_TRADE_CLICK
         | EventId.EVENT_SWAP_SUCCESS
-        | EventId.EVENT_SWAP_SUBMIT,
-    options?: Events[EventId.EVENT_SWAP_SUCCESS]['parameters'],
+        | EventId.EVENT_SWAP_SUBMIT
+        | EventId.EVENT_BRIDGE_SUCCESS
+        | EventId.EVENT_BRIDGE_SUBMIT
+        | EventId.EVENT_SWAP_SKIP_REVIEWS_DISABLE
+        | EventId.EVENT_SWAP_CUSTOM_SLIPPAGE,
+    options?:
+        | Events[EventId.EVENT_SWAP_SUCCESS]['parameters']
+        | Events[EventId.EVENT_BRIDGE_SUCCESS]['parameters']
+        | Events[EventId.EVENT_SWAP_SKIP_REVIEWS_DISABLE]['parameters']
+        | Events[EventId.EVENT_SWAP_CUSTOM_SLIPPAGE]['parameters'],
 ) {
     return runInSafeAsync(async () => {
         return TelemetryProvider.captureEvent(eventId, options ?? {});

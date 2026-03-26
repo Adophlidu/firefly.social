@@ -97,7 +97,7 @@ export const SwapActions = memo<SwapActionsProps>(function SwapActions({ activit
                 });
             }
         }
-    }, [activity.hash, activity.chain_id, activity.owner, isLoginFirefly]);
+    }, [isLoginFirefly, shareUrl, activity]);
 
     return (
         <div className={classNames('mt-2 flex items-center justify-between gap-2')}>

@@ -25,7 +25,6 @@ export const MobileSwapButton = memo(function MobileSwapButton({ token, ...props
                     ? {
                           toToken: tradeInfo.address,
                           chainId: tradeChainId,
-                          chainIds: tradeInfo.supportedChainIds.map((x) => x.toString()),
                       }
                     : undefined
             }

@@ -131,7 +131,7 @@ export default async function TokenPageLayout(props: PropsWithChildren<Props>) {
                         {token?.symbol || (isNewRoute ? slug : legacySymbol)}
                     </span>
                 </div>
-                <MobileSwapButton className="ml-auto sm:inline-flex md:hidden" token={token} />
+                <MobileSwapButton className="ml-auto flex whitespace-nowrap" token={token} />
             </div>
             <WrapTokenMarketData className="sticky" token={token} />
             <CategoryTabs token={token} className="sticky top-[54px] !z-30 md:top-[60px]" />
