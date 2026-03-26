@@ -28,8 +28,6 @@ enum ExceptionType {
 }
 
 export enum EventId {
-    DEBUG = 'debug',
-
     // account
     ACCOUNT_CREATE_SUCCESS = 'account_create_success',
     ACCOUNT_LOG_OUT_ALL_SUCCESS = 'account_log_out_all_success', // ✅
@@ -65,7 +63,6 @@ export enum EventId {
     COMPOSE_GIF_CLICK = 'compose_gif_click', // ✅
     COMPOSE_EMOJI_CLICK = 'compose_emoji_click', // ✅
     COMPOSE_IMAGE_ADD_CLICK = 'compose_image_add_click', // ✅
-    COMPOSE_VIDEO_ADD_CLICK = 'compose_video_add_click', // ✅
     COMPOSE_SHARE_TO_CHANGE_SUCCESS = 'compose_share_to_change_success', // ✅
     COMPOSE_REPLY_RESTRICTION_CHANGE_SUCCESS = 'compose_reply_restriction_change_success', // ✅
     COMPOSE_FARCASTER_CHANNEL_CHANGE_SUCCESS = 'compose_farcaster_channel_change_success', // ✅
@@ -96,11 +93,6 @@ export enum EventId {
     LUCKY_DROP_REFUND_SUCCESS = 'lucky_drop_refund_success', // ✅
     LUCKY_DROP_CLAIM_SUBMIT = 'lucky_drop_claim_submit', // ✅
     LUCKY_DROP_CLAIM_SUCCESS = 'lucky_drop_claim_success', // ✅
-
-    // blink
-    POST_BLINK_ACTION_SUCCESS = 'post_blink_action_success',
-    SIGN_MESSAGE_BLINK_ACTION_SUCCESS = 'sign_message_blink_action_success',
-    SHOW_BLINK_ACTION = 'show_blink_action',
 
     // frame
     POST_FRAME_ACTION_CLICK = 'post_mini_app_click', // ✅
@@ -133,7 +125,6 @@ export enum EventId {
     MINT_NFT_SUBMIT = 'nft_mint_submit', // ✅
     MINT_NFT_SUCCESS = 'nft_mint_success', // ✅
     NFT_MINT_CLICK = 'nft_mint_click',
-    NFT_VIEW_WEBSITE_CLICK = 'nft_view_website_click',
 
     // profile
     PROFILE_EDIT_CLICK = 'account_edit_profile_click', // ✅
@@ -152,7 +143,6 @@ export enum EventId {
     CONNECT_WALLET_SUCCESS_ZERION = 'zerion_connect_wallet_success', // ✅
     CONNECT_WALLET_SUCCESS_RAINBOW = 'rainbow_connect_wallet_success', // ✅
     CONNECT_WALLET_SUCCESS_PHANTOM = 'phantom_connect_wallet_success', // ✅
-    CONNECT_WALLET_SUCCESS_SOLFLARE = 'solflare_connect_wallet_success', // ✅
 
     // farcaster
     FARCASTER_LOG_IN_SUCCESS = 'farcaster_log_in_success', // ✅
@@ -172,8 +162,6 @@ export enum EventId {
     FARCASTER_POST_COLLECT_SUCCESS = 'farcaster_cast_collect_success', // ✅
     FARCASTER_PROFILE_FOLLOW_SUCCESS = 'farcaster_follow_success', // ✅
     FARCASTER_PROFILE_UNFOLLOW_SUCCESS = 'farcaster_unfollow_success', // ✅
-    FARCASTER_PROFILE_SUPER_FOLLOW_SUBMIT = 'farcaster_superfollow_submit', // ✅
-    FARCASTER_PROFILE_SUPER_FOLLOW_SUCCESS = 'farcaster_superfollow_success', // ✅
     FARCASTER_SIGNUP_ENTRY_CLICK = 'farcaster_sign_up_click',
     FARCASTER_ACCOUNT_CREATE_SUCCESS = 'farcaster_sign_up_success',
     FARCASTER_LOGIN_FIRST_TIME = 'farcaster_first_time_click',
@@ -273,10 +261,6 @@ export enum EventId {
 
     // activity
     EVENT_SHARE_CLICK = 'event_share_click',
-    EVENT_FARCASTER_LOG_IN_SUCCESS = 'event_far_log_in_success',
-    EVENT_LENS_LOG_IN_SUCCESS = 'event_lens_log_in_success',
-    EVENT_X_LOG_IN_SUCCESS = 'event_x_log_in_success',
-    EVENT_BSKY_LOG_IN_SUCCESS = 'event_bsky_log_in_success',
     EVENT_CONNECT_WALLET_SUCCESS = 'event_connect_wallet_success',
     EVENT_CHANGE_WALLET_SUCCESS = 'event_change_wallet_success',
     EVENT_CLAIM_BASIC_SUCCESS = 'event_claim_basic_success',
@@ -587,13 +571,6 @@ export interface ComposeEventParameters {
 }
 
 export interface Events extends Record<EventId, Event> {
-    [EventId.DEBUG]: {
-        type: EventType.Debug;
-        parameters: {
-            message: string;
-        };
-    };
-
     [EventId.ACCOUNT_CREATE_SUCCESS]: {
         type: EventType.Interact;
         parameters: {
@@ -898,14 +875,6 @@ export interface Events extends Record<EventId, Event> {
             nft_ca: string;
         };
     };
-    [EventId.NFT_VIEW_WEBSITE_CLICK]: {
-        type: EventType.Interact;
-        parameters: {
-            firefly_account_id: string;
-            chain_id: number;
-            nft_ca: string;
-        };
-    };
     [EventId.ARTICLE_COLLECT_SUBMIT]: {
         type: EventType.Interact;
         parameters: {
@@ -1022,24 +991,6 @@ export interface Events extends Record<EventId, Event> {
             mini_app_name: string;
         };
     };
-    [EventId.POST_BLINK_ACTION_SUCCESS]: {
-        type: EventType.Interact;
-        parameters: {
-            blink_action: 'buy' | 'mint' | 'others';
-        } & WalletEventParameters;
-    };
-    [EventId.SIGN_MESSAGE_BLINK_ACTION_SUCCESS]: {
-        type: EventType.Interact;
-        parameters: {
-            blink_action: 'buy' | 'mint' | 'others';
-        } & WalletEventParameters;
-    };
-    [EventId.SHOW_BLINK_ACTION]: {
-        type: EventType.Interact;
-        parameters: {
-            blink_url: string;
-        };
-    };
 
     // ----------------
     // farcaster
@@ -1124,14 +1075,6 @@ export interface Events extends Record<EventId, Event> {
     [EventId.FARCASTER_PROFILE_UNFOLLOW_SUCCESS]: {
         type: EventType.Interact;
         parameters: FarcasterEventParameters;
-    };
-    [EventId.FARCASTER_PROFILE_SUPER_FOLLOW_SUBMIT]: {
-        type: EventType.Interact;
-        parameters: FarcasterEventParameters & WalletEventParameters;
-    };
-    [EventId.FARCASTER_PROFILE_SUPER_FOLLOW_SUCCESS]: {
-        type: EventType.Interact;
-        parameters: FarcasterEventParameters & WalletEventParameters;
     };
     [EventId.FARCASTER_ACCOUNT_CREATE_SUCCESS]: {
         type: EventType.Interact;
@@ -1465,30 +1408,6 @@ export interface Events extends Record<EventId, Event> {
     };
 
     // Activity
-    [EventId.EVENT_X_LOG_IN_SUCCESS]: {
-        type: EventType.Interact;
-        parameters: {
-            firefly_account_id: string;
-            is_token_sync: boolean;
-            x_accounts: AccountPairs;
-        };
-    };
-    [EventId.EVENT_LENS_LOG_IN_SUCCESS]: {
-        type: EventType.Interact;
-        parameters: {
-            firefly_account_id: string;
-            is_token_sync: boolean;
-            lens_accounts: AccountPairs;
-        };
-    };
-    [EventId.EVENT_FARCASTER_LOG_IN_SUCCESS]: {
-        type: EventType.Interact;
-        parameters: {
-            firefly_account_id: string;
-            is_token_sync: boolean;
-            farcaster_accounts: AccountPairs;
-        };
-    };
     [EventId.EVENT_SHARE_CLICK]: {
         type: EventType.Interact;
         parameters: {
