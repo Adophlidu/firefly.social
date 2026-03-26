@@ -29,11 +29,11 @@ export const IfPathname = memo(function IfPathname({
 }: IfPathname) {
     const pathname = usePathname();
     const [lastPathname, setLastPathname] = useState(
-        !isRoutePathname(pathname, '/post/:detail/photos/:index', true) ? pathname : '',
+        !isRoutePathname(pathname, '/post/:source/:id/photos/:index', true) ? pathname : '',
     );
 
     useUpdateEffect(() => {
-        if (isRoutePathname(pathname, '/post/:detail/photos/:index', true)) return;
+        if (isRoutePathname(pathname, '/post/:source/:id/photos/:index', true)) return;
 
         setLastPathname(pathname);
     }, [pathname]);

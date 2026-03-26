@@ -3,7 +3,7 @@
 import { classNames, getEnumAsArray } from '@dimensiondev/utils';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
-import { useMemo } from 'react';
+import { useMemo, useRef } from 'react';
 
 import ArrowDownCircleIcon from '@/assets/arrow-circle-down.svg';
 import { ActivitiesFilter } from '@/components/HomeTab/ActivitiesFilter.js';
@@ -15,6 +15,7 @@ import { SolidTabs } from '@/components/Tabs/SolidTabs.js';
 import { HomeTab, NetworkType, Source } from '@/constants/enum.js';
 import { NFT_ENABLED } from '@/constants/static.js';
 import { usePathname } from '@/esm/navigation.js';
+import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { parseDiscoverPageUrl } from '@/helpers/parseDiscoverPageUrl.js';
 import { parseFollowingPageUrl } from '@/helpers/parseFollowingPageUrl.js';
 import { resolveHomeUrl } from '@/helpers/resolveHomeUrl.js';
@@ -77,16 +78,24 @@ export function HomeTabs({
     containerClass?: string;
 }) {
     const pathname = usePathname();
+    const stablePathnameRef = useRef(
+        !isRoutePathname(pathname, '/post/:source/:id/photos/:index', true) ? pathname : '',
+    );
+    if (!isRoutePathname(pathname, '/post/:source/:id/photos/:index', true)) {
+        stablePathnameRef.current = pathname;
+    }
+    const stablePathname = stablePathnameRef.current;
+
     const { hasOpenSwap, setHasOpenSwap } = useTransactionsStateStore(NetworkType.Ethereum);
     const { tab: currentTab, source } = useMemo(() => {
-        const parsedFollowingPageUrl = parseFollowingPageUrl(pathname);
+        const parsedFollowingPageUrl = parseFollowingPageUrl(stablePathname);
         if (parsedFollowingPageUrl) {
             return {
                 source: parsedFollowingPageUrl.source,
                 tab: HomeTab.Following,
             } as const;
         }
-        const parsedHomePageUrl = parseDiscoverPageUrl(pathname);
+        const parsedHomePageUrl = parseDiscoverPageUrl(stablePathname);
         if (parsedHomePageUrl) {
             return {
                 source: parsedHomePageUrl.source,
@@ -97,7 +106,7 @@ export function HomeTabs({
             tab: HomeTab.Discover,
             source: Source.Posts,
         } as const;
-    }, [pathname]);
+    }, [stablePathname]);
     const isLogin = useIsLoginFirefly();
 
     const isFollowingTab = currentTab === HomeTab.Following;
