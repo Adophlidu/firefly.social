@@ -142,7 +142,7 @@ export const WalletProfileTags = memo<WalletProfileTagsProps>(function WalletPro
                             {ensList.map((ens) => {
                                 return (
                                     <div className="flex items-center gap-[5px]" key={`${id}-${ens}`}>
-                                        <Icon width={16} height={16} className={itemClassName} />
+                                        <Icon width={13} height={13} className={itemClassName} />
                                         <span className="text-[10px] font-bold leading-4 text-main">{ens}</span>
                                     </div>
                                 );
@@ -151,11 +151,7 @@ export const WalletProfileTags = memo<WalletProfileTagsProps>(function WalletPro
                     }
                 >
                     <span>
-                        <Icon
-                            width={ICON_SIZE}
-                            height={ICON_SIZE}
-                            className={classNames('cursor-pointer', className)}
-                        />
+                        <Icon width={13} height={13} className={classNames('cursor-pointer', className)} />
                     </span>
                 </InteractiveTippy>
             ))}
