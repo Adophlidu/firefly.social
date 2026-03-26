@@ -4,7 +4,7 @@ import { mainnet } from 'viem/chains';
 import { type GetEnsNameParameters } from 'wagmi/actions';
 
 import { STALE_TIMES } from '@/constants/query.js';
-import { createDeduplicatedFetch } from '@/helpers/memoizePromise.js';
+import { createDeduplicatedFetch } from '@/helpers/createDeduplicatedFetch.js';
 import { reverse } from '@/services/ens.js';
 
 const deduplicated = createDeduplicatedFetch<string | null>();
