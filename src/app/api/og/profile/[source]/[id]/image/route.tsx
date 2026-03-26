@@ -16,6 +16,7 @@ import { formatAddress } from '@/helpers/formatAddress.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
 import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
 import { getPublicUrl } from '@/helpers/getPublicUrl.js';
+import { getSharerHandle } from '@/helpers/getSharerHandle.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { isSocialSource, isWalletSource } from '@/helpers/isSource.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
@@ -311,20 +312,7 @@ export const GET = compose(withRequestErrorHandler(), async (request: NextReques
     const { id, debug, source } = await getParamsWithZodSchema(ParamsSchema, context);
     if (!id || !source) return createProxyImageResponse(getPublicUrl('/image/og.png'));
 
-    // Get sharer information
-    const searchParams = request.nextUrl.searchParams;
-    const sharerUid = searchParams.get('s');
-    let sharerHandle: string | null = null;
-
-    if (sharerUid) {
-        try {
-            const profiles = await getAllRelatedProfileInfo({ uid: sharerUid }, false);
-            sharerHandle = profiles?.account?.displayName || null;
-        } catch {
-            // Silent failure, don't affect OG image generation
-            sharerHandle = null;
-        }
-    }
+    const sharerHandle = await getSharerHandle(request.nextUrl.searchParams.get('s'));
 
     if (source === Source.Firefly) {
         const profiles = await getAllRelatedProfileInfo({ uid: id });

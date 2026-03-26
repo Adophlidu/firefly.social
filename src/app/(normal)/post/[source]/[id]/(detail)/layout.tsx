@@ -23,6 +23,7 @@ function getShareIdFromHeaders(headersList: Headers) {
 export async function generateMetadata(props: Props): Promise<Metadata> {
     const { source, id } = await props.params;
     const headersList = await headers();
+
     const s = getShareIdFromHeaders(headersList);
 
     return isSocialSourceInUrl(source)

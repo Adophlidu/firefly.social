@@ -17,10 +17,10 @@ import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
 import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
 import { getPublicUrl } from '@/helpers/getPublicUrl.js';
+import { getSharerHandle } from '@/helpers/getSharerHandle.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { resolveChainIcon } from '@/helpers/resolveChainIcon.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
-import { getAllRelatedProfileInfo } from '@/providers/firefly/endpoint/getAllRelatedProfileInfo.js';
 import { getSwapActivityByHash } from '@/providers/firefly/endpoint/getSwapActivityByHash.js';
 import { type SwapActivity } from '@/providers/types/Firefly.js';
 import { getSatoriFonts } from '@/services/getSatoriFonts.js';
@@ -286,20 +286,7 @@ export const GET = compose(withRequestErrorHandler(), async (request: NextReques
     const activity = await getSwapActivityByHash(hash, chainId);
     if (!activity) return createProxyImageResponse(getPublicUrl('/image/og.png'));
 
-    // Get sharer information
-    const searchParams = request.nextUrl.searchParams;
-    const sharerUid = searchParams.get('s');
-    let sharerHandle: string | null = null;
-
-    if (sharerUid) {
-        try {
-            const profiles = await getAllRelatedProfileInfo({ uid: sharerUid }, false);
-            sharerHandle = profiles?.account?.displayName || null;
-        } catch {
-            // Silent failure, don't affect OG image generation
-            sharerHandle = null;
-        }
-    }
+    const sharerHandle = await getSharerHandle(request.nextUrl.searchParams.get('s'));
 
     return createSwapOpenGraphImageResponse({ swap: activity, sharerHandle });
 });

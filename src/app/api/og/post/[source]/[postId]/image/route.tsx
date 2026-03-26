@@ -14,10 +14,10 @@ import { fetchImageAsBase64 } from '@/helpers/fetchAvatarAsBase64.js';
 import { getImageMetaFromUrl } from '@/helpers/getImageMetaFromUrl.js';
 import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
 import { getPublicUrl } from '@/helpers/getPublicUrl.js';
+import { getSharerHandle } from '@/helpers/getSharerHandle.js';
 import { removeCombiningCharacters } from '@/helpers/removeCombiningCharacters.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
-import { getAllRelatedProfileInfo } from '@/providers/firefly/endpoint/getAllRelatedProfileInfo.js';
 import { type Attachment, type Post } from '@/providers/types/SocialMedia.js';
 import { SocialSourceSchema } from '@/schemas/Source.js';
 import { getSatoriFonts } from '@/services/getSatoriFonts.js';
@@ -475,20 +475,7 @@ export const GET = compose(withRequestErrorHandler(), async (request: NextReques
     const post = await resolveSocialMediaProvider(source).getPostById(postId);
     if (!post) return createProxyImageResponse(getPublicUrl('/image/og.png'));
 
-    // Get sharer information
-    const searchParams = request.nextUrl.searchParams;
-    const sharerUid = searchParams.get('s');
-    let sharerHandle: string | null = null;
-
-    if (sharerUid) {
-        try {
-            const profiles = await getAllRelatedProfileInfo({ uid: sharerUid }, false);
-            sharerHandle = profiles?.account?.displayName || null;
-        } catch {
-            // Silent failure, don't affect OG image generation
-            sharerHandle = null;
-        }
-    }
+    const sharerHandle = await getSharerHandle(request.nextUrl.searchParams.get('s'));
 
     return new ImageResponse(await PostOpenGraphImage({ post, sharerHandle }), {
         width: 1200,

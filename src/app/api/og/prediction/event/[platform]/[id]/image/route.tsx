@@ -15,8 +15,8 @@ import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
 import { getPublicUrl } from '@/helpers/getPublicUrl.js';
 import { getSearchParamsWithZodSchema } from '@/helpers/getSearchParamsWithZodSchema.js';
+import { getSharerHandle } from '@/helpers/getSharerHandle.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
-import { getAllRelatedProfileInfo } from '@/providers/firefly/endpoint/getAllRelatedProfileInfo.js';
 import { getEventDetail } from '@/providers/firefly/prediction/getEventDetail.js';
 import { getBetsMarketPriceHistory } from '@/providers/prediction/getBetsMarketPriceHistory.js';
 import { getSatoriFonts } from '@/services/getSatoriFonts.js';
@@ -589,28 +589,14 @@ const SearchParamsSchema = z.object({
 
 export const GET = compose(withRequestErrorHandler(), async (request: NextRequest, context?: NextRequestContext) => {
     const { platform, id } = await getParamsWithZodSchema(ParamsSchema, context);
-    const { type } = getSearchParamsWithZodSchema(request, SearchParamsSchema);
     if (!id) return createProxyImageResponse(getPublicUrl('/image/og.png'));
 
-    const isMutil = type === 'multi';
+    const { type } = getSearchParamsWithZodSchema(request, SearchParamsSchema);
 
-    const event = await getEventDetail(platform, { id, isMutil });
+    const event = await getEventDetail(platform, { id, isMutil: type === 'multi' });
     if (!event) return createProxyImageResponse(getPublicUrl('/image/og.png'));
 
-    // Get sharer information
-    const searchParams = request.nextUrl.searchParams;
-    const sharerUid = searchParams.get('s');
-    let sharerHandle: string | null = null;
-
-    if (sharerUid) {
-        try {
-            const profiles = await getAllRelatedProfileInfo({ uid: sharerUid }, false);
-            sharerHandle = profiles?.account?.displayName || null;
-        } catch {
-            // Silent failure, don't affect OG image generation
-            sharerHandle = null;
-        }
-    }
+    const sharerHandle = await getSharerHandle(request.nextUrl.searchParams.get('s'));
 
     return createPredictionEventOgImageResponse({ event, platform, sharerHandle });
 });

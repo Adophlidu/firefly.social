@@ -3,7 +3,7 @@ import { BSKY_IMAGE_LIMITATION, BSKY_SHORT_POST_LIMIT, MAX_IMAGE_SIZE_PER_POST }
 import { readChars } from '@/helpers/chars.js';
 import { compressImage } from '@/helpers/compressImage.js';
 import { downloadMediaObjects } from '@/helpers/downloadMediaObjects.js';
-import { formatFireflyPostUrl } from '@/helpers/fireflyPostUrl.js';
+import { formatFireflyPostUrl } from '@/helpers/formatFireflyPostUrl.js';
 import { getCompositePost } from '@/helpers/getCompositePost.js';
 import { getVideoMetadata } from '@/helpers/getVideoMetadata.js';
 import { resolveImageUrl } from '@/helpers/resolveMediaObjectUrl.js';
