@@ -17,7 +17,6 @@ export enum ProviderFilter {
 }
 
 enum EventType {
-    Debug = 'debug',
     Access = 'access',
     Exit = 'exit',
     Interact = 'interact',
@@ -80,6 +79,9 @@ export enum EventId {
     TIPS_SEND_SUCCESS = 'tips_send_success', // ✅
     TIPS_SWITCH_RECIPIENT = 'tips_change_wallet_click', // ✅
     TIPS_SHARE_POST_SUCCESS = 'tips_share_success', // ✅
+
+    // share id
+    PAGE_LOAD_SHARE_ID_DETECTED = 'page_load_share_id_detected',
 
     // poll
     CREATE_ORB_POLL_SUCCESS = 'orb_poll_create_success',
@@ -571,6 +573,11 @@ export interface ComposeEventParameters {
 }
 
 export interface Events extends Record<EventId, Event> {
+    [EventId.PAGE_LOAD_SHARE_ID_DETECTED]: {
+        type: EventType.Interact;
+        parameters: {};
+    };
+
     [EventId.ACCOUNT_CREATE_SUCCESS]: {
         type: EventType.Interact;
         parameters: {

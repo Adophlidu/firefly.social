@@ -2,7 +2,7 @@
 
 import { envs, STATUS } from '@dimensiondev/envs';
 import { initGlobalErrorHandlers } from '@dimensiondev/exception-tracker';
-import { classNames } from '@dimensiondev/utils';
+import { bom, classNames } from '@dimensiondev/utils';
 import { isServer } from '@tanstack/react-query';
 import { memo, type ReactNode, useEffect, useLayoutEffect, useRef } from 'react';
 import { useEffectOnce } from 'react-use';
@@ -14,6 +14,8 @@ import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { logger } from '@/libs/Logger.js';
 import { configureErrorCapture } from '@/providers/errorCapture/configure.js';
+import { TelemetryProvider } from '@/providers/telemetry/index.js';
+import { EventId } from '@/providers/types/Telemetry.js';
 import { recordUserThemeMode } from '@/services/recordUserThemeMode.js';
 import { setupFirebaseFcmConnection } from '@/services/setupFirebaseFcmConnection.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
@@ -55,6 +57,11 @@ export const InitialProviders = memo(function Providers(props: { children: React
 
     useEffectOnce(() => {
         if (!viewerId) setViewerId(crypto.randomUUID());
+
+        const sid = new URLSearchParams(bom.location?.search).get('sid');
+        if (sid) {
+            void TelemetryProvider.captureEventInSafe(EventId.PAGE_LOAD_SHARE_ID_DETECTED, {});
+        }
 
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker

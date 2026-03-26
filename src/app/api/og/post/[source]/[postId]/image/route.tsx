@@ -475,7 +475,7 @@ export const GET = compose(withRequestErrorHandler(), async (request: NextReques
     const post = await resolveSocialMediaProvider(source).getPostById(postId);
     if (!post) return createProxyImageResponse(getPublicUrl('/image/og.png'));
 
-    const sharerHandle = await getSharerHandle(request.nextUrl.searchParams.get('s'));
+    const sharerHandle = await getSharerHandle(request.nextUrl.searchParams.get('sid'));
 
     return new ImageResponse(await PostOpenGraphImage({ post, sharerHandle }), {
         width: 1200,

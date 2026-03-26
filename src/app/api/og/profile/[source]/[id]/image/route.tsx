@@ -312,7 +312,7 @@ export const GET = compose(withRequestErrorHandler(), async (request: NextReques
     const { id, debug, source } = await getParamsWithZodSchema(ParamsSchema, context);
     if (!id || !source) return createProxyImageResponse(getPublicUrl('/image/og.png'));
 
-    const sharerHandle = await getSharerHandle(request.nextUrl.searchParams.get('s'));
+    const sharerHandle = await getSharerHandle(request.nextUrl.searchParams.get('sid'));
 
     if (source === Source.Firefly) {
         const profiles = await getAllRelatedProfileInfo({ uid: id });

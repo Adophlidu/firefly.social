@@ -17,17 +17,18 @@ interface Props extends LayoutProps<{ id: string; source: SocialSourceInURL }> {
 function getShareIdFromHeaders(headersList: Headers) {
     const url = headersList.get('X-URL');
     if (!url) return;
-    return parseUrl(url)?.searchParams.get('s') || '';
+
+    return parseUrl(url)?.searchParams.get('sid');
 }
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
     const { source, id } = await props.params;
     const headersList = await headers();
 
-    const s = getShareIdFromHeaders(headersList);
+    const sid = getShareIdFromHeaders(headersList);
 
-    return isSocialSourceInUrl(source)
-        ? createPostMetadata(source, id, `/post/${source}/${id}`, { s })
+    return isSocialSourceInUrl(source) && sid
+        ? createPostMetadata(source, id, `/post/${source}/${id}`, { sid })
         : createSiteMetadata(`/post/${source}/${id}`);
 }
 

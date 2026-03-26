@@ -45,6 +45,9 @@ export function getPublicParameters(eventId: string, previousEventId: string | n
         farcaster_id: farcasterProfile?.profileId,
         bsky_id: bskyProfile?.profileId,
 
+        // sharer firefly uid
+        sid: bom.location?.search ? new URLSearchParams(bom.location.search).get('sid') : undefined,
+
         activity:
             bom.location?.pathname?.startsWith('/events') || bom.location?.pathname?.startsWith('/event/')
                 ? bom.location.href

@@ -11,7 +11,7 @@ export function isFireflyPostUrl(url: string): boolean {
             return false;
         }
 
-        return FIREFLY_POST_URL_PATTERN.test(urlObj.pathname) && !!urlObj.searchParams.get('s');
+        return FIREFLY_POST_URL_PATTERN.test(urlObj.pathname) && !!urlObj.searchParams.get('sid');
     } catch {
         return false;
     }

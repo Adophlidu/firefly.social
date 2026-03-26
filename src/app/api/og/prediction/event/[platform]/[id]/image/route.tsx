@@ -596,7 +596,7 @@ export const GET = compose(withRequestErrorHandler(), async (request: NextReques
     const event = await getEventDetail(platform, { id, isMutil: type === 'multi' });
     if (!event) return createProxyImageResponse(getPublicUrl('/image/og.png'));
 
-    const sharerHandle = await getSharerHandle(request.nextUrl.searchParams.get('s'));
+    const sharerHandle = await getSharerHandle(request.nextUrl.searchParams.get('sid'));
 
     return createPredictionEventOgImageResponse({ event, platform, sharerHandle });
 });
