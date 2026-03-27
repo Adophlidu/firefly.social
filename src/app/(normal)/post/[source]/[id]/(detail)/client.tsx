@@ -11,6 +11,7 @@ import { PostStatistics } from '@/components/Actions/PostStatistics.js';
 import { QuickReply } from '@/components/Actions/QuickReply.js';
 import { ChannelInfo } from '@/components/Channel/ChannelInfo.js';
 import { CommentList } from '@/components/Comments/index.js';
+import { ErrorBoundary } from '@/components/ErrorBoundary/index.js';
 import { Loading } from '@/components/Loading.js';
 import { NoSSR } from '@/components/NoSSR.js';
 import NotFound from '@/components/NotFound.js';
@@ -105,15 +106,17 @@ export function PageDetail({ id: postId, source }: Props) {
             )}
             <Section title="Post Comments">
                 <NoSSR>
-                    <Suspense fallback={<Loading />}>
-                        <CommentList
-                            postId={post.postId}
-                            source={source}
-                            excludePostIds={
-                                allPosts.length >= MIN_POST_SIZE_PER_THREAD ? allPosts.map((x) => x.postId) : []
-                            }
-                        />
-                    </Suspense>
+                    <ErrorBoundary>
+                        <Suspense fallback={<Loading />}>
+                            <CommentList
+                                postId={post.postId}
+                                source={source}
+                                excludePostIds={
+                                    allPosts.length >= MIN_POST_SIZE_PER_THREAD ? allPosts.map((x) => x.postId) : []
+                                }
+                            />
+                        </Suspense>
+                    </ErrorBoundary>
                 </NoSSR>
             </Section>
             <PostDetailEffect post={post} />
