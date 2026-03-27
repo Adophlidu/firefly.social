@@ -19,8 +19,8 @@ export async function patchPostClientToFirefly<T extends Post | undefined>(post:
     return post;
 }
 
-export async function patchTweetsClientToFirefly(tweets: TweetV2[]) {
-    if (!tweets.length) return tweets;
+export async function patchTweetsClientToFirefly(tweets: TweetV2[] | undefined) {
+    if (!tweets?.length) return tweets || [];
     const postIds = tweets.map((post) => post.id);
     const postStates = await getPostsState(postIds);
     if (!postStates?.length) return tweets;
