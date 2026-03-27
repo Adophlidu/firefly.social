@@ -10,6 +10,8 @@ import { getSearchParamsWithZodSchema } from '@/helpers/getSearchParamsWithZodSc
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { type ExploreClubsResponse } from '@/providers/orb/type.js';
 
+export const runtime = 'edge';
+
 const ParamsSchema = z.object({
     category: z.enum(['TRENDING_CLUBS']),
     skip: z.coerce.number().default(0),

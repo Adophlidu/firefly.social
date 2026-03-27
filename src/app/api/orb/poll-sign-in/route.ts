@@ -10,6 +10,8 @@ import { getJsonBodyWithZodSchema } from '@/helpers/getJsonBodyWithZodSchema.js'
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { type PollSignInResponse } from '@/providers/orb/type.js';
 
+export const runtime = 'edge';
+
 const BodySchema = z.object({
     secret: z.string().min(1),
 });

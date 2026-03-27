@@ -8,6 +8,8 @@ import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { getBskyProfileById } from '@/providers/bsky/getBskyProfileById.js';
 import { type NextRequestContext } from '@/types/utility.js';
 
+export const runtime = 'edge';
+
 const ParamsSchema = z.object({ handle: z.string() });
 
 export const GET = compose(withRequestErrorHandler(), async (request: NextRequest, context?: NextRequestContext) => {

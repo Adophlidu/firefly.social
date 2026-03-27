@@ -7,6 +7,8 @@ import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { getSearchParamsWithZodSchema } from '@/helpers/getSearchParamsWithZodSchema.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 
+export const runtime = 'edge';
+
 const SearchParamsSchema = z.object({
     root_class: z.string(),
 });

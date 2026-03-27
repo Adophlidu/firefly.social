@@ -4,6 +4,8 @@ import { cookies } from 'next/headers.js';
 import { DeleteCookieScript, MaskDelegateCookieName } from '@/app/api/mask/delegate-x-token/shared.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 
+export const runtime = 'edge';
+
 export const GET = compose(withRequestErrorHandler(), async () => {
     (await cookies()).set(MaskDelegateCookieName, 'true', {
         path: '/api/auth/callback/twitter',

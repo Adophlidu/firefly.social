@@ -8,6 +8,8 @@ import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { getTwitterProfileByOG } from '@/providers/twitter/getTwitterProfileByOG.js';
 import { type NextRequestContext } from '@/types/utility.js';
 
+export const runtime = 'edge';
+
 const ParamsSchema = z.object({ username: z.string() });
 
 export const GET = compose(withRequestErrorHandler(), async (request: NextRequest, context?: NextRequestContext) => {

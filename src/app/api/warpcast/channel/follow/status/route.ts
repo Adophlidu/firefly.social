@@ -9,6 +9,8 @@ import { fetchJson } from '@/helpers/fetchJson.js';
 import { getSearchParamsWithZodSchema } from '@/helpers/getSearchParamsWithZodSchema.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 
+export const runtime = 'edge';
+
 const Schema = z.object({
     channelId: z.string(),
     fid: z.string(),

@@ -11,6 +11,8 @@ import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { getFarcasterProfilesByIds } from '@/providers/farcaster/getFarcasterProfilesByIds.js';
 import { type ChannelMembersResponse } from '@/providers/types/Warpcast.js';
 
+export const runtime = 'edge';
+
 const Schema = z.object({
     channelId: z.string(),
     limit: z.string().optional(),

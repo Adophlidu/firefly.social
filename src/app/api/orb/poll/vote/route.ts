@@ -11,6 +11,8 @@ import { getJsonBodyWithZodSchema } from '@/helpers/getJsonBodyWithZodSchema.js'
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { type VoteResultResponse } from '@/providers/orb/type.js';
 
+export const runtime = 'edge';
+
 const HeadersSchema = z.object({
     'x-access-token': z.string().min(1, 'No lens access token.'),
 });
