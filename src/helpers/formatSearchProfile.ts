@@ -36,7 +36,7 @@ function resolveAddressFromProfile(profile: FireflyProfile) {
 
 function fixProfilePlatform(profile: FireflyProfile): FireflyProfile | null {
     if (!validPlatforms.includes(profile.platform)) {
-        const walletAddress = ['ens', 'base.eth'].includes(profile.platform)
+        const walletAddress = ['ens', 'base.eth', 'sns', 'seekerid'].includes(profile.platform)
             ? resolveAddressFromProfile(profile)
             : profile.platform_id;
         if (!walletAddress || !isValidAddress(walletAddress)) return null;
@@ -96,6 +96,8 @@ function getMatchedProfile(
         identity.eth,
         identity.solana,
         identity['base.eth'],
+        identity.skr,
+        identity.sns,
     ]
         .flat()
         .find((x) => x?.hit);

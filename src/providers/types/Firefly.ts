@@ -383,7 +383,7 @@ export type SearchCastsResponse = Response<
 >;
 
 type SearchProfileListItem = Record<
-    SocialSourceInURL | 'eth' | 'solana' | 'ens' | 'account' | 'base.eth',
+    SocialSourceInURL | 'eth' | 'solana' | 'ens' | 'account' | 'base.eth' | 'sns' | 'skr',
     Profile[] | null
 >;
 
