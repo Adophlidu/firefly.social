@@ -1,8 +1,11 @@
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
 import { type MiniAppHost } from '@farcaster/miniapp-host';
+import { getAccount } from '@wagmi/core';
 
+import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { parseCAIP19 } from '@/helpers/parseCAIP19.js';
 import { logger } from '@/libs/Logger.js';
+import { SolanaNetwork } from '@/providers/solana/Network.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
 export const frameSwapToken = async function frameSwapToken(options) {
@@ -21,10 +24,22 @@ export const frameSwapToken = async function frameSwapToken(options) {
     const buyTokenAddress = buyToken?.reference;
     const sellTokenAddress = sellToken?.reference;
 
+    // Get external wallet addresses
+    const evmAccount = getAccount(wagmiConfig);
+    let solanaAddress: string | undefined;
+    try {
+        solanaAddress = await SolanaNetwork.getAccount();
+    } catch {
+        // Solana wallet not connected
+    }
+
     const params = new URLSearchParams();
+    params.set('entry', '1'); // Token detail entry
     params.set('chain', chainId.toString());
     if (sellTokenAddress) params.set('from', sellTokenAddress);
     if (buyTokenAddress) params.set('to', buyTokenAddress);
+    if (evmAccount.address) params.set('externalEvm', evmAccount.address);
+    if (solanaAddress) params.set('externalSolana', solanaAddress);
 
     const swapPath = `/swap?${params.toString()}`;
 

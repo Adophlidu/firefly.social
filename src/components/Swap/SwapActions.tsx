@@ -20,7 +20,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
 import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
-import { SwapButton } from '@/components/TokenProfile/SwapButton.js';
+import { SwapAccessPath, SwapButton } from '@/components/TokenProfile/SwapButton.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { Source, TxReactionType } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/static.js';
@@ -105,6 +105,7 @@ export const SwapActions = memo<SwapActionsProps>(function SwapActions({ activit
                 loginRequired
                 className="!ml-0 flex !rounded-lg !px-2 !py-1 !text-[12px] !font-medium !leading-5"
                 swapProps={{
+                    entry: SwapAccessPath.CopyTrade,
                     chainId: activity.chain_id,
                     fromToken: activity.from_token?.address,
                     toToken: activity.to_token?.address,
