@@ -37,7 +37,7 @@ export const rewritesConfig: NonNullable<NextConfig['rewrites']> = async () => {
 
     for (const [path, baseUrl] of routes) {
         rules.push(
-            { source: path, destination: `${baseUrl}${path}/` },
+            { source: path, destination: `${baseUrl}${path}` },
             { source: `${path}/:path*`, destination: `${baseUrl}${path}/:path*` },
         );
     }
