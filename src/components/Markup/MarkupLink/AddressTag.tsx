@@ -8,6 +8,7 @@ import { Source } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
+import { stopPropagation } from '@/helpers/stopEvent.js';
 import { fireflyWalletProvider } from '@/providers/firefly/Wallet.js';
 
 interface AddressTagProps extends Omit<MarkupLinkProps, 'post'> {
@@ -16,36 +17,34 @@ interface AddressTagProps extends Omit<MarkupLinkProps, 'post'> {
 }
 
 export const AddressTag = memo<AddressTagProps>(function AddressTag({ title, address }) {
-    const isEns = title.endsWith('.eth');
+    const isDomain = ['.eth', '.sol', '.skr'].some((t) => title.endsWith(t));
 
     const { data, isLoading } = useQuery({
         queryKey: ['detect-address', address.toLowerCase()],
         queryFn: () => fireflyWalletProvider.detectAddress(address),
-        enabled: !isEns,
+        enabled: !isDomain,
         select: (data) => data?.list[0],
     });
 
-    if ((!data || isLoading) && !isEns) return title;
+    if ((!data || isLoading) && !isDomain) return title;
 
     const addressType = data?.address_type;
 
-    if (addressType === 'eoa' || addressType === 'soa' || isEns) {
+    if (addressType === 'eoa' || addressType === 'soa' || isDomain) {
         return (
             <span className="inline-flex h-[18px] items-center gap-1">
                 <Image
                     className="inline size-[15px] shrink-0 rounded-full"
                     unoptimized
                     loading="lazy"
-                    src={getStampAvatarByProfileId(Source.Wallet, isEns ? title : address)}
+                    src={getStampAvatarByProfileId(Source.Wallet, isDomain ? title : address)}
                     alt=""
                     width={15}
                     height={15}
                 />
                 <Link
                     className="cursor-pointer text-highlight hover:underline"
-                    onClick={(e) => {
-                        e.stopPropagation();
-                    }}
+                    onClick={stopPropagation}
                     prefetch={false}
                     href={getProfileUrl({ source: Source.Wallet, profileId: address })}
                 >
