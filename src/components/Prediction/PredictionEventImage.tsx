@@ -42,7 +42,7 @@ export const PredictionEventImage = memo<PredictionEventImageProps>(function Pre
     if (useFireflyFallback) {
         return (
             <div
-                className={classNames('flex items-center justify-center bg-[#f2f2f2]', className)}
+                className={classNames('flex items-center justify-center rounded-lg bg-[#f2f2f2]', className)}
                 style={{
                     width,
                     height,
@@ -54,13 +54,23 @@ export const PredictionEventImage = memo<PredictionEventImageProps>(function Pre
     }
 
     return (
-        <Image
-            {...rest}
-            width={width}
-            height={height}
-            fallback={fallbackImageUrl}
-            className={classNames('object-left', className)}
-            onError={handleError}
-        />
+        <div
+            className={classNames('relative overflow-hidden rounded-lg', className)}
+            style={{
+                width,
+                height,
+            }}
+        >
+            <Image
+                unoptimized={false}
+                {...rest}
+                fill
+                quality={75}
+                className="object-cover"
+                fallback={fallbackImageUrl}
+                sizes="(max-width: 768px) 15vw, (max-width: 1400px) 10vw, 90px"
+                onError={handleError}
+            />
+        </div>
     );
 });

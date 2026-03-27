@@ -289,7 +289,7 @@ export const BetItem = memo(function BetItem({
                     platform={platform}
                     src={event.image || event.icon || ''}
                     alt={event.title}
-                    className="size-10 shrink-0 rounded-lg object-cover"
+                    className="shrink-0"
                     width={40}
                     height={40}
                 />

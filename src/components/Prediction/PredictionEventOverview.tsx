@@ -22,7 +22,6 @@ export function PredictionEventOverview({ detail, isActive }: PredictionEventOve
                     src={detail.image}
                     width={52}
                     height={52}
-                    className="size-[52px] rounded-lg object-cover"
                 />
             ) : null}
             <div className="min-w-0 flex-1">

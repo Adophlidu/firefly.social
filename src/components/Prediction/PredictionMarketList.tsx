@@ -104,7 +104,6 @@ export const PredictionMarketList = memo(function PredictionMarketList({
                                     alt={market.title}
                                     width={40}
                                     height={40}
-                                    className="size-10 rounded-lg object-cover"
                                 />
                             ) : null}
                             <div className="min-w-0 flex-1 text-left">

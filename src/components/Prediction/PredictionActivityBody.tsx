@@ -55,7 +55,7 @@ export const PredictionActivityBody = memo<PredictionActivityBodyProps>(function
                         alt={activity.title}
                         width={24}
                         height={24}
-                        className="size-6 shrink-0 rounded-lg"
+                        className="shrink-0"
                         src={activity.image}
                     />
                     <span className="line-clamp-2 text-sm font-semibold leading-6 text-lightMain">{displayTitle}</span>
