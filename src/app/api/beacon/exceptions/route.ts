@@ -7,6 +7,8 @@ import { EXCEPTION_TRACKER_URL } from '@/constants/static.js';
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 
+export const runtime = 'edge';
+
 // Headers that should not be forwarded to the upstream tracker
 const EXCLUDED_HEADERS = new Set([
     'host',
