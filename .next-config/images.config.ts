@@ -1,0 +1,31 @@
+import type { NextConfig } from 'next';
+
+export const imagesConfig: NextConfig['images'] = {
+    dangerouslyAllowSVG: false,
+    unoptimized: process.env.NODE_ENV === 'development',
+    remotePatterns: [
+        { hostname: 'images.unsplash.com' },
+        { hostname: 'tailwindui.com' },
+        { hostname: 'pbs.twimg.com' },
+        { hostname: 'static-assets.hey.xyz' },
+        { hostname: 'gw.ipfs-lens.dev' },
+        { hostname: 'cdn.stamp.fyi' },
+        { hostname: 'i.imgur.com' },
+        { hostname: 'ik.imagekit.io' },
+        { hostname: '*.mask.social' },
+        { hostname: '*.firefly.social' },
+        { protocol: 'https', hostname: 'pbs.twimg.com' },
+        { protocol: 'https', hostname: 'abs.twimg.com' },
+        { hostname: '*.giphy.com' },
+        { hostname: 'static.debank.com' },
+        { protocol: 'https', hostname: 'ipfs.io' },
+        { protocol: 'https', hostname: '*.firefly.land' },
+        { hostname: 'imagedelivery.net' },
+        { protocol: 'https', hostname: 'coin-images.coingecko.com' },
+        { hostname: 'raw.githubusercontent.com' },
+        { hostname: 'assets.coingecko.com' },
+        { hostname: 'cdn.simplehash.com' },
+        { protocol: 'https', hostname: '*.amazonaws.com' },
+        { protocol: 'https', hostname: 'images.opinion.trade' },
+    ],
+};

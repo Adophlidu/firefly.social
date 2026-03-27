@@ -1,6 +1,7 @@
 {
     "extends": "./tsconfig.json",
     "include": [
+        ".next-config/**/*.ts",
         "globals.d.ts",
         "next-auth.d.ts",
         ".storybook/**/*.ts",
