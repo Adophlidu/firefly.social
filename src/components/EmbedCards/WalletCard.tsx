@@ -17,6 +17,7 @@ import { NetworkType, type ProfilePageSource, Source } from '@/constants/enum.js
 import { Link } from '@/esm/Link.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
+import { getEnsNameFromWalletProfile } from '@/helpers/getEnsNameFromWalletProfile.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
@@ -112,7 +113,7 @@ export const WalletCard = memo<AddressCardProps>(function WalletCard({ address, 
                             />
                         ) : null}
                         <Link href={profileUrl} className="text-lg font-bold leading-6 text-main hover:underline">
-                            {walletProfile.primary_ens || <Trans>Wallet</Trans>}
+                            {getEnsNameFromWalletProfile(walletProfile) || <Trans>Wallet</Trans>}
                         </Link>
                         {walletSecurity ? <SecurityBadge security={walletSecurity} /> : null}
                     </div>
