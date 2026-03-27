@@ -1,17 +1,22 @@
 import { skipToken, useQueries, useQuery } from '@tanstack/react-query';
 import { type Address } from 'viem';
-import { mainnet } from 'viem/chains';
-import { type GetEnsAddressParameters } from 'wagmi/actions';
 
+import { EnsNameSource } from '@/constants/enum.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { createDeduplicatedFetch } from '@/helpers/createDeduplicatedFetch.js';
-import { lookup } from '@/services/ens.js';
+import { fetchAddressByEnsName } from '@/services/fetchAddressByEnsName.js';
 
 const deduplicated = createDeduplicatedFetch<string | null>();
 
-async function fetchEnsAddress(parameters: GetEnsAddressParameters) {
-    const chainId = parameters.chainId || mainnet.id;
-    return deduplicated(`${parameters.name}-${chainId}`, () => lookup(parameters.name));
+function resolveEnsNameSource(name: string): EnsNameSource {
+    if (name.endsWith('.base.eth')) return EnsNameSource.Base;
+    if (name.endsWith('.sol')) return EnsNameSource.Sns;
+    if (name.endsWith('.skr')) return EnsNameSource.Skr;
+    return EnsNameSource.Eth;
+}
+
+async function fetchEnsAddress(name: string, nameSource: EnsNameSource) {
+    return deduplicated(`${nameSource}-${name}`, () => fetchAddressByEnsName(name, nameSource));
 }
 
 export function useEnsAddress(name?: string, enabled = true) {
@@ -23,10 +28,7 @@ export function useEnsAddress(name?: string, enabled = true) {
         queryFn: !name
             ? skipToken
             : async () => {
-                  const address = await fetchEnsAddress({
-                      name,
-                      chainId: mainnet.id,
-                  });
+                  const address = await fetchEnsAddress(name, resolveEnsNameSource(name));
                   return address as Address;
               },
     });
@@ -42,10 +44,7 @@ export function useEnsAddresses(names?: string[], enabled = true) {
             queryFn: !name
                 ? skipToken
                 : async () => {
-                      const address = await fetchEnsAddress({
-                          name,
-                          chainId: mainnet.id,
-                      });
+                      const address = await fetchEnsAddress(name, resolveEnsNameSource(name));
                       return address as Address | null;
                   },
         })),

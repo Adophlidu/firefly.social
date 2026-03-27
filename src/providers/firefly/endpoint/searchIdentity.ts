@@ -1,4 +1,5 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { uniq } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { type SocialSource, type SourceInURL } from '@/constants/enum.js';
@@ -26,6 +27,7 @@ const allWeb3Platforms = [
 interface Options {
     platforms?: SocialSource[];
     excludes?: SocialSource[];
+    web3Platforms?: string[];
     size?: number;
     indicator?: PageIndicator;
     signal?: AbortSignal;
@@ -33,9 +35,8 @@ interface Options {
 
 export async function searchIdentity(
     keyword: string,
-    { platforms, excludes, size = 100, indicator, signal }: Options = {},
+    { platforms, excludes, web3Platforms, size = 100, indicator, signal }: Options = {},
 ) {
-    let platform: string | undefined = undefined;
     let sources: SourceInURL[] = EMPTY_LIST;
     if (platforms?.length) {
         sources = platforms.map((x) => resolveSourceInUrlForApi(x));
@@ -46,14 +47,15 @@ export async function searchIdentity(
             ? sources.filter((x) => !excluded.includes(x))
             : (allWeb3Platforms.filter((x) => !excluded.includes(x as SourceInURL)) as SourceInURL[]);
     }
-    if (sources.length && sources.length !== allWeb3Platforms.length) {
-        platform = sources.join(',');
-    }
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/search/identity', {
         keyword,
         size,
         cursor: indicator?.id,
-        platform,
+        platform:
+            uniq([
+                ...(sources.length && sources.length !== allWeb3Platforms.length ? sources : []),
+                ...(web3Platforms || []),
+            ]).join(',') || undefined,
     });
     const response = await fireflySessionHolder.fetch<SearchProfileResponse>(url, {
         signal,

@@ -703,3 +703,10 @@ export enum DraftPostType {
     LocalTemp = 'local_temp',
     Cloud = 'cloud',
 }
+
+export enum EnsNameSource {
+    Eth = 'ens',
+    Base = 'base.eth',
+    Sns = 'sns',
+    Skr = 'seekerid',
+}

@@ -46,7 +46,7 @@ export const TWEET_REGEX = /https:\/\/(x\.com|twitter\.com)\/([a-zA-Z0-9_]*)\/st
 export const LENS_HANDLE_REGEXP = /^[a-zA-Z_][a-zA-Z0-9_]{2,26}\.lens$/;
 
 export const ENS_REGEXP = /(^|\s)(([a-zA-Z0-9_-]{1,256}\.)+eth)\b/g;
-export const FULL_ENS_REGEXP = /^(([a-zA-Z0-9_-]{1,256}\.)+eth)$/;
+export const FULL_ENS_REGEXP = /^(([a-zA-Z0-9_-]{1,256}\.)+(eth|base\.eth|sol|skr))$/;
 
 export const NUMERIC_INPUT_REGEXP_PATTERN = '^[1-9]|^0(?![0-9])[.,。]?[0-9]*$';
 

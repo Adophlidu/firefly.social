@@ -6,6 +6,7 @@ import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { isSocialSource } from '@/helpers/isSource.js';
 import { isValidAddress } from '@/helpers/isValidAddress.js';
 import { isZeroAddress } from '@/helpers/isZeroAddress.js';
+import { resolveAddressFromProfile } from '@/helpers/resolveAddressFromProfile.js';
 import { resolveFireflyPlatform } from '@/helpers/resolveFireflyPlatform.js';
 import { resolveSocialSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
@@ -19,20 +20,6 @@ const validPlatforms = [
     FireflyPlatform.Bsky,
     FireflyPlatform.Firefly,
 ];
-
-/**
- * For searching ens, resolves wallet address from various possible fields in a Firefly profile
- */
-function resolveAddressFromProfile(profile: FireflyProfile) {
-    const keys = ['resolved_address', 'registrant', 'owner', 'wrapped_owner', 'owner_address'] as const;
-
-    for (const key of keys) {
-        const address = profile[key];
-        if (typeof address === 'string' && isValidAddress(address) && !isZeroAddress(address)) return address;
-    }
-
-    return null;
-}
 
 function fixProfilePlatform(profile: FireflyProfile): FireflyProfile | null {
     if (!validPlatforms.includes(profile.platform)) {
