@@ -53,8 +53,12 @@ export const PredictionMarketList = memo(function PredictionMarketList({
     const { marketId, setMarketId } = use(PredictionContext);
     const { displayedMarkets, showMore, toggleType, setShowMore } = useToggleMarkets(markets);
 
+    const supportOrderBook = PLATFORMS_SUPPORTING_ORDER_BOOK.includes(platform);
+    const disabled = displayedMarkets.length === 1 && !supportOrderBook;
     const onMarketClick = useCallback(
         (market: BetsMarketDataForUI) => {
+            if (disabled) return;
+
             // Track market click for Polymarket
             if (platform === PredictionPlatform.Polymarket && eventSlug && eventTitle) {
                 capturePolymarketEventMarketClick(eventSlug, eventTitle, market.slug || market.id, market.title);
@@ -62,10 +66,9 @@ export const PredictionMarketList = memo(function PredictionMarketList({
 
             setMarketId(market.id === marketId ? null : market.id);
         },
-        [marketId, platform, setMarketId, eventSlug, eventTitle],
+        [marketId, platform, setMarketId, eventSlug, eventTitle, disabled],
     );
 
-    const supportOrderBook = PLATFORMS_SUPPORTING_ORDER_BOOK.includes(platform);
     const firstMarket = markets[0];
     if (markets.length === 1 && supportOrderBook && !firstMarket.isResolved && !firstMarket.isClosed) {
         return (
@@ -86,14 +89,13 @@ export const PredictionMarketList = memo(function PredictionMarketList({
                 const actionEnabled = !market.isResolved && !market.isClosed;
                 const isGreen = market.resolvedOutcomeId === market.outcomes[0]?.id;
                 const resolvedLabel = market.outcomes.find((o) => o.id === market.resolvedOutcomeId)?.label;
-                const showOrderBook = true;
 
                 return (
                     <div key={market.id} className="space-y-3">
                         <ClickableButton
                             className={classNames(
                                 'flex w-full items-start gap-2',
-                                showOrderBook ? 'cursor-pointer' : 'cursor-text',
+                                !disabled ? 'cursor-pointer' : 'cursor-text',
                             )}
                             onClick={() => onMarketClick(market)}
                         >
@@ -108,7 +110,7 @@ export const PredictionMarketList = memo(function PredictionMarketList({
                             ) : null}
                             <div className="min-w-0 flex-1 text-left">
                                 <div className="text-base font-semibold text-main">
-                                    <span className={showOrderBook ? 'hover:underline' : 'cursor-text'}>
+                                    <span className={!disabled ? 'hover:underline' : 'cursor-text'}>
                                         {market.title}
                                     </span>
                                 </div>
@@ -166,7 +168,7 @@ export const PredictionMarketList = memo(function PredictionMarketList({
                         {actionEnabled && platform === PredictionPlatform.Polymarket ? (
                             <PredictionMarketBuyButtons showPrice platform={platform} market={market} />
                         ) : null}
-                        {showOrderBook && marketId === market.id ? (
+                        {!disabled && marketId === market.id ? (
                             <PredictionSingleMarketTab key={market.id} market={market} platform={platform} />
                         ) : null}
                     </div>
