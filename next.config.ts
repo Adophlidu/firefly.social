@@ -3,6 +3,7 @@
 import createBundleAnalyzer from '@next/bundle-analyzer';
 import StatoscopeWebpackPlugin from '@statoscope/webpack-plugin';
 import { execSync } from 'child_process';
+import { existsSync, readFileSync } from 'fs';
 import { createRequire } from 'module';
 import { type NextConfig } from 'next';
 import { resolve } from 'path';
@@ -26,6 +27,14 @@ const svgrOptions = {
         ],
     },
 };
+type DeploymentTier = 'production' | 'canary' | 'staging';
+
+function getDeploymentTier(): DeploymentTier {
+    if (process.env.VERCEL_ENV === 'production') return 'production';
+    if (process.env.VERCEL_GIT_COMMIT_REF?.startsWith('bump-version-')) return 'canary';
+    return 'staging';
+}
+
 const config: NextConfig = {
     productionBrowserSourceMaps: false,
 
@@ -154,37 +163,35 @@ const config: NextConfig = {
         ];
     },
     async rewrites() {
+        const tier = getDeploymentTier();
         const rules: Array<{ source: string; destination: string }> = [];
 
-        const iframeRewrites: Array<{ path: string; destination: string }> = (() => {
-            if (!process.env.IFRAME_REWRITES) return [];
-            try {
-                const parsed: unknown = JSON.parse(process.env.IFRAME_REWRITES);
-                if (!Array.isArray(parsed)) {
-                    console.error('[next.config] IFRAME_REWRITES must be a JSON array');
-                    return [];
-                }
-                for (const item of parsed) {
-                    if (!item?.path || !item?.destination) {
-                        console.error(`[next.config] Invalid entry in IFRAME_REWRITES: ${JSON.stringify(item)}`);
-                        return [];
-                    }
-                }
-                return parsed;
-            } catch {
-                console.error('[next.config] Failed to parse IFRAME_REWRITES as JSON');
-                return [];
-            }
-        })();
+        // Route table from rewrite.config.json — maps path prefixes to per-environment destinations.
+        // Format: { "/path": { "staging": "https://...", "canary": "https://...", "production": "https://..." } }
+        const proxyRoutes: Record<string, Record<DeploymentTier, string>> = JSON.parse(
+            readFileSync(resolve(import.meta.dirname, 'rewrite.config.json'), 'utf-8'),
+        );
 
-        // Backward compatibility: migrate old WALLET_IFRAME_REWRITE env var (remove after migration)
-        if (process.env.WALLET_IFRAME_REWRITE) {
-            iframeRewrites.push({ path: '/wallet-iframe', destination: process.env.WALLET_IFRAME_REWRITE });
+        const routeMap = new Map<string, string>();
+        for (const [path, destinations] of Object.entries(proxyRoutes)) {
+            routeMap.set(path, destinations[tier]);
         }
 
-        for (const { path, destination } of iframeRewrites) {
-            const baseUrl = destination.replace(/\/:path\*$/, '');
-            rules.push({ source: path, destination: `${baseUrl}/` }, { source: `${path}/:path*`, destination });
+        // Local-dev overrides from rewrite.config.dev.json (git-ignored).
+        // Format: { "/path": "http://localhost:PORT" } — only the paths you want to override.
+        const devConfigPath = resolve(import.meta.dirname, 'rewrite.config.dev.json');
+        if (existsSync(devConfigPath)) {
+            const devOverrides: Record<string, string> = JSON.parse(readFileSync(devConfigPath, 'utf-8'));
+            for (const [path, destination] of Object.entries(devOverrides)) {
+                routeMap.set(path, destination);
+            }
+        }
+
+        for (const [path, baseUrl] of routeMap) {
+            rules.push(
+                { source: path, destination: `${baseUrl}/` },
+                { source: `${path}/:path*`, destination: `${baseUrl}/:path*` },
+            );
         }
 
         return rules;
