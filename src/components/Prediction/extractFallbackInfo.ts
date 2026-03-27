@@ -10,6 +10,7 @@ interface FallbackInfo {
     name?: string;
     avatar?: string;
     profileId?: string;
+    handle?: string;
     source?: FallbackInfoSource;
 }
 
@@ -40,6 +41,7 @@ export function extractFallbackInfo(
                 if (!farcasterProfile) continue;
                 return {
                     name: farcasterProfile.display_name || farcasterProfile.username,
+                    handle: farcasterProfile.username,
                     avatar: farcasterProfile.avatar?.url,
                     profileId: farcasterProfile.fid.toString(),
                     source: Source.Farcaster,
@@ -49,6 +51,7 @@ export function extractFallbackInfo(
                 if (!twitterProfile) continue;
                 return {
                     name: twitterProfile.handle,
+                    handle: twitterProfile.handle,
                     avatar: getStampAvatarByProfileId(Source.Twitter, twitterProfile.twitter_id),
                     profileId: twitterProfile.twitter_id,
                     source: Source.Twitter,
@@ -58,6 +61,7 @@ export function extractFallbackInfo(
                 if (!lensV3Profile) continue;
                 return {
                     name: lensV3Profile.localName || lensV3Profile.fullHandle,
+                    handle: lensV3Profile.localName,
                     avatar: getStampAvatarByProfileId(Source.Lens, lensV3Profile.id),
                     profileId: lensV3Profile.id,
                     source: Source.Lens,
@@ -67,6 +71,7 @@ export function extractFallbackInfo(
                 if (!bskyProfile) continue;
                 return {
                     name: bskyProfile.handle,
+                    handle: bskyProfile.handle,
                     avatar: getStampAvatarByProfileId(Source.Bsky, bskyProfile.did),
                     profileId: bskyProfile.did,
                     source: Source.Bsky,

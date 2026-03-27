@@ -37,7 +37,7 @@ interface PredictionProfileOverviewProps {
 export function PredictionProfileOverview({ profile, platform, address }: PredictionProfileOverviewProps) {
     const isOpinion = platform === PredictionPlatform.Opinion;
 
-    const { name, avatar, source, socialProfile } = usePredictionProfileData({
+    const { name, avatar, source, socialProfile, handle } = usePredictionProfileData({
         platform,
         address,
         fallbackInfo: { name: profile.platform_name, avatar: profile.platform_avatar },
@@ -122,7 +122,10 @@ export function PredictionProfileOverview({ profile, platform, address }: Predic
         ]);
     }, [address, profile, isOpinion, platform]);
 
-    const profileUrl = resolveProfileUrl(Source.Wallet, profile.wallet || profile.proxy);
+    const profileUrl =
+        isSocialSource(source) && handle
+            ? resolveProfileUrl(source, handle)
+            : resolveProfileUrl(Source.Wallet, profile.wallet || profile.proxy);
 
     const handleWalletProfileClick = () => {
         const isFireflyUser = !!socialProfile?.account;

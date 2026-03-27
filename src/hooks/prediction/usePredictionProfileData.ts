@@ -19,6 +19,7 @@ export function usePredictionProfileData({ platform, address, fallbackInfo }: Op
     const {
         name: socialName,
         avatar: socialAvatar,
+        handle,
         source,
         profileId,
     } = useMemo(() => {
@@ -38,6 +39,7 @@ export function usePredictionProfileData({ platform, address, fallbackInfo }: Op
         profileId,
         isLoading,
         socialProfile,
+        handle,
         name: socialName || fallbackInfo?.name,
         avatar: socialAvatar || fallbackInfo?.avatar,
     };
