@@ -1,47 +1,47 @@
 {
     "/particle-recovery": {
-        "staging": "https://firefly-particle-recovery-dimension-dev.vercel.app",
-        "canary": "https://firefly-particle-recovery-dimension-dev.vercel.app",
-        "production": "https://firefly-particle-recovery-dimension-dev.vercel.app"
+        "staging": "https://firefly-particle-recovery-dimension-dev.vercel.app/particle-recovery",
+        "canary": "https://firefly-particle-recovery-dimension-dev.vercel.app/particle-recovery",
+        "production": "https://firefly-particle-recovery-dimension-dev.vercel.app/particle-recovery"
     },
     "/wallet-iframe": {
-        "staging": "https://firefly-wallet-git-main-dimension-dev.vercel.app",
-        "canary": "https://firefly-wallet-git-canary-dimension-dev.vercel.app",
-        "production": "https://wallet.firefly.social"
+        "staging": "https://firefly-wallet-git-main-dimension-dev.vercel.app/wallet-iframe/",
+        "canary": "https://firefly-wallet-git-canary-dimension-dev.vercel.app/wallet-iframe/",
+        "production": "https://wallet.firefly.social/wallet-iframe/"
     },
     "/masko-iframe": {
-        "staging": "https://firefly-chatbot-masko-git-main-dimension-dev.vercel.app",
-        "canary": "https://firefly-chatbot-masko-git-canary-dimension-dev.vercel.app",
-        "production": "https://firefly-chatbot-masko.vercel.app"
+        "staging": "https://firefly-chatbot-masko-git-main-dimension-dev.vercel.app/masko-iframe",
+        "canary": "https://firefly-chatbot-masko-git-canary-dimension-dev.vercel.app/masko-iframe",
+        "production": "https://firefly-chatbot-masko.vercel.app/masko-iframe"
     },
     "/prophet-iframe": {
-        "staging": "https://firefly-prophet.vercel.app",
-        "canary": "https://firefly-prophet.vercel.app",
-        "production": "https://prophet.firefly.social"
+        "staging": "https://firefly-prophet.vercel.app/prophet-iframe",
+        "canary": "https://firefly-prophet.vercel.app/prophet-iframe",
+        "production": "https://prophet.firefly.social/prophet-iframe"
     },
     "/sparks-iframe": {
-        "staging": "https://firefly-sparks.vercel.app",
-        "canary": "https://firefly-sparks.vercel.app",
-        "production": "https://firefly-sparks.vercel.app"
+        "staging": "https://firefly-sparks.vercel.app/sparks-iframe",
+        "canary": "https://firefly-sparks.vercel.app/sparks-iframe",
+        "production": "https://firefly-sparks.vercel.app/sparks-iframe"
     },
     "/mystery-box-iframe": {
-        "staging": "https://firefly-mystery-box.vercel.app",
-        "canary": "https://mystery-box.firefly.social",
-        "production": "https://mystery-box.firefly.social"
+        "staging": "https://firefly-mystery-box.vercel.app/mystery-box-iframe",
+        "canary": "https://mystery-box.firefly.social/mystery-box-iframe",
+        "production": "https://mystery-box.firefly.social/mystery-box-iframe"
     },
     "/about": {
-        "staging": "https://about-firefly-social.vercel.app",
-        "canary": "https://about-firefly-social.vercel.app",
-        "production": "https://about-firefly-social.vercel.app"
+        "staging": "https://about-firefly-social.vercel.app/about",
+        "canary": "https://about-firefly-social.vercel.app/about",
+        "production": "https://about-firefly-social.vercel.app/about"
     },
     "/chat": {
-        "staging": "https://firefly-chatbot-git-main-dimension-dev.vercel.app",
-        "canary": "https://firefly-chatbot-git-canary-dimension-dev.vercel.app",
-        "production": "https://chat.firefly.social"
+        "staging": "https://firefly-chatbot-git-main-dimension-dev.vercel.app/chat",
+        "canary": "https://firefly-chatbot-git-canary-dimension-dev.vercel.app/chat",
+        "production": "https://chat.firefly.social/chat"
     },
     "/sitemap": {
-        "staging": "https://firefly-sitemap.pages.dev",
-        "canary": "https://firefly-sitemap.pages.dev",
-        "production": "https://firefly-sitemap.pages.dev"
+        "staging": "https://firefly-sitemap.pages.dev/sitemap",
+        "canary": "https://firefly-sitemap.pages.dev/sitemap",
+        "production": "https://firefly-sitemap.pages.dev/sitemap"
     }
 }

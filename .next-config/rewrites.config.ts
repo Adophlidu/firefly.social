@@ -14,8 +14,9 @@ export const rewritesConfig: NonNullable<NextConfig['rewrites']> = async () => {
     const tier = getDeploymentTier();
     const rules: Array<{ source: string; destination: string }> = [];
 
-    // Route table from rewrite.config.json — maps path prefixes to per-environment destinations.
-    // Format: { "/path": { "staging": "https://...", "canary": "https://...", "production": "https://..." } }
+    // Route table from rewrite.config.json — maps path prefixes to full per-environment destination URLs.
+    // Format: { "/path": { "staging": "https://host/path", "canary": "https://host/path/", ... } }
+    // Destinations include the full path and trailing slash as required by the target app.
     const proxyRoutes: Record<string, Record<DeploymentTier, string>> = JSON.parse(
         readFileSync(resolve(import.meta.dirname, 'rewrite.config.json'), 'utf-8'),
     );
@@ -26,7 +27,7 @@ export const rewritesConfig: NonNullable<NextConfig['rewrites']> = async () => {
     }
 
     // Local-dev overrides from .next-config/rewrite.config.dev.json (git-ignored).
-    // Format: { "/path": "http://localhost:PORT" } — only the paths you want to override.
+    // Format: { "/path": "http://localhost:PORT/path" } — full destination URL for the paths you want to override.
     const devConfigPath = resolve(import.meta.dirname, 'rewrite.config.dev.json');
     if (existsSync(devConfigPath)) {
         const devOverrides: Record<string, string> = JSON.parse(readFileSync(devConfigPath, 'utf-8'));
@@ -35,11 +36,9 @@ export const rewritesConfig: NonNullable<NextConfig['rewrites']> = async () => {
         }
     }
 
-    for (const [path, baseUrl] of routes) {
-        rules.push(
-            { source: path, destination: `${baseUrl}${path}` },
-            { source: `${path}/:path*`, destination: `${baseUrl}${path}/:path*` },
-        );
+    for (const [path, destination] of routes) {
+        const base = destination.replace(/\/$/, '');
+        rules.push({ source: path, destination }, { source: `${path}/:path*`, destination: `${base}/:path*` });
     }
 
     return rules;
