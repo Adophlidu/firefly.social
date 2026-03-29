@@ -21,6 +21,7 @@ export enum EthereumChainId {
     ZksyncEra = 324,
     Linea = 59144,
     Plasma = 9745,
+    Blast = 81457,
 }
 
 export enum EthereumSchemaType {
@@ -104,6 +105,7 @@ export enum EthereumNetworkType {
     Fantom = 'Fantom',
     Aurora = 'Aurora',
     Avalanche = 'Avalanche',
+    Blast = 'Blast',
     Metis = 'Metis',
     Mantle = 'Mantle',
     Optimism = 'Optimism',
