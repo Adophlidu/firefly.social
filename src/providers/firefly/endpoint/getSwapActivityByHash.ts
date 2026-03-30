@@ -24,5 +24,19 @@ export async function getSwapActivityByHash(hash: string, chainId: number) {
     const data = resolveFireflyResponseData(response);
 
     const result = first(data);
+
+    // fallback to realtime data if not found
+    if (!result) {
+        const realtimeResponse = await fireflySessionHolder.fetch<SwapActivityDetail>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                list: [{ hash, chain_id: chainId }],
+                is_realtime: true,
+            }),
+        });
+        const realtimeData = resolveFireflyResponseData(realtimeResponse);
+        return first(realtimeData);
+    }
+
     return result;
 }

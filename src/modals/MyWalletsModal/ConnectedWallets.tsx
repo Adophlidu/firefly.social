@@ -1,7 +1,9 @@
 import { envs, STATUS } from '@dimensiondev/envs';
 import { Trans } from '@lingui/react/macro';
-import { memo, useCallback } from 'react';
+import { compact } from 'lodash-es';
+import { memo, useCallback, useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
+import { useConnection, useConnections } from 'wagmi';
 
 import FireflyIcon from '@/assets/firefly.round.svg';
 import PlusIcon from '@/assets/plus.svg';
@@ -9,8 +11,10 @@ import WalletIcon from '@/assets/wallet.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { appkit } from '@/configs/appkit.js';
-import { ConnectionSource } from '@/constants/enum.js';
-import { useAppKitAccounts, usePrivyAppKitAccounts } from '@/hooks/useAppKitAccounts.js';
+import { PRIVY_CONNECTOR_ID } from '@/connectors/PrivyConnector.js';
+import { ConnectionSource, NetworkType } from '@/constants/enum.js';
+import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
+import { type AppKitAccount, useAppKitAccounts, usePrivyAppKitAccounts } from '@/hooks/useAppKitAccounts.js';
 import { useIsCreatedPrivyWallet } from '@/hooks/useIsCreatedPrivyWallet.js';
 import { AppKitAccountItem } from '@/modals/MyWalletsModal/AppKitAccountItem.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/refs.js';
@@ -86,6 +90,37 @@ interface ConnectedWalletsProps {
 export const ConnectedWallets = memo(function ConnectedWallets({ onOpenWallets }: ConnectedWalletsProps) {
     const walletAccounts = useAppKitAccounts();
     const appkitAccounts = walletAccounts.filter((x) => x.source === ConnectionSource.Appkit);
+    const currentWagmiConnection = useConnection();
+
+    // Also show wagmi auto-connected wallets (e.g. OKX browser extension) that
+    // AppKit may not know about due to a race condition during initialization.
+    const wagmiConnections = useConnections();
+    const knownAddresses = useMemo(() => new Set(appkitAccounts.map((a) => a.address.toLowerCase())), [appkitAccounts]);
+    const wagmiOnlyAccounts = useMemo<AppKitAccount[]>(() => {
+        if (!wagmiConnections.length) return [];
+        return compact(
+            wagmiConnections
+                .filter((c) => c.connector.id !== PRIVY_CONNECTOR_ID)
+                .flatMap((connection) =>
+                    connection.accounts.map((address) => {
+                        if (knownAddresses.has(address.toLowerCase())) return null;
+                        return {
+                            address,
+                            network: NetworkType.Ethereum,
+                            connected:
+                                currentWagmiConnection.isConnected &&
+                                isSameEthereumAddress(currentWagmiConnection.address, address),
+                            namespace: 'eip155' as const,
+                            source: ConnectionSource.Appkit,
+                            connectorId: connection.connector.id,
+                            walletIcon: connection.connector.icon,
+                        } satisfies AppKitAccount;
+                    }),
+                ),
+        );
+    }, [wagmiConnections, knownAddresses, currentWagmiConnection.address, currentWagmiConnection.isConnected]);
+
+    const allAccounts = useMemo(() => [...appkitAccounts, ...wagmiOnlyAccounts], [appkitAccounts, wagmiOnlyAccounts]);
 
     const [{ loading }, openWallets] = useAsyncFn(async () => {
         appkit.updateRemoteFeatures({ multiWallet: true });
@@ -110,12 +145,12 @@ export const ConnectedWallets = memo(function ConnectedWallets({ onOpenWallets }
                     </span>
                     {loading ? <LoadingIcon size={20} /> : <PlusIcon width={20} height={20} />}
                 </ClickableButton>
-                {!appkitAccounts.length ? (
+                {!allAccounts.length ? (
                     <div className="flex h-20 items-center justify-center text-sm text-secondary">
                         <Trans>No connected wallet.</Trans>
                     </div>
                 ) : (
-                    appkitAccounts.map((walletAccount) => {
+                    allAccounts.map((walletAccount) => {
                         return (
                             <AppKitAccountItem
                                 key={`appkit-${walletAccount.network}-${walletAccount.address}`}
