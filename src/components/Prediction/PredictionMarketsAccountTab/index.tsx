@@ -2,7 +2,7 @@
 
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { skipToken, useQuery } from '@tanstack/react-query';
-import { compact } from 'lodash-es';
+import { compact, first } from 'lodash-es';
 import { memo, useMemo, useState } from 'react';
 
 import { MarketsAccountDataTab } from '@/components/Prediction/PredictionMarketsAccountTab/MarketsAccountDataTab.js';
@@ -64,7 +64,8 @@ export const PredictionMarketsAccountTab = memo<PredictionMarketsAccountTabProps
         [data],
     );
 
-    if (!wallets.length && markets.length <= 1) return null;
+    const firstMarket = first(markets);
+    if (!wallets.length && markets.length <= 1 && (firstMarket?.isClosed || firstMarket?.isResolved)) return null;
 
     return (
         <div>
