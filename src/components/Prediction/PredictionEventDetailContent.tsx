@@ -54,8 +54,13 @@ export async function PredictionEventDetailContent({ id, isMutil, platform }: Pr
             <PredictionEventPageHeader pageTitle={<Trans>Event detail</Trans>} />
             <PredictionEventOverview detail={event} isActive={isActive} />
             <PredictionContextProvider platform={platform} markets={markets}>
-                {markets.some((market) => !market.isResolved && !market.isClosed) ? (
-                    <PredictionMarketsPriceLineChart platform={platform} markets={markets} isActive={isActive} />
+                {markets.some((market) => !market.isResolved && !market.isClosed) || markets.length === 1 ? (
+                    <PredictionMarketsPriceLineChart
+                        platform={platform}
+                        markets={markets}
+                        isActive={isActive}
+                        filterResolvedMarkets={markets.length > 1}
+                    />
                 ) : null}
                 <PredictionMarketsAccountTab eventSlug={id} event={event} platform={platform} />
                 <PredictionBaseInfoTabs showResolution={showResolution} eventSlug={eventSlug} />

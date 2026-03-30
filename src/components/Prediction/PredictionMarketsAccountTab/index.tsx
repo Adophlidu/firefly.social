@@ -64,6 +64,8 @@ export const PredictionMarketsAccountTab = memo<PredictionMarketsAccountTabProps
         [data],
     );
 
+    if (!wallets.length && markets.length <= 1) return null;
+
     return (
         <div>
             {wallets?.length > 0 ? (
