@@ -1,5 +1,6 @@
 import { safeUnreachable } from '@dimensiondev/utils';
 import { msg } from '@lingui/core/macro';
+import { type ReactNode } from 'react';
 
 import { IfPathname } from '@/components/IfPathname.js';
 import { LinkCloud } from '@/components/LinkCloud.js';
@@ -22,7 +23,9 @@ interface Props
         {
             agent: string;
         }
-    > {}
+    > {
+    modal: ReactNode;
+}
 
 export async function generateMetadata() {
     return createSiteMetadata('/events', {
@@ -38,7 +41,12 @@ export default async function Layout(props: Props) {
 
     switch (resolvedAgent) {
         case Agent.FireflyApp:
-            return props.children;
+            return (
+                <>
+                    {props.children}
+                    {props.modal}
+                </>
+            );
         case Agent.Browser:
             return (
                 <>
@@ -51,6 +59,7 @@ export default async function Layout(props: Props) {
                             </IfPathname>
                         </div>
                         {props.children}
+                        {props.modal}
                     </main>
                     <aside className="sticky top-0 z-1 hidden h-full w-96 flex-col gap-4 px-4 md:min-w-[384px] lg:flex">
                         <div className="no-scrollbar flex flex-1 flex-col gap-4 overflow-auto">
