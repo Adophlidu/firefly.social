@@ -234,6 +234,17 @@ export const NETWORK_DESCRIPTORS: ReadonlyArray<NetworkDescriptor<EthereumChainI
         isMainnet: true,
         averageBlockDelay: 10,
     },
+    {
+        ID: `${PLUGIN_ID}_blast`,
+        networkSupporterPluginID: PLUGIN_ID,
+        chainId: EthereumChainId.Blast,
+        type: EthereumNetworkType.Blast,
+        icon: '/image/chains/blast.png',
+        iconColor: 'rgb(252, 236, 222)',
+        name: 'Blast',
+        isMainnet: true,
+        averageBlockDelay: 2,
+    },
 ];
 
 export const CHAIN_DESCRIPTORS: ReadonlyArray<

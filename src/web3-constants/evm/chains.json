@@ -1402,6 +1402,33 @@
         ]
     },
     {
+        "chainId": 81457,
+        "type": "Blast",
+        "name": "Blast",
+        "color": "rgb(252, 236, 222)",
+        "network": "mainnet",
+        "fullName": "Blast",
+        "shortName": "blast",
+        "features": [],
+        "nativeCurrency": {
+            "chainId": 81457,
+            "name": "Ether",
+            "symbol": "ETH",
+            "decimals": 18,
+            "logoURL": "https://imagedelivery.net/PCnTHRkdRhGodr0AWBAvMA/Assets/blockchains/ethereum/info/logo.png/quality=85"
+        },
+        "defaultGasLimit": "90000",
+        "minGasLimit": "21000",
+        "infoURL": "https://blast.io/",
+        "explorers": [
+            {
+                "name": "blastscan",
+                "url": "https://blastscan.io",
+                "standard": "EIP3091"
+            }
+        ]
+    },
+    {
         "chainId": 9745,
         "name": "Plasma",
         "type": "Plasma",
