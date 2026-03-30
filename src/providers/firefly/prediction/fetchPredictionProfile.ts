@@ -19,7 +19,9 @@ export async function fetchPredictionProfile(
             case PredictionPlatform.Polymarket: {
                 const profileData = await getProfile(address, true);
                 const profile = profileData ? formatPolymarketProfile(profileData) : undefined;
-                const pnlHistory = profile ? await getPredictionPnlHistory(profile.proxy, platform) : undefined;
+                if (!profile) return;
+
+                const pnlHistory = await runInSafeAsync(() => getPredictionPnlHistory(profile.proxy, platform));
 
                 return {
                     ...profile,
