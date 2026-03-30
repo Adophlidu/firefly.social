@@ -146,34 +146,36 @@ function formatPolymarketEvent(detail: PolymarketEvent): BetsEventDataForUI {
     };
 }
 
-function formatOpinionMarket(detail: OpinionMarketDetail): BetsEventDataForUI {
-    const markets: BetsMarketDataForUI[] = (detail.childList || []).map((market) => {
-        const isResolved = market.status === 4;
+function formatOpinionMarket(market: OpinionMarketDetail): BetsMarketDataForUI {
+    const isResolved = market.status === 4;
 
-        return {
-            id: `${market.topicId}`,
-            questionId: market.questionId,
-            conditionId: market.conditionId,
-            title: market.title,
-            image: market.thumbnailUrl,
-            volume: market.volume,
-            isResolved,
-            isClosed: false,
-            resolvedOutcomeId:
-                isResolved && market.resultPos
-                    ? market.resultPos === market.yesPos
-                        ? 'yes'
-                        : market.resultPos === market.noPos
-                          ? 'no'
-                          : undefined
-                    : undefined,
-            createTime: market.createTime * 1000,
-            outcomes: [
-                { id: 'yes', label: market.yesLabel || 'YES', price: market.yesMarketPrice || '0' },
-                { id: 'no', label: market.noLabel || 'NO', price: market.noMarketPrice || '0' },
-            ],
-        };
-    });
+    return {
+        id: `${market.topicId}`,
+        questionId: market.questionId,
+        conditionId: market.conditionId,
+        title: market.title,
+        image: market.thumbnailUrl,
+        volume: market.volume,
+        isResolved,
+        isClosed: false,
+        resolvedOutcomeId:
+            isResolved && market.resultPos
+                ? market.resultPos === market.yesPos
+                    ? 'yes'
+                    : market.resultPos === market.noPos
+                      ? 'no'
+                      : undefined
+                : undefined,
+        createTime: market.createTime * 1000,
+        outcomes: [
+            { id: 'yes', label: market.yesLabel || 'YES', price: market.yesMarketPrice || '0' },
+            { id: 'no', label: market.noLabel || 'NO', price: market.noMarketPrice || '0' },
+        ],
+    };
+}
+
+function formatOpinionEvent(detail: OpinionMarketDetail): BetsEventDataForUI {
+    const markets = (detail.childList || []).map(formatOpinionMarket);
 
     return {
         id: detail.questionId,
@@ -185,25 +187,7 @@ function formatOpinionMarket(detail: OpinionMarketDetail): BetsEventDataForUI {
         endTime: detail.cutoffTime * 1000,
         volume: detail.volume,
         isSingleEvent: markets.length === 0,
-        markets: markets.length
-            ? sortMarkets(markets)
-            : [
-                  {
-                      id: `${detail.topicId}`,
-                      questionId: detail.questionId,
-                      conditionId: detail.conditionId,
-                      title: detail.title,
-                      image: detail.thumbnailUrl,
-                      volume: detail.volume,
-                      isResolved: detail.status === 4,
-                      isClosed: false,
-                      createTime: detail.createTime * 1000,
-                      outcomes: [
-                          { id: 'yes', label: detail.yesLabel || 'YES', price: detail.yesMarketPrice || '0' },
-                          { id: 'no', label: detail.noLabel || 'NO', price: detail.noMarketPrice || '0' },
-                      ],
-                  },
-              ],
+        markets: markets.length ? sortMarkets(markets) : [formatOpinionMarket(detail)],
     };
 }
 
@@ -214,7 +198,7 @@ export async function getEventDetail(
     switch (platform) {
         case PredictionPlatform.Opinion: {
             const detail = await getOpinionMarketDetail(id, isMutil);
-            return detail ? formatOpinionMarket(detail) : null;
+            return detail ? formatOpinionEvent(detail) : null;
         }
         case PredictionPlatform.Polymarket: {
             const detail = await getPolymarketEvent({ slug: id });
