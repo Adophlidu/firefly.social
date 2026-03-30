@@ -40,8 +40,8 @@ interface SwapDetailProps {
 export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ activity }) {
     if (!activity) notFound();
 
-    const addressName = formatAddress(activity?.owner ?? '', 4);
-    const profileUrl = getProfileUrl({ source: Source.Wallet, profileId: activity?.owner });
+    const addressName = formatAddress(activity.owner ?? '', 4);
+    const profileUrl = activity.owner ? getProfileUrl({ source: Source.Wallet, profileId: activity.owner }) : '';
 
     const chain = activity.chain_id !== 101 ? chains.find((x) => x.id === activity.chain_id) : null;
     const explorerLink =
@@ -50,6 +50,17 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ activity }
             : `https://solscan.io/tx/${activity.hash}`;
     const ensHandle = getEnsNameFromDisplayInfo(activity, activity.owner);
 
+    const avatar = (
+        <Avatar
+            alt={activity.owner}
+            className="size-10 shrink-0 rounded-full"
+            src={
+                activity.displayInfo?.avatarUrl ??
+                (activity.owner ? getStampAvatarByProfileId(Source.Wallet, activity.owner) : '')
+            }
+            size={40}
+        />
+    );
     return (
         <div className="flex flex-col">
             <div className="sticky top-0 z-30 flex h-[60px] items-center justify-between border-b border-line bg-primaryBottom px-4">
@@ -67,17 +78,7 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ activity }
             </div>
             <div className="flex items-center justify-between px-4 py-3">
                 <div className="flex min-w-0 items-center gap-3">
-                    <Link href={profileUrl}>
-                        <Avatar
-                            alt={activity.owner}
-                            className="size-10 shrink-0 rounded-full"
-                            src={
-                                activity.displayInfo?.avatarUrl ??
-                                getStampAvatarByProfileId(Source.Wallet, activity.owner)
-                            }
-                            size={40}
-                        />
-                    </Link>
+                    {profileUrl ? <Link href={profileUrl}>{avatar}</Link> : avatar}
                     <div className="flex min-w-0 items-center gap-1">
                         <div className="flex min-w-0 items-center gap-x-1 text-medium">
                             <Link href={profileUrl} className="min-w-0 truncate font-bold text-lightMain">

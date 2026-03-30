@@ -61,6 +61,7 @@ export function resolveProfileUrl(
             source: s,
         });
     }
+    if (!handle) return '';
     if (!category) {
         return urlcat(`/profile/:source/:handle`, {
             handle,
