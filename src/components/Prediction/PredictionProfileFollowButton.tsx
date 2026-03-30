@@ -65,9 +65,13 @@ export const PredictionProfileFollowButton = memo<Props>(function PredictionProf
     if (socialProfile) {
         return <FollowButton profile={socialProfile} onClick={onBetProfileFollowButtonClick} />;
     }
+
+    const walletAddress = source === Source.Wallet && profileId ? profileId : undefined;
+    if (!walletAddress) return null;
+
     return (
         <WatchButton
-            address={(source === Source.Wallet && profileId ? profileId : address) as Address}
+            address={walletAddress as Address}
             ens={source === Source.Wallet ? name : undefined}
             onClick={onBetProfileFollowButtonClick}
         />
