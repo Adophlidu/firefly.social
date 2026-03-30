@@ -2,6 +2,7 @@ import { compact } from 'lodash-es';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';
+import { mergePostDetailCache } from '@/helpers/mergePostDetailCache.js';
 import { type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { prefetchPostLinks } from '@/helpers/prefetchPostLinks.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
@@ -30,7 +31,9 @@ export function SetQueryDataForPosts<T extends ClassType<Provider>>(target: T): 
                 const result = await m.apply(target.prototype, args);
 
                 result.data.forEach((post) => {
-                    queryClient.setQueryData([post.source, 'post-detail', post.postId], post);
+                    queryClient.setQueryData([post.source, 'post-detail', post.postId], (oldData: Post | undefined) =>
+                        mergePostDetailCache(post, oldData),
+                    );
                     if (post.source !== Source.Farcaster) {
                         const queryKeyGroups = [];
                         for (const identity of [post.author.profileId, post.author.handle]) {

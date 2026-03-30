@@ -17,6 +17,7 @@ import { Tips } from '@/components/Tips/index.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { ENABLED_BOOKMARK_SOURCES } from '@/constants/computed.js';
 import { Source } from '@/constants/enum.js';
+import { mergePostDetailCache } from '@/helpers/mergePostDetailCache.js';
 import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useIsPostDetailPage } from '@/hooks/post/useIsPostDetailPage.js';
@@ -53,40 +54,7 @@ export const PostActionsWithGrid = memo<PostActionsWithGridProps>(function PostA
                 if (initialPost.source === Source.Twitter) {
                     queryClient.setQueryData(
                         [initialPost.source, 'post-detail', initialPost.postId],
-                        (oldData: Post | undefined) => {
-                            if (!oldData) return post;
-
-                            // Preserve media attachments from old data when the refetched
-                            // post has none.  The Twitter v2 API sometimes omits the
-                            // `includes.media` array for tweets whose media was already
-                            // delivered in an earlier response, which causes tweetV2ToPost
-                            // to produce an empty attachments list.  Falling back to the
-                            // previously-cached attachments prevents images/videos from
-                            // disappearing after the PostActionsWithGrid refetch.
-                            const oldContent = oldData.metadata?.content;
-                            const newContent = post.metadata?.content;
-                            const attachments = newContent?.attachments?.length
-                                ? newContent.attachments
-                                : oldContent?.attachments;
-                            const asset = attachments?.length
-                                ? attachments[0]
-                                : (newContent?.asset ?? oldContent?.asset);
-
-                            return {
-                                ...post,
-                                metadata: {
-                                    ...post.metadata,
-                                    article: post.metadata?.article ?? oldData.metadata?.article,
-                                    content: post.metadata?.content
-                                        ? {
-                                              ...post.metadata.content,
-                                              attachments,
-                                              asset,
-                                          }
-                                        : oldData.metadata?.content,
-                                },
-                            };
-                        },
+                        (oldData: Post | undefined) => mergePostDetailCache(post, oldData),
                     );
                 }
 

@@ -129,7 +129,19 @@ async function setQueryDataForQuote(post: CompositePost) {
             quotes: (draft.stats?.quotes || 0) + 1,
         };
     });
-    await queryClient.setQueryData([parentPost.source, 'post-detail', parentPost.postId], patched);
+    queryClient.setQueryData(
+        [parentPost.source, 'post-detail', parentPost.postId],
+        (oldData: typeof patched | undefined) => {
+            if (!oldData) return patched;
+            return produce(oldData, (draft) => {
+                draft.hasQuoted = true;
+                draft.stats = {
+                    ...draft.stats!,
+                    quotes: (draft.stats?.quotes || 0) + 1,
+                };
+            });
+        },
+    );
 }
 
 interface CrossPostOptions {
