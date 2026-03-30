@@ -2245,10 +2245,6 @@ msgstr ""
 msgid "This Bluesky account is already linked to another Firefly account."
 msgstr "这个 Bluesky 账号已绑定到另一个 Firefly 账户。"
 
-#. placeholder {0}: activity.tx_status
-msgid "{0, select, success {Success} failed {Failed} pending {Pending} other {Failed}}"
-msgstr "{0, select, success {成功} failed {失败} pending {待处理} other {失败}}"
-
 #. placeholder {0}: outcome.label
 msgid "<0>Buy {0}</0><1/>"
 msgstr "<0>买入 {0}</0><1/>"
@@ -2780,6 +2776,10 @@ msgstr "24 小时"
 
 msgid "Contract Address"
 msgstr "合约地址"
+
+#. placeholder {0}: activity.tx_status
+msgid "{0, select, success {Success} fail {Failed} pending {Pending} other {Failed}}"
+msgstr ""
 
 msgid "The whitelist function is not included. If there is a whitelist, some addresses may not be able to trade normally (honeypot risk)."
 msgstr "白名单功能未启用。如果存在白名单，某些地址可能无法正常交易（欺诈风险）。"

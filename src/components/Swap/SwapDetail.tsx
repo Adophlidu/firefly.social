@@ -268,20 +268,20 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ activity }
                             className={classNames('flex items-center gap-2', {
                                 'text-success': activity.tx_status === 'success',
                                 'text-warn': activity.tx_status === 'pending',
-                                'text-danger': activity.tx_status === 'failed',
+                                'text-danger': activity.tx_status === 'fail',
                             })}
                         >
                             <div
                                 className={classNames('size-2 rounded-full', {
                                     'bg-success': activity.tx_status === 'success',
                                     'bg-warn': activity.tx_status === 'pending',
-                                    'bg-danger': activity.tx_status === 'failed',
+                                    'bg-danger': activity.tx_status === 'fail',
                                 })}
                             />
                             <Select
                                 value={activity.tx_status}
                                 _success="Success"
-                                _failed="Failed"
+                                _fail="Failed"
                                 _pending="Pending"
                                 other="Failed"
                             />

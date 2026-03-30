@@ -237,6 +237,17 @@ export async function mergeMetrics(passcode: string, enqueueMessage = true) {
                 const payload = resolveResponseData(payloadResponse);
                 const session = new TwitterSession(profileId, '', now, now, payload);
 
+                // Validate the token by calling Twitter API with explicit payload headers
+                const meResponse = await runInSafeAsync(() =>
+                    fetchJson<ResponseJson<unknown>>('/api/twitter/me', {
+                        headers: TwitterSession.payloadToHeaders(payload),
+                    }),
+                );
+                if (!meResponse?.success) {
+                    metricIdsToDelete.push(`${SourceInURL.X}:${profileId}`);
+                    continue;
+                }
+
                 if (!currentSession) {
                     sessionHolder.resumeSession(session);
                     await TwitterAuthProvider.login();
