@@ -10,6 +10,7 @@ import { Loading } from '@/components/Loading.js';
 import { PredictionTopHoldersUI } from '@/components/Prediction/PredictionMarketTopHolders/PredictionTopHoldersUI.js';
 import { PredictionPlatform } from '@/constants/enum.js';
 import { STALE_TIMES } from '@/constants/query.js';
+import { useScrollRestoration } from '@/hooks/useScrollRestoration.js';
 import { getBetsMarketTopHolders } from '@/providers/prediction/getBetsMarketTopHolders.js';
 import { type BetsMarketDataForUI } from '@/types/prediction.js';
 
@@ -19,16 +20,20 @@ interface TopHoldersContentProps {
 }
 
 export const TopHoldersContent = memo<TopHoldersContentProps>(function TopHoldersContent({ platform, market }) {
+    const { restore } = useScrollRestoration();
     const { data, error, isLoading, isRefetchError, isPending, refetch } = useQuery({
         queryKey: ['bets', 'top-holders', platform, market.id],
         staleTime: STALE_TIMES.MINUTE_5,
-
         retry: false,
         queryFn: async ({ signal }) =>
             getBetsMarketTopHolders(platform, {
                 market,
                 signal: anySignal(AbortSignal.timeout(1000 * 5), signal),
             }),
+        select: (data) => {
+            restore();
+            return data;
+        },
     });
 
     if (isLoading || isRefetchError || isPending) return <Loading minHeight={112} />;

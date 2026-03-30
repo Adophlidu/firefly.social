@@ -41,6 +41,9 @@ interface GlobalState {
 
     isSyncingMetrics: boolean;
     setIsSyncingMetrics: (status: boolean) => void;
+
+    routePositionRecords: Record<string, number>;
+    setRoutePositionRecords: (pathname: string, position: number) => void;
 }
 
 const useGlobalStateBase = create<GlobalState, [['zustand/persist', unknown], ['zustand/immer', never]]>(
@@ -133,6 +136,13 @@ const useGlobalStateBase = create<GlobalState, [['zustand/persist', unknown], ['
             setIsSyncingMetrics(status) {
                 set((state) => {
                     state.isSyncingMetrics = status;
+                });
+            },
+
+            routePositionRecords: {},
+            setRoutePositionRecords(pathname, position) {
+                set((state) => {
+                    state.routePositionRecords[pathname] = position;
                 });
             },
         })),
