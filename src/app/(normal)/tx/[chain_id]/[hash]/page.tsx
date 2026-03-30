@@ -4,7 +4,6 @@ import { TipsDetailViewType, TipsNotificationType } from '@/constants/enum.js';
 import { notFound } from '@/esm/navigation/server.js';
 import { isValidTxId } from '@/helpers/isValidTxId.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { getSwapActivityByHash } from '@/providers/firefly/endpoint/getSwapActivityByHash.js';
 import { getTipsTransactionDetail } from '@/providers/firefly/endpoint/getTipsTransactionDetail.js';
 import { createTransactionMetadata } from '@/providers/firefly/metadata/createTransactionMetadata.js';
 import { type LayoutProps } from '@/types/utility.js';
@@ -24,7 +23,6 @@ export async function generateMetadata(props: Props) {
 
 export default async function Page(props: Props) {
     const { chain_id, hash } = await props.params;
-
     const params = await props.searchParams;
     const view = params?.view ?? TipsDetailViewType.Sender;
     const chainId = Number(chain_id);
@@ -34,8 +32,5 @@ export default async function Page(props: Props) {
     const tipsData = await runInSafeAsync(() => getTipsTransactionDetail(hash, TipsNotificationType.Tip));
     if (tipsData) return <TipsDetail tipsData={tipsData} view={view} />;
 
-    const swapData = await runInSafeAsync(() => getSwapActivityByHash(hash, chainId));
-    if (swapData) return <SwapDetail activity={swapData} />;
-
-    notFound();
+    return <SwapDetail chainId={chainId} hash={hash} />;
 }

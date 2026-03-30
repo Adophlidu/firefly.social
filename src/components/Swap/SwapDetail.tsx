@@ -2,6 +2,7 @@
 
 import { classNames } from '@dimensiondev/utils';
 import { Select, Trans } from '@lingui/react/macro';
+import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { first } from 'lodash-es';
 import { memo } from 'react';
@@ -31,14 +32,48 @@ import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { resolveExplorerLink } from '@/helpers/resolveExplorerLink.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
-import { type SwapActivity } from '@/providers/types/Firefly.js';
+import { getSwapActivityByHash } from '@/providers/firefly/endpoint/getSwapActivityByHash.js';
 
 interface SwapDetailProps {
-    activity?: SwapActivity;
+    chainId: number;
+    hash: string;
 }
 
-export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ activity }) {
-    if (!activity) notFound();
+export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ chainId, hash }) {
+    const { data: activity, isLoading } = useQuery({
+        queryKey: ['swap-detail', hash, chainId],
+        queryFn: () => getSwapActivityByHash(hash, chainId),
+        refetchInterval: (query) => {
+            const data = query.state.data;
+            // Stop refetching if owner exists or data is null
+            if (!data || data.owner) return false;
+            // Refetch every 2 seconds while owner is null
+            return 2000;
+        },
+        retry: 10,
+    });
+
+    if (isLoading) {
+        return (
+            <div className="flex flex-col">
+                <div className="sticky top-0 z-30 flex h-[60px] items-center justify-between border-b border-line bg-primaryBottom px-4">
+                    <div className="flex min-w-0 items-center gap-7">
+                        <Comeback className="cursor-pointer text-lightMain" />
+                        <span className="min-w-0 truncate text-xl font-bold text-lightMain">
+                            <Trans>Transaction</Trans>
+                        </span>
+                    </div>
+                </div>
+                <div className="p-4">
+                    <div className="h-10 w-full animate-pulse rounded bg-bg" />
+                </div>
+            </div>
+        );
+    }
+
+    if (!activity) {
+        notFound();
+    }
 
     const addressName = formatAddress(activity.owner ?? '', 4);
     const profileUrl = activity.owner ? getProfileUrl({ source: Source.Wallet, profileId: activity.owner }) : '';
