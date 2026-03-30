@@ -28,7 +28,6 @@ import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
 import { Throw } from '@/decorators/Throw.js';
 import { UndoRepostStatusToTwitterPosts } from '@/decorators/UndoRepostStatusToTwitterPosts.js';
 import { WithMutedProfilesQuery } from '@/decorators/WithMutedProfilesQuery.js';
-import { fetchJson } from '@/helpers/fetchJson.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isNumericalProfileId } from '@/helpers/isNumericalProfileId.js';
 import {
@@ -44,11 +43,11 @@ import { getTwitterTopPeople } from '@/providers/firefly/endpoint/getTwitterTopP
 import { getTwitterUserInfo } from '@/providers/firefly/endpoint/getTwitterUserInfo.js';
 import { blockProfileFor } from '@/providers/firefly/farcaster-account/blockProfileFor.js';
 import { unblockProfileFor } from '@/providers/firefly/farcaster-account/unblockProfileFor.js';
-import { formatNotificationsFromWebhook } from '@/providers/twitter/formatNotificationsFromWebhook.js';
 import { formatTweetsPage } from '@/providers/twitter/formatTwitterPost.js';
 import { formatTwitterProfile, formatTwitterProfilePage } from '@/providers/twitter/formatTwitterProfile.js';
 import { formatTwitterProfileFromRootdata } from '@/providers/twitter/formatTwitterProfileFromRootdata.js';
 import { getProfilesByIdsFromOfficial } from '@/providers/twitter/getProfilesByIdsFromOfficial.js';
+import { getTwitterNotifications } from '@/providers/twitter/getTwitterNotifications.js';
 import { getTwitterProfileHandleFromUrl } from '@/providers/twitter/getTwitterProfileHandleFromUrl.js';
 import { resolveTwitterPaginationToken } from '@/providers/twitter/resolveTwitterPaginationToken.js';
 import { resolveTwitterReplyRestriction } from '@/providers/twitter/resolveTwitterReplyRestriction.js';
@@ -75,7 +74,6 @@ import {
     type Provider,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
-import { type MessagesResponse } from '@/providers/types/WebhookReceiver.js';
 import { useTwitterLikeStore } from '@/store/useTwitterLikeStore.js';
 import { useTwitterRetweetStore } from '@/store/useTwitterRetweetStore.js';
 import { type PartialWith, type ResponseJson } from '@/types/utility.js';
@@ -207,26 +205,11 @@ class OfficialSocialMedia implements Provider {
         return twitterSessionHolder.withSession(async (session) => {
             if (!session) return createPageable([] as Notification[], createIndicator(indicator));
 
-            const limit = 20;
-            const indicatorId = indicator?.id || 0;
-            const page = !Number.isNaN(+indicatorId) ? Number(indicatorId) : 0;
-            const url = urlcat('/api/twitter/messages', {
-                query: session.profileId,
-                limit,
-                cursor: page,
+            return getTwitterNotifications({
+                profileId: session.profileId,
+                limit: 20,
+                indicator,
             });
-            const response = await fetchJson<
-                ResponseJson<{
-                    data: MessagesResponse['messages'];
-                    total: number;
-                }>
-            >(url);
-            const result = resolveTwitterResponseData(response);
-            return createPageable(
-                formatNotificationsFromWebhook(result.data, session.profileId),
-                createIndicator(indicator),
-                result.data.length < limit ? undefined : createNextIndicator(indicator, `${page + 1}`),
-            );
         });
     }
 
