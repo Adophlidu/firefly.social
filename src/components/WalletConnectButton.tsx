@@ -1,18 +1,14 @@
 import { classNames, delay } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
-import { compact, first } from 'lodash-es';
+import { compact } from 'lodash-es';
 import { memo, useMemo } from 'react';
-import { useEffectOnce } from 'react-use';
-import { useConnections } from 'wagmi';
 
 import WalletIcon from '@/assets/wallet.svg';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
-import { queryClient } from '@/configs/queryClient.js';
 import { ClickOrigin, NetworkPluginID, NetworkType } from '@/constants/enum.js';
 import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
-import { fetchEnsName } from '@/hooks/useEnsName.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { MyWalletsModalRef } from '@/modals/MyWalletsModal/refs.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/refs.js';
@@ -34,7 +30,6 @@ const IconMap: Record<NetworkType, string | undefined> = {
 export const WalletConnectButton = memo<WalletConnectButtonProps>(function WalletConnectButton({ className, ...rest }) {
     const { ethereum, solana } = useWalletAccountAll();
     const { sidebarOpen, updateSidebarOpen } = useNavigatorState();
-    const connections = useConnections();
     const isLoginFirefly = useIsLoginFirefly();
     const { isAuthorized, wallets } = useFireflyWalletStore();
 
@@ -47,24 +42,6 @@ export const WalletConnectButton = memo<WalletConnectButtonProps>(function Walle
             ]),
         [privyConnected, solana.isConnected, ethereum.isConnected, wallets.solana.length, wallets.ethereum.length],
     );
-
-    useEffectOnce(() => {
-        if (!connections.length) return;
-
-        connections.forEach((connection) => {
-            const address = first(connection.accounts);
-            if (!address) return;
-
-            fetchEnsName({ address }).then((ensName) => {
-                if (ensName !== undefined) {
-                    queryClient.setQueryData(['ensName', address.toLowerCase()], ensName);
-                }
-                if (ensName) {
-                    queryClient.setQueryData(['ensAddress', ensName], address);
-                }
-            });
-        });
-    });
 
     return (
         <ClickableButton

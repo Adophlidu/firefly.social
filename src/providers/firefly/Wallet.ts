@@ -18,6 +18,7 @@ import {
     type FireflyWalletConnection,
     type HexResponse,
     type Response,
+    type WalletRelation,
     type WalletRelationResponse,
     WatchType,
 } from '@/providers/types/Firefly.js';
@@ -142,6 +143,23 @@ class FireflyWallet {
             walletType,
         });
         const response = await fetchJson<WalletRelationResponse>(url);
+        return resolveFireflyResponseData(response);
+    }
+
+    async getWalletRelationList(
+        walletAddresses: Array<{
+            walletAddress: string;
+            walletType: 'solana' | 'evm';
+        }>,
+    ) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/wallet/walletRelation/list');
+        const response = await fetchJson<Response<WalletRelation[]>>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                items: walletAddresses,
+            }),
+        });
+
         return resolveFireflyResponseData(response);
     }
 }

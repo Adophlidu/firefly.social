@@ -19,7 +19,6 @@ import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { type AppKitAccount } from '@/hooks/useAppKitAccounts.js';
-import { useEnsName } from '@/hooks/useEnsName.js';
 import { type ChainNamespace } from '@/types/utility.js';
 
 const IconMap: Record<ChainNamespace, FunctionComponent<SVGAttributes<SVGElement>>> = {
@@ -41,13 +40,13 @@ export function AppKitAccountItem({
     walletIcon,
     connection,
     source,
+    ensName,
     onOpenPrivy,
     ...rest
 }: AppKitAccount & {
+    ensName?: string;
     onOpenPrivy?: () => void;
 }) {
-    const { data: ensName } = useEnsName(address, namespace === 'eip155');
-
     const Icon = IconMap[namespace] || WalletIcon;
 
     const [{ loading }, onConnectionClick] = useAsyncFn(async () => {

@@ -1,5 +1,6 @@
 import { envs, STATUS } from '@dimensiondev/envs';
 import { Trans } from '@lingui/react/macro';
+import { useQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import { memo, useCallback, useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -13,18 +14,24 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { appkit } from '@/configs/appkit.js';
 import { PRIVY_CONNECTOR_ID } from '@/connectors/PrivyConnector.js';
 import { ConnectionSource, NetworkType } from '@/constants/enum.js';
-import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
+import { getEnsNameFromWalletProfile } from '@/helpers/getEnsNameFromWalletProfile.js';
+import { isSameAddress, isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { type AppKitAccount, useAppKitAccounts, usePrivyAppKitAccounts } from '@/hooks/useAppKitAccounts.js';
 import { useIsCreatedPrivyWallet } from '@/hooks/useIsCreatedPrivyWallet.js';
 import { AppKitAccountItem } from '@/modals/MyWalletsModal/AppKitAccountItem.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/refs.js';
+import { fireflyWalletProvider } from '@/providers/firefly/Wallet.js';
 import { captureFireflyWalletEvent } from '@/providers/telemetry/captureFireflyWalletEvent.js';
 import { WalletProfileDataSource } from '@/providers/types/Firefly.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
-function FireflyWalletPanel({ onOpenWallets }: { onOpenWallets?: () => void }) {
+interface Props {
+    onOpenWallets?: () => void;
+}
+
+const FireflyWalletPanel = memo<Props>(function FireflyWalletPanel({ onOpenWallets }) {
     const { accounts: privyAccounts, isLoading: isLoadingAllConnections } = usePrivyAppKitAccounts();
     const { isCreatedPrivyWallet } = useIsCreatedPrivyWallet();
     const isAuthorized = useFireflyWalletStore((state) => state.isAuthorized);
@@ -81,13 +88,9 @@ function FireflyWalletPanel({ onOpenWallets }: { onOpenWallets?: () => void }) {
             )}
         </div>
     );
-}
+});
 
-interface ConnectedWalletsProps {
-    onOpenWallets?: () => void;
-}
-
-export const ConnectedWallets = memo(function ConnectedWallets({ onOpenWallets }: ConnectedWalletsProps) {
+export const ConnectedWallets = memo(function ConnectedWallets({ onOpenWallets }: Props) {
     const walletAccounts = useAppKitAccounts();
     const appkitAccounts = walletAccounts.filter((x) => x.source === ConnectionSource.Appkit);
     const currentWagmiConnection = useConnection();
@@ -122,6 +125,32 @@ export const ConnectedWallets = memo(function ConnectedWallets({ onOpenWallets }
 
     const allAccounts = useMemo(() => [...appkitAccounts, ...wagmiOnlyAccounts], [appkitAccounts, wagmiOnlyAccounts]);
 
+    const { data, isLoading } = useQuery({
+        queryKey: ['firefly-wallet-relation', allAccounts.map((a) => a.address)],
+        staleTime: Infinity,
+        enabled: allAccounts.length > 0,
+        queryFn: () =>
+            fireflyWalletProvider.getWalletRelationList(
+                allAccounts.map((account) => ({
+                    walletAddress: account.address,
+                    walletType: account.network === NetworkType.Solana ? 'solana' : 'evm',
+                })),
+            ),
+    });
+
+    const allAccountsWithEns = useMemo(
+        () =>
+            allAccounts.map((account) => {
+                const relation = data?.find((r) => isSameAddress(r.address, account.address));
+
+                return {
+                    ...account,
+                    ensName: relation ? getEnsNameFromWalletProfile(relation) : undefined,
+                };
+            }),
+        [allAccounts, data],
+    );
+
     const [{ loading }, openWallets] = useAsyncFn(async () => {
         appkit.updateRemoteFeatures({ multiWallet: true });
         WalletConnectModalRef.open();
@@ -143,14 +172,14 @@ export const ConnectedWallets = memo(function ConnectedWallets({ onOpenWallets }
                     <span className="min-w-0 flex-1 truncate text-left text-sm">
                         <Trans>Connecting wallets</Trans>
                     </span>
-                    {loading ? <LoadingIcon size={20} /> : <PlusIcon width={20} height={20} />}
+                    {loading || isLoading ? <LoadingIcon size={20} /> : <PlusIcon width={20} height={20} />}
                 </ClickableButton>
-                {!allAccounts.length ? (
+                {!allAccountsWithEns.length ? (
                     <div className="flex h-20 items-center justify-center text-sm text-secondary">
                         <Trans>No connected wallet.</Trans>
                     </div>
                 ) : (
-                    allAccounts.map((walletAccount) => {
+                    allAccountsWithEns.map((walletAccount) => {
                         return (
                             <AppKitAccountItem
                                 key={`appkit-${walletAccount.network}-${walletAccount.address}`}

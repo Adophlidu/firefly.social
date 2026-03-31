@@ -572,7 +572,7 @@ export interface WalletProfile {
     seekerId?: WalletProfileIdentity[];
 }
 
-export type WalletRelationResponse = Response<{
+export interface WalletRelation {
     address: Address;
     wallet_type: 'evm' | 'solana';
     verifiedSources: VerifiedSource[];
@@ -585,7 +585,9 @@ export type WalletRelationResponse = Response<{
     // For solana
     sns?: WalletProfileIdentity[];
     seekerId?: WalletProfileIdentity[];
-}>;
+}
+
+export type WalletRelationResponse = Response<WalletRelation>;
 
 export interface LensV3Profile {
     id: string;

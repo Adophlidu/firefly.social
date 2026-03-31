@@ -37,7 +37,7 @@ export function MyWalletsModal({ ref }: Props) {
                             Please select one EVM wallet and one Solana wallet for onchain features in Firefly.
                         </Trans>
                     </p>
-                    <ConnectedWallets onOpenWallets={() => onClose()} />
+                    <ConnectedWallets onOpenWallets={onClose} />
                 </div>
             </div>
         </Modal>
