@@ -8,7 +8,8 @@ import {
     createRouter,
     RouterProvider,
 } from '@tanstack/react-router';
-import { memo, useMemo } from 'react';
+import { first } from 'lodash-es';
+import { memo, useEffect, useMemo } from 'react';
 
 import { Loading } from '@/components/Loading.js';
 import { NoAvailableWallet } from '@/components/Tips/NoAvailableWallet.js';
@@ -99,7 +100,7 @@ export const TipsModelRouter = memo<{
         ]);
 
         const memoryHistory = createMemoryHistory({
-            initialEntries: initialEntries && initialEntries.length > 0 ? initialEntries : [TipsRoutePath.TIPS],
+            initialEntries: initialEntries && initialEntries.length > 0 ? [...initialEntries] : [TipsRoutePath.TIPS],
         });
 
         return createRouter({
@@ -108,6 +109,14 @@ export const TipsModelRouter = memo<{
             defaultPendingMinMs: 0,
         });
     }, [initialEntries]);
+
+    useEffect(() => {
+        const firstPath = first(initialEntries);
+        const pathname = router.state.location.pathname;
+        if (open && firstPath && pathname !== firstPath) {
+            router.navigate({ to: firstPath, replace: true });
+        }
+    }, [open, initialEntries, router]);
 
     return (
         <OpenTipsModalContext.Provider value={open}>
