@@ -47,8 +47,11 @@ jobs:
                   NEW_VERSION=$(node scripts/bump-packages-version.mjs "${{ github.event.inputs.bump_type }}")
                   echo "new_version=$NEW_VERSION" >> "$GITHUB_OUTPUT"
 
+            - name: Build packages
+              run: pnpm run packages:build
+
             - name: Publish to GitHub Packages
-              run: pnpm -r --filter='./packages/*' publish --no-git-checks
+              run: pnpm run packages:publish
 
             - name: Create branch, commit, PR
               env:
