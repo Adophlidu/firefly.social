@@ -215,7 +215,7 @@ function formatCreateTweetNotification(data: TweetCreateEvent, viewerId: string)
         } satisfies QuoteNotification;
     }
 
-    if (data.retweeted_status?.user.id_str === viewerId) {
+    if (data.retweeted_status?.user.id_str === viewerId && data.user.id_str !== viewerId) {
         // retweet
         return {
             source: Source.Twitter,
