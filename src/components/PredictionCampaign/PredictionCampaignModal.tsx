@@ -20,7 +20,7 @@ export const PredictionCampaignModal = memo(function PredictionCampaignModal() {
                 />
             </div>
             <div className="relative flex-1 bg-white md:rounded-t-[32px]">
-                <iframe src={urlcat(SITE_URL, '/prophet-iframe')} className="h-full w-full md:rounded-t-[32px]" />
+                <iframe src={urlcat(SITE_URL, '/prophet-iframe')} className="size-full md:rounded-t-[32px]" />
             </div>
         </div>
     );
