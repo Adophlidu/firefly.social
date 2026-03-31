@@ -464,7 +464,8 @@
         "webget",
         "webm",
         "xinfin",
-        "xrpc"
+        "xrpc",
+        "tamagui"
     ],
     "flagWords": [],
     "ignorePaths": [
