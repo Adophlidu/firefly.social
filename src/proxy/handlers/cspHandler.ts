@@ -4,6 +4,11 @@ import { IS_DEVELOPMENT } from '@dimensiondev/constants';
 import { randomBytes } from 'crypto';
 import { type NextRequest, NextResponse } from 'next/server.js';
 
+import { SITE_URL } from '@/constants/static.js';
+
+/** Production-only CSP violation ingestion (not per-request origin). */
+const CSP_REPORT_URI = `${SITE_URL}/api/beacon/csp-report`;
+
 const EXTRA_SOURCES = IS_DEVELOPMENT
     ? [
           'http://localhost:3000',
@@ -43,6 +48,7 @@ function buildCSPWithNonce(nonce: string): string {
         `img-src ${imgSrc.join(' ')}`,
         `style-src ${styleSrc.join(' ')}`,
         `worker-src ${workerSrc.join(' ')}`,
+        `report-uri ${CSP_REPORT_URI}`,
     ];
 
     return directives.join('; ');
