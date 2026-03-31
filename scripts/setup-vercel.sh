@@ -11,8 +11,3 @@ pnpm run build:polyfills
 pnpm run build:scripts
 pnpm run build:logs
 pnpm run build
-
-# Upload sourcemaps to exception tracker (only in production)
-if [ -n "$EXCEPTION_TRACKER_API_KEY" ]; then
-    pnpm run upload-sourcemaps || true
-fi
