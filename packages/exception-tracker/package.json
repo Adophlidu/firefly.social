@@ -1,6 +1,6 @@
 {
     "name": "@dimensiondev/exception-tracker",
-    "version": "0.1.17",
+    "version": "0.1.18",
     "description": "Exception tracking for Firefly projects",
     "type": "module",
     "main": "./dist/index.js",
