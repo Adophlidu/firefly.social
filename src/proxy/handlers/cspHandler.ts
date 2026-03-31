@@ -4,8 +4,15 @@ import { IS_DEVELOPMENT } from '@dimensiondev/constants';
 import { randomBytes } from 'crypto';
 import { type NextRequest, NextResponse } from 'next/server.js';
 
-const DEVELOPMENT_SOURCES = IS_DEVELOPMENT
-    ? ['http://localhost:3000', 'ws://localhost:3000', 'http://localhost:3001', 'ws://localhost:3001']
+const EXTRA_SOURCES = IS_DEVELOPMENT
+    ? [
+          'http://localhost:3000',
+          'http://localhost:3001',
+          'ws://localhost:3000',
+          'ws://localhost:3001',
+          '*.vercel-scripts.com',
+          'vercel.live',
+      ]
     : [];
 
 /**
@@ -15,30 +22,20 @@ const DEVELOPMENT_SOURCES = IS_DEVELOPMENT
 function buildCSPWithNonce(nonce: string): string {
     const scriptSrc = [
         "'self'",
+        '*.firefly.land',
         'www.googletagmanager.com',
         'static.cloudflareinsights.com',
-        'cdn.jsdelivr.net',
-        '*.vercel-scripts.com',
-        '*.firefly.land',
-        'vercel.live',
         `'nonce-${nonce}'`,
-        ...DEVELOPMENT_SOURCES,
+        ...EXTRA_SOURCES,
     ];
 
-    const defaultSrc = [
-        "'self'",
-        'https:',
-        'wss:',
-        'data:',
-        'blob:',
-        ...(IS_DEVELOPMENT ? ['ws:', ...DEVELOPMENT_SOURCES] : DEVELOPMENT_SOURCES),
-    ];
+    const defaultSrc = ["'self'", ...EXTRA_SOURCES];
 
-    const imgSrc = ["'self'", 'https:', 'data:', 'blob:', ...DEVELOPMENT_SOURCES];
+    const imgSrc = ["'self'", ...EXTRA_SOURCES];
 
-    const styleSrc = ["'self'", "'unsafe-inline'", 'vercel.live', 'fonts.googleapis.com', ...DEVELOPMENT_SOURCES];
+    const styleSrc = ["'self'", "'unsafe-inline'", 'vercel.live', 'fonts.googleapis.com', ...EXTRA_SOURCES];
 
-    const workerSrc = ["'self'", 'blob:', ...DEVELOPMENT_SOURCES];
+    const workerSrc = ["'self'", ...EXTRA_SOURCES];
 
     const directives = [
         `default-src ${defaultSrc.join(' ')}`,
