@@ -1,9 +1,8 @@
-import { anySignal } from '@dimensiondev/utils';
+import { anySignal, requestIdleCallbackAsync } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
 import { FIREFLY_WORKER_HOST } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
-import { requestIdleCallbackAsync } from '@/helpers/requestIdleCallbackAsync.js';
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';
 import { BaseLoader } from '@/providers/base/Loader.js';
 import { type ResponseJson } from '@/types/utility.js';

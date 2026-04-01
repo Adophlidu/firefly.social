@@ -1,4 +1,4 @@
-import { safeUnreachable } from '@dimensiondev/utils';
+import { resolveValue, safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
@@ -17,7 +17,6 @@ import { Source } from '@/constants/enum.js';
 import { isToday } from '@/helpers/isToday.js';
 import { isTomorrow } from '@/helpers/isTomorrow.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
-import { resolveValue } from '@/helpers/resolveValue.js';
 import { formatTwitterProfile } from '@/providers/twitter/formatTwitterProfile.js';
 import { getSpace } from '@/providers/twitter/getSpace.js';
 

@@ -1,4 +1,4 @@
-import { safeUnreachable } from '@dimensiondev/utils';
+import { resolveValue, safeUnreachable } from '@dimensiondev/utils';
 import { type Link, type Root, type Text } from 'mdast';
 import flatMap from 'unist-util-flatmap';
 
@@ -9,7 +9,6 @@ import {
     LENS_MENTION_REGEX,
     TWITTER_MENTION_REGEX,
 } from '@/constants/regexp.js';
-import { resolveValue } from '@/helpers/resolveValue.js';
 
 type Node = Link | Text;
 

@@ -20,7 +20,7 @@ function comparePathname(u1: URL, u2: URL, ignoreTrailingSlash?: boolean) {
     try {
         path1 = decodeURIComponent(path1);
         path2 = decodeURIComponent(path2);
-    } catch (e) {
+    } catch {
         // Fallback if malformed
     }
 

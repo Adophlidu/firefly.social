@@ -1,4 +1,4 @@
-import { parseUrl } from '@dimensiondev/utils';
+import { isSameUrl, parseUrl } from '@dimensiondev/utils';
 import { compact, last, uniqWith } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
@@ -6,7 +6,6 @@ import { FIREFLY_S3_URL } from '@/constants/static.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { getEmbedUrls } from '@/helpers/getEmbedUrls.js';
 import { isIpfsCID } from '@/helpers/isIpfsCID.js';
-import { isSameUrl } from '@/helpers/isSameUrl.js';
 import { isTopLevelDomain } from '@/helpers/isTopLevelDomain.js';
 import { resolveEmbedMediaType } from '@/helpers/resolveEmbedMediaType.js';
 import { resolveSizeFromS3Url } from '@/helpers/resolveSizeFromS3Url.js';

@@ -1,4 +1,4 @@
-import { retryOnError } from '@/helpers/retryOnError.js';
+import { retryOnError } from '@dimensiondev/utils';
 
 const NETWORK_ERRORS = ['Abort', 'Network request failed', 'Failed to fetch', 'Load failed'];
 

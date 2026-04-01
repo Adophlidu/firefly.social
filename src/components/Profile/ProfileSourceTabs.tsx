@@ -1,7 +1,7 @@
 'use client';
 
 import { envs, STATUS } from '@dimensiondev/envs';
-import { classNames, delay } from '@dimensiondev/utils';
+import { classNames, delay, resolveValue } from '@dimensiondev/utils';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
@@ -36,7 +36,6 @@ import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { isProfilePageSource, isSocialSource } from '@/helpers/isSource.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { resolveValue } from '@/helpers/resolveValue.js';
 import { useCurrentProfile, useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useThrottledCallback } from '@/hooks/useThrottledCallback.js';

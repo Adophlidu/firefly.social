@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { isSameUrl } from '@/helpers/isSameUrl.js';
+import { isSameUrl } from '../isSameUrl';
 
 describe('isSameUrl', () => {
     describe('Basic Equality', () => {
