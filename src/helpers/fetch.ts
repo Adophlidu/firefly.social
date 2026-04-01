@@ -1,4 +1,3 @@
-import { envs, STATUS } from '@dimensiondev/envs';
 import { bom, ForbiddenError, NetworkError, parseUrl } from '@dimensiondev/utils';
 import { isServer } from '@tanstack/react-query';
 import urlcat from 'urlcat';
@@ -132,20 +131,5 @@ export async function fetch(
         return originalFetch(input, init);
     }
 
-    // Wrap fetch call with performance tracking if enabled
-    // Only import and use performance tracking if the feature is enabled
-    // Check env variable synchronously first to avoid any module loading when disabled
-    if (envs.external.NEXT_PUBLIC_API_PERFORMANCE_PROFILING === STATUS.Enabled) {
-        // Dynamic import to avoid loading the module when disabled
-        // This is safe because we've already checked the env variable synchronously
-        const performanceModule = await import('@dimensiondev/lcp-profiler');
-        const urlString =
-            u?.toString() || (typeof input === 'string' ? input : input instanceof URL ? input.toString() : input.url);
-        if (performanceModule.isTrackingEnabled()) {
-            return performanceModule.trackApiCall(urlString, init, () => executeFetch(input, init, options, u));
-        }
-    }
-
-    // Original fetch logic without tracking
     return executeFetch(input, init, options, u);
 }

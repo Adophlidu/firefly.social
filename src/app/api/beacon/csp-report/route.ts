@@ -15,6 +15,7 @@ function parseReportBody(raw: string, contentType: string): unknown {
     const isJson =
         contentType.includes('json') || contentType.includes('csp-report') || contentType.includes('reports+json');
     if (!isJson) return raw;
+
     try {
         return JSON.parse(raw) as unknown;
     } catch {

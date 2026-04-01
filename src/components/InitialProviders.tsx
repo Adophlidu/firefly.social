@@ -1,6 +1,5 @@
 'use client';
 
-import { envs, STATUS } from '@dimensiondev/envs';
 import { initGlobalErrorHandlers } from '@dimensiondev/exception-tracker';
 import { bom, classNames } from '@dimensiondev/utils';
 import { isServer } from '@tanstack/react-query';
@@ -41,16 +40,6 @@ export const InitialProviders = memo(function Providers(props: { children: React
 
         if (!isServer) recordUserThemeMode(isDarkMode ? 'dark' : 'light');
     }, [isDarkMode, themeMode]);
-
-    useLayoutEffect(() => {
-        // Initialize API performance profiling only if enabled
-        if (envs.external.NEXT_PUBLIC_API_PERFORMANCE_PROFILING === STATUS.Enabled) {
-            // Dynamic import to avoid loading the module when disabled
-            import('@/helpers/initPerformanceProfilingFromEnv.js').then((module) => {
-                module.initPerformanceProfilingFromEnv();
-            });
-        }
-    }, []);
 
     const viewerId = useLeafwatchPersistStore.use.viewerId();
     const setViewerId = useLeafwatchPersistStore.use.setViewerId();

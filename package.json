@@ -43,7 +43,6 @@
         "@dimensiondev/envs": "workspace:^",
         "@dimensiondev/exception-tracker": "workspace:^",
         "@dimensiondev/iframe-bridge": "workspace:^",
-        "@dimensiondev/lcp-profiler": "workspace:^",
         "@dimensiondev/native-bridge": "workspace:^",
         "@dimensiondev/utils": "workspace:^",
         "@farcaster/core": "^0.18.10",
