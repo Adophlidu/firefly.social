@@ -27,15 +27,17 @@ export async function getSwapActivityByHash(hash: string, chainId: number) {
 
     // fallback to realtime data if not found
     if (!result) {
-        const realtimeResponse = await fireflySessionHolder.fetch<SwapActivityDetail>(url, {
+        const realResult = await fireflySessionHolder.fetch<SwapActivityDetail>(url, {
             method: 'POST',
             body: JSON.stringify({
                 list: [{ hash, chain_id: chainId }],
                 is_realtime: true,
             }),
         });
-        const realtimeData = resolveFireflyResponseData(realtimeResponse);
-        return first(realtimeData);
+        // with `is_realtime=true`, there is always one result.
+        const realData = resolveFireflyResponseData(realResult);
+        const tx = first(realData);
+        if (tx?.from_token) return tx;
     }
 
     return result;
