@@ -1,6 +1,6 @@
 {
     "name": "@dimensiondev/scripts",
-    "version": "0.1.20",
+    "version": "0.1.21",
     "private": true,
     "type": "module",
     "description": "Build tooling and maintenance scripts for the Firefly monorepo",
