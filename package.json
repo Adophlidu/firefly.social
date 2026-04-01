@@ -235,7 +235,8 @@
             "@tippyjs/react@4.2.6": "patches/@tippyjs__react@4.2.6.patch",
             "@lens-protocol/client@0.0.0-canary-20250430134539": "patches/@lens-protocol__client@0.0.0-canary-20250430134539.patch",
             "@reown/appkit@1.8.16": "patches/@reown__appkit@1.8.16.patch",
-            "react-use@17.6.0": "patches/react-use@17.6.0.patch"
+            "react-use@17.6.0": "patches/react-use@17.6.0.patch",
+            "@lingui/format-po-gettext@5.5.2": "patches/@lingui__format-po-gettext@5.5.2.patch"
         }
     },
     "eslintConfig": {

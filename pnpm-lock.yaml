@@ -43,6 +43,9 @@ patchedDependencies:
   '@lexical/react@0.18.0':
     hash: ghdbhcm7dq6jsqa6um6vsyfuny
     path: patches/@lexical__react@0.18.0.patch
+  '@lingui/format-po-gettext@5.5.2':
+    hash: dhsu54qnc4h2hko4i7rda7trn4
+    path: patches/@lingui__format-po-gettext@5.5.2.patch
   '@reown/appkit@1.8.16':
     hash: kyc5ehzpgru7a7goqtkjnfyoem
     path: patches/@reown__appkit@1.8.16.patch
@@ -360,7 +363,7 @@ importers:
         version: 5.5.2(typescript@5.9.3)
       '@lingui/format-po-gettext':
         specifier: 5.5.2
-        version: 5.5.2(typescript@5.9.3)
+        version: 5.5.2(patch_hash=dhsu54qnc4h2hko4i7rda7trn4)(typescript@5.9.3)
       '@lingui/loader':
         specifier: ^5.5.2
         version: 5.5.2(typescript@5.9.3)(webpack@5.105.4)
@@ -5542,7 +5545,7 @@ packages:
       '@lingui/babel-plugin-lingui-macro': 5.5.2(typescript@5.9.3)
       '@lingui/message-utils': 5.5.2
 
-  /@lingui/format-po-gettext@5.5.2(typescript@5.9.3):
+  /@lingui/format-po-gettext@5.5.2(patch_hash=dhsu54qnc4h2hko4i7rda7trn4)(typescript@5.9.3):
     resolution: {integrity: sha512-HRp2/vOw7GXESQQd+bFAdXBTRM06fPNRTVtBA9TIIEBHS+eScJLA7WPKFu9jhvht/rOBzgXEojwAbdyX9ReCTA==}
     engines: {node: '>=20.0.0'}
     dependencies:
@@ -5557,6 +5560,7 @@ packages:
     transitivePeerDependencies:
       - typescript
     dev: true
+    patched: true
 
   /@lingui/format-po@5.5.2(typescript@5.9.3):
     resolution: {integrity: sha512-xqkrCzsdFlUxxa2WPEB1kJGUsH3iyzjzcMsNjE7VTRv6rddGwt9mEKfqO+VAKIXcbmGKHWMcvQ6bqzhlqTlACA==}

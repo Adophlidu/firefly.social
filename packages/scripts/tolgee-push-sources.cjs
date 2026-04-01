@@ -16,6 +16,7 @@ const os = require('os');
 const path = require('path');
 const { execSync } = require('child_process');
 const { findRepoRoot } = require('./repo-root.cjs');
+const { isTolgeeEmptyPluralPlaceholder } = require('./tolgee-empty-plural-placeholder.cjs');
 
 const PO = require(
     require.resolve('pofile', {
@@ -42,10 +43,10 @@ try {
         const before = po.items.length;
         po.items = po.items.filter((item) => {
             if (!item.msgid_plural) return true;
-            // Drop plural entries where every msgstr form is empty (untranslated).
+            // Drop plural entries where every msgstr is empty or Tolgee’s bogus empty ICU.
             // Keeping them causes Tolgee to record "{var, plural, other {}}"
             // instead of leaving the translation empty.
-            return item.msgstr.some((s) => s !== '');
+            return item.msgstr.some((s) => s !== '' && !isTolgeeEmptyPluralPlaceholder(s));
         });
         const removed = before - po.items.length;
 

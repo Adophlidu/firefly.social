@@ -24,6 +24,7 @@ const ROOT = findRepoRoot(__dirname);
 const LOCALES = ['en', 'es', 'ko', 'ja', 'zh-Hans', 'zh-Hant'];
 const METADATA_PATH = path.join(__dirname, 'lingui-gettext-plural-metadata.json');
 const EXPLICIT_COMMENT = 'js-lingui-explicit-id';
+const { isTolgeeEmptyPluralPlaceholder } = require('./tolgee-empty-plural-placeholder.cjs');
 
 function refKey(refs) {
     const paths = [...refs].map((r) => r.replace(/:\d+$/, ''));
@@ -58,6 +59,7 @@ function main() {
     let insertedPlural = 0;
     let insertedExplicit = 0;
     let missingPlural = 0;
+    let strippedTolgeeEmptyPlural = 0;
 
     for (const locale of LOCALES) {
         const poPath = path.join(ROOT, 'src/locales', locale, 'messages.po');
@@ -69,26 +71,38 @@ function main() {
         for (const item of po.items) {
             if (item.msgid_plural) {
                 const has = item.extractedComments.some((c) => c.startsWith('js-lingui:icu='));
-                if (has) continue;
-
-                const comment = findComment(item, meta);
-                if (!comment) {
-                    missingPlural += 1;
-                    console.warn(
-                        'restore-lingui-gettext-plural-metadata: missing plural metadata for',
-                        locale,
-                        JSON.stringify(item.msgid).slice(0, 100),
-                        'msgid_plural:',
-                        JSON.stringify(item.msgid_plural).slice(0, 80),
-                        'refs:',
-                        refKey(item.references).slice(0, 120),
-                    );
-                    continue;
+                if (!has) {
+                    const comment = findComment(item, meta);
+                    if (!comment) {
+                        missingPlural += 1;
+                        console.warn(
+                            'restore-lingui-gettext-plural-metadata: missing plural metadata for',
+                            locale,
+                            JSON.stringify(item.msgid).slice(0, 100),
+                            'msgid_plural:',
+                            JSON.stringify(item.msgid_plural).slice(0, 80),
+                            'refs:',
+                            refKey(item.references).slice(0, 120),
+                        );
+                    } else {
+                        item.extractedComments.push(comment);
+                        changed = true;
+                        insertedPlural += 1;
+                    }
                 }
 
-                item.extractedComments.push(comment);
-                changed = true;
-                insertedPlural += 1;
+                let stripPlural = false;
+                item.msgstr = item.msgstr.map((s) => {
+                    if (isTolgeeEmptyPluralPlaceholder(s)) {
+                        stripPlural = true;
+                        return '';
+                    }
+                    return s;
+                });
+                if (stripPlural) {
+                    changed = true;
+                    strippedTolgeeEmptyPlural += 1;
+                }
             }
 
             if (explicitSet.has(item.msgid) && !item.extractedComments.includes(EXPLICIT_COMMENT)) {
@@ -105,8 +119,8 @@ function main() {
 
     console.log(
         `restore-lingui-gettext-plural-metadata: inserted ${insertedPlural} plural + ${insertedExplicit} explicit-id comment(s)${
-            missingPlural ? `; ${missingPlural} plural unmatched (regenerate lingui-gettext-plural-metadata.json)` : ''
-        }`,
+            strippedTolgeeEmptyPlural ? `; cleared ${strippedTolgeeEmptyPlural} Tolgee empty-plural placeholder(s)` : ''
+        }${missingPlural ? `; ${missingPlural} plural unmatched (regenerate lingui-gettext-plural-metadata.json)` : ''}`,
     );
     if (missingPlural) process.exitCode = 1;
 }
