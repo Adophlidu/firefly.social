@@ -15,7 +15,7 @@ export const PredictionCampaignModal = memo(function PredictionCampaignModal() {
 
     useEffect(() => {
         if (IS_MOBILE_DEVICE && nativeBridgeProvider.supported) {
-            window.location.href = urlcat(SITE_URL, '/prophet-iframe');
+            window.location.replace(urlcat(SITE_URL, '/prophet-iframe'));
         } else {
             setShowIframe(true);
         }

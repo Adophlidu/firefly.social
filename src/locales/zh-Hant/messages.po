@@ -149,6 +149,9 @@ msgstr "隱藏 /{0}"
 msgid "Blackmail activities."
 msgstr "勒索活動。"
 
+msgid "{txStatus, select, success {Success} fail {Failed} pending {Pending} other {Failed}}"
+msgstr ""
+
 msgid "Template"
 msgstr "模板"
 
@@ -2776,10 +2779,6 @@ msgstr "24小時"
 
 msgid "Contract Address"
 msgstr "合約地址"
-
-#. placeholder {0}: activity.tx_status
-msgid "{0, select, success {Success} fail {Failed} pending {Pending} other {Failed}}"
-msgstr ""
 
 msgid "The whitelist function is not included. If there is a whitelist, some addresses may not be able to trade normally (honeypot risk)."
 msgstr "白名單功能未啟用。如果存在白名單，某些地址可能無法正常交易（詐騙風險）。"

@@ -2,8 +2,8 @@ import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-b
 import { type MiniAppHost } from '@farcaster/miniapp-host';
 import { getAccount } from '@wagmi/core';
 
-import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { SwapAccessPath } from '@/components/TokenProfile/SwapButton.js';
+import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { parseCAIP19 } from '@/helpers/parseCAIP19.js';
 import { logger } from '@/libs/Logger.js';
 import { SolanaNetwork } from '@/providers/solana/Network.js';

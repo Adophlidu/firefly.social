@@ -84,6 +84,8 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ chainId, h
             ? resolveExplorerLink(activity.chain_id, activity.hash, 'tx')
             : `https://solscan.io/tx/${activity.hash}`;
     const ensHandle = getEnsNameFromDisplayInfo(activity, activity.owner);
+    const txStatus = activity.tx_status.toLowerCase();
+    const isFailed = txStatus === 'fail';
 
     const avatar = (
         <Avatar
@@ -255,9 +257,11 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ chainId, h
                         </div>
                     ) : null}
 
-                    <NoSSR>
-                        <SwapActions activity={activity} isDetail />
-                    </NoSSR>
+                    {!isFailed ? (
+                        <NoSSR>
+                            <SwapActions activity={activity} isDetail />
+                        </NoSSR>
+                    ) : null}
                 </div>
 
                 <div className="mt-4 space-y-2">
@@ -289,32 +293,34 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ chainId, h
                             </TxLink>
                         </div>
                     ) : null}
-                    <div className="flex min-w-0 items-center justify-between gap-2 text-sm">
-                        <span className="shrink-0 text-second">
-                            <Trans>Block</Trans>
-                        </span>
-                        <span className="truncate text-lightMain">{activity.block_number}</span>
-                    </div>
+                    {!isFailed ? (
+                        <div className="flex min-w-0 items-center justify-between gap-2 text-sm">
+                            <span className="shrink-0 text-second">
+                                <Trans>Block</Trans>
+                            </span>
+                            <span className="truncate text-lightMain">{activity.block_number}</span>
+                        </div>
+                    ) : null}
                     <div className="flex min-w-0 items-center justify-between gap-2 text-sm">
                         <span className="shrink-0 text-second">
                             <Trans>Status</Trans>
                         </span>
                         <span
                             className={classNames('flex items-center gap-2', {
-                                'text-success': activity.tx_status === 'success',
-                                'text-warn': activity.tx_status === 'pending',
-                                'text-danger': activity.tx_status === 'fail',
+                                'text-success': txStatus === 'success',
+                                'text-warn': txStatus === 'pending',
+                                'text-danger': txStatus === 'fail',
                             })}
                         >
                             <div
                                 className={classNames('size-2 rounded-full', {
-                                    'bg-success': activity.tx_status === 'success',
-                                    'bg-warn': activity.tx_status === 'pending',
-                                    'bg-danger': activity.tx_status === 'fail',
+                                    'bg-success': txStatus === 'success',
+                                    'bg-warn': txStatus === 'pending',
+                                    'bg-danger': txStatus === 'fail',
                                 })}
                             />
                             <Select
-                                value={activity.tx_status}
+                                value={txStatus}
                                 _success="Success"
                                 _fail="Failed"
                                 _pending="Pending"

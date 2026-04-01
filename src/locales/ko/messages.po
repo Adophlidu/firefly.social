@@ -149,6 +149,9 @@ msgstr ""
 msgid "Blackmail activities."
 msgstr ""
 
+msgid "{txStatus, select, success {Success} fail {Failed} pending {Pending} other {Failed}}"
+msgstr ""
+
 msgid "Template"
 msgstr ""
 
@@ -2775,10 +2778,6 @@ msgid "24h"
 msgstr ""
 
 msgid "Contract Address"
-msgstr ""
-
-#. placeholder {0}: activity.tx_status
-msgid "{0, select, success {Success} fail {Failed} pending {Pending} other {Failed}}"
 msgstr ""
 
 msgid "The whitelist function is not included. If there is a whitelist, some addresses may not be able to trade normally (honeypot risk)."
