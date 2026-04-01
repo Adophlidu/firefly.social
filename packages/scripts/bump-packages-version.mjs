@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /**
- * Sets the same semver on every package under packages/* (bump from current max).
+ * Bumps semver (major | minor | patch) on each package under packages/* using that
+ * package's own current version. Prints the highest resulting version (for CI branch naming).
  * Usage: node scripts/bump-packages-version.mjs major|minor|patch
  */
 import fs from 'node:fs';
@@ -64,25 +65,19 @@ if (targets.length === 0) {
     process.exit(1);
 }
 
-let maxVersion = targets[0].version;
-for (const t of targets) {
-    if (compareSemver(t.version, maxVersion) > 0) maxVersion = t.version;
+const newVersions = targets.map((t) => bump(t.version, bumpType));
+let maxNewVersion = newVersions[0];
+for (const nv of newVersions) {
+    if (compareSemver(nv, maxNewVersion) > 0) maxNewVersion = nv;
 }
 
-for (const t of targets) {
-    if (t.version !== maxVersion) {
-        console.warn(`Warning: ${t.name} was ${t.version}; aligning bump from workspace max ${maxVersion}`);
-    }
-}
-
-const newVersion = bump(maxVersion, bumpType);
-
-for (const t of targets) {
+for (let i = 0; i < targets.length; i++) {
+    const t = targets[i];
     const jsonPath = t.path;
     const raw = fs.readFileSync(jsonPath, 'utf8');
     const pkg = JSON.parse(raw);
-    pkg.version = newVersion;
+    pkg.version = newVersions[i];
     fs.writeFileSync(jsonPath, `${JSON.stringify(pkg, null, 4)}\n`, 'utf8');
 }
 
-console.log(newVersion);
+console.log(maxNewVersion);

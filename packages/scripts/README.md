@@ -28,7 +28,7 @@ Private workspace package containing **CLI tooling, shell helpers, and small ESL
 | Script                          | What it does                                                                                                                                                                                                                                          |
 | ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **`build-scripts.mjs`**         | **esbuild** bundles: service workers, Firebase messaging SW, vendored `twitter-api-v2` prebuilt, `home-redirect` script; writes **Chrome DevTools** `com.chrome.devtools.json` with the workspace root. Loads env from **`.env.local`** at repo root. |
-| **`bump-packages-version.mjs`** | Bumps **semver** (`major` \| `minor` \| `patch`) and aligns the version field across every package under **`packages/*`**.                                                                                                                            |
+| **`bump-packages-version.mjs`** | Bumps **semver** (`major` \| `minor` \| `patch`) **per package** under **`packages/*`** from each package’s own version; stdout is the **highest** resulting version (for CI labels).                                                                 |
 
 ---
 
