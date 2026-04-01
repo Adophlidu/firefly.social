@@ -150,7 +150,7 @@ msgid "Blackmail activities."
 msgstr "Blackmail activities."
 
 msgid "{txStatus, select, success {Success} fail {Failed} pending {Pending} other {Failed}}"
-msgstr "{txStatus, select, success {Success} fail {Failed} pending {Pending} other {Failed}}"
+msgstr ""
 
 msgid "Template"
 msgstr "Template"
