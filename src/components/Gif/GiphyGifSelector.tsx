@@ -1,3 +1,5 @@
+'use client';
+
 import { envs } from '@dimensiondev/envs';
 import { classNames } from '@dimensiondev/utils';
 import { SearchBar, SearchContextManager } from '@giphy/react-components';

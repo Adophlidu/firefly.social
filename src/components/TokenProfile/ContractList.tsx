@@ -1,3 +1,5 @@
+'use client';
+
 import { classNames } from '@dimensiondev/utils';
 import { MenuItem, MenuItems, type MenuItemsProps } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';

@@ -1,3 +1,5 @@
+'use client';
+
 import { Trans } from '@lingui/react/macro';
 import dayjs from 'dayjs';
 import { noop } from 'lodash-es';

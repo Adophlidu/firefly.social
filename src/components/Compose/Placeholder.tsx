@@ -1,3 +1,5 @@
+'use client';
+
 import { Trans } from '@lingui/react/macro';
 
 import { readChars } from '@/helpers/chars.js';

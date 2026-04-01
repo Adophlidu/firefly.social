@@ -1,3 +1,5 @@
+'use client';
+
 import { IS_PRODUCTION } from '@dimensiondev/constants';
 import { envs } from '@dimensiondev/envs';
 import { Trans } from '@lingui/react/macro';

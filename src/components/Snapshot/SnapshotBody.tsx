@@ -1,3 +1,5 @@
+'use client';
+
 import { classNames } from '@dimensiondev/utils';
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import { t } from '@lingui/core/macro';

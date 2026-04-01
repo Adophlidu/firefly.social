@@ -1,3 +1,5 @@
+'use client';
+
 import { safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo, type ReactNode, useState } from 'react';

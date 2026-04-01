@@ -1,3 +1,5 @@
+'use client';
+
 import { Trans } from '@lingui/react/macro';
 import { type Ranger, useRanger } from '@tanstack/react-ranger';
 import { Fragment, useCallback, useRef, useState } from 'react';

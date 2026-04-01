@@ -1,3 +1,5 @@
+'use client';
+
 import '@/assets/css/notification.css';
 
 import { safeUnreachable } from '@dimensiondev/utils';

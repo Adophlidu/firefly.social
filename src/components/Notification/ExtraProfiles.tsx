@@ -1,3 +1,5 @@
+'use client';
+
 import { Trans } from '@lingui/react/macro';
 
 import { ProfileLink } from '@/components/Notification/ProfileLink.js';

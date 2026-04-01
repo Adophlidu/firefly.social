@@ -1,3 +1,5 @@
+'use client';
+
 import { Trans } from '@lingui/react/macro';
 import { memo, type MouseEvent, useCallback } from 'react';
 

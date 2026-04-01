@@ -1,3 +1,5 @@
+'use client';
+
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useLocation } from '@tanstack/react-router';

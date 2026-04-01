@@ -1,3 +1,5 @@
+'use client';
+
 import { unreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo, type MouseEvent } from 'react';

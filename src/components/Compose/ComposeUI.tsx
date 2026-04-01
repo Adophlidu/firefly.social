@@ -1,3 +1,5 @@
+'use client';
+
 import { envs, STATUS } from '@dimensiondev/envs';
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';

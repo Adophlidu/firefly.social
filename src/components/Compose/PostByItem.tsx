@@ -1,3 +1,5 @@
+'use client';
+
 import { classNames, delay } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { rootRouteId, useRouteContext } from '@tanstack/react-router';

@@ -1,3 +1,5 @@
+'use client';
+
 import { MenuItem } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { memo, useCallback } from 'react';

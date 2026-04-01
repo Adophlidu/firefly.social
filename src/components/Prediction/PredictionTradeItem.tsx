@@ -1,3 +1,5 @@
+'use client';
+
 import { classNames } from '@dimensiondev/utils';
 import { Plural, Trans } from '@lingui/react/macro';
 import { compact, first } from 'lodash-es';

@@ -1,3 +1,5 @@
+'use client';
+
 import { classNames, getEnumAsArray } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQueries } from '@tanstack/react-query';

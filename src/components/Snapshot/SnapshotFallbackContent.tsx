@@ -1,3 +1,5 @@
+'use client';
+
 import { classNames } from '@dimensiondev/utils';
 import { Tab } from '@headlessui/react';
 import { IS_APPLE, IS_SAFARI } from '@lexical/utils';

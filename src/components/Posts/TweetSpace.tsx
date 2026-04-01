@@ -1,3 +1,5 @@
+'use client';
+
 import { resolveValue, safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';

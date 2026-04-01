@@ -1,3 +1,5 @@
+'use client';
+
 import { Trans } from '@lingui/react/macro';
 import { produce } from 'immer';
 import { memo } from 'react';

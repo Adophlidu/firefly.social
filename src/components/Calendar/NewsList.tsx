@@ -1,3 +1,5 @@
+'use client';
+
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { Trans } from '@lingui/react/macro';
 import { useMemo, useRef } from 'react';

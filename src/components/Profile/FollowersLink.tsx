@@ -1,3 +1,5 @@
+'use client';
+
 import { classNames } from '@dimensiondev/utils';
 import { Plural } from '@lingui/react/macro';
 import { type HTMLProps, memo } from 'react';

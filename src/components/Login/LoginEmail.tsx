@@ -1,3 +1,5 @@
+'use client';
+
 import { AbortError, ForbiddenError } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';

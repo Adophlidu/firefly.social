@@ -1,3 +1,5 @@
+'use client';
+
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { Fragment } from 'react';

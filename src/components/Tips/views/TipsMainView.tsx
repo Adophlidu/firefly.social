@@ -1,3 +1,5 @@
+'use client';
+
 import { Trans } from '@lingui/react/macro';
 
 import ErrorIcon from '@/assets/error-circle.svg';

@@ -1,3 +1,5 @@
+'use client';
+
 /* cspell:disable */
 
 import { type AuthFactorTokenRequiredError } from '@atproto/api/dist/client/types/com/atproto/server/createSession.js';

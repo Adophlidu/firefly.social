@@ -1,3 +1,5 @@
+'use client';
+
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { classNames } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';

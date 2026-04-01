@@ -1,3 +1,5 @@
+'use client';
+
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { Trans } from '@lingui/react/macro';
 import { type Theme } from 'emoji-picker-react';

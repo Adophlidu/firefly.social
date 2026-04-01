@@ -1,3 +1,5 @@
+'use client';
+
 import 'plyr-react/plyr.css';
 
 import { classNames } from '@dimensiondev/utils';

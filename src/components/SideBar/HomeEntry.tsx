@@ -1,3 +1,5 @@
+'use client';
+
 import { Trans } from '@lingui/react/macro';
 
 import HomeSelectedIcon from '@/assets/home.selected.svg';

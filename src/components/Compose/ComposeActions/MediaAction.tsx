@@ -1,3 +1,5 @@
+'use client';
+
 import { classNames } from '@dimensiondev/utils';
 import { Popover } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';

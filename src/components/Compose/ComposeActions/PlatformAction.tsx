@@ -1,3 +1,5 @@
+'use client';
+
 import { Popover, PopoverButton } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { Trans } from '@lingui/react/macro';

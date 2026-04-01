@@ -1,3 +1,5 @@
+'use client';
+
 import { classNames } from '@dimensiondev/utils';
 import { ContentEditable } from '@lexical/react/LexicalContentEditable.js';
 import { HashtagPlugin } from '@lexical/react/LexicalHashtagPlugin.js';

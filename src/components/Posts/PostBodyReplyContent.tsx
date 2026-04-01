@@ -1,3 +1,5 @@
+'use client';
+
 import { classNames } from '@dimensiondev/utils';
 import { Select, Trans } from '@lingui/react/macro';
 import { type HTMLProps, memo, useEffect, useState } from 'react';

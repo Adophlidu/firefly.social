@@ -1,3 +1,5 @@
+'use client';
+
 import { Plural } from '@lingui/react/macro';
 import { memo } from 'react';
 

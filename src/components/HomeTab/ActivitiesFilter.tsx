@@ -1,3 +1,5 @@
+'use client';
+
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { memo, useEffect, useMemo } from 'react';
