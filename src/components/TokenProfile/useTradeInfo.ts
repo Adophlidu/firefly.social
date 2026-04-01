@@ -4,13 +4,14 @@ import { useMemo } from 'react';
 import { zeroAddress } from 'viem';
 
 import { useOkxSupportedChains } from '@/components/TokenProfile/useOkxSupportedChains.js';
+import { SWAP_SOL_NATIVE_ADDRESS } from '@/constants/static.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
 import { type CoinGeckoToken } from '@/providers/types/CoinGecko.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
 import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 function getChainIdByCoinId(coinId: string) {
-    const CoinIdToChainId: Record<string, EthereumChainId> = {
+    const CoinIdToChainId: Record<string, number> = {
         ethereum: EthereumChainId.Mainnet,
         'polygon-ecosystem-token': EthereumChainId.Polygon,
         binancecoin: EthereumChainId.BSC,
@@ -18,6 +19,7 @@ function getChainIdByCoinId(coinId: string) {
         arbitrum: EthereumChainId.Arbitrum,
         scroll: EthereumChainId.Scroll,
         'avalanche-2': EthereumChainId.Avalanche,
+        solana: SolanaChainId.Mainnet,
     };
     return CoinIdToChainId[coinId];
 }
@@ -31,8 +33,8 @@ export function useTradeInfo(token: CoinGeckoToken | null | undefined, argChainI
         [supportedChains],
     );
     const firstAvailable = contracts.find((x) => x.chainId && chainIds.includes(x.chainId));
-    const coingeckoChainId = token?.id ? getChainIdByCoinId(token.id) : undefined;
-    const chainId = argChainId || coingeckoChainId || token?.chainId || firstAvailable?.chainId;
+    const cgkChainId = token?.id ? getChainIdByCoinId(token.id) : undefined;
+    const chainId = argChainId || cgkChainId || token?.chainId || firstAvailable?.chainId;
 
     if (!chainId || !chainIds.includes(chainId))
         return {
@@ -44,7 +46,7 @@ export function useTradeInfo(token: CoinGeckoToken | null | undefined, argChainI
     return {
         tradable: true,
         chainId,
-        address: coingeckoChainId ? zeroAddress : address,
+        address: cgkChainId ? (cgkChainId === SolanaChainId.Mainnet ? SWAP_SOL_NATIVE_ADDRESS : zeroAddress) : address,
         supportedChainIds: chainIds,
     } as const;
 }
