@@ -1,6 +1,6 @@
 import { type DependencyList, useCallback, useRef, useState } from 'react';
 
-import useMountedState from './useMountedState';
+import useMountedState from '@/hooks/useMountedState';
 
 export type PromiseType<P extends Promise<any>> = P extends Promise<infer T> ? T : never;
 

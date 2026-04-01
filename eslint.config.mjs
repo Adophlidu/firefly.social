@@ -376,10 +376,4 @@ export default defineConfig([
             'tailwindcss/no-arbitrary-value': 'off',
         },
     },
-    {
-        files: ['packages/rn-ui/**/*.ts', 'packages/rn-ui/**/*.tsx'],
-        rules: {
-            'no-relative-import-paths/no-relative-import-paths': 'off',
-        },
-    },
 ]);

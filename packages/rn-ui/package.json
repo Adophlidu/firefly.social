@@ -27,7 +27,8 @@
     },
     "peerDependencies": {
         "react": "*",
-        "react-native": "*"
+        "react-native": "*",
+        "react-native-svg": "*"
     },
     "dependencies": {
         "@tamagui/config": "^1.114.0",
@@ -35,7 +36,6 @@
         "@tamagui/lucide-icons-2": "2.0.0-rc.35",
         "lucide-react-native": "^0.473.0",
         "react-native-svg": "^15.15.4",
-        "react-native-web": "^0.21.2",
         "tamagui": "^1.114.0"
     },
     "devDependencies": {

@@ -12,6 +12,11 @@ export default defineConfig({
             include: ['src'],
         }),
     ],
+    resolve: {
+        alias: {
+            '@': resolve(__dirname, 'src'),
+        },
+    },
     build: {
         lib: {
             entry: resolve(__dirname, 'src/index.ts'),
@@ -20,7 +25,15 @@ export default defineConfig({
             fileName: (format) => `index.${format === 'es' ? 'js' : 'cjs'}`,
         },
         rollupOptions: {
-            external: ['react', 'react-dom', 'react-native', 'tamagui', '@tamagui/core', '@tamagui/config'],
+            external: [
+                'react',
+                'react-dom',
+                'react-native',
+                'tamagui',
+                '@tamagui/core',
+                '@tamagui/config',
+                'react-native-svg',
+            ],
             output: {
                 globals: {
                     react: 'React',

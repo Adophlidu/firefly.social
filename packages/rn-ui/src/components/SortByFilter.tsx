@@ -1,6 +1,8 @@
 import { memo, useState } from 'react';
 import { Button, ScrollView, Sheet, styled, Text, XStack, YStack } from 'tamagui';
 
+import { SolidArrowIcon } from '@/icons/SolidArrowIcon';
+
 interface SortByFilterProps {
     data: Array<{ label: string; value: string }>;
     value: string;
@@ -29,6 +31,7 @@ export const SortByFilter = memo<SortByFilterProps>(function SortByFilter({ valu
                 onPress={() => {
                     setOpen(true);
                 }}
+                iconAfter={<SolidArrowIcon />}
             >
                 <Text color="#181818">{data.find((item) => item.value === value)?.label || 'Select'}</Text>
             </TriggerButton>

@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { Button, Text, YStack } from 'tamagui';
 
-import { useAsyncFn } from '../hooks/useAsyncFn';
+import { useAsyncFn } from '@/hooks/useAsyncFn';
 
 interface AddFundsButtonProps {
     onPress?: () => Promise<string>;
