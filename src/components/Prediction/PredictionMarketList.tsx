@@ -54,7 +54,7 @@ export const PredictionMarketList = memo(function PredictionMarketList({
     const { displayedMarkets, showMore, toggleType, setShowMore } = useToggleMarkets(markets);
 
     const supportOrderBook = PLATFORMS_SUPPORTING_ORDER_BOOK.includes(platform);
-    const disabled = displayedMarkets.length === 1 && !supportOrderBook;
+    const disabled = markets.length === 1 && !supportOrderBook;
     const onMarketClick = useCallback(
         (market: BetsMarketDataForUI) => {
             if (disabled) return;

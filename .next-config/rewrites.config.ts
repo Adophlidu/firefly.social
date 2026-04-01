@@ -17,13 +17,22 @@ export const rewritesConfig: NonNullable<NextConfig['rewrites']> = async () => {
     // Route table from rewrite.config.json — maps path prefixes to full per-environment destination URLs.
     // Format: { "/path": { "staging": "https://host/path", "canary": "https://host/path/", ... } }
     // Destinations include the full path and trailing slash as required by the target app.
-    const proxyRoutes: Record<string, Record<DeploymentTier, string>> = JSON.parse(
-        readFileSync(resolve(import.meta.dirname, 'rewrite.config.json'), 'utf-8'),
-    );
+    let proxyRoutes: Record<string, Record<DeploymentTier, string>>;
+    try {
+        proxyRoutes = JSON.parse(readFileSync(resolve(import.meta.dirname, 'rewrite.config.json'), 'utf-8'));
+    } catch (err) {
+        throw new Error(`[rewrites.config] Failed to parse rewrite.config.json: ${err}`);
+    }
 
     const routes = new Map<string, string>();
     for (const [path, destinations] of Object.entries(proxyRoutes)) {
-        routes.set(path, destinations[tier]);
+        const destination = destinations[tier];
+        if (!destination) {
+            throw new Error(
+                `[rewrites.config] Missing "${tier}" destination for path "${path}" in rewrite.config.json`,
+            );
+        }
+        routes.set(path, destination);
     }
 
     // Local-dev overrides from .next-config/rewrite.config.dev.json (git-ignored).

@@ -3,6 +3,7 @@ import { type MiniAppHost } from '@farcaster/miniapp-host';
 import { getAccount } from '@wagmi/core';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
+import { SwapAccessPath } from '@/components/TokenProfile/SwapButton.js';
 import { parseCAIP19 } from '@/helpers/parseCAIP19.js';
 import { logger } from '@/libs/Logger.js';
 import { SolanaNetwork } from '@/providers/solana/Network.js';
@@ -34,7 +35,7 @@ export const frameSwapToken = async function frameSwapToken(options) {
     }
 
     const params = new URLSearchParams();
-    params.set('entry', '1'); // Token detail entry
+    params.set('entry', SwapAccessPath.TokenDetail);
     params.set('chain', chainId.toString());
     if (sellTokenAddress) params.set('from', sellTokenAddress);
     if (buyTokenAddress) params.set('to', buyTokenAddress);
