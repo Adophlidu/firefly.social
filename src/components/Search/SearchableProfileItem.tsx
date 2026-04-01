@@ -86,13 +86,14 @@ export const SearchableProfileItem = memo<CrossProfileItemProps>(function Search
             : profile.avatar || data || getStampAvatarByProfileId(source, profile.platform_id);
 
     // keep the matched profile at the first place
-    const sortedRelated = related.sort((a, b) => (a.platform === profile.platform ? -1 : 1));
+    const sortedRelated = related.sort((a, _b) => (a.platform === profile.platform ? -1 : 1));
 
     return (
         <Link
             className={classNames('flex items-center gap-x-2 border-b border-line p-3 hover:bg-bg', className)}
             href={getProfileUrlWithAccount(profile, related, source)}
             onClick={onClick}
+            prefetch={false}
         >
             <Avatar alt={profile.handle} className="size-7 rounded-full" src={avatar} size={44} />
             <div className="min-w-0 flex-1">

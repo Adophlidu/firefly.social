@@ -20,13 +20,11 @@ export function handleProfileRoutes(request: NextRequest, next: () => NextRespon
     const parsedProfileUrl = parseProfileUrl(pathname);
 
     if (parsedProfileUrl?.category && isFollowCategory(parsedProfileUrl.category)) {
-        const destination = new URL(
-            urlcat(`/profile/:source/:id/relation/:category`, {
-                ...parsedProfileUrl,
-                source: resolveProfileSourceInURL(parsedProfileUrl.source),
-            }),
-            request.url,
-        );
+        const destination = request.nextUrl.clone();
+        destination.pathname = urlcat(`/profile/:source/:id/relation/:category`, {
+            ...parsedProfileUrl,
+            source: resolveProfileSourceInURL(parsedProfileUrl.source),
+        });
         return NextResponse.rewrite(destination, { request });
     }
 
@@ -36,13 +34,11 @@ export function handleProfileRoutes(request: NextRequest, next: () => NextRespon
         isProfilePageSource(parsedProfileUrl.source) &&
         !request.nextUrl.searchParams.has('_internal')
     ) {
-        const destination = new URL(
-            urlcat(`/profile/:source/:id`, {
-                source: resolveProfileSourceInURL(parsedProfileUrl.source),
-                id: parsedProfileUrl.id,
-            }),
-            request.url,
-        );
+        const destination = request.nextUrl.clone();
+        destination.pathname = urlcat(`/profile/:source/:id`, {
+            source: resolveProfileSourceInURL(parsedProfileUrl.source),
+            id: parsedProfileUrl.id,
+        });
         return NextResponse.redirect(destination, { status: 302 });
     }
 
@@ -52,16 +48,14 @@ export function handleProfileRoutes(request: NextRequest, next: () => NextRespon
         !!parsedProfileUrl.id &&
         isProfilePageSource(parsedProfileUrl.source)
     ) {
-        const destination = new URL(
-            urlcat(`/profile/:source/:id/:category`, {
-                source: resolveProfileSourceInURL(parsedProfileUrl.source),
-                id: parsedProfileUrl.id,
-                category: isSocialSource(parsedProfileUrl.source)
-                    ? SocialProfileCategory.Feed
-                    : WalletProfileCategory.Transactions,
-            }),
-            request.url,
-        );
+        const destination = request.nextUrl.clone();
+        destination.pathname = urlcat(`/profile/:source/:id/:category`, {
+            source: resolveProfileSourceInURL(parsedProfileUrl.source),
+            id: parsedProfileUrl.id,
+            category: isSocialSource(parsedProfileUrl.source)
+                ? SocialProfileCategory.Feed
+                : WalletProfileCategory.Transactions,
+        });
         destination.searchParams.set('_internal', 'true');
         return NextResponse.rewrite(destination, { request });
     }
