@@ -12,9 +12,9 @@ import { HomeTab, type SocialSource } from '@/constants/enum.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
+import { useDiscoverStoreWithTab } from '@/hooks/useDiscoverStoreWithTab.js';
 import { useSocialDiscoverSourcesWithWhitelist } from '@/hooks/useSocialDiscoverSourcesWithWhitelist.js';
 import { capturePostPlatformFilterTabEvent } from '@/providers/telemetry/captureFilterTabEvent.js';
-import { useDiscoverStoreWithTab } from '@/store/useDiscoverStore.js';
 
 interface Props {
     tab: HomeTab;

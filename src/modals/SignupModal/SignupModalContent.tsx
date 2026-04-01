@@ -15,11 +15,11 @@ import { enqueueErrorMessage, enqueueSuccessMessage, enqueueWarningMessage } fro
 import { getCurrentProfileAllFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { getWarningMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { isUserRejectErrorInWallet } from '@/helpers/isUserRejectErrorInWallet.js';
+import { queryMyAllConnections } from '@/helpers/queryMyAllConnections.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { queryMyAllConnections } from '@/hooks/useAllConnections.js';
 import { SignupFormFields } from '@/modals/SignupModal/SignupFormFields.js';
 import { captureSocialSignupSuccessEvent } from '@/providers/telemetry/captureSocialAccountSignupEvent.js';
 import { type Account } from '@/providers/types/Account.js';

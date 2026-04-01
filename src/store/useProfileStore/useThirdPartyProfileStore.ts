@@ -17,8 +17,8 @@ import {
     enqueueWarningMessage,
 } from '@/helpers/enqueueMessage.js';
 import { isSameSession } from '@/helpers/isSameSession.js';
+import { queryMyAllConnections } from '@/helpers/queryMyAllConnections.js';
 import { resolveSourceFromSessionType } from '@/helpers/resolveSource.js';
-import { queryMyAllConnections } from '@/hooks/useAllConnections.js';
 import { logger } from '@/libs/Logger.js';
 import { ThirdPartySession } from '@/providers/third-party/Session.js';
 import { thirdPartySessionHolder } from '@/providers/third-party/SessionHolder.js';

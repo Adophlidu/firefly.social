@@ -9,7 +9,7 @@ import { ChainNotConfiguredError, ConnectorChainMismatchError, createConnector, 
 import { queryClient } from '@/configs/queryClient.js';
 import { WalletSource } from '@/constants/enum.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
-import { queryMyAllConnections } from '@/hooks/useAllConnections.js';
+import { queryMyAllConnections } from '@/helpers/queryMyAllConnections.js';
 import { logger } from '@/libs/Logger.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';

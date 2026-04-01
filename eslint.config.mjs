@@ -13,6 +13,36 @@ import reactHooks from 'eslint-plugin-react-hooks';
 import renameJsx from './scripts/eslint-plugin-rename-jsx.mjs';
 import useClientNewline from './scripts/eslint-plugin-use-client-newline.mjs';
 
+/**
+ * Import layers (high → low): app / components / modals → hooks → services & providers → store.
+ * Lower layers must not import higher UI layers so state and IO stay reusable and testable.
+ */
+const importArchitecturalLayerZones = [
+    {
+        target: './src/store',
+        from: ['./src/components', './src/hooks', './src/modals', './src/app'],
+        message:
+            'Store is a low layer: do not import components, hooks, modals, or the Next app directory. Use helpers, services, providers, or types instead.',
+    },
+    {
+        target: './src/providers',
+        from: ['./src/components', './src/hooks', './src/modals'],
+        message:
+            'Providers sit below UI: do not import components, hooks, or modals. Prefer helpers, types, or lifting UI-specific code (e.g. modal refs) to services/hooks.',
+    },
+    {
+        target: './src/services',
+        from: ['./src/components', './src/hooks', './src/modals'],
+        message: 'Services orchestrate domain work: do not import components, hooks, or modals.',
+    },
+    {
+        target: './src/hooks',
+        from: ['./src/components', './src/modals'],
+        message:
+            'Hooks compose data and effects: do not import components or modals (use helpers or colocate UI logic in components).',
+    },
+];
+
 export default defineConfig([
     {
         files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx', '**/*.mjs', '**/*.cjs'],
@@ -70,6 +100,13 @@ export default defineConfig([
             },
         },
         settings: {
+            'import/resolver': {
+                typescript: {
+                    alwaysTryTypes: true,
+                    project: './tsconfig.eslint.json',
+                },
+                node: true,
+            },
             react: {
                 version: 'detect',
             },
@@ -301,6 +338,14 @@ export default defineConfig([
             'import/first': 'error',
             'import/newline-after-import': 'error',
             'import/no-duplicates': 'error',
+
+            // Architectural import boundaries (see importArchitecturalLayerZones above). Warn until legacy edges are removed.
+            'import/no-restricted-paths': [
+                'warn',
+                {
+                    zones: importArchitecturalLayerZones,
+                },
+            ],
 
             'no-relative-import-paths/no-relative-import-paths': [
                 'warn',
