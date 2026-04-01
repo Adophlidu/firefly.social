@@ -16,7 +16,9 @@ export async function createTransactionMetadata(chainId: number, hash: string, p
         );
         const metadata = resolveResponseData(response);
         return metadata;
-    } catch (error) {
-        return createSiteMetadata(pathname);
+    } catch (_error) {
+        return createSiteMetadata(pathname, {
+            description: `Stay ahead of the curve with real-time on-chain activity: token swaps, trades, bets, and more.`,
+        });
     }
 }
