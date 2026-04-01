@@ -30,17 +30,20 @@
         "react-native": "*"
     },
     "dependencies": {
-        "tamagui": "^1.114.0",
-        "@tamagui/core": "^1.114.0",
         "@tamagui/config": "^1.114.0",
-        "lucide-react-native": "^0.473.0"
+        "@tamagui/core": "^1.114.0",
+        "@tamagui/lucide-icons-2": "2.0.0-rc.35",
+        "lucide-react-native": "^0.473.0",
+        "react-native-svg": "^15.15.4",
+        "react-native-web": "^0.21.2",
+        "tamagui": "^1.114.0"
     },
     "devDependencies": {
-        "vite": "^6.0.0",
-        "@vitejs/plugin-react": "^4.2.1",
-        "vite-plugin-dts": "^4.0.0",
-        "typescript": "^5.3.3",
         "@types/react": "^19.0.0",
-        "@types/react-native": "^0.73.0"
+        "@types/react-native": "^0.73.0",
+        "@vitejs/plugin-react": "^4.2.1",
+        "typescript": "^5.3.3",
+        "vite": "^6.0.0",
+        "vite-plugin-dts": "^4.0.0"
     }
 }

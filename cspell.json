@@ -465,7 +465,9 @@
         "webm",
         "xinfin",
         "xrpc",
-        "tamagui"
+        "tamagui",
+        "Perps",
+        "cefi"
     ],
     "flagWords": [],
     "ignorePaths": [

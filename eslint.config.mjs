@@ -1,15 +1,15 @@
 import nextPlugin from '@next/eslint-plugin-next';
-import importPlugin from 'eslint-plugin-import';
 import typescriptEslintEslintPlugin from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
+import importPlugin from 'eslint-plugin-import';
 import noRelativeImportPaths from 'eslint-plugin-no-relative-import-paths';
 import react from 'eslint-plugin-react';
+import reactHooks from 'eslint-plugin-react-hooks';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import tailwindcss from 'eslint-plugin-tailwindcss';
 import unicorn from 'eslint-plugin-unicorn';
 import unusedImports from 'eslint-plugin-unused-imports';
 import { defineConfig, globalIgnores } from 'eslint/config';
-import reactHooks from 'eslint-plugin-react-hooks';
 import renameJsx from './scripts/eslint-plugin-rename-jsx.mjs';
 import useClientNewline from './scripts/eslint-plugin-use-client-newline.mjs';
 
@@ -374,6 +374,12 @@ export default defineConfig([
             'tailwindcss/no-contradicting-classname': 'error',
             'tailwindcss/no-unnecessary-arbitrary-value': 'warn',
             'tailwindcss/no-arbitrary-value': 'off',
+        },
+    },
+    {
+        files: ['packages/rn-ui/**/*.ts', 'packages/rn-ui/**/*.tsx'],
+        rules: {
+            'no-relative-import-paths/no-relative-import-paths': 'off',
         },
     },
 ]);
