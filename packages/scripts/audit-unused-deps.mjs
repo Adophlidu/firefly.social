@@ -2,10 +2,11 @@ import { readFileSync, writeFileSync, readdirSync, statSync } from 'fs';
 import { join, extname } from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
+import { findRepoRoot } from './repo-root.cjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-const rootDir = join(__dirname, '..');
+const rootDir = findRepoRoot(__dirname);
 
 // Read package.json
 const pkgJson = JSON.parse(readFileSync(join(rootDir, 'package.json'), 'utf-8'));
@@ -138,7 +139,7 @@ function checkFileForPackage(filePath, packageName) {
 
 // Check if a package is used in the codebase
 function checkPackageUsage(packageName) {
-    const searchDirs = [join(rootDir, 'src'), join(rootDir, 'scripts')];
+    const searchDirs = [join(rootDir, 'src'), join(rootDir, 'packages', 'scripts')];
 
     const configFiles = [
         'next.config.ts',

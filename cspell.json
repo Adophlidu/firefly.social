@@ -472,7 +472,7 @@
         "*.svg",
         "*.log",
         "pnpm-lock.yaml",
-        "scripts/**",
+        "packages/scripts/**",
         "patches/**",
         "tests/**",
         "package.json",

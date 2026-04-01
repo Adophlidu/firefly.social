@@ -1,9 +1,9 @@
 {
-    "name": "firefly-scripts",
+    "name": "@dimensiondev/scripts",
     "version": "1.0.0",
     "private": true,
     "type": "module",
-    "description": "Temporary scripts and tooling for the Firefly project",
+    "description": "Build tooling and maintenance scripts for the Firefly monorepo",
     "scripts": {
         "install-deps": "pnpm install"
     },

@@ -22,14 +22,15 @@
 
 import { parseArgs } from 'node:util';
 import { readFileSync } from 'node:fs';
-import { resolve, dirname } from 'node:path';
+import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { findRepoRoot } from './repo-root.cjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 // Load .env.local
-const envPath = resolve(__dirname, '..', '.env.local');
+const envPath = join(findRepoRoot(__dirname), '.env.local');
 try {
     const envFile = readFileSync(envPath, 'utf-8');
     envFile.split('\n').forEach((line) => {

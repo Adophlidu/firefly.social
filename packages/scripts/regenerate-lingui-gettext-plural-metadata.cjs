@@ -8,13 +8,14 @@
  */
 const fs = require('fs');
 const path = require('path');
+const { findRepoRoot } = require('./repo-root.cjs');
 const PO = require(
     require.resolve('pofile', {
         paths: [require.resolve('@lingui/format-po-gettext/package.json')],
     }),
 );
 
-const ROOT = path.resolve(__dirname, '..');
+const ROOT = findRepoRoot(__dirname);
 const EN_PO = path.join(ROOT, 'src/locales/en/messages.po');
 const OUT = path.join(__dirname, 'lingui-gettext-plural-metadata.json');
 

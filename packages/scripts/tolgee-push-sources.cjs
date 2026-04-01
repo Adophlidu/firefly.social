@@ -15,6 +15,7 @@ const fs = require('fs');
 const os = require('os');
 const path = require('path');
 const { execSync } = require('child_process');
+const { findRepoRoot } = require('./repo-root.cjs');
 
 const PO = require(
     require.resolve('pofile', {
@@ -22,7 +23,7 @@ const PO = require(
     }),
 );
 
-const ROOT = path.resolve(__dirname, '..');
+const ROOT = findRepoRoot(__dirname);
 const TOLGEERC_PATH = path.join(ROOT, '.tolgeerc.json');
 
 const tolgeerc = JSON.parse(fs.readFileSync(TOLGEERC_PATH, 'utf8'));

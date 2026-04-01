@@ -1,12 +1,18 @@
 import { readFileSync, writeFileSync, mkdirSync } from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import yaml from 'js-yaml';
+import { findRepoRoot } from './repo-root.cjs';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const repoRoot = findRepoRoot(__dirname);
 
 // Read package.json to know which packages are direct dependencies
-const pkgJson = JSON.parse(readFileSync('package.json', 'utf-8'));
+const pkgJson = JSON.parse(readFileSync(path.join(repoRoot, 'package.json'), 'utf-8'));
 const directDeps = new Set([...Object.keys(pkgJson.dependencies || {}), ...Object.keys(pkgJson.devDependencies || {})]);
 
 // Read and parse pnpm-lock.yaml
-const lockFileContent = readFileSync('pnpm-lock.yaml', 'utf-8');
+const lockFileContent = readFileSync(path.join(repoRoot, 'pnpm-lock.yaml'), 'utf-8');
 const lockData = yaml.load(lockFileContent);
 
 // Helper function to extract package name and version from pnpm path
@@ -59,20 +65,24 @@ if (lockData.packages) {
     }
 }
 
+// Index for O(1) dependency resolution (scanning all packages per edge was O(n²) and unusable on large lockfiles)
+const pathsByNameVersion = new Map();
+function nameVersionKey(name, version) {
+    return `${name}@${version}`;
+}
+for (const [pkgPath, info] of packageInfo.entries()) {
+    const key = nameVersionKey(info.name, info.version);
+    if (!pathsByNameVersion.has(key)) {
+        pathsByNameVersion.set(key, []);
+    }
+    pathsByNameVersion.get(key).push(pkgPath);
+}
+
 // Helper function to resolve a dependency to package path(s)
 // depVersion format: "version" or "version(peer1@v1)(peer2@v2)"
 function resolveDependencyPath(depName, depVersion) {
-    // Extract base version (before peer dependencies)
     const baseVersion = depVersion.split('(')[0];
-    const matchingPaths = [];
-
-    for (const [depPath, depInfo] of packageInfo.entries()) {
-        if (depInfo.name === depName && depInfo.version === baseVersion) {
-            matchingPaths.push(depPath);
-        }
-    }
-
-    return matchingPaths;
+    return pathsByNameVersion.get(nameVersionKey(depName, baseVersion)) ?? [];
 }
 
 // Second pass: build dependency relationships
@@ -145,8 +155,15 @@ for (const [pkgPath, info] of packageInfo.entries()) {
     }
 }
 
+/** Stop after this many complete chains (downstream only shows a few unique chains). */
+const MAX_CHAINS_PER_PACKAGE = 16;
+
 // Function to find dependency chains from a package to root dependencies
-function findDependencyChains(targetPkgPath, visited = new Set(), currentPath = []) {
+function findDependencyChains(targetPkgPath, visited = new Set(), currentPath = [], state = { found: 0 }) {
+    if (state.found >= MAX_CHAINS_PER_PACKAGE) {
+        return [];
+    }
+
     const chains = [];
 
     // If we've already visited this node in this path, skip (avoid cycles)
@@ -160,6 +177,7 @@ function findDependencyChains(targetPkgPath, visited = new Set(), currentPath = 
 
     // If this is a root dependency, we found a chain
     if (rootPackagePaths.has(targetPkgPath)) {
+        state.found++;
         chains.push(newPath);
         return chains;
     }
@@ -167,7 +185,8 @@ function findDependencyChains(targetPkgPath, visited = new Set(), currentPath = 
     // Otherwise, continue searching up the dependency tree
     const parents = reverseDependencies.get(targetPkgPath) || new Set();
     for (const parent of parents) {
-        const parentChains = findDependencyChains(parent, newVisited, newPath);
+        if (state.found >= MAX_CHAINS_PER_PACKAGE) break;
+        const parentChains = findDependencyChains(parent, newVisited, newPath, state);
         chains.push(...parentChains);
     }
 
@@ -222,8 +241,8 @@ for (const [pkgPath, info] of packageInfo.entries()) {
     const pkgData = packages.get(name);
     pkgData.versions.add(version);
 
-    // Find dependency chains for this package
-    const chains = findDependencyChains(pkgPath);
+    // Find dependency chains for this package (bounded — full enumeration explodes on dense graphs)
+    const chains = findDependencyChains(pkgPath, new Set(), [], { found: 0 });
 
     // Store chains for this version
     if (!pkgData.chainsByVersion.has(version)) {
@@ -304,9 +323,9 @@ for (const [name, info] of singleVersion) {
     output += `${prefix}${name}@${version}\n`;
 }
 
-// Ensure docs directory exists
-mkdirSync('docs', { recursive: true });
+const docsDir = path.join(repoRoot, 'docs');
+const outFile = path.join(docsDir, 'PACKAGE_ANALYSIS.txt');
+mkdirSync(docsDir, { recursive: true });
 
-// Write to file
-writeFileSync('docs/PACKAGE_ANALYSIS.txt', output);
-console.log(`Generated docs/PACKAGE_ANALYSIS.txt with ${sortedPackages.length} packages`);
+writeFileSync(outFile, output);
+console.log(`Generated ${outFile} with ${sortedPackages.length} packages`);

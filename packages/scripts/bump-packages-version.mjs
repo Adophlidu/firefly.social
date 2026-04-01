@@ -6,8 +6,10 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { findRepoRoot } from './repo-root.cjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const repoRoot = findRepoRoot(__dirname);
 
 const bumpType = process.argv[2];
 if (!['major', 'minor', 'patch'].includes(bumpType)) {
@@ -43,7 +45,7 @@ function bump(version, type) {
     return `${major}.${minor}.${patch + 1}`;
 }
 
-const packagesDir = path.join(__dirname, '..', 'packages');
+const packagesDir = path.join(repoRoot, 'packages');
 const dirs = fs.readdirSync(packagesDir, { withFileTypes: true }).filter((d) => d.isDirectory());
 
 /** @type {{ path: string, name: string, version: string }[]} */

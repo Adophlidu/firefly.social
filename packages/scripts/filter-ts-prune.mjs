@@ -1,9 +1,22 @@
 #!/usr/bin/env node
 
 import { readFileSync, writeFileSync } from 'fs';
+import { dirname, join, isAbsolute, resolve } from 'path';
+import { fileURLToPath } from 'url';
+import { findRepoRoot } from './repo-root.cjs';
 
-const inputFile = process.argv[2] || 'ts-prune.log';
-const outputFile = process.argv[3] || 'ts-prune-filtered.log';
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const repoRoot = findRepoRoot(__dirname);
+
+function resolveIoArg(arg, defaultRelativeToRepo) {
+    if (arg) {
+        return isAbsolute(arg) ? arg : resolve(process.cwd(), arg);
+    }
+    return join(repoRoot, defaultRelativeToRepo);
+}
+
+const inputFile = resolveIoArg(process.argv[2], 'ts-prune.log');
+const outputFile = resolveIoArg(process.argv[3], 'ts-prune-filtered.log');
 
 // Read the input file
 const content = readFileSync(inputFile, 'utf-8');
