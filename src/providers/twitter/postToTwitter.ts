@@ -57,7 +57,7 @@ export async function postToTwitter({ type, compositePost, keepPostLinks, signal
                 'id',
             ),
             restrictions: restriction ? [restriction] : undefined,
-            parentPostId: twitterParentPost?.postId ?? '',
+            parentPostId: postType === 'Post' ? '' : (twitterParentPost?.postId ?? ''),
             source: Source.Twitter,
             poll: first(polls),
         } satisfies Post;
