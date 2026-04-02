@@ -1521,9 +1521,6 @@ msgstr "Oops... Not all the requirements have been met"
 msgid "Resolution"
 msgstr "Resolution"
 
-msgid "Prediction Leaderboard"
-msgstr "Prediction Leaderboard"
-
 msgid "Sign in within Firefly App"
 msgstr "Sign in within Firefly App"
 

@@ -5,7 +5,6 @@ import { PredictionProfileTabContent } from '@/components/Prediction/PredictionP
 import { type PredictionPlatform } from '@/constants/enum.js';
 import { notFound } from '@/esm/navigation/server.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
-import { setupLocaleForSSR } from '@/i18n/index.js';
 import { fetchPredictionProfile } from '@/providers/firefly/prediction/fetchPredictionProfile.js';
 
 interface Props {
@@ -16,10 +15,7 @@ interface Props {
 export async function PredictionProfileDetailContent({ address, platform }: Props) {
     if (!address || !isValidAddressEthereum(address)) notFound();
 
-    const [, predictionProfile] = await Promise.all([
-        setupLocaleForSSR(),
-        fetchPredictionProfile(address, platform, true),
-    ]);
+    const predictionProfile = await fetchPredictionProfile(address, platform, true);
 
     if (!predictionProfile) notFound();
 

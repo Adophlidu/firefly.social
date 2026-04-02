@@ -8,7 +8,7 @@ import { first } from 'lodash-es';
 import { memo } from 'react';
 import { type Address } from 'viem';
 
-import { AddressLink, TxLink } from '@/app/(normal)/tx/[chain_id]/[hash]/components/TxLink.js';
+import { AddressLink, TxLink } from '@/app/[locale]/(normal)/tx/[chain_id]/[hash]/components/TxLink.js';
 import ExchangeIcon from '@/assets/exchange.svg';
 import ExportIcon from '@/assets/export.svg';
 import MoreIcon from '@/assets/more-circle.svg';

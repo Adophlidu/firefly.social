@@ -1,6 +1,9 @@
+'use client';
+
 import { envs, STATUS } from '@dimensiondev/envs';
 import { type ReactNode, Suspense } from 'react';
 
+import { useAgent } from '@/components/AgentProvider.js';
 import { IfPathname } from '@/components/IfPathname.js';
 import { Providers } from '@/components/Providers.js';
 import { RouteProgressBar } from '@/components/RouteProgressBar.js';
@@ -34,14 +37,15 @@ const NotificationListener = dynamic(
 );
 
 interface LayoutBodyProps {
-    agent: Agent | null;
+    locale?: string;
     children: ReactNode;
 }
 
-export function LayoutBody({ agent, children }: LayoutBodyProps) {
+export function LayoutBody({ locale, children }: LayoutBodyProps) {
+    const agent = useAgent();
     return (
         <>
-            <Providers>
+            <Providers locale={locale}>
                 <RouteProgressBar
                     height="2px"
                     color="var(--color-firefly-brand)"

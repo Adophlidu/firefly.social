@@ -41,6 +41,8 @@ function isWhitelisted(filePath) {
         'src/libs/LoggerNative.ts',
         'src/helpers/q.ts',
         'src/proxy.ts',
+        'src/components/BaseNotFound.tsx',
+        'src/helpers/getAgent.ts',
         'src/types/ethereum.ts',
         'src/providers/twitter/getWebhookMessagesByUserId.ts',
     ];
@@ -60,6 +62,7 @@ function isWhitelisted(filePath) {
     if (pathname.endsWith('error.tsx')) return true;
     if (pathname.endsWith('page.tsx')) return true;
     if (pathname.endsWith('loading.tsx')) return true;
+    if (pathname.endsWith('template.tsx')) return true;
     if (pathname.endsWith('messages.ts')) return true;
 
     return false;

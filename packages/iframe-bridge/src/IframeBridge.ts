@@ -106,7 +106,7 @@ export class IframeBridgeProvider {
             new Promise<IframeBridgeResponseResult[T]>((resolve, reject) => {
                 this.callbacks.set(requestId, (payload: Payload) => {
                     const { error, result } = payload;
-                    if (error) reject(error);
+                    if (error) reject(new Error(error));
                     else resolve(result as IframeBridgeResponseResult[T]);
                 });
 

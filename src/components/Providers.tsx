@@ -5,11 +5,11 @@ import { LinguiClientProvider } from '@/components/LinguiClientProvider.js';
 import { QueryClientProviders } from '@/components/QueryClientProviders.js';
 import { WagmiProvider } from '@/components/WagmiProvider.js';
 
-type ProviderProps = PropsWithChildren<{}>;
+type ProviderProps = PropsWithChildren<{ locale?: string }>;
 
 export const Providers = memo(function RootProviders(props: ProviderProps) {
     return (
-        <LinguiClientProvider>
+        <LinguiClientProvider locale={props.locale}>
             <WagmiProvider>
                 <QueryClientProviders>
                     <InitialProviders>{props.children}</InitialProviders>

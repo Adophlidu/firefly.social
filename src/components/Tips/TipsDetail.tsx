@@ -5,9 +5,9 @@ import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 import { type Address } from 'viem';
 
-import { ChainInfo } from '@/app/(normal)/tx/[chain_id]/[hash]/components/ChainInfo.js';
-import { TransactionDate } from '@/app/(normal)/tx/[chain_id]/[hash]/components/TransactionDate.js';
-import { TxLink } from '@/app/(normal)/tx/[chain_id]/[hash]/components/TxLink.js';
+import { ChainInfo } from '@/app/[locale]/(normal)/tx/[chain_id]/[hash]/components/ChainInfo.js';
+import { TransactionDate } from '@/app/[locale]/(normal)/tx/[chain_id]/[hash]/components/TransactionDate.js';
+import { TxLink } from '@/app/[locale]/(normal)/tx/[chain_id]/[hash]/components/TxLink.js';
 import DownloadIcon from '@/assets/download-tip.svg';
 import MoreIcon from '@/assets/more-circle.svg';
 import { Comeback } from '@/components/Comeback.js';

@@ -13,9 +13,8 @@ import { PredictionMarketsAccountTab } from '@/components/Prediction/PredictionM
 import { PredictionMarketsPriceLineChart } from '@/components/Prediction/PredictionMarketsPriceLineChart/index.js';
 import { Locale, type PredictionPlatform } from '@/constants/enum.js';
 import { notFound } from '@/esm/navigation/server.js';
-import { getLocaleFromCookies } from '@/helpers/getCookies.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { setupLocaleForSSR } from '@/i18n/index.js';
+import { setupLocaleFromParams } from '@/i18n/static.js';
 import { getEventDetail } from '@/providers/firefly/prediction/getEventDetail.js';
 import { translateBetEventData } from '@/providers/prediction/translateBetEventData.js';
 
@@ -26,13 +25,13 @@ interface PredictionEventDetailContentProps {
 }
 
 export async function PredictionEventDetailContent({ id, isMutil, platform }: PredictionEventDetailContentProps) {
-    const [, detail] = await Promise.all([
-        setupLocaleForSSR(),
-        runInSafeAsync(() => getEventDetail(platform, { id, isMutil })),
-    ]);
+    setupLocaleFromParams(Locale.en); // Ensure i18n is set for <Trans> in this server component
+    const detail = await runInSafeAsync(() => getEventDetail(platform, { id, isMutil }));
     if (!detail) notFound();
 
-    const locale = await runInSafeAsync(() => getLocaleFromCookies());
+    const { getI18n } = await import('@lingui/react/server');
+    const i18nInstance = getI18n();
+    const locale = (i18nInstance && 'locale' in i18nInstance ? i18nInstance.locale : undefined) as Locale | undefined;
     const translatedEvent = await runInSafeAsync(() =>
         translateBetEventData({
             platform,

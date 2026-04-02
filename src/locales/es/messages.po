@@ -1521,9 +1521,6 @@ msgstr ""
 msgid "Resolution"
 msgstr ""
 
-msgid "Prediction Leaderboard"
-msgstr ""
-
 msgid "Sign in within Firefly App"
 msgstr ""
 

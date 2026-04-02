@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/react/macro';
 import QRCode from 'react-qr-code';
 
-import { SquareButton } from '@/app/(whiteboard)/components/Signup/SquareButton.js';
+import { SquareButton } from '@/app/[locale]/(whiteboard)/components/Signup/SquareButton.js';
 import AppleIcon from '@/assets/apple-small.svg';
 import FireflyLogo from '@/assets/firefly-small.svg';
 import GoogleStoreIcon from '@/assets/google-store.svg';

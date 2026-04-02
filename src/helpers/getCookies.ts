@@ -1,6 +1,6 @@
 import { bom } from '@dimensiondev/utils';
+import { useLingui } from '@lingui/react';
 import { cookies, headers } from 'next/headers.js';
-import { use } from 'react';
 
 import { Locale, SiteCookies } from '@/constants/enum.js';
 import { isValidEnumValue } from '@/helpers/isValidEnumValue.js';
@@ -50,13 +50,22 @@ export function getLocalFromClientCookies() {
 
 export function useCookie(key: SiteCookies) {
     if (bom.document) return getClientCookies(key);
-    return use(cookies()).get(key)?.value ?? '';
+    // During SSR of client components, return empty.
+    // The real value is read client-side after hydration.
+    return '';
 }
 
 export function useLocale() {
+    // Use Lingui's active locale for SSR/client consistency (avoids hydration mismatch).
+    const { i18n } = useLingui();
+    // Read cookie unconditionally to satisfy React hooks rules (no conditional hook calls)
     const localeFromCookie = useCookie(SiteCookies.Locale);
-    const locale =
-        localeFromCookie ||
-        (bom.document ? resolveLanguageLocale(bom.navigator?.language) : use(resolveClientLocale()));
+
+    if (i18n?.locale && isValidEnumValue(i18n.locale, Locale)) {
+        return i18n.locale as Locale;
+    }
+
+    // Fallback: read from cookie (client-only)
+    const locale = localeFromCookie || resolveLanguageLocale(bom.navigator?.language);
     return resolveLocale(locale);
 }

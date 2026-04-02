@@ -1,3 +1,5 @@
+'use client';
+
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
@@ -5,7 +7,7 @@ import { useQuery } from '@tanstack/react-query';
 import { first, isNumber, sortBy } from 'lodash-es';
 import { type HTMLProps, memo, type ReactNode, useMemo } from 'react';
 
-import { useUpdateContractParams } from '@/app/(normal)/token/[exchange]/[[...slug]]/useUpdateContractParams.js';
+import { useUpdateContractParams } from '@/app/[locale]/(normal)/token/[exchange]/[[...slug]]/useUpdateContractParams.js';
 import LinkIcon from '@/assets/link-square.svg';
 import QuestionIcon from '@/assets/question.svg';
 import { ChainIcon } from '@/components/ChainIcon.js';

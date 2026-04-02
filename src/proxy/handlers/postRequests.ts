@@ -1,4 +1,4 @@
-import { type NextRequest, NextResponse, userAgent } from 'next/server.js';
+import { type NextRequest, type NextResponse, userAgent } from 'next/server.js';
 
 export function handlePostRequests(request: NextRequest, next: () => NextResponse | undefined) {
     const pathname = request.nextUrl.pathname;
@@ -6,7 +6,7 @@ export function handlePostRequests(request: NextRequest, next: () => NextRespons
     if (pathname.startsWith('/post') && !pathname.includes('/photos')) {
         const { isBot } = userAgent(request);
         request.headers.set('X-IS-BOT', isBot ? 'true' : 'false');
-        return NextResponse.next({ request });
+        return next();
     }
 
     return next();

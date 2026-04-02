@@ -1515,9 +1515,6 @@ msgstr "哎呀...尚未滿足所有要求"
 msgid "Resolution"
 msgstr "結算結果"
 
-msgid "Prediction Leaderboard"
-msgstr "預測排行榜"
-
 msgid "Sign in within Firefly App"
 msgstr "在 Firefly App 內登入"
 
@@ -2748,7 +2745,7 @@ msgid "Failed to create red packet"
 msgstr "創建紅包失敗"
 
 msgid "The page could not be found."
-msgstr "無法找到頁面"
+msgstr ""
 
 msgid "Change Password"
 msgstr "變更密碼"
@@ -4864,7 +4861,7 @@ msgid "Sign in with Farcaster"
 msgstr "通過 Farcaster 登入"
 
 msgid "Back to home"
-msgstr "回到首頁"
+msgstr ""
 
 msgid "Tips"
 msgstr "打賞"
