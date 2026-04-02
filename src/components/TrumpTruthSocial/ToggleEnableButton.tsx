@@ -1,12 +1,12 @@
 'use client';
 
+import SmallCloseIcon from '@dimensiondev/assets/small-close.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo, useLayoutEffect, useRef } from 'react';
 import { useAsyncFn } from 'react-use';
 import { useHover } from 'usehooks-ts';
 
-import SmallCloseIcon from '@/assets/small-close.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { SourceTab } from '@/components/SourceTabs/SourceTab.js';
 import { ExploreSwitchType } from '@/constants/enum.js';

@@ -1,8 +1,8 @@
+import DangerIcon from '@dimensiondev/assets/danger.svg';
+import WarningIcon from '@dimensiondev/assets/warning.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Fragment, type HTMLProps, memo } from 'react';
 
-import DangerIcon from '@/assets/danger.svg';
-import WarningIcon from '@/assets/warning.svg';
 import {
     type AddressSecurity,
     type SecurityMessage,

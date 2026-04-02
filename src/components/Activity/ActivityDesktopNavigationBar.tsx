@@ -1,8 +1,8 @@
 'use client';
 
+import ComeBack from '@dimensiondev/assets/comeback.svg';
 import { type PropsWithChildren } from 'react';
 
-import ComeBack from '@/assets/comeback.svg';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { PageRoute } from '@/constants/enum.js';
 import { useComeBack } from '@/hooks/useComeback.js';

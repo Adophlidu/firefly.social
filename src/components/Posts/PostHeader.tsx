@@ -1,9 +1,9 @@
+import FireflyMonochromeIcon from '@dimensiondev/assets/firefly-monochrome.svg';
+import TruthSocialIcon from '@dimensiondev/assets/truth-social.svg';
+import VerifyIcon from '@dimensiondev/assets/verify.svg';
 import { classNames } from '@dimensiondev/utils';
 import { memo } from 'react';
 
-import FireflyMonochromeIcon from '@/assets/firefly-monochrome.svg';
-import TruthSocialIcon from '@/assets/truth-social.svg';
-import VerifyIcon from '@/assets/verify.svg';
 import { MoreAction } from '@/components/Actions/More.js';
 import { Avatar } from '@/components/Avatar.js';
 import { Link } from '@/components/Link.js';

@@ -1,23 +1,23 @@
 'use client';
 
+import AddUser from '@dimensiondev/assets/add-user.svg';
+import CloseSquareIcon from '@dimensiondev/assets/close-square.svg';
+import Comment from '@dimensiondev/assets/comment-rp.svg';
+import ETHIcon from '@dimensiondev/assets/eth-linear.svg';
+import FarcasterIcon from '@dimensiondev/assets/farcaster-fill.svg';
+import LensIcon from '@dimensiondev/assets/lens-fill.svg';
+import Like from '@dimensiondev/assets/like.svg';
+import LinkIcon from '@dimensiondev/assets/link-square.svg';
+import LoadingIcon from '@dimensiondev/assets/loader2.svg';
+import Repost from '@dimensiondev/assets/repost.svg';
+import NFTHolder from '@dimensiondev/assets/rp-nft-holder.svg';
+import TickSquareIcon from '@dimensiondev/assets/tick-square.svg';
 import { classNames, getEnumAsArray } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQueries } from '@tanstack/react-query';
 import { sortBy } from 'lodash-es';
 import { Fragment, useMemo } from 'react';
 
-import AddUser from '@/assets/add-user.svg';
-import CloseSquareIcon from '@/assets/close-square.svg';
-import Comment from '@/assets/comment-rp.svg';
-import ETHIcon from '@/assets/eth-linear.svg';
-import FarcasterIcon from '@/assets/farcaster-fill.svg';
-import LensIcon from '@/assets/lens-fill.svg';
-import Like from '@/assets/like.svg';
-import LinkIcon from '@/assets/link-square.svg';
-import LoadingIcon from '@/assets/loader2.svg';
-import Repost from '@/assets/repost.svg';
-import NFTHolder from '@/assets/rp-nft-holder.svg';
-import TickSquareIcon from '@/assets/tick-square.svg';
 import { ActionButton } from '@/components/ActionButton.js';
 import { CloseButton } from '@/components/IconButton.js';
 import { Link } from '@/components/Link.js';

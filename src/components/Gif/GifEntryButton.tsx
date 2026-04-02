@@ -1,10 +1,10 @@
 'use client';
 
+import GifIcon from '@dimensiondev/assets/gif.svg';
 import { Trans } from '@lingui/react/macro';
 import { useRouter } from '@tanstack/react-router';
 import { memo } from 'react';
 
-import GifIcon from '@/assets/gif.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { captureGifClickEvent } from '@/providers/telemetry/captureClickEvent.js';

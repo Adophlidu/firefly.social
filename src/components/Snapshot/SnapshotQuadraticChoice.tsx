@@ -1,8 +1,8 @@
+import MinusIcon from '@dimensiondev/assets/snapshot/minus.svg';
+import PlusIcon from '@dimensiondev/assets/snapshot/plus.svg';
 import { classNames } from '@dimensiondev/utils';
 import { memo } from 'react';
 
-import MinusIcon from '@/assets/snapshot/minus.svg';
-import PlusIcon from '@/assets/snapshot/plus.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
 
 interface SnapshotQuadraticChoiceProps {

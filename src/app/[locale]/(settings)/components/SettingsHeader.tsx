@@ -1,8 +1,8 @@
 'use client';
 
+import MenuIcon from '@dimensiondev/assets/menu.svg';
 import { Trans } from '@lingui/react/macro';
 
-import MenuIcon from '@/assets/menu.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { PageRoute } from '@/constants/enum.js';
 import { usePathname } from '@/esm/navigation.js';

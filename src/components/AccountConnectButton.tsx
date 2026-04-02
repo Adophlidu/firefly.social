@@ -1,10 +1,10 @@
 'use client';
 
+import DoubleUser from '@dimensiondev/assets/double-user.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 
-import DoubleUser from '@/assets/double-user.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ProfileSourceIcon } from '@/components/ProfileSourceIcon.js';

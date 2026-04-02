@@ -1,3 +1,7 @@
+import AddIcon from '@dimensiondev/assets/add-small.svg';
+import CameraIcon from '@dimensiondev/assets/camera.svg';
+import RefreshIcon from '@dimensiondev/assets/refresh.svg';
+import SwitchAvatar from '@dimensiondev/assets/switch-avatar.svg';
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { compact } from 'lodash-es';
 import {
@@ -13,10 +17,6 @@ import { useAsyncFn } from 'react-use';
 
 import { ImageWithLoading } from '@/app/[locale]/(whiteboard)/components/Signup/ImageWithLoading.js';
 import { SocialAvatarSelector } from '@/app/[locale]/(whiteboard)/components/Signup/SocialAvatarSelector.js';
-import AddIcon from '@/assets/add-small.svg';
-import CameraIcon from '@/assets/camera.svg';
-import RefreshIcon from '@/assets/refresh.svg';
-import SwitchAvatar from '@/assets/switch-avatar.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ALLOWED_IMAGES_MIMES } from '@/constants/computed.js';
 import { Source } from '@/constants/enum.js';

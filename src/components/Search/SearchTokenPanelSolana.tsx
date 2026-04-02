@@ -1,10 +1,10 @@
 'use client';
 
+import LineArrowUp from '@dimensiondev/assets/line-arrow-up.svg';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { memo, useMemo, useState } from 'react';
 
-import LineArrowUp from '@/assets/line-arrow-up.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { SearchContentPanel } from '@/components/Search/SearchContentPanel.js';
 import { TokenItem } from '@/components/Tips/TokenItem.js';

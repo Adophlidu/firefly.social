@@ -1,5 +1,6 @@
 'use client';
 
+import WebsiteIcon from '@dimensiondev/assets/website-circle.svg';
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useMemo } from 'react';
@@ -7,7 +8,6 @@ import { useAsyncFn } from 'react-use';
 import { type Address } from 'viem';
 import { useChainId, useConnection, useSwitchChain } from 'wagmi';
 
-import WebsiteIcon from '@/assets/website-circle.svg';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { Link } from '@/components/Link.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';

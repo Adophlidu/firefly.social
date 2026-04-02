@@ -1,13 +1,13 @@
+import EvmIcon from '@dimensiondev/assets/evm.svg';
+import SolanaIcon from '@dimensiondev/assets/solana.svg';
+import SwitchIcon from '@dimensiondev/assets/switch.svg';
+import WalletIcon from '@dimensiondev/assets/wallet.svg';
 import { t } from '@lingui/core/macro';
 import { CoreConnectionController, CoreConnectorController } from '@reown/appkit';
 import { type AppKitNetwork, mainnet, solana } from '@reown/appkit/networks';
 import { type FunctionComponent, type SVGAttributes } from 'react';
 import { useAsyncFn } from 'react-use';
 
-import EvmIcon from '@/assets/evm.svg';
-import SolanaIcon from '@/assets/solana.svg';
-import SwitchIcon from '@/assets/switch.svg';
-import WalletIcon from '@/assets/wallet.svg';
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';

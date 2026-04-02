@@ -1,5 +1,9 @@
 'use client';
 
+import AppleIcon from '@dimensiondev/assets/apple-small.svg';
+import EmailIcon from '@dimensiondev/assets/email.svg';
+import GoogleIcon from '@dimensiondev/assets/google-small.svg';
+import TelegramIcon from '@dimensiondev/assets/telegram.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
@@ -8,10 +12,6 @@ import { type FunctionComponent, type SVGAttributes, useMemo } from 'react';
 
 import { ThirdPartConnectButton } from '@/app/[locale]/(settings)/components/ThirdPartConnectButton.js';
 import { ThirdPartDisconnectButton } from '@/app/[locale]/(settings)/components/ThirdPartDisconnectButton.js';
-import AppleIcon from '@/assets/apple-small.svg';
-import EmailIcon from '@/assets/email.svg';
-import GoogleIcon from '@/assets/google-small.svg';
-import TelegramIcon from '@/assets/telegram.svg';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Source, SourceInURL, type ThirdPartySource } from '@/constants/enum.js';
 import { formatAccountFromConnections } from '@/helpers/formatAccountFromConnections.js';

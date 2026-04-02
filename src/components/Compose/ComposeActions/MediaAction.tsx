@@ -1,11 +1,11 @@
 'use client';
 
+import GalleryIcon from '@dimensiondev/assets/gallery.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Popover } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { memo, useState } from 'react';
 
-import GalleryIcon from '@/assets/gallery.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Media } from '@/components/Compose/Media.js';
 import { Popover as PopoverModal } from '@/components/Popover.js';

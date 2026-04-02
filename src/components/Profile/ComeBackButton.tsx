@@ -1,6 +1,7 @@
 'use client';
 
-import ComeBackIcon from '@/assets/comeback.svg';
+import ComeBackIcon from '@dimensiondev/assets/comeback.svg';
+
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 

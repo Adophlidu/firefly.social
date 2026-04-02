@@ -1,5 +1,7 @@
 'use client';
 
+import ImageIcon from '@dimensiondev/assets/image.svg';
+import VideoIcon from '@dimensiondev/assets/video.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Popover, Transition } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
@@ -7,8 +9,6 @@ import { Trans } from '@lingui/react/macro';
 import { type ChangeEvent, Fragment, memo, useMemo, useRef } from 'react';
 import { useAsyncFn } from 'react-use';
 
-import ImageIcon from '@/assets/image.svg';
-import VideoIcon from '@/assets/video.svg';
 import { useUpdateImages } from '@/components/Compose/useUpdateImages.js';
 import { useUpdateVideos } from '@/components/Compose/useUpdateVideos.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';

@@ -1,12 +1,12 @@
 'use client';
 
+import HourGlassIcon from '@dimensiondev/assets/hourglass.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import dayjs from 'dayjs';
 import { type HTMLProps, useState } from 'react';
 import { useInterval } from 'usehooks-ts';
 
-import HourGlassIcon from '@/assets/hourglass.svg';
 import { getTimeLeft } from '@/helpers/formatTimestamp.js';
 
 interface TimerProps extends HTMLProps<HTMLDivElement> {

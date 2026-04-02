@@ -1,5 +1,6 @@
 'use client';
 
+import ReloadIcon from '@dimensiondev/assets/reload.svg';
 import { AbortError, classNames, ForbiddenError, InvalidResultError, retry } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
@@ -7,7 +8,6 @@ import { useState } from 'react';
 import { useAsync, useAsyncRetry, useUnmount } from 'react-use';
 import { useCountdown } from 'usehooks-ts';
 
-import ReloadIcon from '@/assets/reload.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';

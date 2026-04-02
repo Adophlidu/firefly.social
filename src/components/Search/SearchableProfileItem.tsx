@@ -1,10 +1,10 @@
+import WalletIcon from '@dimensiondev/assets/wallet-circle.svg';
 import { classNames } from '@dimensiondev/utils';
 import { first } from 'lodash-es';
 import { type HTMLProps, memo } from 'react';
 import urlcat from 'urlcat';
 import { useEnsAvatar } from 'wagmi';
 
-import WalletIcon from '@/assets/wallet-circle.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { Link } from '@/components/Link.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';

@@ -1,13 +1,13 @@
 'use client';
 
+import Close from '@dimensiondev/assets/close.svg';
+import Info from '@dimensiondev/assets/info.svg';
 import { envs, STATUS } from '@dimensiondev/envs';
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 import { useAsyncFn } from 'react-use';
 
-import Close from '@/assets/close.svg';
-import Info from '@/assets/info.svg';
 import { ComposeActions } from '@/components/Compose/ComposeActions/index.js';
 import { ComposeContent } from '@/components/Compose/ComposeContent.js';
 import { ComposeThreadContent } from '@/components/Compose/ComposeThreadContent.js';

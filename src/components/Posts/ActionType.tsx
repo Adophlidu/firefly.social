@@ -1,12 +1,12 @@
 'use client';
 
+import LikeIcon from '@dimensiondev/assets/like.svg';
+import LikedIcon from '@dimensiondev/assets/liked.svg';
+import MirrorIcon from '@dimensiondev/assets/mirror.svg';
 import { Trans } from '@lingui/react/macro';
 import { first } from 'lodash-es';
 import { memo } from 'react';
 
-import LikeIcon from '@/assets/like.svg';
-import LikedIcon from '@/assets/liked.svg';
-import MirrorIcon from '@/assets/mirror.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Link } from '@/components/Link.js';
 import { ThreadBody } from '@/components/Posts/ThreadBody.js';

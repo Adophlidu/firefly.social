@@ -1,13 +1,13 @@
 'use client';
 
+import EmailIcon from '@dimensiondev/assets/email2.svg';
+import LockIcon from '@dimensiondev/assets/lock.svg';
 import { AbortError, ForbiddenError } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useRef, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
-import EmailIcon from '@/assets/email2.svg';
-import LockIcon from '@/assets/lock.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ClearButton } from '@/components/IconButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';

@@ -1,7 +1,6 @@
+import ReloadIcon from '@dimensiondev/assets/reload.svg';
 import { classNames } from '@dimensiondev/utils';
 import QRCode from 'react-qr-code';
-
-import ReloadIcon from '@/assets/reload.svg';
 
 interface Props {
     size?: number;

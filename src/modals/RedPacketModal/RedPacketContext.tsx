@@ -1,3 +1,4 @@
+import WalletIcon from '@dimensiondev/assets/wallet2.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { Trans } from '@lingui/react/macro';
 import { useLocation } from '@tanstack/react-router';
@@ -13,7 +14,6 @@ import {
 } from 'react';
 import { switchChain } from 'wagmi/actions';
 
-import WalletIcon from '@/assets/wallet2.svg';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';

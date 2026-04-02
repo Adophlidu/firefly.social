@@ -1,5 +1,6 @@
 'use client';
 
+import RightArrowIcon from '@dimensiondev/assets/right-arrow.svg';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
@@ -7,7 +8,6 @@ import { memo } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import { ContentCard } from '@/app/[locale]/(settings)/settings/privacy-and-security/pages/ContentCard.js';
-import RightArrowIcon from '@/assets/right-arrow.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Switch } from '@/components/Switch/index.js';
 import { queryClient } from '@/configs/queryClient.js';

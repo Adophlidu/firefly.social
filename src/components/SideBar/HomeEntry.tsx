@@ -1,9 +1,9 @@
 'use client';
 
+import HomeSelectedIcon from '@dimensiondev/assets/home.selected.svg';
+import HomeIcon from '@dimensiondev/assets/home.svg';
 import { Trans } from '@lingui/react/macro';
 
-import HomeSelectedIcon from '@/assets/home.selected.svg';
-import HomeIcon from '@/assets/home.svg';
 import { BaseMenuItem } from '@/components/SideBar/BaseMenuItem.js';
 import { DEFAULT_SOCIAL_SOURCE } from '@/constants/computed.js';
 import { PageRoute } from '@/constants/enum.js';

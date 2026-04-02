@@ -1,12 +1,12 @@
 'use client';
 
+import QuestionIcon from '@dimensiondev/assets/question.svg';
+import SendIcon from '@dimensiondev/assets/send.svg';
+import WalletIcon from '@dimensiondev/assets/wallet.svg';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo, useCallback } from 'react';
 
-import QuestionIcon from '@/assets/question.svg';
-import SendIcon from '@/assets/send.svg';
-import WalletIcon from '@/assets/wallet.svg';
 import { ActionButton } from '@/components/ActionButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { NetworkType } from '@/constants/enum.js';

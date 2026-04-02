@@ -1,9 +1,9 @@
 'use client';
 
+import MuteIcon from '@dimensiondev/assets/mute.svg';
+import UnmuteIcon from '@dimensiondev/assets/unmute.svg';
 import { Trans } from '@lingui/react/macro';
 
-import MuteIcon from '@/assets/mute.svg';
-import UnmuteIcon from '@/assets/unmute.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';

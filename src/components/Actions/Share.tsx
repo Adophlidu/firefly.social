@@ -1,13 +1,13 @@
 'use client';
 
+import SendIcon from '@dimensiondev/assets/send.svg';
+import ShareIcon from '@dimensiondev/assets/share.svg';
 import { MenuItem } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
 import { type HTMLProps, memo } from 'react';
 import urlcat from 'urlcat';
 
-import SendIcon from '@/assets/send.svg';
-import ShareIcon from '@/assets/share.svg';
 import { CopyLinkButton } from '@/components/Actions/CopyLinkButton.js';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MenuGroup } from '@/components/MenuGroup.js';

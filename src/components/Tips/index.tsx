@@ -1,5 +1,6 @@
 'use client';
 
+import TipsIcon from '@dimensiondev/assets/tips.svg';
 import { envs, STATUS } from '@dimensiondev/envs';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
@@ -7,7 +8,6 @@ import { motion } from 'framer-motion';
 import { type HTMLProps } from 'react';
 import { useAsyncFn } from 'react-use';
 
-import TipsIcon from '@/assets/tips.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';

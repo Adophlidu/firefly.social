@@ -1,11 +1,11 @@
 'use client';
 
+import ActiveIcon from '@dimensiondev/assets/snapshot-active.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Tab } from '@headlessui/react';
 import { IS_APPLE, IS_SAFARI } from '@lexical/utils';
 import { Trans } from '@lingui/react/macro';
 
-import ActiveIcon from '@/assets/snapshot-active.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { SnapshotMarkup } from '@/components/Markup/SnapshotMarkup.js';
 

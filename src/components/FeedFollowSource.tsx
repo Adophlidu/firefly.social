@@ -1,12 +1,12 @@
 'use client';
 
+import FarcasterIcon from '@dimensiondev/assets/farcaster-fill.svg';
+import LensIcon from '@dimensiondev/assets/lens-fill.svg';
+import StarIcon from '@dimensiondev/assets/star.svg';
+import TwitterIcon from '@dimensiondev/assets/x-fill.svg';
 import { Trans } from '@lingui/react/macro';
 import { type ReactNode } from 'react';
 
-import FarcasterIcon from '@/assets/farcaster-fill.svg';
-import LensIcon from '@/assets/lens-fill.svg';
-import StarIcon from '@/assets/star.svg';
-import TwitterIcon from '@/assets/x-fill.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Link } from '@/components/Link.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';

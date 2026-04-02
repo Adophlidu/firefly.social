@@ -1,10 +1,9 @@
 'use client';
 
+import GhostHoleIcon from '@dimensiondev/assets/ghost.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { type HTMLProps, memo } from 'react';
-
-import GhostHoleIcon from '@/assets/ghost.svg';
 
 interface Props extends HTMLProps<HTMLDivElement> {}
 

@@ -1,12 +1,12 @@
 'use client';
 
+import ArrowDown from '@dimensiondev/assets/arrow-down.svg';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { BigNumber } from 'bignumber.js';
 import { type ChangeEvent, memo, useCallback, useMemo } from 'react';
 
-import ArrowDown from '@/assets/arrow-down.svg';
 import { TokenIcon } from '@/components/TokenIcon.js';
 import { rpSupportedChains } from '@/configs/chains.js';
 import { NetworkType } from '@/constants/enum.js';

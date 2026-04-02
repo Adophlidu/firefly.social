@@ -1,5 +1,7 @@
 'use client';
 
+import EvmIcon from '@dimensiondev/assets/evm.svg';
+import SolanaIcon from '@dimensiondev/assets/solana.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
@@ -7,8 +9,6 @@ import { Trans } from '@lingui/react/macro';
 import { useQueries } from '@tanstack/react-query';
 import { BigNumber } from 'bignumber.js';
 
-import EvmIcon from '@/assets/evm.svg';
-import SolanaIcon from '@/assets/solana.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { Link } from '@/components/Link.js';
 import { NetworkType, Source } from '@/constants/enum.js';

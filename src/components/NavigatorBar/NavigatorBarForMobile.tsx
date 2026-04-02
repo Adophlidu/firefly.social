@@ -1,12 +1,12 @@
 'use client';
 
+import FireflyIcon from '@dimensiondev/assets/firefly.svg';
+import MagnifierIcon from '@dimensiondev/assets/magnifier.svg';
+import MenuIcon from '@dimensiondev/assets/menu.svg';
 import { classNames } from '@dimensiondev/utils';
 import { first } from 'lodash-es';
 import { memo, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 
-import FireflyIcon from '@/assets/firefly.svg';
-import MagnifierIcon from '@/assets/magnifier.svg';
-import MenuIcon from '@/assets/menu.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { HomeTabs } from '@/components/HomeTab/index.js';
 import { BackButton } from '@/components/IconButton.js';

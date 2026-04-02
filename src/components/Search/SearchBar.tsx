@@ -1,11 +1,11 @@
 'use client';
 
+import SearchIcon from '@dimensiondev/assets/search.svg';
 import { classNames } from '@dimensiondev/utils';
 import { skipToken, useQuery } from '@tanstack/react-query';
 import { type HTMLProps, useCallback, useLayoutEffect, useRef, useState } from 'react';
 import { useOnClickOutside } from 'usehooks-ts';
 
-import SearchIcon from '@/assets/search.svg';
 import { BackButton } from '@/components/IconButton.js';
 import { SearchInput } from '@/components/Search/SearchInput.js';
 import { SearchRecommendation } from '@/components/Search/SearchRecommendation.js';

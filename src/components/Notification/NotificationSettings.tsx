@@ -1,12 +1,12 @@
 'use client';
 
+import FilterIcon from '@dimensiondev/assets/filter.svg';
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { useCallback, useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
 
-import FilterIcon from '@/assets/filter.svg';
 import { Switch } from '@/components/Switch/index.js';
 import { TypeFilter } from '@/components/TypeFilter/index.js';
 import { UNIFIED_NOTIFICATION_TYPES } from '@/constants/computed.js';

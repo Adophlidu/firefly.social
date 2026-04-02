@@ -1,5 +1,7 @@
 'use client';
 
+import EvmIcon from '@dimensiondev/assets/evm.svg';
+import SolanaIcon from '@dimensiondev/assets/solana.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { delay } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
@@ -7,8 +9,6 @@ import { Trans } from '@lingui/react/macro';
 import { AddWalletButton } from '@/app/[locale]/(settings)/components/AddWalletButton.js';
 import { SettingsSection } from '@/app/[locale]/(settings)/components/Section.js';
 import { WalletGroup } from '@/app/[locale]/(settings)/components/WalletGroup.js';
-import EvmIcon from '@/assets/evm.svg';
-import SolanaIcon from '@/assets/solana.svg';
 import { Loading } from '@/components/Loading.js';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';

@@ -1,13 +1,13 @@
 'use client';
 
+import CalendarIcon from '@dimensiondev/assets/calendar.svg';
+import LocationIcon from '@dimensiondev/assets/location.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { Trans } from '@lingui/react/macro';
 import { format } from 'date-fns';
 import { useRef } from 'react';
 import { useUpdateEffect } from 'react-use';
 
-import CalendarIcon from '@/assets/calendar.svg';
-import LocationIcon from '@/assets/location.svg';
 import { EventSkeleton } from '@/components/Calendar/CalendarCardSkeleton.js';
 import { EmptyStatus } from '@/components/Calendar/EmptyStatus.js';
 import { useLumaEvents } from '@/components/Calendar/hooks/useLumaEvents.js';

@@ -1,13 +1,13 @@
 'use client';
 
+import StarFilledIcon from '@dimensiondev/assets/star-filled.svg';
+import StarOutlineIcon from '@dimensiondev/assets/star-outline.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQueryClient } from '@tanstack/react-query';
 import { type ReactNode } from 'react';
 import { useAsyncFn } from 'react-use';
 
-import StarFilledIcon from '@/assets/star-filled.svg';
-import StarOutlineIcon from '@/assets/star-outline.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';

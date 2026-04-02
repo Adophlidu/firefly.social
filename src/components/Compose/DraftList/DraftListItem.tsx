@@ -1,5 +1,7 @@
 'use client';
 
+import CloudIcon from '@dimensiondev/assets/cloud.svg';
+import Trash from '@dimensiondev/assets/trash2.svg';
 import { classNames } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
@@ -9,8 +11,6 @@ import { compact, first, values } from 'lodash-es';
 import { memo, useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
 
-import CloudIcon from '@/assets/cloud.svg';
-import Trash from '@/assets/trash2.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { IconButton } from '@/components/IconButton.js';
 import { Link } from '@/components/Link.js';

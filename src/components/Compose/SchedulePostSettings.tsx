@@ -1,13 +1,13 @@
 'use client';
 
+import CalendarIcon from '@dimensiondev/assets/calendar.svg';
+import TimerIcon from '@dimensiondev/assets/timer.svg';
 import { Trans } from '@lingui/react/macro';
 import dayjs from 'dayjs';
 import { noop } from 'lodash-es';
 import { memo, useRef, useState } from 'react';
 import { useAsyncFn, useClickAway } from 'react-use';
 
-import CalendarIcon from '@/assets/calendar.svg';
-import TimerIcon from '@/assets/timer.svg';
 import { DatePicker } from '@/components/Calendar/DatePicker.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { TimePicker } from '@/components/TimePicker.js';

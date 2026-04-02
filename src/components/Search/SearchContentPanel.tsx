@@ -1,11 +1,11 @@
 'use client';
 
+import LineArrowUp from '@dimensiondev/assets/line-arrow-up.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Popover, PopoverButton, PopoverPanel, Transition } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { Fragment, type PropsWithChildren, type ReactNode, useEffect, useRef, useState } from 'react';
 
-import LineArrowUp from '@/assets/line-arrow-up.svg';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { NoResultsFallback, type NoResultsFallbackProps } from '@/components/NoResultsFallback.js';
 import { SearchInput } from '@/components/Search/SearchInput.js';

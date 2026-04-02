@@ -1,5 +1,10 @@
 'use client';
 
+import ArrowLeftIcon from '@dimensiondev/assets/arrow-left.svg';
+import ArrowLineDownIcon from '@dimensiondev/assets/arrow-line-down.svg';
+import ArrowRightIcon from '@dimensiondev/assets/arrow-right.svg';
+import DangerIcon from '@dimensiondev/assets/danger.svg';
+import WalletIcon from '@dimensiondev/assets/wallet-bold.svg';
 import { envs, STATUS } from '@dimensiondev/envs';
 import { classNames, delay, resolveValue } from '@dimensiondev/utils';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
@@ -18,11 +23,6 @@ import {
 } from 'react';
 import { useMount } from 'react-use';
 
-import ArrowLeftIcon from '@/assets/arrow-left.svg';
-import ArrowLineDownIcon from '@/assets/arrow-line-down.svg';
-import ArrowRightIcon from '@/assets/arrow-right.svg';
-import DangerIcon from '@/assets/danger.svg';
-import WalletIcon from '@/assets/wallet-bold.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { Link } from '@/components/Link.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';

@@ -1,10 +1,10 @@
 'use client';
 
+import LinkIcon from '@dimensiondev/assets/small-link.svg';
 import { Trans } from '@lingui/react/macro';
 import { type HTMLProps, memo } from 'react';
 import urlcat from 'urlcat';
 
-import LinkIcon from '@/assets/small-link.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
 

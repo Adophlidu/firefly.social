@@ -1,12 +1,12 @@
 'use client';
 
+import AnonymousAvatar from '@dimensiondev/assets/anonymous-avatar.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { uniqBy } from 'lodash-es';
 import { memo, useMemo, useState } from 'react';
 
-import AnonymousAvatar from '@/assets/anonymous-avatar.svg';
 import { Editor } from '@/components/Compose/Editor.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ExcludeReplyUserListModal } from '@/components/Posts/ExcludeReplyUserList.js';

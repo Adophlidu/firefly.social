@@ -1,8 +1,8 @@
 'use client';
 
+import LinkIcon from '@dimensiondev/assets/link-square.svg';
 import { Trans } from '@lingui/react/macro';
 
-import LinkIcon from '@/assets/link-square.svg';
 import { CollectionMore } from '@/components/Actions/CollectionMore.js';
 import { ChainIcon } from '@/components/ChainIcon.js';
 import { CopyTextButton } from '@/components/CopyTextButton.js';

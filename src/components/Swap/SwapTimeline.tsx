@@ -1,12 +1,12 @@
 'use client';
 
+import SwapEmptyIcon from '@dimensiondev/assets/swap-empty.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import { useLayoutEffect } from 'react';
 
-import SwapEmptyIcon from '@/assets/swap-empty.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ListInPage, type ListInPageProps } from '@/components/ListInPage.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';

@@ -1,12 +1,12 @@
 'use client';
 
+import BuyIcon from '@dimensiondev/assets/polymarket-bought.svg';
+import SellIcon from '@dimensiondev/assets/polymarket-sold.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Plural, Trans } from '@lingui/react/macro';
 import { compact, first } from 'lodash-es';
 import { type HTMLProps } from 'react';
 
-import BuyIcon from '@/assets/polymarket-bought.svg';
-import SellIcon from '@/assets/polymarket-sold.svg';
 import { Link } from '@/components/Link.js';
 import { PredictionTime } from '@/components/Prediction/PredictionTime.js';
 import { PredictionPlatform } from '@/constants/enum.js';

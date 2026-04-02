@@ -1,5 +1,6 @@
 'use client';
 
+import ReloadIcon from '@dimensiondev/assets/reload.svg';
 import { classNames, delay } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
@@ -8,7 +9,6 @@ import QRCode from 'react-qr-code';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
 
-import ReloadIcon from '@/assets/reload.svg';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Modal } from '@/components/Modal.js';
 import { SITE_URL_OFFICIAL } from '@/constants/static.js';

@@ -1,11 +1,11 @@
 'use client';
 
+import MoreIcon from '@dimensiondev/assets/more-circle.svg';
+import ShareIcon from '@dimensiondev/assets/share.svg';
 import { MenuItem } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { type HTMLProps, memo } from 'react';
 
-import MoreIcon from '@/assets/more-circle.svg';
-import ShareIcon from '@/assets/share.svg';
 import { CopyLinkButton } from '@/components/Actions/CopyLinkButton.js';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { NFTReportSpamButton } from '@/components/Actions/NFTReportSpamButton.js';

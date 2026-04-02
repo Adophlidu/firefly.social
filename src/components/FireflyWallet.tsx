@@ -1,5 +1,9 @@
 'use client';
 
+import ArrowLineDownIcon from '@dimensiondev/assets/arrow-line-down.svg';
+import MoreIcon from '@dimensiondev/assets/more-fill.svg';
+import ReloadIcon from '@dimensiondev/assets/reload.svg';
+import WalletIcon from '@dimensiondev/assets/wallet.svg';
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
@@ -7,10 +11,6 @@ import { useCallback, useEffect, useMemo } from 'react';
 import { useUpdateEffect } from 'react-use';
 import { type Address } from 'viem';
 
-import ArrowLineDownIcon from '@/assets/arrow-line-down.svg';
-import MoreIcon from '@/assets/more-fill.svg';
-import ReloadIcon from '@/assets/reload.svg';
-import WalletIcon from '@/assets/wallet.svg';
 import { NetworkType, PageRoute, WalletSource } from '@/constants/enum.js';
 import { usePathname } from '@/esm/navigation.js';
 import { useAllConnections } from '@/hooks/useAllConnections.js';

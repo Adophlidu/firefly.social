@@ -1,11 +1,11 @@
 'use client';
 
+import ArrowDownCircleIcon from '@dimensiondev/assets/arrow-circle-down.svg';
 import { classNames, getEnumAsArray } from '@dimensiondev/utils';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { useMemo, useRef } from 'react';
 
-import ArrowDownCircleIcon from '@/assets/arrow-circle-down.svg';
 import { ActivitiesFilter } from '@/components/HomeTab/ActivitiesFilter.js';
 import { DiscoverFilter } from '@/components/HomeTab/DiscoverFilter.js';
 import { Link } from '@/components/Link.js';

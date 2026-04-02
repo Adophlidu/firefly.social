@@ -1,12 +1,12 @@
 'use client';
 
+import ArrowDownIcon from '@dimensiondev/assets/arrow-line-down.svg';
+import SmallFireflyAvatar from '@dimensiondev/assets/small-firefly.svg';
 import { Trans } from '@lingui/react/macro';
 import { useRouter } from '@tanstack/react-router';
 import { motion } from 'framer-motion';
 import { memo, useCallback } from 'react';
 
-import ArrowDownIcon from '@/assets/arrow-line-down.svg';
-import SmallFireflyAvatar from '@/assets/small-firefly.svg';
 import { RecipientAvatar } from '@/components/Tips/RecipientAvatar.js';
 import { TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { formatAddress } from '@/helpers/formatAddress.js';

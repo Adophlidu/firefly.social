@@ -1,10 +1,10 @@
+import ArrowDown from '@dimensiondev/assets/arrow-line-down.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { Popover, PopoverButton, PopoverPanel, Transition } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { compact, isEqual, values } from 'lodash-es';
 import { Fragment, type Ref, useMemo, useRef, useState } from 'react';
 
-import ArrowDown from '@/assets/arrow-line-down.svg';
 import { ActionButton } from '@/components/ActionButton.js';
 import { CloseButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';

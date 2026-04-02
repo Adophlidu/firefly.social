@@ -1,9 +1,9 @@
+import FireflyCard from '@dimensiondev/assets/firefly-card.svg';
 import { classNames } from '@dimensiondev/utils';
 import { throttle } from 'lodash-es';
 import { memo, useEffect, useRef, useState } from 'react';
 
 import { toggleSignupAudio } from '@/app/[locale]/(whiteboard)/signup/pages/audio.js';
-import FireflyCard from '@/assets/firefly-card.svg';
 import { Image } from '@/esm/Image.js';
 import { bedStead } from '@/fonts/bedStead/index.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';

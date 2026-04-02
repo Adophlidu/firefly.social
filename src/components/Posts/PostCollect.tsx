@@ -1,5 +1,6 @@
 'use client';
 
+import LinkIcon from '@dimensiondev/assets/link.svg';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
@@ -9,7 +10,6 @@ import { useAsyncFn } from 'react-use';
 import { polygon } from 'viem/chains';
 import { useConnection } from 'wagmi';
 
-import LinkIcon from '@/assets/link.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { ChainGuardButton } from '@/components/ChainGuardButton.js';
 import { Link } from '@/components/Link.js';

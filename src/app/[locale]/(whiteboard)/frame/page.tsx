@@ -1,5 +1,6 @@
 'use client';
 
+import FireflyLogo from '@dimensiondev/assets/firefly.logo.svg';
 import { IS_DEVELOPMENT } from '@dimensiondev/constants';
 import { nativeBridgeProvider, SupportedMethod } from '@dimensiondev/native-bridge';
 import { bom, parseUrl } from '@dimensiondev/utils';
@@ -10,7 +11,6 @@ import { useAsyncRetry } from 'react-use';
 
 import { FramePage, FramePageBody, FramePageTitle } from '@/app/[locale]/(whiteboard)/components/FramePage.js';
 import { GhostError } from '@/app/[locale]/(whiteboard)/components/GhostError.js';
-import FireflyLogo from '@/assets/firefly.logo.svg';
 import { frameSwapToken } from '@/components/Frame/V2/frameSwapToken.js';
 import { Image } from '@/components/Image.js';
 import { ProfileVerifyBadge } from '@/components/ProfileVerifyBadge/index.js';

@@ -1,11 +1,11 @@
 'use client';
 
+import CalendarIcon from '@dimensiondev/assets/calendar.svg';
+import LocationIcon from '@dimensiondev/assets/location.svg';
+import PoapIcon from '@dimensiondev/assets/poap.svg';
 import { classNames } from '@dimensiondev/utils';
 import { memo } from 'react';
 
-import CalendarIcon from '@/assets/calendar.svg';
-import LocationIcon from '@/assets/location.svg';
-import PoapIcon from '@/assets/poap.svg';
 import { ChainIcon } from '@/components/ChainIcon.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Image } from '@/components/Image.js';

@@ -1,14 +1,14 @@
 'use client';
 
+import ArrowDownIcon from '@dimensiondev/assets/arrow-line-down.svg';
+import CheckIcon from '@dimensiondev/assets/check.svg';
+import EvmChainsIcon from '@dimensiondev/assets/evm-chains.svg';
+import FilterIcon from '@dimensiondev/assets/filter.svg';
 import { classNames, getEnumAsArray } from '@dimensiondev/utils';
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { memo, useMemo, useState } from 'react';
 
-import ArrowDownIcon from '@/assets/arrow-line-down.svg';
-import CheckIcon from '@/assets/check.svg';
-import EvmChainsIcon from '@/assets/evm-chains.svg';
-import FilterIcon from '@/assets/filter.svg';
 import { ChainIcon } from '@/components/ChainIcon.js';
 import { NetworkType, TimeRangeFilter } from '@/constants/enum.js';
 import { resolveTimeRangeName, resolveTimeRangeShortName } from '@/helpers/resolveTimeRangeName.js';

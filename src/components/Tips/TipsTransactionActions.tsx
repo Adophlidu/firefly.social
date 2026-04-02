@@ -1,5 +1,8 @@
 'use client';
 
+import ImageDownloadIcon from '@dimensiondev/assets/image-download.svg';
+import MirrorIcon from '@dimensiondev/assets/mirror.svg';
+import ShareIcon from '@dimensiondev/assets/share.svg';
 import { classNames } from '@dimensiondev/utils';
 import { MenuItem } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
@@ -9,9 +12,6 @@ import { type HTMLProps, useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
 
-import ImageDownloadIcon from '@/assets/image-download.svg';
-import MirrorIcon from '@/assets/mirror.svg';
-import ShareIcon from '@/assets/share.svg';
 import { CopyLinkButton } from '@/components/Actions/CopyLinkButton.js';
 import { LikeButton } from '@/components/Actions/LikeButton.js';
 import { MenuButton } from '@/components/Actions/MenuButton.js';

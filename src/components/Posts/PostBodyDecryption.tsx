@@ -1,10 +1,10 @@
 'use client';
 
+import Lock from '@dimensiondev/assets/lock.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 
-import Lock from '@/assets/lock.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { PostBodyContent, type PostBodyContentProps } from '@/components/Posts/PostBodyContent.js';
 import { useDecryptPost } from '@/hooks/useDecryptPost.js';

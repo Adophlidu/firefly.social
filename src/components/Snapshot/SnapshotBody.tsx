@@ -1,5 +1,6 @@
 'use client';
 
+import SnapshotIcon from '@dimensiondev/assets/snapshot.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
@@ -12,7 +13,6 @@ import urlcat from 'urlcat';
 import { getAddress } from 'viem';
 import { useConnection } from 'wagmi';
 
-import SnapshotIcon from '@/assets/snapshot.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { ChainGuardButton } from '@/components/ChainGuardButton.js';
 import { ClickableArea } from '@/components/ClickableArea.js';

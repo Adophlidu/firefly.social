@@ -1,10 +1,10 @@
 'use client';
 
+import BookmarkActiveIcon from '@dimensiondev/assets/bookmark.selected.svg';
+import BookmarkIcon from '@dimensiondev/assets/bookmark.svg';
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 
-import BookmarkActiveIcon from '@/assets/bookmark.selected.svg';
-import BookmarkIcon from '@/assets/bookmark.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 
 interface BookmarkMenuItemProps {

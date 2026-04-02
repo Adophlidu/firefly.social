@@ -1,10 +1,10 @@
 'use client';
 
+import FilterIcon from '@dimensiondev/assets/filter.svg';
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { memo, useEffect, useMemo } from 'react';
 
-import FilterIcon from '@/assets/filter.svg';
 import { TypeFilter } from '@/components/TypeFilter/index.js';
 import { ActivitiesPlatform, Locale } from '@/constants/enum.js';
 import { useLocale } from '@/helpers/getCookies.js';

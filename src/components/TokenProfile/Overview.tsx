@@ -1,5 +1,7 @@
 'use client';
 
+import LinkIcon from '@dimensiondev/assets/link-square.svg';
+import QuestionIcon from '@dimensiondev/assets/question.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
@@ -8,8 +10,6 @@ import { first, isNumber, sortBy } from 'lodash-es';
 import { type HTMLProps, memo, type ReactNode, useMemo } from 'react';
 
 import { useUpdateContractParams } from '@/app/[locale]/(normal)/token/[exchange]/[[...slug]]/useUpdateContractParams.js';
-import LinkIcon from '@/assets/link-square.svg';
-import QuestionIcon from '@/assets/question.svg';
 import { ChainIcon } from '@/components/ChainIcon.js';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { Image } from '@/components/Image.js';

@@ -1,11 +1,11 @@
 'use client';
 
+import WalletIcon from '@dimensiondev/assets/wallet.svg';
 import { classNames, delay } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { compact } from 'lodash-es';
 import { memo, useMemo } from 'react';
 
-import WalletIcon from '@/assets/wallet.svg';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
 import { ClickOrigin, NetworkPluginID, NetworkType } from '@/constants/enum.js';

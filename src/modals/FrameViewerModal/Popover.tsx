@@ -1,9 +1,9 @@
+import FireflyLogo from '@dimensiondev/assets/firefly.logo.svg';
 import { parseUrl } from '@dimensiondev/utils';
 import { Transition } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { Fragment, memo, type ReactNode } from 'react';
 
-import FireflyLogo from '@/assets/firefly.logo.svg';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
 import { type FrameV2 } from '@/types/frame.js';

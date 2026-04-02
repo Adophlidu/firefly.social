@@ -1,9 +1,9 @@
 'use client';
 
+import ComeBackIcon from '@dimensiondev/assets/comeback.svg';
 import { useMotionValueEvent, useScroll } from 'framer-motion';
 import { useState } from 'react';
 
-import ComeBackIcon from '@/assets/comeback.svg';
 import { ChannelInfoAction } from '@/components/Channel/ChannelInfoAction.js';
 import { NoSSR } from '@/components/NoSSR.js';
 import { resolveChannelName } from '@/helpers/resolveChannelName.js';

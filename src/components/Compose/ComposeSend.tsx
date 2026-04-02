@@ -1,5 +1,7 @@
 'use client';
 
+import SendIcon from '@dimensiondev/assets/send.svg';
+import Send2Icon from '@dimensiondev/assets/send2.svg';
 import { classNames, delay } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { ConnectorNotConnectedError } from '@wagmi/core';
@@ -7,8 +9,6 @@ import { compact, values } from 'lodash-es';
 import { type HTMLProps, useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
-import SendIcon from '@/assets/send.svg';
-import Send2Icon from '@/assets/send2.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { AddThread } from '@/components/Compose/ComposeActions/AddThread.js';
 import { InteractiveTippy } from '@/components/InteractiveTippy.js';

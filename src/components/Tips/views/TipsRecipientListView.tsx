@@ -1,10 +1,10 @@
 'use client';
 
+import SmallFireflyAvatar from '@dimensiondev/assets/small-firefly.svg';
+import WarnIcon from '@dimensiondev/assets/warning-circle.svg';
 import { Trans } from '@lingui/react/macro';
 import { useRouter } from '@tanstack/react-router';
 
-import SmallFireflyAvatar from '@/assets/small-firefly.svg';
-import WarnIcon from '@/assets/warning-circle.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { AddressLink } from '@/components/Tips/AddressLink.js';
 import { RecipientAvatar } from '@/components/Tips/RecipientAvatar.js';

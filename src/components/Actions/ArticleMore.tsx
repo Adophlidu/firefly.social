@@ -1,11 +1,11 @@
 'use client';
 
+import MoreIcon from '@dimensiondev/assets/more.svg';
 import { MenuItem } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 
-import MoreIcon from '@/assets/more.svg';
 import { MuteWalletButton } from '@/components/Actions/MuteWalletButton.js';
 import { ReportArticleButton } from '@/components/Actions/ReportArticleButton.js';
 import { WatchWalletButton } from '@/components/Actions/WatchWalletButton.js';

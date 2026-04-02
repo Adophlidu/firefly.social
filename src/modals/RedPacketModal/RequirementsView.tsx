@@ -1,10 +1,10 @@
+import InfoIcon from '@dimensiondev/assets/info.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { getEnumAsArray } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useRouter } from '@tanstack/react-router';
 import { memo, useContext } from 'react';
 
-import InfoIcon from '@/assets/info.svg';
 import { ActionButton } from '@/components/ActionButton.js';
 import { REQUIREMENT_ICON_MAP, REQUIREMENT_TITLE_MAP } from '@/modals/RedPacketModal/common.js';
 import { RedPacketContext } from '@/modals/RedPacketModal/RedPacketContext.js';

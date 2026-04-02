@@ -1,10 +1,10 @@
 'use client';
 
+import CheckIcon from '@dimensiondev/assets/check.svg';
+import FilterIcon from '@dimensiondev/assets/filter.svg';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 
-import CheckIcon from '@/assets/check.svg';
-import FilterIcon from '@/assets/filter.svg';
 import { type TradeRecord } from '@/types/token.js';
 
 interface Props {

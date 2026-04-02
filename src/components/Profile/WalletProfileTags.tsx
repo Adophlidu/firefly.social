@@ -1,15 +1,15 @@
 'use client';
 
+import BaseIcon from '@dimensiondev/assets/base.svg';
+import EnsIcon from '@dimensiondev/assets/ens.svg';
+import EvmIcon from '@dimensiondev/assets/evm.svg';
+import SolanaIcon from '@dimensiondev/assets/solana.svg';
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import { memo, useMemo } from 'react';
 
-import BaseIcon from '@/assets/base.svg';
-import EnsIcon from '@/assets/ens.svg';
-import EvmIcon from '@/assets/evm.svg';
-import SolanaIcon from '@/assets/solana.svg';
 import { InteractiveTippy } from '@/components/InteractiveTippy.js';
 import { RelatedSourceIcon } from '@/components/RelatedSourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';

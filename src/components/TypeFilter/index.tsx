@@ -1,12 +1,12 @@
 'use client';
 
+import RadioOff from '@dimensiondev/assets/radio.disable-no.svg';
+import RadioOn from '@dimensiondev/assets/radio.yes.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { type HTMLProps, memo, type ReactNode } from 'react';
 
-import RadioOff from '@/assets/radio.disable-no.svg';
-import RadioOn from '@/assets/radio.yes.svg';
 import { captureTypeFilterClickEvent } from '@/providers/telemetry/captureFilterTabEvent.js';
 
 interface BaseProps<T extends string> extends HTMLProps<HTMLDivElement> {

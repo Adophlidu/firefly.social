@@ -1,10 +1,10 @@
 'use client';
 
+import DangerIcon from '@dimensiondev/assets/danger.svg';
+import WarningIcon from '@dimensiondev/assets/warning.svg';
 import { Plural } from '@lingui/react/macro';
 import { memo } from 'react';
 
-import DangerIcon from '@/assets/danger.svg';
-import WarningIcon from '@/assets/warning.svg';
 import { TokenSecurityTippy } from '@/components/TokenProfile/TokenSecurityTippy.js';
 import { SecurityMessageLevel, type TokenContractSecurity } from '@/providers/types/Security.js';
 

@@ -1,7 +1,8 @@
 'use client';
 
-import ComposeAddIcon from '@/assets/compose-add.svg';
-import ReplyIcon from '@/assets/reply.svg';
+import ComposeAddIcon from '@dimensiondev/assets/compose-add.svg';
+import ReplyIcon from '@dimensiondev/assets/reply.svg';
+
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { PageRoute, Source } from '@/constants/enum.js';
 import { usePathname } from '@/esm/navigation.js';

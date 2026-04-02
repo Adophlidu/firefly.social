@@ -1,11 +1,11 @@
 'use client';
 
+import PriceArrow from '@dimensiondev/assets/price-arrow.svg';
 import { classNames } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 
-import PriceArrow from '@/assets/price-arrow.svg';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { SecurityBadge } from '@/components/EmbedCards/TokenSecurityBadge.js';
 import { type AddressCardProps } from '@/components/EmbedCards/types.js';

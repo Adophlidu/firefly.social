@@ -1,9 +1,9 @@
 'use client';
 
+import TimeIcon from '@dimensiondev/assets/time.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 
-import TimeIcon from '@/assets/time.svg';
 import { PredictionEventEndTime } from '@/components/Prediction/PredictionEventEndTime.js';
 import { PredictionEventImage } from '@/components/Prediction/PredictionEventImage.js';
 import { PredictionPlatformIcon } from '@/components/Prediction/PredictionPlatformIcon.js';

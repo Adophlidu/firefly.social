@@ -1,12 +1,12 @@
 'use client';
 
+import InfoIcon from '@dimensiondev/assets/info.svg';
 import { classNames, delay } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { rootRouteId, useRouteContext } from '@tanstack/react-router';
 import { useCallback } from 'react';
 import { useAsyncFn } from 'react-use';
 
-import InfoIcon from '@/assets/info.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';

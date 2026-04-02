@@ -1,9 +1,9 @@
 'use client';
 
+import FlagIcon from '@dimensiondev/assets/flag.svg';
 import { Trans } from '@lingui/react/macro';
 import { useMutation } from '@tanstack/react-query';
 
-import FlagIcon from '@/assets/flag.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';

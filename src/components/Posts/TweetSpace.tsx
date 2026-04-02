@@ -1,14 +1,14 @@
 'use client';
 
+import CalendarIcon from '@dimensiondev/assets/calendar.svg';
+import EmptyStatusIcon from '@dimensiondev/assets/empty-status.svg';
+import MicrophoneIcon from '@dimensiondev/assets/microphone.svg';
 import { resolveValue, safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { type FunctionComponent, memo, type ReactNode, type SVGAttributes } from 'react';
 
-import CalendarIcon from '@/assets/calendar.svg';
-import EmptyStatusIcon from '@/assets/empty-status.svg';
-import MicrophoneIcon from '@/assets/microphone.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Link } from '@/components/Link.js';

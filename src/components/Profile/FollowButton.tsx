@@ -1,12 +1,12 @@
 'use client';
 
+import FollowIcon from '@dimensiondev/assets/follow-bold.svg';
+import FollowedIcon from '@dimensiondev/assets/followed.svg';
+import MutualFollowIcon from '@dimensiondev/assets/mutual-follow.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo, useCallback, useState } from 'react';
 
-import FollowIcon from '@/assets/follow-bold.svg';
-import FollowedIcon from '@/assets/followed.svg';
-import MutualFollowIcon from '@/assets/mutual-follow.svg';
 import { ToggleMutedProfileButton } from '@/components/Actions/ToggleMutedProfileButton.js';
 import { TwitterFollowButton } from '@/components/Actions/TwitterFollowButton.js';
 import { type ClickableButtonProps } from '@/components/ClickableButton.js';

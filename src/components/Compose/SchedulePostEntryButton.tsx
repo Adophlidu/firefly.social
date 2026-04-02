@@ -1,12 +1,12 @@
 'use client';
 
+import ScheduleIcon from '@dimensiondev/assets/schedule.svg';
 import { envs, STATUS } from '@dimensiondev/envs';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import dayjs from 'dayjs';
 import { type HTMLProps, useCallback } from 'react';
 
-import ScheduleIcon from '@/assets/schedule.svg';
 import { SchedulePostSettings } from '@/components/Compose/SchedulePostSettings.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { ENABLED_SCHEDULE_POST_SOURCES } from '@/constants/computed.js';

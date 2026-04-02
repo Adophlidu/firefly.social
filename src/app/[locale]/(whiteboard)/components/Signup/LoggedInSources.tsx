@@ -1,8 +1,8 @@
+import ColorfulLensIcon from '@dimensiondev/assets/lens-circle-small.svg';
+import XSquareLightIcon from '@dimensiondev/assets/x-square-light.svg';
 import { classNames } from '@dimensiondev/utils';
 import { memo, useMemo } from 'react';
 
-import ColorfulLensIcon from '@/assets/lens-circle-small.svg';
-import XSquareLightIcon from '@/assets/x-square-light.svg';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Source } from '@/constants/enum.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';

@@ -1,7 +1,7 @@
+import OpinionIcon from '@dimensiondev/assets/opinion.svg';
+import PolymarketIcon from '@dimensiondev/assets/polymarket.svg';
 import { safeUnreachable } from '@dimensiondev/utils';
 
-import OpinionIcon from '@/assets/opinion.svg';
-import PolymarketIcon from '@/assets/polymarket.svg';
 import { PredictionPlatform } from '@/constants/enum.js';
 
 interface PredictionPlatformIconProps {

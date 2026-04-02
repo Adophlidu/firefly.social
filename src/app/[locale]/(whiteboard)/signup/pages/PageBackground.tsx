@@ -1,18 +1,18 @@
+import BskyLogo from '@dimensiondev/assets/bsky-logo.svg';
+import CloudBigIcon from '@dimensiondev/assets/cloud-big.svg';
+import CloudMediumIcon from '@dimensiondev/assets/cloud-medium.svg';
+import CloudSmallIcon from '@dimensiondev/assets/cloud-small.svg';
+import CupIcon from '@dimensiondev/assets/cup.svg';
+import FarcasterLogo from '@dimensiondev/assets/farcaster-logo.svg';
+import HouseIcon from '@dimensiondev/assets/house.svg';
+import LensLogo from '@dimensiondev/assets/lens-logo.svg';
+import SmallLogo from '@dimensiondev/assets/logo-small.svg';
+import SignupBg from '@dimensiondev/assets/signup-bg.svg';
+import TwitterLogo from '@dimensiondev/assets/x-logo.svg';
 import { classNames } from '@dimensiondev/utils';
 import { AnimatePresence, motion } from 'framer-motion';
 import { type PropsWithChildren } from 'react';
 
-import BskyLogo from '@/assets/bsky-logo.svg';
-import CloudBigIcon from '@/assets/cloud-big.svg';
-import CloudMediumIcon from '@/assets/cloud-medium.svg';
-import CloudSmallIcon from '@/assets/cloud-small.svg';
-import CupIcon from '@/assets/cup.svg';
-import FarcasterLogo from '@/assets/farcaster-logo.svg';
-import HouseIcon from '@/assets/house.svg';
-import LensLogo from '@/assets/lens-logo.svg';
-import SmallLogo from '@/assets/logo-small.svg';
-import SignupBg from '@/assets/signup-bg.svg';
-import TwitterLogo from '@/assets/x-logo.svg';
 import { SignupStep, Source } from '@/constants/enum.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 

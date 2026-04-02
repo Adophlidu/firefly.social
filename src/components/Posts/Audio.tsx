@@ -2,11 +2,11 @@
 
 import 'plyr-react/plyr.css';
 
+import Music from '@dimensiondev/assets/music.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 
-import Music from '@/assets/music.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Image } from '@/components/Image.js';
 import { Plyr } from '@/esm/Plyr.js';

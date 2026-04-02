@@ -1,5 +1,6 @@
 'use client';
 
+import FullLogo from '@dimensiondev/assets/logo-full.svg';
 import { AbortError, delay, ForbiddenError } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import dayjs from 'dayjs';
@@ -7,7 +8,6 @@ import { useSearchParams } from 'next/navigation.js';
 import { useMemo } from 'react';
 import { useAsync } from 'react-use';
 
-import FullLogo from '@/assets/logo-full.svg';
 import { Loading } from '@/components/Loading.js';
 import { OpenFireflyAppButton } from '@/components/OpenFireflyAppButton.js';
 import { Source } from '@/constants/enum.js';

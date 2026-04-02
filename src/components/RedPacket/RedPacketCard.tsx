@@ -1,8 +1,8 @@
 'use client';
 
+import RedPacketIcon from '@dimensiondev/assets/red-packet.svg';
 import { Trans } from '@lingui/react/macro';
 
-import RedPacketIcon from '@/assets/red-packet.svg';
 import { ErrorBoundary } from '@/components/ErrorBoundary/index.js';
 import { RedPacketCardContent } from '@/components/RedPacket/RedPacketCardContent.js';
 import { type RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';

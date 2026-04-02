@@ -1,6 +1,6 @@
+import PureLinkIcon from '@dimensiondev/assets/pure-link.svg';
 import { classNames, parseUrl } from '@dimensiondev/utils';
 
-import PureLinkIcon from '@/assets/pure-link.svg';
 import { Link } from '@/components/Link.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 

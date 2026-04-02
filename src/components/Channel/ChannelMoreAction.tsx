@@ -1,9 +1,9 @@
 'use client';
 
+import MoreIcon from '@dimensiondev/assets/more-fill.svg';
 import { MenuItem, type MenuProps } from '@headlessui/react';
 import { memo } from 'react';
 
-import MoreIcon from '@/assets/more-fill.svg';
 import { CopyLinkButton } from '@/components/Actions/CopyLinkButton.js';
 import { MuteChannelButton } from '@/components/Actions/MuteChannelButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';

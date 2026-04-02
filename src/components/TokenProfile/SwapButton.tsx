@@ -1,10 +1,10 @@
 'use client';
 
+import SwapIcon from '@dimensiondev/assets/swap.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useAsyncFn } from 'react-use';
 
-import SwapIcon from '@/assets/swap.svg';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';

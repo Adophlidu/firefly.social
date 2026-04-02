@@ -1,3 +1,6 @@
+import FireflyIcon from '@dimensiondev/assets/firefly.round.svg';
+import PlusIcon from '@dimensiondev/assets/plus.svg';
+import WalletIcon from '@dimensiondev/assets/wallet.svg';
 import { envs, STATUS } from '@dimensiondev/envs';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
@@ -6,9 +9,6 @@ import { memo, useCallback, useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
 import { useConnection, useConnections } from 'wagmi';
 
-import FireflyIcon from '@/assets/firefly.round.svg';
-import PlusIcon from '@/assets/plus.svg';
-import WalletIcon from '@/assets/wallet.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { appkit } from '@/configs/appkit.js';

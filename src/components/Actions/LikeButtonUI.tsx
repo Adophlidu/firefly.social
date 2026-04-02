@@ -1,12 +1,12 @@
 'use client';
 
+import LikeIcon from '@dimensiondev/assets/like-large.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { AnimatePresence, motion } from 'framer-motion';
 import { memo, useCallback, useRef, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
-import LikeIcon from '@/assets/like-large.svg';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';

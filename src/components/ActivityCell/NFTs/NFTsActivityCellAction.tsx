@@ -1,14 +1,14 @@
 'use client';
 
+import AcquiredIcon from '@dimensiondev/assets/acquired.svg';
+import BoughtIcon from '@dimensiondev/assets/bought.svg';
+import BurnIcon from '@dimensiondev/assets/burn.svg';
+import MintIcon from '@dimensiondev/assets/minted.svg';
+import SentIcon from '@dimensiondev/assets/sent.svg';
+import SoldIcon from '@dimensiondev/assets/sold.svg';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 
-import AcquiredIcon from '@/assets/acquired.svg';
-import BoughtIcon from '@/assets/bought.svg';
-import BurnIcon from '@/assets/burn.svg';
-import MintIcon from '@/assets/minted.svg';
-import SentIcon from '@/assets/sent.svg';
-import SoldIcon from '@/assets/sold.svg';
 import { ActivityCellAction } from '@/components/ActivityCell/ActivityCellAction.js';
 import { ActivityCellActionTag } from '@/components/ActivityCell/ActivityCellActionTag.js';
 import { ClickableArea } from '@/components/ClickableArea.js';

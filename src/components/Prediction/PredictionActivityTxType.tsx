@@ -1,11 +1,11 @@
 'use client';
 
+import BuyIcon from '@dimensiondev/assets/bet-buy.svg';
+import SellIcon from '@dimensiondev/assets/bet-sell.svg';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { type PropsWithChildren } from 'react';
 
-import BuyIcon from '@/assets/bet-buy.svg';
-import SellIcon from '@/assets/bet-sell.svg';
 import { ActivityCellActionTag } from '@/components/ActivityCell/ActivityCellActionTag.js';
 import { PredictionPlatformName } from '@/components/Prediction/PredictionPlatformName.js';
 import { PolymarketBetType, type PredictionPlatform } from '@/constants/enum.js';

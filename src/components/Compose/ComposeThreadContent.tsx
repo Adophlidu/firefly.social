@@ -1,9 +1,9 @@
 'use client';
 
+import YesIcon from '@dimensiondev/assets/green-yes.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 
-import YesIcon from '@/assets/green-yes.svg';
 import { ComposeContent } from '@/components/Compose/ComposeContent.js';
 import { CloseButton } from '@/components/IconButton.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';

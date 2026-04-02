@@ -1,13 +1,13 @@
 'use client';
 
+import MoreIcon from '@dimensiondev/assets/more-fill.svg';
+import SecurityIcon from '@dimensiondev/assets/security2.svg';
+import WalletBoldIcon from '@dimensiondev/assets/wallet-bold2.svg';
 import { MenuItem } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
 import { memo } from 'react';
 
-import MoreIcon from '@/assets/more-fill.svg';
-import SecurityIcon from '@/assets/security2.svg';
-import WalletBoldIcon from '@/assets/wallet-bold2.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';

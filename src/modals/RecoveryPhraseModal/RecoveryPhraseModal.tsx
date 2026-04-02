@@ -1,14 +1,14 @@
 'use client';
 
+import CopyIcon from '@dimensiondev/assets/copy.svg';
+import EyeSlashIcon from '@dimensiondev/assets/eye-slash.svg';
+import KeySquareIcon from '@dimensiondev/assets/key-square.svg';
+import ShieldSecurityIcon from '@dimensiondev/assets/shield-security.svg';
+import Warning2Icon from '@dimensiondev/assets/warning-2.svg';
 import { Trans } from '@lingui/react/macro';
 import { type Ref, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
-import CopyIcon from '@/assets/copy.svg';
-import EyeSlashIcon from '@/assets/eye-slash.svg';
-import KeySquareIcon from '@/assets/key-square.svg';
-import ShieldSecurityIcon from '@/assets/shield-security.svg';
-import Warning2Icon from '@/assets/warning-2.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Modal } from '@/components/Modal.js';
 import { ModalTitle } from '@/components/ModalTitle.js';

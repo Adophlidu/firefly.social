@@ -1,9 +1,9 @@
 'use client';
 
+import LinkIcon from '@dimensiondev/assets/link-square.svg';
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
-import LinkIcon from '@/assets/link-square.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { Link } from '@/components/Link.js';
 import { TableListInPage } from '@/components/TableListInPage.js';

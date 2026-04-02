@@ -1,5 +1,7 @@
 'use client';
 
+import CollectFillIcon from '@dimensiondev/assets/collect-fill.svg';
+import LinkIcon from '@dimensiondev/assets/link-square.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { produce } from 'immer';
@@ -8,8 +10,6 @@ import { useAsyncFn } from 'react-use';
 import { useChains, useConnection } from 'wagmi';
 import { sendTransaction } from 'wagmi/actions';
 
-import CollectFillIcon from '@/assets/collect-fill.svg';
-import LinkIcon from '@/assets/link-square.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { ChainGuardButton } from '@/components/ChainGuardButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';

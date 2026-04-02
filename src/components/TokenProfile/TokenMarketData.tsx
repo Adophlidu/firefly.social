@@ -1,5 +1,10 @@
 'use client';
 
+import ArrowDownIcon from '@dimensiondev/assets/arrow-line-down.svg';
+import DexScreenerIcon from '@dimensiondev/assets/dex-screener.svg';
+import GlobalIcon from '@dimensiondev/assets/global.svg';
+import PriceArrow from '@dimensiondev/assets/price-arrow.svg';
+import TwitterIcon from '@dimensiondev/assets/x-fill.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { NODE_ENV } from '@dimensiondev/envs';
 import { assert, classNames } from '@dimensiondev/utils';
@@ -8,11 +13,6 @@ import dayjs from 'dayjs';
 import { first, isNumber } from 'lodash-es';
 import { type HTMLProps, memo, type ReactNode, useCallback, useMemo, useState } from 'react';
 
-import ArrowDownIcon from '@/assets/arrow-line-down.svg';
-import DexScreenerIcon from '@/assets/dex-screener.svg';
-import GlobalIcon from '@/assets/global.svg';
-import PriceArrow from '@/assets/price-arrow.svg';
-import TwitterIcon from '@/assets/x-fill.svg';
 import { ChainIcon } from '@/components/ChainIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { CopyTextButton } from '@/components/CopyTextButton.js';

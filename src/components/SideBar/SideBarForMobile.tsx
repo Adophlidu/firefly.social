@@ -1,10 +1,10 @@
 'use client';
 
+import DarkLogo from '@dimensiondev/assets/logo.dark.svg';
+import LightLogo from '@dimensiondev/assets/logo.light.svg';
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, memo } from 'react';
 
-import DarkLogo from '@/assets/logo.dark.svg';
-import LightLogo from '@/assets/logo.light.svg';
 import { CloseButton } from '@/components/IconButton.js';
 import { Menu } from '@/components/SideBar/Menu.js';
 import { useDisableScrollPassive } from '@/hooks/useDisableScrollPassive.js';

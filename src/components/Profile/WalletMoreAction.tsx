@@ -1,5 +1,6 @@
 'use client';
 
+import MoreIcon from '@dimensiondev/assets/more-fill.svg';
 import { classNames } from '@dimensiondev/utils';
 import { MenuItem, type MenuProps } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
@@ -7,7 +8,6 @@ import { compact, sum } from 'lodash-es';
 import { memo } from 'react';
 import { type Address } from 'viem';
 
-import MoreIcon from '@/assets/more-fill.svg';
 import { MuteAllByWallet } from '@/components/Actions/MuteAllProfile.js';
 import { MuteWalletButton } from '@/components/Actions/MuteWalletButton.js';
 import { MenuGroup } from '@/components/MenuGroup.js';

@@ -1,12 +1,12 @@
 'use client';
 
+import MedalBronzeIcon from '@dimensiondev/assets/medal-bronze.svg';
+import MedalGoldIcon from '@dimensiondev/assets/medal-gold.svg';
+import MedalSilverIcon from '@dimensiondev/assets/medal-silver.svg';
 import { classNames } from '@dimensiondev/utils';
 import { isNil } from 'lodash-es';
 import { memo } from 'react';
 
-import MedalBronzeIcon from '@/assets/medal-bronze.svg';
-import MedalGoldIcon from '@/assets/medal-gold.svg';
-import MedalSilverIcon from '@/assets/medal-silver.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { PredictionPlatform, Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';

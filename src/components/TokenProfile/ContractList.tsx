@@ -1,12 +1,12 @@
 'use client';
 
+import DotsIcon from '@dimensiondev/assets/dots.svg';
+import QuestionIcon from '@dimensiondev/assets/question.svg';
 import { classNames } from '@dimensiondev/utils';
 import { MenuItem, MenuItems, type MenuItemsProps } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { type CSSProperties, type HTMLProps, memo, type PropsWithChildren } from 'react';
 
-import DotsIcon from '@/assets/dots.svg';
-import QuestionIcon from '@/assets/question.svg';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { Image } from '@/components/Image.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';

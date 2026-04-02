@@ -1,9 +1,9 @@
 'use client';
 
+import ComeBackIcon from '@dimensiondev/assets/comeback.svg';
 import { classNames } from '@dimensiondev/utils';
 import { memo } from 'react';
 
-import ComeBackIcon from '@/assets/comeback.svg';
 import { useComeBack } from '@/hooks/useComeback.js';
 
 interface ComebackProps {

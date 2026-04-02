@@ -1,9 +1,9 @@
 'use client';
 
+import DoubleUser from '@dimensiondev/assets/double-user.svg';
 import { classNames, delay } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 
-import DoubleUser from '@/assets/double-user.svg';
 import { AccountConnectButton } from '@/components/AccountConnectButton.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';

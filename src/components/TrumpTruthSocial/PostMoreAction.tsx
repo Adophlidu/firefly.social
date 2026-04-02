@@ -1,13 +1,13 @@
 'use client';
 
+import MoreIcon from '@dimensiondev/assets/more.svg';
+import PostIcon from '@dimensiondev/assets/post.svg';
+import ShareIcon from '@dimensiondev/assets/share.svg';
+import LinkIcon from '@dimensiondev/assets/small-link.svg';
 import { MenuItem } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 
-import MoreIcon from '@/assets/more.svg';
-import PostIcon from '@/assets/post.svg';
-import ShareIcon from '@/assets/share.svg';
-import LinkIcon from '@/assets/small-link.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';

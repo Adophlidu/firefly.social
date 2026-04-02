@@ -1,16 +1,16 @@
 'use client';
 
+import DiscordIcon from '@dimensiondev/assets/discord.svg';
+import DocumentsIcon from '@dimensiondev/assets/documents.svg';
+import MaskRoundIcon from '@dimensiondev/assets/mask.round.svg';
+import SecurityIcon from '@dimensiondev/assets/security.svg';
+import TelegramIcon from '@dimensiondev/assets/telegram.svg';
 import { Trans } from '@lingui/react/macro';
 
 import { DocumentCard } from '@/app/[locale]/(settings)/components/DocumentCard.js';
 import { LinkCard } from '@/app/[locale]/(settings)/components/LinkCard.js';
 import { SettingsSection } from '@/app/[locale]/(settings)/components/Section.js';
 import { Subtitle } from '@/app/[locale]/(settings)/components/Subtitle.js';
-import DiscordIcon from '@/assets/discord.svg';
-import DocumentsIcon from '@/assets/documents.svg';
-import MaskRoundIcon from '@/assets/mask.round.svg';
-import SecurityIcon from '@/assets/security.svg';
-import TelegramIcon from '@/assets/telegram.svg';
 import { XIcon } from '@/components/XIcon.js';
 import { FIREFLY_TELEGRAM_URL } from '@/constants/static.js';
 

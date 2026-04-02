@@ -1,10 +1,10 @@
+import CalendarIcon from '@dimensiondev/assets/calendar.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { classNames } from '@dimensiondev/utils';
 import { eachDayOfInterval, endOfWeek, startOfWeek } from 'date-fns';
 import { useMemo, useRef } from 'react';
 import { useClickAway } from 'react-use';
 
-import CalendarIcon from '@/assets/calendar.svg';
 import { DatePicker, type DatePickerProps } from '@/components/Calendar/DatePicker.js';
 import { useAvailableDates } from '@/components/Calendar/hooks/useAvailableDates.js';
 import { ClickableButton } from '@/components/ClickableButton.js';

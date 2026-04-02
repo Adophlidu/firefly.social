@@ -1,3 +1,8 @@
+import ArrowLeftIcon from '@dimensiondev/assets/arrow-circle-left.svg';
+import ArrowRightIcon from '@dimensiondev/assets/arrow-circle-right.svg';
+import ArrowDownIcon from '@dimensiondev/assets/arrow-down.svg';
+import InfoIcon from '@dimensiondev/assets/info.svg';
+import QuestionIcon from '@dimensiondev/assets/question.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { BigNumber } from 'bignumber.js';
@@ -5,11 +10,6 @@ import { compact, flatten } from 'lodash-es';
 import { memo, useCallback, useContext, useMemo, useRef } from 'react';
 import { useAsync, useAsyncFn } from 'react-use';
 
-import ArrowLeftIcon from '@/assets/arrow-circle-left.svg';
-import ArrowRightIcon from '@/assets/arrow-circle-right.svg';
-import ArrowDownIcon from '@/assets/arrow-down.svg';
-import InfoIcon from '@/assets/info.svg';
-import QuestionIcon from '@/assets/question.svg';
 import { ActionButton } from '@/components/ActionButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { useCreateRedPacketCallback } from '@/components/RedPacket/hooks/useCreateRedPacketCallback.js';

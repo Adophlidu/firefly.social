@@ -1,3 +1,4 @@
+import EditProfileIcon from '@dimensiondev/assets/edit-profile.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { type LexicalEditor } from 'lexical';
@@ -5,7 +6,6 @@ import { compact, first } from 'lodash-es';
 import { useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
 
-import EditProfileIcon from '@/assets/edit-profile.svg';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { SORTED_CROSS_AT_SOCIAL_SOURCES } from '@/constants/computed.js';
 import { FireflyPlatform } from '@/constants/enum.js';

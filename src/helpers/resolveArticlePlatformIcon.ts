@@ -1,8 +1,8 @@
+import MattersIcon from '@dimensiondev/assets/matters.svg';
+import ParagraphIcon from '@dimensiondev/assets/paragraph.svg';
 import { createLookupTableResolver } from '@dimensiondev/utils';
 import { type FunctionComponent, type SVGAttributes } from 'react';
 
-import MattersIcon from '@/assets/matters.svg';
-import ParagraphIcon from '@/assets/paragraph.svg';
 import { LimoIcon } from '@/components/LimoIcon.js';
 import { ArticlePlatform } from '@/providers/types/Article.js';
 

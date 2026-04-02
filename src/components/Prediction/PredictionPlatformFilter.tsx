@@ -1,9 +1,9 @@
 'use client';
 
+import FilterIcon from '@dimensiondev/assets/filter.svg';
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
 import { memo } from 'react';
 
-import FilterIcon from '@/assets/filter.svg';
 import { PredictionPlatformName } from '@/components/Prediction/PredictionPlatformName.js';
 import { TypeFilter } from '@/components/TypeFilter/index.js';
 import { SORTED_BETS_PLATFORM } from '@/constants/computed.js';

@@ -1,13 +1,13 @@
 'use client';
 
+import FireflyRoundIcon from '@dimensiondev/assets/firefly-pure.svg';
+import ScheduleIcon from '@dimensiondev/assets/schedule.svg';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
 import { compact, first, last } from 'lodash-es';
 import { useCallback } from 'react';
 
-import FireflyRoundIcon from '@/assets/firefly-pure.svg';
-import ScheduleIcon from '@/assets/schedule.svg';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { SORTED_SCHEDULE_POST_SOURCES } from '@/constants/computed.js';
 import { useRouter } from '@/esm/navigation.js';

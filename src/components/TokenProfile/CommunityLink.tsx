@@ -1,15 +1,15 @@
+import DiscordRound from '@dimensiondev/assets/discord-round.svg';
+import FacebookColored from '@dimensiondev/assets/facebook-colored.svg';
+import GitHub from '@dimensiondev/assets/github.svg';
+import Instagram from '@dimensiondev/assets/instagram.svg';
+import Medium from '@dimensiondev/assets/medium.svg';
+import RedditRound from '@dimensiondev/assets/reddit-round.svg';
+import TelegramRound from '@dimensiondev/assets/telegram-round.svg';
+import YouTube from '@dimensiondev/assets/youtube.svg';
 import { parseUrl } from '@dimensiondev/utils';
 import { LinkIcon } from '@heroicons/react/24/outline';
 import { skipToken, useQuery } from '@tanstack/react-query';
 
-import DiscordRound from '@/assets/discord-round.svg';
-import FacebookColored from '@/assets/facebook-colored.svg';
-import GitHub from '@/assets/github.svg';
-import Instagram from '@/assets/instagram.svg';
-import Medium from '@/assets/medium.svg';
-import RedditRound from '@/assets/reddit-round.svg';
-import TelegramRound from '@/assets/telegram-round.svg';
-import YouTube from '@/assets/youtube.svg';
 import { Link } from '@/components/Link.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { XIcon } from '@/components/XIcon.js';

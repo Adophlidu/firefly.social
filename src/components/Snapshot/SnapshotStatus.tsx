@@ -1,12 +1,12 @@
 'use client';
 
+import ActiveIcon from '@dimensiondev/assets/snapshot-active.svg';
+import ClosedIcon from '@dimensiondev/assets/snapshot-closed.svg';
+import RejectedIcon from '@dimensiondev/assets/snapshot-rejected.svg';
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useMemo } from 'react';
 
-import ActiveIcon from '@/assets/snapshot-active.svg';
-import ClosedIcon from '@/assets/snapshot-closed.svg';
-import RejectedIcon from '@/assets/snapshot-rejected.svg';
 import { SnapshotState } from '@/constants/enum.js';
 
 interface Props {

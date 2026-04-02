@@ -1,10 +1,10 @@
 'use client';
 
+import BookmarkIcon from '@dimensiondev/assets/bookmark.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo, type ReactNode } from 'react';
 
-import BookmarkIcon from '@/assets/bookmark.svg';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';

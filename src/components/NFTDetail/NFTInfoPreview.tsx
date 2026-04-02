@@ -1,10 +1,10 @@
 'use client';
 
+import PauseIcon from '@dimensiondev/assets/pause.svg';
+import PlayIcon from '@dimensiondev/assets/play.svg';
 import { classNames } from '@dimensiondev/utils';
 import { type HTMLProps, useRef, useState } from 'react';
 
-import PauseIcon from '@/assets/pause.svg';
-import PlayIcon from '@/assets/play.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { NFTImage } from '@/components/NFTImage.js';
 

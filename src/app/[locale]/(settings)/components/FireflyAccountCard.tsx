@@ -1,13 +1,13 @@
 'use client';
 
+import EditIcon from '@dimensiondev/assets/edit.svg';
+import LogoutIcon from '@dimensiondev/assets/log-out.svg';
+import MoreIcon from '@dimensiondev/assets/more-fill.svg';
+import TrashIcon from '@dimensiondev/assets/trash.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 
-import EditIcon from '@/assets/edit.svg';
-import LogoutIcon from '@/assets/log-out.svg';
-import MoreIcon from '@/assets/more-fill.svg';
-import TrashIcon from '@/assets/trash.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { useAllConnections } from '@/hooks/useAllConnections.js';

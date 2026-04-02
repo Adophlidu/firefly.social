@@ -1,10 +1,10 @@
 'use client';
 
+import WarnIcon from '@dimensiondev/assets/warning-circle.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 
-import WarnIcon from '@/assets/warning-circle.svg';
 import { Link } from '@/components/Link.js';
 import { type PostBodyContentProps } from '@/components/Posts/PostBodyContent.js';
 import { Source } from '@/constants/enum.js';

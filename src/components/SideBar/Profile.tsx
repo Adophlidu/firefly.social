@@ -1,10 +1,10 @@
 'use client';
 
+import ProfileSelectedIcon from '@dimensiondev/assets/profile.selected.svg';
+import ProfileIcon from '@dimensiondev/assets/profile.svg';
 import { Trans } from '@lingui/react/macro';
 import { useMemo } from 'react';
 
-import ProfileSelectedIcon from '@/assets/profile.selected.svg';
-import ProfileIcon from '@/assets/profile.svg';
 import { BaseMenuItem } from '@/components/SideBar/BaseMenuItem.js';
 import { PageRoute } from '@/constants/enum.js';
 import { usePathname } from '@/esm/navigation.js';

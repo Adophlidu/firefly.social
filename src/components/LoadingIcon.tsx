@@ -1,7 +1,6 @@
+import Loading from '@dimensiondev/assets/loading.svg';
 import { classNames } from '@dimensiondev/utils';
 import { type HTMLProps, memo } from 'react';
-
-import Loading from '@/assets/loading.svg';
 
 interface LoadingIconProps extends HTMLProps<SVGElement> {
     size?: number;

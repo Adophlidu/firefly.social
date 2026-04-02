@@ -1,6 +1,5 @@
+import CardBg from '@dimensiondev/assets/card-bg.svg';
 import { classNames } from '@dimensiondev/utils';
-
-import CardBg from '@/assets/card-bg.svg';
 
 interface CardProps extends React.HTMLProps<HTMLDivElement> {}
 

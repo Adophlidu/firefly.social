@@ -1,9 +1,9 @@
+import AddIcon from '@dimensiondev/assets/add-number.svg';
+import MinusIcon from '@dimensiondev/assets/minus-number.svg';
 import { Trans } from '@lingui/react/macro';
 import { type ChangeEvent, memo, useCallback, useMemo } from 'react';
 import { useBalance, useConnection } from 'wagmi';
 
-import AddIcon from '@/assets/add-number.svg';
-import MinusIcon from '@/assets/minus-number.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { isGreaterThan, multipliedBy, plus } from '@/helpers/number.js';
 import { useSponsorMintNFT } from '@/hooks/useSponsorMintNFT.js';

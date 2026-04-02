@@ -1,10 +1,10 @@
 'use client';
 
+import SearchIcon from '@dimensiondev/assets/search.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useDebounceValue } from 'usehooks-ts';
 
-import SearchIcon from '@/assets/search.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ClearButton } from '@/components/IconButton.js';
 import { Link } from '@/components/Link.js';

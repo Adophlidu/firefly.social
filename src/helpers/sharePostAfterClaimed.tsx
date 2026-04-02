@@ -1,8 +1,8 @@
+import CircleSuccessIcon from '@dimensiondev/assets/circle-success.svg';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import urlcat from 'urlcat';
 
-import CircleSuccessIcon from '@/assets/circle-success.svg';
 import { type NetworkType } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/static.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';

@@ -1,13 +1,13 @@
+import CollectIcon from '@dimensiondev/assets/collect-large.svg';
+import FollowIcon from '@dimensiondev/assets/follow.svg';
+import LikeIcon from '@dimensiondev/assets/like-large.svg';
+import MessagesIcon from '@dimensiondev/assets/message2.svg';
+import MirrorIcon from '@dimensiondev/assets/mirror-large.svg';
+import ScheduleIcon from '@dimensiondev/assets/schedule.svg';
+import TipsIcon from '@dimensiondev/assets/tips.svg';
 import { createLookupTableResolver } from '@dimensiondev/utils';
 import { type FunctionComponent, type SVGAttributes } from 'react';
 
-import CollectIcon from '@/assets/collect-large.svg';
-import FollowIcon from '@/assets/follow.svg';
-import LikeIcon from '@/assets/like-large.svg';
-import MessagesIcon from '@/assets/message2.svg';
-import MirrorIcon from '@/assets/mirror-large.svg';
-import ScheduleIcon from '@/assets/schedule.svg';
-import TipsIcon from '@/assets/tips.svg';
 import { NotificationType } from '@/providers/types/SocialMedia.js';
 
 export const resolveNotificationIcon = createLookupTableResolver<

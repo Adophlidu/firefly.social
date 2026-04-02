@@ -1,6 +1,6 @@
+import LinkIcon from '@dimensiondev/assets/link-square.svg';
 import { Trans } from '@lingui/react/macro';
 
-import LinkIcon from '@/assets/link-square.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
 import { EVMExplorerResolver } from '@/web3-providers/evm/ResolverAPI.js';

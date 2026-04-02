@@ -1,11 +1,11 @@
+import AddUser from '@dimensiondev/assets/add-user.svg';
+import Comment from '@dimensiondev/assets/comment-rp.svg';
+import Like from '@dimensiondev/assets/like.svg';
+import NFTHolder from '@dimensiondev/assets/nft.svg';
+import Repost from '@dimensiondev/assets/repost.svg';
 import { Trans } from '@lingui/react/macro';
 import { type ReactNode } from 'react';
 
-import AddUser from '@/assets/add-user.svg';
-import Comment from '@/assets/comment-rp.svg';
-import Like from '@/assets/like.svg';
-import NFTHolder from '@/assets/nft.svg';
-import Repost from '@/assets/repost.svg';
 import { RequirementType } from '@/providers/types/FireflyRedPacket.js';
 
 export const REQUIREMENT_TITLE_MAP: Record<RequirementType, ReactNode> = {

@@ -1,9 +1,9 @@
 'use client';
 
+import SuspendedSVG from '@dimensiondev/assets/suspended.svg';
 import { Trans } from '@lingui/react/macro';
 import { useLayoutEffect } from 'react';
 
-import SuspendedSVG from '@/assets/suspended.svg';
 import { useBodyLock } from '@/hooks/useBodyLock.js';
 
 export function SuspendedAccountFallback() {

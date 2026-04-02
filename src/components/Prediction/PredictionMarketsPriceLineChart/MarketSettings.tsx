@@ -1,8 +1,8 @@
+import SettingsIcon from '@dimensiondev/assets/settings.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Popover, PopoverButton, PopoverPanel, Transition } from '@headlessui/react';
 import { Fragment, memo, useCallback } from 'react';
 
-import SettingsIcon from '@/assets/settings.svg';
 import { MarketsSelectionPanel } from '@/components/Prediction/PredictionMarketsPriceLineChart/MarketsSelectionPanel.js';
 import { type BetsMarketWithSettings } from '@/types/prediction.js';
 

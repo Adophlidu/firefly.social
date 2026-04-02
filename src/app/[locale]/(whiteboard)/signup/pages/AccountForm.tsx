@@ -1,5 +1,6 @@
 'use client';
 
+import ShadowLeftArrow from '@dimensiondev/assets/left-arrow-shadow.svg';
 import { classNames } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
@@ -14,7 +15,6 @@ import { LoadingBar } from '@/app/[locale]/(whiteboard)/components/Signup/Loadin
 import { LoggedInSources } from '@/app/[locale]/(whiteboard)/components/Signup/LoggedInSources.js';
 import { ShadowInAndOut } from '@/app/[locale]/(whiteboard)/components/Signup/ShadowInAndOut.js';
 import { SquareButton } from '@/app/[locale]/(whiteboard)/components/Signup/SquareButton.js';
-import ShadowLeftArrow from '@/assets/left-arrow-shadow.svg';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SignupStep, Source } from '@/constants/enum.js';
 import { FIREFLY_DISPLAY_NAME_REGEXP } from '@/constants/regexp.js';

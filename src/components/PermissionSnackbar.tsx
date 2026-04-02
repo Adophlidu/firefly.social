@@ -1,8 +1,8 @@
 'use client';
 
+import NotificationIcon from '@dimensiondev/assets/notification.svg';
 import { Trans } from '@lingui/react/macro';
 
-import NotificationIcon from '@/assets/notification.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { CloseButton } from '@/components/IconButton.js';
 import { useSnackbar } from '@/components/Snackbar.js';

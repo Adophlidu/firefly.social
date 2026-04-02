@@ -1,12 +1,12 @@
 'use client';
 
+import MuteIcon from '@dimensiondev/assets/mute.svg';
+import UnmuteIcon from '@dimensiondev/assets/unmute.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo, useMemo, useRef } from 'react';
 import { useHover } from 'usehooks-ts';
 
-import MuteIcon from '@/assets/mute.svg';
-import UnmuteIcon from '@/assets/unmute.svg';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 
 enum MuteLabel {

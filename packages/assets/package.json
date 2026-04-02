@@ -1,0 +1,19 @@
+{
+    "name": "@dimensiondev/assets",
+    "version": "0.1.22",
+    "private": true,
+    "description": "Shared SVG assets for Firefly web",
+    "type": "module",
+    "exports": {
+        "./*": "./*"
+    },
+    "files": [
+        "**/*.svg"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DimensionDev/firefly.mask.social",
+        "directory": "packages/assets"
+    },
+    "license": "MIT"
+}

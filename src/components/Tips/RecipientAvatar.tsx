@@ -1,8 +1,8 @@
+import EvmDashIcon from '@dimensiondev/assets/evm-dash.svg';
+import WalletIcon from '@dimensiondev/assets/wallet-icon.svg';
 import { classNames } from '@dimensiondev/utils';
 import { memo } from 'react';
 
-import EvmDashIcon from '@/assets/evm-dash.svg';
-import WalletIcon from '@/assets/wallet-icon.svg';
 import { Image } from '@/components/Image.js';
 import { NetworkPluginID, NetworkType } from '@/constants/enum.js';
 import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';

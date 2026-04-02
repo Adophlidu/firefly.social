@@ -1,9 +1,9 @@
 'use client';
 
+import ToggleIcon from '@dimensiondev/assets/toggle.svg';
 import { first, isUndefined, sumBy } from 'lodash-es';
 import { useMemo, useState } from 'react';
 
-import ToggleIcon from '@/assets/toggle.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Loading } from '@/components/Loading.js';
 import { PredictionMarketBuyButtons } from '@/components/Prediction/PredictionMarketBuyButtons.js';

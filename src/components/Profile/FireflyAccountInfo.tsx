@@ -1,11 +1,11 @@
 'use client';
 
+import SettingIcon from '@dimensiondev/assets/setting.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useMemo } from 'react';
 
-import SettingIcon from '@/assets/setting.svg';
 import { Link } from '@/components/Link.js';
 import { ComeBackButton } from '@/components/Profile/ComeBackButton.js';
 import { EnsName } from '@/components/Profile/EnsName.js';

@@ -1,10 +1,10 @@
+import AppleIcon from '@dimensiondev/assets/apple-small.svg';
+import FireflyLogo from '@dimensiondev/assets/firefly-small.svg';
+import GoogleStoreIcon from '@dimensiondev/assets/google-store.svg';
 import { Trans } from '@lingui/react/macro';
 import QRCode from 'react-qr-code';
 
 import { SquareButton } from '@/app/[locale]/(whiteboard)/components/Signup/SquareButton.js';
-import AppleIcon from '@/assets/apple-small.svg';
-import FireflyLogo from '@/assets/firefly-small.svg';
-import GoogleStoreIcon from '@/assets/google-store.svg';
 import { openWindow } from '@/helpers/openWindow.js';
 
 export function DownloadMobileAppContent() {

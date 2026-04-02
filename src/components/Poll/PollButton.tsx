@@ -1,10 +1,10 @@
 'use client';
 
+import PollIcon from '@dimensiondev/assets/poll.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 
-import PollIcon from '@/assets/poll.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { SORTED_POLL_SOURCES } from '@/constants/computed.js';

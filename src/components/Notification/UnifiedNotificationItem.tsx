@@ -1,12 +1,12 @@
 'use client';
 
+import FireflyMonochromeIcon from '@dimensiondev/assets/firefly-monochrome.svg';
+import LikeIcon from '@dimensiondev/assets/like.svg';
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
 import { memo, useCallback, useMemo } from 'react';
 
-import FireflyMonochromeIcon from '@/assets/firefly-monochrome.svg';
-import LikeIcon from '@/assets/like.svg';
 import { ActivityCellSnapshotAction } from '@/components/ActivityCell/Snapshot/ActivityCellSnapshotAction.js';
 import { ArticleBody } from '@/components/Article/ArticleBody.js';
 import { Avatar } from '@/components/Avatar.js';

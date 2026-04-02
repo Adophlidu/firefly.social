@@ -1,6 +1,6 @@
+import GhostHoleIcon from '@dimensiondev/assets/ghost.svg';
 import { type ReactNode } from 'react';
 
-import GhostHoleIcon from '@/assets/ghost.svg';
 import { Comeback } from '@/components/Comeback.js';
 import { Link } from '@/components/Link.js';
 import { type SearchType, type Source } from '@/constants/enum.js';

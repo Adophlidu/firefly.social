@@ -1,9 +1,9 @@
 'use client';
 
+import MoreIcon from '@dimensiondev/assets/more.svg';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 
-import MoreIcon from '@/assets/more.svg';
 import { CopyLinkButton } from '@/components/Actions/CopyLinkButton.js';
 import { MuteAllByProfile, MuteAllByWallet } from '@/components/Actions/MuteAllProfile.js';
 import { Source } from '@/constants/enum.js';

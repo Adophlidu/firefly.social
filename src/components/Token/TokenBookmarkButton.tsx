@@ -1,14 +1,14 @@
 'use client';
 
+import BookmarkActiveIcon from '@dimensiondev/assets/bookmark.selected.svg';
+import BookmarkIcon from '@dimensiondev/assets/bookmark.svg';
+import WarningFill from '@dimensiondev/assets/warning-fill.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useMutation } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { memo } from 'react';
 
-import BookmarkActiveIcon from '@/assets/bookmark.selected.svg';
-import BookmarkIcon from '@/assets/bookmark.svg';
-import WarningFill from '@/assets/warning-fill.svg';
 import { ClickableArea, type ClickableAreaProps } from '@/components/ClickableArea.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';

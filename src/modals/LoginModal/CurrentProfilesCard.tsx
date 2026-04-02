@@ -1,5 +1,7 @@
 'use client';
 
+import PlusIcon from '@dimensiondev/assets/plus.svg';
+import SwitchIcon from '@dimensiondev/assets/switch.svg';
 import { classNames, delay } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useRouter } from '@tanstack/react-router';
@@ -7,8 +9,6 @@ import { memo, useCallback, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
 
-import PlusIcon from '@/assets/plus.svg';
-import SwitchIcon from '@/assets/switch.svg';
 import { AvatarGroup } from '@/components/AvatarGroup.js';
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableArea } from '@/components/ClickableArea.js';

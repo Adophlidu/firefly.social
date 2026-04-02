@@ -1,10 +1,10 @@
 'use client';
 
+import LinkIcon from '@dimensiondev/assets/link-square.svg';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { type ReactNode, useMemo } from 'react';
 
-import LinkIcon from '@/assets/link-square.svg';
 import { ChainIcon } from '@/components/ChainIcon.js';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { Link } from '@/components/Link.js';

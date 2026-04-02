@@ -1,10 +1,10 @@
 'use client';
 
+import LinkIcon from '@dimensiondev/assets/link-square.svg';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 
-import LinkIcon from '@/assets/link-square.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { Link } from '@/components/Link.js';

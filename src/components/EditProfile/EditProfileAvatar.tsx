@@ -1,7 +1,7 @@
+import FallbackAvatarSVG from '@dimensiondev/assets/firefly-avatar-fallback.svg';
 import { useMemo } from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';
 
-import FallbackAvatarSVG from '@/assets/firefly-avatar-fallback.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { FIREFLY_STAMP_URL } from '@/constants/static.js';
 

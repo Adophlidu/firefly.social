@@ -1,5 +1,7 @@
 'use client';
 
+import QuestionIcon from '@dimensiondev/assets/question.svg';
+import RedPacketIcon from '@dimensiondev/assets/red-packet.svg';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useRouter } from '@tanstack/react-router';
@@ -10,8 +12,6 @@ import { useAsyncFn } from 'react-use';
 import { type Address } from 'viem';
 import { getChainId, switchChain, writeContract } from 'wagmi/actions';
 
-import QuestionIcon from '@/assets/question.svg';
-import RedPacketIcon from '@/assets/red-packet.svg';
 import { ChainGuardButton } from '@/components/ChainGuardButton.js';
 import { FungibleTokenInput } from '@/components/FungibleTokenInput.js';
 import { useDefaultCreateGas } from '@/components/RedPacket/hooks/useDefaultCreateGas.js';

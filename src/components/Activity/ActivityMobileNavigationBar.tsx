@@ -1,11 +1,11 @@
 'use client';
 
+import NavigationBarBackIcon from '@dimensiondev/assets/navigation-bar-back.svg';
+import ShareIcon from '@dimensiondev/assets/share-navbar.svg';
 import { nativeBridgeProvider, SupportedMethod } from '@dimensiondev/native-bridge';
 import { classNames } from '@dimensiondev/utils';
 import { type HTMLProps, useContext } from 'react';
 
-import NavigationBarBackIcon from '@/assets/navigation-bar-back.svg';
-import ShareIcon from '@/assets/share-navbar.svg';
 import { ActivityContext } from '@/components/Activity/ActivityContext.js';
 import { useActivityShareUrl } from '@/components/Activity/hooks/useActivityShareUrl.js';
 import { IS_ANDROID } from '@/constants/browser.js';

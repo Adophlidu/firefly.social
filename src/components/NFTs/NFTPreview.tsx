@@ -1,5 +1,8 @@
 'use client';
 
+import CalendarIcon from '@dimensiondev/assets/calendar-small.svg';
+import LocationIcon from '@dimensiondev/assets/location.svg';
+import PoapIcon from '@dimensiondev/assets/poap.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { classNames } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
@@ -8,9 +11,6 @@ import { compact } from 'lodash-es';
 import { Fragment, memo, type ReactNode } from 'react';
 import { zeroAddress } from 'viem';
 
-import CalendarIcon from '@/assets/calendar-small.svg';
-import LocationIcon from '@/assets/location.svg';
-import PoapIcon from '@/assets/poap.svg';
 import { ChainIcon } from '@/components/ChainIcon.js';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';

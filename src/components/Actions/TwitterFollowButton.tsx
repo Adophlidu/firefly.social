@@ -1,11 +1,11 @@
 'use client';
 
+import BlockIcon from '@dimensiondev/assets/block.svg';
+import PendingIcon from '@dimensiondev/assets/pending.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useRef } from 'react';
 
-import BlockIcon from '@/assets/block.svg';
-import PendingIcon from '@/assets/pending.svg';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 
 interface TwitterBlockButtonProps extends Omit<ClickableButtonProps, 'children'> {

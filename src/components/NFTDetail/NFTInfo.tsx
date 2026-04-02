@@ -1,12 +1,12 @@
 'use client';
 
+import CalendarIcon from '@dimensiondev/assets/calendar.svg';
+import LocationIcon from '@dimensiondev/assets/location.svg';
+import PoapIcon from '@dimensiondev/assets/poap.svg';
+import WebsiteIcon from '@dimensiondev/assets/website-circle.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 
-import CalendarIcon from '@/assets/calendar.svg';
-import LocationIcon from '@/assets/location.svg';
-import PoapIcon from '@/assets/poap.svg';
-import WebsiteIcon from '@/assets/website-circle.svg';
 import { NFTDetailsMore } from '@/components/Actions/NFTDetailsMore.js';
 import { ChainIcon } from '@/components/ChainIcon.js';
 import { Image } from '@/components/Image.js';

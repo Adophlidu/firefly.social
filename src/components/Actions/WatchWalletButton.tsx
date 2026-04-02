@@ -1,10 +1,10 @@
 'use client';
 
+import FollowIcon from '@dimensiondev/assets/follow-user.svg';
+import UnfollowIcon from '@dimensiondev/assets/unfollow-user.svg';
 import { Trans } from '@lingui/react/macro';
 import { type Address } from 'viem';
 
-import FollowIcon from '@/assets/follow-user.svg';
-import UnfollowIcon from '@/assets/unfollow-user.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';

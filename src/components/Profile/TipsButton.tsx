@@ -1,9 +1,9 @@
 'use client';
 
+import TipsIcon from '@dimensiondev/assets/tips.svg';
 import { Trans } from '@lingui/react/macro';
 import { useAsyncFn } from 'react-use';
 
-import TipsIcon from '@/assets/tips.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Source } from '@/constants/enum.js';
 import { enqueueInfoMessage } from '@/helpers/enqueueMessage.js';

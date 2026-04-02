@@ -1,11 +1,11 @@
 'use client';
 
+import CalendarIcon from '@dimensiondev/assets/activity-calendar.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import dayjs from 'dayjs';
 import { useState } from 'react';
 
-import CalendarIcon from '@/assets/activity-calendar.svg';
 import { ActivityEndedDialog } from '@/components/Activity/ActivityEndedDialog.js';
 import { ActivityStatusTag } from '@/components/Activity/ActivityStatus.js';
 import { Image } from '@/components/Image.js';

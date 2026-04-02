@@ -1,5 +1,8 @@
 'use client';
 
+import FireflyAvatar from '@dimensiondev/assets/firefly.round.svg';
+import PlusIcon from '@dimensiondev/assets/plus.svg';
+import ScanIcon from '@dimensiondev/assets/scan.svg';
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { rootRouteId, useMatch, useRouter } from '@tanstack/react-router';
@@ -8,9 +11,6 @@ import { useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
 
-import FireflyAvatar from '@/assets/firefly.round.svg';
-import PlusIcon from '@/assets/plus.svg';
-import ScanIcon from '@/assets/scan.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileSourceIcon } from '@/components/ProfileSourceIcon.js';
 import { SORTED_LOGIN_SOCIAL_SOURCES, SORTED_THIRD_PARTY_SOURCES_IN_URL } from '@/constants/computed.js';

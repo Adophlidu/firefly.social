@@ -1,11 +1,11 @@
 'use client';
 
+import ExploreIcon from '@dimensiondev/assets/explore.svg';
+import SettingsSelectedIcon from '@dimensiondev/assets/setting.selected.svg';
 import { Trans } from '@lingui/react/macro';
 import { first } from 'lodash-es';
 import { memo, useMemo } from 'react';
 
-import ExploreIcon from '@/assets/explore.svg';
-import SettingsSelectedIcon from '@/assets/setting.selected.svg';
 import { BaseMenuItem } from '@/components/SideBar/BaseMenuItem.js';
 import { DEFAULT_EXPLORE_TYPE } from '@/constants/computed.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';

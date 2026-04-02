@@ -1,5 +1,6 @@
 'use client';
 
+import SearchIcon from '@dimensiondev/assets/search.svg';
 import { envs } from '@dimensiondev/envs';
 import { classNames } from '@dimensiondev/utils';
 import { SearchBar, SearchContextManager } from '@giphy/react-components';
@@ -9,7 +10,6 @@ import { Trans } from '@lingui/react/macro';
 import { useMemo, useState } from 'react';
 import { useSize } from 'react-use';
 
-import SearchIcon from '@/assets/search.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { EmojiList } from '@/components/Gif/EmojiList.js';
 import { GiphyGifList } from '@/components/Gif/GiphyGifList.js';

@@ -1,11 +1,11 @@
 'use client';
 
+import PolymarketSquare from '@dimensiondev/assets/polymarket-square.svg';
+import PolymarketSquareWhite from '@dimensiondev/assets/polymarket-square-white.svg';
+import VerifyIcon from '@dimensiondev/assets/verify.svg';
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { type HTMLProps } from 'react';
 
-import PolymarketSquare from '@/assets/polymarket-square.svg';
-import PolymarketSquareWhite from '@/assets/polymarket-square-white.svg';
-import VerifyIcon from '@/assets/verify.svg';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
 import { Source } from '@/constants/enum.js';

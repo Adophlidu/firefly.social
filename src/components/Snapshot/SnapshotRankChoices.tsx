@@ -1,9 +1,8 @@
+import ReorderIcon from '@dimensiondev/assets/reorder.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { classNames } from '@dimensiondev/utils';
 import { Reorder } from 'framer-motion';
 import { memo } from 'react';
-
-import ReorderIcon from '@/assets/reorder.svg';
 
 interface SnapshotRankChoicesProps {
     choices: string[];

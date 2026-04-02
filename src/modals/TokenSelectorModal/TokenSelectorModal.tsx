@@ -1,10 +1,10 @@
+import AddIcon from '@dimensiondev/assets/add-circle.svg';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { DialogTitle } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { useCallback, useState } from 'react';
 import { useChainId } from 'wagmi';
 
-import AddIcon from '@/assets/add-circle.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { BackButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';

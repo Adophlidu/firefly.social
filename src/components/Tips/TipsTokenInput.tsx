@@ -1,12 +1,12 @@
 'use client';
 
+import ArrowDownIcon from '@dimensiondev/assets/arrow-line-down.svg';
 import { Trans } from '@lingui/react/macro';
 import { useRouter } from '@tanstack/react-router';
 import { motion } from 'framer-motion';
 import { memo } from 'react';
 import { useAsyncFn } from 'react-use';
 
-import ArrowDownIcon from '@/assets/arrow-line-down.svg';
 import { Image } from '@/components/Image.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { formatTokenItemAmount } from '@/components/Tips/formatTokenItemAmount.js';

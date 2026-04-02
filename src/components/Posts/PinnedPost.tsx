@@ -1,9 +1,9 @@
 'use client';
 
+import PinnedIcon from '@dimensiondev/assets/pinned.svg';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 
-import PinnedIcon from '@/assets/pinned.svg';
 import { pinnedPostQueryOptions } from '@/components/Posts/queries/pinnedPostQueryOptions.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { type SocialSource, Source } from '@/constants/enum.js';

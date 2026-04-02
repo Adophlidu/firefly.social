@@ -1,5 +1,6 @@
 'use client';
 
+import DisconnectIcon from '@dimensiondev/assets/disconnect.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { Trans } from '@lingui/react/macro';
 import { useAsyncFn } from 'react-use';
@@ -8,7 +9,6 @@ import {
     getRelatedProfiles,
     waitForDisconnectConfirmation,
 } from '@/app/[locale]/(settings)/components/waitForDisconnectConfirmation.js';
-import DisconnectIcon from '@/assets/disconnect.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { WalletSource } from '@/constants/enum.js';
 import { enqueueErrorMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';

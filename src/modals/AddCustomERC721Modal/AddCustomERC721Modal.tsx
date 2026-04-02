@@ -1,5 +1,6 @@
 'use client';
 
+import CloseIcon from '@dimensiondev/assets/close.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { delay } from '@dimensiondev/utils';
 import { DialogTitle } from '@headlessui/react';
@@ -10,7 +11,6 @@ import { useAsyncFn } from 'react-use';
 import { type Address } from 'viem';
 import { useConnection } from 'wagmi';
 
-import CloseIcon from '@/assets/close.svg';
 import { ActionButton } from '@/components/ActionButton.js';
 import { ChainIcon } from '@/components/ChainIcon.js';
 import { Modal } from '@/components/Modal.js';

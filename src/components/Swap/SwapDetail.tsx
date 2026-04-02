@@ -1,5 +1,8 @@
 'use client';
 
+import ExchangeIcon from '@dimensiondev/assets/exchange.svg';
+import ExportIcon from '@dimensiondev/assets/export.svg';
+import MoreIcon from '@dimensiondev/assets/more-circle.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Select, Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
@@ -9,9 +12,6 @@ import { memo } from 'react';
 import { type Address } from 'viem';
 
 import { AddressLink, TxLink } from '@/app/[locale]/(normal)/tx/[chain_id]/[hash]/components/TxLink.js';
-import ExchangeIcon from '@/assets/exchange.svg';
-import ExportIcon from '@/assets/export.svg';
-import MoreIcon from '@/assets/more-circle.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { ChainIcon } from '@/components/ChainIcon.js';
 import { Comeback } from '@/components/Comeback.js';

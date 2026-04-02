@@ -1,11 +1,11 @@
 'use client';
 
+import FarcasterIcon from '@dimensiondev/assets/farcaster-fill.svg';
+import LensIcon from '@dimensiondev/assets/lens-fill.svg';
+import XIcon from '@dimensiondev/assets/x-fill.svg';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { memo, type SVGProps } from 'react';
 
-import FarcasterIcon from '@/assets/farcaster-fill.svg';
-import LensIcon from '@/assets/lens-fill.svg';
-import XIcon from '@/assets/x-fill.svg';
 import { useSizeStyle } from '@/hooks/useSizeStyle.js';
 import { RelatedWalletSource } from '@/providers/types/Firefly.js';
 

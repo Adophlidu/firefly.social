@@ -1,10 +1,10 @@
 'use client';
 
+import PoapIcon from '@dimensiondev/assets/poap.svg';
 import { classNames } from '@dimensiondev/utils';
 import { type GridItemProps, type GridListProps } from 'react-virtuoso';
 import { type Hex } from 'viem';
 
-import PoapIcon from '@/assets/poap.svg';
 import { ChainIcon } from '@/components/ChainIcon.js';
 import { GridListInPage } from '@/components/GridListInPage.js';
 import { Link } from '@/components/Link.js';

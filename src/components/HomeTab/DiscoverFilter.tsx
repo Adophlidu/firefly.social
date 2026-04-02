@@ -1,11 +1,11 @@
 'use client';
 
+import FilterIcon from '@dimensiondev/assets/filter.svg';
+import RadioOff from '@dimensiondev/assets/radio.disable-no.svg';
+import RadioOn from '@dimensiondev/assets/radio.yes.svg';
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 
-import FilterIcon from '@/assets/filter.svg';
-import RadioOff from '@/assets/radio.disable-no.svg';
-import RadioOn from '@/assets/radio.yes.svg';
 import { TypeFilter } from '@/components/TypeFilter/index.js';
 import { SOCIAL_DISCOVER_SOURCE_LOGIN_REQUIRED } from '@/constants/computed.js';
 import { HomeTab, type SocialSource } from '@/constants/enum.js';

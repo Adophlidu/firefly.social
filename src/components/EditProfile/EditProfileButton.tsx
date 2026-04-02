@@ -1,10 +1,10 @@
 'use client';
 
+import EditProfileIcon from '@dimensiondev/assets/edit-profile.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useCallback, useState } from 'react';
 
-import EditProfileIcon from '@/assets/edit-profile.svg';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { EditProfileDialog } from '@/components/EditProfile/EditProfileDialog.js';
 import { captureEditProfileClickEvent } from '@/providers/telemetry/captureProfileActionEvent.js';

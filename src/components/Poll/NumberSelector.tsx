@@ -1,8 +1,8 @@
+import ArrowDownIcon from '@dimensiondev/assets/arrow-down.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Popover, Transition } from '@headlessui/react';
 import { Fragment, useMemo, useRef } from 'react';
 
-import ArrowDownIcon from '@/assets/arrow-down.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 
 interface NumberSelectorProps {

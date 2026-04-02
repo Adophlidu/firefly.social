@@ -1,10 +1,10 @@
 'use client';
 
+import MuteIcon from '@dimensiondev/assets/mute.svg';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 
-import MuteIcon from '@/assets/mute.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';

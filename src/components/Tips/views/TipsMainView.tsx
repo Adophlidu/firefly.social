@@ -1,8 +1,8 @@
 'use client';
 
+import ErrorIcon from '@dimensiondev/assets/error-circle.svg';
 import { Trans } from '@lingui/react/macro';
 
-import ErrorIcon from '@/assets/error-circle.svg';
 import { ActionButton } from '@/components/ActionButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SendWithEVM, SendWithSolana } from '@/components/Tips/SendTipsButton.js';

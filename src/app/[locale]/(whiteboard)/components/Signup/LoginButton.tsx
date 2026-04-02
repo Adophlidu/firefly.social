@@ -1,10 +1,10 @@
 'use client';
 
+import AddIcon from '@dimensiondev/assets/add-small.svg';
+import OtherIcon from '@dimensiondev/assets/other.svg';
 import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
 
-import AddIcon from '@/assets/add-small.svg';
-import OtherIcon from '@/assets/other.svg';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { type SocialSource } from '@/constants/enum.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';

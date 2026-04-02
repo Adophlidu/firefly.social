@@ -1,11 +1,11 @@
 'use client';
 
+import MessagesIcon from '@dimensiondev/assets/messages.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { memo, useMemo } from 'react';
 
-import MessagesIcon from '@/assets/messages.svg';
 import { CommentsFooter, type CommentsFooterProps } from '@/components/Comments/CommentsFooter.js';
 import { HideComments } from '@/components/HideComments.js';
 import { ListInPage } from '@/components/ListInPage.js';

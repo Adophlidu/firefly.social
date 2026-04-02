@@ -1,14 +1,14 @@
 'use client';
 
+import CloseIcon from '@dimensiondev/assets/close.svg';
+import CloseCircleIcon from '@dimensiondev/assets/close-circle.svg';
+import DraftIconIcon from '@dimensiondev/assets/draft.svg';
+import LeftArrowIcon from '@dimensiondev/assets/left-arrow.svg';
+import UndoIcon from '@dimensiondev/assets/undo.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { type HTMLProps, memo, type ReactNode } from 'react';
 
-import CloseIcon from '@/assets/close.svg';
-import CloseCircleIcon from '@/assets/close-circle.svg';
-import DraftIconIcon from '@/assets/draft.svg';
-import LeftArrowIcon from '@/assets/left-arrow.svg';
-import UndoIcon from '@/assets/undo.svg';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 

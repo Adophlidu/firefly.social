@@ -1,6 +1,6 @@
+import LinkIcon from '@dimensiondev/assets/link-square.svg';
 import { classNames } from '@dimensiondev/utils';
 
-import LinkIcon from '@/assets/link-square.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { useDetectOverflow } from '@/hooks/useDetectOverflow.js';
 import { ActionType, type FrameButton } from '@/types/frame.js';

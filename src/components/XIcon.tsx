@@ -1,9 +1,9 @@
+import XIconDark from '@dimensiondev/assets/x-circle-dark.svg';
+import XIconLight from '@dimensiondev/assets/x-circle-light.svg';
+import XSquareDarkIcon from '@dimensiondev/assets/x-square-dark.svg';
+import XSquareLightIcon from '@dimensiondev/assets/x-square-light.svg';
 import { type SVGProps } from 'react';
 
-import XIconDark from '@/assets/x-circle-dark.svg';
-import XIconLight from '@/assets/x-circle-light.svg';
-import XSquareDarkIcon from '@/assets/x-square-dark.svg';
-import XSquareLightIcon from '@/assets/x-square-light.svg';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 
 interface XIconProps extends SVGProps<SVGSVGElement> {

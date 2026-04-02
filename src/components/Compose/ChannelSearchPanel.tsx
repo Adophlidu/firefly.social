@@ -1,12 +1,12 @@
 'use client';
 
+import SearchIcon from '@dimensiondev/assets/search.svg';
+import UserIcon from '@dimensiondev/assets/user.svg';
 import { classNames } from '@dimensiondev/utils';
 import { PopoverPanel, Transition } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { Fragment, type HTMLProps, useState } from 'react';
 
-import SearchIcon from '@/assets/search.svg';
-import UserIcon from '@/assets/user.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';

@@ -1,13 +1,13 @@
 'use client';
 
+import CircleShareIcon from '@dimensiondev/assets/circle-share.svg';
+import SettingsSelectedIcon from '@dimensiondev/assets/setting.selected.svg';
+import SettingsIcon from '@dimensiondev/assets/setting.svg';
 import { envs, STATUS } from '@dimensiondev/envs';
 import { Trans } from '@lingui/react/macro';
 import { compact } from 'lodash-es';
 import { memo } from 'react';
 
-import CircleShareIcon from '@/assets/circle-share.svg';
-import SettingsSelectedIcon from '@/assets/setting.selected.svg';
-import SettingsIcon from '@/assets/setting.svg';
 import { OpenFireflyAppButton } from '@/components/OpenFireflyAppButton.js';
 import { BaseMenuItem } from '@/components/SideBar/BaseMenuItem.js';
 import { BookmarkMenu } from '@/components/SideBar/BookmarkMenu.js';

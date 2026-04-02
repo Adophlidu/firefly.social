@@ -1,5 +1,10 @@
 'use client';
 
+import FireflyLogo from '@dimensiondev/assets/firefly.round.svg';
+import InfoIcon from '@dimensiondev/assets/info-outline.svg';
+import WalletIcon from '@dimensiondev/assets/wallet-circle.svg';
+import VerifiedDarkIcon from '@dimensiondev/assets/wallet-circle-verified.dark.svg';
+import VerifiedLightIcon from '@dimensiondev/assets/wallet-circle-verified.light.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
@@ -7,11 +12,6 @@ import { motion } from 'framer-motion';
 import { DisconnectBindAddressButton } from '@/app/[locale]/(settings)/components/DisconnectBindAddressButton.js';
 import { PrimaryButton } from '@/app/[locale]/(settings)/components/PrimaryButton.js';
 import { ReportButton } from '@/app/[locale]/(settings)/components/ReportButton.js';
-import FireflyLogo from '@/assets/firefly.round.svg';
-import InfoIcon from '@/assets/info-outline.svg';
-import WalletIcon from '@/assets/wallet-circle.svg';
-import VerifiedDarkIcon from '@/assets/wallet-circle-verified.dark.svg';
-import VerifiedLightIcon from '@/assets/wallet-circle-verified.light.svg';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { WalletSource } from '@/constants/enum.js';

@@ -1,9 +1,9 @@
 'use client';
 
+import DownloadIcon from '@dimensiondev/assets/download-round.svg';
 import { Trans } from '@lingui/react/macro';
 import { type HTMLProps } from 'react';
 
-import DownloadIcon from '@/assets/download-round.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 
 interface DownloadImageButtonProps extends HTMLProps<HTMLButtonElement> {

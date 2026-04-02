@@ -3,6 +3,10 @@
 /* cspell:disable */
 
 import { type AuthFactorTokenRequiredError } from '@atproto/api/dist/client/types/com/atproto/server/createSession.js';
+import AtIcon from '@dimensiondev/assets/at.svg';
+import GlobalIcon from '@dimensiondev/assets/global.svg';
+import LockIcon from '@dimensiondev/assets/lock.svg';
+import SecurityIcon from '@dimensiondev/assets/shield-security.svg';
 import { AbortError, classNames, ForbiddenError, parseUrl } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
@@ -12,10 +16,6 @@ import { useForm } from 'react-hook-form';
 import { useAsyncFn } from 'react-use';
 import { type z } from 'zod';
 
-import AtIcon from '@/assets/at.svg';
-import GlobalIcon from '@/assets/global.svg';
-import LockIcon from '@/assets/lock.svg';
-import SecurityIcon from '@/assets/shield-security.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ClearButton } from '@/components/IconButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';

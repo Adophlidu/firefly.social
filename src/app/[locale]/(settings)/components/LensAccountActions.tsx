@@ -1,5 +1,6 @@
 'use client';
 
+import MoreIcon from '@dimensiondev/assets/more-fill.svg';
 import { Trans } from '@lingui/react/macro';
 import { skipToken, useQuery } from '@tanstack/react-query';
 import { first } from 'lodash-es';
@@ -7,7 +8,6 @@ import { memo, useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
 import { useConnection } from 'wagmi';
 
-import MoreIcon from '@/assets/more-fill.svg';
 import { IconButton } from '@/components/IconButton.js';
 import { Source } from '@/constants/enum.js';
 import { STALE_TIMES } from '@/constants/query.js';

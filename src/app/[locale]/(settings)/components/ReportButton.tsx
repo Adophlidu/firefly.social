@@ -1,10 +1,10 @@
 'use client';
 
+import DisconnectIcon from '@dimensiondev/assets/disconnect.svg';
 import { Trans } from '@lingui/react/macro';
 import { useAsyncFn } from 'react-use';
 
 import { waitForDisconnectConfirmation } from '@/app/[locale]/(settings)/components/waitForDisconnectConfirmation.js';
-import DisconnectIcon from '@/assets/disconnect.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { fireflyWalletProvider } from '@/providers/firefly/Wallet.js';

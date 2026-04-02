@@ -1,9 +1,9 @@
 'use client';
 
+import FlagIcon from '@dimensiondev/assets/flag.svg';
 import { Trans } from '@lingui/react/macro';
 import { useAsyncFn } from 'react-use';
 
-import FlagIcon from '@/assets/flag.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';

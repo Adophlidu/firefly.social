@@ -1,7 +1,7 @@
+import LinkOut from '@dimensiondev/assets/link.svg';
 import { classNames } from '@dimensiondev/utils';
 import { memo } from 'react';
 
-import LinkOut from '@/assets/link.svg';
 import { NetworkType, Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { formatAddress } from '@/helpers/formatAddress.js';

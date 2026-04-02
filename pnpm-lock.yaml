@@ -81,6 +81,9 @@ importers:
       '@coral-xyz/anchor':
         specifier: ^0.32.1
         version: 0.32.1(typescript@5.9.3)
+      '@dimensiondev/assets':
+        specifier: workspace:^
+        version: link:packages/assets
       '@dimensiondev/constants':
         specifier: workspace:^
         version: link:packages/constants
@@ -532,6 +535,8 @@ importers:
       vitest:
         specifier: ^3.1.4
         version: 3.1.4(@types/node@22.10.7)(jsdom@27.4.0)
+
+  packages/assets: {}
 
   packages/constants:
     devDependencies:

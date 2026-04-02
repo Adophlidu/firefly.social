@@ -1,12 +1,12 @@
 'use client';
 
+import FollowIcon from '@dimensiondev/assets/follow-bold.svg';
+import FollowedIcon from '@dimensiondev/assets/followed.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo, type ReactNode } from 'react';
 import { useHover } from 'react-use';
 
-import FollowIcon from '@/assets/follow-bold.svg';
-import FollowedIcon from '@/assets/followed.svg';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 
 interface ToggleJoinButtonProps extends ClickableButtonProps {

@@ -1,14 +1,14 @@
 'use client';
 
+import AddIcon from '@dimensiondev/assets/add.svg';
+import CloseIcon from '@dimensiondev/assets/close.svg';
+import MinusIcon from '@dimensiondev/assets/minus.svg';
+import PollIcon from '@dimensiondev/assets/poll.svg';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { memo, useRef } from 'react';
 import { useMount } from 'react-use';
 
-import AddIcon from '@/assets/add.svg';
-import CloseIcon from '@/assets/close.svg';
-import MinusIcon from '@/assets/minus.svg';
-import PollIcon from '@/assets/poll.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { DurationSelector } from '@/components/Poll/DurationSelector.js';
 import { Tooltip } from '@/components/Tooltip.js';

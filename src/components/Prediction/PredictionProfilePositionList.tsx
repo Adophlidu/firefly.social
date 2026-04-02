@@ -1,12 +1,12 @@
 'use client';
 
+import ArrowLineDownIcon from '@dimensiondev/assets/arrow-line-down.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQueryClient, useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { memo, type ReactNode, useEffect, useMemo, useState } from 'react';
 
-import ArrowLineDownIcon from '@/assets/arrow-line-down.svg';
 import { ListInPage } from '@/components/ListInPage.js';
 import { getPredictionPositionList } from '@/components/Prediction/getPredictionPositionList.js';
 import { PredictionPositionItem } from '@/components/Prediction/PredictionPositionItem.js';

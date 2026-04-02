@@ -1,5 +1,7 @@
 'use client';
 
+import EvmIcon from '@dimensiondev/assets/evm.svg';
+import SolanaIcon from '@dimensiondev/assets/solana.svg';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
@@ -7,8 +9,6 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { forwardRef } from 'react';
 import { getAccount, getConnections } from 'wagmi/actions';
 
-import EvmIcon from '@/assets/evm.svg';
-import SolanaIcon from '@/assets/solana.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ModalTitle } from '@/components/ModalTitle.js';

@@ -1,12 +1,12 @@
 'use client';
 
+import FireflyRoundIcon from '@dimensiondev/assets/firefly.round.svg';
+import TipIcon from '@dimensiondev/assets/tips.svg';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
 import { type Address } from 'viem';
 
-import FireflyRoundIcon from '@/assets/firefly.round.svg';
-import TipIcon from '@/assets/tips.svg';
 import { NoSSR } from '@/components/NoSSR.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { TipsTransactionActions } from '@/components/Tips/TipsTransactionActions.js';

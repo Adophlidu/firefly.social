@@ -1,9 +1,9 @@
+import RightArrowIcon from '@dimensiondev/assets/right-arrow.svg';
 import { classNames } from '@dimensiondev/utils';
 import { addMonths, endOfMonth, format, startOfMonth } from 'date-fns';
 import { range } from 'lodash-es';
 import { useState } from 'react';
 
-import RightArrowIcon from '@/assets/right-arrow.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 
 export interface DatePickerProps {

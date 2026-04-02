@@ -1,6 +1,6 @@
+import LinkIcon from '@dimensiondev/assets/link.svg';
 import { type ReactNode } from 'react';
 
-import LinkIcon from '@/assets/link.svg';
 import { Link } from '@/components/Link.js';
 
 interface DocumentCardProps {

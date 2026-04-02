@@ -1,7 +1,7 @@
+import ProtectedIcon from '@dimensiondev/assets/protected.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
-import ProtectedIcon from '@/assets/protected.svg';
 import { ProtectedPostsMessage } from '@/components/fallbacks/ProtectedPostsMessage.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';

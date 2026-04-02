@@ -2,14 +2,14 @@
 
 import '@/assets/css/notification.css';
 
+import NotificationSelectedIcon from '@dimensiondev/assets/notification.selected.svg';
+import NotificationIcon from '@dimensiondev/assets/notification.svg';
+import NotificationDotIcon from '@dimensiondev/assets/notification-dot.svg';
+import NotificationDotSelectedIcon from '@dimensiondev/assets/notification-dot-selected.svg';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo, useCallback } from 'react';
 
-import NotificationSelectedIcon from '@/assets/notification.selected.svg';
-import NotificationIcon from '@/assets/notification.svg';
-import NotificationDotIcon from '@/assets/notification-dot.svg';
-import NotificationDotSelectedIcon from '@/assets/notification-dot-selected.svg';
 import { BaseMenuItem } from '@/components/SideBar/BaseMenuItem.js';
 import { NotificationSourceType, PageRoute, Source } from '@/constants/enum.js';
 import { usePathname } from '@/esm/navigation.js';

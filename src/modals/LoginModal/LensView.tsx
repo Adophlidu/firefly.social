@@ -1,5 +1,7 @@
 'use client';
 
+import OrbIcon from '@dimensiondev/assets/orb.svg';
+import ScanIcon from '@dimensiondev/assets/scan.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { envs, STATUS } from '@dimensiondev/envs';
 import { AbortError, ForbiddenError } from '@dimensiondev/utils';
@@ -12,8 +14,6 @@ import { memo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import { useConnection } from 'wagmi';
 
-import OrbIcon from '@/assets/orb.svg';
-import ScanIcon from '@/assets/scan.svg';
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';

@@ -1,5 +1,6 @@
 'use client';
 
+import RedPacketIcon from '@dimensiondev/assets/red-packet.svg';
 import { classNames } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
@@ -9,7 +10,6 @@ import urlcat from 'urlcat';
 import { polygon } from 'viem/chains';
 import { useChainId, useSwitchChain } from 'wagmi';
 
-import RedPacketIcon from '@/assets/red-packet.svg';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { ENABLED_RP_SOURCES, SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';

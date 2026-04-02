@@ -1,7 +1,7 @@
+import SelectedIcon from '@dimensiondev/assets/selected.svg';
 import { classNames } from '@dimensiondev/utils';
 import { memo } from 'react';
 
-import SelectedIcon from '@/assets/selected.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
 
 interface SnapshotChoiceProps {

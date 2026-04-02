@@ -1,12 +1,12 @@
 'use client';
 
+import ExchangeIcon from '@dimensiondev/assets/exchange.svg';
 import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
 import { first, isUndefined } from 'lodash-es';
 import { memo } from 'react';
 import { type Address } from 'viem';
 
-import ExchangeIcon from '@/assets/exchange.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { ChainIcon } from '@/components/ChainIcon.js';
 import { ClickableArea } from '@/components/ClickableArea.js';

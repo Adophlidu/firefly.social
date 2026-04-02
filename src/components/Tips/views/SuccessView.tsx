@@ -1,11 +1,11 @@
 'use client';
 
+import ArrowDownIcon from '@dimensiondev/assets/arrow-line-down.svg';
+import SuccessIcon from '@dimensiondev/assets/success.svg';
 import { Trans } from '@lingui/react/macro';
 import { rootRouteId, useMatch } from '@tanstack/react-router';
 import { useAsyncFn } from 'react-use';
 
-import ArrowDownIcon from '@/assets/arrow-line-down.svg';
-import SuccessIcon from '@/assets/success.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
 import { RecipientAvatar } from '@/components/Tips/RecipientAvatar.js';

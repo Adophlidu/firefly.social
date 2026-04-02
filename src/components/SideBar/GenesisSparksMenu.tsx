@@ -1,12 +1,12 @@
 'use client';
 
+import SparksIcon from '@dimensiondev/assets/sparks-star.svg';
+import SparksSelectedIcon from '@dimensiondev/assets/sparks-star-selected.svg';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { memo, useMemo } from 'react';
 import urlcat from 'urlcat';
 
-import SparksIcon from '@/assets/sparks-star.svg';
-import SparksSelectedIcon from '@/assets/sparks-star-selected.svg';
 import { BaseMenuItem } from '@/components/SideBar/BaseMenuItem.js';
 import { getSparksAccountDetails } from '@/providers/firefly/endpoint/getSparksAccountDetails.js';
 import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';

@@ -1,13 +1,13 @@
 'use client';
 
+import MirrorIcon from '@dimensiondev/assets/mirror.svg';
+import MirrorLargeIcon from '@dimensiondev/assets/mirror-large.svg';
+import QuoteDownIcon from '@dimensiondev/assets/quote-down.svg';
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { Menu, MenuButton as HeadlessMenuButton, MenuItem, MenuItems, Transition } from '@headlessui/react';
 import { Plural, Trans } from '@lingui/react/macro';
 import { Fragment, memo, useMemo } from 'react';
 
-import MirrorIcon from '@/assets/mirror.svg';
-import MirrorLargeIcon from '@/assets/mirror-large.svg';
-import QuoteDownIcon from '@/assets/quote-down.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';

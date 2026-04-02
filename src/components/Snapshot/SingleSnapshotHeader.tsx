@@ -1,10 +1,10 @@
 'use client';
 
+import SnapshotIcon from '@dimensiondev/assets/snapshot.svg';
 import { classNames } from '@dimensiondev/utils';
 import { memo } from 'react';
 import urlcat from 'urlcat';
 
-import SnapshotIcon from '@/assets/snapshot.svg';
 import { SnapshotMoreAction } from '@/components/Actions/SnapshotMore.js';
 import { ActivityCellHeader } from '@/components/ActivityCell/ActivityCellHeader.js';
 import { Avatar } from '@/components/Avatar.js';

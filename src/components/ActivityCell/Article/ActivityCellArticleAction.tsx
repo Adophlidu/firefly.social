@@ -1,11 +1,11 @@
 'use client';
 
+import PostedIcon from '@dimensiondev/assets/posted.svg';
+import RevisedIcon from '@dimensiondev/assets/revised.svg';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { type ReactNode } from 'react';
 
-import PostedIcon from '@/assets/posted.svg';
-import RevisedIcon from '@/assets/revised.svg';
 import { ActivityCellAction } from '@/components/ActivityCell/ActivityCellAction.js';
 import { ActivityCellActionTag } from '@/components/ActivityCell/ActivityCellActionTag.js';
 import { ArticlePlatform, ArticleType } from '@/providers/types/Article.js';

@@ -1,6 +1,6 @@
+import DisconnectIcon from '@dimensiondev/assets/disconnect.svg';
 import { Trans } from '@lingui/react/macro';
 
-import DisconnectIcon from '@/assets/disconnect.svg';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { formatAddress } from '@/helpers/formatAddress.js';

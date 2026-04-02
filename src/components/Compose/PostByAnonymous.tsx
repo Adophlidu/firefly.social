@@ -1,11 +1,11 @@
 'use client';
 
+import AnonymousAvatar from '@dimensiondev/assets/anonymous-avatar.svg';
+import InfoIcon from '@dimensiondev/assets/info-outline.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo, useCallback } from 'react';
 
-import AnonymousAvatar from '@/assets/anonymous-avatar.svg';
-import InfoIcon from '@/assets/info-outline.svg';
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';

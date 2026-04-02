@@ -1,9 +1,9 @@
 'use client';
 
+import SendIcon from '@dimensiondev/assets/send.svg';
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 
-import SendIcon from '@/assets/send.svg';
 import { ActionButton } from '@/components/ActionButton.js';
 import { Avatar } from '@/components/Avatar.js';
 import { ClickableArea } from '@/components/ClickableArea.js';

@@ -1,12 +1,12 @@
 'use client';
 
+import BookmarkActiveIcon from '@dimensiondev/assets/bookmark.selected.svg';
+import BookmarkIcon from '@dimensiondev/assets/bookmark.svg';
+import MoreIcon from '@dimensiondev/assets/more.svg';
 import { MenuItem } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 
-import BookmarkActiveIcon from '@/assets/bookmark.selected.svg';
-import BookmarkIcon from '@/assets/bookmark.svg';
-import MoreIcon from '@/assets/more.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MuteWalletButton } from '@/components/Actions/MuteWalletButton.js';
 import { WatchWalletButton } from '@/components/Actions/WatchWalletButton.js';

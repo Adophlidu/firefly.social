@@ -1,8 +1,8 @@
+import ComebackIcon from '@dimensiondev/assets/comeback.svg';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { type ReactNode, Suspense } from 'react';
 
 import { MutedWallets } from '@/app/[locale]/(settings)/components/MutedWallets.js';
-import ComebackIcon from '@/assets/comeback.svg';
 import { MutedChannels } from '@/components/Channel/MutedChannels.js';
 import { Loading } from '@/components/Loading.js';
 import { MutedProfiles } from '@/components/Profile/MutedProfiles.js';

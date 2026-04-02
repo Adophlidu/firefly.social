@@ -1,9 +1,9 @@
+import HistoryIcon from '@dimensiondev/assets/history.svg';
+import QuestionIcon from '@dimensiondev/assets/question.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { Outlet, useLocation, useRouter, useRouterState } from '@tanstack/react-router';
 
-import HistoryIcon from '@/assets/history.svg';
-import QuestionIcon from '@/assets/question.svg';
 import { BackButton, CloseButton } from '@/components/IconButton.js';
 import { RedPacketProvider } from '@/modals/RedPacketModal/RedPacketContext.js';
 import { RedPacketModalRef } from '@/modals/RedPacketModal/refs.js';

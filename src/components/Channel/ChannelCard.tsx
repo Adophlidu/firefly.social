@@ -1,10 +1,10 @@
 'use client';
 
+import LikeIcon from '@dimensiondev/assets/heart.svg';
+import UserIcon from '@dimensiondev/assets/user.svg';
 import { Trans } from '@lingui/react/macro';
 import { memo, type MouseEvent, useCallback } from 'react';
 
-import LikeIcon from '@/assets/heart.svg';
-import UserIcon from '@/assets/user.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { ToggleFollowChannelButton } from '@/components/Channel/ToggleFollowChannelButton.js';
 import { BioMarkup } from '@/components/Markup/BioMarkup.js';

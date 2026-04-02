@@ -1,11 +1,11 @@
 'use client';
 
+import MuteIcon from '@dimensiondev/assets/mute.svg';
 import { Trans } from '@lingui/react/macro';
 import { type HTMLProps, memo } from 'react';
 import { useAsyncFn } from 'react-use';
 import { type Address } from 'viem';
 
-import MuteIcon from '@/assets/mute.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { queryClient } from '@/configs/queryClient.js';

@@ -1,3 +1,4 @@
+import ScanIcon from '@dimensiondev/assets/scan.svg';
 import {
     CoreAssetController,
     CoreAssetUtil,
@@ -9,7 +10,6 @@ import {
 import { memo, useEffect, useState } from 'react';
 import urlcat from 'urlcat';
 
-import ScanIcon from '@/assets/scan.svg';
 import { walletConnectIcon, walletConnectId } from '@/constants/reown.js';
 import { type AppkitConnectorItem } from '@/hooks/appkit/useAppkitWalletList.js';
 import { walletRouter } from '@/modals/WalletConnectModal/routes.js';

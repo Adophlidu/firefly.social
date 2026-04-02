@@ -1,12 +1,11 @@
+import BskyLogo from '@dimensiondev/assets/bsky-circle-logo.svg';
+import FarcasterLogo from '@dimensiondev/assets/farcaster-logo.svg';
+import FireflyAccountBg from '@dimensiondev/assets/firefly-account-bg.svg';
+import LensLogo from '@dimensiondev/assets/lens-logo.svg';
+import MessageLogo from '@dimensiondev/assets/message-logo.svg';
+import TwitterLogo from '@dimensiondev/assets/x-logo.svg';
 import { classNames } from '@dimensiondev/utils';
 import { motion } from 'framer-motion';
-
-import BskyLogo from '@/assets/bsky-circle-logo.svg';
-import FarcasterLogo from '@/assets/farcaster-logo.svg';
-import FireflyAccountBg from '@/assets/firefly-account-bg.svg';
-import LensLogo from '@/assets/lens-logo.svg';
-import MessageLogo from '@/assets/message-logo.svg';
-import TwitterLogo from '@/assets/x-logo.svg';
 
 interface FireflyAccountSVGProps extends React.HTMLAttributes<HTMLDivElement> {
     width?: number | string;

@@ -1,8 +1,8 @@
+import EditIcon from '@dimensiondev/assets/edit.svg';
 import { first } from 'lodash-es';
 import { memo } from 'react';
 import { useFormContext } from 'react-hook-form';
 
-import EditIcon from '@/assets/edit.svg';
 import { EditProfileAvatar } from '@/components/EditProfile/EditProfileAvatar.js';
 import { ALLOWED_IMAGES_MIMES } from '@/constants/computed.js';
 import { ImageEditorModalRef } from '@/modals/ImageEditorModal/refs.js';

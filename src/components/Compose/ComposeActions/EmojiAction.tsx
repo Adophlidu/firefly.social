@@ -1,12 +1,12 @@
 'use client';
 
+import EmojiIcon from '@dimensiondev/assets/emoji.svg';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { Trans } from '@lingui/react/macro';
 import { type Theme } from 'emoji-picker-react';
 import { $getRoot, $getSelection } from 'lexical';
 import { memo, useState } from 'react';
 
-import EmojiIcon from '@/assets/emoji.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { EmojiPickerPlaceholder } from '@/components/Compose/ComposeActions/EmojiPickerPlaceholder.js';
 import { Popover as PopoverModal } from '@/components/Popover.js';

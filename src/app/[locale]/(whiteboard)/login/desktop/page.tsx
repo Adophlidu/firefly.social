@@ -1,11 +1,11 @@
 'use client';
 
+import FullLogo from '@dimensiondev/assets/logo-full.svg';
 import { bom } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useSearchParams } from 'next/navigation.js';
 import { useMemo } from 'react';
 
-import FullLogo from '@/assets/logo-full.svg';
 import { OpenFireflyAppButton } from '@/components/OpenFireflyAppButton.js';
 import { DeviceType } from '@/types/device.js';
 

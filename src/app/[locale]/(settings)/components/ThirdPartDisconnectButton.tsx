@@ -1,6 +1,6 @@
+import DisconnectIcon from '@dimensiondev/assets/disconnect.svg';
 import { useAsyncFn } from 'react-use';
 
-import DisconnectIcon from '@/assets/disconnect.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { DisconnectFireflyAccountModalRef } from '@/modals/DisconnectFireflyAccountModal/refs.js';

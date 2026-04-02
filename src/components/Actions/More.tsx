@@ -1,15 +1,15 @@
 'use client';
 
+import EngagementIcon from '@dimensiondev/assets/engagement.svg';
+import FollowUserIcon from '@dimensiondev/assets/follow-user.svg';
+import MoreIcon from '@dimensiondev/assets/more.svg';
+import PendingIcon from '@dimensiondev/assets/pending.svg';
+import TrashIcon from '@dimensiondev/assets/trash.svg';
+import UnFollowUserIcon from '@dimensiondev/assets/unfollow-user.svg';
 import { MenuItem } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { memo, useCallback } from 'react';
 
-import EngagementIcon from '@/assets/engagement.svg';
-import FollowUserIcon from '@/assets/follow-user.svg';
-import MoreIcon from '@/assets/more.svg';
-import PendingIcon from '@/assets/pending.svg';
-import TrashIcon from '@/assets/trash.svg';
-import UnFollowUserIcon from '@/assets/unfollow-user.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MuteChannelButton } from '@/components/Actions/MuteChannelButton.js';
 import { MuteProfileButton } from '@/components/Actions/MuteProfileButton.js';

@@ -1,13 +1,13 @@
 'use client';
 
+import LinkIcon from '@dimensiondev/assets/link.svg';
+import Music from '@dimensiondev/assets/music.svg';
+import Play from '@dimensiondev/assets/play.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { first } from 'lodash-es';
 import { memo, type SyntheticEvent, useCallback } from 'react';
 
-import LinkIcon from '@/assets/link.svg';
-import Music from '@/assets/music.svg';
-import Play from '@/assets/play.svg';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
 import { SingleImage } from '@/components/Posts/SingleImage.js';

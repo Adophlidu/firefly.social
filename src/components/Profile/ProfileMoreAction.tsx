@@ -1,13 +1,13 @@
 'use client';
 
+import MoreIcon from '@dimensiondev/assets/more-fill.svg';
+import SearchIcon from '@dimensiondev/assets/search.svg';
 import { classNames } from '@dimensiondev/utils';
 import { MenuItem, type MenuProps } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { compact, sum } from 'lodash-es';
 import { memo } from 'react';
 
-import MoreIcon from '@/assets/more-fill.svg';
-import SearchIcon from '@/assets/search.svg';
 import { CopyLinkButton } from '@/components/Actions/CopyLinkButton.js';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MuteAllByProfile } from '@/components/Actions/MuteAllProfile.js';

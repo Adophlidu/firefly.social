@@ -1,10 +1,10 @@
 'use client';
 
+import CopyIcon from '@dimensiondev/assets/copy.svg';
 import { Trans } from '@lingui/react/macro';
 import { type TippyProps } from '@tippyjs/react';
 import { type HTMLProps } from 'react';
 
-import CopyIcon from '@/assets/copy.svg';
 import { Tooltip } from '@/components/Tooltip.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
 

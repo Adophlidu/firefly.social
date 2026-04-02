@@ -1,8 +1,7 @@
+import DarkLogo from '@dimensiondev/assets/logo.dark.svg';
+import LightLogo from '@dimensiondev/assets/logo.light.svg';
+import MiniLogo from '@dimensiondev/assets/miniLogo.svg';
 import { memo } from 'react';
-
-import DarkLogo from '@/assets/logo.dark.svg';
-import LightLogo from '@/assets/logo.light.svg';
-import MiniLogo from '@/assets/miniLogo.svg';
 
 export const SideBarLogo = memo(function SideBarLogo() {
     return (

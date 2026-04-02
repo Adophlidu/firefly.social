@@ -1,9 +1,9 @@
 'use client';
 
+import AddThreadIcon from '@dimensiondev/assets/add-thread.svg';
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 
-import AddThreadIcon from '@/assets/add-thread.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { CountdownCircle } from '@/components/Compose/CountdownCircle.js';
 import { Tooltip } from '@/components/Tooltip.js';

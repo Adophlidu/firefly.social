@@ -1,16 +1,16 @@
 'use client';
 
+import AppleDarkIcon from '@dimensiondev/assets/apple.dark.svg';
+import AppleIcon from '@dimensiondev/assets/apple.svg';
+import EmailDarkIcon from '@dimensiondev/assets/email-small.dark.svg';
+import EmailIcon from '@dimensiondev/assets/email-small.svg';
+import GoogleIcon from '@dimensiondev/assets/google.svg';
+import GoogleSmallIcon from '@dimensiondev/assets/google-small.svg';
+import FireflyIcon from '@dimensiondev/assets/logo.svg';
+import TelegramIcon from '@dimensiondev/assets/telegram.svg';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { type SVGProps } from 'react';
 
-import AppleDarkIcon from '@/assets/apple.dark.svg';
-import AppleIcon from '@/assets/apple.svg';
-import EmailDarkIcon from '@/assets/email-small.dark.svg';
-import EmailIcon from '@/assets/email-small.svg';
-import GoogleIcon from '@/assets/google.svg';
-import GoogleSmallIcon from '@/assets/google-small.svg';
-import FireflyIcon from '@/assets/logo.svg';
-import TelegramIcon from '@/assets/telegram.svg';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { type ProfileSource, Source } from '@/constants/enum.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';

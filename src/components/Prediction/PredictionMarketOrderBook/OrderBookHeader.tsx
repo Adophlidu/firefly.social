@@ -1,13 +1,13 @@
 'use client';
 
+import CenterIcon from '@dimensiondev/assets/center.svg';
+import RefreshIcon from '@dimensiondev/assets/refresh.svg';
+import SwitchIcon from '@dimensiondev/assets/switch.svg';
+import ToggleIcon from '@dimensiondev/assets/toggle.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo, useCallback } from 'react';
 
-import CenterIcon from '@/assets/center.svg';
-import RefreshIcon from '@/assets/refresh.svg';
-import SwitchIcon from '@/assets/switch.svg';
-import ToggleIcon from '@/assets/toggle.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { IconButton } from '@/components/IconButton.js';
 import { SPREAD_SETTING_OPTIONS } from '@/constants/bets.js';

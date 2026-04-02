@@ -1,11 +1,11 @@
 'use client';
 
+import LinkIcon from '@dimensiondev/assets/link-square.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { type Address } from 'viem';
 
-import LinkIcon from '@/assets/link-square.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { Link } from '@/components/Link.js';
 import { ListInPage } from '@/components/ListInPage.js';

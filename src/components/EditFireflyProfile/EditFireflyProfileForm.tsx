@@ -1,5 +1,6 @@
 'use client';
 
+import EditIcon from '@dimensiondev/assets/edit.svg';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQueryClient } from '@tanstack/react-query';
@@ -7,7 +8,6 @@ import { rootRouteId, useRouteContext, useRouter } from '@tanstack/react-router'
 import { compact, first } from 'lodash-es';
 import { useFormContext } from 'react-hook-form';
 
-import EditIcon from '@/assets/edit.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Path } from '@/components/EditFireflyProfile/EditFireflyProfileRouter.js';
 import { type EditFireflyProfileFromValues } from '@/components/EditFireflyProfile/EditFireflyProfileRouteRoot.js';

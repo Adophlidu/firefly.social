@@ -1,8 +1,8 @@
+import SearchIcon from '@dimensiondev/assets/search.svg';
 import { classNames } from '@dimensiondev/utils';
 import { memo, Suspense, useState } from 'react';
 import { useDebounceValue } from 'usehooks-ts';
 
-import SearchIcon from '@/assets/search.svg';
 import { TenorGifList } from '@/components/Gif/TenorGifList.js';
 import { Loading } from '@/components/Loading.js';
 import { SearchInput } from '@/components/Search/SearchInput.js';

@@ -1,5 +1,7 @@
 'use client';
 
+import LineArrowUp from '@dimensiondev/assets/line-arrow-up.svg';
+import PriceArrow from '@dimensiondev/assets/price-arrow.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { classNames } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
@@ -8,8 +10,6 @@ import { useQuery } from '@tanstack/react-query';
 import { isNumber, uniq } from 'lodash-es';
 import { type HTMLProps, memo, useMemo, useState } from 'react';
 
-import LineArrowUp from '@/assets/line-arrow-up.svg';
-import PriceArrow from '@/assets/price-arrow.svg';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { SecurityBadge } from '@/components/EmbedCards/TokenSecurityBadge.js';
 import { Link } from '@/components/Link.js';

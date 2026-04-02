@@ -1,11 +1,11 @@
+import CopyIcon from '@dimensiondev/assets/copy.svg';
+import MoreIcon from '@dimensiondev/assets/more.svg';
+import ReloadIcon from '@dimensiondev/assets/reload.svg';
+import WalletIcon from '@dimensiondev/assets/wallet.svg';
 import { MenuItem } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 
-import CopyIcon from '@/assets/copy.svg';
-import MoreIcon from '@/assets/more.svg';
-import ReloadIcon from '@/assets/reload.svg';
-import WalletIcon from '@/assets/wallet.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';

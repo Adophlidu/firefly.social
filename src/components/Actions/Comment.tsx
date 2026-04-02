@@ -1,11 +1,11 @@
 'use client';
 
+import ReplyIcon from '@dimensiondev/assets/reply.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
 import { memo } from 'react';
 
-import ReplyIcon from '@/assets/reply.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { humanize, nFormatter } from '@/helpers/formatCommentCounts.js';

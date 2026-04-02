@@ -1,6 +1,6 @@
+import Play from '@dimensiondev/assets/play.svg';
 import { classNames } from '@dimensiondev/utils';
 
-import Play from '@/assets/play.svg';
 import { Image } from '@/components/Image.js';
 import { VideoPoster } from '@/components/Posts/VideoPoster.js';
 import { Source } from '@/constants/enum.js';

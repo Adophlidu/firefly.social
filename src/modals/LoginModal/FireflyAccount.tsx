@@ -1,15 +1,15 @@
 'use client';
 
+import CloudIcon from '@dimensiondev/assets/cloud.svg';
+import EditIcon from '@dimensiondev/assets/edit.svg';
+import LogoutIcon from '@dimensiondev/assets/log-out.svg';
+import MoreIcon from '@dimensiondev/assets/more-fill.svg';
+import ScanIcon from '@dimensiondev/assets/scan.svg';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { memo, useEffect } from 'react';
 import { useAsyncFn } from 'react-use';
 
-import CloudIcon from '@/assets/cloud.svg';
-import EditIcon from '@/assets/edit.svg';
-import LogoutIcon from '@/assets/log-out.svg';
-import MoreIcon from '@/assets/more-fill.svg';
-import ScanIcon from '@/assets/scan.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';

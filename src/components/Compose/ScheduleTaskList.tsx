@@ -1,5 +1,8 @@
 'use client';
 
+import Close from '@dimensiondev/assets/close.svg';
+import Info from '@dimensiondev/assets/info.svg';
+import Trash from '@dimensiondev/assets/trash2.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
@@ -9,9 +12,6 @@ import { first, uniq } from 'lodash-es';
 import { memo, useCallback } from 'react';
 import { useAsyncFn } from 'react-use';
 
-import Close from '@/assets/close.svg';
-import Info from '@/assets/info.svg';
-import Trash from '@/assets/trash2.svg';
 import { SchedulePostSettings } from '@/components/Compose/SchedulePostSettings.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';

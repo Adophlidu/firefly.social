@@ -1,8 +1,8 @@
+import ColorfulLensIcon from '@dimensiondev/assets/lens-circle-small.svg';
+import SwitchAvatar from '@dimensiondev/assets/switch-avatar.svg';
 import { Popover, PopoverButton, PopoverPanel, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 
-import ColorfulLensIcon from '@/assets/lens-circle-small.svg';
-import SwitchAvatar from '@/assets/switch-avatar.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Source } from '@/constants/enum.js';

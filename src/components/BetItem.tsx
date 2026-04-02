@@ -1,5 +1,6 @@
 'use client';
 
+import TimeIcon from '@dimensiondev/assets/time.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
@@ -8,7 +9,6 @@ import { capitalize, first } from 'lodash-es';
 import { memo, type ReactNode, useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
 
-import TimeIcon from '@/assets/time.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Link } from '@/components/Link.js';
 import { BUTTON_COLORS } from '@/components/Prediction/PredictionActivityRate.js';

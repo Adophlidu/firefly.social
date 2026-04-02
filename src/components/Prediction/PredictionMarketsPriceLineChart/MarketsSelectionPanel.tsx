@@ -1,11 +1,11 @@
 'use client';
 
+import CloseIcon from '@dimensiondev/assets/close.svg';
 import { classNames, hexToRGBA } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 import { useMount } from 'react-use';
 
-import CloseIcon from '@/assets/close.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { MAX_MARKETS_COUNT_SELECTABLE } from '@/constants/bets.js';
 import { type BetsMarketWithSettings } from '@/types/prediction.js';

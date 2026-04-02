@@ -1,5 +1,7 @@
 'use client';
 
+import DisconnectIcon from '@dimensiondev/assets/disconnect.svg';
+import InfoIcon from '@dimensiondev/assets/info-outline.svg';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
@@ -10,8 +12,6 @@ import { useAsyncFn } from 'react-use';
 import { FarcasterAccountActions } from '@/app/[locale]/(settings)/components/FarcasterAccountActions.js';
 import { LensAccountActions } from '@/app/[locale]/(settings)/components/LensAccountActions.js';
 import { PrimaryButton } from '@/app/[locale]/(settings)/components/PrimaryButton.js';
-import DisconnectIcon from '@/assets/disconnect.svg';
-import InfoIcon from '@/assets/info-outline.svg';
 import { ErrorHandler } from '@/components/ErrorHandler.js';
 import { IconButton } from '@/components/IconButton.js';
 import { Loading } from '@/components/Loading.js';

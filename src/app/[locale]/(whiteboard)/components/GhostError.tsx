@@ -1,6 +1,5 @@
+import GhostHoleIcon from '@dimensiondev/assets/ghost.svg';
 import { memo, type ReactNode } from 'react';
-
-import GhostHoleIcon from '@/assets/ghost.svg';
 
 export const GhostError = memo(function GhostError({ error, fallback }: { error?: Error; fallback: ReactNode }) {
     return (

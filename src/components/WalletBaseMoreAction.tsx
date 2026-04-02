@@ -1,12 +1,12 @@
 'use client';
 
+import MoreIcon from '@dimensiondev/assets/more.svg';
 import { envs, STATUS } from '@dimensiondev/envs';
 import { MenuItem } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { type Address } from 'viem';
 
-import MoreIcon from '@/assets/more.svg';
 import { MuteWalletButton } from '@/components/Actions/MuteWalletButton.js';
 import { NFTReportSpamButton } from '@/components/Actions/NFTReportSpamButton.js';
 import { WatchWalletButton } from '@/components/Actions/WatchWalletButton.js';
