@@ -467,7 +467,9 @@
         "xrpc",
         "tamagui",
         "Perps",
-        "cefi"
+        "cefi",
+        "hyperliquid",
+        "nktkas"
     ],
     "flagWords": [],
     "ignorePaths": [

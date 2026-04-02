@@ -1,6 +1,10 @@
 import { memo, useCallback, useState } from 'react';
 import { XStack, YStack } from 'tamagui';
 
+import { MarketsList } from '@/components/MarketsList';
+import { OrderBook } from '@/components/OrderBook';
+import { HyperliquidProvider } from '@/providers/HyperliquidProvider';
+
 import { AddFundsButton } from '../../components/AddFundsButton';
 import { LiteTabs } from '../../components/LiteTabs';
 import { SearchInput } from '../../components/SearchInput';
@@ -24,6 +28,7 @@ export const MarketsTab = memo<MarketsTabProps>(function MarketsTab({
     addFunds,
 }) {
     const [keyword, setKeyword] = useState('');
+    const [coin, setCoin] = useState('');
     const [category, setCategory] = useState(markets[0].value);
     const [sortBy, setSortBy] = useState(filterData[0].value);
 
@@ -41,18 +46,29 @@ export const MarketsTab = memo<MarketsTabProps>(function MarketsTab({
         },
         [onCategoryChange],
     );
+    const handleMarketSelect = useCallback(
+        (market: string) => {
+            setCoin(market);
+            onMarketSelect(market);
+        },
+        [onMarketSelect],
+    );
 
     return (
-        <YStack paddingHorizontal={16}>
-            <SearchInput value={keyword} onChange={handleKeywordChange} />
-            <LiteTabs value={category} data={markets} onChange={handleCategoryChange} />
-            <XStack justifyContent="flex-start">
-                <SortByFilter data={filterData} value={sortBy} onChange={setSortBy} />
-            </XStack>
-            <XStack gap={12}>
-                <WithdrawButton onPress={withdraw} />
-                <AddFundsButton onPress={addFunds} />
-            </XStack>
-        </YStack>
+        <HyperliquidProvider>
+            <YStack paddingHorizontal={16} gap={12}>
+                <SearchInput value={keyword} onChange={handleKeywordChange} />
+                <LiteTabs value={category} data={markets} onChange={handleCategoryChange} />
+                <XStack justifyContent="flex-start">
+                    <SortByFilter data={filterData} value={sortBy} onChange={setSortBy} />
+                </XStack>
+                <XStack gap={12}>
+                    <WithdrawButton onPress={withdraw} />
+                    <AddFundsButton onPress={addFunds} />
+                </XStack>
+                <OrderBook coin={coin} />
+                <MarketsList onMarketSelect={handleMarketSelect} />
+            </YStack>
+        </HyperliquidProvider>
     );
 });
