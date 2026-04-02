@@ -20,7 +20,7 @@ import proxyRewriteRoutes from '../.next-config/rewrite.config.json' with { type
 type ProxyHandler = (request: NextRequest, next: () => NextResponse | undefined) => NextResponse | undefined;
 type MiddlewareHandler = (request: NextRequest) => NextResponse | undefined;
 
-const localeRewriteExcludedPaths = Object.keys(proxyRewriteRoutes);
+const localeRewriteExcludedPaths = [...Object.keys(proxyRewriteRoutes), '/next-debug.log'];
 
 const handlers = [
     handleCSP, // CSP handler wraps the chain to add Report-Only header
