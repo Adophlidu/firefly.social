@@ -1,6 +1,6 @@
 {
     "name": "@dimensiondev/utils",
-    "version": "0.1.21",
+    "version": "0.1.22",
     "description": "Shared utility functions for Firefly projects",
     "type": "module",
     "main": "./dist/index.js",
