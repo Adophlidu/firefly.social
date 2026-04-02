@@ -14,13 +14,14 @@ import { resolveLengthCalculator } from '@/services/resolveLengthCalculator.js';
 import { type Chars, type PromoteLinkChars } from '@/types/chars.js';
 import { type CompositePost } from '@/types/compose.js';
 
-/**
- * Stringify chars into plain text
- * @param chars
- * @param visibleOnly
- * @returns
- */
-export function readChars(chars: Chars, strategy: 'both' | 'visible' | 'invisible' = 'both', source?: SocialSource) {
+interface Options {
+    chars: Chars;
+    strategy?: 'both' | 'visible' | 'invisible';
+    source?: SocialSource;
+    keepPostLinks?: boolean;
+}
+
+export function readChars({ chars, strategy = 'both', source, keepPostLinks = false }: Options) {
     const list = (Array.isArray(chars) ? chars : [chars]).slice();
 
     const promoteLinkChars = list.find((x) => (typeof x === 'string' ? false : x.tag === CharTag.PROMOTE_LINK)) as
@@ -69,7 +70,7 @@ export function readChars(chars: Chars, strategy: 'both' | 'visible' | 'invisibl
 
                     return promoteLink && specifiedUrl ? result.replace(promoteLink, specifiedUrl) : result;
                 case CharTag.POST_LINK:
-                    if (source && x.source === source) return '';
+                    if (source && x.source === source && !keepPostLinks) return '';
                     return `\n ${x.content}`;
                 default:
                     safeUnreachable(x);
@@ -101,7 +102,9 @@ function resolvePeerPostMaxChars(source: SocialSource, post: CompositePost) {
     return post.poll
         ? Math.min(
               currentMax,
-              source !== Source.Twitter ? 255 + readChars(post.chars, 'invisible', source).length : currentMax,
+              source !== Source.Twitter
+                  ? 255 + readChars({ chars: post.chars, strategy: 'invisible', source }).length
+                  : currentMax,
           )
         : currentMax;
 }
@@ -117,7 +120,9 @@ function resolveUsedLength(sources: SocialSource[], chars: Chars) {
 
     if (!firstAvailableSource) return 0;
 
-    return resolveLengthCalculator(firstAvailableSource)(readChars(chars, 'visible', firstAvailableSource));
+    return resolveLengthCalculator(firstAvailableSource)(
+        readChars({ chars, strategy: 'visible', source: firstAvailableSource }),
+    );
 }
 
 export function measureChars(post: CompositePost) {
@@ -133,7 +138,7 @@ export function measureChars(post: CompositePost) {
             ...availableSources.map(
                 (source) =>
                     resolvePeerPostMaxChars(source, post) -
-                    resolveLengthCalculator(source)(readChars(chars, 'invisible', source)),
+                    resolveLengthCalculator(source)(readChars({ chars, strategy: 'invisible', source })),
             ),
         ),
     };

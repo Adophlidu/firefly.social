@@ -675,6 +675,9 @@ msgstr "Stealing attack."
 msgid "Failed to like the comment."
 msgstr "Failed to like the comment."
 
+msgid "Reply restricted"
+msgstr "Reply restricted"
+
 msgid "Sign in"
 msgstr "Sign in"
 
@@ -1015,6 +1018,9 @@ msgstr "Sending"
 
 msgid "Retry Stream"
 msgstr "Retry Stream"
+
+msgid "The author has disabled comments on this post."
+msgstr "The author has disabled comments on this post."
 
 msgid "No predictions found"
 msgstr "No predictions found"
@@ -2722,6 +2728,9 @@ msgstr "Farcaster"
 msgid "Replying to"
 msgstr "Replying to"
 
+msgid "Only mentioned profiles can comment on this post."
+msgstr "Only mentioned profiles can comment on this post."
+
 msgid "All posts and activities from this user will be hidden from you"
 msgstr "All posts and activities from this user will be hidden from you"
 
@@ -3760,6 +3769,9 @@ msgstr "Decrypt"
 msgid "Sign to Confirm"
 msgstr "Sign to Confirm"
 
+msgid "Due to <0>X's API limitations</0>, you can only reply to posts that mention you."
+msgstr "Due to <0>X's API limitations</0>, you can only reply to posts that mention you."
+
 msgid "Article collected successfully!"
 msgstr "Article collected successfully!"
 
@@ -4625,6 +4637,9 @@ msgstr "All Chains"
 msgid "Status"
 msgstr "Status"
 
+msgid "Only people followed by the author can comment on this post."
+msgstr "Only people followed by the author can comment on this post."
+
 msgid "No blackmail activities involved."
 msgstr "No blackmail activities involved."
 
@@ -4657,6 +4672,9 @@ msgstr "Scheduled Post"
 
 msgid "Recasted"
 msgstr "Recasted"
+
+msgid "Only followers of the author can comment on this post."
+msgstr "Only followers of the author can comment on this post."
 
 msgid "No phishing activities involved."
 msgstr "No phishing activities involved."

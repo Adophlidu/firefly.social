@@ -37,7 +37,7 @@ export async function createSchedulePostsPayload(
     const { chars, poll, availableSources } = compositePost;
 
     if (poll && SUPPORTED_FRAME_SOURCES.some((x) => availableSources.includes(x))) {
-        const pollId = await commitPoll(poll, readChars(chars));
+        const pollId = await commitPoll(poll, readChars({ chars }));
 
         updatePollId(pollId);
         captureCreateFarPollEvent(pollId);
@@ -85,7 +85,7 @@ export async function crossSchedulePost(
                 payload: JSON.stringify([x.payload]),
             })),
             {
-                content: readChars(compositePost?.chars ?? '', 'visible'),
+                content: readChars({ chars: compositePost?.chars ?? '', strategy: 'visible' }),
                 media_type: getPostMediaTypes(compositePost),
             },
         );

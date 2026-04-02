@@ -20,13 +20,14 @@ import { updateArticle } from '@/providers/firefly/article/updateArticle.js';
 import { type Post, type PostType } from '@/providers/types/SocialMedia.js';
 import { createPostTo } from '@/services/createPostTo.js';
 import { useBskyProfileStore } from '@/store/useProfileStore/useBskyProfileStore.js';
-import { type ComposeType, type CompositePost, type MediaObject } from '@/types/compose.js';
+import { type MediaObject, type PostFunctionParams } from '@/types/compose.js';
 
-export async function postToBsky(
-    type: ComposeType,
-    compositePost: CompositePost,
-    signal?: AbortSignal,
-): Promise<string | undefined> {
+export async function postToBsky({
+    type,
+    compositePost,
+    keepPostLinks,
+    signal,
+}: PostFunctionParams): Promise<string | undefined> {
     const { id, chars, images, videos, postId, parentPost, restriction } = compositePost;
 
     const bskyParentPost = parentPost.Bsky;
@@ -69,7 +70,7 @@ export async function postToBsky(
             metadata: {
                 locale: '',
                 content: {
-                    content: readChars(chars, 'both', Source.Bsky),
+                    content: readChars({ chars, strategy: 'both', source: Source.Bsky, keepPostLinks }),
                 },
             },
             mediaObjects: [
@@ -99,7 +100,7 @@ export async function postToBsky(
         videos: MediaObject[],
         publishFn: (draft: Post) => Promise<{ postId: string; contentURI?: string }>,
     ): Promise<{ postId: string; contentURI?: string }> => {
-        const textContent = readChars(chars, 'visible', Source.Bsky);
+        const textContent = readChars({ chars, strategy: 'visible', source: Source.Bsky, keepPostLinks });
         const textLength = textContent.length;
 
         if (textLength > BSKY_SHORT_POST_LIMIT) {

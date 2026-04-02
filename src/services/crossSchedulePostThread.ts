@@ -53,7 +53,7 @@ export async function crossPostScheduleThread(scheduleTime: Date, signal?: Abort
         const postsPayload = [...results.values()];
 
         const post = first(posts);
-        const content = readChars(post?.chars ?? '', 'visible');
+        const content = readChars({ chars: post?.chars ?? '', strategy: 'visible' });
 
         if (post?.availableSources.includes(Source.Lens)) await useLensProfileStore.getState().refreshCurrentAccount();
 

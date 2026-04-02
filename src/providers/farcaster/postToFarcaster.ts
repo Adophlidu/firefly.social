@@ -15,9 +15,9 @@ import { type Post, type PostType } from '@/providers/types/SocialMedia.js';
 import { createPostTo } from '@/services/createPostTo.js';
 import { uploadAndConvertToM3u8 } from '@/services/uploadAndConvertToM3u8.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
-import { type ComposeType, type CompositePost, type MediaObject } from '@/types/compose.js';
+import { type MediaObject, type PostFunctionParams } from '@/types/compose.js';
 
-export async function postToFarcaster(type: ComposeType, compositePost: CompositePost, signal?: AbortSignal) {
+export async function postToFarcaster({ type, compositePost, keepPostLinks, signal }: PostFunctionParams) {
     const { chars, parentPost, images, videos, postId, channel, poll } = compositePost;
 
     const farcasterPostId = postId.Farcaster;
@@ -56,7 +56,7 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
             metadata: {
                 locale: '',
                 content: {
-                    content: readChars(chars, 'both', Source.Farcaster),
+                    content: readChars({ chars, strategy: 'both', source: Source.Farcaster, keepPostLinks }),
                 },
                 rpPayload: compositePost.rpPayload,
             },
@@ -88,7 +88,10 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
         },
         uploadPolls: async () => {
             if (!poll) return [];
-            const pollStub = await FarcasterPollProvider.createPoll(poll, readChars(chars, 'both', Source.Farcaster));
+            const pollStub = await FarcasterPollProvider.createPoll(
+                poll,
+                readChars({ chars, strategy: 'both', source: Source.Farcaster, keepPostLinks }),
+            );
             return [pollStub];
         },
         compose: async (images, videos, polls) => {

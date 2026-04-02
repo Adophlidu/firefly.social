@@ -519,7 +519,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
         },
         loadComponentsFromChars: async (cursor) => {
             const chars = pick(get(), (x) => x.chars);
-            const content = readChars(chars, 'visible');
+            const content = readChars({ chars, strategy: 'visible' });
 
             const urls = matchUrls(content);
             const frames = await FrameLoader.occupancyLoad(urls);

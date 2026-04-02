@@ -5,6 +5,7 @@ import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 
 import { ActionButton } from '@/components/ActionButton.js';
+import { ActionDisabledMessage } from '@/components/Actions/ActionDisabledMessage.js';
 import { Avatar } from '@/components/Avatar.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { type SocialSource } from '@/constants/enum.js';
@@ -19,9 +20,12 @@ interface QuickReplyProps {
 
 export const QuickReply = memo<QuickReplyProps>(function QuickReply({ source, post }) {
     const currentProfile = useCurrentProfile(source);
-    const { buttonDisabled, onComment } = useCommentPost(post, !currentProfile);
+    const { buttonDisabled, message, onComment } = useCommentPost(post, !currentProfile);
 
-    if (!currentProfile || buttonDisabled) return null;
+    if (!currentProfile) return null;
+    if (buttonDisabled && message?.message && message.type === 'toast') {
+        return <ActionDisabledMessage message={message.message} />;
+    }
 
     return (
         <ClickableArea className="flex cursor-pointer items-center border-b border-line px-4 py-3" onClick={onComment}>

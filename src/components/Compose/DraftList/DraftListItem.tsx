@@ -74,7 +74,7 @@ export const DraftListItem = memo<DraftListItemProps>(function DraftListItem({ d
     }, [draft, hasError]);
 
     const post = first(draft.posts);
-    const content = post ? readChars(post.chars, 'visible') : '';
+    const content = post ? readChars({ chars: post.chars, strategy: 'visible' }) : '';
 
     const isDisabled = useMemo(() => {
         return !draft.availableProfiles.some((x) => profiles.some((profile) => profile.source === x.source));

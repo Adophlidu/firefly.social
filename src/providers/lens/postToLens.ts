@@ -29,7 +29,7 @@ import { type Channel, SessionType } from '@/providers/types/SocialMedia.js';
 import { createPostTo } from '@/services/createPostTo.js';
 import { uploadAndConvertToM3u8 } from '@/services/uploadAndConvertToM3u8.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
-import { type ComposeType, type CompositePost, type MediaObject } from '@/types/compose.js';
+import { type MediaObject, type PostFunctionParams } from '@/types/compose.js';
 
 interface BaseMetadata {
     title: string;
@@ -272,7 +272,7 @@ async function quotePostForLens(
     return post;
 }
 
-export async function postToLens(type: ComposeType, compositePost: CompositePost, signal?: AbortSignal) {
+export async function postToLens({ type, compositePost, keepPostLinks, signal }: PostFunctionParams) {
     const { chars, images, postId, parentPost, videos, poll, channel, restriction } = compositePost;
 
     const lensPostId = postId.Lens;
@@ -312,7 +312,7 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
             const video = first(videos) ?? null;
             return publishPostForLens(
                 session.profileId,
-                readChars(newChars, 'both', Source.Lens),
+                readChars({ chars: newChars, strategy: 'both', source: Source.Lens, keepPostLinks }),
                 images,
                 video,
                 channel[Source.Lens],
@@ -326,7 +326,7 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
             return commentPostForLens(
                 session.profileId,
                 lensParentPost.postId,
-                readChars(newChars, 'both', Source.Lens),
+                readChars({ chars: newChars, strategy: 'both', source: Source.Lens, keepPostLinks }),
                 images,
                 video,
                 channel[Source.Lens],
@@ -338,7 +338,7 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
             return quotePostForLens(
                 session.profileId,
                 lensParentPost.postId,
-                readChars(newChars, 'both', Source.Lens),
+                readChars({ chars: newChars, strategy: 'both', source: Source.Lens, keepPostLinks }),
                 images,
                 video,
                 channel[Source.Lens],

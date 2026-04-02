@@ -671,6 +671,9 @@ msgstr ""
 msgid "Failed to like the comment."
 msgstr ""
 
+msgid "Reply restricted"
+msgstr ""
+
 msgid "Sign in"
 msgstr ""
 
@@ -1009,6 +1012,9 @@ msgid "Sending"
 msgstr ""
 
 msgid "Retry Stream"
+msgstr ""
+
+msgid "The author has disabled comments on this post."
 msgstr ""
 
 msgid "No predictions found"
@@ -2711,6 +2717,9 @@ msgstr ""
 msgid "Replying to"
 msgstr ""
 
+msgid "Only mentioned profiles can comment on this post."
+msgstr ""
+
 msgid "All posts and activities from this user will be hidden from you"
 msgstr ""
 
@@ -3740,6 +3749,9 @@ msgstr ""
 msgid "Sign to Confirm"
 msgstr ""
 
+msgid "Due to <0>X's API limitations</0>, you can only reply to posts that mention you."
+msgstr ""
+
 msgid "Article collected successfully!"
 msgstr ""
 
@@ -4600,6 +4612,9 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
+msgid "Only people followed by the author can comment on this post."
+msgstr ""
+
 msgid "No blackmail activities involved."
 msgstr ""
 
@@ -4631,6 +4646,9 @@ msgid "Scheduled Post"
 msgstr ""
 
 msgid "Recasted"
+msgstr ""
+
+msgid "Only followers of the author can comment on this post."
 msgstr ""
 
 msgid "No phishing activities involved."

@@ -127,7 +127,7 @@ export function PostLinksInCompose({
     parentPost?: Post | null;
 }) {
     const post = useMemo(() => {
-        const content = readChars(chars, 'visible');
+        const content = readChars({ chars, strategy: 'visible' });
         const oembedUrls = (content.match(LINK_MARK_RE) || []).filter((url) => {
             const index = content.indexOf(url);
             if (['@'].includes(content[index - 1]) && !url.startsWith('http')) return false;

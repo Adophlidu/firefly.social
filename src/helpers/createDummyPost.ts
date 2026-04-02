@@ -48,7 +48,7 @@ export function createDummyCommentPost(source: SocialSource, compositePost: Comp
         metadata: {
             locale: '',
             content: {
-                content: readChars(compositePost.chars),
+                content: readChars({ chars: compositePost.chars }),
             },
         },
     };

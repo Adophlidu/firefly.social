@@ -55,7 +55,7 @@ export async function createLensSchedulePostPayload(
     const metadata = createLensPostMetadata(
         {
             title: `Post by #${currentProfile.handle}`,
-            content: readChars(chars, 'both', Source.Lens),
+            content: readChars({ chars, strategy: 'both', source: Source.Lens }),
         },
         await createPayloadAttachments(imageResults, videoResult),
     );

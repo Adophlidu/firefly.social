@@ -5,7 +5,7 @@ import { PostMediaType } from '@/providers/types/Firefly.js';
 import { type CompositePost } from '@/types/compose.js';
 
 export function getPostMediaTypes(compositePost: CompositePost | undefined): PostMediaType[] {
-    const chars = readChars(compositePost?.chars ?? '', 'visible');
+    const chars = readChars({ chars: compositePost?.chars ?? '', strategy: 'visible' });
     const types = compact([
         chars.length > 0 ? PostMediaType.Text : undefined,
         compositePost?.images.length ? PostMediaType.Image : undefined,

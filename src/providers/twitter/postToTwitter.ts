@@ -13,9 +13,9 @@ import { type Poll } from '@/providers/types/Poll.js';
 import { type Post, type PostType } from '@/providers/types/SocialMedia.js';
 import { createPostTo } from '@/services/createPostTo.js';
 import { useTwitterProfileStore } from '@/store/useProfileStore/useTwitterProfileStore.js';
-import { type ComposeType, type CompositePost, type MediaObject } from '@/types/compose.js';
+import { type MediaObject, type PostFunctionParams } from '@/types/compose.js';
 
-export async function postToTwitter(type: ComposeType, compositePost: CompositePost, signal?: AbortSignal) {
+export async function postToTwitter({ type, compositePost, keepPostLinks, signal }: PostFunctionParams) {
     const { chars, images, videos, postId, parentPost, restriction, poll, excludeReplyProfileIds } = compositePost;
 
     const twitterPostId = postId.Twitter;
@@ -45,7 +45,7 @@ export async function postToTwitter(type: ComposeType, compositePost: CompositeP
             metadata: {
                 locale: 'en',
                 content: {
-                    content: readChars(chars, 'both', Source.Twitter),
+                    content: readChars({ chars, strategy: 'both', source: Source.Twitter, keepPostLinks }),
                 },
             },
             mediaObjects: uniqBy(

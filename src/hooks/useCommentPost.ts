@@ -1,76 +1,33 @@
-import { safeUnreachable } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { useQuery } from '@tanstack/react-query';
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
 
-import { RestrictionType } from '@/constants/enum.js';
 import { STALE_TIMES } from '@/constants/query.js';
+import { canReplyToPost } from '@/helpers/canReplyToPost.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
-import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { openComposeModal } from '@/helpers/openComposeModal.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
-import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { resolveMessageForCommentDisabled } from '@/helpers/resolveMessageForCommentDisabled.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAnonymousPostAvailability } from '@/hooks/useAnonymousPostAvailability.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
 
 export function useCommentPost(post: Post, disabled = false) {
-    const { source, author, restrictions, mentions } = post;
+    const { source, author } = post;
 
     const myProfile = useCurrentProfile(source);
     const isLogin = !!myProfile?.profileId;
+    const { following, followedBy } = author.viewerContext || {};
 
-    const { data: authorProfile = null } = useQuery({
-        queryKey: ['profile', source, author.profileId, myProfile?.profileId],
+    const { data: canReply } = useQuery({
+        queryKey: ['reply-permission', source, post.postId, myProfile?.profileId, following, followedBy],
+        enabled: isLogin && !disabled,
         staleTime: STALE_TIMES.MINUTE_1,
-
-        queryFn: async () => {
-            const provider = resolveSocialMediaProvider(source);
-            return provider.getProfileById(author.profileId);
-        },
-        enabled: !disabled && !('canComment' in post),
+        queryFn: () => canReplyToPost(post),
     });
 
-    const commentDisabled = useMemo(() => {
-        if (disabled) return true;
-        if ('canComment' in post) return !post.canComment;
-        if (restrictions) {
-            if (isSameProfile(author, myProfile)) return false;
-            let isDisabled = true;
-            for (const restriction of restrictions) {
-                switch (restriction) {
-                    case RestrictionType.Nobody:
-                        return !isSameProfile(myProfile, author);
-                    case RestrictionType.Everyone:
-                        return false;
-                    case RestrictionType.MentionedProfiles:
-                        if (mentions?.some((x) => isSameProfile(x, myProfile))) isDisabled = false;
-                        break;
-                    case RestrictionType.YouFollower:
-                        if (authorProfile?.viewerContext?.following) isDisabled = false;
-                        break;
-                    case RestrictionType.OnlyPeopleYouFollow:
-                        if (authorProfile?.viewerContext?.followedBy) isDisabled = false;
-                        break;
-                    default:
-                        safeUnreachable(restriction);
-                }
-            }
-
-            return isDisabled;
-        }
-        return false;
-    }, [
-        disabled,
-        post,
-        restrictions,
-        myProfile,
-        author,
-        mentions,
-        authorProfile?.viewerContext?.following,
-        authorProfile?.viewerContext?.followedBy,
-    ]);
+    const commentDisabled = disabled || canReply === false;
 
     const { canPost, sources } = useAnonymousPostAvailability();
     const anonymousPostEnabled = !isLogin && canPost && sources.includes(source);
@@ -95,6 +52,7 @@ export function useCommentPost(post: Post, disabled = false) {
 
     return {
         buttonDisabled: !isLogin ? disabled : commentDisabled,
+        message: commentDisabled ? resolveMessageForCommentDisabled(post) : null,
         onComment: handleClick,
     };
 }

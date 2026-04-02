@@ -81,3 +81,11 @@ export interface CompositePost {
 
     excludeReplyProfileIds?: string[];
 }
+
+export interface PostFunctionParams {
+    type: ComposeType;
+    compositePost: CompositePost;
+    // keep CharTag.POST_LINK in readChars
+    keepPostLinks?: boolean;
+    signal?: AbortSignal;
+}

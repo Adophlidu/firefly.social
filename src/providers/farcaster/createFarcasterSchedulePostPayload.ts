@@ -58,10 +58,15 @@ export async function createFarcasterSchedulePostPayload(
 
     const pollResults = !poll
         ? []
-        : [await FarcasterPollProvider.createPoll(poll, readChars(chars, 'both', Source.Farcaster))];
+        : [
+              await FarcasterPollProvider.createPoll(
+                  poll,
+                  readChars({ chars, strategy: 'both', source: Source.Farcaster }),
+              ),
+          ];
 
     const currentChannel = channel[Source.Farcaster];
-    const content = readChars(chars, 'both', Source.Farcaster);
+    const content = readChars({ chars, strategy: 'both', source: Source.Farcaster });
 
     const result = await getAllMentionsForFarcaster(content);
 

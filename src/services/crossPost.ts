@@ -7,6 +7,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import { SORTED_SOCIAL_SOURCES, SUPPORTED_FRAME_SOURCES } from '@/constants/computed.js';
 import { type SocialSource } from '@/constants/enum.js';
 import { SessionExpiredError } from '@/constants/error.js';
+import { canQuotePost } from '@/helpers/canQuotePost.js';
 import { readChars } from '@/helpers/chars.js';
 import { createDummyCommentPost } from '@/helpers/createDummyPost.js';
 import { enqueueErrorsMessage, enqueueSuccessMessage, MessageKey } from '@/helpers/enqueueMessage.js';
@@ -179,7 +180,7 @@ export async function crossPost(
 
     // create common poll for farcaster
     if (poll && SUPPORTED_FRAME_SOURCES.some((x) => availableSources.includes(x))) {
-        pollId = await commitPoll(poll, readChars(compositePost.chars));
+        pollId = await commitPoll(poll, readChars({ chars: compositePost.chars }));
 
         updatePollId(pollId);
     }
@@ -205,15 +206,18 @@ export async function crossPost(
                 const updatedCompositePost = getCompositePost(compositePost.id);
                 if (!updatedCompositePost) throw new Error(`Post not found with id: ${compositePost.id}`);
 
-                const result = await resolvePostTo(source)(
-                    type === 'quote' && parentPost && parentPost.source !== source ? 'compose' : type,
-                    {
+                const shouldFixType =
+                    type === 'quote' && !!parentPost && (parentPost.source !== source || !canQuotePost(parentPost));
+                const result = await resolvePostTo(source)({
+                    type: shouldFixType ? 'compose' : type,
+                    compositePost: {
                         ...compositePost,
                         chars: updatedCompositePost.chars,
                         poll: updatedCompositePost.poll,
                     },
+                    keepPostLinks: shouldFixType && !canQuotePost(parentPost),
                     signal,
-                );
+                });
                 updatePostInThread(compositePost.id, (post) => ({
                     ...post,
                     postError: {

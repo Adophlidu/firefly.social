@@ -59,7 +59,7 @@ export async function createTwitterSchedulePostPayload(
                       ? { exclude_reply_user_ids: [], in_reply_to_tweet_id: '$$in_reply_to_tweet_id$$' }
                       : undefined
                 : undefined,
-        text: readChars(chars, 'both', Source.Twitter),
+        text: readChars({ chars, strategy: 'both', source: Source.Twitter }),
         media: mediaResults.length
             ? {
                   media_ids: compact(mediaResults?.map((x) => resolveUploadId(Source.Twitter, x))),

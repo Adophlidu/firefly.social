@@ -140,7 +140,7 @@ async function createAnonymousPostByFirefly(
         }),
     );
 
-    const content = readChars(chars, 'both', Source.Farcaster);
+    const content = readChars({ chars, strategy: 'both', source: Source.Farcaster });
     const mediaObjects = getFarcasterMediaObjects(compositePost, {
         images: imageResults,
         videos: videoResults,

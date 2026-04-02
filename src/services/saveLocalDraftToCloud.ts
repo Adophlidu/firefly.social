@@ -130,7 +130,7 @@ export async function saveLocalDraftToCloud(draft: Draft) {
         })),
         content: draft.posts.map<CloudDraftContent>((post) => {
             const draftContent: CloudDraftContent = {
-                text: readChars(post.chars, 'both', source),
+                text: readChars({ chars: post.chars, strategy: 'both', source }),
                 hasMedia: !!post.images.length || !!post.videos.length,
                 mentions: compact(
                     (Array.isArray(post.chars) ? post.chars : [post.chars]).map((char) => {

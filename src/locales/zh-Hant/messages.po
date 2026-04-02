@@ -671,6 +671,9 @@ msgstr "竊取攻擊。"
 msgid "Failed to like the comment."
 msgstr "按讚失敗。"
 
+msgid "Reply restricted"
+msgstr ""
+
 msgid "Sign in"
 msgstr "登入"
 
@@ -1010,6 +1013,9 @@ msgstr "發布中"
 
 msgid "Retry Stream"
 msgstr "重試"
+
+msgid "The author has disabled comments on this post."
+msgstr ""
 
 msgid "No predictions found"
 msgstr "未發現任何預測"
@@ -2711,6 +2717,9 @@ msgstr "Farcaster"
 msgid "Replying to"
 msgstr "正在回覆"
 
+msgid "Only mentioned profiles can comment on this post."
+msgstr ""
+
 msgid "All posts and activities from this user will be hidden from you"
 msgstr "來自此用戶的所有貼文和動態將對你隱藏"
 
@@ -3740,6 +3749,9 @@ msgstr "解密"
 msgid "Sign to Confirm"
 msgstr "簽名確認"
 
+msgid "Due to <0>X's API limitations</0>, you can only reply to posts that mention you."
+msgstr ""
+
 msgid "Article collected successfully!"
 msgstr "文章鑄造收集成功！"
 
@@ -4600,6 +4612,9 @@ msgstr "所有鏈"
 msgid "Status"
 msgstr "狀態"
 
+msgid "Only people followed by the author can comment on this post."
+msgstr ""
+
 msgid "No blackmail activities involved."
 msgstr "未檢測到勒索行為。"
 
@@ -4632,6 +4647,9 @@ msgstr "預約貼文"
 
 msgid "Recasted"
 msgstr "已轉發"
+
+msgid "Only followers of the author can comment on this post."
+msgstr ""
 
 msgid "No phishing activities involved."
 msgstr "未檢測到釣魚活動。"
