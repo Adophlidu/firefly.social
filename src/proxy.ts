@@ -15,8 +15,12 @@ import { handlePostRequests } from '@/proxy/handlers/postRequests.js';
 import { handleProfileRoutes } from '@/proxy/handlers/profileRoutes.js';
 import { handleTokenRequests } from '@/proxy/handlers/tokenRequests.js';
 
+import proxyRewriteRoutes from '../.next-config/rewrite.config.json' with { type: 'json' };
+
 type ProxyHandler = (request: NextRequest, next: () => NextResponse | undefined) => NextResponse | undefined;
 type MiddlewareHandler = (request: NextRequest) => NextResponse | undefined;
+
+const localeRewriteExcludedPaths = Object.keys(proxyRewriteRoutes);
 
 const handlers = [
     handleCSP, // CSP handler wraps the chain to add Report-Only header
@@ -33,13 +37,17 @@ function adaptMiddleware(handler: ProxyHandler) {
     };
 }
 
+function shouldSkipLocaleRewrite(pathname: string) {
+    return localeRewriteExcludedPaths.some((path) => pathname === path || pathname.startsWith(`${path}/`));
+}
+
 export default function proxy(request: NextRequest) {
     request.headers.set('X-URL', request.url);
 
     const { pathname } = request.nextUrl;
 
-    // Skip rewrite if path already has /{locale}/ prefix, but still set geo cookies
-    if (hasLocalePrefix(pathname)) {
+    // Skip locale rewrite for external app proxies and already-prefixed locale routes.
+    if (shouldSkipLocaleRewrite(pathname) || hasLocalePrefix(pathname)) {
         const response = NextResponse.next({ request });
         setGeoCookies(request, response);
         return response;
