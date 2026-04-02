@@ -3,4 +3,4 @@ export { MyButton, MyButtonText } from '@/components/MyButton.js';
 export { SearchInput } from '@/components/SearchInput.js';
 export { config } from '@/tamagui.config.js';
 export { MarketsTab } from '@/ui/Perps/MarketsTab.js';
-export * from '@tamagui/core';
+export * from 'tamagui';
