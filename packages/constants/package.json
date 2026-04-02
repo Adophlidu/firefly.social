@@ -1,6 +1,6 @@
 {
     "name": "@dimensiondev/constants",
-    "version": "0.1.23",
+    "version": "0.1.24",
     "description": "Shared constants for Firefly projects",
     "type": "module",
     "main": "./dist/index.js",
