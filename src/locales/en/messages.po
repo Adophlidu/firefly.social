@@ -676,7 +676,7 @@ msgid "Failed to like the comment."
 msgstr "Failed to like the comment."
 
 msgid "Reply restricted"
-msgstr "Reply restricted"
+msgstr ""
 
 msgid "Sign in"
 msgstr "Sign in"
@@ -1020,7 +1020,7 @@ msgid "Retry Stream"
 msgstr "Retry Stream"
 
 msgid "The author has disabled comments on this post."
-msgstr "The author has disabled comments on this post."
+msgstr ""
 
 msgid "No predictions found"
 msgstr "No predictions found"
@@ -2388,7 +2388,7 @@ msgid "No asks"
 msgstr "No asks"
 
 msgid "<0/> PnL(%)"
-msgstr "<0/> PnL(%)"
+msgstr ""
 
 msgid "OR"
 msgstr "OR"
@@ -2543,7 +2543,7 @@ msgid "Cryptocurrency mixer."
 msgstr "Cryptocurrency mixer."
 
 msgid "Biggest Win"
-msgstr "Biggest Win"
+msgstr ""
 
 msgid "Remove Truth Social"
 msgstr "Remove Truth Social"
@@ -2729,7 +2729,7 @@ msgid "Replying to"
 msgstr "Replying to"
 
 msgid "Only mentioned profiles can comment on this post."
-msgstr "Only mentioned profiles can comment on this post."
+msgstr ""
 
 msgid "All posts and activities from this user will be hidden from you"
 msgstr "All posts and activities from this user will be hidden from you"
@@ -3770,7 +3770,7 @@ msgid "Sign to Confirm"
 msgstr "Sign to Confirm"
 
 msgid "Due to <0>X's API limitations</0>, you can only reply to posts that mention you."
-msgstr "Due to <0>X's API limitations</0>, you can only reply to posts that mention you."
+msgstr ""
 
 msgid "Article collected successfully!"
 msgstr "Article collected successfully!"
@@ -4638,7 +4638,7 @@ msgid "Status"
 msgstr "Status"
 
 msgid "Only people followed by the author can comment on this post."
-msgstr "Only people followed by the author can comment on this post."
+msgstr ""
 
 msgid "No blackmail activities involved."
 msgstr "No blackmail activities involved."
@@ -4674,7 +4674,7 @@ msgid "Recasted"
 msgstr "Recasted"
 
 msgid "Only followers of the author can comment on this post."
-msgstr "Only followers of the author can comment on this post."
+msgstr ""
 
 msgid "No phishing activities involved."
 msgstr "No phishing activities involved."
