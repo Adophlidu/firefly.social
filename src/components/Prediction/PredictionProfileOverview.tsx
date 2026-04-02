@@ -48,15 +48,68 @@ export function PredictionProfileOverview({ profile, platform, address }: Predic
             {
                 label: (
                     <Trans>
-                        <PredictionPlatformName platform={platform} /> PnL
+                        <PredictionPlatformName platform={platform} /> PnL(%)
                     </Trans>
                 ),
                 value: (
                     <span className={profile.pnl < 0 ? 'text-danger' : 'text-success'}>
                         {formatPolymarketNumber(profile.pnl, { sign: true })}
+                        {profile.pnl_rate !== undefined && profile.pnl_rate !== null
+                            ? `(${toRate(profile.pnl_rate)})`
+                            : null}
                     </span>
                 ),
             },
+            isOpinion
+                ? null
+                : {
+                      label: <Trans>Total Gains</Trans>,
+                      value: (
+                          <span>
+                              {formatPolymarketNumber(profile.gains, {
+                                  sign: true,
+                              })}
+                          </span>
+                      ),
+                  },
+            isOpinion
+                ? null
+                : {
+                      label: <Trans>Total Losses</Trans>,
+                      value: (
+                          <span>
+                              {profile.losses
+                                  ? `${formatPolymarketNumber(-Math.abs(profile.losses), {
+                                        sign: true,
+                                    })}`
+                                  : 0}
+                          </span>
+                      ),
+                  },
+            {
+                label: <Trans>Total Value</Trans>,
+                value: <span>{formatPolymarketNumber(profile.balance)}</span>,
+            },
+            {
+                label: <Trans>Current Positions</Trans>,
+                value: <span>{formatPolymarketNumber(profile.notfill_balance)}</span>,
+            },
+            {
+                label: <Trans>Available Balance</Trans>,
+                value: <span>{isZero(profile.cash_balance) ? '$0' : `${formatTokenUSD(profile.cash_balance)}`}</span>,
+            },
+            isOpinion
+                ? null
+                : {
+                      label: <Trans>Biggest Win</Trans>,
+                      value: (
+                          <span>
+                              {profile.largest_win !== undefined && profile.largest_win !== null
+                                  ? formatPolymarketNumber(profile.largest_win, { sign: true })
+                                  : '-'}
+                          </span>
+                      ),
+                  },
             isOpinion
                 ? null
                 : {
@@ -75,50 +128,6 @@ export function PredictionProfileOverview({ profile, platform, address }: Predic
                     <PolymarketVolumeTraded key="volume-traded" address={address} proxyAddress={profile.proxy} />
                 ),
             },
-            {
-                label: <Trans>Current Positions</Trans>,
-                value: <span>{formatPolymarketNumber(profile.notfill_balance)}</span>,
-            },
-            {
-                label: <Trans>Available Balance</Trans>,
-                value: <span>{isZero(profile.cash_balance) ? '$0' : `${formatTokenUSD(profile.cash_balance)}`}</span>,
-            },
-            isOpinion
-                ? null
-                : {
-                      label: <Trans>Win Rate</Trans>,
-                      value: <span>{toRate(profile.win_rate)}</span>,
-                  },
-            {
-                label: <Trans>Total Value</Trans>,
-                value: <span>{formatPolymarketNumber(profile.balance)}</span>,
-            },
-            isOpinion
-                ? null
-                : {
-                      label: <Trans>Total Losses</Trans>,
-                      value: (
-                          <span>
-                              {profile.losses
-                                  ? `${formatPolymarketNumber(-Math.abs(profile.losses), {
-                                        sign: true,
-                                    })}`
-                                  : 0}
-                          </span>
-                      ),
-                  },
-            isOpinion
-                ? null
-                : {
-                      label: <Trans>Total Gains</Trans>,
-                      value: (
-                          <span>
-                              {formatPolymarketNumber(profile.gains, {
-                                  sign: true,
-                              })}
-                          </span>
-                      ),
-                  },
         ]);
     }, [address, profile, isOpinion, platform]);
 

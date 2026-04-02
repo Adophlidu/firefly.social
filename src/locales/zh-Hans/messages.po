@@ -2371,6 +2371,9 @@ msgstr "由 Farcaster 验证"
 msgid "No asks"
 msgstr "暂无卖单"
 
+msgid "<0/> PnL(%)"
+msgstr ""
+
 msgid "OR"
 msgstr "或"
 
@@ -2521,6 +2524,9 @@ msgstr "重连失败，请重新扫描二维码建立连接。"
 
 msgid "Cryptocurrency mixer."
 msgstr "加密货币混合器。"
+
+msgid "Biggest Win"
+msgstr ""
 
 msgid "Remove Truth Social"
 msgstr "移除Truth Social"
@@ -3345,9 +3351,6 @@ msgstr "取消收藏投票失败。"
 msgid "will send on {0} at {1}"
 msgstr "将在 {0} {1} 发布"
 
-msgid "<0/> PnL"
-msgstr "<0/> 盈亏"
-
 msgid "Your account is requesting to sign in to mobile. Please confirm that the device is with you and that it is you who is signing in"
 msgstr "您的账户正请求登录移动端。请确认该设备就在您身边，且为您本人正在进行登录操作"
 
@@ -3826,9 +3829,6 @@ msgstr "未匹配到代币"
 
 msgid "No Farcaster account? <0>Sign up</0> on Firefly"
 msgstr "还没有账号? <0>注册</0>"
-
-msgid "Win Rate"
-msgstr "胜率"
 
 msgid "The contract owner has restrictions on anti whale."
 msgstr "合约所有者对反鲸鱼机制有限制。"

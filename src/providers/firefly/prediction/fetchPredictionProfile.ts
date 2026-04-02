@@ -7,6 +7,7 @@ import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getPredictionPnlHistory } from '@/providers/firefly/prediction/getPredictionPnlHistory.js';
 import { getPredictionPortfolio } from '@/providers/firefly/prediction/getPredictionPortfolio.js';
 import { getProfile } from '@/providers/firefly/prediction/getProfile.js';
+import { getUserStats } from '@/providers/prediction/polymarket/getUserStats.js';
 import { type PredictionProfileDataForUI } from '@/types/prediction.js';
 
 export async function fetchPredictionProfile(
@@ -21,11 +22,15 @@ export async function fetchPredictionProfile(
                 const profile = profileData ? formatPolymarketProfile(profileData) : undefined;
                 if (!profile) return;
 
-                const pnlHistory = await runInSafeAsync(() => getPredictionPnlHistory(profile.proxy, platform));
+                const [pnlHistory, largestWin] = await Promise.all([
+                    runInSafeAsync(() => getPredictionPnlHistory(profile.proxy, platform)),
+                    runInSafeAsync(() => getUserStats(profile.proxy)),
+                ]);
 
                 return {
                     ...profile,
                     pnl_history: pnlHistory,
+                    largest_win: largestWin,
                 } as PredictionProfileDataForUI;
             }
             case PredictionPlatform.Opinion: {

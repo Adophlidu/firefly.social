@@ -18,6 +18,7 @@ export function formatPolymarketProfile(data: PolymarketProfileData): Prediction
         win_rate: data.win_rate,
         losses: data.losses,
         gains: data.gains,
+        pnl_rate: data.pnl_rate,
     };
 }
 

@@ -2381,6 +2381,9 @@ msgstr "Verified by Farcaster"
 msgid "No asks"
 msgstr "No asks"
 
+msgid "<0/> PnL(%)"
+msgstr "<0/> PnL(%)"
+
 msgid "OR"
 msgstr "OR"
 
@@ -2532,6 +2535,9 @@ msgstr "Failed to reconnect. Please scan another QR code to establish a new conn
 
 msgid "Cryptocurrency mixer."
 msgstr "Cryptocurrency mixer."
+
+msgid "Biggest Win"
+msgstr "Biggest Win"
 
 msgid "Remove Truth Social"
 msgstr "Remove Truth Social"
@@ -3361,9 +3367,6 @@ msgstr "Failed to un-bookmark snapshot."
 msgid "will send on {0} at {1}"
 msgstr "will send on {0} at {1}"
 
-msgid "<0/> PnL"
-msgstr "<0/> PnL"
-
 msgid "Your account is requesting to sign in to mobile. Please confirm that the device is with you and that it is you who is signing in"
 msgstr "Your account is requesting to sign in to mobile. Please confirm that the device is with you and that it is you who is signing in"
 
@@ -3847,9 +3850,6 @@ msgstr "No matching token"
 
 msgid "No Farcaster account? <0>Sign up</0> on Firefly"
 msgstr "No Farcaster account? <0>Sign up</0> on Firefly"
-
-msgid "Win Rate"
-msgstr "Win Rate"
 
 msgid "The contract owner has restrictions on anti whale."
 msgstr "The contract owner has restrictions on anti whale."

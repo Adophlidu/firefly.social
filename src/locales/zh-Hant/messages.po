@@ -2371,6 +2371,9 @@ msgstr "由 Farcaster 驗證"
 msgid "No asks"
 msgstr "暫無賣單"
 
+msgid "<0/> PnL(%)"
+msgstr ""
+
 msgid "OR"
 msgstr "或"
 
@@ -2521,6 +2524,9 @@ msgstr "重連失敗，請重新掃描QR碼建立連接。"
 
 msgid "Cryptocurrency mixer."
 msgstr "加密貨幣混幣器。"
+
+msgid "Biggest Win"
+msgstr ""
 
 msgid "Remove Truth Social"
 msgstr "移除 Truth Social"
@@ -3345,9 +3351,6 @@ msgstr "取消收藏投票失敗。"
 msgid "will send on {0} at {1}"
 msgstr "將於 {0} {1} 發布"
 
-msgid "<0/> PnL"
-msgstr "<0/> 盈虧"
-
 msgid "Your account is requesting to sign in to mobile. Please confirm that the device is with you and that it is you who is signing in"
 msgstr "您的帳戶正請求登入行動裝置。請確認該裝置在您身邊，且是由您本人進行登入"
 
@@ -3826,9 +3829,6 @@ msgstr "無符合的代幣"
 
 msgid "No Farcaster account? <0>Sign up</0> on Firefly"
 msgstr "沒有 Farcaster 帳戶？在 Firefly <0>註冊</0>"
-
-msgid "Win Rate"
-msgstr "勝率"
 
 msgid "The contract owner has restrictions on anti whale."
 msgstr "合約持有者設有反巨鯨機制。"

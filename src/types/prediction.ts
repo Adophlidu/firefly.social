@@ -31,6 +31,8 @@ export interface PredictionProfileDataForUI {
     gains?: number;
     volume?: number;
     pnl_history?: PredictionPnlHistory;
+    pnl_rate?: number;
+    largest_win?: number;
 }
 
 export interface PredictionPositionDataForUI {

@@ -141,6 +141,13 @@ export type PolymarketPriceHistoryResponse = PolymarketResponse<{
     history: PolymarketPriceHistory[];
 }>;
 
+export interface UserStatsResponse {
+    trades: number;
+    largestWin: number;
+    views: number;
+    joinDate: string;
+}
+
 export type PriceHistoryInterval = '1m' | '1w' | '1d' | '6h' | '1h' | 'max';
 
 export type PolymarketEventLocale = 'zh' | 'zh-Hant' | 'ja' | 'ko';
