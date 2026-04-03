@@ -42,3 +42,7 @@ export function getTimeLeft(endDatetime: string | number, startDatetime: string 
         seconds: duration.seconds(),
     };
 }
+
+export function formatEventTimestamp(date: Date | string | number, format = 'MMM DD, HH:mm') {
+    return dayjs(date).utc().format(format);
+}

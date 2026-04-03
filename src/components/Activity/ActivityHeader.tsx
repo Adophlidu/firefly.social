@@ -1,10 +1,9 @@
 import CalendarIcon from '@dimensiondev/assets/activity-calendar.svg';
 import { classNames } from '@dimensiondev/utils';
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc.js';
 
 import { ActivityStatusTag } from '@/components/Activity/ActivityStatus.js';
 import { Image } from '@/components/Image.js';
+import { formatEventTimestamp } from '@/helpers/formatTimestamp.js';
 import { type ActivityInfoResponse } from '@/providers/types/Firefly.js';
 
 function parseDescription(description: string) {
@@ -24,8 +23,6 @@ export function ActivityHeader({
         'title' | 'sub_title' | 'start_time' | 'end_time' | 'status' | 'banner_url' | 'cover_url' | 'description'
     >;
 }) {
-    dayjs.extend(utc);
-    const timeTemplate = 'MMM DD, HH:mm';
     return (
         <div className="flex w-full flex-col">
             <Image
@@ -39,8 +36,7 @@ export function ActivityHeader({
                 <div className="flex h-6 items-center space-x-1.5 whitespace-nowrap text-[13px] leading-6">
                     <CalendarIcon className="size-4 shrink-0" />
                     <span>
-                        {dayjs(data.start_time).utc().format(timeTemplate)} -{' '}
-                        {dayjs(data.end_time).utc().format(timeTemplate)} (UTC)
+                        {formatEventTimestamp(data.start_time)} - {formatEventTimestamp(data.end_time)} (UTC)
                     </span>
                     <ActivityStatusTag status={data.status} />
                 </div>

@@ -3,13 +3,13 @@
 import CalendarIcon from '@dimensiondev/assets/activity-calendar.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
-import dayjs from 'dayjs';
 import { useState } from 'react';
 
 import { ActivityEndedDialog } from '@/components/Activity/ActivityEndedDialog.js';
 import { ActivityStatusTag } from '@/components/Activity/ActivityStatus.js';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
+import { formatEventTimestamp } from '@/helpers/formatTimestamp.js';
 import { type ActivityListItem as TypeActivityListItem, ActivityStatus } from '@/providers/types/Firefly.js';
 
 export function getActivityListItem(index: number, data: TypeActivityListItem) {
@@ -17,7 +17,6 @@ export function getActivityListItem(index: number, data: TypeActivityListItem) {
 }
 
 function ActivityListItem({ data }: { data: TypeActivityListItem; index?: number }) {
-    const timeTemplate = 'MMM DD, HH:mm';
     const [openActivityEndedDialog, setOpenActivityEndedDialog] = useState(false);
     return (
         <>
@@ -61,8 +60,7 @@ function ActivityListItem({ data }: { data: TypeActivityListItem; index?: number
                     <div className="flex h-6 items-center space-x-1.5 text-[13px] leading-6">
                         <CalendarIcon className="size-4 shrink-0" />
                         <span>
-                            {dayjs(data.start_time).utc().format(timeTemplate)} -{' '}
-                            {dayjs(data.end_time).utc().format(timeTemplate)} (UTC)
+                            {formatEventTimestamp(data.start_time)} - {formatEventTimestamp(data.end_time)} (UTC)
                         </span>
                     </div>
                 </div>
