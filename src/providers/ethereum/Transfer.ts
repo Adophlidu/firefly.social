@@ -16,7 +16,8 @@ import { type EthereumChainId } from '@/web3-shared/evm/types.js';
 class Provider implements TransferProvider<EthereumChainId, Address, Hash> {
     async transfer(options: TransactionOptions<EthereumChainId, Address>): Promise<Address> {
         const { token } = options;
-        if (token.chainId !== EthereumNetwork.getChainId()) {
+        const currentChainId = EthereumNetwork.getChainId();
+        if (!currentChainId || token.chainId !== currentChainId) {
             await switchEthereumChain(token.chainId);
         }
 
