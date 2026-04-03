@@ -1,7 +1,6 @@
 import FireflyIcon from '@dimensiondev/assets/firefly.round.svg';
 import PlusIcon from '@dimensiondev/assets/plus.svg';
 import WalletIcon from '@dimensiondev/assets/wallet.svg';
-import { envs, STATUS } from '@dimensiondev/envs';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
@@ -158,9 +157,7 @@ export const ConnectedWallets = memo(function ConnectedWallets({ onOpenWallets }
 
     return (
         <div>
-            {envs.external.NEXT_PUBLIC_PRIVY === STATUS.Enabled ? (
-                <FireflyWalletPanel onOpenWallets={onOpenWallets} />
-            ) : null}
+            <FireflyWalletPanel onOpenWallets={onOpenWallets} />
             <div className="overflow-hidden rounded-lg border border-secondaryLine">
                 <ClickableButton
                     className="flex h-10 w-full items-center justify-between gap-2 border-b border-secondaryLine bg-lightBg px-2 text-main"
