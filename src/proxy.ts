@@ -21,6 +21,9 @@ type ProxyHandler = (request: NextRequest, next: () => NextResponse | undefined)
 type MiddlewareHandler = (request: NextRequest) => NextResponse | undefined;
 
 const localeRewriteExcludedPaths = [...Object.keys(proxyRewriteRoutes), '/next-debug.log'];
+const publicAssetPrefixes = ['/.well-known', '/font', '/image', '/music', '/svg', '/webm'] as const;
+const publicAssetExtensionPattern =
+    /\.(?:svg|png|jpg|jpeg|gif|webp|js|css|map|ico|xml|txt|ttf|otf|woff|woff2|mp3|mp4|webm|webmanifest)$/;
 
 const handlers = [
     handleCSP, // CSP handler wraps the chain to add Report-Only header
@@ -41,13 +44,20 @@ function shouldSkipLocaleRewrite(pathname: string) {
     return localeRewriteExcludedPaths.some((path) => pathname === path || pathname.startsWith(`${path}/`));
 }
 
+function isPublicAssetPath(pathname: string) {
+    return (
+        publicAssetPrefixes.some((prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`)) ||
+        publicAssetExtensionPattern.test(pathname)
+    );
+}
+
 export default function proxy(request: NextRequest) {
     request.headers.set('X-URL', request.url);
 
     const { pathname } = request.nextUrl;
 
     // Skip locale rewrite for external app proxies and already-prefixed locale routes.
-    if (shouldSkipLocaleRewrite(pathname) || hasLocalePrefix(pathname)) {
+    if (shouldSkipLocaleRewrite(pathname) || isPublicAssetPath(pathname) || hasLocalePrefix(pathname)) {
         const response = NextResponse.next({ request });
         setGeoCookies(request, response);
         return response;
@@ -90,6 +100,6 @@ export default function proxy(request: NextRequest) {
 
 export const config = {
     matcher: [
-        '/((?!_next/static|js|sw.js|site.webmanifest|_next/image|api|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|js)$).*)',
+        '/((?!_next/static|_next/image|api|js(?:/|$)|font(?:/|$)|image(?:/|$)|music(?:/|$)|svg(?:/|$)|webm(?:/|$)|\\.well-known(?:/|$)|.*\\.(?:svg|png|jpg|jpeg|gif|webp|js|css|map|ico|xml|txt|ttf|otf|woff|woff2|mp3|mp4|webm|webmanifest)$).*)',
     ],
 };
