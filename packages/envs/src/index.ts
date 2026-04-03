@@ -51,6 +51,9 @@ const ExternalEnvSchema = z.object({
     // urls
     NEXT_PUBLIC_SITE_URL: z.string().default('https://firefly.social'),
     NEXT_PUBLIC_SOLANA_RPC_URL: z.string().default('https://api.mainnet-beta.solana.com'),
+    NEXT_PUBLIC_MAINNET_RPC_URL: z.string().default('https://eth.llamarpc.com'),
+    NEXT_PUBLIC_OPTIMISM_RPC_URL: z.string().default('https://mainnet.optimism.io'),
+    NEXT_PUBLIC_POLYGON_RPC_URL: z.string().default('https://polygon.drpc.org'),
 
     /** truth social trump proxy avatar url */
     NEXT_PUBLIC_TRUTH_SOCIAL_AVATAR_PROXY: z.string().optional(),
@@ -130,6 +133,9 @@ export const envs = {
         // urls
         NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
         NEXT_PUBLIC_SOLANA_RPC_URL: process.env.NEXT_PUBLIC_SOLANA_RPC_URL,
+        NEXT_PUBLIC_MAINNET_RPC_URL: process.env.NEXT_PUBLIC_MAINNET_RPC_URL,
+        NEXT_PUBLIC_OPTIMISM_RPC_URL: process.env.NEXT_PUBLIC_OPTIMISM_RPC_URL,
+        NEXT_PUBLIC_POLYGON_RPC_URL: process.env.NEXT_PUBLIC_POLYGON_RPC_URL,
         NEXT_PUBLIC_TRUTH_SOCIAL_AVATAR_PROXY: process.env.NEXT_PUBLIC_TRUTH_SOCIAL_AVATAR_PROXY,
         NEXT_PUBLIC_TRUTH_SOCIAL_AVATAR_ORIGINAL: process.env.NEXT_PUBLIC_TRUTH_SOCIAL_AVATAR_ORIGINAL,
 

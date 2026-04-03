@@ -68,6 +68,9 @@ export const wagmiAdapter = new WagmiAdapter({
     projectId: envs.external.NEXT_PUBLIC_W3M_PROJECT_ID,
     networks: wagmiNetworks,
     transports: {
+        [mainnet.id]: http(envs.external.NEXT_PUBLIC_MAINNET_RPC_URL),
+        [optimism.id]: http(envs.external.NEXT_PUBLIC_OPTIMISM_RPC_URL),
+        [polygon.id]: http(envs.external.NEXT_PUBLIC_POLYGON_RPC_URL),
         [fantom.id]: http('https://rpc.ftm.tools'),
     },
     connectors: [privyConnector],
