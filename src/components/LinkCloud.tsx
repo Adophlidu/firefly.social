@@ -55,6 +55,7 @@ export function LinkCloud() {
                             href={link}
                             className="font-medium outline-offset-4 hover:underline"
                             target={self ? '_self' : '_blank'}
+                            prefetch={false}
                         >
                             {name}
                         </Link>

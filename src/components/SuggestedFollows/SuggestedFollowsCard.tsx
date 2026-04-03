@@ -138,7 +138,7 @@ export function SuggestedFollowsCard() {
             <AsideTitle
                 caption={<Trans>You might like</Trans>}
                 more={
-                    <Link href={showMoreUrl} className="text-medium text-highlight">
+                    <Link href={showMoreUrl} prefetch={false} className="text-medium text-highlight">
                         <Trans>More</Trans>
                     </Link>
                 }

@@ -20,6 +20,7 @@ export const FollowersLink = memo<FollowersLinkProps>(function FollowersLink({ p
     return (
         <Link
             href={getProfileUrl(profile, FollowCategory.Followers)}
+            prefetch={false}
             className={classNames('gap-1 hover:underline', className, {
                 'pointer-events-none': profile.source !== Source.Farcaster && profile.source !== Source.Lens,
             })}

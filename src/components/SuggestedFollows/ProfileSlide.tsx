@@ -37,6 +37,7 @@ export const ProfileSlide = memo<ProfileSlideProps>(function ProfileSlide({ prof
                     <ProfileTippy identity={identity}>
                         <Link
                             href={getProfileUrl(profile)}
+                            prefetch={false}
                             className="link-overlay mr-0.5 max-w-full cursor-pointer truncate text-medium text-main"
                         >
                             {profile.displayName}

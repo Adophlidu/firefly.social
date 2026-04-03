@@ -78,3 +78,4 @@ packages/*/node_modules/
 
 # eslint cache
 .eslintcache
+*.har
