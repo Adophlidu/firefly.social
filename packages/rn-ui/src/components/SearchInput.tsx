@@ -18,6 +18,7 @@ const InputWrapper = styled(XStack, {
     borderColor: '#E5E5E5',
     borderRadius: 18,
     paddingHorizontal: 8,
+    flexShrink: 0,
 });
 const StyledInput = styled(Input, {
     unstyled: true,

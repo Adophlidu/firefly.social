@@ -9,7 +9,7 @@ interface LiteTabsProps {
 
 const TabButton = styled(Button, {
     unstyled: true,
-    height: 44,
+    height: '100%',
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'row',
@@ -22,8 +22,8 @@ const TabText = styled(Text, {
 
 export const LiteTabs = memo<LiteTabsProps>(function LiteTabs({ value, data, onChange }) {
     return (
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <XStack gap={16}>
+        <ScrollView flexShrink={0} height={44} horizontal showsHorizontalScrollIndicator={false}>
+            <XStack gap={16} height="100%">
                 {data.map((item, index) => {
                     const isActive = value === item.value;
 
