@@ -14,6 +14,8 @@ export function getPublicParameters(eventId: string, previousEventId: string | n
     const xProfile = getCurrentProfileFromStorage(Source.Twitter);
     const bskyProfile = getCurrentProfileFromStorage(Source.Bsky);
 
+    const sid = bom.location?.search ? new URLSearchParams(bom.location.search).get('sid') : undefined;
+
     const developmentAPI = useDeveloperSettingsState.getState().developmentAPI;
 
     return {
@@ -36,6 +38,10 @@ export function getPublicParameters(eventId: string, previousEventId: string | n
         public_ip_country: bom.window?.VERCEL_IP_COUNTRY,
         public_ip_region: bom.window?.VERCEL_IP_REGION,
 
+        // sharer firefly uid
+        public_s: sid,
+        public_sid: sid,
+
         // firefly account id
         firefly_account_id: fireflySession?.accountIdForEvent,
 
@@ -44,9 +50,6 @@ export function getPublicParameters(eventId: string, previousEventId: string | n
         lens_handle: lensProfile?.handle,
         farcaster_id: farcasterProfile?.profileId,
         bsky_id: bskyProfile?.profileId,
-
-        // sharer firefly uid
-        sid: bom.location?.search ? new URLSearchParams(bom.location.search).get('sid') : undefined,
 
         activity:
             bom.location?.pathname?.startsWith('/events') || bom.location?.pathname?.startsWith('/event/')
