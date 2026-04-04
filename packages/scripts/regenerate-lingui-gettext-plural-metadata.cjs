@@ -16,7 +16,7 @@ const PO = require(
 );
 
 const ROOT = findRepoRoot(__dirname);
-const EN_PO = path.join(ROOT, 'src/locales/en/messages.po');
+const EN_PO = path.join(ROOT, 'apps/web/src/locales/en/messages.po');
 const OUT = path.join(__dirname, 'lingui-gettext-plural-metadata.json');
 
 function refKey(refs) {
@@ -107,7 +107,7 @@ function collectTransExplicitIds(srcDir) {
     return ids;
 }
 
-const explicitFromSrc = collectTransExplicitIds(path.join(ROOT, 'src'));
+const explicitFromSrc = collectTransExplicitIds(path.join(ROOT, 'apps/web', 'src'));
 const explicitMsgids = [...new Set([...explicitFromPo, ...explicitFromSrc])].sort();
 
 const payload = { byRefKey, byTolgeeDuplicateIcuMsgid, explicitMsgids };

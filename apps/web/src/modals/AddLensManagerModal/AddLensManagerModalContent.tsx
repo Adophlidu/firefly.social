@@ -1,0 +1,84 @@
+import { type SessionClient } from '@lens-protocol/client';
+import { addAccountManager } from '@lens-protocol/client/actions';
+import { Trans } from '@lingui/react/macro';
+import { memo } from 'react';
+import { useAsyncFn } from 'react-use';
+
+import { ClickableButton } from '@/components/ClickableButton.js';
+import { ProfileAvatar } from '@/components/ProfileAvatar.js';
+import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
+import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
+import { handleOperationWithLensChain } from '@/providers/lens/handleOperationWithLensChain.js';
+import { lensSessionClientHolder } from '@/providers/lens/LensSessionClientHolder.js';
+import { captureLensBindManagerEvent } from '@/providers/telemetry/captureLensEvent.js';
+import { type Profile } from '@/providers/types/SocialMedia.js';
+
+interface Props {
+    manager: string;
+    profile: Profile;
+    sessionClient?: SessionClient;
+    onFinished?: (status: boolean) => void;
+    onLoadingChange?: (loading: boolean) => void;
+}
+
+export const AddLensManagerModalContent = memo<Props>(function AddLensManagerModalContent({
+    manager,
+    profile,
+    sessionClient = lensSessionClientHolder.sessionClient,
+    onFinished,
+    onLoadingChange,
+}) {
+    const [{ loading }, bindManager] = useAsyncFn(async () => {
+        try {
+            onLoadingChange?.(true);
+
+            // bind manager
+            const txData = await ensureLensResult(
+                addAccountManager(sessionClient, {
+                    address: safeEvmAddress(manager),
+                    permissions: {
+                        canSetMetadataUri: true,
+                        canTransferNative: true,
+                        canTransferTokens: true,
+                        canExecuteTransactions: true,
+                    },
+                }),
+            );
+            await handleOperationWithLensChain(txData);
+
+            // capture event
+            captureLensBindManagerEvent(profile);
+
+            onFinished?.(true);
+        } catch (error) {
+            onFinished?.(false);
+            throw error;
+        } finally {
+            onLoadingChange?.(false);
+        }
+    }, [profile, manager, sessionClient, onFinished, onLoadingChange]);
+
+    return (
+        <div>
+            <div className="border-lightLineSecond flex w-full items-center gap-2 rounded-lg border p-2">
+                <ProfileAvatar profile={profile} size={40} enableSourceIcon={false} />
+                <div className="min-w-0 flex-1 text-left">
+                    <p className="text-main truncate text-sm font-bold">{profile.displayName}</p>
+                    <p className="text-second truncate text-sm">@{profile.handle}</p>
+                </div>
+            </div>
+            <p className="text-medium text-second mt-2 py-1 text-center font-medium">
+                <Trans>
+                    Assign your Firefly Wallet as your Lens account manager to authorize Firefly for auto login.
+                </Trans>
+            </p>
+            <ClickableButton
+                loading={loading}
+                onClick={bindManager}
+                className="bg-main text-medium text-primaryBottom mt-2 h-10 w-full rounded-lg font-bold leading-10"
+            >
+                <Trans>Sign to Authorize</Trans>
+            </ClickableButton>
+        </div>
+    );
+});

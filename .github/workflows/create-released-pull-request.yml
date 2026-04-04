@@ -48,7 +48,7 @@ jobs:
 
             - name: Get current version
               id: version
-              run: echo "current_version=$(npm pkg get version | tr -d '\"')" >> $GITHUB_ENV
+              run: echo "current_version=$(npm pkg get version -w @dimensiondev/firefly-social-web | tr -d '\"')" >> $GITHUB_ENV
 
             - name: Bump version
               id: bump_version
@@ -56,13 +56,13 @@ jobs:
                   release_type="${{ github.event.inputs.release_type }}"
 
                   if [ "$release_type" = "major" ]; then
-                    npm version major --git-tag-version false
+                    npm version major --git-tag-version false -w @dimensiondev/firefly-social-web
                   elif [ "$release_type" = "minor" ]; then
-                    npm version minor --git-tag-version false
+                    npm version minor --git-tag-version false -w @dimensiondev/firefly-social-web
                   else
-                    npm version patch --git-tag-version false
+                    npm version patch --git-tag-version false -w @dimensiondev/firefly-social-web
                   fi
-                  echo "new_version=$(npm pkg get version | tr -d '\"')" >> $GITHUB_ENV
+                  echo "new_version=$(npm pkg get version -w @dimensiondev/firefly-social-web | tr -d '\"')" >> $GITHUB_ENV
 
             - name: Determine Pull Request Title and Base Branch
               id: pr_title
@@ -88,7 +88,7 @@ jobs:
 
             - name: Commit and Push changes
               run: |
-                  git add package.json
+                  git add apps/web/package.json
                   git config --global user.name "github-actions[bot]"
                   git config --global user.email "github-actions[bot]@users.noreply.github.com"
                   git commit -m "chore: bump version to ${{ env.new_version }}"

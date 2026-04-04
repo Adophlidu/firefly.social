@@ -4,6 +4,7 @@ on:
     pull_request:
         paths:
             - 'package.json'
+            - 'apps/web/package.json'
             - 'pnpm-lock.yaml'
     workflow_dispatch:
 
@@ -32,10 +33,10 @@ jobs:
                   registry: true
 
             - name: Setup Github Actions
-              run: ./scripts/setup-gh-actions.sh
+              run: .github/scripts/setup.sh
 
             - name: Generate Package Analysis
-              run: node scripts/generate-package-analysis.mjs
+              run: node .github/scripts/generate-package-analysis.mjs
 
             - name: Commit and Push changes if necessary
               run: |
@@ -43,7 +44,7 @@ jobs:
                   git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
                   if [[ $(git status --porcelain) ]]; then
-                    git add docs/PACKAGE_ANALYSIS.txt
+                    git add apps/web/docs/PACKAGE_ANALYSIS.txt
                     git commit -m "chore: regenerate PACKAGE_ANALYSIS.txt [bot]"
                     git push origin HEAD:${{ github.event.pull_request.head.ref }}
                   else

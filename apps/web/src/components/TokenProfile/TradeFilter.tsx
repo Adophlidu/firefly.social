@@ -1,0 +1,75 @@
+'use client';
+
+import CheckIcon from '@dimensiondev/assets/check.svg';
+import FilterIcon from '@dimensiondev/assets/filter.svg';
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
+import { Trans } from '@lingui/react/macro';
+
+import { type TradeRecord } from '@/types/token.js';
+
+interface Props {
+    value: TradeRecord['type'] | undefined;
+    onChange: (value: TradeRecord['type'] | undefined) => void;
+}
+
+const options = [
+    {
+        id: 'all',
+        value: undefined,
+        label: <Trans>All</Trans>,
+    },
+    {
+        id: 'buy',
+        value: 'buy',
+        label: <Trans>Buy</Trans>,
+    },
+    {
+        id: 'sell',
+        value: 'sell',
+        label: <Trans>Sell</Trans>,
+    },
+] as const;
+
+export function TradeFilter({ value, onChange }: Props) {
+    return (
+        <Menu>
+            {({ close }) => (
+                <div key="trade-filter">
+                    <MenuButton
+                        className="text-placeholder size-4 outline-none"
+                        onMouseEnter={(e) => e.currentTarget.click()}
+                    >
+                        <FilterIcon width={16} height={16} />
+                    </MenuButton>
+                    <MenuItems
+                        transition
+                        anchor="bottom end"
+                        className="z-50 origin-top-right !overflow-visible font-normal outline-none transition data-[closed]:scale-95 data-[closed]:opacity-0"
+                        onMouseLeave={() => close()}
+                    >
+                        <div className="bg-primaryBottom shadow-messageShadow flex translate-y-1 flex-col gap-2 overflow-y-auto rounded-2xl p-3">
+                            {options.map((option) => (
+                                <MenuItem key={option.id}>
+                                    {({ close }) => (
+                                        <div
+                                            className="font-inter text-main hover:bg-bg box-border flex min-w-[235px] cursor-pointer flex-row items-center rounded-lg bg-clip-padding p-2 text-sm"
+                                            onClick={() => {
+                                                onChange(option.value);
+                                                close();
+                                            }}
+                                        >
+                                            {option.label}
+                                            {value === option.value ? (
+                                                <CheckIcon width={16} height={16} className="text-highlight ml-auto" />
+                                            ) : null}
+                                        </div>
+                                    )}
+                                </MenuItem>
+                            ))}
+                        </div>
+                    </MenuItems>
+                </div>
+            )}
+        </Menu>
+    );
+}

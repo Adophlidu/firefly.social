@@ -1,0 +1,139 @@
+import RightArrowIcon from '@dimensiondev/assets/right-arrow.svg';
+import { classNames } from '@dimensiondev/utils';
+import { addMonths, endOfMonth, format, startOfMonth } from 'date-fns';
+import { range } from 'lodash-es';
+import { useState } from 'react';
+
+import { ClickableButton } from '@/components/ClickableButton.js';
+
+export interface DatePickerProps {
+    open: boolean;
+    onToggle: (x: boolean) => void;
+    date: Date;
+    /** locale date string list */
+    allowedDates: string[];
+    onChange: (date: Date) => void;
+    onMonthChange: (date: Date) => void;
+    className?: string;
+}
+
+export function DatePicker({
+    date,
+    onChange,
+    open,
+    onToggle,
+    allowedDates,
+    onMonthChange,
+    className,
+}: DatePickerProps) {
+    const [currentDate, setCurrentDate] = useState(date);
+    const monthStart = startOfMonth(currentDate);
+    const startingDayOfWeek = monthStart.getDay();
+    const daysInMonth = endOfMonth(currentDate).getDate();
+    const daysInPrevMonth = endOfMonth(addMonths(currentDate, -1)).getDate();
+
+    const handleDateClick = (date: Date) => {
+        onChange(date);
+        onToggle(false);
+    };
+
+    const handleMonthClick = (amount: number) => {
+        const newDate = addMonths(currentDate, amount);
+        setCurrentDate(newDate);
+        onMonthChange(newDate);
+    };
+
+    if (!open) return null;
+
+    const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+    const table = (
+        <table>
+            <thead>
+                <tr className="text-third mb-6 text-sm font-bold">
+                    {days.map((day) => (
+                        <th key={day}>
+                            <p>{day}</p>
+                        </th>
+                    ))}
+                </tr>
+            </thead>
+            <tbody>
+                {range(6).map((weekIndex) => (
+                    <tr key={weekIndex} className="mb-2">
+                        {range(7).map((dayIndex) => {
+                            const dayOfMonth = weekIndex * 7 + dayIndex - startingDayOfWeek + 1;
+                            let currentDatePointer = new Date(
+                                currentDate.getFullYear(),
+                                currentDate.getMonth(),
+                                dayOfMonth,
+                            );
+
+                            if (dayOfMonth <= 0) {
+                                currentDatePointer = new Date(
+                                    currentDate.getFullYear(),
+                                    currentDate.getMonth() - 1,
+                                    daysInPrevMonth + dayOfMonth,
+                                );
+                            } else if (dayOfMonth > daysInMonth) {
+                                currentDatePointer = new Date(
+                                    currentDate.getFullYear(),
+                                    currentDate.getMonth() + 1,
+                                    dayOfMonth - daysInMonth,
+                                );
+                            }
+                            const localeDateString = currentDatePointer.toLocaleDateString();
+
+                            return (
+                                <td key={dayIndex}>
+                                    <ClickableButton
+                                        className="border-none bg-none p-[5px] outline-none"
+                                        type="submit"
+                                        disabled={!allowedDates.includes(localeDateString)}
+                                        onClick={() => handleDateClick(currentDatePointer)}
+                                    >
+                                        <span
+                                            className={classNames(
+                                                'text-second flex size-[28px] items-center justify-center rounded-full text-sm leading-5',
+                                                {
+                                                    'bg-fireflyBrand !border-none text-white':
+                                                        date.toDateString() === currentDatePointer.toDateString(),
+                                                    'border-second cursor-pointer border':
+                                                        allowedDates.includes(localeDateString),
+                                                },
+                                            )}
+                                        >
+                                            {currentDatePointer.getDate()}
+                                        </span>
+                                    </ClickableButton>
+                                </td>
+                            );
+                        })}
+                    </tr>
+                ))}
+            </tbody>
+        </table>
+    );
+
+    return (
+        <div
+            className={classNames(
+                'border-line bg-bgModal absolute right-[15px] top-12 z-50 flex w-[320px] flex-col gap-[6px] rounded-2xl border px-[6px] pt-[6px]',
+                className,
+            )}
+        >
+            <div className="flex items-center justify-between">
+                <p className="text-main pl-2 font-bold">{format(currentDate, 'MMMM yyyy')}</p>
+                <div className="flex items-center">
+                    <ClickableButton onClick={() => handleMonthClick(-1)}>
+                        <RightArrowIcon className="rotate-180" width={24} height={24} />
+                    </ClickableButton>
+                    <ClickableButton onClick={() => handleMonthClick(1)}>
+                        <RightArrowIcon width={24} height={24} />
+                    </ClickableButton>
+                </div>
+            </div>
+            {table}
+        </div>
+    );
+}

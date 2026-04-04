@@ -3,7 +3,7 @@ version: 2
 # Note: Dependabot can be manually triggered via GitHub UI:
 # Go to Insights > Dependabot > Dependabot updates, then click "Check for updates"
 updates:
-    # Root package.json and pnpm workspace
+    # Root package.json and pnpm lockfile (workspace root)
     - package-ecosystem: 'npm'
       directory: '/'
       schedule:
@@ -16,12 +16,74 @@ updates:
                 - version-update:semver-major
                 - version-update:semver-minor
 
-    # Workspace packages
+    # Next.js app
+    - package-ecosystem: 'npm'
+      directory: '/apps/web'
+      schedule:
+          interval: 'weekly'
+      open-pull-requests-limit: 20
+      versioning-strategy: increase
+      ignore:
+          - dependency-name: '*'
+            update-types:
+                - version-update:semver-major
+                - version-update:semver-minor
+
+    # Workspace packages (each owns a package.json; lockfile lives at repo root)
+    - package-ecosystem: 'npm'
+      directory: '/packages/assets'
+      schedule:
+          interval: 'weekly'
+      open-pull-requests-limit: 20
+      versioning-strategy: increase
+      ignore:
+          - dependency-name: '*'
+            update-types:
+                - version-update:semver-major
+                - version-update:semver-minor
+
+    - package-ecosystem: 'npm'
+      directory: '/packages/constants'
+      schedule:
+          interval: 'weekly'
+      open-pull-requests-limit: 20
+      versioning-strategy: increase
+      ignore:
+          - dependency-name: '*'
+            update-types:
+                - version-update:semver-major
+                - version-update:semver-minor
+
+    - package-ecosystem: 'npm'
+      directory: '/packages/envs'
+      schedule:
+          interval: 'weekly'
+      open-pull-requests-limit: 20
+      versioning-strategy: increase
+      ignore:
+          - dependency-name: '*'
+            update-types:
+                - version-update:semver-major
+                - version-update:semver-minor
+
+    - package-ecosystem: 'npm'
+      directory: '/packages/exception-tracker'
+      schedule:
+          interval: 'weekly'
+      open-pull-requests-limit: 20
+      versioning-strategy: increase
+      ignore:
+          - dependency-name: '*'
+            update-types:
+                - version-update:semver-major
+                - version-update:semver-minor
+
     - package-ecosystem: 'npm'
       directory: '/packages/iframe-bridge'
       schedule:
           interval: 'weekly'
       open-pull-requests-limit: 20
+      versioning-strategy: increase
       ignore:
           - dependency-name: '*'
             update-types:
@@ -33,6 +95,31 @@ updates:
       schedule:
           interval: 'weekly'
       open-pull-requests-limit: 20
+      versioning-strategy: increase
+      ignore:
+          - dependency-name: '*'
+            update-types:
+                - version-update:semver-major
+                - version-update:semver-minor
+
+    - package-ecosystem: 'npm'
+      directory: '/packages/rn-ui'
+      schedule:
+          interval: 'weekly'
+      open-pull-requests-limit: 20
+      versioning-strategy: increase
+      ignore:
+          - dependency-name: '*'
+            update-types:
+                - version-update:semver-major
+                - version-update:semver-minor
+
+    - package-ecosystem: 'npm'
+      directory: '/packages/scripts'
+      schedule:
+          interval: 'weekly'
+      open-pull-requests-limit: 20
+      versioning-strategy: increase
       ignore:
           - dependency-name: '*'
             update-types:
@@ -44,6 +131,7 @@ updates:
       schedule:
           interval: 'weekly'
       open-pull-requests-limit: 20
+      versioning-strategy: increase
       ignore:
           - dependency-name: '*'
             update-types:

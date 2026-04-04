@@ -25,7 +25,8 @@ const PO = require(
 );
 
 const ROOT = findRepoRoot(__dirname);
-const TOLGEERC_PATH = path.join(ROOT, '.tolgeerc.json');
+const WEB_ROOT = path.join(ROOT, 'apps/web');
+const TOLGEERC_PATH = path.join(WEB_ROOT, '.tolgeerc.json');
 
 const tolgeerc = JSON.parse(fs.readFileSync(TOLGEERC_PATH, 'utf8'));
 
@@ -35,7 +36,7 @@ try {
     const pushFiles = tolgeerc.push.files.map((entry) => {
         if (entry.language === 'en') return entry;
 
-        const srcPath = path.resolve(ROOT, entry.path);
+        const srcPath = path.resolve(WEB_ROOT, entry.path);
         if (!fs.existsSync(srcPath)) return entry;
 
         const po = PO.parse(fs.readFileSync(srcPath, 'utf8'));

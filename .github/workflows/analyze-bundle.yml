@@ -26,7 +26,7 @@ jobs:
                   registry: true
 
             - name: Setup GitHub Actions
-              run: ./scripts/setup-gh-actions.sh
+              run: .github/scripts/setup.sh
 
             - name: Generate Statoscope report
               run: ANALYZE_STATOSCOPE=true pnpm build
@@ -42,21 +42,21 @@ jobs:
               uses: actions/upload-artifact@v5
               with:
                   name: nodejs-report
-                  path: .next/analyze/nodejs.html
+                  path: apps/web/.next/analyze/nodejs.html
                   retention-days: 30
 
             - name: Upload webpack-bundle-analyzer report
               uses: actions/upload-artifact@v5
               with:
                   name: edge-report
-                  path: .next/analyze/edge.html
+                  path: apps/web/.next/analyze/edge.html
                   retention-days: 30
 
             - name: Upload webpack-bundle-analyzer report
               uses: actions/upload-artifact@v5
               with:
                   name: client-report
-                  path: .next/analyze/client.html
+                  path: apps/web/.next/analyze/client.html
                   retention-days: 30
 
             - name: Create analysis summary

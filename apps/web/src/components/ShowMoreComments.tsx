@@ -1,0 +1,58 @@
+'use client';
+
+import LineArrowUpSVG from '@dimensiondev/assets/line-arrow-up.svg';
+import { classNames } from '@dimensiondev/utils';
+import { Trans } from '@lingui/react/macro';
+import { uniq } from 'lodash-es';
+import { type HTMLProps } from 'react';
+
+import { Image } from '@/components/Image.js';
+
+interface ShowMoreCommentsProps extends HTMLProps<HTMLDivElement> {
+    avatarUrls?: string[];
+    maxAvatarCount?: number; // show all avatar urls when it is 0. default to 3
+    isOpen?: boolean;
+}
+
+export function ShowMoreComments(props: ShowMoreCommentsProps) {
+    const { isOpen = false, maxAvatarCount = 5, onClick, className } = props;
+    const avatarUrls = uniq(props.avatarUrls).slice(0, maxAvatarCount);
+    return (
+        <div
+            className={classNames('w-full', {
+                'pb-5': !isOpen,
+            })}
+        >
+            <div
+                className={classNames(
+                    'border-b-line text-link flex w-full cursor-pointer items-center justify-center border-b py-3',
+                    className,
+                )}
+                onClick={onClick}
+            >
+                {avatarUrls && avatarUrls.length > 0 ? (
+                    <div className="flex space-x-[-4px]">
+                        {avatarUrls.map((url) => (
+                            <Image
+                                width={24}
+                                height={24}
+                                key={url}
+                                className="size-6 rounded-full"
+                                src={url}
+                                alt="avatar"
+                            />
+                        ))}
+                    </div>
+                ) : null}
+                <div className="text-medium mx-3 font-bold leading-6">
+                    {isOpen ? <Trans>Hide more comments</Trans> : <Trans>Show more comments</Trans>}
+                </div>
+                <LineArrowUpSVG
+                    className={classNames('size-5 duration-100', {
+                        'rotate-180': !isOpen,
+                    })}
+                />
+            </div>
+        </div>
+    );
+}

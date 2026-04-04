@@ -10,8 +10,8 @@ import tailwindcss from 'eslint-plugin-tailwindcss';
 import unicorn from 'eslint-plugin-unicorn';
 import unusedImports from 'eslint-plugin-unused-imports';
 import { defineConfig, globalIgnores } from 'eslint/config';
-import renameJsx from './scripts/eslint-plugin-rename-jsx.mjs';
-import useClientNewline from './scripts/eslint-plugin-use-client-newline.mjs';
+import renameJsx from './rules/eslint-plugin-rename-jsx.mjs';
+import useClientNewline from './rules/eslint-plugin-use-client-newline.mjs';
 
 /**
  * Import layers (high → low): app / components / modals → hooks → services & providers → store.
@@ -19,25 +19,25 @@ import useClientNewline from './scripts/eslint-plugin-use-client-newline.mjs';
  */
 const importArchitecturalLayerZones = [
     {
-        target: './src/store',
-        from: ['./src/components', './src/hooks', './src/modals', './src/app'],
+        target: './apps/web/src/store',
+        from: ['./apps/web/src/components', './apps/web/src/hooks', './apps/web/src/modals', './apps/web/src/app'],
         message:
             'Store is a low layer: do not import components, hooks, modals, or the Next app directory. Use helpers, services, providers, or types instead.',
     },
     {
-        target: './src/providers',
-        from: ['./src/components', './src/hooks', './src/modals'],
+        target: './apps/web/src/providers',
+        from: ['./apps/web/src/components', './apps/web/src/hooks', './apps/web/src/modals'],
         message:
             'Providers sit below UI: do not import components, hooks, or modals. Prefer helpers, types, or lifting UI-specific code (e.g. modal refs) to services/hooks.',
     },
     {
-        target: './src/services',
-        from: ['./src/components', './src/hooks', './src/modals'],
+        target: './apps/web/src/services',
+        from: ['./apps/web/src/components', './apps/web/src/hooks', './apps/web/src/modals'],
         message: 'Services orchestrate domain work: do not import components, hooks, or modals.',
     },
     {
-        target: './src/hooks',
-        from: ['./src/components', './src/modals'],
+        target: './apps/web/src/hooks',
+        from: ['./apps/web/src/components', './apps/web/src/modals'],
         message:
             'Hooks compose data and effects: do not import components or modals (use helpers or colocate UI logic in components).',
     },
@@ -48,26 +48,30 @@ export default defineConfig([
         files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx', '**/*.mjs', '**/*.cjs'],
     },
     globalIgnores([
-        '.next/**',
-        'next-env.d.ts',
+        '.github',
+        '**/.next/**',
+        '**/.vercel/**',
+        '**/next-env.d.ts',
+        'apps/**/dist/**',
+        'apps/**/build/**',
+        'apps/**/prebuilt/**',
+        'apps/**/public',
+        'apps/**/src/locales',
+        'apps/**/src/polyfills',
         '*.config.ts',
         '*.config.js',
         '*.config.cjs',
         '*.svg',
         'eslint.config.mjs',
         'vitest.config.ts',
-        'src/locales',
-        'src/polyfills',
-        'public',
         'setups',
-        'dist',
-        'prebuilt',
+        'rules',
         'packages/scripts',
         'packages/**/dist',
         'packages/**/node_modules',
     ]),
     {
-        files: ['src/libs/LoggerNative.ts'],
+        files: ['apps/web/src/libs/LoggerNative.ts'],
         rules: {
             'no-console': 'off',
         },
@@ -94,16 +98,23 @@ export default defineConfig([
             sourceType: 'script',
 
             parserOptions: {
-                project: './tsconfig.eslint.json',
+                project: './apps/web/tsconfig.eslint.json',
+                tsconfigRootDir: import.meta.dirname,
                 warnOnUnsupportedTypeScriptVersion: false,
                 allowAutomaticSingleRunInference: true,
             },
         },
         settings: {
+            next: {
+                // Monorepo: every Next app is a direct child of apps/. Glob picks up apps/web today and
+                // future apps without editing this config. Non-Next workspaces under apps/ are fine as long
+                // as at least one directory has app/ or pages/ (see @next/next/no-html-link-for-pages).
+                rootDir: 'apps/*',
+            },
             'import/resolver': {
                 typescript: {
                     alwaysTryTypes: true,
-                    project: './tsconfig.eslint.json',
+                    project: './apps/web/tsconfig.eslint.json',
                 },
                 node: true,
             },
@@ -351,7 +362,7 @@ export default defineConfig([
                 'warn',
                 {
                     prefix: '@',
-                    rootDir: 'src',
+                    rootDir: 'apps/web/src',
                 },
             ],
 

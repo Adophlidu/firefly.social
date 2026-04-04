@@ -39,9 +39,11 @@
         "lodash-es": "^4.17.23"
     },
     "devDependencies": {
+        "@farcaster/miniapp-host": "^0.2.16",
         "@types/lodash-es": "^4.17.12",
         "tsup": "^8.5.1",
-        "typescript": "5.9.3"
+        "typescript": "5.9.3",
+        "viem": "^2.43.5"
     },
     "peerDependencies": {
         "typescript": ">=5.0.0"

@@ -62,7 +62,7 @@ function main() {
     let strippedTolgeeEmptyPlural = 0;
 
     for (const locale of LOCALES) {
-        const poPath = path.join(ROOT, 'src/locales', locale, 'messages.po');
+        const poPath = path.join(ROOT, 'apps/web/src/locales', locale, 'messages.po');
         if (!fs.existsSync(poPath)) continue;
 
         const po = PO.parse(fs.readFileSync(poPath, 'utf8'));

@@ -24,7 +24,7 @@ jobs:
                   registry: true
 
             - name: Setup Github Actions
-              run: ./scripts/setup-gh-actions.sh
+              run: .github/scripts/setup.sh
 
             # Prunes Tolgee keys missing from push.files (push.removeOtherKeys in .tolgeerc.json).
             # Uses the wrapper script to skip untranslated plural entries, which Tolgee would
@@ -33,4 +33,4 @@ jobs:
               env:
                   TOLGEE_API_KEY: ${{ secrets.TOLGEE_API_KEY }}
                   TOLGEE_PROJECT_ID: ${{ secrets.TOLGEE_PROJECT_ID }}
-              run: pnpm run tolgee:push-sources
+              run: pnpm --filter @dimensiondev/firefly-social-web tolgee:push-sources

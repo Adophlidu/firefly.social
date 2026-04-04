@@ -1,0 +1,25 @@
+import { classNames } from '@dimensiondev/utils';
+import { MenuItems, type MenuItemsProps } from '@headlessui/react';
+
+import { stopEvent } from '@/helpers/stopEvent.js';
+
+interface MenuGroupProps extends MenuItemsProps {
+    ref?: React.ForwardedRef<HTMLElement>;
+}
+
+export function MenuGroup({ className, children, ref, onClick = stopEvent, ...rest }: MenuGroupProps) {
+    return (
+        <MenuItems
+            ref={ref}
+            className={classNames(
+                'z-menu border-line bg-primaryBottom text-main flex w-max flex-col gap-2 overflow-hidden rounded-2xl border py-3 text-base outline-none',
+                typeof className === 'string' ? className : '',
+            )}
+            onClick={onClick}
+            anchor="bottom end"
+            {...rest}
+        >
+            {children}
+        </MenuItems>
+    );
+}

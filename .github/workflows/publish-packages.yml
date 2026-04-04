@@ -39,12 +39,12 @@ jobs:
                   registry: true
 
             - name: Setup Github Actions
-              run: ./scripts/setup-gh-actions.sh
+              run: .github/scripts/setup.sh
 
             - name: Bump all package versions
               id: bump
               run: |
-                  NEW_VERSION=$(node scripts/bump-packages-version.mjs "${{ github.event.inputs.bump_type }}")
+                  NEW_VERSION=$(node .github/scripts/bump-packages-version.mjs "${{ github.event.inputs.bump_type }}")
                   echo "new_version=$NEW_VERSION" >> "$GITHUB_OUTPUT"
 
             - name: Build packages

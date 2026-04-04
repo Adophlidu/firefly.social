@@ -27,10 +27,10 @@ jobs:
                   registry: true
 
             - name: Setup Github Actions
-              run: ./scripts/setup-gh-actions.sh
+              run: .github/scripts/setup.sh
 
             - name: Run Lingui
-              run: npm run lingui
+              run: pnpm --filter @dimensiondev/firefly-social-web lingui
 
             - name: Run Prettier
               run: npx prettier . -w

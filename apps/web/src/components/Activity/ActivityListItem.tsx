@@ -1,0 +1,70 @@
+'use client';
+
+import CalendarIcon from '@dimensiondev/assets/activity-calendar.svg';
+import { classNames } from '@dimensiondev/utils';
+import { Trans } from '@lingui/react/macro';
+import { useState } from 'react';
+
+import { ActivityEndedDialog } from '@/components/Activity/ActivityEndedDialog.js';
+import { ActivityStatusTag } from '@/components/Activity/ActivityStatus.js';
+import { Image } from '@/components/Image.js';
+import { Link } from '@/components/Link.js';
+import { formatEventTimestamp } from '@/helpers/formatTimestamp.js';
+import { type ActivityListItem as TypeActivityListItem, ActivityStatus } from '@/providers/types/Firefly.js';
+
+export function getActivityListItem(index: number, data: TypeActivityListItem) {
+    return <ActivityListItem data={data} index={index} />;
+}
+
+function ActivityListItem({ data }: { data: TypeActivityListItem; index?: number }) {
+    const [openActivityEndedDialog, setOpenActivityEndedDialog] = useState(false);
+    return (
+        <>
+            {data.status === ActivityStatus.Ended ? (
+                <ActivityEndedDialog
+                    data={data}
+                    open={openActivityEndedDialog}
+                    onClose={() => setOpenActivityEndedDialog(false)}
+                    buttonText={<Trans>OK</Trans>}
+                />
+            ) : null}
+            <Link
+                href={data.url || `/event/${data.name}`}
+                data-disable-progress={data.status === ActivityStatus.Ended}
+                className="border-line bg-bg relative mb-4 flex w-full flex-col rounded-2xl border"
+                onClick={(e) => {
+                    if (data.status === ActivityStatus.Ended) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        setOpenActivityEndedDialog(true);
+                    }
+                }}
+            >
+                <div className="z-1 absolute right-2 top-2">
+                    <ActivityStatusTag status={data.status} />
+                </div>
+                <Image
+                    src={data.cover_url || data.banner_url}
+                    alt={data.title}
+                    className={classNames('aspect-[343/140] w-full rounded-t-2xl object-cover', {
+                        'opacity-80': data.status === ActivityStatus.Ended,
+                    })}
+                    width={343}
+                    height={140}
+                />
+                <div className="text-lightMain w-full space-y-1 rounded-b-2xl p-2">
+                    <h4 className="truncate text-base font-semibold leading-6">{data.title}</h4>
+                    {data.description ? (
+                        <p className="line-clamp-2 text-sm leading-6">{data.description.replaceAll('\\n', ' ')}</p>
+                    ) : null}
+                    <div className="flex h-6 items-center space-x-1.5 text-[13px] leading-6">
+                        <CalendarIcon className="size-4 shrink-0" />
+                        <span>
+                            {formatEventTimestamp(data.start_time)} - {formatEventTimestamp(data.end_time)} (UTC)
+                        </span>
+                    </div>
+                </div>
+            </Link>
+        </>
+    );
+}

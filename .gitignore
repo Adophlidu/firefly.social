@@ -10,10 +10,6 @@ node_modules
 # testing
 /coverage
 
-# next.js
-/.next/
-/out/
-
 # dev only
 com.chrome.devtools.json
 statoscope.json
@@ -21,11 +17,6 @@ statoscope.html
 
 # production
 /build
-/prebuilt
-
-# polyfills
-/public/js/polyfills/*.js
-!/public/js/polyfills/object.hasown.js
 
 # misc
 .DS_Store
@@ -45,27 +36,19 @@ rewrite.config.dev.json
 
 # vercel
 .vercel
-next-env.d.ts
 
 # typescript
 *.tsbuildinfo
 
-sw.js
-firebase-messaging-sw.js
-home-redirect.js
-
 .vscode/
 .vim/
-
-# locales
-src/locales/**/*.mjs
-src/locales/**/*.ts
-
 
 *.log
 
 .cursor/
 .claude/
+
+.turbo/
 
 .pnpm-store/
 

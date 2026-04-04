@@ -1,0 +1,60 @@
+{
+    "$schema": "https://turbo.build/schema.json",
+    "globalDependencies": ["**/.env.*local"],
+    "globalPassThroughEnv": [
+        "APPLE_CLIENT_ID",
+        "APPLE_CLIENT_SECRET",
+        "APPLE_KEY_ID",
+        "APPLE_TEAM_ID",
+        "FIREFLY_EXCEPTION_TRACKER_API_KEY",
+        "FIREFLY_JWT_SECRET",
+        "FARCASTER_SIGNER_FID",
+        "FARCASTER_SIGNER_MNEMONIC",
+        "GOOGLE_CLIENT_ID",
+        "GOOGLE_CLIENT_SECRET",
+        "INTERNAL_STATIC_REQUEST_BYPASS",
+        "KV_REST_API_READ_ONLY_TOKEN",
+        "KV_REST_API_TOKEN",
+        "KV_REST_API_URL",
+        "KV_URL",
+        "NEXTAUTH_SECRET",
+        "NPM_RC",
+        "ORB_API_KEY",
+        "SENTRY_ORG",
+        "SENTRY_PROJECT",
+        "SESSION_CIPHER_IV",
+        "SESSION_CIPHER_KEY",
+        "TWITTER_CLIENT_ID",
+        "TWITTER_CLIENT_SECRET",
+        "WEB3_CONSTANTS_RPC",
+        "X3_PRO_API_TOKEN",
+        "X_WEBHOOK_ID",
+        "X_WEBHOOK_RECEIVER_API_KEY"
+    ],
+    "tasks": {
+        "build": {
+            "dependsOn": ["^build"],
+            "outputs": [".next/**", "!.next/cache/**", "dist/**"],
+            "env": ["ANALYZE", "ANALYZE_STATOSCOPE"]
+        },
+        "lint": {},
+        "dev": {
+            "cache": false,
+            "persistent": true
+        },
+        "start": {
+            "cache": false,
+            "persistent": true
+        },
+        "clean": {
+            "cache": false
+        },
+        "test": {
+            "dependsOn": ["^build"],
+            "inputs": ["src/**/*.tsx", "src/**/*.ts", "tests/**/*.ts", "tests/**/*.tsx"]
+        },
+        "typecheck": {
+            "dependsOn": ["^build"]
+        }
+    }
+}

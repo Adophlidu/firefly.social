@@ -1,0 +1,21 @@
+#!/bin/bash
+set -euo pipefail
+
+# Build packages
+pnpm --filter @dimensiondev/constants build
+pnpm --filter @dimensiondev/utils build
+pnpm --filter @dimensiondev/envs build
+pnpm --filter @dimensiondev/iframe-bridge build
+pnpm --filter @dimensiondev/native-bridge build
+pnpm --filter @dimensiondev/exception-tracker build
+
+# Compile i18n (defined in apps/web only)
+pnpm --filter @dimensiondev/firefly-social-web lingui:compile
+
+# Run pre-build scripts (polyfills, bundled scripts, build metadata)
+pnpm --filter @dimensiondev/firefly-social-web build:polyfills
+pnpm --filter @dimensiondev/firefly-social-web build:scripts
+pnpm --filter @dimensiondev/firefly-social-web build:logs
+
+# Run Next.js build for the monorepo (packages, then web app)
+pnpm --filter @dimensiondev/firefly-social-web build

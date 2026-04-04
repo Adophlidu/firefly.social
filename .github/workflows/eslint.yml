@@ -31,7 +31,7 @@ jobs:
                   registry: true
 
             - name: Setup Github Actions
-              run: ./scripts/setup-gh-actions.sh
+              run: .github/scripts/setup.sh
 
             - name: Run ESLint
               run: NODE_OPTIONS=--max_old_space_size=8192 npx eslint . --quiet --cache --cache-location .eslintcache

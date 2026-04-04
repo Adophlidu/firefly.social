@@ -1,0 +1,217 @@
+'use client';
+
+import CopyIcon from '@dimensiondev/assets/copy.svg';
+import EyeSlashIcon from '@dimensiondev/assets/eye-slash.svg';
+import KeySquareIcon from '@dimensiondev/assets/key-square.svg';
+import ShieldSecurityIcon from '@dimensiondev/assets/shield-security.svg';
+import Warning2Icon from '@dimensiondev/assets/warning-2.svg';
+import { Trans } from '@lingui/react/macro';
+import { type Ref, useState } from 'react';
+import { useAsyncFn } from 'react-use';
+
+import { ClickableButton } from '@/components/ClickableButton.js';
+import { Modal } from '@/components/Modal.js';
+import { ModalTitle } from '@/components/ModalTitle.js';
+import { FireflyFidNotRegisteredError } from '@/constants/error.js';
+import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
+import { useCopyText } from '@/hooks/useCopyText.js';
+import { useSingletonModal } from '@/hooks/useSingletonModal.js';
+import {
+    type RecoveryPhraseModalOpenProps,
+    type RecoveryPhraseModalRefType,
+} from '@/modals/RecoveryPhraseModal/refs.js';
+import { getFarMnemonicByFid } from '@/providers/firefly/endpoint/getFarMnemonicByFid.js';
+
+interface Props {
+    ref: Ref<RecoveryPhraseModalRefType>;
+}
+
+export function RecoveryPhraseModal({ ref }: Props) {
+    const [props, setProps] = useState<RecoveryPhraseModalOpenProps>();
+    const [showPhrase, setShowPhrase] = useState(false);
+
+    const [open, dispatch] = useSingletonModal(ref, {
+        onOpen: (props) => {
+            setProps(props);
+            setShowPhrase(false);
+        },
+        onClose: () => {
+            setProps(undefined);
+            setShowPhrase(false);
+        },
+    });
+
+    const [{ loading, value: mnemonic = [] }, handleConfirm] = useAsyncFn(async () => {
+        if (!props?.fid) {
+            throw new Error('fid is required');
+        }
+
+        try {
+            const mnemonic = await getFarMnemonicByFid(props.fid);
+            if (!mnemonic.length) throw new Error('Failed to get recovery phrase. Please try again.');
+
+            setShowPhrase(true);
+            return mnemonic;
+        } catch (error) {
+            enqueueErrorMessage(
+                error instanceof FireflyFidNotRegisteredError ? (
+                    <Trans>Your account has not registered on Firefly</Trans>
+                ) : (
+                    <Trans>Failed to get recovery phrase. Please try again.</Trans>
+                ),
+                { error },
+            );
+            throw error;
+        }
+    }, [props?.fid]);
+
+    const mnemonicText = mnemonic?.join(' ') ?? '';
+    const [copied, handleCopy] = useCopyText(mnemonicText, { enqueueSuccessMessage: true });
+
+    const handleClose = () => {
+        dispatch?.close(null);
+    };
+
+    const getColumnWords = (startIndex: number) => {
+        return mnemonic?.slice(startIndex, startIndex + 8) ?? [];
+    };
+
+    if (!props) return null;
+
+    return (
+        <Modal open={open} onClose={handleClose} disableBackdropClose>
+            <div className="dark:bg-bgModal relative flex w-[455px] max-w-[90vw] flex-col gap-6 rounded-xl bg-white p-6 shadow-[0px_4px_30px_0px_rgba(0,0,0,0.1)]">
+                <ModalTitle
+                    title={<Trans>Your Recovery Phrase</Trans>}
+                    enableClose
+                    onClose={handleClose}
+                    className="!p-0"
+                />
+
+                {!showPhrase ? (
+                    <>
+                        <div className="flex flex-col items-center gap-6">
+                            <div className="flex size-[60px] items-center justify-center">
+                                <ShieldSecurityIcon width={60} height={60} className="text-danger" />
+                            </div>
+
+                            <div className="flex w-full flex-col gap-1 px-10">
+                                <h3 className="text-second text-center text-lg font-semibold leading-normal">
+                                    <Trans>Keep Your Recovery Phrase Safe</Trans>
+                                </h3>
+
+                                <div className="flex w-full flex-col gap-2">
+                                    <div className="flex w-full items-center gap-2">
+                                        <div className="flex size-6 shrink-0 items-center justify-center">
+                                            <KeySquareIcon width={24} height={24} className="text-danger" />
+                                        </div>
+                                        <p className="text-main flex-1 text-left text-sm font-semibold leading-5">
+                                            <Trans>Your recovery phrase is like a password, keep it secret.</Trans>
+                                        </p>
+                                    </div>
+
+                                    <div className="flex w-full items-center gap-2">
+                                        <div className="flex size-6 shrink-0 items-center justify-center">
+                                            <EyeSlashIcon width={24} height={24} className="text-danger" />
+                                        </div>
+                                        <p className="text-main flex-1 text-left text-sm font-semibold leading-5">
+                                            <Trans>
+                                                If you enter it in another app, it can steal your funds and Farcaster
+                                                account.
+                                            </Trans>
+                                        </p>
+                                    </div>
+
+                                    <div className="flex w-full items-center gap-2">
+                                        <div className="flex size-6 shrink-0 items-center justify-center">
+                                            <Warning2Icon width={24} height={24} className="text-danger" />
+                                        </div>
+                                        <p className="text-main flex-1 text-left text-sm font-semibold leading-5">
+                                            <Trans>We do not recommend ever sharing it with any app or person.</Trans>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="flex w-full">
+                            <ClickableButton
+                                className="hover:bg-commonDanger/90 bg-commonDanger flex h-10 w-full items-center justify-center rounded-full px-[18px] py-[11px] font-bold text-white transition-colors"
+                                onClick={handleConfirm}
+                                disabled={loading}
+                                loading={loading}
+                                aria-label="I understand"
+                            >
+                                <Trans>I understand</Trans>
+                            </ClickableButton>
+                        </div>
+                    </>
+                ) : (
+                    <>
+                        <div className="flex items-center justify-center gap-2">
+                            <div className="flex size-6 shrink-0 items-center justify-center">
+                                <Warning2Icon width={24} height={24} className="text-danger" />
+                            </div>
+                            <p className="text-danger text-sm font-semibold leading-5">
+                                <Trans>Keep it safe and do not share</Trans>
+                            </p>
+                        </div>
+
+                        <div className="border-line flex items-start justify-between gap-4 rounded-2xl border px-6 py-3">
+                            <div className="flex flex-1 flex-col gap-1">
+                                {getColumnWords(0).map((word: string, index: number) => (
+                                    <div
+                                        key={index}
+                                        className="flex items-center gap-0 text-sm font-semibold leading-[21px]"
+                                    >
+                                        <span className="text-second w-8 shrink-0 text-left">
+                                            {String(index + 1).padStart(2, '0')}
+                                        </span>
+                                        <span className="text-main">{word}</span>
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="flex flex-1 flex-col gap-1">
+                                {getColumnWords(8).map((word: string, index: number) => (
+                                    <div
+                                        key={index}
+                                        className="flex items-center gap-0 text-sm font-semibold leading-[21px]"
+                                    >
+                                        <span className="text-second w-8 shrink-0 text-left">
+                                            {String(index + 9).padStart(2, '0')}
+                                        </span>
+                                        <span className="text-main">{word}</span>
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="flex flex-1 flex-col gap-1">
+                                {getColumnWords(16).map((word: string, index: number) => (
+                                    <div
+                                        key={index}
+                                        className="flex items-center gap-0 text-sm font-semibold leading-[21px]"
+                                    >
+                                        <span className="text-second w-8 shrink-0 text-left">
+                                            {String(index + 17).padStart(2, '0')}
+                                        </span>
+                                        <span className="text-main">{word}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        <div className="flex w-full justify-center">
+                            <ClickableButton
+                                className="text-second hover:bg-bg flex items-center gap-1 rounded-xl p-1 text-sm font-semibold leading-[18px] transition-colors"
+                                onClick={() => handleCopy()}
+                                aria-label={copied ? 'Copied' : 'Copy recovery phrase to clipboard'}
+                            >
+                                <CopyIcon width={16} height={16} />
+                                <span>{copied ? <Trans>Copied</Trans> : <Trans>Copy to clipboard</Trans>}</span>
+                            </ClickableButton>
+                        </div>
+                    </>
+                )}
+            </div>
+        </Modal>
+    );
+}

@@ -1,0 +1,61 @@
+'use client';
+
+import BookmarkActiveIcon from '@dimensiondev/assets/bookmark.selected.svg';
+import BookmarkIcon from '@dimensiondev/assets/bookmark.svg';
+import { classNames } from '@dimensiondev/utils';
+import { Trans } from '@lingui/react/macro';
+import { motion } from 'framer-motion';
+import { memo } from 'react';
+
+import { ClickableArea } from '@/components/ClickableArea.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
+import { Tooltip } from '@/components/Tooltip.js';
+import { nFormatter } from '@/helpers/formatCommentCounts.js';
+
+interface BookmarkProps {
+    count?: number;
+    disabled?: boolean;
+    hasBookmarked?: boolean;
+    hiddenCount?: boolean;
+    loading?: boolean;
+    onClick: () => void;
+}
+
+export const Bookmark = memo<BookmarkProps>(function Bookmark({
+    count = 0,
+    disabled = false,
+    hasBookmarked,
+    hiddenCount = false,
+    loading = false,
+    onClick,
+}) {
+    const content = hasBookmarked ? <Trans>Remove from Bookmarks</Trans> : <Trans>Bookmark</Trans>;
+
+    const isDisabled = disabled || loading;
+    return (
+        <ClickableArea
+            className={classNames('text-second flex cursor-pointer items-center space-x-1 md:space-x-2', {
+                'cursor-not-allowed opacity-50': isDisabled,
+            })}
+            onClick={isDisabled ? undefined : onClick}
+        >
+            <Tooltip disabled={isDisabled} placement="top" content={content}>
+                <motion.button
+                    disabled={isDisabled}
+                    whileTap={{ scale: 0.9 }}
+                    className="hover:bg-warn/[.20] hover:text-warn inline-flex size-7 items-center justify-center rounded-full"
+                    aria-label="Bookmark"
+                >
+                    {loading ? (
+                        <LoadingIcon width={20} height={20} />
+                    ) : hasBookmarked ? (
+                        <BookmarkActiveIcon width={20} height={20} className="text-warn" />
+                    ) : (
+                        <BookmarkIcon width={20} height={20} />
+                    )}
+                </motion.button>
+            </Tooltip>
+            {!hiddenCount && count ? <span className="text-main text-xs font-medium">{nFormatter(count)}</span> : null}
+        </ClickableArea>
+    );
+});

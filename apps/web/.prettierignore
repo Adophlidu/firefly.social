@@ -1,0 +1,10 @@
+# Next build output
+.next/
+
+# Generated or vendor-like assets
+public/*.html
+public/js/*.js
+
+src/specialFile.js
+
+next-env.d.ts

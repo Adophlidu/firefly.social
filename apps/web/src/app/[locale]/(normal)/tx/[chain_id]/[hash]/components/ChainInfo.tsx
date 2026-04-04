@@ -1,0 +1,17 @@
+'use client';
+
+import { ChainIcon } from '@/components/ChainIcon.js';
+import { getChainName } from '@/helpers/getChainName.js';
+
+interface ChainInfoProps {
+    chainId: number;
+}
+
+export function ChainInfo({ chainId }: ChainInfoProps) {
+    return (
+        <div className="flex items-center gap-1">
+            <span className="text-main text-sm font-medium">{getChainName(chainId)}</span>
+            <ChainIcon chainId={chainId} />
+        </div>
+    );
+}

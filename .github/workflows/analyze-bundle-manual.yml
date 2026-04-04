@@ -26,10 +26,10 @@ jobs:
                   registry: true
 
             - name: Setup GitHub Actions
-              run: ./scripts/setup-gh-actions.sh
+              run: .github/scripts/setup.sh
 
             - name: Generate Statoscope report
-              run: ANALYZE_STATOSCOPE=true pnpm build --webpack
+              run: pnpm --filter @dimensiondev/firefly-social-web build:statoscope
               env:
                   NODE_OPTIONS: --max_old_space_size=8192
 
@@ -42,7 +42,7 @@ jobs:
               uses: actions/upload-artifact@v5
               with:
                   name: statoscope-report
-                  path: ./statoscope.json
+                  path: apps/web/statoscope.json
                   retention-days: 30
 
             - name: Create analysis summary

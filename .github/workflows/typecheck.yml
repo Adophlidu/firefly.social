@@ -27,7 +27,7 @@ jobs:
                   registry: true
 
             - name: Setup Github Actions
-              run: ./scripts/setup-gh-actions.sh
+              run: .github/scripts/setup.sh
 
             - name: Typecheck
               run: NODE_OPTIONS="--max-old-space-size=8192" npm run typecheck
