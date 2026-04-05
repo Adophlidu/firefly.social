@@ -24,8 +24,8 @@
         "core-js": "3.42.0"
     },
     "devDependencies": {
-        "@types/node": "22.10.7",
         "@next/eslint-plugin-next": "^16.0.11",
+        "@types/node": "22.10.7",
         "@typescript-eslint/eslint-plugin": "^8.47.0",
         "@typescript-eslint/parser": "^8.47.0",
         "@typescript/lib-dom": "npm:@types/web@^0.0.197",
@@ -82,7 +82,6 @@
             }
         },
         "patchedDependencies": {
-            "@bprogress/react@1.2.6": "patches/@bprogress__react@1.2.6.patch",
             "@headlessui/react@2.1.10": "patches/@headlessui__react@2.1.10.patch",
             "@lens-protocol/client@0.0.0-canary-20250430134539": "patches/@lens-protocol__client@0.0.0-canary-20250430134539.patch",
             "@lexical/react@0.18.0": "patches/@lexical__react@0.18.0.patch",
@@ -92,7 +91,8 @@
             "eslint-plugin-tailwindcss@3.18.2": "patches/eslint-plugin-tailwindcss@3.18.2.patch",
             "react-use@17.6.0": "patches/react-use@17.6.0.patch",
             "twitter-text@3.1.0": "patches/twitter-text@3.1.0.patch",
-            "urlcat@3.1.0": "patches/urlcat@3.1.0.patch"
+            "urlcat@3.1.0": "patches/urlcat@3.1.0.patch",
+            "@bprogress/react@1.2.7": "patches/@bprogress__react@1.2.7.patch"
         }
     }
 }

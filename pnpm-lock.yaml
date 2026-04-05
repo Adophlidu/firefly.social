@@ -31,9 +31,9 @@ overrides:
   use-sync-external-store: 1.5.0
 
 patchedDependencies:
-  '@bprogress/react@1.2.6':
-    hash: ptpx3qttjiypitnumdwetbkgai
-    path: patches/@bprogress__react@1.2.6.patch
+  '@bprogress/react@1.2.7':
+    hash: pqbathbadstgzzeijmjtors36m
+    path: patches/@bprogress__react@1.2.7.patch
   '@headlessui/react@2.1.10':
     hash: roq3pv4art7yqmupqbnd3ablue
     path: patches/@headlessui__react@2.1.10.patch
@@ -149,8 +149,8 @@ importers:
         specifier: ^0.18.21
         version: 0.18.21
       '@bprogress/next':
-        specifier: ^3.2.11
-        version: 3.2.11(next@16.0.11)(react-dom@19.2.4)(react@19.2.4)
+        specifier: ^3.2.12
+        version: 3.2.12(next@16.0.11)(react-dom@19.2.4)(react@19.2.4)
       '@coral-xyz/anchor':
         specifier: ^0.32.1
         version: 0.32.1(typescript@5.9.3)
@@ -2431,31 +2431,31 @@ packages:
     dev: false
     optional: true
 
-  /@bprogress/core@1.3.3:
-    resolution: {integrity: sha512-Vz9vzZE8xvfkgY09e0S6kzNz/ev/2lUw7A/z0TW7N0ZBG9xmVXrzSsFe3uvypxDa5ltn+xLBtfDtxBc8KsrvBQ==}
+  /@bprogress/core@1.3.4:
+    resolution: {integrity: sha512-q/AqpurI/1uJzOrQROuZWixn/+ARekh+uvJGwLCP6HQ/EqAX4SkvNf618tSBxL4NysC0MwqAppb/mRw6Tzi61w==}
     dev: false
 
-  /@bprogress/next@3.2.11(next@16.0.11)(react-dom@19.2.4)(react@19.2.4):
-    resolution: {integrity: sha512-UPXApgTvtF0zu3GoxctG0sZ177PbresqVUosaV5giAG46CuGRQeY7Ys3McL7I1h9MaUkh1rg+1NPAdnGE4dEig==}
+  /@bprogress/next@3.2.12(next@16.0.11)(react-dom@19.2.4)(react@19.2.4):
+    resolution: {integrity: sha512-/ZvNwbAd0ty9QiQwCfT2AfwWVdAaEyCPx5RUz3CfiiJS/OLBohhDz/IC/srhwK9GnXeXavvtiUrpKzN5GJDwlw==}
     peerDependencies:
       next: '>=13.0.0'
       react: 19.2.4
       react-dom: 19.2.4
     dependencies:
-      '@bprogress/core': 1.3.3
-      '@bprogress/react': 1.2.6(patch_hash=ptpx3qttjiypitnumdwetbkgai)(react-dom@19.2.4)(react@19.2.4)
+      '@bprogress/core': 1.3.4
+      '@bprogress/react': 1.2.7(patch_hash=pqbathbadstgzzeijmjtors36m)(react-dom@19.2.4)(react@19.2.4)
       next: 16.0.11(@babel/core@7.29.0)(react-dom@19.2.4)(react@19.2.4)
       react: 19.2.4
       react-dom: 19.2.4(react@19.2.4)
     dev: false
 
-  /@bprogress/react@1.2.6(patch_hash=ptpx3qttjiypitnumdwetbkgai)(react-dom@19.2.4)(react@19.2.4):
-    resolution: {integrity: sha512-fAK2qSO4+nG0Rak6+9jZmGWQxsntHS8Zw4fm2dBhPardhlfIPzVV47uhkW2cyQl9+r/1We/kYVq+r31deLO5Zg==}
+  /@bprogress/react@1.2.7(patch_hash=pqbathbadstgzzeijmjtors36m)(react-dom@19.2.4)(react@19.2.4):
+    resolution: {integrity: sha512-MqJfHW+R5CQeWqyqrLxUjdBRHk24Xl63OkBLo5DMWqUqocUikRTfCIc/jtQQbPk7BRfdr5OP3Lx7YlfQ9QOZMQ==}
     peerDependencies:
       react: 19.2.4
       react-dom: 19.2.4
     dependencies:
-      '@bprogress/core': 1.3.3
+      '@bprogress/core': 1.3.4
       react: 19.2.4
       react-dom: 19.2.4(react@19.2.4)
     dev: false

@@ -1,0 +1,100 @@
+diff --git a/dist/index.cjs b/dist/index.cjs
+index 7ab40196f7d310f74b110baef08239cfa8c46c3e..d5592a4f9305bf3cc0d16b7d2847899361f67d93 100644
+--- a/dist/index.cjs
++++ b/dist/index.cjs
+@@ -290,7 +290,7 @@ var ProgressProvider = function(param) {
+ var import_react2 = require("react");
+ var import_core2 = require("@bprogress/core");
+ function useAnchorProgress(param) {
+-    var _param_shallowRouting = param.shallowRouting, shallowRouting = _param_shallowRouting === void 0 ? false : _param_shallowRouting, _param_disableSameURL = param.disableSameURL, disableSameURL = _param_disableSameURL === void 0 ? true : _param_disableSameURL, _param_startPosition = param.startPosition, startPosition = _param_startPosition === void 0 ? 0 : _param_startPosition, _param_delay = param.delay, delay = _param_delay === void 0 ? 0 : _param_delay, _param_stopDelay = param.stopDelay, stopDelay = _param_stopDelay === void 0 ? 0 : _param_stopDelay, targetPreprocessor = param.targetPreprocessor, _param_disableAnchorClick = param.disableAnchorClick, disableAnchorClick = _param_disableAnchorClick === void 0 ? false : _param_disableAnchorClick, _param_startOnLoad = param.startOnLoad, startOnLoad = _param_startOnLoad === void 0 ? false : _param_startOnLoad, _param_forcedStopDelay = param.forcedStopDelay, forcedStopDelay = _param_forcedStopDelay === void 0 ? 0 : _param_forcedStopDelay, deps = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : [];
++    var _param_shallowRouting = param.shallowRouting, shallowRouting = _param_shallowRouting === void 0 ? false : _param_shallowRouting, _param_disableSameURL = param.disableSameURL, disableSameURL = _param_disableSameURL === void 0 ? true : _param_disableSameURL, _param_startPosition = param.startPosition, startPosition = _param_startPosition === void 0 ? 0 : _param_startPosition, _param_delay = param.delay, delay = _param_delay === void 0 ? 0 : _param_delay, _param_stopDelay = param.stopDelay, stopDelay = _param_stopDelay === void 0 ? 0 : _param_stopDelay, targetPreprocessor = param.targetPreprocessor, _param_disableAnchorClick = param.disableAnchorClick, disableAnchorClick = _param_disableAnchorClick === void 0 ? false : _param_disableAnchorClick, _param_startOnLoad = param.startOnLoad, startOnLoad = _param_startOnLoad === void 0 ? false : _param_startOnLoad, _param_forcedStopDelay = param.forcedStopDelay, forcedStopDelay = _param_forcedStopDelay === void 0 ? 0 : _param_forcedStopDelay, _param_disableDifferentOrigin = param.disableDifferentOrigin, disableDifferentOrigin = _param_disableDifferentOrigin === void 0 ? false : _param_disableDifferentOrigin, deps = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : [];
+     var elementsWithAttachedHandlers = (0, import_react2.useRef)([]);
+     var timerRef = (0, import_react2.useRef)(null);
+     var _useProgress = useProgress(), start = _useProgress.start, stop = _useProgress.stop, isAutoStopDisabled = _useProgress.isAutoStopDisabled;
+@@ -332,6 +332,7 @@ function useAnchorProgress(param) {
+             var targetHref = (0, import_core2.getAnchorProperty)(anchorElement, "href");
+             var targetUrl = targetPreprocessor ? targetPreprocessor(new URL(targetHref)) : new URL(targetHref);
+             var currentUrl = new URL(location.href);
++            if (disableDifferentOrigin && targetUrl.origin !== currentUrl.origin) return;
+             if (shallowRouting && (0, import_core2.isSameURLWithoutSearch)(targetUrl, currentUrl) && disableSameURL) return;
+             if ((0, import_core2.isSameURL)(targetUrl, currentUrl) && disableSameURL) return;
+             start(startPosition, delay);
+@@ -380,6 +381,7 @@ function useAnchorProgress(param) {
+         start,
+         stop,
+         forcedStopDelay,
++        disableDifferentOrigin,
+         isAutoStopDisabled
+     ]);
+ }
+diff --git a/dist/index.d.cts b/dist/index.d.cts
+index 7a1afc80ea0a68bb1779d959681c4c60c1f729b8..e5c293d56108e0eab54ca5b434593eb891bc3d7d 100644
+--- a/dist/index.d.cts
++++ b/dist/index.d.cts
+@@ -98,6 +98,7 @@ interface AnchorProgressProps extends RouterProgressProps {
+     targetPreprocessor?: (url: URL) => URL;
+     disableAnchorClick?: boolean;
+     startOnLoad?: boolean;
++    disableDifferentOrigin?: boolean;
+ }
+ interface RouterProgressProviderProps extends RouterProgressProps, ProgressProviderProps {
+ }
+@@ -113,7 +114,7 @@ type UseAnchorProgressOptions = Omit<AnchorProgressProps, 'memo' | 'shouldCompar
+ declare const useProgress: () => ProgressContextValue;
+ declare const ProgressProvider: ({ children, color, height, options, spinnerPosition, style, disableStyle, nonce, shallowRouting, disableSameURL, startPosition, delay, stopDelay, }: ProgressProviderProps) => React$1.JSX.Element;
+ 
+-declare function useAnchorProgress({ shallowRouting, disableSameURL, startPosition, delay, stopDelay, targetPreprocessor, disableAnchorClick, startOnLoad, forcedStopDelay, }: UseAnchorProgressOptions, deps?: unknown[]): void;
++declare function useAnchorProgress({ shallowRouting, disableSameURL, startPosition, delay, stopDelay, targetPreprocessor, disableAnchorClick, startOnLoad, forcedStopDelay, disableDifferentOrigin, }: UseAnchorProgressOptions, deps?: unknown[]): void;
+ 
+ type ProgressProps<T extends React$1.ElementType = 'div'> = Omit<ProgressComponentProps<T>, 'classSelector'>;
+ declare function ProgressInner<T extends React$1.ElementType = 'div'>({ as, children, className, style, ...rest }: ProgressProps<T>, ref: React$1.ForwardedRef<React$1.ComponentRef<T>>): React$1.ReactElement<any, string | React$1.JSXElementConstructor<any>>;
+diff --git a/dist/index.d.ts b/dist/index.d.ts
+index 7a1afc80ea0a68bb1779d959681c4c60c1f729b8..e5c293d56108e0eab54ca5b434593eb891bc3d7d 100644
+--- a/dist/index.d.ts
++++ b/dist/index.d.ts
+@@ -98,6 +98,7 @@ interface AnchorProgressProps extends RouterProgressProps {
+     targetPreprocessor?: (url: URL) => URL;
+     disableAnchorClick?: boolean;
+     startOnLoad?: boolean;
++    disableDifferentOrigin?: boolean;
+ }
+ interface RouterProgressProviderProps extends RouterProgressProps, ProgressProviderProps {
+ }
+@@ -113,7 +114,7 @@ type UseAnchorProgressOptions = Omit<AnchorProgressProps, 'memo' | 'shouldCompar
+ declare const useProgress: () => ProgressContextValue;
+ declare const ProgressProvider: ({ children, color, height, options, spinnerPosition, style, disableStyle, nonce, shallowRouting, disableSameURL, startPosition, delay, stopDelay, }: ProgressProviderProps) => React$1.JSX.Element;
+ 
+-declare function useAnchorProgress({ shallowRouting, disableSameURL, startPosition, delay, stopDelay, targetPreprocessor, disableAnchorClick, startOnLoad, forcedStopDelay, }: UseAnchorProgressOptions, deps?: unknown[]): void;
++declare function useAnchorProgress({ shallowRouting, disableSameURL, startPosition, delay, stopDelay, targetPreprocessor, disableAnchorClick, startOnLoad, forcedStopDelay, disableDifferentOrigin, }: UseAnchorProgressOptions, deps?: unknown[]): void;
+ 
+ type ProgressProps<T extends React$1.ElementType = 'div'> = Omit<ProgressComponentProps<T>, 'classSelector'>;
+ declare function ProgressInner<T extends React$1.ElementType = 'div'>({ as, children, className, style, ...rest }: ProgressProps<T>, ref: React$1.ForwardedRef<React$1.ComponentRef<T>>): React$1.ReactElement<any, string | React$1.JSXElementConstructor<any>>;
+diff --git a/dist/index.js b/dist/index.js
+index 9b1d1992a68b9279096747953fd3e1555438db75..04bcb7fb4fc64a5c15157553670d662bbddccafe 100644
+--- a/dist/index.js
++++ b/dist/index.js
+@@ -189,7 +189,7 @@ var ProgressProvider = function(param) {
+ import { useEffect, useRef as useRef2 } from "react";
+ import { isSameURL, isSameURLWithoutSearch, getAnchorProperty } from "@bprogress/core";
+ function useAnchorProgress(param) {
+-    var _param_shallowRouting = param.shallowRouting, shallowRouting = _param_shallowRouting === void 0 ? false : _param_shallowRouting, _param_disableSameURL = param.disableSameURL, disableSameURL = _param_disableSameURL === void 0 ? true : _param_disableSameURL, _param_startPosition = param.startPosition, startPosition = _param_startPosition === void 0 ? 0 : _param_startPosition, _param_delay = param.delay, delay = _param_delay === void 0 ? 0 : _param_delay, _param_stopDelay = param.stopDelay, stopDelay = _param_stopDelay === void 0 ? 0 : _param_stopDelay, targetPreprocessor = param.targetPreprocessor, _param_disableAnchorClick = param.disableAnchorClick, disableAnchorClick = _param_disableAnchorClick === void 0 ? false : _param_disableAnchorClick, _param_startOnLoad = param.startOnLoad, startOnLoad = _param_startOnLoad === void 0 ? false : _param_startOnLoad, _param_forcedStopDelay = param.forcedStopDelay, forcedStopDelay = _param_forcedStopDelay === void 0 ? 0 : _param_forcedStopDelay, deps = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : [];
++    var _param_shallowRouting = param.shallowRouting, shallowRouting = _param_shallowRouting === void 0 ? false : _param_shallowRouting, _param_disableSameURL = param.disableSameURL, disableSameURL = _param_disableSameURL === void 0 ? true : _param_disableSameURL, _param_startPosition = param.startPosition, startPosition = _param_startPosition === void 0 ? 0 : _param_startPosition, _param_delay = param.delay, delay = _param_delay === void 0 ? 0 : _param_delay, _param_stopDelay = param.stopDelay, stopDelay = _param_stopDelay === void 0 ? 0 : _param_stopDelay, targetPreprocessor = param.targetPreprocessor, _param_disableAnchorClick = param.disableAnchorClick, disableAnchorClick = _param_disableAnchorClick === void 0 ? false : _param_disableAnchorClick, _param_startOnLoad = param.startOnLoad, startOnLoad = _param_startOnLoad === void 0 ? false : _param_startOnLoad, _param_forcedStopDelay = param.forcedStopDelay, forcedStopDelay = _param_forcedStopDelay === void 0 ? 0 : _param_forcedStopDelay, _param_disableDifferentOrigin = param.disableDifferentOrigin, disableDifferentOrigin = _param_disableDifferentOrigin === void 0 ? false : _param_disableDifferentOrigin, deps = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : [];
+     var elementsWithAttachedHandlers = useRef2([]);
+     var timerRef = useRef2(null);
+     var _useProgress = useProgress(), start = _useProgress.start, stop = _useProgress.stop, isAutoStopDisabled = _useProgress.isAutoStopDisabled;
+@@ -231,6 +231,7 @@ function useAnchorProgress(param) {
+             var targetHref = getAnchorProperty(anchorElement, "href");
+             var targetUrl = targetPreprocessor ? targetPreprocessor(new URL(targetHref)) : new URL(targetHref);
+             var currentUrl = new URL(location.href);
++            if (disableDifferentOrigin && targetUrl.origin !== currentUrl.origin) return;
+             if (shallowRouting && isSameURLWithoutSearch(targetUrl, currentUrl) && disableSameURL) return;
+             if (isSameURL(targetUrl, currentUrl) && disableSameURL) return;
+             start(startPosition, delay);
+@@ -279,6 +280,7 @@ function useAnchorProgress(param) {
+         start,
+         stop,
+         forcedStopDelay,
++        disableDifferentOrigin,
+         isAutoStopDisabled
+     ]);
+ }

@@ -28,7 +28,7 @@
     },
     "dependencies": {
         "@atproto/api": "^0.18.21",
-        "@bprogress/next": "^3.2.11",
+        "@bprogress/next": "^3.2.12",
         "@coral-xyz/anchor": "^0.32.1",
         "@dimensiondev/assets": "workspace:^",
         "@dimensiondev/constants": "workspace:^",
