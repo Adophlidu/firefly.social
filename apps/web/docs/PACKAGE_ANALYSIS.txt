@@ -959,9 +959,9 @@ Packages with Single Version
  @tamagui/visually-hidden@1.144.4
  @tamagui/z-index-stack@1.144.4
  @tanstack/history@1.115.0
- @tanstack/query-core@5.85.5
+ @tanstack/query-core@5.85.9
  @tanstack/ranger@0.0.4
-*@tanstack/react-query@5.85.5
+*@tanstack/react-query@5.85.9
 *@tanstack/react-query-next-experimental@5.85.9
 *@tanstack/react-ranger@0.0.5
 *@tanstack/react-router@1.115.3
