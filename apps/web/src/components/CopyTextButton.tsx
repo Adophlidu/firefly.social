@@ -1,5 +1,6 @@
 'use client';
 
+import CheckIcon from '@dimensiondev/assets/check.svg';
 import CopyIcon from '@dimensiondev/assets/copy.svg';
 import { Trans } from '@lingui/react/macro';
 import { type TippyProps } from '@tippyjs/react';
@@ -39,7 +40,11 @@ export function CopyTextButton({ text, tooltipProps, size = 12, notification, ..
                 }
             }}
         >
-            <CopyIcon width={size} height={size} />
+            {copied ? (
+                <CheckIcon width={size} height={size} className="text-highlight" />
+            ) : (
+                <CopyIcon width={size} height={size} />
+            )}
         </button>
     );
 
