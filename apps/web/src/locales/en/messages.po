@@ -1577,7 +1577,7 @@ msgid "Failed Post"
 msgstr "Failed Post"
 
 msgid "For you"
-msgstr "For you"
+msgstr ""
 
 msgid "Scan this QR code and confirm on your Farcaster mobile app to start using your public profile."
 msgstr "Scan this QR code and confirm on your Farcaster mobile app to start using your public profile."
