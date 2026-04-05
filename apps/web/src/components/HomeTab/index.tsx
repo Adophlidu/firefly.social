@@ -34,7 +34,7 @@ const types = {
     [HomeTab.Following]: [Source.Posts, Source.Transactions, Source.Prediction, Source.Activities],
 };
 const tabLabels = {
-    [HomeTab.Discover]: <Trans>For You</Trans>,
+    [HomeTab.Discover]: <Trans>For you</Trans>,
     [HomeTab.Following]: <Trans>Following</Trans>,
 };
 
