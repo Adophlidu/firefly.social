@@ -70,7 +70,7 @@ try {
     const extraArgs = process.argv.slice(2).join(' ');
     execSync(`node_modules/.bin/tolgee push --config "${tempRcPath}" ${extraArgs}`, {
         stdio: 'inherit',
-        cwd: ROOT,
+        cwd: WEB_ROOT,
     });
 } finally {
     fs.rmSync(tmpDir, { recursive: true, force: true });
