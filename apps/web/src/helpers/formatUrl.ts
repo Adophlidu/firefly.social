@@ -13,8 +13,10 @@ export function formatUrl(url: string, maxLength: number): string {
         strippedUrl = strippedUrl.slice(0, -1);
     }
 
-    if (strippedUrl.length > maxLength) {
-        return strippedUrl.substring(0, maxLength - 1) + '…';
+    const codePoints = Array.from(strippedUrl);
+
+    if (codePoints.length > maxLength) {
+        return codePoints.slice(0, Math.max(0, maxLength - 1)).join('') + '…';
     }
     return strippedUrl;
 }

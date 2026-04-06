@@ -11,7 +11,7 @@ export function PredictionEventEndTime({ endTime }: PredictionEventEndTimeProps)
     const locale = useLocale();
 
     return (
-        <span className="text-xs">
+        <span className="text-xs" suppressHydrationWarning>
             {new Date(endTime).toLocaleString(appLocaleToBrowserLocale(locale), {
                 year: 'numeric',
                 month: 'short',
