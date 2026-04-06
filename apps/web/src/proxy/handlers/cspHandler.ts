@@ -24,27 +24,57 @@ const EXTRA_SOURCES = IS_DEVELOPMENT
  * This matches the CSP_SETTINGS from next.config.ts
  */
 function buildCSP(): string {
+    const defaultSrc = ["'self'", ...EXTRA_SOURCES];
+
     const scriptSrc = [
         "'self'",
-        '*.firefly.land',
+        'api.firefly.land',
+        'api.lens.xyz',
+        'api.web3modal.org',
         'www.googletagmanager.com',
+        'pulse.walletconnect.org',
         'static.cloudflareinsights.com',
         ...EXTRA_SOURCES,
     ];
 
-    const defaultSrc = ["'self'", ...EXTRA_SOURCES];
+    const contentSrc = [
+        "'self'",
+        'firefly.r2d2.to',
+        'api.firefly.land',
+        'api.lens.xyz',
+        'api.web3modal.org',
+        'www.googletagmanager.com',
+        'pulse.walletconnect.org',
+        'static.cloudflareinsights.com',
+        ...EXTRA_SOURCES,
+    ];
 
-    const imgSrc = ["'self'", ...EXTRA_SOURCES];
+    const imgSrc = [
+        "'self'",
+        'i.imgur.com',
+        'api.web3modal.org',
+        'media.firefly.land',
+        'imagedelivery.net',
+        'ik.imagekit.io',
+        'api.grove.storage',
+        'cdn.bsky.app',
+        'public.rootdata.com',
+        ...EXTRA_SOURCES,
+    ];
 
-    const styleSrc = ["'self'", "'unsafe-inline'", 'vercel.live', 'fonts.googleapis.com', ...EXTRA_SOURCES];
+    const styleSrc = ["'self'", "'unsafe-inline'", 'fonts.reown.com', 'fonts.googleapis.com', ...EXTRA_SOURCES];
+
+    const fontSrc = ["'self'", 'fonts.reown.com', 'fonts.googleapis.com', ...EXTRA_SOURCES];
 
     const workerSrc = ["'self'", ...EXTRA_SOURCES];
 
     const directives = [
         `default-src ${defaultSrc.join(' ')}`,
         `script-src ${scriptSrc.join(' ')}`,
+        `content-src ${contentSrc.join(' ')}`,
         `img-src ${imgSrc.join(' ')}`,
         `style-src ${styleSrc.join(' ')}`,
+        `font-src ${fontSrc.join(' ')}`,
         `worker-src ${workerSrc.join(' ')}`,
         `report-uri ${CSP_REPORT_URI}`,
     ];
