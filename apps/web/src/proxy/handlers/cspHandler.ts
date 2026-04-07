@@ -26,20 +26,18 @@ const EXTRA_SOURCES = IS_DEVELOPMENT
 function buildCSP(): string {
     const defaultSrc = ["'self'", ...EXTRA_SOURCES];
 
-    const scriptSrc = [
+    const connectSrc = [
         "'self'",
         'api.firefly.land',
         'api.lens.xyz',
         'api.web3modal.org',
-        'www.googletagmanager.com',
         'pulse.walletconnect.org',
         'static.cloudflareinsights.com',
         ...EXTRA_SOURCES,
     ];
 
-    const contentSrc = [
+    const scriptSrc = [
         "'self'",
-        'firefly.r2d2.to',
         'api.firefly.land',
         'api.lens.xyz',
         'api.web3modal.org',
@@ -53,6 +51,7 @@ function buildCSP(): string {
         "'self'",
         'i.imgur.com',
         'api.web3modal.org',
+        'stamp.firefly.land',
         'media.firefly.land',
         'imagedelivery.net',
         'ik.imagekit.io',
@@ -70,8 +69,8 @@ function buildCSP(): string {
 
     const directives = [
         `default-src ${defaultSrc.join(' ')}`,
+        `connect-src ${connectSrc.join(' ')}`,
         `script-src ${scriptSrc.join(' ')}`,
-        `content-src ${contentSrc.join(' ')}`,
         `img-src ${imgSrc.join(' ')}`,
         `style-src ${styleSrc.join(' ')}`,
         `font-src ${fontSrc.join(' ')}`,
