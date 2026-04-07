@@ -30,6 +30,7 @@ const IconMap: Record<ChainNamespace, FunctionComponent<SVGAttributes<SVGElement
     sui: WalletIcon,
     ton: WalletIcon,
     stacks: WalletIcon,
+    tron: WalletIcon,
 };
 
 export function AppKitAccountItem({

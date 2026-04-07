@@ -12,6 +12,7 @@ export const resolveAppKitNetworkName = createLookupTableResolver<ChainNamespace
         sui: 'Sui',
         ton: 'Ton',
         stacks: 'Stacks',
+        tron: 'Tron',
     },
     (namespace: ChainNamespace) => {
         safeUnreachable(namespace as never);

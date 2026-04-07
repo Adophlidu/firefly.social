@@ -1,5 +1,5 @@
 diff --git a/dist/esm/exports/index.js b/dist/esm/exports/index.js
-index 27038068f7fa1e92f11509a2cb4ff121fa8cba62..409374e32b17ad704364731fe51afd305d8bcfce 100644
+index 27038068f7fa1e92f11509a2cb4ff121fa8cba62..f6b0db85547d22b8fbc2950e85232d29759dbd16 100644
 --- a/dist/esm/exports/index.js
 +++ b/dist/esm/exports/index.js
 @@ -3,7 +3,6 @@ import { AppKit } from '../src/client/appkit.js';
@@ -10,10 +10,12 @@ index 27038068f7fa1e92f11509a2cb4ff121fa8cba62..409374e32b17ad704364731fe51afd30
  export function createAppKit(options) {
      return new AppKit({
          ...options,
-@@ -11,4 +10,12 @@ export function createAppKit(options) {
+@@ -11,4 +10,11 @@ export function createAppKit(options) {
      });
  }
  export { AppKit };
+-//# sourceMappingURL=index.js.map
+\ No newline at end of file
 +export {
 +    ApiController as CoreApiController,
 +    AssetController as CoreAssetController,
@@ -22,8 +24,6 @@ index 27038068f7fa1e92f11509a2cb4ff121fa8cba62..409374e32b17ad704364731fe51afd30
 +    ConnectionController as CoreConnectionController,
 +    ConnectionControllerUtil as CoreConnectionControllerUtil, ConnectorController as CoreConnectorController, CoreHelperUtil, OptionsController as CoreOptionsController, ProviderController as CoreProviderController, RouterController as CoreRouterController, StorageUtil as CoreStorageUtil
 +} from '@reown/appkit-controllers';
- //# sourceMappingURL=index.js.map
-\ No newline at end of file
 diff --git a/dist/types/exports/index.d.ts b/dist/types/exports/index.d.ts
 index c7fc9364d9b8f7d634e3b1064cda41d2a8c54aac..abe2c32e48c3659cad43370a06f324793b9d9888 100644
 --- a/dist/types/exports/index.d.ts
