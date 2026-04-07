@@ -168,7 +168,7 @@ importers:
         version: link:../../packages/utils
       '@privy-io/react-auth':
         specifier: ^3.13.1
-        version: 3.19.0(@solana/kit@4.0.0)(@solana/sysvars@5.4.0)(@tanstack/react-query@5.85.9)(@types/react@19.2.14)(fastestsmallesttextencoderdecoder@1.0.22)(immer@10.2.0)(react-dom@19.2.4)(react@19.2.4)(typescript@5.9.3)(zod@3.25.76)
+        version: 3.19.0(@solana-program/memo@0.8.0)(@solana-program/system@0.8.1)(@solana-program/token@0.6.0)(@solana/kit@4.0.0)(@solana/sysvars@5.4.0)(@tanstack/react-query@5.85.9)(@types/react@19.2.14)(fastestsmallesttextencoderdecoder@1.0.22)(immer@10.2.0)(react-dom@19.2.4)(react@19.2.4)(typescript@5.9.3)(zod@3.25.76)
       '@privy-io/wagmi':
         specifier: ^4.0.1
         version: 4.0.3(@privy-io/react-auth@3.19.0)(react@19.2.4)(viem@2.47.10)(wagmi@3.1.4)
@@ -196,6 +196,15 @@ importers:
       '@reown/appkit-adapter-solana':
         specifier: 1.8.16
         version: 1.8.16(@types/react@19.2.14)(fastestsmallesttextencoderdecoder@1.0.22)(immer@10.2.0)(react@19.2.4)(typescript@5.9.3)(zod@3.25.76)
+      '@solana-program/memo':
+        specifier: ^0.8.0
+        version: 0.8.0(@solana/kit@4.0.0)
+      '@solana-program/system':
+        specifier: ^0.8.1
+        version: 0.8.1(@solana/kit@4.0.0)
+      '@solana-program/token':
+        specifier: ^0.6.0
+        version: 0.6.0(@solana/kit@4.0.0)
       '@solana/kit':
         specifier: ^4.0.0
         version: 4.0.0(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.9.3)(ws@8.20.0)
@@ -6953,7 +6962,7 @@ packages:
     resolution: {integrity: sha512-kkxzZ5TFseqnZRDVhBR1Si9mTHc1jW+hLSbYviauK80enJOGsOGmxeeC/U0t0kLZGLpn0Jj5v5lNS2bmQ4as/Q==}
     dev: false
 
-  /@privy-io/react-auth@3.19.0(@solana/kit@4.0.0)(@solana/sysvars@5.4.0)(@tanstack/react-query@5.85.9)(@types/react@19.2.14)(fastestsmallesttextencoderdecoder@1.0.22)(immer@10.2.0)(react-dom@19.2.4)(react@19.2.4)(typescript@5.9.3)(zod@3.25.76):
+  /@privy-io/react-auth@3.19.0(@solana-program/memo@0.8.0)(@solana-program/system@0.8.1)(@solana-program/token@0.6.0)(@solana/kit@4.0.0)(@solana/sysvars@5.4.0)(@tanstack/react-query@5.85.9)(@types/react@19.2.14)(fastestsmallesttextencoderdecoder@1.0.22)(immer@10.2.0)(react-dom@19.2.4)(react@19.2.4)(typescript@5.9.3)(zod@3.25.76):
     resolution: {integrity: sha512-osZ7RWyCNfiCKfdKDIy3YVxNOQBiuBM9P9Hxjg0VF30PVwNLatcepF8YLJP1ZOl9qg1FeV+Udm2tJ8auHtC8Gw==}
     peerDependencies:
       '@abstract-foundation/agw-client': ^1.0.0
@@ -7000,6 +7009,9 @@ packages:
       '@privy-io/urls': 0.0.4
       '@scure/base': 1.2.6
       '@simplewebauthn/browser': 13.3.0
+      '@solana-program/memo': 0.8.0(@solana/kit@4.0.0)
+      '@solana-program/system': 0.8.1(@solana/kit@4.0.0)
+      '@solana-program/token': 0.6.0(@solana/kit@4.0.0)
       '@solana/kit': 4.0.0(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.9.3)(ws@8.20.0)
       '@tanstack/react-virtual': 3.13.23(react-dom@19.2.4)(react@19.2.4)
       '@wallet-standard/app': 1.1.0
@@ -7083,7 +7095,7 @@ packages:
       viem: 2.47.4
       wagmi: '>=2'
     dependencies:
-      '@privy-io/react-auth': 3.19.0(@solana/kit@4.0.0)(@solana/sysvars@5.4.0)(@tanstack/react-query@5.85.9)(@types/react@19.2.14)(fastestsmallesttextencoderdecoder@1.0.22)(immer@10.2.0)(react-dom@19.2.4)(react@19.2.4)(typescript@5.9.3)(zod@3.25.76)
+      '@privy-io/react-auth': 3.19.0(@solana-program/memo@0.8.0)(@solana-program/system@0.8.1)(@solana-program/token@0.6.0)(@solana/kit@4.0.0)(@solana/sysvars@5.4.0)(@tanstack/react-query@5.85.9)(@types/react@19.2.14)(fastestsmallesttextencoderdecoder@1.0.22)(immer@10.2.0)(react-dom@19.2.4)(react@19.2.4)(typescript@5.9.3)(zod@3.25.76)
       react: 19.2.4
       viem: 2.47.10(typescript@5.9.3)(zod@3.25.76)
       wagmi: 3.1.4(@tanstack/react-query@5.85.9)(@types/react@19.2.14)(immer@10.2.0)(react@19.2.4)(typescript@5.9.3)(viem@2.47.10)
@@ -9419,12 +9431,28 @@ packages:
       '@solana/kit': 5.4.0(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.9.3)
     dev: false
 
+  /@solana-program/memo@0.8.0(@solana/kit@4.0.0):
+    resolution: {integrity: sha512-sf70ts2ZY10qQUxu5cLPnNYiBcqxJ07p6g4zk2ALq/Ueg3Y4hNm9XbxzA7GmNquDeDGWmEJJaT2ElOWWS+sa8Q==}
+    peerDependencies:
+      '@solana/kit': ^3.0
+    dependencies:
+      '@solana/kit': 4.0.0(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.9.3)(ws@8.20.0)
+    dev: false
+
   /@solana-program/system@0.10.0(@solana/kit@5.4.0):
     resolution: {integrity: sha512-Go+LOEZmqmNlfr+Gjy5ZWAdY5HbYzk2RBewD9QinEU/bBSzpFfzqDRT55JjFRBGJUvMgf3C2vfXEGT4i8DSI4g==}
     peerDependencies:
       '@solana/kit': ^5.0
     dependencies:
       '@solana/kit': 5.4.0(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.9.3)
+    dev: false
+
+  /@solana-program/system@0.8.1(@solana/kit@4.0.0):
+    resolution: {integrity: sha512-71U9Mzdpw8HQtfgfJSL5xKZbLMRnza2Llsfk7gGnmg2waqK+o8MMH4YNma8xXS1UmOBptXIiNvoZ3p7cmOVktg==}
+    peerDependencies:
+      '@solana/kit': ^3.0
+    dependencies:
+      '@solana/kit': 4.0.0(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.9.3)(ws@8.20.0)
     dev: false
 
   /@solana-program/token-2022@0.6.1(@solana/kit@5.4.0)(@solana/sysvars@5.4.0):
@@ -9435,6 +9463,14 @@ packages:
     dependencies:
       '@solana/kit': 5.4.0(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.9.3)
       '@solana/sysvars': 5.4.0(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.9.3)
+    dev: false
+
+  /@solana-program/token@0.6.0(@solana/kit@4.0.0):
+    resolution: {integrity: sha512-omkZh4Tt9rre4wzWHNOhOEHyenXQku3xyc/UrKvShexA/Qlhza67q7uRwmwEDUs4QqoDBidSZPooOmepnA/jig==}
+    peerDependencies:
+      '@solana/kit': ^3.0
+    dependencies:
+      '@solana/kit': 4.0.0(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.9.3)(ws@8.20.0)
     dev: false
 
   /@solana-program/token@0.9.0(@solana/kit@5.4.0):
