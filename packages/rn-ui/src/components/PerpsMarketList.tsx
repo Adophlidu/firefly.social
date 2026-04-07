@@ -3,7 +3,7 @@ import { ScrollView, Text, XStack, YStack } from 'tamagui';
 
 import { PerpsMarketRow } from '@/components/PerpsMarketRow';
 import { PerpsMarketSkeleton } from '@/skeletons/PerpsMarketSkeleton';
-import type { PerpsMarketItem } from '@/types/ui';
+import { type PerpsMarketItem } from '@/types/ui';
 
 export interface PerpsMarketListProps {
     items: PerpsMarketItem[];

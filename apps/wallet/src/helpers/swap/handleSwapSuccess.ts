@@ -8,7 +8,7 @@ import { getBlockExplorersURL } from '@/helpers/getBlockExplorersURL.js';
 import { type SwapAnalyticsParams } from '@/helpers/swap/buildSwapAnalyticsParams.js';
 import { captureWalletTelemetryEvent, WalletTelemetryEventId } from '@/helpers/swap/swapAnalytics.js';
 import { uploadSwapTx } from '@/helpers/swap/uploadSwapTx.js';
-import type { SwapEndpoint } from '@/providers/swap/swapEndpoint.js';
+import { type SwapEndpoint } from '@/providers/swap/swapEndpoint.js';
 
 interface HandleSwapSuccessParams {
     hash: string;

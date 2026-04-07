@@ -6,8 +6,8 @@ import { rightShift } from '@/helpers/number.js';
 import { estimateSwapGas } from '@/helpers/swap/estimateSwapGas.js';
 import { isNativeTokenAddress } from '@/helpers/swap/formatSwapAmount.js';
 import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
-import type { SwapEndpoint } from '@/providers/swap/swapEndpoint.js';
-import type { SwapToken } from '@/providers/swap/types.js';
+import { type SwapEndpoint } from '@/providers/swap/swapEndpoint.js';
+import { type SwapToken } from '@/providers/swap/types.js';
 
 interface ExecuteEvmApprovalParams {
     endpoint: SwapEndpoint;

@@ -1,7 +1,7 @@
 import QuestionIcon from '@dimensiondev/assets/question.svg';
 import { classNames } from '@dimensiondev/utils';
 import { isNumber } from 'lodash-es';
-import type { HTMLProps, ReactNode } from 'react';
+import { type HTMLProps, type ReactNode } from 'react';
 
 import { Tooltip } from '@/components/Tooltip.js';
 import { formatPrice } from '@/helpers/formatPrice.js';

@@ -3,8 +3,8 @@ import { ScrollView, Text, XStack, YStack } from 'tamagui';
 
 import { loadAccountHistoryPage } from '@/services/tradesHistory';
 import { AccountHistorySkeleton } from '@/skeletons/AccountHistorySkeleton';
-import type { FetchAccountHistory } from '@/types/services';
-import type { AccountHistoryItem } from '@/types/ui';
+import { type FetchAccountHistory } from '@/types/services';
+import { type AccountHistoryItem } from '@/types/ui';
 
 export interface AccountHistoryProps {
     walletAddress: string;

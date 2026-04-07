@@ -1,6 +1,5 @@
 import { Trans } from '@lingui/react/macro';
-import type { PropsWithChildren } from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { type PropsWithChildren, useEffect, useRef, useState } from 'react';
 
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Button } from '@/components/ui/button.js';

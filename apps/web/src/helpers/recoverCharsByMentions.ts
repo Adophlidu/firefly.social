@@ -2,7 +2,7 @@ import { CharTag, type SocialSourceInURL } from '@/constants/enum.js';
 import { resolveFireflyPlatformFromSocialSource } from '@/helpers/resolveFireflyPlatform.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { type Profile as FireflyProfile } from '@/providers/types/Firefly.js';
-import type { Chars } from '@/types/chars.js';
+import { type Chars } from '@/types/chars.js';
 
 interface Mention {
     text: string;

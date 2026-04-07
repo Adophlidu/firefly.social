@@ -1,7 +1,11 @@
 import { type DependencyList, useCallback, useRef, useState } from 'react';
 
 import useMountedState from '@/hooks/useMountedState';
-import type { AsyncFnReturn, FunctionReturningPromise, StateFromFunctionReturningPromise } from '@/types/async';
+import {
+    type AsyncFnReturn,
+    type FunctionReturningPromise,
+    type StateFromFunctionReturningPromise,
+} from '@/types/async';
 
 export function useAsyncFn<T extends FunctionReturningPromise>(
     fn: T,

@@ -1,6 +1,6 @@
 /* cspell:disable */
 import { createRequire } from 'module';
-import type { NextConfig } from 'next';
+import { type NextConfig } from 'next';
 import { resolve } from 'path';
 
 const require = createRequire(import.meta.url);

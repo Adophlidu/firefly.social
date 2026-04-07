@@ -6,7 +6,7 @@ import type {
     FetchTradingHistory,
     TradingHistoryPageResponse,
 } from '@/types/services';
-import type { AccountHistoryItem, TradingHistoryItem } from '@/types/ui';
+import { type AccountHistoryItem, type TradingHistoryItem } from '@/types/ui';
 
 const delay = async (ms: number) => {
     await new Promise((resolve) => {

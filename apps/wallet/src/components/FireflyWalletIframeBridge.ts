@@ -9,8 +9,11 @@ import {
 } from '@dimensiondev/iframe-bridge';
 import { delay, unreachable } from '@dimensiondev/utils';
 import { useSessionSigners, useSignMessage as useEthereumSignMessage, useWallets } from '@privy-io/react-auth';
-import type { ConnectedStandardSolanaWallet } from '@privy-io/react-auth/solana';
-import { useSignMessage as useSolanaSignMessage, useWallets as useSolanaWallets } from '@privy-io/react-auth/solana';
+import {
+    type ConnectedStandardSolanaWallet,
+    useSignMessage as useSolanaSignMessage,
+    useWallets as useSolanaWallets,
+} from '@privy-io/react-auth/solana';
 import { useNavigate, useRouter } from '@tanstack/react-router';
 import { getWalletClient } from '@wagmi/core';
 import bs58 from 'bs58';

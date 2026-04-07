@@ -7,7 +7,7 @@ import { STALE_TIMES } from '@/constants/query.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import type { Post, Profile } from '@/providers/types/SocialMedia.js';
+import { type Post, type Profile } from '@/providers/types/SocialMedia.js';
 
 // https://mask.atlassian.net/browse/FW-7132
 function canReplyToTwitterPost(post: Post, currentProfile: Profile) {

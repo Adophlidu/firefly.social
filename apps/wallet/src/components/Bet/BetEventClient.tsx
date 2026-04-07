@@ -9,8 +9,7 @@ import { useMutation, useQuery, useQueryClient, useSuspenseQuery } from '@tansta
 import { useLocation, useNavigate } from '@tanstack/react-router';
 import { BigNumber } from 'bignumber.js';
 import { first, isArray, isObject, isUndefined, last } from 'lodash-es';
-import type { ReactNode } from 'react';
-import { useEffect, useMemo, useState, useTransition } from 'react';
+import { type ReactNode, useEffect, useMemo, useState, useTransition } from 'react';
 import { toast } from 'sonner';
 import { polygon } from 'viem/chains';
 

@@ -1,4 +1,4 @@
-import type { SwapToken } from '@/providers/swap/types.js';
+import { type SwapToken } from '@/providers/swap/types.js';
 import { type SwapAccessPath } from '@/store/swap/swapState.js';
 
 export interface SwapAnalyticsParams {

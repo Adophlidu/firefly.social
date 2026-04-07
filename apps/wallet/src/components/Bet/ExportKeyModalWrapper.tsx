@@ -16,7 +16,7 @@ import {
     DialogOrDrawerTitle,
 } from '@/components/DialogOrDrawer.js';
 import { Button } from '@/components/ui/button.js';
-import type { RouteModalProps } from '@/configs/modalRoutes.js';
+import { type RouteModalProps } from '@/configs/modalRoutes.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
 import { getFireflyEndpoint } from '@/store/fireflyEndpoint.js';
 

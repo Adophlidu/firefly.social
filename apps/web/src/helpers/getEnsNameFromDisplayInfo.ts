@@ -1,5 +1,5 @@
 import { FireflyPlatform } from '@/constants/enum.js';
-import type { FireflyDisplayInfo, FireflyDisplayInfoV2 } from '@/providers/types/Firefly.js';
+import { type FireflyDisplayInfo, type FireflyDisplayInfoV2 } from '@/providers/types/Firefly.js';
 
 function isLowerEqual(a?: string | null, b?: string | null) {
     if (!a || !b) return false;

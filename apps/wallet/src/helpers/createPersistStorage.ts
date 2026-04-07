@@ -1,5 +1,10 @@
-import type { AsyncStorage } from 'jotai/vanilla/utils/atomWithStorage';
 import localforage from 'localforage';
+
+interface AsyncStorage<Value> {
+    getItem: (key: string, initialValue: Value) => PromiseLike<Value>;
+    setItem: (key: string, newValue: Value) => PromiseLike<void>;
+    removeItem: (key: string) => PromiseLike<void>;
+}
 
 export function createPersistStorage<T>(name: string) {
     if (typeof window === 'undefined') {

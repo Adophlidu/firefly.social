@@ -4,8 +4,7 @@ import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from '@tanstack/react-router';
 import { BigNumber } from 'bignumber.js';
-import type { PropsWithChildren, ReactNode } from 'react';
-import { useMemo } from 'react';
+import { type PropsWithChildren, type ReactNode, useMemo } from 'react';
 import { toast } from 'sonner';
 
 import { PositionClaimModal } from '@/components/Bet/PositionClaimModal.js';
@@ -18,7 +17,7 @@ import { formatTokenItemAmount } from '@/helpers/formatTokenItemAmount.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { cn } from '@/lib/utils.js';
 import { polymarketGammaEndpoint } from '@/providers/polymarket/gamma.js';
-import type { PolymarketPosition } from '@/providers/types/Firefly.js';
+import { type PolymarketPosition } from '@/providers/types/Firefly.js';
 
 export function PositionCard({ position, showAction = true }: { position: PolymarketPosition; showAction?: boolean }) {
     const navigate = useNavigate();

@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { styled, Text, XStack, YStack } from 'tamagui';
 
-import type { PerpsMarketItem } from '@/types/ui';
+import { type PerpsMarketItem } from '@/types/ui';
 
 export interface PerpsMarketRowProps {
     item: PerpsMarketItem;

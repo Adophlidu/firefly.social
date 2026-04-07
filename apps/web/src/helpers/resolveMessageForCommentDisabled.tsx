@@ -1,10 +1,10 @@
 import { safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
-import type { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
 import { Link } from '@/components/Link.js';
 import { RestrictionType, Source } from '@/constants/enum.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
+import { type Post } from '@/providers/types/SocialMedia.js';
 
 export function resolveMessageForCommentDisabled(post: Post): {
     message: ReactNode;

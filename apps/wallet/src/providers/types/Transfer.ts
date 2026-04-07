@@ -1,5 +1,5 @@
 import { type BigNumber } from 'bignumber.js';
-import type { Connector } from 'wagmi';
+import { type Connector } from 'wagmi';
 
 import { type NetworkType } from '@/constants/enum.js';
 

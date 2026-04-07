@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { Button, Text, XStack } from 'tamagui';
 
-import type { PerpsDetailActionButton } from '@/types/ui';
+import { type PerpsDetailActionButton } from '@/types/ui';
 
 interface PerpsTradeActionBarProps {
     actions: PerpsDetailActionButton[];

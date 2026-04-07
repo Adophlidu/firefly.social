@@ -7,7 +7,7 @@ import { SearchInput } from '@/components/SearchInput';
 import { SortByFilter } from '@/components/SortByFilter';
 import { loadPerpsMarketPage } from '@/services/perpsMarket';
 import { PerpsMarketSkeleton } from '@/skeletons/PerpsMarketSkeleton';
-import type { FetchPerpsMarketPage } from '@/types/services';
+import { type FetchPerpsMarketPage } from '@/types/services';
 import type {
     PerpsMarketItem,
     PerpsMarketSort,

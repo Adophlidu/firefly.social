@@ -1,4 +1,4 @@
-import type { NextConfig } from 'next';
+import { type NextConfig } from 'next';
 
 export const headersConfig: NonNullable<NextConfig['headers']> = async () => {
     // Get the site URL for the payment method manifest Link header

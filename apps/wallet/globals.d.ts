@@ -24,7 +24,7 @@ declare module 'urlcat' {
 }
 
 declare module 'dayjs/plugin/relativeTime.js' {
-    import type { PluginFunc } from 'dayjs';
+    import { type PluginFunc } from 'dayjs';
 
     const plugin: PluginFunc;
     export default plugin;

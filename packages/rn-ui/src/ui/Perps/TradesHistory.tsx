@@ -1,8 +1,7 @@
 import { memo, useMemo, useState } from 'react';
-import type { YStackProps } from 'tamagui';
-import { Button, Text, XStack, YStack } from 'tamagui';
+import { Button, Text, XStack, YStack, type YStackProps } from 'tamagui';
 
-import type { TradesHistoryTab } from '@/types/ui';
+import { type TradesHistoryTab } from '@/types/ui';
 import { AccountHistory, type AccountHistoryProps } from '@/ui/Perps/AccountHistory';
 import { TradingHistory, type TradingHistoryProps } from '@/ui/Perps/TradingHistory';
 

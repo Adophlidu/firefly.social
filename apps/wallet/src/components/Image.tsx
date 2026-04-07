@@ -1,7 +1,6 @@
 import FallbackDarkImage from '@dimensiondev/assets/img-fallback-dark.png';
 import FallbackLightImage from '@dimensiondev/assets/img-fallback-light.png';
-import type { ComponentPropsWithRef, SyntheticEvent } from 'react';
-import { memo, useCallback, useEffect, useState } from 'react';
+import { type ComponentPropsWithRef, memo, type SyntheticEvent, useCallback, useEffect, useState } from 'react';
 
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { cn } from '@/lib/utils.js';

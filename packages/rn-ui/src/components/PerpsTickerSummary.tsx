@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { Text, XStack, YStack } from 'tamagui';
 
-import type { PerpsDetailTicker } from '@/types/ui';
+import { type PerpsDetailTicker } from '@/types/ui';
 
 interface PerpsTickerSummaryProps {
     ticker: PerpsDetailTicker;

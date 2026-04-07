@@ -6,7 +6,7 @@ import { chainsMatch } from '@/helpers/isSolanaChain.js';
 import { addressesMatch } from '@/helpers/swap/formatSwapAmount.js';
 import { type DefaultSwapTokenPair, getDefaultSwapToken } from '@/providers/swap/defaultTokens.js';
 import { createSwapEndpoint } from '@/providers/swap/swapEndpoint.js';
-import type { SwapToken } from '@/providers/swap/types.js';
+import { type SwapToken } from '@/providers/swap/types.js';
 import { fromAddressAtom, fromChainIdAtom, toAddressAtom, toChainIdAtom } from '@/store/swap/swapState.js';
 
 // Create a minimal SwapToken from default config when API tokens aren't available yet

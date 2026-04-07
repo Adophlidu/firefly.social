@@ -1,4 +1,4 @@
-import type { SessionClient } from '@lens-protocol/client';
+import { type SessionClient } from '@lens-protocol/client';
 
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { type Profile } from '@/providers/types/SocialMedia.js';

@@ -1,5 +1,5 @@
 import { existsSync, readFileSync } from 'fs';
-import type { NextConfig } from 'next';
+import { type NextConfig } from 'next';
 import { resolve } from 'path';
 
 type DeploymentTier = 'production' | 'canary' | 'staging';

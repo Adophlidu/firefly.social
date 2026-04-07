@@ -2,7 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { memo, useCallback, useMemo } from 'react';
-import type { Address } from 'viem';
+import { type Address } from 'viem';
 
 import { FollowButton } from '@/components/Profile/FollowButton.js';
 import { WatchButton } from '@/components/Profile/WatchButton.js';

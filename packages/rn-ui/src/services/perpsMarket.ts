@@ -1,5 +1,5 @@
-import type { FetchPerpsMarketPage, PerpsMarketPageResponse } from '@/types/services';
-import type { PerpsMarketItem, PerpsMarketSort, PerpsMarketTab } from '@/types/ui';
+import { type FetchPerpsMarketPage, type PerpsMarketPageResponse } from '@/types/services';
+import { type PerpsMarketItem, type PerpsMarketSort, type PerpsMarketTab } from '@/types/ui';
 
 const delay = async (ms: number) => {
     await new Promise((resolve) => {

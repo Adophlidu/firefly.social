@@ -1,8 +1,7 @@
 import SwapLoadingIcon from '@dimensiondev/assets/swap-loading.svg';
 import { Trans } from '@lingui/react/macro';
 import { useAtomValue } from 'jotai';
-import type { ReactNode } from 'react';
-import { memo, useMemo } from 'react';
+import { memo, type ReactNode, useMemo } from 'react';
 
 import { isGreaterThan } from '@/helpers/number.js';
 import { useResolvedSwapTokens } from '@/hooks/swap/useResolvedSwapTokens.js';

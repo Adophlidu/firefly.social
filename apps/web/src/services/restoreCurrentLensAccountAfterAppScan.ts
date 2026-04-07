@@ -3,7 +3,7 @@ import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromSto
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { setPrivyAsLensManager } from '@/providers/lens/setPrivyAsLensManager.js';
-import type { Account } from '@/providers/types/Account.js';
+import { type Account } from '@/providers/types/Account.js';
 import { switchAccount } from '@/services/account.js';
 
 export async function restoreCurrentLensAccountAfterAppScan(accounts: Account[]) {

@@ -5,7 +5,7 @@ import { formatCustomTokenToTokenAsset } from '@/helpers/formatCustomTokenToToke
 import { getBalanceOf } from '@/helpers/getBalanceOf.js';
 import { useCachedEvmAddress } from '@/hooks/useCachedWalletAddresses.js';
 import { logger } from '@/lib/Logger.js';
-import type { TokenAsset } from '@/providers/types/Firefly.js';
+import { type TokenAsset } from '@/providers/types/Firefly.js';
 import { customTokensAtom, CustomTokenType, type ERC20Token } from '@/store/customToken.js';
 
 /**

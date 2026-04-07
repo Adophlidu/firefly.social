@@ -1,8 +1,8 @@
 import PoapIcon from '@dimensiondev/assets/poap.svg';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { Link } from '@tanstack/react-router';
-import type { GridItemProps, GridListProps } from 'react-virtuoso';
-import type { Hex } from 'viem';
+import { type GridItemProps, type GridListProps } from 'react-virtuoso';
+import { type Hex } from 'viem';
 import { useEnsName } from 'wagmi';
 
 import { ChainIcon } from '@/components/ChainIcon.js';
