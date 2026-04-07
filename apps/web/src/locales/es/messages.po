@@ -1119,9 +1119,6 @@ msgstr ""
 msgid "Time Out"
 msgstr ""
 
-msgid "24 Hour Trading Vol"
-msgstr ""
-
 msgid "Failed to delete scheduled post."
 msgstr ""
 
@@ -1315,9 +1312,6 @@ msgid "Done"
 msgstr ""
 
 msgid "Recasts"
-msgstr ""
-
-msgid "Market Cap / FDV"
 msgstr ""
 
 msgid "Failed to un-bookmark NFT."
@@ -2378,9 +2372,6 @@ msgstr ""
 msgid "This Email is already linked to another Firefly account."
 msgstr ""
 
-msgid "Fully Diluted Valuation"
-msgstr ""
-
 msgid "This QR code is longer valid. Please scan a new one to continue."
 msgstr ""
 
@@ -2749,9 +2740,6 @@ msgstr ""
 msgid "Firefly Mobile"
 msgstr ""
 
-msgid "<0>The proportion of current market capitalization compares to market capitalization when meeting max supply.</0><1>The closer the Mkt Cap/FDV to 1, the closer the current market capitalization to its fully diluted valuation and vice versa.</1>"
-msgstr ""
-
 msgid "Streaming Error"
 msgstr ""
 
@@ -2954,6 +2942,14 @@ msgstr ""
 msgid "Search..."
 msgstr ""
 
+#. placeholder {0}: <> <span className="text-main font-semibold">{traderCount}</span> person I follow have traded </>
+#. placeholder {1}: <> <span className="text-main font-semibold">{traderCount}</span> people I follow have traded </>
+#. js-lingui:icu=%7BtraderCount%2C+plural%2C+one+%7B%7B0%7D%7D+other+%7B%7B1%7D%7D%7D&pluralize_on=traderCount
+msgid "{0}"
+msgid_plural "{1}"
+msgstr[0] ""
+msgstr[1] ""
+
 msgid "Show more comments"
 msgstr ""
 
@@ -2986,12 +2982,6 @@ msgstr ""
 
 msgid "Mirror disabled"
 msgstr ""
-
-#. js-lingui:icu=%7BtraderCount%2C+plural%2C+one+%7B%23+person+I+follow+has+traded%7D+other+%7B%23+people+I+follow+have+traded%7D%7D&pluralize_on=traderCount
-msgid "# person I follow has traded"
-msgid_plural "# people I follow have traded"
-msgstr[0] ""
-msgstr[1] ""
 
 msgid "Enter your username and password to sign in instantly"
 msgstr ""

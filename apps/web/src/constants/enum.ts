@@ -537,6 +537,7 @@ export enum SiteCookies {
 export enum TokenCategory {
     Transactions = 'transactions',
     Feeds = 'feeds',
+    About = 'about',
 }
 
 export enum ActivitiesPlatform {

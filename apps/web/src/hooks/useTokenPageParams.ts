@@ -1,5 +1,5 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
-import { first, sortBy } from 'lodash-es';
+import { compact, first, sortBy } from 'lodash-es';
 import { use } from 'react';
 
 import { type TokenPageProps } from '@/app/[locale]/(normal)/token/[exchange]/[[...slug]]/types.js';
@@ -10,11 +10,14 @@ import { COINGECKO_SOL_COIN_ID, NO_TRACING_COINS, SWAP_SOL_NATIVE_ADDRESS } from
 import { isValidAddress, isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { resolveCoinGeckoCoinChainId } from '@/helpers/resolveCoingeckoCoinChainId.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
+import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useTokenInfo } from '@/hooks/useTokenInfo.js';
 import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 export function useTokenPageParams({ params, searchParams }: TokenPageProps) {
     const { exchange, slug = EMPTY_LIST } = use(params);
+    const isMedium = useIsMedium();
+
     const isCex = exchange === 'cex';
     const isDex = exchange === 'dex';
     const { chainId: paramChainId, trader, traderName, address: paramAddress, category: current } = use(searchParams);
@@ -45,10 +48,12 @@ export function useTokenPageParams({ params, searchParams }: TokenPageProps) {
     const isTracingPlatform = Array.isArray(token?.platform_info)
         ? token.platform_info.some((x) => TRACING_CHAINS.includes(x.chain_id))
         : true;
-    const categories =
-        tokenId && (NO_TRACING_COINS.includes(tokenId) || !isTracingChain || !isTracingPlatform)
+    const categories = compact([
+        ...(tokenId && (NO_TRACING_COINS.includes(tokenId) || !isTracingChain || !isTracingPlatform)
             ? [TokenCategory.Feeds]
-            : TOKEN_CATEGORIES;
+            : TOKEN_CATEGORIES),
+        isMedium ? null : TokenCategory.About,
+    ]);
 
     const category = current && categories.includes(current as TokenCategory) ? current : categories[0];
 

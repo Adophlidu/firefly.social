@@ -1119,9 +1119,6 @@ msgstr "Your {0} account is now connected"
 msgid "Time Out"
 msgstr "Time Out"
 
-msgid "24 Hour Trading Vol"
-msgstr "24 Hour Trading Vol"
-
 msgid "Failed to delete scheduled post."
 msgstr "Failed to delete scheduled post."
 
@@ -1316,9 +1313,6 @@ msgstr "Done"
 
 msgid "Recasts"
 msgstr "Recasts"
-
-msgid "Market Cap / FDV"
-msgstr "Market Cap / FDV"
 
 msgid "Failed to un-bookmark NFT."
 msgstr "Failed to un-bookmark NFT."
@@ -2378,9 +2372,6 @@ msgstr "Swapped"
 msgid "This Email is already linked to another Firefly account."
 msgstr "This Email is already linked to another Firefly account."
 
-msgid "Fully Diluted Valuation"
-msgstr "Fully Diluted Valuation"
-
 msgid "This QR code is longer valid. Please scan a new one to continue."
 msgstr "This QR code is longer valid. Please scan a new one to continue."
 
@@ -2749,9 +2740,6 @@ msgstr "Set as primary account"
 msgid "Firefly Mobile"
 msgstr "Firefly Mobile"
 
-msgid "<0>The proportion of current market capitalization compares to market capitalization when meeting max supply.</0><1>The closer the Mkt Cap/FDV to 1, the closer the current market capitalization to its fully diluted valuation and vice versa.</1>"
-msgstr "<0>The proportion of current market capitalization compares to market capitalization when meeting max supply.</0><1>The closer the Mkt Cap/FDV to 1, the closer the current market capitalization to its fully diluted valuation and vice versa.</1>"
-
 msgid "Streaming Error"
 msgstr "Streaming Error"
 
@@ -2954,6 +2942,14 @@ msgstr "Show More"
 msgid "Search..."
 msgstr "Search..."
 
+#. placeholder {0}: <> <span className="text-main font-semibold">{traderCount}</span> person I follow have traded </>
+#. placeholder {1}: <> <span className="text-main font-semibold">{traderCount}</span> people I follow have traded </>
+#. js-lingui:icu=%7BtraderCount%2C+plural%2C+one+%7B%7B0%7D%7D+other+%7B%7B1%7D%7D%7D&pluralize_on=traderCount
+msgid "{0}"
+msgid_plural "{1}"
+msgstr[0] "{0}"
+msgstr[1] "{1}"
+
 msgid "Show more comments"
 msgstr "Show more comments"
 
@@ -2986,12 +2982,6 @@ msgstr "Feedback"
 
 msgid "Mirror disabled"
 msgstr "Mirror disabled"
-
-#. js-lingui:icu=%7BtraderCount%2C+plural%2C+one+%7B%23+person+I+follow+has+traded%7D+other+%7B%23+people+I+follow+have+traded%7D%7D&pluralize_on=traderCount
-msgid "# person I follow has traded"
-msgid_plural "# people I follow have traded"
-msgstr[0] "# person I follow has traded"
-msgstr[1] "# people I follow have traded"
 
 msgid "Enter your username and password to sign in instantly"
 msgstr "Enter your username and password to sign in instantly"

@@ -243,6 +243,7 @@ export const TokenMarketData = memo(function TokenMarketData({
             chainId={chainId}
             disableBadge={!!contractSelect}
             coingeckoChain={contract?.runtime}
+            className="shrink-0"
         />
     );
 
@@ -254,40 +255,54 @@ export const TokenMarketData = memo(function TokenMarketData({
         <div {...rest} className={classNames('flex flex-col gap-1.5 p-3', rest.className)}>
             <div className="flex items-start">
                 <div className="flex min-w-0 grow flex-col gap-1.5">
-                    <div className="flex h-[42px] min-w-0 items-center gap-4">
+                    <div className="flex min-h-[42px] min-w-0 items-center gap-3">
                         {wrapLink(icon, tokenPageUrl, linkable)}
                         <div className="flex min-w-0 flex-col gap-1">
-                            <div className="text-second flex min-w-0 items-center gap-1 leading-6">
-                                {wrapLink(baseInfo, tokenPageUrl, linkable)}
-                                {tokenRank ? (
-                                    <span className="bg-highlight inline-flex h-[14px] items-center whitespace-nowrap rounded px-1 py-0.5 text-[10px] text-white">
-                                        <Trans>Rank #{tokenRank}</Trans>
-                                    </span>
-                                ) : null}
-                                <div className="ml-1 flex items-center gap-1">
-                                    {socialLinks.map((link) => (
-                                        <Link
-                                            key={link.name}
-                                            href={link.url!}
-                                            target="_blank"
-                                            className="bg-input dark:bg-bg inline-flex size-6 items-center justify-center rounded-lg"
-                                        >
-                                            <link.icon width={16} height={16} />
-                                        </Link>
-                                    ))}
+                            <div className="text-second flex min-w-0 flex-col items-start gap-1 leading-6 md:flex-row md:items-center">
+                                <div className="flex w-full items-center gap-1 truncate md:w-auto">
+                                    {wrapLink(baseInfo, tokenPageUrl, linkable)}
+                                </div>
+                                <div className="flex items-center gap-1">
+                                    {tokenRank ? (
+                                        <span className="bg-highlight inline-flex h-[14px] items-center whitespace-nowrap rounded px-1 py-0.5 text-[10px] text-white">
+                                            <Trans>Rank #{tokenRank}</Trans>
+                                        </span>
+                                    ) : null}
+                                    <div className="ml-1 flex items-center gap-1">
+                                        {socialLinks.map((link) => (
+                                            <Link
+                                                key={link.name}
+                                                href={link.url!}
+                                                target="_blank"
+                                                className="bg-input dark:bg-bg inline-flex size-6 items-center justify-center rounded-lg"
+                                            >
+                                                <link.icon width={16} height={16} />
+                                            </Link>
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
-                            <div className="text-second leading-[14px]">
-                                {traderCount ? (
+                            {traderCount ? (
+                                <div className="text-second text-sm leading-[14px]">
                                     <Plural
                                         value={traderCount}
-                                        one="# person I follow has traded"
-                                        other="# people I follow have traded"
+                                        one={
+                                            <>
+                                                <span className="text-main font-semibold">{traderCount}</span> person I
+                                                follow have traded
+                                            </>
+                                        }
+                                        other={
+                                            <>
+                                                <span className="text-main font-semibold">{traderCount}</span> people I
+                                                follow have traded
+                                            </>
+                                        }
                                     />
-                                ) : null}
-                            </div>
+                                </div>
+                            ) : null}
                         </div>
-                        <div className="ml-auto flex items-center gap-2 empty:hidden">
+                        <div className="ml-auto flex shrink-0 items-center gap-2 empty:hidden">
                             <TokenBookmarkButton
                                 coinId={token.id}
                                 chainId={chainId || EthereumChainId.Mainnet}
@@ -344,7 +359,7 @@ export const TokenMarketData = memo(function TokenMarketData({
                             ) : null}
                         </div>
                     </div>
-                    <TokenSecurityBar security={security} />
+                    <TokenSecurityBar security={security || undefined} />
                 </div>
             </div>
             <div

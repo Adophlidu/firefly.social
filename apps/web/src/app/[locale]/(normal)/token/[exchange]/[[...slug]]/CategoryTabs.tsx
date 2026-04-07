@@ -1,6 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
+import { compact } from 'lodash-es';
 import { type ReadonlyURLSearchParams, usePathname, useSearchParams } from 'next/navigation.js';
 import { type HTMLProps, memo, type ReactNode } from 'react';
 import urlcat from 'urlcat';
@@ -10,6 +11,7 @@ import { SourceTab } from '@/components/SourceTabs/SourceTab.js';
 import { TOKEN_CATEGORIES, TRACING_CHAINS } from '@/constants/computed.js';
 import { TokenCategory } from '@/constants/enum.js';
 import { NO_TRACING_COINS } from '@/constants/static.js';
+import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { type CoinGeckoToken } from '@/providers/types/CoinGecko.js';
 
 interface Props extends HTMLProps<HTMLDivElement> {
@@ -19,6 +21,7 @@ interface Props extends HTMLProps<HTMLDivElement> {
 const labels: Record<TokenCategory, ReactNode> = {
     [TokenCategory.Transactions]: <Trans>Transactions</Trans>,
     [TokenCategory.Feeds]: <Trans>Feeds</Trans>,
+    [TokenCategory.About]: <Trans>About</Trans>,
 };
 
 function resolveTab(pathname: string, category: TokenCategory, params: ReadonlyURLSearchParams) {
@@ -28,6 +31,7 @@ function resolveTab(pathname: string, category: TokenCategory, params: ReadonlyU
 export const CategoryTabs = memo<Props>(function CategoryTabs({ token, ...rest }) {
     const search = useSearchParams();
     const pathname = usePathname();
+    const isMedium = useIsMedium();
 
     const tokenId = token.id;
     const isTracingChain = token?.chainId ? TRACING_CHAINS.includes(token.chainId) : true;
@@ -35,10 +39,12 @@ export const CategoryTabs = memo<Props>(function CategoryTabs({ token, ...rest }
         ? token.platform_info.some((x) => TRACING_CHAINS.includes(x.chain_id))
         : true;
 
-    const categories =
-        tokenId && (NO_TRACING_COINS.includes(tokenId) || !isTracingChain || !isTracingPlatform)
+    const categories = compact([
+        ...(tokenId && (NO_TRACING_COINS.includes(tokenId) || !isTracingChain || !isTracingPlatform)
             ? [TokenCategory.Feeds]
-            : TOKEN_CATEGORIES;
+            : TOKEN_CATEGORIES),
+        isMedium ? null : TokenCategory.About,
+    ]);
     const current = search.get('category');
     const category = current && categories.includes(current as TokenCategory) ? current : categories[0];
 

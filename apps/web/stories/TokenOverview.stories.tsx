@@ -1,6 +1,6 @@
 import { type Meta, type StoryObj } from '@storybook/nextjs-vite';
 
-import { Overview, type TokenOverviewProps } from '@/components/TokenProfile/Overview.js';
+import { TokenOverview, type TokenOverviewProps } from '@/components/TokenProfile/TokenOverview/index.js';
 
 interface Props extends TokenOverviewProps {
     coinId: string;
@@ -9,7 +9,7 @@ interface Props extends TokenOverviewProps {
 function WrapTokenOverview({ coinId, chainId, address }: Props) {
     return (
         <div style={{ width: 567 }}>
-            <Overview coinId={coinId} chainId={chainId} address={address} />
+            <TokenOverview coinId={coinId} chainId={chainId} address={address} />
         </div>
     );
 }

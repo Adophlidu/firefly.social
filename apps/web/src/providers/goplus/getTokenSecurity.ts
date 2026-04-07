@@ -14,10 +14,10 @@ export async function getTokenSecurity(chainId: number, address: string) {
     });
 
     const res = await fetchJson<GoPlusResponse<Record<string, TokenContractSecurity>>>(url);
-    if (isEmpty(res.result)) return;
+    if (isEmpty(res.result)) return null;
 
     const entity = first(Object.entries(res.result));
-    if (!entity) return;
+    if (!entity) return null;
 
     const security = { ...entity[1], contract: entity[0], chainId };
     return createSecurityResult(security, TokenSecurityMessages, (info) => info.trust_list === '1');

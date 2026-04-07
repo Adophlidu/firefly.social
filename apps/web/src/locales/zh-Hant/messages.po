@@ -1113,9 +1113,6 @@ msgstr "您的 {0} 帳戶已連接"
 msgid "Time Out"
 msgstr "逾時"
 
-msgid "24 Hour Trading Vol"
-msgstr "24 小時交易量"
-
 msgid "Failed to delete scheduled post."
 msgstr "刪除預約貼文失敗。"
 
@@ -1310,9 +1307,6 @@ msgstr "完成"
 
 msgid "Recasts"
 msgstr "轉發"
-
-msgid "Market Cap / FDV"
-msgstr "市值 / 完全稀釋估值"
 
 msgid "Failed to un-bookmark NFT."
 msgstr "取消收藏 NFT 失敗。"
@@ -2368,9 +2362,6 @@ msgstr "已兌換"
 msgid "This Email is already linked to another Firefly account."
 msgstr "此電子郵件已綁定其他 Firefly 帳戶。"
 
-msgid "Fully Diluted Valuation"
-msgstr "完全稀釋估值"
-
 msgid "This QR code is longer valid. Please scan a new one to continue."
 msgstr "該QR碼已過期，請刷新後重試。"
 
@@ -2738,9 +2729,6 @@ msgstr "設為主要帳戶"
 msgid "Firefly Mobile"
 msgstr "Firefly 行動版"
 
-msgid "<0>The proportion of current market capitalization compares to market capitalization when meeting max supply.</0><1>The closer the Mkt Cap/FDV to 1, the closer the current market capitalization to its fully diluted valuation and vice versa.</1>"
-msgstr "<0>當前市值與滿足最大供應量時的市值之比。</0> <1>Mkt Cap/FDV 越接近 1，代表當前市值越接近其完全稀釋估值（FDV），反之亦然。</1>"
-
 msgid "Streaming Error"
 msgstr "推流錯誤"
 
@@ -2941,6 +2929,13 @@ msgstr "顯示更多"
 msgid "Search..."
 msgstr "搜尋中..."
 
+#. placeholder {0}: <> <span className="text-main font-semibold">{traderCount}</span> person I follow have traded </>
+#. placeholder {1}: <> <span className="text-main font-semibold">{traderCount}</span> people I follow have traded </>
+#. js-lingui:icu=%7BtraderCount%2C+plural%2C+one+%7B%7B0%7D%7D+other+%7B%7B1%7D%7D%7D&pluralize_on=traderCount
+msgid "{0}"
+msgid_plural "{1}"
+msgstr[0] ""
+
 msgid "Show more comments"
 msgstr "顯示更多留言"
 
@@ -2973,11 +2968,6 @@ msgstr "反饋"
 
 msgid "Mirror disabled"
 msgstr "無法轉發"
-
-#. js-lingui:icu=%7BtraderCount%2C+plural%2C+one+%7B%23+person+I+follow+has+traded%7D+other+%7B%23+people+I+follow+have+traded%7D%7D&pluralize_on=traderCount
-msgid "# person I follow has traded"
-msgid_plural "# people I follow have traded"
-msgstr[0] "我關注的 # 人已交易"
 
 msgid "Enter your username and password to sign in instantly"
 msgstr "請輸入使用者名稱與密碼以立即登入"

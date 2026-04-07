@@ -1113,9 +1113,6 @@ msgstr "您的 {0} 账户已连接"
 msgid "Time Out"
 msgstr "过期"
 
-msgid "24 Hour Trading Vol"
-msgstr "24h 交易总额"
-
 msgid "Failed to delete scheduled post."
 msgstr "删除定时任务失败。"
 
@@ -1310,9 +1307,6 @@ msgstr "完成"
 
 msgid "Recasts"
 msgstr "转发"
-
-msgid "Market Cap / FDV"
-msgstr "市值 / 完全稀释估值"
 
 msgid "Failed to un-bookmark NFT."
 msgstr "取消收藏 NFT 失败。"
@@ -2368,9 +2362,6 @@ msgstr "已兑换"
 msgid "This Email is already linked to another Firefly account."
 msgstr "该邮箱已绑定其他 Firefly 账户。"
 
-msgid "Fully Diluted Valuation"
-msgstr "完全稀释估值"
-
 msgid "This QR code is longer valid. Please scan a new one to continue."
 msgstr "该二维码已失效，请刷新后重试。"
 
@@ -2738,9 +2729,6 @@ msgstr "设置为主账号"
 msgid "Firefly Mobile"
 msgstr "Firefly 移动端"
 
-msgid "<0>The proportion of current market capitalization compares to market capitalization when meeting max supply.</0><1>The closer the Mkt Cap/FDV to 1, the closer the current market capitalization to its fully diluted valuation and vice versa.</1>"
-msgstr "<0>当前市值与满足最大供应量时的市值之比。</0> <1>Mkt Cap/FDV 越接近 1，当前市值越接近其完全摊薄估值（FDV），反之亦然。</1>"
-
 msgid "Streaming Error"
 msgstr "推流错误"
 
@@ -2941,6 +2929,13 @@ msgstr "显示更多"
 msgid "Search..."
 msgstr "搜索…"
 
+#. placeholder {0}: <> <span className="text-main font-semibold">{traderCount}</span> person I follow have traded </>
+#. placeholder {1}: <> <span className="text-main font-semibold">{traderCount}</span> people I follow have traded </>
+#. js-lingui:icu=%7BtraderCount%2C+plural%2C+one+%7B%7B0%7D%7D+other+%7B%7B1%7D%7D%7D&pluralize_on=traderCount
+msgid "{0}"
+msgid_plural "{1}"
+msgstr[0] ""
+
 msgid "Show more comments"
 msgstr "展示更多评论"
 
@@ -2973,11 +2968,6 @@ msgstr "反馈"
 
 msgid "Mirror disabled"
 msgstr "无法转发"
-
-#. js-lingui:icu=%7BtraderCount%2C+plural%2C+one+%7B%23+person+I+follow+has+traded%7D+other+%7B%23+people+I+follow+have+traded%7D%7D&pluralize_on=traderCount
-msgid "# person I follow has traded"
-msgid_plural "# people I follow have traded"
-msgstr[0] "我关注的 # 人已交易"
 
 msgid "Enter your username and password to sign in instantly"
 msgstr "请输入用户名和密码以立即登录"

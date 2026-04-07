@@ -4,6 +4,7 @@ import { Feeds } from '@/app/[locale]/(normal)/token/[exchange]/[[...slug]]/cate
 import { Transactions } from '@/app/[locale]/(normal)/token/[exchange]/[[...slug]]/categories/Transactions.js';
 import TokenPageLoading from '@/app/[locale]/(normal)/token/[exchange]/[[...slug]]/loading.js';
 import { type TokenPageProps } from '@/app/[locale]/(normal)/token/[exchange]/[[...slug]]/types.js';
+import { TokenOverview } from '@/components/TokenProfile/TokenOverview/index.js';
 import { TokenCategory } from '@/constants/enum.js';
 import { useTokenPageParams } from '@/hooks/useTokenPageParams.js';
 
@@ -36,6 +37,8 @@ export default function TokenCategoryPage(props: TokenPageProps) {
                     name={token?.name}
                 />
             );
+        case TokenCategory.About:
+            return <TokenOverview coinId={tokenId} chainId={updatedChainId} address={tokenAddress} />;
         case TokenCategory.Transactions:
         default:
             if ((isTokenPending || tokenId) && isPending && !tokenAddress) return <TokenPageLoading />;
