@@ -27,10 +27,11 @@ const DEFAULT_IGNORED_PATTERNS: IgnoredErrorPattern[] = [
     'gtag',
     'ga(',
 
-    // Browser extensions
+    // Browser extensions / browser internals
     'chrome-extension://',
     'moz-extension://',
     'safari-extension://',
+    '__firefox__', // Brave/Firefox iOS browser-internal errors
 
     // User-cancelled operations
     'AbortError',
