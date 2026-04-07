@@ -1,9 +1,10 @@
+import { type LayoutProps } from '@dimensiondev/types';
+
 import { type SocialSourceInURL } from '@/constants/enum.js';
 import { notFound, redirect, RedirectType } from '@/esm/navigation/server.js';
 import { isSocialSource } from '@/helpers/isSource.js';
 import { resolveChannelUrl } from '@/helpers/resolveChannelUrl.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
-import { type LayoutProps } from '@/types/utility.js';
 
 export const revalidate = 60;
 

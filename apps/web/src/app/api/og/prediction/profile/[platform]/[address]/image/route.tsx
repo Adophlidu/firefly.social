@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 
+import { type NextRequestContext } from '@dimensiondev/types';
 import { compose } from '@dimensiondev/utils';
 import { first } from 'lodash-es';
 import { ImageResponse } from 'next/og.js';
@@ -22,7 +23,6 @@ import { fetchPredictionProfile } from '@/providers/firefly/prediction/fetchPred
 import { getWalletProfileInfoList } from '@/providers/firefly/prediction/getWalletProfileInfoList.js';
 import { getSatoriFonts } from '@/services/getSatoriFonts.js';
 import { type PredictionProfileDataForUI } from '@/types/prediction.js';
-import { type NextRequestContext } from '@/types/utility.js';
 
 const predictionDefaultOgImage = getPublicUrl('/image/og.png');
 const bgImageUrl = getPublicUrl('/svg/prediction-profile-background.svg');

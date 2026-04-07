@@ -1,3 +1,4 @@
+import { type LayoutProps } from '@dimensiondev/types';
 import { createLookupTableResolver } from '@dimensiondev/utils';
 import { type MessageDescriptor } from '@lingui/core';
 import { msg } from '@lingui/core/macro';
@@ -7,7 +8,6 @@ import { MuteType, Source, SourceInURL } from '@/constants/enum.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
-import { type LayoutProps } from '@/types/utility.js';
 
 export function generateStaticParams() {
     return [

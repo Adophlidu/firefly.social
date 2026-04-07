@@ -2,7 +2,6 @@
 
 // Replace any for better type safety
 import { type ConnectorControllerState } from '@reown/appkit';
-import { type PropsWithChildren, type ReactNode } from 'react';
 import type ReactMarkdown from 'react-markdown';
 
 import { type ServerErrorCodes } from '@/helpers/createResponseJson.js';
@@ -22,14 +21,10 @@ export type LiteralOrString<T extends string> = T | Omit<string, T>;
 
 export type NonUndefined<T> = T extends undefined ? never : T;
 
-// learn more: https://nextjs.org/docs/app/api-reference/file-conventions/route#context-optional
-export interface NextRequestContext<P = Record<string, string | undefined>> {
-    params: Promise<P>;
-}
-
 export type Pluggable = NonNullable<Parameters<typeof ReactMarkdown>[0]['remarkPlugins']>[number];
 
 export type ConnectorWithProvider = ConnectorControllerState['connectors'][0];
+
 export type ChainNamespace = Required<ConnectorWithProvider>['connectors'][0]['chain'];
 
 export type ResponseJson<T> =
@@ -49,10 +44,4 @@ export type PartialWith<T, K extends keyof T> = Partial<Pick<T, K>> & Omit<T, K>
 
 export interface ClassType<T> extends Function {
     new (...args: unknown[]): T;
-}
-
-export interface LayoutProps<Params = never, SearchParams = never> extends PropsWithChildren {
-    params: Params extends never ? never : Promise<Params>;
-    searchParams: SearchParams extends never ? never : Promise<SearchParams>;
-    children: ReactNode;
 }

@@ -4,6 +4,7 @@ import 'swiper/css';
 import 'swiper/css/keyboard';
 import 'swiper/css/navigation';
 
+import { type LayoutProps } from '@dimensiondev/types';
 import { NotFoundError } from '@dimensiondev/utils';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { use } from 'react';
@@ -16,7 +17,6 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { PreviewMediaModalContent } from '@/modals/PreviewMediaModal/PreviewMediaModalContent.js';
-import { type LayoutProps } from '@/types/utility.js';
 
 interface Props
     extends LayoutProps<{

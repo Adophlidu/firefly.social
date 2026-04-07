@@ -1,3 +1,5 @@
+import { type LayoutProps } from '@dimensiondev/types';
+
 import { NFTCollectionPage } from '@/app/[locale]/(normal)/nft/pages/NFTCollectionPage.js';
 import { NFTDetailPage } from '@/app/[locale]/(normal)/nft/pages/NFTDetailPage.js';
 import { notFound } from '@/esm/navigation/server.js';
@@ -7,7 +9,6 @@ import { parseChainId } from '@/helpers/parseChainId.js';
 import { resolveCollectionChain } from '@/helpers/resolveCollectionChain.js';
 import { createNftCollectionMetadata } from '@/providers/firefly/metadata/createNftCollectionMetadata.js';
 import { getCollection } from '@/providers/firefly/nft/getCollection.js';
-import { type LayoutProps } from '@/types/utility.js';
 
 export const revalidate = 300;
 

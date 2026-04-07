@@ -1,5 +1,6 @@
 import LeftArrowIcon from '@dimensiondev/assets/left-arrow.svg';
 import SearchIcon from '@dimensiondev/assets/search.svg';
+import { type ErrorPageProps } from '@dimensiondev/types';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
@@ -29,7 +30,6 @@ import { resolveSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { fireflyWorkerEndpoint } from '@/providers/firefly/worker.js';
 import { getFireflyEndpoint } from '@/store/fireflyEndpoint.js';
-import { type ErrorPageProps } from '@/types/next.js';
 
 function SearchRecipientQueryErrorFallback({ reset }: ErrorPageProps) {
     return (

@@ -1,10 +1,10 @@
+import { type LayoutProps } from '@dimensiondev/types';
 import { msg } from '@lingui/core/macro';
 
 import { ExploreSourceNav } from '@/components/SourceNav/ExploreSourceNav.js';
 import { type ExploreSourceInURL, ExploreType } from '@/constants/enum.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
-import { type LayoutProps } from '@/types/utility.js';
 
 interface Props extends LayoutProps<{ source: string; explore: ExploreType }> {}
 

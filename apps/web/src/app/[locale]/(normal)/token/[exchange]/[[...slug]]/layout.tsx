@@ -1,3 +1,4 @@
+import { type LayoutProps } from '@dimensiondev/types';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import { headers } from 'next/headers.js';
 import { notFound, redirect, RedirectType } from 'next/navigation.js';
@@ -16,7 +17,6 @@ import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { createTokenMetadata } from '@/providers/firefly/metadata/createTokenMetadata.js';
 import { searchToken } from '@/providers/firefly/worker/searchToken.js';
 import { type GetTokenOptions } from '@/providers/types/Firefly.js';
-import { type LayoutProps } from '@/types/utility.js';
 
 const QueryOptionsSchema = z.object({
     address: z.string().optional(),
@@ -71,7 +71,6 @@ export async function generateMetadata(props: Props) {
  *  - /token/dex/[chain_id]/[address]
  */
 export default async function TokenPageLayout(props: PropsWithChildren<Props>) {
-    const { children } = props;
     const params = await props.params;
     const legacySymbol = decodeURIComponent(params.exchange).replace(/^\$/, '');
     const rawSearch = (await headers()).get('X-SEARCH-PARAMS') || '';
@@ -134,7 +133,7 @@ export default async function TokenPageLayout(props: PropsWithChildren<Props>) {
                 </div>
                 <WrapTokenMarketData className="sticky" token={token} />
                 <CategoryTabs token={token} className="sticky top-[54px] !z-30 md:top-[60px]" />
-                <div className="flex grow flex-col p-3">{children}</div>
+                <div className="flex grow flex-col p-3">{props.children}</div>
             </TokenContextProvider>
         </HydrationBoundary>
     );

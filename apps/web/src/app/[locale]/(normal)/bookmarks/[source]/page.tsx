@@ -1,5 +1,6 @@
 'use client';
 
+import { type LayoutProps } from '@dimensiondev/types';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { Suspense, use } from 'react';
 
@@ -13,7 +14,6 @@ import { SnapshotBookmarkList } from '@/components/Snapshot/SnapshotBookmarkList
 import { type BookmarkSource, Source, type SourceInURL } from '@/constants/enum.js';
 import { resolveSource } from '@/helpers/resolveSource.js';
 import { useMounted } from '@/hooks/useMounted.js';
-import { type LayoutProps } from '@/types/utility.js';
 
 function BookmarkListContent({ source }: { source: BookmarkSource }) {
     switch (source) {

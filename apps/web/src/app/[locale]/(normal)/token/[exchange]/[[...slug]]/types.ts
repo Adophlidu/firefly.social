@@ -1,5 +1,6 @@
+import { type LayoutProps } from '@dimensiondev/types';
+
 import { type TokenCategory } from '@/constants/enum.js';
-import { type LayoutProps } from '@/types/utility.js';
 
 export interface TokenPageProps
     extends LayoutProps<

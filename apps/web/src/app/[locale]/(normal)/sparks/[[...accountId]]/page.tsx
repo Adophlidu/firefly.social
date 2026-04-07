@@ -1,7 +1,8 @@
+import { type LayoutProps } from '@dimensiondev/types';
+
 import { SparksModal } from '@/components/Sparks/SparksModal.js';
 import { createSparksAccountMetadata } from '@/providers/firefly/metadata/createSparksAccountMetadata.js';
 import { createSparksMetadata } from '@/providers/firefly/metadata/createSparksMetadata.js';
-import { type LayoutProps } from '@/types/utility.js';
 
 export const revalidate = 300;
 

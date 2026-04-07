@@ -1,3 +1,5 @@
+import { type LayoutProps } from '@dimensiondev/types';
+
 import { RedirectProfilePage } from '@/app/[locale]/(normal)/profile/pages/RedirectProfilePage.js';
 import { RedirectWithFireflyUID } from '@/app/[locale]/(normal)/profile/pages/RedirectWithFireflyUID.js';
 import { SourceInURL } from '@/constants/enum.js';
@@ -6,7 +8,6 @@ import { isNumericalProfileId as isUID } from '@/helpers/isNumericalProfileId.js
 import { isSocialSource } from '@/helpers/isSource.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 import { createFireflyProfileMetadata } from '@/providers/firefly/metadata/createFireflyProfileMetadata.js';
-import { type LayoutProps } from '@/types/utility.js';
 
 export function generateStaticParams() {
     return [

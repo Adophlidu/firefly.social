@@ -1,4 +1,5 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { type LayoutProps } from '@dimensiondev/types';
 import { notFound } from 'next/navigation.js';
 
 import { PreviewImageModal } from '@/components/PreviewImageModal.js';
@@ -7,7 +8,6 @@ import { type SocialSourceInURL } from '@/constants/enum.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { type LayoutProps } from '@/types/utility.js';
 
 export const revalidate = 60;
 

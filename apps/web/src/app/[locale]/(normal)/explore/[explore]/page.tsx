@@ -1,3 +1,4 @@
+import { type LayoutProps } from '@dimensiondev/types';
 import { first } from 'lodash-es';
 import urlcat from 'urlcat';
 
@@ -8,7 +9,6 @@ import { ExploreType } from '@/constants/enum.js';
 import { notFound, redirect, RedirectType } from '@/esm/navigation/server.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 import { getEventSlugList } from '@/providers/firefly/prediction/getEventSlugList.js';
-import { type LayoutProps } from '@/types/utility.js';
 
 export const revalidate = 60;
 

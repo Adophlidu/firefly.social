@@ -1,3 +1,5 @@
+import { type LayoutProps } from '@dimensiondev/types';
+
 import { TipsDetailWithView } from '@/app/[locale]/(normal)/tx/[chain_id]/[hash]/TipsDetailWithView.js';
 import { SwapDetail } from '@/components/Swap/SwapDetail.js';
 import { TipsNotificationType } from '@/constants/enum.js';
@@ -6,7 +8,6 @@ import { isValidTxId } from '@/helpers/isValidTxId.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getTipsTransactionDetail } from '@/providers/firefly/endpoint/getTipsTransactionDetail.js';
 import { createTransactionMetadata } from '@/providers/firefly/metadata/createTransactionMetadata.js';
-import { type LayoutProps } from '@/types/utility.js';
 
 export const revalidate = 3600;
 

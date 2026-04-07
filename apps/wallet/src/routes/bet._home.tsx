@@ -3,6 +3,7 @@ import DepositIcon from '@dimensiondev/assets/deposit.svg';
 import WithdrawIcon from '@dimensiondev/assets/withdraw.svg';
 import { captureException, ExceptionId } from '@dimensiondev/exception-tracker';
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
+import type { ErrorPageProps } from '@dimensiondev/types';
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute, Link, Outlet, useLocation, useNavigate } from '@tanstack/react-router';
@@ -26,7 +27,6 @@ import { getPolymarketAccountQueryOptions } from '@/queries/firefly/getPolymarke
 import { getPolymarketProfileListQueryOptions } from '@/queries/firefly/getPolymarketProfileListQueryOptions.js';
 import { getPolymarketWithdrawableAmountQueryOptions } from '@/queries/firefly/getPolymarketWithdrawableAmountQueryOptions.js';
 import { getPolymarketUserValueQueryOptions } from '@/queries/polymarket/getPolymarketUserValueQueryOptions.js';
-import type { ErrorPageProps } from '@/types/next.js';
 
 const POLYMARKET_HOME_POLL_MS = 10_000;
 

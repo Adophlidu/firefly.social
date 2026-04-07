@@ -3,6 +3,7 @@ set -euo pipefail
 
 # Build packages
 pnpm --filter @dimensiondev/constants build
+pnpm --filter @dimensiondev/types build
 pnpm --filter @dimensiondev/utils build
 pnpm --filter @dimensiondev/envs build
 pnpm --filter @dimensiondev/iframe-bridge build

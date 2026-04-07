@@ -1,3 +1,4 @@
+import { type LayoutProps } from '@dimensiondev/types';
 import { type Metadata } from 'next';
 
 import { ChannelInfoUI } from '@/components/Channel/ChannelInfoUI.js';
@@ -8,7 +9,6 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { createChannelMetadata } from '@/providers/firefly/metadata/createChannelMetadata.js';
-import { type LayoutProps } from '@/types/utility.js';
 
 interface Props
     extends LayoutProps<{

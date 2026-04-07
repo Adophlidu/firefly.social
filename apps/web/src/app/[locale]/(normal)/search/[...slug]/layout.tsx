@@ -1,3 +1,4 @@
+import { type LayoutProps } from '@dimensiondev/types';
 import { createLookupTableResolver } from '@dimensiondev/utils';
 import { type MessageDescriptor } from '@lingui/core';
 import { msg } from '@lingui/core/macro';
@@ -12,7 +13,6 @@ import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isValidEnumValue } from '@/helpers/isValidEnumValue.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
-import { type LayoutProps } from '@/types/utility.js';
 
 const resolveSearchTypeTitle = createLookupTableResolver<SearchType, MessageDescriptor>(
     {

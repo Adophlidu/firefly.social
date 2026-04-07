@@ -1,3 +1,4 @@
+import { type LayoutProps } from '@dimensiondev/types';
 import { Trans } from '@lingui/react/macro';
 
 import { FollowPageLayout } from '@/app/[locale]/(normal)/profile/pages/FollowPageLayout.js';
@@ -14,7 +15,6 @@ import { isSocialSource } from '@/helpers/isSource.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 import { setupLocaleFromParams } from '@/i18n/static.js';
-import { type LayoutProps } from '@/types/utility.js';
 
 interface Props extends LayoutProps<{ id: string; category: ProfileCategory; source: ProfilePageSourceInURL }> {}
 

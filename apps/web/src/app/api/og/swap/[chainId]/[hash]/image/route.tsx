@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 
+import { type NextRequestContext } from '@dimensiondev/types';
 import { compose } from '@dimensiondev/utils';
 import { first } from 'lodash-es';
 import { ImageResponse } from 'next/og.js';
@@ -24,7 +25,6 @@ import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { getSwapActivityByHash } from '@/providers/firefly/endpoint/getSwapActivityByHash.js';
 import { type SwapActivity } from '@/providers/types/Firefly.js';
 import { getSatoriFonts } from '@/services/getSatoriFonts.js';
-import { type NextRequestContext } from '@/types/utility.js';
 
 const OG_FONT_FAMILY = '"Inter", "NotoSans"';
 const OG_FALLBACK_AVATAR = getPublicUrl('/image/firefly-light-avatar.png');

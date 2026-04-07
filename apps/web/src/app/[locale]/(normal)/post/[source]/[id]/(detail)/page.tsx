@@ -1,3 +1,4 @@
+import { type LayoutProps } from '@dimensiondev/types';
 import { UnauthorizedError } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
@@ -17,7 +18,6 @@ import { isValidPostId } from '@/helpers/postId.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { setupLocaleFromParams } from '@/i18n/static.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
-import { type LayoutProps } from '@/types/utility.js';
 
 export const revalidate = 60;
 

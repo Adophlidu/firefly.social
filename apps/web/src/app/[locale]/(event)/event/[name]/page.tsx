@@ -1,3 +1,4 @@
+import { type LayoutProps } from '@dimensiondev/types';
 import { type Metadata } from 'next';
 
 import { ActivityHeader } from '@/components/Activity/ActivityHeader.js';
@@ -7,7 +8,6 @@ import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getFireflyActivityInfo } from '@/providers/firefly/activity/getFireflyActivityInfo.js';
 import { createEventMetadata } from '@/providers/firefly/metadata/createEventMetadata.js';
 import { ActivityStatus } from '@/providers/types/Firefly.js';
-import { type LayoutProps } from '@/types/utility.js';
 
 export const revalidate = 300;
 

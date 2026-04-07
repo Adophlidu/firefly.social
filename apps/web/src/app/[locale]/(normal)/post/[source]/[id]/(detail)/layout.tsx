@@ -1,3 +1,4 @@
+import { type LayoutProps } from '@dimensiondev/types';
 import { Trans } from '@lingui/react/macro';
 import { type Metadata } from 'next';
 import { type PropsWithChildren } from 'react';
@@ -8,7 +9,6 @@ import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isSocialSourceInUrl } from '@/helpers/isSource.js';
 import { setupLocaleFromParams } from '@/i18n/static.js';
 import { createPostMetadata } from '@/providers/firefly/metadata/createPostMetadata.js';
-import { type LayoutProps } from '@/types/utility.js';
 
 interface Props extends LayoutProps<{ id: string; source: SocialSourceInURL }> {}
 

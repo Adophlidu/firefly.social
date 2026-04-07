@@ -1,3 +1,4 @@
+import { type NextRequestContext } from '@dimensiondev/types';
 import { compose } from '@dimensiondev/utils';
 import { ImageResponse } from 'next/og.js';
 import { type NextRequest } from 'next/server.js';
@@ -10,7 +11,6 @@ import { getPublicS3Url } from '@/helpers/getPublicUrl.js';
 import { getSearchParamsWithZodSchema } from '@/helpers/getSearchParamsWithZodSchema.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { getSatoriFonts } from '@/services/getSatoriFonts.js';
-import { type NextRequestContext } from '@/types/utility.js';
 
 const sparksDefaultOgImage = getPublicS3Url('/og/genesis_sparks.png');
 

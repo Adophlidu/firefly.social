@@ -1,11 +1,11 @@
 'use client';
 
 import FireflyIcon from '@dimensiondev/assets/logo.svg';
+import { type LayoutProps } from '@dimensiondev/types';
 import { useRouter } from 'next/navigation.js';
 import { use } from 'react';
 
 import { usePollingAppScanLogin } from '@/hooks/usePollingAppScanLogin.js';
-import { type LayoutProps } from '@/types/utility.js';
 
 export default function Page({
     params,

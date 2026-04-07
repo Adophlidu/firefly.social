@@ -1,5 +1,6 @@
 'use client';
 
+import { type LayoutProps } from '@dimensiondev/types';
 import { use } from 'react';
 
 import { FireflyNotifications } from '@/app/[locale]/(normal)/notifications/[source]/pages/FireflyNotifications.js';
@@ -8,7 +9,6 @@ import { Loading } from '@/components/Loading.js';
 import { type NotificationSource, Source, type SourceInURL } from '@/constants/enum.js';
 import { resolveSource } from '@/helpers/resolveSource.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
-import { type LayoutProps } from '@/types/utility.js';
 
 interface Props extends LayoutProps<{ source: SourceInURL }> {}
 

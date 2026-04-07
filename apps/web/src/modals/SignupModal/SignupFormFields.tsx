@@ -30,6 +30,7 @@ interface SignupFormFieldsProps {
 function isBlank(str: string) {
     return !str || /^\s*$/.test(str);
 }
+
 function checkHandleFormat(source: SocialSource, handle: string): true | string {
     switch (source) {
         case Source.Lens: {

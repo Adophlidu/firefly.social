@@ -1,5 +1,6 @@
 'use client';
 
+import { type LayoutProps } from '@dimensiondev/types';
 import { useQuery } from '@tanstack/react-query';
 import { Suspense, use, useMemo } from 'react';
 
@@ -14,7 +15,6 @@ import { isProfilePageSource } from '@/helpers/isSource.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 import { resolveSpecialProfileIdentity } from '@/helpers/resolveSpecialProfileIdentity.js';
-import { type LayoutProps } from '@/types/utility.js';
 
 interface Props extends LayoutProps<{ id: string; category: ProfileCategory; source: ProfilePageSourceInURL }> {}
 

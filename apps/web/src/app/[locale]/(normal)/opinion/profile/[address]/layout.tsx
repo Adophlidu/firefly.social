@@ -1,8 +1,8 @@
+import { type LayoutProps } from '@dimensiondev/types';
 import { type Metadata } from 'next';
 
 import { PredictionPlatform } from '@/constants/enum.js';
 import { createPredictionProfileMetadata } from '@/providers/firefly/metadata/createPredictionProfileMetadata.js';
-import { type LayoutProps } from '@/types/utility.js';
 
 interface Props
     extends LayoutProps<{

@@ -1,3 +1,4 @@
+import { type LayoutProps } from '@dimensiondev/types';
 import { msg } from '@lingui/core/macro';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 
@@ -10,7 +11,6 @@ import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { logger } from '@/libs/Logger.js';
 import { getEventSlugList } from '@/providers/firefly/prediction/getEventSlugList.js';
-import { type LayoutProps } from '@/types/utility.js';
 
 export function generateStaticParams() {
     return Object.values(ExploreType).map((explore) => ({ explore }));

@@ -1,3 +1,4 @@
+import { type LayoutProps } from '@dimensiondev/types';
 import { type Metadata } from 'next';
 
 import { type ProfilePageSourceInURL } from '@/constants/enum.js';
@@ -7,7 +8,6 @@ import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isProfilePageSource } from '@/helpers/isSource.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
-import { type LayoutProps } from '@/types/utility.js';
 
 type Props = LayoutProps<{ source: ProfilePageSourceInURL; id: string }>;
 

@@ -1,3 +1,4 @@
+import { type LayoutProps } from '@dimensiondev/types';
 import { type Metadata } from 'next';
 
 import { ChannelTabs } from '@/components/Channel/ChannelTabs.js';
@@ -6,7 +7,6 @@ import { ChannelTabType, type SocialSourceInURL, SourceInURL } from '@/constants
 import { notFound } from '@/esm/navigation/server.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { createChannelMetadata } from '@/providers/firefly/metadata/createChannelMetadata.js';
-import { type LayoutProps } from '@/types/utility.js';
 
 interface Props
     extends LayoutProps<

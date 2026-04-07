@@ -36,6 +36,7 @@
         "@dimensiondev/exception-tracker": "workspace:^",
         "@dimensiondev/iframe-bridge": "workspace:^",
         "@dimensiondev/native-bridge": "workspace:^",
+        "@dimensiondev/types": "workspace:^",
         "@dimensiondev/utils": "workspace:^",
         "@farcaster/core": "^0.18.10",
         "@farcaster/miniapp-host": "^0.2.16",

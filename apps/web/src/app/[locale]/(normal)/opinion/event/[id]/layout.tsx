@@ -1,4 +1,4 @@
-import { type LayoutProps } from '@/types/utility.js';
+import { type LayoutProps } from '@dimensiondev/types';
 
 interface Props
     extends LayoutProps<

@@ -1,3 +1,4 @@
+import { type LayoutProps } from '@dimensiondev/types';
 import { Trans } from '@lingui/react/macro';
 import { type Metadata } from 'next';
 
@@ -13,7 +14,6 @@ import { setupLocaleFromParams } from '@/i18n/static.js';
 import { getArticleById } from '@/providers/firefly/article/getArticleById.js';
 import { createFireflyArticleMetadata } from '@/providers/firefly/metadata/createFireflyArticleMetadata.js';
 import { createPostMetadata } from '@/providers/firefly/metadata/createPostMetadata.js';
-import { type LayoutProps } from '@/types/utility.js';
 
 export const revalidate = 60;
 

@@ -1,3 +1,4 @@
+import { type LayoutProps } from '@dimensiondev/types';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 
@@ -7,7 +8,6 @@ import { Source, SourceInURL } from '@/constants/enum.js';
 import { notFound } from '@/esm/navigation/server.js';
 import { isBookmarkSource } from '@/helpers/isSource.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
-import { type LayoutProps } from '@/types/utility.js';
 
 const BOOKMARK_SOURCE_PARAMS: SourceInURL[] = [
     SourceInURL.Lens,
@@ -28,7 +28,6 @@ interface Props extends LayoutProps<{ source: string }> {}
 
 export default async function Layout(props: Props) {
     const params = await props.params;
-    const { children } = props;
 
     const source = resolveSourceFromUrlNoFallback(params.source);
     if (!source || !isBookmarkSource(source)) notFound();
@@ -41,7 +40,7 @@ export default async function Layout(props: Props) {
                     <BookmarkSourceTabs source={source} />
                 </div>
             </div>
-            <div className={classNames(source !== Source.Tokens ? 'px-4' : null)}>{children}</div>
+            <div className={classNames(source !== Source.Tokens ? 'px-4' : null)}>{props.children}</div>
         </div>
     );
 }

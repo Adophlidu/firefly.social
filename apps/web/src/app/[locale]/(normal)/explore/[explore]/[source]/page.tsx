@@ -1,5 +1,6 @@
 'use client';
 
+import { type LayoutProps } from '@dimensiondev/types';
 import { use } from 'react';
 
 import { ExplorePage } from '@/app/[locale]/(normal)/explore/pages/Explore.js';
@@ -7,7 +8,6 @@ import { EXPLORE_SOURCES } from '@/constants/computed.js';
 import { type ExploreSource, type ExploreSourceInURL, ExploreType, type TrendingType } from '@/constants/enum.js';
 import { notFound } from '@/esm/navigation.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
-import { type LayoutProps } from '@/types/utility.js';
 
 interface Props extends LayoutProps<{ source: string; explore: ExploreType }> {}
 

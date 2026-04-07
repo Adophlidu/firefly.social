@@ -1,8 +1,8 @@
+import { type LayoutProps } from '@dimensiondev/types';
 import { type Metadata } from 'next';
 
 import { ArticleDetailPage } from '@/app/[locale]/(normal)/article/[id]/pages/DetailPage.js';
 import { createArticleMetadata } from '@/providers/firefly/metadata/createArticleMetadata.js';
-import { type LayoutProps } from '@/types/utility.js';
 
 export const revalidate = 300;
 

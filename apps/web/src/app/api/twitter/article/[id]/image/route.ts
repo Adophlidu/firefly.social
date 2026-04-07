@@ -1,3 +1,4 @@
+import { type NextRequestContext } from '@dimensiondev/types';
 import { compose } from '@dimensiondev/utils';
 import { type NextRequest } from 'next/server.js';
 import { z } from 'zod';
@@ -9,7 +10,6 @@ import { qAny } from '@/helpers/q.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { parseHtml } from '@/libs/parseHtml.js';
 import { withTwitterRequestErrorHandler } from '@/providers/twitter/withTwitterRequestErrorHandler.js';
-import { type NextRequestContext } from '@/types/utility.js';
 
 const ParamsSchema = z.object({ id: z.string() });
 

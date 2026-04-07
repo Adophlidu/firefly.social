@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 
+import { type NextRequestContext } from '@dimensiondev/types';
 import { compose, safeUnreachable } from '@dimensiondev/utils';
 import { compact, first } from 'lodash-es';
 import { ImageResponse } from 'next/og.js';
@@ -27,7 +28,6 @@ import { type WalletProfiles } from '@/providers/types/Firefly.js';
 import { SourceSchema } from '@/schemas/Source.js';
 import { getAllRelatedProfilesWithDefault } from '@/services/getAllRelatedProfilesWithDefault.js';
 import { getSatoriFonts } from '@/services/getSatoriFonts.js';
-import { type NextRequestContext } from '@/types/utility.js';
 
 const OG_FALLBACK_AVATAR = getPublicUrl('/image/firefly-light-avatar.png');
 const OG_BACKGROUND = getPublicUrl('/image/profile-og-background.png');

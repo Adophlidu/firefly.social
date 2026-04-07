@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 
+import { type NextRequestContext } from '@dimensiondev/types';
 import { compose } from '@dimensiondev/utils';
 import { ImageResponse } from 'next/og.js';
 import { type NextRequest } from 'next/server.js';
@@ -21,7 +22,6 @@ import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { getTipsTransactionDetail } from '@/providers/firefly/endpoint/getTipsTransactionDetail.js';
 import { type TipsDetail } from '@/providers/types/Firefly.js';
 import { getSatoriFonts } from '@/services/getSatoriFonts.js';
-import { type NextRequestContext } from '@/types/utility.js';
 
 const OG_FALLBACK_AVATAR = getPublicUrl('/image/firefly-light-avatar.png');
 const ArrowRightTickerbitSVG = getPublicUrl('/svg/arrow-right-tickerbit.svg');

@@ -1,9 +1,9 @@
 'use client';
 
+import { type LayoutProps } from '@dimensiondev/types';
 import { Trans } from '@lingui/react/macro';
 
 import { Comeback } from '@/components/Comeback.js';
-import { type LayoutProps } from '@/types/utility.js';
 
 export default function BetsLeaderboardLayout(props: LayoutProps) {
     return (
