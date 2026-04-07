@@ -7,7 +7,6 @@
         "dev": "next dev --turbo",
         "debug": "NODE_OPTIONS='--inspect' next dev",
         "build": "NODE_OPTIONS=--max_old_space_size=8192 next build",
-        "build:statoscope": "NODE_OPTIONS=--max_old_space_size=8192 ANALYZE_STATOSCOPE=true next build --webpack",
         "build:scripts": "node .vercel-config/build-scripts.mjs",
         "build:logs": ".vercel-config/build-logs.sh",
         "build:polyfills": ".vercel-config/build-polyfills.sh",

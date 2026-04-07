@@ -5,7 +5,6 @@ import { lingui } from '@lingui/vite-plugin';
 import { tanstackStart } from '@tanstack/react-start/plugin/vite';
 import react from '@vitejs/plugin-react';
 import { nitro } from 'nitro/vite';
-import { visualizer } from 'rollup-plugin-visualizer';
 import { defineConfig } from 'vite';
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
 import svgr from 'vite-plugin-svgr';
@@ -73,9 +72,6 @@ export default defineConfig({
             include: '**/*.svg',
             exclude: '**/mask_pkgs/**/*.svg',
         }),
-        ...(process.env.ANALYZE === 'true'
-            ? [visualizer({ open: false, filename: 'stats.html', gzipSize: true, brotliSize: true })]
-            : []),
     ],
     resolve: {
         alias: {

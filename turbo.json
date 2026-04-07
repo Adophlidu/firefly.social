@@ -34,8 +34,7 @@
     "tasks": {
         "build": {
             "dependsOn": ["^build"],
-            "outputs": [".next/**", "!.next/cache/**", "dist/**"],
-            "env": ["ANALYZE", "ANALYZE_STATOSCOPE"]
+            "outputs": [".next/**", "!.next/cache/**", "dist/**"]
         },
         "lint": {},
         "dev": {

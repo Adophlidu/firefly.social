@@ -1,5 +1,4 @@
 /* cspell:disable */
-import StatoscopeWebpackPlugin from '@statoscope/webpack-plugin';
 import { createRequire } from 'module';
 import type { NextConfig } from 'next';
 import { resolve } from 'path';
@@ -47,20 +46,6 @@ export const webpackConfig: NonNullable<NextConfig['webpack']> = (config, contex
             }),
         ],
     );
-
-    // Add Statoscope plugin if enabled (only for client builds)
-    if (process.env.ANALYZE_STATOSCOPE === 'true') {
-        config.plugins.push(
-            new StatoscopeWebpackPlugin({
-                saveReportTo: resolve(projectRoot, 'statoscope.html'),
-                saveStatsTo: resolve(projectRoot, 'statoscope.json'),
-                saveOnlyStats: true,
-                watchMode: false,
-                compressor: 'gzip',
-                extensions: [],
-            }),
-        );
-    }
 
     config.experiments = {
         ...config.experiments,

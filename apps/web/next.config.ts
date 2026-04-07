@@ -1,7 +1,6 @@
 /* cspell:disable */
 /* eslint-disable no-relative-import-paths/no-relative-import-paths */
 
-import createBundleAnalyzer from '@next/bundle-analyzer';
 import { execSync } from 'child_process';
 import { createRequire } from 'module';
 import { type NextConfig } from 'next';
@@ -71,9 +70,4 @@ const config: NextConfig = {
     },
 };
 
-const withBundleAnalyzer = createBundleAnalyzer({
-    enabled: process.env.ANALYZE === 'true',
-    analyzerMode: 'static',
-});
-
-export default withBundleAnalyzer(config);
+export default config;
