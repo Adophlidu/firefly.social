@@ -1,0 +1,18 @@
+#!/bin/bash
+set -euo pipefail
+
+# Build packages (workspace deps of @dimensiondev/firefly-wallet)
+pnpm --filter @dimensiondev/constants build
+pnpm --filter @dimensiondev/utils build
+pnpm --filter @dimensiondev/iframe-bridge build
+pnpm --filter @dimensiondev/native-bridge build
+pnpm --filter @dimensiondev/exception-tracker build
+
+# Compile i18n
+pnpm --filter @dimensiondev/firefly-wallet lingui:compile
+
+# Build metadata (git commit, versions, etc.)
+pnpm --filter @dimensiondev/firefly-wallet build:logs
+
+# Vite / TanStack Start build
+pnpm --filter @dimensiondev/firefly-wallet build

@@ -29,8 +29,13 @@ jobs:
             # Prunes Tolgee keys missing from push.files (push.removeOtherKeys in .tolgeerc.json).
             # Uses the wrapper script to skip untranslated plural entries, which Tolgee would
             # otherwise convert to empty ICU strings like `{value, plural, other {}}`.
-            - name: Push locale files to Tolgee
+            - name: Push locale files to Tolgee (web)
               env:
                   TOLGEE_API_KEY: ${{ secrets.TOLGEE_API_KEY }}
                   TOLGEE_PROJECT_ID: ${{ secrets.TOLGEE_PROJECT_ID }}
               run: pnpm --filter @dimensiondev/firefly-web tolgee:push-sources
+
+            - name: Push locale files to Tolgee (wallet)
+              env:
+                  TOLGEE_API_KEY: ${{ secrets.TOLGEE_API_KEY }}
+              run: pnpm --filter @dimensiondev/firefly-wallet tolgee:push-sources

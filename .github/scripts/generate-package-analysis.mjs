@@ -17,7 +17,7 @@ const APPS = [
     {
         label: 'apps/wallet',
         outRelative: 'apps/wallet/docs/PACKAGE_ANALYSIS.txt',
-        pkgJsonPaths: ['package.json', 'apps/wallet/package.json', 'apps/wallet/scripts/package.json'],
+        pkgJsonPaths: ['package.json', 'apps/wallet/package.json'],
         importerKeys: ['.', 'apps/wallet', 'apps/wallet/scripts'],
     },
 ];

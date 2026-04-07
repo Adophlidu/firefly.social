@@ -7,7 +7,7 @@
         "dev": "vite dev --port 3001",
         "build": "NODE_OPTIONS=--max_old_space_size=8192 vite build",
         "start": "vite preview --port 3001",
-        "build:logs": "scripts/build-logs.sh",
+        "build:logs": ".vercel-config/build-logs.sh",
         "lint": "eslint .",
         "test": "vitest run",
         "test:watch": "vitest",
@@ -16,9 +16,10 @@
         "lingui:compile": "lingui compile",
         "lingui:extract": "NODE_ENV=development lingui extract --clean",
         "lingui": "pnpm run lingui:extract && pnpm run lingui:compile",
-        "crowdin:sync": "crowdin push && crowdin pull",
-        "crowdin:sync:sources": "crowdin push",
-        "crowdin:sync:translations": "crowdin pull"
+        "tolgee:push": "tolgee push",
+        "tolgee:push-sources": "TOLGEE_APP_ROOT=apps/wallet node ../../packages/scripts/tolgee-push-sources.cjs --force-mode OVERRIDE",
+        "tolgee:pull": "tolgee pull",
+        "tolgee:sync": "pnpm run tolgee:pull && pnpm run lingui:extract && pnpm run lingui:compile"
     },
     "dependencies": {
         "@coral-xyz/anchor": "^0.32.1",
@@ -79,7 +80,6 @@
         "zod": "^3.25.76"
     },
     "devDependencies": {
-        "@crowdin/cli": "^4.12.0",
         "@lingui/cli": "^5.5.2",
         "@lingui/conf": "^5.5.2",
         "@lingui/core": "^5.5.2",
@@ -87,6 +87,7 @@
         "@lingui/swc-plugin": "^5.5.2",
         "@lingui/vite-plugin": "^5.8.0",
         "@masknet/config": "^0.2.1",
+        "@tolgee/cli": "^2.16.1",
         "@tailwindcss/forms": "^0.5.11",
         "@types/bs58": "^4.0.4",
         "@types/lodash-es": "^4.17.12",

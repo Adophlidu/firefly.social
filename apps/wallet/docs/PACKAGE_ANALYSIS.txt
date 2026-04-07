@@ -3,8 +3,8 @@ Package Analysis
 
 Application: apps/wallet
 
-Total packages: 2370
-Packages with multiple versions: 369
+Total packages: 2351
+Packages with multiple versions: 347
 
 Legend:
   * = Direct dependency (listed in package.json for this app's scope)
@@ -70,25 +70,6 @@ Packages with Multiple Versions
  @floating-ui/react-dom@2.1.7,2.1.8
  @floating-ui/utils@0.2.10,0.2.11
  @headlessui/react@2.1.10,2.2.9
- @img/sharp-darwin-arm64@0.33.5,0.34.5
- @img/sharp-darwin-x64@0.33.5,0.34.5
- @img/sharp-libvips-darwin-arm64@1.0.4,1.2.4
- @img/sharp-libvips-darwin-x64@1.0.4,1.2.4
- @img/sharp-libvips-linux-arm@1.0.5,1.2.4
- @img/sharp-libvips-linux-arm64@1.0.4,1.2.4
- @img/sharp-libvips-linux-s390x@1.0.4,1.2.4
- @img/sharp-libvips-linux-x64@1.0.4,1.2.4
- @img/sharp-libvips-linuxmusl-arm64@1.0.4,1.2.4
- @img/sharp-libvips-linuxmusl-x64@1.0.4,1.2.4
- @img/sharp-linux-arm@0.33.5,0.34.5
- @img/sharp-linux-arm64@0.33.5,0.34.5
- @img/sharp-linux-s390x@0.33.5,0.34.5
- @img/sharp-linux-x64@0.33.5,0.34.5
- @img/sharp-linuxmusl-arm64@0.33.5,0.34.5
- @img/sharp-linuxmusl-x64@0.33.5,0.34.5
- @img/sharp-wasm32@0.33.5,0.34.5
- @img/sharp-win32-ia32@0.33.5,0.34.5
- @img/sharp-win32-x64@0.33.5,0.34.5
  @jridgewell/sourcemap-codec@1.5.0,1.5.5
  @lingui/babel-plugin-extract-messages@5.5.2,5.9.4
  @lingui/babel-plugin-lingui-macro@5.5.2,5.9.4
@@ -255,7 +236,7 @@ Packages with Multiple Versions
  entities@4.5.0,6.0.1,7.0.1
  es-module-lexer@1.7.0,2.0.0
  es-toolkit@1.33.0,1.39.3
-*esbuild@0.25.12,0.27.0
+ esbuild@0.25.12,0.27.0
  escape-string-regexp@1.0.5,2.0.0,4.0.0,5.0.0
 *eslint-plugin-react-hooks@5.2.0,7.0.1
  eslint-scope@5.1.1,8.4.0
@@ -282,7 +263,6 @@ Packages with Multiple Versions
  ignore@5.3.2,7.0.5
  image-size@1.2.1,2.0.2
  indent-string@4.0.0,5.0.0
- is-arrayish@0.2.1,0.3.4
  is-docker@2.2.1,3.0.0
  is-wsl@2.2.0,3.1.1
  isarray@1.0.0,2.0.5
@@ -323,7 +303,6 @@ Packages with Multiple Versions
  pify@2.3.0,3.0.0,5.0.0
  pino-abstract-transport@1.2.0,3.0.0
  pkg-types@1.3.1,2.3.0
-*pngjs@5.0.0,6.0.0,7.0.0
 *postcss@8.4.31,8.4.49,8.5.8
  preact@10.24.2,10.27.2
  pretty-format@27.5.1,29.7.0,3.8.0
@@ -337,7 +316,6 @@ Packages with Multiple Versions
  rollup@4.39.0,4.60.1
  safe-buffer@5.1.2,5.2.1
  semver@6.3.1,7.5.4,7.7.1,7.7.2,7.7.3,7.7.4
-*sharp@0.33.5,0.34.5
  signal-exit@3.0.7,4.1.0
  sonic-boom@3.8.1,4.2.0
  source-map@0.5.6,0.6.1,0.7.6,0.8.0-beta.0
@@ -374,7 +352,7 @@ Packages with Multiple Versions
  ws@7.5.10,8.18.0,8.18.3,8.19.0,8.20.0
  wsl-utils@0.1.0,0.3.1
  y18n@4.0.3,5.0.8
- yallist@3.1.1,4.0.0,5.0.0
+ yallist@3.1.1,4.0.0
  yaml@1.10.3,2.8.3
  yargs@15.4.1,17.7.2,18.0.0
  yargs-parser@18.1.3,21.1.1,22.0.0
@@ -506,7 +484,6 @@ Packages with Single Version
 *@coral-xyz/anchor@0.32.1
  @coral-xyz/anchor-errors@0.31.1
  @coral-xyz/borsh@0.31.1
-*@crowdin/cli@4.14.1
  @cspell/cspell-bundled-dicts@7.3.9
  @cspell/cspell-json-reporter@7.3.9
  @cspell/cspell-pipe@7.3.9
@@ -661,13 +638,31 @@ Packages with Single Version
  @humanwhocodes/module-importer@1.0.1
  @humanwhocodes/retry@0.4.3
  @img/colour@1.0.0
+ @img/sharp-darwin-arm64@0.34.5
+ @img/sharp-darwin-x64@0.34.5
+ @img/sharp-libvips-darwin-arm64@1.2.4
+ @img/sharp-libvips-darwin-x64@1.2.4
+ @img/sharp-libvips-linux-arm@1.2.4
+ @img/sharp-libvips-linux-arm64@1.2.4
  @img/sharp-libvips-linux-ppc64@1.2.4
  @img/sharp-libvips-linux-riscv64@1.2.4
+ @img/sharp-libvips-linux-s390x@1.2.4
+ @img/sharp-libvips-linux-x64@1.2.4
+ @img/sharp-libvips-linuxmusl-arm64@1.2.4
+ @img/sharp-libvips-linuxmusl-x64@1.2.4
+ @img/sharp-linux-arm@0.34.5
+ @img/sharp-linux-arm64@0.34.5
  @img/sharp-linux-ppc64@0.34.5
  @img/sharp-linux-riscv64@0.34.5
+ @img/sharp-linux-s390x@0.34.5
+ @img/sharp-linux-x64@0.34.5
+ @img/sharp-linuxmusl-arm64@0.34.5
+ @img/sharp-linuxmusl-x64@0.34.5
+ @img/sharp-wasm32@0.34.5
  @img/sharp-win32-arm64@0.34.5
+ @img/sharp-win32-ia32@0.34.5
+ @img/sharp-win32-x64@0.34.5
  @isaacs/cliui@8.0.2
- @isaacs/fs-minipass@4.0.1
  @isaacs/ttlcache@1.4.1
  @istanbuljs/load-nyc-config@1.1.0
  @istanbuljs/schema@0.1.3
@@ -1149,7 +1144,7 @@ Packages with Single Version
  @testing-library/react@16.3.2
  @testing-library/user-event@14.6.1
  @tippyjs/react@4.2.6
- @tolgee/cli@2.16.1
+*@tolgee/cli@2.16.1
  @trysound/sax@0.2.0
  @turbo/darwin-64@2.9.3
  @turbo/darwin-arm64@2.9.3
@@ -1189,7 +1184,6 @@ Packages with Single Version
  @types/istanbul-lib-report@3.0.3
  @types/istanbul-reports@3.0.4
  @types/js-cookie@2.2.7
-*@types/js-yaml@4.0.9
  @types/json-schema@7.0.15
  @types/json5@0.0.29
  @types/lodash@4.17.20
@@ -1201,8 +1195,6 @@ Packages with Single Version
 *@types/node@22.10.10
  @types/pako@2.0.3
  @types/parse-json@4.0.2
-*@types/pixelmatch@5.2.6
-*@types/pngjs@6.0.5
 *@types/react@19.2.14
  @types/react-avatar-editor@13.0.4
 *@types/react-dom@19.2.3
@@ -1409,7 +1401,6 @@ Packages with Single Version
  check-error@2.1.1
  cheerio@1.2.0
  cheerio-select@2.1.0
- chownr@3.0.0
  chrome-launcher@0.15.2
  chrome-trace-event@1.0.4
  chromium-edge-launcher@0.2.0
@@ -1424,16 +1415,13 @@ Packages with Single Version
  client-only@0.0.1
  clone@1.0.4
  collapse-white-space@2.1.0
- color@4.2.3
  color-convert@2.0.1
  color-name@1.1.4
- color-string@1.9.1
  color2k@2.0.3
  colorette@2.0.20
  colors@1.0.3
  combined-stream@1.0.8
  comma-separated-tokens@2.0.3
- command-exists-promise@2.0.2
  comment-json@4.2.5
  commondir@1.0.1
  compare-versions@6.1.1
@@ -1542,7 +1530,7 @@ Packages with Single Version
  domutils@3.2.2
  dot-case@3.0.4
  dot-prop@6.0.1
-*dotenv@16.4.7
+ dotenv@16.4.7
  dunder-proto@1.0.1
  duplexer@0.1.2
  duration-js@4.0.0
@@ -1608,7 +1596,6 @@ Packages with Single Version
  events@3.3.0
  eventsource@2.0.2
  evp_bytestokey@1.0.3
- execa@5.1.1
  expect-type@1.2.1
  exponential-backoff@3.1.3
  exsolve@1.0.8
@@ -1669,7 +1656,6 @@ Packages with Single Version
  get-package-type@0.1.0
  get-proto@1.0.1
  get-stdin@9.0.0
- get-stream@6.0.1
  get-symbol-description@1.1.0
  get-tsconfig@4.13.0
  glob-to-regexp@0.4.1
@@ -1708,7 +1694,6 @@ Packages with Single Version
  http-proxy-agent@7.0.2
  https-browserify@1.0.0
  https-proxy-agent@7.0.6
- human-signals@2.1.0
  humanize-ms@1.2.1
  hyphenate-style-name@1.1.0
  iconv-lite@0.6.3
@@ -1734,6 +1719,7 @@ Packages with Single Version
  is-alphanumerical@2.0.1
  is-arguments@1.2.0
  is-array-buffer@3.0.5
+ is-arrayish@0.2.1
  is-async-function@2.1.1
  is-bigint@1.1.0
  is-binary-path@2.1.0
@@ -1923,7 +1909,6 @@ Packages with Single Version
  minimalistic-crypto-utils@1.0.1
  minimist@1.2.8
  minipass@7.1.3
- minizlib@3.1.0
  mipd@0.0.7
  mkdirp@1.0.4
  mlly@1.8.0
@@ -1957,7 +1942,6 @@ Packages with Single Version
  node-releases@2.0.27
  node-stdlib-browser@1.3.1
  normalize-path@3.0.0
- npm-run-path@4.0.1
  nth-check@2.1.1
  nullthrows@1.1.1
 *nuqs@2.8.9
@@ -2011,12 +1995,12 @@ Packages with Single Version
  pino-pretty@10.3.1
  pino-std-serializers@7.1.0
  pirates@4.0.7
-*pixelmatch@5.3.0
  pkg-dir@5.0.0
  pluralize@8.0.0
  plurals-cldr@2.0.1
  plyr@3.8.4
  plyr-react@5.3.0
+ pngjs@5.0.0
  pofile@1.1.4
  pony-cause@2.1.11
  popmotion@11.0.3
@@ -2158,16 +2142,15 @@ Packages with Single Version
  setprototypeof@1.2.0
  sha.js@2.4.12
  shallowequal@1.1.0
+ sharp@0.34.5
  shebang-command@2.0.0
  shebang-regex@3.0.0
  shell-quote@1.8.3
- shelljs@0.10.0
  side-channel@1.1.0
  side-channel-list@1.0.0
  side-channel-map@1.0.1
  side-channel-weakmap@1.0.2
  siginfo@2.0.0
- simple-swizzle@0.2.4
  sirv@2.0.4
  slash@3.0.0
  snake-case@3.0.4
@@ -2207,7 +2190,6 @@ Packages with Single Version
  string.prototype.trimstart@1.0.8
  stringify-entities@4.0.4
  strip-bom@3.0.0
- strip-final-newline@2.0.0
  strip-json-comments@3.1.1
  strip-literal@3.1.0
  strip-markdown@6.0.0
@@ -2231,7 +2213,6 @@ Packages with Single Version
 *tailwindcss-safe-area@0.6.0
  tamagui@1.144.4
  tapable@2.3.2
- tar@7.5.13
  terser@5.46.1
  terser-webpack-plugin@5.4.0
  test-exclude@6.0.0

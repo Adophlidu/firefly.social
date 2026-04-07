@@ -1,6 +1,6 @@
 {
     "framework": null,
-    "buildCommand": "./scripts/setup-vercel.sh",
+    "buildCommand": "./.vercel-config/setup.sh",
     "headers": [
         {
             "source": "/(.*)?",

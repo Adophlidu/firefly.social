@@ -5,6 +5,11 @@
 #              This file contains build metadata including git commit info, versions,
 #              and build time, which can be used for debugging and version tracking.
 
+set -euo pipefail
+HERE="$(cd "$(dirname "$0")" && pwd)"
+ROOT="$(git -C "$HERE" rev-parse --show-toplevel)"
+WALLET_ROOT="$ROOT/apps/wallet"
+
 # Function to get the latest commit hash
 get_latest_commit_hash() {
   git rev-parse HEAD 2>/dev/null || echo "unknown"
@@ -17,12 +22,12 @@ get_latest_commit_message() {
 
 # Function to check if the latest commit has a tag and get the tag name
 get_latest_commit_tag() {
-  git describe --tags --exact-match 2>/dev/null
+  git describe --tags --exact-match 2>/dev/null || true
 }
 
 # Function to get the version from package.json
 get_package_version() {
-  cat package.json \
+  cat "$WALLET_ROOT/package.json" \
     | grep version \
     | head -1 \
     | awk -F: '{ print $2 }' \
@@ -44,10 +49,10 @@ get_pnpm_version() {
 
 # Output file: This file is written to public/next-debug.log and contains build metadata
 # that can be accessed at runtime for debugging and version tracking purposes.
-output_file="public/next-debug.log"
+output_file="$WALLET_ROOT/public/next-debug.log"
 
 # Check if package.json exists
-if [ -f "package.json" ]; then
+if [ -f "$WALLET_ROOT/package.json" ]; then
 
   # Get build information
   commit_hash=$(get_latest_commit_hash)
@@ -58,13 +63,14 @@ if [ -f "package.json" ]; then
   version=$(get_package_version)
   node_version=$(get_node_version)
   pnpm_version=$(get_pnpm_version)
-  build_time=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
+  build_time=$(date -u +"%Y-%m-%d %H:%M:%S %Z")
+  build_time_utc8=$(TZ=UTC-8 date +"%Y-%m-%d %H:%M:%S %Z+8")
 
   # Create or overwrite the output file
   echo "Build Information" > "$output_file"
   echo "-----------------" >> "$output_file"
-  echo "Vercel ENV: $VERCEL_ENV" >> "$output_file"
-  echo "Build Time: $build_time" >> "$output_file"
+  echo "Vercel ENV: ${VERCEL_ENV:-}" >> "$output_file"
+  echo "Build Time: $build_time ($build_time_utc8)" >> "$output_file"
   echo "Node.js Version: $node_version" >> "$output_file"
   echo "PNPM Version: $pnpm_version" >> "$output_file"
   echo "Application Version: v$version" >> "$output_file"
