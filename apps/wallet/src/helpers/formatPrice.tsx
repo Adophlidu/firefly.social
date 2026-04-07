@@ -1,0 +1,47 @@
+import { BigNumber } from 'bignumber.js';
+
+import { removeTrailingZeros, removeUSDTrailingZeros } from '@/helpers/formatMarketCap.js';
+
+export function formatPrice(price: number | string | undefined, digits?: number) {
+    if (price === undefined) return;
+    price = +price;
+    digits = digits ?? (price >= 1 ? 2 : 4);
+    if (price < 0.0001) {
+        const bn = BigNumber(price);
+        return bn
+            .precision(digits, BigNumber.ROUND_DOWN)
+            .toFormat()
+            .replace(/^0\.(0+)/, (_, zeros) => {
+                return `0.0{${zeros.length}}`;
+            });
+    }
+
+    if (price < 1) {
+        return removeTrailingZeros(
+            price.toLocaleString('en-US', {
+                minimumSignificantDigits: Math.min(2, digits),
+                maximumSignificantDigits: digits,
+            }),
+        );
+    }
+
+    return removeUSDTrailingZeros(
+        price.toLocaleString('en-US', {
+            minimumFractionDigits: Math.min(2, digits),
+            maximumFractionDigits: digits,
+        }),
+    );
+}
+
+export function renderShrankPrice(shrank: string) {
+    if (!shrank.includes('{')) return shrank;
+    const parts = shrank.match(/(^.+){(\d+)}(.+$)/);
+    if (!parts) return shrank;
+    return (
+        <>
+            {parts[1]}
+            <sub className="text-[0.66em]">{parts[2]}</sub>
+            {parts[3]}
+        </>
+    );
+}

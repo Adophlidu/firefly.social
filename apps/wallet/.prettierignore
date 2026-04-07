@@ -1,0 +1,4 @@
+public/*.html
+public/js/*.js
+src/routeTree.gen.ts
+src/specialFile.js

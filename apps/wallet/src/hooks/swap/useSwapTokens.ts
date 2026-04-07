@@ -1,0 +1,226 @@
+import { useQuery } from '@tanstack/react-query';
+import { useAtomValue } from 'jotai';
+import { orderBy } from 'lodash-es';
+import { useMemo } from 'react';
+
+import { isSolanaChain } from '@/helpers/isSolanaChain.js';
+import { useSwapContextWalletAddresses } from '@/hooks/useCachedWalletAddresses.js';
+import { createSwapEndpoint, type RecentToken, type SwapToken } from '@/providers/swap/index.js';
+import { normalizeSwapToken } from '@/providers/swap/normalizeSwapToken.js';
+import { fireflySessionTokenAtom } from '@/store/fireflySession.js';
+
+const SUPPORTED_SWAP_EVM_CHAIN_IDS = [1, 56, 137, 10, 8453, 42161, 43114, 81457, 534352] as const;
+const SUPPORTED_SWAP_TRENDING_CHAIN_IDS = [...SUPPORTED_SWAP_EVM_CHAIN_IDS, 101] as const;
+
+export interface UseSwapTokensOptions {
+    chainId?: number;
+    enabled?: boolean;
+    /** Optional wallet address override */
+    selectedWalletAddress?: string | null;
+    /** Current chain ID (pay/receive side) to determine address type */
+    currentChainId?: number | null;
+}
+
+export interface SwapTokensResult {
+    myTokens: SwapToken[];
+    recentTokens: SwapToken[];
+    trendingTokens: SwapToken[];
+    isLoading: boolean;
+    error: Error | null;
+    refetch: () => void;
+}
+
+// Convert RecentToken to SwapToken format (backend returns snake_case fields)
+function recentTokenToSwapToken(token: RecentToken): SwapToken {
+    return normalizeSwapToken({
+        address: token.address ?? '',
+        symbol: token.symbol ?? '',
+        name: token.name,
+        decimals: token.decimal,
+        chainId: token.chain_id,
+        logoURI: token.logo,
+        price: token.price ? parseFloat(token.price) : undefined,
+    });
+}
+
+export function useSwapTokens(options: UseSwapTokensOptions = {}): SwapTokensResult {
+    const { chainId, enabled = true, selectedWalletAddress, currentChainId } = options;
+    const {
+        evmAddress: cachedEvmAddress,
+        solanaAddress: cachedSolanaAddress,
+        isPrivyReady,
+    } = useSwapContextWalletAddresses();
+    const authToken = useAtomValue(fireflySessionTokenAtom);
+
+    // Determine which addresses to use based on wallet filter selection
+    // Priority: selectedWalletAddress > cached addresses
+    let evmAddress: string | null;
+    let solanaAddress: string | null;
+
+    if (selectedWalletAddress) {
+        // If a specific wallet is selected, determine if it's EVM or Solana
+        if (isSolanaChain(currentChainId)) {
+            evmAddress = cachedEvmAddress;
+            solanaAddress = selectedWalletAddress;
+        } else {
+            evmAddress = selectedWalletAddress;
+            solanaAddress = cachedSolanaAddress;
+        }
+    } else {
+        // No wallet selected - use cached embedded wallet addresses
+        evmAddress = cachedEvmAddress;
+        solanaAddress = cachedSolanaAddress;
+    }
+
+    // Fetch user token balances
+    // Note: EVM and Solana addresses must be queried separately due to API format requirements
+    const {
+        data: userTokensData,
+        isLoading: isLoadingUserTokens,
+        refetch: refetchUserTokens,
+    } = useQuery({
+        queryKey: ['swap-user-tokens', evmAddress, solanaAddress, chainId],
+        queryFn: async () => {
+            const endpoint = createSwapEndpoint();
+
+            // EVM chains supported by the swap API.
+            // Solana chain: 101
+            const evmChains = chainId ? (isSolanaChain(chainId) ? [] : [chainId]) : [...SUPPORTED_SWAP_EVM_CHAIN_IDS];
+            const solanaChains = chainId ? (isSolanaChain(chainId) ? [chainId] : []) : [101];
+
+            // Query EVM and Solana balances in parallel
+            const [evmTokens, solanaTokens] = await Promise.all([
+                evmAddress && evmChains.length > 0 ? endpoint.getUserTokenBalances(evmAddress, evmChains) : [],
+                solanaAddress && solanaChains.length > 0
+                    ? endpoint.getUserTokenBalances(solanaAddress, solanaChains)
+                    : [],
+            ]);
+
+            return [...evmTokens, ...solanaTokens];
+        },
+        enabled: enabled && isPrivyReady && !!(evmAddress || solanaAddress),
+        staleTime: 30 * 1000, // 30 seconds
+    });
+
+    // Fetch recent tokens
+    const {
+        data: recentTokensData,
+        isLoading: isLoadingRecentTokens,
+        refetch: refetchRecentTokens,
+    } = useQuery({
+        queryKey: ['swap-recent-tokens', chainId, authToken],
+        queryFn: async () => {
+            const endpoint = createSwapEndpoint(authToken ?? undefined);
+            // Use chains filter if chainId is provided
+            return endpoint.getRecentTokens({
+                chains: chainId ? String(chainId) : undefined,
+                size: 20,
+            });
+        },
+        enabled,
+        staleTime: 60 * 1000, // 1 minute
+    });
+
+    // Fetch trending tokens
+    const {
+        data: trendingTokensData,
+        isLoading: isLoadingTrendingTokens,
+        refetch: refetchTrendingTokens,
+    } = useQuery({
+        queryKey: ['swap-trending-tokens', chainId],
+        queryFn: async () => {
+            const endpoint = createSwapEndpoint();
+            // chains is required — pass specific chain or all major chains
+            return endpoint.getTrendingTokens({
+                chains: chainId ? String(chainId) : SUPPORTED_SWAP_TRENDING_CHAIN_IDS.join(','),
+            });
+        },
+        enabled,
+        staleTime: 5 * 60 * 1000, // 5 minutes
+    });
+
+    const isLoading = isLoadingUserTokens || isLoadingRecentTokens || isLoadingTrendingTokens;
+
+    const result = useMemo(() => {
+        // Create a map of user balances by token address + chain
+        const userBalanceMap = new Map<string, string>();
+        const userUsdValueMap = new Map<string, number>();
+
+        for (const token of userTokensData ?? []) {
+            const key = `${token.chainId}:${token.address.toLowerCase()}`;
+            if (token.balance) {
+                userBalanceMap.set(key, token.balance);
+            }
+            const usdValue =
+                token.usdValue ?? (token.balance && token.price ? parseFloat(token.balance) * token.price : undefined);
+            if (usdValue !== undefined) {
+                userUsdValueMap.set(key, usdValue);
+            }
+        }
+
+        // My tokens: directly from user balance API
+        const myTokens = orderBy(
+            (userTokensData ?? [])
+                .filter((t) => t.balance && parseFloat(t.balance) > 0)
+                .map((t) => {
+                    const usdValue = t.usdValue ?? (t.balance && t.price ? parseFloat(t.balance) * t.price : undefined);
+                    return { ...t, usdValue };
+                }),
+            [(t) => t.usdValue ?? 0],
+            ['desc'],
+        );
+
+        // Recent tokens: convert from RecentToken format and enrich with balances
+        const recentTokens = (recentTokensData ?? [])
+            .map((token) => {
+                const swapToken = recentTokenToSwapToken(token);
+                return {
+                    ...swapToken,
+                    balance: userBalanceMap.get(`${token.chain_id}:${(token.address ?? '').toLowerCase()}`),
+                    usdValue: userUsdValueMap.get(`${token.chain_id}:${(token.address ?? '').toLowerCase()}`),
+                };
+            })
+            .slice(0, 10); // Limit to 10 recent tokens
+
+        // Trending tokens: from recommend-tokens API, enriched with balances
+        const trendingTokens = Array.isArray(trendingTokensData)
+            ? trendingTokensData.map((token) => ({
+                  ...token,
+                  balance: userBalanceMap.get(`${token.chainId}:${token.address.toLowerCase()}`),
+                  usdValue: userUsdValueMap.get(`${token.chainId}:${token.address.toLowerCase()}`),
+              }))
+            : [];
+
+        return {
+            myTokens,
+            recentTokens,
+            trendingTokens,
+        };
+    }, [userTokensData, recentTokensData, trendingTokensData]);
+
+    return {
+        ...result,
+        isLoading,
+        error: null,
+        refetch: () => {
+            refetchUserTokens();
+            refetchRecentTokens();
+            refetchTrendingTokens();
+        },
+    };
+}
+
+// Hook to search tokens
+export function useSearchTokens(keyword: string, chain?: string) {
+    return useQuery({
+        queryKey: ['swap-search-tokens', keyword, chain],
+        queryFn: async () => {
+            if (!keyword || keyword.length < 2) return [];
+
+            const endpoint = createSwapEndpoint();
+            return endpoint.searchToken({ keyword, chain });
+        },
+        enabled: keyword.length >= 2,
+        staleTime: 60 * 1000, // 1 minute
+    });
+}

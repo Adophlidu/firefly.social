@@ -1,0 +1,26 @@
+export enum EthereumChainId {
+    Mainnet = 1,
+    Base = 8453,
+    BSC = 56,
+    Polygon = 137,
+    Optimism = 10,
+    Arbitrum = 42161,
+    xDai = 100,
+    Avalanche = 43114,
+    Aurora = 1313161554,
+    Conflux = 1030,
+    Fantom = 250,
+    XLayer = 196,
+    Metis = 1088,
+    Mantle = 5000,
+    Zora = 7777777,
+    Scroll = 534352,
+    Celo = 42220,
+    Lens = 232,
+    ZksyncEra = 324,
+    Linea = 59144,
+    Plasma = 9745,
+    Blast = 81457,
+}
+
+export const USDC_E_POLYGON_ADDRESS = '0x2791bca1f2de4661ed88a30c99a7a9449aa84174';

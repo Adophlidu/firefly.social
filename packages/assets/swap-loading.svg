@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="8" fill="none" stroke="url(#swap-loading-gradient)" stroke-linecap="round" stroke-width="1.5"/>
+    <defs>
+        <linearGradient id="swap-loading-gradient" x1="12" x2="12" y1="4" y2="20" gradientUnits="userSpaceOnUse">
+            <stop stop-color="currentColor" stop-opacity="1"/>
+            <stop offset="1" stop-color="currentColor" stop-opacity="0"/>
+        </linearGradient>
+    </defs>
+</svg>

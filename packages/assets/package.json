@@ -8,7 +8,9 @@
         "./*": "./*"
     },
     "files": [
-        "**/*.svg"
+        "**/*.svg",
+        "**/*.png",
+        "**/*.json"
     ],
     "repository": {
         "type": "git",

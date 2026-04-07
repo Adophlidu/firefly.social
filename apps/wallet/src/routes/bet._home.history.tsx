@@ -1,0 +1,52 @@
+import { createFileRoute } from '@tanstack/react-router';
+import { lazy, Suspense } from 'react';
+
+function SkeletonLine({ className }: { className: string }) {
+    return <div className={`bg-lightBg animate-pulse rounded ${className}`} />;
+}
+
+function HistorySkeleton() {
+    return (
+        <div className="mb-8 w-full">
+            {Array.from({ length: 1 }).map((_, index) => (
+                <div key={index} className="w-full px-4 pt-4">
+                    <div className="w-full rounded-xl p-3">
+                        <div className="grid grid-cols-[40px_1fr] gap-2">
+                            <SkeletonLine className="size-10 rounded-lg" />
+                            <div className="space-y-2 pt-1">
+                                <SkeletonLine className="h-4 w-4/5" />
+                                <SkeletonLine className="h-4 w-2/3" />
+                            </div>
+                        </div>
+
+                        <div className="mt-3 space-y-2">
+                            <div className="flex items-center justify-between gap-6">
+                                <SkeletonLine className="h-5 w-20" />
+                                <SkeletonLine className="h-5 w-24" />
+                            </div>
+                            <div className="flex items-center justify-between gap-6">
+                                <SkeletonLine className="h-[14px] w-16" />
+                                <SkeletonLine className="h-[14px] w-20" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            ))}
+        </div>
+    );
+}
+
+const History = lazy(() => import('@/components/Bet/History.js').then((m) => ({ default: m.History })));
+
+export const Route = createFileRoute('/bet/_home/history')({
+    component: HistoryPage,
+    pendingComponent: HistorySkeleton,
+});
+
+function HistoryPage() {
+    return (
+        <Suspense fallback={<HistorySkeleton />}>
+            <History />
+        </Suspense>
+    );
+}

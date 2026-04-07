@@ -10,12 +10,12 @@ pnpm --filter @dimensiondev/native-bridge build
 pnpm --filter @dimensiondev/exception-tracker build
 
 # Compile i18n (defined in apps/web only)
-pnpm --filter @dimensiondev/firefly-social-web lingui:compile
+pnpm --filter @dimensiondev/firefly-web lingui:compile
 
 # Run pre-build scripts (polyfills, bundled scripts, build metadata)
-pnpm --filter @dimensiondev/firefly-social-web build:polyfills
-pnpm --filter @dimensiondev/firefly-social-web build:scripts
-pnpm --filter @dimensiondev/firefly-social-web build:logs
+pnpm --filter @dimensiondev/firefly-web build:polyfills
+pnpm --filter @dimensiondev/firefly-web build:scripts
+pnpm --filter @dimensiondev/firefly-web build:logs
 
 # Run Next.js build for the monorepo (packages, then web app)
-pnpm --filter @dimensiondev/firefly-social-web build
+pnpm --filter @dimensiondev/firefly-web build

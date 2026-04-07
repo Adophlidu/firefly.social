@@ -8,8 +8,40 @@ on:
             - released
 
 jobs:
-    analyze-bundle:
+    discover-apps:
         runs-on: ubuntu-latest
+        outputs:
+            apps: ${{ steps.discover.outputs.apps }}
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - id: discover
+              name: Discover apps under apps/
+              shell: bash
+              run: |
+                  set -euo pipefail
+                  # Top-level packages only: apps/<name>/package.json (excludes e.g. apps/wallet/scripts)
+                  mapfile -t app_dirs < <(find apps -mindepth 2 -maxdepth 3 -name package.json -print0 | while IFS= read -r -d '' f; do
+                    dir=$(dirname "$f")
+                    if [[ "$(basename "$(dirname "$dir")")" == "apps" ]]; then
+                      printf '%s\n' "$(basename "$dir")"
+                    fi
+                  done | sort -u)
+                  if [[ ${#app_dirs[@]} -eq 0 ]]; then
+                    echo 'No apps found under apps/' >&2
+                    exit 1
+                  fi
+                  apps_json=$(printf '%s\n' "${app_dirs[@]}" | jq -R -s -c 'split("\n") | map(select(length > 0))')
+                  echo "apps=$apps_json" >> "$GITHUB_OUTPUT"
+
+    analyze-bundle:
+        needs: discover-apps
+        runs-on: ubuntu-latest
+        strategy:
+            fail-fast: false
+            matrix:
+                app: ${{ fromJson(needs.discover-apps.outputs.apps) }}
 
         steps:
             - name: Checkout code
@@ -29,28 +61,53 @@ jobs:
               run: .github/scripts/setup.sh
 
             - name: Generate Statoscope report
-              run: pnpm --filter @dimensiondev/firefly-social-web build:statoscope
+              shell: bash
+              run: |
+                  set -euo pipefail
+                  pkg_json="apps/${{ matrix.app }}/package.json"
+                  if ! jq -e '.scripts["build:statoscope"]' "$pkg_json" >/dev/null 2>&1; then
+                    echo "No build:statoscope script for ${{ matrix.app }}, skipping Statoscope."
+                    exit 0
+                  fi
+                  pnpm --filter "./apps/${{ matrix.app }}" run build:statoscope
               env:
                   NODE_OPTIONS: --max_old_space_size=8192
 
-            - name: Generate webpack-bundle-analyzer report
-              run: ANALYZE=true pnpm build
+            - name: Generate bundle analyzer report
+              run: ANALYZE=true pnpm --filter "./apps/${{ matrix.app }}" run build
               env:
                   NODE_OPTIONS: --max_old_space_size=8192
 
-            - name: Upload Statoscope report as artifact
+            - name: Upload Statoscope report
               uses: actions/upload-artifact@v5
               with:
-                  name: statoscope-report
-                  path: apps/web/statoscope.json
+                  name: statoscope-${{ matrix.app }}
+                  path: apps/${{ matrix.app }}/statoscope.json
                   retention-days: 30
+                  if-no-files-found: ignore
 
-            - name: Create analysis summary
+            - name: Upload Rollup visualizer (Vite) report
+              uses: actions/upload-artifact@v5
+              with:
+                  name: rollup-visualizer-${{ matrix.app }}
+                  path: apps/${{ matrix.app }}/stats.html
+                  retention-days: 30
+                  if-no-files-found: ignore
+
+            - name: Append analysis summary
+              shell: bash
               run: |
-                  echo "## Bundle Analysis Reports Generated" >> $GITHUB_STEP_SUMMARY
-                  echo "" >> $GITHUB_STEP_SUMMARY
-                  echo "### 📊 Statoscope Report" >> $GITHUB_STEP_SUMMARY
-                  echo "Generated: \`statoscope.json\`" >> $GITHUB_STEP_SUMMARY
-                  echo "View online at: https://statoscope.tech/" >> $GITHUB_STEP_SUMMARY
-                  echo "" >> $GITHUB_STEP_SUMMARY
-                  echo "**Note:** Reports are available as workflow artifacts for 30 days."
+                  echo "## Bundle analysis: ${{ matrix.app }}" >> "$GITHUB_STEP_SUMMARY"
+                  echo "" >> "$GITHUB_STEP_SUMMARY"
+                  if [[ -f "apps/${{ matrix.app }}/statoscope.json" ]]; then
+                    echo "### Statoscope (${{ matrix.app }})" >> "$GITHUB_STEP_SUMMARY"
+                    echo "Artifact: \`statoscope-${{ matrix.app }}\` — \`statoscope.json\`" >> "$GITHUB_STEP_SUMMARY"
+                    echo "View online at: https://statoscope.tech/" >> "$GITHUB_STEP_SUMMARY"
+                    echo "" >> "$GITHUB_STEP_SUMMARY"
+                  fi
+                  if [[ -f "apps/${{ matrix.app }}/stats.html" ]]; then
+                    echo "### Rollup visualizer (${{ matrix.app }})" >> "$GITHUB_STEP_SUMMARY"
+                    echo "Artifact: \`rollup-visualizer-${{ matrix.app }}\` — \`stats.html\`" >> "$GITHUB_STEP_SUMMARY"
+                    echo "" >> "$GITHUB_STEP_SUMMARY"
+                  fi
+                  echo "**Note:** Reports are kept as workflow artifacts for 30 days." >> "$GITHUB_STEP_SUMMARY"

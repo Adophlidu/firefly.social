@@ -7,4 +7,5 @@ pnpm install
 pnpm run packages:build
 
 # Compile i18n
-pnpm --filter @dimensiondev/firefly-social-web lingui:compile
+pnpm --filter @dimensiondev/firefly-web lingui:compile
+pnpm --filter @dimensiondev/firefly-wallet lingui:compile

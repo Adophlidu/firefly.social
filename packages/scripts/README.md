@@ -26,10 +26,10 @@ Vercel’s orchestrated build (**`setup.sh`**, **`build-logs.sh`**, **`build-pol
 
 These live under **`.github/scripts/`** (invoked from the repo root, e.g. `node .github/scripts/<name>.mjs`):
 
-| Script                                              | What it does                                                                                                                                                                          |
-| --------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`.github/scripts/bump-packages-version.mjs`**     | Bumps **semver** (`major` \| `minor` \| `patch`) **per package** under **`packages/*`** from each package’s own version; stdout is the **highest** resulting version (for CI labels). |
-| **`.github/scripts/generate-package-analysis.mjs`** | Parses **`pnpm-lock.yaml`** and writes **`apps/web/docs/PACKAGE_ANALYSIS.txt`**: package counts, multi-version packages, and short dependency-chain notes for indirect deps.          |
+| Script                                              | What it does                                                                                                                                                                                                                                                   |
+| --------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`.github/scripts/bump-packages-version.mjs`**     | Bumps **semver** (`major` \| `minor` \| `patch`) **per package** under **`packages/*`** from each package’s own version; stdout is the **highest** resulting version (for CI labels).                                                                          |
+| **`.github/scripts/generate-package-analysis.mjs`** | Parses **`pnpm-lock.yaml`** and writes **`apps/web/docs/PACKAGE_ANALYSIS.txt`** and **`apps/wallet/docs/PACKAGE_ANALYSIS.txt`** (per-app direct deps + importers): package counts, multi-version packages, and short dependency-chain notes for indirect deps. |
 
 ---
 

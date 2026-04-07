@@ -27,7 +27,7 @@ jobs:
               with:
                   node-version-file: '.node-version'
 
-            - name: Determine Pull Request Title and Base Branch
+            - name: Determine base branch
               id: base_branch
               run: |
                   release_type="${{ github.event.inputs.release_type }}"
@@ -44,37 +44,82 @@ jobs:
 
             - name: Checkout to base branch
               run: |
-                  git checkout ${{ env.base_branch}}
+                  git checkout ${{ env.base_branch }}
 
-            - name: Get current version
-              id: version
-              run: echo "current_version=$(npm pkg get version -w @dimensiondev/firefly-social-web | tr -d '\"')" >> $GITHUB_ENV
-
-            - name: Bump version
+            - name: Collect app workspaces and bump versions
               id: bump_version
               run: |
+                  set -euo pipefail
                   release_type="${{ github.event.inputs.release_type }}"
 
-                  if [ "$release_type" = "major" ]; then
-                    npm version major --git-tag-version false -w @dimensiondev/firefly-social-web
-                  elif [ "$release_type" = "minor" ]; then
-                    npm version minor --git-tag-version false -w @dimensiondev/firefly-social-web
-                  else
-                    npm version patch --git-tag-version false -w @dimensiondev/firefly-social-web
-                  fi
-                  echo "new_version=$(npm pkg get version -w @dimensiondev/firefly-social-web | tr -d '\"')" >> $GITHUB_ENV
+                  app_names=()
+                  for pkgjson in apps/*/package.json; do
+                    [ -f "$pkgjson" ] || continue
+                    name=$(node -p "require('./$pkgjson').name")
+                    app_names+=("$name")
+                  done
 
-            - name: Determine Pull Request Title and Base Branch
+                  if [ ${#app_names[@]} -eq 0 ]; then
+                    echo "::error::No applications found under apps/*/package.json"
+                    exit 1
+                  fi
+
+                  current_snapshot=""
+                  first=true
+                  for pkgjson in apps/*/package.json; do
+                    [ -f "$pkgjson" ] || continue
+                    name=$(node -p "require('./$pkgjson').name")
+                    ver=$(node -p "require('./$pkgjson').version")
+                    if [ "$first" = true ]; then
+                      current_snapshot="$name@$ver"
+                      first=false
+                    else
+                      current_snapshot="$current_snapshot, $name@$ver"
+                    fi
+                  done
+                  echo "current_snapshot=$current_snapshot" >> $GITHUB_ENV
+
+                  for name in "${app_names[@]}"; do
+                    if [ "$release_type" = "major" ]; then
+                      npm version major --git-tag-version false -w "$name"
+                    elif [ "$release_type" = "minor" ]; then
+                      npm version minor --git-tag-version false -w "$name"
+                    else
+                      npm version patch --git-tag-version false -w "$name"
+                    fi
+                  done
+
+                  new_snapshot=""
+                  first=true
+                  declare -a vers
+                  for pkgjson in apps/*/package.json; do
+                    [ -f "$pkgjson" ] || continue
+                    name=$(node -p "require('./$pkgjson').name")
+                    ver=$(node -p "require('./$pkgjson').version")
+                    vers+=("$ver")
+                    if [ "$first" = true ]; then
+                      new_snapshot="$name@$ver"
+                      first=false
+                    else
+                      new_snapshot="$new_snapshot, $name@$ver"
+                    fi
+                  done
+                  echo "new_snapshot=$new_snapshot" >> $GITHUB_ENV
+
+                  new_version=$(printf '%s\n' "${vers[@]}" | sort -u | paste -sd- -)
+                  echo "new_version=$new_version" >> $GITHUB_ENV
+
+            - name: Set pull request title
               id: pr_title
               run: |
                   release_type="${{ github.event.inputs.release_type }}"
 
                   if [ "$release_type" = "major" ]; then
-                    pr_title="[Release] New release ${{ env.new_version }} (major)"
+                    pr_title="[Release] New release ${{ env.new_snapshot }} (major)"
                   elif [ "$release_type" = "minor" ]; then
-                    pr_title="[Release] New release ${{ env.new_version }} (minor)"
+                    pr_title="[Release] New release ${{ env.new_snapshot }} (minor)"
                   else
-                    pr_title="[Release] Hotfix ${{ env.current_version }} => ${{ env.new_version }} (patch)"
+                    pr_title="[Release] Hotfix ${{ env.current_snapshot }} => ${{ env.new_snapshot }} (patch)"
                   fi
 
                   echo "pr_title=$pr_title" >> $GITHUB_ENV
@@ -88,10 +133,10 @@ jobs:
 
             - name: Commit and Push changes
               run: |
-                  git add apps/web/package.json
+                  git add apps/*/package.json
                   git config --global user.name "github-actions[bot]"
                   git config --global user.email "github-actions[bot]@users.noreply.github.com"
-                  git commit -m "chore: bump version to ${{ env.new_version }}"
+                  git commit -m "chore: bump app versions (${{ env.new_snapshot }})"
                   git checkout -b "bump-version-${{ env.new_version }}"
                   git push origin "bump-version-${{ env.new_version }}"
 
