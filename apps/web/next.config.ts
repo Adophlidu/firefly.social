@@ -32,6 +32,7 @@ const config: NextConfig = {
     env: {
         VERSION: require('./package.json').version,
         COMMIT_HASH: execSync('git rev-parse --short HEAD').toString().trim(),
+        FIREFLY_EXCEPTION_TRACKER_API_KEY: process.env.FIREFLY_EXCEPTION_TRACKER_API_KEY,
     },
     experimental: {
         inlineCss: false,
