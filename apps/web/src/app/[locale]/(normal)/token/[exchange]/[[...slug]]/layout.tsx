@@ -1,3 +1,4 @@
+import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import { headers } from 'next/headers.js';
 import { notFound, redirect, RedirectType } from 'next/navigation.js';
 import { type PropsWithChildren } from 'react';
@@ -120,19 +121,21 @@ export default async function TokenPageLayout(props: PropsWithChildren<Props>) {
     }
 
     return (
-        <TokenContextProvider>
-            <div className="border-line bg-primaryBottom sticky top-0 z-30 flex h-[60px] items-center justify-between border-b px-4">
-                <div className="flex min-w-0 items-center gap-7">
-                    <Comeback className="text-lightMain cursor-pointer" />
-                    <span className="text-lightMain min-w-0 truncate text-xl font-black uppercase">
-                        {token?.symbol || (isNewRoute ? slug : legacySymbol)}
-                    </span>
+        <HydrationBoundary state={dehydrate(queryClient)}>
+            <TokenContextProvider>
+                <div className="border-line bg-primaryBottom sticky top-0 z-30 flex h-[60px] items-center justify-between border-b px-4">
+                    <div className="flex min-w-0 items-center gap-7">
+                        <Comeback className="text-lightMain cursor-pointer" />
+                        <span className="text-lightMain min-w-0 truncate text-xl font-black uppercase">
+                            {token?.symbol || (isNewRoute ? slug : legacySymbol)}
+                        </span>
+                    </div>
+                    <MobileSwapButton className="ml-auto flex whitespace-nowrap" token={token} />
                 </div>
-                <MobileSwapButton className="ml-auto flex whitespace-nowrap" token={token} />
-            </div>
-            <WrapTokenMarketData className="sticky" token={token} />
-            <CategoryTabs token={token} className="sticky top-[54px] !z-30 md:top-[60px]" />
-            <div className="flex grow flex-col p-3">{children}</div>
-        </TokenContextProvider>
+                <WrapTokenMarketData className="sticky" token={token} />
+                <CategoryTabs token={token} className="sticky top-[54px] !z-30 md:top-[60px]" />
+                <div className="flex grow flex-col p-3">{children}</div>
+            </TokenContextProvider>
+        </HydrationBoundary>
     );
 }
