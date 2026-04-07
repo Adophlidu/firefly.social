@@ -22,7 +22,7 @@ interface CustomWindow extends Window {
  */
 export const bom = {
     get window() {
-        return typeof self === 'undefined' ? null : (self as unknown as CustomWindow);
+        return typeof window === 'undefined' ? null : (window as unknown as CustomWindow);
     },
 
     get document() {
