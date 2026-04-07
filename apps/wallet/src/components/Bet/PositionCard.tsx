@@ -128,13 +128,9 @@ export function PositionCard({ position, showAction = true }: { position: Polyma
                         </Skeleton>
                     </Item>
                     <Item
-                        field={
-                            <Trans>
-                                {formatTokenUSD(BigNumber(position.shares).times(position.cur_price).toString(), {
-                                    minDisplay: 0.01,
-                                })}
-                            </Trans>
-                        }
+                        field={formatTokenUSD(BigNumber(position.shares).times(position.cur_price).toString(), {
+                            minDisplay: 0.01,
+                        })}
                     >
                         <span className={cn(position.pnl >= 0 ? 'text-success' : 'text-danger')}>
                             {position.pnl >= 0 ? '+' : ''}

@@ -287,7 +287,7 @@ function WithdrawClient() {
                         >
                             <span className="mr-1">
                                 <Trans>
-                                    Service fee:
+                                    Service fee:{' '}
                                     <span
                                         className={cn('h-3.5 rounded', {
                                             'bg-lightBg w-20 text-transparent': isLoadingWithdrawPreview,

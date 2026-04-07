@@ -1,19 +1,11 @@
 'use strict';
 
-const path = require('path');
-const { findRepoRoot } = require('./repo-root.cjs');
-
 /**
  * Ensures the Tolgee project has every language listed in tolgeerc `push.files`.
  * Without this, `tolgee push` fails with EXISTING_LANGUAGE_NOT_SELECTED when a
  * locale exists locally but was never added on the platform (common for new projects).
  */
-const root = findRepoRoot(__dirname);
-const base32Decode = require(
-    require.resolve('base32-decode', {
-        paths: [path.join(root, 'apps/wallet/node_modules'), path.join(root, 'apps/web/node_modules')],
-    }),
-);
+const base32Decode = require('base32-decode');
 
 const API_KEY_PAK_PREFIX = 'tgpak_';
 

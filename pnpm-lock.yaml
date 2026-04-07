@@ -1015,6 +1015,9 @@ importers:
       '@lingui/format-po-gettext':
         specifier: 5.5.2
         version: 5.5.2(typescript@5.9.3)
+      base32-decode:
+        specifier: ^1.0.0
+        version: 1.0.0
 
   packages/utils:
     devDependencies:
@@ -16587,7 +16590,6 @@ packages:
 
   /base32-decode@1.0.0:
     resolution: {integrity: sha512-KNWUX/R7wKenwE/G/qFMzGScOgVntOmbE27vvc6GrniDGYb6a5+qWcuoXl8WIOQL7q0TpK7nZDm1Y04Yi3Yn5g==}
-    dev: true
 
   /base64-js@0.0.8:
     resolution: {integrity: sha512-3XSA2cR/h/73EzlXXdU6YNycmYI7+kicTxks4eJg2g39biHR84slg2+des+p7iHYhbRg/udIS4TD53WabcOUkw==}

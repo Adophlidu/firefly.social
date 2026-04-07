@@ -22,10 +22,6 @@ msgstr "Interacted Failed"
 msgid "Copy to clipboard"
 msgstr "Copy to clipboard"
 
-#. placeholder {0}: formatTokenUSD(withdrawPreview?.fee ?? 0, { minDisplay: 0.01 })
-msgid "Service fee:<0>{0}</0>"
-msgstr "Service fee:<0>{0}</0>"
-
 msgid "To"
 msgstr "To"
 
@@ -277,6 +273,10 @@ msgstr "Custom (0.5-100%)"
 msgid "Order cancelled"
 msgstr "Order cancelled"
 
+#. placeholder {0}: formatTokenUSD(withdrawPreview?.fee ?? 0, { minDisplay: 0.01 })
+msgid "Service fee: <0>{0}</0>"
+msgstr "Service fee: <0>{0}</0>"
+
 msgid "Receive Wallet"
 msgstr "Receive Wallet"
 
@@ -291,10 +291,6 @@ msgstr "Recipient"
 
 msgid "Insufficient Gas"
 msgstr "Insufficient Gas"
-
-#. placeholder {0}: formatTokenUSD(BigNumber(position.shares).times(position.cur_price).toString(), { minDisplay: 0.01, })
-msgid "{0}"
-msgstr "{0}"
 
 msgid "Bridge"
 msgstr "Bridge"

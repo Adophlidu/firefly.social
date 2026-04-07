@@ -8,6 +8,7 @@
         "install-deps": "pnpm install"
     },
     "dependencies": {
-        "@lingui/format-po-gettext": "5.5.2"
+        "@lingui/format-po-gettext": "5.5.2",
+        "base32-decode": "^1.0.0"
     }
 }
