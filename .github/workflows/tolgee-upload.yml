@@ -33,9 +33,9 @@ jobs:
               env:
                   TOLGEE_API_KEY: ${{ secrets.TOLGEE_API_KEY }}
                   TOLGEE_PROJECT_ID: ${{ secrets.TOLGEE_PROJECT_ID }}
-              run: pnpm --filter @dimensiondev/firefly-web tolgee:push-sources
+              run: pnpm --filter @dimensiondev/firefly-web tolgee:push
 
             - name: Push locale files to Tolgee (wallet)
               env:
                   TOLGEE_API_KEY: ${{ secrets.TOLGEE_API_KEY }}
-              run: pnpm --filter @dimensiondev/firefly-wallet tolgee:push-sources
+              run: pnpm --filter @dimensiondev/firefly-wallet tolgee:push
