@@ -1,5 +1,6 @@
 {
     "$schema": "https://docs.tolgee.io/cli-schema.json",
+    "projectId": "4",
     "apiUrl": "https://i18n.firefly.land",
     "format": "PO_ICU",
     "push": {
