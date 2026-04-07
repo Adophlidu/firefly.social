@@ -8,6 +8,7 @@ import { useEffectOnce } from 'react-use';
 
 import { SnackbarProvider } from '@/components/Snackbar.js';
 import { usePathname } from '@/esm/navigation.js';
+import { persistSharerSession } from '@/helpers/sharerSession.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -47,11 +48,6 @@ export const InitialProviders = memo(function Providers(props: { children: React
     useEffectOnce(() => {
         if (!viewerId) setViewerId(crypto.randomUUID());
 
-        const sid = new URLSearchParams(bom.location?.search).get('sid');
-        if (sid) {
-            void TelemetryProvider.captureEventInSafe(EventId.PAGE_LOAD_SHARE_ID_DETECTED, {});
-        }
-
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker
                 .register('/sw.js', { scope: '/' })
@@ -63,6 +59,17 @@ export const InitialProviders = memo(function Providers(props: { children: React
     useEffect(() => {
         if (isLogin) setupFirebaseFcmConnection();
     }, [isLogin]);
+
+    const handledSharerId = useRef<string | null>(null);
+    useEffect(() => {
+        const sid = new URLSearchParams(bom.location?.search ?? '').get('sid');
+        if (!sid) return;
+        if (handledSharerId.current === sid) return;
+        handledSharerId.current = sid;
+
+        persistSharerSession(sid);
+        void TelemetryProvider.captureEventInSafe(EventId.PAGE_LOAD_SHARE_ID_DETECTED, {});
+    });
 
     const entryPathname = useRef('');
     const pathname = usePathname();
