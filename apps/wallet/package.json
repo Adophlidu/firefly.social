@@ -98,6 +98,8 @@
         "@types/node": "22.10.10",
         "@types/react": "^19.2.14",
         "@types/react-dom": "^19.2.3",
+        "@svgr/plugin-jsx": "^8.1.0",
+        "@svgr/plugin-svgo": "^8.1.0",
         "@typescript-eslint/eslint-plugin": "^8.47.0",
         "@typescript-eslint/parser": "^8.47.0",
         "@typescript/lib-dom": "npm:@types/web@^0.0.197",

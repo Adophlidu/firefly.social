@@ -8,746 +8,749 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './routes/__root';
-import { Route as SwapRouteImport } from './routes/swap';
-import { Route as SendRouteImport } from './routes/send';
-import { Route as DevRouteImport } from './routes/dev';
-import { Route as BetRouteImport } from './routes/bet';
-import { Route as HomeRouteImport } from './routes/_home';
-import { Route as SwapIndexRouteImport } from './routes/swap.index';
-import { Route as SendIndexRouteImport } from './routes/send.index';
-import { Route as HomeIndexRouteImport } from './routes/_home.index';
-import { Route as SwapSelectTokenRouteImport } from './routes/swap.select-token';
-import { Route as SendTokensRouteImport } from './routes/send.tokens';
-import { Route as SendSuccessRouteImport } from './routes/send.success';
-import { Route as SendRecipientsRouteImport } from './routes/send.recipients';
-import { Route as SendFormRouteImport } from './routes/send.form';
-import { Route as SendFailedRouteImport } from './routes/send.failed';
-import { Route as DevSolanaRouteImport } from './routes/dev.solana';
-import { Route as DevEthereumRouteImport } from './routes/dev.ethereum';
-import { Route as BetWithdrawRouteImport } from './routes/bet.withdraw';
-import { Route as BetPositionRouteImport } from './routes/bet.position';
-import { Route as BetDepositRouteImport } from './routes/bet.deposit';
-import { Route as BetHomeRouteImport } from './routes/bet._home';
-import { Route as HomeTransactionsRouteImport } from './routes/_home.transactions';
-import { Route as HomeReceiveRouteImport } from './routes/_home.receive';
-import { Route as HomeNftsRouteImport } from './routes/_home.nfts';
-import { Route as BetHomeIndexRouteImport } from './routes/bet._home.index';
-import { Route as SendRecipientChooseRouteImport } from './routes/send.recipient.choose';
-import { Route as BetEventIdRouteImport } from './routes/bet.event.$id';
-import { Route as BetHomeHistoryRouteImport } from './routes/bet._home.history';
-import { Route as BetHomeExportKeyRouteImport } from './routes/bet._home.export-key';
-import { Route as ApiPolymarketSplatRouteImport } from './routes/api/polymarket.$';
-import { Route as ApiPolymarketDataSplatRouteImport } from './routes/api/polymarket-data.$';
-import { Route as ApiPolymarketClobSplatRouteImport } from './routes/api/polymarket-clob.$';
-import { Route as BetHomeOrderOpenRouteImport } from './routes/bet._home.order.open';
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as SwapRouteImport } from './routes/swap'
+import { Route as SendRouteImport } from './routes/send'
+import { Route as DevRouteImport } from './routes/dev'
+import { Route as BetRouteImport } from './routes/bet'
+import { Route as HomeRouteImport } from './routes/_home'
+import { Route as SwapIndexRouteImport } from './routes/swap.index'
+import { Route as SendIndexRouteImport } from './routes/send.index'
+import { Route as HomeIndexRouteImport } from './routes/_home.index'
+import { Route as SwapSelectTokenRouteImport } from './routes/swap.select-token'
+import { Route as SendTokensRouteImport } from './routes/send.tokens'
+import { Route as SendSuccessRouteImport } from './routes/send.success'
+import { Route as SendRecipientsRouteImport } from './routes/send.recipients'
+import { Route as SendFormRouteImport } from './routes/send.form'
+import { Route as SendFailedRouteImport } from './routes/send.failed'
+import { Route as DevSolanaRouteImport } from './routes/dev.solana'
+import { Route as DevEthereumRouteImport } from './routes/dev.ethereum'
+import { Route as BetWithdrawRouteImport } from './routes/bet.withdraw'
+import { Route as BetPositionRouteImport } from './routes/bet.position'
+import { Route as BetDepositRouteImport } from './routes/bet.deposit'
+import { Route as BetHomeRouteImport } from './routes/bet._home'
+import { Route as HomeTransactionsRouteImport } from './routes/_home.transactions'
+import { Route as HomeReceiveRouteImport } from './routes/_home.receive'
+import { Route as HomeNftsRouteImport } from './routes/_home.nfts'
+import { Route as BetHomeIndexRouteImport } from './routes/bet._home.index'
+import { Route as SendRecipientChooseRouteImport } from './routes/send.recipient.choose'
+import { Route as BetEventIdRouteImport } from './routes/bet.event.$id'
+import { Route as BetHomeHistoryRouteImport } from './routes/bet._home.history'
+import { Route as BetHomeExportKeyRouteImport } from './routes/bet._home.export-key'
+import { Route as ApiPolymarketSplatRouteImport } from './routes/api/polymarket.$'
+import { Route as ApiPolymarketDataSplatRouteImport } from './routes/api/polymarket-data.$'
+import { Route as ApiPolymarketClobSplatRouteImport } from './routes/api/polymarket-clob.$'
+import { Route as BetHomeOrderOpenRouteImport } from './routes/bet._home.order.open'
 
 const SwapRoute = SwapRouteImport.update({
-    id: '/swap',
-    path: '/swap',
-    getParentRoute: () => rootRouteImport,
-} as any);
+  id: '/swap',
+  path: '/swap',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SendRoute = SendRouteImport.update({
-    id: '/send',
-    path: '/send',
-    getParentRoute: () => rootRouteImport,
-} as any);
+  id: '/send',
+  path: '/send',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DevRoute = DevRouteImport.update({
-    id: '/dev',
-    path: '/dev',
-    getParentRoute: () => rootRouteImport,
-} as any);
+  id: '/dev',
+  path: '/dev',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BetRoute = BetRouteImport.update({
-    id: '/bet',
-    path: '/bet',
-    getParentRoute: () => rootRouteImport,
-} as any);
+  id: '/bet',
+  path: '/bet',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const HomeRoute = HomeRouteImport.update({
-    id: '/_home',
-    getParentRoute: () => rootRouteImport,
-} as any);
+  id: '/_home',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SwapIndexRoute = SwapIndexRouteImport.update({
-    id: '/',
-    path: '/',
-    getParentRoute: () => SwapRoute,
-} as any);
+  id: '/',
+  path: '/',
+  getParentRoute: () => SwapRoute,
+} as any)
 const SendIndexRoute = SendIndexRouteImport.update({
-    id: '/',
-    path: '/',
-    getParentRoute: () => SendRoute,
-} as any);
+  id: '/',
+  path: '/',
+  getParentRoute: () => SendRoute,
+} as any)
 const HomeIndexRoute = HomeIndexRouteImport.update({
-    id: '/',
-    path: '/',
-    getParentRoute: () => HomeRoute,
-} as any);
+  id: '/',
+  path: '/',
+  getParentRoute: () => HomeRoute,
+} as any)
 const SwapSelectTokenRoute = SwapSelectTokenRouteImport.update({
-    id: '/select-token',
-    path: '/select-token',
-    getParentRoute: () => SwapRoute,
-} as any);
+  id: '/select-token',
+  path: '/select-token',
+  getParentRoute: () => SwapRoute,
+} as any)
 const SendTokensRoute = SendTokensRouteImport.update({
-    id: '/tokens',
-    path: '/tokens',
-    getParentRoute: () => SendRoute,
-} as any);
+  id: '/tokens',
+  path: '/tokens',
+  getParentRoute: () => SendRoute,
+} as any)
 const SendSuccessRoute = SendSuccessRouteImport.update({
-    id: '/success',
-    path: '/success',
-    getParentRoute: () => SendRoute,
-} as any);
+  id: '/success',
+  path: '/success',
+  getParentRoute: () => SendRoute,
+} as any)
 const SendRecipientsRoute = SendRecipientsRouteImport.update({
-    id: '/recipients',
-    path: '/recipients',
-    getParentRoute: () => SendRoute,
-} as any);
+  id: '/recipients',
+  path: '/recipients',
+  getParentRoute: () => SendRoute,
+} as any)
 const SendFormRoute = SendFormRouteImport.update({
-    id: '/form',
-    path: '/form',
-    getParentRoute: () => SendRoute,
-} as any);
+  id: '/form',
+  path: '/form',
+  getParentRoute: () => SendRoute,
+} as any)
 const SendFailedRoute = SendFailedRouteImport.update({
-    id: '/failed',
-    path: '/failed',
-    getParentRoute: () => SendRoute,
-} as any);
+  id: '/failed',
+  path: '/failed',
+  getParentRoute: () => SendRoute,
+} as any)
 const DevSolanaRoute = DevSolanaRouteImport.update({
-    id: '/solana',
-    path: '/solana',
-    getParentRoute: () => DevRoute,
-} as any);
+  id: '/solana',
+  path: '/solana',
+  getParentRoute: () => DevRoute,
+} as any)
 const DevEthereumRoute = DevEthereumRouteImport.update({
-    id: '/ethereum',
-    path: '/ethereum',
-    getParentRoute: () => DevRoute,
-} as any);
+  id: '/ethereum',
+  path: '/ethereum',
+  getParentRoute: () => DevRoute,
+} as any)
 const BetWithdrawRoute = BetWithdrawRouteImport.update({
-    id: '/withdraw',
-    path: '/withdraw',
-    getParentRoute: () => BetRoute,
-} as any);
+  id: '/withdraw',
+  path: '/withdraw',
+  getParentRoute: () => BetRoute,
+} as any)
 const BetPositionRoute = BetPositionRouteImport.update({
-    id: '/position',
-    path: '/position',
-    getParentRoute: () => BetRoute,
-} as any);
+  id: '/position',
+  path: '/position',
+  getParentRoute: () => BetRoute,
+} as any)
 const BetDepositRoute = BetDepositRouteImport.update({
-    id: '/deposit',
-    path: '/deposit',
-    getParentRoute: () => BetRoute,
-} as any);
+  id: '/deposit',
+  path: '/deposit',
+  getParentRoute: () => BetRoute,
+} as any)
 const BetHomeRoute = BetHomeRouteImport.update({
-    id: '/_home',
-    getParentRoute: () => BetRoute,
-} as any);
+  id: '/_home',
+  getParentRoute: () => BetRoute,
+} as any)
 const HomeTransactionsRoute = HomeTransactionsRouteImport.update({
-    id: '/transactions',
-    path: '/transactions',
-    getParentRoute: () => HomeRoute,
-} as any);
+  id: '/transactions',
+  path: '/transactions',
+  getParentRoute: () => HomeRoute,
+} as any)
 const HomeReceiveRoute = HomeReceiveRouteImport.update({
-    id: '/receive',
-    path: '/receive',
-    getParentRoute: () => HomeRoute,
-} as any);
+  id: '/receive',
+  path: '/receive',
+  getParentRoute: () => HomeRoute,
+} as any)
 const HomeNftsRoute = HomeNftsRouteImport.update({
-    id: '/nfts',
-    path: '/nfts',
-    getParentRoute: () => HomeRoute,
-} as any);
+  id: '/nfts',
+  path: '/nfts',
+  getParentRoute: () => HomeRoute,
+} as any)
 const BetHomeIndexRoute = BetHomeIndexRouteImport.update({
-    id: '/',
-    path: '/',
-    getParentRoute: () => BetHomeRoute,
-} as any);
+  id: '/',
+  path: '/',
+  getParentRoute: () => BetHomeRoute,
+} as any)
 const SendRecipientChooseRoute = SendRecipientChooseRouteImport.update({
-    id: '/recipient/choose',
-    path: '/recipient/choose',
-    getParentRoute: () => SendRoute,
-} as any);
+  id: '/recipient/choose',
+  path: '/recipient/choose',
+  getParentRoute: () => SendRoute,
+} as any)
 const BetEventIdRoute = BetEventIdRouteImport.update({
-    id: '/event/$id',
-    path: '/event/$id',
-    getParentRoute: () => BetRoute,
-} as any);
+  id: '/event/$id',
+  path: '/event/$id',
+  getParentRoute: () => BetRoute,
+} as any)
 const BetHomeHistoryRoute = BetHomeHistoryRouteImport.update({
-    id: '/history',
-    path: '/history',
-    getParentRoute: () => BetHomeRoute,
-} as any);
+  id: '/history',
+  path: '/history',
+  getParentRoute: () => BetHomeRoute,
+} as any)
 const BetHomeExportKeyRoute = BetHomeExportKeyRouteImport.update({
-    id: '/export-key',
-    path: '/export-key',
-    getParentRoute: () => BetHomeRoute,
-} as any);
+  id: '/export-key',
+  path: '/export-key',
+  getParentRoute: () => BetHomeRoute,
+} as any)
 const ApiPolymarketSplatRoute = ApiPolymarketSplatRouteImport.update({
-    id: '/api/polymarket/$',
-    path: '/api/polymarket/$',
-    getParentRoute: () => rootRouteImport,
-} as any);
+  id: '/api/polymarket/$',
+  path: '/api/polymarket/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPolymarketDataSplatRoute = ApiPolymarketDataSplatRouteImport.update({
-    id: '/api/polymarket-data/$',
-    path: '/api/polymarket-data/$',
-    getParentRoute: () => rootRouteImport,
-} as any);
+  id: '/api/polymarket-data/$',
+  path: '/api/polymarket-data/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPolymarketClobSplatRoute = ApiPolymarketClobSplatRouteImport.update({
-    id: '/api/polymarket-clob/$',
-    path: '/api/polymarket-clob/$',
-    getParentRoute: () => rootRouteImport,
-} as any);
+  id: '/api/polymarket-clob/$',
+  path: '/api/polymarket-clob/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BetHomeOrderOpenRoute = BetHomeOrderOpenRouteImport.update({
-    id: '/order/open',
-    path: '/order/open',
-    getParentRoute: () => BetHomeRoute,
-} as any);
+  id: '/order/open',
+  path: '/order/open',
+  getParentRoute: () => BetHomeRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
-    '/': typeof HomeIndexRoute;
-    '/bet': typeof BetHomeRouteWithChildren;
-    '/dev': typeof DevRouteWithChildren;
-    '/send': typeof SendRouteWithChildren;
-    '/swap': typeof SwapRouteWithChildren;
-    '/nfts': typeof HomeNftsRoute;
-    '/receive': typeof HomeReceiveRoute;
-    '/transactions': typeof HomeTransactionsRoute;
-    '/bet/deposit': typeof BetDepositRoute;
-    '/bet/position': typeof BetPositionRoute;
-    '/bet/withdraw': typeof BetWithdrawRoute;
-    '/dev/ethereum': typeof DevEthereumRoute;
-    '/dev/solana': typeof DevSolanaRoute;
-    '/send/failed': typeof SendFailedRoute;
-    '/send/form': typeof SendFormRoute;
-    '/send/recipients': typeof SendRecipientsRoute;
-    '/send/success': typeof SendSuccessRoute;
-    '/send/tokens': typeof SendTokensRoute;
-    '/swap/select-token': typeof SwapSelectTokenRoute;
-    '/send/': typeof SendIndexRoute;
-    '/swap/': typeof SwapIndexRoute;
-    '/api/polymarket-clob/$': typeof ApiPolymarketClobSplatRoute;
-    '/api/polymarket-data/$': typeof ApiPolymarketDataSplatRoute;
-    '/api/polymarket/$': typeof ApiPolymarketSplatRoute;
-    '/bet/export-key': typeof BetHomeExportKeyRoute;
-    '/bet/history': typeof BetHomeHistoryRoute;
-    '/bet/event/$id': typeof BetEventIdRoute;
-    '/send/recipient/choose': typeof SendRecipientChooseRoute;
-    '/bet/': typeof BetHomeIndexRoute;
-    '/bet/order/open': typeof BetHomeOrderOpenRoute;
+  '/': typeof HomeIndexRoute
+  '/bet': typeof BetHomeRouteWithChildren
+  '/dev': typeof DevRouteWithChildren
+  '/send': typeof SendRouteWithChildren
+  '/swap': typeof SwapRouteWithChildren
+  '/nfts': typeof HomeNftsRoute
+  '/receive': typeof HomeReceiveRoute
+  '/transactions': typeof HomeTransactionsRoute
+  '/bet/deposit': typeof BetDepositRoute
+  '/bet/position': typeof BetPositionRoute
+  '/bet/withdraw': typeof BetWithdrawRoute
+  '/dev/ethereum': typeof DevEthereumRoute
+  '/dev/solana': typeof DevSolanaRoute
+  '/send/failed': typeof SendFailedRoute
+  '/send/form': typeof SendFormRoute
+  '/send/recipients': typeof SendRecipientsRoute
+  '/send/success': typeof SendSuccessRoute
+  '/send/tokens': typeof SendTokensRoute
+  '/swap/select-token': typeof SwapSelectTokenRoute
+  '/send/': typeof SendIndexRoute
+  '/swap/': typeof SwapIndexRoute
+  '/api/polymarket-clob/$': typeof ApiPolymarketClobSplatRoute
+  '/api/polymarket-data/$': typeof ApiPolymarketDataSplatRoute
+  '/api/polymarket/$': typeof ApiPolymarketSplatRoute
+  '/bet/export-key': typeof BetHomeExportKeyRoute
+  '/bet/history': typeof BetHomeHistoryRoute
+  '/bet/event/$id': typeof BetEventIdRoute
+  '/send/recipient/choose': typeof SendRecipientChooseRoute
+  '/bet/': typeof BetHomeIndexRoute
+  '/bet/order/open': typeof BetHomeOrderOpenRoute
 }
 export interface FileRoutesByTo {
-    '/bet': typeof BetHomeIndexRoute;
-    '/dev': typeof DevRouteWithChildren;
-    '/nfts': typeof HomeNftsRoute;
-    '/receive': typeof HomeReceiveRoute;
-    '/transactions': typeof HomeTransactionsRoute;
-    '/bet/deposit': typeof BetDepositRoute;
-    '/bet/position': typeof BetPositionRoute;
-    '/bet/withdraw': typeof BetWithdrawRoute;
-    '/dev/ethereum': typeof DevEthereumRoute;
-    '/dev/solana': typeof DevSolanaRoute;
-    '/send/failed': typeof SendFailedRoute;
-    '/send/form': typeof SendFormRoute;
-    '/send/recipients': typeof SendRecipientsRoute;
-    '/send/success': typeof SendSuccessRoute;
-    '/send/tokens': typeof SendTokensRoute;
-    '/swap/select-token': typeof SwapSelectTokenRoute;
-    '/': typeof HomeIndexRoute;
-    '/send': typeof SendIndexRoute;
-    '/swap': typeof SwapIndexRoute;
-    '/api/polymarket-clob/$': typeof ApiPolymarketClobSplatRoute;
-    '/api/polymarket-data/$': typeof ApiPolymarketDataSplatRoute;
-    '/api/polymarket/$': typeof ApiPolymarketSplatRoute;
-    '/bet/export-key': typeof BetHomeExportKeyRoute;
-    '/bet/history': typeof BetHomeHistoryRoute;
-    '/bet/event/$id': typeof BetEventIdRoute;
-    '/send/recipient/choose': typeof SendRecipientChooseRoute;
-    '/bet/order/open': typeof BetHomeOrderOpenRoute;
+  '/bet': typeof BetHomeIndexRoute
+  '/dev': typeof DevRouteWithChildren
+  '/nfts': typeof HomeNftsRoute
+  '/receive': typeof HomeReceiveRoute
+  '/transactions': typeof HomeTransactionsRoute
+  '/bet/deposit': typeof BetDepositRoute
+  '/bet/position': typeof BetPositionRoute
+  '/bet/withdraw': typeof BetWithdrawRoute
+  '/dev/ethereum': typeof DevEthereumRoute
+  '/dev/solana': typeof DevSolanaRoute
+  '/send/failed': typeof SendFailedRoute
+  '/send/form': typeof SendFormRoute
+  '/send/recipients': typeof SendRecipientsRoute
+  '/send/success': typeof SendSuccessRoute
+  '/send/tokens': typeof SendTokensRoute
+  '/swap/select-token': typeof SwapSelectTokenRoute
+  '/': typeof HomeIndexRoute
+  '/send': typeof SendIndexRoute
+  '/swap': typeof SwapIndexRoute
+  '/api/polymarket-clob/$': typeof ApiPolymarketClobSplatRoute
+  '/api/polymarket-data/$': typeof ApiPolymarketDataSplatRoute
+  '/api/polymarket/$': typeof ApiPolymarketSplatRoute
+  '/bet/export-key': typeof BetHomeExportKeyRoute
+  '/bet/history': typeof BetHomeHistoryRoute
+  '/bet/event/$id': typeof BetEventIdRoute
+  '/send/recipient/choose': typeof SendRecipientChooseRoute
+  '/bet/order/open': typeof BetHomeOrderOpenRoute
 }
 export interface FileRoutesById {
-    __root__: typeof rootRouteImport;
-    '/_home': typeof HomeRouteWithChildren;
-    '/bet': typeof BetRouteWithChildren;
-    '/dev': typeof DevRouteWithChildren;
-    '/send': typeof SendRouteWithChildren;
-    '/swap': typeof SwapRouteWithChildren;
-    '/_home/nfts': typeof HomeNftsRoute;
-    '/_home/receive': typeof HomeReceiveRoute;
-    '/_home/transactions': typeof HomeTransactionsRoute;
-    '/bet/_home': typeof BetHomeRouteWithChildren;
-    '/bet/deposit': typeof BetDepositRoute;
-    '/bet/position': typeof BetPositionRoute;
-    '/bet/withdraw': typeof BetWithdrawRoute;
-    '/dev/ethereum': typeof DevEthereumRoute;
-    '/dev/solana': typeof DevSolanaRoute;
-    '/send/failed': typeof SendFailedRoute;
-    '/send/form': typeof SendFormRoute;
-    '/send/recipients': typeof SendRecipientsRoute;
-    '/send/success': typeof SendSuccessRoute;
-    '/send/tokens': typeof SendTokensRoute;
-    '/swap/select-token': typeof SwapSelectTokenRoute;
-    '/_home/': typeof HomeIndexRoute;
-    '/send/': typeof SendIndexRoute;
-    '/swap/': typeof SwapIndexRoute;
-    '/api/polymarket-clob/$': typeof ApiPolymarketClobSplatRoute;
-    '/api/polymarket-data/$': typeof ApiPolymarketDataSplatRoute;
-    '/api/polymarket/$': typeof ApiPolymarketSplatRoute;
-    '/bet/_home/export-key': typeof BetHomeExportKeyRoute;
-    '/bet/_home/history': typeof BetHomeHistoryRoute;
-    '/bet/event/$id': typeof BetEventIdRoute;
-    '/send/recipient/choose': typeof SendRecipientChooseRoute;
-    '/bet/_home/': typeof BetHomeIndexRoute;
-    '/bet/_home/order/open': typeof BetHomeOrderOpenRoute;
+  __root__: typeof rootRouteImport
+  '/_home': typeof HomeRouteWithChildren
+  '/bet': typeof BetRouteWithChildren
+  '/dev': typeof DevRouteWithChildren
+  '/send': typeof SendRouteWithChildren
+  '/swap': typeof SwapRouteWithChildren
+  '/_home/nfts': typeof HomeNftsRoute
+  '/_home/receive': typeof HomeReceiveRoute
+  '/_home/transactions': typeof HomeTransactionsRoute
+  '/bet/_home': typeof BetHomeRouteWithChildren
+  '/bet/deposit': typeof BetDepositRoute
+  '/bet/position': typeof BetPositionRoute
+  '/bet/withdraw': typeof BetWithdrawRoute
+  '/dev/ethereum': typeof DevEthereumRoute
+  '/dev/solana': typeof DevSolanaRoute
+  '/send/failed': typeof SendFailedRoute
+  '/send/form': typeof SendFormRoute
+  '/send/recipients': typeof SendRecipientsRoute
+  '/send/success': typeof SendSuccessRoute
+  '/send/tokens': typeof SendTokensRoute
+  '/swap/select-token': typeof SwapSelectTokenRoute
+  '/_home/': typeof HomeIndexRoute
+  '/send/': typeof SendIndexRoute
+  '/swap/': typeof SwapIndexRoute
+  '/api/polymarket-clob/$': typeof ApiPolymarketClobSplatRoute
+  '/api/polymarket-data/$': typeof ApiPolymarketDataSplatRoute
+  '/api/polymarket/$': typeof ApiPolymarketSplatRoute
+  '/bet/_home/export-key': typeof BetHomeExportKeyRoute
+  '/bet/_home/history': typeof BetHomeHistoryRoute
+  '/bet/event/$id': typeof BetEventIdRoute
+  '/send/recipient/choose': typeof SendRecipientChooseRoute
+  '/bet/_home/': typeof BetHomeIndexRoute
+  '/bet/_home/order/open': typeof BetHomeOrderOpenRoute
 }
 export interface FileRouteTypes {
-    fileRoutesByFullPath: FileRoutesByFullPath;
-    fullPaths:
-        | '/'
-        | '/bet'
-        | '/dev'
-        | '/send'
-        | '/swap'
-        | '/nfts'
-        | '/receive'
-        | '/transactions'
-        | '/bet/deposit'
-        | '/bet/position'
-        | '/bet/withdraw'
-        | '/dev/ethereum'
-        | '/dev/solana'
-        | '/send/failed'
-        | '/send/form'
-        | '/send/recipients'
-        | '/send/success'
-        | '/send/tokens'
-        | '/swap/select-token'
-        | '/send/'
-        | '/swap/'
-        | '/api/polymarket-clob/$'
-        | '/api/polymarket-data/$'
-        | '/api/polymarket/$'
-        | '/bet/export-key'
-        | '/bet/history'
-        | '/bet/event/$id'
-        | '/send/recipient/choose'
-        | '/bet/'
-        | '/bet/order/open';
-    fileRoutesByTo: FileRoutesByTo;
-    to:
-        | '/bet'
-        | '/dev'
-        | '/nfts'
-        | '/receive'
-        | '/transactions'
-        | '/bet/deposit'
-        | '/bet/position'
-        | '/bet/withdraw'
-        | '/dev/ethereum'
-        | '/dev/solana'
-        | '/send/failed'
-        | '/send/form'
-        | '/send/recipients'
-        | '/send/success'
-        | '/send/tokens'
-        | '/swap/select-token'
-        | '/'
-        | '/send'
-        | '/swap'
-        | '/api/polymarket-clob/$'
-        | '/api/polymarket-data/$'
-        | '/api/polymarket/$'
-        | '/bet/export-key'
-        | '/bet/history'
-        | '/bet/event/$id'
-        | '/send/recipient/choose'
-        | '/bet/order/open';
-    id:
-        | '__root__'
-        | '/_home'
-        | '/bet'
-        | '/dev'
-        | '/send'
-        | '/swap'
-        | '/_home/nfts'
-        | '/_home/receive'
-        | '/_home/transactions'
-        | '/bet/_home'
-        | '/bet/deposit'
-        | '/bet/position'
-        | '/bet/withdraw'
-        | '/dev/ethereum'
-        | '/dev/solana'
-        | '/send/failed'
-        | '/send/form'
-        | '/send/recipients'
-        | '/send/success'
-        | '/send/tokens'
-        | '/swap/select-token'
-        | '/_home/'
-        | '/send/'
-        | '/swap/'
-        | '/api/polymarket-clob/$'
-        | '/api/polymarket-data/$'
-        | '/api/polymarket/$'
-        | '/bet/_home/export-key'
-        | '/bet/_home/history'
-        | '/bet/event/$id'
-        | '/send/recipient/choose'
-        | '/bet/_home/'
-        | '/bet/_home/order/open';
-    fileRoutesById: FileRoutesById;
+  fileRoutesByFullPath: FileRoutesByFullPath
+  fullPaths:
+    | '/'
+    | '/bet'
+    | '/dev'
+    | '/send'
+    | '/swap'
+    | '/nfts'
+    | '/receive'
+    | '/transactions'
+    | '/bet/deposit'
+    | '/bet/position'
+    | '/bet/withdraw'
+    | '/dev/ethereum'
+    | '/dev/solana'
+    | '/send/failed'
+    | '/send/form'
+    | '/send/recipients'
+    | '/send/success'
+    | '/send/tokens'
+    | '/swap/select-token'
+    | '/send/'
+    | '/swap/'
+    | '/api/polymarket-clob/$'
+    | '/api/polymarket-data/$'
+    | '/api/polymarket/$'
+    | '/bet/export-key'
+    | '/bet/history'
+    | '/bet/event/$id'
+    | '/send/recipient/choose'
+    | '/bet/'
+    | '/bet/order/open'
+  fileRoutesByTo: FileRoutesByTo
+  to:
+    | '/bet'
+    | '/dev'
+    | '/nfts'
+    | '/receive'
+    | '/transactions'
+    | '/bet/deposit'
+    | '/bet/position'
+    | '/bet/withdraw'
+    | '/dev/ethereum'
+    | '/dev/solana'
+    | '/send/failed'
+    | '/send/form'
+    | '/send/recipients'
+    | '/send/success'
+    | '/send/tokens'
+    | '/swap/select-token'
+    | '/'
+    | '/send'
+    | '/swap'
+    | '/api/polymarket-clob/$'
+    | '/api/polymarket-data/$'
+    | '/api/polymarket/$'
+    | '/bet/export-key'
+    | '/bet/history'
+    | '/bet/event/$id'
+    | '/send/recipient/choose'
+    | '/bet/order/open'
+  id:
+    | '__root__'
+    | '/_home'
+    | '/bet'
+    | '/dev'
+    | '/send'
+    | '/swap'
+    | '/_home/nfts'
+    | '/_home/receive'
+    | '/_home/transactions'
+    | '/bet/_home'
+    | '/bet/deposit'
+    | '/bet/position'
+    | '/bet/withdraw'
+    | '/dev/ethereum'
+    | '/dev/solana'
+    | '/send/failed'
+    | '/send/form'
+    | '/send/recipients'
+    | '/send/success'
+    | '/send/tokens'
+    | '/swap/select-token'
+    | '/_home/'
+    | '/send/'
+    | '/swap/'
+    | '/api/polymarket-clob/$'
+    | '/api/polymarket-data/$'
+    | '/api/polymarket/$'
+    | '/bet/_home/export-key'
+    | '/bet/_home/history'
+    | '/bet/event/$id'
+    | '/send/recipient/choose'
+    | '/bet/_home/'
+    | '/bet/_home/order/open'
+  fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-    HomeRoute: typeof HomeRouteWithChildren;
-    BetRoute: typeof BetRouteWithChildren;
-    DevRoute: typeof DevRouteWithChildren;
-    SendRoute: typeof SendRouteWithChildren;
-    SwapRoute: typeof SwapRouteWithChildren;
-    ApiPolymarketClobSplatRoute: typeof ApiPolymarketClobSplatRoute;
-    ApiPolymarketDataSplatRoute: typeof ApiPolymarketDataSplatRoute;
-    ApiPolymarketSplatRoute: typeof ApiPolymarketSplatRoute;
+  HomeRoute: typeof HomeRouteWithChildren
+  BetRoute: typeof BetRouteWithChildren
+  DevRoute: typeof DevRouteWithChildren
+  SendRoute: typeof SendRouteWithChildren
+  SwapRoute: typeof SwapRouteWithChildren
+  ApiPolymarketClobSplatRoute: typeof ApiPolymarketClobSplatRoute
+  ApiPolymarketDataSplatRoute: typeof ApiPolymarketDataSplatRoute
+  ApiPolymarketSplatRoute: typeof ApiPolymarketSplatRoute
 }
 
 declare module '@tanstack/react-router' {
-    interface FileRoutesByPath {
-        '/swap': {
-            id: '/swap';
-            path: '/swap';
-            fullPath: '/swap';
-            preLoaderRoute: typeof SwapRouteImport;
-            parentRoute: typeof rootRouteImport;
-        };
-        '/send': {
-            id: '/send';
-            path: '/send';
-            fullPath: '/send';
-            preLoaderRoute: typeof SendRouteImport;
-            parentRoute: typeof rootRouteImport;
-        };
-        '/dev': {
-            id: '/dev';
-            path: '/dev';
-            fullPath: '/dev';
-            preLoaderRoute: typeof DevRouteImport;
-            parentRoute: typeof rootRouteImport;
-        };
-        '/bet': {
-            id: '/bet';
-            path: '/bet';
-            fullPath: '/bet';
-            preLoaderRoute: typeof BetRouteImport;
-            parentRoute: typeof rootRouteImport;
-        };
-        '/_home': {
-            id: '/_home';
-            path: '';
-            fullPath: '/';
-            preLoaderRoute: typeof HomeRouteImport;
-            parentRoute: typeof rootRouteImport;
-        };
-        '/swap/': {
-            id: '/swap/';
-            path: '/';
-            fullPath: '/swap/';
-            preLoaderRoute: typeof SwapIndexRouteImport;
-            parentRoute: typeof SwapRoute;
-        };
-        '/send/': {
-            id: '/send/';
-            path: '/';
-            fullPath: '/send/';
-            preLoaderRoute: typeof SendIndexRouteImport;
-            parentRoute: typeof SendRoute;
-        };
-        '/_home/': {
-            id: '/_home/';
-            path: '/';
-            fullPath: '/';
-            preLoaderRoute: typeof HomeIndexRouteImport;
-            parentRoute: typeof HomeRoute;
-        };
-        '/swap/select-token': {
-            id: '/swap/select-token';
-            path: '/select-token';
-            fullPath: '/swap/select-token';
-            preLoaderRoute: typeof SwapSelectTokenRouteImport;
-            parentRoute: typeof SwapRoute;
-        };
-        '/send/tokens': {
-            id: '/send/tokens';
-            path: '/tokens';
-            fullPath: '/send/tokens';
-            preLoaderRoute: typeof SendTokensRouteImport;
-            parentRoute: typeof SendRoute;
-        };
-        '/send/success': {
-            id: '/send/success';
-            path: '/success';
-            fullPath: '/send/success';
-            preLoaderRoute: typeof SendSuccessRouteImport;
-            parentRoute: typeof SendRoute;
-        };
-        '/send/recipients': {
-            id: '/send/recipients';
-            path: '/recipients';
-            fullPath: '/send/recipients';
-            preLoaderRoute: typeof SendRecipientsRouteImport;
-            parentRoute: typeof SendRoute;
-        };
-        '/send/form': {
-            id: '/send/form';
-            path: '/form';
-            fullPath: '/send/form';
-            preLoaderRoute: typeof SendFormRouteImport;
-            parentRoute: typeof SendRoute;
-        };
-        '/send/failed': {
-            id: '/send/failed';
-            path: '/failed';
-            fullPath: '/send/failed';
-            preLoaderRoute: typeof SendFailedRouteImport;
-            parentRoute: typeof SendRoute;
-        };
-        '/dev/solana': {
-            id: '/dev/solana';
-            path: '/solana';
-            fullPath: '/dev/solana';
-            preLoaderRoute: typeof DevSolanaRouteImport;
-            parentRoute: typeof DevRoute;
-        };
-        '/dev/ethereum': {
-            id: '/dev/ethereum';
-            path: '/ethereum';
-            fullPath: '/dev/ethereum';
-            preLoaderRoute: typeof DevEthereumRouteImport;
-            parentRoute: typeof DevRoute;
-        };
-        '/bet/withdraw': {
-            id: '/bet/withdraw';
-            path: '/withdraw';
-            fullPath: '/bet/withdraw';
-            preLoaderRoute: typeof BetWithdrawRouteImport;
-            parentRoute: typeof BetRoute;
-        };
-        '/bet/position': {
-            id: '/bet/position';
-            path: '/position';
-            fullPath: '/bet/position';
-            preLoaderRoute: typeof BetPositionRouteImport;
-            parentRoute: typeof BetRoute;
-        };
-        '/bet/deposit': {
-            id: '/bet/deposit';
-            path: '/deposit';
-            fullPath: '/bet/deposit';
-            preLoaderRoute: typeof BetDepositRouteImport;
-            parentRoute: typeof BetRoute;
-        };
-        '/bet/_home': {
-            id: '/bet/_home';
-            path: '';
-            fullPath: '/bet';
-            preLoaderRoute: typeof BetHomeRouteImport;
-            parentRoute: typeof BetRoute;
-        };
-        '/_home/transactions': {
-            id: '/_home/transactions';
-            path: '/transactions';
-            fullPath: '/transactions';
-            preLoaderRoute: typeof HomeTransactionsRouteImport;
-            parentRoute: typeof HomeRoute;
-        };
-        '/_home/receive': {
-            id: '/_home/receive';
-            path: '/receive';
-            fullPath: '/receive';
-            preLoaderRoute: typeof HomeReceiveRouteImport;
-            parentRoute: typeof HomeRoute;
-        };
-        '/_home/nfts': {
-            id: '/_home/nfts';
-            path: '/nfts';
-            fullPath: '/nfts';
-            preLoaderRoute: typeof HomeNftsRouteImport;
-            parentRoute: typeof HomeRoute;
-        };
-        '/bet/_home/': {
-            id: '/bet/_home/';
-            path: '/';
-            fullPath: '/bet/';
-            preLoaderRoute: typeof BetHomeIndexRouteImport;
-            parentRoute: typeof BetHomeRoute;
-        };
-        '/send/recipient/choose': {
-            id: '/send/recipient/choose';
-            path: '/recipient/choose';
-            fullPath: '/send/recipient/choose';
-            preLoaderRoute: typeof SendRecipientChooseRouteImport;
-            parentRoute: typeof SendRoute;
-        };
-        '/bet/event/$id': {
-            id: '/bet/event/$id';
-            path: '/event/$id';
-            fullPath: '/bet/event/$id';
-            preLoaderRoute: typeof BetEventIdRouteImport;
-            parentRoute: typeof BetRoute;
-        };
-        '/bet/_home/history': {
-            id: '/bet/_home/history';
-            path: '/history';
-            fullPath: '/bet/history';
-            preLoaderRoute: typeof BetHomeHistoryRouteImport;
-            parentRoute: typeof BetHomeRoute;
-        };
-        '/bet/_home/export-key': {
-            id: '/bet/_home/export-key';
-            path: '/export-key';
-            fullPath: '/bet/export-key';
-            preLoaderRoute: typeof BetHomeExportKeyRouteImport;
-            parentRoute: typeof BetHomeRoute;
-        };
-        '/api/polymarket/$': {
-            id: '/api/polymarket/$';
-            path: '/api/polymarket/$';
-            fullPath: '/api/polymarket/$';
-            preLoaderRoute: typeof ApiPolymarketSplatRouteImport;
-            parentRoute: typeof rootRouteImport;
-        };
-        '/api/polymarket-data/$': {
-            id: '/api/polymarket-data/$';
-            path: '/api/polymarket-data/$';
-            fullPath: '/api/polymarket-data/$';
-            preLoaderRoute: typeof ApiPolymarketDataSplatRouteImport;
-            parentRoute: typeof rootRouteImport;
-        };
-        '/api/polymarket-clob/$': {
-            id: '/api/polymarket-clob/$';
-            path: '/api/polymarket-clob/$';
-            fullPath: '/api/polymarket-clob/$';
-            preLoaderRoute: typeof ApiPolymarketClobSplatRouteImport;
-            parentRoute: typeof rootRouteImport;
-        };
-        '/bet/_home/order/open': {
-            id: '/bet/_home/order/open';
-            path: '/order/open';
-            fullPath: '/bet/order/open';
-            preLoaderRoute: typeof BetHomeOrderOpenRouteImport;
-            parentRoute: typeof BetHomeRoute;
-        };
+  interface FileRoutesByPath {
+    '/swap': {
+      id: '/swap'
+      path: '/swap'
+      fullPath: '/swap'
+      preLoaderRoute: typeof SwapRouteImport
+      parentRoute: typeof rootRouteImport
     }
+    '/send': {
+      id: '/send'
+      path: '/send'
+      fullPath: '/send'
+      preLoaderRoute: typeof SendRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dev': {
+      id: '/dev'
+      path: '/dev'
+      fullPath: '/dev'
+      preLoaderRoute: typeof DevRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bet': {
+      id: '/bet'
+      path: '/bet'
+      fullPath: '/bet'
+      preLoaderRoute: typeof BetRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_home': {
+      id: '/_home'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof HomeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/swap/': {
+      id: '/swap/'
+      path: '/'
+      fullPath: '/swap/'
+      preLoaderRoute: typeof SwapIndexRouteImport
+      parentRoute: typeof SwapRoute
+    }
+    '/send/': {
+      id: '/send/'
+      path: '/'
+      fullPath: '/send/'
+      preLoaderRoute: typeof SendIndexRouteImport
+      parentRoute: typeof SendRoute
+    }
+    '/_home/': {
+      id: '/_home/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof HomeIndexRouteImport
+      parentRoute: typeof HomeRoute
+    }
+    '/swap/select-token': {
+      id: '/swap/select-token'
+      path: '/select-token'
+      fullPath: '/swap/select-token'
+      preLoaderRoute: typeof SwapSelectTokenRouteImport
+      parentRoute: typeof SwapRoute
+    }
+    '/send/tokens': {
+      id: '/send/tokens'
+      path: '/tokens'
+      fullPath: '/send/tokens'
+      preLoaderRoute: typeof SendTokensRouteImport
+      parentRoute: typeof SendRoute
+    }
+    '/send/success': {
+      id: '/send/success'
+      path: '/success'
+      fullPath: '/send/success'
+      preLoaderRoute: typeof SendSuccessRouteImport
+      parentRoute: typeof SendRoute
+    }
+    '/send/recipients': {
+      id: '/send/recipients'
+      path: '/recipients'
+      fullPath: '/send/recipients'
+      preLoaderRoute: typeof SendRecipientsRouteImport
+      parentRoute: typeof SendRoute
+    }
+    '/send/form': {
+      id: '/send/form'
+      path: '/form'
+      fullPath: '/send/form'
+      preLoaderRoute: typeof SendFormRouteImport
+      parentRoute: typeof SendRoute
+    }
+    '/send/failed': {
+      id: '/send/failed'
+      path: '/failed'
+      fullPath: '/send/failed'
+      preLoaderRoute: typeof SendFailedRouteImport
+      parentRoute: typeof SendRoute
+    }
+    '/dev/solana': {
+      id: '/dev/solana'
+      path: '/solana'
+      fullPath: '/dev/solana'
+      preLoaderRoute: typeof DevSolanaRouteImport
+      parentRoute: typeof DevRoute
+    }
+    '/dev/ethereum': {
+      id: '/dev/ethereum'
+      path: '/ethereum'
+      fullPath: '/dev/ethereum'
+      preLoaderRoute: typeof DevEthereumRouteImport
+      parentRoute: typeof DevRoute
+    }
+    '/bet/withdraw': {
+      id: '/bet/withdraw'
+      path: '/withdraw'
+      fullPath: '/bet/withdraw'
+      preLoaderRoute: typeof BetWithdrawRouteImport
+      parentRoute: typeof BetRoute
+    }
+    '/bet/position': {
+      id: '/bet/position'
+      path: '/position'
+      fullPath: '/bet/position'
+      preLoaderRoute: typeof BetPositionRouteImport
+      parentRoute: typeof BetRoute
+    }
+    '/bet/deposit': {
+      id: '/bet/deposit'
+      path: '/deposit'
+      fullPath: '/bet/deposit'
+      preLoaderRoute: typeof BetDepositRouteImport
+      parentRoute: typeof BetRoute
+    }
+    '/bet/_home': {
+      id: '/bet/_home'
+      path: ''
+      fullPath: '/bet'
+      preLoaderRoute: typeof BetHomeRouteImport
+      parentRoute: typeof BetRoute
+    }
+    '/_home/transactions': {
+      id: '/_home/transactions'
+      path: '/transactions'
+      fullPath: '/transactions'
+      preLoaderRoute: typeof HomeTransactionsRouteImport
+      parentRoute: typeof HomeRoute
+    }
+    '/_home/receive': {
+      id: '/_home/receive'
+      path: '/receive'
+      fullPath: '/receive'
+      preLoaderRoute: typeof HomeReceiveRouteImport
+      parentRoute: typeof HomeRoute
+    }
+    '/_home/nfts': {
+      id: '/_home/nfts'
+      path: '/nfts'
+      fullPath: '/nfts'
+      preLoaderRoute: typeof HomeNftsRouteImport
+      parentRoute: typeof HomeRoute
+    }
+    '/bet/_home/': {
+      id: '/bet/_home/'
+      path: '/'
+      fullPath: '/bet/'
+      preLoaderRoute: typeof BetHomeIndexRouteImport
+      parentRoute: typeof BetHomeRoute
+    }
+    '/send/recipient/choose': {
+      id: '/send/recipient/choose'
+      path: '/recipient/choose'
+      fullPath: '/send/recipient/choose'
+      preLoaderRoute: typeof SendRecipientChooseRouteImport
+      parentRoute: typeof SendRoute
+    }
+    '/bet/event/$id': {
+      id: '/bet/event/$id'
+      path: '/event/$id'
+      fullPath: '/bet/event/$id'
+      preLoaderRoute: typeof BetEventIdRouteImport
+      parentRoute: typeof BetRoute
+    }
+    '/bet/_home/history': {
+      id: '/bet/_home/history'
+      path: '/history'
+      fullPath: '/bet/history'
+      preLoaderRoute: typeof BetHomeHistoryRouteImport
+      parentRoute: typeof BetHomeRoute
+    }
+    '/bet/_home/export-key': {
+      id: '/bet/_home/export-key'
+      path: '/export-key'
+      fullPath: '/bet/export-key'
+      preLoaderRoute: typeof BetHomeExportKeyRouteImport
+      parentRoute: typeof BetHomeRoute
+    }
+    '/api/polymarket/$': {
+      id: '/api/polymarket/$'
+      path: '/api/polymarket/$'
+      fullPath: '/api/polymarket/$'
+      preLoaderRoute: typeof ApiPolymarketSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/polymarket-data/$': {
+      id: '/api/polymarket-data/$'
+      path: '/api/polymarket-data/$'
+      fullPath: '/api/polymarket-data/$'
+      preLoaderRoute: typeof ApiPolymarketDataSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/polymarket-clob/$': {
+      id: '/api/polymarket-clob/$'
+      path: '/api/polymarket-clob/$'
+      fullPath: '/api/polymarket-clob/$'
+      preLoaderRoute: typeof ApiPolymarketClobSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bet/_home/order/open': {
+      id: '/bet/_home/order/open'
+      path: '/order/open'
+      fullPath: '/bet/order/open'
+      preLoaderRoute: typeof BetHomeOrderOpenRouteImport
+      parentRoute: typeof BetHomeRoute
+    }
+  }
 }
 
 interface HomeRouteChildren {
-    HomeNftsRoute: typeof HomeNftsRoute;
-    HomeReceiveRoute: typeof HomeReceiveRoute;
-    HomeTransactionsRoute: typeof HomeTransactionsRoute;
-    HomeIndexRoute: typeof HomeIndexRoute;
+  HomeNftsRoute: typeof HomeNftsRoute
+  HomeReceiveRoute: typeof HomeReceiveRoute
+  HomeTransactionsRoute: typeof HomeTransactionsRoute
+  HomeIndexRoute: typeof HomeIndexRoute
 }
 
 const HomeRouteChildren: HomeRouteChildren = {
-    HomeNftsRoute: HomeNftsRoute,
-    HomeReceiveRoute: HomeReceiveRoute,
-    HomeTransactionsRoute: HomeTransactionsRoute,
-    HomeIndexRoute: HomeIndexRoute,
-};
+  HomeNftsRoute: HomeNftsRoute,
+  HomeReceiveRoute: HomeReceiveRoute,
+  HomeTransactionsRoute: HomeTransactionsRoute,
+  HomeIndexRoute: HomeIndexRoute,
+}
 
-const HomeRouteWithChildren = HomeRoute._addFileChildren(HomeRouteChildren);
+const HomeRouteWithChildren = HomeRoute._addFileChildren(HomeRouteChildren)
 
 interface BetHomeRouteChildren {
-    BetHomeExportKeyRoute: typeof BetHomeExportKeyRoute;
-    BetHomeHistoryRoute: typeof BetHomeHistoryRoute;
-    BetHomeIndexRoute: typeof BetHomeIndexRoute;
-    BetHomeOrderOpenRoute: typeof BetHomeOrderOpenRoute;
+  BetHomeExportKeyRoute: typeof BetHomeExportKeyRoute
+  BetHomeHistoryRoute: typeof BetHomeHistoryRoute
+  BetHomeIndexRoute: typeof BetHomeIndexRoute
+  BetHomeOrderOpenRoute: typeof BetHomeOrderOpenRoute
 }
 
 const BetHomeRouteChildren: BetHomeRouteChildren = {
-    BetHomeExportKeyRoute: BetHomeExportKeyRoute,
-    BetHomeHistoryRoute: BetHomeHistoryRoute,
-    BetHomeIndexRoute: BetHomeIndexRoute,
-    BetHomeOrderOpenRoute: BetHomeOrderOpenRoute,
-};
+  BetHomeExportKeyRoute: BetHomeExportKeyRoute,
+  BetHomeHistoryRoute: BetHomeHistoryRoute,
+  BetHomeIndexRoute: BetHomeIndexRoute,
+  BetHomeOrderOpenRoute: BetHomeOrderOpenRoute,
+}
 
-const BetHomeRouteWithChildren = BetHomeRoute._addFileChildren(BetHomeRouteChildren);
+const BetHomeRouteWithChildren =
+  BetHomeRoute._addFileChildren(BetHomeRouteChildren)
 
 interface BetRouteChildren {
-    BetHomeRoute: typeof BetHomeRouteWithChildren;
-    BetDepositRoute: typeof BetDepositRoute;
-    BetPositionRoute: typeof BetPositionRoute;
-    BetWithdrawRoute: typeof BetWithdrawRoute;
-    BetEventIdRoute: typeof BetEventIdRoute;
+  BetHomeRoute: typeof BetHomeRouteWithChildren
+  BetDepositRoute: typeof BetDepositRoute
+  BetPositionRoute: typeof BetPositionRoute
+  BetWithdrawRoute: typeof BetWithdrawRoute
+  BetEventIdRoute: typeof BetEventIdRoute
 }
 
 const BetRouteChildren: BetRouteChildren = {
-    BetHomeRoute: BetHomeRouteWithChildren,
-    BetDepositRoute: BetDepositRoute,
-    BetPositionRoute: BetPositionRoute,
-    BetWithdrawRoute: BetWithdrawRoute,
-    BetEventIdRoute: BetEventIdRoute,
-};
+  BetHomeRoute: BetHomeRouteWithChildren,
+  BetDepositRoute: BetDepositRoute,
+  BetPositionRoute: BetPositionRoute,
+  BetWithdrawRoute: BetWithdrawRoute,
+  BetEventIdRoute: BetEventIdRoute,
+}
 
-const BetRouteWithChildren = BetRoute._addFileChildren(BetRouteChildren);
+const BetRouteWithChildren = BetRoute._addFileChildren(BetRouteChildren)
 
 interface DevRouteChildren {
-    DevEthereumRoute: typeof DevEthereumRoute;
-    DevSolanaRoute: typeof DevSolanaRoute;
+  DevEthereumRoute: typeof DevEthereumRoute
+  DevSolanaRoute: typeof DevSolanaRoute
 }
 
 const DevRouteChildren: DevRouteChildren = {
-    DevEthereumRoute: DevEthereumRoute,
-    DevSolanaRoute: DevSolanaRoute,
-};
+  DevEthereumRoute: DevEthereumRoute,
+  DevSolanaRoute: DevSolanaRoute,
+}
 
-const DevRouteWithChildren = DevRoute._addFileChildren(DevRouteChildren);
+const DevRouteWithChildren = DevRoute._addFileChildren(DevRouteChildren)
 
 interface SendRouteChildren {
-    SendFailedRoute: typeof SendFailedRoute;
-    SendFormRoute: typeof SendFormRoute;
-    SendRecipientsRoute: typeof SendRecipientsRoute;
-    SendSuccessRoute: typeof SendSuccessRoute;
-    SendTokensRoute: typeof SendTokensRoute;
-    SendIndexRoute: typeof SendIndexRoute;
-    SendRecipientChooseRoute: typeof SendRecipientChooseRoute;
+  SendFailedRoute: typeof SendFailedRoute
+  SendFormRoute: typeof SendFormRoute
+  SendRecipientsRoute: typeof SendRecipientsRoute
+  SendSuccessRoute: typeof SendSuccessRoute
+  SendTokensRoute: typeof SendTokensRoute
+  SendIndexRoute: typeof SendIndexRoute
+  SendRecipientChooseRoute: typeof SendRecipientChooseRoute
 }
 
 const SendRouteChildren: SendRouteChildren = {
-    SendFailedRoute: SendFailedRoute,
-    SendFormRoute: SendFormRoute,
-    SendRecipientsRoute: SendRecipientsRoute,
-    SendSuccessRoute: SendSuccessRoute,
-    SendTokensRoute: SendTokensRoute,
-    SendIndexRoute: SendIndexRoute,
-    SendRecipientChooseRoute: SendRecipientChooseRoute,
-};
+  SendFailedRoute: SendFailedRoute,
+  SendFormRoute: SendFormRoute,
+  SendRecipientsRoute: SendRecipientsRoute,
+  SendSuccessRoute: SendSuccessRoute,
+  SendTokensRoute: SendTokensRoute,
+  SendIndexRoute: SendIndexRoute,
+  SendRecipientChooseRoute: SendRecipientChooseRoute,
+}
 
-const SendRouteWithChildren = SendRoute._addFileChildren(SendRouteChildren);
+const SendRouteWithChildren = SendRoute._addFileChildren(SendRouteChildren)
 
 interface SwapRouteChildren {
-    SwapSelectTokenRoute: typeof SwapSelectTokenRoute;
-    SwapIndexRoute: typeof SwapIndexRoute;
+  SwapSelectTokenRoute: typeof SwapSelectTokenRoute
+  SwapIndexRoute: typeof SwapIndexRoute
 }
 
 const SwapRouteChildren: SwapRouteChildren = {
-    SwapSelectTokenRoute: SwapSelectTokenRoute,
-    SwapIndexRoute: SwapIndexRoute,
-};
+  SwapSelectTokenRoute: SwapSelectTokenRoute,
+  SwapIndexRoute: SwapIndexRoute,
+}
 
-const SwapRouteWithChildren = SwapRoute._addFileChildren(SwapRouteChildren);
+const SwapRouteWithChildren = SwapRoute._addFileChildren(SwapRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
-    HomeRoute: HomeRouteWithChildren,
-    BetRoute: BetRouteWithChildren,
-    DevRoute: DevRouteWithChildren,
-    SendRoute: SendRouteWithChildren,
-    SwapRoute: SwapRouteWithChildren,
-    ApiPolymarketClobSplatRoute: ApiPolymarketClobSplatRoute,
-    ApiPolymarketDataSplatRoute: ApiPolymarketDataSplatRoute,
-    ApiPolymarketSplatRoute: ApiPolymarketSplatRoute,
-};
-export const routeTree = rootRouteImport._addFileChildren(rootRouteChildren)._addFileTypes<FileRouteTypes>();
+  HomeRoute: HomeRouteWithChildren,
+  BetRoute: BetRouteWithChildren,
+  DevRoute: DevRouteWithChildren,
+  SendRoute: SendRouteWithChildren,
+  SwapRoute: SwapRouteWithChildren,
+  ApiPolymarketClobSplatRoute: ApiPolymarketClobSplatRoute,
+  ApiPolymarketDataSplatRoute: ApiPolymarketDataSplatRoute,
+  ApiPolymarketSplatRoute: ApiPolymarketSplatRoute,
+}
+export const routeTree = rootRouteImport
+  ._addFileChildren(rootRouteChildren)
+  ._addFileTypes<FileRouteTypes>()
 
-import { getRouter } from './router.tsx';
-import { createStart } from '@tanstack/react-start';
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
 declare module '@tanstack/react-start' {
-    interface Register {
-        ssr: true;
-        router: Awaited<ReturnType<typeof getRouter>>;
-    }
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
 }

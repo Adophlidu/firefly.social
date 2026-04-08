@@ -2,6 +2,8 @@ import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
 import { lingui } from '@lingui/vite-plugin';
+import svgrJsx from '@svgr/plugin-jsx';
+import svgrSvgo from '@svgr/plugin-svgo';
 import { tanstackStart } from '@tanstack/react-start/plugin/vite';
 import react from '@vitejs/plugin-react';
 import { nitro } from 'nitro/vite';
@@ -55,6 +57,7 @@ export default defineConfig({
         svgr({
             svgrOptions: {
                 ref: true,
+                plugins: [svgrSvgo, svgrJsx],
                 svgoConfig: {
                     plugins: [
                         {

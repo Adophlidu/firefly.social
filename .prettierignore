@@ -17,3 +17,4 @@ patches/
 
 # Next applications
 apps/**/.next/
+routeTree.gen.ts
