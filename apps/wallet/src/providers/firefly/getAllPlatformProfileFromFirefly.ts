@@ -51,7 +51,6 @@ export async function getAllPlatformProfileFromFirefly(identity: FireflyIdentity
             case Source.Swap:
             case Source.Transactions:
             case Source.Activities:
-            case Source.X3Pro:
                 // These sources don't have profile lookup support
                 return '';
             default:
