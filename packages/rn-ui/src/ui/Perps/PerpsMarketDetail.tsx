@@ -6,7 +6,7 @@ import { PerpsDetailTopBar } from '@/components/PerpsDetailTopBar';
 import { PerpsKlinePlaceholder } from '@/components/PerpsKlinePlaceholder';
 import { PerpsTickerSummary } from '@/components/PerpsTickerSummary';
 import { PerpsTradeActionBar } from '@/components/PerpsTradeActionBar';
-import { HyperliquidProvider } from '@/providers/HyperliquidProvider';
+import { HyperliquidProvider } from '@/components/Providers/HyperliquidProvider';
 import { loadPerpsDetailPage } from '@/services/perpsDetail';
 import { PerpsDetailSkeleton } from '@/skeletons/PerpsDetailSkeleton';
 import { type FetchPerpsDetailPage } from '@/types/services';

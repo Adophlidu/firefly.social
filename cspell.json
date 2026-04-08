@@ -472,7 +472,9 @@
         "xinfin",
         "xrpc",
         "XSUSHI",
-        "Yumi"
+        "Yumi",
+        "Delisted",
+        "Perp"
     ],
     "flagWords": [],
     "ignorePaths": [

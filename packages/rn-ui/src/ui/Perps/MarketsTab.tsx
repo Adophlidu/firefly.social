@@ -3,7 +3,7 @@ import { XStack, YStack } from 'tamagui';
 
 import { MarketsList } from '@/components/MarketsList';
 import { OrderBook } from '@/components/OrderBook';
-import { HyperliquidProvider } from '@/providers/HyperliquidProvider';
+import { HyperliquidProvider } from '@/components/Providers/HyperliquidProvider';
 
 import { AddFundsButton } from '../../components/AddFundsButton';
 import { LiteTabs } from '../../components/LiteTabs';

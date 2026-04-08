@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 
-import { HyperliquidContext } from '@/providers/HyperliquidProvider';
+import { HyperliquidContext } from '@/components/Providers/HyperliquidProvider.js';
 
 export function useHyperliquid() {
     const context = useContext(HyperliquidContext);

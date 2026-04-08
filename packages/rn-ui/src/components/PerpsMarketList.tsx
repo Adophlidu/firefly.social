@@ -3,15 +3,15 @@ import { ScrollView, Text, XStack, YStack } from 'tamagui';
 
 import { PerpsMarketRow } from '@/components/PerpsMarketRow';
 import { PerpsMarketSkeleton } from '@/skeletons/PerpsMarketSkeleton';
-import { type PerpsMarketItem } from '@/types/ui';
+import type { PerpsMeta } from '@/types/ui';
 
 export interface PerpsMarketListProps {
-    items: PerpsMarketItem[];
+    items: PerpsMeta[];
     loading: boolean;
     loadingMore: boolean;
     error: string | null;
-    onLoadMore: () => void;
-    onMarketSelect?: (item: PerpsMarketItem) => void;
+    onLoadMore?: () => void;
+    onMarketSelect?: (item: PerpsMeta) => void;
 }
 
 export const PerpsMarketList = memo<PerpsMarketListProps>(function PerpsMarketList({
@@ -28,7 +28,7 @@ export const PerpsMarketList = memo<PerpsMarketListProps>(function PerpsMarketLi
             const isNearBottom = layoutMeasurement.height + contentOffset.y >= contentSize.height - 120;
 
             if (isNearBottom) {
-                onLoadMore();
+                onLoadMore?.();
             }
         },
         [onLoadMore],
@@ -46,7 +46,7 @@ export const PerpsMarketList = memo<PerpsMarketListProps>(function PerpsMarketLi
                 {loading ? <PerpsMarketSkeleton mode="list" rows={4} /> : null}
 
                 {!loading
-                    ? items.map((item) => <PerpsMarketRow key={item.id} item={item} onPress={onMarketSelect} />)
+                    ? items.map((item) => <PerpsMarketRow key={item.name} item={item} onPress={onMarketSelect} />)
                     : null}
 
                 {!loading && error ? (

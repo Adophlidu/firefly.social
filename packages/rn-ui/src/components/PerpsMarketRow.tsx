@@ -1,11 +1,11 @@
 import { memo } from 'react';
-import { styled, Text, XStack, YStack } from 'tamagui';
+import { Avatar, styled, Text, XStack, YStack } from 'tamagui';
 
-import { type PerpsMarketItem } from '@/types/ui';
+import type { PerpsMeta } from '@/types/ui';
 
 export interface PerpsMarketRowProps {
-    item: PerpsMarketItem;
-    onPress?: (item: PerpsMarketItem) => void;
+    item: PerpsMeta;
+    onPress?: (item: PerpsMeta) => void;
 }
 
 const RowButton = styled(XStack, {
@@ -19,16 +19,6 @@ const RowButton = styled(XStack, {
     },
 });
 
-const MarketAvatar = styled(YStack, {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
-    backgroundColor: '#FF9800',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexShrink: 0,
-});
-
 const LeverageBadge = styled(XStack, {
     paddingHorizontal: 6,
     paddingVertical: 2,
@@ -39,42 +29,44 @@ const LeverageBadge = styled(XStack, {
 });
 
 export const PerpsMarketRow = memo<PerpsMarketRowProps>(function PerpsMarketRow({ item, onPress }) {
-    const changeColor = item.priceChangeValue < 0 ? '#FF372B' : '#429F37';
+    // const changeColor = (item.priceChangeValue ?? 0) < 0 ? '#FF372B' : '#429F37';
 
     return (
         <RowButton onPress={() => onPress?.(item)}>
-            <MarketAvatar>
-                <Text color="#FFFFFF" fontSize={16} lineHeight={18} fontWeight={700}>
-                    {item.symbol.slice(0, 1)}
-                </Text>
-            </MarketAvatar>
+            <Avatar circular size={36} flexShrink={0}>
+                <Avatar.Image src={item.avatar} />
+                <Avatar.Fallback delayMs={600} backgroundColor="#FF9800" alignItems="center" justifyContent="center">
+                    <Text color="#FFFFFF" fontSize={16} lineHeight={18} fontWeight={700}>
+                        {item.name.slice(0, 1)}
+                    </Text>
+                </Avatar.Fallback>
+            </Avatar>
 
             <YStack flex={1} gap={2} minWidth={0}>
                 <XStack gap={4} alignItems="center">
                     <Text color="#171717" fontSize={14} lineHeight={14} fontWeight={600}>
-                        {item.symbol}
+                        {item.name}
                     </Text>
 
                     <LeverageBadge>
                         <Text color="#A9A6BC" fontSize={12} lineHeight={14} fontWeight={500}>
-                            {item.leverage}
+                            {item.maxLeverage}x
                         </Text>
                     </LeverageBadge>
                 </XStack>
 
                 <Text color="rgba(70, 70, 70, 0.4)" fontSize={12} lineHeight={14} fontWeight={500}>
-                    {item.volumeLabel}
+                    $4.9B Vol
                 </Text>
             </YStack>
 
             <YStack alignItems="flex-end" gap={2} minWidth={96}>
                 <Text color="#171717" fontSize={14} lineHeight={14} fontWeight={600}>
-                    {item.priceLabel}
+                    {item.mid ? `$${item.mid}` : '-'}
                 </Text>
 
-                <Text color={changeColor} fontSize={12} lineHeight={14} fontWeight={500}>
-                    {item.priceChangeLabel}
-                </Text>
+                {/* <Text color={changeColor} fontSize={12} lineHeight={14} fontWeight={500}>
+                </Text> */}
             </YStack>
         </RowButton>
     );

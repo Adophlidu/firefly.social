@@ -978,6 +978,9 @@ importers:
 
   packages/rn-ui:
     dependencies:
+      '@dimensiondev/utils':
+        specifier: workspace:^
+        version: link:../utils
       '@nktkas/hyperliquid':
         specifier: ^0.32.2
         version: 0.32.2(typescript@5.9.3)
@@ -990,6 +993,9 @@ importers:
       '@tamagui/lucide-icons-2':
         specifier: 2.0.0-rc.36
         version: 2.0.0-rc.36(react-dom@19.2.4)(react-native-svg@15.15.4)(react-native@0.84.1)(react@19.2.4)
+      '@tanstack/react-query':
+        specifier: 5.85.9
+        version: 5.85.9(react@19.2.4)
       lucide-react-native:
         specifier: ^0.473.0
         version: 0.473.0(react-native-svg@15.15.4)(react-native@0.84.1)(react@19.2.4)
@@ -1005,6 +1011,9 @@ importers:
       tamagui:
         specifier: ^1.114.0
         version: 1.144.4(react-dom@19.2.4)(react-native@0.84.1)(react@19.2.4)
+      urlcat:
+        specifier: ^3.1.0
+        version: 3.1.0(patch_hash=5r5xyq4zgcnqugwsrx4lxq2i4e)
     devDependencies:
       '@types/react':
         specifier: ^19.2.14

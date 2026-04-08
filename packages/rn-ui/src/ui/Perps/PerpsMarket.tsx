@@ -1,127 +1,66 @@
-import { memo, useCallback, useEffect, useMemo, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { memo, useEffect, useMemo, useState } from 'react';
 import { Text, XStack, YStack } from 'tamagui';
 
 import { LiteTabs } from '@/components/LiteTabs';
 import { PerpsMarketList } from '@/components/PerpsMarketList';
 import { SearchInput } from '@/components/SearchInput';
 import { SortByFilter } from '@/components/SortByFilter';
-import { loadPerpsMarketPage } from '@/services/perpsMarket';
+import { STALE_TIMES } from '@/constants/enum';
+import { usePerpsMetas } from '@/hooks/Perps/usePerpsMetas';
+import { getPerpsCategories } from '@/services/firefly/getPerpsCategories';
 import { PerpsMarketSkeleton } from '@/skeletons/PerpsMarketSkeleton';
-import { type FetchPerpsMarketPage } from '@/types/services';
-import type {
-    PerpsMarketItem,
-    PerpsMarketSort,
-    PerpsMarketSortItem,
-    PerpsMarketTab,
-    PerpsMarketTabItem,
-} from '@/types/ui';
+import type { FetchPerpsMarketPage } from '@/types/services';
+import type { PerpsMarketSort, PerpsMarketSortItem, PerpsMarketTab, PerpsMeta } from '@/types/ui';
 
 export interface PerpsMarketProps {
-    onMarketSelect?: (item: PerpsMarketItem) => void;
+    onMarketSelect?: (item: PerpsMeta) => void;
     fetchPerpsMarketPage?: FetchPerpsMarketPage;
     pageSize?: number;
 }
 
-export const PerpsMarket = memo<PerpsMarketProps>(function PerpsMarket({
-    onMarketSelect,
-    fetchPerpsMarketPage,
-    pageSize = 12,
-}) {
+export const PerpsMarket = memo<PerpsMarketProps>(function PerpsMarket({ onMarketSelect }) {
     const [search, setSearch] = useState('');
-    const [activeTab, setActiveTab] = useState<PerpsMarketTab>('perps');
+    const [activeTab, setActiveTab] = useState('');
     const [activeSort, setActiveSort] = useState<PerpsMarketSort>('volume');
-    const [tabs, setTabs] = useState<PerpsMarketTabItem[]>([
-        { label: 'Favorites', value: 'favorites' },
-        { label: 'Perps', value: 'perps' },
-        { label: 'Crypto', value: 'crypto' },
-        { label: 'Stocks', value: 'stocks' },
-        { label: 'Commodities', value: 'commodities' },
-    ]);
-    const [sortOptions, setSortOptions] = useState<PerpsMarketSortItem[]>([
+    const [sortOptions] = useState<PerpsMarketSortItem[]>([
         { label: 'Volume', value: 'volume' },
         { label: 'Price Change', value: 'priceChange' },
         { label: 'Open Interest', value: 'openInterest' },
     ]);
-    const [items, setItems] = useState<PerpsMarketItem[]>([]);
-    const [page, setPage] = useState(0);
-    const [hasMore, setHasMore] = useState(true);
-    const [loading, setLoading] = useState(true);
-    const [loadingMore, setLoadingMore] = useState(false);
-    const [initialized, setInitialized] = useState(false);
-    const [error, setError] = useState<string | null>(null);
 
-    const loadData = useMemo(() => fetchPerpsMarketPage ?? loadPerpsMarketPage, [fetchPerpsMarketPage]);
+    const { data, isLoading } = useQuery({
+        queryKey: ['perps', 'categories'],
+        staleTime: STALE_TIMES.HOUR_1,
+        queryFn: () => getPerpsCategories(),
+    });
+    const {
+        data: perpsMeta,
+        error,
+        isGlobalLoading,
+        isLoading: isMetaLoading,
+    } = usePerpsMetas({ category: activeTab, keyword: search });
 
-    const loadPage = useCallback(
-        async (nextPage: number, append: boolean) => {
-            const response = await loadData({
-                tab: activeTab,
-                sortBy: activeSort,
-                page: nextPage,
-                pageSize,
-            });
-
-            setTabs(response.tabs);
-            setSortOptions(response.sortOptions);
-            setItems((prev) => (append ? [...prev, ...response.items] : response.items));
-            setPage(nextPage);
-            setHasMore(response.hasMore);
-        },
-        [activeSort, activeTab, loadData, pageSize],
+    const categories = useMemo(
+        () => [
+            { label: 'Favorites', value: 'favorites' },
+            ...(!data?.length
+                ? [{ label: 'All', value: 'all' }]
+                : data.map((category) => ({
+                      label: category.display_name,
+                      value: category.name,
+                  }))),
+        ],
+        [data],
     );
 
-    const loadFirstPage = useCallback(async () => {
-        setLoading(true);
-        setError(null);
-
-        try {
-            await loadPage(1, false);
-        } catch {
-            setError('Failed to load markets');
-        } finally {
-            setLoading(false);
-            setInitialized(true);
-        }
-    }, [loadPage]);
-
-    const loadMore = useCallback(async () => {
-        if (loading || loadingMore || !hasMore) return;
-
-        setLoadingMore(true);
-        setError(null);
-
-        try {
-            await loadPage(page + 1, true);
-        } catch {
-            setError('Failed to load more markets');
-        } finally {
-            setLoadingMore(false);
-        }
-    }, [hasMore, loadPage, loading, loadingMore, page]);
-
     useEffect(() => {
-        setItems([]);
-        setPage(0);
-        setHasMore(true);
-        setError(null);
-        loadFirstPage();
-    }, [activeSort, activeTab, loadFirstPage]);
-
-    const normalizedSearch = search.trim().toLowerCase();
-    const visibleItems = useMemo(() => {
-        if (!normalizedSearch) {
-            return items;
+        if (!isLoading && categories.length > 0) {
+            setActiveTab(categories[1]?.value || categories[0]?.value);
         }
+    }, [categories, isLoading]);
 
-        return items.filter((item) => {
-            return [item.symbol, item.volumeLabel, item.priceLabel, item.priceChangeLabel, item.leverage]
-                .join(' ')
-                .toLowerCase()
-                .includes(normalizedSearch);
-        });
-    }, [items, normalizedSearch]);
-
-    const showFullSkeleton = loading && !initialized;
+    const showFullSkeleton = isLoading || isGlobalLoading;
 
     if (showFullSkeleton) {
         return <PerpsMarketSkeleton mode="full" />;
@@ -141,7 +80,7 @@ export const PerpsMarket = memo<PerpsMarketProps>(function PerpsMarket({
                 <XStack flexShrink={0} height={44}>
                     <LiteTabs
                         value={activeTab}
-                        data={tabs}
+                        data={categories}
                         onChange={(value) => {
                             setActiveTab(value as PerpsMarketTab);
                         }}
@@ -159,11 +98,10 @@ export const PerpsMarket = memo<PerpsMarketProps>(function PerpsMarket({
                 </XStack>
 
                 <PerpsMarketList
-                    items={visibleItems}
-                    loading={loading}
-                    loadingMore={loadingMore}
-                    error={error}
-                    onLoadMore={loadMore}
+                    items={perpsMeta}
+                    loading={isMetaLoading}
+                    loadingMore={false}
+                    error={error?.message || null}
                     onMarketSelect={onMarketSelect}
                 />
             </YStack>

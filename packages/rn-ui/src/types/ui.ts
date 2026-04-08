@@ -1,3 +1,5 @@
+import { type MarginTableResponse } from '@nktkas/hyperliquid';
+
 export interface SvgIconProps {
     width?: number;
     height?: number;
@@ -96,4 +98,21 @@ export interface PerpsDetailPageData {
     ticker: PerpsDetailTicker;
     orderBook: PerpsOrderBookPanel;
     actions: PerpsDetailActionButton[];
+}
+
+export interface PerpsMeta {
+    szDecimals: number;
+    name: string;
+    maxLeverage: number;
+    marginTableId: number;
+    onlyIsolated?: true;
+    isDelisted?: true;
+    marginMode?: 'strictIsolated' | 'noCross';
+    growthMode?: 'enabled';
+    lastGrowthModeChangeTime?: string;
+    marginTable?: MarginTableResponse;
+    mid?: string;
+    avatar?: string;
+    priceChangeValue?: number;
+    dex?: string;
 }
