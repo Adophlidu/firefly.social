@@ -109,6 +109,7 @@ export default async function Layout(props: Props) {
                                 socialProfile={socialProfile}
                                 walletProfile={walletProfile}
                                 profiles={profiles}
+                                hasFireflyAccount={!!relatedProfile.account}
                             />
                             <NoSSR>{props.children}</NoSSR>
                         </>
