@@ -111,6 +111,10 @@ export default defineConfig([
                 node: true,
             },
             ...sharedReactTailwindSettings,
+            tailwindcss: {
+                ...sharedReactTailwindSettings.tailwindcss,
+                config: 'apps/web/tailwind.config.cjs',
+            },
         },
         rules: {
             ...sharedEslintRulesWithoutRelativePaths,
@@ -156,6 +160,10 @@ export default defineConfig([
         },
         settings: {
             ...sharedReactTailwindSettings,
+            tailwindcss: {
+                ...sharedReactTailwindSettings.tailwindcss,
+                config: 'apps/wallet/tailwind.config.cjs',
+            },
             'import/resolver': {
                 typescript: {
                     alwaysTryTypes: true,
