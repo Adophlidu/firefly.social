@@ -1,0 +1,14 @@
+{
+    "$schema": "https://turbo.build/schema.json",
+    "extends": ["//"],
+    "tasks": {
+        "build": {
+            "dependsOn": ["$TURBO_EXTENDS$", "lingui"],
+            "outputs": [".vercel/**"]
+        },
+        "lingui": {
+            "outputs": ["src/locales/**/*.ts"],
+            "inputs": ["src/locales/**/*.po"]
+        }
+    }
+}
