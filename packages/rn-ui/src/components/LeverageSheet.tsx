@@ -1,0 +1,225 @@
+import { memo, type ReactNode, useEffect, useState } from 'react';
+import { Path, Svg } from 'react-native-svg';
+import { Button, Sheet, Slider, Text, XStack, YStack } from 'tamagui';
+
+import { LeverageSheetSkeleton } from '@/skeletons/LeverageSheetSkeleton';
+import { type LeverageSheetData } from '@/types/ui';
+
+interface LeverageSheetProps {
+    open: boolean;
+    onOpenChange: (open: boolean) => void;
+    data: LeverageSheetData;
+    loading?: boolean;
+    onConfirm?: (leverage: number) => void;
+}
+
+function MinusIcon() {
+    return (
+        <Svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <Path
+                d="M6 12H18"
+                stroke="rgba(70, 70, 70, 0.8)"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+        </Svg>
+    );
+}
+
+function PlusIcon() {
+    return (
+        <Svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <Path
+                d="M6 12H18"
+                stroke="rgba(70, 70, 70, 0.8)"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+            <Path
+                d="M12 18V6"
+                stroke="rgba(70, 70, 70, 0.8)"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+        </Svg>
+    );
+}
+
+function ControlButton({ children, onPress }: { children: ReactNode; onPress: () => void }) {
+    return (
+        <Button
+            unstyled
+            width={40}
+            height={40}
+            backgroundColor="#F8F7F9"
+            borderRadius={8}
+            alignItems="center"
+            justifyContent="center"
+            pressStyle={{ opacity: 0.75 }}
+            onPress={onPress}
+        >
+            {children}
+        </Button>
+    );
+}
+
+export const LeverageSheet = memo<LeverageSheetProps>(function LeverageSheet({
+    open,
+    onOpenChange,
+    data,
+    loading = false,
+    onConfirm,
+}) {
+    const [position, setPosition] = useState(0);
+    const [leverage, setLeverage] = useState(data.currentLeverage);
+
+    useEffect(() => {
+        setLeverage(data.currentLeverage);
+    }, [data.currentLeverage, open]);
+
+    const clamp = (value: number) => Math.min(data.maxLeverage, Math.max(data.minLeverage, value));
+
+    return (
+        <Sheet
+            modal
+            open={open}
+            onOpenChange={onOpenChange}
+            snapPointsMode="fit"
+            dismissOnSnapToBottom
+            position={position}
+            onPositionChange={setPosition}
+            zIndex={100_000}
+        >
+            <Sheet.Overlay
+                animation="quick"
+                enterStyle={{ opacity: 0 }}
+                exitStyle={{ opacity: 0 }}
+                opacity={0.16}
+                backgroundColor="#000000"
+            />
+
+            <Sheet.Frame
+                borderWidth={1}
+                borderColor="rgba(34, 33, 47, 0.03)"
+                borderTopLeftRadius={36}
+                borderTopRightRadius={36}
+                borderBottomLeftRadius={36}
+                borderBottomRightRadius={36}
+                shadowColor="#403D57"
+                shadowOpacity={0.1}
+                shadowRadius={20}
+                shadowOffset={{ width: 0, height: 16 }}
+                paddingTop={8}
+                paddingBottom={16}
+                paddingHorizontal={16}
+                gap={16}
+                minHeight={349}
+            >
+                <Sheet.Handle width={48} height={4} borderRadius={100} backgroundColor="#D1D1D1" marginBottom={0} />
+
+                {loading ? (
+                    <LeverageSheetSkeleton />
+                ) : (
+                    <>
+                        <YStack width="100%">
+                            <XStack width="100%" alignItems="center" justifyContent="space-between" paddingTop={12}>
+                                <Text color="#171717" fontSize={20} lineHeight={24} fontWeight={700} fontFamily="$body">
+                                    Adjust Leverage
+                                </Text>
+                                <YStack width={24} height={24} />
+                            </XStack>
+                        </YStack>
+
+                        <YStack gap={8}>
+                            <XStack alignItems="center" justifyContent="space-between">
+                                <ControlButton onPress={() => setLeverage((value) => clamp(value - data.step))}>
+                                    <MinusIcon />
+                                </ControlButton>
+                                <Text
+                                    color="#171717"
+                                    fontSize={32}
+                                    lineHeight={40}
+                                    fontWeight={600}
+                                    fontFamily="$body"
+                                    textAlign="center"
+                                >
+                                    {leverage}x
+                                </Text>
+                                <ControlButton onPress={() => setLeverage((value) => clamp(value + data.step))}>
+                                    <PlusIcon />
+                                </ControlButton>
+                            </XStack>
+
+                            <YStack height={15} paddingTop={5} paddingBottom={24} justifyContent="center">
+                                <Slider
+                                    value={[leverage]}
+                                    onValueChange={([next]) => setLeverage(clamp(Math.round(next)))}
+                                    min={data.minLeverage}
+                                    max={data.maxLeverage}
+                                    step={data.step}
+                                    size="$1"
+                                >
+                                    <Slider.Track backgroundColor="#5E69FF" height={4} opacity={0.2}>
+                                        <Slider.TrackActive backgroundColor="#5E69FF" />
+                                    </Slider.Track>
+                                    <Slider.Thumb
+                                        index={0}
+                                        circular
+                                        size={12}
+                                        backgroundColor="#5E69FF"
+                                        borderWidth={2}
+                                        borderColor="#FFFFFF"
+                                        shadowColor="#5E69FF"
+                                        shadowOpacity={0.36}
+                                        shadowRadius={4}
+                                        shadowOffset={{ width: 0, height: 2 }}
+                                    />
+                                </Slider>
+                            </YStack>
+                        </YStack>
+
+                        <YStack gap={4}>
+                            {data.notes.map((note) => (
+                                <XStack key={note} alignItems="flex-start" gap={6}>
+                                    <Text color="rgba(70, 70, 70, 0.8)" fontSize={13} lineHeight={17} fontWeight={500}>
+                                        •
+                                    </Text>
+                                    <Text
+                                        flex={1}
+                                        color="rgba(70, 70, 70, 0.8)"
+                                        fontSize={13}
+                                        lineHeight={17}
+                                        fontWeight={500}
+                                    >
+                                        {note}
+                                    </Text>
+                                </XStack>
+                            ))}
+                        </YStack>
+
+                        <Button
+                            unstyled
+                            height={48}
+                            borderRadius={96}
+                            backgroundColor="#171717"
+                            alignItems="center"
+                            justifyContent="center"
+                            pressStyle={{ opacity: 0.9 }}
+                            onPress={() => {
+                                onConfirm?.(leverage);
+                                onOpenChange(false);
+                            }}
+                        >
+                            <Text color="#E8E8E8" fontSize={16} lineHeight={24} fontWeight={700}>
+                                Confirm
+                            </Text>
+                        </Button>
+                    </>
+                )}
+            </Sheet.Frame>
+        </Sheet>
+    );
+});

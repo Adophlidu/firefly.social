@@ -2,24 +2,13 @@ import { memo } from 'react';
 import { Path, Svg } from 'react-native-svg';
 import { Button, Text, XStack, YStack } from 'tamagui';
 
+import { BackIcon } from '@/icons/BackIcon';
+
 interface PerpsDetailTopBarProps {
     symbol: string;
     leverage: string;
     marketType: string;
-}
-
-function BackIcon() {
-    return (
-        <Svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-            <Path
-                d="M12.5 15.8332L6.66669 9.99984L12.5 4.1665"
-                stroke="#171717"
-                strokeWidth="1.6"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-            />
-        </Svg>
-    );
+    onBack?: () => void;
 }
 
 function StarOutlineIcon() {
@@ -54,6 +43,7 @@ export const PerpsDetailTopBar = memo<PerpsDetailTopBarProps>(function PerpsDeta
     symbol,
     leverage,
     marketType,
+    onBack,
 }) {
     return (
         <XStack height={48} alignItems="flex-start" justifyContent="space-between" paddingHorizontal={8} paddingTop={2}>
@@ -65,9 +55,9 @@ export const PerpsDetailTopBar = memo<PerpsDetailTopBarProps>(function PerpsDeta
                 justifyContent="center"
                 borderRadius={15}
                 pressStyle={{ opacity: 0.72 }}
-            >
-                <BackIcon />
-            </Button>
+                icon={<BackIcon width={20} height={20} />}
+                onPress={onBack}
+            />
 
             <YStack flex={1} minWidth={0} alignItems="flex-start" justifyContent="center" gap={0} paddingTop={1}>
                 <XStack alignItems="center" gap={4}>

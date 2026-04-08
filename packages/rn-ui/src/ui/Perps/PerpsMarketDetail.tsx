@@ -6,7 +6,6 @@ import { PerpsDetailTopBar } from '@/components/PerpsDetailTopBar';
 import { PerpsKlinePlaceholder } from '@/components/PerpsKlinePlaceholder';
 import { PerpsTickerSummary } from '@/components/PerpsTickerSummary';
 import { PerpsTradeActionBar } from '@/components/PerpsTradeActionBar';
-import { HyperliquidProvider } from '@/components/Providers/HyperliquidProvider';
 import { loadPerpsDetailPage } from '@/services/perpsDetail';
 import { PerpsDetailSkeleton } from '@/skeletons/PerpsDetailSkeleton';
 import { type FetchPerpsDetailPage } from '@/types/services';
@@ -15,12 +14,14 @@ import { type PerpsDetailPageData } from '@/types/ui';
 export interface PerpsMarketDetailProps {
     market?: string;
     coin: string;
+    onBack?: () => void;
     fetchPerpsDetailPage?: FetchPerpsDetailPage;
 }
 
 export const PerpsMarketDetail = memo<PerpsMarketDetailProps>(function PerpsMarketDetail({
     market = 'TEST',
     coin,
+    onBack,
     fetchPerpsDetailPage,
 }) {
     const [loading, setLoading] = useState(true);
@@ -66,6 +67,7 @@ export const PerpsMarketDetail = memo<PerpsMarketDetailProps>(function PerpsMark
                     symbol={pageData.ticker.symbol}
                     leverage={pageData.ticker.leverage}
                     marketType={pageData.ticker.marketType}
+                    onBack={onBack}
                 />
             </YStack>
 
@@ -73,15 +75,13 @@ export const PerpsMarketDetail = memo<PerpsMarketDetailProps>(function PerpsMark
                 <YStack paddingHorizontal={12} paddingTop={6} paddingBottom={8} gap={14}>
                     <PerpsTickerSummary ticker={pageData.ticker} />
                     <PerpsKlinePlaceholder />
-                    <HyperliquidProvider>
-                        <OrderBook
-                            coin={coin}
-                            buyLabel={pageData.orderBook.buyLabel}
-                            sellLabel={pageData.orderBook.sellLabel}
-                            unitLabel={pageData.orderBook.unitLabel}
-                            rows={12}
-                        />
-                    </HyperliquidProvider>
+                    <OrderBook
+                        coin={coin}
+                        buyLabel={pageData.orderBook.buyLabel}
+                        sellLabel={pageData.orderBook.sellLabel}
+                        unitLabel={pageData.orderBook.unitLabel}
+                        rows={12}
+                    />
                 </YStack>
             </ScrollView>
 
