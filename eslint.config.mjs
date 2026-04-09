@@ -141,7 +141,7 @@ export default defineConfig([
         },
     },
     {
-        files: ['packages/**/*.{ts,tsx,js,jsx,mjs,cjs}'],
+        files: ['packages/**/*.{ts,tsx,js,jsx,mjs,cjs}', 'apps/web/src/services/**/*.{ts,tsx,js,jsx,mjs,cjs}'],
         rules: {
             'no-console': 'off',
         },
