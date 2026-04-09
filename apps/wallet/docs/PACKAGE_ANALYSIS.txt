@@ -3,7 +3,7 @@ Package Analysis
 
 Application: apps/wallet
 
-Total packages: 2352
+Total packages: 2354
 Packages with multiple versions: 349
 
 Legend:
@@ -1162,6 +1162,7 @@ Packages with Single Version
  @types/babel__template@7.4.4
  @types/babel__traverse@7.20.7
 *@types/bs58@4.0.4
+*@types/canvas-confetti@1.9.0
  @types/chai@5.2.3
  @types/connect@3.4.38
  @types/d3-array@3.2.2
@@ -1390,6 +1391,7 @@ Packages with Single Version
  camelize@1.0.1
  caniuse-lite@1.0.30001774
  canonicalize@2.1.0
+ canvas-confetti@1.9.4
  ccount@2.0.1
  chai@5.3.3
  chalk-template@1.1.0

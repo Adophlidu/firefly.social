@@ -5061,6 +5061,9 @@ msgstr "<0>切換</0> 錢包或在 Firefly <1>註冊</1>"
 msgid "Article liked."
 msgstr "按赞成功。"
 
+msgid "The snap server failed to process the request."
+msgstr ""
+
 msgid "Are you sure you want to report this user?"
 msgstr "確定要檢舉此用戶？"
 

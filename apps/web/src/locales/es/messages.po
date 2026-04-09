@@ -5085,6 +5085,9 @@ msgstr ""
 msgid "Article liked."
 msgstr ""
 
+msgid "The snap server failed to process the request."
+msgstr ""
+
 msgid "Are you sure you want to report this user?"
 msgstr ""
 

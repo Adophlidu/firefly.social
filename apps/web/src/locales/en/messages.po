@@ -5085,6 +5085,9 @@ msgstr "<0>change</0> wallet or <1>sign up</1> on Firefly"
 msgid "Article liked."
 msgstr "Article liked."
 
+msgid "The snap server failed to process the request."
+msgstr "The snap server failed to process the request."
+
 msgid "Are you sure you want to report this user?"
 msgstr "Are you sure you want to report this user?"
 

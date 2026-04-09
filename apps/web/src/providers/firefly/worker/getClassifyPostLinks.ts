@@ -10,11 +10,13 @@ import { type Post } from '@/providers/types/SocialMedia.js';
 import { type Frame } from '@/types/frame.js';
 import { type LinkDigested } from '@/types/og.js';
 import { type BetsEventDataForUI } from '@/types/prediction.js';
+import { type Snap } from '@/types/snap.js';
 import { type ResponseJson } from '@/types/utility.js';
 
 export interface ClassifyPostLinkResult {
     oembed?: LinkDigested;
     frame?: Frame;
+    snap?: Snap;
     html?: string;
     article?: Article;
     spaceId?: string;
