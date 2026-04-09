@@ -64,6 +64,6 @@ export async function searchIdentity(
     return createPageable(
         data.list || EMPTY_LIST,
         indicator,
-        data.cursor && data.list?.length ? createNextIndicator(indicator, `${data.cursor}`) : undefined,
+        data.cursor && data.list?.length && data.size ? createNextIndicator(indicator, `${data.cursor}`) : undefined,
     );
 }

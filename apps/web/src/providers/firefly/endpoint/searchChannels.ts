@@ -27,6 +27,6 @@ export async function searchChannels(q: string, indicator?: PageIndicator): Prom
     return createPageable(
         channels,
         createIndicator(indicator),
-        data.cursor ? createNextIndicator(indicator, `${data.cursor}`) : undefined,
+        data.cursor && data.size ? createNextIndicator(indicator, `${data.cursor}`) : undefined,
     );
 }

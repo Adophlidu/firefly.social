@@ -28,6 +28,6 @@ export async function searchProfiles(q: string, indicator?: PageIndicator): Prom
     return createPageable(
         result,
         createIndicator(indicator),
-        data.cursor ? createNextIndicator(indicator, `${data.cursor}`) : undefined,
+        data.cursor && data.size ? createNextIndicator(indicator, `${data.cursor}`) : undefined,
     );
 }

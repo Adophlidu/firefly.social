@@ -499,6 +499,7 @@ export type PostQuotesResponse = Response<{
 export type SearchChannelsResponse = Response<{
     channels: ChannelBrief[];
     cursor: string;
+    size: number;
 }>;
 
 export enum RelatedWalletSource {
