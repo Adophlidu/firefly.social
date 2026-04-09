@@ -10,7 +10,7 @@ import { env } from '@/constants/env.js';
  */
 export function initExceptionTracker(): void {
     configureExceptionTracker({
-        ignoredErrors: ['[iframe-bridge]', 'Window load timeout'],
+        ignoredErrors: ['[iframe-bridge]', 'Window load timeout', 'insufficient funds'],
         getClient: () => ({
             version: env.shared.VERSION,
             commitHash: env.shared.COMMIT_HASH ?? '',

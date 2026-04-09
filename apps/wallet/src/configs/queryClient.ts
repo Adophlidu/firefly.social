@@ -1,11 +1,12 @@
 import { captureException, ExceptionId } from '@dimensiondev/exception-tracker';
 import { MutationCache, QueryCache, QueryClient, type QueryClientConfig } from '@tanstack/react-query';
 
-import { InvalidPolymarketAccountError } from '@/constants/error.js';
+import { InsufficientGasError, InvalidPolymarketAccountError } from '@/constants/error.js';
 
 function shouldReportError(error: unknown): boolean {
     if (error instanceof DOMException && error.name === 'AbortError') return false;
     if (error instanceof InvalidPolymarketAccountError) return false;
+    if (error instanceof InsufficientGasError) return false;
     return true;
 }
 
