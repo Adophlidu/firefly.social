@@ -101,11 +101,14 @@ export interface SnapTextProps {
     size?: 'md' | 'sm';
     /** Default: 'normal' */
     weight?: 'bold' | 'normal';
+    align?: 'left' | 'center' | 'right';
 }
 
 export interface SnapButtonProps {
     /** 1-30 characters */
     label: string;
+    variant?: 'primary' | 'secondary';
+    icon?: string;
 }
 
 export interface SnapImageProps {
@@ -157,29 +160,37 @@ export interface SnapItemGroupProps {
     separator?: boolean;
 }
 
-export interface SnapBarChartItem {
+export interface SnapBarChartBar {
     label: string;
     value: number;
     color?: SnapAccentColor;
 }
 
 export interface SnapBarChartProps {
-    /** 1-6 items */
-    items: SnapBarChartItem[];
+    /** 1-6 bars */
+    bars: SnapBarChartBar[];
+    /** Override the scale maximum */
+    max?: number;
+    color?: SnapAccentColor;
 }
 
 export interface SnapCellGridCell {
+    row: number;
+    col: number;
     color?: SnapAccentColor;
+    content?: string;
 }
 
 export interface SnapCellGridProps {
     /** 2-32 */
-    columns: number;
+    cols: number;
     /** 2-16 */
     rows: number;
     cells?: SnapCellGridCell[];
-    selectable?: 'single' | 'multiple' | false;
-    selected?: number | number[];
+    gap?: 'none' | 'sm' | 'md' | 'lg';
+    rowHeight?: number;
+    select?: 'off' | 'single' | 'multiple';
+    name?: string;
 }
 
 export interface SnapInputProps {
@@ -212,18 +223,16 @@ export interface SnapSwitchProps {
     value?: boolean;
 }
 
-export interface SnapToggleOption {
-    label: string;
-    value: string;
-}
-
 export interface SnapToggleGroupProps {
     name: string;
-    /** Default: 'single' */
-    mode?: 'single' | 'multiple';
-    /** 2-6 options */
-    options: SnapToggleOption[];
-    value?: string | string[];
+    label?: string;
+    /** Default: false (single-select) */
+    multiple?: boolean;
+    orientation?: 'horizontal' | 'vertical';
+    /** 2-6 option strings */
+    options: string[];
+    defaultValue?: string | string[];
+    variant?: 'default' | 'outline';
 }
 
 // #endregion

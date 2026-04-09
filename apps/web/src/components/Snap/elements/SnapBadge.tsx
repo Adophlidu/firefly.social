@@ -1,5 +1,6 @@
 import { classNames } from '@dimensiondev/utils';
 
+import { SnapIcon } from '@/components/Snap/elements/SnapIcon.js';
 import { ACCENT_COLOR_MAP } from '@/components/Snap/SnapContext.js';
 import { type SnapBadgeProps } from '@/types/snap.js';
 
@@ -7,7 +8,7 @@ interface Props {
     props: SnapBadgeProps;
 }
 
-export function SnapBadge({ props: { label, color = 'purple' } }: Props) {
+export function SnapBadge({ props: { label, color = 'purple', icon } }: Props) {
     return (
         <span
             className={classNames(
@@ -15,6 +16,7 @@ export function SnapBadge({ props: { label, color = 'purple' } }: Props) {
                 ACCENT_COLOR_MAP[color],
             )}
         >
+            {icon ? <SnapIcon props={{ name: icon }} /> : null}
             {label}
         </span>
     );

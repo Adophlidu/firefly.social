@@ -6,7 +6,7 @@ interface Props {
     props: SnapTextProps;
 }
 
-export function SnapText({ props: { content, size = 'md', weight = 'normal' } }: Props) {
+export function SnapText({ props: { content, size = 'md', weight = 'normal', align } }: Props) {
     return (
         <p
             className={classNames('text-main break-words', {
@@ -14,6 +14,9 @@ export function SnapText({ props: { content, size = 'md', weight = 'normal' } }:
                 'text-base': size === 'md',
                 'font-bold': weight === 'bold',
                 'font-normal': weight === 'normal',
+                'text-left': align === 'left',
+                'text-center': align === 'center',
+                'text-right': align === 'right',
             })}
         >
             {content}

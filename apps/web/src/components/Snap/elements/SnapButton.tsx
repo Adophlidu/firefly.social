@@ -2,7 +2,8 @@
 
 import { classNames } from '@dimensiondev/utils';
 
-import { ACCENT_COLOR_MAP } from '@/components/Snap/SnapContext.js';
+import { SnapIcon } from '@/components/Snap/elements/SnapIcon.js';
+import { ACCENT_BORDER_MAP, ACCENT_COLOR_MAP, ACCENT_TEXT_MAP } from '@/components/Snap/SnapContext.js';
 import { type SnapAccentColor, type SnapAction, type SnapButtonProps } from '@/types/snap.js';
 
 interface Props {
@@ -13,7 +14,13 @@ interface Props {
     disabled?: boolean;
 }
 
-export function SnapButton({ props: { label }, accent, onPress, action, disabled = false }: Props) {
+export function SnapButton({
+    props: { label, variant = 'primary', icon },
+    accent,
+    onPress,
+    action,
+    disabled = false,
+}: Props) {
     return (
         <button
             type="button"
@@ -23,11 +30,14 @@ export function SnapButton({ props: { label }, accent, onPress, action, disabled
                 if (action) onPress?.(action);
             }}
             className={classNames(
-                'flex flex-1 items-center justify-center rounded-lg px-3 py-2 text-sm font-medium text-white transition-opacity',
-                ACCENT_COLOR_MAP[accent],
+                'flex flex-1 items-center justify-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-opacity',
+                variant === 'primary'
+                    ? classNames('text-white', ACCENT_COLOR_MAP[accent])
+                    : classNames('border bg-transparent', ACCENT_BORDER_MAP[accent], ACCENT_TEXT_MAP[accent]),
                 { 'cursor-not-allowed opacity-50': disabled, 'hover:opacity-90': !disabled },
             )}
         >
+            {icon ? <SnapIcon props={{ name: icon }} /> : null}
             {label}
         </button>
     );

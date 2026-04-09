@@ -2,7 +2,7 @@
 
 import { classNames } from '@dimensiondev/utils';
 
-import { ACCENT_COLOR_MAP, useSnapContext } from '@/components/Snap/SnapContext.js';
+import { ACCENT_COLOR_MAP, ACCENT_RING_MAP, useSnapContext } from '@/components/Snap/SnapContext.js';
 import { type SnapAccentColor, type SnapCellGridProps } from '@/types/snap.js';
 
 interface Props {
@@ -11,13 +11,23 @@ interface Props {
     accent: SnapAccentColor;
 }
 
+const CELL_GRID_GAP_MAP: Record<NonNullable<SnapCellGridProps['gap']>, string> = {
+    none: 'gap-0',
+    sm: 'gap-0.5',
+    md: 'gap-1',
+    lg: 'gap-2',
+};
+
 export function SnapCellGrid({
-    name,
-    props: { columns, rows, cells = [], selectable = false, selected },
+    name: elementId,
+    props: { cols, rows, cells = [], select = 'off', name: fieldName, gap = 'none', rowHeight },
     accent,
 }: Props) {
-    const { setCellGrid } = useSnapContext();
-    const totalCells = columns * rows;
+    const { fields, setCellGrid } = useSnapContext();
+    const fieldKey = fieldName ?? elementId;
+    const totalCells = cols * rows;
+    const isSelectable = select !== 'off';
+    const selected = fields.cellGrids[fieldKey];
 
     function isSelected(idx: number): boolean {
         if (selected === undefined) return false;
@@ -25,44 +35,56 @@ export function SnapCellGrid({
         return selected === idx;
     }
 
+    function findCell(idx: number) {
+        const row = Math.floor(idx / cols);
+        const col = idx % cols;
+        return cells.find((c) => c.row === row && c.col === col);
+    }
+
     function handlePress(idx: number) {
-        if (!selectable) return;
-        if (selectable === 'single') {
-            setCellGrid(name, idx);
+        if (!isSelectable) return;
+        if (select === 'single') {
+            setCellGrid(fieldKey, idx);
         } else {
-            const current = Array.isArray(selected) ? selected : selected !== undefined ? [selected] : [];
+            const current = Array.isArray(selected) ? selected : selected !== undefined ? [selected as number] : [];
             if (current.includes(idx)) {
                 setCellGrid(
-                    name,
+                    fieldKey,
                     current.filter((i) => i !== idx),
                 );
             } else {
-                setCellGrid(name, [...current, idx]);
+                setCellGrid(fieldKey, [...current, idx]);
             }
         }
     }
 
     return (
         <div
-            className="w-full overflow-hidden rounded-lg"
-            style={{ display: 'grid', gridTemplateColumns: `repeat(${columns}, 1fr)` }}
+            className={classNames('w-full overflow-hidden rounded-lg', CELL_GRID_GAP_MAP[gap])}
+            style={{ display: 'grid', gridTemplateColumns: `repeat(${cols}, 1fr)` }}
         >
             {Array.from({ length: totalCells }).map((_, idx) => {
-                const cell = cells[idx];
-                const selected = isSelected(idx);
+                const cell = findCell(idx);
+                const sel = isSelected(idx);
                 const bg = cell?.color ? ACCENT_COLOR_MAP[cell.color] : 'bg-bg';
                 return (
                     <div
                         key={idx}
-                        className={classNames('aspect-square', bg, {
-                            'cursor-pointer hover:opacity-80': !!selectable,
-                            'ring-2 ring-inset ring-white': selected,
-                        })}
+                        className={classNames(
+                            'flex items-center justify-center overflow-hidden text-xs font-medium',
+                            rowHeight ? '' : 'aspect-square',
+                            bg,
+                            sel ? classNames('ring-2 ring-inset', ACCENT_RING_MAP[accent]) : null,
+                            { 'cursor-pointer hover:opacity-80': isSelectable },
+                        )}
+                        style={rowHeight ? { height: rowHeight } : undefined}
                         onClick={() => handlePress(idx)}
-                        role={selectable ? 'button' : undefined}
-                        tabIndex={selectable ? 0 : undefined}
-                        aria-pressed={selectable ? selected : undefined}
-                    />
+                        role={isSelectable ? 'button' : undefined}
+                        tabIndex={isSelectable ? 0 : undefined}
+                        aria-pressed={isSelectable ? sel : undefined}
+                    >
+                        {cell?.content ? <span className="truncate px-0.5">{cell.content}</span> : null}
+                    </div>
                 );
             })}
         </div>

@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, type ReactNode, useCallback, useContext, useEffect, useRef, useState } from 'react';
+import { createContext, type ReactNode, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 
 import { type SnapAccentColor, type SnapFieldValues } from '@/types/snap.js';
 
@@ -36,6 +36,17 @@ export const ACCENT_BORDER_MAP: Record<SnapAccentColor, string> = {
     teal: 'border-teal-500',
     purple: 'border-purple-500',
     pink: 'border-pink-500',
+};
+
+export const ACCENT_RING_MAP: Record<SnapAccentColor, string> = {
+    gray: 'ring-gray-500',
+    blue: 'ring-blue-500',
+    red: 'ring-red-500',
+    amber: 'ring-amber-500',
+    green: 'ring-green-500',
+    teal: 'ring-teal-500',
+    purple: 'ring-purple-500',
+    pink: 'ring-pink-500',
 };
 
 interface SnapContextValue {
@@ -115,11 +126,10 @@ export function SnapContextProvider({
         setFields((prev) => ({ ...prev, cellGrids: { ...prev.cellGrids, [name]: value } }));
     }, []);
 
-    return (
-        <SnapContext.Provider
-            value={{ accent, fields, setInput, setSlider, setSwitch, setToggleGroup, setCellGrid, loading }}
-        >
-            {children}
-        </SnapContext.Provider>
+    const value = useMemo(
+        () => ({ accent, fields, setInput, setSlider, setSwitch, setToggleGroup, setCellGrid, loading }),
+        [accent, fields, setInput, setSlider, setSwitch, setToggleGroup, setCellGrid, loading],
     );
+
+    return <SnapContext.Provider value={value}>{children}</SnapContext.Provider>;
 }
