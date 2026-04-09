@@ -1,7 +1,9 @@
 import { PageSize } from '@lens-protocol/client';
-import { fetchPostsToExplore } from '@lens-protocol/client/actions';
+import { fetchPosts, fetchTimelineHighlights } from '@lens-protocol/client/actions';
 import { compact } from 'lodash-es';
 
+import { Source } from '@/constants/enum.js';
+import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import {
     createIndicator,
     createNextIndicator,
@@ -16,11 +18,19 @@ import { getLensClient } from '@/providers/lens/getLensClient.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
 
 export async function discoverLensPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+    const lensProfile = getCurrentProfileFromStorage(Source.Lens);
+
     const result = await ensureLensResult(
-        fetchPostsToExplore(getLensClient(), {
-            cursor: ensureCursor(indicator),
-            pageSize: PageSize.Fifty,
-        }),
+        lensProfile
+            ? fetchTimelineHighlights(getLensClient(), {
+                  account: lensProfile.profileId,
+                  cursor: ensureCursor(indicator),
+                  pageSize: PageSize.Fifty,
+              })
+            : fetchPosts(getLensClient(), {
+                  cursor: ensureCursor(indicator),
+                  pageSize: PageSize.Fifty,
+              }),
     );
 
     if (!result) return createPageable([], createIndicator(indicator));
