@@ -35,7 +35,7 @@ export function SnapSlider({
                 </div>
                 <input
                     type="range"
-                    className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
+                    className="absolute inset-0 size-full cursor-pointer opacity-0"
                     min={min}
                     max={max}
                     step={step}

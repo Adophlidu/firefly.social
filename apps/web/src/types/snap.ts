@@ -109,8 +109,9 @@ export interface SnapButtonProps {
 }
 
 export interface SnapImageProps {
-    src: string;
-    aspectRatio: '1:1' | '16:9' | '4:3' | '9:16';
+    url: string;
+    aspect: '1:1' | '16:9' | '4:3' | '9:16';
+    alt?: string;
 }
 
 export interface SnapBadgeProps {

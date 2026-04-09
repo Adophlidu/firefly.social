@@ -29,7 +29,7 @@ export function SnapSwitch({ props: { name, label, value: defaultValue = false }
             >
                 <span
                     className={classNames(
-                        'pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition',
+                        'pointer-events-none inline-block size-5 rounded-full bg-white shadow ring-0 transition',
                         checked ? 'translate-x-5' : 'translate-x-0',
                     )}
                 />

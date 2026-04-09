@@ -9,13 +9,13 @@ interface Props {
 export function SnapItem({ props: { title, description, imageUrl }, onPress }: Props) {
     return (
         <div
-            className="flex items-center gap-3 py-2"
+            className="flex items-center gap-3 p-2"
             onClick={onPress}
             role={onPress ? 'button' : undefined}
             tabIndex={onPress ? 0 : undefined}
         >
             {imageUrl ? (
-                <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-lg">
+                <div className="relative size-10 shrink-0 overflow-hidden rounded-lg">
                     <Image src={imageUrl} alt={title} fill className="object-cover" unoptimized sizes="40px" />
                 </div>
             ) : null}
