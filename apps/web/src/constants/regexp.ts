@@ -12,7 +12,8 @@ export const LITE_EMAIL_REGEX = /^[\w.-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i;
 export const MENTION_REGEX = /@[\w-]+(?:(?:\.[\w-]+)+|(?:\/[\w-]+)+|\.?)/g;
 export const TWITTER_MENTION_REGEX = /@([A-Za-z0-9_]{1,15})/g;
 export const BSKY_MENTION_REGEX = /@([a-zA-Z0-9.-]+)/g;
-export const LENS_MENTION_REGEX = /@(?:lens\/[^\s/@]+|[^\s/@]+\.lens)/gi;
+export const LENS_MENTION_REGEX =
+    /@(?:lens\/[^\s/@]+|[^\s/@]+\.lens|[A-Za-z0-9_-]{4,26}(?=$|[\s,;:!?)}\]]|(?:\.(?=$|[\s,;:!?)}\]]))))/gi;
 export const FARCASTER_MENTION_REGEX = /@(([a-zA-Z0-9_-]{1,256}\.)+eth|[^\s()@:%+~#?&=,!?'.]+)/g;
 export const LENS_USERNAME_REGEXP = /^[\dA-Za-z]\w{4,25}$/g; // from hey
 export const FARCASTER_USERNAME_REGEXP = /^[a-z0-9][a-z0-9-]{0,15}$/; // same as signup on farcaster mobile app

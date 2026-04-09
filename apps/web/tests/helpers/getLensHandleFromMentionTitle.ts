@@ -7,6 +7,8 @@ describe('getLensHandleFromMentionTitle', () => {
         const cases = [
             ['@lens/handle', 'handle'],
             ['@handle.lens', 'handle'],
+            ['@fireflyapp', 'fireflyapp'],
+            ['@Lens', 'Lens'],
             ['@club/handle', undefined],
             ['handle', undefined],
         ] as Array<[string, string | undefined]>;

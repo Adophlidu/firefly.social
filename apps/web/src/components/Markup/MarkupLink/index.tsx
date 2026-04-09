@@ -52,8 +52,9 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
 
         switch (source) {
             case Source.Lens: {
-                const handle = getLensHandleFromMentionTitle(title);
-                if (!handle) return title;
+                const displayHandle = getLensHandleFromMentionTitle(title);
+                if (!displayHandle) return title;
+                const handle = displayHandle.toLowerCase();
                 const link = getProfileUrl({
                     ...createDummyProfile(Source.Lens),
                     handle,
@@ -65,7 +66,12 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
                             id: handle,
                         }}
                     >
-                        <MentionLink handle={handle} href={link} className="inline-block" />
+                        <MentionLink
+                            handle={handle}
+                            displayHandle={displayHandle}
+                            href={link}
+                            className="inline-block"
+                        />
                     </ProfileTippy>
                 );
             }

@@ -373,14 +373,18 @@ describe('LENS_MENTION_REGEX', () => {
             ['@bob123.lens', '@bob123.lens'],
             ['@abc_def.lens', '@abc_def.lens'],
             ['@abc-def.lens', '@abc-def.lens'],
+            ['on @fireflyapp', '@fireflyapp'],
+            ['@fireflyapp.', '@fireflyapp'],
             ['@lens/', null],
             ['@.lens', null],
             ['@lens/alice.lens', '@lens/alice.lens'],
             ['@lens/alice.lens123', '@lens/alice.lens123'],
             ['@notlens/abc', null],
-            ['@alice', null],
+            ['@alice', '@alice'],
+            ['@Lens', '@Lens'],
+            ['@alice.xyz', null],
             ['alice.lens', null],
-            ['@lens', null],
+            ['@lens', '@lens'],
         ] as const;
         cases.forEach(([input, expected]) => {
             const [matched] = input.match(LENS_MENTION_REGEX) ?? [null];
