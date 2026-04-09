@@ -141,6 +141,12 @@ export default defineConfig([
         },
     },
     {
+        files: ['packages/**/*.{ts,tsx,js,jsx,mjs,cjs}'],
+        rules: {
+            'no-console': 'off',
+        },
+    },
+    {
         files: ['apps/wallet/**/*.{ts,tsx,js,jsx,mjs,cjs}'],
         plugins: {
             ...sharedEslintPlugins,
