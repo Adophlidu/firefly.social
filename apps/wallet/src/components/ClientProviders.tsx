@@ -3,6 +3,7 @@ import { type ComponentType, type ReactNode, useEffect, useState } from 'react';
 
 import { DefaultPendingComponent } from '@/components/DefaultPendingComponent.js';
 import { initExceptionTracker } from '@/configs/exceptionTracker.js';
+import { isRunningInIframe } from '@/helpers/isRunningInIframe.js';
 
 interface PrivyClientModules {
     Providers: ComponentType<{ children: ReactNode }>;
@@ -45,7 +46,7 @@ export function ClientProviders({ children }: ClientProvidersProps) {
     return (
         <Providers>
             <PrivyLoginHandler />
-            <FireflyWalletIframeBridge />
+            {isRunningInIframe() ? <FireflyWalletIframeBridge /> : null}
             {children}
         </Providers>
     );

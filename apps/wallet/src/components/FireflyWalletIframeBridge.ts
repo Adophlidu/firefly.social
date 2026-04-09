@@ -25,6 +25,7 @@ import { isHex, toHex } from 'viem';
 import { queryClient } from '@/configs/queryClient.js';
 import { config } from '@/configs/wagmi.js';
 import { SOLANA_MAINNET_PRIVY, SolanaChainId } from '@/constants/solana.js';
+import { isRunningInIframe } from '@/helpers/isRunningInIframe.js';
 import { resolveEvmConnector } from '@/helpers/resolveEvmConnector.js';
 import {
     signAndBroadcastSolanaTransaction,
@@ -84,6 +85,8 @@ export const FireflyWalletIframeBridge = memo(function IframeBridge() {
     ]);
 
     useEffect(() => {
+        if (!isRunningInIframe()) return;
+
         function ensureHomePage() {
             const currentPath = router.state.location.pathname;
             if (currentPath !== '/') {

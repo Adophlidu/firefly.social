@@ -4,6 +4,7 @@ import { ClientOnly } from '@tanstack/react-router';
 import { useAtomValue } from 'jotai';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
+import { isRunningInIframe } from '@/helpers/isRunningInIframe.js';
 import { logger } from '@/lib/Logger.js';
 import { fireflySessionTokenAtom } from '@/store/fireflySession.js';
 import { store } from '@/store/index.js';
@@ -67,7 +68,7 @@ function PrivyCustomAuth() {
     const { authenticated } = usePrivy();
 
     useEffect(() => {
-        if (!authenticated) return;
+        if (!authenticated || !isRunningInIframe()) return;
 
         const FAST_INTERVAL = 1_000;
         const SLOW_INTERVAL = 10_000;
