@@ -174,7 +174,13 @@ export function formatSearchProfile(
 function isProfileExist(identity: FireflyProfile, profile: Profile) {
     const platform = profile.source === Source.Bsky ? FireflyPlatform.Bsky : resolveFireflyPlatform(profile.source);
 
-    return identity.platform === platform && identity.platform_id === profile.profileId;
+    if (identity.platform !== platform) return false;
+    if (identity.platform_id === profile.profileId) return true;
+    // Lens: Firefly uses handle as platform_id, Lens API uses address as profileId
+    if (platform === FireflyPlatform.Lens && identity.handle && profile.handle) {
+        return identity.handle.toLowerCase() === profile.handle.toLowerCase();
+    }
+    return false;
 }
 
 export function composeSearchProfiles(identities: SearchProfile[], ...rest: Profile[][]): SearchProfile[] {
