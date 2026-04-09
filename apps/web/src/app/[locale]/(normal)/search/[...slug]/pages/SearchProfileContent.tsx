@@ -42,6 +42,7 @@ export function SearchProfileContent() {
             const fireflyIndicator = pageParam.firefly ? createIndicator(undefined, pageParam.firefly) : undefined;
             const twitterIndicator = pageParam.twitter ? createIndicator(undefined, pageParam.twitter) : undefined;
             const bskyIndicator = pageParam.bsky ? createIndicator(undefined, pageParam.bsky) : undefined;
+            const lensIndicator = pageParam.lens ? createIndicator(undefined, pageParam.lens) : undefined;
 
             // Check if searchKeyword is a profile URL and extract identifier if it matches
             const urlResult = resolveSearchUrlType(searchKeyword);
@@ -55,6 +56,7 @@ export function SearchProfileContent() {
                 fireflyData,
                 twitterProfiles,
                 bskyProfiles,
+                lensProfiles,
             } = await searchProfilesByKeyword({
                 keyword,
                 signal,
@@ -65,15 +67,17 @@ export function SearchProfileContent() {
                     firefly: fireflyIndicator,
                     twitter: twitterIndicator,
                     bsky: bskyIndicator,
+                    lens: lensIndicator,
                 },
                 skip: {
                     firefly: pageParam.firefly === noNextPage,
                     twitter: pageParam.twitter === noNextPage,
                     bsky: pageParam.bsky === noNextPage,
+                    lens: pageParam.lens === noNextPage,
                 },
             });
 
-            const isFirstPage = !pageParam.firefly && !pageParam.twitter && !pageParam.bsky;
+            const isFirstPage = !pageParam.firefly && !pageParam.twitter && !pageParam.bsky && !pageParam.lens;
             const walletProfile =
                 !socialProfiles.length && isFirstPage ? await searchWalletAddress(keyword) : undefined;
 
@@ -111,20 +115,22 @@ export function SearchProfileContent() {
                 ...fireflyData,
                 twitterNextIndicator: twitterProfiles?.nextIndicator,
                 bskyNextIndicator: bskyProfiles?.nextIndicator,
+                lensNextIndicator: lensProfiles?.nextIndicator,
                 data: pinnedProfile ? [pinnedProfile, ...data] : data,
             };
         },
-        initialPageParam: { firefly: '', twitter: '', bsky: '' },
+        initialPageParam: { firefly: '', twitter: '', bsky: '', lens: '' },
         getNextPageParam: (lastPage) => {
             if (lastPage?.data.length === 0) return;
 
-            const { nextIndicator, twitterNextIndicator, bskyNextIndicator } = lastPage || {};
-            if (!nextIndicator && !twitterNextIndicator && !bskyNextIndicator) return;
+            const { nextIndicator, twitterNextIndicator, bskyNextIndicator, lensNextIndicator } = lastPage || {};
+            if (!nextIndicator && !twitterNextIndicator && !bskyNextIndicator && !lensNextIndicator) return;
 
             return {
                 firefly: nextIndicator?.id || noNextPage,
                 twitter: twitterNextIndicator?.id || noNextPage,
                 bsky: bskyNextIndicator?.id || noNextPage,
+                lens: lensNextIndicator?.id || noNextPage,
             };
         },
         select(data) {

@@ -6,6 +6,7 @@ import { composeSearchProfiles, formatSearchProfile, sortSearchProfiles } from '
 import { createIndicator, type PageIndicator } from '@/helpers/pageable.js';
 import { searchBskyProfiles } from '@/providers/bsky/searchBskyProfiles.js';
 import { searchIdentity } from '@/providers/firefly/endpoint/searchIdentity.js';
+import { searchLensProfiles } from '@/providers/lens/searchLensProfiles.js';
 import { twitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 
 export function formatTwitterSearchKeyword(input: string) {
@@ -26,6 +27,8 @@ interface SearchProfilesOptions {
     twitterSize?: number;
     /** Bsky search result size */
     bskySize?: number;
+    /** Lens search result size */
+    lensSize?: number;
     /** Limit Firefly identity search to specific sources */
     platforms?: SocialSource[];
     /** Exclude specific sources from Firefly identity search */
@@ -35,17 +38,19 @@ interface SearchProfilesOptions {
         firefly?: PageIndicator;
         twitter?: PageIndicator;
         bsky?: PageIndicator;
+        lens?: PageIndicator;
     };
     /** Skip specific sources (for pagination) */
     skip?: {
         firefly?: boolean;
         twitter?: boolean;
         bsky?: boolean;
+        lens?: boolean;
     };
 }
 
 /**
- * Unified profile search across Firefly, Twitter, and Bsky sources.
+ * Unified profile search across Firefly, Twitter, Bsky, and Lens sources.
  * Returns formatted, composed, and sorted results.
  */
 export async function searchProfilesByKeyword(options: SearchProfilesOptions) {
@@ -55,6 +60,7 @@ export async function searchProfilesByKeyword(options: SearchProfilesOptions) {
         identitySize = 10,
         twitterSize = 7,
         bskySize = 3,
+        lensSize = 5,
         platforms,
         excludes,
         indicators,
@@ -63,7 +69,7 @@ export async function searchProfilesByKeyword(options: SearchProfilesOptions) {
 
     const trimmed = formatTwitterSearchKeyword(keyword);
 
-    const [fireflyRes, xRes, bskyRes] = await Promise.allSettled([
+    const [fireflyRes, xRes, bskyRes, lensRes] = await Promise.allSettled([
         !skip?.firefly
             ? searchIdentity(keyword, {
                   signal,
@@ -80,17 +86,20 @@ export async function searchProfilesByKeyword(options: SearchProfilesOptions) {
               )
             : undefined,
         !skip?.bsky ? searchBskyProfiles(keyword, createIndicator(indicators?.bsky, undefined, bskySize)) : undefined,
+        !skip?.lens ? searchLensProfiles(keyword, createIndicator(indicators?.lens, undefined, lensSize)) : undefined,
     ]);
 
     const fireflyData = fireflyRes.status === 'fulfilled' ? fireflyRes.value : undefined;
     const twitterProfiles = xRes.status === 'fulfilled' ? xRes.value : undefined;
     const bskyProfiles = bskyRes.status === 'fulfilled' ? bskyRes.value : undefined;
+    const lensProfiles = lensRes.status === 'fulfilled' ? lensRes.value : undefined;
 
     const profiles = sortSearchProfiles(
         composeSearchProfiles(
             compact(fireflyData?.data.map((x) => formatSearchProfile(x, keyword))),
             twitterProfiles?.data || EMPTY_LIST,
             bskyProfiles?.data || EMPTY_LIST,
+            lensProfiles?.data || EMPTY_LIST,
         ),
         keyword,
     );
@@ -100,5 +109,6 @@ export async function searchProfilesByKeyword(options: SearchProfilesOptions) {
         fireflyData,
         twitterProfiles,
         bskyProfiles,
+        lensProfiles,
     };
 }

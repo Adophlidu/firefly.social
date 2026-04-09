@@ -24,7 +24,7 @@ export async function searchLensProfiles(
             pageSize: PageSize.Fifty,
             orderBy: AccountsOrderBy.BestMatch,
             filter: {
-                searchBy: { localNameQuery: q, namespaces: [] },
+                searchBy: { localNameQuery: q },
             },
         }),
     );
