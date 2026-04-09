@@ -53,7 +53,17 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
         switch (source) {
             case Source.Lens: {
                 const displayHandle = getLensHandleFromMentionTitle(title);
-                if (!displayHandle) return title;
+                if (!displayHandle) {
+                    // Plain handle from bio (e.g., @Lens) — resolve via API
+                    return (
+                        <MentionLinkWithQueryProfile
+                            source={source}
+                            handle={title.replace(/^@/, '')}
+                            fallback={title}
+                        />
+                    );
+                }
+
                 const handle = displayHandle.toLowerCase();
                 const link = getProfileUrl({
                     ...createDummyProfile(Source.Lens),

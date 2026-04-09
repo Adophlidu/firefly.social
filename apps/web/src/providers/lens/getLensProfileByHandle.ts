@@ -8,9 +8,11 @@ import { getLensClient } from '@/providers/lens/getLensClient.js';
 import { type Profile } from '@/providers/types/SocialMedia.js';
 
 export async function getLensProfileByHandle(handle: string, includeGraphStats?: boolean): Promise<Profile> {
-    if (includeGraphStats) return getAccountWithStatsByHandle(handle);
+    if (includeGraphStats) return getAccountWithStatsByHandle(handle.toLowerCase());
 
-    const result = await ensureLensResult(fetchAccount(getLensClient(), { username: { localName: handle } }));
+    const result = await ensureLensResult(
+        fetchAccount(getLensClient(), { username: { localName: handle.toLowerCase() } }),
+    );
     if (!result) throw new NotFoundError('No profile found');
 
     return formatLensProfileV3(result);

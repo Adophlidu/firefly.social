@@ -77,7 +77,7 @@ export const ChannelInfoUI = memo<Props>(function ChannelInfoUI({
                     </div>
                 </div>
 
-                <ChannelInfoBio description={channel.description} source={channel.source} />
+                <ChannelInfoBio description={channel.description} source={source} />
             </div>
         </article>
     );
