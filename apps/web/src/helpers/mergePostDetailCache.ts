@@ -16,14 +16,25 @@ export function mergePostDetailCache(newPost: Post, oldData: Post | undefined): 
     const attachments = newContent?.attachments?.length ? newContent.attachments : oldContent?.attachments;
     const asset = attachments?.length ? attachments[0] : (newContent?.asset ?? oldContent?.asset);
 
+    // Preserve enriched Firefly article content from old cache.
+    // enrichPostWithFireflyArticle stores original text in partialContent
+    // and replaces metadata.content.content with the full article.
+    const wasEnriched =
+        !!oldData.partialContent && !!oldContent?.content && oldData.partialContent !== oldContent.content;
+
     return {
         ...newPost,
+        ...(wasEnriched ? { partialContent: oldData.partialContent } : {}),
+        ...(wasEnriched && oldData.fireflyArticleUrl && !newPost.fireflyArticleUrl
+            ? { fireflyArticleUrl: oldData.fireflyArticleUrl }
+            : {}),
         metadata: {
             ...newPost.metadata,
             article: newPost.metadata?.article ?? oldData.metadata?.article,
             content: newContent
                 ? {
                       ...newContent,
+                      ...(wasEnriched ? { content: oldContent?.content } : {}),
                       attachments,
                       asset,
                   }
