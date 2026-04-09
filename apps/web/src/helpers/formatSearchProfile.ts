@@ -104,8 +104,18 @@ export function formatSearchProfile(
     identity: Required<Required<SearchProfileResponse>['data']>['list'][0],
     keyword?: string,
 ): SearchProfile | null {
-    const target = getMatchedProfile(identity);
+    let target = getMatchedProfile(identity);
     if (!target) return null;
+
+    // Enrich solana profile with SNS/SeekerID domain name
+    if ((target.platform as string) === 'solana') {
+        const snsEntry = identity.sns?.find((x) => x.primary) || first(identity.sns);
+        const skrEntry = identity.skr?.find((x) => x.primary) || first(identity.skr);
+        const domainEntry = snsEntry || skrEntry;
+        if (domainEntry?.name) {
+            target = { ...target, name: domainEntry.name, handle: domainEntry.handle || target.handle };
+        }
+    }
 
     const allProfile = compact(
         SORTED_PROFILE_SOURCES.map((source) => {

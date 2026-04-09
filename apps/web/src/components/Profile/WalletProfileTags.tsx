@@ -3,6 +3,7 @@
 import BaseIcon from '@dimensiondev/assets/base.svg';
 import EnsIcon from '@dimensiondev/assets/ens.svg';
 import EvmIcon from '@dimensiondev/assets/evm.svg';
+import SnsIcon from '@dimensiondev/assets/sns.svg';
 import SolanaIcon from '@dimensiondev/assets/solana.svg';
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
@@ -97,7 +98,7 @@ export const WalletProfileTags = memo<WalletProfileTagsProps>(function WalletPro
             return [
                 {
                     id: 'solana',
-                    Icon: SolanaIcon,
+                    Icon: SnsIcon,
                     ensList: allList.map((x) => x.handle),
                 },
             ];
