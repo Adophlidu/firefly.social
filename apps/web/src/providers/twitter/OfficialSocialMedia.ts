@@ -12,7 +12,6 @@ import {
 import urlcat from 'urlcat';
 
 import { FireflyPlatform, type Locale, Source } from '@/constants/enum.js';
-import { TwitterTemporaryUnavailableError } from '@/constants/error.js';
 import { TWITTER_PROFILE_SEARCH_REGEXP } from '@/constants/regexp.js';
 import { AddLikeStatusToTwitterPosts } from '@/decorators/AddLikeStatusToTwitterPosts.js';
 import { AddAuthorHighlightStatusForPosts } from '@/decorators/AddProfileHighlightStatus.js';
@@ -25,7 +24,6 @@ import { SetQueryDataForFollowProfile } from '@/decorators/SetQueryDataForFollow
 import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js';
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
-import { Throw } from '@/decorators/Throw.js';
 import { UndoRepostStatusToTwitterPosts } from '@/decorators/UndoRepostStatusToTwitterPosts.js';
 import { WithMutedProfilesQuery } from '@/decorators/WithMutedProfilesQuery.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
@@ -401,7 +399,6 @@ class OfficialSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    @Throw(() => new TwitterTemporaryUnavailableError('/userTimeline is temporarily unavailable.'))
     async getPostsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const url = urlcat(`/api/twitter/userTimeline/${profileId}`, {
             limit: 25,
@@ -412,7 +409,6 @@ class OfficialSocialMedia implements Provider {
         return formatTweetsPage(data, indicator);
     }
 
-    @Throw(() => new TwitterTemporaryUnavailableError('/userTimeline is temporarily unavailable.'))
     async getLikedPostsByProfileId(
         profileId: string,
         indicator?: PageIndicator,
@@ -427,7 +423,6 @@ class OfficialSocialMedia implements Provider {
         return { ...postWithPageable, data: postWithPageable.data.map((post) => ({ ...post, hasLiked: true })) };
     }
 
-    @Throw(() => new TwitterTemporaryUnavailableError('/userTimeline is temporarily unavailable.'))
     async getRepliesPostsByProfileId(
         profileId: string,
         indicator?: PageIndicator,
