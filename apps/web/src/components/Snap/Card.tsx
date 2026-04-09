@@ -2,6 +2,7 @@
 
 import { Trans } from '@lingui/react/macro';
 import { memo, useCallback, useEffect, useRef, useState } from 'react';
+import urlcat from 'urlcat';
 
 import { FootnoteLink } from '@/components/FootnoteLink.js';
 import { SnapContextProvider, useSnapContext } from '@/components/Snap/SnapContext.js';
@@ -16,7 +17,6 @@ import { openWindow } from '@/helpers/openWindow.js';
 import { ConfirmLeavingModalRef } from '@/modals/ConfirmLeavingModal/refs.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
-import { type ResponseJson } from '@/types/utility.js';
 import {
     type Snap,
     type SnapAction,
@@ -24,7 +24,7 @@ import {
     type SnapFieldValues,
     type SnapJFSPayload,
 } from '@/types/snap.js';
-import urlcat from 'urlcat';
+import { type ResponseJson } from '@/types/utility.js';
 
 function buildInputs(fields: SnapFieldValues): SnapJFSPayload['inputs'] {
     return {

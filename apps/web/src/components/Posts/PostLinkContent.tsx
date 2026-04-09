@@ -3,7 +3,6 @@ import { useMemo } from 'react';
 import { ArticleBody } from '@/components/Article/ArticleBody.js';
 import { TokenCard } from '@/components/EmbedCards/TokenCard.js';
 import { FrameLayout } from '@/components/Frame/Layout.js';
-import { SnapLayout } from '@/components/Snap/Layout.js';
 import { CollectionPreviewer, NFTPreviewer } from '@/components/NFTs/NFTPreview.js';
 import { OembedLayout } from '@/components/Oembed/index.js';
 import { Player } from '@/components/Oembed/Player.js';
@@ -13,6 +12,7 @@ import { PredictionProfileCard } from '@/components/Posts/PredictionProfileCard.
 import { PureLink } from '@/components/Posts/PureLink.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { TweetSpace } from '@/components/Posts/TweetSpace.js';
+import { SnapLayout } from '@/components/Snap/Layout.js';
 import { SnapshotBody } from '@/components/Snapshot/SnapshotBody.js';
 import { TWITTER_ARTICLE_REGEX } from '@/constants/regexp.js';
 import { useRouter } from '@/esm/navigation.js';

@@ -43,12 +43,6 @@ msgstr "请选择要连接到多链钱包的链"
 msgid "Failed to mute all wallets and accounts."
 msgstr "未能隐藏所有的钱包和账号。"
 
-#. placeholder {0}: mirrors.length
-#. placeholder {1}: notification.source
-#. placeholder {2}: notification.post.type
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {reposted your} Farcaster {recasted your} Bsky {reposted your} other {reposted your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</4>"
-msgstr "{0, plural, other {<3/> {1, select, Lens {转发了你的} Farcaster {转发了你的} Bsky {转发了你的} other {转发了你的}} <4>{2, select, Post {帖子} Comment {评论} Quote {引用} Mirror {转发} other {帖子}}</4>}}"
-
 #. placeholder {0}: dayjs(space.scheduled_start).format('HH:mm')
 msgid "Tomorrow at {0}"
 msgstr "明天 {0}"
@@ -299,6 +293,11 @@ msgstr "暂无成交"
 #. placeholder {0}: space.participant_count?.toLocaleString()
 msgid "{0} listening"
 msgstr "{0} 位正在收听"
+
+#. placeholder {0}: notification.actions.length
+#. placeholder {1}: notification.post.type
+msgid "{0, plural, =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>collected your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</5>"
+msgstr ""
 
 #. placeholder {0}: token.market_cap_rank
 msgid "Rank #{0}"
@@ -845,10 +844,6 @@ msgstr "区块链"
 
 msgid "Outcome proposed: {outcomeLabel}"
 msgstr "已提议结果：{outcomeLabel}"
-
-#. placeholder {0}: notification.followers.length
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}}<4> followed you</4>"
-msgstr "{0, plural, other {<3/><4> 关注了你</4>}}"
 
 #. placeholder {0}: trade.displayInfo?.ensHandle || addressName
 #. placeholder {1}: toFixedTrimmed(+trade.size, 2)
@@ -1427,6 +1422,11 @@ msgstr "跟随系统"
 msgid "Swaps"
 msgstr "兑换"
 
+#. placeholder {0}: notification.reactors.length
+#. placeholder {1}: notification.post.type
+msgid "{0, plural, =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</5>"
+msgstr ""
+
 #. placeholder {0}: resolveSourceName(source)
 msgid "🎭 Replied on {0}."
 msgstr "🎭 已在 {0} 评论。"
@@ -1485,11 +1485,6 @@ msgstr "反鲸鱼（有限的交易次数）"
 
 msgid "View resolved"
 msgstr "查看已结算"
-
-#. placeholder {0}: notification.reactors.length
-#. placeholder {1}: notification.post.type
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</5>"
-msgstr "{0, plural, other {<3/> <4>点赞了你的 </4><5>{1, select, Post {帖子} Comment {评论} Quote {引用} Mirror {转发} other {帖子}}</5>}}"
 
 msgid "Failed to sign in with Firefly Wallet."
 msgstr "通过Firefly钱包登录失败。"
@@ -1869,6 +1864,12 @@ msgstr "代币价格重大波动"
 #. placeholder {0}: resolveSourceName(props.source)
 msgid "Create {0} Profile"
 msgstr "创建 {0} 个人账户"
+
+#. placeholder {0}: mirrors.length
+#. placeholder {1}: notification.source
+#. placeholder {2}: notification.post.type
+msgid "{0, plural, =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {reposted your} Farcaster {recasted your} Bsky {reposted your} other {reposted your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</4>"
+msgstr ""
 
 msgid "Executed"
 msgstr "已执行"
@@ -2435,11 +2436,6 @@ msgstr "全部清除"
 msgid "Failed to download image. Please try again later."
 msgstr "图片下载失败，请重试。"
 
-#. placeholder {0}: notification.actions.length
-#. placeholder {1}: notification.post.type
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>collected your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</5>"
-msgstr "{0, plural, other {<3/> <4>铸造收集了你的 </4><5>{1, select, Post {帖子} Comment {评论} Quote {引用} Mirror {转发} other {帖子}}</5>}}"
-
 msgid "Reset password"
 msgstr "重置密码"
 
@@ -2989,6 +2985,10 @@ msgstr "使用<0>Firefly 移动应用</0><1/>扫描二维码，即可在应用�
 
 msgid "Share"
 msgstr "分享"
+
+#. placeholder {0}: followers.length
+msgid "{0, plural, =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}}<4> followed you</4>"
+msgstr ""
 
 msgid "Tip liked."
 msgstr "已点赞。"

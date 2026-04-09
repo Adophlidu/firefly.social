@@ -73,7 +73,6 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                     <Trans>
                         <Plural
                             value={notification.reactors.length}
-                            offset={1}
                             _1={<ProfileLink profile={firstReactor} />}
                             _2={
                                 <Trans>
@@ -114,22 +113,21 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                     </Trans>
                 );
             case NotificationType.Follow:
-                const firstFollower = first(notification.followers);
+                const followers = notification.followers;
+                const firstFollower = first(followers);
                 if (!firstFollower) return;
 
                 return (
                     <Trans>
                         <Plural
-                            value={notification.followers.length}
-                            offset={1}
+                            value={followers.length}
                             _1={<ProfileLink profile={firstFollower} />}
                             _2={
                                 <Trans>
-                                    <ProfileLink profile={firstFollower} /> and{' '}
-                                    <ProfileLink profile={notification.followers[1]} />
+                                    <ProfileLink profile={firstFollower} /> and <ProfileLink profile={followers[1]} />
                                 </Trans>
                             }
-                            other={<ExtraProfiles profiles={notification.followers} />}
+                            other={<ExtraProfiles profiles={followers} />}
                         />
                         <span> followed you</span>
                     </Trans>
@@ -179,7 +177,6 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                     <Trans>
                         <Plural
                             value={mirrors.length}
-                            offset={1}
                             _1={<ProfileLink profile={firstMirror} />}
                             _2={
                                 <Trans>
@@ -214,7 +211,6 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                     <Trans>
                         <Plural
                             value={notification.actions.length}
-                            offset={1}
                             _1={<ProfileLink profile={firstActed} />}
                             _2={
                                 <Trans>

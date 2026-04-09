@@ -19,7 +19,7 @@ import { SnapSwitch } from '@/components/Snap/elements/SnapSwitch.js';
 import { SnapText } from '@/components/Snap/elements/SnapText.js';
 import { SnapToggleGroup } from '@/components/Snap/elements/SnapToggleGroup.js';
 import { useSnapContext } from '@/components/Snap/SnapContext.js';
-import { type SnapAction, type SnapElement, type SnapUI } from '@/types/snap.js';
+import { type SnapAction, type SnapUI } from '@/types/snap.js';
 
 const GAP_MAP = {
     none: 'gap-0',

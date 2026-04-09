@@ -2,7 +2,7 @@
 
 import { classNames } from '@dimensiondev/utils';
 
-import { ACCENT_COLOR_MAP, useSnapContext } from '@/components/Snap/SnapContext.js';
+import { ACCENT_COLOR_MAP } from '@/components/Snap/SnapContext.js';
 import { type SnapAccentColor, type SnapAction, type SnapButtonProps } from '@/types/snap.js';
 
 interface Props {
