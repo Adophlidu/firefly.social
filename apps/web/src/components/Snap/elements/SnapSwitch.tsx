@@ -1,6 +1,7 @@
 'use client';
 
 import { classNames } from '@dimensiondev/utils';
+import { useLayoutEffect } from 'react';
 
 import { ACCENT_COLOR_MAP, useSnapContext } from '@/components/Snap/SnapContext.js';
 import { type SnapAccentColor, type SnapSwitchProps } from '@/types/snap.js';
@@ -10,9 +11,16 @@ interface Props {
     accent: SnapAccentColor;
 }
 
-export function SnapSwitch({ props: { name, label, value: defaultValue = false }, accent }: Props) {
+export function SnapSwitch({ props: { name, label, value, defaultChecked }, accent }: Props) {
     const { fields, setSwitch } = useSnapContext();
-    const checked = fields.switches[name] ?? defaultValue;
+    const defaultValue = defaultChecked ?? value ?? false;
+    const stored = fields.switches[name];
+    const checked = stored !== undefined ? stored : defaultValue;
+
+    useLayoutEffect(() => {
+        if (fields.switches[name] !== undefined) return;
+        setSwitch(name, defaultValue);
+    }, [name, fields.switches[name], defaultValue, setSwitch]);
 
     return (
         <div className="flex w-full items-center justify-between gap-3" onClick={(e) => e.stopPropagation()}>

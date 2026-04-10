@@ -1,15 +1,18 @@
+import { type ReactNode } from 'react';
+
 import { Image } from '@/components/Image.js';
 import { type SnapItemProps } from '@/types/snap.js';
 
 interface Props {
     props: SnapItemProps;
     onPress?: () => void;
+    children?: ReactNode;
 }
 
-export function SnapItem({ props: { title, description, imageUrl }, onPress }: Props) {
+export function SnapItem({ props: { title, description, imageUrl }, onPress, children }: Props) {
     return (
         <div
-            className="flex items-center gap-3 p-2"
+            className="flex w-full items-center gap-3 p-2"
             onClick={onPress}
             role={onPress ? 'button' : undefined}
             tabIndex={onPress ? 0 : undefined}
@@ -23,6 +26,9 @@ export function SnapItem({ props: { title, description, imageUrl }, onPress }: P
                 <p className="text-main truncate text-sm font-medium">{title}</p>
                 {description ? <p className="text-secondary truncate text-xs">{description}</p> : null}
             </div>
+            {children ? (
+                <div className="text-secondary flex shrink-0 items-center justify-end gap-1">{children}</div>
+            ) : null}
         </div>
     );
 }

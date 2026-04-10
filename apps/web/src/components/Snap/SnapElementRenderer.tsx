@@ -73,7 +73,7 @@ export function SnapElementRenderer({ elementId, ui, onAction }: Props) {
             return <SnapImage props={element.props} />;
 
         case 'badge':
-            return <SnapBadge props={element.props} />;
+            return <SnapBadge props={element.props} accent={accent} />;
 
         case 'icon':
             return <SnapIcon props={element.props} />;
@@ -89,7 +89,9 @@ export function SnapElementRenderer({ elementId, ui, onAction }: Props) {
                 <SnapItem
                     props={element.props}
                     onPress={element.on?.press ? () => onAction(element.on!.press!) : undefined}
-                />
+                >
+                    {renderChildren()}
+                </SnapItem>
             );
 
         case 'item_group':

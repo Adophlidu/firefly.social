@@ -5,6 +5,8 @@ import { createContext, type ReactNode, useCallback, useContext, useEffect, useM
 import { type SnapAccentColor, type SnapFieldValues } from '@/types/snap.js';
 
 // Map accent color names to Tailwind classes
+// Note: `theme.extend.colors.purple` in tailwind.config.cjs is a single hex, not a scale,
+// so `*-purple-500` utilities are not generated — use `bg-purple`, `text-purple`, etc.
 export const ACCENT_COLOR_MAP: Record<SnapAccentColor, string> = {
     gray: 'bg-gray-500',
     blue: 'bg-blue-500',
@@ -12,7 +14,7 @@ export const ACCENT_COLOR_MAP: Record<SnapAccentColor, string> = {
     amber: 'bg-amber-500',
     green: 'bg-green-500',
     teal: 'bg-teal-500',
-    purple: 'bg-purple-500',
+    purple: 'bg-purple',
     pink: 'bg-pink-500',
 };
 
@@ -23,7 +25,7 @@ export const ACCENT_TEXT_MAP: Record<SnapAccentColor, string> = {
     amber: 'text-amber-500',
     green: 'text-green-500',
     teal: 'text-teal-500',
-    purple: 'text-purple-500',
+    purple: 'text-purple',
     pink: 'text-pink-500',
 };
 
@@ -34,7 +36,7 @@ export const ACCENT_BORDER_MAP: Record<SnapAccentColor, string> = {
     amber: 'border-amber-500',
     green: 'border-green-500',
     teal: 'border-teal-500',
-    purple: 'border-purple-500',
+    purple: 'border-purple',
     pink: 'border-pink-500',
 };
 
@@ -45,7 +47,7 @@ export const ACCENT_RING_MAP: Record<SnapAccentColor, string> = {
     amber: 'ring-amber-500',
     green: 'ring-green-500',
     teal: 'ring-teal-500',
-    purple: 'ring-purple-500',
+    purple: 'ring-purple',
     pink: 'ring-pink-500',
 };
 

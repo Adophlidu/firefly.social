@@ -56,7 +56,7 @@ const SNOW_CONFETTI_COLORS = [
 type ConfettiFire = ((options?: Record<string, unknown>) => void) & { reset?: () => void };
 
 function runSnowConfetti(fire: ConfettiFire) {
-    const duration = 15_000;
+    const duration = 5_000;
     const animationEnd = Date.now() + duration;
     let skew = 1;
     let rafId = 0;
@@ -259,14 +259,16 @@ export const SnapCard = memo<CardProps>(function SnapCard({ snap: initialSnap, p
         >
             <div className="mt-4 flex flex-col" data-prevent-progress="true">
                 <div
-                    className="border-line bg-bg relative w-full overflow-hidden rounded-xl border p-3"
+                    className="border-line bg-bg relative max-h-[580px] w-full overflow-hidden rounded-xl border"
                     onClick={(e) => e.stopPropagation()}
                 >
-                    <SnapElementRenderer elementId={snap.ui.root} ui={snap.ui} onAction={dispatchWithFields} />
+                    <div className="max-h-[580px] overflow-y-auto overscroll-contain p-3">
+                        <SnapElementRenderer elementId={snap.ui.root} ui={snap.ui} onAction={dispatchWithFields} />
+                    </div>
                     <canvas
                         ref={confettiCanvasRef}
                         aria-hidden
-                        className="pointer-events-none absolute inset-0 z-10 block h-full w-full rounded-xl"
+                        className="pointer-events-none absolute inset-0 z-10 block size-full rounded-xl"
                     />
                 </div>
                 <FootnoteLink href={snap.url} />

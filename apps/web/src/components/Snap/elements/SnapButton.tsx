@@ -37,7 +37,7 @@ export function SnapButton({
                 { 'cursor-not-allowed opacity-50': disabled, 'hover:opacity-90': !disabled },
             )}
         >
-            {icon ? <SnapIcon props={{ name: icon }} /> : null}
+            {icon ? <SnapIcon props={{ name: icon, color: 'inherit' }} /> : null}
             {label}
         </button>
     );

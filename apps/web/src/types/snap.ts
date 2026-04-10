@@ -120,12 +120,19 @@ export interface SnapImageProps {
 export interface SnapBadgeProps {
     /** 1-30 characters */
     label: string;
-    color?: SnapAccentColor;
+    /** Default: purple. Named palette or `accent` for the snap theme accent. */
+    color?: SnapAccentColor | 'accent';
     icon?: string;
+    /** Default: solid fill. `outline` uses a border and tinted text. */
+    variant?: 'solid' | 'outline';
 }
 
 export interface SnapIconProps {
     name: string;
+    width?: number;
+    height?: number;
+    /** Tint for the icon. `accent` uses the snap theme accent. `inherit` uses the parent text color (e.g. badges). */
+    color?: SnapAccentColor | 'accent' | 'inherit';
 }
 
 export interface SnapItemProps {
@@ -213,14 +220,19 @@ export interface SnapSliderProps {
     max?: number;
     /** Default: 1 */
     step?: number;
+    /** Initial value before the user moves the slider (or submits). */
+    defaultValue?: number;
+    /** Alias for `defaultValue` (same meaning). */
     value?: number;
 }
 
 export interface SnapSwitchProps {
     name: string;
     label?: string;
-    /** Default: false */
+    /** Default: false. Alias: `defaultChecked`. */
     value?: boolean;
+    /** Initial on/off state (alias for `value`, HTML-style). */
+    defaultChecked?: boolean;
 }
 
 export interface SnapToggleGroupProps {
