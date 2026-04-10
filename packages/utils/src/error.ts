@@ -21,6 +21,42 @@ export class AbortError extends Error {
     }
 }
 
+export class InvalidAddressError extends Error {
+    override name = 'InvalidAddressError';
+
+    constructor(address: string, message?: string) {
+        super(message ?? `Invalid EVM address: ${address}.`);
+    }
+}
+
+/**
+ * Error thrown when a Bluesky XRPC endpoint is not supported (404).
+ * This is expected when using custom PDS instances that don't support all endpoints.
+ * Should be handled gracefully without logging to error tracking.
+ */
+export class XRPCNotSupportedError extends Error {
+    override name = 'XRPCNotSupportedError';
+
+    constructor(message?: string) {
+        super(message ?? 'XRPC not supported.');
+    }
+
+    static is(error: unknown) {
+        if (!error || typeof error !== 'object') return false;
+
+        const err = error as Record<string, unknown>;
+
+        const isXRPCNotSupported =
+            err.error === 'XRPCNotSupported' ||
+            err.message === 'XRPCNotSupported' ||
+            (typeof err.message === 'string' && err.message.includes('XRPCNotSupported'));
+
+        const is404 = err.status === 404;
+
+        return isXRPCNotSupported && is404;
+    }
+}
+
 export class InvalidResultError extends Error {
     override name = 'InvalidResultError';
 

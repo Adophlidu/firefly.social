@@ -1,9 +1,9 @@
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
+import { runInSafe } from '@dimensiondev/utils';
 
 import { Source } from '@/constants/enum.js';
 import { ensureCreatedFireflyWallet } from '@/helpers/ensureCreatedFireflyWallet.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
-import { runInSafe } from '@/helpers/runInSafe.js';
 import { AddLensManagerModalRef } from '@/modals/AddLensManagerModal/refs.js';
 import { LoginModalRef } from '@/modals/LoginModal/refs.js';
 import { getLensProfileOwner } from '@/providers/lens/getLensProfileOwner.js';

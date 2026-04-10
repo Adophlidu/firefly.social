@@ -1,13 +1,12 @@
 'use client';
 
 import { captureException, ExceptionId } from '@dimensiondev/exception-tracker';
-import { bom } from '@dimensiondev/utils';
+import { bom, runInSafe } from '@dimensiondev/utils';
 import { jwtDecode } from 'jwt-decode';
 
 import { AsyncStatus, Source } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';
 import { createSelectors } from '@/helpers/createSelector.js';
-import { runInSafe } from '@/helpers/runInSafe.js';
 import { logger } from '@/libs/Logger.js';
 import { getBskyProfileById } from '@/providers/bsky/getBskyProfileById.js';
 import { type BskySession } from '@/providers/bsky/Session.js';

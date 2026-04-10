@@ -1,5 +1,5 @@
 import { envs } from '@dimensiondev/envs';
-import { InvalidResultError, retry } from '@dimensiondev/utils';
+import { InvalidResultError, retry, runInSafeAsync } from '@dimensiondev/utils';
 import { type SessionClient } from '@lens-protocol/client';
 import { canCreateUsername, createAccountWithUsername, fetchAccount } from '@lens-protocol/client/actions';
 import { mainnet } from 'viem/chains';
@@ -9,7 +9,6 @@ import { Source } from '@/constants/enum.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { memoizePromise } from '@/helpers/memoizePromise.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
 import { reportLensAccount } from '@/providers/firefly/report/reportLensAccount.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';

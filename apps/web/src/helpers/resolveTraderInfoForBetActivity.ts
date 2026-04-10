@@ -1,3 +1,4 @@
+import { runInSafe } from '@dimensiondev/utils';
 import { first } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
@@ -6,7 +7,6 @@ import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.j
 import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { resolveSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { resolveWatchTypeToSource } from '@/helpers/resolveWatchTypeToSource.js';
-import { runInSafe } from '@/helpers/runInSafe.js';
 import { type BetsActivity } from '@/providers/types/Firefly.js';
 
 function shortAddress(address: string) {

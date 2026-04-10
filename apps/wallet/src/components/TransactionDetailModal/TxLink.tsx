@@ -1,8 +1,8 @@
+import { runInSafe } from '@dimensiondev/utils';
 import { type PropsWithChildren, useMemo } from 'react';
 
 import { bedStead } from '@/fonts/bedStead/index.js';
 import { getBlockExplorersURL } from '@/helpers/getBlockExplorersURL.js';
-import { runInSafe } from '@/helpers/runInSafe.js';
 import { cn } from '@/lib/utils.js';
 
 interface TxLinkProps extends PropsWithChildren {

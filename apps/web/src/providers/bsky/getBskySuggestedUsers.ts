@@ -1,4 +1,5 @@
 import { type AppBskyActorDefs } from '@atproto/api';
+import { runInSafeAsync } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
 import { queryClient } from '@/configs/queryClient.js';
@@ -6,7 +7,6 @@ import { Source } from '@/constants/enum.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { formatBskyProfile } from '@/providers/bsky/formatBskyProfile.js';
 import { getBskyProfilesByIds } from '@/providers/bsky/getBskyProfilesByIds.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';

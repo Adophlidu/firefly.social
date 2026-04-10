@@ -3,7 +3,7 @@
 import ImageDownloadIcon from '@dimensiondev/assets/image-download.svg';
 import MirrorIcon from '@dimensiondev/assets/mirror.svg';
 import ShareIcon from '@dimensiondev/assets/share.svg';
-import { classNames } from '@dimensiondev/utils';
+import { classNames, runInSafeAsync } from '@dimensiondev/utils';
 import { MenuItem } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
@@ -26,7 +26,6 @@ import { formatAddress } from '@/helpers/formatAddress.js';
 import { getMentionCharsByIdentity } from '@/helpers/getMentionCharsByIdentity.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { updateTipsReactionStatus } from '@/helpers/updateTipsReactionStatus.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { ComposeModalRef } from '@/modals/ComposeModal/refs.js';

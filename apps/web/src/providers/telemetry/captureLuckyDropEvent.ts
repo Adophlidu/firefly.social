@@ -1,6 +1,5 @@
-import { safeUnreachable } from '@dimensiondev/utils';
+import { runInSafeAsync, safeUnreachable } from '@dimensiondev/utils';
 
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getWalletEventParameters } from '@/providers/telemetry/getWalletEventParameters.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import { type RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';

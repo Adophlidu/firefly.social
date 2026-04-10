@@ -1,4 +1,5 @@
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { runInSafeAsync } from '@dimensiondev/utils';
+
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import { EventId, type Events } from '@/providers/types/Telemetry.js';
 

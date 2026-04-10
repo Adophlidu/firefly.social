@@ -1,4 +1,5 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { runInSafeAsync } from '@dimensiondev/utils';
 
 import {
     createIndicator,
@@ -7,7 +8,6 @@ import {
     type Pageable,
     type PageIndicator,
 } from '@/helpers/pageable.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { PostAtUri } from '@/providers/bsky/AtUri.js';
 import { formatBskyProfile } from '@/providers/bsky/formatBskyProfile.js';
 import { getBskyProfilesByIds } from '@/providers/bsky/getBskyProfilesByIds.js';

@@ -1,8 +1,8 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { runInSafeAsync } from '@dimensiondev/utils';
 
 import { FireflyPlatform } from '@/constants/enum.js';
 import { POAP_CONTRACT_ADDRESS } from '@/constants/static.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getFireflyBookmarksByIds } from '@/providers/firefly/endpoint/getFireflyBookmarkIds.js';
 import { getPOAPs } from '@/providers/firefly/nft/getPOAPs.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';

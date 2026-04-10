@@ -1,6 +1,6 @@
+import { runInSafeAsync } from '@dimensiondev/utils';
 import { type Address } from 'viem';
 
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import { type FireflyIdentity } from '@/providers/types/Firefly.js';
 import { type Channel, type Profile } from '@/providers/types/SocialMedia.js';

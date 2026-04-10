@@ -1,4 +1,4 @@
-import { AuthenticationError, NotImplementedError } from '@dimensiondev/utils';
+import { AuthenticationError, NotImplementedError, runInSafeAsync } from '@dimensiondev/utils';
 import { first, sumBy } from 'lodash-es';
 import { getAddress } from 'viem';
 
@@ -13,7 +13,6 @@ import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { memoizePromiseWithTime } from '@/helpers/memoizePromise.js';
 import { getPollDurationSeconds } from '@/helpers/polls.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { sendCustomEip712Transaction } from '@/helpers/sendCustomEip712Transaction.js';
 import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
 import { commitPoll } from '@/providers/firefly/poll/commitPoll.js';

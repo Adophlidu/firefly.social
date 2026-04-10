@@ -1,5 +1,6 @@
 'use client';
 
+import { runInSafeAsync } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { compact } from 'lodash-es';
 import { memo, useCallback } from 'react';
@@ -19,7 +20,6 @@ import { queryMyAllConnections } from '@/helpers/queryMyAllConnections.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { SignupFormFields } from '@/modals/SignupModal/SignupFormFields.js';
 import { captureSocialSignupSuccessEvent } from '@/providers/telemetry/captureSocialAccountSignupEvent.js';
 import { type Account } from '@/providers/types/Account.js';

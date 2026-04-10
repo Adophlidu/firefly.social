@@ -1,5 +1,5 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
-import { NotFoundError, NotImplementedError, UnauthorizedError } from '@dimensiondev/utils';
+import { NotFoundError, NotImplementedError, runInSafeAsync, UnauthorizedError } from '@dimensiondev/utils';
 import { isServer } from '@tanstack/react-query';
 import { compact, last } from 'lodash-es';
 
@@ -17,7 +17,6 @@ import {
     type PageIndicator,
 } from '@/helpers/pageable.js';
 import { patchPostClientToFirefly, patchPostsClientToFirefly } from '@/helpers/patchPostClientToFirefly.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getTwitterHandleById } from '@/providers/firefly/worker/getTwitterHandleById.js';
 import { formatTwitterPostFromNitter } from '@/providers/nitter/formatTwitterPostFromNitter.js';
 import { formatTwitterProfileFromNitter } from '@/providers/nitter/formatTwitterProfileFromNitter.js';

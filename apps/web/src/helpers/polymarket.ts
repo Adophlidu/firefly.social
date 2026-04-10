@@ -1,5 +1,6 @@
+import { runInSafe } from '@dimensiondev/utils';
+
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
-import { runInSafe } from '@/helpers/runInSafe.js';
 import { type BetsActivity } from '@/providers/types/Firefly.js';
 
 const tailZero = /\.0+$|(\.\d*[1-9])0+$/;
@@ -37,8 +38,9 @@ export function computeVolume(activity: BetsActivity, index: number) {
             const total = activity.conditionOutcomePrices.reduce((acc, price) => acc + Number.parseFloat(price), 0);
             return Math.min(parseFloat(activity.conditionOutcomePrices[index]) / total, 1);
         },
-        true,
-        0.5,
+        {
+            defaultValue: 0.5,
+        },
     ) as number;
 
     return nFormatter(parseFloat(activity.volume) * ratio, 2);

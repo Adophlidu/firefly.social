@@ -1,6 +1,6 @@
 'use client';
 
-import { classNames } from '@dimensiondev/utils';
+import { classNames, runInSafe } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -18,7 +18,6 @@ import {
 } from '@/helpers/enqueueMessage.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolvePollProvider } from '@/helpers/resolvePollProvider.js';
-import { runInSafe } from '@/helpers/runInSafe.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { type Poll, type PollOption } from '@/providers/types/Poll.js';
 import { useOrbPollResultStore } from '@/store/useOrbPollResultStore.js';

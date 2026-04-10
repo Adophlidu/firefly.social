@@ -1,9 +1,9 @@
+import { runInSafeAsync } from '@dimensiondev/utils';
 import { fetchAccountsBulk } from '@lens-protocol/client/actions';
 
 import { Source, SourceInURL } from '@/constants/enum.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { resolveSourceInUrlForApi } from '@/helpers/resolveSourceInUrl.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { bskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { farcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { getAllPlatformProfileByIdentity } from '@/providers/firefly/endpoint/getAllPlatformProfileByIdentity.js';

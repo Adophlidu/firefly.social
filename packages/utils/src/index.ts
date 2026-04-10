@@ -20,6 +20,7 @@ export * from '@/requestIdleCallbackAsync.js';
 export * from '@/resolveValue.js';
 export * from '@/retry.js';
 export * from '@/retryOnError.js';
+export * from '@/runInSafe.js';
 export * from '@/squashCallback.js';
 export * from '@/timeout.js';
 export * from '@/ts.js';

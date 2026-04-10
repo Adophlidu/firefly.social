@@ -1,12 +1,11 @@
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
-import { delay } from '@dimensiondev/utils';
+import { delay, runInSafeAsync } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 import { toHex } from 'viem';
 
 import { LENS_CHAIN_ID } from '@/constants/static.js';
 import { ensureCreatedFireflyWallet } from '@/helpers/ensureCreatedFireflyWallet.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { type PrivySignMessageResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';

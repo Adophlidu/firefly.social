@@ -1,7 +1,6 @@
-import { createLookupTableResolver, UnreachableError } from '@dimensiondev/utils';
+import { createLookupTableResolver, runInSafeAsync, UnreachableError } from '@dimensiondev/utils';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getPostEventParameters, getSelfPostEventParameters } from '@/providers/telemetry/getPostEventParameters.js';
 import { getWalletEventParameters } from '@/providers/telemetry/getWalletEventParameters.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';

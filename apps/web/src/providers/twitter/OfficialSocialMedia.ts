@@ -1,5 +1,5 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
-import { NotImplementedError } from '@dimensiondev/utils';
+import { NotImplementedError, runInSafeAsync } from '@dimensiondev/utils';
 import { isServer } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import {
@@ -36,7 +36,6 @@ import {
     type PageIndicator,
 } from '@/helpers/pageable.js';
 import { resolveTcoLink } from '@/helpers/resolveTcoLink.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getTwitterTopPeople } from '@/providers/firefly/endpoint/getTwitterTopPeople.js';
 import { getTwitterUserInfo } from '@/providers/firefly/endpoint/getTwitterUserInfo.js';
 import { blockProfileFor } from '@/providers/firefly/farcaster-account/blockProfileFor.js';

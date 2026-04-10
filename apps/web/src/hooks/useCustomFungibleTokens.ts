@@ -1,3 +1,4 @@
+import { runInSafeAsync } from '@dimensiondev/utils';
 import { useQueries } from '@tanstack/react-query';
 import { compact, uniq } from 'lodash-es';
 import { erc20Abi } from 'viem';
@@ -11,7 +12,6 @@ import { formatCustomTokenToTipsToken } from '@/helpers/formatCustomTokenToTipsT
 import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
 import { leftShift } from '@/helpers/number.js';
 import { resolveWagmiChain } from '@/helpers/resolveWagmiChain.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getFungibleTokenPrice } from '@/providers/coingecko/getFungibleTokenPrice.js';
 import { type Token as TipsToken } from '@/providers/types/Transfer.js';
 import { CustomTokenType, useCustomTokenStore } from '@/store/useCustomTokenStore.js';

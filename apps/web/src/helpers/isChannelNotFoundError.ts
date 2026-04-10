@@ -1,6 +1,6 @@
-import { NotFoundError } from '@dimensiondev/utils';
+import { InvalidAddressError, NotFoundError } from '@dimensiondev/utils';
 
-import { FetchError, InvalidAddressError } from '@/constants/error.js';
+import { FetchError } from '@/constants/error.js';
 
 export function isChannelNotFoundError(error: unknown) {
     if (error instanceof NotFoundError) return true;

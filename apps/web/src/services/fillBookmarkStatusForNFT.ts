@@ -1,6 +1,7 @@
+import { runInSafeAsync } from '@dimensiondev/utils';
+
 import { FireflyPlatform } from '@/constants/enum.js';
 import { resolveNFTIdFromAsset } from '@/helpers/resolveNFTIdFromAsset.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getFireflyBookmarksByIds } from '@/providers/firefly/endpoint/getFireflyBookmarkIds.js';
 import { type EVM } from '@/providers/nftscan/types.js';
 

@@ -1,6 +1,6 @@
 import { web3 } from '@coral-xyz/anchor';
+import { runInSafeAsync } from '@dimensiondev/utils';
 
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { requestRPC } from '@/providers/solana/requestRPC.js';
 import { type GetTransactionResponse } from '@/providers/types/Solana.js';
 import { SolanaChainId } from '@/web3-shared/solana/types.js';

@@ -1,6 +1,5 @@
+import { InvalidAddressError } from '@dimensiondev/utils';
 import { evmAddress } from '@lens-protocol/client';
-
-import { InvalidAddressError } from '@/constants/error.js';
 
 export function safeEvmAddress(address: string) {
     try {

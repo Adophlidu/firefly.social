@@ -1,4 +1,4 @@
-import { delay } from '@dimensiondev/utils';
+import { delay, runInSafeAsync } from '@dimensiondev/utils';
 import { InvariantError } from '@lens-protocol/client';
 import { refresh } from '@lens-protocol/client/actions';
 
@@ -6,7 +6,6 @@ import { Source } from '@/constants/enum.js';
 import { SessionExpiredError } from '@/constants/error.js';
 import { FAKE_REFRESH_TOKEN } from '@/constants/lens.js';
 import { SEVEN_DAYS } from '@/constants/static.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { autoLoginWithPrivy } from '@/providers/lens/autoLoginWithPrivy.js';
 import { createLensPublicClient } from '@/providers/lens/createLensPublicClient.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';

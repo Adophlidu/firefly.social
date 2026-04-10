@@ -1,11 +1,10 @@
-import { safeUnreachable, unreachable } from '@dimensiondev/utils';
+import { runInSafeAsync, safeUnreachable, unreachable } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { PasswordStep, PasswordWorkflow } from '@/constants/enum.js';
 import { FireflyResponseCode } from '@/constants/responseCode.js';
 import { enqueueErrorMessage, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { isStrongDigitPassword, isValidPassword } from '@/modals/PasswordModal/isValidPassword.js';
 import { PasswordModalRef } from '@/modals/PasswordModal/refs.js';
 import { checkPasscode } from '@/providers/firefly/metrics/checkPasscode.js';

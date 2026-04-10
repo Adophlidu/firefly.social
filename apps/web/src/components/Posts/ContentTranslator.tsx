@@ -1,5 +1,6 @@
 'use client';
 
+import { runInSafeAsync } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { first } from 'lodash-es';
 import { memo, useEffect, useRef, useState } from 'react';
@@ -10,7 +11,6 @@ import { PostMarkup } from '@/components/Markup/PostMarkup.js';
 import { NUMBER_STRING_REGEX } from '@/constants/regexp.js';
 import { getTargetLanguage } from '@/helpers/getBrowserLanguage.js';
 import { getLangNameFromLocal } from '@/helpers/getLangNameFromLocal.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { trimify } from '@/helpers/trimify.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { translate } from '@/providers/firefly/endpoint/translate.js';

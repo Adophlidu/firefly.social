@@ -1,9 +1,8 @@
 import { envs, STATUS } from '@dimensiondev/envs';
-import { NotImplementedError } from '@dimensiondev/utils';
+import { NotImplementedError, runInSafeAsync } from '@dimensiondev/utils';
 import { sendGAEvent } from '@next/third-parties/google';
 import { isHex } from 'viem';
 
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { logger } from '@/libs/Logger.js';
 import { getPublicParameters } from '@/providers/telemetry/getPublicParameters.js';
 import { type Events, Provider, ProviderFilter, VersionFilter } from '@/providers/types/Telemetry.js';

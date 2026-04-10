@@ -1,5 +1,6 @@
 'use client';
 
+import { runInSafeAsync } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { BigNumber } from 'bignumber.js';
@@ -33,7 +34,6 @@ import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { minus, ZERO } from '@/helpers/number.js';
 import { openComposeModal } from '@/helpers/openComposeModal.js';
 import { usePreloadImage } from '@/helpers/preloadImage.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { usePrivyAppkitAccountByNetwork } from '@/hooks/appkit/usePrivyAppkitAccountByNetwork.js';
 import { useAvailableBalance } from '@/hooks/useAvailableBalance.js';
 import { RedPacketModalRef } from '@/modals/RedPacketModal/refs.js';

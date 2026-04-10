@@ -1,9 +1,9 @@
 import { moderatePost } from '@atproto/api';
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { runInSafeAsync } from '@dimensiondev/utils';
 import { compact } from 'lodash-es';
 
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { PostAtUri } from '@/providers/bsky/AtUri.js';
 import { AppBskyFeed } from '@/providers/bsky/contentChecker.js';
 import { formatBskyFeedPost } from '@/providers/bsky/formatBskyFeedPost.js';

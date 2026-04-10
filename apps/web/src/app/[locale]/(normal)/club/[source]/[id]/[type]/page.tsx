@@ -1,4 +1,5 @@
 import { type LayoutProps } from '@dimensiondev/types';
+import { runInSafeAsync } from '@dimensiondev/utils';
 import { type Metadata } from 'next';
 
 import { ChannelContentList } from '@/components/Channel/ChannelContentList.js';
@@ -9,7 +10,6 @@ import { notFound } from '@/esm/navigation/server.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { createChannelMetadata } from '@/providers/firefly/metadata/createChannelMetadata.js';
 
 export const revalidate = 60;

@@ -1,4 +1,4 @@
-import { unreachable } from '@dimensiondev/utils';
+import { runInSafeAsync, unreachable } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { useAsyncFn } from 'react-use';
 
@@ -8,7 +8,6 @@ import { useSolanaVerifyAndClaim } from '@/components/RedPacket/hooks/useSolanaV
 import { NetworkType, type SocialSource } from '@/constants/enum.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { sharePostAfterClaimed } from '@/helpers/sharePostAfterClaimed.js';
 import { usePrivyAppkitAccountByNetwork } from '@/hooks/appkit/usePrivyAppkitAccountByNetwork.js';
 import { getCurrentClaimProfile } from '@/providers/ethereum/getCurrentClaimProfile.js';

@@ -1,10 +1,9 @@
-import { safeUnreachable } from '@dimensiondev/utils';
+import { runInSafeAsync, safeUnreachable } from '@dimensiondev/utils';
 import { getAccount } from 'wagmi/actions';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { isFrameV1, isFrameV2 } from '@/helpers/frame.js';
 import { ETH_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getWalletEventParameters } from '@/providers/telemetry/getWalletEventParameters.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import { EventId, type FrameActionType } from '@/providers/types/Telemetry.js';

@@ -1,4 +1,5 @@
 import { type LayoutProps } from '@dimensiondev/types';
+import { runInSafeAsync } from '@dimensiondev/utils';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import { headers } from 'next/headers.js';
 import { notFound, redirect, RedirectType } from 'next/navigation.js';
@@ -13,7 +14,6 @@ import { Comeback } from '@/components/Comeback.js';
 import { TokenContextProvider } from '@/components/Token/TokenContext.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { createTokenMetadata } from '@/providers/firefly/metadata/createTokenMetadata.js';
 import { searchToken } from '@/providers/firefly/worker/searchToken.js';
 import { type GetTokenOptions } from '@/providers/types/Firefly.js';

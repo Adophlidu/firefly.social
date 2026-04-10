@@ -1,6 +1,5 @@
-import { safeUnreachable } from '@dimensiondev/utils';
+import { runInSafeAsync, safeUnreachable } from '@dimensiondev/utils';
 
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import { ArticlePlatform } from '@/providers/types/Article.js';
 import { EventId } from '@/providers/types/Telemetry.js';

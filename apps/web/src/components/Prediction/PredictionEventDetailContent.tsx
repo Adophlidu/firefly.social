@@ -1,4 +1,5 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { runInSafeAsync } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { first } from 'lodash-es';
 
@@ -13,7 +14,6 @@ import { PredictionMarketsAccountTab } from '@/components/Prediction/PredictionM
 import { PredictionMarketsPriceLineChart } from '@/components/Prediction/PredictionMarketsPriceLineChart/index.js';
 import { Locale, type PredictionPlatform } from '@/constants/enum.js';
 import { notFound } from '@/esm/navigation/server.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { setupLocaleFromParams } from '@/i18n/static.js';
 import { getEventDetail } from '@/providers/firefly/prediction/getEventDetail.js';
 import { translateBetEventData } from '@/providers/prediction/translateBetEventData.js';

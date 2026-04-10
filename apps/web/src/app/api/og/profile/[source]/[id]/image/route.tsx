@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 
 import { type NextRequestContext } from '@dimensiondev/types';
-import { compose, safeUnreachable } from '@dimensiondev/utils';
+import { compose, runInSafeAsync, safeUnreachable } from '@dimensiondev/utils';
 import { compact, first } from 'lodash-es';
 import { ImageResponse } from 'next/og.js';
 import { type NextRequest } from 'next/server.js';
@@ -21,7 +21,6 @@ import { getSharerHandle } from '@/helpers/getSharerHandle.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { isSocialSource, isWalletSource } from '@/helpers/isSource.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { getAllRelatedProfileInfo } from '@/providers/firefly/endpoint/getAllRelatedProfileInfo.js';
 import { type WalletProfiles } from '@/providers/types/Firefly.js';

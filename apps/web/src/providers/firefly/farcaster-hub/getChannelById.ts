@@ -1,5 +1,6 @@
+import { runInSafeAsync } from '@dimensiondev/utils';
+
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getChannelByHandle } from '@/providers/firefly/farcaster-hub/getChannelByHandle.js';
 import { type Channel, SessionType } from '@/providers/types/SocialMedia.js';
 import { getChannelFollowStatus } from '@/providers/warpcast/getChannelFollowStatus.js';

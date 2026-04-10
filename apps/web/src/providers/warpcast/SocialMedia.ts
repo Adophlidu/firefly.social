@@ -1,4 +1,4 @@
-import { NotImplementedError } from '@dimensiondev/utils';
+import { NotImplementedError, runInSafeAsync } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
 import { WARPCAST_ROOT_URL_V1 } from '@/constants/static.js';
@@ -11,7 +11,6 @@ import {
     type PageIndicator,
 } from '@/helpers/pageable.js';
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { formatFarcasterChannelFromWarpcast } from '@/providers/farcaster/formatFarcasterChannelFromWarpcast.js';
 import { getFarcasterAuthToken } from '@/providers/farcaster/getFarcasterAuthToken.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';

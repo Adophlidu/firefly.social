@@ -4,6 +4,7 @@ import {
     type AppBskyEmbedVideo,
     type RichText,
 } from '@atproto/api';
+import { runInSafeAsync } from '@dimensiondev/utils';
 import { first } from 'lodash-es';
 import urlcat from 'urlcat';
 
@@ -13,7 +14,6 @@ import { base64ToFile } from '@/helpers/base64ToFile.js';
 import { blobToBase64 } from '@/helpers/blobToBase64.js';
 import { compressImage } from '@/helpers/compressImage.js';
 import { fetchBlob } from '@/helpers/fetchBlob.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { AppBskyEmbed } from '@/providers/bsky/contentChecker.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import { getPostOembed } from '@/providers/firefly/worker/getPostOembed.js';

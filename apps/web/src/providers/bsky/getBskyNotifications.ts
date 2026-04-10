@@ -1,6 +1,6 @@
 import { type AppBskyFeedDefs } from '@atproto/api';
 import { EMPTY_LIST } from '@dimensiondev/constants';
-import { safeUnreachable } from '@dimensiondev/utils';
+import { runInSafeAsync, safeUnreachable } from '@dimensiondev/utils';
 import { compact, uniq } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
@@ -12,7 +12,6 @@ import {
     type Pageable,
     type PageIndicator,
 } from '@/helpers/pageable.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { formatBskyFeedPost, formatBskyPost } from '@/providers/bsky/formatBskyFeedPost.js';
 import { formatBskyProfile } from '@/providers/bsky/formatBskyProfile.js';
 import { resolveBskyResponseData } from '@/providers/bsky/resolveBskyResponseData.js';

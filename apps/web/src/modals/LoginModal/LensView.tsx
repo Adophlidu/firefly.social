@@ -4,7 +4,7 @@ import OrbIcon from '@dimensiondev/assets/orb.svg';
 import ScanIcon from '@dimensiondev/assets/scan.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { envs, STATUS } from '@dimensiondev/envs';
-import { AbortError, ForbiddenError } from '@dimensiondev/utils';
+import { AbortError, ForbiddenError, runInSafeAsync } from '@dimensiondev/utils';
 import { lastLoggedInAccount } from '@lens-protocol/client/actions';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
@@ -32,7 +32,6 @@ import { getProfilesFromStorage } from '@/helpers/getCurrentProfileFromStorage.j
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { useCanBindMoreAccount } from '@/hooks/useCanBindMoreAccount.js';
 import { logger } from '@/libs/Logger.js';

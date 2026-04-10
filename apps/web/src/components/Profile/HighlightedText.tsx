@@ -1,8 +1,7 @@
 'use client';
 
+import { runInSafe } from '@dimensiondev/utils';
 import { memo, useMemo } from 'react';
-
-import { runInSafe } from '@/helpers/runInSafe.js';
 
 interface HighlightedTextProps {
     text: string;

@@ -1,5 +1,6 @@
+import { runInSafeAsync } from '@dimensiondev/utils';
+
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { EventId } from '@/providers/types/Telemetry.js';

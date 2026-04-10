@@ -1,3 +1,5 @@
+import { runInSafeAsync } from '@dimensiondev/utils';
+
 import { FileMimeType, FireflyPlatform, Source } from '@/constants/enum.js';
 import { BSKY_IMAGE_LIMITATION, BSKY_SHORT_POST_LIMIT, MAX_IMAGE_SIZE_PER_POST } from '@/constants/limitation.js';
 import { readChars } from '@/helpers/chars.js';
@@ -8,7 +10,6 @@ import { getCompositePost } from '@/helpers/getCompositePost.js';
 import { getVideoMetadata } from '@/helpers/getVideoMetadata.js';
 import { resolveImageUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { truncateTextForBsky } from '@/helpers/truncateTextForBsky.js';
 import { PostAtUri } from '@/providers/bsky/AtUri.js';
 import { createBskyMediaObject } from '@/providers/bsky/createBskyMediaObject.js';

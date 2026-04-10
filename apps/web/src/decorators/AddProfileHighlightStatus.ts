@@ -1,10 +1,10 @@
+import { runInSafe, runInSafeAsync } from '@dimensiondev/utils';
 import { compact, uniqBy } from 'lodash-es';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { type SocialSource, Source, SourceInURL, SparksAccountStatus } from '@/constants/enum.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { resolveSourceInUrlForApi } from '@/helpers/resolveSourceInUrl.js';
-import { runInSafe, runInSafeAsync } from '@/helpers/runInSafe.js';
 import { checkGenesisSparksAccounts } from '@/providers/firefly/endpoint/checkGenesisSparksAccounts.js';
 import { type SparksAccountInfo } from '@/providers/types/Firefly.js';
 import { type Post, type Provider } from '@/providers/types/SocialMedia.js';

@@ -1,3 +1,4 @@
+import { runInSafeAsync } from '@dimensiondev/utils';
 import { type Address, type Hex } from 'viem';
 import { getChainId, switchChain, writeContract } from 'wagmi/actions';
 
@@ -5,7 +6,6 @@ import RED_PACKET_ABI from '@/abis/RedPacket.json' with { type: 'json' };
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { PRIVY_CONNECTOR_ID } from '@/connectors/PrivyConnector.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
 import { getCurrentClaimProfile } from '@/providers/ethereum/getCurrentClaimProfile.js';
 import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';

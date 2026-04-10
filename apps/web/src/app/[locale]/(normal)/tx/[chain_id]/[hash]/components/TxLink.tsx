@@ -1,6 +1,6 @@
 'use client';
 
-import { classNames } from '@dimensiondev/utils';
+import { classNames, runInSafe } from '@dimensiondev/utils';
 import { type PropsWithChildren, useMemo } from 'react';
 
 import { Link } from '@/esm/Link.js';
@@ -8,7 +8,6 @@ import { bedStead } from '@/fonts/bedStead/index.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { isValidChainIdSolana } from '@/helpers/isValidChainId.js';
 import { resolveExplorerLink } from '@/helpers/resolveExplorerLink.js';
-import { runInSafe } from '@/helpers/runInSafe.js';
 
 interface TxLinkProps extends PropsWithChildren {
     chainId: number;

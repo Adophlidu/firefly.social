@@ -56,6 +56,7 @@ export default defineConfig([
         'apps/**/src/locales',
         'apps/**/src/polyfills',
         'apps/wallet/scripts/**',
+        'apps/**/src/locales/**',
         'apps/wallet/setups/**',
         '*.config.ts',
         '**/*.config.js',

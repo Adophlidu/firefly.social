@@ -1,5 +1,6 @@
 'use client';
 
+import { runInSafeAsync } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { sum, uniqBy } from 'lodash-es';
@@ -12,7 +13,6 @@ import { Loading } from '@/components/Loading.js';
 import { ProfileInList } from '@/components/ProfileInList.js';
 import { ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
 import { createIndicator, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { useAsyncStatus } from '@/hooks/useAsyncStatus.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { type Profile } from '@/providers/types/SocialMedia.js';

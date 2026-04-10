@@ -1,6 +1,6 @@
 'use server';
 
-import { parseJson, safeUnreachable } from '@dimensiondev/utils';
+import { parseJson, runInSafeAsync, safeUnreachable } from '@dimensiondev/utils';
 import { compact } from 'lodash-es';
 
 import { DEFAULT_SERVICE_URL } from '@/constants/bsky.js';
@@ -9,7 +9,6 @@ import { HIDDEN_SECRET } from '@/constants/static.js';
 import { decrypt } from '@/helpers/encodec.js';
 import { ensureHexPrefix } from '@/helpers/ensureHexPrefix.js';
 import { formatFireflyAccountProfileFromFireflyConnections } from '@/helpers/formatFireflyAccountProfileFromFireflyConnections.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { BskySession } from '@/providers/bsky/Session.js';
 import { FAKE_SIGNER_REQUEST_TOKEN, FarcasterSession } from '@/providers/farcaster/Session.js';
 import { getAllConnectionsFromAuthToken } from '@/providers/firefly/endpoint/getAllConnectionsFromAuthToken.js';

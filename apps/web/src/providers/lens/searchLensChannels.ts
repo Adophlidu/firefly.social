@@ -1,4 +1,5 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { runInSafeAsync } from '@dimensiondev/utils';
 import { GroupsOrderBy, PageSize } from '@lens-protocol/client';
 import { fetchGroups } from '@lens-protocol/client/actions';
 
@@ -10,7 +11,6 @@ import {
     type Pageable,
     type PageIndicator,
 } from '@/helpers/pageable.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { ensureCursor } from '@/providers/lens/ensureCursor.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { formatLensChannelFromGroup } from '@/providers/lens/formatLensChannel.js';

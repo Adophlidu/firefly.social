@@ -1,3 +1,4 @@
+import { runInSafeAsync } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { compact, first, last, values } from 'lodash-es';
@@ -17,7 +18,6 @@ import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { toFixed } from '@/helpers/number.js';
 import { createLocalMediaObject } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { useCurrentProfiles } from '@/hooks/useCurrentProfile.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';

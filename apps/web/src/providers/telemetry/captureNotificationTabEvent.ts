@@ -1,7 +1,6 @@
-import { createLookupTableResolver, UnreachableError } from '@dimensiondev/utils';
+import { createLookupTableResolver, runInSafeAsync, UnreachableError } from '@dimensiondev/utils';
 
 import { type NotificationSource, Source } from '@/constants/enum.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 

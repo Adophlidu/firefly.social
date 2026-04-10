@@ -1,8 +1,9 @@
+import { runInSafeAsync } from '@dimensiondev/utils';
+
 import { NotificationSourceType, type ProfileSource, Source } from '@/constants/enum.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { isSocialSource } from '@/helpers/isSource.js';
 import { type Pageable, type PageIndicator } from '@/helpers/pageable.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { logger } from '@/libs/Logger.js';
 import { getBskyNotifications } from '@/providers/bsky/getBskyNotifications.js';
 import { farcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';

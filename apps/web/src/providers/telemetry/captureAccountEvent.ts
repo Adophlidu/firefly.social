@@ -1,8 +1,13 @@
-import { createLookupTableResolver, NotAllowedError, safeUnreachable, UnreachableError } from '@dimensiondev/utils';
+import {
+    createLookupTableResolver,
+    NotAllowedError,
+    runInSafeAsync,
+    safeUnreachable,
+    UnreachableError,
+} from '@dimensiondev/utils';
 
 import { type LoginSource, type ProfileSource, Source } from '@/constants/enum.js';
 import { getProfilesFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import { type Account } from '@/providers/types/Account.js';

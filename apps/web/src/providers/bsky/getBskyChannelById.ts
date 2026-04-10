@@ -1,7 +1,7 @@
+import { runInSafeAsync } from '@dimensiondev/utils';
 import { isServer } from '@tanstack/react-query';
 
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { ChannelAtUri } from '@/providers/bsky/AtUri.js';
 import { formatBskyChannel } from '@/providers/bsky/formatBskyChannel.js';
 import { resolveBskyResponseData } from '@/providers/bsky/resolveBskyResponseData.js';

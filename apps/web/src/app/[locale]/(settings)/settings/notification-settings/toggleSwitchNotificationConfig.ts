@@ -1,8 +1,8 @@
+import { runInSafeAsync } from '@dimensiondev/utils';
 import { deleteToken } from 'firebase/messaging';
 
 import { firebaseClient } from '@/configs/firebaseClient.js';
 import { queryClient } from '@/configs/queryClient.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { setNotificationPushSwitch } from '@/providers/firefly/endpoint/setNotificationPushSwitch.js';
 import { type NotificationConfig, NotificationPlatform } from '@/providers/types/Firefly.js';
 import { setupFirebaseFcmConnection } from '@/services/setupFirebaseFcmConnection.js';

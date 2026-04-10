@@ -1,4 +1,5 @@
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { runInSafeAsync } from '@dimensiondev/utils';
+
 import { getGroupWithMemberCount, getGroupWithOwner } from '@/providers/lens/getFullGroup.js';
 import { getLensProfileById } from '@/providers/lens/getLensProfileById.js';
 import { type Channel, type Notification } from '@/providers/types/SocialMedia.js';

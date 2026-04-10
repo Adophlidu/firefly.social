@@ -1,5 +1,5 @@
 import { envs } from '@dimensiondev/envs';
-import { parseJson, safeUnreachable } from '@dimensiondev/utils';
+import { parseJson, runInSafeAsync, safeUnreachable } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
@@ -19,7 +19,6 @@ import { getSessionFromStorageBySource } from '@/helpers/getSessionFromStorage.j
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';
 import { resolveSessionHolderFromProfileSource } from '@/helpers/resolveSessionHolder.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { logger } from '@/libs/Logger.js';
 import { FAKE_SIGNER_REQUEST_TOKEN, FarcasterSession } from '@/providers/farcaster/Session.js';
 import { deleteMetrics } from '@/providers/firefly/metrics/deleteMetrics.js';

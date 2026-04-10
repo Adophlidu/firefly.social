@@ -1,3 +1,4 @@
+import { runInSafeAsync } from '@dimensiondev/utils';
 import { first } from 'lodash-es';
 
 import { HOME_CLUB } from '@/constants/channel.js';
@@ -9,7 +10,6 @@ import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { getUserLocale } from '@/helpers/getUserLocale.js';
 import { createS3MediaObject, resolveImageUrl, resolveVideoUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { uploadVideoCover } from '@/helpers/uploadVideoCover.js';
 import { getLensProfileById } from '@/providers/lens/getLensProfileById.js';
 import { GroveStorageProvider } from '@/providers/lens/Grove.js';

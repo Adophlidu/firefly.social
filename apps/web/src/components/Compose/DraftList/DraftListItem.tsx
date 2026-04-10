@@ -2,7 +2,7 @@
 
 import CloudIcon from '@dimensiondev/assets/cloud.svg';
 import Trash from '@dimensiondev/assets/trash2.svg';
-import { classNames } from '@dimensiondev/utils';
+import { classNames, runInSafeAsync } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useRouter } from '@tanstack/react-router';
@@ -22,7 +22,6 @@ import { DraftPostType } from '@/constants/enum.js';
 import { readChars } from '@/helpers/chars.js';
 import { enqueueErrorMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { useApplyDraftPost } from '@/hooks/useApplyDraftPost.js';
 import { useCurrentProfiles } from '@/hooks/useCurrentProfile.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';

@@ -1,8 +1,8 @@
+import { runInSafeAsync } from '@dimensiondev/utils';
 import { CoreConnectionController, CoreConnectorController } from '@reown/appkit';
 
 import { PRIVY_CONNECTOR_ID } from '@/connectors/PrivyConnector.js';
 import { privySolanaProvider } from '@/connectors/PrivySolanaWalletAdapter.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { logger } from '@/libs/Logger.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 

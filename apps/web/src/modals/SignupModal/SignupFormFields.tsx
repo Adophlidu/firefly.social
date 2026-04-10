@@ -1,4 +1,4 @@
-import { classNames, safeUnreachable } from '@dimensiondev/utils';
+import { classNames, runInSafeAsync, safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo, type ReactNode, useMemo } from 'react';
 import { type RegisterOptions } from 'react-hook-form';
@@ -17,7 +17,6 @@ import {
 } from '@/constants/limitation.js';
 import { FARCASTER_USERNAME_REGEXP, LENS_USERNAME_REGEXP } from '@/constants/regexp.js';
 import { autoWithSignal } from '@/helpers/autoWithSignal.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { ProfileAvatarSelector } from '@/modals/SignupModal/ProfileAvatarSelector.js';
 import { checkHandleAvailability } from '@/services/checkHandleAvailability.js';
 import { resolveLengthCalculator } from '@/services/resolveLengthCalculator.js';

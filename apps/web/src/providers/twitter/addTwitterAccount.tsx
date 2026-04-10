@@ -1,11 +1,11 @@
 'use client';
 
+import { runInSafeAsync } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 
 import { Source } from '@/constants/enum.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import { type SessionPayload } from '@/providers/twitter/SessionPayload.js';
 import { twitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';

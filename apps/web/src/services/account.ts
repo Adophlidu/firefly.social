@@ -1,4 +1,4 @@
-import { safeUnreachable } from '@dimensiondev/utils';
+import { runInSafe, runInSafeAsync, safeUnreachable } from '@dimensiondev/utils';
 import { compact, first } from 'lodash-es';
 import { signOut } from 'next-auth/react';
 
@@ -20,7 +20,6 @@ import { queryMyAllConnections } from '@/helpers/queryMyAllConnections.js';
 import { resolveSessionHolder, resolveSessionHolderFromProfileSource } from '@/helpers/resolveSessionHolder.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
-import { runInSafe, runInSafeAsync } from '@/helpers/runInSafe.js';
 import { logger } from '@/libs/Logger.js';
 import { ConfirmFireflyModalRef } from '@/modals/ConfirmFireflyModal/refs.js';
 import { LoginModalRef } from '@/modals/LoginModal/refs.js';

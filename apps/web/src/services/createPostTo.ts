@@ -1,8 +1,7 @@
-import { safeUnreachable, UnreachableError } from '@dimensiondev/utils';
+import { runInSafeAsync, safeUnreachable, UnreachableError } from '@dimensiondev/utils';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { mergeMediaObjects } from '@/helpers/mergeMediaObjects.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { PostAtUri } from '@/providers/bsky/AtUri.js';
 import { twitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 import { type Poll } from '@/providers/types/Poll.js';

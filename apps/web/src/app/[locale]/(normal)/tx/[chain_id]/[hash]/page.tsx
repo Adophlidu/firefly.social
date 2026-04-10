@@ -1,11 +1,11 @@
 import { type LayoutProps } from '@dimensiondev/types';
+import { runInSafeAsync } from '@dimensiondev/utils';
 
 import { TipsDetailWithView } from '@/app/[locale]/(normal)/tx/[chain_id]/[hash]/TipsDetailWithView.js';
 import { SwapDetail } from '@/components/Swap/SwapDetail.js';
 import { TipsNotificationType } from '@/constants/enum.js';
 import { notFound } from '@/esm/navigation/server.js';
 import { isValidTxId } from '@/helpers/isValidTxId.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getTipsTransactionDetail } from '@/providers/firefly/endpoint/getTipsTransactionDetail.js';
 import { createTransactionMetadata } from '@/providers/firefly/metadata/createTransactionMetadata.js';
 

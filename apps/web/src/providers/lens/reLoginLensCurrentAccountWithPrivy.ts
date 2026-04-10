@@ -1,7 +1,8 @@
+import { runInSafeAsync } from '@dimensiondev/utils';
+
 import { FireflyResponseCode } from '@/constants/responseCode.js';
 import { getAccountMetricsData } from '@/helpers/getAccountMetricsData.js';
 import { isSameAccount } from '@/helpers/isSameAccount.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { logger } from '@/libs/Logger.js';
 import { checkPasscode } from '@/providers/firefly/metrics/checkPasscode.js';
 import { autoLoginWithPrivy } from '@/providers/lens/autoLoginWithPrivy.js';

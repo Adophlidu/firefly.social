@@ -1,3 +1,4 @@
+import { runInSafeAsync } from '@dimensiondev/utils';
 import { compact } from 'lodash-es';
 
 import { queryClient } from '@/configs/queryClient.js';
@@ -5,7 +6,6 @@ import { Source } from '@/constants/enum.js';
 import { mergePostDetailCache } from '@/helpers/mergePostDetailCache.js';
 import { type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { prefetchPostLinks } from '@/helpers/prefetchPostLinks.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { type Post, type Provider } from '@/providers/types/SocialMedia.js';
 import { queryMutedProfiles } from '@/services/queryMutedProfiles.js';
 import { type ClassType } from '@/types/utility.js';

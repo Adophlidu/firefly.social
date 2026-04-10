@@ -1,6 +1,7 @@
 'use client';
 
 import MoreIcon from '@dimensiondev/assets/more-fill.svg';
+import { runInSafeAsync } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { skipToken, useQuery } from '@tanstack/react-query';
 import { first } from 'lodash-es';
@@ -16,7 +17,6 @@ import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMes
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { ETH_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { AddLensManagerModalRef } from '@/modals/AddLensManagerModal/refs.js';
 import { createMemorySessionClient } from '@/providers/lens/createMemorySessionClient.js';
 import { ensureLensResultSync } from '@/providers/lens/ensureLensResultSync.js';

@@ -1,9 +1,8 @@
-import { safeUnreachable } from '@dimensiondev/utils';
+import { runInSafeAsync, safeUnreachable } from '@dimensiondev/utils';
 import { first } from 'lodash-es';
 
 import { formatOpinionProfile, formatPolymarketProfile } from '@/components/Prediction/formatPredictionProfile.js';
 import { PredictionPlatform } from '@/constants/enum.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getPredictionPnlHistory } from '@/providers/firefly/prediction/getPredictionPnlHistory.js';
 import { getPredictionPortfolio } from '@/providers/firefly/prediction/getPredictionPortfolio.js';
 import { getProfile } from '@/providers/firefly/prediction/getProfile.js';
