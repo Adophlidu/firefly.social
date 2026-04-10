@@ -10,7 +10,7 @@ interface Props extends LayoutProps<{ name: string }> {}
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
     const { name } = await props.params;
-    return createEventMetadata(name, `/event/${name}`);
+    return createEventMetadata(name, `/event/${name}`, 'polymarket_prediction2');
 }
 
 export default function Page() {
