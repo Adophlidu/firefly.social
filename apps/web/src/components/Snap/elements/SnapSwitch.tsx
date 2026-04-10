@@ -32,7 +32,7 @@ export function SnapSwitch({ props: { name, label, value, defaultChecked }, acce
                 onClick={() => setSwitch(name, !checked)}
                 className={classNames(
                     'relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors focus:outline-none',
-                    checked ? ACCENT_COLOR_MAP[accent] : 'bg-gray-300 dark:bg-gray-600',
+                    checked ? ACCENT_COLOR_MAP[accent] : 'bg-line',
                 )}
             >
                 <span

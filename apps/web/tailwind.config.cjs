@@ -84,6 +84,15 @@ module.exports = {
                 walletBg: 'rgb(var(--color-wallet-bg) / <alpha-value>)',
                 dangerBg: 'var(--color-danger-bg)',
                 lensButton: 'rgb(var(--color-lens-button) / <alpha-value>)',
+                /** Farcaster Snap palette — https://docs.farcaster.xyz/snap/colors (light/dark via CSS vars) */
+                'snap-gray': 'var(--snap-palette-gray)',
+                'snap-blue': 'var(--snap-palette-blue)',
+                'snap-red': 'var(--snap-palette-red)',
+                'snap-amber': 'var(--snap-palette-amber)',
+                'snap-green': 'var(--snap-palette-green)',
+                'snap-teal': 'var(--snap-palette-teal)',
+                'snap-purple': 'var(--snap-palette-purple)',
+                'snap-pink': 'var(--snap-palette-pink)',
             },
             backgroundImage: {
                 'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

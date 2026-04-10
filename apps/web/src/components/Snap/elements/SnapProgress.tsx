@@ -1,6 +1,6 @@
 import { classNames } from '@dimensiondev/utils';
 
-import { ACCENT_COLOR_MAP } from '@/components/Snap/SnapContext.js';
+import { ACCENT_COLOR_MAP, resolveSnapPaletteKey } from '@/components/Snap/SnapContext.js';
 import { type SnapAccentColor, type SnapProgressProps } from '@/types/snap.js';
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
 
 export function SnapProgress({ props: { value, max = 100, label, color }, accent }: Props) {
     const pct = Math.min(100, Math.max(0, (value / max) * 100));
-    const barColor = ACCENT_COLOR_MAP[color ?? accent];
+    const barColor = ACCENT_COLOR_MAP[resolveSnapPaletteKey(color, accent)];
 
     return (
         <div className="w-full">

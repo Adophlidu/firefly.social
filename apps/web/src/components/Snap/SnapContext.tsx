@@ -4,52 +4,59 @@ import { createContext, type ReactNode, useCallback, useContext, useEffect, useM
 
 import { type SnapAccentColor, type SnapFieldValues } from '@/types/snap.js';
 
-// Map accent color names to Tailwind classes
-// Note: `theme.extend.colors.purple` in tailwind.config.cjs is a single hex, not a scale,
-// so `*-purple-500` utilities are not generated — use `bg-purple`, `text-purple`, etc.
+/** Tailwind classes backed by `--snap-palette-*` (Farcaster snap spec, light/dark in globals.css). */
 export const ACCENT_COLOR_MAP: Record<SnapAccentColor, string> = {
-    gray: 'bg-gray-500',
-    blue: 'bg-blue-500',
-    red: 'bg-red-500',
-    amber: 'bg-amber-500',
-    green: 'bg-green-500',
-    teal: 'bg-teal-500',
-    purple: 'bg-purple',
-    pink: 'bg-pink-500',
+    gray: 'bg-snap-gray',
+    blue: 'bg-snap-blue',
+    red: 'bg-snap-red',
+    amber: 'bg-snap-amber',
+    green: 'bg-snap-green',
+    teal: 'bg-snap-teal',
+    purple: 'bg-snap-purple',
+    pink: 'bg-snap-pink',
 };
 
 export const ACCENT_TEXT_MAP: Record<SnapAccentColor, string> = {
-    gray: 'text-gray-500',
-    blue: 'text-blue-500',
-    red: 'text-red-500',
-    amber: 'text-amber-500',
-    green: 'text-green-500',
-    teal: 'text-teal-500',
-    purple: 'text-purple',
-    pink: 'text-pink-500',
+    gray: 'text-snap-gray',
+    blue: 'text-snap-blue',
+    red: 'text-snap-red',
+    amber: 'text-snap-amber',
+    green: 'text-snap-green',
+    teal: 'text-snap-teal',
+    purple: 'text-snap-purple',
+    pink: 'text-snap-pink',
 };
 
 export const ACCENT_BORDER_MAP: Record<SnapAccentColor, string> = {
-    gray: 'border-gray-500',
-    blue: 'border-blue-500',
-    red: 'border-red-500',
-    amber: 'border-amber-500',
-    green: 'border-green-500',
-    teal: 'border-teal-500',
-    purple: 'border-purple',
-    pink: 'border-pink-500',
+    gray: 'border-snap-gray',
+    blue: 'border-snap-blue',
+    red: 'border-snap-red',
+    amber: 'border-snap-amber',
+    green: 'border-snap-green',
+    teal: 'border-snap-teal',
+    purple: 'border-snap-purple',
+    pink: 'border-snap-pink',
 };
 
 export const ACCENT_RING_MAP: Record<SnapAccentColor, string> = {
-    gray: 'ring-gray-500',
-    blue: 'ring-blue-500',
-    red: 'ring-red-500',
-    amber: 'ring-amber-500',
-    green: 'ring-green-500',
-    teal: 'ring-teal-500',
-    purple: 'ring-purple',
-    pink: 'ring-pink-500',
+    gray: 'ring-snap-gray',
+    blue: 'ring-snap-blue',
+    red: 'ring-snap-red',
+    amber: 'ring-snap-amber',
+    green: 'ring-snap-green',
+    teal: 'ring-snap-teal',
+    purple: 'ring-snap-purple',
+    pink: 'ring-snap-pink',
 };
+
+/** Resolves `progress.color` / `bar_chart.color` where the spec allows `"accent"` or a palette name. */
+export function resolveSnapPaletteKey(
+    color: SnapAccentColor | 'accent' | undefined,
+    themeAccent: SnapAccentColor,
+): SnapAccentColor {
+    if (color === 'accent' || color === undefined) return themeAccent;
+    return color;
+}
 
 interface SnapContextValue {
     accent: SnapAccentColor;

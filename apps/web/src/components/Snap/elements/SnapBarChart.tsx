@@ -1,6 +1,6 @@
 import { classNames } from '@dimensiondev/utils';
 
-import { ACCENT_COLOR_MAP } from '@/components/Snap/SnapContext.js';
+import { ACCENT_COLOR_MAP, resolveSnapPaletteKey } from '@/components/Snap/SnapContext.js';
 import { type SnapAccentColor, type SnapBarChartProps } from '@/types/snap.js';
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
 
 export function SnapBarChart({ props: { bars, max: maxOverride, color }, accent }: Props) {
     const max = maxOverride ?? Math.max(...bars.map((b) => b.value), 1);
-    const defaultColor = ACCENT_COLOR_MAP[color ?? accent];
+    const defaultColor = ACCENT_COLOR_MAP[resolveSnapPaletteKey(color, accent)];
 
     return (
         <div className="w-full space-y-2">

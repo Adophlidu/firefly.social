@@ -130,6 +130,15 @@ html {
     --z-navbar: 37;
     --z-banner: 38;
     --z-menu: 39;
+    /* Farcaster Snap palette (light) — https://docs.farcaster.xyz/snap/colors */
+    --snap-palette-gray: #6e6a86;
+    --snap-palette-blue: #286983;
+    --snap-palette-red: #b4637a;
+    --snap-palette-amber: #ea9d34;
+    --snap-palette-green: #3e8f8f;
+    --snap-palette-teal: #56949f;
+    --snap-palette-purple: #907aa9;
+    --snap-palette-pink: #d7827e;
 }
 
 .sidebar-dark-logo {
@@ -213,6 +222,15 @@ html {
         --color-wallet-bg: 42 42 61; /* #2a2a3d */
         --color-danger-bg: rgba(255, 53, 69, 0.16); /* #ff354529 */
         --color-lens-button: 171 254 44; /* #abfe2c */
+        /* Farcaster Snap palette (dark) — https://docs.farcaster.xyz/snap/colors */
+        --snap-palette-gray: #908caa;
+        --snap-palette-blue: #9ccfd8;
+        --snap-palette-red: #eb6f92;
+        --snap-palette-amber: #f6c177;
+        --snap-palette-green: #56d4a4;
+        --snap-palette-teal: #3e8fb0;
+        --snap-palette-purple: #c4a7e7;
+        --snap-palette-pink: #ebbcba;
     }
 
     .sidebar-light-logo {
@@ -319,6 +337,15 @@ html {
     --color-danger-bg: #fff5f6;
     --w3m-modal-width: 400px !important;
     --color-lens-button: 0 80 30; /* #00501e */
+    /* Farcaster Snap palette (light) — https://docs.farcaster.xyz/snap/colors */
+    --snap-palette-gray: #6e6a86;
+    --snap-palette-blue: #286983;
+    --snap-palette-red: #b4637a;
+    --snap-palette-amber: #ea9d34;
+    --snap-palette-green: #3e8f8f;
+    --snap-palette-teal: #56949f;
+    --snap-palette-purple: #907aa9;
+    --snap-palette-pink: #d7827e;
 }
 
 .light .sidebar-light-logo {
@@ -405,6 +432,15 @@ html {
     --color-wallet-bg: 42 42 61; /* #2a2a3d */
     --color-danger-bg: rgba(255, 53, 69, 0.16); /* #ff354529 */
     --color-lens-button: 171 254 44; /* #abfe2c */
+    /* Farcaster Snap palette (dark) — https://docs.farcaster.xyz/snap/colors */
+    --snap-palette-gray: #908caa;
+    --snap-palette-blue: #9ccfd8;
+    --snap-palette-red: #eb6f92;
+    --snap-palette-amber: #f6c177;
+    --snap-palette-green: #56d4a4;
+    --snap-palette-teal: #3e8fb0;
+    --snap-palette-purple: #c4a7e7;
+    --snap-palette-pink: #ebbcba;
 }
 
 .dark .sidebar-light-logo {

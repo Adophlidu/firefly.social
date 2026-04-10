@@ -17,6 +17,14 @@ export interface SnapOpenUrlAction {
     };
 }
 
+export interface SnapOpenSnapAction {
+    action: 'open_snap';
+    params: {
+        /** Snap URL to render inline */
+        target: string;
+    };
+}
+
 export interface SnapOpenMiniAppAction {
     action: 'open_mini_app';
     params: {
@@ -79,6 +87,7 @@ export interface SnapSwapTokenAction {
 export type SnapAction =
     | SnapSubmitAction
     | SnapOpenUrlAction
+    | SnapOpenSnapAction
     | SnapOpenMiniAppAction
     | SnapViewCastAction
     | SnapViewProfileAction
@@ -123,14 +132,14 @@ export interface SnapBadgeProps {
     /** Default: purple. Named palette or `accent` for the snap theme accent. */
     color?: SnapAccentColor | 'accent';
     icon?: string;
-    /** Default: solid fill. `outline` uses a border and tinted text. */
-    variant?: 'solid' | 'outline';
+    /** Default: 'default' (solid fill). `outline` uses a border and tinted text. */
+    variant?: 'default' | 'outline';
 }
 
 export interface SnapIconProps {
     name: string;
-    width?: number;
-    height?: number;
+    /** Default: 'md' (24 px). 'sm' = 16 px. */
+    size?: 'sm' | 'md';
     /** Tint for the icon. `accent` uses the snap theme accent. `inherit` uses the parent text color (e.g. badges). */
     color?: SnapAccentColor | 'accent' | 'inherit';
 }
@@ -138,6 +147,8 @@ export interface SnapIconProps {
 export interface SnapItemProps {
     title: string;
     description?: string;
+    variant?: 'default';
+    /** Non-spec Firefly extension: optional thumbnail image. */
     imageUrl?: string;
 }
 
@@ -146,12 +157,13 @@ export interface SnapProgressProps {
     /** Default: 100 */
     max?: number;
     label?: string;
-    color?: SnapAccentColor;
+    /** Palette name or `"accent"` (theme accent). */
+    color?: SnapAccentColor | 'accent';
 }
 
 export interface SnapSeparatorProps {
     /** Default: 'horizontal' */
-    direction?: 'horizontal' | 'vertical';
+    orientation?: 'horizontal' | 'vertical';
 }
 
 export interface SnapStackProps {
@@ -165,6 +177,7 @@ export interface SnapStackProps {
 export interface SnapItemGroupProps {
     border?: boolean;
     separator?: boolean;
+    gap?: 'none' | 'sm' | 'md' | 'lg';
 }
 
 export interface SnapBarChartBar {
@@ -178,13 +191,15 @@ export interface SnapBarChartProps {
     bars: SnapBarChartBar[];
     /** Override the scale maximum */
     max?: number;
-    color?: SnapAccentColor;
+    /** Default bar fill: palette name or `"accent"`. */
+    color?: SnapAccentColor | 'accent';
 }
 
 export interface SnapCellGridCell {
     row: number;
     col: number;
-    color?: SnapAccentColor;
+    /** Named palette color or `#RRGGBB` hex (grid exception in snap spec). */
+    color?: SnapAccentColor | string;
     content?: string;
 }
 
@@ -208,7 +223,7 @@ export interface SnapInputProps {
     type?: 'text' | 'number';
     /** 1-280 */
     maxLength?: number;
-    value?: string;
+    defaultValue?: string;
 }
 
 export interface SnapSliderProps {
@@ -222,8 +237,8 @@ export interface SnapSliderProps {
     step?: number;
     /** Initial value before the user moves the slider (or submits). */
     defaultValue?: number;
-    /** Alias for `defaultValue` (same meaning). */
-    value?: number;
+    /** Show the current numeric value next to the label. */
+    showValue?: boolean;
 }
 
 export interface SnapSwitchProps {
@@ -374,8 +389,8 @@ export interface SnapUI {
 export interface Snap {
     /** Snap URL (added by Firefly Worker) */
     url: string;
-    /** Protocol version, must be "1.0" */
-    version: '1.0';
+    /** Protocol version, must be "2.0" */
+    version: '2.0';
     theme?: SnapTheme;
     effects?: Array<'confetti'>;
     ui: SnapUI;
@@ -404,8 +419,16 @@ export interface SnapFieldValues {
 export interface SnapJFSPayload {
     fid: number;
     inputs: Record<string, string | number | boolean | string[] | number[]>;
-    button_index: number;
     timestamp: number;
+    /** UUID preventing replay attacks. */
+    nonce: string;
+    /** Server origin (scheme + host + port) — must match the submit target's origin. */
+    audience: string;
+    /**
+     * Required by the Firefly worker's validation schema.
+     * Snaps have no button concept; always send 0 until the worker schema is updated.
+     */
+    button_index: 0;
 }
 
 // #endregion

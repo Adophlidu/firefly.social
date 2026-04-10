@@ -184,8 +184,10 @@ export const SnapCard = memo<CardProps>(function SnapCard({ snap: initialSnap, p
                         const payload: SnapJFSPayload = {
                             fid: Number.parseInt(session.profileId, 10),
                             inputs: buildInputs(fields),
-                            button_index: 0,
                             timestamp: Math.floor(Date.now() / 1000),
+                            nonce: crypto.randomUUID(),
+                            audience: new URL(action.params.target).origin,
+                            button_index: 0,
                         };
 
                         const url = urlcat(FIREFLY_WORKER_HOST, '/snap', {
@@ -202,6 +204,18 @@ export const SnapCard = memo<CardProps>(function SnapCard({ snap: initialSnap, p
                             }),
                         });
 
+                        if (response.success && response.data.snap) {
+                            setSnap(response.data.snap);
+                        } else {
+                            enqueueErrorMessage(<Trans>The snap server failed to process the request.</Trans>);
+                        }
+                        return;
+                    }
+
+                    case 'open_snap': {
+                        setLoading(true);
+                        const snapUrl = urlcat(FIREFLY_WORKER_HOST, '/snap', { url: action.params.target });
+                        const response = await fetchJson<ResponseJson<SnapDigestedResponse>>(snapUrl);
                         if (response.success && response.data.snap) {
                             setSnap(response.data.snap);
                         } else {

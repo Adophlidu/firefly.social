@@ -7,9 +7,7 @@ interface Props {
     props: SnapInputProps;
 }
 
-export function SnapInput({
-    props: { name, label, placeholder, type = 'text', maxLength, value: defaultValue = '' },
-}: Props) {
+export function SnapInput({ props: { name, label, placeholder, type = 'text', maxLength, defaultValue = '' } }: Props) {
     const { fields, setInput } = useSnapContext();
     const value = fields.inputs[name] ?? defaultValue;
 

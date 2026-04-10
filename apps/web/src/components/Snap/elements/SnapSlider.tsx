@@ -12,29 +12,30 @@ interface Props {
 }
 
 export function SnapSlider({
-    props: { name, label, min = 0, max = 100, step = 1, defaultValue, value: valueAlias },
+    props: { name, label, min = 0, max = 100, step = 1, defaultValue, showValue = false },
     accent,
 }: Props) {
     const { fields, setSlider } = useSnapContext();
     const clamp = (n: number) => Math.min(max, Math.max(min, n));
-    const clampedInitial = clamp(defaultValue ?? valueAlias ?? min);
+    const clampedInitial = clamp(defaultValue ?? min);
     const stored = fields.sliders[name];
     const value = stored !== undefined ? clamp(stored) : clampedInitial;
 
     useLayoutEffect(() => {
         if (fields.sliders[name] !== undefined) return;
         setSlider(name, clampedInitial);
-    }, [name, fields.sliders[name], clampedInitial, setSlider]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [name]);
 
     const range = max - min;
     const pct = range === 0 ? 0 : ((value - min) / range) * 100;
 
     return (
         <div className="w-full" onClick={(e) => e.stopPropagation()}>
-            {label ? (
+            {label || showValue ? (
                 <div className="mb-1 flex justify-between">
-                    <label className="text-secondary text-xs font-medium">{label}</label>
-                    <span className="text-secondary text-xs">{value}</span>
+                    {label ? <label className="text-secondary text-xs font-medium">{label}</label> : <span />}
+                    {showValue ? <span className="text-secondary text-xs">{value}</span> : null}
                 </div>
             ) : null}
             <div className="relative flex items-center">

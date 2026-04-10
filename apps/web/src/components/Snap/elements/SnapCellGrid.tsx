@@ -1,9 +1,21 @@
 'use client';
 
 import { classNames } from '@dimensiondev/utils';
+import type { CSSProperties } from 'react';
 
 import { ACCENT_COLOR_MAP, ACCENT_RING_MAP, useSnapContext } from '@/components/Snap/SnapContext.js';
 import { type SnapAccentColor, type SnapCellGridProps } from '@/types/snap.js';
+
+const SNAP_PALETTE_KEYS = new Set<SnapAccentColor>(['gray', 'blue', 'red', 'amber', 'green', 'teal', 'purple', 'pink']);
+
+function resolveCellBackground(color: string | undefined): { className?: string; style?: CSSProperties } {
+    if (!color) return { className: 'bg-bg' };
+    if (color.startsWith('#')) return { style: { backgroundColor: color } };
+    if (SNAP_PALETTE_KEYS.has(color as SnapAccentColor)) {
+        return { className: ACCENT_COLOR_MAP[color as SnapAccentColor] };
+    }
+    return { className: 'bg-bg' };
+}
 
 interface Props {
     name: string;
@@ -66,18 +78,21 @@ export function SnapCellGrid({
             {Array.from({ length: totalCells }).map((_, idx) => {
                 const cell = findCell(idx);
                 const sel = isSelected(idx);
-                const bg = cell?.color ? ACCENT_COLOR_MAP[cell.color] : 'bg-bg';
+                const cellBg = resolveCellBackground(cell?.color);
                 return (
                     <div
                         key={idx}
                         className={classNames(
                             'flex items-center justify-center overflow-hidden text-xs font-medium',
                             rowHeight ? '' : 'aspect-square',
-                            bg,
+                            cellBg.className,
                             sel ? classNames('ring-2 ring-inset', ACCENT_RING_MAP[accent]) : null,
                             { 'cursor-pointer hover:opacity-80': isSelectable },
                         )}
-                        style={rowHeight ? { height: rowHeight } : undefined}
+                        style={{
+                            ...(rowHeight !== undefined ? { height: rowHeight } : {}),
+                            ...cellBg.style,
+                        }}
                         onClick={() => handlePress(idx)}
                         role={isSelectable ? 'button' : undefined}
                         tabIndex={isSelectable ? 0 : undefined}

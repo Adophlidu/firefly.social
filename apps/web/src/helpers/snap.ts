@@ -5,7 +5,7 @@ export function isSnap(value: unknown): value is Snap {
         typeof value === 'object' &&
         value !== null &&
         'version' in value &&
-        (value as Snap).version === '1.0' &&
+        (value as Snap).version === '2.0' &&
         'ui' in value
     );
 }

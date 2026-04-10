@@ -6,12 +6,12 @@ interface Props {
     props: SnapSeparatorProps;
 }
 
-export function SnapSeparator({ props: { direction = 'horizontal' } }: Props) {
+export function SnapSeparator({ props: { orientation = 'horizontal' } }: Props) {
     return (
         <div
             className={classNames('border-line', {
-                'my-1 w-full border-t': direction === 'horizontal',
-                'mx-1 h-full self-stretch border-l': direction === 'vertical',
+                'my-1 w-full border-t': orientation === 'horizontal',
+                'mx-1 h-full self-stretch border-l': orientation === 'vertical',
             })}
         />
     );

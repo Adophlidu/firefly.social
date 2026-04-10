@@ -14,7 +14,7 @@ interface Props {
     accent: SnapAccentColor;
 }
 
-export function SnapBadge({ props: { label, color, icon, variant = 'solid' }, accent }: Props) {
+export function SnapBadge({ props: { label, color, icon, variant = 'default' }, accent }: Props) {
     const palette = resolveBadgeColor(color, accent);
     return (
         <span
@@ -25,7 +25,7 @@ export function SnapBadge({ props: { label, color, icon, variant = 'solid' }, ac
                     : classNames('text-white', ACCENT_COLOR_MAP[palette]),
             )}
         >
-            {icon ? <SnapIcon props={{ name: icon, width: 15, height: 15, color: 'inherit' }} /> : null}
+            {icon ? <SnapIcon props={{ name: icon, size: 'sm', color: 'inherit' }} /> : null}
             {label}
         </span>
     );
