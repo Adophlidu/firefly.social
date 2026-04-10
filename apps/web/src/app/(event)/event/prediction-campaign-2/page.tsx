@@ -2,17 +2,14 @@ import type { Metadata } from 'next';
 
 import { PredictionCampaignModal } from '@/components/PredictionCampaign/PredictionCampaignModal.js';
 import { createEventMetadata } from '@/providers/firefly/metadata/createEventMetadata.js';
-import { type LayoutProps } from '@/types/utility.js';
 
 export const dynamic = 'force-dynamic';
 
-interface Props extends LayoutProps<{ name: string }> {}
-
-export async function generateMetadata(props: Props): Promise<Metadata> {
-    const { name } = await props.params;
+export async function generateMetadata(): Promise<Metadata> {
+    const name = 'prediction-campaign-2';
     return createEventMetadata(name, `/event/${name}`, 'polymarket_prediction2');
 }
 
-export default function Page() {
+export default async function Page() {
     return <PredictionCampaignModal />;
 }
