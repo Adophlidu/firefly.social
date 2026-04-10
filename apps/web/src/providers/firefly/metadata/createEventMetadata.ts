@@ -12,7 +12,7 @@ export async function createEventMetadata(
 ): Promise<Metadata> {
     try {
         const response = await fetchMetadataApi(
-            urlcat('/metadata/event', {
+            urlcat('/metadata-v2/event', {
                 name: eventName,
                 pathname,
                 replaceName,
