@@ -1162,7 +1162,7 @@ Packages with Single Version
  @types/babel__template@7.4.4
  @types/babel__traverse@7.20.7
 *@types/bs58@4.0.4
-*@types/canvas-confetti@1.9.0
+ @types/canvas-confetti@1.9.0
  @types/chai@5.2.3
  @types/connect@3.4.38
  @types/d3-array@3.2.2

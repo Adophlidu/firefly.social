@@ -1,7 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import { memo, useCallback, useEffect, useRef, useState } from 'react';
+import { memo, useCallback, useLayoutEffect, useRef, useState } from 'react';
 import urlcat from 'urlcat';
 
 import { FootnoteLink } from '@/components/FootnoteLink.js';
@@ -36,6 +36,73 @@ function buildInputs(fields: SnapFieldValues): SnapJFSPayload['inputs'] {
     };
 }
 
+/**
+ * Multi-color snow palette (canvas-confetti with `particleCount: 1` always picks index 0,
+ * so we pass one random hex per burst in `runSnowConfetti`).
+ */
+const SNOW_CONFETTI_COLORS = [
+    '#ffffff',
+    '#7dd3fc',
+    '#a78bfa',
+    '#f472b6',
+    '#34d399',
+    '#fbbf24',
+    '#22d3ee',
+    '#fb923c',
+    '#c4b5fd',
+    '#86efac',
+];
+
+type ConfettiFire = ((options?: Record<string, unknown>) => void) & { reset?: () => void };
+
+function runSnowConfetti(fire: ConfettiFire) {
+    const duration = 15_000;
+    const animationEnd = Date.now() + duration;
+    let skew = 1;
+    let rafId = 0;
+    let cancelled = false;
+
+    function randomInRange(min: number, max: number) {
+        return Math.random() * (max - min) + min;
+    }
+
+    function frame() {
+        if (cancelled) return;
+        const timeLeft = animationEnd - Date.now();
+        const ticks = Math.max(200, 500 * (timeLeft / duration));
+        skew = Math.max(0.8, skew - 0.001);
+
+        const color = SNOW_CONFETTI_COLORS[Math.floor(Math.random() * SNOW_CONFETTI_COLORS.length)];
+
+        fire({
+            particleCount: 1,
+            startVelocity: 0,
+            ticks,
+            origin: {
+                x: Math.random(),
+                y: Math.random() * skew - 0.2,
+            },
+            colors: [color],
+            shapes: ['circle'],
+            gravity: randomInRange(0.4, 0.6),
+            scalar: randomInRange(0.4, 1),
+            drift: randomInRange(-0.4, 0.4),
+        });
+
+        if (timeLeft > 0) {
+            rafId = requestAnimationFrame(frame);
+        }
+    }
+
+    rafId = requestAnimationFrame(frame);
+
+    return () => {
+        cancelled = true;
+        cancelAnimationFrame(rafId);
+        fire.reset?.();
+    };
+}
+
 // Inner component — reads fields from context and wires actions
 function SnapInner({ snap, onAction }: { snap: Snap; onAction: (action: SnapAction) => void }) {
     const { fields } = useSnapContext();
@@ -60,16 +127,37 @@ export const SnapCard = memo<CardProps>(function SnapCard({ snap: initialSnap, p
     const [snap, setSnap] = useState<Snap>(initialSnap);
     const [loading, setLoading] = useState(false);
     const confettiTriggered = useRef(false);
+    const confettiCanvasRef = useRef<HTMLCanvasElement>(null);
 
-    // trigger confetti on snap change when effect is present
-    useEffect(() => {
-        if (snap.effects?.includes('confetti') && !confettiTriggered.current) {
-            confettiTriggered.current = true;
-            // canvas-confetti is a progressive enhancement
-            void import('canvas-confetti').then((mod) => (mod.default ?? mod)()).catch(() => void 0);
-        } else {
+    // Snow-like confetti scoped to the snap card canvas (not full viewport)
+    useLayoutEffect(() => {
+        if (!snap.effects?.includes('confetti') || confettiTriggered.current) {
             confettiTriggered.current = false;
+            return;
         }
+
+        const canvas = confettiCanvasRef.current;
+        if (!canvas) {
+            return;
+        }
+
+        confettiTriggered.current = true;
+        let cancelled = false;
+        let stopSnow: (() => void) | undefined;
+        void import('canvas-confetti')
+            .then((mod) => {
+                if (cancelled) return;
+                const create = mod.create;
+                if (typeof create !== 'function') return;
+                const fireOnCard = create(canvas, { resize: true }) as ConfettiFire;
+                stopSnow = runSnowConfetti(fireOnCard);
+            })
+            .catch(() => void 0);
+        return () => {
+            cancelled = true;
+            stopSnow?.();
+            confettiTriggered.current = false;
+        };
     }, [snap]);
 
     const handleAction = useCallback(
@@ -170,8 +258,16 @@ export const SnapCard = memo<CardProps>(function SnapCard({ snap: initialSnap, p
             }}
         >
             <div className="mt-4 flex flex-col" data-prevent-progress="true">
-                <div className="border-line bg-bg w-full rounded-xl border p-3" onClick={(e) => e.stopPropagation()}>
+                <div
+                    className="border-line bg-bg relative w-full overflow-hidden rounded-xl border p-3"
+                    onClick={(e) => e.stopPropagation()}
+                >
                     <SnapElementRenderer elementId={snap.ui.root} ui={snap.ui} onAction={dispatchWithFields} />
+                    <canvas
+                        ref={confettiCanvasRef}
+                        aria-hidden
+                        className="pointer-events-none absolute inset-0 z-10 block h-full w-full rounded-xl"
+                    />
                 </div>
                 <FootnoteLink href={snap.url} />
             </div>

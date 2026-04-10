@@ -76,9 +76,6 @@ importers:
       '@next/eslint-plugin-next':
         specifier: ^16.0.11
         version: 16.0.11
-      '@types/canvas-confetti':
-        specifier: ^1.9.0
-        version: 1.9.0
       '@types/node':
         specifier: 22.10.10
         version: 22.10.10
@@ -810,6 +807,9 @@ importers:
       '@tolgee/cli':
         specifier: ^2.16.1
         version: 2.16.1(typescript@5.9.3)
+      '@types/canvas-confetti':
+        specifier: ^1.9.0
+        version: 1.9.0
       '@types/lodash-es':
         specifier: ^4.17.12
         version: 4.17.12
