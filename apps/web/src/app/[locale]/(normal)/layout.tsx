@@ -29,7 +29,7 @@ export default async function Layout({ children, modal, sidebar }: Props) {
     return (
         <>
             <main className="md:border-line flex w-full flex-[1_1_100%] flex-col md:border-r md:pl-[235px] lg:w-[888px] lg:max-w-[calc(100%-384px)] lg:pl-[289px]">
-                <div className="bg-primaryBottom sticky top-0 z-30">
+                <div className="bg-primaryBottom sticky top-0 z-40">
                     <IfPathname
                         isNotOneOf={[
                             {
