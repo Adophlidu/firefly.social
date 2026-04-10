@@ -1,7 +1,7 @@
 'use client';
 
 import ExploreIcon from '@dimensiondev/assets/explore.svg';
-import SettingsSelectedIcon from '@dimensiondev/assets/setting.selected.svg';
+import ExploreSelectedIcon from '@/assets/explore.selected.svg';
 import { Trans } from '@lingui/react/macro';
 import { first } from 'lodash-es';
 import { memo, useMemo } from 'react';
@@ -30,7 +30,7 @@ export const ExploreEntranceMenu = memo<ExploreEntranceMenuProps>(function Explo
         return firstTab.link || resolveExploreUrl(DEFAULT_EXPLORE_TYPE);
     }, [exploreTabs]);
 
-    const Icon = isSelected ? SettingsSelectedIcon : ExploreIcon;
+    const Icon = isSelected ? ExploreSelectedIcon : ExploreIcon;
 
     return (
         <BaseMenuItem
