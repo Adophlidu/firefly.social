@@ -1,11 +1,9 @@
-import { useQuery } from '@tanstack/react-query';
 import { useAtomValue } from 'jotai';
 import { useMemo } from 'react';
 
-import { chainsMatch } from '@/helpers/isSolanaChain.js';
 import { addressesMatch } from '@/helpers/swap/formatSwapAmount.js';
+import { useSwapTokenDetail } from '@/hooks/swap/useSwapTokenDetail.js';
 import { type DefaultSwapTokenPair, getDefaultSwapToken } from '@/providers/swap/defaultTokens.js';
-import { createSwapEndpoint } from '@/providers/swap/swapEndpoint.js';
 import { type SwapToken } from '@/providers/swap/types.js';
 import { fromAddressAtom, fromChainIdAtom, toAddressAtom, toChainIdAtom } from '@/store/swap/swapState.js';
 
@@ -53,41 +51,8 @@ export function useResolvedSwapTokens(): ResolvedSwapTokens {
     const resolvedFromAddress = fromAddress ?? fromDefaults?.first.contractAddress;
     const resolvedToAddress = toAddress ?? toDefaults?.second.contractAddress;
 
-    const { data: fromTokenDetail } = useQuery({
-        queryKey: ['swap-token-detail', resolvedFromAddress, resolvedFromChain],
-        queryFn: async () => {
-            if (!resolvedFromAddress) return null;
-            const endpoint = createSwapEndpoint();
-            const results = await endpoint.getTokenDetailBatch([
-                { chainId: String(resolvedFromChain), address: resolvedFromAddress },
-            ]);
-            return (
-                results.find((t) => {
-                    return chainsMatch(t.chainId, resolvedFromChain) && addressesMatch(t.address, resolvedFromAddress);
-                }) ?? null
-            );
-        },
-        enabled: !!resolvedFromAddress,
-        staleTime: 30 * 60 * 1000,
-    });
-
-    const { data: toTokenDetail } = useQuery({
-        queryKey: ['swap-token-detail', resolvedToAddress, resolvedToChain],
-        queryFn: async () => {
-            if (!resolvedToAddress) return null;
-            const endpoint = createSwapEndpoint();
-            const results = await endpoint.getTokenDetailBatch([
-                { chainId: String(resolvedToChain), address: resolvedToAddress },
-            ]);
-            return (
-                results.find((t) => {
-                    return chainsMatch(t.chainId, resolvedToChain) && addressesMatch(t.address, resolvedToAddress);
-                }) ?? null
-            );
-        },
-        enabled: !!resolvedToAddress,
-        staleTime: 30 * 60 * 1000,
-    });
+    const { data: fromTokenDetail } = useSwapTokenDetail({ address: resolvedFromAddress, chainId: resolvedFromChain });
+    const { data: toTokenDetail } = useSwapTokenDetail({ address: resolvedToAddress, chainId: resolvedToChain });
 
     const fromToken = useMemo(() => {
         if (!resolvedFromAddress) return null;

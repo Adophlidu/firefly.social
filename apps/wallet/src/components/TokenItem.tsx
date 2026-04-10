@@ -1,3 +1,4 @@
+import ArrowDownIcon from '@dimensiondev/assets/arrow-line-down.svg';
 import { Trans } from '@lingui/react/macro';
 import { type ReactNode } from 'react';
 
@@ -26,9 +27,10 @@ interface TokenItemProps extends ClickableButtonProps {
     >;
     disableChainIcon?: boolean;
     secondaryText?: ReactNode;
+    withArrow?: boolean;
 }
 
-export function TokenItem({ className, token, disableChainIcon, ...props }: TokenItemProps) {
+export function TokenItem({ className, token, disableChainIcon, withArrow, ...props }: TokenItemProps) {
     const usd = formatPrice(multipliedBy(token.price, token.amount).toString());
     const balance = formatTokenItemAmount(token.amount);
     const secondaryText = props.secondaryText ?? (
@@ -41,7 +43,7 @@ export function TokenItem({ className, token, disableChainIcon, ...props }: Toke
         <ClickableButton
             key={token.id}
             className={cn(
-                'text-lightMain flex w-full items-center justify-between rounded-lg py-3 font-bold',
+                'text-lightMain flex w-full items-center justify-between gap-2 rounded-lg py-3 font-bold',
                 className,
             )}
             enablePropagate
@@ -60,13 +62,14 @@ export function TokenItem({ className, token, disableChainIcon, ...props }: Toke
                     name={token.name}
                 />
                 <div className="w-full min-w-0 text-left">
-                    <div className="h-5 w-full truncate leading-5">
-                        <span className="h-5 w-full truncate text-sm font-semibold">{token.name}</span>
+                    <div className="flex h-5 w-full items-center justify-start truncate leading-5">
+                        <span className="h-5 min-w-0 truncate text-sm font-semibold">{token.name}</span>
                         {token.custom ? (
-                            <span className="bg-lightBg text-second ml-2.5 inline-block h-5 rounded px-2 text-xs font-medium leading-5">
+                            <span className="bg-lightBg text-second ml-2.5 inline-block h-5 shrink-0 rounded px-2 text-xs font-medium leading-5">
                                 <Trans>Added</Trans>
                             </span>
                         ) : null}
+                        {withArrow ? <ArrowDownIcon className="ml-1 shrink-0" width={16} height={16} /> : null}
                     </div>
                     <div className="text-second w-full text-xs font-medium leading-3">{secondaryText}</div>
                 </div>

@@ -133,3 +133,9 @@ export enum SiteCookies {
     FireflyRootAPI = 'firefly_root_api',
     FireflyRootClass = 'firefly_root_class',
 }
+
+export enum SwapFromPage {
+    Swap = 'swap',
+    BetWithdraw = 'bet-withdraw',
+    BetDeposit = 'bet-deposit',
+}

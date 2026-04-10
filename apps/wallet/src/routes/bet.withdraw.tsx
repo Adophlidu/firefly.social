@@ -1,3 +1,4 @@
+import ArrowDownIcon from '@dimensiondev/assets/arrow-line-down.svg';
 import InfoOutlineIcon from '@dimensiondev/assets/info-outline.svg';
 import { Trans } from '@lingui/react/macro';
 import { useSetActiveWallet } from '@privy-io/wagmi';
@@ -5,13 +6,12 @@ import { useMutation, useQuery, useQueryClient, useSuspenseQuery } from '@tansta
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { signMessage } from '@wagmi/core';
 import { BigNumber } from 'bignumber.js';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { toast } from 'sonner';
 import { useDebounceValue } from 'usehooks-ts';
 import { parseUnits } from 'viem';
 import { polygon } from 'viem/chains';
 import { useConfig } from 'wagmi';
-import { waitForTransactionReceipt } from 'wagmi/actions';
 
 import { BetError } from '@/components/Bet/BetError.js';
 import {
@@ -27,12 +27,13 @@ import { LoadingPanel } from '@/components/LoadingPanel.js';
 import { NavigationBar } from '@/components/NavigationBar.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
 import { Button } from '@/components/ui/button.js';
-import { NetworkType } from '@/constants/enum.js';
-import { USDC_E_POLYGON_ADDRESS } from '@/constants/ethereum.js';
+import { SwapFromPage } from '@/constants/enum.js';
 import { formatTokenItemAmount } from '@/helpers/formatTokenItemAmount.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { isGreaterThan, isLessThan } from '@/helpers/number.js';
 import { optimisticSubtractBalance } from '@/helpers/polymarketBalanceCache.js';
+import { waitForPolymarketWithdraw } from '@/helpers/waitForPolymarketWithdraw.js';
+import { usdcTokenFallback, useWithdrawToken } from '@/hooks/bet/useTokenDetail.js';
 import { useEmbeddedEvmWalletContext } from '@/hooks/useCachedWalletAddresses.js';
 import { useDecimalInput } from '@/hooks/useDecimalInput.js';
 import { cn } from '@/lib/utils.js';
@@ -50,22 +51,6 @@ export const Route = createFileRoute('/bet/withdraw')({
     errorComponent: BetError,
 });
 
-const usdcTokenFallback = {
-    amount: 0,
-    decimals: 6,
-    id: USDC_E_POLYGON_ADDRESS,
-    logoUrl: 'https://cdn.zerion.io/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48.png',
-    name: 'USDC',
-    price: '1',
-    rawAmount: '0',
-    rawAmountHexStr: '0x0',
-    symbol: 'USDC',
-    chainId: polygon.id,
-    balance: '0',
-    usdValue: 1,
-    networkType: NetworkType.Ethereum,
-};
-
 const MINIMUM_USD = 1;
 
 function WithdrawPage() {
@@ -82,6 +67,7 @@ function WithdrawPage() {
 function WithdrawClient() {
     const navigate = useNavigate();
     const queryClient = useQueryClient();
+
     const { address, wallet, isLoading: isEmbeddedWalletLoading } = useEmbeddedEvmWalletContext();
     const { setActiveWallet } = useSetActiveWallet();
     const inputRef = useRef<HTMLInputElement | null>(null);
@@ -92,17 +78,21 @@ function WithdrawClient() {
         getPolymarketWithdrawableAmountQueryOptions(account.proxyAddress),
     );
     const [debounceValue] = useDebounceValue(value, 300);
+    const { token: targetToken, isLoading: isLoadingTargetToken } = useWithdrawToken();
+
     const { data: withdrawPreview, isLoading: isLoadingWithdrawPreview } = useQuery({
-        queryKey: ['withdraw-preview', debounceValue],
+        queryKey: ['withdraw-preview', targetToken?.chainId, targetToken?.id, debounceValue],
         async queryFn() {
+            if (!targetToken) return null;
+
             const amount = parseUnits(debounceValue, usdcTokenFallback.decimals);
             return getFireflyEndpoint().getPolymarketWithdrawAmount(
                 amount.toString(),
-                usdcTokenFallback.id,
-                usdcTokenFallback.chainId,
+                targetToken.id,
+                targetToken.chainId,
             );
         },
-        enabled: !!debounceValue && isGreaterThan(debounceValue, 0),
+        enabled: !!debounceValue && isGreaterThan(debounceValue, 0) && !!targetToken,
     });
     const config = useConfig();
     const isSubmittingRef = useRef(false);
@@ -115,6 +105,10 @@ function WithdrawClient() {
             if (!wallet || !address) {
                 throw new Error('Embedded wallet not ready');
             }
+            if (!targetToken) {
+                throw new Error('No token selected');
+            }
+
             toast.loading(<Trans>Withdrawing funds to your Firefly wallet...</Trans>, { id: toastId });
             store.set(showEmbeddedWalletUIAtom, false);
             await setActiveWallet(wallet);
@@ -126,17 +120,16 @@ function WithdrawClient() {
             });
             const { hash } = await getFireflyEndpoint().polymarketWithdraw(
                 amount.toString(),
-                usdcTokenFallback.id,
-                usdcTokenFallback.chainId,
+                targetToken.id,
+                targetToken.chainId,
                 originalMessage,
                 signature,
             );
-            await waitForTransactionReceipt(config, {
-                hash,
-                chainId: usdcTokenFallback.chainId,
-                retryCount: 10,
-                pollingInterval: 3_000,
-            });
+            const status = await waitForPolymarketWithdraw(hash, targetToken.chainId !== polygon.id);
+            if (!status) {
+                throw new Error('Failed to confirm withdraw status from Firefly');
+            }
+
             await getFireflyEndpoint().polymarketWithdrawUpload(account.proxyAddress, address, amount.toString(), hash);
         },
         async onSuccess() {
@@ -174,9 +167,19 @@ function WithdrawClient() {
         },
     });
 
+    const handleTokenClick = useCallback(() => {
+        navigate({ to: '/swap/select-token', search: { side: 'receive', from: SwapFromPage.BetWithdraw } });
+    }, [navigate]);
+
     const isInsufficientBalance = !isSuccess && !isPending && isLessThan(withdrawableAmount, value);
     const isLessThanMinimum = isLessThan(value, MINIMUM_USD);
-    const disabled = !value || isInsufficientBalance || isLessThanMinimum || !withdrawPreview;
+    const disabled =
+        !value ||
+        isInsufficientBalance ||
+        isLessThanMinimum ||
+        !withdrawPreview ||
+        !targetToken ||
+        isLoadingTargetToken;
     const buttonLabel = useMemo(() => {
         if (isLessThanMinimum) {
             return <Trans>Minimum $1.00</Trans>;
@@ -215,43 +218,58 @@ function WithdrawClient() {
                 </span>
             </label>
             <div className="w-full space-y-4 pb-4">
-                <div className="flex h-[60px] w-full items-center">
-                    <TokenIcon
-                        size={36}
-                        badgeSize={16}
-                        className="shrink-0"
-                        badgeClassName="bg-white"
-                        chainId={polygon.id}
-                        icon="https://coin-images.coingecko.com/coins/images/6319/large/usdc.png"
-                        symbol="USDC.e"
-                        name="USD Coin"
-                    />
-                    <div className="ml-4 flex w-full min-w-0 flex-col justify-start text-left">
-                        <div className="h-5 w-full truncate text-sm font-semibold">
-                            <Trans>You receive</Trans>
+                {isLoadingTargetToken || !targetToken ? (
+                    <div className="flex h-[60px] w-full items-center gap-4">
+                        <div className="bg-lightBg size-9 rounded-full" />
+                        <div className="flex-1">
+                            <div className="bg-lightBg h-5 w-[50px]" />
+                            <div className="bg-lightBg mt-1 h-3 w-[100px]" />
                         </div>
-                        <div className="text-second w-full text-xs font-medium leading-3">
-                            <Trans>
-                                <span
-                                    className={cn('h-3 rounded', {
-                                        'bg-lightBg inline-block w-6 animate-pulse text-transparent':
-                                            isLoadingWithdrawPreview,
-                                    })}
-                                >
-                                    {formatTokenItemAmount(withdrawPreview?.amount ?? 0)}
-                                </span>{' '}
-                                USDC.e in your firefly wallet
-                            </Trans>
+                        <div className="bg-lightBg h-5 w-7" />
+                    </div>
+                ) : (
+                    <div className="flex h-[60px] w-full items-center">
+                        <TokenIcon
+                            size={36}
+                            badgeSize={16}
+                            className="shrink-0"
+                            badgeClassName="bg-white"
+                            chainId={targetToken.chainId}
+                            icon={targetToken.logoUrl}
+                            symbol={targetToken.symbol}
+                            name={targetToken.name}
+                        />
+                        <div
+                            className="ml-4 flex w-full min-w-0 flex-col justify-start text-left"
+                            onClick={handleTokenClick}
+                        >
+                            <div className="flex h-5 w-full items-center gap-1 truncate text-sm font-semibold">
+                                <Trans>You receive</Trans>
+                                <ArrowDownIcon width={16} height={16} />
+                            </div>
+                            <div className="text-second w-full text-xs font-medium leading-3">
+                                <Trans>
+                                    <span
+                                        className={cn('h-3 rounded', {
+                                            'bg-lightBg inline-block w-6 animate-pulse text-transparent':
+                                                isLoadingWithdrawPreview,
+                                        })}
+                                    >
+                                        {formatTokenItemAmount(withdrawPreview?.amount ?? 0)}
+                                    </span>{' '}
+                                    {targetToken.symbol} in your firefly wallet
+                                </Trans>
+                            </div>
+                        </div>
+                        <div
+                            className={cn('ml-auto h-5 rounded text-sm font-semibold', {
+                                'bg-lightBg inline-block w-12 animate-pulse text-transparent': isLoadingWithdrawPreview,
+                            })}
+                        >
+                            {formatTokenUSD(withdrawPreview?.amount_usd || 0, { minDisplay: 0.01 })}
                         </div>
                     </div>
-                    <div
-                        className={cn('ml-auto h-5 rounded text-sm font-semibold', {
-                            'bg-lightBg inline-block w-12 animate-pulse text-transparent': isLoadingWithdrawPreview,
-                        })}
-                    >
-                        {formatTokenUSD(withdrawPreview?.amount_usd || 0, { minDisplay: 0.01 })}
-                    </div>
-                </div>
+                )}
                 <div className="flex items-center justify-between gap-4">
                     {[0.25, 0.5, 0.75, 1].map((rate) => (
                         <button

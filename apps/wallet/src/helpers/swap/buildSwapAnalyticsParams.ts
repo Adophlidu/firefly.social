@@ -17,7 +17,7 @@ export interface SwapAnalyticsParams {
     [key: string]: unknown;
 }
 
-interface BuildSwapAnalyticsParamsInput {
+export interface BuildSwapAnalyticsParamsInput {
     walletAddress: string;
     isSolana: boolean;
     solanaWalletName: string | undefined;

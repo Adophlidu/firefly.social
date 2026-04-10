@@ -10,7 +10,7 @@ import { captureWalletTelemetryEvent, WalletTelemetryEventId } from '@/helpers/s
 import { uploadSwapTx } from '@/helpers/swap/uploadSwapTx.js';
 import { type SwapEndpoint } from '@/providers/swap/swapEndpoint.js';
 
-interface HandleSwapSuccessParams {
+export interface HandleSwapSuccessParams {
     hash: string;
     chainId: number;
     isCrossChain: boolean;

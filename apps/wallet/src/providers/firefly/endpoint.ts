@@ -441,4 +441,18 @@ export class FireflyEndpoint extends Fetch {
         );
         return resolveFireflyResponseData(result.data);
     }
+
+    async getPolymarketWithdrawStatus(hash: string, isBridge: boolean) {
+        const url = urlcat('/polymarket/v1/polymarket/withdraw/status', {
+            hash,
+            is_bridge: isBridge ? 1 : 0,
+        });
+        const result = await this.get<
+            Response<{
+                hash: string;
+                status: 'pending' | 'success' | 'fail';
+            }>
+        >(url);
+        return resolveFireflyResponseData(result.data);
+    }
 }

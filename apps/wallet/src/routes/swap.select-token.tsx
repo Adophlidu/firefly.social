@@ -1,6 +1,7 @@
 import GlobeIcon from '@dimensiondev/assets/global.svg';
 import SearchIcon from '@dimensiondev/assets/search.svg';
 import SelectedIcon from '@dimensiondev/assets/selected.svg';
+import { safeUnreachable } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { createFileRoute, useNavigate, useSearch } from '@tanstack/react-router';
@@ -12,6 +13,7 @@ import { ChainIcon } from '@/components/ChainIcon.js';
 import { NavigationBar } from '@/components/NavigationBar.js';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
+import { SwapFromPage } from '@/constants/enum.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { isSolanaChain } from '@/helpers/isSolanaChain.js';
@@ -33,6 +35,23 @@ import {
 
 interface SelectTokenSearch {
     side?: 'pay' | 'receive';
+    from?: SwapFromPage;
+}
+
+function resolveBackPath(from?: SwapFromPage): string {
+    if (!from) return '/swap';
+
+    switch (from) {
+        case SwapFromPage.Swap:
+            return '/swap';
+        case SwapFromPage.BetWithdraw:
+            return '/bet/withdraw';
+        case SwapFromPage.BetDeposit:
+            return '/bet/deposit';
+        default:
+            safeUnreachable(from);
+            return '/swap';
+    }
 }
 
 export const Route = createFileRoute('/swap/select-token')({
@@ -40,7 +59,7 @@ export const Route = createFileRoute('/swap/select-token')({
 });
 
 function SelectTokenPage() {
-    const { side } = useSearch({ from: '/swap/select-token' }) as SelectTokenSearch;
+    const { side, from } = useSearch({ from: '/swap/select-token' }) as SelectTokenSearch;
     const navigate = useNavigate();
     const setFromAmount = useSetAtom(fromAmountAtom);
     const setFromToken = useSetAtom(setFromTokenAtom);
@@ -79,6 +98,18 @@ function SelectTokenPage() {
 
     const handleSelect = useCallback(
         (token: SwapToken) => {
+            if (from && from !== SwapFromPage.Swap) {
+                navigate({
+                    to: resolveBackPath(from),
+                    search: {
+                        address: token.address,
+                        chainId: token.chainId,
+                    },
+                    replace: true,
+                });
+                return;
+            }
+
             if (side === 'pay') {
                 const currentIsSolana = isSolanaChain(fromChainId);
                 const newIsSolana = isSolanaChain(token.chainId);
@@ -98,7 +129,7 @@ function SelectTokenPage() {
                     setSelectedReceiveWallet(null);
                 }
             }
-            navigate({ to: '/swap' });
+            navigate({ to: resolveBackPath(from) });
         },
         [
             side,
@@ -111,6 +142,7 @@ function SelectTokenPage() {
             fromChainId,
             toChainId,
             fromAddress,
+            from,
         ],
     );
 
