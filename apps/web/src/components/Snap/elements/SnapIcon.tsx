@@ -1,3 +1,5 @@
+/* cspell:disable */
+
 'use client';
 
 import { classNames } from '@dimensiondev/utils';
@@ -48,6 +50,7 @@ import {
     WalletIcon,
     XMarkIcon,
 } from '@heroicons/react/24/outline';
+import { type ComponentType } from 'react';
 
 import { ACCENT_TEXT_MAP, useSnapContext } from '@/components/Snap/SnapContext.js';
 import { type SnapAccentColor, type SnapIconProps } from '@/types/snap.js';
@@ -61,63 +64,66 @@ function iconTextClass(color: SnapIconProps['color'], themeAccent: SnapAccentCol
 
 const SIZE_PX: Record<NonNullable<SnapIconProps['size']>, number> = { sm: 16, md: 24 };
 
-// Curated icon name → Unicode emoji fallback for unsupported icons
-// The Farcaster snap icon set will be resolved by the client in native apps;
-// on web we render a small text label as a graceful fallback.
-function Icon({ name, px = 24 }: { name: string; px?: number }) {
-    const ICON_EMOJI_MAP: Record<string, React.ReactNode> = {
-        'thumbs-up': <HandThumbUpIcon width={px} height={px} />,
-        'thumbs-down': <HandThumbDownIcon width={px} height={px} />,
-        'refresh-cw': <ArrowPathIcon width={px} height={px} />,
-        'external-link': <ArrowTopRightOnSquareIcon width={px} height={px} />,
-        'message-circle': <ChatBubbleOvalLeftIcon width={px} height={px} />,
-        coins: <BanknotesIcon width={px} height={px} />,
-        star: <StarIcon width={px} height={px} />,
-        heart: <HeartIcon width={px} height={px} />,
-        fire: <FireIcon width={px} height={px} />,
-        check: <CheckIcon width={px} height={px} />,
-        x: <XMarkIcon width={px} height={px} />,
-        plus: <PlusIcon width={px} height={px} />,
-        minus: <MinusIcon width={px} height={px} />,
-        flame: <FireIcon width={px} height={px} />,
-        trophy: <TrophyIcon width={px} height={px} />,
-        clock: <ClockIcon width={px} height={px} />,
-        calendar: <CalendarIcon width={px} height={px} />,
-        lock: <LockClosedIcon width={px} height={px} />,
-        unlock: <LockOpenIcon width={px} height={px} />,
-        wallet: <WalletIcon width={px} height={px} />,
-        chart: <ChartBarIcon width={px} height={px} />,
-        gift: <GiftIcon width={px} height={px} />,
-        bell: <BellIcon width={px} height={px} />,
-        info: <InformationCircleIcon width={px} height={px} />,
-        warning: <ExclamationTriangleIcon width={px} height={px} />,
-        error: <XMarkIcon width={px} height={px} />,
-        success: <CheckIcon width={px} height={px} />,
-        user: <UserIcon width={px} height={px} />,
-        users: <UsersIcon width={px} height={px} />,
-        globe: <GlobeAltIcon width={px} height={px} />,
-        link: <LinkIcon width={px} height={px} />,
-        share: <ShareIcon width={px} height={px} />,
-        search: <MagnifyingGlassIcon width={px} height={px} />,
-        settings: <Cog6ToothIcon width={px} height={px} />,
-        edit: <PencilIcon width={px} height={px} />,
-        trash: <TrashIcon width={px} height={px} />,
-        copy: <ClipboardIcon width={px} height={px} />,
-        download: <ArrowDownTrayIcon width={px} height={px} />,
-        upload: <ArrowUpTrayIcon width={px} height={px} />,
-        zap: <BoltIcon width={px} height={px} />,
-        'arrow-up': <ArrowUpIcon width={px} height={px} />,
-        'arrow-down': <ArrowDownIcon width={px} height={px} />,
-        'arrow-left': <ArrowLeftIcon width={px} height={px} />,
-        'arrow-right': <ArrowRightIcon width={px} height={px} />,
-        'chevron-right': <ChevronRightIcon width={px} height={px} />,
-        'chevron-left': <ChevronLeftIcon width={px} height={px} />,
-        'chevron-up': <ChevronUpIcon width={px} height={px} />,
-        'chevron-down': <ChevronDownIcon width={px} height={px} />,
-    };
+type SvgIcon = ComponentType<{ width?: number; height?: number }>;
 
-    const emoji = ICON_EMOJI_MAP[name];
-    return <>{emoji ?? name.slice(0, 2)}</>;
+// Curated icon name → Heroicon component. Resolved once at module load.
+// The Farcaster snap icon set will be resolved by the client in native apps;
+// on web we render a matching Heroicon as a graceful fallback.
+const ICON_MAP: Record<string, SvgIcon> = {
+    'thumbs-up': HandThumbUpIcon,
+    'thumbs-down': HandThumbDownIcon,
+    'refresh-cw': ArrowPathIcon,
+    'external-link': ArrowTopRightOnSquareIcon,
+    'message-circle': ChatBubbleOvalLeftIcon,
+    coins: BanknotesIcon,
+    star: StarIcon,
+    heart: HeartIcon,
+    fire: FireIcon,
+    check: CheckIcon,
+    x: XMarkIcon,
+    plus: PlusIcon,
+    minus: MinusIcon,
+    flame: FireIcon,
+    trophy: TrophyIcon,
+    clock: ClockIcon,
+    calendar: CalendarIcon,
+    lock: LockClosedIcon,
+    unlock: LockOpenIcon,
+    wallet: WalletIcon,
+    chart: ChartBarIcon,
+    gift: GiftIcon,
+    bell: BellIcon,
+    info: InformationCircleIcon,
+    warning: ExclamationTriangleIcon,
+    error: XMarkIcon,
+    success: CheckIcon,
+    user: UserIcon,
+    users: UsersIcon,
+    globe: GlobeAltIcon,
+    link: LinkIcon,
+    share: ShareIcon,
+    search: MagnifyingGlassIcon,
+    settings: Cog6ToothIcon,
+    edit: PencilIcon,
+    trash: TrashIcon,
+    copy: ClipboardIcon,
+    download: ArrowDownTrayIcon,
+    upload: ArrowUpTrayIcon,
+    zap: BoltIcon,
+    'arrow-up': ArrowUpIcon,
+    'arrow-down': ArrowDownIcon,
+    'arrow-left': ArrowLeftIcon,
+    'arrow-right': ArrowRightIcon,
+    'chevron-right': ChevronRightIcon,
+    'chevron-left': ChevronLeftIcon,
+    'chevron-up': ChevronUpIcon,
+    'chevron-down': ChevronDownIcon,
+};
+
+function Icon({ name, px = 24 }: { name: string; px?: number }) {
+    const IconComponent = ICON_MAP[name];
+    if (!IconComponent) return <>{name.slice(0, 2)}</>;
+    return <IconComponent width={px} height={px} />;
 }
 
 interface Props {

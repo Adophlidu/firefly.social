@@ -1,19 +1,11 @@
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
 import urlcat from 'urlcat';
 
-import { ETH_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';
 import { parseCAIP19 } from '@/helpers/parseCAIP19.js';
 import { logger } from '@/libs/Logger.js';
 import { getProfileById } from '@/providers/firefly/farcaster-hub/getProfileById.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { type SnapSendTokenAction } from '@/types/snap.js';
-
-function tokenAddressFromParsed(parsed: ReturnType<typeof parseCAIP19>): string {
-    if (parsed.namespace === 'native') {
-        return parsed.reference || ETH_ZERO_ADDRESS;
-    }
-    return parsed.reference;
-}
 
 /**
  * Opens Firefly Wallet send flow with optional deep link (chain / token / recipient / amount).
@@ -34,7 +26,7 @@ export async function snapOpenSendToken(params: SnapSendTokenAction['params']): 
     }
 
     const chainId = Number.parseInt(parsed.chainReference, 10);
-    const tokenAddr = tokenAddressFromParsed(parsed).toLowerCase();
+    const tokenAddr = parsed.reference.toLowerCase();
 
     let to = params.recipientAddress;
     if (!to && params.recipientFid !== undefined) {

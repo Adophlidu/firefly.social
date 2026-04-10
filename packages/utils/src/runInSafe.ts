@@ -25,21 +25,28 @@ export interface RunInSafeAsyncOptions {
     noThrow?: boolean;
     /** Abort signal forwarded to `fn`. */
     signal?: AbortSignal;
-    /** Return early without logging / handling. Default: AbortError.is */
+    /**
+     * Return early without calling `onError`. Defaults to silencing AbortError,
+     * InvalidAddressError, and XRPCNotSupportedError. Pass a custom predicate to
+     * override the default set.
+     */
     shouldIgnoreError?: (error: unknown) => boolean;
     /** Called when an error is swallowed (and not ignored). */
     onError?: (error: unknown) => void;
 }
 
+function defaultShouldIgnoreError(error: unknown): boolean {
+    return AbortError.is(error) || error instanceof InvalidAddressError || XRPCNotSupportedError.is(error);
+}
+
 export async function runInSafeAsync<T>(
     fn: (signal?: AbortSignal) => Promise<T>,
-    { noThrow = true, signal, shouldIgnoreError, onError }: RunInSafeAsyncOptions = {},
+    { noThrow = true, signal, shouldIgnoreError = defaultShouldIgnoreError, onError }: RunInSafeAsyncOptions = {},
 ): Promise<T | undefined> {
     try {
         return await fn(signal);
     } catch (error) {
-        if (shouldIgnoreError?.(error)) return;
-        if (AbortError.is(error) || error instanceof InvalidAddressError || XRPCNotSupportedError.is(error)) return;
+        if (shouldIgnoreError(error)) return;
         if (!noThrow) throw error;
         onError?.(error);
         return;

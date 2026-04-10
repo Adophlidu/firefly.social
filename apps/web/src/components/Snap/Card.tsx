@@ -6,7 +6,7 @@ import urlcat from 'urlcat';
 
 import { FootnoteLink } from '@/components/FootnoteLink.js';
 import { frameSwapToken } from '@/components/Frame/V2/frameSwapToken.js';
-import { SnapContextProvider, useSnapContext } from '@/components/Snap/SnapContext.js';
+import { SnapContextProvider } from '@/components/Snap/SnapContext.js';
 import { SnapElementRenderer } from '@/components/Snap/SnapElementRenderer.js';
 import { snapOpenSendToken } from '@/components/Snap/snapSendToken.js';
 import { getSnapViewTokenPath } from '@/components/Snap/snapViewToken.js';
@@ -36,10 +36,10 @@ import { type ResponseJson } from '@/types/utility.js';
 function buildInputs(fields: SnapFieldValues): SnapJFSPayload['inputs'] {
     return {
         ...fields.inputs,
-        ...Object.fromEntries(Object.entries(fields.sliders)),
-        ...Object.fromEntries(Object.entries(fields.switches)),
-        ...Object.fromEntries(Object.entries(fields.toggleGroups)),
-        ...Object.fromEntries(Object.entries(fields.cellGrids)),
+        ...fields.sliders,
+        ...fields.switches,
+        ...fields.toggleGroups,
+        ...fields.cellGrids,
     };
 }
 
@@ -110,21 +110,6 @@ function runSnowConfetti(fire: ConfettiFire) {
     };
 }
 
-// Inner component — reads fields from context and wires actions
-function SnapInner({ snap, onAction }: { snap: Snap; onAction: (action: SnapAction) => void }) {
-    const { fields } = useSnapContext();
-
-    const dispatch = useCallback(
-        (action: SnapAction) => {
-            // inject current field snapshot into submit actions before dispatching
-            onAction(action);
-        },
-        [onAction],
-    );
-
-    return <SnapElementRenderer elementId={snap.ui.root} ui={snap.ui} onAction={dispatch} />;
-}
-
 interface CardProps {
     snap: Snap;
     post: Post;
@@ -166,7 +151,7 @@ export const SnapCard = memo<CardProps>(function SnapCard({ snap: initialSnap, p
             stopSnow?.();
             confettiTriggered.current = false;
         };
-    }, [snap]);
+    }, [snap.effects]);
 
     const handleAction = useCallback(
         async (action: SnapAction, fields: SnapFieldValues) => {

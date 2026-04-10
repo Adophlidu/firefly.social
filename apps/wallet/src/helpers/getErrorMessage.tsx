@@ -1,7 +1,8 @@
+import { AbortError } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { type ReactNode } from 'react';
 
-import { AbortError, InsufficientGasError } from '@/constants/error.js';
+import { InsufficientGasError } from '@/constants/error.js';
 
 export function getErrorMessage(error: unknown, options?: { fallback?: string; firstLineOnly?: boolean }): string {
     const fallback = options?.fallback ?? 'Unknown error';

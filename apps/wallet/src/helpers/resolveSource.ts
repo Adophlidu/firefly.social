@@ -1,7 +1,6 @@
-import { createLookupTableResolver } from '@dimensiondev/utils';
+import { createLookupTableResolver, UnreachableError } from '@dimensiondev/utils';
 
 import { FireflyPlatform, Source } from '@/constants/enum.js';
-import { UnreachableError } from '@/constants/error.js';
 
 export const resolveSourceFromFireflyPlatform = createLookupTableResolver<FireflyPlatform, Source>(
     {
