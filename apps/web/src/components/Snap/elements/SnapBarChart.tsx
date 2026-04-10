@@ -20,9 +20,9 @@ export function SnapBarChart({ props: { bars, max: maxOverride, color }, accent 
                 return (
                     <div key={idx} className="flex items-center gap-2">
                         <span className="text-secondary w-20 shrink-0 truncate text-right text-xs">{bar.label}</span>
-                        <div className="bg-bg h-5 flex-1 overflow-hidden rounded-sm">
+                        <div className="bg-bg h-2 flex-1 overflow-hidden rounded-md">
                             <div
-                                className={classNames('h-full rounded-sm transition-all', barColor)}
+                                className={classNames('h-full rounded-md transition-all', barColor)}
                                 style={{ width: `${pct}%` }}
                             />
                         </div>

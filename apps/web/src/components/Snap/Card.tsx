@@ -5,15 +5,22 @@ import { memo, useCallback, useLayoutEffect, useRef, useState } from 'react';
 import urlcat from 'urlcat';
 
 import { FootnoteLink } from '@/components/FootnoteLink.js';
+import { frameSwapToken } from '@/components/Frame/V2/frameSwapToken.js';
 import { SnapContextProvider, useSnapContext } from '@/components/Snap/SnapContext.js';
 import { SnapElementRenderer } from '@/components/Snap/SnapElementRenderer.js';
-import { Source } from '@/constants/enum.js';
+import { snapOpenSendToken } from '@/components/Snap/snapSendToken.js';
+import { getSnapViewTokenPath } from '@/components/Snap/snapViewToken.js';
+import { SocialProfileCategory, Source } from '@/constants/enum.js';
 import { FIREFLY_WORKER_HOST } from '@/constants/static.js';
-import { enqueueErrorMessage, enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
+import { useRouter } from '@/esm/navigation.js';
+import { createDummyChannel } from '@/helpers/createDummyChannel.js';
+import { enqueueErrorMessage, enqueueMessageFromError, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
+import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { interceptExternalUrl } from '@/helpers/interceptExternalUrl.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { openWindow } from '@/helpers/openWindow.js';
+import { ComposeModalRef } from '@/modals/ComposeModal/refs.js';
 import { ConfirmLeavingModalRef } from '@/modals/ConfirmLeavingModal/refs.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
@@ -124,6 +131,7 @@ interface CardProps {
 }
 
 export const SnapCard = memo<CardProps>(function SnapCard({ snap: initialSnap, post }) {
+    const router = useRouter();
     const [snap, setSnap] = useState<Snap>(initialSnap);
     const [loading, setLoading] = useState(false);
     const confettiTriggered = useRef(false);
@@ -214,14 +222,63 @@ export const SnapCard = memo<CardProps>(function SnapCard({ snap: initialSnap, p
                         openWindow(action.params.target, '_blank');
                         return;
 
-                    case 'view_cast':
-                    case 'view_profile':
-                    case 'view_token':
-                    case 'send_token':
-                    case 'swap_token':
-                    case 'compose_cast':
-                        // Native-app actions; no-op on web for now
+                    case 'compose_cast': {
+                        const session = farcasterSessionHolder.session;
+                        if (!session) {
+                            openLoginModal({ source: Source.Farcaster });
+                            return;
+                        }
+
+                        await ComposeModalRef.openAndWaitForClose({
+                            source: Source.Farcaster,
+                            type: 'compose',
+                            chars: action.params.text,
+                            embeds: action.params.embeds,
+                            channel: action.params.channelKey
+                                ? createDummyChannel(Source.Farcaster, action.params.channelKey)
+                                : undefined,
+                        });
                         return;
+                    }
+
+                    case 'view_cast': {
+                        router.push(`/post/farcaster/${action.params.hash}`);
+                        return;
+                    }
+
+                    case 'view_profile': {
+                        const path = getProfileUrl(
+                            { source: Source.Farcaster, profileId: String(action.params.fid) },
+                            SocialProfileCategory.Feed,
+                        );
+                        if (path) {
+                            router.push(urlcat(path, { fid: action.params.fid }));
+                        }
+                        return;
+                    }
+
+                    case 'swap_token': {
+                        await frameSwapToken({
+                            sellToken: action.params.sellToken,
+                            buyToken: action.params.buyToken,
+                        });
+                        return;
+                    }
+
+                    case 'send_token': {
+                        await snapOpenSendToken(action.params);
+                        return;
+                    }
+
+                    case 'view_token': {
+                        const path = getSnapViewTokenPath(action.params.token);
+                        if (path) {
+                            router.push(path);
+                        } else {
+                            enqueueWarningMessage(<Trans>This token link is not supported.</Trans>);
+                        }
+                        return;
+                    }
 
                     default:
                         return;
@@ -232,7 +289,7 @@ export const SnapCard = memo<CardProps>(function SnapCard({ snap: initialSnap, p
                 setLoading(false);
             }
         },
-        [snap.url],
+        [router, snap.url],
     );
 
     // We need to pass fields into handleAction; use a ref-based bridge via context

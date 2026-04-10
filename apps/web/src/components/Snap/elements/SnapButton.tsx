@@ -15,7 +15,7 @@ interface Props {
 }
 
 export function SnapButton({
-    props: { label, variant = 'primary', icon },
+    props: { label, variant = 'secondary', icon },
     accent,
     onPress,
     action,
@@ -30,7 +30,7 @@ export function SnapButton({
                 if (action) onPress?.(action);
             }}
             className={classNames(
-                'flex flex-1 items-center justify-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-opacity',
+                'flex flex-1 items-center justify-center gap-1.5 rounded-lg px-2 py-1.5 text-sm font-medium transition-opacity',
                 variant === 'primary'
                     ? classNames('text-white', ACCENT_COLOR_MAP[accent])
                     : classNames('border bg-transparent', ACCENT_BORDER_MAP[accent], ACCENT_TEXT_MAP[accent]),

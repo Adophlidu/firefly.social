@@ -6,6 +6,7 @@ import { createFileRoute, useNavigate, useRouter } from '@tanstack/react-router'
 import { uniq } from 'lodash-es';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
+import { z } from 'zod';
 
 import { ChainIcon } from '@/components/ChainIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -19,6 +20,13 @@ import { SolanaChainId } from '@/constants/solana.js';
 import { formatTokenFromFireflyTokenAsset } from '@/helpers/formatTokenFromFireflyTokenAsset.js';
 import { useExpandableTokens } from '@/hooks/useExpandableTokens.js';
 import { useMultiChainTokens } from '@/hooks/useMultiChainTokens.js';
+
+const sendTokensSearchSchema = z.object({
+    chain: z.coerce.number().optional(),
+    token: z.string().optional(),
+    to: z.string().optional(),
+    amount: z.string().optional(),
+});
 
 function ChainFilterDropdown({
     chainId,
@@ -102,8 +110,14 @@ function ChainFilterDropdown({
     );
 }
 
+export const Route = createFileRoute('/send/tokens')({
+    validateSearch: sendTokensSearchSchema,
+    component: SelectTokenPage,
+});
+
 function SelectTokenPage() {
-    const [chainId, setChainId] = useState<number>();
+    const search = Route.useSearch();
+    const [chainId, setChainId] = useState<number | undefined>(() => search.chain);
     const [keyword, setKeyword] = useState('');
     const { data: rawData, isLoading } = useMultiChainTokens();
     const data = useMemo(
@@ -142,6 +156,23 @@ function SelectTokenPage() {
     const { setToken } = useSendToken();
     const router = useRouter();
     const navigate = useNavigate();
+    const didAutoAdvance = useRef(false);
+
+    useEffect(() => {
+        if (didAutoAdvance.current || isLoading || !search.token || !data.length) return;
+        const wantChain = search.chain;
+        const wantToken = search.token.toLowerCase();
+        const match = data.find(
+            (t) => (!wantChain || t.chainId === wantChain) && String(t.id).toLowerCase() === wantToken,
+        );
+        if (!match) return;
+        didAutoAdvance.current = true;
+        setToken(match);
+        setValue('token', match);
+        setValue('to', search.to ?? '', { shouldValidate: true });
+        setValue('amount', search.amount ?? '', { shouldValidate: true });
+        router.navigate({ to: RoutePath.Form });
+    }, [data, isLoading, router, search.amount, search.chain, search.to, search.token, setToken, setValue]);
 
     return (
         <div className="flex w-full flex-col pb-6">
@@ -225,7 +256,3 @@ function SelectTokenPage() {
         </div>
     );
 }
-
-export const Route = createFileRoute('/send/tokens')({
-    component: SelectTokenPage,
-});

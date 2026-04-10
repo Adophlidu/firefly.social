@@ -3029,6 +3029,9 @@ msgstr "查看互動數據"
 msgid "Balance: {0} {1}"
 msgstr "餘額： {0} {1}"
 
+msgid "This token link is not supported."
+msgstr ""
+
 msgid "The contract owner has restrictions on selling."
 msgstr "合約擁有者設有銷售限制。"
 

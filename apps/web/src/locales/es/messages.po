@@ -3043,6 +3043,9 @@ msgstr ""
 msgid "Balance: {0} {1}"
 msgstr ""
 
+msgid "This token link is not supported."
+msgstr ""
+
 msgid "The contract owner has restrictions on selling."
 msgstr ""
 
