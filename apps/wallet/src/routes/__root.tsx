@@ -47,7 +47,7 @@ function RootLayout() {
 
 function RootDocument({ children }: { children: ReactNode }) {
     return (
-        <html lang="en" className="overscroll-contain">
+        <html lang="en" className="overscroll-contain" suppressHydrationWarning>
             <head>
                 <HeadContent />
                 <ScriptOnce>
