@@ -59,10 +59,10 @@ export function SnapToggleGroup({
                                           'border',
                                           selected
                                               ? classNames(activeColor, 'border-transparent text-white')
-                                              : 'border-line text-main hover:bg-bg bg-transparent',
+                                              : 'border-line1 text-main hover:bg-bg bg-transparent',
                                       )
                                     : classNames(
-                                          'border-line border',
+                                          'border-line1 border',
                                           selected
                                               ? classNames(activeColor, 'border-transparent text-white')
                                               : 'text-main hover:bg-bg bg-transparent',

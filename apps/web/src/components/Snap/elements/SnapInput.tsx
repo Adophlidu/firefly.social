@@ -16,7 +16,7 @@ export function SnapInput({ props: { name, label, placeholder, type = 'text', ma
             {label ? <label className="text-secondary mb-1 block text-xs font-medium">{label}</label> : null}
             <input
                 type={type}
-                className="border-line bg-bg text-main placeholder:text-secondary w-full rounded-lg border px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-current"
+                className="border-line1 bg-bg text-main placeholder:text-secondary w-full rounded-lg border px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-current"
                 placeholder={placeholder}
                 value={value}
                 maxLength={maxLength}
