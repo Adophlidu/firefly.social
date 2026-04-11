@@ -20,28 +20,33 @@ interface Options {
 
 function mapV2ToUI(position: PolymarketPositionV2Data, isClosed: boolean): PredictionPositionDataForUI {
     const curPrice = position.curPrice ?? 0;
-    const size = position.size ?? 0;
+    const size = (isClosed ? position.totalBought : position.size) ?? 0;
+    const avgPrice = position.avgPrice ?? 0;
+    const totalBought = position.totalBought ?? 0;
+    const pnl = isClosed ? (position.realizedPnl ?? 0) : (position.cashPnl ?? 0);
+    const pnlRate = isClosed ? (position.realizedPnl ?? 0) * 100 : (position.percentPnl ?? 0);
+
     return {
         Id: position.conditionId ?? '',
         IsClaim: isClosed,
-        avg_price: position.avgPrice ?? 0,
+        avg_price: avgPrice,
         closed_time: isClosed ? (position.timestamp ?? null) : null,
         conditionId: position.conditionId ?? '',
         cur_price: curPrice,
-        current_value: position.currentValue ?? curPrice * size,
+        current_value: isClosed ? avgPrice * totalBought + pnl : (position.currentValue ?? curPrice * size),
         event_slugs: position.eventSlug ? [position.eventSlug] : [],
         image: position.icon,
         is_closed: isClosed,
         isClaimable: position.redeemable ?? false,
-        isWin: (position.cashPnl ?? 0) > 0,
+        isWin: pnl > 0,
         marketSlug: position.slug ?? '',
         outcomeIndex: position.outcomeIndex,
-        pnl: position.cashPnl ?? 0,
-        pnl_rate: position.percentPnl ?? 0,
+        pnl,
+        pnl_rate: pnlRate,
         resolvedResult: position.resolvedResult,
         shares: size,
         title: position.title,
-        total_buy: position.totalBought ?? 0,
+        total_buy: totalBought,
         vote_status: position.outcome ?? '',
     };
 }
