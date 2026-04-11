@@ -61,31 +61,6 @@ const getPositionItem = ({
     );
 };
 
-const MIN_SELLABLE_SHARES = 0.01;
-
-export function partitionPredictionPositions(allPositions: PredictionPositionDataForUI[]) {
-    const activePositions: PredictionPositionDataForUI[] = [];
-    const closedPositions: PredictionPositionDataForUI[] = [];
-
-    for (const position of allPositions) {
-        const isResolved = position.isClaimable || position.is_closed || position.shares < MIN_SELLABLE_SHARES;
-
-        if (isResolved) {
-            closedPositions.push(position);
-        } else {
-            activePositions.push(position);
-        }
-    }
-
-    const now = Date.now();
-    closedPositions.sort((a, b) => {
-        if (!a.closed_time && !b.closed_time) return 0;
-        return (b.closed_time ?? now) - (a.closed_time ?? now);
-    });
-
-    return { activePositions, closedPositions };
-}
-
 function PositionEmptyState({ message }: { message: ReactNode }) {
     return (
         <div className="bg-primaryBottom flex h-40 items-center justify-center rounded-xl p-4">
@@ -123,15 +98,19 @@ export const PredictionProfilePositionList = memo<Props>(function PredictionProf
     const { data: socialProfile } = useProxyWalletInfo(platform, proxyAddress);
     const fireflyAccountId = socialProfile?.fireflyAccountId;
 
-    const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['bets', 'positions', address.toLowerCase()],
+    const fetchAddress = proxyAddress || address;
+
+    // Active (current) positions query
+    const activeQueryResult = useSuspenseInfiniteQuery({
+        queryKey: ['bets', 'positions', address.toLowerCase(), 'current'],
         queryFn: async ({ pageParam }) => {
             const indicator = createIndicator(undefined, pageParam);
             try {
                 return await getPredictionPositionList(platform, {
-                    address: proxyAddress || address,
+                    address: fetchAddress,
                     isProxyAddress: !!proxyAddress,
                     indicator,
+                    positionType: 'current',
                 });
             } catch {
                 return createPageable([], indicator);
@@ -142,15 +121,30 @@ export const PredictionProfilePositionList = memo<Props>(function PredictionProf
         select: (data) => data.pages.flatMap((x) => x.data),
     });
 
-    const allPositions = queryResult.data || EMPTY_LIST;
-    const hasAnyPositions = allPositions.length > 0;
+    // Closed positions query
+    const closedQueryResult = useSuspenseInfiniteQuery({
+        queryKey: ['bets', 'positions', address.toLowerCase(), 'closed'],
+        queryFn: async ({ pageParam }) => {
+            const indicator = createIndicator(undefined, pageParam);
+            try {
+                return await getPredictionPositionList(platform, {
+                    address: fetchAddress,
+                    isProxyAddress: !!proxyAddress,
+                    indicator,
+                    positionType: 'closed',
+                });
+            } catch {
+                return createPageable([], indicator);
+            }
+        },
+        initialPageParam: '',
+        getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
+        select: (data) => data.pages.flatMap((x) => x.data),
+    });
 
-    // Keep claimable winning positions in the main list even if backend marks them closed.
-    // Only losing positions belong in the collapsed section.
-    const { activePositions, closedPositions } = useMemo(
-        () => partitionPredictionPositions(allPositions),
-        [allPositions],
-    );
+    const activePositions = activeQueryResult.data || EMPTY_LIST;
+    const closedPositions = closedQueryResult.data || EMPTY_LIST;
+    const hasAnyPositions = activePositions.length > 0 || closedPositions.length > 0;
 
     return (
         <div className="p-4">
@@ -159,7 +153,7 @@ export const PredictionProfilePositionList = memo<Props>(function PredictionProf
                     <ListInPage
                         source={Source.Prediction}
                         key={Source.Prediction}
-                        queryResult={{ ...queryResult, data: activePositions }}
+                        queryResult={{ ...activeQueryResult, data: activePositions }}
                         noResultsFallbackRequired={false}
                         VirtualListProps={{
                             useWindowScroll: true,

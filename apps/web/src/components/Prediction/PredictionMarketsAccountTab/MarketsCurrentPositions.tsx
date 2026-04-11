@@ -115,6 +115,7 @@ export const MarketsCurrentPositions = memo<Props>(function MarketsCurrentPositi
                 address: proxyAddress,
                 eventId,
                 isProxyAddress: true,
+                positionType: 'current',
             }),
         select: (result) => result?.data?.filter((position) => position.shares >= 0.01),
     });

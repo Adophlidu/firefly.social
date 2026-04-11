@@ -2745,31 +2745,39 @@ export interface PolymarketTagData {
     isCarousel?: boolean;
 }
 
-export interface PolymarketPositionData {
-    Id: string;
-    IsClaim: boolean;
-    avg_price: number;
-    closed_time: number | null;
-    conditionId: string;
-    cur_price: number;
-    event_slugs: string[];
-    marketSlug: string;
-    image?: string;
-    is_closed: boolean;
-    negRisk: boolean;
-    notfill_pnl: number;
-    offset: number;
-    pnl: number;
-    pnl_rate: number;
-    shares: number;
+export interface PolymarketPositionV2Data {
+    proxyWallet?: string;
+    asset?: string;
+    conditionId?: string;
+    size?: number;
+    avgPrice?: number;
+    initialValue?: number;
+    currentValue?: number;
+    cashPnl?: number;
+    percentPnl?: number;
+    totalBought?: number;
+    realizedPnl?: number;
+    percentRealizedPnl?: number;
+    curPrice?: number;
+    redeemable?: boolean;
+    mergeable?: boolean;
     title?: string;
-    tokenId: string;
-    total_buy: number;
-    vote_status: string;
-    wallet: string;
-    isClaimable: boolean;
-    isWin: boolean;
+    slug?: string;
+    icon?: string;
+    eventId?: string;
+    eventSlug?: string;
+    outcome?: string;
+    outcomeIndex?: number;
+    oppositeOutcome?: string;
+    oppositeAsset?: string;
+    endDate?: string;
+    negativeRisk?: boolean;
+    timestamp?: number;
     resolvedResult?: string;
+    umaResolutionStatus?: string;
+    umaResolutionStatuses?: string[];
+    topicId?: string;
+    isMutil?: number;
 }
 
 export type PrivySignMessageResponse = Response<{
