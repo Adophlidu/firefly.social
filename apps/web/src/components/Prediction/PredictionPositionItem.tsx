@@ -158,7 +158,7 @@ export function PredictionPositionItem({
                             )}
                         >
                             {formatPolymarketNumber(position.pnl, { sign: true })}
-                            {`(${removeTrailingZeros(Math.abs(position.pnl_rate).toFixed(2))}%)`}
+                            {`(${removeTrailingZeros(Math.abs(position.pnl_rate * 100).toFixed(2))}%)`}
                         </span>
                         <span className="text-second text-sm font-medium leading-[21px] tracking-[0.15px]">
                             {formatPolymarketNumber(position.current_value)}
