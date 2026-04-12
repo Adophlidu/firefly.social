@@ -137,7 +137,7 @@ importers:
         specifier: ^0.6.14
         version: 0.6.14(prettier@3.6.2)
       turbo:
-        specifier: ^2.8.3
+        specifier: ^2.8.6
         version: 2.9.3
       typescript:
         specifier: 5.9.3
@@ -342,8 +342,8 @@ importers:
         specifier: ^5.5.2
         version: 5.5.2(@lingui/core@5.5.2)(@swc/core@1.15.24)(next@16.0.11)
       '@lingui/vite-plugin':
-        specifier: ^5.8.0
-        version: 5.9.4(babel-plugin-macros@3.1.0)(typescript@5.9.3)(vite@7.3.1)
+        specifier: ^5.9.5
+        version: 5.9.5(babel-plugin-macros@3.1.0)(typescript@5.9.3)(vite@7.3.1)
       '@masknet/config':
         specifier: ^0.2.1
         version: 0.2.1
@@ -1035,16 +1035,16 @@ importers:
         version: 0.73.0(@babel/core@7.29.0)(@react-native/metro-config@0.85.0)(@types/react@19.2.14)(react@19.2.5)
       '@vitejs/plugin-react':
         specifier: ^4.2.1
-        version: 4.7.0(vite@6.4.1)
+        version: 4.7.0(vite@7.3.1)
       typescript:
         specifier: ^5.3.3
         version: 5.9.3
       vite:
-        specifier: ^6.0.0
-        version: 6.4.1(@types/node@22.10.10)
+        specifier: ^7.3.1
+        version: 7.3.1(@types/node@22.10.10)
       vite-plugin-dts:
         specifier: ^4.0.0
-        version: 4.5.4(@types/node@22.10.10)(typescript@5.9.3)(vite@6.4.1)
+        version: 4.5.4(@types/node@22.10.10)(typescript@5.9.3)(vite@7.3.1)
 
   packages/scripts:
     dependencies:
@@ -5300,8 +5300,8 @@ packages:
     engines: {node: '>=20.0.0'}
     dev: true
 
-  /@lingui/babel-plugin-extract-messages@5.9.4:
-    resolution: {integrity: sha512-sFH5lufIBCOLwjM2hyByMIi7gaGjAPhU7md8XMQYgcEjUVtzjBQvZ9APGDdDQ5BB8xRDyqF2kvaJpJvWZu19zA==}
+  /@lingui/babel-plugin-extract-messages@5.9.5:
+    resolution: {integrity: sha512-XOAXMPOkpy45784q5bCNN5PizoAecxkBm8kv8CEusI/f9kR3vMCcpH4kvSchU05JkKAVE8eIsdxb2zM6eDJTeA==}
     engines: {node: '>=20.0.0'}
     dev: true
 
@@ -5345,8 +5345,8 @@ packages:
       - typescript
     dev: true
 
-  /@lingui/babel-plugin-lingui-macro@5.9.4(babel-plugin-macros@3.1.0)(typescript@5.9.3):
-    resolution: {integrity: sha512-Gj+H48MQWY6rV40TBVG7U91/KETznbXOJpJsf8U4merBRPZgOMCy6VuWZGy1i+YJZJF/LiberlsCCEiiPbBRqg==}
+  /@lingui/babel-plugin-lingui-macro@5.9.5(babel-plugin-macros@3.1.0)(typescript@5.9.3):
+    resolution: {integrity: sha512-TDIrOa2hAz8kXrZ0JfMGaIiFIE4TEdqI2he4OpkTSCfBh3ec/gSCn1kNW5HdviO7x46Gvy567YOgHNOI9/e4Fg==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
       babel-plugin-macros: 2 || 3
@@ -5357,9 +5357,9 @@ packages:
       '@babel/core': 7.29.0
       '@babel/runtime': 7.29.2
       '@babel/types': 7.29.0
-      '@lingui/conf': 5.9.4(typescript@5.9.3)
-      '@lingui/core': 5.9.4(@lingui/babel-plugin-lingui-macro@5.9.4)(babel-plugin-macros@3.1.0)
-      '@lingui/message-utils': 5.9.4
+      '@lingui/conf': 5.9.5(typescript@5.9.3)
+      '@lingui/core': 5.9.5(@lingui/babel-plugin-lingui-macro@5.9.5)(babel-plugin-macros@3.1.0)
+      '@lingui/message-utils': 5.9.5
       babel-plugin-macros: 3.1.0
     transitivePeerDependencies:
       - supports-color
@@ -5442,8 +5442,8 @@ packages:
       - typescript
     dev: true
 
-  /@lingui/cli@5.9.4(babel-plugin-macros@3.1.0)(typescript@5.9.3):
-    resolution: {integrity: sha512-0QAsZCWu6PZhxYmeQfoa6cJbNRRsTkeNQ1jTow/GzBYpFlO9iXw8dCG5cBh5pHHjzjoX3koxiKyUTFyLBmKNiQ==}
+  /@lingui/cli@5.9.5(babel-plugin-macros@3.1.0)(typescript@5.9.3):
+    resolution: {integrity: sha512-gonY7U75nzKic8GvEciy1/otQv1WpfwGW5wGMjmBXUMaMnIsycm/wo3t0+2hzqFp+RNfEKZcScoM7aViK3XuLQ==}
     engines: {node: '>=20.0.0'}
     hasBin: true
     dependencies:
@@ -5452,12 +5452,12 @@ packages:
       '@babel/parser': 7.29.2
       '@babel/runtime': 7.29.2
       '@babel/types': 7.29.0
-      '@lingui/babel-plugin-extract-messages': 5.9.4
-      '@lingui/babel-plugin-lingui-macro': 5.9.4(babel-plugin-macros@3.1.0)(typescript@5.9.3)
-      '@lingui/conf': 5.9.4(typescript@5.9.3)
-      '@lingui/core': 5.9.4(@lingui/babel-plugin-lingui-macro@5.9.4)(babel-plugin-macros@3.1.0)
-      '@lingui/format-po': 5.9.4(typescript@5.9.3)
-      '@lingui/message-utils': 5.9.4
+      '@lingui/babel-plugin-extract-messages': 5.9.5
+      '@lingui/babel-plugin-lingui-macro': 5.9.5(babel-plugin-macros@3.1.0)(typescript@5.9.3)
+      '@lingui/conf': 5.9.5(typescript@5.9.3)
+      '@lingui/core': 5.9.5(@lingui/babel-plugin-lingui-macro@5.9.5)(babel-plugin-macros@3.1.0)
+      '@lingui/format-po': 5.9.5(typescript@5.9.3)
+      '@lingui/message-utils': 5.9.5
       chokidar: 3.5.1
       cli-table: 0.3.11
       commander: 10.0.1
@@ -5492,8 +5492,8 @@ packages:
     transitivePeerDependencies:
       - typescript
 
-  /@lingui/conf@5.9.4(typescript@5.9.3):
-    resolution: {integrity: sha512-crF3AQgYXg52Caz4ffJKSTXWUU/4iOGOBRnSeOkw8lsOtOYlPTaWxeSGyDTEwaGCFl6P/1aew+pvHOSCxOAyrg==}
+  /@lingui/conf@5.9.5(typescript@5.9.3):
+    resolution: {integrity: sha512-k5r9ssOZirhS5BlqdsK5L0rzlqnHeryoJHAQIpUpeh8g5ymgpbUN7L4+4C4hAX/tddAFiCFN8boHTiu6Wbt83Q==}
     engines: {node: '>=20.0.0'}
     dependencies:
       '@babel/runtime': 7.29.2
@@ -5539,11 +5539,11 @@ packages:
       '@lingui/message-utils': 5.5.2
       babel-plugin-macros: 3.1.0
 
-  /@lingui/core@5.9.4(@lingui/babel-plugin-lingui-macro@5.9.4)(babel-plugin-macros@3.1.0):
-    resolution: {integrity: sha512-MsYYc8ue/w1C8bgAbC3h4cNik64bqZ6xGxMjsVdoGQBUe+b/ij+rOEiuJXbwvlo4GXBsvsan7EzeH7sx11IsYQ==}
+  /@lingui/core@5.9.5(@lingui/babel-plugin-lingui-macro@5.9.5)(babel-plugin-macros@3.1.0):
+    resolution: {integrity: sha512-Y+iZq9NqnqZOqHNgPomUFP21KH/zs4oTTizWoz0AKAkBbq9T9yb1DSz/ugtBRjF1YLtKMF9tq28v3thMHANSiQ==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
-      '@lingui/babel-plugin-lingui-macro': 5.9.4
+      '@lingui/babel-plugin-lingui-macro': 5.9.5
       babel-plugin-macros: 2 || 3
     peerDependenciesMeta:
       '@lingui/babel-plugin-lingui-macro':
@@ -5552,8 +5552,8 @@ packages:
         optional: true
     dependencies:
       '@babel/runtime': 7.29.2
-      '@lingui/babel-plugin-lingui-macro': 5.9.4(babel-plugin-macros@3.1.0)(typescript@5.9.3)
-      '@lingui/message-utils': 5.9.4
+      '@lingui/babel-plugin-lingui-macro': 5.9.5(babel-plugin-macros@3.1.0)(typescript@5.9.3)
+      '@lingui/message-utils': 5.9.5
       babel-plugin-macros: 3.1.0
     dev: true
 
@@ -5583,12 +5583,12 @@ packages:
     transitivePeerDependencies:
       - typescript
 
-  /@lingui/format-po@5.9.4(typescript@5.9.3):
-    resolution: {integrity: sha512-B+e8YF6S5EOUPF6i3gaSX69pPs/QkP6MIE97vYA48W9Lty7KFOHuYBk/YzCY9CSQaF7gW3GAI5ZsXX2+ZLVyZw==}
+  /@lingui/format-po@5.9.5(typescript@5.9.3):
+    resolution: {integrity: sha512-abawxkaEMhAUCqxrnim2NTTeu2gd55X9tkFN8jfRM0B1LE2KjZLWCA8gSD90J/DblDwej8jK8A2BynXlcQdluQ==}
     engines: {node: '>=20.0.0'}
     dependencies:
-      '@lingui/conf': 5.9.4(typescript@5.9.3)
-      '@lingui/message-utils': 5.9.4
+      '@lingui/conf': 5.9.5(typescript@5.9.3)
+      '@lingui/message-utils': 5.9.5
       date-fns: 3.6.0
       pofile: 1.1.4
     transitivePeerDependencies:
@@ -5618,8 +5618,8 @@ packages:
       '@messageformat/parser': 5.1.1
       js-sha256: 0.10.1
 
-  /@lingui/message-utils@5.9.4:
-    resolution: {integrity: sha512-YzAVzILdsqdUqwHmryl7rfwZXRHYs6QY2wPLH5gxrV7wlieiCaskaKPeSk2SuN/gmC8im1GDrQHcwgKapFU3Sg==}
+  /@lingui/message-utils@5.9.5:
+    resolution: {integrity: sha512-t3dNbjb1dWkvcpXGMXIEyBDO3l4B8J2ColZXi0NTG1ioAj+sDfFxFB8fepVgd3JAk+AwARlOLvF14oS0mAdgpw==}
     engines: {node: '>=20.0.0'}
     dependencies:
       '@messageformat/parser': 5.1.1
@@ -5661,14 +5661,14 @@ packages:
       next: 16.0.11(@babel/core@7.29.0)(react-dom@19.2.5)(react@19.2.5)
     dev: true
 
-  /@lingui/vite-plugin@5.9.4(babel-plugin-macros@3.1.0)(typescript@5.9.3)(vite@7.3.1):
-    resolution: {integrity: sha512-qc5AFEOJjD3AIxDhCx9RZ3ELGnn0r/l3NQb4BZifz7wnYUYfbk1B2kNHCA8OMqb/sw3q36uWr3S4vORlmxPUkQ==}
+  /@lingui/vite-plugin@5.9.5(babel-plugin-macros@3.1.0)(typescript@5.9.3)(vite@7.3.1):
+    resolution: {integrity: sha512-oFlEkr4/56yWZYVJ5xfYfJUTgegSKkbQUo/t/MJVFcyxiMvtGsyzrZdm7grwbY9v8JbVyW5BdcIGN6/Z8wvEtw==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
       vite: ^3 || ^4 || ^5.0.9 || ^6 || ^7 || ^8
     dependencies:
-      '@lingui/cli': 5.9.4(babel-plugin-macros@3.1.0)(typescript@5.9.3)
-      '@lingui/conf': 5.9.4(typescript@5.9.3)
+      '@lingui/cli': 5.9.5(babel-plugin-macros@3.1.0)(typescript@5.9.3)
+      '@lingui/conf': 5.9.5(typescript@5.9.3)
       vite: 7.3.1(@types/node@22.10.10)
     transitivePeerDependencies:
       - babel-plugin-macros
@@ -14936,7 +14936,7 @@ packages:
       '@upstash/redis': 1.25.1
     dev: false
 
-  /@vitejs/plugin-react@4.7.0(vite@6.4.1):
+  /@vitejs/plugin-react@4.7.0(vite@7.3.1):
     resolution: {integrity: sha512-gUu9hwfWvvEDBBmgtAowQCojwZmJ5mcLn3aufeCsitijs3+f2NsrPtlAWIR6OPiqljl96GVCUbLe0HyqIpVaoA==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
@@ -14948,7 +14948,7 @@ packages:
       '@rolldown/pluginutils': 1.0.0-beta.27
       '@types/babel__core': 7.20.5
       react-refresh: 0.17.0
-      vite: 6.4.1(@types/node@22.10.10)
+      vite: 7.3.1(@types/node@22.10.10)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -27622,7 +27622,7 @@ packages:
       - yaml
     dev: true
 
-  /vite-plugin-dts@4.5.4(@types/node@22.10.10)(typescript@5.9.3)(vite@6.4.1):
+  /vite-plugin-dts@4.5.4(@types/node@22.10.10)(typescript@5.9.3)(vite@7.3.1):
     resolution: {integrity: sha512-d4sOM8M/8z7vRXHHq/ebbblfaxENjogAAekcfcDCCwAyvGqnPrc7f4NZbvItS+g4WTgerW0xDwSz5qz11JT3vg==}
     peerDependencies:
       typescript: '*'
@@ -27641,7 +27641,7 @@ packages:
       local-pkg: 1.1.2
       magic-string: 0.30.17
       typescript: 5.9.3
-      vite: 6.4.1(@types/node@22.10.10)
+      vite: 7.3.1(@types/node@22.10.10)
     transitivePeerDependencies:
       - '@types/node'
       - rollup
@@ -27820,11 +27820,11 @@ packages:
     dependencies:
       '@types/node': 22.10.10
       esbuild: 0.27.0
-      fdir: 6.5.0(picomatch@4.0.3)
-      picomatch: 4.0.3
+      fdir: 6.5.0(picomatch@4.0.4)
+      picomatch: 4.0.4
       postcss: 8.5.9
       rollup: 4.60.1
-      tinyglobby: 0.2.15
+      tinyglobby: 0.2.16
     optionalDependencies:
       fsevents: 2.3.3
 
