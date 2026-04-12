@@ -35,7 +35,7 @@
         "@nktkas/hyperliquid": "^0.32.2",
         "@tamagui/config": "^1.114.0",
         "@tamagui/core": "^1.114.0",
-        "@tamagui/lucide-icons-2": "2.0.0-rc.36",
+        "@tamagui/lucide-icons-2": "2.0.0-rc.38",
         "@tanstack/react-query": "5.85.9",
         "lucide-react-native": "^0.473.0",
         "react-native-svg": "^15.15.4",
