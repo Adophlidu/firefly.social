@@ -1,13 +1,13 @@
 import { parseJson } from '@dimensiondev/utils';
-import { type z } from 'zod';
-import { type PersistStorage, type StorageValue } from 'zustand/middleware';
+import type { z } from 'zod';
+import type { PersistStorage, StorageValue } from 'zustand/middleware';
 
 import { AsyncStatus } from '@/constants/enum.js';
 import { logger } from '@/libs/Logger.js';
 import { SessionFactory } from '@/providers/base/SessionFactory.js';
-import { type Account } from '@/providers/types/Account.js';
-import { type Session } from '@/providers/types/Session.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
+import type { Account } from '@/providers/types/Account.js';
+import type { Session } from '@/providers/types/Session.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 import { ProfileStoreSchema } from '@/schemas/ProfileStore.js';
 
 type State = z.infer<typeof ProfileStoreSchema>;

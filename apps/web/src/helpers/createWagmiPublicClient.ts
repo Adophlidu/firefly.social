@@ -4,7 +4,7 @@ import { type Chain, createPublicClient as createClient, http, type PublicClient
 import { mainnet, optimism, polygon } from 'viem/chains';
 
 import { chains } from '@/configs/chains.js';
-import { type EthereumChainId } from '@/web3-shared/evm/types.js';
+import type { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 const resolvePublicProviderUrl = createLookupTableResolver<number, string | undefined>(
     {

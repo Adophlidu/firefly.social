@@ -1,5 +1,5 @@
 import ComebackIcon from '@dimensiondev/assets/comeback2.svg';
-import { type HTMLProps } from 'react';
+import type { HTMLProps } from 'react';
 
 import { Button } from '@/components/ui/button.js';
 import { useComeback } from '@/components/useComeback.js';

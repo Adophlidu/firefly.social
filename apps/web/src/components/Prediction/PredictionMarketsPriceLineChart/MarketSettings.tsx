@@ -4,7 +4,7 @@ import { Popover, PopoverButton, PopoverPanel, Transition } from '@headlessui/re
 import { Fragment, memo, useCallback } from 'react';
 
 import { MarketsSelectionPanel } from '@/components/Prediction/PredictionMarketsPriceLineChart/MarketsSelectionPanel.js';
-import { type BetsMarketWithSettings } from '@/types/prediction.js';
+import type { BetsMarketWithSettings } from '@/types/prediction.js';
 
 interface MarketSettingsProps {
     markets: BetsMarketWithSettings[];

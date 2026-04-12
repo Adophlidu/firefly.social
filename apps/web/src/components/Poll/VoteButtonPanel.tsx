@@ -7,7 +7,7 @@ import { useAsyncFn } from 'react-use';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { type SocialSource } from '@/constants/enum.js';
+import type { SocialSource } from '@/constants/enum.js';
 import { WalletAddressMismatchError } from '@/constants/error.js';
 import { POLL_CHOICE_TYPE } from '@/constants/poll.js';
 import {
@@ -19,7 +19,7 @@ import {
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolvePollProvider } from '@/helpers/resolvePollProvider.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
-import { type Poll, type PollOption } from '@/providers/types/Poll.js';
+import type { Poll, PollOption } from '@/providers/types/Poll.js';
 import { useOrbPollResultStore } from '@/store/useOrbPollResultStore.js';
 
 interface VoteButtonPanelProps {

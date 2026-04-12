@@ -5,8 +5,8 @@ import { Loading } from '@/components/Loading.js';
 import { Modal } from '@/components/Modal.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import { type EditFireflyProfileModalRefType } from '@/modals/EditFireflyProfileModal/refs.js';
-import { type AllConnections, type FireflyAccountProfile } from '@/providers/types/Firefly.js';
+import type { EditFireflyProfileModalRefType } from '@/modals/EditFireflyProfileModal/refs.js';
+import type { AllConnections, FireflyAccountProfile } from '@/providers/types/Firefly.js';
 
 interface EditFireflyProfileModalOpenProps {
     profile?: FireflyAccountProfile | null;

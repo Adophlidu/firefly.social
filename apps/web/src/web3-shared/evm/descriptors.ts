@@ -1,7 +1,7 @@
 import { NetworkPluginID, TokenType } from '@/constants/enum.js';
 import { getEvmNativeTokenAddress } from '@/providers/ethereum/getNativeTokenAddress.js';
 import CHAINS from '@/web3-constants/evm/chains.json' with { type: 'json' };
-import { type ChainDescriptor, type NetworkDescriptor } from '@/web3-shared/base/specs.js';
+import type { ChainDescriptor, NetworkDescriptor } from '@/web3-shared/base/specs.js';
 import { EthereumChainId, EthereumNetworkType, EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
 const PLUGIN_ID = NetworkPluginID.PLUGIN_EVM;

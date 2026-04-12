@@ -1,6 +1,6 @@
 import { addressesMatch } from '@/helpers/swap/formatSwapAmount.js';
 import { getDefaultSwapToken } from '@/providers/swap/defaultTokens.js';
-import { type SwapToken } from '@/providers/swap/types.js';
+import type { SwapToken } from '@/providers/swap/types.js';
 
 const ETH_LIKE_NATIVE_TOKEN_NAMES = new Set(['eth', 'ether', 'ethereum']);
 

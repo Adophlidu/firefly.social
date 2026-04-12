@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 
 import { Source } from '@/constants/enum.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { type FrameV2 } from '@/types/frame.js';
+import type { FrameV2 } from '@/types/frame.js';
 
 export function useFrameAuthor(frame: FrameV2 | undefined) {
     const authorFid = useMemo(() => {

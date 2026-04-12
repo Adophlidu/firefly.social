@@ -1,7 +1,7 @@
 import { runInSafe } from '@dimensiondev/utils';
 
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
-import { type BetsActivity } from '@/providers/types/Firefly.js';
+import type { BetsActivity } from '@/providers/types/Firefly.js';
 
 const tailZero = /\.0+$|(\.\d*[1-9])0+$/;
 

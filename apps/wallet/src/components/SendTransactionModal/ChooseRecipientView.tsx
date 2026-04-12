@@ -21,7 +21,7 @@ import { getEnsNameFromWalletProfile } from '@/helpers/getEnsNameFromWalletProfi
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { filterAndSortWalletProfiles, isFireflyVerified } from '@/helpers/sortWalletProfiles.js';
 import { getAllPlatformProfileFromFirefly } from '@/providers/firefly/getAllPlatformProfileFromFirefly.js';
-import { type FireflyProfile, type WalletProfile } from '@/providers/types/Firefly.js';
+import type { FireflyProfile, WalletProfile } from '@/providers/types/Firefly.js';
 
 export function ChooseRecipientView() {
     const { setValue, control } = useFormContext<FormValues>();

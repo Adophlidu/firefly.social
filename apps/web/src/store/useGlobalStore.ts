@@ -1,4 +1,4 @@
-import { type StateSnapshot } from 'react-virtuoso';
+import type { StateSnapshot } from 'react-virtuoso';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';

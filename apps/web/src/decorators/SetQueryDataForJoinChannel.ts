@@ -3,8 +3,8 @@ import { produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { type Channel, type Provider } from '@/providers/types/SocialMedia.js';
-import { type ClassType } from '@/types/utility.js';
+import type { Channel, Provider } from '@/providers/types/SocialMedia.js';
+import type { ClassType } from '@/types/utility.js';
 
 const METHODS_BE_OVERRIDDEN = ['joinChannel', 'leaveChannel'] as const;
 

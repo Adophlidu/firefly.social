@@ -19,8 +19,8 @@ import { useRouter } from '@/esm/navigation.js';
 import { getArticleUrl } from '@/helpers/getArticleUrl.js';
 import { isLinkMatchingHost } from '@/helpers/isLinkMatchingHost.js';
 import { parseFarcasterTokenUrl } from '@/helpers/parseFarcasterTokenUrl.js';
-import { type ClassifyPostLinkResult } from '@/providers/firefly/worker/getClassifyPostLinks.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { ClassifyPostLinkResult } from '@/providers/firefly/worker/getClassifyPostLinks.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface PostLinkContentProps {
     data: ClassifyPostLinkResult | null;

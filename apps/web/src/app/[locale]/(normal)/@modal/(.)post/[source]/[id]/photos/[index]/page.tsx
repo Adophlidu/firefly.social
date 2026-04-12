@@ -4,13 +4,13 @@ import 'swiper/css';
 import 'swiper/css/keyboard';
 import 'swiper/css/navigation';
 
-import { type LayoutProps } from '@dimensiondev/types';
+import type { LayoutProps } from '@dimensiondev/types';
 import { NotFoundError } from '@dimensiondev/utils';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { use } from 'react';
 
 import { Modal } from '@/components/Modal.js';
-import { type SocialSourceInURL } from '@/constants/enum.js';
+import type { SocialSourceInURL } from '@/constants/enum.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { notFound, useRouter } from '@/esm/navigation.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';

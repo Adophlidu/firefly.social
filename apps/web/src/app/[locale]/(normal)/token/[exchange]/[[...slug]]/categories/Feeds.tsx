@@ -1,6 +1,6 @@
 import { classNames } from '@dimensiondev/utils';
 import { compact } from 'lodash-es';
-import { type ReadonlyURLSearchParams } from 'next/navigation.js';
+import type { ReadonlyURLSearchParams } from 'next/navigation.js';
 import { type HTMLProps, memo, Suspense, useMemo, useState, useTransition } from 'react';
 
 import TokenPageLoading from '@/app/[locale]/(normal)/token/[exchange]/[[...slug]]/loading.js';

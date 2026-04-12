@@ -4,7 +4,7 @@ import { type Ref, useRef, useState } from 'react';
 
 import { Modal } from '@/components/Modal.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import { type VerifiedAddressModalRefType } from '@/modals/VerifiedAddressModal/refs.js';
+import type { VerifiedAddressModalRefType } from '@/modals/VerifiedAddressModal/refs.js';
 import {
     VerifiedAddressModalContent,
     type VerifiedAddressModalProps,

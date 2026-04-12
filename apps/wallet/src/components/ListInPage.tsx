@@ -1,7 +1,7 @@
-import { type UseSuspenseInfiniteQueryResult } from '@tanstack/react-query';
+import type { UseSuspenseInfiniteQueryResult } from '@tanstack/react-query';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useWindowSize } from 'react-use';
-import { type Components, type VirtuosoHandle } from 'react-virtuoso';
+import type { Components, VirtuosoHandle } from 'react-virtuoso';
 
 import { NoResultsFallback, type NoResultsFallbackProps } from '@/components/NoResultsFallback.js';
 import { VirtualList, type VirtualListProps } from '@/components/VirtualList/VirtualList.js';

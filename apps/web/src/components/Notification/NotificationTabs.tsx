@@ -2,7 +2,7 @@
 
 import { SolidTabs } from '@/components/Tabs/SolidTabs.js';
 import { queryClient } from '@/configs/queryClient.js';
-import { type NotificationSource } from '@/constants/enum.js';
+import type { NotificationSource } from '@/constants/enum.js';
 import { resolveNotificationUrl } from '@/helpers/resolveNotificationUrl.js';
 import { resolveNotificationSourceName } from '@/helpers/resolveSourceName.js';
 import { useNotificationSources } from '@/hooks/useNotificationSources.js';

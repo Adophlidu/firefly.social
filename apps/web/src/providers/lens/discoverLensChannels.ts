@@ -14,8 +14,8 @@ import { resolveResponseData } from '@/helpers/resolveResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { formatChannelFromOrb } from '@/providers/lens/formatChannelFromOrb.js';
 import { getLensProfilesByIds } from '@/providers/lens/getLensProfilesById.js';
-import { type Channel } from '@/providers/types/SocialMedia.js';
-import { type ResponseJson } from '@/types/utility.js';
+import type { Channel } from '@/providers/types/SocialMedia.js';
+import type { ResponseJson } from '@/types/utility.js';
 
 interface TrendingClubsResponse {
     clubs: Array<{

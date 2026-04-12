@@ -4,7 +4,7 @@ import { reportPost } from '@lens-protocol/client/actions';
 import { reportPost as reportPostToFirefly } from '@/providers/firefly/endpoint/reportPost.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { lensSessionClientHolder } from '@/providers/lens/LensSessionClientHolder.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 export async function reportLensPost(post: Post) {
     const postId = post.postId;

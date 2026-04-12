@@ -1,8 +1,8 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { queryOptions } from '@tanstack/react-query';
-import { type Address } from 'viem';
+import type { Address } from 'viem';
 
-import { type PolymarketPosition } from '@/providers/types/Firefly.js';
+import type { PolymarketPosition } from '@/providers/types/Firefly.js';
 import { getFireflyEndpoint } from '@/store/fireflyEndpoint.js';
 
 export interface ClaimableProceedsItem extends PolymarketPosition {

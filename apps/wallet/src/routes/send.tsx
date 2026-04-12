@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import { type FormValues, SendTokenContext } from '@/components/SendTransactionModal/types.js';
-import { type Token } from '@/providers/types/Transfer.js';
+import type { Token } from '@/providers/types/Transfer.js';
 
 export const Route = createFileRoute('/send')({
     component: SendLayout,

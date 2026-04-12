@@ -23,7 +23,7 @@ import {
     captureBookmarkTokenViewEvent,
     captureTokenBookmarkClickEvent,
 } from '@/providers/telemetry/captureTokenEvent.js';
-import { type BookmarkTokenOptions } from '@/providers/types/Bookmark.js';
+import type { BookmarkTokenOptions } from '@/providers/types/Bookmark.js';
 
 interface Props extends ClickableAreaProps, BookmarkTokenOptions {
     bookmarked?: boolean;

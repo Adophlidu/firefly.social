@@ -1,5 +1,5 @@
-import { type FetchOrderTypeSheet, type SubmitOrderTypeChange } from '@/types/services';
-import { type OrderTypeSheetData } from '@/types/ui';
+import type { FetchOrderTypeSheet, SubmitOrderTypeChange } from '@/types/services';
+import type { OrderTypeSheetData } from '@/types/ui';
 
 const delay = async (ms: number) => {
     await new Promise((resolve) => {

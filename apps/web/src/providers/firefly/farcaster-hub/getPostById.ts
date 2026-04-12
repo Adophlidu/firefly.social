@@ -4,8 +4,8 @@ import urlcat from 'urlcat';
 import { formatFarcasterPostFromFirefly } from '@/providers/farcaster/formatFarcasterPostFromFirefly.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { type CastResponse } from '@/providers/types/Firefly.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { CastResponse } from '@/providers/types/Firefly.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
 
 export async function getPostById(postId: string): Promise<Post> {

@@ -1,4 +1,4 @@
-import { type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 import { Advertisement } from '@/components/Advertisement/index.js';
 import { Calendar } from '@/components/Calendar/Calendar.js';

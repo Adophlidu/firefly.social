@@ -1,5 +1,5 @@
 import { autoLoginLensAccounts } from '@/providers/lens/autoLoginLensAccounts.js';
-import { type Account } from '@/providers/types/Account.js';
+import type { Account } from '@/providers/types/Account.js';
 
 const cachedTasks = new Map<string, Promise<Account[] | undefined>>();
 

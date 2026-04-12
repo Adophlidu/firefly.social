@@ -5,7 +5,7 @@ import { ClickableButton, type ClickableButtonProps } from '@/components/Clickab
 import { Image } from '@/components/Image.js';
 import { resolveAppKitNetworkName } from '@/helpers/resolveAppKitNetworkName.js';
 import { WalletConnectContext } from '@/hooks/useWalletConnectContext.js';
-import { type ChainNamespace } from '@/types/utility.js';
+import type { ChainNamespace } from '@/types/utility.js';
 
 interface WalletItemProps extends ClickableButtonProps {
     icon?: string;

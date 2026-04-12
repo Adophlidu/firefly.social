@@ -17,8 +17,8 @@ import { resolveNFTId } from '@/helpers/resolveNFTIdFromAsset.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { usePoapTraits } from '@/hooks/usePoapTraits.js';
 import { type EVM, TransEventType } from '@/providers/nftscan/types.js';
-import { type NFTFeedV3 } from '@/providers/types/NFTs.js';
-import { type EthereumChainId } from '@/web3-shared/evm/types.js';
+import type { NFTFeedV3 } from '@/providers/types/NFTs.js';
+import type { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 interface NFTsActivityCellCardProps {
     tokenId: string;

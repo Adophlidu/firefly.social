@@ -3,7 +3,7 @@ import { classNames } from '@dimensiondev/utils';
 import { motion } from 'framer-motion';
 
 import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
-import { type PollOption } from '@/providers/types/Poll.js';
+import type { PollOption } from '@/providers/types/Poll.js';
 
 interface VoteResultProps {
     option: PollOption;

@@ -1,6 +1,6 @@
-import { type LayoutProps } from '@dimensiondev/types';
+import type { LayoutProps } from '@dimensiondev/types';
 import { Trans } from '@lingui/react/macro';
-import { type Metadata } from 'next';
+import type { Metadata } from 'next';
 
 import { Comeback } from '@/components/Comeback.js';
 import { ArticleMarkup } from '@/components/Markup/ArticleMarkup.js';

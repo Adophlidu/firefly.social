@@ -6,10 +6,7 @@ import { Modal } from '@/components/Modal.js';
 import { ModalTitle } from '@/components/ModalTitle.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import {
-    type AddLensManagerModalOpenProps,
-    type AddLensManagerModalRefType,
-} from '@/modals/AddLensManagerModal/refs.js';
+import type { AddLensManagerModalOpenProps, AddLensManagerModalRefType } from '@/modals/AddLensManagerModal/refs.js';
 
 const AddLensManagerModalContent = dynamic(
     () =>

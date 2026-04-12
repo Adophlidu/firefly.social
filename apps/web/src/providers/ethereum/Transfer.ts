@@ -10,8 +10,8 @@ import { getAvailableBalance } from '@/providers/ethereum/getAvailableBalance.js
 import { getDefaultGas } from '@/providers/ethereum/getDefaultGas.js';
 import { isNativeToken } from '@/providers/ethereum/isNativeToken.js';
 import { EthereumNetwork } from '@/providers/ethereum/Network.js';
-import { type Token, type TransactionOptions, type TransferProvider } from '@/providers/types/Transfer.js';
-import { type EthereumChainId } from '@/web3-shared/evm/types.js';
+import type { Token, TransactionOptions, TransferProvider } from '@/providers/types/Transfer.js';
+import type { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 class Provider implements TransferProvider<EthereumChainId, Address, Hash> {
     async transfer(options: TransactionOptions<EthereumChainId, Address>): Promise<Address> {

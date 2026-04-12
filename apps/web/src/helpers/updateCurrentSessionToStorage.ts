@@ -1,13 +1,13 @@
 import { bom, parseJson } from '@dimensiondev/utils';
-import { type z } from 'zod';
+import type { z } from 'zod';
 
-import { type ProfileSource, type SocialSource } from '@/constants/enum.js';
+import type { ProfileSource, SocialSource } from '@/constants/enum.js';
 import { setSessionStateToStorage } from '@/helpers/createSessionStorage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveProfileStorageKey } from '@/helpers/resolveProfileStorageKey.js';
 import { logger } from '@/libs/Logger.js';
 import { SessionFactory } from '@/providers/base/SessionFactory.js';
-import { type Session } from '@/providers/types/Session.js';
+import type { Session } from '@/providers/types/Session.js';
 import { ProfileStoreSchema } from '@/schemas/ProfileStore.js';
 
 function updateProfileStorage(source: ProfileSource, session: Session) {

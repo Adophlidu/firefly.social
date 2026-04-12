@@ -3,7 +3,7 @@ import { Fragment } from 'react';
 
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ReplyRestrictionText } from '@/components/Compose/ReplyRestrictionText.js';
-import { type RestrictionType } from '@/constants/enum.js';
+import type { RestrictionType } from '@/constants/enum.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useValidRestrictionTypes } from '@/hooks/useValidRestrictionTypes.js';

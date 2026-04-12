@@ -1,4 +1,4 @@
-import { type MarginTableResponse } from '@nktkas/hyperliquid';
+import type { MarginTableResponse } from '@nktkas/hyperliquid';
 
 export interface SvgIconProps {
     width?: number;

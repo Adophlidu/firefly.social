@@ -4,7 +4,7 @@ import { adjustAssetUris } from '@/helpers/adjustAssetUris.js';
 import { createIndicator, createPageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { type DiscoverNFTResponseV3, type NFTFeedV3 } from '@/providers/types/NFTs.js';
+import type { DiscoverNFTResponseV3, NFTFeedV3 } from '@/providers/types/NFTs.js';
 import { settings } from '@/settings/index.js';
 
 export async function discoverNFTs({

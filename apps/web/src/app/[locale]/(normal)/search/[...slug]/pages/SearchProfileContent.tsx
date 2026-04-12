@@ -13,7 +13,7 @@ import { resolveFireflyPlatform } from '@/helpers/resolveFireflyPlatform.js';
 import { resolveSearchUrlType, SearchUrlKind } from '@/helpers/resolveSearchUrlType.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { logger } from '@/libs/Logger.js';
-import { type Profile as FireflyProfile } from '@/providers/types/Firefly.js';
+import type { Profile as FireflyProfile } from '@/providers/types/Firefly.js';
 import { searchProfilesByKeyword } from '@/services/searchProfilesByKeyword.js';
 import { searchWalletAddress } from '@/services/searchWalletAddress.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';

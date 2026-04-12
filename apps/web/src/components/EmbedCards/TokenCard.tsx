@@ -8,7 +8,7 @@ import { memo } from 'react';
 
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { SecurityBadge } from '@/components/EmbedCards/TokenSecurityBadge.js';
-import { type AddressCardProps } from '@/components/EmbedCards/types.js';
+import type { AddressCardProps } from '@/components/EmbedCards/types.js';
 import { Link } from '@/components/Link.js';
 import { SimplePriceChart } from '@/components/PriceChart/SimplePriceChart.js';
 import { TokenIcon } from '@/components/TokenIcon.js';

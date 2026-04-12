@@ -1,4 +1,4 @@
-import { type Notification as LensNotification } from '@lens-protocol/client';
+import type { Notification as LensNotification } from '@lens-protocol/client';
 
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';

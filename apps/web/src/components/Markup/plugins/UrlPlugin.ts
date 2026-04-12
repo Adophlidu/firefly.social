@@ -1,5 +1,5 @@
 import { compact } from 'lodash-es';
-import { type PhrasingContent, type Root, type RootContent, type Text } from 'mdast';
+import type { PhrasingContent, Root, RootContent, Text } from 'mdast';
 import linkifyRegex from 'remark-linkify-regex';
 
 import { URL_REGEX } from '@/constants/regexp.js';

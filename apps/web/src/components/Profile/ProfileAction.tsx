@@ -15,7 +15,7 @@ import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useRefreshedProfileInProfilePage } from '@/hooks/useRefreshedProfile.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface ProfileActionProps {
     profile: Profile;

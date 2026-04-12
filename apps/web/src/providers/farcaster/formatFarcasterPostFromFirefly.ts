@@ -12,7 +12,7 @@ import { resolveSizeFromS3Url } from '@/helpers/resolveSizeFromS3Url.js';
 import { formatChannelFromFirefly } from '@/providers/farcaster/formatFarcasterChannelFromFirefly.js';
 import { formatFarcasterProfileFromFirefly } from '@/providers/farcaster/formatFarcasterProfileFromFirefly.js';
 import { type Cast, EmbedMediaType } from '@/providers/types/Firefly.js';
-import { type Attachment, type Post, type PostType, type Profile } from '@/providers/types/SocialMedia.js';
+import type { Attachment, Post, PostType, Profile } from '@/providers/types/SocialMedia.js';
 
 function getCoverUriFromUrl(url: string) {
     const parsed = parseUrl(url);

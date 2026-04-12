@@ -1,4 +1,4 @@
-import { type FireflyResponse } from '@/types/firefly';
+import type { FireflyResponse } from '@/types/firefly';
 
 export function resolveFireflyResponseData<T>({ data, error }: FireflyResponse<T>, fallback?: string): T {
     if (error) {

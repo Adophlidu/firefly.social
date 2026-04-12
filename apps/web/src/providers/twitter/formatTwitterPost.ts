@@ -1,7 +1,7 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { compact, find, first, last } from 'lodash-es';
-import { type ApiV2Includes, type TweetV2, type TweetV2PaginableTimelineResult } from 'twitter-api-v2';
+import type { ApiV2Includes, TweetV2, TweetV2PaginableTimelineResult } from 'twitter-api-v2';
 import urlcat from 'urlcat';
 
 import { RestrictionType, Source } from '@/constants/enum.js';
@@ -16,7 +16,7 @@ import { formatTwitterMedia } from '@/providers/twitter/formatTwitterMedia.js';
 import { convertTwitterAvatar, formatTwitterProfileStatus } from '@/providers/twitter/formatTwitterProfile.js';
 import { resolveTwitterRetweetStatus } from '@/providers/twitter/resolveTwitterRetweetStatus.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 export function resolveTweetReplySettings(replySettings?: TweetV2['reply_settings']): RestrictionType[] {
     if (!replySettings) return [RestrictionType.Everyone];

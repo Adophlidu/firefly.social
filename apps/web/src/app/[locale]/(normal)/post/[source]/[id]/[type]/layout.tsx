@@ -1,7 +1,7 @@
-import { type LayoutProps } from '@dimensiondev/types';
+import type { LayoutProps } from '@dimensiondev/types';
 
 import { EngagementLayout } from '@/app/[locale]/(normal)/post/[source]/[id]/pages/EngagementLayout.js';
-import { type EngagementType } from '@/constants/enum.js';
+import type { EngagementType } from '@/constants/enum.js';
 import { notFound } from '@/esm/navigation/server.js';
 import { isSocialSource } from '@/helpers/isSource.js';
 import { isEngagementType } from '@/helpers/parseEngagementUrl.js';

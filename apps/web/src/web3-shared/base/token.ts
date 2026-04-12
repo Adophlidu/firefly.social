@@ -1,5 +1,5 @@
 import { TokenType } from '@/constants/enum.js';
-import { type FungibleToken } from '@/web3-shared/base/specs.js';
+import type { FungibleToken } from '@/web3-shared/base/specs.js';
 
 export function createFungibleToken<ChainId, SchemaType>(
     chainId: ChainId,

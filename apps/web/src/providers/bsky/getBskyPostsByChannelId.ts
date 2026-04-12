@@ -9,7 +9,7 @@ import { ChannelAtUri } from '@/providers/bsky/AtUri.js';
 import { formatBskyFeedPost } from '@/providers/bsky/formatBskyFeedPost.js';
 import { resolveBskyResponseData } from '@/providers/bsky/resolveBskyResponseData.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 export async function getBskyPostsByChannelId(
     channelId: string,

@@ -6,7 +6,7 @@ import { VirtualList } from '@/components/VirtualList/VirtualList.js';
 import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 import { ScrollListKey } from '@/constants/enum.js';
 import { RedPacketDetailItem } from '@/modals/RedPacketModal/RedPacketDetailItem.js';
-import { type FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
+import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 
 export const HistoryActionContext = createContext<{
     actionLoading: boolean;

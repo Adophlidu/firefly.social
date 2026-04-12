@@ -5,14 +5,14 @@ import { compact, first, isUndefined, orderBy, values } from 'lodash-es';
 import { DraftPostType, Source } from '@/constants/enum.js';
 import { POLL_CHOICE_TYPE, POLL_STRATEGIES } from '@/constants/poll.js';
 import { isValidRestrictionType } from '@/helpers/isValidRestrictionType.js';
-import { type Pageable, type PageIndicator } from '@/helpers/pageable.js';
+import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import { recoverCharsByMentions } from '@/helpers/recoverCharsByMentions.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { type CloudDraft, CloudDraftType } from '@/providers/types/CloudDraft.js';
 import { ProfileStatus } from '@/providers/types/SocialMedia.js';
-import { type Draft } from '@/store/useComposeDraftStore.js';
+import type { Draft } from '@/store/useComposeDraftStore.js';
 import { createInitSinglePostState } from '@/store/useComposeStore.js';
-import { type ComposeType, type CompositePost, type OrphanPost } from '@/types/compose.js';
+import type { ComposeType, CompositePost, OrphanPost } from '@/types/compose.js';
 
 function resolveComposeType(type?: CloudDraftType): ComposeType | null {
     if (!type) return null;

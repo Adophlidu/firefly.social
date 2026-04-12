@@ -1,4 +1,4 @@
-import { type TweetV2 } from 'twitter-api-v2';
+import type { TweetV2 } from 'twitter-api-v2';
 
 export function resolveTwitterRetweetStatus(
     tweet: Pick<TweetV2, 'author_id' | 'retweeted'>,

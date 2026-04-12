@@ -4,7 +4,7 @@ import { useAsyncFn } from 'react-use';
 
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { MediaSource } from '@/types/compose.js';
-import { type IGif } from '@/types/giphy.js';
+import type { IGif } from '@/types/giphy.js';
 
 interface GiphyGifListProps {
     width: number;

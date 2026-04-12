@@ -1,8 +1,8 @@
-import { type InfiniteData, type QueryClient } from '@tanstack/react-query';
+import type { InfiniteData, QueryClient } from '@tanstack/react-query';
 import { BigNumber } from 'bignumber.js';
-import { type Address } from 'viem';
+import type { Address } from 'viem';
 
-import { type PolymarketPosition } from '@/providers/types/Firefly.js';
+import type { PolymarketPosition } from '@/providers/types/Firefly.js';
 
 export interface PositionsPage {
     data?: PolymarketPosition[];

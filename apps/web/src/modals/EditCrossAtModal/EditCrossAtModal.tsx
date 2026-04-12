@@ -10,15 +10,15 @@ import { CloseButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-import { type SocialSource } from '@/constants/enum.js';
+import type { SocialSource } from '@/constants/enum.js';
 import { formatFireflyProfileToProfile } from '@/helpers/formatSearchProfile.js';
 import { resolveFireflyPlatformFromSocialSource } from '@/helpers/resolveFireflyPlatform.js';
 import { resolveSocialSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import { type EditCrossAtModalRefType } from '@/modals/EditCrossAtModal/refs.js';
+import type { EditCrossAtModalRefType } from '@/modals/EditCrossAtModal/refs.js';
 import { captureComposeCrossAtEvent } from '@/providers/telemetry/captureComposeEvent.js';
-import { type Profile } from '@/providers/types/Firefly.js';
+import type { Profile } from '@/providers/types/Firefly.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 
 interface Props {

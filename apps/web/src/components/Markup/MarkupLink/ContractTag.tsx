@@ -7,7 +7,7 @@ import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
 import { useNFTCollection } from '@/hooks/useNFTCollection.js';
 import { useTokenInfo } from '@/hooks/useTokenInfo.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
-import { type DetectedAddress } from '@/providers/types/Firefly.js';
+import type { DetectedAddress } from '@/providers/types/Firefly.js';
 
 interface ContractTagProps {
     title: string;

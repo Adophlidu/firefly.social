@@ -7,7 +7,7 @@ import { BigNumber } from 'bignumber.js';
 import { useCallback, useState } from 'react';
 import { useAsync } from 'react-use';
 import urlcat from 'urlcat';
-import { type Address } from 'viem';
+import type { Address } from 'viem';
 
 import RED_PACKET_ABI from '@/abis/RedPacket.json' with { type: 'json' };
 import { ChainIcon } from '@/components/ChainIcon.js';
@@ -39,7 +39,7 @@ import { useAvailableBalance } from '@/hooks/useAvailableBalance.js';
 import { RedPacketModalRef } from '@/modals/RedPacketModal/refs.js';
 import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
 import { type RedPacketJSONPayload, RedPacketStatus } from '@/providers/types/FireflyRedPacket.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 import { TokenType } from '@/types/rp.js';
 import { EVMChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
 

@@ -1,6 +1,6 @@
 import UserRemoveIcon from '@dimensiondev/assets/user-remove.svg';
 import { Trans } from '@lingui/react/macro';
-import { type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 interface Props {
     message: ReactNode;

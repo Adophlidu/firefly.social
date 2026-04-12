@@ -2,7 +2,7 @@
 
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
-import { type HTMLProps } from 'react';
+import type { HTMLProps } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -11,8 +11,8 @@ import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { useProfileStore } from '@/hooks/useProfileStore.js';
-import { type Account } from '@/providers/types/Account.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
+import type { Account } from '@/providers/types/Account.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 import { switchAccount } from '@/services/account.js';
 
 interface ProfileLoginStatusProps extends HTMLProps<HTMLDivElement> {

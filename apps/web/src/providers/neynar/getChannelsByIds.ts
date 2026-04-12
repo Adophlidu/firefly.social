@@ -8,8 +8,8 @@ import { fetchNeynarJson } from '@/helpers/fetchNeynarJson.js';
 import { resolveNeynarResponseData } from '@/helpers/resolveNeynarResponseData.js';
 import { formatChannelFromFirefly } from '@/providers/farcaster/formatFarcasterChannelFromFirefly.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
-import { type Channel as FireflyChannel } from '@/providers/types/Firefly.js';
-import { type Channel, type Notification } from '@/providers/types/SocialMedia.js';
+import type { Channel as FireflyChannel } from '@/providers/types/Firefly.js';
+import type { Channel, Notification } from '@/providers/types/SocialMedia.js';
 
 export async function getChannelsByIds(ids: string[]): Promise<Channel[]> {
     if (!ids.length) return EMPTY_LIST;

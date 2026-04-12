@@ -8,7 +8,7 @@ import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useCallback, useState } from 'react';
 import { useAsyncFn } from 'react-use';
-import { type Address } from 'viem';
+import type { Address } from 'viem';
 import { useConnection } from 'wagmi';
 
 import { ActionButton } from '@/components/ActionButton.js';
@@ -23,10 +23,7 @@ import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useNFTCollections } from '@/hooks/useNFTCollections.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import {
-    type AddCustomERC721ModalOpenProps,
-    type AddCustomERC721ModalRefType,
-} from '@/modals/AddCustomERC721Modal/refs.js';
+import type { AddCustomERC721ModalOpenProps, AddCustomERC721ModalRefType } from '@/modals/AddCustomERC721Modal/refs.js';
 import { getCollection } from '@/providers/firefly/nft/getCollection.js';
 import { NFTSCAN_CHAIN_IDS } from '@/providers/nftscan/constants.js';
 import { CustomTokenType, useCustomTokenStore } from '@/store/useCustomTokenStore.js';

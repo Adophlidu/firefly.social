@@ -4,7 +4,7 @@ import { NotFoundError } from '@dimensiondev/utils';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { TweetUnavailableError } from '@/constants/error.js';
 import { createDummyPost } from '@/helpers/createDummyPost.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 import { getPostById } from '@/services/getPostById.js';
 import { getThreads } from '@/services/getThreads.js';
 

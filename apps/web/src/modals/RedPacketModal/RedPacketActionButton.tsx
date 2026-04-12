@@ -7,7 +7,7 @@ import {
     type ResendRedPacketInfo,
     useResendRedPacketCallback,
 } from '@/components/RedPacket/hooks/useResendRedPacketCallback.js';
-import { type NetworkType } from '@/constants/enum.js';
+import type { NetworkType } from '@/constants/enum.js';
 import { HistoryActionContext } from '@/modals/RedPacketModal/HistoryList.js';
 import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 

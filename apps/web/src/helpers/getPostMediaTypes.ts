@@ -2,7 +2,7 @@ import { compact } from 'lodash-es';
 
 import { readChars } from '@/helpers/chars.js';
 import { PostMediaType } from '@/providers/types/Firefly.js';
-import { type CompositePost } from '@/types/compose.js';
+import type { CompositePost } from '@/types/compose.js';
 
 export function getPostMediaTypes(compositePost: CompositePost | undefined): PostMediaType[] {
     const chars = readChars({ chars: compositePost?.chars ?? '', strategy: 'visible' });

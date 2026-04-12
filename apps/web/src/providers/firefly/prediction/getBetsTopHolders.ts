@@ -4,7 +4,7 @@ import { createIndicator, createNextIndicator, createPageable, type PageIndicato
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { getTopHolders } from '@/providers/prediction/polymarket/getTopHolders.js';
-import { type OpinionHolder, type Response } from '@/providers/types/Firefly.js';
+import type { OpinionHolder, Response } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 interface Options {

@@ -2,7 +2,7 @@ import urlcat from 'urlcat';
 
 import { FireflyPlatform } from '@/constants/enum.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { type Article } from '@/providers/types/Article.js';
+import type { Article } from '@/providers/types/Article.js';
 import { settings } from '@/settings/index.js';
 
 export async function reportArticle(article: Article) {

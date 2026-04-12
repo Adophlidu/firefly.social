@@ -1,4 +1,4 @@
-import { type InlineErrorV2 } from 'twitter-api-v2';
+import type { InlineErrorV2 } from 'twitter-api-v2';
 
 const TWITTER_V2_RESOURCE_NOT_FOUND_TYPE = 'https://api.twitter.com/2/problems/resource-not-found';
 

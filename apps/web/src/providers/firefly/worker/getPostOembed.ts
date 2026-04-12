@@ -5,9 +5,9 @@ import urlcat from 'urlcat';
 import { FIREFLY_WORKER_HOST } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { isValidDomainEthereum } from '@/helpers/isValidDomain.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
-import { type LinkDigested } from '@/types/og.js';
-import { type ResponseJson } from '@/types/utility.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
+import type { LinkDigested } from '@/types/og.js';
+import type { ResponseJson } from '@/types/utility.js';
 
 // We are confident that these hosts will not be used for frame links
 const IGNORE_HOSTS = [/^.+\.mask\.social$/, 'localhost:3000', 'x.com'];

@@ -6,7 +6,7 @@ import { AccountAmountSheet } from '@/components/AccountAmountSheet';
 import { BackIcon } from '@/icons/BackIcon';
 import { ChartIcon } from '@/icons/ChartIcon';
 import { ChevronDownIcon } from '@/icons/ChevronDownIcon';
-import { type AccountAmountActionType, type AccountAmountSheetData, type PerpsTradeDetailTicker } from '@/types/ui';
+import type { AccountAmountActionType, AccountAmountSheetData, PerpsTradeDetailTicker } from '@/types/ui';
 
 interface PerpsTradeDetailHeaderProps {
     available: string;

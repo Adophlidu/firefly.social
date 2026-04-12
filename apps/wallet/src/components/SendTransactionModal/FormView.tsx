@@ -33,7 +33,7 @@ import { Button } from '@/components/ui/button.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { config } from '@/configs/wagmi.js';
 import { NetworkType } from '@/constants/enum.js';
-import { type EthereumChainId } from '@/constants/ethereum.js';
+import type { EthereumChainId } from '@/constants/ethereum.js';
 import { SolanaChainId } from '@/constants/solana.js';
 import { formatLamportsToSol } from '@/helpers/formatLamportsToSol.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
@@ -52,7 +52,7 @@ import { coinGeckoEndpoint } from '@/providers/coingecko/index.js';
 import { getDefaultGas } from '@/providers/ethereum/getDefaultGas.js';
 import { EthereumTransfer } from '@/providers/ethereum/Transfer.js';
 import { SolanaTransfer } from '@/providers/solana/Transfer.js';
-import { type Token, type TransferProvider } from '@/providers/types/Transfer.js';
+import type { Token, TransferProvider } from '@/providers/types/Transfer.js';
 
 export function FormView() {
     const { token } = useSendToken();

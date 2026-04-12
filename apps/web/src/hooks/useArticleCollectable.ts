@@ -5,7 +5,7 @@ import { estimateFeesPerGas, getBalance } from 'wagmi/actions';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { isGreaterThan, multipliedBy, plus, ZERO } from '@/helpers/number.js';
 import { getArticleCollectStatus } from '@/providers/firefly/wallet-transaction/getArticleCollectStatus.js';
-import { type Article } from '@/providers/types/Article.js';
+import type { Article } from '@/providers/types/Article.js';
 import { EVMChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
 
 export function useArticleCollectStatus(article: Article) {

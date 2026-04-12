@@ -15,7 +15,7 @@ import { useAbortController } from '@/hooks/useAbortController.js';
 import { logger } from '@/libs/Logger.js';
 import { InfoCard } from '@/modals/FrameViewerModal/InfoCard.js';
 import { LoadingCard } from '@/modals/FrameViewerModal/LoadingCard.js';
-import { type RelayConfirmationContext } from '@/modals/FrameViewerModal/RelayConfirmationRouter.js';
+import type { RelayConfirmationContext } from '@/modals/FrameViewerModal/RelayConfirmationRouter.js';
 import { ResultCard } from '@/modals/FrameViewerModal/ResultCard.js';
 import { captureFrameSignInEvent } from '@/providers/telemetry/captureFrameSignInEvent.js';
 import { createSignedKey } from '@/providers/warpcast/createSignedKey.js';

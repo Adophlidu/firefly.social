@@ -2,7 +2,7 @@ import { runInSafeAsync } from '@dimensiondev/utils';
 
 import { getWalletEventParameters } from '@/providers/telemetry/getWalletEventParameters.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
-import { type EventId } from '@/providers/types/Telemetry.js';
+import type { EventId } from '@/providers/types/Telemetry.js';
 
 export function captureMintNFTEvent(
     eventId: EventId.MINT_NFT_SUBMIT | EventId.MINT_NFT_SUCCESS,

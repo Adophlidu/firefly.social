@@ -1,5 +1,5 @@
 import { resolveValue, safeUnreachable } from '@dimensiondev/utils';
-import { type Root } from 'mdast';
+import type { Root } from 'mdast';
 import flatMap from 'unist-util-flatmap';
 
 import { splitTextChildren } from '@/components/Markup/plugins/splitTextChildren.js';

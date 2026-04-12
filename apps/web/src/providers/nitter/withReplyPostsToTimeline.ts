@@ -1,6 +1,6 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { uniq } from 'lodash-es';
-import { type TweetV2LookupResult } from 'twitter-api-v2';
+import type { TweetV2LookupResult } from 'twitter-api-v2';
 import urlcat from 'urlcat';
 
 import { patchTweetsClientToFirefly } from '@/helpers/patchPostClientToFirefly.js';
@@ -8,8 +8,8 @@ import { formatTwitterPostFromNitter } from '@/providers/nitter/formatTwitterPos
 import { tweetV2ToPost } from '@/providers/twitter/formatTwitterPost.js';
 import { resolveTwitterResponseData } from '@/providers/twitter/resolveTwitterResponseData.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
-import { type Tweet } from '@/providers/types/Nitter.js';
-import { type ResponseJson } from '@/types/utility.js';
+import type { Tweet } from '@/providers/types/Nitter.js';
+import type { ResponseJson } from '@/types/utility.js';
 
 export async function withReplyPostsToTimeline(timeline: Tweet[]) {
     timeline = timeline.flat();

@@ -9,7 +9,7 @@ import {
     LENS_HANDLE_REGEXP,
     URL_REGEX,
 } from '@/constants/regexp.js';
-import { type DetectAddressResponse } from '@/providers/types/Firefly.js';
+import type { DetectAddressResponse } from '@/providers/types/Firefly.js';
 
 type AddressRecord = NonNullable<DetectAddressResponse['data']>['list'][number];
 

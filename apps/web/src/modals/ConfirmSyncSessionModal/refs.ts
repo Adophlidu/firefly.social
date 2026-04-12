@@ -1,5 +1,5 @@
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export interface ConfirmSyncSessionModalOpenProps {
     profiles: Profile[];

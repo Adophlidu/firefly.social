@@ -2,8 +2,8 @@ import urlcat from 'urlcat';
 
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { type CreateCloudDraftRequest, type CreateCloudDraftResponse } from '@/providers/types/CloudDraft.js';
-import { type Response } from '@/providers/types/Firefly.js';
+import type { CreateCloudDraftRequest, CreateCloudDraftResponse } from '@/providers/types/CloudDraft.js';
+import type { Response } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 export async function createCloudDraft(request: CreateCloudDraftRequest) {

@@ -7,20 +7,20 @@ import { PerpsTradeForm } from '@/components/PerpsTradeForm';
 import { PerpsTradeOrderBookPanel } from '@/components/PerpsTradeOrderBookPanel';
 import { loadPerpsTradeDetailPage } from '@/services/perpsTradeDetail';
 import { PerpsTradeDetailSkeleton } from '@/skeletons/PerpsTradeDetailSkeleton';
-import {
-    type FetchAddToPositionSheet,
-    type FetchLeverageSheet,
-    type FetchMarginModeSheet,
-    type FetchOrderTypeSheet,
-    type FetchPerpsTradeDetailPage,
-    type FetchTpSlSheet,
-    type SubmitAddToPosition,
-    type SubmitLeverageChange,
-    type SubmitMarginModeChange,
-    type SubmitOrderTypeChange,
-    type SubmitTpSl,
+import type {
+    FetchAddToPositionSheet,
+    FetchLeverageSheet,
+    FetchMarginModeSheet,
+    FetchOrderTypeSheet,
+    FetchPerpsTradeDetailPage,
+    FetchTpSlSheet,
+    SubmitAddToPosition,
+    SubmitLeverageChange,
+    SubmitMarginModeChange,
+    SubmitOrderTypeChange,
+    SubmitTpSl,
 } from '@/types/services';
-import { type AccountAmountActionType, type PerpsTradeDetailPageData } from '@/types/ui';
+import type { AccountAmountActionType, PerpsTradeDetailPageData } from '@/types/ui';
 
 export interface PerpsTradeDetailProps {
     market?: string;

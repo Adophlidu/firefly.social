@@ -1,7 +1,7 @@
 import urlcat from 'urlcat';
-import { type Address } from 'viem';
+import type { Address } from 'viem';
 
-import { type SocialSource } from '@/constants/enum.js';
+import type { SocialSource } from '@/constants/enum.js';
 import { InvalidPolymarketAccountError } from '@/constants/error.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { resolveSourceInUrlForApi } from '@/helpers/resolveSourceInUrl.js';

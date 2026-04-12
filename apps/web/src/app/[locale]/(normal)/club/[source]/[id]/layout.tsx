@@ -1,6 +1,6 @@
-import { type LayoutProps } from '@dimensiondev/types';
+import type { LayoutProps } from '@dimensiondev/types';
 import { runInSafeAsync } from '@dimensiondev/utils';
-import { type Metadata } from 'next';
+import type { Metadata } from 'next';
 
 import { ChannelInfoUI } from '@/components/Channel/ChannelInfoUI.js';
 import { Title } from '@/components/Channel/Title.js';

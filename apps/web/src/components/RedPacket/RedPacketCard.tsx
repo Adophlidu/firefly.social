@@ -5,8 +5,8 @@ import { Trans } from '@lingui/react/macro';
 
 import { ErrorBoundary } from '@/components/ErrorBoundary/index.js';
 import { RedPacketCardContent } from '@/components/RedPacket/RedPacketCardContent.js';
-import { type RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface Props {
     payload: RedPacketJSONPayload;

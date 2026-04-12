@@ -36,7 +36,7 @@ import { useRefreshedProfile } from '@/hooks/useRefreshedProfile.js';
 import { useReportPost } from '@/hooks/useReportPost.js';
 import { useToggleMutedChannel } from '@/hooks/useToggleMutedChannel.js';
 import { useToggleMutedProfile } from '@/hooks/useToggleMutedProfile.js';
-import { type Channel, type Post, type Profile } from '@/providers/types/SocialMedia.js';
+import type { Channel, Post, Profile } from '@/providers/types/SocialMedia.js';
 
 interface MoreProps {
     source: SocialSource;

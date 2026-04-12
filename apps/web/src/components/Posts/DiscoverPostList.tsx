@@ -10,7 +10,7 @@ import { createIndicator } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useDiscoverSources } from '@/hooks/useDiscoverSources.js';
 import { useMultiInfiniteQueryPageable } from '@/hooks/useMultiInfiniteQueryPageable.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 export const DiscoverPostList = memo<{ source: SocialSource | Source.Posts }>(function DiscoverPostList({ source }) {
     const { sources, selectedSources } = useDiscoverSources(HomeTab.Discover);

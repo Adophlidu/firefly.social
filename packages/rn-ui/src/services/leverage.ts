@@ -1,5 +1,5 @@
-import { type FetchLeverageSheet, type SubmitLeverageChange } from '@/types/services';
-import { type LeverageSheetData } from '@/types/ui';
+import type { FetchLeverageSheet, SubmitLeverageChange } from '@/types/services';
+import type { LeverageSheetData } from '@/types/ui';
 
 const delay = async (ms: number) => {
     await new Promise((resolve) => {

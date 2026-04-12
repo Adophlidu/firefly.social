@@ -1,8 +1,8 @@
-import { type NetworkType } from '@/constants/enum.js';
+import type { NetworkType } from '@/constants/enum.js';
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
-import { type Token } from '@/providers/types/Transfer.js';
-import { type FungibleToken } from '@/web3-shared/base/specs.js';
-import { type EthereumChainId, type EthereumSchemaType } from '@/web3-shared/evm/types.js';
+import type { Token } from '@/providers/types/Transfer.js';
+import type { FungibleToken } from '@/web3-shared/base/specs.js';
+import type { EthereumChainId, EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
 export interface TokenSelectorModalOpenProps {
     address: string;

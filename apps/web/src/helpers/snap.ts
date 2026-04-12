@@ -1,4 +1,4 @@
-import { type Snap } from '@/types/snap.js';
+import type { Snap } from '@/types/snap.js';
 
 export function isSnap(value: unknown): value is Snap {
     return (

@@ -17,7 +17,7 @@ import { Source } from '@/constants/enum.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
-import { type Channel } from '@/providers/types/SocialMedia.js';
+import type { Channel } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
 interface ChannelInListProps extends HTMLProps<HTMLDivElement> {

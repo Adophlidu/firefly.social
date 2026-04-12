@@ -3,13 +3,13 @@ import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
 
 import { formatSenderName } from '@/components/RedPacket/helpers.js';
-import { type NetworkType } from '@/constants/enum.js';
+import type { NetworkType } from '@/constants/enum.js';
 import { DEFAULT_THEME_ID } from '@/constants/rp.js';
 import { SITE_URL } from '@/constants/static.js';
 import { toFixed } from '@/helpers/number.js';
 import { RedPacketModalRef } from '@/modals/RedPacketModal/refs.js';
 import { getMaskTypedMessage } from '@/providers/firefly/red-packet/getMaskTypedMessage.js';
-import { type FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
+import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 export interface ResendRedPacketInfo {

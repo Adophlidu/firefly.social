@@ -1,6 +1,6 @@
 import { envs } from '@dimensiondev/envs';
 import { compose } from '@dimensiondev/utils';
-import { type NextRequest } from 'next/server.js';
+import type { NextRequest } from 'next/server.js';
 import z from 'zod';
 
 import { SourceInURL } from '@/constants/enum.js';
@@ -9,7 +9,7 @@ import { getJsonBodyWithZodSchema } from '@/helpers/getJsonBodyWithZodSchema.js'
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { uploadMetrics } from '@/providers/firefly/metrics/uploadMetrics.js';
 import { createTwitterSessionPayloadFromHeaders } from '@/providers/twitter/createTwitterSessionPayload.js';
-import { type TwitterMetricsData } from '@/providers/types/Firefly.js';
+import type { TwitterMetricsData } from '@/providers/types/Firefly.js';
 import { encryptAes256 } from '@/services/crypto.js';
 
 const BodySchema = z.object({

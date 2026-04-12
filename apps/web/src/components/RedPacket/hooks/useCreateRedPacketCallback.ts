@@ -5,7 +5,7 @@ import { useEthereumCreateRedPacketCallback } from '@/components/RedPacket/hooks
 import { useSolanaCreateRedPacketCallback } from '@/components/RedPacket/hooks/useSolanaCreateRedPacketCallback.js';
 import { NetworkType } from '@/constants/enum.js';
 import { RedPacketContext } from '@/modals/RedPacketModal/RedPacketContext.js';
-import { type FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
+import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 
 export function useCreateRedPacketCallback(
     shareFromName: string,

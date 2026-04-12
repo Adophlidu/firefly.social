@@ -7,7 +7,7 @@ import { Tips } from '@/components/Tips/index.js';
 import { Source } from '@/constants/enum.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useToggleSnapshotBookmark } from '@/hooks/useToggleSnapshotBookmark.js';
-import { type SnapshotActivity } from '@/providers/snapshot/type.js';
+import type { SnapshotActivity } from '@/providers/snapshot/type.js';
 
 interface SnapshotActionsProps {
     activity: SnapshotActivity;

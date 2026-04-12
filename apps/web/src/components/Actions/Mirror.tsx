@@ -20,7 +20,7 @@ import { stopEvent } from '@/helpers/stopEvent.js';
 import { useAnonymousPostAvailability } from '@/hooks/useAnonymousPostAvailability.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useMirror } from '@/hooks/useMirror.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 function getTooltipContent(source: SocialSource, shares: number) {
     if (shares === 0) {

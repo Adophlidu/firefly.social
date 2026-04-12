@@ -5,7 +5,7 @@ import FollowedIcon from '@dimensiondev/assets/followed.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo, useState } from 'react';
-import { type Address } from 'viem';
+import type { Address } from 'viem';
 
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { ToggleMuteWalletButton } from '@/components/Profile/MuteWalletButton.js';

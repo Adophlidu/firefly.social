@@ -1,6 +1,6 @@
-import { type CharTag, type SocialSource } from '@/constants/enum.js';
-import { type RP_HASH_TAG } from '@/constants/static.js';
-import { type Profile } from '@/providers/types/Firefly.js';
+import type { CharTag, SocialSource } from '@/constants/enum.js';
+import type { RP_HASH_TAG } from '@/constants/static.js';
+import type { Profile } from '@/providers/types/Firefly.js';
 
 interface Segment {
     // tag is used to identify the type of content

@@ -22,11 +22,11 @@ import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketCo
 import { createRedPacketParams } from '@/providers/ethereum/red-packet/createRedPacketParams.js';
 import { createCover } from '@/providers/firefly/red-packet/createCover.js';
 import { captureLuckyDropEvent } from '@/providers/telemetry/captureLuckyDropEvent.js';
-import { type FireflyRedPacketAPI, type RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
+import type { FireflyRedPacketAPI, RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
-import { type RedPacketCreationSuccessEventArgs, type RedPacketMetadata } from '@/types/rp.js';
+import type { RedPacketCreationSuccessEventArgs, RedPacketMetadata } from '@/types/rp.js';
 import { EVMChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
-import { type FungibleToken } from '@/web3-shared/base/specs.js';
+import type { FungibleToken } from '@/web3-shared/base/specs.js';
 import { type EthereumChainId, EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
 function treeShakePayloadInfo(payload: RedPacketJSONPayload): RedPacketMetadata {

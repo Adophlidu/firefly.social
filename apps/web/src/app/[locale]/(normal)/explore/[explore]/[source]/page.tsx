@@ -1,6 +1,6 @@
 'use client';
 
-import { type LayoutProps } from '@dimensiondev/types';
+import type { LayoutProps } from '@dimensiondev/types';
 import { use } from 'react';
 
 import { ExplorePage } from '@/app/[locale]/(normal)/explore/pages/Explore.js';

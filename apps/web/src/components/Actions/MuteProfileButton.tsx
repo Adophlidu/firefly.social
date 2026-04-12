@@ -5,10 +5,10 @@ import UnmuteIcon from '@dimensiondev/assets/unmute.svg';
 import { Trans } from '@lingui/react/macro';
 
 import { MenuButton } from '@/components/Actions/MenuButton.js';
-import { type ClickableButtonProps } from '@/components/ClickableButton.js';
+import type { ClickableButtonProps } from '@/components/ClickableButton.js';
 import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface MuteProfileButtonProps extends Omit<ClickableButtonProps, 'children' | 'onToggle'> {
     profile: Profile;

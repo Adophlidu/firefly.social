@@ -2,12 +2,12 @@ import { type Draft, produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { SearchType, type SocialSource } from '@/constants/enum.js';
-import { type PageData } from '@/decorators/types.js';
+import type { PageData } from '@/decorators/types.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { patchNotificationQueryDataOnAuthor } from '@/helpers/patchNotificationQueryData.js';
 import { type Matcher, patchPostQueryData } from '@/helpers/patchPostQueryData.js';
-import { type Notification, type Profile, type Provider } from '@/providers/types/SocialMedia.js';
-import { type ClassType } from '@/types/utility.js';
+import type { Notification, Profile, Provider } from '@/providers/types/SocialMedia.js';
+import type { ClassType } from '@/types/utility.js';
 
 export function setFollowStatus(source: SocialSource, profileId: string, status: boolean) {
     const matcher: Matcher = (post) => post?.author.profileId === profileId;

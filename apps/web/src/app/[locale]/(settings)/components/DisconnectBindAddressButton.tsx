@@ -15,7 +15,7 @@ import { enqueueErrorMessage, enqueueMessageFromError, enqueueSuccessMessage } f
 import { resolveConnectionPlatform } from '@/helpers/resolveConnectionPlatform.js';
 import { useAllConnections } from '@/hooks/useAllConnections.js';
 import { disconnectAccount } from '@/providers/firefly/endpoint/disconnectAccount.js';
-import { type FireflyWalletConnection } from '@/providers/types/Firefly.js';
+import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
 import { removeAccountsByProfiles } from '@/services/account.js';
 
 interface DisconnectBindAddressButtonProps {

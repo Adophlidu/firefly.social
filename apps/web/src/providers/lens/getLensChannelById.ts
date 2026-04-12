@@ -2,7 +2,7 @@ import { runInSafeAsync } from '@dimensiondev/utils';
 
 import { getGroupWithMemberCount, getGroupWithOwner } from '@/providers/lens/getFullGroup.js';
 import { getLensProfileById } from '@/providers/lens/getLensProfileById.js';
-import { type Channel, type Notification } from '@/providers/types/SocialMedia.js';
+import type { Channel, Notification } from '@/providers/types/SocialMedia.js';
 
 export async function getLensChannelById(
     channelId: string,

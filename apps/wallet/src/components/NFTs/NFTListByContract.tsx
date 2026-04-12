@@ -3,7 +3,7 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { GridListInPage } from '@/components/GridListInPage.js';
 import { getNFTItemContent, POAPGridListComponent } from '@/components/NFTs/POAPList.js';
-import { type EthereumChainId } from '@/constants/ethereum.js';
+import type { EthereumChainId } from '@/constants/ethereum.js';
 import { createIndicator, createNextIndicator, createPageable } from '@/helpers/pageable.js';
 import { getFireflyEndpoint } from '@/store/fireflyEndpoint.js';
 

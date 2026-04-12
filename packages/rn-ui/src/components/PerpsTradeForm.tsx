@@ -8,21 +8,21 @@ import { OrderTypeSheet } from '@/components/OrderTypeSheet';
 import { loadLeverageSheet, submitLeverageChange } from '@/services/leverage';
 import { loadMarginModeSheet, submitMarginModeChange } from '@/services/marginMode';
 import { loadOrderTypeSheet, submitOrderTypeChange } from '@/services/orderType';
-import {
-    type FetchLeverageSheet,
-    type FetchMarginModeSheet,
-    type FetchOrderTypeSheet,
-    type SubmitLeverageChange,
-    type SubmitMarginModeChange,
-    type SubmitOrderTypeChange,
+import type {
+    FetchLeverageSheet,
+    FetchMarginModeSheet,
+    FetchOrderTypeSheet,
+    SubmitLeverageChange,
+    SubmitMarginModeChange,
+    SubmitOrderTypeChange,
 } from '@/types/services';
-import {
-    type LeverageSheetData,
-    type MarginModeSheetData,
-    type OrderTypeSheetData,
-    type PerpsTradeFormState,
-    type PerpsTradeMarginMode,
-    type PerpsTradeOrderType,
+import type {
+    LeverageSheetData,
+    MarginModeSheetData,
+    OrderTypeSheetData,
+    PerpsTradeFormState,
+    PerpsTradeMarginMode,
+    PerpsTradeOrderType,
 } from '@/types/ui';
 
 interface PerpsTradeFormProps {

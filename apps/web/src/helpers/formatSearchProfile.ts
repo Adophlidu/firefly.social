@@ -10,8 +10,8 @@ import { resolveAddressFromProfile } from '@/helpers/resolveAddressFromProfile.j
 import { resolveFireflyPlatform } from '@/helpers/resolveFireflyPlatform.js';
 import { resolveSocialSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
-import { type Profile as FireflyProfile, type SearchProfileResponse } from '@/providers/types/Firefly.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
+import type { Profile as FireflyProfile, SearchProfileResponse } from '@/providers/types/Firefly.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
 const validPlatforms = [
     FireflyPlatform.Farcaster,

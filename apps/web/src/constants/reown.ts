@@ -1,4 +1,4 @@
-import { type ChainNamespace } from '@/types/utility.js';
+import type { ChainNamespace } from '@/types/utility.js';
 
 // learn more: https://explorer.walletconnect.com/?type=wallet
 export enum WalletId {

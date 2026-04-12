@@ -7,9 +7,9 @@ import { Modal } from '@/components/Modal.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import { type ConfirmSyncSessionModalRefType } from '@/modals/ConfirmSyncSessionModal/refs.js';
+import type { ConfirmSyncSessionModalRefType } from '@/modals/ConfirmSyncSessionModal/refs.js';
 import { captureTokenSyncNoEvent, captureTokenSyncYesEvent } from '@/providers/telemetry/captureSyncTokenEvent.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface Props {
     ref: React.Ref<ConfirmSyncSessionModalRefType>;

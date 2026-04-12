@@ -3,7 +3,7 @@ import urlcat from 'urlcat';
 
 import { CALENDAR_BASE_URL } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
-import { type EventDatesResponse, type EventProvider } from '@/types/calendar.js';
+import type { EventDatesResponse, EventProvider } from '@/types/calendar.js';
 
 export async function getAvailableDates(type: EventProvider, start_date: number, end_date: number) {
     const response = await fetchJson<EventDatesResponse>(

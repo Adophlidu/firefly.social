@@ -6,7 +6,7 @@ import {
     CoreConnectionControllerUtil,
     CoreConnectorController,
 } from '@reown/appkit';
-import { type CaipAddress, type Connection } from '@reown/appkit/react';
+import type { CaipAddress, Connection } from '@reown/appkit/react';
 import { compact } from 'lodash-es';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
@@ -16,7 +16,7 @@ import { getAddressType } from '@/helpers/getAddressType.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { networkTypeToChainNamespace } from '@/helpers/networkTypeToChainNamespace.js';
 import { usePrivyConnections } from '@/hooks/usePrivyConnections.js';
-import { type ChainNamespace } from '@/types/utility.js';
+import type { ChainNamespace } from '@/types/utility.js';
 
 export interface AppKitAccount {
     address: string;

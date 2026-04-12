@@ -3,7 +3,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { createSwapEndpoint } from '@/providers/swap/swapEndpoint.js';
-import { type SupportedChain } from '@/providers/swap/types.js';
+import type { SupportedChain } from '@/providers/swap/types.js';
 
 /**
  * Shared hook for fetching swap-supported chains from the backend API.

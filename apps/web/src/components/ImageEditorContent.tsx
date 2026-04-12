@@ -3,7 +3,7 @@
 import { Trans } from '@lingui/react/macro';
 import { type Ranger, useRanger } from '@tanstack/react-ranger';
 import { Fragment, useCallback, useRef, useState } from 'react';
-import { type AvatarEditorProps } from 'react-avatar-editor';
+import type { AvatarEditorProps } from 'react-avatar-editor';
 import AvatarEditor from 'react-avatar-editor';
 
 import { ClickableButton } from '@/components/ClickableButton.js';

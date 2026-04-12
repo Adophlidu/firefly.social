@@ -4,7 +4,7 @@ import { createContainer } from 'unstated-next';
 
 import { ClickOrigin, type NetworkType } from '@/constants/enum.js';
 import { networkTypeToChainNamespace } from '@/helpers/networkTypeToChainNamespace.js';
-import { type ChainNamespace } from '@/types/utility.js';
+import type { ChainNamespace } from '@/types/utility.js';
 
 interface WalletConnectContext {
     loading: boolean;

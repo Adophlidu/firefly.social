@@ -9,7 +9,7 @@ import {
     createSolanaVerificationMessage,
 } from '@/providers/farcaster/createVerificationMessage.js';
 import { getEthereumBlockHash, getSolanaBlockHash } from '@/providers/farcaster/getBlockHash.js';
-import { type FarcasterSession } from '@/providers/farcaster/Session.js';
+import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { getWalletAdaptorRequired } from '@/providers/solana/getWalletAdapter.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
 

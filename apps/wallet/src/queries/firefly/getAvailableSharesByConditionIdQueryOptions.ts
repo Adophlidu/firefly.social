@@ -1,6 +1,6 @@
 import { queryOptions } from '@tanstack/react-query';
 import { BigNumber } from 'bignumber.js';
-import { type Address } from 'viem';
+import type { Address } from 'viem';
 
 import { getFireflyEndpoint } from '@/store/fireflyEndpoint.js';
 

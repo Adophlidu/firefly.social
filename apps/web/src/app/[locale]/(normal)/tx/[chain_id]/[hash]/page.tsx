@@ -1,4 +1,4 @@
-import { type LayoutProps } from '@dimensiondev/types';
+import type { LayoutProps } from '@dimensiondev/types';
 import { runInSafeAsync } from '@dimensiondev/utils';
 
 import { TipsDetailWithView } from '@/app/[locale]/(normal)/tx/[chain_id]/[hash]/TipsDetailWithView.js';

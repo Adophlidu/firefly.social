@@ -1,7 +1,7 @@
 import { classNames } from '@dimensiondev/utils';
-import { type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
-import { type SnapItemGroupProps } from '@/types/snap.js';
+import type { SnapItemGroupProps } from '@/types/snap.js';
 
 const GAP_MAP: Record<NonNullable<SnapItemGroupProps['gap']>, string> = {
     none: 'gap-0',

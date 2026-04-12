@@ -42,8 +42,8 @@ import { useForkRef } from '@/hooks/useForkRef.js';
 import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useMounted } from '@/hooks/useMounted.js';
-import { type RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 import { useTwitterProfileStore } from '@/store/useProfileStore/useTwitterProfileStore.js';
 
 export interface PostBodyContentProps {

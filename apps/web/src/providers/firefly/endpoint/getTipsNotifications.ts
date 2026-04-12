@@ -5,7 +5,7 @@ import { Source } from '@/constants/enum.js';
 import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { type TipsNotification, type TipsNotificationsResponse } from '@/providers/types/Firefly.js';
+import type { TipsNotification, TipsNotificationsResponse } from '@/providers/types/Firefly.js';
 import { NotificationType } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
 

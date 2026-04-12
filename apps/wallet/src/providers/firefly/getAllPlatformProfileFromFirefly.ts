@@ -3,7 +3,7 @@ import { isHex } from 'viem';
 
 import { NetworkType, Source } from '@/constants/enum.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
-import { type FireflyIdentity } from '@/providers/types/Firefly.js';
+import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import { getFireflyEndpoint } from '@/store/fireflyEndpoint.js';
 
 export async function getAllPlatformProfileFromFirefly(identity: FireflyIdentity, forceHandle = false) {

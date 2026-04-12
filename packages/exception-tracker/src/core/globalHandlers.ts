@@ -1,7 +1,7 @@
 /* cspell:disable */
 
+import type { IgnoredErrorPattern } from '@/config.js';
 import { getExceptionTrackerConfig } from '@/config.js';
-import { type IgnoredErrorPattern } from '@/config.js';
 import { captureException, ExceptionId } from '@/core/captureException.js';
 import { classifyError } from '@/helpers/classifyError.js';
 import { getErrorMessage } from '@/helpers/getErrorMessage.js';

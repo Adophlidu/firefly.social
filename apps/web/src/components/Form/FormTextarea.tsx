@@ -1,5 +1,5 @@
 import { classNames } from '@dimensiondev/utils';
-import { type HTMLProps, type ReactNode } from 'react';
+import type { HTMLProps, ReactNode } from 'react';
 import {
     type FieldPath,
     type FieldValues,

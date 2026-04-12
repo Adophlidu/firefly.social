@@ -1,14 +1,14 @@
 import { BigNumber } from 'bignumber.js';
 import { type Address, parseUnits } from 'viem';
-import { type Config } from 'wagmi';
+import type { Config } from 'wagmi';
 import { estimateFeesPerGas, getAccount } from 'wagmi/actions';
 
-import { type EthereumChainId } from '@/constants/ethereum.js';
+import type { EthereumChainId } from '@/constants/ethereum.js';
 import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
 import { getTokenAbiForWagmi } from '@/helpers/getTokenAbiForWagmi.js';
 import { isNativeEvmToken } from '@/helpers/isNativeEvmToken.js';
 import { multipliedBy, toFixed, ZERO } from '@/helpers/number.js';
-import { type GetDefaultGasOptions } from '@/providers/types/Transfer.js';
+import type { GetDefaultGasOptions } from '@/providers/types/Transfer.js';
 
 async function estimateGasForErc20Token(
     config: Config,

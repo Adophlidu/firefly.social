@@ -1,4 +1,4 @@
-import { type AppBskyFeedDefs } from '@atproto/api';
+import type { AppBskyFeedDefs } from '@atproto/api';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { runInSafeAsync, safeUnreachable } from '@dimensiondev/utils';
 import { compact, uniq } from 'lodash-es';

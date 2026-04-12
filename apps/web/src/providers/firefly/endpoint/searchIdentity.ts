@@ -2,12 +2,12 @@ import { EMPTY_LIST } from '@dimensiondev/constants';
 import { uniq } from 'lodash-es';
 import urlcat from 'urlcat';
 
-import { type SocialSource, type SourceInURL } from '@/constants/enum.js';
+import type { SocialSource, SourceInURL } from '@/constants/enum.js';
 import { createNextIndicator, createPageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { resolveSourceInUrlForApi } from '@/helpers/resolveSourceInUrl.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { type SearchProfileResponse } from '@/providers/types/Firefly.js';
+import type { SearchProfileResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 const allWeb3Platforms = [

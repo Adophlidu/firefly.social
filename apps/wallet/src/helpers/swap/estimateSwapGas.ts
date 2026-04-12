@@ -1,4 +1,4 @@
-import { type Address, type Hex } from 'viem';
+import type { Address, Hex } from 'viem';
 import { estimateGas } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmi.js';

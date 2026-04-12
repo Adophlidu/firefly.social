@@ -1,4 +1,4 @@
-import { type PropsWithChildren } from 'react';
+import type { PropsWithChildren } from 'react';
 
 import { SourceTabs } from '@/components/SourceTabs/index.js';
 import { SourceTab } from '@/components/SourceTabs/SourceTab.js';

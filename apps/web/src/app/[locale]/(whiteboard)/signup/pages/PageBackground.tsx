@@ -11,7 +11,7 @@ import SignupBg from '@dimensiondev/assets/signup-bg.svg';
 import TwitterLogo from '@dimensiondev/assets/x-logo.svg';
 import { classNames } from '@dimensiondev/utils';
 import { AnimatePresence, motion } from 'framer-motion';
-import { type PropsWithChildren } from 'react';
+import type { PropsWithChildren } from 'react';
 
 import { SignupStep, Source } from '@/constants/enum.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';

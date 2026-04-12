@@ -13,8 +13,8 @@ import { farcasterPostIdToHash } from '@/providers/farcaster/farcasterPostIdToHa
 import { getAllMentionsForFarcaster } from '@/providers/farcaster/getAllMentionsForFarcaster.js';
 import { publishMessage } from '@/providers/firefly/farcaster-hub/publishMessage.js';
 import { encodeMessageData } from '@/providers/neynar/encodeMessageData.js';
-import { type CastResponse } from '@/providers/types/Neynar.js';
-import { type Notification, type Post } from '@/providers/types/SocialMedia.js';
+import type { CastResponse } from '@/providers/types/Neynar.js';
+import type { Notification, Post } from '@/providers/types/SocialMedia.js';
 import { useFarcasterProfileStore } from '@/store/useProfileStore/useFarcasterProfileStore.js';
 
 export async function publishPost(post: Post): Promise<{ postId: string }> {

@@ -1,6 +1,6 @@
 import urlcat from 'urlcat';
 
-import { type EthereumChainId } from '@/web3-shared/evm/types.js';
+import type { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 export function resolveNFTUrl(chainId: EthereumChainId | string | number, address: string, tokenId?: string) {
     const basePath = address ? '/nft/:chainId/:address' : '/nft/:chainId';

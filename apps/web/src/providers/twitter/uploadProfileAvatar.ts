@@ -1,5 +1,5 @@
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
-import { type ResponseJson } from '@/types/utility.js';
+import type { ResponseJson } from '@/types/utility.js';
 
 export async function uploadProfileAvatar(file: File) {
     const formData = new FormData();

@@ -6,8 +6,8 @@ import { CloseButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';
 import { stopEvent } from '@/helpers/stopEvent.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import { type SchedulePostModalRefType } from '@/modals/SchedulePostModal/refs.js';
-import { type ScheduleTask } from '@/providers/types/Firefly.js';
+import type { SchedulePostModalRefType } from '@/modals/SchedulePostModal/refs.js';
+import type { ScheduleTask } from '@/providers/types/Firefly.js';
 
 interface Props {
     ref: React.Ref<SchedulePostModalRefType>;

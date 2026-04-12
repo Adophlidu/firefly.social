@@ -15,7 +15,7 @@ import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
 import { SetQueryDataForReportPost } from '@/decorators/SetQueryDataForReportPost.js';
 import { WithMutedProfilesQuery } from '@/decorators/WithMutedProfilesQuery.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
-import { type Pageable, type PageIndicator } from '@/helpers/pageable.js';
+import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import { actLensPost } from '@/providers/lens/actLensPost.js';
 import { blockLensProfile } from '@/providers/lens/blockLensProfile.js';
 import { bookmarkLensPost } from '@/providers/lens/bookmarkLensPost.js';
@@ -67,7 +67,7 @@ import { reportLensProfile } from '@/providers/lens/reportLensProfile.js';
 import { searchLensChannels } from '@/providers/lens/searchLensChannels.js';
 import { searchLensPosts } from '@/providers/lens/searchLensPosts.js';
 import { searchLensProfiles } from '@/providers/lens/searchLensProfiles.js';
-import { type LensSession } from '@/providers/lens/Session.js';
+import type { LensSession } from '@/providers/lens/Session.js';
 import { setLensNotificationSettings } from '@/providers/lens/setLensNotificationSettings.js';
 import { unblockLensProfile } from '@/providers/lens/unblockLensProfile.js';
 import { unbookmarkLensPost } from '@/providers/lens/unbookmarkLensPost.js';
@@ -76,9 +76,9 @@ import { unmirrorLensPost } from '@/providers/lens/unmirrorLensPost.js';
 import { unvoteLensPost } from '@/providers/lens/unvoteLensPost.js';
 import { updateLensProfile } from '@/providers/lens/updateLensProfile.js';
 import { upvoteLensPost } from '@/providers/lens/upvoteLensPost.js';
-import { type Account as FireflyAccount } from '@/providers/types/Account.js';
-import { type NotificationSettings } from '@/providers/types/Firefly.js';
-import { type Session } from '@/providers/types/Session.js';
+import type { Account as FireflyAccount } from '@/providers/types/Account.js';
+import type { NotificationSettings } from '@/providers/types/Firefly.js';
+import type { Session } from '@/providers/types/Session.js';
 import {
     type Channel,
     type Friendship,

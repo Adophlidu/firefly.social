@@ -8,7 +8,7 @@ import { Modal } from '@/components/Modal.js';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import { type ConfirmModalOpenProps, type ConfirmModalRefType } from '@/modals/ConfirmModal/refs.js';
+import type { ConfirmModalOpenProps, ConfirmModalRefType } from '@/modals/ConfirmModal/refs.js';
 
 interface Props {
     ref: Ref<ConfirmModalRefType>;

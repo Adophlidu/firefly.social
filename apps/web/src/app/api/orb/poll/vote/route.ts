@@ -1,5 +1,5 @@
 import { compose } from '@dimensiondev/utils';
-import { type NextRequest } from 'next/server.js';
+import type { NextRequest } from 'next/server.js';
 import urlcat from 'urlcat';
 import { z } from 'zod';
 
@@ -9,7 +9,7 @@ import { fetchOrbJson } from '@/helpers/fetchOrbJson.js';
 import { getHeadersWithZodSchema } from '@/helpers/getHeadersWithZodSchema.js';
 import { getJsonBodyWithZodSchema } from '@/helpers/getJsonBodyWithZodSchema.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
-import { type VoteResultResponse } from '@/providers/orb/type.js';
+import type { VoteResultResponse } from '@/providers/orb/type.js';
 
 export const runtime = 'edge';
 

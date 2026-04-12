@@ -5,7 +5,7 @@ import FilterIcon from '@dimensiondev/assets/filter.svg';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 
-import { type TradeRecord } from '@/types/token.js';
+import type { TradeRecord } from '@/types/token.js';
 
 interface Props {
     value: TradeRecord['type'] | undefined;

@@ -1,6 +1,6 @@
 import { compose } from '@dimensiondev/utils';
-import { type NextRequest } from 'next/server.js';
-import { type UserV2TimelineResult } from 'twitter-api-v2';
+import type { NextRequest } from 'next/server.js';
+import type { UserV2TimelineResult } from 'twitter-api-v2';
 import urlcat from 'urlcat';
 
 import { TWITTER_USER_OPTIONS } from '@/constants/twitter.js';

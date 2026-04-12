@@ -1,6 +1,6 @@
 import LightningIcon from '@dimensiondev/assets/lightning.svg';
 import { Trans } from '@lingui/react/macro';
-import { type BigNumber } from 'bignumber.js';
+import type { BigNumber } from 'bignumber.js';
 import { useMemo } from 'react';
 
 import { DialogOrDrawer, DialogOrDrawerContent, DialogOrDrawerFooter } from '@/components/DialogOrDrawer.js';

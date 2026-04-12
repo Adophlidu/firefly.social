@@ -17,7 +17,7 @@ import { NFTCollection } from '@/components/Markup/MarkupLink/NFTCollection.js';
 import { SymbolTag } from '@/components/Markup/MarkupLink/SymbolTag.js';
 import { TcoLink } from '@/components/Markup/MarkupLink/TcoLink.js';
 import { ToggleMore } from '@/components/Markup/MarkupLink/ToggleMore.js';
-import { type MarkupLinkProps } from '@/components/Markup/MarkupLink/type.js';
+import type { MarkupLinkProps } from '@/components/Markup/MarkupLink/type.js';
 import { NoSSR } from '@/components/NoSSR.js';
 import { ProfileTippy } from '@/components/Profile/ProfileTippy.js';
 import { Source } from '@/constants/enum.js';

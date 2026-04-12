@@ -6,9 +6,9 @@ import {
     getOpinionBetsTopHolders,
     getPolymarketBetsTopHolders,
 } from '@/providers/firefly/prediction/getBetsTopHolders.js';
-import { type PolymarketHolder } from '@/providers/prediction/polymarket/type.js';
-import { type OpinionHolder } from '@/providers/types/Firefly.js';
-import { type BetsMarketDataForUI, type BetsMarketOutcome, type BetsTopHolderForUI } from '@/types/prediction.js';
+import type { PolymarketHolder } from '@/providers/prediction/polymarket/type.js';
+import type { OpinionHolder } from '@/providers/types/Firefly.js';
+import type { BetsMarketDataForUI, BetsMarketOutcome, BetsTopHolderForUI } from '@/types/prediction.js';
 
 interface Options {
     market: BetsMarketDataForUI;

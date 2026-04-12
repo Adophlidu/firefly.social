@@ -3,7 +3,7 @@ import urlcat from 'urlcat';
 import { FireflyFidNotRegisteredError } from '@/constants/error.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { type Response } from '@/providers/types/Firefly.js';
+import type { Response } from '@/providers/types/Firefly.js';
 
 export async function getFarMnemonicByFid(fid: string) {
     try {

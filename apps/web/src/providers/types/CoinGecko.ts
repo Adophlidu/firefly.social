@@ -1,6 +1,6 @@
-import { type Address } from 'viem';
+import type { Address } from 'viem';
 
-import { type Runtime } from '@/providers/types/Trending.js';
+import type { Runtime } from '@/providers/types/Trending.js';
 
 export interface CoinGeckoToken {
     id: string | null;

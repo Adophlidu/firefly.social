@@ -3,7 +3,7 @@ import urlcat from 'urlcat';
 import { Source } from '@/constants/enum.js';
 import { getPlatformQueryKey } from '@/helpers/getPlatformQueryKey.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { type FireflyIdentity, type MuteAllResponse } from '@/providers/types/Firefly.js';
+import type { FireflyIdentity, MuteAllResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 export async function muteProfileAll(identity: FireflyIdentity) {

@@ -12,8 +12,8 @@ import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData
 import { formatFarcasterPostFromFirefly } from '@/providers/farcaster/formatFarcasterPostFromFirefly.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { type CommentsResponse } from '@/providers/types/Firefly.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { CommentsResponse } from '@/providers/types/Firefly.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
 
 export async function getCommentsById(

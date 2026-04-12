@@ -14,8 +14,8 @@ import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { getProposals } from '@/providers/snapshot/getProposals.js';
-import { type SnapshotActivity } from '@/providers/snapshot/type.js';
-import { type BookmarkResponse, type FireflySnapshotActivity } from '@/providers/types/Firefly.js';
+import type { SnapshotActivity } from '@/providers/snapshot/type.js';
+import type { BookmarkResponse, FireflySnapshotActivity } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 export async function getSnapshotBookmarks(

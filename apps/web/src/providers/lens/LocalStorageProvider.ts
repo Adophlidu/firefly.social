@@ -1,5 +1,5 @@
 import { bom } from '@dimensiondev/utils';
-import { type IStorageProvider } from '@lens-protocol/client';
+import type { IStorageProvider } from '@lens-protocol/client';
 
 export class LocalStorageProvider implements IStorageProvider {
     getItem(key: string) {

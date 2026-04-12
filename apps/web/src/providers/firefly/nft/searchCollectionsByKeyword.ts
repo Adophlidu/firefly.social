@@ -4,7 +4,7 @@ import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fixCollection } from '@/providers/firefly/endpoint/fixCollection.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { type SearchNFTResponse } from '@/providers/types/Firefly.js';
+import type { SearchNFTResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 export async function searchCollectionsByKeyword(keyword: string) {

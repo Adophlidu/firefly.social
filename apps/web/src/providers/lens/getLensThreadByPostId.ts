@@ -6,7 +6,7 @@ import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { getCommentsByPostId } from '@/providers/lens/getCommentsByPostId.js';
 import { getLensPostById } from '@/providers/lens/getLensPostById.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 async function fetchThreadComments(postId: string, author: Post['author'], maxDepth: number): Promise<Post[]> {
     if (maxDepth === 0) return [];

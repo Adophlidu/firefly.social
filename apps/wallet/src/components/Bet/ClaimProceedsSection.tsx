@@ -7,7 +7,7 @@ import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-q
 import { BigNumber } from 'bignumber.js';
 import { useMemo, useState } from 'react';
 import { toast } from 'sonner';
-import { type Address, type Hash } from 'viem';
+import type { Address, Hash } from 'viem';
 import { polygon } from 'viem/chains';
 import { useConfig } from 'wagmi';
 import { signMessage, waitForTransactionReceipt } from 'wagmi/actions';

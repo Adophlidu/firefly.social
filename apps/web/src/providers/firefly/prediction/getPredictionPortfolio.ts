@@ -1,9 +1,9 @@
 import urlcat from 'urlcat';
 
-import { type PredictionPlatform } from '@/constants/enum.js';
+import type { PredictionPlatform } from '@/constants/enum.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { type BetPortfolioItem, type Response } from '@/providers/types/Firefly.js';
+import type { BetPortfolioItem, Response } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 export async function getPredictionPortfolio(

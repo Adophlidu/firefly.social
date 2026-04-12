@@ -14,7 +14,7 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { getChainInfo } from '@/helpers/getChainInfo.js';
 import { stopEvent } from '@/helpers/stopEvent.js';
-import { type Contract } from '@/providers/types/Trending.js';
+import type { Contract } from '@/providers/types/Trending.js';
 
 interface Props extends PropsWithChildren {
     contracts: Contract[];

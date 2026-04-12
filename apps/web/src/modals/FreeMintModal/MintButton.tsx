@@ -7,7 +7,7 @@ import { useBalance, useConnection } from 'wagmi';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { isGreaterThan, multipliedBy, plus } from '@/helpers/number.js';
 import { useSponsorMintNFT } from '@/hooks/useSponsorMintNFT.js';
-import { type MintMetadata, type SponsorMintOptions } from '@/providers/types/Firefly.js';
+import type { MintMetadata, SponsorMintOptions } from '@/providers/types/Firefly.js';
 
 interface MintButtonProps {
     mintTarget: SponsorMintOptions;

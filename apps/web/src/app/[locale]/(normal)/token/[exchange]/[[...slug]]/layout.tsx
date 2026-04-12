@@ -1,14 +1,14 @@
-import { type LayoutProps } from '@dimensiondev/types';
+import type { LayoutProps } from '@dimensiondev/types';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import { headers } from 'next/headers.js';
 import { notFound, redirect, RedirectType } from 'next/navigation.js';
-import { type PropsWithChildren } from 'react';
+import type { PropsWithChildren } from 'react';
 import { z } from 'zod';
 
 import { CategoryTabs } from '@/app/[locale]/(normal)/token/[exchange]/[[...slug]]/CategoryTabs.js';
 import { MobileSwapButton } from '@/app/[locale]/(normal)/token/[exchange]/[[...slug]]/MobileSwapButton.js';
-import { type TokenPageSearch } from '@/app/[locale]/(normal)/token/[exchange]/[[...slug]]/types.js';
+import type { TokenPageSearch } from '@/app/[locale]/(normal)/token/[exchange]/[[...slug]]/types.js';
 import { WrapTokenMarketData } from '@/app/[locale]/(normal)/token/[exchange]/[[...slug]]/WrapTokenMarketData.js';
 import { Comeback } from '@/components/Comeback.js';
 import { TokenContextProvider } from '@/components/Token/TokenContext.js';
@@ -16,7 +16,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { createTokenMetadata } from '@/providers/firefly/metadata/createTokenMetadata.js';
 import { searchToken } from '@/providers/firefly/worker/searchToken.js';
-import { type GetTokenOptions } from '@/providers/types/Firefly.js';
+import type { GetTokenOptions } from '@/providers/types/Firefly.js';
 
 const QueryOptionsSchema = z.object({
     address: z.string().optional(),

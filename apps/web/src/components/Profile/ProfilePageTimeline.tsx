@@ -12,7 +12,7 @@ import {
     type WalletProfileCategory,
 } from '@/constants/enum.js';
 import { isSocialSource } from '@/helpers/isSource.js';
-import { type FireflyIdentity } from '@/providers/types/Firefly.js';
+import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 
 export function ProfilePageTimeline({
     identity = null,

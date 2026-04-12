@@ -8,7 +8,7 @@ import { isLessThan } from '@/helpers/number.js';
 import { logger } from '@/libs/Logger.js';
 import { getEvmNativeTokenAddress } from '@/providers/ethereum/getNativeTokenAddress.js';
 import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
-import { type CreateRedPacketContext, type CreateRedPacketParams } from '@/providers/ethereum/red-packet/types.js';
+import type { CreateRedPacketContext, CreateRedPacketParams } from '@/providers/ethereum/red-packet/types.js';
 import { EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
 export async function createRedPacketParams(context: CreateRedPacketContext) {

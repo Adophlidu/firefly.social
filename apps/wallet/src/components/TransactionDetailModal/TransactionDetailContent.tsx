@@ -10,7 +10,7 @@ import { Select, Trans } from '@lingui/react/macro';
 import { Link, useNavigate } from '@tanstack/react-router';
 import { first } from 'lodash-es';
 import { memo, type MouseEvent, useCallback, useMemo } from 'react';
-import { type Address } from 'viem';
+import type { Address } from 'viem';
 import { mainnet } from 'viem/chains';
 import { useEnsName } from 'wagmi';
 
@@ -23,7 +23,7 @@ import { TokenInfoRow } from '@/components/TransactionDetailModal/TokenInfoRow.j
 import { TransactionDate } from '@/components/TransactionDetailModal/TransactionDate.js';
 import { TxLink } from '@/components/TransactionDetailModal/TxLink.js';
 import { NetworkType, Source } from '@/constants/enum.js';
-import { type EthereumChainId } from '@/constants/ethereum.js';
+import type { EthereumChainId } from '@/constants/ethereum.js';
 import { SolanaChainId } from '@/constants/solana.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';

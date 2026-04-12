@@ -14,8 +14,8 @@ import { formatBskyPost } from '@/providers/bsky/formatBskyFeedPost.js';
 import { resolveBskyResponseData } from '@/providers/bsky/resolveBskyResponseData.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { type BookmarkResponse } from '@/providers/types/Firefly.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { BookmarkResponse } from '@/providers/types/Firefly.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
 
 export async function getBskyBookmarks(

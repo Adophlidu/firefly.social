@@ -1,6 +1,6 @@
-import { type CSSProperties } from 'react';
+import type { CSSProperties } from 'react';
 
-import { type FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
+import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 
 /**
  * Get CSS font properties from theme settings

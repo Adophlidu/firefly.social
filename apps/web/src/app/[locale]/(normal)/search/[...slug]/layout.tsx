@@ -1,6 +1,6 @@
-import { type LayoutProps } from '@dimensiondev/types';
+import type { LayoutProps } from '@dimensiondev/types';
 import { createLookupTableResolver } from '@dimensiondev/utils';
-import { type MessageDescriptor } from '@lingui/core';
+import type { MessageDescriptor } from '@lingui/core';
 import { msg } from '@lingui/core/macro';
 import { last } from 'lodash-es';
 

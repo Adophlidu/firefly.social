@@ -4,7 +4,7 @@ import { Trans } from '@lingui/react/macro';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
 import { EVMExplorerResolver } from '@/web3-providers/evm/ResolverAPI.js';
-import { type NonFungibleCollection } from '@/web3-shared/base/specs.js';
+import type { NonFungibleCollection } from '@/web3-shared/base/specs.js';
 
 export interface Collection
     extends Pick<

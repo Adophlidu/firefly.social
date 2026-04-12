@@ -3,7 +3,7 @@
 import { classNames } from '@dimensiondev/utils';
 
 import { ACCENT_COLOR_MAP, useSnapContext } from '@/components/Snap/SnapContext.js';
-import { type SnapAccentColor, type SnapToggleGroupProps } from '@/types/snap.js';
+import type { SnapAccentColor, SnapToggleGroupProps } from '@/types/snap.js';
 
 interface Props {
     props: SnapToggleGroupProps;

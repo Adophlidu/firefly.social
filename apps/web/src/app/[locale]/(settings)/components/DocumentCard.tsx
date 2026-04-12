@@ -1,5 +1,5 @@
 import LinkIcon from '@dimensiondev/assets/link.svg';
-import { type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 import { Link } from '@/components/Link.js';
 

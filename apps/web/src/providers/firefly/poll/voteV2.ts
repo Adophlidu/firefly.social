@@ -2,7 +2,7 @@ import urlcat from 'urlcat';
 
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { type VoteRequestOptions, type VoteResponse } from '@/providers/types/Poll.js';
+import type { VoteRequestOptions, VoteResponse } from '@/providers/types/Poll.js';
 import { settings } from '@/settings/index.js';
 
 export async function voteV2(options: VoteRequestOptions) {

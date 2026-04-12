@@ -7,7 +7,7 @@ import { GridListInPage } from '@/components/GridListInPage.js';
 import { getNFTItemContent, POAPGridListComponent } from '@/components/Profile/POAPList.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { getUserCollectionNFTs } from '@/providers/firefly/nft/getUserCollectionNFTs.js';
-import { type EthereumChainId } from '@/web3-shared/evm/types.js';
+import type { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 export function NFTListByContract(props: { contract: string; owner: string; chainId: EthereumChainId }) {
     const { contract, owner, chainId } = props;

@@ -4,7 +4,7 @@ import { useRef, useState } from 'react';
 
 import { Popover } from '@/components/Popover.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import { type DraggablePopoverProps, type DraggablePopoverRefType } from '@/modals/DraggablePopover/refs.js';
+import type { DraggablePopoverProps, DraggablePopoverRefType } from '@/modals/DraggablePopover/refs.js';
 
 interface Props {
     ref: React.Ref<DraggablePopoverRefType>;

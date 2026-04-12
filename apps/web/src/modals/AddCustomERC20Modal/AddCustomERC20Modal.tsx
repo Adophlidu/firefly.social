@@ -23,10 +23,7 @@ import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { useEvmTokens } from '@/hooks/useEvmTokens.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import {
-    type AddCustomERC20ModalOpenProps,
-    type AddCustomERC20ModalRefType,
-} from '@/modals/AddCustomERC20Modal/refs.js';
+import type { AddCustomERC20ModalOpenProps, AddCustomERC20ModalRefType } from '@/modals/AddCustomERC20Modal/refs.js';
 import { searchTokenLogoURI } from '@/providers/firefly/endpoint/searchTokenLogoURI.js';
 import { CustomTokenType, useCustomTokenStore } from '@/store/useCustomTokenStore.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';

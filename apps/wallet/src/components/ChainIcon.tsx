@@ -22,7 +22,7 @@ import zoraImage from '@dimensiondev/assets/chains/zora.png';
 import { type HTMLProps, memo } from 'react';
 
 import { Image } from '@/components/Image.js';
-import { type NetworkType } from '@/constants/enum.js';
+import type { NetworkType } from '@/constants/enum.js';
 import { EthereumChainId } from '@/constants/ethereum.js';
 import { SolanaChainId } from '@/constants/solana.js';
 import { chainsMatch } from '@/helpers/isSolanaChain.js';

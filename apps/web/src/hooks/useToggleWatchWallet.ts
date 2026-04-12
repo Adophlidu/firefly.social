@@ -1,6 +1,6 @@
 import { t } from '@lingui/core/macro';
 import { useMutation } from '@tanstack/react-query';
-import { type Address } from 'viem';
+import type { Address } from 'viem';
 
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { fireflyWalletProvider } from '@/providers/firefly/Wallet.js';

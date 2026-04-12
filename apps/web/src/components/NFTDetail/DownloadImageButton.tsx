@@ -2,7 +2,7 @@
 
 import DownloadIcon from '@dimensiondev/assets/download-round.svg';
 import { Trans } from '@lingui/react/macro';
-import { type HTMLProps } from 'react';
+import type { HTMLProps } from 'react';
 
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 

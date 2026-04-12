@@ -8,13 +8,13 @@ import linkifyRegex from 'remark-linkify-regex';
 import stripMarkdown from 'strip-markdown';
 
 import { Code } from '@/components/Code.js';
-import { type MarkupProps } from '@/components/Markup/Markup.js';
+import type { MarkupProps } from '@/components/Markup/Markup.js';
 import { MarkupLink } from '@/components/Markup/MarkupLink/index.js';
 import { HashTagLink } from '@/components/Markup/plugins/HashTagLink.js';
 import { UrlPlugin } from '@/components/Markup/plugins/UrlPlugin.js';
 import { CHANNEL_REGEX } from '@/constants/regexp.js';
 import { isChannelSupported } from '@/helpers/isChannelSupported.js';
-import { type Pluggable } from '@/types/utility.js';
+import type { Pluggable } from '@/types/utility.js';
 
 const trimify = (value: string): string => value.replace(/\n\n\s*\n/g, '\n\n').trim();
 

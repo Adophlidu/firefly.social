@@ -17,7 +17,7 @@ import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { ETH_ZERO_ADDRESS, isZeroAddressEthereum, isZeroAddressSolana } from '@/helpers/isZeroAddress.js';
 import { isZero, leftShift } from '@/helpers/number.js';
 import { TokenSelectorModalRef } from '@/modals/TokenSelectorModal/refs.js';
-import { type FungibleToken } from '@/web3-shared/base/specs.js';
+import type { FungibleToken } from '@/web3-shared/base/specs.js';
 
 const MIN_AMOUNT_LENGTH = 1;
 const MAX_AMOUNT_LENGTH = 79;

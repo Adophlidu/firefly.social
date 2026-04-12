@@ -4,8 +4,8 @@ import urlcat from 'urlcat';
 import { formatFireflyFarcasterProfile } from '@/providers/farcaster/formatFarcasterChannelFromFirefly.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { type FireflyFarcasterProfileResponse } from '@/providers/types/Firefly.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
+import type { FireflyFarcasterProfileResponse } from '@/providers/types/Firefly.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
 
 export async function getProfileByHandle(handle: string): Promise<Profile> {

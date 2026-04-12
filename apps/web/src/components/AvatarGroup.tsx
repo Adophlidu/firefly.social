@@ -1,7 +1,7 @@
 'use client';
 
 import { classNames } from '@dimensiondev/utils';
-import { type HTMLProps } from 'react';
+import type { HTMLProps } from 'react';
 
 import { Avatar, type AvatarProps } from '@/components/Avatar.js';
 import { Link } from '@/components/Link.js';
@@ -10,8 +10,8 @@ import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { resolveFireflyIdentity } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
-import { type FireflyProfile } from '@/providers/types/Firefly.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
+import type { FireflyProfile } from '@/providers/types/Firefly.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface AvatarGroupProps extends HTMLProps<HTMLDivElement> {
     profiles: Profile[] | FireflyProfile[];

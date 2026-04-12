@@ -2,11 +2,11 @@ import { Source, SourceInURL } from '@/constants/enum.js';
 import { encrypt } from '@/helpers/encodec.js';
 import { getAccountsFromStorage } from '@/helpers/getAccountsFromStorage.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
-import { type BskySession } from '@/providers/bsky/Session.js';
-import { type FarcasterSession } from '@/providers/farcaster/Session.js';
+import type { BskySession } from '@/providers/bsky/Session.js';
+import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { type LensSession } from '@/providers/lens/Session.js';
-import { type TwitterSession } from '@/providers/twitter/Session.js';
+import type { LensSession } from '@/providers/lens/Session.js';
+import type { TwitterSession } from '@/providers/twitter/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import type {
     DesktopSyncPayload,

@@ -2,9 +2,9 @@
 
 import { EMPTY_OBJECT } from '@dimensiondev/constants';
 import { classNames } from '@dimensiondev/utils';
-import { type UseSuspenseInfiniteQueryResult } from '@tanstack/react-query';
+import type { UseSuspenseInfiniteQueryResult } from '@tanstack/react-query';
 import { useCallback, useMemo, useRef } from 'react';
-import { type TableComponents } from 'react-virtuoso';
+import type { TableComponents } from 'react-virtuoso';
 
 import { NoResultsFallback, type NoResultsFallbackProps } from '@/components/NoResultsFallback.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';

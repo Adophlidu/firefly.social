@@ -1,9 +1,9 @@
 import GhostHoleIcon from '@dimensiondev/assets/ghost.svg';
-import { type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 import { Comeback } from '@/components/Comeback.js';
 import { Link } from '@/components/Link.js';
-import { type SearchType, type Source } from '@/constants/enum.js';
+import type { SearchType, Source } from '@/constants/enum.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 
 interface NotFoundProps {

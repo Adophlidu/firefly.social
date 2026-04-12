@@ -1,10 +1,10 @@
 import { NotImplementedError } from '@dimensiondev/utils';
 
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
-import { type SessionPayload } from '@/providers/twitter/SessionPayload.js';
-import { type Provider } from '@/providers/types/Auth.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
-import { type ResponseJson } from '@/types/utility.js';
+import type { SessionPayload } from '@/providers/twitter/SessionPayload.js';
+import type { Provider } from '@/providers/types/Auth.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
+import type { ResponseJson } from '@/types/utility.js';
 
 class TwitterAuth implements Provider<SessionPayload> {
     async login(noSession = false): Promise<SessionPayload | null> {

@@ -1,5 +1,5 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
-import { type Address } from 'viem';
+import type { Address } from 'viem';
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 

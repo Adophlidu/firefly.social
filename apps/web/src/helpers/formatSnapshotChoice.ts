@@ -1,7 +1,7 @@
 import { t } from '@lingui/core/macro';
 import { sum, values } from 'lodash-es';
 
-import { type SnapshotChoice } from '@/providers/snapshot/type.js';
+import type { SnapshotChoice } from '@/providers/snapshot/type.js';
 
 function ordinal_suffix_of(i: number) {
     const j = i % 10,

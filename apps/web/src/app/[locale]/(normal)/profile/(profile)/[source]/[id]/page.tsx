@@ -1,7 +1,7 @@
-import { type LayoutProps } from '@dimensiondev/types';
-import { type Metadata } from 'next';
+import type { LayoutProps } from '@dimensiondev/types';
+import type { Metadata } from 'next';
 
-import { type ProfilePageSourceInURL } from '@/constants/enum.js';
+import type { ProfilePageSourceInURL } from '@/constants/enum.js';
 import { notFound, redirect, RedirectType } from '@/esm/navigation/server.js';
 import { createMetadataProfileById } from '@/helpers/createMetadataProfileById.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';

@@ -1,6 +1,6 @@
 'use client';
 
-import { type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 import { useAgent } from '@/components/AgentProvider.js';
 import { IfPathname } from '@/components/IfPathname.js';

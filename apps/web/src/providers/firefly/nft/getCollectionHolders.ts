@@ -2,7 +2,7 @@ import { EMPTY_LIST } from '@dimensiondev/constants';
 import urlcat from 'urlcat';
 
 import { fetchJson } from '@/helpers/fetchJson.js';
-import { type HoldersResponse } from '@/providers/types/Firefly.js';
+import type { HoldersResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 export async function getCollectionHolders(chainId: number, contractAddress: string) {

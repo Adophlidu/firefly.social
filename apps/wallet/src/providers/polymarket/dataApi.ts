@@ -1,5 +1,5 @@
 import urlcat from 'urlcat';
-import { type Address } from 'viem';
+import type { Address } from 'viem';
 
 import { APP_BASE_PATH, POLYMARKET_DATA_API_ROOT_URL } from '@/constants/static.js';
 import { Fetch } from '@/lib/Fetch.js';

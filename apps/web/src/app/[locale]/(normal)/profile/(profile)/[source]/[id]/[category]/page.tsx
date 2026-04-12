@@ -1,6 +1,6 @@
 'use client';
 
-import { type LayoutProps } from '@dimensiondev/types';
+import type { LayoutProps } from '@dimensiondev/types';
 import { useQuery } from '@tanstack/react-query';
 import { Suspense, use, useMemo } from 'react';
 

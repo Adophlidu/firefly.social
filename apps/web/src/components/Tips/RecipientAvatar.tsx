@@ -6,7 +6,7 @@ import { memo } from 'react';
 import { Image } from '@/components/Image.js';
 import { NetworkPluginID, NetworkType } from '@/constants/enum.js';
 import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
-import { type FireflyTipsProfile } from '@/providers/types/Firefly.js';
+import type { FireflyTipsProfile } from '@/providers/types/Firefly.js';
 import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 const solanaNetworkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_SOLANA, SolanaChainId.Mainnet);

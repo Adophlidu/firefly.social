@@ -5,7 +5,7 @@ import { NetworkType, Source } from '@/constants/enum.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
 import { isAbnormalFarHandle, resolveFidFromAbnormalFarHandle } from '@/providers/farcaster/isAbnormalFarHandle.js';
 import { getAllRelatedProfileInfo } from '@/providers/firefly/endpoint/getAllRelatedProfileInfo.js';
-import { type FireflyIdentity } from '@/providers/types/Firefly.js';
+import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 
 function getQueryKey(identity: FireflyIdentity, forceHandle: boolean) {
     switch (identity.source) {

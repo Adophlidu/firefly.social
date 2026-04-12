@@ -3,7 +3,7 @@
 import { memo, type ReactNode, useState } from 'react';
 import { useUpdateEffect } from 'react-use';
 
-import { type PageRoute } from '@/constants/enum.js';
+import type { PageRoute } from '@/constants/enum.js';
 import { usePathname } from '@/esm/navigation.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 

@@ -1,4 +1,4 @@
-import { type CreatePostRequest } from '@lens-protocol/client';
+import type { CreatePostRequest } from '@lens-protocol/client';
 
 import { RestrictionType } from '@/constants/enum.js';
 

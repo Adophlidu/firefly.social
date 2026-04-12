@@ -1,5 +1,5 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
-import { type Draft as WritableDraft } from 'immer';
+import type { Draft as WritableDraft } from 'immer';
 import { useMemo } from 'react';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
@@ -9,9 +9,9 @@ import { DraftPostType, type SocialSource } from '@/constants/enum.js';
 import { createPersistStorage } from '@/helpers/createPersistStorage.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
-import { type ComposeType, type CompositePost } from '@/types/compose.js';
+import type { ComposeType, CompositePost } from '@/types/compose.js';
 
 export interface Draft {
     draftId: string;

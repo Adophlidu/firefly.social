@@ -2,8 +2,8 @@ import { type SocialSource, Source } from '@/constants/enum.js';
 import { patchNotificationQueryDataOnPost } from '@/helpers/patchNotificationQueryData.js';
 import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';
 import { updateQueryForPosts } from '@/helpers/updateQueryForPosts.js';
-import { type Post, type Provider } from '@/providers/types/SocialMedia.js';
-import { type ClassType } from '@/types/utility.js';
+import type { Post, Provider } from '@/providers/types/SocialMedia.js';
+import type { ClassType } from '@/types/utility.js';
 
 const lensOriginalMirrored = new Map<string, boolean>();
 

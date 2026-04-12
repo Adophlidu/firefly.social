@@ -7,7 +7,7 @@ import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { createTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
 import { withTwitterRequestErrorHandler } from '@/providers/twitter/withTwitterRequestErrorHandler.js';
 import { FinishUploadSchema } from '@/schemas/Media.js';
-import { type FinishUploadResponseV2, type GetUploadStatusResponseV2 } from '@/types/twitter.js';
+import type { FinishUploadResponseV2, GetUploadStatusResponseV2 } from '@/types/twitter.js';
 
 // Finish upload
 export const POST = compose(

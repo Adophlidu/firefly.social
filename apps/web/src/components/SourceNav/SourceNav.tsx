@@ -1,5 +1,5 @@
 import { classNames } from '@dimensiondev/utils';
-import { type HTMLProps, type JSX } from 'react';
+import type { HTMLProps, JSX } from 'react';
 
 import { Link } from '@/components/Link.js';
 

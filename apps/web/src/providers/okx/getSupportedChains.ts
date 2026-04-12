@@ -2,7 +2,7 @@ import urlcat from 'urlcat';
 
 import { OKX_HOST } from '@/constants/okx.js';
 import { fetchFromOKX } from '@/providers/okx/fetchFromOKX.js';
-import { type SupportedChainResponse } from '@/providers/okx/types.js';
+import type { SupportedChainResponse } from '@/providers/okx/types.js';
 
 /**
  * @docs https://www.okx.com/web3/build/docs/waas/dex-get-aggregator-supported-chains

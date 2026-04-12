@@ -1,10 +1,10 @@
-import { type Account } from '@lens-protocol/client';
+import type { Account } from '@lens-protocol/client';
 
 import { Source } from '@/constants/enum.js';
 import { SessionExpiredError } from '@/constants/error.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { refreshLensSession } from '@/providers/lens/refreshLensSession.js';
-import { type LensSession } from '@/providers/lens/Session.js';
+import type { LensSession } from '@/providers/lens/Session.js';
 
 async function fetchMe(session: LensSession) {
     const response = await fetchJson<{

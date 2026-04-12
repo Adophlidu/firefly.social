@@ -1,4 +1,4 @@
-import { type MessageDescriptor } from '@lingui/core';
+import type { MessageDescriptor } from '@lingui/core';
 import { getI18n } from '@lingui/react/server';
 
 import { SITE_NAME } from '@/constants/static.js';

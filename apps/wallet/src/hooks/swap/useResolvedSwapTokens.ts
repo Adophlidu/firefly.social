@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 import { addressesMatch } from '@/helpers/swap/formatSwapAmount.js';
 import { useSwapTokenDetail } from '@/hooks/swap/useSwapTokenDetail.js';
 import { type DefaultSwapTokenPair, getDefaultSwapToken } from '@/providers/swap/defaultTokens.js';
-import { type SwapToken } from '@/providers/swap/types.js';
+import type { SwapToken } from '@/providers/swap/types.js';
 import { fromAddressAtom, fromChainIdAtom, toAddressAtom, toChainIdAtom } from '@/store/swap/swapState.js';
 
 // Create a minimal SwapToken from default config when API tokens aren't available yet

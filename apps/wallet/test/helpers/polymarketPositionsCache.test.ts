@@ -10,7 +10,7 @@ import {
     positionMatches,
     type PositionsInfiniteData,
 } from '@/helpers/polymarketPositionsCache';
-import { type PolymarketPosition } from '@/providers/types/Firefly';
+import type { PolymarketPosition } from '@/providers/types/Firefly';
 
 const TEST_PROXY_ADDRESS = '0x1234567890abcdef1234567890abcdef12345678' as const;
 

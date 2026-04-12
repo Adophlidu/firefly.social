@@ -13,7 +13,7 @@ import {
     createTwitterSchedulePostPayload,
     type TwitterSchedulePostPayload,
 } from '@/providers/twitter/createTwitterSchedulePostPayload.js';
-import { type ComposeType, type CompositePost } from '@/types/compose.js';
+import type { ComposeType, CompositePost } from '@/types/compose.js';
 
 export type SchedulePayload = LensSchedulePayload | FarcasterSchedulePostPayload | TwitterSchedulePostPayload;
 

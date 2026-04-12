@@ -30,7 +30,7 @@ import { multipliedBy } from '@/helpers/number.js';
 import { safeBigNumber } from '@/helpers/safeBigNumber.js';
 import { cn } from '@/lib/utils.js';
 import { polymarketGammaEndpoint } from '@/providers/polymarket/gamma.js';
-import { type PolymarketOpenOrderDetail } from '@/providers/types/Firefly.js';
+import type { PolymarketOpenOrderDetail } from '@/providers/types/Firefly.js';
 import { getPolymarketAccountQueryOptions } from '@/queries/firefly/getPolymarketAccountQueryOptions.js';
 import { getFireflyEndpoint } from '@/store/fireflyEndpoint.js';
 

@@ -19,7 +19,7 @@ import { Button } from '@/components/ui/button.js';
 import { formatPnlUSD } from '@/helpers/formatPnlUSD.js';
 import { computeClaimAmount } from '@/helpers/polymarketClaim.js';
 import { cn } from '@/lib/utils.js';
-import { type PolymarketPosition } from '@/providers/types/Firefly.js';
+import type { PolymarketPosition } from '@/providers/types/Firefly.js';
 import { getPolymarketAccountQueryOptions } from '@/queries/firefly/getPolymarketAccountQueryOptions.js';
 import { showEmbeddedWalletUIAtom } from '@/store/embeddedWallets.js';
 import { getFireflyEndpoint } from '@/store/fireflyEndpoint.js';

@@ -1,4 +1,4 @@
-import { type Result } from '@lens-protocol/client';
+import type { Result } from '@lens-protocol/client';
 
 export function ensureLensResultSync<T, E>(result: Result<T, E>) {
     if (!result.isOk()) {

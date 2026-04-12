@@ -1,6 +1,6 @@
-import { type List, type ListItem, type Root } from 'mdast';
+import type { List, ListItem, Root } from 'mdast';
 import { visit } from 'unist-util-visit';
-import { type VFile } from 'vfile';
+import type { VFile } from 'vfile';
 
 export const preserveListNumbers = () => (tree: Root, file: VFile) => {
     const source = String(file);

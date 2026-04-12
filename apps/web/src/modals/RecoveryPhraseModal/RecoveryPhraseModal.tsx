@@ -16,10 +16,7 @@ import { FireflyFidNotRegisteredError } from '@/constants/error.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import {
-    type RecoveryPhraseModalOpenProps,
-    type RecoveryPhraseModalRefType,
-} from '@/modals/RecoveryPhraseModal/refs.js';
+import type { RecoveryPhraseModalOpenProps, RecoveryPhraseModalRefType } from '@/modals/RecoveryPhraseModal/refs.js';
 import { getFarMnemonicByFid } from '@/providers/firefly/endpoint/getFarMnemonicByFid.js';
 
 interface Props {

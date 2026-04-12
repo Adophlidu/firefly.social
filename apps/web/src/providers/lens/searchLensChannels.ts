@@ -16,7 +16,7 @@ import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { formatLensChannelFromGroup } from '@/providers/lens/formatLensChannel.js';
 import { getLensClient } from '@/providers/lens/getLensClient.js';
 import { getLensProfilesByIds } from '@/providers/lens/getLensProfilesById.js';
-import { type Channel } from '@/providers/types/SocialMedia.js';
+import type { Channel } from '@/providers/types/SocialMedia.js';
 
 export async function searchLensChannels(
     q: string,

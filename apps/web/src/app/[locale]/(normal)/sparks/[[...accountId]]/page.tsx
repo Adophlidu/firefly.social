@@ -1,4 +1,4 @@
-import { type LayoutProps } from '@dimensiondev/types';
+import type { LayoutProps } from '@dimensiondev/types';
 
 import { SparksModal } from '@/components/Sparks/SparksModal.js';
 import { createSparksAccountMetadata } from '@/providers/firefly/metadata/createSparksAccountMetadata.js';

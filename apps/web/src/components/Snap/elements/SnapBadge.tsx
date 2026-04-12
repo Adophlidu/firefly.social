@@ -2,7 +2,7 @@ import { classNames } from '@dimensiondev/utils';
 
 import { SnapIcon } from '@/components/Snap/elements/SnapIcon.js';
 import { ACCENT_BORDER_MAP, ACCENT_COLOR_MAP, ACCENT_TEXT_MAP } from '@/components/Snap/SnapContext.js';
-import { type SnapAccentColor, type SnapBadgeProps } from '@/types/snap.js';
+import type { SnapAccentColor, SnapBadgeProps } from '@/types/snap.js';
 
 function resolveBadgeColor(color: SnapBadgeProps['color'], themeAccent: SnapAccentColor): SnapAccentColor {
     if (color === 'accent') return themeAccent;

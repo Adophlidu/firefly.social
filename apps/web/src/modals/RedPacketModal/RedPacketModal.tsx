@@ -7,7 +7,7 @@ import { type Ref, useRef } from 'react';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Modal } from '@/components/Modal.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import { type RedPacketModalRefType } from '@/modals/RedPacketModal/refs.js';
+import type { RedPacketModalRefType } from '@/modals/RedPacketModal/refs.js';
 import { routeTree } from '@/modals/RedPacketModal/routes.js';
 
 function PendingComponent() {

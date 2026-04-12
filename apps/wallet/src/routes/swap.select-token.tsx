@@ -21,7 +21,7 @@ import { addressesMatch, formatTokenAmount } from '@/helpers/swap/formatSwapAmou
 import { useEffectiveSwapWalletAddress } from '@/hooks/swap/useEffectiveSwapWalletAddress.js';
 import { useSwapSupportedChains } from '@/hooks/swap/useSwapSupportedChains.js';
 import { useSearchTokens, useSwapTokens } from '@/hooks/swap/useSwapTokens.js';
-import { type SwapToken } from '@/providers/swap/types.js';
+import type { SwapToken } from '@/providers/swap/types.js';
 import {
     fromAddressAtom,
     fromAmountAtom,

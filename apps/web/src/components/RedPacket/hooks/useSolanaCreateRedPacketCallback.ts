@@ -26,12 +26,12 @@ import { createCover } from '@/providers/firefly/red-packet/createCover.js';
 import { getTokenAccountByMint } from '@/providers/solana/getTokenAccountByMint.js';
 import { createWithNativeToken } from '@/providers/solana/red-packet/createWithNativeToken.js';
 import { createWithSplToken } from '@/providers/solana/red-packet/createWithSplToken.js';
-import { type CreateWithNativeTokenContext } from '@/providers/solana/red-packet/types.js';
+import type { CreateWithNativeTokenContext } from '@/providers/solana/red-packet/types.js';
 import { captureLuckyDropEvent } from '@/providers/telemetry/captureLuckyDropEvent.js';
-import { type FireflyRedPacketAPI, type RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
+import type { FireflyRedPacketAPI, RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
-import { type RedPacketMetadata } from '@/types/rp.js';
-import { type FungibleToken } from '@/web3-shared/base/specs.js';
+import type { RedPacketMetadata } from '@/types/rp.js';
+import type { FungibleToken } from '@/web3-shared/base/specs.js';
 
 function treeShakePayloadInfo(payload: RedPacketJSONPayload): RedPacketMetadata {
     const token = pick(payload.token, ['decimals', 'symbol', 'address', 'chainId']) as FungibleToken<number, number>;

@@ -4,11 +4,11 @@ import { compact } from 'lodash-es';
 import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';
 import { mergePostDetailCache } from '@/helpers/mergePostDetailCache.js';
-import { type Pageable, type PageIndicator } from '@/helpers/pageable.js';
+import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import { prefetchPostLinks } from '@/helpers/prefetchPostLinks.js';
-import { type Post, type Provider } from '@/providers/types/SocialMedia.js';
+import type { Post, Provider } from '@/providers/types/SocialMedia.js';
 import { queryMutedProfiles } from '@/services/queryMutedProfiles.js';
-import { type ClassType } from '@/types/utility.js';
+import type { ClassType } from '@/types/utility.js';
 
 const METHODS_BE_OVERRIDDEN = [
     'searchPosts',

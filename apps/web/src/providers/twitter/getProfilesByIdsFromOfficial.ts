@@ -1,10 +1,10 @@
-import { type UserV2 } from 'twitter-api-v2';
+import type { UserV2 } from 'twitter-api-v2';
 
 import { formatTwitterProfile } from '@/providers/twitter/formatTwitterProfile.js';
 import { resolveTwitterResponseData } from '@/providers/twitter/resolveTwitterResponseData.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
-import { type ResponseJson } from '@/types/utility.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
+import type { ResponseJson } from '@/types/utility.js';
 
 export async function getProfilesByIdsFromOfficial(ids: string[]): Promise<Profile[]> {
     if (!ids.length) return [];

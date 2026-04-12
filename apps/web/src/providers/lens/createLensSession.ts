@@ -1,4 +1,4 @@
-import { type SessionClient } from '@lens-protocol/client';
+import type { SessionClient } from '@lens-protocol/client';
 
 import { SEVEN_DAYS } from '@/constants/static.js';
 import { ETH_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';

@@ -1,5 +1,5 @@
 import { ChainConfigMismatchError } from '@/constants/error.js';
-import { type ChainDescriptor } from '@/web3-shared/base/specs.js';
+import type { ChainDescriptor } from '@/web3-shared/base/specs.js';
 
 export class ChainResolver<ChainId, SchemaType, NetworkType> {
     constructor(private readonly descriptors: () => ReadonlyArray<ChainDescriptor<ChainId, SchemaType, NetworkType>>) {}

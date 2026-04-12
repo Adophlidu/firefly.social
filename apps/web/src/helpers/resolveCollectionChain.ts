@@ -1,4 +1,4 @@
-import { type EVM } from '@/providers/nftscan/types.js';
+import type { EVM } from '@/providers/nftscan/types.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 export function resolveCollectionChain(collection: EVM.Collection): {

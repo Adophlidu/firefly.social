@@ -1,7 +1,7 @@
 import { compact } from 'lodash-es';
 
-import { type BetPortfolioItem, type PolymarketProfileData } from '@/providers/types/Firefly.js';
-import { type PredictionProfileDataForUI } from '@/types/prediction.js';
+import type { BetPortfolioItem, PolymarketProfileData } from '@/providers/types/Firefly.js';
+import type { PredictionProfileDataForUI } from '@/types/prediction.js';
 
 export function formatPolymarketProfile(data: PolymarketProfileData): PredictionProfileDataForUI {
     return {

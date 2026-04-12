@@ -23,15 +23,9 @@ import { openWindow } from '@/helpers/openWindow.js';
 import { ComposeModalRef } from '@/modals/ComposeModal/refs.js';
 import { ConfirmLeavingModalRef } from '@/modals/ConfirmLeavingModal/refs.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
-import {
-    type Snap,
-    type SnapAction,
-    type SnapDigestedResponse,
-    type SnapFieldValues,
-    type SnapJFSPayload,
-} from '@/types/snap.js';
-import { type ResponseJson } from '@/types/utility.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
+import type { Snap, SnapAction, SnapDigestedResponse, SnapFieldValues, SnapJFSPayload } from '@/types/snap.js';
+import type { ResponseJson } from '@/types/utility.js';
 
 function buildInputs(fields: SnapFieldValues): SnapJFSPayload['inputs'] {
     return {

@@ -15,7 +15,7 @@ import {
     captureOpinionProfilePositionsEventClick,
     capturePolymarketProfilePositionsEventClick,
 } from '@/providers/telemetry/capturePolymarketEvent.js';
-import { type PredictionPositionDataForUI } from '@/types/prediction.js';
+import type { PredictionPositionDataForUI } from '@/types/prediction.js';
 
 interface PredictionPositionItemProps {
     platform: PredictionPlatform;

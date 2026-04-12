@@ -1,11 +1,11 @@
 import { envs, STATUS } from '@dimensiondev/envs';
-import { type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 import { FrameLayout as FrameLayoutV1 } from '@/components/Frame/V1/Layout.js';
 import { FrameLayout as FrameLayoutV2 } from '@/components/Frame/V2/Layout.js';
 import { isFrameV1, isFrameV2 } from '@/helpers/frame.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
-import { type Frame } from '@/types/frame.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
+import type { Frame } from '@/types/frame.js';
 
 interface FrameLayoutProps {
     frame: Frame;

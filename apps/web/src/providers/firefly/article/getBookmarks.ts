@@ -11,8 +11,8 @@ import {
     type PageIndicator,
 } from '@/helpers/pageable.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { type Article } from '@/providers/types/Article.js';
-import { type Article as FFArticle, type BookmarkResponse } from '@/providers/types/Firefly.js';
+import type { Article } from '@/providers/types/Article.js';
+import type { Article as FFArticle, BookmarkResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 export async function getBookmarks(indicator?: PageIndicator): Promise<Pageable<Article, PageIndicator>> {

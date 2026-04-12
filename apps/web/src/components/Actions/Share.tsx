@@ -18,7 +18,7 @@ import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { openComposeModal } from '@/helpers/openComposeModal.js';
 import { useShareUrl } from '@/hooks/useShareUrl.js';
 import { capturePostActionEvent } from '@/providers/telemetry/capturePostActionEvent.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface ShareProps extends HTMLProps<HTMLDivElement> {
     post: Post;

@@ -23,12 +23,12 @@ import { formatTwitterProfileFromNitter } from '@/providers/nitter/formatTwitter
 import { NitterAPIProvider } from '@/providers/nitter/Nitter.js';
 import { withFullStatusTweetWithPagination } from '@/providers/nitter/withFullStatusTweetWithPagination.js';
 import { withReplyPostsToTimelineWithPagination } from '@/providers/nitter/withReplyPostsToTimelineWithPagination.js';
-import { type TwitterSession } from '@/providers/twitter/Session.js';
+import type { TwitterSession } from '@/providers/twitter/Session.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
-import { type Account } from '@/providers/types/Account.js';
-import { type NotificationSettings } from '@/providers/types/Firefly.js';
+import type { Account } from '@/providers/types/Account.js';
+import type { NotificationSettings } from '@/providers/types/Firefly.js';
 import { UserTimelineTab } from '@/providers/types/Nitter.js';
-import { type Session } from '@/providers/types/Session.js';
+import type { Session } from '@/providers/types/Session.js';
 import {
     type Channel,
     type Friendship,

@@ -7,19 +7,19 @@ import { NOT_DEPEND_SECRET } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { getPdsServiceHostFromSession } from '@/providers/bsky/getPdsServiceUrlFromSession.js';
-import { type BskySession } from '@/providers/bsky/Session.js';
+import type { BskySession } from '@/providers/bsky/Session.js';
 import { patchFarcasterSessionRequired } from '@/providers/farcaster/patchFarcasterSessionRequired.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { type LensSession } from '@/providers/lens/Session.js';
-import { type ThirdPartySession } from '@/providers/third-party/Session.js';
+import type { LensSession } from '@/providers/lens/Session.js';
+import type { ThirdPartySession } from '@/providers/third-party/Session.js';
 import { resolveTwitterResponseData } from '@/providers/twitter/resolveTwitterResponseData.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
-import { type BindResponse } from '@/providers/types/Firefly.js';
-import { type Session } from '@/providers/types/Session.js';
+import type { BindResponse } from '@/providers/types/Firefly.js';
+import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
-import { type ResponseJson } from '@/types/utility.js';
+import type { ResponseJson } from '@/types/utility.js';
 
 const isAlreadyBoundError = (error: unknown) => {
     const message =

@@ -1,7 +1,7 @@
 import EditProfileIcon from '@dimensiondev/assets/edit-profile.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
-import { type LexicalEditor } from 'lexical';
+import type { LexicalEditor } from 'lexical';
 import { compact, first } from 'lodash-es';
 import { useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -13,7 +13,7 @@ import { resolveSocialSourceFromFireflyPlatform } from '@/helpers/resolveSource.
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { EditCrossAtModal } from '@/modals/EditCrossAtModal/EditCrossAtModal.js';
 import { EditCrossAtModalRef } from '@/modals/EditCrossAtModal/refs.js';
-import { type Profile } from '@/providers/types/Firefly.js';
+import type { Profile } from '@/providers/types/Firefly.js';
 
 interface MentionsMenuProps {
     profiles: Profile[];

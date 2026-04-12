@@ -1,6 +1,6 @@
 import { queryOptions } from '@tanstack/react-query';
 
-import { type SocialSource } from '@/constants/enum.js';
+import type { SocialSource } from '@/constants/enum.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 
 export const pinnedPostQueryKey = (source: SocialSource, profileId: string) =>

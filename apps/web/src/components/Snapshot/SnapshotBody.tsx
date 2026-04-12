@@ -38,7 +38,7 @@ import { useEnsName } from '@/hooks/useEnsName.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
 import { getVotePower } from '@/providers/snapshot/getVotePower.js';
 import { pathQueryVoteResultsByVoter } from '@/providers/snapshot/pathQueryVoteResultsByVoter.js';
-import { type SnapshotActivity, type SnapshotChoice, type SnapshotProposal } from '@/providers/snapshot/type.js';
+import type { SnapshotActivity, SnapshotChoice, SnapshotProposal } from '@/providers/snapshot/type.js';
 import { vote } from '@/providers/snapshot/vote.js';
 import { captureSnapshotVoteEvent } from '@/providers/telemetry/captureSnapshotVoteEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';

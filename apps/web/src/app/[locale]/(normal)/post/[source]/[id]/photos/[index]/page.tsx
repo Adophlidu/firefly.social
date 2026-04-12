@@ -1,11 +1,11 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
-import { type LayoutProps } from '@dimensiondev/types';
+import type { LayoutProps } from '@dimensiondev/types';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import { notFound } from 'next/navigation.js';
 
 import { PreviewImageModal } from '@/components/PreviewImageModal.js';
 import { SUPPORTED_PREVIEW_MEDIA_TYPES } from '@/constants/computed.js';
-import { type SocialSourceInURL } from '@/constants/enum.js';
+import type { SocialSourceInURL } from '@/constants/enum.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 

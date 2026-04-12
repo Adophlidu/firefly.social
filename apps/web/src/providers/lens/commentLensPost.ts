@@ -3,7 +3,7 @@ import { post } from '@lens-protocol/client/actions';
 import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
 import { ensurePostToLensResult } from '@/providers/lens/ensurePostToLensResult.js';
 import { lensSessionClientHolder } from '@/providers/lens/LensSessionClientHolder.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 export async function commentLensPost(
     postId: string,

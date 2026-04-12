@@ -2,8 +2,8 @@ import { pad } from 'viem';
 
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';
-import { type SignedKeyRequestBody } from '@/providers/warpcast/createSignedKey.js';
-import { type ResponseJson } from '@/types/utility.js';
+import type { SignedKeyRequestBody } from '@/providers/warpcast/createSignedKey.js';
+import type { ResponseJson } from '@/types/utility.js';
 
 type SignedBody = ResponseJson<{
     body: SignedKeyRequestBody;

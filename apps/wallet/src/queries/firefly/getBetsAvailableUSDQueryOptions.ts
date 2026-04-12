@@ -1,7 +1,7 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { queryOptions } from '@tanstack/react-query';
 import { BigNumber } from 'bignumber.js';
-import { type Address } from 'viem';
+import type { Address } from 'viem';
 import { polygon } from 'viem/chains';
 
 import { USDC_E_POLYGON_ADDRESS } from '@/constants/ethereum.js';

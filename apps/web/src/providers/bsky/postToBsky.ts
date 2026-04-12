@@ -18,10 +18,10 @@ import { bskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { uploadVideoToBsky } from '@/providers/bsky/uploadVideoToBsky.js';
 import { postArticle } from '@/providers/firefly/article/postArticle.js';
 import { updateArticle } from '@/providers/firefly/article/updateArticle.js';
-import { type Post, type PostType } from '@/providers/types/SocialMedia.js';
+import type { Post, PostType } from '@/providers/types/SocialMedia.js';
 import { createPostTo } from '@/services/createPostTo.js';
 import { useBskyProfileStore } from '@/store/useProfileStore/useBskyProfileStore.js';
-import { type MediaObject, type PostFunctionParams } from '@/types/compose.js';
+import type { MediaObject, PostFunctionParams } from '@/types/compose.js';
 
 export async function postToBsky({
     type,

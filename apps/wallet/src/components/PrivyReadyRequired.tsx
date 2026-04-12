@@ -1,4 +1,4 @@
-import { type PropsWithChildren } from 'react';
+import type { PropsWithChildren } from 'react';
 
 import { PrivyReadyBanner } from '@/components/PrivyReadyBanner.js';
 

@@ -1,7 +1,7 @@
 import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
-import { type FireflyIdentity, type FireflyProfile, type WalletProfile } from '@/providers/types/Firefly.js';
+import type { FireflyIdentity, FireflyProfile, WalletProfile } from '@/providers/types/Firefly.js';
 
 export function resolveFireflyProfiles(
     profileIdentity: FireflyIdentity,

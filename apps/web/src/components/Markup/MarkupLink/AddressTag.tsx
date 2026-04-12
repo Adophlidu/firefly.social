@@ -3,7 +3,7 @@ import { memo } from 'react';
 
 import { Link } from '@/components/Link.js';
 import { ContractTag } from '@/components/Markup/MarkupLink/ContractTag.js';
-import { type MarkupLinkProps } from '@/components/Markup/MarkupLink/type.js';
+import type { MarkupLinkProps } from '@/components/Markup/MarkupLink/type.js';
 import { Source } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';

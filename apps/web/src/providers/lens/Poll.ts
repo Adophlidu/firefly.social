@@ -20,14 +20,8 @@ import { ensureLensResultSync } from '@/providers/lens/ensureLensResultSync.js';
 import { isLensOwnerOrManager } from '@/providers/lens/isLensOwnerOrManager.js';
 import { lensSessionClientHolder } from '@/providers/lens/LensSessionClientHolder.js';
 import { vote } from '@/providers/orb/vote.js';
-import {
-    type CompositePoll,
-    type Poll,
-    type PollOption,
-    type Provider,
-    type VoteResponseData,
-} from '@/providers/types/Poll.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
+import type { CompositePoll, Poll, PollOption, Provider, VoteResponseData } from '@/providers/types/Poll.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 
 const getWalletTypeToVote = memoizePromiseWithTime(

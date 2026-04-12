@@ -7,7 +7,7 @@ import { Loading } from '@/components/Loading.js';
 import { Modal } from '@/components/Modal.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import { type CollectPostModalOpenProps, type CollectPostModalRefType } from '@/modals/CollectPostModal/refs.js';
+import type { CollectPostModalOpenProps, CollectPostModalRefType } from '@/modals/CollectPostModal/refs.js';
 
 const PostCollect = dynamic(() => import('@/components/Posts/PostCollect.js').then((m) => m.PostCollect), {
     ssr: false,

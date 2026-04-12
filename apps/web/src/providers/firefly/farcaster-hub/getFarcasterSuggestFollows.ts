@@ -5,7 +5,7 @@ import { createIndicator, createPageable, type PageIndicator } from '@/helpers/p
 import { formatFarcasterProfileFromSuggestedFollow } from '@/providers/farcaster/formatFarcasterProfileFromSuggestedFollow.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { type GetFarcasterSuggestedFollowUserResponse } from '@/providers/types/Firefly.js';
+import type { GetFarcasterSuggestedFollowUserResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 export async function getFarcasterSuggestFollows(indicator?: PageIndicator) {

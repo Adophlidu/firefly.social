@@ -1,6 +1,6 @@
 import GhostHoleIcon from '@dimensiondev/assets/ghost.svg';
 import { Trans } from '@lingui/react/macro';
-import { type HTMLProps, type ReactNode } from 'react';
+import type { HTMLProps, ReactNode } from 'react';
 
 import { cn } from '@/lib/utils.js';
 

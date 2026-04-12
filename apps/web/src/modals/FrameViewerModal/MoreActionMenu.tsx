@@ -10,7 +10,7 @@ import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
-import { type FrameV2 } from '@/types/frame.js';
+import type { FrameV2 } from '@/types/frame.js';
 
 interface MoreActionProps {
     frame?: FrameV2;

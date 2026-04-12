@@ -3,7 +3,7 @@
 import FireflyLogo from '@dimensiondev/assets/firefly.logo.svg';
 import { IS_DEVELOPMENT } from '@dimensiondev/constants';
 import { nativeBridgeProvider, SupportedMethod } from '@dimensiondev/native-bridge';
-import { type LayoutProps } from '@dimensiondev/types';
+import type { LayoutProps } from '@dimensiondev/types';
 import { bom, parseUrl } from '@dimensiondev/utils';
 import { exposeToIframe, type MiniAppHost, type ReadyOptions } from '@farcaster/miniapp-host';
 import { Trans } from '@lingui/react/macro';
@@ -30,8 +30,8 @@ import {
     RelayConfirmationPopoverRef,
 } from '@/modals/FrameViewerModal/RelayConfirmationPopover.js';
 import { FarcasterFrameHost } from '@/providers/frame/Host.js';
-import { type RequestArguments } from '@/types/ethereum.js';
-import { type FrameV2 } from '@/types/frame.js';
+import type { RequestArguments } from '@/types/ethereum.js';
+import type { FrameV2 } from '@/types/frame.js';
 import { EthereumMethodType } from '@/web3-shared/evm/types.js';
 
 const ethProvider = createEIP1193Provider(

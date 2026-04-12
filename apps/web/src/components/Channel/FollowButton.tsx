@@ -1,6 +1,6 @@
 import { memo } from 'react';
 
-import { type Channel } from '@/providers/types/SocialMedia.js';
+import type { Channel } from '@/providers/types/SocialMedia.js';
 
 interface FollowButtonProps {
     channel: Channel;

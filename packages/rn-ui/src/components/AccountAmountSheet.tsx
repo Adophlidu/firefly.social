@@ -3,7 +3,7 @@ import { Path, Svg } from 'react-native-svg';
 import { Button, Sheet, Text, XStack, YStack } from 'tamagui';
 
 import { AccountAmountSheetSkeleton } from '@/skeletons/AccountAmountSheetSkeleton';
-import { type AccountAmountActionType, type AccountAmountSheetData } from '@/types/ui';
+import type { AccountAmountActionType, AccountAmountSheetData } from '@/types/ui';
 
 interface AccountAmountSheetProps {
     open: boolean;

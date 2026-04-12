@@ -7,7 +7,7 @@ import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatform
 import { useProfileStore } from '@/hooks/useProfileStore.js';
 import { logger } from '@/libs/Logger.js';
 import { parse } from '@/providers/firefly/red-packet/parse.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 /**
  * Parse RedPacket with post info.

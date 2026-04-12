@@ -23,7 +23,7 @@ import { logger } from '@/libs/Logger.js';
 import { ThirdPartySession } from '@/providers/third-party/Session.js';
 import { thirdPartySessionHolder } from '@/providers/third-party/SessionHolder.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
-import { type ThirdPartySessionType } from '@/providers/types/ThirdParty.js';
+import type { ThirdPartySessionType } from '@/providers/types/ThirdParty.js';
 import { addAccount } from '@/services/account.js';
 import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';
 import { createProfileState, customSelectors } from '@/store/useProfileStore/createProfileState.js';

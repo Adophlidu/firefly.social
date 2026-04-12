@@ -1,9 +1,9 @@
 import urlcat from 'urlcat';
-import { type Hex } from 'viem';
+import type { Hex } from 'viem';
 
 import { WARPCAST_ROOT_URL_V2 } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
-import { type SignedKeyRequestResponse } from '@/providers/types/Warpcast.js';
+import type { SignedKeyRequestResponse } from '@/providers/types/Warpcast.js';
 
 export interface SignedKeyRequestBody {
     key: Hex;

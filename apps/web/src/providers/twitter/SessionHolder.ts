@@ -3,7 +3,7 @@ import { isServer } from '@tanstack/react-query';
 import urlcat from 'urlcat';
 
 import { SITE_URL } from '@/constants/static.js';
-import { type NextFetchersOptions } from '@/helpers/fetch.js';
+import type { NextFetchersOptions } from '@/helpers/fetch.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { SessionHolder } from '@/providers/base/SessionHolder.js';
 import { TwitterAuthProvider } from '@/providers/twitter/Auth.js';

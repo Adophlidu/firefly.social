@@ -1,10 +1,10 @@
 import { Source } from '@/constants/enum.js';
 import { isSameConnectionAddress } from '@/helpers/isSameConnectionAddress.js';
-import {
-    type AllConnections,
-    type FireflyIdentity,
-    type FireflyWalletConnection,
-    type WalletConnection,
+import type {
+    AllConnections,
+    FireflyIdentity,
+    FireflyWalletConnection,
+    WalletConnection,
 } from '@/providers/types/Firefly.js';
 
 export function flatLenConnections(

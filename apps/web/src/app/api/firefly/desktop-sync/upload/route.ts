@@ -1,5 +1,5 @@
 import { compose, parseJson } from '@dimensiondev/utils';
-import { type NextRequest } from 'next/server.js';
+import type { NextRequest } from 'next/server.js';
 import urlcat from 'urlcat';
 import { z } from 'zod';
 
@@ -10,9 +10,9 @@ import { getHeadersWithZodSchema } from '@/helpers/getHeadersWithZodSchema.js';
 import { getJsonBodyWithZodSchema } from '@/helpers/getJsonBodyWithZodSchema.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { getTwitterAccountsServerSide } from '@/providers/twitter/getTwitterAccountsServerSide.js';
-import { type DesktopLinkInfoStatusResponse } from '@/providers/types/Firefly.js';
+import type { DesktopLinkInfoStatusResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
-import { type AuthDataToUpload, type DesktopSyncPayload } from '@/types/sync.js';
+import type { AuthDataToUpload, DesktopSyncPayload } from '@/types/sync.js';
 
 const HeadersSchema = z.object({
     authorization: z.string().min(1, 'Unauthorized'),

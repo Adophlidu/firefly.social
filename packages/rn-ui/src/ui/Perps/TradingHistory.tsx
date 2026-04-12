@@ -3,8 +3,8 @@ import { ScrollView, Text, XStack, YStack } from 'tamagui';
 
 import { loadTradingHistoryPage } from '@/services/tradesHistory';
 import { TradingHistorySkeleton } from '@/skeletons/TradingHistorySkeleton';
-import { type FetchTradingHistory } from '@/types/services';
-import { type TradingHistoryItem } from '@/types/ui';
+import type { FetchTradingHistory } from '@/types/services';
+import type { TradingHistoryItem } from '@/types/ui';
 
 export interface TradingHistoryProps {
     walletAddress: string;

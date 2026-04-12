@@ -1,4 +1,4 @@
-import { type LayoutProps } from '@dimensiondev/types';
+import type { LayoutProps } from '@dimensiondev/types';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 

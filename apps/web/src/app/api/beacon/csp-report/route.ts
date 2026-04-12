@@ -1,5 +1,5 @@
 import { compose } from '@dimensiondev/utils';
-import { type NextRequest } from 'next/server.js';
+import type { NextRequest } from 'next/server.js';
 
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { logger } from '@/libs/Logger.js';

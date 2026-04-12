@@ -1,6 +1,6 @@
 import LimoIconLight from '@dimensiondev/assets/limo.svg';
 import LimoIconDark from '@dimensiondev/assets/limo-dark.svg';
-import { type SVGProps } from 'react';
+import type { SVGProps } from 'react';
 
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 

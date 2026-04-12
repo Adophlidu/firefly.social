@@ -1,5 +1,5 @@
 import { createInstance } from 'localforage';
-import { type PersistStorage } from 'zustand/middleware';
+import type { PersistStorage } from 'zustand/middleware';
 
 export function createPersistStorage<T>(name: string) {
     const storageInstance = createInstance({

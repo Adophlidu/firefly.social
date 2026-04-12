@@ -3,12 +3,12 @@ import { uniqBy } from 'lodash-es';
 import { Source } from '@/constants/enum.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { parseFarcasterBioContext } from '@/providers/farcaster/formatFarcasterProfileFromFirefly.js';
-import {
-    type Channel as FireflyChannel,
-    type ChannelBrief,
-    type ChannelProfile,
-    type ChannelProfileBrief,
-    type FireflyFarcasterProfile,
+import type {
+    Channel as FireflyChannel,
+    ChannelBrief,
+    ChannelProfile,
+    ChannelProfileBrief,
+    FireflyFarcasterProfile,
 } from '@/providers/types/Firefly.js';
 import { type Channel, type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
 

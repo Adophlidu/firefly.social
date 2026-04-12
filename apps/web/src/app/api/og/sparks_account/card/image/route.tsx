@@ -1,7 +1,7 @@
-import { type NextRequestContext } from '@dimensiondev/types';
+import type { NextRequestContext } from '@dimensiondev/types';
 import { compose } from '@dimensiondev/utils';
 import { ImageResponse } from 'next/og.js';
-import { type NextRequest } from 'next/server.js';
+import type { NextRequest } from 'next/server.js';
 import { z } from 'zod';
 
 import { SparkCardOgImage } from '@/app/api/og/sparks_account/card/image/SparkCardOgImage.js';

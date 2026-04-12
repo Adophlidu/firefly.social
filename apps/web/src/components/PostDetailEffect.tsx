@@ -1,7 +1,7 @@
 'use client';
 
 import { useUpdateCurrentVisitingPost } from '@/hooks/useCurrentVisitingPost.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface PostDetailEffectProps {
     post: Post;

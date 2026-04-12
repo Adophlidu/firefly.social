@@ -5,8 +5,8 @@ import { formatFarcasterPostFromFirefly } from '@/providers/farcaster/formatFarc
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { getPostById } from '@/providers/firefly/farcaster-hub/getPostById.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { type ThreadResponse } from '@/providers/types/Firefly.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { ThreadResponse } from '@/providers/types/Firefly.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
 
 export async function getThreadByPostId(postId: string, localPost?: Post): Promise<Post[]> {

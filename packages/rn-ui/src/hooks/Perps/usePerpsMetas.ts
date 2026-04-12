@@ -1,4 +1,4 @@
-import { type MetaResponse } from '@nktkas/hyperliquid';
+import type { MetaResponse } from '@nktkas/hyperliquid';
 import { useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 
@@ -6,7 +6,7 @@ import { STALE_TIMES } from '@/constants/enum';
 import { resolveMetaAvatar } from '@/helpers/resolveMetaAvatar';
 import { useHyperliquid } from '@/hooks/useHyperliquid';
 import { getPerpsTokens } from '@/services/firefly/getPerpsTokens';
-import { type PerpsMeta } from '@/types/ui';
+import type { PerpsMeta } from '@/types/ui';
 
 interface Options {
     category?: string;

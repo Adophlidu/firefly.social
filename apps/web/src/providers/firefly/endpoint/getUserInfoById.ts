@@ -2,7 +2,7 @@ import urlcat from 'urlcat';
 
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
-import { type TwitterUserV2Response } from '@/providers/types/Firefly.js';
+import type { TwitterUserV2Response } from '@/providers/types/Firefly.js';
 
 export async function getUserInfoById(userId: string) {
     if (!userId) return null;

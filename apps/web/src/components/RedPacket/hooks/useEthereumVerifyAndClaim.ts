@@ -1,7 +1,7 @@
 import { t } from '@lingui/core/macro';
 import { last } from 'lodash-es';
 import { useCallback } from 'react';
-import { type Address } from 'viem';
+import type { Address } from 'viem';
 import { readContract } from 'wagmi/actions';
 
 import RED_PACKET_ABI from '@/abis/RedPacket.json' with { type: 'json' };
@@ -14,7 +14,7 @@ import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { usePrivyAppkitAccountByNetwork } from '@/hooks/appkit/usePrivyAppkitAccountByNetwork.js';
 import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
-import { type RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
+import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import { EVMChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
 

@@ -2,7 +2,7 @@ import { memo, type ReactNode } from 'react';
 
 import { CloseButton } from '@/components/IconButton.js';
 import { MoreAction } from '@/modals/FrameViewerModal/MoreActionMenu.js';
-import { type FrameV2 } from '@/types/frame.js';
+import type { FrameV2 } from '@/types/frame.js';
 
 interface FramePageProps {
     children: ReactNode;

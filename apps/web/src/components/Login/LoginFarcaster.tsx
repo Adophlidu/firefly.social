@@ -46,7 +46,7 @@ import {
     captureFirstTimeClickInLogin,
     captureReconnectClickInLogin,
 } from '@/providers/telemetry/captureFarcasterEvent.js';
-import { type Account } from '@/providers/types/Account.js';
+import type { Account } from '@/providers/types/Account.js';
 import { createAccountByFireflySponsorship } from '@/providers/warpcast/createAccountByFireflySponsorship.js';
 import { createAccountByGrantPermission } from '@/providers/warpcast/createAccountByGrantPermission.js';
 import { createAccountByRelayService } from '@/providers/warpcast/createAccountByRelayService.js';

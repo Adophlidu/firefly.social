@@ -1,6 +1,6 @@
 import { Path, Svg } from 'react-native-svg';
 
-import { type SvgIconProps } from '@/types/ui';
+import type { SvgIconProps } from '@/types/ui';
 
 export function BackIcon({ stroke = '#171717', ...props }: SvgIconProps) {
     return (

@@ -7,7 +7,7 @@ import {
     DialogOrDrawerHeader,
     DialogOrDrawerTitle,
 } from '@/components/DialogOrDrawer.js';
-import { type TransactionHistoryItem } from '@/providers/types/Firefly.js';
+import type { TransactionHistoryItem } from '@/providers/types/Firefly.js';
 
 interface Props {
     open: boolean;

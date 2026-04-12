@@ -4,7 +4,7 @@ import { classNames } from '@dimensiondev/utils';
 import { Plural, Trans } from '@lingui/react/macro';
 import { isUndefined } from 'lodash-es';
 import { memo } from 'react';
-import { type Components } from 'react-markdown';
+import type { Components } from 'react-markdown';
 
 import { Avatar } from '@/components/Avatar.js';
 import { BioMarkup } from '@/components/Markup/BioMarkup.js';
@@ -18,7 +18,7 @@ import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isBadProfile } from '@/helpers/isBadProfile.js';
 import { isCurrentProfile } from '@/helpers/isCurrentProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
 interface ProfileInListProps {

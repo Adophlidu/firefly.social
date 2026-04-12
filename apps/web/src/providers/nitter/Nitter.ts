@@ -7,13 +7,13 @@ import { FIREFLY_NITTER_URL } from '@/constants/static.js';
 import { LimitConcurrency } from '@/decorators/LimitConcurrency.js';
 import { MemoizePromise } from '@/decorators/MemoizePromise.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
-import {
-    type GetProfileResponse,
-    type GetTweetStatusResponse,
-    type GetUserTimelineResponse,
-    type Response,
-    type SearchResponse,
-    type UserTimelineTab,
+import type {
+    GetProfileResponse,
+    GetTweetStatusResponse,
+    GetUserTimelineResponse,
+    Response,
+    SearchResponse,
+    UserTimelineTab,
 } from '@/providers/types/Nitter.js';
 
 function resolveNitterJsonResponse<T>(url: string, { data, error }: Response<T>): T {

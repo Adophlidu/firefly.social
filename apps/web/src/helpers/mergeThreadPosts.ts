@@ -5,7 +5,7 @@ import { type SocialSource, Source } from '@/constants/enum.js';
 import { MIN_POST_SIZE_PER_THREAD } from '@/constants/static.js';
 import { isSamePost } from '@/helpers/isSamePost.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 function mergeThreadPostsForFarcaster(posts: Post[]) {
     const threads = compact(

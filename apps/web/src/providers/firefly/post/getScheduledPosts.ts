@@ -3,7 +3,7 @@ import urlcat from 'urlcat';
 import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { type ScheduleTasksResponse, type ScheduleTaskStatus } from '@/providers/types/Firefly.js';
+import type { ScheduleTasksResponse, ScheduleTaskStatus } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 export async function getScheduledPosts(indicator?: PageIndicator, status?: ScheduleTaskStatus[]) {

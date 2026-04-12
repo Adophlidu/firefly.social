@@ -1,6 +1,6 @@
 'use client';
 
-import { type TokenPageProps } from '@/app/[locale]/(normal)/token/[exchange]/[[...slug]]/types.js';
+import type { TokenPageProps } from '@/app/[locale]/(normal)/token/[exchange]/[[...slug]]/types.js';
 import { TokenOverview } from '@/components/TokenProfile/TokenOverview/index.js';
 import { useTokenPageParams } from '@/hooks/useTokenPageParams.js';
 

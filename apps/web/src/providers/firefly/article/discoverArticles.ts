@@ -8,7 +8,7 @@ import { createIndicator, createNextIndicator, createPageable, type PageIndicato
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { ArticlePlatform } from '@/providers/types/Article.js';
-import { type DiscoverArticlesResponse } from '@/providers/types/Firefly.js';
+import type { DiscoverArticlesResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 const defaultPlatforms = [ArticlePlatform.Paragraph, ArticlePlatform.Mirror, ArticlePlatform.Matters];

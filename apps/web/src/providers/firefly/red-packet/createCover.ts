@@ -2,9 +2,9 @@ import urlcat from 'urlcat';
 
 import { RedPacketMetaKey } from '@/constants/rp.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { type FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
+import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 import { settings } from '@/settings/index.js';
-import { type RedPacketMetadata } from '@/types/rp.js';
+import type { RedPacketMetadata } from '@/types/rp.js';
 
 export async function createCover(metadata: RedPacketMetadata) {
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/misc/maskTypedMessage/create');

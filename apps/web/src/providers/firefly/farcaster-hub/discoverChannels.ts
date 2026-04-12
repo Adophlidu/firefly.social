@@ -4,8 +4,8 @@ import { createIndicator, createPageable, type Pageable, type PageIndicator } fr
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { formatChannelFromFirefly } from '@/providers/farcaster/formatFarcasterChannelFromFirefly.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { type DiscoverChannelsResponse } from '@/providers/types/Firefly.js';
-import { type Channel } from '@/providers/types/SocialMedia.js';
+import type { DiscoverChannelsResponse } from '@/providers/types/Firefly.js';
+import type { Channel } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
 
 export async function discoverChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {

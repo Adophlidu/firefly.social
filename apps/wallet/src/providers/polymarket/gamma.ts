@@ -2,7 +2,7 @@ import urlcat from 'urlcat';
 
 import { APP_BASE_PATH, POLYMARKET_GAMMA_API_ROOT_URL } from '@/constants/static.js';
 import { Fetch } from '@/lib/Fetch.js';
-import { type PolymarketGammaEvent, type PolymarketGammaMarket } from '@/providers/polymarket/types.js';
+import type { PolymarketGammaEvent, PolymarketGammaMarket } from '@/providers/polymarket/types.js';
 
 export class PolymarketGammaEndpoint extends Fetch {
     async getMarketBySlug(slug: string, options?: { includeTag?: boolean }) {

@@ -1,4 +1,4 @@
-import { type LayoutProps } from '@dimensiondev/types';
+import type { LayoutProps } from '@dimensiondev/types';
 
 import { NFTCollectionPage } from '@/app/[locale]/(normal)/nft/pages/NFTCollectionPage.js';
 import { NFTDetailPage } from '@/app/[locale]/(normal)/nft/pages/NFTDetailPage.js';

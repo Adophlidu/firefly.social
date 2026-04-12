@@ -1,4 +1,4 @@
-import { type TweetV2 } from 'twitter-api-v2';
+import type { TweetV2 } from 'twitter-api-v2';
 import { describe, expect, it, vi } from 'vitest';
 
 import {

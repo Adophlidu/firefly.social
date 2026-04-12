@@ -6,7 +6,7 @@ import { Popover } from '@/components/Popover.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import { type ShareImageModalOpenProps, type ShareImageModalRefType } from '@/modals/ShareImageModal/refs.js';
+import type { ShareImageModalOpenProps, ShareImageModalRefType } from '@/modals/ShareImageModal/refs.js';
 
 let aspectRatio = '1 / 1';
 const ShareImageModalContent = dynamic(

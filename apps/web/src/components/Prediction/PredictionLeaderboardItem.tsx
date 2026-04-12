@@ -14,7 +14,7 @@ import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { humanize } from '@/helpers/formatCommentCounts.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
-import { type PolymarketRankItem } from '@/providers/firefly/prediction/getPolymarketRank.js';
+import type { PolymarketRankItem } from '@/providers/firefly/prediction/getPolymarketRank.js';
 
 interface PredictionLeaderboardItemProps {
     item: PolymarketRankItem;

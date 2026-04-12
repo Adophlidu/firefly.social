@@ -1,8 +1,8 @@
 /* cspell:disable */
 
 import { envs, NODE_ENV } from '@dimensiondev/envs';
-import { type AuthOptions } from 'next-auth';
-import { type Provider } from 'next-auth/providers/index';
+import type { AuthOptions } from 'next-auth';
+import type { Provider } from 'next-auth/providers/index';
 
 import { AppleProvider } from '@/esm/AppleProvider.js';
 import { GoogleProvider } from '@/esm/GoogleProvider.js';

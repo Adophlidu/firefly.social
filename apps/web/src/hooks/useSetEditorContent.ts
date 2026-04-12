@@ -5,7 +5,7 @@ import { useCallback } from 'react';
 
 import { $createMentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
 import { CharTag } from '@/constants/enum.js';
-import { type Chars, type ComplexChars } from '@/types/chars.js';
+import type { Chars, ComplexChars } from '@/types/chars.js';
 
 function updateParagraphNode(paragraphNode: ParagraphNode, chars: ComplexChars) {
     const { tag, visible } = chars;

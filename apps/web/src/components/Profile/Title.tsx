@@ -2,7 +2,7 @@
 
 import ComeBackIcon from '@dimensiondev/assets/comeback.svg';
 import { classNames } from '@dimensiondev/utils';
-import { type HTMLProps, type ReactNode } from 'react';
+import type { HTMLProps, ReactNode } from 'react';
 
 import { useComeBack } from '@/hooks/useComeback.js';
 

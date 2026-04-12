@@ -1,6 +1,6 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
 
-import { type SocialSourceInURL } from '@/constants/enum.js';
+import type { SocialSourceInURL } from '@/constants/enum.js';
 import {
     createIndicator,
     createNextIndicator,
@@ -9,7 +9,7 @@ import {
     type PageIndicator,
 } from '@/helpers/pageable.js';
 import { getBlockedRelations } from '@/providers/firefly/endpoint/getBlockedRelations.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 import { getProfilesByIds } from '@/services/getProfilesByIds.js';
 
 export async function getBlockedProfiles(

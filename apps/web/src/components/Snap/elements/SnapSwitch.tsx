@@ -4,7 +4,7 @@ import { classNames } from '@dimensiondev/utils';
 import { useLayoutEffect } from 'react';
 
 import { ACCENT_COLOR_MAP, useSnapContext } from '@/components/Snap/SnapContext.js';
-import { type SnapAccentColor, type SnapSwitchProps } from '@/types/snap.js';
+import type { SnapAccentColor, SnapSwitchProps } from '@/types/snap.js';
 
 interface Props {
     props: SnapSwitchProps;

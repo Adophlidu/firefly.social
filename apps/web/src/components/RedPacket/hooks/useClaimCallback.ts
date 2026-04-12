@@ -1,11 +1,11 @@
 import { useAsyncFn } from 'react-use';
 
-import { type SocialSource } from '@/constants/enum.js';
+import type { SocialSource } from '@/constants/enum.js';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { claimRedPacket } from '@/providers/ethereum/red-packet/claimRedPacket.js';
 import { captureLuckyDropEvent } from '@/providers/telemetry/captureLuckyDropEvent.js';
-import { type RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
+import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import { EVMChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
 

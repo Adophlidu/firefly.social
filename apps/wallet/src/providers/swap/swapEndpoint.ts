@@ -5,23 +5,23 @@ import { leftShift, rightShift } from '@/helpers/number.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { Fetch } from '@/lib/Fetch.js';
 import { normalizeSwapToken } from '@/providers/swap/normalizeSwapToken.js';
-import {
-    type ApproveTransaction,
-    type CrossChainBuildTxResponse,
-    type CrossChainQuote,
-    type GetApproveParams,
-    type GetCrossChainBuildTxParams,
-    type GetCrossChainQuoteParams,
-    type GetQuoteParams,
-    type GetSwapParams,
-    type RecentToken,
-    type RecentTokenParams,
-    type RecentTokenResponse,
-    type SearchTokenParams,
-    type SupportedChain,
-    type SwapApiResponse,
-    type SwapQuote,
-    type SwapToken,
+import type {
+    ApproveTransaction,
+    CrossChainBuildTxResponse,
+    CrossChainQuote,
+    GetApproveParams,
+    GetCrossChainBuildTxParams,
+    GetCrossChainQuoteParams,
+    GetQuoteParams,
+    GetSwapParams,
+    RecentToken,
+    RecentTokenParams,
+    RecentTokenResponse,
+    SearchTokenParams,
+    SupportedChain,
+    SwapApiResponse,
+    SwapQuote,
+    SwapToken,
 } from '@/providers/swap/types.js';
 
 // Raw OKX token shape from the backend (via OKX API)

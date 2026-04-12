@@ -1,5 +1,5 @@
 import { compose } from '@dimensiondev/utils';
-import { type SendTweetV2Params } from 'twitter-api-v2';
+import type { SendTweetV2Params } from 'twitter-api-v2';
 import { z } from 'zod';
 
 import { POLL_PEER_OPTION_MAX_CHARS } from '@/constants/poll.js';

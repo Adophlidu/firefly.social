@@ -4,7 +4,7 @@ import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
 import { ensurePostToLensResult } from '@/providers/lens/ensurePostToLensResult.js';
 import { formatLensPostRules } from '@/providers/lens/formatLensPostRules.js';
 import { lensSessionClientHolder } from '@/providers/lens/LensSessionClientHolder.js';
-import { type Notification, type Post } from '@/providers/types/SocialMedia.js';
+import type { Notification, Post } from '@/providers/types/SocialMedia.js';
 
 export async function publishLensPost(draftPost: Post): Promise<{ postId: string }> {
     if (!draftPost.metadata.contentURI) throw new Error('No content to publish.');

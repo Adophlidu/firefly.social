@@ -13,7 +13,7 @@ import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { CollectPostModalRef } from '@/modals/CollectPostModal/refs.js';
 import { DraggablePopoverRef } from '@/modals/DraggablePopover/refs.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface CollectProps {
     post: Post;

@@ -1,5 +1,5 @@
-import { type TokenAsset } from '@/providers/types/Firefly.js';
-import { type ERC20Token } from '@/store/customToken.js';
+import type { TokenAsset } from '@/providers/types/Firefly.js';
+import type { ERC20Token } from '@/store/customToken.js';
 
 /**
  * Convert custom ERC20 token to TokenAsset format

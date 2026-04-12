@@ -26,7 +26,7 @@ import {
     captureOpinionProfileDetailClick,
     capturePolymarketProfileDetailClick,
 } from '@/providers/telemetry/capturePolymarketEvent.js';
-import { type PredictionProfileDataForUI } from '@/types/prediction.js';
+import type { PredictionProfileDataForUI } from '@/types/prediction.js';
 
 interface PredictionProfileOverviewProps {
     profile: PredictionProfileDataForUI;

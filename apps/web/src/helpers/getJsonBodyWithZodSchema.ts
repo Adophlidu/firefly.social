@@ -1,5 +1,5 @@
-import { type NextRequest } from 'next/server.js';
-import { type ZodObject, type ZodRawShape } from 'zod';
+import type { NextRequest } from 'next/server.js';
+import type { ZodObject, ZodRawShape } from 'zod';
 
 export async function getJsonBodyWithZodSchema<T extends ZodRawShape>(request: NextRequest, schema: ZodObject<T>) {
     const body = await request.json();

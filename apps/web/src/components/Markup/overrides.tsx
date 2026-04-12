@@ -1,4 +1,4 @@
-import { type HTMLProps } from 'react';
+import type { HTMLProps } from 'react';
 
 export const PlainParagraph = (props: HTMLProps<HTMLParagraphElement>) => props.children;
 

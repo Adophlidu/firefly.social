@@ -1,11 +1,11 @@
 import { bom, parseJson } from '@dimensiondev/utils';
 
-import { type ProfileSource } from '@/constants/enum.js';
+import type { ProfileSource } from '@/constants/enum.js';
 import { resolveProfileStorageKey } from '@/helpers/resolveProfileStorageKey.js';
 import { logger } from '@/libs/Logger.js';
 import { SessionFactory } from '@/providers/base/SessionFactory.js';
-import { type Session } from '@/providers/types/Session.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
+import type { Session } from '@/providers/types/Session.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 import { ProfileStoreSchema } from '@/schemas/ProfileStore.js';
 
 export interface AccountWithSession {

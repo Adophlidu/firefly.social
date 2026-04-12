@@ -8,11 +8,11 @@ import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, YAxis } f
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Loading } from '@/components/Loading.js';
 import { ChartTooltip } from '@/components/Prediction/PredictionMarketsPriceLineChart/ChartTooltip.js';
-import { type BetsPriceTimeRange, type PredictionPlatform } from '@/constants/enum.js';
+import type { BetsPriceTimeRange, PredictionPlatform } from '@/constants/enum.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { toFixedTrimmed } from '@/helpers/polymarket.js';
 import { getBetsMarketPriceHistory } from '@/providers/prediction/getBetsMarketPriceHistory.js';
-import { type BetsMarketWithSettings } from '@/types/prediction.js';
+import type { BetsMarketWithSettings } from '@/types/prediction.js';
 
 interface PriceHistoryChartProps {
     markets: BetsMarketWithSettings[];

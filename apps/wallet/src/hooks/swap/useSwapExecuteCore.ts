@@ -4,13 +4,13 @@ import { t } from '@lingui/core/macro';
 import { type ConnectedWallet, useWallets as useEvmWallets } from '@privy-io/react-auth';
 import { useWallets as useSolanaWallets } from '@privy-io/react-auth/solana';
 import { CoreConnectionController, CoreProviderController } from '@reown/appkit';
-import { type Provider as SolanaProvider } from '@reown/appkit-adapter-solana';
+import type { Provider as SolanaProvider } from '@reown/appkit-adapter-solana';
 import bs58 from 'bs58';
 import { useAtomValue } from 'jotai';
 import { type ReactNode, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import { toast } from 'sonner';
-import { type Address, type Hex } from 'viem';
+import type { Address, Hex } from 'viem';
 import { sendTransaction } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmi.js';
@@ -22,7 +22,7 @@ import type { BuildSwapAnalyticsParamsInput } from '@/helpers/swap/buildSwapAnal
 import { estimateSwapGas } from '@/helpers/swap/estimateSwapGas.js';
 import { executeEvmApproval } from '@/helpers/swap/executeEvmApproval.js';
 import { fetchSwapQuote } from '@/helpers/swap/fetchSwapQuote.js';
-import { type HandleSwapSuccessParams } from '@/helpers/swap/handleSwapSuccess.js';
+import type { HandleSwapSuccessParams } from '@/helpers/swap/handleSwapSuccess.js';
 import { resolveSwapEvmConnector, switchSwapEvmConnectorChain } from '@/helpers/swap/resolveSwapEvmConnector.js';
 import {
     resolveSwapEvmSigningWallet,

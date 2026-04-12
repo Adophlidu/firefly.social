@@ -1,7 +1,7 @@
-import { type SocialSource } from '@/constants/enum.js';
-import { type Channel, type Post } from '@/providers/types/SocialMedia.js';
-import { type Chars } from '@/types/chars.js';
-import { type ComposeType, type CompositePost } from '@/types/compose.js';
+import type { SocialSource } from '@/constants/enum.js';
+import type { Channel, Post } from '@/providers/types/SocialMedia.js';
+import type { Chars } from '@/types/chars.js';
+import type { ComposeType, CompositePost } from '@/types/compose.js';
 
 export interface ComposeModalOpenProps {
     type?: ComposeType;

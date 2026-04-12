@@ -3,7 +3,7 @@
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 
-import { type ClickableButtonProps } from '@/components/ClickableButton.js';
+import type { ClickableButtonProps } from '@/components/ClickableButton.js';
 import { CloseButton } from '@/components/IconButton.js';
 
 interface RemoveButtonProps extends ClickableButtonProps {

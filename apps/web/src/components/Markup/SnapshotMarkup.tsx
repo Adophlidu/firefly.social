@@ -11,7 +11,7 @@ import { BIO_TWITTER_PROFILE_REGEX, MENTION_REGEX, SYMBOL_REGEX, URL_REGEX } fro
 import { SNAPSHOT_IPFS_GATEWAY_URL } from '@/constants/static.js';
 import { sanitizeDStorageUrl } from '@/helpers/sanitizeDStorageUrl.js';
 import { trimify } from '@/helpers/trimify.js';
-import { type Pluggable } from '@/types/utility.js';
+import type { Pluggable } from '@/types/utility.js';
 
 const PLUGINS: Pluggable[] = [
     remarkBreaks,

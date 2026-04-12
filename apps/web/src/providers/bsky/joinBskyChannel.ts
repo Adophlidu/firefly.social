@@ -1,5 +1,5 @@
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
-import { type Channel } from '@/providers/types/SocialMedia.js';
+import type { Channel } from '@/providers/types/SocialMedia.js';
 
 export async function joinBskyChannel(channel: Channel): Promise<boolean> {
     const response = await bskySessionHolder.agent.addSavedFeeds([

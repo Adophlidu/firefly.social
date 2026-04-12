@@ -6,7 +6,7 @@ import { VideoPoster } from '@/components/Posts/VideoPoster.js';
 import { Source } from '@/constants/enum.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { computeSize } from '@/helpers/computeSize.js';
-import { type Attachment } from '@/providers/types/SocialMedia.js';
+import type { Attachment } from '@/providers/types/SocialMedia.js';
 
 const HlsPlayer = dynamic(() => import('@/components/HlsPlayer/index.js').then((m) => m.HlsPlayer), { ssr: false });
 

@@ -1,4 +1,4 @@
-import { type FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
+import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 
 export enum TokenType {
     Fungible = 'fungible',

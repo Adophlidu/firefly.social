@@ -2,12 +2,12 @@ import { produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { FireflyPlatform, Source } from '@/constants/enum.js';
-import { type PageData } from '@/decorators/types.js';
+import type { PageData } from '@/decorators/types.js';
 import { resolveTokenBookmarkId } from '@/helpers/resolveTokenBookmarkId.js';
-import { type FireflyBookmark } from '@/providers/firefly/Bookmark.js';
-import { type BookmarkTokenOptions } from '@/providers/types/Bookmark.js';
-import { type TokenWithMarketData } from '@/providers/types/Firefly.js';
-import { type ClassType } from '@/types/utility.js';
+import type { FireflyBookmark } from '@/providers/firefly/Bookmark.js';
+import type { BookmarkTokenOptions } from '@/providers/types/Bookmark.js';
+import type { TokenWithMarketData } from '@/providers/types/Firefly.js';
+import type { ClassType } from '@/types/utility.js';
 
 const METHODS_BE_OVERRIDDEN = ['bookmarkToken', 'unbookmarkToken'] as const;
 

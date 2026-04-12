@@ -14,7 +14,7 @@ import { MentionPlugin } from '@/components/Markup/plugins/MentionPlugin.js';
 import { MergeAdjacentTextPlugin } from '@/components/Markup/plugins/MergeAdjacentTextPlugin.js';
 import { BIO_TWITTER_PROFILE_REGEX, EMAIL_REGEX, SYMBOL_REGEX, TCO_URL_REGEX, URL_REGEX } from '@/constants/regexp.js';
 import { trimify } from '@/helpers/trimify.js';
-import { type Pluggable } from '@/types/utility.js';
+import type { Pluggable } from '@/types/utility.js';
 
 interface PredictionDescriptionProps extends Omit<ReactMarkdownOptions, 'children'> {
     children?: ReactMarkdownOptions['children'] | null;

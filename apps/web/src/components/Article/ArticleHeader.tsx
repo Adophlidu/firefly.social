@@ -6,7 +6,7 @@ import { memo } from 'react';
 import { ArticleActions } from '@/components/Article/ArticleActions.js';
 import { ArticleAuthor } from '@/components/Article/ArticleAuthor.js';
 import { NoSSR } from '@/components/NoSSR.js';
-import { type Article } from '@/providers/types/Article.js';
+import type { Article } from '@/providers/types/Article.js';
 
 interface ArticleHeaderProps {
     article: Article;

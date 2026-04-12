@@ -1,8 +1,8 @@
 import PoapIcon from '@dimensiondev/assets/poap.svg';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { Link } from '@tanstack/react-router';
-import { type GridItemProps, type GridListProps } from 'react-virtuoso';
-import { type Hex } from 'viem';
+import type { GridItemProps, GridListProps } from 'react-virtuoso';
+import type { Hex } from 'viem';
 import { useEnsName } from 'wagmi';
 
 import { ChainIcon } from '@/components/ChainIcon.js';
@@ -16,8 +16,8 @@ import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { cn } from '@/lib/utils.js';
-import { type EVM } from '@/providers/nftscan/types.js';
-import { type NFTDetail, type Poap } from '@/providers/types/Firefly.js';
+import type { EVM } from '@/providers/nftscan/types.js';
+import type { NFTDetail, Poap } from '@/providers/types/Firefly.js';
 import { getPOAPsByWalletQueryOptions } from '@/queries/firefly/getPOAPsByWalletQueryOptions.js';
 
 function GridList({ className, children, ...props }: GridListProps) {

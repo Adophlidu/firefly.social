@@ -3,10 +3,10 @@
 import FollowIcon from '@dimensiondev/assets/follow-user.svg';
 import UnfollowIcon from '@dimensiondev/assets/unfollow-user.svg';
 import { Trans } from '@lingui/react/macro';
-import { type Address } from 'viem';
+import type { Address } from 'viem';
 
 import { MenuButton } from '@/components/Actions/MenuButton.js';
-import { type ClickableButtonProps } from '@/components/ClickableButton.js';
+import type { ClickableButtonProps } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { useIsFollowingWallet } from '@/hooks/useIsFollowingWallet.js';
 import { useToggleWatchWallet } from '@/hooks/useToggleWatchWallet.js';

@@ -1,5 +1,5 @@
 import { IS_PRODUCTION } from '@dimensiondev/constants';
-import { type MetadataRoute } from 'next';
+import type { MetadataRoute } from 'next';
 
 import { SITE_URL_OFFICIAL } from '@/constants/static.js';
 

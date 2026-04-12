@@ -2,7 +2,7 @@ import { EMPTY_LIST } from '@dimensiondev/constants';
 import { compact, first, sortBy } from 'lodash-es';
 import { use } from 'react';
 
-import { type TokenPageProps } from '@/app/[locale]/(normal)/token/[exchange]/[[...slug]]/types.js';
+import type { TokenPageProps } from '@/app/[locale]/(normal)/token/[exchange]/[[...slug]]/types.js';
 import { TOKEN_CATEGORIES, TRACING_CHAINS } from '@/constants/computed.js';
 import { TokenCategory } from '@/constants/enum.js';
 import { NATIVE_TOKEN_ADDRESS } from '@/constants/okx.js';

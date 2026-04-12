@@ -1,5 +1,5 @@
 import { captureException, ExceptionId } from '@dimensiondev/exception-tracker';
-import { type ErrorPageProps } from '@dimensiondev/types';
+import type { ErrorPageProps } from '@dimensiondev/types';
 import React, { type ReactNode } from 'react';
 
 import { InvalidPolymarketAccountError } from '@/constants/error.js';

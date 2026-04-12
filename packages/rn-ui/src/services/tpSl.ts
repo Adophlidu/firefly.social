@@ -1,5 +1,5 @@
-import { type FetchTpSlSheet, type SubmitTpSl } from '@/types/services';
-import { type TpSlSheetData } from '@/types/ui';
+import type { FetchTpSlSheet, SubmitTpSl } from '@/types/services';
+import type { TpSlSheetData } from '@/types/ui';
 
 const delay = async (ms: number) => {
     await new Promise((resolve) => {

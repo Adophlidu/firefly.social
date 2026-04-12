@@ -1,4 +1,4 @@
-import { type Metadata } from 'next';
+import type { Metadata } from 'next';
 import urlcat from 'urlcat';
 
 import { SITE_URL } from '@/constants/static.js';

@@ -1,4 +1,4 @@
-import { type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 import { Locale } from '@/constants/enum.js';
 import { setupLocaleFromParams } from '@/i18n/static.js';

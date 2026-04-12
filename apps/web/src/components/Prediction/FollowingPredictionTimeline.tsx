@@ -9,7 +9,7 @@ import { ScrollListKey, Source } from '@/constants/enum.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { getFollowingPredictionList } from '@/providers/firefly/prediction/getFollowingPredictionList.js';
 import { captureFollowingPredictionsClick } from '@/providers/telemetry/capturePolymarketEvent.js';
-import { type BetsActivity } from '@/providers/types/Firefly.js';
+import type { BetsActivity } from '@/providers/types/Firefly.js';
 import { PredictionFilterNamespace, usePredictionSourceFilterStore } from '@/store/usePredictionSourceFilterStore.js';
 import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 

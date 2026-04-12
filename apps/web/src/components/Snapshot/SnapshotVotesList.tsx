@@ -18,7 +18,7 @@ import { createIndicator } from '@/helpers/pageable.js';
 import { sanitizeDStorageUrl } from '@/helpers/sanitizeDStorageUrl.js';
 import { useEnsName } from '@/hooks/useEnsName.js';
 import { getVotesById } from '@/providers/snapshot/getVotesById.js';
-import { type SnapshotVote } from '@/providers/snapshot/type.js';
+import type { SnapshotVote } from '@/providers/snapshot/type.js';
 
 interface SnapshotVotesListItemProps {
     vote: SnapshotVote;

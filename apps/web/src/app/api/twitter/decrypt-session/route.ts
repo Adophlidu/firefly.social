@@ -1,13 +1,13 @@
 import { envs } from '@dimensiondev/envs';
 import { compose, parseJson } from '@dimensiondev/utils';
-import { type NextRequest } from 'next/server.js';
+import type { NextRequest } from 'next/server.js';
 import { z } from 'zod';
 
 import { createErrorResponseJson, createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { getSearchParamsWithZodSchema } from '@/helpers/getSearchParamsWithZodSchema.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { TwitterSessionPayload } from '@/providers/twitter/SessionPayload.js';
-import { type TwitterMetricsData } from '@/providers/types/Firefly.js';
+import type { TwitterMetricsData } from '@/providers/types/Firefly.js';
 import { decryptAes256 } from '@/services/crypto.js';
 
 const SearchPageable = z.object({

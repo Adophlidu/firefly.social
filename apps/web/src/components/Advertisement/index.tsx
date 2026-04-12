@@ -8,7 +8,7 @@ import { dynamic } from '@/esm/dynamic.js';
 import { logger } from '@/libs/Logger.js';
 import { getFireflyActivityList } from '@/providers/firefly/activity/getFireflyActivityList.js';
 import { ActivityStatus } from '@/providers/types/Firefly.js';
-import { type Advertisement as AdvertisementInterface } from '@/types/advertisement.js';
+import type { Advertisement as AdvertisementInterface } from '@/types/advertisement.js';
 
 const AdvertisementSwiper = dynamic(
     () => import('@/components/Advertisement/AdvertisementSwiper.js').then((m) => m.AdvertisementSwiper),

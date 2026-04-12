@@ -2,7 +2,7 @@ import '@/globals.css';
 
 import { createRootRoute, HeadContent, Outlet, ScriptOnce, Scripts } from '@tanstack/react-router';
 import { NuqsAdapter } from 'nuqs/adapters/react';
-import { type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { z } from 'zod';
 
 import { ClientProviders } from '@/components/ClientProviders.js';

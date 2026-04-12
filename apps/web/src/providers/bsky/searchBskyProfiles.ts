@@ -8,7 +8,7 @@ import {
 import { formatBskyProfile } from '@/providers/bsky/formatBskyProfile.js';
 import { resolveBskyResponseData } from '@/providers/bsky/resolveBskyResponseData.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export async function searchBskyProfiles(
     q: string,

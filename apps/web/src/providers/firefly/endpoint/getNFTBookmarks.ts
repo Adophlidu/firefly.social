@@ -17,7 +17,7 @@ import { resolveNFTIdFromAsset } from '@/helpers/resolveNFTIdFromAsset.js';
 import { getNFTDetails } from '@/providers/firefly/nft/getNFTDetails.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { NFTSCAN_CHAIN_IDS } from '@/providers/nftscan/constants.js';
-import { type BookmarkResponse, type NFTBookmarkContent, type NFTDetail } from '@/providers/types/Firefly.js';
+import type { BookmarkResponse, NFTBookmarkContent, NFTDetail } from '@/providers/types/Firefly.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
 

@@ -1,5 +1,5 @@
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
-import { type Profile } from '@/providers/types/Firefly.js';
+import type { Profile } from '@/providers/types/Firefly.js';
 
 export interface EditCrossAtModalOpenProps {
     profiles: Profile[];

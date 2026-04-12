@@ -1,4 +1,4 @@
-import { type FragmentOf } from '@lens-protocol/client';
+import type { FragmentOf } from '@lens-protocol/client';
 
 import { CommentNotificationFragment } from '@/providers/lens/fragments/notification/CommentNotification.js';
 import { QuoteNotificationFragment } from '@/providers/lens/fragments/notification/QuoteNotification.js';

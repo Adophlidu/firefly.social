@@ -3,7 +3,7 @@ import urlcat from 'urlcat';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { POLYMARKET_DATA_API_DOMAIN } from '@/providers/prediction/polymarket/constants.js';
 import { resolvePolymarketResponse } from '@/providers/prediction/polymarket/resolvePolymarketResponse.js';
-import { type TopHoldersResponse } from '@/providers/prediction/polymarket/type.js';
+import type { TopHoldersResponse } from '@/providers/prediction/polymarket/type.js';
 
 interface Options {
     ids: string[];

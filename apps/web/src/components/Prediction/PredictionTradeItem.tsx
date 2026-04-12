@@ -5,7 +5,7 @@ import SellIcon from '@dimensiondev/assets/polymarket-sold.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Plural, Trans } from '@lingui/react/macro';
 import { compact, first } from 'lodash-es';
-import { type HTMLProps } from 'react';
+import type { HTMLProps } from 'react';
 
 import { Link } from '@/components/Link.js';
 import { PredictionTime } from '@/components/Prediction/PredictionTime.js';
@@ -19,7 +19,7 @@ import {
     captureOpinionProfileTradesEventClick,
     capturePolymarketProfileTradesEventClick,
 } from '@/providers/telemetry/capturePolymarketEvent.js';
-import { type BetsActivity } from '@/providers/types/Firefly.js';
+import type { BetsActivity } from '@/providers/types/Firefly.js';
 
 interface PredictionTradeItemProps extends HTMLProps<HTMLDivElement> {
     trade: BetsActivity;

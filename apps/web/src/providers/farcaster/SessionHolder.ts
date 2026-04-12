@@ -1,9 +1,9 @@
 import { nativeBridgeProvider, SupportedMethod } from '@dimensiondev/native-bridge';
 
-import { type NextFetchersOptions } from '@/helpers/fetch.js';
+import type { NextFetchersOptions } from '@/helpers/fetch.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { SessionHolder } from '@/providers/base/SessionHolder.js';
-import { type FarcasterSession } from '@/providers/farcaster/Session.js';
+import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 
 class FarcasterSessionHolder extends SessionHolder<FarcasterSession> {
     override async resumeSession(session: FarcasterSession) {

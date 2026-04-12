@@ -6,9 +6,9 @@ import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { handleOperationWithLensChain } from '@/providers/lens/handleOperationWithLensChain.js';
 import { lensSessionClientHolder } from '@/providers/lens/LensSessionClientHolder.js';
 import { account } from '@/providers/lens/metadata/Account.js';
-import { type MetadataAttribute } from '@/providers/lens/metadata/Base.js';
+import type { MetadataAttribute } from '@/providers/lens/metadata/Base.js';
 import { uploadLensMetadataToS3 } from '@/providers/lens/uploadLensMetadataToS3.js';
-import { type ProfileEditable } from '@/providers/types/SocialMedia.js';
+import type { ProfileEditable } from '@/providers/types/SocialMedia.js';
 
 export async function updateLensProfile(profile: ProfileEditable): Promise<boolean> {
     const attributes: MetadataAttribute[] = compact([

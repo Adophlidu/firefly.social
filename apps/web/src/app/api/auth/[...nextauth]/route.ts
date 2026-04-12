@@ -1,4 +1,4 @@
-import { type NextRequestContext } from '@dimensiondev/types';
+import type { NextRequestContext } from '@dimensiondev/types';
 import { type NextRequest, NextResponse } from 'next/server.js';
 import urlcat from 'urlcat';
 

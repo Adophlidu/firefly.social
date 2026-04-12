@@ -2,9 +2,9 @@ import { runInSafeAsync, safeUnreachable } from '@dimensiondev/utils';
 
 import { getWalletEventParameters } from '@/providers/telemetry/getWalletEventParameters.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
-import { type RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
+import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import { EventId } from '@/providers/types/Telemetry.js';
-import { type RedPacketMetadata } from '@/types/rp.js';
+import type { RedPacketMetadata } from '@/types/rp.js';
 
 function getLuckyDropParametersFromMetadata(metadata: RedPacketMetadata) {
     return {

@@ -1,5 +1,5 @@
 import { TokenIcon as GenericTokenIcon, type TokenIconProps } from '@/components/TokenIcon.js';
-import { type Token } from '@/providers/types/Transfer.js';
+import type { Token } from '@/providers/types/Transfer.js';
 
 interface Props extends TokenIconProps {
     token: Pick<Token, 'id' | 'chainId' | 'name' | 'logo_url' | 'chainLogoUrl'>;

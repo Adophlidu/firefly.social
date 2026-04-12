@@ -1,4 +1,4 @@
-import { type ApiV2Includes, type TweetV2 } from 'twitter-api-v2';
+import type { ApiV2Includes, TweetV2 } from 'twitter-api-v2';
 
 import { logger } from '@/libs/Logger.js';
 

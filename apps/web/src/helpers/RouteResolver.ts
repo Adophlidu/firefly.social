@@ -1,12 +1,12 @@
 import urlcat from 'urlcat';
 
-import {
-    type PredictionPlatform,
-    type ProfileCategory,
-    type ProfilePageSource,
-    type SignupStep,
-    type Source,
-    type TipsDetailViewType,
+import type {
+    PredictionPlatform,
+    ProfileCategory,
+    ProfilePageSource,
+    SignupStep,
+    Source,
+    TipsDetailViewType,
 } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/static.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';

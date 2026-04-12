@@ -1,4 +1,4 @@
-import { type InlineErrorV2 } from 'twitter-api-v2';
+import type { InlineErrorV2 } from 'twitter-api-v2';
 
 import { createErrorResponseJson } from '@/helpers/createResponseJson.js';
 

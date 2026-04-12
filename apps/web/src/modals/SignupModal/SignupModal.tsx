@@ -7,11 +7,7 @@ import { ModalTitle } from '@/components/ModalTitle.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import {
-    type SignupModalCloseProps,
-    type SignupModalOpenProps,
-    type SignupModalRefType,
-} from '@/modals/SignupModal/refs.js';
+import type { SignupModalCloseProps, SignupModalOpenProps, SignupModalRefType } from '@/modals/SignupModal/refs.js';
 
 const SignupModalContent = dynamic(
     () => import('@/modals/SignupModal/SignupModalContent.js').then((m) => m.SignupModalContent),

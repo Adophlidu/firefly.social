@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/react/macro';
-import { type PropsWithChildren } from 'react';
+import type { PropsWithChildren } from 'react';
 
 import { NoSSR } from '@/components/NoSSR.js';
 import { NotificationSettings } from '@/components/Notification/NotificationSettings.js';

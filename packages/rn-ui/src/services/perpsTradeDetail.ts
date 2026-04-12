@@ -1,11 +1,11 @@
 /* cspell:disable */
 
-import { type FetchPerpsTradeDetailPage } from '@/types/services';
-import {
-    type PerpsOpenOrderItem,
-    type PerpsPositionItem,
-    type PerpsTradeDetailPageData,
-    type PerpsTradeOrderBookEntry,
+import type { FetchPerpsTradeDetailPage } from '@/types/services';
+import type {
+    PerpsOpenOrderItem,
+    PerpsPositionItem,
+    PerpsTradeDetailPageData,
+    PerpsTradeOrderBookEntry,
 } from '@/types/ui';
 
 const delay = async (ms: number) => {

@@ -1,7 +1,7 @@
 /* cspell:disable */
 
-import { type FetchPerpsDetailPage } from '@/types/services';
-import { type PerpsDetailPageData, type PerpsOrderBookLevel } from '@/types/ui';
+import type { FetchPerpsDetailPage } from '@/types/services';
+import type { PerpsDetailPageData, PerpsOrderBookLevel } from '@/types/ui';
 
 const delay = async (ms: number) => {
     await new Promise((resolve) => {

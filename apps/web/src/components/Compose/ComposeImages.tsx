@@ -13,7 +13,7 @@ import { resolveMediaObjectUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import { sanitizeDStorageUrl } from '@/helpers/sanitizeDStorageUrl.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
-import { type MediaObject } from '@/types/compose.js';
+import type { MediaObject } from '@/types/compose.js';
 
 const getClass = (size: number) => {
     if (size === 1) {

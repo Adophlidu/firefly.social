@@ -7,8 +7,8 @@ import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { createLensSession } from '@/providers/lens/createLensSession.js';
 import { getProfilesByAddress } from '@/providers/lens/getProfilesByAddress.js';
 import { loginLensProfile } from '@/providers/lens/loginLensProfile.js';
-import { type Account } from '@/providers/types/Account.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
+import type { Account } from '@/providers/types/Account.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
 async function getProfileNeedToLogin(profileId: string) {
     const privyEvmWallet = (await ensureCreatedFireflyWallet('eth'))?.address;

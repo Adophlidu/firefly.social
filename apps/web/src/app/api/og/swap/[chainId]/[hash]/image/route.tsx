@@ -1,11 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 
-import { type NextRequestContext } from '@dimensiondev/types';
+import type { NextRequestContext } from '@dimensiondev/types';
 import { compose } from '@dimensiondev/utils';
 import { first } from 'lodash-es';
 import { ImageResponse } from 'next/og.js';
-import { type NextRequest } from 'next/server.js';
-import { type HTMLProps } from 'react';
+import type { NextRequest } from 'next/server.js';
+import type { HTMLProps } from 'react';
 import { z } from 'zod';
 
 import { ShrankPrice } from '@/components/ShrankPrice.js';
@@ -23,7 +23,7 @@ import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.j
 import { resolveChainIcon } from '@/helpers/resolveChainIcon.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { getSwapActivityByHash } from '@/providers/firefly/endpoint/getSwapActivityByHash.js';
-import { type SwapActivity } from '@/providers/types/Firefly.js';
+import type { SwapActivity } from '@/providers/types/Firefly.js';
 import { getSatoriFonts } from '@/services/getSatoriFonts.js';
 
 const OG_FONT_FAMILY = '"Inter", "NotoSans"';

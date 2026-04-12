@@ -3,7 +3,7 @@ import { AppBskyFeed } from '@/providers/bsky/contentChecker.js';
 import { formatBskyThreadPosts } from '@/providers/bsky/formatBskyFeedPost.js';
 import { resolveBskyResponseData } from '@/providers/bsky/resolveBskyResponseData.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 export async function getBskyThreadByPostId(postId: string, localPost?: Post, signal?: AbortSignal): Promise<Post[]> {
     const uri = AppBskyFeed.isPostView(localPost?.__original__)

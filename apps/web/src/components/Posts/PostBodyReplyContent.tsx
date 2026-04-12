@@ -11,7 +11,7 @@ import { formatUrl } from '@/helpers/formatUrl.js';
 import { isValidUrl } from '@/helpers/isValidUrl.js';
 import { useDetectOverflow } from '@/hooks/useDetectOverflow.js';
 import { useMounted } from '@/hooks/useMounted.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 interface PostBodyReplyContentProps {

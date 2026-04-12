@@ -4,7 +4,7 @@ import { SetQueryDataForBookmarkToken } from '@/decorators/SetQueryDataForBookma
 import { resolveTokenBookmarkId } from '@/helpers/resolveTokenBookmarkId.js';
 import { bookmark } from '@/providers/firefly/endpoint/bookmark.js';
 import { unbookmark } from '@/providers/firefly/endpoint/unbookmark.js';
-import { type BookmarkTokenOptions } from '@/providers/types/Bookmark.js';
+import type { BookmarkTokenOptions } from '@/providers/types/Bookmark.js';
 
 @SetQueryDataForBookmarkNFT()
 @SetQueryDataForBookmarkToken()

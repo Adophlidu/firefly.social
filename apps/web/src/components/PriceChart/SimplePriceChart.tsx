@@ -3,7 +3,7 @@ import { type HTMLProps, memo } from 'react';
 import { Line, LineChart, ResponsiveContainer, YAxis } from 'recharts';
 
 import { useIsPriceUp } from '@/hooks/useIsPriceUp.js';
-import { type PriceRecord } from '@/types/token.js';
+import type { PriceRecord } from '@/types/token.js';
 
 interface SimplePriceChartProps extends HTMLProps<HTMLDivElement> {
     records: PriceRecord[];

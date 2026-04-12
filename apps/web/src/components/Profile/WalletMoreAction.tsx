@@ -6,7 +6,7 @@ import { MenuItem, type MenuProps } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
 import { compact, sum } from 'lodash-es';
 import { memo } from 'react';
-import { type Address } from 'viem';
+import type { Address } from 'viem';
 
 import { MuteAllByWallet } from '@/components/Actions/MuteAllProfile.js';
 import { MuteWalletButton } from '@/components/Actions/MuteWalletButton.js';
@@ -21,7 +21,7 @@ import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useFireflyProfileByIdentity } from '@/hooks/useFireflyProfileByIdentity.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useIsWalletMuted } from '@/hooks/useIsWalletMuted.js';
-import { type FireflyIdentity, type WalletProfile } from '@/providers/types/Firefly.js';
+import type { FireflyIdentity, WalletProfile } from '@/providers/types/Firefly.js';
 
 interface MoreProps extends Omit<MenuProps<'div'>, 'className'> {
     profile: WalletProfile;

@@ -4,7 +4,7 @@ import { classNames } from '@dimensiondev/utils';
 import { ActivityStatusTag } from '@/components/Activity/ActivityStatus.js';
 import { Image } from '@/components/Image.js';
 import { formatEventTimestamp } from '@/helpers/formatTimestamp.js';
-import { type ActivityInfoResponse } from '@/providers/types/Firefly.js';
+import type { ActivityInfoResponse } from '@/providers/types/Firefly.js';
 
 function parseDescription(description: string) {
     return description.split('\\n').map((line, index, array) => (

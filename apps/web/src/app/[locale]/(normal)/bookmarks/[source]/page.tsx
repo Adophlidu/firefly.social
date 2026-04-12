@@ -1,6 +1,6 @@
 'use client';
 
-import { type LayoutProps } from '@dimensiondev/types';
+import type { LayoutProps } from '@dimensiondev/types';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { Suspense, use } from 'react';
 

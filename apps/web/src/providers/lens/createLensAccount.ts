@@ -1,6 +1,6 @@
 import { envs } from '@dimensiondev/envs';
 import { InvalidResultError, retry, runInSafeAsync } from '@dimensiondev/utils';
-import { type SessionClient } from '@lens-protocol/client';
+import type { SessionClient } from '@lens-protocol/client';
 import { canCreateUsername, createAccountWithUsername, fetchAccount } from '@lens-protocol/client/actions';
 import { mainnet } from 'viem/chains';
 
@@ -20,8 +20,8 @@ import { getWalletClientForLensChain } from '@/providers/lens/getWalletClientFor
 import { handleOperationWithLensChain } from '@/providers/lens/handleOperationWithLensChain.js';
 import { account } from '@/providers/lens/metadata/Account.js';
 import { uploadLensMetadataToS3 } from '@/providers/lens/uploadLensMetadataToS3.js';
-import { type Account } from '@/providers/types/Account.js';
-import { type Profile, type ProfileForSignup } from '@/providers/types/SocialMedia.js';
+import type { Account } from '@/providers/types/Account.js';
+import type { Profile, ProfileForSignup } from '@/providers/types/SocialMedia.js';
 
 const loginOnboardingUser = memoizePromise(
     async (address: string) => {

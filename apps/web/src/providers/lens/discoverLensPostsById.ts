@@ -14,7 +14,7 @@ import { ensureCursor } from '@/providers/lens/ensureCursor.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { formatLensPostByFeedV3 } from '@/providers/lens/formatLensPost.js';
 import { lensSessionClientHolder } from '@/providers/lens/LensSessionClientHolder.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 export async function discoverLensPostsById(
     profileId: string,

@@ -4,8 +4,8 @@ import { queryClient } from '@/configs/queryClient.js';
 import { SearchType, type SocialSource } from '@/constants/enum.js';
 import { getSessionFromStorageBySource } from '@/helpers/getSessionFromStorage.js';
 import { type Matcher, patchPostQueryData } from '@/helpers/patchPostQueryData.js';
-import { type Channel, type Provider } from '@/providers/types/SocialMedia.js';
-import { type ClassType } from '@/types/utility.js';
+import type { Channel, Provider } from '@/providers/types/SocialMedia.js';
+import type { ClassType } from '@/types/utility.js';
 
 function setBlockStatus(source: SocialSource, channelId: string, status: boolean) {
     const matcher: Matcher = (post) => post?.channel?.id === channelId;

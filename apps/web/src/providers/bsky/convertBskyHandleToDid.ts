@@ -3,7 +3,7 @@ import urlcat from 'urlcat';
 import { FIREFLY_WORKER_HOST } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
-import { type ResponseJson } from '@/types/utility.js';
+import type { ResponseJson } from '@/types/utility.js';
 
 async function convertBskyHandleToDidViaFireflyWorker(handle: string, signal?: AbortSignal) {
     const response = await fetchJson<

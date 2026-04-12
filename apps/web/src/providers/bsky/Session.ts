@@ -1,11 +1,11 @@
 /* cspell:disable */
 
-import { type AtpSessionData } from '@atproto/api';
+import type { AtpSessionData } from '@atproto/api';
 import { NotAllowedError } from '@dimensiondev/utils';
 
 import { encodeAsciiPayload } from '@/helpers/encodeSessionPayload.js';
 import { BaseSession } from '@/providers/base/Session.js';
-import { type Session } from '@/providers/types/Session.js';
+import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 
 const BSKY_SESSION_PLACEHOLDER = '[BSKY_SESSION_PLACEHOLDER]';

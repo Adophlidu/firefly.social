@@ -21,7 +21,7 @@ import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { matchUrls } from '@/helpers/matchUrls.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
 export interface SinglePostProps extends HTMLProps<HTMLDivElement> {

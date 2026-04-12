@@ -1,8 +1,8 @@
 import { mainnet } from 'viem/chains';
 
-import { type TokenTrendingData } from '@/components/TokenTrendingListItem.js';
+import type { TokenTrendingData } from '@/components/TokenTrendingListItem.js';
 import { resolveCoinGeckoChainId } from '@/helpers/resolveCoinGeckoChainId.js';
-import { type TrendingToken } from '@/providers/types/Firefly.js';
+import type { TrendingToken } from '@/providers/types/Firefly.js';
 
 export function formatTrendingToken(token: TrendingToken, key?: keyof TrendingToken['volume_usd']): TokenTrendingData {
     return {

@@ -1,8 +1,8 @@
 import { parseJson } from '@dimensiondev/utils';
 
 import { PredictionPlatform } from '@/constants/enum.js';
-import { type PolymarketEventListData, type PolymarketMarketData } from '@/providers/types/Firefly.js';
-import { type BetsEventDataForUI, type BetsMarketDataForUI } from '@/types/prediction.js';
+import type { PolymarketEventListData, PolymarketMarketData } from '@/providers/types/Firefly.js';
+import type { BetsEventDataForUI, BetsMarketDataForUI } from '@/types/prediction.js';
 
 export function formatPolymarketMarketToBetsMarket(market: PolymarketMarketData): BetsMarketDataForUI {
     const outcomeLabels = parseJson<string[]>(market.outcomes) ?? [];

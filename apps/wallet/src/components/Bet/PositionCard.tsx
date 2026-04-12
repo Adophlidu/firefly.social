@@ -17,7 +17,7 @@ import { formatTokenItemAmount } from '@/helpers/formatTokenItemAmount.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { cn } from '@/lib/utils.js';
 import { polymarketGammaEndpoint } from '@/providers/polymarket/gamma.js';
-import { type PolymarketPosition } from '@/providers/types/Firefly.js';
+import type { PolymarketPosition } from '@/providers/types/Firefly.js';
 
 export function PositionCard({ position, showAction = true }: { position: PolymarketPosition; showAction?: boolean }) {
     const navigate = useNavigate();

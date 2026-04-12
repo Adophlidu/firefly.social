@@ -9,7 +9,7 @@ import { Loading } from '@/components/Loading.js';
 import { Source } from '@/constants/enum.js';
 import { isSocialSource } from '@/helpers/isSource.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { type AllConnections, type FireflyAccountProfile } from '@/providers/types/Firefly.js';
+import type { AllConnections, FireflyAccountProfile } from '@/providers/types/Firefly.js';
 
 export interface EditFireflyProfileModalContentProps {
     profile?: FireflyAccountProfile | null;

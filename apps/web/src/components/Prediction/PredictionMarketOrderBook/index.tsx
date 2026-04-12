@@ -12,10 +12,10 @@ import { Loading } from '@/components/Loading.js';
 import { OrderBookHeader } from '@/components/Prediction/PredictionMarketOrderBook/OrderBookHeader.js';
 import { OrderBookUI } from '@/components/Prediction/PredictionMarketOrderBook/OrderBookUI.js';
 import { SPREAD_SETTING_OPTIONS } from '@/constants/bets.js';
-import { type PredictionPlatform } from '@/constants/enum.js';
+import type { PredictionPlatform } from '@/constants/enum.js';
 import { openPredictionPage } from '@/helpers/openPredictionPage.js';
 import { getBetsMarketOrderBook } from '@/providers/prediction/getBetsMarketOrderBook.js';
-import { type BetsMarketDataForUI, type BetsOrderBookItem, type MarketOrderBookSpread } from '@/types/prediction.js';
+import type { BetsMarketDataForUI, BetsOrderBookItem, MarketOrderBookSpread } from '@/types/prediction.js';
 
 interface PredictionMarketOrderBookProps {
     market: BetsMarketDataForUI;

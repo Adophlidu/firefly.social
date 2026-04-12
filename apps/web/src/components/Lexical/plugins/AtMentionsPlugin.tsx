@@ -1,6 +1,6 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { classNames } from '@dimensiondev/utils';
-import { type AutoLinkNode } from '@lexical/link';
+import type { AutoLinkNode } from '@lexical/link';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext.js';
 import {
     LexicalTypeaheadMenuPlugin,
@@ -26,7 +26,7 @@ import { resolveSocialSourceFromFireflyPlatform } from '@/helpers/resolveSource.
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
-import { type Profile } from '@/providers/types/Firefly.js';
+import type { Profile } from '@/providers/types/Firefly.js';
 import { searchProfilesByKeyword } from '@/services/searchProfilesByKeyword.js';
 
 const TRIGGERS = ['@'].join('');

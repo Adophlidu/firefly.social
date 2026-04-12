@@ -14,7 +14,7 @@ import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { createIndicator, createNextIndicator, createPageable } from '@/helpers/pageable.js';
 import { useMultiInfiniteQueryPageable } from '@/hooks/useMultiInfiniteQueryPageable.js';
 import { NFTSCAN_CHAIN_IDS } from '@/providers/nftscan/constants.js';
-import { type EVM } from '@/providers/nftscan/types.js';
+import type { EVM } from '@/providers/nftscan/types.js';
 import { getPOAPsByWalletQueryOptions } from '@/queries/firefly/getPOAPsByWalletQueryOptions.js';
 import { getFireflyEndpoint } from '@/store/fireflyEndpoint.js';
 

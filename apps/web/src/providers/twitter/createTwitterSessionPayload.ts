@@ -1,7 +1,7 @@
 import { envs } from '@dimensiondev/envs';
 import { parseJson } from '@dimensiondev/utils';
 import { cookies, headers } from 'next/headers.js';
-import { type NextRequest } from 'next/server.js';
+import type { NextRequest } from 'next/server.js';
 import { getToken, type JWT } from 'next-auth/jwt';
 
 import { logger } from '@/libs/Logger.js';

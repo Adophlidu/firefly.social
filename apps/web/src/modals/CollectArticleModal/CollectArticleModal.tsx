@@ -7,10 +7,7 @@ import { CloseButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';
 import { stopEvent } from '@/helpers/stopEvent.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import {
-    type CollectArticleModalOpenProps,
-    type CollectArticleModalRefType,
-} from '@/modals/CollectArticleModal/refs.js';
+import type { CollectArticleModalOpenProps, CollectArticleModalRefType } from '@/modals/CollectArticleModal/refs.js';
 
 interface Props {
     ref: React.Ref<CollectArticleModalRefType>;

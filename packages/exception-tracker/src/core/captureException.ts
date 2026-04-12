@@ -1,8 +1,8 @@
 import { getExceptionTrackerConfig } from '@/config.js';
 import { reportException } from '@/core/reportException.js';
-import { type ExceptionId } from '@/enums.js';
+import type { ExceptionId } from '@/enums.js';
 import { normalizeError } from '@/helpers/normalizeError.js';
-import { type ExceptionTags } from '@/types.js';
+import type { ExceptionTags } from '@/types.js';
 
 /**
  * Captures an exception via reportException (sendBeacon). Use this instead of Sentry.

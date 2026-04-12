@@ -5,8 +5,8 @@ import { Modal } from '@/components/Modal.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import { type PreviewMediaModalContentProps } from '@/modals/PreviewMediaModal/PreviewMediaModalContent.js';
-import { type PreviewMediaModalRefType } from '@/modals/PreviewMediaModal/refs.js';
+import type { PreviewMediaModalContentProps } from '@/modals/PreviewMediaModal/PreviewMediaModalContent.js';
+import type { PreviewMediaModalRefType } from '@/modals/PreviewMediaModal/refs.js';
 
 interface PreviewMediaModalOpenProps extends Omit<PreviewMediaModalContentProps, 'open' | 'onClose'> {}
 

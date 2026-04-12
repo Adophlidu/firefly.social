@@ -5,7 +5,7 @@ import { parseCAIP19 } from '@/helpers/parseCAIP19.js';
 import { logger } from '@/libs/Logger.js';
 import { getProfileById } from '@/providers/firefly/farcaster-hub/getProfileById.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
-import { type SnapSendTokenAction } from '@/types/snap.js';
+import type { SnapSendTokenAction } from '@/types/snap.js';
 
 /**
  * Opens Firefly Wallet send flow with optional deep link (chain / token / recipient / amount).

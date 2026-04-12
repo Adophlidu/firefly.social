@@ -4,7 +4,7 @@ import Like from '@dimensiondev/assets/like.svg';
 import NFTHolder from '@dimensiondev/assets/nft.svg';
 import Repost from '@dimensiondev/assets/repost.svg';
 import { Trans } from '@lingui/react/macro';
-import { type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 import { RequirementType } from '@/providers/types/FireflyRedPacket.js';
 

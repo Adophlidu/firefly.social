@@ -50,10 +50,10 @@ import {
     WalletIcon,
     XMarkIcon,
 } from '@heroicons/react/24/outline';
-import { type ComponentType } from 'react';
+import type { ComponentType } from 'react';
 
 import { ACCENT_TEXT_MAP, useSnapContext } from '@/components/Snap/SnapContext.js';
-import { type SnapAccentColor, type SnapIconProps } from '@/types/snap.js';
+import type { SnapAccentColor, SnapIconProps } from '@/types/snap.js';
 
 function iconTextClass(color: SnapIconProps['color'], themeAccent: SnapAccentColor): string {
     if (!color) return 'text-secondary';

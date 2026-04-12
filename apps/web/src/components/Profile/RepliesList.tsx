@@ -10,7 +10,7 @@ import { getPostsSelector } from '@/helpers/getPostsSelector.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useIsProfileProtected } from '@/hooks/useIsProfileProtected.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface RepliesListProps {
     profileId: string;

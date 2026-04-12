@@ -6,7 +6,7 @@ import MirrorIcon from '@dimensiondev/assets/mirror-large.svg';
 import ScheduleIcon from '@dimensiondev/assets/schedule.svg';
 import TipsIcon from '@dimensiondev/assets/tips.svg';
 import { createLookupTableResolver } from '@dimensiondev/utils';
-import { type FunctionComponent, type SVGAttributes } from 'react';
+import type { FunctionComponent, SVGAttributes } from 'react';
 
 import { NotificationType } from '@/providers/types/SocialMedia.js';
 

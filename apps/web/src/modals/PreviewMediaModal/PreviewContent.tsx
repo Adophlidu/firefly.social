@@ -2,8 +2,8 @@ import { memo } from 'react';
 
 import { Image } from '@/components/Image.js';
 import { VideoAsset } from '@/components/Posts/VideoAsset.js';
-import { type Source } from '@/constants/enum.js';
-import { type Attachment } from '@/providers/types/SocialMedia.js';
+import type { Source } from '@/constants/enum.js';
+import type { Attachment } from '@/providers/types/SocialMedia.js';
 
 interface PreviewContentProps {
     source: Source;

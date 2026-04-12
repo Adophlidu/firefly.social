@@ -1,5 +1,5 @@
 import { queryOptions } from '@tanstack/react-query';
-import { type Address } from 'viem';
+import type { Address } from 'viem';
 
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { polymarketDataEndpoint } from '@/providers/polymarket/dataApi.js';

@@ -1,7 +1,7 @@
 import RadioDisableNoIcon from '@dimensiondev/assets/radio.disable-no.svg';
 import RadioYesIcon from '@dimensiondev/assets/radio.yes.svg';
 import { classNames } from '@dimensiondev/utils';
-import { type SVGProps } from 'react';
+import type { SVGProps } from 'react';
 
 interface Props extends SVGProps<SVGAElement> {
     size?: number;

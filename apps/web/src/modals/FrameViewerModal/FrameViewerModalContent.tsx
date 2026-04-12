@@ -4,7 +4,7 @@ import { exposeToIframe } from '@farcaster/miniapp-host';
 import { Trans } from '@lingui/react/macro';
 import { useEffect, useRef } from 'react';
 import { useAsync } from 'react-use';
-import { type Address, type Hex } from 'viem';
+import type { Address, Hex } from 'viem';
 import { useChainId, useConnection } from 'wagmi';
 
 import { frameSwapToken } from '@/components/Frame/V2/frameSwapToken.js';
@@ -24,7 +24,7 @@ import {
 import { checkMiniAppBlocking } from '@/providers/firefly/worker/checkMiniAppBlocking.js';
 import { FarcasterFrameHost } from '@/providers/frame/Host.js';
 import { captureFrameActionEvent } from '@/providers/telemetry/captureFrameActionEvent.js';
-import { type Frame, type FrameV2 } from '@/types/frame.js';
+import type { Frame, FrameV2 } from '@/types/frame.js';
 import { EthereumMethodType } from '@/web3-shared/evm/types.js';
 
 function createEthProvider(frame: Frame) {

@@ -6,7 +6,7 @@ import { ListInPage } from '@/components/ListInPage.js';
 import { ScrollListKey, type SocialSource } from '@/constants/enum.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { type Channel } from '@/providers/types/SocialMedia.js';
+import type { Channel } from '@/providers/types/SocialMedia.js';
 
 const getChannelItemContent = (index: number, channel: Channel) => {
     return <ChannelInList key={channel.id} channel={channel} />;

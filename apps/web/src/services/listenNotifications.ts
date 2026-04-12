@@ -3,7 +3,7 @@ import { runInSafeAsync } from '@dimensiondev/utils';
 import { NotificationSourceType, type ProfileSource, Source } from '@/constants/enum.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { isSocialSource } from '@/helpers/isSource.js';
-import { type Pageable, type PageIndicator } from '@/helpers/pageable.js';
+import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import { logger } from '@/libs/Logger.js';
 import { getBskyNotifications } from '@/providers/bsky/getBskyNotifications.js';
 import { farcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
@@ -11,7 +11,7 @@ import { getScheduleNotifications } from '@/providers/firefly/endpoint/getSchedu
 import { getTipsNotifications } from '@/providers/firefly/endpoint/getTipsNotifications.js';
 import { getLensNotifications } from '@/providers/lens/getLensNotifications.js';
 import { officialSocialMediaProvider } from '@/providers/twitter/OfficialSocialMedia.js';
-import { type Notification as NotificationObject } from '@/providers/types/SocialMedia.js';
+import type { Notification as NotificationObject } from '@/providers/types/SocialMedia.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
 
 interface Config {

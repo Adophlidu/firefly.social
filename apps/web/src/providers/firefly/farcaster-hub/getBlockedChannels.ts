@@ -5,8 +5,8 @@ import { createIndicator, createPageable, type Pageable, type PageIndicator } fr
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { getChannelsByIds } from '@/providers/neynar/getChannelsByIds.js';
-import { type BlockedChannelsResponse } from '@/providers/types/Firefly.js';
-import { type Channel } from '@/providers/types/SocialMedia.js';
+import type { BlockedChannelsResponse } from '@/providers/types/Firefly.js';
+import type { Channel } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
 
 export async function getBlockedChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {

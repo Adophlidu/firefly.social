@@ -5,8 +5,8 @@ import { memo, useMemo, useState } from 'react';
 
 import { PredictionMarketFilter } from '@/components/Prediction/PredictionMarketTopHolders/PredictionMarketFilter.js';
 import { TopHoldersContent } from '@/components/Prediction/PredictionMarketTopHolders/TopHoldersContent.js';
-import { type PredictionPlatform } from '@/constants/enum.js';
-import { type BetsMarketDataForUI } from '@/types/prediction.js';
+import type { PredictionPlatform } from '@/constants/enum.js';
+import type { BetsMarketDataForUI } from '@/types/prediction.js';
 
 interface PredictionMarketTopHoldersProps {
     platform: PredictionPlatform;

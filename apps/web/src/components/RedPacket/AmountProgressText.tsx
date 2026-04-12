@@ -6,8 +6,8 @@ import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
 import { getCSSPropertiesFromThemeSettings } from '@/helpers/getCSSPropertiesFromThemeSettings.js';
 import { dividedBy, leftShift } from '@/helpers/number.js';
-import { type FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
-import { type TokenType } from '@/types/rp.js';
+import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
+import type { TokenType } from '@/types/rp.js';
 
 interface AmountProgressTextProps {
     theme: FireflyRedPacketAPI.ThemeGroupSettings;

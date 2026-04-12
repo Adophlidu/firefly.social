@@ -15,9 +15,9 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { POLL_OPTIONS_MIN_COUNT, POLL_PEER_OPTION_MAX_CHARS } from '@/constants/poll.js';
 import { createPollOption, getPollOptionsMaxLength } from '@/helpers/polls.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
-import { type PollOption } from '@/providers/types/Poll.js';
+import type { PollOption } from '@/providers/types/Poll.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
-import { type CompositePost } from '@/types/compose.js';
+import type { CompositePost } from '@/types/compose.js';
 
 interface PollCreatorCardProps {
     post: CompositePost;

@@ -1,7 +1,7 @@
 import { createContext, useContext } from 'react';
 
-import { type RecipientItemProps } from '@/components/SendTransactionModal/RecipientItem.js';
-import { type Token } from '@/providers/types/Transfer.js';
+import type { RecipientItemProps } from '@/components/SendTransactionModal/RecipientItem.js';
+import type { Token } from '@/providers/types/Transfer.js';
 
 export enum RoutePath {
     Form = '/send/form',

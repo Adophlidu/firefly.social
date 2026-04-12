@@ -15,7 +15,7 @@ import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useIsProfileProtected } from '@/hooks/useIsProfileProtected.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface FeedListProps {
     profileId: string;

@@ -1,6 +1,6 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import urlcat from 'urlcat';
-import { type Hex } from 'viem';
+import type { Hex } from 'viem';
 
 import { fetchJson } from '@/helpers/fetchJson.js';
 import {
@@ -10,7 +10,7 @@ import {
     type Pageable,
     type PageIndicator,
 } from '@/helpers/pageable.js';
-import { type FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
+import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 import { settings } from '@/settings/index.js';
 
 export async function getHistory<

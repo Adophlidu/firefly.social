@@ -2,7 +2,7 @@ import { EMPTY_LIST } from '@dimensiondev/constants';
 import { classNames } from '@dimensiondev/utils';
 import { type CSSProperties, type HTMLProps, memo, useMemo, useState } from 'react';
 import { Area, AreaChart, Customized, ResponsiveContainer, Tooltip, YAxis } from 'recharts';
-import { type AxisDomain } from 'recharts/types/util/types.js';
+import type { AxisDomain } from 'recharts/types/util/types.js';
 
 import { PriceChartHeight, SafePadding } from '@/components/PriceChart/config.js';
 import {
@@ -14,7 +14,7 @@ import {
 import { formatBalance, trimZero } from '@/helpers/formatBalance.js';
 import { useIsPriceUp } from '@/hooks/useIsPriceUp.js';
 import { useThrottledCallback } from '@/hooks/useThrottledCallback.js';
-import { type PriceRecord, type TradeRecord } from '@/types/token.js';
+import type { PriceRecord, TradeRecord } from '@/types/token.js';
 
 interface TradeTooltipProps extends HTMLProps<HTMLDivElement> {
     x: number;

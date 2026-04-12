@@ -3,7 +3,7 @@
 import { useSearchParams } from 'next/navigation.js';
 import { useEffect } from 'react';
 
-import { type SearchType } from '@/constants/enum.js';
+import type { SearchType } from '@/constants/enum.js';
 import { useRouter } from '@/esm/navigation.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 

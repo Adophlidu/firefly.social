@@ -1,8 +1,8 @@
-import { type Hash } from 'viem';
+import type { Hash } from 'viem';
 import { getTransactionConfirmations, waitForTransactionReceipt } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmi.js';
-import { type EthereumChainId } from '@/constants/ethereum.js';
+import type { EthereumChainId } from '@/constants/ethereum.js';
 
 export async function waitForEthereumTransaction(chainId: EthereumChainId, hash: Hash): Promise<void> {
     try {

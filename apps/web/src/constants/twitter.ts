@@ -1,5 +1,5 @@
-import { type TweetV2UserTimelineParams, type UsersV2Params } from 'twitter-api-v2';
-import { type SpaceV2FieldsParams } from 'twitter-api-v2/dist/esm/types/v2/spaces.v2.types.js';
+import type { TweetV2UserTimelineParams, UsersV2Params } from 'twitter-api-v2';
+import type { SpaceV2FieldsParams } from 'twitter-api-v2/dist/esm/types/v2/spaces.v2.types.js';
 
 export const TWITTER_TIMELINE_OPTIONS: TweetV2UserTimelineParams = {
     expansions: [

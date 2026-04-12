@@ -1,7 +1,7 @@
-import { type ConnectedWallet } from '@privy-io/react-auth';
-import { type ConnectedStandardSolanaWallet } from '@privy-io/react-auth/solana';
+import type { ConnectedWallet } from '@privy-io/react-auth';
+import type { ConnectedStandardSolanaWallet } from '@privy-io/react-auth/solana';
 
-import { type AppKitSolanaWallet } from '@/hooks/useAppKitSolanaWallets.js';
+import type { AppKitSolanaWallet } from '@/hooks/useAppKitSolanaWallets.js';
 
 function isSameAddress(left: string | null | undefined, right: string | null | undefined): boolean {
     if (!left || !right) return false;

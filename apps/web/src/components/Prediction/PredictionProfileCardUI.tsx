@@ -17,7 +17,7 @@ import {
     captureOpinionProfileDetailClick,
     capturePolymarketProfileDetailClick,
 } from '@/providers/telemetry/capturePolymarketEvent.js';
-import { type BetPortfolioItem } from '@/providers/types/Firefly.js';
+import type { BetPortfolioItem } from '@/providers/types/Firefly.js';
 
 interface PredictionProfileCardUIProps {
     profile: BetPortfolioItem;

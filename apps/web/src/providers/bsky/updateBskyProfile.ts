@@ -1,9 +1,9 @@
-import { type AppBskyActorProfile } from '@atproto/api';
+import type { AppBskyActorProfile } from '@atproto/api';
 import { has } from 'lodash-es';
 
 import { fetchBlob } from '@/helpers/fetchBlob.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
-import { type ProfileEditable } from '@/providers/types/SocialMedia.js';
+import type { ProfileEditable } from '@/providers/types/SocialMedia.js';
 
 export async function updateBskyProfile(profile: ProfileEditable, signal?: AbortSignal): Promise<boolean> {
     await bskySessionHolder.agent.upsertProfile(async (existing) => {

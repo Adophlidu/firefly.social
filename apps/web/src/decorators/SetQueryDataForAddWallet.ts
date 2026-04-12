@@ -3,9 +3,9 @@ import { produce } from 'immer';
 import { queryClient } from '@/configs/queryClient.js';
 import { FireflyPlatform, NetworkType, WalletSource } from '@/constants/enum.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
-import { type FireflyWallet } from '@/providers/firefly/Wallet.js';
-import { type BindWalletResponse, type FireflyWalletConnection } from '@/providers/types/Firefly.js';
-import { type ClassType } from '@/types/utility.js';
+import type { FireflyWallet } from '@/providers/firefly/Wallet.js';
+import type { BindWalletResponse, FireflyWalletConnection } from '@/providers/types/Firefly.js';
+import type { ClassType } from '@/types/utility.js';
 
 type WalletsData = Record<'connected' | 'related', FireflyWalletConnection[]>;
 

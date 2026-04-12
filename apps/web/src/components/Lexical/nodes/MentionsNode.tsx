@@ -7,10 +7,10 @@ import {
     type NodeKey,
     type SerializedLexicalNode,
 } from 'lexical';
-import { type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 import { MentionsMenu } from '@/components/MentionsMenu.js';
-import { type Profile } from '@/providers/types/Firefly.js';
+import type { Profile } from '@/providers/types/Firefly.js';
 
 interface SerializedMentionNode extends SerializedLexicalNode {
     text: string;

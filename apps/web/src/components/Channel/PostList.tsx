@@ -9,7 +9,7 @@ import { ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
 import { mergeThreadPosts } from '@/helpers/mergeThreadPosts.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { type Channel, type Post } from '@/providers/types/SocialMedia.js';
+import type { Channel, Post } from '@/providers/types/SocialMedia.js';
 
 interface PostListProps {
     channel: Channel;

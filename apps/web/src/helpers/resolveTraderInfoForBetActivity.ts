@@ -7,7 +7,7 @@ import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.j
 import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { resolveSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { resolveWatchTypeToSource } from '@/helpers/resolveWatchTypeToSource.js';
-import { type BetsActivity } from '@/providers/types/Firefly.js';
+import type { BetsActivity } from '@/providers/types/Firefly.js';
 
 function shortAddress(address: string) {
     if (isValidAddressEthereum(address) || isValidAddressSolana(address)) {

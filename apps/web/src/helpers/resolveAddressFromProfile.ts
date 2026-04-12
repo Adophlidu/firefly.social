@@ -1,6 +1,6 @@
 import { isValidAddress } from '@/helpers/isValidAddress.js';
 import { isZeroAddress } from '@/helpers/isZeroAddress.js';
-import { type Profile as FireflyProfile } from '@/providers/types/Firefly.js';
+import type { Profile as FireflyProfile } from '@/providers/types/Firefly.js';
 
 /**
  * For searching ens, resolves wallet address from various possible fields in a Firefly profile

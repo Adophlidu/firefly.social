@@ -1,6 +1,6 @@
 import urlcat from 'urlcat';
 
-import { type ConnectionPlatform } from '@/constants/enum.js';
+import type { ConnectionPlatform } from '@/constants/enum.js';
 import { SetQueryDataForAddWallet } from '@/decorators/SetQueryDataForAddWallet.js';
 import { SetQueryDataForBlockWallet } from '@/decorators/SetQueryDataForBlockWallet.js';
 import { SetQueryDataForReportAndDeleteWallet } from '@/decorators/SetQueryDataForReportAndDeleteWallet.js';

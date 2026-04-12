@@ -1,7 +1,7 @@
-import { type Address, type Hex } from 'viem';
+import type { Address, Hex } from 'viem';
 
-import { type FireflyPlatform, type NetworkType, type SocialSourceInURL, type Source } from '@/constants/enum.js';
-import { type EVM } from '@/providers/nftscan/types.js';
+import type { FireflyPlatform, NetworkType, SocialSourceInURL, Source } from '@/constants/enum.js';
+import type { EVM } from '@/providers/nftscan/types.js';
 
 export interface TokenAsset {
     chainIndex: string;

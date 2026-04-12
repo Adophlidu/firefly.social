@@ -1,8 +1,8 @@
-import { type QueryClient } from '@tanstack/react-query';
-import { type Address } from 'viem';
+import type { QueryClient } from '@tanstack/react-query';
+import type { Address } from 'viem';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { type SearchTokenResponse } from '@/providers/types/Firefly.js';
+import type { SearchTokenResponse } from '@/providers/types/Firefly.js';
 import { getFireflyEndpoint } from '@/store/fireflyEndpoint.js';
 
 export function getSearchTokensQuery(query: string) {

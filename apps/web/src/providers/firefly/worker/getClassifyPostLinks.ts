@@ -2,16 +2,16 @@ import urlcat from 'urlcat';
 
 import { FIREFLY_WORKER_HOST } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
-import { type EVM } from '@/providers/nftscan/types.js';
-import { type SnapshotProposal } from '@/providers/snapshot/type.js';
-import { type Article } from '@/providers/types/Article.js';
-import { type BetPortfolioItem, type NFTDetail } from '@/providers/types/Firefly.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
-import { type Frame } from '@/types/frame.js';
-import { type LinkDigested } from '@/types/og.js';
-import { type BetsEventDataForUI } from '@/types/prediction.js';
-import { type Snap } from '@/types/snap.js';
-import { type ResponseJson } from '@/types/utility.js';
+import type { EVM } from '@/providers/nftscan/types.js';
+import type { SnapshotProposal } from '@/providers/snapshot/type.js';
+import type { Article } from '@/providers/types/Article.js';
+import type { BetPortfolioItem, NFTDetail } from '@/providers/types/Firefly.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
+import type { Frame } from '@/types/frame.js';
+import type { LinkDigested } from '@/types/og.js';
+import type { BetsEventDataForUI } from '@/types/prediction.js';
+import type { Snap } from '@/types/snap.js';
+import type { ResponseJson } from '@/types/utility.js';
 
 export interface ClassifyPostLinkResult {
     oembed?: LinkDigested;

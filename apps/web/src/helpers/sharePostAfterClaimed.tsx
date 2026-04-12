@@ -3,13 +3,13 @@ import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import urlcat from 'urlcat';
 
-import { type NetworkType } from '@/constants/enum.js';
+import type { NetworkType } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/static.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { openComposeModal } from '@/helpers/openComposeModal.js';
 import { useOpenFireflyWallet } from '@/hooks/useOpenFireflyWallet.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface ShareOptions {
     post: Post;

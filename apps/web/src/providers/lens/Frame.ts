@@ -9,10 +9,10 @@ import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { ensureLensResultSync } from '@/providers/lens/ensureLensResultSync.js';
 import { lensSessionClientHolder } from '@/providers/lens/LensSessionClientHolder.js';
-import { type Additional, type Provider } from '@/providers/types/Frame.js';
-import { type FrameSignaturePacket } from '@/providers/types/Lens.js';
+import type { Additional, Provider } from '@/providers/types/Frame.js';
+import type { FrameSignaturePacket } from '@/providers/types/Lens.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
-import { type Index } from '@/types/frame.js';
+import type { Index } from '@/types/frame.js';
 
 class FrameProvider implements Provider<FrameSignaturePacket> {
     async generateSignaturePacket(

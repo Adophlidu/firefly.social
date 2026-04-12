@@ -9,9 +9,9 @@ import { FetchError } from '@/constants/error.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { logger } from '@/libs/Logger.js';
 import { getBskyProfileById } from '@/providers/bsky/getBskyProfileById.js';
-import { type BskySession } from '@/providers/bsky/Session.js';
+import type { BskySession } from '@/providers/bsky/Session.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 import { ensureProfileSessionInStore } from '@/services/ensureProfileSessionInStore.js';
 import { createProfileState, customSelectors } from '@/store/useProfileStore/createProfileState.js';
 

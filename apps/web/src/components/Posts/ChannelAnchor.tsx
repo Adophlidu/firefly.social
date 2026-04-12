@@ -12,7 +12,7 @@ import { STALE_TIMES } from '@/constants/query.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
 import { resolveChannelName } from '@/helpers/resolveChannelName.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { type Channel } from '@/providers/types/SocialMedia.js';
+import type { Channel } from '@/providers/types/SocialMedia.js';
 
 interface ChannelAnchorProps extends HTMLProps<HTMLDivElement> {
     channel: Channel;

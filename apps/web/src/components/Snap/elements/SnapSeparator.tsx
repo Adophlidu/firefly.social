@@ -1,6 +1,6 @@
 import { classNames } from '@dimensiondev/utils';
 
-import { type SnapSeparatorProps } from '@/types/snap.js';
+import type { SnapSeparatorProps } from '@/types/snap.js';
 
 interface Props {
     props: SnapSeparatorProps;

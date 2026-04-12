@@ -15,7 +15,7 @@ import { getEventDetail } from '@/providers/firefly/prediction/getEventDetail.js
 import { searchPrediction } from '@/providers/firefly/prediction/searchPrediction.js';
 import { capturePolymarketSearchEventClick } from '@/providers/telemetry/capturePolymarketEvent.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
-import { type BetsEventDataForUI } from '@/types/prediction.js';
+import type { BetsEventDataForUI } from '@/types/prediction.js';
 
 function getBetsItemContent(_: number, data: BetsEventDataForUI) {
     return (

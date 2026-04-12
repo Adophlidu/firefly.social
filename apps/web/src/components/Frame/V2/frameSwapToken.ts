@@ -1,5 +1,5 @@
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
-import { type MiniAppHost } from '@farcaster/miniapp-host';
+import type { MiniAppHost } from '@farcaster/miniapp-host';
 import { getAccount } from '@wagmi/core';
 
 import { SwapAccessPath } from '@/components/TokenProfile/SwapButton.js';

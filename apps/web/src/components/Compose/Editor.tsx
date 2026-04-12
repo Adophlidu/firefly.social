@@ -20,8 +20,8 @@ import { SharerLinkPastePlugin } from '@/components/Lexical/plugins/SharerLinkPa
 import { CharTag } from '@/constants/enum.js';
 import { writeChars } from '@/helpers/chars.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
-import { type Chars, type ComplexChars } from '@/types/chars.js';
-import { type CompositePost } from '@/types/compose.js';
+import type { Chars, ComplexChars } from '@/types/chars.js';
+import type { CompositePost } from '@/types/compose.js';
 
 function extractTextFromNode(node: LexicalNode): string {
     if ($isMentionNode(node)) {

@@ -5,7 +5,7 @@ import MoreIcon from '@dimensiondev/assets/more-circle.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
-import { type Address } from 'viem';
+import type { Address } from 'viem';
 
 import { ChainInfo } from '@/app/[locale]/(normal)/tx/[chain_id]/[hash]/components/ChainInfo.js';
 import { TransactionDate } from '@/app/[locale]/(normal)/tx/[chain_id]/[hash]/components/TransactionDate.js';
@@ -24,7 +24,7 @@ import { formatTokenAmount } from '@/helpers/formatTokenAmount.js';
 import { getMaintainAccountInfo } from '@/helpers/getMaintainAccountInfo.js';
 import { multipliedBy } from '@/helpers/number.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
-import { type TipsDetail as TipsDetailType } from '@/providers/types/Firefly.js';
+import type { TipsDetail as TipsDetailType } from '@/providers/types/Firefly.js';
 
 interface TipsDetailProps {
     tipsData: TipsDetailType;

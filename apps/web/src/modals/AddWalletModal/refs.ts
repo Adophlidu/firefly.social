@@ -1,5 +1,5 @@
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
-import { type BindWalletResponse, type FireflyWalletConnection } from '@/providers/types/Firefly.js';
+import type { BindWalletResponse, FireflyWalletConnection } from '@/providers/types/Firefly.js';
 
 export interface AddWalletModalOpenProps {
     connections: FireflyWalletConnection[];

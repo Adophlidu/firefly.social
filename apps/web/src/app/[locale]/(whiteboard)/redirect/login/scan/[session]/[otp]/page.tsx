@@ -1,7 +1,7 @@
 'use client';
 
 import FireflyIcon from '@dimensiondev/assets/logo.svg';
-import { type LayoutProps } from '@dimensiondev/types';
+import type { LayoutProps } from '@dimensiondev/types';
 import { useRouter } from 'next/navigation.js';
 import { use } from 'react';
 

@@ -1,5 +1,5 @@
-import { type AppRouterProgressInstance } from '@bprogress/next';
-import { type Context, type SetPrimaryButton } from '@farcaster/miniapp-host';
+import type { AppRouterProgressInstance } from '@bprogress/next';
+import type { Context, SetPrimaryButton } from '@farcaster/miniapp-host';
 import { memo, useMemo, useState } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -21,7 +21,7 @@ import { RelayConfirmationPopoverRef } from '@/modals/FrameViewerModal/RelayConf
 import { FarcasterFrameHost } from '@/providers/frame/Host.js';
 import { captureFrameActionEvent } from '@/providers/telemetry/captureFrameActionEvent.js';
 import { type Post, type Profile, SessionType } from '@/providers/types/SocialMedia.js';
-import { type FrameV2 } from '@/types/frame.js';
+import type { FrameV2 } from '@/types/frame.js';
 
 function createFrameHost(
     frame: FrameV2,

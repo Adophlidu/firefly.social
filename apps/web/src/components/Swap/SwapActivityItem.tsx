@@ -5,7 +5,7 @@ import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
 import { first, isUndefined } from 'lodash-es';
 import { memo } from 'react';
-import { type Address } from 'viem';
+import type { Address } from 'viem';
 
 import { Avatar } from '@/components/Avatar.js';
 import { ChainIcon } from '@/components/ChainIcon.js';
@@ -32,7 +32,7 @@ import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
 import { resolveTxPageUrl } from '@/helpers/resolveTxPageUrl.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import { captureSwapEvent } from '@/providers/telemetry/captureSwapEvent.js';
-import { type SwapActivity } from '@/providers/types/Firefly.js';
+import type { SwapActivity } from '@/providers/types/Firefly.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 

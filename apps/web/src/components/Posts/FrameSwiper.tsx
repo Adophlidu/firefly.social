@@ -3,8 +3,8 @@ import { useRef, useState } from 'react';
 import { FrameLayout } from '@/components/Frame/Layout.js';
 import { SwiperIndicator } from '@/components/Posts/SwiperIndicator.js';
 import useSwipe from '@/hooks/useSwipe.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
-import { type Frame } from '@/types/frame.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
+import type { Frame } from '@/types/frame.js';
 
 interface FrameSwiperProps {
     frames: Array<{

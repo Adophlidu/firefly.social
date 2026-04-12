@@ -1,4 +1,4 @@
-import { type ISubscription } from '@nktkas/hyperliquid';
+import type { ISubscription } from '@nktkas/hyperliquid';
 import { memo, useEffect, useMemo, useState } from 'react';
 import { Button, Text, XStack, YStack } from 'tamagui';
 

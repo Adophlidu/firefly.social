@@ -1,7 +1,7 @@
 import { isSameUrl } from '@dimensiondev/utils';
 import { uniq } from 'lodash-es';
 
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 export function resolveOembedUrl(post: Pick<Post, 'metadata'>) {
     const oembedUrl = post.metadata.content?.oembedUrl;

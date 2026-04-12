@@ -1,4 +1,4 @@
-import { type SocialSource } from '@/constants/enum.js';
+import type { SocialSource } from '@/constants/enum.js';
 import {
     getPostVideoDurationMax,
     getPostVideoDurationMin,
@@ -7,7 +7,7 @@ import {
     getPostVideoWidthMax,
     getPostVideoWidthMin,
 } from '@/helpers/getPostLimitation.js';
-import { type VideoMetadata } from '@/types/compose.js';
+import type { VideoMetadata } from '@/types/compose.js';
 
 export function validateVideoDuration(availableSources: SocialSource[], { duration }: VideoMetadata) {
     const minDuration = getPostVideoDurationMin(availableSources);

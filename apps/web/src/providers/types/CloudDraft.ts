@@ -1,4 +1,4 @@
-import { type RestrictionType, type SocialSourceInURL } from '@/constants/enum.js';
+import type { RestrictionType, SocialSourceInURL } from '@/constants/enum.js';
 
 export enum CloudDraftType {
     MainPost = 'main_compose',

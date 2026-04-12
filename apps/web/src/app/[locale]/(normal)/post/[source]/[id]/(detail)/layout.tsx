@@ -1,7 +1,7 @@
-import { type LayoutProps } from '@dimensiondev/types';
+import type { LayoutProps } from '@dimensiondev/types';
 import { Trans } from '@lingui/react/macro';
-import { type Metadata } from 'next';
-import { type PropsWithChildren } from 'react';
+import type { Metadata } from 'next';
+import type { PropsWithChildren } from 'react';
 
 import { Comeback } from '@/components/Comeback.js';
 import { Locale, type SocialSourceInURL } from '@/constants/enum.js';

@@ -1,7 +1,7 @@
 /* cspell:disable */
 
-import { type FrameProtocol } from '@/constants/enum.js';
-import { type LiteralOrString } from '@/types/utility.js';
+import type { FrameProtocol } from '@/constants/enum.js';
+import type { LiteralOrString } from '@/types/utility.js';
 
 // #region frame v1
 export type Index = 1 | 2 | 3 | 4;

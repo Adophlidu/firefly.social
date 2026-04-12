@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { Source } from '@/constants/enum.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export function useProfileVerifyBadge(profile?: Profile) {
     return useQuery({

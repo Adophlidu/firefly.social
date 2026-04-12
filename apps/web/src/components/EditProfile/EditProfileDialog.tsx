@@ -5,7 +5,7 @@ import { Trans } from '@lingui/react/macro';
 import { EditProfileDialogContent } from '@/components/EditProfile/EditProfileDialogContent.js';
 import { Modal } from '@/components/Modal.js';
 import { ModalTitle } from '@/components/ModalTitle.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export function EditProfileDialog({
     profile,

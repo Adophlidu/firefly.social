@@ -15,7 +15,7 @@ import { ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
 import { createIndicator, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { useAsyncStatus } from '@/hooks/useAsyncStatus.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 import { getSuggestedFollowsInPage } from '@/services/getSuggestedFollows.js';
 import { queryMutedProfiles } from '@/services/queryMutedProfiles.js';
 

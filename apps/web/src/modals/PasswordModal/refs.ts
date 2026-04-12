@@ -1,6 +1,6 @@
-import { type PasswordWorkflow } from '@/constants/enum.js';
+import type { PasswordWorkflow } from '@/constants/enum.js';
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
-import { type StepDescriptions } from '@/modals/PasswordModal/StepDescription.js';
+import type { StepDescriptions } from '@/modals/PasswordModal/StepDescription.js';
 
 export interface PasswordModalOpenProps {
     workflow: PasswordWorkflow;

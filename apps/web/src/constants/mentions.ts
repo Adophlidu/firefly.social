@@ -1,8 +1,8 @@
 /* cspell:disable */
 
 import { CharTag, FireflyPlatform } from '@/constants/enum.js';
-import { type Profile } from '@/providers/types/Firefly.js';
-import { type MentionChars } from '@/types/chars.js';
+import type { Profile } from '@/providers/types/Firefly.js';
+import type { MentionChars } from '@/types/chars.js';
 
 export const FIREFLY_TWITTER_PROFILE: Profile = {
     platform_id: '1583361564479889408',

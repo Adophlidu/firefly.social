@@ -2,7 +2,7 @@ import { memo } from 'react';
 
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
-import { type Project } from '@/providers/types/Firefly.js';
+import type { Project } from '@/providers/types/Firefly.js';
 
 export const ProjectItem = memo<{ project: Project }>(function ProjectItem({
     project: { project_name, logo, token_symbol, tags, one_liner, rootdataurl },

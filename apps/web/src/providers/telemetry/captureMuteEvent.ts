@@ -1,10 +1,10 @@
 import { runInSafeAsync } from '@dimensiondev/utils';
-import { type Address } from 'viem';
+import type { Address } from 'viem';
 
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
-import { type FireflyIdentity } from '@/providers/types/Firefly.js';
-import { type Channel, type Profile } from '@/providers/types/SocialMedia.js';
-import { type EventId } from '@/providers/types/Telemetry.js';
+import type { FireflyIdentity } from '@/providers/types/Firefly.js';
+import type { Channel, Profile } from '@/providers/types/SocialMedia.js';
+import type { EventId } from '@/providers/types/Telemetry.js';
 
 export function captureMuteEvent(
     eventId: EventId.MUTE_ALL_SUCCESS | EventId.MUTE_SUCCESS | EventId.UNMUTE_SUCCESS,

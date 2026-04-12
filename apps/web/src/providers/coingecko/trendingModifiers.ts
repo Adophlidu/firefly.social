@@ -1,6 +1,6 @@
 import { produce } from 'immer';
 
-import { type Trending } from '@/providers/types/Trending.js';
+import type { Trending } from '@/providers/types/Trending.js';
 
 /**
  * @internal

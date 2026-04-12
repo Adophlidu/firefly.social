@@ -6,12 +6,12 @@ import { Loading } from '@/components/Loading.js';
 import { useEthereumClaimedInfo } from '@/components/RedPacket/hooks/useEthereumClaimedInfo.js';
 import { VirtualList } from '@/components/VirtualList/VirtualList.js';
 import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
-import { type NetworkType } from '@/constants/enum.js';
+import type { NetworkType } from '@/constants/enum.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { useEnsName } from '@/hooks/useEnsName.js';
 import { RedPacketAccountItem } from '@/modals/RedPacketModal/RedPacketAccountItem.js';
 import { RedPacketDetailItem } from '@/modals/RedPacketModal/RedPacketDetailItem.js';
-import { type FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
+import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 
 function ClaimHistoryItem({ data, networkType }: { data: FireflyRedPacketAPI.ClaimList; networkType: NetworkType }) {
     const { data: ens } = useEnsName(data.creator);

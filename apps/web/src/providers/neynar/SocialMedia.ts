@@ -7,7 +7,7 @@ import urlcat from 'urlcat';
 import { MessageType, ReactionType } from '@/constants/farcaster.js';
 import { NEYNAR_URL } from '@/constants/static.js';
 import { fetchNeynarJson } from '@/helpers/fetchNeynarJson.js';
-import { type Pageable, type PageIndicator } from '@/helpers/pageable.js';
+import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import { resolveNeynarResponseData } from '@/helpers/resolveNeynarResponseData.js';
 import { farcasterPostIdToHash } from '@/providers/farcaster/farcasterPostIdToHash.js';
 import { formatChannelFromFirefly } from '@/providers/farcaster/formatFarcasterChannelFromFirefly.js';
@@ -17,13 +17,9 @@ import { encodeMessageData } from '@/providers/neynar/encodeMessageData.js';
 import { publishPost } from '@/providers/neynar/publishPost.js';
 import { quotePost } from '@/providers/neynar/quotePost.js';
 import { searchProfiles } from '@/providers/neynar/searchProfiles.js';
-import { type Account } from '@/providers/types/Account.js';
-import {
-    type Channel as FireflyChannel,
-    type NotificationSettings,
-    type WalletProfile,
-} from '@/providers/types/Firefly.js';
-import { type Session } from '@/providers/types/Session.js';
+import type { Account } from '@/providers/types/Account.js';
+import type { Channel as FireflyChannel, NotificationSettings, WalletProfile } from '@/providers/types/Firefly.js';
+import type { Session } from '@/providers/types/Session.js';
 import {
     type Channel,
     type Friendship,

@@ -11,7 +11,7 @@ import { isValidPassword } from '@/modals/PasswordModal/isValidPassword.js';
 import { ModalActions } from '@/modals/PasswordModal/ModalActions.js';
 import { ModalTitle } from '@/modals/PasswordModal/ModalTitle.js';
 import { PasswordInputPanel } from '@/modals/PasswordModal/PasswordInputPanel.js';
-import { type PasswordModalOpenProps } from '@/modals/PasswordModal/refs.js';
+import type { PasswordModalOpenProps } from '@/modals/PasswordModal/refs.js';
 import { runPasswordWorkflow } from '@/modals/PasswordModal/runPasswordWorkflow.js';
 import { StepFooterDescription, StepHeaderDescription } from '@/modals/PasswordModal/StepDescription.js';
 import {

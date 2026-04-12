@@ -6,7 +6,7 @@ import { CloseButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import { type FreeMintModalOpenProps, type FreeMintModalRefType } from '@/modals/FreeMintModal/refs.js';
+import type { FreeMintModalOpenProps, FreeMintModalRefType } from '@/modals/FreeMintModal/refs.js';
 
 interface Props {
     ref: Ref<FreeMintModalRefType>;

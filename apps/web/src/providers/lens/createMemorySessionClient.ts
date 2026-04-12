@@ -5,7 +5,7 @@ import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { fragments } from '@/providers/lens/fragments/index.js';
 import { MemoryStorageProvider } from '@/providers/lens/MemoryStorageProvider.js';
 import { resolveLensSessionKey } from '@/providers/lens/resolveLensSessionKey.js';
-import { type LensSession } from '@/providers/lens/Session.js';
+import type { LensSession } from '@/providers/lens/Session.js';
 
 export async function createMemorySessionClient(session: LensSession) {
     const storageKey = resolveLensSessionKey(mainnet);

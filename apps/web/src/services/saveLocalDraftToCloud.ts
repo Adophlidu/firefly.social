@@ -14,7 +14,7 @@ import {
     CloudDraftType,
     type CreateCloudDraftRequest,
 } from '@/providers/types/CloudDraft.js';
-import { type Draft } from '@/store/useComposeDraftStore.js';
+import type { Draft } from '@/store/useComposeDraftStore.js';
 
 function getSourceAndParentPost({ posts }: Draft) {
     const post = first(posts);

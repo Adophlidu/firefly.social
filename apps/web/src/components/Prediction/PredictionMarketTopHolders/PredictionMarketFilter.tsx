@@ -9,7 +9,7 @@ import { Fragment, memo } from 'react';
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { capturePolymarketEventTopHolderChangeMarketClick } from '@/providers/telemetry/capturePolymarketEvent.js';
-import { type BetsMarketDataForUI } from '@/types/prediction.js';
+import type { BetsMarketDataForUI } from '@/types/prediction.js';
 
 interface PredictionMarketFilterProps {
     markets: BetsMarketDataForUI[];

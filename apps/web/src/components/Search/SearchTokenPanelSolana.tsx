@@ -10,7 +10,7 @@ import { SearchContentPanel } from '@/components/Search/SearchContentPanel.js';
 import { TokenItem } from '@/components/Tips/TokenItem.js';
 import { isGreaterThan, isLessThan } from '@/helpers/number.js';
 import { useSolanaTokens } from '@/hooks/useSolanaTokens.js';
-import { type Token } from '@/providers/types/Transfer.js';
+import type { Token } from '@/providers/types/Transfer.js';
 
 interface SearchSolanaTokenPanelProps {
     address: string;

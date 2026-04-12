@@ -1,7 +1,7 @@
 import { createLookupTableResolver, UnreachableError } from '@dimensiondev/utils';
 
 import { Source } from '@/constants/enum.js';
-import { type BlockFields } from '@/providers/types/Firefly.js';
+import type { BlockFields } from '@/providers/types/Firefly.js';
 
 export const getPlatformQueryKey = createLookupTableResolver<Source, BlockFields>(
     {

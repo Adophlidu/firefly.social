@@ -14,9 +14,9 @@ import { formatDebankTokenToFungibleToken } from '@/helpers/formatToken.js';
 import { useAccountByNetwork } from '@/hooks/useAccountByNetwork.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { AddCustomERC20ModalRef } from '@/modals/AddCustomERC20Modal/refs.js';
-import { type TokenSelectorModalOpenProps, type TokenSelectorModalRefType } from '@/modals/TokenSelectorModal/refs.js';
+import type { TokenSelectorModalOpenProps, TokenSelectorModalRefType } from '@/modals/TokenSelectorModal/refs.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/refs.js';
-import { type Token } from '@/providers/types/Transfer.js';
+import type { Token } from '@/providers/types/Transfer.js';
 
 interface Props {
     ref: React.Ref<TokenSelectorModalRefType>;

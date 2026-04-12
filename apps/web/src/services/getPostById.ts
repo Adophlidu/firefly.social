@@ -9,7 +9,7 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import { getArticleById } from '@/providers/firefly/article/getArticleById.js';
 import { getLensPostById } from '@/providers/lens/getLensPostById.js';
 import { isLensV2PostId } from '@/providers/lens/isLensV2PostId.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 export async function getPostById(source: SocialSource, postId: string) {
     if (!isValidPostId(source, postId)) {

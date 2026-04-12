@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { first, isUndefined } from 'lodash-es';
 import { memo } from 'react';
-import { type Address } from 'viem';
+import type { Address } from 'viem';
 
 import { NFTsActivityCellAction } from '@/components/ActivityCell/NFTs/NFTsActivityCellAction.js';
 import { NFTsActivityCellCard } from '@/components/ActivityCell/NFTs/NFTsActivityCellCard.js';
@@ -15,9 +15,9 @@ import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getWalletProfileAvatar } from '@/helpers/getWalletProfileAvatar.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
-import { type FollowingNFT, type NFTFeedV3 } from '@/providers/types/NFTs.js';
+import type { FollowingNFT, NFTFeedV3 } from '@/providers/types/NFTs.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
-import { type EthereumChainId } from '@/web3-shared/evm/types.js';
+import type { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 interface SingleNFTFeedProps {
     disableAnimate?: boolean;

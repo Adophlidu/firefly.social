@@ -1,7 +1,7 @@
 import urlcat from 'urlcat';
 
 import { chains } from '@/configs/chains.js';
-import { type EthereumChainId } from '@/constants/ethereum.js';
+import type { EthereumChainId } from '@/constants/ethereum.js';
 import { SolanaChainId } from '@/constants/solana.js';
 
 export function getBlockExplorersURL(

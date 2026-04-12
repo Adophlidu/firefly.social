@@ -1,4 +1,4 @@
-import { type LayoutProps } from '@dimensiondev/types';
+import type { LayoutProps } from '@dimensiondev/types';
 
 import { RedirectProfilePage } from '@/app/[locale]/(normal)/profile/pages/RedirectProfilePage.js';
 import { RedirectWithFireflyUID } from '@/app/[locale]/(normal)/profile/pages/RedirectWithFireflyUID.js';

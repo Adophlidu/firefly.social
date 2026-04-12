@@ -16,7 +16,7 @@ import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { useAllProxyWallets } from '@/hooks/prediction/useAllProxyWallets.js';
 import { useProxyWalletInfo } from '@/hooks/prediction/useProxyWalletInfo.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
-import { type PredictionPositionDataForUI, type PredictionProfileDataForUI } from '@/types/prediction.js';
+import type { PredictionPositionDataForUI, PredictionProfileDataForUI } from '@/types/prediction.js';
 
 interface Props {
     predictionProfile: PredictionProfileDataForUI;

@@ -1,7 +1,7 @@
 import urlcat from 'urlcat';
 
 import { fetchJson } from '@/helpers/fetchJson.js';
-import { type CollectionStatisticsResponse } from '@/providers/types/Firefly.js';
+import type { CollectionStatisticsResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 export async function getCollectionStatistics(chainId: number, contractAddress: string) {

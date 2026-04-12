@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { Button, Text, XStack, YStack } from 'tamagui';
 
-import { type PerpsOrderBookLevel, type PerpsOrderBookPanel as PerpsOrderBookPanelData } from '@/types/ui';
+import type { PerpsOrderBookLevel, PerpsOrderBookPanel as PerpsOrderBookPanelData } from '@/types/ui';
 
 interface PerpsOrderBookPanelProps {
     orderBook: PerpsOrderBookPanelData;

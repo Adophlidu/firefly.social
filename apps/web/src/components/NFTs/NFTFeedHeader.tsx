@@ -1,4 +1,4 @@
-import { type Address } from 'viem';
+import type { Address } from 'viem';
 
 import { ActivityCellHeader, type ActivityCellHeaderProps } from '@/components/ActivityCell/ActivityCellHeader.js';
 import { ChainIcon } from '@/components/ChainIcon.js';

@@ -8,8 +8,8 @@ import { STALE_TIMES } from '@/constants/query.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useAsyncStatus } from '@/hooks/useAsyncStatus.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
-import { type FireflyIdentity, type FireflyProfile } from '@/providers/types/Firefly.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
+import type { FireflyIdentity, FireflyProfile } from '@/providers/types/Firefly.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface ProfileContextProviderProps {
     profiles: FireflyProfile[];

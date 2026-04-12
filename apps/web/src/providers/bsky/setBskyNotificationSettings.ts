@@ -1,5 +1,5 @@
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
-import { type NotificationSettings } from '@/providers/types/Firefly.js';
+import type { NotificationSettings } from '@/providers/types/Firefly.js';
 
 export async function setBskyNotificationSettings(
     settings: NotificationSettings,

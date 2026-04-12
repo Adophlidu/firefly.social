@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useConnection } from 'wagmi';
 
 import { getSponsorMintStatus } from '@/providers/firefly/wallet-transaction/getSponsorMintStatus.js';
-import { type SponsorMintOptions } from '@/providers/types/Firefly.js';
+import type { SponsorMintOptions } from '@/providers/types/Firefly.js';
 
 export function useSponsorMintStatus(options: SponsorMintOptions) {
     const account = useConnection();

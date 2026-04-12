@@ -1,5 +1,5 @@
 import { compose } from '@dimensiondev/utils';
-import { type NextRequest } from 'next/server.js';
+import type { NextRequest } from 'next/server.js';
 
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { getSearchParamsWithZodSchema } from '@/helpers/getSearchParamsWithZodSchema.js';

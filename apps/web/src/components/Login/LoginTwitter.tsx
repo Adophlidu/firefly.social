@@ -3,7 +3,7 @@
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { signIn } from 'next-auth/react';
-import { type HTMLProps } from 'react';
+import type { HTMLProps } from 'react';
 import { useEffectOnce } from 'react-use';
 import urlcat from 'urlcat';
 

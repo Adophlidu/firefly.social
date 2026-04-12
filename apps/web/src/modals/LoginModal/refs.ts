@@ -1,4 +1,4 @@
-import { type FarcasterSignType, type LensSignType, type ProfileSource } from '@/constants/enum.js';
+import type { FarcasterSignType, LensSignType, ProfileSource } from '@/constants/enum.js';
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 
 export interface LoginModalOpenProps {

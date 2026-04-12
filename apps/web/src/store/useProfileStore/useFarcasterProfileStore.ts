@@ -4,10 +4,10 @@ import { bom } from '@dimensiondev/utils';
 
 import { AsyncStatus } from '@/constants/enum.js';
 import { createSelectors } from '@/helpers/createSelector.js';
-import { type FarcasterSession } from '@/providers/farcaster/Session.js';
+import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { getFarcasterProfileById } from '@/providers/firefly/farcaster-hub/getFarcasterProfileById.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 import { createProfileState, customSelectors } from '@/store/useProfileStore/createProfileState.js';
 
 const state = createProfileState(

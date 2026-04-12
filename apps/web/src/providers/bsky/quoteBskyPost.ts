@@ -1,5 +1,5 @@
 import { publishPostToBsky } from '@/providers/bsky/publishPostToBsky.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 export async function quoteBskyPost(
     postId: string,

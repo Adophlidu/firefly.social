@@ -1,7 +1,7 @@
-import { type Meta, type StoryObj } from '@storybook/nextjs-vite';
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
 import { PriceChart } from '@/components/PriceChart/index.js';
-import { type PriceRecord, type TradeRecord } from '@/types/token.js';
+import type { PriceRecord, TradeRecord } from '@/types/token.js';
 
 const meta = {
     title: 'Token/PriceChart',

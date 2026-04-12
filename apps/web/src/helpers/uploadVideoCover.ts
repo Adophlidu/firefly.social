@@ -1,7 +1,7 @@
 import { FileMimeType, SourceInURL } from '@/constants/enum.js';
 import { generateVideoCover } from '@/helpers/generateVideoCover.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
-import { type MediaObject } from '@/types/compose.js';
+import type { MediaObject } from '@/types/compose.js';
 
 export async function uploadVideoCover(media: MediaObject) {
     const covers = await generateVideoCover(media.file, 4);

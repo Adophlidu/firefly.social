@@ -11,7 +11,7 @@ import { memo, useEffect, useState } from 'react';
 import urlcat from 'urlcat';
 
 import { walletConnectIcon, walletConnectId } from '@/constants/reown.js';
-import { type AppkitConnectorItem } from '@/hooks/appkit/useAppkitWalletList.js';
+import type { AppkitConnectorItem } from '@/hooks/appkit/useAppkitWalletList.js';
 import { walletRouter } from '@/modals/WalletConnectModal/routes.js';
 import { WalletItem } from '@/modals/WalletConnectModal/WalletItem.js';
 

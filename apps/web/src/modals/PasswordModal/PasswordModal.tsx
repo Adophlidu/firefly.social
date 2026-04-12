@@ -6,7 +6,7 @@ import { IS_IOS } from '@/constants/browser.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { PasswordModalContent } from '@/modals/PasswordModal/PasswordModalContent.js';
-import { type PasswordModalOpenProps, type PasswordModalRefType } from '@/modals/PasswordModal/refs.js';
+import type { PasswordModalOpenProps, PasswordModalRefType } from '@/modals/PasswordModal/refs.js';
 
 interface Props {
     ref: Ref<PasswordModalRefType>;

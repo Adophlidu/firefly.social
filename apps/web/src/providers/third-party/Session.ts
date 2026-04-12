@@ -3,8 +3,8 @@ import { signOut } from 'next-auth/react';
 
 import { encodeAsciiPayload } from '@/helpers/encodeSessionPayload.js';
 import { BaseSession } from '@/providers/base/Session.js';
-import { type Session } from '@/providers/types/Session.js';
-import { type SessionType } from '@/providers/types/SocialMedia.js';
+import type { Session } from '@/providers/types/Session.js';
+import type { SessionType } from '@/providers/types/SocialMedia.js';
 
 interface ThirdPartySessionPayload {
     // firefly profile

@@ -7,10 +7,10 @@ import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
 import { ensureHexPrefix } from '@/helpers/ensureHexPrefix.js';
 import { convertFarcasterAddressToBytes } from '@/providers/farcaster/convertFarcasterAddressToBytes.js';
 import { determineFarcasterProtocol } from '@/providers/farcaster/determineFarcasterProtocol.js';
-import { type FarcasterSession } from '@/providers/farcaster/Session.js';
+import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { publishMessage } from '@/providers/firefly/farcaster-hub/publishMessage.js';
 import { encodeMessageData } from '@/providers/neynar/encodeMessageData.js';
-import { type FarcasterHubMessage } from '@/providers/types/Firefly.js';
+import type { FarcasterHubMessage } from '@/providers/types/Firefly.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 function convertHexStringToBytes(hexString: string): Uint8Array {

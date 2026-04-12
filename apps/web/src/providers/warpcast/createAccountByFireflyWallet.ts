@@ -3,8 +3,8 @@ import { FireflyAccountAbsentError, FireflyAlreadyBoundError } from '@/constants
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { getFarcasterProfileById } from '@/providers/firefly/farcaster-hub/getFarcasterProfileById.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { type Account } from '@/providers/types/Account.js';
-import { type FarcasterAccountInfo } from '@/providers/types/Firefly.js';
+import type { Account } from '@/providers/types/Account.js';
+import type { FarcasterAccountInfo } from '@/providers/types/Firefly.js';
 import { createSignedKey } from '@/providers/warpcast/createSignedKey.js';
 import { createSignedKeyPayloadWithPublicKey } from '@/providers/warpcast/createSignedKeyPayload.js';
 

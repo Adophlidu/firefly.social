@@ -3,7 +3,7 @@
 import { Dialog } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { Outlet, rootRouteId, useLocation, useRouteContext, useRouter } from '@tanstack/react-router';
-import { type JSX } from 'react';
+import type { JSX } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import { Path } from '@/components/EditFireflyProfile/EditFireflyProfileRouter.js';

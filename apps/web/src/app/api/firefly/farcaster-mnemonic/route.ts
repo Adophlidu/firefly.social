@@ -1,7 +1,7 @@
 import { envs } from '@dimensiondev/envs';
 import { compose } from '@dimensiondev/utils';
 import { first } from 'lodash-es';
-import { type NextRequest } from 'next/server.js';
+import type { NextRequest } from 'next/server.js';
 import urlcat from 'urlcat';
 import { z } from 'zod';
 
@@ -10,7 +10,7 @@ import { fetchJson } from '@/helpers/fetchJson.js';
 import { getHeadersWithZodSchema } from '@/helpers/getHeadersWithZodSchema.js';
 import { getJsonBodyWithZodSchema } from '@/helpers/getJsonBodyWithZodSchema.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
-import { type GetMnemonicPhraseByFidResponse } from '@/providers/types/Firefly.js';
+import type { GetMnemonicPhraseByFidResponse } from '@/providers/types/Firefly.js';
 import { decryptAes256 } from '@/services/crypto.js';
 import { settings } from '@/settings/index.js';
 

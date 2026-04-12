@@ -1,4 +1,4 @@
-import { type LayoutProps } from '@dimensiondev/types';
+import type { LayoutProps } from '@dimensiondev/types';
 import { Trans } from '@lingui/react/macro';
 
 import { FollowPageLayout } from '@/app/[locale]/(normal)/profile/pages/FollowPageLayout.js';

@@ -7,7 +7,7 @@ import {
 } from '@/helpers/pageable.js';
 import { getBskyProfilesByIds } from '@/providers/bsky/getBskyProfilesByIds.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export async function getBskyMutualFollowers(
     profileId: string,

@@ -4,7 +4,7 @@ import { NetworkType, type SocialSource } from '@/constants/enum.js';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
 import { getCurrentClaimProfile } from '@/providers/ethereum/getCurrentClaimProfile.js';
 import { checkClaimStrategyStatus } from '@/providers/firefly/red-packet/checkClaimStrategyStatus.js';
-import { type RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
+import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 
 export function useClaimStrategyStatus(
     payload: RedPacketJSONPayload,

@@ -3,7 +3,7 @@ import { AbortError, AuthenticationError } from '@dimensiondev/utils';
 
 import { FarcasterPatchSignerError, FireflyAlreadyBoundError, FireflyBindTimeoutError } from '@/constants/error.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { type Session } from '@/providers/types/Session.js';
+import type { Session } from '@/providers/types/Session.js';
 import { bindFireflySession } from '@/services/bindFireflySession.js';
 import { restoreFireflySession } from '@/services/restoreFireflySession.js';
 

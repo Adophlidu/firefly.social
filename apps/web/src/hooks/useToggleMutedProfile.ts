@@ -1,7 +1,7 @@
 import { t } from '@lingui/core/macro';
 import { useAsyncFn } from 'react-use';
 
-import { type SocialSource } from '@/constants/enum.js';
+import type { SocialSource } from '@/constants/enum.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
@@ -9,7 +9,7 @@ import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { isProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import { captureMuteEvent } from '@/providers/telemetry/captureMuteEvent.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 
 /**

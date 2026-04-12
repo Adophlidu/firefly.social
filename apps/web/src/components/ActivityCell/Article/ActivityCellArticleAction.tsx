@@ -4,7 +4,7 @@ import PostedIcon from '@dimensiondev/assets/posted.svg';
 import RevisedIcon from '@dimensiondev/assets/revised.svg';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
-import { type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 import { ActivityCellAction } from '@/components/ActivityCell/ActivityCellAction.js';
 import { ActivityCellActionTag } from '@/components/ActivityCell/ActivityCellActionTag.js';

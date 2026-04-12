@@ -2,14 +2,14 @@ import { type Draft, produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';
-import { type PageData } from '@/decorators/types.js';
+import type { PageData } from '@/decorators/types.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { patchActivitiesQuery } from '@/helpers/patchActivitiesQuery.js';
 import { patchTransactionsQuery } from '@/helpers/patchTransactionsQuery.js';
-import { type FireflyWallet } from '@/providers/firefly/Wallet.js';
-import { type Article } from '@/providers/types/Article.js';
+import type { FireflyWallet } from '@/providers/firefly/Wallet.js';
+import type { Article } from '@/providers/types/Article.js';
 import { WatchType } from '@/providers/types/Firefly.js';
-import { type ClassType } from '@/types/utility.js';
+import type { ClassType } from '@/types/utility.js';
 
 function toggleWatch(address: string, status: boolean) {
     const patcher = (old: Draft<PageData<Article>> | undefined) => {

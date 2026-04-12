@@ -6,7 +6,7 @@ import { getCreator } from '@/providers/solana/red-packet/getCreator.js';
 import { getProgram } from '@/providers/solana/red-packet/getProgram.js';
 import { getTokenProgramFromVault } from '@/providers/solana/red-packet/getTokenProgramFromVault.js';
 import { runRPC } from '@/providers/solana/red-packet/runRPC.js';
-import { type ClaimSplTokenContext } from '@/providers/solana/red-packet/types.js';
+import type { ClaimSplTokenContext } from '@/providers/solana/red-packet/types.js';
 
 export async function claimWithSplToken(context: ClaimSplTokenContext) {
     const {

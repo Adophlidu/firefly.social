@@ -10,8 +10,8 @@ import {
 } from '@/helpers/pageable.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { formatBriefChannelFromFirefly } from '@/providers/farcaster/formatFarcasterChannelFromFirefly.js';
-import { type SearchChannelsResponse } from '@/providers/types/Firefly.js';
-import { type Channel } from '@/providers/types/SocialMedia.js';
+import type { SearchChannelsResponse } from '@/providers/types/Firefly.js';
+import type { Channel } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
 
 export async function searchChannels(q: string, indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {

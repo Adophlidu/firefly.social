@@ -1,5 +1,5 @@
 import { getExceptionTrackerConfig } from '@/config.js';
-import { type ExceptionPayload, type ExceptionTags } from '@/types.js';
+import type { ExceptionPayload, ExceptionTags } from '@/types.js';
 
 /**
  * Sends an exception report to the remote exception tracker via sendBeacon.

@@ -1,7 +1,7 @@
 import { createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { getBskySuggestedUsers } from '@/providers/bsky/getBskySuggestedUsers.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export async function getBskySuggestedFollows(
     includeFollowingStatus?: boolean,

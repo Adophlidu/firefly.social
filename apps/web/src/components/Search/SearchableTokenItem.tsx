@@ -14,7 +14,7 @@ import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { isValidAddress } from '@/helpers/isValidAddress.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
 import { getSingleCoin } from '@/providers/firefly/endpoint/getSingleCoin.js';
-import { type TokenWithMarket } from '@/providers/firefly/worker/searchTokens.js';
+import type { TokenWithMarket } from '@/providers/firefly/worker/searchTokens.js';
 import { TokenPlatformType } from '@/providers/types/Firefly.js';
 
 interface SearchableTokenItemProps extends HTMLProps<HTMLAnchorElement> {

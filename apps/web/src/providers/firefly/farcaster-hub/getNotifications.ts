@@ -13,8 +13,8 @@ import {
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { type NotificationResponse } from '@/providers/types/Firefly.js';
-import { type Notification } from '@/providers/types/SocialMedia.js';
+import type { NotificationResponse } from '@/providers/types/Firefly.js';
+import type { Notification } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
 
 export async function getNotifications(indicator?: PageIndicator): Promise<Pageable<Notification, PageIndicator>> {

@@ -2,8 +2,8 @@ import urlcat from 'urlcat';
 
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { type PolymarketEventLocale } from '@/providers/prediction/polymarket/type.js';
-import { type PolymarketTranslationData, type Response } from '@/providers/types/Firefly.js';
+import type { PolymarketEventLocale } from '@/providers/prediction/polymarket/type.js';
+import type { PolymarketTranslationData, Response } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 interface Options {

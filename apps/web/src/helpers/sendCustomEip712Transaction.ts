@@ -2,7 +2,7 @@ import { first } from 'lodash-es';
 import { createPublicClient, http } from 'viem';
 import { prepareTransactionRequest } from 'viem/actions';
 import { type SendEip712TransactionParameters, signTransaction, type SignTransactionParameters } from 'viem/zksync';
-import { type GetWalletClientReturnType } from 'wagmi/actions';
+import type { GetWalletClientReturnType } from 'wagmi/actions';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';

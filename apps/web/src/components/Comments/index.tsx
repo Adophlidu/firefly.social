@@ -13,7 +13,7 @@ import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.
 import { ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 import { enrichPostWithFireflyArticle } from '@/services/getPostById.js';
 
 interface CommentListProps {

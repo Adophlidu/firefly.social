@@ -1,7 +1,7 @@
-import { type UseInfiniteQueryOptions, type UseSuspenseInfiniteQueryOptions } from '@tanstack/react-query';
+import type { UseInfiniteQueryOptions, UseSuspenseInfiniteQueryOptions } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 
-import { type Poap } from '@/providers/types/Firefly.js';
+import type { Poap } from '@/providers/types/Firefly.js';
 import { getFireflyEndpoint } from '@/store/fireflyEndpoint.js';
 
 export function getPOAPsByWalletQueryOptions(address: string) {

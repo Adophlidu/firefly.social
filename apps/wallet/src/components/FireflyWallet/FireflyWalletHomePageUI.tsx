@@ -3,13 +3,13 @@ import ReceiveIcon from '@dimensiondev/assets/qrcode.svg';
 import SendIcon from '@dimensiondev/assets/send2.svg';
 import SwapIcon from '@dimensiondev/assets/swap2.svg';
 import { Trans } from '@lingui/react/macro';
-import {
-    type ButtonHTMLAttributes,
-    type FunctionComponent,
-    type HTMLAttributes,
-    type PropsWithChildren,
-    type ReactNode,
-    type SVGAttributes,
+import type {
+    ButtonHTMLAttributes,
+    FunctionComponent,
+    HTMLAttributes,
+    PropsWithChildren,
+    ReactNode,
+    SVGAttributes,
 } from 'react';
 
 import { LoadingIcon } from '@/components/LoadingIcon.js';

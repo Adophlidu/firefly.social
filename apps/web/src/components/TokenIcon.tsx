@@ -3,7 +3,7 @@ import { first } from 'lodash-es';
 import { type HTMLProps, memo, useCallback, useMemo, useState } from 'react';
 
 import { ChainIcon } from '@/components/ChainIcon.js';
-import { type NetworkType } from '@/constants/enum.js';
+import type { NetworkType } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import { isZeroAddressEthereum } from '@/helpers/isZeroAddress.js';
 import { EVMChainResolver } from '@/web3-providers/evm/ResolverAPI.js';

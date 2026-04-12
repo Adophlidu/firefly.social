@@ -4,7 +4,7 @@ import { last } from 'lodash-es';
 
 import { NumberSelector } from '@/components/Poll/NumberSelector.js';
 import { POLL_DURATION_DAYS_LIST, POLL_DURATION_MIN_MINUTES } from '@/constants/poll.js';
-import { type CompositePoll } from '@/providers/types/Poll.js';
+import type { CompositePoll } from '@/providers/types/Poll.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 interface DurationSelectorProps {

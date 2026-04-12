@@ -4,7 +4,7 @@ import BuyIcon from '@dimensiondev/assets/bet-buy.svg';
 import SellIcon from '@dimensiondev/assets/bet-sell.svg';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
-import { type PropsWithChildren } from 'react';
+import type { PropsWithChildren } from 'react';
 
 import { ActivityCellActionTag } from '@/components/ActivityCell/ActivityCellActionTag.js';
 import { PredictionPlatformName } from '@/components/Prediction/PredictionPlatformName.js';

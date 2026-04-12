@@ -7,7 +7,7 @@ import { SolanaChainId } from '@/constants/solana.js';
 import { formatTokenFromFireflyTokenAsset } from '@/helpers/formatTokenFromFireflyTokenAsset.js';
 import { useEmbeddedWalletAddresses } from '@/hooks/useCachedWalletAddresses.js';
 import { useCustomTokensWithBalance } from '@/hooks/useCustomTokensWithBalance.js';
-import { type TokenAsset } from '@/providers/types/Firefly.js';
+import type { TokenAsset } from '@/providers/types/Firefly.js';
 import { getMultiChainTokensQuery } from '@/queries/firefly/multiChainTokens.js';
 
 export function useMultiChainTokens() {

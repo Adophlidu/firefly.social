@@ -2,7 +2,7 @@ import { memo, useCallback, useEffect, useState } from 'react';
 import { Button, Input, Sheet, Text, XStack, YStack } from 'tamagui';
 
 import { TpSlSheetSkeleton } from '@/skeletons/TpSlSheetSkeleton';
-import { type TpSlSheetData, type TpSlValueType } from '@/types/ui';
+import type { TpSlSheetData, TpSlValueType } from '@/types/ui';
 
 interface TpSlSheetProps {
     open: boolean;

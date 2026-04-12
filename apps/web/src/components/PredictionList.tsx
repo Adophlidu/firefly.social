@@ -10,7 +10,7 @@ import { useSearchParams } from '@/esm/navigation.js';
 import { formatPolymarketEventListData } from '@/helpers/formatPolymarketEventListData.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { getEventList } from '@/providers/firefly/prediction/getEventList.js';
-import { type PolymarketEventListData } from '@/providers/types/Firefly.js';
+import type { PolymarketEventListData } from '@/providers/types/Firefly.js';
 
 function getBetsItemContent(_: number, data: PolymarketEventListData) {
     return (

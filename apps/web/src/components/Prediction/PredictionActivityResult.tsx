@@ -6,7 +6,7 @@ import { Trans } from '@lingui/react/macro';
 import { PredictionPlatform } from '@/constants/enum.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { computeVolume } from '@/helpers/polymarket.js';
-import { type BetsActivity } from '@/providers/types/Firefly.js';
+import type { BetsActivity } from '@/providers/types/Firefly.js';
 
 interface ActivityResultProps {
     activity: BetsActivity;

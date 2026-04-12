@@ -1,7 +1,7 @@
 'use client';
 
 import { classNames } from '@dimensiondev/utils';
-import { type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 import { SnapBadge } from '@/components/Snap/elements/SnapBadge.js';
 import { SnapBarChart } from '@/components/Snap/elements/SnapBarChart.js';
@@ -19,7 +19,7 @@ import { SnapSwitch } from '@/components/Snap/elements/SnapSwitch.js';
 import { SnapText } from '@/components/Snap/elements/SnapText.js';
 import { SnapToggleGroup } from '@/components/Snap/elements/SnapToggleGroup.js';
 import { useSnapContext } from '@/components/Snap/SnapContext.js';
-import { type SnapAction, type SnapUI } from '@/types/snap.js';
+import type { SnapAction, SnapUI } from '@/types/snap.js';
 
 const GAP_MAP = {
     none: 'gap-0',

@@ -6,7 +6,7 @@ import { Fragment } from 'react';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Source } from '@/constants/enum.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface SocialAvatarSelectorProps {
     profiles: Profile[];

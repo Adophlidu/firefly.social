@@ -3,7 +3,7 @@ import { compact } from 'lodash-es';
 
 import { KeyType } from '@/constants/enum.js';
 import { HIDDEN_SECRET } from '@/constants/static.js';
-import { type SocialAccountTwitter } from '@/types/sync.js';
+import type { SocialAccountTwitter } from '@/types/sync.js';
 
 export async function getTwitterAccountsServerSide(accounts: SocialAccountTwitter[]): Promise<SocialAccountTwitter[]> {
     const promises = await Promise.allSettled(

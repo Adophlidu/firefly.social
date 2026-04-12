@@ -1,5 +1,5 @@
 import { compose } from '@dimensiondev/utils';
-import { type EUploadMimeType } from 'twitter-api-v2';
+import type { EUploadMimeType } from 'twitter-api-v2';
 import { z } from 'zod';
 
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';

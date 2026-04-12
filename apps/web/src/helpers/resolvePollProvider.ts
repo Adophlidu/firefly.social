@@ -5,7 +5,7 @@ import { BskyPollProvider } from '@/providers/bsky/Poll.js';
 import { FarcasterPollProvider } from '@/providers/farcaster/Poll.js';
 import { LensPollProvider } from '@/providers/lens/Poll.js';
 import { TwitterPollProvider } from '@/providers/twitter/Poll.js';
-import { type Provider } from '@/providers/types/Poll.js';
+import type { Provider } from '@/providers/types/Poll.js';
 
 export const resolvePollProvider = createLookupTableResolver<SocialSource, Provider>(
     {

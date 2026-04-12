@@ -1,8 +1,8 @@
 import { bom } from '@dimensiondev/utils';
 
-import { type SocialSource } from '@/constants/enum.js';
-import { type EVENT_FORBIDDEN, type EVENT_SOCIAL_ACCOUNT_EXPIRED } from '@/constants/event.js';
-import { type Account } from '@/providers/types/Account.js';
+import type { SocialSource } from '@/constants/enum.js';
+import type { EVENT_FORBIDDEN, EVENT_SOCIAL_ACCOUNT_EXPIRED } from '@/constants/event.js';
+import type { Account } from '@/providers/types/Account.js';
 
 interface CustomEvents {
     [EVENT_FORBIDDEN]: void;

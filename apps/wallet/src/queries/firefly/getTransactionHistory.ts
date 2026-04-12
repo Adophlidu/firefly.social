@@ -1,7 +1,7 @@
 import { infiniteQueryOptions } from '@tanstack/react-query';
 
 import { isValidAddressSolana } from '@/helpers/isValidAddress.js';
-import { type WalletHistoryTransactionsResponseData } from '@/providers/types/Firefly.js';
+import type { WalletHistoryTransactionsResponseData } from '@/providers/types/Firefly.js';
 import { getFireflyEndpoint } from '@/store/fireflyEndpoint.js';
 
 export function getTransactionHistory(chains: number[], address: string | undefined) {

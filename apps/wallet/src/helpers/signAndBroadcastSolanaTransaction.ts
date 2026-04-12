@@ -1,5 +1,5 @@
 import { web3 } from '@coral-xyz/anchor';
-import { type ConnectedStandardSolanaWallet } from '@privy-io/react-auth/solana';
+import type { ConnectedStandardSolanaWallet } from '@privy-io/react-auth/solana';
 
 import { SOLANA_MAINNET_PRIVY } from '@/constants/solana.js';
 import { getSolanaRPCUrl } from '@/helpers/getSolanaRPCUrl.js';

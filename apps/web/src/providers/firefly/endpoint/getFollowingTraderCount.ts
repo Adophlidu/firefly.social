@@ -2,7 +2,7 @@ import urlcat from 'urlcat';
 
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { type FollowingTraderCountResponse } from '@/providers/types/Firefly.js';
+import type { FollowingTraderCountResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 export async function getFollowingTraderCount(tokens: Array<{ chain_id: number; token_address: string }>) {

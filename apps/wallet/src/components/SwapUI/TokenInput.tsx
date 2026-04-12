@@ -23,7 +23,7 @@ import { useSwapContextWalletAddresses } from '@/hooks/useCachedWalletAddresses.
 import { useWalletDomainNames } from '@/hooks/useWalletDomainNames.js';
 import { cn } from '@/lib/utils.js';
 import { getDefaultSwapToken } from '@/providers/swap/defaultTokens.js';
-import { type SwapToken } from '@/providers/swap/types.js';
+import type { SwapToken } from '@/providers/swap/types.js';
 import {
     accessPathAtom,
     externalEvmAddressAtom,

@@ -1,6 +1,6 @@
-import { type NextFetchersOptions } from '@/helpers/fetch.js';
+import type { NextFetchersOptions } from '@/helpers/fetch.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
-import { type NeynarResponse } from '@/providers/types/Neynar.js';
+import type { NeynarResponse } from '@/providers/types/Neynar.js';
 
 export function fetchNeynarJson<T>(
     url: string,

@@ -7,7 +7,7 @@ import { Source } from '@/constants/enum.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useAllConnections } from '@/hooks/useAllConnections.js';
-import { type LensConnection } from '@/providers/types/Firefly.js';
+import type { LensConnection } from '@/providers/types/Firefly.js';
 import {
     getConnections,
     getProfileFromSocialConnections,

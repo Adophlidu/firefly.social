@@ -1,5 +1,5 @@
 import { getLensProfileById } from '@/providers/lens/getLensProfileById.js';
-import { type LensSession } from '@/providers/lens/Session.js';
+import type { LensSession } from '@/providers/lens/Session.js';
 
 export async function getLensProfileBySession(session: LensSession, signal?: AbortSignal) {
     const lensSession = session as LensSession;

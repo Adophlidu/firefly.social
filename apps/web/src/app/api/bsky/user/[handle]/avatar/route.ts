@@ -1,6 +1,6 @@
-import { type NextRequestContext } from '@dimensiondev/types';
+import type { NextRequestContext } from '@dimensiondev/types';
 import { compose } from '@dimensiondev/utils';
-import { type NextRequest } from 'next/server.js';
+import type { NextRequest } from 'next/server.js';
 import { z } from 'zod';
 
 import { createRedirectResponse } from '@/helpers/createRedirectResponse.js';

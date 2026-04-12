@@ -9,7 +9,7 @@ import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { isValidChainIdSolana } from '@/helpers/isValidChainId.js';
 import { isZeroAddressEthereum, isZeroAddressSolana } from '@/helpers/isZeroAddress.js';
 import { Fetch } from '@/lib/Fetch.js';
-import { type Price } from '@/providers/coingecko/types.js';
+import type { Price } from '@/providers/coingecko/types.js';
 
 function getCoinGeckoConstantsSolana(chainId: number) {
     const constants = {

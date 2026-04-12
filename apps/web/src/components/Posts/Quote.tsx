@@ -10,7 +10,7 @@ import { PostHeader } from '@/components/Posts/PostHeader.js';
 import { useRouter } from '@/esm/navigation.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { openWindow } from '@/helpers/openWindow.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
 interface QuoteProps {

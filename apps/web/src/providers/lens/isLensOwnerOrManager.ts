@@ -6,7 +6,7 @@ import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { getLensProfileOwner } from '@/providers/lens/getLensProfileOwner.js';
 import { lensClientHolder } from '@/providers/lens/LensClientHolder.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export async function isLensOwnerOrManager(
     address: string,

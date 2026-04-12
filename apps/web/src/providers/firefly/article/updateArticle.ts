@@ -1,9 +1,9 @@
 import urlcat from 'urlcat';
 
-import { type FireflyPlatform } from '@/constants/enum.js';
+import type { FireflyPlatform } from '@/constants/enum.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { type UpdateArticlePayload, type UpdateArticleResponse } from '@/providers/types/Firefly.js';
+import type { UpdateArticlePayload, UpdateArticleResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 /**

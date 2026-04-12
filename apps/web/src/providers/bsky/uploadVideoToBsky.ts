@@ -1,8 +1,8 @@
-import { type BlobRef } from '@atproto/api';
+import type { BlobRef } from '@atproto/api';
 import { delay, parseUrl } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
-import { type FileMimeType } from '@/constants/enum.js';
+import type { FileMimeType } from '@/constants/enum.js';
 import { BSKY_VIDEO_ENDPOINT } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';

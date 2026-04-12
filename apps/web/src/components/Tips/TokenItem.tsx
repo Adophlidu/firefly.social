@@ -8,7 +8,7 @@ import { formatTokenItemAmount } from '@/components/Tips/formatTokenItemAmount.j
 import { TokenIcon } from '@/components/Tips/TokenIcon.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { multipliedBy } from '@/helpers/number.js';
-import { type Token as RawToken } from '@/hooks/useCustomFungibleTokens.js';
+import type { Token as RawToken } from '@/hooks/useCustomFungibleTokens.js';
 
 type Token = Pick<
     RawToken,

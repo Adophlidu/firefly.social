@@ -8,7 +8,7 @@ import { waitForDisconnectConfirmation } from '@/app/[locale]/(settings)/compone
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { fireflyWalletProvider } from '@/providers/firefly/Wallet.js';
-import { type FireflyWalletConnection } from '@/providers/types/Firefly.js';
+import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
 
 interface ReportButtonProps {
     connection: FireflyWalletConnection;

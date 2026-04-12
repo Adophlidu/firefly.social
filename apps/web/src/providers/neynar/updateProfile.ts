@@ -1,7 +1,7 @@
 import { MessageType, UserDataType } from '@/constants/farcaster.js';
 import { publishMessage } from '@/providers/firefly/farcaster-hub/publishMessage.js';
 import { encodeMessageData } from '@/providers/neynar/encodeMessageData.js';
-import { type ProfileEditable } from '@/providers/types/SocialMedia.js';
+import type { ProfileEditable } from '@/providers/types/SocialMedia.js';
 
 async function userDataAdd(type: UserDataType, value: string) {
     const { messageJson } = await encodeMessageData({

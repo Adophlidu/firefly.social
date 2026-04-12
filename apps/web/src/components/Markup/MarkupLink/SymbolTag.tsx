@@ -4,7 +4,7 @@ import { memo, useMemo, useState } from 'react';
 
 import { InteractiveTippy } from '@/components/InteractiveTippy.js';
 import { Link } from '@/components/Link.js';
-import { type MarkupLinkProps } from '@/components/Markup/MarkupLink/type.js';
+import type { MarkupLinkProps } from '@/components/Markup/MarkupLink/type.js';
 import { useTippyContext } from '@/components/TippyContext/index.js';
 import { TokenProfileCard } from '@/components/Token/TokenProfileCard.js';
 import { resolveCoinGeckoChainId } from '@/helpers/resolveCoinGeckoChainId.js';

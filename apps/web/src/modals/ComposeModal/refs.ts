@@ -1,5 +1,5 @@
 import { SingletonModal } from '@/libs/SingletonModal.js';
-import { type ComposeModalCloseProps, type ComposeModalOpenProps } from '@/modals/ComposeModal/types.js';
+import type { ComposeModalCloseProps, ComposeModalOpenProps } from '@/modals/ComposeModal/types.js';
 
 export enum CloseAction {
     Saved = 'saved',

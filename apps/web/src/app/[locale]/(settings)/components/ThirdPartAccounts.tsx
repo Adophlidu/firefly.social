@@ -19,7 +19,7 @@ import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
 import { getAllConnections } from '@/providers/firefly/endpoint/getAllConnections.js';
 import { formatThirdPartyProfileName } from '@/providers/lens/formatThirdPartyProfileName.js';
-import { type Account } from '@/providers/types/Account.js';
+import type { Account } from '@/providers/types/Account.js';
 import { useThirdPartyProfileStore } from '@/store/useProfileStore/useThirdPartyProfileStore.js';
 
 interface ThirdPartItemProps {

@@ -5,7 +5,7 @@ import { ChannelCard } from '@/components/Channel/ChannelCard.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { InteractiveTippy } from '@/components/InteractiveTippy.js';
 import { TippyContext, useTippyContext } from '@/components/TippyContext/index.js';
-import { type SocialSource } from '@/constants/enum.js';
+import type { SocialSource } from '@/constants/enum.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { useRouter } from '@/esm/navigation.js';
 import { isChannelNotFoundError } from '@/helpers/isChannelNotFoundError.js';
@@ -13,7 +13,7 @@ import { resolveChannelUrl } from '@/helpers/resolveChannelUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useEverSeen } from '@/hooks/useEverSeen.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { type Channel } from '@/providers/types/SocialMedia.js';
+import type { Channel } from '@/providers/types/SocialMedia.js';
 import { useChannelStoreState } from '@/store/useChannelStore.js';
 
 interface ChannelTagProps {

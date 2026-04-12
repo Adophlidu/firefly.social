@@ -1,12 +1,12 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import urlcat from 'urlcat';
 
-import { type PredictionPlatform } from '@/constants/enum.js';
+import type { PredictionPlatform } from '@/constants/enum.js';
 import { formatPolymarketFromFirefly } from '@/helpers/formatPolymarketFromFirefly.js';
 import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { type BetsActivity, type Response as FireflyResponse } from '@/providers/types/Firefly.js';
+import type { BetsActivity, Response as FireflyResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 interface Options {

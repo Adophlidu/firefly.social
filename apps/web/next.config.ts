@@ -3,7 +3,7 @@
 
 import { execSync } from 'child_process';
 import { createRequire } from 'module';
-import { type NextConfig } from 'next';
+import type { NextConfig } from 'next';
 
 import { headersConfig } from './.next-config/headers.config';
 import { imagesConfig } from './.next-config/images.config';

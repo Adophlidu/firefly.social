@@ -1,6 +1,6 @@
 import { SnapshotState } from '@/constants/enum.js';
-import { type SnapshotActivity, type SnapshotProposal } from '@/providers/snapshot/type.js';
-import { type UnifiedNotification } from '@/providers/types/Firefly.js';
+import type { SnapshotActivity, SnapshotProposal } from '@/providers/snapshot/type.js';
+import type { UnifiedNotification } from '@/providers/types/Firefly.js';
 
 export function formatSnapshotActivityFromNotification(data: UnifiedNotification['data']): SnapshotActivity | null {
     if (!data?.id || !data.hash || !data.owner) return null;

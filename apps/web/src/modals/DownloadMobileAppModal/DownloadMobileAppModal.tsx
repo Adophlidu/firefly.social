@@ -4,7 +4,7 @@ import { Modal } from '@/components/Modal.js';
 import { ModalTitle } from '@/components/ModalTitle.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { DownloadMobileAppContent } from '@/modals/DownloadMobileAppModal/DownloadMobileAppContent.js';
-import { type DownloadMobileAppModalRefType } from '@/modals/DownloadMobileAppModal/refs.js';
+import type { DownloadMobileAppModalRefType } from '@/modals/DownloadMobileAppModal/refs.js';
 
 interface Props {
     ref: React.Ref<DownloadMobileAppModalRefType>;

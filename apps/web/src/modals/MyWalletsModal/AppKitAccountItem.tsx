@@ -6,7 +6,7 @@ import { runInSafeAsync } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { CoreConnectionController, CoreConnectorController } from '@reown/appkit';
 import { type AppKitNetwork, mainnet, solana } from '@reown/appkit/networks';
-import { type FunctionComponent, type SVGAttributes } from 'react';
+import type { FunctionComponent, SVGAttributes } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
@@ -18,8 +18,8 @@ import { PRIVY_CONNECTOR_ID } from '@/connectors/PrivyConnector.js';
 import { ConnectionSource, NetworkType } from '@/constants/enum.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
-import { type AppKitAccount } from '@/hooks/useAppKitAccounts.js';
-import { type ChainNamespace } from '@/types/utility.js';
+import type { AppKitAccount } from '@/hooks/useAppKitAccounts.js';
+import type { ChainNamespace } from '@/types/utility.js';
 
 const IconMap: Record<ChainNamespace, FunctionComponent<SVGAttributes<SVGElement>>> = {
     eip155: EvmIcon,

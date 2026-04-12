@@ -1,6 +1,6 @@
 import { AbortError } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
-import { type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 import { InsufficientGasError } from '@/constants/error.js';
 

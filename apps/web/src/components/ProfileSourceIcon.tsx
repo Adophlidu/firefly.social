@@ -9,7 +9,7 @@ import GoogleSmallIcon from '@dimensiondev/assets/google-small.svg';
 import FireflyIcon from '@dimensiondev/assets/logo.svg';
 import TelegramIcon from '@dimensiondev/assets/telegram.svg';
 import { safeUnreachable } from '@dimensiondev/utils';
-import { type SVGProps } from 'react';
+import type { SVGProps } from 'react';
 
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { type ProfileSource, Source } from '@/constants/enum.js';

@@ -7,8 +7,8 @@ import { isValidChainIdEthereum } from '@/helpers/isValidChainId.js';
 import { ETH_ZERO_ADDRESS, SOL_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';
 import { rightShift } from '@/helpers/number.js';
 import { resolveDebankChain } from '@/helpers/resolveDebankChain.js';
-import { type TokenAsset } from '@/providers/types/Firefly.js';
-import { type Token } from '@/providers/types/Transfer.js';
+import type { TokenAsset } from '@/providers/types/Firefly.js';
+import type { Token } from '@/providers/types/Transfer.js';
 
 const ETH_NATIVE_ADDRESS = '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee';
 const SOLANA_NATIVE_ADDRESS = '11111111111111111111111111111111';

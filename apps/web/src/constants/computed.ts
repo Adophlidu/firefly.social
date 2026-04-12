@@ -28,7 +28,7 @@ import {
     WalletProfileCategory,
 } from '@/constants/enum.js';
 import { type Attachment, NotificationType } from '@/providers/types/SocialMedia.js';
-import { type Runtime } from '@/providers/types/Trending.js';
+import type { Runtime } from '@/providers/types/Trending.js';
 import { MediaSource } from '@/types/compose.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
 import { SolanaChainId } from '@/web3-shared/solana/types.js';

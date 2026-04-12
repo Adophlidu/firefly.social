@@ -2,7 +2,7 @@ import { assert } from '@dimensiondev/utils';
 
 import { Source } from '@/constants/enum.js';
 import { TWITTER_MENTION_REGEX } from '@/constants/regexp.js';
-import { type RootdataPeople } from '@/providers/types/Firefly.js';
+import type { RootdataPeople } from '@/providers/types/Firefly.js';
 import { type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
 
 export function formatTwitterProfileFromRootdata(user: RootdataPeople): Profile<RootdataPeople> {

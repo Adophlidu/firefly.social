@@ -4,7 +4,7 @@ import { CharTag, FireflyPlatform } from '@/constants/enum.js';
 import { MENTION_REGEX } from '@/constants/regexp.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { lensClientHolder } from '@/providers/lens/LensClientHolder.js';
-import { type Chars } from '@/types/chars.js';
+import type { Chars } from '@/types/chars.js';
 
 export async function detectMentionsForLens(chars: Chars) {
     const list = (Array.isArray(chars) ? chars : [chars]).slice();

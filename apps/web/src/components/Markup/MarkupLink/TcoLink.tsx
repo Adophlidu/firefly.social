@@ -4,7 +4,7 @@ import { Link } from '@/components/Link.js';
 import { TWEET_REGEX } from '@/constants/regexp.js';
 import { resolveTcoLink } from '@/helpers/resolveTcoLink.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 export function TcoLink({ title, post }: { title: string; post?: Post }) {
     const { data } = useQuery({

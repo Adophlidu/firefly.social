@@ -10,7 +10,7 @@ import { SnapshotFallbackContent } from '@/components/Snapshot/SnapshotFallbackC
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { Source } from '@/constants/enum.js';
 import { formatSnapshotChoice } from '@/helpers/formatSnapshotChoice.js';
-import { type SnapshotActivity, type SnapshotProposal } from '@/providers/snapshot/type.js';
+import type { SnapshotActivity, SnapshotProposal } from '@/providers/snapshot/type.js';
 
 function getProposalLink(proposal: SnapshotProposal) {
     return `https://snapshot.box/#/s:${proposal.space.id}/proposal/${proposal.id}`;

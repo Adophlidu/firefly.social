@@ -9,7 +9,7 @@ import { memo } from 'react';
 
 import { EditFireflyProfileForm } from '@/components/EditFireflyProfile/EditFireflyProfileForm.js';
 import { EditFireflyProfileRouteRoot } from '@/components/EditFireflyProfile/EditFireflyProfileRouteRoot.js';
-import { type FireflyAccountProfile } from '@/providers/types/Firefly.js';
+import type { FireflyAccountProfile } from '@/providers/types/Firefly.js';
 
 export enum Path {
     Root = '/',

@@ -6,7 +6,7 @@ import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { createPageable } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { getBskyThreadByPostId } from '@/providers/bsky/getBskyThreadByPostId.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 import { enrichPostWithFireflyArticle } from '@/services/getPostById.js';
 
 async function getTwitterThreads(post: Post) {

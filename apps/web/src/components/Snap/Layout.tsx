@@ -2,8 +2,8 @@ import { envs, STATUS } from '@dimensiondev/envs';
 import { memo } from 'react';
 
 import { SnapCard } from '@/components/Snap/Card.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
-import { type Snap } from '@/types/snap.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
+import type { Snap } from '@/types/snap.js';
 
 interface SnapLayoutProps {
     snap: Snap;

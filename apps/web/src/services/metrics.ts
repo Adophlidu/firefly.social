@@ -31,17 +31,13 @@ import { setPrivyAsLensManager } from '@/providers/lens/setPrivyAsLensManager.js
 import { captureAccountLoginEvent } from '@/providers/telemetry/captureAccountEvent.js';
 import { TwitterAuthProvider } from '@/providers/twitter/Auth.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
-import { type SessionPayload } from '@/providers/twitter/SessionPayload.js';
-import { type Account } from '@/providers/types/Account.js';
-import {
-    type FarcasterMetricsData,
-    type LensMetricsData,
-    type MetricsItemToUpload,
-} from '@/providers/types/Firefly.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
+import type { SessionPayload } from '@/providers/twitter/SessionPayload.js';
+import type { Account } from '@/providers/types/Account.js';
+import type { FarcasterMetricsData, LensMetricsData, MetricsItemToUpload } from '@/providers/types/Firefly.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 import { decryptAes256 } from '@/services/crypto.js';
 import { uploadMetricsToFirefly } from '@/services/uploadMetrics.js';
-import { type ResponseJson } from '@/types/utility.js';
+import type { ResponseJson } from '@/types/utility.js';
 
 function decryptCipherText(passcode: string, text: string) {
     const key = sha256(toHex(passcode)).replace(/^0x/, '');

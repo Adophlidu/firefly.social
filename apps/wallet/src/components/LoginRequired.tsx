@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/react/macro';
-import { type PropsWithChildren } from 'react';
+import type { PropsWithChildren } from 'react';
 
 import { Button } from '@/components/ui/button.js';
 import { env } from '@/constants/env.js';

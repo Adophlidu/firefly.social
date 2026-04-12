@@ -22,7 +22,7 @@ import { createMemorySessionClient } from '@/providers/lens/createMemorySessionC
 import { ensureLensResultSync } from '@/providers/lens/ensureLensResultSync.js';
 import { getProfilesByAddress } from '@/providers/lens/getProfilesByAddress.js';
 import { LensSession } from '@/providers/lens/Session.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 import { useLensProfileStore } from '@/store/useProfileStore/useLensProfileStore.js';
 

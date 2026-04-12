@@ -4,7 +4,7 @@ import LineArrowUpSVG from '@dimensiondev/assets/line-arrow-up.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { uniq } from 'lodash-es';
-import { type HTMLProps } from 'react';
+import type { HTMLProps } from 'react';
 
 import { Image } from '@/components/Image.js';
 

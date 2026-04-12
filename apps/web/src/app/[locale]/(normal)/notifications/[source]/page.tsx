@@ -1,6 +1,6 @@
 'use client';
 
-import { type LayoutProps } from '@dimensiondev/types';
+import type { LayoutProps } from '@dimensiondev/types';
 import { use } from 'react';
 
 import { FireflyNotifications } from '@/app/[locale]/(normal)/notifications/[source]/pages/FireflyNotifications.js';

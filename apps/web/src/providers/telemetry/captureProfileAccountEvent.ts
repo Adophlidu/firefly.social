@@ -3,7 +3,7 @@ import { createLookupTableResolver, runInSafeAsync, UnreachableError } from '@di
 import { type ProfilePageSource, type SocialSource, Source } from '@/constants/enum.js';
 import { getProfileEventParameters } from '@/providers/telemetry/getProfileEventParameters.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 
 const resolveProfileAccountEventId = createLookupTableResolver<SocialSource, EventId>(

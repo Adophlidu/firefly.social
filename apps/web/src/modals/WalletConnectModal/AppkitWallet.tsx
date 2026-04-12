@@ -3,7 +3,7 @@ import { memo } from 'react';
 import urlcat from 'urlcat';
 
 import { WalletChainConfig, walletConnectId, type WalletId } from '@/constants/reown.js';
-import { type AppkitWalletItem } from '@/hooks/appkit/useAppkitWalletList.js';
+import type { AppkitWalletItem } from '@/hooks/appkit/useAppkitWalletList.js';
 import { findConnectorByWallet } from '@/modals/WalletConnectModal/findConnectorByWallet.js';
 import { walletRouter } from '@/modals/WalletConnectModal/routes.js';
 import { selectWallet } from '@/modals/WalletConnectModal/selectWallet.js';

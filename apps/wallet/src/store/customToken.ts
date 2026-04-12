@@ -2,9 +2,9 @@ import { safeUnreachable } from '@dimensiondev/utils';
 import { produce } from 'immer';
 import { atom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
-import { type Address } from 'viem';
+import type { Address } from 'viem';
 
-import { type EthereumChainId } from '@/constants/ethereum.js';
+import type { EthereumChainId } from '@/constants/ethereum.js';
 import { createPersistStorage } from '@/helpers/createPersistStorage.js';
 
 export enum CustomTokenType {

@@ -7,7 +7,7 @@ import { useMemo, useState } from 'react';
 import { PositionCard } from '@/components/Bet/PositionCard.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { cn } from '@/lib/utils.js';
-import { type PolymarketPosition } from '@/providers/types/Firefly.js';
+import type { PolymarketPosition } from '@/providers/types/Firefly.js';
 import { getPolymarketAccountQueryOptions } from '@/queries/firefly/getPolymarketAccountQueryOptions.js';
 import { getFireflyEndpoint } from '@/store/fireflyEndpoint.js';
 

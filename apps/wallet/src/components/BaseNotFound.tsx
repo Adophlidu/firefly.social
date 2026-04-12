@@ -1,5 +1,5 @@
 import RadarImage from '@dimensiondev/assets/radar.png';
-import { type HTMLProps } from 'react';
+import type { HTMLProps } from 'react';
 
 import { Image } from '@/components/Image.js';
 import { cn } from '@/lib/utils.js';

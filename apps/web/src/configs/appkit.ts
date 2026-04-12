@@ -4,7 +4,7 @@
 
 import { IS_PRODUCTION } from '@dimensiondev/constants';
 import { envs } from '@dimensiondev/envs';
-import { type AppKitNetwork } from '@reown/appkit/networks';
+import type { AppKitNetwork } from '@reown/appkit/networks';
 import { createAppKit } from '@reown/appkit/react';
 
 import { lensMainnet, lensTestnet } from '@/configs/chains.js';

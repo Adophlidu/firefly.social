@@ -3,7 +3,7 @@ import urlcat from 'urlcat';
 import { adjustAssetUris } from '@/helpers/adjustAssetUris.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@/helpers/pageable.js';
-import { type CollectionItemsResponse } from '@/providers/types/Firefly.js';
+import type { CollectionItemsResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 export async function getCollectionItems(chainId: number, contractAddress: string, indicator?: PageIndicator) {

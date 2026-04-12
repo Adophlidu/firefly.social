@@ -6,7 +6,7 @@ import { STALE_TIMES } from '@/constants/query.js';
 import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { getPoll } from '@/providers/orb/getPoll.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 import { useOrbPollResultStore } from '@/store/useOrbPollResultStore.js';
 
 export function useRetrievePollFromPost(post: Post) {

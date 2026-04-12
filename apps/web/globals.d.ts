@@ -39,7 +39,7 @@ declare module 'dompurify' {
 }
 
 declare module 'dayjs-twitter' {
-    import { type PluginFunc } from 'dayjs';
+    import type { PluginFunc } from 'dayjs';
 
     declare const plugin: PluginFunc;
     export default plugin;
@@ -52,7 +52,7 @@ declare module 'dayjs-twitter' {
 }
 
 declare module 'unist-util-flatmap' {
-    import { type Link, type Root, type Text } from 'mdast';
+    import type { Link, Root, Text } from 'mdast';
 
     type Node = Text | Link;
 
@@ -64,7 +64,7 @@ declare module 'unist-util-flatmap' {
 }
 
 declare module 'remark-linkify-regex' {
-    import { type Root } from 'mdast';
+    import type { Root } from 'mdast';
 
     function linkifyRegex(regex: RegExp): () => (ast: Root) => Root;
     export = linkifyRegex;

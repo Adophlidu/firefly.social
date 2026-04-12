@@ -13,18 +13,13 @@ import { TpSlSheet } from '@/../../../packages/rn-ui/src/components/TpSlSheet';
 import { RemoveIcon } from '@/icons/RemoveIcon';
 import { loadAddToPositionSheet, submitAddToPosition } from '@/services/addToPosition';
 import { loadTpSlSheet, submitTpSl } from '@/services/tpSl';
-import {
-    type FetchAddToPositionSheet,
-    type FetchTpSlSheet,
-    type SubmitAddToPosition,
-    type SubmitTpSl,
-} from '@/types/services';
-import {
-    type AddToPositionSheetData,
-    type ClosePositionSheetData,
-    type PerpsOpenOrderItem,
-    type PerpsPositionItem,
-    type TpSlSheetData,
+import type { FetchAddToPositionSheet, FetchTpSlSheet, SubmitAddToPosition, SubmitTpSl } from '@/types/services';
+import type {
+    AddToPositionSheetData,
+    ClosePositionSheetData,
+    PerpsOpenOrderItem,
+    PerpsPositionItem,
+    TpSlSheetData,
 } from '@/types/ui';
 
 interface PerpsTradeDetailPositionsSectionProps {

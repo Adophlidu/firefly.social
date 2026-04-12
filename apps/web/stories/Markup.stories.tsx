@@ -1,4 +1,4 @@
-import { type Meta, type StoryObj } from '@storybook/nextjs-vite';
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
 import { BioMarkup } from '@/components/Markup/BioMarkup.js';
 

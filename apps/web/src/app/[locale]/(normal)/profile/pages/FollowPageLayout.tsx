@@ -10,7 +10,7 @@ import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export function FollowPageLayout({
     children,

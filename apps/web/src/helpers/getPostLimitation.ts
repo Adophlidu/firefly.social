@@ -1,5 +1,5 @@
 import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
-import { type SocialSource } from '@/constants/enum.js';
+import type { SocialSource } from '@/constants/enum.js';
 import {
     MAX_DURATION_PER_VIDEO,
     MAX_FILE_SIZE_PER_GIF,

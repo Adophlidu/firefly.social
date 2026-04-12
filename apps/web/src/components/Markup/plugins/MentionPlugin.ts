@@ -1,5 +1,5 @@
 import { resolveValue, safeUnreachable } from '@dimensiondev/utils';
-import { type Link, type Node as MdastNode, type Root, type Text } from 'mdast';
+import type { Link, Node as MdastNode, Root, Text } from 'mdast';
 import flatMap from 'unist-util-flatmap';
 
 import { type SocialSource, Source } from '@/constants/enum.js';

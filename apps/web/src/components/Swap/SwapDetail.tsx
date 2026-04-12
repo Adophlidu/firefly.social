@@ -9,7 +9,7 @@ import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { first } from 'lodash-es';
 import { memo } from 'react';
-import { type Address } from 'viem';
+import type { Address } from 'viem';
 
 import { AddressLink, TxLink } from '@/app/[locale]/(normal)/tx/[chain_id]/[hash]/components/TxLink.js';
 import { Avatar } from '@/components/Avatar.js';

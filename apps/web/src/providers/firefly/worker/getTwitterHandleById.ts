@@ -5,8 +5,8 @@ import { Source } from '@/constants/enum.js';
 import { FIREFLY_WORKER_HOST } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { isNumericalProfileId } from '@/helpers/isNumericalProfileId.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
-import { type ResponseJson } from '@/types/utility.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
+import type { ResponseJson } from '@/types/utility.js';
 
 type GetTwitterHandleByIdResponse = ResponseJson<{
     username: string;

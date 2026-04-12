@@ -1,5 +1,5 @@
 import { runInSafeAsync } from '@dimensiondev/utils';
-import { type Address } from 'viem';
+import type { Address } from 'viem';
 import { getEnsAvatar, getEnsName } from 'wagmi/actions';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
@@ -7,7 +7,7 @@ import { FireflyPlatform } from '@/constants/enum.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { trimify } from '@/helpers/trimify.js';
-import { type Profile as FireflyProfile } from '@/providers/types/Firefly.js';
+import type { Profile as FireflyProfile } from '@/providers/types/Firefly.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 export async function searchWalletAddress(address: string): Promise<FireflyProfile | undefined> {

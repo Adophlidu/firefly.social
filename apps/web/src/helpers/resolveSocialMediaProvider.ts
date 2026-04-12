@@ -5,7 +5,7 @@ import { type SocialSource, Source } from '@/constants/enum.js';
 import { bskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { farcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { lensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
-import { type OfficialSocialMedia } from '@/providers/twitter/OfficialSocialMedia.js';
+import type { OfficialSocialMedia } from '@/providers/twitter/OfficialSocialMedia.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import { nitterSocialMediaProxy, twitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 

@@ -7,8 +7,8 @@ import { farcasterPostIdToHash } from '@/providers/farcaster/farcasterPostIdToHa
 import { getAllMentionsForFarcaster } from '@/providers/farcaster/getAllMentionsForFarcaster.js';
 import { publishMessage } from '@/providers/firefly/farcaster-hub/publishMessage.js';
 import { encodeMessageData } from '@/providers/neynar/encodeMessageData.js';
-import { type CastResponse } from '@/providers/types/Neynar.js';
-import { type Notification, type Post } from '@/providers/types/SocialMedia.js';
+import type { CastResponse } from '@/providers/types/Neynar.js';
+import type { Notification, Post } from '@/providers/types/SocialMedia.js';
 
 export async function quotePost(postId: string, post: Post, authorId?: number): Promise<{ postId: string }> {
     const result = await getAllMentionsForFarcaster(post.metadata.content?.content ?? '');

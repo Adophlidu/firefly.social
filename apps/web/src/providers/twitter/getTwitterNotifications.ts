@@ -5,9 +5,9 @@ import { fetchJson } from '@/helpers/fetchJson.js';
 import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@/helpers/pageable.js';
 import { formatNotificationsFromWebhook } from '@/providers/twitter/formatNotificationsFromWebhook.js';
 import { resolveTwitterResponseData } from '@/providers/twitter/resolveTwitterResponseData.js';
-import { type Notification } from '@/providers/types/SocialMedia.js';
-import { type MessagesResponse } from '@/providers/types/WebhookReceiver.js';
-import { type ResponseJson } from '@/types/utility.js';
+import type { Notification } from '@/providers/types/SocialMedia.js';
+import type { MessagesResponse } from '@/providers/types/WebhookReceiver.js';
+import type { ResponseJson } from '@/types/utility.js';
 
 interface Options {
     profileId: string;

@@ -1,7 +1,7 @@
 'use client';
 
 import { classNames } from '@dimensiondev/utils';
-import { type LinkProps } from 'next/link.js';
+import type { LinkProps } from 'next/link.js';
 import { memo } from 'react';
 
 import { Link } from '@/components/Link.js';

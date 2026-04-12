@@ -3,7 +3,7 @@
 import { IS_PREVIEW } from '@dimensiondev/constants';
 import { compose } from '@dimensiondev/utils';
 import { toArray } from 'lodash-es';
-import { type NextRequest } from 'next/server.js';
+import type { NextRequest } from 'next/server.js';
 import { z } from 'zod';
 
 import { Locale } from '@/constants/enum.js';

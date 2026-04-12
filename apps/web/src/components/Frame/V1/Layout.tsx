@@ -27,7 +27,7 @@ import { ConfirmLeavingModalRef } from '@/modals/ConfirmLeavingModal/refs.js';
 import { LensFrameProvider } from '@/providers/lens/Frame.js';
 import { NeynarFrameProvider } from '@/providers/neynar/Frame.js';
 import { captureFrameActionEvent } from '@/providers/telemetry/captureFrameActionEvent.js';
-import { type Additional } from '@/providers/types/Frame.js';
+import type { Additional } from '@/providers/types/Frame.js';
 import { type Post, SessionType } from '@/providers/types/SocialMedia.js';
 import { getFrameMintTransaction } from '@/services/getFrameMintTransaction.js';
 import {
@@ -38,7 +38,7 @@ import {
     MethodType,
     type RedirectUrlResponse,
 } from '@/types/frame.js';
-import { type ResponseJson } from '@/types/utility.js';
+import type { ResponseJson } from '@/types/utility.js';
 
 const TransactionSchema = z.object({
     // a CAIP-2 chain ID to identify the tx network

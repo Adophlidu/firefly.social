@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
-import { type EventId } from '@/providers/types/Telemetry.js';
+import type { EventId } from '@/providers/types/Telemetry.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
 // Events that can be sent from wallet iframe

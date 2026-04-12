@@ -1,5 +1,5 @@
 import urlcat from 'urlcat';
-import { type Address } from 'viem';
+import type { Address } from 'viem';
 
 import { NetworkType, SourceInURL } from '@/constants/enum.js';
 import {
@@ -11,7 +11,7 @@ import {
 } from '@/helpers/pageable.js';
 import { getWalletProfileByAddressOrEns } from '@/providers/firefly/endpoint/getWalletProfileByAddressOrEns.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { type BlockedUsersResponse, type WalletProfile } from '@/providers/types/Firefly.js';
+import type { BlockedUsersResponse, WalletProfile } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 export async function getBlockedWallets(indicator?: PageIndicator): Promise<Pageable<WalletProfile, PageIndicator>> {

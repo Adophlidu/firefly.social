@@ -1,5 +1,5 @@
 import { bom, parseJson } from '@dimensiondev/utils';
-import { type z } from 'zod';
+import type { z } from 'zod';
 
 import { type ProfileSource, Source } from '@/constants/enum.js';
 import { resolveProfileStorageKey } from '@/helpers/resolveProfileStorageKey.js';

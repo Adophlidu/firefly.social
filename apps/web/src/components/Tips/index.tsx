@@ -5,7 +5,7 @@ import { envs, STATUS } from '@dimensiondev/envs';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
-import { type HTMLProps } from 'react';
+import type { HTMLProps } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import { ClickableArea } from '@/components/ClickableArea.js';
@@ -22,8 +22,8 @@ import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { TipsModalRef } from '@/modals/TipsModal/refs.js';
 import { getAllPlatformProfileFromFirefly } from '@/providers/firefly/endpoint/getAllPlatformProfileFromFirefly.js';
-import { type FireflyIdentity } from '@/providers/types/Firefly.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { FireflyIdentity } from '@/providers/types/Firefly.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface TipsProps extends HTMLProps<HTMLButtonElement> {
     identity: FireflyIdentity;

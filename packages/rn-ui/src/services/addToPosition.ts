@@ -1,5 +1,5 @@
-import { type FetchAddToPositionSheet, type SubmitAddToPosition } from '@/types/services';
-import { type AddToPositionSheetData } from '@/types/ui';
+import type { FetchAddToPositionSheet, SubmitAddToPosition } from '@/types/services';
+import type { AddToPositionSheetData } from '@/types/ui';
 
 const delay = async (ms: number) => {
     await new Promise((resolve) => {

@@ -6,7 +6,7 @@ import { ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 import { getBlockedProfiles } from '@/services/getBlockedProfiles.js';
 
 interface MutedProfilesProps {

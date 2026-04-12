@@ -1,7 +1,7 @@
 import CheckIcon from '@dimensiondev/assets/check.svg';
 import CopyIcon from '@dimensiondev/assets/copy-2.svg';
 import QrCodeIcon from '@dimensiondev/assets/qrcode.svg';
-import { type HTMLProps, type ReactNode } from 'react';
+import type { HTMLProps, ReactNode } from 'react';
 
 import { ChainIcon } from '@/components/ChainIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';

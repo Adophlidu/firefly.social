@@ -1,4 +1,4 @@
-import { type SessionClient } from '@lens-protocol/client';
+import type { SessionClient } from '@lens-protocol/client';
 import { addAccountManager } from '@lens-protocol/client/actions';
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
@@ -11,7 +11,7 @@ import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { handleOperationWithLensChain } from '@/providers/lens/handleOperationWithLensChain.js';
 import { lensSessionClientHolder } from '@/providers/lens/LensSessionClientHolder.js';
 import { captureLensBindManagerEvent } from '@/providers/telemetry/captureLensEvent.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface Props {
     manager: string;

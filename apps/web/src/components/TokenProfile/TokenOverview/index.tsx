@@ -23,7 +23,7 @@ import { getChainInfo } from '@/helpers/getChainInfo.js';
 import { isValidAddress, isValidTokenAddressSui } from '@/helpers/isValidAddress.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
 import { useDetectToken } from '@/hooks/useDetectToken.js';
-import { type Contract } from '@/providers/types/Trending.js';
+import type { Contract } from '@/providers/types/Trending.js';
 
 export interface TokenOverviewProps extends HTMLProps<HTMLDivElement> {
     coinId: string | null | undefined;

@@ -1,7 +1,7 @@
 'use client';
 
 import { classNames } from '@dimensiondev/utils';
-import { type HTMLProps } from 'react';
+import type { HTMLProps } from 'react';
 
 export function ActivityCellAction({ children, className }: HTMLProps<'div'>) {
     return (

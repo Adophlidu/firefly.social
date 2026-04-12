@@ -9,7 +9,7 @@ import {
     type MarketPriceChangeData,
     MarketsWebSocketProvider,
 } from '@/providers/prediction/polymarket/MarketsWebSocketProvider.js';
-import { type BetsMarketDataForUI } from '@/types/prediction.js';
+import type { BetsMarketDataForUI } from '@/types/prediction.js';
 
 interface PredictionContextProviderProps {
     platform: PredictionPlatform;

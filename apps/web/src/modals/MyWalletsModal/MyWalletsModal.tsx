@@ -5,7 +5,7 @@ import { Modal } from '@/components/Modal.js';
 import { appkit } from '@/configs/appkit.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { ConnectedWallets } from '@/modals/MyWalletsModal/ConnectedWallets.js';
-import { type MyWalletsModalRefType } from '@/modals/MyWalletsModal/refs.js';
+import type { MyWalletsModalRefType } from '@/modals/MyWalletsModal/refs.js';
 
 interface Props {
     ref: Ref<MyWalletsModalRefType>;

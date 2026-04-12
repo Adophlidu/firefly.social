@@ -1,4 +1,4 @@
-import { type Metadata } from 'next';
+import type { Metadata } from 'next';
 import urlcat from 'urlcat';
 
 import { FileMimeType } from '@/constants/enum.js';

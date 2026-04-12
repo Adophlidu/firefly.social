@@ -5,7 +5,7 @@ import { createContext, type CSSProperties, useContext, useLayoutEffect, useMemo
 
 import { AvatarRadius, SafePadding } from '@/components/PriceChart/config.js';
 import { TraderAvatar } from '@/components/PriceChart/TraderAvatar.js';
-import { type PriceRecord, type TradeRecord } from '@/types/token.js';
+import type { PriceRecord, TradeRecord } from '@/types/token.js';
 
 export interface TooltipState {
     x: number;

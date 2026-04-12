@@ -2,13 +2,13 @@ import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-b
 import { t } from '@lingui/core/macro';
 import { toast } from 'sonner';
 
-import { type EthereumChainId } from '@/constants/ethereum.js';
+import type { EthereumChainId } from '@/constants/ethereum.js';
 import { SolanaChainId } from '@/constants/solana.js';
 import { getBlockExplorersURL } from '@/helpers/getBlockExplorersURL.js';
-import { type SwapAnalyticsParams } from '@/helpers/swap/buildSwapAnalyticsParams.js';
+import type { SwapAnalyticsParams } from '@/helpers/swap/buildSwapAnalyticsParams.js';
 import { captureWalletTelemetryEvent, WalletTelemetryEventId } from '@/helpers/swap/swapAnalytics.js';
 import { uploadSwapTx } from '@/helpers/swap/uploadSwapTx.js';
-import { type SwapEndpoint } from '@/providers/swap/swapEndpoint.js';
+import type { SwapEndpoint } from '@/providers/swap/swapEndpoint.js';
 
 export interface HandleSwapSuccessParams {
     hash: string;

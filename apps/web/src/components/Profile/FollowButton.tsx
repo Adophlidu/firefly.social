@@ -9,14 +9,14 @@ import { memo, useCallback, useState } from 'react';
 
 import { ToggleMutedProfileButton } from '@/components/Actions/ToggleMutedProfileButton.js';
 import { TwitterFollowButton } from '@/components/Actions/TwitterFollowButton.js';
-import { type ClickableButtonProps } from '@/components/ClickableButton.js';
+import type { ClickableButtonProps } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ToggleFollowButton } from '@/components/Profile/ToggleFollowButton.js';
 import { Source } from '@/constants/enum.js';
 import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useWatchProfileFollowStatus } from '@/hooks/useWatchProfileFollowStatus.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
 enum State {
     Follow = 'Follow',

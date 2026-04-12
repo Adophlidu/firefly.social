@@ -6,7 +6,7 @@ import { AsyncStatus, Source } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { createSelectors } from '@/helpers/createSelector.js';
-import { type FireflySession } from '@/providers/firefly/Session.js';
+import type { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { createProfileState, customSelectors } from '@/store/useProfileStore/createProfileState.js';
 

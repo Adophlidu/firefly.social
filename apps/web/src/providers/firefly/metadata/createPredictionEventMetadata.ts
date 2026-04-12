@@ -1,7 +1,7 @@
-import { type Metadata } from 'next';
+import type { Metadata } from 'next';
 import urlcat from 'urlcat';
 
-import { type PredictionPlatform } from '@/constants/enum.js';
+import type { PredictionPlatform } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/static.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';

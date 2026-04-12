@@ -5,12 +5,12 @@ import urlcat from 'urlcat';
 
 import { RedPacketCover } from '@/components/RedPacket/Cover.js';
 import { RedPacketPayload } from '@/components/RedPacket/Payload.js';
-import { type Locale } from '@/constants/enum.js';
+import type { Locale } from '@/constants/enum.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { loadTwemojiUrls } from '@/helpers/loadTwemojiUrls.js';
 import { removeVS16s } from '@/helpers/removeVS16s.js';
 import { logger } from '@/libs/Logger.js';
-import { type FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
+import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 import { getSatoriFonts } from '@/services/getSatoriFonts.js';
 import { settings } from '@/settings/index.js';
 import { type TokenType, UsageType } from '@/types/rp.js';

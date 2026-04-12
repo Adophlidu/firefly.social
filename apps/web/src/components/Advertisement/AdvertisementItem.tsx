@@ -7,7 +7,7 @@ import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
 import { AdFunctionType, AdvertisementType } from '@/constants/enum.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
-import { type Advertisement } from '@/types/advertisement.js';
+import type { Advertisement } from '@/types/advertisement.js';
 
 export function AdvertisementItem({ ad }: { ad: Advertisement }) {
     return ad.type === AdvertisementType.Link && ad.link ? (

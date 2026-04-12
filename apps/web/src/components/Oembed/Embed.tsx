@@ -5,7 +5,7 @@ import { Link } from '@/components/Link.js';
 import { PureLink } from '@/components/Posts/PureLink.js';
 import { isSelfReference } from '@/helpers/isLinkMatchingHost.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
-import { type OpenGraph } from '@/types/og.js';
+import type { OpenGraph } from '@/types/og.js';
 
 interface EmbedProps {
     og: OpenGraph;

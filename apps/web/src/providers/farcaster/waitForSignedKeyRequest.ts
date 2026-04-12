@@ -4,7 +4,7 @@ import urlcat from 'urlcat';
 import { WARPCAST_ROOT_URL_V2 } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { logger } from '@/libs/Logger.js';
-import { type SignedKeyRequestResponse } from '@/providers/types/Warpcast.js';
+import type { SignedKeyRequestResponse } from '@/providers/types/Warpcast.js';
 
 /**
  * Waits for a signed key request to reach a specified state.

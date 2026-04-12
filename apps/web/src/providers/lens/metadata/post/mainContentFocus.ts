@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { type PostMainFocus } from '@/providers/lens/metadata/post/Base.js';
+import type { PostMainFocus } from '@/providers/lens/metadata/post/Base.js';
 
 export function mainContentFocus<T extends PostMainFocus>(focus: T): z.ZodLiteral<T>;
 export function mainContentFocus<T extends PostMainFocus, O extends PostMainFocus>(

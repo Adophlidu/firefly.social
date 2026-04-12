@@ -36,7 +36,7 @@ import { ComposeModalRef } from '@/modals/ComposeModal/refs.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
 import { createTxReaction } from '@/providers/firefly/endpoint/createTxReaction.js';
 import { getSwapActivityByHash } from '@/providers/firefly/endpoint/getSwapActivityByHash.js';
-import { type SwapActivity } from '@/providers/types/Firefly.js';
+import type { SwapActivity } from '@/providers/types/Firefly.js';
 
 interface SwapActionsProps {
     activity: SwapActivity;

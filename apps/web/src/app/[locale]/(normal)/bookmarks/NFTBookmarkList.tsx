@@ -4,7 +4,7 @@ import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
-import { type GridItemProps, type GridListProps } from 'react-virtuoso';
+import type { GridItemProps, GridListProps } from 'react-virtuoso';
 
 import { ChainIcon } from '@/components/ChainIcon.js';
 import { GridListInPage } from '@/components/GridListInPage.js';
@@ -20,7 +20,7 @@ import { resolveNFTImageUrl } from '@/helpers/resolveNFTImageUrl.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
 import { getNFTBookmarks } from '@/providers/firefly/endpoint/getNFTBookmarks.js';
-import { type NFTDetail } from '@/providers/types/Firefly.js';
+import type { NFTDetail } from '@/providers/types/Firefly.js';
 
 function getNFTItemContent(id: string, nft: NFTDetail) {
     const chainId = nft.chain_id;

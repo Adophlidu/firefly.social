@@ -1,7 +1,7 @@
 import urlcat from 'urlcat';
 
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { type BlockChannelResponse } from '@/providers/types/Firefly.js';
+import type { BlockChannelResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 export async function unblockChannel(channelId: string): Promise<boolean> {

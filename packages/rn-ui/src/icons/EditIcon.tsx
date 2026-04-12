@@ -1,6 +1,6 @@
 import { Path, Svg } from 'react-native-svg';
 
-import { type SvgIconProps } from '@/types/ui';
+import type { SvgIconProps } from '@/types/ui';
 
 export function EditIcon({ stroke = '#222222', ...props }: SvgIconProps) {
     return (

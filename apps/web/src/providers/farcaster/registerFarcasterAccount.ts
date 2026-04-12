@@ -3,10 +3,10 @@ import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';
 import { parseFarcasterBioContext } from '@/providers/farcaster/formatFarcasterProfileFromFirefly.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { type Account } from '@/providers/types/Account.js';
-import { type Profile, type ProfileForSignup } from '@/providers/types/SocialMedia.js';
+import type { Account } from '@/providers/types/Account.js';
+import type { Profile, ProfileForSignup } from '@/providers/types/SocialMedia.js';
 import { createFarcasterSessionBySigner } from '@/providers/warpcast/createAccountByWallet.js';
-import { type ResponseJson } from '@/types/utility.js';
+import type { ResponseJson } from '@/types/utility.js';
 
 interface FarcasterSignerInfo {
     accessToken: string;

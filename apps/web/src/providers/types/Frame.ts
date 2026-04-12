@@ -1,4 +1,4 @@
-import { type Index } from '@/types/frame.js';
+import type { Index } from '@/types/frame.js';
 
 export interface Additional {
     // for initial frame should not provide state

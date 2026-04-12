@@ -1,6 +1,6 @@
 import { BigNumber } from 'bignumber.js';
 import { useEffect } from 'react';
-import { type FieldValues, type Path, type PathValue, type UseFormReturn } from 'react-hook-form';
+import type { FieldValues, Path, PathValue, UseFormReturn } from 'react-hook-form';
 
 import { getLimitPriceCentsInputConfig } from '@/helpers/getLimitPriceCentsInputConfig.js';
 import { normalizeBetInput } from '@/helpers/normalizeBetInput.js';

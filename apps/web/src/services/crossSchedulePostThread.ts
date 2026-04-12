@@ -14,7 +14,7 @@ import {
     MessageKey,
 } from '@/helpers/enqueueMessage.js';
 import { getPostMediaTypes } from '@/helpers/getPostMediaTypes.js';
-import { type SchedulePayload } from '@/helpers/resolveCreateSchedulePostPayload.js';
+import type { SchedulePayload } from '@/helpers/resolveCreateSchedulePostPayload.js';
 import { schedulePost } from '@/providers/firefly/post/schedulePost.js';
 import { captureComposeSchedulePostEvent } from '@/providers/telemetry/captureComposeEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';

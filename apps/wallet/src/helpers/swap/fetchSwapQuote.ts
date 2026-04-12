@@ -1,4 +1,4 @@
-import { type SwapEndpoint } from '@/providers/swap/swapEndpoint.js';
+import type { SwapEndpoint } from '@/providers/swap/swapEndpoint.js';
 
 export interface QuoteTxResult {
     tx: {

@@ -11,7 +11,7 @@ import { bskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { farcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { lensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { twitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
-import { type Profile, type ProfileEditable, type ProfileLike } from '@/providers/types/SocialMedia.js';
+import type { Profile, ProfileEditable, ProfileLike } from '@/providers/types/SocialMedia.js';
 import { useBskyProfileStore } from '@/store/useProfileStore/useBskyProfileStore.js';
 import { useFarcasterProfileStore } from '@/store/useProfileStore/useFarcasterProfileStore.js';
 import { useLensProfileStore } from '@/store/useProfileStore/useLensProfileStore.js';

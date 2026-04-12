@@ -1,5 +1,5 @@
-import { type FetchAccountAmountSheet, type SubmitAccountAmountAction } from '@/types/services';
-import { type AccountAmountSheetData } from '@/types/ui';
+import type { FetchAccountAmountSheet, SubmitAccountAmountAction } from '@/types/services';
+import type { AccountAmountSheetData } from '@/types/ui';
 
 const delay = async (ms: number) => {
     await new Promise((resolve) => {

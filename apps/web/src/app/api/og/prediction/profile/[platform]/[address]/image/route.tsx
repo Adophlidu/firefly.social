@@ -1,11 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 
-import { type NextRequestContext } from '@dimensiondev/types';
+import type { NextRequestContext } from '@dimensiondev/types';
 import { compose } from '@dimensiondev/utils';
 import { first } from 'lodash-es';
 import { ImageResponse } from 'next/og.js';
-import { type NextRequest } from 'next/server.js';
-import { type HTMLProps } from 'react';
+import type { NextRequest } from 'next/server.js';
+import type { HTMLProps } from 'react';
 import { z } from 'zod';
 
 import { extractFallbackInfo } from '@/components/Prediction/extractFallbackInfo.js';
@@ -22,7 +22,7 @@ import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { fetchPredictionProfile } from '@/providers/firefly/prediction/fetchPredictionProfile.js';
 import { getWalletProfileInfoList } from '@/providers/firefly/prediction/getWalletProfileInfoList.js';
 import { getSatoriFonts } from '@/services/getSatoriFonts.js';
-import { type PredictionProfileDataForUI } from '@/types/prediction.js';
+import type { PredictionProfileDataForUI } from '@/types/prediction.js';
 
 const predictionDefaultOgImage = getPublicUrl('/image/og.png');
 const bgImageUrl = getPublicUrl('/svg/prediction-profile-background.svg');

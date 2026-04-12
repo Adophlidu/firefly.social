@@ -6,8 +6,8 @@ import { signOut } from 'next-auth/react';
 import { HIDDEN_SECRET } from '@/constants/static.js';
 import { encodeAsciiPayload } from '@/helpers/encodeSessionPayload.js';
 import { BaseSession } from '@/providers/base/Session.js';
-import { type SessionPayload } from '@/providers/twitter/SessionPayload.js';
-import { type Session } from '@/providers/types/Session.js';
+import type { SessionPayload } from '@/providers/twitter/SessionPayload.js';
+import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 
 export class TwitterSession extends BaseSession implements Session {

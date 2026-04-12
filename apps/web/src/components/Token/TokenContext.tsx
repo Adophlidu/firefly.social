@@ -4,7 +4,7 @@ import { EMPTY_LIST } from '@dimensiondev/constants';
 import { noop } from 'lodash-es';
 import { createContext, type Dispatch, type PropsWithChildren, type SetStateAction, useMemo, useState } from 'react';
 
-import { type TradeRecord } from '@/types/token.js';
+import type { TradeRecord } from '@/types/token.js';
 
 interface TokenContextProps {
     tradeRecords: TradeRecord[];

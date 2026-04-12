@@ -1,6 +1,6 @@
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
-import { type FireflyIdentity, type FireflyProfile } from '@/providers/types/Firefly.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { FireflyIdentity, FireflyProfile } from '@/providers/types/Firefly.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 export interface TipsModalOpenProps {
     identity: FireflyIdentity;

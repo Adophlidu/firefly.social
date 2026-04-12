@@ -2,7 +2,7 @@ import ButtonBg from '@dimensiondev/assets/button-bg.svg';
 import { classNames } from '@dimensiondev/utils';
 import { motion } from 'framer-motion';
 
-import { type ClickableButtonProps } from '@/components/ClickableButton.js';
+import type { ClickableButtonProps } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 
 interface SquareButtonProps extends ClickableButtonProps {

@@ -1,6 +1,6 @@
 'use client';
 
-import { type LayoutProps } from '@dimensiondev/types';
+import type { LayoutProps } from '@dimensiondev/types';
 import { Trans } from '@lingui/react/macro';
 
 import { Comeback } from '@/components/Comeback.js';

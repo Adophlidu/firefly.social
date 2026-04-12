@@ -1,8 +1,8 @@
 import { EMPTY_OBJECT } from '@dimensiondev/constants';
-import { type UseSuspenseInfiniteQueryResult } from '@tanstack/react-query';
+import type { UseSuspenseInfiniteQueryResult } from '@tanstack/react-query';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useWindowSize } from 'react-use';
-import { type GridComponents } from 'react-virtuoso';
+import type { GridComponents } from 'react-virtuoso';
 
 import { NoResultsFallback, type NoResultsFallbackProps } from '@/components/NoResultsFallback.js';
 import { VirtualGridList, type VirtualGridListProps } from '@/components/VirtualList/VirtualGridList.js';

@@ -9,7 +9,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';
 import { getTakoExternalHostedData } from '@/providers/firefly/farcaster-hub/getTakoExternalHostedData.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface Props extends HTMLProps<HTMLSpanElement> {
     post: Post;

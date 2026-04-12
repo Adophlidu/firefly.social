@@ -1,4 +1,4 @@
-import { type LayoutProps } from '@dimensiondev/types';
+import type { LayoutProps } from '@dimensiondev/types';
 import { msg } from '@lingui/core/macro';
 
 import { ExploreSourceNav } from '@/components/SourceNav/ExploreSourceNav.js';

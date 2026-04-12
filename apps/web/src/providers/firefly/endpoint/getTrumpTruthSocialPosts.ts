@@ -9,8 +9,8 @@ import {
     type PageIndicator,
 } from '@/helpers/pageable.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { type TrumpTruthSocialPostsResponse } from '@/providers/types/Firefly.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { TrumpTruthSocialPostsResponse } from '@/providers/types/Firefly.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
 
 export async function getTrumpTruthSocialPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {

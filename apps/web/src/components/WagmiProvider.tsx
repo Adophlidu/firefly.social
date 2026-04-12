@@ -1,6 +1,6 @@
 'use client';
 
-import { type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { WagmiProvider as WagmiProviderSDK } from 'wagmi';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';

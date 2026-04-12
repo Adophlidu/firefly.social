@@ -1,11 +1,11 @@
 import { type Draft, isDraft, original, produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { type Source } from '@/constants/enum.js';
-import { type Pageable } from '@/helpers/pageable.js';
+import type { Source } from '@/constants/enum.js';
+import type { Pageable } from '@/helpers/pageable.js';
 import { patchNotificationQueryDataOnPost } from '@/helpers/patchNotificationQueryData.js';
 import { updateQueryForPosts } from '@/helpers/updateQueryForPosts.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 type Patcher = (old: Draft<Post>) => void;
 type MatcherFn = (post: Draft<Post> | null | undefined) => boolean;

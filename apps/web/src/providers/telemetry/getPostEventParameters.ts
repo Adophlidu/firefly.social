@@ -6,7 +6,7 @@ import {
     getProfileEventParameters,
     getSelfProfileEventParameters,
 } from '@/providers/telemetry/getProfileEventParameters.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 import {
     EventId,
     type FarcasterEventParameters,
@@ -16,7 +16,7 @@ import {
     type TwitterEventParameters,
     type TwitterPostEventParameters,
 } from '@/providers/types/Telemetry.js';
-import { type ComposeType, type CompositePost } from '@/types/compose.js';
+import type { ComposeType, CompositePost } from '@/types/compose.js';
 
 const resolveComposeEventId = createLookupTableResolver<SocialSource, EventId>(
     {

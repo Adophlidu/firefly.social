@@ -11,7 +11,7 @@ import { LENS_PRO_GROUP_ID } from '@/constants/lens.js';
 import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
 import { formatLensProfileV3 } from '@/providers/lens/formatLensProfile.js';
 import { getLensClient } from '@/providers/lens/getLensClient.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
 async function getAccountWithStats(
     accountRequest: AccountRequest,

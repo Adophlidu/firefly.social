@@ -1,5 +1,5 @@
 import { classNames } from '@dimensiondev/utils';
-import { type HTMLProps } from 'react';
+import type { HTMLProps } from 'react';
 import { type FieldPath, type FieldValues, type RegisterOptions, useFormContext, useFormState } from 'react-hook-form';
 
 function inputClassName({

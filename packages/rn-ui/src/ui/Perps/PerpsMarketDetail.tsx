@@ -8,8 +8,8 @@ import { PerpsTickerSummary } from '@/components/PerpsTickerSummary';
 import { PerpsTradeActionBar } from '@/components/PerpsTradeActionBar';
 import { loadPerpsDetailPage } from '@/services/perpsDetail';
 import { PerpsDetailSkeleton } from '@/skeletons/PerpsDetailSkeleton';
-import { type FetchPerpsDetailPage } from '@/types/services';
-import { type PerpsDetailPageData } from '@/types/ui';
+import type { FetchPerpsDetailPage } from '@/types/services';
+import type { PerpsDetailPageData } from '@/types/ui';
 
 export interface PerpsMarketDetailProps {
     market?: string;

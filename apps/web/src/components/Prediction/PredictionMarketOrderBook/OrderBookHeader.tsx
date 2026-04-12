@@ -11,7 +11,7 @@ import { memo, useCallback } from 'react';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { IconButton } from '@/components/IconButton.js';
 import { SPREAD_SETTING_OPTIONS } from '@/constants/bets.js';
-import { type BetsMarketDataForUI, type MarketOrderBookSpread } from '@/types/prediction.js';
+import type { BetsMarketDataForUI, MarketOrderBookSpread } from '@/types/prediction.js';
 
 interface OrderBookHeaderProps {
     outcomeId: string;

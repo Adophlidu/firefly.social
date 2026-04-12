@@ -1,10 +1,10 @@
 import urlcat from 'urlcat';
 
-import { type SocialSourceInURL } from '@/constants/enum.js';
-import { type PageIndicator } from '@/helpers/pageable.js';
+import type { SocialSourceInURL } from '@/constants/enum.js';
+import type { PageIndicator } from '@/helpers/pageable.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { type BlockedUsersResponse } from '@/providers/types/Firefly.js';
+import type { BlockedUsersResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 export async function getBlockedRelations(indicator?: PageIndicator, source?: SocialSourceInURL) {

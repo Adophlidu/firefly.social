@@ -12,8 +12,8 @@ import { sharePostAfterClaimed } from '@/helpers/sharePostAfterClaimed.js';
 import { usePrivyAppkitAccountByNetwork } from '@/hooks/appkit/usePrivyAppkitAccountByNetwork.js';
 import { getCurrentClaimProfile } from '@/providers/ethereum/getCurrentClaimProfile.js';
 import { finishClaiming } from '@/providers/firefly/red-packet/finishClaiming.js';
-import { type RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 export function useVerifyAndClaim(payload: RedPacketJSONPayload, source: SocialSource, post: Post) {
     const networkType = getNetworkTypeFromRpPayload(payload);

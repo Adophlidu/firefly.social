@@ -4,7 +4,7 @@ import urlcat from 'urlcat';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
-import { type ActivityListResponse } from '@/providers/types/Firefly.js';
+import type { ActivityListResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 export async function getFireflyActivityList({ indicator, size }: { indicator?: PageIndicator; size?: number } = {}) {

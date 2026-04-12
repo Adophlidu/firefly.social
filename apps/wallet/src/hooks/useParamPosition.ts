@@ -1,7 +1,7 @@
 import { parseJson } from '@dimensiondev/utils';
 import { createParser, parseAsStringEnum, useQueryState } from 'nuqs';
 
-import { type PolymarketPosition } from '@/providers/types/Firefly.js';
+import type { PolymarketPosition } from '@/providers/types/Firefly.js';
 
 const PositionAction = {
     CLAIM_PROCEEDS: 'claim-proceeds',

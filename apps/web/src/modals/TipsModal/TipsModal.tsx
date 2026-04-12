@@ -9,13 +9,8 @@ import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { getEnsNameFromWalletProfile } from '@/helpers/getEnsNameFromWalletProfile.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import { type TipsModalRefType } from '@/modals/TipsModal/refs.js';
-import {
-    type FireflyProfile,
-    type FireflyTipsProfile,
-    type Profile,
-    type WalletProfile,
-} from '@/providers/types/Firefly.js';
+import type { TipsModalRefType } from '@/modals/TipsModal/refs.js';
+import type { FireflyProfile, FireflyTipsProfile, Profile, WalletProfile } from '@/providers/types/Firefly.js';
 import { useTipsStore } from '@/store/useTipsStore.js';
 
 function formatTipsProfiles(profiles: FireflyProfile[]) {

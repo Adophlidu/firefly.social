@@ -1,4 +1,4 @@
-import { type LayoutProps } from '@dimensiondev/types';
+import type { LayoutProps } from '@dimensiondev/types';
 
 import { PredictionProfileDetailContent } from '@/components/Prediction/PredictionProfileDetailContent.js';
 import { PredictionPlatform } from '@/constants/enum.js';

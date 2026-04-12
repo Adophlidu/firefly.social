@@ -1,11 +1,11 @@
 import LinkIcon from '@dimensiondev/assets/link-square.svg';
 import WalletIcon from '@dimensiondev/assets/wallet.fill.svg';
 import { omitBy } from 'lodash-es';
-import { type HTMLProps, type ReactNode } from 'react';
+import type { HTMLProps, ReactNode } from 'react';
 
 import { Image } from '@/components/Image.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-import { type SocialSource } from '@/constants/enum.js';
+import type { SocialSource } from '@/constants/enum.js';
 import { EthereumChainId } from '@/constants/ethereum.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { getBlockExplorersURL } from '@/helpers/getBlockExplorersURL.js';

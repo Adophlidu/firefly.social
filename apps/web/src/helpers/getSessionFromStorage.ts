@@ -4,12 +4,12 @@ import { type SocialSource, Source } from '@/constants/enum.js';
 import { resolveProfileStorageKeyBySessionType } from '@/helpers/resolveProfileStorageKey.js';
 import { logger } from '@/libs/Logger.js';
 import { SessionFactory } from '@/providers/base/SessionFactory.js';
-import { type BskySession } from '@/providers/bsky/Session.js';
-import { type FarcasterSession } from '@/providers/farcaster/Session.js';
-import { type FireflySession } from '@/providers/firefly/Session.js';
-import { type LensSession } from '@/providers/lens/Session.js';
-import { type ThirdPartySession } from '@/providers/third-party/Session.js';
-import { type TwitterSession } from '@/providers/twitter/Session.js';
+import type { BskySession } from '@/providers/bsky/Session.js';
+import type { FarcasterSession } from '@/providers/farcaster/Session.js';
+import type { FireflySession } from '@/providers/firefly/Session.js';
+import type { LensSession } from '@/providers/lens/Session.js';
+import type { ThirdPartySession } from '@/providers/third-party/Session.js';
+import type { TwitterSession } from '@/providers/twitter/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { ProfileStoreSchema } from '@/schemas/ProfileStore.js';
 

@@ -3,7 +3,7 @@ import urlcat from 'urlcat';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fixCollection } from '@/providers/firefly/endpoint/fixCollection.js';
-import { type CollectionResponse } from '@/providers/types/Firefly.js';
+import type { CollectionResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 export async function detectCollection(address: string) {

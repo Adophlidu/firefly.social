@@ -1,5 +1,5 @@
 import { classNames } from '@dimensiondev/utils';
-import { type HTMLProps, type ReactElement, type ReactNode } from 'react';
+import type { HTMLProps, ReactElement, ReactNode } from 'react';
 
 import { Link } from '@/components/Link.js';
 import { Tooltip } from '@/components/Tooltip.js';

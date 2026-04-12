@@ -12,7 +12,7 @@ import { ensureCursor } from '@/providers/lens/ensureCursor.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { formatLensProfileV3 } from '@/providers/lens/formatLensProfile.js';
 import { getLensClient } from '@/providers/lens/getLensClient.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export async function searchLensProfiles(
     q: string,

@@ -2,7 +2,7 @@ import { memo, useEffect, useState } from 'react';
 import { Path, Svg } from 'react-native-svg';
 import { Button, Sheet, Text, YStack } from 'tamagui';
 
-import { type OrderTypeSheetData, type PerpsTradeOrderType } from '@/types/ui';
+import type { OrderTypeSheetData, PerpsTradeOrderType } from '@/types/ui';
 
 interface OrderTypeSheetProps {
     open: boolean;

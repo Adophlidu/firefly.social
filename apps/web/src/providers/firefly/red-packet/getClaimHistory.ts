@@ -1,8 +1,8 @@
 import urlcat from 'urlcat';
 
 import { fetchJson } from '@/helpers/fetchJson.js';
-import { type PageIndicator } from '@/helpers/pageable.js';
-import { type FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
+import type { PageIndicator } from '@/helpers/pageable.js';
+import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 import { settings } from '@/settings/index.js';
 
 export async function getClaimHistory(

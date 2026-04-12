@@ -2,7 +2,7 @@ import { ChannelAtUri } from '@/providers/bsky/AtUri.js';
 import { formatBskyChannel } from '@/providers/bsky/formatBskyChannel.js';
 import { resolveBskyResponseData } from '@/providers/bsky/resolveBskyResponseData.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
-import { type Channel } from '@/providers/types/SocialMedia.js';
+import type { Channel } from '@/providers/types/SocialMedia.js';
 
 export async function getBskyChannelsByIds(ids: string[], signal?: AbortSignal): Promise<Channel[]> {
     const response = await bskySessionHolder.agent.app.bsky.feed.getFeedGenerators(

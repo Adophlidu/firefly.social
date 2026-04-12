@@ -1,7 +1,7 @@
 import { delay } from '@dimensiondev/utils';
 
 import { logger } from '@/lib/Logger.js';
-import { type SwapEndpoint } from '@/providers/swap/swapEndpoint.js';
+import type { SwapEndpoint } from '@/providers/swap/swapEndpoint.js';
 
 const UPLOAD_MAX_RETRIES = 3;
 const UPLOAD_RETRY_DELAY_MS = 3000;

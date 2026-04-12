@@ -8,7 +8,7 @@ import { formatAddress } from '@/helpers/formatAddress.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { resolvePlatformProfileUrl } from '@/helpers/resolvePlatformProfile.js';
-import { type FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
+import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 
 interface Props {
     address?: string;

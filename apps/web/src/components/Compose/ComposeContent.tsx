@@ -12,11 +12,11 @@ import { Quote } from '@/components/Posts/Quote.js';
 import { Reply } from '@/components/Posts/Reply.js';
 import { RemoveButton } from '@/components/RemoveButton.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
-import { type SocialSource } from '@/constants/enum.js';
+import type { SocialSource } from '@/constants/enum.js';
 import { resolveEmbedMediaType } from '@/helpers/resolveEmbedMediaType.js';
 import { sanitizeDStorageUrl } from '@/helpers/sanitizeDStorageUrl.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
-import { type CompositePost } from '@/types/compose.js';
+import type { CompositePost } from '@/types/compose.js';
 
 interface ComposeContentProps {
     post: CompositePost;

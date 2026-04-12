@@ -4,7 +4,7 @@ import {
     CoreConnectionControllerUtil,
     CoreConnectorController,
 } from '@reown/appkit';
-import { type Connection } from '@reown/appkit/react';
+import type { Connection } from '@reown/appkit/react';
 import { useEffect, useMemo, useState } from 'react';
 
 export interface AppKitSolanaWallet {

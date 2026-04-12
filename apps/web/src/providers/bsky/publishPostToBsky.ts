@@ -6,7 +6,7 @@ import { BskyEmbedType, RestrictionType } from '@/constants/enum.js';
 import { resolveBskyEmbed } from '@/providers/bsky/resolveBskyEmbed.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import { TID } from '@/providers/bsky/TID.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 function resolveRestriction(
     restrictions: RestrictionType[],

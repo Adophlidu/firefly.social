@@ -1,5 +1,5 @@
 import { classNames } from '@dimensiondev/utils';
-import { type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 import { Link } from '@/components/Link.js';
 

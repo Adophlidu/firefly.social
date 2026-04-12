@@ -5,7 +5,7 @@ import { getComposeEventParameters, type Options } from '@/providers/telemetry/g
 import { getPostEventId, getPostEventParameters } from '@/providers/telemetry/getPostEventParameters.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import { EventId } from '@/providers/types/Telemetry.js';
-import { type ComposeType, type CompositePost } from '@/types/compose.js';
+import type { ComposeType, CompositePost } from '@/types/compose.js';
 
 function getTimeParameters(date = new Date()) {
     const offset = new Date().getTimezoneOffset();

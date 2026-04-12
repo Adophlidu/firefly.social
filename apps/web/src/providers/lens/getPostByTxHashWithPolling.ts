@@ -4,7 +4,7 @@ import { fetchPost } from '@lens-protocol/client/actions';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { formatLensPostV3 } from '@/providers/lens/formatLensPost.js';
 import { getLensClient } from '@/providers/lens/getLensClient.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 async function getPostByTxHash(txHash: string): Promise<Post> {
     const result = await ensureLensResult(fetchPost(getLensClient(), { txHash }));

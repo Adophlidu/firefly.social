@@ -1,6 +1,6 @@
 import { safeUnreachable } from '@dimensiondev/utils';
 import bs58 from 'bs58';
-import { type Address } from 'viem';
+import type { Address } from 'viem';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { ClickOrigin, NetworkType } from '@/constants/enum.js';

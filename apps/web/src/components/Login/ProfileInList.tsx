@@ -8,7 +8,7 @@ import { ProfileAvatar, type ProfileAvatarProps } from '@/components/ProfileAvat
 import { ProfileName } from '@/components/ProfileName.js';
 import { Link } from '@/esm/Link.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface ProfileInListProps {
     selected?: boolean;

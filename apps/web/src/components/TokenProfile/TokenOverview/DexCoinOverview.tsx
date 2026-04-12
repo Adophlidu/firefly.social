@@ -22,7 +22,7 @@ import { formatMarketCap } from '@/helpers/formatMarketCap.js';
 import { formatDate } from '@/helpers/formatTimestamp.js';
 import { resolveAddressLink } from '@/helpers/resolveExplorer.js';
 import { getDexCoinDetail } from '@/providers/firefly/endpoint/getDexCoinDetail.js';
-import { type ClubUrl } from '@/providers/types/Trending.js';
+import type { ClubUrl } from '@/providers/types/Trending.js';
 
 interface DexCoinOverviewProps extends HTMLProps<HTMLDivElement> {
     chainId: number;

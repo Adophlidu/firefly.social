@@ -22,7 +22,7 @@ import { getStampAvatarByFireflyProfile } from '@/helpers/getStampAvatarByProfil
 import { isMPCWallet } from '@/helpers/isMPCWallet.js';
 import { getUserTotalBalance } from '@/providers/debank/getUserTotalBalance.js';
 import { getUserSolanaTotalValue } from '@/providers/okx/getUserSolanaTotalValue.js';
-import { type FireflyProfile, type WalletProfile } from '@/providers/types/Firefly.js';
+import type { FireflyProfile, WalletProfile } from '@/providers/types/Firefly.js';
 
 interface Props {
     profiles?: FireflyProfile[];

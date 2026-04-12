@@ -17,7 +17,7 @@ import { Source } from '@/constants/enum.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { twitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
-import { type ClubUrl } from '@/providers/types/Trending.js';
+import type { ClubUrl } from '@/providers/types/Trending.js';
 
 interface Props {
     link: ClubUrl;

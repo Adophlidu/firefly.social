@@ -3,7 +3,7 @@ import { bom, delay } from '@dimensiondev/utils';
 import { once } from 'lodash-es';
 
 import { IS_IOS } from '@/constants/browser.js';
-import { type Schemes } from '@/types/device.js';
+import type { Schemes } from '@/types/device.js';
 
 const eventIdSet = new Set<string>();
 

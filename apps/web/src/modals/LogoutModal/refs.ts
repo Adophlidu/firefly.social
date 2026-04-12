@@ -1,5 +1,5 @@
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
-import { type Account } from '@/providers/types/Account.js';
+import type { Account } from '@/providers/types/Account.js';
 
 export interface LogoutModalOpenProps {
     account?: Account;

@@ -3,7 +3,7 @@ import urlcat from 'urlcat';
 import { createNextIndicator, createPageable, type PageIndicator } from '@/helpers/pageable';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData';
 import { fireflySessionHolder } from '@/providers/fireflySessionHolder';
-import { type FireflyResponse } from '@/types/firefly';
+import type { FireflyResponse } from '@/types/firefly';
 
 interface Options {
     limit?: number;

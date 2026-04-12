@@ -1,7 +1,7 @@
 import { memo, useState } from 'react';
 import { Sheet } from 'tamagui';
 
-import { type PerpsMeta } from '@/types/ui';
+import type { PerpsMeta } from '@/types/ui';
 import { PerpsMarket } from '@/ui/Perps/PerpsMarket';
 
 interface PerpsTokenSelectSheetProps {

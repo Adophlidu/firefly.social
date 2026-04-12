@@ -8,7 +8,7 @@ import { useMount } from 'react-use';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { MAX_MARKETS_COUNT_SELECTABLE } from '@/constants/bets.js';
-import { type BetsMarketWithSettings } from '@/types/prediction.js';
+import type { BetsMarketWithSettings } from '@/types/prediction.js';
 
 interface MarketsSelectionPanelProps {
     markets: BetsMarketWithSettings[];

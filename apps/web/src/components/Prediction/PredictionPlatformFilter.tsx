@@ -7,7 +7,7 @@ import { memo } from 'react';
 import { PredictionPlatformName } from '@/components/Prediction/PredictionPlatformName.js';
 import { TypeFilter } from '@/components/TypeFilter/index.js';
 import { SORTED_BETS_PLATFORM } from '@/constants/computed.js';
-import { type PredictionPlatform } from '@/constants/enum.js';
+import type { PredictionPlatform } from '@/constants/enum.js';
 import {
     type PredictionFilterNamespace,
     usePredictionSourceFilterStore,

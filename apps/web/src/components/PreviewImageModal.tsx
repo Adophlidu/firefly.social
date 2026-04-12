@@ -12,11 +12,11 @@ import urlcat from 'urlcat';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { CloseButton } from '@/components/IconButton.js';
-import { type SocialSourceInURL } from '@/constants/enum.js';
+import type { SocialSourceInURL } from '@/constants/enum.js';
 import { useRouter } from '@/esm/navigation.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { PreviewContent } from '@/modals/PreviewMediaModal/PreviewContent.js';
-import { type Attachment } from '@/providers/types/SocialMedia.js';
+import type { Attachment } from '@/providers/types/SocialMedia.js';
 
 export function PreviewImageModal({
     assets,

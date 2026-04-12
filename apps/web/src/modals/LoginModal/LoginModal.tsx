@@ -9,7 +9,7 @@ import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { MainView } from '@/modals/LoginModal/MainView.js';
-import { type LoginModalOpenProps, type LoginModalRefType } from '@/modals/LoginModal/refs.js';
+import type { LoginModalOpenProps, LoginModalRefType } from '@/modals/LoginModal/refs.js';
 import { routeTree } from '@/modals/LoginModal/routes.js';
 
 interface LoginRouterOptions {

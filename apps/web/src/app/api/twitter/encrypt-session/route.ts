@@ -8,7 +8,7 @@ import { getSearchParamsWithZodSchema } from '@/helpers/getSearchParamsWithZodSc
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { createTwitterSessionAfterLogin } from '@/providers/twitter/createTwitterSessionPayload.js';
 import { withTwitterRequestErrorHandler } from '@/providers/twitter/withTwitterRequestErrorHandler.js';
-import { type TwitterMetricsData } from '@/providers/types/Firefly.js';
+import type { TwitterMetricsData } from '@/providers/types/Firefly.js';
 import { encryptAes256 } from '@/services/crypto.js';
 
 const ParamsSchema = z.object({

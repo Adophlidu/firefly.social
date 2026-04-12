@@ -4,11 +4,11 @@ import { type SocialSource, Source } from '@/constants/enum.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { type Profile, SessionType } from '@/providers/types/SocialMedia.js';
-import {
-    type BskyEventParameters,
-    type FarcasterEventParameters,
-    type LensEventParameters,
-    type TwitterEventParameters,
+import type {
+    BskyEventParameters,
+    FarcasterEventParameters,
+    LensEventParameters,
+    TwitterEventParameters,
 } from '@/providers/types/Telemetry.js';
 
 export function getSelfProfileEventParameters(source: SocialSource) {

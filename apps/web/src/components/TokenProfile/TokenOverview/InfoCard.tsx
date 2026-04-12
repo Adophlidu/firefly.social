@@ -1,5 +1,5 @@
 import { classNames } from '@dimensiondev/utils';
-import { type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { Tooltip } from '@/components/Tooltip.js';

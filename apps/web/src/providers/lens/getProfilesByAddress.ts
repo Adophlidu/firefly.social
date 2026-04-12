@@ -5,7 +5,7 @@ import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { formatLensProfileV3 } from '@/providers/lens/formatLensProfile.js';
 import { lensClientHolder } from '@/providers/lens/LensClientHolder.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export async function getProfilesByAddress(address: string): Promise<Profile[]> {
     const profiles = await ensureLensResult(

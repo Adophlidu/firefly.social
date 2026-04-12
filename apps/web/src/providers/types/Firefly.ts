@@ -1,33 +1,33 @@
-import { type ReactNode } from 'react';
-import { type Address, type Hex } from 'viem';
+import type { ReactNode } from 'react';
+import type { Address, Hex } from 'viem';
 
-import {
-    type BookmarkType,
-    type ExploreSwitchType,
-    type FireflyPlatform,
-    type MintStatus,
-    type NetworkType,
-    type PolymarketBetType,
-    type PredictionPlatform,
-    type S3ConvertStatus,
-    type SocialSource,
-    type SocialSourceInURL,
-    type Source,
-    type SourceInURL,
-    type SparksAccountStatus,
-    type TipsNotificationType,
-    type WalletSource,
+import type {
+    BookmarkType,
+    ExploreSwitchType,
+    FireflyPlatform,
+    MintStatus,
+    NetworkType,
+    PolymarketBetType,
+    PredictionPlatform,
+    S3ConvertStatus,
+    SocialSource,
+    SocialSourceInURL,
+    Source,
+    SourceInURL,
+    SparksAccountStatus,
+    TipsNotificationType,
+    WalletSource,
 } from '@/constants/enum.js';
-import { type ErcType, type EVM } from '@/providers/nftscan/types.js';
-import { type PolymarketEventLocale } from '@/providers/prediction/polymarket/type.js';
-import { type SnapshotActivity, type SnapshotChoice, type SnapshotProposal } from '@/providers/snapshot/type.js';
-import { type TwitterSession } from '@/providers/twitter/Session.js';
-import { type Article as FormattedArticle, type ArticlePlatform, type ArticleType } from '@/providers/types/Article.js';
-import { type CoinGeckoAsset } from '@/providers/types/CoinGecko.js';
-import { type Token as DebankToken } from '@/providers/types/Debank.js';
-import { type NFTFeedV3 } from '@/providers/types/NFTs.js';
-import { type NotificationType as SocialNotificationType } from '@/providers/types/SocialMedia.js';
-import { type LiteralOrString, type PartialWith } from '@/types/utility.js';
+import type { ErcType, EVM } from '@/providers/nftscan/types.js';
+import type { PolymarketEventLocale } from '@/providers/prediction/polymarket/type.js';
+import type { SnapshotActivity, SnapshotChoice, SnapshotProposal } from '@/providers/snapshot/type.js';
+import type { TwitterSession } from '@/providers/twitter/Session.js';
+import type { Article as FormattedArticle, ArticlePlatform, ArticleType } from '@/providers/types/Article.js';
+import type { CoinGeckoAsset } from '@/providers/types/CoinGecko.js';
+import type { Token as DebankToken } from '@/providers/types/Debank.js';
+import type { NFTFeedV3 } from '@/providers/types/NFTs.js';
+import type { NotificationType as SocialNotificationType } from '@/providers/types/SocialMedia.js';
+import type { LiteralOrString, PartialWith } from '@/types/utility.js';
 
 export enum EmbedMediaType {
     IMAGE = 'image',

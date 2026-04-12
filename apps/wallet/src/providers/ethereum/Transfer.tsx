@@ -1,9 +1,9 @@
 import { type Address, type Hash, parseUnits } from 'viem';
-import { type Config } from 'wagmi';
+import type { Config } from 'wagmi';
 import { getAccount, getBalance, getChainId, sendTransaction, writeContract } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmi.js';
-import { type EthereumChainId } from '@/constants/ethereum.js';
+import type { EthereumChainId } from '@/constants/ethereum.js';
 import { getBalanceOf } from '@/helpers/getBalanceOf.js';
 import { getTokenAbiForWagmi } from '@/helpers/getTokenAbiForWagmi.js';
 import { isNativeEvmToken } from '@/helpers/isNativeEvmToken.js';
@@ -11,7 +11,7 @@ import { isGreaterThan, isLessThan, leftShift, minus, multipliedBy, rightShift }
 import { switchEthereumChain } from '@/helpers/switchEthereumChain.js';
 import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
 import { getDefaultGas } from '@/providers/ethereum/getDefaultGas.js';
-import { type Token, type TransactionOptions, type TransferProvider } from '@/providers/types/Transfer.js';
+import type { Token, TransactionOptions, TransferProvider } from '@/providers/types/Transfer.js';
 
 export class EthereumTransferProvider implements TransferProvider<EthereumChainId, Address, Hash> {
     constructor(protected config: Config) {}

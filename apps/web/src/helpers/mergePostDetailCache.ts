@@ -1,4 +1,4 @@
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 /**
  * Merge a new post into the post-detail cache, preserving media attachments

@@ -2,7 +2,7 @@ import { AppBskyFeed } from '@/providers/bsky/contentChecker.js';
 import { formatBskyFeedPost } from '@/providers/bsky/formatBskyFeedPost.js';
 import { resolveBskyResponseData } from '@/providers/bsky/resolveBskyResponseData.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 export async function getBskyPinnedPost(profileId: string, signal?: AbortSignal): Promise<Post | null> {
     const response = await bskySessionHolder.agent.getProfile({ actor: profileId }, { signal });

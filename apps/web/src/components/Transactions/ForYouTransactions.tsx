@@ -5,9 +5,9 @@ import { getForYouTransactions } from '@/components/Transactions/getTransactions
 import { getTransactionsItemContent } from '@/components/Transactions/getTransactionsItemContent.js';
 import { shuffleTransactions } from '@/components/Transactions/shuffleTransactions.js';
 import { NetworkType, ScrollListKey, Source } from '@/constants/enum.js';
-import { type Pageable, type PageIndicator } from '@/helpers/pageable.js';
+import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import { useMultiInfiniteQueryPageable } from '@/hooks/useMultiInfiniteQueryPageable.js';
-import { type TransactionsItem } from '@/providers/types/Firefly.js';
+import type { TransactionsItem } from '@/providers/types/Firefly.js';
 import { useTransactionsStateStore } from '@/store/useTransactionsStore.js';
 
 export function ForYouTransactions() {

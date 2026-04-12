@@ -1,6 +1,6 @@
-import { type SocialSource } from '@/constants/enum.js';
+import type { SocialSource } from '@/constants/enum.js';
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
-import { type Account } from '@/providers/types/Account.js';
+import type { Account } from '@/providers/types/Account.js';
 
 export interface SignupModalOpenProps {
     source: SocialSource;

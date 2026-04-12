@@ -1,5 +1,5 @@
 import { classNames } from '@dimensiondev/utils';
-import { type HTMLProps, type ReactNode } from 'react';
+import type { HTMLProps, ReactNode } from 'react';
 
 import { PageHeader } from '@/app/[locale]/(settings)/components/PageHeader.js';
 import { useIsLarge } from '@/hooks/useMediaQuery.js';

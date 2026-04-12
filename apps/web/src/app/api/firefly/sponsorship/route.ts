@@ -1,7 +1,7 @@
 import { envs } from '@dimensiondev/envs';
 import { compose } from '@dimensiondev/utils';
 import dayjs from 'dayjs';
-import { type NextRequest } from 'next/server.js';
+import type { NextRequest } from 'next/server.js';
 import { z } from 'zod';
 
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';

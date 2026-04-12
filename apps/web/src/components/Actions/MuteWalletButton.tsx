@@ -4,10 +4,10 @@ import MuteIcon from '@dimensiondev/assets/mute.svg';
 import UnmuteIcon from '@dimensiondev/assets/unmute.svg';
 import { Trans } from '@lingui/react/macro';
 import { useMutation } from '@tanstack/react-query';
-import { type Address } from 'viem';
+import type { Address } from 'viem';
 
 import { MenuButton } from '@/components/Actions/MenuButton.js';
-import { type ClickableButtonProps } from '@/components/ClickableButton.js';
+import type { ClickableButtonProps } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';

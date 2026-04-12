@@ -3,8 +3,8 @@ import { classNames } from '@dimensiondev/utils';
 import { ProfileInfo } from '@/components/Profile/ProfileInfo.js';
 import { WalletMixInfo } from '@/components/Profile/WalletMixInfo.js';
 import { type ProfilePageSource, Source } from '@/constants/enum.js';
-import { type FireflyProfile, type WalletProfile } from '@/providers/types/Firefly.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
+import type { FireflyProfile, WalletProfile } from '@/providers/types/Firefly.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface Props {
     walletProfile?: WalletProfile | null;

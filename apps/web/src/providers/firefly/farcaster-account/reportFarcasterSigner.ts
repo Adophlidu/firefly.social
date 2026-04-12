@@ -1,7 +1,7 @@
 import urlcat from 'urlcat';
 
 import { getPublicKeyInHexFromPrivateKey } from '@/providers/farcaster/ed25519.js';
-import { type FarcasterSession } from '@/providers/farcaster/Session.js';
+import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { settings } from '@/settings/index.js';
 

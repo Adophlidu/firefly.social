@@ -27,7 +27,7 @@ import { ConfirmLeavingModalRef } from '@/modals/ConfirmLeavingModal/refs.js';
 import { PreviewMediaModalRef } from '@/modals/PreviewMediaModal/refs.js';
 import { captureArticleViewSourceClickEvent } from '@/providers/telemetry/captureClickEvent.js';
 import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
-import { type Attachment } from '@/providers/types/SocialMedia.js';
+import type { Attachment } from '@/providers/types/SocialMedia.js';
 
 interface ArticleDetailContentProps {
     article: Article;

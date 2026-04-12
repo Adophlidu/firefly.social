@@ -5,7 +5,7 @@ import '@/app/globals.css';
 import { IS_PRODUCTION } from '@dimensiondev/constants';
 import { envs, STATUS } from '@dimensiondev/envs';
 import { GoogleAnalytics } from '@next/third-parties/google';
-import { type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 import { ErrorBoundary } from '@/components/ErrorBoundary/index.js';
 import { GlobalLoadingIndicator } from '@/components/GlobalLoadingIndicator.js';

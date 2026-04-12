@@ -5,7 +5,7 @@ import { patchPostsClientToFirefly } from '@/helpers/patchPostClientToFirefly.js
 import { formatTwitterPostFromNitter } from '@/providers/nitter/formatTwitterPostFromNitter.js';
 import { withFullStatusTimeline } from '@/providers/nitter/withFullStatusTimeline.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
-import { type Pagination, type Tweet } from '@/providers/types/Nitter.js';
+import type { Pagination, Tweet } from '@/providers/types/Nitter.js';
 
 export async function withFullStatusTweetWithPagination(
     timeline: Tweet[],

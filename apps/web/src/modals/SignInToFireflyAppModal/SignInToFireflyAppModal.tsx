@@ -17,7 +17,7 @@ import { generateCryptoKey } from '@/helpers/generateCryptoKey.js';
 import { usePollingSyncChannelStatus } from '@/hooks/usePollingSyncChannelStatus.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
-import { type SignInToFireflyAppModalRefType } from '@/modals/SignInToFireflyAppModal/refs.js';
+import type { SignInToFireflyAppModalRefType } from '@/modals/SignInToFireflyAppModal/refs.js';
 import { confirmSyncChannel } from '@/providers/firefly/endpoint/confirmSyncChannel.js';
 import { getDesktopSyncLinkInfo } from '@/providers/firefly/endpoint/getDesktopSyncLinkInfo.js';
 import { captureSignInToAppClickEvent } from '@/providers/telemetry/captureSyncTokenEvent.js';

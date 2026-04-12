@@ -23,7 +23,7 @@ import {
     captureFarcasterChannelChangeClickEvent,
     captureLensClubChangeClickEvent,
 } from '@/providers/telemetry/captureClickEvent.js';
-import { type Channel } from '@/providers/types/SocialMedia.js';
+import type { Channel } from '@/providers/types/SocialMedia.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 interface ChannelSearchPanelProps extends HTMLProps<HTMLDivElement> {

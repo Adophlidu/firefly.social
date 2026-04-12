@@ -1,11 +1,11 @@
 'use client';
 
 import { unreachable } from '@dimensiondev/utils';
-import { type Address } from 'viem';
+import type { Address } from 'viem';
 
 import { NetworkType, RedpacketTxType } from '@/constants/enum.js';
 import { SOLANA_REDPACKET_CLAIM_GAS, SOLANA_REDPACKET_CREATE_GAS } from '@/constants/rp.js';
-import { type ChainContextOverrides } from '@/hooks/useChainContext.js';
+import type { ChainContextOverrides } from '@/hooks/useChainContext.js';
 import { useEVMAvailableBalance } from '@/hooks/useEVMAvailableBalance.js';
 import { useSolanaAvailableBalance } from '@/hooks/useSolanaAvailableBalance.js';
 

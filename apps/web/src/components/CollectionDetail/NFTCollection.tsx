@@ -1,7 +1,7 @@
 import { CollectionInfo } from '@/components/CollectionDetail/CollectionInfo.js';
 import { CollectionTabs } from '@/components/CollectionDetail/CollectionTabs.js';
 import { NFTNavbar } from '@/components/NFTs/NFTNavbar.js';
-import { type EVM } from '@/providers/nftscan/types.js';
+import type { EVM } from '@/providers/nftscan/types.js';
 
 interface NFTCollectionProps {
     collection: EVM.Collection;

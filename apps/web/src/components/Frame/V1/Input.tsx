@@ -1,7 +1,7 @@
 import { t } from '@lingui/core/macro';
-import { type HTMLProps } from 'react';
+import type { HTMLProps } from 'react';
 
-import { type FrameInput } from '@/types/frame.js';
+import type { FrameInput } from '@/types/frame.js';
 
 interface Props extends HTMLProps<HTMLInputElement> {
     input: FrameInput;

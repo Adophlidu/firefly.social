@@ -3,7 +3,7 @@ import BetEntryIcon from '@dimensiondev/assets/bet-entry.svg';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { Link } from '@tanstack/react-router';
-import { type Address } from 'viem';
+import type { Address } from 'viem';
 
 import { formatPnlUSD } from '@/helpers/formatPnlUSD.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';

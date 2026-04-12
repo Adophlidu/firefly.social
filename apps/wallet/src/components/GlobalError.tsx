@@ -1,5 +1,5 @@
 import LoadFailedIcon from '@dimensiondev/assets/bet-load-failed.svg';
-import { type ErrorPageProps } from '@dimensiondev/types';
+import type { ErrorPageProps } from '@dimensiondev/types';
 import { Trans } from '@lingui/react/macro';
 
 import { Button } from '@/components/ui/button.js';

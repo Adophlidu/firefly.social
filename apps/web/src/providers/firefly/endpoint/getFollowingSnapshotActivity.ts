@@ -6,7 +6,7 @@ import { createIndicator, createNextIndicator, createPageable, type PageIndicato
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { getProposals } from '@/providers/snapshot/getProposals.js';
-import { type DiscoverSnapshotsResponse, type FollowingSnapshotActivity } from '@/providers/types/Firefly.js';
+import type { DiscoverSnapshotsResponse, FollowingSnapshotActivity } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 export async function getFollowingSnapshotActivity({

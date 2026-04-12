@@ -15,7 +15,7 @@ import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.j
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveSocialSourceFromFireflyPlatform, resolveSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
-import { type Profile } from '@/providers/types/Firefly.js';
+import type { Profile } from '@/providers/types/Firefly.js';
 
 interface CrossProfileItemProps extends HTMLProps<HTMLAnchorElement> {
     profile: Profile;

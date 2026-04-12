@@ -13,23 +13,19 @@ import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { uploadVideoCover } from '@/helpers/uploadVideoCover.js';
 import { getLensProfileById } from '@/providers/lens/getLensProfileById.js';
 import { GroveStorageProvider } from '@/providers/lens/Grove.js';
-import {
-    type MediaImage,
-    type MediaImageMimeType,
-    type MediaVideoMimeType,
-} from '@/providers/lens/metadata/post/Base.js';
+import type { MediaImage, MediaImageMimeType, MediaVideoMimeType } from '@/providers/lens/metadata/post/Base.js';
 import { image } from '@/providers/lens/metadata/post/Image.js';
 import { link } from '@/providers/lens/metadata/post/Link.js';
 import { textOnly } from '@/providers/lens/metadata/post/TextOnly.js';
 import { video } from '@/providers/lens/metadata/post/Video.js';
 import { lensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { createPollPost } from '@/providers/orb/createPollPost.js';
-import { type CompositePoll } from '@/providers/types/Poll.js';
+import type { CompositePoll } from '@/providers/types/Poll.js';
 import { type Channel, SessionType } from '@/providers/types/SocialMedia.js';
 import { createPostTo } from '@/services/createPostTo.js';
 import { uploadAndConvertToM3u8 } from '@/services/uploadAndConvertToM3u8.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
-import { type MediaObject, type PostFunctionParams } from '@/types/compose.js';
+import type { MediaObject, PostFunctionParams } from '@/types/compose.js';
 
 interface BaseMetadata {
     title: string;

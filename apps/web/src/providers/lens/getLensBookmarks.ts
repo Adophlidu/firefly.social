@@ -12,7 +12,7 @@ import { ensureCursor } from '@/providers/lens/ensureCursor.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { formatLensPostV3 } from '@/providers/lens/formatLensPost.js';
 import { lensSessionClientHolder } from '@/providers/lens/LensSessionClientHolder.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 export async function getLensBookmarks(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
     const result = await ensureLensResult(

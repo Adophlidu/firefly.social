@@ -2,8 +2,8 @@ import urlcat from 'urlcat';
 
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
-import { type Response } from '@/providers/types/Firefly.js';
-import { type FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
+import type { Response } from '@/providers/types/Firefly.js';
+import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 import { settings } from '@/settings/index.js';
 
 /**

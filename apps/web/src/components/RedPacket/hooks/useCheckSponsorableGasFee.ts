@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { checkGasFreeStatus } from '@/providers/firefly/red-packet/checkGasFreeStatus.js';
-import { type EthereumChainId } from '@/web3-shared/evm/types.js';
+import type { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 export function useCheckSponsorableGasFee(chainId?: EthereumChainId, walletAddress?: string, enabled = true) {
     return useQuery({

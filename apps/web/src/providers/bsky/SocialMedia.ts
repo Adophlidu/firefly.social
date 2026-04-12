@@ -14,7 +14,7 @@ import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
 import { WithMutedProfilesQuery } from '@/decorators/WithMutedProfilesQuery.js';
-import { type Pageable, type PageIndicator } from '@/helpers/pageable.js';
+import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import { blockBskyProfile } from '@/providers/bsky/blockBskyProfile.js';
 import { deleteBskyPost } from '@/providers/bsky/deleteBskyPost.js';
 import { discoverBskyChannels } from '@/providers/bsky/discoverBskyChannels.js';
@@ -58,7 +58,7 @@ import { quoteBskyPost } from '@/providers/bsky/quoteBskyPost.js';
 import { searchBskyChannels } from '@/providers/bsky/searchBskyChannels.js';
 import { searchBskyPosts } from '@/providers/bsky/searchBskyPosts.js';
 import { searchBskyProfiles } from '@/providers/bsky/searchBskyProfiles.js';
-import { type BskySession } from '@/providers/bsky/Session.js';
+import type { BskySession } from '@/providers/bsky/Session.js';
 import { setBskyNotificationSettings } from '@/providers/bsky/setBskyNotificationSettings.js';
 import { unblockBskyProfile } from '@/providers/bsky/unblockBskyProfile.js';
 import { unfollowBskyProfile } from '@/providers/bsky/unfollowBskyProfile.js';
@@ -68,9 +68,9 @@ import { updateBskyProfile } from '@/providers/bsky/updateBskyProfile.js';
 import { upvoteBskyPost } from '@/providers/bsky/upvoteBskyPost.js';
 import { bookmark } from '@/providers/firefly/endpoint/bookmark.js';
 import { unbookmark } from '@/providers/firefly/endpoint/unbookmark.js';
-import { type Account } from '@/providers/types/Account.js';
-import { type NotificationSettings, type WalletProfile } from '@/providers/types/Firefly.js';
-import { type Session } from '@/providers/types/Session.js';
+import type { Account } from '@/providers/types/Account.js';
+import type { NotificationSettings, WalletProfile } from '@/providers/types/Firefly.js';
+import type { Session } from '@/providers/types/Session.js';
 import {
     type Channel,
     type Friendship,

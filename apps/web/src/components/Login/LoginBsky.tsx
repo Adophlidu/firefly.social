@@ -2,7 +2,7 @@
 
 /* cspell:disable */
 
-import { type AuthFactorTokenRequiredError } from '@atproto/api/dist/client/types/com/atproto/server/createSession.js';
+import type { AuthFactorTokenRequiredError } from '@atproto/api/dist/client/types/com/atproto/server/createSession.js';
 import AtIcon from '@dimensiondev/assets/at.svg';
 import GlobalIcon from '@dimensiondev/assets/global.svg';
 import LockIcon from '@dimensiondev/assets/lock.svg';
@@ -14,7 +14,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useAsyncFn } from 'react-use';
-import { type z } from 'zod';
+import type { z } from 'zod';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ClearButton } from '@/components/IconButton.js';
@@ -38,7 +38,7 @@ import { formatBskyProfile } from '@/providers/bsky/formatBskyProfile.js';
 import { retryOnBskyWhenNetworkError } from '@/providers/bsky/retryOnBskyWhenNetworkError.js';
 import { BskySession } from '@/providers/bsky/Session.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
-import { type Account } from '@/providers/types/Account.js';
+import type { Account } from '@/providers/types/Account.js';
 import { type AccountOptions, addAccount } from '@/services/account.js';
 import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';

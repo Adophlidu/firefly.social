@@ -3,8 +3,8 @@ import urlcat from 'urlcat';
 import { FIREFLY_WORKER_HOST } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';
-import { type S3ConnectionConfig, type UploadMediaTokenResponse } from '@/providers/types/Firefly.js';
-import { type ResponseJson } from '@/types/utility.js';
+import type { S3ConnectionConfig, UploadMediaTokenResponse } from '@/providers/types/Firefly.js';
+import type { ResponseJson } from '@/types/utility.js';
 
 async function initUpload(options: { fileKey: string; contentType: string; mediaToken: S3ConnectionConfig }) {
     const result = await fetchJson<ResponseJson<{ uploadId: string }>>(

@@ -2,7 +2,7 @@ import betImageFallback from '@dimensiondev/assets/bet-image-fallback.svg?url';
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { useState } from 'react';
-import { type Address } from 'viem';
+import type { Address } from 'viem';
 
 import { SettleResolvedMarketsModal } from '@/components/Bet/SettleResolvedMarketsModal.js';
 import { DialogOrDrawer, DialogOrDrawerTrigger } from '@/components/DialogOrDrawer.js';

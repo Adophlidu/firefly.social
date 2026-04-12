@@ -19,7 +19,7 @@ import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { openAppSchemes } from '@/helpers/openAppSchemes.js';
 import { usePollingAppScanLogin } from '@/hooks/usePollingAppScanLogin.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import { type SignInWithFireflyAppModalRefType } from '@/modals/SignInWithFireflyAppModal/refs.js';
+import type { SignInWithFireflyAppModalRefType } from '@/modals/SignInWithFireflyAppModal/refs.js';
 import { getDesktopLinkInfo } from '@/providers/firefly/endpoint/getDesktopLinkInfo.js';
 import { DeviceType } from '@/types/device.js';
 

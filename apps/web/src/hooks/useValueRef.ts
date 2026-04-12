@@ -1,6 +1,6 @@
 import { use, useSyncExternalStore } from 'react';
 
-import { type ValueRef, type ValueRefWithReady } from '@/libs/ValueRef.js';
+import type { ValueRef, ValueRefWithReady } from '@/libs/ValueRef.js';
 
 function getServerSnapshot() {
     return null;

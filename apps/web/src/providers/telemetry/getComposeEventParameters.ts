@@ -3,9 +3,9 @@ import { compact } from 'lodash-es';
 import { SORTED_POLL_SOURCES } from '@/constants/computed.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
-import { type ComposeEventParameters } from '@/providers/types/Telemetry.js';
+import type { ComposeEventParameters } from '@/providers/types/Telemetry.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
-import { type CompositePost } from '@/types/compose.js';
+import type { CompositePost } from '@/types/compose.js';
 
 export interface Options {
     draftId?: string;

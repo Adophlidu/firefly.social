@@ -1,8 +1,8 @@
 import { assert, NotImplementedError } from '@dimensiondev/utils';
-import { type Context, type MiniAppHost, type SignInOptions } from '@farcaster/miniapp-host';
+import type { Context, MiniAppHost, SignInOptions } from '@farcaster/miniapp-host';
 import { t } from '@lingui/core/macro';
 import { first } from 'lodash-es';
-import { type UnwrapPromise } from 'next/dist/lib/coalesced-function.js';
+import type { UnwrapPromise } from 'next/dist/lib/coalesced-function.js';
 import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';
@@ -16,9 +16,9 @@ import { logger } from '@/libs/Logger.js';
 import { checkCustodyWallet } from '@/providers/firefly/farcaster-account/checkCustodyWallet.js';
 import { FrameLoader } from '@/providers/frame/Loader.js';
 import { captureFrameSignInEvent } from '@/providers/telemetry/captureFrameSignInEvent.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 import { signInWithFarcaster } from '@/providers/warpcast/signInWithFarcaster.js';
-import { type FrameV2 } from '@/types/frame.js';
+import type { FrameV2 } from '@/types/frame.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 export class FarcasterFrameHost implements MiniAppHost {

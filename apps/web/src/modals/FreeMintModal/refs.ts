@@ -1,5 +1,5 @@
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
-import { type MintMetadata, type SponsorMintOptions } from '@/providers/types/Firefly.js';
+import type { MintMetadata, SponsorMintOptions } from '@/providers/types/Firefly.js';
 
 export interface FreeMintModalOpenProps {
     mintTarget: SponsorMintOptions;

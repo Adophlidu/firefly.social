@@ -4,9 +4,9 @@ import { Loading } from '@/components/Loading.js';
 import { Modal } from '@/components/Modal.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import { type FrameViewerModalOpenProps } from '@/modals/FrameViewerModal/FrameViewerModalContent.js';
+import type { FrameViewerModalOpenProps } from '@/modals/FrameViewerModal/FrameViewerModalContent.js';
 import { FrameViewerModalHeader } from '@/modals/FrameViewerModal/FrameViewerModalHeader.js';
-import { type FrameViewerModalRefType } from '@/modals/FrameViewerModal/refs.js';
+import type { FrameViewerModalRefType } from '@/modals/FrameViewerModal/refs.js';
 
 interface Props {
     ref: React.Ref<FrameViewerModalRefType>;

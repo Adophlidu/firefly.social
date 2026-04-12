@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 
-import { type SnackbarMessage } from '@/components/Snackbar.js';
+import type { SnackbarMessage } from '@/components/Snackbar.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 

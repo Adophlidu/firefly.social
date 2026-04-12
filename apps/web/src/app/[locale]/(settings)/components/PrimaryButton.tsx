@@ -5,18 +5,18 @@ import StarOutlineIcon from '@dimensiondev/assets/star-outline.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQueryClient } from '@tanstack/react-query';
-import { type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { type ConnectionPlatform } from '@/constants/enum.js';
+import type { ConnectionPlatform } from '@/constants/enum.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { formatAddressEthereum, formatAddressSolana } from '@/helpers/formatAddress.js';
 import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { fireflyWalletProvider } from '@/providers/firefly/Wallet.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export function PrimaryButton({
     platform,

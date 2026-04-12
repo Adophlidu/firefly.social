@@ -2,13 +2,13 @@ import { NotFoundError } from '@dimensiondev/utils';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { notFound } from 'next/navigation.js';
 
-import { type PostEngagementListProps } from '@/components/Engagement/type.js';
+import type { PostEngagementListProps } from '@/components/Engagement/type.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { EngagementType, ScrollListKey } from '@/constants/enum.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 function getPostContent(index: number, post: Post) {
     return <SinglePost key={post.publicationId} post={post} index={index} keepMutedSpace />;

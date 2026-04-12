@@ -1,4 +1,4 @@
-import { type MiniAppHost } from '@farcaster/miniapp-host';
+import type { MiniAppHost } from '@farcaster/miniapp-host';
 
 import { Source } from '@/constants/enum.js';
 import { createDummyChannel } from '@/helpers/createDummyChannel.js';

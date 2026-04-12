@@ -1,11 +1,11 @@
 import { web3 } from '@coral-xyz/anchor';
-import { type ConnectedStandardSolanaWallet } from '@privy-io/react-auth/solana';
+import type { ConnectedStandardSolanaWallet } from '@privy-io/react-auth/solana';
 import {
     createAssociatedTokenAccountInstruction,
     createTransferInstruction,
     getAssociatedTokenAddress,
 } from '@solana/spl-token';
-import { type BigNumber } from 'bignumber.js';
+import type { BigNumber } from 'bignumber.js';
 
 import { SolanaChainId } from '@/constants/solana.js';
 import { getSolanaRPCUrl } from '@/helpers/getSolanaRPCUrl.js';
@@ -14,7 +14,7 @@ import { isGreaterThan, isLessThan, leftShift, minus, multipliedBy, rightShift, 
 import { parseSolToLamports } from '@/helpers/parseSolToLamports.js';
 import { signAndBroadcastSolanaTransaction } from '@/helpers/signAndBroadcastSolanaTransaction.js';
 import { getNativeTokenBalance, getTokenBalance } from '@/providers/solana/getTokenBalance.js';
-import { type Token, type TransactionOptions, type TransferProvider } from '@/providers/types/Transfer.js';
+import type { Token, TransactionOptions, TransferProvider } from '@/providers/types/Transfer.js';
 
 const defaultFee = 0.00001 * web3.LAMPORTS_PER_SOL * 1.3; // 0.000008 SOL with a buffer
 

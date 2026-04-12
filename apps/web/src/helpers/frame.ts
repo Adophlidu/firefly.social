@@ -1,4 +1,4 @@
-import { type Frame, type FrameV1, type FrameV2 } from '@/types/frame.js';
+import type { Frame, FrameV1, FrameV2 } from '@/types/frame.js';
 
 export function isFrameV1(frame: Frame): frame is FrameV1 {
     return frame.x_version === 1;

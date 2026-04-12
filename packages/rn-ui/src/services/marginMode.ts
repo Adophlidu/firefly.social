@@ -1,5 +1,5 @@
-import { type FetchMarginModeSheet, type SubmitMarginModeChange } from '@/types/services';
-import { type MarginModeSheetData } from '@/types/ui';
+import type { FetchMarginModeSheet, SubmitMarginModeChange } from '@/types/services';
+import type { MarginModeSheetData } from '@/types/ui';
 
 const delay = async (ms: number) => {
     await new Promise((resolve) => {

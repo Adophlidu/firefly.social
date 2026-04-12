@@ -10,7 +10,7 @@ import { Tab, Tabs } from '@/components/Tabs/index.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/browser.js';
 import { PredictionPlatform } from '@/constants/enum.js';
 import { dynamic } from '@/esm/dynamic.js';
-import { type BetsMarketDataForUI } from '@/types/prediction.js';
+import type { BetsMarketDataForUI } from '@/types/prediction.js';
 
 const PredictionMarketOrderBook = dynamic(
     () =>

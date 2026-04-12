@@ -1,8 +1,8 @@
-import { type QueryClient } from '@tanstack/react-query';
+import type { QueryClient } from '@tanstack/react-query';
 import { produce } from 'immer';
 
 import { isSameAddress } from '@/helpers/isSameAddress.js';
-import { type GetVerifiedAddressesResponse } from '@/providers/types/Firefly.js';
+import type { GetVerifiedAddressesResponse } from '@/providers/types/Firefly.js';
 
 export function updateCacheAfterDelete(queryClient: QueryClient, deletedAddress: string) {
     queryClient.setQueryData(['verifiedAddresses'], (oldData: GetVerifiedAddressesResponse | undefined) => {

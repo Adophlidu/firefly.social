@@ -9,11 +9,11 @@ import { updateQueryForLikeReaction } from '@/helpers/updateQueryForLikeReaction
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { createTxReaction } from '@/providers/firefly/endpoint/createTxReaction.js';
 import { removeTxReaction } from '@/providers/firefly/endpoint/removeTxReaction.js';
-import { type SnapshotActivity } from '@/providers/snapshot/type.js';
+import type { SnapshotActivity } from '@/providers/snapshot/type.js';
 import { captureArticleLikeSuccessEvent } from '@/providers/telemetry/captureClickEvent.js';
 import { captureSwapEvent } from '@/providers/telemetry/captureSwapEvent.js';
 import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
-import { type BetsActivity, type SwapActivity, type TipsLikeStatusData } from '@/providers/types/Firefly.js';
+import type { BetsActivity, SwapActivity, TipsLikeStatusData } from '@/providers/types/Firefly.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 
 export type LikeTarget =

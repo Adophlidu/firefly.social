@@ -1,9 +1,9 @@
 import { TOKEN_PROGRAM_ID } from '@solana/spl-token';
 
-import { type SolanaChainId } from '@/constants/solana.js';
+import type { SolanaChainId } from '@/constants/solana.js';
 import { isZeroAddressSolana } from '@/helpers/isZeroAddress.js';
 import { solanaRPC } from '@/providers/solana/RPC.js';
-import { type Token } from '@/providers/types/Transfer.js';
+import type { Token } from '@/providers/types/Transfer.js';
 
 export async function getNativeTokenBalance(address: string, _chainId: number) {
     const data = await solanaRPC.getBalance(address);

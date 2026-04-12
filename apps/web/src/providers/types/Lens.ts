@@ -1,8 +1,8 @@
-import {
-    type FrameLensManagerSignatureResultFragment,
-    type SelfFundedTransactionRequest,
-    type SponsoredTransactionRequest,
-    type TxHash,
+import type {
+    FrameLensManagerSignatureResultFragment,
+    SelfFundedTransactionRequest,
+    SponsoredTransactionRequest,
+    TxHash,
 } from '@lens-protocol/client';
 
 export interface FrameSignaturePacket {

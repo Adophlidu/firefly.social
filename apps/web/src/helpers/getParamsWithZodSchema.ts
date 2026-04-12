@@ -1,5 +1,5 @@
-import { type NextRequestContext } from '@dimensiondev/types';
-import { type ZodObject, type ZodRawShape } from 'zod';
+import type { NextRequestContext } from '@dimensiondev/types';
+import type { ZodObject, ZodRawShape } from 'zod';
 
 export async function getParamsWithZodSchema<T extends ZodRawShape>(
     schema: ZodObject<T>,

@@ -2,7 +2,7 @@ import urlcat from 'urlcat';
 
 import { DEBANK_OPEN_API } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
-import { type UserTotalBalanceResponse } from '@/providers/types/Debank.js';
+import type { UserTotalBalanceResponse } from '@/providers/types/Debank.js';
 
 /**
  * @param {string} id - user address

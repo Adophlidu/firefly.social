@@ -1,5 +1,5 @@
 import { NotFoundError } from '@dimensiondev/utils';
-import { type ResultAsync } from '@lens-protocol/client';
+import type { ResultAsync } from '@lens-protocol/client';
 
 export async function ensureLensResult<T, E>(asyncResult: ResultAsync<T, E>) {
     try {

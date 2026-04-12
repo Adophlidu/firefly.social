@@ -1,7 +1,7 @@
 'use client';
 
 import { SolidTabs } from '@/components/Tabs/SolidTabs.js';
-import { type Source } from '@/constants/enum.js';
+import type { Source } from '@/constants/enum.js';
 import { resolveSourceUIName } from '@/helpers/resolveSourceName.js';
 
 interface SolidSourceTabsProps {

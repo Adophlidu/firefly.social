@@ -4,7 +4,7 @@ import { type ProfilePageSource, Source } from '@/constants/enum.js';
 import { getPlatformQueryKey } from '@/helpers/getPlatformQueryKey.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { type IsMutedAllResponse } from '@/providers/types/Firefly.js';
+import type { IsMutedAllResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 export async function isProfileMutedAll(source: ProfilePageSource, id: string) {

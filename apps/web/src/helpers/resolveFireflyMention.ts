@@ -7,7 +7,7 @@ import {
     FIREFLY_LENS_PROFILE,
     FIREFLY_TWITTER_PROFILE,
 } from '@/constants/mentions.js';
-import { type Profile } from '@/providers/types/Firefly.js';
+import type { Profile } from '@/providers/types/Firefly.js';
 
 export const resolveFireflyMention = createLookupTableResolver<SocialSource, Profile>(
     {

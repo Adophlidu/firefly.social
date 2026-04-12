@@ -1,4 +1,4 @@
-import { type Meta, type StoryObj } from '@storybook/nextjs-vite';
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
 import { TokenOverview, type TokenOverviewProps } from '@/components/TokenProfile/TokenOverview/index.js';
 

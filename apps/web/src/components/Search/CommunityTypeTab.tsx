@@ -2,7 +2,7 @@
 
 import { classNames, getEnumAsArray } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
-import { type HTMLProps } from 'react';
+import type { HTMLProps } from 'react';
 
 import { Link } from '@/components/Link.js';
 import { ClubType, SearchType } from '@/constants/enum.js';

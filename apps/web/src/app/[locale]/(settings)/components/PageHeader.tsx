@@ -2,7 +2,7 @@
 
 import ComebackIcon from '@dimensiondev/assets/comeback.svg';
 import { classNames } from '@dimensiondev/utils';
-import { type PropsWithChildren } from 'react';
+import type { PropsWithChildren } from 'react';
 
 import { Headline } from '@/app/[locale]/(settings)/components/Headline.js';
 import { PageRoute } from '@/constants/enum.js';

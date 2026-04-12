@@ -3,7 +3,7 @@ import { Path, Svg } from 'react-native-svg';
 import { Button, Sheet, Slider, Text, XStack, YStack } from 'tamagui';
 
 import { LeverageSheetSkeleton } from '@/skeletons/LeverageSheetSkeleton';
-import { type LeverageSheetData } from '@/types/ui';
+import type { LeverageSheetData } from '@/types/ui';
 
 interface LeverageSheetProps {
     open: boolean;

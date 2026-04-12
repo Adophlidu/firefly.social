@@ -1,10 +1,10 @@
 import { unreachable } from '@dimensiondev/utils';
 
 import { PredictionPlatform } from '@/constants/enum.js';
-import { type Pageable, type PageIndicator } from '@/helpers/pageable.js';
+import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import { getPositionHistory } from '@/providers/firefly/prediction/getPositionHistory.js';
 import { getPredictionHistoryList } from '@/providers/firefly/prediction/getPredictionHistoryList.js';
-import { type PredictionPositionDataForUI } from '@/types/prediction.js';
+import type { PredictionPositionDataForUI } from '@/types/prediction.js';
 
 interface Options {
     address: string;

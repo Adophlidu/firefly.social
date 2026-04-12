@@ -1,6 +1,6 @@
 import { Source } from '@/constants/enum.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
-import { type FireflyAccountProfile, type FireflyConnection } from '@/providers/types/Firefly.js';
+import type { FireflyAccountProfile, FireflyConnection } from '@/providers/types/Firefly.js';
 
 export function formatFireflyAccountProfileFromFireflyConnections(
     fireflyConnections: FireflyConnection[],

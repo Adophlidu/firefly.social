@@ -7,7 +7,7 @@ import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useToggleFollow } from '@/hooks/useToggleFollow.js';
 import { useWatchProfileFollowStatus } from '@/hooks/useWatchProfileFollowStatus.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useTwitterProfileStore } from '@/store/useProfileStore/useTwitterProfileStore.js';
 
 interface ToggleFollowButtonProps extends Omit<ClickableButtonProps, 'children'> {

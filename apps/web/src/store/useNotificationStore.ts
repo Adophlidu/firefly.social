@@ -4,7 +4,7 @@ import { immer } from 'zustand/middleware/immer';
 
 import { type NotificationSource, Source } from '@/constants/enum.js';
 import { createSelectors } from '@/helpers/createSelector.js';
-import { type NotificationType } from '@/providers/types/SocialMedia.js';
+import type { NotificationType } from '@/providers/types/SocialMedia.js';
 
 type NotificationState = Record<
     NotificationSource,

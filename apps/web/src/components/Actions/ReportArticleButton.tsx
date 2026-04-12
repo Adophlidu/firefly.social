@@ -5,11 +5,11 @@ import { Trans } from '@lingui/react/macro';
 import { useMutation } from '@tanstack/react-query';
 
 import { MenuButton } from '@/components/Actions/MenuButton.js';
-import { type ClickableButtonProps } from '@/components/ClickableButton.js';
+import type { ClickableButtonProps } from '@/components/ClickableButton.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
 import { reportArticle } from '@/providers/firefly/report/reportArticle.js';
-import { type Article } from '@/providers/types/Article.js';
+import type { Article } from '@/providers/types/Article.js';
 
 interface Props extends Omit<ClickableButtonProps, 'children'> {
     article: Article;

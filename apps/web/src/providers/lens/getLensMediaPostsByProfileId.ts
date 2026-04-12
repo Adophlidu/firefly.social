@@ -13,7 +13,7 @@ import { ensureCursor } from '@/providers/lens/ensureCursor.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { formatLensPostV3 } from '@/providers/lens/formatLensPost.js';
 import { getLensClient } from '@/providers/lens/getLensClient.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 export async function getLensMediaPostsByProfileId(
     profileId: string,

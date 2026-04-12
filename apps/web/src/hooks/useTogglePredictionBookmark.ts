@@ -6,7 +6,7 @@ import { useToggleBookmarkMutation } from '@/hooks/useToggleBookmarkMutation.js'
 import { bookmark } from '@/providers/firefly/endpoint/bookmark.js';
 import { unbookmark } from '@/providers/firefly/endpoint/unbookmark.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { type BetsActivity } from '@/providers/types/Firefly.js';
+import type { BetsActivity } from '@/providers/types/Firefly.js';
 
 export function useTogglePredictionBookmark() {
     return useToggleBookmarkMutation<BetsActivity>({

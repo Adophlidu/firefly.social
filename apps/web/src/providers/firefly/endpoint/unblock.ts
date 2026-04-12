@@ -1,7 +1,7 @@
 import urlcat from 'urlcat';
 
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { type BlockFields, type BlockUserResponse } from '@/providers/types/Firefly.js';
+import type { BlockFields, BlockUserResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 export async function unblock(field: BlockFields, profileId: string): Promise<boolean> {

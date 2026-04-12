@@ -9,9 +9,9 @@ import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromSto
 import { logger } from '@/libs/Logger.js';
 import { reportPostCreation } from '@/providers/firefly/report/reportPostCreation.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { type ReportCrossPostResponse } from '@/providers/types/Firefly.js';
+import type { ReportCrossPostResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
-import { type CompositePost } from '@/types/compose.js';
+import type { CompositePost } from '@/types/compose.js';
 
 interface Report {
     // client uuid for distinguishing logs

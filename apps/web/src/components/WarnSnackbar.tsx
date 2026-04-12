@@ -5,7 +5,7 @@ import { Trans } from '@lingui/react/macro';
 import { useCallback, useState } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { type ErrorReportSnackbarProps } from '@/components/ErrorReportSnackbar.js';
+import type { ErrorReportSnackbarProps } from '@/components/ErrorReportSnackbar.js';
 import { CloseButton } from '@/components/IconButton.js';
 import { useSnackbar } from '@/components/Snackbar.js';
 import { useCopyText } from '@/hooks/useCopyText.js';

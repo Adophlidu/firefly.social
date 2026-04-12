@@ -1,12 +1,12 @@
-import { type MessageData } from '@farcaster/core'; /* type only on runtime code */
+import type { MessageData } from '@farcaster/core'; /* type only on runtime code */
 import urlcat from 'urlcat';
 
 import { FIREFLY_WORKER_HOST } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';
-import { type FarcasterSession } from '@/providers/farcaster/Session.js';
+import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
-import { type PartialWith, type ResponseJson } from '@/types/utility.js';
+import type { PartialWith, ResponseJson } from '@/types/utility.js';
 
 type PartialMessageData = PartialWith<MessageData, 'type' | 'fid' | 'timestamp' | 'network'>;
 

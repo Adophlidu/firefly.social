@@ -13,10 +13,10 @@ import { dynamic } from '@/esm/dynamic.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { AddCustomERC721ModalRef } from '@/modals/AddCustomERC721Modal/refs.js';
-import { type Collection } from '@/modals/NonFungibleCollectionSelectModal/CollectionItem.js';
-import {
-    type NonFungibleCollectionSelectModalOpenProps,
-    type NonFungibleCollectionSelectModalRefType,
+import type { Collection } from '@/modals/NonFungibleCollectionSelectModal/CollectionItem.js';
+import type {
+    NonFungibleCollectionSelectModalOpenProps,
+    NonFungibleCollectionSelectModalRefType,
 } from '@/modals/NonFungibleCollectionSelectModal/refs.js';
 
 interface Props {

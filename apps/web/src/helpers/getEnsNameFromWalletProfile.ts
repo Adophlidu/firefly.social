@@ -2,7 +2,7 @@ import { safeUnreachable } from '@dimensiondev/utils';
 import { first } from 'lodash-es';
 
 import { NetworkType } from '@/constants/enum.js';
-import { type WalletProfile } from '@/providers/types/Firefly.js';
+import type { WalletProfile } from '@/providers/types/Firefly.js';
 
 /**
  * Get the ENS name from a wallet profile. The priority is as follows:

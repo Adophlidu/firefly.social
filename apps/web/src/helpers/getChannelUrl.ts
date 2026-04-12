@@ -2,7 +2,7 @@ import { safeUnreachable } from '@dimensiondev/utils';
 
 import { Source } from '@/constants/enum.js';
 import { resolveChannelUrl } from '@/helpers/resolveChannelUrl.js';
-import { type Channel } from '@/providers/types/SocialMedia.js';
+import type { Channel } from '@/providers/types/SocialMedia.js';
 
 export function getChannelUrl(channel: Channel) {
     switch (channel.source) {

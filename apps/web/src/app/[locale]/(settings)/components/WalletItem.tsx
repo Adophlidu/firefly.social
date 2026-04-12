@@ -18,7 +18,7 @@ import { WalletSource } from '@/constants/enum.js';
 import { formatAddressEthereum, formatAddressSolana } from '@/helpers/formatAddress.js';
 import { resolveConnectionPlatform } from '@/helpers/resolveConnectionPlatform.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
-import { type FireflyWalletConnection } from '@/providers/types/Firefly.js';
+import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
 
 interface WalletItemProps {
     noAction?: boolean;

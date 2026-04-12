@@ -1,7 +1,7 @@
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
-import { type Post, type Provider } from '@/providers/types/SocialMedia.js';
+import type { Post, Provider } from '@/providers/types/SocialMedia.js';
 import { useTwitterRetweetStore } from '@/store/useTwitterRetweetStore.js';
-import { type ClassType } from '@/types/utility.js';
+import type { ClassType } from '@/types/utility.js';
 
 const METHODS_BE_OVERRIDDEN = [
     'getLikedPostsByProfileId',

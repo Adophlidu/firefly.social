@@ -7,7 +7,7 @@ import { Trans } from '@lingui/react/macro';
 import { PredictionEventEndTime } from '@/components/Prediction/PredictionEventEndTime.js';
 import { PredictionEventImage } from '@/components/Prediction/PredictionEventImage.js';
 import { PredictionPlatformIcon } from '@/components/Prediction/PredictionPlatformIcon.js';
-import { type BetsEventDataForUI } from '@/types/prediction.js';
+import type { BetsEventDataForUI } from '@/types/prediction.js';
 
 interface PredictionEventOverviewProps {
     detail: BetsEventDataForUI;

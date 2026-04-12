@@ -1,5 +1,5 @@
 import { classNames } from '@dimensiondev/utils';
-import { type HTMLProps } from 'react';
+import type { HTMLProps } from 'react';
 
 import { Avatar } from '@/components/Avatar.js';
 import { ConditionalLink } from '@/components/ConditionalLink.js';
@@ -10,7 +10,7 @@ import { getArticleAuthorTarget, getArticleAuthorUrl } from '@/helpers/getArticl
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { resolveArticlePlatformIcon } from '@/helpers/resolveArticlePlatformIcon.js';
 import { useEnsName } from '@/hooks/useEnsName.js';
-import { type Article } from '@/providers/types/Article.js';
+import type { Article } from '@/providers/types/Article.js';
 
 interface Props extends HTMLProps<HTMLDivElement> {
     article: Article;

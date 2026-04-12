@@ -1,7 +1,7 @@
 'use client';
 
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { type HTMLProps } from 'react';
+import type { HTMLProps } from 'react';
 
 import { TrendingNFT } from '@/components/Explores/TrendingNFT.js';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';

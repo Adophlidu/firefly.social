@@ -8,7 +8,7 @@ import { useCallback, useState } from 'react';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { EditProfileDialog } from '@/components/EditProfile/EditProfileDialog.js';
 import { captureEditProfileClickEvent } from '@/providers/telemetry/captureProfileActionEvent.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface EditProfileButtonProps extends Omit<ClickableButtonProps, 'children'> {
     variant?: 'text' | 'icon';

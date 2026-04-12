@@ -4,7 +4,7 @@ import { CALENDAR_BASE_URL } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@/helpers/pageable.js';
 import { formatEventDate } from '@/providers/calendar/formatEventDate.js';
-import { type EventResponse } from '@/types/calendar.js';
+import type { EventResponse } from '@/types/calendar.js';
 
 export async function getNewsList(startDate: number, endDate?: number, indicator?: PageIndicator) {
     const response = await fetchJson<EventResponse>(

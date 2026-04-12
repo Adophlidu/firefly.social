@@ -7,7 +7,7 @@ import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Source } from '@/constants/enum.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface MutedProfileItemProps {
     profile: Profile;

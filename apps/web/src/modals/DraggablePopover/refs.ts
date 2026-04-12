@@ -1,4 +1,4 @@
-import { type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 

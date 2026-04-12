@@ -7,7 +7,7 @@ import { LENS_CHAIN_ID } from '@/constants/static.js';
 import { ensureCreatedFireflyWallet } from '@/helpers/ensureCreatedFireflyWallet.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { type PrivySignMessageResponse } from '@/providers/types/Firefly.js';
+import type { PrivySignMessageResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 async function signMessageWithNativePrivy(message: string) {

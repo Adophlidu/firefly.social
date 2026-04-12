@@ -2,7 +2,7 @@ import { memo } from 'react';
 import { Path, Svg } from 'react-native-svg';
 import { Button, Text, XStack, YStack } from 'tamagui';
 
-import { type PerpsTradeOrderBook, type PerpsTradeOrderBookEntry } from '@/types/ui';
+import type { PerpsTradeOrderBook, PerpsTradeOrderBookEntry } from '@/types/ui';
 
 interface PerpsTradeOrderBookPanelProps {
     orderBook: PerpsTradeOrderBook;

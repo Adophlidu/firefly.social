@@ -1,5 +1,5 @@
 // cSpell:disable
-import { type Source } from '@/constants/enum.js';
+import type { Source } from '@/constants/enum.js';
 
 const NOT_CASE_SENSITIVE: Record<string, string> = {
     realmasknetwork: 'masknetwork',

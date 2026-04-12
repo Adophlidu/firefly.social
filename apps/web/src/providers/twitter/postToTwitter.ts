@@ -9,11 +9,11 @@ import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { TwitterPollProvider } from '@/providers/twitter/Poll.js';
 import { twitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 import { uploadToTwitter, uploadVideoToTwitter } from '@/providers/twitter/uploadToTwitter.js';
-import { type Poll } from '@/providers/types/Poll.js';
-import { type Post, type PostType } from '@/providers/types/SocialMedia.js';
+import type { Poll } from '@/providers/types/Poll.js';
+import type { Post, PostType } from '@/providers/types/SocialMedia.js';
 import { createPostTo } from '@/services/createPostTo.js';
 import { useTwitterProfileStore } from '@/store/useProfileStore/useTwitterProfileStore.js';
-import { type MediaObject, type PostFunctionParams } from '@/types/compose.js';
+import type { MediaObject, PostFunctionParams } from '@/types/compose.js';
 
 export async function postToTwitter({ type, compositePost, keepPostLinks, signal }: PostFunctionParams) {
     const { chars, images, videos, postId, parentPost, restriction, poll, excludeReplyProfileIds } = compositePost;

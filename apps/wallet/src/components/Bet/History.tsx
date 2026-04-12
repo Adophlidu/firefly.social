@@ -16,7 +16,7 @@ import { ListInPage } from '@/components/ListInPage.js';
 import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
 import { formatTokenItemAmount } from '@/helpers/formatTokenItemAmount.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
-import { type PolymarketActivityItem } from '@/providers/types/Firefly.js';
+import type { PolymarketActivityItem } from '@/providers/types/Firefly.js';
 import { getPolymarketAccountQueryOptions } from '@/queries/firefly/getPolymarketAccountQueryOptions.js';
 import { getFireflyEndpoint } from '@/store/fireflyEndpoint.js';
 

@@ -1,8 +1,8 @@
 'use client';
 
-import { type web3 } from '@coral-xyz/anchor';
+import type { web3 } from '@coral-xyz/anchor';
 import { CoreProviderController } from '@reown/appkit';
-import { type Provider } from '@reown/appkit-adapter-solana';
+import type { Provider } from '@reown/appkit-adapter-solana';
 
 import { NetworkType } from '@/constants/enum.js';
 import { WalletNotConnectedError } from '@/constants/error.js';

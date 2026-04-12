@@ -1,5 +1,5 @@
 import { createErrorResponseJson, createSuccessResponseJson } from '@/helpers/createResponseJson.js';
-import { type OrbResponse } from '@/providers/orb/type.js';
+import type { OrbResponse } from '@/providers/orb/type.js';
 
 export function createResponseJsonFromOrb<T>(response: OrbResponse<T>, fallback?: string) {
     if (response.status !== 'SUCCESS' || !response.data) {

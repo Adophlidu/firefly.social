@@ -1,7 +1,7 @@
 import { AppBskyActorDefs } from '@atproto/api';
 
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
-import { type Channel } from '@/providers/types/SocialMedia.js';
+import type { Channel } from '@/providers/types/SocialMedia.js';
 
 export async function leaveBskyChannel(channel: Channel, signal?: AbortSignal): Promise<boolean> {
     const response = await bskySessionHolder.agent.app.bsky.actor.getPreferences({}, { signal });

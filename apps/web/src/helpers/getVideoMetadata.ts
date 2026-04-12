@@ -1,5 +1,5 @@
 import { memoizePromise } from '@/helpers/memoizePromise.js';
-import { type VideoMetadata } from '@/types/compose.js';
+import type { VideoMetadata } from '@/types/compose.js';
 
 function resolver(file: File) {
     return new Promise<VideoMetadata>((resolve, reject) => {

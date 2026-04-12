@@ -1,4 +1,4 @@
-import { type HTMLProps } from 'react';
+import type { HTMLProps } from 'react';
 
 import { getPublicS3Url, getPublicUrl } from '@/helpers/getPublicUrl.js';
 

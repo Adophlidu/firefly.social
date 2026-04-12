@@ -6,7 +6,7 @@ import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
 
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-import { type SocialSource } from '@/constants/enum.js';
+import type { SocialSource } from '@/constants/enum.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { LoginModalRef } from '@/modals/LoginModal/refs.js';
 

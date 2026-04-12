@@ -1,11 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 
-import { type NextRequestContext } from '@dimensiondev/types';
+import type { NextRequestContext } from '@dimensiondev/types';
 import { compose, safeUnreachable } from '@dimensiondev/utils';
 import dayjs from 'dayjs';
 import { ImageResponse } from 'next/og.js';
-import { type NextRequest } from 'next/server.js';
-import { type HTMLProps } from 'react';
+import type { NextRequest } from 'next/server.js';
+import type { HTMLProps } from 'react';
 import { z } from 'zod';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
@@ -19,7 +19,7 @@ import { getSharerHandle } from '@/helpers/getSharerHandle.js';
 import { removeCombiningCharacters } from '@/helpers/removeCombiningCharacters.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
-import { type Attachment, type Post } from '@/providers/types/SocialMedia.js';
+import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
 import { SocialSourceSchema } from '@/schemas/Source.js';
 import { getSatoriFonts } from '@/services/getSatoriFonts.js';
 

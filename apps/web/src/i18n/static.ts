@@ -4,7 +4,7 @@
  */
 import { getI18n } from '@lingui/react/server';
 
-import { type Locale } from '@/constants/enum.js';
+import type { Locale } from '@/constants/enum.js';
 import { setupAndActiveI18n } from '@/i18n/core.js';
 
 export function setupLocaleFromParams(locale: Locale) {

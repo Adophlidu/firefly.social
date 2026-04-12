@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 
 import { usePathname, useRouter, useSearchParams } from '@/esm/navigation.js';
-import { type Contract } from '@/providers/types/Trending.js';
+import type { Contract } from '@/providers/types/Trending.js';
 
 export function useUpdateContractParams() {
     const search = useSearchParams();

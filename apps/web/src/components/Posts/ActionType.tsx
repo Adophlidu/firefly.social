@@ -18,7 +18,7 @@ import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isSamePost } from '@/helpers/isSamePost.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 export interface FeedActionType {
     post: Post;

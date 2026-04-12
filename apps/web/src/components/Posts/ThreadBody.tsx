@@ -17,7 +17,7 @@ import { usePathname, useRouter } from '@/esm/navigation.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
 export interface ThreadBodyProps {

@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { type Address } from 'viem';
+import type { Address } from 'viem';
 import { readContract } from 'wagmi/actions';
 
 import RED_PACKET_ABI from '@/abis/RedPacket.json' with { type: 'json' };
@@ -8,7 +8,7 @@ import { NetworkType } from '@/constants/enum.js';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
-import { type RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
+import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import { EVMChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
 

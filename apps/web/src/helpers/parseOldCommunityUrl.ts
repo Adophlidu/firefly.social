@@ -1,4 +1,4 @@
-import { type ChannelTabType, type SocialSource } from '@/constants/enum.js';
+import type { ChannelTabType, SocialSource } from '@/constants/enum.js';
 import { isSocialSource } from '@/helpers/isSource.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 

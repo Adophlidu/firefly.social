@@ -1,4 +1,4 @@
-import { type ReadonlyHeaders } from 'next/dist/server/web/spec-extension/adapters/headers.js';
+import type { ReadonlyHeaders } from 'next/dist/server/web/spec-extension/adapters/headers.js';
 import { headers } from 'next/headers.js';
 
 import { Agent } from '@/constants/enum.js';

@@ -1,7 +1,7 @@
 import { first, last } from 'lodash-es';
 import { useMemo } from 'react';
 
-import { type PriceRecord } from '@/types/token.js';
+import type { PriceRecord } from '@/types/token.js';
 
 export function useIsPriceUp(stats: PriceRecord[], activeRecord?: PriceRecord) {
     return useMemo(() => {

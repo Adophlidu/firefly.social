@@ -8,7 +8,7 @@ import {
 import { formatBskyChannel } from '@/providers/bsky/formatBskyChannel.js';
 import { resolveBskyResponseData } from '@/providers/bsky/resolveBskyResponseData.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
-import { type Channel } from '@/providers/types/SocialMedia.js';
+import type { Channel } from '@/providers/types/SocialMedia.js';
 
 export async function searchBskyChannels(
     q: string,

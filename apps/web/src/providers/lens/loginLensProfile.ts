@@ -1,10 +1,10 @@
 import { envs } from '@dimensiondev/envs';
 import { SeverityError } from '@dimensiondev/utils';
-import { type ChallengeRequest, type SignMessage } from '@lens-protocol/client';
+import type { ChallengeRequest, SignMessage } from '@lens-protocol/client';
 
 import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
 import { createLensPublicClient } from '@/providers/lens/createLensPublicClient.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface LoginOptions {
     ownerOrManager: string;

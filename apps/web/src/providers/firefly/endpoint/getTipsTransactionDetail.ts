@@ -1,9 +1,9 @@
 import urlcat from 'urlcat';
 
-import { type TipsNotificationType } from '@/constants/enum.js';
+import type { TipsNotificationType } from '@/constants/enum.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { type TipsDetailResponse } from '@/providers/types/Firefly.js';
+import type { TipsDetailResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 export async function getTipsTransactionDetail(txHash: string, type: TipsNotificationType) {

@@ -20,7 +20,7 @@ import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.j
 import { useProfileHighlighted } from '@/hooks/useProfileHighlighted.js';
 import { useRefreshedProfileInProfilePage } from '@/hooks/useRefreshedProfile.js';
 import { getLargeTwitterAvatar } from '@/providers/twitter/getLargeTwitterAvatar.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface InfoProps {
     profile: Profile;

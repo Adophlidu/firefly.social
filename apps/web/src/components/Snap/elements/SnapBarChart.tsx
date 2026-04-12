@@ -1,7 +1,7 @@
 import { classNames } from '@dimensiondev/utils';
 
 import { ACCENT_COLOR_MAP, resolveSnapPaletteKey } from '@/components/Snap/SnapContext.js';
-import { type SnapAccentColor, type SnapBarChartProps } from '@/types/snap.js';
+import type { SnapAccentColor, SnapBarChartProps } from '@/types/snap.js';
 
 interface Props {
     props: SnapBarChartProps;

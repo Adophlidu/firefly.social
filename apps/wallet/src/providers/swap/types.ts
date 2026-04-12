@@ -1,4 +1,4 @@
-import { type NetworkType } from '@/constants/enum.js';
+import type { NetworkType } from '@/constants/enum.js';
 
 export interface SwapToken {
     address: string;

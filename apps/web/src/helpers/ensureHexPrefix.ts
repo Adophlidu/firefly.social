@@ -1,4 +1,4 @@
-import { type Hex } from 'viem';
+import type { Hex } from 'viem';
 
 /**
  * Ensures a string has the '0x' hex prefix.

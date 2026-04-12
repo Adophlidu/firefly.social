@@ -3,7 +3,7 @@
 import { memo } from 'react';
 
 import { BetItem } from '@/components/BetItem.js';
-import { type BetsEventDataForUI } from '@/types/prediction.js';
+import type { BetsEventDataForUI } from '@/types/prediction.js';
 
 interface PredictionEventCardProps {
     event: BetsEventDataForUI;

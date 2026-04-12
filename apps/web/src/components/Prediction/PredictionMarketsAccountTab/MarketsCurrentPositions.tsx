@@ -21,7 +21,7 @@ import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
-import { type BetsMarketDataForUI, type PredictionPositionDataForUI } from '@/types/prediction.js';
+import type { BetsMarketDataForUI, PredictionPositionDataForUI } from '@/types/prediction.js';
 
 interface Props {
     markets: BetsMarketDataForUI[];

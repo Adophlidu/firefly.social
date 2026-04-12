@@ -9,7 +9,7 @@ import { Popover } from '@/components/Popover.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import { type AddWalletModalOpenProps, type AddWalletModalRefType } from '@/modals/AddWalletModal/refs.js';
+import type { AddWalletModalOpenProps, AddWalletModalRefType } from '@/modals/AddWalletModal/refs.js';
 
 interface Props {
     ref: Ref<AddWalletModalRefType>;

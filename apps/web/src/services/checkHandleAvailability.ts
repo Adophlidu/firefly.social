@@ -1,5 +1,5 @@
 import { safeUnreachable } from '@dimensiondev/utils';
-import { type Account } from '@lens-protocol/client';
+import type { Account } from '@lens-protocol/client';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { fetchJson } from '@/helpers/fetchJson.js';

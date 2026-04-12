@@ -1,12 +1,12 @@
 'use client';
 
 import { classNames } from '@dimensiondev/utils';
-import { type LinkProps } from 'next/link.js';
+import type { LinkProps } from 'next/link.js';
 import { memo, type PropsWithChildren, useLayoutEffect, useRef } from 'react';
 
 import { Link } from '@/components/Link.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
-import { type EventId } from '@/providers/types/Telemetry.js';
+import type { EventId } from '@/providers/types/Telemetry.js';
 
 interface SourceTabProps extends PropsWithChildren<LinkProps> {
     isActive: boolean;

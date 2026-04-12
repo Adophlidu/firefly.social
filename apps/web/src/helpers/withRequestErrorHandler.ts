@@ -1,7 +1,7 @@
 import { reportExceptionServer } from '@dimensiondev/exception-tracker';
-import { type NextRequestContext } from '@dimensiondev/types';
+import type { NextRequestContext } from '@dimensiondev/types';
 import { NotFoundError, parseJson, UnauthorizedError } from '@dimensiondev/utils';
-import { type NextRequest } from 'next/server.js';
+import type { NextRequest } from 'next/server.js';
 import { ZodError } from 'zod';
 
 import { AccountSuspendedError, MalformedRequestError } from '@/constants/error.js';

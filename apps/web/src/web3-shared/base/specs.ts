@@ -1,5 +1,5 @@
-import { type CurrencyType, type NetworkPluginID, type TokenType } from '@/constants/enum.js';
-import { type LiteralUnion } from '@/types/utility.js';
+import type { CurrencyType, NetworkPluginID, TokenType } from '@/constants/enum.js';
+import type { LiteralUnion } from '@/types/utility.js';
 
 type Color =
     | `rgb(${number}, ${number}, ${number})`

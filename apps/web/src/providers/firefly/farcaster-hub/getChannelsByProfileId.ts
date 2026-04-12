@@ -4,8 +4,8 @@ import { fetchJson } from '@/helpers/fetchJson.js';
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { formatChannelFromFirefly } from '@/providers/farcaster/formatFarcasterChannelFromFirefly.js';
-import { type ChannelsResponse } from '@/providers/types/Firefly.js';
-import { type Channel } from '@/providers/types/SocialMedia.js';
+import type { ChannelsResponse } from '@/providers/types/Firefly.js';
+import type { Channel } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
 
 export async function getChannelsByProfileId(

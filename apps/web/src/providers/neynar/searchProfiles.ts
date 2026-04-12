@@ -6,7 +6,7 @@ import { createIndicator, createPageable, type PageIndicator } from '@/helpers/p
 import { resolveNeynarResponseData } from '@/helpers/resolveNeynarResponseData.js';
 import { formatFarcasterProfileFromNeynar } from '@/providers/farcaster/formatFarcasterProfileFromNeynar.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
-import { type Profile as NeynarProfile } from '@/providers/types/Neynar.js';
+import type { Profile as NeynarProfile } from '@/providers/types/Neynar.js';
 
 export async function searchProfiles(q: string, indicator?: PageIndicator) {
     return farcasterSessionHolder.withSession(async (session) => {

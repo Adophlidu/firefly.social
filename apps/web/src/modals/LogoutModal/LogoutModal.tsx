@@ -11,7 +11,7 @@ import { useRouter } from '@/esm/navigation.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
-import { type LogoutModalRefType } from '@/modals/LogoutModal/refs.js';
+import type { LogoutModalRefType } from '@/modals/LogoutModal/refs.js';
 import { removeAllAccounts, removeCurrentAccount } from '@/services/account.js';
 
 interface Props {

@@ -18,8 +18,8 @@ import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useOpenFireflyWallet } from '@/hooks/useOpenFireflyWallet.js';
 import { useProfileStore } from '@/hooks/useProfileStore.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/refs.js';
-import { type RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
 import { SolanaChainId } from '@/web3-shared/solana/types.js';
 

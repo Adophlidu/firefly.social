@@ -11,7 +11,7 @@ import { resolveMessageForCommentDisabled } from '@/helpers/resolveMessageForCom
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAnonymousPostAvailability } from '@/hooks/useAnonymousPostAvailability.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 export function useCommentPost(post: Post, disabled = false) {
     const { source, author } = post;

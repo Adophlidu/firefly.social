@@ -1,6 +1,6 @@
 import { type OptionsObject, type SnackbarMessage, useSnackbar } from '@/components/Snackbar.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import { type SnackbarRefType } from '@/modals/Snackbar/refs.js';
+import type { SnackbarRefType } from '@/modals/Snackbar/refs.js';
 
 interface Props {
     ref: React.Ref<SnackbarRefType>;

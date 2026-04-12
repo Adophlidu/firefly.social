@@ -1,9 +1,9 @@
-import { type UserV2, type UserV2TimelineResult } from 'twitter-api-v2';
+import type { UserV2, UserV2TimelineResult } from 'twitter-api-v2';
 
 import { Source } from '@/constants/enum.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export function convertTwitterAvatar(url: string) {
     return url.replace(/_normal.(jpe?g|png|gif|bmp)/, '_400x400.$1');

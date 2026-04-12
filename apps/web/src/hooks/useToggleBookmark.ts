@@ -7,7 +7,7 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useToggleBookmarkMutation } from '@/hooks/useToggleBookmarkMutation.js';
 import { capturePostActionEvent } from '@/providers/telemetry/capturePostActionEvent.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 export function useToggleBookmark(source: SocialSource) {
     const isLogin = useIsLogin(source);

@@ -2,7 +2,7 @@ import { parseUrl } from '@dimensiondev/utils';
 import z from 'zod';
 
 import { DEFAULT_DID_SERVICE_URL } from '@/constants/bsky.js';
-import { type BskySession } from '@/providers/bsky/Session.js';
+import type { BskySession } from '@/providers/bsky/Session.js';
 
 const Service = z.object({
     id: z.string(),

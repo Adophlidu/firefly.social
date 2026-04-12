@@ -3,7 +3,7 @@ import { bytesToHex, toHex } from 'viem';
 
 import { FarcasterSession, FarcasterSponsorship } from '@/providers/farcaster/Session.js';
 import { getFarcasterProfileById } from '@/providers/firefly/farcaster-hub/getFarcasterProfileById.js';
-import { type Account } from '@/providers/types/Account.js';
+import type { Account } from '@/providers/types/Account.js';
 import { createSignedKey } from '@/providers/warpcast/createSignedKey.js';
 import { createSignedKeyPayloadWithSponsorship } from '@/providers/warpcast/createSignedKeyPayload.js';
 import { pollingSignerRequestToken } from '@/providers/warpcast/pollingSignerRequestToken.js';

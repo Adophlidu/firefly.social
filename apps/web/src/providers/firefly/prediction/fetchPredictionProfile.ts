@@ -7,7 +7,7 @@ import { getPredictionPnlHistory } from '@/providers/firefly/prediction/getPredi
 import { getPredictionPortfolio } from '@/providers/firefly/prediction/getPredictionPortfolio.js';
 import { getProfile } from '@/providers/firefly/prediction/getProfile.js';
 import { getUserStats } from '@/providers/prediction/polymarket/getUserStats.js';
-import { type PredictionProfileDataForUI } from '@/types/prediction.js';
+import type { PredictionProfileDataForUI } from '@/types/prediction.js';
 
 export async function fetchPredictionProfile(
     address: string,

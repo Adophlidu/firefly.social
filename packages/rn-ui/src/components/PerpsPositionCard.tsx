@@ -5,7 +5,7 @@ import { Button, Text, XStack, YStack } from 'tamagui';
 import { TagBadge } from '@/components/TagBadge';
 import { EditIcon } from '@/icons/EditIcon';
 import { SwapIcon } from '@/icons/SwapIcon';
-import { type PerpsPositionItem } from '@/types/ui';
+import type { PerpsPositionItem } from '@/types/ui';
 
 interface PerpsPositionCardProps {
     position: PerpsPositionItem;

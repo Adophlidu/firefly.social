@@ -8,7 +8,7 @@ import { Link } from '@/components/Link.js';
 import { FollowCategory, Source } from '@/constants/enum.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface FollowersLinkProps extends HTMLProps<HTMLAnchorElement> {
     profile: Profile;

@@ -1,5 +1,5 @@
 import { NotFoundError } from '@dimensiondev/utils';
-import { type TwitterApi } from 'twitter-api-v2';
+import type { TwitterApi } from 'twitter-api-v2';
 
 import { TWITTER_TIMELINE_OPTIONS } from '@/constants/twitter.js';
 import { patchTweetsClientToFirefly } from '@/helpers/patchPostClientToFirefly.js';

@@ -6,8 +6,8 @@ import { STALE_TIMES } from '@/constants/query.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
 import { resolveFireflyPlatform } from '@/helpers/resolveFireflyPlatform.js';
 import { getAllPlatformProfileByIdentity } from '@/providers/firefly/endpoint/getAllPlatformProfileByIdentity.js';
-import { type FireflyIdentity, type FireflyProfile } from '@/providers/types/Firefly.js';
-import { type MentionChars } from '@/types/chars.js';
+import type { FireflyIdentity, FireflyProfile } from '@/providers/types/Firefly.js';
+import type { MentionChars } from '@/types/chars.js';
 
 function getMatchedMentionProfile(fireflyProfiles: FireflyProfile[], source: SocialSource) {
     const defaultProfile = fireflyProfiles.find((profile) => profile.identity.source === source && profile.isDefault);

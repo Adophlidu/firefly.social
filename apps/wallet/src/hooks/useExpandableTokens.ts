@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 
 import { isGreaterThan, isLessThan } from '@/helpers/number.js';
-import { type Token } from '@/providers/types/Transfer.js';
+import type { Token } from '@/providers/types/Transfer.js';
 
 export function useExpandableTokens(
     tokens: Token[],

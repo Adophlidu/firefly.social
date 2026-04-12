@@ -1,5 +1,5 @@
-import { type LayoutProps } from '@dimensiondev/types';
-import { type Metadata } from 'next';
+import type { LayoutProps } from '@dimensiondev/types';
+import type { Metadata } from 'next';
 
 import { PredictionPlatform } from '@/constants/enum.js';
 import { createPredictionEventMetadata } from '@/providers/firefly/metadata/createPredictionEventMetadata.js';

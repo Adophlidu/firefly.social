@@ -9,9 +9,9 @@ import { parsePostUrl } from '@/helpers/parsePostUrl.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { parseHtml } from '@/libs/parseHtml.js';
 import { getTwitterNitterPicUrl } from '@/providers/nitter/getTwitterNitterPicUrl.js';
-import { type FireflyIdentity } from '@/providers/types/Firefly.js';
+import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import { type User, UserVerifiedType } from '@/providers/types/Nitter.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
 function parseBio(text: string) {
     const document = parseHtml(`<div>${text}</div>`);

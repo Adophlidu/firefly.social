@@ -3,7 +3,7 @@ import { first } from 'lodash-es';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
-import { type WalletProfileInfo } from '@/providers/types/Firefly.js';
+import type { WalletProfileInfo } from '@/providers/types/Firefly.js';
 
 type FallbackInfoSource = Source.Firefly | Source.Wallet | SocialSource;
 interface FallbackInfo {

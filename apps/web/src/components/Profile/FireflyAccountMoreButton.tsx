@@ -13,8 +13,8 @@ import { useEnsName } from '@/hooks/useEnsName.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useShareUrl } from '@/hooks/useShareUrl.js';
-import { type FireflyProfile, type WalletProfile } from '@/providers/types/Firefly.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
+import type { FireflyProfile, WalletProfile } from '@/providers/types/Firefly.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface Props {
     walletProfile?: WalletProfile;

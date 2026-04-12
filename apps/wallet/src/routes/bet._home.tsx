@@ -3,13 +3,13 @@ import DepositIcon from '@dimensiondev/assets/deposit.svg';
 import WithdrawIcon from '@dimensiondev/assets/withdraw.svg';
 import { captureException, ExceptionId } from '@dimensiondev/exception-tracker';
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
-import { type ErrorPageProps } from '@dimensiondev/types';
+import type { ErrorPageProps } from '@dimensiondev/types';
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute, Link, Outlet, useLocation, useNavigate } from '@tanstack/react-router';
 import { BigNumber } from 'bignumber.js';
 import { Suspense } from 'react';
-import { type Address } from 'viem';
+import type { Address } from 'viem';
 
 import { BetError } from '@/components/Bet/BetError.js';
 import { BetNavigationBar } from '@/components/Bet/BetNavigationBar.js';

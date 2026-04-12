@@ -2,7 +2,7 @@ import { memo, useCallback, useState } from 'react';
 import { Path, Svg } from 'react-native-svg';
 import { Button, Input, Sheet, Text, XStack, YStack } from 'tamagui';
 
-import { type ClosePositionSheetData } from '@/types/ui';
+import type { ClosePositionSheetData } from '@/types/ui';
 
 interface ClosePositionSheetProps {
     open: boolean;

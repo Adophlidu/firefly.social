@@ -1,5 +1,5 @@
 import { compose } from '@dimensiondev/utils';
-import { type NextRequest } from 'next/server.js';
+import type { NextRequest } from 'next/server.js';
 import { z } from 'zod';
 
 import { SiteCookies } from '@/constants/enum.js';

@@ -9,7 +9,7 @@ import { PredictionTradeItem } from '@/components/Prediction/PredictionTradeItem
 import { type PredictionPlatform, ScrollListKey, Source } from '@/constants/enum.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { getPredictionTimelineByAddress } from '@/providers/firefly/prediction/getPredictionTimelineByAddress.js';
-import { type BetsActivity } from '@/providers/types/Firefly.js';
+import type { BetsActivity } from '@/providers/types/Firefly.js';
 import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 
 interface PredictionTradeListProps {

@@ -1,12 +1,12 @@
 'use client';
 
 import { classNames } from '@dimensiondev/utils';
-import { type ImageProps as NextImageProps } from 'next/image.js';
+import type { ImageProps as NextImageProps } from 'next/image.js';
 import { memo, type SyntheticEvent, useCallback, useEffect, useState } from 'react';
 
 import { Image as NextImage } from '@/esm/Image.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
-import { type LiteralOrString } from '@/types/utility.js';
+import type { LiteralOrString } from '@/types/utility.js';
 
 const resolveFallbackImageUrl = (fallback: LiteralOrString<'avatar' | 'square' | 'rectangle'>, isDarkMode: boolean) => {
     if (fallback === 'avatar') {

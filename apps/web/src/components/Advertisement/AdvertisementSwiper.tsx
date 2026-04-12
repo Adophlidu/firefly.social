@@ -9,7 +9,7 @@ import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { AdvertisementItem } from '@/components/Advertisement/AdvertisementItem.js';
-import { type Advertisement } from '@/types/advertisement.js';
+import type { Advertisement } from '@/types/advertisement.js';
 
 interface Props extends React.HTMLProps<'div'> {
     items: Advertisement[];

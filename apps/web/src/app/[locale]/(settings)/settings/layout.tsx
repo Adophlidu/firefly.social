@@ -1,4 +1,4 @@
-import { type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 import { SettingsHeader } from '@/app/[locale]/(settings)/components/SettingsHeader.js';
 import { SettingsList } from '@/app/[locale]/(settings)/components/SettingsList.js';

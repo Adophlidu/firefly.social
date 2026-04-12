@@ -13,7 +13,7 @@ import { formatBskyProfile } from '@/providers/bsky/formatBskyProfile.js';
 import { getBskyProfilesByIds } from '@/providers/bsky/getBskyProfilesByIds.js';
 import { resolveBskyResponseData } from '@/providers/bsky/resolveBskyResponseData.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export async function getBskyRepostReactors(
     postId: string,

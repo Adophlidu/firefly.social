@@ -8,7 +8,7 @@ import { chains } from '@/configs/chains.js';
 import { NetworkType } from '@/constants/enum.js';
 import { SolanaChainId } from '@/constants/solana.js';
 import { useEmbeddedWalletAddresses } from '@/hooks/useCachedWalletAddresses.js';
-import { type TransactionHistoryItem } from '@/providers/types/Firefly.js';
+import type { TransactionHistoryItem } from '@/providers/types/Firefly.js';
 
 const FireflyWalletChainSelectorWithNetworkType = lazy(() =>
     import('@/components/FireflyWallet/FireflyWalletChainSelectorWithNetworkType.js').then((module) => ({

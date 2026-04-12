@@ -209,6 +209,7 @@ export const sharedEslintRulesWithoutRelativePaths = {
             fixStyle: 'inline-type-imports',
         },
     ],
+    '@typescript-eslint/no-import-type-side-effects': 'error',
     '@typescript-eslint/await-thenable': 'warn',
     'no-return-await': 'error',
     '@typescript-eslint/dot-notation': 'warn',

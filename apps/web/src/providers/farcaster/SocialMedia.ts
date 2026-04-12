@@ -15,12 +15,12 @@ import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPos
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
 import { SetQueryDataForReportPost } from '@/decorators/SetQueryDataForReportPost.js';
 import { WithMutedProfilesQuery } from '@/decorators/WithMutedProfilesQuery.js';
-import { type Pageable, type PageIndicator } from '@/helpers/pageable.js';
+import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import { getFarcasterProfilesByIds } from '@/providers/farcaster/getFarcasterProfilesByIds.js';
 import { getFarcasterSessionType } from '@/providers/farcaster/getFarcasterSessionType.js';
 import { resolveFidFromAbnormalFarHandle } from '@/providers/farcaster/isAbnormalFarHandle.js';
 import { registerFarcasterAccount } from '@/providers/farcaster/registerFarcasterAccount.js';
-import { type FarcasterSession } from '@/providers/farcaster/Session.js';
+import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { bookmark } from '@/providers/firefly/endpoint/bookmark.js';
 import { discoverPosts } from '@/providers/firefly/endpoint/discoverPosts.js';
 import { discoverPostsById } from '@/providers/firefly/endpoint/discoverPostsById.js';
@@ -63,14 +63,14 @@ import { unblockChannel } from '@/providers/firefly/farcaster-hub/unblockChannel
 import { reportProfile } from '@/providers/firefly/report/reportProfile.js';
 import { neynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
 import { updateProfile } from '@/providers/neynar/updateProfile.js';
-import { type Account } from '@/providers/types/Account.js';
+import type { Account } from '@/providers/types/Account.js';
 import {
     NotificationPlatform,
     NotificationPushType,
     type NotificationSettings,
     NotificationTitle,
 } from '@/providers/types/Firefly.js';
-import { type Session } from '@/providers/types/Session.js';
+import type { Session } from '@/providers/types/Session.js';
 import {
     type Channel,
     type Friendship,

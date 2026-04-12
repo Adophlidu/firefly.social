@@ -3,7 +3,7 @@ import urlcat from 'urlcat';
 import { BookmarkType, FireflyPlatform } from '@/constants/enum.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { type GetBookmarksResponse } from '@/providers/types/Firefly.js';
+import type { GetBookmarksResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 export async function getFireflyBookmarksByIds(platform: FireflyPlatform, ids: string[], postType = BookmarkType.All) {

@@ -9,7 +9,7 @@ import { NoSSR } from '@/components/NoSSR.js';
 import { resolveChannelName } from '@/helpers/resolveChannelName.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { type Channel } from '@/providers/types/SocialMedia.js';
+import type { Channel } from '@/providers/types/SocialMedia.js';
 
 interface TitleProps {
     channel: Channel;

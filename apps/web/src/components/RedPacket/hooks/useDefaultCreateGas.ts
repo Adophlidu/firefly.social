@@ -3,7 +3,7 @@ import { unreachable } from '@dimensiondev/utils';
 import { useEthereumDefaultGas } from '@/components/RedPacket/hooks/useEthereumDefaultGas.js';
 import { useSolanaDefaultGas } from '@/components/RedPacket/hooks/useSolanaDefaultGas.js';
 import { NetworkType } from '@/constants/enum.js';
-import { type CreateRedPacketContext } from '@/providers/ethereum/red-packet/types.js';
+import type { CreateRedPacketContext } from '@/providers/ethereum/red-packet/types.js';
 
 export function useDefaultCreateGas(context: CreateRedPacketContext) {
     const { networkType } = context;

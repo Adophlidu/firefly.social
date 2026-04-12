@@ -1,4 +1,4 @@
-import { type LayoutProps } from '@dimensiondev/types';
+import type { LayoutProps } from '@dimensiondev/types';
 
 import { ActivityProvider } from '@/components/Activity/ActivityContext.js';
 

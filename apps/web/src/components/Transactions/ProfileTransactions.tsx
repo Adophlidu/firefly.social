@@ -6,9 +6,9 @@ import { getProfileTransactions } from '@/components/Transactions/getTransaction
 import { getTransactionsItemContent } from '@/components/Transactions/getTransactionsItemContent.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
-import { type Pageable, type PageIndicator } from '@/helpers/pageable.js';
+import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import { useMultiInfiniteQueryPageable } from '@/hooks/useMultiInfiniteQueryPageable.js';
-import { type TransactionsItem } from '@/providers/types/Firefly.js';
+import type { TransactionsItem } from '@/providers/types/Firefly.js';
 import { useTransactionsStateStore } from '@/store/useTransactionsStore.js';
 
 interface ProfileTransactionsProps {

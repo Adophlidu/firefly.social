@@ -1,7 +1,7 @@
-import { type BigNumber } from 'bignumber.js';
-import { type Connector } from 'wagmi';
+import type { BigNumber } from 'bignumber.js';
+import type { Connector } from 'wagmi';
 
-import { type NetworkType } from '@/constants/enum.js';
+import type { NetworkType } from '@/constants/enum.js';
 
 export interface Token<ChainIdLike = number, AddressLike = string> {
     chainId: ChainIdLike;

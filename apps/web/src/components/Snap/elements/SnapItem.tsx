@@ -1,7 +1,7 @@
-import { type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 import { Image } from '@/components/Image.js';
-import { type SnapItemProps } from '@/types/snap.js';
+import type { SnapItemProps } from '@/types/snap.js';
 
 interface Props {
     props: SnapItemProps;

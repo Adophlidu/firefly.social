@@ -1,6 +1,6 @@
 import LeftArrowIcon from '@dimensiondev/assets/left-arrow.svg';
 import SearchIcon from '@dimensiondev/assets/search.svg';
-import { type ErrorPageProps } from '@dimensiondev/types';
+import type { ErrorPageProps } from '@dimensiondev/types';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
@@ -11,7 +11,7 @@ import { Suspense, useEffect, useState } from 'react';
 import * as React from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';
 import { useDebounceValue } from 'usehooks-ts';
-import { type Address } from 'viem';
+import type { Address } from 'viem';
 
 import { BaseNotFound } from '@/components/BaseNotFound.js';
 import { ErrorBoundary } from '@/components/ErrorBoundary.js';

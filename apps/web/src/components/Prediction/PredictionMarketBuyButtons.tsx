@@ -14,7 +14,7 @@ import { STALE_TIMES } from '@/constants/query.js';
 import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
 import { openPredictionPage } from '@/helpers/openPredictionPage.js';
 import { getPolymarketOrderBooks } from '@/providers/firefly/prediction/getPolymarketOrderBook.js';
-import { type BetsMarketDataForUI } from '@/types/prediction.js';
+import type { BetsMarketDataForUI } from '@/types/prediction.js';
 
 interface PredictionMarketBuyButtonsProps {
     market: BetsMarketDataForUI;

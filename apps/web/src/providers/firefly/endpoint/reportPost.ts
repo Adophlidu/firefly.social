@@ -2,7 +2,7 @@ import urlcat from 'urlcat';
 
 import { resolveSourceInUrlForApi } from '@/helpers/resolveSourceInUrl.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
 
 export async function reportPost(post: Post): Promise<boolean> {

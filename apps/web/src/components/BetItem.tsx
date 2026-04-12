@@ -20,7 +20,7 @@ import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { isZero } from '@/helpers/number.js';
 import { openPredictionPage } from '@/helpers/openPredictionPage.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
-import { type BetsEventDataForUI, type BetsMarketDataForUI } from '@/types/prediction.js';
+import type { BetsEventDataForUI, BetsMarketDataForUI } from '@/types/prediction.js';
 
 const MAX_DISPLAYED_MARKETS = 2;
 

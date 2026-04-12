@@ -1,7 +1,7 @@
 'use client';
 
 import RightArrowIcon from '@dimensiondev/assets/right-arrow.svg';
-import { type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 import { Link } from '@/components/Link.js';
 import { usePathname } from '@/esm/navigation.js';

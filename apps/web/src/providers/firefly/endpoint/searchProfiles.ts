@@ -11,8 +11,8 @@ import {
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { getProfilesByIds } from '@/providers/firefly/endpoint/getProfilesByIds.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { type SearchProfileResponse } from '@/providers/types/Firefly.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
+import type { SearchProfileResponse } from '@/providers/types/Firefly.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
 
 export async function searchProfiles(q: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {

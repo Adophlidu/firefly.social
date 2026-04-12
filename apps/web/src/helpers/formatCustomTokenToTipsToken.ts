@@ -1,4 +1,4 @@
-import { type Token } from '@/providers/types/Transfer.js';
+import type { Token } from '@/providers/types/Transfer.js';
 import { type CustomToken, CustomTokenType } from '@/store/useCustomTokenStore.js';
 
 export function formatCustomTokenToTipsToken<T extends Token>(token: CustomToken, options?: Partial<T>): T {

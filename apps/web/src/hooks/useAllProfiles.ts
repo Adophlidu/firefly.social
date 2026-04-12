@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { STALE_TIMES } from '@/constants/query.js';
 import { getAllPlatformProfileByIdentity } from '@/providers/firefly/endpoint/getAllPlatformProfileByIdentity.js';
-import { type FireflyIdentity } from '@/providers/types/Firefly.js';
+import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 
 export function useAllProfiles(identity?: FireflyIdentity) {
     return useQuery({

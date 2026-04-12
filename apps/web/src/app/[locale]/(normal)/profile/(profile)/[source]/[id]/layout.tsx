@@ -1,4 +1,4 @@
-import { type LayoutProps } from '@dimensiondev/types';
+import type { LayoutProps } from '@dimensiondev/types';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 
@@ -21,7 +21,7 @@ import { resolveSessionHolder } from '@/helpers/resolveSessionHolder.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 import { resolveSpecialProfileIdentity } from '@/helpers/resolveSpecialProfileIdentity.js';
-import { type FireflyIdentity, type FireflyProfile } from '@/providers/types/Firefly.js';
+import type { FireflyIdentity, FireflyProfile } from '@/providers/types/Firefly.js';
 import { getAllRelatedProfilesWithDefault } from '@/services/getAllRelatedProfilesWithDefault.js';
 
 export const revalidate = 60;

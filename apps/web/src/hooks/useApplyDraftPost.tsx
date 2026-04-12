@@ -25,7 +25,7 @@ import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
 import { getHistoryDataById } from '@/providers/firefly/red-packet/getHistoryDataById.js';
 import { getMaskTypedMessage } from '@/providers/firefly/red-packet/getMaskTypedMessage.js';
 import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
-import { type Post, type Profile } from '@/providers/types/SocialMedia.js';
+import type { Post, Profile } from '@/providers/types/SocialMedia.js';
 import { type Draft, useComposeDraftState } from '@/store/useComposeDraftStore.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import { createInitPostState, useComposeStateStore } from '@/store/useComposeStore.js';

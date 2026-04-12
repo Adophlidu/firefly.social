@@ -11,7 +11,7 @@ import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { useMultiInfiniteQueryPageable } from '@/hooks/useMultiInfiniteQueryPageable.js';
-import { type TransactionsItem } from '@/providers/types/Firefly.js';
+import type { TransactionsItem } from '@/providers/types/Firefly.js';
 import { useTransactionsStateStore } from '@/store/useTransactionsStore.js';
 
 const availableSources = [Source.Swap, Source.Prediction] as const;

@@ -6,7 +6,7 @@ import { z } from 'zod';
 import { BetError } from '@/components/Bet/BetError.js';
 import { PositionClaimModal } from '@/components/Bet/PositionClaimModal.js';
 import { LoadingPanel } from '@/components/LoadingPanel.js';
-import { type PolymarketPosition } from '@/providers/types/Firefly.js';
+import type { PolymarketPosition } from '@/providers/types/Firefly.js';
 
 const PositionAction = {
     CLAIM_PROCEEDS: 'claim-proceeds',

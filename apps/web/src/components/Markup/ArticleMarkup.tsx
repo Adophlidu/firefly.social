@@ -9,14 +9,14 @@ import stripMarkdown from 'strip-markdown';
 
 import { Code } from '@/components/Code.js';
 import { MarkupLink } from '@/components/Markup/MarkupLink/index.js';
-import { type MarkupLinkProps } from '@/components/Markup/MarkupLink/type.js';
+import type { MarkupLinkProps } from '@/components/Markup/MarkupLink/type.js';
 import { NFTPlugin } from '@/components/Markup/plugins/NFT.js';
 import { ImageAsset, type ImageAssetProps } from '@/components/Posts/ImageAsset.js';
 import { Source } from '@/constants/enum.js';
 import { BIO_TWITTER_PROFILE_REGEX, EMAIL_REGEX, URL_REGEX } from '@/constants/regexp.js';
 import { trimify } from '@/helpers/trimify.js';
 import { PreviewMediaModalRef } from '@/modals/PreviewMediaModal/refs.js';
-import { type Pluggable } from '@/types/utility.js';
+import type { Pluggable } from '@/types/utility.js';
 
 const PLUGINS: Pluggable[] = [
     [stripMarkdown, { keep: ['strong', 'emphasis', 'inlineCode', 'image'] }],

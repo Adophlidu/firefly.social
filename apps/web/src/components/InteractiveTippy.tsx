@@ -1,4 +1,4 @@
-import { type TippyProps } from '@tippyjs/react';
+import type { TippyProps } from '@tippyjs/react';
 import { memo } from 'react';
 
 import { Tippy } from '@/esm/Tippy.js';

@@ -3,7 +3,7 @@ import { Path, Svg } from 'react-native-svg';
 import { Button, Sheet, Text, XStack, YStack } from 'tamagui';
 
 import { MarginModeSheetSkeleton } from '@/skeletons/MarginModeSheetSkeleton';
-import { type MarginModeSheetData, type PerpsTradeMarginMode } from '@/types/ui';
+import type { MarginModeSheetData, PerpsTradeMarginMode } from '@/types/ui';
 
 interface MarginModeSheetProps {
     open: boolean;

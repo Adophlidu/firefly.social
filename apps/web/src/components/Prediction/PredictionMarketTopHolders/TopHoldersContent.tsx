@@ -12,7 +12,7 @@ import { PredictionPlatform } from '@/constants/enum.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { useScrollRestoration } from '@/hooks/useScrollRestoration.js';
 import { getBetsMarketTopHolders } from '@/providers/prediction/getBetsMarketTopHolders.js';
-import { type BetsMarketDataForUI } from '@/types/prediction.js';
+import type { BetsMarketDataForUI } from '@/types/prediction.js';
 
 interface TopHoldersContentProps {
     platform: PredictionPlatform;

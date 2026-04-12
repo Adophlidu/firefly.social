@@ -1,4 +1,4 @@
-import { type IStorageProvider } from '@lens-protocol/client';
+import type { IStorageProvider } from '@lens-protocol/client';
 
 export class MemoryStorageProvider implements IStorageProvider {
     public storage = new Map<string, string>();

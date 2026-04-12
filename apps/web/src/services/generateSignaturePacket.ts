@@ -1,7 +1,7 @@
 import { MessageType } from '@/constants/farcaster.js';
 import { toFarcasterTime } from '@/helpers/toFarcasterTime.js';
 import { encodeMessageData } from '@/providers/neynar/encodeMessageData.js';
-import { type SignaturePacket } from '@/providers/types/Neynar.js';
+import type { SignaturePacket } from '@/providers/types/Neynar.js';
 
 export async function generateSignaturePacket(): Promise<SignaturePacket> {
     const { signer, messageDataHash, messageDataSignature } = await encodeMessageData({

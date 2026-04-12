@@ -3,7 +3,7 @@
 import { memo } from 'react';
 
 import { PredictionProfileCardUI } from '@/components/Prediction/PredictionProfileCardUI.js';
-import { type BetPortfolioItem } from '@/providers/types/Firefly.js';
+import type { BetPortfolioItem } from '@/providers/types/Firefly.js';
 
 interface PredictionProfileCardProps {
     profile: BetPortfolioItem;

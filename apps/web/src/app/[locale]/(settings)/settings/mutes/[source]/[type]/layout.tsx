@@ -1,8 +1,8 @@
-import { type LayoutProps } from '@dimensiondev/types';
+import type { LayoutProps } from '@dimensiondev/types';
 import { createLookupTableResolver } from '@dimensiondev/utils';
-import { type MessageDescriptor } from '@lingui/core';
+import type { MessageDescriptor } from '@lingui/core';
 import { msg } from '@lingui/core/macro';
-import { type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 import { MuteType, Source, SourceInURL } from '@/constants/enum.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';

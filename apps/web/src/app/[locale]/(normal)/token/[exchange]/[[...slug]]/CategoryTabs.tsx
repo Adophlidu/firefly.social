@@ -12,7 +12,7 @@ import { TOKEN_CATEGORIES, TRACING_CHAINS } from '@/constants/computed.js';
 import { TokenCategory } from '@/constants/enum.js';
 import { NO_TRACING_COINS } from '@/constants/static.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { type CoinGeckoToken } from '@/providers/types/CoinGecko.js';
+import type { CoinGeckoToken } from '@/providers/types/CoinGecko.js';
 
 interface Props extends HTMLProps<HTMLDivElement> {
     token: CoinGeckoToken;

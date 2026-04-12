@@ -34,8 +34,8 @@ import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
 import { useUpdateParams } from '@/hooks/useUpdateParams.js';
 import { captureProfileAccountClick } from '@/providers/telemetry/captureProfileAccountEvent.js';
-import { type Account } from '@/providers/types/Account.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
+import type { Account } from '@/providers/types/Account.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 import { switchAccount } from '@/services/account.js';
 import { useFireflyIdentityState } from '@/store/useFireflyIdentityStore.js';
 

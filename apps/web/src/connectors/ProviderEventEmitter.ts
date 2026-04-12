@@ -1,4 +1,4 @@
-import { type ProviderEventEmitterMethods } from '@reown/appkit-adapter-solana';
+import type { ProviderEventEmitterMethods } from '@reown/appkit-adapter-solana';
 
 type Listeners = {
     [Event in ProviderEventEmitterMethods.Event]: Array<(arg: ProviderEventEmitterMethods.EventParams[Event]) => void>;

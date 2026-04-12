@@ -1,5 +1,5 @@
-import { type LayoutProps } from '@dimensiondev/types';
-import { type Metadata } from 'next';
+import type { LayoutProps } from '@dimensiondev/types';
+import type { Metadata } from 'next';
 
 import { ChannelTabs } from '@/components/Channel/ChannelTabs.js';
 import { CHANNEL_TAB_TYPE } from '@/constants/computed.js';

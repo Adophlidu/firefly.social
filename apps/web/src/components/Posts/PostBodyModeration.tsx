@@ -6,11 +6,11 @@ import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 
 import { Link } from '@/components/Link.js';
-import { type PostBodyContentProps } from '@/components/Posts/PostBodyContent.js';
+import type { PostBodyContentProps } from '@/components/Posts/PostBodyContent.js';
 import { Source } from '@/constants/enum.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 const ModerationDescription = memo(function ModerationDescription({ post }: { post: Post }) {
     if (post.moderationReasons?.some((reason) => ['porn', 'sexual', 'nudity'].includes(reason))) {

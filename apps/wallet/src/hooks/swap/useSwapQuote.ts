@@ -4,7 +4,7 @@ import { useEffectiveSwapWalletAddress } from '@/hooks/swap/useEffectiveSwapWall
 import { useResolvedSwapTokens } from '@/hooks/swap/useResolvedSwapTokens.js';
 import { useSwapQuoteCore } from '@/hooks/swap/useSwapQuoteCore.js';
 import { useSwapContextWalletAddresses } from '@/hooks/useCachedWalletAddresses.js';
-import { type CrossChainQuote, type SwapQuote } from '@/providers/swap/types.js';
+import type { CrossChainQuote, SwapQuote } from '@/providers/swap/types.js';
 import { slippageAtom } from '@/store/swap/swapSettings.js';
 import { fromAmountAtom, swapStepAtom } from '@/store/swap/swapState.js';
 

@@ -1,7 +1,7 @@
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
-import {
-    type FrameViewerModalCloseProps,
-    type FrameViewerModalOpenProps,
+import type {
+    FrameViewerModalCloseProps,
+    FrameViewerModalOpenProps,
 } from '@/modals/FrameViewerModal/FrameViewerModalContent.js';
 
 export type { FrameViewerModalCloseProps, FrameViewerModalOpenProps };

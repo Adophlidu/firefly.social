@@ -1,4 +1,4 @@
-import { type Config } from 'wagmi';
+import type { Config } from 'wagmi';
 import { getConnectorClient } from 'wagmi/actions';
 
 export async function addAndSwitchChain(config: Config, chainId: number) {

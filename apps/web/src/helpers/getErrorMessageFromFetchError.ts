@@ -1,7 +1,7 @@
 import { parseJson } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 
-import { type FetchError } from '@/constants/error.js';
+import type { FetchError } from '@/constants/error.js';
 
 export function getErrorMessageFromFetchError(error: FetchError): string {
     const parsedResponse = parseJson<{

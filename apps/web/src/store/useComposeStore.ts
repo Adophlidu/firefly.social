@@ -1,6 +1,6 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { clone, difference, uniq } from 'lodash-es';
-import { type SetStateAction } from 'react';
+import type { SetStateAction } from 'react';
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
@@ -16,13 +16,13 @@ import { matchUrls } from '@/helpers/matchUrls.js';
 import { createPoll } from '@/helpers/polls.js';
 import { FrameLoader } from '@/providers/frame/Loader.js';
 import { OpenGraphLoader } from '@/providers/og/Loader.js';
-import { type CompositePoll } from '@/providers/types/Poll.js';
-import { type Channel, type Post } from '@/providers/types/SocialMedia.js';
-import { type Chars } from '@/types/chars.js';
-import { type ComposeType, type CompositePost, type MediaObject } from '@/types/compose.js';
-import { type Frame } from '@/types/frame.js';
-import { type OpenGraph } from '@/types/og.js';
-import { type RedPacketPayload } from '@/types/rp.js';
+import type { CompositePoll } from '@/providers/types/Poll.js';
+import type { Channel, Post } from '@/providers/types/SocialMedia.js';
+import type { Chars } from '@/types/chars.js';
+import type { ComposeType, CompositePost, MediaObject } from '@/types/compose.js';
+import type { Frame } from '@/types/frame.js';
+import type { OpenGraph } from '@/types/og.js';
+import type { RedPacketPayload } from '@/types/rp.js';
 
 // post id for tracking the current editable post
 type Cursor = string;

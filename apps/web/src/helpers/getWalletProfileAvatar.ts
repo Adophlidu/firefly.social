@@ -1,4 +1,4 @@
-import { type FireflyDisplayInfo } from '@/providers/types/Firefly.js';
+import type { FireflyDisplayInfo } from '@/providers/types/Firefly.js';
 
 export function getWalletProfileAvatar(displayInfo?: FireflyDisplayInfo) {
     if (!displayInfo) return;

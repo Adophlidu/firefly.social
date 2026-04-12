@@ -1,7 +1,7 @@
 import { memo } from 'react';
 
 import { AddressTag } from '@/components/Markup/MarkupLink/AddressTag.js';
-import { type MarkupLinkProps } from '@/components/Markup/MarkupLink/type.js';
+import type { MarkupLinkProps } from '@/components/Markup/MarkupLink/type.js';
 import { SearchType } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';

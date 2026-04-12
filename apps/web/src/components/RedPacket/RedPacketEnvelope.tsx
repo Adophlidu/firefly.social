@@ -1,4 +1,4 @@
-import { type HTMLProps } from 'react';
+import type { HTMLProps } from 'react';
 
 import { Image } from '@/components/Image.js';
 import { type RedPacketCoverOptions, useRedPacketCover } from '@/components/RedPacket/hooks/useRedPacketCover.js';

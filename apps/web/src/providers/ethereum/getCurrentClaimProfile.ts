@@ -4,7 +4,7 @@ import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatform
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { ensureLensResultSync } from '@/providers/lens/ensureLensResultSync.js';
 import { lensSessionClientHolder } from '@/providers/lens/LensSessionClientHolder.js';
-import { type FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
+import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 import { generateSignaturePacket } from '@/services/generateSignaturePacket.js';
 
 export async function getCurrentClaimProfile(source: SocialSource) {

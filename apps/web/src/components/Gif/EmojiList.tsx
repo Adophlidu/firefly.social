@@ -6,7 +6,7 @@ import { useAsyncFn } from 'react-use';
 
 import { Loading } from '@/components/Loading.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { type IGif } from '@/types/giphy.js';
+import type { IGif } from '@/types/giphy.js';
 
 interface EmojiListProps {
     width: number;

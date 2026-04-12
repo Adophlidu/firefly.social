@@ -3,14 +3,14 @@ import { produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { ExtraLikeType, Source, TxReactionType } from '@/constants/enum.js';
-import { type PageData } from '@/decorators/types.js';
+import type { PageData } from '@/decorators/types.js';
 import { patchPredictionActivityData } from '@/helpers/patchPredictionActivityData.js';
 import { patchTransactionsQuery } from '@/helpers/patchTransactionsQuery.js';
 import { updateTipsReactionStatus } from '@/helpers/updateTipsReactionStatus.js';
-import { type LikeTarget } from '@/hooks/useToggleLike.js';
-import { type SnapshotActivity } from '@/providers/snapshot/type.js';
-import { type Article } from '@/providers/types/Article.js';
-import { type BetsActivity, type SwapActivity } from '@/providers/types/Firefly.js';
+import type { LikeTarget } from '@/hooks/useToggleLike.js';
+import type { SnapshotActivity } from '@/providers/snapshot/type.js';
+import type { Article } from '@/providers/types/Article.js';
+import type { BetsActivity, SwapActivity } from '@/providers/types/Firefly.js';
 
 function updateQueryForArticle(article: Article, isLiked: boolean) {
     queryClient.setQueryData<Article>(['article', article.id], (old) => {

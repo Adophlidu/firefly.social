@@ -4,7 +4,7 @@ import { classNames } from '@dimensiondev/utils';
 
 import { SnapIcon } from '@/components/Snap/elements/SnapIcon.js';
 import { ACCENT_BORDER_MAP, ACCENT_COLOR_MAP, ACCENT_TEXT_MAP } from '@/components/Snap/SnapContext.js';
-import { type SnapAccentColor, type SnapAction, type SnapButtonProps } from '@/types/snap.js';
+import type { SnapAccentColor, SnapAction, SnapButtonProps } from '@/types/snap.js';
 
 interface Props {
     props: SnapButtonProps;

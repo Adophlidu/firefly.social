@@ -3,7 +3,7 @@ import { Path, Svg } from 'react-native-svg';
 import { Button, Input, Sheet, Text, XStack, YStack } from 'tamagui';
 
 import { AddToPositionSheetSkeleton } from '@/skeletons/AddToPositionSheetSkeleton';
-import { type AddToPositionSheetData } from '@/types/ui';
+import type { AddToPositionSheetData } from '@/types/ui';
 
 interface AddToPositionSheetProps {
     open: boolean;

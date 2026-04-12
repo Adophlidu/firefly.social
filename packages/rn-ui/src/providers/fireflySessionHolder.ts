@@ -1,7 +1,7 @@
 import urlcat from 'urlcat';
 
 import { FIREFLY_ROOT_URL_DEV } from '@/constants/static';
-import { type NextFetchersOptions } from '@/helpers/fetch';
+import type { NextFetchersOptions } from '@/helpers/fetch';
 import { fetchJson } from '@/helpers/fetchJson';
 
 class FireflySessionHolder {

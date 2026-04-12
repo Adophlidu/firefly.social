@@ -24,11 +24,7 @@ import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { toProfileId } from '@/helpers/isSameProfile.js';
 import { resolveNotificationIcon } from '@/helpers/resolveNotificationIcon.js';
 import { isProfileMuted } from '@/hooks/useIsProfileMuted.js';
-import {
-    type ScheduleNotification,
-    type TipsNotification,
-    type UnifiedNotification,
-} from '@/providers/types/Firefly.js';
+import type { ScheduleNotification, TipsNotification, UnifiedNotification } from '@/providers/types/Firefly.js';
 import { type Notification, NotificationType } from '@/providers/types/SocialMedia.js';
 
 interface NotificationItemProps {

@@ -4,12 +4,12 @@ import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { convertBskyHandleToDid } from '@/providers/bsky/convertBskyHandleToDid.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import {
-    type PlatformIdentityKey,
-    type WalletProfile,
-    type WalletProfileResponse,
-    type WalletProfiles,
-    type WalletsStatusResponse,
+import type {
+    PlatformIdentityKey,
+    WalletProfile,
+    WalletProfileResponse,
+    WalletProfiles,
+    WalletsStatusResponse,
 } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 

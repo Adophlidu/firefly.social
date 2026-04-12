@@ -5,7 +5,7 @@ import { PredictionPlatform } from '@/constants/enum.js';
 import { getPolymarketLastPrice } from '@/providers/firefly/prediction/getPolymarketLastPrice.js';
 import { getPolymarketOrderBook } from '@/providers/firefly/prediction/getPolymarketOrderBook.js';
 import { getPolymarketSpreads } from '@/providers/firefly/prediction/getPolymarketSpreads.js';
-import { type BetsMarketDataForUI, type BetsOrderBookItem } from '@/types/prediction.js';
+import type { BetsMarketDataForUI, BetsOrderBookItem } from '@/types/prediction.js';
 
 interface Options {
     market: BetsMarketDataForUI;

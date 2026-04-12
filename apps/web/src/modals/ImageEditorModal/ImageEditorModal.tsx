@@ -7,7 +7,7 @@ import { Loading } from '@/components/Loading.js';
 import { Modal } from '@/components/Modal.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import { type ImageEditorModalOpenProps, type ImageEditorModalRefType } from '@/modals/ImageEditorModal/refs.js';
+import type { ImageEditorModalOpenProps, ImageEditorModalRefType } from '@/modals/ImageEditorModal/refs.js';
 
 interface Props {
     ref: React.Ref<ImageEditorModalRefType>;

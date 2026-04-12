@@ -4,7 +4,7 @@ import EyeSlash from '@dimensiondev/assets/eye-slash.svg';
 import TrashIcon from '@dimensiondev/assets/trash.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
-import { type HTMLProps } from 'react';
+import type { HTMLProps } from 'react';
 
 interface Props extends HTMLProps<HTMLDivElement> {
     authorMuted?: boolean;

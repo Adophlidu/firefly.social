@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 
 import { captureException, type ExceptionId } from '@/core/captureException.js';
-import { type ExceptionTags } from '@/types.js';
+import type { ExceptionTags } from '@/types.js';
 
 interface UseReportErrorOnceOptions {
     /** Exception id to report */

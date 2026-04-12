@@ -1,4 +1,4 @@
-import { type AppBskyActorDefs } from '@atproto/api';
+import type { AppBskyActorDefs } from '@atproto/api';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 

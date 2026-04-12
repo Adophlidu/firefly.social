@@ -1,4 +1,4 @@
-import { type OptionsObject, type SnackbarKey, type SnackbarMessage } from '@/components/Snackbar.js';
+import type { OptionsObject, SnackbarKey, SnackbarMessage } from '@/components/Snackbar.js';
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 
 export type SnackbarOpenProps =

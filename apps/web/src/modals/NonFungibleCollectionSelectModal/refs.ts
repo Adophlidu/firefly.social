@@ -1,5 +1,5 @@
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
-import { type Collection } from '@/modals/NonFungibleCollectionSelectModal/CollectionItem.js';
+import type { Collection } from '@/modals/NonFungibleCollectionSelectModal/CollectionItem.js';
 
 export interface NonFungibleCollectionSelectModalOpenProps {
     selected?: Collection | Collection[];
