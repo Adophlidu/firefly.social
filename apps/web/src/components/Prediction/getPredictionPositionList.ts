@@ -13,7 +13,6 @@ interface Options {
     isProxyAddress?: boolean;
     limit?: number;
     indicator?: PageIndicator;
-    isClaim?: boolean;
     eventId?: string;
     positionType?: 'current' | 'closed';
 }
@@ -57,10 +56,10 @@ export async function getPredictionPositionList(
 ): Promise<Pageable<PredictionPositionDataForUI, PageIndicator>> {
     switch (platform) {
         case PredictionPlatform.Polymarket: {
-            const { positionType = 'current', ...fetchOptions } = options;
+            const { positionType = 'current', address, indicator, limit, eventId } = options;
             const isClosed = positionType === 'closed';
             const fetcher = isClosed ? getClosedPositions : getCurrentPositions;
-            const result = await fetcher(fetchOptions);
+            const result = await fetcher({ address, indicator, limit, eventId });
             return {
                 ...result,
                 data: result.data.map((position) => mapV2ToUI(position, isClosed)),
