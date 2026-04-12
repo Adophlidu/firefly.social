@@ -67,8 +67,8 @@
             "elliptic": ">=6.6.1",
             "isows": "1.0.7",
             "pino": "10.1.1",
-            "react": "19.2.4",
-            "react-dom": "19.2.4",
+            "react": "19.2.5",
+            "react-dom": "19.2.5",
             "react-use": "17.6.0",
             "sha.js": "2.4.12",
             "uint8arrays": "3.1.1",
@@ -78,7 +78,7 @@
         "peerDependencyRules": {
             "ignoreMissing": [],
             "allowedVersions": {
-                "react": "19.2.4"
+                "react": "19.2.5"
             }
         },
         "patchedDependencies": {
