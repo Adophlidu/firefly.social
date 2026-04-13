@@ -1,6 +1,6 @@
 {
     "name": "@dimensiondev/assets",
-    "version": "0.1.26",
+    "version": "0.1.27",
     "private": true,
     "description": "Shared SVG assets for Firefly web",
     "type": "module",

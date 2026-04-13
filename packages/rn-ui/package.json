@@ -1,6 +1,6 @@
 {
     "name": "@dimensiondev/rn-ui",
-    "version": "0.1.26",
+    "version": "0.1.27",
     "description": "React Native UI components for Firefly",
     "main": "./dist/index.cjs",
     "module": "./dist/index.js",
