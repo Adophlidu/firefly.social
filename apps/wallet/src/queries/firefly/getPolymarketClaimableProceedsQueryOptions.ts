@@ -2,7 +2,7 @@ import { EMPTY_LIST } from '@dimensiondev/constants';
 import { queryOptions } from '@tanstack/react-query';
 import type { Address } from 'viem';
 
-import type { PolymarketPosition } from '@/providers/types/Firefly.js';
+import { mapPolymarketV2ToLegacy, type PolymarketPosition } from '@/providers/types/Firefly.js';
 import { getFireflyEndpoint } from '@/store/fireflyEndpoint.js';
 
 export interface ClaimableProceedsItem extends PolymarketPosition {
@@ -13,12 +13,17 @@ export function getPolymarketClaimableProceedsQueryOptions(proxyAddress: Address
     return queryOptions({
         queryKey: ['polymarket-claimable-proceeds', proxyAddress.toLowerCase()],
         async queryFn() {
-            return getFireflyEndpoint().getPolymarketCurrentPositions(proxyAddress, true);
+            return getFireflyEndpoint().getPolymarketV2CurrentPositions(proxyAddress, {
+                redeemable: true,
+                offset: 0,
+                limit: 200,
+            });
         },
         enabled: Boolean(proxyAddress),
-        select(payload): { totalWon: number; items: ClaimableProceedsItem[] } {
-            const list = payload?.data ?? EMPTY_LIST;
+        select(positions): { totalWon: number; items: ClaimableProceedsItem[] } {
+            const list = positions ?? EMPTY_LIST;
             const claimables = list
+                .map((p) => mapPolymarketV2ToLegacy(p, false))
                 // For winning outcome, claimable proceeds ~= shares (1 share = $1).
                 .filter((x) => x.isClaimable && x.isWin && Number.isFinite(x.shares) && x.shares > 0)
                 .map((x) => ({ ...x, won: x.shares }));

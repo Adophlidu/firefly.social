@@ -12,19 +12,14 @@ export function getAvailableSharesByConditionIdQueryOptions(
     return queryOptions({
         queryKey: ['polymarket-positions-info', proxyAddress.toLowerCase(), conditionId, tokenId],
         async queryFn() {
-            return getFireflyEndpoint().getPolymarketPositionsInfo(proxyAddress, {
-                cursor: 0,
+            return getFireflyEndpoint().getPolymarketV2CurrentPositions(proxyAddress, {
                 limit: 200,
-                isPolymarketProxy: true,
-                isClaim: false,
-                excludeWin: false,
-                conditionId,
             });
         },
-        select(res) {
-            const list = res?.data ?? [];
-            const position = list.find((x) => x?.tokenId === tokenId);
-            const n = BigNumber(position?.shares ?? 0);
+        select(positions) {
+            const list = positions ?? [];
+            const position = list.find((x) => x?.conditionId === conditionId && x?.asset === tokenId);
+            const n = BigNumber(position?.size ?? 0);
             return n.isFinite() ? n.toFixed() : '0';
         },
     });

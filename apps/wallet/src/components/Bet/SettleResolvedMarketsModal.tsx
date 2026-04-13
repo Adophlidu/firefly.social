@@ -17,6 +17,7 @@ import { Button } from '@/components/ui/button.js';
 import { formatPercentRateMin } from '@/helpers/formatPercentRate.js';
 import { formatPnlUSD } from '@/helpers/formatPnlUSD.js';
 import { computeClaimAmount } from '@/helpers/polymarketClaim.js';
+import { getPositionsQueryKeys } from '@/helpers/polymarketPositionsCache.js';
 import type { PolymarketClaimV2Item, PolymarketPosition } from '@/providers/types/Firefly.js';
 import { getPolymarketWithdrawableAmountQueryOptions } from '@/queries/firefly/getPolymarketWithdrawableAmountQueryOptions.js';
 import { getPolymarketUserValueQueryOptions } from '@/queries/polymarket/getPolymarketUserValueQueryOptions.js';
@@ -76,13 +77,15 @@ export function SettleResolvedMarketsModal({
             onOpenChange(false);
 
             const proxy = proxyAddress.toLowerCase();
+            const positionsQueryKeys = getPositionsQueryKeys(proxyAddress);
             // Optimistically hide section immediately by clearing cached data
             queryClient.setQueryData(['polymarket-settlable-positions', proxy], EMPTY_SETTLABLE_POSITIONS);
             queryClient.setQueryData(['polymarket-claimable-proceeds', proxy], { items: [], totalWon: 0 });
 
             // Force refresh immediately
             await Promise.all([
-                queryClient.refetchQueries({ queryKey: ['polymarket-positions', proxy], exact: true, type: 'all' }),
+                queryClient.refetchQueries({ queryKey: positionsQueryKeys.current, exact: true, type: 'all' }),
+                queryClient.refetchQueries({ queryKey: positionsQueryKeys.closed, exact: true, type: 'all' }),
                 queryClient.refetchQueries({
                     queryKey: getPolymarketWithdrawableAmountQueryOptions(proxyAddress).queryKey,
                     exact: true,

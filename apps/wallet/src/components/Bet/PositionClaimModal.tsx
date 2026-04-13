@@ -3,7 +3,7 @@ import CloseIcon from '@dimensiondev/assets/close.svg';
 import WarnIcon from '@dimensiondev/assets/warn.svg';
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
 import { Trans } from '@lingui/react/macro';
-import { type InfiniteData, useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { type PropsWithChildren, type ReactNode, useCallback, useState } from 'react';
 import { toast } from 'sonner';
 import { useConfig } from 'wagmi';
@@ -18,6 +18,7 @@ import {
 import { Button } from '@/components/ui/button.js';
 import { formatPnlUSD } from '@/helpers/formatPnlUSD.js';
 import { computeClaimAmount } from '@/helpers/polymarketClaim.js';
+import { getPositionsQueryKeys, optimisticRemovePosition } from '@/helpers/polymarketPositionsCache.js';
 import { cn } from '@/lib/utils.js';
 import type { PolymarketPosition } from '@/providers/types/Firefly.js';
 import { getPolymarketAccountQueryOptions } from '@/queries/firefly/getPolymarketAccountQueryOptions.js';
@@ -70,12 +71,8 @@ export function PositionClaimModal({ position, children, open: controlledOpen, o
         offset: Number(position.offset ?? 0),
     });
 
-    interface PositionsPage {
-        data?: PolymarketPosition[];
-        cursor?: string | null;
-    }
     const proxy = account.proxyAddress.toLowerCase();
-    const positionsQueryKey = ['polymarket-positions', proxy] as const;
+    const positionsQueryKeys = getPositionsQueryKeys(account.proxyAddress);
     const claimableQueryKey = ['polymarket-claimable-proceeds', proxy] as const;
 
     const { mutate, isPending } = useMutation({
@@ -94,18 +91,12 @@ export function PositionClaimModal({ position, children, open: controlledOpen, o
             toast.success(isWin ? <Trans>Claim requested</Trans> : <Trans>Position closed</Trans>);
             handleOpenChange(false);
             if (proxy) {
-                const targetId = position.Id || position.conditionId;
                 // Cancel in-flight refetches so they don't overwrite our optimistic update
-                await queryClient.cancelQueries({ queryKey: positionsQueryKey, exact: true });
-                queryClient.setQueryData<InfiniteData<PositionsPage>>(positionsQueryKey, (old) => {
-                    if (!old) return old;
-                    return {
-                        ...old,
-                        pages: old.pages.map((p) => ({
-                            ...p,
-                            data: (p.data ?? []).filter((x) => (x.Id || x.conditionId) !== targetId),
-                        })),
-                    };
+                await queryClient.cancelQueries({ queryKey: positionsQueryKeys.current, exact: true });
+                optimisticRemovePosition(queryClient, {
+                    proxyAddress: account.proxyAddress,
+                    positionId: position.Id,
+                    tokenId: position.tokenId,
                 });
                 // Don't refetch positions immediately — V1 claim API doesn't wait for
                 // on-chain confirmation, so the backend still returns stale data.

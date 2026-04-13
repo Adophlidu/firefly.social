@@ -49,7 +49,7 @@ function createMockPosition(overrides: Partial<PolymarketPosition> = {}): Polyma
 describe('getPositionsQueryKey', () => {
     it('returns correct query key format', () => {
         const key = getPositionsQueryKey('0xAbCdEf1234567890AbCdEf1234567890AbCdEf12');
-        expect(key).toEqual(['polymarket-positions', '0xabcdef1234567890abcdef1234567890abcdef12']);
+        expect(key).toEqual(['polymarket-positions', '0xabcdef1234567890abcdef1234567890abcdef12', 'current']);
     });
 
     it('lowercases the address', () => {

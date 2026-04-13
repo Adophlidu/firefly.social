@@ -23,6 +23,7 @@ import {
     type GetPolymarketPositionInfoResponse,
     type GetPolymarketTokenIdBetSharesResponse,
     type GetPolymarketToWinAmountResponse,
+    type GetPolymarketV2PositionsResponse,
     type NFTDetailsResponse,
     type PlatformIdentityKey,
     type PoapResponse,
@@ -262,6 +263,44 @@ export class FireflyEndpoint extends Fetch {
             wallet,
             is_polymarketProxy: isPolymarketProxy,
         });
+        return resolveFireflyResponseData(result.data);
+    }
+
+    async getPolymarketV2CurrentPositions(
+        wallet: Address,
+        options?: {
+            redeemable?: boolean;
+            offset?: number;
+            limit?: number;
+            eventId?: string;
+        },
+    ) {
+        const url = urlcat('/v2/polymarket/current/positions', {
+            user: wallet,
+            redeemable: options?.redeemable ?? false,
+            offset: options?.offset ?? 0,
+            limit: options?.limit ?? 20,
+            ...(options?.eventId ? { eventId: options.eventId } : {}),
+        });
+        const result = await this.get<GetPolymarketV2PositionsResponse>(url);
+        return resolveFireflyResponseData(result.data);
+    }
+
+    async getPolymarketV2ClosedPositions(
+        wallet: Address,
+        options?: {
+            offset?: number;
+            limit?: number;
+            eventId?: string;
+        },
+    ) {
+        const url = urlcat('/v2/polymarket/closed/positions', {
+            user: wallet,
+            offset: options?.offset ?? 0,
+            limit: options?.limit ?? 20,
+            ...(options?.eventId ? { eventId: options.eventId } : {}),
+        });
+        const result = await this.get<GetPolymarketV2PositionsResponse>(url);
         return resolveFireflyResponseData(result.data);
     }
 

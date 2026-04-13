@@ -481,6 +481,80 @@ export type GetPolymarketPositionInfoResponse = Response<{
 
 export type GetPolymarketCurrentPositionsResponse = Response<{ data: PolymarketPosition[] }>;
 
+export interface PolymarketPositionV2 {
+    proxyWallet?: string;
+    asset?: string;
+    conditionId?: string;
+    size?: number;
+    avgPrice?: number;
+    initialValue?: number;
+    currentValue?: number;
+    cashPnl?: number;
+    percentPnl?: number;
+    totalBought?: number;
+    realizedPnl?: number;
+    percentRealizedPnl?: number;
+    curPrice?: number;
+    redeemable?: boolean;
+    mergeable?: boolean;
+    title?: string;
+    slug?: string;
+    icon?: string;
+    eventId?: string;
+    eventSlug?: string;
+    outcome?: string;
+    outcomeIndex?: number;
+    oppositeOutcome?: string;
+    oppositeAsset?: string;
+    endDate?: string;
+    negativeRisk?: boolean;
+    timestamp?: number;
+    resolvedResult?: string;
+    umaResolutionStatus?: string;
+    umaResolutionStatuses?: string[];
+    topicId?: string;
+    isMutil?: number;
+}
+
+/** Map v2 position to legacy PolymarketPosition for UI compatibility */
+export function mapPolymarketV2ToLegacy(pos: PolymarketPositionV2, isClosed: boolean): PolymarketPosition {
+    const avgPrice = pos.avgPrice ?? 0;
+    const totalBought = pos.totalBought ?? 0;
+    const pnl = pos.realizedPnl || 0;
+    const pnlRate = pnl / (totalBought * avgPrice);
+
+    return {
+        is_closed: isClosed,
+        negRisk: pos.negativeRisk ?? false,
+        isClaimable: pos.redeemable ?? false,
+        isWin: pnl > 0,
+        event_slugs: pos.eventSlug ? [pos.eventSlug] : [],
+        cur_price: pos.curPrice ?? 0,
+        title: pos.title ?? '',
+        image: pos.icon ?? '',
+        offset: pos.outcomeIndex ?? 0,
+        closed_time: isClosed ? (pos.timestamp ?? 0) : 0,
+        conditionId: pos.conditionId ?? '',
+        vote_status: pos.outcome ?? '',
+        resolvedResult: pos.resolvedResult ?? '',
+        umaResolutionStatus: (pos.umaResolutionStatus as PolymarketPosition['umaResolutionStatus']) ?? 'resolved',
+        umaResolutionStatuses: [],
+        wallet: pos.proxyWallet ?? '',
+        tokenId: pos.asset ?? '',
+        Id: pos.asset ?? pos.conditionId ?? '',
+        shares: (isClosed ? pos.totalBought : pos.size) ?? 0,
+        total_buy: pos.totalBought ?? 0,
+        avg_price: pos.avgPrice ?? 0,
+        notfill_pnl: pos.realizedPnl ?? 0,
+        fill_pnl: 0,
+        pnl,
+        pnl_rate: pnlRate,
+        marketSlug: pos.slug ?? '',
+    };
+}
+
+export type GetPolymarketV2PositionsResponse = Response<PolymarketPositionV2[]>;
+
 export enum PolymarketOrderSide {
     BUY = 'BUY',
     SELL = 'SELL',

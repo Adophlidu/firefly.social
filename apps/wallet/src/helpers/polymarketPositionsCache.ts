@@ -6,9 +6,10 @@ import type { PolymarketPosition } from '@/providers/types/Firefly.js';
 
 export interface PositionsPage {
     data?: PolymarketPosition[];
-    cursor?: string | null;
+    nextOffset?: number;
 }
 export type PositionsInfiniteData = InfiniteData<PositionsPage>;
+export type PositionsQueryScope = 'current' | 'closed';
 
 export interface PositionMatcher {
     conditionId: string;
@@ -24,8 +25,15 @@ export interface MarketData {
     eventSlug?: string | null;
 }
 
-export function getPositionsQueryKey(proxyAddress: Address) {
-    return ['polymarket-positions', proxyAddress.toLowerCase()] as const;
+export function getPositionsQueryKey(proxyAddress: Address, scope: PositionsQueryScope = 'current') {
+    return ['polymarket-positions', proxyAddress.toLowerCase(), scope] as const;
+}
+
+export function getPositionsQueryKeys(proxyAddress: Address) {
+    return {
+        current: getPositionsQueryKey(proxyAddress, 'current'),
+        closed: getPositionsQueryKey(proxyAddress, 'closed'),
+    } as const;
 }
 
 /**
@@ -55,6 +63,10 @@ export function positionMatches(
     }
 
     return false;
+}
+
+function getPositionIdentity(position: Pick<PolymarketPosition, 'Id' | 'tokenId' | 'conditionId'>) {
+    return position.Id || position.tokenId || position.conditionId;
 }
 
 /**
@@ -101,7 +113,7 @@ export function optimisticAddPosition(
         umaResolutionStatuses: [],
         wallet: proxy,
         tokenId: params.tokenId,
-        Id: `${params.conditionId}-${params.tokenId}`,
+        Id: params.tokenId,
         shares: shares.toNumber(),
         total_buy: totalBuy.toNumber(),
         avg_price: price.toNumber(),
@@ -116,7 +128,7 @@ export function optimisticAddPosition(
         // If no existing data, create a new InfiniteData structure
         if (!old) {
             return {
-                pages: [{ data: [newPosition], cursor: null }],
+                pages: [{ data: [newPosition], nextOffset: undefined }],
                 pageParams: [undefined],
             };
         }
@@ -124,7 +136,7 @@ export function optimisticAddPosition(
         // Add to the beginning of the first page
         const updatedPages = [...old.pages];
         if (updatedPages.length === 0) {
-            updatedPages.push({ data: [newPosition], cursor: null });
+            updatedPages.push({ data: [newPosition], nextOffset: undefined });
         } else {
             const firstPage = updatedPages[0];
             updatedPages[0] = {
@@ -214,6 +226,51 @@ export function optimisticUpdatePositionShares(
     });
 
     return positionFound;
+}
+
+/**
+ * Remove a position from the cache without affecting other outcomes in the same condition.
+ */
+export function optimisticRemovePosition(
+    queryClient: QueryClient,
+    params: {
+        proxyAddress: Address;
+        positionId?: string;
+        tokenId?: string;
+        scope?: PositionsQueryScope;
+    },
+): boolean {
+    if (!params.positionId && !params.tokenId) return false;
+
+    const queryKey = getPositionsQueryKey(params.proxyAddress, params.scope ?? 'current');
+    let positionRemoved = false;
+
+    queryClient.setQueryData<PositionsInfiniteData>(queryKey, (old) => {
+        if (!old) return old;
+
+        return {
+            ...old,
+            pages: old.pages.map((page) => {
+                if (!page?.data?.length) return page;
+
+                return {
+                    ...page,
+                    data: page.data.filter((position) => {
+                        const matchesByTokenId = Boolean(params.tokenId) && position.tokenId === params.tokenId;
+                        const matchesById =
+                            Boolean(params.positionId) && getPositionIdentity(position) === params.positionId;
+                        const shouldRemove = matchesByTokenId || matchesById;
+                        if (shouldRemove) {
+                            positionRemoved = true;
+                        }
+                        return !shouldRemove;
+                    }),
+                };
+            }),
+        };
+    });
+
+    return positionRemoved;
 }
 
 /**

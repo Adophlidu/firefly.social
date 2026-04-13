@@ -23,6 +23,7 @@ import { Button } from '@/components/ui/button.js';
 import { formatPercentRateMin } from '@/helpers/formatPercentRate.js';
 import { formatPnlUSD } from '@/helpers/formatPnlUSD.js';
 import { computeClaimAmount } from '@/helpers/polymarketClaim.js';
+import { getPositionsQueryKeys } from '@/helpers/polymarketPositionsCache.js';
 import { cn } from '@/lib/utils.js';
 import { getPolymarketClaimableProceedsQueryOptions } from '@/queries/firefly/getPolymarketClaimableProceedsQueryOptions.js';
 import { getPolymarketWithdrawableAmountQueryOptions } from '@/queries/firefly/getPolymarketWithdrawableAmountQueryOptions.js';
@@ -78,11 +79,13 @@ export function ClaimProceedsSection({ proxyAddress }: { proxyAddress: Address }
             setOpen(false);
             // Optimistically hide ClaimProceedsSection immediately by clearing cached data.
             const proxy = proxyAddress.toLowerCase();
+            const positionsQueryKeys = getPositionsQueryKeys(proxyAddress);
             queryClient.setQueryData(['polymarket-claimable-proceeds', proxy], { items: [], totalWon: 0 });
 
             // Force refresh immediately (don't wait for focus/interval).
             await Promise.all([
-                queryClient.refetchQueries({ queryKey: ['polymarket-positions', proxy], exact: true, type: 'all' }),
+                queryClient.refetchQueries({ queryKey: positionsQueryKeys.current, exact: true, type: 'all' }),
+                queryClient.refetchQueries({ queryKey: positionsQueryKeys.closed, exact: true, type: 'all' }),
                 queryClient.refetchQueries({
                     queryKey: getPolymarketWithdrawableAmountQueryOptions(proxyAddress).queryKey,
                     exact: true,

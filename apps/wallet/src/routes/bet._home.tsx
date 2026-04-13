@@ -34,7 +34,7 @@ function formatPortfolioUSDCe(amount: BigNumber.Value): string {
     const bn = BigNumber(amount ?? 0);
     if (!bn.isFinite() || bn.lte(0)) return '$0';
     if (bn.lt(0.01)) return '<$0.01';
-    return `$${removeUSDTrailingZeros(bn.decimalPlaces(2, BigNumber.ROUND_DOWN).toFormat(2))}`;
+    return '$' + removeUSDTrailingZeros(bn.decimalPlaces(2, BigNumber.ROUND_DOWN).toFormat(2));
 }
 
 function BetHomePending() {
@@ -59,7 +59,6 @@ function BetHomeLayout() {
     return (
         <div className="flex w-full flex-1 flex-col items-center">
             <BetNavigationBar />
-            {/* min-height prevents scroll position from jumping when switching tabs */}
             <div className="flex min-h-[calc(100vh+460px-44px)] w-full flex-col items-center">
                 <ErrorBoundary fallback={betHomeErrorFallback} catch={betHomeCatchHandler}>
                     <Suspense fallback={<HeaderLoading className="px-4 pb-[78px]" />}>
