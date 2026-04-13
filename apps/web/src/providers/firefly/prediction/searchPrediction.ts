@@ -1,13 +1,13 @@
-import urlcat from 'urlcat';
-
-import { fetchJson } from '@/helpers/fetchJson.js';
 import {
     createIndicator,
     createNextIndicator,
     createPageable,
     type Pageable,
     type PageIndicator,
-} from '@/helpers/pageable.js';
+} from '@dimensiondev/utils';
+import urlcat from 'urlcat';
+
+import { fetchJson } from '@/helpers/fetchJson.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import type { PolymarketEventListData, Response } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';

@@ -1,6 +1,6 @@
 import { runInSafeAsync } from '@dimensiondev/utils';
+import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@dimensiondev/utils';
 
-import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@/helpers/pageable.js';
 import { patchPostsClientToFirefly } from '@/helpers/patchPostClientToFirefly.js';
 import { formatTwitterPostFromNitter } from '@/providers/nitter/formatTwitterPostFromNitter.js';
 import { withFullStatusTimeline } from '@/providers/nitter/withFullStatusTimeline.js';

@@ -1,8 +1,8 @@
 import LinkIcon from '@dimensiondev/assets/link-square.svg';
+import { useDetectOverflow } from '@dimensiondev/hooks';
 import { classNames } from '@dimensiondev/utils';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { useDetectOverflow } from '@/hooks/useDetectOverflow.js';
 import { ActionType, type FrameButton } from '@/types/frame.js';
 
 interface Props {

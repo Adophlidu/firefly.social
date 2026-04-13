@@ -1,5 +1,12 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { NotImplementedError, runInSafeAsync } from '@dimensiondev/utils';
+import {
+    createIndicator,
+    createNextIndicator,
+    createPageable,
+    type Pageable,
+    type PageIndicator,
+} from '@dimensiondev/utils';
 import { isServer } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import type {
@@ -28,13 +35,6 @@ import { UndoRepostStatusToTwitterPosts } from '@/decorators/UndoRepostStatusToT
 import { WithMutedProfilesQuery } from '@/decorators/WithMutedProfilesQuery.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isNumericalProfileId } from '@/helpers/isNumericalProfileId.js';
-import {
-    createIndicator,
-    createNextIndicator,
-    createPageable,
-    type Pageable,
-    type PageIndicator,
-} from '@/helpers/pageable.js';
 import { resolveTcoLink } from '@/helpers/resolveTcoLink.js';
 import { getTwitterTopPeople } from '@/providers/firefly/endpoint/getTwitterTopPeople.js';
 import { getTwitterUserInfo } from '@/providers/firefly/endpoint/getTwitterUserInfo.js';

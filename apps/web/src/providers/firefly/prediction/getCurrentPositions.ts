@@ -1,12 +1,12 @@
-import urlcat from 'urlcat';
-
 import {
     createIndicator,
     createNextIndicator,
     createPageable,
     type Pageable,
     type PageIndicator,
-} from '@/helpers/pageable.js';
+} from '@dimensiondev/utils';
+import urlcat from 'urlcat';
+
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { PolymarketPositionV2Data, Response } from '@/providers/types/Firefly.js';

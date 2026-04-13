@@ -4,7 +4,8 @@ import {
     createPageable,
     type Pageable,
     type PageIndicator,
-} from '@/helpers/pageable.js';
+} from '@dimensiondev/utils';
+
 import { getBskyProfilesByIds } from '@/providers/bsky/getBskyProfilesByIds.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';

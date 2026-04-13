@@ -1,13 +1,13 @@
-import { AccountsOrderBy, PageSize } from '@lens-protocol/client';
-import { fetchAccounts } from '@lens-protocol/client/actions';
-
 import {
     createIndicator,
     createNextIndicator,
     createPageable,
     type Pageable,
     type PageIndicator,
-} from '@/helpers/pageable.js';
+} from '@dimensiondev/utils';
+import { AccountsOrderBy, PageSize } from '@lens-protocol/client';
+import { fetchAccounts } from '@lens-protocol/client/actions';
+
 import { ensureCursor } from '@/providers/lens/ensureCursor.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { formatLensProfileV3 } from '@/providers/lens/formatLensProfile.js';

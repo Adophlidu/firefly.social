@@ -1,12 +1,12 @@
 'use client';
 
+import { useDetectOverflow } from '@dimensiondev/hooks';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo, useState } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { PostMarkup } from '@/components/Markup/PostMarkup.js';
-import { useDetectOverflow } from '@/hooks/useDetectOverflow.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface Props {

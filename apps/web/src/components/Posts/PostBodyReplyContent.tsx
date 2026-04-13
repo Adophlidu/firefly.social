@@ -1,5 +1,6 @@
 'use client';
 
+import { useDetectOverflow } from '@dimensiondev/hooks';
 import { classNames } from '@dimensiondev/utils';
 import { Select, Trans } from '@lingui/react/macro';
 import { type HTMLProps, memo, useEffect, useState } from 'react';
@@ -9,7 +10,6 @@ import { NakedMarkup } from '@/components/Markup/NakedMarkup.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/browser.js';
 import { formatUrl } from '@/helpers/formatUrl.js';
 import { isValidUrl } from '@/helpers/isValidUrl.js';
-import { useDetectOverflow } from '@/hooks/useDetectOverflow.js';
 import { useMounted } from '@/hooks/useMounted.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';

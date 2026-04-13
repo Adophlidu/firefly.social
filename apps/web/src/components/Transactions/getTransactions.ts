@@ -1,8 +1,8 @@
 import { safeUnreachable } from '@dimensiondev/utils';
+import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@dimensiondev/utils';
 import { polygon } from 'viem/chains';
 
 import { Source } from '@/constants/enum.js';
-import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { discoverNFTs } from '@/providers/firefly/endpoint/discoverNFTs.js';
 import { getFollowingNFTs } from '@/providers/firefly/endpoint/getFollowingNFTs.js';
 import { getFollowingSwapTimeline } from '@/providers/firefly/endpoint/getFollowingSwapTimeline.js';

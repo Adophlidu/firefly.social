@@ -145,6 +145,7 @@ function Form() {
             }
 
             if (!address) return;
+
             const amountUsd = multipliedBy(values.amount, token.price).toNumber();
             // TODO: capture firefly wallet event
         } catch (error) {

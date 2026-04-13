@@ -3,7 +3,7 @@ import { Trans } from '@lingui/react/macro';
 import { compact, first } from 'lodash-es';
 import urlcat from 'urlcat';
 
-import { anonymousHandle } from '@/components/Compose/PostByAnonymous.js';
+import { ANONYMOUS_HANDLE_BY_SOURCE } from '@/constants/computed.js';
 import { type SocialSource, Source, SourceInURL } from '@/constants/enum.js';
 import { readChars } from '@/helpers/chars.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
@@ -72,7 +72,7 @@ async function waitForTask(id: string, sources: SocialSource[], retryCount = 20)
                 switch (x) {
                     case Source.Farcaster: {
                         const farcasterCastId = result.cast_hashs.find(
-                            (x) => x.community === anonymousHandle[Source.Farcaster],
+                            (x) => x.community === ANONYMOUS_HANDLE_BY_SOURCE[Source.Farcaster],
                         )?.hash;
                         return {
                             source: x,
@@ -240,7 +240,7 @@ export async function createAnonymousPost(type: ComposeType, compositePost: Comp
                     <a
                         href={RouteResolver.profile({
                             source: Source.Farcaster,
-                            handle: anonymousHandle[Source.Farcaster] || 'anoncast',
+                            handle: ANONYMOUS_HANDLE_BY_SOURCE[Source.Farcaster] || 'anoncast',
                         })}
                         className="cursor-pointer underline"
                     >

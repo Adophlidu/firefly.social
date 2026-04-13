@@ -9,11 +9,11 @@ import ColorfulLensIcon from '@dimensiondev/assets/lens-circle-small.svg';
 import LensFillIcon from '@dimensiondev/assets/lens-fill.svg';
 import LensSquareIcon from '@dimensiondev/assets/lens-square.svg';
 import XFillIcon from '@dimensiondev/assets/x-fill.svg';
+import { useSizeStyle } from '@dimensiondev/hooks';
 import { memo } from 'react';
 
 import { XIcon } from '@/components/XIcon.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { useSizeStyle } from '@/hooks/useSizeStyle.js';
 
 interface SocialSourceIconProps extends React.SVGAttributes<SVGElement> {
     size?: number;

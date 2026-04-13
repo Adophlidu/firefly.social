@@ -1,3 +1,4 @@
+import { useSizeStyle } from '@dimensiondev/hooks';
 import { classNames } from '@dimensiondev/utils';
 import { type HTMLProps, memo } from 'react';
 
@@ -8,7 +9,6 @@ import { Link } from '@/esm/Link.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { useIsLarge } from '@/hooks/useMediaQuery.js';
-import { useSizeStyle } from '@/hooks/useSizeStyle.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export interface ProfileAvatarProps extends HTMLProps<HTMLElement> {

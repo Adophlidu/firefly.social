@@ -4,7 +4,8 @@ import {
     createPageable,
     type Pageable,
     type PageIndicator,
-} from '@/helpers/pageable.js';
+} from '@dimensiondev/utils';
+
 import { PostAtUri } from '@/providers/bsky/AtUri.js';
 import { formatBskyPost } from '@/providers/bsky/formatBskyFeedPost.js';
 import { resolveBskyResponseData } from '@/providers/bsky/resolveBskyResponseData.js';

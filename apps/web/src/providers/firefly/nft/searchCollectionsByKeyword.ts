@@ -1,6 +1,6 @@
+import { createIndicator, createPageable } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
-import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fixCollection } from '@/providers/firefly/endpoint/fixCollection.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';

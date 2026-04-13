@@ -1,8 +1,8 @@
+import { useDetectOverflow } from '@dimensiondev/hooks';
 import { TooltipContent } from '@radix-ui/react-tooltip';
 import { cloneElement, memo, type ReactElement, type ReactNode } from 'react';
 
 import { Tooltip, TooltipTrigger } from '@/components/ui/tooltip.js';
-import { useDetectOverflow } from '@/hooks/useDetectOverflow.js';
 
 interface TextOverflowTooltipProps {
     content: ReactNode;

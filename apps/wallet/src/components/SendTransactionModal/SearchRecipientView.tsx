@@ -1,6 +1,7 @@
 import LeftArrowIcon from '@dimensiondev/assets/left-arrow.svg';
 import SearchIcon from '@dimensiondev/assets/search.svg';
 import type { ErrorPageProps } from '@dimensiondev/types';
+import { createIndicator, createNextIndicator, createPageable } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
@@ -24,7 +25,6 @@ import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.j
 import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { isValidDomainEthereum } from '@/helpers/isValidDomain.js';
 import { isZeroAddressEthereum } from '@/helpers/isZeroAddress.js';
-import { createIndicator, createNextIndicator, createPageable } from '@/helpers/pageable.js';
 import { fireflyWorkerEndpoint } from '@/providers/firefly/worker.js';
 import { getFireflyEndpoint } from '@/store/fireflyEndpoint.js';
 

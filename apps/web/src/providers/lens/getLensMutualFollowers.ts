@@ -1,15 +1,15 @@
-import { type Account, PageSize } from '@lens-protocol/client';
-import { fetchFollowersYouKnow } from '@lens-protocol/client/actions';
-
-import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
-import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import {
     createIndicator,
     createNextIndicator,
     createPageable,
     type Pageable,
     type PageIndicator,
-} from '@/helpers/pageable.js';
+} from '@dimensiondev/utils';
+import { type Account, PageSize } from '@lens-protocol/client';
+import { fetchFollowersYouKnow } from '@lens-protocol/client/actions';
+
+import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
+import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
 import { ensureCursor } from '@/providers/lens/ensureCursor.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';

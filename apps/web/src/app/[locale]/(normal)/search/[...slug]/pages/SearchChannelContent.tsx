@@ -1,5 +1,6 @@
 'use client';
 
+import { createIndicator, createPageable } from '@dimensiondev/utils';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact, uniqBy } from 'lodash-es';
 
@@ -9,7 +10,6 @@ import { Empty } from '@/components/Search/Empty.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
 import { REQUIRE_LOGIN_SOURCES_IN_SEARCH } from '@/constants/static.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
-import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';

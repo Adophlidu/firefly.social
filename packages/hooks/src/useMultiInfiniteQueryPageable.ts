@@ -1,16 +1,15 @@
-import { delay, parseJson } from '@dimensiondev/utils';
-import { type InfiniteData, useSuspenseInfiniteQuery } from '@tanstack/react-query';
-import { compact } from 'lodash-es';
-
 import {
     createIndicator,
     createNextIndicator,
     createPageable,
+    delay,
+    INITIAL_PAGEABLE_PARAM,
     type Pageable,
     type PageIndicator,
-} from '@/helpers/pageable.js';
-
-const INITIAL_PARAM = 'INITIAL_PARAM';
+    parseJson,
+} from '@dimensiondev/utils';
+import { type InfiniteData, useSuspenseInfiniteQuery } from '@tanstack/react-query';
+import { compact } from 'lodash-es';
 
 export function useMultiInfiniteQueryPageable<D, T extends Pageable<D, PageIndicator>>(
     queryKey: unknown[],
@@ -18,7 +17,7 @@ export function useMultiInfiniteQueryPageable<D, T extends Pageable<D, PageIndic
         key: string;
         queryFn: (options: { pageParam?: string; signal?: AbortSignal }) => Promise<T>;
         initialPageParam?: PageIndicator;
-        timeout?: number; // ms
+        timeout?: number;
     }>,
     select: (data: InfiniteData<T>) => D[],
     options?: {
@@ -39,7 +38,7 @@ export function useMultiInfiniteQueryPageable<D, T extends Pageable<D, PageIndic
                 const timeout = query.timeout ? delay(query.timeout).then(() => null) : null;
                 const indicator = parsePageParam[query.key];
                 if (!indicator) return null;
-                const indicatorId = indicator.id === INITIAL_PARAM ? undefined : indicator.id;
+                const indicatorId = indicator.id === INITIAL_PAGEABLE_PARAM ? undefined : indicator.id;
                 return Promise.race(
                     compact([
                         timeout,
@@ -77,7 +76,7 @@ export function useMultiInfiniteQueryPageable<D, T extends Pageable<D, PageIndic
             queries.reduce<PageParams>(
                 (acc, query) => ({
                     ...acc,
-                    [query.key]: query.initialPageParam ?? createIndicator(undefined, INITIAL_PARAM),
+                    [query.key]: query.initialPageParam ?? createIndicator(undefined, INITIAL_PAGEABLE_PARAM),
                 }),
                 {},
             ),

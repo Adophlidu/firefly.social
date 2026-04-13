@@ -1,14 +1,14 @@
-import { PageSize } from '@lens-protocol/client';
-import { fetchGroups } from '@lens-protocol/client/actions';
-import { compact } from 'lodash-es';
-
 import {
     createIndicator,
     createNextIndicator,
     createPageable,
     type Pageable,
     type PageIndicator,
-} from '@/helpers/pageable.js';
+} from '@dimensiondev/utils';
+import { PageSize } from '@lens-protocol/client';
+import { fetchGroups } from '@lens-protocol/client/actions';
+import { compact } from 'lodash-es';
+
 import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
 import { ensureCursor } from '@/providers/lens/ensureCursor.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';

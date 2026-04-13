@@ -1,7 +1,7 @@
+import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
 import { fetchJson } from '@/helpers/fetchJson.js';
-import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@/helpers/pageable.js';
 import { fixCollection } from '@/providers/firefly/endpoint/fixCollection.js';
 import type { CollectionsResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';

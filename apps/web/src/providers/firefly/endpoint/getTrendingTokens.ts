@@ -1,9 +1,8 @@
+import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
-import type { TokenTrendingData } from '@/components/TokenTrendingListItem.js';
 import type { TimeRangeFilter } from '@/constants/enum.js';
 import { formatTrendingToken } from '@/helpers/formatTrendingToken.js';
-import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { resolveTimeRangeSortString } from '@/helpers/resolveTimeRangeName.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
@@ -36,5 +35,5 @@ export async function getTrendingTokens({
     const hasNextPage = !!data.length;
     const nextIndicator = hasNextPage ? createNextIndicator(indicator, `${page + 1}`, 20) : undefined;
 
-    return createPageable<TokenTrendingData>(formattedData, currentIndicator, nextIndicator);
+    return createPageable(formattedData, currentIndicator, nextIndicator);
 }

@@ -1,13 +1,13 @@
-import { PageSize, PostReferenceType, PostVisibilityFilter, ReferenceRelevancyFilter } from '@lens-protocol/client';
-import { fetchPostReferences } from '@lens-protocol/client/actions';
-
 import {
     createIndicator,
     createNextIndicator,
     createPageable,
     type Pageable,
     type PageIndicator,
-} from '@/helpers/pageable.js';
+} from '@dimensiondev/utils';
+import { PageSize, PostReferenceType, PostVisibilityFilter, ReferenceRelevancyFilter } from '@lens-protocol/client';
+import { fetchPostReferences } from '@lens-protocol/client/actions';
+
 import { ensureCursor } from '@/providers/lens/ensureCursor.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { formatLensPostV3 } from '@/providers/lens/formatLensPost.js';

@@ -1,14 +1,14 @@
-import urlcat from 'urlcat';
-import type { Address } from 'viem';
-
-import { NetworkType, SourceInURL } from '@/constants/enum.js';
 import {
     createIndicator,
     createNextIndicator,
     createPageable,
     type Pageable,
     type PageIndicator,
-} from '@/helpers/pageable.js';
+} from '@dimensiondev/utils';
+import urlcat from 'urlcat';
+import type { Address } from 'viem';
+
+import { NetworkType, SourceInURL } from '@/constants/enum.js';
 import { getWalletProfileByAddressOrEns } from '@/providers/firefly/endpoint/getWalletProfileByAddressOrEns.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { BlockedUsersResponse, WalletProfile } from '@/providers/types/Firefly.js';

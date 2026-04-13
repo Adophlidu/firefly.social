@@ -1,9 +1,9 @@
+import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@dimensiondev/utils';
 import { isNumber } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { FIREFLY_WORKER_HOST } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
-import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';
 import type { SnapshotVote } from '@/providers/snapshot/type.js';
 import type { ResponseJson } from '@/types/utility.js';

@@ -26,6 +26,7 @@
         "@dimensiondev/assets": "workspace:^",
         "@dimensiondev/constants": "workspace:^",
         "@dimensiondev/exception-tracker": "workspace:^",
+        "@dimensiondev/hooks": "workspace:^",
         "@dimensiondev/iframe-bridge": "workspace:^",
         "@dimensiondev/native-bridge": "workspace:^",
         "@dimensiondev/types": "workspace:^",

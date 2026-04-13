@@ -1,7 +1,7 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
-import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { getChannelsByIds } from '@/providers/neynar/getChannelsByIds.js';

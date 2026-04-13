@@ -1,11 +1,11 @@
 'use client';
 
+import { createIndicator, type Pageable, type PageIndicator } from '@dimensiondev/utils';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { getFollowInList } from '@/components/FollowInList.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { ScrollListKey, type SocialSource } from '@/constants/enum.js';
-import { createIndicator, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 

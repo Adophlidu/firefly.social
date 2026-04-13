@@ -1,8 +1,8 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
 import { fetchJson } from '@/helpers/fetchJson.js';
-import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@/helpers/pageable.js';
 import { formatNotificationsFromWebhook } from '@/providers/twitter/formatNotificationsFromWebhook.js';
 import { resolveTwitterResponseData } from '@/providers/twitter/resolveTwitterResponseData.js';
 import type { Notification } from '@/providers/types/SocialMedia.js';

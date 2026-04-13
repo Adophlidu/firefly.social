@@ -1,8 +1,8 @@
+import { createIndicator } from '@dimensiondev/utils';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { first } from 'lodash-es';
 import { useCallback, useMemo } from 'react';
 
-import { createIndicator } from '@/helpers/pageable.js';
 import { getClaimHistory } from '@/providers/firefly/red-packet/getClaimHistory.js';
 
 export function useEthereumClaimedInfo(rpid: string) {

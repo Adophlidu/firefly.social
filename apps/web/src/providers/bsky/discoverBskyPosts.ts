@@ -1,11 +1,12 @@
-import { DISCOVER_AT_URI } from '@/constants/bsky.js';
 import {
     createIndicator,
     createNextIndicator,
     createPageable,
     type Pageable,
     type PageIndicator,
-} from '@/helpers/pageable.js';
+} from '@dimensiondev/utils';
+
+import { DISCOVER_AT_URI } from '@/constants/bsky.js';
 import { formatBskyFeedPost } from '@/providers/bsky/formatBskyFeedPost.js';
 import { resolveBskyResponseData } from '@/providers/bsky/resolveBskyResponseData.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';

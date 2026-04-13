@@ -1,4 +1,5 @@
 import type { BlobRef } from '@atproto/api';
+import type { Pageable, PageIndicator } from '@dimensiondev/utils';
 
 import type {
     BookmarkType,
@@ -8,7 +9,6 @@ import type {
     RestrictionType,
     SocialSource,
 } from '@/constants/enum.js';
-import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import type { Account } from '@/providers/types/Account.js';
 import type {
     FireflyIdentity,

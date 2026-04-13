@@ -1,3 +1,4 @@
+import { createIndicator } from '@dimensiondev/utils';
 import { useQuery } from '@tanstack/react-query';
 import { uniqBy } from 'lodash-es';
 import { useDebounceValue } from 'usehooks-ts';
@@ -5,7 +6,6 @@ import { useDebounceValue } from 'usehooks-ts';
 import { FF_GARDEN_CHANNEL, HOME_CHANNEL, HOME_CLUB } from '@/constants/channel.js';
 import { SORTED_CHANNEL_SOURCES } from '@/constants/computed.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { createIndicator } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';

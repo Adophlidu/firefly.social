@@ -1,5 +1,12 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { NotFoundError, NotImplementedError, runInSafeAsync, UnauthorizedError } from '@dimensiondev/utils';
+import {
+    createIndicator,
+    createNextIndicator,
+    createPageable,
+    type Pageable,
+    type PageIndicator,
+} from '@dimensiondev/utils';
 import { isServer } from '@tanstack/react-query';
 import { compact, last } from 'lodash-es';
 
@@ -9,13 +16,6 @@ import { AddAuthorHighlightStatusForPosts } from '@/decorators/AddProfileHighlig
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
 import { Throw } from '@/decorators/Throw.js';
 import { isNumericalProfileId } from '@/helpers/isNumericalProfileId.js';
-import {
-    createIndicator,
-    createNextIndicator,
-    createPageable,
-    type Pageable,
-    type PageIndicator,
-} from '@/helpers/pageable.js';
 import { patchPostClientToFirefly, patchPostsClientToFirefly } from '@/helpers/patchPostClientToFirefly.js';
 import { getTwitterHandleById } from '@/providers/firefly/worker/getTwitterHandleById.js';
 import { formatTwitterPostFromNitter } from '@/providers/nitter/formatTwitterPostFromNitter.js';

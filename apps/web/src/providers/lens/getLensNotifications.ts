@@ -1,14 +1,14 @@
-import { fetchNotifications } from '@lens-protocol/client/actions';
-import { compact, first, flatMap } from 'lodash-es';
-
-import { Source } from '@/constants/enum.js';
 import {
     createIndicator,
     createNextIndicator,
     createPageable,
     type Pageable,
     type PageIndicator,
-} from '@/helpers/pageable.js';
+} from '@dimensiondev/utils';
+import { fetchNotifications } from '@lens-protocol/client/actions';
+import { compact, first, flatMap } from 'lodash-es';
+
+import { Source } from '@/constants/enum.js';
 import { uniqProfiles } from '@/helpers/uniqProfiles.js';
 import { ensureCursor } from '@/providers/lens/ensureCursor.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';

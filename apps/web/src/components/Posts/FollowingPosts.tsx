@@ -1,6 +1,8 @@
 'use client';
 
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { useMultiInfiniteQueryPageable } from '@dimensiondev/hooks';
+import { createIndicator, createPageable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { uniqBy } from 'lodash-es';
 import { memo } from 'react';
@@ -12,14 +14,12 @@ import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.
 import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
 import { HomeTab, ScrollListKey, Source } from '@/constants/enum.js';
 import { mergeThreadPostsWithoutSource } from '@/helpers/mergeThreadPosts.js';
-import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useDiscoverSources } from '@/hooks/useDiscoverSources.js';
 import { useIsLoginDiscoverSource } from '@/hooks/useIsLogin.js';
-import { useMultiInfiniteQueryPageable } from '@/hooks/useMultiInfiniteQueryPageable.js';
 
 const FollowingPostsTimeline = memo(function FollowingPostsTimeline() {
     const { sources } = useDiscoverSources(HomeTab.Following);

@@ -1,3 +1,4 @@
+import type { Pageable, PageIndicator } from '@dimensiondev/utils';
 import { NotImplementedError } from '@dimensiondev/utils';
 
 import { Source } from '@/constants/enum.js';
@@ -15,7 +16,6 @@ import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
 import { SetQueryDataForReportPost } from '@/decorators/SetQueryDataForReportPost.js';
 import { WithMutedProfilesQuery } from '@/decorators/WithMutedProfilesQuery.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
-import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import { actLensPost } from '@/providers/lens/actLensPost.js';
 import { blockLensProfile } from '@/providers/lens/blockLensProfile.js';
 import { bookmarkLensPost } from '@/providers/lens/bookmarkLensPost.js';

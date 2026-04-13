@@ -215,6 +215,13 @@ export const FOLLOWING_CATEGORY = [FollowCategory.Followers, FollowCategory.Mutu
 export const REQUIRE_LOGIN_FOLLOWING_CATEGORY = [FollowCategory.Mutuals];
 export const SUPPORTED_ANONYMOUS_POST_SOURCES: SocialSource[] = [Source.Farcaster, Source.Twitter];
 
+export const ANONYMOUS_HANDLE_BY_SOURCE: Record<SocialSource, string | null> = {
+    [Source.Farcaster]: 'anoncast',
+    [Source.Twitter]: 'anoncast_',
+    [Source.Bsky]: null,
+    [Source.Lens]: null,
+};
+
 export const EXPLORE_TYPES: ExploreType[] = [
     ExploreType.Prediction,
     ExploreType.TopProfiles,

@@ -2,6 +2,7 @@
 
 import SwapEmptyIcon from '@dimensiondev/assets/swap-empty.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { createIndicator } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
@@ -13,7 +14,6 @@ import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { SwapActivityItem } from '@/components/Swap/SwapActivityItem.js';
 import { ExploreType, ScrollListKey, Source } from '@/constants/enum.js';
 import { useRouter } from '@/esm/navigation.js';
-import { createIndicator } from '@/helpers/pageable.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';

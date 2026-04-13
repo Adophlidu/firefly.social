@@ -1,15 +1,15 @@
 'use client';
 
+import { useMultiInfiniteQueryPageable } from '@dimensiondev/hooks';
+import { createIndicator } from '@dimensiondev/utils';
 import { uniqBy } from 'lodash-es';
 import { memo } from 'react';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
 import { HomeTab, ScrollListKey, type SocialSource, type Source } from '@/constants/enum.js';
-import { createIndicator } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useDiscoverSources } from '@/hooks/useDiscoverSources.js';
-import { useMultiInfiniteQueryPageable } from '@/hooks/useMultiInfiniteQueryPageable.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 export const DiscoverPostList = memo<{ source: SocialSource | Source.Posts }>(function DiscoverPostList({ source }) {

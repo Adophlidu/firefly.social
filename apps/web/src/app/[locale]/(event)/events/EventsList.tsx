@@ -1,5 +1,6 @@
 'use client';
 
+import { createIndicator } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
@@ -9,7 +10,6 @@ import { ActivityMobileNavigationBar } from '@/components/Activity/ActivityMobil
 import { useAgent } from '@/components/AgentProvider.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { Agent, ScrollListKey, Source } from '@/constants/enum.js';
-import { createIndicator } from '@/helpers/pageable.js';
 import { getFireflyActivityList } from '@/providers/firefly/activity/getFireflyActivityList.js';
 
 export function EventsList() {

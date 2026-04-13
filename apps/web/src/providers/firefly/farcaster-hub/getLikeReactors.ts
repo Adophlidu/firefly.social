@@ -1,12 +1,12 @@
-import urlcat from 'urlcat';
-
 import {
     createIndicator,
     createNextIndicator,
     createPageable,
     type Pageable,
     type PageIndicator,
-} from '@/helpers/pageable.js';
+} from '@dimensiondev/utils';
+import urlcat from 'urlcat';
+
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { ensureFollowersIsNotEmpty } from '@/providers/firefly/farcaster-hub/ensureFollowersIsNotEmpty.js';

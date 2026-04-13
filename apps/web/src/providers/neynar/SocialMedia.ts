@@ -1,13 +1,13 @@
 /* cspell:disable */
 
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import type { Pageable, PageIndicator } from '@dimensiondev/utils';
 import { NotImplementedError } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
 import { MessageType, ReactionType } from '@/constants/farcaster.js';
 import { NEYNAR_URL } from '@/constants/static.js';
 import { fetchNeynarJson } from '@/helpers/fetchNeynarJson.js';
-import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import { resolveNeynarResponseData } from '@/helpers/resolveNeynarResponseData.js';
 import { farcasterPostIdToHash } from '@/providers/farcaster/farcasterPostIdToHash.js';
 import { formatChannelFromFirefly } from '@/providers/farcaster/formatFarcasterChannelFromFirefly.js';

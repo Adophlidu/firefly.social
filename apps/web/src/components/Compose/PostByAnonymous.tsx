@@ -10,7 +10,8 @@ import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { RestrictionType, type SocialSource, Source } from '@/constants/enum.js';
+import { ANONYMOUS_HANDLE_BY_SOURCE } from '@/constants/computed.js';
+import { RestrictionType, type SocialSource } from '@/constants/enum.js';
 import { useAnonymousPostAvailability } from '@/hooks/useAnonymousPostAvailability.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
@@ -19,13 +20,6 @@ import { useComposeStateStore } from '@/store/useComposeStore.js';
 interface PostByAnonymousProps {
     disabled?: boolean;
 }
-
-export const anonymousHandle: Record<SocialSource, string | null> = {
-    [Source.Farcaster]: 'anoncast',
-    [Source.Twitter]: 'anoncast_',
-    [Source.Bsky]: null,
-    [Source.Lens]: null,
-};
 
 export const PostByAnonymous = memo<PostByAnonymousProps>(function PostByAnonymous({ disabled = false }) {
     const { loading, data, canPost, sources } = useAnonymousPostAvailability();
@@ -105,7 +99,7 @@ export const PostByAnonymous = memo<PostByAnonymousProps>(function PostByAnonymo
             </div>
             {sources.map((source) => {
                 const checked = isAnonymous && availableSources.includes(source);
-                const handle = anonymousHandle[source];
+                const handle = ANONYMOUS_HANDLE_BY_SOURCE[source];
                 const disabled = type !== 'compose' && sealedSource !== source;
 
                 return !handle ? null : (

@@ -1,11 +1,11 @@
 'use client';
 
+import { useDetectOverflow } from '@dimensiondev/hooks';
 import { classNames } from '@dimensiondev/utils';
 import type { TippyProps } from '@tippyjs/react';
 import { cloneElement, memo, type ReactElement, type ReactNode } from 'react';
 
 import { Tippy } from '@/esm/Tippy.js';
-import { useDetectOverflow } from '@/hooks/useDetectOverflow.js';
 
 interface TextOverflowTooltipProps extends Omit<TippyProps, 'ref' | 'title' | 'children'> {
     withDelay?: boolean;

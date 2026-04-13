@@ -1,7 +1,7 @@
+import { createIndicator, createPageable, type PageIndicator } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
 import { adjustAssetUris } from '@/helpers/adjustAssetUris.js';
-import { createIndicator, createPageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { DiscoverNFTResponseV3, NFTFeedV3 } from '@/providers/types/NFTs.js';

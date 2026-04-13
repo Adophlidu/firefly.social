@@ -1,8 +1,8 @@
+import type { Pageable } from '@dimensiondev/utils';
 import { type Draft, isDraft, original, produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
 import type { Source } from '@/constants/enum.js';
-import type { Pageable } from '@/helpers/pageable.js';
 import { patchNotificationQueryDataOnPost } from '@/helpers/patchNotificationQueryData.js';
 import { updateQueryForPosts } from '@/helpers/updateQueryForPosts.js';
 import type { Post } from '@/providers/types/SocialMedia.js';

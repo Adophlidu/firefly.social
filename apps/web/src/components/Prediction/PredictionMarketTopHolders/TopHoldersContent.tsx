@@ -1,5 +1,6 @@
 'use client';
 
+import { useScrollRestoration } from '@dimensiondev/hooks';
 import { anySignal } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
@@ -10,7 +11,6 @@ import { Loading } from '@/components/Loading.js';
 import { PredictionTopHoldersUI } from '@/components/Prediction/PredictionMarketTopHolders/PredictionTopHoldersUI.js';
 import { PredictionPlatform } from '@/constants/enum.js';
 import { STALE_TIMES } from '@/constants/query.js';
-import { useScrollRestoration } from '@/hooks/useScrollRestoration.js';
 import { getBetsMarketTopHolders } from '@/providers/prediction/getBetsMarketTopHolders.js';
 import type { BetsMarketDataForUI } from '@/types/prediction.js';
 

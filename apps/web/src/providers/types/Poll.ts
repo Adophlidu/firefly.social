@@ -1,6 +1,7 @@
+import type { Pageable } from '@dimensiondev/utils';
+
 import type { SocialSource, SourceInURL } from '@/constants/enum.js';
 import type { POLL_CHOICE_TYPE, POLL_STRATEGIES } from '@/constants/poll.js';
-import type { Pageable } from '@/helpers/pageable.js';
 import type { Response as FireflyResponse } from '@/providers/types/Firefly.js';
 
 export interface PollOption {

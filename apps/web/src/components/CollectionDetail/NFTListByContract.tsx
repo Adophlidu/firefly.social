@@ -1,11 +1,11 @@
 'use client';
 
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { createIndicator } from '@dimensiondev/utils';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { GridListInPage } from '@/components/GridListInPage.js';
 import { getNFTItemContent, POAPGridListComponent } from '@/components/Profile/POAPList.js';
-import { createIndicator } from '@/helpers/pageable.js';
 import { getUserCollectionNFTs } from '@/providers/firefly/nft/getUserCollectionNFTs.js';
 import type { EthereumChainId } from '@/web3-shared/evm/types.js';
 

@@ -1,10 +1,10 @@
 'use client';
 
+import { createIndicator } from '@dimensiondev/utils';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { GridListInPage, type GridListInPageProps } from '@/components/GridListInPage.js';
 import { getNFTItemContent, POAPGridListComponent } from '@/components/Profile/POAPList.js';
-import { createIndicator } from '@/helpers/pageable.js';
 import { getCollectionItems } from '@/providers/firefly/nft/getCollectionItems.js';
 import { ErcType } from '@/providers/nftscan/types.js';
 import { fillBookmarkStatusForNonFungibleAssets } from '@/services/fillBookmarkStatusForNFT.js';

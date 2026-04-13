@@ -1,5 +1,6 @@
 'use client';
 
+import { createIndicator } from '@dimensiondev/utils';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact, uniqBy } from 'lodash-es';
 
@@ -8,7 +9,6 @@ import { Empty } from '@/components/Search/Empty.js';
 import { SearchableProfileItem } from '@/components/Search/SearchableProfileItem.js';
 import { FireflyPlatform, ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
 import { toFireflyPlatformId } from '@/helpers/isSameProfile.js';
-import { createIndicator } from '@/helpers/pageable.js';
 import { resolveFireflyPlatform } from '@/helpers/resolveFireflyPlatform.js';
 import { resolveSearchUrlType, SearchUrlKind } from '@/helpers/resolveSearchUrlType.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';

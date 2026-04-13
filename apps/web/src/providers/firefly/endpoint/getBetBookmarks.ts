@@ -1,10 +1,10 @@
+import type { Pageable, PageIndicator } from '@dimensiondev/utils';
+import { createIndicator, createNextIndicator, createPageable } from '@dimensiondev/utils';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { BookmarkType } from '@/constants/enum.js';
 import { type FireflyPolymarketActivity, formatPolymarketFromFirefly } from '@/helpers/formatPolymarketFromFirefly.js';
-import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
-import { createIndicator, createNextIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { BetsActivity, BookmarkResponse } from '@/providers/types/Firefly.js';

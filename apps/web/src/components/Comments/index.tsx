@@ -2,6 +2,7 @@
 
 import MessagesIcon from '@dimensiondev/assets/messages.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { createIndicator, createPageable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { memo, useMemo } from 'react';
@@ -11,7 +12,6 @@ import { HideComments } from '@/components/HideComments.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
 import { ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
-import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { enrichPostWithFireflyArticle } from '@/services/getPostById.js';

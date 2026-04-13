@@ -2,7 +2,7 @@
 
 import ArrowLineDownIcon from '@dimensiondev/assets/arrow-line-down.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
-import { classNames } from '@dimensiondev/utils';
+import { classNames, createIndicator, createPageable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQueryClient, useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { memo, type ReactNode, useEffect, useMemo, useState } from 'react';
@@ -12,7 +12,6 @@ import { getPredictionPositionList } from '@/components/Prediction/getPrediction
 import { PredictionPositionItem } from '@/components/Prediction/PredictionPositionItem.js';
 import { PredictionPlatform, ScrollListKey, Source } from '@/constants/enum.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
-import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { useAllProxyWallets } from '@/hooks/prediction/useAllProxyWallets.js';
 import { useProxyWalletInfo } from '@/hooks/prediction/useProxyWalletInfo.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';

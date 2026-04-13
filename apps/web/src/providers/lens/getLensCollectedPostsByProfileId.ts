@@ -1,15 +1,15 @@
-import { PageSize } from '@lens-protocol/client';
-import { fetchPosts } from '@lens-protocol/client/actions';
-import { uniqWith } from 'lodash-es';
-
-import { isSamePost } from '@/helpers/isSamePost.js';
 import {
     createIndicator,
     createNextIndicator,
     createPageable,
     type Pageable,
     type PageIndicator,
-} from '@/helpers/pageable.js';
+} from '@dimensiondev/utils';
+import { PageSize } from '@lens-protocol/client';
+import { fetchPosts } from '@lens-protocol/client/actions';
+import { uniqWith } from 'lodash-es';
+
+import { isSamePost } from '@/helpers/isSamePost.js';
 import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
 import { ensureCursor } from '@/providers/lens/ensureCursor.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';

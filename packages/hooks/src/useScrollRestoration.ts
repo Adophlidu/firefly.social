@@ -2,25 +2,30 @@ import { bom } from '@dimensiondev/utils';
 import { has, throttle } from 'lodash-es';
 import { useCallback, useEffect, useRef } from 'react';
 
-import { usePathname } from '@/esm/navigation.js';
-import { useGlobalState } from '@/store/useGlobalStore.js';
+interface UseScrollRestorationOptions {
+    key?: string;
+    autoRestore?: boolean;
+    restoreDelay?: number;
+    throttleMs?: number;
+}
 
-export function useScrollRestoration() {
-    const pathname = usePathname();
+const routePositionRecords: Record<string, number> = {};
+
+export function useScrollRestoration(options?: UseScrollRestorationOptions) {
+    const pathname = options?.key ?? bom.window?.location?.pathname ?? '';
     const hasRestored = useRef(false);
-    const { routePositionRecords, setRoutePositionRecords } = useGlobalState();
 
     useEffect(() => {
         const saveScrollPosition = throttle(() => {
-            setRoutePositionRecords(pathname, window.scrollY);
-        }, 200);
+            routePositionRecords[pathname] = window.scrollY;
+        }, options?.throttleMs ?? 200);
 
         bom.window?.addEventListener('scroll', saveScrollPosition);
 
         return () => {
             bom.window?.removeEventListener('scroll', saveScrollPosition);
         };
-    }, [pathname, setRoutePositionRecords]);
+    }, [pathname, options?.throttleMs]);
 
     const restore = useCallback(() => {
         if (hasRestored.current) return;
@@ -29,9 +34,14 @@ export function useScrollRestoration() {
         if (has(routePositionRecords, pathname)) {
             setTimeout(() => {
                 bom.window?.scrollTo(0, routePositionRecords[pathname] || 0);
-            }, 500);
+            }, options?.restoreDelay ?? 500);
         }
-    }, [pathname, routePositionRecords]);
+    }, [pathname, options?.restoreDelay]);
+
+    useEffect(() => {
+        if (!options?.autoRestore) return;
+        restore();
+    }, [options?.autoRestore, restore]);
 
     return { restore };
 }

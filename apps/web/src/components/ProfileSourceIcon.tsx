@@ -8,13 +8,13 @@ import GoogleIcon from '@dimensiondev/assets/google.svg';
 import GoogleSmallIcon from '@dimensiondev/assets/google-small.svg';
 import FireflyIcon from '@dimensiondev/assets/logo.svg';
 import TelegramIcon from '@dimensiondev/assets/telegram.svg';
+import { useSizeStyle } from '@dimensiondev/hooks';
 import { safeUnreachable } from '@dimensiondev/utils';
 import type { SVGProps } from 'react';
 
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { type ProfileSource, Source } from '@/constants/enum.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
-import { useSizeStyle } from '@/hooks/useSizeStyle.js';
 
 interface ProfileSourceIcon extends SVGProps<SVGSVGElement> {
     size?: number;

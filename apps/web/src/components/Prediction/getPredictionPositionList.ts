@@ -1,7 +1,7 @@
+import type { Pageable, PageIndicator } from '@dimensiondev/utils';
 import { unreachable } from '@dimensiondev/utils';
 
 import { PredictionPlatform } from '@/constants/enum.js';
-import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import { getClosedPositions } from '@/providers/firefly/prediction/getClosedPositions.js';
 import { getCurrentPositions } from '@/providers/firefly/prediction/getCurrentPositions.js';
 import { getPredictionHistoryList } from '@/providers/firefly/prediction/getPredictionHistoryList.js';

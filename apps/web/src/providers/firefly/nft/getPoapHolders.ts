@@ -1,7 +1,7 @@
+import { createNextIndicator, createPageable, type PageIndicator } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
 import { fetchJson } from '@/helpers/fetchJson.js';
-import { createNextIndicator, createPageable, type PageIndicator } from '@/helpers/pageable.js';
 import type { PoapHoldersResponse } from '@/providers/types/NFTs.js';
 import { settings } from '@/settings/index.js';
 

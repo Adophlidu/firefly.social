@@ -1,3 +1,4 @@
+import type { Pageable, PageIndicator } from '@dimensiondev/utils';
 import { NotImplementedError } from '@dimensiondev/utils';
 
 import { type BookmarkType, type FireflyPlatform, Source } from '@/constants/enum.js';
@@ -14,7 +15,6 @@ import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
 import { WithMutedProfilesQuery } from '@/decorators/WithMutedProfilesQuery.js';
-import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import { blockBskyProfile } from '@/providers/bsky/blockBskyProfile.js';
 import { deleteBskyPost } from '@/providers/bsky/deleteBskyPost.js';
 import { discoverBskyChannels } from '@/providers/bsky/discoverBskyChannels.js';

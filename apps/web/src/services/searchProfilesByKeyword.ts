@@ -1,9 +1,9 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { createIndicator, type PageIndicator } from '@dimensiondev/utils';
 import { compact } from 'lodash-es';
 
 import type { SocialSource } from '@/constants/enum.js';
 import { composeSearchProfiles, formatSearchProfile, sortSearchProfiles } from '@/helpers/formatSearchProfile.js';
-import { createIndicator, type PageIndicator } from '@/helpers/pageable.js';
 import { searchBskyProfiles } from '@/providers/bsky/searchBskyProfiles.js';
 import { searchIdentity } from '@/providers/firefly/endpoint/searchIdentity.js';
 import { searchLensProfiles } from '@/providers/lens/searchLensProfiles.js';

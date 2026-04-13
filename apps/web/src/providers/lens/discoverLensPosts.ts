@@ -1,16 +1,16 @@
-import { PageSize } from '@lens-protocol/client';
-import { fetchPosts, fetchTimelineHighlights } from '@lens-protocol/client/actions';
-import { compact } from 'lodash-es';
-
-import { Source } from '@/constants/enum.js';
-import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import {
     createIndicator,
     createNextIndicator,
     createPageable,
     type Pageable,
     type PageIndicator,
-} from '@/helpers/pageable.js';
+} from '@dimensiondev/utils';
+import { PageSize } from '@lens-protocol/client';
+import { fetchPosts, fetchTimelineHighlights } from '@lens-protocol/client/actions';
+import { compact } from 'lodash-es';
+
+import { Source } from '@/constants/enum.js';
+import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { ensureCursor } from '@/providers/lens/ensureCursor.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { filterFeedsV3, formatLensPostV3 } from '@/providers/lens/formatLensPost.js';

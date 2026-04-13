@@ -1,11 +1,11 @@
 'use client';
 
+import { createIndicator, createPageable } from '@dimensiondev/utils';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { PredictionActivityItem } from '@/components/Prediction/PredictionActivityItem.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
-import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { getDiscoverPredictionList } from '@/providers/firefly/prediction/getDiscoverPredictionList.js';
 import type { BetsActivity } from '@/providers/types/Firefly.js';
 import { PredictionFilterNamespace, usePredictionSourceFilterStore } from '@/store/usePredictionSourceFilterStore.js';

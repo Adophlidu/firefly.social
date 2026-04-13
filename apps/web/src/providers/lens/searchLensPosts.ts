@@ -1,13 +1,13 @@
-import { PageSize } from '@lens-protocol/client';
-import { fetchPosts } from '@lens-protocol/client/actions';
-
 import {
     createIndicator,
     createNextIndicator,
     createPageable,
     type Pageable,
     type PageIndicator,
-} from '@/helpers/pageable.js';
+} from '@dimensiondev/utils';
+import { PageSize } from '@lens-protocol/client';
+import { fetchPosts } from '@lens-protocol/client/actions';
+
 import { ensureCursor } from '@/providers/lens/ensureCursor.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { formatLensPostV3 } from '@/providers/lens/formatLensPost.js';

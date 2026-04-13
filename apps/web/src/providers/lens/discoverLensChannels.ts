@@ -1,15 +1,15 @@
 import { runInSafeAsync } from '@dimensiondev/utils';
-import { compact } from 'lodash-es';
-import urlcat from 'urlcat';
-
-import { FIREFLY_WORKER_HOST } from '@/constants/static.js';
 import {
     createIndicator,
     createNextIndicator,
     createPageable,
     type Pageable,
     type PageIndicator,
-} from '@/helpers/pageable.js';
+} from '@dimensiondev/utils';
+import { compact } from 'lodash-es';
+import urlcat from 'urlcat';
+
+import { FIREFLY_WORKER_HOST } from '@/constants/static.js';
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { formatChannelFromOrb } from '@/providers/lens/formatChannelFromOrb.js';

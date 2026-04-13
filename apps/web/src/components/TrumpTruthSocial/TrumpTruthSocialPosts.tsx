@@ -1,11 +1,11 @@
 'use client';
 
+import { createIndicator, createPageable } from '@dimensiondev/utils';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
 import { ExploreSwitchType, ScrollListKey, SocialProfileCategory, Source } from '@/constants/enum.js';
-import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { useExploreDataSwitchConfig } from '@/hooks/useExploreDataSwitchConfig.js';
 import { getTrumpTruthSocialPosts } from '@/providers/firefly/endpoint/getTrumpTruthSocialPosts.js';
 

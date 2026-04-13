@@ -1,15 +1,15 @@
-import { compact } from 'lodash-es';
-import urlcat from 'urlcat';
-
-import { BookmarkType, FireflyPlatform } from '@/constants/enum.js';
-import { formatSnapshotActivityFromFirefly } from '@/helpers/formatSnapshotFromFirefly.js';
 import {
     createIndicator,
     createNextIndicator,
     createPageable,
     type Pageable,
     type PageIndicator,
-} from '@/helpers/pageable.js';
+} from '@dimensiondev/utils';
+import { compact } from 'lodash-es';
+import urlcat from 'urlcat';
+
+import { BookmarkType, FireflyPlatform } from '@/constants/enum.js';
+import { formatSnapshotActivityFromFirefly } from '@/helpers/formatSnapshotFromFirefly.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';

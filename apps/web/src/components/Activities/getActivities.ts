@@ -1,9 +1,9 @@
 import { safeUnreachable } from '@dimensiondev/utils';
+import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@dimensiondev/utils';
 import { compact } from 'lodash-es';
 
 import { resolveArticlePlatform } from '@/components/Activities/resolveArticlePlatform.js';
 import { ActivitiesPlatform, Source } from '@/constants/enum.js';
-import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { discoverArticles } from '@/providers/firefly/article/discoverArticles.js';
 import { discoverArticlesByAddress } from '@/providers/firefly/article/discoverArticlesByAddress.js';
 import { getFollowingArticles } from '@/providers/firefly/article/getFollowingArticles.js';

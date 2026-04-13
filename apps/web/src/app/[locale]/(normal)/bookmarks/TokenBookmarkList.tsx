@@ -1,5 +1,6 @@
 'use client';
 
+import { createIndicator } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
@@ -8,7 +9,6 @@ import { ListInPage } from '@/components/ListInPage.js';
 import { BookmarkedTokenItem } from '@/components/Token/BookmarkedTokenItem.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
-import { createIndicator } from '@/helpers/pageable.js';
 import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { getTokenBookmarks } from '@/providers/firefly/endpoint/getTokenBookmarks.js';

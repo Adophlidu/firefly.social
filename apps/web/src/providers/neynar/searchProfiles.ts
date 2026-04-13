@@ -1,8 +1,8 @@
+import { createIndicator, createPageable, type PageIndicator } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
 import { NEYNAR_URL } from '@/constants/static.js';
 import { fetchNeynarJson } from '@/helpers/fetchNeynarJson.js';
-import { createIndicator, createPageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveNeynarResponseData } from '@/helpers/resolveNeynarResponseData.js';
 import { formatFarcasterProfileFromNeynar } from '@/providers/farcaster/formatFarcasterProfileFromNeynar.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';

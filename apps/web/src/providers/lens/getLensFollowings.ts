@@ -1,13 +1,13 @@
-import { type Account, PageSize } from '@lens-protocol/client';
-import { fetchFollowing } from '@lens-protocol/client/actions';
-
 import {
     createIndicator,
     createNextIndicator,
     createPageable,
     type Pageable,
     type PageIndicator,
-} from '@/helpers/pageable.js';
+} from '@dimensiondev/utils';
+import { type Account, PageSize } from '@lens-protocol/client';
+import { fetchFollowing } from '@lens-protocol/client/actions';
+
 import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
 import { ensureCursor } from '@/providers/lens/ensureCursor.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';

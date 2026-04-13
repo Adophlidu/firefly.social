@@ -1,13 +1,13 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
-
-import type { SocialSourceInURL } from '@/constants/enum.js';
 import {
     createIndicator,
     createNextIndicator,
     createPageable,
     type Pageable,
     type PageIndicator,
-} from '@/helpers/pageable.js';
+} from '@dimensiondev/utils';
+
+import type { SocialSourceInURL } from '@/constants/enum.js';
 import { getBlockedRelations } from '@/providers/firefly/endpoint/getBlockedRelations.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { getProfilesByIds } from '@/services/getProfilesByIds.js';

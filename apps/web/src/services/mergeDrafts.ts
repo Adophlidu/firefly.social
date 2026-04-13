@@ -1,3 +1,4 @@
+import type { Pageable, PageIndicator } from '@dimensiondev/utils';
 import { safeUnreachable } from '@dimensiondev/utils';
 import dayjs from 'dayjs';
 import { compact, first, isUndefined, orderBy, values } from 'lodash-es';
@@ -5,7 +6,6 @@ import { compact, first, isUndefined, orderBy, values } from 'lodash-es';
 import { DraftPostType, Source } from '@/constants/enum.js';
 import { POLL_CHOICE_TYPE, POLL_STRATEGIES } from '@/constants/poll.js';
 import { isValidRestrictionType } from '@/helpers/isValidRestrictionType.js';
-import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import { recoverCharsByMentions } from '@/helpers/recoverCharsByMentions.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { type CloudDraft, CloudDraftType } from '@/providers/types/CloudDraft.js';

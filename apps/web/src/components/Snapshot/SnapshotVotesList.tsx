@@ -1,4 +1,4 @@
-import { classNames } from '@dimensiondev/utils';
+import { classNames, createIndicator } from '@dimensiondev/utils';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { memo, useCallback, useMemo, useRef } from 'react';
 import urlcat from 'urlcat';
@@ -14,7 +14,6 @@ import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { humanize, nFormatter } from '@/helpers/formatCommentCounts.js';
 import { formatSnapshotChoice } from '@/helpers/formatSnapshotChoice.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
-import { createIndicator } from '@/helpers/pageable.js';
 import { sanitizeDStorageUrl } from '@/helpers/sanitizeDStorageUrl.js';
 import { useEnsName } from '@/hooks/useEnsName.js';
 import { getVotesById } from '@/providers/snapshot/getVotesById.js';
