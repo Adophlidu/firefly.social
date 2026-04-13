@@ -1,4 +1,4 @@
-import type { NetworkType } from '@/constants/enum.js';
+import type { NetworkType, SwapFromPage } from '@/constants/enum.js';
 
 export interface SwapToken {
     address: string;
@@ -191,4 +191,9 @@ export interface TokenWithBalance extends SwapToken {
     formattedBalance: string;
     formattedUsdValue: string;
     isNative: boolean;
+}
+
+export interface SelectTokenSearch {
+    from: SwapFromPage;
+    side?: 'pay' | 'receive';
 }

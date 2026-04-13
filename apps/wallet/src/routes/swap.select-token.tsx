@@ -1,10 +1,9 @@
 import GlobeIcon from '@dimensiondev/assets/global.svg';
 import SearchIcon from '@dimensiondev/assets/search.svg';
 import SelectedIcon from '@dimensiondev/assets/selected.svg';
-import { safeUnreachable } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { createFileRoute, useNavigate, useSearch } from '@tanstack/react-router';
+import { createFileRoute, useSearch } from '@tanstack/react-router';
 import { useAtomValue, useSetAtom } from 'jotai';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
@@ -19,9 +18,10 @@ import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { isSolanaChain } from '@/helpers/isSolanaChain.js';
 import { addressesMatch, formatTokenAmount } from '@/helpers/swap/formatSwapAmount.js';
 import { useEffectiveSwapWalletAddress } from '@/hooks/swap/useEffectiveSwapWalletAddress.js';
+import { useGoBackAfterSelectToken } from '@/hooks/swap/useGoBackAfterSelectToken.js';
 import { useSwapSupportedChains } from '@/hooks/swap/useSwapSupportedChains.js';
 import { useSearchTokens, useSwapTokens } from '@/hooks/swap/useSwapTokens.js';
-import type { SwapToken } from '@/providers/swap/types.js';
+import type { SelectTokenSearch, SwapToken } from '@/providers/swap/types.js';
 import {
     fromAddressAtom,
     fromAmountAtom,
@@ -33,34 +33,13 @@ import {
     toChainIdAtom,
 } from '@/store/swap/swapState.js';
 
-interface SelectTokenSearch {
-    side?: 'pay' | 'receive';
-    from?: SwapFromPage;
-}
-
-function resolveBackPath(from?: SwapFromPage): string {
-    if (!from) return '/swap';
-
-    switch (from) {
-        case SwapFromPage.Swap:
-            return '/swap';
-        case SwapFromPage.BetWithdraw:
-            return '/bet/withdraw';
-        case SwapFromPage.BetDeposit:
-            return '/bet/deposit';
-        default:
-            safeUnreachable(from);
-            return '/swap';
-    }
-}
-
 export const Route = createFileRoute('/swap/select-token')({
     component: SelectTokenPage,
 });
 
 function SelectTokenPage() {
-    const { side, from } = useSearch({ from: '/swap/select-token' }) as SelectTokenSearch;
-    const navigate = useNavigate();
+    const { side, from } = useSearch({ from: '/swap/select-token' }) as Partial<SelectTokenSearch>;
+    const goBack = useGoBackAfterSelectToken(from);
     const setFromAmount = useSetAtom(fromAmountAtom);
     const setFromToken = useSetAtom(setFromTokenAtom);
     const setToToken = useSetAtom(setToTokenAtom);
@@ -84,11 +63,16 @@ function SelectTokenPage() {
     const [showChainMenu, setShowChainMenu] = useState(false);
     const chainMenuRef = useRef<HTMLDivElement>(null);
 
+    const hideTrending = from === SwapFromPage.BetDeposit;
+    const hideRecent = from === SwapFromPage.BetDeposit;
+
     const { myTokens, recentTokens, trendingTokens, isLoading } = useSwapTokens({
         enabled: true,
         chainId: selectedChainId ?? undefined,
         selectedWalletAddress: effectiveWalletAddress,
         currentChainId,
+        hideTrending,
+        hideRecent,
     });
 
     const { data: searchResults = [], isLoading: isSearching } = useSearchTokens(
@@ -99,13 +83,9 @@ function SelectTokenPage() {
     const handleSelect = useCallback(
         (token: SwapToken) => {
             if (from && from !== SwapFromPage.Swap) {
-                navigate({
-                    to: resolveBackPath(from),
-                    search: {
-                        address: token.address,
-                        chainId: token.chainId,
-                    },
-                    replace: true,
+                goBack({
+                    address: token.address,
+                    chainId: token.chainId,
                 });
                 return;
             }
@@ -129,11 +109,11 @@ function SelectTokenPage() {
                     setSelectedReceiveWallet(null);
                 }
             }
-            navigate({ to: resolveBackPath(from) });
+            goBack();
         },
         [
             side,
-            navigate,
+            goBack,
             setFromToken,
             setToToken,
             setSelectedPayWallet,
@@ -216,7 +196,7 @@ function SelectTokenPage() {
     return (
         <div className="flex h-screen w-full flex-col overflow-hidden">
             <div className="bg-primaryBottom shrink-0">
-                <NavigationBar onBack={() => navigate({ to: '/swap' })}>
+                <NavigationBar onBack={() => goBack()}>
                     <Trans>Select Token</Trans>
                 </NavigationBar>
 
@@ -324,7 +304,7 @@ function SelectTokenPage() {
 
             <div className="no-scrollbar min-h-0 flex-1 overflow-y-auto">
                 {(isSearchMode ? isSearching : isLoading) ? (
-                    <LoadingSkeleton />
+                    <LoadingSkeleton hideTrending={hideTrending} hideRecent={hideRecent} />
                 ) : hasNoResults ? (
                     <NoResultsFallback
                         className="mt-8"
@@ -346,9 +326,11 @@ function SelectTokenPage() {
                     <div className="flex flex-col gap-4">
                         {visibleMyTokens.length > 0 || foldedMyTokens.length > 0 ? (
                             <div className="flex flex-col">
-                                <div className="text-secondary px-3 text-[13px] font-medium leading-[17px]">
-                                    <Trans>Your tokens</Trans>
-                                </div>
+                                {hideTrending && hideRecent ? null : (
+                                    <div className="text-secondary px-3 text-[13px] font-medium leading-[17px]">
+                                        <Trans>Your tokens</Trans>
+                                    </div>
+                                )}
                                 {visibleMyTokens.map((token) => (
                                     <MyTokenItem
                                         key={`my-${token.chainId}-${token.address}`}
@@ -435,7 +417,23 @@ function SkeletonRow() {
     );
 }
 
-function LoadingSkeleton() {
+interface LoadingSkeletonProps {
+    hideTrending?: boolean;
+    hideRecent?: boolean;
+}
+
+function LoadingSkeleton({ hideTrending, hideRecent }: LoadingSkeletonProps) {
+    if (hideTrending && hideRecent) {
+        return (
+            <div className="w-full">
+                <SkeletonRow />
+                <SkeletonRow />
+                <SkeletonRow />
+                <SkeletonRow />
+            </div>
+        );
+    }
+
     return (
         <div className="flex flex-col gap-4">
             <div className="flex flex-col">
@@ -445,14 +443,16 @@ function LoadingSkeleton() {
                 <SkeletonRow />
                 <SkeletonRow />
             </div>
-            <div className="flex flex-col">
-                <div className="text-secondary px-3 text-[13px] font-medium leading-[17px]">
-                    <Trans>Trendings</Trans>
+            {!hideTrending ? (
+                <div className="flex flex-col">
+                    <div className="text-secondary px-3 text-[13px] font-medium leading-[17px]">
+                        <Trans>Trendings</Trans>
+                    </div>
+                    <SkeletonRow />
+                    <SkeletonRow />
+                    <SkeletonRow />
                 </div>
-                <SkeletonRow />
-                <SkeletonRow />
-                <SkeletonRow />
-            </div>
+            ) : null}
         </div>
     );
 }

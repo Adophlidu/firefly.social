@@ -19,6 +19,9 @@ export interface UseSwapTokensOptions {
     selectedWalletAddress?: string | null;
     /** Current chain ID (pay/receive side) to determine address type */
     currentChainId?: number | null;
+    /** Optionally hide trending tokens (e.g. for Bet Deposit flow) */
+    hideTrending?: boolean;
+    hideRecent?: boolean;
 }
 
 export interface SwapTokensResult {
@@ -44,7 +47,7 @@ function recentTokenToSwapToken(token: RecentToken): SwapToken {
 }
 
 export function useSwapTokens(options: UseSwapTokensOptions = {}): SwapTokensResult {
-    const { chainId, enabled = true, selectedWalletAddress, currentChainId } = options;
+    const { chainId, enabled = true, selectedWalletAddress, currentChainId, hideTrending, hideRecent } = options;
     const {
         evmAddress: cachedEvmAddress,
         solanaAddress: cachedSolanaAddress,
@@ -117,7 +120,7 @@ export function useSwapTokens(options: UseSwapTokensOptions = {}): SwapTokensRes
                 size: 20,
             });
         },
-        enabled,
+        enabled: enabled && !hideRecent,
         staleTime: 60 * 1000, // 1 minute
     });
 
@@ -135,7 +138,7 @@ export function useSwapTokens(options: UseSwapTokensOptions = {}): SwapTokensRes
                 chains: chainId ? String(chainId) : SUPPORTED_SWAP_TRENDING_CHAIN_IDS.join(','),
             });
         },
-        enabled,
+        enabled: enabled && !hideTrending,
         staleTime: 5 * 60 * 1000, // 5 minutes
     });
 

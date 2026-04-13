@@ -3,10 +3,10 @@ import InfoOutlineIcon from '@dimensiondev/assets/info-outline.svg';
 import { Trans } from '@lingui/react/macro';
 import { useSetActiveWallet } from '@privy-io/wagmi';
 import { useMutation, useQuery, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { createFileRoute, useNavigate } from '@tanstack/react-router';
+import { createFileRoute } from '@tanstack/react-router';
 import { signMessage } from '@wagmi/core';
 import { BigNumber } from 'bignumber.js';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { toast } from 'sonner';
 import { useDebounceValue } from 'usehooks-ts';
 import { parseUnits } from 'viem';
@@ -27,6 +27,7 @@ import { LoadingPanel } from '@/components/LoadingPanel.js';
 import { NavigationBar } from '@/components/NavigationBar.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
 import { Button } from '@/components/ui/button.js';
+import { useComeback } from '@/components/useComeback.js';
 import { SwapFromPage } from '@/constants/enum.js';
 import { formatTokenItemAmount } from '@/helpers/formatTokenItemAmount.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
@@ -34,6 +35,7 @@ import { isGreaterThan, isLessThan } from '@/helpers/number.js';
 import { optimisticSubtractBalance } from '@/helpers/polymarketBalanceCache.js';
 import { waitForPolymarketWithdraw } from '@/helpers/waitForPolymarketWithdraw.js';
 import { usdcTokenFallback, useWithdrawToken } from '@/hooks/bet/useTokenDetail.js';
+import { useGoToSelectToken } from '@/hooks/swap/useGoToSelectToken.js';
 import { useEmbeddedEvmWalletContext } from '@/hooks/useCachedWalletAddresses.js';
 import { useDecimalInput } from '@/hooks/useDecimalInput.js';
 import { cn } from '@/lib/utils.js';
@@ -65,7 +67,7 @@ function WithdrawPage() {
 }
 
 function WithdrawClient() {
-    const navigate = useNavigate();
+    const comeback = useComeback('/bet');
     const queryClient = useQueryClient();
 
     const { address, wallet, isLoading: isEmbeddedWalletLoading } = useEmbeddedEvmWalletContext();
@@ -153,7 +155,7 @@ function WithdrawClient() {
             ]);
             toast.dismiss(toastId);
             toast.success(<Trans>Your funds have been withdrawn to your Firefly wallet.</Trans>);
-            navigate({ to: '/bet' });
+            comeback();
         },
         onError(error: unknown) {
             store.set(showEmbeddedWalletUIAtom, true);
@@ -167,9 +169,10 @@ function WithdrawClient() {
         },
     });
 
-    const handleTokenClick = useCallback(() => {
-        navigate({ to: '/swap/select-token', search: { side: 'receive', from: SwapFromPage.BetWithdraw } });
-    }, [navigate]);
+    const goToSelectToken = useGoToSelectToken({
+        side: 'receive',
+        from: SwapFromPage.BetWithdraw,
+    });
 
     const isInsufficientBalance = !isSuccess && !isPending && isLessThan(withdrawableAmount, value);
     const isLessThanMinimum = isLessThan(value, MINIMUM_USD);
@@ -241,7 +244,7 @@ function WithdrawClient() {
                         />
                         <div
                             className="ml-4 flex w-full min-w-0 flex-col justify-start text-left"
-                            onClick={handleTokenClick}
+                            onClick={goToSelectToken}
                         >
                             <div className="flex h-5 w-full items-center gap-1 truncate text-sm font-semibold">
                                 <Trans>You receive</Trans>

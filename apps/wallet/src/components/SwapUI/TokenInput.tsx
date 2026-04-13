@@ -4,7 +4,6 @@ import FireflyRoundIcon from '@dimensiondev/assets/firefly.round.svg';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useWallets as useEvmWallets } from '@privy-io/react-auth';
-import { useNavigate } from '@tanstack/react-router';
 import { useAtomValue, useSetAtom } from 'jotai';
 import { compact } from 'lodash-es';
 import { type ChangeEvent, memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
@@ -12,12 +11,14 @@ import { type ChangeEvent, memo, useCallback, useEffect, useMemo, useRef, useSta
 import { ChainIcon } from '@/components/ChainIcon.js';
 import { WalletFilter } from '@/components/SwapUI/WalletFilter.js';
 import { Input } from '@/components/ui/input.js';
+import { SwapFromPage } from '@/constants/enum.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { isSolanaChain } from '@/helpers/isSolanaChain.js';
 import { isGreaterThan, multipliedBy, toFixed } from '@/helpers/number.js';
 import { formatTokenAmount, parseInputAmount } from '@/helpers/swap/formatSwapAmount.js';
 import { useEffectiveSwapWalletAddress } from '@/hooks/swap/useEffectiveSwapWalletAddress.js';
+import { useGoToSelectToken } from '@/hooks/swap/useGoToSelectToken.js';
 import { useSwapQuote } from '@/hooks/swap/useSwapQuote.js';
 import { useSwapContextWalletAddresses } from '@/hooks/useCachedWalletAddresses.js';
 import { useWalletDomainNames } from '@/hooks/useWalletDomainNames.js';
@@ -65,7 +66,6 @@ export const TokenInput = memo(function TokenInput({
     const fromAmount = useAtomValue(fromAmountAtom);
     const { quote } = useSwapQuote();
     const toAmount = quote?.toAmount || '';
-    const navigate = useNavigate();
 
     const accessPath = useAtomValue(accessPathAtom);
     const externalEvmAddress = useAtomValue(externalEvmAddressAtom);
@@ -163,9 +163,10 @@ export const TokenInput = memo(function TokenInput({
         [balance, onAmountChange, token],
     );
 
-    const handleTokenClick = useCallback(() => {
-        navigate({ to: '/swap/select-token', search: { side: type } });
-    }, [type, navigate]);
+    const goToSelectToken = useGoToSelectToken({
+        side: type,
+        from: SwapFromPage.Swap,
+    });
 
     const handleWalletClick = useCallback(() => {
         setWalletFilterOpen((prev) => !prev);
@@ -270,7 +271,7 @@ export const TokenInput = memo(function TokenInput({
                 <button
                     type="button"
                     className="flex shrink-0 items-center gap-2 rounded-[18px] bg-white py-1 pl-1 pr-2 dark:bg-white/10"
-                    onClick={handleTokenClick}
+                    onClick={goToSelectToken}
                 >
                     <span className="relative">
                         {token?.logoURI ? (

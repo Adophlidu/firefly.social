@@ -2,9 +2,9 @@ import ArrowDownIcon from '@dimensiondev/assets/arrow-line-down.svg';
 import SwitchIcon from '@dimensiondev/assets/switch.svg';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
-import { createFileRoute, useNavigate } from '@tanstack/react-router';
+import { createFileRoute } from '@tanstack/react-router';
 import { BigNumber } from 'bignumber.js';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { formatUnits } from 'viem';
 import { polygon } from 'viem/chains';
 
@@ -22,6 +22,7 @@ import { dividedBy, isLessThan, multipliedBy, toFixed } from '@/helpers/number.j
 import { addressesMatch } from '@/helpers/swap/formatSwapAmount.js';
 import { useAddFunds } from '@/hooks/bet/useAddFunds.js';
 import { usdcTokenFallback, useDepositToken } from '@/hooks/bet/useTokenDetail.js';
+import { useGoToSelectToken } from '@/hooks/swap/useGoToSelectToken.js';
 import { useSwapQuoteCore } from '@/hooks/swap/useSwapQuoteCore.js';
 import { useEmbeddedWalletAddresses } from '@/hooks/useCachedWalletAddresses.js';
 import { useDecimalInput } from '@/hooks/useDecimalInput.js';
@@ -54,7 +55,6 @@ function DepositPage() {
 }
 
 function DepositClient() {
-    const navigate = useNavigate();
     const isSubmittingRef = useRef(false);
     const inputRef = useRef<HTMLInputElement | null>(null);
     const [value, setValue] = useState('');
@@ -160,9 +160,10 @@ function DepositClient() {
         },
     });
 
-    const handleTokenClick = useCallback(() => {
-        navigate({ to: '/swap/select-token', search: { side: 'pay', from: SwapFromPage.BetDeposit } });
-    }, [navigate]);
+    const goToSelectToken = useGoToSelectToken({
+        side: 'pay',
+        from: SwapFromPage.BetDeposit,
+    });
 
     useEffect(() => {
         inputRef.current?.focus();
@@ -186,7 +187,7 @@ function DepositClient() {
                     <div className="bg-lightBg h-5 w-7" />
                 </div>
             ) : (
-                <div className="flex h-[60px] w-full items-center gap-3" onClick={handleTokenClick}>
+                <div className="flex h-[60px] w-full items-center gap-3" onClick={goToSelectToken}>
                     <TokenIcon
                         size={36}
                         badgeSize={16}
