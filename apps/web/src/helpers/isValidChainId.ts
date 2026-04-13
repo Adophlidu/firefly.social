@@ -1,4 +1,5 @@
-import { isValidEnumValue } from '@/helpers/isValidEnumValue.js';
+import { isValidEnumValue } from '@dimensiondev/utils';
+
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
 import { SolanaChainId } from '@/web3-shared/solana/types.js';
 

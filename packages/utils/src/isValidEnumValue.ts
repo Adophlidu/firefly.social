@@ -1,4 +1,4 @@
-import { getEnumAsArray } from '@dimensiondev/utils';
+import { getEnumAsArray } from '@/getEnumAsArray.js';
 
 /**
  * Validate if a value is a valid enum value

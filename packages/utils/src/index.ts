@@ -13,6 +13,7 @@ export * from '@/error.js';
 export * from '@/getEnumAsArray.js';
 export * from '@/hexToRGBA.js';
 export * from '@/isSameUrl.js';
+export * from '@/isValidEnumValue.js';
 export * from '@/once.js';
 export * from '@/pageable.js';
 export * from '@/parseJson.js';

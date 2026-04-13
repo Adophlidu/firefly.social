@@ -1,9 +1,9 @@
 'use client';
 
+import { isValidEnumValue } from '@dimensiondev/utils';
 import { createContext, type ReactNode, useContext, useState } from 'react';
 
 import { Agent } from '@/constants/enum.js';
-import { isValidEnumValue } from '@/helpers/isValidEnumValue.js';
 
 const AgentContext = createContext<Agent | null>(null);
 

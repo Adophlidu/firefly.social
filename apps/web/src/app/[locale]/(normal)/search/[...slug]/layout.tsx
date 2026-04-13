@@ -1,5 +1,5 @@
 import type { LayoutProps } from '@dimensiondev/types';
-import { createLookupTableResolver } from '@dimensiondev/utils';
+import { createLookupTableResolver, isValidEnumValue } from '@dimensiondev/utils';
 import type { MessageDescriptor } from '@lingui/core';
 import { msg } from '@lingui/core/macro';
 import { last } from 'lodash-es';
@@ -11,7 +11,6 @@ import { ClubType, SearchType, SourceInURL } from '@/constants/enum.js';
 import { notFound, redirect } from '@/esm/navigation/server.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
-import { isValidEnumValue } from '@/helpers/isValidEnumValue.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 
 const resolveSearchTypeTitle = createLookupTableResolver<SearchType, MessageDescriptor>(

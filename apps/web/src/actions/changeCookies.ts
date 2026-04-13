@@ -1,9 +1,9 @@
 'use server';
 
+import { isValidEnumValue } from '@dimensiondev/utils';
 import { cookies } from 'next/headers.js';
 
 import { Agent, Locale } from '@/constants/enum.js';
-import { isValidEnumValue } from '@/helpers/isValidEnumValue.js';
 import { setupAndActiveI18n } from '@/i18n/index.js';
 
 export async function changeCookies(formData: FormData) {
