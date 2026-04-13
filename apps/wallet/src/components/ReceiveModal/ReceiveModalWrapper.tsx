@@ -5,10 +5,10 @@ import type { ReceiveChainItemProps } from '@/components/ReceiveModal/ReceiveCha
 import type { RouteModalProps } from '@/configs/modalRoutes.js';
 import { isSolanaChain } from '@/helpers/isSolanaChain.js';
 import { useSwapSupportedChains } from '@/hooks/swap/useSwapSupportedChains.js';
-import { useCachedWalletAddresses } from '@/hooks/useCachedWalletAddresses.js';
+import { useEmbeddedWalletAddresses } from '@/hooks/useCachedWalletAddresses.js';
 
 export function ReceiveModalWrapper({ modalType: typeId, open, onClose }: RouteModalProps) {
-    const { evmAddress, solanaAddress } = useCachedWalletAddresses();
+    const { evmAddress, solanaAddress, isLoading } = useEmbeddedWalletAddresses();
     const { data: supportedChains } = useSwapSupportedChains();
 
     const receiveItems = useMemo(() => {
@@ -20,5 +20,5 @@ export function ReceiveModalWrapper({ modalType: typeId, open, onClose }: RouteM
         }));
     }, [evmAddress, solanaAddress, supportedChains]);
 
-    return <ReceiveModal open={open} onClose={() => onClose(typeId)} items={receiveItems} />;
+    return <ReceiveModal loading={isLoading} open={open} onClose={() => onClose(typeId)} items={receiveItems} />;
 }
