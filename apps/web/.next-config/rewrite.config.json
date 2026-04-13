@@ -5,8 +5,8 @@
         "production": "https://firefly-particle-recovery-dimension-dev.vercel.app/particle-recovery"
     },
     "/wallet-iframe": {
-        "staging": "https://firefly-social-wallet.vercel.app/wallet-iframe/",
-        "canary": "https://firefly-social-wallet.vercel.app/wallet-iframe/",
+        "staging": "https://firefly-wallet.vercel.app/wallet-iframe/",
+        "canary": "https://firefly-wallet.vercel.app/wallet-iframe/",
         "production": "https://wallet.firefly.social/wallet-iframe/"
     },
     "/masko-iframe": {
