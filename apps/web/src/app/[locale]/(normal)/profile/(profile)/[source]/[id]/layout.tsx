@@ -7,7 +7,7 @@ import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { FireflyAccountInfo } from '@/components/Profile/FireflyAccountInfo.js';
 import { ProfileContextProvider } from '@/components/Profile/ProfileContext.js';
 import { ProfileInfoCard } from '@/components/Profile/ProfileInfoCard.js';
-import { ProfileSourceTabs } from '@/components/Profile/ProfileSourceTabs.js';
+import { ProfileSourceTabs } from '@/components/Profile/ProfileSourceTabs/index.js';
 import { SuspendedAccountFallback } from '@/components/SuspendedAccountFallback.js';
 import { type LoginFallbackSource, type ProfilePageSourceInURL, Source } from '@/constants/enum.js';
 import { AccountSuspendedError } from '@/constants/error.js';
