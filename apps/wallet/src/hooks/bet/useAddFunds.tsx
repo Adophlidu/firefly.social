@@ -53,7 +53,9 @@ export function useAddFunds(options: Options) {
         throwError: true,
         onStepChange: () => {},
         onFromAmountChange: () => {},
-        onSuccess: async () => {},
+        onSuccess: async ({ toastId: innerToastId }) => {
+            toast.dismiss(innerToastId);
+        },
     });
 
     return useMutation({
