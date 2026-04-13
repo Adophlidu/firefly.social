@@ -52,6 +52,7 @@ function buildCSP(): string {
         "'self'",
         'i.imgur.com',
         'api.web3modal.org',
+        'pbs.twimg.com',
         'gw.ipfs-lens.dev',
         'stamp.firefly.land',
         'media.firefly.land',
