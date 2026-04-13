@@ -32,6 +32,7 @@ export const Route = createRootRoute({
             { title: 'Firefly Wallet' },
             { name: 'description', content: 'A modern wallet application' },
         ],
+        links: [{ rel: 'icon', href: '/favicon.ico' }],
     }),
     component: RootLayout,
 });
