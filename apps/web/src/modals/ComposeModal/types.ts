@@ -14,6 +14,7 @@ export interface ComposeModalOpenProps {
     isFailedSchedulePost?: boolean;
     isAnonymous?: boolean;
     disabledSources?: SocialSource[];
+    disableSchedule?: boolean;
 }
 
 export type ComposeModalCloseProps = {

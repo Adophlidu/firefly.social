@@ -47,7 +47,7 @@ export const ComposeUI = memo(function ComposeUI() {
     const isDark = useIsDarkMode();
     const { type, posts, isFailedSchedulePost, showMediaAlert, setShowMediaAlert, updateIsFailedSchedulePost } =
         useComposeStateStore();
-    const { scheduleTime } = useComposeScheduleStateStore();
+    const { scheduleTime, disableSchedule } = useComposeScheduleStateStore();
 
     const compositePost = useCompositePost();
 
@@ -144,7 +144,7 @@ export const ComposeUI = memo(function ComposeUI() {
                             : undefined
                     }
                 >
-                    {scheduleTime && envs.external.NEXT_PUBLIC_SCHEDULE_POST === STATUS.Enabled ? (
+                    {scheduleTime && !disableSchedule && envs.external.NEXT_PUBLIC_SCHEDULE_POST === STATUS.Enabled ? (
                         <SchedulePostEntryButton showText />
                     ) : null}
                     {posts.length === 1 ? <ComposeContent post={compositePost} /> : <ComposeThreadContent />}

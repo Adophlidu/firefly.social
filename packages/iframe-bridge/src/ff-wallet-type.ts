@@ -2,6 +2,8 @@
 // According to EIP-1193 and JSON-RPC 2.0 specification
 export type EvmRpcResult = string | number | boolean | null | unknown[] | Record<string, unknown>;
 
+export type ComposeResult = Record<string, string | null> | void;
+
 export enum SolanaMethod {
     SignMessage = 'SignMessage',
     SignAndSendTransaction = 'SignAndSendTransaction',

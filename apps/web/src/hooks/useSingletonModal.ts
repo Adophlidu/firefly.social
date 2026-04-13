@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import { type ForwardedRef, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
 
 import { EVENT_MODAL } from '@/constants/event.js';
 import type { ModalEvents } from '@/helpers/dispatchModalEvent.js';
@@ -17,7 +17,7 @@ interface SingleModalOptions<OpenProps, CloseProps> {
 }
 
 export function useSingletonModal<OpenProps, CloseProps>(
-    ref: React.ForwardedRef<SingletonModalRefCreator<OpenProps, CloseProps>>,
+    ref: ForwardedRef<SingletonModalRefCreator<OpenProps, CloseProps>>,
     options: SingleModalOptions<OpenProps, CloseProps> = {},
 ) {
     type T = SingletonModalRefCreator<OpenProps, CloseProps>;

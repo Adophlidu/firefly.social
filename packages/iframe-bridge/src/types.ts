@@ -1,4 +1,4 @@
-import type { EvmRpcResult, SolanaRequestArgument, SolanaResponse } from '@/ff-wallet-type.js';
+import type { ComposeResult, EvmRpcResult, SolanaRequestArgument, SolanaResponse } from '@/ff-wallet-type.js';
 
 // Simplified Chars type for iframe bridge use
 // For full Chars type support, use the main project types
@@ -108,7 +108,7 @@ export interface IframeBridgeRequestArguments {
 }
 
 export interface IframeBridgeResponseResult {
-    [IframeBridgeMethod.COMPOSE]: void;
+    [IframeBridgeMethod.COMPOSE]: ComposeResult;
     [IframeBridgeMethod.ENQUEUE_MESSAGE]: void;
     [IframeBridgeMethod.LOGIN]: void;
     [IframeBridgeMethod.DOWNLOAD_APP]: void;

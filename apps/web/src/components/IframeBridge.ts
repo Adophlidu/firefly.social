@@ -19,11 +19,11 @@ import {
     enqueueWarningMessage,
 } from '@/helpers/enqueueMessage.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
-import { openComposeModal } from '@/helpers/openComposeModal.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { reconnectPrivyWallet } from '@/helpers/reconnectPrivyWallet.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useWalletTelemetrySubscriber } from '@/hooks/useWalletTelemetrySubscriber.js';
+import { ComposeModalRef } from '@/modals/ComposeModal/refs.js';
 import { DownloadMobileAppModalRef } from '@/modals/DownloadMobileAppModal/refs.js';
 import { mergeMetrics } from '@/services/metrics.js';
 import { verifyAndGetPassword } from '@/services/verifyAndGetPassword.js';
@@ -92,10 +92,9 @@ const createAllEvents = (router: ReturnType<typeof useRouter>) => {
             );
         },
         [IframeBridgeMethod.COMPOSE]: async (params: IframeBridgeRequestArguments[IframeBridgeMethod.COMPOSE]) => {
-            openComposeModal({
-                type: 'compose',
-                chars: params.text,
-            });
+            const result = await ComposeModalRef.openAndWaitForClose({ type: 'compose', chars: params.text });
+            if (result) return result.post?.postId;
+            return;
         },
         [IframeBridgeMethod.ENQUEUE_MESSAGE]: async (
             params: IframeBridgeRequestArguments[IframeBridgeMethod.ENQUEUE_MESSAGE],

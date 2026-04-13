@@ -9,7 +9,7 @@ import { Trans } from '@lingui/react/macro';
 import { RouterProvider } from '@tanstack/react-router';
 import { $getRoot } from 'lexical';
 import { compact } from 'lodash-es';
-import { useCallback, useRef } from 'react';
+import { type Ref, useCallback, useRef } from 'react';
 import { useUpdateEffect } from 'react-use';
 import urlcat from 'urlcat';
 
@@ -58,7 +58,7 @@ const initialConfig = {
 };
 
 interface Props {
-    ref: React.Ref<SingletonModalRefCreator<ComposeModalOpenProps, ComposeModalCloseProps>>;
+    ref: Ref<SingletonModalRefCreator<ComposeModalOpenProps, ComposeModalCloseProps>>;
 }
 
 function ComposeModalUI({ ref }: Props) {
@@ -82,7 +82,7 @@ function ComposeModalUI({ ref }: Props) {
         updateIsFailedSchedulePost,
         updateDisabledSources,
     } = useComposeStateStore();
-    const { clearScheduleTime } = useComposeScheduleStateStore();
+    const { clearScheduleTime, resetScheduleState, updateDisableSchedule } = useComposeScheduleStateStore();
     const [, applyTempDraftPost] = useApplyTempDraftPost();
     const { removeTempDrafts } = useComposeDraftState();
     const { updateFireflyWalletIsOpen } = useGlobalState();
@@ -103,6 +103,7 @@ function ComposeModalUI({ ref }: Props) {
             isFailedSchedulePost,
             isAnonymous,
             disabledSources,
+            disableSchedule,
         }) => {
             // Close firefly wallet when compose modal opens
             updateFireflyWalletIsOpen(false);
@@ -124,6 +125,10 @@ function ComposeModalUI({ ref }: Props) {
             if (initialPath) router.navigate({ to: initialPath });
             embeds?.forEach((embedUrl) => addUrl(embedUrl));
             if (isFailedSchedulePost) updateIsFailedSchedulePost(true);
+            if (disableSchedule) {
+                clearScheduleTime();
+                updateDisableSchedule(true);
+            }
 
             setTimeout(() => {
                 applyTempDraftPost(newType, post || undefined);
@@ -134,7 +139,7 @@ function ComposeModalUI({ ref }: Props) {
             await delay(300);
 
             clear();
-            clearScheduleTime();
+            resetScheduleState();
             router.navigate({ to: '/' });
 
             controller.current.renew();

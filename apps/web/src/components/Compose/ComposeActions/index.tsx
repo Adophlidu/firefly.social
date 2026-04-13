@@ -27,7 +27,7 @@ import { useComposeStateStore } from '@/store/useComposeStore.js';
 export function ComposeActions() {
     const isMedium = useIsMedium();
     const { type, posts } = useComposeStateStore();
-    const { scheduleTime } = useComposeScheduleStateStore();
+    const { scheduleTime, disableSchedule } = useComposeScheduleStateStore();
     const { availableSources, images, videos, poll, rpPayload, isAnonymous } = useCompositePost();
 
     const hasError = useMemo(() => {
@@ -80,7 +80,9 @@ export function ComposeActions() {
                         <PollButton />
                     ) : null}
 
-                    {!isAnonymous ? <SchedulePostEntryButton className="text-main" disabled={!!rpPayload} /> : null}
+                    {!isAnonymous && !disableSchedule ? (
+                        <SchedulePostEntryButton className="text-main" disabled={!!rpPayload} />
+                    ) : null}
 
                     {!scheduleTime && !mediaDisabled && isMedium && !isAnonymous ? (
                         <RedPacketAction disabled={mediaDisabled} />
