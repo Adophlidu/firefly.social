@@ -38,7 +38,7 @@ export default function TokenCategoryPage(props: TokenPageProps) {
                 />
             );
         case TokenCategory.About:
-            return <TokenOverview coinId={tokenId} chainId={updatedChainId} address={tokenAddress} />;
+            return <TokenOverview coinId={tokenId} chainId={updatedChainId} address={tokenAddress} className="pb-20" />; // space for floating wallet button
         case TokenCategory.Transactions:
         default:
             if ((isTokenPending || tokenId) && isPending && !tokenAddress) return <TokenPageLoading />;
