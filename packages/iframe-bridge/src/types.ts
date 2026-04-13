@@ -44,6 +44,10 @@ export interface IframeBridgeMessage {
     };
 }
 
+export interface IframeBridgeRequestOptions {
+    awaitResponse?: boolean;
+}
+
 export interface IframeBridgeRequestArguments {
     [IframeBridgeMethod.COMPOSE]: {
         text: Chars;

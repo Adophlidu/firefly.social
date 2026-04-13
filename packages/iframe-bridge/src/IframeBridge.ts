@@ -6,6 +6,7 @@ import {
     type IframeBridgeMessage,
     IframeBridgeMethod,
     type IframeBridgeRequestArguments,
+    type IframeBridgeRequestOptions,
     type IframeBridgeResponseResult,
 } from '@/types.js';
 
@@ -94,10 +95,14 @@ export class IframeBridgeProvider {
      * @param params
      * @returns
      */
-    async request<T extends IframeBridgeMethod>(method: T, params: IframeBridgeRequestArguments[T]) {
+    async request<T extends IframeBridgeMethod>(
+        method: T,
+        params: IframeBridgeRequestArguments[T],
+        options?: IframeBridgeRequestOptions,
+    ) {
         const requestId = uniqueId('iframe-bridge');
 
-        if (REQUEST_ONLY_METHODS.includes(method)) {
+        if (REQUEST_ONLY_METHODS.includes(method) && !options?.awaitResponse) {
             await sendMessage(method, requestId, params);
             return Promise.resolve() as unknown as Promise<IframeBridgeResponseResult[T]>;
         }
