@@ -37,9 +37,6 @@ msgstr ""
 msgid "Positions"
 msgstr ""
 
-msgid "in your Firefly wallet"
-msgstr ""
-
 msgid "Skip reviews"
 msgstr ""
 
@@ -76,6 +73,11 @@ msgid "Transaction nonce error. Please try again."
 msgstr ""
 
 msgid "Claim winnings"
+msgstr ""
+
+#. placeholder {0}: formatTokenItemAmount(depositToken.balance ?? '0')
+#. placeholder {1}: depositToken.symbol
+msgid "{0} {1} in your Firefly wallet"
 msgstr ""
 
 msgid "Failed to claim winnings"
@@ -192,10 +194,6 @@ msgid "{0} shares available"
 msgstr ""
 
 msgid "Enable skip reviews"
-msgstr ""
-
-#. placeholder {0}: formatTokenItemAmount(withdrawPreview?.amount ?? 0)
-msgid "<0>{0}</0> USDC.e in your firefly wallet"
 msgstr ""
 
 msgid "Predict Wallet Pay"
@@ -453,6 +451,11 @@ msgid "If you enter it in another app, it can steal your funds and Farcaster acc
 msgstr ""
 
 msgid "Select Token"
+msgstr ""
+
+#. placeholder {0}: formatTokenItemAmount(withdrawPreview?.amount ?? 0)
+#. placeholder {1}: targetToken.symbol
+msgid "<0>{0}</0> {1} in your firefly wallet"
 msgstr ""
 
 #. placeholder {0}: formatTokenItemAmount(position.shares, 2)
