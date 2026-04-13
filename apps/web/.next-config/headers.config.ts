@@ -35,6 +35,13 @@ export const headersConfig: NonNullable<NextConfig['headers']> = async () => {
                 // Note: CSP is now handled by middleware (proxy.ts) with nonce support
                 // The middleware will set Content-Security-Policy-Report-Only with nonce
                 // This allows inline scripts to work with CSP
+
+                // last tried Mar 2026, Chrome not sending SEC-CH-Width of <img>.
+                // {
+                //     key: 'Accept-CH',
+                //     // some CDNs response to this. e.g. https://imagekit.io/docs/image-transformation#client-hints
+                //     value: 'Sec-CH-DPR, Sec-CH-Width',
+                // },
             ],
         },
         {

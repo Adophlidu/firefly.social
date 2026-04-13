@@ -6,6 +6,7 @@ import { VideoPoster } from '@/components/Posts/VideoPoster.js';
 import { Source } from '@/constants/enum.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { computeSize } from '@/helpers/computeSize.js';
+import { optimizeCDNImageSize } from '@/helpers/optimizeCDNImageSize.js';
 import type { Attachment } from '@/providers/types/SocialMedia.js';
 
 const HlsPlayer = dynamic(() => import('@/components/HlsPlayer/index.js').then((m) => m.HlsPlayer), { ssr: false });
@@ -63,7 +64,7 @@ export function VideoAsset({ asset, minimal, source, autoPlay, videoClassName }:
                 enableViewportAutoPlay={!isGif}
                 src={asset.uri}
                 mode={isGif ? 'gif' : 'video'}
-                poster={asset.coverUri}
+                poster={asset.coverUri ? optimizeCDNImageSize(asset.coverUri, renderWidth) : undefined}
             />
         </div>
     );

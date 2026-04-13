@@ -2,10 +2,11 @@
 
 import { classNames, parseUrl } from '@dimensiondev/utils';
 import type { ImageProps as NextImageProps } from 'next/image.js';
-import { memo, useState } from 'react';
+import { memo, useMemo, useState } from 'react';
 
 import { Image as NextImage } from '@/esm/Image.js';
 import { matchDomainSuffix } from '@/helpers/matchDomainSuffix.js';
+import { optimizeCDNImageSize } from '@/helpers/optimizeCDNImageSize.js';
 import { useDefaultFireflyAvatar } from '@/hooks/useDefaultFireflyAvatar.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 
@@ -39,7 +40,8 @@ export const Avatar = memo(function Avatar({
 }: AvatarProps) {
     const isDarkMode = useIsDarkMode();
     const defaultFallbackUrl = useDefaultFireflyAvatar();
-    const [errorMap, setErrorMap] = useState<Record<string, boolean>>({});
+    // number: next index of fallbacks to try.
+    const [errorMap, setErrorMap] = useState<Record<string, number>>({});
 
     const url = [resolveAvatarFallbackUrl, resolveImgurUrl].reduce((acc, fn) => (acc ? fn(acc, isDarkMode) : acc), src);
 
@@ -52,7 +54,22 @@ export const Avatar = memo(function Avatar({
         !matchDomainSuffix(src, 'farcaster.xyz');
 
     const preferredSrc = (isNormalUrl ? url : src) || src || fallbackUrl;
-    const imageSrc = errorMap[preferredSrc] ? fallbackUrl : preferredSrc;
+    // Order: optimized preferred src -> preferred src -> optimized fallback -> fallback
+    const fallbacks = useMemo(() => {
+        const urls = [];
+
+        const optimized = optimizeCDNImageSize(preferredSrc, size, size);
+        if (optimized !== preferredSrc) urls.push(optimized);
+        urls.push(preferredSrc);
+
+        if (!urls.includes(fallbackUrl)) {
+            const optimized = optimizeCDNImageSize(fallbackUrl, size, size);
+            if (optimized !== fallbackUrl) urls.push(optimized);
+            urls.push(fallbackUrl);
+        }
+        return urls;
+    }, [fallbackUrl, preferredSrc, size]);
+    const imageSrc = fallbacks[errorMap[preferredSrc] || 0] || fallbackUrl;
 
     return (
         <NextImage
@@ -70,7 +87,7 @@ export const Avatar = memo(function Avatar({
             width={size}
             height={size}
             alt={rest.alt}
-            onError={() => setErrorMap((map) => ({ ...map, [imageSrc]: true }))}
+            onError={() => setErrorMap((map) => ({ ...map, [imageSrc]: (map[imageSrc] || 0) + 1 }))}
         />
     );
 });

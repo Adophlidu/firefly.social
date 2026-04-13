@@ -6,6 +6,7 @@ import { ChainIcon } from '@/components/ChainIcon.js';
 import type { NetworkType } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import { isZeroAddressEthereum } from '@/helpers/isZeroAddress.js';
+import { optimizeCDNImageSize } from '@/helpers/optimizeCDNImageSize.js';
 import { EVMChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
 
 export interface TokenIconProps extends HTMLProps<HTMLSpanElement> {
@@ -43,9 +44,11 @@ export const TokenIcon = memo(function TokenIcon({
     const chainSize = badgeSize || defaultBadgeSize;
 
     const [hasError, setHasError] = useState(false);
+    const [hasErrorOptimized, setHasErrorOptimized] = useState(false);
     const onLoadError = useCallback(() => {
-        setHasError(true);
-    }, []);
+        if (!hasErrorOptimized) setHasErrorOptimized(true);
+        else setHasError(true);
+    }, [hasErrorOptimized]);
 
     const tokenIcon = useMemo(() => {
         if (chainId && isZeroAddressEthereum(address)) {
@@ -54,14 +57,19 @@ export const TokenIcon = memo(function TokenIcon({
         return icon;
     }, [icon, address, chainId]);
 
+    const resolvedIcon = useMemo(() => {
+        if (!tokenIcon) return undefined;
+        return optimizeCDNImageSize(tokenIcon, size, size);
+    }, [size, tokenIcon]);
+
     return (
         <span className={classNames('relative', className)} style={{ width: size, height: size }} {...rest}>
-            {tokenIcon && !hasError ? (
+            {(resolvedIcon && !hasErrorOptimized) || (tokenIcon && !hasError) ? (
                 <Image
                     unoptimized
                     className="rounded-full object-cover"
                     alt=""
-                    src={tokenIcon}
+                    src={!hasErrorOptimized ? resolvedIcon! : tokenIcon!}
                     width={size}
                     height={size}
                     style={{ width: size, height: size }}

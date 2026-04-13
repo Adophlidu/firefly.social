@@ -1,10 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 import { classNames } from '@dimensiondev/utils';
 import { useQuery } from '@tanstack/react-query';
-import { type HTMLProps, memo } from 'react';
+import { type HTMLProps, memo, useState } from 'react';
 
 import { STALE_TIMES } from '@/constants/query.js';
 import { computeSize } from '@/helpers/computeSize.js';
+import { optimizeCDNImageSize } from '@/helpers/optimizeCDNImageSize.js';
 
 interface SingleImageProps extends HTMLProps<HTMLImageElement> {
     minWidth?: number;
@@ -25,10 +26,13 @@ export const SingleImage = memo<SingleImageProps>(function SingleImage({
     maxHeight = 450,
     ...props
 }) {
+    const optimizedSrc = src ? optimizeCDNImageSize(src, maxWidth, maxHeight) : undefined;
+    const [optimizedFailed, setOptimizedFailed] = useState(false);
+    const finalSrc = optimizedSrc && !optimizedFailed ? optimizedSrc : src;
     const { data, error } = useQuery({
-        queryKey: ['single-image', src],
+        queryKey: ['single-image', finalSrc],
         staleTime: STALE_TIMES.INFINITY,
-        enabled: !!src,
+        enabled: !!finalSrc,
         retry: false,
         queryFn: () =>
             new Promise<{ width: number; height: number }>((resolve, reject) => {
@@ -42,7 +46,7 @@ export const SingleImage = memo<SingleImageProps>(function SingleImage({
                 image.onerror = () => reject(new Error('Failed to load image'));
                 image.onabort = () => reject(new Error('Image load aborted'));
 
-                image.src = src!;
+                image.src = finalSrc!;
             }),
     });
 
@@ -66,7 +70,16 @@ export const SingleImage = memo<SingleImageProps>(function SingleImage({
             }}
         >
             <div className="absolute inset-0">
-                <img src={src} {...props} className={classNames('size-full', props.className)} alt={props.alt || ''} />
+                <img
+                    src={finalSrc}
+                    onError={(event) => {
+                        props?.onError?.(event);
+                        if (!optimizedFailed) setOptimizedFailed(true);
+                    }}
+                    {...props}
+                    className={classNames('size-full', props.className)}
+                    alt={props.alt || ''}
+                />
             </div>
         </div>
     );
