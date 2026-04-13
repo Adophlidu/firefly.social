@@ -129,7 +129,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
             }}
         >
             {header}
-            <NoSSR>
+            <NoSSR mode="mounted">
                 {!isComment ? <FeedActionType isDetail={isDetail} post={post} listKey={listKey} index={index} /> : null}
             </NoSSR>
 
@@ -151,7 +151,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
                 listKey={listKey}
                 index={index}
             />
-            <NoSSR>
+            <NoSSR mode="mounted">
                 {showPostAction && !post.isTruthSocial ? (
                     <PostActions
                         post={post}

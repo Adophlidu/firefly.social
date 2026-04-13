@@ -81,7 +81,7 @@ export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({
                 router.push(link);
             }}
         >
-            <NoSSR>
+            <NoSSR mode="mounted">
                 <FeedActionType isDetail={isDetail} post={post} isThread />
             </NoSSR>
             <PostHeader
@@ -114,7 +114,7 @@ export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({
                         isDetail={isDetail}
                         fireflyArticleToggle={!!isDetail && !isLast && !isSamePost}
                     />
-                    <NoSSR>
+                    <NoSSR mode="mounted">
                         {showAction ? (
                             isDetail && isLast ? null : (
                                 <PostActions
@@ -131,7 +131,7 @@ export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({
                     </NoSSR>
                 </div>
             </div>
-            <NoSSR>
+            <NoSSR mode="mounted">
                 {showAction && isDetail && isLast ? (
                     <div className="-mx-4">
                         <PostStatistics post={post} className="mb-1.5 px-4" />

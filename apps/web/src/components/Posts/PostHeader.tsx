@@ -146,7 +146,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
                 ) : null}
             </address>
             <div className="ml-auto flex items-center space-x-2 self-baseline">
-                <NoSSR>
+                <NoSSR mode="mounted">
                     {!post.isHidden && !isQuote ? (
                         post.isTruthSocial ? (
                             <PostMoreAction post={post} />
