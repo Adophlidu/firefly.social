@@ -3,6 +3,7 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { parseUrl } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
+import { skipToken, useQuery } from '@tanstack/react-query';
 import { first, sortBy } from 'lodash-es';
 import { type HTMLProps, memo, useMemo } from 'react';
 
@@ -23,6 +24,7 @@ import { getChainInfo } from '@/helpers/getChainInfo.js';
 import { isValidAddress, isValidTokenAddressSui } from '@/helpers/isValidAddress.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
 import { useDetectToken } from '@/hooks/useDetectToken.js';
+import { getTreasuryHoldings } from '@/providers/coingecko/getTreasuryHoldings.js';
 import type { Contract } from '@/providers/types/Trending.js';
 
 export interface TokenOverviewProps extends HTMLProps<HTMLDivElement> {
@@ -43,6 +45,13 @@ export const TokenOverview = memo<TokenOverviewProps>(function TokenOverview({
     const { data: detected } = useDetectToken(address, !trending);
     const attributes = detected?.contract_info?.attributes;
     const updateContractParams = useUpdateContractParams();
+
+    const { data: treasuryHoldings, isLoading: isTreasuryHoldingsLoading } = useQuery({
+        queryKey: ['coingecko', 'total-treasury-holding', coin?.id],
+        staleTime: Infinity,
+        enabled: !!coin?.id && !!coinId,
+        queryFn: !coin?.id ? skipToken : () => getTreasuryHoldings(coin.id),
+    });
 
     const contracts = useMemo(() => {
         if (trending?.contracts) {
@@ -129,24 +138,38 @@ export const TokenOverview = memo<TokenOverviewProps>(function TokenOverview({
                     />
                 </div>
                 <div className="flex gap-3">
-                    <InfoCard
-                        title={<Trans>Circulating Supply</Trans>}
-                        value={market?.circulating_supply ? formatMarketCap(market.circulating_supply, 2) : undefined}
-                        description={
-                            <Trans>
-                                The amount of coins that are circulating in the market and are tradeable by the public.
-                                It is comparable to looking at shares readily available in the market (not held & locked
-                                by insiders, governments).
-                            </Trans>
-                        }
-                    />
-                    {/* <InfoCard
-                        title={<Trans>Total Treasury Holding</Trans>}
-                        value={''}
-                        description={
-                            <Trans>Total amount of BTC held in treasuries by public companies and governments.</Trans>
-                        }
-                    /> */}
+                    {isTreasuryHoldingsLoading ? (
+                        <div className="bg-lightBg h-[74px] w-full animate-pulse rounded-xl" />
+                    ) : (
+                        <>
+                            <InfoCard
+                                title={<Trans>Circulating Supply</Trans>}
+                                value={
+                                    market?.circulating_supply
+                                        ? formatMarketCap(market.circulating_supply, 2)
+                                        : undefined
+                                }
+                                description={
+                                    <Trans>
+                                        The amount of coins that are circulating in the market and are tradeable by the
+                                        public. It is comparable to looking at shares readily available in the market
+                                        (not held & locked by insiders, governments).
+                                    </Trans>
+                                }
+                            />
+                            {treasuryHoldings ? (
+                                <InfoCard
+                                    title={<Trans>Total Treasury Holding</Trans>}
+                                    value={formatMarketCap(treasuryHoldings, 2)}
+                                    description={
+                                        <Trans>
+                                            Total amount of BTC held in treasuries by public companies and governments.
+                                        </Trans>
+                                    }
+                                />
+                            ) : null}
+                        </>
+                    )}
                 </div>
                 <div className="flex gap-3">
                     <InfoCard

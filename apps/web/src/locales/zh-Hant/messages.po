@@ -587,6 +587,9 @@ msgstr "您領取的 {amount} {symbol} 已發送至您的 <0>Firefly 錢包</0>�
 msgid "Scheduled"
 msgstr "已預約"
 
+msgid "Total amount of BTC held in treasuries by public companies and governments."
+msgstr ""
+
 msgid "Nickname"
 msgstr "暱稱"
 
@@ -1271,6 +1274,9 @@ msgstr "連接錢包"
 
 msgid "Mobile QR login is interrupted. Please try again."
 msgstr "行動版二維碼登入已中斷。請重試。"
+
+msgid "Total Treasury Holding"
+msgstr ""
 
 msgid "Closed"
 msgstr "已關閉"

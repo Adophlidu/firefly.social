@@ -591,6 +591,9 @@ msgstr "You claimed {amount} {symbol} to your <0>Firefly Wallet</0>."
 msgid "Scheduled"
 msgstr "Scheduled"
 
+msgid "Total amount of BTC held in treasuries by public companies and governments."
+msgstr "Total amount of BTC held in treasuries by public companies and governments."
+
 msgid "Nickname"
 msgstr "Nickname"
 
@@ -1277,6 +1280,9 @@ msgstr "Connect Wallet"
 
 msgid "Mobile QR login is interrupted. Please try again."
 msgstr "Mobile QR login is interrupted. Please try again."
+
+msgid "Total Treasury Holding"
+msgstr "Total Treasury Holding"
 
 msgid "Closed"
 msgstr "Closed"

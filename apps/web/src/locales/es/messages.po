@@ -591,6 +591,9 @@ msgstr ""
 msgid "Scheduled"
 msgstr ""
 
+msgid "Total amount of BTC held in treasuries by public companies and governments."
+msgstr ""
+
 msgid "Nickname"
 msgstr ""
 
@@ -1276,6 +1279,9 @@ msgid "Connect Wallet"
 msgstr ""
 
 msgid "Mobile QR login is interrupted. Please try again."
+msgstr ""
+
+msgid "Total Treasury Holding"
 msgstr ""
 
 msgid "Closed"
