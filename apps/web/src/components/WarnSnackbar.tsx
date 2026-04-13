@@ -1,12 +1,13 @@
 'use client';
 
-import { ClipboardDocumentCheckIcon, ClipboardDocumentIcon, XCircleIcon } from '@heroicons/react/24/solid';
+import CloseIcon from '@dimensiondev/assets/close.svg';
+import InfoIcon from '@dimensiondev/assets/info.svg';
+import { ClipboardDocumentCheckIcon, ClipboardDocumentIcon } from '@heroicons/react/24/solid';
 import { Trans } from '@lingui/react/macro';
 import { useCallback, useState } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import type { ErrorReportSnackbarProps } from '@/components/ErrorReportSnackbar.js';
-import { CloseButton } from '@/components/IconButton.js';
 import { useSnackbar } from '@/components/Snackbar.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
 
@@ -33,13 +34,13 @@ export function WarnSnackbar({ id, detail, message, ref }: ErrorReportSnackbarPr
         <div ref={ref} className="bg-warn rounded-[4px]">
             <div className="w-full text-sm">
                 <div className="p-2 pl-3">
-                    <div className="flex max-w-[400px] text-white">
+                    <div className="flex max-w-[400px] items-center text-white">
                         <div className="mr-auto flex grow cursor-pointer items-center" onClick={handleExpandClick}>
                             <div className="mr-1 inline-block p-2 text-white">
-                                <XCircleIcon className="size-[20px] text-white" />
+                                <InfoIcon className="size-[20px] text-white" />
                             </div>
                             <div
-                                className="break-word"
+                                className="break-word font-bold"
                                 ref={(node) => {
                                     // convert jsx to string is too complicated, but in favor of DOM api, it's simple
                                     if (typeof message !== 'object' || !node) return;
@@ -49,7 +50,12 @@ export function WarnSnackbar({ id, detail, message, ref }: ErrorReportSnackbarPr
                                 {message}
                             </div>
                         </div>
-                        <CloseButton className="ml-4 p-2" size={16} onClick={handleDismiss} />
+                        <CloseIcon
+                            width={16}
+                            height={16}
+                            className="ml-4 size-4 cursor-pointer text-white"
+                            onClick={handleDismiss}
+                        />
                     </div>
                 </div>
                 {detail ? (

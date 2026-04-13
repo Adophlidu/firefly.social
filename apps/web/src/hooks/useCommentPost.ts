@@ -24,7 +24,7 @@ export function useCommentPost(post: Post, disabled = false) {
         queryKey: ['reply-permission', source, post.postId, myProfile?.profileId, following, followedBy],
         enabled: isLogin && !disabled,
         staleTime: STALE_TIMES.MINUTE_1,
-        queryFn: () => canReplyToPost(post),
+        queryFn: () => canReplyToPost(post, myProfile),
     });
 
     const commentDisabled = disabled || canReply === false;

@@ -4,22 +4,33 @@ import { isUndefined } from 'lodash-es';
 import { queryClient } from '@/configs/queryClient.js';
 import { RestrictionType, Source } from '@/constants/enum.js';
 import { STALE_TIMES } from '@/constants/query.js';
-import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import type { Post, Profile } from '@/providers/types/SocialMedia.js';
+import type { Post, Profile, ProfileLike } from '@/providers/types/SocialMedia.js';
+
+function isSameProfileInStrict(profile: ProfileLike | null | undefined, otherProfile: ProfileLike | null | undefined) {
+    if (!profile || !otherProfile) return false;
+
+    // in nitter, only handle is returned in mentions
+    return (
+        isSameProfile(profile, otherProfile) ||
+        (profile.source === Source.Twitter &&
+            profile.source === otherProfile.source &&
+            profile.handle === otherProfile.handle)
+    );
+}
 
 // https://mask.atlassian.net/browse/FW-7132
 function canReplyToTwitterPost(post: Post, currentProfile: Profile) {
     // Self-reply
-    if (isSameProfile(post.author, currentProfile)) return true;
+    if (isSameProfileInStrict(post.author, currentProfile)) return true;
 
     // Mentioned
     const mentions = post.mentions;
-    if (mentions?.some((mention) => isSameProfile(mention, currentProfile))) return true;
+    if (mentions?.some((mention) => isSameProfileInStrict(mention, currentProfile))) return true;
 
     // Quote-on
-    if (post.quoteOn && isSameProfile(post.quoteOn.author, currentProfile)) return true;
+    if (post.quoteOn && isSameProfileInStrict(post.quoteOn.author, currentProfile)) return true;
 
     return false;
 }
@@ -31,11 +42,11 @@ async function checkPostRestrictions(post: Post, currentProfile: Profile) {
     for (const restriction of restrictions) {
         switch (restriction) {
             case RestrictionType.Nobody:
-                return isSameProfile(currentProfile, post.author);
+                return isSameProfileInStrict(currentProfile, post.author);
             case RestrictionType.Everyone:
                 return true;
             case RestrictionType.MentionedProfiles:
-                if (mentions?.some((x) => isSameProfile(x, currentProfile))) return true;
+                if (mentions?.some((x) => isSameProfileInStrict(x, currentProfile))) return true;
                 break;
             case RestrictionType.YouFollower:
             case RestrictionType.OnlyPeopleYouFollow:
@@ -57,13 +68,11 @@ async function checkPostRestrictions(post: Post, currentProfile: Profile) {
     return false;
 }
 
-export async function canReplyToPost(post: Post) {
-    const source = post.source;
-    const currentProfile = getCurrentProfileFromStorage(source);
+export async function canReplyToPost(post: Post, currentProfile: Profile | null) {
     if (!currentProfile) return false;
-
     if (!isUndefined(post.canComment)) return !!post.canComment;
 
+    const source = post.source;
     switch (source) {
         case Source.Twitter:
             return canReplyToTwitterPost(post, currentProfile);
