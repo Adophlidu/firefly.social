@@ -11,6 +11,8 @@ import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { parseHtml } from '@/libs/parseHtml.js';
 import { withTwitterRequestErrorHandler } from '@/providers/twitter/withTwitterRequestErrorHandler.js';
 
+export const runtime = 'edge';
+
 const ParamsSchema = z.object({ id: z.string() });
 
 function getImageUrl(document: Document): string | null {
