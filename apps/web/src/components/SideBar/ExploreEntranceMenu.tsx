@@ -1,7 +1,7 @@
 'use client';
 
-import ExploreIcon from '@dimensiondev/assets/explore.svg';
 import ExploreSelectedIcon from '@dimensiondev/assets/explore.selected.svg';
+import ExploreIcon from '@dimensiondev/assets/explore.svg';
 import { Trans } from '@lingui/react/macro';
 import { first } from 'lodash-es';
 import { memo, useMemo } from 'react';
