@@ -67,17 +67,14 @@ export const PredictionLeaderboardFilters = memo<PredictionLeaderboardFiltersPro
                         key={o.value}
                         onClick={() => onOrderChange(o.value)}
                         className={classNames(
-                            'text-second flex shrink-0 items-center justify-end gap-1 px-0 py-1 text-xs font-semibold capitalize leading-4 transition-colors',
+                            'text-second group flex shrink-0 items-center justify-end gap-1 px-0 py-1 text-xs font-semibold capitalize leading-4 transition-colors',
                             o.width,
-                            {
-                                'text-lightMain': o.value === PolymarketRankOrder.Pnl,
-                            },
                         )}
                     >
                         <span
                             className={classNames(
-                                'text-xs transition-transform',
-                                order === o.value ? 'rotate-180' : '',
+                                'overflow-hidden text-xs transition-opacity duration-200 group-hover:opacity-100',
+                                order === o.value ? 'opacity-100' : 'opacity-0',
                             )}
                         >
                             ▼
