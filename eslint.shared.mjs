@@ -206,7 +206,7 @@ export const sharedEslintRulesWithoutRelativePaths = {
         'warn',
         {
             prefer: 'type-imports',
-            fixStyle: 'inline-type-imports',
+            fixStyle: 'separate-type-imports',
         },
     ],
     '@typescript-eslint/no-import-type-side-effects': 'error',
