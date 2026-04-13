@@ -165,6 +165,7 @@ export interface Profile {
     primary_address?: string;
     registrant?: string;
     wrapped_owner?: string;
+    owner_address?: string;
     // related social profiles
     related_profiles?: Profile[];
     special?: boolean;
@@ -172,7 +173,10 @@ export interface Profile {
     uid?: string;
 }
 
-export type SearchProfileListItem = Record<SocialSourceInURL | 'eth' | 'solana' | 'ens' | 'account', Profile[] | null>;
+export type SearchProfileListItem = Record<
+    SocialSourceInURL | 'eth' | 'solana' | 'ens' | 'account' | 'base.eth' | 'sns' | 'skr',
+    Profile[] | null
+>;
 
 export type SearchProfileResponse = Response<{
     list?: SearchProfileListItem[];

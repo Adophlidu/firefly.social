@@ -1,14 +1,13 @@
 import LeftArrowIcon from '@dimensiondev/assets/left-arrow.svg';
 import SearchIcon from '@dimensiondev/assets/search.svg';
 import type { ErrorPageProps } from '@dimensiondev/types';
-import { safeUnreachable } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { type HistoryState, useLocation, useRouter } from '@tanstack/react-router';
-import { compact, first, uniq } from 'lodash-es';
-import { Suspense, useEffect, useState } from 'react';
+import { compact } from 'lodash-es';
 import * as React from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';
 import { useDebounceValue } from 'usehooks-ts';
 import type { Address } from 'viem';
@@ -19,15 +18,13 @@ import { ListInPage } from '@/components/ListInPage.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { RecipientItem, type RecipientItemProps } from '@/components/SendTransactionModal/RecipientItem.js';
 import { type FormValues, RoutePath } from '@/components/SendTransactionModal/types.js';
-import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
-import { NetworkType, type SocialSource, Source } from '@/constants/enum.js';
+import { NetworkType, Source } from '@/constants/enum.js';
+import { formatSearchIdentities } from '@/helpers/formatSearchIdentities.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { isValidDomainEthereum } from '@/helpers/isValidDomain.js';
-import { ETH_ZERO_ADDRESS, isZeroAddressEthereum } from '@/helpers/isZeroAddress.js';
+import { isZeroAddressEthereum } from '@/helpers/isZeroAddress.js';
 import { createIndicator, createNextIndicator, createPageable } from '@/helpers/pageable.js';
-import { resolveSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
-import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { fireflyWorkerEndpoint } from '@/providers/firefly/worker.js';
 import { getFireflyEndpoint } from '@/store/fireflyEndpoint.js';
 
@@ -179,96 +176,13 @@ function RecipientList({
                 cursor: indicator?.id,
                 signal,
             });
-            const res = createPageable(
-                searchResponse.list || [],
+            return createPageable(
+                formatSearchIdentities(searchResponse.list || [], networkType, keyword),
                 indicator,
                 searchResponse.cursor && searchResponse.list?.length
                     ? createNextIndicator(indicator, `${searchResponse.cursor}`)
                     : undefined,
             );
-            const data = compact(
-                res.data
-                    .filter((item) => {
-                        switch (networkType) {
-                            case NetworkType.Solana:
-                                return (item.solana?.length ?? 0) > 0;
-                            case NetworkType.Ethereum:
-                                return (item.eth?.length ?? 0) > 0 || (item.ens?.length ?? 0) > 0;
-                            default:
-                                safeUnreachable(networkType);
-                                return false;
-                        }
-                    })
-                    .map((item) => {
-                        const ens = item.ens?.find((x) => x.hit || x.resolved_address === keyword);
-                        if (networkType === NetworkType.Ethereum && ens?.resolved_address) {
-                            return {
-                                address: ens.resolved_address as Address,
-                                ens: ens.handle,
-                                avatar: getStampAvatarByProfileId(Source.Wallet, ens.handle),
-                                fireflyId: first(item.account)?.platform_id,
-                            } satisfies RecipientItemProps;
-                        }
-                        const profiles = compact(
-                            SORTED_SOCIAL_SOURCES.map((source) => {
-                                return first(
-                                    item[resolveSocialSourceInUrl(source)]?.sort((a, b) => {
-                                        const aMatch = a.handle === keyword || a.hit || a.special ? 1 : 0;
-                                        const bMatch = b.handle === keyword || b.hit || b.special ? 1 : 0;
-                                        return bMatch - aMatch;
-                                    }),
-                                );
-                            }),
-                        );
-                        const profile = first(profiles);
-                        if (!profile) return null;
-                        const source = resolveSourceFromFireflyPlatform(profile.platform) as SocialSource;
-                        const sources = uniq(
-                            profiles.map((profile) => resolveSourceFromFireflyPlatform(profile.platform)),
-                        ) as SocialSource[];
-                        return {
-                            address: ETH_ZERO_ADDRESS,
-                            avatar:
-                                profile.avatar || profile.platform_id
-                                    ? getStampAvatarByProfileId(
-                                          resolveSourceFromFireflyPlatform(profile.platform),
-                                          profile.platform_id,
-                                      )
-                                    : undefined,
-                            username: profile.name,
-                            handle: profile.handle,
-                            source,
-                            id: profile.platform_id,
-                            sources,
-                            fireflyId: first(item.account)?.platform_id,
-                        } satisfies RecipientItemProps;
-                    }),
-            );
-            const deduplicatedData = (() => {
-                const seen = new Map<string, number>();
-                const result: RecipientItemProps[] = [];
-                for (const item of data) {
-                    if (!item.fireflyId) {
-                        result.push(item);
-                        continue;
-                    }
-                    const existingIndex = seen.get(item.fireflyId);
-                    if (existingIndex === undefined) {
-                        seen.set(item.fireflyId, result.length);
-                        result.push(item);
-                    } else {
-                        const existing = result[existingIndex];
-                        if (item.source && !existing.source) {
-                            result[existingIndex] = { ...item, ens: existing.ens || item.ens };
-                        } else if (item.ens && !existing.ens) {
-                            result[existingIndex] = { ...existing, ens: item.ens };
-                        }
-                    }
-                }
-
-                return result;
-            })();
-            return createPageable(deduplicatedData, res.indicator, res.nextIndicator);
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => {
