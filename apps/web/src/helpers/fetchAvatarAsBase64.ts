@@ -1,14 +1,8 @@
+import { Transformer } from '@napi-rs/image';
 import { compact } from 'lodash-es';
 
 import { fetch } from '@/helpers/fetch.js';
 import { logger } from '@/libs/Logger.js';
-
-// Use require to avoid Turbopack build issues with native modules
-// This ensures the module is only loaded at runtime, not during build
-function getTransformer() {
-    const { Transformer } = require('@napi-rs/image');
-    return Transformer;
-}
 
 function isActuallyPng(buffer: Buffer): boolean {
     // PNG magic bytes: 89 50 4E 47 0D 0A 1A 0A
@@ -26,7 +20,6 @@ async function fetchAndTransform(imageUrl: string) {
         // Sometimes, even though the image has a png extension and the content-type also returns png, the image is actually jpeg. This will cause the transform to fail.
         if (isActuallyPng(buffer)) return `data:image/png;base64,${buffer.toString('base64')}`;
 
-        const Transformer = getTransformer();
         const tf = new Transformer(buffer);
         const pngBuffer = await tf.png();
         return `data:image/png;base64,${pngBuffer.toString('base64')}`;

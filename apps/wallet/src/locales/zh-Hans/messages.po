@@ -13,9 +13,6 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-msgid "Show assets < 1 USD"
-msgstr ""
-
 msgid "Interacted Failed"
 msgstr ""
 
@@ -25,7 +22,7 @@ msgstr ""
 msgid "To"
 msgstr ""
 
-msgid "Load failed"
+msgid "Show assets < 1 USD"
 msgstr ""
 
 msgid "History"
@@ -34,19 +31,25 @@ msgstr ""
 msgid "Funding"
 msgstr ""
 
+msgid "Load failed"
+msgstr ""
+
 msgid "Positions"
 msgstr ""
 
 msgid "Skip reviews"
 msgstr ""
 
-msgid "Your recovery phrase is like a password, keep it secret."
-msgstr ""
-
 msgid "Address, ENS, or social handle"
 msgstr ""
 
+msgid "Your recovery phrase is like a password, keep it secret."
+msgstr ""
+
 msgid "<0><1/><2>Interacted</2></0><3>with</3><4/>"
+msgstr ""
+
+msgid "Low on balance? Your Firefly Wallet can automatically cover the rest."
 msgstr ""
 
 msgid "Authenticating..."
@@ -54,9 +57,6 @@ msgstr ""
 
 #. placeholder {0}: transaction.tx_status
 msgid "{0, select, success {Success} fail {Failed} other {Failed}}"
-msgstr ""
-
-msgid "Low on balance? Your Firefly Wallet can automatically cover the rest."
 msgstr ""
 
 msgid "Missed this round, but the next prediction is waiting for you!"
@@ -69,18 +69,15 @@ msgstr ""
 msgid "Avg"
 msgstr ""
 
-msgid "Transaction nonce error. Please try again."
+msgid "Claim winnings"
 msgstr ""
 
-msgid "Claim winnings"
+msgid "Transaction nonce error. Please try again."
 msgstr ""
 
 #. placeholder {0}: formatTokenItemAmount(depositToken.balance ?? '0')
 #. placeholder {1}: depositToken.symbol
 msgid "{0} {1} in your Firefly wallet"
-msgstr ""
-
-msgid "Failed to claim winnings"
 msgstr ""
 
 msgid "Pay"
@@ -89,19 +86,19 @@ msgstr ""
 msgid "Solana"
 msgstr ""
 
+msgid "Failed to claim winnings"
+msgstr ""
+
 msgid "Transactions"
 msgstr ""
 
 msgid "Claim requested"
 msgstr ""
 
-msgid "No closed positions found in this wallet"
-msgstr ""
-
-msgid "I understand"
-msgstr ""
-
 msgid "Review"
+msgstr ""
+
+msgid "No closed positions found in this wallet"
 msgstr ""
 
 msgid "View closed positions"
@@ -110,22 +107,25 @@ msgstr ""
 msgid "Great job predicting the future!"
 msgstr ""
 
+msgid "I understand"
+msgstr ""
+
 msgid "Your Private Key"
 msgstr ""
 
+msgid "Retry"
+msgstr ""
+
 msgid "Tokens"
+msgstr ""
+
+msgid "Start trading on prediction markets"
 msgstr ""
 
 msgid "Skip"
 msgstr ""
 
 msgid "Copied"
-msgstr ""
-
-msgid "Retry"
-msgstr ""
-
-msgid "Start trading on prediction markets"
 msgstr ""
 
 msgid "Total"
@@ -135,16 +135,16 @@ msgstr ""
 msgid "via {0}"
 msgstr ""
 
-msgid "{riskTokenSymbol} is a high-risk token"
-msgstr ""
-
-msgid "Confirm"
-msgstr ""
-
 msgid "To Address"
 msgstr ""
 
 msgid "Approved"
+msgstr ""
+
+msgid "{riskTokenSymbol} is a high-risk token"
+msgstr ""
+
+msgid "Confirm"
 msgstr ""
 
 msgid "Predict on Polymarket"
@@ -159,12 +159,6 @@ msgstr ""
 msgid "Bought"
 msgstr ""
 
-msgid "No Route Found"
-msgstr ""
-
-msgid "Placing order..."
-msgstr ""
-
 msgid "ENS lookup failed. Please try again."
 msgstr ""
 
@@ -177,13 +171,19 @@ msgstr ""
 msgid "Position closed"
 msgstr ""
 
-msgid "Market not found"
+msgid "No Route Found"
+msgstr ""
+
+msgid "Placing order..."
 msgstr ""
 
 msgid "Close lost position"
 msgstr ""
 
 msgid "Service fee"
+msgstr ""
+
+msgid "Market not found"
 msgstr ""
 
 msgid "See details"
@@ -193,7 +193,13 @@ msgstr ""
 msgid "{0} shares available"
 msgstr ""
 
+msgid "Price"
+msgstr ""
+
 msgid "Enable skip reviews"
+msgstr ""
+
+msgid "Connection taking longer than expected"
 msgstr ""
 
 msgid "Predict Wallet Pay"
@@ -205,7 +211,19 @@ msgstr ""
 msgid "Transaction Hash"
 msgstr ""
 
+msgid "Not enough gas to pay the network fee."
+msgstr ""
+
+msgid "Are you sure you want to cancel this order?<0/>Once cancelled, it cannot be restored."
+msgstr ""
+
+msgid "Avg. Price"
+msgstr ""
+
 msgid "You won"
+msgstr ""
+
+msgid "Network cost"
 msgstr ""
 
 msgid "Revoked Failed"
@@ -223,6 +241,9 @@ msgstr ""
 msgid "Max"
 msgstr ""
 
+msgid "Transaction Detail"
+msgstr ""
+
 msgid "Slippage"
 msgstr ""
 
@@ -235,13 +256,28 @@ msgstr ""
 msgid "No more history"
 msgstr ""
 
+msgid "Transaction failed: minimum return amount not reached. Try increasing slippage."
+msgstr ""
+
+msgid "There is no data available for display."
+msgstr ""
+
 msgid "Transaction was rejected."
+msgstr ""
+
+msgid "Cancel"
 msgstr ""
 
 msgid "Done"
 msgstr ""
 
+msgid "Bridged Failed"
+msgstr ""
+
 msgid "Pay Wallet"
+msgstr ""
+
+msgid "Open orders"
 msgstr ""
 
 msgid "Copy address"
@@ -253,290 +289,13 @@ msgstr ""
 msgid "Failed to place buy order. "
 msgstr ""
 
-msgid "Outcome"
-msgstr ""
-
-msgid "Receive at least"
-msgstr ""
-
-msgid "Approved Failed"
-msgstr ""
-
-msgid "No more positions"
-msgstr ""
-
-msgid "Custom (0.5-100%)"
-msgstr ""
-
-msgid "Order cancelled"
-msgstr ""
-
-#. placeholder {0}: formatTokenUSD(withdrawPreview?.fee ?? 0, { minDisplay: 0.01 })
-msgid "Service fee: <0>{0}</0>"
-msgstr ""
-
-msgid "Receive Wallet"
-msgstr ""
-
-msgid "Current"
-msgstr ""
-
-msgid "Reload"
-msgstr ""
-
-msgid "Recipient"
-msgstr ""
-
-msgid "Insufficient Gas"
-msgstr ""
-
-msgid "Bridge"
-msgstr ""
-
-msgid "Enter amount"
-msgstr ""
-
-msgid "Trade"
-msgstr ""
-
-msgid "Send"
-msgstr ""
-
-msgid "Try again"
-msgstr ""
-
-msgid "No any positions found in this wallet"
-msgstr ""
-
-msgid "NFT Minted"
-msgstr ""
-
-#. placeholder {0}: formatTokenItemAmount(withdrawableAmount)
-#. placeholder {0}: formatTokenUSD(availableAmount, { minDisplay: 0.01 })
-msgid "{0} available"
-msgstr ""
-
-msgid "Network Fee"
-msgstr ""
-
-msgid "Market"
-msgstr ""
-
-msgid "EVM"
-msgstr ""
-
-msgid "Confirming your transaction..."
-msgstr ""
-
-msgid "Interacted"
-msgstr ""
-
-msgid "The address could not be found."
-msgstr ""
-
-msgid "Time"
-msgstr ""
-
-msgid "{betText} • Won <0>{wonText}({pctText})</0>"
-msgstr ""
-
-#. placeholder {0}: item.project_name || formatAddress(address, 4)
-#. placeholder {0}: item.project_name || formatAddress(nft?.nft.address || item.to_address, 4)
-msgid "With <0>{0}</0>"
-msgstr ""
-
-msgid "Portfolio"
-msgstr ""
-
-msgid "<0><1/><2>Sent</2></0><3>to</3><4/>"
-msgstr ""
-
-msgid "Insufficient Balance"
-msgstr ""
-
-msgid "All"
-msgstr ""
-
-msgid "Unlimited"
-msgstr ""
-
-msgid "Cancel order?"
-msgstr ""
-
-msgid "Enter or search for a recipient wallet"
-msgstr ""
-
-msgid "Select a method for funding your Firefly wallet."
-msgstr ""
-
-msgid "Claim all the winnings"
-msgstr ""
-
-msgid "Network"
-msgstr ""
-
-msgid "Transaction failed during execution."
-msgstr ""
-
-msgid "PnL"
-msgstr ""
-
-msgid "Withdraw"
-msgstr ""
-
-msgid "Sent Failed"
-msgstr ""
-
-msgid "Received Failed"
-msgstr ""
-
-msgid "Swapped"
-msgstr ""
-
-msgid "Auto"
-msgstr ""
-
-msgid "User rejected"
-msgstr ""
-
-#. placeholder {0}: formatAddress(address, 4)
-#. placeholder {0}: formatAddress(nft.sender, 4)
-msgid "From <0>{0}</0>"
-msgstr ""
-
-msgid "into your predict wallet"
-msgstr ""
-
-msgid "Cancelled."
-msgstr ""
-
-msgid "View on Explorer"
-msgstr ""
-
-msgid "Primary"
-msgstr ""
-
-msgid "Contract address"
-msgstr ""
-
-msgid "Failed to withdraw."
-msgstr ""
-
-msgid "Minimum $1.00"
-msgstr ""
-
-msgid "No wallet address found for this user."
-msgstr ""
-
-#. placeholder {0}: item.project_name
-msgid "on {0}"
-msgstr ""
-
-msgid "Search token"
-msgstr ""
-
-msgid "Failed to authenticate. Please try again."
-msgstr ""
-
-msgid "Your transaction has been completed."
-msgstr ""
-
-msgid "All networks"
-msgstr ""
-
-msgid "Your funds have been withdrawn to your Firefly wallet."
-msgstr ""
-
-msgid "If you enter it in another app, it can steal your funds and Farcaster account."
-msgstr ""
-
-msgid "Select Token"
-msgstr ""
-
-#. placeholder {0}: formatTokenItemAmount(withdrawPreview?.amount ?? 0)
-#. placeholder {1}: targetToken.symbol
-msgid "<0>{0}</0> {1} in your firefly wallet"
-msgstr ""
-
-#. placeholder {0}: formatTokenItemAmount(position.shares, 2)
-msgid "{0} shares"
-msgstr ""
-
-msgid "Quick Buy"
-msgstr ""
-
-msgid "Your tokens"
-msgstr ""
-
-msgid "This market may have been removed or the link is invalid."
-msgstr ""
-
-msgid "Lost"
-msgstr ""
-
-msgid "We will find the lowest slippage for a successful swap"
-msgstr ""
-
-msgid "Failed to search. Please try again."
-msgstr ""
-
-msgid "Transaction completed!"
-msgstr ""
-
-msgid "NFT Sent Failed"
-msgstr ""
-
-msgid "Failed to cancel order"
-msgstr ""
-
-#. placeholder {0}: token.balance || '0'
-#. placeholder {1}: token.symbol || '-'
-msgid "Balance: {0} {1}"
-msgstr ""
-
-msgid "This wallet address is invalid"
-msgstr ""
-
-msgid "Price"
-msgstr ""
-
-msgid "Connection taking longer than expected"
-msgstr ""
-
-msgid "Not enough gas to pay the network fee."
-msgstr ""
-
-msgid "Are you sure you want to cancel this order?<0/>Once cancelled, it cannot be restored."
-msgstr ""
-
-msgid "Network cost"
-msgstr ""
-
-msgid "Avg. Price"
-msgstr ""
-
-msgid "Transaction Detail"
-msgstr ""
-
-msgid "Transaction failed: minimum return amount not reached. Try increasing slippage."
-msgstr ""
-
-msgid "There is no data available for display."
-msgstr ""
-
-msgid "Cancel"
-msgstr ""
-
-msgid "Open orders"
-msgstr ""
-
-msgid "Bridged Failed"
-msgstr ""
-
 msgid "Draft"
 msgstr ""
 
 msgid "Firefly Wallet Pay"
+msgstr ""
+
+msgid "Outcome"
 msgstr ""
 
 msgid "Unable to add funds to predictions account."
@@ -545,10 +304,13 @@ msgstr ""
 msgid "Back to Bets"
 msgstr ""
 
-msgid "Received"
+msgid "Receive at least"
 msgstr ""
 
 msgid "Unable to open this market."
+msgstr ""
+
+msgid "Approved Failed"
 msgstr ""
 
 msgid "Rate"
@@ -557,31 +319,68 @@ msgstr ""
 msgid "No more orders"
 msgstr ""
 
+msgid "No more positions"
+msgstr ""
+
+msgid "Received"
+msgstr ""
+
+msgid "Custom (0.5-100%)"
+msgstr ""
+
 msgid "Wallet funding is not enabled"
+msgstr ""
+
+msgid "Order cancelled"
 msgstr ""
 
 msgid "Sent"
 msgstr ""
 
-msgid "Claimed"
+msgid "Amount"
 msgstr ""
 
-msgid "Amount"
+#. placeholder {0}: formatTokenUSD(withdrawPreview?.fee ?? 0, { minDisplay: 0.01 })
+msgid "Service fee: <0>{0}</0>"
 msgstr ""
 
 msgid "Claim"
 msgstr ""
 
+msgid "Current"
+msgstr ""
+
 msgid "Added"
+msgstr ""
+
+msgid "Reload"
+msgstr ""
+
+msgid "Receive Wallet"
+msgstr ""
+
+msgid "Claimed"
+msgstr ""
+
+msgid "Recipient"
+msgstr ""
+
+msgid "Insufficient Gas"
 msgstr ""
 
 msgid "Back"
 msgstr ""
 
+msgid "Wallet addresses linked to social accounts may change or be inaccurate. Always verify before sending."
+msgstr ""
+
 msgid "Login In Firefly"
 msgstr ""
 
-msgid "Wallet addresses linked to social accounts may change or be inaccurate. Always verify before sending."
+msgid "Bridge"
+msgstr ""
+
+msgid "Enter amount"
 msgstr ""
 
 msgid "Firefly charges a fee for withdraw based on the withdraw funds amount."
@@ -592,7 +391,13 @@ msgstr ""
 msgid "Available {0}"
 msgstr ""
 
+msgid "Trade"
+msgstr ""
+
 msgid "No tokens available"
+msgstr ""
+
+msgid "Send"
 msgstr ""
 
 msgid "You've hit rock bottom."
@@ -616,6 +421,29 @@ msgstr ""
 msgid "To win"
 msgstr ""
 
+msgid "Try again"
+msgstr ""
+
+msgid "Something went wrong."
+msgstr ""
+
+msgid "No any positions found in this wallet"
+msgstr ""
+
+msgid "Your funds are on the way..."
+msgstr ""
+
+msgid "NFT Minted"
+msgstr ""
+
+#. placeholder {0}: formatTokenItemAmount(withdrawableAmount)
+#. placeholder {0}: formatTokenUSD(availableAmount, { minDisplay: 0.01 })
+msgid "{0} available"
+msgstr ""
+
+msgid "Contract"
+msgstr ""
+
 msgid "Limit Price"
 msgstr ""
 
@@ -628,13 +456,16 @@ msgstr ""
 msgid "Trendings"
 msgstr ""
 
-msgid "Something went wrong."
+msgid "Network Fee"
 msgstr ""
 
-msgid "Your funds are on the way..."
+msgid "Market"
 msgstr ""
 
-msgid "Contract"
+msgid "EVM"
+msgstr ""
+
+msgid "Confirming your transaction..."
 msgstr ""
 
 msgid "Refresh"
@@ -643,7 +474,16 @@ msgstr ""
 msgid "Receive"
 msgstr ""
 
+msgid "Time"
+msgstr ""
+
+msgid "Interacted"
+msgstr ""
+
 msgid "Authentication Error"
+msgstr ""
+
+msgid "The address could not be found."
 msgstr ""
 
 msgid "No active positions found in this wallet"
@@ -652,16 +492,45 @@ msgstr ""
 msgid "Add"
 msgstr ""
 
+msgid "Portfolio"
+msgstr ""
+
+msgid "{betText} • Won <0>{wonText}({pctText})</0>"
+msgstr ""
+
+#. placeholder {0}: item.project_name || formatAddress(address, 4)
+#. placeholder {0}: item.project_name || formatAddress(nft?.nft.address || item.to_address, 4)
+msgid "With <0>{0}</0>"
+msgstr ""
+
+msgid "<0><1/><2>Sent</2></0><3>to</3><4/>"
+msgstr ""
+
+msgid "Insufficient Balance"
+msgstr ""
+
+msgid "All"
+msgstr ""
+
 msgid "Search symbol or contract"
 msgstr ""
 
 msgid "<0><1/><2>Received</2></0><3>from</3><4/>"
 msgstr ""
 
+msgid "Failed to add funds."
+msgstr ""
+
+msgid "Claim all the winnings"
+msgstr ""
+
+msgid "Unlimited"
+msgstr ""
+
 msgid "Swapped Failed"
 msgstr ""
 
-msgid "Failed to add funds."
+msgid "Cancel order?"
 msgstr ""
 
 msgid "Cancelling order..."
@@ -670,10 +539,34 @@ msgstr ""
 msgid "Something went wrong"
 msgstr ""
 
-msgid "Failed to fetch token info"
+msgid "Enter or search for a recipient wallet"
+msgstr ""
+
+msgid "Select a method for funding your Firefly wallet."
+msgstr ""
+
+msgid "PnL"
 msgstr ""
 
 msgid "Failed to close position"
+msgstr ""
+
+msgid "Network"
+msgstr ""
+
+msgid "Withdraw"
+msgstr ""
+
+msgid "Transaction failed during execution."
+msgstr ""
+
+msgid "Failed to fetch token info"
+msgstr ""
+
+msgid "Sent Failed"
+msgstr ""
+
+msgid "Received Failed"
 msgstr ""
 
 msgid "Available: {availableText}"
@@ -688,10 +581,30 @@ msgstr ""
 msgid "Buy"
 msgstr ""
 
+msgid "Swapped"
+msgstr ""
+
+msgid "Auto"
+msgstr ""
+
 msgid "Select"
 msgstr ""
 
 msgid "Failed to place sell order. "
+msgstr ""
+
+msgid "User rejected"
+msgstr ""
+
+#. placeholder {0}: formatAddress(address, 4)
+#. placeholder {0}: formatAddress(nft.sender, 4)
+msgid "From <0>{0}</0>"
+msgstr ""
+
+msgid "into your predict wallet"
+msgstr ""
+
+msgid "Cancelled."
 msgstr ""
 
 #. placeholder {0}: transaction.token_approve.token.symbol
@@ -709,13 +622,31 @@ msgstr ""
 msgid "We do not recommend ever sharing it with any app or person."
 msgstr ""
 
+msgid "View on Explorer"
+msgstr ""
+
 msgid "Add Token"
 msgstr ""
 
 msgid "NFT Received Failed"
 msgstr ""
 
+msgid "Primary"
+msgstr ""
+
 msgid "Predict. Trade. Simply fund your Firefly predict wallet to begin."
+msgstr ""
+
+msgid "Failed to withdraw."
+msgstr ""
+
+msgid "Contract address"
+msgstr ""
+
+msgid "Minimum $1.00"
+msgstr ""
+
+msgid "No wallet address found for this user."
 msgstr ""
 
 msgid "Transaction failed"
@@ -727,7 +658,20 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
+#. placeholder {0}: item.project_name
+msgid "on {0}"
+msgstr ""
+
+msgid "Failed to authenticate. Please try again."
+msgstr ""
+
 msgid "Signing In"
+msgstr ""
+
+msgid "Search token"
+msgstr ""
+
+msgid "Your transaction has been completed."
 msgstr ""
 
 msgid "Predictions"
@@ -736,25 +680,58 @@ msgstr ""
 msgid "Your transaction failed."
 msgstr ""
 
-msgid "Swap"
+msgid "Buy {outcome}"
 msgstr ""
 
-msgid "Buy {outcome}"
+msgid "All networks"
+msgstr ""
+
+msgid "Swap"
 msgstr ""
 
 msgid "Keep it safe and do not share"
 msgstr ""
 
-msgid "Will receive"
+msgid "If you enter it in another app, it can steal your funds and Farcaster account."
+msgstr ""
+
+msgid "Your funds have been withdrawn to your Firefly wallet."
 msgstr ""
 
 msgid "Bridged"
 msgstr ""
 
+msgid "Select Token"
+msgstr ""
+
+#. placeholder {0}: formatTokenItemAmount(position.shares, 2)
+msgid "{0} shares"
+msgstr ""
+
+msgid "Will receive"
+msgstr ""
+
+msgid "Quick Buy"
+msgstr ""
+
+#. placeholder {0}: formatTokenItemAmount(withdrawPreview?.amount ?? 0)
+#. placeholder {1}: targetToken.symbol
+msgid "<0>{0}</0> {1} in your firefly wallet"
+msgstr ""
+
+msgid "Your tokens"
+msgstr ""
+
 msgid "Sell {outcome}"
 msgstr ""
 
+msgid "This market may have been removed or the link is invalid."
+msgstr ""
+
 msgid "PnL%"
+msgstr ""
+
+msgid "Lost"
 msgstr ""
 
 msgid "Clear"
@@ -763,10 +740,13 @@ msgstr ""
 msgid "Revoked"
 msgstr ""
 
-msgid "Sell"
+msgid "Failed to add token"
 msgstr ""
 
-msgid "Failed to add token"
+msgid "We will find the lowest slippage for a successful swap"
+msgstr ""
+
+msgid "Sell"
 msgstr ""
 
 msgid "The market is marked as closed."
@@ -781,7 +761,22 @@ msgstr ""
 msgid "<0><1/><2>Revoked</2></0><3>on</3><4/>"
 msgstr ""
 
+msgid "NFT Sent Failed"
+msgstr ""
+
+msgid "Available:"
+msgstr ""
+
+msgid "Failed to search. Please try again."
+msgstr ""
+
+msgid "Transaction completed!"
+msgstr ""
+
 msgid "Limit"
+msgstr ""
+
+msgid "Swap faster by skipping the review step"
 msgstr ""
 
 msgid "Hide assets < 1 USD"
@@ -790,16 +785,13 @@ msgstr ""
 msgid "You lost"
 msgstr ""
 
-msgid "Available:"
-msgstr ""
-
-msgid "Swap faster by skipping the review step"
-msgstr ""
-
 msgid "Close"
 msgstr ""
 
 msgid "Current settings"
+msgstr ""
+
+msgid "OK"
 msgstr ""
 
 msgid "NFT"
@@ -808,5 +800,13 @@ msgstr ""
 msgid "NFT Sent"
 msgstr ""
 
-msgid "OK"
+msgid "Failed to cancel order"
+msgstr ""
+
+#. placeholder {0}: token.balance || '0'
+#. placeholder {1}: token.symbol || '-'
+msgid "Balance: {0} {1}"
+msgstr ""
+
+msgid "This wallet address is invalid"
 msgstr ""

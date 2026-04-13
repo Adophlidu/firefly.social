@@ -14,10 +14,10 @@ import { svgrOptions, webpackConfig } from './.next-config/webpack.config';
 const require = createRequire(import.meta.url);
 
 const config: NextConfig = {
+    allowedDevOrigins: ['firefly.social'],
     productionBrowserSourceMaps: false,
 
-    // Server-only external packages for Turbopack (native modules)
-    serverExternalPackages: ['@napi-rs/image', 'canvas', 'pino', 'pino-pretty', 'thread-stream'],
+    serverExternalPackages: ['@napi-rs/image'],
 
     // Note: we run tsc and eslint in other places
     typescript: {

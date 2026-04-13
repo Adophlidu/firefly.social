@@ -1,5 +1,4 @@
 import { writeFile } from 'node:fs/promises';
-import { createRequire } from 'node:module';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -11,9 +10,6 @@ import { findRepoRoot } from '../../../packages/scripts/repo-root.cjs';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const repoRoot = findRepoRoot(__dirname);
 const webRoot = join(repoRoot, 'apps/web');
-
-const webRequire = createRequire(join(webRoot, 'package.json'));
-const twitterApiV2Entry = webRequire.resolve('twitter-api-v2/dist/esm/index.js');
 
 dotenv.config({
     path: join(repoRoot, '.env.local'),
@@ -36,12 +32,6 @@ const buildConfigs = [
         target: 'esnext',
     },
     {
-        entryPoints: [twitterApiV2Entry],
-        outfile: join(webRoot, 'prebuilt/twitter-api-v2.js'),
-        target: 'es2020',
-        external: ['fs', 'https', 'crypto', 'zlib'],
-    },
-    {
         entryPoints: [join(webRoot, 'src/scripts/home-redirect.ts')],
         outfile: join(webRoot, 'public/js/home-redirect.js'),
         target: 'es2020',
@@ -49,7 +39,7 @@ const buildConfigs = [
 ];
 
 await Promise.all(
-    buildConfigs.map(async ({ entryPoints, outfile, target, external = [] }) => {
+    buildConfigs.map(async ({ entryPoints, outfile, target, external = [], plugins = [] }) => {
         await esbuild.build({
             target,
             platform: 'browser',
@@ -61,6 +51,7 @@ await Promise.all(
             minify: true,
             define: envDefinitions,
             external,
+            plugins,
         });
 
         console.log(`Built to ${outfile}.`);
