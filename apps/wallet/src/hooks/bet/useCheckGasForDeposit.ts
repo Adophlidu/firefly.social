@@ -1,4 +1,3 @@
-import { web3 } from '@coral-xyz/anchor';
 import { useQuery } from '@tanstack/react-query';
 import type { Address, Hex } from 'viem';
 
@@ -16,7 +15,7 @@ interface Options {
     quote?: CrossChainQuote | SwapQuote | null;
 }
 
-const defaultSolanaFee = 0.00001 * web3.LAMPORTS_PER_SOL * 1.3; // 0.000008 SOL with a buffer
+const defaultSolanaFee = 0.000013;
 
 export function useCheckGasForDeposit({ depositToken, amount, quote }: Options) {
     const { evmAddress, solanaAddress } = useEmbeddedWalletAddresses();
