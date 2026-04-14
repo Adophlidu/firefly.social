@@ -39,7 +39,7 @@ import { formatLamportsToSol } from '@/helpers/formatLamportsToSol.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { isNativeEvmToken } from '@/helpers/isNativeEvmToken.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
-import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
+import { isValidAddress, isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { ETH_ZERO_ADDRESS, SOL_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';
 import { normalizeDecimalInput } from '@/helpers/normalizeDecimalInput.js';
 import { isGreaterThanOrEqualTo, multipliedBy, plus } from '@/helpers/number.js';
@@ -367,7 +367,16 @@ function Form() {
                         />
                     </label>
                     <ClickableButton
-                        onClick={() => router.navigate({ to: RoutePath.SearchRecipients })}
+                        onClick={() =>
+                            router.navigate({
+                                to: RoutePath.SearchRecipients,
+                                search: isValidAddress(to)
+                                    ? undefined
+                                    : {
+                                          keyword: to || '',
+                                      },
+                            })
+                        }
                         type="button"
                         className="relative z-10 flex h-full items-center justify-center p-4 pl-0"
                     >

@@ -25,6 +25,7 @@ import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.j
 import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { isValidDomainEthereum } from '@/helpers/isValidDomain.js';
 import { isZeroAddressEthereum } from '@/helpers/isZeroAddress.js';
+import { logger } from '@/lib/Logger.js';
 import { fireflyWorkerEndpoint } from '@/providers/firefly/worker.js';
 import { getFireflyEndpoint } from '@/store/fireflyEndpoint.js';
 
@@ -284,20 +285,25 @@ function ENSLookupResult({
         staleTime: 60_000,
         retry: 2,
         queryFn: async ({ signal }) => {
-            const address = await fireflyWorkerEndpoint.lookup(keyword, { signal });
-            if (address) {
-                return createPageable<RecipientItemProps>(
-                    [
-                        {
-                            address,
-                            avatar: getStampAvatarByProfileId(Source.Wallet, keyword),
-                            ens: keyword,
-                        },
-                    ],
-                    createIndicator(),
-                );
+            try {
+                const address = await fireflyWorkerEndpoint.lookup(keyword, { signal });
+                if (address) {
+                    return createPageable<RecipientItemProps>(
+                        [
+                            {
+                                address,
+                                avatar: getStampAvatarByProfileId(Source.Wallet, keyword),
+                                ens: keyword,
+                            },
+                        ],
+                        createIndicator(),
+                    );
+                }
+                return createPageable<RecipientItemProps>([], createIndicator());
+            } catch (error) {
+                logger.error('ENS lookup failed', { keyword, error });
+                return createPageable<RecipientItemProps>([], createIndicator());
             }
-            return createPageable<RecipientItemProps>([], createIndicator());
         },
         initialPageParam: '',
         getNextPageParam: () => undefined,

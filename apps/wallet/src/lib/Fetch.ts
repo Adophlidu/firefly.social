@@ -1,3 +1,5 @@
+import urlcat from 'urlcat';
+
 interface FetchConfig {
     baseURL?: string;
     headers?: HeadersInit;
@@ -72,7 +74,7 @@ export abstract class Fetch {
     }
 
     protected async _request<T = unknown>(url: string, init: RequestInit): Promise<FetchJsonResult<T>> {
-        let fullUrl: RequestInfo = this.baseURL ? this.baseURL + url : url;
+        let fullUrl: RequestInfo = this.baseURL ? urlcat(this.baseURL, url) : url;
         let finalInit: RequestInit = {
             ...init,
             headers: {

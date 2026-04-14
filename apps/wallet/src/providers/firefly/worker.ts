@@ -32,7 +32,7 @@ type ReverseResponse = ResponseJson<{
 
 export class FireflyWorkerEndpoint extends Fetch {
     async lookup(domain: string, options?: { signal?: AbortSignal }): Promise<string | null> {
-        const { data } = await this.get<LookupResponse>(urlcat(FIREFLY_WORKER_HOST, '/ens/lookup', { domain }), {
+        const { data } = await this.get<LookupResponse>(urlcat('/ens/lookup', { domain }), {
             signal: options?.signal,
         });
         if (!data.success) return null;
@@ -41,7 +41,7 @@ export class FireflyWorkerEndpoint extends Fetch {
 
     async convertBskyHandleToDid(handle: string) {
         const result = await this.get<ResponseJson<{ did: string }>>(
-            urlcat(FIREFLY_WORKER_HOST, '/bsky-identity/resolve-handle', {
+            urlcat('/bsky-identity/resolve-handle', {
                 handle,
             }),
         );
@@ -52,7 +52,7 @@ export class FireflyWorkerEndpoint extends Fetch {
 
     async reverse(address: string): Promise<string | null> {
         if (!isValidAddressEthereum(address)) return null;
-        const { data } = await this.get<ReverseResponse>(urlcat(FIREFLY_WORKER_HOST, '/ens/reverse', { address }));
+        const { data } = await this.get<ReverseResponse>(urlcat('/ens/reverse', { address }));
         if (!data.success) return null;
 
         const domain = data.data.domain;
