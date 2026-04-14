@@ -1,14 +1,19 @@
+import { useQuery } from '@tanstack/react-query';
 import { useSearch } from '@tanstack/react-router';
 import { BigNumber } from 'bignumber.js';
+import { compact } from 'lodash-es';
 import { polygon } from 'viem/chains';
 
 import { NetworkType } from '@/constants/enum.js';
-import { USDC_E_POLYGON_ADDRESS } from '@/constants/ethereum.js';
+import { SUPPORTED_SWAP_EVM_CHAIN_IDS, USDC_E_POLYGON_ADDRESS } from '@/constants/ethereum.js';
+import { SolanaChainId } from '@/constants/solana.js';
 import { isSolanaChain } from '@/helpers/isSolanaChain.js';
-import { multipliedBy } from '@/helpers/number.js';
+import { isGreaterThan, multipliedBy } from '@/helpers/number.js';
+import { addressesMatch } from '@/helpers/swap/formatSwapAmount.js';
 import { useSwapTokenDetail } from '@/hooks/swap/useSwapTokenDetail.js';
 import { useEmbeddedWalletAddresses } from '@/hooks/useCachedWalletAddresses.js';
 import { useTokenBalance } from '@/hooks/useTokenBalance.js';
+import { createSwapEndpoint } from '@/providers/swap/swapEndpoint.js';
 
 interface SelectedToken {
     address?: string;
@@ -59,25 +64,68 @@ export function useDepositToken() {
     const { address, chainId } = useSearch({ from: '/bet/deposit' }) as SelectedToken;
     const { evmAddress, solanaAddress } = useEmbeddedWalletAddresses();
 
-    const { data, isLoading, error } = useSwapTokenDetail({
-        address: address || usdcTokenFallback.id,
-        chainId: chainId ? parseInt(chainId, 10) : usdcTokenFallback.chainId,
+    const { data: defaultToken, isLoading: isDefaultTokenLoading } = useQuery({
+        queryKey: ['swap-user-tokens', evmAddress, solanaAddress],
+        enabled: !!evmAddress && !!solanaAddress && !address,
+        staleTime: 1000 * 60 * 5, // 5 minutes
+        retry: false,
+        queryFn: async () => {
+            if (!evmAddress || !solanaAddress) return [];
+
+            const endpoint = createSwapEndpoint();
+            const tokenMap = await endpoint.getUserTokenBalancesMultiChain(compact([evmAddress, solanaAddress]), [
+                ...SUPPORTED_SWAP_EVM_CHAIN_IDS,
+                SolanaChainId.Mainnet,
+            ]);
+            return [
+                ...(tokenMap.get(evmAddress.toLowerCase()) || []),
+                ...(tokenMap.get(solanaAddress.toLowerCase()) || []),
+            ];
+        },
+        select: (data) => {
+            if (!data?.length) return null;
+
+            const polygonUsdc = data.find(
+                (token) =>
+                    token.chainId === usdcTokenFallback.chainId &&
+                    addressesMatch(token.address, usdcTokenFallback.address),
+            );
+            if (polygonUsdc && isGreaterThan(polygonUsdc.balance ?? '0', 0)) {
+                return polygonUsdc;
+            }
+
+            return data.find((token) => isGreaterThan(token.balance ?? '0', 0)) ?? null;
+        },
     });
 
-    const token = isLoading
-        ? null
-        : error || !data
-          ? usdcTokenFallback
-          : {
-                id: data.address,
-                address: data.address,
-                decimals: data.decimals,
-                chainId: data.chainId,
-                logoUrl: data.logoURI,
-                name: data.name,
-                symbol: data.symbol,
-                price: data.price,
-            };
+    const targetTokenAddress = isDefaultTokenLoading
+        ? undefined
+        : address || defaultToken?.address || usdcTokenFallback.id;
+    const targetTokenChainId = isDefaultTokenLoading
+        ? undefined
+        : chainId
+          ? parseInt(chainId, 10)
+          : defaultToken?.chainId || usdcTokenFallback.chainId;
+    const { data, isLoading, error } = useSwapTokenDetail({
+        address: targetTokenAddress,
+        chainId: targetTokenChainId,
+    });
+
+    const token =
+        isLoading || isDefaultTokenLoading
+            ? null
+            : error || !data
+              ? usdcTokenFallback
+              : {
+                    id: data.address,
+                    address: data.address,
+                    decimals: data.decimals,
+                    chainId: data.chainId,
+                    logoUrl: data.logoURI,
+                    name: data.name,
+                    symbol: data.symbol,
+                    price: data.price,
+                };
     const walletAddress = !token ? null : isSolanaChain(token.chainId) ? solanaAddress : evmAddress;
 
     const { data: balanceData, isLoading: isBalanceLoading } = useTokenBalance({
@@ -100,5 +148,6 @@ export function useDepositToken() {
             : null,
         isLoading,
         isBalanceLoading,
+        isDefaultTokenLoading,
     };
 }

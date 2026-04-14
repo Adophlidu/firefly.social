@@ -61,7 +61,12 @@ function DepositClient() {
     const [value, setValue] = useState('');
     const [inputType, setInputType] = useState(InputType.Usdc);
 
-    const { token: depositToken, isLoading: isDepositTokenLoading, isBalanceLoading } = useDepositToken();
+    const {
+        token: depositToken,
+        isLoading: isDepositTokenLoading,
+        isBalanceLoading,
+        isDefaultTokenLoading,
+    } = useDepositToken();
 
     const maxDecimals = inputType === InputType.Amount && depositToken ? depositToken.decimals : 2;
     const { inputProps } = useDecimalInput({ value, onValueChange: setValue, maxDecimals });
@@ -171,7 +176,7 @@ function DepositClient() {
         inputRef.current?.focus();
     }, []);
 
-    if (isEmbeddedWalletLoading || !embeddedAddress || isPolymarketAccountLoading) {
+    if (isEmbeddedWalletLoading || !embeddedAddress || isPolymarketAccountLoading || isDefaultTokenLoading) {
         return <LoadingPanel />;
     }
 

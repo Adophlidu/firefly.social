@@ -3,13 +3,13 @@ import { useAtomValue } from 'jotai';
 import { orderBy } from 'lodash-es';
 import { useMemo } from 'react';
 
+import { SUPPORTED_SWAP_EVM_CHAIN_IDS } from '@/constants/ethereum.js';
 import { isSolanaChain } from '@/helpers/isSolanaChain.js';
 import { useSwapContextWalletAddresses } from '@/hooks/useCachedWalletAddresses.js';
 import { createSwapEndpoint, type RecentToken, type SwapToken } from '@/providers/swap/index.js';
 import { normalizeSwapToken } from '@/providers/swap/normalizeSwapToken.js';
 import { fireflySessionTokenAtom } from '@/store/fireflySession.js';
 
-const SUPPORTED_SWAP_EVM_CHAIN_IDS = [1, 56, 137, 10, 8453, 42161, 43114, 81457, 534352] as const;
 const SUPPORTED_SWAP_TRENDING_CHAIN_IDS = [...SUPPORTED_SWAP_EVM_CHAIN_IDS, 101] as const;
 
 export interface UseSwapTokensOptions {
