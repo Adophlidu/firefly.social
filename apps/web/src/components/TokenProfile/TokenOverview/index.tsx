@@ -49,6 +49,7 @@ export const TokenOverview = memo<TokenOverviewProps>(function TokenOverview({
     const { data: treasuryHoldings, isLoading: isTreasuryHoldingsLoading } = useQuery({
         queryKey: ['coingecko', 'total-treasury-holding', coin?.id],
         staleTime: Infinity,
+        retry: false,
         enabled: !!coin?.id && !!coinId,
         queryFn: !coin?.id ? skipToken : () => getTreasuryHoldings(coin.id),
     });
