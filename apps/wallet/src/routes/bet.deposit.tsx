@@ -22,6 +22,7 @@ import { isSolanaChain } from '@/helpers/isSolanaChain.js';
 import { dividedBy, isLessThan, multipliedBy, toFixed } from '@/helpers/number.js';
 import { addressesMatch } from '@/helpers/swap/formatSwapAmount.js';
 import { useAddFunds } from '@/hooks/bet/useAddFunds.js';
+import { useCheckGasForDeposit } from '@/hooks/bet/useCheckGasForDeposit.js';
 import { usdcTokenFallback, useDepositToken } from '@/hooks/bet/useTokenDetail.js';
 import { useGoToSelectToken } from '@/hooks/swap/useGoToSelectToken.js';
 import { useSwapQuoteCore } from '@/hooks/swap/useSwapQuoteCore.js';
@@ -119,22 +120,11 @@ function DepositClient() {
         recipientAddress: polymarketAccount?.proxyAddress ?? null,
         enabled: !!depositToken && !!embeddedAddress && !isSameToken,
     });
-
-    const isInsufficientGas = useMemo(() => {
-        if (!quote || !('gasEstimate' in quote) || !quote.gasEstimate || !depositToken) return false;
-        // For native tokens (ETH, SOL, etc.), check if balance minus swap amount covers gas
-        if (
-            depositToken.address.toLowerCase() === '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee' ||
-            depositToken.address === 'So11111111111111111111111111111111111111112'
-        ) {
-            const balanceNum = parseFloat(depositToken.balance || '0');
-            const amountNum = parseFloat(amount || '0');
-            const gasEstimate = parseFloat(quote.gasEstimate);
-            // Rough estimate: if remaining balance after swap < 10x gas estimate, likely insufficient
-            return balanceNum - amountNum < gasEstimate * 0.001;
-        }
-        return false;
-    }, [quote, depositToken, amount]);
+    const { isInsufficientGas, isLoading: isGasLoading } = useCheckGasForDeposit({
+        depositToken,
+        amount,
+        quote,
+    });
 
     const isInsufficientBalance = depositToken ? isLessThan(depositToken.balance, amount) : false;
     const receivedUsdc = isSameToken ? usdcValue : (quote?.toAmount ?? '0');
@@ -146,7 +136,8 @@ function DepositClient() {
         !depositToken ||
         isDepositTokenLoading ||
         isInsufficientGas ||
-        isQuoteLoading;
+        isQuoteLoading ||
+        isGasLoading;
     const buttonLabel = useMemo(() => {
         if (isLessThanMinimum) {
             return <Trans>Minimum $1.00</Trans>;
@@ -309,12 +300,9 @@ function DepositClient() {
                                 if (!depositToken) return;
 
                                 const ratedValueBigInt = BigInt(
-                                    BigNumber(depositToken.rawAmount).times(rate).toFixed(0),
+                                    BigNumber(depositToken.rawAmount).times(Math.min(rate, 0.95)).toFixed(0),
                                 );
-                                const newAmount =
-                                    rate === 1
-                                        ? depositToken.balance
-                                        : formatUnits(ratedValueBigInt, depositToken.decimals);
+                                const newAmount = formatUnits(ratedValueBigInt, depositToken.decimals);
                                 setValue(
                                     removeTrailingZeros(
                                         inputType === InputType.Amount

@@ -54,6 +54,13 @@ export interface CrossChainQuote {
     gasUsd?: number;
     estimatedTime?: number;
     bridgeProvider?: string;
+    tx?: {
+        to: string;
+        data: string;
+        value: string;
+        gas?: string;
+        gasPrice?: string;
+    };
 }
 
 export interface ApproveTransaction {

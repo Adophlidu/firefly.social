@@ -375,6 +375,15 @@ export class SwapEndpoint extends Fetch {
             rate: fromAmountNum > 0 ? toAmountNum / fromAmountNum : 0,
             minReceived,
             gasUsd: raw.tradeFee ? parseFloat(raw.tradeFee) : undefined,
+            tx: raw.tx
+                ? {
+                      data: raw.tx.data ?? '',
+                      to: raw.tx.to ?? '',
+                      value: raw.tx.value ?? '',
+                      gas: raw.tx.gas,
+                      gasPrice: raw.tx.gasPrice,
+                  }
+                : undefined,
         };
     }
 
