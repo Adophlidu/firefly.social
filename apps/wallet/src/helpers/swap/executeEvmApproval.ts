@@ -1,10 +1,10 @@
+import { isNativeTokenAddress } from '@dimensiondev/web3-utils';
 import { type Address, erc20Abi, type Hex } from 'viem';
 import { readContract, sendTransaction } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmi.js';
 import { rightShift } from '@/helpers/number.js';
 import { estimateSwapGas } from '@/helpers/swap/estimateSwapGas.js';
-import { isNativeTokenAddress } from '@/helpers/swap/formatSwapAmount.js';
 import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
 import type { SwapEndpoint } from '@/providers/swap/swapEndpoint.js';
 import type { SwapToken } from '@/providers/swap/types.js';

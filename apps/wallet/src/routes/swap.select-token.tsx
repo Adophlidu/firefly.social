@@ -1,6 +1,7 @@
 import GlobeIcon from '@dimensiondev/assets/global.svg';
 import SearchIcon from '@dimensiondev/assets/search.svg';
 import SelectedIcon from '@dimensiondev/assets/selected.svg';
+import { isNativeTokenOrSameAddress } from '@dimensiondev/web3-utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { createFileRoute, useSearch } from '@tanstack/react-router';
@@ -16,7 +17,7 @@ import { SwapFromPage } from '@/constants/enum.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { isSolanaChain } from '@/helpers/isSolanaChain.js';
-import { addressesMatch, formatTokenAmount } from '@/helpers/swap/formatSwapAmount.js';
+import { formatTokenAmount } from '@/helpers/swap/formatSwapAmount.js';
 import { useTrendingTokensForWithdraw } from '@/hooks/bet/useTrendingTokensForWithdraw.js';
 import { useEffectiveSwapWalletAddress } from '@/hooks/swap/useEffectiveSwapWalletAddress.js';
 import { useGoBackAfterSelectToken } from '@/hooks/swap/useGoBackAfterSelectToken.js';
@@ -107,7 +108,7 @@ function SelectTokenPage() {
             if (side === 'pay') {
                 const currentIsSolana = isSolanaChain(fromChainId);
                 const newIsSolana = isSolanaChain(token.chainId);
-                const isTokenChanged = !addressesMatch(fromAddress ?? '', token.address);
+                const isTokenChanged = !isNativeTokenOrSameAddress(fromAddress ?? '', token.address);
                 setFromToken({ address: token.address, chainId: token.chainId });
                 if (isTokenChanged) {
                     setFromAmount('');

@@ -1,10 +1,10 @@
+import { isNativeTokenAddress } from '@dimensiondev/web3-utils';
 import { createFileRoute, useNavigate, useSearch } from '@tanstack/react-router';
 import { useSetAtom } from 'jotai';
 import { useEffect, useState } from 'react';
 
 import { SwapNavigationBar } from '@/components/SwapUI/SwapNavigationBar.js';
 import { SwapPanel } from '@/components/SwapUI/SwapPanel.js';
-import { isNativeTokenAddress } from '@/helpers/swap/formatSwapAmount.js';
 import { getDefaultSwapToken } from '@/providers/swap/defaultTokens.js';
 import {
     accessPathAtom,

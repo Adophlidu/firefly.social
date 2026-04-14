@@ -1,4 +1,5 @@
 import { InvalidResultError, retry } from '@dimensiondev/utils';
+import { isNativeTokenOrSameAddress } from '@dimensiondev/web3-utils';
 import { Trans } from '@lingui/react/macro';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from '@tanstack/react-router';
@@ -10,7 +11,6 @@ import { getUserFacingErrorMessage } from '@/helpers/getErrorMessage.js';
 import { isSolanaChain } from '@/helpers/isSolanaChain.js';
 import { multipliedBy } from '@/helpers/number.js';
 import { optimisticAddBalance } from '@/helpers/polymarketBalanceCache.js';
-import { addressesMatch } from '@/helpers/swap/formatSwapAmount.js';
 import { useAddFundsWithPolUsdc } from '@/hooks/bet/useAddFundsWithPolUsdc.js';
 import { usdcTokenFallback } from '@/hooks/bet/useTokenDetail.js';
 import { useSwapExecuteCore } from '@/hooks/swap/useSwapExecuteCore.js';
@@ -74,7 +74,7 @@ export function useAddFunds(options: Options) {
 
             if (
                 depositToken.chainId === usdcTokenFallback.chainId &&
-                addressesMatch(depositToken.address, usdcTokenFallback.address)
+                isNativeTokenOrSameAddress(depositToken.address, usdcTokenFallback.address)
             ) {
                 await addFundsWithPolUsdc();
             } else {

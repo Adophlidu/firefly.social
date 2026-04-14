@@ -1,7 +1,7 @@
+import { isNativeTokenOrSameAddress } from '@dimensiondev/web3-utils';
 import { useQuery } from '@tanstack/react-query';
 import { useAtomValue } from 'jotai';
 
-import { addressesMatch } from '@/helpers/swap/formatSwapAmount.js';
 import { useSwapContextWalletAddresses } from '@/hooks/useCachedWalletAddresses.js';
 import { createSwapEndpoint } from '@/providers/swap/swapEndpoint.js';
 import { fireflySessionTokenAtom } from '@/store/fireflySession.js';
@@ -27,7 +27,7 @@ export function useTokenBalance({ address, chainId, walletAddress, refetchInterv
                 [chainId],
             );
             const tokens = result.get(walletAddress.toLowerCase());
-            const token = tokens?.find((t) => t.chainId === chainId && addressesMatch(t.address, address));
+            const token = tokens?.find((t) => t.chainId === chainId && isNativeTokenOrSameAddress(t.address, address));
             return token || null;
         },
         enabled: !!address && !!chainId && isPrivyReady && !!authToken && !!walletAddress,

@@ -77,36 +77,3 @@ export function parseInputAmount(input: string): string {
 
     return cleaned;
 }
-
-/**
- * Native token addresses that represent the native currency of a chain
- * Different APIs may use different formats
- */
-const NATIVE_TOKEN_ADDRESSES = new Set(
-    [
-        '0x0000000000000000000000000000000000000000', // zero address
-        '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', // common representation
-        '0x0000000000000000000000000000000000001010', // Matic/Polygon native
-        '0xd29687c813d741e2f938f4ac377128810e217b1b', // Scroll native
-        '0x000000000000000000000000000000000000800a', // Lens native
-        '11111111111111111111111111111111', // Solana native
-    ].map((a) => a.toLowerCase()),
-);
-
-/**
- * Check if an address represents a native token
- */
-export function isNativeTokenAddress(address: string): boolean {
-    if (!address) return true; // empty address is native
-    return NATIVE_TOKEN_ADDRESSES.has(address.toLowerCase());
-}
-
-/**
- * Check if two addresses match, treating all native token addresses as equivalent
- */
-export function addressesMatch(address1: string, address2: string): boolean {
-    if (isNativeTokenAddress(address1) && isNativeTokenAddress(address2)) {
-        return true;
-    }
-    return address1.toLowerCase() === address2.toLowerCase();
-}

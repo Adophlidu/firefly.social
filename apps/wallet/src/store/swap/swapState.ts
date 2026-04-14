@@ -1,6 +1,6 @@
+import { isNativeTokenOrSameAddress } from '@dimensiondev/web3-utils';
 import { atom } from 'jotai';
 
-import { addressesMatch } from '@/helpers/swap/formatSwapAmount.js';
 import { DEFAULT_SWAP_TOKENS, getDefaultSwapToken } from '@/providers/swap/defaultTokens.js';
 
 // Access path for analytics
@@ -74,7 +74,7 @@ export const swapTokensAtom = atom(null, (get, set) => {
     set(toChainIdAtom, resolvedFromChain);
 
     // Safety: if both sides end up being the same token after flip, auto-switch "to"
-    if (resolvedToChain === resolvedFromChain && toAddr && fromAddr && addressesMatch(toAddr, fromAddr)) {
+    if (resolvedToChain === resolvedFromChain && toAddr && fromAddr && isNativeTokenOrSameAddress(toAddr, fromAddr)) {
         const counterpart = getCounterpartAddress(resolvedToChain, toAddr);
         if (counterpart) set(toAddressAtom, counterpart);
     }
@@ -88,8 +88,8 @@ export const swapTokensAtom = atom(null, (get, set) => {
 function getCounterpartAddress(chainId: number, address: string): string | null {
     const defaults = getDefaultSwapToken(chainId);
     if (!defaults) return null;
-    if (addressesMatch(address, defaults.first.contractAddress)) return defaults.second.contractAddress;
-    if (addressesMatch(address, defaults.second.contractAddress)) return defaults.first.contractAddress;
+    if (isNativeTokenOrSameAddress(address, defaults.first.contractAddress)) return defaults.second.contractAddress;
+    if (isNativeTokenOrSameAddress(address, defaults.second.contractAddress)) return defaults.first.contractAddress;
     return defaults.first.contractAddress;
 }
 
@@ -99,7 +99,7 @@ export const setFromTokenAtom = atom(null, (get, set, { address, chainId }: { ad
     set(fromChainIdAtom, chainId);
     const toChain = get(toChainIdAtom);
     const toAddr = get(toAddressAtom);
-    if (chainId === toChain && toAddr && addressesMatch(address, toAddr)) {
+    if (chainId === toChain && toAddr && isNativeTokenOrSameAddress(address, toAddr)) {
         const counterpart = getCounterpartAddress(chainId, address);
         if (counterpart) set(toAddressAtom, counterpart);
     }
@@ -111,7 +111,7 @@ export const setToTokenAtom = atom(null, (get, set, { address, chainId }: { addr
     set(toChainIdAtom, chainId);
     const fromChain = get(fromChainIdAtom);
     const fromAddr = get(fromAddressAtom);
-    if (chainId === fromChain && fromAddr && addressesMatch(address, fromAddr)) {
+    if (chainId === fromChain && fromAddr && isNativeTokenOrSameAddress(address, fromAddr)) {
         const counterpart = getCounterpartAddress(chainId, address);
         if (counterpart) {
             set(fromAddressAtom, counterpart);

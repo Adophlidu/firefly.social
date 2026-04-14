@@ -1,3 +1,4 @@
+import { isNativeTokenOrSameAddress } from '@dimensiondev/web3-utils';
 import { useQuery } from '@tanstack/react-query';
 import { useSearch } from '@tanstack/react-router';
 import { BigNumber } from 'bignumber.js';
@@ -9,7 +10,6 @@ import { SUPPORTED_SWAP_EVM_CHAIN_IDS, USDC_E_POLYGON_ADDRESS } from '@/constant
 import { SolanaChainId } from '@/constants/solana.js';
 import { isSolanaChain } from '@/helpers/isSolanaChain.js';
 import { isGreaterThan, multipliedBy } from '@/helpers/number.js';
-import { addressesMatch } from '@/helpers/swap/formatSwapAmount.js';
 import { useSwapTokenDetail } from '@/hooks/swap/useSwapTokenDetail.js';
 import { useEmbeddedWalletAddresses } from '@/hooks/useCachedWalletAddresses.js';
 import { useTokenBalance } from '@/hooks/useTokenBalance.js';
@@ -88,7 +88,7 @@ export function useDepositToken() {
             const polygonUsdc = data.find(
                 (token) =>
                     token.chainId === usdcTokenFallback.chainId &&
-                    addressesMatch(token.address, usdcTokenFallback.address),
+                    isNativeTokenOrSameAddress(token.address, usdcTokenFallback.address),
             );
             if (polygonUsdc && isGreaterThan(polygonUsdc.balance ?? '0', 0)) {
                 return polygonUsdc;

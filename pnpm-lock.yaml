@@ -172,6 +172,9 @@ importers:
       '@dimensiondev/utils':
         specifier: workspace:^
         version: link:../../packages/utils
+      '@dimensiondev/web3-utils':
+        specifier: workspace:^
+        version: link:../../packages/web3-utils
       '@privy-io/react-auth':
         specifier: ^3.19.1
         version: 3.21.2(@solana-program/memo@0.8.0)(@solana-program/system@0.8.1)(@solana-program/token@0.6.0)(@solana/kit@4.0.0)(@solana/sysvars@5.5.1)(@tanstack/react-query@5.85.9)(@types/react@19.2.14)(fastestsmallesttextencoderdecoder@1.0.22)(immer@10.2.0)(react-dom@19.2.5)(react@19.2.5)(typescript@5.9.3)(zod@3.25.76)
@@ -1109,6 +1112,15 @@ importers:
         version: 5.9.3
 
   packages/utils:
+    devDependencies:
+      tsup:
+        specifier: ^8.5.1
+        version: 8.5.1(typescript@5.9.3)
+      typescript:
+        specifier: 5.9.3
+        version: 5.9.3
+
+  packages/web3-utils:
     devDependencies:
       tsup:
         specifier: ^8.5.1

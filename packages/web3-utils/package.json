@@ -1,0 +1,51 @@
+{
+    "name": "@dimensiondev/web3-utils",
+    "version": "0.1.28",
+    "description": "Shared Web3 utility functions for Firefly projects",
+    "type": "module",
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "require": "./dist/index.cjs"
+        }
+    },
+    "files": [
+        "dist",
+        "src",
+        "README.md"
+    ],
+    "scripts": {
+        "build": "tsup",
+        "dev": "tsup --watch",
+        "typecheck": "tsc --noEmit",
+        "clean": "rm -rf dist"
+    },
+    "keywords": [
+        "web3",
+        "evm",
+        "solana",
+        "helpers"
+    ],
+    "author": "Firefly Team",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DimensionDev/firefly.mask.social",
+        "directory": "packages/web3-utils"
+    },
+    "publishConfig": {
+        "registry": "https://npm.pkg.github.com",
+        "access": "restricted"
+    },
+    "devDependencies": {
+        "tsup": "^8.5.1",
+        "typescript": "5.9.3"
+    },
+    "peerDependencies": {
+        "typescript": ">=5.0.0"
+    }
+}

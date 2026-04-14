@@ -1,7 +1,7 @@
+import { isNativeTokenOrSameAddress } from '@dimensiondev/web3-utils';
 import { useAtomValue } from 'jotai';
 import { useMemo } from 'react';
 
-import { addressesMatch } from '@/helpers/swap/formatSwapAmount.js';
 import { useSwapTokenDetail } from '@/hooks/swap/useSwapTokenDetail.js';
 import { type DefaultSwapTokenPair, getDefaultSwapToken } from '@/providers/swap/defaultTokens.js';
 import type { SwapToken } from '@/providers/swap/types.js';
@@ -22,10 +22,10 @@ function createFallbackToken(defaults: DefaultSwapTokenPair, side: 'first' | 'se
 // Find a default token that matches the given address
 function findDefaultFallback(defaults: DefaultSwapTokenPair | undefined, address: string): SwapToken | null {
     if (!defaults) return null;
-    if (addressesMatch(address, defaults.first.contractAddress)) {
+    if (isNativeTokenOrSameAddress(address, defaults.first.contractAddress)) {
         return createFallbackToken(defaults, 'first');
     }
-    if (addressesMatch(address, defaults.second.contractAddress)) {
+    if (isNativeTokenOrSameAddress(address, defaults.second.contractAddress)) {
         return createFallbackToken(defaults, 'second');
     }
     return null;

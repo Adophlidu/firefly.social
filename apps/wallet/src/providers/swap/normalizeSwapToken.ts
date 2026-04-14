@@ -1,4 +1,5 @@
-import { addressesMatch } from '@/helpers/swap/formatSwapAmount.js';
+import { isNativeTokenOrSameAddress } from '@dimensiondev/web3-utils';
+
 import { getDefaultSwapToken } from '@/providers/swap/defaultTokens.js';
 import type { SwapToken } from '@/providers/swap/types.js';
 
@@ -21,7 +22,7 @@ function shouldNormalizeNativeTokenName(token: SwapToken, expectedSymbol: string
 export function normalizeSwapToken(token: SwapToken): SwapToken {
     const defaults = getDefaultSwapToken(token.chainId);
     if (!defaults) return token;
-    if (!addressesMatch(token.address, defaults.first.contractAddress)) return token;
+    if (!isNativeTokenOrSameAddress(token.address, defaults.first.contractAddress)) return token;
 
     const normalizedSymbol = defaults.first.symbol;
 
