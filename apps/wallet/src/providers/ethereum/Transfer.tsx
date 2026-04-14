@@ -1,9 +1,12 @@
-import { type Address, type Hash, parseUnits } from 'viem';
+import type { Address, Hash } from 'viem';
+import { encodeFunctionData, parseUnits } from 'viem';
 import type { Config } from 'wagmi';
 import { getAccount, getBalance, getChainId, sendTransaction, writeContract } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmi.js';
 import type { EthereumChainId } from '@/constants/ethereum.js';
+import { isSupportedStablecoin } from '@/helpers/freeGas/isSupportedStablecoin.js';
+import { tryFreeGasTransaction } from '@/helpers/freeGas/tryFreeGasTransaction.js';
 import { getBalanceOf } from '@/helpers/getBalanceOf.js';
 import { getTokenAbiForWagmi } from '@/helpers/getTokenAbiForWagmi.js';
 import { isNativeEvmToken } from '@/helpers/isNativeEvmToken.js';
@@ -11,6 +14,7 @@ import { isGreaterThan, isLessThan, leftShift, minus, multipliedBy, rightShift }
 import { switchEthereumChain } from '@/helpers/switchEthereumChain.js';
 import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
 import { getDefaultGas } from '@/providers/ethereum/getDefaultGas.js';
+import { FreeGasTxType } from '@/providers/types/FreeGas.js';
 import type { Token, TransactionOptions, TransferProvider } from '@/providers/types/Transfer.js';
 
 export class EthereumTransferProvider implements TransferProvider<EthereumChainId, Address, Hash> {
@@ -113,12 +117,35 @@ export class EthereumTransferProvider implements TransferProvider<EthereumChainI
         const { isEIP1559, gasPrice, maxFeePerGas, maxPriorityFeePerGas } = await getDefaultGas(this.config, options);
         const gas = multipliedBy((this.isNativeToken(options.token) ? 21000n : 50000n).toString(), '3').toFixed(0);
 
+        const account = getAccount(this.config);
+        if (!account.address) throw new Error('Wallet not connected');
+
+        const amount = parseUnits(options.amount, options.token.decimals);
+
+        // Try free-gas for stablecoin transfers
+        if (isSupportedStablecoin(options.token.chainId, options.token.id)) {
+            const abi = getTokenAbiForWagmi(options.token.chainId, options.token.id);
+            const calldata = encodeFunctionData({
+                abi,
+                functionName: 'transfer',
+                args: [options.to, amount],
+            });
+            const result = await tryFreeGasTransaction({
+                chainId: options.token.chainId,
+                txType: FreeGasTxType.TokenTransfer,
+                from: account.address,
+                to: options.token.id,
+                data: calldata,
+            });
+            if (result.type === 'free-gas') return result.hash as Address;
+        }
+
         const parameters = {
             chainId: options.token.chainId,
             address: options.token.id,
             abi: getTokenAbiForWagmi(options.token.chainId, options.token.id),
             functionName: 'transfer',
-            args: [options.to, parseUnits(options.amount, options.token.decimals)],
+            args: [options.to, amount],
             gas: BigInt(gas),
         } as const;
 

@@ -45,6 +45,7 @@ import {
     type WalletProfileResponse,
     type WalletProfiles,
 } from '@/providers/types/Firefly.js';
+import type { FreeGasRequestBody, FreeGasResponse } from '@/providers/types/FreeGas.js';
 
 export class FireflyEndpoint extends Fetch {
     async getMultiChainTokenList(addresses: string[], chains: number[]) {
@@ -467,6 +468,16 @@ export class FireflyEndpoint extends Fetch {
             amount,
             hash,
         });
+        return resolveFireflyResponseData(result.data);
+    }
+
+    async submitFreeGasTransaction(body: FreeGasRequestBody) {
+        const result = await this.post<Response<FreeGasResponse>>('/v1/privy/tx/free-gas', body);
+        return resolveFireflyResponseData(result.data);
+    }
+
+    async checkFreeGasEligibility(body: { chainId: number; txType: string; tx: { to: string } }) {
+        const result = await this.post<Response<boolean>>('/v1/privy/tx/free-gas/check', body);
         return resolveFireflyResponseData(result.data);
     }
 

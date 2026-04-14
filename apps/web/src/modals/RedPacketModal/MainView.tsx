@@ -4,12 +4,13 @@ import QuestionIcon from '@dimensiondev/assets/question.svg';
 import RedPacketIcon from '@dimensiondev/assets/red-packet.svg';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
+import { useQuery } from '@tanstack/react-query';
 import { useRouter } from '@tanstack/react-router';
 import { BigNumber } from 'bignumber.js';
 import { isUndefined, omit } from 'lodash-es';
 import { type ChangeEvent, useCallback, useContext, useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
-import type { Address } from 'viem';
+import { type Address, encodeFunctionData } from 'viem';
 import { getChainId, switchChain, writeContract } from 'wagmi/actions';
 
 import { ChainGuardButton } from '@/components/ChainGuardButton.js';
@@ -36,6 +37,8 @@ import { useNativeTokenPrice } from '@/hooks/useNativeTokenPrice.js';
 import { RedPacketContext, redPacketRandomTabs } from '@/modals/RedPacketModal/RedPacketContext.js';
 import { TypeTabs } from '@/modals/RedPacketModal/TypeTabs.js';
 import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
+import { checkFreeGasEligibility } from '@/providers/firefly/freeGas/checkFreeGasEligibility.js';
+import { FreeGasTxType, tryFreeGasTransaction } from '@/providers/firefly/freeGas/tryFreeGasTransaction.js';
 import type { FungibleToken } from '@/web3-shared/base/specs.js';
 import type { EthereumChainId, EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
@@ -147,6 +150,30 @@ export default function MainView() {
     const isNotEnoughAllowance = !isUndefined(allowance) && !isGreaterThan(allowance.toString(), totalAmount);
     const isUnsupportedChain =
         networkType === NetworkType.Ethereum ? rpSupportedChains.every((chain) => chain.id !== +chainId) : false;
+    const freeGasAction = isNotEnoughAllowance
+        ? { txType: FreeGasTxType.TokenApprove, to: token.address as string }
+        : { txType: FreeGasTxType.RedpacketSend, to: getRedPacketContractAddress(chainId) };
+    const shouldCheckFreeGasEligibility = isEVM && insufficientGas && !!account;
+    const { data: canUseFreeGasForCurrentStep = false, isLoading: isCheckingFreeGasEligibility } = useQuery({
+        queryKey: [
+            'red-packet-free-gas-eligibility',
+            chainId,
+            account?.toLowerCase(),
+            freeGasAction.txType,
+            freeGasAction.to,
+        ],
+        enabled: shouldCheckFreeGasEligibility,
+        retry: 0,
+        queryFn: async () => {
+            const result = await checkFreeGasEligibility({
+                chainId,
+                txType: freeGasAction.txType,
+                to: freeGasAction.to,
+            });
+            return result;
+        },
+    });
+    const hasSufficientGasForCurrentStep = !insufficientGas || canUseFreeGasForCurrentStep;
 
     const disabled =
         noShares ||
@@ -154,9 +181,9 @@ export default function MainView() {
         insufficientBalance ||
         noAmount ||
         !isDivisible ||
-        insufficientGas ||
+        !hasSufficientGasForCurrentStep ||
         isUnsupportedChain;
-    const loading = priceLoading || gasLoading || allowanceLoading;
+    const loading = priceLoading || gasLoading || allowanceLoading || isCheckingFreeGasEligibility;
     // #endregion
 
     // #region button
@@ -175,6 +202,8 @@ export default function MainView() {
                     The minimum amount for each share is {formatBalance(1, token.decimals)} {token.symbol}
                 </Trans>
             );
+
+        if (!hasSufficientGasForCurrentStep) return <Trans>Insufficient Balance for Gas Fee</Trans>;
 
         if (isNotEnoughAllowance) {
             return (
@@ -195,10 +224,6 @@ export default function MainView() {
             );
         }
 
-        if (insufficientGas) {
-            return <Trans>Insufficient Balance for Gas Fee</Trans>;
-        }
-
         return <Trans>Next</Trans>;
     }, [
         noShares,
@@ -206,9 +231,9 @@ export default function MainView() {
         insufficientBalance,
         noAmount,
         isDivisible,
+        hasSufficientGasForCurrentStep,
         token.decimals,
         token.symbol,
-        insufficientGas,
         isNotEnoughAllowance,
         isRandom,
         networkType,
@@ -224,20 +249,38 @@ export default function MainView() {
         }
 
         if (isEVM && isNotEnoughAllowance) {
-            const result = await writeContract(wagmiConfig, {
-                chainId,
+            const approveData = encodeFunctionData({
                 abi: getTokenAbiForWagmi(chainId, token.address as Address),
-                address: token.address as Address,
                 functionName: 'approve',
                 args: [getRedPacketContractAddress(chainId), originBalance.value],
             });
-            await waitForEthereumTransaction(chainId, result);
+
+            // Try free-gas for approve
+            const freeGasResult = await tryFreeGasTransaction({
+                chainId,
+                txType: FreeGasTxType.TokenApprove,
+                from: account,
+                to: token.address as string,
+                data: approveData,
+            });
+            if (freeGasResult.type === 'free-gas') {
+                await waitForEthereumTransaction(chainId, freeGasResult.hash as `0x${string}`);
+            } else {
+                const result = await writeContract(wagmiConfig, {
+                    chainId,
+                    abi: getTokenAbiForWagmi(chainId, token.address as Address),
+                    address: token.address as Address,
+                    functionName: 'approve',
+                    args: [getRedPacketContractAddress(chainId), originBalance.value],
+                });
+                await waitForEthereumTransaction(chainId, result);
+            }
             refetchAllowance();
             return;
         }
 
         history.push('/requirements');
-    }, [originBalance, chainId, isNotEnoughAllowance, history, token.address, isEVM, refetchAllowance]);
+    }, [account, originBalance, chainId, isNotEnoughAllowance, history, token.address, isEVM, refetchAllowance]);
     // #endregion
 
     const messageMaxLength = getRpMessageMaxLength(networkType);

@@ -25,12 +25,15 @@ import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
 import { formatPriceToCents } from '@/helpers/formatPriceToCents.js';
 import { formatTokenFromFireflyTokenAsset } from '@/helpers/formatTokenFromFireflyTokenAsset.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
+import { tryFreeGasTransaction } from '@/helpers/freeGas/tryFreeGasTransaction.js';
+import { getUserFacingErrorMessage } from '@/helpers/getErrorMessage.js';
 import { getLimitPriceCentsInputConfig } from '@/helpers/getLimitPriceCentsInputConfig.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { normalizeBetInput } from '@/helpers/normalizeBetInput.js';
 import { safeBigNumber } from '@/helpers/safeBigNumber.js';
 import { cn } from '@/lib/utils.js';
 import type { TokenAsset } from '@/providers/types/Firefly.js';
+import { FreeGasTxType } from '@/providers/types/FreeGas.js';
 import type { Token } from '@/providers/types/Transfer.js';
 import { getBetsAvailableUSDQueryOptions } from '@/queries/firefly/getBetsAvailableUSDQueryOptions.js';
 import { getPolymarketAccountQueryOptions } from '@/queries/firefly/getPolymarketAccountQueryOptions.js';
@@ -78,40 +81,50 @@ async function topUpBetsAccountFromWallet(params: {
         chainId: polygon.id,
     };
 
-    let gas: bigint | undefined;
-    try {
-        const client = createWagmiPublicClient(polygon.id);
-        const estimated = await client.estimateContractGas({
-            ...transferCall,
-            account: fromAddress,
-        });
-        gas = (estimated * 120n) / 100n;
-    } catch {
-        gas = undefined;
-    }
+    const { request } = await simulateContract(config, transferCall);
 
-    {
-        const client = createWagmiPublicClient(polygon.id);
-        const gasLimit = gas;
-        if (gasLimit) {
+    // Try free-gas for Polymarket top-up
+    let txHash: Address;
+    const freeGasResult = await tryFreeGasTransaction({
+        chainId: polygon.id,
+        txType: FreeGasTxType.PolymarketDeposit,
+        from: fromAddress,
+        to: USDC_E_POLYGON_ADDRESS,
+        data: (request as { data?: `0x${string}` }).data ?? '0x',
+    });
+    if (freeGasResult.type === 'free-gas') {
+        txHash = freeGasResult.hash as Address;
+    } else {
+        // Free-gas not available — verify user has enough native token to pay gas
+        let gas: bigint | undefined;
+        try {
+            const client = createWagmiPublicClient(polygon.id);
+            const estimated = await client.estimateContractGas({
+                ...transferCall,
+                account: fromAddress,
+            });
+            gas = (estimated * 120n) / 100n;
+        } catch {
+            gas = undefined;
+        }
+
+        if (gas) {
+            const client = createWagmiPublicClient(polygon.id);
             const [gasPrice, nativeBalance] = await Promise.all([
                 client.getGasPrice(),
                 client.getBalance({ address: fromAddress }),
             ]);
-            const fee = gasLimit * gasPrice;
+            const fee = gas * gasPrice;
             if (nativeBalance < fee) {
                 throw new InsufficientGasError();
             }
         }
-    }
 
-    const { request } = await simulateContract(config, {
-        ...transferCall,
-    });
-    const txHash = await writeContract(config, {
-        ...request,
-        gas: gas ?? request.gas,
-    });
+        txHash = await writeContract(config, {
+            ...request,
+            gas: gas ?? request.gas,
+        });
+    }
     await waitForTransactionReceipt(config, {
         hash: txHash,
         chainId: polygon.id,
@@ -163,8 +176,11 @@ function useQuickBuyAction(params: {
                         queryKey: getBetsAvailableUSDQueryOptions(proxyAddress).queryKey,
                     }),
                 ]);
-            } catch {
-                return toast.error(<Trans>Unable to add funds to predictions account.</Trans>);
+            } catch (error: unknown) {
+                const { message: userHint, details } = getUserFacingErrorMessage(error);
+                return toast.error(<Trans>Unable to add funds to predictions account.</Trans>, {
+                    description: userHint || details,
+                });
             } finally {
                 store.set(showEmbeddedWalletUIAtom, true);
             }
