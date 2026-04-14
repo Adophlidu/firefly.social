@@ -1,10 +1,10 @@
 import { classNames } from '@dimensiondev/utils';
+import { isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3-utils';
 import { Popover, PopoverButton, PopoverPanel, Transition } from '@headlessui/react';
 import { Fragment, type PropsWithChildren, type ReactNode } from 'react';
 
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
-import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { isValidDomainEthereum } from '@/helpers/isValidDomain.js';
 import { useEnsName } from '@/hooks/useEnsName.js';
 

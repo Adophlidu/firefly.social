@@ -1,10 +1,10 @@
+import { ETH_ZERO_ADDRESS } from '@dimensiondev/web3-utils';
 import { compact } from 'lodash-es';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { readChars } from '@/helpers/chars.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
-import { ETH_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';
 import { resolveMediaObjectUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import type { CompositePost } from '@/types/compose.js';

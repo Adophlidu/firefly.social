@@ -1,4 +1,5 @@
-import { isSameAddress } from '@/helpers/isSameAddress.js';
+import { isSameAddress } from '@dimensiondev/web3-utils';
+
 import { getTokenPrices } from '@/providers/coingecko/getTokenPrices.js';
 
 export async function getTokenPriceByAddress(platform_id: string, address: string) {

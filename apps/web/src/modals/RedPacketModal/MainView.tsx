@@ -2,6 +2,7 @@
 
 import QuestionIcon from '@dimensiondev/assets/question.svg';
 import RedPacketIcon from '@dimensiondev/assets/red-packet.svg';
+import { getTokenAbiForWagmi } from '@dimensiondev/web3-utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
@@ -27,7 +28,6 @@ import { createAccount } from '@/helpers/createAccount.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { getNativeToken } from '@/helpers/getNativeToken.js';
 import { getRpMaxShares, getRpMessageMaxLength } from '@/helpers/getRpLimitations.js';
-import { getTokenAbiForWagmi } from '@/helpers/getTokenAbiForWagmi.js';
 import { isGreaterThan, isLessThan, isZero, leftShift, multipliedBy, rightShift, ZERO } from '@/helpers/number.js';
 import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
 import { useAvailableBalance } from '@/hooks/useAvailableBalance.js';

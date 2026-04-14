@@ -1,9 +1,9 @@
+import { isSameEthereumAddress } from '@dimensiondev/web3-utils';
 import { useQuery } from '@tanstack/react-query';
 import { memo } from 'react';
 
 import { formatPolymarketNumber } from '@/components/Polymarket/formatPolymarketNumber.js';
 import { STALE_TIMES } from '@/constants/query.js';
-import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { getVolumeTraded } from '@/providers/prediction/polymarket/getVolumeTraded.js';
 
 interface PolymarketVolumeTradedProps {

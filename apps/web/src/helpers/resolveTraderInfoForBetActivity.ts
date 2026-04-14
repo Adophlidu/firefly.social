@@ -1,10 +1,10 @@
 import { runInSafe } from '@dimensiondev/utils';
+import { isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3-utils';
 import { first } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
-import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { resolveSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { resolveWatchTypeToSource } from '@/helpers/resolveWatchTypeToSource.js';
 import type { BetsActivity } from '@/providers/types/Firefly.js';

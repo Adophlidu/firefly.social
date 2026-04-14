@@ -1,3 +1,4 @@
+import { isSameEthereumAddress } from '@dimensiondev/web3-utils';
 import { Trans } from '@lingui/react/macro';
 import { type Ref, useCallback, useMemo } from 'react';
 
@@ -7,7 +8,6 @@ import { NetworkType, Source } from '@/constants/enum.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { getEnsNameFromWalletProfile } from '@/helpers/getEnsNameFromWalletProfile.js';
-import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { TipsModalRefType } from '@/modals/TipsModal/refs.js';
 import type { FireflyProfile, FireflyTipsProfile, Profile, WalletProfile } from '@/providers/types/Firefly.js';

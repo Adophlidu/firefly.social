@@ -1,4 +1,5 @@
 import SwapLoadingIcon from '@dimensiondev/assets/swap-loading.svg';
+import { isNativeTokenAddress } from '@dimensiondev/web3-utils';
 import { Trans } from '@lingui/react/macro';
 import { useAtomValue } from 'jotai';
 import { memo, type ReactNode, useMemo } from 'react';
@@ -53,10 +54,7 @@ export const SwapActionButton = memo(function SwapActionButton({
     const isInsufficientGas = useMemo(() => {
         if (!quote || !('gasEstimate' in quote) || !quote.gasEstimate || !fromToken) return false;
         // For native tokens (ETH, SOL, etc.), check if balance minus swap amount covers gas
-        if (
-            fromToken.address.toLowerCase() === '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee' ||
-            fromToken.address === 'So11111111111111111111111111111111111111112'
-        ) {
+        if (isNativeTokenAddress(fromToken.address)) {
             const balanceNum = parseFloat(fromBalance || '0');
             const amountNum = parseFloat(fromAmount || '0');
             const gasEstimate = parseFloat(quote.gasEstimate);

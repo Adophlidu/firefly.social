@@ -1,9 +1,8 @@
+import { getTokenAbiForWagmi, isZeroAddressEthereum } from '@dimensiondev/web3-utils';
 import { useQuery } from '@tanstack/react-query';
 import { readContract } from 'wagmi/actions';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
-import { getTokenAbiForWagmi } from '@/helpers/getTokenAbiForWagmi.js';
-import { isZeroAddressEthereum } from '@/helpers/isZeroAddress.js';
 import { type ChainContextOverrides, useChainContext } from '@/hooks/useChainContext.js';
 
 export function useERC20TokenAllowance(

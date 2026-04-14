@@ -7,10 +7,10 @@ import {
     type Pageable,
     type PageIndicator,
 } from '@dimensiondev/utils';
+import { isSameEthereumAddress } from '@dimensiondev/web3-utils';
 import { GroupsOrderBy, PageSize } from '@lens-protocol/client';
 import { fetchGroups } from '@lens-protocol/client/actions';
 
-import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { ensureCursor } from '@/providers/lens/ensureCursor.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { formatLensChannelFromGroup } from '@/providers/lens/formatLensChannel.js';

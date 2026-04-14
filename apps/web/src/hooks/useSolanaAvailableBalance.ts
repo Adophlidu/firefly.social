@@ -1,11 +1,11 @@
 import { runInSafeAsync } from '@dimensiondev/utils';
+import { isZeroAddressSolana } from '@dimensiondev/web3-utils';
 import { useQuery } from '@tanstack/react-query';
 import type BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
 import { STALE_TIMES } from '@/constants/query.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
-import { isZeroAddressSolana } from '@/helpers/isZeroAddress.js';
 import { isGreaterThan } from '@/helpers/number.js';
 import { type ChainContextOverrides, useChainContext } from '@/hooks/useChainContext.js';
 import { getNativeTokenBalance, getSplTokenBalance } from '@/providers/solana/getTokenBalance.js';

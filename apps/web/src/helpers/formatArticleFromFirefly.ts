@@ -1,9 +1,9 @@
+import { isSameEthereumAddress } from '@dimensiondev/web3-utils';
 import { first } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { MATTERS_ARTICLE_URL } from '@/constants/matters.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
-import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { parseParagraphHtml } from '@/helpers/parseParagraphHtml.js';
 import { type Article, ArticlePlatform, ArticleType } from '@/providers/types/Article.js';
 import { type Article as FireflyArticle, WatchType } from '@/providers/types/Firefly.js';

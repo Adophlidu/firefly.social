@@ -1,6 +1,6 @@
+import { isValidAddressEthereum } from '@dimensiondev/web3-utils';
 import { useQuery } from '@tanstack/react-query';
 
-import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { getNFTDetail } from '@/providers/firefly/nft/getNFTDetail.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
 

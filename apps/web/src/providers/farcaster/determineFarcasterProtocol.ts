@@ -1,5 +1,6 @@
+import { isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3-utils';
+
 import { Protocol } from '@/constants/farcaster.js';
-import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
 
 export function determineFarcasterProtocol(address: string): Protocol {
     if (isValidAddressEthereum(address)) return Protocol.ETHEREUM;

@@ -1,6 +1,5 @@
 import { safeUnreachable } from '@dimensiondev/utils';
-
-import { isSameEthereumAddress, isSameSolanaAddress } from '@/helpers/isSameAddress.js';
+import { isSameEthereumAddress, isSameSolanaAddress } from '@dimensiondev/web3-utils';
 
 export function isSameConnectionAddress(platform: 'eth' | 'solana', address: string, otherAddress: string) {
     switch (platform) {

@@ -1,10 +1,10 @@
 import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@dimensiondev/utils';
+import { isSameEthereumAddress } from '@dimensiondev/web3-utils';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { VITALIK_ADDRESS } from '@/constants/static.js';
 import { formatArticleFromFirefly } from '@/helpers/formatArticleFromFirefly.js';
-import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { isZero } from '@/helpers/number.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';

@@ -1,5 +1,6 @@
 import { web3 } from '@coral-xyz/anchor';
 import { envs, STATUS } from '@dimensiondev/envs';
+import { isZeroAddressSolana } from '@dimensiondev/web3-utils';
 import { t } from '@lingui/core/macro';
 import { BigNumber } from 'bignumber.js';
 import { omit, pick } from 'lodash-es';
@@ -17,7 +18,6 @@ import {
 import { SITE_URL } from '@/constants/static.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getRpMaxShares } from '@/helpers/getRpLimitations.js';
-import { isZeroAddressSolana } from '@/helpers/isZeroAddress.js';
 import { rightShift, toFixed } from '@/helpers/number.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import RedPacketIDL from '@/idls/redpacket.json' with { type: 'json' };

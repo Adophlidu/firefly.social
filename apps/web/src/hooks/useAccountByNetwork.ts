@@ -1,6 +1,7 @@
 'use client';
 
 import { unreachable } from '@dimensiondev/utils';
+import { isSameSolanaAddress } from '@dimensiondev/web3-utils';
 import { useAppKitAccount } from '@reown/appkit/react';
 import { useAppKitConnection } from '@reown/appkit-adapter-solana/react';
 import { first } from 'lodash-es';
@@ -8,7 +9,6 @@ import { useMemo } from 'react';
 import { useConnection } from 'wagmi';
 
 import { NetworkType, SolanaNetworkType } from '@/constants/enum.js';
-import { isSameSolanaAddress } from '@/helpers/isSameAddress.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/refs.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 import { SolanaChainId } from '@/web3-shared/solana/types.js';

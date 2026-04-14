@@ -1,14 +1,14 @@
+import { getTokenAbiForWagmi } from '@dimensiondev/web3-utils';
 import { type Address, type Hash, parseUnits } from 'viem';
 import { getBalance, sendTransaction, writeContract } from 'wagmi/actions';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
-import { getTokenAbiForWagmi } from '@/helpers/getTokenAbiForWagmi.js';
 import { isGreaterThan, isLessThan, leftShift, multipliedBy, rightShift } from '@/helpers/number.js';
 import { switchEthereumChain } from '@/helpers/switchEthereumChain.js';
 import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
 import { getAvailableBalance } from '@/providers/ethereum/getAvailableBalance.js';
 import { getDefaultGas } from '@/providers/ethereum/getDefaultGas.js';
-import { isNativeToken } from '@/providers/ethereum/isNativeToken.js';
+import { isNativeTokenDebank } from '@/providers/ethereum/isNativeTokenDebank.js';
 import { EthereumNetwork } from '@/providers/ethereum/Network.js';
 import type { Token, TransactionOptions, TransferProvider } from '@/providers/types/Transfer.js';
 import type { EthereumChainId } from '@/web3-shared/evm/types.js';
@@ -28,7 +28,7 @@ class Provider implements TransferProvider<EthereumChainId, Address, Hash> {
     }
 
     isNativeToken(token: Token): boolean {
-        return isNativeToken(token);
+        return isNativeTokenDebank(token);
     }
 
     async validateBalance(options: TransactionOptions<EthereumChainId, Address>): Promise<boolean> {

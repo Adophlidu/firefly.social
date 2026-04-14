@@ -5,6 +5,7 @@ import ScanIcon from '@dimensiondev/assets/scan.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { envs, STATUS } from '@dimensiondev/envs';
 import { AbortError, ForbiddenError, runInSafeAsync } from '@dimensiondev/utils';
+import { isSameEthereumAddress } from '@dimensiondev/web3-utils';
 import { lastLoggedInAccount } from '@lens-protocol/client/actions';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
@@ -29,7 +30,6 @@ import {
     enqueueWarningMessage,
 } from '@/helpers/enqueueMessage.js';
 import { getProfilesFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
-import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAbortController } from '@/hooks/useAbortController.js';

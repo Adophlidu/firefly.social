@@ -1,5 +1,5 @@
-import { isValidAddress } from '@/helpers/isValidAddress.js';
-import { isZeroAddress } from '@/helpers/isZeroAddress.js';
+import { isValidAddress, isZeroAddress } from '@dimensiondev/web3-utils';
+
 import type { Profile as FireflyProfile } from '@/providers/types/Firefly.js';
 
 /**

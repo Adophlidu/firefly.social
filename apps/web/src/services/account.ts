@@ -1,4 +1,5 @@
 import { runInSafe, runInSafeAsync, safeUnreachable } from '@dimensiondev/utils';
+import { isSameEthereumAddress } from '@dimensiondev/web3-utils';
 import { compact, first } from 'lodash-es';
 import { signOut } from 'next-auth/react';
 
@@ -13,7 +14,6 @@ import { getAllProfiles } from '@/helpers/getAllProfiles.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { isSameAccount } from '@/helpers/isSameAccount.js';
-import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { isSameSession } from '@/helpers/isSameSession.js';
 import { queryMyAllConnections } from '@/helpers/queryMyAllConnections.js';

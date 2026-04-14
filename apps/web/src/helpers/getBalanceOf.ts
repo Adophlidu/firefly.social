@@ -1,8 +1,8 @@
+import { isZeroAddress } from '@dimensiondev/web3-utils';
 import { type Address, erc20Abi } from 'viem';
 import { getBalance, multicall } from 'wagmi/actions';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
-import { isZeroAddress } from '@/helpers/isZeroAddress.js';
 
 export async function getBalanceOf(chainId: number, account: string, address?: string) {
     if (!address || isZeroAddress(address)) {

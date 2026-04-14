@@ -1,8 +1,8 @@
+import { isValidAddressEthereum } from '@dimensiondev/web3-utils';
 import urlcat from 'urlcat';
 
 import { SourceInURL } from '@/constants/enum.js';
 import { MATTERS_SITE_URL } from '@/constants/matters.js';
-import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
 
 export function getArticleAuthorUrl(article: Article): string {

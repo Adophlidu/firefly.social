@@ -1,7 +1,7 @@
+import { isSameAddress } from '@dimensiondev/web3-utils';
 import { queryOptions } from '@tanstack/react-query';
 import type { Address } from 'viem';
 
-import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { polymarketDataEndpoint } from '@/providers/polymarket/dataApi.js';
 
 export function getPolymarketUserValueQueryOptions(user: Address) {

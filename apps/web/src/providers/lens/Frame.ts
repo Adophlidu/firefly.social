@@ -1,10 +1,10 @@
+import { ETH_ZERO_ADDRESS } from '@dimensiondev/web3-utils';
 import { postId as formatPostId } from '@lens-protocol/client';
 import { signFrameAction } from '@lens-protocol/client/actions';
 import dayjs from 'dayjs';
 
 import { FIREFLY_LENS_V3_APP } from '@/constants/static.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
-import { ETH_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';
 import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { ensureLensResultSync } from '@/providers/lens/ensureLensResultSync.js';

@@ -1,13 +1,16 @@
 import { getEnumAsArray } from '@dimensiondev/utils';
+import {
+    isSameAddress,
+    isValidAddressEthereum,
+    isZeroAddressEthereum,
+    isZeroAddressSolana,
+} from '@dimensiondev/web3-utils';
 import urlcat from 'urlcat';
 
 import { EthereumChainId } from '@/constants/ethereum.js';
 import { SolanaChainId } from '@/constants/solana.js';
 import { COINGECKO_ROOT_URL } from '@/constants/static.js';
-import { isSameAddress } from '@/helpers/isSameAddress.js';
-import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { isValidChainIdSolana } from '@/helpers/isValidChainId.js';
-import { isZeroAddressEthereum, isZeroAddressSolana } from '@/helpers/isZeroAddress.js';
 import { Fetch } from '@/lib/Fetch.js';
 import type { Price } from '@/providers/coingecko/types.js';
 

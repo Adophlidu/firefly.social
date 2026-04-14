@@ -2,6 +2,7 @@
 
 import SearchIcon from '@dimensiondev/assets/search.svg';
 import { classNames } from '@dimensiondev/utils';
+import { isValidAddress } from '@dimensiondev/web3-utils';
 import { Trans } from '@lingui/react/macro';
 import { useDebounceValue } from 'usehooks-ts';
 
@@ -14,7 +15,6 @@ import { SuggestTokenList } from '@/components/Search/SuggestTokenList.js';
 import { PageRoute, SearchType, type Source } from '@/constants/enum.js';
 import { usePathname } from '@/esm/navigation.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
-import { isValidAddress } from '@/helpers/isValidAddress.js';
 import { resolveSearchTypeFromQuery } from '@/helpers/resolveSearchTypeFromQuery.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import { resolveSearchUrlType, SearchUrlKind } from '@/helpers/resolveSearchUrlType.js';

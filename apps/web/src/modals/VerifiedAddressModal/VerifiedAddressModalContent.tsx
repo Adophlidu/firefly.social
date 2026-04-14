@@ -3,6 +3,7 @@
 import EvmIcon from '@dimensiondev/assets/evm.svg';
 import SolanaIcon from '@dimensiondev/assets/solana.svg';
 import { safeUnreachable } from '@dimensiondev/utils';
+import { isSameAddress, isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3-utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -20,8 +21,6 @@ import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMes
 import { getSessionsFromStorageBySource } from '@/helpers/getSessionFromStorage.js';
 import { getWagmiCurrentConnectionId } from '@/helpers/getWagmiCurrentConnectionId.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
-import { isSameAddress } from '@/helpers/isSameAddress.js';
-import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { updateCacheAfterAdd, updateCacheAfterDelete } from '@/helpers/updateVerifiedAddressesCache.js';
 import { WalletItem } from '@/modals/VerifiedAddressModal/WalletItem.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/refs.js';

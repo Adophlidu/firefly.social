@@ -1,4 +1,4 @@
-import { isSameAddress } from '@/helpers/isSameAddress.js';
+import { isSameAddress } from '@dimensiondev/web3-utils';
 
 const STABLECOIN_ADDRESSES: Record<number, { usdt: string; usdc: string }> = {
     1: {

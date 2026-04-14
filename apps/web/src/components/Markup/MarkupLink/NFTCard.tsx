@@ -1,11 +1,11 @@
 'use client';
 
+import { ETH_ZERO_ADDRESS } from '@dimensiondev/web3-utils';
 import { memo } from 'react';
 
 import { Link } from '@/components/Link.js';
 import { Loading } from '@/components/Loading.js';
 import { NFTImage } from '@/components/NFTImage.js';
-import { ETH_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';
 import { useNFTDetail } from '@/hooks/useNFTDetail.js';
 
 interface NFTCardProps {

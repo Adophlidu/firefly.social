@@ -1,3 +1,4 @@
+import { getTokenAbiForWagmi } from '@dimensiondev/web3-utils';
 import type { Address, Hash } from 'viem';
 import { encodeFunctionData, parseUnits } from 'viem';
 import type { Config } from 'wagmi';
@@ -8,7 +9,6 @@ import type { EthereumChainId } from '@/constants/ethereum.js';
 import { isSupportedStablecoin } from '@/helpers/freeGas/isSupportedStablecoin.js';
 import { tryFreeGasTransaction } from '@/helpers/freeGas/tryFreeGasTransaction.js';
 import { getBalanceOf } from '@/helpers/getBalanceOf.js';
-import { getTokenAbiForWagmi } from '@/helpers/getTokenAbiForWagmi.js';
 import { isNativeEvmToken } from '@/helpers/isNativeEvmToken.js';
 import { isGreaterThan, isLessThan, leftShift, minus, multipliedBy, rightShift } from '@/helpers/number.js';
 import { switchEthereumChain } from '@/helpers/switchEthereumChain.js';

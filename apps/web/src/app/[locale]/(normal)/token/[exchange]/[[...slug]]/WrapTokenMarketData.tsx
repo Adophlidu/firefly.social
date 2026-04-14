@@ -1,5 +1,6 @@
 'use client';
 
+import { isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3-utils';
 import { useQuery } from '@tanstack/react-query';
 import { memo, useContext, useMemo } from 'react';
 
@@ -7,7 +8,6 @@ import { useUpdateContractParams } from '@/app/[locale]/(normal)/token/[exchange
 import { TokenContext } from '@/components/Token/TokenContext.js';
 import { TokenMarketData, type TokenMarketDataProps } from '@/components/TokenProfile/TokenMarketData.js';
 import { usePathname, useRouter, useSearchParams } from '@/esm/navigation.js';
-import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
 import { getFollowingTraderCount } from '@/providers/firefly/endpoint/getFollowingTraderCount.js';
 

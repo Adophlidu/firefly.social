@@ -1,12 +1,12 @@
+import { getTokenAbiForWagmi } from '@dimensiondev/web3-utils';
 import { BigNumber } from 'bignumber.js';
 import { type Address, parseUnits } from 'viem';
 import { estimateFeesPerGas } from 'wagmi/actions';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
-import { getTokenAbiForWagmi } from '@/helpers/getTokenAbiForWagmi.js';
 import { multipliedBy, toFixed, ZERO } from '@/helpers/number.js';
-import { isNativeToken } from '@/providers/ethereum/isNativeToken.js';
+import { isNativeTokenDebank } from '@/providers/ethereum/isNativeTokenDebank.js';
 import { EthereumNetwork } from '@/providers/ethereum/Network.js';
 import type { GetDefaultGasOptions } from '@/providers/types/Transfer.js';
 import { EVMChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
@@ -58,7 +58,7 @@ export async function getDefaultGas({ token, to, amount }: GetDefaultGasOptions<
         chainId: token.chainId,
         type: isEIP1559 ? 'eip1559' : 'legacy',
     });
-    const isNative = isNativeToken(token);
+    const isNative = isNativeTokenDebank(token);
     const parameters = { chainId: token.chainId, address: token.id, decimals: token.decimals };
     let gasLimit: bigint;
     try {

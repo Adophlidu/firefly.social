@@ -1,11 +1,11 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { isSameAddress } from '@dimensiondev/web3-utils';
 import { queryOptions } from '@tanstack/react-query';
 import type { Address } from 'viem';
 import { polygon } from 'viem/chains';
 
 import { USDC_E_POLYGON_ADDRESS } from '@/constants/ethereum.js';
 import { formatTokenFromFireflyTokenAsset } from '@/helpers/formatTokenFromFireflyTokenAsset.js';
-import { isSameAddress } from '@/helpers/isSameAddress.js';
 import type { TokenAsset } from '@/providers/types/Firefly.js';
 import { getMultiChainTokensQuery } from '@/queries/firefly/multiChainTokens.js';
 

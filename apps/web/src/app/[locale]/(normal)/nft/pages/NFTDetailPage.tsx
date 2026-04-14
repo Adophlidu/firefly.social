@@ -1,6 +1,7 @@
 'use client';
 
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { isSameEthereumAddress } from '@dimensiondev/web3-utils';
 
 import { PoapDetailPage } from '@/app/[locale]/(normal)/nft/pages/PoapDetailPage.js';
 import { Loading } from '@/components/Loading.js';
@@ -10,7 +11,6 @@ import { NFTProperties } from '@/components/NFTDetail/NFTProperties.js';
 import { NFTNavbar } from '@/components/NFTs/NFTNavbar.js';
 import { POAP_CONTRACT_ADDRESS } from '@/constants/static.js';
 import { notFound } from '@/esm/navigation.js';
-import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { useNFTDetail } from '@/hooks/useNFTDetail.js';
 import { ErcType } from '@/providers/nftscan/types.js';
 import { EthereumChainId, EthereumSchemaType } from '@/web3-shared/evm/types.js';

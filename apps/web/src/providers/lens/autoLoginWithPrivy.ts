@@ -1,7 +1,7 @@
 import { SeverityError } from '@dimensiondev/utils';
+import { isSameEthereumAddress } from '@dimensiondev/web3-utils';
 
 import { ensureCreatedFireflyWallet } from '@/helpers/ensureCreatedFireflyWallet.js';
-import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { signMessageWithPrivy } from '@/providers/firefly/endpoint/signMessageWithPrivy.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { createLensSession } from '@/providers/lens/createLensSession.js';

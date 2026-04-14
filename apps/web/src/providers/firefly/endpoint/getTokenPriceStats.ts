@@ -1,8 +1,8 @@
+import { isZeroAddressEthereum } from '@dimensiondev/web3-utils';
 import { sortBy } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { NATIVE_TOKEN_ADDRESS } from '@/constants/okx.js';
-import { isZeroAddressEthereum } from '@/helpers/isZeroAddress.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { TokenPriceStatsOptions, TokenPriceStatsResponse } from '@/providers/types/Firefly.js';

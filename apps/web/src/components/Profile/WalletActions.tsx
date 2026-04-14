@@ -1,6 +1,7 @@
 'use client';
 
 import { safeUnreachable } from '@dimensiondev/utils';
+import { isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3-utils';
 import { Trans } from '@lingui/react/macro';
 import urlcat from 'urlcat';
 
@@ -12,7 +13,6 @@ import { WatchButton } from '@/components/Profile/WatchButton.js';
 import { NetworkType, Source } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/static.js';
 import { isMPCWallet } from '@/helpers/isMPCWallet.js';
-import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';

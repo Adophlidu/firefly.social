@@ -1,6 +1,6 @@
 import { isValidEnumValue } from '@dimensiondev/utils';
+import { isValidAddressEthereum } from '@dimensiondev/web3-utils';
 
-import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { ChainId } from '@/types/frame.js';
 
 export function parseCAIP10(caip10: string) {

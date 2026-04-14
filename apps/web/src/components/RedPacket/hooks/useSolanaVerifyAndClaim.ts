@@ -1,4 +1,5 @@
 import { web3 } from '@coral-xyz/anchor';
+import { isZeroAddressSolana } from '@dimensiondev/web3-utils';
 import { t } from '@lingui/core/macro';
 import { useAsyncFn } from 'react-use';
 
@@ -7,7 +8,6 @@ import { queryClient } from '@/configs/queryClient.js';
 import { NetworkType, type SocialSource } from '@/constants/enum.js';
 import { enqueueErrorMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
-import { isZeroAddressSolana } from '@/helpers/isZeroAddress.js';
 import { usePrivyAppkitAccountByNetwork } from '@/hooks/appkit/usePrivyAppkitAccountByNetwork.js';
 import { signClaimMessage } from '@/providers/ethereum/signClaimMessage.js';
 import { claimWithNativeToken } from '@/providers/solana/red-packet/claimWithNativeToken.js';

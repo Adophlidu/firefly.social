@@ -1,7 +1,7 @@
 import { web3 } from '@coral-xyz/anchor';
+import { isSameAddress } from '@dimensiondev/web3-utils';
 import { TOKEN_2022_PROGRAM_ID, TOKEN_PROGRAM_ID } from '@solana/spl-token';
 
-import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { memoizePromise } from '@/helpers/memoizePromise.js';
 import { requestRPC } from '@/providers/solana/requestRPC.js';
 

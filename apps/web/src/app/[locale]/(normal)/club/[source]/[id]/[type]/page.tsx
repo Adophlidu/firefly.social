@@ -1,5 +1,6 @@
 import type { LayoutProps, SearchProps } from '@dimensiondev/types';
 import { runInSafeAsync } from '@dimensiondev/utils';
+import { isValidAddressEthereum } from '@dimensiondev/web3-utils';
 import type { Metadata } from 'next';
 
 import { ChannelContentList } from '@/components/Channel/ChannelContentList.js';
@@ -7,7 +8,6 @@ import { ChannelProvider } from '@/components/Channel/ChannelProvider.js';
 import { NoSSR } from '@/components/NoSSR.js';
 import { type ChannelTabType, type SocialSourceInURL, Source, SourceInURL } from '@/constants/enum.js';
 import { notFound } from '@/esm/navigation/server.js';
-import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { createChannelMetadata } from '@/providers/firefly/metadata/createChannelMetadata.js';

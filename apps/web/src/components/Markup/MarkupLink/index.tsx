@@ -1,6 +1,7 @@
 'use client';
 
 import { safeUnreachable } from '@dimensiondev/utils';
+import { isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3-utils';
 import { memo } from 'react';
 
 import { ErrorBoundary } from '@/components/ErrorBoundary/index.js';
@@ -30,7 +31,6 @@ import {
 } from '@/constants/regexp.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
-import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { isValidDomainEthereum } from '@/helpers/isValidDomain.js';
 import { isTcoLink } from '@/helpers/resolveTcoLink.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';

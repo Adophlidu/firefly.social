@@ -1,11 +1,10 @@
+import { isValidAddress, isZeroAddress } from '@dimensiondev/web3-utils';
 import { compact, first } from 'lodash-es';
 
 import { SORTED_PROFILE_SOURCES } from '@/constants/computed.js';
 import { FireflyPlatform, Source } from '@/constants/enum.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { isSocialSource } from '@/helpers/isSource.js';
-import { isValidAddress } from '@/helpers/isValidAddress.js';
-import { isZeroAddress } from '@/helpers/isZeroAddress.js';
 import { resolveAddressFromProfile } from '@/helpers/resolveAddressFromProfile.js';
 import { resolveFireflyPlatform } from '@/helpers/resolveFireflyPlatform.js';
 import { resolveSocialSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';

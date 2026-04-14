@@ -1,5 +1,6 @@
 'use client';
 
+import { isSameAddress } from '@dimensiondev/web3-utils';
 import { Trans } from '@lingui/react/macro';
 import { useState } from 'react';
 
@@ -10,7 +11,6 @@ import { NFTCollectionList } from '@/components/Profile/NFTCollectionList.js';
 import { POAPList } from '@/components/Profile/POAPList.js';
 import { useWalletMixAddresses } from '@/components/Profile/useWalletMixAddresses.js';
 import { POAP_CONTRACT_ADDRESS } from '@/constants/static.js';
-import { isSameAddress } from '@/helpers/isSameAddress.js';
 import type { EVM } from '@/providers/nftscan/types.js';
 import type { EthereumChainId } from '@/web3-shared/evm/types.js';
 

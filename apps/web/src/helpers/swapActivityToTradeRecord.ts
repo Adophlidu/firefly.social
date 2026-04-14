@@ -1,7 +1,8 @@
+import { isSameAddress } from '@dimensiondev/web3-utils';
+
 import { Source } from '@/constants/enum.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { getWalletProfileAvatar } from '@/helpers/getWalletProfileAvatar.js';
-import { isSameAddress } from '@/helpers/isSameAddress.js';
 import type { SwapActivity } from '@/providers/types/Firefly.js';
 import type { TradeRecord } from '@/types/token.js';
 

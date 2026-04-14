@@ -45,6 +45,10 @@
         "tsup": "^8.5.1",
         "typescript": "5.9.3"
     },
+    "dependencies": {
+        "@coral-xyz/anchor": "^0.31.1",
+        "viem": "^2.21.47"
+    },
     "peerDependencies": {
         "typescript": ">=5.0.0"
     }

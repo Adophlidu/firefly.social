@@ -1,8 +1,8 @@
+import { isValidAddress, isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3-utils';
 import urlcat from 'urlcat';
 import { mainnet } from 'viem/chains';
 
 import { SolanaChainId } from '@/constants/solana.js';
-import { isValidAddress, isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
 
 interface Options {
     /** symbol, address, or coingecko coin id */

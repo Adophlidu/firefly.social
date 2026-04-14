@@ -1,8 +1,8 @@
+import { ETH_ZERO_ADDRESS, isValidAddressEthereum } from '@dimensiondev/web3-utils';
+
 import { NetworkType, TokenType } from '@/constants/enum.js';
-import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { isValidChainIdSolana } from '@/helpers/isValidChainId.js';
-import { ETH_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';
-import { isNativeToken } from '@/providers/ethereum/isNativeToken.js';
+import { isNativeTokenDebank } from '@/providers/ethereum/isNativeTokenDebank.js';
 import type { Token } from '@/providers/types/Transfer.js';
 import type { FungibleToken } from '@/web3-shared/base/specs.js';
 import { type EthereumChainId, EthereumSchemaType } from '@/web3-shared/evm/types.js';
@@ -24,7 +24,7 @@ export function formatDebankTokenToFungibleToken(token: Token): FungibleToken<nu
         id: address,
         chainId: token.chainId,
         type: TokenType.Fungible,
-        schema: isNativeToken(token) ? EthereumSchemaType.Native : EthereumSchemaType.ERC20,
+        schema: isNativeTokenDebank(token) ? EthereumSchemaType.Native : EthereumSchemaType.ERC20,
         address,
         __original__: token,
     } as FungibleToken<EthereumChainId, EthereumSchemaType, Token>;

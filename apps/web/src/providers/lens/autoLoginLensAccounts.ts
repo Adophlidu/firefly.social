@@ -1,11 +1,11 @@
 import { SeverityError } from '@dimensiondev/utils';
+import { isSameEthereumAddress } from '@dimensiondev/web3-utils';
 import { compact } from 'lodash-es';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';
 import { MAX_ACCOUNT_COUNT_PER_SOURCE } from '@/constants/static.js';
 import { ensureCreatedFireflyWallet } from '@/helpers/ensureCreatedFireflyWallet.js';
-import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { queryMyAllConnections } from '@/helpers/queryMyAllConnections.js';
 import { autoLoginProfileWithPrivy } from '@/providers/lens/autoLoginWithPrivy.js';
 import { getProfilesByAddress } from '@/providers/lens/getProfilesByAddress.js';

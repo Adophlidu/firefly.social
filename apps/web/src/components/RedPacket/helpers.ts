@@ -1,5 +1,6 @@
+import { isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3-utils';
+
 import { formatAddress } from '@/helpers/formatAddress.js';
-import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
 
 export function formatSenderName(originSenderName: string) {
     if (isValidAddressEthereum(originSenderName) || isValidAddressSolana(originSenderName)) {

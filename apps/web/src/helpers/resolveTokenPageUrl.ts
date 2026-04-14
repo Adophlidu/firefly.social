@@ -1,7 +1,7 @@
+import { isValidAddress, isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3-utils';
 import urlcat from 'urlcat';
 import { mainnet } from 'viem/chains';
 
-import { isValidAddress, isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 interface Options {

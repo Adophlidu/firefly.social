@@ -2,6 +2,7 @@
 
 import { useMultiInfiniteQueryPageable } from '@dimensiondev/hooks';
 import { createIndicator } from '@dimensiondev/utils';
+import { isValidAddressEthereum } from '@dimensiondev/web3-utils';
 import { uniqBy } from 'lodash-es';
 import { useMemo } from 'react';
 
@@ -12,7 +13,6 @@ import { POAPGridListComponent } from '@/components/Profile/POAPList.js';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { POAP_CONTRACT_ADDRESS } from '@/constants/static.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
-import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { usePoapsByWallet } from '@/hooks/nft/usePoapsByWallet.js';
 import { getUserCollections } from '@/providers/firefly/nft/getUserCollections.js';
 import { NFTSCAN_CHAIN_IDS } from '@/providers/nftscan/constants.js';

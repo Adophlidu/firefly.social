@@ -1,6 +1,7 @@
 'use client';
 
 import { classNames } from '@dimensiondev/utils';
+import { isValidAddressEthereum } from '@dimensiondev/web3-utils';
 import { memo, useCallback } from 'react';
 
 import { ArticleMoreAction } from '@/components/Actions/ArticleMore.js';
@@ -9,7 +10,6 @@ import { Avatar } from '@/components/Avatar.js';
 import { Link } from '@/components/Link.js';
 import { getArticleAuthorTarget, getArticleAuthorUrl } from '@/helpers/getArticleAuthorUrl.js';
 import { getWalletProfileAvatar } from '@/helpers/getWalletProfileAvatar.js';
-import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { resolveArticlePlatformIcon } from '@/helpers/resolveArticlePlatformIcon.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import { useEnsName } from '@/hooks/useEnsName.js';

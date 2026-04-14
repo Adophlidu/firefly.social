@@ -1,5 +1,6 @@
 'use client';
 
+import { isValidAddressEthereum } from '@dimensiondev/web3-utils';
 import { useQuery } from '@tanstack/react-query';
 import { memo, useCallback } from 'react';
 import urlcat from 'urlcat';
@@ -12,7 +13,6 @@ import { ArticleCollect } from '@/components/Article/ArticleCollect.js';
 import { Tips } from '@/components/Tips/index.js';
 import { NetworkType, Source } from '@/constants/enum.js';
 import { getArticleUrl } from '@/helpers/getArticleUrl.js';
-import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { useEnsName } from '@/hooks/useEnsName.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';

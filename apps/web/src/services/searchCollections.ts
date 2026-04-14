@@ -1,7 +1,7 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { createIndicator, createPageable, runInSafeAsync } from '@dimensiondev/utils';
+import { isValidAddressEthereum } from '@dimensiondev/web3-utils';
 
-import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { trimify } from '@/helpers/trimify.js';
 import { detectCollection } from '@/providers/firefly/nft/detectCollection.js';
 import { searchCollectionsByKeyword } from '@/providers/firefly/nft/searchCollectionsByKeyword.js';

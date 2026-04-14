@@ -14,7 +14,7 @@ vi.mock('wagmi/actions', () => ({
 
 // Mock isZeroAddress helper
 const mockIsZeroAddress = vi.fn();
-vi.mock('@/helpers/isZeroAddress.js', () => ({
+vi.mock('@dimensiondev/web3-utils', () => ({
     isZeroAddress: (...args: unknown[]) => mockIsZeroAddress(...args),
 }));
 
@@ -27,7 +27,7 @@ describe('getBalanceOf', () => {
     const chainId = 1;
     const account = '0x1234567890123456789012345678901234567890' as Address;
     const tokenAddress = '0xabcdefabcdefabcdefabcdefabcdefabcdefabcd' as Address;
-    const zeroAddress = '0x0000000000000000000000000000000000000000';
+    const zeroAddress: Address = '0x0000000000000000000000000000000000000000';
 
     beforeEach(() => {
         vi.clearAllMocks();

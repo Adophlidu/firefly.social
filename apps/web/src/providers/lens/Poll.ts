@@ -1,4 +1,5 @@
 import { AuthenticationError, NotImplementedError, runInSafeAsync } from '@dimensiondev/utils';
+import { isSameEthereumAddress } from '@dimensiondev/web3-utils';
 import { first, sumBy } from 'lodash-es';
 import { getAddress } from 'viem';
 
@@ -10,7 +11,6 @@ import { SetQueryDataForVote } from '@/decorators/SetQueryDataForVote.js';
 import { createPrivyWalletClient } from '@/helpers/createPrivyWalletClient.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
-import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { memoizePromiseWithTime } from '@/helpers/memoizePromise.js';
 import { getPollDurationSeconds } from '@/helpers/polls.js';
 import { sendCustomEip712Transaction } from '@/helpers/sendCustomEip712Transaction.js';

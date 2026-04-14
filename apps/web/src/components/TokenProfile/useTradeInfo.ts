@@ -1,10 +1,10 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { SOL_NATIVE_TOKEN_ADDRESS } from '@dimensiondev/web3-utils';
 import { uniq } from 'lodash-es';
 import { useMemo } from 'react';
 import { zeroAddress } from 'viem';
 
 import { useOkxSupportedChains } from '@/components/TokenProfile/useOkxSupportedChains.js';
-import { SWAP_SOL_NATIVE_ADDRESS } from '@/constants/static.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
 import type { CoinGeckoToken } from '@/providers/types/CoinGecko.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
@@ -46,7 +46,7 @@ export function useTradeInfo(token: CoinGeckoToken | null | undefined, argChainI
     return {
         tradable: true,
         chainId,
-        address: cgkChainId ? (cgkChainId === SolanaChainId.Mainnet ? SWAP_SOL_NATIVE_ADDRESS : zeroAddress) : address,
+        address: cgkChainId ? (cgkChainId === SolanaChainId.Mainnet ? SOL_NATIVE_TOKEN_ADDRESS : zeroAddress) : address,
         supportedChainIds: chainIds,
     } as const;
 }

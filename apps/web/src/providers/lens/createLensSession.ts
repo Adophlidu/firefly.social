@@ -1,7 +1,7 @@
+import { ETH_ZERO_ADDRESS } from '@dimensiondev/web3-utils';
 import type { SessionClient } from '@lens-protocol/client';
 
 import { SEVEN_DAYS } from '@/constants/static.js';
-import { ETH_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';
 import { ensureLensResultSync } from '@/providers/lens/ensureLensResultSync.js';
 import { LensSession } from '@/providers/lens/Session.js';
 

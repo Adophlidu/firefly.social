@@ -1,9 +1,9 @@
 import type { LayoutProps } from '@dimensiondev/types';
+import { isValidAddressEthereum } from '@dimensiondev/web3-utils';
 
 import { NFTCollectionPage } from '@/app/[locale]/(normal)/nft/pages/NFTCollectionPage.js';
 import { NFTDetailPage } from '@/app/[locale]/(normal)/nft/pages/NFTDetailPage.js';
 import { notFound } from '@/esm/navigation/server.js';
-import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { isValidChainIdEthereum, isValidChainIdSolana } from '@/helpers/isValidChainId.js';
 import { parseChainId } from '@/helpers/parseChainId.js';
 import { resolveCollectionChain } from '@/helpers/resolveCollectionChain.js';

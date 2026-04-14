@@ -7,6 +7,7 @@ import MintIcon from '@dimensiondev/assets/minted.svg';
 import SentIcon from '@dimensiondev/assets/sent.svg';
 import SoldIcon from '@dimensiondev/assets/sold.svg';
 import { safeUnreachable } from '@dimensiondev/utils';
+import { isSameEthereumAddress } from '@dimensiondev/web3-utils';
 import { Trans } from '@lingui/react/macro';
 
 import { ActivityCellAction } from '@/components/ActivityCell/ActivityCellAction.js';
@@ -17,7 +18,6 @@ import { Link } from '@/components/Link.js';
 import { Source } from '@/constants/enum.js';
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
-import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { type EVM as NFTScanEVM, TransEventType } from '@/providers/nftscan/types.js';
 import type { NFTFeedV3 } from '@/providers/types/NFTs.js';

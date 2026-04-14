@@ -1,10 +1,10 @@
 'use client';
 
+import { isValidAddressEthereum } from '@dimensiondev/web3-utils';
 import { skipToken, useQuery } from '@tanstack/react-query';
 
 import { PredictionProfileCardUI } from '@/components/Prediction/PredictionProfileCardUI.js';
 import { STALE_TIMES } from '@/constants/query.js';
-import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { getPredictionPortfolio } from '@/providers/firefly/prediction/getPredictionPortfolio.js';
 
 interface PredictionProfilesCardProps {

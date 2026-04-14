@@ -2,6 +2,7 @@
 
 import SearchIcon from '@dimensiondev/assets/search.svg';
 import { classNames } from '@dimensiondev/utils';
+import { isValidAddress, isValidAddressEthereum } from '@dimensiondev/web3-utils';
 import { skipToken, useQuery } from '@tanstack/react-query';
 import { type HTMLProps, useCallback, useLayoutEffect, useRef, useState } from 'react';
 import { useOnClickOutside } from 'usehooks-ts';
@@ -14,7 +15,6 @@ import { ExploreType, PageRoute, SearchType } from '@/constants/enum.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { usePathname, useRouter } from '@/esm/navigation.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
-import { isValidAddress, isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 import { resolveSearchTypeFromQuery } from '@/helpers/resolveSearchTypeFromQuery.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';

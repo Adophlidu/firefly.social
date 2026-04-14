@@ -1,5 +1,6 @@
 import { useMultiInfiniteQueryPageable } from '@dimensiondev/hooks';
 import { createIndicator, createNextIndicator, createPageable } from '@dimensiondev/utils';
+import { isValidAddressEthereum } from '@dimensiondev/web3-utils';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { uniqBy } from 'lodash-es';
 import { useMemo } from 'react';
@@ -12,7 +13,6 @@ import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { EthereumChainId } from '@/constants/ethereum.js';
 import { POAP_CONTRACT_ADDRESS } from '@/constants/static.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
-import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { NFTSCAN_CHAIN_IDS } from '@/providers/nftscan/constants.js';
 import type { EVM } from '@/providers/nftscan/types.js';
 import { getPOAPsByWalletQueryOptions } from '@/queries/firefly/getPOAPsByWalletQueryOptions.js';

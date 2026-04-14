@@ -1,6 +1,6 @@
+import { isSameAddress } from '@dimensiondev/web3-utils';
 import urlcat from 'urlcat';
 
-import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { convertBskyHandleToDid } from '@/providers/bsky/convertBskyHandleToDid.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';

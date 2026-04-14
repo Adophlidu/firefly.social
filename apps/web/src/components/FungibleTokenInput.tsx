@@ -2,6 +2,14 @@
 
 import ArrowDown from '@dimensiondev/assets/arrow-down.svg';
 import { safeUnreachable } from '@dimensiondev/utils';
+import {
+    ETH_ZERO_ADDRESS,
+    isSameAddress,
+    isSameEthereumAddress,
+    isValidAddressEthereum,
+    isZeroAddressEthereum,
+    isZeroAddressSolana,
+} from '@dimensiondev/web3-utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { BigNumber } from 'bignumber.js';
@@ -12,9 +20,6 @@ import { rpSupportedChains } from '@/configs/chains.js';
 import { NetworkType } from '@/constants/enum.js';
 import { NUMERIC_INPUT_REGEXP_PATTERN } from '@/constants/regexp.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
-import { isSameAddress, isSameEthereumAddress } from '@/helpers/isSameAddress.js';
-import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
-import { ETH_ZERO_ADDRESS, isZeroAddressEthereum, isZeroAddressSolana } from '@/helpers/isZeroAddress.js';
 import { isZero, leftShift } from '@/helpers/number.js';
 import { TokenSelectorModalRef } from '@/modals/TokenSelectorModal/refs.js';
 import type { FungibleToken } from '@/web3-shared/base/specs.js';

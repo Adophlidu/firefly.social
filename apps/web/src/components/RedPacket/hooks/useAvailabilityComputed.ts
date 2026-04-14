@@ -1,4 +1,5 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { isSameAddress } from '@dimensiondev/web3-utils';
 import { type QueryObserverResult, type RefetchOptions, useQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import { useCallback } from 'react';
@@ -9,7 +10,6 @@ import { useClaimStrategyStatus } from '@/components/RedPacket/hooks/useClaimStr
 import { useParseRedPacket } from '@/components/RedPacket/hooks/useParseRedPacket.js';
 import { NetworkType } from '@/constants/enum.js';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
-import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { usePrivyAppkitAccountByNetwork } from '@/hooks/appkit/usePrivyAppkitAccountByNetwork.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { signClaimMessage } from '@/providers/ethereum/signClaimMessage.js';

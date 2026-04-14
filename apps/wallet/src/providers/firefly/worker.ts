@@ -1,7 +1,7 @@
+import { isValidAddressEthereum } from '@dimensiondev/web3-utils';
 import urlcat from 'urlcat';
 
 import { FIREFLY_WORKER_HOST } from '@/constants/static.js';
-import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { isValidDomainEthereum } from '@/helpers/isValidDomain.js';
 import { Fetch } from '@/lib/Fetch.js';
 

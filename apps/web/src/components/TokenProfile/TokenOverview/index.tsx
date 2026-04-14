@@ -2,6 +2,7 @@
 
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { parseUrl } from '@dimensiondev/utils';
+import { isValidAddress, isValidTokenAddressSui } from '@dimensiondev/web3-utils';
 import { Trans } from '@lingui/react/macro';
 import { skipToken, useQuery } from '@tanstack/react-query';
 import { first, sortBy } from 'lodash-es';
@@ -21,7 +22,6 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { formatAddress, formatTokenAddressSui } from '@/helpers/formatAddress.js';
 import { formatMarketCap } from '@/helpers/formatMarketCap.js';
 import { getChainInfo } from '@/helpers/getChainInfo.js';
-import { isValidAddress, isValidTokenAddressSui } from '@/helpers/isValidAddress.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
 import { useDetectToken } from '@/hooks/useDetectToken.js';
 import { getTreasuryHoldings } from '@/providers/coingecko/getTreasuryHoldings.js';

@@ -1,6 +1,6 @@
+import { isZeroAddressSolana } from '@dimensiondev/web3-utils';
 import { TOKEN_2022_PROGRAM_ID, TOKEN_PROGRAM_ID } from '@solana/spl-token';
 
-import { isZeroAddressSolana } from '@/helpers/isZeroAddress.js';
 import { requestRPC } from '@/providers/solana/requestRPC.js';
 import type { GetBalanceResponse } from '@/providers/types/Solana.js';
 import type { Token } from '@/providers/types/Transfer.js';

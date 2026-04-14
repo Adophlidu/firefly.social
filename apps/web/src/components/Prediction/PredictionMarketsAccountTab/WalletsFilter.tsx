@@ -1,13 +1,13 @@
 'use client';
 
 import { classNames } from '@dimensiondev/utils';
+import { isSameEthereumAddress } from '@dimensiondev/web3-utils';
 import { Popover, PopoverButton, PopoverPanel, Transition } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { Trans } from '@lingui/react/macro';
 import { Fragment, memo, type ReactNode } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 
 export interface PolymarketWallet {
     wallet: string;

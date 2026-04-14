@@ -1,10 +1,11 @@
+import { isValidAddressEthereum } from '@dimensiondev/web3-utils';
+
 import { PredictionProfileCategoryTabs } from '@/components/Prediction/PredictionProfileCategoryTabs.js';
 import { PredictionProfileOverview } from '@/components/Prediction/PredictionProfileOverview.js';
 import { PredictionProfilePageHeader } from '@/components/Prediction/PredictionProfilePageHeader.js';
 import { PredictionProfileTabContent } from '@/components/Prediction/PredictionProfileTabContent.js';
 import type { PredictionPlatform } from '@/constants/enum.js';
 import { notFound } from '@/esm/navigation/server.js';
-import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { fetchPredictionProfile } from '@/providers/firefly/prediction/fetchPredictionProfile.js';
 
 interface Props {

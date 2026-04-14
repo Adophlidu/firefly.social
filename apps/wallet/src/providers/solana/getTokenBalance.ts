@@ -1,7 +1,7 @@
+import { isZeroAddressSolana } from '@dimensiondev/web3-utils';
 import { TOKEN_PROGRAM_ID } from '@solana/spl-token';
 
 import type { SolanaChainId } from '@/constants/solana.js';
-import { isZeroAddressSolana } from '@/helpers/isZeroAddress.js';
 import { solanaRPC } from '@/providers/solana/RPC.js';
 import type { Token } from '@/providers/types/Transfer.js';
 

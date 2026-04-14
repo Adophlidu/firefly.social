@@ -1,5 +1,6 @@
+import { isSameEthereumAddress, isSameSolanaAddress } from '@dimensiondev/web3-utils';
+
 import { Source } from '@/constants/enum.js';
-import { isSameEthereumAddress, isSameSolanaAddress } from '@/helpers/isSameAddress.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 
 export function isSameFireflyIdentity(identity?: FireflyIdentity, otherIdentity?: FireflyIdentity) {

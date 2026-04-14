@@ -1,6 +1,7 @@
 'use client';
 
 import AddIcon from '@dimensiondev/assets/add-circle.svg';
+import { isSameEthereumAddress } from '@dimensiondev/web3-utils';
 import { DialogTitle } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { type Ref, useCallback, useState } from 'react';
@@ -10,7 +11,6 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { BackButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';
 import { dynamic } from '@/esm/dynamic.js';
-import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { AddCustomERC721ModalRef } from '@/modals/AddCustomERC721Modal/refs.js';
 import type { Collection } from '@/modals/NonFungibleCollectionSelectModal/CollectionItem.js';

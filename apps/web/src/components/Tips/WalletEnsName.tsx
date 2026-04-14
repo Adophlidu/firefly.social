@@ -1,8 +1,9 @@
 'use client';
 
+import { isValidAddressEthereum } from '@dimensiondev/web3-utils';
+
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
-import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { useEnsName } from '@/hooks/useEnsName.js';
 
 interface WalletEnsNameProps {

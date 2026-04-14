@@ -1,6 +1,7 @@
 import FireflyIcon from '@dimensiondev/assets/firefly.round.svg';
 import PlusIcon from '@dimensiondev/assets/plus.svg';
 import WalletIcon from '@dimensiondev/assets/wallet.svg';
+import { isSameAddress, isSameEthereumAddress } from '@dimensiondev/web3-utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
@@ -14,7 +15,6 @@ import { appkit } from '@/configs/appkit.js';
 import { PRIVY_CONNECTOR_ID } from '@/connectors/PrivyConnector.js';
 import { ConnectionSource, NetworkType } from '@/constants/enum.js';
 import { getEnsNameFromWalletProfile } from '@/helpers/getEnsNameFromWalletProfile.js';
-import { isSameAddress, isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { type AppKitAccount, useAppKitAccounts, usePrivyAppKitAccounts } from '@/hooks/useAppKitAccounts.js';
 import { useIsCreatedPrivyWallet } from '@/hooks/useIsCreatedPrivyWallet.js';
 import { AppKitAccountItem } from '@/modals/MyWalletsModal/AppKitAccountItem.js';

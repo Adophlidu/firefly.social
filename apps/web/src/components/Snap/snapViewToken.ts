@@ -1,6 +1,6 @@
+import { ETH_ZERO_ADDRESS } from '@dimensiondev/web3-utils';
 import urlcat from 'urlcat';
 
-import { ETH_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';
 import { parseCAIP19 } from '@/helpers/parseCAIP19.js';
 
 /** Same URL shape as frame host `viewToken` — relative path for in-app navigation. */

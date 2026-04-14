@@ -1,7 +1,6 @@
+import { isValidAddressEthereum, isValidAddressSolana, isValidTokenAddressSui } from '@dimensiondev/web3-utils';
 import { memoize } from 'lodash-es';
 import { checksumAddress } from 'viem';
-
-import { isValidAddressEthereum, isValidAddressSolana, isValidTokenAddressSui } from '@/helpers/isValidAddress.js';
 
 type Offset = 0 | 2;
 

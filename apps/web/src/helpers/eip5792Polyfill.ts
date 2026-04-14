@@ -1,6 +1,6 @@
+import { isValidAddressEthereum as isAddress } from '@dimensiondev/web3-utils';
 import type { Address, Hex } from 'viem';
 
-import { isValidAddressEthereum as isAddress } from '@/helpers/isValidAddress.js';
 import type { RequestArguments } from '@/types/ethereum.js';
 import { EthereumMethodType } from '@/web3-shared/evm/types.js';
 

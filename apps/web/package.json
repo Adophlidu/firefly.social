@@ -38,6 +38,7 @@
         "@dimensiondev/native-bridge": "workspace:^",
         "@dimensiondev/types": "workspace:^",
         "@dimensiondev/utils": "workspace:^",
+        "@dimensiondev/web3-utils": "workspace:^",
         "@farcaster/core": "^0.18.10",
         "@farcaster/miniapp-host": "^0.2.16",
         "@giphy/js-fetch-api": "^5.7.0",

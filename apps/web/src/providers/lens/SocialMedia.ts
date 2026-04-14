@@ -1,5 +1,6 @@
 import type { Pageable, PageIndicator } from '@dimensiondev/utils';
 import { NotImplementedError } from '@dimensiondev/utils';
+import { isValidAddressEthereum } from '@dimensiondev/web3-utils';
 
 import { Source } from '@/constants/enum.js';
 import { AddAuthorHighlightStatusForPosts } from '@/decorators/AddProfileHighlightStatus.js';
@@ -15,7 +16,6 @@ import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPos
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
 import { SetQueryDataForReportPost } from '@/decorators/SetQueryDataForReportPost.js';
 import { WithMutedProfilesQuery } from '@/decorators/WithMutedProfilesQuery.js';
-import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { actLensPost } from '@/providers/lens/actLensPost.js';
 import { blockLensProfile } from '@/providers/lens/blockLensProfile.js';
 import { bookmarkLensPost } from '@/providers/lens/bookmarkLensPost.js';

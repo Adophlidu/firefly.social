@@ -1,5 +1,6 @@
+import { isSameAddress } from '@dimensiondev/web3-utils';
+
 import { Source } from '@/constants/enum.js';
-import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { useWalletRelatedProfiles } from '@/hooks/useWalletRelatedProfiles.js';
 import type { WalletProfile } from '@/providers/types/Firefly.js';
 

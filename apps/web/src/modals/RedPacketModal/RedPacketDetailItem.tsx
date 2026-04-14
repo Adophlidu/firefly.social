@@ -1,4 +1,5 @@
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
+import { isValidAddressEthereum } from '@dimensiondev/web3-utils';
 import { Trans } from '@lingui/react/macro';
 import { useRouter } from '@tanstack/react-router';
 import dayjs from 'dayjs';
@@ -13,7 +14,6 @@ import { SITE_URL } from '@/constants/static.js';
 import { Image } from '@/esm/Image.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
-import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { resolveSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { RedPacketAccountItem } from '@/modals/RedPacketModal/RedPacketAccountItem.js';

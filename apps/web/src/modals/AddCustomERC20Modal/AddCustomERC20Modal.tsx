@@ -1,6 +1,7 @@
 'use client';
 
 import { delay } from '@dimensiondev/utils';
+import { isSameAddress, isValidAddressEthereum } from '@dimensiondev/web3-utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useCallback, useMemo, useState } from 'react';
@@ -18,8 +19,6 @@ import { privyVisibleChains, visibleChains } from '@/configs/chains.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { PRIVY_CONNECTOR_ID } from '@/connectors/PrivyConnector.js';
 import { enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
-import { isSameAddress } from '@/helpers/isSameAddress.js';
-import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { useEvmTokens } from '@/hooks/useEvmTokens.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';

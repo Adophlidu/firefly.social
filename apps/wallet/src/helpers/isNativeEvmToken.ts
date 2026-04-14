@@ -1,6 +1,6 @@
+import { isValidAddressEthereum, isZeroAddressEthereum } from '@dimensiondev/web3-utils';
+
 import { DEBANK_CHAIN_TO_CHAIN_ID_MAP } from '@/constants/debank.js';
-import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
-import { isZeroAddressEthereum } from '@/helpers/isZeroAddress.js';
 import type { Token } from '@/providers/types/Transfer.js';
 
 export function isNativeEvmToken(token: Pick<Token, 'id' | 'chainId'>) {

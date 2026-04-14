@@ -1,4 +1,5 @@
-import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
+import { isSameEthereumAddress } from '@dimensiondev/web3-utils';
+
 import type { FireflyIdentity, Profile as FireflyProfile } from '@/providers/types/Firefly.js';
 import type { Profile, ProfileLike } from '@/providers/types/SocialMedia.js';
 

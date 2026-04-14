@@ -1,3 +1,4 @@
+import { isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3-utils';
 import urlcat from 'urlcat';
 
 import type { ConnectionPlatform } from '@/constants/enum.js';
@@ -6,7 +7,6 @@ import { SetQueryDataForBlockWallet } from '@/decorators/SetQueryDataForBlockWal
 import { SetQueryDataForReportAndDeleteWallet } from '@/decorators/SetQueryDataForReportAndDeleteWallet.js';
 import { SetQueryDataForWatchWallet } from '@/decorators/SetQueryDataForWatchWallet.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
-import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { block } from '@/providers/firefly/endpoint/block.js';
 import { unblock } from '@/providers/firefly/endpoint/unblock.js';

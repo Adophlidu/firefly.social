@@ -1,6 +1,7 @@
 'use client';
 
 import { safeUnreachable } from '@dimensiondev/utils';
+import { isValidAddressEthereum } from '@dimensiondev/web3-utils';
 import { Trans } from '@lingui/react/macro';
 import { memo, type ReactNode, useState } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -18,7 +19,6 @@ import { fetchJson } from '@/helpers/fetchJson.js';
 import { getSessionFromStorage, getSessionFromStorageBySource } from '@/helpers/getSessionFromStorage.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { interceptExternalUrl } from '@/helpers/interceptExternalUrl.js';
-import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { parseCAIP10 } from '@/helpers/parseCAIP10.js';

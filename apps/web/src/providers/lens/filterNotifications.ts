@@ -1,7 +1,7 @@
+import { isSameEthereumAddress } from '@dimensiondev/web3-utils';
 import type { Notification as LensNotification } from '@lens-protocol/client';
 
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
-import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 
 // filter thread notifications created by the current profile

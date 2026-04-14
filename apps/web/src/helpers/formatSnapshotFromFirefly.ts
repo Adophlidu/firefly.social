@@ -1,5 +1,6 @@
+import { isSameEthereumAddress } from '@dimensiondev/web3-utils';
+
 import { getEnsNameFromDisplayInfo } from '@/helpers/getEnsNameFromDisplayInfo.js';
-import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import type { SnapshotActivity } from '@/providers/snapshot/type.js';
 import { type FireflySnapshotActivity, WatchType } from '@/providers/types/Firefly.js';
 

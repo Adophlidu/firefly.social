@@ -2,6 +2,7 @@
 
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { classNames } from '@dimensiondev/utils';
+import { isSameAddress } from '@dimensiondev/web3-utils';
 import { Trans } from '@lingui/react/macro';
 import { compact } from 'lodash-es';
 import type { ReadonlyURLSearchParams } from 'next/navigation.js';
@@ -20,7 +21,6 @@ import { usePathname, useRouter, useSearchParams } from '@/esm/navigation.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { getWalletProfileAvatar } from '@/helpers/getWalletProfileAvatar.js';
-import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { swapActivityToTradeRecord } from '@/helpers/swapActivityToTradeRecord.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import type { SwapActivity } from '@/providers/types/Firefly.js';

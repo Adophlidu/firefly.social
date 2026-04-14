@@ -1,11 +1,11 @@
 'use client';
 
+import { isZeroAddressEthereum } from '@dimensiondev/web3-utils';
 import { useMemo } from 'react';
 import { useBalance, useEstimateFeesPerGas } from 'wagmi';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
-import { isZeroAddressEthereum } from '@/helpers/isZeroAddress.js';
 import { isGreaterThan, multipliedBy, ZERO } from '@/helpers/number.js';
 import { useBalanceOf } from '@/hooks/useBalanceOf.js';
 import { type ChainContextOverrides, useChainContext } from '@/hooks/useChainContext.js';

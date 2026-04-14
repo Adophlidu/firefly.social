@@ -1,3 +1,4 @@
+import { ETH_NATIVE_TOKEN_ADDRESS, isNativeTokenAddress, SOL_NATIVE_TOKEN_ADDRESS } from '@dimensiondev/web3-utils';
 import { useQuery } from '@tanstack/react-query';
 import type { Address, Hex } from 'viem';
 
@@ -21,16 +22,9 @@ export function useCheckGasForDeposit({ depositToken, amount, quote }: Options) 
     const { evmAddress, solanaAddress } = useEmbeddedWalletAddresses();
 
     const isSolana = depositToken ? isSolanaChain(depositToken.chainId) : false;
-    const isNativeToken = !depositToken
-        ? false
-        : depositToken.address.toLowerCase() === '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee' ||
-          depositToken.address === 'So11111111111111111111111111111111111111112';
+    const isNativeToken = !depositToken ? false : isNativeTokenAddress(depositToken.address);
     const walletAddress = !depositToken ? null : isSolana ? solanaAddress : evmAddress;
-    const address = !depositToken
-        ? undefined
-        : isSolana
-          ? '11111111111111111111111111111111'
-          : '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee';
+    const address = !depositToken ? undefined : isSolana ? SOL_NATIVE_TOKEN_ADDRESS : ETH_NATIVE_TOKEN_ADDRESS;
     const { data: nativeToken } = useTokenBalance({
         walletAddress,
         address,

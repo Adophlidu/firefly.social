@@ -2,6 +2,7 @@
 
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
+import { isSameAddress } from '@dimensiondev/web3-utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { memo, useMemo } from 'react';
@@ -22,7 +23,6 @@ import { getAddressType } from '@/helpers/getAddressType.js';
 import { getEnsNameFromWalletProfile } from '@/helpers/getEnsNameFromWalletProfile.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
-import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { resolveNetworkIcon } from '@/helpers/resolveNetworkIcon.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';

@@ -1,7 +1,7 @@
+import { isValidAddressEthereum } from '@dimensiondev/web3-utils';
 import { fetchAccount } from '@lens-protocol/client/actions';
 import type { Address } from 'viem';
 
-import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { memoizePromise } from '@/helpers/memoizePromise.js';
 import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';

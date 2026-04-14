@@ -1,3 +1,4 @@
+import { ETH_ZERO_ADDRESS } from '@dimensiondev/web3-utils';
 import { t } from '@lingui/core/macro';
 import { useIsMutating, useMutation } from '@tanstack/react-query';
 
@@ -6,7 +7,6 @@ import { FetchError } from '@/constants/error.js';
 import { usePathname } from '@/esm/navigation.js';
 import { enqueueErrorMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
-import { ETH_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { fireflyBookmarkProvider } from '@/providers/firefly/Bookmark.js';

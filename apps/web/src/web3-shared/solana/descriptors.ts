@@ -1,3 +1,5 @@
+import { SOL_ZERO_ADDRESS } from '@dimensiondev/web3-utils';
+
 import { NetworkPluginID } from '@/constants/enum.js';
 import type { ChainDescriptor, NetworkDescriptor } from '@/web3-shared/base/specs.js';
 import { createFungibleToken } from '@/web3-shared/base/token.js';
@@ -21,7 +23,7 @@ export const CHAIN_DESCRIPTORS: ReadonlyArray<ChainDescriptor<SolanaChainId, Sol
         nativeCurrency: createFungibleToken(
             SolanaChainId.Mainnet,
             SolanaSchemaType.Fungible,
-            'So11111111111111111111111111111111111111112',
+            SOL_ZERO_ADDRESS,
             'Solana',
             'SOL',
             9,

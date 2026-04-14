@@ -1,8 +1,8 @@
+import { isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3-utils';
 import { isObject } from 'lodash-es';
 import type { Address } from 'viem';
 
 import { NetworkType, type ProfilePageSource, Source } from '@/constants/enum.js';
-import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { getAllPlatformProfileFromFirefly } from '@/providers/firefly/endpoint/getAllPlatformProfileFromFirefly.js';
 import type { WalletProfile, WalletProfiles } from '@/providers/types/Firefly.js';
 

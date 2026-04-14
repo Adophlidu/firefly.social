@@ -1,4 +1,5 @@
 import UndoSVG from '@dimensiondev/assets/undo.svg';
+import { isSameAddress } from '@dimensiondev/web3-utils';
 import { Trans } from '@lingui/react/macro';
 import { Suspense, useState } from 'react';
 
@@ -10,7 +11,6 @@ import { NFTListByContract } from '@/components/NFTs/NFTListByContract.js';
 import { POAPList } from '@/components/NFTs/POAPList.js';
 import type { EthereumChainId } from '@/constants/ethereum.js';
 import { POAP_CONTRACT_ADDRESS } from '@/constants/static.js';
-import { isSameAddress } from '@/helpers/isSameAddress.js';
 import type { EVM } from '@/providers/nftscan/types.js';
 
 interface SelectedCollection {

@@ -2,6 +2,7 @@
 
 import MoreIcon from '@dimensiondev/assets/more-fill.svg';
 import { runInSafeAsync } from '@dimensiondev/utils';
+import { ETH_ZERO_ADDRESS, isSameEthereumAddress } from '@dimensiondev/web3-utils';
 import { Trans } from '@lingui/react/macro';
 import { skipToken, useQuery } from '@tanstack/react-query';
 import { first } from 'lodash-es';
@@ -14,9 +15,7 @@ import { Source } from '@/constants/enum.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { SEVEN_DAYS } from '@/constants/static.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
-import { ETH_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';
 import { AddLensManagerModalRef } from '@/modals/AddLensManagerModal/refs.js';
 import { createMemorySessionClient } from '@/providers/lens/createMemorySessionClient.js';
 import { ensureLensResultSync } from '@/providers/lens/ensureLensResultSync.js';

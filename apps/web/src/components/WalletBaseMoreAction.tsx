@@ -2,6 +2,7 @@
 
 import MoreIcon from '@dimensiondev/assets/more.svg';
 import { envs, STATUS } from '@dimensiondev/envs';
+import { isValidAddressEthereum } from '@dimensiondev/web3-utils';
 import { MenuItem } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
@@ -17,7 +18,6 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { Source } from '@/constants/enum.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
-import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useEnsName } from '@/hooks/useEnsName.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';

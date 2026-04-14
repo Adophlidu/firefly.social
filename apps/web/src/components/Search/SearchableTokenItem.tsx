@@ -1,6 +1,7 @@
 'use client';
 
 import { classNames } from '@dimensiondev/utils';
+import { isValidAddress } from '@dimensiondev/web3-utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { type HTMLProps, memo } from 'react';
@@ -11,7 +12,6 @@ import { bedStead } from '@/fonts/bedStead/index.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
-import { isValidAddress } from '@/helpers/isValidAddress.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
 import { getSingleCoin } from '@/providers/firefly/endpoint/getSingleCoin.js';
 import type { TokenWithMarket } from '@/providers/firefly/worker/searchTokens.js';

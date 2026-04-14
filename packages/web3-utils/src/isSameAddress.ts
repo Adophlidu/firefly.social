@@ -1,7 +1,7 @@
 import { web3 } from '@coral-xyz/anchor';
 import { isAddressEqual } from 'viem';
 
-import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
+import { isValidAddressEthereum, isValidAddressSolana } from '@/isValidAddress.js';
 
 export function isSameEthereumAddress(
     address: string | null | undefined,
@@ -19,12 +19,13 @@ export function isSameSolanaAddress(
 ): boolean {
     try {
         if (!address || !otherAddress) return false;
-        if (!strict)
+        if (!strict) {
             return (
                 isValidAddressSolana(address, strict) &&
                 isValidAddressSolana(otherAddress, strict) &&
                 address.toLowerCase() === otherAddress.toLowerCase()
             );
+        }
 
         return new web3.PublicKey(address).equals(new web3.PublicKey(otherAddress));
     } catch {

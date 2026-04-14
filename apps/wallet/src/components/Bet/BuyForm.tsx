@@ -1,4 +1,5 @@
 import LightningIcon from '@dimensiondev/assets/lightning.svg';
+import { isSameAddress } from '@dimensiondev/web3-utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQuery, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
@@ -28,7 +29,6 @@ import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { tryFreeGasTransaction } from '@/helpers/freeGas/tryFreeGasTransaction.js';
 import { getUserFacingErrorMessage } from '@/helpers/getErrorMessage.js';
 import { getLimitPriceCentsInputConfig } from '@/helpers/getLimitPriceCentsInputConfig.js';
-import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { normalizeBetInput } from '@/helpers/normalizeBetInput.js';
 import { safeBigNumber } from '@/helpers/safeBigNumber.js';
 import { cn } from '@/lib/utils.js';

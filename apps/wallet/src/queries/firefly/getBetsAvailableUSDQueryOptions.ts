@@ -1,4 +1,5 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { isSameAddress } from '@dimensiondev/web3-utils';
 import { queryOptions } from '@tanstack/react-query';
 import { BigNumber } from 'bignumber.js';
 import type { Address } from 'viem';
@@ -6,7 +7,6 @@ import { polygon } from 'viem/chains';
 
 import { USDC_E_POLYGON_ADDRESS } from '@/constants/ethereum.js';
 import { formatTokenFromFireflyTokenAsset } from '@/helpers/formatTokenFromFireflyTokenAsset.js';
-import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { getFireflyEndpoint } from '@/store/fireflyEndpoint.js';
 
 export function getBetsAvailableUSDQueryOptions(proxyAddress: Address) {

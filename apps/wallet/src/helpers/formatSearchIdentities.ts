@@ -1,4 +1,11 @@
 import { safeUnreachable } from '@dimensiondev/utils';
+import {
+    ETH_ZERO_ADDRESS,
+    isValidAddress,
+    isValidAddressEthereum,
+    isValidAddressSolana,
+    isZeroAddress,
+} from '@dimensiondev/web3-utils';
 import { compact, first, uniq } from 'lodash-es';
 import type { Address } from 'viem';
 
@@ -6,8 +13,6 @@ import type { RecipientItemProps } from '@/components/SendTransactionModal/Recip
 import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
 import { NetworkType, type SocialSource, Source } from '@/constants/enum.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
-import { isValidAddress, isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
-import { ETH_ZERO_ADDRESS, isZeroAddress } from '@/helpers/isZeroAddress.js';
 import { resolveSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import type { Profile as FireflyProfile, SearchProfileListItem } from '@/providers/types/Firefly.js';

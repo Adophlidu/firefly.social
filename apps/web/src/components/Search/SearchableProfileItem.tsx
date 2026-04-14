@@ -1,5 +1,6 @@
 import WalletIcon from '@dimensiondev/assets/wallet-circle.svg';
 import { classNames } from '@dimensiondev/utils';
+import { isValidAddressEthereum } from '@dimensiondev/web3-utils';
 import { first } from 'lodash-es';
 import { type HTMLProps, memo } from 'react';
 import urlcat from 'urlcat';
@@ -12,7 +13,6 @@ import { FireflyPlatform, type ProfilePageSource, Source } from '@/constants/enu
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
-import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveSocialSourceFromFireflyPlatform, resolveSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import type { Profile } from '@/providers/types/Firefly.js';

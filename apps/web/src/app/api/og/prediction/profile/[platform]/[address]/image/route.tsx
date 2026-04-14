@@ -2,6 +2,7 @@
 
 import type { NextRequestContext } from '@dimensiondev/types';
 import { compose } from '@dimensiondev/utils';
+import { isSameEthereumAddress } from '@dimensiondev/web3-utils';
 import { first } from 'lodash-es';
 import { ImageResponse } from 'next/og.js';
 import type { NextRequest } from 'next/server.js';
@@ -17,7 +18,6 @@ import { formatAddress } from '@/helpers/formatAddress.js';
 import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
 import { getPublicUrl } from '@/helpers/getPublicUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
-import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { fetchPredictionProfile } from '@/providers/firefly/prediction/fetchPredictionProfile.js';
 import { getWalletProfileInfoList } from '@/providers/firefly/prediction/getWalletProfileInfoList.js';

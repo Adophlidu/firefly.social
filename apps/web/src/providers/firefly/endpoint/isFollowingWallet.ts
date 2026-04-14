@@ -1,6 +1,6 @@
+import { isSameAddress } from '@dimensiondev/web3-utils';
 import urlcat from 'urlcat';
 
-import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { WalletsFollowStatusResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';

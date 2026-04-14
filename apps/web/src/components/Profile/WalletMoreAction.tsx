@@ -2,6 +2,7 @@
 
 import MoreIcon from '@dimensiondev/assets/more-fill.svg';
 import { classNames } from '@dimensiondev/utils';
+import { isValidAddressEthereum } from '@dimensiondev/web3-utils';
 import { MenuItem, type MenuProps } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
 import { compact, sum } from 'lodash-es';
@@ -15,7 +16,6 @@ import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Tips } from '@/components/Tips/index.js';
 import { Source } from '@/constants/enum.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
-import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { useEnsName } from '@/hooks/useEnsName.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useFireflyProfileByIdentity } from '@/hooks/useFireflyProfileByIdentity.js';

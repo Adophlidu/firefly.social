@@ -1,3 +1,4 @@
+import { isSameAddress, isValidAddressEthereum } from '@dimensiondev/web3-utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useSetAtom } from 'jotai';
@@ -22,8 +23,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger } from '@/components/u
 import { visibleChains } from '@/configs/chains.js';
 import { config } from '@/configs/wagmi.js';
 import { EthereumChainId } from '@/constants/ethereum.js';
-import { isSameAddress } from '@/helpers/isSameAddress.js';
-import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { useMultiChainTokens } from '@/hooks/useMultiChainTokens.js';
 import { searchTokenLogoURI } from '@/queries/firefly/searchTokenLogoURI.js';
 import { addCustomTokenAtom, CustomTokenType } from '@/store/customToken.js';

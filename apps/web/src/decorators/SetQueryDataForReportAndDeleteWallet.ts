@@ -1,7 +1,7 @@
+import { isSameAddress } from '@dimensiondev/web3-utils';
 import { produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { isSameAddress } from '@/helpers/isSameAddress.js';
 import type { FireflyWallet } from '@/providers/firefly/Wallet.js';
 import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
 import type { ClassType } from '@/types/utility.js';

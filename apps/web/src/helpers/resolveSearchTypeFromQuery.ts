@@ -1,5 +1,6 @@
+import { isValidAddressEthereum } from '@dimensiondev/web3-utils';
+
 import { SearchType } from '@/constants/enum.js';
-import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { trimify } from '@/helpers/trimify.js';
 
 export function resolveSearchTypeFromQuery(query: string, isTokenAddress?: boolean) {
