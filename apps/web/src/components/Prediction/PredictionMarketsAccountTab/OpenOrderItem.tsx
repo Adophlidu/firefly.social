@@ -33,7 +33,7 @@ function safeBigNumber(value: BigNumber.Value, fallback: BigNumber.Value) {
 export const OpenOrderItem = memo<OpenOrderItemProps>(function OpenOrderItem({ order }) {
     const filled = safeBigNumber(order.size_matched, 0).toString();
     const size = safeBigNumber(order.original_size, 0).toString();
-    const sharesText = `${formatTokenItemAmount(filled, 0)} / ${formatTokenItemAmount(size, 0)}`;
+    const sharesText = `${formatTokenItemAmount(filled, 0)} / ${formatTokenItemAmount(size, 0, BigNumber.ROUND_CEIL)}`;
     const totalUsd = multipliedBy(safeBigNumber(order.price, 0), safeBigNumber(order.original_size, 0)).toNumber();
     const lowerSide = order.side.toLowerCase();
     const orderSide =

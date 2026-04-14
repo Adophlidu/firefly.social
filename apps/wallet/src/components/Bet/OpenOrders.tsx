@@ -9,6 +9,7 @@ import {
     useSuspenseInfiniteQuery,
     useSuspenseQuery,
 } from '@tanstack/react-query';
+import { BigNumber } from 'bignumber.js';
 import { type ReactNode, useState } from 'react';
 import { toast } from 'sonner';
 
@@ -88,7 +89,7 @@ function OpenOrderItem({ item }: { item: PolymarketOpenOrderDetail }) {
     const priceText = formatPriceToCents(item.price);
     const filled = safeBigNumber(item.size_matched, 0).toString();
     const size = safeBigNumber(item.original_size, 0).toString();
-    const sharesText = `${formatTokenItemAmount(filled, 0)} / ${formatTokenItemAmount(size, 0)}`;
+    const sharesText = `${formatTokenItemAmount(filled, 0)} / ${formatTokenItemAmount(size, 0, BigNumber.ROUND_CEIL)}`;
 
     const navigateToDetail = async () => {
         const result = await polymarketGammaEndpoint.getMarketByConditionId(item.market);
