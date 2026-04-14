@@ -71,10 +71,11 @@ export function useDecimalInput({ value, onValueChange, maxDecimals = 2 }: UseDe
             if (!normalizedData) return;
 
             const target = e.currentTarget;
-            const start = target.selectionStart ?? target.value.length;
-            const end = target.selectionEnd ?? target.value.length;
+            const value = target.value.replace('$', '');
+            const start = target.selectionStart ?? value.length;
+            const end = target.selectionEnd ?? value.length;
             // `value` is controlled and already sanitized, so use the normalized fragment for validity checks.
-            const nextValue = `${target.value.slice(0, start)}${normalizedData}${target.value.slice(end)}`;
+            const nextValue = `${value.slice(0, start)}${normalizedData}${value.slice(end)}`;
             if (!isValid(nextValue)) e.preventDefault();
         },
         [isValid, normalizeFragment],
@@ -83,7 +84,7 @@ export function useDecimalInput({ value, onValueChange, maxDecimals = 2 }: UseDe
     const onChange = useCallback(
         (e: ChangeEvent<HTMLInputElement>) => {
             // Always accept changes; we sanitize aggressively so IME toggling never "locks" the input.
-            const inputValue = sanitize(e.target.value);
+            const inputValue = sanitize(e.target.value.replace('$', ''));
             if (isValid(inputValue)) onValueChange(inputValue);
             else onValueChange(sanitize(inputValue));
         },

@@ -17,6 +17,7 @@ import { formatAddress } from '@/helpers/formatAddress.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { isSolanaChain } from '@/helpers/isSolanaChain.js';
 import { addressesMatch, formatTokenAmount } from '@/helpers/swap/formatSwapAmount.js';
+import { useTrendingTokensForWithdraw } from '@/hooks/bet/useTrendingTokensForWithdraw.js';
 import { useEffectiveSwapWalletAddress } from '@/hooks/swap/useEffectiveSwapWalletAddress.js';
 import { useGoBackAfterSelectToken } from '@/hooks/swap/useGoBackAfterSelectToken.js';
 import { useSwapSupportedChains } from '@/hooks/swap/useSwapSupportedChains.js';
@@ -66,14 +67,27 @@ function SelectTokenPage() {
     const hideTrending = from === SwapFromPage.BetDeposit;
     const hideRecent = from === SwapFromPage.BetDeposit;
 
-    const { myTokens, recentTokens, trendingTokens, isLoading } = useSwapTokens({
+    const { data: trendingTokensForWithdraw } = useTrendingTokensForWithdraw({
+        enabled: from === SwapFromPage.BetWithdraw,
+        chainId: selectedChainId ?? undefined,
+    });
+    const {
+        myTokens,
+        recentTokens,
+        trendingTokens: trendingTokensForSwap,
+        isLoading,
+    } = useSwapTokens({
         enabled: true,
         chainId: selectedChainId ?? undefined,
         selectedWalletAddress: effectiveWalletAddress,
         currentChainId,
-        hideTrending,
+        hideTrending: hideTrending || from === SwapFromPage.BetWithdraw,
         hideRecent,
     });
+    const trendingTokens = useMemo(
+        () => (from === SwapFromPage.BetWithdraw ? trendingTokensForWithdraw : trendingTokensForSwap) || [],
+        [trendingTokensForWithdraw, trendingTokensForSwap, from],
+    );
 
     const { data: searchResults = [], isLoading: isSearching } = useSearchTokens(
         search,
@@ -183,6 +197,17 @@ function SelectTokenPage() {
         document.addEventListener('mousedown', handleClickOutside);
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, [showChainMenu]);
+    // Scroll to selected chain button when selectedChainId changes
+    useEffect(() => {
+        if (!scrollRef.current) return;
+
+        const button = scrollRef.current.querySelector(
+            `button[data-chain-id="${selectedChainId || 'all'}"]`,
+        ) as HTMLButtonElement | null;
+        if (!button) return;
+
+        button.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+    }, [selectedChainId]);
 
     const isSearchMode = search.length >= 2;
     const hasNoResults = isSearchMode
@@ -217,6 +242,7 @@ function SelectTokenPage() {
                             <div ref={scrollRef} className="no-scrollbar flex gap-2 overflow-x-auto">
                                 <button
                                     type="button"
+                                    data-chain-id="all"
                                     onClick={() => setSelectedChainId(null)}
                                     className={`font-inter shrink-0 rounded-[10px] px-2 py-1.5 text-[14px] font-semibold leading-[21px] ${
                                         selectedChainId === null ? 'bg-highlight text-white' : 'bg-lightBg text-main'
@@ -228,6 +254,7 @@ function SelectTokenPage() {
                                     <button
                                         key={chain.chainId}
                                         type="button"
+                                        data-chain-id={chain.chainId}
                                         onClick={() =>
                                             setSelectedChainId(selectedChainId === chain.chainId ? null : chain.chainId)
                                         }

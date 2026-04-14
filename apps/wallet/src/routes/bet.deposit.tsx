@@ -1,5 +1,5 @@
 import ArrowDownIcon from '@dimensiondev/assets/arrow-line-down.svg';
-import SwitchIcon from '@dimensiondev/assets/switch.svg';
+import BetSwitchIcon from '@dimensiondev/assets/bet-exchange.svg';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
@@ -15,6 +15,7 @@ import { NavigationBar } from '@/components/NavigationBar.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
 import { Button } from '@/components/ui/button.js';
 import { SwapFromPage } from '@/constants/enum.js';
+import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
 import { formatTokenItemAmount } from '@/helpers/formatTokenItemAmount.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { isSolanaChain } from '@/helpers/isSolanaChain.js';
@@ -60,9 +61,11 @@ function DepositClient() {
     const [value, setValue] = useState('');
     const [inputType, setInputType] = useState(InputType.Usdc);
 
-    const { inputProps } = useDecimalInput({ value, onValueChange: setValue, maxDecimals: 2 });
-    const { evmAddress, solanaAddress, isLoading: isEmbeddedWalletLoading } = useEmbeddedWalletAddresses();
     const { token: depositToken, isLoading: isDepositTokenLoading, isBalanceLoading } = useDepositToken();
+
+    const maxDecimals = inputType === InputType.Amount && depositToken ? depositToken.decimals : 2;
+    const { inputProps } = useDecimalInput({ value, onValueChange: setValue, maxDecimals });
+    const { evmAddress, solanaAddress, isLoading: isEmbeddedWalletLoading } = useEmbeddedWalletAddresses();
     const { data: polymarketAccount, isLoading: isPolymarketAccountLoading } = useQuery({
         queryKey: ['polymarket-account'],
         staleTime: 1000 * 60 * 5, // 5 minutes
@@ -90,9 +93,7 @@ function DepositClient() {
         if (inputType === InputType.Amount)
             return {
                 amount: value,
-                usdcValue: value
-                    ? toFixed(multipliedBy(value, depositToken.price ?? 0), usdcTokenFallback.decimals)
-                    : '0',
+                usdcValue: value ? toFixed(multipliedBy(value, depositToken.price ?? 0), 2) : '0',
             };
 
         return {
@@ -131,7 +132,8 @@ function DepositClient() {
     }, [quote, depositToken, amount]);
 
     const isInsufficientBalance = depositToken ? isLessThan(depositToken.balance, amount) : false;
-    const isLessThanMinimum = isLessThan(usdcValue, MINIMUM_USD);
+    const receivedUsdc = isSameToken ? usdcValue : (quote?.toAmount ?? '0');
+    const isLessThanMinimum = isLessThan(receivedUsdc, MINIMUM_USD);
     const disabled =
         !value ||
         isInsufficientBalance ||
@@ -173,7 +175,7 @@ function DepositClient() {
         return <LoadingPanel />;
     }
 
-    const usdcBalanceUsdText = formatTokenUSD(isSameToken ? usdcValue : (quote?.toAmount ?? '0'), { minDisplay: 0.01 });
+    const usdcBalanceUsdText = formatTokenUSD(receivedUsdc, { minDisplay: 0.01 });
 
     return (
         <div className="flex min-h-0 w-full flex-1 flex-col items-center px-4">
@@ -232,6 +234,7 @@ function DepositClient() {
                 <input
                     id="deposit-amount"
                     {...inputProps}
+                    value={inputType === InputType.Usdc && inputProps.value ? `$${inputProps.value}` : inputProps.value}
                     autoComplete="off"
                     ref={inputRef}
                     autoFocus
@@ -247,7 +250,8 @@ function DepositClient() {
                     className="flex h-3.5 items-center gap-1"
                     onClick={() => {
                         if (!depositToken || isSameToken) return;
-                        setValue(inputType === InputType.Amount ? usdcValue : amount);
+
+                        setValue(removeTrailingZeros(inputType === InputType.Amount ? usdcValue : amount));
                         setInputType((perv) => (perv === InputType.Amount ? InputType.Usdc : InputType.Amount));
                     }}
                 >
@@ -260,7 +264,7 @@ function DepositClient() {
                             <span className="text-second text-xs leading-[14px]">
                                 {inputType === InputType.Amount ? formatTokenUSD(usdcValue) : amount}
                             </span>
-                            <SwitchIcon width={14} height={14} className="rotate-90" />
+                            <BetSwitchIcon width={14} height={14} />
                         </>
                     ) : null}
                 </ClickableButton>
@@ -307,12 +311,11 @@ function DepositClient() {
                                         ? depositToken.balance
                                         : formatUnits(ratedValueBigInt, depositToken.decimals);
                                 setValue(
-                                    inputType === InputType.Amount
-                                        ? toFixed(newAmount, depositToken.decimals)
-                                        : toFixed(
-                                              multipliedBy(newAmount, depositToken.price ?? 0),
-                                              usdcTokenFallback.decimals,
-                                          ),
+                                    removeTrailingZeros(
+                                        inputType === InputType.Amount
+                                            ? toFixed(newAmount, maxDecimals)
+                                            : toFixed(multipliedBy(newAmount, depositToken.price ?? 0), maxDecimals),
+                                    ),
                                 );
                             }}
                         >
