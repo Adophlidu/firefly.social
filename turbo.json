@@ -31,14 +31,22 @@
         "X_WEBHOOK_ID",
         "X_WEBHOOK_RECEIVER_API_KEY"
     ],
-    // requirement of pnpm run dev
     "concurrency": "12",
     "tasks": {
         "build": {
             "dependsOn": ["^build"],
             "outputs": [".next/**", "!.next/cache/**", "dist/**"]
         },
-        "lint": {},
+        "lint": {
+            "inputs": [
+                "**/*.{ts,tsx,js,jsx,mjs,cjs}",
+                "eslint.config.mjs",
+                "eslint.shared.mjs",
+                "rules/**",
+                "!**/dist/**",
+                "!**/node_modules/**"
+            ]
+        },
         "dev": {
             "cache": false,
             "persistent": true
