@@ -21,11 +21,11 @@ export function generateStaticParams() {
 }
 
 interface Props extends PropsWithChildren {
-    params: Promise<{ source: NotificationSourceInURL }>;
+    params: Promise<{ source: string }>;
 }
 
 export default async function Layout(props: Props) {
-    const { source } = await props.params;
+    const source = (await props.params).source as NotificationSourceInURL;
 
     return (
         <div className="flex w-full flex-col">

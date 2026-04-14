@@ -3,13 +3,12 @@ import type { LayoutProps } from '@dimensiondev/types';
 import type { TokenCategory } from '@/constants/enum.js';
 
 export interface TokenPageProps
-    extends LayoutProps<
-        {
-            exchange: string;
-            slug: [coingecko_id: string] | [chain_id: string, address: string];
-        },
-        TokenPageSearch
-    > {}
+    extends LayoutProps<{
+        exchange: string;
+        slug: [coingecko_id: string] | [chain_id: string, address: string];
+    }> {
+    searchParams: Promise<TokenPageSearch>;
+}
 
 export interface TokenPageSearch {
     wallet: string;

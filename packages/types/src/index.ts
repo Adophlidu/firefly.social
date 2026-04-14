@@ -5,10 +5,15 @@ export interface ErrorPageProps {
     reset: () => void;
 }
 
-export interface LayoutProps<Params = never, SearchParams = never> extends PropsWithChildren {
+export interface LayoutProps<Params = never> extends PropsWithChildren {
     params: Params extends never ? never : Promise<Params>;
-    searchParams: SearchParams extends never ? never : Promise<SearchParams>;
     children: ReactNode;
+}
+
+export interface SearchProps<
+    Params extends { [key: string]: string | string[] | undefined } = { [key: string]: string | string[] | undefined },
+> {
+    searchParams: Promise<Params>;
 }
 
 export interface NextPageProps<Params = never, SearchParams = never> extends PropsWithChildren {

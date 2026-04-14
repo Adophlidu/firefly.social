@@ -1,14 +1,8 @@
 import type { LayoutProps } from '@dimensiondev/types';
 
-interface Props
-    extends LayoutProps<
-        {
-            id: string;
-        },
-        {
-            type: 'multi' | string;
-        }
-    > {}
+type Props = LayoutProps<{
+    id: string;
+}>;
 
 export default async function OpinionEventLayout(props: Props) {
     return props.children;

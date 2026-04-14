@@ -26,7 +26,7 @@
     "scripts": {
         "build": "tsup",
         "dev": "tsup --watch",
-        "typecheck": "tsc --noEmit",
+        "typecheck": "tsgo --noEmit",
         "clean": "rm -rf dist"
     },
     "keywords": [
@@ -58,6 +58,6 @@
     "devDependencies": {
         "@types/react": "^19.2.14",
         "tsup": "^8.5.1",
-        "typescript": "5.9.3"
+        "@typescript/native-preview": "7.0.0-dev.20260413.1"
     }
 }

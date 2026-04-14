@@ -10,11 +10,10 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { createChannelMetadata } from '@/providers/firefly/metadata/createChannelMetadata.js';
 
-interface Props
-    extends LayoutProps<{
-        id: string;
-        source: SocialSourceInURL;
-    }> {}
+type Props = LayoutProps<{
+    id: string;
+    source: string;
+}>;
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
     const { source = SourceInURL.Farcaster, id } = await props.params;
@@ -22,7 +21,8 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 }
 
 export default async function Page(props: Props) {
-    const { source, id } = await props.params;
+    const { id } = await props.params;
+    const source = (await props.params).source as SocialSourceInURL;
     const resolvedSource = resolveSocialSource(source);
 
     const provider = resolveSocialMediaProvider(resolvedSource);

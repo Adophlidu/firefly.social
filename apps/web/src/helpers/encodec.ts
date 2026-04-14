@@ -12,7 +12,7 @@ const APP_LOGIN_ENCRYPT_IV = '0x4f05c37c16c801c2516b0338a8fd0cf9';
  * @returns Hex string without 0x prefix
  */
 export async function encrypt(plainText: string, cryptoKey: string): Promise<string> {
-    const iv = hexToBytes(APP_LOGIN_ENCRYPT_IV);
+    const iv = hexToBytes(APP_LOGIN_ENCRYPT_IV) as Uint8Array<ArrayBuffer>;
 
     const cryptoBytes = new TextEncoder().encode(cryptoKey);
     const hashBuffer = await crypto.subtle.digest('SHA-256', cryptoBytes);
@@ -39,8 +39,8 @@ export async function encrypt(plainText: string, cryptoKey: string): Promise<str
  * @returns Decrypted plaintext string
  */
 export async function decrypt(data: string, cryptoKey: string): Promise<string> {
-    const iv = hexToBytes(APP_LOGIN_ENCRYPT_IV);
-    const encryptedData = hexToBytes(ensureHexPrefix(data));
+    const iv = hexToBytes(APP_LOGIN_ENCRYPT_IV) as Uint8Array<ArrayBuffer>;
+    const encryptedData = hexToBytes(ensureHexPrefix(data)) as Uint8Array<ArrayBuffer>;
 
     // Derive AES key using SHA-256 hash of OTP
     const otpBytes = new TextEncoder().encode(cryptoKey);

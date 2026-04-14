@@ -1,4 +1,4 @@
-import type { LayoutProps } from '@dimensiondev/types';
+import type { LayoutProps, SearchProps } from '@dimensiondev/types';
 import { Trans } from '@lingui/react/macro';
 import type { Metadata } from 'next';
 
@@ -17,8 +17,8 @@ import { createPostMetadata } from '@/providers/firefly/metadata/createPostMetad
 
 export const revalidate = 60;
 
-interface Props
-    extends LayoutProps<{ source: SocialSourceInURL }, { s?: SocialSourceInURL; source?: SocialSourceInURL }> {}
+type Props = LayoutProps<{ source: SocialSourceInURL }> &
+    SearchProps<{ s?: SocialSourceInURL; source?: SocialSourceInURL }>;
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
     const searchParams = await props.searchParams;

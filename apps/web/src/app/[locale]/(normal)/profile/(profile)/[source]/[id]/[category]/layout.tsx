@@ -3,7 +3,6 @@ import type { Metadata } from 'next';
 
 import { ProfileCategoryTabs } from '@/app/[locale]/(normal)/profile/pages/ProfileCategoryTabs.js';
 import type {
-    ProfileCategory,
     ProfilePageSourceInURL,
     SocialProfileCategory,
     SocialSource,
@@ -17,14 +16,14 @@ import { isProfilePageSource } from '@/helpers/isSource.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 import { resolveSpecialProfileIdentity } from '@/helpers/resolveSpecialProfileIdentity.js';
 
-interface Props extends LayoutProps<{ id: string; category: ProfileCategory; source: ProfilePageSourceInURL }> {}
+interface Props extends LayoutProps<{ id: string; category: string; source: string }> {}
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
     const { source, id, category } = await props.params;
     const resolvedSource = resolveSourceFromUrlNoFallback(source);
 
     if (resolvedSource && isProfilePageSource(resolvedSource)) {
-        return createMetadataProfileById(source, id, `/profile/${source}/${id}/${category}`);
+        return createMetadataProfileById(source as ProfilePageSourceInURL, id, `/profile/${source}/${id}/${category}`);
     }
     return createSiteMetadata(`/profile/${resolvedSource}/${id}/${category}`);
 }
@@ -32,12 +31,13 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 interface ProfileLayoutProps
     extends LayoutProps<{
         id: string;
-        category: SocialProfileCategory | WalletProfileCategory;
-        source: ProfilePageSourceInURL;
+        category: string;
+        source: string;
     }> {}
 
 export default async function Layout(props: ProfileLayoutProps) {
-    const { source, category, id } = await props.params;
+    const { source, id } = await props.params;
+    const category = (await props.params).category as SocialProfileCategory | WalletProfileCategory;
 
     const resolvedSource = resolveSourceFromUrlNoFallback(source);
     if (!resolvedSource || isFollowCategory(category)) notFound();

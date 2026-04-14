@@ -7,8 +7,8 @@ import { LoginRequiredGuard } from '@/components/LoginRequiredGuard.js';
 import { NoSSR } from '@/components/NoSSR.js';
 import { Title } from '@/components/Profile/Title.js';
 import { REQUIRE_LOGIN_FOLLOWING_CATEGORY } from '@/constants/computed.js';
+import { type FollowCategory, Source } from '@/constants/enum.js';
 import { Locale } from '@/constants/enum.js';
-import { type ProfileCategory, type ProfilePageSourceInURL, Source } from '@/constants/enum.js';
 import { notFound } from '@/esm/navigation/server.js';
 import { isFollowCategory } from '@/helpers/isFollowCategory.js';
 import { isSocialSource } from '@/helpers/isSource.js';
@@ -16,13 +16,14 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 import { setupLocaleFromParams } from '@/i18n/static.js';
 
-interface Props extends LayoutProps<{ id: string; category: ProfileCategory; source: ProfilePageSourceInURL }> {}
+interface Props extends LayoutProps<{ id: string; category: string; source: string }> {}
 
 export default async function Layout(props: Props) {
     setupLocaleFromParams(Locale.en);
 
     const params = await props.params;
     if (!isFollowCategory(params.category)) notFound();
+    const category = params.category as FollowCategory;
 
     const id = params.id;
     const source = resolveSourceFromUrlNoFallback(params.source);
@@ -44,11 +45,11 @@ export default async function Layout(props: Props) {
     return (
         <>
             <Title title={displayName} className="border-line sticky top-0 border-b" />
-            <FollowPageLayout profile={profile} category={params.category}>
+            <FollowPageLayout profile={profile} category={category}>
                 <LoginRequiredGuard
                     className="lg:!pt-0"
                     source={profile.source}
-                    required={REQUIRE_LOGIN_FOLLOWING_CATEGORY.includes(params.category)}
+                    required={REQUIRE_LOGIN_FOLLOWING_CATEGORY.includes(category)}
                 >
                     <NoSSR>
                         <ProfileRelationContextProvider profile={profile}>

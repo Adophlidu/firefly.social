@@ -1,19 +1,11 @@
-import type { LayoutProps } from '@dimensiondev/types';
+import type { LayoutProps, SearchProps } from '@dimensiondev/types';
 
 import { PredictionEventDetailContent } from '@/components/Prediction/PredictionEventDetailContent.js';
 import { PredictionPlatform } from '@/constants/enum.js';
 
 export const revalidate = 60;
 
-interface Props
-    extends LayoutProps<
-        {
-            id: string;
-        },
-        {
-            type: 'multi' | string;
-        }
-    > {}
+type Props = LayoutProps<{ id: string }> & SearchProps<{ type: 'multi' | string }>;
 
 export default async function PolymarketEventPage(props: Props) {
     const { id } = await props.params;

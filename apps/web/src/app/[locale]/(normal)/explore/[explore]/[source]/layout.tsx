@@ -6,7 +6,7 @@ import { type ExploreSourceInURL, ExploreType } from '@/constants/enum.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 
-interface Props extends LayoutProps<{ source: string; explore: ExploreType }> {}
+interface Props extends LayoutProps<{ source: string; explore: string }> {}
 
 export async function generateMetadata(props: Props) {
     const { explore, source } = await props.params;
@@ -23,7 +23,8 @@ export async function generateMetadata(props: Props) {
 }
 
 export default async function Layout(props: Props) {
-    const { source, explore } = await props.params;
+    const { source } = await props.params;
+    const explore = (await props.params).explore as ExploreType;
 
     if (explore === ExploreType.Prediction) {
         return props.children;

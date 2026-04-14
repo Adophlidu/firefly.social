@@ -16,7 +16,7 @@ export function generateStaticParams() {
     return Object.values(ExploreType).map((explore) => ({ explore }));
 }
 
-interface Props extends LayoutProps<{ explore: ExploreType }> {}
+interface Props extends LayoutProps<{ explore: string }> {}
 
 export async function generateMetadata(props: Props) {
     const { explore } = await props.params;
@@ -27,7 +27,7 @@ export async function generateMetadata(props: Props) {
 }
 
 export default async function Layout(props: Props) {
-    const { explore } = await props.params;
+    const explore = (await props.params).explore as ExploreType;
 
     const queryClient = new QueryClient(queryClientConfig);
     try {

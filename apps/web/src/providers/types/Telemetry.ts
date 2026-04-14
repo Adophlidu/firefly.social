@@ -1748,14 +1748,6 @@ export interface Events extends Record<EventId, Event> {
             recipient_social_handle?: string;
         };
     };
-    [EventId.FIREFLY_WALLET_SEND_RECIPIENT_CHANGE_WALLET_CLICK]: {
-        type: EventType.Interact;
-        parameters: {
-            firefly_account_id: string;
-            recipient_firefly_account_id?: string;
-            recipient_social_handle?: string;
-        };
-    };
     [EventId.FIREFLY_WALLET_SEND_RECIPIENT_WALLET_CHANGE]: {
         type: EventType.Interact;
         parameters: {

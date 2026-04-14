@@ -49,13 +49,7 @@ function checkSlug(slug: string[]) {
     return false;
 }
 
-interface Props
-    extends LayoutProps<
-        { slug: string[] },
-        {
-            q: string;
-        }
-    > {}
+type Props = LayoutProps<{ slug: string[] }>;
 
 export async function generateMetadata(props: Props) {
     const { slug } = await props.params;
@@ -73,7 +67,10 @@ export async function generateMetadata(props: Props) {
 
 export default async function Layout(props: Props) {
     const params = await props.params;
-    const searchParams = await props.searchParams;
+    // TODO: according to Next.js doc
+    // https://nextjs.org/docs/app/api-reference/file-conventions/layout#query-params
+    // A Layout cannot access searchParams, so code here should be a no-op.
+    const searchParams = await (props as any).searchParams;
 
     if (params.slug[1] === SearchType.Channels) {
         redirect(resolveSearchUrl(searchParams.q, SearchType.Clubs));

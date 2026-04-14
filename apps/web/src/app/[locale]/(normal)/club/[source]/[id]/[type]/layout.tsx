@@ -8,17 +8,11 @@ import { notFound } from '@/esm/navigation/server.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { createChannelMetadata } from '@/providers/firefly/metadata/createChannelMetadata.js';
 
-interface Props
-    extends LayoutProps<
-        {
-            id: string;
-            source?: SocialSourceInURL;
-            type?: ChannelTabType;
-        },
-        {
-            source: SocialSourceInURL;
-        }
-    > {}
+type Props = LayoutProps<{
+    id: string;
+    source?: string;
+    type?: string;
+}>;
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
     const { source = SourceInURL.Farcaster, id, type = ChannelTabType.Posts } = await props.params;
@@ -26,7 +20,9 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 }
 
 export default async function Layout(props: Props) {
-    const { source = SourceInURL.Farcaster, id, type = ChannelTabType.Posts } = await props.params;
+    const source = ((await props.params).source as SocialSourceInURL) || SourceInURL.Farcaster;
+    const { id } = await props.params;
+    const type = ((await props.params).type as ChannelTabType) || ChannelTabType.Posts;
     const resolvedSource = resolveSocialSource(source);
 
     const validTypes = CHANNEL_TAB_TYPE[resolvedSource];

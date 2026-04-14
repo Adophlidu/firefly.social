@@ -1,4 +1,4 @@
-import type { LayoutProps } from '@dimensiondev/types';
+import type { LayoutProps, SearchProps } from '@dimensiondev/types';
 import type { Metadata } from 'next';
 
 import { PredictionEventDetailContent } from '@/components/Prediction/PredictionEventDetailContent.js';
@@ -7,15 +7,12 @@ import { createPredictionEventMetadata } from '@/providers/firefly/metadata/crea
 
 export const revalidate = 60;
 
-interface Props
-    extends LayoutProps<
-        {
-            id: string;
-        },
-        {
-            type: 'multi' | string;
-        }
-    > {}
+type Props = LayoutProps<{
+    id: string;
+}> &
+    SearchProps<{
+        type: 'multi' | string;
+    }>;
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
     const { id } = await props.params;

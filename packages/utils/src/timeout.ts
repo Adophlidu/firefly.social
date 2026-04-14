@@ -19,7 +19,7 @@
  */
 export function timeout<T>(promise: PromiseLike<T>, time: number, rejectReason?: string): Promise<T> {
     if (!Number.isFinite(time)) return (async () => promise)();
-    let timer: NodeJS.Timeout;
+    let timer: ReturnType<typeof setTimeout>;
     const race = Promise.race([
         promise,
         new Promise<T>((_, reject) => {

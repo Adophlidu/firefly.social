@@ -9,7 +9,7 @@ import { ProfileContextProvider } from '@/components/Profile/ProfileContext.js';
 import { ProfileInfoCard } from '@/components/Profile/ProfileInfoCard.js';
 import { ProfileSourceTabs } from '@/components/Profile/ProfileSourceTabs/index.js';
 import { SuspendedAccountFallback } from '@/components/SuspendedAccountFallback.js';
-import { type LoginFallbackSource, type ProfilePageSourceInURL, Source } from '@/constants/enum.js';
+import { type LoginFallbackSource, Source } from '@/constants/enum.js';
 import { AccountSuspendedError } from '@/constants/error.js';
 import { notFound } from '@/esm/navigation/server.js';
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
@@ -26,7 +26,7 @@ import { getAllRelatedProfilesWithDefault } from '@/services/getAllRelatedProfil
 
 export const revalidate = 60;
 
-interface Props extends LayoutProps<{ id: string; source: ProfilePageSourceInURL }> {}
+interface Props extends LayoutProps<{ id: string; source: string }> {}
 
 // Now we only support profile handle in url, so we fix the identity here
 function fixIdentity(identity: FireflyIdentity, profiles: FireflyProfile[]) {

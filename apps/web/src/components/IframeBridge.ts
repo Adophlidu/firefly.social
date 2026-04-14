@@ -94,7 +94,7 @@ const createAllEvents = (router: ReturnType<typeof useRouter>) => {
         [IframeBridgeMethod.COMPOSE]: async (params: IframeBridgeRequestArguments[IframeBridgeMethod.COMPOSE]) => {
             const result = await ComposeModalRef.openAndWaitForClose({ type: 'compose', chars: params.text });
             if (result) return result.post?.postId;
-            return;
+            return undefined;
         },
         [IframeBridgeMethod.ENQUEUE_MESSAGE]: async (
             params: IframeBridgeRequestArguments[IframeBridgeMethod.ENQUEUE_MESSAGE],

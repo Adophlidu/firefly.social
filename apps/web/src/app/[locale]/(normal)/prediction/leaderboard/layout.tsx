@@ -5,7 +5,7 @@ import { Trans } from '@lingui/react/macro';
 
 import { Comeback } from '@/components/Comeback.js';
 
-export default function BetsLeaderboardLayout(props: LayoutProps) {
+export default function BetsLeaderboardLayout(props: LayoutProps<{ locale: string }>) {
     return (
         <div>
             <div className="bg-primaryBottom sticky top-0 z-30 flex h-[60px] items-center justify-between px-4">

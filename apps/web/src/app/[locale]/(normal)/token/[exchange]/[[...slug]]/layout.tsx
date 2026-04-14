@@ -1,4 +1,4 @@
-import type { LayoutProps } from '@dimensiondev/types';
+import type { LayoutProps, SearchProps } from '@dimensiondev/types';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import { headers } from 'next/headers.js';
@@ -8,7 +8,6 @@ import { z } from 'zod';
 
 import { CategoryTabs } from '@/app/[locale]/(normal)/token/[exchange]/[[...slug]]/CategoryTabs.js';
 import { MobileSwapButton } from '@/app/[locale]/(normal)/token/[exchange]/[[...slug]]/MobileSwapButton.js';
-import type { TokenPageSearch } from '@/app/[locale]/(normal)/token/[exchange]/[[...slug]]/types.js';
 import { WrapTokenMarketData } from '@/app/[locale]/(normal)/token/[exchange]/[[...slug]]/WrapTokenMarketData.js';
 import { Comeback } from '@/components/Comeback.js';
 import { TokenContextProvider } from '@/components/Token/TokenContext.js';
@@ -27,14 +26,10 @@ const QueryOptionsSchema = z.object({
     chainId: z.coerce.number().int().optional(),
 });
 
-interface Props
-    extends LayoutProps<
-        {
-            exchange: string;
-            slug: [coingecko_id: string] | [chain_id: string, address: string] | undefined;
-        },
-        TokenPageSearch
-    > {}
+type Props = LayoutProps<{
+    exchange: string;
+    slug?: string[] | undefined;
+}>;
 
 function updateSearch(originSearch: string, patch: Record<string, string>) {
     const newSearch = new URLSearchParams(originSearch);
@@ -47,7 +42,7 @@ function updateSearch(originSearch: string, patch: Record<string, string>) {
     return newSearch.size ? `?${newSearch.toString()}` : '';
 }
 
-export async function generateMetadata(props: Props) {
+export async function generateMetadata(props: Props & SearchProps) {
     const params = await props.params;
     const searchParams = await props.searchParams;
     const options = QueryOptionsSchema.safeParse(searchParams).data;

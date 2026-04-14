@@ -22,7 +22,7 @@
     "scripts": {
         "build": "tsup",
         "dev": "tsup --watch",
-        "typecheck": "tsc --noEmit",
+        "typecheck": "tsgo --noEmit",
         "clean": "rm -rf dist"
     },
     "keywords": [
@@ -43,7 +43,7 @@
     },
     "devDependencies": {
         "tsup": "^8.5.1",
-        "typescript": "5.9.3"
+        "@typescript/native-preview": "7.0.0-dev.20260413.1"
     },
     "peerDependencies": {
         "@types/react": ">=18.0.0",

@@ -1,4 +1,4 @@
-import type { LayoutProps } from '@dimensiondev/types';
+import type { LayoutProps, SearchProps } from '@dimensiondev/types';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import type { Metadata } from 'next';
 
@@ -14,17 +14,14 @@ import { createChannelMetadata } from '@/providers/firefly/metadata/createChanne
 
 export const revalidate = 60;
 
-interface Props
-    extends LayoutProps<
-        {
-            id: string;
-            source: SocialSourceInURL;
-            type: ChannelTabType;
-        },
-        {
-            source: SocialSourceInURL;
-        }
-    > {}
+type Props = LayoutProps<{
+    id: string;
+    source: SocialSourceInURL;
+    type: ChannelTabType;
+}> &
+    SearchProps<{
+        source: SocialSourceInURL;
+    }>;
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
     const { source = SourceInURL.Farcaster, id } = await props.params;
