@@ -8,6 +8,8 @@ import {
     blast,
     bsc,
     celo,
+    lens,
+    lensTestnet,
     linea,
     mainnet,
     optimism,
@@ -17,7 +19,7 @@ import {
     zkSync,
 } from 'viem/chains';
 
-import { chains, lensMainnet, lensTestnet } from '@/configs/chains.js';
+import { chains } from '@/configs/chains.js';
 import { env } from '@/constants/env.js';
 
 const storage = createStorage({
@@ -41,7 +43,7 @@ export const config = createConfig({
         [zkSync.id]: http(),
         [celo.id]: http(),
         [plasma.id]: http(),
-        [lensMainnet.id]: http(),
+        [lens.id]: http(),
         [lensTestnet.id]: http(),
     },
     storage,

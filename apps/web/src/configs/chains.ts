@@ -2,177 +2,102 @@
 
 'use client';
 
-import { defineChain } from 'viem/utils';
-import { chainConfig } from 'viem/zksync';
 import {
-    arbitrum as wagmiArbitrum,
-    aurora as wagmiAurora,
-    avalanche as wagmiAvalanche,
-    base as wagmiBase,
-    baseSepolia as wagmiBaseSepolia,
-    blast as wagmiBlast,
-    bsc as wagmiBsc,
-    celo as wagmiCelo,
-    confluxESpace as wagmiConfluxESpace,
-    fantom as wagmiFantom,
-    gnosis as wagmiGnosis,
-    linea as wagmiLinea,
-    mainnet as wagmiMainnet,
-    metis as wagmiMetis,
-    monadTestnet as wagmiMonadTestnet,
-    optimism as wagmiOptimism,
-    plasma as wagmiPlasma,
-    polygon as wagmiPolygon,
-    scroll as wagmiScroll,
-    xLayer as wagmiXLayer,
-    zkSync as wagmiZkSync,
-    zora as wagmiZora,
-} from 'wagmi/chains';
-
-export const lensMainnet = defineChain({
-    ...chainConfig,
-    id: 232,
-    name: 'Lens',
-    network: 'lens-chain-mainnet',
-    nativeCurrency: {
-        name: 'GHO Token',
-        symbol: 'GHO',
-        decimals: 18,
-    },
-    rpcUrls: {
-        default: {
-            http: ['https://rpc.lens.xyz'],
-        },
-    },
-    blockExplorers: {
-        default: {
-            name: 'Lens Explorer',
-            url: 'https://explorer.lens.xyz/',
-        },
-    },
-    contracts: {
-        multicall3: {
-            address: '0x6b6dEa4D80e3077D076733A04c48F63c3BA49320',
-        },
-        wrappedGasToken: {
-            address: '0x6bdc36e20d267ff0dd6097799f82e78907105e2f',
-        },
-    },
-    testnet: false,
-});
-
-export const lensTestnet = defineChain({
-    ...chainConfig,
-    id: 37111,
-    name: 'Lens Testnet',
-    network: 'lens-chain-testnet',
-    nativeCurrency: {
-        name: 'Grass Token',
-        symbol: 'GRASS',
-        decimals: 18,
-    },
-    rpcUrls: {
-        default: {
-            http: ['https://rpc.testnet.lens.xyz'],
-        },
-    },
-    blockExplorers: {
-        default: {
-            name: 'Lens Testnet Explorer',
-            url: 'https://explorer.testnet.lens.xyz/',
-        },
-    },
-    contracts: {
-        multicall3: {
-            address: '0x8A44EDE8a6843a997bC0Cc4659e4dB1Da8f91116',
-        },
-        wrappedGasToken: {
-            address: '0xeee5a340Cdc9c179Db25dea45AcfD5FE8d4d3eB8',
-        },
-    },
-    testnet: true,
-});
-
-export const hyperEVM = defineChain({
-    id: 999,
-    name: 'Hyper EVM',
-    nativeCurrency: { name: 'HYPE', symbol: 'HYPE', decimals: 18 },
-    rpcUrls: {
-        default: {
-            http: ['https://rpc.hyperliquid.xyz/evm'],
-        },
-    },
-    testnet: false,
-});
+    arbitrum,
+    aurora,
+    avalanche,
+    base,
+    baseSepolia,
+    blast,
+    bsc,
+    celo,
+    confluxESpace,
+    fantom,
+    gnosis,
+    hyperEvm,
+    lens,
+    lensTestnet,
+    linea,
+    mainnet,
+    metis,
+    monadTestnet,
+    optimism,
+    plasma,
+    polygon,
+    scroll,
+    xLayer,
+    zkSync,
+    zora,
+} from 'viem/chains';
 
 /**
  * List of all supported chains
  */
 export const chains = [
-    wagmiMainnet,
-    wagmiBase,
-    wagmiBaseSepolia,
-    wagmiBsc,
-    wagmiPolygon,
-    wagmiOptimism,
-    wagmiArbitrum,
-    wagmiGnosis,
-    wagmiAvalanche,
-    wagmiBlast,
-    wagmiAurora,
-    wagmiConfluxESpace,
-    wagmiFantom,
-    wagmiXLayer,
-    wagmiMetis,
-    wagmiZora,
-    wagmiScroll,
-    wagmiLinea,
-    wagmiZkSync,
-    wagmiCelo,
-    lensMainnet,
+    mainnet,
+    base,
+    baseSepolia,
+    bsc,
+    polygon,
+    optimism,
+    arbitrum,
+    gnosis,
+    avalanche,
+    blast,
+    aurora,
+    confluxESpace,
+    fantom,
+    xLayer,
+    metis,
+    zora,
+    scroll,
+    linea,
+    zkSync,
+    celo,
+    lens,
     lensTestnet,
-    wagmiMonadTestnet,
-    wagmiPlasma,
-    hyperEVM,
+    monadTestnet,
+    plasma,
+    hyperEvm,
 ] as const;
 
 export const visibleChains = [
-    wagmiMainnet,
-    wagmiBase,
-    wagmiBsc,
-    wagmiPolygon,
-    wagmiOptimism,
-    wagmiArbitrum,
-    wagmiGnosis,
-    wagmiAvalanche,
-    wagmiBlast,
-    wagmiAurora,
-    wagmiConfluxESpace,
-    wagmiFantom,
-    wagmiXLayer,
-    wagmiMetis,
-    wagmiZora,
-    wagmiScroll,
-    wagmiLinea,
-    wagmiZkSync,
-    wagmiCelo,
-    lensMainnet,
-    wagmiPlasma,
-    hyperEVM,
+    mainnet,
+    base,
+    bsc,
+    polygon,
+    optimism,
+    arbitrum,
+    gnosis,
+    avalanche,
+    blast,
+    aurora,
+    confluxESpace,
+    fantom,
+    xLayer,
+    metis,
+    zora,
+    scroll,
+    linea,
+    zkSync,
+    celo,
+    lens,
+    plasma,
+    hyperEvm,
 ] as const satisfies ReadonlyArray<(typeof chains)[number]>;
 
 // privy wallet currently only supports these 10 chains
 export const privyVisibleChains = [
-    wagmiMainnet,
-    wagmiBase,
-    wagmiBsc,
-    wagmiOptimism,
-    wagmiPolygon,
-    wagmiLinea,
-    wagmiArbitrum,
-    wagmiZkSync,
-    wagmiCelo,
-    wagmiPlasma,
+    mainnet,
+    base,
+    bsc,
+    optimism,
+    polygon,
+    linea,
+    arbitrum,
+    zkSync,
+    celo,
+    plasma,
 ] as const satisfies ReadonlyArray<(typeof chains)[number]>;
 
-export const rpSupportedChains = [wagmiMainnet, wagmiBsc, wagmiBase, wagmiOptimism, wagmiPolygon, wagmiArbitrum];
+export const rpSupportedChains = [mainnet, bsc, base, optimism, polygon, arbitrum];

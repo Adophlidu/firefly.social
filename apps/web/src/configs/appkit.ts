@@ -6,8 +6,8 @@ import { IS_PRODUCTION } from '@dimensiondev/constants';
 import { envs } from '@dimensiondev/envs';
 import type { AppKitNetwork } from '@reown/appkit/networks';
 import { createAppKit } from '@reown/appkit/react';
+import { lens, lensTestnet } from 'viem/chains';
 
-import { lensMainnet, lensTestnet } from '@/configs/chains.js';
 import { solanaAdapter, solanaNetworks } from '@/configs/solanaClient.js';
 import { wagmiAdapter, wagmiNetworks } from '@/configs/wagmiClient.js';
 import { IS_MOBILE_DEVICE } from '@/constants/browser.js';
@@ -43,7 +43,7 @@ export const appkit = createAppKit({
         '--w3m-border-radius-master': '1px',
     },
     chainImages: {
-        [lensMainnet.id]: '/image/chains/lens.png',
+        [lens.id]: '/image/chains/lens.png',
         [lensTestnet.id]: '/image/chains/lens.png',
     },
 });
