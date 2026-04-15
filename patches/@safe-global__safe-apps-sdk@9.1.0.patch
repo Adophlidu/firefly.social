@@ -1,0 +1,22 @@
+diff --git a/package.json b/package.json
+index 5f0a7ac7ac4a0210d6036095b271945c060e2c30..40cd274a63147c38ae5a29ff3ed1ff50c1fac0aa 100644
+--- a/package.json
++++ b/package.json
+@@ -3,7 +3,7 @@
+   "version": "9.1.0",
+   "description": "SDK developed to integrate third-party apps with Safe app.",
+   "type": "module",
+-  "main": "dist/cjs/index.js",
++  "main": "dist/esm/index.js",
+   "module": "dist/esm/index.js",
+   "types": "dist/types/index.d.ts",
+   "files": [
+@@ -30,7 +30,7 @@
+     ".": {
+       "types": "./dist/types/index.d.ts",
+       "import": "./dist/esm/index.js",
+-      "default": "./dist/cjs/index.js"
++      "default": "./dist/esm/index.js"
+     }
+   },
+   "author": "Safe (https://safe.global)",
