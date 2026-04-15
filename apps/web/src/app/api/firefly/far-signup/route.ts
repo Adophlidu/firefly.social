@@ -57,7 +57,7 @@ export const POST = compose(withRequestErrorHandler(), async (request: NextReque
     const result = resolveFireflyResponseData(response);
     if (result.status !== 'success' || !result.userInfo) {
         const firstError = Array.isArray(result.error) ? first(result.error) : undefined;
-        return createErrorResponseJson(firstError ?? result.message ?? 'Failed to register farcaster account.', {
+        return createErrorResponseJson(firstError || result.message || 'Failed to register farcaster account.', {
             status: 400,
         });
     }

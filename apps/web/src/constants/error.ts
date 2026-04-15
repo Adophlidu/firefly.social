@@ -58,8 +58,14 @@ export class FetchError extends Error {
     }
 
     get errorMessage() {
-        const parsed = parseJson<{ error?: string[] | string }>(this.text);
-        if (parsed?.error) return Array.isArray(parsed.error) ? parsed.error.join(', ') : parsed.error;
+        const parsed = parseJson<{ error?: string[] | string | { message?: string } }>(this.text);
+        if (parsed?.error) {
+            if (Array.isArray(parsed.error)) return parsed.error.join(', ');
+            if (typeof parsed.error === 'string') return parsed.error;
+            if (typeof parsed.error === 'object' && typeof parsed.error.message === 'string')
+                return parsed.error.message;
+            return 'Unknown error';
+        }
         return;
     }
 }
