@@ -31,7 +31,7 @@
         "X_WEBHOOK_ID",
         "X_WEBHOOK_RECEIVER_API_KEY"
     ],
-    "concurrency": "12",
+    "concurrency": "13",
     "tasks": {
         "build": {
             "dependsOn": ["^build"],

@@ -98,6 +98,8 @@ export const chains = [
     lensTestnet,
 ] as const;
 
+export type ChainId = (typeof chains)[number]['id'];
+
 export const visibleChains = [
     mainnet,
     base,

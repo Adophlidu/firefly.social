@@ -13,6 +13,7 @@ import { toast } from 'sonner';
 import type { Address, Hex } from 'viem';
 import { sendTransaction } from 'wagmi/actions';
 
+import type { ChainId } from '@/configs/chains.js';
 import { config } from '@/configs/wagmi.js';
 import { getUserFacingErrorMessage } from '@/helpers/getErrorMessage.js';
 import { getSolanaRPCUrl } from '@/helpers/getSolanaRPCUrl.js';
@@ -44,7 +45,7 @@ interface ExecuteEvmSwapParams {
     evmSigningWallet: ConnectedWallet;
     fromToken: { address: string; decimals: number };
     fromAmount: string;
-    chainId: number;
+    chainId: ChainId;
     walletAddress: string;
     isCrossChain: boolean;
     toastId: string;
@@ -108,7 +109,7 @@ async function executeEvmSwap({
         throw new Error('Selected EVM wallet connector is not available for signing');
     }
 
-    await switchSwapEvmConnectorChain({ address: evmSigningWallet.address, connector }, chainId);
+    await switchSwapEvmConnectorChain(evmSigningWallet, connector, chainId);
     const quoteResult = await fetchSwapQuote(quoteParams);
 
     // Check and execute ERC20 approval if needed
@@ -132,6 +133,7 @@ async function executeEvmSwap({
     });
 
     const hash = await sendTransaction(config, {
+        chainId,
         connector,
         account: walletAddress as Address,
         to: quoteResult.tx.to as Address,
@@ -340,7 +342,7 @@ export function useSwapExecuteCore({
                     evmSigningWallet,
                     fromToken,
                     fromAmount,
-                    chainId: fromChainId,
+                    chainId: fromChainId as ChainId,
                     walletAddress: walletAddress!,
                     isCrossChain,
                     toastId,

@@ -2,6 +2,7 @@ import { isNativeTokenAddress } from '@dimensiondev/web3-utils';
 import { type Address, erc20Abi, type Hex } from 'viem';
 import { readContract, sendTransaction } from 'wagmi/actions';
 
+import type { ChainId } from '@/configs/chains.js';
 import { config } from '@/configs/wagmi.js';
 import { rightShift } from '@/helpers/number.js';
 import { estimateSwapGas } from '@/helpers/swap/estimateSwapGas.js';
@@ -13,7 +14,7 @@ interface ExecuteEvmApprovalParams {
     endpoint: SwapEndpoint;
     fromToken: SwapToken;
     fromAmount: string;
-    chainId: number;
+    chainId: ChainId;
     walletAddress: string;
     routerAddress: string;
     connector: (typeof config.connectors)[number];
@@ -37,7 +38,7 @@ export async function executeEvmApproval(params: ExecuteEvmApprovalParams): Prom
 
     // Check allowance on-chain
     const allowance = await readContract(config, {
-        chainId: chainId as (typeof config)['chains'][number]['id'],
+        chainId,
         address: fromToken.address as Address,
         abi: erc20Abi,
         functionName: 'allowance',
@@ -65,6 +66,7 @@ export async function executeEvmApproval(params: ExecuteEvmApprovalParams): Prom
           });
 
     const approveHash = await sendTransaction(config, {
+        chainId,
         connector,
         account: walletAddress as Address,
         to: approveTo,

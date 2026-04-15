@@ -4,6 +4,7 @@ import { encodeFunctionData, parseUnits } from 'viem';
 import type { Config } from 'wagmi';
 import { getAccount, getBalance, getChainId, sendTransaction, writeContract } from 'wagmi/actions';
 
+import type { ChainId } from '@/configs/chains.js';
 import { config } from '@/configs/wagmi.js';
 import type { EthereumChainId } from '@/constants/ethereum.js';
 import { tryFreeGasTransaction } from '@/helpers/freeGas/tryFreeGasTransaction.js';
@@ -167,7 +168,7 @@ export class EthereumTransferProvider implements TransferProvider<EthereumChainI
     }
 
     async waitForTransaction(hash: string, chainId: number): Promise<void> {
-        await waitForEthereumTransaction(chainId, hash as Hash);
+        await waitForEthereumTransaction(chainId as ChainId, hash as Hash);
     }
 }
 

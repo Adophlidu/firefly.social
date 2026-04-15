@@ -24,21 +24,23 @@ export async function resolveSwapEvmConnector(wallet: ConnectedWallet): Promise<
 }
 
 export async function switchSwapEvmConnectorChain(
-    wallet: {
-        address: string;
-        connector: SwapEvmConnector;
-    },
+    wallet: ConnectedWallet,
+    connector: SwapEvmConnector,
     chainId: number,
 ) {
-    const currentChainId = await wallet.connector.getChainId();
+    // Switch at the Privy wallet level first — updates the wallet's internal
+    // chain state so Privy's signing UI shows the correct chain.
+    await wallet.switchChain(chainId);
+
+    const currentChainId = await connector.getChainId();
     if (currentChainId === chainId) return;
-    if (!wallet.connector.switchChain) {
+    if (!connector.switchChain) {
         throw new Error('Selected EVM wallet does not support chain switching');
     }
 
     const chain = chains.find((item) => item.id === chainId);
 
-    await wallet.connector.switchChain({
+    await connector.switchChain({
         chainId,
         addEthereumChainParameter: chain
             ? {
