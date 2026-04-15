@@ -14,7 +14,7 @@ import type { Address, Hex } from 'viem';
 import { sendTransaction } from 'wagmi/actions';
 
 import type { ChainId } from '@/configs/chains.js';
-import { config } from '@/configs/wagmi.js';
+import { config } from '@/configs/wagmiClient.js';
 import { getUserFacingErrorMessage } from '@/helpers/getErrorMessage.js';
 import { getSolanaRPCUrl } from '@/helpers/getSolanaRPCUrl.js';
 import { isSolanaChain } from '@/helpers/isSolanaChain.js';

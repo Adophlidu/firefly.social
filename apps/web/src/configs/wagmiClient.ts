@@ -3,8 +3,9 @@
 'use client';
 
 import { envs } from '@dimensiondev/envs';
+import type { AppKitNetwork } from '@reown/appkit/networks';
+import { WagmiAdapter } from '@reown/appkit-adapter-wagmi';
 import {
-    type AppKitNetwork,
     arbitrum,
     aurora,
     avalanche,
@@ -16,19 +17,21 @@ import {
     confluxESpace,
     fantom,
     gnosis,
+    hyperEvm,
+    lens,
+    lensTestnet,
     linea,
     mainnet,
     metis,
     monadTestnet,
     optimism,
+    plasma,
     polygon,
     scroll,
     xLayer,
     zkSync,
     zora,
-} from '@reown/appkit/networks';
-import { WagmiAdapter } from '@reown/appkit-adapter-wagmi';
-import { hyperEvm, lens, lensTestnet, plasma } from 'viem/chains';
+} from 'viem/chains';
 import { http } from 'wagmi';
 
 import { createPrivyConnector } from '@/connectors/PrivyConnector.js';

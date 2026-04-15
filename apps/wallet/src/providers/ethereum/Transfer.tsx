@@ -5,7 +5,7 @@ import type { Config } from 'wagmi';
 import { getAccount, getBalance, getChainId, sendTransaction, writeContract } from 'wagmi/actions';
 
 import type { ChainId } from '@/configs/chains.js';
-import { config } from '@/configs/wagmi.js';
+import { config } from '@/configs/wagmiClient.js';
 import type { EthereumChainId } from '@/constants/ethereum.js';
 import { tryFreeGasTransaction } from '@/helpers/freeGas/tryFreeGasTransaction.js';
 import { getBalanceOf } from '@/helpers/getBalanceOf.js';

@@ -23,7 +23,7 @@ import { memo, useEffect, useRef } from 'react';
 import { isHex, toHex } from 'viem';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { config } from '@/configs/wagmi.js';
+import { config } from '@/configs/wagmiClient.js';
 import { SOLANA_MAINNET_PRIVY, SolanaChainId } from '@/constants/solana.js';
 import { isRunningInIframe } from '@/helpers/isRunningInIframe.js';
 import { resolveEvmConnector } from '@/helpers/resolveEvmConnector.js';

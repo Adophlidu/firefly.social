@@ -21,7 +21,7 @@ import {
 import { Input } from '@/components/ui/input.js';
 import { Select, SelectContent, SelectItem, SelectTrigger } from '@/components/ui/select.js';
 import { visibleChains } from '@/configs/chains.js';
-import { config } from '@/configs/wagmi.js';
+import { config } from '@/configs/wagmiClient.js';
 import { EthereumChainId } from '@/constants/ethereum.js';
 import { useMultiChainTokens } from '@/hooks/useMultiChainTokens.js';
 import { searchTokenLogoURI } from '@/queries/firefly/searchTokenLogoURI.js';

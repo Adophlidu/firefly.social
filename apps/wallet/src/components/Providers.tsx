@@ -10,7 +10,7 @@ import { mainnet } from 'viem/chains';
 
 import { chains } from '@/configs/chains.js';
 import { queryClient } from '@/configs/queryClient.js';
-import { config } from '@/configs/wagmi.js';
+import { config } from '@/configs/wagmiClient.js';
 import { env } from '@/constants/env.js';
 import { getSolanaRPCSubscriptionsUrl } from '@/helpers/getSolanaRPCSubscriptionsUrl.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';

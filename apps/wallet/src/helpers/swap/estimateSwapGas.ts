@@ -1,7 +1,7 @@
 import type { Address, Hex } from 'viem';
 import { estimateGas } from 'wagmi/actions';
 
-import { config } from '@/configs/wagmi.js';
+import { config } from '@/configs/wagmiClient.js';
 import { logger } from '@/lib/Logger.js';
 
 // 2M is enough for any swap/approve; caps runaway estimates from misbehaving RPCs

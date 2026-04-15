@@ -39,7 +39,7 @@ import { type FormValues, RoutePath, useSendToken } from '@/components/SendTrans
 import { TokenIcon } from '@/components/TokenIcon.js';
 import { Button } from '@/components/ui/button.js';
 import { queryClient } from '@/configs/queryClient.js';
-import { config } from '@/configs/wagmi.js';
+import { config } from '@/configs/wagmiClient.js';
 import { NetworkType } from '@/constants/enum.js';
 import type { EthereumChainId } from '@/constants/ethereum.js';
 import { SolanaChainId } from '@/constants/solana.js';

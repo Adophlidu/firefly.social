@@ -1,6 +1,6 @@
 import type { ConnectedWallet } from '@privy-io/react-auth';
 
-import { config } from '@/configs/wagmi.js';
+import { config } from '@/configs/wagmiClient.js';
 
 function getPrivyWagmiConnectorId(wallet: ConnectedWallet): string {
     return wallet.walletClientType === 'privy' ? `${wallet.meta.id}.${wallet.address}` : wallet.meta.id;
