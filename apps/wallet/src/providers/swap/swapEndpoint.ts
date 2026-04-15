@@ -241,6 +241,7 @@ export class SwapEndpoint extends Fetch {
             chainId: params.fromChainId,
             slippage: params.slippage ?? '0.5',
             userWalletAddress: params.userWalletAddress,
+            swapReceiverAddress: params.swapReceiverAddress || undefined,
         });
         const result = await this.get<SwapApiResponse<InnerSwapResponse<RawSwapData>>>(url);
         if (!result.ok || result.data.code !== 0) {

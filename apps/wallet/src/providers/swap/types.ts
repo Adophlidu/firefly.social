@@ -111,6 +111,7 @@ export interface GetSwapParams {
     toChainId?: number;
     slippage?: string;
     userWalletAddress: string;
+    swapReceiverAddress?: string;
 }
 
 export interface GetApproveParams {

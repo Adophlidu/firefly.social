@@ -60,6 +60,7 @@ export async function fetchSwapQuote(params: FetchSwapQuoteParams): Promise<Quot
               toChainId,
               slippage: slippagePercent,
               userWalletAddress: walletAddress,
+              swapReceiverAddress: recipientAddress,
           });
 
     if (!result?.tx) {
