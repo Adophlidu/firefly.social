@@ -250,7 +250,7 @@ msgid "Your Lens login token has expired. Please sign in again."
 msgstr "您的 Lens 登入權杖已過期，請重新登入。"
 
 msgid "Search NFT"
-msgstr ""
+msgstr "搜尋 NFT"
 
 msgid "Blackmail activities found."
 msgstr "發現勒索活動。"
@@ -4399,7 +4399,7 @@ msgid "End Date"
 msgstr "結束日期"
 
 msgid "The page could not be found."
-msgstr ""
+msgstr "找不到該頁面。"
 
 msgid "Swap"
 msgstr "兌換"
@@ -4693,7 +4693,7 @@ msgid "Tips"
 msgstr "打賞"
 
 msgid "Back to home"
-msgstr ""
+msgstr "返回首頁"
 
 msgid "Financial crime."
 msgstr "金融犯罪。"

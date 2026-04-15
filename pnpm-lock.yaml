@@ -471,6 +471,15 @@ importers:
         specifier: ^3.2.4
         version: 3.2.4(@types/node@22.10.10)(jsdom@27.4.0)
 
+  apps/wallet/scripts:
+    dependencies:
+      '@lingui/format-po-gettext':
+        specifier: 5.5.2
+        version: 5.5.2(typescript@5.9.3)
+      base32-decode:
+        specifier: ^1.0.0
+        version: 1.0.0
+
   apps/web:
     dependencies:
       '@atproto/api':

@@ -299,7 +299,7 @@ msgstr "No trades found"
 #. placeholder {0}: notification.actions.length
 #. placeholder {1}: notification.post.type
 msgid "{0, plural, =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>collected your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</5>"
-msgstr "{0, plural, =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>collected your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</5>"
+msgstr "{0, plural, one {<3/> <4>collected your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</5>} other {<3/> <4>collected your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</5>}}"
 
 msgid "The task is still in progress, you can check on <0>this page</0> later"
 msgstr "The task is still in progress, you can check on <0>this page</0> later"
@@ -1803,7 +1803,7 @@ msgstr "Total Gains"
 #. placeholder {0}: notification.reactors.length
 #. placeholder {1}: notification.post.type
 msgid "{0, plural, =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</5>"
-msgstr "{0, plural, =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</5>"
+msgstr "{0, plural, one {<3/> <4>liked your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</5>} other {<3/> <4>liked your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</5>}}"
 
 msgid "Today"
 msgstr "Today"
@@ -2784,7 +2784,7 @@ msgstr "Create {0} Profile"
 #. placeholder {1}: notification.source
 #. placeholder {2}: notification.post.type
 msgid "{0, plural, =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {reposted your} Farcaster {recasted your} Bsky {reposted your} other {reposted your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</4>"
-msgstr "{0, plural, =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {reposted your} Farcaster {recasted your} Bsky {reposted your} other {reposted your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</4>"
+msgstr "{0, plural, one {<3/> {1, select, Lens {reposted your} Farcaster {recasted your} Bsky {reposted your} other {reposted your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</4>} other {<3/> {1, select, Lens {reposted your} Farcaster {recasted your} Bsky {reposted your} other {reposted your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</4>}}"
 
 #. placeholder {0}: dayjs(scheduleTime).format('ddd, MMM DD, YYYY')
 #. placeholder {1}: dayjs(scheduleTime).format('hh:mm A')
@@ -5035,7 +5035,7 @@ msgstr "Failed to send your post to {0}."
 
 #. placeholder {0}: followers.length
 msgid "{0, plural, =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}}<4> followed you</4>"
-msgstr "{0, plural, =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}}<4> followed you</4>"
+msgstr "{0, plural, one {<3/><4> followed you</4>} other {<3/><4> followed you</4>}}"
 
 msgid "Tip liked."
 msgstr "Tip liked."

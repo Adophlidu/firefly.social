@@ -250,7 +250,7 @@ msgid "Your Lens login token has expired. Please sign in again."
 msgstr "你的 Lens 登录 Token 已过期，请重新登录。"
 
 msgid "Search NFT"
-msgstr ""
+msgstr "搜索 NFT"
 
 msgid "Blackmail activities found."
 msgstr "发现勒索行为。"
@@ -3549,7 +3549,7 @@ msgstr "<0>买入 {0}</0><1/>"
 
 #. placeholder {0}: error.url
 msgid "Not Found. Please check your URL. [{0}]"
-msgstr ""
+msgstr "由於 <0>X 的 API 限制</0>，你只能回覆標記你的貼文。"
 
 msgid "5m"
 msgstr "5 分钟"
@@ -4399,7 +4399,7 @@ msgid "End Date"
 msgstr "结束日期"
 
 msgid "The page could not be found."
-msgstr ""
+msgstr "找不到该页面。"
 
 msgid "Swap"
 msgstr "兑换"
@@ -4693,7 +4693,7 @@ msgid "Tips"
 msgstr "打赏"
 
 msgid "Back to home"
-msgstr ""
+msgstr "返回首页"
 
 msgid "Financial crime."
 msgstr "金融犯罪。"

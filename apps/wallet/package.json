@@ -17,7 +17,7 @@
         "lingui:extract": "NODE_ENV=development lingui extract --clean",
         "lingui": "pnpm run lingui:extract && pnpm run lingui:compile",
         "tolgee:push": "tolgee push",
-        "tolgee:push-sources": "TOLGEE_APP_ROOT=apps/wallet node ../../packages/scripts/tolgee-push-sources.cjs --force-mode OVERRIDE",
+        "tolgee:push-sources": "TOLGEE_APP_ROOT=apps/wallet node scripts/tolgee-push-sources.cjs",
         "tolgee:pull": "tolgee pull",
         "tolgee:sync": "pnpm run tolgee:pull && pnpm run lingui:extract && pnpm run lingui:compile"
     },

@@ -1,807 +1,807 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2025-10-22 15:18+1030\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: @lingui/cli\n"
 "Language: zh-Hant\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"X-Generator: Tolgee\n"
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"Plural-Forms: \n"
 
 msgid "Interacted Failed"
-msgstr ""
+msgstr "互動失敗"
 
 msgid "Copy to clipboard"
-msgstr ""
+msgstr "複製到剪貼簿"
 
 msgid "To"
-msgstr ""
+msgstr "至"
 
 msgid "Show assets < 1 USD"
-msgstr ""
+msgstr "顯示小於 1 美元的資產"
 
 msgid "History"
-msgstr ""
+msgstr "歷史紀錄"
 
 msgid "Funding"
-msgstr ""
+msgstr "資金/注資"
 
 msgid "Load failed"
-msgstr ""
+msgstr "載入失敗"
 
 msgid "Positions"
-msgstr ""
+msgstr "部位"
 
 msgid "in your Firefly wallet"
-msgstr ""
+msgstr "在您的 Firefly 錢包中"
 
 msgid "Skip reviews"
-msgstr ""
+msgstr "跳過預覽"
 
 msgid "Address, ENS, or social handle"
-msgstr ""
+msgstr "地址、ENS 或社交帳號"
 
 msgid "Your recovery phrase is like a password, keep it secret."
-msgstr ""
+msgstr "助記詞等同於最高控制權限，請嚴格保密。"
 
 msgid "<0><1/><2>Interacted</2></0><3>with</3><4/>"
-msgstr ""
+msgstr "<0><1/><2>互動</2></0><3>對象</3><4/>"
 
 msgid "Low on balance? Your Firefly Wallet can automatically cover the rest."
-msgstr ""
+msgstr "餘額不足？您的 Firefly 錢包可以自動補足差額。"
 
 msgid "Authenticating..."
-msgstr ""
+msgstr "身份認證中..."
 
 #. placeholder {0}: transaction.tx_status
 msgid "{0, select, success {Success} fail {Failed} other {Failed}}"
-msgstr ""
+msgstr "{0, select, success {成功} fail {失敗} other {失敗}}"
 
 msgid "Missed this round, but the next prediction is waiting for you!"
-msgstr ""
+msgstr "錯過了這一輪？下一個預測等著你！"
 
 #. placeholder {0}: selected.name
 msgid "Your {0} Address"
-msgstr ""
+msgstr "您的 {0} 地址"
 
 msgid "Avg"
-msgstr ""
+msgstr "均價"
 
 msgid "Claim winnings"
-msgstr ""
+msgstr "領取獎金"
 
 msgid "Transaction nonce error. Please try again."
-msgstr ""
+msgstr "交易隨機數 (Nonce) 錯誤，請重試。"
 
 #. placeholder {0}: formatTokenItemAmount(depositToken.balance ?? '0')
 #. placeholder {1}: depositToken.symbol
 msgid "{0} {1} in your Firefly wallet"
-msgstr ""
+msgstr "您的 Firefly 錢包中有 {0} {1}"
 
 msgid "Pay"
-msgstr ""
+msgstr "支付"
 
 msgid "Solana"
-msgstr ""
+msgstr "Solana"
 
 msgid "Failed to claim winnings"
-msgstr ""
+msgstr "領取獎金失敗"
 
 msgid "Transactions"
-msgstr ""
+msgstr "交易紀錄"
 
 msgid "Claim requested"
-msgstr ""
+msgstr "領取請求已提交"
 
 msgid "Review"
-msgstr ""
+msgstr "預覽/檢查"
 
 msgid "No closed positions found in this wallet"
-msgstr ""
+msgstr "錢包中未發現已關閉部位"
 
 msgid "View closed positions"
-msgstr ""
+msgstr "查看已平部位"
 
 msgid "Great job predicting the future!"
-msgstr ""
+msgstr "預測精準！做得好！"
 
 msgid "I understand"
-msgstr ""
+msgstr "我已知曉並理解"
 
 msgid "Your Private Key"
-msgstr ""
+msgstr "您的私鑰"
 
 msgid "Retry"
-msgstr ""
+msgstr "重試"
 
 msgid "Tokens"
-msgstr ""
+msgstr "代幣"
 
 msgid "Start trading on prediction markets"
-msgstr ""
+msgstr "開始在預測市場進行交易"
 
 msgid "Skip"
-msgstr ""
+msgstr "跳過"
 
 msgid "Copied"
-msgstr ""
+msgstr "已複製"
 
 msgid "Total"
-msgstr ""
+msgstr "總計"
 
 #. placeholder {0}: item.project_name
 msgid "via {0}"
-msgstr ""
+msgstr "透過 {0}"
 
 msgid "To Address"
-msgstr ""
+msgstr "接收方地址"
 
 msgid "Approved"
-msgstr ""
+msgstr "已核准/已授權"
 
 msgid "{riskTokenSymbol} is a high-risk token"
-msgstr ""
+msgstr "{riskTokenSymbol} 是高風險代幣"
 
 msgid "Confirm"
-msgstr ""
+msgstr "確認"
 
 msgid "Predict on Polymarket"
-msgstr ""
+msgstr "在 Polymarket 上預測"
 
 msgid "Keep Your Recovery Phrase Safe"
-msgstr ""
+msgstr "請安全備份您的助記詞"
 
 msgid "Bought"
-msgstr ""
+msgstr "已購入"
 
 msgid "ENS lookup failed. Please try again."
-msgstr ""
+msgstr "ENS 查詢失敗，請重試。"
 
 msgid "From Address"
-msgstr ""
+msgstr "發送方地址"
 
 msgid "Connecting to wallet..."
-msgstr ""
+msgstr "正在連接錢包..."
 
 msgid "Position closed"
-msgstr ""
+msgstr "部位已平"
 
 msgid "No Route Found"
-msgstr ""
+msgstr "未找到交易路徑"
 
 msgid "Placing order..."
-msgstr ""
+msgstr "正在下單..."
 
 msgid "Close lost position"
-msgstr ""
+msgstr "關閉虧損部位"
 
 msgid "Service fee"
-msgstr ""
+msgstr "服務費"
 
 msgid "Market not found"
-msgstr ""
+msgstr "未找到相關市場"
 
 msgid "See details"
-msgstr ""
+msgstr "查看詳情"
 
 #. placeholder {0}: formatTokenItemAmount(availableSharesBN, 2)
 msgid "{0} shares available"
-msgstr ""
+msgstr "{0} 份可用"
 
 msgid "Price"
-msgstr ""
+msgstr "價格"
 
 msgid "Enable skip reviews"
-msgstr ""
+msgstr "開啟跳過預覽"
 
 msgid "Connection taking longer than expected"
-msgstr ""
+msgstr "連接時間較長，請稍候"
 
 msgid "Predict Wallet Pay"
-msgstr ""
+msgstr "預測錢包支付"
 
 msgid "Shares"
-msgstr ""
+msgstr "份額"
 
 msgid "Transaction Hash"
-msgstr ""
+msgstr "交易雜湊 (TxHash)"
 
 msgid "Not enough gas to pay the network fee."
-msgstr ""
+msgstr "Gas 費不足，無法支付網路費用。"
 
 msgid "Are you sure you want to cancel this order?<0/>Once cancelled, it cannot be restored."
-msgstr ""
+msgstr "確定要取消此訂單嗎？<0/>一旦取消將無法恢復。"
 
 msgid "Avg. Price"
-msgstr ""
+msgstr "平均成交價"
 
 msgid "You won"
-msgstr ""
+msgstr "獲利"
 
 msgid "Network cost"
-msgstr ""
+msgstr "網路成本"
 
 msgid "Revoked Failed"
-msgstr ""
+msgstr "撤銷失敗"
 
 msgid "Recent"
-msgstr ""
+msgstr "最近"
 
 msgid "Oops! We couldn't find any tokens matching your search."
-msgstr ""
+msgstr "哎呀！沒有找到匹配的代幣。"
 
 msgid "Block"
-msgstr ""
+msgstr "區塊"
 
 msgid "Max"
-msgstr ""
+msgstr "最大"
 
 msgid "Transaction Detail"
-msgstr ""
+msgstr "交易詳情"
 
 msgid "Slippage"
-msgstr ""
+msgstr "滑點"
 
 msgid "NFT Minted Failed"
-msgstr ""
+msgstr "NFT 鑄造失敗"
 
 msgid "Connect Wallet"
-msgstr ""
+msgstr "連接錢包"
 
 msgid "No more history"
-msgstr ""
+msgstr "沒有更多歷史紀錄"
 
 msgid "Transaction failed: minimum return amount not reached. Try increasing slippage."
-msgstr ""
+msgstr "交易失敗：未達到預期最小數額。請嘗試提高滑點。"
 
 msgid "There is no data available for display."
-msgstr ""
+msgstr "暫無數據可顯示。"
 
 msgid "Transaction was rejected."
-msgstr ""
+msgstr "交易被拒絕。"
 
 msgid "Cancel"
-msgstr ""
+msgstr "取消"
 
 msgid "Done"
-msgstr ""
+msgstr "完成"
 
 msgid "Bridged Failed"
-msgstr ""
+msgstr "跨鏈失敗"
 
 msgid "Pay Wallet"
-msgstr ""
+msgstr "支付錢包"
 
 msgid "Open orders"
-msgstr ""
+msgstr "當前訂單"
 
 msgid "Copy address"
-msgstr ""
+msgstr "複製地址"
 
 msgid "Your funds are now in your predict wallet."
-msgstr ""
+msgstr "資金已到達您的預測錢包。"
 
 msgid "Failed to place buy order. "
-msgstr ""
+msgstr "下單買入失敗。"
 
 msgid "Draft"
-msgstr ""
+msgstr "草稿"
 
 msgid "Firefly Wallet Pay"
-msgstr ""
+msgstr "Firefly 錢包支付"
 
 msgid "Outcome"
-msgstr ""
+msgstr "預測結果"
 
 msgid "Unable to add funds to predictions account."
-msgstr ""
+msgstr "無法向預測帳戶充值。"
 
 msgid "Back to Bets"
-msgstr ""
+msgstr "返回投注"
 
 msgid "Receive at least"
-msgstr ""
+msgstr "至少收到"
 
 msgid "Unable to open this market."
-msgstr ""
+msgstr "無法打開該市場。"
 
 msgid "Approved Failed"
-msgstr ""
+msgstr "授權失敗"
 
 msgid "Rate"
-msgstr ""
+msgstr "匯率"
 
 msgid "No more orders"
-msgstr ""
+msgstr "沒有更多訂單"
 
 msgid "No more positions"
-msgstr ""
+msgstr "沒有更多部位"
 
 msgid "Received"
-msgstr ""
+msgstr "已收到"
 
 msgid "Custom (0.5-100%)"
-msgstr ""
+msgstr "自定義 (0.5-100%)"
 
 msgid "Wallet funding is not enabled"
-msgstr ""
+msgstr "錢包充值功能未開啟"
 
 msgid "Order cancelled"
-msgstr ""
+msgstr "訂單已取消"
 
 msgid "Sent"
-msgstr ""
+msgstr "已發送"
 
 msgid "Amount"
-msgstr ""
+msgstr "數額"
 
 #. placeholder {0}: formatTokenUSD(withdrawPreview?.fee ?? 0, { minDisplay: 0.01 })
 msgid "Service fee: <0>{0}</0>"
-msgstr ""
+msgstr "服務費：<0>{0}</0>"
 
 msgid "Claim"
-msgstr ""
+msgstr "領取"
 
 msgid "Current"
-msgstr ""
+msgstr "當前"
 
 msgid "Added"
-msgstr ""
+msgstr "已新增"
 
 msgid "Reload"
-msgstr ""
+msgstr "重新載入"
 
 msgid "Receive Wallet"
-msgstr ""
+msgstr "收款錢包"
 
 msgid "Claimed"
-msgstr ""
+msgstr "已領取"
 
 msgid "Recipient"
-msgstr ""
+msgstr "收款方"
 
 msgid "Insufficient Gas"
-msgstr ""
+msgstr "Gas 費不足"
 
 msgid "Back"
-msgstr ""
+msgstr "返回"
 
 msgid "Wallet addresses linked to social accounts may change or be inaccurate. Always verify before sending."
-msgstr ""
+msgstr "綁定到社交帳號的地址可能會變動。發送前請務必仔細核實。"
 
 msgid "Login In Firefly"
-msgstr ""
+msgstr "登入 Firefly"
 
 msgid "Bridge"
-msgstr ""
+msgstr "跨鏈橋"
 
 msgid "Enter amount"
-msgstr ""
+msgstr "輸入金額"
 
 msgid "Firefly charges a fee for withdraw based on the withdraw funds amount."
-msgstr ""
+msgstr "Firefly 將根據提現金額收取相應手續費。"
 
 #. placeholder {0}: formatTokenItemAmount(availableSharesBN, 2)
 #. placeholder {0}: formatTokenUSD(availableAmount, { minDisplay: 0.01 })
 msgid "Available {0}"
-msgstr ""
+msgstr "可用 {0}"
 
 msgid "Trade"
-msgstr ""
+msgstr "交易"
 
 msgid "No tokens available"
-msgstr ""
+msgstr "沒有可用代幣"
 
 msgid "Send"
-msgstr ""
+msgstr "發送"
 
 msgid "You've hit rock bottom."
-msgstr ""
+msgstr "已經到底啦。"
 
 msgid "View"
-msgstr ""
+msgstr "查看"
 
 msgid "Network error. Please try again."
-msgstr ""
+msgstr "網路錯誤，請重試。"
 
 msgid "No tokens found"
-msgstr ""
+msgstr "未找到代幣"
 
 msgid "Report issue"
-msgstr ""
+msgstr "回報問題"
 
 msgid "Withdrawing funds to your Firefly wallet..."
-msgstr ""
+msgstr "正在提現至您的 Firefly 錢包..."
 
 msgid "To win"
-msgstr ""
+msgstr "預期獲利"
 
 msgid "Try again"
-msgstr ""
+msgstr "重試"
 
 msgid "Something went wrong."
-msgstr ""
+msgstr "出錯了。"
 
 msgid "No any positions found in this wallet"
-msgstr ""
+msgstr "錢包中未發現任何部位"
 
 msgid "Your funds are on the way..."
-msgstr ""
+msgstr "資金正在到帳途中..."
 
 msgid "NFT Minted"
-msgstr ""
+msgstr "NFT 已鑄造"
 
 #. placeholder {0}: formatTokenItemAmount(withdrawableAmount)
 #. placeholder {0}: formatTokenUSD(availableAmount, { minDisplay: 0.01 })
 msgid "{0} available"
-msgstr ""
+msgstr "{0} 可用"
 
 msgid "Contract"
-msgstr ""
+msgstr "合約"
 
 msgid "Limit Price"
-msgstr ""
+msgstr "限價"
 
 msgid "NFT Received"
-msgstr ""
+msgstr "收到 NFT"
 
 msgid "Close position"
-msgstr ""
+msgstr "平倉"
 
 msgid "Trendings"
-msgstr ""
+msgstr "熱門"
 
 msgid "Network Fee"
-msgstr ""
+msgstr "網路費用 (Gas)"
 
 msgid "Market"
-msgstr ""
+msgstr "市場"
 
 msgid "EVM"
-msgstr ""
+msgstr "EVM"
 
 msgid "Confirming your transaction..."
-msgstr ""
+msgstr "正在確認交易..."
 
 msgid "Refresh"
-msgstr ""
+msgstr "重新整理"
 
 msgid "Receive"
-msgstr ""
+msgstr "接收"
 
 msgid "Time"
-msgstr ""
+msgstr "時間"
 
 msgid "Interacted"
-msgstr ""
+msgstr "已互動"
 
 msgid "Authentication Error"
-msgstr ""
+msgstr "驗證錯誤"
 
 msgid "The address could not be found."
-msgstr ""
+msgstr "找不到該地址。"
 
 msgid "No active positions found in this wallet"
-msgstr ""
+msgstr "錢包中未發現活躍部位"
 
 msgid "Add"
-msgstr ""
+msgstr "新增"
 
 msgid "Portfolio"
-msgstr ""
+msgstr "資產組合"
 
 msgid "{betText} • Won <0>{wonText}({pctText})</0>"
-msgstr ""
+msgstr "{betText} • 獲利 <0>{wonText}({pctText})</0>"
 
 #. placeholder {0}: item.project_name || formatAddress(address, 4)
 #. placeholder {0}: item.project_name || formatAddress(nft?.nft.address || item.to_address, 4)
 msgid "With <0>{0}</0>"
-msgstr ""
+msgstr "使用 <0>{0}</0>"
 
 msgid "<0><1/><2>Sent</2></0><3>to</3><4/>"
-msgstr ""
+msgstr "<0><1/><2>發送</2></0><3>至</3><4/>"
 
 msgid "Insufficient Balance"
-msgstr ""
+msgstr "餘額不足"
 
 msgid "All"
-msgstr ""
+msgstr "全部"
 
 msgid "Search symbol or contract"
-msgstr ""
+msgstr "搜尋代號或合約地址"
 
 msgid "<0><1/><2>Received</2></0><3>from</3><4/>"
-msgstr ""
+msgstr "<0><1/><2>接收</2></0><3>來自</3><4/>"
 
 msgid "Failed to add funds."
-msgstr ""
+msgstr "充值失敗。"
 
 msgid "Claim all the winnings"
-msgstr ""
+msgstr "領取所有獎金"
 
 msgid "Unlimited"
-msgstr ""
+msgstr "無限量"
 
 msgid "Swapped Failed"
-msgstr ""
+msgstr "兌換失敗"
 
 msgid "Cancel order?"
-msgstr ""
+msgstr "取消訂單？"
 
 msgid "Cancelling order..."
-msgstr ""
+msgstr "正在取消訂單..."
 
 msgid "Something went wrong"
-msgstr ""
+msgstr "出錯了"
 
 msgid "Enter or search for a recipient wallet"
-msgstr ""
+msgstr "輸入或搜尋收款錢包"
 
 msgid "Select a method for funding your Firefly wallet."
-msgstr ""
+msgstr "選擇一種方式為您的 Firefly 錢包充值。"
 
 msgid "PnL"
-msgstr ""
+msgstr "盈虧"
 
 msgid "Failed to close position"
-msgstr ""
+msgstr "平倉失敗"
 
 msgid "Network"
-msgstr ""
+msgstr "網路"
 
 msgid "Withdraw"
-msgstr ""
+msgstr "提現"
 
 msgid "Transaction failed during execution."
-msgstr ""
+msgstr "交易在執行過程中失敗。"
 
 msgid "Failed to fetch token info"
-msgstr ""
+msgstr "獲取代幣資訊失敗"
 
 msgid "Sent Failed"
-msgstr ""
+msgstr "發送失敗"
 
 msgid "Received Failed"
-msgstr ""
+msgstr "接收失敗"
 
 msgid "Available: {availableText}"
-msgstr ""
+msgstr "可用：{availableText}"
 
 msgid "Confirming..."
-msgstr ""
+msgstr "確認中..."
 
 msgid "<0><1/><2>Approved</2></0><3>on</3><4/>"
-msgstr ""
+msgstr "<0><1/><2>已授權</2></0><3>於</3><4/>"
 
 msgid "Buy"
-msgstr ""
+msgstr "買入"
 
 msgid "Swapped"
-msgstr ""
+msgstr "已兌換"
 
 msgid "Auto"
-msgstr ""
+msgstr "自動"
 
 msgid "Select"
-msgstr ""
+msgstr "選擇"
 
 msgid "Failed to place sell order. "
-msgstr ""
+msgstr "下單賣出失敗。"
 
 msgid "User rejected"
-msgstr ""
+msgstr "用戶已拒絕交易"
 
 #. placeholder {0}: formatAddress(address, 4)
 #. placeholder {0}: formatAddress(nft.sender, 4)
 msgid "From <0>{0}</0>"
-msgstr ""
+msgstr "來自 <0>{0}</0>"
 
 msgid "into your predict wallet"
-msgstr ""
+msgstr "進入您的預測錢包"
 
 msgid "Cancelled."
-msgstr ""
+msgstr "已取消。"
 
 #. placeholder {0}: transaction.token_approve.token.symbol
 msgid "Unlimit {0}"
-msgstr ""
+msgstr "解除 {0} 限制"
 
 #. placeholder {0}: formatAddress(nft.recipient, 4)
 #. placeholder {0}: formatAddress(token.recipient, 4)
 msgid "To <0>{0}</0>"
-msgstr ""
+msgstr "至 <0>{0}</0>"
 
 msgid "Sold"
-msgstr ""
+msgstr "已賣出"
 
 msgid "We do not recommend ever sharing it with any app or person."
-msgstr ""
+msgstr "我們建議您永遠不要將其洩露給任何應用程式或個人。"
 
 msgid "View on Explorer"
-msgstr ""
+msgstr "在區塊瀏覽器上查看"
 
 msgid "Add Token"
-msgstr ""
+msgstr "新增代幣"
 
 msgid "NFT Received Failed"
-msgstr ""
+msgstr "接收 NFT 失敗"
 
 msgid "Primary"
-msgstr ""
+msgstr "主要"
 
 msgid "Predict. Trade. Simply fund your Firefly predict wallet to begin."
-msgstr ""
+msgstr "預測、交易。只需為 Firefly 預測錢包充值即可開始。"
 
 msgid "Failed to withdraw."
-msgstr ""
+msgstr "提現失敗。"
 
 msgid "Contract address"
-msgstr ""
+msgstr "合約地址"
 
 msgid "Minimum $1.00"
-msgstr ""
+msgstr "最低 $1.00"
 
 msgid "No wallet address found for this user."
-msgstr ""
+msgstr "未找到該用戶的錢包地址。"
 
 msgid "Transaction failed"
-msgstr ""
+msgstr "交易失敗"
 
 msgid "All Chains"
-msgstr ""
+msgstr "所有鏈"
 
 msgid "Status"
-msgstr ""
+msgstr "狀態"
 
 #. placeholder {0}: item.project_name
 msgid "on {0}"
-msgstr ""
+msgstr "在 {0}"
 
 msgid "Failed to authenticate. Please try again."
-msgstr ""
+msgstr "認證失敗，請重試。"
 
 msgid "Signing In"
-msgstr ""
+msgstr "登入中"
 
 msgid "Search token"
-msgstr ""
+msgstr "搜尋代幣"
 
 msgid "Your transaction has been completed."
-msgstr ""
+msgstr "您的交易已完成。"
 
 msgid "Predictions"
-msgstr ""
+msgstr "預測市場"
 
 msgid "Your transaction failed."
-msgstr ""
+msgstr "您的交易失敗。"
 
 msgid "Buy {outcome}"
-msgstr ""
+msgstr "買入 {outcome}"
 
 msgid "All networks"
-msgstr ""
+msgstr "所有網路"
 
 msgid "Swap"
-msgstr ""
+msgstr "兌換 (Swap)"
 
 msgid "Keep it safe and do not share"
-msgstr ""
+msgstr "請妥善保管，切勿洩露"
 
 msgid "If you enter it in another app, it can steal your funds and Farcaster account."
-msgstr ""
+msgstr "如果在其他應用程式中輸入，您的資產和 Farcaster 帳戶可能會被盜。"
 
 msgid "Your funds have been withdrawn to your Firefly wallet."
-msgstr ""
+msgstr "資金已成功提現至您的 Firefly 錢包。"
 
 msgid "Bridged"
-msgstr ""
+msgstr "已跨鏈"
 
 msgid "Select Token"
-msgstr ""
+msgstr "選擇代幣"
 
 #. placeholder {0}: formatTokenItemAmount(position.shares, 2)
 msgid "{0} shares"
-msgstr ""
+msgstr "{0} 份"
 
 msgid "Will receive"
-msgstr ""
+msgstr "預計收到"
 
 msgid "Quick Buy"
-msgstr ""
+msgstr "快捷買入"
 
 msgid "Your tokens"
-msgstr ""
+msgstr "您的代幣資產"
 
 msgid "Sell {outcome}"
-msgstr ""
+msgstr "賣出 {outcome}"
 
 msgid "This market may have been removed or the link is invalid."
-msgstr ""
+msgstr "該市場可能已被移除或連結失效。"
 
 msgid "PnL%"
-msgstr ""
+msgstr "盈虧率"
 
 msgid "Lost"
-msgstr ""
+msgstr "虧損"
 
 msgid "Clear"
-msgstr ""
+msgstr "清除"
 
 msgid "Revoked"
-msgstr ""
+msgstr "已撤銷授權"
 
 msgid "Failed to add token"
-msgstr ""
+msgstr "新增代幣失敗"
 
 msgid "We will find the lowest slippage for a successful swap"
-msgstr ""
+msgstr "我們將尋找最優路徑以確保兌換成功"
 
 msgid "Sell"
-msgstr ""
+msgstr "賣出"
 
 msgid "The market is marked as closed."
-msgstr ""
+msgstr "該市場已關閉。"
 
 msgid "Token added"
-msgstr ""
+msgstr "代幣已新增"
 
 msgid "Add Funds"
-msgstr ""
+msgstr "充值/注資"
 
 msgid "<0><1/><2>Revoked</2></0><3>on</3><4/>"
-msgstr ""
+msgstr "<0><1/><2>已撤銷</2></0><3>於</3><4/>"
 
 msgid "NFT Sent Failed"
-msgstr ""
+msgstr "發送 NFT 失敗"
 
 msgid "Available:"
-msgstr ""
+msgstr "可用："
 
 msgid "Failed to search. Please try again."
-msgstr ""
+msgstr "搜尋失敗，請重試。"
 
 msgid "Transaction completed!"
-msgstr ""
+msgstr "交易已完成！"
 
 msgid "Limit"
-msgstr ""
+msgstr "限價"
 
 msgid "Swap faster by skipping the review step"
-msgstr ""
+msgstr "跳過預覽步驟以實現極速兌換"
 
 msgid "Hide assets < 1 USD"
-msgstr ""
+msgstr "隱藏小於 1 美元的資產"
 
 msgid "You lost"
-msgstr ""
+msgstr "虧損"
 
 msgid "Close"
-msgstr ""
+msgstr "關閉"
 
 msgid "Current settings"
-msgstr ""
+msgstr "當前設置"
 
 msgid "OK"
-msgstr ""
+msgstr "確定"
 
 msgid "NFT"
-msgstr ""
+msgstr "NFT"
 
 msgid "NFT Sent"
-msgstr ""
+msgstr "NFT 已發送"
 
 msgid "Failed to cancel order"
-msgstr ""
+msgstr "取消訂單失敗"
 
 #. placeholder {0}: token.balance || '0'
 #. placeholder {1}: token.symbol || '-'
 msgid "Balance: {0} {1}"
-msgstr ""
+msgstr "餘額：{0} {1}"
 
 msgid "This wallet address is invalid"
-msgstr ""
+msgstr "錢包地址無效"
