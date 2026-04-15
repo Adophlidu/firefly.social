@@ -204,6 +204,7 @@ function WithdrawClient() {
                     <input
                         id="withdraw-amount"
                         {...inputProps}
+                        value={inputProps.value ? `$${inputProps.value}` : inputProps.value}
                         autoComplete="off"
                         ref={inputRef}
                         autoFocus
@@ -247,29 +248,25 @@ function WithdrawClient() {
                             onClick={goToSelectToken}
                         >
                             <div className="flex h-5 w-full items-center gap-1 truncate text-sm font-semibold">
-                                <Trans>You receive</Trans>
+                                <Trans>Receive</Trans>
                                 <ArrowDownIcon width={16} height={16} />
                             </div>
                             <div className="text-second w-full text-xs font-medium leading-3">
-                                <Trans>
-                                    <span
-                                        className={cn('h-3 rounded', {
-                                            'bg-lightBg inline-block w-6 animate-pulse text-transparent':
-                                                isLoadingWithdrawPreview,
-                                        })}
-                                    >
-                                        {formatTokenItemAmount(withdrawPreview?.amount ?? 0)}
-                                    </span>{' '}
-                                    {targetToken.symbol} in your firefly wallet
-                                </Trans>
+                                <Trans>in your Firefly wallet</Trans>
                             </div>
                         </div>
                         <div
-                            className={cn('ml-auto h-5 rounded text-sm font-semibold', {
-                                'bg-lightBg inline-block w-12 animate-pulse text-transparent': isLoadingWithdrawPreview,
-                            })}
+                            className={cn(
+                                'ml-auto min-h-5 max-w-[50%] shrink-0 break-all rounded text-sm font-semibold',
+                                {
+                                    'bg-lightBg inline-block min-w-12 animate-pulse text-transparent':
+                                        isLoadingWithdrawPreview,
+                                },
+                            )}
                         >
-                            {formatTokenUSD(withdrawPreview?.amount_usd || 0, { minDisplay: 0.01 })}
+                            {isLoadingWithdrawPreview
+                                ? null
+                                : `${formatTokenItemAmount(withdrawPreview?.amount ?? 0)} ${targetToken.symbol}`}
                         </div>
                     </div>
                 )}
