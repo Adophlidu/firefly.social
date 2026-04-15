@@ -185,7 +185,7 @@ function DepositClient() {
                     <div className="bg-lightBg h-5 w-7" />
                 </div>
             ) : (
-                <div className="flex h-[60px] w-full items-center gap-3" onClick={goToSelectToken}>
+                <div className="flex h-[60px] w-full cursor-pointer items-center gap-3" onClick={goToSelectToken}>
                     <TokenIcon
                         size={36}
                         badgeSize={16}

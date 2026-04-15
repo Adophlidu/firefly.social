@@ -244,7 +244,7 @@ function WithdrawClient() {
                             name={targetToken.name}
                         />
                         <div
-                            className="ml-4 flex w-full min-w-0 flex-col justify-start text-left"
+                            className="ml-4 flex w-full min-w-0 cursor-pointer flex-col justify-start text-left"
                             onClick={goToSelectToken}
                         >
                             <div className="flex h-5 w-full items-center gap-1 truncate text-sm font-semibold">

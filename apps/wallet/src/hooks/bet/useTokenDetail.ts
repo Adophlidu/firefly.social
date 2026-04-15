@@ -2,7 +2,7 @@ import { isNativeTokenOrSameAddress } from '@dimensiondev/web3-utils';
 import { useQuery } from '@tanstack/react-query';
 import { useSearch } from '@tanstack/react-router';
 import { BigNumber } from 'bignumber.js';
-import { compact } from 'lodash-es';
+import { compact, orderBy } from 'lodash-es';
 import { polygon } from 'viem/chains';
 
 import { NetworkType } from '@/constants/enum.js';
@@ -94,7 +94,11 @@ export function useDepositToken() {
                 return polygonUsdc;
             }
 
-            return data.find((token) => isGreaterThan(token.balance ?? '0', 0)) ?? null;
+            return (
+                orderBy(data, (token) => multipliedBy(token.balance ?? '0', token.price ?? 0).toNumber(), 'desc').find(
+                    (token) => isGreaterThan(token.balance ?? '0', 0),
+                ) ?? null
+            );
         },
     });
 
