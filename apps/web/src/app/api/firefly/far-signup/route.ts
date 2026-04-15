@@ -1,6 +1,6 @@
 import { envs } from '@dimensiondev/envs';
 import { compose, parseJson } from '@dimensiondev/utils';
-import { first } from 'lodash-es';
+import { first, isObject } from 'lodash-es';
 import type { NextRequest } from 'next/server.js';
 import urlcat from 'urlcat';
 import { z } from 'zod';
@@ -56,6 +56,15 @@ export const POST = compose(withRequestErrorHandler(), async (request: NextReque
     });
     const result = resolveFireflyResponseData(response);
     if (result.status !== 'success' || !result.userInfo) {
+        if (
+            isObject(result.data) &&
+            'reason' in result.data &&
+            result.data.reason === 'account_connection_limit_reached'
+        ) {
+            return createErrorResponseJson('Farcaster account connection limit reached.', {
+                status: 400,
+            });
+        }
         const firstError = Array.isArray(result.error) ? first(result.error) : undefined;
         return createErrorResponseJson(firstError || result.message || 'Failed to register farcaster account.', {
             status: 400,
