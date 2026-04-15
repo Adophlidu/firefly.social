@@ -1,4 +1,4 @@
-import { isSameEthereumAddress, isSameSolanaAddress } from '@/isSameAddress.js';
+import { isSameEthereumAddress, isSameSolanaAddress } from '@/utils/isSameAddress.js';
 
 export const ETH_ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 export const SOL_ZERO_ADDRESS = 'So11111111111111111111111111111111111111112';

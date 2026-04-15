@@ -1,4 +1,4 @@
-import { isSameEthereumAddress } from '@dimensiondev/web3-utils';
+import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import { type Draft, produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';

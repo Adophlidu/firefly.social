@@ -4,7 +4,7 @@ import {
     isValidAddressEthereum,
     isZeroAddressEthereum,
     isZeroAddressSolana,
-} from '@dimensiondev/web3-utils';
+} from '@dimensiondev/web3/utils';
 import urlcat from 'urlcat';
 
 import { EthereumChainId } from '@/constants/ethereum.js';

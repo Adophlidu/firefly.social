@@ -1,5 +1,5 @@
 import { classNames } from '@dimensiondev/utils';
-import { isValidAddressEthereum } from '@dimensiondev/web3-utils';
+import { isValidAddressEthereum } from '@dimensiondev/web3/utils';
 import type { HTMLProps } from 'react';
 
 import { Avatar } from '@/components/Avatar.js';

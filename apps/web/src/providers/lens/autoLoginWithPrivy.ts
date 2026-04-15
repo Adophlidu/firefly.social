@@ -1,5 +1,5 @@
 import { SeverityError } from '@dimensiondev/utils';
-import { isSameEthereumAddress } from '@dimensiondev/web3-utils';
+import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
 
 import { ensureCreatedFireflyWallet } from '@/helpers/ensureCreatedFireflyWallet.js';
 import { signMessageWithPrivy } from '@/providers/firefly/endpoint/signMessageWithPrivy.js';

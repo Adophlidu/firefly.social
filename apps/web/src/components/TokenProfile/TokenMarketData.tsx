@@ -8,7 +8,7 @@ import TwitterIcon from '@dimensiondev/assets/x-fill.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { NODE_ENV } from '@dimensiondev/envs';
 import { assert, classNames } from '@dimensiondev/utils';
-import { isZeroAddress } from '@dimensiondev/web3-utils';
+import { isZeroAddress } from '@dimensiondev/web3/utils';
 import { Plural, Trans } from '@lingui/react/macro';
 import dayjs from 'dayjs';
 import { first, isNumber } from 'lodash-es';

@@ -1,4 +1,4 @@
-import { isNativeTokenOrSameAddress } from '@dimensiondev/web3-utils';
+import { isNativeTokenOrSameAddress } from '@dimensiondev/web3/utils';
 import { atom } from 'jotai';
 
 import { DEFAULT_SWAP_TOKENS, getDefaultSwapToken } from '@/providers/swap/defaultTokens.js';

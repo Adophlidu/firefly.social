@@ -1,4 +1,4 @@
-import { isValidAddressEthereum } from '@dimensiondev/web3-utils';
+import { isValidAddressEthereum } from '@dimensiondev/web3/utils';
 
 import { SearchType } from '@/constants/enum.js';
 import { trimify } from '@/helpers/trimify.js';

@@ -1,6 +1,6 @@
 'use client';
 
-import { isValidAddressEthereum } from '@dimensiondev/web3-utils';
+import { isValidAddressEthereum } from '@dimensiondev/web3/utils';
 
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { formatAddress } from '@/helpers/formatAddress.js';

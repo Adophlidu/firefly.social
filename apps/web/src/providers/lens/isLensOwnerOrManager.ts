@@ -1,4 +1,4 @@
-import { isSameEthereumAddress } from '@dimensiondev/web3-utils';
+import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import { ManagedAccountsVisibility, PageSize } from '@lens-protocol/client';
 import { fetchAccountsAvailable } from '@lens-protocol/client/actions';
 

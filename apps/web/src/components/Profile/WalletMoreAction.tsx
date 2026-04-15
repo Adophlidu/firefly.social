@@ -2,7 +2,7 @@
 
 import MoreIcon from '@dimensiondev/assets/more-fill.svg';
 import { classNames } from '@dimensiondev/utils';
-import { isValidAddressEthereum } from '@dimensiondev/web3-utils';
+import { isValidAddressEthereum } from '@dimensiondev/web3/utils';
 import { MenuItem, type MenuProps } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
 import { compact, sum } from 'lodash-es';

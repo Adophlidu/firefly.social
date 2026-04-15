@@ -1,7 +1,7 @@
 'use client';
 
 import { unreachable } from '@dimensiondev/utils';
-import { isSameSolanaAddress } from '@dimensiondev/web3-utils';
+import { isSameSolanaAddress } from '@dimensiondev/web3/utils';
 import { useAppKitAccount } from '@reown/appkit/react';
 import { useAppKitConnection } from '@reown/appkit-adapter-solana/react';
 import { first } from 'lodash-es';

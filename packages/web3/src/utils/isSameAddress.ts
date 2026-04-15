@@ -1,7 +1,7 @@
 import { web3 } from '@coral-xyz/anchor';
 import { isAddressEqual } from 'viem';
 
-import { isValidAddressEthereum, isValidAddressSolana } from '@/isValidAddress.js';
+import { isValidAddressEthereum, isValidAddressSolana } from '@/utils/isValidAddress.js';
 
 export function isSameEthereumAddress(
     address: string | null | undefined,

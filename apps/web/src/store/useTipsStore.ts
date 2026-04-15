@@ -1,5 +1,5 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
-import { ETH_ZERO_ADDRESS } from '@dimensiondev/web3-utils';
+import { ETH_ZERO_ADDRESS } from '@dimensiondev/web3/utils';
 import { assign } from 'lodash-es';
 import { useDebounceValue } from 'usehooks-ts';
 import { create } from 'zustand';

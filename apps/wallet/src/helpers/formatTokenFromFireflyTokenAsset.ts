@@ -1,4 +1,4 @@
-import { ETH_ZERO_ADDRESS, isNativeTokenAddress, SOL_ZERO_ADDRESS } from '@dimensiondev/web3-utils';
+import { ETH_ZERO_ADDRESS, isNativeTokenAddress, SOL_ZERO_ADDRESS } from '@dimensiondev/web3/utils';
 import { toHex } from 'viem';
 
 import { NetworkType } from '@/constants/enum.js';

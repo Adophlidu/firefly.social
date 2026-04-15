@@ -1,6 +1,6 @@
 import ArrowDownIcon from '@dimensiondev/assets/arrow-line-down.svg';
 import BetSwitchIcon from '@dimensiondev/assets/bet-exchange.svg';
-import { isNativeTokenOrSameAddress } from '@dimensiondev/web3-utils';
+import { isNativeTokenOrSameAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';

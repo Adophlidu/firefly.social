@@ -1,6 +1,6 @@
 'use client';
 
-import { isSameAddress } from '@dimensiondev/web3-utils';
+import { isSameAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useState } from 'react';
 

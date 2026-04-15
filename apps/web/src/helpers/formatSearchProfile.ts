@@ -1,4 +1,4 @@
-import { isValidAddress, isZeroAddress } from '@dimensiondev/web3-utils';
+import { isValidAddress, isZeroAddress } from '@dimensiondev/web3/utils';
 import { compact, first } from 'lodash-es';
 
 import { SORTED_PROFILE_SOURCES } from '@/constants/computed.js';

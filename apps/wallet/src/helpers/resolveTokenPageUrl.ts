@@ -1,4 +1,4 @@
-import { isValidAddress, isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3-utils';
+import { isValidAddress, isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3/utils';
 import urlcat from 'urlcat';
 import { mainnet } from 'viem/chains';
 

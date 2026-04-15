@@ -1,4 +1,4 @@
-import { isZeroAddressSolana } from '@dimensiondev/web3-utils';
+import { isZeroAddressSolana } from '@dimensiondev/web3/utils';
 import { TOKEN_2022_PROGRAM_ID, TOKEN_PROGRAM_ID } from '@solana/spl-token';
 
 import { requestRPC } from '@/providers/solana/requestRPC.js';

@@ -1,6 +1,6 @@
 import type { Pageable, PageIndicator } from '@dimensiondev/utils';
 import { NotImplementedError } from '@dimensiondev/utils';
-import { isValidAddressEthereum } from '@dimensiondev/web3-utils';
+import { isValidAddressEthereum } from '@dimensiondev/web3/utils';
 
 import { Source } from '@/constants/enum.js';
 import { AddAuthorHighlightStatusForPosts } from '@/decorators/AddProfileHighlightStatus.js';

@@ -7,7 +7,7 @@ import {
     type Pageable,
     type PageIndicator,
 } from '@dimensiondev/utils';
-import { isSameEthereumAddress } from '@dimensiondev/web3-utils';
+import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import { GroupsOrderBy, PageSize } from '@lens-protocol/client';
 import { fetchGroups } from '@lens-protocol/client/actions';
 

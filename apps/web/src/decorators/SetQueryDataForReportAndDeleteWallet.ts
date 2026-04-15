@@ -1,4 +1,4 @@
-import { isSameAddress } from '@dimensiondev/web3-utils';
+import { isSameAddress } from '@dimensiondev/web3/utils';
 import { produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';

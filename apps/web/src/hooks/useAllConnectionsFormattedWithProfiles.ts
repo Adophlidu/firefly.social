@@ -1,5 +1,5 @@
 import { unreachable } from '@dimensiondev/utils';
-import { isSameAddress } from '@dimensiondev/web3-utils';
+import { isSameAddress } from '@dimensiondev/web3/utils';
 import { useQueries } from '@tanstack/react-query';
 import { compact, first } from 'lodash-es';
 

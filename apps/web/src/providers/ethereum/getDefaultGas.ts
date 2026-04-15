@@ -1,4 +1,4 @@
-import { getTokenAbiForWagmi } from '@dimensiondev/web3-utils';
+import { getTokenAbiForWagmi } from '@dimensiondev/web3/utils';
 import { BigNumber } from 'bignumber.js';
 import { type Address, parseUnits } from 'viem';
 import { estimateFeesPerGas } from 'wagmi/actions';

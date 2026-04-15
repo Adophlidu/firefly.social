@@ -1,6 +1,6 @@
 'use client';
 
-import { isValidAddressEthereum } from '@dimensiondev/web3-utils';
+import { isValidAddressEthereum } from '@dimensiondev/web3/utils';
 import { skipToken, useQuery } from '@tanstack/react-query';
 
 import { PredictionProfileCardUI } from '@/components/Prediction/PredictionProfileCardUI.js';

@@ -1,7 +1,7 @@
 'use client';
 
 import { EMPTY_LIST } from '@dimensiondev/constants';
-import { isSameEthereumAddress } from '@dimensiondev/web3-utils';
+import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
 
 import { PoapDetailPage } from '@/app/[locale]/(normal)/nft/pages/PoapDetailPage.js';
 import { Loading } from '@/components/Loading.js';

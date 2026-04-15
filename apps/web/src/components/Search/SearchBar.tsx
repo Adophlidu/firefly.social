@@ -2,7 +2,7 @@
 
 import SearchIcon from '@dimensiondev/assets/search.svg';
 import { classNames } from '@dimensiondev/utils';
-import { isValidAddress, isValidAddressEthereum } from '@dimensiondev/web3-utils';
+import { isValidAddress, isValidAddressEthereum } from '@dimensiondev/web3/utils';
 import { skipToken, useQuery } from '@tanstack/react-query';
 import { type HTMLProps, useCallback, useLayoutEffect, useRef, useState } from 'react';
 import { useOnClickOutside } from 'usehooks-ts';

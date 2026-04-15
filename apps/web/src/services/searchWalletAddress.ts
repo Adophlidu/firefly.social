@@ -1,5 +1,5 @@
 import { runInSafeAsync } from '@dimensiondev/utils';
-import { isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3-utils';
+import { isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3/utils';
 import type { Address } from 'viem';
 import { getEnsAvatar, getEnsName } from 'wagmi/actions';
 

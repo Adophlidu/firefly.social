@@ -1,5 +1,5 @@
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
-import { isValidAddressEthereum } from '@dimensiondev/web3-utils';
+import { isValidAddressEthereum } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useRouter } from '@tanstack/react-router';
 import dayjs from 'dayjs';

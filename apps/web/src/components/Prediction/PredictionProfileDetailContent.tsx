@@ -1,4 +1,4 @@
-import { isValidAddressEthereum } from '@dimensiondev/web3-utils';
+import { isValidAddressEthereum } from '@dimensiondev/web3/utils';
 
 import { PredictionProfileCategoryTabs } from '@/components/Prediction/PredictionProfileCategoryTabs.js';
 import { PredictionProfileOverview } from '@/components/Prediction/PredictionProfileOverview.js';

@@ -1,5 +1,5 @@
 import SwapLoadingIcon from '@dimensiondev/assets/swap-loading.svg';
-import { isNativeTokenAddress } from '@dimensiondev/web3-utils';
+import { isNativeTokenAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useAtomValue } from 'jotai';
 import { memo, type ReactNode, useMemo } from 'react';

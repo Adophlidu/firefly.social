@@ -1,5 +1,5 @@
 import LightningIcon from '@dimensiondev/assets/lightning.svg';
-import { isSameAddress } from '@dimensiondev/web3-utils';
+import { isSameAddress } from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQuery, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';

@@ -4,7 +4,7 @@ import {
     isValidAddressEthereum,
     isValidAddressSolana,
     SOL_NATIVE_TOKEN_ADDRESS,
-} from '@dimensiondev/web3-utils';
+} from '@dimensiondev/web3/utils';
 import { compact, first, sortBy } from 'lodash-es';
 import { use } from 'react';
 

@@ -4,7 +4,7 @@ import {
     isSameAddress,
     SOL_NATIVE_TOKEN_ADDRESS,
     SOL_ZERO_ADDRESS,
-} from '@dimensiondev/web3-utils';
+} from '@dimensiondev/web3/utils';
 import { toHex } from 'viem';
 
 import { NetworkType } from '@/constants/enum.js';

@@ -2,7 +2,7 @@
 
 import { useMultiInfiniteQueryPageable } from '@dimensiondev/hooks';
 import { createIndicator } from '@dimensiondev/utils';
-import { isValidAddressEthereum } from '@dimensiondev/web3-utils';
+import { isValidAddressEthereum } from '@dimensiondev/web3/utils';
 import { uniqBy } from 'lodash-es';
 import { useMemo } from 'react';
 

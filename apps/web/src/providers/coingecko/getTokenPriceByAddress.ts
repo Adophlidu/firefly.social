@@ -1,4 +1,4 @@
-import { isSameAddress } from '@dimensiondev/web3-utils';
+import { isSameAddress } from '@dimensiondev/web3/utils';
 
 import { getTokenPrices } from '@/providers/coingecko/getTokenPrices.js';
 

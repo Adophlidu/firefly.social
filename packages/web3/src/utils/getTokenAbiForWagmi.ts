@@ -1,7 +1,7 @@
 import { type Address, erc20Abi } from 'viem';
 import { mainnet } from 'viem/chains';
 
-import { isSameEthereumAddress } from '@/isSameAddress.js';
+import { isSameEthereumAddress } from '@/utils/isSameAddress.js';
 
 const USDT_ADDRESS = '0xdac17f958d2ee523a2206206994597c13d831ec7';
 

@@ -1,5 +1,5 @@
 import DisconnectIcon from '@dimensiondev/assets/disconnect.svg';
-import { isValidAddressEthereum } from '@dimensiondev/web3-utils';
+import { isValidAddressEthereum } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 
 import { CopyTextButton } from '@/components/CopyTextButton.js';

@@ -1,5 +1,5 @@
 import UndoSVG from '@dimensiondev/assets/undo.svg';
-import { isSameAddress } from '@dimensiondev/web3-utils';
+import { isSameAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { Suspense, useState } from 'react';
 

@@ -1,4 +1,4 @@
-import { isSameEthereumAddress } from '@dimensiondev/web3-utils';
+import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import { first } from 'lodash-es';
 import urlcat from 'urlcat';
 

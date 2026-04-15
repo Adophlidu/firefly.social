@@ -1,5 +1,5 @@
 import { runInSafe, runInSafeAsync, safeUnreachable } from '@dimensiondev/utils';
-import { isSameEthereumAddress } from '@dimensiondev/web3-utils';
+import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import { compact, first } from 'lodash-es';
 import { signOut } from 'next-auth/react';
 

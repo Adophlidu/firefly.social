@@ -1,4 +1,4 @@
-import { getTokenAbiForWagmi } from '@dimensiondev/web3-utils';
+import { getTokenAbiForWagmi } from '@dimensiondev/web3/utils';
 import { type Address, type Hash, parseUnits } from 'viem';
 import { getBalance, sendTransaction, writeContract } from 'wagmi/actions';
 

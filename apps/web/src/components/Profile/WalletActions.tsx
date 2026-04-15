@@ -1,7 +1,7 @@
 'use client';
 
 import { safeUnreachable } from '@dimensiondev/utils';
-import { isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3-utils';
+import { isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import urlcat from 'urlcat';
 

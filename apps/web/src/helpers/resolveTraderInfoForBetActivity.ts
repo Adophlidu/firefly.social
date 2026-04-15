@@ -1,5 +1,5 @@
 import { runInSafe } from '@dimensiondev/utils';
-import { isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3-utils';
+import { isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3/utils';
 import { first } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';

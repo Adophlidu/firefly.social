@@ -1,4 +1,4 @@
-import { isValidAddressEthereum, isValidAddressSolana, isValidTokenAddressSui } from '@dimensiondev/web3-utils';
+import { isValidAddressEthereum, isValidAddressSolana, isValidTokenAddressSui } from '@dimensiondev/web3/utils';
 import { memoize } from 'lodash-es';
 import { checksumAddress } from 'viem';
 

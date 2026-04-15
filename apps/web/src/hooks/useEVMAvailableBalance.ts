@@ -1,6 +1,6 @@
 'use client';
 
-import { isZeroAddressEthereum } from '@dimensiondev/web3-utils';
+import { isZeroAddressEthereum } from '@dimensiondev/web3/utils';
 import { useMemo } from 'react';
 import { useBalance, useEstimateFeesPerGas } from 'wagmi';
 

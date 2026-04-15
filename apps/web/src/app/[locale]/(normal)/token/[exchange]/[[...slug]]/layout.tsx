@@ -1,6 +1,6 @@
 import type { LayoutProps, SearchProps } from '@dimensiondev/types';
 import { runInSafeAsync } from '@dimensiondev/utils';
-import { isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3-utils';
+import { isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3/utils';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import { headers } from 'next/headers.js';
 import { notFound, redirect, RedirectType } from 'next/navigation.js';

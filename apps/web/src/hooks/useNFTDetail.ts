@@ -1,4 +1,4 @@
-import { isValidAddressEthereum } from '@dimensiondev/web3-utils';
+import { isValidAddressEthereum } from '@dimensiondev/web3/utils';
 import { useQuery } from '@tanstack/react-query';
 
 import { getNFTDetail } from '@/providers/firefly/nft/getNFTDetail.js';

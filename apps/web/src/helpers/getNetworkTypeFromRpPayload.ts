@@ -1,4 +1,4 @@
-import { isValidAddressSolana } from '@dimensiondev/web3-utils';
+import { isValidAddressSolana } from '@dimensiondev/web3/utils';
 
 import { NetworkType } from '@/constants/enum.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';

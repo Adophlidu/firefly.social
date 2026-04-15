@@ -1,7 +1,7 @@
 'use client';
 
 import { safeUnreachable } from '@dimensiondev/utils';
-import { isValidAddressEthereum } from '@dimensiondev/web3-utils';
+import { isValidAddressEthereum } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo, type ReactNode, useState } from 'react';
 import { useAsyncFn } from 'react-use';

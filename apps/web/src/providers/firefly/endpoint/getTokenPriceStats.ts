@@ -1,4 +1,4 @@
-import { isZeroAddressEthereum } from '@dimensiondev/web3-utils';
+import { isZeroAddressEthereum } from '@dimensiondev/web3/utils';
 import { sortBy } from 'lodash-es';
 import urlcat from 'urlcat';
 

@@ -1,4 +1,4 @@
-import { isNativeTokenAddress } from '@dimensiondev/web3-utils';
+import { isNativeTokenAddress } from '@dimensiondev/web3/utils';
 import { type Address, erc20Abi, type Hex } from 'viem';
 import { readContract, sendTransaction } from 'wagmi/actions';
 

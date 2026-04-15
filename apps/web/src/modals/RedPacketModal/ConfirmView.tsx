@@ -4,7 +4,7 @@ import ArrowDownIcon from '@dimensiondev/assets/arrow-down.svg';
 import InfoIcon from '@dimensiondev/assets/info.svg';
 import QuestionIcon from '@dimensiondev/assets/question.svg';
 import { classNames } from '@dimensiondev/utils';
-import { isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3-utils';
+import { isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { BigNumber } from 'bignumber.js';
 import { compact, flatten } from 'lodash-es';

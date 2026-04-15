@@ -9,7 +9,7 @@ import {
     isValidAddressEthereum,
     isZeroAddressEthereum,
     isZeroAddressSolana,
-} from '@dimensiondev/web3-utils';
+} from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { BigNumber } from 'bignumber.js';

@@ -1,4 +1,4 @@
-import { isNativeTokenAddress } from '@dimensiondev/web3-utils';
+import { isNativeTokenAddress } from '@dimensiondev/web3/utils';
 import { createFileRoute, useNavigate, useSearch } from '@tanstack/react-router';
 import { useSetAtom } from 'jotai';
 import { useEffect, useState } from 'react';

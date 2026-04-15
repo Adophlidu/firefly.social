@@ -1,6 +1,6 @@
 import { web3 } from '@coral-xyz/anchor';
 import { envs, STATUS } from '@dimensiondev/envs';
-import { isZeroAddressSolana } from '@dimensiondev/web3-utils';
+import { isZeroAddressSolana } from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
 import { BigNumber } from 'bignumber.js';
 import { omit, pick } from 'lodash-es';

@@ -1,5 +1,5 @@
 import { web3 } from '@coral-xyz/anchor';
-import { isZeroAddressSolana } from '@dimensiondev/web3-utils';
+import { isZeroAddressSolana } from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
 import { useAsyncFn } from 'react-use';
 

@@ -1,4 +1,4 @@
-import { isValidAddressSolana } from '@dimensiondev/web3-utils';
+import { isValidAddressSolana } from '@dimensiondev/web3/utils';
 import { infiniteQueryOptions } from '@tanstack/react-query';
 
 import type { WalletHistoryTransactionsResponseData } from '@/providers/types/Firefly.js';

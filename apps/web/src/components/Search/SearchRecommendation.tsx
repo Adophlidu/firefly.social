@@ -2,7 +2,7 @@
 
 import SearchIcon from '@dimensiondev/assets/search.svg';
 import { classNames } from '@dimensiondev/utils';
-import { isValidAddress } from '@dimensiondev/web3-utils';
+import { isValidAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useDebounceValue } from 'usehooks-ts';
 

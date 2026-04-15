@@ -1,4 +1,4 @@
-import { isSameAddress } from '@dimensiondev/web3-utils';
+import { isSameAddress } from '@dimensiondev/web3/utils';
 import { queryOptions } from '@tanstack/react-query';
 import type { Address } from 'viem';
 

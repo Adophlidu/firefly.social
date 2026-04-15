@@ -5,7 +5,7 @@ import {
     type Pageable,
     type PageIndicator,
 } from '@dimensiondev/utils';
-import { isSameEthereumAddress } from '@dimensiondev/web3-utils';
+import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import { type Account, PageSize } from '@lens-protocol/client';
 import { fetchFollowersYouKnow } from '@lens-protocol/client/actions';
 

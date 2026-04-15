@@ -2,7 +2,7 @@
 
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { parseUrl } from '@dimensiondev/utils';
-import { isValidAddress, isValidTokenAddressSui } from '@dimensiondev/web3-utils';
+import { isValidAddress, isValidTokenAddressSui } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { skipToken, useQuery } from '@tanstack/react-query';
 import { first, sortBy } from 'lodash-es';

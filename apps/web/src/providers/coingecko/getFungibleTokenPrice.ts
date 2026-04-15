@@ -1,4 +1,4 @@
-import { isValidAddressEthereum, isZeroAddressEthereum, isZeroAddressSolana } from '@dimensiondev/web3-utils';
+import { isValidAddressEthereum, isZeroAddressEthereum, isZeroAddressSolana } from '@dimensiondev/web3/utils';
 
 import { isValidChainIdSolana } from '@/helpers/isValidChainId.js';
 import { getTokenPrice } from '@/providers/coingecko/getTokenPrice.js';

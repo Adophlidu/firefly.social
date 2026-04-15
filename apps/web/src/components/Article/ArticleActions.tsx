@@ -1,6 +1,6 @@
 'use client';
 
-import { isValidAddressEthereum } from '@dimensiondev/web3-utils';
+import { isValidAddressEthereum } from '@dimensiondev/web3/utils';
 import { useQuery } from '@tanstack/react-query';
 import { memo, useCallback } from 'react';
 import urlcat from 'urlcat';

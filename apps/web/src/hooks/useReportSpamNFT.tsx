@@ -1,4 +1,4 @@
-import { isSameEthereumAddress } from '@dimensiondev/web3-utils';
+import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { type Draft, produce } from 'immer';
 import { useAsyncFn } from 'react-use';

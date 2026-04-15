@@ -1,5 +1,5 @@
 import { NotAllowedError } from '@dimensiondev/utils';
-import { ETH_ZERO_ADDRESS } from '@dimensiondev/web3-utils';
+import { ETH_ZERO_ADDRESS } from '@dimensiondev/web3/utils';
 
 import { BaseSession } from '@/providers/base/Session.js';
 import type { Session } from '@/providers/types/Session.js';

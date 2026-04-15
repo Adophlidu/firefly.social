@@ -1,5 +1,5 @@
 import { runInSafeAsync } from '@dimensiondev/utils';
-import { isZeroAddressSolana } from '@dimensiondev/web3-utils';
+import { isZeroAddressSolana } from '@dimensiondev/web3/utils';
 import { useQuery } from '@tanstack/react-query';
 import type BigNumber from 'bignumber.js';
 import { useMemo } from 'react';

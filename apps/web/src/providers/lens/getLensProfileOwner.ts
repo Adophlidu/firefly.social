@@ -1,4 +1,4 @@
-import { isValidAddressEthereum } from '@dimensiondev/web3-utils';
+import { isValidAddressEthereum } from '@dimensiondev/web3/utils';
 import { fetchAccount } from '@lens-protocol/client/actions';
 import type { Address } from 'viem';
 

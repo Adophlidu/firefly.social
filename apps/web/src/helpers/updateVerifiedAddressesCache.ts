@@ -1,4 +1,4 @@
-import { isSameAddress } from '@dimensiondev/web3-utils';
+import { isSameAddress } from '@dimensiondev/web3/utils';
 import type { QueryClient } from '@tanstack/react-query';
 import { produce } from 'immer';
 

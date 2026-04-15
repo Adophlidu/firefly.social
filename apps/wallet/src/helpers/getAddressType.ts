@@ -1,4 +1,4 @@
-import { isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3-utils';
+import { isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3/utils';
 
 import { NetworkType } from '@/constants/enum.js';
 

@@ -1,4 +1,4 @@
-import { isZeroAddress } from '@dimensiondev/web3-utils';
+import { isZeroAddress } from '@dimensiondev/web3/utils';
 import { type Address, erc20Abi } from 'viem';
 import { getBalance, multicall } from 'wagmi/actions';
 

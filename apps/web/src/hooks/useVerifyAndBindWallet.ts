@@ -1,4 +1,4 @@
-import { isSameAddress } from '@dimensiondev/web3-utils';
+import { isSameAddress } from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
 import { first } from 'lodash-es';
 import { useAsyncFn } from 'react-use';

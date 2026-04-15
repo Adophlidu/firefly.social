@@ -1,5 +1,5 @@
 import { classNames } from '@dimensiondev/utils';
-import { isValidAddress } from '@dimensiondev/web3-utils';
+import { isValidAddress } from '@dimensiondev/web3/utils';
 import { type HTMLProps, memo } from 'react';
 
 import { Link } from '@/components/Link.js';

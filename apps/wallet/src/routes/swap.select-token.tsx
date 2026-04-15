@@ -1,7 +1,7 @@
 import GlobeIcon from '@dimensiondev/assets/global.svg';
 import SearchIcon from '@dimensiondev/assets/search.svg';
 import SelectedIcon from '@dimensiondev/assets/selected.svg';
-import { isNativeTokenOrSameAddress } from '@dimensiondev/web3-utils';
+import { isNativeTokenOrSameAddress } from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { createFileRoute, useSearch } from '@tanstack/react-router';

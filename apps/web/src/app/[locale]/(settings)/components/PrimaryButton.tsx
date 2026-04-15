@@ -3,7 +3,7 @@
 import StarFilledIcon from '@dimensiondev/assets/star-filled.svg';
 import StarOutlineIcon from '@dimensiondev/assets/star-outline.svg';
 import { classNames } from '@dimensiondev/utils';
-import { isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3-utils';
+import { isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQueryClient } from '@tanstack/react-query';
 import type { ReactNode } from 'react';

@@ -1,6 +1,6 @@
 import WalletIcon from '@dimensiondev/assets/wallet-circle.svg';
 import { classNames } from '@dimensiondev/utils';
-import { isValidAddressEthereum } from '@dimensiondev/web3-utils';
+import { isValidAddressEthereum } from '@dimensiondev/web3/utils';
 import { first } from 'lodash-es';
 import { type HTMLProps, memo } from 'react';
 import urlcat from 'urlcat';

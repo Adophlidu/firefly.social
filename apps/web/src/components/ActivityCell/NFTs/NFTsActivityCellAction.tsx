@@ -7,7 +7,7 @@ import MintIcon from '@dimensiondev/assets/minted.svg';
 import SentIcon from '@dimensiondev/assets/sent.svg';
 import SoldIcon from '@dimensiondev/assets/sold.svg';
 import { safeUnreachable } from '@dimensiondev/utils';
-import { isSameEthereumAddress } from '@dimensiondev/web3-utils';
+import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 
 import { ActivityCellAction } from '@/components/ActivityCell/ActivityCellAction.js';

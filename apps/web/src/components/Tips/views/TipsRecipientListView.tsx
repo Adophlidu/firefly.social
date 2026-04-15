@@ -2,7 +2,7 @@
 
 import SmallFireflyAvatar from '@dimensiondev/assets/small-firefly.svg';
 import WarnIcon from '@dimensiondev/assets/warning-circle.svg';
-import { isSameAddress } from '@dimensiondev/web3-utils';
+import { isSameAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useRouter } from '@tanstack/react-router';
 

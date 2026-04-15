@@ -5,7 +5,7 @@ import LocationIcon from '@dimensiondev/assets/location.svg';
 import PoapIcon from '@dimensiondev/assets/poap.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { classNames } from '@dimensiondev/utils';
-import { isSameEthereumAddress } from '@dimensiondev/web3-utils';
+import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { compact } from 'lodash-es';

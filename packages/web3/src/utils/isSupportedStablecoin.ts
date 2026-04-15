@@ -1,6 +1,6 @@
 import { arbitrum, base, bsc, mainnet, optimism, polygon } from 'viem/chains';
 
-import { isSameAddress } from '@/isSameAddress.js';
+import { isSameAddress } from '@/utils/isSameAddress.js';
 
 const STABLECOIN_ADDRESSES: Record<number, { usdt: string; usdc: string }> = {
     [mainnet.id]: {

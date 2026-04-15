@@ -12,7 +12,7 @@ import {
     isValidAddressEthereum,
     isValidAddressSolana,
     SOL_ZERO_ADDRESS,
-} from '@dimensiondev/web3-utils';
+} from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useWallets } from '@privy-io/react-auth';

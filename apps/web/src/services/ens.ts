@@ -1,9 +1,8 @@
-import { isValidAddressEthereum } from '@dimensiondev/web3-utils';
+import { isValidAddressEthereum, isValidDomainEthereum } from '@dimensiondev/web3/utils';
 import urlcat from 'urlcat';
 
 import { FIREFLY_WORKER_HOST } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
-import { isValidDomainEthereum } from '@/helpers/isValidDomain.js';
 import type { ResponseJson } from '@/types/utility.js';
 
 type LookupResponse = ResponseJson<{

@@ -1,6 +1,6 @@
 import LinkOut from '@dimensiondev/assets/link.svg';
 import { classNames } from '@dimensiondev/utils';
-import { isValidAddressEthereum } from '@dimensiondev/web3-utils';
+import { isValidAddressEthereum } from '@dimensiondev/web3/utils';
 import { memo } from 'react';
 
 import { NetworkType, Source } from '@/constants/enum.js';

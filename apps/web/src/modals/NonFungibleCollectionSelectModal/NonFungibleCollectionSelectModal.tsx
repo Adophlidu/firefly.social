@@ -1,7 +1,7 @@
 'use client';
 
 import AddIcon from '@dimensiondev/assets/add-circle.svg';
-import { isSameEthereumAddress } from '@dimensiondev/web3-utils';
+import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import { DialogTitle } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { type Ref, useCallback, useState } from 'react';

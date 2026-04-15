@@ -2,7 +2,12 @@ import LeftArrowIcon from '@dimensiondev/assets/left-arrow.svg';
 import SearchIcon from '@dimensiondev/assets/search.svg';
 import type { ErrorPageProps } from '@dimensiondev/types';
 import { createIndicator, createNextIndicator, createPageable } from '@dimensiondev/utils';
-import { isValidAddressEthereum, isValidAddressSolana, isZeroAddressEthereum } from '@dimensiondev/web3-utils';
+import {
+    isValidAddressEthereum,
+    isValidAddressSolana,
+    isValidDomainEthereum,
+    isZeroAddressEthereum,
+} from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
@@ -23,7 +28,6 @@ import { type FormValues, RoutePath } from '@/components/SendTransactionModal/ty
 import { NetworkType, Source } from '@/constants/enum.js';
 import { formatSearchIdentities } from '@/helpers/formatSearchIdentities.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
-import { isValidDomainEthereum } from '@/helpers/isValidDomain.js';
 import { logger } from '@/lib/Logger.js';
 import { fireflyWorkerEndpoint } from '@/providers/firefly/worker.js';
 import { getFireflyEndpoint } from '@/store/fireflyEndpoint.js';

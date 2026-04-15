@@ -3,7 +3,7 @@
 import EvmIcon from '@dimensiondev/assets/evm.svg';
 import SolanaIcon from '@dimensiondev/assets/solana.svg';
 import { safeUnreachable } from '@dimensiondev/utils';
-import { isSameAddress, isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3-utils';
+import { isSameAddress, isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';

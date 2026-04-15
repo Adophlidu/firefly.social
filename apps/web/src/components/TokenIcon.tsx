@@ -1,5 +1,5 @@
 import { classNames } from '@dimensiondev/utils';
-import { isZeroAddressEthereum } from '@dimensiondev/web3-utils';
+import { isZeroAddressEthereum } from '@dimensiondev/web3/utils';
 import { first } from 'lodash-es';
 import { type HTMLProps, memo, useCallback, useMemo, useState } from 'react';
 

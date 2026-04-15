@@ -1,7 +1,7 @@
 'use client';
 
 import { delay } from '@dimensiondev/utils';
-import { isSameAddress, isValidAddressEthereum } from '@dimensiondev/web3-utils';
+import { isSameAddress, isValidAddressEthereum } from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useCallback, useMemo, useState } from 'react';

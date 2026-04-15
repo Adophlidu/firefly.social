@@ -2,7 +2,7 @@
 
 import MoreIcon from '@dimensiondev/assets/more-fill.svg';
 import { runInSafeAsync } from '@dimensiondev/utils';
-import { ETH_ZERO_ADDRESS, isSameEthereumAddress } from '@dimensiondev/web3-utils';
+import { ETH_ZERO_ADDRESS, isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { skipToken, useQuery } from '@tanstack/react-query';
 import { first } from 'lodash-es';

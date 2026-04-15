@@ -5,7 +5,7 @@ import ScanIcon from '@dimensiondev/assets/scan.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { envs, STATUS } from '@dimensiondev/envs';
 import { AbortError, ForbiddenError, runInSafeAsync } from '@dimensiondev/utils';
-import { isSameEthereumAddress } from '@dimensiondev/web3-utils';
+import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import { lastLoggedInAccount } from '@lens-protocol/client/actions';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';

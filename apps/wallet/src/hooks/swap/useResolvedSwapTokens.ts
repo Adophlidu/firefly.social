@@ -1,4 +1,4 @@
-import { isNativeTokenOrSameAddress } from '@dimensiondev/web3-utils';
+import { isNativeTokenOrSameAddress } from '@dimensiondev/web3/utils';
 import { useAtomValue } from 'jotai';
 import { useMemo } from 'react';
 

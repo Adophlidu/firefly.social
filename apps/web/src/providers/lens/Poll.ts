@@ -1,5 +1,5 @@
 import { AuthenticationError, NotImplementedError, runInSafeAsync } from '@dimensiondev/utils';
-import { isSameEthereumAddress } from '@dimensiondev/web3-utils';
+import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import { first, sumBy } from 'lodash-es';
 import { getAddress } from 'viem';
 

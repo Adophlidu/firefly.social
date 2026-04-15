@@ -5,7 +5,7 @@ import {
     isValidAddressEthereum,
     isValidAddressSolana,
     isZeroAddress,
-} from '@dimensiondev/web3-utils';
+} from '@dimensiondev/web3/utils';
 import { compact, first, uniq } from 'lodash-es';
 import type { Address } from 'viem';
 

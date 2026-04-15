@@ -3,7 +3,7 @@
 import CloseIcon from '@dimensiondev/assets/close.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { delay } from '@dimensiondev/utils';
-import { isSameAddress, isValidAddressEthereum } from '@dimensiondev/web3-utils';
+import { isSameAddress, isValidAddressEthereum } from '@dimensiondev/web3/utils';
 import { DialogTitle } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';

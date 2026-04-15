@@ -1,4 +1,4 @@
-import { isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3-utils';
+import { isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3/utils';
 import urlcat from 'urlcat';
 
 import type { ConnectionPlatform } from '@/constants/enum.js';

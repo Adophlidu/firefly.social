@@ -1,16 +1,16 @@
 {
-    "name": "@dimensiondev/web3-utils",
+    "name": "@dimensiondev/web3",
     "version": "0.1.28",
     "description": "Shared Web3 utility functions for Firefly projects",
     "type": "module",
-    "main": "./dist/index.js",
-    "module": "./dist/index.js",
-    "types": "./dist/index.d.ts",
+    "main": "./dist/utils.js",
+    "module": "./dist/utils.js",
+    "types": "./dist/utils.d.ts",
     "exports": {
-        ".": {
-            "types": "./dist/index.d.ts",
-            "import": "./dist/index.js",
-            "require": "./dist/index.cjs"
+        "./utils": {
+            "types": "./dist/utils.d.ts",
+            "import": "./dist/utils.js",
+            "require": "./dist/utils.cjs"
         }
     },
     "files": [
@@ -35,7 +35,7 @@
     "repository": {
         "type": "git",
         "url": "https://github.com/DimensionDev/firefly.mask.social",
-        "directory": "packages/web3-utils"
+        "directory": "packages/web3"
     },
     "publishConfig": {
         "registry": "https://npm.pkg.github.com",
@@ -48,6 +48,7 @@
     "dependencies": {
         "@coral-xyz/anchor": "^0.31.1",
         "bignumber.js": "9.3.1",
+        "punycode": "^2.3.1",
         "viem": "^2.21.47"
     },
     "peerDependencies": {

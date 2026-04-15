@@ -1,4 +1,4 @@
-import { ETH_NATIVE_TOKEN_ADDRESS, SOL_NATIVE_TOKEN_ADDRESS } from '@dimensiondev/web3-utils';
+import { ETH_NATIVE_TOKEN_ADDRESS, SOL_NATIVE_TOKEN_ADDRESS } from '@dimensiondev/web3/utils';
 
 import { normalizeSolChainId } from '@/helpers/isSolanaChain.js';
 

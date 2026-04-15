@@ -1,7 +1,7 @@
 'use client';
 
 import { classNames } from '@dimensiondev/utils';
-import { isValidAddressEthereum } from '@dimensiondev/web3-utils';
+import { isValidAddressEthereum } from '@dimensiondev/web3/utils';
 import { memo, useCallback } from 'react';
 
 import { ArticleMoreAction } from '@/components/Actions/ArticleMore.js';

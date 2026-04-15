@@ -4,7 +4,7 @@ import LineArrowUp from '@dimensiondev/assets/line-arrow-up.svg';
 import PriceArrow from '@dimensiondev/assets/price-arrow.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { classNames } from '@dimensiondev/utils';
-import { isSameAddress } from '@dimensiondev/web3-utils';
+import { isSameAddress } from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';

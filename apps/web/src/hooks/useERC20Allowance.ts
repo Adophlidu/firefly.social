@@ -1,4 +1,4 @@
-import { getTokenAbiForWagmi, isZeroAddressEthereum } from '@dimensiondev/web3-utils';
+import { getTokenAbiForWagmi, isZeroAddressEthereum } from '@dimensiondev/web3/utils';
 import { useQuery } from '@tanstack/react-query';
 import { readContract } from 'wagmi/actions';
 

@@ -1,7 +1,7 @@
 'use client';
 
 import { useMultiInfiniteQueryPageable } from '@dimensiondev/hooks';
-import { isSameEthereumAddress } from '@dimensiondev/web3-utils';
+import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
 
 import { getProfileActivities } from '@/components/Activities/getActivities.js';
 import { getActivitiesItemContent } from '@/components/Activities/getActivitiesItemContent.js';

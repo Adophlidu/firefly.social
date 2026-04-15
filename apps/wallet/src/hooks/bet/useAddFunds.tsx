@@ -1,5 +1,5 @@
 import { InvalidResultError, retry } from '@dimensiondev/utils';
-import { isNativeTokenOrSameAddress } from '@dimensiondev/web3-utils';
+import { isNativeTokenOrSameAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from '@tanstack/react-router';

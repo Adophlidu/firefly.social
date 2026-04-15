@@ -1,4 +1,4 @@
-import { getTokenAbiForWagmi, isSupportedStablecoin } from '@dimensiondev/web3-utils';
+import { getTokenAbiForWagmi, isSupportedStablecoin } from '@dimensiondev/web3/utils';
 import type { Address, Hash } from 'viem';
 import { encodeFunctionData, parseUnits } from 'viem';
 import type { Config } from 'wagmi';

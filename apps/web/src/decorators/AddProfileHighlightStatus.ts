@@ -1,5 +1,5 @@
 import { runInSafe, runInSafeAsync } from '@dimensiondev/utils';
-import { isSameEthereumAddress } from '@dimensiondev/web3-utils';
+import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import { compact, uniqBy } from 'lodash-es';
 
 import { queryClient } from '@/configs/queryClient.js';

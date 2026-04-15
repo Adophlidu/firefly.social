@@ -1,5 +1,5 @@
 import { web3 } from '@coral-xyz/anchor';
-import { isZeroAddressSolana, parseSolToLamports } from '@dimensiondev/web3-utils';
+import { isZeroAddressSolana, parseSolToLamports } from '@dimensiondev/web3/utils';
 import {
     createAssociatedTokenAccountInstruction,
     createTransferInstruction,

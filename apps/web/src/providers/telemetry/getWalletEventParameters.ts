@@ -1,4 +1,4 @@
-import { isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3-utils';
+import { isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3/utils';
 import { CoreConnectorController } from '@reown/appkit';
 
 import type { WalletEventParameters } from '@/providers/types/Telemetry.js';

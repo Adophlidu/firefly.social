@@ -14,7 +14,7 @@ vi.mock('wagmi/actions', () => ({
 
 // Mock isZeroAddress helper
 const mockIsZeroAddress = vi.fn();
-vi.mock('@dimensiondev/web3-utils', () => ({
+vi.mock('@dimensiondev/web3/utils', () => ({
     isZeroAddress: (...args: unknown[]) => mockIsZeroAddress(...args),
 }));
 

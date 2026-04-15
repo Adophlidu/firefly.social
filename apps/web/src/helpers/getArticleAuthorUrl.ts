@@ -1,4 +1,4 @@
-import { isValidAddressEthereum } from '@dimensiondev/web3-utils';
+import { isValidAddressEthereum } from '@dimensiondev/web3/utils';
 import urlcat from 'urlcat';
 
 import { SourceInURL } from '@/constants/enum.js';

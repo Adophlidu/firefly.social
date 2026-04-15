@@ -2,7 +2,7 @@
 
 import QuestionIcon from '@dimensiondev/assets/question.svg';
 import RedPacketIcon from '@dimensiondev/assets/red-packet.svg';
-import { getTokenAbiForWagmi } from '@dimensiondev/web3-utils';
+import { getTokenAbiForWagmi } from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
