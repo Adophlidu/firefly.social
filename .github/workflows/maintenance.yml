@@ -30,7 +30,7 @@ jobs:
               run: .github/scripts/setup.sh
 
             - name: Run Lingui
-              run: pnpm --filter @dimensiondev/firefly-web lingui
+              run: pnpm -r --filter='./apps/*' run lingui
 
             - name: Run Prettier
               run: npx prettier . -w
