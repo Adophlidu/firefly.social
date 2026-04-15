@@ -1,8 +1,3 @@
-function _abbreviationForZero(str: string, zeroCount: number) {
-    if (zeroCount <= 1) return str;
-    return str.replace(`${new Array(zeroCount).fill('0').join('')}`, `0{${zeroCount}}`);
-}
-
 export function removeTrailingZeros(str: string) {
     const result = str.replace(/(\.\d*?)0+$/, '$1').replace(/\.$/, '');
     return result === '0' ? '0' : result;

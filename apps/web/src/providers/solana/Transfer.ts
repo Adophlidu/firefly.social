@@ -1,5 +1,5 @@
 import { web3 } from '@coral-xyz/anchor';
-import { isZeroAddressSolana } from '@dimensiondev/web3-utils';
+import { isZeroAddressSolana, parseSolToLamports } from '@dimensiondev/web3-utils';
 import {
     createAssociatedTokenAccountInstruction,
     createTransferInstruction,
@@ -8,7 +8,6 @@ import {
 
 import { getSolanaRPCUrl } from '@/helpers/getSolanaRPCUrl.js';
 import { isGreaterThan, isLessThan, leftShift, minus, multipliedBy, rightShift, ZERO } from '@/helpers/number.js';
-import { parseSolToLamports } from '@/helpers/parseSolToLamports.js';
 import { getNativeTokenBalance, getTokenBalance } from '@/providers/solana/getTokenBalance.js';
 import { getWalletAdapter } from '@/providers/solana/getWalletAdapter.js';
 import { SolanaNetwork } from '@/providers/solana/Network.js';

@@ -37,6 +37,9 @@ msgstr ""
 msgid "Positions"
 msgstr ""
 
+msgid "in your Firefly wallet"
+msgstr ""
+
 msgid "Skip reviews"
 msgstr ""
 
@@ -151,9 +154,6 @@ msgid "Predict on Polymarket"
 msgstr ""
 
 msgid "Keep Your Recovery Phrase Safe"
-msgstr ""
-
-msgid "You receive"
 msgstr ""
 
 msgid "Bought"
@@ -712,11 +712,6 @@ msgid "Will receive"
 msgstr ""
 
 msgid "Quick Buy"
-msgstr ""
-
-#. placeholder {0}: formatTokenItemAmount(withdrawPreview?.amount ?? 0)
-#. placeholder {1}: targetToken.symbol
-msgid "<0>{0}</0> {1} in your firefly wallet"
 msgstr ""
 
 msgid "Your tokens"

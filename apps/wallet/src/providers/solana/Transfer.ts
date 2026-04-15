@@ -1,5 +1,5 @@
 import { web3 } from '@coral-xyz/anchor';
-import { isZeroAddressSolana } from '@dimensiondev/web3-utils';
+import { isZeroAddressSolana, parseSolToLamports } from '@dimensiondev/web3-utils';
 import type { ConnectedStandardSolanaWallet } from '@privy-io/react-auth/solana';
 import {
     createAssociatedTokenAccountInstruction,
@@ -11,7 +11,6 @@ import type { BigNumber } from 'bignumber.js';
 import { SolanaChainId } from '@/constants/solana.js';
 import { getSolanaRPCUrl } from '@/helpers/getSolanaRPCUrl.js';
 import { isGreaterThan, isLessThan, leftShift, minus, multipliedBy, rightShift, ZERO } from '@/helpers/number.js';
-import { parseSolToLamports } from '@/helpers/parseSolToLamports.js';
 import { signAndBroadcastSolanaTransaction } from '@/helpers/signAndBroadcastSolanaTransaction.js';
 import { getNativeTokenBalance, getTokenBalance } from '@/providers/solana/getTokenBalance.js';
 import type { Token, TransactionOptions, TransferProvider } from '@/providers/types/Transfer.js';

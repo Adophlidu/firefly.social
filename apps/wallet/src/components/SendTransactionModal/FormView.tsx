@@ -44,6 +44,7 @@ import { NetworkType } from '@/constants/enum.js';
 import type { EthereumChainId } from '@/constants/ethereum.js';
 import { SolanaChainId } from '@/constants/solana.js';
 import { formatLamportsToSol } from '@/helpers/formatLamportsToSol.js';
+import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { isNativeEvmToken } from '@/helpers/isNativeEvmToken.js';
 import { normalizeDecimalInput } from '@/helpers/normalizeDecimalInput.js';
@@ -246,7 +247,7 @@ function Form() {
                         SolanaChainId.Mainnet,
                         SOL_ZERO_ADDRESS,
                     );
-                    const formatAmount = formatLamportsToSol(fee);
+                    const formatAmount = removeTrailingZeros(formatLamportsToSol(fee));
                     const usd = multipliedBy(price ?? 0, formatAmount).toString();
 
                     return {

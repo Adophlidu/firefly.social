@@ -1148,6 +1148,9 @@ importers:
       '@coral-xyz/anchor':
         specifier: ^0.31.1
         version: 0.31.1(typescript@5.9.3)
+      bignumber.js:
+        specifier: 9.3.1
+        version: 9.3.1
       viem:
         specifier: ^2.21.47
         version: 2.47.10(typescript@5.9.3)(zod@3.25.76)
