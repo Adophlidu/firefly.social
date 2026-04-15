@@ -121,6 +121,11 @@ async function executeEvmSwap({
         walletAddress,
         routerAddress: quoteResult.tx.to,
         connector,
+        isCrossChain,
+        toChainId: quoteParams.toChainId,
+        toTokenAddress: quoteParams.toTokenAddress,
+        slippage: quoteParams.slippagePercent,
+        recipientAddress: quoteParams.recipientAddress,
     });
 
     // Send swap transaction

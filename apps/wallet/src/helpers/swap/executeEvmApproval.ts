@@ -18,19 +18,56 @@ interface ExecuteEvmApprovalParams {
     walletAddress: string;
     routerAddress: string;
     connector: (typeof config.connectors)[number];
+    isCrossChain?: boolean;
+    toChainId?: number;
+    toTokenAddress?: string;
+    slippage?: string;
+    recipientAddress?: string;
 }
 
 export async function executeEvmApproval(params: ExecuteEvmApprovalParams): Promise<void> {
-    const { endpoint, fromToken, fromAmount, chainId, walletAddress, routerAddress, connector } = params;
-    const amountInSmallest = rightShift(fromAmount, fromToken.decimals).toFixed(0);
-    const approveTxData = await endpoint.getApproveTransaction({
-        tokenAddress: fromToken.address,
-        amount: amountInSmallest,
+    const {
+        endpoint,
+        fromToken,
+        fromAmount,
         chainId,
-        userWalletAddress: walletAddress,
-        spender: routerAddress,
-    });
-    const spenderAddress = approveTxData?.dexContractAddress ?? routerAddress;
+        walletAddress,
+        routerAddress,
+        connector,
+        isCrossChain,
+        toChainId,
+        toTokenAddress,
+        slippage,
+        recipientAddress,
+    } = params;
+    const amountInSmallest = rightShift(fromAmount, fromToken.decimals).toFixed(0);
+
+    let approveTxData;
+    let spenderAddress: string;
+
+    if (isCrossChain) {
+        approveTxData = await endpoint.getCrossChainApproveTransaction({
+            fromTokenAddress: fromToken.address,
+            toTokenAddress: toTokenAddress!,
+            amount: fromAmount,
+            fromChainId: chainId,
+            toChainId: toChainId!,
+            fromDecimals: fromToken.decimals,
+            slippage,
+            userWalletAddress: walletAddress,
+            recipientWalletAddress: recipientAddress,
+        });
+        spenderAddress = approveTxData?.dexContractAddress ?? '';
+    } else {
+        approveTxData = await endpoint.getApproveTransaction({
+            tokenAddress: fromToken.address,
+            amount: amountInSmallest,
+            chainId,
+            userWalletAddress: walletAddress,
+            spender: routerAddress,
+        });
+        spenderAddress = approveTxData?.dexContractAddress ?? routerAddress;
+    }
 
     const needsApproval =
         !isNativeTokenAddress(fromToken.address) && fromToken.address && walletAddress && spenderAddress;

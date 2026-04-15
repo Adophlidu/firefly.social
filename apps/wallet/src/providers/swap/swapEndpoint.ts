@@ -296,6 +296,30 @@ export class SwapEndpoint extends Fetch {
         return inner.data[0] ?? null;
     }
 
+    // Get cross-chain approve transaction data (bridge-specific)
+    // Uses POST /swap/dex/cross-chain/approve-transaction/v2 which returns the correct
+    // spender address from Relay quote (unlike the swap approve endpoint)
+    async getCrossChainApproveTransaction(params: GetCrossChainBuildTxParams): Promise<ApproveTransaction | null> {
+        const amountInSmallest = rightShift(params.amount, params.fromDecimals).toFixed(0);
+        const result = await this.post<SwapApiResponse<ApproveTransaction>>(
+            '/swap/dex/cross-chain/approve-transaction/v2',
+            {
+                originChainId: params.fromChainId,
+                destinationChainId: params.toChainId,
+                originCurrency: params.fromTokenAddress,
+                destinationCurrency: params.toTokenAddress,
+                amount: amountInSmallest,
+                slippage: params.slippage ?? '0.5',
+                user: params.userWalletAddress,
+                recipient: params.recipientWalletAddress ?? params.userWalletAddress,
+            },
+        );
+        if (!result.ok || result.data.code !== 0 || !result.data.data) {
+            return null;
+        }
+        return result.data.data;
+    }
+
     // Get cross-chain bridge quote (POST method as per backend)
     async getCrossChainQuote(params: GetCrossChainQuoteParams): Promise<CrossChainQuote | null> {
         // Convert user decimal amount to smallest units (e.g., 0.1 ETH → 100000000000000000)
