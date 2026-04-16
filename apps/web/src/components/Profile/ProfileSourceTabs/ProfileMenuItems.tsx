@@ -1,4 +1,5 @@
 import ArrowLineDownIcon from '@dimensiondev/assets/arrow-line-down.svg';
+import FireflyLogo from '@dimensiondev/assets/firefly.round.svg';
 import { envs, STATUS } from '@dimensiondev/envs';
 import { classNames, delay } from '@dimensiondev/utils';
 import { MenuItem } from '@headlessui/react';
@@ -13,6 +14,7 @@ import { type ProfilePageSource, Source } from '@/constants/enum.js';
 import { usePathname } from '@/esm/navigation.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByFireflyProfile } from '@/helpers/getStampAvatarByProfileId.js';
+import { isMPCWallet } from '@/helpers/isMPCWallet.js';
 import { isProfilePageSource } from '@/helpers/isSource.js';
 import { captureProfileAccountClickSimple } from '@/providers/telemetry/captureProfileAccountEvent.js';
 import { captureProfileChangeAccountClick } from '@/providers/telemetry/captureProfileActionEvent.js';
@@ -103,8 +105,9 @@ export function TopProfileMenuItem({ profile, identity }: { profile: FireflyProf
 export function ProfileMenuItem({ profile }: { profile: FireflyProfile }) {
     const source = profile.identity.source;
     if (!isProfilePageSource(source)) return null;
-    const isHacked =
-        profile.identity.source === Source.Wallet ? ((profile?.__origin__ as WalletProfile)?.hacked ?? false) : false;
+    const origin = profile.identity.source === Source.Wallet ? (profile.__origin__ as WalletProfile) : null;
+    const isHacked = origin?.hacked ?? false;
+    const isMPC = !!origin && isMPCWallet(origin);
     return (
         <MenuItem>
             <Link
@@ -118,6 +121,8 @@ export function ProfileMenuItem({ profile }: { profile: FireflyProfile }) {
             >
                 {isHacked ? (
                     <SourceIcon source={Source.Wallet} size={14} danger />
+                ) : isMPC ? (
+                    <FireflyLogo width={14} height={14} className="shrink-0" />
                 ) : (
                     <Avatar size={14} alt={profile.identity.id} src={getStampAvatarByFireflyProfile(profile)} />
                 )}

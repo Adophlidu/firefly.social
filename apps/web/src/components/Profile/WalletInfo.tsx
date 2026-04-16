@@ -147,8 +147,8 @@ export function WalletInfo({ profile }: WalletInfoProps) {
                 <PredictionProfilesCard address={profile.address} />
             </div>
             {profile.hacked ? (
-                <div className="mt-3 md:ml-1">
-                    <p className="bg-danger text-danger rounded-lg bg-opacity-[0.16] px-3 py-2 text-sm leading-[18px] md:ml-12">
+                <div className="mt-3 w-full">
+                    <p className="bg-danger text-danger w-full rounded-lg bg-opacity-[0.16] px-3 py-2 text-sm leading-[18px]">
                         <Trans>
                             This wallet has been flagged as compromised. Please do not trust or interact with it. Avoid
                             any transactions or sharing of sensitive information. Stay safe!

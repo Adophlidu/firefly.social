@@ -3,8 +3,10 @@
 import { envs, STATUS } from '@dimensiondev/envs';
 import { classNames } from '@dimensiondev/utils';
 import { Menu, MenuItems } from '@headlessui/react';
+import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { first } from 'lodash-es';
+import { useState } from 'react';
 
 import { ProfileMenuItem, TopProfileMenuItem } from '@/components/Profile/ProfileSourceTabs/ProfileMenuItems.js';
 import { ProfileSourceTabsContainer } from '@/components/Profile/ProfileSourceTabs/ProfileSourceTabsContainer.js';
@@ -13,9 +15,10 @@ import { useSortFireflyProfiles } from '@/components/Profile/ProfileSourceTabs/u
 import { SORTED_PROFILE_SOURCES } from '@/constants/computed.js';
 import { type ProfilePageSource, Source } from '@/constants/enum.js';
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
+import { isMPCWallet } from '@/helpers/isMPCWallet.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
-import type { FireflyIdentity, FireflyProfile } from '@/providers/types/Firefly.js';
+import type { FireflyIdentity, FireflyProfile, WalletProfile } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { getAllRelatedProfilesWithDefault } from '@/services/getAllRelatedProfilesWithDefault.js';
 
@@ -30,6 +33,7 @@ export function ProfileSourceTabs({
     identityFromUrl: FireflyIdentity;
     socialProfile?: Profile | null;
 }) {
+    const [isWalletProfilesExpanded, setIsWalletProfilesExpanded] = useState(false);
     const isMyProfile = useIsMyRelatedProfile(identity.source, identity.id);
     const { data = initialProfiles } = useQuery({
         queryKey: ['logged-in-firefly-profiles', identityFromUrl.source, identityFromUrl.id],
@@ -67,6 +71,25 @@ export function ProfileSourceTabs({
                 const isCurrentSource =
                     identity.source === source || (source === Source.Wallet && identity.source === Source.WalletMix);
                 const isWalletProfile = source === Source.Wallet;
+                const hasMPCWallet = isWalletProfile
+                    ? currentSourceProfiles.some((profile) => {
+                          const origin = profile.__origin__ as WalletProfile | undefined;
+                          return !!origin && isMPCWallet(origin);
+                      })
+                    : false;
+                const shouldCollapseWalletProfiles = isWalletProfile && hasMPCWallet && !isWalletProfilesExpanded;
+                const visibleProfiles = shouldCollapseWalletProfiles
+                    ? currentSourceProfiles.filter((profile) => {
+                          const origin = profile.__origin__ as WalletProfile | undefined;
+                          return profile.isDefault || (!!origin && isMPCWallet(origin));
+                      })
+                    : currentSourceProfiles;
+                const collapsedProfiles = shouldCollapseWalletProfiles
+                    ? currentSourceProfiles.filter((profile) => {
+                          const origin = profile.__origin__ as WalletProfile | undefined;
+                          return !profile.isDefault && !(origin && isMPCWallet(origin));
+                      })
+                    : [];
                 const topProfile = defaultProfile;
 
                 if (currentSourceProfiles.length === 1) {
@@ -95,10 +118,13 @@ export function ProfileSourceTabs({
                                             'text-lensPrimary': source === Source.Lens,
                                             'text-mainLight': source === Source.Twitter,
                                             'text-bskyPrimary': source === Source.Bsky,
-                                            'text-highlight dark:bg-walletBg': isWalletProfile,
+                                            'text-highlight dark:bg-walletBg dark:text-white': isWalletProfile,
                                         },
                                     )}
-                                    onMouseLeave={close}
+                                    onMouseLeave={() => {
+                                        close();
+                                        if (isWalletProfile) setIsWalletProfilesExpanded(false);
+                                    }}
                                 >
                                     <div
                                         className={classNames(
@@ -109,7 +135,8 @@ export function ProfileSourceTabs({
                                                       'bg-lensPrimary text-lensText': source === Source.Lens,
                                                       'bg-lightMain text-primaryBottom': source === Source.Twitter,
                                                       'bg-bskyPrimary text-white': source === Source.Bsky,
-                                                      'bg-highlight text-white': isWalletProfile,
+                                                      'bg-highlight dark:bg-walletBg text-white dark:text-white':
+                                                          isWalletProfile,
                                                   }
                                                 : {
                                                       'bg-farcasterPrimary/10 text-farcasterPrimary':
@@ -123,7 +150,7 @@ export function ProfileSourceTabs({
                                         )}
                                     >
                                         <TopProfileMenuItem profile={defaultProfile} identity={identity} />
-                                        {currentSourceProfiles.map((profile) => {
+                                        {visibleProfiles.map((profile) => {
                                             const isCurrentFireflyIdentity = isSameFireflyIdentity(
                                                 profile.identity,
                                                 defaultProfile.identity,
@@ -137,6 +164,18 @@ export function ProfileSourceTabs({
                                             if (!isWalletProfile && isCurrentFireflyIdentity) return null;
                                             return <ProfileMenuItem profile={profile} key={profile.identity.id} />;
                                         })}
+                                        {collapsedProfiles.length > 0 ? (
+                                            <button
+                                                type="button"
+                                                className="flex h-6 w-full items-center truncate leading-6 hover:opacity-60"
+                                                onClick={() => setIsWalletProfilesExpanded(true)}
+                                            >
+                                                <span className="inline-flex size-[14px] shrink-0" />
+                                                <span className="ml-1 min-w-0 truncate pr-4">
+                                                    <Trans>View all</Trans>
+                                                </span>
+                                            </button>
+                                        ) : null}
                                     </div>
                                 </MenuItems>
                             </div>
