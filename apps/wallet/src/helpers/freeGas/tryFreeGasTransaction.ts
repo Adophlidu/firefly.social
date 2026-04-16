@@ -51,7 +51,7 @@ export async function tryFreeGasTransaction(
             from,
             gas: `0x${gas.toString(16)}`,
             to,
-            value: value ?? '0x0',
+            value: value ? `0x${BigInt(value).toString(16)}` : '0x0',
         };
 
         if (feeData.maxFeePerGas && feeData.maxPriorityFeePerGas) {
@@ -80,11 +80,7 @@ export async function tryFreeGasTransaction(
         }
 
         return { type: 'fallback' };
-    } catch (error) {
-        // Re-throw if the server accepted free-gas but returned no hash — this is not a normal fallback
-        if (error instanceof Error && error.message.startsWith('Free-gas accepted but no hash returned')) {
-            throw error;
-        }
+    } catch {
         return { type: 'fallback' };
     }
 }

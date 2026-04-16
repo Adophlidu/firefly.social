@@ -90,6 +90,6 @@ export function useCheckGasForDeposit({ depositToken, amount, quote }: Options) 
 
     return {
         isLoading: isFreeGasCheckLoading,
-        isInsufficientGas: isInsufficient && !isFreeGasEligible,
+        isInsufficientGas: isInsufficient && isFreeGasEligible === false,
     };
 }
