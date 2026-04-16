@@ -1,5 +1,6 @@
 import ComebackIcon from '@dimensiondev/assets/comeback2.svg';
 import LineArrowUp from '@dimensiondev/assets/line-arrow-up.svg';
+import { visibleChains } from '@dimensiondev/web3/chains';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { createFileRoute, useNavigate, useRouter } from '@tanstack/react-router';
@@ -15,7 +16,6 @@ import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { type FormValues, RoutePath, useSendToken } from '@/components/SendTransactionModal/types.js';
 import { TokenItem } from '@/components/TokenItem.js';
 import { Button } from '@/components/ui/button.js';
-import { visibleChains } from '@/configs/chains.js';
 import { SolanaChainId } from '@/constants/solana.js';
 import { formatTokenFromFireflyTokenAsset } from '@/helpers/formatTokenFromFireflyTokenAsset.js';
 import { useExpandableTokens } from '@/hooks/useExpandableTokens.js';

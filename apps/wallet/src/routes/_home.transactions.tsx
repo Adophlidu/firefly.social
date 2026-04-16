@@ -1,10 +1,10 @@
+import { chains } from '@dimensiondev/web3/chains';
 import { createFileRoute } from '@tanstack/react-router';
 import { lazy, Suspense, useState } from 'react';
 
 import { LoadingPanel } from '@/components/LoadingPanel.js';
 import { TransactionDetailModal } from '@/components/TransactionDetailModal/TransactionDetailModal.js';
 import TransactionHistory from '@/components/Transactions.js';
-import { chains } from '@/configs/chains.js';
 import { NetworkType } from '@/constants/enum.js';
 import { SolanaChainId } from '@/constants/solana.js';
 import { useEmbeddedWalletAddresses } from '@/hooks/useCachedWalletAddresses.js';

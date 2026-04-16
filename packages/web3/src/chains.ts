@@ -1,7 +1,5 @@
 /* cspell:disable */
 
-'use client';
-
 import {
     arbitrum,
     aurora,
@@ -31,7 +29,7 @@ import {
 } from 'viem/chains';
 
 /**
- * List of all supported chains
+ * Full list of supported chains (Firefly web / wagmi).
  */
 export const chains = [
     mainnet,
@@ -61,32 +59,30 @@ export const chains = [
     hyperEvm,
 ] as const;
 
+export type ChainId = (typeof chains)[number]['id'];
+
+/**
+ * Chains shown in wallet UI (Firefly wallet).
+ */
 export const visibleChains = [
     mainnet,
     base,
     bsc,
-    polygon,
     optimism,
-    arbitrum,
-    gnosis,
+    polygon,
     avalanche,
     blast,
-    aurora,
-    confluxESpace,
-    fantom,
-    xLayer,
-    metis,
-    zora,
     scroll,
     linea,
+    arbitrum,
     zkSync,
     celo,
-    lens,
     plasma,
-    hyperEvm,
 ] as const satisfies ReadonlyArray<(typeof chains)[number]>;
 
-// privy wallet currently only supports these 10 chains
+/**
+ * Chains Privy embedded wallet supports in the web app (subset of {@link chains}).
+ */
 export const privyVisibleChains = [
     mainnet,
     base,

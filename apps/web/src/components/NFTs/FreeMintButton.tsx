@@ -2,6 +2,7 @@
 
 import WebsiteIcon from '@dimensiondev/assets/website-circle.svg';
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
+import { chains } from '@dimensiondev/web3/chains';
 import { Trans } from '@lingui/react/macro';
 import { useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -11,7 +12,6 @@ import { useChainId, useConnection, useSwitchChain } from 'wagmi';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { Link } from '@/components/Link.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { chains } from '@/configs/chains.js';
 import { MintStatus, NetworkType } from '@/constants/enum.js';
 import { useSponsorMintStatus } from '@/hooks/useSponsorMintStatus.js';
 import { FreeMintModal } from '@/modals/FreeMintModal/FreeMintModal.js';

@@ -1,8 +1,8 @@
+import type { ChainId } from '@dimensiondev/web3/chains';
 import { isNativeTokenAddress } from '@dimensiondev/web3/utils';
 import { type Address, erc20Abi, type Hex } from 'viem';
 import { readContract, sendTransaction } from 'wagmi/actions';
 
-import type { ChainId } from '@/configs/chains.js';
 import { config } from '@/configs/wagmiClient.js';
 import { rightShift } from '@/helpers/number.js';
 import { estimateSwapGas } from '@/helpers/swap/estimateSwapGas.js';

@@ -1,5 +1,6 @@
 import '@/configs/appkit.js';
 
+import { chains } from '@dimensiondev/web3/chains';
 import { type PrivyClientConfig, PrivyProvider } from '@privy-io/react-auth';
 import { WagmiProvider } from '@privy-io/wagmi';
 import { createSolanaRpc, createSolanaRpcSubscriptions } from '@solana/kit';
@@ -8,7 +9,6 @@ import { Provider as JotaiProvider, useAtomValue } from 'jotai';
 import { type PropsWithChildren, useMemo } from 'react';
 import { mainnet } from 'viem/chains';
 
-import { chains } from '@/configs/chains.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { config } from '@/configs/wagmiClient.js';
 import { env } from '@/constants/env.js';

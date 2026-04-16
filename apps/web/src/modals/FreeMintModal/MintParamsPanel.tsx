@@ -1,11 +1,11 @@
 import { classNames } from '@dimensiondev/utils';
+import { chains } from '@dimensiondev/web3/chains';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import type { BigNumber } from 'bignumber.js';
 import { type HTMLProps, memo, type ReactNode } from 'react';
 
 import { ChainIcon } from '@/components/ChainIcon.js';
-import { chains } from '@/configs/chains.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { isZero, leftShift, multipliedBy, plus } from '@/helpers/number.js';

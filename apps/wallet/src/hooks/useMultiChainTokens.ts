@@ -1,8 +1,8 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { visibleChains } from '@dimensiondev/web3/chains';
 import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { compact, omit } from 'lodash-es';
 
-import { visibleChains } from '@/configs/chains.js';
 import { SolanaChainId } from '@/constants/solana.js';
 import { formatTokenFromFireflyTokenAsset } from '@/helpers/formatTokenFromFireflyTokenAsset.js';
 import { useEmbeddedWalletAddresses } from '@/hooks/useCachedWalletAddresses.js';

@@ -1,4 +1,5 @@
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
+import { chains } from '@dimensiondev/web3/chains';
 import { useWallets } from '@privy-io/react-auth';
 import { useQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
@@ -9,7 +10,6 @@ import { type Address, encodeFunctionData, parseUnits, toHex } from 'viem';
 import { ChainIcon } from '@/components/ChainIcon.js';
 import { Button } from '@/components/ui/button.js';
 import { Select, SelectContent, SelectItem, SelectTrigger } from '@/components/ui/select.js';
-import { chains } from '@/configs/chains.js';
 import { APP_BASE_PATH } from '@/constants/static.js';
 import { formatTokenFromFireflyTokenAsset } from '@/helpers/formatTokenFromFireflyTokenAsset.js';
 import { isNativeEvmToken } from '@/helpers/isNativeEvmToken.js';

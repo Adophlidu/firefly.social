@@ -471,15 +471,6 @@ importers:
         specifier: ^3.2.4
         version: 3.2.4(@types/node@22.10.10)(jsdom@27.4.0)
 
-  apps/wallet/scripts:
-    dependencies:
-      '@lingui/format-po-gettext':
-        specifier: 5.5.2
-        version: 5.5.2(typescript@5.9.3)
-      base32-decode:
-        specifier: ^1.0.0
-        version: 1.0.0
-
   apps/web:
     dependencies:
       '@atproto/api':
@@ -1167,7 +1158,7 @@ importers:
         specifier: ^2.3.1
         version: 2.3.1
       viem:
-        specifier: ^2.21.47
+        specifier: ^2.45.2
         version: 2.47.10(typescript@5.9.3)(zod@3.25.76)
     devDependencies:
       tsup:
@@ -20031,7 +20022,7 @@ packages:
     dependencies:
       magic-string: 0.30.17
       mlly: 1.8.0
-      rollup: 4.39.0
+      rollup: 4.60.1
     dev: true
 
   /flairup@1.0.0:

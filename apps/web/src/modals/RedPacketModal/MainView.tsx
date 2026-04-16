@@ -2,6 +2,7 @@
 
 import QuestionIcon from '@dimensiondev/assets/question.svg';
 import RedPacketIcon from '@dimensiondev/assets/red-packet.svg';
+import { rpSupportedChains } from '@dimensiondev/web3/chains';
 import { getTokenAbiForWagmi } from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
@@ -20,7 +21,6 @@ import { useDefaultCreateGas } from '@/components/RedPacket/hooks/useDefaultCrea
 import { Tab, Tabs } from '@/components/Tabs/index.js';
 import { TokenValue } from '@/components/TokenValue.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { rpSupportedChains } from '@/configs/chains.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { NetworkType } from '@/constants/enum.js';
 import { RED_PACKET_CONTRACT_VERSION, RED_PACKET_DURATION, RED_PACKET_MIN_SHARES } from '@/constants/rp.js';

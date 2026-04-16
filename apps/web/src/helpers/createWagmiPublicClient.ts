@@ -1,9 +1,9 @@
 import { envs } from '@dimensiondev/envs';
 import { createLookupTableResolver } from '@dimensiondev/utils';
+import { chains } from '@dimensiondev/web3/chains';
 import { type Chain, createPublicClient as createClient, http, type PublicClient } from 'viem';
 import { mainnet, optimism, polygon } from 'viem/chains';
 
-import { chains } from '@/configs/chains.js';
 import type { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 const resolvePublicProviderUrl = createLookupTableResolver<number, string | undefined>(

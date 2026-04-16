@@ -1,6 +1,6 @@
+import { chains } from '@dimensiondev/web3/chains';
 import type { ConnectedWallet } from '@privy-io/react-auth';
 
-import { chains } from '@/configs/chains.js';
 import { config } from '@/configs/wagmiClient.js';
 
 type SwapEvmConnector = (typeof config.connectors)[number];

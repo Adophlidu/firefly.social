@@ -1,6 +1,6 @@
+import { chains } from '@dimensiondev/web3/chains';
 import { type Chain, createPublicClient as createClient, http, type PublicClient } from 'viem';
 
-import { chains } from '@/configs/chains.js';
 import type { EthereumChainId } from '@/constants/ethereum.js';
 import { resolvePublicProviderUrl } from '@/helpers/resolvePublicProviderUrl.js';
 

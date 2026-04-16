@@ -1,4 +1,5 @@
-import { chains } from '@/configs/chains.js';
+import { chains } from '@dimensiondev/web3/chains';
+
 import { SolanaChainId } from '@/constants/solana.js';
 
 export function getChainName(chainId: number, useChainIdAsFallback = true) {

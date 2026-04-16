@@ -1,5 +1,6 @@
 import { web3 } from '@coral-xyz/anchor';
 import { delay } from '@dimensiondev/utils';
+import type { ChainId } from '@dimensiondev/web3/chains';
 import { t } from '@lingui/core/macro';
 import { type ConnectedWallet, useWallets as useEvmWallets } from '@privy-io/react-auth';
 import { useWallets as useSolanaWallets } from '@privy-io/react-auth/solana';
@@ -13,7 +14,6 @@ import { toast } from 'sonner';
 import type { Address, Hex } from 'viem';
 import { sendTransaction } from 'wagmi/actions';
 
-import type { ChainId } from '@/configs/chains.js';
 import { config } from '@/configs/wagmiClient.js';
 import { getUserFacingErrorMessage } from '@/helpers/getErrorMessage.js';
 import { getSolanaRPCUrl } from '@/helpers/getSolanaRPCUrl.js';

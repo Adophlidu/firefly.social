@@ -1,6 +1,7 @@
 'use client';
 
 import { delay } from '@dimensiondev/utils';
+import { privyVisibleChains, visibleChains } from '@dimensiondev/web3/chains';
 import { isSameAddress, isValidAddressEthereum } from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
@@ -15,7 +16,6 @@ import { ChainIcon } from '@/components/ChainIcon.js';
 import { Modal } from '@/components/Modal.js';
 import { FilterPopover } from '@/components/Search/SearchContentPanel.js';
 import { SearchInput } from '@/components/Search/SearchInput.js';
-import { privyVisibleChains, visibleChains } from '@/configs/chains.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { PRIVY_CONNECTOR_ID } from '@/connectors/PrivyConnector.js';
 import { enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';

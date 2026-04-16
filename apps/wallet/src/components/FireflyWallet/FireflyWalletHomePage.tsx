@@ -1,3 +1,4 @@
+import { chains } from '@dimensiondev/web3/chains';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useFundWallet } from '@privy-io/react-auth';
@@ -11,7 +12,6 @@ import { BetEntry } from '@/components/Bet/BetEntry.js';
 import { Confirm } from '@/components/ConfirmModal.js';
 import { FireflyWalletHomePageUI } from '@/components/FireflyWallet/FireflyWalletHomePageUI.js';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs.js';
-import { chains } from '@/configs/chains.js';
 import { ModalType } from '@/configs/modalRoutes.js';
 import { NFT_ENABLED } from '@/constants/static.js';
 import { useEmbeddedEvmAddress } from '@/hooks/useCachedWalletAddresses.js';

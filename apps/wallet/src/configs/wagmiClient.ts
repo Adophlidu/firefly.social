@@ -1,50 +1,35 @@
+import { chains } from '@dimensiondev/web3/chains';
 import { createConfig } from '@privy-io/wagmi';
 import { createStorage } from '@wagmi/core';
-import { http } from 'viem';
-import {
-    arbitrum,
-    avalanche,
-    base,
-    blast,
-    bsc,
-    celo,
-    lens,
-    lensTestnet,
-    linea,
-    mainnet,
-    optimism,
-    plasma,
-    polygon,
-    scroll,
-    zkSync,
-} from 'viem/chains';
+import { http, type Transport } from 'viem';
+import { mainnet, optimism, polygon } from 'viem/chains';
 
-import { chains } from '@/configs/chains.js';
 import { env } from '@/constants/env.js';
+
+type ChainIds = (typeof chains)[number]['id'];
 
 const storage = createStorage({
     key: 'firefly-wallet',
     storage: typeof window !== 'undefined' ? window.localStorage : undefined,
 });
 
+function resolveHttpTransport(chainId: ChainIds): Transport {
+    switch (chainId) {
+        case mainnet.id:
+            return http(env.external.NEXT_PUBLIC_MAINNET_RPC_URL);
+        case optimism.id:
+            return http(env.external.NEXT_PUBLIC_OPTIMISM_RPC_URL);
+        case polygon.id:
+            return http(env.external.NEXT_PUBLIC_POLYGON_RPC_URL);
+        default:
+            return http();
+    }
+}
+
 export const config = createConfig({
     chains,
-    transports: {
-        [mainnet.id]: http(env.external.NEXT_PUBLIC_MAINNET_RPC_URL),
-        [base.id]: http(),
-        [bsc.id]: http(),
-        [optimism.id]: http(env.external.NEXT_PUBLIC_OPTIMISM_RPC_URL),
-        [polygon.id]: http(env.external.NEXT_PUBLIC_POLYGON_RPC_URL),
-        [avalanche.id]: http(),
-        [blast.id]: http(),
-        [scroll.id]: http(),
-        [linea.id]: http(),
-        [arbitrum.id]: http(),
-        [zkSync.id]: http(),
-        [celo.id]: http(),
-        [plasma.id]: http(),
-        [lens.id]: http(),
-        [lensTestnet.id]: http(),
-    },
+    transports: Object.fromEntries(
+        chains.map((chain) => [chain.id, resolveHttpTransport(chain.id)] as [ChainIds, Transport]),
+    ) as Record<ChainIds, Transport>,
     storage,
 });

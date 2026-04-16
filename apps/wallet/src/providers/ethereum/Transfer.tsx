@@ -1,10 +1,10 @@
+import type { ChainId } from '@dimensiondev/web3/chains';
 import { getTokenAbiForWagmi, isSupportedStablecoin } from '@dimensiondev/web3/utils';
 import type { Address, Hash } from 'viem';
 import { encodeFunctionData, parseUnits } from 'viem';
 import type { Config } from 'wagmi';
 import { getAccount, getBalance, getChainId, sendTransaction, writeContract } from 'wagmi/actions';
 
-import type { ChainId } from '@/configs/chains.js';
 import { config } from '@/configs/wagmiClient.js';
 import type { EthereumChainId } from '@/constants/ethereum.js';
 import { tryFreeGasTransaction } from '@/helpers/freeGas/tryFreeGasTransaction.js';

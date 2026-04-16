@@ -1,7 +1,7 @@
+import type { ChainId } from '@dimensiondev/web3/chains';
 import type { Hash } from 'viem';
 import { getTransactionConfirmations, waitForTransactionReceipt } from 'wagmi/actions';
 
-import type { ChainId } from '@/configs/chains.js';
 import { config } from '@/configs/wagmiClient.js';
 
 export async function waitForEthereumTransaction(chainId: ChainId, hash: Hash): Promise<void> {

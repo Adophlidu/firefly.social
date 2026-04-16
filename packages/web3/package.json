@@ -11,6 +11,11 @@
             "types": "./dist/utils.d.ts",
             "import": "./dist/utils.js",
             "require": "./dist/utils.cjs"
+        },
+        "./chains": {
+            "types": "./dist/chains.d.ts",
+            "import": "./dist/chains.js",
+            "require": "./dist/chains.cjs"
         }
     },
     "files": [
@@ -49,7 +54,7 @@
         "@coral-xyz/anchor": "^0.31.1",
         "bignumber.js": "9.3.1",
         "punycode": "^2.3.1",
-        "viem": "^2.21.47"
+        "viem": "^2.45.2"
     },
     "peerDependencies": {
         "typescript": ">=5.0.0"

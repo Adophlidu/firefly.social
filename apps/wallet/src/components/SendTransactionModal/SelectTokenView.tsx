@@ -1,5 +1,6 @@
 import AddIcon from '@dimensiondev/assets/add-circle.svg';
 import LineArrowUp from '@dimensiondev/assets/line-arrow-up.svg';
+import { visibleChains } from '@dimensiondev/web3/chains';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useRouter } from '@tanstack/react-router';
@@ -17,7 +18,6 @@ import { type FormValues, RoutePath } from '@/components/SendTransactionModal/ty
 import { TokenItem } from '@/components/TokenItem.js';
 import { Button } from '@/components/ui/button.js';
 import { Select, SelectContent, SelectItem, SelectTrigger } from '@/components/ui/select.js';
-import { visibleChains } from '@/configs/chains.js';
 import { SolanaChainId } from '@/constants/solana.js';
 import { formatTokenFromFireflyTokenAsset } from '@/helpers/formatTokenFromFireflyTokenAsset.js';
 import { useExpandableTokens } from '@/hooks/useExpandableTokens.js';

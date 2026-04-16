@@ -1,7 +1,7 @@
 import { createLookupTableResolver } from '@dimensiondev/utils';
+import { chains } from '@dimensiondev/web3/chains';
 import { mainnet, monadTestnet, optimism, polygon } from 'viem/chains';
 
-import { chains } from '@/configs/chains.js';
 import { env } from '@/constants/env.js';
 
 const resolve = createLookupTableResolver<number, string | null>(

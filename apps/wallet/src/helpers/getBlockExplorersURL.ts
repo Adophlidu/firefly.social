@@ -1,6 +1,6 @@
+import { chains } from '@dimensiondev/web3/chains';
 import urlcat from 'urlcat';
 
-import { chains } from '@/configs/chains.js';
 import type { EthereumChainId } from '@/constants/ethereum.js';
 import { SolanaChainId } from '@/constants/solana.js';
 

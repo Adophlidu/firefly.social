@@ -1,3 +1,4 @@
+import { visibleChains } from '@dimensiondev/web3/chains';
 import { isSameAddress, isValidAddressEthereum } from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
@@ -20,7 +21,6 @@ import {
 } from '@/components/DialogOrDrawer.js';
 import { Input } from '@/components/ui/input.js';
 import { Select, SelectContent, SelectItem, SelectTrigger } from '@/components/ui/select.js';
-import { visibleChains } from '@/configs/chains.js';
 import { config } from '@/configs/wagmiClient.js';
 import { EthereumChainId } from '@/constants/ethereum.js';
 import { useMultiChainTokens } from '@/hooks/useMultiChainTokens.js';

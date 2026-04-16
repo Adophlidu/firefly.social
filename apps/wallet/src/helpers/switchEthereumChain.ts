@@ -1,7 +1,7 @@
+import { chains } from '@dimensiondev/web3/chains';
 import type { Config } from 'wagmi';
 import { switchChain } from 'wagmi/actions';
 
-import { chains } from '@/configs/chains.js';
 import { config } from '@/configs/wagmiClient.js';
 import type { EthereumChainId } from '@/constants/ethereum.js';
 import { logger } from '@/lib/Logger.js';
