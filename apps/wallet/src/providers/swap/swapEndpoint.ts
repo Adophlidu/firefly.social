@@ -1,3 +1,4 @@
+import { first } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { env } from '@/constants/env.js';
@@ -647,7 +648,9 @@ export class SwapEndpoint extends Fetch {
             is_realtime: true,
             is_bridge: params.is_bridge,
         });
-        return result.ok && result.data.code === 0 && !!result.data.data?.length;
+        if (!result.ok || result.data.code !== 0) return false;
+        const tx = first(result.data.data) as any;
+        return !!tx?.from_token;
     }
 }
 

@@ -154,7 +154,7 @@ export const SwapPanel = memo(function SwapPanel({ className }: SwapPanelProps) 
                         loading={quoteLoading}
                     />
 
-                    <div className="absolute left-1/2 top-0 flex size-8 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-2xl border-4 border-white bg-[#ebecff]">
+                    <div className="dark:border-darkBottom absolute left-1/2 top-0 flex size-8 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-2xl border-4 border-white bg-[#ebecff]">
                         {quoteLoading ? (
                             <SwapLoadingIcon className="text-highlight size-6 animate-spin" />
                         ) : (

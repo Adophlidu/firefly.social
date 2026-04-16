@@ -4,11 +4,11 @@ import { Trans } from '@lingui/react/macro';
 import { useAtomValue } from 'jotai';
 import { memo, type ReactNode, useMemo } from 'react';
 
+import { ActionButton } from '@/components/ActionButton.js';
 import { isGreaterThan } from '@/helpers/number.js';
 import { useResolvedSwapTokens } from '@/hooks/swap/useResolvedSwapTokens.js';
 import { useSwapQuote } from '@/hooks/swap/useSwapQuote.js';
 import { useSwapContextWalletAddresses } from '@/hooks/useCachedWalletAddresses.js';
-import { cn } from '@/lib/utils.js';
 import { fromAmountAtom, isCrossChainAtom } from '@/store/swap/swapState.js';
 
 export interface SwapActionButtonProps {
@@ -143,18 +143,13 @@ export const SwapActionButton = memo(function SwapActionButton({
     const isDisabled = disabled || buttonState.disabled || loading;
 
     return (
-        <button
+        <ActionButton
             type="button"
-            className={cn(
-                'h-12 w-full rounded-[96px] text-[16px] font-bold transition-opacity',
-                isDisabled
-                    ? 'cursor-not-allowed bg-[#d8d7e1] text-[#a9a6bc]'
-                    : 'bg-lightTextMain cursor-pointer text-white hover:opacity-90 active:opacity-80',
-            )}
+            className="box-border h-14 w-full shrink-0 grow-0 rounded-[48px] text-base font-bold leading-[32px] transition-opacity"
             onClick={onClick}
             disabled={isDisabled}
         >
             {buttonState.label}
-        </button>
+        </ActionButton>
     );
 });

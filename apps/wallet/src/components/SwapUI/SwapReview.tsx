@@ -3,7 +3,7 @@ import { formatAddress } from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useAtomValue } from 'jotai';
-import { memo } from 'react';
+import { memo, useState } from 'react';
 
 import {
     DialogOrDrawer,
@@ -11,9 +11,10 @@ import {
     DialogOrDrawerHeader,
     DialogOrDrawerTitle,
 } from '@/components/DialogOrDrawer.js';
+import { SwapSettings } from '@/components/SwapUI/SwapSettings.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
-import { formatGasEstimate, formatTokenAmount } from '@/helpers/swap/formatSwapAmount.js';
+import { formatGasEstimate, formatRate, formatTokenAmount } from '@/helpers/swap/formatSwapAmount.js';
 import { useEffectiveSwapWalletAddress } from '@/hooks/swap/useEffectiveSwapWalletAddress.js';
 import { useResolvedSwapTokens } from '@/hooks/swap/useResolvedSwapTokens.js';
 import { useSwapQuote } from '@/hooks/swap/useSwapQuote.js';
@@ -43,6 +44,8 @@ export const SwapReview = memo(function SwapReview({
 
     const payWallet = useEffectiveSwapWalletAddress('pay', fromChainId);
     const receiveWallet = useEffectiveSwapWalletAddress('receive', toChainId ?? fromChainId);
+
+    const [rateReversed, setRateReversed] = useState(false);
 
     const slippagePercent = getSlippagePercent(slippage);
 
@@ -78,12 +81,13 @@ export const SwapReview = memo(function SwapReview({
                                     chainId={fromChainId ?? undefined}
                                     symbol={fromToken?.symbol}
                                     name={fromToken?.name}
-                                    roundedSquareBadge
                                 />
-                                <span className="text-[20px] font-semibold">{fromToken?.symbol}</span>
+                                <span className="whitespace-nowrap text-[20px] font-semibold">{fromToken?.symbol}</span>
                             </div>
                             <div className="flex min-w-0 grow flex-col items-end">
-                                <span className="max-w-full truncate text-[20px] font-semibold">-{fromAmount}</span>
+                                <span className="max-w-full truncate text-[20px] font-semibold">
+                                    -{formatTokenAmount(fromAmount)}
+                                </span>
                                 <span className="text-secondary text-[11px]">
                                     {formatTokenUSD(fromUsdValue, { minDisplay: 0.01 })}
                                 </span>
@@ -101,16 +105,15 @@ export const SwapReview = memo(function SwapReview({
                                     chainId={toChainId ?? fromChainId ?? undefined}
                                     symbol={toToken?.symbol}
                                     name={toToken?.name}
-                                    roundedSquareBadge
                                 />
-                                <span className="text-[20px] font-semibold">{toToken?.symbol}</span>
+                                <span className="whitespace-nowrap text-[20px] font-semibold">{toToken?.symbol}</span>
                             </div>
                             <div className="flex min-w-0 grow flex-col items-end">
                                 <span
                                     className="max-w-full truncate text-[20px] font-semibold text-[#429f37]"
                                     title={`+${toAmount}`}
                                 >
-                                    +{toAmount}
+                                    +{formatTokenAmount(toAmount)}
                                 </span>
                                 <span className="text-secondary text-[11px]">
                                     ≈{formatTokenUSD(toUsdValue, { minDisplay: 0.01 })}
@@ -144,9 +147,13 @@ export const SwapReview = memo(function SwapReview({
                                     <span className="text-secondary">
                                         <Trans>Rate</Trans>
                                     </span>
-                                    <span className="flex items-center gap-1 font-medium">
-                                        1 {fromToken.symbol} ≈ {rate >= 1 ? rate.toFixed(2) : rate.toFixed(6)}{' '}
-                                        {toToken.symbol}
+                                    <span
+                                        className="flex cursor-pointer items-center gap-1 font-medium"
+                                        onClick={() => setRateReversed((v) => !v)}
+                                    >
+                                        {rateReversed
+                                            ? formatRate(toToken.symbol, fromToken.symbol, 1 / rate)
+                                            : formatRate(fromToken.symbol, toToken.symbol, rate)}
                                         <ArrowSwapHorizontalIcon className="text-main size-3" />
                                     </span>
                                 </div>
@@ -163,10 +170,14 @@ export const SwapReview = memo(function SwapReview({
                                 <span className="text-secondary">
                                     <Trans>Slippage</Trans>
                                 </span>
-                                <span className="flex items-center gap-1 font-medium">
-                                    {slippage === 'auto' ? t`Auto` : `${slippagePercent}%`}
-                                    <ArrowSwapHorizontalIcon className="text-main size-3" />
-                                </span>
+                                <SwapSettings
+                                    trigger={
+                                        <span className="flex cursor-pointer items-center gap-1 font-medium">
+                                            {slippage === 'auto' ? t`Auto` : `${slippagePercent}%`}
+                                            <ArrowSwapHorizontalIcon className="text-main size-3" />
+                                        </span>
+                                    }
+                                />
                             </div>
                         </div>
 

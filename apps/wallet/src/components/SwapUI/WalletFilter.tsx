@@ -155,7 +155,7 @@ export const WalletFilter = memo(function WalletFilter({
     return (
         <div
             ref={ref}
-            className="absolute right-0 top-full z-50 mt-1 overflow-hidden rounded-xl bg-white shadow-[0_8px_64px_0_rgba(0,0,0,0.1)]"
+            className="bg-primaryBottom absolute right-0 top-full z-50 mt-1 overflow-hidden rounded-xl shadow-[0_8px_64px_0_rgba(0,0,0,0.1)]"
         >
             {wallets.map((wallet) => (
                 <WalletMenuItem
@@ -197,7 +197,7 @@ const WalletMenuItem = memo(function WalletMenuItem({
                 ) : (
                     <FireflyRoundIcon className="size-6 shrink-0" />
                 )}
-                <span className="text-lightTextMain text-sm font-semibold">
+                <span className="text-main text-sm font-semibold">
                     {domainNameMap?.get(wallet.address.toLowerCase()) ??
                         domainNameMap?.get(wallet.address) ??
                         formatAddress(wallet.address, 4)}
