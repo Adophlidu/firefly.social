@@ -35,6 +35,7 @@ export interface TransactionOptions<ChainIdLike = number, AddressLike = string> 
     amount: string;
     token: Pick<Token<ChainIdLike, AddressLike>, 'chainId' | 'id' | 'decimals'>;
     connector?: Connector;
+    account?: AddressLike;
 }
 
 export interface GetDefaultGasOptions<ChainIdLike = number, AddressLike = string> {

@@ -24,7 +24,6 @@ import { RefreshCcw } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';
 import { type Address, formatEther } from 'viem';
-import { useAccount } from 'wagmi';
 
 import { ActionButton } from '@/components/ActionButton.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -53,6 +52,7 @@ import { resolveEvmConnector } from '@/helpers/resolveEvmConnector.js';
 import { resolveWagmiChain } from '@/helpers/resolveWagmiChain.js';
 import { resolveSwapEvmSigningWallet } from '@/helpers/swap/resolveSwapSigningWallet.js';
 import { useAutoHeightTextarea } from '@/hooks/useAutoHeightTextarea.js';
+import { useEmbeddedEvmAddress } from '@/hooks/useCachedWalletAddresses.js';
 import { cn } from '@/lib/utils.js';
 import { coinGeckoEndpoint } from '@/providers/coingecko/index.js';
 import { getDefaultGas } from '@/providers/ethereum/getDefaultGas.js';
@@ -97,10 +97,10 @@ function Form() {
         register,
         setValue,
     } = useFormContext<FormValues>();
-    const ethereum = useAccount();
+    const evmAddress = useEmbeddedEvmAddress();
     const { wallets: evmWallets } = useWallets();
     const { wallets: solanaWallets } = useSolanaWallets();
-    const solana = solanaWallets[0];
+    const solana = solanaWallets.find((w) => 'isPrivyWallet' in w.standardWallet && w.standardWallet.isPrivyWallet)!;
 
     const evmTransfer = EthereumTransfer;
     const solanaTransfer = useMemo(() => new SolanaTransfer(solana), [solana]);
@@ -122,7 +122,7 @@ function Form() {
             const transfer = resolveTransferProvider(networkType);
             let connector: Awaited<ReturnType<typeof resolveEvmConnector>> = null;
             if (networkType === NetworkType.Ethereum) {
-                const signingWallet = resolveSwapEvmSigningWallet(evmWallets, ethereum.address ?? null, {
+                const signingWallet = resolveSwapEvmSigningWallet(evmWallets, evmAddress, {
                     preferEmbedded: true,
                 });
                 if (signingWallet) connector = await resolveEvmConnector(signingWallet);
@@ -140,7 +140,7 @@ function Form() {
             let address: string | undefined;
             switch (networkType) {
                 case NetworkType.Ethereum:
-                    address = ethereum.address;
+                    address = evmAddress!;
                     break;
                 case NetworkType.Solana:
                     address = solana.address;
@@ -152,7 +152,6 @@ function Form() {
 
             if (!address) return;
 
-            const amountUsd = multipliedBy(values.amount, token.price).toNumber();
             // TODO: capture firefly wallet event
         } catch (error) {
             router.navigate({
@@ -171,19 +170,12 @@ function Form() {
 
     const [isFocusingAddressInput, setIsFocusingAddressInput] = useState(false);
 
-    const toQueryKey = useMemo(
-        () => (networkType === NetworkType.Ethereum ? (to?.toLowerCase() ?? '') : (to ?? '')),
-        [networkType, to],
-    );
+    const toQueryKey = networkType === NetworkType.Ethereum ? (to?.toLowerCase() ?? '') : (to ?? '');
+    const tokenQueryKey = token ? { id: token.id, chainId: token.chainId, decimals: token.decimals } : null;
 
-    const tokenQueryKey = useMemo(
-        () => (token ? { id: token.id, chainId: token.chainId, decimals: token.decimals } : null),
-        // eslint-disable-next-line react-hooks/exhaustive-deps -- intentionally use stable primitive fields only
-        [token?.id, token?.chainId, token?.decimals],
-    );
-
+    const account = networkType === NetworkType.Solana ? solana.address : evmAddress!;
     const { data: availableBalance, isLoading: isLoadingAvailableBalance } = useQuery({
-        queryKey: ['token-available-balance', networkType, tokenQueryKey],
+        queryKey: ['token-available-balance', networkType, tokenQueryKey, account],
         enabled: !!token && !!networkType,
         async queryFn() {
             if (!token || !networkType) return null;
@@ -192,6 +184,7 @@ function Form() {
                 to: networkType === NetworkType.Solana ? SOL_ZERO_ADDRESS : ETH_ZERO_ADDRESS,
                 token,
                 amount: '0',
+                account,
             });
         },
     });
@@ -267,7 +260,7 @@ function Form() {
     });
 
     const { data: validatedResult, isLoading: isValidating } = useQuery({
-        queryKey: ['validate-transfer', toQueryKey, amount, tokenQueryKey, token?.balance, estimatedGas?.rawGas],
+        queryKey: ['validate-transfer', toQueryKey, amount, tokenQueryKey, availableBalance, estimatedGas?.rawGas],
         async queryFn() {
             if (!to || !amount || !token || !networkType) return null;
 
@@ -282,7 +275,7 @@ function Form() {
                     safeUnreachable(networkType);
             }
 
-            const balance = token.balance || '0';
+            const balance = availableBalance || token.balance || '0';
             const totalNeeded =
                 networkType === NetworkType.Ethereum && isNativeEvmToken(token) && estimatedGas?.amount
                     ? plus(amount, estimatedGas.amount).toString()
@@ -322,7 +315,9 @@ function Form() {
                             <span className="h-[18px] leading-[18px]">{token.name}</span>
                             <span className="text-second h-3.5 text-[13px] leading-[14px]">
                                 <Trans>
-                                    Balance: {token.balance || '0'} {token.symbol || '-'}
+                                    Balance:{' '}
+                                    {isLoadingAvailableBalance ? '...' : availableBalance || token.balance || '0'}{' '}
+                                    {token.symbol || '-'}
                                 </Trans>
                             </span>
                         </div>

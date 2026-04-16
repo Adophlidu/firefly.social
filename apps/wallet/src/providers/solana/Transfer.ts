@@ -78,8 +78,8 @@ export class SolanaTransfer implements TransferProvider<SolanaChainId> {
         };
     }
 
-    async getAvailableBalance({ token }: TransactionOptions<SolanaChainId>): Promise<string> {
-        const account = this.wallet.address;
+    async getAvailableBalance({ token, account: accountOverride }: TransactionOptions<SolanaChainId>): Promise<string> {
+        const account = accountOverride ?? this.wallet.address;
         const balanceRes = await getTokenBalance(token, account, SolanaChainId.Mainnet);
         let balance = balanceRes.value;
         if (isZeroAddressSolana(token.id)) {

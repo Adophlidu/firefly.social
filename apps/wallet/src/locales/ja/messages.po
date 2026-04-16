@@ -798,7 +798,7 @@ msgstr ""
 msgid "Failed to cancel order"
 msgstr ""
 
-#. placeholder {0}: token.balance || '0'
+#. placeholder {0}: isLoadingAvailableBalance ? '...' : availableBalance || token.balance || '0'
 #. placeholder {1}: token.symbol || '-'
 msgid "Balance: {0} {1}"
 msgstr ""

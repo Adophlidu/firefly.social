@@ -64,11 +64,11 @@ export class EthereumTransferProvider implements TransferProvider<EthereumChainI
 
     async getAvailableBalance(options: TransactionOptions<EthereumChainId, Address>): Promise<string> {
         const { token } = options;
-        const account = getAccount(this.config);
-        if (!account.address) {
+        const accountAddress = options.account ?? getAccount(this.config).address;
+        if (!accountAddress) {
             throw new Error('Wallet not connected');
         }
-        const rawBalance = await getBalanceOf(token.chainId, account.address, token.id);
+        const rawBalance = await getBalanceOf(token.chainId, accountAddress, token.id);
         let balance = rawBalance.value.toString();
         if (this.isNativeToken(token)) {
             try {
