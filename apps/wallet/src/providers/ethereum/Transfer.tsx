@@ -9,7 +9,7 @@ import { config } from '@/configs/wagmiClient.js';
 import type { EthereumChainId } from '@/constants/ethereum.js';
 import { tryFreeGasTransaction } from '@/helpers/freeGas/tryFreeGasTransaction.js';
 import { getBalanceOf } from '@/helpers/getBalanceOf.js';
-import { isNativeEvmToken } from '@/helpers/isNativeEvmToken.js';
+import { isNativeTokenDebank } from '@/helpers/isNativeTokenDebank.js';
 import { isGreaterThan, isLessThan, leftShift, minus, multipliedBy, rightShift } from '@/helpers/number.js';
 import { switchEthereumChain } from '@/helpers/switchEthereumChain.js';
 import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
@@ -33,7 +33,7 @@ export class EthereumTransferProvider implements TransferProvider<EthereumChainI
     }
 
     isNativeToken(token: Pick<Token, 'id' | 'chainId'>): boolean {
-        return isNativeEvmToken(token);
+        return isNativeTokenDebank(token);
     }
 
     async validateBalance(options: TransactionOptions<EthereumChainId, Address>): Promise<boolean> {

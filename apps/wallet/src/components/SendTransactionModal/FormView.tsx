@@ -46,7 +46,7 @@ import { SolanaChainId } from '@/constants/solana.js';
 import { formatLamportsToSol } from '@/helpers/formatLamportsToSol.js';
 import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
-import { isNativeEvmToken } from '@/helpers/isNativeEvmToken.js';
+import { isNativeTokenDebank } from '@/helpers/isNativeTokenDebank.js';
 import { normalizeDecimalInput } from '@/helpers/normalizeDecimalInput.js';
 import { isGreaterThanOrEqualTo, multipliedBy, plus } from '@/helpers/number.js';
 import { resolveEvmConnector } from '@/helpers/resolveEvmConnector.js';
@@ -272,7 +272,7 @@ function Form() {
 
             const balance = availableBalance || token.balance || '0';
             const totalNeeded =
-                networkType === NetworkType.Ethereum && isNativeEvmToken(token) && estimatedGas?.amount
+                networkType === NetworkType.Ethereum && isNativeTokenDebank(token) && estimatedGas?.amount
                     ? plus(amount, estimatedGas.amount).toString()
                     : amount;
             if (!isGreaterThanOrEqualTo(balance, totalNeeded)) {

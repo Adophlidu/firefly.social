@@ -12,7 +12,7 @@ import { Button } from '@/components/ui/button.js';
 import { Select, SelectContent, SelectItem, SelectTrigger } from '@/components/ui/select.js';
 import { APP_BASE_PATH } from '@/constants/static.js';
 import { formatTokenFromFireflyTokenAsset } from '@/helpers/formatTokenFromFireflyTokenAsset.js';
-import { isNativeEvmToken } from '@/helpers/isNativeEvmToken.js';
+import { isNativeTokenDebank } from '@/helpers/isNativeTokenDebank.js';
 import { logger } from '@/lib/Logger.js';
 import { getMultiChainTokensQuery } from '@/queries/firefly/multiChainTokens.js';
 
@@ -72,7 +72,7 @@ function EthereumDevPage() {
 
         try {
             const from = evmAddress;
-            const native = isNativeEvmToken({
+            const native = isNativeTokenDebank({
                 id: selectedToken.id,
                 chainId: selectedToken.chainId,
             });

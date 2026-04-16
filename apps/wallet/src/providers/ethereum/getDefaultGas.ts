@@ -6,7 +6,7 @@ import { estimateFeesPerGas, getAccount } from 'wagmi/actions';
 
 import type { EthereumChainId } from '@/constants/ethereum.js';
 import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
-import { isNativeEvmToken } from '@/helpers/isNativeEvmToken.js';
+import { isNativeTokenDebank } from '@/helpers/isNativeTokenDebank.js';
 import { multipliedBy, toFixed, ZERO } from '@/helpers/number.js';
 import type { GetDefaultGasOptions } from '@/providers/types/Transfer.js';
 
@@ -59,7 +59,7 @@ export async function getDefaultGas(
     { token, to, amount }: GetDefaultGasOptions<EthereumChainId, Address>,
 ) {
     const isEIP1559 = false; // TODO
-    const isNative = isNativeEvmToken(token);
+    const isNative = isNativeTokenDebank(token);
     const parameters = {
         chainId: token.chainId,
         address: token.id,
