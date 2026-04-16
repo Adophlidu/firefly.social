@@ -1,6 +1,5 @@
 'use client';
 
-import { useScrollRestoration } from '@dimensiondev/hooks';
 import { anySignal } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
@@ -20,7 +19,6 @@ interface TopHoldersContentProps {
 }
 
 export const TopHoldersContent = memo<TopHoldersContentProps>(function TopHoldersContent({ platform, market }) {
-    const { restore } = useScrollRestoration();
     const { data, error, isLoading, isRefetchError, isPending, refetch } = useQuery({
         queryKey: ['bets', 'top-holders', platform, market.id],
         staleTime: STALE_TIMES.MINUTE_5,
@@ -30,10 +28,6 @@ export const TopHoldersContent = memo<TopHoldersContentProps>(function TopHolder
                 market,
                 signal: anySignal(AbortSignal.timeout(1000 * 5), signal),
             }),
-        select: (data) => {
-            restore();
-            return data;
-        },
     });
 
     if (isLoading || isRefetchError || isPending) return <Loading minHeight={112} />;
