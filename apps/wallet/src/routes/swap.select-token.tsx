@@ -72,18 +72,20 @@ function SelectTokenPage() {
         enabled: from === SwapFromPage.BetWithdraw,
         chainId: selectedChainId ?? undefined,
     });
+    const { data: supportedChains, isLoading: isLoadingChains } = useSwapSupportedChains();
     const {
         myTokens,
         recentTokens,
         trendingTokens: trendingTokensForSwap,
         isLoading,
     } = useSwapTokens({
-        enabled: true,
+        enabled: !isLoadingChains,
         chainId: selectedChainId ?? undefined,
         selectedWalletAddress: effectiveWalletAddress,
         currentChainId,
         hideTrending: hideTrending || from === SwapFromPage.BetWithdraw,
         hideRecent,
+        supportedChains,
     });
     const trendingTokens = useMemo(
         () => (from === SwapFromPage.BetWithdraw ? trendingTokensForWithdraw : trendingTokensForSwap) || [],
@@ -140,8 +142,6 @@ function SelectTokenPage() {
             from,
         ],
     );
-
-    const { data: supportedChains } = useSwapSupportedChains();
 
     // Filter by search and selected chain
     const filterTokens = useCallback(
@@ -331,7 +331,7 @@ function SelectTokenPage() {
             </div>
 
             <div className="no-scrollbar min-h-0 flex-1 overflow-y-auto">
-                {(isSearchMode ? isSearching : isLoading) ? (
+                {(isSearchMode ? isSearching : isLoading || isLoadingChains) ? (
                     <LoadingSkeleton hideTrending={hideTrending} hideRecent={hideRecent} />
                 ) : hasNoResults ? (
                     <NoResultsFallback

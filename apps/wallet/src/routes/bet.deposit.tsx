@@ -16,6 +16,7 @@ import { NavigationBar } from '@/components/NavigationBar.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
 import { Button } from '@/components/ui/button.js';
 import { SwapFromPage } from '@/constants/enum.js';
+import { BET_DEPOSIT_MIN_USD } from '@/constants/static.js';
 import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
 import { formatTokenItemAmount } from '@/helpers/formatTokenItemAmount.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
@@ -37,7 +38,6 @@ export const Route = createFileRoute('/bet/deposit')({
     errorComponent: BetError,
 });
 
-const MINIMUM_USD = 1;
 const TOAST_ID = 'polymarket-deposit';
 
 enum InputType {
@@ -128,7 +128,7 @@ function DepositClient() {
 
     const isInsufficientBalance = depositToken ? isLessThan(depositToken.balance, amount) : false;
     const receivedUsdc = isSameToken ? usdcValue : (quote?.toAmount ?? '0');
-    const isLessThanMinimum = isLessThan(receivedUsdc, MINIMUM_USD);
+    const isLessThanMinimum = isLessThan(receivedUsdc, BET_DEPOSIT_MIN_USD);
     const disabled =
         !value ||
         isInsufficientBalance ||

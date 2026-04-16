@@ -17,9 +17,9 @@ import { getMultiChainTokensQuery } from '@/queries/firefly/multiChainTokens.js'
  * Note: This intentionally reuses `getMultiChainTokensQuery` so it shares cache keys
  * with other places that refetch `['multi-chain-token', proxy, polygon.id]`.
  */
-export function getPolymarketWithdrawableAmountQueryOptions(proxyAddress: Address) {
+export function getPolymarketWithdrawableAmountQueryOptions(proxyAddress?: Address) {
     return queryOptions({
-        ...getMultiChainTokensQuery([proxyAddress], [polygon.id]),
+        ...getMultiChainTokensQuery(proxyAddress ? [proxyAddress] : [], [polygon.id]),
         select(result: { tokenAssets?: TokenAsset[] } | null | undefined) {
             const tokens =
                 (result?.tokenAssets ?? []).map((token: TokenAsset) => formatTokenFromFireflyTokenAsset(token)) ??

@@ -2,12 +2,13 @@ import { isNativeTokenOrSameAddress } from '@dimensiondev/web3/utils';
 import { useQuery } from '@tanstack/react-query';
 import { useSearch } from '@tanstack/react-router';
 import { BigNumber } from 'bignumber.js';
-import { compact, orderBy } from 'lodash-es';
+import { compact, first, orderBy } from 'lodash-es';
 import { polygon } from 'viem/chains';
 
 import { NetworkType } from '@/constants/enum.js';
 import { SUPPORTED_SWAP_EVM_CHAIN_IDS, USDC_E_POLYGON_ADDRESS } from '@/constants/ethereum.js';
 import { SolanaChainId } from '@/constants/solana.js';
+import { BET_DEPOSIT_MIN_USD } from '@/constants/static.js';
 import { isSolanaChain } from '@/helpers/isSolanaChain.js';
 import { isGreaterThan, multipliedBy } from '@/helpers/number.js';
 import { useSwapTokenDetail } from '@/hooks/swap/useSwapTokenDetail.js';
@@ -90,15 +91,23 @@ export function useDepositToken() {
                     token.chainId === usdcTokenFallback.chainId &&
                     isNativeTokenOrSameAddress(token.address, usdcTokenFallback.address),
             );
-            if (polygonUsdc && isGreaterThan(polygonUsdc.balance ?? '0', 0)) {
+            if (polygonUsdc && isGreaterThan(polygonUsdc.balance ?? '0', BET_DEPOSIT_MIN_USD)) {
                 return polygonUsdc;
             }
 
-            return (
-                orderBy(data, (token) => multipliedBy(token.balance ?? '0', token.price ?? 0).toNumber(), 'desc').find(
-                    (token) => isGreaterThan(token.balance ?? '0', 0),
-                ) ?? null
+            const tokenWithMaxValue = first(
+                orderBy(data, (token) => multipliedBy(token.balance ?? '0', token.price ?? 0).toNumber(), 'desc'),
             );
+            if (
+                tokenWithMaxValue &&
+                isGreaterThan(
+                    multipliedBy(tokenWithMaxValue.balance ?? '0', tokenWithMaxValue.price ?? 0),
+                    BET_DEPOSIT_MIN_USD,
+                )
+            )
+                return tokenWithMaxValue;
+
+            return null;
         },
     });
 

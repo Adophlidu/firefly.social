@@ -6,8 +6,9 @@ import { useMemo } from 'react';
 import { SUPPORTED_SWAP_EVM_CHAIN_IDS } from '@/constants/ethereum.js';
 import { isSolanaChain } from '@/helpers/isSolanaChain.js';
 import { useSwapContextWalletAddresses } from '@/hooks/useCachedWalletAddresses.js';
-import { createSwapEndpoint, type RecentToken, type SwapToken } from '@/providers/swap/index.js';
 import { normalizeSwapToken } from '@/providers/swap/normalizeSwapToken.js';
+import { createSwapEndpoint } from '@/providers/swap/swapEndpoint.js';
+import type { RecentToken, SupportedChain, SwapToken } from '@/providers/swap/types.js';
 import { fireflySessionTokenAtom } from '@/store/fireflySession.js';
 
 const SUPPORTED_SWAP_TRENDING_CHAIN_IDS = [...SUPPORTED_SWAP_EVM_CHAIN_IDS, 101] as const;
@@ -22,6 +23,7 @@ export interface UseSwapTokensOptions {
     /** Optionally hide trending tokens (e.g. for Bet Deposit flow) */
     hideTrending?: boolean;
     hideRecent?: boolean;
+    supportedChains?: SupportedChain[];
 }
 
 export interface SwapTokensResult {
@@ -47,7 +49,15 @@ function recentTokenToSwapToken(token: RecentToken): SwapToken {
 }
 
 export function useSwapTokens(options: UseSwapTokensOptions = {}): SwapTokensResult {
-    const { chainId, enabled = true, selectedWalletAddress, currentChainId, hideTrending, hideRecent } = options;
+    const {
+        chainId,
+        enabled = true,
+        selectedWalletAddress,
+        currentChainId,
+        hideTrending,
+        hideRecent,
+        supportedChains,
+    } = options;
     const {
         evmAddress: cachedEvmAddress,
         solanaAddress: cachedSolanaAddress,
@@ -75,6 +85,8 @@ export function useSwapTokens(options: UseSwapTokensOptions = {}): SwapTokensRes
         solanaAddress = cachedSolanaAddress;
     }
 
+    const supportedChainIds = supportedChains?.map((chain) => chain.chainId) || [];
+
     // Fetch user token balances
     // Note: EVM and Solana addresses must be queried separately due to API format requirements
     const {
@@ -82,14 +94,18 @@ export function useSwapTokens(options: UseSwapTokensOptions = {}): SwapTokensRes
         isLoading: isLoadingUserTokens,
         refetch: refetchUserTokens,
     } = useQuery({
-        queryKey: ['swap-user-tokens', evmAddress, solanaAddress, chainId],
+        queryKey: ['swap-user-tokens', evmAddress, solanaAddress, chainId, supportedChainIds],
         queryFn: async () => {
+            if (!supportedChainIds.length) return [];
+
             const endpoint = createSwapEndpoint();
 
             // EVM chains supported by the swap API.
             // Solana chain: 101
-            const evmChains = chainId ? (isSolanaChain(chainId) ? [] : [chainId]) : [...SUPPORTED_SWAP_EVM_CHAIN_IDS];
-            const solanaChains = chainId ? (isSolanaChain(chainId) ? [chainId] : []) : [101];
+            const swapEvmChains = supportedChainIds.filter((chainId) => !isSolanaChain(chainId));
+            const isSolanaSupported = supportedChainIds.some((chainId) => isSolanaChain(chainId)) ?? false;
+            const evmChains = chainId ? (isSolanaChain(chainId) ? [] : [chainId]) : [...swapEvmChains];
+            const solanaChains = chainId ? (isSolanaChain(chainId) ? [chainId] : []) : isSolanaSupported ? [101] : [];
 
             // Query EVM and Solana balances in parallel
             const [evmTokens, solanaTokens] = await Promise.all([
@@ -130,12 +146,21 @@ export function useSwapTokens(options: UseSwapTokensOptions = {}): SwapTokensRes
         isLoading: isLoadingTrendingTokens,
         refetch: refetchTrendingTokens,
     } = useQuery({
-        queryKey: ['swap-trending-tokens', chainId],
+        queryKey: ['swap-trending-tokens', chainId, supportedChainIds],
         queryFn: async () => {
+            const chains = !supportedChainIds.length
+                ? null
+                : chainId
+                  ? supportedChainIds.includes(chainId)
+                      ? String(chainId)
+                      : null
+                  : SUPPORTED_SWAP_TRENDING_CHAIN_IDS.filter((id) => supportedChainIds.includes(id)).join(',');
+            if (!chains) return [];
+
             const endpoint = createSwapEndpoint();
             // chains is required — pass specific chain or all major chains
             return endpoint.getTrendingTokens({
-                chains: chainId ? String(chainId) : SUPPORTED_SWAP_TRENDING_CHAIN_IDS.join(','),
+                chains,
             });
         },
         enabled: enabled && !hideTrending,

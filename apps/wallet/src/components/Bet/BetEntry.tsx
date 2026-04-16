@@ -3,13 +3,14 @@ import BetEntryIcon from '@dimensiondev/assets/bet-entry.svg';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { Link } from '@tanstack/react-router';
+import { BigNumber } from 'bignumber.js';
 import type { Address } from 'viem';
 
-import { formatPnlUSD } from '@/helpers/formatPnlUSD.js';
-import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
+import { formatPortfolioUSDCe } from '@/helpers/formatPortfolioUSDCe.js';
 import { cn } from '@/lib/utils.js';
 import { getPolymarketAccountQueryOptions } from '@/queries/firefly/getPolymarketAccountQueryOptions.js';
-import { getPolymarketProfileListQueryOptions } from '@/queries/firefly/getPolymarketProfileListQueryOptions.js';
+import { getPolymarketWithdrawableAmountQueryOptions } from '@/queries/firefly/getPolymarketWithdrawableAmountQueryOptions.js';
+import { getPolymarketUserValueQueryOptions } from '@/queries/polymarket/getPolymarketUserValueQueryOptions.js';
 
 export function BetEntry({ className }: { className?: string }) {
     const { data: proxyAddress, isLoading: isLoadingProxyAddress } = useQuery({
@@ -19,24 +20,21 @@ export function BetEntry({ className }: { className?: string }) {
         },
     });
 
-    const profileQuery = useQuery({
-        ...getPolymarketProfileListQueryOptions(proxyAddress as Address, true),
-        select(res) {
-            const firstProfile = res?.[0];
-            const portfolioValue = firstProfile?.balance ?? 0;
-            const pnlValue = firstProfile?.pnl ?? 0;
-            return {
-                portfolioText: formatTokenUSD(portfolioValue, { minDisplay: 0.01 }),
-                pnlText: formatPnlUSD(pnlValue),
-                pnlColor: pnlValue >= 0 ? 'text-success' : 'text-danger',
-            };
-        },
+    const hasBetAccount = Boolean(proxyAddress);
+    const { data: availableBalance, isLoading: isLoadingAvailableBalance } = useQuery({
+        ...getPolymarketWithdrawableAmountQueryOptions(proxyAddress),
+        enabled: hasBetAccount,
+    });
+    const { data: polymarketValue, isLoading: isLoadingPolymarketValue } = useQuery({
+        ...getPolymarketUserValueQueryOptions(proxyAddress),
+        enabled: hasBetAccount,
     });
 
-    const hasBetAccount = Boolean(proxyAddress);
-    const portfolioText = profileQuery.data?.portfolioText ?? formatTokenUSD(0, { minDisplay: 0.01 });
+    const totalBalanceBN = BigNumber(availableBalance ?? 0).plus(polymarketValue ?? 0);
+    const portfolioText = formatPortfolioUSDCe(totalBalanceBN);
 
-    const isLoadingSection = isLoadingProxyAddress || (hasBetAccount && profileQuery.isLoading);
+    const isLoadingSection =
+        isLoadingProxyAddress || (hasBetAccount && (isLoadingAvailableBalance || isLoadingPolymarketValue));
     if (isLoadingSection) {
         return <div className={cn('bg-lightBg h-[80px] w-full animate-pulse rounded-[15px]', className)} />;
     }

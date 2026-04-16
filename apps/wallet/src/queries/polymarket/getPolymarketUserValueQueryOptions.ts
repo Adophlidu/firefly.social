@@ -4,10 +4,12 @@ import type { Address } from 'viem';
 
 import { polymarketDataEndpoint } from '@/providers/polymarket/dataApi.js';
 
-export function getPolymarketUserValueQueryOptions(user: Address) {
+export function getPolymarketUserValueQueryOptions(user?: Address) {
     return queryOptions({
-        queryKey: ['polymarket-user-value', user.toLowerCase()],
+        queryKey: ['polymarket-user-value', user?.toLowerCase()],
         async queryFn() {
+            if (!user) return [];
+
             const res = await polymarketDataEndpoint.getUserValue(user);
             if (!res.ok) throw new Error('Failed to fetch polymarket value');
             return res.data;
@@ -18,5 +20,6 @@ export function getPolymarketUserValueQueryOptions(user: Address) {
         },
         refetchOnWindowFocus: false,
         refetchOnReconnect: false,
+        enabled: !!user,
     });
 }

@@ -17,9 +17,9 @@ import { HeaderLoading } from '@/components/Bet/HeaderLoading.js';
 import { ErrorBoundary } from '@/components/ErrorBoundary.js';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs.js';
 import { InvalidPolymarketAccountError } from '@/constants/error.js';
-import { removeUSDTrailingZeros } from '@/helpers/formatMarketCap.js';
 import { formatPercentRate } from '@/helpers/formatPercentRate.js';
 import { formatPnlUSD } from '@/helpers/formatPnlUSD.js';
+import { formatPortfolioUSDCe } from '@/helpers/formatPortfolioUSDCe.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { isZero } from '@/helpers/number.js';
 import { cn } from '@/lib/utils.js';
@@ -29,13 +29,6 @@ import { getPolymarketWithdrawableAmountQueryOptions } from '@/queries/firefly/g
 import { getPolymarketUserValueQueryOptions } from '@/queries/polymarket/getPolymarketUserValueQueryOptions.js';
 
 const POLYMARKET_HOME_POLL_MS = 10_000;
-
-function formatPortfolioUSDCe(amount: BigNumber.Value): string {
-    const bn = BigNumber(amount ?? 0);
-    if (!bn.isFinite() || bn.lte(0)) return '$0';
-    if (bn.lt(0.01)) return '<$0.01';
-    return '$' + removeUSDTrailingZeros(bn.decimalPlaces(2, BigNumber.ROUND_DOWN).toFormat(2));
-}
 
 function BetHomePending() {
     return <HeaderLoading className="px-4 pb-[78px]" />;

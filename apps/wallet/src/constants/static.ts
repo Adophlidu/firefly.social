@@ -14,3 +14,6 @@ export const APP_BASE_PATH = env.external.NEXT_PUBLIC_BASE_PATH.replace(/\/$/, '
 export const POAP_CONTRACT_ADDRESS = '0x22C1f6050E56d2876009903609a2cC3fEf83B415';
 
 export const NFT_ENABLED = env.external.NEXT_PUBLIC_NFT_FEATURES === STATUS.Enabled;
+
+// Minimum deposit amount in USD for bets
+export const BET_DEPOSIT_MIN_USD = 1;
