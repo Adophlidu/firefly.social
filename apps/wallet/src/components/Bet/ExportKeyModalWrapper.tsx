@@ -93,26 +93,30 @@ export function ExportKeyModalWrapper({ modalType, open, onClose }: RouteModalPr
                                     <p className="text-second mt-4">
                                         <Trans>Keep Your Recovery Phrase Safe</Trans>
                                     </p>
-                                    <div className="flex items-center gap-2">
-                                        <KeyIcon width={24} height={24} />
-                                        <p className="text-main text-sm font-semibold">
-                                            <Trans>Your recovery phrase is like a password, keep it secret.</Trans>
-                                        </p>
-                                    </div>
-                                    <div className="flex items-center gap-2">
-                                        <EyeSlashIcon width={24} height={24} />
-                                        <p className="text-main text-sm font-semibold">
-                                            <Trans>
-                                                If you enter it in another app, it can steal your funds and Farcaster
-                                                account.
-                                            </Trans>
-                                        </p>
-                                    </div>
-                                    <div className="flex items-center gap-2">
-                                        <WarningIcon width={24} height={24} />
-                                        <p className="text-main text-sm font-semibold">
-                                            <Trans>We do not recommend ever sharing it with any app or person.</Trans>
-                                        </p>
+                                    <div className="flex flex-col gap-2">
+                                        <div className="flex items-center gap-2">
+                                            <KeyIcon width={24} height={24} className="shrink-0" />
+                                            <p className="text-main text-sm font-semibold">
+                                                <Trans>Your recovery phrase is like a password, keep it secret.</Trans>
+                                            </p>
+                                        </div>
+                                        <div className="flex items-center gap-2">
+                                            <EyeSlashIcon width={24} height={24} className="shrink-0" />
+                                            <p className="text-main text-sm font-semibold">
+                                                <Trans>
+                                                    If you enter it in another app, it can steal your funds and
+                                                    Farcaster account.
+                                                </Trans>
+                                            </p>
+                                        </div>
+                                        <div className="flex items-center gap-2">
+                                            <WarningIcon width={24} height={24} className="shrink-0" />
+                                            <p className="text-main text-sm font-semibold">
+                                                <Trans>
+                                                    We do not recommend ever sharing it with any app or person.
+                                                </Trans>
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                                 <Button
