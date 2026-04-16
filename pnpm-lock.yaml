@@ -67,6 +67,9 @@ patchedDependencies:
   urlcat@3.1.0:
     hash: 5r5xyq4zgcnqugwsrx4lxq2i4e
     path: patches/urlcat@3.1.0.patch
+  zod@4.3.6:
+    hash: uxcr62lbnd46n4slxohsnropfm
+    path: patches/zod@4.3.6.patch
 
 importers:
 
@@ -16478,7 +16481,7 @@ packages:
         optional: true
     dependencies:
       typescript: 5.9.3
-      zod: 4.3.6
+      zod: 4.3.6(patch_hash=uxcr62lbnd46n4slxohsnropfm)
     dev: false
 
   /abort-controller@3.0.0:
@@ -24139,7 +24142,7 @@ packages:
       typescript: 5.9.3
       viem: 2.47.10(typescript@5.9.3)(zod@3.25.76)
       wagmi: 2.19.5(@tanstack/react-query@5.85.9)(@types/react@19.2.14)(fastestsmallesttextencoderdecoder@1.0.22)(immer@10.2.0)(react@19.2.5)(typescript@5.9.3)(viem@2.47.10)(zod@3.25.76)
-      zod: 4.3.6
+      zod: 4.3.6(patch_hash=uxcr62lbnd46n4slxohsnropfm)
       zustand: 5.0.12(@types/react@19.2.14)(immer@10.2.0)(react@19.2.5)(use-sync-external-store@1.5.0)
     transitivePeerDependencies:
       - '@types/react'
@@ -28752,9 +28755,10 @@ packages:
   /zod@3.25.76:
     resolution: {integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==}
 
-  /zod@4.3.6:
+  /zod@4.3.6(patch_hash=uxcr62lbnd46n4slxohsnropfm):
     resolution: {integrity: sha512-rftlrkhHZOcjDwkGlnUtZZkvaPHCsDATp4pGpuOOMDaTdDDXF91wuVDJoWoPsKX/3YPQ5fHuF3STjcYyKr+Qhg==}
     dev: false
+    patched: true
 
   /zustand@5.0.0(@types/react@19.2.14)(immer@10.2.0)(react@19.2.5)(use-sync-external-store@1.5.0):
     resolution: {integrity: sha512-LE+VcmbartOPM+auOjCCLQOsQ05zUTp8RkgwRzefUk+2jISdMMFnxvyTjA4YNWr5ZGXYbVsEMZosttuxUBkojQ==}
