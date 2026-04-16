@@ -674,6 +674,9 @@ msgstr ""
 msgid "Your transaction has been completed."
 msgstr ""
 
+msgid "<0>{sharesText}</0><1>Shares</1>"
+msgstr ""
+
 msgid "Predictions"
 msgstr ""
 

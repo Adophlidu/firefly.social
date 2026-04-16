@@ -674,6 +674,9 @@ msgstr "搜索代币"
 msgid "Your transaction has been completed."
 msgstr "您的交易已完成。"
 
+msgid "<0>{sharesText}</0><1>Shares</1>"
+msgstr ""
+
 msgid "Predictions"
 msgstr "预测市场"
 

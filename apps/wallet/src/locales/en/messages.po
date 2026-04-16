@@ -674,6 +674,9 @@ msgstr "Search token"
 msgid "Your transaction has been completed."
 msgstr "Your transaction has been completed."
 
+msgid "<0>{sharesText}</0><1>Shares</1>"
+msgstr "<0>{sharesText}</0><1>Shares</1>"
+
 msgid "Predictions"
 msgstr "Predictions"
 
