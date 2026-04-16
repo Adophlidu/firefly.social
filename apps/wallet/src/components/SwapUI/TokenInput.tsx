@@ -9,8 +9,8 @@ import { useAtomValue, useSetAtom } from 'jotai';
 import { compact } from 'lodash-es';
 import { type ChangeEvent, memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-import { ChainIcon } from '@/components/ChainIcon.js';
 import { WalletFilter } from '@/components/SwapUI/WalletFilter.js';
+import { TokenIcon } from '@/components/TokenIcon.js';
 import { Input } from '@/components/ui/input.js';
 import { SwapFromPage } from '@/constants/enum.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
@@ -273,20 +273,14 @@ export const TokenInput = memo(function TokenInput({
                     className="flex shrink-0 items-center gap-2 rounded-[18px] bg-white py-1 pl-1 pr-2 dark:bg-white/10"
                     onClick={goToSelectToken}
                 >
-                    <span className="relative">
-                        {token?.logoURI ? (
-                            <img src={token.logoURI} alt={token.symbol} className="size-7 rounded-full" />
-                        ) : (
-                            <div className="bg-lightBg text-secondary flex size-7 items-center justify-center rounded-full text-[14px] font-semibold">
-                                {token?.symbol?.[0] || '?'}
-                            </div>
-                        )}
-                        {chainId ? (
-                            <span className="border-line absolute -bottom-px -right-1 overflow-hidden rounded-[4px] border bg-white p-px">
-                                <ChainIcon size={12} chainId={chainId} />
-                            </span>
-                        ) : null}
-                    </span>
+                    <TokenIcon
+                        icon={token?.logoURI}
+                        symbol={token?.symbol}
+                        name={token?.name}
+                        chainId={chainId ?? undefined}
+                        size={28}
+                        badgeSize={12}
+                    />
                     <span className="text-[16px] font-semibold leading-4">{token?.symbol ?? t`Select`}</span>
                 </button>
             </div>
