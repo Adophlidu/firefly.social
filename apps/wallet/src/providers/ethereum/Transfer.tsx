@@ -1,5 +1,5 @@
 import type { ChainId } from '@dimensiondev/web3/chains';
-import { getTokenAbiForWagmi, isSupportedStablecoin } from '@dimensiondev/web3/utils';
+import { getTokenAbiForWagmi } from '@dimensiondev/web3/utils';
 import type { Address, Hash } from 'viem';
 import { encodeFunctionData, parseUnits } from 'viem';
 import type { Config } from 'wagmi';
@@ -123,22 +123,20 @@ export class EthereumTransferProvider implements TransferProvider<EthereumChainI
         const amount = parseUnits(options.amount, options.token.decimals);
 
         // Try free-gas for stablecoin transfers
-        if (isSupportedStablecoin(options.token.chainId, options.token.id)) {
-            const abi = getTokenAbiForWagmi(options.token.chainId, options.token.id);
-            const calldata = encodeFunctionData({
-                abi,
-                functionName: 'transfer',
-                args: [options.to, amount],
-            });
-            const result = await tryFreeGasTransaction({
-                chainId: options.token.chainId,
-                txType: FreeGasTxType.TokenTransfer,
-                from: account.address,
-                to: options.token.id,
-                data: calldata,
-            });
-            if (result.type === 'free-gas') return result.hash as Address;
-        }
+        const abi = getTokenAbiForWagmi(options.token.chainId, options.token.id);
+        const calldata = encodeFunctionData({
+            abi,
+            functionName: 'transfer',
+            args: [options.to, amount],
+        });
+        const result = await tryFreeGasTransaction({
+            chainId: options.token.chainId,
+            txType: FreeGasTxType.TokenTransfer,
+            from: account.address,
+            to: options.token.id,
+            data: calldata,
+        });
+        if (result.type === 'free-gas') return result.hash as Address;
 
         const parameters = {
             chainId: options.token.chainId,

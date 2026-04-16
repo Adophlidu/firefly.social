@@ -1,6 +1,8 @@
+import { isSupportedStablecoin } from '@dimensiondev/web3/utils';
 import urlcat from 'urlcat';
 
 import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
+import { logger } from '@/libs/Logger.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { settings } from '@/settings/index.js';
 import type { EthereumChainId } from '@/web3-shared/evm/types.js';
@@ -50,13 +52,20 @@ export interface TryFreeGasParams {
     to: string;
     data: string;
     value?: string;
+    tokenAddress?: string;
 }
 
 export async function tryFreeGasTransaction(
     params: TryFreeGasParams,
 ): Promise<{ type: 'free-gas'; hash: string } | { type: 'fallback' }> {
     try {
-        const { chainId, txType, from, to, data, value } = params;
+        const { chainId, txType, from, to, data, value, tokenAddress } = params;
+
+        // Only attempt free-gas for supported stablecoins
+        if (!isSupportedStablecoin(chainId, tokenAddress ?? to)) {
+            return { type: 'fallback' } as const;
+        }
+
         const client = createWagmiPublicClient(chainId);
 
         const txId = crypto.randomUUID();
@@ -101,9 +110,10 @@ export async function tryFreeGasTransaction(
         if (result.data?.canFreeGas) {
             if (result.data.hash) {
                 return { type: 'free-gas', hash: result.data.hash };
+            } else {
+                // Server confirmed free-gas eligibility but returned no hash — treat as error
+                logger.error(`Free-gas accepted but no hash returned: ${result.data.failedReason || 'unknown'}`);
             }
-            // Server confirmed free-gas eligibility but returned no hash — treat as error
-            throw new Error(`Free-gas accepted but no hash returned: ${result.data.failedReason || 'unknown'}`);
         }
 
         return { type: 'fallback' };

@@ -15,6 +15,8 @@ import type { Address, Hex } from 'viem';
 import { sendTransaction } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmiClient.js';
+import type { EthereumChainId } from '@/constants/ethereum.js';
+import { tryFreeGasTransaction } from '@/helpers/freeGas/tryFreeGasTransaction.js';
 import { getUserFacingErrorMessage } from '@/helpers/getErrorMessage.js';
 import { getSolanaRPCUrl } from '@/helpers/getSolanaRPCUrl.js';
 import { isSolanaChain } from '@/helpers/isSolanaChain.js';
@@ -33,6 +35,7 @@ import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction
 import { useAppKitSolanaWallets } from '@/hooks/useAppKitSolanaWallets.js';
 import { logger } from '@/lib/Logger.js';
 import { createSwapEndpoint, type SwapToken } from '@/providers/swap/index.js';
+import type { FreeGasTxType } from '@/providers/types/FreeGas.js';
 import { fireflySessionTokenAtom } from '@/store/fireflySession.js';
 import { getSlippagePercent, type SlippageValue } from '@/store/swap/swapSettings.js';
 import { SwapAccessPath, type SwapStep } from '@/store/swap/swapState.js';
@@ -54,6 +57,7 @@ interface ExecuteEvmSwapParams {
     setFromAmount: (amount: string) => void;
     setSwapStep: (step: 'input' | 'review' | 'processing') => void;
     onSuccess?: (data: SwapSuccessParams) => Promise<void>;
+    freeGasTxType?: FreeGasTxType;
 }
 interface SolanaSigningWallet {
     type: 'privy' | 'appkit';
@@ -87,6 +91,7 @@ interface ExecuteSwapParams {
     onFromAmountChange: (amount: string) => void;
     onSwapStart?: (data: SwapAnalyticsParams) => void;
     onSuccess: (data: SwapSuccessParams, eventParams: SwapAnalyticsParams) => Promise<void>;
+    freeGasTxType?: FreeGasTxType;
 }
 
 async function executeEvmSwap({
@@ -103,6 +108,7 @@ async function executeEvmSwap({
     setFromAmount,
     setSwapStep,
     onSuccess,
+    freeGasTxType,
 }: ExecuteEvmSwapParams): Promise<void> {
     const connector = await resolveSwapEvmConnector(evmSigningWallet);
     if (!connector) {
@@ -137,16 +143,36 @@ async function executeEvmSwap({
         account: walletAddress as Address,
     });
 
-    const hash = await sendTransaction(config, {
-        chainId,
-        connector,
-        account: walletAddress as Address,
-        to: quoteResult.tx.to as Address,
-        data: quoteResult.tx.data as Hex,
-        value: BigInt(quoteResult.tx.value || '0'),
-        gas,
-        ...(quoteResult.tx.gasPrice ? { gasPrice: BigInt(quoteResult.tx.gasPrice) } : {}),
-    });
+    let hash: Hex | undefined;
+
+    // Try free-gas if available
+    if (freeGasTxType) {
+        const freeGasResult = await tryFreeGasTransaction({
+            chainId: chainId as EthereumChainId,
+            txType: freeGasTxType,
+            from: walletAddress,
+            to: quoteResult.tx.to as Address,
+            data: quoteResult.tx.data as Hex,
+            value: BigInt(quoteResult.tx.value || '0').toString(),
+            tokenAddress: fromToken.address,
+        });
+        if (freeGasResult.type === 'free-gas') {
+            hash = freeGasResult.hash as Hex;
+        }
+    }
+
+    if (!hash) {
+        hash = await sendTransaction(config, {
+            chainId,
+            connector,
+            account: walletAddress as Address,
+            to: quoteResult.tx.to as Address,
+            data: quoteResult.tx.data as Hex,
+            value: BigInt(quoteResult.tx.value || '0'),
+            gas,
+            ...(quoteResult.tx.gasPrice ? { gasPrice: BigInt(quoteResult.tx.gasPrice) } : {}),
+        });
+    }
 
     setTxHash(hash);
 
@@ -258,6 +284,7 @@ export function useSwapExecuteCore({
     onFromAmountChange,
     onSuccess,
     onSwapStart,
+    freeGasTxType,
 }: ExecuteSwapParams) {
     const [error, setError] = useState<string | null>(null);
     const [txHash, setTxHash] = useState<string | null>(null);
@@ -356,6 +383,7 @@ export function useSwapExecuteCore({
                     setFromAmount: onFromAmountChange,
                     setSwapStep: onStepChange,
                     onSuccess: (data) => onSuccess(data, analyticsParams),
+                    freeGasTxType,
                 });
             }
         } catch (err) {
@@ -405,6 +433,7 @@ export function useSwapExecuteCore({
         onFromAmountChange,
         onSuccess,
         onSwapStart,
+        freeGasTxType,
     ]);
 
     return {

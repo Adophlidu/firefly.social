@@ -16,6 +16,7 @@ import { usdcTokenFallback } from '@/hooks/bet/useTokenDetail.js';
 import { useSwapExecuteCore } from '@/hooks/swap/useSwapExecuteCore.js';
 import { useEmbeddedWalletAddresses } from '@/hooks/useCachedWalletAddresses.js';
 import type { SwapToken } from '@/providers/swap/types.js';
+import { FreeGasTxType } from '@/providers/types/FreeGas.js';
 import { getPolymarketAccountQueryOptions } from '@/queries/firefly/getPolymarketAccountQueryOptions.js';
 import { getPolymarketProfileListQueryOptions } from '@/queries/firefly/getPolymarketProfileListQueryOptions.js';
 import { getPolymarketUserValueQueryOptions } from '@/queries/polymarket/getPolymarketUserValueQueryOptions.js';
@@ -50,6 +51,7 @@ export function useAddFunds(options: Options) {
         recipientAddress: polymarketAddress ?? null,
         isPrivyReady,
         accessPath: SwapAccessPath.WalletGUI,
+        freeGasTxType: FreeGasTxType.PolymarketDeposit,
         throwError: true,
         onStepChange: () => {},
         onFromAmountChange: () => {},

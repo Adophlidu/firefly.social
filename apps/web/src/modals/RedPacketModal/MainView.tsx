@@ -266,14 +266,14 @@ export default function MainView() {
             if (freeGasResult.type === 'free-gas') {
                 await waitForEthereumTransaction(chainId, freeGasResult.hash as `0x${string}`);
             } else {
-                const result = await writeContract(wagmiConfig, {
+                const txHash = await writeContract(wagmiConfig, {
                     chainId,
                     abi: getTokenAbiForWagmi(chainId, token.address as Address),
                     address: token.address as Address,
                     functionName: 'approve',
                     args: [getRedPacketContractAddress(chainId), originBalance.value],
                 });
-                await waitForEthereumTransaction(chainId, result);
+                await waitForEthereumTransaction(chainId, txHash);
             }
             refetchAllowance();
             return;

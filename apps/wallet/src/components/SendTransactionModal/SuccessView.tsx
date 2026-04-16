@@ -72,7 +72,7 @@ export function SuccessView() {
                             <div className="text-second text-sm">${multipliedBy(token.price, amount).toFormat()}</div>
                         </div>
                     </div>
-                    <div className="border-primaryBottom bg-bg absolute left-1/2 top-1/2 flex size-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-xl border-2">
+                    <div className="border-primaryBottom bg-bg absolute left-1/2 top-1/2 flex size-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-xl border-2 dark:bg-[#222]">
                         <ArrowDownIcon className="text-main" width={24} height={24} />
                     </div>
                     <div className="bg-bg w-full rounded-2xl px-4 py-6">

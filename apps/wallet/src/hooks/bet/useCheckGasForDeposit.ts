@@ -9,6 +9,8 @@ import { estimateSwapGas } from '@/helpers/swap/estimateSwapGas.js';
 import { useEmbeddedWalletAddresses } from '@/hooks/useCachedWalletAddresses.js';
 import { useTokenBalance } from '@/hooks/useTokenBalance.js';
 import type { CrossChainQuote, SwapQuote, SwapToken } from '@/providers/swap/types.js';
+import { FreeGasTxType } from '@/providers/types/FreeGas.js';
+import { getFireflyEndpoint } from '@/store/fireflyEndpoint.js';
 
 interface Options {
     depositToken: SwapToken | null;
@@ -64,11 +66,30 @@ export function useCheckGasForDeposit({ depositToken, amount, quote }: Options) 
 
     const usedFee = isSolana ? defaultSolanaFee : fee;
 
+    const isInsufficient =
+        !!nativeToken &&
+        !!usedFee &&
+        !error &&
+        isLessThan(minus(nativeToken.balance ?? '0', isNativeToken ? amount : 0), usedFee);
+
+    const { data: isFreeGasEligible, isLoading: isFreeGasCheckLoading } = useQuery({
+        queryKey: ['deposit-free-gas-check', depositToken?.chainId, quote?.tx?.to],
+        enabled: isInsufficient && !!depositToken && !!quote?.tx?.to,
+        staleTime: 1000 * 60,
+        refetchInterval: 1000 * 60,
+        retry: 0,
+        queryFn: async () => {
+            if (!depositToken || !quote?.tx?.to) return false;
+            return getFireflyEndpoint().checkFreeGasEligibility({
+                chainId: depositToken.chainId,
+                txType: FreeGasTxType.PolymarketDeposit,
+                tx: { to: quote.tx.to },
+            });
+        },
+    });
+
     return {
-        isLoading: false,
-        isInsufficientGas:
-            !nativeToken || !usedFee || error
-                ? false
-                : isLessThan(minus(nativeToken.balance ?? '0', isNativeToken ? amount : 0), usedFee),
+        isLoading: isFreeGasCheckLoading,
+        isInsufficientGas: isInsufficient && !isFreeGasEligible,
     };
 }

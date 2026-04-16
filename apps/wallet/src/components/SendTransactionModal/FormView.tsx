@@ -23,6 +23,7 @@ import { omit } from 'lodash-es';
 import { RefreshCcw } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';
+import { useAsyncFn } from 'react-use';
 import { type Address, formatEther } from 'viem';
 
 import { ActionButton } from '@/components/ActionButton.js';
@@ -90,13 +91,7 @@ export function FormView() {
 
 function Form() {
     const router = useRouter();
-    const {
-        handleSubmit,
-        control,
-        formState: { isSubmitting },
-        register,
-        setValue,
-    } = useFormContext<FormValues>();
+    const { handleSubmit, control, register, setValue } = useFormContext<FormValues>();
     const evmAddress = useEmbeddedEvmAddress();
     const { wallets: evmWallets } = useWallets();
     const { wallets: solanaWallets } = useSolanaWallets();
@@ -116,7 +111,7 @@ function Form() {
         }
     }
 
-    const onSubmit = async (values: FormValues) => {
+    const [{ loading: isSending }, onSubmit] = useAsyncFn(async (values: FormValues) => {
         try {
             const to = values.to;
             const transfer = resolveTransferProvider(networkType);
@@ -159,7 +154,7 @@ function Form() {
                 state: { error } as unknown as HistoryState,
             });
         }
-    };
+    });
 
     const watching = useWatch({ control });
     const { to, amount } = watching;
@@ -474,13 +469,10 @@ function Form() {
                 <ActionButton
                     className="h-10 w-full rounded-lg"
                     type="submit"
-                    disabled={isSubmitting || !!validatedResult?.error || isValidating || !to || !amount || !token}
+                    loading={isSending}
+                    disabled={!!validatedResult?.error || isValidating || !to || !amount || !token}
                 >
-                    {isValidating || isSubmitting ? (
-                        <LoadingIcon size={20} />
-                    ) : (
-                        <span className="text-medium">{validatedResult?.error ?? <Trans>Send</Trans>}</span>
-                    )}
+                    <span className="text-medium">{validatedResult?.error ?? <Trans>Send</Trans>}</span>
                 </ActionButton>
             </div>
         </form>

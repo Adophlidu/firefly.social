@@ -4,11 +4,14 @@ import { type Address, erc20Abi, type Hex } from 'viem';
 import { readContract, sendTransaction } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmiClient.js';
+import type { EthereumChainId } from '@/constants/ethereum.js';
+import { tryFreeGasTransaction } from '@/helpers/freeGas/tryFreeGasTransaction.js';
 import { rightShift } from '@/helpers/number.js';
 import { estimateSwapGas } from '@/helpers/swap/estimateSwapGas.js';
 import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
 import type { SwapEndpoint } from '@/providers/swap/swapEndpoint.js';
 import type { SwapToken } from '@/providers/swap/types.js';
+import { FreeGasTxType } from '@/providers/types/FreeGas.js';
 
 interface ExecuteEvmApprovalParams {
     endpoint: SwapEndpoint;
@@ -102,16 +105,31 @@ export async function executeEvmApproval(params: ExecuteEvmApprovalParams): Prom
               account: walletAddress as Address,
           });
 
-    const approveHash = await sendTransaction(config, {
-        chainId,
-        connector,
-        account: walletAddress as Address,
+    // Try free gas for approve (stablecoins only)
+    const freeGasResult = await tryFreeGasTransaction({
+        chainId: chainId as EthereumChainId,
+        txType: FreeGasTxType.TokenApprove,
+        from: walletAddress,
         to: approveTo,
         data: approveData,
-        value: approveValue,
-        gas: approveGasLimit,
-        ...(approveTxData.gasPrice ? { gasPrice: BigInt(approveTxData.gasPrice) } : {}),
+        tokenAddress: fromToken.address,
     });
+
+    let approveHash: Hex;
+    if (freeGasResult.type === 'free-gas') {
+        approveHash = freeGasResult.hash as Hex;
+    } else {
+        approveHash = await sendTransaction(config, {
+            chainId,
+            connector,
+            account: walletAddress as Address,
+            to: approveTo,
+            data: approveData,
+            value: approveValue,
+            gas: approveGasLimit,
+            ...(approveTxData.gasPrice ? { gasPrice: BigInt(approveTxData.gasPrice) } : {}),
+        });
+    }
 
     await waitForEthereumTransaction(chainId, approveHash);
 }

@@ -159,6 +159,7 @@ export function useEthereumCreateRedPacketCallback(
                 to: getRedPacketContractAddress(chainId),
                 data: createRedPacketCalldata,
                 value: value !== '0' ? value : undefined,
+                tokenAddress,
             });
 
             let result: `0x${string}`;
