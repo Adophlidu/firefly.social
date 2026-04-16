@@ -695,9 +695,6 @@ msgstr "兑换 (Swap)"
 msgid "Keep it safe and do not share"
 msgstr "请妥善保管，切勿泄露"
 
-msgid "If you enter it in another app, it can steal your funds and Farcaster account."
-msgstr "如果在其他应用中输入，您的资产和 Farcaster 账户可能会被盗。"
-
 msgid "Your funds have been withdrawn to your Firefly wallet."
 msgstr "资金已成功提现至您的 Firefly 钱包。"
 

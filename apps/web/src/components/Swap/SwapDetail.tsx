@@ -19,6 +19,7 @@ import { ChainIcon } from '@/components/ChainIcon.js';
 import { Comeback } from '@/components/Comeback.js';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
+import { Loading } from '@/components/Loading.js';
 import { NoSSR } from '@/components/NoSSR.js';
 import { EnsName } from '@/components/Profile/EnsName.js';
 import { SwapActions } from '@/components/Swap/SwapActions.js';
@@ -71,6 +72,7 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ chainId, h
                 </div>
                 <div className="p-4">
                     <div className="bg-bg h-10 w-full animate-pulse rounded" />
+                    <Loading />
                 </div>
             </div>
         );

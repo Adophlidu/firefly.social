@@ -695,9 +695,6 @@ msgstr ""
 msgid "Keep it safe and do not share"
 msgstr ""
 
-msgid "If you enter it in another app, it can steal your funds and Farcaster account."
-msgstr ""
-
 msgid "Your funds have been withdrawn to your Firefly wallet."
 msgstr ""
 

@@ -1,6 +1,5 @@
 import CheckIcon from '@dimensiondev/assets/check.svg';
 import CopyIcon from '@dimensiondev/assets/copy-2.svg';
-import EyeSlashIcon from '@dimensiondev/assets/eye-slash.svg';
 import KeyIcon from '@dimensiondev/assets/key.svg';
 import SecurityIcon from '@dimensiondev/assets/security.svg';
 import WarningIcon from '@dimensiondev/assets/warning.svg';
@@ -98,15 +97,6 @@ export function ExportKeyModalWrapper({ modalType, open, onClose }: RouteModalPr
                                             <KeyIcon width={24} height={24} className="shrink-0" />
                                             <p className="text-main text-sm font-semibold">
                                                 <Trans>Your recovery phrase is like a password, keep it secret.</Trans>
-                                            </p>
-                                        </div>
-                                        <div className="flex items-center gap-2">
-                                            <EyeSlashIcon width={24} height={24} className="shrink-0" />
-                                            <p className="text-main text-sm font-semibold">
-                                                <Trans>
-                                                    If you enter it in another app, it can steal your funds and
-                                                    Farcaster account.
-                                                </Trans>
                                             </p>
                                         </div>
                                         <div className="flex items-center gap-2">
