@@ -24,7 +24,7 @@ import { EnsName } from '@/components/Profile/EnsName.js';
 import { SwapActions } from '@/components/Swap/SwapActions.js';
 import { WalletBaseMoreAction } from '@/components/WalletBaseMoreAction.js';
 import { NetworkType, Source } from '@/constants/enum.js';
-import { notFound } from '@/esm/navigation.js';
+import { notFound, useSearchParams } from '@/esm/navigation.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { getEnsNameFromDisplayInfo } from '@/helpers/getEnsNameFromDisplayInfo.js';
@@ -40,17 +40,22 @@ interface SwapDetailProps {
 }
 
 export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ chainId, hash }) {
+    const searchParams = useSearchParams();
+    const polling = searchParams.get('polling') === 'true';
+
     const { data: activity, isLoading } = useQuery({
-        queryKey: ['swap-detail', hash, chainId],
-        queryFn: () => getSwapActivityByHash(hash, chainId),
+        queryKey: ['swap-detail', hash, chainId, polling],
+        queryFn: () => getSwapActivityByHash(hash, chainId, { polling }),
         refetchInterval: (query) => {
             const data = query.state.data;
+            // When polling, keep refetching every 2s until data appears
+            if (polling && !data) return 2000;
             // Stop refetching if owner exists or data is null
             if (!data || data.owner) return false;
             // Refetch every 2 seconds while owner is null
             return 2000;
         },
-        retry: 10,
+        retry: 8,
     });
 
     if (isLoading) {

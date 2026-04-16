@@ -45,6 +45,6 @@ export async function handleSwapSuccess(params: HandleSwapSuccessParams): Promis
 
     await uploadSwapTx(endpoint, chainId, hash, isCrossChain);
     iframeBridgeProvider.request(IframeBridgeMethod.NAVIGATE, {
-        path: `/tx/${chainId}/${hash}`,
+        path: `/tx/${chainId}/${hash}?polling=true`,
     });
 }
