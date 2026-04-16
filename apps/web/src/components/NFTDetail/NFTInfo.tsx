@@ -5,6 +5,7 @@ import LocationIcon from '@dimensiondev/assets/location.svg';
 import PoapIcon from '@dimensiondev/assets/poap.svg';
 import WebsiteIcon from '@dimensiondev/assets/website-circle.svg';
 import { classNames } from '@dimensiondev/utils';
+import { formatAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 
 import { NFTDetailsMore } from '@/components/Actions/NFTDetailsMore.js';
@@ -17,7 +18,6 @@ import { BookmarkInIcon } from '@/components/NFTs/BookmarkButton.js';
 import { FreeMintButton } from '@/components/NFTs/FreeMintButton.js';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { Source } from '@/constants/enum.js';
-import { formatAddress } from '@/helpers/formatAddress.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { resolveNFTId } from '@/helpers/resolveNFTIdFromAsset.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';

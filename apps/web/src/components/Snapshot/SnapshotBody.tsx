@@ -2,6 +2,7 @@
 
 import SnapshotIcon from '@dimensiondev/assets/snapshot.svg';
 import { classNames } from '@dimensiondev/utils';
+import { formatAddressEthereum } from '@dimensiondev/web3/utils';
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
@@ -30,7 +31,6 @@ import { queryClient } from '@/configs/queryClient.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/browser.js';
 import { SnapshotState, SourceInURL } from '@/constants/enum.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
-import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { formatSnapshotChoice } from '@/helpers/formatSnapshotChoice.js';
 import { openComposeModal } from '@/helpers/openComposeModal.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';

@@ -1,6 +1,7 @@
 'use client';
 
 import LinkIcon from '@dimensiondev/assets/link-square.svg';
+import { formatAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
@@ -9,7 +10,6 @@ import { Link } from '@/components/Link.js';
 import { TableListInPage } from '@/components/TableListInPage.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
-import { formatAddress } from '@/helpers/formatAddress.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';

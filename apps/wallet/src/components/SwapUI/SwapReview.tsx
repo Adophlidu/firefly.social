@@ -1,4 +1,5 @@
 import ArrowSwapHorizontalIcon from '@dimensiondev/assets/arrow-swap-horizontal.svg';
+import { formatAddress } from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useAtomValue } from 'jotai';
@@ -11,7 +12,6 @@ import {
     DialogOrDrawerTitle,
 } from '@/components/DialogOrDrawer.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
-import { formatAddress } from '@/helpers/formatAddress.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { formatGasEstimate, formatTokenAmount } from '@/helpers/swap/formatSwapAmount.js';
 import { useEffectiveSwapWalletAddress } from '@/hooks/swap/useEffectiveSwapWalletAddress.js';

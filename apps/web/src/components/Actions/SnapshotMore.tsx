@@ -3,6 +3,7 @@
 import BookmarkActiveIcon from '@dimensiondev/assets/bookmark.selected.svg';
 import BookmarkIcon from '@dimensiondev/assets/bookmark.svg';
 import MoreIcon from '@dimensiondev/assets/more.svg';
+import { formatAddress } from '@dimensiondev/web3/utils';
 import { MenuItem } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
@@ -15,7 +16,6 @@ import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { Source } from '@/constants/enum.js';
-import { formatAddress } from '@/helpers/formatAddress.js';
 import { useEnsName } from '@/hooks/useEnsName.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';

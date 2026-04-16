@@ -6,6 +6,7 @@ import WalletIcon from '@dimensiondev/assets/wallet-circle.svg';
 import VerifiedDarkIcon from '@dimensiondev/assets/wallet-circle-verified.dark.svg';
 import VerifiedLightIcon from '@dimensiondev/assets/wallet-circle-verified.light.svg';
 import { classNames } from '@dimensiondev/utils';
+import { formatAddressEthereum, formatAddressSolana } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
 
@@ -15,7 +16,6 @@ import { ReportButton } from '@/app/[locale]/(settings)/components/ReportButton.
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { WalletSource } from '@/constants/enum.js';
-import { formatAddressEthereum, formatAddressSolana } from '@/helpers/formatAddress.js';
 import { resolveConnectionPlatform } from '@/helpers/resolveConnectionPlatform.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';

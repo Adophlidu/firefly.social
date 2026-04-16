@@ -1,6 +1,7 @@
 'use client';
 
 import LinkIcon from '@dimensiondev/assets/link-square.svg';
+import { formatAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 
 import { CollectionMore } from '@/components/Actions/CollectionMore.js';
@@ -9,7 +10,6 @@ import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { Image } from '@/components/Image.js';
 import { NFTImage } from '@/components/NFTImage.js';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
-import { formatAddress } from '@/helpers/formatAddress.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { resolveAddressLink } from '@/helpers/resolveExplorer.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';

@@ -1,4 +1,5 @@
 import { classNames, createIndicator } from '@dimensiondev/utils';
+import { formatAddressEthereum } from '@dimensiondev/web3/utils';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { memo, useCallback, useMemo, useRef } from 'react';
 import urlcat from 'urlcat';
@@ -10,7 +11,6 @@ import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { VirtualList } from '@/components/VirtualList/VirtualList.js';
 import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 import { ScrollListKey, Source, SourceInURL } from '@/constants/enum.js';
-import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { humanize, nFormatter } from '@/helpers/formatCommentCounts.js';
 import { formatSnapshotChoice } from '@/helpers/formatSnapshotChoice.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';

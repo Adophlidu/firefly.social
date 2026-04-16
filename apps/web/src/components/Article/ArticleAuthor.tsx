@@ -1,12 +1,11 @@
 import { classNames } from '@dimensiondev/utils';
-import { isValidAddressEthereum } from '@dimensiondev/web3/utils';
+import { formatAddressEthereum, isValidAddressEthereum } from '@dimensiondev/web3/utils';
 import type { HTMLProps } from 'react';
 
 import { Avatar } from '@/components/Avatar.js';
 import { ConditionalLink } from '@/components/ConditionalLink.js';
 import { Time } from '@/components/Semantic/Time.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
-import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { getArticleAuthorTarget, getArticleAuthorUrl } from '@/helpers/getArticleAuthorUrl.js';
 import { resolveArticlePlatformIcon } from '@/helpers/resolveArticlePlatformIcon.js';
 import { useEnsName } from '@/hooks/useEnsName.js';

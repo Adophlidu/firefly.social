@@ -1,6 +1,7 @@
 import AddCircleLinearIcon from '@dimensiondev/assets/add-circle-linear.svg';
 import ArrowDownIcon from '@dimensiondev/assets/arrow-line-down.svg';
 import FireflyRoundIcon from '@dimensiondev/assets/firefly.round.svg';
+import { formatAddress } from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useWallets as useEvmWallets } from '@privy-io/react-auth';
@@ -12,7 +13,6 @@ import { ChainIcon } from '@/components/ChainIcon.js';
 import { WalletFilter } from '@/components/SwapUI/WalletFilter.js';
 import { Input } from '@/components/ui/input.js';
 import { SwapFromPage } from '@/constants/enum.js';
-import { formatAddress } from '@/helpers/formatAddress.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { isSolanaChain } from '@/helpers/isSolanaChain.js';
 import { isGreaterThan, multipliedBy, toFixed } from '@/helpers/number.js';

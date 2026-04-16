@@ -3,6 +3,7 @@
 import FireflyRoundIcon from '@dimensiondev/assets/firefly.round.svg';
 import TipIcon from '@dimensiondev/assets/tips.svg';
 import { safeUnreachable } from '@dimensiondev/utils';
+import { formatAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
 import type { Address } from 'viem';
@@ -15,7 +16,6 @@ import { Source, TipsDetailViewType, TipsNotificationType } from '@/constants/en
 import { Image } from '@/esm/Image.js';
 import { Link } from '@/esm/Link.js';
 import { useRouter } from '@/esm/navigation.js';
-import { formatAddress } from '@/helpers/formatAddress.js';
 import { formatTokenAmount } from '@/helpers/formatTokenAmount.js';
 import { getChainName } from '@/helpers/getChainName.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';

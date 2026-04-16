@@ -3,6 +3,7 @@ import SolanaIcon from '@dimensiondev/assets/solana.svg';
 import SwitchIcon from '@dimensiondev/assets/switch.svg';
 import WalletIcon from '@dimensiondev/assets/wallet.svg';
 import { runInSafeAsync } from '@dimensiondev/utils';
+import { formatAddress } from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
 import { CoreConnectionController, CoreConnectorController } from '@reown/appkit';
 import { type AppKitNetwork, mainnet, solana } from '@reown/appkit/networks';
@@ -17,7 +18,6 @@ import { appkit } from '@/configs/appkit.js';
 import { PRIVY_CONNECTOR_ID } from '@/connectors/PrivyConnector.js';
 import { ConnectionSource, NetworkType } from '@/constants/enum.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
-import { formatAddress } from '@/helpers/formatAddress.js';
 import type { AppKitAccount } from '@/hooks/useAppKitAccounts.js';
 import type { ChainNamespace } from '@/types/utility.js';
 

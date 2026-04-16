@@ -1,3 +1,4 @@
+export * from '@/utils/formatAddress.js';
 export * from '@/utils/getTokenAbiForWagmi.js';
 export * from '@/utils/isSameAddress.js';
 export * from '@/utils/isSupportedStablecoin.js';

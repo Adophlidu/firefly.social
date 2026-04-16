@@ -1,5 +1,6 @@
 import LinkIcon from '@dimensiondev/assets/link-square.svg';
 import { safeUnreachable } from '@dimensiondev/utils';
+import { formatAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
@@ -11,7 +12,6 @@ import { ListInPage } from '@/components/ListInPage.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
 import { NetworkType } from '@/constants/enum.js';
 import { SolanaChainId } from '@/constants/solana.js';
-import { formatAddress } from '@/helpers/formatAddress.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { getBlockExplorersURL } from '@/helpers/getBlockExplorersURL.js';
 import { isGreaterThanOrEqualTo, toFixed } from '@/helpers/number.js';

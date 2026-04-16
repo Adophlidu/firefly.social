@@ -2,6 +2,7 @@
 
 import ArrowDownIcon from '@dimensiondev/assets/arrow-line-down.svg';
 import SuccessIcon from '@dimensiondev/assets/success.svg';
+import { formatAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { rootRouteId, useMatch } from '@tanstack/react-router';
 import { useAsyncFn } from 'react-use';
@@ -11,7 +12,6 @@ import { Image } from '@/components/Image.js';
 import { RecipientAvatar } from '@/components/Tips/RecipientAvatar.js';
 import { FIREFLY_MENTION } from '@/constants/mentions.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
-import { formatAddress } from '@/helpers/formatAddress.js';
 import { formatTokenAmount } from '@/helpers/formatTokenAmount.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { getMentionCharsByIdentity } from '@/helpers/getMentionCharsByIdentity.js';

@@ -1,10 +1,9 @@
 import DisconnectIcon from '@dimensiondev/assets/disconnect.svg';
-import { isValidAddressEthereum } from '@dimensiondev/web3/utils';
+import { formatAddress, isValidAddressEthereum } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { formatAddress } from '@/helpers/formatAddress.js';
 import { useEnsName } from '@/hooks/useEnsName.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
 

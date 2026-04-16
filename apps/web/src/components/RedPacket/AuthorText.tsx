@@ -1,6 +1,6 @@
 import { safeUnreachable } from '@dimensiondev/utils';
+import { formatAddressEthereum } from '@dimensiondev/web3/utils';
 
-import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { getCSSPropertiesFromThemeSettings } from '@/helpers/getCSSPropertiesFromThemeSettings.js';
 import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 import { UsageType } from '@/types/rp.js';

@@ -2,6 +2,7 @@
 
 import PriceArrow from '@dimensiondev/assets/price-arrow.svg';
 import { classNames } from '@dimensiondev/utils';
+import { formatAddress } from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
@@ -14,7 +15,6 @@ import { SimplePriceChart } from '@/components/PriceChart/SimplePriceChart.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
 import { SwapButton } from '@/components/TokenProfile/SwapButton.js';
 import { useTradeInfo } from '@/components/TokenProfile/useTradeInfo.js';
-import { formatAddress } from '@/helpers/formatAddress.js';
 import { formatMarketCap } from '@/helpers/formatMarketCap.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';

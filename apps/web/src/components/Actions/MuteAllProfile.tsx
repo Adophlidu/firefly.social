@@ -1,6 +1,7 @@
 'use client';
 
 import MuteIcon from '@dimensiondev/assets/mute.svg';
+import { formatAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { type HTMLProps, memo } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -13,7 +14,6 @@ import { Source } from '@/constants/enum.js';
 import { setBlockStatus } from '@/decorators/SetQueryDataForBlockProfile.js';
 import { setWalletBlockStatus } from '@/decorators/SetQueryDataForBlockWallet.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { formatAddress } from '@/helpers/formatAddress.js';
 import { isProfilePageSource } from '@/helpers/isSource.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';

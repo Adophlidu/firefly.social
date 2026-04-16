@@ -1,8 +1,8 @@
 import { runInSafe } from '@dimensiondev/utils';
+import { formatAddress } from '@dimensiondev/web3/utils';
 import { useMemo } from 'react';
 
 import { bedStead } from '@/fonts/bedStead/index.js';
-import { formatAddress } from '@/helpers/formatAddress.js';
 import { getBlockExplorersURL } from '@/helpers/getBlockExplorersURL.js';
 import { cn } from '@/lib/utils.js';
 

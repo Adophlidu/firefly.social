@@ -2,7 +2,7 @@
 
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
-import { isSameAddress } from '@dimensiondev/web3/utils';
+import { formatAddress, isSameAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { memo, useMemo } from 'react';
@@ -18,7 +18,6 @@ import { Tips } from '@/components/Tips/index.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
 import { NetworkType, type ProfilePageSource, Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
-import { formatAddress } from '@/helpers/formatAddress.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
 import { getEnsNameFromWalletProfile } from '@/helpers/getEnsNameFromWalletProfile.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';

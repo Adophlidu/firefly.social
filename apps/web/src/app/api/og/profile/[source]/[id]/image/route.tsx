@@ -2,6 +2,7 @@
 
 import type { NextRequestContext } from '@dimensiondev/types';
 import { compose, runInSafeAsync, safeUnreachable } from '@dimensiondev/utils';
+import { formatAddress } from '@dimensiondev/web3/utils';
 import { compact, first } from 'lodash-es';
 import { ImageResponse } from 'next/og.js';
 import type { NextRequest } from 'next/server.js';
@@ -13,7 +14,6 @@ import { NetworkType, type ProfilePageSource, type SocialSource, Source } from '
 import { CACHE_AGE_INDEFINITE_ON_DISK } from '@/constants/static.js';
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
 import { fetchImageAsBase64 } from '@/helpers/fetchAvatarAsBase64.js';
-import { formatAddress } from '@/helpers/formatAddress.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
 import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
 import { getPublicUrl } from '@/helpers/getPublicUrl.js';

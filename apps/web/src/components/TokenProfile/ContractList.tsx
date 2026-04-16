@@ -3,6 +3,7 @@
 import DotsIcon from '@dimensiondev/assets/dots.svg';
 import QuestionIcon from '@dimensiondev/assets/question.svg';
 import { classNames } from '@dimensiondev/utils';
+import { formatAddress } from '@dimensiondev/web3/utils';
 import { MenuItem, MenuItems, type MenuItemsProps } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { type CSSProperties, type HTMLProps, memo, type PropsWithChildren } from 'react';
@@ -11,7 +12,6 @@ import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { Image } from '@/components/Image.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { formatAddress } from '@/helpers/formatAddress.js';
 import { getChainInfo } from '@/helpers/getChainInfo.js';
 import { stopEvent } from '@/helpers/stopEvent.js';
 import type { Contract } from '@/providers/types/Trending.js';

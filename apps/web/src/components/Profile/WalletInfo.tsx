@@ -2,6 +2,7 @@
 
 import LinkIcon from '@dimensiondev/assets/link-square.svg';
 import { safeUnreachable } from '@dimensiondev/utils';
+import { formatAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 
@@ -14,7 +15,6 @@ import { EnsName } from '@/components/Profile/EnsName.js';
 import { WalletActions } from '@/components/Profile/WalletActions.js';
 import { WalletProfileTags } from '@/components/Profile/WalletProfileTags.js';
 import { NetworkType, Source } from '@/constants/enum.js';
-import { formatAddress } from '@/helpers/formatAddress.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
 import { getEnsNameFromWalletProfile } from '@/helpers/getEnsNameFromWalletProfile.js';

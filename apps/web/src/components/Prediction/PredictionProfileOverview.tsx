@@ -1,5 +1,6 @@
 'use client';
 
+import { formatAddressEthereum } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { compact } from 'lodash-es';
 import { useMemo } from 'react';
@@ -15,7 +16,6 @@ import { ProfileSourceIcon } from '@/components/ProfileSourceIcon.js';
 import { PredictionPlatform, Source } from '@/constants/enum.js';
 import { BET_PROFILE_FOLLOW_BUTTON_ID } from '@/constants/static.js';
 import { Link } from '@/esm/Link.js';
-import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { isSocialSource } from '@/helpers/isSource.js';

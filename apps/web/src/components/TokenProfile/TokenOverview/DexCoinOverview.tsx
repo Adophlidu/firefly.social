@@ -3,6 +3,7 @@
 import LinkIcon from '@dimensiondev/assets/link-square.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { classNames, parseUrl } from '@dimensiondev/utils';
+import { formatAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { type HTMLProps, memo } from 'react';
@@ -16,7 +17,6 @@ import { InfoCard } from '@/components/TokenProfile/TokenOverview/InfoCard.js';
 import { InfoRow } from '@/components/TokenProfile/TokenOverview/InfoRow.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { Link as OriginalLink } from '@/esm/Link.js';
-import { formatAddress } from '@/helpers/formatAddress.js';
 import { formatAge } from '@/helpers/formatAge.js';
 import { formatMarketCap } from '@/helpers/formatMarketCap.js';
 import { formatDate } from '@/helpers/formatTimestamp.js';

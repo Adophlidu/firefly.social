@@ -1,10 +1,10 @@
 import FireflyRoundIcon from '@dimensiondev/assets/firefly.round.svg';
 import SelectedIcon from '@dimensiondev/assets/selected.svg';
+import { formatAddress } from '@dimensiondev/web3/utils';
 import { useWallets as useEvmWallets } from '@privy-io/react-auth';
 import { useWallets as useSolanaWallets } from '@privy-io/react-auth/solana';
 import { memo, useCallback, useEffect, useMemo, useRef } from 'react';
 
-import { formatAddress } from '@/helpers/formatAddress.js';
 import { useAppKitSolanaWallets } from '@/hooks/useAppKitSolanaWallets.js';
 import { SwapAccessPath } from '@/store/swap/swapState.js';
 

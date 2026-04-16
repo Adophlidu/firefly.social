@@ -3,7 +3,12 @@
 import StarFilledIcon from '@dimensiondev/assets/star-filled.svg';
 import StarOutlineIcon from '@dimensiondev/assets/star-outline.svg';
 import { classNames } from '@dimensiondev/utils';
-import { isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3/utils';
+import {
+    formatAddressEthereum,
+    formatAddressSolana,
+    isValidAddressEthereum,
+    isValidAddressSolana,
+} from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQueryClient } from '@tanstack/react-query';
 import type { ReactNode } from 'react';
@@ -14,7 +19,6 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import type { ConnectionPlatform } from '@/constants/enum.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { formatAddressEthereum, formatAddressSolana } from '@/helpers/formatAddress.js';
 import { fireflyWalletProvider } from '@/providers/firefly/Wallet.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 

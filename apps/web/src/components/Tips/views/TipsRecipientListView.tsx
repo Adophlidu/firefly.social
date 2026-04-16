@@ -2,7 +2,7 @@
 
 import SmallFireflyAvatar from '@dimensiondev/assets/small-firefly.svg';
 import WarnIcon from '@dimensiondev/assets/warning-circle.svg';
-import { isSameAddress } from '@dimensiondev/web3/utils';
+import { formatAddress, isSameAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useRouter } from '@tanstack/react-router';
 
@@ -10,7 +10,6 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { AddressLink } from '@/components/Tips/AddressLink.js';
 import { RecipientAvatar } from '@/components/Tips/RecipientAvatar.js';
 import { TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
-import { formatAddress } from '@/helpers/formatAddress.js';
 import { captureTipsSwitchWalletEvent } from '@/providers/telemetry/captureTipsEvent.js';
 import { type FireflyTipsProfile, type WalletProfile, WalletProfileDataSource } from '@/providers/types/Firefly.js';
 import { useTipsStore } from '@/store/useTipsStore.js';

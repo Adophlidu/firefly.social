@@ -2,7 +2,7 @@
 
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { classNames } from '@dimensiondev/utils';
-import { isSameAddress } from '@dimensiondev/web3/utils';
+import { formatAddress, isSameAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { compact } from 'lodash-es';
 import type { ReadonlyURLSearchParams } from 'next/navigation.js';
@@ -18,7 +18,6 @@ import { Source } from '@/constants/enum.js';
 import { NATIVE_TOKEN_ADDRESS } from '@/constants/okx.js';
 import { Link } from '@/esm/Link.js';
 import { usePathname, useRouter, useSearchParams } from '@/esm/navigation.js';
-import { formatAddress } from '@/helpers/formatAddress.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { getWalletProfileAvatar } from '@/helpers/getWalletProfileAvatar.js';
 import { swapActivityToTradeRecord } from '@/helpers/swapActivityToTradeRecord.js';

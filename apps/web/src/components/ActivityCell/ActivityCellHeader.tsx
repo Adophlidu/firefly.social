@@ -1,4 +1,5 @@
 import { classNames } from '@dimensiondev/utils';
+import { formatAddressEthereum } from '@dimensiondev/web3/utils';
 import type { HTMLProps, ReactNode } from 'react';
 import type { Address } from 'viem';
 
@@ -7,7 +8,6 @@ import { EnsName } from '@/components/Profile/EnsName.js';
 import { Time } from '@/components/Semantic/Time.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { Source } from '@/constants/enum.js';
-import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 
 export interface ActivityCellHeaderProps extends HTMLProps<HTMLDivElement> {

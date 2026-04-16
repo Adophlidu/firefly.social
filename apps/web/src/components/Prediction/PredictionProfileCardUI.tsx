@@ -1,5 +1,6 @@
 'use client';
 
+import { formatAddressEthereum } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo, useMemo } from 'react';
 
@@ -9,7 +10,6 @@ import { PredictionPlatformIcon } from '@/components/Prediction/PredictionPlatfo
 import { PredictionPlatformName } from '@/components/Prediction/PredictionPlatformName.js';
 import { PredictionPlatform } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
-import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { useProxyWalletInfo } from '@/hooks/prediction/useProxyWalletInfo.js';

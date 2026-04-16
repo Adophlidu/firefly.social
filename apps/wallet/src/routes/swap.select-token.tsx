@@ -1,7 +1,7 @@
 import GlobeIcon from '@dimensiondev/assets/global.svg';
 import SearchIcon from '@dimensiondev/assets/search.svg';
 import SelectedIcon from '@dimensiondev/assets/selected.svg';
-import { isNativeTokenOrSameAddress } from '@dimensiondev/web3/utils';
+import { formatAddress, isNativeTokenOrSameAddress } from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { createFileRoute, useSearch } from '@tanstack/react-router';
@@ -14,7 +14,6 @@ import { NavigationBar } from '@/components/NavigationBar.js';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
 import { SwapFromPage } from '@/constants/enum.js';
-import { formatAddress } from '@/helpers/formatAddress.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { isSolanaChain } from '@/helpers/isSolanaChain.js';
 import { formatTokenAmount } from '@/helpers/swap/formatSwapAmount.js';

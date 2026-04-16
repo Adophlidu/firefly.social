@@ -1,4 +1,4 @@
-import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
+import { formatAddressEthereum, isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { type Ref, useCallback, useMemo } from 'react';
 
@@ -6,7 +6,6 @@ import { TipsModelRouter, TipsRoutePath } from '@/components/Tips/TipsModalRoute
 import { TIPS_SUPPORT_NETWORKS } from '@/constants/computed.js';
 import { NetworkType, Source } from '@/constants/enum.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
-import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { getEnsNameFromWalletProfile } from '@/helpers/getEnsNameFromWalletProfile.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { TipsModalRefType } from '@/modals/TipsModal/refs.js';

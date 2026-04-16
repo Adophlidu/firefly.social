@@ -1,3 +1,4 @@
+import { formatAddress } from '@dimensiondev/web3/utils';
 import { first } from 'lodash-es';
 import { memo, useCallback } from 'react';
 import type { Address } from 'viem';
@@ -12,7 +13,6 @@ import { EnsName } from '@/components/Profile/EnsName.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { WalletBaseMoreAction } from '@/components/WalletBaseMoreAction.js';
 import { Source, WalletProfileCategory } from '@/constants/enum.js';
-import { formatAddress } from '@/helpers/formatAddress.js';
 import { getEnsNameFromDisplayInfo } from '@/helpers/getEnsNameFromDisplayInfo.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getWalletProfileAvatar } from '@/helpers/getWalletProfileAvatar.js';

@@ -1,11 +1,10 @@
 import LinkOut from '@dimensiondev/assets/link.svg';
 import { classNames } from '@dimensiondev/utils';
-import { isValidAddressEthereum } from '@dimensiondev/web3/utils';
+import { formatAddress, isValidAddressEthereum } from '@dimensiondev/web3/utils';
 import { memo } from 'react';
 
 import { NetworkType, Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
-import { formatAddress } from '@/helpers/formatAddress.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { resolvePlatformProfileUrl } from '@/helpers/resolvePlatformProfile.js';
 import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';

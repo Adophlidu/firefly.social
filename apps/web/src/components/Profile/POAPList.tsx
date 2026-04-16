@@ -2,6 +2,7 @@
 
 import PoapIcon from '@dimensiondev/assets/poap.svg';
 import { classNames } from '@dimensiondev/utils';
+import { formatAddressEthereum } from '@dimensiondev/web3/utils';
 import type { GridItemProps, GridListProps } from 'react-virtuoso';
 import type { Hex } from 'viem';
 
@@ -12,7 +13,6 @@ import { NFTImage } from '@/components/NFTImage.js';
 import { BookmarkInIcon } from '@/components/NFTs/BookmarkButton.js';
 import { Source } from '@/constants/enum.js';
 import { POAP_CONTRACT_ADDRESS } from '@/constants/static.js';
-import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';

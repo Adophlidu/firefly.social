@@ -1,4 +1,5 @@
 import PoapIcon from '@dimensiondev/assets/poap.svg';
+import { formatAddressEthereum } from '@dimensiondev/web3/utils';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { Link } from '@tanstack/react-router';
 import type { GridItemProps, GridListProps } from 'react-virtuoso';
@@ -11,7 +12,6 @@ import { Image } from '@/components/Image.js';
 import { Source } from '@/constants/enum.js';
 import { EthereumChainId } from '@/constants/ethereum.js';
 import { POAP_CONTRACT_ADDRESS } from '@/constants/static.js';
-import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';

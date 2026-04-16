@@ -1,6 +1,7 @@
 'use client';
 
 import ExchangeIcon from '@dimensiondev/assets/exchange.svg';
+import { formatAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
 import { first, isUndefined } from 'lodash-es';
@@ -21,7 +22,6 @@ import { TokenIcon } from '@/components/TokenIcon.js';
 import { WalletBaseMoreAction } from '@/components/WalletBaseMoreAction.js';
 import { Source } from '@/constants/enum.js';
 import { useRouter } from '@/esm/navigation.js';
-import { formatAddress } from '@/helpers/formatAddress.js';
 import { formatTokenAmount } from '@/helpers/formatTokenAmount.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { getEnsNameFromDisplayInfo } from '@/helpers/getEnsNameFromDisplayInfo.js';

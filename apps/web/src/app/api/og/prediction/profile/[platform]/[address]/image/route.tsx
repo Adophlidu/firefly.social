@@ -2,7 +2,7 @@
 
 import type { NextRequestContext } from '@dimensiondev/types';
 import { compose } from '@dimensiondev/utils';
-import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
+import { formatAddress, isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import { first } from 'lodash-es';
 import { ImageResponse } from 'next/og.js';
 import type { NextRequest } from 'next/server.js';
@@ -14,7 +14,6 @@ import { PredictionPlatform, Source } from '@/constants/enum.js';
 import { CACHE_AGE_INDEFINITE_ON_DISK } from '@/constants/static.js';
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
 import { fetchImageAsBase64FromUrls } from '@/helpers/fetchAvatarAsBase64.js';
-import { formatAddress } from '@/helpers/formatAddress.js';
 import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
 import { getPublicUrl } from '@/helpers/getPublicUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';

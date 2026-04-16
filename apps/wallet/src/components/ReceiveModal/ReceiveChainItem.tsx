@@ -1,11 +1,11 @@
 import CheckIcon from '@dimensiondev/assets/check.svg';
 import CopyIcon from '@dimensiondev/assets/copy-2.svg';
 import QrCodeIcon from '@dimensiondev/assets/qrcode.svg';
+import { formatAddress } from '@dimensiondev/web3/utils';
 import type { HTMLProps, ReactNode } from 'react';
 
 import { ChainIcon } from '@/components/ChainIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { formatAddress } from '@/helpers/formatAddress.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
 import { cn } from '@/lib/utils.js';
 
