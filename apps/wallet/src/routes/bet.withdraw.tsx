@@ -31,12 +31,13 @@ import { useComeback } from '@/components/useComeback.js';
 import { SwapFromPage } from '@/constants/enum.js';
 import { formatTokenItemAmount } from '@/helpers/formatTokenItemAmount.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
+import { isSolanaChain } from '@/helpers/isSolanaChain.js';
 import { isGreaterThan, isLessThan } from '@/helpers/number.js';
 import { optimisticSubtractBalance } from '@/helpers/polymarketBalanceCache.js';
 import { waitForPolymarketWithdraw } from '@/helpers/waitForPolymarketWithdraw.js';
 import { usdcTokenFallback, useWithdrawToken } from '@/hooks/bet/useTokenDetail.js';
 import { useGoToSelectToken } from '@/hooks/swap/useGoToSelectToken.js';
-import { useEmbeddedEvmWalletContext } from '@/hooks/useCachedWalletAddresses.js';
+import { useEmbeddedWalletAddresses } from '@/hooks/useCachedWalletAddresses.js';
 import { useDecimalInput } from '@/hooks/useDecimalInput.js';
 import { cn } from '@/lib/utils.js';
 import { getPolymarketAccountQueryOptions } from '@/queries/firefly/getPolymarketAccountQueryOptions.js';
@@ -70,7 +71,7 @@ function WithdrawClient() {
     const comeback = useComeback('/bet');
     const queryClient = useQueryClient();
 
-    const { address, wallet, isLoading: isEmbeddedWalletLoading } = useEmbeddedEvmWalletContext();
+    const { evmAddress, solanaAddress, evmWallet, isLoading: isEmbeddedWalletLoading } = useEmbeddedWalletAddresses();
     const { setActiveWallet } = useSetActiveWallet();
     const inputRef = useRef<HTMLInputElement | null>(null);
     const [value, setValue] = useState('');
@@ -102,23 +103,25 @@ function WithdrawClient() {
     useEffect(() => {
         inputRef.current?.focus();
     }, []);
+
+    const receiverAddress = !targetToken ? null : isSolanaChain(targetToken.chainId) ? solanaAddress : evmAddress;
     const { mutate, isPending, isSuccess } = useMutation({
         async mutationFn() {
-            if (!wallet || !address) {
-                throw new Error('Embedded wallet not ready');
-            }
             if (!targetToken) {
                 throw new Error('No token selected');
+            }
+            if (!evmWallet || !evmAddress || !receiverAddress) {
+                throw new Error('Embedded wallet not ready');
             }
 
             toast.loading(<Trans>Withdrawing funds to your Firefly wallet...</Trans>, { id: toastId });
             store.set(showEmbeddedWalletUIAtom, false);
-            await setActiveWallet(wallet);
+            await setActiveWallet(evmWallet);
             const amount = parseUnits(value, usdcTokenFallback.decimals);
             const originalMessage = 'polymarket withdraw';
             const signature = await signMessage(config, {
                 message: originalMessage,
-                account: address as `0x${string}`,
+                account: evmAddress as `0x${string}`,
             });
             const { hash } = await getFireflyEndpoint().polymarketWithdraw(
                 amount.toString(),
@@ -132,26 +135,28 @@ function WithdrawClient() {
                 throw new Error('Failed to confirm withdraw status from Firefly');
             }
 
-            await getFireflyEndpoint().polymarketWithdrawUpload(account.proxyAddress, address, amount.toString(), hash);
+            await getFireflyEndpoint().polymarketWithdrawUpload(
+                account.proxyAddress,
+                receiverAddress,
+                amount.toString(),
+                hash,
+            );
         },
         async onSuccess() {
             store.set(showEmbeddedWalletUIAtom, true);
             optimisticSubtractBalance(queryClient, account.proxyAddress, value);
             const profileQuery = getPolymarketProfileListQueryOptions(account.proxyAddress, true);
-            const walletTokenQueryKey = address
-                ? (['multi-chain-token', address.toLowerCase(), polygon.id] as const)
-                : null;
 
-            await Promise.all([
+            await Promise.allSettled([
                 queryClient.refetchQueries({ queryKey: profileQuery.queryKey, exact: true, type: 'all' }),
                 queryClient.refetchQueries({
                     queryKey: getPolymarketUserValueQueryOptions(account.proxyAddress).queryKey,
                     exact: true,
                     type: 'all',
                 }),
-                walletTokenQueryKey
-                    ? queryClient.refetchQueries({ queryKey: walletTokenQueryKey, exact: true, type: 'all' })
-                    : Promise.resolve(),
+                queryClient.invalidateQueries({
+                    queryKey: ['multi-chain-token'],
+                }),
             ]);
             toast.dismiss(toastId);
             toast.success(<Trans>Your funds have been withdrawn to your Firefly wallet.</Trans>);
@@ -190,7 +195,7 @@ function WithdrawClient() {
         return <Trans>Withdraw</Trans>;
     }, [isLessThanMinimum]);
 
-    if (isEmbeddedWalletLoading || !address || !wallet) {
+    if (isEmbeddedWalletLoading || !evmAddress || !evmWallet || !receiverAddress) {
         return <LoadingPanel />;
     }
 
