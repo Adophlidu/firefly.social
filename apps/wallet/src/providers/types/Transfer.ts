@@ -53,5 +53,5 @@ export interface TransferProvider<ChainIdLike = number, AddressLike = string, Ha
         gas: BigNumber;
     }>;
     getAvailableBalance: (options: TransactionOptions<ChainIdLike, AddressLike>) => Promise<string>;
-    waitForTransaction: (hash: HashLike, chainId: number) => Promise<void>;
+    waitForTransaction: (hash: HashLike, chainId: ChainIdLike) => Promise<void>;
 }

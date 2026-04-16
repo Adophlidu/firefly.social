@@ -3,9 +3,8 @@ import urlcat from 'urlcat';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 import { settings } from '@/settings/index.js';
-import type { EthereumChainId } from '@/web3-shared/evm/types.js';
 
-export async function checkGasFreeStatus(chainId: EthereumChainId, wallet: string) {
+export async function checkGasFreeStatus(chainId: number, wallet: string) {
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/redpacket/checkGasFreeRedPacketClaimStatus', {
         wallet,
         chainId,

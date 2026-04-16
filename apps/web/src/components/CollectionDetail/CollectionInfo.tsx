@@ -3,6 +3,7 @@
 import LinkIcon from '@dimensiondev/assets/link-square.svg';
 import { formatAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
+import { mainnet } from 'viem/chains';
 
 import { CollectionMore } from '@/components/Actions/CollectionMore.js';
 import { ChainIcon } from '@/components/ChainIcon.js';
@@ -13,7 +14,6 @@ import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { resolveAddressLink } from '@/helpers/resolveExplorer.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 interface CollectionInfoProps {
     address: string;
@@ -24,13 +24,13 @@ interface CollectionInfoProps {
     bannerImageUrl?: string;
     logoUrl: string;
     name: string;
-    chainId?: EthereumChainId;
+    chainId?: number;
     externalUrl?: string;
 }
 
 export function CollectionInfo(props: CollectionInfoProps) {
     const {
-        chainId = EthereumChainId.Mainnet,
+        chainId = mainnet.id,
         address,
         name,
         bannerImageUrl,

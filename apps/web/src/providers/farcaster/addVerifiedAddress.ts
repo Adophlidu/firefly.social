@@ -1,6 +1,7 @@
 import { safeUnreachable } from '@dimensiondev/utils';
 import bs58 from 'bs58';
 import { toBytes } from 'viem';
+import { mainnet } from 'viem/chains';
 
 import { MessageType, Protocol } from '@/constants/farcaster.js';
 import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
@@ -11,7 +12,6 @@ import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { publishMessage } from '@/providers/firefly/farcaster-hub/publishMessage.js';
 import { encodeMessageData } from '@/providers/neynar/encodeMessageData.js';
 import type { FarcasterHubMessage } from '@/providers/types/Firefly.js';
-import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 function convertHexStringToBytes(hexString: string): Uint8Array {
     try {
@@ -36,7 +36,7 @@ enum AddressType {
 }
 
 async function checkEthereumAddressType(address: string): Promise<AddressType> {
-    const client = createWagmiPublicClient(EthereumChainId.Mainnet, 'default');
+    const client = createWagmiPublicClient(mainnet.id, 'default');
     const code = await client.getCode({
         address: address as `0x${string}`,
     });

@@ -3,7 +3,7 @@
 import { classNames } from '@dimensiondev/utils';
 import { omit } from 'lodash-es';
 import { type HTMLProps, memo, useMemo } from 'react';
-import { base, mainnet } from 'viem/chains';
+import { base, bsc, mainnet } from 'viem/chains';
 
 import { FilterPanel } from '@/components/FilterPanel.js';
 import { SourceNav } from '@/components/SourceNav/SourceNav.js';
@@ -21,12 +21,11 @@ import { resolveExploreSource } from '@/helpers/resolveSourceInUrl.js';
 import { resolveExploreSourceName } from '@/helpers/resolveSourceName.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useExploreTrendingFilterStore } from '@/store/useExploreTrendingFilterStore.js';
-import { EthereumChainId } from '@/web3-shared/evm/types.js';
 import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 const exploreTokenChainList = [
     {
-        id: EthereumChainId.Mainnet,
+        id: mainnet.id,
         networkType: NetworkType.Ethereum,
         name: mainnet.name,
     },
@@ -36,12 +35,12 @@ const exploreTokenChainList = [
         name: 'Solana',
     },
     {
-        id: EthereumChainId.BSC,
+        id: bsc.id,
         networkType: NetworkType.Ethereum,
         name: 'BSC',
     },
     {
-        id: EthereumChainId.Base,
+        id: base.id,
         networkType: NetworkType.Ethereum,
         name: base.name,
     },

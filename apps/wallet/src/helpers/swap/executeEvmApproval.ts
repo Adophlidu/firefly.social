@@ -4,7 +4,6 @@ import { type Address, erc20Abi, type Hex } from 'viem';
 import { readContract, sendTransaction } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmiClient.js';
-import type { EthereumChainId } from '@/constants/ethereum.js';
 import { tryFreeGasTransaction } from '@/helpers/freeGas/tryFreeGasTransaction.js';
 import { rightShift } from '@/helpers/number.js';
 import { estimateSwapGas } from '@/helpers/swap/estimateSwapGas.js';
@@ -17,7 +16,7 @@ interface ExecuteEvmApprovalParams {
     endpoint: SwapEndpoint;
     fromToken: SwapToken;
     fromAmount: string;
-    chainId: ChainId;
+    chainId: number;
     walletAddress: string;
     routerAddress: string;
     connector: (typeof config.connectors)[number];
@@ -78,7 +77,7 @@ export async function executeEvmApproval(params: ExecuteEvmApprovalParams): Prom
 
     // Check allowance on-chain
     const allowance = await readContract(config, {
-        chainId,
+        chainId: chainId as ChainId,
         address: fromToken.address as Address,
         abi: erc20Abi,
         functionName: 'allowance',
@@ -107,7 +106,7 @@ export async function executeEvmApproval(params: ExecuteEvmApprovalParams): Prom
 
     // Try free gas for approve (stablecoins only)
     const freeGasResult = await tryFreeGasTransaction({
-        chainId: chainId as EthereumChainId,
+        chainId,
         txType: FreeGasTxType.TokenApprove,
         from: walletAddress,
         to: approveTo,
@@ -120,7 +119,7 @@ export async function executeEvmApproval(params: ExecuteEvmApprovalParams): Prom
         approveHash = freeGasResult.hash as Hex;
     } else {
         approveHash = await sendTransaction(config, {
-            chainId,
+            chainId: chainId as ChainId,
             connector,
             account: walletAddress as Address,
             to: approveTo,

@@ -4,6 +4,7 @@ import LinkIcon from '@dimensiondev/assets/link-square.svg';
 import { formatAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
+import { mainnet } from 'viem/chains';
 
 import { Avatar } from '@/components/Avatar.js';
 import { Link } from '@/components/Link.js';
@@ -16,10 +17,9 @@ import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.j
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
 import { getCollectionHolders } from '@/providers/firefly/nft/getCollectionHolders.js';
 import type { CollectionHolder } from '@/providers/types/Firefly.js';
-import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 interface TopCollectorsProps {
-    chainId?: EthereumChainId;
+    chainId?: number;
     address: string;
 }
 
@@ -56,7 +56,7 @@ const TopCollectorsComponents = {
 function getTopCollectorsItemContent(index: number, item: CollectionHolder) {
     const addressOrEns = item.address;
     const profileLink =
-        BlockScanExplorerResolver.addressLink(EthereumChainId.Mainnet, item.address) ||
+        BlockScanExplorerResolver.addressLink(mainnet.id, item.address) ||
         getProfileUrl({ source: Source.Wallet, profileId: item.address });
 
     return (
@@ -93,7 +93,7 @@ function getTopCollectorsItemContent(index: number, item: CollectionHolder) {
 }
 
 export function TopCollectors(props: TopCollectorsProps) {
-    const { address, chainId = EthereumChainId.Mainnet } = props;
+    const { address, chainId = mainnet.id } = props;
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['top-collectors', chainId, address.toLowerCase()],
         async queryFn() {

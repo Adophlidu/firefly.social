@@ -3,7 +3,6 @@ import urlcat from 'urlcat';
 import type { FreeGasTxType } from '@/providers/firefly/freeGas/tryFreeGasTransaction.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { settings } from '@/settings/index.js';
-import type { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 interface FireflyResponse<T> {
     code: number;
@@ -12,7 +11,7 @@ interface FireflyResponse<T> {
 }
 
 interface CheckFreeGasEligibilityParams {
-    chainId: EthereumChainId;
+    chainId: number;
     txType: FreeGasTxType;
     to: string;
 }

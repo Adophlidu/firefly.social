@@ -1,4 +1,5 @@
 import { type Draft, produce } from 'immer';
+import { gnosis } from 'viem/chains';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { FireflyPlatform, Source } from '@/constants/enum.js';
@@ -10,7 +11,6 @@ import type { FireflyBookmark } from '@/providers/firefly/Bookmark.js';
 import type { EVM } from '@/providers/nftscan/types.js';
 import type { FollowingNFT, NFTFeedV3, Poap } from '@/providers/types/NFTs.js';
 import type { ClassType } from '@/types/utility.js';
-import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 const METHODS_BE_OVERRIDDEN = ['bookmarkNFT', 'unbookmarkNFT'] as const;
 
@@ -63,7 +63,7 @@ function toggleBookmark(id: string, status: boolean) {
     });
     queryClient.setQueriesData<PageData<EVM.Asset>>({ queryKey: ['nft-list'] }, patcher);
     const poapPatcher = createUpdater<Poap>((item) => {
-        if (resolveNFTId(EthereumChainId.xDai, POAP_CONTRACT_ADDRESS, item.tokenId) === id) {
+        if (resolveNFTId(gnosis.id, POAP_CONTRACT_ADDRESS, item.tokenId) === id) {
             item.hasBookmarked = status;
         }
     });

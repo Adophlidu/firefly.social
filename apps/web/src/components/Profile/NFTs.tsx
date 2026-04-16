@@ -12,10 +12,9 @@ import { POAPList } from '@/components/Profile/POAPList.js';
 import { useWalletMixAddresses } from '@/components/Profile/useWalletMixAddresses.js';
 import { POAP_CONTRACT_ADDRESS } from '@/constants/static.js';
 import type { EVM } from '@/providers/nftscan/types.js';
-import type { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 interface SelectedCollection {
-    chainId: EthereumChainId;
+    chainId: number;
     collectionId: string;
     collection: EVM.CollectionBasics;
 }

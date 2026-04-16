@@ -56,9 +56,9 @@ function SwapPage() {
             search.externalSolana;
 
         if (hasParams) {
-            const fromChainId = search.chain ? parseInt(search.chain, 10) : NaN;
+            const fromChainId = search.chain ? Number.parseInt(search.chain, 10) : NaN;
             const toChainRaw = search.toChain || search.chain;
-            const toChainId = toChainRaw ? parseInt(toChainRaw, 10) : NaN;
+            const toChainId = toChainRaw ? Number.parseInt(toChainRaw, 10) : NaN;
 
             // Use combined setter atoms for conflict resolution
             if (search.from && !isNaN(fromChainId)) {

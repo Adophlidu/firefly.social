@@ -20,11 +20,10 @@ import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { type EVM as NFTScanEVM, TransEventType } from '@/providers/nftscan/types.js';
 import type { NFTFeedV3 } from '@/providers/types/NFTs.js';
-import type { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 interface Props {
     feed: NFTFeedV3;
-    chainId: EthereumChainId;
+    chainId: number;
     tokenId: string;
     tokenCount?: number;
 }
@@ -33,7 +32,7 @@ const tagClassName = 'flex items-center space-x-1 rounded-lg bg-bg px-2 h-6 lead
 
 interface CollectionNameProps {
     asset: NFTScanEVM.Asset | null;
-    chainId: EthereumChainId;
+    chainId: number;
     address: string;
 }
 

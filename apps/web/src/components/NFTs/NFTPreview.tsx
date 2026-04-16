@@ -11,6 +11,7 @@ import { Trans } from '@lingui/react/macro';
 import { compact } from 'lodash-es';
 import { Fragment, memo, type ReactNode } from 'react';
 import { zeroAddress } from 'viem';
+import { mainnet } from 'viem/chains';
 
 import { ChainIcon } from '@/components/ChainIcon.js';
 import { Image } from '@/components/Image.js';
@@ -30,7 +31,6 @@ import { useNFTDetail } from '@/hooks/useNFTDetail.js';
 import { usePoapTraits } from '@/hooks/usePoapTraits.js';
 import type { EVM } from '@/providers/nftscan/types.js';
 import type { NFTDetail } from '@/providers/types/Firefly.js';
-import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 interface NFTPreviewProps {
     nft: NFTDetail;
@@ -61,7 +61,7 @@ interface BasePreviewContentProps {
 function BasePreviewContent(props: BasePreviewContentProps) {
     const { collection, showTradeInfo, tokenId } = props;
     const floorPrice = collection?.floor_price;
-    const chainId = collection?.chain_id ? +collection.chain_id : EthereumChainId.Mainnet;
+    const chainId = collection?.chain_id ? +collection.chain_id : mainnet.id;
     const { data: marketInfo } = useCollectionMarketInfo(chainId, collection?.contract_address);
     const { data: nft } = useNFTDetail(chainId, collection?.contract_address, tokenId);
     const footer = (

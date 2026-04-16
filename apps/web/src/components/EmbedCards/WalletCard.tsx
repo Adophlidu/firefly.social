@@ -6,6 +6,7 @@ import { formatAddress, isSameAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { memo, useMemo } from 'react';
+import { mainnet } from 'viem/chains';
 
 import { Avatar } from '@/components/Avatar.js';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
@@ -30,7 +31,6 @@ import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver
 import { getAddressSecurity } from '@/providers/goplus/getAddressSecurity.js';
 import type { FireflyProfile, WalletProfile } from '@/providers/types/Firefly.js';
 import { SolanaExplorerResolver } from '@/web3-providers/solana/ResolverAPI.js';
-import { EthereumChainId } from '@/web3-shared/evm/types.js';
 import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 function resolveProfileUrlBySource(source: ProfilePageSource, profiles: FireflyProfile[]) {
@@ -60,7 +60,7 @@ export const WalletCard = memo<AddressCardProps>(function WalletCard({ address, 
 
         switch (networkType) {
             case NetworkType.Ethereum:
-                return BlockScanExplorerResolver.addressLink(EthereumChainId.Mainnet, address);
+                return BlockScanExplorerResolver.addressLink(mainnet.id, address);
             case NetworkType.Solana:
                 return SolanaExplorerResolver.addressLink(SolanaChainId.Mainnet, address);
             default:

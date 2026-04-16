@@ -1,5 +1,6 @@
 import { isNativeTokenOrSameAddress } from '@dimensiondev/web3/utils';
 import { atom } from 'jotai';
+import { mainnet } from 'viem/chains';
 
 import { DEFAULT_SWAP_TOKENS, getDefaultSwapToken } from '@/providers/swap/defaultTokens.js';
 
@@ -28,7 +29,7 @@ export const resetSwapWalletContext = atom(null, (_, set) => {
     set(selectedReceiveWalletAtom, null);
 });
 
-const defaultPair = DEFAULT_SWAP_TOKENS.find((t) => t.chainId === 1)!;
+const defaultPair = DEFAULT_SWAP_TOKENS.find((t) => t.chainId === mainnet.id)!;
 
 // Trading pair state (address + chain are the source of truth; tokens are derived via useResolvedSwapTokens)
 export const fromAddressAtom = atom<string | null>(defaultPair.first.contractAddress);
@@ -36,13 +37,13 @@ export const toAddressAtom = atom<string | null>(defaultPair.second.contractAddr
 export const fromAmountAtom = atom<string>('');
 
 // Chain selection (default to Ethereum mainnet)
-export const fromChainIdAtom = atom<number | null>(1);
-export const toChainIdAtom = atom<number | null>(1);
+export const fromChainIdAtom = atom<number | null>(mainnet.id);
+export const toChainIdAtom = atom<number | null>(mainnet.id);
 
 // Derived atom for cross-chain detection
 export const isCrossChainAtom = atom((get) => {
-    const from = get(fromChainIdAtom) || 1;
-    const to = get(toChainIdAtom) || 1;
+    const from = get(fromChainIdAtom) || mainnet.id;
+    const to = get(toChainIdAtom) || mainnet.id;
     return from !== to;
 });
 
@@ -56,7 +57,7 @@ export const swapTokensAtom = atom(null, (get, set) => {
     const toChain = get(toChainIdAtom);
 
     // Resolve chains using the same logic as useResolvedSwapTokens
-    const resolvedFromChain = fromChain ?? 1;
+    const resolvedFromChain = fromChain ?? mainnet.id;
     const resolvedToChain = toChain ?? resolvedFromChain;
 
     // Resolve addresses using defaults (same as useResolvedSwapTokens)

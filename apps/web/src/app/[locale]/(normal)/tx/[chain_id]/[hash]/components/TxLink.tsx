@@ -55,7 +55,12 @@ function getAddressLink(chainId: number, address: string) {
     return resolveExplorerLink(chainId, address, 'address');
 }
 
-export function AddressLink({ chainId, address }: { chainId: number; address: string }) {
+interface AddressLinkProps {
+    chainId: number;
+    address: string;
+}
+
+export function AddressLink({ chainId, address }: AddressLinkProps) {
     const addressLink = useMemo(() => runInSafe(() => getAddressLink(chainId, address)), [chainId, address]);
 
     if (addressLink) {

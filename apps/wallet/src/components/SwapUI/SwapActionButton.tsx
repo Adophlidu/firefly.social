@@ -55,9 +55,9 @@ export const SwapActionButton = memo(function SwapActionButton({
         if (!quote || !('gasEstimate' in quote) || !quote.gasEstimate || !fromToken) return false;
         // For native tokens (ETH, SOL, etc.), check if balance minus swap amount covers gas
         if (isNativeTokenAddress(fromToken.address)) {
-            const balanceNum = parseFloat(fromBalance || '0');
-            const amountNum = parseFloat(fromAmount || '0');
-            const gasEstimate = parseFloat(quote.gasEstimate);
+            const balanceNum = Number.parseFloat(fromBalance || '0');
+            const amountNum = Number.parseFloat(fromAmount || '0');
+            const gasEstimate = Number.parseFloat(quote.gasEstimate);
             // Rough estimate: if remaining balance after swap < 10x gas estimate, likely insufficient
             return balanceNum - amountNum < gasEstimate * 0.001;
         }
@@ -81,7 +81,7 @@ export const SwapActionButton = memo(function SwapActionButton({
             };
         }
 
-        if (!fromAmount || parseFloat(fromAmount) === 0) {
+        if (!fromAmount || Number.parseFloat(fromAmount) === 0) {
             return {
                 label: actionLabel,
                 disabled: true,

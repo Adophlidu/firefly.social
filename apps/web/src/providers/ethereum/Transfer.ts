@@ -11,10 +11,9 @@ import { getDefaultGas } from '@/providers/ethereum/getDefaultGas.js';
 import { isNativeTokenDebank } from '@/providers/ethereum/isNativeTokenDebank.js';
 import { EthereumNetwork } from '@/providers/ethereum/Network.js';
 import type { Token, TransactionOptions, TransferProvider } from '@/providers/types/Transfer.js';
-import type { EthereumChainId } from '@/web3-shared/evm/types.js';
 
-class Provider implements TransferProvider<EthereumChainId, Address, Hash> {
-    async transfer(options: TransactionOptions<EthereumChainId, Address>): Promise<Address> {
+class Provider implements TransferProvider<number, Address, Hash> {
+    async transfer(options: TransactionOptions<number, Address>): Promise<Address> {
         const { token } = options;
         const currentChainId = EthereumNetwork.getChainId();
         if (!currentChainId || token.chainId !== currentChainId) {
@@ -31,12 +30,12 @@ class Provider implements TransferProvider<EthereumChainId, Address, Hash> {
         return isNativeTokenDebank(token);
     }
 
-    async validateBalance(options: TransactionOptions<EthereumChainId, Address>): Promise<boolean> {
+    async validateBalance(options: TransactionOptions<number, Address>): Promise<boolean> {
         const balance = await getAvailableBalance(options);
         return !isGreaterThan(rightShift(options.amount, options.token.decimals), balance);
     }
 
-    async validateGas(options: TransactionOptions<EthereumChainId, Address>) {
+    async validateGas(options: TransactionOptions<number, Address>) {
         const { token } = options;
         const account = await EthereumNetwork.getAccount();
         const nativeBalance = await getBalance(wagmiConfig, {
@@ -51,13 +50,13 @@ class Provider implements TransferProvider<EthereumChainId, Address, Hash> {
         };
     }
 
-    async getAvailableBalance(options: TransactionOptions<EthereumChainId, Address>): Promise<string> {
+    async getAvailableBalance(options: TransactionOptions<number, Address>): Promise<string> {
         const { token } = options;
         const balance = await getAvailableBalance(options);
         return leftShift(balance, token.decimals).toString();
     }
 
-    private async transferNative(options: TransactionOptions<EthereumChainId, Address>): Promise<Address> {
+    private async transferNative(options: TransactionOptions<number, Address>): Promise<Address> {
         const { isEIP1559, gasPrice, maxFeePerGas } = await getDefaultGas(options);
         const gas = multipliedBy((this.isNativeToken(options.token) ? 21000n : 50000n).toString(), '1.1').toFixed(0);
 
@@ -83,7 +82,7 @@ class Provider implements TransferProvider<EthereumChainId, Address, Hash> {
         });
     }
 
-    private async transferContract(options: TransactionOptions<EthereumChainId, Address>): Promise<Address> {
+    private async transferContract(options: TransactionOptions<number, Address>): Promise<Address> {
         const { isEIP1559, gasPrice, maxFeePerGas, maxPriorityFeePerGas } = await getDefaultGas(options);
         const gas = multipliedBy((this.isNativeToken(options.token) ? 21000n : 50000n).toString(), '3').toFixed(0);
 

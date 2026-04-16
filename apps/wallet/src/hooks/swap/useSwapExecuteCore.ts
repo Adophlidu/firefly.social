@@ -15,7 +15,6 @@ import type { Address, Hex } from 'viem';
 import { sendTransaction } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmiClient.js';
-import type { EthereumChainId } from '@/constants/ethereum.js';
 import { tryFreeGasTransaction } from '@/helpers/freeGas/tryFreeGasTransaction.js';
 import { getUserFacingErrorMessage } from '@/helpers/getErrorMessage.js';
 import { getSolanaRPCUrl } from '@/helpers/getSolanaRPCUrl.js';
@@ -48,7 +47,7 @@ interface ExecuteEvmSwapParams {
     evmSigningWallet: ConnectedWallet;
     fromToken: { address: string; decimals: number };
     fromAmount: string;
-    chainId: ChainId;
+    chainId: number;
     walletAddress: string;
     isCrossChain: boolean;
     toastId: string;
@@ -148,7 +147,7 @@ async function executeEvmSwap({
     // Try free-gas if available
     if (freeGasTxType) {
         const freeGasResult = await tryFreeGasTransaction({
-            chainId: chainId as EthereumChainId,
+            chainId,
             txType: freeGasTxType,
             from: walletAddress,
             to: quoteResult.tx.to as Address,
@@ -163,7 +162,7 @@ async function executeEvmSwap({
 
     if (!hash) {
         hash = await sendTransaction(config, {
-            chainId,
+            chainId: chainId as ChainId,
             connector,
             account: walletAddress as Address,
             to: quoteResult.tx.to as Address,
@@ -374,7 +373,7 @@ export function useSwapExecuteCore({
                     evmSigningWallet,
                     fromToken,
                     fromAmount,
-                    chainId: fromChainId as ChainId,
+                    chainId: fromChainId,
                     walletAddress: walletAddress!,
                     isCrossChain,
                     toastId,

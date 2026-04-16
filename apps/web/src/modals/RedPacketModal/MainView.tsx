@@ -40,7 +40,7 @@ import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketCo
 import { checkFreeGasEligibility } from '@/providers/firefly/freeGas/checkFreeGasEligibility.js';
 import { FreeGasTxType, tryFreeGasTransaction } from '@/providers/firefly/freeGas/tryFreeGasTransaction.js';
 import type { FungibleToken } from '@/web3-shared/base/specs.js';
-import type { EthereumChainId, EthereumSchemaType } from '@/web3-shared/evm/types.js';
+import type { EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
 export default function MainView() {
     const { history } = useRouter();
@@ -78,10 +78,7 @@ export default function MainView() {
         message: message || t`Hope this sparks a smile.`,
         shares: shares || 0,
         token: token
-            ? (omit(token, ['logoURI']) as FungibleToken<
-                  EthereumChainId,
-                  EthereumSchemaType.ERC20 | EthereumSchemaType.Native
-              >)
+            ? (omit(token, ['logoURI']) as FungibleToken<number, EthereumSchemaType.ERC20 | EthereumSchemaType.Native>)
             : undefined,
         total: rightShift(0.0001, token.decimals).toFixed(),
     });
@@ -100,7 +97,7 @@ export default function MainView() {
     const isEVM = networkType === NetworkType.Ethereum;
 
     const onTokenChange = useCallback(
-        (token: FungibleToken<EthereumChainId, EthereumSchemaType>) => {
+        (token: FungibleToken<number, EthereumSchemaType>) => {
             setToken(token);
             setRawAmount('');
         },

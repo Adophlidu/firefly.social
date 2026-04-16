@@ -3,22 +3,22 @@ import { SOL_NATIVE_TOKEN_ADDRESS } from '@dimensiondev/web3/utils';
 import { uniq } from 'lodash-es';
 import { useMemo } from 'react';
 import { zeroAddress } from 'viem';
+import { arbitrum, avalanche, bsc, fantom, mainnet, polygon, scroll } from 'viem/chains';
 
 import { useOkxSupportedChains } from '@/components/TokenProfile/useOkxSupportedChains.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
 import type { CoinGeckoToken } from '@/providers/types/CoinGecko.js';
-import { EthereumChainId } from '@/web3-shared/evm/types.js';
 import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 function getChainIdByCoinId(coinId: string) {
     const CoinIdToChainId: Record<string, number> = {
-        ethereum: EthereumChainId.Mainnet,
-        'polygon-ecosystem-token': EthereumChainId.Polygon,
-        binancecoin: EthereumChainId.BSC,
-        fantom: EthereumChainId.Fantom,
-        arbitrum: EthereumChainId.Arbitrum,
-        scroll: EthereumChainId.Scroll,
-        'avalanche-2': EthereumChainId.Avalanche,
+        ethereum: mainnet.id,
+        'polygon-ecosystem-token': polygon.id,
+        binancecoin: bsc.id,
+        fantom: fantom.id,
+        arbitrum: arbitrum.id,
+        scroll: scroll.id,
+        'avalanche-2': avalanche.id,
         solana: SolanaChainId.Mainnet,
     };
     return CoinIdToChainId[coinId];

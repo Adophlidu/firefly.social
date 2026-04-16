@@ -1,8 +1,8 @@
 import { pad, parseUnits } from 'viem';
+import { optimism } from 'viem/chains';
 import { readContract } from 'wagmi/actions';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
-import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 const ABI = [
     {
@@ -49,7 +49,7 @@ export async function keyDataOf(fid: number, address: `0x${string}`) {
         address: '0x00000000fc1237824fb747abde0ff18990e59b7e',
         functionName: 'keyDataOf',
         args: [parseUnits(`${fid}`, 0), pad(address, { size: 32 })],
-        chainId: EthereumChainId.Optimism,
+        chainId: optimism.id,
     });
 
     // result may already be an object with properties, depending on ethers.js version

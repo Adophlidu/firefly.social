@@ -1,8 +1,8 @@
 import { unreachable } from '@dimensiondev/utils';
+import { mainnet } from 'viem/chains';
 import { useAccount, useChainId } from 'wagmi';
 
 import { NetworkType } from '@/constants/enum.js';
-import { EthereumChainId } from '@/constants/ethereum.js';
 import { SolanaChainId } from '@/constants/solana.js';
 
 export interface ChainContextOverrides {
@@ -21,7 +21,7 @@ export function useChainContext(overrides?: ChainContextOverrides) {
         case NetworkType.Ethereum:
             return {
                 account: overrides?.account ?? account.address ?? '',
-                chainId: overrides?.chainId ?? chainId ?? EthereumChainId.Mainnet,
+                chainId: overrides?.chainId ?? chainId ?? mainnet.id,
             };
         case NetworkType.Solana:
             return {

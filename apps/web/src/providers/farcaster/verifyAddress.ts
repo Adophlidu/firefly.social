@@ -1,3 +1,5 @@
+import { mainnet } from 'viem/chains';
+
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { ClickOrigin, Source } from '@/constants/enum.js';
 import { Protocol } from '@/constants/farcaster.js';
@@ -11,7 +13,6 @@ import {
 import { getEthereumBlockHash, getSolanaBlockHash } from '@/providers/farcaster/getBlockHash.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { getWalletAdaptorRequired } from '@/providers/solana/getWalletAdapter.js';
-import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 /**
  * Verify an Ethereum address for Farcaster
@@ -30,7 +31,7 @@ export async function verifyEthereumAddress(fid: string, account?: `0x${string}`
         fid,
         address,
         blockHash,
-        network: EthereumChainId.Mainnet,
+        network: mainnet.id,
     });
     const signature = await walletClient.signTypedData({
         domain: typedData.domain,

@@ -49,13 +49,13 @@ export const SwapReview = memo(function SwapReview({
 
     const slippagePercent = getSlippagePercent(slippage);
 
-    const fromUsdValue = fromToken && fromAmount ? (fromToken.price ?? 0) * parseFloat(fromAmount) : 0;
+    const fromUsdValue = fromToken && fromAmount ? (fromToken.price ?? 0) * Number.parseFloat(fromAmount) : 0;
 
-    const toUsdValue = toToken && toAmount ? (toToken.price ?? 0) * parseFloat(toAmount) : 0;
+    const toUsdValue = toToken && toAmount ? (toToken.price ?? 0) * Number.parseFloat(toAmount) : 0;
 
     const rate =
-        fromToken && toToken && fromAmount && toAmount && parseFloat(fromAmount) > 0
-            ? parseFloat(toAmount) / parseFloat(fromAmount)
+        fromToken && toToken && fromAmount && toAmount && Number.parseFloat(fromAmount) > 0
+            ? Number.parseFloat(toAmount) / Number.parseFloat(fromAmount)
             : 0;
 
     const gasUsd = quote && 'gasUsd' in quote ? quote.gasUsd : undefined;

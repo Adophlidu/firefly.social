@@ -7,9 +7,8 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { GridListInPage } from '@/components/GridListInPage.js';
 import { getNFTItemContent, POAPGridListComponent } from '@/components/Profile/POAPList.js';
 import { getUserCollectionNFTs } from '@/providers/firefly/nft/getUserCollectionNFTs.js';
-import type { EthereumChainId } from '@/web3-shared/evm/types.js';
 
-export function NFTListByContract(props: { contract: string; owner: string; chainId: EthereumChainId }) {
+export function NFTListByContract(props: { contract: string; owner: string; chainId: number }) {
     const { contract, owner, chainId } = props;
     const queryResult = useSuspenseInfiniteQuery({
         initialPageParam: '',

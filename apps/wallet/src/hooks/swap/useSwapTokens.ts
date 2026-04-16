@@ -44,7 +44,7 @@ function recentTokenToSwapToken(token: RecentToken): SwapToken {
         decimals: token.decimal,
         chainId: token.chain_id,
         logoURI: token.logo,
-        price: token.price ? parseFloat(token.price) : undefined,
+        price: token.price ? Number.parseFloat(token.price) : undefined,
     });
 }
 
@@ -180,7 +180,8 @@ export function useSwapTokens(options: UseSwapTokensOptions = {}): SwapTokensRes
                 userBalanceMap.set(key, token.balance);
             }
             const usdValue =
-                token.usdValue ?? (token.balance && token.price ? parseFloat(token.balance) * token.price : undefined);
+                token.usdValue ??
+                (token.balance && token.price ? Number.parseFloat(token.balance) * token.price : undefined);
             if (usdValue !== undefined) {
                 userUsdValueMap.set(key, usdValue);
             }
@@ -189,9 +190,10 @@ export function useSwapTokens(options: UseSwapTokensOptions = {}): SwapTokensRes
         // My tokens: directly from user balance API
         const myTokens = orderBy(
             (userTokensData ?? [])
-                .filter((t) => t.balance && parseFloat(t.balance) > 0)
+                .filter((t) => t.balance && Number.parseFloat(t.balance) > 0)
                 .map((t) => {
-                    const usdValue = t.usdValue ?? (t.balance && t.price ? parseFloat(t.balance) * t.price : undefined);
+                    const usdValue =
+                        t.usdValue ?? (t.balance && t.price ? Number.parseFloat(t.balance) * t.price : undefined);
                     return { ...t, usdValue };
                 }),
             [(t) => t.usdValue ?? 0],

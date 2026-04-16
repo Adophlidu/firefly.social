@@ -28,11 +28,11 @@ import { useComposeStateStore } from '@/store/useComposeStore.js';
 import type { RedPacketCreationSuccessEventArgs, RedPacketMetadata } from '@/types/rp.js';
 import { EVMChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
 import type { FungibleToken } from '@/web3-shared/base/specs.js';
-import { type EthereumChainId, EthereumSchemaType } from '@/web3-shared/evm/types.js';
+import { EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
 function treeShakePayloadInfo(payload: RedPacketJSONPayload): RedPacketMetadata {
     const token = pick(payload.token, ['decimals', 'symbol', 'address', 'chainId']) as FungibleToken<
-        EthereumChainId,
+        number,
         EthereumSchemaType.Native | EthereumSchemaType.ERC20
     >;
     return { ...omit(payload, ['block_number']), token } as RedPacketMetadata;
@@ -54,7 +54,7 @@ export function useEthereumCreateRedPacketCallback(
             shares: shares || 0,
             token: token
                 ? (omit(token, ['logoURI']) as FungibleToken<
-                      EthereumChainId,
+                      number,
                       EthereumSchemaType.ERC20 | EthereumSchemaType.Native
                   >)
                 : undefined,

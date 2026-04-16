@@ -9,7 +9,7 @@ import type { CollectionResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 export async function getCollection(chainId: number, contractAddress: string) {
-    if (!NFTSCAN_CHAIN_IDS.includes(chainId)) return null;
+    if (!NFTSCAN_CHAIN_IDS.some((id) => id === chainId)) return null;
 
     try {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/nft/collection', {

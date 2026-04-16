@@ -4,8 +4,6 @@ import { chains } from '@dimensiondev/web3/chains';
 import { type Chain, createPublicClient as createClient, http, type PublicClient } from 'viem';
 import { mainnet, optimism, polygon } from 'viem/chains';
 
-import type { EthereumChainId } from '@/web3-shared/evm/types.js';
-
 const resolvePublicProviderUrl = createLookupTableResolver<number, string | undefined>(
     {
         [mainnet.id]: envs.external.NEXT_PUBLIC_MAINNET_RPC_URL,
@@ -17,10 +15,7 @@ const resolvePublicProviderUrl = createLookupTableResolver<number, string | unde
 
 const map = new Map<string, PublicClient>();
 
-export function createWagmiPublicClient(
-    chainId: EthereumChainId,
-    providerType: 'public' | 'default' = 'public',
-): PublicClient {
+export function createWagmiPublicClient(chainId: number, providerType: 'public' | 'default' = 'public'): PublicClient {
     const cacheKey = providerType === 'default' ? `default-rpc-${chainId}` : `public-rpc-${chainId}`;
 
     const client = map.get(cacheKey);

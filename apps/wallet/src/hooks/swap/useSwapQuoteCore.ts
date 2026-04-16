@@ -42,7 +42,7 @@ export function useSwapQuoteCore({
         !!fromToken &&
         !!toToken &&
         !!debouncedAmount &&
-        parseFloat(debouncedAmount) > 0 &&
+        Number.parseFloat(debouncedAmount) > 0 &&
         !!walletAddress &&
         fromChainId !== null;
 
@@ -132,7 +132,7 @@ export function useSwapQuoteCore({
     // Handles the case where queries are disabled during debounce period
     const isPending = useMemo(() => {
         // Not pending if no amount entered
-        if (!fromAmount || parseFloat(fromAmount) === 0) return false;
+        if (!fromAmount || Number.parseFloat(fromAmount) === 0) return false;
         // Pending while debouncing (amount changed but not yet propagated)
         // OR when the active query is loading
         return fromAmount !== debouncedAmount || isLoading;
@@ -140,8 +140,8 @@ export function useSwapQuoteCore({
 
     // Extract quote details
     const rate = useMemo(() => {
-        if (!quote || !fromAmount || parseFloat(fromAmount) === 0) return null;
-        return parseFloat(quote.toAmount) / parseFloat(fromAmount);
+        if (!quote || !fromAmount || Number.parseFloat(fromAmount) === 0) return null;
+        return Number.parseFloat(quote.toAmount) / Number.parseFloat(fromAmount);
     }, [quote, fromAmount]);
 
     const minReceived = quote?.minReceived ?? null;

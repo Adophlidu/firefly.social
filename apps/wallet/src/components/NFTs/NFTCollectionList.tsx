@@ -4,13 +4,13 @@ import { isValidAddressEthereum } from '@dimensiondev/web3/utils';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { uniqBy } from 'lodash-es';
 import { useMemo } from 'react';
+import { gnosis, mainnet } from 'viem/chains';
 
 import { ChainIcon } from '@/components/ChainIcon.js';
 import { GridListInPage } from '@/components/GridListInPage.js';
 import { Image } from '@/components/Image.js';
 import { POAPGridListComponent } from '@/components/NFTs/POAPList.js';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
-import { EthereumChainId } from '@/constants/ethereum.js';
 import { POAP_CONTRACT_ADDRESS } from '@/constants/static.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { NFTSCAN_CHAIN_IDS } from '@/providers/nftscan/constants.js';
@@ -20,7 +20,7 @@ import { getFireflyEndpoint } from '@/store/fireflyEndpoint.js';
 
 interface NFTCollectionItemProps {
     collection: EVM.CollectionBasics;
-    onClick?: (chainId: EthereumChainId, collectionId: string, collection: EVM.CollectionBasics) => void;
+    onClick?: (chainId: number, collectionId: string, collection: EVM.CollectionBasics) => void;
 }
 
 function NFTCollectionItem({ collection, onClick }: NFTCollectionItemProps) {
@@ -31,7 +31,7 @@ function NFTCollectionItem({ collection, onClick }: NFTCollectionItemProps) {
         <div
             className="bg-lightBg relative flex cursor-pointer flex-col rounded-lg"
             onClick={() => {
-                onClick?.(chainId ?? EthereumChainId.Mainnet, collection.contract_address, collection);
+                onClick?.(chainId ?? mainnet.id, collection.contract_address, collection);
             }}
         >
             {chainId ? (
@@ -114,7 +114,7 @@ export function NFTCollectionList({ addresses, address, onClickCollection }: NFT
                 {
                     contract_address: POAP_CONTRACT_ADDRESS,
                     name: 'POAP',
-                    chain_id: EthereumChainId.xDai,
+                    chain_id: gnosis.id,
                     assets_total: poaps.length,
                     logo_url: '/image/poap-logo.svg',
                     large_image_url: '/image/poap-logo.svg',

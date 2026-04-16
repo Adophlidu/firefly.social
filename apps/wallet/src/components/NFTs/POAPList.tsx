@@ -4,13 +4,13 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { Link } from '@tanstack/react-router';
 import type { GridItemProps, GridListProps } from 'react-virtuoso';
 import type { Hex } from 'viem';
+import { gnosis, mainnet } from 'viem/chains';
 import { useEnsName } from 'wagmi';
 
 import { ChainIcon } from '@/components/ChainIcon.js';
 import { GridListInPage } from '@/components/GridListInPage.js';
 import { Image } from '@/components/Image.js';
 import { Source } from '@/constants/enum.js';
-import { EthereumChainId } from '@/constants/ethereum.js';
 import { POAP_CONTRACT_ADDRESS } from '@/constants/static.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
@@ -35,7 +35,7 @@ function GridItem({ children, ...props }: GridItemProps) {
 function Owner({ address }: { address: Hex }) {
     const { data: ensName } = useEnsName({
         address,
-        chainId: EthereumChainId.Mainnet,
+        chainId: mainnet.id,
     });
     return (
         <Link
@@ -108,7 +108,7 @@ function PoapItemContent({
     isShowChainIcon?: boolean;
     ownerCount?: number;
 }) {
-    const nftUrl = resolveNFTUrl(EthereumChainId.xDai, POAP_CONTRACT_ADDRESS, item.tokenId || '0');
+    const nftUrl = resolveNFTUrl(gnosis.id, POAP_CONTRACT_ADDRESS, item.tokenId || '0');
 
     return (
         <div className="relative">
@@ -119,7 +119,7 @@ function PoapItemContent({
             >
                 <div className="relative aspect-square h-auto w-full overflow-hidden">
                     {props.isShowChainIcon ? (
-                        <ChainIcon chainId={EthereumChainId.xDai} size={20} className="absolute left-2 top-2 size-4" />
+                        <ChainIcon chainId={gnosis.id} size={20} className="absolute left-2 top-2 size-4" />
                     ) : null}
                     {props.isPoap ? <PoapIcon className="absolute left-2 top-2 size-6" /> : null}
                     {props.isShowOwner && item.owner ? <Owner address={item.owner as Hex} /> : null}

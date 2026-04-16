@@ -15,13 +15,12 @@ import { resolveWagmiChain } from '@/helpers/resolveWagmiChain.js';
 import { getFungibleTokenPrice } from '@/providers/coingecko/getFungibleTokenPrice.js';
 import type { Token as TipsToken } from '@/providers/types/Transfer.js';
 import { CustomTokenType, useCustomTokenStore } from '@/store/useCustomTokenStore.js';
-import type { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 export interface Token extends TipsToken {
     custom?: boolean;
 }
 
-export function useCustomFungibleTokens(chainId?: EthereumChainId) {
+export function useCustomFungibleTokens(chainId?: number) {
     const tokens = useCustomTokenStore(
         useShallow((state) =>
             Object.values(state.tokens)

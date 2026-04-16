@@ -54,13 +54,13 @@ function filterAndSortPolymarketMarkets(detail: PolymarketEvent) {
                 const bPrices = parseJson<string[]>(b.outcomePrices);
                 const aPrice = first(aPrices) || '0';
                 const bPrice = first(bPrices) || '0';
-                return parseFloat(bPrice) - parseFloat(aPrice);
+                return Number.parseFloat(bPrice) - Number.parseFloat(aPrice);
             });
         } else {
             markets.sort((a, b) => {
                 const aThreshold = a.groupItemThreshold || '0';
                 const bThreshold = b.groupItemThreshold || '0';
-                return parseFloat(aThreshold) - parseFloat(bThreshold);
+                return Number.parseFloat(aThreshold) - Number.parseFloat(bThreshold);
             });
         }
 
@@ -115,7 +115,7 @@ function formatPolymarketEvent(detail: PolymarketEvent): BetsEventDataForUI {
             isResolved,
             resolvedOutcomeId:
                 isResolved && outcomes?.length === 2
-                    ? parseFloat(outcomes[0].price) >= parseFloat(outcomes[1].price)
+                    ? Number.parseFloat(outcomes[0].price) >= Number.parseFloat(outcomes[1].price)
                         ? outcomes[0].id
                         : outcomes[1].id
                     : undefined,

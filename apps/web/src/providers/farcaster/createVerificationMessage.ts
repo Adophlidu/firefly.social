@@ -1,6 +1,7 @@
+import { mainnet } from 'viem/chains';
+
 import { FarcasterNetwork, Protocol } from '@/constants/farcaster.js';
 import { ensureHexPrefix } from '@/helpers/ensureHexPrefix.js';
-import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 const FARCASTER_VERIFICATION_DOMAIN = {
     name: 'Farcaster Verify Ethereum Address',
@@ -47,7 +48,7 @@ interface EthereumVerificationMessage {
 }
 
 export function createEthereumVerificationMessage(params: VerificationMessageParams): EthereumVerificationMessage {
-    const { fid, address, blockHash, network = EthereumChainId.Mainnet } = params;
+    const { fid, address, blockHash, network = mainnet.id } = params;
 
     const formattedAddress = ensureHexPrefix(address);
     const formattedBlockHash = ensureHexPrefix(blockHash);

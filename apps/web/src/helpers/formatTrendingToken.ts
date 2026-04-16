@@ -13,7 +13,7 @@ export function formatTrendingToken(token: TrendingToken, key?: keyof TrendingTo
         volume: key ? token.volume_usd?.[key] : undefined,
         marketCap: token.market_cap_usd,
         price: token.token_price,
-        priceChange: key ? parseFloat(token.price_change?.[key] ?? '0') : undefined,
+        priceChange: key ? Number.parseFloat(token.price_change?.[key] ?? '0') : undefined,
         deployPlatformLogo: token.deploy_platform_logo,
         deployPlatform: token.deploy_platform,
     };

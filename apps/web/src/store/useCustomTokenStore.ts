@@ -5,7 +5,6 @@ import { persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
 import { createPersistStorage } from '@/helpers/createPersistStorage.js';
-import type { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 export enum CustomTokenType {
     ERC20 = 'ERC20',
@@ -15,7 +14,7 @@ export enum CustomTokenType {
 interface ERC20Token {
     type: CustomTokenType.ERC20;
     logoURI: string;
-    chainId: EthereumChainId;
+    chainId: number;
     address: Address;
     name: string;
     symbol: string;
@@ -24,7 +23,7 @@ interface ERC20Token {
 
 interface ERC721Token {
     type: CustomTokenType.ERC721;
-    chainId: EthereumChainId;
+    chainId: number;
     address: Address;
     name: string;
 }

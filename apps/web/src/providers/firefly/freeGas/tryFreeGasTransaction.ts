@@ -5,7 +5,6 @@ import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
 import { logger } from '@/libs/Logger.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { settings } from '@/settings/index.js';
-import type { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 export enum FreeGasTxType {
     TokenApprove = 'token_approve',
@@ -46,7 +45,7 @@ interface FireflyResponse<T> {
 }
 
 export interface TryFreeGasParams {
-    chainId: EthereumChainId;
+    chainId: number;
     txType: FreeGasTxType;
     from: string;
     to: string;

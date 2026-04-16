@@ -8,10 +8,9 @@ import { NFTList } from '@/components/CollectionDetail/NFTList.js';
 import { TopCollectors } from '@/components/CollectionDetail/TopCollectors.js';
 import { Loading } from '@/components/Loading.js';
 import { Tab, Tabs } from '@/components/Tabs/index.js';
-import type { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 interface CollectionTabsProps {
-    chainId?: EthereumChainId;
+    chainId?: number;
     address: string;
 }
 

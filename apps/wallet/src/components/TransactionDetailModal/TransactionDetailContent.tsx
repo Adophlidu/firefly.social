@@ -24,7 +24,6 @@ import { TokenInfoRow } from '@/components/TransactionDetailModal/TokenInfoRow.j
 import { TransactionDate } from '@/components/TransactionDetailModal/TransactionDate.js';
 import { TxLink } from '@/components/TransactionDetailModal/TxLink.js';
 import { NetworkType, Source } from '@/constants/enum.js';
-import type { EthereumChainId } from '@/constants/ethereum.js';
 import { SolanaChainId } from '@/constants/solana.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { getBlockExplorersURL } from '@/helpers/getBlockExplorersURL.js';
@@ -254,11 +253,7 @@ export default memo(function TransactionDetailContent({ transaction, onClose }: 
         },
     });
 
-    const href = getBlockExplorersURL(
-        transaction.chain_id as EthereumChainId | SolanaChainId.Mainnet,
-        transaction.hash,
-        'tx',
-    );
+    const href = getBlockExplorersURL(transaction.chain_id, transaction.hash, 'tx');
 
     const navigate = useNavigate();
 

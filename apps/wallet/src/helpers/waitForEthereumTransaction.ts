@@ -4,18 +4,18 @@ import { getTransactionConfirmations, waitForTransactionReceipt } from 'wagmi/ac
 
 import { config } from '@/configs/wagmiClient.js';
 
-export async function waitForEthereumTransaction(chainId: ChainId, hash: Hash): Promise<void> {
+export async function waitForEthereumTransaction(chainId: number, hash: Hash): Promise<void> {
     try {
         await waitForTransactionReceipt(config, {
             hash,
-            chainId,
+            chainId: chainId as ChainId,
             retryCount: 15,
             timeout: 1000 * 60 * 2,
         });
     } catch (error) {
         const blocks = await getTransactionConfirmations(config, {
             hash,
-            chainId,
+            chainId: chainId as ChainId,
         });
         if (blocks < 1) {
             throw error;

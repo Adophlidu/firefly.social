@@ -1,14 +1,9 @@
 import { chains } from '@dimensiondev/web3/chains';
 import urlcat from 'urlcat';
 
-import type { EthereumChainId } from '@/constants/ethereum.js';
 import { SolanaChainId } from '@/constants/solana.js';
 
-export function getBlockExplorersURL(
-    chainId: EthereumChainId | SolanaChainId.Mainnet,
-    id: string,
-    type: 'address' | 'tx',
-) {
+export function getBlockExplorersURL(chainId: number, id: string, type: 'address' | 'tx') {
     if (chainId === SolanaChainId.Mainnet) {
         const baseURL = 'https://solscan.io';
         if (type === 'address') {

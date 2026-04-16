@@ -42,7 +42,7 @@ export function useWithdrawToken() {
     const { address, chainId } = useSearch({ from: '/bet/withdraw' }) as SelectedToken;
     const { data, isLoading, error } = useSwapTokenDetail({
         address: address || usdcTokenFallback.id,
-        chainId: chainId ? parseInt(chainId, 10) : usdcTokenFallback.chainId,
+        chainId: chainId ? Number.parseInt(chainId, 10) : usdcTokenFallback.chainId,
     });
 
     if (isLoading) return { token: null, isLoading };
@@ -117,7 +117,7 @@ export function useDepositToken() {
     const targetTokenChainId = isDefaultTokenLoading
         ? undefined
         : chainId
-          ? parseInt(chainId, 10)
+          ? Number.parseInt(chainId, 10)
           : defaultToken?.chainId || usdcTokenFallback.chainId;
     const { data, isLoading, error } = useSwapTokenDetail({
         address: targetTokenAddress,

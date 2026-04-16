@@ -5,6 +5,7 @@ import { classNames, delay } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { compact } from 'lodash-es';
 import { memo, useMemo } from 'react';
+import { mainnet } from 'viem/chains';
 
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
@@ -16,12 +17,11 @@ import { MyWalletsModalRef } from '@/modals/MyWalletsModal/refs.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/refs.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
-import { EthereumChainId } from '@/web3-shared/evm/types.js';
 import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 interface WalletConnectButtonProps extends ClickableButtonProps {}
 
-const evmNetworkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, EthereumChainId.Mainnet);
+const evmNetworkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, mainnet.id);
 const solanaNetworkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_SOLANA, SolanaChainId.Mainnet);
 
 const IconMap: Record<NetworkType, string | undefined> = {

@@ -13,6 +13,7 @@ import { Plural, Trans } from '@lingui/react/macro';
 import dayjs from 'dayjs';
 import { first, isNumber } from 'lodash-es';
 import { type HTMLProps, memo, type ReactNode, useCallback, useMemo, useState } from 'react';
+import { mainnet } from 'viem/chains';
 
 import { ChainIcon } from '@/components/ChainIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -46,7 +47,6 @@ import { useTokenSecurity } from '@/hooks/useTokenSecurity.js';
 import type { CoinGeckoToken } from '@/providers/types/CoinGecko.js';
 import type { Contract } from '@/providers/types/Trending.js';
 import type { PriceRecord, TradeRecord } from '@/types/token.js';
-import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 function getRanges() {
     return [
@@ -302,11 +302,7 @@ export const TokenMarketData = memo(function TokenMarketData({
                             ) : null}
                         </div>
                         <div className="ml-auto flex shrink-0 items-center gap-2 empty:hidden">
-                            <TokenBookmarkButton
-                                coinId={token.id}
-                                chainId={chainId || EthereumChainId.Mainnet}
-                                address={address}
-                            />
+                            <TokenBookmarkButton coinId={token.id} chainId={chainId || mainnet.id} address={address} />
                         </div>
                     </div>
                     {isTrendingPending && !contractSelect ? (

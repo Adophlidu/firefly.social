@@ -12,7 +12,7 @@ import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
 import { reportNFT } from '@/providers/firefly/report/reportNFT.js';
 import type { FollowingNFT, NFTFeedV3 } from '@/providers/types/NFTs.js';
 import type { NonFungibleAsset } from '@/web3-shared/base/specs.js';
-import type { EthereumChainId, EthereumSchemaType } from '@/web3-shared/evm/types.js';
+import type { EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
 interface PagesData {
     pages: Array<{ data: FollowingNFT[] | NFTFeedV3[] }>;
@@ -26,7 +26,7 @@ interface PagesData {
 function filterOutActivities(address: string) {
     // To report an NFT collection, we need to get its collection id first.
     // Therefore, query data for the collection will exist
-    const data = queryClient.getQueriesData<NonFungibleAsset<EthereumChainId, EthereumSchemaType>>({
+    const data = queryClient.getQueriesData<NonFungibleAsset<number, EthereumSchemaType>>({
         queryKey: ['nft-detail'],
     });
     const queryData = data.find(([queryKey, data]) => {

@@ -27,7 +27,7 @@ function groupNFTParamsByChainId(nftIds: string[]) {
     const tuples = nftIds.map((nftId) => {
         const parts = nftId.split('.');
         const chainId = Number.parseInt(parts[0], 10);
-        if (!NFTSCAN_CHAIN_IDS.includes(chainId)) return null;
+        if (!NFTSCAN_CHAIN_IDS.some((id) => id === chainId)) return null;
         return [chainId, parts[1], parts[2]] as ParamTuple;
     });
 

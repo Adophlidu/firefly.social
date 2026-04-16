@@ -1,12 +1,12 @@
 import { parseUrl } from '@dimensiondev/utils';
 import type { SignInOptions } from '@farcaster/miniapp-host';
 import { type Address, checksumAddress, toHex } from 'viem';
+import { optimism } from 'viem/chains';
 
 import { SITE_URL } from '@/constants/static.js';
 import { signMessageWithCustodyWallet } from '@/providers/firefly/farcaster-account/signMessageWithCustodyWallet.js';
 import { custodyOf } from '@/providers/warpcast/custodyOf.js';
 import type { FrameV2 } from '@/types/frame.js';
-import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 export async function createSiwfMessage(url: string, address: string, fid: string, nonce: string) {
     const u = parseUrl(url);
@@ -20,7 +20,7 @@ export async function createSiwfMessage(url: string, address: string, fid: strin
         '',
         `URI: ${url}`,
         'Version: 1',
-        `Chain ID: ${EthereumChainId.Optimism}`,
+        `Chain ID: ${optimism.id}`,
         `Nonce: ${nonce}`,
         `Issued At: ${new Date().toISOString()}`,
         'Resources:',

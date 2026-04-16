@@ -5,6 +5,7 @@ import { safeUnreachable } from '@dimensiondev/utils';
 import { formatAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
+import { mainnet } from 'viem/chains';
 
 import { Avatar } from '@/components/Avatar.js';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
@@ -24,7 +25,6 @@ import { getUserTotalBalance } from '@/providers/debank/getUserTotalBalance.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
 import { getUserSolanaTotalValue } from '@/providers/okx/getUserSolanaTotalValue.js';
 import { type WalletProfile, WalletProfileDataSource } from '@/providers/types/Firefly.js';
-import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 interface WalletInfoProps {
     profile: WalletProfile;
@@ -52,7 +52,7 @@ export function WalletInfo({ profile }: WalletInfoProps) {
 
     const addressLink =
         networkType === NetworkType.Ethereum
-            ? BlockScanExplorerResolver.addressLink(EthereumChainId.Mainnet, profile.address)
+            ? BlockScanExplorerResolver.addressLink(mainnet.id, profile.address)
             : null;
 
     const isMPC = isMPCWallet(profile);

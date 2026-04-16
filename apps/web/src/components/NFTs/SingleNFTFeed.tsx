@@ -17,14 +17,13 @@ import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import type { FollowingNFT, NFTFeedV3 } from '@/providers/types/NFTs.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
-import type { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 interface SingleNFTFeedProps {
     disableAnimate?: boolean;
     listKey?: string;
     index?: number;
     feed: NFTFeedV3;
-    chainId: EthereumChainId;
+    chainId: number;
     time: number | string | Date;
     followingSources?: FollowingNFT['followingSources'];
 }

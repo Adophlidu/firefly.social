@@ -8,6 +8,7 @@ import { useForm } from 'react-hook-form';
 import { useAsyncFn } from 'react-use';
 import { toast } from 'sonner';
 import { type Address, erc20Abi } from 'viem';
+import { mainnet } from 'viem/chains';
 import { useAccount } from 'wagmi';
 import { readContracts } from 'wagmi/actions';
 
@@ -22,7 +23,6 @@ import {
 import { Input } from '@/components/ui/input.js';
 import { Select, SelectContent, SelectItem, SelectTrigger } from '@/components/ui/select.js';
 import { config } from '@/configs/wagmiClient.js';
-import { EthereumChainId } from '@/constants/ethereum.js';
 import { useMultiChainTokens } from '@/hooks/useMultiChainTokens.js';
 import { searchTokenLogoURI } from '@/queries/firefly/searchTokenLogoURI.js';
 import { addCustomTokenAtom, CustomTokenType } from '@/store/customToken.js';
@@ -42,7 +42,7 @@ const chains = visibleChains;
 
 function AddCustomERC20ModalContent({
     onClose,
-    initialChainId = EthereumChainId.Mainnet,
+    initialChainId = mainnet.id,
 }: {
     onClose: () => void;
     initialChainId?: number;
@@ -208,11 +208,7 @@ function AddCustomERC20ModalContent({
     );
 }
 
-export function AddCustomERC20Modal({
-    open,
-    onClose,
-    initialChainId = EthereumChainId.Mainnet,
-}: AddCustomERC20ModalProps) {
+export function AddCustomERC20Modal({ open, onClose, initialChainId = mainnet.id }: AddCustomERC20ModalProps) {
     return (
         <DialogOrDrawer
             open={open}

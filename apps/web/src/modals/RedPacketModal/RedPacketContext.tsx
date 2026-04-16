@@ -12,6 +12,7 @@ import {
     useMemo,
     useState,
 } from 'react';
+import { mainnet } from 'viem/chains';
 import { switchChain } from 'wagmi/actions';
 
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
@@ -31,7 +32,7 @@ import type { Collection } from '@/modals/NonFungibleCollectionSelectModal/Colle
 import type { FireflyRedPacketAPI, RequirementType } from '@/providers/types/FireflyRedPacket.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 import type { FungibleToken } from '@/web3-shared/base/specs.js';
-import { EthereumChainId, type EthereumSchemaType } from '@/web3-shared/evm/types.js';
+import type { EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
 export const redPacketRandomTabs = [
     {
@@ -96,9 +97,9 @@ interface RedPacketContextValue {
     rules: RequirementType[];
     requireCollections: Collection[];
     setRequireCollections: Dispatch<SetStateAction<Collection[]>>;
-    requireTokens: Array<{ token: FungibleToken<EthereumChainId, EthereumSchemaType>; quantity: string }>;
+    requireTokens: Array<{ token: FungibleToken<number, EthereumSchemaType>; quantity: string }>;
     setRequireTokens: Dispatch<
-        SetStateAction<Array<{ token: FungibleToken<EthereumChainId, EthereumSchemaType>; quantity: string }>>
+        SetStateAction<Array<{ token: FungibleToken<number, EthereumSchemaType>; quantity: string }>>
     >;
     requireChannel: Channel | undefined;
     setRequireChannel: Dispatch<SetStateAction<Channel | undefined>>;
@@ -166,8 +167,8 @@ function getNativeTokenWithSwitch(networkType: NetworkType, chainId?: number) {
         return getNativeToken(networkType, chainId);
     } catch (error) {
         if (error instanceof ChainConfigMismatchError) {
-            switchChain(wagmiConfig, { chainId: EthereumChainId.Mainnet });
-            return getNativeToken(networkType, EthereumChainId.Mainnet);
+            switchChain(wagmiConfig, { chainId: mainnet.id });
+            return getNativeToken(networkType, mainnet.id);
         }
 
         throw error;

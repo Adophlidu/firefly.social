@@ -3,10 +3,11 @@ import { type Chain, Network, SupportedMethod, type Transaction } from '@dimensi
 import { squashCallback } from '@dimensiondev/utils';
 import { createInstance } from 'localforage';
 import { toHex } from 'viem';
+import { mainnet } from 'viem/chains';
 
 import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
 import type { RequestArguments } from '@/types/ethereum.js';
-import { EthereumChainId, EthereumMethodType } from '@/web3-shared/evm/types.js';
+import { EthereumMethodType } from '@/web3-shared/evm/types.js';
 
 const storage = createInstance({
     name: 'wagmi-limited-client',
@@ -24,7 +25,7 @@ const connectWalletSquashed = squashCallback(
 
 async function createClient() {
     const rawChainId = await storage.getItem<string>('chainId');
-    const chainId = rawChainId ? (Number.parseInt(rawChainId, 16) as EthereumChainId) : EthereumChainId.Mainnet;
+    const chainId = rawChainId ? (Number.parseInt(rawChainId, 16) as number) : mainnet.id;
     return createWagmiPublicClient(chainId);
 }
 

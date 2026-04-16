@@ -22,7 +22,7 @@ function floorToDecimals(num: number, decimals: number): string {
 export function formatTokenAmount(value: string | number | undefined | null): string {
     if (value === undefined || value === null || value === '') return '0';
 
-    const num = typeof value === 'string' ? parseFloat(value) : value;
+    const num = typeof value === 'string' ? Number.parseFloat(value) : value;
 
     if (isNaN(num) || num === 0) return '0';
 

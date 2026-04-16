@@ -4,7 +4,6 @@ import { atom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
 import type { Address } from 'viem';
 
-import type { EthereumChainId } from '@/constants/ethereum.js';
 import { createPersistStorage } from '@/helpers/createPersistStorage.js';
 
 export enum CustomTokenType {
@@ -15,7 +14,7 @@ export enum CustomTokenType {
 export interface ERC20Token {
     type: CustomTokenType.ERC20;
     logoURI: string;
-    chainId: EthereumChainId;
+    chainId: number;
     address: Address;
     name: string;
     symbol: string;
@@ -24,7 +23,7 @@ export interface ERC20Token {
 
 export interface ERC721Token {
     type: CustomTokenType.ERC721;
-    chainId: EthereumChainId;
+    chainId: number;
     address: Address;
     name: string;
 }

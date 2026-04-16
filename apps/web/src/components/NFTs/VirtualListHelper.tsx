@@ -1,11 +1,12 @@
+import { mainnet } from 'viem/chains';
+
 import { SingleNFTFeed } from '@/components/NFTs/SingleNFTFeed.js';
 import type { NFTFeedV3 } from '@/providers/types/NFTs.js';
-import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 export function getSingleNFTFeedItemContent(
     index: number,
     feed: NFTFeedV3,
-    chainId: EthereumChainId,
+    chainId: number,
     {
         listKey,
     }: {
@@ -33,7 +34,7 @@ export function getSingleFollowingNFTItemContent(
         listKey?: string;
     } = {},
 ) {
-    const chainId = nft.chain_id ?? EthereumChainId.Mainnet;
+    const chainId = nft.chain_id ?? mainnet.id;
 
     return (
         <SingleNFTFeed

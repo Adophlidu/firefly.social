@@ -21,9 +21,7 @@ import {
     zkSync,
 } from 'viem/chains';
 
-import type { EthereumChainId } from '@/web3-shared/evm/types.js';
-
-const RED_PACKETS: Partial<Record<EthereumChainId, string>> = {
+const RED_PACKETS: Partial<Record<number, Address>> = {
     [mainnet.id]: '0xaBBe1101FD8fa5847c452A6D70C8655532B03C33',
     [bsc.id]: '0x0ca42C178e14c618c81B8438043F27d9D38145f6',
     [base.id]: '0x8D03d9b43e98Cc2f790Be4E96503fD0CcFd04a2D',
@@ -44,9 +42,9 @@ const RED_PACKETS: Partial<Record<EthereumChainId, string>> = {
     [linea.id]: '0xB349AC5E5C037C2ecb2AE9fCDc8F122b5f384620',
 };
 
-export function getRedPacketContractAddress(chainId: EthereumChainId) {
+export function getRedPacketContractAddress(chainId: number) {
     const address = RED_PACKETS[chainId];
     assert(address, `Red Packet contract not found for chain ID ${chainId}`);
 
-    return address as Address;
+    return address;
 }

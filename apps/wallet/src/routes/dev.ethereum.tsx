@@ -141,7 +141,10 @@ function EthereumDevPage() {
             <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
                 <div className="flex items-center gap-3">
                     <div className="w-20 shrink-0 text-sm">Chain</div>
-                    <Select value={toHex(chainId)} onValueChange={(value) => setValue('chainId', parseInt(value, 16))}>
+                    <Select
+                        value={toHex(chainId)}
+                        onValueChange={(value) => setValue('chainId', Number.parseInt(value, 16))}
+                    >
                         <SelectTrigger className="w-[220px]">
                             <div className="flex items-center">
                                 <ChainIcon chainId={chainId} size={16} className="mr-2" />

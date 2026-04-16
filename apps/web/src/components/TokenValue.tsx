@@ -9,11 +9,11 @@ import { formatFungibleTokenToDebankToken } from '@/helpers/formatToken.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { useFungibleTokenPrice } from '@/hooks/useFungibleTokenPrice.js';
 import type { FungibleToken } from '@/web3-shared/base/specs.js';
-import type { EthereumChainId, EthereumSchemaType } from '@/web3-shared/evm/types.js';
+import type { EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
 interface Props extends HTMLProps<HTMLDivElement> {
     amount?: string;
-    token?: FungibleToken<EthereumChainId, EthereumSchemaType> | null;
+    token?: FungibleToken<number, EthereumSchemaType> | null;
     chainId?: number;
     networkType: NetworkType;
 }

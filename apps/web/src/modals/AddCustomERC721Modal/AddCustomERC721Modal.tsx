@@ -11,6 +11,7 @@ import { Trans } from '@lingui/react/macro';
 import { useCallback, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import type { Address } from 'viem';
+import { mainnet } from 'viem/chains';
 import { useConnection } from 'wagmi';
 
 import { ActionButton } from '@/components/ActionButton.js';
@@ -26,13 +27,13 @@ import type { AddCustomERC721ModalOpenProps, AddCustomERC721ModalRefType } from 
 import { getCollection } from '@/providers/firefly/nft/getCollection.js';
 import { NFTSCAN_CHAIN_IDS } from '@/providers/nftscan/constants.js';
 import { CustomTokenType, useCustomTokenStore } from '@/store/useCustomTokenStore.js';
-import { EthereumChainId, EthereumSchemaType } from '@/web3-shared/evm/types.js';
+import { EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
 const CHAIN_IDS = NFTSCAN_CHAIN_IDS.filter((id) => chains.some((chain) => chain.id === id));
 
 function AddCustomERC721Content({
     onClose,
-    initialChainId = EthereumChainId.Mainnet,
+    initialChainId = mainnet.id,
 }: {
     onClose: () => void;
     initialChainId?: number;

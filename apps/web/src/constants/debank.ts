@@ -1,5 +1,24 @@
 /* cspell:disable */
-import { EthereumChainId } from '@/web3-shared/evm/types.js';
+import {
+    arbitrum,
+    aurora,
+    avalanche,
+    base,
+    bsc,
+    celo,
+    confluxESpace,
+    fantom,
+    gnosis,
+    lens,
+    linea,
+    mainnet,
+    metis,
+    optimism,
+    plasma,
+    polygon,
+    scroll,
+    zkSync,
+} from 'viem/chains';
 
 export const DEBANK_CHAINS = [
     {
@@ -355,22 +374,22 @@ export const DEBANK_CHAINS = [
 ];
 
 export const DEBANK_CHAIN_TO_CHAIN_ID_MAP: Record<string, number> = {
-    arb: EthereumChainId.Arbitrum,
-    aurora: EthereumChainId.Aurora,
-    avax: EthereumChainId.Avalanche,
-    bsc: EthereumChainId.BSC,
-    cfx: EthereumChainId.Conflux,
-    eth: EthereumChainId.Mainnet,
-    ftm: EthereumChainId.Fantom,
-    matic: EthereumChainId.Polygon,
-    metis: EthereumChainId.Metis,
-    op: EthereumChainId.Optimism,
-    xdai: EthereumChainId.xDai,
-    base: EthereumChainId.Base,
-    scrl: EthereumChainId.Scroll,
-    lens: EthereumChainId.Lens,
-    linea: EthereumChainId.Linea,
-    era: EthereumChainId.ZksyncEra,
-    celo: EthereumChainId.Celo,
-    plasma: EthereumChainId.Plasma,
+    arb: arbitrum.id,
+    aurora: aurora.id,
+    avax: avalanche.id,
+    bsc: bsc.id,
+    cfx: confluxESpace.id,
+    eth: mainnet.id,
+    ftm: fantom.id,
+    matic: polygon.id,
+    metis: metis.id,
+    op: optimism.id,
+    xdai: gnosis.id,
+    base: base.id,
+    scrl: scroll.id,
+    lens: lens.id,
+    linea: linea.id,
+    era: zkSync.id,
+    celo: celo.id,
+    plasma: plasma.id,
 };

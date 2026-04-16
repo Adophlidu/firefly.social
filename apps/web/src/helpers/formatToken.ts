@@ -5,7 +5,7 @@ import { isValidChainIdSolana } from '@/helpers/isValidChainId.js';
 import { isNativeTokenDebank } from '@/providers/ethereum/isNativeTokenDebank.js';
 import type { Token } from '@/providers/types/Transfer.js';
 import type { FungibleToken } from '@/web3-shared/base/specs.js';
-import { type EthereumChainId, EthereumSchemaType } from '@/web3-shared/evm/types.js';
+import { EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
 export function formatDebankTokenToFungibleToken(token: Token): FungibleToken<number, number, Token> {
     // it is not a valid address if its native token
@@ -27,7 +27,7 @@ export function formatDebankTokenToFungibleToken(token: Token): FungibleToken<nu
         schema: isNativeTokenDebank(token) ? EthereumSchemaType.Native : EthereumSchemaType.ERC20,
         address,
         __original__: token,
-    } as FungibleToken<EthereumChainId, EthereumSchemaType, Token>;
+    } as FungibleToken<number, EthereumSchemaType, Token>;
 }
 
 export function formatFungibleTokenToDebankToken(token: FungibleToken<number, number>) {

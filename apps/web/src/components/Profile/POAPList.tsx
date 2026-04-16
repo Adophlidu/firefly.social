@@ -5,6 +5,7 @@ import { classNames } from '@dimensiondev/utils';
 import { formatAddressEthereum } from '@dimensiondev/web3/utils';
 import type { GridItemProps, GridListProps } from 'react-virtuoso';
 import type { Hex } from 'viem';
+import { gnosis } from 'viem/chains';
 
 import { ChainIcon } from '@/components/ChainIcon.js';
 import { GridListInPage } from '@/components/GridListInPage.js';
@@ -21,7 +22,6 @@ import { useEnsName } from '@/hooks/useEnsName.js';
 import type { EVM } from '@/providers/nftscan/types.js';
 import type { NFTDetail } from '@/providers/types/Firefly.js';
 import type { Poap } from '@/providers/types/NFTs.js';
-import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 function GridList({ className, children, ...props }: GridListProps) {
     return (
@@ -109,7 +109,7 @@ function PoapItemContent({
     isShowChainIcon?: boolean;
     ownerCount?: number;
 }) {
-    const nftUrl = resolveNFTUrl(EthereumChainId.xDai, POAP_CONTRACT_ADDRESS, item.tokenId || '0');
+    const nftUrl = resolveNFTUrl(gnosis.id, POAP_CONTRACT_ADDRESS, item.tokenId || '0');
 
     return (
         <div className="relative">
@@ -120,7 +120,7 @@ function PoapItemContent({
             >
                 <div className="relative aspect-square h-auto w-full overflow-hidden">
                     {props.isShowChainIcon ? (
-                        <ChainIcon chainId={EthereumChainId.xDai} size={20} className="absolute left-2 top-2 size-4" />
+                        <ChainIcon chainId={gnosis.id} size={20} className="absolute left-2 top-2 size-4" />
                     ) : null}
                     {props.isPoap ? <PoapIcon className="absolute left-2 top-2 size-6" /> : null}
                     {props.isShowOwner && item.owner ? <Owner address={item.owner as Hex} /> : null}

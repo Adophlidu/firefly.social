@@ -551,7 +551,7 @@ const TrendingTokenItem = memo(function TrendingTokenItem({ token, onClick }: To
     const priceChange = token.priceChange24h
         ? `${parseFloat(token.priceChange24h) >= 0 ? '+' : ''}${parseFloat(token.priceChange24h).toFixed(2)}%`
         : null;
-    const isPriceDown = token.priceChange24h ? parseFloat(token.priceChange24h) < 0 : false;
+    const isPriceDown = token.priceChange24h ? Number.parseFloat(token.priceChange24h) < 0 : false;
 
     const subtitle = `${token.symbol}\u{FF5C}${truncatedAddress}`;
 

@@ -8,6 +8,7 @@ import { Trans } from '@lingui/react/macro';
 import { useCallback, useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import { type Address, erc20Abi } from 'viem';
+import { mainnet } from 'viem/chains';
 import { useConnection } from 'wagmi';
 import { readContracts } from 'wagmi/actions';
 
@@ -25,7 +26,6 @@ import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { AddCustomERC20ModalOpenProps, AddCustomERC20ModalRefType } from '@/modals/AddCustomERC20Modal/refs.js';
 import { searchTokenLogoURI } from '@/providers/firefly/endpoint/searchTokenLogoURI.js';
 import { CustomTokenType, useCustomTokenStore } from '@/store/useCustomTokenStore.js';
-import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 interface AddCustomERC20ModalContentProps {
     onClose: () => void;
@@ -45,7 +45,7 @@ function useVisibleChainIds() {
 function AddCustomERC20ModalContent({
     onClose,
     validChainIds,
-    initialChainId = EthereumChainId.Mainnet,
+    initialChainId = mainnet.id,
 }: AddCustomERC20ModalContentProps) {
     const account = useConnection();
     const isMedium = useIsMedium('max');

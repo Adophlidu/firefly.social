@@ -35,7 +35,7 @@ export function PredictionMarketResolution({ market }: PredictionMarketResolutio
 
     const outcomeLabel =
         market.outcomes.length === 2
-            ? parseFloat(market.outcomes[0].price) >= parseFloat(market.outcomes[1].price)
+            ? Number.parseFloat(market.outcomes[0].price) >= Number.parseFloat(market.outcomes[1].price)
                 ? market.outcomes[0].label
                 : market.outcomes[1].label
             : '';

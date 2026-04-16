@@ -1,13 +1,12 @@
 import { isSupportedStablecoin } from '@dimensiondev/web3/utils';
 
-import type { EthereumChainId } from '@/constants/ethereum.js';
 import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
 import { logger } from '@/lib/Logger.js';
 import type { FreeGasTx, FreeGasTxType } from '@/providers/types/FreeGas.js';
 import { getFireflyEndpoint } from '@/store/fireflyEndpoint.js';
 
 export interface TryFreeGasParams {
-    chainId: EthereumChainId;
+    chainId: number;
     txType: FreeGasTxType;
     from: string;
     to: string;

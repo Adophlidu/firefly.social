@@ -10,7 +10,6 @@ import { isNativeTokenDebank } from '@/providers/ethereum/isNativeTokenDebank.js
 import { EthereumNetwork } from '@/providers/ethereum/Network.js';
 import type { GetDefaultGasOptions } from '@/providers/types/Transfer.js';
 import { EVMChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
-import type { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 async function estimateGasForErc20Token(
     to: string,
@@ -52,7 +51,7 @@ async function estimateGasForNativeToken(
     return data || 0n;
 }
 
-export async function getDefaultGas({ token, to, amount }: GetDefaultGasOptions<EthereumChainId, Address>) {
+export async function getDefaultGas({ token, to, amount }: GetDefaultGasOptions<number, Address>) {
     const isEIP1559 = EVMChainResolver.isFeatureSupported(token.chainId, 'EIP1559');
     const { gasPrice, maxFeePerGas, maxPriorityFeePerGas } = await estimateFeesPerGas(wagmiConfig, {
         chainId: token.chainId,

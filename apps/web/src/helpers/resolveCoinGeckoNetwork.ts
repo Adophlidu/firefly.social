@@ -1,17 +1,17 @@
 import { createLookupTableResolver } from '@dimensiondev/utils';
+import { arbitrum, base, bsc, mainnet, optimism, polygon } from 'viem/chains';
 
-import { EthereumChainId } from '@/web3-shared/evm/types.js';
 import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 export const resolveCoinGeckoNetwork = createLookupTableResolver<number, string | undefined>(
     {
-        [EthereumChainId.Mainnet]: 'eth',
-        [EthereumChainId.BSC]: 'bsc',
-        [EthereumChainId.Polygon]: 'polygon_pos',
-        [EthereumChainId.Arbitrum]: 'arbitrum',
-        [EthereumChainId.Optimism]: 'optimism',
+        [mainnet.id]: 'eth',
+        [bsc.id]: 'bsc',
+        [polygon.id]: 'polygon_pos',
+        [arbitrum.id]: 'arbitrum',
+        [optimism.id]: 'optimism',
         [SolanaChainId.Mainnet]: 'solana',
-        [EthereumChainId.Base]: 'base',
+        [base.id]: 'base',
     },
     undefined,
 );

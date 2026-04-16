@@ -30,7 +30,7 @@ export const SwapSettings = memo(function SwapSettings({ trigger }: SwapSettings
         (checked: boolean) => {
             if (!checked) {
                 // Turning auto off - use custom value or default 1
-                const num = parseFloat(customSlippage);
+                const num = Number.parseFloat(customSlippage);
                 if (!isNaN(num) && num >= 0.5 && num <= 100) {
                     setSlippage(num);
                 } else {
@@ -54,7 +54,7 @@ export const SwapSettings = memo(function SwapSettings({ trigger }: SwapSettings
                 return;
             }
 
-            const num = parseFloat(value);
+            const num = Number.parseFloat(value);
             if (!isNaN(num)) {
                 // Only clamp clearly out-of-range values during input
                 // Values between 0 and 0.5 are allowed (user might be typing 0.5)
@@ -67,7 +67,7 @@ export const SwapSettings = memo(function SwapSettings({ trigger }: SwapSettings
 
                 setCustomSlippage(clampedValue);
 
-                const clampedNum = parseFloat(clampedValue);
+                const clampedNum = Number.parseFloat(clampedValue);
                 if (clampedNum >= 0.5 && clampedNum <= 100) {
                     setSlippage(clampedNum);
                 }
@@ -79,7 +79,7 @@ export const SwapSettings = memo(function SwapSettings({ trigger }: SwapSettings
     );
 
     const handleCustomBlur = useCallback(() => {
-        let num = parseFloat(customSlippage);
+        let num = Number.parseFloat(customSlippage);
 
         // Handle invalid/empty values
         if (isNaN(num) || customSlippage === '') {

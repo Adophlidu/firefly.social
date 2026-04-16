@@ -30,7 +30,9 @@ export default memo<NonFungibleCollectionSelectPanelProps>(function NonFungibleC
 }) {
     const isMedium = useIsMedium('max');
     const currentChainId = useChainId();
-    const defaultChainId = NFTSCAN_CHAIN_IDS.includes(currentChainId) ? currentChainId : NFTSCAN_CHAIN_IDS[0];
+    const defaultChainId = NFTSCAN_CHAIN_IDS.some((id) => id === currentChainId)
+        ? currentChainId
+        : NFTSCAN_CHAIN_IDS[0];
     const [chainId = defaultChainId, setChainId] = useState<number>();
     const account = useConnection();
 

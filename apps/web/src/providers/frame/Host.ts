@@ -19,7 +19,7 @@ import { captureFrameSignInEvent } from '@/providers/telemetry/captureFrameSignI
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { signInWithFarcaster } from '@/providers/warpcast/signInWithFarcaster.js';
 import type { FrameV2 } from '@/types/frame.js';
-import { EthereumChainId } from '@/web3-shared/evm/types.js';
+import { ETHEREUM_CHAIN_IDS } from '@/web3-shared/evm/types.js';
 
 export class FarcasterFrameHost implements MiniAppHost {
     constructor(
@@ -225,7 +225,7 @@ export class FarcasterFrameHost implements MiniAppHost {
 
     getChains: MiniAppHost['getChains'] = async () => {
         logger.debug('[frame host]: getChains');
-        return Object.values(EthereumChainId).map((chainId) => `eip155:${chainId}`);
+        return ETHEREUM_CHAIN_IDS.map((chainId) => `eip155:${chainId}`);
     };
 
     updateBackState: MiniAppHost['updateBackState'] = () => {

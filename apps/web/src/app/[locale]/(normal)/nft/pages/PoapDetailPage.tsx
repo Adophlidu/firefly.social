@@ -3,6 +3,7 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
+import { gnosis } from 'viem/chains';
 
 import { Loading } from '@/components/Loading.js';
 import { Attendees } from '@/components/NFTDetail/Attendees.js';
@@ -13,7 +14,7 @@ import { POAP_CONTRACT_ADDRESS } from '@/constants/static.js';
 import { notFound } from '@/esm/navigation.js';
 import { getPOAP } from '@/providers/firefly/nft/getPOAP.js';
 import type { NonFungibleTokenTrait } from '@/web3-shared/base/specs.js';
-import { EthereumChainId, EthereumSchemaType } from '@/web3-shared/evm/types.js';
+import { EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
 export function PoapDetailPage({ tokenId }: { tokenId: string }) {
     const { data: poap, isLoading } = useQuery({
@@ -61,7 +62,7 @@ export function PoapDetailPage({ tokenId }: { tokenId: string }) {
                         icon: poap.event.image_url,
                     }}
                     isPoap
-                    chainId={EthereumChainId.xDai}
+                    chainId={gnosis.id}
                     attendance={poapAttendeesCount}
                     externalUrl={poap.event.event_url}
                     traits={traits}
@@ -70,7 +71,7 @@ export function PoapDetailPage({ tokenId }: { tokenId: string }) {
                     description={poap.event.description ?? ''}
                     tokenId={tokenId}
                     contractAddress={POAP_CONTRACT_ADDRESS}
-                    chainId={EthereumChainId.xDai}
+                    chainId={gnosis.id}
                     schemaType={EthereumSchemaType.ERC721}
                 />
                 {poap.event.id ? <Attendees eventId={poap.event.id} /> : null}

@@ -1,5 +1,6 @@
+import { mainnet } from 'viem/chains';
+
 import type { EVM } from '@/providers/nftscan/types.js';
-import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 export function resolveCollectionChain(collection: EVM.Collection): {
     address: string;
@@ -9,6 +10,6 @@ export function resolveCollectionChain(collection: EVM.Collection): {
 
     return {
         address,
-        chainId: collection.chain_id || EthereumChainId.Mainnet,
+        chainId: collection.chain_id || mainnet.id,
     };
 }

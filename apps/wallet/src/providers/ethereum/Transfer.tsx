@@ -1,4 +1,3 @@
-import type { ChainId } from '@dimensiondev/web3/chains';
 import { getTokenAbiForWagmi } from '@dimensiondev/web3/utils';
 import type { Address, Hash } from 'viem';
 import { encodeFunctionData, parseUnits } from 'viem';
@@ -6,7 +5,6 @@ import type { Config } from 'wagmi';
 import { getAccount, getBalance, getChainId, sendTransaction, writeContract } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmiClient.js';
-import type { EthereumChainId } from '@/constants/ethereum.js';
 import { tryFreeGasTransaction } from '@/helpers/freeGas/tryFreeGasTransaction.js';
 import { getBalanceOf } from '@/helpers/getBalanceOf.js';
 import { isNativeTokenDebank } from '@/helpers/isNativeTokenDebank.js';
@@ -17,10 +15,10 @@ import { getDefaultGas } from '@/providers/ethereum/getDefaultGas.js';
 import { FreeGasTxType } from '@/providers/types/FreeGas.js';
 import type { Token, TransactionOptions, TransferProvider } from '@/providers/types/Transfer.js';
 
-export class EthereumTransferProvider implements TransferProvider<EthereumChainId, Address, Hash> {
+export class EthereumTransferProvider implements TransferProvider<number, Address, Hash> {
     constructor(protected config: Config) {}
 
-    async transfer(options: TransactionOptions<EthereumChainId, Address>): Promise<Address> {
+    async transfer(options: TransactionOptions<number, Address>): Promise<Address> {
         const { token } = options;
         if (token.chainId !== getChainId(this.config)) {
             await switchEthereumChain(token.chainId);
@@ -36,12 +34,12 @@ export class EthereumTransferProvider implements TransferProvider<EthereumChainI
         return isNativeTokenDebank(token);
     }
 
-    async validateBalance(options: TransactionOptions<EthereumChainId, Address>): Promise<boolean> {
+    async validateBalance(options: TransactionOptions<number, Address>): Promise<boolean> {
         const balance = await this.getAvailableBalance(options);
         return !isGreaterThan(rightShift(options.amount, options.token.decimals), balance);
     }
 
-    async validateGas(options: TransactionOptions<EthereumChainId, Address>) {
+    async validateGas(options: TransactionOptions<number, Address>) {
         const { token } = options;
         const account = getAccount(this.config);
         if (!account.address) {
@@ -62,7 +60,7 @@ export class EthereumTransferProvider implements TransferProvider<EthereumChainI
         };
     }
 
-    async getAvailableBalance(options: TransactionOptions<EthereumChainId, Address>): Promise<string> {
+    async getAvailableBalance(options: TransactionOptions<number, Address>): Promise<string> {
         const { token } = options;
         const accountAddress = options.account ?? getAccount(this.config).address;
         if (!accountAddress) {
@@ -82,7 +80,7 @@ export class EthereumTransferProvider implements TransferProvider<EthereumChainI
         return leftShift(balance, token.decimals).toString();
     }
 
-    private async transferNative(options: TransactionOptions<EthereumChainId, Address>): Promise<Address> {
+    private async transferNative(options: TransactionOptions<number, Address>): Promise<Address> {
         const { isEIP1559, gasPrice, maxFeePerGas } = await getDefaultGas(this.config, options);
         const gas = multipliedBy((this.isNativeToken(options.token) ? 21000n : 50000n).toString(), '1.1').toFixed(0);
         const account = getAccount(this.config);
@@ -113,7 +111,7 @@ export class EthereumTransferProvider implements TransferProvider<EthereumChainI
         });
     }
 
-    private async transferContract(options: TransactionOptions<EthereumChainId, Address>): Promise<Address> {
+    private async transferContract(options: TransactionOptions<number, Address>): Promise<Address> {
         const { isEIP1559, gasPrice, maxFeePerGas, maxPriorityFeePerGas } = await getDefaultGas(this.config, options);
         const gas = multipliedBy((this.isNativeToken(options.token) ? 21000n : 50000n).toString(), '3').toFixed(0);
 
@@ -166,7 +164,7 @@ export class EthereumTransferProvider implements TransferProvider<EthereumChainI
     }
 
     async waitForTransaction(hash: string, chainId: number): Promise<void> {
-        await waitForEthereumTransaction(chainId as ChainId, hash as Hash);
+        await waitForEthereumTransaction(chainId, hash as Hash);
     }
 }
 

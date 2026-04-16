@@ -1,4 +1,3 @@
-import { first } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { env } from '@/constants/env.js';
@@ -144,10 +143,10 @@ function mapRawTokenToSwapToken(raw: RawOkxToken, chainId: number): SwapToken {
         address: raw.tokenContractAddress,
         symbol: raw.tokenSymbol,
         name: raw.tokenName ?? raw.tokenSymbol,
-        decimals: parseInt(raw.decimal, 10) || 18,
+        decimals: Number.parseInt(raw.decimal, 10) || 18,
         chainId,
         logoURI: raw.tokenLogoUrl,
-        price: raw.tokenUnitPrice ? parseFloat(raw.tokenUnitPrice) : undefined,
+        price: raw.tokenUnitPrice ? Number.parseFloat(raw.tokenUnitPrice) : undefined,
     });
 }
 
@@ -180,7 +179,7 @@ export class SwapEndpoint extends Fetch {
         const rawChains = result.data.data?.data ?? [];
 
         return rawChains.map((chain) => ({
-            chainId: parseInt(chain.chainId, 10),
+            chainId: Number.parseInt(chain.chainId, 10),
             chainName: chain.chainName,
             logoUrl: chain.chainLogo,
         }));
@@ -209,15 +208,15 @@ export class SwapEndpoint extends Fetch {
         }
         const raw = inner.data[0];
         const chainId = params.fromChainId;
-        const fromDecimals = parseInt(raw.fromToken.decimal, 10) || 18;
-        const toDecimals = parseInt(raw.toToken.decimal, 10) || 18;
+        const fromDecimals = Number.parseInt(raw.fromToken.decimal, 10) || 18;
+        const toDecimals = Number.parseInt(raw.toToken.decimal, 10) || 18;
         // Convert amounts from smallest units back to decimal
         const fromAmountDecimal = leftShift(raw.fromTokenAmount, fromDecimals).toFixed();
         const toAmountDecimal = leftShift(raw.toTokenAmount, toDecimals).toFixed();
-        const fromAmountNum = parseFloat(fromAmountDecimal);
-        const toAmountNum = parseFloat(toAmountDecimal);
+        const fromAmountNum = Number.parseFloat(fromAmountDecimal);
+        const toAmountNum = Number.parseFloat(toAmountDecimal);
         // Calculate min received based on slippage
-        const slippagePercent = parseFloat(params.slippage ?? '0.5');
+        const slippagePercent = Number.parseFloat(params.slippage ?? '0.5');
         const minReceived = (toAmountNum * (1 - slippagePercent / 100)).toFixed(Math.min(toDecimals, 8));
         return {
             fromToken: mapRawTokenToSwapToken(raw.fromToken, chainId),
@@ -225,7 +224,7 @@ export class SwapEndpoint extends Fetch {
             fromAmount: fromAmountDecimal,
             toAmount: toAmountDecimal,
             rate: fromAmountNum > 0 ? toAmountNum / fromAmountNum : 0,
-            gasUsd: raw.tradeFee ? parseFloat(raw.tradeFee) : undefined,
+            gasUsd: raw.tradeFee ? Number.parseFloat(raw.tradeFee) : undefined,
             minReceived,
         };
     }
@@ -254,15 +253,15 @@ export class SwapEndpoint extends Fetch {
         }
         const raw = inner.data[0];
         const chainId = params.fromChainId;
-        const fromDecimals = parseInt(raw.routerResult.fromToken.decimal, 10) || 18;
-        const toDecimals = parseInt(raw.routerResult.toToken.decimal, 10) || 18;
+        const fromDecimals = Number.parseInt(raw.routerResult.fromToken.decimal, 10) || 18;
+        const toDecimals = Number.parseInt(raw.routerResult.toToken.decimal, 10) || 18;
         // Convert amounts from smallest units back to decimal
         const fromAmountDecimal = leftShift(raw.routerResult.fromTokenAmount, fromDecimals).toFixed();
         const toAmountDecimal = leftShift(raw.routerResult.toTokenAmount, toDecimals).toFixed();
-        const fromAmountNum = parseFloat(fromAmountDecimal);
-        const toAmountNum = parseFloat(toAmountDecimal);
+        const fromAmountNum = Number.parseFloat(fromAmountDecimal);
+        const toAmountNum = Number.parseFloat(toAmountDecimal);
         // Calculate min received based on slippage
-        const slippagePercent = parseFloat(params.slippage ?? '0.5');
+        const slippagePercent = Number.parseFloat(params.slippage ?? '0.5');
         const minReceived = (toAmountNum * (1 - slippagePercent / 100)).toFixed(Math.min(toDecimals, 8));
         return {
             fromToken: mapRawTokenToSwapToken(raw.routerResult.fromToken, chainId),
@@ -270,7 +269,7 @@ export class SwapEndpoint extends Fetch {
             fromAmount: fromAmountDecimal,
             toAmount: toAmountDecimal,
             rate: fromAmountNum > 0 ? toAmountNum / fromAmountNum : 0,
-            gasUsd: raw.routerResult.tradeFee ? parseFloat(raw.routerResult.tradeFee) : undefined,
+            gasUsd: raw.routerResult.tradeFee ? Number.parseFloat(raw.routerResult.tradeFee) : undefined,
             tx: raw.tx,
             routerAddress: raw.tx.to,
             minReceived,
@@ -350,10 +349,10 @@ export class SwapEndpoint extends Fetch {
                   address: raw.fromToken.tokenContractAddress ?? params.fromTokenAddress,
                   symbol: raw.fromToken.tokenSymbol ?? '',
                   name: raw.fromToken.tokenName ?? raw.fromToken.tokenSymbol ?? '',
-                  decimals: parseInt(raw.fromToken.decimal ?? '18', 10) || 18,
+                  decimals: Number.parseInt(raw.fromToken.decimal ?? '18', 10) || 18,
                   chainId: fromChainId,
                   logoURI: raw.fromToken.logo,
-                  price: raw.fromToken.tokenUnitPrice ? parseFloat(raw.fromToken.tokenUnitPrice) : undefined,
+                  price: raw.fromToken.tokenUnitPrice ? Number.parseFloat(raw.fromToken.tokenUnitPrice) : undefined,
               })
             : normalizeSwapToken({
                   address: params.fromTokenAddress,
@@ -368,10 +367,10 @@ export class SwapEndpoint extends Fetch {
                   address: raw.toToken.tokenContractAddress ?? params.toTokenAddress,
                   symbol: raw.toToken.tokenSymbol ?? '',
                   name: raw.toToken.tokenName ?? raw.toToken.tokenSymbol ?? '',
-                  decimals: parseInt(raw.toToken.decimal ?? '18', 10) || 18,
+                  decimals: Number.parseInt(raw.toToken.decimal ?? '18', 10) || 18,
                   chainId: toChainId,
                   logoURI: raw.toToken.logo,
-                  price: raw.toToken.tokenUnitPrice ? parseFloat(raw.toToken.tokenUnitPrice) : undefined,
+                  price: raw.toToken.tokenUnitPrice ? Number.parseFloat(raw.toToken.tokenUnitPrice) : undefined,
               })
             : normalizeSwapToken({
                   address: params.toTokenAddress,
@@ -384,11 +383,11 @@ export class SwapEndpoint extends Fetch {
         // Convert amounts from smallest units back to decimal
         const fromAmountDecimal = leftShift(raw.fromTokenAmount ?? '0', fromToken.decimals).toFixed();
         const toAmountDecimal = leftShift(raw.toTokenAmount ?? '0', toToken.decimals).toFixed();
-        const fromAmountNum = parseFloat(fromAmountDecimal);
-        const toAmountNum = parseFloat(toAmountDecimal);
+        const fromAmountNum = Number.parseFloat(fromAmountDecimal);
+        const toAmountNum = Number.parseFloat(toAmountDecimal);
 
         // Get min received from tx.minReceiveAmount or calculate from slippage
-        const slippagePercent = parseFloat(params.slippage ?? '0.5');
+        const slippagePercent = Number.parseFloat(params.slippage ?? '0.5');
         const minReceived = raw.tx?.minReceiveAmount
             ? leftShift(raw.tx.minReceiveAmount, toToken.decimals).toFixed()
             : (toAmountNum * (1 - slippagePercent / 100)).toFixed(Math.min(toToken.decimals, 8));
@@ -400,7 +399,7 @@ export class SwapEndpoint extends Fetch {
             toAmount: toAmountDecimal,
             rate: fromAmountNum > 0 ? toAmountNum / fromAmountNum : 0,
             minReceived,
-            gasUsd: raw.tradeFee ? parseFloat(raw.tradeFee) : undefined,
+            gasUsd: raw.tradeFee ? Number.parseFloat(raw.tradeFee) : undefined,
             tx: raw.tx
                 ? {
                       data: raw.tx.data ?? '',
@@ -467,11 +466,11 @@ export class SwapEndpoint extends Fetch {
                 address: t.tokenAddress,
                 symbol: t.symbol,
                 name: t.name,
-                decimals: parseInt(t.decimals, 10) || 18,
-                chainId: parseInt(t.chainIndex, 10),
+                decimals: Number.parseInt(t.decimals, 10) || 18,
+                chainId: Number.parseInt(t.chainIndex, 10),
                 logoURI: t.tokenLogoUrl,
                 balance: t.balance,
-                price: t.tokenPrice ? parseFloat(t.tokenPrice) : undefined,
+                price: t.tokenPrice ? Number.parseFloat(t.tokenPrice) : undefined,
                 isRiskToken: t.isRiskToken,
             }),
         );
@@ -496,11 +495,11 @@ export class SwapEndpoint extends Fetch {
                 address: t.tokenAddress,
                 symbol: t.symbol,
                 name: t.name,
-                decimals: parseInt(t.decimals, 10) || 18,
-                chainId: parseInt(t.chainIndex, 10),
+                decimals: Number.parseInt(t.decimals, 10) || 18,
+                chainId: Number.parseInt(t.chainIndex, 10),
                 logoURI: t.tokenLogoUrl,
                 balance: t.balance,
-                price: t.tokenPrice ? parseFloat(t.tokenPrice) : undefined,
+                price: t.tokenPrice ? Number.parseFloat(t.tokenPrice) : undefined,
                 isRiskToken: t.isRiskToken,
             });
             const list = grouped.get(walletAddr);
@@ -536,10 +535,10 @@ export class SwapEndpoint extends Fetch {
                 address: token.tokenContractAddress,
                 symbol: token.tokenSymbol,
                 name: token.tokenName,
-                decimals: parseInt(token.decimals, 10) || 18,
-                chainId: parseInt(token.chainIndex, 10),
+                decimals: Number.parseInt(token.decimals, 10) || 18,
+                chainId: Number.parseInt(token.chainIndex, 10),
                 logoURI: token.tokenLogoUrl,
-                price: token.tokenPrice ? parseFloat(token.tokenPrice) : undefined,
+                price: token.tokenPrice ? Number.parseFloat(token.tokenPrice) : undefined,
                 marketCapUsd: token.marketCapUsd,
                 priceChange24h: token.tokenPriceChange24h,
             }),
@@ -587,7 +586,7 @@ export class SwapEndpoint extends Fetch {
                 decimals: token.token_decimal ?? 18,
                 chainId: token.chain_id_num ?? 0,
                 logoURI: token.token_icon,
-                price: token.token_price ? parseFloat(token.token_price) : undefined,
+                price: token.token_price ? Number.parseFloat(token.token_price) : undefined,
                 marketCapUsd: token.market_cap_usd,
                 priceChange24h: token.price_change?.h24,
             }),
@@ -613,10 +612,10 @@ export class SwapEndpoint extends Fetch {
                 address: token.tokenContractAddress,
                 symbol: token.tokenSymbol,
                 name: token.tokenName,
-                decimals: parseInt(token.decimals, 10) || 18,
-                chainId: parseInt(token.chainIndex, 10),
+                decimals: Number.parseInt(token.decimals, 10) || 18,
+                chainId: Number.parseInt(token.chainIndex, 10),
                 logoURI: token.tokenLogoUrl,
-                price: token.tokenPrice ? parseFloat(token.tokenPrice) : undefined,
+                price: token.tokenPrice ? Number.parseFloat(token.tokenPrice) : undefined,
             }),
         );
     }
@@ -648,9 +647,7 @@ export class SwapEndpoint extends Fetch {
             is_realtime: true,
             is_bridge: params.is_bridge,
         });
-        if (!result.ok || result.data.code !== 0) return false;
-        const tx = first(result.data.data) as any;
-        return !!tx?.from_token;
+        return result.ok && result.data.code === 0 && !!result.data.data?.length;
     }
 }
 

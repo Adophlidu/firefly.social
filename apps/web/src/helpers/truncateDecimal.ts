@@ -5,7 +5,7 @@ export function truncateDecimal(value: string | number, precision = 2, threshold
     const strValue = String(value).trim();
     if (!/^-?\d*\.?\d*$/.test(strValue)) return strValue;
 
-    const numValue = parseFloat(strValue);
+    const numValue = Number.parseFloat(strValue);
     if (Math.abs(numValue) < threshold && Math.abs(numValue) > 0) return `< ${threshold}`;
     if (numValue === 0) return precision === 0 ? '0' : `0.${'0'.repeat(precision)}`;
     if (!strValue.includes('.')) return strValue;

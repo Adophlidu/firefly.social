@@ -181,7 +181,7 @@ export const FireflyWalletIframeBridge = memo(function IframeBridge() {
                         ) {
                             const chainIdHex = args.params[0].chainId;
                             await walletClient.switchChain({
-                                id: parseInt(chainIdHex, 16),
+                                id: Number.parseInt(chainIdHex, 16),
                             });
                         }
                         return null;

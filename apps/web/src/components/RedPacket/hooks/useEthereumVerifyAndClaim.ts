@@ -2,6 +2,7 @@ import { t } from '@lingui/core/macro';
 import { last } from 'lodash-es';
 import { useCallback } from 'react';
 import type { Address } from 'viem';
+import { mainnet } from 'viem/chains';
 import { readContract } from 'wagmi/actions';
 
 import RED_PACKET_ABI from '@/abis/RedPacket.json' with { type: 'json' };
@@ -16,7 +17,6 @@ import { usePrivyAppkitAccountByNetwork } from '@/hooks/appkit/usePrivyAppkitAcc
 import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import { EVMChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
-import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 export function useEthereumVerifyAndClaim(payload: RedPacketJSONPayload, source: SocialSource, enabled = true) {
     const appkitAccount = usePrivyAppkitAccountByNetwork(NetworkType.Ethereum);
@@ -48,8 +48,7 @@ export function useEthereumVerifyAndClaim(payload: RedPacketJSONPayload, source:
                 queryKey: ['red-packet', 'parse', source],
             }),
         ]);
-        const chainId =
-            (payload.network ? EVMChainResolver.chainId(payload.network) : payload.chainId) ?? EthereumChainId.Mainnet;
+        const chainId = (payload.network ? EVMChainResolver.chainId(payload.network) : payload.chainId) ?? mainnet.id;
 
         const availability = (await readContract(wagmiConfig, {
             abi: RED_PACKET_ABI,

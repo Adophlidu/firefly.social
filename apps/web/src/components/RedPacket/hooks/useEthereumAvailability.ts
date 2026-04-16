@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import type { Address } from 'viem';
+import { mainnet } from 'viem/chains';
 import { readContract } from 'wagmi/actions';
 
 import RED_PACKET_ABI from '@/abis/RedPacket.json' with { type: 'json' };
@@ -10,14 +11,13 @@ import { useChainContext } from '@/hooks/useChainContext.js';
 import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import { EVMChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
-import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 export function useEthereumAvailability(payload: RedPacketJSONPayload, options?: { enabled?: boolean }) {
     const networkType = getNetworkTypeFromRpPayload(payload);
     const enabled = (options?.enabled ?? true) && networkType === NetworkType.Ethereum;
     const { account } = useChainContext({ networkType });
     const chainId = enabled
-        ? ((payload.network ? EVMChainResolver.chainId(payload.network) : payload.chainId) ?? EthereumChainId.Mainnet)
+        ? ((payload.network ? EVMChainResolver.chainId(payload.network) : payload.chainId) ?? mainnet.id)
         : undefined;
     const version = payload.contract_version;
     const id = payload.rpid;
@@ -30,10 +30,10 @@ export function useEthereumAvailability(payload: RedPacketJSONPayload, options?:
             const data = await readContract(wagmiConfig, {
                 abi: RED_PACKET_ABI,
                 functionName: 'check_availability',
-                address: getRedPacketContractAddress(chainId ?? EthereumChainId.Mainnet),
+                address: getRedPacketContractAddress(chainId ?? mainnet.id),
                 args: [id],
                 account: account as Address,
-                chainId: chainId ?? EthereumChainId.Mainnet,
+                chainId: chainId ?? mainnet.id,
             });
 
             const [token_address, balance, total, claimed, expired, claimed_amount] = data as [

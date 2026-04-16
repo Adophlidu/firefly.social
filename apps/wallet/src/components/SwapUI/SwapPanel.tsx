@@ -101,7 +101,7 @@ export const SwapPanel = memo(function SwapPanel({ className }: SwapPanelProps) 
     const handlePercentageClick = useCallback(
         (percentage: number) => {
             if (!fromBalance) return;
-            const balanceNum = parseFloat(fromBalance);
+            const balanceNum = Number.parseFloat(fromBalance);
             if (isNaN(balanceNum)) return;
             const amount = (balanceNum * percentage) / 100;
             setFromAmount(toFixed(amount, 6));
@@ -138,7 +138,7 @@ export const SwapPanel = memo(function SwapPanel({ className }: SwapPanelProps) 
                     token={fromToken}
                     chainId={resolvedFromChain}
                     balance={fromBalance}
-                    usdValue={fromAmount ? (fromToken?.price ?? 0) * parseFloat(fromAmount) : undefined}
+                    usdValue={fromAmount ? (fromToken?.price ?? 0) * Number.parseFloat(fromAmount) : undefined}
                     loading={isLoading}
                     onAmountChange={setFromAmount}
                     autoFocus
@@ -150,7 +150,7 @@ export const SwapPanel = memo(function SwapPanel({ className }: SwapPanelProps) 
                         token={toToken}
                         chainId={resolvedToChain}
                         balance={toBalance}
-                        usdValue={toAmount ? (toToken?.price ?? 0) * parseFloat(toAmount) : undefined}
+                        usdValue={toAmount ? (toToken?.price ?? 0) * Number.parseFloat(toAmount) : undefined}
                         loading={quoteLoading}
                     />
 

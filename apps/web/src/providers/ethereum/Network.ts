@@ -6,9 +6,8 @@ import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
 import type { NetworkProvider } from '@/providers/types/Network.js';
 import { EVMExplorerResolver } from '@/web3-providers/evm/ResolverAPI.js';
-import type { EthereumChainId } from '@/web3-shared/evm/types.js';
 
-class Provider implements NetworkProvider<EthereumChainId, Address, Hash> {
+class Provider implements NetworkProvider<number, Address, Hash> {
     async connect(): Promise<void> {
         throw new NotImplementedError();
     }
@@ -21,15 +20,15 @@ class Provider implements NetworkProvider<EthereumChainId, Address, Hash> {
         return account.address;
     }
 
-    getChainId(): EthereumChainId {
+    getChainId(): number {
         return getChainId(wagmiConfig);
     }
 
-    getAddressUrl(chainId: EthereumChainId, address: Address): string | undefined {
+    getAddressUrl(chainId: number, address: Address): string | undefined {
         return BlockScanExplorerResolver.addressLink(chainId, address);
     }
 
-    getTransactionUrl(chainId: EthereumChainId, hash: Hash): string | undefined {
+    getTransactionUrl(chainId: number, hash: Hash): string | undefined {
         return EVMExplorerResolver.transactionLink(chainId, hash);
     }
 }

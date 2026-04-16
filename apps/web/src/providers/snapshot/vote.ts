@@ -1,4 +1,5 @@
 import { omit } from 'lodash-es';
+import { mainnet } from 'viem/chains';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { SNAPSHOT_RELAY_URL, SNAPSHOT_SEQ_URL } from '@/constants/static.js';
@@ -14,7 +15,6 @@ import {
     voteStringTypes,
     voteTypes,
 } from '@/providers/snapshot/type.js';
-import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 export async function vote(payload: {
     from: string;
@@ -53,7 +53,7 @@ export async function vote(payload: {
         app: message.app ?? '',
         metadata: message.metadata ?? '{}',
     };
-    const client = await getWalletClientRequired(wagmiConfig, { chainId: EthereumChainId.Mainnet });
+    const client = await getWalletClientRequired(wagmiConfig, { chainId: mainnet.id });
     const signedTypedData = await client.signTypedData({
         domain: {
             name: SNAPSHOT_NAME,

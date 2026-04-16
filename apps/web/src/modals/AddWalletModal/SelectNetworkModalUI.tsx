@@ -2,6 +2,7 @@
 
 import { Trans } from '@lingui/react/macro';
 import { memo, useMemo } from 'react';
+import { mainnet } from 'viem/chains';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
@@ -10,7 +11,6 @@ import { NetworkPluginID, NetworkType } from '@/constants/enum.js';
 import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
 import { useVerifyAndBindWallet } from '@/hooks/useVerifyAndBindWallet.js';
 import type { BindWalletResponse, FireflyWalletConnection } from '@/providers/types/Firefly.js';
-import { EthereumChainId } from '@/web3-shared/evm/types.js';
 import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 interface Props {
@@ -20,10 +20,7 @@ interface Props {
 }
 
 const SelectNetworkModalUI = memo<Props>(function SelectChainModalUI({ connections, onClose, onConfirm }) {
-    const evmNetworkDescriptor = useMemo(
-        () => getNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, EthereumChainId.Mainnet),
-        [],
-    );
+    const evmNetworkDescriptor = useMemo(() => getNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, mainnet.id), []);
     const solanaNetworkDescriptor = useMemo(
         () => getNetworkDescriptor(NetworkPluginID.PLUGIN_SOLANA, SolanaChainId.Mainnet),
         [],

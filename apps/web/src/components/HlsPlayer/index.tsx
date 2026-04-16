@@ -248,7 +248,7 @@ export const HlsPlayer = memo<HlsPlayerProps>(function HlsPlayer({
 
     const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setHasInteracted(true);
-        const val = parseFloat(e.target.value);
+        const val = Number.parseFloat(e.target.value);
         if (videoRef.current) {
             videoRef.current.volume = val;
             videoRef.current.muted = val === 0;

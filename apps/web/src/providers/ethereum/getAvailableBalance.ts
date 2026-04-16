@@ -6,9 +6,8 @@ import { getDefaultGas } from '@/providers/ethereum/getDefaultGas.js';
 import { EthereumNetwork } from '@/providers/ethereum/Network.js';
 import { EthereumTransfer } from '@/providers/ethereum/Transfer.js';
 import type { TransactionOptions } from '@/providers/types/Transfer.js';
-import type { EthereumChainId } from '@/web3-shared/evm/types.js';
 
-export async function getAvailableBalance(options: TransactionOptions<EthereumChainId, Address>) {
+export async function getAvailableBalance(options: TransactionOptions<number, Address>) {
     const { token } = options;
     const account = await EthereumNetwork.getAccount();
     const balance = await getBalanceOf(token.chainId, account, token.id);

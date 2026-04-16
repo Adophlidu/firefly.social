@@ -6,6 +6,7 @@ import WalletIcon from '@dimensiondev/assets/wallet.svg';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo, useCallback } from 'react';
+import { mainnet } from 'viem/chains';
 
 import { ActionButton } from '@/components/ActionButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
@@ -20,7 +21,6 @@ import { useProfileStore } from '@/hooks/useProfileStore.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/refs.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { EthereumChainId } from '@/web3-shared/evm/types.js';
 import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 interface Props {
@@ -190,7 +190,7 @@ export const RedPacketCardFooter = memo<Props>(function RedPacketCardFooter({
                     onClick={() => {
                         const chainId =
                             payload.chainId ||
-                            (networkType === NetworkType.Solana ? SolanaChainId.Mainnet : EthereumChainId.Mainnet);
+                            (networkType === NetworkType.Solana ? SolanaChainId.Mainnet : mainnet.id);
                         openFireflyWallet({
                             path: `/receive?chain=${chainId}`,
                         });

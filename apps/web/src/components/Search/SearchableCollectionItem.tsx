@@ -3,6 +3,7 @@
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import type { HTMLProps } from 'react';
+import { mainnet } from 'viem/chains';
 
 import { ChainIcon } from '@/components/ChainIcon.js';
 import { Link } from '@/components/Link.js';
@@ -10,14 +11,13 @@ import { NFTImage } from '@/components/NFTImage.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import type { EVM } from '@/providers/nftscan/types.js';
-import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 interface CollectionItemProps extends HTMLProps<HTMLAnchorElement> {
     collection: EVM.Collection;
 }
 
 export function SearchableCollectionItem({ collection, className, onClick }: CollectionItemProps) {
-    const chainId = collection.chain_id ? +collection.chain_id : EthereumChainId.Mainnet;
+    const chainId = collection.chain_id ? +collection.chain_id : mainnet.id;
 
     return (
         <Link

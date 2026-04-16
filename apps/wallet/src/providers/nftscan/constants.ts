@@ -1,9 +1,3 @@
-import { EthereumChainId } from '@/constants/ethereum.js';
+import { base, bsc, mainnet, optimism, polygon } from 'viem/chains';
 
-export const NFTSCAN_CHAIN_IDS = [
-    EthereumChainId.Mainnet,
-    EthereumChainId.BSC,
-    EthereumChainId.Polygon,
-    EthereumChainId.Base,
-    EthereumChainId.Optimism,
-];
+export const NFTSCAN_CHAIN_IDS = [mainnet.id, bsc.id, polygon.id, base.id, optimism.id];

@@ -41,7 +41,6 @@ import { Button } from '@/components/ui/button.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { config } from '@/configs/wagmiClient.js';
 import { NetworkType } from '@/constants/enum.js';
-import type { EthereumChainId } from '@/constants/ethereum.js';
 import { SolanaChainId } from '@/constants/solana.js';
 import { formatLamportsToSol } from '@/helpers/formatLamportsToSol.js';
 import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
@@ -198,7 +197,7 @@ function Form() {
                 case NetworkType.Ethereum: {
                     if (!isValidAddressEthereum(to)) return null;
                     const { gas } = await getDefaultGas(config, {
-                        token: token as Token<EthereumChainId, Address>,
+                        token: token as Token<number, Address>,
                         to,
                         amount,
                     });

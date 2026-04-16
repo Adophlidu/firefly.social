@@ -37,7 +37,7 @@ export async function searchPrediction({
     eventsStatus,
     searchTags = true,
 }: SearchBetsOptions): Promise<Pageable<PolymarketEventListData, PageIndicator>> {
-    const page = indicator?.id ? parseInt(indicator.id, 10) : 1;
+    const page = indicator?.id ? Number.parseInt(indicator.id, 10) : 1;
 
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/polymarket/public-search', {
         q: keyword,

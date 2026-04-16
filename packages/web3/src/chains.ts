@@ -58,9 +58,6 @@ export const chains = [
     plasma,
     hyperEvm,
 ] as const;
-
-export type ChainId = (typeof chains)[number]['id'];
-
 /**
  * Chains shown in wallet UI (Firefly wallet).
  */
@@ -97,3 +94,5 @@ export const privyVisibleChains = [
 ] as const satisfies ReadonlyArray<(typeof chains)[number]>;
 
 export const rpSupportedChains = [mainnet, bsc, base, optimism, polygon, arbitrum];
+
+export type ChainId = (typeof chains)[number]['id'];

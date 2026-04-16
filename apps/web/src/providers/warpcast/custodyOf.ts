@@ -1,9 +1,9 @@
 import { isValidAddressEthereum } from '@dimensiondev/web3/utils';
 import { parseUnits } from 'viem';
+import { optimism } from 'viem/chains';
 import { readContract } from 'wagmi/actions';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
-import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 const ABI = [
     {
@@ -39,7 +39,7 @@ export async function custodyOf(fid: string): Promise<string> {
         address: '0x00000000fc6c5f01fc30151999387bb99a9f489b',
         functionName: 'custodyOf',
         args: [parseUnits(fid, 0)],
-        chainId: EthereumChainId.Optimism,
+        chainId: optimism.id,
     });
     if (!isValidAddressEthereum(address)) throw new Error(`Invalid custody address: ${address}`);
     return address;

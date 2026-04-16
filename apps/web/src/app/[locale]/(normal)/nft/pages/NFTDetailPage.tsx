@@ -2,6 +2,7 @@
 
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
+import { gnosis } from 'viem/chains';
 
 import { PoapDetailPage } from '@/app/[locale]/(normal)/nft/pages/PoapDetailPage.js';
 import { Loading } from '@/components/Loading.js';
@@ -13,10 +14,16 @@ import { POAP_CONTRACT_ADDRESS } from '@/constants/static.js';
 import { notFound } from '@/esm/navigation.js';
 import { useNFTDetail } from '@/hooks/useNFTDetail.js';
 import { ErcType } from '@/providers/nftscan/types.js';
-import { EthereumChainId, EthereumSchemaType } from '@/web3-shared/evm/types.js';
+import { EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
-export function NFTDetailPage({ chainId, address, tokenId }: { chainId: number; address: string; tokenId: string }) {
-    const isPoap = chainId === EthereumChainId.xDai && isSameEthereumAddress(address, POAP_CONTRACT_ADDRESS);
+interface NFTDetailPageProps {
+    chainId: number;
+    address: string;
+    tokenId: string;
+}
+
+export function NFTDetailPage({ chainId, address, tokenId }: NFTDetailPageProps) {
+    const isPoap = chainId === gnosis.id && isSameEthereumAddress(address, POAP_CONTRACT_ADDRESS);
 
     const { data, isLoading } = useNFTDetail(chainId, address, isPoap ? undefined : tokenId);
 

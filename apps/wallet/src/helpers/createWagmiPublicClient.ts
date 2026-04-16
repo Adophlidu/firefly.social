@@ -1,12 +1,11 @@
 import { chains } from '@dimensiondev/web3/chains';
 import { type Chain, createPublicClient as createClient, http, type PublicClient } from 'viem';
 
-import type { EthereumChainId } from '@/constants/ethereum.js';
 import { resolvePublicProviderUrl } from '@/helpers/resolvePublicProviderUrl.js';
 
 const map = new Map<number, PublicClient>();
 
-export function createWagmiPublicClient(chainId: EthereumChainId): PublicClient {
+export function createWagmiPublicClient(chainId: number): PublicClient {
     const client = map.get(chainId);
     if (client) return client;
 

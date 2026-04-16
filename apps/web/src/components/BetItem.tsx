@@ -33,8 +33,8 @@ const calculateRatio = (market: BetsMarketDataForUI): number => {
         return 0;
     }
 
-    const firstPrice = parseFloat(String(prices[0]));
-    const secondPrice = parseFloat(String(prices[1]));
+    const firstPrice = Number.parseFloat(String(prices[0]));
+    const secondPrice = Number.parseFloat(String(prices[1]));
 
     if (Number.isNaN(firstPrice) || Number.isNaN(secondPrice)) return 0;
 
@@ -49,7 +49,7 @@ const calculateRatio = (market: BetsMarketDataForUI): number => {
 const formatPriceCents = (price: string | null): string => {
     if (!price) return '50¢';
 
-    const numPrice = parseFloat(price);
+    const numPrice = Number.parseFloat(price);
 
     if (Number.isNaN(numPrice) || numPrice < 0 || numPrice > 1) {
         return '50¢';
@@ -65,7 +65,7 @@ const formatWinRate = (percentage: number): string => {
 };
 
 const tryParseIntOrMax = (value: string | null | undefined): number => {
-    const parsed = value ? parseInt(value, 10) : NaN;
+    const parsed = value ? Number.parseInt(value, 10) : NaN;
     return Number.isNaN(parsed) ? Number.MAX_SAFE_INTEGER : parsed;
 };
 
@@ -109,8 +109,8 @@ const getMarketData = (market: BetsMarketDataForUI) => {
     const prices = market.outcomes.map((outcome) => outcome.price ?? '0');
     const firstPrice = prices[0];
     const secondPrice = prices[1];
-    const firstPercentage = firstPrice ? parseFloat(firstPrice) * 100 : 0;
-    const secondPercentage = secondPrice ? parseFloat(secondPrice) * 100 : 0;
+    const firstPercentage = firstPrice ? Number.parseFloat(firstPrice) * 100 : 0;
+    const secondPercentage = secondPrice ? Number.parseFloat(secondPrice) * 100 : 0;
 
     const isMarketResolved = market.isResolved;
 
@@ -119,8 +119,8 @@ const getMarketData = (market: BetsMarketDataForUI) => {
     let isFirstOutcomeWinner = false;
 
     if (isMarketResolved) {
-        const firstPriceNum = firstPrice ? parseFloat(firstPrice) : 0;
-        const secondPriceNum = secondPrice ? parseFloat(secondPrice) : 0;
+        const firstPriceNum = firstPrice ? Number.parseFloat(firstPrice) : 0;
+        const secondPriceNum = secondPrice ? Number.parseFloat(secondPrice) : 0;
 
         if (firstPriceNum >= secondPriceNum) {
             winningOutcome = outcomes[0];
@@ -210,8 +210,8 @@ export const BetItem = memo(function BetItem({
     const firstPrice = primaryPrices[0];
     const secondPrice = primaryPrices[1];
 
-    const firstPercentage = firstPrice ? parseFloat(firstPrice) * 100 : 0;
-    const secondPercentage = secondPrice ? parseFloat(secondPrice) * 100 : 0;
+    const firstPercentage = firstPrice ? Number.parseFloat(firstPrice) * 100 : 0;
+    const secondPercentage = secondPrice ? Number.parseFloat(secondPrice) * 100 : 0;
 
     const isMultiMarket = event.markets?.length > 1;
 
@@ -224,8 +224,8 @@ export const BetItem = memo(function BetItem({
 
     const resolvedOutcome = useMemo(() => {
         if (!isResolved || isMultiMarket || !primaryMarket) return null;
-        const firstPriceNum = primaryPrices[0] ? parseFloat(primaryPrices[0]) : 0;
-        const secondPriceNum = primaryPrices[1] ? parseFloat(primaryPrices[1]) : 0;
+        const firstPriceNum = primaryPrices[0] ? Number.parseFloat(primaryPrices[0]) : 0;
+        const secondPriceNum = primaryPrices[1] ? Number.parseFloat(primaryPrices[1]) : 0;
         if (firstPriceNum >= secondPriceNum) return { outcome: primaryOutcomes[0], isFirst: true };
         return { outcome: primaryOutcomes[1], isFirst: false };
     }, [isResolved, isMultiMarket, primaryPrices, primaryOutcomes]);

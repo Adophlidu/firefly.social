@@ -52,15 +52,15 @@ export const PredictionMarketBuyButtons = memo<PredictionMarketBuyButtonsProps>(
 
     const outcomes = useMemo(() => {
         return market.outcomes.map((outcome) => {
-            const price = !Number.isNaN(+outcome.price) ? parseFloat(outcome.price) : 0;
+            const price = !Number.isNaN(+outcome.price) ? Number.parseFloat(outcome.price) : 0;
             const orderBook = orderBooks?.find((book) => book.asset_id === outcome.id);
             const orderBookPrice = !!orderBook && !orderBook.asks.length ? '0' : last(orderBook?.asks)?.price;
             const bestPrice = !isUndefined(outcome.bestAsk)
                 ? !Number.isNaN(+outcome.bestAsk)
-                    ? parseFloat(outcome.bestAsk)
+                    ? Number.parseFloat(outcome.bestAsk)
                     : price
                 : !isUndefined(orderBookPrice)
-                  ? parseFloat(orderBookPrice)
+                  ? Number.parseFloat(orderBookPrice)
                   : price;
 
             return { ...outcome, displayPrice: bestPrice === 1 ? 0 : bestPrice };

@@ -4,7 +4,6 @@ import { type Address, parseUnits } from 'viem';
 import type { Config } from 'wagmi';
 import { estimateFeesPerGas, getAccount } from 'wagmi/actions';
 
-import type { EthereumChainId } from '@/constants/ethereum.js';
 import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
 import { isNativeTokenDebank } from '@/helpers/isNativeTokenDebank.js';
 import { multipliedBy, toFixed, ZERO } from '@/helpers/number.js';
@@ -54,10 +53,7 @@ async function estimateGasForNativeToken(
     return data || 0n;
 }
 
-export async function getDefaultGas(
-    config: Config,
-    { token, to, amount }: GetDefaultGasOptions<EthereumChainId, Address>,
-) {
+export async function getDefaultGas(config: Config, { token, to, amount }: GetDefaultGasOptions<number, Address>) {
     const isEIP1559 = false; // TODO
     const isNative = isNativeTokenDebank(token);
     const parameters = {

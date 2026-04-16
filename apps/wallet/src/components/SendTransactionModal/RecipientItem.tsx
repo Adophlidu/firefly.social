@@ -3,11 +3,11 @@ import WalletIcon from '@dimensiondev/assets/wallet.fill.svg';
 import { formatAddress } from '@dimensiondev/web3/utils';
 import { omitBy } from 'lodash-es';
 import type { HTMLProps, ReactNode } from 'react';
+import { mainnet } from 'viem/chains';
 
 import { Image } from '@/components/Image.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import type { SocialSource } from '@/constants/enum.js';
-import { EthereumChainId } from '@/constants/ethereum.js';
 import { getBlockExplorersURL } from '@/helpers/getBlockExplorersURL.js';
 import { cn } from '@/lib/utils.js';
 
@@ -122,7 +122,7 @@ export function RecipientItem({
 }
 
 function ExplorerLink({ address }: { address: string }) {
-    const link = getBlockExplorersURL(EthereumChainId.Mainnet, address, 'address');
+    const link = getBlockExplorersURL(mainnet.id, address, 'address');
     if (!link) return null;
     return (
         <a href={link} target="_blank" rel="noopener noreferrer" className="text-second my-auto ml-auto">

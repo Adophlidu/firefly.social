@@ -3,12 +3,12 @@ import { nativeBridgeProvider, SupportedMethod } from '@dimensiondev/native-brid
 import { parseUrl } from '@dimensiondev/utils';
 import type { SignInOptions } from '@farcaster/miniapp-host';
 import { toHex } from 'viem';
+import { optimism } from 'viem/chains';
 
 import { SITE_URL } from '@/constants/static.js';
 import { logger } from '@/libs/Logger.js';
 import { createSiwfMessage } from '@/providers/warpcast/signInWithFarcaster.js';
 import type { FrameV2 } from '@/types/frame.js';
-import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 /**
  * Sign in with the auth wallet.
@@ -29,13 +29,13 @@ export async function signInWithAuthWallet(
     const signMessage = async (message: string) => {
         if (nativeBridgeProvider.supported) {
             return nativeBridgeProvider.request(SupportedMethod.SIGN_MESSAGE, {
-                chainId: toHex(EthereumChainId.Optimism),
+                chainId: toHex(optimism.id),
                 address,
                 message,
             });
         } else {
             return iframeBridgeProvider.request(IframeBridgeMethod.FIREFLY_WALLET_SIGN_MESSAGE, {
-                chainId: toHex(EthereumChainId.Optimism),
+                chainId: toHex(optimism.id),
                 address,
                 message,
             });

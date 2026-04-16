@@ -1,12 +1,12 @@
 import type { NetworkType, SocialSource } from '@/constants/enum.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import type { FungibleToken } from '@/web3-shared/base/specs.js';
-import type { EthereumChainId, EthereumSchemaType } from '@/web3-shared/evm/types.js';
+import type { EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
 export interface CreateRedPacketContext {
     networkType: NetworkType;
     creator: string;
-    chainId: EthereumChainId;
+    chainId: number;
     version: number;
     publicKey: string;
     shares: number;
@@ -15,7 +15,7 @@ export interface CreateRedPacketContext {
     total: string;
     name: string;
     message: string;
-    token?: FungibleToken<EthereumChainId, EthereumSchemaType.Native | EthereumSchemaType.ERC20>;
+    token?: FungibleToken<number, EthereumSchemaType.Native | EthereumSchemaType.ERC20>;
 }
 
 export interface ClaimRedPacketContext {
@@ -36,5 +36,5 @@ export interface CreateRedPacketParams {
     tokenType: number;
     tokenAddress: string;
     total: string;
-    token?: FungibleToken<EthereumChainId, EthereumSchemaType.Native | EthereumSchemaType.ERC20>;
+    token?: FungibleToken<number, EthereumSchemaType.Native | EthereumSchemaType.ERC20>;
 }

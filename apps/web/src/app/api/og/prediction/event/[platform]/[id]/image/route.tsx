@@ -106,8 +106,8 @@ async function PredictionEventOgImage({
             }
         }
         const secondOutcome = market?.outcomes[1];
-        const firstPrice = parseFloat(firstOutcome?.price || '0');
-        const secondPrice = parseFloat(secondOutcome?.price || '0');
+        const firstPrice = Number.parseFloat(firstOutcome?.price || '0');
+        const secondPrice = Number.parseFloat(secondOutcome?.price || '0');
         const firstCents = (firstPrice * 100).toFixed(1);
         const secondCents = (secondPrice * 100).toFixed(1);
 
@@ -440,8 +440,8 @@ async function PredictionEventOgImage({
                             {displayMarkets.map((market, index) => {
                                 const firstOutcome = market.outcomes[0];
                                 const secondOutcome = market.outcomes[1];
-                                const firstPrice = parseFloat(firstOutcome?.price || '0');
-                                const secondPrice = parseFloat(secondOutcome?.price || '0');
+                                const firstPrice = Number.parseFloat(firstOutcome?.price || '0');
+                                const secondPrice = Number.parseFloat(secondOutcome?.price || '0');
                                 const firstPercent = Math.round(firstPrice * 100);
                                 const firstCents = (firstPrice * 100).toFixed(1);
                                 const secondCents = (secondPrice * 100).toFixed(1);

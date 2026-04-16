@@ -9,12 +9,11 @@ import { LoadingPanel } from '@/components/LoadingPanel.js';
 import { NFTCollectionList } from '@/components/NFTs/NFTCollectionList.js';
 import { NFTListByContract } from '@/components/NFTs/NFTListByContract.js';
 import { POAPList } from '@/components/NFTs/POAPList.js';
-import type { EthereumChainId } from '@/constants/ethereum.js';
 import { POAP_CONTRACT_ADDRESS } from '@/constants/static.js';
 import type { EVM } from '@/providers/nftscan/types.js';
 
 interface SelectedCollection {
-    chainId: EthereumChainId;
+    chainId: number;
     collectionId: string;
     collection: EVM.CollectionBasics;
 }

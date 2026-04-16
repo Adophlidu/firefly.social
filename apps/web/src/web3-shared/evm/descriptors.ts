@@ -1,16 +1,39 @@
+import {
+    arbitrum,
+    aurora,
+    avalanche,
+    base,
+    blast,
+    bsc,
+    celo,
+    confluxESpace,
+    fantom,
+    gnosis,
+    linea,
+    mainnet,
+    metis,
+    optimism,
+    plasma,
+    polygon,
+    scroll,
+    xLayer,
+    zkSync,
+    zora,
+} from 'viem/chains';
+
 import { NetworkPluginID, TokenType } from '@/constants/enum.js';
 import { getEvmNativeTokenAddress } from '@/providers/ethereum/getNativeTokenAddress.js';
 import CHAINS from '@/web3-constants/evm/chains.json' with { type: 'json' };
 import type { ChainDescriptor, NetworkDescriptor } from '@/web3-shared/base/specs.js';
-import { EthereumChainId, EthereumNetworkType, EthereumSchemaType } from '@/web3-shared/evm/types.js';
+import { EthereumNetworkType, EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
 const PLUGIN_ID = NetworkPluginID.PLUGIN_EVM;
 
-export const NETWORK_DESCRIPTORS: ReadonlyArray<NetworkDescriptor<EthereumChainId, EthereumNetworkType>> = [
+export const NETWORK_DESCRIPTORS: ReadonlyArray<NetworkDescriptor<number, EthereumNetworkType>> = [
     {
         ID: `${PLUGIN_ID}_ethereum`,
         networkSupporterPluginID: PLUGIN_ID,
-        chainId: EthereumChainId.Mainnet,
+        chainId: mainnet.id,
         type: EthereumNetworkType.Ethereum,
         name: 'Ethereum',
         shortName: 'ETH',
@@ -24,7 +47,7 @@ export const NETWORK_DESCRIPTORS: ReadonlyArray<NetworkDescriptor<EthereumChainI
     {
         ID: `${PLUGIN_ID}_bsc`,
         networkSupporterPluginID: PLUGIN_ID,
-        chainId: EthereumChainId.BSC,
+        chainId: bsc.id,
         type: EthereumNetworkType.Binance,
         name: 'BNB Chain',
         icon: '/image/chains/binance.png',
@@ -36,7 +59,7 @@ export const NETWORK_DESCRIPTORS: ReadonlyArray<NetworkDescriptor<EthereumChainI
     {
         ID: `${PLUGIN_ID}_base`,
         networkSupporterPluginID: PLUGIN_ID,
-        chainId: EthereumChainId.Base,
+        chainId: base.id,
         type: EthereumNetworkType.Base,
         name: 'Base',
         icon: '/image/chains/base.png',
@@ -48,7 +71,7 @@ export const NETWORK_DESCRIPTORS: ReadonlyArray<NetworkDescriptor<EthereumChainI
     {
         ID: `${PLUGIN_ID}_polygon`,
         networkSupporterPluginID: PLUGIN_ID,
-        chainId: EthereumChainId.Polygon,
+        chainId: polygon.id,
         type: EthereumNetworkType.Polygon,
         name: 'Polygon',
         icon: '/image/chains/polygon.png',
@@ -60,7 +83,7 @@ export const NETWORK_DESCRIPTORS: ReadonlyArray<NetworkDescriptor<EthereumChainI
     {
         ID: `${PLUGIN_ID}_arbitrum`,
         networkSupporterPluginID: PLUGIN_ID,
-        chainId: EthereumChainId.Arbitrum,
+        chainId: arbitrum.id,
         type: EthereumNetworkType.Arbitrum,
         name: 'Arbitrum One',
         shortName: 'Arbitrum',
@@ -73,7 +96,7 @@ export const NETWORK_DESCRIPTORS: ReadonlyArray<NetworkDescriptor<EthereumChainI
     {
         ID: `${PLUGIN_ID}_xdai`,
         networkSupporterPluginID: PLUGIN_ID,
-        chainId: EthereumChainId.xDai,
+        chainId: gnosis.id,
         type: EthereumNetworkType.xDai,
         name: 'Gnosis',
         icon: '/image/chains/xdai.png',
@@ -85,7 +108,7 @@ export const NETWORK_DESCRIPTORS: ReadonlyArray<NetworkDescriptor<EthereumChainI
     {
         ID: `${PLUGIN_ID}_scroll`,
         networkSupporterPluginID: PLUGIN_ID,
-        chainId: EthereumChainId.Scroll,
+        chainId: scroll.id,
         type: EthereumNetworkType.Scroll,
         name: 'Scroll',
         icon: 'https://static.debank.com/image/chain/logo_url/scrl/1fa5c7e0bfd353ed0a97c1476c9c42d2.png',
@@ -98,7 +121,7 @@ export const NETWORK_DESCRIPTORS: ReadonlyArray<NetworkDescriptor<EthereumChainI
     {
         ID: `${PLUGIN_ID}_avalanche`,
         networkSupporterPluginID: PLUGIN_ID,
-        chainId: EthereumChainId.Avalanche,
+        chainId: avalanche.id,
         type: EthereumNetworkType.Avalanche,
         name: 'Avalanche',
         shortName: 'AVAX',
@@ -111,7 +134,7 @@ export const NETWORK_DESCRIPTORS: ReadonlyArray<NetworkDescriptor<EthereumChainI
     {
         ID: `${PLUGIN_ID}_aurora`,
         networkSupporterPluginID: PLUGIN_ID,
-        chainId: EthereumChainId.Aurora,
+        chainId: aurora.id,
         type: EthereumNetworkType.Aurora,
         name: 'Aurora',
         icon: '/image/chains/aurora.png',
@@ -123,7 +146,7 @@ export const NETWORK_DESCRIPTORS: ReadonlyArray<NetworkDescriptor<EthereumChainI
     {
         ID: `${PLUGIN_ID}_conflux`,
         networkSupporterPluginID: PLUGIN_ID,
-        chainId: EthereumChainId.Conflux,
+        chainId: confluxESpace.id,
         type: EthereumNetworkType.Conflux,
         name: 'Conflux',
         icon: '/image/chains/conflux.png',
@@ -135,7 +158,7 @@ export const NETWORK_DESCRIPTORS: ReadonlyArray<NetworkDescriptor<EthereumChainI
     {
         ID: `${PLUGIN_ID}_fantom`,
         networkSupporterPluginID: PLUGIN_ID,
-        chainId: EthereumChainId.Fantom,
+        chainId: fantom.id,
         type: EthereumNetworkType.Fantom,
         name: 'Fantom',
         icon: '/image/chains/fantom.png',
@@ -147,7 +170,7 @@ export const NETWORK_DESCRIPTORS: ReadonlyArray<NetworkDescriptor<EthereumChainI
     {
         ID: `${PLUGIN_ID}_optimism`,
         networkSupporterPluginID: PLUGIN_ID,
-        chainId: EthereumChainId.Optimism,
+        chainId: optimism.id,
         type: EthereumNetworkType.Optimism,
         name: 'Optimism',
         icon: '/image/chains/optimism.png',
@@ -159,7 +182,7 @@ export const NETWORK_DESCRIPTORS: ReadonlyArray<NetworkDescriptor<EthereumChainI
     {
         ID: `${PLUGIN_ID}_metis`,
         networkSupporterPluginID: PLUGIN_ID,
-        chainId: EthereumChainId.Metis,
+        chainId: metis.id,
         type: EthereumNetworkType.Metis,
         icon: 'https://static.debank.com/image/chain/logo_url/metis/7485c0a61c1e05fdf707113b6b6ac917.png',
         iconColor: 'rgb(36, 150, 238)',
@@ -171,7 +194,7 @@ export const NETWORK_DESCRIPTORS: ReadonlyArray<NetworkDescriptor<EthereumChainI
     {
         ID: `${PLUGIN_ID}_xlayer`,
         networkSupporterPluginID: PLUGIN_ID,
-        chainId: EthereumChainId.XLayer,
+        chainId: xLayer.id,
         type: EthereumNetworkType.XLayer,
         icon: '/image/chains/xlayer.png',
         iconColor: 'rgb(255, 255, 255)',
@@ -182,7 +205,7 @@ export const NETWORK_DESCRIPTORS: ReadonlyArray<NetworkDescriptor<EthereumChainI
     {
         ID: `${PLUGIN_ID}_zora`,
         networkSupporterPluginID: PLUGIN_ID,
-        chainId: EthereumChainId.Zora,
+        chainId: zora.id,
         type: EthereumNetworkType.Zora,
         icon: 'https://static.debank.com/image/chain/logo_url/zora/de39f62c4489a2359d5e1198a8e02ef1.png',
         iconColor: '#3059AE',
@@ -193,7 +216,7 @@ export const NETWORK_DESCRIPTORS: ReadonlyArray<NetworkDescriptor<EthereumChainI
     {
         ID: `${PLUGIN_ID}_celo`,
         networkSupporterPluginID: PLUGIN_ID,
-        chainId: EthereumChainId.Celo,
+        chainId: celo.id,
         type: EthereumNetworkType.Celo,
         icon: '/image/chains/celo.png',
         iconColor: '#FCFF52',
@@ -204,7 +227,7 @@ export const NETWORK_DESCRIPTORS: ReadonlyArray<NetworkDescriptor<EthereumChainI
     {
         ID: `${PLUGIN_ID}_zksync_era`,
         networkSupporterPluginID: PLUGIN_ID,
-        chainId: EthereumChainId.ZksyncEra,
+        chainId: zkSync.id,
         type: EthereumNetworkType.ZksyncEra,
         icon: '/image/chains/zksync.png',
         iconColor: '#3059AE',
@@ -215,7 +238,7 @@ export const NETWORK_DESCRIPTORS: ReadonlyArray<NetworkDescriptor<EthereumChainI
     {
         ID: `${PLUGIN_ID}_linea`,
         networkSupporterPluginID: PLUGIN_ID,
-        chainId: EthereumChainId.Linea,
+        chainId: linea.id,
         type: EthereumNetworkType.Linea,
         icon: '/image/chains/linea.png',
         iconColor: '#3059AE',
@@ -226,7 +249,7 @@ export const NETWORK_DESCRIPTORS: ReadonlyArray<NetworkDescriptor<EthereumChainI
     {
         ID: `${PLUGIN_ID}_plasma`,
         networkSupporterPluginID: PLUGIN_ID,
-        chainId: EthereumChainId.Plasma,
+        chainId: plasma.id,
         type: EthereumNetworkType.Plasma,
         icon: '/image/chains/plasma.png',
         iconColor: '#3059AE',
@@ -237,7 +260,7 @@ export const NETWORK_DESCRIPTORS: ReadonlyArray<NetworkDescriptor<EthereumChainI
     {
         ID: `${PLUGIN_ID}_blast`,
         networkSupporterPluginID: PLUGIN_ID,
-        chainId: EthereumChainId.Blast,
+        chainId: blast.id,
         type: EthereumNetworkType.Blast,
         icon: '/image/chains/blast.png',
         iconColor: 'rgb(252, 236, 222)',
@@ -247,31 +270,30 @@ export const NETWORK_DESCRIPTORS: ReadonlyArray<NetworkDescriptor<EthereumChainI
     },
 ];
 
-export const CHAIN_DESCRIPTORS: ReadonlyArray<
-    ChainDescriptor<EthereumChainId, EthereumSchemaType, EthereumNetworkType>
-> = CHAINS.map((x) => {
-    const network = NETWORK_DESCRIPTORS.find((y) => y.chainId === x.chainId);
-    return {
-        ...x,
-        ID: `${x.chainId}_${x.name}`,
-        coinMarketCapChainId: '',
-        coinGeckoChainId: '',
-        coinGeckoPlatformId: '',
-        type: (x.type as EthereumNetworkType | undefined) || EthereumNetworkType.Ethereum,
-        color: network?.iconColor || x.color || 'rgb(138, 138, 138)',
-        nativeCurrency: {
-            id: getEvmNativeTokenAddress(x.chainId),
-            address: getEvmNativeTokenAddress(x.chainId),
-            type: TokenType.Fungible,
-            schema: EthereumSchemaType.Native,
-            ...x.nativeCurrency,
-        },
-        // not accessible
-        rpcUrl: '',
-        iconUrl: network?.icon || x.nativeCurrency.logoURL,
-        explorerUrl: {
-            url: x.explorers?.[0]?.url || x.infoURL,
-        },
-        isCustomized: false,
-    };
-});
+export const CHAIN_DESCRIPTORS: ReadonlyArray<ChainDescriptor<number, EthereumSchemaType, EthereumNetworkType>> =
+    CHAINS.map((x) => {
+        const network = NETWORK_DESCRIPTORS.find((y) => y.chainId === x.chainId);
+        return {
+            ...x,
+            ID: `${x.chainId}_${x.name}`,
+            coinMarketCapChainId: '',
+            coinGeckoChainId: '',
+            coinGeckoPlatformId: '',
+            type: (x.type as EthereumNetworkType | undefined) || EthereumNetworkType.Ethereum,
+            color: network?.iconColor || x.color || 'rgb(138, 138, 138)',
+            nativeCurrency: {
+                id: getEvmNativeTokenAddress(x.chainId),
+                address: getEvmNativeTokenAddress(x.chainId),
+                type: TokenType.Fungible,
+                schema: EthereumSchemaType.Native,
+                ...x.nativeCurrency,
+            },
+            // not accessible
+            rpcUrl: '',
+            iconUrl: network?.icon || x.nativeCurrency.logoURL,
+            explorerUrl: {
+                url: x.explorers?.[0]?.url || x.infoURL,
+            },
+            isCustomized: false,
+        };
+    });

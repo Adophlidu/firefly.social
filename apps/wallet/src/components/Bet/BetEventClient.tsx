@@ -110,7 +110,7 @@ function useBetEventQueryParams() {
 
     const priceFromUrl =
         !isUndefined(searchParams?.limitPrice) && !Number.isNaN(Number(searchParams.limitPrice))
-            ? parseFloat(searchParams.limitPrice)
+            ? Number.parseFloat(searchParams.limitPrice)
             : undefined;
 
     return { side, orderType, outcome, priceFromUrl, setQueryParams, isPending };
@@ -194,8 +194,8 @@ export default function BetEventClient({ id }: { id: string }) {
                 if (orderBook) {
                     return {
                         ...option,
-                        bestAsk: !orderBook.asks.length ? 0 : parseFloat(last(orderBook.asks)?.price ?? '0'),
-                        bestBid: !orderBook.bids.length ? 0 : parseFloat(last(orderBook.bids)?.price ?? '0'),
+                        bestAsk: !orderBook.asks.length ? 0 : Number.parseFloat(last(orderBook.asks)?.price ?? '0'),
+                        bestBid: !orderBook.bids.length ? 0 : Number.parseFloat(last(orderBook.bids)?.price ?? '0'),
                     };
                 }
             }
@@ -205,8 +205,8 @@ export default function BetEventClient({ id }: { id: string }) {
 
             return {
                 ...option,
-                bestAsk: parseFloat(priceData.best_ask),
-                bestBid: parseFloat(priceData.best_bid),
+                bestAsk: Number.parseFloat(priceData.best_ask),
+                bestBid: Number.parseFloat(priceData.best_bid),
             };
         });
     }, [data?.outcomeOptions, data?.parsedTokenIds, prices, orderBooks]);
