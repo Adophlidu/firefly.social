@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button.js';
 
 export function BetLoadFailed({ reset }: { reset?: () => void }) {
     return (
-        <div className="flex w-full flex-1 items-center justify-center">
+        <div className="flex h-screen w-full items-center justify-center">
             <div className="flex w-[160px] flex-col items-center gap-4">
                 <div className="flex flex-col items-center gap-2">
                     <LoadFailedIcon width={160} height={128} className="text-third" />

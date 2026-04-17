@@ -6,6 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 import { BigNumber } from 'bignumber.js';
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { toast } from 'sonner';
 import { formatUnits } from 'viem';
 import { polygon } from 'viem/chains';
 
@@ -99,11 +100,13 @@ function DepositClient() {
         if (inputType === InputType.Amount)
             return {
                 amount: value,
-                usdcValue: value ? toFixed(multipliedBy(value, depositToken.price ?? 0), 2) : '0',
+                usdcValue: removeTrailingZeros(value ? toFixed(multipliedBy(value, depositToken.price ?? 0), 2) : '0'),
             };
 
         return {
-            amount: value ? toFixed(dividedBy(value, depositToken.price ?? 1), depositToken.decimals) : '0',
+            amount: removeTrailingZeros(
+                value ? toFixed(dividedBy(value, depositToken.price ?? 1), depositToken.decimals) : '0',
+            ),
             usdcValue: value,
         };
     }, [value, inputType, depositToken, isSameToken]);
@@ -165,6 +168,10 @@ function DepositClient() {
 
     useEffect(() => {
         inputRef.current?.focus();
+
+        return () => {
+            toast.dismiss();
+        };
     }, []);
 
     if (isEmbeddedWalletLoading || !embeddedAddress || isPolymarketAccountLoading || isDefaultTokenLoading) {
