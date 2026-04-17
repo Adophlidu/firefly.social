@@ -35,6 +35,30 @@ import { useWaitForPrivyLogin } from '@/hooks/useWaitForPrivyLogin.js';
 import { logger } from '@/lib/Logger.js';
 import { showEmbeddedWalletUIAtom } from '@/store/embeddedWallets.js';
 
+type FireflyWalletEvmRpcRequest = IframeBridgeRequestArguments[IframeBridgeMethod.FIREFLY_WALLET_EVM_RPC];
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+    return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
+
+// Privy's send flow falls back to mainnet when the tx omits chainId, even after a successful switch.
+function withTransactionChainId(
+    args: FireflyWalletEvmRpcRequest,
+    chainId: number | undefined,
+): FireflyWalletEvmRpcRequest {
+    if (args.method !== 'eth_sendTransaction' || !chainId || !Array.isArray(args.params) || args.params.length === 0) {
+        return args;
+    }
+
+    const [transaction, ...rest] = args.params;
+    if (!isRecord(transaction) || 'chainId' in transaction) return args;
+
+    return {
+        ...args,
+        params: [{ ...transaction, chainId: toHex(chainId) }, ...rest],
+    };
+}
+
 export const FireflyWalletIframeBridge = memo(function IframeBridge() {
     const { wallets: evmWallets } = useWallets();
     const { wallets } = useSolanaWallets();
@@ -171,6 +195,7 @@ export const FireflyWalletIframeBridge = memo(function IframeBridge() {
                     evmWalletsRef.current.find((w) => w.walletClientType === 'privy') ?? first(evmWalletsRef.current);
                 const connector = privyEvmWallet ? await resolveEvmConnector(privyEvmWallet) : undefined;
                 const walletClient = await getWalletClient(config, { connector: connector ?? undefined });
+
                 switch (args.method) {
                     case 'wallet_switchEthereumChain': {
                         if (
@@ -191,7 +216,11 @@ export const FireflyWalletIframeBridge = memo(function IframeBridge() {
                         return toHex(chainId);
                     }
                     default:
-                        return walletClient.request(args as never);
+                        const requestArgs = withTransactionChainId(
+                            args,
+                            await walletClient.getChainId().catch(() => undefined),
+                        );
+                        return walletClient.request(requestArgs as never);
                 }
             },
             [IframeBridgeMethod.FIREFLY_WALLET_SOLANA_RPC]: async ({ method, params: p }): Promise<SolanaResponse> => {

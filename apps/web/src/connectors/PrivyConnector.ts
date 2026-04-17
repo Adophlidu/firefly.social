@@ -97,7 +97,7 @@ export function createPrivyConnector() {
             type: 'INJECTED',
             icon: '/firefly.png',
             async connect(parameters) {
-                const chainId = mainnet.id;
+                const chainId = await this.getChainId().catch(() => mainnet.id);
                 const accounts = await this.getAccounts();
                 if (!accounts || accounts.length === 0) {
                     throw new UserRejectedRequestError(new Error('No accounts returned'));
@@ -129,8 +129,6 @@ export function createPrivyConnector() {
                 config.emitter.emit('disconnect');
             },
             async switchChain(parameters) {
-                logger.debug(`[privy] switchChain`, parameters);
-
                 const chain = config.chains.find((x) => x.id === parameters.chainId);
                 if (!chain) throw new SwitchChainError(new ChainNotConfiguredError());
 
@@ -156,7 +154,6 @@ export function createPrivyConnector() {
 
                     return chain;
                 } catch (error) {
-                    logger.error(`[privy] switchChain error`, error);
                     throw new SwitchChainError(error as RpcError);
                 }
             },

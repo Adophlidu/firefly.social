@@ -44,6 +44,7 @@ import { normalizeDecimalInput } from '@/helpers/normalizeDecimalInput.js';
 import { isGreaterThanOrEqualTo, multipliedBy, plus } from '@/helpers/number.js';
 import { resolveEvmConnector } from '@/helpers/resolveEvmConnector.js';
 import { resolveWagmiChain } from '@/helpers/resolveWagmiChain.js';
+import { switchSwapEvmConnectorChain } from '@/helpers/swap/resolveSwapEvmConnector.js';
 import { resolveSwapEvmSigningWallet } from '@/helpers/swap/resolveSwapSigningWallet.js';
 import { useAutoHeightTextarea } from '@/hooks/useAutoHeightTextarea.js';
 import { useEmbeddedEvmAddress } from '@/hooks/useCachedWalletAddresses.js';
@@ -109,11 +110,15 @@ function Form() {
             const to = values.to;
             const transfer = resolveTransferProvider(networkType);
             let connector: Awaited<ReturnType<typeof resolveEvmConnector>> = null;
+            let signingWallet: ReturnType<typeof resolveSwapEvmSigningWallet> = null;
             if (networkType === NetworkType.Ethereum) {
-                const signingWallet = resolveSwapEvmSigningWallet(evmWallets, evmAddress, {
+                signingWallet = resolveSwapEvmSigningWallet(evmWallets, evmAddress, {
                     preferEmbedded: true,
                 });
                 if (signingWallet) connector = await resolveEvmConnector(signingWallet);
+                if (signingWallet && connector) {
+                    await switchSwapEvmConnectorChain(signingWallet, connector, values.token.chainId);
+                }
             }
             const hash = await transfer.transfer({
                 token: values.token,

@@ -20,8 +20,15 @@ export class EthereumTransferProvider implements TransferProvider<number, Addres
 
     async transfer(options: TransactionOptions<number, Address>): Promise<Address> {
         const { token } = options;
-        if (token.chainId !== getChainId(this.config)) {
-            await switchEthereumChain(token.chainId);
+        const currentChainId = options.connector
+            ? await options.connector.getChainId().catch(() => getChainId(this.config))
+            : getChainId(this.config);
+
+        if (token.chainId !== currentChainId) {
+            await switchEthereumChain(token.chainId, {
+                config: this.config,
+                connector: options.connector,
+            });
         }
 
         const hash = this.isNativeToken(token)
