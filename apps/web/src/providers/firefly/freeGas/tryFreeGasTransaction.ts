@@ -60,8 +60,8 @@ export async function tryFreeGasTransaction(
     try {
         const { chainId, txType, from, to, data, value, tokenAddress } = params;
 
-        // Only attempt free-gas for supported stablecoins
-        if (!isSupportedStablecoin(chainId, tokenAddress ?? to)) {
+        // Only token transfers are restricted to supported stablecoins
+        if (txType === FreeGasTxType.TokenTransfer && !isSupportedStablecoin(chainId, tokenAddress ?? to)) {
             return { type: 'fallback' } as const;
         }
 
