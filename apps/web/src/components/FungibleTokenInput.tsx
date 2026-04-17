@@ -3,8 +3,8 @@
 import ArrowDown from '@dimensiondev/assets/arrow-down.svg';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { rpSupportedChains } from '@dimensiondev/web3/chains';
+import { ETH_ZERO_ADDRESS } from '@dimensiondev/web3/constants';
 import {
-    ETH_ZERO_ADDRESS,
     isSameAddress,
     isSameEthereumAddress,
     isValidAddressEthereum,

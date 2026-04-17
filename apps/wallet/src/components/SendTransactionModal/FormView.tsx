@@ -5,14 +5,8 @@ import InfoIcon from '@dimensiondev/assets/info-outline.svg';
 import SearchIcon from '@dimensiondev/assets/search.svg';
 import WalletIcon from '@dimensiondev/assets/wallet.fill.svg';
 import { safeUnreachable, unreachable } from '@dimensiondev/utils';
-import {
-    ETH_ZERO_ADDRESS,
-    isSameAddress,
-    isValidAddress,
-    isValidAddressEthereum,
-    isValidAddressSolana,
-    SOL_ZERO_ADDRESS,
-} from '@dimensiondev/web3/utils';
+import { ETH_ZERO_ADDRESS, SOL_ZERO_ADDRESS } from '@dimensiondev/web3/constants';
+import { isSameAddress, isValidAddress, isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useWallets } from '@privy-io/react-auth';

@@ -1,5 +1,5 @@
 import { runInSafeAsync, safeUnreachable } from '@dimensiondev/utils';
-import { ETH_ZERO_ADDRESS } from '@dimensiondev/web3/utils';
+import { ETH_ZERO_ADDRESS } from '@dimensiondev/web3/constants';
 import { getAccount } from 'wagmi/actions';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';

@@ -1,10 +1,6 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
-import {
-    isValidAddress,
-    isValidAddressEthereum,
-    isValidAddressSolana,
-    SOL_NATIVE_TOKEN_ADDRESS,
-} from '@dimensiondev/web3/utils';
+import { SOL_NATIVE_TOKEN_ADDRESS } from '@dimensiondev/web3/constants';
+import { isValidAddress, isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3/utils';
 import { compact, first, sortBy } from 'lodash-es';
 import { use } from 'react';
 

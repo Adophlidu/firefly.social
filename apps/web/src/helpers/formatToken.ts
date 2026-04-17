@@ -1,4 +1,5 @@
-import { ETH_ZERO_ADDRESS, isValidAddressEthereum } from '@dimensiondev/web3/utils';
+import { ETH_ZERO_ADDRESS } from '@dimensiondev/web3/constants';
+import { isValidAddressEthereum } from '@dimensiondev/web3/utils';
 
 import { NetworkType, TokenType } from '@/constants/enum.js';
 import { isValidChainIdSolana } from '@/helpers/isValidChainId.js';

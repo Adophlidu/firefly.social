@@ -1,4 +1,4 @@
-import { ETH_ZERO_ADDRESS } from '@dimensiondev/web3/utils';
+import { ETH_ZERO_ADDRESS } from '@dimensiondev/web3/constants';
 import type { SessionClient } from '@lens-protocol/client';
 
 import { SEVEN_DAYS } from '@/constants/static.js';

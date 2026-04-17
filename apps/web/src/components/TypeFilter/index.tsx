@@ -21,7 +21,7 @@ interface BaseProps<T extends string> extends Omit<HTMLProps<HTMLDivElement>, 't
     multiple?: boolean;
     /** Section title above the list (defaults to “Type filter”). */
     title?: ReactNode;
-    options?: TypeFilterOption<T>[];
+    options?: Array<TypeFilterOption<T>>;
 }
 
 interface SingleOptionProps<T extends string = string> extends BaseProps<T> {

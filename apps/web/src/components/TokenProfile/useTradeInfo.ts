@@ -1,5 +1,5 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
-import { SOL_NATIVE_TOKEN_ADDRESS } from '@dimensiondev/web3/utils';
+import { SOL_NATIVE_TOKEN_ADDRESS } from '@dimensiondev/web3/constants';
 import { uniq } from 'lodash-es';
 import { useMemo } from 'react';
 import { zeroAddress } from 'viem';

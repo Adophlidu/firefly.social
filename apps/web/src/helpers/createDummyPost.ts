@@ -1,4 +1,4 @@
-import { ETH_ZERO_ADDRESS } from '@dimensiondev/web3/utils';
+import { ETH_ZERO_ADDRESS } from '@dimensiondev/web3/constants';
 import { compact } from 'lodash-es';
 
 import { type SocialSource, Source } from '@/constants/enum.js';

@@ -1,4 +1,4 @@
-import { ETH_ZERO_ADDRESS } from '@dimensiondev/web3/utils';
+import { ETH_ZERO_ADDRESS } from '@dimensiondev/web3/constants';
 import { t } from '@lingui/core/macro';
 import { useIsMutating, useMutation } from '@tanstack/react-query';
 

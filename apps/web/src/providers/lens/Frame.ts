@@ -1,4 +1,4 @@
-import { ETH_ZERO_ADDRESS } from '@dimensiondev/web3/utils';
+import { ETH_ZERO_ADDRESS } from '@dimensiondev/web3/constants';
 import { postId as formatPostId } from '@lens-protocol/client';
 import { signFrameAction } from '@lens-protocol/client/actions';
 import dayjs from 'dayjs';

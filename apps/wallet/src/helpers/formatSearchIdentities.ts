@@ -1,11 +1,6 @@
 import { safeUnreachable } from '@dimensiondev/utils';
-import {
-    ETH_ZERO_ADDRESS,
-    isValidAddress,
-    isValidAddressEthereum,
-    isValidAddressSolana,
-    isZeroAddress,
-} from '@dimensiondev/web3/utils';
+import { ETH_ZERO_ADDRESS } from '@dimensiondev/web3/constants';
+import { isValidAddress, isValidAddressEthereum, isValidAddressSolana, isZeroAddress } from '@dimensiondev/web3/utils';
 import { compact, first, uniq } from 'lodash-es';
 import type { Address } from 'viem';
 

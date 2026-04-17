@@ -12,6 +12,11 @@
             "import": "./dist/utils.js",
             "require": "./dist/utils.cjs"
         },
+        "./constants": {
+            "types": "./dist/constants.d.ts",
+            "import": "./dist/constants.js",
+            "require": "./dist/constants.cjs"
+        },
         "./chains": {
             "types": "./dist/chains.d.ts",
             "import": "./dist/chains.js",

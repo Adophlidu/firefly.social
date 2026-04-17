@@ -1,9 +1,13 @@
+import {
+    ETH_NATIVE_TOKEN_ADDRESS,
+    ETH_ZERO_ADDRESS,
+    LENS_NATIVE_TOKEN_ADDRESS,
+    POL_NATIVE_TOKEN_ADDRESS,
+    SCROLL_NATIVE_TOKEN_ADDRESS,
+    SOL_NATIVE_TOKEN_ADDRESS,
+    SOL_ZERO_ADDRESS,
+} from '@/constants.js';
 import { isSameEthereumAddress, isSameSolanaAddress } from '@/utils/isSameAddress.js';
-
-export const ETH_ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
-export const SOL_ZERO_ADDRESS = 'So11111111111111111111111111111111111111112';
-export const ETH_NATIVE_TOKEN_ADDRESS = '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee';
-export const SOL_NATIVE_TOKEN_ADDRESS = '11111111111111111111111111111111';
 
 const NATIVE_TOKEN_ADDRESSES = new Set(
     [
@@ -11,9 +15,9 @@ const NATIVE_TOKEN_ADDRESSES = new Set(
         ETH_NATIVE_TOKEN_ADDRESS, // common representation
         SOL_ZERO_ADDRESS,
         SOL_NATIVE_TOKEN_ADDRESS,
-        '0x0000000000000000000000000000000000001010', // Matic/Polygon native
-        '0x000000000000000000000000000000000000800a', // Lens native
-        '0xd29687c813d741e2f938f4ac377128810e217b1b', // Scroll native
+        POL_NATIVE_TOKEN_ADDRESS, // Matic/Polygon native
+        LENS_NATIVE_TOKEN_ADDRESS, // Lens native
+        SCROLL_NATIVE_TOKEN_ADDRESS, // Scroll native
     ].map((address) => address.toLowerCase()),
 );
 

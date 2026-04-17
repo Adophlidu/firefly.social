@@ -1,4 +1,4 @@
-import { SOL_ZERO_ADDRESS } from '@dimensiondev/web3/utils';
+import { SOL_ZERO_ADDRESS } from '@dimensiondev/web3/constants';
 
 import { NetworkPluginID } from '@/constants/enum.js';
 import type { ChainDescriptor, NetworkDescriptor } from '@/web3-shared/base/specs.js';

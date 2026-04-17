@@ -1,6 +1,6 @@
 'use client';
 
-import { ETH_ZERO_ADDRESS } from '@dimensiondev/web3/utils';
+import { ETH_ZERO_ADDRESS } from '@dimensiondev/web3/constants';
 import { memo } from 'react';
 
 import { Link } from '@/components/Link.js';
