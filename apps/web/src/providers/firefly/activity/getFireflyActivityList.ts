@@ -18,7 +18,10 @@ export async function getFireflyActivityList({ indicator, size }: { indicator?: 
         return createPageable(EMPTY_LIST, createIndicator(indicator));
     }
     return createPageable(
-        data.list,
+        data.list.map((item) => ({
+            ...item,
+            url: item.url.replace(/^https:\/\/(canary|staging|beta)\.firefly.social\//, '/'),
+        })),
         createIndicator(indicator),
         data.cursor ? createNextIndicator(indicator, `${data.cursor}`) : undefined,
     );
