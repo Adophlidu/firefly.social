@@ -5,6 +5,7 @@ import urlcat from 'urlcat';
 
 import { FIREFLY_WORKER_HOST } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
+import { removeSharerParam } from '@/helpers/sharerUrl.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import type { LinkDigested } from '@/types/og.js';
 import type { ResponseJson } from '@/types/utility.js';
@@ -39,11 +40,12 @@ function isValidPostLink(url: string, enableFilter = false) {
 export async function getPostOembed(url: string, post?: Pick<Post, 'quoteOn'>): Promise<LinkDigested | null> {
     if (envs.external.NEXT_PUBLIC_OPENGRAPH !== STATUS.Enabled) return null;
     if (post?.quoteOn) return null;
-    if (!url || !isValidPostLink(url)) return null;
+    const normalizedUrl = removeSharerParam(url);
+    if (!normalizedUrl || !isValidPostLink(normalizedUrl)) return null;
 
     const response = await fetchJson<ResponseJson<LinkDigested>>(
         urlcat(FIREFLY_WORKER_HOST, '/oembed', {
-            link: url,
+            link: normalizedUrl,
         }),
     );
     return response.success ? response.data : null;

@@ -1,6 +1,11 @@
 import { describe, expect, it } from 'vitest';
 
-import { addSharerParam, addSharerParamToFireflyUrls, isFireflyOwnedUrl } from '@/helpers/sharerUrl.js';
+import {
+    addSharerParam,
+    addSharerParamToFireflyUrls,
+    isFireflyOwnedUrl,
+    removeSharerParam,
+} from '@/helpers/sharerUrl.js';
 
 describe('sharerUrl', () => {
     it('adds sid to absolute URLs', () => {
@@ -17,6 +22,22 @@ describe('sharerUrl', () => {
 
     it('adds sid to relative URLs', () => {
         expect(addSharerParam('/post/farcaster?foo=bar#reply', '123')).toBe('/post/farcaster?foo=bar&sid=123#reply');
+    });
+
+    it('removes sid from firefly absolute URLs', () => {
+        expect(removeSharerParam('https://firefly.social/post/farcaster?foo=bar&sid=123#reply')).toBe(
+            'https://firefly.social/post/farcaster?foo=bar#reply',
+        );
+    });
+
+    it('removes sid from relative URLs', () => {
+        expect(removeSharerParam('/post/farcaster?foo=bar&sid=123#reply')).toBe('/post/farcaster?foo=bar#reply');
+    });
+
+    it('keeps non-firefly URLs unchanged when removing sid', () => {
+        expect(removeSharerParam('https://example.com/post/farcaster?foo=bar&sid=123#reply')).toBe(
+            'https://example.com/post/farcaster?foo=bar&sid=123#reply',
+        );
     });
 
     it('detects firefly-owned domains only', () => {

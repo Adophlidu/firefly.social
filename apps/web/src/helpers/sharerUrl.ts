@@ -55,6 +55,28 @@ export function addSharerParam(url: string, sharerId?: string): string {
 }
 
 /**
+ * Removes the sharer parameter from Firefly-owned URLs while preserving the input format.
+ */
+export function removeSharerParam(url: string): string {
+    if (!url) return url;
+
+    try {
+        const parsedUrl = createUrl(url);
+        if (!parsedUrl.searchParams.has('sid')) return url;
+        const isRelativeUrl = !isAbsoluteHttpUrl(url) && !isDomainLikeUrl(url);
+        if (!isRelativeUrl && !isFireflyOwnedUrl(url)) return url;
+
+        parsedUrl.searchParams.delete('sid');
+
+        if (isAbsoluteHttpUrl(url)) return parsedUrl.toString();
+        if (isDomainLikeUrl(url)) return `${parsedUrl.host}${parsedUrl.pathname}${parsedUrl.search}${parsedUrl.hash}`;
+        return `${parsedUrl.pathname}${parsedUrl.search}${parsedUrl.hash}`;
+    } catch {
+        return url;
+    }
+}
+
+/**
  * Adds the sharer parameter to every Firefly-owned URL found in arbitrary pasted text.
  */
 export function addSharerParamToFireflyUrls(text: string, sharerId?: string): string {

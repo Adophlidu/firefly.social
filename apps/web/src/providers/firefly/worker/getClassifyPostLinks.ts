@@ -2,6 +2,7 @@ import urlcat from 'urlcat';
 
 import { FIREFLY_WORKER_HOST } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
+import { removeSharerParam } from '@/helpers/sharerUrl.js';
 import type { EVM } from '@/providers/nftscan/types.js';
 import type { SnapshotProposal } from '@/providers/snapshot/type.js';
 import type { Article } from '@/providers/types/Article.js';
@@ -36,11 +37,21 @@ export type GetClassifyPostLinksResponse = ResponseJson<
 >;
 
 export async function getClassifyPostLinks(urls: string[]) {
+    const normalizedUrls = urls.map(removeSharerParam);
     const response = await fetchJson<GetClassifyPostLinksResponse>(
         urlcat(FIREFLY_WORKER_HOST, `/og`, {
-            urls: urls.join(','),
+            urls: normalizedUrls.join(','),
         }),
     );
     if (!response.success) return [];
-    return response.data.filter((x) => x.result) as Array<{ url: string; result: ClassifyPostLinkResult }>;
+
+    const resultMap = new Map(response.data.filter((x) => x.result).map((x) => [x.url, x.result])) as Map<
+        string,
+        ClassifyPostLinkResult
+    >;
+
+    return normalizedUrls.flatMap((normalizedUrl, index) => {
+        const result = resultMap.get(normalizedUrl);
+        return result ? [{ url: urls[index], result }] : [];
+    });
 }
