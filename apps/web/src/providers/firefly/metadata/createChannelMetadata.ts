@@ -8,7 +8,7 @@ import { fetchMetadataApi } from '@/providers/firefly/metadata/fetchMetadataApi.
 export async function createChannelMetadata(source: string, channelId: string, pathname: string): Promise<Metadata> {
     try {
         const response = await fetchMetadataApi(
-            urlcat('/metadata/channel', {
+            urlcat('/metadata-v2/channel', {
                 source,
                 id: channelId,
                 pathname,

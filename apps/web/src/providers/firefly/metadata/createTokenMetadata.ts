@@ -16,7 +16,7 @@ export async function createTokenMetadata(
 ): Promise<Metadata> {
     try {
         const response = await fetchMetadataApi(
-            urlcat('/metadata/token', {
+            urlcat('/metadata-v2/token', {
                 keyword,
                 pathname,
                 ...options,

@@ -11,7 +11,7 @@ export async function createFireflyProfileMetadata(source: string, pathname: str
 
     try {
         const response = await fetchMetadataApi(
-            urlcat('/metadata/firefly-profile', {
+            urlcat('/metadata-v2/firefly-profile', {
                 source,
                 pathname,
             }),

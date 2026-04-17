@@ -11,7 +11,7 @@ export async function createSparksAccountMetadata(accountId: string, pathname: s
 
     try {
         const response = await fetchMetadataApi(
-            urlcat('/metadata/sparks-account', {
+            urlcat('/metadata-v2/sparks-account', {
                 accountId,
                 pathname,
             }),

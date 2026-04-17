@@ -17,7 +17,7 @@ export async function createFireflyArticleMetadata(
             return createSiteMetadata(pathname);
         }
         const response = await fetchMetadataApi(
-            urlcat('/metadata/firefly-article', {
+            urlcat('/metadata-v2/firefly-article', {
                 id: articleId,
                 pathname,
                 source,

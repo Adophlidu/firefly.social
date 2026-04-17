@@ -11,7 +11,7 @@ export async function createWalletProfileMetadata(addressOrEns: string, pathname
 
     try {
         const response = await fetchMetadataApi(
-            urlcat('/metadata/wallet-profile', {
+            urlcat('/metadata-v2/wallet-profile', {
                 addressOrEns,
                 pathname,
             }),

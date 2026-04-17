@@ -16,7 +16,7 @@ export async function createPostMetadata(
 
     try {
         const response = await fetchMetadataApi(
-            urlcat('/metadata/post', {
+            urlcat('/metadata-v2/post', {
                 source,
                 postId,
                 pathname,

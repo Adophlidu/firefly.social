@@ -12,7 +12,7 @@ export async function createNftCollectionMetadata(
 ): Promise<Metadata> {
     try {
         const response = await fetchMetadataApi(
-            urlcat('/metadata/nft-collection', {
+            urlcat('/metadata-v2/nft-collection', {
                 chainIdOrCollectionId,
                 addressOrTokenId,
                 pathname,

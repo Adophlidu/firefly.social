@@ -11,7 +11,7 @@ export async function createProfileMetadata(source: string, handle: string, path
 
     try {
         const response = await fetchMetadataApi(
-            urlcat('/metadata/profile', {
+            urlcat('/metadata-v2/profile', {
                 source,
                 handle,
                 pathname,

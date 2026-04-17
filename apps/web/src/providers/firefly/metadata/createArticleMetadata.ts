@@ -8,7 +8,7 @@ import { fetchMetadataApi } from '@/providers/firefly/metadata/fetchMetadataApi.
 export async function createArticleMetadata(articleId: string, pathname: string): Promise<Metadata> {
     try {
         const response = await fetchMetadataApi(
-            urlcat('/metadata/article', {
+            urlcat('/metadata-v2/article', {
                 id: articleId,
                 pathname,
             }),

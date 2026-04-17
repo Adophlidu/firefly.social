@@ -17,7 +17,7 @@ export async function createPredictionEventMetadata(
 
     try {
         const response = await fetchMetadataApi(
-            urlcat('/metadata/prediction-event', {
+            urlcat('/metadata-v2/prediction-event', {
                 id,
                 platform,
                 type,

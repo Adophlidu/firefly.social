@@ -16,7 +16,7 @@ export async function createPredictionProfileMetadata(
 
     try {
         const response = await fetchMetadataApi(
-            urlcat('/metadata/prediction-profile', {
+            urlcat('/metadata-v2/prediction-profile', {
                 address,
                 platform,
                 pathname,

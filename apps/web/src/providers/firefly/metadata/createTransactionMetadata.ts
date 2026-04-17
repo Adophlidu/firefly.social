@@ -8,7 +8,7 @@ import { fetchMetadataApi } from '@/providers/firefly/metadata/fetchMetadataApi.
 export async function createTransactionMetadata(chainId: number, hash: string, pathname: string): Promise<Metadata> {
     try {
         const response = await fetchMetadataApi(
-            urlcat('/metadata/transaction', {
+            urlcat('/metadata-v2/transaction', {
                 chainId,
                 hash,
                 pathname,
