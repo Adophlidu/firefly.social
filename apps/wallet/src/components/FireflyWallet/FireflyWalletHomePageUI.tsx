@@ -86,16 +86,16 @@ export function FireflyWalletHomePageUI({
                     </div>
                 </div>
                 <div className="flex w-full gap-3">
-                    <ActionButton Icon={SendIcon} onClick={onSend}>
+                    <ActionButton Icon={SendIcon} onClick={onSend} className="min-w-0 shrink-0">
                         <Trans>Send</Trans>
                     </ActionButton>
-                    <ActionButton Icon={ReceiveIcon} onClick={onReceive}>
+                    <ActionButton Icon={ReceiveIcon} onClick={onReceive} className="min-w-0 shrink-0">
                         <Trans>Receive</Trans>
                     </ActionButton>
-                    <ActionButton Icon={SwapIcon} onClick={onSwap}>
+                    <ActionButton Icon={SwapIcon} onClick={onSwap} className="min-w-0 shrink-0">
                         <Trans>Swap</Trans>
                     </ActionButton>
-                    <ActionButton Icon={DollarIcon} onClick={onFund}>
+                    <ActionButton Icon={DollarIcon} onClick={onFund} className="min-w-0 shrink-0">
                         <Trans>Buy</Trans>
                     </ActionButton>
                 </div>

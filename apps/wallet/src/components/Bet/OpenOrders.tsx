@@ -148,10 +148,10 @@ function OpenOrderItem({ item }: { item: PolymarketOpenOrderDetail }) {
                             </div>
                         </div>
                         <div className="flex flex-col">
-                            <Trans>
-                                <div className="text-main text-sm font-semibold leading-5">{sharesText}</div>
-                                <div className="text-second text-xs leading-4">Shares</div>
-                            </Trans>
+                            <div className="text-main text-sm font-semibold leading-5">{sharesText}</div>
+                            <div className="text-second text-xs leading-4">
+                                <Trans>Shares</Trans>
+                            </div>
                         </div>
                     </div>
                 </div>

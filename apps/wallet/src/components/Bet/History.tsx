@@ -1,7 +1,7 @@
 import betImageFallback from '@dimensiondev/assets/bet-image-fallback.svg?url';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
-import { Trans } from '@lingui/react/macro';
+import { Plural, Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { BigNumber } from 'bignumber.js';
 import dayjs from 'dayjs';
@@ -180,8 +180,8 @@ function HistoryItem({ item }: { item: PolymarketActivityItem }) {
     const shares = (() => {
         const size = formatUnits(/^\d+$/.test(trade.size) ? BigInt(trade.size) : parseUnits(trade.size, 6), 6);
         const n = Number.parseFloat(size);
-        if (!Number.isFinite(n)) return '-';
-        return formatTokenItemAmount(n, 2);
+        if (!Number.isFinite(n)) return { display: '-', count: 0 };
+        return { display: formatTokenItemAmount(n, 2), count: n };
     })();
     const handleTradeClick = trade.eventSlug ? () => navigateToDetail(trade.eventSlug) : undefined;
     return (
@@ -208,7 +208,13 @@ function HistoryItem({ item }: { item: PolymarketActivityItem }) {
                             '-'
                         )}
                     </div>
-                    <div className="text-second text-xs leading-[14px]">{shares} shares</div>
+                    <div className="text-second text-xs leading-[14px]">
+                        <Plural
+                            value={shares.count}
+                            one={`${shares.display} share`}
+                            other={`${shares.display} shares`}
+                        />
+                    </div>
                 </div>
                 <div className="flex shrink-0 flex-col items-end justify-center">
                     <div className="text-main text-sm font-semibold leading-5">

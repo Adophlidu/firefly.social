@@ -483,6 +483,12 @@ msgstr "已交互"
 msgid "Authentication Error"
 msgstr "认证错误"
 
+#. placeholder {0}: shares.count
+#. placeholder {1}: shares.display
+#. placeholder {2}: shares.display
+msgid "{0, plural, one {{1} share} other {{2} shares}}"
+msgstr ""
+
 msgid "The address could not be found."
 msgstr "找不到该地址。"
 
@@ -673,9 +679,6 @@ msgstr "搜索代币"
 
 msgid "Your transaction has been completed."
 msgstr "您的交易已完成。"
-
-msgid "<0>{sharesText}</0><1>Shares</1>"
-msgstr ""
 
 msgid "Predictions"
 msgstr "预测市场"

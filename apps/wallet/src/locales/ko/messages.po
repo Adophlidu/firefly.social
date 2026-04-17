@@ -483,6 +483,12 @@ msgstr ""
 msgid "Authentication Error"
 msgstr ""
 
+#. placeholder {0}: shares.count
+#. placeholder {1}: shares.display
+#. placeholder {2}: shares.display
+msgid "{0, plural, one {{1} share} other {{2} shares}}"
+msgstr ""
+
 msgid "The address could not be found."
 msgstr ""
 
@@ -672,9 +678,6 @@ msgid "Search token"
 msgstr ""
 
 msgid "Your transaction has been completed."
-msgstr ""
-
-msgid "<0>{sharesText}</0><1>Shares</1>"
 msgstr ""
 
 msgid "Predictions"
