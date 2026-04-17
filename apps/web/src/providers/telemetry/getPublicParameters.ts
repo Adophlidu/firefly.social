@@ -3,7 +3,6 @@ import { bom } from '@dimensiondev/utils';
 import { Source } from '@/constants/enum.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
-import { getSharerSessionId } from '@/helpers/sharerSession.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { useDeveloperSettingsState } from '@/store/useDeveloperSettingsStore.js';
 
@@ -15,7 +14,7 @@ export function getPublicParameters(eventId: string, previousEventId: string | n
     const xProfile = getCurrentProfileFromStorage(Source.Twitter);
     const bskyProfile = getCurrentProfileFromStorage(Source.Bsky);
 
-    const sid = bom.location ? new URLSearchParams(bom.location.search).get('sid') || getSharerSessionId() : undefined;
+    const sid = bom.location?.search ? new URLSearchParams(bom.location.search).get('sid') : undefined;
 
     const developmentAPI = useDeveloperSettingsState.getState().developmentAPI;
 

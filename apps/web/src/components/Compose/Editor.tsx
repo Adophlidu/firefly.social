@@ -16,7 +16,6 @@ import { useDebounce } from 'react-use';
 import { $isMentionNode, type MentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
 import { MentionsPlugin } from '@/components/Lexical/plugins/AtMentionsPlugin.js';
 import { LexicalAutoLinkPlugin } from '@/components/Lexical/plugins/AutoLinkPlugin.js';
-import { SharerLinkPastePlugin } from '@/components/Lexical/plugins/SharerLinkPastePlugin.js';
 import { CharTag } from '@/constants/enum.js';
 import { writeChars } from '@/helpers/chars.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
@@ -64,7 +63,6 @@ const EditorPlugins = memo(function EditorPlugins() {
     return (
         <>
             <LexicalAutoLinkPlugin />
-            <SharerLinkPastePlugin />
             <HistoryPlugin />
             <HashtagPlugin />
             <MentionsPlugin />

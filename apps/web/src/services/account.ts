@@ -27,7 +27,6 @@ import { getAllConnections } from '@/providers/firefly/endpoint/getAllConnection
 import { reportFarcasterSigner } from '@/providers/firefly/farcaster-account/reportFarcasterSigner.js';
 import { checkAndSyncMetrics } from '@/providers/firefly/metrics/checkAndSyncMetrics.js';
 import { deleteMetrics } from '@/providers/firefly/metrics/deleteMetrics.js';
-import { trackReferralConversion } from '@/providers/firefly/referral/trackReferral.js';
 import type { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { autoLoginLensAccountsInSignup } from '@/providers/lens/autoLoginLensAccountsInSignup.js';
@@ -314,9 +313,6 @@ export async function addAccount(account: Account, options?: AccountOptions) {
     }
 
     captureAccountLoginEvent(account);
-    if (fireflySession?.payload?.isNew) {
-        runInSafeAsync(() => trackReferralConversion(fireflySession));
-    }
     if (account.fireflySession?.payload?.isNew) captureAccountCreateSuccessEvent(account);
 
     if (!skipSyncAccounts && fireflySession) {
@@ -421,10 +417,7 @@ export async function addAccounts(fireflySession: FireflySession, accounts: Acco
     accounts.forEach((account) => {
         captureAccountLoginEvent(account);
     });
-    if (fireflySession?.payload?.isNew) {
-        runInSafeAsync(() => trackReferralConversion(fireflySession));
-        captureAccountCreateSuccessEvent(accounts[0]);
-    }
+    if (fireflySession?.payload?.isNew) captureAccountCreateSuccessEvent(accounts[0]);
 
     return true;
 }
