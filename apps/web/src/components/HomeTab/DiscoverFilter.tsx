@@ -1,13 +1,12 @@
 'use client';
 
 import FilterIcon from '@dimensiondev/assets/filter.svg';
-import RadioOff from '@dimensiondev/assets/radio.disable-no.svg';
-import RadioOn from '@dimensiondev/assets/radio.yes.svg';
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 
+import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { TypeFilter } from '@/components/TypeFilter/index.js';
-import { SOCIAL_DISCOVER_SOURCE_LOGIN_REQUIRED } from '@/constants/computed.js';
+import { SOCIAL_DISCOVER_SOURCE_LOGIN_REQUIRED, SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
 import { HomeTab, type SocialSource } from '@/constants/enum.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
@@ -36,45 +35,39 @@ export function DiscoverFilter({ tab }: Props) {
                 portal={false}
             >
                 {({ close }) => {
-                    const options = sources.map((source) => {
+                    const sortedSources = [...sources].sort((a, b) => {
+                        const aLogin = !!profilesAll[a]?.profileId;
+                        const bLogin = !!profilesAll[b]?.profileId;
+                        if (aLogin !== bLogin) return aLogin ? -1 : 1;
+                        const rank = (s: SocialSource) => {
+                            const i = SORTED_SOCIAL_SOURCES.indexOf(s);
+                            return i === -1 ? SORTED_SOCIAL_SOURCES.length : i;
+                        };
+                        return rank(a) - rank(b);
+                    });
+                    const options = sortedSources.map((source) => {
                         const isLogin = !!profilesAll[source]?.profileId;
                         const loginRequest =
                             HomeTab.Following === tab || SOCIAL_DISCOVER_SOURCE_LOGIN_REQUIRED.includes(source);
 
                         return {
                             value: source,
-                            label:
-                                loginRequest && !isLogin
-                                    ? (source: SocialSource, selected: boolean) => (
-                                          <div
-                                              className="flex items-center gap-2"
-                                              onClick={(event) => event.stopPropagation()}
-                                          >
-                                              {selected ? (
-                                                  <RadioOn className="text-highlight size-4" />
-                                              ) : (
-                                                  <RadioOff className="text-secondaryLine size-4" />
-                                              )}
-                                              <div
-                                                  className="text-highlight"
-                                                  onClick={() => {
-                                                      close();
-                                                      openLoginModal({
-                                                          source,
-                                                      });
-                                                  }}
-                                              >
-                                                  <Trans>Sign in to {resolveSourceName(source)}</Trans>
-                                              </div>
-                                          </div>
-                                      )
-                                    : resolveSourceName(source),
+                            icon: <SocialSourceIcon source={source} size={20} mono className="text-current" />,
+                            label: resolveSourceName(source),
+                            signInAction: loginRequest && !isLogin,
+                            onSignIn: () => {
+                                close();
+                                openLoginModal({
+                                    source,
+                                });
+                            },
                         };
                     });
                     return (
-                        <div className="flex flex-col gap-4 p-4">
+                        <div className="flex flex-col p-4">
                             <TypeFilter
                                 multiple
+                                title={<Trans>Platform filter</Trans>}
                                 options={options}
                                 selectedOptions={selectedSources}
                                 onOptionsChange={(platforms: SocialSource[], newSource?: SocialSource) => {

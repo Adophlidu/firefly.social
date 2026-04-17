@@ -1723,10 +1723,6 @@ msgstr "未能在 Firefly 上取消关注 @{handleOrEnsOrAddress}。"
 msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0} !"
 msgstr "🤑 刚刚通过 @{0} 在 {postUrl} 领取了一个 #FireflyLuckyDrop 🧧💰✨ ！"
 
-#. placeholder {0}: resolveSourceName(source)
-msgid "Sign in to {0}"
-msgstr "登录到 {0}"
-
 msgid "The amount of coins that are circulating in the market and are tradeable by the public. It is comparable to looking at shares readily available in the market (not held & locked by insiders, governments)."
 msgstr "市场上流通并可供公众交易的货币数量。这相当于市场上随时可买到的股票（未被内部人士或政府持有和锁定）。"
 
@@ -3426,6 +3422,9 @@ msgstr "你的 Firefly 身份已激活"
 
 msgid "Create a Post"
 msgstr "创建帖子"
+
+msgid "Platform filter"
+msgstr ""
 
 msgid "Chain filter"
 msgstr "链"

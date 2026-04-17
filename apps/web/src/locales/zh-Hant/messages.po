@@ -1723,10 +1723,6 @@ msgstr "無法在 Firefly 上取消追蹤 {handleOrEnsOrAddress} 。"
 msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0} !"
 msgstr "🤑 剛從 @{0} 領取了一個 #FireflyLuckyDrop 🧧💰✨ {postUrl} ！"
 
-#. placeholder {0}: resolveSourceName(source)
-msgid "Sign in to {0}"
-msgstr "登入 {0}"
-
 msgid "The amount of coins that are circulating in the market and are tradeable by the public. It is comparable to looking at shares readily available in the market (not held & locked by insiders, governments)."
 msgstr "流通量指市場可公開交易的代幣數量，類似於流通股概念"
 
@@ -3426,6 +3422,9 @@ msgstr "你的 Firefly 身份已啟用"
 
 msgid "Create a Post"
 msgstr "創建貼文"
+
+msgid "Platform filter"
+msgstr ""
 
 msgid "Chain filter"
 msgstr "鏈篩選"

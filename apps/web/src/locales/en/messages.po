@@ -1731,10 +1731,6 @@ msgstr "Failed to unfollow {handleOrEnsOrAddress} on Firefly."
 msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0} !"
 msgstr "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0} !"
 
-#. placeholder {0}: resolveSourceName(source)
-msgid "Sign in to {0}"
-msgstr "Sign in to {0}"
-
 msgid "The amount of coins that are circulating in the market and are tradeable by the public. It is comparable to looking at shares readily available in the market (not held & locked by insiders, governments)."
 msgstr "The amount of coins that are circulating in the market and are tradeable by the public. It is comparable to looking at shares readily available in the market (not held & locked by insiders, governments)."
 
@@ -3445,6 +3441,9 @@ msgstr "Your Firefly Identity is now active."
 
 msgid "Create a Post"
 msgstr "Create a Post"
+
+msgid "Platform filter"
+msgstr "Platform filter"
 
 msgid "Chain filter"
 msgstr "Chain filter"

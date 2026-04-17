@@ -1723,10 +1723,6 @@ msgstr ""
 msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0} !"
 msgstr ""
 
-#. placeholder {0}: resolveSourceName(source)
-msgid "Sign in to {0}"
-msgstr ""
-
 msgid "The amount of coins that are circulating in the market and are tradeable by the public. It is comparable to looking at shares readily available in the market (not held & locked by insiders, governments)."
 msgstr ""
 
@@ -3425,6 +3421,9 @@ msgid "Your Firefly Identity is now active."
 msgstr ""
 
 msgid "Create a Post"
+msgstr ""
+
+msgid "Platform filter"
 msgstr ""
 
 msgid "Chain filter"

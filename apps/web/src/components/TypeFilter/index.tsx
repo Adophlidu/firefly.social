@@ -1,7 +1,6 @@
 'use client';
 
-import RadioOff from '@dimensiondev/assets/radio.disable-no.svg';
-import RadioOn from '@dimensiondev/assets/radio.yes.svg';
+import CheckIcon from '@dimensiondev/assets/check.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
@@ -9,9 +8,20 @@ import { type HTMLProps, memo, type ReactNode } from 'react';
 
 import { captureTypeFilterClickEvent } from '@/providers/telemetry/captureFilterTabEvent.js';
 
-interface BaseProps<T extends string> extends HTMLProps<HTMLDivElement> {
+export interface TypeFilterOption<T extends string> {
+    value: T;
+    label: string | ReactNode;
+    icon?: ReactNode;
+    /** When true, show a Sign in control instead of the checkbox; the row does not toggle the filter. */
+    signInAction?: boolean;
+    onSignIn?: (event: React.MouseEvent) => void;
+}
+
+interface BaseProps<T extends string> extends Omit<HTMLProps<HTMLDivElement>, 'title'> {
     multiple?: boolean;
-    options?: Array<{ value: T; label: string | ReactNode | ((value: T, selected: boolean) => ReactNode) }>;
+    /** Section title above the list (defaults to “Type filter”). */
+    title?: ReactNode;
+    options?: TypeFilterOption<T>[];
 }
 
 interface SingleOptionProps<T extends string = string> extends BaseProps<T> {
@@ -28,6 +38,7 @@ function TypeFilter<T extends string = string>(props: SingleOptionProps<T>): Rea
 function TypeFilter<T extends string = string>(props: MultipleOptionProps<T>): ReactNode;
 function TypeFilter<T extends string = string>({
     multiple,
+    title,
     selectedOption,
     onOptionChange,
     selectedOptions = EMPTY_LIST,
@@ -36,21 +47,28 @@ function TypeFilter<T extends string = string>({
     className,
     ...props
 }: SingleOptionProps<T> & MultipleOptionProps<T>) {
+    const showIconColumn = options.some((o) => o.icon);
+
     return (
-        <div className={classNames('flex flex-col gap-3', className)} {...props}>
-            <div className="text-second text-sm font-normal">
-                <Trans>Type filter</Trans>
-            </div>
-            <div className="flex flex-col gap-2">
+        <div className={classNames('flex flex-col gap-4', className)} {...props}>
+            <div className="text-main text-sm font-bold">{title ?? <Trans>Type filter</Trans>}</div>
+            <div className="flex flex-col gap-3">
                 {options.map((option) => {
                     const selected = multiple
                         ? selectedOptions.includes(option.value)
                         : selectedOption === option.value;
+                    const inactive = option.signInAction || !selected;
+                    const labelClass = inactive ? 'text-second text-sm font-normal' : 'text-main text-sm font-semibold';
+
                     return (
                         <div
                             key={option.value}
-                            className="flex cursor-pointer items-center gap-2"
+                            className={classNames(
+                                'flex min-h-[22px] items-center gap-3',
+                                option.signInAction ? 'cursor-default' : 'cursor-pointer',
+                            )}
                             onClick={() => {
+                                if (option.signInAction) return;
                                 let newOptions: T[] = [];
                                 if (multiple) {
                                     newOptions = selected
@@ -67,17 +85,38 @@ function TypeFilter<T extends string = string>({
                                 }
                             }}
                         >
-                            {typeof option.label === 'function' ? (
-                                option.label(option.value, selected)
-                            ) : (
-                                <>
-                                    {selected ? (
-                                        <RadioOn className="text-highlight size-4" />
-                                    ) : (
-                                        <RadioOff className="text-secondaryLine size-4" />
+                            {showIconColumn ? (
+                                <span
+                                    className={classNames(
+                                        'flex size-5 shrink-0 items-center justify-center [&_svg]:size-5',
+                                        option.icon ? (inactive ? 'text-second' : 'text-main') : 'text-transparent',
                                     )}
-                                    <div className="text-main text-sm font-semibold">{option.label}</div>
-                                </>
+                                >
+                                    {option.icon}
+                                </span>
+                            ) : null}
+                            <div className={classNames('min-w-0 flex-1', labelClass)}>{option.label}</div>
+                            {option.signInAction ? (
+                                <button
+                                    type="button"
+                                    className="text-highlight shrink-0 text-sm font-normal"
+                                    onClick={(event) => {
+                                        event.stopPropagation();
+                                        option.onSignIn?.(event);
+                                    }}
+                                >
+                                    <Trans>Sign in</Trans>
+                                </button>
+                            ) : (
+                                <span className="flex size-5 shrink-0 items-center justify-center" aria-hidden>
+                                    {selected ? (
+                                        <span className="bg-highlight flex size-5 items-center justify-center rounded-full">
+                                            <CheckIcon className="size-2.5 text-white" width={10} height={10} />
+                                        </span>
+                                    ) : (
+                                        <span className="border-secondaryLine size-5 rounded-full border border-solid bg-transparent" />
+                                    )}
+                                </span>
                             )}
                         </div>
                     );
