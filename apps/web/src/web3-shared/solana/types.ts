@@ -11,7 +11,3 @@ export enum SolanaSchemaType {
     Fungible = 2,
     NonFungible = 3,
 }
-
-export enum SolanaNetworkType {
-    Solana = 'Solana',
-}

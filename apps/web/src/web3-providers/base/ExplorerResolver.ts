@@ -11,9 +11,9 @@ interface ExplorerOptions {
     nonFungibleTokenPathname?: string;
 }
 
-export class ExplorerResolver<ChainId, SchemaType, NetworkType> {
+export class ExplorerResolver<ChainId, SchemaType> {
     constructor(
-        private descriptors: () => ReadonlyArray<ChainDescriptor<ChainId, SchemaType, NetworkType>>,
+        private descriptors: () => ReadonlyArray<ChainDescriptor<ChainId, SchemaType>>,
         private initial?: ExplorerOptions,
     ) {}
     private get options() {

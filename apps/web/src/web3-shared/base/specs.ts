@@ -71,9 +71,8 @@ interface Identity {
 
 type Price = Partial<Record<CurrencyType, string>>;
 
-export interface ChainDescriptor<ChainId, SchemaType, NetworkType> {
+export interface ChainDescriptor<ChainId, SchemaType> {
     ID: string;
-    type: NetworkType;
     chainId: ChainId;
     coinMarketCapChainId?: string;
     coinGeckoChainId?: string;
@@ -99,15 +98,13 @@ export interface ChainDescriptor<ChainId, SchemaType, NetworkType> {
     isCustomized: boolean;
 }
 
-export interface NetworkDescriptor<ChainId, NetworkType> {
+export interface NetworkDescriptor<ChainId> {
     /** An unique ID for each network */
     ID: string;
     /** The ID of the plugin that provides the functionality of the network. */
     networkSupporterPluginID: NetworkPluginID;
     /** The chain id */
     chainId: ChainId;
-    /** The network type */
-    type: NetworkType;
     /** The network icon */
     icon: string;
     /** The network icon in fixed color */

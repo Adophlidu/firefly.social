@@ -1,4 +1,5 @@
 import { assert, NotImplementedError } from '@dimensiondev/utils';
+import { ETHEREUM_CHAIN_IDS } from '@dimensiondev/web3/chains';
 import type { Context, MiniAppHost, SignInOptions } from '@farcaster/miniapp-host';
 import { t } from '@lingui/core/macro';
 import { first } from 'lodash-es';
@@ -19,7 +20,6 @@ import { captureFrameSignInEvent } from '@/providers/telemetry/captureFrameSignI
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { signInWithFarcaster } from '@/providers/warpcast/signInWithFarcaster.js';
 import type { FrameV2 } from '@/types/frame.js';
-import { ETHEREUM_CHAIN_IDS } from '@/web3-shared/evm/types.js';
 
 export class FarcasterFrameHost implements MiniAppHost {
     constructor(

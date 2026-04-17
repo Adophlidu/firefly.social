@@ -17,6 +17,7 @@ import {
     lensTestnet,
     linea,
     mainnet,
+    mantle,
     metis,
     monadTestnet,
     optimism,
@@ -94,5 +95,30 @@ export const privyVisibleChains = [
 ] as const satisfies ReadonlyArray<(typeof chains)[number]>;
 
 export const rpSupportedChains = [mainnet, bsc, base, optimism, polygon, arbitrum];
+
+export const ETHEREUM_CHAIN_IDS = [
+    mainnet.id,
+    base.id,
+    bsc.id,
+    polygon.id,
+    optimism.id,
+    arbitrum.id,
+    gnosis.id,
+    avalanche.id,
+    aurora.id,
+    confluxESpace.id,
+    fantom.id,
+    xLayer.id,
+    metis.id,
+    mantle.id,
+    zora.id,
+    scroll.id,
+    celo.id,
+    lens.id,
+    zkSync.id,
+    linea.id,
+    plasma.id,
+    blast.id,
+] as const;
 
 export type ChainId = (typeof chains)[number]['id'];

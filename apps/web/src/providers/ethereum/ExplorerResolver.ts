@@ -1,9 +1,9 @@
 import { ExplorerResolver as Resolver } from '@/web3-providers/base/ExplorerResolver.js';
 import type { ChainDescriptor } from '@/web3-shared/base/specs.js';
 
-class ExplorerResolver<ChainId, SchemaType, NetworkType> extends Resolver<ChainId, SchemaType, NetworkType> {
+class ExplorerResolver<ChainId, SchemaType> extends Resolver<ChainId, SchemaType> {
     constructor(
-        descriptors: () => ReadonlyArray<ChainDescriptor<ChainId, SchemaType, NetworkType>>,
+        descriptors: () => ReadonlyArray<ChainDescriptor<ChainId, SchemaType>>,
         initial?: ConstructorParameters<typeof Resolver>[1],
     ) {
         super(descriptors, initial);

@@ -1,6 +1,6 @@
 import { isValidEnumValue } from '@dimensiondev/utils';
+import { ETHEREUM_CHAIN_IDS } from '@dimensiondev/web3/chains';
 
-import { ETHEREUM_CHAIN_IDS } from '@/web3-shared/evm/types.js';
 import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 export function isValidChainIdEthereum(chainId: number | undefined) {
