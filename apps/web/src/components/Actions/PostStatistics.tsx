@@ -13,7 +13,8 @@ import { Time } from '@/components/Semantic/Time.js';
 import { EngagementType, PageRoute, Source } from '@/constants/enum.js';
 import { usePathname } from '@/esm/navigation.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
-import { getTimeLeft } from '@/helpers/formatTimestamp.js';
+import { formatLocalizedDate, formatLocalizedTime, getTimeLeft } from '@/helpers/formatTimestamp.js';
+import { useLocale } from '@/helpers/getCookies.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { resolvePostEngagementUrl } from '@/helpers/resolveEngagementUrl.js';
 import type { Poll } from '@/providers/types/Poll.js';
@@ -107,6 +108,7 @@ export const PostStatistics = memo<Props>(function PostStatistics({
     onSetScrollIndex,
 }: Props) {
     const pathname = usePathname();
+    const locale = useLocale();
 
     const comments = post.stats?.comments ? (
         <data value={post.stats.comments}>
@@ -174,9 +176,9 @@ export const PostStatistics = memo<Props>(function PostStatistics({
             : compact([
                   post.timestamp && !hideDate ? (
                       <Time dateTime={post.timestamp}>
-                          <span>{dayjs(post.timestamp).format('hh:mm A')}</span>
+                          <span>{formatLocalizedTime(post.timestamp, locale)}</span>
                           <span>{' · '}</span>
-                          <span>{dayjs(post.timestamp).format('MMM DD, YYYY')}</span>
+                          <span>{formatLocalizedDate(post.timestamp, locale)}</span>
                       </Time>
                   ) : null,
                   likes,

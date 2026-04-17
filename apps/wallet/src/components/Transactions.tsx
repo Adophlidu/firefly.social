@@ -12,8 +12,10 @@ import { ListInPage } from '@/components/ListInPage.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
 import { NetworkType } from '@/constants/enum.js';
 import { SolanaChainId } from '@/constants/solana.js';
+import { formatDate } from '@/helpers/formatDate.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { getBlockExplorersURL } from '@/helpers/getBlockExplorersURL.js';
+import { useLocale } from '@/helpers/getCookies.js';
 import { isGreaterThanOrEqualTo, toFixed } from '@/helpers/number.js';
 import { groupAndSortByDate } from '@/helpers/sortAndGroupByDate.js';
 import { cn } from '@/lib/utils.js';
@@ -33,11 +35,12 @@ interface Props {
 }
 
 export function TransactionHistory({ chains, address, onSelectTransaction }: Props) {
+    const locale = useLocale();
     const queryResult = useSuspenseInfiniteQuery({
         ...getTransactionHistory(chains, address),
         select(data) {
             const items = data.pages.flatMap((x) => x.list);
-            return groupAndSortByDate(items, (x) => dayjs.unix(Number(x.timestamp)).format('MMM DD, YYYY'));
+            return groupAndSortByDate(items, (x) => formatDate(dayjs.unix(Number(x.timestamp)), 'date', locale));
         },
     });
 

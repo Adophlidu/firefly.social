@@ -53,7 +53,7 @@ patchedDependencies:
     hash: csyheqfflg57avxgdk2soslbcy
     path: patches/@tippyjs__react@4.2.6.patch
   dayjs-twitter@0.5.0:
-    hash: cuhyqcffld3lmtt6xlopmlcac4
+    hash: 7h2o3tllwgst2agcklhlopwkze
     path: patches/dayjs-twitter@0.5.0.patch
   eslint-plugin-tailwindcss@3.18.2:
     hash: wqd3t4enk6x37dshhhfx753wki
@@ -628,7 +628,7 @@ importers:
         version: 1.11.13
       dayjs-twitter:
         specifier: ^0.5.0
-        version: 0.5.0(patch_hash=cuhyqcffld3lmtt6xlopmlcac4)
+        version: 0.5.0(patch_hash=7h2o3tllwgst2agcklhlopwkze)
       dompurify:
         specifier: ^3.2.7
         version: 3.2.7
@@ -18419,7 +18419,7 @@ packages:
     resolution: {integrity: sha512-2P0p0pFGzHS5EMnhdxQi7aJN+iMheud0UhG4dlE1DLAlvL8JHjJJTX/CSm4JXwV0Ka5nGk3zC5mcb5bUQUxxMA==}
     dev: false
 
-  /dayjs-twitter@0.5.0(patch_hash=cuhyqcffld3lmtt6xlopmlcac4):
+  /dayjs-twitter@0.5.0(patch_hash=7h2o3tllwgst2agcklhlopwkze):
     resolution: {integrity: sha512-SZ7qEUISstBLUXdlGAbLrwr6zfRM9kaCfbq4uVTerM/HXzuHiiGzzUqAJVhxt+3tf69E+ocmQdP6YYpOINv05w==}
     dependencies:
       duration-js: 4.0.0

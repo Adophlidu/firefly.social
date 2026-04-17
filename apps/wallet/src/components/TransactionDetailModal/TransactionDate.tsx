@@ -1,9 +1,13 @@
 import dayjs from 'dayjs';
 
+import { formatDate } from '@/helpers/formatDate.js';
+import { useLocale } from '@/helpers/getCookies.js';
+
 interface TransactionDateProps {
     time: string | number | Date;
 }
 
 export function TransactionDate({ time }: TransactionDateProps) {
-    return dayjs(time).format('MMM DD, YYYY [at] hh:mm A');
+    const locale = useLocale();
+    return formatDate(dayjs(time), 'datetime', locale);
 }

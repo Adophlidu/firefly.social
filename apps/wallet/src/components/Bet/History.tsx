@@ -1,11 +1,9 @@
 import betImageFallback from '@dimensiondev/assets/bet-image-fallback.svg?url';
-import { EMPTY_LIST } from '@dimensiondev/constants';
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
 import { Plural, Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { BigNumber } from 'bignumber.js';
 import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime.js';
 import { ArrowDown, ArrowUp } from 'lucide-react';
 import type React from 'react';
 import { useMemo } from 'react';
@@ -13,14 +11,14 @@ import { formatUnits, parseUnits } from 'viem';
 
 import { Image } from '@/components/Image.js';
 import { ListInPage } from '@/components/ListInPage.js';
+import { formatDate } from '@/helpers/formatDate.js';
 import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
 import { formatTokenItemAmount } from '@/helpers/formatTokenItemAmount.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
+import { useLocale } from '@/helpers/getCookies.js';
 import type { PolymarketActivityItem } from '@/providers/types/Firefly.js';
 import { getPolymarketAccountQueryOptions } from '@/queries/firefly/getPolymarketAccountQueryOptions.js';
 import { getFireflyEndpoint } from '@/store/fireflyEndpoint.js';
-
-dayjs.extend(relativeTime);
 
 export function History() {
     const { data: account } = useSuspenseQuery(getPolymarketAccountQueryOptions());
@@ -37,7 +35,7 @@ export function History() {
             return lastPage?.cursor ?? undefined;
         },
         select: (data) => {
-            return data.pages.flatMap((page) => page.result ?? EMPTY_LIST);
+            return data.pages.flatMap((page) => page.result || []);
         },
     });
 
@@ -65,7 +63,8 @@ function getItemContent(index: number, item: PolymarketActivityItem) {
 }
 
 function HistoryItem({ item }: { item: PolymarketActivityItem }) {
-    const whenRelative = dayjs.unix(item.timestamp).format('MMM D, YYYY');
+    const locale = useLocale();
+    const whenRelative = formatDate(dayjs.unix(item.timestamp), 'shortDate', locale);
 
     const priceCents = useMemo(() => {
         if (item.type !== 'trade') return '-';
@@ -97,7 +96,7 @@ function HistoryItem({ item }: { item: PolymarketActivityItem }) {
                             {isIn ? <Trans>Add Funds</Trans> : <Trans>Withdraw</Trans>}
                         </div>
                         <div className="text-second text-xs leading-[14px]">
-                            {dayjs.unix(item.timestamp).format('MMM D, YYYY')}
+                            {formatDate(dayjs.unix(item.timestamp), 'shortDate', locale)}
                         </div>
                     </div>
                     <div className="shrink-0 text-right text-sm font-semibold leading-5">

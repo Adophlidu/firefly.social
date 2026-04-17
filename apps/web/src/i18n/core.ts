@@ -4,6 +4,7 @@ import { setI18n } from '@lingui/react/server';
 import dayjs from 'dayjs';
 
 import { Locale } from '@/constants/enum.js';
+import { getDayjsLocaleName } from '@/helpers/dayjsLocale.js';
 import { logger } from '@/libs/Logger.js';
 import { messages as en } from '@/locales/en/messages.js';
 import { messages as zhHans } from '@/locales/zh-Hans/messages.js';
@@ -57,7 +58,7 @@ export function setupAndActiveI18n(locale_: Locale) {
     i18n.activate(locale);
 
     setI18n(i18n as unknown as Parameters<typeof setI18n>[0]);
-    dayjs.locale(locale);
+    dayjs.locale(getDayjsLocaleName(locale));
 
     return i18n;
 }
