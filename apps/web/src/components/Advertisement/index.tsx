@@ -1,5 +1,6 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { runInSafeAsync } from '@dimensiondev/utils';
+import { headers } from 'next/headers.js';
 
 import { AdvertisementItem } from '@/components/Advertisement/AdvertisementItem.js';
 import { AdvertisementSkeleton } from '@/components/Advertisement/AdvertisementSkeleton.js';
@@ -44,16 +45,18 @@ async function fetchAdvertisements(): Promise<AdvertisementInterface[]> {
 export async function Advertisement() {
     try {
         const ads = await fetchAdvertisements();
+        const requestUrl = await headers().then((h) => h.get('X-URL'));
+        const origin = requestUrl ? new URL(requestUrl).origin : '';
 
         if (!ads.length) return null;
         if (ads.length === 1)
             return (
                 <div className="ff-advertisement">
-                    <AdvertisementItem ad={ads[0]} />
+                    <AdvertisementItem ad={ads[0]} origin={origin} />
                 </div>
             );
 
-        return <AdvertisementSwiper items={ads} />;
+        return <AdvertisementSwiper items={ads} origin={origin} />;
     } catch (error) {
         logger.error(`Failed to fetch advertisement: ${error}`);
         return null;

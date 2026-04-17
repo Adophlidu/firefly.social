@@ -13,9 +13,10 @@ import type { Advertisement } from '@/types/advertisement.js';
 
 interface Props extends React.HTMLProps<'div'> {
     items: Advertisement[];
+    origin?: string;
 }
 
-export function AdvertisementSwiper({ items }: Props) {
+export function AdvertisementSwiper({ items, origin }: Props) {
     return (
         <Swiper
             className="ff-advertisement"
@@ -27,7 +28,7 @@ export function AdvertisementSwiper({ items }: Props) {
         >
             {items.map((ad, index) => (
                 <SwiperSlide key={index} className="w-96">
-                    <AdvertisementItem ad={ad} />
+                    <AdvertisementItem ad={ad} origin={origin} />
                 </SwiperSlide>
             ))}
         </Swiper>
