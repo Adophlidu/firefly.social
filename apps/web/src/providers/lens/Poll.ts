@@ -2,11 +2,11 @@ import { AuthenticationError, NotImplementedError, runInSafeAsync } from '@dimen
 import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import { first, sumBy } from 'lodash-es';
 import { getAddress } from 'viem';
+import { lens } from 'viem/chains';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { Source } from '@/constants/enum.js';
 import { WalletAddressMismatchError } from '@/constants/error.js';
-import { LENS_CHAIN_ID } from '@/constants/static.js';
 import { SetQueryDataForVote } from '@/decorators/SetQueryDataForVote.js';
 import { createPrivyWalletClient } from '@/helpers/createPrivyWalletClient.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
@@ -68,7 +68,7 @@ class LensPoll implements Provider {
         if (!currentProfile?.profileId) throw new AuthenticationError('No profile found, please login first.');
 
         const walletClient = await getWalletClientRequired(wagmiConfig, {
-            chainId: LENS_CHAIN_ID,
+            chainId: lens.id,
         });
         const privyEvm = first(useFireflyWalletStore.getState().wallets.ethereum)?.address ?? null;
         const currentAddress = walletClient.account.address;
@@ -103,10 +103,10 @@ class LensPoll implements Provider {
                     value: BigInt(transaction.amount),
                 };
 
-                const hash = await sendCustomEip712Transaction(LENS_CHAIN_ID, options, {
+                const hash = await sendCustomEip712Transaction(lens.id, options, {
                     client: isPrivy
                         ? await createPrivyWalletClient({
-                              chainId: LENS_CHAIN_ID,
+                              chainId: lens.id,
                           })
                         : undefined,
                 });

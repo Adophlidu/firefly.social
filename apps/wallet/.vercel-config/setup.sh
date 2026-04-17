@@ -5,8 +5,8 @@ set -euo pipefail
 pnpm --filter @dimensiondev/constants build
 pnpm --filter @dimensiondev/types build
 pnpm --filter @dimensiondev/utils build
-pnpm --filter @dimensiondev/web3 build
 pnpm --filter @dimensiondev/envs build
+pnpm --filter @dimensiondev/web3 build
 pnpm --filter @dimensiondev/iframe-bridge build
 pnpm --filter @dimensiondev/native-bridge build
 pnpm --filter @dimensiondev/exception-tracker build

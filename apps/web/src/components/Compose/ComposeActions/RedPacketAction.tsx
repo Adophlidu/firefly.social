@@ -7,14 +7,14 @@ import { Trans } from '@lingui/react/macro';
 import { memo, useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
-import { polygon } from 'viem/chains';
+import { lens, polygon } from 'viem/chains';
 import { useChainId, useSwitchChain } from 'wagmi';
 
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { ENABLED_RP_SOURCES, SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
 import { CharTag, FileMimeType } from '@/constants/enum.js';
-import { LENS_CHAIN_ID, RP_HASH_TAG, SITE_URL } from '@/constants/static.js';
+import { RP_HASH_TAG, SITE_URL } from '@/constants/static.js';
 import { fetchImageAsPNG } from '@/helpers/fetchImageAsPNG.js';
 import { getCompositePost } from '@/helpers/getCompositePost.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
@@ -53,7 +53,7 @@ export const RedPacketAction = memo<RedPacketActionProps>(function RedPacketActi
             return;
         }
         // rp does not support lens chain
-        if (ethereum.address && chainId === LENS_CHAIN_ID) {
+        if (ethereum.address && chainId === lens.id) {
             await switchChainAsync({ chainId: polygon.id });
         }
         captureRedPacketClickEvent();

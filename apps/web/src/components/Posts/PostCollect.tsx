@@ -7,7 +7,7 @@ import dayjs from 'dayjs';
 import { compact } from 'lodash-es';
 import { useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
-import { polygon } from 'viem/chains';
+import { lens, polygon } from 'viem/chains';
 import { useConnection } from 'wagmi';
 
 import { Avatar } from '@/components/Avatar.js';
@@ -15,7 +15,6 @@ import { ChainGuardButton } from '@/components/ChainGuardButton.js';
 import { Link } from '@/components/Link.js';
 import { Source } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';
-import { LENS_CHAIN_ID } from '@/constants/static.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getTimeLeft } from '@/helpers/formatTimestamp.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
@@ -267,7 +266,7 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
 
             <div className="mt-6 flex gap-2 max-md:mt-4">
                 <ChainGuardButton
-                    targetChainId={LENS_CHAIN_ID}
+                    targetChainId={lens.id}
                     className="h-10 w-full"
                     loading={loading}
                     onlyLoading={queryBalanceLoading || queryProfileLoading}

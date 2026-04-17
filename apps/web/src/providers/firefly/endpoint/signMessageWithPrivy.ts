@@ -2,8 +2,8 @@ import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-b
 import { delay, runInSafeAsync } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 import { toHex } from 'viem';
+import { lens } from 'viem/chains';
 
-import { LENS_CHAIN_ID } from '@/constants/static.js';
 import { ensureCreatedFireflyWallet } from '@/helpers/ensureCreatedFireflyWallet.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
@@ -15,7 +15,7 @@ async function signMessageWithNativePrivy(message: string) {
     if (!wallet) throw new Error('Failed to ensure Firefly wallet');
 
     return iframeBridgeProvider.request(IframeBridgeMethod.FIREFLY_WALLET_SIGN_MESSAGE, {
-        chainId: toHex(LENS_CHAIN_ID),
+        chainId: toHex(lens.id),
         address: wallet.address,
         message,
     });

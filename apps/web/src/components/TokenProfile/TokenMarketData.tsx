@@ -7,6 +7,7 @@ import PriceArrow from '@dimensiondev/assets/price-arrow.svg';
 import TwitterIcon from '@dimensiondev/assets/x-fill.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { classNames } from '@dimensiondev/utils';
+import { ETH_NATIVE_TOKEN_ADDRESS } from '@dimensiondev/web3/constants';
 import { formatAddress, isZeroAddress } from '@dimensiondev/web3/utils';
 import { Plural, Trans } from '@lingui/react/macro';
 import dayjs from 'dayjs';
@@ -27,7 +28,6 @@ import { TokenSecurityBar } from '@/components/TokenProfile/TokenSecurityBar.js'
 import { TradeFilter } from '@/components/TokenProfile/TradeFilter.js';
 import { useTradeInfo } from '@/components/TokenProfile/useTradeInfo.js';
 import { TRACING_RUNTIME_LIST } from '@/constants/computed.js';
-import { NATIVE_TOKEN_ADDRESS } from '@/constants/okx.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { isZero } from '@/helpers/number.js';
 import { resolveCoinGeckoChain } from '@/helpers/resolveCoinGeckoChain.js';
@@ -109,7 +109,7 @@ export const TokenMarketData = memo(function TokenMarketData({
                     {
                         runtime: resolveCoinGeckoChain(coinChainId),
                         chainId: coinChainId,
-                        address: NATIVE_TOKEN_ADDRESS,
+                        address: ETH_NATIVE_TOKEN_ADDRESS,
                     } as Contract,
                     ...contracts,
                 ];

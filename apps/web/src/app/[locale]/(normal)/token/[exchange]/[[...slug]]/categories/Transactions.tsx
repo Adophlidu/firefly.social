@@ -2,6 +2,7 @@
 
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { classNames } from '@dimensiondev/utils';
+import { ETH_NATIVE_TOKEN_ADDRESS } from '@dimensiondev/web3/constants';
 import { formatAddress, isSameAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { compact } from 'lodash-es';
@@ -15,7 +16,6 @@ import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { SwapTimeline, type SwapTimelineProps } from '@/components/Swap/SwapTimeline.js';
 import { TokenContext } from '@/components/Token/TokenContext.js';
 import { Source } from '@/constants/enum.js';
-import { NATIVE_TOKEN_ADDRESS } from '@/constants/okx.js';
 import { Link } from '@/esm/Link.js';
 import { usePathname, useRouter, useSearchParams } from '@/esm/navigation.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
@@ -38,7 +38,7 @@ interface Props extends HTMLProps<HTMLDivElement>, Pick<SwapTimelineProps, 'chai
 
 export const Transactions = memo<Props>(function Transactions({
     chainId,
-    tokenAddress = NATIVE_TOKEN_ADDRESS,
+    tokenAddress = ETH_NATIVE_TOKEN_ADDRESS,
     trader,
     traderName,
     ...props

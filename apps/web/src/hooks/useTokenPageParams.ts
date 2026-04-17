@@ -1,5 +1,5 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
-import { SOL_NATIVE_TOKEN_ADDRESS } from '@dimensiondev/web3/constants';
+import { ETH_NATIVE_TOKEN_ADDRESS, SOL_NATIVE_TOKEN_ADDRESS } from '@dimensiondev/web3/constants';
 import { isValidAddress, isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3/utils';
 import { compact, first, sortBy } from 'lodash-es';
 import { use } from 'react';
@@ -7,7 +7,6 @@ import { use } from 'react';
 import type { TokenPageProps } from '@/app/[locale]/(normal)/token/[exchange]/[[...slug]]/types.js';
 import { TOKEN_CATEGORIES, TRACING_CHAINS } from '@/constants/computed.js';
 import { TokenCategory } from '@/constants/enum.js';
-import { NATIVE_TOKEN_ADDRESS } from '@/constants/okx.js';
 import { COINGECKO_SOL_COIN_ID, NO_TRACING_COINS } from '@/constants/static.js';
 import { resolveCoinGeckoCoinChainId } from '@/helpers/resolveCoingeckoCoinChainId.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
@@ -41,7 +40,8 @@ export function useTokenPageParams({ params, searchParams }: TokenPageProps) {
 
     const address =
         paramAddress ?? (isAddress ? addressSlug : coinChainId ? undefined : firstContract?.address) ?? token?.address;
-    const tokenAddress = tokenId === COINGECKO_SOL_COIN_ID ? SOL_NATIVE_TOKEN_ADDRESS : address || NATIVE_TOKEN_ADDRESS;
+    const tokenAddress =
+        tokenId === COINGECKO_SOL_COIN_ID ? SOL_NATIVE_TOKEN_ADDRESS : address || ETH_NATIVE_TOKEN_ADDRESS;
 
     const updatedChainId =
         token?.chainId ?? chainId ?? trending?.coin.chainId ?? (coinChainId ? coinChainId : firstContract?.chainId);
