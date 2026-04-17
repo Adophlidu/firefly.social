@@ -1,13 +1,15 @@
 import { compact } from 'lodash-es';
 
-import { Source } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { getAccountMetricsData } from '@/helpers/getAccountMetricsData.js';
 import { getAllProfiles } from '@/helpers/getAllProfiles.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
+import { logger } from '@/libs/Logger.js';
 import { ConfirmSyncSessionModalRef } from '@/modals/ConfirmSyncSessionModal/refs.js';
 import { LoginModalRef } from '@/modals/LoginModal/refs.js';
+import { getAllConnections } from '@/providers/firefly/endpoint/getAllConnections.js';
 import { getMetricsStatus } from '@/providers/firefly/metrics/getMetricsStatus.js';
 import type { LensSession } from '@/providers/lens/Session.js';
 import type { Account } from '@/providers/types/Account.js';
@@ -19,6 +21,48 @@ import { verifyAndGetPassword } from '@/services/verifyAndGetPassword.js';
 interface Options {
     forceUploadMetrics?: boolean;
     bindLensManager?: boolean;
+}
+
+async function filterProfilesWithConnection(profiles: Profile[]) {
+    if (!profiles.length) return [];
+
+    try {
+        const connections = await getAllConnections();
+        const connectedSocial: Array<{
+            source: SocialSource;
+            profileId: string;
+            handle: string;
+        }> = [
+            ...(connections?.farcaster?.connected || []).map((x) => ({
+                source: Source.Farcaster as const,
+                profileId: `${x.fid}`,
+                handle: x.username,
+            })),
+            ...(connections?.lens?.connected || [])
+                .flatMap((x) => x.lens || [])
+                .map((x) => ({
+                    source: Source.Lens as const,
+                    profileId: x.id,
+                    handle: x.localName,
+                })),
+            ...(connections?.bsky?.connected || []).map((x) => ({
+                source: Source.Bsky as const,
+                profileId: x.id,
+                handle: x.name,
+            })),
+            ...(connections?.twitter?.connected || []).map((x) => ({
+                source: Source.Twitter as const,
+                profileId: x.id,
+                handle: x.handle,
+            })),
+        ];
+        if (!connectedSocial.length) return profiles;
+
+        return profiles.filter((profile) => connectedSocial.some((connection) => isSameProfile(profile, connection)));
+    } catch (error) {
+        logger.error('Error filtering profiles with connections', error);
+        return profiles;
+    }
 }
 
 async function syncMetrics(account: Account, options?: Options) {
@@ -42,8 +86,10 @@ async function syncMetrics(account: Account, options?: Options) {
 
     const localProfiles = getAllProfiles();
 
-    const profilesToSync = remoteProfiles.filter(
-        (remoteProfile) => !localProfiles.some((localProfile) => isSameProfile(localProfile, remoteProfile)),
+    const profilesToSync = await filterProfilesWithConnection(
+        remoteProfiles.filter(
+            (remoteProfile) => !localProfiles.some((localProfile) => isSameProfile(localProfile, remoteProfile)),
+        ),
     );
 
     const profilesToUpload = localProfiles.filter((localProfile) => {
