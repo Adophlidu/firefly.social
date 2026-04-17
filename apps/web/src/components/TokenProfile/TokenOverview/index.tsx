@@ -11,7 +11,6 @@ import { type HTMLProps, memo, useMemo } from 'react';
 import { useUpdateContractParams } from '@/app/[locale]/(normal)/token/[exchange]/[[...slug]]/useUpdateContractParams.js';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { Image } from '@/components/Image.js';
-import { Link } from '@/components/Link.js';
 import { Loading } from '@/components/Loading.js';
 import { ClubLink } from '@/components/TokenProfile/CommunityLink.js';
 import { ContractList } from '@/components/TokenProfile/ContractList.js';
@@ -19,6 +18,7 @@ import { DexCoinOverview } from '@/components/TokenProfile/TokenOverview/DexCoin
 import { InfoCard } from '@/components/TokenProfile/TokenOverview/InfoCard.js';
 import { InfoRow } from '@/components/TokenProfile/TokenOverview/InfoRow.js';
 import { Tooltip } from '@/components/Tooltip.js';
+import { Link } from '@/esm/Link.js';
 import { formatMarketCap } from '@/helpers/formatMarketCap.js';
 import { getChainInfo } from '@/helpers/getChainInfo.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';

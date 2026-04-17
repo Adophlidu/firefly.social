@@ -6,8 +6,7 @@ import GlobalIcon from '@dimensiondev/assets/global.svg';
 import PriceArrow from '@dimensiondev/assets/price-arrow.svg';
 import TwitterIcon from '@dimensiondev/assets/x-fill.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
-import { NODE_ENV } from '@dimensiondev/envs';
-import { assert, classNames } from '@dimensiondev/utils';
+import { classNames } from '@dimensiondev/utils';
 import { formatAddress, isZeroAddress } from '@dimensiondev/web3/utils';
 import { Plural, Trans } from '@lingui/react/macro';
 import dayjs from 'dayjs';
@@ -24,7 +23,6 @@ import { useWithinRangeRecords } from '@/components/PriceChart/useWithinRangeRec
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { TokenBookmarkButton } from '@/components/Token/TokenBookmarkButton.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
-import { ContractList } from '@/components/TokenProfile/ContractList.js';
 import { TokenSecurityBar } from '@/components/TokenProfile/TokenSecurityBar.js';
 import { TradeFilter } from '@/components/TokenProfile/TradeFilter.js';
 import { useTradeInfo } from '@/components/TokenProfile/useTradeInfo.js';
@@ -305,31 +303,6 @@ export const TokenMarketData = memo(function TokenMarketData({
                             <TokenBookmarkButton coinId={token.id} chainId={chainId || mainnet.id} address={address} />
                         </div>
                     </div>
-                    {isTrendingPending && !contractSelect ? (
-                        <div className="bg-bg02 ml-[52px] mt-0.5 h-[30px] w-[122px] self-start rounded-full" />
-                    ) : contractSelect ? (
-                        <div className="ml-[52px] self-start">
-                            {contracts.length === 1 ? (
-                                contractSelect
-                            ) : (
-                                <ContractList
-                                    contracts={contracts ?? EMPTY_LIST}
-                                    onSelect={(contract) => {
-                                        if (process.env.NODE_ENV === NODE_ENV.Development) {
-                                            assert(
-                                                contract.chainId,
-                                                'ChainId is required, it should be patched at runtime.',
-                                            );
-                                        }
-                                        onContractChange?.(contract);
-                                    }}
-                                    menuAnchor="bottom"
-                                >
-                                    {contractSelect}
-                                </ContractList>
-                            )}
-                        </div>
-                    ) : null}
                     <div className="mt-[18px] flex flex-col gap-2 leading-[22px]">
                         <div className="text-2xl font-bold">
                             ${renderShrankPrice(formatPrice(activeRecord?.value ?? price) ?? '-')}

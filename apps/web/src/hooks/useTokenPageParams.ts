@@ -36,7 +36,7 @@ export function useTokenPageParams({ params, searchParams }: TokenPageProps) {
     });
     const tokenId = token?.id;
     const coinChainId = tokenId ? resolveCoinGeckoCoinChainId(tokenId) : undefined;
-    const { data: trending, isPending } = useCoinTrending(tokenId);
+    const { data: trending, isLoading } = useCoinTrending(tokenId);
     const firstContract = first(sortBy(trending?.contracts, (x) => (isValidAddress(x.address) ? 0 : 1)));
 
     const address =
@@ -64,7 +64,7 @@ export function useTokenPageParams({ params, searchParams }: TokenPageProps) {
         coinChainId,
         isCex,
         isDex,
-        isPending,
+        isPending: isLoading,
         isTokenPending,
         slug,
         token,

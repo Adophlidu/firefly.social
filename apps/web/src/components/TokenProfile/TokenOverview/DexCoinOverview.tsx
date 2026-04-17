@@ -10,7 +10,6 @@ import { type HTMLProps, memo } from 'react';
 
 import { ChainIcon } from '@/components/ChainIcon.js';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
-import { Link } from '@/components/Link.js';
 import { Loading } from '@/components/Loading.js';
 import { ClubLink } from '@/components/TokenProfile/CommunityLink.js';
 import { InfoCard } from '@/components/TokenProfile/TokenOverview/InfoCard.js';
@@ -154,14 +153,14 @@ export const DexCoinOverview = memo<DexCoinOverviewProps>(function DexCoinOvervi
                         extra={
                             <div className="flex flex-col justify-end gap-1">
                                 {detail.links.homepage.map((url) => (
-                                    <Link
+                                    <OriginalLink
                                         key={url}
                                         href={url}
                                         target="_blank"
                                         className="text-right text-[#8E96FF] hover:underline"
                                     >
                                         {parseUrl(url)?.host || url}
-                                    </Link>
+                                    </OriginalLink>
                                 ))}
                             </div>
                         }
