@@ -169,7 +169,7 @@ export const SnapCard = memo<CardProps>(function SnapCard({ snap: initialSnap, p
                             button_index: 0,
                         };
 
-                        const url = urlcat(FIREFLY_WORKER_HOST, '/snap', {
+                        const url = urlcat(FIREFLY_WORKER_HOST, '/fc-snap', {
                             url: snap.url,
                             target: action.params.target,
                         });
@@ -193,7 +193,7 @@ export const SnapCard = memo<CardProps>(function SnapCard({ snap: initialSnap, p
 
                     case 'open_snap': {
                         setLoading(true);
-                        const snapUrl = urlcat(FIREFLY_WORKER_HOST, '/snap', { url: action.params.target });
+                        const snapUrl = urlcat(FIREFLY_WORKER_HOST, '/fc-snap', { url: action.params.target });
                         const response = await fetchJson<ResponseJson<SnapDigestedResponse>>(snapUrl);
                         if (response.success && response.data.snap) {
                             setSnap(response.data.snap);
