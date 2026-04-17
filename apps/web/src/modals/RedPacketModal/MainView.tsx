@@ -28,6 +28,7 @@ import { createAccount } from '@/helpers/createAccount.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { getNativeToken } from '@/helpers/getNativeToken.js';
 import { getRpMaxShares, getRpMessageMaxLength } from '@/helpers/getRpLimitations.js';
+import { isPrivyAddress } from '@/helpers/isPrivyAddress.js';
 import { isGreaterThan, isLessThan, isZero, leftShift, multipliedBy, rightShift, ZERO } from '@/helpers/number.js';
 import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
 import { useAvailableBalance } from '@/hooks/useAvailableBalance.js';
@@ -150,7 +151,7 @@ export default function MainView() {
     const freeGasAction = isNotEnoughAllowance
         ? { txType: FreeGasTxType.TokenApprove, to: token.address as string }
         : { txType: FreeGasTxType.RedpacketSend, to: getRedPacketContractAddress(chainId) };
-    const shouldCheckFreeGasEligibility = isEVM && insufficientGas && !!account;
+    const shouldCheckFreeGasEligibility = isEVM && insufficientGas && !!account && isPrivyAddress(account);
     const { data: canUseFreeGasForCurrentStep = false, isLoading: isCheckingFreeGasEligibility } = useQuery({
         queryKey: [
             'red-packet-free-gas-eligibility',

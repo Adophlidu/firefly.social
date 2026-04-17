@@ -2,6 +2,7 @@ import { isSupportedStablecoin } from '@dimensiondev/web3/utils';
 import urlcat from 'urlcat';
 
 import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
+import { isPrivyAddress } from '@/helpers/isPrivyAddress.js';
 import { logger } from '@/libs/Logger.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { settings } from '@/settings/index.js';
@@ -57,6 +58,11 @@ export interface TryFreeGasParams {
 export async function tryFreeGasTransaction(
     params: TryFreeGasParams,
 ): Promise<{ type: 'free-gas'; hash: string } | { type: 'fallback' }> {
+    // Only attempt free gas for Privy wallets
+    if (!isPrivyAddress(params.from)) {
+        return { type: 'fallback' };
+    }
+
     try {
         const { chainId, txType, from, to, data, value, tokenAddress } = params;
 
