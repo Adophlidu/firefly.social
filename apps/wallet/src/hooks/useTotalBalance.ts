@@ -1,10 +1,9 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
-import { chains } from '@dimensiondev/web3/chains';
+import { chains, solana } from '@dimensiondev/web3/chains';
 import { useQuery } from '@tanstack/react-query';
 import { BigNumber } from 'bignumber.js';
 import { compact } from 'lodash-es';
 
-import { SolanaChainId } from '@/constants/solana.js';
 import { formatTokenFromFireflyTokenAsset } from '@/helpers/formatTokenFromFireflyTokenAsset.js';
 import { plus } from '@/helpers/number.js';
 import { useEmbeddedWalletAddresses } from '@/hooks/useCachedWalletAddresses.js';
@@ -17,7 +16,7 @@ export function useTotalBalance() {
     const { data: customTokenAssets = [] } = useCustomTokensWithBalance();
 
     return useQuery({
-        ...getMultiChainTokensQuery(addresses, [...chains.map((x) => x.id), SolanaChainId.Mainnet]),
+        ...getMultiChainTokensQuery(addresses, [...chains.map((x) => x.id), solana.id]),
         enabled: addresses.length === 2,
         select(data) {
             if (!data?.tokenAssets) {

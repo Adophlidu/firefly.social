@@ -1,16 +1,17 @@
+import { solana } from '@dimensiondev/web3/chains';
 import { SOL_ZERO_ADDRESS } from '@dimensiondev/web3/constants';
 
 import { NetworkPluginID } from '@/constants/enum.js';
 import type { ChainDescriptor, NetworkDescriptor } from '@/web3-shared/base/specs.js';
 import { createFungibleToken } from '@/web3-shared/base/token.js';
-import { SolanaChainId, SolanaSchemaType } from '@/web3-shared/solana/types.js';
+import { SolanaSchemaType } from '@/web3-shared/solana/types.js';
 
 const PLUGIN_ID = NetworkPluginID.PLUGIN_SOLANA;
 
-export const CHAIN_DESCRIPTORS: ReadonlyArray<ChainDescriptor<SolanaChainId, SolanaSchemaType>> = [
+export const CHAIN_DESCRIPTORS: ReadonlyArray<ChainDescriptor<number, SolanaSchemaType>> = [
     {
-        ID: `${SolanaChainId.Mainnet}_Solana`,
-        chainId: SolanaChainId.Mainnet,
+        ID: `${solana.id}_Solana`,
+        chainId: solana.id,
         coinMarketCapChainId: '',
         coinGeckoChainId: '',
         coinGeckoPlatformId: '',
@@ -20,7 +21,7 @@ export const CHAIN_DESCRIPTORS: ReadonlyArray<ChainDescriptor<SolanaChainId, Sol
         shortName: 'Solana',
         network: 'mainnet',
         nativeCurrency: createFungibleToken(
-            SolanaChainId.Mainnet,
+            solana.id,
             SolanaSchemaType.Fungible,
             SOL_ZERO_ADDRESS,
             'Solana',
@@ -37,11 +38,11 @@ export const CHAIN_DESCRIPTORS: ReadonlyArray<ChainDescriptor<SolanaChainId, Sol
     },
 ];
 
-export const NETWORK_DESCRIPTORS: ReadonlyArray<NetworkDescriptor<SolanaChainId>> = [
+export const NETWORK_DESCRIPTORS: ReadonlyArray<NetworkDescriptor<number>> = [
     {
         ID: `${PLUGIN_ID}_solana`,
         networkSupporterPluginID: PLUGIN_ID,
-        chainId: SolanaChainId.Mainnet,
+        chainId: solana.id,
         name: 'Solana',
         icon: '/image/chains/solana.png',
         iconColor: '#5d6fc0',

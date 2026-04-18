@@ -1,4 +1,5 @@
 import { web3 } from '@coral-xyz/anchor';
+import { solana } from '@dimensiondev/web3/chains';
 import { useAsyncFn } from 'react-use';
 
 import { queryClient } from '@/configs/queryClient.js';
@@ -7,11 +8,10 @@ import { getTokenAccountByMint } from '@/providers/solana/getTokenAccountByMint.
 import { getRedPacket } from '@/providers/solana/red-packet/getRedPacket.js';
 import { refundNativeToken } from '@/providers/solana/red-packet/refundNativeToken.js';
 import { refundSplToken } from '@/providers/solana/red-packet/refundSplToken.js';
-import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 export function useRefundSolanaCallback(rpid?: string, overrides?: ChainContextOverrides) {
     const { account } = useChainContext(overrides);
-    const chainId = overrides?.chainId || SolanaChainId.Mainnet;
+    const chainId = overrides?.chainId || solana.id;
 
     return useAsyncFn(async () => {
         if (!rpid) throw new Error('Failed to resolve red packet account id.');

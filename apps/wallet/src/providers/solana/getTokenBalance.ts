@@ -1,7 +1,6 @@
 import { isZeroAddressSolana } from '@dimensiondev/web3/utils';
 import { TOKEN_PROGRAM_ID } from '@solana/spl-token';
 
-import type { SolanaChainId } from '@/constants/solana.js';
 import { solanaRPC } from '@/providers/solana/RPC.js';
 import type { Token } from '@/providers/types/Transfer.js';
 
@@ -35,7 +34,7 @@ export async function getSplTokenBalance(tokenAddress: string, address: string, 
     return tokenProgram?.account.data.parsed.info;
 }
 
-export async function getTokenBalance(token: Pick<Token<SolanaChainId>, 'id'>, address: string, chainId: number) {
+export async function getTokenBalance(token: Pick<Token, 'id'>, address: string, chainId: number) {
     if (isZeroAddressSolana(token.id)) return getNativeTokenBalance(address, chainId);
 
     const tokenAccount = await getSplTokenBalance(token.id, address, chainId);

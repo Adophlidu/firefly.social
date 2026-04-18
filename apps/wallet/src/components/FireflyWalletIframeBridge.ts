@@ -8,6 +8,7 @@ import {
     type SolanaResponse,
 } from '@dimensiondev/iframe-bridge';
 import { delay, unreachable } from '@dimensiondev/utils';
+import { solana } from '@dimensiondev/web3/chains';
 import { useSessionSigners, useSignMessage as useEthereumSignMessage, useWallets } from '@privy-io/react-auth';
 import {
     type ConnectedStandardSolanaWallet,
@@ -24,7 +25,7 @@ import { isHex, toHex } from 'viem';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { config } from '@/configs/wagmiClient.js';
-import { SOLANA_MAINNET_PRIVY, SolanaChainId } from '@/constants/solana.js';
+import { SOLANA_MAINNET_PRIVY } from '@/constants/solana.js';
 import { isRunningInIframe } from '@/helpers/isRunningInIframe.js';
 import { resolveEvmConnector } from '@/helpers/resolveEvmConnector.js';
 import {
@@ -272,7 +273,7 @@ export const FireflyWalletIframeBridge = memo(function IframeBridge() {
             [IframeBridgeMethod.FIREFLY_WALLET_SIGN_MESSAGE]: async ({ chainId, address, message }) => {
                 const { waitForPrivyLogin, signSolanaMessage, signEthereumMessage } = handlersRef.current;
                 await waitForPrivyLogin();
-                if (parseInt(chainId, 16) === SolanaChainId.Mainnet) {
+                if (parseInt(chainId, 16) === solana.id) {
                     const wallet = solanaWalletRef.current;
                     if (!wallet) throw new Error('No Solana wallet found');
                     const { signature } = await signSolanaMessage({

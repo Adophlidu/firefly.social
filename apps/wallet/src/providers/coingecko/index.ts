@@ -1,4 +1,4 @@
-import { getEnumAsArray } from '@dimensiondev/utils';
+import { isValidChainIdSolana, solana } from '@dimensiondev/web3/chains';
 import {
     isSameAddress,
     isValidAddressEthereum,
@@ -25,30 +25,20 @@ import {
     zkSync,
 } from 'viem/chains';
 
-import { SolanaChainId } from '@/constants/solana.js';
 import { COINGECKO_ROOT_URL } from '@/constants/static.js';
-import { isValidChainIdSolana } from '@/helpers/isValidChainId.js';
 import { Fetch } from '@/lib/Fetch.js';
 import type { Price } from '@/providers/coingecko/types.js';
 
 function getCoinGeckoConstantsSolana(chainId: number) {
-    const PLATFORM_ID: Record<string, string> = {
-        Mainnet: 'solana',
-    };
-    const COIN_ID: Record<string, string> = {
-        Mainnet: 'solana',
-    };
-    const chainIdObj = getEnumAsArray(SolanaChainId).find(({ value }) => value === chainId);
-    if (!chainIdObj)
+    if (chainId !== solana.id) {
         return {
             COIN_ID: '',
             PLATFORM_ID: '',
         };
-    const coinId = COIN_ID[chainIdObj.key];
-    const platformId = PLATFORM_ID[chainIdObj.key];
+    }
     return {
-        PLATFORM_ID: platformId,
-        COIN_ID: coinId,
+        PLATFORM_ID: 'solana',
+        COIN_ID: 'solana',
     };
 }
 

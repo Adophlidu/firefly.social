@@ -1,4 +1,5 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { solana } from '@dimensiondev/web3/chains';
 import { isSameAddress } from '@dimensiondev/web3/utils';
 import { type QueryObserverResult, type RefetchOptions, useQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
@@ -16,7 +17,6 @@ import { useChainContext } from '@/hooks/useChainContext.js';
 import { signClaimMessage } from '@/providers/ethereum/signClaimMessage.js';
 import { type RedPacketJSONPayload, RedPacketStatus } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 /**
  * Fetch the red packet info from the chain
@@ -33,7 +33,7 @@ export function useAvailabilityComputed(payload: RedPacketJSONPayload, post: Pos
 
     const { parsed } = useParseRedPacket(account, post);
 
-    const chainId = payloadChainId ?? (networkType === NetworkType.Ethereum ? mainnet.id : SolanaChainId.Mainnet);
+    const chainId = payloadChainId ?? (networkType === NetworkType.Ethereum ? mainnet.id : solana.id);
     const checkAvailability = recheckAvailability as (
         options?: RefetchOptions,
     ) => Promise<QueryObserverResult<typeof availability>>;

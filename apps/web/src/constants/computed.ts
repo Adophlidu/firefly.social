@@ -1,6 +1,7 @@
 /* cspell:disable */
 
 import { envs } from '@dimensiondev/envs';
+import { solana } from '@dimensiondev/web3/chains';
 import { arbitrum, base, bsc, mainnet, optimism, polygon } from 'viem/chains';
 
 import {
@@ -31,7 +32,6 @@ import {
 import { type Attachment, NotificationType } from '@/providers/types/SocialMedia.js';
 import type { Runtime } from '@/providers/types/Trending.js';
 import { MediaSource } from '@/types/compose.js';
-import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 export const SORTED_PROFILE_TAB_TYPE: Record<SocialSource, SocialProfileCategory[]> = {
     [Source.Lens]: [
@@ -323,15 +323,7 @@ export const EDIT_PROFILE_FIELDS: Record<SocialSource, ProfileEditableField[]> =
 
 export const TOKEN_CATEGORIES: TokenCategory[] = [TokenCategory.Transactions, TokenCategory.Feeds];
 
-export const TRACING_CHAINS = [
-    mainnet.id,
-    base.id,
-    polygon.id,
-    bsc.id,
-    arbitrum.id,
-    optimism.id,
-    SolanaChainId.Mainnet,
-] as const;
+export const TRACING_CHAINS = [mainnet.id, base.id, polygon.id, bsc.id, arbitrum.id, optimism.id, solana.id] as const;
 /** TRACING_CHAINS to coingecko chain runtime ids */
 export const TRACING_RUNTIME_LIST: Runtime[] = [
     'ethereum',

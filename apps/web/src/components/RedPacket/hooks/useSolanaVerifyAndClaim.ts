@@ -1,4 +1,5 @@
 import { web3 } from '@coral-xyz/anchor';
+import { solana } from '@dimensiondev/web3/chains';
 import { isZeroAddressSolana } from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
 import { useAsyncFn } from 'react-use';
@@ -14,13 +15,12 @@ import { claimWithNativeToken } from '@/providers/solana/red-packet/claimWithNat
 import { claimWithSplToken } from '@/providers/solana/red-packet/claimWithSplToken.js';
 import { getClaimedRecord } from '@/providers/solana/red-packet/getClaimedRecord.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
-import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 export function useSolanaVerifyAndClaim(payload: RedPacketJSONPayload, source: SocialSource, enabled = true) {
     const isNativeToken = isZeroAddressSolana(payload.token?.address);
 
     const appkitAccount = usePrivyAppkitAccountByNetwork(NetworkType.Solana);
-    const contextChainId = SolanaChainId.Mainnet;
+    const contextChainId = solana.id;
     const account = appkitAccount.account?.address || '';
     const { data, isFetching, refetch: recheckClaimStatus } = useClaimStrategyStatus(payload, source, account, enabled);
 

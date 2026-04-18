@@ -1,6 +1,7 @@
 'use client';
 
 import { unreachable } from '@dimensiondev/utils';
+import { solana } from '@dimensiondev/web3/chains';
 import { isSameSolanaAddress } from '@dimensiondev/web3/utils';
 import { useAppKitAccount } from '@reown/appkit/react';
 import { useAppKitConnection } from '@reown/appkit-adapter-solana/react';
@@ -11,7 +12,6 @@ import { useConnection } from 'wagmi';
 import { NetworkType, SolanaNetworkType } from '@/constants/enum.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/refs.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
-import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 export function useAccountByNetwork(networkType = NetworkType.Ethereum) {
     const account = useConnection();
@@ -28,7 +28,7 @@ export function useAccountByNetwork(networkType = NetworkType.Ethereum) {
         case NetworkType.Solana:
             return {
                 address: solanaAddress ?? '',
-                chainId: SolanaChainId.Mainnet,
+                chainId: solana.id,
                 isConnected: !!connection && !!solanaAddress,
             };
         default:
@@ -46,7 +46,7 @@ export function useSolanaAccount() {
     return useMemo(() => {
         return {
             address: solanaAddress ?? '',
-            chainId: SolanaChainId.Mainnet,
+            chainId: solana.id,
             isConnected: !!connection && !!solanaAddress,
             connect: () => WalletConnectModalRef.open({ networkType: NetworkType.Solana }),
             type: isSameSolanaAddress(solanaAddress, privySolana) ? SolanaNetworkType.Privy : SolanaNetworkType.Appkit,

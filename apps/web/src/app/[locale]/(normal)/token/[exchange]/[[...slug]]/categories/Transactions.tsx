@@ -2,6 +2,7 @@
 
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { classNames } from '@dimensiondev/utils';
+import { solana as solanaMainnetChain } from '@dimensiondev/web3/chains';
 import { ETH_NATIVE_TOKEN_ADDRESS } from '@dimensiondev/web3/constants';
 import { formatAddress, isSameAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
@@ -23,7 +24,6 @@ import { getWalletProfileAvatar } from '@/helpers/getWalletProfileAvatar.js';
 import { swapActivityToTradeRecord } from '@/helpers/swapActivityToTradeRecord.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import type { SwapActivity } from '@/providers/types/Firefly.js';
-import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 function resolveTab(pathname: string, params: ReadonlyURLSearchParams, category: string) {
     const newParams = new URLSearchParams(params);
@@ -43,8 +43,8 @@ export const Transactions = memo<Props>(function Transactions({
     traderName,
     ...props
 }) {
-    const { ethereum, solana } = useWalletAccountAll();
-    const isMyOwnWallet = isSameAddress(trader, ethereum.address) || isSameAddress(trader, solana.address);
+    const { ethereum, solana: solanaWallet } = useWalletAccountAll();
+    const isMyOwnWallet = isSameAddress(trader, ethereum.address) || isSameAddress(trader, solanaWallet.address);
     const subcategories = useMemo(() => {
         const list = [
             { value: 'following', label: <Trans>Following</Trans> },
@@ -62,7 +62,7 @@ export const Transactions = memo<Props>(function Transactions({
     const [isPending, startTransition] = useTransition();
     const router = useRouter();
 
-    const account = chainId === SolanaChainId.Mainnet ? solana.address : ethereum.address;
+    const account = chainId === solanaMainnetChain.id ? solanaWallet.address : ethereum.address;
     const pathname = usePathname();
     const params = useSearchParams();
     const [pendingCategory, setPendingCategory] = useState<string>();

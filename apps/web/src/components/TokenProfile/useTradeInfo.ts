@@ -1,4 +1,5 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { solana } from '@dimensiondev/web3/chains';
 import { SOL_NATIVE_TOKEN_ADDRESS } from '@dimensiondev/web3/constants';
 import { uniq } from 'lodash-es';
 import { useMemo } from 'react';
@@ -8,7 +9,6 @@ import { arbitrum, avalanche, bsc, fantom, mainnet, polygon, scroll } from 'viem
 import { useOkxSupportedChains } from '@/components/TokenProfile/useOkxSupportedChains.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
 import type { CoinGeckoToken } from '@/providers/types/CoinGecko.js';
-import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 function getChainIdByCoinId(coinId: string) {
     const CoinIdToChainId: Record<string, number> = {
@@ -19,7 +19,7 @@ function getChainIdByCoinId(coinId: string) {
         arbitrum: arbitrum.id,
         scroll: scroll.id,
         'avalanche-2': avalanche.id,
-        solana: SolanaChainId.Mainnet,
+        solana: solana.id,
     };
     return CoinIdToChainId[coinId];
 }
@@ -28,10 +28,7 @@ export function useTradeInfo(token: CoinGeckoToken | null | undefined, argChainI
     const { data: trending } = useCoinTrending(token?.id);
     const { data: supportedChains = EMPTY_LIST } = useOkxSupportedChains();
     const { contracts = EMPTY_LIST } = trending ?? {};
-    const chainIds = useMemo(
-        () => uniq([...supportedChains.map((x) => x.chainId), SolanaChainId.Mainnet]),
-        [supportedChains],
-    );
+    const chainIds = useMemo(() => uniq([...supportedChains.map((x) => x.chainId), solana.id]), [supportedChains]);
     const firstAvailable = contracts.find((x) => x.chainId && chainIds.includes(x.chainId));
     const cgkChainId = token?.id ? getChainIdByCoinId(token.id) : undefined;
     const chainId = argChainId || cgkChainId || token?.chainId || firstAvailable?.chainId;
@@ -46,7 +43,7 @@ export function useTradeInfo(token: CoinGeckoToken | null | undefined, argChainI
     return {
         tradable: true,
         chainId,
-        address: cgkChainId ? (cgkChainId === SolanaChainId.Mainnet ? SOL_NATIVE_TOKEN_ADDRESS : zeroAddress) : address,
+        address: cgkChainId ? (cgkChainId === solana.id ? SOL_NATIVE_TOKEN_ADDRESS : zeroAddress) : address,
         supportedChainIds: chainIds,
     } as const;
 }

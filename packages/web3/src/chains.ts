@@ -1,124 +1,13 @@
-/* cspell:disable */
+import { ETHEREUM_CHAIN_IDS } from '@/chains/eth.js';
+import { SOLANA_CHAIN_IDS } from '@/chains/sol.js';
 
-import {
-    arbitrum,
-    aurora,
-    avalanche,
-    base,
-    baseSepolia,
-    blast,
-    bsc,
-    celo,
-    confluxESpace,
-    fantom,
-    gnosis,
-    hyperEvm,
-    lens,
-    lensTestnet,
-    linea,
-    mainnet,
-    mantle,
-    metis,
-    monadTestnet,
-    optimism,
-    plasma,
-    polygon,
-    scroll,
-    xLayer,
-    zkSync,
-    zora,
-} from 'viem/chains';
+export * from '@/chains/eth.js';
+export * from '@/chains/sol.js';
 
-/**
- * Full list of supported chains (Firefly web / wagmi).
- */
-export const chains = [
-    mainnet,
-    base,
-    baseSepolia,
-    bsc,
-    polygon,
-    optimism,
-    arbitrum,
-    gnosis,
-    avalanche,
-    blast,
-    aurora,
-    confluxESpace,
-    fantom,
-    xLayer,
-    metis,
-    zora,
-    scroll,
-    linea,
-    zkSync,
-    celo,
-    lens,
-    lensTestnet,
-    monadTestnet,
-    plasma,
-    hyperEvm,
-] as const;
-/**
- * Chains shown in wallet UI (Firefly wallet).
- */
-export const visibleChains = [
-    mainnet,
-    base,
-    bsc,
-    optimism,
-    polygon,
-    avalanche,
-    blast,
-    scroll,
-    linea,
-    arbitrum,
-    zkSync,
-    celo,
-    plasma,
-] as const satisfies ReadonlyArray<(typeof chains)[number]>;
+export function isValidChainIdEthereum(chainId: number | undefined) {
+    return typeof chainId === 'number' && ETHEREUM_CHAIN_IDS.some((id) => id === chainId);
+}
 
-/**
- * Chains Privy embedded wallet supports in the web app (subset of {@link chains}).
- */
-export const privyVisibleChains = [
-    mainnet,
-    base,
-    bsc,
-    optimism,
-    polygon,
-    linea,
-    arbitrum,
-    zkSync,
-    celo,
-    plasma,
-] as const satisfies ReadonlyArray<(typeof chains)[number]>;
-
-export const rpSupportedChains = [mainnet, bsc, base, optimism, polygon, arbitrum];
-
-export const ETHEREUM_CHAIN_IDS = [
-    mainnet.id,
-    base.id,
-    bsc.id,
-    polygon.id,
-    optimism.id,
-    arbitrum.id,
-    gnosis.id,
-    avalanche.id,
-    aurora.id,
-    confluxESpace.id,
-    fantom.id,
-    xLayer.id,
-    metis.id,
-    mantle.id,
-    zora.id,
-    scroll.id,
-    celo.id,
-    lens.id,
-    zkSync.id,
-    linea.id,
-    plasma.id,
-    blast.id,
-] as const;
-
-export type ChainId = (typeof chains)[number]['id'];
+export function isValidChainIdSolana(chainId: number | undefined) {
+    return typeof chainId === 'number' && SOLANA_CHAIN_IDS.some((id) => id === chainId);
+}

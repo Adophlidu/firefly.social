@@ -1,6 +1,6 @@
 import { runInSafe } from '@dimensiondev/utils';
+import { isValidChainIdSolana } from '@dimensiondev/web3/chains';
 
-import { isValidChainIdSolana } from '@/helpers/isValidChainId.js';
 import { EVMChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
 import { SolanaChainResolver } from '@/web3-providers/solana/ResolverAPI.js';
 

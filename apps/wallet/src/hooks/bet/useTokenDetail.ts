@@ -1,3 +1,4 @@
+import { solana } from '@dimensiondev/web3/chains';
 import { isNativeTokenOrSameAddress } from '@dimensiondev/web3/utils';
 import { useQuery } from '@tanstack/react-query';
 import { useSearch } from '@tanstack/react-router';
@@ -7,7 +8,6 @@ import { polygon } from 'viem/chains';
 
 import { NetworkType } from '@/constants/enum.js';
 import { SUPPORTED_SWAP_EVM_CHAIN_IDS, USDC_E_POLYGON_ADDRESS } from '@/constants/ethereum.js';
-import { SolanaChainId } from '@/constants/solana.js';
 import { BET_DEPOSIT_MIN_USD } from '@/constants/static.js';
 import { isSolanaChain } from '@/helpers/isSolanaChain.js';
 import { isGreaterThan, multipliedBy } from '@/helpers/number.js';
@@ -76,7 +76,7 @@ export function useDepositToken() {
             const endpoint = createSwapEndpoint();
             const tokenMap = await endpoint.getUserTokenBalancesMultiChain(compact([evmAddress, solanaAddress]), [
                 ...SUPPORTED_SWAP_EVM_CHAIN_IDS,
-                SolanaChainId.Mainnet,
+                solana.id,
             ]);
             return [
                 ...(tokenMap.get(evmAddress.toLowerCase()) || []),

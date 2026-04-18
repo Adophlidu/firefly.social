@@ -1,11 +1,11 @@
-import { SolanaChainId } from '@/constants/solana.js';
+import { solana } from '@dimensiondev/web3/chains';
 
 /**
  * Checks if a chain ID represents a Solana network.
- * Supports both 101 (SolanaChainId.Mainnet) and 501 (alternative identifier).
+ * Supports both 101 (solana.id) and 501 (alternative identifier).
  */
 export function isSolanaChain(chainId: number | null | undefined) {
-    return chainId === SolanaChainId.Mainnet || chainId === 501;
+    return chainId === solana.id || chainId === 501;
 }
 
 /**
@@ -14,7 +14,7 @@ export function isSolanaChain(chainId: number | null | undefined) {
  */
 export function normalizeSolChainId(chainId: number) {
     // Normalize the Solana mainnet aliases to 501.
-    return chainId === SolanaChainId.Mainnet ? 501 : chainId;
+    return chainId === solana.id ? 501 : chainId;
 }
 
 /**

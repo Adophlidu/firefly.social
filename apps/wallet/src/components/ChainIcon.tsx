@@ -19,6 +19,7 @@ import xdaiImage from '@dimensiondev/assets/chains/xdai.png';
 import xlayerImage from '@dimensiondev/assets/chains/xlayer.png';
 import zksyncImage from '@dimensiondev/assets/chains/zksync.png';
 import zoraImage from '@dimensiondev/assets/chains/zora.png';
+import { solana } from '@dimensiondev/web3/chains';
 import { type HTMLProps, memo } from 'react';
 import {
     arbitrum,
@@ -45,7 +46,6 @@ import {
 
 import { Image } from '@/components/Image.js';
 import type { NetworkType } from '@/constants/enum.js';
-import { SolanaChainId } from '@/constants/solana.js';
 import { chainsMatch } from '@/helpers/isSolanaChain.js';
 import { cn } from '@/lib/utils.js';
 
@@ -69,7 +69,7 @@ const ICONS = [
     { icon: zksyncImage, chainId: zkSync.id },
     { icon: lineaImage, chainId: linea.id },
     { icon: plasmaImage, chainId: plasma.id },
-    { icon: solanaImage, chainId: SolanaChainId.Mainnet },
+    { icon: solanaImage, chainId: solana.id },
     { icon: blastImage, chainId: blast.id },
 ];
 

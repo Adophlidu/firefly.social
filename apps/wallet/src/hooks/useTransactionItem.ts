@@ -1,10 +1,9 @@
-import { chains } from '@dimensiondev/web3/chains';
+import { chains, solana } from '@dimensiondev/web3/chains';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 import { useBlock, useTransaction } from 'wagmi';
 
 import { NetworkType } from '@/constants/enum.js';
-import { SolanaChainId } from '@/constants/solana.js';
 import { useCachedWalletAddresses } from '@/hooks/useCachedWalletAddresses.js';
 import {
     TransactionHistoryCategory,
@@ -23,7 +22,7 @@ import { getTransactionHistory } from '@/queries/firefly/getTransactionHistory.j
 export function useTransactionItem(networkType: NetworkType | null, chainId: number | null, hash: string) {
     const { evmAddress, solanaAddress } = useCachedWalletAddresses();
     const isEvm = networkType === NetworkType.Ethereum;
-    const allChains = isEvm ? chains.map((x) => x.id) : [SolanaChainId.Mainnet as number];
+    const allChains = isEvm ? chains.map((x) => x.id) : [solana.id as number];
     const address = (isEvm ? evmAddress : solanaAddress) ?? undefined;
     const { data: history } = useInfiniteQuery(getTransactionHistory(allChains, address));
     const txFromHistory = history?.pages

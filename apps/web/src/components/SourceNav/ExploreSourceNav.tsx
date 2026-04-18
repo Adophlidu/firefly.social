@@ -1,6 +1,7 @@
 'use client';
 
 import { classNames } from '@dimensiondev/utils';
+import { solana } from '@dimensiondev/web3/chains';
 import { omit } from 'lodash-es';
 import { type HTMLProps, memo, useMemo } from 'react';
 import { base, bsc, mainnet } from 'viem/chains';
@@ -21,7 +22,6 @@ import { resolveExploreSource } from '@/helpers/resolveSourceInUrl.js';
 import { resolveExploreSourceName } from '@/helpers/resolveSourceName.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useExploreTrendingFilterStore } from '@/store/useExploreTrendingFilterStore.js';
-import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 const exploreTokenChainList = [
     {
@@ -30,7 +30,7 @@ const exploreTokenChainList = [
         name: mainnet.name,
     },
     {
-        id: SolanaChainId.Mainnet,
+        id: solana.id,
         networkType: NetworkType.Solana,
         name: 'Solana',
     },

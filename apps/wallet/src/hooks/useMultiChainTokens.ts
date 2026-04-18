@@ -1,9 +1,8 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
-import { visibleChains } from '@dimensiondev/web3/chains';
+import { solana, visibleChains } from '@dimensiondev/web3/chains';
 import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { compact, omit } from 'lodash-es';
 
-import { SolanaChainId } from '@/constants/solana.js';
 import { formatTokenFromFireflyTokenAsset } from '@/helpers/formatTokenFromFireflyTokenAsset.js';
 import { useEmbeddedWalletAddresses } from '@/hooks/useCachedWalletAddresses.js';
 import { useCustomTokensWithBalance } from '@/hooks/useCustomTokensWithBalance.js';
@@ -15,7 +14,7 @@ export function useMultiChainTokens() {
     const addresses = compact([evmAddress, solanaAddress]);
     const { data: customTokenAssets = [] } = useCustomTokensWithBalance();
     const enabled = addresses.length > 0;
-    const chainIds = [...visibleChains.map((x) => x.id), SolanaChainId.Mainnet];
+    const chainIds = [...visibleChains.map((x) => x.id), solana.id];
 
     const options = {
         ...getMultiChainTokensQuery(addresses, chainIds),
@@ -58,7 +57,7 @@ export function useSuspenseMultiChainTokens() {
     const { evmAddress, solanaAddress } = useEmbeddedWalletAddresses();
     const addresses = compact([evmAddress, solanaAddress]);
     const { data: customTokenAssets = [] } = useCustomTokensWithBalance();
-    const chainIds = [...visibleChains.map((x) => x.id), SolanaChainId.Mainnet];
+    const chainIds = [...visibleChains.map((x) => x.id), solana.id];
 
     return useSuspenseQuery({
         ...omit(getMultiChainTokensQuery(addresses, chainIds), 'enabled'),

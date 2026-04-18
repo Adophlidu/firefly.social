@@ -1,9 +1,10 @@
+import { solana } from '@dimensiondev/web3/chains';
+
 import { getWalletAdapter, getWalletAdaptorConnected } from '@/providers/solana/getWalletAdapter.js';
 import type { NetworkProvider } from '@/providers/types/Network.js';
 import { SolanaExplorerResolver } from '@/web3-providers/solana/ResolverAPI.js';
-import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
-class Provider implements NetworkProvider<SolanaChainId> {
+class Provider implements NetworkProvider {
     async connect() {
         const adapter = getWalletAdapter();
         if (!adapter.publicKey) await adapter.connect();
@@ -16,15 +17,15 @@ class Provider implements NetworkProvider<SolanaChainId> {
         return adapter.publicKey.toBase58();
     }
 
-    getChainId(): SolanaChainId {
-        return SolanaChainId.Mainnet;
+    getChainId(): number {
+        return solana.id;
     }
 
-    getAddressUrl(chainId: SolanaChainId, token: string): string | undefined {
+    getAddressUrl(chainId: number, token: string): string | undefined {
         return SolanaExplorerResolver.addressLink(chainId, token);
     }
 
-    getTransactionUrl(chainId: SolanaChainId, hash: string): string | undefined {
+    getTransactionUrl(chainId: number, hash: string): string | undefined {
         return SolanaExplorerResolver.transactionLink(chainId, hash);
     }
 }

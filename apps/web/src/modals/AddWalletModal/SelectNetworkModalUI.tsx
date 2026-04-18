@@ -1,5 +1,6 @@
 'use client';
 
+import { solana } from '@dimensiondev/web3/chains';
 import { Trans } from '@lingui/react/macro';
 import { memo, useMemo } from 'react';
 import { mainnet } from 'viem/chains';
@@ -11,7 +12,6 @@ import { NetworkPluginID, NetworkType } from '@/constants/enum.js';
 import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
 import { useVerifyAndBindWallet } from '@/hooks/useVerifyAndBindWallet.js';
 import type { BindWalletResponse, FireflyWalletConnection } from '@/providers/types/Firefly.js';
-import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 interface Props {
     onClose: (reason: Error) => void;
@@ -21,10 +21,7 @@ interface Props {
 
 const SelectNetworkModalUI = memo<Props>(function SelectChainModalUI({ connections, onClose, onConfirm }) {
     const evmNetworkDescriptor = useMemo(() => getNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, mainnet.id), []);
-    const solanaNetworkDescriptor = useMemo(
-        () => getNetworkDescriptor(NetworkPluginID.PLUGIN_SOLANA, SolanaChainId.Mainnet),
-        [],
-    );
+    const solanaNetworkDescriptor = useMemo(() => getNetworkDescriptor(NetworkPluginID.PLUGIN_SOLANA, solana.id), []);
 
     const [{ loading }, onBind] = useVerifyAndBindWallet(
         connections,

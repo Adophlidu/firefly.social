@@ -5,6 +5,7 @@ import InfoIcon from '@dimensiondev/assets/info-outline.svg';
 import SearchIcon from '@dimensiondev/assets/search.svg';
 import WalletIcon from '@dimensiondev/assets/wallet.fill.svg';
 import { safeUnreachable, unreachable } from '@dimensiondev/utils';
+import { solana as solanaMainnetChain } from '@dimensiondev/web3/chains';
 import { ETH_ZERO_ADDRESS, SOL_ZERO_ADDRESS } from '@dimensiondev/web3/constants';
 import { isSameAddress, isValidAddress, isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
@@ -35,7 +36,6 @@ import { Button } from '@/components/ui/button.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { config } from '@/configs/wagmiClient.js';
 import { NetworkType } from '@/constants/enum.js';
-import { SolanaChainId } from '@/constants/solana.js';
 import { formatLamportsToSol } from '@/helpers/formatLamportsToSol.js';
 import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
@@ -230,7 +230,7 @@ function Form() {
                     const fee = await transaction.getEstimatedFee(solanaTransfer.connection);
                     if (!fee) return null;
                     const price = await coinGeckoEndpoint.getFungibleTokenPrice(
-                        SolanaChainId.Mainnet,
+                        solanaMainnetChain.id,
                         SOL_ZERO_ADDRESS,
                     );
                     const formatAmount = removeTrailingZeros(formatLamportsToSol(fee));

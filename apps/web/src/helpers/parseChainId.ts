@@ -1,5 +1,4 @@
-import { isValidChainIdEthereum, isValidChainIdSolana } from '@/helpers/isValidChainId.js';
-import type { SolanaChainId } from '@/web3-shared/solana/types.js';
+import { isValidChainIdEthereum, isValidChainIdSolana } from '@dimensiondev/web3/chains';
 
 function parseEthereumChainId(chainId?: string | number): number | null {
     if (!chainId) return null;
@@ -8,10 +7,10 @@ function parseEthereumChainId(chainId?: string | number): number | null {
     return null;
 }
 
-function parseSolanaChainId(chainId?: string | number): SolanaChainId | null {
+function parseSolanaChainId(chainId?: string | number): number | null {
     if (!chainId) return null;
     const parsedChainId = typeof chainId === 'string' ? Number.parseInt(chainId, 10) : chainId;
-    if (isValidChainIdSolana(parsedChainId as SolanaChainId)) return parsedChainId as SolanaChainId;
+    if (isValidChainIdSolana(parsedChainId as number)) return parsedChainId as number;
     return null;
 }
 

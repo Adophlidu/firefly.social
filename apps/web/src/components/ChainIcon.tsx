@@ -1,12 +1,12 @@
 'use client';
 
 import { classNames } from '@dimensiondev/utils';
+import { isValidChainIdSolana } from '@dimensiondev/web3/chains';
 import type { HTMLProps } from 'react';
 
 import { Image } from '@/components/Image.js';
 import { NetworkPluginID, NetworkType } from '@/constants/enum.js';
 import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
-import { isValidChainIdSolana } from '@/helpers/isValidChainId.js';
 import { resolveCoinGeckoChainIcon } from '@/helpers/resolveCoinGeckoChainIcon.js';
 import { resolveDebankChain } from '@/helpers/resolveDebankChain.js';
 

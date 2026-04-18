@@ -2,13 +2,13 @@
 
 import LinkIcon from '@dimensiondev/assets/link-square.svg';
 import { safeUnreachable } from '@dimensiondev/utils';
+import { isValidChainIdEthereum, isValidChainIdSolana } from '@dimensiondev/web3/chains';
 import { Trans } from '@lingui/react/macro';
 import { type ReactNode, useMemo } from 'react';
 
 import { ChainIcon } from '@/components/ChainIcon.js';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { Link } from '@/components/Link.js';
-import { isValidChainIdEthereum, isValidChainIdSolana } from '@/helpers/isValidChainId.js';
 import { resolveWagmiChain } from '@/helpers/resolveWagmiChain.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
 import { EVMExplorerResolver } from '@/web3-providers/evm/ResolverAPI.js';

@@ -1,8 +1,8 @@
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
+import { solana } from '@dimensiondev/web3/chains';
 import { t } from '@lingui/core/macro';
 import { toast } from 'sonner';
 
-import { SolanaChainId } from '@/constants/solana.js';
 import { getBlockExplorersURL } from '@/helpers/getBlockExplorersURL.js';
 import type { SwapAnalyticsParams } from '@/helpers/swap/buildSwapAnalyticsParams.js';
 import { captureWalletTelemetryEvent, WalletTelemetryEventId } from '@/helpers/swap/swapAnalytics.js';
@@ -22,7 +22,7 @@ export interface HandleSwapSuccessParams {
 
 export async function handleSwapSuccess(params: HandleSwapSuccessParams): Promise<void> {
     const { hash, chainId, isCrossChain, isSolana, toastId, analyticsParams, endpoint, refetchBalances } = params;
-    const txUrl = getBlockExplorersURL(isSolana ? SolanaChainId.Mainnet : chainId, hash, 'tx');
+    const txUrl = getBlockExplorersURL(isSolana ? solana.id : chainId, hash, 'tx');
 
     toast.success(t`Your transaction has been completed.`, {
         id: toastId,

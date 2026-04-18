@@ -1,5 +1,6 @@
 import LinkIcon from '@dimensiondev/assets/link-square.svg';
 import { safeUnreachable } from '@dimensiondev/utils';
+import { solana } from '@dimensiondev/web3/chains';
 import { formatAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
@@ -11,7 +12,6 @@ import { ChainIcon } from '@/components/ChainIcon.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
 import { NetworkType } from '@/constants/enum.js';
-import { SolanaChainId } from '@/constants/solana.js';
 import { formatDate } from '@/helpers/formatDate.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { getBlockExplorersURL } from '@/helpers/getBlockExplorersURL.js';
@@ -264,7 +264,7 @@ function ItemEnd({ item }: { item: TransactionHistoryItem }) {
 }
 
 function TransactionHistoryTokenItem({ item }: { item: TransactionHistoryItem }) {
-    const isSolana = item.chain_id === SolanaChainId.Mainnet;
+    const isSolana = item.chain_id === solana.id;
     const networkType = isSolana ? NetworkType.Solana : NetworkType.Ethereum;
     const chainId = item.chain_id;
     if (
@@ -402,7 +402,7 @@ function TransactionHistoryTokenItem({ item }: { item: TransactionHistoryItem })
 }
 
 function TransactionHistorySubTitle({ item }: { item: TransactionHistoryItem }) {
-    const isSolana = item.chain_id === SolanaChainId.Mainnet;
+    const isSolana = item.chain_id === solana.id;
 
     if (item.category === TransactionHistoryCategory.TokenApprove) {
         const address = isSolana ? item.to_address : item.token_approve?.spender_address || item.to_address;

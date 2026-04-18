@@ -1,9 +1,9 @@
 import { web3 } from '@coral-xyz/anchor';
 import { runInSafeAsync } from '@dimensiondev/utils';
+import { solana } from '@dimensiondev/web3/chains';
 
 import { requestRPC } from '@/providers/solana/requestRPC.js';
 import type { GetTransactionResponse } from '@/providers/types/Solana.js';
-import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 interface MethodsBuilder {
     rpc: (options?: web3.ConfirmOptions) => Promise<string>;
@@ -15,7 +15,7 @@ export async function runRPC(builder: MethodsBuilder) {
     } catch (error) {
         if (error instanceof web3.TransactionExpiredTimeoutError && error.signature) {
             const result = await runInSafeAsync(() =>
-                requestRPC<GetTransactionResponse>(SolanaChainId.Mainnet, {
+                requestRPC<GetTransactionResponse>(solana.id, {
                     method: 'getTransaction',
                     params: [error.signature, 'jsonParsed'],
                 }),

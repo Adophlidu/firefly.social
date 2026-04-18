@@ -1,4 +1,5 @@
-import { isValidChainIdSolana } from '@/helpers/isValidChainId.js';
+import { isValidChainIdSolana } from '@dimensiondev/web3/chains';
+
 import type { EVM } from '@/providers/nftscan/types.js';
 
 export function resolveNFTId(chainId: number, address: string, tokenId: string, lowerCase = true) {

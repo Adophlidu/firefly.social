@@ -1,6 +1,6 @@
 import AddIcon from '@dimensiondev/assets/add-circle.svg';
 import LineArrowUp from '@dimensiondev/assets/line-arrow-up.svg';
-import { visibleChains } from '@dimensiondev/web3/chains';
+import { solana, visibleChains } from '@dimensiondev/web3/chains';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useRouter } from '@tanstack/react-router';
@@ -18,7 +18,6 @@ import { type FormValues, RoutePath } from '@/components/SendTransactionModal/ty
 import { TokenItem } from '@/components/TokenItem.js';
 import { Button } from '@/components/ui/button.js';
 import { Select, SelectContent, SelectItem, SelectTrigger } from '@/components/ui/select.js';
-import { SolanaChainId } from '@/constants/solana.js';
 import { formatTokenFromFireflyTokenAsset } from '@/helpers/formatTokenFromFireflyTokenAsset.js';
 import { useExpandableTokens } from '@/hooks/useExpandableTokens.js';
 import { useMultiChainTokens } from '@/hooks/useMultiChainTokens.js';
@@ -41,10 +40,7 @@ export function SelectTokenView() {
         if (chainIds.length) {
             return chainIds.map((id) => ({
                 id,
-                name:
-                    id === SolanaChainId.Mainnet
-                        ? 'Solana'
-                        : visibleChains.find((chain) => chain.id === id)?.name || '',
+                name: id === solana.id ? 'Solana' : visibleChains.find((chain) => chain.id === id)?.name || '',
             }));
         }
         return [
@@ -53,7 +49,7 @@ export function SelectTokenView() {
                 name: chain.name,
             })),
             {
-                id: SolanaChainId.Mainnet,
+                id: solana.id,
                 name: 'Solana',
             },
         ];

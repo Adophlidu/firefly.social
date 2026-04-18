@@ -1,4 +1,5 @@
 import { createLookupTableResolver } from '@dimensiondev/utils';
+import { solana } from '@dimensiondev/web3/chains';
 import {
     arbitrum,
     aurora,
@@ -18,8 +19,6 @@ import {
     zora,
 } from 'viem/chains';
 
-import { SolanaChainId } from '@/web3-shared/solana/types.js';
-
 export const resolveChainIcon = createLookupTableResolver<number, string | undefined>(
     {
         [mainnet.id]: '/image/chains/ethereum.png',
@@ -38,7 +37,7 @@ export const resolveChainIcon = createLookupTableResolver<number, string | undef
         [mantle.id]: '/image/chains/mantle.png',
         [xLayer.id]: '/image/chains/xlayer.svg',
         [zora.id]: '/image/chains/zora.png',
-        [SolanaChainId.Mainnet]: '/image/chains/solana.png',
+        [solana.id]: '/image/chains/solana.png',
     },
     undefined,
 );

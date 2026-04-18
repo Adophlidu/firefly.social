@@ -1,6 +1,6 @@
+import { isValidChainIdSolana } from '@dimensiondev/web3/chains';
 import { isValidAddressEthereum, isZeroAddressEthereum, isZeroAddressSolana } from '@dimensiondev/web3/utils';
 
-import { isValidChainIdSolana } from '@/helpers/isValidChainId.js';
 import { getTokenPrice } from '@/providers/coingecko/getTokenPrice.js';
 import { getTokenPriceByAddress } from '@/providers/coingecko/getTokenPriceByAddress.js';
 import { getCoinGeckoConstants } from '@/web3-shared/evm/constants.js';

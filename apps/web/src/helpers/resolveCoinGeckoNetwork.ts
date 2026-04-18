@@ -1,7 +1,6 @@
 import { createLookupTableResolver } from '@dimensiondev/utils';
+import { solana } from '@dimensiondev/web3/chains';
 import { arbitrum, base, bsc, mainnet, optimism, polygon } from 'viem/chains';
-
-import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 export const resolveCoinGeckoNetwork = createLookupTableResolver<number, string | undefined>(
     {
@@ -10,7 +9,7 @@ export const resolveCoinGeckoNetwork = createLookupTableResolver<number, string 
         [polygon.id]: 'polygon_pos',
         [arbitrum.id]: 'arbitrum',
         [optimism.id]: 'optimism',
-        [SolanaChainId.Mainnet]: 'solana',
+        [solana.id]: 'solana',
         [base.id]: 'base',
     },
     undefined,

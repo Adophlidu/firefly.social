@@ -1,4 +1,5 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { solana } from '@dimensiondev/web3/chains';
 import { ETH_NATIVE_TOKEN_ADDRESS, SOL_NATIVE_TOKEN_ADDRESS } from '@dimensiondev/web3/constants';
 import { isValidAddress, isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3/utils';
 import { compact, first, sortBy } from 'lodash-es';
@@ -12,7 +13,6 @@ import { resolveCoinGeckoCoinChainId } from '@/helpers/resolveCoingeckoCoinChain
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useTokenInfo } from '@/hooks/useTokenInfo.js';
-import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 export function useTokenPageParams({ params, searchParams }: TokenPageProps) {
     const { exchange, slug = EMPTY_LIST } = use(params);
@@ -26,7 +26,7 @@ export function useTokenPageParams({ params, searchParams }: TokenPageProps) {
     const isSolAddress = isValidAddressSolana(addressSlug);
     const isAddress = isValidAddressEthereum(addressSlug) || isSolAddress;
 
-    const chainId = paramChainId ? +paramChainId : isSolAddress ? SolanaChainId.Mainnet : chainIdSlug;
+    const chainId = paramChainId ? +paramChainId : isSolAddress ? solana.id : chainIdSlug;
     const { data: token, isPending: isTokenPending } = useTokenInfo({
         token_symbol: isAddress ? undefined : slug[1],
         coingecko_id: isCex ? slug[0] : undefined,

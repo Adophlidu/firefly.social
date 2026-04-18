@@ -1,4 +1,5 @@
-import { isValidChainIdEthereum, isValidChainIdSolana } from '@/helpers/isValidChainId.js';
+import { isValidChainIdEthereum, isValidChainIdSolana } from '@dimensiondev/web3/chains';
+
 import { EVMExplorerResolver } from '@/web3-providers/evm/ResolverAPI.js';
 import { SolanaExplorerResolver } from '@/web3-providers/solana/ResolverAPI.js';
 

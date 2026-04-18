@@ -1,6 +1,7 @@
 import { web3 } from '@coral-xyz/anchor';
 import { IframeBridgeMethod, SolanaMethod, type SolanaResponse } from '@dimensiondev/iframe-bridge';
 import { iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
+import { solana } from '@dimensiondev/web3/chains';
 import { useWallets as useSolanaWallets } from '@privy-io/react-auth/solana';
 import { useQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
@@ -10,7 +11,6 @@ import { useForm } from 'react-hook-form';
 
 import { Button } from '@/components/ui/button.js';
 import { Select, SelectContent, SelectItem, SelectTrigger } from '@/components/ui/select.js';
-import { SolanaChainId } from '@/constants/solana.js';
 import { APP_BASE_PATH } from '@/constants/static.js';
 import { formatTokenFromFireflyTokenAsset } from '@/helpers/formatTokenFromFireflyTokenAsset.js';
 import { logger } from '@/lib/Logger.js';
@@ -36,15 +36,13 @@ function SolanaDevPage() {
     const amount = watch('amount');
 
     const query = useQuery({
-        ...getMultiChainTokensQuery(solAddress ? [solAddress] : [], [SolanaChainId.Mainnet]),
+        ...getMultiChainTokensQuery(solAddress ? [solAddress] : [], [solana.id]),
         enabled: !!solAddress,
     });
 
     const tokens = useMemo(() => {
         const assets = query.data?.tokenAssets ?? [];
-        return assets
-            .map((asset) => formatTokenFromFireflyTokenAsset(asset))
-            .filter((t) => t.chainId === SolanaChainId.Mainnet);
+        return assets.map((asset) => formatTokenFromFireflyTokenAsset(asset)).filter((t) => t.chainId === solana.id);
     }, [query.data]);
 
     const selectedToken = useMemo(() => tokens.find((t) => t.id === tokenId), [tokens, tokenId]);

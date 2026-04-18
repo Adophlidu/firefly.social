@@ -8,15 +8,10 @@ import { getSolanaRPCUrl } from '@/helpers/getSolanaRPCUrl.js';
 import type { Redpacket } from '@/idls/redpacket.js';
 import RedPacketIDL from '@/idls/redpacket.json' with { type: 'json' };
 import { getWalletAdaptorConnected } from '@/providers/solana/getWalletAdapter.js';
-import type { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 const storage = new Map<string, Program<Redpacket>>();
 
-export function createRedPacketProgram(
-    chainId: SolanaChainId,
-    requireWallet = false,
-    forcePrivy = false,
-): Program<Redpacket> {
+export function createRedPacketProgram(chainId: number, requireWallet = false, forcePrivy = false): Program<Redpacket> {
     const provider = forcePrivy
         ? (privySolanaProvider as ReturnType<typeof getWalletAdaptorConnected>)
         : getWalletAdaptorConnected();

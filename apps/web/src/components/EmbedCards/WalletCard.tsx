@@ -2,6 +2,7 @@
 
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
+import { solana } from '@dimensiondev/web3/chains';
 import { formatAddress, isSameAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
@@ -31,7 +32,6 @@ import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver
 import { getAddressSecurity } from '@/providers/goplus/getAddressSecurity.js';
 import type { FireflyProfile, WalletProfile } from '@/providers/types/Firefly.js';
 import { SolanaExplorerResolver } from '@/web3-providers/solana/ResolverAPI.js';
-import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 function resolveProfileUrlBySource(source: ProfilePageSource, profiles: FireflyProfile[]) {
     const currentSourceProfiles = profiles.filter((profile) => profile.identity.source === source);
@@ -62,7 +62,7 @@ export const WalletCard = memo<AddressCardProps>(function WalletCard({ address, 
             case NetworkType.Ethereum:
                 return BlockScanExplorerResolver.addressLink(mainnet.id, address);
             case NetworkType.Solana:
-                return SolanaExplorerResolver.addressLink(SolanaChainId.Mainnet, address);
+                return SolanaExplorerResolver.addressLink(solana.id, address);
             default:
                 safeUnreachable(networkType);
                 return null;

@@ -4,7 +4,6 @@ import { TOKEN_2022_PROGRAM_ID, TOKEN_PROGRAM_ID } from '@solana/spl-token';
 import { requestRPC } from '@/providers/solana/requestRPC.js';
 import type { GetBalanceResponse } from '@/providers/types/Solana.js';
 import type { Token } from '@/providers/types/Transfer.js';
-import type { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 interface TokenAccountsByOwnerResponse {
     result?: {
@@ -56,7 +55,7 @@ export async function getSplTokenBalance(tokenAddress: string, address: string, 
     return;
 }
 
-export async function getTokenBalance(token: Pick<Token<SolanaChainId>, 'id'>, address: string, chainId: number) {
+export async function getTokenBalance(token: Pick<Token, 'id'>, address: string, chainId: number) {
     if (isZeroAddressSolana(token.id)) return getNativeTokenBalance(address, chainId);
 
     const tokenAccount = await getSplTokenBalance(token.id, address, chainId);

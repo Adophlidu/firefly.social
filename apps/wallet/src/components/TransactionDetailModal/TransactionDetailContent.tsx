@@ -6,6 +6,7 @@ import Send from '@dimensiondev/assets/send1.svg';
 import Approve from '@dimensiondev/assets/tick-circle.svg';
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
 import { safeUnreachable } from '@dimensiondev/utils';
+import { solana } from '@dimensiondev/web3/chains';
 import { formatAddress } from '@dimensiondev/web3/utils';
 import { Select, Trans } from '@lingui/react/macro';
 import { Link, useNavigate } from '@tanstack/react-router';
@@ -24,7 +25,6 @@ import { TokenInfoRow } from '@/components/TransactionDetailModal/TokenInfoRow.j
 import { TransactionDate } from '@/components/TransactionDetailModal/TransactionDate.js';
 import { TxLink } from '@/components/TransactionDetailModal/TxLink.js';
 import { NetworkType, Source } from '@/constants/enum.js';
-import { SolanaChainId } from '@/constants/solana.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { getBlockExplorersURL } from '@/helpers/getBlockExplorersURL.js';
 import { getChainName } from '@/helpers/getChainName.js';
@@ -231,7 +231,7 @@ export default memo(function TransactionDetailContent({ transaction, onClose }: 
     const token = first(transaction.token_receives) || first(transaction.token_sends);
     const profileUrl = getProfileUrl({ source: Source.Wallet, profileId: transaction.from_address });
 
-    const isSolana = transaction.chain_id === SolanaChainId.Mainnet;
+    const isSolana = transaction.chain_id === solana.id;
     const fromAddress = transaction.from_address || token?.sender;
     const toAddress = transaction.to_address || token?.recipient;
 

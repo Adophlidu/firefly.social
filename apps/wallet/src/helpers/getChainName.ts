@@ -1,8 +1,6 @@
-import { chains } from '@dimensiondev/web3/chains';
-
-import { SolanaChainId } from '@/constants/solana.js';
+import { chains, solana } from '@dimensiondev/web3/chains';
 
 export function getChainName(chainId: number, useChainIdAsFallback = true) {
-    if (chainId === SolanaChainId.Mainnet) return 'Solana';
+    if (chainId === solana.id) return 'Solana';
     return chains.find((chain) => chain.id === chainId)?.name || (useChainIdAsFallback ? `${chainId}` : null);
 }

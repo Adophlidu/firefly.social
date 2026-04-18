@@ -1,3 +1,4 @@
+import { isValidChainIdEthereum, solana } from '@dimensiondev/web3/chains';
 import {
     ETH_NATIVE_TOKEN_ADDRESS,
     ETH_ZERO_ADDRESS,
@@ -8,12 +9,10 @@ import { isSameAddress } from '@dimensiondev/web3/utils';
 import { toHex } from 'viem';
 
 import { NetworkType } from '@/constants/enum.js';
-import { isValidChainIdEthereum } from '@/helpers/isValidChainId.js';
 import { rightShift } from '@/helpers/number.js';
 import { resolveDebankChain } from '@/helpers/resolveDebankChain.js';
 import type { TokenAsset } from '@/providers/types/Firefly.js';
 import type { Token } from '@/providers/types/Transfer.js';
-import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 export function formatTokenFromFireflyTokenAsset(token: TokenAsset): Token {
     const chainId = Number(token.chainIndex);
@@ -23,7 +22,7 @@ export function formatTokenFromFireflyTokenAsset(token: TokenAsset): Token {
     const id =
         isSameAddress(ETH_NATIVE_TOKEN_ADDRESS, token.tokenAddress) ||
         isSameAddress(SOL_NATIVE_TOKEN_ADDRESS, token.tokenAddress)
-            ? chainId === SolanaChainId.Mainnet
+            ? chainId === solana.id
                 ? SOL_ZERO_ADDRESS
                 : ETH_ZERO_ADDRESS
             : token.tokenAddress;

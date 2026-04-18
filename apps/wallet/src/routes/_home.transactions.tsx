@@ -1,4 +1,4 @@
-import { chains } from '@dimensiondev/web3/chains';
+import { chains, solana } from '@dimensiondev/web3/chains';
 import { createFileRoute } from '@tanstack/react-router';
 import { lazy, Suspense, useState } from 'react';
 
@@ -6,7 +6,6 @@ import { LoadingPanel } from '@/components/LoadingPanel.js';
 import { TransactionDetailModal } from '@/components/TransactionDetailModal/TransactionDetailModal.js';
 import TransactionHistory from '@/components/Transactions.js';
 import { NetworkType } from '@/constants/enum.js';
-import { SolanaChainId } from '@/constants/solana.js';
 import { useEmbeddedWalletAddresses } from '@/hooks/useCachedWalletAddresses.js';
 import type { TransactionHistoryItem } from '@/providers/types/Firefly.js';
 
@@ -28,7 +27,7 @@ function TransactionsPage() {
 
     const isEvm = networkType === NetworkType.Ethereum;
     const address = isEvm ? evmAddress : solanaAddress;
-    const allChains = isEvm ? chains.map((x) => x.id) : [SolanaChainId.Mainnet as number];
+    const allChains = isEvm ? chains.map((x) => x.id) : [solana.id as number];
 
     return (
         <div className="w-full px-4">

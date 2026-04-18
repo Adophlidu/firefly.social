@@ -4,6 +4,7 @@ import QuestionIcon from '@dimensiondev/assets/question.svg';
 import SendIcon from '@dimensiondev/assets/send.svg';
 import WalletIcon from '@dimensiondev/assets/wallet.svg';
 import { safeUnreachable } from '@dimensiondev/utils';
+import { solana } from '@dimensiondev/web3/chains';
 import { Trans } from '@lingui/react/macro';
 import { memo, useCallback } from 'react';
 import { mainnet } from 'viem/chains';
@@ -21,7 +22,6 @@ import { useProfileStore } from '@/hooks/useProfileStore.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/refs.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 interface Props {
     post: Post;
@@ -189,8 +189,7 @@ export const RedPacketCardFooter = memo<Props>(function RedPacketCardFooter({
                     loading={estimateLoading}
                     onClick={() => {
                         const chainId =
-                            payload.chainId ||
-                            (networkType === NetworkType.Solana ? SolanaChainId.Mainnet : mainnet.id);
+                            payload.chainId || (networkType === NetworkType.Solana ? solana.id : mainnet.id);
                         openFireflyWallet({
                             path: `/receive?chain=${chainId}`,
                         });

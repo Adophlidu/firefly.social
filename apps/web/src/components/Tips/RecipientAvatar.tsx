@@ -1,15 +1,15 @@
 import EvmDashIcon from '@dimensiondev/assets/evm-dash.svg';
 import WalletIcon from '@dimensiondev/assets/wallet-icon.svg';
 import { classNames } from '@dimensiondev/utils';
+import { solana } from '@dimensiondev/web3/chains';
 import { memo } from 'react';
 
 import { Image } from '@/components/Image.js';
 import { NetworkPluginID, NetworkType } from '@/constants/enum.js';
 import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
 import type { FireflyTipsProfile } from '@/providers/types/Firefly.js';
-import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
-const solanaNetworkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_SOLANA, SolanaChainId.Mainnet);
+const solanaNetworkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_SOLANA, solana.id);
 
 interface RecipientAvatarProps {
     recipient: FireflyTipsProfile;

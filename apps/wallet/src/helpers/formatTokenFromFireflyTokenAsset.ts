@@ -1,10 +1,9 @@
+import { isValidChainIdEthereum, solana } from '@dimensiondev/web3/chains';
 import { ETH_ZERO_ADDRESS, SOL_ZERO_ADDRESS } from '@dimensiondev/web3/constants';
 import { isNativeTokenAddress } from '@dimensiondev/web3/utils';
 import { toHex } from 'viem';
 
 import { NetworkType } from '@/constants/enum.js';
-import { SolanaChainId } from '@/constants/solana.js';
-import { isValidChainIdEthereum } from '@/helpers/isValidChainId.js';
 import { rightShift } from '@/helpers/number.js';
 import { resolveDebankChain } from '@/helpers/resolveDebankChain.js';
 import type { TokenAsset } from '@/providers/types/Firefly.js';
@@ -16,7 +15,7 @@ export function formatTokenFromFireflyTokenAsset(token: TokenAsset): Token {
     const rawAmount = rightShift(token.balance, decimals).toString();
 
     const id = isNativeTokenAddress(token.tokenAddress)
-        ? chainId === SolanaChainId.Mainnet
+        ? chainId === solana.id
             ? SOL_ZERO_ADDRESS
             : ETH_ZERO_ADDRESS
         : token.tokenAddress;

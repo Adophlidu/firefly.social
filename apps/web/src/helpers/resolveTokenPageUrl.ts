@@ -1,8 +1,7 @@
+import { solana } from '@dimensiondev/web3/chains';
 import { isValidAddress, isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3/utils';
 import urlcat from 'urlcat';
 import { mainnet } from 'viem/chains';
-
-import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 interface Options {
     /** symbol, address, or coingecko coin id */
@@ -37,7 +36,7 @@ export function resolveTokenPageUrl({ identity, chainId, address, isCoinId, trad
 
     const isEth = isValidAddressEthereum(identity) || isValidAddressEthereum(address);
     const isSol = isValidAddressSolana(identity) || isValidAddressSolana(address);
-    const resolvedChainId = chainId || (isEth ? mainnet.id : isSol ? SolanaChainId.Mainnet : undefined);
+    const resolvedChainId = chainId || (isEth ? mainnet.id : isSol ? solana.id : undefined);
     const resolveAddress = isAddress ? identity : address;
     if (resolvedChainId && resolveAddress) {
         return urlcat('/token/dex/:chainId/:address', {

@@ -1,4 +1,5 @@
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
+import { solana } from '@dimensiondev/web3/chains';
 import { isValidAddressEthereum } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useRouter } from '@tanstack/react-router';
@@ -20,7 +21,6 @@ import { RedPacketAccountItem } from '@/modals/RedPacketModal/RedPacketAccountIt
 import { RedPacketActionButton } from '@/modals/RedPacketModal/RedPacketActionButton.js';
 import { RedPacketContext } from '@/modals/RedPacketModal/RedPacketContext.js';
 import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
-import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 interface HistoryInfo {
     rp_msg: string;
@@ -118,7 +118,7 @@ export const RedPacketDetailItem = memo<Props>(function RedPacketDetailItem({
     const { account } = useChainContext({ networkType });
     const networkDescriptor = getNetworkDescriptor(
         resolvePluginId(networkType),
-        networkType === NetworkType.Solana ? SolanaChainId.Mainnet : chain_id,
+        networkType === NetworkType.Solana ? solana.id : chain_id,
     );
 
     const logoUrl = token_logo !== 'missing.png' ? token_logo : undefined;

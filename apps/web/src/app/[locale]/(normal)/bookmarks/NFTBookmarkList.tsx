@@ -1,6 +1,7 @@
 'use client';
 
 import { classNames, createIndicator } from '@dimensiondev/utils';
+import { isValidChainIdSolana } from '@dimensiondev/web3/chains';
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
@@ -14,7 +15,6 @@ import { NFTImage } from '@/components/NFTImage.js';
 import { BookmarkInIcon } from '@/components/NFTs/BookmarkButton.js';
 import { Source } from '@/constants/enum.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
-import { isValidChainIdSolana } from '@/helpers/isValidChainId.js';
 import { resolveNFTImageUrl } from '@/helpers/resolveNFTImageUrl.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
