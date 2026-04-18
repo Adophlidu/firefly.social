@@ -30,7 +30,7 @@
         "@typescript-eslint/eslint-plugin": "^8.47.0",
         "@typescript-eslint/parser": "^8.47.0",
         "@typescript/lib-dom": "npm:@types/web@^0.0.197",
-        "@typescript/native-preview": "7.0.0-dev.20260413.1",
+        "@typescript/native-preview": "7.0.0-dev.20260417.1",
         "cspell": "^7.3.9",
         "eslint": "^9.39.4",
         "eslint-config-next": "16.0.11",
