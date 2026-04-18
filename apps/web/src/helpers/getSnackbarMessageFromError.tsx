@@ -1,4 +1,5 @@
 import { UserRejectionError } from '@dimensiondev/utils';
+import { isUserRejectErrorInWallet } from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { first } from 'lodash-es';
@@ -10,7 +11,6 @@ import { SnackbarErrorMessage } from '@/components/SnackbarErrorMessage.js';
 import { DecryptionError, FarcasterInvalidSignerKey, FetchError } from '@/constants/error.js';
 import { getErrorMessageFromFetchError } from '@/helpers/getErrorMessageFromFetchError.js';
 import { isInsufficientGasError } from '@/helpers/isInsufficientGasError.js';
-import { isUserRejectErrorInWallet } from '@/helpers/isUserRejectErrorInWallet.js';
 
 const ClientErrorSchema = z.object({
     response: z.object({

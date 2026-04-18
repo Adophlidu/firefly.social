@@ -1,7 +1,6 @@
 import { ETH_ZERO_ADDRESS } from '@dimensiondev/web3/constants';
+import { parseCAIP19 } from '@dimensiondev/web3/utils';
 import urlcat from 'urlcat';
-
-import { parseCAIP19 } from '@/helpers/parseCAIP19.js';
 
 /** Same URL shape as frame host `viewToken` — relative path for in-app navigation. */
 export function getSnapViewTokenPath(caip19: string): string | null {

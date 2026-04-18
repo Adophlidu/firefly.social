@@ -1,6 +1,11 @@
 import { checksumAddress } from 'viem';
 
-import { isValidAddressEthereum, isValidAddressSolana, isValidTokenAddressSui } from '@/utils/isValidAddress.js';
+import {
+    isValidAddress,
+    isValidAddressEthereum,
+    isValidAddressSolana,
+    isValidTokenAddressSui,
+} from '@/utils/isValidAddress.js';
 
 type Offset = 0 | 2;
 
@@ -14,6 +19,12 @@ export function formatAddress(address: string, size?: number, offset?: Offset, s
     if (isValidAddressEthereum(address)) return formatAddressEthereum(address, size, offset);
     if (isValidTokenAddressSui(address)) return formatTokenAddressSui(address);
     return address;
+}
+
+/** Compact display for a token contract or similar identifier: chain addresses via {@link formatAddress}, otherwise `head…tail`. */
+export function formatTokenAddress(address: string, formatSize = 4, strict = true): string {
+    if (isValidAddress(address, strict)) return formatAddress(address, formatSize, undefined, strict);
+    return `${address.slice(0, 6)}...${address.slice(-4)}`;
 }
 
 export const formatAddressSolana: Formatter = function format(address, size = 0, offset = 0, strict = true) {

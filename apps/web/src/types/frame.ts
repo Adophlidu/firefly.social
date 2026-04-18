@@ -62,21 +62,6 @@ export interface FrameV1 {
     protocol?: FrameProtocol;
 }
 
-/**
- * Supported chain IDs by Frame
- * Learn more: https://docs.farcaster.xyz/developers/frames/spec
- */
-export enum ChainId {
-    Ethereum = 1,
-    Polygon = 137,
-    Arbitrum = 42161,
-    Base = 8453,
-    Base_Sepolia = 84532,
-    Gnosis = 100,
-    Optimism = 10,
-    Zora = 7777777,
-}
-
 export enum MethodType {
     ETH_SEND_TRANSACTION = 'eth_sendTransaction',
     ETH_SIGN_TYPED_DATA_V4 = 'eth_signTypedData_v4',

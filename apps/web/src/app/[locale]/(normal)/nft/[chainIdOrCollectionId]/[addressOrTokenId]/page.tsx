@@ -1,11 +1,10 @@
 import type { LayoutProps } from '@dimensiondev/types';
-import { isValidChainIdEthereum, isValidChainIdSolana } from '@dimensiondev/web3/chains';
+import { isValidChainIdEthereum, isValidChainIdSolana, parseChainId } from '@dimensiondev/web3/chains';
 import { isValidAddressEthereum } from '@dimensiondev/web3/utils';
 
 import { NFTCollectionPage } from '@/app/[locale]/(normal)/nft/pages/NFTCollectionPage.js';
 import { NFTDetailPage } from '@/app/[locale]/(normal)/nft/pages/NFTDetailPage.js';
 import { notFound } from '@/esm/navigation/server.js';
-import { parseChainId } from '@/helpers/parseChainId.js';
 import { resolveCollectionChain } from '@/helpers/resolveCollectionChain.js';
 import { createNftCollectionMetadata } from '@/providers/firefly/metadata/createNftCollectionMetadata.js';
 import { getCollection } from '@/providers/firefly/nft/getCollection.js';

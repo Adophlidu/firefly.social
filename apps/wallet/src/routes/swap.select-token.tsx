@@ -1,7 +1,7 @@
 import GlobeIcon from '@dimensiondev/assets/global.svg';
 import SearchIcon from '@dimensiondev/assets/search.svg';
 import SelectedIcon from '@dimensiondev/assets/selected.svg';
-import { formatAddress, isNativeTokenOrSameAddress } from '@dimensiondev/web3/utils';
+import { formatTokenAddress, isNativeTokenOrSameAddress } from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { createFileRoute, useSearch } from '@tanstack/react-router';
@@ -528,7 +528,7 @@ const TokenItemBase = memo(function TokenItemBase({ token, onClick, subtitle, ch
 const MyTokenItem = memo(function MyTokenItem({ token, onClick }: TokenItemProps) {
     const formattedBalance = token.balance ? formatTokenAmount(token.balance) : null;
     const formattedUsdValue = token.usdValue ? formatTokenUSD(token.usdValue, { minDisplay: 0.01 }) : null;
-    const truncatedAddress = formatAddress(token.address, 4);
+    const truncatedAddress = formatTokenAddress(token.address);
 
     const subtitle = formattedBalance
         ? `${formattedBalance} ${token.symbol}\u{FF5C}${truncatedAddress}`
@@ -546,7 +546,7 @@ const MyTokenItem = memo(function MyTokenItem({ token, onClick }: TokenItemProps
 });
 
 const TrendingTokenItem = memo(function TrendingTokenItem({ token, onClick }: TokenItemProps) {
-    const truncatedAddress = formatAddress(token.address, 4);
+    const truncatedAddress = formatTokenAddress(token.address);
     const marketCap = token.marketCapUsd ? formatMarketCap(parseFloat(token.marketCapUsd)) : null;
     const priceChange = token.priceChange24h
         ? `${parseFloat(token.priceChange24h) >= 0 ? '+' : ''}${parseFloat(token.priceChange24h).toFixed(2)}%`

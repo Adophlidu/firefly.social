@@ -1,6 +1,7 @@
 'use client';
 
 import { runInSafeAsync } from '@dimensiondev/utils';
+import { isUserRejectErrorInWallet } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { compact } from 'lodash-es';
 import { memo, useCallback } from 'react';
@@ -15,7 +16,6 @@ import { FetchError } from '@/constants/error.js';
 import { enqueueErrorMessage, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { getCurrentProfileAllFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { getWarningMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
-import { isUserRejectErrorInWallet } from '@/helpers/isUserRejectErrorInWallet.js';
 import { queryMyAllConnections } from '@/helpers/queryMyAllConnections.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';

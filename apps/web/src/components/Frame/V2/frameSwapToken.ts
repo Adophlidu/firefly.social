@@ -1,10 +1,10 @@
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
+import { parseCAIP19 } from '@dimensiondev/web3/utils';
 import type { MiniAppHost } from '@farcaster/miniapp-host';
 import { getAccount } from '@wagmi/core';
 
 import { SwapAccessPath } from '@/components/TokenProfile/SwapButton.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
-import { parseCAIP19 } from '@/helpers/parseCAIP19.js';
 import { logger } from '@/libs/Logger.js';
 import { SolanaNetwork } from '@/providers/solana/Network.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';

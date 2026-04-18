@@ -1,7 +1,7 @@
 'use client';
 
 import { classNames } from '@dimensiondev/utils';
-import { isSameAddress } from '@dimensiondev/web3/utils';
+import { isSameAddress, isUserRejectErrorInWallet } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { rootRouteId, useMatch, useRouter } from '@tanstack/react-router';
@@ -16,7 +16,6 @@ import { TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { NetworkType } from '@/constants/enum.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { isUserRejectErrorInWallet } from '@/helpers/isUserRejectErrorInWallet.js';
 import { isZero, ZERO } from '@/helpers/number.js';
 import { resolveCurrentFireflyAccountId, resolveFireflyAccountId } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveNetworkProvider, resolveTransferProvider } from '@/helpers/resolveTokenTransfer.js';

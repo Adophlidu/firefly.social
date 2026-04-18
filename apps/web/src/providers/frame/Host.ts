@@ -1,5 +1,6 @@
 import { assert, NotImplementedError } from '@dimensiondev/utils';
 import { ETHEREUM_CHAIN_IDS } from '@dimensiondev/web3/chains';
+import { parseCAIP19 } from '@dimensiondev/web3/utils';
 import type { Context, MiniAppHost, SignInOptions } from '@farcaster/miniapp-host';
 import { t } from '@lingui/core/macro';
 import { first } from 'lodash-es';
@@ -12,7 +13,6 @@ import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { getProfileById } from '@/helpers/getProfileById.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { openWindow } from '@/helpers/openWindow.js';
-import { parseCAIP19 } from '@/helpers/parseCAIP19.js';
 import { logger } from '@/libs/Logger.js';
 import { checkCustodyWallet } from '@/providers/firefly/farcaster-account/checkCustodyWallet.js';
 import { FrameLoader } from '@/providers/frame/Loader.js';

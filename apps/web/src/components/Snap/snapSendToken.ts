@@ -1,7 +1,7 @@
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
+import { parseCAIP19 } from '@dimensiondev/web3/utils';
 import urlcat from 'urlcat';
 
-import { parseCAIP19 } from '@/helpers/parseCAIP19.js';
 import { logger } from '@/libs/Logger.js';
 import { getProfileById } from '@/providers/firefly/farcaster-hub/getProfileById.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';

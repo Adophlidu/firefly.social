@@ -1,6 +1,6 @@
-import { ETH_ZERO_ADDRESS, SOL_ZERO_ADDRESS } from '@dimensiondev/web3/constants';
+import { ETH_ZERO_ADDRESS, SOL_ZERO_ADDRESS } from '@/constants.js';
 
-interface CAIP19Token {
+export interface CAIP19Token {
     chainNamespace: string;
     chainReference: string;
     namespace: string;

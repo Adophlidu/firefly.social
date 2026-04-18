@@ -6,4 +6,6 @@ export * from '@/utils/isUserRejectErrorInWallet.js';
 export * from '@/utils/isValidAddress.js';
 export * from '@/utils/isValidDomain.js';
 export * from '@/utils/isZeroAddress.js';
+export * from '@/utils/parseCAIP10.js';
+export * from '@/utils/parseCAIP19.js';
 export * from '@/utils/parseSolToLamports.js';

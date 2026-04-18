@@ -1,7 +1,7 @@
 'use client';
 
 import { classNames } from '@dimensiondev/utils';
-import { formatAddress, isValidAddress } from '@dimensiondev/web3/utils';
+import { formatTokenAddress, isValidAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { type HTMLProps, memo } from 'react';
@@ -22,10 +22,6 @@ interface SearchableTokenItemProps extends HTMLProps<HTMLAnchorElement> {
     showSymbol?: boolean;
     showRank?: boolean;
     showMarketInfo?: boolean;
-}
-
-function formatTokenAddress(address: string) {
-    return isValidAddress(address) ? formatAddress(address, 4) : `${address.slice(0, 6)}...${address.slice(-4)}`;
 }
 
 const MAX_TOP_TOKENS = 500;

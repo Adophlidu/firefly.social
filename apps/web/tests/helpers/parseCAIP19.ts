@@ -1,6 +1,5 @@
+import { parseCAIP19 } from '@dimensiondev/web3/utils';
 import { describe, expect, it, test } from 'vitest';
-
-import { parseCAIP19 } from '@/helpers/parseCAIP19.js';
 
 // Skip tests for unsupported networks.
 describe('parseCAIP19', () => {

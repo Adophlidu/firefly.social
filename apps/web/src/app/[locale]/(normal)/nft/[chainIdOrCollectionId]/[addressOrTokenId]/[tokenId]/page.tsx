@@ -1,8 +1,8 @@
 import type { LayoutProps } from '@dimensiondev/types';
+import { parseChainId } from '@dimensiondev/web3/chains';
 
 import { NFTDetailPage } from '@/app/[locale]/(normal)/nft/pages/NFTDetailPage.js';
 import { notFound } from '@/esm/navigation/server.js';
-import { parseChainId } from '@/helpers/parseChainId.js';
 import { createNftMetadata } from '@/providers/firefly/metadata/createNftMetadata.js';
 
 export const revalidate = 300;
