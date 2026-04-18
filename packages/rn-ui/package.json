@@ -35,7 +35,7 @@
         "@nktkas/hyperliquid": "^0.32.2",
         "@tamagui/config": "^1.114.0",
         "@tamagui/core": "^1.114.0",
-        "@tamagui/lucide-icons-2": "2.0.0-rc.38",
+        "@tamagui/lucide-icons-2": "2.0.0-rc.41",
         "@tanstack/react-query": "5.85.9",
         "lucide-react-native": "^0.473.0",
         "react-native-svg": "^15.15.4",
@@ -47,7 +47,7 @@
         "@types/react-native": "^0.73.0",
         "@vitejs/plugin-react": "^4.2.1",
         "@typescript/native-preview": "7.0.0-dev.20260417.1",
-        "vite": "^7.3.1",
+        "vite": "^7.3.2",
         "vite-plugin-dts": "^4.0.0"
     }
 }
