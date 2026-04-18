@@ -1,4 +1,4 @@
-import { toASCII } from 'punycode';
+import { toASCII } from 'punycode/';
 
 const NAME_SERVICE_RE = /\.(eth|bnb|arb)$/;
 const DOMAIN_RE = /^(?:[a-z0-9](?:[-a-z0-9]*[a-z0-9])?\.)+[a-z0-9][-a-z0-9]*[a-z0-9]$/u;

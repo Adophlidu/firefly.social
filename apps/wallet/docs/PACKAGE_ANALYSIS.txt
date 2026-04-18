@@ -3,7 +3,7 @@ Package Analysis
 
 Application: apps/wallet
 
-Total packages: 2360
+Total packages: 2361
 Packages with multiple versions: 384
 
 Legend:
@@ -1229,6 +1229,7 @@ Packages with Single Version
 *@types/node@22.10.10
  @types/pako@2.0.3
  @types/parse-json@4.0.2
+ @types/punycode@2.1.4
 *@types/react@19.2.14
  @types/react-avatar-editor@13.0.4
 *@types/react-dom@19.2.3
