@@ -15,8 +15,7 @@ type Props = LayoutProps<{
     }>;
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
-    const { id } = await props.params;
-    const { type } = await props.searchParams;
+    const [{ id }, { type }] = await Promise.all([props.params, props.searchParams]);
 
     return createPredictionEventMetadata(
         id,
@@ -27,8 +26,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 }
 
 export default async function OpinionEventPage(props: Props) {
-    const { id } = await props.params;
-    const { type } = await props.searchParams;
+    const [{ id }, { type }] = await Promise.all([props.params, props.searchParams]);
 
     return <PredictionEventDetailContent id={id} isMutil={type === 'multi'} platform={PredictionPlatform.Opinion} />;
 }

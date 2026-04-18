@@ -202,18 +202,22 @@ export const BetItem = memo(function BetItem({
 
     const primaryMarket = first(sortedMarkets);
 
-    const primaryOutcomes = primaryMarket?.outcomes.map((outcome) => outcome.label) ?? [];
-    const primaryPrices = primaryMarket?.outcomes.map((outcome) => outcome.price ?? '0') ?? [];
+    const primaryOutcomes = useMemo(
+        () => primaryMarket?.outcomes.map((outcome) => outcome.label) || [],
+        [primaryMarket],
+    );
+    const primaryPrices = useMemo(
+        () => primaryMarket?.outcomes.map((outcome) => outcome.price || '0') || [],
+        [primaryMarket],
+    );
 
-    const firstOutcome = primaryOutcomes[0];
-    const secondOutcome = primaryOutcomes[1];
-    const firstPrice = primaryPrices[0];
-    const secondPrice = primaryPrices[1];
+    const [firstOutcome, secondOutcome] = primaryOutcomes;
+    const [firstPrice, secondPrice] = primaryPrices;
 
     const firstPercentage = firstPrice ? Number.parseFloat(firstPrice) * 100 : 0;
     const secondPercentage = secondPrice ? Number.parseFloat(secondPrice) * 100 : 0;
 
-    const isMultiMarket = event.markets?.length > 1;
+    const isMultiMarket = event.markets.length > 1;
 
     const isResolved = useMemo(() => {
         if (isMultiMarket) {
@@ -228,7 +232,7 @@ export const BetItem = memo(function BetItem({
         const secondPriceNum = primaryPrices[1] ? Number.parseFloat(primaryPrices[1]) : 0;
         if (firstPriceNum >= secondPriceNum) return { outcome: primaryOutcomes[0], isFirst: true };
         return { outcome: primaryOutcomes[1], isFirst: false };
-    }, [isResolved, isMultiMarket, primaryPrices, primaryOutcomes]);
+    }, [isResolved, isMultiMarket, primaryMarket, primaryPrices, primaryOutcomes]);
 
     const formattedTime = useMemo(() => {
         if (isResolved) return null;
@@ -280,7 +284,7 @@ export const BetItem = memo(function BetItem({
                 'border-line bg-primaryBottom hover:bg-bg mb-4 flex flex-col gap-3 rounded-2xl border p-4',
                 className,
             )}
-            href={RouteResolver.betsEventDetail(platform, eventSlug)}
+            href={RouteResolver.betsEventDetail(platform, eventSlug, { multiple: isMultiMarket })}
             target={openLinkInNewTab ? '_blank' : '_self'}
             onClick={onLinkClick}
         >
@@ -421,11 +425,10 @@ export const BetItem = memo(function BetItem({
                         {isResolved && resolvedOutcome ? (
                             <div className="flex h-1 overflow-hidden">
                                 <div
-                                    className={classNames('h-full', {
+                                    className={classNames('size-full', {
                                         'bg-success': resolvedOutcome.isFirst,
                                         'bg-danger': !resolvedOutcome.isFirst,
                                     })}
-                                    style={{ width: '100%' }}
                                 />
                             </div>
                         ) : (
