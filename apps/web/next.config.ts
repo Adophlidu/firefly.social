@@ -45,7 +45,6 @@ const config: NextConfig = {
         serverActions: {
             bodySizeLimit: '80mb',
         },
-        sri: { algorithm: 'sha256' },
     },
     images: imagesConfig,
     redirects: redirectsConfig,
