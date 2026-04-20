@@ -1,9 +1,9 @@
+import { isGreaterThan, isLessThan, leftShift, multipliedBy, rightShift } from '@dimensiondev/web3/numbers';
 import { getTokenAbiForWagmi } from '@dimensiondev/web3/utils';
 import { type Address, type Hash, parseUnits } from 'viem';
 import { getAccount, getBalance, sendTransaction, writeContract } from 'wagmi/actions';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
-import { isGreaterThan, isLessThan, leftShift, multipliedBy, rightShift } from '@/helpers/number.js';
 import { switchEthereumChain } from '@/helpers/switchEthereumChain.js';
 import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
 import { getAvailableBalance } from '@/providers/ethereum/getAvailableBalance.js';

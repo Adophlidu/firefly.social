@@ -4,6 +4,7 @@ import ArrowDown from '@dimensiondev/assets/arrow-down.svg';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { rpSupportedChains } from '@dimensiondev/web3/chains';
 import { ETH_ZERO_ADDRESS } from '@dimensiondev/web3/constants';
+import { isZero, leftShift } from '@dimensiondev/web3/numbers';
 import {
     isSameAddress,
     isSameEthereumAddress,
@@ -20,7 +21,6 @@ import { TokenIcon } from '@/components/TokenIcon.js';
 import { NetworkType } from '@/constants/enum.js';
 import { NUMERIC_INPUT_REGEXP_PATTERN } from '@/constants/regexp.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
-import { isZero, leftShift } from '@/helpers/number.js';
 import { TokenSelectorModalRef } from '@/modals/TokenSelectorModal/refs.js';
 import type { FungibleToken } from '@/web3-shared/base/specs.js';
 

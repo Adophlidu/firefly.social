@@ -1,6 +1,7 @@
 'use client';
 
 import { classNames } from '@dimensiondev/utils';
+import { isZero } from '@dimensiondev/web3/numbers';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { Trans } from '@lingui/react/macro';
 import { first, sumBy } from 'lodash-es';
@@ -16,7 +17,6 @@ import { PredictionPlatform } from '@/constants/enum.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { bedStead } from '@/fonts/bedStead/index.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
-import { isZero } from '@/helpers/number.js';
 import { toFixedTrimmed } from '@/helpers/polymarket.js';
 import { useToggleMarkets } from '@/hooks/prediction/useToggleMarkets.js';
 import { capturePolymarketEventMarketClick } from '@/providers/telemetry/capturePolymarketEvent.js';

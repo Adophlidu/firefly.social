@@ -3,6 +3,7 @@
 import DownloadIcon from '@dimensiondev/assets/download-tip.svg';
 import MoreIcon from '@dimensiondev/assets/more-circle.svg';
 import { classNames } from '@dimensiondev/utils';
+import { multipliedBy } from '@dimensiondev/web3/numbers';
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 import type { Address } from 'viem';
@@ -22,7 +23,6 @@ import { notFound } from '@/esm/navigation.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { formatTokenAmount } from '@/helpers/formatTokenAmount.js';
 import { getMaintainAccountInfo } from '@/helpers/getMaintainAccountInfo.js';
-import { multipliedBy } from '@/helpers/number.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
 import type { TipsDetail as TipsDetailType } from '@/providers/types/Firefly.js';
 

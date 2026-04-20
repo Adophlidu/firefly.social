@@ -21,6 +21,11 @@
             "types": "./dist/chains.d.ts",
             "import": "./dist/chains.js",
             "require": "./dist/chains.cjs"
+        },
+        "./numbers": {
+            "types": "./dist/numbers.d.ts",
+            "import": "./dist/numbers.js",
+            "require": "./dist/numbers.cjs"
         }
     },
     "files": [
@@ -54,15 +59,18 @@
     "devDependencies": {
         "@types/punycode": "^2.1.4",
         "tsup": "^8.5.1",
-        "typescript": "5.9.3"
+        "typescript": "5.9.3",
+        "wagmi": "^3.1.4"
     },
     "dependencies": {
         "@coral-xyz/anchor": "^0.31.1",
         "bignumber.js": "9.3.1",
         "punycode": "^2.3.1",
+        "urlcat": "^3.1.0",
         "viem": "^2.45.2"
     },
     "peerDependencies": {
-        "typescript": ">=5.0.0"
+        "typescript": ">=5.0.0",
+        "wagmi": "^3.1.0"
     }
 }

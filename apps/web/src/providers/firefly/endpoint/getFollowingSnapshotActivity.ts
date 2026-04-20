@@ -1,8 +1,8 @@
 import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@dimensiondev/utils';
+import { isZero } from '@dimensiondev/web3/numbers';
 import urlcat from 'urlcat';
 
 import { formatSnapshotActivityFromFirefly } from '@/helpers/formatSnapshotFromFirefly.js';
-import { isZero } from '@/helpers/number.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { getProposals } from '@/providers/snapshot/getProposals.js';

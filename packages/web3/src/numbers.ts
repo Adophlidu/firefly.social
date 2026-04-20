@@ -1,5 +1,4 @@
 import { BigNumber } from 'bignumber.js';
-import { isUndefined } from 'lodash-es';
 
 export const ZERO = new BigNumber('0');
 
@@ -38,6 +37,12 @@ export function minus(a: BigNumber.Value, b: BigNumber.Value) {
     return new BigNumber(a).minus(b);
 }
 
+/** scale 10 ** n * m */
+export function scale10(m: BigNumber.Value, n = 1) {
+    const x = new BigNumber(1).shiftedBy(n);
+    return n === 1 ? x : x.multipliedBy(m);
+}
+
 /** n * (10 ** m) */
 export function rightShift(n: BigNumber.Value, m: number | undefined | null) {
     return new BigNumber(n).shiftedBy(+(m ?? 0));
@@ -57,5 +62,5 @@ export function toFixed(value: BigNumber.Value | undefined): string;
 export function toFixed(value: BigNumber.Value | undefined, decimalPlaces: number): string;
 export function toFixed(value: BigNumber.Value = 0, decimalPlaces?: number) {
     const n = new BigNumber(value);
-    return !isUndefined(decimalPlaces) ? n.toFixed(decimalPlaces) : n.toFixed();
+    return decimalPlaces !== undefined ? n.toFixed(decimalPlaces) : n.toFixed();
 }

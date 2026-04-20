@@ -1,5 +1,6 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { ETH_ZERO_ADDRESS } from '@dimensiondev/web3/constants';
+import { dividedBy } from '@dimensiondev/web3/numbers';
 import { assign } from 'lodash-es';
 import { useDebounceValue } from 'usehooks-ts';
 import { create } from 'zustand';
@@ -7,7 +8,6 @@ import { immer } from 'zustand/middleware/immer';
 
 import { Source } from '@/constants/enum.js';
 import { createSelectors } from '@/helpers/createSelector.js';
-import { dividedBy } from '@/helpers/number.js';
 import type { FireflyIdentity, FireflyTipsProfile, Profile } from '@/providers/types/Firefly.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import type { Token } from '@/providers/types/Transfer.js';

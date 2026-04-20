@@ -1,6 +1,5 @@
 import { web3 } from '@coral-xyz/anchor';
-
-import { multipliedBy } from '@/helpers/number.js';
+import { multipliedBy } from '@dimensiondev/web3/numbers';
 
 // Note: if the latest version has been changed, please update packages/mask/content-script/components/CompositionDialog/useSubmit.ts
 /**

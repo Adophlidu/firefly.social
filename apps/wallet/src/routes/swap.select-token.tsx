@@ -1,6 +1,7 @@
 import GlobeIcon from '@dimensiondev/assets/global.svg';
 import SearchIcon from '@dimensiondev/assets/search.svg';
 import SelectedIcon from '@dimensiondev/assets/selected.svg';
+import { isSolanaChain } from '@dimensiondev/web3/chains';
 import { formatTokenAddress, isNativeTokenOrSameAddress } from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
@@ -15,7 +16,6 @@ import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
 import { SwapFromPage } from '@/constants/enum.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
-import { isSolanaChain } from '@/helpers/isSolanaChain.js';
 import { formatTokenAmount } from '@/helpers/swap/formatSwapAmount.js';
 import { useTrendingTokensForWithdraw } from '@/hooks/bet/useTrendingTokensForWithdraw.js';
 import { useEffectiveSwapWalletAddress } from '@/hooks/swap/useEffectiveSwapWalletAddress.js';

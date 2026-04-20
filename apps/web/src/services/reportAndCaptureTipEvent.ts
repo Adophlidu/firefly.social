@@ -1,5 +1,6 @@
+import { resolveWagmiChain } from '@dimensiondev/web3/utils';
+
 import { resolveTransferProvider } from '@/helpers/resolveTokenTransfer.js';
-import { resolveWagmiChain } from '@/helpers/resolveWagmiChain.js';
 import { logger } from '@/libs/Logger.js';
 import { reportTokenTips, UploadTokenTipsToken } from '@/providers/firefly/report/reportTokenTips.js';
 import { captureTipsSendEvent } from '@/providers/telemetry/captureTipsEvent.js';

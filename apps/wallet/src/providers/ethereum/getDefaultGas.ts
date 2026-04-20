@@ -1,3 +1,4 @@
+import { multipliedBy, toFixed, ZERO } from '@dimensiondev/web3/numbers';
 import { getTokenAbiForWagmi } from '@dimensiondev/web3/utils';
 import { BigNumber } from 'bignumber.js';
 import { type Address, parseUnits } from 'viem';
@@ -6,7 +7,6 @@ import { estimateFeesPerGas, getAccount } from 'wagmi/actions';
 
 import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
 import { isNativeTokenDebank } from '@/helpers/isNativeTokenDebank.js';
-import { multipliedBy, toFixed, ZERO } from '@/helpers/number.js';
 import type { GetDefaultGasOptions } from '@/providers/types/Transfer.js';
 
 async function estimateGasForErc20Token(

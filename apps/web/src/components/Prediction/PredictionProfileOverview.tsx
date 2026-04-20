@@ -1,5 +1,6 @@
 'use client';
 
+import { isZero } from '@dimensiondev/web3/numbers';
 import { formatAddressEthereum } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { compact } from 'lodash-es';
@@ -19,7 +20,6 @@ import { Link } from '@/esm/Link.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { isSocialSource } from '@/helpers/isSource.js';
-import { isZero } from '@/helpers/number.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { usePredictionProfileData } from '@/hooks/prediction/usePredictionProfileData.js';
 import {

@@ -3,6 +3,15 @@
 import QuestionIcon from '@dimensiondev/assets/question.svg';
 import RedPacketIcon from '@dimensiondev/assets/red-packet.svg';
 import { rpSupportedChains } from '@dimensiondev/web3/chains';
+import {
+    isGreaterThan,
+    isLessThan,
+    isZero,
+    leftShift,
+    multipliedBy,
+    rightShift,
+    ZERO,
+} from '@dimensiondev/web3/numbers';
 import { getTokenAbiForWagmi } from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
@@ -29,7 +38,6 @@ import { formatBalance } from '@/helpers/formatBalance.js';
 import { getNativeToken } from '@/helpers/getNativeToken.js';
 import { getRpMaxShares, getRpMessageMaxLength } from '@/helpers/getRpLimitations.js';
 import { isPrivyAddress } from '@/helpers/isPrivyAddress.js';
-import { isGreaterThan, isLessThan, isZero, leftShift, multipliedBy, rightShift, ZERO } from '@/helpers/number.js';
 import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
 import { useAvailableBalance } from '@/hooks/useAvailableBalance.js';
 import { useChainContext } from '@/hooks/useChainContext.js';

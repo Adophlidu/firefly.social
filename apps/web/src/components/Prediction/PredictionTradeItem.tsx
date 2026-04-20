@@ -3,6 +3,7 @@
 import BuyIcon from '@dimensiondev/assets/polymarket-bought.svg';
 import SellIcon from '@dimensiondev/assets/polymarket-sold.svg';
 import { classNames } from '@dimensiondev/utils';
+import { rightShift } from '@dimensiondev/web3/numbers';
 import { Plural, Trans } from '@lingui/react/macro';
 import { compact, first } from 'lodash-es';
 import type { HTMLProps } from 'react';
@@ -12,7 +13,6 @@ import { PredictionTime } from '@/components/Prediction/PredictionTime.js';
 import { PredictionPlatform } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
-import { rightShift } from '@/helpers/number.js';
 import { toFixedTrimmed } from '@/helpers/polymarket.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import {

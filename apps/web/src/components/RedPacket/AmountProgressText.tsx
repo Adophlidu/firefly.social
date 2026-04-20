@@ -1,11 +1,11 @@
 import { hexToRGBA } from '@dimensiondev/utils';
+import { dividedBy, leftShift } from '@dimensiondev/web3/numbers';
 
 import { ShrankPrice } from '@/components/ShrankPrice.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
 import { getCSSPropertiesFromThemeSettings } from '@/helpers/getCSSPropertiesFromThemeSettings.js';
-import { dividedBy, leftShift } from '@/helpers/number.js';
 import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 import type { TokenType } from '@/types/rp.js';
 

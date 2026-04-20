@@ -1,4 +1,9 @@
+export * from '@/utils/addAndSwitchChain.js';
 export * from '@/utils/formatAddress.js';
+export * from '@/utils/formatLamportsToSol.js';
+export * from '@/utils/getBlockExplorersURL.js';
+export * from '@/utils/getSolanaRPCSubscriptionsUrl.js';
+export * from '@/utils/getSolanaRPCUrl.js';
 export * from '@/utils/getTokenAbiForWagmi.js';
 export * from '@/utils/isSameAddress.js';
 export * from '@/utils/isSupportedStablecoin.js';
@@ -9,3 +14,5 @@ export * from '@/utils/isZeroAddress.js';
 export * from '@/utils/parseCAIP10.js';
 export * from '@/utils/parseCAIP19.js';
 export * from '@/utils/parseSolToLamports.js';
+export * from '@/utils/resolvePublicProviderUrl.js';
+export * from '@/utils/resolveWagmiChain.js';

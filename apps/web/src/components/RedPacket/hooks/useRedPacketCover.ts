@@ -1,10 +1,10 @@
 import { bom } from '@dimensiondev/utils';
+import { minus, toFixed } from '@dimensiondev/web3/numbers';
 import { useQuery } from '@tanstack/react-query';
 import urlcat from 'urlcat';
 
 import { formatSenderName } from '@/components/RedPacket/helpers.js';
 import { DEFAULT_THEME } from '@/constants/rp.js';
-import { minus, toFixed } from '@/helpers/number.js';
 import { getTheme } from '@/providers/firefly/red-packet/getTheme.js';
 import type { FireflyRedPacketAPI, RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 

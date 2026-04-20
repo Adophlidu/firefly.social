@@ -3,6 +3,7 @@
 import CollectFillIcon from '@dimensiondev/assets/collect-fill.svg';
 import LinkIcon from '@dimensiondev/assets/link-square.svg';
 import { classNames } from '@dimensiondev/utils';
+import { isZero } from '@dimensiondev/web3/numbers';
 import { formatAddressEthereum } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { produce } from 'immer';
@@ -19,7 +20,6 @@ import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { MintStatus } from '@/constants/enum.js';
 import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
-import { isZero } from '@/helpers/number.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { resolveExplorerLink } from '@/helpers/resolveExplorerLink.js';
 import { useArticleCollectStatus } from '@/hooks/useArticleCollectable.js';

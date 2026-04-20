@@ -1,7 +1,7 @@
+import { isSolanaChain } from '@dimensiondev/web3/chains';
 import { useAtomValue } from 'jotai';
 import { useMemo } from 'react';
 
-import { isSolanaChain } from '@/helpers/isSolanaChain.js';
 import { useSwapContextWalletAddresses } from '@/hooks/useCachedWalletAddresses.js';
 import {
     accessPathAtom,

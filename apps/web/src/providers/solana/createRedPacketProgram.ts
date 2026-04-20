@@ -1,10 +1,11 @@
 /* cspell:disable */
 
 import { Program, web3 } from '@coral-xyz/anchor';
+import { envs, STATUS } from '@dimensiondev/envs';
+import { getSolanaRPCUrl } from '@dimensiondev/web3/utils';
 
 import { privySolanaProvider } from '@/connectors/PrivySolanaWalletAdapter.js';
 import { getAnchorProvider } from '@/helpers/getAnchorProvider.js';
-import { getSolanaRPCUrl } from '@/helpers/getSolanaRPCUrl.js';
 import type { Redpacket } from '@/idls/redpacket.js';
 import RedPacketIDL from '@/idls/redpacket.json' with { type: 'json' };
 import { getWalletAdaptorConnected } from '@/providers/solana/getWalletAdapter.js';
@@ -25,7 +26,13 @@ export function createRedPacketProgram(chainId: number, requireWallet = false, f
         storage.set(key, program);
         return program;
     }
-    const connection = new web3.Connection(getSolanaRPCUrl(), 'confirmed');
+    const connection = new web3.Connection(
+        getSolanaRPCUrl({
+            useDevCluster: envs.external.NEXT_PUBLIC_SOLANA_DEV === STATUS.Enabled,
+            httpUrl: envs.external.NEXT_PUBLIC_SOLANA_RPC_URL,
+        }),
+        'confirmed',
+    );
     const program = new Program<Redpacket>(RedPacketIDL, { connection });
     return program;
 }

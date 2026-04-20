@@ -1,13 +1,13 @@
 'use client';
 
 import { classNames } from '@dimensiondev/utils';
+import { isZero } from '@dimensiondev/web3/numbers';
 import { Trans } from '@lingui/react/macro';
 import { useMemo } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { PredictionPlatform } from '@/constants/enum.js';
 import { bedStead } from '@/fonts/bedStead/index.js';
-import { isZero } from '@/helpers/number.js';
 import { openPredictionPage } from '@/helpers/openPredictionPage.js';
 import { computeVolume, toFixedTrimmed } from '@/helpers/polymarket.js';
 import type { BetsActivity } from '@/providers/types/Firefly.js';

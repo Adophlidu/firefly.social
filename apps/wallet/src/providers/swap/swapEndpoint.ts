@@ -1,7 +1,7 @@
+import { leftShift, rightShift } from '@dimensiondev/web3/numbers';
 import urlcat from 'urlcat';
 
 import { env } from '@/constants/env.js';
-import { leftShift, rightShift } from '@/helpers/number.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { Fetch } from '@/lib/Fetch.js';
 import { normalizeSwapToken } from '@/providers/swap/normalizeSwapToken.js';

@@ -1,5 +1,7 @@
 import ArrowDownIcon from '@dimensiondev/assets/arrow-line-down.svg';
 import InfoOutlineIcon from '@dimensiondev/assets/info-outline.svg';
+import { isSolanaChain } from '@dimensiondev/web3/chains';
+import { isGreaterThan, isLessThan } from '@dimensiondev/web3/numbers';
 import { Trans } from '@lingui/react/macro';
 import { useSetActiveWallet } from '@privy-io/wagmi';
 import { useMutation, useQuery, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
@@ -31,8 +33,6 @@ import { useComeback } from '@/components/useComeback.js';
 import { SwapFromPage } from '@/constants/enum.js';
 import { formatTokenItemAmount } from '@/helpers/formatTokenItemAmount.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
-import { isSolanaChain } from '@/helpers/isSolanaChain.js';
-import { isGreaterThan, isLessThan } from '@/helpers/number.js';
 import { optimisticSubtractBalance } from '@/helpers/polymarketBalanceCache.js';
 import { waitForPolymarketWithdraw } from '@/helpers/waitForPolymarketWithdraw.js';
 import { usdcTokenFallback, useWithdrawToken } from '@/hooks/bet/useTokenDetail.js';

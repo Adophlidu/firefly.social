@@ -1,9 +1,8 @@
 import { runInSafe } from '@dimensiondev/utils';
-import { formatAddress } from '@dimensiondev/web3/utils';
+import { formatAddress, getBlockExplorersURL } from '@dimensiondev/web3/utils';
 import { useMemo } from 'react';
 
 import { bedStead } from '@/fonts/bedStead/index.js';
-import { getBlockExplorersURL } from '@/helpers/getBlockExplorersURL.js';
 import { cn } from '@/lib/utils.js';
 
 export function AddressLink({ chainId, address }: { chainId: number; address: string }) {

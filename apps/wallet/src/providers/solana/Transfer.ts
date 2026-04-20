@@ -1,6 +1,15 @@
 import { web3 } from '@coral-xyz/anchor';
 import { solana } from '@dimensiondev/web3/chains';
-import { isZeroAddressSolana, parseSolToLamports } from '@dimensiondev/web3/utils';
+import {
+    isGreaterThan,
+    isLessThan,
+    leftShift,
+    minus,
+    multipliedBy,
+    rightShift,
+    ZERO,
+} from '@dimensiondev/web3/numbers';
+import { getSolanaRPCUrl, isZeroAddressSolana, parseSolToLamports } from '@dimensiondev/web3/utils';
 import type { ConnectedStandardSolanaWallet } from '@privy-io/react-auth/solana';
 import {
     createAssociatedTokenAccountInstruction,
@@ -9,8 +18,7 @@ import {
 } from '@solana/spl-token';
 import type { BigNumber } from 'bignumber.js';
 
-import { getSolanaRPCUrl } from '@/helpers/getSolanaRPCUrl.js';
-import { isGreaterThan, isLessThan, leftShift, minus, multipliedBy, rightShift, ZERO } from '@/helpers/number.js';
+import { env } from '@/constants/env.js';
 import { signAndBroadcastSolanaTransaction } from '@/helpers/signAndBroadcastSolanaTransaction.js';
 import { getNativeTokenBalance, getTokenBalance } from '@/providers/solana/getTokenBalance.js';
 import type { Token, TransactionOptions, TransferProvider } from '@/providers/types/Transfer.js';
@@ -18,7 +26,10 @@ import type { Token, TransactionOptions, TransferProvider } from '@/providers/ty
 const defaultFee = 0.00001 * web3.LAMPORTS_PER_SOL * 1.3; // 0.000008 SOL with a buffer
 
 export class SolanaTransfer implements TransferProvider {
-    private _connection = new web3.Connection(getSolanaRPCUrl(), 'confirmed');
+    private _connection = new web3.Connection(
+        getSolanaRPCUrl({ httpUrl: env.external.NEXT_PUBLIC_SOLANA_RPC_URL }),
+        'confirmed',
+    );
 
     get connection() {
         return this._connection;

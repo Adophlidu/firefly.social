@@ -2,6 +2,7 @@ import ArrowSwapHorizontalIcon from '@dimensiondev/assets/arrow-swap-horizontal.
 import InfoCircleBoldIcon from '@dimensiondev/assets/info-circle-bold.svg';
 import SwapFlipIcon from '@dimensiondev/assets/swap-flip.svg';
 import SwapLoadingIcon from '@dimensiondev/assets/swap-loading.svg';
+import { toFixed } from '@dimensiondev/web3/numbers';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
@@ -11,7 +12,6 @@ import { memo, useCallback, useMemo, useState } from 'react';
 import { SwapActionButton } from '@/components/SwapUI/SwapActionButton.js';
 import { SwapReview } from '@/components/SwapUI/SwapReview.js';
 import { TokenInput } from '@/components/SwapUI/TokenInput.js';
-import { toFixed } from '@/helpers/number.js';
 import { formatRate } from '@/helpers/swap/formatSwapAmount.js';
 import { useEffectiveSwapWalletAddress } from '@/hooks/swap/useEffectiveSwapWalletAddress.js';
 import { useResolvedSwapTokens } from '@/hooks/swap/useResolvedSwapTokens.js';

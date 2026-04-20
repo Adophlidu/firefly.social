@@ -1,10 +1,10 @@
+import { isSolanaChain } from '@dimensiondev/web3/chains';
 import { useQuery } from '@tanstack/react-query';
 import { useAtomValue } from 'jotai';
 import { orderBy } from 'lodash-es';
 import { useMemo } from 'react';
 
 import { SUPPORTED_SWAP_EVM_CHAIN_IDS } from '@/constants/ethereum.js';
-import { isSolanaChain } from '@/helpers/isSolanaChain.js';
 import { useSwapContextWalletAddresses } from '@/hooks/useCachedWalletAddresses.js';
 import { normalizeSwapToken } from '@/providers/swap/normalizeSwapToken.js';
 import { createSwapEndpoint } from '@/providers/swap/swapEndpoint.js';

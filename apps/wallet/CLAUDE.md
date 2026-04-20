@@ -178,7 +178,7 @@ const message = t`Hello World`;
 
 1. USDC has 6 decimals, not 18
 2. Polymarket amounts are raw USDC (e.g., "10500000" = 10.5 USDC)
-3. Use `leftShift`/`rightShift` from `@/helpers/number.js` for decimal conversion
+3. Use `leftShift`/`rightShift` from `@dimensiondev/web3/numbers` for decimal conversion
 4. This project IS a wallet (based on Privy), so swap features should NOT connect to browser extension wallets - always use Privy's embedded wallet
 5. Use `useMutation` return values (`isPending`, `isSuccess`, `isError`) instead of creating redundant `useState` to track mutation state
 

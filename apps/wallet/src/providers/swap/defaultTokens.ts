@@ -1,6 +1,5 @@
+import { normalizeSolChainId } from '@dimensiondev/web3/chains';
 import { ETH_NATIVE_TOKEN_ADDRESS, SOL_NATIVE_TOKEN_ADDRESS } from '@dimensiondev/web3/constants';
-
-import { normalizeSolChainId } from '@/helpers/isSolanaChain.js';
 
 export interface DefaultSwapTokenPair {
     chainId: number;

@@ -2,6 +2,7 @@
 
 import LineArrowUp from '@dimensiondev/assets/line-arrow-up.svg';
 import { chains, visibleChains } from '@dimensiondev/web3/chains';
+import { isGreaterThan, isLessThan } from '@dimensiondev/web3/numbers';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { orderBy, uniq } from 'lodash-es';
@@ -11,7 +12,6 @@ import { ChainIcon } from '@/components/ChainIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { SearchContentPanel } from '@/components/Search/SearchContentPanel.js';
 import { TokenItem } from '@/components/Tips/TokenItem.js';
-import { isGreaterThan, isLessThan } from '@/helpers/number.js';
 import type { Token } from '@/hooks/useCustomFungibleTokens.js';
 import { useEvmTokens } from '@/hooks/useEvmTokens.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';

@@ -1,5 +1,5 @@
 import LightningIcon from '@dimensiondev/assets/lightning.svg';
-import { isSameAddress } from '@dimensiondev/web3/utils';
+import { addAndSwitchChain, isSameAddress } from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQuery, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
@@ -21,7 +21,6 @@ import { Skeleton } from '@/components/Skeleton.js';
 import { Button } from '@/components/ui/button.js';
 import { InsufficientGasError } from '@/constants/error.js';
 import { USDC_E_POLYGON_ADDRESS } from '@/constants/ethereum.js';
-import { addAndSwitchChain } from '@/helpers/addAndSwitchChain.js';
 import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
 import { formatPriceToCents } from '@/helpers/formatPriceToCents.js';
 import { formatTokenFromFireflyTokenAsset } from '@/helpers/formatTokenFromFireflyTokenAsset.js';

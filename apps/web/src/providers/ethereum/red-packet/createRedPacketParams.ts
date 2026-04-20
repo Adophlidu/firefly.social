@@ -1,10 +1,10 @@
+import { isLessThan } from '@dimensiondev/web3/numbers';
 import { omit } from 'lodash-es';
 import { type Address, type Hex, keccak256 } from 'viem';
 import { estimateContractGas } from 'viem/actions';
 
 import RED_PACKET_ABI from '@/abis/RedPacket.json' with { type: 'json' };
 import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
-import { isLessThan } from '@/helpers/number.js';
 import { logger } from '@/libs/Logger.js';
 import { getEvmNativeTokenAddress } from '@/providers/ethereum/getNativeTokenAddress.js';
 import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';

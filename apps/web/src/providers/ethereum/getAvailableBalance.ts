@@ -1,7 +1,7 @@
+import { isLessThan, minus } from '@dimensiondev/web3/numbers';
 import type { Address } from 'viem';
 
 import { getBalanceOf } from '@/helpers/getBalanceOf.js';
-import { isLessThan, minus } from '@/helpers/number.js';
 import { getDefaultGas } from '@/providers/ethereum/getDefaultGas.js';
 import { EthereumNetwork } from '@/providers/ethereum/Network.js';
 import { EthereumTransfer } from '@/providers/ethereum/Transfer.js';

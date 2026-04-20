@@ -1,10 +1,10 @@
+import { isZero, multipliedBy } from '@dimensiondev/web3/numbers';
 import { Link } from '@tanstack/react-router';
 import { first } from 'lodash-es';
 import { type MouseEvent, type ReactNode, useMemo } from 'react';
 
 import { Image } from '@/components/Image.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
-import { isZero, multipliedBy } from '@/helpers/number.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
 import { useFungibleTokenPrice } from '@/hooks/useFungibleTokenPrice.js';
 import { cn } from '@/lib/utils.js';

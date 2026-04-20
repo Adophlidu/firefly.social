@@ -1,11 +1,11 @@
+import { isSolanaChain } from '@dimensiondev/web3/chains';
 import { ETH_NATIVE_TOKEN_ADDRESS, SOL_NATIVE_TOKEN_ADDRESS } from '@dimensiondev/web3/constants';
+import { isLessThan, leftShift, minus, multipliedBy } from '@dimensiondev/web3/numbers';
 import { isNativeTokenAddress } from '@dimensiondev/web3/utils';
 import { useQuery } from '@tanstack/react-query';
 import type { Address, Hex } from 'viem';
 
 import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
-import { isSolanaChain } from '@/helpers/isSolanaChain.js';
-import { isLessThan, leftShift, minus, multipliedBy } from '@/helpers/number.js';
 import { estimateSwapGas } from '@/helpers/swap/estimateSwapGas.js';
 import { useEmbeddedWalletAddresses } from '@/hooks/useCachedWalletAddresses.js';
 import { useTokenBalance } from '@/hooks/useTokenBalance.js';

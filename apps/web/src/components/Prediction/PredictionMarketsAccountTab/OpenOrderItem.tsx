@@ -2,6 +2,7 @@
 
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
 import { classNames } from '@dimensiondev/utils';
+import { multipliedBy } from '@dimensiondev/web3/numbers';
 import { Trans } from '@lingui/react/macro';
 import { BigNumber } from 'bignumber.js';
 import { memo } from 'react';
@@ -14,7 +15,6 @@ import { waitForAuthorization } from '@/connectors/PrivyConnector.js';
 import type { PredictionPlatform } from '@/constants/enum.js';
 import { formatPriceToCents } from '@/helpers/formatPriceToCents.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
-import { multipliedBy } from '@/helpers/number.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import type { PredictionOpenOrder } from '@/types/prediction.js';

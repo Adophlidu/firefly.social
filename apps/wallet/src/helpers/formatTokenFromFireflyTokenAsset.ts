@@ -1,10 +1,10 @@
 import { isValidChainIdEthereum, solana } from '@dimensiondev/web3/chains';
 import { ETH_ZERO_ADDRESS, SOL_ZERO_ADDRESS } from '@dimensiondev/web3/constants';
+import { rightShift } from '@dimensiondev/web3/numbers';
 import { isNativeTokenAddress } from '@dimensiondev/web3/utils';
 import { toHex } from 'viem';
 
 import { NetworkType } from '@/constants/enum.js';
-import { rightShift } from '@/helpers/number.js';
 import { resolveDebankChain } from '@/helpers/resolveDebankChain.js';
 import type { TokenAsset } from '@/providers/types/Firefly.js';
 import type { Token } from '@/providers/types/Transfer.js';

@@ -1,11 +1,15 @@
 import { web3 } from '@coral-xyz/anchor';
+import { getSolanaRPCUrl } from '@dimensiondev/web3/utils';
 import type { ConnectedStandardSolanaWallet } from '@privy-io/react-auth/solana';
 
+import { env } from '@/constants/env.js';
 import { SOLANA_MAINNET_PRIVY } from '@/constants/solana.js';
-import { getSolanaRPCUrl } from '@/helpers/getSolanaRPCUrl.js';
 
 function getSolanaConnection(connection?: web3.Connection) {
-    return connection ?? new web3.Connection(getSolanaRPCUrl(), 'confirmed');
+    return (
+        connection ??
+        new web3.Connection(getSolanaRPCUrl({ httpUrl: env.external.NEXT_PUBLIC_SOLANA_RPC_URL }), 'confirmed')
+    );
 }
 
 export async function signAndBroadcastSolanaTransaction(

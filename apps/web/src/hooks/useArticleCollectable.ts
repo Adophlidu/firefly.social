@@ -1,9 +1,9 @@
+import { isGreaterThan, multipliedBy, plus, ZERO } from '@dimensiondev/web3/numbers';
 import { useQuery } from '@tanstack/react-query';
 import { useConnection } from 'wagmi';
 import { estimateFeesPerGas, getBalance } from 'wagmi/actions';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
-import { isGreaterThan, multipliedBy, plus, ZERO } from '@/helpers/number.js';
 import { getArticleCollectStatus } from '@/providers/firefly/wallet-transaction/getArticleCollectStatus.js';
 import type { Article } from '@/providers/types/Article.js';
 import { EVMChainResolver } from '@/web3-providers/evm/ResolverAPI.js';

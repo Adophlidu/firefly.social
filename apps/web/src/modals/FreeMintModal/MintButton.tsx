@@ -1,11 +1,11 @@
 import AddIcon from '@dimensiondev/assets/add-number.svg';
 import MinusIcon from '@dimensiondev/assets/minus-number.svg';
+import { isGreaterThan, multipliedBy, plus } from '@dimensiondev/web3/numbers';
 import { Trans } from '@lingui/react/macro';
 import { type ChangeEvent, memo, useCallback, useMemo } from 'react';
 import { useBalance, useConnection } from 'wagmi';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { isGreaterThan, multipliedBy, plus } from '@/helpers/number.js';
 import { useSponsorMintNFT } from '@/hooks/useSponsorMintNFT.js';
 import type { MintMetadata, SponsorMintOptions } from '@/providers/types/Firefly.js';
 

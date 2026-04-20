@@ -1,9 +1,9 @@
+import { isSolanaChain } from '@dimensiondev/web3/chains';
 import { useMemo } from 'react';
 
 import { ReceiveModal } from '@/components/ReceiveModal/index.js';
 import type { ReceiveChainItemProps } from '@/components/ReceiveModal/ReceiveChainItem.js';
 import type { RouteModalProps } from '@/configs/modalRoutes.js';
-import { isSolanaChain } from '@/helpers/isSolanaChain.js';
 import { useSwapSupportedChains } from '@/hooks/swap/useSwapSupportedChains.js';
 import { useEmbeddedWalletAddresses } from '@/hooks/useCachedWalletAddresses.js';
 

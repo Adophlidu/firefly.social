@@ -1,4 +1,6 @@
 import { runInSafeAsync } from '@dimensiondev/utils';
+import { leftShift } from '@dimensiondev/web3/numbers';
+import { resolveWagmiChain } from '@dimensiondev/web3/utils';
 import { useQueries } from '@tanstack/react-query';
 import { compact, uniq } from 'lodash-es';
 import { erc20Abi } from 'viem';
@@ -10,8 +12,6 @@ import { queryClient } from '@/configs/queryClient.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { formatCustomTokenToTipsToken } from '@/helpers/formatCustomTokenToTipsToken.js';
 import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
-import { leftShift } from '@/helpers/number.js';
-import { resolveWagmiChain } from '@/helpers/resolveWagmiChain.js';
 import { getFungibleTokenPrice } from '@/providers/coingecko/getFungibleTokenPrice.js';
 import type { Token as TipsToken } from '@/providers/types/Transfer.js';
 import { CustomTokenType, useCustomTokenStore } from '@/store/useCustomTokenStore.js';

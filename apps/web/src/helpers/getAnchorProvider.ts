@@ -1,11 +1,18 @@
 import { AnchorProvider, web3 } from '@coral-xyz/anchor';
+import { envs, STATUS } from '@dimensiondev/envs';
+import { getSolanaRPCUrl } from '@dimensiondev/web3/utils';
 
-import { getSolanaRPCUrl } from '@/helpers/getSolanaRPCUrl.js';
 import { getWalletAdaptorConnected } from '@/providers/solana/getWalletAdapter.js';
 
 export function getAnchorProvider(customAdaptor?: ReturnType<typeof getWalletAdaptorConnected>): AnchorProvider {
     const adaptor = customAdaptor ?? getWalletAdaptorConnected();
-    const connection = new web3.Connection(getSolanaRPCUrl(), 'confirmed');
+    const connection = new web3.Connection(
+        getSolanaRPCUrl({
+            useDevCluster: envs.external.NEXT_PUBLIC_SOLANA_DEV === STATUS.Enabled,
+            httpUrl: envs.external.NEXT_PUBLIC_SOLANA_RPC_URL,
+        }),
+        'confirmed',
+    );
     const wallet = {
         publicKey: adaptor.publicKey,
         signTransaction: adaptor.signTransaction.bind(adaptor),

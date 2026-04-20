@@ -1,7 +1,7 @@
+import { isSameSolanaChainId } from '@dimensiondev/web3/chains';
 import { isNativeTokenOrSameAddress } from '@dimensiondev/web3/utils';
 import { useQuery } from '@tanstack/react-query';
 
-import { chainsMatch } from '@/helpers/isSolanaChain.js';
 import { createSwapEndpoint } from '@/providers/swap/swapEndpoint.js';
 
 interface Options {
@@ -18,7 +18,7 @@ export function useSwapTokenDetail({ address, chainId }: Options) {
             const results = await endpoint.getTokenDetailBatch([{ chainId: String(chainId), address }]);
             return (
                 results.find((t) => {
-                    return chainsMatch(t.chainId, chainId) && isNativeTokenOrSameAddress(t.address, address);
+                    return isSameSolanaChainId(t.chainId, chainId) && isNativeTokenOrSameAddress(t.address, address);
                 }) ?? null
             );
         },

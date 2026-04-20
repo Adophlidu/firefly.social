@@ -1,5 +1,7 @@
-import { chains, solana } from '@dimensiondev/web3/chains';
 import urlcat from 'urlcat';
+
+import { chains } from '@/chains/eth.js';
+import { solana } from '@/chains/sol.js';
 
 export function getBlockExplorersURL(chainId: number, id: string, type: 'address' | 'tx') {
     if (chainId === solana.id) {

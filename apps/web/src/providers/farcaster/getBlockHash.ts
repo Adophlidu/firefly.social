@@ -1,8 +1,9 @@
 import { web3 } from '@coral-xyz/anchor';
+import { envs, STATUS } from '@dimensiondev/envs';
+import { getSolanaRPCUrl } from '@dimensiondev/web3/utils';
 import { optimism } from 'viem/chains';
 
 import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
-import { getSolanaRPCUrl } from '@/helpers/getSolanaRPCUrl.js';
 
 export async function getEthereumBlockHash(): Promise<string> {
     try {
@@ -16,7 +17,13 @@ export async function getEthereumBlockHash(): Promise<string> {
 
 export async function getSolanaBlockHash(): Promise<string> {
     try {
-        const connection = new web3.Connection(getSolanaRPCUrl(), 'confirmed');
+        const connection = new web3.Connection(
+            getSolanaRPCUrl({
+                useDevCluster: envs.external.NEXT_PUBLIC_SOLANA_DEV === STATUS.Enabled,
+                httpUrl: envs.external.NEXT_PUBLIC_SOLANA_RPC_URL,
+            }),
+            'confirmed',
+        );
         const latestBlockhash = await connection.getLatestBlockhash();
         return latestBlockhash.blockhash;
     } catch (error) {

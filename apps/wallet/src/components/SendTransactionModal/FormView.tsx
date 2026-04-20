@@ -7,7 +7,15 @@ import WalletIcon from '@dimensiondev/assets/wallet.fill.svg';
 import { safeUnreachable, unreachable } from '@dimensiondev/utils';
 import { solana as solanaMainnetChain } from '@dimensiondev/web3/chains';
 import { ETH_ZERO_ADDRESS, SOL_ZERO_ADDRESS } from '@dimensiondev/web3/constants';
-import { isSameAddress, isValidAddress, isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3/utils';
+import { isGreaterThanOrEqualTo, multipliedBy, plus } from '@dimensiondev/web3/numbers';
+import {
+    formatLamportsToSol,
+    isSameAddress,
+    isValidAddress,
+    isValidAddressEthereum,
+    isValidAddressSolana,
+    resolveWagmiChain,
+} from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useWallets } from '@privy-io/react-auth';
@@ -36,14 +44,11 @@ import { Button } from '@/components/ui/button.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { config } from '@/configs/wagmiClient.js';
 import { NetworkType } from '@/constants/enum.js';
-import { formatLamportsToSol } from '@/helpers/formatLamportsToSol.js';
 import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { isNativeTokenDebank } from '@/helpers/isNativeTokenDebank.js';
 import { normalizeDecimalInput } from '@/helpers/normalizeDecimalInput.js';
-import { isGreaterThanOrEqualTo, multipliedBy, plus } from '@/helpers/number.js';
 import { resolveEvmConnector } from '@/helpers/resolveEvmConnector.js';
-import { resolveWagmiChain } from '@/helpers/resolveWagmiChain.js';
 import { switchSwapEvmConnectorChain } from '@/helpers/swap/resolveSwapEvmConnector.js';
 import { resolveSwapEvmSigningWallet } from '@/helpers/swap/resolveSwapSigningWallet.js';
 import { useAutoHeightTextarea } from '@/hooks/useAutoHeightTextarea.js';

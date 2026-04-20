@@ -1,7 +1,7 @@
 import { defineConfig } from 'tsup';
 
 export default defineConfig({
-    entry: ['src/utils.ts', 'src/chains.ts', 'src/constants.ts'],
+    entry: ['src/utils.ts', 'src/chains.ts', 'src/constants.ts', 'src/numbers.ts'],
     format: ['esm', 'cjs'],
     dts: true,
     clean: true,
@@ -11,4 +11,5 @@ export default defineConfig({
     minify: false,
     target: 'es2020',
     outDir: 'dist',
+    external: ['wagmi', 'wagmi/actions'],
 });

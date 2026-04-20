@@ -1,6 +1,7 @@
 'use client';
 
 import { classNames } from '@dimensiondev/utils';
+import { multipliedBy } from '@dimensiondev/web3/numbers';
 import { formatAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 
@@ -9,7 +10,6 @@ import { ProfileSourceIcon } from '@/components/ProfileSourceIcon.js';
 import { PredictionPlatform } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { isSocialSource } from '@/helpers/isSource.js';
-import { multipliedBy } from '@/helpers/number.js';
 import { toFixedTrimmed } from '@/helpers/polymarket.js';
 import { resolveBetActivityTraderInfo } from '@/helpers/resolveTraderInfoForBetActivity.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';

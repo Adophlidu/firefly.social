@@ -1,4 +1,4 @@
-import { isLessThan } from '@/helpers/number.js';
+import { isLessThan } from '@dimensiondev/web3/numbers';
 
 /**
  * @param value 0-1

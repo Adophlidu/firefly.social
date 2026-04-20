@@ -1,4 +1,5 @@
 import { runInSafeAsync } from '@dimensiondev/utils';
+import { toFixed } from '@dimensiondev/web3/numbers';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { compact, first, last, values } from 'lodash-es';
@@ -15,7 +16,6 @@ import { fetchImageAsPNG } from '@/helpers/fetchImageAsPNG.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isEmptyPost } from '@/helpers/isEmptyPost.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
-import { toFixed } from '@/helpers/number.js';
 import { createLocalMediaObject } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useCurrentProfiles } from '@/hooks/useCurrentProfile.js';

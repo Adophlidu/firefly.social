@@ -1,5 +1,7 @@
 import ArrowDownIcon from '@dimensiondev/assets/arrow-line-down.svg';
 import BetSwitchIcon from '@dimensiondev/assets/bet-exchange.svg';
+import { isSolanaChain } from '@dimensiondev/web3/chains';
+import { dividedBy, isLessThan, multipliedBy, toFixed } from '@dimensiondev/web3/numbers';
 import { isNativeTokenOrSameAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
@@ -21,8 +23,6 @@ import { BET_DEPOSIT_MIN_USD } from '@/constants/static.js';
 import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
 import { formatTokenItemAmount } from '@/helpers/formatTokenItemAmount.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
-import { isSolanaChain } from '@/helpers/isSolanaChain.js';
-import { dividedBy, isLessThan, multipliedBy, toFixed } from '@/helpers/number.js';
 import { useAddFunds } from '@/hooks/bet/useAddFunds.js';
 import { useCheckGasForDeposit } from '@/hooks/bet/useCheckGasForDeposit.js';
 import { usdcTokenFallback, useDepositToken } from '@/hooks/bet/useTokenDetail.js';

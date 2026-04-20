@@ -5,11 +5,11 @@ import {
     type Pageable,
     type PageIndicator,
 } from '@dimensiondev/utils';
+import { isZero } from '@dimensiondev/web3/numbers';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { formatFireflyNotification } from '@/helpers/formatFireflyNotification.js';
-import { isZero } from '@/helpers/number.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';

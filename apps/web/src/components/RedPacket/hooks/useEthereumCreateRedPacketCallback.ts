@@ -1,4 +1,5 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { rightShift, toFixed } from '@dimensiondev/web3/numbers';
 import { t } from '@lingui/core/macro';
 import { first, omit, pick } from 'lodash-es';
 import { useContext, useMemo } from 'react';
@@ -13,7 +14,6 @@ import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { DEFAULT_THEME_ID, RED_PACKET_CONTRACT_VERSION, RED_PACKET_DURATION } from '@/constants/rp.js';
 import { SITE_URL } from '@/constants/static.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { rightShift, toFixed } from '@/helpers/number.js';
 import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { RedPacketContext } from '@/modals/RedPacketModal/RedPacketContext.js';

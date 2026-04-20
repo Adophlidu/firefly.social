@@ -1,11 +1,11 @@
 import type { ChainId } from '@dimensiondev/web3/chains';
+import { rightShift } from '@dimensiondev/web3/numbers';
 import { isNativeTokenAddress } from '@dimensiondev/web3/utils';
 import { type Address, erc20Abi, type Hex } from 'viem';
 import { readContract, sendTransaction } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmiClient.js';
 import { tryFreeGasTransaction } from '@/helpers/freeGas/tryFreeGasTransaction.js';
-import { rightShift } from '@/helpers/number.js';
 import { estimateSwapGas } from '@/helpers/swap/estimateSwapGas.js';
 import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
 import type { SwapEndpoint } from '@/providers/swap/swapEndpoint.js';

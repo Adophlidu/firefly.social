@@ -1,6 +1,6 @@
 import { BN, web3 } from '@coral-xyz/anchor';
+import { multipliedBy } from '@dimensiondev/web3/numbers';
 
-import { multipliedBy } from '@/helpers/number.js';
 import { getCreator } from '@/providers/solana/red-packet/getCreator.js';
 import { getProgram } from '@/providers/solana/red-packet/getProgram.js';
 import { runRPC } from '@/providers/solana/red-packet/runRPC.js';

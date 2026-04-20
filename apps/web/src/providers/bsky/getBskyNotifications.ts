@@ -8,10 +8,10 @@ import {
     type Pageable,
     type PageIndicator,
 } from '@dimensiondev/utils';
+import { isZero } from '@dimensiondev/web3/numbers';
 import { compact, uniq } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
-import { isZero } from '@/helpers/number.js';
 import { formatBskyFeedPost, formatBskyPost } from '@/providers/bsky/formatBskyFeedPost.js';
 import { formatBskyProfile } from '@/providers/bsky/formatBskyProfile.js';
 import { resolveBskyResponseData } from '@/providers/bsky/resolveBskyResponseData.js';

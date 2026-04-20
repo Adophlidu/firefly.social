@@ -1,6 +1,7 @@
 import { web3 } from '@coral-xyz/anchor';
 import { delay } from '@dimensiondev/utils';
-import type { ChainId } from '@dimensiondev/web3/chains';
+import { type ChainId, isSolanaChain } from '@dimensiondev/web3/chains';
+import { getSolanaRPCUrl } from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
 import { type ConnectedWallet, useWallets as useEvmWallets } from '@privy-io/react-auth';
 import { useWallets as useSolanaWallets } from '@privy-io/react-auth/solana';
@@ -15,10 +16,9 @@ import type { Address, Hex } from 'viem';
 import { sendTransaction } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmiClient.js';
+import { env } from '@/constants/env.js';
 import { tryFreeGasTransaction } from '@/helpers/freeGas/tryFreeGasTransaction.js';
 import { getUserFacingErrorMessage } from '@/helpers/getErrorMessage.js';
-import { getSolanaRPCUrl } from '@/helpers/getSolanaRPCUrl.js';
-import { isSolanaChain } from '@/helpers/isSolanaChain.js';
 import { signAndBroadcastSolanaTransaction } from '@/helpers/signAndBroadcastSolanaTransaction.js';
 import type { BuildSwapAnalyticsParamsInput } from '@/helpers/swap/buildSwapAnalyticsParams.js';
 import { estimateSwapGas } from '@/helpers/swap/estimateSwapGas.js';
@@ -219,7 +219,10 @@ async function executeSolanaSwap({
         if (!provider) throw new Error('AppKit Solana provider not available');
 
         const transaction = web3.VersionedTransaction.deserialize(txBytes);
-        const connection = new web3.Connection(getSolanaRPCUrl(), 'confirmed');
+        const connection = new web3.Connection(
+            getSolanaRPCUrl({ httpUrl: env.external.NEXT_PUBLIC_SOLANA_RPC_URL }),
+            'confirmed',
+        );
         const signature = await provider.sendTransaction(transaction, connection);
         hash = typeof signature === 'string' ? signature : bs58.encode(signature);
     } else {
@@ -236,7 +239,10 @@ async function executeSolanaSwap({
     // Wait for on-chain confirmation by polling signature status.
     // Using getLatestBlockhash AFTER broadcast is unreliable — lastValidBlockHeight
     // may already be in the past, causing confirmTransaction to reject a succeeded tx.
-    const connection = new web3.Connection(getSolanaRPCUrl(), 'confirmed');
+    const connection = new web3.Connection(
+        getSolanaRPCUrl({ httpUrl: env.external.NEXT_PUBLIC_SOLANA_RPC_URL }),
+        'confirmed',
+    );
     let confirmed = false;
     for (let i = 0; i < 60; i += 1) {
         const statuses = await connection.getSignatureStatuses([hash]);

@@ -1,6 +1,7 @@
 'use client';
 
 import { runInSafeAsync } from '@dimensiondev/utils';
+import { minus, ZERO } from '@dimensiondev/web3/numbers';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { BigNumber } from 'bignumber.js';
@@ -31,7 +32,6 @@ import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
 import { getNativeToken } from '@/helpers/getNativeToken.js';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
-import { minus, ZERO } from '@/helpers/number.js';
 import { openComposeModal } from '@/helpers/openComposeModal.js';
 import { usePreloadImage } from '@/helpers/preloadImage.js';
 import { usePrivyAppkitAccountByNetwork } from '@/hooks/appkit/usePrivyAppkitAccountByNetwork.js';

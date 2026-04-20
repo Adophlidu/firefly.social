@@ -1,6 +1,5 @@
+import { rightShift } from '@dimensiondev/web3/numbers';
 import { BigNumber } from 'bignumber.js';
-
-import { rightShift } from '@/helpers/number.js';
 
 function abbreviationForZero(str: string, zeroCount: number) {
     if (zeroCount <= 1) return str;

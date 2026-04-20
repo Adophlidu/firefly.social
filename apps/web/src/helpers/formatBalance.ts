@@ -1,8 +1,8 @@
 import { NODE_ENV } from '@dimensiondev/envs';
+import { isLessThan, leftShift, scale10 } from '@dimensiondev/web3/numbers';
 import { BigNumber } from 'bignumber.js';
 import { trimEnd } from 'lodash-es';
 
-import { isLessThan, leftShift, scale10 } from '@/helpers/number.js';
 import { logger } from '@/libs/Logger.js';
 
 /** Trim ending zeros of decimals */

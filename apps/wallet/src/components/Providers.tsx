@@ -1,6 +1,7 @@
 import '@/configs/appkit.js';
 
 import { chains } from '@dimensiondev/web3/chains';
+import { getSolanaRPCSubscriptionsUrl } from '@dimensiondev/web3/utils';
 import { type PrivyClientConfig, PrivyProvider } from '@privy-io/react-auth';
 import { WagmiProvider } from '@privy-io/wagmi';
 import { createSolanaRpc, createSolanaRpcSubscriptions } from '@solana/kit';
@@ -12,7 +13,6 @@ import { mainnet } from 'viem/chains';
 import { queryClient } from '@/configs/queryClient.js';
 import { config } from '@/configs/wagmiClient.js';
 import { env } from '@/constants/env.js';
-import { getSolanaRPCSubscriptionsUrl } from '@/helpers/getSolanaRPCSubscriptionsUrl.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { showEmbeddedWalletUIAtom } from '@/store/embeddedWallets.js';
 import { store } from '@/store/index.js';
@@ -47,7 +47,12 @@ function PrivyThemedProvider({ children }: PropsWithChildren) {
                 rpcs: {
                     'solana:mainnet': {
                         rpc: createSolanaRpc(env.external.NEXT_PUBLIC_SOLANA_RPC_URL),
-                        rpcSubscriptions: createSolanaRpcSubscriptions(getSolanaRPCSubscriptionsUrl()),
+                        rpcSubscriptions: createSolanaRpcSubscriptions(
+                            getSolanaRPCSubscriptionsUrl({
+                                wsUrl: env.external.NEXT_PUBLIC_SOLANA_RPC_WS_URL,
+                                httpUrl: env.external.NEXT_PUBLIC_SOLANA_RPC_URL,
+                            }),
+                        ),
                     },
                 },
             },

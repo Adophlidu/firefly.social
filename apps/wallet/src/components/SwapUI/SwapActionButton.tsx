@@ -1,11 +1,11 @@
 import SwapLoadingIcon from '@dimensiondev/assets/swap-loading.svg';
+import { isGreaterThan } from '@dimensiondev/web3/numbers';
 import { isNativeTokenAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useAtomValue } from 'jotai';
 import { memo, type ReactNode, useMemo } from 'react';
 
 import { ActionButton } from '@/components/ActionButton.js';
-import { isGreaterThan } from '@/helpers/number.js';
 import { useResolvedSwapTokens } from '@/hooks/swap/useResolvedSwapTokens.js';
 import { useSwapQuote } from '@/hooks/swap/useSwapQuote.js';
 import { useSwapContextWalletAddresses } from '@/hooks/useCachedWalletAddresses.js';

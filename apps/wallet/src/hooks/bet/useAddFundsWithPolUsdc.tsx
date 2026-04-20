@@ -1,3 +1,4 @@
+import { addAndSwitchChain } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useSetActiveWallet } from '@privy-io/wagmi';
 import { useAsyncFn } from 'react-use';
@@ -8,7 +9,6 @@ import { simulateContract, waitForTransactionReceipt, writeContract } from 'wagm
 
 import { queryClient } from '@/configs/queryClient.js';
 import { InsufficientGasError } from '@/constants/error.js';
-import { addAndSwitchChain } from '@/helpers/addAndSwitchChain.js';
 import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
 import { tryFreeGasTransaction } from '@/helpers/freeGas/tryFreeGasTransaction.js';
 import { useEmbeddedEvmWalletContext } from '@/hooks/useCachedWalletAddresses.js';

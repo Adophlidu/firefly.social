@@ -1,12 +1,12 @@
 'use client';
 
+import { isGreaterThan, leftShift, multipliedBy } from '@dimensiondev/web3/numbers';
 import { Trans } from '@lingui/react/macro';
 import type { BigNumber } from 'bignumber.js';
 import { memo, useMemo } from 'react';
 
 import { formatPrice } from '@/helpers/formatPrice.js';
 import { getNativeToken } from '@/helpers/getNativeToken.js';
-import { isGreaterThan, leftShift, multipliedBy } from '@/helpers/number.js';
 import { useNativeTokenPrice } from '@/hooks/useNativeTokenPrice.js';
 import { useTipsStore } from '@/store/useTipsStore.js';
 

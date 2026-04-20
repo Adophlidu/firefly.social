@@ -5,9 +5,9 @@ import {
     type Pageable,
     type PageIndicator,
 } from '@dimensiondev/utils';
+import { isZero } from '@dimensiondev/web3/numbers';
 import urlcat from 'urlcat';
 
-import { isZero } from '@/helpers/number.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { formatFarcasterPostFromFirefly } from '@/providers/farcaster/formatFarcasterPostFromFirefly.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';

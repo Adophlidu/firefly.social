@@ -7,7 +7,7 @@ import Approve from '@dimensiondev/assets/tick-circle.svg';
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { solana } from '@dimensiondev/web3/chains';
-import { formatAddress } from '@dimensiondev/web3/utils';
+import { formatAddress, getBlockExplorersURL } from '@dimensiondev/web3/utils';
 import { Select, Trans } from '@lingui/react/macro';
 import { Link, useNavigate } from '@tanstack/react-router';
 import { first } from 'lodash-es';
@@ -26,7 +26,6 @@ import { TransactionDate } from '@/components/TransactionDetailModal/Transaction
 import { TxLink } from '@/components/TransactionDetailModal/TxLink.js';
 import { NetworkType, Source } from '@/constants/enum.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
-import { getBlockExplorersURL } from '@/helpers/getBlockExplorersURL.js';
 import { getChainName } from '@/helpers/getChainName.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';

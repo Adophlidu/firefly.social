@@ -22,8 +22,10 @@ export async function addAndSwitchChain(config: Config, chainId: number) {
             params: [{ chainId: chainIdHex }],
         });
         return;
-    } catch (error: any) {
-        const isChainNotAdded = error?.code === 4902 || error?.message?.toLowerCase().includes('unrecognized chain');
+    } catch (error: unknown) {
+        const connectionError = error as { code: number; message: string };
+        const isChainNotAdded =
+            connectionError?.code === 4902 || connectionError?.message?.toLowerCase().includes('unrecognized chain');
 
         if (!isChainNotAdded) {
             throw error;

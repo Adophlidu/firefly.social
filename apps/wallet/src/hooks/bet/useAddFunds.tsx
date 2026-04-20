@@ -1,4 +1,6 @@
 import { InvalidResultError, retry } from '@dimensiondev/utils';
+import { isSolanaChain } from '@dimensiondev/web3/chains';
+import { multipliedBy } from '@dimensiondev/web3/numbers';
 import { isNativeTokenOrSameAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -8,8 +10,6 @@ import type { Address } from 'viem';
 import { polygon } from 'viem/chains';
 
 import { getUserFacingErrorMessage } from '@/helpers/getErrorMessage.js';
-import { isSolanaChain } from '@/helpers/isSolanaChain.js';
-import { multipliedBy } from '@/helpers/number.js';
 import { optimisticAddBalance } from '@/helpers/polymarketBalanceCache.js';
 import { useAddFundsWithPolUsdc } from '@/hooks/bet/useAddFundsWithPolUsdc.js';
 import { usdcTokenFallback } from '@/hooks/bet/useTokenDetail.js';

@@ -1,3 +1,4 @@
+import { isGreaterThan, isLessThan, leftShift, minus, multipliedBy, rightShift } from '@dimensiondev/web3/numbers';
 import { getTokenAbiForWagmi } from '@dimensiondev/web3/utils';
 import type { Address, Hash } from 'viem';
 import { encodeFunctionData, parseUnits } from 'viem';
@@ -8,7 +9,6 @@ import { config } from '@/configs/wagmiClient.js';
 import { tryFreeGasTransaction } from '@/helpers/freeGas/tryFreeGasTransaction.js';
 import { getBalanceOf } from '@/helpers/getBalanceOf.js';
 import { isNativeTokenDebank } from '@/helpers/isNativeTokenDebank.js';
-import { isGreaterThan, isLessThan, leftShift, minus, multipliedBy, rightShift } from '@/helpers/number.js';
 import { switchEthereumChain } from '@/helpers/switchEthereumChain.js';
 import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
 import { getDefaultGas } from '@/providers/ethereum/getDefaultGas.js';

@@ -3,6 +3,7 @@
 import TimeIcon from '@dimensiondev/assets/time.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { classNames } from '@dimensiondev/utils';
+import { isZero } from '@dimensiondev/web3/numbers';
 import { Trans } from '@lingui/react/macro';
 import dayjs from 'dayjs';
 import { capitalize, first } from 'lodash-es';
@@ -17,7 +18,6 @@ import { Timer } from '@/components/RedPacket/Timer.js';
 import { PredictionPlatform, type PredictionPlatform as PredictionPlatformType } from '@/constants/enum.js';
 import { bedStead } from '@/fonts/bedStead/index.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
-import { isZero } from '@/helpers/number.js';
 import { openPredictionPage } from '@/helpers/openPredictionPage.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import type { BetsEventDataForUI, BetsMarketDataForUI } from '@/types/prediction.js';

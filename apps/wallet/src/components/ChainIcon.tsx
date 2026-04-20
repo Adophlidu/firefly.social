@@ -19,7 +19,7 @@ import xdaiImage from '@dimensiondev/assets/chains/xdai.png';
 import xlayerImage from '@dimensiondev/assets/chains/xlayer.png';
 import zksyncImage from '@dimensiondev/assets/chains/zksync.png';
 import zoraImage from '@dimensiondev/assets/chains/zora.png';
-import { solana } from '@dimensiondev/web3/chains';
+import { isSameSolanaChainId, solana } from '@dimensiondev/web3/chains';
 import { type HTMLProps, memo } from 'react';
 import {
     arbitrum,
@@ -46,7 +46,6 @@ import {
 
 import { Image } from '@/components/Image.js';
 import type { NetworkType } from '@/constants/enum.js';
-import { chainsMatch } from '@/helpers/isSolanaChain.js';
 import { cn } from '@/lib/utils.js';
 
 const ICONS = [
@@ -81,7 +80,7 @@ interface ChainIconProps extends HTMLProps<HTMLImageElement> {
 }
 
 export const ChainIcon = memo(function ChainIcon({ chainId, icon, size = 22, className }: ChainIconProps) {
-    const src = icon || ICONS.find((i) => chainsMatch(i.chainId, chainId))?.icon;
+    const src = icon || ICONS.find((i) => isSameSolanaChainId(i.chainId, chainId))?.icon;
 
     if (!src) return null;
 

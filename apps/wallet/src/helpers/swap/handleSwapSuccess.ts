@@ -1,9 +1,9 @@
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
 import { solana } from '@dimensiondev/web3/chains';
+import { getBlockExplorersURL } from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
 import { toast } from 'sonner';
 
-import { getBlockExplorersURL } from '@/helpers/getBlockExplorersURL.js';
 import type { SwapAnalyticsParams } from '@/helpers/swap/buildSwapAnalyticsParams.js';
 import { captureWalletTelemetryEvent, WalletTelemetryEventId } from '@/helpers/swap/swapAnalytics.js';
 import { uploadSwapTx } from '@/helpers/swap/uploadSwapTx.js';

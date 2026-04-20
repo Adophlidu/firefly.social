@@ -1,11 +1,11 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { chains, solana } from '@dimensiondev/web3/chains';
+import { plus } from '@dimensiondev/web3/numbers';
 import { useQuery } from '@tanstack/react-query';
 import { BigNumber } from 'bignumber.js';
 import { compact } from 'lodash-es';
 
 import { formatTokenFromFireflyTokenAsset } from '@/helpers/formatTokenFromFireflyTokenAsset.js';
-import { plus } from '@/helpers/number.js';
 import { useEmbeddedWalletAddresses } from '@/hooks/useCachedWalletAddresses.js';
 import { useCustomTokensWithBalance } from '@/hooks/useCustomTokensWithBalance.js';
 import { getMultiChainTokensQuery } from '@/queries/firefly/multiChainTokens.js';
