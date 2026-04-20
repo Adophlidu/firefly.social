@@ -7,7 +7,7 @@ import { DEFAULT_SERVICE_URL } from '@/constants/bsky.js';
 import { SourceInURL } from '@/constants/enum.js';
 import { HIDDEN_SECRET } from '@/constants/static.js';
 import { decrypt } from '@/helpers/encodec.js';
-import { ensureHexPrefix } from '@/helpers/ensureHexPrefix.js';
+import { ensureHexPrefix } from '@dimensiondev/web3/utils';
 import { formatFireflyAccountProfileFromFireflyConnections } from '@/helpers/formatFireflyAccountProfileFromFireflyConnections.js';
 import { BskySession } from '@/providers/bsky/Session.js';
 import { FAKE_SIGNER_REQUEST_TOKEN, FarcasterSession } from '@/providers/farcaster/Session.js';

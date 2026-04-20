@@ -10,7 +10,7 @@ import { SessionExpiredError } from '@/constants/error.js';
 import { SEVEN_DAYS } from '@/constants/static.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
-import { ensureHexPrefix } from '@/helpers/ensureHexPrefix.js';
+import { ensureHexPrefix } from '@dimensiondev/web3/utils';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { getAccountMetricsData } from '@/helpers/getAccountMetricsData.js';
 import { getAllAccounts } from '@/helpers/getAllProfiles.js';

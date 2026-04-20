@@ -3,7 +3,7 @@ import bs58 from 'bs58';
 import { toBytes } from 'viem';
 
 import { Protocol } from '@/constants/farcaster.js';
-import { ensureHexPrefix } from '@/helpers/ensureHexPrefix.js';
+import { ensureHexPrefix } from '@dimensiondev/web3/utils';
 
 export function convertFarcasterAddressToBytes(address: string, protocol: Protocol): Uint8Array {
     try {
