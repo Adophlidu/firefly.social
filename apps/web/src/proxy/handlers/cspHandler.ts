@@ -28,47 +28,61 @@ function buildCSP(): string {
 
     const connectSrc = [
         "'self'",
+        // First party
+        '*.r2d2.to',
         'api.firefly.land',
+        'firefly.land',
+
+        '*.bsky.network',
+        'bsky.social',
+        'public.api.bsky.app',
+
+        // Twitter
+        'video.twimg.com',
+
         'api.lens.xyz',
-        'api.web3modal.org',
-        'firefly.r2d2.to',
-        'pulse.walletconnect.org',
+        'rpc.lens.xyz',
+
         'static.cloudflareinsights.com',
+        'www.google-analytics.com',
+
+        // Web3 APIs
+        '*.quiknode.pro',
+        'auth.privy.io',
+        'api.web3modal.org',
+        'cca-lite.coinbase.com',
+        'eth.llamarpc.com',
+
+        'explorer-api.walletconnect.com',
+        'pulse.walletconnect.org',
+        'relay.walletconnect.org',
+        'rpc.walletconnect.org',
         ...EXTRA_SOURCES,
     ];
 
     const scriptSrc = [
         "'self'",
-        'api.firefly.land',
-        'api.lens.xyz',
-        'api.web3modal.org',
+        "'report-sample'",
+        // apps/web/src/app/layout.tsx
+        // enable hash-based script in development will require all scripts to be trusted, which will break dev mode of React and Next.js
+        IS_DEVELOPMENT ? null : "'sha256-L470bX2hxikL0zolJ8AuD4n339IGj2H/dlbuf1rdlpU='",
+        IS_DEVELOPMENT ? "'unsafe-eval' 'unsafe-inline'" : null,
         'www.googletagmanager.com',
-        'pulse.walletconnect.org',
         'static.cloudflareinsights.com',
         ...EXTRA_SOURCES,
-    ];
+    ].filter(Boolean) as string[];
 
-    const imgSrc = [
-        "'self'",
-        'i.imgur.com',
-        'api.web3modal.org',
-        'pbs.twimg.com',
-        'gw.ipfs-lens.dev',
-        'stamp.firefly.land',
-        'media.firefly.land',
-        'imagedelivery.net',
-        'ik.imagekit.io',
-        'api.grove.storage',
-        'cdn.bsky.app',
-        'public.rootdata.com',
-        ...EXTRA_SOURCES,
-    ];
+    const imgSrc = ['*', 'data:', 'blob:'];
 
     const styleSrc = ["'self'", "'unsafe-inline'", 'fonts.reown.com', 'fonts.googleapis.com', ...EXTRA_SOURCES];
 
     const fontSrc = ["'self'", 'fonts.reown.com', 'fonts.googleapis.com', ...EXTRA_SOURCES];
 
+    // fallback to child-src, then default-src
     const workerSrc = ["'self'", ...EXTRA_SOURCES];
+
+    // what iframe we can load, fallback to child-src, then default-src
+    const frameSrc = ["'self'", ...EXTRA_SOURCES];
 
     const directives = [
         `default-src ${defaultSrc.join(' ')}`,
@@ -78,8 +92,9 @@ function buildCSP(): string {
         `style-src ${styleSrc.join(' ')}`,
         `font-src ${fontSrc.join(' ')}`,
         `worker-src ${workerSrc.join(' ')}`,
+        `frame-src ${frameSrc.join(' ')}`,
         `report-uri ${CSP_REPORT_URI}`,
-    ];
+    ].filter(Boolean);
 
     return directives.join('; ');
 }
@@ -99,10 +114,26 @@ export function handleCSP(_request: NextRequest, next: () => NextResponse | unde
             headers: response.headers,
         });
 
-        modifiedResponse.headers.set('Content-Security-Policy-Report-Only', csp);
+        if (IS_DEVELOPMENT) {
+            modifiedResponse.headers.set('Content-Security-Policy', csp);
+        } else {
+            modifiedResponse.headers.set('Content-Security-Policy-Report-Only', csp);
+        }
 
         return modifiedResponse;
     }
 
     return response;
 }
+
+export const config = {
+    matcher: [
+        {
+            source: '/((?!api|_next/static|_next/image|favicon.ico).*)',
+            missing: [
+                { type: 'header', key: 'next-router-prefetch' },
+                { type: 'header', key: 'purpose', value: 'prefetch' },
+            ],
+        },
+    ],
+};

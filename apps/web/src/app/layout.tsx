@@ -32,6 +32,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                 <meta name="googlebot" content="notranslate" />
                 {IS_PRODUCTION ? null : <meta name="robots" content="noindex, nofollow" />}
                 {/* Inline theme script — executes synchronously during HTML parsing, before any paint */}
+                {/* Update apps/web/src/proxy/handlers/cspHandler.ts if you edit the script */}
                 {/* eslint-disable react/no-danger */}
                 <script
                     dangerouslySetInnerHTML={{
