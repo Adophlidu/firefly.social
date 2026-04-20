@@ -142,14 +142,17 @@ function DepositClient() {
         isQuoteLoading ||
         isGasLoading;
     const buttonLabel = useMemo(() => {
-        if (isLessThanMinimum) {
-            return <Trans>Minimum $1.00</Trans>;
+        if (isInsufficientBalance) {
+            return <Trans>Insufficient Balance</Trans>;
         }
         if (isInsufficientGas) {
             return <Trans>Insufficient Gas</Trans>;
         }
+        if (isLessThanMinimum) {
+            return <Trans>Minimum $1.00</Trans>;
+        }
         return <Trans>Add Funds</Trans>;
-    }, [isLessThanMinimum, isInsufficientGas]);
+    }, [isLessThanMinimum, isInsufficientGas, isInsufficientBalance]);
 
     const { mutateAsync, isPending } = useAddFunds({
         depositToken: depositToken ?? undefined,

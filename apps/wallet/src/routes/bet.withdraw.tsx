@@ -189,11 +189,14 @@ function WithdrawClient() {
         !targetToken ||
         isLoadingTargetToken;
     const buttonLabel = useMemo(() => {
+        if (isInsufficientBalance) {
+            return <Trans>Insufficient Balance</Trans>;
+        }
         if (isLessThanMinimum) {
             return <Trans>Minimum $1.00</Trans>;
         }
         return <Trans>Withdraw</Trans>;
-    }, [isLessThanMinimum]);
+    }, [isLessThanMinimum, isInsufficientBalance]);
 
     if (isEmbeddedWalletLoading || !evmAddress || !evmWallet || !receiverAddress) {
         return <LoadingPanel />;
