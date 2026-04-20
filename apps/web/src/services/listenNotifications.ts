@@ -1,6 +1,7 @@
 import type { Pageable, PageIndicator } from '@dimensiondev/utils';
 import { runInSafeAsync } from '@dimensiondev/utils';
 
+import { X_WEBHOOK_WHITELIST_CLIENT_IDS } from '@/constants/computed.js';
 import { NotificationSourceType, type ProfileSource, Source } from '@/constants/enum.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { isSocialSource } from '@/helpers/isSource.js';
@@ -75,6 +76,9 @@ async function scheduleListen(config: Config, jobId?: NodeJS.Timeout) {
 
     const currentProfileId = getCurrentProfileId(config.loginSource);
     if (!currentProfileId) return;
+
+    // For Twitter, only run the listener if the current profile is in the whitelist
+    if (config.loginSource === Source.Twitter && !X_WEBHOOK_WHITELIST_CLIENT_IDS.includes(currentProfileId)) return;
 
     const notifications = await runInSafeAsync(() => config.getNotifications());
     if (notifications?.data?.length) {
