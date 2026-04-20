@@ -12,12 +12,13 @@ import { useTipsStore } from '@/store/useTipsStore.js';
 
 interface EstimatedCostProps {
     gas: BigNumber;
+    canFreeGas?: boolean;
 }
 
-export const EstimatedCost = memo<EstimatedCostProps>(function EstimatedCost({ gas }) {
+export const EstimatedCost = memo<EstimatedCostProps>(function EstimatedCost({ gas, canFreeGas }) {
     const { token, recipient, tokenAmount } = useTipsStore();
 
-    const isValidGas = isGreaterThan(gas, 0);
+    const isValidGas = !canFreeGas && isGreaterThan(gas, 0);
     const { data } = useNativeTokenPrice(
         {
             chainId: token?.chainId,
@@ -31,10 +32,12 @@ export const EstimatedCost = memo<EstimatedCostProps>(function EstimatedCost({ g
             token && recipient?.networkType ? getNativeToken(recipient.networkType, token.chainId) : null;
         const tokenUsdtValue = token?.price && tokenAmount ? multipliedBy(token.price, tokenAmount) : null;
         const gasUsdtValue =
-            data && isValidGas && nativeToken ? leftShift(gas, nativeToken.decimals).multipliedBy(data) : null;
+            !canFreeGas && data && isValidGas && nativeToken
+                ? leftShift(gas, nativeToken.decimals).multipliedBy(data)
+                : null;
 
         return tokenUsdtValue ? tokenUsdtValue.plus(gasUsdtValue || 0) : null;
-    }, [data, token, isValidGas, gas, recipient?.networkType, tokenAmount]);
+    }, [data, token, isValidGas, gas, recipient?.networkType, tokenAmount, canFreeGas]);
 
     return (
         <p className="mt-4 flex h-5 items-center justify-between text-sm">

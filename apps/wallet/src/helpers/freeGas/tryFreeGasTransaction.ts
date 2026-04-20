@@ -1,4 +1,5 @@
-import { isSupportedStablecoin } from '@dimensiondev/web3/utils';
+import { isFreeGasSupportedChain, isSupportedStablecoin } from '@dimensiondev/web3/utils';
+import type { Address } from 'viem';
 
 import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
 import { logger } from '@/lib/Logger.js';
@@ -8,9 +9,9 @@ import { getFireflyEndpoint } from '@/store/fireflyEndpoint.js';
 export interface TryFreeGasParams {
     chainId: number;
     txType: FreeGasTxType;
-    from: string;
-    to: string;
-    data: string;
+    from: Address;
+    to: Address;
+    data: `0x${string}`;
     value?: string;
     tokenAddress?: string;
 }
@@ -21,6 +22,8 @@ export async function tryFreeGasTransaction(
     try {
         const { chainId, txType, from, to, data, value, tokenAddress } = params;
 
+        if (!isFreeGasSupportedChain(chainId)) return { type: 'fallback' } as const;
+
         // Only token transfers are restricted to supported stablecoins
         if (txType === FreeGasTxType.TokenTransfer && !isSupportedStablecoin(chainId, tokenAddress ?? to)) {
             return { type: 'fallback' } as const;
@@ -29,14 +32,14 @@ export async function tryFreeGasTransaction(
         const client = createWagmiPublicClient(chainId);
 
         const txId = crypto.randomUUID();
-        const nonce = await client.getTransactionCount({ address: from as `0x${string}`, blockTag: 'pending' });
+        const nonce = await client.getTransactionCount({ address: from, blockTag: 'pending' });
 
         let gas: bigint;
         try {
             const estimated = await client.estimateGas({
-                account: from as `0x${string}`,
-                to: to as `0x${string}`,
-                data: data as `0x${string}`,
+                account: from,
+                to,
+                data,
                 value: value ? BigInt(value) : 0n,
             });
             gas = (estimated * 12n) / 10n;

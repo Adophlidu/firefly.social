@@ -1,7 +1,7 @@
 import { isSolanaChain } from '@dimensiondev/web3/chains';
 import { ETH_NATIVE_TOKEN_ADDRESS, SOL_NATIVE_TOKEN_ADDRESS } from '@dimensiondev/web3/constants';
 import { isLessThan, leftShift, minus, multipliedBy } from '@dimensiondev/web3/numbers';
-import { isNativeTokenAddress } from '@dimensiondev/web3/utils';
+import { isFreeGasSupportedChain, isNativeTokenAddress } from '@dimensiondev/web3/utils';
 import { useQuery } from '@tanstack/react-query';
 import type { Address, Hex } from 'viem';
 
@@ -81,6 +81,7 @@ export function useCheckGasForDeposit({ depositToken, amount, quote }: Options) 
         retry: 0,
         queryFn: async () => {
             if (!depositToken || !quote?.tx?.to) return false;
+            if (!isFreeGasSupportedChain(depositToken.chainId)) return false;
             return getFireflyEndpoint().checkFreeGasEligibility({
                 chainId: depositToken.chainId,
                 txType: FreeGasTxType.PolymarketDeposit,

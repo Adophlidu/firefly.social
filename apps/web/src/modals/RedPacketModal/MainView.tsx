@@ -265,8 +265,8 @@ export default function MainView() {
             const freeGasResult = await tryFreeGasTransaction({
                 chainId,
                 txType: FreeGasTxType.TokenApprove,
-                from: account,
-                to: token.address as string,
+                from: account as Address,
+                to: token.address as Address,
                 data: approveData,
             });
             if (freeGasResult.type === 'free-gas') {

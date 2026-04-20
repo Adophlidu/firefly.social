@@ -5,6 +5,7 @@ export * from '@/utils/getBlockExplorersURL.js';
 export * from '@/utils/getSolanaRPCSubscriptionsUrl.js';
 export * from '@/utils/getSolanaRPCUrl.js';
 export * from '@/utils/getTokenAbiForWagmi.js';
+export * from '@/utils/isFreeGasSupportedChain.js';
 export * from '@/utils/isSameAddress.js';
 export * from '@/utils/isSupportedStablecoin.js';
 export * from '@/utils/isUserRejectErrorInWallet.js';

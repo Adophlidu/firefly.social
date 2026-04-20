@@ -64,7 +64,7 @@ export function useAddFundsWithPolUsdc({ depositToken, polymarketAddress, amount
             chainId: depositToken.chainId,
             txType: FreeGasTxType.PolymarketDeposit,
             from: embeddedAddress,
-            to: depositToken.address,
+            to: depositToken.address as Address,
             data: (request as { data?: `0x${string}` }).data ?? '0x',
         });
         if (freeGasResult.type === 'free-gas') {

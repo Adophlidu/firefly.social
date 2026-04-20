@@ -22,6 +22,8 @@ import { resolveNetworkProvider, resolveTransferProvider } from '@/helpers/resol
 import { trimify } from '@/helpers/trimify.js';
 import { useSolanaWalletProvider } from '@/hooks/useSolanaWalletProvider.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/refs.js';
+import { checkFreeGasEligibility } from '@/providers/firefly/freeGas/checkFreeGasEligibility.js';
+import { FreeGasTxType } from '@/providers/firefly/freeGas/tryFreeGasTransaction.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import { reportAndCaptureTipEvent } from '@/services/reportAndCaptureTipEvent.js';
 import { useTipsStore } from '@/store/useTipsStore.js';
@@ -91,16 +93,27 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
                 return { label: <Trans>Insufficient Balance</Trans>, disabled: true };
             }
 
+            // Check if free gas applies via server-side eligibility check
+            const canFreeGas =
+                recipient.networkType === NetworkType.Ethereum &&
+                !token.custom &&
+                (await checkFreeGasEligibility({
+                    chainId: token.chainId,
+                    txType: FreeGasTxType.TokenTransfer,
+                    to: token.id,
+                }).catch(() => false));
+
             // ! The calculation of gas fee is not accurate on Solana, such as the fee for creating ATA is not included.
-            const { isValid, gas } =
-                recipient.networkType === NetworkType.Solana
-                    ? { isValid: true, gas: ZERO }
-                    : await transfer.validateGas({
-                          to: recipient.address,
-                          token,
-                          amount,
-                      });
-            if (isValid) return { label: <Trans>Send</Trans>, disabled: false, gas };
+            const { isValid, gas } = canFreeGas
+                ? { isValid: true, gas: ZERO }
+                : recipient.networkType === NetworkType.Solana
+                  ? { isValid: true, gas: ZERO }
+                  : await transfer.validateGas({
+                        to: recipient.address,
+                        token,
+                        amount,
+                    });
+            if (isValid) return { label: <Trans>Send</Trans>, disabled: false, gas, canFreeGas };
             return { label: <Trans>Insufficient Balance for Gas Fee</Trans>, disabled: true, gas };
         },
     });
@@ -193,7 +206,7 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
 
     return (
         <>
-            <EstimatedCost gas={value?.gas || ZERO} />
+            <EstimatedCost gas={value?.gas || ZERO} canFreeGas={value?.canFreeGas} />
             <motion.button
                 className={classNames(
                     'bg-lightMain text-lightBottom dark:text-darkBottom mt-4 flex h-10 w-full items-center justify-center gap-2 rounded-lg font-bold',

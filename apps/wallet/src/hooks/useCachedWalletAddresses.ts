@@ -3,6 +3,7 @@ import type { ConnectedStandardSolanaWallet } from '@privy-io/react-auth/solana'
 import { useWallets as useSolanaWallets } from '@privy-io/react-auth/solana';
 import { useAtomValue, useSetAtom } from 'jotai';
 import { useEffect, useMemo, useRef, useState } from 'react';
+import type { Address } from 'viem';
 
 import { accessPathAtom, SwapAccessPath } from '@/store/swap/swapState.js';
 import {
@@ -164,7 +165,7 @@ export function useEmbeddedEvmAddress(): string | null {
 }
 
 export function useEmbeddedEvmWalletContext(): {
-    address: string | null;
+    address: Address | null;
     wallet: ConnectedWallet | null;
     isReady: boolean;
     isLoading: boolean;
@@ -174,7 +175,7 @@ export function useEmbeddedEvmWalletContext(): {
     const wallet = useMemo(() => wallets.find((w) => w.walletClientType === 'privy') ?? null, [wallets]);
 
     return {
-        address: wallet?.address ?? null,
+        address: (wallet?.address as Address | undefined) ?? null,
         wallet,
         isReady: ready && !!wallet,
         isLoading: !ready,

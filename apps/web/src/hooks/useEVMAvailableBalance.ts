@@ -1,6 +1,6 @@
 'use client';
 
-import { isGreaterThan, multipliedBy, ZERO } from '@dimensiondev/web3/numbers';
+import { isGreaterThan as isGt, multipliedBy, ZERO } from '@dimensiondev/web3/numbers';
 import { isZeroAddressEthereum } from '@dimensiondev/web3/utils';
 import { useMemo } from 'react';
 import { useBalance, useEstimateFeesPerGas } from 'wagmi';
@@ -34,7 +34,7 @@ export function useEVMAvailableBalance(
         if (!balance || !enabled || !nativeBalance) return;
         const gasFee = multipliedBy((isEIP1559 ? maxFeePerGas?.toString() : gasPrice?.toString()) ?? ZERO, gas);
 
-        const insufficientGas = isGreaterThan(gasFee, nativeBalance.value ?? 0);
+        const insufficientGas = isGt(nativeBalance.value, 0) ? isGt(gasFee, nativeBalance.value) : true;
         if (!isNativeToken)
             return {
                 ...balance,

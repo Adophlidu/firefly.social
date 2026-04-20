@@ -149,7 +149,7 @@ async function executeEvmSwap({
         const freeGasResult = await tryFreeGasTransaction({
             chainId,
             txType: freeGasTxType,
-            from: walletAddress,
+            from: walletAddress as Address,
             to: quoteResult.tx.to as Address,
             data: quoteResult.tx.data as Hex,
             value: BigInt(quoteResult.tx.value || '0').toString(),

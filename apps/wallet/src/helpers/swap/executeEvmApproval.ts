@@ -108,7 +108,7 @@ export async function executeEvmApproval(params: ExecuteEvmApprovalParams): Prom
     const freeGasResult = await tryFreeGasTransaction({
         chainId,
         txType: FreeGasTxType.TokenApprove,
-        from: walletAddress,
+        from: walletAddress as Address,
         to: approveTo,
         data: approveData,
         tokenAddress: fromToken.address,

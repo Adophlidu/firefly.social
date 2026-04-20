@@ -1,3 +1,4 @@
+import { isFreeGasSupportedChain } from '@dimensiondev/web3/utils';
 import urlcat from 'urlcat';
 
 import type { FreeGasTxType } from '@/providers/firefly/freeGas/tryFreeGasTransaction.js';
@@ -17,6 +18,7 @@ interface CheckFreeGasEligibilityParams {
 }
 
 export async function checkFreeGasEligibility({ chainId, txType, to }: CheckFreeGasEligibilityParams) {
+    if (!isFreeGasSupportedChain(chainId)) return false;
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/privy/tx/free-gas/check');
     const result = await fireflySessionHolder.fetchWithSession<FireflyResponse<boolean>>(url, {
         method: 'POST',

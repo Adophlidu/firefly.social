@@ -155,7 +155,7 @@ export function useEthereumCreateRedPacketCallback(
             const freeGasResult = await tryFreeGasTransaction({
                 chainId,
                 txType: FreeGasTxType.RedpacketSend,
-                from: account,
+                from: account as Address,
                 to: getRedPacketContractAddress(chainId),
                 data: createRedPacketCalldata,
                 value: value !== '0' ? value : undefined,
