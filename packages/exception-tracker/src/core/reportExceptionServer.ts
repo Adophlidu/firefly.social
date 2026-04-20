@@ -1,4 +1,4 @@
-import { getExceptionTrackerConfig } from '@/config.js';
+import { getExceptionTrackerConfig, isExceptionTrackerEnabled } from '@/config.js';
 import { normalizeError } from '@/helpers/normalizeError.js';
 import type { ExceptionServerPayload } from '@/types.js';
 
@@ -13,6 +13,10 @@ export async function reportExceptionServer(
     error: unknown,
     payload: Partial<ExceptionServerPayload> = {},
 ): Promise<void> {
+    if (!isExceptionTrackerEnabled()) {
+        return;
+    }
+
     const cfg = getExceptionTrackerConfig()?.getServer?.();
     if (!cfg?.baseUrl) {
         console.warn('[reportExceptionServer] Server config or baseUrl is not configured');

@@ -38,6 +38,11 @@ export interface ServerReportConfig {
 export type IgnoredErrorPattern = string | RegExp;
 
 export interface ExceptionTrackerConfig {
+    /**
+     * When `false`, no events are sent (client beacon or server `fetch`).
+     * Default is effectively `true` when omitted. Same idea as Sentry’s `enabled`.
+     */
+    enabled?: boolean;
     getClient?: () => ClientReportConfig | undefined;
     getServer?: () => ServerReportConfig | undefined;
     getUserContext?: () => UserContext;
@@ -54,4 +59,9 @@ export function configureExceptionTracker(c: ExceptionTrackerConfig): void {
 
 export function getExceptionTrackerConfig(): ExceptionTrackerConfig | null {
     return config;
+}
+
+/** `false` only when `configureExceptionTracker({ enabled: false })`; omitted or `true` allows sending. */
+export function isExceptionTrackerEnabled(): boolean {
+    return getExceptionTrackerConfig()?.enabled !== false;
 }

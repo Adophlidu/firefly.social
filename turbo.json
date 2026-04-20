@@ -20,8 +20,6 @@
         "NEXTAUTH_SECRET",
         "NPM_RC",
         "ORB_API_KEY",
-        "SENTRY_ORG",
-        "SENTRY_PROJECT",
         "SESSION_CIPHER_IV",
         "SESSION_CIPHER_KEY",
         "TWITTER_CLIENT_ID",

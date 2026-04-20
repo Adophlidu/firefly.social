@@ -18,6 +18,7 @@ Call `configureExceptionTracker()` once at app startup with your app-specific co
 import { configureExceptionTracker } from '@dimensiondev/exception-tracker';
 
 configureExceptionTracker({
+    enabled: true, // `false` disables all client/server uploads (Sentry-style; default when omitted is on)
     getClient: () => ({
         version: '1.0.0',
         commitHash: 'abc123',

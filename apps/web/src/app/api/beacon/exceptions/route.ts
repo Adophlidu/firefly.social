@@ -1,4 +1,5 @@
 import { envs } from '@dimensiondev/envs';
+import { isExceptionTrackerEnabled } from '@dimensiondev/exception-tracker';
 import { compose } from '@dimensiondev/utils';
 import type { NextRequest } from 'next/server.js';
 import urlcat from 'urlcat';
@@ -22,6 +23,10 @@ const EXCLUDED_HEADERS = new Set([
 ]);
 
 export const POST = compose(withRequestErrorHandler(), async (request: NextRequest) => {
+    if (!isExceptionTrackerEnabled()) {
+        return createSuccessResponseJson({ queued: false });
+    }
+
     const apiKey = envs.internal.FIREFLY_EXCEPTION_TRACKER_API_KEY;
     if (!apiKey) throw new Error('Exception tracker API key is not configured');
 

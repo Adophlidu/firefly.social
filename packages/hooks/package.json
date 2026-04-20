@@ -1,6 +1,6 @@
 {
     "name": "@dimensiondev/hooks",
-    "version": "0.1.1",
+    "version": "0.1.29",
     "description": "Shared React hooks for Firefly projects",
     "type": "module",
     "main": "./src/index.ts",

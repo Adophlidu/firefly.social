@@ -1,4 +1,4 @@
-import { getExceptionTrackerConfig } from '@/config.js';
+import { getExceptionTrackerConfig, isExceptionTrackerEnabled } from '@/config.js';
 import type { ExceptionPayload, ExceptionTags } from '@/types.js';
 
 /**
@@ -10,6 +10,10 @@ import type { ExceptionPayload, ExceptionTags } from '@/types.js';
  * Must call configureExceptionTracker() with client config before using.
  */
 export function reportException(payload: ExceptionPayload): boolean {
+    if (!isExceptionTrackerEnabled()) {
+        return true;
+    }
+
     const cfg = getExceptionTrackerConfig()?.getClient?.();
     if (!cfg) {
         console.warn('[reportException] Client config not configured');
