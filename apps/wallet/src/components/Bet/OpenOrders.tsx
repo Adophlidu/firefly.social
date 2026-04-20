@@ -1,7 +1,7 @@
 import betImageFallback from '@dimensiondev/assets/bet-image-fallback.svg?url';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
-import { multipliedBy } from '@dimensiondev/web3/numbers';
+import { multipliedBy , safe } from '@dimensiondev/web3/numbers';
 import { Trans } from '@lingui/react/macro';
 import {
     type InfiniteData,
@@ -28,7 +28,6 @@ import { Button } from '@/components/ui/button.js';
 import { formatPriceToCents } from '@/helpers/formatPriceToCents.js';
 import { formatTokenItemAmount } from '@/helpers/formatTokenItemAmount.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
-import { safeBigNumber } from '@/helpers/safeBigNumber.js';
 import { cn } from '@/lib/utils.js';
 import { polymarketGammaEndpoint } from '@/providers/polymarket/gamma.js';
 import type { PolymarketOpenOrderDetail } from '@/providers/types/Firefly.js';
@@ -85,10 +84,10 @@ function OpenOrderItem({ item }: { item: PolymarketOpenOrderDetail }) {
     const sideLabel = isSell ? <Trans>Sell</Trans> : isBuy ? <Trans>Buy</Trans> : sideRaw ? sideRaw : '-';
     const outcome = item.outcome || '-';
 
-    const totalUsd = multipliedBy(safeBigNumber(item.price, 0), safeBigNumber(item.original_size, 0)).toNumber();
+    const totalUsd = multipliedBy(safe(item.price, 0), safe(item.original_size, 0)).toNumber();
     const priceText = formatPriceToCents(item.price);
-    const filled = safeBigNumber(item.size_matched, 0).toString();
-    const size = safeBigNumber(item.original_size, 0).toString();
+    const filled = safe(item.size_matched, 0).toString();
+    const size = safe(item.original_size, 0).toString();
     const sharesText = `${formatTokenItemAmount(filled, 0)} / ${formatTokenItemAmount(size, 0, BigNumber.ROUND_CEIL)}`;
 
     const navigateToDetail = async () => {

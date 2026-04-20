@@ -26,6 +26,11 @@
             "types": "./dist/numbers.d.ts",
             "import": "./dist/numbers.js",
             "require": "./dist/numbers.cjs"
+        },
+        "./enums": {
+            "types": "./dist/enums.d.ts",
+            "import": "./dist/enums.js",
+            "require": "./dist/enums.cjs"
         }
     },
     "files": [

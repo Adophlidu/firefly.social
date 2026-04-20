@@ -64,3 +64,9 @@ export function toFixed(value: BigNumber.Value = 0, decimalPlaces?: number) {
     const n = new BigNumber(value);
     return decimalPlaces !== undefined ? n.toFixed(decimalPlaces) : n.toFixed();
 }
+
+export function safe(value: BigNumber.Value, fallback: BigNumber.Value) {
+    const n = BigNumber(value ?? 0);
+    if (!n.isFinite()) return BigNumber(fallback);
+    return n;
+}

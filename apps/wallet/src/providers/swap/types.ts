@@ -1,4 +1,6 @@
-import type { NetworkType, SwapFromPage } from '@/constants/enum.js';
+import type { NetworkType } from '@dimensiondev/web3/enums';
+
+import type { SwapFromPage } from '@/constants/enum.js';
 
 export interface SwapToken {
     address: string;

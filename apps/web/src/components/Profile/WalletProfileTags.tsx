@@ -6,6 +6,7 @@ import EvmIcon from '@dimensiondev/assets/evm.svg';
 import SnsIcon from '@dimensiondev/assets/sns.svg';
 import SolanaIcon from '@dimensiondev/assets/solana.svg';
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
+import { getAddressType } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
@@ -15,7 +16,6 @@ import { InteractiveTippy } from '@/components/InteractiveTippy.js';
 import { RelatedSourceIcon } from '@/components/RelatedSourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { NetworkType } from '@/constants/enum.js';
-import { getAddressType } from '@/helpers/getAddressType.js';
 import { fireflyWalletProvider } from '@/providers/firefly/Wallet.js';
 import { RelatedWalletSource, type VerifiedSource, type WalletProfile } from '@/providers/types/Firefly.js';
 

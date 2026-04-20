@@ -1,7 +1,7 @@
+import { ensureHexPrefix } from '@dimensiondev/web3/utils';
 import { mainnet } from 'viem/chains';
 
 import { FarcasterNetwork, Protocol } from '@/constants/farcaster.js';
-import { ensureHexPrefix } from '@dimensiondev/web3/utils';
 
 const FARCASTER_VERIFICATION_DOMAIN = {
     name: 'Farcaster Verify Ethereum Address',

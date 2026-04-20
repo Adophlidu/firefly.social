@@ -1,4 +1,5 @@
 import { isSolanaChain, solana } from '@dimensiondev/web3/chains';
+import { NetworkType } from '@dimensiondev/web3/enums';
 import { isGreaterThan, multipliedBy } from '@dimensiondev/web3/numbers';
 import { isNativeTokenOrSameAddress } from '@dimensiondev/web3/utils';
 import { useQuery } from '@tanstack/react-query';
@@ -7,7 +8,6 @@ import { BigNumber } from 'bignumber.js';
 import { compact, first, orderBy } from 'lodash-es';
 import { polygon } from 'viem/chains';
 
-import { NetworkType } from '@/constants/enum.js';
 import { SUPPORTED_SWAP_EVM_CHAIN_IDS, USDC_E_POLYGON_ADDRESS } from '@/constants/ethereum.js';
 import { BET_DEPOSIT_MIN_USD } from '@/constants/static.js';
 import { useSwapTokenDetail } from '@/hooks/swap/useSwapTokenDetail.js';

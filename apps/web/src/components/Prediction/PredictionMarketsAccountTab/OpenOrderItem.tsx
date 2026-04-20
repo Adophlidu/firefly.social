@@ -2,7 +2,7 @@
 
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
 import { classNames } from '@dimensiondev/utils';
-import { multipliedBy } from '@dimensiondev/web3/numbers';
+import { multipliedBy, safe } from '@dimensiondev/web3/numbers';
 import { Trans } from '@lingui/react/macro';
 import { BigNumber } from 'bignumber.js';
 import { memo } from 'react';
@@ -24,17 +24,11 @@ interface OpenOrderItemProps {
     order: PredictionOpenOrder;
 }
 
-function safeBigNumber(value: BigNumber.Value, fallback: BigNumber.Value) {
-    const n = BigNumber(value ?? 0);
-    if (!n.isFinite()) return BigNumber(fallback);
-    return n;
-}
-
 export const OpenOrderItem = memo<OpenOrderItemProps>(function OpenOrderItem({ order }) {
-    const filled = safeBigNumber(order.size_matched, 0).toString();
-    const size = safeBigNumber(order.original_size, 0).toString();
+    const filled = safe(order.size_matched, 0).toString();
+    const size = safe(order.original_size, 0).toString();
     const sharesText = `${formatTokenItemAmount(filled, 0)} / ${formatTokenItemAmount(size, 0, BigNumber.ROUND_CEIL)}`;
-    const totalUsd = multipliedBy(safeBigNumber(order.price, 0), safeBigNumber(order.original_size, 0)).toNumber();
+    const totalUsd = multipliedBy(safe(order.price, 0), safe(order.original_size, 0)).toNumber();
     const lowerSide = order.side.toLowerCase();
     const orderSide =
         lowerSide === 'buy' ? <Trans>Buy</Trans> : lowerSide === 'sell' ? <Trans>Sell</Trans> : order.side;

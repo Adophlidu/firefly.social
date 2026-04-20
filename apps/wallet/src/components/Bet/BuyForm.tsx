@@ -1,4 +1,5 @@
 import LightningIcon from '@dimensiondev/assets/lightning.svg';
+import { safe } from '@dimensiondev/web3/numbers';
 import { addAndSwitchChain, isSameAddress } from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
@@ -28,7 +29,6 @@ import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { getUserFacingErrorMessage } from '@/helpers/getErrorMessage.js';
 import { getLimitPriceCentsInputConfig } from '@/helpers/getLimitPriceCentsInputConfig.js';
 import { normalizeBetInput } from '@/helpers/normalizeBetInput.js';
-import { safeBigNumber } from '@/helpers/safeBigNumber.js';
 import { cn } from '@/lib/utils.js';
 import type { TokenAsset } from '@/providers/types/Firefly.js';
 import type { Token } from '@/providers/types/Transfer.js';
@@ -200,10 +200,10 @@ export function BuyMarketForm({
         mode: 'onChange',
     });
     const amount = form.watch('amount');
-    const amountBN = safeBigNumber(amount, 0);
+    const amountBN = safe(amount, 0);
 
     const [debouncedAmount] = useDebounceValue(amount, 300);
-    const shouldPollQuote = safeBigNumber(debouncedAmount, 0).gt(0);
+    const shouldPollQuote = safe(debouncedAmount, 0).gt(0);
     const { data: toWin, isLoading: isLoadingToWin } = useQuery({
         ...getPolymarketToWinAmountQueryOptions('BUY', tokenId, debouncedAmount),
         refetchInterval: shouldPollQuote ? POLYMARKET_QUOTE_POLL_MS : false,
@@ -245,11 +245,11 @@ export function BuyMarketForm({
                             value={field.value}
                             onChange={(e) => field.onChange(normalizeBetInput(e.target.value, 'usd'))}
                             onDecrease={() => {
-                                const n = safeBigNumber(field.value, 0);
+                                const n = safe(field.value, 0);
                                 field.onChange(normalizeBetInput(BigNumber.max(0, n.minus(1)).toString(), 'usd'));
                             }}
                             onIncrease={() => {
-                                const n = safeBigNumber(field.value, 0);
+                                const n = safe(field.value, 0);
                                 field.onChange(normalizeBetInput(BigNumber.max(0, n.plus(1)).toString(), 'usd'));
                             }}
                             decreaseDisabled={BigNumber(field.value || 0).lte(0)}
@@ -319,7 +319,7 @@ export function BuyMarketForm({
                                     });
                                     return;
                                 }
-                                const n = safeBigNumber(amount, 0);
+                                const n = safe(amount, 0);
                                 const next = normalizeBetInput(n.plus(price).toString(), 'usd');
                                 form.setValue('amount', next, {
                                     shouldDirty: true,

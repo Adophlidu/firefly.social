@@ -1,9 +1,9 @@
+import type { NetworkType } from '@dimensiondev/web3/enums';
 import { first } from 'lodash-es';
 import { type HTMLProps, memo, useCallback, useState } from 'react';
 
 import { ChainIcon } from '@/components/ChainIcon.js';
 import { Image } from '@/components/Image.js';
-import type { NetworkType } from '@/constants/enum.js';
 import { cn } from '@/lib/utils.js';
 
 export interface TokenIconProps extends HTMLProps<HTMLSpanElement> {

@@ -2,7 +2,7 @@
 
 import LinkIcon from '@dimensiondev/assets/link-square.svg';
 import { safeUnreachable } from '@dimensiondev/utils';
-import { formatAddress } from '@dimensiondev/web3/utils';
+import { formatAddress , getAddressType } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { mainnet } from 'viem/chains';
@@ -17,7 +17,6 @@ import { WalletActions } from '@/components/Profile/WalletActions.js';
 import { WalletProfileTags } from '@/components/Profile/WalletProfileTags.js';
 import { NetworkType, Source } from '@/constants/enum.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
-import { getAddressType } from '@/helpers/getAddressType.js';
 import { getEnsNameFromWalletProfile } from '@/helpers/getEnsNameFromWalletProfile.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { isMPCWallet } from '@/helpers/isMPCWallet.js';

@@ -1,5 +1,5 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
-import { isSameAddress } from '@dimensiondev/web3/utils';
+import { getAddressType,isSameAddress  } from '@dimensiondev/web3/utils';
 import {
     CoreAssetUtil,
     CoreChainController,
@@ -13,7 +13,6 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { ConnectionSource, NetworkType } from '@/constants/enum.js';
 import { walletConnectIcon, walletConnectId } from '@/constants/reown.js';
-import { getAddressType } from '@/helpers/getAddressType.js';
 import { networkTypeToChainNamespace } from '@/helpers/networkTypeToChainNamespace.js';
 import { usePrivyConnections } from '@/hooks/usePrivyConnections.js';
 import type { ChainNamespace } from '@/types/utility.js';

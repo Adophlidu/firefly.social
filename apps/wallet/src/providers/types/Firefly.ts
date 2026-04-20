@@ -1,6 +1,7 @@
+import type { NetworkType } from '@dimensiondev/web3/enums';
 import type { Address, Hex } from 'viem';
 
-import type { FireflyPlatform, NetworkType, SocialSourceInURL, Source } from '@/constants/enum.js';
+import type { FireflyPlatform, SocialSourceInURL, Source } from '@/constants/enum.js';
 import type { EVM } from '@/providers/nftscan/types.js';
 
 export interface TokenAsset {

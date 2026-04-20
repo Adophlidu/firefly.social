@@ -1,11 +1,11 @@
 import { safeUnreachable } from '@dimensiondev/utils';
+import { ensureHexPrefix } from '@dimensiondev/web3/utils';
 import bs58 from 'bs58';
 import { toBytes } from 'viem';
 import { mainnet } from 'viem/chains';
 
 import { MessageType, Protocol } from '@/constants/farcaster.js';
 import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
-import { ensureHexPrefix } from '@dimensiondev/web3/utils';
 import { convertFarcasterAddressToBytes } from '@/providers/farcaster/convertFarcasterAddressToBytes.js';
 import { determineFarcasterProtocol } from '@/providers/farcaster/determineFarcasterProtocol.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';

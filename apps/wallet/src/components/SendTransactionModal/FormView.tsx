@@ -7,6 +7,7 @@ import WalletIcon from '@dimensiondev/assets/wallet.fill.svg';
 import { safeUnreachable, unreachable } from '@dimensiondev/utils';
 import { solana as solanaMainnetChain } from '@dimensiondev/web3/chains';
 import { ETH_ZERO_ADDRESS, SOL_ZERO_ADDRESS } from '@dimensiondev/web3/constants';
+import { NetworkType } from '@dimensiondev/web3/enums';
 import { isGreaterThanOrEqualTo, multipliedBy, plus } from '@dimensiondev/web3/numbers';
 import {
     formatLamportsToSol,
@@ -43,7 +44,6 @@ import { TokenIcon } from '@/components/TokenIcon.js';
 import { Button } from '@/components/ui/button.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { config } from '@/configs/wagmiClient.js';
-import { NetworkType } from '@/constants/enum.js';
 import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { isNativeTokenDebank } from '@/helpers/isNativeTokenDebank.js';

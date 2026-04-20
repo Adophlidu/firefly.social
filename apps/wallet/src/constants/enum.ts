@@ -115,11 +115,6 @@ export enum WalletProfileCategory {
     Bets = 'bets',
 }
 
-export enum NetworkType {
-    Ethereum = 'ethereum',
-    Solana = 'solana',
-}
-
 export const enum FollowCategory {
     Following = 'following',
     Followers = 'followers',

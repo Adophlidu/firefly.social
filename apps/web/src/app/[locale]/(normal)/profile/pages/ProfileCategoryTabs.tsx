@@ -1,7 +1,7 @@
 'use client';
 
 import { classNames } from '@dimensiondev/utils';
-import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
+import { getAddressType,isSameEthereumAddress  } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { type ReactNode, useContext, useMemo } from 'react';
 
@@ -26,7 +26,6 @@ import {
 } from '@/constants/enum.js';
 import { TRUMP_TWITTER_PROFILE } from '@/constants/mentions.js';
 import { NFT_ENABLED, VITALIK_ADDRESS } from '@/constants/static.js';
-import { getAddressType } from '@/helpers/getAddressType.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';

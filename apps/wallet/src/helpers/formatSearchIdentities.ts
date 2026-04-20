@@ -1,12 +1,13 @@
 import { safeUnreachable } from '@dimensiondev/utils';
 import { ETH_ZERO_ADDRESS } from '@dimensiondev/web3/constants';
+import { NetworkType } from '@dimensiondev/web3/enums';
 import { isValidAddress, isValidAddressEthereum, isValidAddressSolana, isZeroAddress } from '@dimensiondev/web3/utils';
 import { compact, first, uniq } from 'lodash-es';
 import type { Address } from 'viem';
 
 import type { RecipientItemProps } from '@/components/SendTransactionModal/RecipientItem.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
-import { NetworkType, type SocialSource, Source } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { resolveSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';

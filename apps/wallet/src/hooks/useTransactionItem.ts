@@ -1,9 +1,9 @@
 import { chains, solana } from '@dimensiondev/web3/chains';
+import { NetworkType } from '@dimensiondev/web3/enums';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 import { useBlock, useTransaction } from 'wagmi';
 
-import { NetworkType } from '@/constants/enum.js';
 import { useCachedWalletAddresses } from '@/hooks/useCachedWalletAddresses.js';
 import {
     TransactionHistoryCategory,

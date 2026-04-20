@@ -20,6 +20,7 @@ import xlayerImage from '@dimensiondev/assets/chains/xlayer.png';
 import zksyncImage from '@dimensiondev/assets/chains/zksync.png';
 import zoraImage from '@dimensiondev/assets/chains/zora.png';
 import { isSameSolanaChainId, solana } from '@dimensiondev/web3/chains';
+import type { NetworkType } from '@dimensiondev/web3/enums';
 import { type HTMLProps, memo } from 'react';
 import {
     arbitrum,
@@ -45,7 +46,6 @@ import {
 } from 'viem/chains';
 
 import { Image } from '@/components/Image.js';
-import type { NetworkType } from '@/constants/enum.js';
 import { cn } from '@/lib/utils.js';
 
 const ICONS = [

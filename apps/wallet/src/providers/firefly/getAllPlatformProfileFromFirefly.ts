@@ -1,8 +1,9 @@
 import { resolveValue, safeUnreachable } from '@dimensiondev/utils';
+import { NetworkType } from '@dimensiondev/web3/enums';
+import { getAddressType } from '@dimensiondev/web3/utils';
 import { isHex } from 'viem';
 
-import { NetworkType, Source } from '@/constants/enum.js';
-import { getAddressType } from '@/helpers/getAddressType.js';
+import { Source } from '@/constants/enum.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import { getFireflyEndpoint } from '@/store/fireflyEndpoint.js';
 

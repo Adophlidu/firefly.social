@@ -1,6 +1,7 @@
+import { NetworkType } from '@dimensiondev/web3/enums';
+
 import {
     FollowCategory,
-    NetworkType,
     SocialProfileCategory,
     type SocialSource,
     Source,

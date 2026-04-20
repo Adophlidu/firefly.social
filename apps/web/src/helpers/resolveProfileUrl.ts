@@ -1,3 +1,4 @@
+import { getAddressType } from '@dimensiondev/web3/utils';
 import urlcat from 'urlcat';
 
 import {
@@ -13,7 +14,6 @@ import {
     WalletProfileCategory,
 } from '@/constants/enum.js';
 import { NFT_ENABLED } from '@/constants/static.js';
-import { getAddressType } from '@/helpers/getAddressType.js';
 import { isFollowCategory } from '@/helpers/isFollowCategory.js';
 import { resolveProfileSourceInURL } from '@/helpers/resolveSourceInUrl.js';
 

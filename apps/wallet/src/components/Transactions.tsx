@@ -1,6 +1,7 @@
 import LinkIcon from '@dimensiondev/assets/link-square.svg';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { solana } from '@dimensiondev/web3/chains';
+import { NetworkType } from '@dimensiondev/web3/enums';
 import { isGreaterThanOrEqualTo, toFixed } from '@dimensiondev/web3/numbers';
 import { formatAddress, getBlockExplorersURL } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
@@ -12,7 +13,6 @@ import { Fragment } from 'react';
 import { ChainIcon } from '@/components/ChainIcon.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
-import { NetworkType } from '@/constants/enum.js';
 import { formatDate } from '@/helpers/formatDate.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { useLocale } from '@/helpers/getCookies.js';

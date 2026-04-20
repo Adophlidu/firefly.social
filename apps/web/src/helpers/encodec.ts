@@ -1,6 +1,5 @@
-import { hexToBytes, toHex } from 'viem';
-
 import { ensureHexPrefix } from '@dimensiondev/web3/utils';
+import { hexToBytes, toHex } from 'viem';
 
 const APP_LOGIN_ENCRYPT_IV = '0x4f05c37c16c801c2516b0338a8fd0cf9';
 

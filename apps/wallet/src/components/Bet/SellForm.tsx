@@ -1,3 +1,4 @@
+import { safe } from '@dimensiondev/web3/numbers';
 import { Trans } from '@lingui/react/macro';
 import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { BigNumber } from 'bignumber.js';
@@ -14,7 +15,6 @@ import { formatPriceToCents } from '@/helpers/formatPriceToCents.js';
 import { formatTokenItemAmount } from '@/helpers/formatTokenItemAmount.js';
 import { getLimitPriceCentsInputConfig } from '@/helpers/getLimitPriceCentsInputConfig.js';
 import { normalizeBetInput } from '@/helpers/normalizeBetInput.js';
-import { safeBigNumber } from '@/helpers/safeBigNumber.js';
 import { cn } from '@/lib/utils.js';
 import { getAvailableSharesByConditionIdQueryOptions } from '@/queries/firefly/getAvailableSharesByConditionIdQueryOptions.js';
 import { getPolymarketAccountQueryOptions } from '@/queries/firefly/getPolymarketAccountQueryOptions.js';
@@ -56,8 +56,8 @@ export function SellMarketForm({
         ...getAvailableSharesByConditionIdQueryOptions(account.proxyAddress, conditionId, tokenId),
     });
 
-    const availableSharesBN = safeBigNumber(availableShares, 0);
-    const sharesBN = safeBigNumber(shares, 0);
+    const availableSharesBN = safe(availableShares, 0);
+    const sharesBN = safe(shares, 0);
 
     const { data: toWin, isLoading: isLoadingToWin } = useQuery({
         ...getPolymarketToWinAmountQueryOptions('SELL', tokenId, sharesBN.toNumber()),
@@ -80,13 +80,13 @@ export function SellMarketForm({
                                 value={field.value}
                                 onChange={(e) => field.onChange(normalizeBetInput(e.target.value, 'shares'))}
                                 onDecrease={() => {
-                                    const n = safeBigNumber(field.value, 0);
+                                    const n = safe(field.value, 0);
                                     field.onChange(
                                         normalizeBetInput(BigNumber.max(0, n.minus(1)).toString(), 'shares'),
                                     );
                                 }}
                                 onIncrease={() => {
-                                    const n = safeBigNumber(field.value, 0);
+                                    const n = safe(field.value, 0);
                                     field.onChange(normalizeBetInput(BigNumber.max(0, n.plus(1)).toString(), 'shares'));
                                 }}
                                 decreaseDisabled={BigNumber(field.value || 0).lte(0)}
@@ -226,8 +226,8 @@ export function SellLimitForm({
         enabled: Boolean(conditionId),
     });
 
-    const availableSharesBN = safeBigNumber(availableShares, 0);
-    const sharesBN = safeBigNumber(shares, 0);
+    const availableSharesBN = safe(availableShares, 0);
+    const sharesBN = safe(shares, 0);
 
     const limitPriceDollars = BigNumber(limitPriceCents || 0).div(100);
     const limitPriceNum =

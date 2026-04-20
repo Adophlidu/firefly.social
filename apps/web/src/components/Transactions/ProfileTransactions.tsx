@@ -2,13 +2,13 @@
 
 import { useMultiInfiniteQueryPageable } from '@dimensiondev/hooks';
 import type { Pageable, PageIndicator } from '@dimensiondev/utils';
+import { getAddressType } from '@dimensiondev/web3/utils';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { useWalletMixAddresses } from '@/components/Profile/useWalletMixAddresses.js';
 import { getProfileTransactions } from '@/components/Transactions/getTransactions.js';
 import { getTransactionsItemContent } from '@/components/Transactions/getTransactionsItemContent.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
-import { getAddressType } from '@/helpers/getAddressType.js';
 import type { TransactionsItem } from '@/providers/types/Firefly.js';
 import { useTransactionsStateStore } from '@/store/useTransactionsStore.js';
 

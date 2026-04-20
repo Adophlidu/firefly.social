@@ -1,11 +1,11 @@
 import { chains, solana } from '@dimensiondev/web3/chains';
+import { NetworkType } from '@dimensiondev/web3/enums';
 import { createFileRoute } from '@tanstack/react-router';
 import { lazy, Suspense, useState } from 'react';
 
 import { LoadingPanel } from '@/components/LoadingPanel.js';
 import { TransactionDetailModal } from '@/components/TransactionDetailModal/TransactionDetailModal.js';
 import TransactionHistory from '@/components/Transactions.js';
-import { NetworkType } from '@/constants/enum.js';
 import { useEmbeddedWalletAddresses } from '@/hooks/useCachedWalletAddresses.js';
 import type { TransactionHistoryItem } from '@/providers/types/Firefly.js';
 
