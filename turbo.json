@@ -26,7 +26,6 @@
         "SESSION_CIPHER_KEY",
         "TWITTER_CLIENT_ID",
         "TWITTER_CLIENT_SECRET",
-        "WEB3_CONSTANTS_RPC",
         "X3_PRO_API_TOKEN",
         "X_WEBHOOK_ID",
         "X_WEBHOOK_RECEIVER_API_KEY"

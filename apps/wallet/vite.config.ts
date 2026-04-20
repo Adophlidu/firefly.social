@@ -84,8 +84,6 @@ export default defineConfig({
     define: {
         'process.env.npm_package_version': JSON.stringify(process.env.npm_package_version ?? PACKAGE_VERSION),
         'process.env.COMMIT_HASH': JSON.stringify(process.env.COMMIT_HASH ?? ''),
-        'process.env.WEB3_CONSTANTS_RPC': JSON.stringify(process.env.WEB3_CONSTANTS_RPC ?? ''),
-        'process.env.MASK_MIXPANEL': JSON.stringify('disabled'),
         'process.env.NEXT_PUBLIC_BASE_PATH': JSON.stringify(BASE_PATH),
         'process.env.NEXT_PUBLIC_VERCEL_ENV': JSON.stringify(NEXT_PUBLIC_VERCEL_ENV),
     },
