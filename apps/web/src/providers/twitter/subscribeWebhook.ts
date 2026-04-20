@@ -35,7 +35,7 @@ export async function subscribeWebhook(payload: SessionPayload) {
         const response = await fetchJson<SubscriptionResponse>(url, {
             method: 'POST',
             headers: {
-                'x-api-key': envs.internal.X_WEBHOOK_RECEIVER_API_KEY,
+                'x-api-key': WEBHOOK_API_KEY,
             },
             body: JSON.stringify({
                 accessToken: revealedPayload.accessToken,

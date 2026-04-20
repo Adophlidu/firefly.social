@@ -18,9 +18,11 @@ export async function getWebhookMessagesByUserId(userId: string, options?: Optio
         size,
     });
     const { messages, count } = await fetchJson<MessagesResponse>(url, {
-        headers: {
-            'x-api-key': envs.internal.X_WEBHOOK_RECEIVER_API_KEY,
-        },
+        headers: envs.internal.X_WEBHOOK_RECEIVER_API_KEY
+            ? {
+                  'x-api-key': envs.internal.X_WEBHOOK_RECEIVER_API_KEY,
+              }
+            : undefined,
     });
     return {
         data: messages,
