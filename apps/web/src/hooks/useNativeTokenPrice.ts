@@ -1,6 +1,6 @@
+import { NetworkType } from '@dimensiondev/web3/enums';
 import { useQuery } from '@tanstack/react-query';
 
-import { NetworkType } from '@/constants/enum.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { getNativeToken } from '@/helpers/getNativeToken.js';
 import { type ChainContextOverrides, useChainContext } from '@/hooks/useChainContext.js';

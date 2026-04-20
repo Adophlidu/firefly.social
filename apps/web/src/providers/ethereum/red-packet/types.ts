@@ -1,4 +1,6 @@
-import type { NetworkType, SocialSource } from '@/constants/enum.js';
+import type { NetworkType } from '@dimensiondev/web3/enums';
+
+import type { SocialSource } from '@/constants/enum.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import type { FungibleToken } from '@/web3-shared/base/specs.js';
 import type { EthereumSchemaType } from '@/web3-shared/evm/types.js';

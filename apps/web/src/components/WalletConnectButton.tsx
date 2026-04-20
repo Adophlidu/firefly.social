@@ -3,6 +3,7 @@
 import WalletIcon from '@dimensiondev/assets/wallet.svg';
 import { classNames, delay } from '@dimensiondev/utils';
 import { solana as solanaMainnetChain } from '@dimensiondev/web3/chains';
+import { NetworkType } from '@dimensiondev/web3/enums';
 import { Trans } from '@lingui/react/macro';
 import { compact } from 'lodash-es';
 import { memo, useMemo } from 'react';
@@ -10,7 +11,7 @@ import { mainnet } from 'viem/chains';
 
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
-import { ClickOrigin, NetworkPluginID, NetworkType } from '@/constants/enum.js';
+import { ClickOrigin, NetworkPluginID } from '@/constants/enum.js';
 import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';

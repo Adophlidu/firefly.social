@@ -1,8 +1,8 @@
 import { unreachable } from '@dimensiondev/utils';
 import { solana } from '@dimensiondev/web3/chains';
+import { NetworkType } from '@dimensiondev/web3/enums';
 import { mainnet } from 'viem/chains';
 
-import { NetworkType } from '@/constants/enum.js';
 import { EVMChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
 import { SolanaChainResolver } from '@/web3-providers/solana/ResolverAPI.js';
 

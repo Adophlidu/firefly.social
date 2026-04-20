@@ -1,9 +1,10 @@
+import type { NetworkType } from '@dimensiondev/web3/enums';
 import { formatAddress, isSameAddress } from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
 import { first } from 'lodash-es';
 import { useAsyncFn } from 'react-use';
 
-import { type NetworkType, WalletSource } from '@/constants/enum.js';
+import { WalletSource } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';
 import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { MyWalletsModalRef } from '@/modals/MyWalletsModal/refs.js';

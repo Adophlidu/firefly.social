@@ -1,3 +1,4 @@
+import { NetworkType } from '@dimensiondev/web3/enums';
 import { t } from '@lingui/core/macro';
 import { last } from 'lodash-es';
 import { useCallback } from 'react';
@@ -10,7 +11,7 @@ import { useClaimCallback } from '@/components/RedPacket/hooks/useClaimCallback.
 import { useClaimStrategyStatus } from '@/components/RedPacket/hooks/useClaimStrategyStatus.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
-import { NetworkType, type SocialSource } from '@/constants/enum.js';
+import type { SocialSource } from '@/constants/enum.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { usePrivyAppkitAccountByNetwork } from '@/hooks/appkit/usePrivyAppkitAccountByNetwork.js';

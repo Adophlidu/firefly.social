@@ -1,4 +1,5 @@
 import { unreachable } from '@dimensiondev/utils';
+import { NetworkType } from '@dimensiondev/web3/enums';
 import { t } from '@lingui/core/macro';
 import { produce } from 'immer';
 import { useAsyncFn } from 'react-use';
@@ -6,7 +7,6 @@ import { useAsyncFn } from 'react-use';
 import { useEthereumRefundCallback } from '@/components/RedPacket/hooks/useEthereumRefundCallback.js';
 import { useRefundSolanaCallback } from '@/components/RedPacket/hooks/useRefundSolanaCallback.js';
 import { queryClient } from '@/configs/queryClient.js';
-import { NetworkType } from '@/constants/enum.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { type ChainContextOverrides, useChainContext } from '@/hooks/useChainContext.js';
 import { captureLuckyDropEvent } from '@/providers/telemetry/captureLuckyDropEvent.js';

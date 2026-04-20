@@ -1,10 +1,10 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { chains } from '@dimensiondev/web3/chains';
+import { NetworkType } from '@dimensiondev/web3/enums';
 import { isGreaterThan, multipliedBy } from '@dimensiondev/web3/numbers';
 import { useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 
-import { NetworkType } from '@/constants/enum.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { useCustomFungibleTokens } from '@/hooks/useCustomFungibleTokens.js';
 import { getTokensByAddress } from '@/providers/firefly/endpoint/getTokensByAddress.js';

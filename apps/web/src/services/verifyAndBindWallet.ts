@@ -1,9 +1,10 @@
 import { safeUnreachable } from '@dimensiondev/utils';
+import { NetworkType } from '@dimensiondev/web3/enums';
 import bs58 from 'bs58';
 import type { Address } from 'viem';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
-import { ClickOrigin, NetworkType } from '@/constants/enum.js';
+import { ClickOrigin } from '@/constants/enum.js';
 import { WalletNotConnectedError } from '@/constants/error.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { getMessageToSignForBindWallet } from '@/providers/firefly/endpoint/getMessageToSignForBindWallet.js';

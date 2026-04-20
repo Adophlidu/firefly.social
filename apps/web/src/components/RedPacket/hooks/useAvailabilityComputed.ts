@@ -1,5 +1,6 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { solana } from '@dimensiondev/web3/chains';
+import { NetworkType } from '@dimensiondev/web3/enums';
 import { isSameAddress } from '@dimensiondev/web3/utils';
 import { type QueryObserverResult, type RefetchOptions, useQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
@@ -10,7 +11,6 @@ import { useAvailability } from '@/components/RedPacket/hooks/useAvailability.js
 import { useCheckSponsorableGasFee } from '@/components/RedPacket/hooks/useCheckSponsorableGasFee.js';
 import { useClaimStrategyStatus } from '@/components/RedPacket/hooks/useClaimStrategyStatus.js';
 import { useParseRedPacket } from '@/components/RedPacket/hooks/useParseRedPacket.js';
-import { NetworkType } from '@/constants/enum.js';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
 import { usePrivyAppkitAccountByNetwork } from '@/hooks/appkit/usePrivyAppkitAccountByNetwork.js';
 import { useChainContext } from '@/hooks/useChainContext.js';

@@ -1,3 +1,4 @@
+import type { NetworkType } from '@dimensiondev/web3/enums';
 import type { ReactNode } from 'react';
 import type { Address, Hex } from 'viem';
 
@@ -6,7 +7,6 @@ import type {
     ExploreSwitchType,
     FireflyPlatform,
     MintStatus,
-    NetworkType,
     PolymarketBetType,
     PredictionPlatform,
     S3ConvertStatus,

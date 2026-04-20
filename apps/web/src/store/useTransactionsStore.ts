@@ -1,10 +1,10 @@
+import { NetworkType } from '@dimensiondev/web3/enums';
 import { useMemo } from 'react';
 import { arbitrum, base, bsc, mainnet, optimism, polygon } from 'viem/chains';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
-import { NetworkType } from '@/constants/enum.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 
 interface TransactionsState {

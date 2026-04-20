@@ -2,7 +2,8 @@
 
 import SettingIcon from '@dimensiondev/assets/setting.svg';
 import { classNames } from '@dimensiondev/utils';
-import { formatAddress , getAddressType } from '@dimensiondev/web3/utils';
+import { NetworkType } from '@dimensiondev/web3/enums';
+import { formatAddress, getAddressType } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useMemo } from 'react';
@@ -19,7 +20,7 @@ import { TipsButton } from '@/components/Profile/TipsButton.js';
 import { Title } from '@/components/Profile/Title.js';
 import { WalletActions } from '@/components/Profile/WalletActions.js';
 import { WALLET_PROFILE_ACTION_ID } from '@/components/Profile/WalletInfo.js';
-import { NetworkType, PageRoute, Source } from '@/constants/enum.js';
+import { PageRoute, Source } from '@/constants/enum.js';
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
 import { getEnsNameFromWalletProfile } from '@/helpers/getEnsNameFromWalletProfile.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';

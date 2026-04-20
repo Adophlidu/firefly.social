@@ -1,6 +1,7 @@
 'use client';
 
 import ErrorIcon from '@dimensiondev/assets/error-circle.svg';
+import { NetworkType } from '@dimensiondev/web3/enums';
 import { Trans } from '@lingui/react/macro';
 
 import { ActionButton } from '@/components/ActionButton.js';
@@ -9,7 +10,6 @@ import { SendWithEVM, SendWithSolana } from '@/components/Tips/SendTipsButton.js
 import { TipsRecipient } from '@/components/Tips/TipsRecipient.js';
 import { TipsTokenInput } from '@/components/Tips/TipsTokenInput.js';
 import { TokenAmountInput } from '@/components/Tips/TokenAmountInput.js';
-import { NetworkType } from '@/constants/enum.js';
 import { useTipsStore } from '@/store/useTipsStore.js';
 
 function LoadingView() {

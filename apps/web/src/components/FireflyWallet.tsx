@@ -5,13 +5,14 @@ import MoreIcon from '@dimensiondev/assets/more-fill.svg';
 import ReloadIcon from '@dimensiondev/assets/reload.svg';
 import WalletIcon from '@dimensiondev/assets/wallet.svg';
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
+import { NetworkType } from '@dimensiondev/web3/enums';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { useCallback, useEffect, useMemo } from 'react';
 import { useUpdateEffect } from 'react-use';
 import type { Address } from 'viem';
 
-import { NetworkType, PageRoute, WalletSource } from '@/constants/enum.js';
+import { PageRoute, WalletSource } from '@/constants/enum.js';
 import { usePathname } from '@/esm/navigation.js';
 import { useAllConnections } from '@/hooks/useAllConnections.js';
 import { useIsCreatedPrivyWallet } from '@/hooks/useIsCreatedPrivyWallet.js';

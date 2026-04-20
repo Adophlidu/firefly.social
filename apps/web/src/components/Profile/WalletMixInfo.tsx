@@ -5,7 +5,8 @@ import FireflyLogo from '@dimensiondev/assets/firefly.round.svg';
 import SolanaIcon from '@dimensiondev/assets/solana.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
-import { formatAddress , getAddressType } from '@dimensiondev/web3/utils';
+import { NetworkType } from '@dimensiondev/web3/enums';
+import { formatAddress, getAddressType } from '@dimensiondev/web3/utils';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { useQueries } from '@tanstack/react-query';
@@ -14,7 +15,7 @@ import { useState } from 'react';
 
 import { Avatar } from '@/components/Avatar.js';
 import { Link } from '@/components/Link.js';
-import { NetworkType, Source } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByFireflyProfile } from '@/helpers/getStampAvatarByProfileId.js';

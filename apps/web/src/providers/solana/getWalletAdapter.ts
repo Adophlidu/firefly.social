@@ -1,10 +1,10 @@
 'use client';
 
 import type { web3 } from '@coral-xyz/anchor';
+import { NetworkType } from '@dimensiondev/web3/enums';
 import { CoreProviderController } from '@reown/appkit';
 import type { Provider } from '@reown/appkit-adapter-solana';
 
-import { NetworkType } from '@/constants/enum.js';
 import { WalletNotConnectedError } from '@/constants/error.js';
 import { type WalletConnectModalOpenProps, WalletConnectModalRef } from '@/modals/WalletConnectModal/refs.js';
 

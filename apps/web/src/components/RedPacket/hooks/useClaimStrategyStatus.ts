@@ -1,6 +1,7 @@
+import { NetworkType } from '@dimensiondev/web3/enums';
 import { useQuery } from '@tanstack/react-query';
 
-import { NetworkType, type SocialSource } from '@/constants/enum.js';
+import type { SocialSource } from '@/constants/enum.js';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
 import { getCurrentClaimProfile } from '@/providers/ethereum/getCurrentClaimProfile.js';
 import { checkClaimStrategyStatus } from '@/providers/firefly/red-packet/checkClaimStrategyStatus.js';

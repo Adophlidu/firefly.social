@@ -1,6 +1,6 @@
+import type { NetworkType } from '@dimensiondev/web3/enums';
 import type { Hex } from 'viem';
 
-import type { NetworkType } from '@/constants/enum.js';
 import type { RedPacketMetadata } from '@/types/rp.js';
 import type { FungibleToken } from '@/web3-shared/base/specs.js';
 import type { EthereumSchemaType } from '@/web3-shared/evm/types.js';

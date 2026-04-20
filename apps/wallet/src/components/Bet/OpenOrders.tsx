@@ -1,7 +1,7 @@
 import betImageFallback from '@dimensiondev/assets/bet-image-fallback.svg?url';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
-import { multipliedBy , safe } from '@dimensiondev/web3/numbers';
+import { multipliedBy, safe } from '@dimensiondev/web3/numbers';
 import { Trans } from '@lingui/react/macro';
 import {
     type InfiniteData,

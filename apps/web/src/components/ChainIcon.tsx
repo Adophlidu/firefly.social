@@ -2,10 +2,11 @@
 
 import { classNames } from '@dimensiondev/utils';
 import { isValidChainIdSolana } from '@dimensiondev/web3/chains';
+import { NetworkType } from '@dimensiondev/web3/enums';
 import type { HTMLProps } from 'react';
 
 import { Image } from '@/components/Image.js';
-import { NetworkPluginID, NetworkType } from '@/constants/enum.js';
+import { NetworkPluginID } from '@/constants/enum.js';
 import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
 import { resolveCoinGeckoChainIcon } from '@/helpers/resolveCoinGeckoChainIcon.js';
 import { resolveDebankChain } from '@/helpers/resolveDebankChain.js';

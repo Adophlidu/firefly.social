@@ -3,6 +3,7 @@
 import EvmIcon from '@dimensiondev/assets/evm.svg';
 import SolanaIcon from '@dimensiondev/assets/solana.svg';
 import { safeUnreachable } from '@dimensiondev/utils';
+import { NetworkType } from '@dimensiondev/web3/enums';
 import { isSameAddress, isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
@@ -15,7 +16,7 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ModalTitle } from '@/components/ModalTitle.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { PRIVY_CONNECTOR_ID } from '@/connectors/PrivyConnector.js';
-import { ClickOrigin, NetworkType, Source } from '@/constants/enum.js';
+import { ClickOrigin, Source } from '@/constants/enum.js';
 import { WalletNotConnectedError } from '@/constants/error.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSessionsFromStorageBySource } from '@/helpers/getSessionFromStorage.js';

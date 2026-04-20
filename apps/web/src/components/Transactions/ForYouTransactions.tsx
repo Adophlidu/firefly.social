@@ -2,12 +2,13 @@
 
 import { useMultiInfiniteQueryPageable } from '@dimensiondev/hooks';
 import type { Pageable, PageIndicator } from '@dimensiondev/utils';
+import { NetworkType } from '@dimensiondev/web3/enums';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { getForYouTransactions } from '@/components/Transactions/getTransactions.js';
 import { getTransactionsItemContent } from '@/components/Transactions/getTransactionsItemContent.js';
 import { shuffleTransactions } from '@/components/Transactions/shuffleTransactions.js';
-import { NetworkType, ScrollListKey, Source } from '@/constants/enum.js';
+import { ScrollListKey, Source } from '@/constants/enum.js';
 import type { TransactionsItem } from '@/providers/types/Firefly.js';
 import { useTransactionsStateStore } from '@/store/useTransactionsStore.js';
 

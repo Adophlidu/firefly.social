@@ -2,6 +2,7 @@
 
 import { unreachable } from '@dimensiondev/utils';
 import { solana } from '@dimensiondev/web3/chains';
+import { NetworkType } from '@dimensiondev/web3/enums';
 import { isSameSolanaAddress } from '@dimensiondev/web3/utils';
 import { useAppKitAccount } from '@reown/appkit/react';
 import { useAppKitConnection } from '@reown/appkit-adapter-solana/react';
@@ -9,7 +10,7 @@ import { first } from 'lodash-es';
 import { useMemo } from 'react';
 import { useConnection } from 'wagmi';
 
-import { NetworkType, SolanaNetworkType } from '@/constants/enum.js';
+import { SolanaNetworkType } from '@/constants/enum.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/refs.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 

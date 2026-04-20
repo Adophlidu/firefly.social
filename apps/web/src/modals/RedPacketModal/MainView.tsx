@@ -3,6 +3,7 @@
 import QuestionIcon from '@dimensiondev/assets/question.svg';
 import RedPacketIcon from '@dimensiondev/assets/red-packet.svg';
 import { rpSupportedChains } from '@dimensiondev/web3/chains';
+import { NetworkType } from '@dimensiondev/web3/enums';
 import {
     isGreaterThan,
     isLessThan,
@@ -31,7 +32,6 @@ import { Tab, Tabs } from '@/components/Tabs/index.js';
 import { TokenValue } from '@/components/TokenValue.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
-import { NetworkType } from '@/constants/enum.js';
 import { RED_PACKET_CONTRACT_VERSION, RED_PACKET_DURATION, RED_PACKET_MIN_SHARES } from '@/constants/rp.js';
 import { createAccount } from '@/helpers/createAccount.js';
 import { formatBalance } from '@/helpers/formatBalance.js';

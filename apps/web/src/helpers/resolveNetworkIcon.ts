@@ -1,6 +1,5 @@
 import { safeUnreachable } from '@dimensiondev/utils';
-
-import { NetworkType } from '@/constants/enum.js';
+import { NetworkType } from '@dimensiondev/web3/enums';
 
 export function resolveNetworkIcon(networkType: NetworkType, isDarkMode: boolean) {
     switch (networkType) {

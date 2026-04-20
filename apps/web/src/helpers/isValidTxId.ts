@@ -1,8 +1,7 @@
 import { safeUnreachable } from '@dimensiondev/utils';
+import { NetworkType } from '@dimensiondev/web3/enums';
 import bs58 from 'bs58';
 import { isHash } from 'viem';
-
-import { NetworkType } from '@/constants/enum.js';
 
 function isValidSignature(signature: string) {
     try {

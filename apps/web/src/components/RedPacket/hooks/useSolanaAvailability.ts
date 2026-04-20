@@ -1,8 +1,8 @@
 import { BN, web3 } from '@coral-xyz/anchor';
+import { NetworkType } from '@dimensiondev/web3/enums';
 import { minus } from '@dimensiondev/web3/numbers';
 import { useQuery } from '@tanstack/react-query';
 
-import { NetworkType } from '@/constants/enum.js';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { getClaimedRecord } from '@/providers/solana/red-packet/getClaimedRecord.js';

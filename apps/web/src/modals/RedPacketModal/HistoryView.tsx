@@ -1,9 +1,9 @@
+import { NetworkType } from '@dimensiondev/web3/enums';
 import { Trans } from '@lingui/react/macro';
 import { memo, Suspense, useContext, useState } from 'react';
 
 import { Loading } from '@/components/Loading.js';
 import { Tab, Tabs } from '@/components/Tabs/index.js';
-import { NetworkType } from '@/constants/enum.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { EvmHistoryList } from '@/modals/RedPacketModal/EvmHistoryList.js';
 import { RedPacketContext } from '@/modals/RedPacketModal/RedPacketContext.js';

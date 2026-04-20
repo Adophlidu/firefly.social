@@ -1,4 +1,5 @@
 import { delay, parseUrl } from '@dimensiondev/utils';
+import { NetworkType } from '@dimensiondev/web3/enums';
 import { Trans } from '@lingui/react/macro';
 import { useCallback } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -6,7 +7,6 @@ import { useAsyncFn } from 'react-use';
 import { CloseButton } from '@/components/IconButton.js';
 import { Image } from '@/components/Image.js';
 import { ProfileVerifyBadge } from '@/components/ProfileVerifyBadge/index.js';
-import { NetworkType } from '@/constants/enum.js';
 import { useFrameAuthor } from '@/hooks/frame/useFrameAuthor.js';
 import type { FrameViewerModalOpenProps } from '@/modals/FrameViewerModal/FrameViewerModalContent.js';
 import { MoreAction } from '@/modals/FrameViewerModal/MoreActionMenu.js';

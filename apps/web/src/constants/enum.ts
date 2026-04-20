@@ -1,3 +1,5 @@
+export { NetworkType } from '@dimensiondev/web3/enums';
+
 // The maskbook blockchain network plugin ID
 export enum NetworkPluginID {
     PLUGIN_EVM = 'com.mask.evm',
@@ -329,11 +331,6 @@ export enum MuteType {
     Profile = 'profile',
     Channel = 'channel',
     Wallet = 'wallet',
-}
-
-export enum NetworkType {
-    Ethereum = 'ethereum',
-    Solana = 'solana',
 }
 
 export enum SolanaNetworkType {

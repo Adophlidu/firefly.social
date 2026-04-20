@@ -1,5 +1,6 @@
 'use client';
 
+import { NetworkType } from '@dimensiondev/web3/enums';
 import { isValidAddressEthereum } from '@dimensiondev/web3/utils';
 import { useQuery } from '@tanstack/react-query';
 import { memo, useCallback } from 'react';
@@ -11,7 +12,7 @@ import { LikeButton } from '@/components/Actions/LikeButton.js';
 import { ShareAction } from '@/components/Actions/ShareAction.js';
 import { ArticleCollect } from '@/components/Article/ArticleCollect.js';
 import { Tips } from '@/components/Tips/index.js';
-import { NetworkType, Source } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { getArticleUrl } from '@/helpers/getArticleUrl.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { useEnsName } from '@/hooks/useEnsName.js';

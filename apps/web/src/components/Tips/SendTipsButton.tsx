@@ -1,6 +1,7 @@
 'use client';
 
 import { classNames } from '@dimensiondev/utils';
+import { NetworkType } from '@dimensiondev/web3/enums';
 import { isZero, ZERO } from '@dimensiondev/web3/numbers';
 import { isSameAddress, isUserRejectErrorInWallet } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
@@ -14,7 +15,6 @@ import { useConnection } from 'wagmi';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { EstimatedCost } from '@/components/Tips/EstimatedCost.js';
 import { TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
-import { NetworkType } from '@/constants/enum.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { resolveCurrentFireflyAccountId, resolveFireflyAccountId } from '@/helpers/resolveFireflyProfileId.js';

@@ -2,6 +2,7 @@
 
 import ArrowDownCircleIcon from '@dimensiondev/assets/arrow-circle-down.svg';
 import { classNames, getEnumAsArray } from '@dimensiondev/utils';
+import { NetworkType } from '@dimensiondev/web3/enums';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { useMemo, useRef } from 'react';
@@ -12,7 +13,7 @@ import { Link } from '@/components/Link.js';
 import { PredictionPlatformFilter } from '@/components/Prediction/PredictionPlatformFilter.js';
 import { ChainFilter } from '@/components/Swap/ChainFilter.js';
 import { SolidTabs } from '@/components/Tabs/SolidTabs.js';
-import { HomeTab, NetworkType, Source } from '@/constants/enum.js';
+import { HomeTab, Source } from '@/constants/enum.js';
 import { NFT_ENABLED } from '@/constants/static.js';
 import { usePathname } from '@/esm/navigation.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';

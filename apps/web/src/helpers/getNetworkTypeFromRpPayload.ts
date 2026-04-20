@@ -1,6 +1,6 @@
+import { NetworkType } from '@dimensiondev/web3/enums';
 import { isValidAddressSolana } from '@dimensiondev/web3/utils';
 
-import { NetworkType } from '@/constants/enum.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 
 export function getNetworkTypeFromRpPayload(payload: RedPacketJSONPayload) {

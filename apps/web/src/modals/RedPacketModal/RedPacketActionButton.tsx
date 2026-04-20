@@ -1,3 +1,4 @@
+import type { NetworkType } from '@dimensiondev/web3/enums';
 import { Trans } from '@lingui/react/macro';
 import { useCallback, useContext } from 'react';
 
@@ -7,7 +8,6 @@ import {
     type ResendRedPacketInfo,
     useResendRedPacketCallback,
 } from '@/components/RedPacket/hooks/useResendRedPacketCallback.js';
-import type { NetworkType } from '@/constants/enum.js';
 import { HistoryActionContext } from '@/modals/RedPacketModal/HistoryList.js';
 import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 

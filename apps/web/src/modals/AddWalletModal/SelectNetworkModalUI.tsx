@@ -1,6 +1,7 @@
 'use client';
 
 import { solana } from '@dimensiondev/web3/chains';
+import { NetworkType } from '@dimensiondev/web3/enums';
 import { Trans } from '@lingui/react/macro';
 import { memo, useMemo } from 'react';
 import { mainnet } from 'viem/chains';
@@ -8,7 +9,7 @@ import { mainnet } from 'viem/chains';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { NetworkPluginID, NetworkType } from '@/constants/enum.js';
+import { NetworkPluginID } from '@/constants/enum.js';
 import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
 import { useVerifyAndBindWallet } from '@/hooks/useVerifyAndBindWallet.js';
 import type { BindWalletResponse, FireflyWalletConnection } from '@/providers/types/Firefly.js';

@@ -1,9 +1,9 @@
 import { safeUnreachable } from '@dimensiondev/utils';
+import { NetworkType } from '@dimensiondev/web3/enums';
 import { memo } from 'react';
 
 import { SearchTokenPanelEVM } from '@/components/Search/SearchTokenPanelEVM.js';
 import { SearchTokenPanelSolana } from '@/components/Search/SearchTokenPanelSolana.js';
-import { NetworkType } from '@/constants/enum.js';
 import type { Token } from '@/providers/types/Transfer.js';
 
 interface SearchTokenPanelProps {

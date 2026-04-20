@@ -2,7 +2,8 @@
 
 import LinkIcon from '@dimensiondev/assets/link-square.svg';
 import { safeUnreachable } from '@dimensiondev/utils';
-import { formatAddress , getAddressType } from '@dimensiondev/web3/utils';
+import { NetworkType } from '@dimensiondev/web3/enums';
+import { formatAddress, getAddressType } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { mainnet } from 'viem/chains';
@@ -15,7 +16,7 @@ import { PredictionProfilesCard } from '@/components/Prediction/PredictionProfil
 import { EnsName } from '@/components/Profile/EnsName.js';
 import { WalletActions } from '@/components/Profile/WalletActions.js';
 import { WalletProfileTags } from '@/components/Profile/WalletProfileTags.js';
-import { NetworkType, Source } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
 import { getEnsNameFromWalletProfile } from '@/helpers/getEnsNameFromWalletProfile.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';

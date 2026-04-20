@@ -1,4 +1,5 @@
 import { safeUnreachable } from '@dimensiondev/utils';
+import { NetworkType } from '@dimensiondev/web3/enums';
 import { Trans } from '@lingui/react/macro';
 import {
     createMemoryHistory,
@@ -8,7 +9,6 @@ import {
     lazyRouteComponent,
 } from '@tanstack/react-router';
 
-import { NetworkType } from '@/constants/enum.js';
 import { WalletConnectContext } from '@/hooks/useWalletConnectContext.js';
 import { DownloadView } from '@/modals/WalletConnectModal/DownloadView.js';
 import { RootView } from '@/modals/WalletConnectModal/RootView.js';

@@ -1,9 +1,9 @@
 import { unreachable } from '@dimensiondev/utils';
+import { NetworkType } from '@dimensiondev/web3/enums';
 import { useContext } from 'react';
 
 import { useEthereumCreateRedPacketCallback } from '@/components/RedPacket/hooks/useEthereumCreateRedPacketCallback.js';
 import { useSolanaCreateRedPacketCallback } from '@/components/RedPacket/hooks/useSolanaCreateRedPacketCallback.js';
-import { NetworkType } from '@/constants/enum.js';
 import { RedPacketContext } from '@/modals/RedPacketModal/RedPacketContext.js';
 import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 

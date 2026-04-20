@@ -5,12 +5,13 @@ import CheckIcon from '@dimensiondev/assets/check.svg';
 import EvmChainsIcon from '@dimensiondev/assets/evm-chains.svg';
 import FilterIcon from '@dimensiondev/assets/filter.svg';
 import { classNames, getEnumAsArray } from '@dimensiondev/utils';
+import { NetworkType } from '@dimensiondev/web3/enums';
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { memo, useMemo, useState } from 'react';
 
 import { ChainIcon } from '@/components/ChainIcon.js';
-import { NetworkType, TimeRangeFilter } from '@/constants/enum.js';
+import { TimeRangeFilter } from '@/constants/enum.js';
 import { resolveTimeRangeName, resolveTimeRangeShortName } from '@/helpers/resolveTimeRangeName.js';
 import { captureChainFilterTabEvent } from '@/providers/telemetry/captureFilterTabEvent.js';
 import { chainsList } from '@/store/useTransactionsStore.js';

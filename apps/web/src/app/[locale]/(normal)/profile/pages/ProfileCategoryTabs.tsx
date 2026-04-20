@@ -1,7 +1,8 @@
 'use client';
 
 import { classNames } from '@dimensiondev/utils';
-import { getAddressType,isSameEthereumAddress  } from '@dimensiondev/web3/utils';
+import { NetworkType } from '@dimensiondev/web3/enums';
+import { getAddressType, isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { type ReactNode, useContext, useMemo } from 'react';
 
@@ -18,7 +19,6 @@ import {
 } from '@/constants/computed.js';
 import {
     ExploreSwitchType,
-    NetworkType,
     type ProfilePageSource,
     SocialProfileCategory,
     Source,

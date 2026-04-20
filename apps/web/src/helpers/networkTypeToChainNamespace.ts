@@ -1,6 +1,6 @@
 import { safeUnreachable } from '@dimensiondev/utils';
+import { NetworkType } from '@dimensiondev/web3/enums';
 
-import { NetworkType } from '@/constants/enum.js';
 import type { ChainNamespace } from '@/types/utility.js';
 
 export function networkTypeToChainNamespace(networkType: NetworkType): ChainNamespace | null {

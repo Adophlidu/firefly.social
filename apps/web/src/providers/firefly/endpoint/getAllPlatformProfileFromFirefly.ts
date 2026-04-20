@@ -1,8 +1,9 @@
 import { safeUnreachable } from '@dimensiondev/utils';
+import { NetworkType } from '@dimensiondev/web3/enums';
 import { getAddressType } from '@dimensiondev/web3/utils';
 import { isHex } from 'viem';
 
-import { NetworkType, Source } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { isAbnormalFarHandle, resolveFidFromAbnormalFarHandle } from '@/providers/farcaster/isAbnormalFarHandle.js';
 import { getAllRelatedProfileInfo } from '@/providers/firefly/endpoint/getAllRelatedProfileInfo.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';

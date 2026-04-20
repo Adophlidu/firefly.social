@@ -5,10 +5,11 @@ import {
     type Pageable,
     type PageIndicator,
 } from '@dimensiondev/utils';
+import { NetworkType } from '@dimensiondev/web3/enums';
 import urlcat from 'urlcat';
 import type { Address } from 'viem';
 
-import { NetworkType, SourceInURL } from '@/constants/enum.js';
+import { SourceInURL } from '@/constants/enum.js';
 import { getWalletProfileByAddressOrEns } from '@/providers/firefly/endpoint/getWalletProfileByAddressOrEns.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { BlockedUsersResponse, WalletProfile } from '@/providers/types/Firefly.js';

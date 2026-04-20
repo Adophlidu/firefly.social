@@ -2,10 +2,11 @@ import EvmDashIcon from '@dimensiondev/assets/evm-dash.svg';
 import WalletIcon from '@dimensiondev/assets/wallet-icon.svg';
 import { classNames } from '@dimensiondev/utils';
 import { solana } from '@dimensiondev/web3/chains';
+import { NetworkType } from '@dimensiondev/web3/enums';
 import { memo } from 'react';
 
 import { Image } from '@/components/Image.js';
-import { NetworkPluginID, NetworkType } from '@/constants/enum.js';
+import { NetworkPluginID } from '@/constants/enum.js';
 import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
 import type { FireflyTipsProfile } from '@/providers/types/Firefly.js';
 

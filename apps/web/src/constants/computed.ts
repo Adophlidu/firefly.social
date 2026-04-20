@@ -2,6 +2,7 @@
 
 import { envs } from '@dimensiondev/envs';
 import { solana } from '@dimensiondev/web3/chains';
+import { NetworkType } from '@dimensiondev/web3/enums';
 import { arbitrum, base, bsc, mainnet, optimism, polygon } from 'viem/chains';
 
 import {
@@ -14,7 +15,6 @@ import {
     FileMimeType,
     FollowCategory,
     type FollowingSource,
-    NetworkType,
     type NotificationSource,
     PredictionPlatform,
     ProfileEditableField,

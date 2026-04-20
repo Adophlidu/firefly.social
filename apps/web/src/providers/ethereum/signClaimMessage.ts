@@ -1,7 +1,7 @@
+import { NetworkType } from '@dimensiondev/web3/enums';
 import { type Hex, hexToBytes } from 'viem';
 import { signMessage } from 'viem/accounts';
 
-import { NetworkType } from '@/constants/enum.js';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
 import { getCurrentClaimProfile } from '@/providers/ethereum/getCurrentClaimProfile.js';
 import type { ClaimRedPacketContext } from '@/providers/ethereum/red-packet/types.js';

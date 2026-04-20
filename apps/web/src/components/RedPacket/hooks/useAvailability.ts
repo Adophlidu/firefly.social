@@ -1,8 +1,8 @@
 import { unreachable } from '@dimensiondev/utils';
+import { NetworkType } from '@dimensiondev/web3/enums';
 
 import { useEthereumAvailability } from '@/components/RedPacket/hooks/useEthereumAvailability.js';
 import { useSolanaAvailability } from '@/components/RedPacket/hooks/useSolanaAvailability.js';
-import { NetworkType } from '@/constants/enum.js';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 

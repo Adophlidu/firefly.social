@@ -1,6 +1,6 @@
 import { safeUnreachable } from '@dimensiondev/utils';
+import { NetworkType } from '@dimensiondev/web3/enums';
 
-import { NetworkType } from '@/constants/enum.js';
 import {
     MESSAGE_MAX_LENGTH,
     MESSAGE_MAX_LENGTH_SOLANA,

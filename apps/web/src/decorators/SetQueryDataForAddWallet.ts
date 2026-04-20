@@ -1,8 +1,9 @@
+import { NetworkType } from '@dimensiondev/web3/enums';
 import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import { produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { FireflyPlatform, NetworkType, WalletSource } from '@/constants/enum.js';
+import { FireflyPlatform, WalletSource } from '@/constants/enum.js';
 import type { FireflyWallet } from '@/providers/firefly/Wallet.js';
 import type { BindWalletResponse, FireflyWalletConnection } from '@/providers/types/Firefly.js';
 import type { ClassType } from '@/types/utility.js';

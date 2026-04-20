@@ -1,5 +1,6 @@
 import AddIcon from '@dimensiondev/assets/add-circle.svg';
 import { safeUnreachable } from '@dimensiondev/utils';
+import { NetworkType } from '@dimensiondev/web3/enums';
 import { DialogTitle } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { useCallback, useState } from 'react';
@@ -9,7 +10,6 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { BackButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';
 import { SearchTokenPanel } from '@/components/Search/SearchTokenPanel.js';
-import { NetworkType } from '@/constants/enum.js';
 import { formatDebankTokenToFungibleToken } from '@/helpers/formatToken.js';
 import { useAccountByNetwork } from '@/hooks/useAccountByNetwork.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
