@@ -7,7 +7,7 @@
     "/wallet-iframe": {
         "staging": "https://firefly-social-wallet.vercel.app/wallet-iframe/",
         "canary": "https://firefly-social-wallet.vercel.app/wallet-iframe/",
-        "production": "https://wallet.firefly.social/wallet-iframe/"
+        "production": "https://firefly-social-wallet.firefly.social/wallet-iframe/"
     },
     "/masko-iframe": {
         "staging": "https://firefly-chatbot-masko-git-main-dimension-dev.vercel.app/masko-iframe",
