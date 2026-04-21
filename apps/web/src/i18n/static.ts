@@ -4,11 +4,14 @@
  */
 import { getI18n } from '@lingui/react/server';
 
-import type { Locale } from '@/constants/enum.js';
+import { Locale } from '@/constants/enum.js';
 import { setupAndActiveI18n } from '@/i18n/core.js';
 
-export function setupLocaleFromParams(locale: Locale) {
+const LOCALES = Object.values(Locale);
+
+export function setupLocaleFromParams(locale: string, fallback: Locale = Locale.en) {
     const instance = getI18n();
     if (instance) return instance;
-    return setupAndActiveI18n(locale);
+    const resolved = locale && LOCALES.includes(locale as Locale) ? (locale as Locale) : fallback;
+    return setupAndActiveI18n(resolved);
 }

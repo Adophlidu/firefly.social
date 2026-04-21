@@ -1,5 +1,5 @@
+import type { LayoutProps } from '@dimensiondev/types';
 import { Trans } from '@lingui/react/macro';
-import type { PropsWithChildren } from 'react';
 
 import { NoSSR } from '@/components/NoSSR.js';
 import { NotificationSettings } from '@/components/Notification/NotificationSettings.js';
@@ -7,6 +7,7 @@ import { NotificationTabs } from '@/components/Notification/NotificationTabs.js'
 import { TimelineTitle } from '@/components/TimelineTitle.js';
 import { type NotificationSourceInURL, SourceInURL } from '@/constants/enum.js';
 import { resolveNotificationSource } from '@/helpers/resolveSourceInUrl.js';
+import { setupLocaleFromParams } from '@/i18n/static.js';
 
 const NOTIFICATION_SOURCE_PARAMS: string[] = [
     SourceInURL.Notifications,
@@ -20,12 +21,13 @@ export function generateStaticParams() {
     return NOTIFICATION_SOURCE_PARAMS.map((source) => ({ source }));
 }
 
-interface Props extends PropsWithChildren {
-    params: Promise<{ source: string }>;
-}
+interface Props extends LayoutProps<{ source: string; locale: string }> {}
 
 export default async function Layout(props: Props) {
-    const source = (await props.params).source as NotificationSourceInURL;
+    const params = await props.params;
+    setupLocaleFromParams(params.locale);
+
+    const source = params.source as NotificationSourceInURL;
 
     return (
         <div className="flex w-full flex-col">

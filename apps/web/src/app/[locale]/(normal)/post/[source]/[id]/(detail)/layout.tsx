@@ -1,16 +1,15 @@
 import type { LayoutProps } from '@dimensiondev/types';
 import { Trans } from '@lingui/react/macro';
 import type { Metadata } from 'next';
-import type { PropsWithChildren } from 'react';
 
 import { Comeback } from '@/components/Comeback.js';
-import { Locale, type SocialSourceInURL } from '@/constants/enum.js';
+import type { SocialSourceInURL } from '@/constants/enum.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isSocialSourceInUrl } from '@/helpers/isSource.js';
 import { setupLocaleFromParams } from '@/i18n/static.js';
 import { createPostMetadata } from '@/providers/firefly/metadata/createPostMetadata.js';
 
-interface Props extends LayoutProps<{ id: string; source: SocialSourceInURL }> {}
+interface Props extends LayoutProps<{ id: string; source: SocialSourceInURL; locale: string }> {}
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
     const { source, id } = await props.params;
@@ -20,8 +19,9 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
         : createSiteMetadata(`/post/${source}/${id}`);
 }
 
-export default async function Layout({ children }: PropsWithChildren) {
-    setupLocaleFromParams(Locale.en);
+export default async function Layout(props: Props) {
+    const params = await props.params;
+    setupLocaleFromParams(params.locale);
 
     return (
         <>
@@ -31,7 +31,7 @@ export default async function Layout({ children }: PropsWithChildren) {
                     <Trans>Details</Trans>
                 </h2>
             </header>
-            {children}
+            {props.children}
         </>
     );
 }

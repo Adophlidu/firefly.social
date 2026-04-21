@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 
 import { Comeback } from '@/components/Comeback.js';
 import { ArticleMarkup } from '@/components/Markup/ArticleMarkup.js';
-import { Locale, type SocialSourceInURL, Source, SourceInURL } from '@/constants/enum.js';
+import { type SocialSourceInURL, Source, SourceInURL } from '@/constants/enum.js';
 import { notFound, redirect } from '@/esm/navigation/server.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isSocialSourceInUrl } from '@/helpers/isSource.js';
@@ -17,7 +17,7 @@ import { createPostMetadata } from '@/providers/firefly/metadata/createPostMetad
 
 export const revalidate = 60;
 
-type Props = LayoutProps<{ source: SocialSourceInURL }> &
+type Props = LayoutProps<{ source: SocialSourceInURL; locale: string }> &
     SearchProps<{ s?: SocialSourceInURL; source?: SocialSourceInURL }>;
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
@@ -38,10 +38,9 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 }
 
 export default async function Page(props: Props) {
-    setupLocaleFromParams(Locale.en);
-
     const searchParams = await props.searchParams;
     const params = await props.params;
+    setupLocaleFromParams(params.locale);
 
     // Article handling: /post/{articleId}?s={source}
     if (searchParams.s) {

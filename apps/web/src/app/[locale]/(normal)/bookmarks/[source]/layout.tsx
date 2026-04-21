@@ -8,6 +8,7 @@ import { Source, SourceInURL } from '@/constants/enum.js';
 import { notFound } from '@/esm/navigation/server.js';
 import { isBookmarkSource } from '@/helpers/isSource.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
+import { setupLocaleFromParams } from '@/i18n/static.js';
 
 const BOOKMARK_SOURCE_PARAMS: SourceInURL[] = [
     SourceInURL.Lens,
@@ -24,10 +25,11 @@ export function generateStaticParams() {
     return BOOKMARK_SOURCE_PARAMS.map((source) => ({ source }));
 }
 
-interface Props extends LayoutProps<{ source: string }> {}
+interface Props extends LayoutProps<{ source: string; locale: string }> {}
 
 export default async function Layout(props: Props) {
     const params = await props.params;
+    setupLocaleFromParams(params.locale);
 
     const source = resolveSourceFromUrlNoFallback(params.source);
     if (!source || !isBookmarkSource(source)) notFound();

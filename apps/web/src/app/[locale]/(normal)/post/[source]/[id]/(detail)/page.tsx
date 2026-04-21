@@ -10,7 +10,7 @@ import { getPostDetailQuery, getPostThreadQuery } from '@/app/[locale]/(normal)/
 import { Comeback } from '@/components/Comeback.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { queryClientConfig } from '@/configs/queryClient.js';
-import { Locale, type SocialSourceInURL } from '@/constants/enum.js';
+import type { SocialSourceInURL } from '@/constants/enum.js';
 import { notFound } from '@/esm/navigation/server.js';
 import { isRequestedLoginSource } from '@/helpers/isRequestedLoginSource.js';
 import { isSocialSourceInUrl } from '@/helpers/isSource.js';
@@ -21,12 +21,11 @@ import type { Post } from '@/providers/types/SocialMedia.js';
 
 export const revalidate = 60;
 
-interface Props extends LayoutProps<{ id: string; source: SocialSourceInURL }> {}
+interface Props extends LayoutProps<{ id: string; source: SocialSourceInURL; locale: string }> {}
 
 export default async function Page(props: Props) {
-    setupLocaleFromParams(Locale.en);
-
     const params = await props.params;
+    setupLocaleFromParams(params.locale);
     if (!isSocialSourceInUrl(params.source)) notFound();
 
     const source = resolveSocialSource(params.source);

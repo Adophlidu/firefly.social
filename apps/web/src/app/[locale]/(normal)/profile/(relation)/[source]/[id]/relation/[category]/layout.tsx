@@ -8,7 +8,6 @@ import { NoSSR } from '@/components/NoSSR.js';
 import { Title } from '@/components/Profile/Title.js';
 import { REQUIRE_LOGIN_FOLLOWING_CATEGORY } from '@/constants/computed.js';
 import { type FollowCategory, Source } from '@/constants/enum.js';
-import { Locale } from '@/constants/enum.js';
 import { notFound } from '@/esm/navigation/server.js';
 import { isFollowCategory } from '@/helpers/isFollowCategory.js';
 import { isSocialSource } from '@/helpers/isSource.js';
@@ -16,12 +15,11 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 import { setupLocaleFromParams } from '@/i18n/static.js';
 
-interface Props extends LayoutProps<{ id: string; category: string; source: string }> {}
+interface Props extends LayoutProps<{ id: string; category: string; source: string; locale: string }> {}
 
 export default async function Layout(props: Props) {
-    setupLocaleFromParams(Locale.en);
-
     const params = await props.params;
+    setupLocaleFromParams(params.locale);
     if (!isFollowCategory(params.category)) notFound();
     const category = params.category as FollowCategory;
 
