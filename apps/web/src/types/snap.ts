@@ -389,8 +389,8 @@ export interface SnapUI {
 export interface Snap {
     /** Snap URL (added by Firefly Worker) */
     url: string;
-    /** Protocol version, must be "2.0" */
-    version: '2.0';
+    /** Protocol version */
+    version: '1.0' | '2.0';
     theme?: SnapTheme;
     effects?: Array<'confetti'>;
     ui: SnapUI;
@@ -417,18 +417,19 @@ export interface SnapFieldValues {
 // #region JFS (JSON Farcaster Signature)
 
 export interface SnapJFSPayload {
-    fid: number;
+    /** v2 fields */
+    audience?: string;
+    user?: {
+        fid: number;
+    };
+    surface?: string | Record<string, unknown>;
+    /** v1 fields */
+    fid?: number;
+    button_index?: number;
+    nonce?: string;
+    /** shared fields */
     inputs: Record<string, string | number | boolean | string[] | number[]>;
     timestamp: number;
-    /** UUID preventing replay attacks. */
-    nonce: string;
-    /** Server origin (scheme + host + port) — must match the submit target's origin. */
-    audience: string;
-    /**
-     * Required by the Firefly worker's validation schema.
-     * Snaps have no button concept; always send 0 until the worker schema is updated.
-     */
-    button_index: 0;
 }
 
 // #endregion

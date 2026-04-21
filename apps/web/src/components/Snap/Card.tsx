@@ -20,6 +20,7 @@ import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { interceptExternalUrl } from '@/helpers/interceptExternalUrl.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { openWindow } from '@/helpers/openWindow.js';
+import { validateSnapV2Structure } from '@/helpers/snap.js';
 import { ComposeModalRef } from '@/modals/ComposeModal/refs.js';
 import { ConfirmLeavingModalRef } from '@/modals/ConfirmLeavingModal/refs.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
@@ -35,6 +36,33 @@ function buildInputs(fields: SnapFieldValues): SnapJFSPayload['inputs'] {
         ...fields.toggleGroups,
         ...fields.cellGrids,
     };
+}
+
+function getSubmitButtonIndex(snap: Snap, elementId: string) {
+    // v1 snaps rely on button_index; compute a deterministic index by DFS traversal order.
+    const orderedSubmitButtonIds: string[] = [];
+    const visited = new Set<string>();
+    const stack = [snap.ui.root];
+
+    while (stack.length) {
+        const currentId = stack.pop()!;
+        if (visited.has(currentId)) continue;
+        visited.add(currentId);
+
+        const element = snap.ui.elements[currentId];
+        if (!element) continue;
+        if (element.type === 'button' && element.on?.press?.action === 'submit') {
+            orderedSubmitButtonIds.push(currentId);
+        }
+
+        const children = element.children ?? [];
+        for (let index = children.length - 1; index >= 0; index -= 1) {
+            stack.push(children[index]);
+        }
+    }
+
+    const matchedIndex = orderedSubmitButtonIds.indexOf(elementId);
+    return matchedIndex >= 0 ? matchedIndex : 0;
 }
 
 /**
@@ -148,7 +176,7 @@ export const SnapCard = memo<CardProps>(function SnapCard({ snap: initialSnap, p
     }, [snap.effects]);
 
     const handleAction = useCallback(
-        async (action: SnapAction, fields: SnapFieldValues) => {
+        async (action: SnapAction, fields: SnapFieldValues, elementId: string) => {
             try {
                 switch (action.action) {
                     case 'submit': {
@@ -160,19 +188,36 @@ export const SnapCard = memo<CardProps>(function SnapCard({ snap: initialSnap, p
 
                         setLoading(true);
 
-                        const payload: SnapJFSPayload = {
-                            fid: Number.parseInt(session.profileId, 10),
+                        const fid = Number.parseInt(session.profileId, 10);
+                        const commonPayload = {
                             inputs: buildInputs(fields),
                             timestamp: Math.floor(Date.now() / 1000),
                             nonce: crypto.randomUUID(),
-                            audience: new URL(action.params.target).origin,
-                            button_index: 0,
                         };
+                        const payload: SnapJFSPayload =
+                            snap.version === '2.0'
+                                ? {
+                                      ...commonPayload,
+                                      audience: new URL(action.params.target).origin,
+                                      user: { fid },
+                                      // Keep deprecated top-level fid during migration for compatibility.
+                                      fid,
+                                      surface: { type: 'cast_embed' },
+                                  }
+                                : {
+                                      ...commonPayload,
+                                      fid,
+                                      button_index: getSubmitButtonIndex(snap, elementId),
+                                  };
 
-                        const url = urlcat(FIREFLY_WORKER_HOST, '/fc-snap', {
-                            url: snap.url,
-                            target: action.params.target,
-                        });
+                        const url = urlcat(
+                            FIREFLY_WORKER_HOST,
+                            snap.version === '2.0' ? '/fc-snap/v2' : '/fc-snap/v1',
+                            {
+                                url: snap.url,
+                                target: action.params.target,
+                            },
+                        );
 
                         const response = await fetchJson<ResponseJson<SnapDigestedResponse>>(url, {
                             method: 'POST',
@@ -184,6 +229,11 @@ export const SnapCard = memo<CardProps>(function SnapCard({ snap: initialSnap, p
                         });
 
                         if (response.success && response.data.snap) {
+                            const validationError = validateSnapV2Structure(response.data.snap);
+                            if (validationError) {
+                                enqueueErrorMessage(validationError);
+                                return;
+                            }
                             setSnap(response.data.snap);
                         } else {
                             enqueueErrorMessage(<Trans>The snap server failed to process the request.</Trans>);
@@ -193,9 +243,14 @@ export const SnapCard = memo<CardProps>(function SnapCard({ snap: initialSnap, p
 
                     case 'open_snap': {
                         setLoading(true);
-                        const snapUrl = urlcat(FIREFLY_WORKER_HOST, '/fc-snap', { url: action.params.target });
+                        const snapUrl = urlcat(FIREFLY_WORKER_HOST, '/fc-snap', { link: action.params.target });
                         const response = await fetchJson<ResponseJson<SnapDigestedResponse>>(snapUrl);
                         if (response.success && response.data.snap) {
+                            const validationError = validateSnapV2Structure(response.data.snap);
+                            if (validationError) {
+                                enqueueErrorMessage(validationError);
+                                return;
+                            }
                             setSnap(response.data.snap);
                         } else {
                             enqueueErrorMessage(<Trans>The snap server failed to process the request.</Trans>);
@@ -282,7 +337,7 @@ export const SnapCard = memo<CardProps>(function SnapCard({ snap: initialSnap, p
                 setLoading(false);
             }
         },
-        [router, snap.url],
+        [router, snap],
     );
 
     // We need to pass fields into handleAction; use a ref-based bridge via context
@@ -295,7 +350,7 @@ export const SnapCard = memo<CardProps>(function SnapCard({ snap: initialSnap, p
     });
 
     const dispatchWithFields = useCallback(
-        (action: SnapAction) => handleAction(action, fieldsRef.current),
+        (action: SnapAction, elementId: string) => handleAction(action, fieldsRef.current, elementId),
         [handleAction],
     );
 

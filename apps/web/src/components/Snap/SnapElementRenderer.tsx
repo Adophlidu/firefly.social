@@ -39,7 +39,7 @@ const JUSTIFY_MAP = {
 interface Props {
     elementId: string;
     ui: SnapUI;
-    onAction: (action: SnapAction) => void;
+    onAction: (action: SnapAction, elementId: string) => void;
 }
 
 export function SnapElementRenderer({ elementId, ui, onAction }: Props) {
@@ -63,6 +63,7 @@ export function SnapElementRenderer({ elementId, ui, onAction }: Props) {
                 <SnapButton
                     props={element.props}
                     accent={accent}
+                    elementId={elementId}
                     action={element.on?.press}
                     onPress={onAction}
                     disabled={loading}
@@ -88,7 +89,7 @@ export function SnapElementRenderer({ elementId, ui, onAction }: Props) {
             return (
                 <SnapItem
                     props={element.props}
-                    onPress={element.on?.press ? () => onAction(element.on!.press!) : undefined}
+                    onPress={element.on?.press ? () => onAction(element.on!.press!, elementId) : undefined}
                 >
                     {renderChildren()}
                 </SnapItem>

@@ -9,7 +9,8 @@ import type { SnapAccentColor, SnapAction, SnapButtonProps } from '@/types/snap.
 interface Props {
     props: SnapButtonProps;
     accent: SnapAccentColor;
-    onPress?: (action: SnapAction) => void;
+    elementId: string;
+    onPress?: (action: SnapAction, elementId: string) => void;
     action?: SnapAction;
     disabled?: boolean;
 }
@@ -17,6 +18,7 @@ interface Props {
 export function SnapButton({
     props: { label, variant = 'secondary', icon },
     accent,
+    elementId,
     onPress,
     action,
     disabled = false,
@@ -27,7 +29,7 @@ export function SnapButton({
             disabled={disabled}
             onClick={(e) => {
                 e.stopPropagation();
-                if (action) onPress?.(action);
+                if (action) onPress?.(action, elementId);
             }}
             className={classNames(
                 'flex flex-1 items-center justify-center gap-1.5 rounded-lg px-2 py-1.5 text-sm font-medium transition-opacity',
