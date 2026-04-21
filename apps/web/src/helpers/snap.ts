@@ -43,7 +43,11 @@ export function validateSnapV2Structure(snap: Snap): string | null {
             return `Snap v2 root supports at most 7 children, received ${children.length}.`;
         }
 
-        if ((element.type === 'stack' || element.type === 'item_group') && children.length > 6) {
+        if (
+            (element.type === 'stack' || element.type === 'item_group') &&
+            current.id !== root &&
+            children.length > 6
+        ) {
             return `Snap v2 ${element.type} "${current.id}" supports at most 6 children, received ${children.length}.`;
         }
 
