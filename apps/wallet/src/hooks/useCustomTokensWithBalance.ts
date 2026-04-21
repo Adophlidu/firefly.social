@@ -1,8 +1,9 @@
+import { getBalanceOf } from '@dimensiondev/web3/actions';
 import { useQueries } from '@tanstack/react-query';
 import { useAtomValue } from 'jotai';
 
+import { config } from '@/configs/wagmiClient.js';
 import { formatCustomTokenToTokenAsset } from '@/helpers/formatCustomTokenToTokenAsset.js';
-import { getBalanceOf } from '@/helpers/getBalanceOf.js';
 import { useCachedEvmAddress } from '@/hooks/useCachedWalletAddresses.js';
 import { logger } from '@/lib/Logger.js';
 import type { TokenAsset } from '@/providers/types/Firefly.js';
@@ -35,7 +36,7 @@ export function useCustomTokensWithBalance(): {
                 if (!evmAddress) return '0';
 
                 try {
-                    const balance = await getBalanceOf(token.chainId, evmAddress, token.address);
+                    const balance = await getBalanceOf(config, token.chainId, evmAddress, token.address);
                     return balance.value.toString();
                 } catch (error) {
                     logger.error(

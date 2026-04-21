@@ -1,4 +1,5 @@
 import { runInSafeAsync } from '@dimensiondev/utils';
+import { waitForEthereumTransaction } from '@dimensiondev/web3/actions';
 import type { Address, Hex } from 'viem';
 import { getChainId, switchChain, writeContract } from 'wagmi/actions';
 
@@ -6,7 +7,6 @@ import RED_PACKET_ABI from '@/abis/RedPacket.json' with { type: 'json' };
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { PRIVY_CONNECTOR_ID } from '@/connectors/PrivyConnector.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
-import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
 import { getCurrentClaimProfile } from '@/providers/ethereum/getCurrentClaimProfile.js';
 import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
 import type { ClaimRedPacketContext } from '@/providers/ethereum/red-packet/types.js';
@@ -57,6 +57,6 @@ export async function claimRedPacket(context: ClaimRedPacketContext) {
         connector: wagmiConfig.connectors.find((x) => x.id === PRIVY_CONNECTOR_ID),
     });
 
-    await waitForEthereumTransaction(chainId, hash);
+    await waitForEthereumTransaction(wagmiConfig, chainId, hash);
     return hash;
 }

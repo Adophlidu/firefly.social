@@ -2,6 +2,7 @@
 
 import QuestionIcon from '@dimensiondev/assets/question.svg';
 import RedPacketIcon from '@dimensiondev/assets/red-packet.svg';
+import { waitForEthereumTransaction } from '@dimensiondev/web3/actions';
 import { rpSupportedChains } from '@dimensiondev/web3/chains';
 import { NetworkType } from '@dimensiondev/web3/enums';
 import {
@@ -38,7 +39,6 @@ import { formatBalance } from '@/helpers/formatBalance.js';
 import { getNativeToken } from '@/helpers/getNativeToken.js';
 import { getRpMaxShares, getRpMessageMaxLength } from '@/helpers/getRpLimitations.js';
 import { isPrivyAddress } from '@/helpers/isPrivyAddress.js';
-import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
 import { useAvailableBalance } from '@/hooks/useAvailableBalance.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { useERC20TokenAllowance } from '@/hooks/useERC20Allowance.js';
@@ -270,7 +270,7 @@ export default function MainView() {
                 data: approveData,
             });
             if (freeGasResult.type === 'free-gas') {
-                await waitForEthereumTransaction(chainId, freeGasResult.hash as `0x${string}`);
+                await waitForEthereumTransaction(wagmiConfig, chainId, freeGasResult.hash as `0x${string}`);
             } else {
                 const txHash = await writeContract(wagmiConfig, {
                     chainId,
@@ -279,7 +279,7 @@ export default function MainView() {
                     functionName: 'approve',
                     args: [getRedPacketContractAddress(chainId), originBalance.value],
                 });
-                await waitForEthereumTransaction(chainId, txHash);
+                await waitForEthereumTransaction(wagmiConfig, chainId, txHash);
             }
             refetchAllowance();
             return;

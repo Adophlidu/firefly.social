@@ -1,4 +1,5 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { waitForEthereumTransaction } from '@dimensiondev/web3/actions';
 import { rightShift, toFixed } from '@dimensiondev/web3/numbers';
 import { t } from '@lingui/core/macro';
 import { first, omit, pick } from 'lodash-es';
@@ -14,7 +15,6 @@ import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { DEFAULT_THEME_ID, RED_PACKET_CONTRACT_VERSION, RED_PACKET_DURATION } from '@/constants/rp.js';
 import { SITE_URL } from '@/constants/static.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { RedPacketContext } from '@/modals/RedPacketModal/RedPacketContext.js';
 import { getEvmNativeTokenAddress } from '@/providers/ethereum/getNativeTokenAddress.js';
@@ -189,7 +189,7 @@ export function useEthereumCreateRedPacketCallback(
             }
             if (!result) return;
 
-            await waitForEthereumTransaction(chainId, result);
+            await waitForEthereumTransaction(wagmiConfig, chainId, result);
             const receipt = await getTransactionReceipt(wagmiConfig, {
                 hash: result,
                 chainId,

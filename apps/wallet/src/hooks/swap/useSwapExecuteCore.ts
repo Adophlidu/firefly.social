@@ -1,5 +1,6 @@
 import { web3 } from '@coral-xyz/anchor';
 import { delay } from '@dimensiondev/utils';
+import { waitForEthereumTransaction } from '@dimensiondev/web3/actions';
 import { type ChainId, isSolanaChain } from '@dimensiondev/web3/chains';
 import { getSolanaRPCUrl } from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
@@ -31,7 +32,6 @@ import {
     resolveSwapSolanaSigningWallet,
 } from '@/helpers/swap/resolveSwapSigningWallet.js';
 import { toastLoading } from '@/helpers/toastLoading.js';
-import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
 import { useAppKitSolanaWallets } from '@/hooks/useAppKitSolanaWallets.js';
 import { logger } from '@/lib/Logger.js';
 import { createSwapEndpoint, type SwapToken } from '@/providers/swap/index.js';
@@ -182,7 +182,7 @@ async function executeEvmSwap({
     setSwapStep('input');
 
     // Wait for on-chain confirmation
-    await waitForEthereumTransaction(chainId, hash);
+    await waitForEthereumTransaction(config, chainId, hash);
 
     if (onSuccess) {
         await onSuccess({

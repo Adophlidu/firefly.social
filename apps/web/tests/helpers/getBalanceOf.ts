@@ -1,7 +1,8 @@
+import { getBalanceOf } from '@dimensiondev/web3/actions';
 import type { Address } from 'viem';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { getBalanceOf } from '@/helpers/getBalanceOf.js';
+import { wagmiConfig } from '@/configs/wagmiClient.js';
 
 // Mock wagmi actions
 const mockGetBalance = vi.fn();
@@ -10,12 +11,6 @@ const mockMulticall = vi.fn();
 vi.mock('wagmi/actions', () => ({
     getBalance: (...args: unknown[]) => mockGetBalance(...args),
     multicall: (...args: unknown[]) => mockMulticall(...args),
-}));
-
-// Mock isZeroAddress helper
-const mockIsZeroAddress = vi.fn();
-vi.mock('@dimensiondev/web3/utils', () => ({
-    isZeroAddress: (...args: unknown[]) => mockIsZeroAddress(...args),
 }));
 
 // Mock wagmiConfig
@@ -42,9 +37,8 @@ describe('getBalanceOf', () => {
             };
             mockGetBalance.mockResolvedValue(mockBalance);
 
-            const result = await getBalanceOf(chainId, account, undefined);
+            const result = await getBalanceOf(wagmiConfig, chainId, account, undefined);
 
-            expect(mockIsZeroAddress).not.toHaveBeenCalled();
             expect(mockGetBalance).toHaveBeenCalledWith(expect.any(Object), {
                 chainId,
                 address: account,
@@ -62,12 +56,10 @@ describe('getBalanceOf', () => {
                 decimals: 18,
                 symbol: 'ETH',
             };
-            mockIsZeroAddress.mockReturnValue(true);
             mockGetBalance.mockResolvedValue(mockBalance);
 
-            const result = await getBalanceOf(chainId, account, zeroAddress);
+            const result = await getBalanceOf(wagmiConfig, chainId, account, zeroAddress);
 
-            expect(mockIsZeroAddress).toHaveBeenCalledWith(zeroAddress);
             expect(mockGetBalance).toHaveBeenCalledWith(expect.any(Object), {
                 chainId,
                 address: account,
@@ -84,16 +76,14 @@ describe('getBalanceOf', () => {
             const decimals = 18n;
             const symbol = 'USDT';
 
-            mockIsZeroAddress.mockReturnValue(false);
             mockMulticall.mockResolvedValue([
                 { status: 'success', result: balanceValue },
                 { status: 'success', result: decimals },
                 { status: 'success', result: symbol },
             ]);
 
-            const result = await getBalanceOf(chainId, account, tokenAddress);
+            const result = await getBalanceOf(wagmiConfig, chainId, account, tokenAddress);
 
-            expect(mockIsZeroAddress).toHaveBeenCalledWith(tokenAddress);
             expect(mockGetBalance).not.toHaveBeenCalled();
             expect(mockMulticall).toHaveBeenCalledWith(expect.any(Object), {
                 contracts: [
@@ -128,14 +118,13 @@ describe('getBalanceOf', () => {
             const decimals = 6n;
             const symbol = 'USDC';
 
-            mockIsZeroAddress.mockReturnValue(false);
             mockMulticall.mockResolvedValue([
                 { status: 'success', result: balanceValue },
                 { status: 'success', result: decimals },
                 { status: 'success', result: symbol },
             ]);
 
-            const result = await getBalanceOf(chainId, account, tokenAddress);
+            const result = await getBalanceOf(wagmiConfig, chainId, account, tokenAddress);
 
             expect(result).toEqual({
                 value: balanceValue,
@@ -149,14 +138,13 @@ describe('getBalanceOf', () => {
             const decimals = 18n;
             const symbol = 'DAI';
 
-            mockIsZeroAddress.mockReturnValue(false);
             mockMulticall.mockResolvedValue([
                 { status: 'success', result: balanceValue },
                 { status: 'success', result: decimals },
                 { status: 'success', result: symbol },
             ]);
 
-            const result = await getBalanceOf(chainId, account, tokenAddress);
+            const result = await getBalanceOf(wagmiConfig, chainId, account, tokenAddress);
 
             expect(result).toEqual({
                 value: balanceValue,
@@ -168,53 +156,49 @@ describe('getBalanceOf', () => {
 
     describe('error handling', () => {
         it('should throw error when balanceOf call fails', async () => {
-            mockIsZeroAddress.mockReturnValue(false);
             mockMulticall.mockResolvedValue([
                 { status: 'failure', error: new Error('RPC error') },
                 { status: 'success', result: 18n },
                 { status: 'success', result: 'USDT' },
             ]);
 
-            await expect(getBalanceOf(chainId, account, tokenAddress)).rejects.toThrow(
+            await expect(getBalanceOf(wagmiConfig, chainId, account, tokenAddress)).rejects.toThrow(
                 `Failed to fetch token balance or decimals for account=${account} address=${tokenAddress} on chain: ${chainId}`,
             );
         });
 
         it('should throw error when decimals call fails', async () => {
-            mockIsZeroAddress.mockReturnValue(false);
             mockMulticall.mockResolvedValue([
                 { status: 'success', result: BigInt('1000000') },
                 { status: 'failure', error: new Error('RPC error') },
                 { status: 'success', result: 'USDT' },
             ]);
 
-            await expect(getBalanceOf(chainId, account, tokenAddress)).rejects.toThrow(
+            await expect(getBalanceOf(wagmiConfig, chainId, account, tokenAddress)).rejects.toThrow(
                 `Failed to fetch token balance or decimals for account=${account} address=${tokenAddress} on chain: ${chainId}`,
             );
         });
 
         it('should throw error when symbol call fails', async () => {
-            mockIsZeroAddress.mockReturnValue(false);
             mockMulticall.mockResolvedValue([
                 { status: 'success', result: BigInt('1000000') },
                 { status: 'success', result: 18n },
                 { status: 'failure', error: new Error('RPC error') },
             ]);
 
-            await expect(getBalanceOf(chainId, account, tokenAddress)).rejects.toThrow(
+            await expect(getBalanceOf(wagmiConfig, chainId, account, tokenAddress)).rejects.toThrow(
                 `Failed to fetch token balance or decimals for account=${account} address=${tokenAddress} on chain: ${chainId}`,
             );
         });
 
         it('should throw error when multiple calls fail', async () => {
-            mockIsZeroAddress.mockReturnValue(false);
             mockMulticall.mockResolvedValue([
                 { status: 'failure', error: new Error('RPC error') },
                 { status: 'failure', error: new Error('RPC error') },
                 { status: 'failure', error: new Error('RPC error') },
             ]);
 
-            await expect(getBalanceOf(chainId, account, tokenAddress)).rejects.toThrow(
+            await expect(getBalanceOf(wagmiConfig, chainId, account, tokenAddress)).rejects.toThrow(
                 `Failed to fetch token balance or decimals for account=${account} address=${tokenAddress} on chain: ${chainId}`,
             );
         });
@@ -230,7 +214,7 @@ describe('getBalanceOf', () => {
             };
             mockGetBalance.mockResolvedValue(mockBalance);
 
-            await getBalanceOf(polygonChainId, account, undefined);
+            await getBalanceOf(wagmiConfig, polygonChainId, account, undefined);
 
             expect(mockGetBalance).toHaveBeenCalledWith(expect.any(Object), {
                 chainId: polygonChainId,
@@ -245,14 +229,13 @@ describe('getBalanceOf', () => {
             const decimals = 18n;
             const symbol = 'USDC';
 
-            mockIsZeroAddress.mockReturnValue(false);
             mockMulticall.mockResolvedValue([
                 { status: 'success', result: balanceValue },
                 { status: 'success', result: decimals },
                 { status: 'success', result: symbol },
             ]);
 
-            await getBalanceOf(baseChainId, account, tokenAddress);
+            await getBalanceOf(wagmiConfig, baseChainId, account, tokenAddress);
 
             expect(mockMulticall).toHaveBeenCalledWith(expect.any(Object), {
                 contracts: expect.any(Array),
@@ -270,10 +253,9 @@ describe('getBalanceOf', () => {
             };
             mockGetBalance.mockResolvedValue(mockBalance);
 
-            const result = await getBalanceOf(chainId, account, '');
+            const result = await getBalanceOf(wagmiConfig, chainId, account, '');
 
-            // Empty string is falsy, so !address is true and isZeroAddress is never called
-            expect(mockIsZeroAddress).not.toHaveBeenCalled();
+            // Empty string is falsy, so !address is true and native getBalance is used
             expect(mockGetBalance).toHaveBeenCalledWith(expect.any(Object), {
                 chainId,
                 address: account,
@@ -287,14 +269,13 @@ describe('getBalanceOf', () => {
             const decimals = 18n;
             const symbol = 'TEST';
 
-            mockIsZeroAddress.mockReturnValue(false);
             mockMulticall.mockResolvedValue([
                 { status: 'success', result: largeBalance },
                 { status: 'success', result: decimals },
                 { status: 'success', result: symbol },
             ]);
 
-            const result = await getBalanceOf(chainId, account, tokenAddress);
+            const result = await getBalanceOf(wagmiConfig, chainId, account, tokenAddress);
 
             expect(result.value).toEqual(largeBalance);
         });

@@ -1,3 +1,4 @@
+import { switchEthereumChain } from '@dimensiondev/web3/actions';
 import { chains } from '@dimensiondev/web3/chains';
 import { NetworkType } from '@dimensiondev/web3/enums';
 import { ConnectorChainMismatchError, ConnectorNotConnectedError } from '@wagmi/core';
@@ -5,7 +6,6 @@ import type { Config } from 'wagmi';
 import { getWalletClient, type GetWalletClientParameters, type GetWalletClientReturnType } from 'wagmi/actions';
 
 import { SwitchChainError } from '@/constants/error.js';
-import { switchEthereumChain } from '@/helpers/switchEthereumChain.js';
 import { type WalletConnectModalOpenProps, WalletConnectModalRef } from '@/modals/WalletConnectModal/refs.js';
 
 function resolveExpectChainId(error: ConnectorChainMismatchError) {
@@ -34,7 +34,7 @@ export async function getWalletClientRequired(
             const expectedChainId = clientParameters?.chainId || resolveExpectChainId(error);
             if (expectedChainId) {
                 // starting from wagmi/core 2.2, the validation of chains will be strict.
-                await switchEthereumChain(expectedChainId);
+                await switchEthereumChain(config, expectedChainId);
             } else {
                 throw error;
             }
@@ -47,7 +47,7 @@ export async function getWalletClientRequired(
     if (!clientParameters?.chainId) return client;
 
     if (clientParameters.chainId !== (await client.getChainId())) {
-        await switchEthereumChain(clientParameters.chainId);
+        await switchEthereumChain(config, clientParameters.chainId);
         if (clientParameters.chainId !== (await client.getChainId())) {
             const chainName = chains.find((x) => x.id === clientParameters?.chainId)?.name;
             if (chainName) throw new SwitchChainError(chainName);

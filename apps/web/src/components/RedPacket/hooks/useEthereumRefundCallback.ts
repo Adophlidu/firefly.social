@@ -1,10 +1,10 @@
+import { waitForEthereumTransaction } from '@dimensiondev/web3/actions';
 import { useAsyncFn } from 'react-use';
 import { getChainId, switchChain, writeContract } from 'wagmi/actions';
 
 import RED_PACKET_ABI from '@/abis/RedPacket.json' with { type: 'json' };
 import { queryClient } from '@/configs/queryClient.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
-import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
 import { type ChainContextOverrides, useChainContext } from '@/hooks/useChainContext.js';
 import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
 
@@ -25,7 +25,7 @@ export function useEthereumRefundCallback(rpid?: string, overrides?: ChainContex
             chainId,
         });
 
-        await waitForEthereumTransaction(chainId, hash);
+        await waitForEthereumTransaction(wagmiConfig, chainId, hash);
 
         queryClient.refetchQueries({
             queryKey: ['red-packet', 'claim', rpid],

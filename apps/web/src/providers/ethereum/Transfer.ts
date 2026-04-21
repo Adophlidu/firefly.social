@@ -1,11 +1,10 @@
+import { switchEthereumChain, waitForEthereumTransaction } from '@dimensiondev/web3/actions';
 import { isGreaterThan, isLessThan, leftShift, multipliedBy, rightShift, ZERO } from '@dimensiondev/web3/numbers';
 import { getTokenAbiForWagmi } from '@dimensiondev/web3/utils';
 import { type Address, encodeFunctionData, type Hash, parseUnits } from 'viem';
 import { getAccount, getBalance, sendTransaction, writeContract } from 'wagmi/actions';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
-import { switchEthereumChain } from '@/helpers/switchEthereumChain.js';
-import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
 import { getAvailableBalance } from '@/providers/ethereum/getAvailableBalance.js';
 import { getDefaultGas } from '@/providers/ethereum/getDefaultGas.js';
 import { isNativeTokenDebank } from '@/providers/ethereum/isNativeTokenDebank.js';
@@ -23,10 +22,7 @@ class Provider implements TransferProvider<number, Address, Hash> {
             ? await currentConnector.getChainId().catch(() => EthereumNetwork.getChainId())
             : EthereumNetwork.getChainId();
         if (!currentChainId || token.chainId !== currentChainId) {
-            await switchEthereumChain(token.chainId, {
-                config: wagmiConfig,
-                connector: currentConnector,
-            });
+            await switchEthereumChain(wagmiConfig, token.chainId, { connector: currentConnector });
         }
 
         const hash = this.isNativeToken(token)
@@ -162,7 +158,7 @@ class Provider implements TransferProvider<number, Address, Hash> {
     }
 
     async waitForTransaction(hash: string, chainId: number): Promise<void> {
-        await waitForEthereumTransaction(chainId, hash as Hash);
+        await waitForEthereumTransaction(wagmiConfig, chainId, hash as Hash);
     }
 }
 

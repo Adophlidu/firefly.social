@@ -9,6 +9,10 @@ export default defineConfig({
         include: ['tests/**/*.ts'],
     },
     resolve: {
+        // apps/web and packages/web3 each resolve wagmi from different pnpm
+        // virtual store paths; dedupe so vi.mock('wagmi/actions') matches
+        // imports inside @dimensiondev/web3 (e.g. getBalanceOf).
+        dedupe: ['wagmi', '@wagmi/core'],
         alias: {
             '@': resolve(__dirname, 'src'),
             // mdast is types-only, point to stub file for runtime

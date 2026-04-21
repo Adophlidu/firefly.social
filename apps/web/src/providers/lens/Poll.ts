@@ -1,4 +1,5 @@
 import { AuthenticationError, NotImplementedError, runInSafeAsync } from '@dimensiondev/utils';
+import { waitForEthereumTransaction } from '@dimensiondev/web3/actions';
 import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import { first, sumBy } from 'lodash-es';
 import { getAddress } from 'viem';
@@ -14,7 +15,6 @@ import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { memoizePromiseWithTime } from '@/helpers/memoizePromise.js';
 import { getPollDurationSeconds } from '@/helpers/polls.js';
 import { sendCustomEip712Transaction } from '@/helpers/sendCustomEip712Transaction.js';
-import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
 import { commitPoll } from '@/providers/firefly/poll/commitPoll.js';
 import { ensureLensResultSync } from '@/providers/lens/ensureLensResultSync.js';
 import { isLensOwnerOrManager } from '@/providers/lens/isLensOwnerOrManager.js';
@@ -110,7 +110,7 @@ class LensPoll implements Provider {
                           })
                         : undefined,
                 });
-                await waitForEthereumTransaction(transaction.chainId, hash);
+                await waitForEthereumTransaction(wagmiConfig, transaction.chainId, hash);
             }),
         );
 

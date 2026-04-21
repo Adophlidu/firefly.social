@@ -44,8 +44,9 @@
         "access": "restricted"
     },
     "devDependencies": {
+        "@typescript/native-preview": "7.0.0-dev.20260413.1",
         "tsup": "^8.5.1",
-        "@typescript/native-preview": "7.0.0-dev.20260413.1"
+        "vitest": "^3.2.4"
     },
     "peerDependencies": {
         "typescript": ">=5.0.0"

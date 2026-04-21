@@ -1,21 +1,21 @@
-import { isZeroAddress } from '@dimensiondev/web3/utils';
-import { type Address, erc20Abi } from 'viem';
+import type { Address } from 'viem';
+import { erc20Abi } from 'viem';
+import type { Config } from 'wagmi';
 import { getBalance, multicall } from 'wagmi/actions';
 
-import { wagmiConfig } from '@/configs/wagmiClient.js';
+import { isZeroAddress } from '@/utils/isZeroAddress.js';
 
-export async function getBalanceOf(chainId: number, account: string, address?: string) {
+export async function getBalanceOf(config: Config, chainId: number, account: string, address?: string) {
     if (!address || isZeroAddress(address)) {
-        const balance = await getBalance(wagmiConfig, {
+        return getBalance(config, {
             chainId,
             address: account as Address,
             blockTag: 'latest',
         });
-        return balance;
     }
 
-    // Use multicall to fetch both balanceOf and decimals
-    const [balanceResult, decimalsResult, symbolResult] = await multicall(wagmiConfig, {
+    const [balanceResult, decimalsResult, symbolResult] = await multicall(config, {
+        chainId,
         contracts: [
             {
                 abi: erc20Abi,
@@ -34,7 +34,6 @@ export async function getBalanceOf(chainId: number, account: string, address?: s
                 functionName: 'symbol',
             },
         ],
-        chainId,
     });
 
     if (

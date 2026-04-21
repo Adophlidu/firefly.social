@@ -1,5 +1,6 @@
 import { EMPTY_LIST, IS_DEVELOPMENT } from '@dimensiondev/constants';
 import { classNames, delay } from '@dimensiondev/utils';
+import { switchEthereumChain } from '@dimensiondev/web3/actions';
 import { exposeToIframe } from '@farcaster/miniapp-host';
 import { Trans } from '@lingui/react/macro';
 import { useEffect, useRef } from 'react';
@@ -15,7 +16,6 @@ import { createEIP1193Provider } from '@/helpers/createEIP1193Provider.js';
 import { eip5792Polyfill } from '@/helpers/eip5792Polyfill.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
-import { switchEthereumChain } from '@/helpers/switchEthereumChain.js';
 import { useStateMachine } from '@/hooks/useStateMachine.js';
 import {
     RelayConfirmationPopover,
@@ -41,7 +41,7 @@ function createEthProvider(frame: Frame) {
                     try {
                         const chain = params[0] as { chainId: string };
                         const chainId = Number.parseInt(chain.chainId, 16);
-                        await switchEthereumChain(chainId);
+                        await switchEthereumChain(wagmiConfig, chainId);
                     } catch (error) {
                         enqueueMessageFromError(error, <Trans>Failed to switch chain</Trans>);
                         throw error;
