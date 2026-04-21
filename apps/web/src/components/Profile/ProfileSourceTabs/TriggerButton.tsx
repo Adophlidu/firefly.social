@@ -10,6 +10,7 @@ import { PROFILE_SOURCE_TABS_CONTAINER_ID } from '@/components/Profile/ProfileSo
 import { ProfileTriggerContent } from '@/components/Profile/ProfileSourceTabs/SourceIcon.js';
 import { Source } from '@/constants/enum.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
+import { isMPCWallet } from '@/helpers/isMPCWallet.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { isProfilePageSource, isSocialSource } from '@/helpers/isSource.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
@@ -17,7 +18,7 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { captureProfileAccountClickSimple } from '@/providers/telemetry/captureProfileAccountEvent.js';
 import { captureProfileChangeAccountClick } from '@/providers/telemetry/captureProfileActionEvent.js';
-import type { FireflyIdentity, FireflyProfile } from '@/providers/types/Firefly.js';
+import type { FireflyIdentity, FireflyProfile, WalletProfile } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export function TriggerButton({
@@ -27,13 +28,18 @@ export function TriggerButton({
     menu = false,
     isLast = false,
 }: {
-    profile: Pick<FireflyProfile, 'identity' | 'displayName'>;
+    profile: Pick<FireflyProfile, 'identity' | 'displayName' | '__origin__'>;
     identity: FireflyIdentity;
     menu?: boolean;
     isLast?: boolean;
     socialProfile?: Profile | null;
 }) {
     const source = profile.identity.source;
+    const isWalletProfile = source === Source.Wallet;
+    const isMPC =
+        isWalletProfile &&
+        !!(profile.__origin__ as WalletProfile | undefined) &&
+        isMPCWallet(profile.__origin__ as WalletProfile);
     const isCurrentSource =
         identity.source === source || (source === Source.Wallet && identity.source === Source.WalletMix);
     const ref = useRef<HTMLButtonElement | HTMLAnchorElement>(null);
@@ -99,7 +105,7 @@ export function TriggerButton({
                 className={triggerClassName}
                 onMouseEnter={(e) => e.currentTarget.click()}
             >
-                <ProfileTriggerContent active={isCurrentSource} source={source} square arrow>
+                <ProfileTriggerContent active={isCurrentSource} source={source} square arrow isMPC={isMPC}>
                     {envs.external.NEXT_PUBLIC_WALLET_MIX === STATUS.Disabled ||
                     source !== Source.Wallet ||
                     isNotWalletMixIdentity ? (
@@ -122,7 +128,7 @@ export function TriggerButton({
                 captureProfileAccountClickSimple(source, profile.identity.id, profile.displayName || '');
             }}
         >
-            <ProfileTriggerContent active={isCurrentSource} source={source} square>
+            <ProfileTriggerContent active={isCurrentSource} source={source} square isMPC={isMPC}>
                 {displayName}
             </ProfileTriggerContent>
         </Link>

@@ -32,6 +32,8 @@ export function TopProfileMenuItem({ profile, identity }: { profile: FireflyProf
 
     if (!isProfilePageSource(source)) return null;
     const isWalletProfile = source === Source.Wallet;
+    const origin = isWalletProfile ? (profile.__origin__ as WalletProfile) : null;
+    const isMPC = !!origin && isMPCWallet(origin);
     const isCurrentSource =
         identity.source === source || (source === Source.Wallet && identity.source === Source.WalletMix);
 
@@ -62,7 +64,7 @@ export function TopProfileMenuItem({ profile, identity }: { profile: FireflyProf
                         },
                     )}
                 >
-                    <SourceIcon source={source} size={12} />
+                    <SourceIcon source={source} size={12} isMPC={isMPC} />
                 </span>
                 <span className="mx-1 min-w-0 truncate">
                     <Trans>Wallets</Trans>
@@ -91,7 +93,7 @@ export function TopProfileMenuItem({ profile, identity }: { profile: FireflyProf
                     'outline outline-[0.5px] outline-current': isCurrentSource,
                 })}
             >
-                <SourceIcon source={source} size={12} />
+                <SourceIcon source={source} size={12} isMPC={isMPC} />
             </span>
             <span className="mx-1 min-w-0 truncate">
                 {isWalletProfile ? '' : '@'}
