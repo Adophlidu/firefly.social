@@ -2137,6 +2137,10 @@ msgstr "Change password"
 msgid "Verified by {provider}"
 msgstr "Verified by {provider}"
 
+#. placeholder {0}: session.type
+msgid "This {0} account is already linked"
+msgstr "This {0} account is already linked"
+
 msgid "Resend full or remaining?"
 msgstr "Resend full or remaining?"
 
@@ -2795,6 +2799,9 @@ msgstr "Executed"
 
 msgid "EVM"
 msgstr "EVM"
+
+msgid "This Email is already linked"
+msgstr "This Email is already linked"
 
 msgid "Yes"
 msgstr "Yes"
@@ -3776,9 +3783,6 @@ msgstr "{0} {1} <0>Floor</0>"
 msgid "Hide tokens with small balances"
 msgstr "Hide tokens with small balances"
 
-msgid "This Email is already linked to another Firefly account."
-msgstr "This Email is already linked to another Firefly account."
-
 msgid "Welcome back to Firefly!"
 msgstr "Welcome back to Firefly!"
 
@@ -3956,9 +3960,6 @@ msgstr "Grant access to your {0} for the Lucky Drop Smart contract. You only hav
 msgid "Post your reply"
 msgstr "Post your reply"
 
-msgid "This Telegram account is already linked to another Firefly account."
-msgstr "This Telegram account is already linked to another Firefly account."
-
 msgid "Add Token"
 msgstr "Add Token"
 
@@ -4132,9 +4133,6 @@ msgstr "Scan the QR code with your phone to download the app"
 
 msgid "Articles"
 msgstr "Articles"
-
-msgid "This Apple account is already linked to another Firefly account."
-msgstr "This Apple account is already linked to another Firefly account."
 
 msgid "Quote posts disabled"
 msgstr "Quote posts disabled"
@@ -4887,6 +4885,9 @@ msgstr "Failed to leave #{0} on {sourceName}"
 
 msgid "Something went wrong, please try again."
 msgstr "Something went wrong, please try again."
+
+msgid "This Telegram account is already linked"
+msgstr "This Telegram account is already linked"
 
 msgid "Following"
 msgstr "Following"

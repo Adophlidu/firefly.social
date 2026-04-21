@@ -106,8 +106,11 @@ const state = createProfileState(
                     enqueueForbiddenMessage();
                     return;
                 }
-                if (error instanceof FireflyAlreadyBoundError && session?.type === SessionType.Apple) {
-                    enqueueWarningMessage(t`This Apple account is already linked to another Firefly account.`);
+                if (
+                    error instanceof FireflyAlreadyBoundError &&
+                    (session?.type === SessionType.Apple || session?.type === SessionType.Google)
+                ) {
+                    enqueueWarningMessage(t`This ${session.type} account is already linked`);
                     return;
                 }
 

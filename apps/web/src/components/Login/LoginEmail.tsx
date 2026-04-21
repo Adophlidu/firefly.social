@@ -60,7 +60,7 @@ async function loginEmail(
             return;
         }
         if (error instanceof FireflyAlreadyBoundError) {
-            enqueueWarningMessage(<Trans>This Email is already linked to another Firefly account.</Trans>);
+            enqueueWarningMessage(<Trans>This Email is already linked</Trans>);
             return;
         }
         if (error instanceof Error) {

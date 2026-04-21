@@ -90,9 +90,7 @@ export default function Page() {
                 return;
             }
             if (error instanceof FireflyAlreadyBoundError) {
-                enqueueWarningMessage(
-                    <Trans>This Telegram account is already linked to another Firefly account.</Trans>,
-                );
+                enqueueWarningMessage(<Trans>This Telegram account is already linked</Trans>);
                 return;
             }
             enqueueMessageFromError(error, <Trans>Oops... Something went wrong. Please try again</Trans>);

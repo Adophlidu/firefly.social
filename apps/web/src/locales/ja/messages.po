@@ -2127,6 +2127,10 @@ msgstr ""
 msgid "Verified by {provider}"
 msgstr ""
 
+#. placeholder {0}: session.type
+msgid "This {0} account is already linked"
+msgstr ""
+
 msgid "Resend full or remaining?"
 msgstr ""
 
@@ -2779,6 +2783,9 @@ msgid "Executed"
 msgstr ""
 
 msgid "EVM"
+msgstr ""
+
+msgid "This Email is already linked"
 msgstr ""
 
 msgid "Yes"
@@ -3755,9 +3762,6 @@ msgstr ""
 msgid "Hide tokens with small balances"
 msgstr ""
 
-msgid "This Email is already linked to another Firefly account."
-msgstr ""
-
 msgid "Welcome back to Firefly!"
 msgstr ""
 
@@ -3934,9 +3938,6 @@ msgstr ""
 msgid "Post your reply"
 msgstr ""
 
-msgid "This Telegram account is already linked to another Firefly account."
-msgstr ""
-
 msgid "Add Token"
 msgstr ""
 
@@ -4109,9 +4110,6 @@ msgid "Scan the QR code with your phone to download the app"
 msgstr ""
 
 msgid "Articles"
-msgstr ""
-
-msgid "This Apple account is already linked to another Firefly account."
 msgstr ""
 
 msgid "Quote posts disabled"
@@ -4862,6 +4860,9 @@ msgid "Failed to leave #{0} on {sourceName}"
 msgstr ""
 
 msgid "Something went wrong, please try again."
+msgstr ""
+
+msgid "This Telegram account is already linked"
 msgstr ""
 
 msgid "Following"

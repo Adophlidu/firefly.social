@@ -2127,6 +2127,10 @@ msgstr "變更密碼"
 msgid "Verified by {provider}"
 msgstr "由 {provider} 驗證"
 
+#. placeholder {0}: session.type
+msgid "This {0} account is already linked"
+msgstr ""
+
 msgid "Resend full or remaining?"
 msgstr "重新發布全部或剩餘部分？"
 
@@ -2780,6 +2784,9 @@ msgstr "已執行"
 
 msgid "EVM"
 msgstr "EVM"
+
+msgid "This Email is already linked"
+msgstr ""
 
 msgid "Yes"
 msgstr "是"
@@ -3755,9 +3762,6 @@ msgstr "{0} {1} <0>地板價</0>"
 msgid "Hide tokens with small balances"
 msgstr "隱藏小額代幣"
 
-msgid "This Email is already linked to another Firefly account."
-msgstr "此電子郵件已綁定其他 Firefly 帳戶。"
-
 msgid "Welcome back to Firefly!"
 msgstr "歡迎回到 Firefly！"
 
@@ -3934,9 +3938,6 @@ msgstr "授予紅包智能合約訪問你 {0} 的權限。每個代幣只需執�
 msgid "Post your reply"
 msgstr "發布你的留言"
 
-msgid "This Telegram account is already linked to another Firefly account."
-msgstr "此 Telegram 帳戶已連結至另一個 Firefly 帳戶。"
-
 msgid "Add Token"
 msgstr "添加代幣"
 
@@ -4110,9 +4111,6 @@ msgstr "掃描QR碼下載行動版應用"
 
 msgid "Articles"
 msgstr "文章"
-
-msgid "This Apple account is already linked to another Firefly account."
-msgstr "此電子郵件已綁定其他 Apple 帳號。"
 
 msgid "Quote posts disabled"
 msgstr "無法轉發"
@@ -4865,6 +4863,9 @@ msgstr "退出 {sourceName} 的 #{0} 失敗"
 
 msgid "Something went wrong, please try again."
 msgstr "哎呀... 發生錯誤，請重試。"
+
+msgid "This Telegram account is already linked"
+msgstr ""
 
 msgid "Following"
 msgstr "正在追蹤"

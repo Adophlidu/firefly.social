@@ -2127,6 +2127,10 @@ msgstr "修改密码"
 msgid "Verified by {provider}"
 msgstr "由 {provider} 校验"
 
+#. placeholder {0}: session.type
+msgid "This {0} account is already linked"
+msgstr ""
+
 msgid "Resend full or remaining?"
 msgstr "重新发布完整还是剩余部分？"
 
@@ -2780,6 +2784,9 @@ msgstr "已执行"
 
 msgid "EVM"
 msgstr "EVM"
+
+msgid "This Email is already linked"
+msgstr ""
 
 msgid "Yes"
 msgstr "是"
@@ -3755,9 +3762,6 @@ msgstr "{0} {1} <0>地板价</0>"
 msgid "Hide tokens with small balances"
 msgstr "隐藏小额代币"
 
-msgid "This Email is already linked to another Firefly account."
-msgstr "该邮箱已绑定其他 Firefly 账户。"
-
 msgid "Welcome back to Firefly!"
 msgstr "欢迎回到 Firefly！"
 
@@ -3934,9 +3938,6 @@ msgstr "授予红包智能合约访问你 {0} 的权限。每个代币只需执�
 msgid "Post your reply"
 msgstr "发布你的评论"
 
-msgid "This Telegram account is already linked to another Firefly account."
-msgstr "这个 Telegram 账号已绑定到另一个 Firefly 账户。"
-
 msgid "Add Token"
 msgstr "添加代币"
 
@@ -4110,9 +4111,6 @@ msgstr "扫描二维码下载移动端应用"
 
 msgid "Articles"
 msgstr "文章"
-
-msgid "This Apple account is already linked to another Firefly account."
-msgstr "该邮箱已绑定其他 Apple 账号。"
 
 msgid "Quote posts disabled"
 msgstr "不可转发"
@@ -4865,6 +4863,9 @@ msgstr "退出 {sourceName} 的 #{0} 失败"
 
 msgid "Something went wrong, please try again."
 msgstr "哎呀！出错了。 请再试一次。"
+
+msgid "This Telegram account is already linked"
+msgstr ""
 
 msgid "Following"
 msgstr "正在关注"
