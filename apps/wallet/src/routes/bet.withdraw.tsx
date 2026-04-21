@@ -34,6 +34,7 @@ import { SwapFromPage } from '@/constants/enum.js';
 import { formatTokenItemAmount } from '@/helpers/formatTokenItemAmount.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { optimisticSubtractBalance } from '@/helpers/polymarketBalanceCache.js';
+import { toastLoading } from '@/helpers/toastLoading.js';
 import { waitForPolymarketWithdraw } from '@/helpers/waitForPolymarketWithdraw.js';
 import { usdcTokenFallback, useWithdrawToken } from '@/hooks/bet/useTokenDetail.js';
 import { useGoToSelectToken } from '@/hooks/swap/useGoToSelectToken.js';
@@ -114,7 +115,7 @@ function WithdrawClient() {
                 throw new Error('Embedded wallet not ready');
             }
 
-            toast.loading(<Trans>Withdrawing funds to your Firefly wallet...</Trans>, { id: toastId });
+            toastLoading(<Trans>Withdrawing funds to your Firefly wallet...</Trans>, { id: toastId });
             store.set(showEmbeddedWalletUIAtom, false);
             await setActiveWallet(evmWallet);
             const amount = parseUnits(value, usdcTokenFallback.decimals);
@@ -123,13 +124,14 @@ function WithdrawClient() {
                 message: originalMessage,
                 account: evmAddress as `0x${string}`,
             });
-            const { hash } = await getFireflyEndpoint().polymarketWithdraw(
+            const hash = await getFireflyEndpoint().polymarketWithdraw(
                 amount.toString(),
                 targetToken.id,
                 targetToken.chainId,
                 originalMessage,
                 signature,
             );
+
             const status = await waitForPolymarketWithdraw(hash, targetToken.chainId !== polygon.id);
             if (!status) {
                 throw new Error('Failed to confirm withdraw status from Firefly');

@@ -30,6 +30,7 @@ import {
     resolveSwapEvmSigningWallet,
     resolveSwapSolanaSigningWallet,
 } from '@/helpers/swap/resolveSwapSigningWallet.js';
+import { toastLoading } from '@/helpers/toastLoading.js';
 import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
 import { useAppKitSolanaWallets } from '@/hooks/useAppKitSolanaWallets.js';
 import { logger } from '@/lib/Logger.js';
@@ -176,7 +177,7 @@ async function executeEvmSwap({
     setTxHash(hash);
 
     // Show loading toast, reset amount
-    toast.loading(t`Confirming your transaction...`, { id: toastId });
+    toastLoading(t`Confirming your transaction...`, { id: toastId });
     setFromAmount('');
     setSwapStep('input');
 
@@ -232,7 +233,7 @@ async function executeSolanaSwap({
     setTxHash(hash);
 
     // Show loading toast, reset amount
-    toast.loading(t`Confirming your transaction...`, { id: toastId });
+    toastLoading(t`Confirming your transaction...`, { id: toastId });
     setFromAmount('');
     setSwapStep('input');
 
@@ -402,7 +403,7 @@ export function useSwapExecuteCore({
             if (isUserRejection) {
                 errorMessage = t`User rejected`;
                 // icon of `loading` is exactly matching the design.
-                toast.loading(errorMessage, { id: toastId });
+                toastLoading(errorMessage, { id: toastId });
                 await delay(2000);
                 toast.dismiss(toastId);
             } else {

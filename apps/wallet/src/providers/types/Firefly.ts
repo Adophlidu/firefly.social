@@ -375,7 +375,7 @@ export interface PolymarketProfileListItem {
 export type PolymarketProfileListResponse = Response<PolymarketProfileListItem[]>;
 
 export type PolymarketWithdrawResponse = Response<{
-    hash: Hex;
+    hash: Hex | '';
     status: 'success' | 'failed';
 }>;
 

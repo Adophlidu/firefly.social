@@ -440,6 +440,11 @@ select {
     color: var(--color-second) !important;
 }
 
+.custom-loading-toast-content {
+    flex: 1;
+    min-width: 0;
+}
+
 .okx-widget-container iframe {
     border: none !important;
     outline: none !important;

@@ -2,7 +2,6 @@ import { addAndSwitchChain } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useSetActiveWallet } from '@privy-io/wagmi';
 import { useAsyncFn } from 'react-use';
-import { toast } from 'sonner';
 import { type Address, erc20Abi, parseUnits } from 'viem';
 import { useConfig } from 'wagmi';
 import { simulateContract, waitForTransactionReceipt, writeContract } from 'wagmi/actions';
@@ -11,6 +10,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import { InsufficientGasError } from '@/constants/error.js';
 import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
 import { tryFreeGasTransaction } from '@/helpers/freeGas/tryFreeGasTransaction.js';
+import { toastLoading } from '@/helpers/toastLoading.js';
 import { useEmbeddedEvmWalletContext } from '@/hooks/useCachedWalletAddresses.js';
 import type { SwapToken } from '@/providers/swap/types.js';
 import { FreeGasTxType } from '@/providers/types/FreeGas.js';
@@ -101,7 +101,7 @@ export function useAddFundsWithPolUsdc({ depositToken, polymarketAddress, amount
                 gas: gas ?? request.gas,
             });
         }
-        toast.loading(<Trans>Your funds are on the way...</Trans>, { id: toastId });
+        toastLoading(<Trans>Your funds are on the way...</Trans>, { id: toastId });
         await waitForTransactionReceipt(config, {
             hash: txHash,
             chainId: depositToken.chainId,

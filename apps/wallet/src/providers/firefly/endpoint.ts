@@ -1,5 +1,5 @@
 import urlcat from 'urlcat';
-import type { Address } from 'viem';
+import type { Address, Hex } from 'viem';
 
 import type { SocialSource } from '@/constants/enum.js';
 import { InvalidPolymarketAccountError } from '@/constants/error.js';
@@ -212,7 +212,7 @@ export class FireflyEndpoint extends Fetch {
         chainId: number,
         originalMessage: string,
         signatureMessage: string,
-    ) {
+    ): Promise<Hex> {
         const result = await this.post<PolymarketWithdrawResponse>(`/polymarket/v2/polymarket/withdraw`, {
             amount,
             token_address: tokenAddress,
@@ -220,7 +220,12 @@ export class FireflyEndpoint extends Fetch {
             original_message: originalMessage,
             signature_message: signatureMessage,
         });
-        return resolveFireflyResponseData(result.data);
+        const resolvedData = resolveFireflyResponseData(result.data);
+        if (resolvedData.status !== 'success' || !resolvedData.hash) {
+            throw new Error('Failed to initiate withdraw');
+        }
+
+        return resolvedData.hash;
     }
 
     async getPolymarketWithdrawAmount(amount: string, tokenAddress: string, chainId: number) {
