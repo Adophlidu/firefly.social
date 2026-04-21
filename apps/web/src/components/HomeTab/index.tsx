@@ -14,7 +14,6 @@ import { PredictionPlatformFilter } from '@/components/Prediction/PredictionPlat
 import { ChainFilter } from '@/components/Swap/ChainFilter.js';
 import { SolidTabs } from '@/components/Tabs/SolidTabs.js';
 import { HomeTab, Source } from '@/constants/enum.js';
-import { NFT_ENABLED } from '@/constants/static.js';
 import { usePathname } from '@/esm/navigation.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { parseDiscoverPageUrl } from '@/helpers/parseDiscoverPageUrl.js';
@@ -29,9 +28,7 @@ import { PredictionFilterNamespace } from '@/store/usePredictionSourceFilterStor
 import { useTransactionsStateStore } from '@/store/useTransactionsStore.js';
 
 const types = {
-    [HomeTab.Discover]: NFT_ENABLED
-        ? [Source.Posts, Source.Transactions, Source.Prediction, Source.Activities]
-        : [Source.Posts, Source.Prediction, Source.Activities],
+    [HomeTab.Discover]: [Source.Posts, Source.Prediction, Source.Activities],
     [HomeTab.Following]: [Source.Posts, Source.Transactions, Source.Prediction, Source.Activities],
 };
 const tabLabels = {
