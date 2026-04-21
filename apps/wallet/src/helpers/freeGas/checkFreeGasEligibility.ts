@@ -1,6 +1,6 @@
 import { isFreeGasSupportedChain } from '@dimensiondev/web3/utils';
 
-import { FreeGasTxType } from '@/providers/types/FreeGas.js';
+import type { FreeGasTxType } from '@/providers/types/FreeGas.js';
 import { getFireflyEndpoint } from '@/store/fireflyEndpoint.js';
 
 export interface CheckFreeGasEligibilityParams {

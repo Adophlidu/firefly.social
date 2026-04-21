@@ -1,11 +1,12 @@
 import { nativeBridgeProvider } from '@dimensiondev/native-bridge';
 import { type Chain, Network, SupportedMethod, type Transaction } from '@dimensiondev/native-bridge';
 import { squashCallback } from '@dimensiondev/utils';
+import { createWagmiPublicClient } from '@dimensiondev/web3/actions';
+import { resolvePublicRpcUrl } from '@dimensiondev/web3/utils';
 import { createInstance } from 'localforage';
 import { toHex } from 'viem';
 import { mainnet } from 'viem/chains';
 
-import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
 import type { RequestArguments } from '@/types/ethereum.js';
 import { EthereumMethodType } from '@/web3-shared/evm/types.js';
 
@@ -26,7 +27,7 @@ const connectWalletSquashed = squashCallback(
 async function createClient() {
     const rawChainId = await storage.getItem<string>('chainId');
     const chainId = rawChainId ? (Number.parseInt(rawChainId, 16) as number) : mainnet.id;
-    return createWagmiPublicClient(chainId);
+    return createWagmiPublicClient(chainId, resolvePublicRpcUrl(chainId));
 }
 
 function isValidChainId(chainId: number) {

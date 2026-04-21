@@ -4,6 +4,8 @@ import SwapIcon from '@dimensiondev/assets/doube-arrow.svg';
 import RandomIcon from '@dimensiondev/assets/random-firefly.svg';
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
 import { parseJson } from '@dimensiondev/utils';
+import { createWagmiPublicClient } from '@dimensiondev/web3/actions';
+import { resolvePublicRpcUrl } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useMutation, useQuery, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { useLocation, useNavigate } from '@tanstack/react-router';
@@ -19,7 +21,6 @@ import { Image } from '@/components/Image.js';
 import { Button } from '@/components/ui/button.js';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs.js';
 import { MarketNotFoundError } from '@/constants/error.js';
-import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
 import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
 import { getErrorMessage } from '@/helpers/getErrorMessage.js';
 import { optimisticAddBalance, optimisticSubtractBalance } from '@/helpers/polymarketBalanceCache.js';
@@ -265,7 +266,7 @@ export default function BetEventClient({ id }: { id: string }) {
                 amount: amountNum,
             });
             for (const hash of order?.transactionsHashes ?? []) {
-                const client = createWagmiPublicClient(polygon.id);
+                const client = createWagmiPublicClient(polygon.id, resolvePublicRpcUrl(polygon.id));
                 await client.waitForTransactionReceipt({ hash: hash as `0x${string}` });
             }
 

@@ -1,11 +1,10 @@
-import { switchEthereumChain, waitForEthereumTransaction } from '@dimensiondev/web3/actions';
+import { getAvailableBalance, switchEthereumChain, waitForEthereumTransaction } from '@dimensiondev/web3/actions';
 import { isGreaterThan, isLessThan, leftShift, multipliedBy, rightShift, ZERO } from '@dimensiondev/web3/numbers';
 import { getTokenAbiForWagmi } from '@dimensiondev/web3/utils';
 import { type Address, type Hash, parseUnits } from 'viem';
 import { getAccount, getBalance, sendTransaction, writeContract } from 'wagmi/actions';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
-import { getAvailableBalance } from '@/providers/ethereum/getAvailableBalance.js';
 import { getDefaultGas } from '@/providers/ethereum/getDefaultGas.js';
 import { isNativeTokenDebank } from '@/providers/ethereum/isNativeTokenDebank.js';
 import { EthereumNetwork } from '@/providers/ethereum/Network.js';
@@ -35,7 +34,9 @@ class Provider implements TransferProvider<number, Address, Hash> {
     }
 
     async validateBalance(options: TransactionOptions<number, Address>): Promise<boolean> {
-        const balance = await getAvailableBalance(options);
+        const account = getAccount(wagmiConfig);
+        if (!account.address) return false;
+        const balance = await getAvailableBalance(wagmiConfig, account.address, options.token);
         return !isGreaterThan(rightShift(options.amount, options.token.decimals), balance);
     }
 
@@ -67,7 +68,9 @@ class Provider implements TransferProvider<number, Address, Hash> {
 
     async getAvailableBalance(options: TransactionOptions<number, Address>): Promise<string> {
         const { token } = options;
-        const balance = await getAvailableBalance(options);
+        const account = getAccount(wagmiConfig);
+        if (!account.address) throw new Error('Wallet not connected');
+        const balance = await getAvailableBalance(wagmiConfig, account.address, token);
         return leftShift(balance, token.decimals).toString();
     }
 

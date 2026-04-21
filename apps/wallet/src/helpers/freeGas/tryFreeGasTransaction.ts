@@ -1,7 +1,7 @@
-import { isFreeGasSupportedChain, isSupportedStablecoin } from '@dimensiondev/web3/utils';
+import { createWagmiPublicClient } from '@dimensiondev/web3/actions';
+import { isFreeGasSupportedChain, isSupportedStablecoin, resolvePublicRpcUrl } from '@dimensiondev/web3/utils';
 import type { Address } from 'viem';
 
-import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
 import { logger } from '@/lib/Logger.js';
 import { type FreeGasTx, FreeGasTxType } from '@/providers/types/FreeGas.js';
 import { getFireflyEndpoint } from '@/store/fireflyEndpoint.js';
@@ -29,7 +29,7 @@ export async function tryFreeGasTransaction(
             return { type: 'fallback' } as const;
         }
 
-        const client = createWagmiPublicClient(chainId);
+        const client = createWagmiPublicClient(chainId, resolvePublicRpcUrl(chainId));
 
         const txId = crypto.randomUUID();
         const nonce = await client.getTransactionCount({ address: from, blockTag: 'pending' });

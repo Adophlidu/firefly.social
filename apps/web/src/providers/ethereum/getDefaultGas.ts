@@ -1,11 +1,11 @@
+import { createWagmiPublicClient } from '@dimensiondev/web3/actions';
 import { multipliedBy, toFixed, ZERO } from '@dimensiondev/web3/numbers';
-import { getTokenAbiForWagmi } from '@dimensiondev/web3/utils';
+import { getTokenAbiForWagmi, resolvePublicRpcUrl } from '@dimensiondev/web3/utils';
 import { BigNumber } from 'bignumber.js';
 import { type Address, parseUnits } from 'viem';
 import { estimateFeesPerGas } from 'wagmi/actions';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
-import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
 import { isNativeTokenDebank } from '@/providers/ethereum/isNativeTokenDebank.js';
 import { EthereumNetwork } from '@/providers/ethereum/Network.js';
 import type { GetDefaultGasOptions } from '@/providers/types/Transfer.js';
@@ -20,7 +20,7 @@ async function estimateGasForErc20Token(
     },
     amount: string,
 ) {
-    const client = createWagmiPublicClient(token.chainId);
+    const client = createWagmiPublicClient(token.chainId, resolvePublicRpcUrl(token.chainId));
     const account = await EthereumNetwork.getAccount();
     const data = await client.estimateContractGas({
         abi: getTokenAbiForWagmi(token.chainId, token.address as Address),
@@ -42,7 +42,7 @@ async function estimateGasForNativeToken(
     },
     amount: string,
 ) {
-    const client = createWagmiPublicClient(token.chainId);
+    const client = createWagmiPublicClient(token.chainId, resolvePublicRpcUrl(token.chainId));
     const data = await client.estimateGas({
         to: to as Address,
         value: parseUnits(amount, token.decimals),

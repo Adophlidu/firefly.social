@@ -1,11 +1,11 @@
+import { createWagmiPublicClient } from '@dimensiondev/web3/actions';
 import { multipliedBy, toFixed, ZERO } from '@dimensiondev/web3/numbers';
-import { getTokenAbiForWagmi } from '@dimensiondev/web3/utils';
+import { getTokenAbiForWagmi, resolvePublicRpcUrl } from '@dimensiondev/web3/utils';
 import { BigNumber } from 'bignumber.js';
 import { type Address, parseUnits } from 'viem';
 import type { Config } from 'wagmi';
 import { estimateFeesPerGas, getAccount } from 'wagmi/actions';
 
-import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
 import { isNativeTokenDebank } from '@/helpers/isNativeTokenDebank.js';
 import type { GetDefaultGasOptions } from '@/providers/types/Transfer.js';
 
@@ -19,7 +19,7 @@ async function estimateGasForErc20Token(
     },
     amount: string,
 ) {
-    const client = createWagmiPublicClient(token.chainId);
+    const client = createWagmiPublicClient(token.chainId, resolvePublicRpcUrl(token.chainId));
     const account = getAccount(config);
     if (!account.address) throw new Error('Wallet not connected');
 
@@ -44,7 +44,7 @@ async function estimateGasForNativeToken(
     },
     amount: string,
 ) {
-    const client = createWagmiPublicClient(token.chainId);
+    const client = createWagmiPublicClient(token.chainId, resolvePublicRpcUrl(token.chainId));
     const data = await client.estimateGas({
         to: to as Address,
         value: parseUnits(amount, token.decimals),

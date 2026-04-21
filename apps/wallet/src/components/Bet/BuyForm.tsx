@@ -1,6 +1,7 @@
 import LightningIcon from '@dimensiondev/assets/lightning.svg';
+import { createWagmiPublicClient } from '@dimensiondev/web3/actions';
 import { safe } from '@dimensiondev/web3/numbers';
-import { addAndSwitchChain, isSameAddress } from '@dimensiondev/web3/utils';
+import { addAndSwitchChain, isSameAddress, resolvePublicRpcUrl } from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQuery, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
@@ -22,7 +23,6 @@ import { Skeleton } from '@/components/Skeleton.js';
 import { Button } from '@/components/ui/button.js';
 import { InsufficientGasError } from '@/constants/error.js';
 import { USDC_E_POLYGON_ADDRESS } from '@/constants/ethereum.js';
-import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
 import { formatPriceToCents } from '@/helpers/formatPriceToCents.js';
 import { formatTokenFromFireflyTokenAsset } from '@/helpers/formatTokenFromFireflyTokenAsset.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
@@ -82,7 +82,7 @@ async function topUpBetsAccountFromWallet(params: {
 
     let gas: bigint | undefined;
     try {
-        const client = createWagmiPublicClient(polygon.id);
+        const client = createWagmiPublicClient(polygon.id, resolvePublicRpcUrl(polygon.id));
         const estimated = await client.estimateContractGas({
             ...transferCall,
             account: fromAddress,
@@ -93,7 +93,7 @@ async function topUpBetsAccountFromWallet(params: {
     }
 
     if (gas) {
-        const client = createWagmiPublicClient(polygon.id);
+        const client = createWagmiPublicClient(polygon.id, resolvePublicRpcUrl(polygon.id));
         const [gasPrice, nativeBalance] = await Promise.all([
             client.getGasPrice(),
             client.getBalance({ address: fromAddress }),

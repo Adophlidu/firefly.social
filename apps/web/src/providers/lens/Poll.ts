@@ -1,5 +1,5 @@
 import { AuthenticationError, NotImplementedError, runInSafeAsync } from '@dimensiondev/utils';
-import { waitForEthereumTransaction } from '@dimensiondev/web3/actions';
+import { sendCustomEip712Transaction, waitForEthereumTransaction } from '@dimensiondev/web3/actions';
 import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import { first, sumBy } from 'lodash-es';
 import { getAddress } from 'viem';
@@ -14,7 +14,6 @@ import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromSto
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { memoizePromiseWithTime } from '@/helpers/memoizePromise.js';
 import { getPollDurationSeconds } from '@/helpers/polls.js';
-import { sendCustomEip712Transaction } from '@/helpers/sendCustomEip712Transaction.js';
 import { commitPoll } from '@/providers/firefly/poll/commitPoll.js';
 import { ensureLensResultSync } from '@/providers/lens/ensureLensResultSync.js';
 import { isLensOwnerOrManager } from '@/providers/lens/isLensOwnerOrManager.js';
@@ -103,7 +102,7 @@ class LensPoll implements Provider {
                     value: BigInt(transaction.amount),
                 };
 
-                const hash = await sendCustomEip712Transaction(lens.id, options, {
+                const hash = await sendCustomEip712Transaction(wagmiConfig, lens.id, options, {
                     client: isPrivy
                         ? await createPrivyWalletClient({
                               chainId: lens.id,

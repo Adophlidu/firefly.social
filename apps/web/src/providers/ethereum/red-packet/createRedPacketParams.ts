@@ -1,10 +1,11 @@
+import { createWagmiPublicClient } from '@dimensiondev/web3/actions';
 import { isLessThan } from '@dimensiondev/web3/numbers';
+import { resolvePublicRpcUrl } from '@dimensiondev/web3/utils';
 import { omit } from 'lodash-es';
 import { type Address, type Hex, keccak256 } from 'viem';
 import { estimateContractGas } from 'viem/actions';
 
 import RED_PACKET_ABI from '@/abis/RedPacket.json' with { type: 'json' };
-import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
 import { logger } from '@/libs/Logger.js';
 import { getEvmNativeTokenAddress } from '@/providers/ethereum/getNativeTokenAddress.js';
 import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
@@ -45,7 +46,7 @@ export async function createRedPacketParams(context: CreateRedPacketContext) {
     const methodParams = omit(params, ['token']) as Omit<CreateRedPacketParams, 'token'>;
 
     try {
-        const gas = await estimateContractGas(createWagmiPublicClient(chainId), {
+        const gas = await estimateContractGas(createWagmiPublicClient(chainId, resolvePublicRpcUrl(chainId)), {
             account: creator as Address,
             address: getRedPacketContractAddress(chainId),
             abi: RED_PACKET_ABI,

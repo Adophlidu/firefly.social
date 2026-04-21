@@ -1,6 +1,6 @@
 import { web3 } from '@coral-xyz/anchor';
 import { delay } from '@dimensiondev/utils';
-import { waitForEthereumTransaction } from '@dimensiondev/web3/actions';
+import { estimateSwapGas, waitForEthereumTransaction } from '@dimensiondev/web3/actions';
 import { type ChainId, isSolanaChain } from '@dimensiondev/web3/chains';
 import { getSolanaRPCUrl } from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
@@ -22,7 +22,6 @@ import { tryFreeGasTransaction } from '@/helpers/freeGas/tryFreeGasTransaction.j
 import { getUserFacingErrorMessage } from '@/helpers/getErrorMessage.js';
 import { signAndBroadcastSolanaTransaction } from '@/helpers/signAndBroadcastSolanaTransaction.js';
 import type { BuildSwapAnalyticsParamsInput } from '@/helpers/swap/buildSwapAnalyticsParams.js';
-import { estimateSwapGas } from '@/helpers/swap/estimateSwapGas.js';
 import { executeEvmApproval } from '@/helpers/swap/executeEvmApproval.js';
 import { fetchSwapQuote } from '@/helpers/swap/fetchSwapQuote.js';
 import type { HandleSwapSuccessParams } from '@/helpers/swap/handleSwapSuccess.js';
@@ -135,7 +134,7 @@ async function executeEvmSwap({
     });
 
     // Send swap transaction
-    const gas = await estimateSwapGas({
+    const gas = await estimateSwapGas(config, {
         chainId,
         to: quoteResult.tx.to as Address,
         data: quoteResult.tx.data as Hex,

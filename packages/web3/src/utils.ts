@@ -19,4 +19,5 @@ export * from '@/utils/parseCAIP10.js';
 export * from '@/utils/parseCAIP19.js';
 export * from '@/utils/parseSolToLamports.js';
 export * from '@/utils/resolvePublicProviderUrl.js';
+export * from '@/utils/resolvePublicRpcUrl.js';
 export * from '@/utils/resolveWagmiChain.js';

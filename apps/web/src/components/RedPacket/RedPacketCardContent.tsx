@@ -1,8 +1,10 @@
 'use client';
 
 import { runInSafeAsync } from '@dimensiondev/utils';
+import { createWagmiPublicClient } from '@dimensiondev/web3/actions';
 import { NetworkType } from '@dimensiondev/web3/enums';
 import { minus, ZERO } from '@dimensiondev/web3/numbers';
+import { resolvePublicRpcUrl } from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { BigNumber } from 'bignumber.js';
@@ -29,7 +31,6 @@ import { SUPPORTED_MEDIA_CORS_SOURCES } from '@/constants/computed.js';
 import { RedpacketTxType } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/static.js';
 import { Image } from '@/esm/Image.js';
-import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
 import { getNativeToken } from '@/helpers/getNativeToken.js';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
@@ -83,7 +84,7 @@ export function RedPacketCardContent({ payload, post }: Props) {
     const { value: estimateGas = ZERO, loading: estimateLoading } = useAsync(async () => {
         if (!canClaim || !parsedChainId || !password || !account || networkType === NetworkType.Solana) return;
 
-        const client = createWagmiPublicClient(parsedChainId);
+        const client = createWagmiPublicClient(parsedChainId, resolvePublicRpcUrl(parsedChainId));
         return runInSafeAsync(async () => {
             return client.estimateContractGas({
                 abi: RED_PACKET_ABI,

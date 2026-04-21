@@ -1,4 +1,4 @@
-import { waitForEthereumTransaction } from '@dimensiondev/web3/actions';
+import { estimateSwapGas, waitForEthereumTransaction } from '@dimensiondev/web3/actions';
 import type { ChainId } from '@dimensiondev/web3/chains';
 import { rightShift } from '@dimensiondev/web3/numbers';
 import { isNativeTokenAddress } from '@dimensiondev/web3/utils';
@@ -7,7 +7,6 @@ import { readContract, sendTransaction } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmiClient.js';
 import { tryFreeGasTransaction } from '@/helpers/freeGas/tryFreeGasTransaction.js';
-import { estimateSwapGas } from '@/helpers/swap/estimateSwapGas.js';
 import type { SwapEndpoint } from '@/providers/swap/swapEndpoint.js';
 import type { SwapToken } from '@/providers/swap/types.js';
 import { FreeGasTxType } from '@/providers/types/FreeGas.js';
@@ -96,7 +95,7 @@ export async function executeEvmApproval(params: ExecuteEvmApprovalParams): Prom
     const approveValue = BigInt(0);
     const approveGasLimit = approveTxData.gasLimit
         ? BigInt(approveTxData.gasLimit)
-        : await estimateSwapGas({
+        : await estimateSwapGas(config, {
               chainId,
               to: approveTo,
               data: approveData,

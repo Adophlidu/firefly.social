@@ -1,13 +1,13 @@
+import { createWagmiPublicClient, estimateSwapGas } from '@dimensiondev/web3/actions';
 import { isSolanaChain } from '@dimensiondev/web3/chains';
 import { ETH_NATIVE_TOKEN_ADDRESS, SOL_NATIVE_TOKEN_ADDRESS } from '@dimensiondev/web3/constants';
 import { isLessThan, leftShift, minus, multipliedBy } from '@dimensiondev/web3/numbers';
-import { isNativeTokenAddress } from '@dimensiondev/web3/utils';
+import { isNativeTokenAddress, resolvePublicRpcUrl } from '@dimensiondev/web3/utils';
 import { useQuery } from '@tanstack/react-query';
 import type { Address, Hex } from 'viem';
 
-import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
+import { config } from '@/configs/wagmiClient.js';
 import { checkFreeGasEligibility } from '@/helpers/freeGas/checkFreeGasEligibility.js';
-import { estimateSwapGas } from '@/helpers/swap/estimateSwapGas.js';
 import { useEmbeddedWalletAddresses } from '@/hooks/useCachedWalletAddresses.js';
 import { useTokenBalance } from '@/hooks/useTokenBalance.js';
 import type { CrossChainQuote, SwapQuote, SwapToken } from '@/providers/swap/types.js';
@@ -49,9 +49,9 @@ export function useCheckGasForDeposit({ depositToken, amount, quote }: Options) 
         queryFn: async () => {
             if (!depositToken || !walletAddress || isSolana || !quote?.tx || !nativeToken) return null;
 
-            const client = createWagmiPublicClient(depositToken.chainId);
+            const client = createWagmiPublicClient(depositToken.chainId, resolvePublicRpcUrl(depositToken.chainId));
             const [gas, gasPrice] = await Promise.all([
-                estimateSwapGas({
+                estimateSwapGas(config, {
                     chainId: depositToken.chainId,
                     to: quote.tx.to as Address,
                     data: quote.tx.data as Hex,

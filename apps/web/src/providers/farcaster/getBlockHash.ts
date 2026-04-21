@@ -1,13 +1,12 @@
 import { web3 } from '@coral-xyz/anchor';
 import { envs, STATUS } from '@dimensiondev/envs';
+import { createWagmiPublicClient } from '@dimensiondev/web3/actions';
 import { getSolanaRPCUrl } from '@dimensiondev/web3/utils';
 import { optimism } from 'viem/chains';
 
-import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
-
 export async function getEthereumBlockHash(): Promise<string> {
     try {
-        const publicClient = createWagmiPublicClient(optimism.id, 'default');
+        const publicClient = createWagmiPublicClient(optimism.id);
         const latestBlock = await publicClient.getBlock();
         return latestBlock.hash ?? '';
     } catch (error) {

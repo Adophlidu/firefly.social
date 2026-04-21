@@ -1,4 +1,5 @@
-import { addAndSwitchChain } from '@dimensiondev/web3/utils';
+import { createWagmiPublicClient } from '@dimensiondev/web3/actions';
+import { addAndSwitchChain, resolvePublicRpcUrl } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useSetActiveWallet } from '@privy-io/wagmi';
 import { useAsyncFn } from 'react-use';
@@ -8,7 +9,6 @@ import { simulateContract, waitForTransactionReceipt, writeContract } from 'wagm
 
 import { queryClient } from '@/configs/queryClient.js';
 import { InsufficientGasError } from '@/constants/error.js';
-import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
 import { tryFreeGasTransaction } from '@/helpers/freeGas/tryFreeGasTransaction.js';
 import { toastLoading } from '@/helpers/toastLoading.js';
 import { useEmbeddedEvmWalletContext } from '@/hooks/useCachedWalletAddresses.js';
@@ -73,7 +73,7 @@ export function useAddFundsWithPolUsdc({ depositToken, polymarketAddress, amount
             // Free-gas not available — verify user has enough native token to pay gas
             let gas: bigint | undefined;
             try {
-                const client = createWagmiPublicClient(depositToken.chainId);
+                const client = createWagmiPublicClient(depositToken.chainId, resolvePublicRpcUrl(depositToken.chainId));
                 const estimated = await client.estimateContractGas({
                     ...transferCall,
                     account: embeddedAddress as Address,
@@ -84,7 +84,7 @@ export function useAddFundsWithPolUsdc({ depositToken, polymarketAddress, amount
             }
 
             if (gas) {
-                const client = createWagmiPublicClient(depositToken.chainId);
+                const client = createWagmiPublicClient(depositToken.chainId, resolvePublicRpcUrl(depositToken.chainId));
                 const [gasPrice, nativeBalance] = await Promise.all([
                     client.getGasPrice(),
                     client.getBalance({ address: embeddedAddress as Address }),
