@@ -77,6 +77,9 @@ export default defineConfig({
         }),
     ],
     resolve: {
+        // packages/web3 and apps/wallet each resolve wagmi from different pnpm
+        // virtual store paths; dedupe so the same Config instance works across both.
+        dedupe: ['wagmi', '@wagmi/core'],
         alias: {
             '@react-native-async-storage/async-storage': resolve(__dirname, 'src/shims/async-storage.ts'),
         },

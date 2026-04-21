@@ -2,6 +2,7 @@ import betImageFallback from '@dimensiondev/assets/bet-image-fallback.svg?url';
 import ClaimProceedsCloseIcon from '@dimensiondev/assets/claim-proceeds-close.svg';
 import ClaimProceedsSuccessIcon from '@dimensiondev/assets/claim-proceeds-success.svg';
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
+import { waitForEthereumTransaction } from '@dimensiondev/web3/actions';
 import { Trans } from '@lingui/react/macro';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { BigNumber } from 'bignumber.js';
@@ -10,7 +11,7 @@ import { toast } from 'sonner';
 import type { Address, Hash } from 'viem';
 import { polygon } from 'viem/chains';
 import { useConfig } from 'wagmi';
-import { signMessage, waitForTransactionReceipt } from 'wagmi/actions';
+import { signMessage } from 'wagmi/actions';
 
 import {
     DialogOrDrawer,
@@ -66,12 +67,7 @@ export function ClaimProceedsSection({ proxyAddress }: { proxyAddress: Address }
                 original_message: POLYMARKET_CLAIM_ORIGINAL_MESSAGE,
                 signature_message: signature,
             });
-            await waitForTransactionReceipt(config, {
-                hash: data.hash as Hash,
-                chainId: polygon.id,
-                retryCount: 15,
-                timeout: 1000 * 60 * 2,
-            });
+            await waitForEthereumTransaction(config, polygon.id, data.hash as Hash);
             return data;
         },
         async onSuccess() {
