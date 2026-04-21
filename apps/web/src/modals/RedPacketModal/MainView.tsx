@@ -23,7 +23,7 @@ import { BigNumber } from 'bignumber.js';
 import { isUndefined, omit } from 'lodash-es';
 import { type ChangeEvent, useCallback, useContext, useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
-import { type Address, encodeFunctionData } from 'viem';
+import type { Address } from 'viem';
 import { getChainId, switchChain, writeContract } from 'wagmi/actions';
 
 import { ChainGuardButton } from '@/components/ChainGuardButton.js';
@@ -47,7 +47,6 @@ import { RedPacketContext, redPacketRandomTabs } from '@/modals/RedPacketModal/R
 import { TypeTabs } from '@/modals/RedPacketModal/TypeTabs.js';
 import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
 import { checkFreeGasEligibility } from '@/providers/firefly/freeGas/checkFreeGasEligibility.js';
-import { FreeGasTxType, tryFreeGasTransaction } from '@/providers/firefly/freeGas/tryFreeGasTransaction.js';
 import type { FungibleToken } from '@/web3-shared/base/specs.js';
 import type { EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
@@ -157,8 +156,8 @@ export default function MainView() {
     const isUnsupportedChain =
         networkType === NetworkType.Ethereum ? rpSupportedChains.every((chain) => chain.id !== +chainId) : false;
     const freeGasAction = isNotEnoughAllowance
-        ? { txType: FreeGasTxType.TokenApprove, to: token.address as string }
-        : { txType: FreeGasTxType.RedpacketSend, to: getRedPacketContractAddress(chainId) };
+        ? { txType: 'token_approve' as const, to: token.address as string }
+        : { txType: 'redpacket_send' as const, to: getRedPacketContractAddress(chainId) };
     const shouldCheckFreeGasEligibility = isEVM && insufficientGas && !!account && isPrivyAddress(account);
     const { data: canUseFreeGasForCurrentStep = false, isLoading: isCheckingFreeGasEligibility } = useQuery({
         queryKey: [
@@ -255,38 +254,20 @@ export default function MainView() {
         }
 
         if (isEVM && isNotEnoughAllowance) {
-            const approveData = encodeFunctionData({
+            const txHash = await writeContract(wagmiConfig, {
+                chainId,
                 abi: getTokenAbiForWagmi(chainId, token.address as Address),
+                address: token.address as Address,
                 functionName: 'approve',
                 args: [getRedPacketContractAddress(chainId), originBalance.value],
             });
-
-            // Try free-gas for approve
-            const freeGasResult = await tryFreeGasTransaction({
-                chainId,
-                txType: FreeGasTxType.TokenApprove,
-                from: account as Address,
-                to: token.address as Address,
-                data: approveData,
-            });
-            if (freeGasResult.type === 'free-gas') {
-                await waitForEthereumTransaction(wagmiConfig, chainId, freeGasResult.hash as `0x${string}`);
-            } else {
-                const txHash = await writeContract(wagmiConfig, {
-                    chainId,
-                    abi: getTokenAbiForWagmi(chainId, token.address as Address),
-                    address: token.address as Address,
-                    functionName: 'approve',
-                    args: [getRedPacketContractAddress(chainId), originBalance.value],
-                });
-                await waitForEthereumTransaction(wagmiConfig, chainId, txHash);
-            }
+            await waitForEthereumTransaction(wagmiConfig, chainId, txHash);
             refetchAllowance();
             return;
         }
 
         history.push('/requirements');
-    }, [account, originBalance, chainId, isNotEnoughAllowance, history, token.address, isEVM, refetchAllowance]);
+    }, [originBalance, chainId, isNotEnoughAllowance, history, token.address, isEVM, refetchAllowance]);
     // #endregion
 
     const messageMaxLength = getRpMessageMaxLength(networkType);

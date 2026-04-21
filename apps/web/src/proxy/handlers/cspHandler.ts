@@ -31,6 +31,7 @@ function buildCSP(): string {
         // First party
         '*.r2d2.to',
         'api.firefly.land',
+        'api-dev.firefly.land',
         'firefly.land',
 
         '*.bsky.network',
@@ -52,6 +53,7 @@ function buildCSP(): string {
         'api.web3modal.org',
         'cca-lite.coinbase.com',
         'eth.llamarpc.com',
+        'polygon.drpc.org',
 
         'explorer-api.walletconnect.com',
         'pulse.walletconnect.org',

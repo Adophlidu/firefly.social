@@ -6,8 +6,8 @@ import { first, omit, pick } from 'lodash-es';
 import { useContext, useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
-import { type Address, decodeEventLog, encodeFunctionData, parseEventLogs } from 'viem';
-import { getTransactionReceipt, writeContract } from 'wagmi/actions';
+import { type Address, decodeEventLog, parseEventLogs } from 'viem';
+import { getChainId, getTransactionReceipt, switchChain, writeContract } from 'wagmi/actions';
 
 import RED_PACKET_ABI from '@/abis/RedPacket.json' with { type: 'json' };
 import { formatSenderName } from '@/components/RedPacket/helpers.js';
@@ -20,7 +20,6 @@ import { RedPacketContext } from '@/modals/RedPacketModal/RedPacketContext.js';
 import { getEvmNativeTokenAddress } from '@/providers/ethereum/getNativeTokenAddress.js';
 import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
 import { createRedPacketParams } from '@/providers/ethereum/red-packet/createRedPacketParams.js';
-import { FreeGasTxType, tryFreeGasTransaction } from '@/providers/firefly/freeGas/tryFreeGasTransaction.js';
 import { createCover } from '@/providers/firefly/red-packet/createCover.js';
 import { captureLuckyDropEvent } from '@/providers/telemetry/captureLuckyDropEvent.js';
 import type { FireflyRedPacketAPI, RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
@@ -134,7 +133,13 @@ export function useEthereumCreateRedPacketCallback(
                 metadata: treeShakePayloadInfo(payload),
             });
 
-            const createRedPacketCalldata = encodeFunctionData({
+            const currentChainId = getChainId(wagmiConfig);
+            if (currentChainId !== chainId) {
+                await switchChain(wagmiConfig, { chainId });
+            }
+
+            const result = await writeContract(wagmiConfig, {
+                address: getRedPacketContractAddress(chainId),
                 abi: RED_PACKET_ABI,
                 functionName: 'create_red_packet',
                 args: [
@@ -149,44 +154,10 @@ export function useEthereumCreateRedPacketCallback(
                     methodParams.tokenAddress,
                     methodParams.total,
                 ],
-            });
-
-            // Try free-gas for red packet creation
-            const freeGasResult = await tryFreeGasTransaction({
+                value: BigInt(value),
+                account: account as Address,
                 chainId,
-                txType: FreeGasTxType.RedpacketSend,
-                from: account as Address,
-                to: getRedPacketContractAddress(chainId),
-                data: createRedPacketCalldata,
-                value: value !== '0' ? value : undefined,
-                tokenAddress,
             });
-
-            let result: `0x${string}`;
-            if (freeGasResult.type === 'free-gas') {
-                result = freeGasResult.hash as `0x${string}`;
-            } else {
-                result = await writeContract(wagmiConfig, {
-                    address: getRedPacketContractAddress(chainId),
-                    abi: RED_PACKET_ABI,
-                    functionName: 'create_red_packet',
-                    args: [
-                        methodParams.publicKey,
-                        methodParams.shares,
-                        methodParams.isRandom,
-                        methodParams.duration,
-                        methodParams.seed,
-                        methodParams.message,
-                        methodParams.name,
-                        methodParams.tokenType,
-                        methodParams.tokenAddress,
-                        methodParams.total,
-                    ],
-                    value: BigInt(value),
-                    account: account as Address,
-                    chainId,
-                });
-            }
             if (!result) return;
 
             await waitForEthereumTransaction(wagmiConfig, chainId, result);

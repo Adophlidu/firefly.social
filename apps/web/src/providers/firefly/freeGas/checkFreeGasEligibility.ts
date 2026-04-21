@@ -1,7 +1,6 @@
 import { isFreeGasSupportedChain } from '@dimensiondev/web3/utils';
 import urlcat from 'urlcat';
 
-import type { FreeGasTxType } from '@/providers/firefly/freeGas/tryFreeGasTransaction.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { settings } from '@/settings/index.js';
 
@@ -10,6 +9,8 @@ interface FireflyResponse<T> {
     data?: T;
     error?: string[];
 }
+
+export type FreeGasTxType = 'token_approve' | 'polymarket_deposit' | 'redpacket_send' | 'token_transfer';
 
 interface CheckFreeGasEligibilityParams {
     chainId: number;

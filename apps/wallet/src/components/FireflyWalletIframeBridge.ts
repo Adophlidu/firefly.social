@@ -26,6 +26,8 @@ import { isHex, toHex } from 'viem';
 import { queryClient } from '@/configs/queryClient.js';
 import { config } from '@/configs/wagmiClient.js';
 import { SOLANA_MAINNET_PRIVY } from '@/constants/solana.js';
+import { decodeFreeGasTxType } from '@/helpers/freeGas/decodeFreeGasTxType.js';
+import { tryFreeGasTransaction } from '@/helpers/freeGas/tryFreeGasTransaction.js';
 import { isRunningInIframe } from '@/helpers/isRunningInIframe.js';
 import { resolveEvmConnector } from '@/helpers/resolveEvmConnector.js';
 import {
@@ -216,12 +218,44 @@ export const FireflyWalletIframeBridge = memo(function IframeBridge() {
                         const chainId = await walletClient.getChainId();
                         return toHex(chainId);
                     }
-                    default:
-                        const requestArgs = withTransactionChainId(
-                            args,
-                            await walletClient.getChainId().catch(() => undefined),
-                        );
+                    default: {
+                        const currentChainId = await walletClient.getChainId().catch(() => undefined);
+                        const requestArgs = withTransactionChainId(args, currentChainId);
+
+                        // Try free-gas for known calldata types (ERC20 transfer / approve)
+                        if (args.method === 'eth_sendTransaction' && Array.isArray(args.params) && args.params[0]) {
+                            const tx = args.params[0] as Record<string, unknown>;
+                            const data = typeof tx.data === 'string' ? tx.data : undefined;
+                            const txType = decodeFreeGasTxType(data);
+
+                            if (txType !== null) {
+                                try {
+                                    const from = typeof tx.from === 'string' ? (tx.from as `0x${string}`) : undefined;
+                                    const to = typeof tx.to === 'string' ? (tx.to as `0x${string}`) : undefined;
+                                    const value = typeof tx.value === 'string' ? tx.value : undefined;
+                                    const chainId = currentChainId;
+
+                                    if (from && to && data && chainId) {
+                                        const result = await tryFreeGasTransaction({
+                                            chainId,
+                                            txType,
+                                            from,
+                                            to,
+                                            data: data as `0x${string}`,
+                                            value,
+                                        });
+                                        if (result.type === 'free-gas') return result.hash as never;
+                                    }
+                                } catch {
+                                    logger.debug(
+                                        '[IframeBridge] free-gas attempt failed, falling back to walletClient',
+                                    );
+                                }
+                            }
+                        }
+
                         return walletClient.request(requestArgs as never);
+                    }
                 }
             },
             [IframeBridgeMethod.FIREFLY_WALLET_SOLANA_RPC]: async ({ method, params: p }): Promise<SolanaResponse> => {
@@ -309,7 +343,7 @@ export const FireflyWalletIframeBridge = memo(function IframeBridge() {
             },
         };
 
-        iframeBridgeProvider.onRequest(async (method, params) => {
+        const cleanupOnRequest = iframeBridgeProvider.onRequest(async (method, params) => {
             try {
                 return await allEvents[method](params);
             } catch (error) {
@@ -320,7 +354,10 @@ export const FireflyWalletIframeBridge = memo(function IframeBridge() {
             }
         });
 
-        return () => iframeBridgeProvider.destroy();
+        return () => {
+            cleanupOnRequest();
+            iframeBridgeProvider.destroy();
+        };
     }, []);
 
     return null;

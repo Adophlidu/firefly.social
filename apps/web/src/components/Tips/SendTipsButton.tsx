@@ -23,7 +23,6 @@ import { trimify } from '@/helpers/trimify.js';
 import { useSolanaWalletProvider } from '@/hooks/useSolanaWalletProvider.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/refs.js';
 import { checkFreeGasEligibility } from '@/providers/firefly/freeGas/checkFreeGasEligibility.js';
-import { FreeGasTxType } from '@/providers/firefly/freeGas/tryFreeGasTransaction.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import { reportAndCaptureTipEvent } from '@/services/reportAndCaptureTipEvent.js';
 import { useTipsStore } from '@/store/useTipsStore.js';
@@ -99,7 +98,7 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
                 !token.custom &&
                 (await checkFreeGasEligibility({
                     chainId: token.chainId,
-                    txType: FreeGasTxType.TokenTransfer,
+                    txType: 'token_transfer',
                     to: token.id,
                 }).catch(() => false));
 

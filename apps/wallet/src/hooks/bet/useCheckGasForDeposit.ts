@@ -1,17 +1,17 @@
 import { isSolanaChain } from '@dimensiondev/web3/chains';
 import { ETH_NATIVE_TOKEN_ADDRESS, SOL_NATIVE_TOKEN_ADDRESS } from '@dimensiondev/web3/constants';
 import { isLessThan, leftShift, minus, multipliedBy } from '@dimensiondev/web3/numbers';
-import { isFreeGasSupportedChain, isNativeTokenAddress } from '@dimensiondev/web3/utils';
+import { isNativeTokenAddress } from '@dimensiondev/web3/utils';
 import { useQuery } from '@tanstack/react-query';
 import type { Address, Hex } from 'viem';
 
 import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
+import { checkFreeGasEligibility } from '@/helpers/freeGas/checkFreeGasEligibility.js';
 import { estimateSwapGas } from '@/helpers/swap/estimateSwapGas.js';
 import { useEmbeddedWalletAddresses } from '@/hooks/useCachedWalletAddresses.js';
 import { useTokenBalance } from '@/hooks/useTokenBalance.js';
 import type { CrossChainQuote, SwapQuote, SwapToken } from '@/providers/swap/types.js';
 import { FreeGasTxType } from '@/providers/types/FreeGas.js';
-import { getFireflyEndpoint } from '@/store/fireflyEndpoint.js';
 
 interface Options {
     depositToken: SwapToken | null;
@@ -81,11 +81,10 @@ export function useCheckGasForDeposit({ depositToken, amount, quote }: Options) 
         retry: 0,
         queryFn: async () => {
             if (!depositToken || !quote?.tx?.to) return false;
-            if (!isFreeGasSupportedChain(depositToken.chainId)) return false;
-            return getFireflyEndpoint().checkFreeGasEligibility({
+            return checkFreeGasEligibility({
                 chainId: depositToken.chainId,
                 txType: FreeGasTxType.PolymarketDeposit,
-                tx: { to: quote.tx.to },
+                to: quote.tx.to,
             });
         },
     });
