@@ -1,7 +1,7 @@
 'use client';
 
 import { safeUnreachable } from '@dimensiondev/utils';
-import { Plural, Select, Trans } from '@lingui/react/macro';
+import { Select, Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
 import { first, uniqBy } from 'lodash-es';
 import { memo, useCallback, useMemo } from 'react';
@@ -10,8 +10,8 @@ import { PostActions } from '@/components/Actions/index.js';
 import { MoreAction } from '@/components/Actions/More.js';
 import { AvatarGroup } from '@/components/AvatarGroup.js';
 import { Link } from '@/components/Link.js';
-import { ExtraProfiles } from '@/components/Notification/ExtraProfiles.js';
 import { NotificationPostBody } from '@/components/Notification/NotificationPostBody.js';
+import { NotificationProfiles } from '@/components/Notification/NotificationProfiles.js';
 import { ProfileLink } from '@/components/Notification/ProfileLink.js';
 import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
 import { Quote } from '@/components/Posts/Quote.js';
@@ -67,18 +67,7 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
 
                 return (
                     <Trans>
-                        <Plural
-                            value={notification.reactors.length}
-                            _1={<ProfileLink profile={firstReactor} />}
-                            _2={
-                                <Trans>
-                                    <ProfileLink profile={firstReactor} /> and{' '}
-                                    <ProfileLink profile={notification.reactors[1]} />
-                                </Trans>
-                            }
-                            other={<ExtraProfiles profiles={notification.reactors} />}
-                        />{' '}
-                        <span>liked your </span>
+                        <NotificationProfiles profiles={notification.reactors} /> <span>liked your </span>
                         <strong>
                             <Select
                                 value={notification.post.type}
@@ -110,21 +99,11 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                 );
             case NotificationType.Follow:
                 const followers = notification.followers;
-                const firstFollower = first(followers);
-                if (!firstFollower) return;
+                if (!followers.length) return;
 
                 return (
                     <Trans>
-                        <Plural
-                            value={followers.length}
-                            _1={<ProfileLink profile={firstFollower} />}
-                            _2={
-                                <Trans>
-                                    <ProfileLink profile={firstFollower} /> and <ProfileLink profile={followers[1]} />
-                                </Trans>
-                            }
-                            other={<ExtraProfiles profiles={followers} />}
-                        />
+                        <NotificationProfiles profiles={followers} />
                         <span> followed you</span>
                     </Trans>
                 );
@@ -167,20 +146,10 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
             case NotificationType.Mirror:
                 // It's allow to mirror multiple times.
                 const mirrors = uniqBy(notification.mirrors, toProfileId);
-                const firstMirror = first(mirrors);
-                if (!firstMirror || !notification.post?.type) return;
+                if (!mirrors.length || !notification.post?.type) return;
                 return (
                     <Trans>
-                        <Plural
-                            value={mirrors.length}
-                            _1={<ProfileLink profile={firstMirror} />}
-                            _2={
-                                <Trans>
-                                    <ProfileLink profile={firstMirror} /> and <ProfileLink profile={mirrors[1]} />
-                                </Trans>
-                            }
-                            other={<ExtraProfiles profiles={mirrors} />}
-                        />{' '}
+                        <NotificationProfiles profiles={mirrors} />{' '}
                         <Select
                             value={notification.source}
                             _Lens="reposted your"
@@ -205,18 +174,7 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                 if (!firstActed || !notification.post.type) return;
                 return (
                     <Trans>
-                        <Plural
-                            value={notification.actions.length}
-                            _1={<ProfileLink profile={firstActed} />}
-                            _2={
-                                <Trans>
-                                    <ProfileLink profile={firstActed} /> and{' '}
-                                    <ProfileLink profile={notification.actions[1]} />
-                                </Trans>
-                            }
-                            other={<ExtraProfiles profiles={notification.actions} />}
-                        />{' '}
-                        <span>collected your </span>
+                        <NotificationProfiles profiles={notification.actions} /> <span>collected your </span>
                         <strong>
                             <Select
                                 value={notification.post.type}

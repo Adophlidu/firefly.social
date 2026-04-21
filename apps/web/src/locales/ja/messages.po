@@ -294,11 +294,6 @@ msgstr ""
 msgid "No trades found"
 msgstr ""
 
-#. placeholder {0}: notification.actions.length
-#. placeholder {1}: notification.post.type
-msgid "{0, plural, =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>collected your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</5>"
-msgstr ""
-
 msgid "The task is still in progress, you can check on <0>this page</0> later"
 msgstr ""
 
@@ -1494,6 +1489,10 @@ msgstr ""
 msgid "Failed to submit report on {0}."
 msgstr ""
 
+#. placeholder {0}: notification.post.type
+msgid "<0/> <1>liked your </1><2>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</2>"
+msgstr ""
+
 msgid "Insufficient funds"
 msgstr ""
 
@@ -1562,6 +1561,11 @@ msgid "The content of this account is currently unavailable"
 msgstr ""
 
 msgid "Failed to like article."
+msgstr ""
+
+#. placeholder {0}: notification.source
+#. placeholder {1}: notification.post.type
+msgid "<0/> {0, select, Lens {reposted your} Farcaster {recasted your} Bsky {reposted your} other {reposted your}} <1>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</1>"
 msgstr ""
 
 msgid "Mobile QR login is interrupted. Please try again."
@@ -1787,11 +1791,6 @@ msgstr ""
 msgid "Total Gains"
 msgstr ""
 
-#. placeholder {0}: notification.reactors.length
-#. placeholder {1}: notification.post.type
-msgid "{0, plural, =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</5>"
-msgstr ""
-
 msgid "Today"
 msgstr ""
 
@@ -1827,6 +1826,9 @@ msgid "Update"
 msgstr ""
 
 msgid "Registered account not found. Please switch to another wallet and try again."
+msgstr ""
+
+msgid "<0/><1> followed you</1>"
 msgstr ""
 
 msgid "The token can not be bought."
@@ -2765,12 +2767,6 @@ msgstr ""
 msgid "Create {0} Profile"
 msgstr ""
 
-#. placeholder {0}: mirrors.length
-#. placeholder {1}: notification.source
-#. placeholder {2}: notification.post.type
-msgid "{0, plural, =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {reposted your} Farcaster {recasted your} Bsky {reposted your} other {reposted your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</4>"
-msgstr ""
-
 #. placeholder {0}: dayjs(scheduleTime).format('ddd, MMM DD, YYYY')
 #. placeholder {1}: dayjs(scheduleTime).format('hh:mm A')
 msgid "Will send on <0>{0} at <1>{1}</1></0>"
@@ -3533,6 +3529,9 @@ msgstr ""
 msgid "# minute"
 msgid_plural "# minutes"
 msgstr[0] ""
+
+msgid "<0/> and <1/>"
+msgstr ""
 
 msgid "Post has been deleted"
 msgstr ""
@@ -4962,6 +4961,10 @@ msgstr ""
 msgid "Hide assets < 1 USD"
 msgstr ""
 
+#. placeholder {0}: notification.post.type
+msgid "<0/> <1>collected your </1><2>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</2>"
+msgstr ""
+
 msgid "Hours"
 msgstr ""
 
@@ -5006,10 +5009,6 @@ msgstr ""
 
 #. placeholder {0}: resolveSourceName(source)
 msgid "Failed to send your post to {0}."
-msgstr ""
-
-#. placeholder {0}: followers.length
-msgid "{0, plural, =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}}<4> followed you</4>"
 msgstr ""
 
 msgid "Tip liked."

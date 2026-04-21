@@ -294,11 +294,6 @@ msgstr "{0} 位正在收听"
 msgid "No trades found"
 msgstr "暂无成交"
 
-#. placeholder {0}: notification.actions.length
-#. placeholder {1}: notification.post.type
-msgid "{0, plural, =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>collected your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</5>"
-msgstr ""
-
 msgid "The task is still in progress, you can check on <0>this page</0> later"
 msgstr "任务仍在进行中，您可稍后在<0>此页面</0>查看"
 
@@ -1494,6 +1489,10 @@ msgstr "删除"
 msgid "Failed to submit report on {0}."
 msgstr "在 {0} 上举报失败。"
 
+#. placeholder {0}: notification.post.type
+msgid "<0/> <1>liked your </1><2>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</2>"
+msgstr ""
+
 msgid "Insufficient funds"
 msgstr "金额不足"
 
@@ -1563,6 +1562,11 @@ msgstr "无法获取这个账户的内容"
 
 msgid "Failed to like article."
 msgstr "点赞文章失败。"
+
+#. placeholder {0}: notification.source
+#. placeholder {1}: notification.post.type
+msgid "<0/> {0, select, Lens {reposted your} Farcaster {recasted your} Bsky {reposted your} other {reposted your}} <1>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</1>"
+msgstr ""
 
 msgid "Mobile QR login is interrupted. Please try again."
 msgstr "移动端二维码登录已中断。请重试。"
@@ -1787,11 +1791,6 @@ msgstr "兑换"
 msgid "Total Gains"
 msgstr "总收益"
 
-#. placeholder {0}: notification.reactors.length
-#. placeholder {1}: notification.post.type
-msgid "{0, plural, =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</5>"
-msgstr ""
-
 msgid "Today"
 msgstr "今天"
 
@@ -1828,6 +1827,9 @@ msgstr "更新"
 
 msgid "Registered account not found. Please switch to another wallet and try again."
 msgstr "未发现任何在Firefly注册的账号，请更换钱包重试。"
+
+msgid "<0/><1> followed you</1>"
+msgstr ""
 
 msgid "The token can not be bought."
 msgstr "该代币无法购买。"
@@ -2765,12 +2767,6 @@ msgstr "结果"
 msgid "Create {0} Profile"
 msgstr "创建 {0} 个人账户"
 
-#. placeholder {0}: mirrors.length
-#. placeholder {1}: notification.source
-#. placeholder {2}: notification.post.type
-msgid "{0, plural, =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {reposted your} Farcaster {recasted your} Bsky {reposted your} other {reposted your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</4>"
-msgstr ""
-
 #. placeholder {0}: dayjs(scheduleTime).format('ddd, MMM DD, YYYY')
 #. placeholder {1}: dayjs(scheduleTime).format('hh:mm A')
 msgid "Will send on <0>{0} at <1>{1}</1></0>"
@@ -3533,6 +3529,9 @@ msgstr "切换失败。"
 msgid "# minute"
 msgid_plural "# minutes"
 msgstr[0] "# 分钟"
+
+msgid "<0/> and <1/>"
+msgstr ""
 
 msgid "Post has been deleted"
 msgstr "帖子已被删除"
@@ -4964,6 +4963,10 @@ msgstr "动图"
 msgid "Hide assets < 1 USD"
 msgstr "隐藏少于 1 美元的资产"
 
+#. placeholder {0}: notification.post.type
+msgid "<0/> <1>collected your </1><2>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</2>"
+msgstr ""
+
 msgid "Hours"
 msgstr "小时"
 
@@ -5009,10 +5012,6 @@ msgstr "已铸造"
 #. placeholder {0}: resolveSourceName(source)
 msgid "Failed to send your post to {0}."
 msgstr "向 {0} 发布帖子失败。"
-
-#. placeholder {0}: followers.length
-msgid "{0, plural, =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}}<4> followed you</4>"
-msgstr ""
 
 msgid "Tip liked."
 msgstr "已点赞。"
