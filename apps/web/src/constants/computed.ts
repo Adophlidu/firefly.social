@@ -233,7 +233,7 @@ export const EXPLORE_TYPES: ExploreType[] = [
 ];
 
 export const EXPLORE_SOURCES: Partial<Record<ExploreType, ExploreSource[]>> = {
-    [ExploreType.TopProfiles]: [Source.Twitter, Source.Lens, Source.Farcaster, Source.Bsky],
+    [ExploreType.TopProfiles]: [Source.Twitter, Source.Farcaster, Source.Bsky],
     [ExploreType.CryptoTrends]: [
         TrendingType.Trending,
         TrendingType.Stocks,
