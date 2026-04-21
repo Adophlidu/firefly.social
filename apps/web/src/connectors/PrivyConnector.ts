@@ -1,6 +1,7 @@
 'use client';
 
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
+import { isFreeGasSupportedChain, isSupportedStablecoin } from '@dimensiondev/web3/utils';
 import { compact } from 'lodash-es';
 import { type Address, type Hex, numberToHex, type RpcError, SwitchChainError, UserRejectedRequestError } from 'viem';
 import { mainnet } from 'viem/chains';
@@ -26,6 +27,37 @@ const INTERACTIVE_METHODS = new Set([
     'eth_signTypedData_v4',
 ]);
 
+const FREE_GAS_SELECTORS = new Set(['0xa9059cbb', '0x095ea7b3', '0x5db05aba']);
+const ERC20_TRANSFER_SELECTOR = '0xa9059cbb';
+
+function parseChainId(value: unknown): number | null {
+    if (value === null || value === undefined) return null;
+    return typeof value === 'string' ? Number.parseInt(value, 16) : Number(value);
+}
+
+function isFreeGasCandidate(params: { method: string; params?: unknown[] | object }): boolean {
+    if (params.method !== 'eth_sendTransaction') return false;
+    if (!Array.isArray(params.params) || params.params.length === 0) return false;
+    const tx = params.params[0] as Record<string, unknown> | undefined;
+    if (!tx || typeof tx.data !== 'string' || tx.data.length < 10) return false;
+    const selector = tx.data.slice(0, 10).toLowerCase();
+    if (!FREE_GAS_SELECTORS.has(selector)) return false;
+
+    const chainId = parseChainId(tx.chainId);
+
+    // ERC20 transfer: must be USDC/USDT on a supported chain
+    if (selector === ERC20_TRANSFER_SELECTOR) {
+        if (chainId === null) return false;
+        if (!isFreeGasSupportedChain(chainId)) return false;
+        const to = typeof tx.to === 'string' ? tx.to : '';
+        return isSupportedStablecoin(chainId, to);
+    }
+
+    // Approve / red packet: only check chain support when chainId is present
+    if (chainId !== null && !isFreeGasSupportedChain(chainId)) return false;
+    return true;
+}
+
 export async function waitForAuthorization(): Promise<void> {
     if (useFireflyWalletStore.getState().isAuthorized) return;
     await new Promise<void>((resolve) => {
@@ -44,7 +76,10 @@ function getPrivyEvmProvider({
 } = {}) {
     return {
         async request<T = unknown>(params: { method: string; params?: unknown[] | object }): Promise<T> {
-            if (!silent && INTERACTIVE_METHODS.has(params.method)) {
+            const freeGas = isFreeGasCandidate(params);
+
+            // Only open wallet for interactive methods that aren't free-gas candidates
+            if (!silent && INTERACTIVE_METHODS.has(params.method) && !freeGas) {
                 useGlobalState.getState().updateFireflyWalletIsOpen(true);
             }
             if (!useFireflyWalletStore.getState().isAuthorized) {
@@ -54,19 +89,23 @@ function getPrivyEvmProvider({
                 await iframeBridgeProvider.request(IframeBridgeMethod.FIREFLY_WALLET_VISIBILITY, { visible: false });
             }
             return new Promise(async (resolve, reject) => {
-                const unsubscribe = useGlobalState.subscribe((state) => {
-                    if (!state.fireflyWalletIsOpen) {
-                        unsubscribe();
-                        reject(new UserRejectedRequestError(new Error()));
-                    }
-                });
+                // Only watch for user-dismissal if wallet was opened
+                let unsubscribe: (() => void) | null = null;
+                if (!silent && !freeGas) {
+                    unsubscribe = useGlobalState.subscribe((state) => {
+                        if (!state.fireflyWalletIsOpen) {
+                            unsubscribe?.();
+                            reject(new UserRejectedRequestError(new Error()));
+                        }
+                    });
+                }
                 iframeBridgeProvider
                     .request(IframeBridgeMethod.FIREFLY_WALLET_EVM_RPC, params)
                     .then((rpcResult) => {
-                        unsubscribe();
-                        if (!silent) {
+                        unsubscribe?.();
+                        if (!silent && !freeGas) {
                             useGlobalState.getState().updateFireflyWalletIsOpen(false);
-                        } else {
+                        } else if (silent) {
                             iframeBridgeProvider.request(IframeBridgeMethod.FIREFLY_WALLET_VISIBILITY, {
                                 visible: true,
                             });
@@ -74,7 +113,7 @@ function getPrivyEvmProvider({
                         resolve(rpcResult as T);
                     })
                     .catch((error) => {
-                        unsubscribe();
+                        unsubscribe?.();
                         if (`${error}`.includes('user rejected')) {
                             reject(new UserRejectedRequestError(new Error()));
                             return;

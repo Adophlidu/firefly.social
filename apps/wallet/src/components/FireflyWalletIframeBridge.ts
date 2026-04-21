@@ -254,6 +254,8 @@ export const FireflyWalletIframeBridge = memo(function IframeBridge() {
                             }
                         }
 
+                        // free-gas attempt failed or not eligible — signal parent to open wallet for signing
+                        iframeBridgeProvider.request(IframeBridgeMethod.FIREFLY_WALLET_OPEN, {});
                         return walletClient.request(requestArgs as never);
                     }
                 }
