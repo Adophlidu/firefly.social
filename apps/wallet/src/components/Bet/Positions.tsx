@@ -28,6 +28,7 @@ export function Positions() {
             const positions = await getFireflyEndpoint().getPolymarketV2CurrentPositions(proxyAddress, {
                 offset: pageParam as number,
                 limit: PAGE_SIZE,
+                redeemable: true,
             });
             return {
                 data: (positions ?? []).map((p) => mapPolymarketV2ToLegacy(p, false)),

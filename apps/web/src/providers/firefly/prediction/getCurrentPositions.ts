@@ -27,7 +27,7 @@ export async function getCurrentPositions({
 
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/polymarket/current/positions', {
         user: address,
-        redeemable: false,
+        redeemable: true,
         offset,
         limit,
         ...(eventId ? { eventId } : {}),
