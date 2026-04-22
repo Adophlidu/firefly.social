@@ -27,6 +27,11 @@ jobs:
               with:
                   node-version-file: '.node-version'
 
+            - name: Set up pnpm
+              run: |
+                  corepack enable
+                  corepack prepare pnpm@8.15.8 --activate
+
             - name: Determine base branch
               id: base_branch
               run: |
@@ -81,11 +86,11 @@ jobs:
 
                   for name in "${app_names[@]}"; do
                     if [ "$release_type" = "major" ]; then
-                      npm version major --git-tag-version false -w "$name"
+                      pnpm --filter "$name" version major --no-git-tag-version
                     elif [ "$release_type" = "minor" ]; then
-                      npm version minor --git-tag-version false -w "$name"
+                      pnpm --filter "$name" version minor --no-git-tag-version
                     else
-                      npm version patch --git-tag-version false -w "$name"
+                      pnpm --filter "$name" version patch --no-git-tag-version
                     fi
                   done
 
