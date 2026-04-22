@@ -1,13 +1,11 @@
 'use client';
 
 import { classNames } from '@dimensiondev/utils';
-import { isValidChainIdSolana } from '@dimensiondev/web3/chains';
-import { NetworkType } from '@dimensiondev/web3/enums';
+import { getChainIcon } from '@dimensiondev/web3/chains';
+import type { NetworkType } from '@dimensiondev/web3/enums';
 import type { HTMLProps } from 'react';
 
 import { Image } from '@/components/Image.js';
-import { NetworkPluginID } from '@/constants/enum.js';
-import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
 import { resolveCoinGeckoChainIcon } from '@/helpers/resolveCoinGeckoChainIcon.js';
 import { resolveDebankChain } from '@/helpers/resolveDebankChain.js';
 
@@ -19,13 +17,9 @@ interface ChainIconProps extends HTMLProps<HTMLImageElement> {
     allowEmpty?: boolean;
 }
 
-export function ChainIcon({ chainId, coingeckoChain, size = 22, className, networkType, allowEmpty }: ChainIconProps) {
-    const networkDescriptor =
-        isValidChainIdSolana(chainId) || networkType === NetworkType.Solana
-            ? getNetworkDescriptor(NetworkPluginID.PLUGIN_SOLANA, chainId)
-            : getNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, chainId);
+export function ChainIcon({ chainId, coingeckoChain, size = 22, className, allowEmpty }: ChainIconProps) {
     const coingeckoChainIcon = coingeckoChain ? resolveCoinGeckoChainIcon(coingeckoChain) : undefined;
-    const icon = networkDescriptor?.icon || coingeckoChainIcon || resolveDebankChain(chainId)?.logo_url;
+    const icon = getChainIcon(chainId) || coingeckoChainIcon || resolveDebankChain(chainId)?.logo_url;
 
     if (!icon && allowEmpty) return null;
 

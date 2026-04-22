@@ -7,7 +7,7 @@ import { useQuery } from '@tanstack/react-query';
 import { type HTMLProps, memo } from 'react';
 
 import { AsideTitle } from '@/components/AsideTitle.js';
-import AsideTokensSkeleton from '@/components/Token/AsideTokensSkeleton.js';
+import { AsideTokensSkeleton } from '@/components/Token/AsideTokensSkeleton.js';
 import { BookmarkedTokenItem } from '@/components/Token/BookmarkedTokenItem.js';
 import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';

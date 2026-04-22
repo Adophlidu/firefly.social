@@ -17,7 +17,7 @@ interface NotFoundProps {
     };
 }
 
-export default function NotFound({ text, backText, search }: NotFoundProps) {
+export function NotFound({ text, backText, search }: NotFoundProps) {
     return (
         <>
             {backText ? (

@@ -8,7 +8,7 @@ interface Props {
     loginRequired?: boolean;
 }
 
-export default memo<Props>(function AsideTokensSkeleton({ loginRequired }) {
+export const AsideTokensSkeleton = memo<Props>(function AsideTokensSkeleton({ loginRequired }) {
     const isLogin = useIsLogin();
     if (!isLogin && loginRequired) return null;
 

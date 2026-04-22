@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { memo } from 'react';
 
 import { AsideTitle } from '@/components/AsideTitle.js';
-import AsideTokensSkeleton from '@/components/Token/AsideTokensSkeleton.js';
+import { AsideTokensSkeleton } from '@/components/Token/AsideTokensSkeleton.js';
 import { TokenTrendingListItem } from '@/components/TokenTrendingListItem.js';
 import { Link } from '@/esm/Link.js';
 import { getTopTrendingCoins } from '@/providers/coingecko/getTopTrendingCoins.js';

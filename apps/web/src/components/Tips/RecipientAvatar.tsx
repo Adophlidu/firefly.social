@@ -1,16 +1,14 @@
 import EvmDashIcon from '@dimensiondev/assets/evm-dash.svg';
 import WalletIcon from '@dimensiondev/assets/wallet-icon.svg';
 import { classNames } from '@dimensiondev/utils';
-import { solana } from '@dimensiondev/web3/chains';
+import { getChainIcon, solana } from '@dimensiondev/web3/chains';
 import { NetworkType } from '@dimensiondev/web3/enums';
 import { memo } from 'react';
 
 import { Image } from '@/components/Image.js';
-import { NetworkPluginID } from '@/constants/enum.js';
-import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
 import type { FireflyTipsProfile } from '@/providers/types/Firefly.js';
 
-const solanaNetworkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_SOLANA, solana.id);
+const icon = getChainIcon(solana.id);
 
 interface RecipientAvatarProps {
     recipient: FireflyTipsProfile;
@@ -52,14 +50,8 @@ export const RecipientAvatar = memo<RecipientAvatarProps>(function RecipientAvat
             >
                 {isEvm ? (
                     <EvmDashIcon width={14} height={14} />
-                ) : solanaNetworkDescriptor?.icon ? (
-                    <Image
-                        width={14}
-                        height={14}
-                        className="size-full"
-                        alt={recipient.networkType}
-                        src={solanaNetworkDescriptor.icon}
-                    />
+                ) : icon ? (
+                    <Image width={14} height={14} className="size-full" alt={recipient.networkType} src={icon} />
                 ) : null}
             </div>
         </div>

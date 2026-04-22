@@ -2,7 +2,7 @@
 
 import WalletIcon from '@dimensiondev/assets/wallet.svg';
 import { classNames, delay } from '@dimensiondev/utils';
-import { solana as solanaMainnetChain } from '@dimensiondev/web3/chains';
+import { getChainIcon, solana as solanaMainnetChain } from '@dimensiondev/web3/chains';
 import { NetworkType } from '@dimensiondev/web3/enums';
 import { Trans } from '@lingui/react/macro';
 import { compact } from 'lodash-es';
@@ -11,8 +11,7 @@ import { mainnet } from 'viem/chains';
 
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
-import { ClickOrigin, NetworkPluginID } from '@/constants/enum.js';
-import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
+import { ClickOrigin } from '@/constants/enum.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { MyWalletsModalRef } from '@/modals/MyWalletsModal/refs.js';
@@ -22,12 +21,9 @@ import { useNavigatorState } from '@/store/useNavigatorStore.js';
 
 interface WalletConnectButtonProps extends ClickableButtonProps {}
 
-const evmNetworkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, mainnet.id);
-const solanaNetworkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_SOLANA, solanaMainnetChain.id);
-
 const IconMap: Record<NetworkType, string | undefined> = {
-    [NetworkType.Ethereum]: evmNetworkDescriptor?.icon,
-    [NetworkType.Solana]: solanaNetworkDescriptor?.icon,
+    [NetworkType.Ethereum]: getChainIcon(mainnet.id),
+    [NetworkType.Solana]: getChainIcon(solanaMainnetChain.id),
 };
 
 export const WalletConnectButton = memo<WalletConnectButtonProps>(function WalletConnectButton({ className, ...rest }) {

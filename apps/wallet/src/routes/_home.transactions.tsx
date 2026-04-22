@@ -5,7 +5,7 @@ import { lazy, Suspense, useState } from 'react';
 
 import { LoadingPanel } from '@/components/LoadingPanel.js';
 import { TransactionDetailModal } from '@/components/TransactionDetailModal/TransactionDetailModal.js';
-import TransactionHistory from '@/components/Transactions.js';
+import { TransactionHistory } from '@/components/Transactions.js';
 import { useEmbeddedWalletAddresses } from '@/hooks/useCachedWalletAddresses.js';
 import type { TransactionHistoryItem } from '@/providers/types/Firefly.js';
 

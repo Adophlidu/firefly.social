@@ -2,7 +2,7 @@
 
 import { Trans } from '@lingui/react/macro';
 
-import NotFound from '@/components/NotFound.js';
+import { NotFound } from '@/components/NotFound.js';
 import { SearchType } from '@/constants/enum.js';
 
 export default function PostNotFound() {

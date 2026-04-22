@@ -1,16 +1,14 @@
 'use client';
 
-import { solana } from '@dimensiondev/web3/chains';
+import { getChainIcon, solana } from '@dimensiondev/web3/chains';
 import { NetworkType } from '@dimensiondev/web3/enums';
 import { Trans } from '@lingui/react/macro';
-import { memo, useMemo } from 'react';
+import { memo } from 'react';
 import { mainnet } from 'viem/chains';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { NetworkPluginID } from '@/constants/enum.js';
-import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
 import { useVerifyAndBindWallet } from '@/hooks/useVerifyAndBindWallet.js';
 import type { BindWalletResponse, FireflyWalletConnection } from '@/providers/types/Firefly.js';
 
@@ -21,9 +19,6 @@ interface Props {
 }
 
 const SelectNetworkModalUI = memo<Props>(function SelectChainModalUI({ connections, onClose, onConfirm }) {
-    const evmNetworkDescriptor = useMemo(() => getNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, mainnet.id), []);
-    const solanaNetworkDescriptor = useMemo(() => getNetworkDescriptor(NetworkPluginID.PLUGIN_SOLANA, solana.id), []);
-
     const [{ loading }, onBind] = useVerifyAndBindWallet(
         connections,
         (result) => {
@@ -45,12 +40,12 @@ const SelectNetworkModalUI = memo<Props>(function SelectChainModalUI({ connectio
         <div className="text-second grid grid-cols-1 gap-3 p-4 text-sm font-bold leading-5 md:grid-cols-2">
             {[
                 {
-                    icon: evmNetworkDescriptor?.icon,
+                    icon: getChainIcon(mainnet.id),
                     label: <Trans>EVM</Trans>,
                     type: NetworkType.Ethereum,
                 },
                 {
-                    icon: solanaNetworkDescriptor?.icon,
+                    icon: getChainIcon(solana.id),
                     label: <Trans>Solana</Trans>,
                     type: NetworkType.Solana,
                 },

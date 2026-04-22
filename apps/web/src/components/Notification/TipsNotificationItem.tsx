@@ -3,6 +3,7 @@
 import FireflyRoundIcon from '@dimensiondev/assets/firefly.round.svg';
 import TipIcon from '@dimensiondev/assets/tips.svg';
 import { safeUnreachable } from '@dimensiondev/utils';
+import { getChainName } from '@dimensiondev/web3/chains';
 import { formatAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
@@ -17,7 +18,6 @@ import { Image } from '@/esm/Image.js';
 import { Link } from '@/esm/Link.js';
 import { useRouter } from '@/esm/navigation.js';
 import { formatTokenAmount } from '@/helpers/formatTokenAmount.js';
-import { getChainName } from '@/helpers/getChainName.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';

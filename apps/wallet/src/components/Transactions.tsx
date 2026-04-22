@@ -57,8 +57,6 @@ export function TransactionHistory({ chains, address, onSelectTransaction }: Pro
     );
 }
 
-export default TransactionHistory;
-
 function getTransactionHistoryItem(
     index: number,
     item: TransactionHistoryItem & {

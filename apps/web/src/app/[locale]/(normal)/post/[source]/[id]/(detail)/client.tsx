@@ -14,7 +14,7 @@ import { CommentList } from '@/components/Comments/index.js';
 import { ErrorBoundary } from '@/components/ErrorBoundary/index.js';
 import { Loading } from '@/components/Loading.js';
 import { NoSSR } from '@/components/NoSSR.js';
-import NotFound from '@/components/NotFound.js';
+import { NotFound } from '@/components/NotFound.js';
 import { PostDetailEffect } from '@/components/PostDetailEffect.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { ThreadBody } from '@/components/Posts/ThreadBody.js';

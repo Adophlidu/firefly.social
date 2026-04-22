@@ -1,6 +1,6 @@
 'use client';
 
-import SideTokensSkeleton from '@/components/Token/AsideTokensSkeleton.js';
+import { AsideTokensSkeleton as SideTokensSkeleton } from '@/components/Token/AsideTokensSkeleton.js';
 import { dynamic } from '@/esm/dynamic.js';
 
 const BookmarkedTokens = dynamic(() => import('@/components/Token/BookmarkedTokens.js'), {

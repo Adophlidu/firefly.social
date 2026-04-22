@@ -1,7 +1,8 @@
 'use client';
 
+import { getChainName } from '@dimensiondev/web3/chains';
+
 import { ChainIcon } from '@/components/ChainIcon.js';
-import { getChainName } from '@/helpers/getChainName.js';
 
 interface ChainInfoProps {
     chainId: number;

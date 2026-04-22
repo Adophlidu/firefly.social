@@ -1,5 +1,5 @@
-import { classNames, safeUnreachable } from '@dimensiondev/utils';
-import { solana } from '@dimensiondev/web3/chains';
+import { classNames } from '@dimensiondev/utils';
+import { getChainIcon, solana } from '@dimensiondev/web3/chains';
 import { NetworkType } from '@dimensiondev/web3/enums';
 import { isValidAddressEthereum } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
@@ -11,11 +11,10 @@ import urlcat from 'urlcat';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
-import { FireflyPlatform, NetworkPluginID, type SocialSource } from '@/constants/enum.js';
+import { FireflyPlatform, type SocialSource } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/static.js';
 import { Image } from '@/esm/Image.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
-import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
 import { resolveSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { RedPacketAccountItem } from '@/modals/RedPacketModal/RedPacketAccountItem.js';
@@ -76,21 +75,8 @@ const PlatformButton = memo(function PlatformButton(props: {
     );
 });
 
-function resolvePluginId(networkType = NetworkType.Ethereum) {
-    switch (networkType) {
-        case NetworkType.Ethereum:
-            return NetworkPluginID.PLUGIN_EVM;
-        case NetworkType.Solana:
-            return NetworkPluginID.PLUGIN_SOLANA;
-        default:
-            safeUnreachable(networkType);
-            return NetworkPluginID.PLUGIN_EVM;
-    }
-}
-
 export const RedPacketDetailItem = memo<Props>(function RedPacketDetailItem({
     isDetail,
-
     history: {
         creator,
         ens_name,
@@ -117,10 +103,7 @@ export const RedPacketDetailItem = memo<Props>(function RedPacketDetailItem({
     const { history } = useRouter();
     const { networkType } = useContext(RedPacketContext);
     const { account } = useChainContext({ networkType });
-    const networkDescriptor = getNetworkDescriptor(
-        resolvePluginId(networkType),
-        networkType === NetworkType.Solana ? solana.id : chain_id,
-    );
+    const icon = getChainIcon(networkType === NetworkType.Solana ? solana.id : chain_id);
 
     const logoUrl = token_logo !== 'missing.png' ? token_logo : undefined;
     const message = rp_msg || <Trans>Hope this sparks a smile.</Trans>;
@@ -132,16 +115,13 @@ export const RedPacketDetailItem = memo<Props>(function RedPacketDetailItem({
                     className={`relative h-auto w-full rounded-lg bg-gradient-to-b from-blue-100 to-blue-50 p-3 max-md:p-8`}
                     style={{
                         background:
-                            networkDescriptor?.backgroundGradient ??
                             'linear-gradient(180deg, rgba(98, 126, 234, 0.15) 0%, rgba(98, 126, 234, 0.05) 100%)',
                     }}
                 >
                     <div
                         className="absolute bottom-0 left-[400px] z-0 h-[61px] w-[114px] opacity-20"
                         style={{
-                            background: networkDescriptor
-                                ? `url(${networkDescriptor.icon}) 0% 0% / 114px 114px no-repeat`
-                                : undefined,
+                            background: icon ? `url(${icon}) 0% 0% / 114px 114px no-repeat` : undefined,
                         }}
                     />
                     <div className="light flex justify-between">
