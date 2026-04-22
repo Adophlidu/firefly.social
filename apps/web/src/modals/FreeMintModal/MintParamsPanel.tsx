@@ -11,7 +11,7 @@ import { STALE_TIMES } from '@/constants/query.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { getFungibleTokenPrice } from '@/providers/coingecko/getFungibleTokenPrice.js';
 import type { MintMetadata } from '@/providers/types/Firefly.js';
-import { EVMChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
+import { EthChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
 
 interface MintParamsPanelProps extends HTMLProps<HTMLUListElement> {
     mintParams: MintMetadata;
@@ -50,7 +50,7 @@ export const MintParamsPanel = memo<MintParamsPanelProps>(function MintParamsPan
         staleTime: STALE_TIMES.MINUTE_1,
         queryFn: async () => {
             try {
-                const nativeToken = EVMChainResolver.nativeCurrency(chainId);
+                const nativeToken = EthChainResolver.nativeCurrency(chainId);
                 if (!nativeToken) return;
 
                 const usdPrice = await getFungibleTokenPrice(chainId, nativeToken.address);

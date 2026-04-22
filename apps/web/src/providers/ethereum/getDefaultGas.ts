@@ -9,7 +9,7 @@ import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { isNativeTokenDebank } from '@/providers/ethereum/isNativeTokenDebank.js';
 import { EthereumNetwork } from '@/providers/ethereum/Network.js';
 import type { GetDefaultGasOptions } from '@/providers/types/Transfer.js';
-import { EVMChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
+import { EthChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
 
 async function estimateGasForErc20Token(
     to: string,
@@ -52,7 +52,7 @@ async function estimateGasForNativeToken(
 }
 
 export async function getDefaultGas({ token, to, amount }: GetDefaultGasOptions<number, Address>) {
-    const isEIP1559 = EVMChainResolver.isFeatureSupported(token.chainId, 'EIP1559');
+    const isEIP1559 = EthChainResolver.isFeatureSupported(token.chainId, 'EIP1559');
     const { gasPrice, maxFeePerGas, maxPriorityFeePerGas } = await estimateFeesPerGas(wagmiConfig, {
         chainId: token.chainId,
         type: isEIP1559 ? 'eip1559' : 'legacy',

@@ -29,6 +29,35 @@ import {
     zora,
 } from 'viem/chains';
 
+export {
+    arbitrum,
+    aurora,
+    avalanche,
+    base,
+    baseSepolia,
+    blast,
+    bsc,
+    celo,
+    confluxESpace,
+    fantom,
+    gnosis,
+    hyperEvm,
+    lens,
+    lensTestnet,
+    linea,
+    mainnet,
+    mantle,
+    metis,
+    monadTestnet,
+    optimism,
+    plasma,
+    polygon,
+    scroll,
+    xLayer,
+    zkSync,
+    zora,
+};
+
 /**
  * Full list of supported chains (Firefly web / wagmi).
  */

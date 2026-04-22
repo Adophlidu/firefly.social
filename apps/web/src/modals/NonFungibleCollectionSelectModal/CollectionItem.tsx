@@ -3,7 +3,7 @@ import { Trans } from '@lingui/react/macro';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
-import { EVMExplorerResolver } from '@/web3-providers/evm/ResolverAPI.js';
+import { EthExplorerResolver } from '@/web3-providers/evm/ResolverAPI.js';
 import type { NonFungibleCollection } from '@/web3-shared/base/specs.js';
 
 export interface Collection
@@ -19,7 +19,7 @@ interface CollectionProps {
 }
 
 export function CollectionItem({ collection }: CollectionProps) {
-    const link = EVMExplorerResolver.addressLink(collection.chainId, collection.address!);
+    const link = EthExplorerResolver.addressLink(collection.chainId, collection.address!);
     return (
         <ClickableButton
             className="text-lightMain flex w-full items-center justify-between rounded-lg px-3 py-2 font-bold"

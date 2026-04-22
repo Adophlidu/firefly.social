@@ -26,7 +26,7 @@ import { getWalletClientForLensChain } from '@/providers/lens/getWalletClientFor
 import { lensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { capturePostActionEvent } from '@/providers/telemetry/capturePostActionEvent.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { EVMExplorerResolver } from '@/web3-providers/evm/ResolverAPI.js';
+import { EthExplorerResolver } from '@/web3-providers/evm/ResolverAPI.js';
 
 function formatTimeLeft(endTime: string) {
     const timeLeft = getTimeLeft(endTime);
@@ -100,7 +100,7 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
 
     const action = useMemo(() => {
         const contractExploreUrl = collectModule?.contract.address
-            ? (EVMExplorerResolver.addressLink(polygon.id, collectModule.contract.address) ?? '')
+            ? (EthExplorerResolver.addressLink(polygon.id, collectModule.contract.address) ?? '')
             : undefined;
         if (!isLogin) return <Trans>Login</Trans>;
 

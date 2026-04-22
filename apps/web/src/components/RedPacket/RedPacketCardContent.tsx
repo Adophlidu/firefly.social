@@ -43,7 +43,7 @@ import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketCo
 import { type RedPacketJSONPayload, RedPacketStatus } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { TokenType } from '@/types/rp.js';
-import { EVMChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
+import { EthChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
 
 interface Props {
     payload: RedPacketJSONPayload;
@@ -208,7 +208,7 @@ export function RedPacketCardContent({ payload, post }: Props) {
                             <span>
                                 {resolveRedPacketStatus(listOfStatus) ||
                                     (networkType === NetworkType.Ethereum
-                                        ? EVMChainResolver.chainName(parsedChainId)
+                                        ? EthChainResolver.chainName(parsedChainId)
                                         : 'Solana')}
                             </span>
                         </ClickableArea>

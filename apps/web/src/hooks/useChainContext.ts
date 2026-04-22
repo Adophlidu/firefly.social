@@ -5,7 +5,7 @@ import { mainnet } from 'viem/chains';
 import { useChainId, useConnection } from 'wagmi';
 
 import { useSolanaWalletProvider } from '@/hooks/useSolanaWalletProvider.js';
-import { EVMChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
+import { EthChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
 
 export interface ChainContextOverrides {
     chainId?: number;
@@ -19,7 +19,7 @@ export function useChainContext(overrides?: ChainContextOverrides) {
 
     const walletProvider = useSolanaWalletProvider();
 
-    const isEIP1559 = EVMChainResolver.isFeatureSupported(chainId, 'EIP1559') ? 'eip1559' : 'legacy';
+    const isEIP1559 = EthChainResolver.isFeatureSupported(chainId, 'EIP1559') ? 'eip1559' : 'legacy';
     const networkType = overrides?.networkType ?? NetworkType.Ethereum;
 
     switch (networkType) {

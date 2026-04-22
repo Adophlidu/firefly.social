@@ -3,7 +3,7 @@ import { solana } from '@dimensiondev/web3/chains';
 import { NetworkType } from '@dimensiondev/web3/enums';
 import { mainnet } from 'viem/chains';
 
-import { EVMChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
+import { EthChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
 import { SolanaChainResolver } from '@/web3-providers/solana/ResolverAPI.js';
 
 export function getNativeToken(networkType: NetworkType, chainId?: number) {
@@ -11,7 +11,7 @@ export function getNativeToken(networkType: NetworkType, chainId?: number) {
         case NetworkType.Solana:
             return SolanaChainResolver.nativeCurrency(solana.id);
         case NetworkType.Ethereum:
-            return EVMChainResolver.nativeCurrency(chainId ?? mainnet.id);
+            return EthChainResolver.nativeCurrency(chainId ?? mainnet.id);
         default:
             unreachable(networkType);
     }

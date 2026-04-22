@@ -13,7 +13,7 @@ import type { ClaimRedPacketContext } from '@/providers/ethereum/red-packet/type
 import { signClaimMessage } from '@/providers/ethereum/signClaimMessage.js';
 import { checkGasFreeStatus } from '@/providers/firefly/red-packet/checkGasFreeStatus.js';
 import { claimForGasFree } from '@/providers/firefly/red-packet/claimForGasFree.js';
-import { EVMChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
+import { EthChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
 
 export async function claimRedPacket(context: ClaimRedPacketContext) {
     const rpid = context.payload.rpid;
@@ -21,7 +21,7 @@ export async function claimRedPacket(context: ClaimRedPacketContext) {
 
     const { account, source, contextChainId, payload } = context;
     const payloadChainId = payload.token?.chainId;
-    const chainIdByName = EVMChainResolver.chainId('network' in payload ? payload.network! : '');
+    const chainIdByName = EthChainResolver.chainId('network' in payload ? payload.network! : '');
     const chainId = payloadChainId || chainIdByName || contextChainId;
 
     const globalChainId = getChainId(wagmiConfig);

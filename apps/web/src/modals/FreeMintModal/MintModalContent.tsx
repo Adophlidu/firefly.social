@@ -5,7 +5,7 @@ import { useEstimateFeesPerGas } from 'wagmi';
 import { MintButton } from '@/modals/FreeMintModal/MintButton.js';
 import { MintParamsPanel } from '@/modals/FreeMintModal/MintParamsPanel.js';
 import type { MintMetadata, SponsorMintOptions } from '@/providers/types/Firefly.js';
-import { EVMChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
+import { EthChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
 
 interface MintModalContentProps {
     mintTarget: SponsorMintOptions;
@@ -16,7 +16,7 @@ interface MintModalContentProps {
 export default memo(function MintModalContent({ mintTarget, mintParams, onSuccess }: MintModalContentProps) {
     const [count, setCount] = useState<number | ''>(1);
 
-    const isEIP1559 = EVMChainResolver.isFeatureSupported(mintParams.chainId, 'EIP1559');
+    const isEIP1559 = EthChainResolver.isFeatureSupported(mintParams.chainId, 'EIP1559');
     const { data, isLoading, isRefetching } = useEstimateFeesPerGas({
         chainId: mintParams.chainId,
         type: isEIP1559 ? 'eip1559' : 'legacy',

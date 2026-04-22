@@ -6,11 +6,14 @@ import {
     blast,
     bsc,
     celo,
+    chains,
     confluxESpace,
     fantom,
     gnosis,
+    lens,
     linea,
     mainnet,
+    mantle,
     metis,
     optimism,
     plasma,
@@ -19,259 +22,255 @@ import {
     xLayer,
     zkSync,
     zora,
-} from 'viem/chains';
+} from '@dimensiondev/web3/chains';
 
 import { NetworkPluginID, TokenType } from '@/constants/enum.js';
 import { getEvmNativeTokenAddress } from '@/providers/ethereum/getNativeTokenAddress.js';
-import CHAINS from '@/web3-constants/evm/chains.json' with { type: 'json' };
 import type { ChainDescriptor, NetworkDescriptor } from '@/web3-shared/base/specs.js';
 import { EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
 const PLUGIN_ID = NetworkPluginID.PLUGIN_EVM;
 
-export const NETWORK_DESCRIPTORS: ReadonlyArray<NetworkDescriptor<number>> = [
-    {
-        ID: `${PLUGIN_ID}_ethereum`,
-        networkSupporterPluginID: PLUGIN_ID,
-        chainId: mainnet.id,
+interface ChainMeta {
+    name?: string;
+    shortName?: string;
+    icon: string;
+    iconColor: string;
+    backgroundGradient?: string;
+    averageBlockDelay?: number;
+    nativeTokenLogoURL?: string;
+    features?: string[];
+}
+
+const ETH_LOGO =
+    'https://imagedelivery.net/PCnTHRkdRhGodr0AWBAvMA/Assets/blockchains/ethereum/info/logo.png/quality=85';
+
+const CHAIN_META: Partial<Record<number, ChainMeta>> = {
+    [mainnet.id]: {
         name: 'Ethereum',
         shortName: 'ETH',
         icon: '/image/chains/ethereum.png',
         iconColor: 'rgb(28, 104, 243)',
-        averageBlockDelay: 10,
         backgroundGradient:
             'linear-gradient(180deg, rgba(98, 126, 234, 0.15) 0%, rgba(98, 126, 234, 0.05) 100%), rgba(255, 255, 255, 0.2)',
-        isMainnet: true,
+        averageBlockDelay: 10,
+        nativeTokenLogoURL: ETH_LOGO,
+        features: ['EIP1559'],
     },
-    {
-        ID: `${PLUGIN_ID}_bsc`,
-        networkSupporterPluginID: PLUGIN_ID,
-        chainId: bsc.id,
+    [bsc.id]: {
         name: 'BNB Chain',
         icon: '/image/chains/binance.png',
         iconColor: 'rgb(240, 185, 10)',
-        averageBlockDelay: 10,
         backgroundGradient: 'linear-gradient(180deg, rgba(243, 186, 47, 0.15) 0%, rgba(243, 186, 47, 0.05) 100%)',
-        isMainnet: true,
+        averageBlockDelay: 10,
+        nativeTokenLogoURL:
+            'https://imagedelivery.net/PCnTHRkdRhGodr0AWBAvMA/Assets/blockchains/smartchain/info/logo.png/quality=85',
     },
-    {
-        ID: `${PLUGIN_ID}_base`,
-        networkSupporterPluginID: PLUGIN_ID,
-        chainId: base.id,
+    [base.id]: {
         name: 'Base',
         icon: '/image/chains/base.png',
         iconColor: 'rgb(0, 82, 255)',
         backgroundGradient: 'linear-gradient(180deg, rgba(130, 71, 229, 0.15) 0%, rgba(130, 71, 229, 0.05) 100%)',
         averageBlockDelay: 10,
-        isMainnet: true,
+        nativeTokenLogoURL: ETH_LOGO,
     },
-    {
-        ID: `${PLUGIN_ID}_polygon`,
-        networkSupporterPluginID: PLUGIN_ID,
-        chainId: polygon.id,
+    [polygon.id]: {
         name: 'Polygon',
         icon: '/image/chains/polygon.png',
         iconColor: 'rgb(119, 62, 225)',
-        averageBlockDelay: 10,
         backgroundGradient: 'linear-gradient(180deg, rgba(130, 71, 229, 0.15) 0%, rgba(130, 71, 229, 0.05) 100%)',
-        isMainnet: true,
+        averageBlockDelay: 10,
+        nativeTokenLogoURL:
+            'https://imagedelivery.net/PCnTHRkdRhGodr0AWBAvMA/Assets/blockchains/polygon/info/logo.png/quality=85',
+        features: ['EIP1559'],
     },
-    {
-        ID: `${PLUGIN_ID}_arbitrum`,
-        networkSupporterPluginID: PLUGIN_ID,
-        chainId: arbitrum.id,
+    [arbitrum.id]: {
         name: 'Arbitrum One',
         shortName: 'Arbitrum',
         icon: '/image/chains/arbitrum.png',
         iconColor: 'rgb(36, 150, 238)',
-        averageBlockDelay: 10,
         backgroundGradient: 'linear-gradient(180deg, rgba(40, 160, 240, 0.15) 0%, rgba(40, 160, 240, 0.05) 100%)',
-        isMainnet: true,
+        averageBlockDelay: 10,
+        nativeTokenLogoURL: ETH_LOGO,
     },
-    {
-        ID: `${PLUGIN_ID}_xdai`,
-        networkSupporterPluginID: PLUGIN_ID,
-        chainId: gnosis.id,
+    [gnosis.id]: {
         name: 'Gnosis',
         icon: '/image/chains/xdai.png',
         iconColor: 'rgb(73, 169, 166)',
-        averageBlockDelay: 10,
         backgroundGradient: 'linear-gradient(180deg, rgba(72, 168, 166, 0.15) 0%, rgba(72, 168, 166, 0.05) 100%)',
-        isMainnet: true,
+        averageBlockDelay: 10,
     },
-    {
-        ID: `${PLUGIN_ID}_scroll`,
-        networkSupporterPluginID: PLUGIN_ID,
-        chainId: scroll.id,
+    [scroll.id]: {
         name: 'Scroll',
         icon: 'https://static.debank.com/image/chain/logo_url/scrl/1fa5c7e0bfd353ed0a97c1476c9c42d2.png',
+        iconColor: 'rgb(255, 248, 243)',
         backgroundGradient:
             'linear-gradient(180deg, rgba(98, 126, 234, 0.15) 0%, rgba(98, 126, 234, 0.05) 100%), rgba(255, 255, 255, 0.2)',
-        iconColor: 'rgb(255, 248, 243)',
         averageBlockDelay: 9,
-        isMainnet: true,
+        nativeTokenLogoURL: ETH_LOGO,
     },
-    {
-        ID: `${PLUGIN_ID}_avalanche`,
-        networkSupporterPluginID: PLUGIN_ID,
-        chainId: avalanche.id,
+    [avalanche.id]: {
         name: 'Avalanche',
         shortName: 'AVAX',
         icon: '/image/chains/avalanche.png',
-        backgroundGradient: 'linear-gradient(180deg, rgba(232, 65, 66, 0.15) 0%, rgba(232, 65, 66, 0.05) 100%)',
         iconColor: 'rgb(232, 65, 66)',
+        backgroundGradient: 'linear-gradient(180deg, rgba(232, 65, 66, 0.15) 0%, rgba(232, 65, 66, 0.05) 100%)',
         averageBlockDelay: 10,
-        isMainnet: true,
+        nativeTokenLogoURL:
+            'https://imagedelivery.net/PCnTHRkdRhGodr0AWBAvMA/Assets/blockchains/avalanchec/info/logo.png/quality=85',
     },
-    {
-        ID: `${PLUGIN_ID}_aurora`,
-        networkSupporterPluginID: PLUGIN_ID,
-        chainId: aurora.id,
+    [aurora.id]: {
         name: 'Aurora',
         icon: '/image/chains/aurora.png',
         iconColor: 'rgb(112, 212, 74)',
-        averageBlockDelay: 10,
         backgroundGradient: 'linear-gradient(180deg, rgba(112, 212, 75, 0.15) 0%, rgba(112, 212, 75, 0.05) 100%)',
-        isMainnet: true,
+        averageBlockDelay: 10,
+        nativeTokenLogoURL: ETH_LOGO,
     },
-    {
-        ID: `${PLUGIN_ID}_conflux`,
-        networkSupporterPluginID: PLUGIN_ID,
-        chainId: confluxESpace.id,
+    [confluxESpace.id]: {
         name: 'Conflux',
         icon: '/image/chains/conflux.png',
         iconColor: 'rgb(112, 212, 74)',
-        averageBlockDelay: 10,
         backgroundGradient: 'linear-gradient(180deg, rgba(72, 168, 166, 0.15) 0%, rgba(72, 168, 166, 0.05) 100%)',
-        isMainnet: true,
+        averageBlockDelay: 10,
     },
-    {
-        ID: `${PLUGIN_ID}_fantom`,
-        networkSupporterPluginID: PLUGIN_ID,
-        chainId: fantom.id,
+    [fantom.id]: {
         name: 'Fantom',
         icon: '/image/chains/fantom.png',
         iconColor: 'rgb(73, 169, 166)',
-        averageBlockDelay: 10,
         backgroundGradient: 'linear-gradient(180deg, rgba(24, 94, 255, 0.15) 0%, rgba(24, 94, 255, 0.05) 100%)',
-        isMainnet: true,
+        averageBlockDelay: 10,
+        nativeTokenLogoURL:
+            'https://imagedelivery.net/PCnTHRkdRhGodr0AWBAvMA/Assets/blockchains/fantom/info/logo.png/quality=85',
     },
-    {
-        ID: `${PLUGIN_ID}_optimism`,
-        networkSupporterPluginID: PLUGIN_ID,
-        chainId: optimism.id,
+    [xLayer.id]: {
+        name: 'X Layer',
+        icon: '/image/chains/xlayer.png',
+        iconColor: 'rgb(255, 255, 255)',
+        averageBlockDelay: 10,
+        nativeTokenLogoURL:
+            'https://static.okx.com/cdn/wallet/logo/okb.png?x-oss-process=image/format,webp/ignore-error,1',
+    },
+    [metis.id]: {
+        name: 'Metis',
+        icon: 'https://static.debank.com/image/chain/logo_url/metis/7485c0a61c1e05fdf707113b6b6ac917.png',
+        iconColor: 'rgb(36, 150, 238)',
+        backgroundGradient: 'linear-gradient(180deg, rgba(130, 71, 229, 0.15) 0%, rgba(130, 71, 229, 0.05) 100%)',
+        averageBlockDelay: 10,
+        nativeTokenLogoURL: 'https://bridge.metis.io/static/media/logo.f1bdb422692299f1b236d7144106b7af.svg',
+    },
+    [zora.id]: {
+        name: 'Zora',
+        icon: 'https://static.debank.com/image/chain/logo_url/zora/de39f62c4489a2359d5e1198a8e02ef1.png',
+        iconColor: '#3059AE',
+        averageBlockDelay: 10,
+        nativeTokenLogoURL: ETH_LOGO,
+    },
+    [celo.id]: {
+        name: 'Celo',
+        icon: '/image/chains/celo.png',
+        iconColor: '#FCFF52',
+        averageBlockDelay: 10,
+    },
+    [zkSync.id]: {
+        name: 'Zksync Era',
+        icon: '/image/chains/zksync.png',
+        iconColor: '#3059AE',
+        averageBlockDelay: 10,
+        nativeTokenLogoURL: ETH_LOGO,
+    },
+    [linea.id]: {
+        name: 'Linea',
+        icon: '/image/chains/linea.png',
+        iconColor: '#3059AE',
+        averageBlockDelay: 10,
+        nativeTokenLogoURL: ETH_LOGO,
+    },
+    [plasma.id]: {
+        name: 'Plasma',
+        icon: '/image/chains/plasma.png',
+        iconColor: '#3059AE',
+        averageBlockDelay: 10,
+        nativeTokenLogoURL: ETH_LOGO,
+    },
+    [blast.id]: {
+        name: 'Blast',
+        icon: '/image/chains/blast.png',
+        iconColor: 'rgb(252, 236, 222)',
+        averageBlockDelay: 2,
+        nativeTokenLogoURL: ETH_LOGO,
+    },
+    [optimism.id]: {
         name: 'Optimism',
         icon: '/image/chains/optimism.png',
         iconColor: 'rgb(232, 65, 66)',
         backgroundGradient: 'linear-gradient(180deg, rgba(232, 65, 66, 0.15) 0%, rgba(232, 65, 66, 0.05) 100%)',
-        isMainnet: true,
+        averageBlockDelay: 10,
+        nativeTokenLogoURL: ETH_LOGO,
+    },
+    [lens.id]: {
+        name: 'Lens',
+        icon: 'https://explorer.lens.xyz/images/gho.png',
+        iconColor: 'rgb(170, 221, 55)',
+        averageBlockDelay: 10,
+        nativeTokenLogoURL: 'https://explorer.lens.xyz/images/gho.png',
+    },
+    [mantle.id]: {
+        name: 'Mantle',
+        icon: 'https://static.debank.com/image/chain/logo_url/mantle/2feecb18b9e8e63f29fdb39ca2c46ed0.png',
+        iconColor: 'rgb(0, 148, 100)',
         averageBlockDelay: 10,
     },
-    {
-        ID: `${PLUGIN_ID}_metis`,
-        networkSupporterPluginID: PLUGIN_ID,
-        chainId: metis.id,
-        icon: 'https://static.debank.com/image/chain/logo_url/metis/7485c0a61c1e05fdf707113b6b6ac917.png',
-        iconColor: 'rgb(36, 150, 238)',
-        backgroundGradient: 'linear-gradient(180deg, rgba(130, 71, 229, 0.15) 0%, rgba(130, 71, 229, 0.05) 100%)',
-        name: 'Metis',
-        isMainnet: true,
-        averageBlockDelay: 10,
-    },
-    {
-        ID: `${PLUGIN_ID}_xlayer`,
-        networkSupporterPluginID: PLUGIN_ID,
-        chainId: xLayer.id,
-        icon: '/image/chains/xlayer.png',
-        iconColor: 'rgb(255, 255, 255)',
-        name: 'X Layer',
-        isMainnet: true,
-        averageBlockDelay: 10,
-    },
-    {
-        ID: `${PLUGIN_ID}_zora`,
-        networkSupporterPluginID: PLUGIN_ID,
-        chainId: zora.id,
-        icon: 'https://static.debank.com/image/chain/logo_url/zora/de39f62c4489a2359d5e1198a8e02ef1.png',
-        iconColor: '#3059AE',
-        name: 'Zora',
-        isMainnet: true,
-        averageBlockDelay: 10,
-    },
-    {
-        ID: `${PLUGIN_ID}_celo`,
-        networkSupporterPluginID: PLUGIN_ID,
-        chainId: celo.id,
-        icon: '/image/chains/celo.png',
-        iconColor: '#FCFF52',
-        name: 'Celo',
-        isMainnet: true,
-        averageBlockDelay: 10,
-    },
-    {
-        ID: `${PLUGIN_ID}_zksync_era`,
-        networkSupporterPluginID: PLUGIN_ID,
-        chainId: zkSync.id,
-        icon: '/image/chains/zksync.png',
-        iconColor: '#3059AE',
-        name: 'Zksync Era',
-        isMainnet: true,
-        averageBlockDelay: 10,
-    },
-    {
-        ID: `${PLUGIN_ID}_linea`,
-        networkSupporterPluginID: PLUGIN_ID,
-        chainId: linea.id,
-        icon: '/image/chains/linea.png',
-        iconColor: '#3059AE',
-        name: 'Linea',
-        isMainnet: true,
-        averageBlockDelay: 10,
-    },
-    {
-        ID: `${PLUGIN_ID}_plasma`,
-        networkSupporterPluginID: PLUGIN_ID,
-        chainId: plasma.id,
-        icon: '/image/chains/plasma.png',
-        iconColor: '#3059AE',
-        name: 'Plasma',
-        isMainnet: true,
-        averageBlockDelay: 10,
-    },
-    {
-        ID: `${PLUGIN_ID}_blast`,
-        networkSupporterPluginID: PLUGIN_ID,
-        chainId: blast.id,
-        icon: '/image/chains/blast.png',
-        iconColor: 'rgb(252, 236, 222)',
-        name: 'Blast',
-        isMainnet: true,
-        averageBlockDelay: 2,
-    },
-];
+};
 
-export const CHAIN_DESCRIPTORS: ReadonlyArray<ChainDescriptor<number, EthereumSchemaType>> = CHAINS.map((x) => {
-    const network = NETWORK_DESCRIPTORS.find((y) => y.chainId === x.chainId);
+const DEFAULT_META: ChainMeta = {
+    icon: '/image/chains/ethereum.png',
+    iconColor: 'rgb(138, 138, 138)',
+    averageBlockDelay: 10,
+};
+
+export const NETWORK_DESCRIPTORS: ReadonlyArray<NetworkDescriptor<number>> = chains.map(
+    (chain): NetworkDescriptor<number> => {
+        const meta = CHAIN_META[chain.id] ?? DEFAULT_META;
+        const name = meta.name ?? chain.name;
+        return {
+            ID: `${PLUGIN_ID}_${name.toLowerCase().replace(/\s+/g, '_')}`,
+            networkSupporterPluginID: PLUGIN_ID,
+            chainId: chain.id,
+            name,
+            shortName: meta.shortName,
+            icon: meta.icon,
+            iconColor: meta.iconColor as NetworkDescriptor<number>['iconColor'],
+            backgroundGradient: meta.backgroundGradient,
+            averageBlockDelay: meta.averageBlockDelay ?? 10,
+            isMainnet: !chain.testnet,
+        };
+    },
+);
+
+export const CHAIN_DESCRIPTORS: ReadonlyArray<ChainDescriptor<number, EthereumSchemaType>> = chains.map((chain) => {
+    const meta = CHAIN_META[chain.id] ?? DEFAULT_META;
+    const name = meta.name ?? chain.name;
+    const address = getEvmNativeTokenAddress(chain.id);
     return {
-        ...x,
-        ID: `${x.chainId}_${x.name}`,
-        coinMarketCapChainId: '',
-        coinGeckoChainId: '',
-        coinGeckoPlatformId: '',
-        color: network?.iconColor || x.color || 'rgb(138, 138, 138)',
+        chainId: chain.id,
+        name,
+        fullName: name,
+        shortName: meta.shortName,
         nativeCurrency: {
-            id: getEvmNativeTokenAddress(x.chainId),
-            address: getEvmNativeTokenAddress(x.chainId),
+            id: address,
+            address,
             type: TokenType.Fungible,
             schema: EthereumSchemaType.Native,
-            ...x.nativeCurrency,
+            chainId: chain.id,
+            name: chain.nativeCurrency.name,
+            symbol: chain.nativeCurrency.symbol,
+            decimals: chain.nativeCurrency.decimals,
+            logoURL: meta.nativeTokenLogoURL,
         },
-        // not accessible
-        rpcUrl: '',
-        iconUrl: network?.icon || x.nativeCurrency.logoURL,
+        features: meta.features,
         explorerUrl: {
-            url: x.explorers?.[0]?.url || x.infoURL,
+            url: chain.blockExplorers?.default?.url ?? '',
         },
-        isCustomized: false,
     };
 });

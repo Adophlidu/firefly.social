@@ -1,7 +1,7 @@
 import urlcat from 'urlcat';
 import { base } from 'viem/chains';
 
-import { EVMExplorerResolver } from '@/web3-providers/evm/ResolverAPI.js';
+import { EthExplorerResolver } from '@/web3-providers/evm/ResolverAPI.js';
 
 const EXPLORER_CONFIG: Partial<Record<number, string>> = {
     [base.id]: 'https://sepolia.basescan.org',
@@ -9,8 +9,8 @@ const EXPLORER_CONFIG: Partial<Record<number, string>> = {
 
 export function resolveExplorerLink(chainId: number, id: string, type: 'address' | 'tx') {
     const fn = {
-        address: EVMExplorerResolver.addressLink.bind(EVMExplorerResolver),
-        tx: EVMExplorerResolver.transactionLink.bind(EVMExplorerResolver),
+        address: EthExplorerResolver.addressLink.bind(EthExplorerResolver),
+        tx: EthExplorerResolver.transactionLink.bind(EthExplorerResolver),
     }[type];
 
     const url = fn(chainId, id);

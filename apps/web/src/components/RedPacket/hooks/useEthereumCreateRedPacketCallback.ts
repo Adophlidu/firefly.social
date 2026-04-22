@@ -25,7 +25,7 @@ import { captureLuckyDropEvent } from '@/providers/telemetry/captureLuckyDropEve
 import type { FireflyRedPacketAPI, RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import type { RedPacketCreationSuccessEventArgs, RedPacketMetadata } from '@/types/rp.js';
-import { EVMChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
+import { EthChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
 import type { FungibleToken } from '@/web3-shared/base/specs.js';
 import { EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
@@ -122,7 +122,7 @@ export function useEthereumCreateRedPacketCallback(
                 duration: methodParams.duration,
                 creation_time: Date.now(),
                 token,
-                network: EVMChainResolver.chainName(chainId),
+                network: EthChainResolver.chainName(chainId),
                 chainId,
                 contract_address: getRedPacketContractAddress(chainId),
                 contract_version: RED_PACKET_CONTRACT_VERSION,

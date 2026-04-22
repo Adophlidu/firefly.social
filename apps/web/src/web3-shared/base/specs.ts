@@ -72,30 +72,17 @@ interface Identity {
 type Price = Partial<Record<CurrencyType, string>>;
 
 export interface ChainDescriptor<ChainId, SchemaType> {
-    ID: string;
     chainId: ChainId;
-    coinMarketCapChainId?: string;
-    coinGeckoChainId?: string;
-    coinGeckoPlatformId?: string;
     name: string;
-    color?: string;
     fullName?: string;
     shortName?: string;
-    network: LiteralUnion<'mainnet' | 'testnet'>;
     nativeCurrency: FungibleToken<ChainId, SchemaType>;
-    minGasLimit?: string;
-    maxGasLimit?: string;
-    defaultGasLimit?: string;
-    rpcUrl: string;
-    iconUrl?: string;
     // EIP3091
     explorerUrl: {
         url: string;
         parameters?: Record<string, string | number | boolean>;
     };
     features?: string[];
-    // Indicate a built-in chain or customized one.
-    isCustomized: boolean;
 }
 
 export interface NetworkDescriptor<ChainId> {

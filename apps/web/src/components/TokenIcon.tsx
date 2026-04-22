@@ -7,7 +7,7 @@ import { ChainIcon } from '@/components/ChainIcon.js';
 import type { NetworkType } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import { optimizeCDNImageSize } from '@/helpers/optimizeCDNImageSize.js';
-import { EVMChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
+import { EthChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
 
 export interface TokenIconProps extends HTMLProps<HTMLSpanElement> {
     networkType?: NetworkType;
@@ -52,7 +52,7 @@ export const TokenIcon = memo(function TokenIcon({
 
     const tokenIcon = useMemo(() => {
         if (chainId && isZeroAddressEthereum(address)) {
-            return EVMChainResolver.nativeCurrency(chainId).logoURL;
+            return EthChainResolver.nativeCurrency(chainId).logoURL;
         }
         return icon;
     }, [icon, address, chainId]);

@@ -6,7 +6,7 @@ import { estimateFeesPerGas, getBalance } from 'wagmi/actions';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { getArticleCollectStatus } from '@/providers/firefly/wallet-transaction/getArticleCollectStatus.js';
 import type { Article } from '@/providers/types/Article.js';
-import { EVMChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
+import { EthChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
 
 export function useArticleCollectStatus(article: Article) {
     const account = useConnection();
@@ -23,7 +23,7 @@ export function useArticleCollectStatus(article: Article) {
                     chainId: data.chainId,
                 });
 
-                const isEIP1559 = EVMChainResolver.isFeatureSupported(data.chainId, 'EIP1559');
+                const isEIP1559 = EthChainResolver.isFeatureSupported(data.chainId, 'EIP1559');
                 const { gasPrice, maxFeePerGas } = await estimateFeesPerGas(wagmiConfig, {
                     chainId: data.chainId,
                     type: isEIP1559 ? 'eip1559' : 'legacy',

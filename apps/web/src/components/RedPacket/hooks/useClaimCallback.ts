@@ -7,7 +7,7 @@ import { useChainContext } from '@/hooks/useChainContext.js';
 import { claimRedPacket } from '@/providers/ethereum/red-packet/claimRedPacket.js';
 import { captureLuckyDropEvent } from '@/providers/telemetry/captureLuckyDropEvent.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
-import { EVMChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
+import { EthChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
 
 /**
  * Claim fungible token red packet.
@@ -18,7 +18,7 @@ export function useClaimCallback(
     payload: RedPacketJSONPayload = {} as RedPacketJSONPayload,
 ) {
     const { chainId: contextChainId } = useChainContext({
-        chainId: payload.network ? EVMChainResolver.chainId(payload.network) : mainnet.id,
+        chainId: payload.network ? EthChainResolver.chainId(payload.network) : mainnet.id,
         networkType: getNetworkTypeFromRpPayload(payload),
     });
 

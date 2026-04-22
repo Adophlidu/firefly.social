@@ -1,10 +1,10 @@
 import { isValidChainIdEthereum, isValidChainIdSolana } from '@dimensiondev/web3/chains';
 
-import { EVMExplorerResolver } from '@/web3-providers/evm/ResolverAPI.js';
+import { EthExplorerResolver } from '@/web3-providers/evm/ResolverAPI.js';
 import { SolanaExplorerResolver } from '@/web3-providers/solana/ResolverAPI.js';
 
 export function resolveAddressLink(chainId: number, address: string) {
-    if (isValidChainIdEthereum(chainId)) return EVMExplorerResolver.addressLink(chainId, address);
+    if (isValidChainIdEthereum(chainId)) return EthExplorerResolver.addressLink(chainId, address);
     if (isValidChainIdSolana(chainId)) return SolanaExplorerResolver.addressLink(chainId, address);
     return '';
 }

@@ -11,7 +11,7 @@ import { ChainIcon } from '@/components/ChainIcon.js';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { Link } from '@/components/Link.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
-import { EVMExplorerResolver } from '@/web3-providers/evm/ResolverAPI.js';
+import { EthExplorerResolver } from '@/web3-providers/evm/ResolverAPI.js';
 import { SolanaExplorerResolver } from '@/web3-providers/solana/ResolverAPI.js';
 import { EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
@@ -33,12 +33,12 @@ function ExplorerLink(props: { address: string; type: 'address' | 'tx'; chainId?
             case 'tx':
                 return isValidChainIdSolana(chainId)
                     ? SolanaExplorerResolver.transactionLink(chainId, address)
-                    : EVMExplorerResolver.transactionLink(chainId, address);
+                    : EthExplorerResolver.transactionLink(chainId, address);
             case 'address':
                 if (useBlockScan) return BlockScanExplorerResolver.addressLink(chainId, address);
                 return isValidChainIdSolana(chainId)
                     ? SolanaExplorerResolver.addressLink(chainId, address)
-                    : EVMExplorerResolver.addressLink(chainId, address);
+                    : EthExplorerResolver.addressLink(chainId, address);
             default:
                 safeUnreachable(type);
                 return '';

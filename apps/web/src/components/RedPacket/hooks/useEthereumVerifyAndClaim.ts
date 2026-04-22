@@ -17,7 +17,7 @@ import { formatBalance } from '@/helpers/formatBalance.js';
 import { usePrivyAppkitAccountByNetwork } from '@/hooks/appkit/usePrivyAppkitAccountByNetwork.js';
 import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
-import { EVMChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
+import { EthChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
 
 export function useEthereumVerifyAndClaim(payload: RedPacketJSONPayload, source: SocialSource, enabled = true) {
     const appkitAccount = usePrivyAppkitAccountByNetwork(NetworkType.Ethereum);
@@ -49,7 +49,7 @@ export function useEthereumVerifyAndClaim(payload: RedPacketJSONPayload, source:
                 queryKey: ['red-packet', 'parse', source],
             }),
         ]);
-        const chainId = (payload.network ? EVMChainResolver.chainId(payload.network) : payload.chainId) ?? mainnet.id;
+        const chainId = (payload.network ? EthChainResolver.chainId(payload.network) : payload.chainId) ?? mainnet.id;
 
         const availability = (await readContract(wagmiConfig, {
             abi: RED_PACKET_ABI,
