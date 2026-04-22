@@ -58,7 +58,7 @@ msgid "Blackmail activities."
 msgstr "勒索行为。"
 
 msgid "{txStatus, select, success {Success} fail {Failed} pending {Pending} other {Failed}}"
-msgstr ""
+msgstr "{txStatus, select, success {成功} fail {失败} pending {待处理} other {失败}}"
 
 #. placeholder {0}: error.message
 msgid "Failed to add to Bookmarks. {0}"
@@ -553,7 +553,7 @@ msgid "You claimed {amount} {symbol} to your <0>Firefly Wallet</0>."
 msgstr "你领取的 {amount} {symbol} 已转入你的 <0>Firefly 钱包</0>。"
 
 msgid "Total amount of BTC held in treasuries by public companies and governments."
-msgstr ""
+msgstr "上市公司和政府国库持有的比特币总量。"
 
 msgid "Nickname"
 msgstr "昵称"
@@ -651,7 +651,7 @@ msgid "Failed to like the comment."
 msgstr "点赞失败。"
 
 msgid "Reply restricted"
-msgstr ""
+msgstr "回复受限"
 
 msgid "Sign in"
 msgstr "登录"
@@ -960,7 +960,7 @@ msgid "Sending"
 msgstr "发送中"
 
 msgid "The author has disabled comments on this post."
-msgstr ""
+msgstr "作者已禁用此帖子的评论功能。"
 
 msgid "Retry Stream"
 msgstr "重试"
@@ -1491,7 +1491,7 @@ msgstr "在 {0} 上举报失败。"
 
 #. placeholder {0}: notification.post.type
 msgid "<0/> <1>liked your </1><2>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</2>"
-msgstr ""
+msgstr "<0/> <1>点赞了你的 </1><2>{0, select, Post {帖子} Comment {评论} Quote {引用} Mirror {转发} other {内容}}</2>"
 
 msgid "Insufficient funds"
 msgstr "金额不足"
@@ -1566,7 +1566,7 @@ msgstr "点赞文章失败。"
 #. placeholder {0}: notification.source
 #. placeholder {1}: notification.post.type
 msgid "<0/> {0, select, Lens {reposted your} Farcaster {recasted your} Bsky {reposted your} other {reposted your}} <1>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</1>"
-msgstr ""
+msgstr "<0/> {0, select, Lens {转发了你的} Farcaster {转发了你的} Bsky {转发了你的} other {转发了你的}} <1>{1, select, Post {帖子} Comment {评论} Quote {引用} Mirror {转发} other {内容}}</1>"
 
 msgid "Mobile QR login is interrupted. Please try again."
 msgstr "移动端二维码登录已中断。请重试。"
@@ -1575,7 +1575,7 @@ msgid "Wallet added successfully"
 msgstr "添加钱包成功"
 
 msgid "Total Treasury Holding"
-msgstr ""
+msgstr "国库持有总量"
 
 msgid "Closed"
 msgstr "已关闭"
@@ -1829,7 +1829,7 @@ msgid "Registered account not found. Please switch to another wallet and try aga
 msgstr "未发现任何在Firefly注册的账号，请更换钱包重试。"
 
 msgid "<0/><1> followed you</1>"
-msgstr ""
+msgstr "<0/><1> 关注了你</1>"
 
 msgid "The token can not be bought."
 msgstr "该代币无法购买。"
@@ -2131,7 +2131,7 @@ msgstr "由 {provider} 校验"
 
 #. placeholder {0}: session.type
 msgid "This {0} account is already linked"
-msgstr ""
+msgstr "此 {0} 账号已绑定"
 
 msgid "Resend full or remaining?"
 msgstr "重新发布完整还是剩余部分？"
@@ -2440,7 +2440,7 @@ msgid "Sign to Confirm"
 msgstr "签名确认"
 
 msgid "Due to <0>X's API limitations</0>, you can only reply to posts that mention you."
-msgstr ""
+msgstr "由于 <0>X 的 API 限制</0>，你只能回复提及你的帖子。"
 
 msgid "Failed to update notification settings"
 msgstr "更新通知设置失败"
@@ -2782,7 +2782,7 @@ msgid "EVM"
 msgstr "EVM"
 
 msgid "This Email is already linked"
-msgstr ""
+msgstr "此邮箱已绑定"
 
 msgid "Yes"
 msgstr "是"
@@ -3153,7 +3153,7 @@ msgid "Tax cannot be modified"
 msgstr "不能修改税"
 
 msgid "View all"
-msgstr ""
+msgstr "查看全部"
 
 msgid "This token contract has not been verified. We cannot check the contract code for details. Unsourced token contracts are likely to have malicious functions to defraud users of their assets."
 msgstr "此代币合约尚未验证，无法检查合约代码。未验证的代币合约可能包含恶意功能。"
@@ -3427,7 +3427,7 @@ msgid "Create a Post"
 msgstr "创建帖子"
 
 msgid "Platform filter"
-msgstr ""
+msgstr "平台筛选"
 
 msgid "Chain filter"
 msgstr "链"
@@ -3513,7 +3513,7 @@ msgid "Note: Cloud drafts save text only. Please upload original images or video
 msgstr "注意：云端草稿仅保存文本。请重新上传原图或视频。"
 
 msgid "Turning off multi-device login will cause scheduled posts to fail. To ensure that posts are sent as scheduled, please make sure that multi-device login remains turned on."
-msgstr ""
+msgstr "关闭多设备登录将导致定时帖子发布失败。为确保帖子按计划发送，请务必保持多设备登录处于开启状态。"
 
 msgid "This Bluesky account is already linked to another Firefly account."
 msgstr "这个 Bluesky 账号已绑定到另一个 Firefly 账户。"
@@ -3531,7 +3531,7 @@ msgid_plural "# minutes"
 msgstr[0] "# 分钟"
 
 msgid "<0/> and <1/>"
-msgstr ""
+msgstr "<0/> 和 <1/>"
 
 msgid "Post has been deleted"
 msgstr "帖子已被删除"
@@ -3554,7 +3554,7 @@ msgstr "<0>买入 {0}</0><1/>"
 
 #. placeholder {0}: error.url
 msgid "Not Found. Please check your URL. [{0}]"
-msgstr "由於 <0>X 的 API 限制</0>，你只能回覆標記你的貼文。"
+msgstr "未找到。请检查你的 URL。[ {0} ]"
 
 msgid "5m"
 msgstr "5 分钟"
@@ -3687,7 +3687,7 @@ msgid "No asks"
 msgstr "暂无卖单"
 
 msgid "<0/> PnL(%)"
-msgstr ""
+msgstr "<0/> 盈亏(%)"
 
 msgid "OR"
 msgstr "或"
@@ -4007,7 +4007,7 @@ msgid "Follow @{0}"
 msgstr "关注 @{0}"
 
 msgid "Biggest Win"
-msgstr ""
+msgstr "最大盈利"
 
 msgid "Cancel Recast"
 msgstr "取消转发"
@@ -4192,7 +4192,7 @@ msgid "Pending"
 msgstr "确认中"
 
 msgid "Only people followed by the author can comment on this post."
-msgstr ""
+msgstr "只有作者关注的人才能评论此帖子。"
 
 msgid "Unsent posts"
 msgstr "未发布"
@@ -4228,7 +4228,7 @@ msgid "Holders can not sell all of the token."
 msgstr "持有者无法出售所有代币。"
 
 msgid "Only followers of the author can comment on this post."
-msgstr ""
+msgstr "只有作者的关注者才能评论此帖子。"
 
 msgid "No phishing activities involved."
 msgstr "未发现钓鱼活动。"
@@ -4434,7 +4434,7 @@ msgid "Labeled by <0>{0}</0>."
 msgstr "由 <0>{0}</0> 标记。"
 
 msgid "Only mentioned profiles can comment on this post."
-msgstr ""
+msgstr "只有被提及的账号才能评论此帖子。"
 
 msgid "Collect"
 msgstr "收集"
@@ -4864,7 +4864,7 @@ msgid "Something went wrong, please try again."
 msgstr "哎呀！出错了。 请再试一次。"
 
 msgid "This Telegram account is already linked"
-msgstr ""
+msgstr "此 Telegram 账号已绑定"
 
 msgid "Following"
 msgstr "正在关注"
@@ -4965,7 +4965,7 @@ msgstr "隐藏少于 1 美元的资产"
 
 #. placeholder {0}: notification.post.type
 msgid "<0/> <1>collected your </1><2>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</2>"
-msgstr ""
+msgstr "0/> <1>收藏了你的 </1><2>{0, select, Post {帖子} Comment {评论} Quote {引用} Mirror {转发} other {内容}}</2>"
 
 msgid "Hours"
 msgstr "小时"
@@ -5076,7 +5076,7 @@ msgid "Multi-device login"
 msgstr "多设备登录"
 
 msgid "This token link is not supported."
-msgstr ""
+msgstr "不支持此代币链接。"
 
 #. placeholder {0}: channel.id
 msgid "Failed to unfollow /{0} on {sourceName}"
@@ -5095,7 +5095,7 @@ msgid "Week"
 msgstr "周"
 
 msgid "The snap server failed to process the request."
-msgstr ""
+msgstr "Snap 服务器处理请求失败。"
 
 msgid "Are you sure you want to report this user?"
 msgstr "你确定要举报这个用户么？"

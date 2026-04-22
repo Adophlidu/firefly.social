@@ -58,7 +58,7 @@ msgid "Blackmail activities."
 msgstr "勒索活動。"
 
 msgid "{txStatus, select, success {Success} fail {Failed} pending {Pending} other {Failed}}"
-msgstr ""
+msgstr "{txStatus, select, success {成功} fail {失敗} pending {待處理} other {失敗}}"
 
 #. placeholder {0}: error.message
 msgid "Failed to add to Bookmarks. {0}"
@@ -553,7 +553,7 @@ msgid "You claimed {amount} {symbol} to your <0>Firefly Wallet</0>."
 msgstr "您領取的 {amount} {symbol} 已發送至您的 <0>Firefly 錢包</0>。"
 
 msgid "Total amount of BTC held in treasuries by public companies and governments."
-msgstr ""
+msgstr "上市公司與政府國庫持有的比特幣總量。"
 
 msgid "Nickname"
 msgstr "暱稱"
@@ -651,7 +651,7 @@ msgid "Failed to like the comment."
 msgstr "按讚失敗。"
 
 msgid "Reply restricted"
-msgstr ""
+msgstr "回覆受限"
 
 msgid "Sign in"
 msgstr "登入"
@@ -960,7 +960,7 @@ msgid "Sending"
 msgstr "發布中"
 
 msgid "The author has disabled comments on this post."
-msgstr ""
+msgstr "作者已停用此貼文的留言功能。"
 
 msgid "Retry Stream"
 msgstr "重試"
@@ -1491,7 +1491,7 @@ msgstr "在 {0} 提交檢舉失敗"
 
 #. placeholder {0}: notification.post.type
 msgid "<0/> <1>liked your </1><2>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</2>"
-msgstr ""
+msgstr "<0/> <1>讚好咗你嘅 </1><2>{0, select, Post {貼文} Comment {留言} Quote {引用} Mirror {轉發} other {內容}}</2>"
 
 msgid "Insufficient funds"
 msgstr "資金不足"
@@ -1566,7 +1566,7 @@ msgstr "按赞文章失敗。"
 #. placeholder {0}: notification.source
 #. placeholder {1}: notification.post.type
 msgid "<0/> {0, select, Lens {reposted your} Farcaster {recasted your} Bsky {reposted your} other {reposted your}} <1>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</1>"
-msgstr ""
+msgstr "<0/> {0, select, Lens {轉發了你的} Farcaster {轉投了你的} Bsky {轉發了你的} other {轉發了你的}} <1>{1, select, Post {貼文} Comment {留言} Quote {引用} Mirror {轉發} other {內容}}</1>"
 
 msgid "Mobile QR login is interrupted. Please try again."
 msgstr "行動版二維碼登入已中斷。請重試。"
@@ -1575,7 +1575,7 @@ msgid "Wallet added successfully"
 msgstr "錢包新增成功"
 
 msgid "Total Treasury Holding"
-msgstr ""
+msgstr "國庫持有總量"
 
 msgid "Closed"
 msgstr "已關閉"
@@ -1829,7 +1829,7 @@ msgid "Registered account not found. Please switch to another wallet and try aga
 msgstr "未發現任意在Firefly註冊帳號，請更改錢包重試。"
 
 msgid "<0/><1> followed you</1>"
-msgstr ""
+msgstr "<0/><1> 追蹤了你</1>"
 
 msgid "The token can not be bought."
 msgstr "此代幣無法購買。"
@@ -2131,7 +2131,7 @@ msgstr "由 {provider} 驗證"
 
 #. placeholder {0}: session.type
 msgid "This {0} account is already linked"
-msgstr ""
+msgstr "此 {0} 帳號已綁定"
 
 msgid "Resend full or remaining?"
 msgstr "重新發布全部或剩餘部分？"
@@ -2440,7 +2440,7 @@ msgid "Sign to Confirm"
 msgstr "簽名確認"
 
 msgid "Due to <0>X's API limitations</0>, you can only reply to posts that mention you."
-msgstr ""
+msgstr "由於 <0>X 的 API 限制</0>，你只能回覆提及你的貼文。"
 
 msgid "Failed to update notification settings"
 msgstr "變更通知設定失敗"
@@ -2782,7 +2782,7 @@ msgid "EVM"
 msgstr "EVM"
 
 msgid "This Email is already linked"
-msgstr ""
+msgstr "此電子郵件已綁定"
 
 msgid "Yes"
 msgstr "是"
@@ -3153,7 +3153,7 @@ msgid "Tax cannot be modified"
 msgstr "稅率不可修改"
 
 msgid "View all"
-msgstr ""
+msgstr "查看全部"
 
 msgid "This token contract has not been verified. We cannot check the contract code for details. Unsourced token contracts are likely to have malicious functions to defraud users of their assets."
 msgstr "此代幣合約未經驗證，無法檢查代碼。未驗證合約可能包含惡意功能。"
@@ -3427,7 +3427,7 @@ msgid "Create a Post"
 msgstr "創建貼文"
 
 msgid "Platform filter"
-msgstr ""
+msgstr "平台篩選"
 
 msgid "Chain filter"
 msgstr "鏈篩選"
@@ -3513,7 +3513,7 @@ msgid "Note: Cloud drafts save text only. Please upload original images or video
 msgstr "注意：雲端草稿僅儲存文字。請重新上傳原圖或影片。"
 
 msgid "Turning off multi-device login will cause scheduled posts to fail. To ensure that posts are sent as scheduled, please make sure that multi-device login remains turned on."
-msgstr ""
+msgstr "關閉多裝置登入將導致排程貼文發送失敗。為確保貼文按計劃發送，請務必保持多裝置登入處於開啟狀態。"
 
 msgid "This Bluesky account is already linked to another Firefly account."
 msgstr "此 Bluesky 帳戶已連結至另一個 Firefly 帳戶。"
@@ -3531,7 +3531,7 @@ msgid_plural "# minutes"
 msgstr[0] "# 分鐘"
 
 msgid "<0/> and <1/>"
-msgstr ""
+msgstr "<0/> 與 <1/>"
 
 msgid "Post has been deleted"
 msgstr "貼文已刪除"
@@ -3554,7 +3554,7 @@ msgstr "<0>買入 {0}</0><1/>"
 
 #. placeholder {0}: error.url
 msgid "Not Found. Please check your URL. [{0}]"
-msgstr ""
+msgstr "未找到。請檢查你的 URL。[ {0} ]"
 
 msgid "5m"
 msgstr "5分鐘"
@@ -3687,7 +3687,7 @@ msgid "No asks"
 msgstr "暫無賣單"
 
 msgid "<0/> PnL(%)"
-msgstr ""
+msgstr "<0/> 盈虧(%)"
 
 msgid "OR"
 msgstr "或"
@@ -4007,7 +4007,7 @@ msgid "Follow @{0}"
 msgstr "追蹤 @{0}"
 
 msgid "Biggest Win"
-msgstr ""
+msgstr "最大盈利"
 
 msgid "Cancel Recast"
 msgstr "取消轉發"
@@ -4192,7 +4192,7 @@ msgid "Pending"
 msgstr "待定中"
 
 msgid "Only people followed by the author can comment on this post."
-msgstr ""
+msgstr "只有作者追蹤的人才能回覆此貼文。"
 
 msgid "Unsent posts"
 msgstr "未發布"
@@ -4228,7 +4228,7 @@ msgid "Holders can not sell all of the token."
 msgstr "擁有者不可出售全部代幣。"
 
 msgid "Only followers of the author can comment on this post."
-msgstr ""
+msgstr "只有作者的追蹤者才能回覆此貼文。"
 
 msgid "No phishing activities involved."
 msgstr "未檢測到釣魚活動。"
@@ -4434,7 +4434,7 @@ msgid "Labeled by <0>{0}</0>."
 msgstr "由 <0>{0}</0> 標註。"
 
 msgid "Only mentioned profiles can comment on this post."
-msgstr ""
+msgstr "只有被提及的帳號才能回覆此貼文。"
 
 msgid "Collect"
 msgstr "收集"
@@ -4864,7 +4864,7 @@ msgid "Something went wrong, please try again."
 msgstr "哎呀... 發生錯誤，請重試。"
 
 msgid "This Telegram account is already linked"
-msgstr ""
+msgstr "此 Telegram 帳號已綁定"
 
 msgid "Following"
 msgstr "正在追蹤"
@@ -4965,7 +4965,7 @@ msgstr "隱藏少於 1 美元的資產"
 
 #. placeholder {0}: notification.post.type
 msgid "<0/> <1>collected your </1><2>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</2>"
-msgstr ""
+msgstr "<0/> <1>收藏了你的 </1><2>{0, select, Post {貼文} Comment {留言} Quote {引用} Mirror {轉發} other {內容}}</2>"
 
 msgid "Hours"
 msgstr "小時"
@@ -5076,7 +5076,7 @@ msgid "Multi-device login"
 msgstr "多裝置登入"
 
 msgid "This token link is not supported."
-msgstr ""
+msgstr "不支援此代幣連結。"
 
 #. placeholder {0}: channel.id
 msgid "Failed to unfollow /{0} on {sourceName}"
@@ -5095,7 +5095,7 @@ msgid "Week"
 msgstr "週"
 
 msgid "The snap server failed to process the request."
-msgstr ""
+msgstr "Snap 伺服器處理請求失敗。"
 
 msgid "Are you sure you want to report this user?"
 msgstr "確定要檢舉此用戶？"
