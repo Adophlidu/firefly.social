@@ -18,13 +18,14 @@ interface Options {
 }
 
 function mapV2ToUI(position: PolymarketPositionV2Data, isClosed: boolean): PredictionPositionDataForUI {
+    // current position
+    const isCurrent = 'redeemable' in position;
     const curPrice = position.curPrice ?? 0;
     const size = (isClosed ? position.totalBought : position.size) ?? 0;
     const avgPrice = position.avgPrice ?? 0;
     const totalBought = position.totalBought ?? 0;
-    const pnl = (position.redeemable ? position.cashPnl : position.realizedPnl) || 0;
-    const pnlRate =
-        position.redeemable && position.percentPnl ? position.percentPnl / 100 : pnl / (totalBought * avgPrice);
+    const pnl = (isCurrent ? position.cashPnl : position.realizedPnl) || 0;
+    const pnlRate = isCurrent && position.percentPnl ? position.percentPnl / 100 : pnl / (totalBought * avgPrice);
 
     return {
         Id: position.conditionId ?? '',
