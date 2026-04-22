@@ -6,8 +6,7 @@ import { createEventMetadata } from '@/providers/firefly/metadata/createEventMet
 export const dynamic = 'force-dynamic';
 
 export async function generateMetadata(): Promise<Metadata> {
-    const name = 'prediction-campaign-2';
-    return createEventMetadata(name, `/event/${name}`, 'polymarket_prediction2');
+    return createEventMetadata('polymarket_prediction2', '/event/prediction-campaign-2');
 }
 
 export default async function Page() {
