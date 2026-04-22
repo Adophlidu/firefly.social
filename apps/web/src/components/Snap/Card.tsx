@@ -20,7 +20,7 @@ import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { interceptExternalUrl } from '@/helpers/interceptExternalUrl.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { openWindow } from '@/helpers/openWindow.js';
-import { validateSnapV2Structure } from '@/helpers/snap.js';
+import { validateSnapStructure } from '@/helpers/snap.js';
 import { ComposeModalRef } from '@/modals/ComposeModal/refs.js';
 import { ConfirmLeavingModalRef } from '@/modals/ConfirmLeavingModal/refs.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
@@ -146,10 +146,11 @@ export const SnapCard = memo<CardProps>(function SnapCard({ snap: initialSnap, p
 
     // Snow-like confetti scoped to the snap card canvas (not full viewport)
     useLayoutEffect(() => {
-        if (!snap.effects?.includes('confetti') || confettiTriggered.current) {
+        if (!snap.effects?.includes('confetti')) {
             confettiTriggered.current = false;
             return;
         }
+        if (confettiTriggered.current) return;
 
         const canvas = confettiCanvasRef.current;
         if (!canvas) {
@@ -184,6 +185,15 @@ export const SnapCard = memo<CardProps>(function SnapCard({ snap: initialSnap, p
                         if (!session) {
                             openLoginModal({ source: Source.Farcaster });
                             return;
+                        }
+
+                        if (snap.version === '2.0') {
+                            try {
+                                new URL(action.params.target);
+                            } catch {
+                                enqueueErrorMessage(<Trans>The snap contains an invalid submit URL.</Trans>);
+                                return;
+                            }
                         }
 
                         setLoading(true);
@@ -229,11 +239,18 @@ export const SnapCard = memo<CardProps>(function SnapCard({ snap: initialSnap, p
                         });
 
                         if (response.success && response.data.snap) {
-                            const validationError = validateSnapV2Structure(response.data.snap);
+                            const validationError = validateSnapStructure(response.data.snap);
                             if (validationError) {
                                 enqueueErrorMessage(validationError);
                                 return;
                             }
+                            fieldsRef.current = {
+                                inputs: {},
+                                sliders: {},
+                                switches: {},
+                                toggleGroups: {},
+                                cellGrids: {},
+                            };
                             setSnap(response.data.snap);
                         } else {
                             enqueueErrorMessage(<Trans>The snap server failed to process the request.</Trans>);
@@ -246,11 +263,18 @@ export const SnapCard = memo<CardProps>(function SnapCard({ snap: initialSnap, p
                         const snapUrl = urlcat(FIREFLY_WORKER_HOST, '/fc-snap', { link: action.params.target });
                         const response = await fetchJson<ResponseJson<SnapDigestedResponse>>(snapUrl);
                         if (response.success && response.data.snap) {
-                            const validationError = validateSnapV2Structure(response.data.snap);
+                            const validationError = validateSnapStructure(response.data.snap);
                             if (validationError) {
                                 enqueueErrorMessage(validationError);
                                 return;
                             }
+                            fieldsRef.current = {
+                                inputs: {},
+                                sliders: {},
+                                switches: {},
+                                toggleGroups: {},
+                                cellGrids: {},
+                            };
                             setSnap(response.data.snap);
                         } else {
                             enqueueErrorMessage(<Trans>The snap server failed to process the request.</Trans>);
@@ -266,9 +290,13 @@ export const SnapCard = memo<CardProps>(function SnapCard({ snap: initialSnap, p
                         return;
                     }
 
-                    case 'open_mini_app':
-                        openWindow(action.params.target, '_blank');
+                    case 'open_mini_app': {
+                        const intercepted = await interceptExternalUrl(action.params.target);
+                        if (!intercepted && (await ConfirmLeavingModalRef.openAndWaitForClose(action.params.target))) {
+                            openWindow(action.params.target, '_blank');
+                        }
                         return;
+                    }
 
                     case 'compose_cast': {
                         const session = farcasterSessionHolder.session;
@@ -290,7 +318,11 @@ export const SnapCard = memo<CardProps>(function SnapCard({ snap: initialSnap, p
                     }
 
                     case 'view_cast': {
-                        router.push(`/post/farcaster/${action.params.hash}`);
+                        if (/^0x[0-9a-fA-F]+$/.test(action.params.hash)) {
+                            router.push(`/post/farcaster/${action.params.hash}`);
+                        } else {
+                            enqueueWarningMessage(<Trans>Invalid cast link.</Trans>);
+                        }
                         return;
                     }
 

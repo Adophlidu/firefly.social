@@ -10,18 +10,18 @@ export function isSnap(value: unknown): value is Snap {
     );
 }
 
-export function validateSnapV2Structure(snap: Snap): string | null {
-    if (snap.version !== '2.0') return null;
-
+export function validateSnapStructure(snap: Snap): string | null {
+    const isV2 = snap.version === '2.0';
     const { root, elements } = snap.ui;
     const elementEntries = Object.entries(elements);
 
-    if (elementEntries.length > 64) {
-        return `Snap v2 allows at most 64 elements, received ${elementEntries.length}.`;
+    const maxElements = isV2 ? 64 : 256;
+    if (elementEntries.length > maxElements) {
+        return `Snap allows at most ${maxElements} elements, received ${elementEntries.length}.`;
     }
 
     if (!elements[root]) {
-        return 'Snap v2 root element is missing from ui.elements.';
+        return 'Snap root element is missing from ui.elements.';
     }
 
     const visited = new Set<string>();
@@ -34,26 +34,30 @@ export function validateSnapV2Structure(snap: Snap): string | null {
 
         const element = elements[current.id];
         if (!element) {
-            return `Snap v2 references missing element "${current.id}".`;
+            return `Snap references missing element "${current.id}".`;
         }
 
         const children = element.children ?? [];
-
-        if (current.id === root && children.length > 7) {
-            return `Snap v2 root supports at most 7 children, received ${children.length}.`;
-        }
-
-        if (
-            (element.type === 'stack' || element.type === 'item_group') &&
-            current.id !== root &&
-            children.length > 6
-        ) {
-            return `Snap v2 ${element.type} "${current.id}" supports at most 6 children, received ${children.length}.`;
-        }
-
         const nextDepth = current.depth + 1;
-        if (nextDepth > 5 && children.length > 0) {
-            return 'Snap v2 nesting depth exceeds 4 levels from root to leaf.';
+
+        if (isV2) {
+            if (current.id === root && children.length > 7) {
+                return `Snap v2 root supports at most 7 children, received ${children.length}.`;
+            }
+
+            if (
+                (element.type === 'stack' || element.type === 'item_group') &&
+                current.id !== root &&
+                children.length > 6
+            ) {
+                return `Snap v2 ${element.type} "${current.id}" supports at most 6 children, received ${children.length}.`;
+            }
+
+            if (nextDepth > 5 && children.length > 0) {
+                return 'Snap v2 nesting depth exceeds 4 levels from root to leaf.';
+            }
+        } else if (nextDepth > 10 && children.length > 0) {
+            return 'Snap nesting depth is too deep.';
         }
 
         for (let index = children.length - 1; index >= 0; index -= 1) {

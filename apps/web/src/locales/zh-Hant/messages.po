@@ -42,6 +42,9 @@ msgstr "提問"
 msgid "Send a tip"
 msgstr "發送打賞"
 
+msgid "Invalid cast link."
+msgstr ""
+
 #. placeholder {0}: resolveSourceName(x)
 msgid "Your post was sent to {0}."
 msgstr "您的貼文已發布至 {0}。"
@@ -1030,6 +1033,9 @@ msgstr "Genesis Sparks"
 
 msgid "The gas abuse function is not included. If there is a gas abuse function, the project owner may have the ability to control the contract."
 msgstr "未包含 Gas 濫用的機制。若存在，項目方可能擁有控制合約的權限。"
+
+msgid "The snap contains an invalid submit URL."
+msgstr ""
 
 msgid "Select Wallet"
 msgstr "選擇錢包"
