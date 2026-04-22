@@ -9,12 +9,14 @@ import { Trans } from '@lingui/react/macro';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute, Link, Outlet, useLocation, useNavigate } from '@tanstack/react-router';
 import { BigNumber } from 'bignumber.js';
-import { Suspense } from 'react';
+import { Suspense, useCallback } from 'react';
+import { toast } from 'sonner';
 import type { Address } from 'viem';
 
 import { BetError } from '@/components/Bet/BetError.js';
 import { BetNavigationBar } from '@/components/Bet/BetNavigationBar.js';
 import { HeaderLoading } from '@/components/Bet/HeaderLoading.js';
+import { Confirm } from '@/components/ConfirmModal.js';
 import { ErrorBoundary } from '@/components/ErrorBoundary.js';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs.js';
 import { InvalidPolymarketAccountError } from '@/constants/error.js';
@@ -25,8 +27,10 @@ import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { cn } from '@/lib/utils.js';
 import { getPolymarketAccountQueryOptions } from '@/queries/firefly/getPolymarketAccountQueryOptions.js';
 import { getPolymarketProfileListQueryOptions } from '@/queries/firefly/getPolymarketProfileListQueryOptions.js';
+import { getPolymarketUpgradeTaskQueryOptions } from '@/queries/firefly/getPolymarketUpgradeTaskQueryOptions.js';
 import { getPolymarketWithdrawableAmountQueryOptions } from '@/queries/firefly/getPolymarketWithdrawableAmountQueryOptions.js';
 import { getPolymarketUserValueQueryOptions } from '@/queries/polymarket/getPolymarketUserValueQueryOptions.js';
+import { getFireflyEndpoint } from '@/store/fireflyEndpoint.js';
 
 const POLYMARKET_HOME_POLL_MS = 10_000;
 
@@ -106,9 +110,39 @@ export function ClientLayout() {
         refetchInterval: POLYMARKET_HOME_POLL_MS,
     });
 
+    const { data: upgradeTask } = useSuspenseQuery(getPolymarketUpgradeTaskQueryOptions(data.proxyAddress));
+
     const totalBalanceBN = BigNumber(availableBalance ?? 0).plus(polymarketValue ?? 0);
     const portfolioText = formatPortfolioUSDCe(totalBalanceBN);
     const availableText = isZero(availableBalance) ? '$0' : formatTokenUSD(availableBalance, { minDisplay: 0.01 });
+
+    const usdceBalance = upgradeTask?.usdce_balance ?? 0;
+    const showToRelease = upgradeTask?.is_upgraded && usdceBalance > 0;
+    const releaseAmountText = formatTokenUSD(usdceBalance, { minDisplay: 0.01 });
+
+    const handleRelease = useCallback(async () => {
+        const confirmed = await Confirm.call({
+            title: <Trans>Assets to Release</Trans>,
+            message: (
+                <p className="text-second text-sm leading-5">
+                    <Trans>
+                        Polymarket V2 is now live. Release your available balance of {releaseAmountText} USDC.e as pUSD
+                        to keep your predictions going.
+                    </Trans>
+                </p>
+            ),
+            buttonLabel: <Trans>Release Now</Trans>,
+            buttonVariants: 'primary',
+        });
+        if (!confirmed) return;
+
+        try {
+            await getFireflyEndpoint().polymarketV2Wrap(data.proxyAddress);
+            toast.success(<Trans>Done</Trans>);
+        } catch {
+            toast.error(<Trans>Failed to release</Trans>);
+        }
+    }, [data.proxyAddress, releaseAmountText]);
 
     return (
         <>
@@ -139,6 +173,22 @@ export function ClientLayout() {
                         <Trans>Add Funds</Trans>
                     </span>
                 </Link>
+                {showToRelease || true ? (
+                    <button
+                        type="button"
+                        className="border-line col-span-2 flex w-full items-center justify-between border-y py-3"
+                        onClick={handleRelease}
+                    >
+                        <span className="flex items-center gap-1 text-[13px]">
+                            <span className="mx-0.5 inline-block size-[5px] bg-[#ffb100] text-base leading-5" />
+                            <Trans>
+                                <span className="text-main text-[13px] font-semibold">{releaseAmountText}</span>
+                                <span className="text-second text-[13px]">to release</span>
+                            </Trans>
+                        </span>
+                        <ArrowRightIcon width={16} height={16} className="text-second" />
+                    </button>
+                ) : null}
                 <Suspense
                     fallback={<div className="bg-lightBg col-span-2 grid h-[68px] w-full animate-pulse rounded-xl" />}
                 >

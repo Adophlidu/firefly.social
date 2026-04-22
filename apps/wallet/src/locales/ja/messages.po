@@ -65,6 +65,9 @@ msgstr ""
 msgid "Missed this round, but the next prediction is waiting for you!"
 msgstr ""
 
+msgid "Upgrade Now"
+msgstr ""
+
 #. placeholder {0}: selected.name
 msgid "Your {0} Address"
 msgstr ""
@@ -148,6 +151,9 @@ msgid "{riskTokenSymbol} is a high-risk token"
 msgstr ""
 
 msgid "Confirm"
+msgstr ""
+
+msgid "Assets to Release"
 msgstr ""
 
 msgid "Predict on Polymarket"
@@ -283,6 +289,9 @@ msgstr ""
 msgid "Copy address"
 msgstr ""
 
+msgid "<0>{releaseAmountText}</0><1>to release</1>"
+msgstr ""
+
 msgid "Your funds are now in your predict wallet."
 msgstr ""
 
@@ -296,6 +305,9 @@ msgid "Firefly Wallet Pay"
 msgstr ""
 
 msgid "Outcome"
+msgstr ""
+
+msgid "Failed to upgrade"
 msgstr ""
 
 msgid "Unable to add funds to predictions account."
@@ -326,6 +338,9 @@ msgid "Received"
 msgstr ""
 
 msgid "Custom (0.5-100%)"
+msgstr ""
+
+msgid "Upgrade your Firefly prediction account NOW to ensure your predictions continue seamlessly."
 msgstr ""
 
 msgid "Wallet funding is not enabled"
@@ -404,6 +419,12 @@ msgid "You've hit rock bottom."
 msgstr ""
 
 msgid "View"
+msgstr ""
+
+msgid "Release Now"
+msgstr ""
+
+msgid "Migrate to Polymarket V2"
 msgstr ""
 
 msgid "Network error. Please try again."
@@ -584,6 +605,9 @@ msgstr ""
 msgid "<0><1/><2>Approved</2></0><3>on</3><4/>"
 msgstr ""
 
+msgid "Failed to release"
+msgstr ""
+
 msgid "Buy"
 msgstr ""
 
@@ -600,6 +624,9 @@ msgid "Failed to place sell order. "
 msgstr ""
 
 msgid "User rejected"
+msgstr ""
+
+msgid "Polymarket V2 is now live. Release your available balance of {releaseAmountText} USDC.e as pUSD to keep your predictions going."
 msgstr ""
 
 #. placeholder {0}: formatAddress(address, 4)

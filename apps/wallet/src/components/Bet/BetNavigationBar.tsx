@@ -10,7 +10,11 @@ import { ModalType } from '@/configs/modalRoutes.js';
 import { getPolymarketAccountQueryOptions } from '@/queries/firefly/getPolymarketAccountQueryOptions.js';
 import { getPolymarketSettingQueryOptions } from '@/queries/firefly/getPolymarketSettingQueryOptions.js';
 
-export function BetNavigationBar() {
+interface Props {
+    hideActions?: boolean;
+}
+
+export function BetNavigationBar({ hideActions }: Props) {
     const navigate = useNavigate();
     const location = useLocation();
     const { data: account } = useQuery(getPolymarketAccountQueryOptions());
@@ -32,23 +36,25 @@ export function BetNavigationBar() {
     return (
         <NavigationBar onBack={() => navigate({ to: '/', replace: true })}>
             <Trans>Predictions</Trans>
-            <NavigationBarRight>
-                <button
-                    type="button"
-                    onClick={() => {
-                        iframeBridgeProvider.request(IframeBridgeMethod.NAVIGATE, {
-                            path: '/prediction/leaderboard',
-                        });
-                    }}
-                >
-                    <RankingIcon width={24} height={24} />
-                </button>
-                {showExportKey ? (
-                    <button type="button" onClick={openExportKeyModal}>
-                        <SettingIcon width={24} height={24} />
+            {!hideActions ? (
+                <NavigationBarRight>
+                    <button
+                        type="button"
+                        onClick={() => {
+                            iframeBridgeProvider.request(IframeBridgeMethod.NAVIGATE, {
+                                path: '/prediction/leaderboard',
+                            });
+                        }}
+                    >
+                        <RankingIcon width={24} height={24} />
                     </button>
-                ) : null}
-            </NavigationBarRight>
+                    {showExportKey ? (
+                        <button type="button" onClick={openExportKeyModal}>
+                            <SettingIcon width={24} height={24} />
+                        </button>
+                    ) : null}
+                </NavigationBarRight>
+            ) : null}
         </NavigationBar>
     );
 }

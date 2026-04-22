@@ -22,7 +22,7 @@ import { useSyncLimitPriceCents } from '@/components/Bet/useSyncLimitPriceCents.
 import { Skeleton } from '@/components/Skeleton.js';
 import { Button } from '@/components/ui/button.js';
 import { InsufficientGasError } from '@/constants/error.js';
-import { USDC_E_POLYGON_ADDRESS } from '@/constants/ethereum.js';
+import { P_USDC_POLYGON_ADDRESS } from '@/constants/ethereum.js';
 import { formatPriceToCents } from '@/helpers/formatPriceToCents.js';
 import { formatTokenFromFireflyTokenAsset } from '@/helpers/formatTokenFromFireflyTokenAsset.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
@@ -51,7 +51,7 @@ function useWalletUsdcPolBalance() {
         enabled: Boolean(address),
         select(data: { tokenAssets?: TokenAsset[] } | null | undefined): number {
             const tokens = (data?.tokenAssets ?? []).map((x: TokenAsset) => formatTokenFromFireflyTokenAsset(x));
-            const usdc = tokens.find((t: Token) => isSameAddress(String(t.id), USDC_E_POLYGON_ADDRESS));
+            const usdc = tokens.find((t: Token) => isSameAddress(String(t.id), P_USDC_POLYGON_ADDRESS));
             return usdc?.amount ?? 0;
         },
     });
@@ -72,7 +72,7 @@ async function topUpBetsAccountFromWallet(params: {
 
     const transferCall = {
         abi: erc20Abi,
-        address: USDC_E_POLYGON_ADDRESS as Address,
+        address: P_USDC_POLYGON_ADDRESS as Address,
         functionName: 'transfer' as const,
         args: [proxyAddress, parsedValue] as const,
         chainId: polygon.id,

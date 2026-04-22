@@ -12,7 +12,7 @@ import { polygon } from 'viem/chains';
 import { getUserFacingErrorMessage } from '@/helpers/getErrorMessage.js';
 import { optimisticAddBalance } from '@/helpers/polymarketBalanceCache.js';
 import { useAddFundsWithPolUsdc } from '@/hooks/bet/useAddFundsWithPolUsdc.js';
-import { usdcTokenFallback } from '@/hooks/bet/useTokenDetail.js';
+import { pusdTokenFallback } from '@/hooks/bet/useTokenDetail.js';
 import { useSwapExecuteCore } from '@/hooks/swap/useSwapExecuteCore.js';
 import { useEmbeddedWalletAddresses } from '@/hooks/useCachedWalletAddresses.js';
 import type { SwapToken } from '@/providers/swap/types.js';
@@ -42,12 +42,12 @@ export function useAddFunds(options: Options) {
     const walletAddress = !depositToken ? null : isSolanaChain(depositToken.chainId) ? solanaAddress : evmAddress;
     const { execute: addFundsWithSwap } = useSwapExecuteCore({
         fromToken: depositToken ?? null,
-        toToken: usdcTokenFallback,
+        toToken: pusdTokenFallback,
         fromAmount: amount,
         fromChainId: depositToken?.chainId ?? null,
         walletAddress,
         slippage: 'auto',
-        toChainId: usdcTokenFallback.chainId,
+        toChainId: pusdTokenFallback.chainId,
         recipientAddress: polymarketAddress ?? null,
         isPrivyReady,
         accessPath: SwapAccessPath.WalletGUI,
@@ -75,8 +75,8 @@ export function useAddFunds(options: Options) {
             }
 
             if (
-                depositToken.chainId === usdcTokenFallback.chainId &&
-                isNativeTokenOrSameAddress(depositToken.address, usdcTokenFallback.address)
+                depositToken.chainId === pusdTokenFallback.chainId &&
+                isNativeTokenOrSameAddress(depositToken.address, pusdTokenFallback.address)
             ) {
                 await addFundsWithPolUsdc();
             } else {

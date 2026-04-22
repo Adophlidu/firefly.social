@@ -1,6 +1,7 @@
 import { createFileRoute, Outlet } from '@tanstack/react-router';
 import { z } from 'zod';
 
+import { V2UpgradeCheck } from '@/components/Bet/V2UpgradeCheck.js';
 import { LoadingPanel } from '@/components/LoadingPanel.js';
 import { ModalType } from '@/configs/modalRoutes.js';
 
@@ -17,5 +18,9 @@ export const Route = createFileRoute('/bet')({
 });
 
 function BetLayout() {
-    return <Outlet />;
+    return (
+        <V2UpgradeCheck>
+            <Outlet />
+        </V2UpgradeCheck>
+    );
 }

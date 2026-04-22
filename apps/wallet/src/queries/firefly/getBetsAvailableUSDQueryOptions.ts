@@ -5,7 +5,7 @@ import { BigNumber } from 'bignumber.js';
 import type { Address } from 'viem';
 import { polygon } from 'viem/chains';
 
-import { USDC_E_POLYGON_ADDRESS } from '@/constants/ethereum.js';
+import { P_USDC_POLYGON_ADDRESS } from '@/constants/ethereum.js';
 import { formatTokenFromFireflyTokenAsset } from '@/helpers/formatTokenFromFireflyTokenAsset.js';
 import { getFireflyEndpoint } from '@/store/fireflyEndpoint.js';
 
@@ -19,7 +19,7 @@ export function getBetsAvailableUSDQueryOptions(proxyAddress: Address) {
         select(res) {
             const tokens =
                 (res?.tokenAssets ?? []).map((token) => formatTokenFromFireflyTokenAsset(token)) ?? EMPTY_LIST;
-            const usdc = tokens.find((token) => isSameAddress(token.id, USDC_E_POLYGON_ADDRESS));
+            const usdc = tokens.find((token) => isSameAddress(token.id, P_USDC_POLYGON_ADDRESS));
             return usdc ? BigNumber(usdc.amount).toString() : '0';
         },
     });

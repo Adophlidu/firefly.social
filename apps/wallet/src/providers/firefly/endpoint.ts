@@ -36,6 +36,8 @@ import {
     type PolymarketProfileListResponse,
     type PolymarketProfilePnLResponse,
     type PolymarketSingleClaimV1Body,
+    type PolymarketUpgradeResponse,
+    type PolymarketUpgradeTaskResponse,
     type PolymarketWithdrawResponse,
     type PreviewPolymarketWithdrawResponse,
     type Response,
@@ -472,6 +474,32 @@ export class FireflyEndpoint extends Fetch {
             sender,
             amount,
             hash,
+        });
+        return resolveFireflyResponseData(result.data);
+    }
+
+    async getPolymarketUpgradeTask(proxyAddress: string) {
+        const result = await this.get<PolymarketUpgradeTaskResponse>(
+            urlcat('/polymarket/v1/polymarket/upgrade/task', { proxy_address: proxyAddress }),
+        );
+        return resolveFireflyResponseData(result.data);
+    }
+
+    async polymarketV2Upgrade(proxyAddress: string) {
+        await this.polymarketV2Approve(proxyAddress);
+        return this.polymarketV2Wrap(proxyAddress);
+    }
+
+    async polymarketV2Approve(proxyAddress: string) {
+        const result = await this.post<PolymarketUpgradeResponse>('/polymarket/v1/polymarket/approve', {
+            proxy_address: proxyAddress,
+        });
+        return resolveFireflyResponseData(result.data);
+    }
+
+    async polymarketV2Wrap(proxyAddress: string) {
+        const result = await this.post<PolymarketUpgradeResponse>('/polymarket/v1/polymarket/wrap', {
+            proxy_address: proxyAddress,
         });
         return resolveFireflyResponseData(result.data);
     }

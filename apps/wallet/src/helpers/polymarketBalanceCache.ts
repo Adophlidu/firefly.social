@@ -4,7 +4,7 @@ import { BigNumber } from 'bignumber.js';
 import type { Address } from 'viem';
 import { polygon } from 'viem/chains';
 
-import { USDC_E_POLYGON_ADDRESS } from '@/constants/ethereum.js';
+import { P_USDC_POLYGON_ADDRESS } from '@/constants/ethereum.js';
 import type { TokenAsset } from '@/providers/types/Firefly.js';
 
 export function getPolymarketBalanceQueryKey(proxyAddress: Address) {
@@ -25,7 +25,7 @@ export function optimisticAddBalance(
         return {
             ...old,
             tokenAssets: old.tokenAssets.map((token) => {
-                if (!isSameAddress(token.tokenAddress, USDC_E_POLYGON_ADDRESS)) return token;
+                if (!isSameAddress(token.tokenAddress, P_USDC_POLYGON_ADDRESS)) return token;
                 const prevBalance = BigNumber(token.balance ?? 0);
                 const nextBalance = prevBalance.plus(amount);
                 return { ...token, balance: nextBalance.toString() };
@@ -48,7 +48,7 @@ export function optimisticSubtractBalance(
         return {
             ...old,
             tokenAssets: old.tokenAssets.map((token) => {
-                if (!isSameAddress(token.tokenAddress, USDC_E_POLYGON_ADDRESS)) return token;
+                if (!isSameAddress(token.tokenAddress, P_USDC_POLYGON_ADDRESS)) return token;
                 const prevBalance = BigNumber(token.balance ?? 0);
                 const nextBalance = BigNumber.max(0, prevBalance.minus(amount));
                 return { ...token, balance: nextBalance.toString() };

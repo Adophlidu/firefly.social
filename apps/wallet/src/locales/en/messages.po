@@ -65,6 +65,9 @@ msgstr "{0, select, success {Success} fail {Failed} other {Failed}}"
 msgid "Missed this round, but the next prediction is waiting for you!"
 msgstr "Missed this round, but the next prediction is waiting for you!"
 
+msgid "Upgrade Now"
+msgstr "Upgrade Now"
+
 #. placeholder {0}: selected.name
 msgid "Your {0} Address"
 msgstr "Your {0} Address"
@@ -149,6 +152,9 @@ msgstr "{riskTokenSymbol} is a high-risk token"
 
 msgid "Confirm"
 msgstr "Confirm"
+
+msgid "Assets to Release"
+msgstr "Assets to Release"
 
 msgid "Predict on Polymarket"
 msgstr "Predict on Polymarket"
@@ -283,6 +289,9 @@ msgstr "Open orders"
 msgid "Copy address"
 msgstr "Copy address"
 
+msgid "<0>{releaseAmountText}</0><1>to release</1>"
+msgstr "<0>{releaseAmountText}</0><1>to release</1>"
+
 msgid "Your funds are now in your predict wallet."
 msgstr "Your funds are now in your predict wallet."
 
@@ -297,6 +306,9 @@ msgstr "Firefly Wallet Pay"
 
 msgid "Outcome"
 msgstr "Outcome"
+
+msgid "Failed to upgrade"
+msgstr "Failed to upgrade"
 
 msgid "Unable to add funds to predictions account."
 msgstr "Unable to add funds to predictions account."
@@ -327,6 +339,9 @@ msgstr "Received"
 
 msgid "Custom (0.5-100%)"
 msgstr "Custom (0.5-100%)"
+
+msgid "Upgrade your Firefly prediction account NOW to ensure your predictions continue seamlessly."
+msgstr "Upgrade your Firefly prediction account NOW to ensure your predictions continue seamlessly."
 
 msgid "Wallet funding is not enabled"
 msgstr "Wallet funding is not enabled"
@@ -405,6 +420,12 @@ msgstr "You've hit rock bottom."
 
 msgid "View"
 msgstr "View"
+
+msgid "Release Now"
+msgstr "Release Now"
+
+msgid "Migrate to Polymarket V2"
+msgstr "Migrate to Polymarket V2"
 
 msgid "Network error. Please try again."
 msgstr "Network error. Please try again."
@@ -584,6 +605,9 @@ msgstr "Confirming..."
 msgid "<0><1/><2>Approved</2></0><3>on</3><4/>"
 msgstr "<0><1/><2>Approved</2></0><3>on</3><4/>"
 
+msgid "Failed to release"
+msgstr "Failed to release"
+
 msgid "Buy"
 msgstr "Buy"
 
@@ -601,6 +625,9 @@ msgstr "Failed to place sell order. "
 
 msgid "User rejected"
 msgstr "User rejected"
+
+msgid "Polymarket V2 is now live. Release your available balance of {releaseAmountText} USDC.e as pUSD to keep your predictions going."
+msgstr "Polymarket V2 is now live. Release your available balance of {releaseAmountText} USDC.e as pUSD to keep your predictions going."
 
 #. placeholder {0}: formatAddress(address, 4)
 #. placeholder {0}: formatAddress(nft.sender, 4)

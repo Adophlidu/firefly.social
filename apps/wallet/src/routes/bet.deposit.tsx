@@ -25,7 +25,7 @@ import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { removeTrailingZeros } from '@/helpers/removeTrailingZeros.js';
 import { useAddFunds } from '@/hooks/bet/useAddFunds.js';
 import { useCheckGasForDeposit } from '@/hooks/bet/useCheckGasForDeposit.js';
-import { usdcTokenFallback, useDepositToken } from '@/hooks/bet/useTokenDetail.js';
+import { pusdTokenFallback, useDepositToken } from '@/hooks/bet/useTokenDetail.js';
 import { useGoToSelectToken } from '@/hooks/swap/useGoToSelectToken.js';
 import { useSwapQuoteCore } from '@/hooks/swap/useSwapQuoteCore.js';
 import { useEmbeddedWalletAddresses } from '@/hooks/useCachedWalletAddresses.js';
@@ -83,8 +83,8 @@ function DepositClient() {
     });
 
     const isSameToken =
-        depositToken?.chainId === usdcTokenFallback.chainId &&
-        isNativeTokenOrSameAddress(depositToken.address, usdcTokenFallback.address);
+        depositToken?.chainId === pusdTokenFallback.chainId &&
+        isNativeTokenOrSameAddress(depositToken.address, pusdTokenFallback.address);
     const { amount, usdcValue } = useMemo(() => {
         if (!depositToken)
             return {
@@ -114,11 +114,11 @@ function DepositClient() {
     const embeddedAddress = !depositToken ? null : isSolanaChain(depositToken.chainId) ? solanaAddress : evmAddress;
     const { quote, isLoading: isQuoteLoading } = useSwapQuoteCore({
         fromToken: depositToken,
-        toToken: usdcTokenFallback,
+        toToken: pusdTokenFallback,
         fromAmount: amount,
         slippage: 'auto',
         fromChainId: depositToken?.chainId ?? null,
-        toChainId: usdcTokenFallback.chainId,
+        toChainId: pusdTokenFallback.chainId,
         walletAddress: embeddedAddress,
         recipientAddress: polymarketAccount?.proxyAddress ?? null,
         enabled: !!depositToken && !!embeddedAddress && !isSameToken,
@@ -265,7 +265,7 @@ function DepositClient() {
                         <>
                             <TokenIcon
                                 size={14}
-                                icon={inputType === InputType.Amount ? usdcTokenFallback.logoUrl : depositToken.logoUrl}
+                                icon={inputType === InputType.Amount ? pusdTokenFallback.logoUrl : depositToken.logoUrl}
                             />
                             <span className="text-second text-xs leading-[14px]">
                                 {inputType === InputType.Amount ? formatTokenUSD(usdcValue) : amount}
@@ -283,9 +283,9 @@ function DepositClient() {
                         className="shrink-0"
                         badgeClassName="bg-white"
                         chainId={polygon.id}
-                        icon="https://coin-images.coingecko.com/coins/images/6319/large/usdc.png"
-                        symbol="USDC.e"
-                        name="USD Coin"
+                        icon={pusdTokenFallback.logoUrl}
+                        symbol={pusdTokenFallback.symbol}
+                        name={pusdTokenFallback.name}
                     />
                     <div className="ml-4 flex w-full min-w-0 flex-col justify-start text-left">
                         <div className="h-5 w-full truncate text-sm font-semibold">

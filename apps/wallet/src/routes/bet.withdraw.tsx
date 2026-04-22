@@ -36,7 +36,7 @@ import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { optimisticSubtractBalance } from '@/helpers/polymarketBalanceCache.js';
 import { toastLoading } from '@/helpers/toastLoading.js';
 import { waitForPolymarketWithdraw } from '@/helpers/waitForPolymarketWithdraw.js';
-import { usdcTokenFallback, useWithdrawToken } from '@/hooks/bet/useTokenDetail.js';
+import { pusdTokenFallback, useWithdrawToken } from '@/hooks/bet/useTokenDetail.js';
 import { useGoToSelectToken } from '@/hooks/swap/useGoToSelectToken.js';
 import { useEmbeddedWalletAddresses } from '@/hooks/useCachedWalletAddresses.js';
 import { useDecimalInput } from '@/hooks/useDecimalInput.js';
@@ -89,7 +89,7 @@ function WithdrawClient() {
         async queryFn() {
             if (!targetToken) return null;
 
-            const amount = parseUnits(debounceValue, usdcTokenFallback.decimals);
+            const amount = parseUnits(debounceValue, pusdTokenFallback.decimals);
             return getFireflyEndpoint().getPolymarketWithdrawAmount(
                 amount.toString(),
                 targetToken.id,
@@ -118,7 +118,7 @@ function WithdrawClient() {
             toastLoading(<Trans>Withdrawing funds to your Firefly wallet...</Trans>, { id: toastId });
             store.set(showEmbeddedWalletUIAtom, false);
             await setActiveWallet(evmWallet);
-            const amount = parseUnits(value, usdcTokenFallback.decimals);
+            const amount = parseUnits(value, pusdTokenFallback.decimals);
             const originalMessage = 'polymarket withdraw';
             const signature = await signMessage(config, {
                 message: originalMessage,

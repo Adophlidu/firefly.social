@@ -65,6 +65,9 @@ msgstr "{0, select, success {成功} fail {失败} other {失败}}"
 msgid "Missed this round, but the next prediction is waiting for you!"
 msgstr "错过了这一轮？下一场预测在等你！"
 
+msgid "Upgrade Now"
+msgstr ""
+
 #. placeholder {0}: selected.name
 msgid "Your {0} Address"
 msgstr "您的 {0} 地址"
@@ -149,6 +152,9 @@ msgstr "{riskTokenSymbol} 是高风险代币"
 
 msgid "Confirm"
 msgstr "确认"
+
+msgid "Assets to Release"
+msgstr ""
 
 msgid "Predict on Polymarket"
 msgstr "在 Polymarket 上预测"
@@ -283,6 +289,9 @@ msgstr "当前订单"
 msgid "Copy address"
 msgstr "复制地址"
 
+msgid "<0>{releaseAmountText}</0><1>to release</1>"
+msgstr ""
+
 msgid "Your funds are now in your predict wallet."
 msgstr "资金已到达您的预测钱包。"
 
@@ -297,6 +306,9 @@ msgstr "Firefly 钱包支付"
 
 msgid "Outcome"
 msgstr "预测结果"
+
+msgid "Failed to upgrade"
+msgstr ""
 
 msgid "Unable to add funds to predictions account."
 msgstr "无法向预测账户充值。"
@@ -327,6 +339,9 @@ msgstr "已收到"
 
 msgid "Custom (0.5-100%)"
 msgstr "自定义 (0.5-100%)"
+
+msgid "Upgrade your Firefly prediction account NOW to ensure your predictions continue seamlessly."
+msgstr ""
 
 msgid "Wallet funding is not enabled"
 msgstr "钱包充值功能未开启"
@@ -405,6 +420,12 @@ msgstr "已经到底啦。"
 
 msgid "View"
 msgstr "查看"
+
+msgid "Release Now"
+msgstr ""
+
+msgid "Migrate to Polymarket V2"
+msgstr ""
 
 msgid "Network error. Please try again."
 msgstr "网络错误，请重试。"
@@ -584,6 +605,9 @@ msgstr "确认中..."
 msgid "<0><1/><2>Approved</2></0><3>on</3><4/>"
 msgstr "<0><1/><2>已授权</2></0><3>于</3><4/>"
 
+msgid "Failed to release"
+msgstr ""
+
 msgid "Buy"
 msgstr "买入"
 
@@ -601,6 +625,9 @@ msgstr "下单卖出失败。"
 
 msgid "User rejected"
 msgstr "用户已拒绝交易"
+
+msgid "Polymarket V2 is now live. Release your available balance of {releaseAmountText} USDC.e as pUSD to keep your predictions going."
+msgstr ""
 
 #. placeholder {0}: formatAddress(address, 4)
 #. placeholder {0}: formatAddress(nft.sender, 4)

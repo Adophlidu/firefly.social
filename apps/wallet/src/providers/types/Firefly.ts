@@ -339,6 +339,18 @@ export type PolymarketAccount = Response<{
     proxyAddress: Address;
 }>;
 
+export type PolymarketUpgradeTaskResponse = Response<{
+    is_approved: boolean;
+    is_wrapped: boolean;
+    is_upgraded: boolean;
+    usdce_balance: number;
+}>;
+
+export type PolymarketUpgradeResponse = Response<{
+    hash: string;
+    status: string;
+}>;
+
 export enum ErrorCode {
     InvalidPolymarketAccount = 2600,
 }
