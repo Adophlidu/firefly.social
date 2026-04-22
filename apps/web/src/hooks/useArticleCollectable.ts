@@ -1,4 +1,5 @@
 import { isGreaterThan, multipliedBy, plus, ZERO } from '@dimensiondev/web3/numbers';
+import { EthChainResolver } from '@dimensiondev/web3/resolvers';
 import { useQuery } from '@tanstack/react-query';
 import { useConnection } from 'wagmi';
 import { estimateFeesPerGas, getBalance } from 'wagmi/actions';
@@ -6,7 +7,6 @@ import { estimateFeesPerGas, getBalance } from 'wagmi/actions';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { getArticleCollectStatus } from '@/providers/firefly/wallet-transaction/getArticleCollectStatus.js';
 import type { Article } from '@/providers/types/Article.js';
-import { EthChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
 
 export function useArticleCollectStatus(article: Article) {
     const account = useConnection();

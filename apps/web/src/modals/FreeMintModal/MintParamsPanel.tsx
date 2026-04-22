@@ -1,6 +1,7 @@
 import { classNames } from '@dimensiondev/utils';
 import { chains } from '@dimensiondev/web3/chains';
 import { isZero, leftShift, multipliedBy, plus } from '@dimensiondev/web3/numbers';
+import { EthChainResolver } from '@dimensiondev/web3/resolvers';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import type { BigNumber } from 'bignumber.js';
@@ -11,7 +12,6 @@ import { STALE_TIMES } from '@/constants/query.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { getFungibleTokenPrice } from '@/providers/coingecko/getFungibleTokenPrice.js';
 import type { MintMetadata } from '@/providers/types/Firefly.js';
-import { EthChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
 
 interface MintParamsPanelProps extends HTMLProps<HTMLUListElement> {
     mintParams: MintMetadata;

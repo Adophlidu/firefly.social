@@ -22,6 +22,11 @@
             "import": "./dist/chains.js",
             "require": "./dist/chains.cjs"
         },
+        "./resolvers": {
+            "types": "./dist/resolvers.d.ts",
+            "import": "./dist/resolvers.js",
+            "require": "./dist/resolvers.cjs"
+        },
         "./numbers": {
             "types": "./dist/numbers.d.ts",
             "import": "./dist/numbers.js",

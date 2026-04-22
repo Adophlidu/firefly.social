@@ -4,6 +4,7 @@ import { runInSafeAsync } from '@dimensiondev/utils';
 import { createWagmiPublicClient } from '@dimensiondev/web3/actions';
 import { NetworkType } from '@dimensiondev/web3/enums';
 import { minus, ZERO } from '@dimensiondev/web3/numbers';
+import { EthChainResolver } from '@dimensiondev/web3/resolvers';
 import { resolvePublicRpcUrl } from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
@@ -43,7 +44,6 @@ import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketCo
 import { type RedPacketJSONPayload, RedPacketStatus } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { TokenType } from '@/types/rp.js';
-import { EthChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
 
 interface Props {
     payload: RedPacketJSONPayload;

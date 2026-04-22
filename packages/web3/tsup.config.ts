@@ -4,6 +4,7 @@ export default defineConfig({
     entry: [
         'src/utils.ts',
         'src/chains.ts',
+        'src/resolvers.ts',
         'src/constants.ts',
         'src/numbers.ts',
         'src/enums.ts',

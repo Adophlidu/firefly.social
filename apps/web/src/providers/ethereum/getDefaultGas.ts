@@ -1,5 +1,6 @@
 import { createWagmiPublicClient } from '@dimensiondev/web3/actions';
 import { multipliedBy, toFixed, ZERO } from '@dimensiondev/web3/numbers';
+import { EthChainResolver } from '@dimensiondev/web3/resolvers';
 import { getTokenAbiForWagmi, resolvePublicRpcUrl } from '@dimensiondev/web3/utils';
 import { BigNumber } from 'bignumber.js';
 import { type Address, parseUnits } from 'viem';
@@ -9,7 +10,6 @@ import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { isNativeTokenDebank } from '@/providers/ethereum/isNativeTokenDebank.js';
 import { EthereumNetwork } from '@/providers/ethereum/Network.js';
 import type { GetDefaultGasOptions } from '@/providers/types/Transfer.js';
-import { EthChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
 
 async function estimateGasForErc20Token(
     to: string,

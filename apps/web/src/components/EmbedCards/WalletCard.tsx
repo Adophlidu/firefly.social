@@ -4,6 +4,7 @@ import { EMPTY_LIST } from '@dimensiondev/constants';
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { solana } from '@dimensiondev/web3/chains';
 import { NetworkType } from '@dimensiondev/web3/enums';
+import { SolanaExplorerResolver } from '@dimensiondev/web3/resolvers';
 import { formatAddress, getAddressType, isSameAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
@@ -31,7 +32,6 @@ import { useWalletRelatedProfiles } from '@/hooks/useWalletRelatedProfiles.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
 import { getAddressSecurity } from '@/providers/goplus/getAddressSecurity.js';
 import type { FireflyProfile, WalletProfile } from '@/providers/types/Firefly.js';
-import { SolanaExplorerResolver } from '@/web3-providers/solana/ResolverAPI.js';
 
 function resolveProfileUrlBySource(source: ProfilePageSource, profiles: FireflyProfile[]) {
     const currentSourceProfiles = profiles.filter((profile) => profile.identity.source === source);

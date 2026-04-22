@@ -15,6 +15,7 @@ import TickSquareIcon from '@dimensiondev/assets/tick-square.svg';
 import { classNames, getEnumAsArray } from '@dimensiondev/utils';
 import { NetworkType } from '@dimensiondev/web3/enums';
 import { isZero } from '@dimensiondev/web3/numbers';
+import { EthExplorerResolver } from '@dimensiondev/web3/resolvers';
 import { Trans } from '@lingui/react/macro';
 import { useQueries } from '@tanstack/react-query';
 import { sortBy } from 'lodash-es';
@@ -35,7 +36,6 @@ import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
 import { getCollection } from '@/providers/firefly/nft/getCollection.js';
 import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { EthExplorerResolver } from '@/web3-providers/evm/ResolverAPI.js';
 
 interface NFTListProps {
     nfts: FireflyRedPacketAPI.NftOwnedStrategyPayload[];

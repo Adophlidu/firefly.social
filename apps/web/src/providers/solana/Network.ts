@@ -1,8 +1,8 @@
 import { solana } from '@dimensiondev/web3/chains';
+import { SolanaExplorerResolver } from '@dimensiondev/web3/resolvers';
 
 import { getWalletAdapter, getWalletAdaptorConnected } from '@/providers/solana/getWalletAdapter.js';
 import type { NetworkProvider } from '@/providers/types/Network.js';
-import { SolanaExplorerResolver } from '@/web3-providers/solana/ResolverAPI.js';
 
 class Provider implements NetworkProvider {
     async connect() {

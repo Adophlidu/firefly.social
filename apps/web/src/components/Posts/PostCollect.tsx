@@ -1,6 +1,7 @@
 'use client';
 
 import LinkIcon from '@dimensiondev/assets/link.svg';
+import { EthExplorerResolver } from '@dimensiondev/web3/resolvers';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
@@ -26,7 +27,6 @@ import { getWalletClientForLensChain } from '@/providers/lens/getWalletClientFor
 import { lensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { capturePostActionEvent } from '@/providers/telemetry/capturePostActionEvent.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { EthExplorerResolver } from '@/web3-providers/evm/ResolverAPI.js';
 
 function formatTimeLeft(endTime: string) {
     const timeLeft = getTimeLeft(endTime);

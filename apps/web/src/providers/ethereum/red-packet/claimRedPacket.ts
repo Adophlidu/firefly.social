@@ -1,5 +1,6 @@
 import { runInSafeAsync } from '@dimensiondev/utils';
 import { waitForEthereumTransaction } from '@dimensiondev/web3/actions';
+import { EthChainResolver } from '@dimensiondev/web3/resolvers';
 import type { Address, Hex } from 'viem';
 import { getChainId, switchChain, writeContract } from 'wagmi/actions';
 
@@ -13,7 +14,6 @@ import type { ClaimRedPacketContext } from '@/providers/ethereum/red-packet/type
 import { signClaimMessage } from '@/providers/ethereum/signClaimMessage.js';
 import { checkGasFreeStatus } from '@/providers/firefly/red-packet/checkGasFreeStatus.js';
 import { claimForGasFree } from '@/providers/firefly/red-packet/claimForGasFree.js';
-import { EthChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
 
 export async function claimRedPacket(context: ClaimRedPacketContext) {
     const rpid = context.payload.rpid;

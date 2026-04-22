@@ -1,7 +1,6 @@
+import { EthExplorerResolver } from '@dimensiondev/web3/resolvers';
 import urlcat from 'urlcat';
 import { base } from 'viem/chains';
-
-import { EthExplorerResolver } from '@/web3-providers/evm/ResolverAPI.js';
 
 const EXPLORER_CONFIG: Partial<Record<number, string>> = {
     [base.id]: 'https://sepolia.basescan.org',

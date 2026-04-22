@@ -1,7 +1,5 @@
 import { isValidChainIdEthereum, isValidChainIdSolana } from '@dimensiondev/web3/chains';
-
-import { EthExplorerResolver } from '@/web3-providers/evm/ResolverAPI.js';
-import { SolanaExplorerResolver } from '@/web3-providers/solana/ResolverAPI.js';
+import { EthExplorerResolver, SolanaExplorerResolver } from '@dimensiondev/web3/resolvers';
 
 export function resolveAddressLink(chainId: number, address: string) {
     if (isValidChainIdEthereum(chainId)) return EthExplorerResolver.addressLink(chainId, address);

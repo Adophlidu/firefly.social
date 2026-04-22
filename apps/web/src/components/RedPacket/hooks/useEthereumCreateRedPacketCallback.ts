@@ -1,6 +1,7 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { waitForEthereumTransaction } from '@dimensiondev/web3/actions';
 import { rightShift, toFixed } from '@dimensiondev/web3/numbers';
+import { EthChainResolver } from '@dimensiondev/web3/resolvers';
 import { t } from '@lingui/core/macro';
 import { first, omit, pick } from 'lodash-es';
 import { useContext, useMemo } from 'react';
@@ -25,7 +26,6 @@ import { captureLuckyDropEvent } from '@/providers/telemetry/captureLuckyDropEve
 import type { FireflyRedPacketAPI, RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import type { RedPacketCreationSuccessEventArgs, RedPacketMetadata } from '@/types/rp.js';
-import { EthChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
 import type { FungibleToken } from '@/web3-shared/base/specs.js';
 import { EthereumSchemaType } from '@/web3-shared/evm/types.js';
 

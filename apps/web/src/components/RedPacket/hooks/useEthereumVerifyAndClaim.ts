@@ -1,4 +1,5 @@
 import { NetworkType } from '@dimensiondev/web3/enums';
+import { EthChainResolver } from '@dimensiondev/web3/resolvers';
 import { t } from '@lingui/core/macro';
 import { last } from 'lodash-es';
 import { useCallback } from 'react';
@@ -17,7 +18,6 @@ import { formatBalance } from '@/helpers/formatBalance.js';
 import { usePrivyAppkitAccountByNetwork } from '@/hooks/appkit/usePrivyAppkitAccountByNetwork.js';
 import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
-import { EthChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
 
 export function useEthereumVerifyAndClaim(payload: RedPacketJSONPayload, source: SocialSource, enabled = true) {
     const appkitAccount = usePrivyAppkitAccountByNetwork(NetworkType.Ethereum);

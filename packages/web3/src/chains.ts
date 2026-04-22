@@ -1,8 +1,10 @@
-import { ETHEREUM_CHAIN_IDS } from '@/chains/eth.js';
+import type { ChainId } from '@/chains/eth.js';
+import { chains, ETHEREUM_CHAIN_IDS, privyVisibleChains, rpSupportedChains, visibleChains } from '@/chains/eth.js';
 import { solana, SOLANA_CHAIN_IDS } from '@/chains/sol.js';
 
-export * from '@/chains/eth.js';
 export * from '@/chains/sol.js';
+export { chains, ETHEREUM_CHAIN_IDS, privyVisibleChains, rpSupportedChains, visibleChains };
+export type { ChainId };
 
 export function isValidChainIdEthereum(chainId: number | undefined) {
     return typeof chainId === 'number' && ETHEREUM_CHAIN_IDS.some((id) => id === chainId);

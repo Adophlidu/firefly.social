@@ -1,4 +1,5 @@
 import { NetworkType } from '@dimensiondev/web3/enums';
+import { EthChainResolver } from '@dimensiondev/web3/resolvers';
 import { useQuery } from '@tanstack/react-query';
 import type { Address } from 'viem';
 import { mainnet } from 'viem/chains';
@@ -10,7 +11,6 @@ import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPaylo
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
-import { EthChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
 
 export function useEthereumAvailability(payload: RedPacketJSONPayload, options?: { enabled?: boolean }) {
     const networkType = getNetworkTypeFromRpPayload(payload);

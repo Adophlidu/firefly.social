@@ -1,3 +1,4 @@
+import { chains } from '@dimensiondev/web3/chains';
 import {
     arbitrum,
     aurora,
@@ -6,7 +7,6 @@ import {
     blast,
     bsc,
     celo,
-    chains,
     confluxESpace,
     fantom,
     gnosis,
@@ -22,12 +22,10 @@ import {
     xLayer,
     zkSync,
     zora,
-} from '@dimensiondev/web3/chains';
+} from 'viem/chains';
 
-import { NetworkPluginID, TokenType } from '@/constants/enum.js';
-import { getEvmNativeTokenAddress } from '@/providers/ethereum/getNativeTokenAddress.js';
-import type { ChainDescriptor, NetworkDescriptor } from '@/web3-shared/base/specs.js';
-import { EthereumSchemaType } from '@/web3-shared/evm/types.js';
+import { NetworkPluginID } from '@/constants/enum.js';
+import type { NetworkDescriptor } from '@/web3-shared/base/specs.js';
 
 const PLUGIN_ID = NetworkPluginID.PLUGIN_EVM;
 
@@ -247,30 +245,3 @@ export const NETWORK_DESCRIPTORS: ReadonlyArray<NetworkDescriptor<number>> = cha
         };
     },
 );
-
-export const CHAIN_DESCRIPTORS: ReadonlyArray<ChainDescriptor<number, EthereumSchemaType>> = chains.map((chain) => {
-    const meta = CHAIN_META[chain.id] ?? DEFAULT_META;
-    const name = meta.name ?? chain.name;
-    const address = getEvmNativeTokenAddress(chain.id);
-    return {
-        chainId: chain.id,
-        name,
-        fullName: name,
-        shortName: meta.shortName,
-        nativeCurrency: {
-            id: address,
-            address,
-            type: TokenType.Fungible,
-            schema: EthereumSchemaType.Native,
-            chainId: chain.id,
-            name: chain.nativeCurrency.name,
-            symbol: chain.nativeCurrency.symbol,
-            decimals: chain.nativeCurrency.decimals,
-            logoURL: meta.nativeTokenLogoURL,
-        },
-        features: meta.features,
-        explorerUrl: {
-            url: chain.blockExplorers?.default?.url ?? '',
-        },
-    };
-});

@@ -1,9 +1,9 @@
 import LinkIcon from '@dimensiondev/assets/link-square.svg';
+import { EthExplorerResolver } from '@dimensiondev/web3/resolvers';
 import { Trans } from '@lingui/react/macro';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
-import { EthExplorerResolver } from '@/web3-providers/evm/ResolverAPI.js';
 import type { NonFungibleCollection } from '@/web3-shared/base/specs.js';
 
 export interface Collection

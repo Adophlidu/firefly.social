@@ -1,10 +1,7 @@
 import { solana, solanaChains, solanaDevnet, solanaTestnet } from '@dimensiondev/web3/chains';
-import { SOL_ZERO_ADDRESS } from '@dimensiondev/web3/constants';
 
 import { NetworkPluginID } from '@/constants/enum.js';
-import type { ChainDescriptor, NetworkDescriptor } from '@/web3-shared/base/specs.js';
-import { createFungibleToken } from '@/web3-shared/base/token.js';
-import { SolanaSchemaType } from '@/web3-shared/solana/types.js';
+import type { NetworkDescriptor } from '@/web3-shared/base/specs.js';
 
 const PLUGIN_ID = NetworkPluginID.PLUGIN_SOLANA;
 
@@ -47,30 +44,6 @@ const CHAIN_META: Record<number, ChainMeta> = {
         explorerUrl: 'https://explorer.solana.com/?cluster=devnet',
     },
 };
-
-export const CHAIN_DESCRIPTORS: ReadonlyArray<ChainDescriptor<number, SolanaSchemaType>> = solanaChains.map(
-    (chain): ChainDescriptor<number, SolanaSchemaType> => {
-        const meta = CHAIN_META[chain.id];
-        return {
-            chainId: chain.id,
-            name: meta.name,
-            fullName: meta.name,
-            shortName: meta.shortName,
-            nativeCurrency: createFungibleToken(
-                chain.id,
-                SolanaSchemaType.Fungible,
-                SOL_ZERO_ADDRESS,
-                'Solana',
-                'SOL',
-                9,
-                'https://assets.coingecko.com/coins/images/4128/small/solana.png',
-            ),
-            explorerUrl: {
-                url: meta.explorerUrl,
-            },
-        };
-    },
-);
 
 export const NETWORK_DESCRIPTORS: ReadonlyArray<NetworkDescriptor<number>> = solanaChains.map(
     (chain): NetworkDescriptor<number> => {

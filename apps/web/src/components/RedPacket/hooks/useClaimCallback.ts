@@ -1,3 +1,4 @@
+import { EthChainResolver } from '@dimensiondev/web3/resolvers';
 import { useAsyncFn } from 'react-use';
 import { mainnet } from 'viem/chains';
 
@@ -7,7 +8,6 @@ import { useChainContext } from '@/hooks/useChainContext.js';
 import { claimRedPacket } from '@/providers/ethereum/red-packet/claimRedPacket.js';
 import { captureLuckyDropEvent } from '@/providers/telemetry/captureLuckyDropEvent.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
-import { EthChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
 
 /**
  * Claim fungible token red packet.
