@@ -1,7 +1,15 @@
 import { defineConfig } from 'tsup';
 
 export default defineConfig({
-    entry: ['src/utils.ts', 'src/chains.ts', 'src/constants.ts', 'src/numbers.ts', 'src/enums.ts', 'src/actions.ts'],
+    entry: [
+        'src/utils.ts',
+        'src/chains.ts',
+        'src/constants.ts',
+        'src/numbers.ts',
+        'src/enums.ts',
+        'src/actions.ts',
+        'src/abi.ts',
+    ],
     format: ['esm', 'cjs'],
     dts: true,
     clean: true,

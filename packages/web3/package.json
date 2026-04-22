@@ -36,6 +36,11 @@
             "types": "./dist/actions.d.ts",
             "import": "./dist/actions.js",
             "require": "./dist/actions.cjs"
+        },
+        "./abi": {
+            "types": "./dist/abi.d.ts",
+            "import": "./dist/abi.js",
+            "require": "./dist/abi.cjs"
         }
     },
     "files": [
