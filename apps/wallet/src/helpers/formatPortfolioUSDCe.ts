@@ -1,6 +1,6 @@
 import { BigNumber } from 'bignumber.js';
 
-import { removeUSDTrailingZeros } from '@/helpers/formatMarketCap.js';
+import { removeUSDTrailingZeros } from '@/helpers/removeUSDTrailingZeros.js';
 
 export function formatPortfolioUSDCe(amount: BigNumber.Value): string {
     const bn = BigNumber(amount ?? 0);

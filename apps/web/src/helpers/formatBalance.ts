@@ -1,22 +1,9 @@
 import { NODE_ENV } from '@dimensiondev/envs';
 import { isLessThan, leftShift, scale10 } from '@dimensiondev/web3/numbers';
 import { BigNumber } from 'bignumber.js';
-import { trimEnd } from 'lodash-es';
 
+import { trimZero } from '@/helpers/trimZero.js';
 import { logger } from '@/libs/Logger.js';
-
-/** Trim ending zeros of decimals */
-export function trimZero(digit: string) {
-    const result = digit.replaceAll(/\.([1-9]*)?0+$/g, (_, p1) => {
-        return p1 ? `.${p1}` : '';
-    });
-
-    if (isLessThan(result, 1)) {
-        return trimEnd(result, '0');
-    }
-
-    return result;
-}
 
 function addThousandSeparators(num: string | number) {
     try {

@@ -12,8 +12,8 @@ import { Link } from '@/components/Link.js';
 import { PredictionTime } from '@/components/Prediction/PredictionTime.js';
 import { PredictionPlatform } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
-import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
 import { toFixedTrimmed } from '@/helpers/polymarket.js';
+import { removeTrailingZeros } from '@/helpers/removeTrailingZeros.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import {
     captureOpinionProfileTradesEventClick,

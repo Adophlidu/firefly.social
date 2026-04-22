@@ -11,7 +11,7 @@ import { useShallow } from 'zustand/shallow';
 import { queryClient } from '@/configs/queryClient.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { formatCustomTokenToTipsToken } from '@/helpers/formatCustomTokenToTipsToken.js';
-import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
+import { removeTrailingZeros } from '@/helpers/removeTrailingZeros.js';
 import { getFungibleTokenPrice } from '@/providers/coingecko/getFungibleTokenPrice.js';
 import type { Token as TipsToken } from '@/providers/types/Transfer.js';
 import { CustomTokenType, useCustomTokenStore } from '@/store/useCustomTokenStore.js';

@@ -1,6 +1,7 @@
 import { BigNumber } from 'bignumber.js';
 
-import { removeTrailingZeros, removeUSDTrailingZeros } from '@/helpers/formatMarketCap.js';
+import { removeTrailingZeros } from '@/helpers/removeTrailingZeros.js';
+import { removeUSDTrailingZeros } from '@/helpers/removeUSDTrailingZeros.js';
 
 export function formatPrice(price: number | string | undefined, digits?: number) {
     if (price === undefined) return;

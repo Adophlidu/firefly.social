@@ -11,8 +11,8 @@ import { AnimatedText } from '@/components/Prediction/AnimatedText.js';
 import { PredictionContext } from '@/components/Prediction/PredictionContext.js';
 import { PredictionPlatform, Source } from '@/constants/enum.js';
 import { STALE_TIMES } from '@/constants/query.js';
-import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
 import { openPredictionPage } from '@/helpers/openPredictionPage.js';
+import { removeTrailingZeros } from '@/helpers/removeTrailingZeros.js';
 import { getPolymarketOrderBooks } from '@/providers/firefly/prediction/getPolymarketOrderBook.js';
 import type { BetsMarketDataForUI } from '@/types/prediction.js';
 

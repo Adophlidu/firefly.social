@@ -1,7 +1,8 @@
 import { isZero } from '@dimensiondev/web3/numbers';
 import { BigNumber } from 'bignumber.js';
 
-import { removeTrailingZeros, removeUSDTrailingZeros } from '@/helpers/formatMarketCap.js';
+import { removeTrailingZeros } from '@/helpers/removeTrailingZeros.js';
+import { removeUSDTrailingZeros } from '@/helpers/removeUSDTrailingZeros.js';
 
 export interface FormatTokenUSDOptions {
     /** When true, drop decimals for amounts >= 1 */

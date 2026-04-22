@@ -18,7 +18,7 @@ import {
 import { PredictionPositionAction } from '@/components/Prediction/PredictionPositionAction.js';
 import { PredictionPositionItem } from '@/components/Prediction/PredictionPositionItem.js';
 import { PredictionPlatform, Source } from '@/constants/enum.js';
-import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
+import { removeTrailingZeros } from '@/helpers/removeTrailingZeros.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 import type { BetsMarketDataForUI, PredictionPositionDataForUI } from '@/types/prediction.js';
 

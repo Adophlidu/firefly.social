@@ -1,6 +1,6 @@
 import { isZero } from '@dimensiondev/web3/numbers';
 
-import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
+import { removeTrailingZeros } from '@/helpers/removeTrailingZeros.js';
 
 /**
  * Format USD amount according to the following rules:

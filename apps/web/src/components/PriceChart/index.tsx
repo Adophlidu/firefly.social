@@ -11,7 +11,8 @@ import {
     TraderLayerContext,
     type TraderLayerOptions,
 } from '@/components/PriceChart/TraderLayer.js';
-import { formatBalance, trimZero } from '@/helpers/formatBalance.js';
+import { formatBalance } from '@/helpers/formatBalance.js';
+import { trimZero } from '@/helpers/trimZero.js';
 import { useIsPriceUp } from '@/hooks/useIsPriceUp.js';
 import { useThrottledCallback } from '@/hooks/useThrottledCallback.js';
 import type { PriceRecord, TradeRecord } from '@/types/token.js';

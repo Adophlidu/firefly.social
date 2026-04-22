@@ -1,7 +1,7 @@
 import { isGreaterThan } from '@dimensiondev/web3/numbers';
 import { BigNumber } from 'bignumber.js';
 
-import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
+import { removeTrailingZeros } from '@/helpers/removeTrailingZeros.js';
 
 export function formatTokenItemAmount(
     value: BigNumber.Value,

@@ -21,7 +21,6 @@ import { Image } from '@/components/Image.js';
 import { Button } from '@/components/ui/button.js';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs.js';
 import { MarketNotFoundError } from '@/constants/error.js';
-import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
 import { getErrorMessage } from '@/helpers/getErrorMessage.js';
 import { optimisticAddBalance, optimisticSubtractBalance } from '@/helpers/polymarketBalanceCache.js';
 import {
@@ -29,6 +28,7 @@ import {
     optimisticSubtractPositionShares,
     optimisticUpdatePositionShares,
 } from '@/helpers/polymarketPositionsCache.js';
+import { removeTrailingZeros } from '@/helpers/removeTrailingZeros.js';
 import { polymarketGammaEndpoint } from '@/providers/polymarket/gamma.js';
 import {
     type MarketPriceChangeData,

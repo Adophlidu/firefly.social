@@ -1,8 +1,3 @@
-export function removeTrailingZeros(str: string) {
-    const result = str.replace(/(\.\d*?)0+$/, '$1').replace(/\.$/, '');
-    return result === '0' ? '0' : result;
-}
-
 /**
  * Remove trailing zeros from a USD-formatted string, but always keep
  * at least 2 decimal places when the fractional part is non-zero.

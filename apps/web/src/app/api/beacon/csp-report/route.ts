@@ -8,6 +8,7 @@ const MAX_BODY_BYTES = 4096;
 
 function parseReportBody(raw: string): unknown {
     if (!raw) return null;
+
     try {
         return JSON.parse(raw) as unknown;
     } catch {

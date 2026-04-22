@@ -1,7 +1,7 @@
 import { isZero } from '@dimensiondev/web3/numbers';
 import { BigNumber } from 'bignumber.js';
 
-import { removeUSDTrailingZeros } from '@/helpers/formatMarketCap.js';
+import { removeUSDTrailingZeros } from '@/helpers/removeUSDTrailingZeros.js';
 
 /**
  * Format PnL USD amount:

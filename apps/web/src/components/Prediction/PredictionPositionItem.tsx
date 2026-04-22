@@ -9,7 +9,7 @@ import { formatPolymarketNumber } from '@/components/Polymarket/formatPolymarket
 import { PredictionPositionAction } from '@/components/Prediction/PredictionPositionAction.js';
 import { PredictionPlatform } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
-import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
+import { removeTrailingZeros } from '@/helpers/removeTrailingZeros.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import {
     captureOpinionProfilePositionsEventClick,
