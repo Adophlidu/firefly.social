@@ -22,8 +22,9 @@ function mapV2ToUI(position: PolymarketPositionV2Data, isClosed: boolean): Predi
     const size = (isClosed ? position.totalBought : position.size) ?? 0;
     const avgPrice = position.avgPrice ?? 0;
     const totalBought = position.totalBought ?? 0;
-    const pnl = position.realizedPnl || 0;
-    const pnlRate = pnl / (totalBought * avgPrice);
+    const pnl = (position.redeemable ? position.cashPnl : position.realizedPnl) || 0;
+    const pnlRate =
+        position.redeemable && position.percentPnl ? position.percentPnl / 100 : pnl / (totalBought * avgPrice);
 
     return {
         Id: position.conditionId ?? '',

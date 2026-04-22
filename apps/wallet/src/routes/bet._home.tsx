@@ -173,7 +173,7 @@ export function ClientLayout() {
                         <Trans>Add Funds</Trans>
                     </span>
                 </Link>
-                {showToRelease || true ? (
+                {showToRelease ? (
                     <button
                         type="button"
                         className="border-line col-span-2 flex w-full items-center justify-between border-y py-3"

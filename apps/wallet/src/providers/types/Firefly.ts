@@ -537,8 +537,8 @@ export interface PolymarketPositionV2 {
 export function mapPolymarketV2ToLegacy(pos: PolymarketPositionV2, isClosed: boolean): PolymarketPosition {
     const avgPrice = pos.avgPrice ?? 0;
     const totalBought = pos.totalBought ?? 0;
-    const pnl = pos.realizedPnl || 0;
-    const pnlRate = pnl / (totalBought * avgPrice);
+    const pnl = (pos.redeemable ? pos.cashPnl : pos.realizedPnl) || 0;
+    const pnlRate = pos.percentPnl ? pos.percentPnl / 100 : pnl / (totalBought * avgPrice);
 
     return {
         is_closed: isClosed,
