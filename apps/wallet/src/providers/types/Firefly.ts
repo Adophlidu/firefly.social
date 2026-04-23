@@ -535,10 +535,12 @@ export interface PolymarketPositionV2 {
 
 /** Map v2 position to legacy PolymarketPosition for UI compatibility */
 export function mapPolymarketV2ToLegacy(pos: PolymarketPositionV2, isClosed: boolean): PolymarketPosition {
+    // current position
+    const isCurrent = 'redeemable' in pos;
     const avgPrice = pos.avgPrice ?? 0;
     const totalBought = pos.totalBought ?? 0;
-    const pnl = pos.realizedPnl || 0;
-    const pnlRate = totalBought && avgPrice ? pnl / (totalBought * avgPrice) : 0;
+    const pnl = (isCurrent ? pos.cashPnl : pos.realizedPnl) || 0;
+    const pnlRate = pos.percentPnl ? pos.percentPnl / 100 : pnl / (totalBought * avgPrice);
 
     return {
         is_closed: isClosed,

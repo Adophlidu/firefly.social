@@ -1,4 +1,3 @@
-import { EMPTY_LIST } from '@dimensiondev/constants';
 import { queryOptions } from '@tanstack/react-query';
 import type { Address } from 'viem';
 
@@ -21,8 +20,7 @@ export function getPolymarketClaimableProceedsQueryOptions(proxyAddress: Address
         },
         enabled: Boolean(proxyAddress),
         select(positions): { totalWon: number; items: ClaimableProceedsItem[] } {
-            const list = positions ?? EMPTY_LIST;
-            const claimables = list
+            const claimables = (positions || [])
                 .map((p) => mapPolymarketV2ToLegacy(p, false))
                 // For winning outcome, claimable proceeds ~= shares (1 share = $1).
                 .filter((x) => x.isClaimable && x.isWin && Number.isFinite(x.shares) && x.shares > 0)

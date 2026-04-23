@@ -76,7 +76,7 @@ export function ClaimProceedsSection({ proxyAddress }: { proxyAddress: Address }
             // Optimistically hide ClaimProceedsSection immediately by clearing cached data.
             const proxy = proxyAddress.toLowerCase();
             const positionsQueryKeys = getPositionsQueryKeys(proxyAddress);
-            queryClient.setQueryData(['polymarket-claimable-proceeds', proxy], { items: [], totalWon: 0 });
+            queryClient.setQueryData(['polymarket-claimable-proceeds', proxy], []);
 
             // Force refresh immediately (don't wait for focus/interval).
             await Promise.all([

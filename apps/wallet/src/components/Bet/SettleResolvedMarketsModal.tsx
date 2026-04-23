@@ -76,7 +76,7 @@ export function SettleResolvedMarketsModal({
             const positionsQueryKeys = getPositionsQueryKeys(proxyAddress);
             // Optimistically hide section immediately by clearing cached data
             queryClient.setQueryData(['polymarket-settlable-positions', proxy], EMPTY_SETTLABLE_POSITIONS);
-            queryClient.setQueryData(['polymarket-claimable-proceeds', proxy], { items: [], totalWon: 0 });
+            queryClient.setQueryData(['polymarket-claimable-proceeds', proxy], []);
 
             // Force refresh immediately
             await Promise.all([

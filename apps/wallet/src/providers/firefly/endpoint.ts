@@ -324,27 +324,6 @@ export class FireflyEndpoint extends Fetch {
         return resolveFireflyResponseData(result.data);
     }
 
-    async getPolymarketSettlablePositions(
-        wallet: Address,
-        options?: {
-            isPolymarketProxy?: boolean;
-            limit?: number;
-            excludeWin?: boolean;
-            excludeLose?: boolean;
-        },
-    ) {
-        const result = await this.post<GetPolymarketPositionInfoResponse>('/v1/graphsql/history/position', {
-            wallet: [wallet],
-            is_polymarketProxy: options?.isPolymarketProxy ?? true,
-            limit: options?.limit ?? 50,
-            cursor: 0,
-            is_claim: true,
-            exclude_win: options?.excludeWin ?? false,
-            exclude_lose: options?.excludeLose ?? false,
-        });
-        return resolveFireflyResponseData(result.data);
-    }
-
     async getPolymarketOpenOrdersList(options?: { cursor?: string }) {
         const url = urlcat('/polymarket/v1/polymarket/getOpensOrdersList', {
             cursor: options?.cursor || '0',

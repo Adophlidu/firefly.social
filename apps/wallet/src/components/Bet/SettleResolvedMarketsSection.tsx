@@ -8,13 +8,13 @@ import { SettleResolvedMarketsModal } from '@/components/Bet/SettleResolvedMarke
 import { DialogOrDrawer, DialogOrDrawerTrigger } from '@/components/DialogOrDrawer.js';
 import { Image } from '@/components/Image.js';
 import { formatPnlUSD } from '@/helpers/formatPnlUSD.js';
-import { getPolymarketSettlablePositionsQueryOptions } from '@/queries/firefly/getPolymarketSettlablePositionsQueryOptions.js';
+import { getPolymarketClaimableProceedsQueryOptions } from '@/queries/firefly/getPolymarketClaimableProceedsQueryOptions.js';
 
 export function SettleResolvedMarketsSection({ proxyAddress }: { proxyAddress: Address }) {
     const [open, setOpen] = useState(false);
 
-    const { data } = useSuspenseQuery(getPolymarketSettlablePositionsQueryOptions(proxyAddress));
-    const { winningItems, totalWinAmount } = data;
+    const { data } = useSuspenseQuery(getPolymarketClaimableProceedsQueryOptions(proxyAddress));
+    const { items: winningItems, totalWon: totalWinAmount } = data;
 
     // Only render if there are winning positions to claim
     if (winningItems.length === 0) return null;
