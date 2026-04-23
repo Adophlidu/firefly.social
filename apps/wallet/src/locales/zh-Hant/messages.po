@@ -66,7 +66,7 @@ msgid "Missed this round, but the next prediction is waiting for you!"
 msgstr "錯過了這一輪？下一個預測等著你！"
 
 msgid "Upgrade Now"
-msgstr ""
+msgstr "立即升級"
 
 #. placeholder {0}: selected.name
 msgid "Your {0} Address"
@@ -341,7 +341,7 @@ msgid "Custom (0.5-100%)"
 msgstr "自定義 (0.5-100%)"
 
 msgid "Upgrade your Firefly prediction account NOW to ensure your predictions continue seamlessly."
-msgstr ""
+msgstr "立即升級您的 Firefly 預測帳戶，確保您的預測活動無縫延續。"
 
 msgid "Wallet funding is not enabled"
 msgstr "錢包充值功能未開啟"
@@ -422,7 +422,7 @@ msgid "View"
 msgstr "查看"
 
 msgid "Release Now"
-msgstr ""
+msgstr "立即釋放"
 
 msgid "Migrate to Polymarket V2"
 msgstr ""
@@ -627,7 +627,7 @@ msgid "User rejected"
 msgstr "用戶已拒絕交易"
 
 msgid "Polymarket V2 is now live. Release your available balance of {releaseAmountText} USDC.e as pUSD to keep your predictions going."
-msgstr ""
+msgstr "Polymarket V2 現已上線。將您可用的 {releaseAmountText} USDC.e 釋放為 pUSD，以繼續進行預測。"
 
 #. placeholder {0}: formatAddress(address, 4)
 #. placeholder {0}: formatAddress(nft.sender, 4)
