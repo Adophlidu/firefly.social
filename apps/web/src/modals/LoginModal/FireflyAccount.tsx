@@ -5,14 +5,17 @@ import EditIcon from '@dimensiondev/assets/edit.svg';
 import LogoutIcon from '@dimensiondev/assets/log-out.svg';
 import MoreIcon from '@dimensiondev/assets/more-fill.svg';
 import ScanIcon from '@dimensiondev/assets/scan.svg';
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
+import { MenuButton as HeadlessMenuButton, MenuItem } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
-import { memo, useEffect } from 'react';
+import { memo } from 'react';
 import { useAsyncFn } from 'react-use';
 
+import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { Avatar } from '@/components/Avatar.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
+import { MenuGroup } from '@/components/MenuGroup.js';
+import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { PageRoute, PasswordWorkflow, Source } from '@/constants/enum.js';
 import { useRouter as useNextRouter } from '@/esm/navigation.js';
 import { enqueueMessageFromError, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
@@ -36,17 +39,6 @@ interface FireflyAccountProps {
     profile?: FireflyAccountProfile;
     connections?: AllConnections;
     onChangeMenuOpenStatus?: (open: boolean) => void;
-}
-interface HandleMenuOpenProps {
-    open: boolean;
-    onChange?: (open: boolean) => void;
-}
-
-function HandleMenuOpen({ open, onChange }: HandleMenuOpenProps) {
-    useEffect(() => {
-        onChange?.(open);
-    }, [open, onChange]);
-    return null;
 }
 
 function hasOnlyTwitterAccounts(): boolean {
@@ -117,108 +109,105 @@ export const FireflyAccount = memo<FireflyAccountProps>(function FireflyAccount(
                 )}
                 <span className="text-secondary h-5 leading-5">UID: {profile?.uid}</span>
             </div>
-            <Menu>
-                {({ open }) => {
-                    return (
-                        <div>
-                            <HandleMenuOpen open={open} onChange={onChangeMenuOpenStatus} />
-                            <MenuButton className="flex size-5 items-center justify-center rounded-lg">
-                                <MoreIcon className="size-5 shrink-0" />
-                            </MenuButton>
-                            <MenuItems
-                                transition
-                                anchor="bottom end"
-                                className="bg-primaryBottom shadow-messageShadow z-50 w-[186px] origin-top-right rounded-lg py-3 font-normal outline-none transition data-[closed]:scale-95 data-[closed]:opacity-0"
+            <MoreActionMenu
+                className="z-10"
+                loginRequired={false}
+                onMenuOpenChange={onChangeMenuOpenStatus}
+                menuButton={
+                    <HeadlessMenuButton className="flex size-5 items-center justify-center rounded-lg">
+                        <MoreIcon className="size-5 shrink-0" />
+                    </HeadlessMenuButton>
+                }
+            >
+                <MenuGroup className="w-[186px]">
+                    <MenuItem>
+                        {({ close }) => (
+                            <MenuButton
+                                className="w-full"
+                                onClick={() => {
+                                    EditFireflyProfileModalRef.open({
+                                        profile,
+                                        connections,
+                                    });
+                                    LoginModalRef.close();
+                                    close();
+                                    captureEditProfileClickEvent();
+                                }}
                             >
-                                <MenuItem>
-                                    {({ close }) => (
-                                        <button
-                                            className="flex w-full items-center whitespace-nowrap px-3 py-1 text-base font-bold"
-                                            onClick={() => {
-                                                EditFireflyProfileModalRef.open({
-                                                    profile,
-                                                    connections,
-                                                });
-                                                LoginModalRef.close();
-                                                close();
-                                                captureEditProfileClickEvent();
-                                            }}
-                                        >
-                                            <EditIcon className="mr-2 size-[18px]" />
-                                            <Trans>Edit profile</Trans>
-                                        </button>
-                                    )}
-                                </MenuItem>
-                                <MenuItem>
-                                    {({ close }) => (
-                                        <button
-                                            className="flex w-full items-center whitespace-nowrap px-3 py-1 text-base font-bold"
-                                            onClick={() => {
-                                                close();
-                                                if (hasOnlyTwitterAccounts()) {
-                                                    enqueueWarningMessage(
-                                                        <Trans>
-                                                            X desktop login is currently unavailable on mobile.
-                                                        </Trans>,
-                                                    );
-                                                    return;
-                                                }
-                                                LoginModalRef.close();
-                                                SignInToFireflyAppModalRef.open();
-                                            }}
-                                        >
-                                            <ScanIcon className="mr-2 size-[18px]" />
-                                            <Trans>Sign in on mobile</Trans>
-                                        </button>
-                                    )}
-                                </MenuItem>
-                                <MenuItem>
-                                    {({ close }) => (
-                                        <button
-                                            className="flex w-full items-center gap-2 whitespace-nowrap px-3 py-1 text-base font-bold"
-                                            onClick={async () => {
-                                                if (queryMetricsStatusLoading) return;
-                                                captureMultiDeviceLoginClickEvent();
-                                                await queryMetricsStatus();
-                                                close();
-                                                return;
-                                            }}
-                                        >
-                                            {queryMetricsStatusLoading ? (
-                                                <LoadingIcon size={18} className="flex-1" />
-                                            ) : (
-                                                <CloudIcon className="size-[18px] min-w-[18px] max-w-[18px]" />
-                                            )}
-                                            <span className="flex-1 text-left">
-                                                <Trans>Multi-device login</Trans>
-                                            </span>
-                                        </button>
-                                    )}
-                                </MenuItem>
-                                <MenuItem>
-                                    {({ close }) => (
-                                        <button
-                                            className="text-danger flex w-full items-center whitespace-nowrap px-3 py-1 text-base font-bold"
-                                            onClick={() => {
-                                                close();
-                                                LoginModalRef.close();
-                                                LogoutModalRef.open();
+                                <EditIcon width={18} height={18} />
+                                <span className="text-main font-bold leading-[22px]">
+                                    <Trans>Edit profile</Trans>
+                                </span>
+                            </MenuButton>
+                        )}
+                    </MenuItem>
+                    <MenuItem>
+                        {({ close }) => (
+                            <MenuButton
+                                className="w-full"
+                                onClick={() => {
+                                    close();
+                                    if (hasOnlyTwitterAccounts()) {
+                                        enqueueWarningMessage(
+                                            <Trans>X desktop login is currently unavailable on mobile.</Trans>,
+                                        );
+                                        return;
+                                    }
+                                    LoginModalRef.close();
+                                    SignInToFireflyAppModalRef.open();
+                                }}
+                            >
+                                <ScanIcon width={18} height={18} />
+                                <span className="text-main font-bold leading-[22px]">
+                                    <Trans>Sign in on mobile</Trans>
+                                </span>
+                            </MenuButton>
+                        )}
+                    </MenuItem>
+                    <MenuItem>
+                        {({ close }) => (
+                            <MenuButton
+                                className="w-full"
+                                disabled={queryMetricsStatusLoading}
+                                onClick={async () => {
+                                    if (queryMetricsStatusLoading) return;
+                                    captureMultiDeviceLoginClickEvent();
+                                    await queryMetricsStatus();
+                                    close();
+                                }}
+                            >
+                                {queryMetricsStatusLoading ? (
+                                    <LoadingIcon size={18} className="shrink-0" />
+                                ) : (
+                                    <CloudIcon width={18} height={18} />
+                                )}
+                                <span className="text-main min-w-0 flex-1 text-left font-bold leading-[22px]">
+                                    <Trans>Multi-device login</Trans>
+                                </span>
+                            </MenuButton>
+                        )}
+                    </MenuItem>
+                    <MenuItem>
+                        {({ close }) => (
+                            <MenuButton
+                                className="w-full"
+                                onClick={() => {
+                                    close();
+                                    LoginModalRef.close();
+                                    LogoutModalRef.open();
 
-                                                router.prefetch(PageRoute.Signup);
-                                            }}
-                                        >
-                                            <LogoutIcon className="mr-2 size-[18px]" />
-                                            <span className="leading-6">
-                                                <Trans>Log out</Trans>
-                                            </span>
-                                        </button>
-                                    )}
-                                </MenuItem>
-                            </MenuItems>
-                        </div>
-                    );
-                }}
-            </Menu>
+                                    router.prefetch(PageRoute.Signup);
+                                }}
+                            >
+                                <LogoutIcon width={18} height={18} className="text-danger" />
+                                <span className="text-danger font-bold leading-[22px]">
+                                    <Trans>Log out</Trans>
+                                </span>
+                            </MenuButton>
+                        )}
+                    </MenuItem>
+                </MenuGroup>
+            </MoreActionMenu>
         </div>
     );
 });

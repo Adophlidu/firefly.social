@@ -7,7 +7,7 @@ import { EMPTY_LIST } from '@dimensiondev/constants';
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { NetworkType } from '@dimensiondev/web3/enums';
 import { formatAddress, getAddressType } from '@dimensiondev/web3/utils';
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
+import { MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { useQueries } from '@tanstack/react-query';
 import { BigNumber } from 'bignumber.js';
@@ -15,6 +15,7 @@ import { useState } from 'react';
 
 import { Avatar } from '@/components/Avatar.js';
 import { Link } from '@/components/Link.js';
+import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Source } from '@/constants/enum.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
@@ -114,10 +115,15 @@ export function WalletMixInfo({ profiles = EMPTY_LIST, hasFireflyAccount = false
                             <Trans>View all</Trans>
                         </button>
                     ) : remaining.length > 0 ? (
-                        <Menu>
-                            <MenuButton className="bg-primaryBottom flex h-6 flex-row items-center rounded px-2">
-                                {remaining.length}+
-                            </MenuButton>
+                        <MoreActionMenu
+                            loginRequired={false}
+                            useTransition={false}
+                            menuButton={
+                                <MenuButton className="bg-primaryBottom flex h-6 flex-row items-center rounded px-2">
+                                    {remaining.length}+
+                                </MenuButton>
+                            }
+                        >
                             <MenuItems
                                 transition
                                 anchor="bottom end"
@@ -146,7 +152,7 @@ export function WalletMixInfo({ profiles = EMPTY_LIST, hasFireflyAccount = false
                                     ))}
                                 </div>
                             </MenuItems>
-                        </Menu>
+                        </MoreActionMenu>
                     ) : null}
                 </div>
                 <div className="mb-2.5 flex w-full flex-row justify-between">

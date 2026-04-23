@@ -22,6 +22,7 @@ interface ShareActionProps {
 export const ShareAction = memo(function ShareAction({ link, onClick }: ShareActionProps) {
     return (
         <MoreActionMenu
+            className="z-10"
             button={
                 <Tooltip content={<Trans>Share</Trans>} placement="top">
                     <motion.span

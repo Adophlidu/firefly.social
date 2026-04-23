@@ -1244,9 +1244,6 @@ msgstr "已驗證地址"
 msgid "Buy {secondOutcome}"
 msgstr "購買 {secondOutcome}"
 
-msgid "<0/>Delete Firefly account"
-msgstr "<0/>刪除 Firefly 帳戶"
-
 msgid "It is wallet retrieved from public verifiable data registries or our entity algorithm. Please add this wallet to set as primary wallet."
 msgstr "此錢包來自公開數據或我們的算法，請先添加錢包再設為主要錢包。"
 
@@ -2484,6 +2481,9 @@ msgstr "連接"
 
 msgid "New"
 msgstr "新增"
+
+msgid "Delete Firefly account"
+msgstr ""
 
 msgid "Estimated network fee"
 msgstr "預估手續費"

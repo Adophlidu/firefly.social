@@ -47,6 +47,7 @@ export const ArticleMoreAction = memo<MoreProps>(function ArticleMoreAction({ ar
 
     return (
         <MoreActionMenu
+            className="z-10"
             button={
                 isBusy ? (
                     <span className="inline-flex size-6 animate-spin items-center justify-center">

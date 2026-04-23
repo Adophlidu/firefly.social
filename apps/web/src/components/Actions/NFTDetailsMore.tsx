@@ -1,6 +1,7 @@
 'use client';
 
 import MoreIcon from '@dimensiondev/assets/more.svg';
+import { classNames } from '@dimensiondev/utils';
 import { MenuItem } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { type HTMLProps, memo } from 'react';
@@ -30,7 +31,7 @@ export const NFTDetailsMore = memo<NFTDetailsMoreProps>(function NFTDetailsMore(
 }) {
     return (
         <MoreActionMenu
-            className={className}
+            className={classNames('z-10', className)}
             button={
                 <Tooltip content={<Trans>More</Trans>} placement="top">
                     <MoreIcon width={24} height={24} className="text-secondary" />

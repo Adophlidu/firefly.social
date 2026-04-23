@@ -5,11 +5,14 @@ import LogoutIcon from '@dimensiondev/assets/log-out.svg';
 import MoreIcon from '@dimensiondev/assets/more-fill.svg';
 import TrashIcon from '@dimensiondev/assets/trash.svg';
 import { classNames } from '@dimensiondev/utils';
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
+import { MenuButton as HeadlessMenuButton, MenuItem } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 
+import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { Avatar } from '@/components/Avatar.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { MenuGroup } from '@/components/MenuGroup.js';
+import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { useAllConnections } from '@/hooks/useAllConnections.js';
 import { useDeleteFireflyAccount } from '@/hooks/useDeleteFireflyAccount.js';
 import { useFireflyAccountAvatar } from '@/hooks/useFireflyAccountAvatar.js';
@@ -83,19 +86,19 @@ export function FireflyAccountCard() {
                             >
                                 <LogoutIcon className="size-5 shrink-0" />
                             </ClickableButton>
-                            <Menu>
-                                <MenuButton className="flex size-5 items-center justify-center rounded-lg">
-                                    <MoreIcon className="size-5 shrink-0" />
-                                </MenuButton>
-                                <MenuItems
-                                    transition
-                                    anchor="bottom end"
-                                    className="bg-primaryBottom shadow-messageShadow z-50 w-[220px] origin-top-right rounded-lg py-3 font-normal outline-none transition data-[closed]:scale-95 data-[closed]:opacity-0"
-                                >
+                            <MoreActionMenu
+                                className="z-10"
+                                menuButton={
+                                    <HeadlessMenuButton className="flex size-5 items-center justify-center rounded-lg">
+                                        <MoreIcon className="size-5 shrink-0" />
+                                    </HeadlessMenuButton>
+                                }
+                            >
+                                <MenuGroup className="w-[220px]">
                                     <MenuItem>
                                         {({ close }) => (
-                                            <button
-                                                className="flex w-full items-center whitespace-nowrap px-3 py-1 text-base font-bold"
+                                            <MenuButton
+                                                className="w-full"
                                                 onClick={() => {
                                                     EditFireflyProfileModalRef.open({
                                                         profile: account,
@@ -105,29 +108,31 @@ export function FireflyAccountCard() {
                                                     captureEditProfileClickEvent();
                                                 }}
                                             >
-                                                <EditIcon className="mr-2 size-[18px]" />
-                                                <Trans>Edit profile</Trans>
-                                            </button>
+                                                <EditIcon width={18} height={18} />
+                                                <span className="text-main font-bold leading-[22px]">
+                                                    <Trans>Edit profile</Trans>
+                                                </span>
+                                            </MenuButton>
                                         )}
                                     </MenuItem>
                                     <MenuItem>
                                         {({ close }) => (
-                                            <button
-                                                className="text-danger flex w-full items-center whitespace-nowrap px-3 py-1 text-base font-bold"
+                                            <MenuButton
+                                                className="w-full"
                                                 onClick={() => {
                                                     close();
                                                     deleteFireflyAccount();
                                                 }}
                                             >
-                                                <Trans>
-                                                    <TrashIcon className="mr-2 size-[18px]" />
-                                                    Delete Firefly account
-                                                </Trans>
-                                            </button>
+                                                <TrashIcon width={18} height={18} className="text-danger" />
+                                                <span className="text-danger font-bold leading-[22px]">
+                                                    <Trans>Delete Firefly account</Trans>
+                                                </span>
+                                            </MenuButton>
                                         )}
                                     </MenuItem>
-                                </MenuItems>
-                            </Menu>
+                                </MenuGroup>
+                            </MoreActionMenu>
                         </>
                     )}
                 </div>

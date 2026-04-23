@@ -9,7 +9,7 @@ import { Image } from '@/components/Image.js';
 import { ProfileVerifyBadge } from '@/components/ProfileVerifyBadge/index.js';
 import { useFrameAuthor } from '@/hooks/frame/useFrameAuthor.js';
 import type { FrameViewerModalOpenProps } from '@/modals/FrameViewerModal/FrameViewerModalContent.js';
-import { MoreAction } from '@/modals/FrameViewerModal/MoreActionMenu.js';
+import { MoreAction } from '@/modals/FrameViewerModal/FrameViewerMoreAction.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/refs.js';
 
 interface FrameViewerModalHeaderProps {

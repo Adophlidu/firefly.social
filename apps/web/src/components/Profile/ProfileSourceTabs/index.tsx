@@ -2,12 +2,13 @@
 
 import { envs, STATUS } from '@dimensiondev/envs';
 import { classNames } from '@dimensiondev/utils';
-import { Menu, MenuItems } from '@headlessui/react';
+import { MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { first } from 'lodash-es';
 import { useState } from 'react';
 
+import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { ProfileMenuItem, TopProfileMenuItem } from '@/components/Profile/ProfileSourceTabs/ProfileMenuItems.js';
 import { ProfileSourceTabsContainer } from '@/components/Profile/ProfileSourceTabs/ProfileSourceTabsContainer.js';
 import { TriggerButton } from '@/components/Profile/ProfileSourceTabs/TriggerButton.js';
@@ -17,6 +18,7 @@ import { type ProfilePageSource, Source } from '@/constants/enum.js';
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
 import { isMPCWallet } from '@/helpers/isMPCWallet.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
+import { stopPropagation } from '@/helpers/stopEvent.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import type { FireflyIdentity, FireflyProfile, WalletProfile } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -104,8 +106,11 @@ export function ProfileSourceTabs({
                 }
 
                 return (
-                    <Menu key={source}>
-                        {({ close }) => (
+                    <MoreActionMenu
+                        key={source}
+                        loginRequired={false}
+                        menuOnClick={stopPropagation}
+                        renderMenu={({ close }) => (
                             <div>
                                 <TriggerButton profile={topProfile} identity={identity} menu isLast={isLast} />
                                 <MenuItems
@@ -180,7 +185,7 @@ export function ProfileSourceTabs({
                                 </MenuItems>
                             </div>
                         )}
-                    </Menu>
+                    />
                 );
             })}
         </ProfileSourceTabsContainer>

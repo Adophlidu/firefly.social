@@ -4,12 +4,14 @@ import MirrorIcon from '@dimensiondev/assets/mirror.svg';
 import MirrorLargeIcon from '@dimensiondev/assets/mirror-large.svg';
 import QuoteDownIcon from '@dimensiondev/assets/quote-down.svg';
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
-import { Menu, MenuButton as HeadlessMenuButton, MenuItem, MenuItems, Transition } from '@headlessui/react';
+import { MenuButton as HeadlessMenuButton, MenuItem } from '@headlessui/react';
 import { Plural, Trans } from '@lingui/react/macro';
-import { Fragment, memo, useMemo } from 'react';
+import { memo, useMemo } from 'react';
 
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
+import { MenuGroup } from '@/components/MenuGroup.js';
+import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { humanize } from '@/helpers/formatCommentCounts.js';
@@ -103,113 +105,116 @@ export const MirrorUI = memo<MirrorUIProps>(function Mirror({
     const allDisabled = mirrorDisabled && quoteDisabled;
 
     return (
-        <Menu className="relative" as="div" onClick={stopEvent}>
-            <HeadlessMenuButton
-                disabled={allDisabled}
-                className={classNames(
-                    'text-second hover:text-secondarySuccess relative flex w-min items-center md:space-x-2',
-                    !!disabled || allDisabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer',
-                    {
-                        'text-secondarySuccess': hasMirrored,
-                    },
-                )}
-                aria-label="Repost"
-                onClick={onClick}
-            >
-                <Tooltip
-                    disabled={disabled || mirrorLoading || allDisabled}
-                    placement="top"
-                    content={
-                        <span>
-                            {shares ? humanize(shares) : null} {getTooltipContent(source, shares)}
-                        </span>
-                    }
+        <MoreActionMenu
+            className="z-10"
+            source={source}
+            loginRequired={false}
+            menuOnClick={stopEvent}
+            menuButton={
+                <HeadlessMenuButton
+                    disabled={allDisabled}
+                    className={classNames(
+                        'text-second hover:text-secondarySuccess relative flex w-min items-center md:space-x-2',
+                        !!disabled || allDisabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer',
+                        {
+                            'text-secondarySuccess': hasMirrored,
+                        },
+                    )}
+                    aria-label="Repost"
+                    onClick={onClick}
                 >
-                    <span className="hover:bg-secondarySuccess/[.20] inline-flex size-7 items-center justify-center rounded-full">
-                        {mirrorLoading ? (
-                            <LoadingIcon className="text-second" size={16} />
-                        ) : (
-                            <MirrorIcon
-                                width={16}
-                                height={16}
-                                className={hasMirrored || hasQuoted ? 'text-secondarySuccess' : ''}
-                            />
-                        )}
-                    </span>
-                </Tooltip>
-            </HeadlessMenuButton>
-            <Transition
-                as={Fragment}
-                enter="transition ease-out duration-100"
-                enterFrom="transform-gpu opacity-0 scale-95"
-                enterTo="transform-gpu opacity-100 scale-100"
-                leave="transition ease-in duration-75"
-                leaveFrom="transform-gpu opacity-100 scale-100"
-                leaveTo="transform-gpu opacity-0 scale-95"
-            >
-                <MenuItems className="z-menu border-line bg-primaryBottom text-main absolute flex w-max flex-col gap-2 overflow-hidden rounded-2xl border py-3 text-base outline-none">
-                    <MenuItem>
-                        {({ close }) => (
-                            <MenuButton
-                                disabled={mirrorDisabled}
-                                className={classNames(
-                                    'flex w-full cursor-pointer items-center space-x-1 whitespace-nowrap md:space-x-2',
-                                    {
-                                        'text-secondarySuccess': hasMirrored,
-                                    },
-                                )}
-                                onClick={() => {
-                                    close();
-                                    handleMirror();
-                                }}
-                            >
-                                <MirrorLargeIcon width={18} height={18} />
-                                <span className="font-medium">
-                                    {mirrorDisabled ? <Trans>Mirror disabled</Trans> : mirrorActionText}
-                                </span>
-                            </MenuButton>
-                        )}
-                    </MenuItem>
-
-                    {canUndoMirror ? (
-                        <MenuItem>
-                            {({ close }) => (
-                                <MenuButton
-                                    className="text-danger flex w-full cursor-pointer items-center space-x-1 md:space-x-2"
-                                    onClick={() => {
-                                        close();
-                                        handleMirror(true);
-                                    }}
-                                >
-                                    <MirrorLargeIcon width={18} height={18} />
-                                    <span className="font-medium">
-                                        <Trans>Undo repost</Trans>
-                                    </span>
-                                </MenuButton>
+                    <Tooltip
+                        disabled={disabled || mirrorLoading || allDisabled}
+                        placement="top"
+                        content={
+                            <span>
+                                {shares ? humanize(shares) : null} {getTooltipContent(source, shares)}
+                            </span>
+                        }
+                    >
+                        <span className="hover:bg-secondarySuccess/[.20] inline-flex size-7 items-center justify-center rounded-full">
+                            {mirrorLoading ? (
+                                <LoadingIcon className="text-second" size={16} />
+                            ) : (
+                                <MirrorIcon
+                                    width={16}
+                                    height={16}
+                                    className={hasMirrored || hasQuoted ? 'text-secondarySuccess' : ''}
+                                />
                             )}
-                        </MenuItem>
-                    ) : null}
+                        </span>
+                    </Tooltip>
+                </HeadlessMenuButton>
+            }
+        >
+            <MenuGroup>
+                <MenuItem>
+                    {({ close }) => (
+                        <MenuButton
+                            disabled={mirrorDisabled}
+                            className="w-full"
+                            onClick={() => {
+                                close();
+                                handleMirror();
+                            }}
+                        >
+                            <MirrorLargeIcon
+                                width={18}
+                                height={18}
+                                className={classNames({
+                                    'text-secondarySuccess': hasMirrored && !mirrorDisabled,
+                                })}
+                            />
+                            <span
+                                className={classNames(
+                                    'font-bold leading-[22px]',
+                                    hasMirrored && !mirrorDisabled ? 'text-secondarySuccess' : 'text-main',
+                                )}
+                            >
+                                {mirrorDisabled ? <Trans>Mirror disabled</Trans> : mirrorActionText}
+                            </span>
+                        </MenuButton>
+                    )}
+                </MenuItem>
 
+                {canUndoMirror ? (
                     <MenuItem>
                         {({ close }) => (
                             <MenuButton
-                                className="flex w-full cursor-pointer items-center space-x-1 whitespace-nowrap md:space-x-2"
-                                disabled={quoteDisabled}
+                                className="w-full"
                                 onClick={() => {
                                     close();
-                                    handleQuote();
+                                    handleMirror(true);
                                 }}
                             >
-                                <QuoteDownIcon width={17} height={17} />
-                                <span className="font-medium">
-                                    {quoteDisabled ? <Trans>Quote posts disabled</Trans> : <Trans>Quote post</Trans>}
+                                <MirrorLargeIcon width={18} height={18} className="text-danger" />
+                                <span className="text-danger font-bold leading-[22px]">
+                                    <Trans>Undo repost</Trans>
                                 </span>
                             </MenuButton>
                         )}
                     </MenuItem>
-                </MenuItems>
-            </Transition>
-        </Menu>
+                ) : null}
+
+                <MenuItem>
+                    {({ close }) => (
+                        <MenuButton
+                            className="w-full"
+                            disabled={quoteDisabled}
+                            onClick={() => {
+                                close();
+                                handleQuote();
+                            }}
+                        >
+                            <QuoteDownIcon width={17} height={17} />
+                            <span className="text-main font-bold leading-[22px]">
+                                {quoteDisabled ? <Trans>Quote posts disabled</Trans> : <Trans>Quote post</Trans>}
+                            </span>
+                        </MenuButton>
+                    )}
+                </MenuItem>
+            </MenuGroup>
+        </MoreActionMenu>
     );
 });
 

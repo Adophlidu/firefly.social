@@ -1,15 +1,17 @@
 import EditProfileIcon from '@dimensiondev/assets/edit-profile.svg';
 import { classNames } from '@dimensiondev/utils';
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
+import { MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import type { LexicalEditor } from 'lexical';
 import { compact, first } from 'lodash-es';
 import { useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
 
+import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { SORTED_CROSS_AT_SOCIAL_SOURCES } from '@/constants/computed.js';
 import { FireflyPlatform } from '@/constants/enum.js';
 import { resolveSocialSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
+import { stopPropagation } from '@/helpers/stopEvent.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { EditCrossAtModal } from '@/modals/EditCrossAtModal/EditCrossAtModal.js';
 import { EditCrossAtModalRef } from '@/modals/EditCrossAtModal/refs.js';
@@ -64,8 +66,12 @@ export function MentionsMenu({ editor, text, isDarkMode, onEdit, ...props }: Men
     return (
         <>
             <EditCrossAtModal ref={EditCrossAtModalRef.register} />
-            <Menu as="span" className="relative">
-                {({ close }) => (
+            <MoreActionMenu
+                menuAs="span"
+                className="relative"
+                loginRequired={false}
+                menuOnClick={stopPropagation}
+                renderMenu={({ close }) => (
                     <>
                         <MenuButton
                             data-focus={false}
@@ -135,7 +141,7 @@ export function MentionsMenu({ editor, text, isDarkMode, onEdit, ...props }: Men
                         </MenuItems>
                     </>
                 )}
-            </Menu>
+            />
         </>
     );
 }

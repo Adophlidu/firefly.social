@@ -2,11 +2,12 @@
 
 import MoreIcon from '@dimensiondev/assets/more.svg';
 import { formatAddress } from '@dimensiondev/web3/utils';
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
+import { MenuItem, MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 
 import { CopyLinkButton } from '@/components/Actions/CopyLinkButton.js';
 import { MuteAllByProfile, MuteAllByWallet } from '@/components/Actions/MuteAllProfile.js';
+import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Source } from '@/constants/enum.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { useEnsName } from '@/hooks/useEnsName.js';
@@ -42,10 +43,14 @@ export function FireflyAccountMoreButton({ profile, walletProfile, profiles = []
     );
 
     return (
-        <Menu>
-            <MenuButton className="bg-bg text-second inline-flex size-8 items-center justify-center rounded-lg active:opacity-50 md:hover:opacity-60">
-                <MoreIcon width={22} height={22} className="shrink-0" />
-            </MenuButton>
+        <MoreActionMenu
+            useTransition={false}
+            button={<MoreIcon width={22} height={22} className="shrink-0" />}
+            buttonProps={{
+                className:
+                    'bg-bg text-second inline-flex size-8 items-center justify-center rounded-lg active:opacity-50 md:hover:opacity-60',
+            }}
+        >
             <MenuItems
                 anchor="bottom end"
                 transition
@@ -78,6 +83,6 @@ export function FireflyAccountMoreButton({ profile, walletProfile, profiles = []
                     </>
                 ) : null}
             </MenuItems>
-        </Menu>
+        </MoreActionMenu>
     );
 }

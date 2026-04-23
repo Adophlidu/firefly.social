@@ -1250,9 +1250,6 @@ msgstr "Verified addresses"
 msgid "Buy {secondOutcome}"
 msgstr "Buy {secondOutcome}"
 
-msgid "<0/>Delete Firefly account"
-msgstr "<0/>Delete Firefly account"
-
 msgid "It is wallet retrieved from public verifiable data registries or our entity algorithm. Please add this wallet to set as primary wallet."
 msgstr "It is wallet retrieved from public verifiable data registries or our entity algorithm. Please add this wallet to set as primary wallet."
 
@@ -2496,6 +2493,9 @@ msgstr "Connect"
 
 msgid "New"
 msgstr "New"
+
+msgid "Delete Firefly account"
+msgstr "Delete Firefly account"
 
 msgid "Estimated network fee"
 msgstr "Estimated network fee"

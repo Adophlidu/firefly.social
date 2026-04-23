@@ -2,6 +2,7 @@
 
 import SendIcon from '@dimensiondev/assets/send.svg';
 import ShareIcon from '@dimensiondev/assets/share.svg';
+import { classNames } from '@dimensiondev/utils';
 import { MenuItem } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
@@ -25,12 +26,13 @@ interface ShareProps extends HTMLProps<HTMLDivElement> {
     disabled?: boolean;
 }
 
-export const Share = memo<ShareProps>(function Share({ post, disabled = false }) {
+export const Share = memo<ShareProps>(function Share({ post, disabled = false, className }) {
     const baseUrl = urlcat(SITE_URL, getPostUrl(post));
     const url = useShareUrl(baseUrl);
 
     return (
         <MoreActionMenu
+            className={classNames('z-10', className)}
             loginRequired={false}
             disabled={disabled}
             buttonClassName="!text-second"

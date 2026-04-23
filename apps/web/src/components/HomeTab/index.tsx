@@ -3,13 +3,14 @@
 import ArrowDownCircleIcon from '@dimensiondev/assets/arrow-circle-down.svg';
 import { classNames, getEnumAsArray } from '@dimensiondev/utils';
 import { NetworkType } from '@dimensiondev/web3/enums';
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
+import { MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { useMemo, useRef } from 'react';
 
 import { ActivitiesFilter } from '@/components/HomeTab/ActivitiesFilter.js';
 import { DiscoverFilter } from '@/components/HomeTab/DiscoverFilter.js';
 import { Link } from '@/components/Link.js';
+import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { PredictionPlatformFilter } from '@/components/Prediction/PredictionPlatformFilter.js';
 import { ChainFilter } from '@/components/Swap/ChainFilter.js';
 import { SolidTabs } from '@/components/Tabs/SolidTabs.js';
@@ -20,6 +21,7 @@ import { parseDiscoverPageUrl } from '@/helpers/parseDiscoverPageUrl.js';
 import { parseFollowingPageUrl } from '@/helpers/parseFollowingPageUrl.js';
 import { resolveHomeUrl } from '@/helpers/resolveHomeUrl.js';
 import { resolveSourceUIName } from '@/helpers/resolveSourceName.js';
+import { stopPropagation } from '@/helpers/stopEvent.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import { EventId } from '@/providers/types/Telemetry.js';
@@ -125,8 +127,10 @@ export function HomeTabs({
                             containerClass,
                         )}
                     >
-                        <Menu>
-                            {({ close }) => (
+                        <MoreActionMenu
+                            loginRequired={false}
+                            menuOnClick={stopPropagation}
+                            renderMenu={({ close }) => (
                                 <div>
                                     <MenuButton
                                         className={classNames(
@@ -171,7 +175,7 @@ export function HomeTabs({
                                     </MenuItems>
                                 </div>
                             )}
-                        </Menu>
+                        />
                     </div>
                 )}
             </div>

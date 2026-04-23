@@ -6,12 +6,13 @@ import ReloadIcon from '@dimensiondev/assets/reload.svg';
 import WalletIcon from '@dimensiondev/assets/wallet.svg';
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { NetworkType } from '@dimensiondev/web3/enums';
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
+import { MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { useCallback, useEffect, useMemo } from 'react';
 import { useUpdateEffect } from 'react-use';
 import type { Address } from 'viem';
 
+import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { PageRoute, WalletSource } from '@/constants/enum.js';
 import { usePathname } from '@/esm/navigation.js';
 import { useAllConnections } from '@/hooks/useAllConnections.js';
@@ -102,10 +103,17 @@ export function FireflyWallet() {
                         </div>
                         <div className="flex items-center gap-2">
                             {isOpen ? (
-                                <Menu as="div" className="relative" onClick={(e) => e.stopPropagation()}>
-                                    <MenuButton className="border-secondaryLine bg-bg text-main flex size-6 cursor-pointer items-center justify-center rounded-full border">
-                                        <MoreIcon width={12} height={12} />
-                                    </MenuButton>
+                                <MoreActionMenu
+                                    useTransition={false}
+                                    loginRequired={false}
+                                    className="relative"
+                                    menuOnClick={(e) => e.stopPropagation()}
+                                    menuButton={
+                                        <MenuButton className="border-secondaryLine bg-bg text-main flex size-6 cursor-pointer items-center justify-center rounded-full border">
+                                            <MoreIcon width={12} height={12} />
+                                        </MenuButton>
+                                    }
+                                >
                                     <MenuItems
                                         portal
                                         anchor="bottom end"
@@ -128,7 +136,7 @@ export function FireflyWallet() {
                                             )}
                                         </MenuItem>
                                     </MenuItems>
-                                </Menu>
+                                </MoreActionMenu>
                             ) : null}
                             <button
                                 className="border-secondaryLine bg-bg flex size-6 cursor-pointer items-center justify-center rounded-full border"

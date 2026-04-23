@@ -2,9 +2,10 @@
 
 import CheckIcon from '@dimensiondev/assets/check.svg';
 import FilterIcon from '@dimensiondev/assets/filter.svg';
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
+import { MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 
+import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import type { TradeRecord } from '@/types/token.js';
 
 interface Props {
@@ -32,9 +33,11 @@ const options = [
 
 export function TradeFilter({ value, onChange }: Props) {
     return (
-        <Menu>
-            {({ close }) => (
-                <div key="trade-filter">
+        <MoreActionMenu
+            loginRequired={false}
+            useTransition={false}
+            renderMenu={({ close }) => (
+                <div>
                     <MenuButton
                         className="text-placeholder size-4 outline-none"
                         onMouseEnter={(e) => e.currentTarget.click()}
@@ -50,12 +53,12 @@ export function TradeFilter({ value, onChange }: Props) {
                         <div className="bg-primaryBottom shadow-messageShadow flex translate-y-1 flex-col gap-2 overflow-y-auto rounded-2xl p-3">
                             {options.map((option) => (
                                 <MenuItem key={option.id}>
-                                    {({ close }) => (
+                                    {({ close: itemClose }) => (
                                         <div
                                             className="font-inter text-main hover:bg-bg box-border flex min-w-[235px] cursor-pointer flex-row items-center rounded-lg bg-clip-padding p-2 text-sm"
                                             onClick={() => {
                                                 onChange(option.value);
-                                                close();
+                                                itemClose();
                                             }}
                                         >
                                             {option.label}
@@ -70,6 +73,6 @@ export function TradeFilter({ value, onChange }: Props) {
                     </MenuItems>
                 </div>
             )}
-        </Menu>
+        />
     );
 }

@@ -2,6 +2,7 @@
 
 import MoreIcon from '@dimensiondev/assets/more-circle.svg';
 import ShareIcon from '@dimensiondev/assets/share.svg';
+import { classNames } from '@dimensiondev/utils';
 import { MenuItem } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { type HTMLProps, memo } from 'react';
@@ -30,7 +31,7 @@ export const CollectionMore = memo<CollectionMoreProps>(function CollectionMore(
 }) {
     return (
         <MoreActionMenu
-            className={className}
+            className={classNames('z-10', className)}
             button={
                 <Tooltip content={<Trans>More</Trans>} placement="top">
                     <MoreIcon width={24} height={24} className="text-secondary" />
@@ -60,7 +61,7 @@ export const CollectionMore = memo<CollectionMoreProps>(function CollectionMore(
                             }}
                         >
                             <ShareIcon width={18} height={18} />
-                            <span className="font-bold leading-[22px]">
+                            <span className="text-main font-bold leading-[22px]">
                                 <Trans>View on website</Trans>
                             </span>
                         </MenuButton>
