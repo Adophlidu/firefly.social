@@ -21,6 +21,7 @@ import { Image } from '@/components/Image.js';
 import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { SwapAccessPath, SwapButton } from '@/components/TokenProfile/SwapButton.js';
+import { Tooltip } from '@/components/Tooltip.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { Source, TxReactionType } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/static.js';
@@ -120,13 +121,19 @@ export const SwapActions = memo<SwapActionsProps>(function SwapActions({ activit
                         '!text-secondarySuccess': !!data?.is_repost,
                     })}
                 >
-                    <ClickableButton loading={handleMirrorLoading} className="cursor-pointer" onClick={handleMirror}>
-                        <MirrorIcon
-                            className={classNames('size-4', {
-                                'text-secondarySuccess': !!data?.is_repost,
-                            })}
-                        />
-                    </ClickableButton>
+                    <Tooltip placement="top" content={<Trans>Repost</Trans>}>
+                        <ClickableButton
+                            loading={handleMirrorLoading}
+                            className="hover:bg-secondarySuccess/[.20] text-second hover:text-secondarySuccess inline-flex size-7 items-center justify-center rounded-full"
+                            onClick={handleMirror}
+                        >
+                            <MirrorIcon
+                                className={classNames('size-4', {
+                                    'text-secondarySuccess': !!data?.is_repost,
+                                })}
+                            />
+                        </ClickableButton>
+                    </Tooltip>
                     {data?.repost_count && data.repost_count > 0 ? <span>{nFormatter(data.repost_count)}</span> : null}
                 </div>
                 {data ? <LikeButton type={Source.Swap} data={data} /> : null}
@@ -134,12 +141,14 @@ export const SwapActions = memo<SwapActionsProps>(function SwapActions({ activit
                 <MoreActionMenu
                     buttonClassName="!text-second"
                     button={
-                        <motion.div
-                            whileTap={{ scale: 0.9 }}
-                            className="hover:bg-link/[0.2] hover:text-link inline-flex size-4 items-center justify-center rounded-full disabled:opacity-60"
-                        >
-                            <ShareIcon className="size-4" />
-                        </motion.div>
+                        <Tooltip placement="top" content={<Trans>Share</Trans>}>
+                            <motion.div
+                                whileTap={{ scale: 0.9 }}
+                                className="hover:bg-link/[0.2] hover:text-link inline-flex size-7 items-center justify-center rounded-full disabled:opacity-60"
+                            >
+                                <ShareIcon className="size-4" />
+                            </motion.div>
+                        </Tooltip>
                     }
                 >
                     <MenuGroup>

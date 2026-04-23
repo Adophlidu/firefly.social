@@ -54,7 +54,6 @@ export const PredictionActivityAction = memo<PredictionActivityActionProps>(func
                     identity={identity}
                     handle={activity.displayInfo?.ensHandle}
                     className="hover:bg-fireflyBrand/[.20] inline-flex size-7 items-center justify-center rounded-full"
-                    tooltipDisabled
                     pureWallet
                 />
                 <ShareAction link={polymarketUrl} />
