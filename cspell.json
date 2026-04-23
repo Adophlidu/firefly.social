@@ -479,7 +479,10 @@
         "Yumi",
         "Delisted",
         "Perp",
-        "BTCUSDC"
+        "BTCUSDC",
+        "Dexs",
+        "tpsl",
+        "cloid"
     ],
     "flagWords": [],
     "ignorePaths": [

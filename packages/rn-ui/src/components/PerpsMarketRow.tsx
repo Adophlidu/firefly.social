@@ -1,6 +1,9 @@
 import { memo } from 'react';
-import { Avatar, styled, Text, XStack, YStack } from 'tamagui';
+import { styled, Text, XStack, YStack } from 'tamagui';
 
+import { CoinAvatar } from '@/components/CoinAvatar';
+import { formatCoinName } from '@/helpers/formatCoinName';
+import { nFormatter } from '@/helpers/nFormatter';
 import type { PerpsMeta } from '@/types/ui';
 
 export interface PerpsMarketRowProps {
@@ -29,23 +32,17 @@ const LeverageBadge = styled(XStack, {
 });
 
 export const PerpsMarketRow = memo<PerpsMarketRowProps>(function PerpsMarketRow({ item, onPress }) {
-    // const changeColor = (item.priceChangeValue ?? 0) < 0 ? '#FF372B' : '#429F37';
+    const changeColor = (item.priceDiffRatio ?? 0) < 0 ? '#FF372B' : '#429F37';
+    const coinName = formatCoinName(item.name);
 
     return (
         <RowButton onPress={() => onPress?.(item)}>
-            <Avatar circular size={36} flexShrink={0}>
-                <Avatar.Image src={item.avatar} />
-                <Avatar.Fallback delayMs={600} backgroundColor="#FF9800" alignItems="center" justifyContent="center">
-                    <Text color="#FFFFFF" fontSize={16} lineHeight={18} fontWeight={700}>
-                        {item.name.slice(0, 1)}
-                    </Text>
-                </Avatar.Fallback>
-            </Avatar>
+            <CoinAvatar name={item.name} />
 
             <YStack flex={1} gap={2} minWidth={0}>
                 <XStack gap={4} alignItems="center">
                     <Text color="#171717" fontSize={14} lineHeight={14} fontWeight={600}>
-                        {item.name}
+                        {coinName}
                     </Text>
 
                     <LeverageBadge>
@@ -56,7 +53,7 @@ export const PerpsMarketRow = memo<PerpsMarketRowProps>(function PerpsMarketRow(
                 </XStack>
 
                 <Text color="rgba(70, 70, 70, 0.4)" fontSize={12} lineHeight={14} fontWeight={500}>
-                    $4.9B Vol
+                    {item.dayNtlVlm ? `$${nFormatter(parseFloat(item.dayNtlVlm))}` : '-'} Vol
                 </Text>
             </YStack>
 
@@ -65,8 +62,11 @@ export const PerpsMarketRow = memo<PerpsMarketRowProps>(function PerpsMarketRow(
                     {item.mid ? `$${item.mid}` : '-'}
                 </Text>
 
-                {/* <Text color={changeColor} fontSize={12} lineHeight={14} fontWeight={500}>
-                </Text> */}
+                {item.priceDiffRatio ? (
+                    <Text color={changeColor} fontSize={12} lineHeight={14} fontWeight={500}>
+                        {item.priceDiffRatio.toFixed(2)}%
+                    </Text>
+                ) : null}
             </YStack>
         </RowButton>
     );

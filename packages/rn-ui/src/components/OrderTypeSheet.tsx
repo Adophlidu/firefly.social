@@ -2,15 +2,19 @@ import { memo, useEffect, useState } from 'react';
 import { Path, Svg } from 'react-native-svg';
 import { Button, Sheet, Text, YStack } from 'tamagui';
 
-import type { OrderTypeSheetData, PerpsTradeOrderType } from '@/types/ui';
+import { OrderType } from '@/constants/enum';
 
 interface OrderTypeSheetProps {
     open: boolean;
+    orderType: OrderType;
     onOpenChange: (open: boolean) => void;
-    data: OrderTypeSheetData;
-    loading?: boolean;
-    onConfirm?: (orderType: PerpsTradeOrderType) => void;
+    onConfirm?: (orderType: OrderType) => void;
 }
+
+const ORDER_TYPE_OPTIONS = [
+    { value: OrderType.MARKET, label: 'Market' },
+    { value: OrderType.LIMIT, label: 'Limit' },
+];
 
 function RadioChecked() {
     return (
@@ -64,19 +68,18 @@ function SheetOption({ label, selected, onPress }: { label: string; selected: bo
 
 export const OrderTypeSheet = memo<OrderTypeSheetProps>(function OrderTypeSheet({
     open,
+    orderType,
     onOpenChange,
-    data,
-    loading = false,
     onConfirm,
 }) {
     const [position, setPosition] = useState(0);
-    const [selectedType, setSelectedType] = useState<PerpsTradeOrderType>(data.currentType);
+    const [selectedType, setSelectedType] = useState<OrderType>(orderType);
 
     useEffect(() => {
-        setSelectedType(data.currentType);
-    }, [data.currentType, open]);
+        setSelectedType(orderType);
+    }, [orderType, open]);
 
-    const handleSelect = (type: PerpsTradeOrderType) => {
+    const handleSelect = (type: OrderType) => {
         setSelectedType(type);
         onConfirm?.(type);
         onOpenChange(false);
@@ -131,16 +134,14 @@ export const OrderTypeSheet = memo<OrderTypeSheetProps>(function OrderTypeSheet(
                 </YStack>
 
                 <YStack width="100%" gap={0}>
-                    {loading
-                        ? null
-                        : data.options.map((option) => (
-                              <SheetOption
-                                  key={option.value}
-                                  label={option.label}
-                                  selected={selectedType === option.value}
-                                  onPress={() => handleSelect(option.value)}
-                              />
-                          ))}
+                    {ORDER_TYPE_OPTIONS.map((option) => (
+                        <SheetOption
+                            key={option.value}
+                            label={option.label}
+                            selected={selectedType === option.value}
+                            onPress={() => handleSelect(option.value)}
+                        />
+                    ))}
                 </YStack>
             </Sheet.Frame>
         </Sheet>

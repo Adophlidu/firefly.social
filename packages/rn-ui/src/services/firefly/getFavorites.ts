@@ -2,7 +2,7 @@ import urlcat from 'urlcat';
 
 import { createNextIndicator, createPageable, type PageIndicator } from '@/helpers/pageable';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData';
-import { fireflySessionHolder } from '@/providers/fireflySessionHolder';
+import { getFireflyEndpoint } from '@/store/fireflyEndpoint';
 import type { FireflyResponse } from '@/types/firefly';
 
 interface Options {
@@ -11,9 +11,9 @@ interface Options {
 }
 
 export async function getFavorites({ limit = 20, indicator }: Options) {
-    const response = await fireflySessionHolder.fetchWithSession<
+    const response = await getFireflyEndpoint().fetchWithSession<
         FireflyResponse<{
-            list: string[];
+            list: Array<{ name: string }>;
             cursor: number | null;
         }>
     >(

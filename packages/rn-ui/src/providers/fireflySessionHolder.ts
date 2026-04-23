@@ -1,19 +1,24 @@
 import urlcat from 'urlcat';
 
-import { FIREFLY_ROOT_URL_DEV } from '@/constants/static';
+import { FIREFLY_ROOT_URL } from '@/constants/static';
 import type { NextFetchersOptions } from '@/helpers/fetch';
 import { fetchJson } from '@/helpers/fetchJson';
 
-class FireflySessionHolder {
-    private _authToken: string | null = null;
-    private _baseUrl = FIREFLY_ROOT_URL_DEV;
+export class FireflySessionHolder {
+    public readonly token?: string;
+    public readonly baseUrl?: string;
 
-    setAuthToken(token: string | null) {
-        this._authToken = token;
+    constructor(token?: string, baseUrl?: string) {
+        this.token = token;
+        this.baseUrl = baseUrl;
     }
 
-    setBaseUrl(url: string) {
-        this._baseUrl = url;
+    get _authToken() {
+        return this.token;
+    }
+
+    get _baseUrl() {
+        return this.baseUrl || FIREFLY_ROOT_URL;
     }
 
     async fetchWithSession<T>(url: string, init?: RequestInit, options?: NextFetchersOptions) {
@@ -38,5 +43,3 @@ class FireflySessionHolder {
         return this.fetchWithoutSession<T>(url, init, options);
     }
 }
-
-export const fireflySessionHolder = new FireflySessionHolder();

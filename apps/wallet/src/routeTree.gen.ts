@@ -14,6 +14,7 @@ import { Route as SendRouteImport } from './routes/send'
 import { Route as DevRouteImport } from './routes/dev'
 import { Route as BetRouteImport } from './routes/bet'
 import { Route as HomeRouteImport } from './routes/_home'
+import { Route as TestIndexRouteImport } from './routes/test.index'
 import { Route as SwapIndexRouteImport } from './routes/swap.index'
 import { Route as SendIndexRouteImport } from './routes/send.index'
 import { Route as HomeIndexRouteImport } from './routes/_home.index'
@@ -64,6 +65,11 @@ const BetRoute = BetRouteImport.update({
 } as any)
 const HomeRoute = HomeRouteImport.update({
   id: '/_home',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TestIndexRoute = TestIndexRouteImport.update({
+  id: '/test/',
+  path: '/test/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SwapIndexRoute = SwapIndexRouteImport.update({
@@ -223,6 +229,7 @@ export interface FileRoutesByFullPath {
   '/swap/select-token': typeof SwapSelectTokenRoute
   '/send/': typeof SendIndexRoute
   '/swap/': typeof SwapIndexRoute
+  '/test/': typeof TestIndexRoute
   '/api/polymarket-clob/$': typeof ApiPolymarketClobSplatRoute
   '/api/polymarket-data/$': typeof ApiPolymarketDataSplatRoute
   '/api/polymarket/$': typeof ApiPolymarketSplatRoute
@@ -253,6 +260,7 @@ export interface FileRoutesByTo {
   '/': typeof HomeIndexRoute
   '/send': typeof SendIndexRoute
   '/swap': typeof SwapIndexRoute
+  '/test': typeof TestIndexRoute
   '/api/polymarket-clob/$': typeof ApiPolymarketClobSplatRoute
   '/api/polymarket-data/$': typeof ApiPolymarketDataSplatRoute
   '/api/polymarket/$': typeof ApiPolymarketSplatRoute
@@ -287,6 +295,7 @@ export interface FileRoutesById {
   '/_home/': typeof HomeIndexRoute
   '/send/': typeof SendIndexRoute
   '/swap/': typeof SwapIndexRoute
+  '/test/': typeof TestIndexRoute
   '/api/polymarket-clob/$': typeof ApiPolymarketClobSplatRoute
   '/api/polymarket-data/$': typeof ApiPolymarketDataSplatRoute
   '/api/polymarket/$': typeof ApiPolymarketSplatRoute
@@ -321,6 +330,7 @@ export interface FileRouteTypes {
     | '/swap/select-token'
     | '/send/'
     | '/swap/'
+    | '/test/'
     | '/api/polymarket-clob/$'
     | '/api/polymarket-data/$'
     | '/api/polymarket/$'
@@ -351,6 +361,7 @@ export interface FileRouteTypes {
     | '/'
     | '/send'
     | '/swap'
+    | '/test'
     | '/api/polymarket-clob/$'
     | '/api/polymarket-data/$'
     | '/api/polymarket/$'
@@ -384,6 +395,7 @@ export interface FileRouteTypes {
     | '/_home/'
     | '/send/'
     | '/swap/'
+    | '/test/'
     | '/api/polymarket-clob/$'
     | '/api/polymarket-data/$'
     | '/api/polymarket/$'
@@ -401,6 +413,7 @@ export interface RootRouteChildren {
   DevRoute: typeof DevRouteWithChildren
   SendRoute: typeof SendRouteWithChildren
   SwapRoute: typeof SwapRouteWithChildren
+  TestIndexRoute: typeof TestIndexRoute
   ApiPolymarketClobSplatRoute: typeof ApiPolymarketClobSplatRoute
   ApiPolymarketDataSplatRoute: typeof ApiPolymarketDataSplatRoute
   ApiPolymarketSplatRoute: typeof ApiPolymarketSplatRoute
@@ -441,6 +454,13 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: '/'
       preLoaderRoute: typeof HomeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/test/': {
+      id: '/test/'
+      path: '/test'
+      fullPath: '/test/'
+      preLoaderRoute: typeof TestIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/swap/': {
@@ -738,6 +758,7 @@ const rootRouteChildren: RootRouteChildren = {
   DevRoute: DevRouteWithChildren,
   SendRoute: SendRouteWithChildren,
   SwapRoute: SwapRouteWithChildren,
+  TestIndexRoute: TestIndexRoute,
   ApiPolymarketClobSplatRoute: ApiPolymarketClobSplatRoute,
   ApiPolymarketDataSplatRoute: ApiPolymarketDataSplatRoute,
   ApiPolymarketSplatRoute: ApiPolymarketSplatRoute,

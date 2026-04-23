@@ -1,38 +1,21 @@
-import type { MarginTableResponse } from '@nktkas/hyperliquid';
+import type { ClearinghouseStateResponse, MarginTableResponse } from '@nktkas/hyperliquid';
+import type { AbstractViemJsonRpcAccount } from '@nktkas/hyperliquid/signing';
+import type { ReactNode } from 'react';
 
 export interface SvgIconProps {
     width?: number;
     height?: number;
     stroke?: string;
+    size?: number;
 }
 
 export type PerpsMarketTab = 'favorites' | 'perps' | 'crypto' | 'stocks' | 'commodities';
 
 export type PerpsMarketSort = 'volume' | 'priceChange' | 'openInterest';
 
-export interface PerpsMarketTabItem {
-    label: string;
-    value: PerpsMarketTab;
-}
-
 export interface PerpsMarketSortItem {
     label: string;
     value: PerpsMarketSort;
-}
-
-export interface PerpsMarketItem {
-    id: string;
-    symbol: string;
-    leverage: string;
-    volumeLabel: string;
-    volumeValue: number;
-    priceLabel: string;
-    priceChangeLabel: string;
-    priceChangeValue: number;
-    openInterestLabel: string;
-    openInterestValue: number;
-    category: Exclude<PerpsMarketTab, 'favorites'>;
-    favorite?: boolean;
 }
 
 export type TradesHistoryTab = 'trading' | 'account';
@@ -56,96 +39,15 @@ export interface AccountHistoryItem {
     amount: string;
 }
 
-export interface PerpsDetailMarketMetaItem {
-    label: string;
-    value: string;
-}
-
-export interface PerpsDetailTicker {
-    symbol: string;
-    leverage: string;
-    marketType: string;
-    lastPriceLabel: string;
-    usdPriceLabel: string;
-    priceChangeLabel: string;
-    markPriceLabel: string;
-    stats: PerpsDetailMarketMetaItem[];
-}
-
-export interface PerpsOrderBookLevel {
-    id: string;
-    buyAmountLabel: string;
-    buyPriceLabel: string;
-    buyDepthRatio: number;
-    sellPriceLabel: string;
-    sellAmountLabel: string;
-    sellDepthRatio: number;
-}
-
-export interface PerpsOrderBookPanel {
-    buyLabel: string;
-    sellLabel: string;
-    unitLabel: string;
-    levels: PerpsOrderBookLevel[];
-}
-
-export interface PerpsDetailActionButton {
-    label: string;
-    tone: 'buy' | 'sell';
-}
-
-export interface PerpsDetailPageData {
-    ticker: PerpsDetailTicker;
-    orderBook: PerpsOrderBookPanel;
-    actions: PerpsDetailActionButton[];
-}
-
 // ── PerpsTradeDetail ──
 
 export type PerpsTradeMarginMode = 'cross' | 'isolated';
-export type PerpsTradeOrderType = 'market' | 'limit';
 export type PerpsTradeDirection = 'buy' | 'sell';
 
-export interface PerpsTradeDetailTicker {
-    symbol: string;
-    leverage: string;
-    marketType: string;
-    priceChangeLabel: string;
-    priceChangeValue: number;
-    fundingRate: string;
-    countdown: string;
-}
-
 export interface PerpsTradeOrderBookEntry {
-    price: string;
-    amount: string;
-    depthRatio: number;
-}
-
-export interface PerpsTradeOrderBook {
-    asks: PerpsTradeOrderBookEntry[];
-    bids: PerpsTradeOrderBookEntry[];
-    lastPrice: string;
-    lastPriceUsd: string;
-    markPrice: string;
-}
-
-export interface PerpsTradeFormState {
-    marginMode: PerpsTradeMarginMode;
-    leverage: string;
-    orderType: PerpsTradeOrderType;
-    amount: string;
-    available: string;
-    reduceOnly: boolean;
-    tpSlEnabled: boolean;
-    sliderValue: number;
-    buy: PerpsTradeEstimate;
-    sell: PerpsTradeEstimate;
-}
-
-export interface PerpsTradeEstimate {
-    estLiqPrice: string;
-    cost: string;
+    px: string;
+    sz: string;
+    ratio: number;
 }
 
 export interface PerpsPositionItem {
@@ -167,31 +69,6 @@ export interface PerpsPositionItem {
     liqPrice: string;
     tpPrice: string;
     slPrice: string;
-}
-
-export interface PerpsTradeDetailPageData {
-    ticker: PerpsTradeDetailTicker;
-    orderBook: PerpsTradeOrderBook;
-    tradeForm: PerpsTradeFormState;
-    positions: PerpsPositionItem[];
-    openOrders: PerpsOpenOrderItem[];
-    openOrdersCount: number;
-}
-
-export interface PerpsOpenOrderItem {
-    id: string;
-    symbol: string;
-    orderTypeLabel: string;
-    side: 'buy' | 'sell';
-    leverageLabel?: string;
-    size: string;
-    filled: string;
-    orderPrice: string;
-    tpSl?: string;
-    triggerCondition?: string;
-    unfilledSize?: string;
-    createdAt: string;
-    priceLabel?: string;
 }
 
 // ── ClosePositionSheet ──
@@ -233,88 +110,6 @@ export interface AddToPositionResult {
     message: string;
 }
 
-// ── MarginModeSheet ──
-
-export interface MarginModeSheetOption {
-    mode: PerpsTradeMarginMode;
-    title: string;
-    description: string;
-}
-
-export interface MarginModeSheetData {
-    currentMode: PerpsTradeMarginMode;
-    options: MarginModeSheetOption[];
-}
-
-export interface MarginModeSheetQuery {
-    market: string;
-    currentMode: PerpsTradeMarginMode;
-}
-
-export interface SubmitMarginModeInput {
-    market: string;
-    mode: PerpsTradeMarginMode;
-}
-
-export interface SubmitMarginModeResult {
-    success: boolean;
-    message: string;
-    mode: PerpsTradeMarginMode;
-}
-
-// ── LeverageSheet ──
-
-export interface LeverageSheetData {
-    symbol: string;
-    currentLeverage: number;
-    minLeverage: number;
-    maxLeverage: number;
-    step: number;
-    notes: string[];
-}
-
-export interface LeverageSheetQuery {
-    market: string;
-    currentLeverage: number;
-}
-
-export interface SubmitLeverageInput {
-    market: string;
-    leverage: number;
-}
-
-export interface SubmitLeverageResult {
-    success: boolean;
-    message: string;
-    leverage: number;
-}
-
-// ── OrderTypeSheet ──
-
-export interface OrderTypeSheetData {
-    currentType: PerpsTradeOrderType;
-    options: Array<{
-        value: PerpsTradeOrderType;
-        label: string;
-    }>;
-}
-
-export interface OrderTypeSheetQuery {
-    market: string;
-    currentType: PerpsTradeOrderType;
-}
-
-export interface SubmitOrderTypeInput {
-    market: string;
-    orderType: PerpsTradeOrderType;
-}
-
-export interface SubmitOrderTypeResult {
-    success: boolean;
-    message: string;
-    orderType: PerpsTradeOrderType;
-}
-
 // ── TpSlSheet ──
 
 export type TpSlValueType = 'percent';
@@ -332,11 +127,6 @@ export interface TpSlSheetData {
     slType: TpSlValueType;
 }
 
-export interface TpSlSheetQuery {
-    market: string;
-    positionId: string;
-}
-
 export interface SubmitTpSlInput {
     market: string;
     positionId: string;
@@ -349,39 +139,6 @@ export interface SubmitTpSlInput {
 export interface SubmitTpSlResult {
     success: boolean;
     message: string;
-}
-
-// ── AccountAmountSheet ──
-
-export type AccountAmountActionType = 'withdraw' | 'addFunds';
-
-export interface AccountAmountSheetAction {
-    type: AccountAmountActionType;
-    label: string;
-}
-
-export interface AccountAmountSheetData {
-    title: string;
-    totalBalanceWhole: string;
-    totalBalanceFraction: string;
-    availableLabel: string;
-    actions: AccountAmountSheetAction[];
-}
-
-export interface AccountAmountSheetQuery {
-    market: string;
-    available: string;
-}
-
-export interface SubmitAccountAmountActionInput {
-    market: string;
-    action: AccountAmountActionType;
-}
-
-export interface SubmitAccountAmountActionResult {
-    success: boolean;
-    message: string;
-    action: AccountAmountActionType;
 }
 
 export interface PerpsMeta {
@@ -399,4 +156,84 @@ export interface PerpsMeta {
     avatar?: string;
     priceChangeValue?: number;
     dex?: string;
+    dayNtlVlm?: string;
+    priceDiff?: number;
+    priceDiffRatio?: number;
 }
+
+export interface PerpAssetCtxSchema {
+    prevDayPx: string;
+    dayNtlVlm: string;
+    markPx: string;
+    midPx: string | null;
+    funding: string;
+    openInterest: string;
+    premium: string | null;
+    oraclePx: string;
+    impactPxs: string[] | null;
+    dayBaseVlm: string;
+}
+
+export type CoinInfo = PerpsMeta & {
+    marginTable?: MarginTableResponse;
+    assetCtx?: PerpAssetCtxSchema;
+    index: number;
+};
+
+export interface L2BookLevel {
+    px: string;
+    sz: string;
+    n: number;
+}
+
+export interface L2BookEvent {
+    coin: string;
+    time: number;
+    levels: [bids: L2BookLevel[], asks: L2BookLevel[]];
+    spread?: string;
+}
+
+export type WalletClient = AbstractViemJsonRpcAccount;
+
+export interface CommonQueryOptions {
+    enabled?: boolean;
+    refetchInterval?: number | false;
+}
+
+export type ToastFn = (options: {
+    message: ReactNode;
+    type: 'success' | 'error' | 'info';
+    duration?: number;
+    error?: unknown;
+}) => void;
+
+export type ComputeMethod = 'ratio' | 'usd';
+export type SizeInputType = 'amount' | 'usd';
+export type OrderSafeType = 'reduceOnly' | 'tpSl';
+
+export interface OpenOrder {
+    coin: string;
+    side: 'B' | 'A';
+    limitPx: string;
+    sz: string;
+    oid: number;
+    timestamp: number;
+    origSz: string;
+    triggerCondition: string;
+    isTrigger: boolean;
+    triggerPx: string;
+    children: OpenOrder[];
+    isPositionTpsl: boolean;
+    reduceOnly: boolean;
+    orderType: 'Market' | 'Limit' | 'Stop Market' | 'Stop Limit' | 'Take Profit Market' | 'Take Profit Limit';
+    tif: 'Gtc' | 'Ioc' | 'Alo' | 'FrontendMarket' | 'LiquidationMarket' | null;
+    cloid: `0x${string}` | null;
+}
+export type Position = ClearinghouseStateResponse['assetPositions'][number]['position'];
+
+type PagePath = 'trade' | 'details' | 'history' | '__parent__' | 'withdraw' | 'addFunds';
+
+export type NavigateFunc = <T extends PagePath>(
+    to: T,
+    options: T extends 'trade' ? { coin: string } : T extends 'details' ? { coin: string } : {},
+) => void;

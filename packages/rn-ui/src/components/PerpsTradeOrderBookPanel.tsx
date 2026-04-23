@@ -1,14 +1,26 @@
+import { useAtomValue } from 'jotai';
 import { memo } from 'react';
 import { Path, Svg } from 'react-native-svg';
 import { Button, Text, XStack, YStack } from 'tamagui';
 
-import type { PerpsTradeOrderBook, PerpsTradeOrderBookEntry } from '@/types/ui';
+import { OrderBookStepPopover } from '@/components/OrderBookStepPopover';
+import { formatCoinName } from '@/helpers/formatCoinName';
+import { useCountdown } from '@/hooks/Perps/useCountdown';
+import { useOrderBook } from '@/hooks/Perps/useOrderBook';
+import { useOrderBookSteps } from '@/hooks/Perps/useOrderBookSteps';
+import { orderBookStepIndexAtom } from '@/store/global';
+import { coinNameAtom, orderSafeTypeAtom } from '@/store/tradeForm';
+import type { L2BookLevel } from '@/types/ui';
 
 interface PerpsTradeOrderBookPanelProps {
-    orderBook: PerpsTradeOrderBook;
     fundingRate: string;
-    countdown: string;
+    midPrice: string;
+    szDecimals: number;
 }
+type PerpsTradeOrderBookEntry = L2BookLevel & {
+    ratio: number;
+    cumulativeSz: string;
+};
 
 function ChevronDownSmallIcon() {
     return (
@@ -25,7 +37,7 @@ function ChevronDownSmallIcon() {
 }
 
 function AskRow({ entry }: { entry: PerpsTradeOrderBookEntry }) {
-    const barWidth = `${Math.max(4, entry.depthRatio * 100)}%`;
+    const barWidth = `${Math.max(4, entry.ratio * 100)}%`;
 
     return (
         <XStack height={24} alignItems="center" width="100%" gap={4}>
@@ -39,12 +51,12 @@ function AskRow({ entry }: { entry: PerpsTradeOrderBookEntry }) {
                     backgroundColor="rgba(255, 230, 228, 0.88)"
                 />
                 <Text color="#FF564D" fontSize={12} lineHeight={14} fontWeight={500} zIndex={1}>
-                    {entry.price}
+                    {entry.px}
                 </Text>
             </XStack>
             <XStack flex={1} alignItems="center" justifyContent="flex-end" paddingVertical={5}>
                 <Text color="#171717" fontSize={12} lineHeight={14} fontWeight={500}>
-                    {entry.amount}
+                    {entry.sz}
                 </Text>
             </XStack>
         </XStack>
@@ -52,7 +64,7 @@ function AskRow({ entry }: { entry: PerpsTradeOrderBookEntry }) {
 }
 
 function BidRow({ entry }: { entry: PerpsTradeOrderBookEntry }) {
-    const barWidth = `${Math.max(4, entry.depthRatio * 100)}%`;
+    const barWidth = `${Math.max(4, entry.ratio * 100)}%`;
 
     return (
         <XStack height={24} alignItems="center" width="100%" gap={4}>
@@ -66,12 +78,12 @@ function BidRow({ entry }: { entry: PerpsTradeOrderBookEntry }) {
                     backgroundColor="rgba(220, 241, 217, 0.88)"
                 />
                 <Text color="#48AD3C" fontSize={12} lineHeight={14} fontWeight={500} zIndex={1}>
-                    {entry.price}
+                    {entry.px}
                 </Text>
             </XStack>
             <XStack flex={1} alignItems="center" justifyContent="flex-end" paddingVertical={5}>
                 <Text color="#171717" fontSize={12} lineHeight={14} fontWeight={500}>
-                    {entry.amount}
+                    {entry.cumulativeSz}
                 </Text>
             </XStack>
         </XStack>
@@ -79,10 +91,23 @@ function BidRow({ entry }: { entry: PerpsTradeOrderBookEntry }) {
 }
 
 export const PerpsTradeOrderBookPanel = memo<PerpsTradeOrderBookPanelProps>(function PerpsTradeOrderBookPanel({
-    orderBook,
     fundingRate,
-    countdown,
+    midPrice,
+    szDecimals,
 }) {
+    const coinName = useAtomValue(coinNameAtom);
+    const safeType = useAtomValue(orderSafeTypeAtom);
+    const stepIndex = useAtomValue(orderBookStepIndexAtom);
+
+    const { asks, bids } = useOrderBook(coinName, safeType === 'reduceOnly' ? 7 : 9, stepIndex);
+    const countdown = useCountdown();
+
+    const steps = useOrderBookSteps(midPrice, szDecimals);
+
+    if (!asks.length && !bids.length) {
+        return null;
+    }
+
     return (
         <YStack width="100%" justifyContent="space-between" alignSelf="stretch">
             <YStack gap={4}>
@@ -112,13 +137,13 @@ export const PerpsTradeOrderBookPanel = memo<PerpsTradeOrderBookPanelProps>(func
                         </Text>
                     </YStack>
                     <Text flex={1} color="rgba(70, 70, 70, 0.8)" fontSize={12} lineHeight={14} textAlign="right">
-                        {'Amount\n(USDC)'}
+                        {`Amount\n(${formatCoinName(coinName)})`}
                     </Text>
                 </XStack>
 
                 {/* Asks (Sell orders) */}
                 <YStack>
-                    {orderBook.asks.map((entry, index) => (
+                    {asks.map((entry, index) => (
                         <AskRow key={`ask-${index}`} entry={entry} />
                     ))}
                 </YStack>
@@ -127,39 +152,41 @@ export const PerpsTradeOrderBookPanel = memo<PerpsTradeOrderBookPanelProps>(func
             {/* Last Price */}
             <YStack alignItems="flex-start" justifyContent="center">
                 <Text color="#FF564D" fontSize={16} lineHeight={24} fontWeight={600}>
-                    {orderBook.lastPrice}
+                    {midPrice || '-'}
                 </Text>
-                <Text color="rgba(70, 70, 70, 0.8)" fontSize={12} lineHeight={14}>
-                    {orderBook.lastPriceUsd}
-                </Text>
+                {/* <Text color="rgba(70, 70, 70, 0.8)" fontSize={12} lineHeight={14}>
+                    {'123.45 USDC'}
+                </Text> */}
             </YStack>
 
             {/* Bids (Buy orders) + precision selector */}
             <YStack gap={4}>
                 <YStack>
-                    {orderBook.bids.map((entry, index) => (
+                    {bids.map((entry, index) => (
                         <BidRow key={`bid-${index}`} entry={entry} />
                     ))}
                 </YStack>
 
                 {/* Precision selector */}
-                <Button
-                    unstyled
-                    backgroundColor="#F8F7F9"
-                    borderRadius={4}
-                    height={24}
-                    paddingHorizontal={8}
-                    paddingVertical={4}
-                    flexDirection="row"
-                    alignItems="center"
-                    justifyContent="space-between"
-                    width="100%"
-                >
-                    <Text color="#171717" fontSize={12} lineHeight={14} fontWeight={500}>
-                        1
-                    </Text>
-                    <ChevronDownSmallIcon />
-                </Button>
+                <OrderBookStepPopover midPrice={midPrice} szDecimals={szDecimals}>
+                    <Button
+                        unstyled
+                        backgroundColor="#F8F7F9"
+                        borderRadius={4}
+                        height={24}
+                        paddingHorizontal={8}
+                        paddingVertical={4}
+                        flexDirection="row"
+                        alignItems="center"
+                        justifyContent="space-between"
+                        width="100%"
+                    >
+                        <Text color="#171717" fontSize={12} lineHeight={14} fontWeight={500}>
+                            {steps[stepIndex] ?? '-'}
+                        </Text>
+                        <ChevronDownSmallIcon />
+                    </Button>
+                </OrderBookStepPopover>
             </YStack>
         </YStack>
     );

@@ -1,131 +1,89 @@
-import { memo, useCallback, useEffect, useMemo, useState } from 'react';
+import { useAtomValue, useSetAtom } from 'jotai';
+import { memo, useCallback, useEffect, useMemo } from 'react';
 import { ScrollView, XStack, YStack } from 'tamagui';
 
 import { PerpsTradeDetailHeader } from '@/components/PerpsTradeDetailHeader';
-import { PerpsTradeDetailPositionsSection } from '@/components/PerpsTradeDetailPositionsSection';
-import { PerpsTradeForm } from '@/components/PerpsTradeForm';
 import { PerpsTradeOrderBookPanel } from '@/components/PerpsTradeOrderBookPanel';
-import { loadPerpsTradeDetailPage } from '@/services/perpsTradeDetail';
+import { TradeDetailTabs } from '@/components/TradeDetailTabs/index';
+import { PerpsTradeForm } from '@/components/TradeForm/index';
+import { formatFundingRate } from '@/helpers/formatFundingRate';
+import { useCoinInfo } from '@/hooks/Perps/useCoinInfo';
 import { PerpsTradeDetailSkeleton } from '@/skeletons/PerpsTradeDetailSkeleton';
-import type {
-    FetchAddToPositionSheet,
-    FetchLeverageSheet,
-    FetchMarginModeSheet,
-    FetchOrderTypeSheet,
-    FetchPerpsTradeDetailPage,
-    FetchTpSlSheet,
-    SubmitAddToPosition,
-    SubmitLeverageChange,
-    SubmitMarginModeChange,
-    SubmitOrderTypeChange,
-    SubmitTpSl,
-} from '@/types/services';
-import type { AccountAmountActionType, PerpsTradeDetailPageData } from '@/types/ui';
+import {
+    coinIndexAtom,
+    coinNameAtom,
+    marketPriceAtom,
+    midPriceAtom,
+    setCoinNameAtom,
+    sizeDecimalAtom,
+} from '@/store/tradeForm';
+import type { SubmitAddToPosition, SubmitTpSl } from '@/types/services';
+import type { PerpsMeta } from '@/types/ui';
 
 export interface PerpsTradeDetailProps {
-    market?: string;
-    fetchPerpsTradeDetailPage?: FetchPerpsTradeDetailPage;
-    fetchAddToPositionSheet?: FetchAddToPositionSheet;
     submitAddPosition?: SubmitAddToPosition;
-    fetchLeverageSheet?: FetchLeverageSheet;
-    submitLeverage?: SubmitLeverageChange;
-    fetchMarginModeSheet?: FetchMarginModeSheet;
-    submitMarginMode?: SubmitMarginModeChange;
-    fetchOrderTypeSheet?: FetchOrderTypeSheet;
-    submitOrderType?: SubmitOrderTypeChange;
-    fetchTpSlSheet?: FetchTpSlSheet;
     submitTpSlValue?: SubmitTpSl;
-    onBack?: () => void;
-    onGoDetail?: (market: string) => void;
-    onGoHistory?: () => void;
-    onAccountAmountAction?: (actionType: AccountAmountActionType) => void;
+    coin?: string;
 }
 
 export const PerpsTradeDetail = memo<PerpsTradeDetailProps>(function PerpsTradeDetail({
-    market = 'BTCUSDC',
-    fetchPerpsTradeDetailPage,
-    fetchAddToPositionSheet,
     submitAddPosition,
-    fetchLeverageSheet,
-    submitLeverage,
-    fetchMarginModeSheet,
-    submitMarginMode,
-    fetchOrderTypeSheet,
-    submitOrderType,
-    fetchTpSlSheet,
     submitTpSlValue,
-    onBack,
-    onGoDetail,
-    onGoHistory,
-    onAccountAmountAction,
+    coin,
 }) {
-    const [loading, setLoading] = useState(true);
-    const [pageData, setPageData] = useState<PerpsTradeDetailPageData | null>(null);
+    const coinName = useAtomValue(coinNameAtom);
+    const setMarketPrice = useSetAtom(marketPriceAtom);
+    const setMidPrice = useSetAtom(midPriceAtom);
+    const setSizeDecimal = useSetAtom(sizeDecimalAtom);
+    const setCoinName = useSetAtom(setCoinNameAtom);
+    const setCoinIndex = useSetAtom(coinIndexAtom);
 
-    const loadData = useMemo(() => {
-        return fetchPerpsTradeDetailPage ?? loadPerpsTradeDetailPage;
-    }, [fetchPerpsTradeDetailPage]);
+    const { data: coinInfo, isLoading: isCoinInfoLoading } = useCoinInfo(coinName);
 
-    const handleTradeFormChange = useCallback(
-        (patch: Partial<Pick<PerpsTradeDetailPageData['tradeForm'], 'marginMode' | 'leverage' | 'orderType'>>) => {
-            setPageData((prev) => {
-                if (!prev) return prev;
-                return {
-                    ...prev,
-                    tradeForm: {
-                        ...prev.tradeForm,
-                        ...patch,
-                    },
-                };
-            });
+    // TODO: Max leverage is determined by coin info and user balance
+    const maxLeverage = useMemo(() => {
+        if (!coinInfo?.maxLeverage) return 1;
+
+        return coinInfo.maxLeverage;
+    }, [coinInfo?.maxLeverage]);
+
+    const onCoinChange = useCallback(
+        (meta: PerpsMeta) => {
+            setCoinName(meta.name);
         },
-        [],
+        [setCoinName],
     );
 
-    const handleGoDetail = useCallback(() => {
-        if (pageData) {
-            onGoDetail?.(pageData.ticker.symbol);
-        }
-    }, [onGoDetail, pageData]);
-
     useEffect(() => {
-        let cancelled = false;
+        if (!coinInfo?.assetCtx) {
+            setMarketPrice('0');
+            setMidPrice('0');
+            return;
+        }
 
-        const run = async () => {
-            setLoading(true);
+        const marketPrice = coinInfo.assetCtx.markPx || '0';
+        setMarketPrice(marketPrice);
+        setMidPrice(coinInfo.assetCtx.midPx || marketPrice);
+    }, [coinInfo?.assetCtx, setMarketPrice, setMidPrice]);
+    useEffect(() => {
+        setSizeDecimal(coinInfo?.szDecimals || 1);
+    }, [coinInfo?.szDecimals, setSizeDecimal]);
+    useEffect(() => {
+        setCoinIndex(coinInfo?.index ?? null);
+    }, [coinInfo?.index, setCoinIndex]);
+    useEffect(() => {
+        if (coin) {
+            setCoinName(coin);
+        }
+    }, [coin, setCoinName]);
 
-            try {
-                const response = await loadData({ market });
-                if (!cancelled) {
-                    setPageData(response.data);
-                }
-            } finally {
-                if (!cancelled) {
-                    setLoading(false);
-                }
-            }
-        };
-
-        run();
-
-        return () => {
-            cancelled = true;
-        };
-    }, [loadData, market]);
-
-    if (loading || !pageData) {
+    if (isCoinInfoLoading || !coinInfo) {
         return <PerpsTradeDetailSkeleton />;
     }
 
     return (
-        <YStack height="100%" minHeight={0} backgroundColor="#FFFFFF">
-            <PerpsTradeDetailHeader
-                available={pageData.tradeForm.available}
-                ticker={pageData.ticker}
-                onBack={onBack}
-                onSettingsPress={handleGoDetail}
-                onAccountAmountAction={onAccountAmountAction}
-            />
+        <YStack fullscreen minHeight={0} backgroundColor="#FFFFFF">
+            <PerpsTradeDetailHeader available={'0'} coin={coinInfo} onTokenSelect={onCoinChange} />
 
             <ScrollView flex={1} minHeight={0} showsVerticalScrollIndicator={false}>
                 <YStack gap={12}>
@@ -133,38 +91,26 @@ export const PerpsTradeDetail = memo<PerpsTradeDetailProps>(function PerpsTradeD
                     <XStack paddingHorizontal={12} gap={8} alignItems="flex-start" justifyContent="center">
                         <XStack flex={3} flexBasis="0%">
                             <PerpsTradeOrderBookPanel
-                                orderBook={pageData.orderBook}
-                                fundingRate={pageData.ticker.fundingRate}
-                                countdown={pageData.ticker.countdown}
+                                fundingRate={
+                                    coinInfo.assetCtx?.funding ? formatFundingRate(coinInfo.assetCtx.funding) : '-'
+                                }
+                                midPrice={coinInfo.assetCtx?.midPx || coinInfo.assetCtx?.markPx || '0'}
+                                szDecimals={coinInfo.szDecimals}
                             />
                         </XStack>
                         <XStack flex={4} flexBasis="0%">
                             <PerpsTradeForm
-                                market={market}
-                                tradeForm={pageData.tradeForm}
-                                fetchLeverageSheet={fetchLeverageSheet}
-                                submitLeverage={submitLeverage}
-                                fetchMarginModeSheet={fetchMarginModeSheet}
-                                submitMarginMode={submitMarginMode}
-                                fetchOrderTypeSheet={fetchOrderTypeSheet}
-                                submitOrderType={submitOrderType}
-                                onTradeFormChange={handleTradeFormChange}
+                                marginMode={coinInfo.marginMode}
+                                maxLeverage={maxLeverage}
+                                coinIndex={coinInfo.index}
                             />
                         </XStack>
                     </XStack>
 
-                    <PerpsTradeDetailPositionsSection
-                        market={market}
-                        positions={pageData.positions}
-                        openOrders={pageData.openOrders}
-                        openOrdersCount={pageData.openOrdersCount}
-                        lastPrice={pageData.orderBook.lastPrice}
-                        available={pageData.tradeForm.available}
-                        fetchAddToPositionSheet={fetchAddToPositionSheet}
+                    <TradeDetailTabs
+                        market={''}
                         submitAddPosition={submitAddPosition}
-                        fetchTpSlSheet={fetchTpSlSheet}
                         submitTpSlValue={submitTpSlValue}
-                        onHistoryPress={onGoHistory}
                     />
                 </YStack>
             </ScrollView>

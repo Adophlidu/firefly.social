@@ -17,3 +17,22 @@ export const STALE_TIMES = {
     /** Never expire */
     INFINITY: Infinity,
 } as const;
+
+export enum TradeMarginMode {
+    ISOLATED = 'isolated',
+    CROSS = 'cross',
+}
+
+export enum OrderType {
+    MARKET = 'market',
+    LIMIT = 'limit',
+}
+
+export enum UserActionState {
+    CONNECT = 'connect',
+    AGREE_LEGAL = 'agreeLegal',
+    DEPOSIT = 'deposit',
+    APPROVE_AGENT = 'approveAgent',
+    READY = 'ready',
+    DISABLED = 'disabled',
+}

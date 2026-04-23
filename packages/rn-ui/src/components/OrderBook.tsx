@@ -1,24 +1,19 @@
-import type { ISubscription } from '@nktkas/hyperliquid';
-import { memo, useEffect, useMemo, useState } from 'react';
+import { useAtomValue } from 'jotai';
+import { memo, useMemo } from 'react';
 import { Button, Text, XStack, YStack } from 'tamagui';
 
-import { useHyperliquid } from '@/hooks/useHyperliquid';
+import { OrderBookStepPopover } from '@/components/OrderBookStepPopover';
+import { formatCoinName } from '@/helpers/formatCoinName';
+import { useOrderBook } from '@/hooks/Perps/useOrderBook';
+import { useOrderBookSteps } from '@/hooks/Perps/useOrderBookSteps';
+import { SwitchIcon } from '@/icons/SwitchIcon';
+import { orderBookStepIndexAtom } from '@/store/global';
 
 interface OrderBookProps {
     coin: string;
-    buyLabel?: string;
-    sellLabel?: string;
-    unitLabel?: string;
+    szDecimal: number;
+    midPrice: string;
     rows?: number;
-}
-interface OrderBookLevel {
-    px: string;
-    sz: string;
-    n: number;
-}
-
-interface OrderBookData {
-    levels: [OrderBookLevel[], OrderBookLevel[]];
 }
 
 const formatAmount = (value: string | number | undefined) => {
@@ -56,23 +51,12 @@ const formatPrice = (value: string | number | undefined) => {
     });
 };
 
-export const OrderBook = memo<OrderBookProps>(function OrderBook({
-    coin,
-    buyLabel = 'Buy(USDC)',
-    sellLabel = 'Sell(USDC)',
-    unitLabel = '0.1',
-    rows: rowLimit = 12,
-}) {
-    const { subscriptionClient } = useHyperliquid();
-    const [orderBook, setOrderBook] = useState<OrderBookData | null>(null);
+export const OrderBook = memo<OrderBookProps>(function OrderBook({ coin, rows: rowLimit = 15, szDecimal, midPrice }) {
+    const stepIndex = useAtomValue(orderBookStepIndexAtom);
+    const steps = useOrderBookSteps(midPrice, szDecimal);
+    const { asks, bids } = useOrderBook(coin, rowLimit, stepIndex, false);
 
-    const { bids, asks } = useMemo(
-        () => ({
-            bids: orderBook?.levels?.[0] || [],
-            asks: orderBook?.levels?.[1] || [],
-        }),
-        [orderBook],
-    );
+    const coinName = formatCoinName(coin);
 
     const maxRows = rowLimit;
     const rows = useMemo(() => {
@@ -90,47 +74,6 @@ export const OrderBook = memo<OrderBookProps>(function OrderBook({
         });
     }, [asks, bids, coin, maxRows]);
 
-    const [maxBidSize, maxAskSize] = useMemo(() => {
-        const bidMax = bids.reduce((acc, item) => {
-            const current = Number(item.sz || 0);
-            return Number.isFinite(current) ? Math.max(acc, current) : acc;
-        }, 0);
-
-        const askMax = asks.reduce((acc, item) => {
-            const current = Number(item.sz || 0);
-            return Number.isFinite(current) ? Math.max(acc, current) : acc;
-        }, 0);
-
-        return [bidMax || 1, askMax || 1];
-    }, [asks, bids]);
-
-    useEffect(() => {
-        if (!coin) {
-            setOrderBook(null);
-            return;
-        }
-
-        let active = true;
-        let subscription: ISubscription;
-
-        subscriptionClient
-            .l2Book({ coin }, (data) => {
-                if (active) {
-                    setOrderBook(data);
-                }
-            })
-            .then((sub) => {
-                subscription = sub;
-            });
-
-        return () => {
-            active = false;
-            if (subscription) {
-                subscription.unsubscribe();
-            }
-        };
-    }, [subscriptionClient, coin]);
-
     const hasAnyLevel = bids.length > 0 || asks.length > 0;
 
     return (
@@ -143,46 +86,35 @@ export const OrderBook = memo<OrderBookProps>(function OrderBook({
             paddingBottom={10}
             gap={4}
         >
-            <XStack alignItems="center" paddingBottom={2}>
-                <XStack width="50%" minWidth={0} paddingRight={4}>
-                    <Text color="rgba(70, 70, 70, 0.8)" fontSize={12} lineHeight={14}>
-                        {buyLabel}
-                    </Text>
-                </XStack>
+            <XStack alignItems="center" paddingBottom={2} justifyContent="space-between">
+                <Text color="rgba(70, 70, 70, 0.8)" fontSize={12} lineHeight={14}>
+                    Buy({coinName})
+                </Text>
 
-                <Button
-                    unstyled
-                    backgroundColor="#F8F7F9"
-                    borderRadius={96}
-                    height={24}
-                    paddingHorizontal={8}
-                    alignItems="center"
-                    gap={4}
-                    pressStyle={{ opacity: 0.75 }}
-                >
-                    <Text color="#171717" fontSize={12} lineHeight={14} fontWeight={500}>
-                        {unitLabel}
-                    </Text>
+                <OrderBookStepPopover placement="top" midPrice={midPrice} szDecimals={szDecimal}>
+                    <Button
+                        unstyled
+                        backgroundColor="#F8F7F9"
+                        borderRadius={96}
+                        height={22}
+                        paddingHorizontal={8}
+                        alignItems="center"
+                        gap={4}
+                        pressStyle={{ opacity: 0.75 }}
+                    >
+                        <XStack height="100%" alignItems="center" gap={4}>
+                            <Text fontSize={12} fontWeight={500} color="#171717">
+                                {steps[stepIndex] ?? '-'}
+                            </Text>
+                            <SwitchIcon stroke="#171717" />
+                        </XStack>
+                    </Button>
+                </OrderBookStepPopover>
 
-                    <Text color="#171717" fontSize={11} lineHeight={14}>
-                        {'<>'}
-                    </Text>
-                </Button>
-
-                <XStack width="50%" minWidth={0} justifyContent="flex-end" paddingLeft={4}>
-                    <Text color="rgba(70, 70, 70, 0.8)" fontSize={12} lineHeight={14}>
-                        {sellLabel}
-                    </Text>
-                </XStack>
+                <Text color="rgba(70, 70, 70, 0.8)" fontSize={12} lineHeight={14}>
+                    Sell({coinName})
+                </Text>
             </XStack>
-
-            {!coin ? (
-                <XStack justifyContent="center" paddingVertical={10}>
-                    <Text color="rgba(70, 70, 70, 0.6)" fontSize={12} lineHeight={14}>
-                        Select a market to view the order book
-                    </Text>
-                </XStack>
-            ) : null}
 
             {coin && !hasAnyLevel ? (
                 <YStack gap={6} paddingVertical={4}>
@@ -197,15 +129,11 @@ export const OrderBook = memo<OrderBookProps>(function OrderBook({
 
             {coin && hasAnyLevel
                 ? rows.map((row) => {
-                      const bidSize = Number(row.bid?.sz || 0);
-                      const askSize = Number(row.ask?.sz || 0);
-                      const bidRatio = Math.min(1, Math.max(0, bidSize / maxBidSize));
-                      const askRatio = Math.min(1, Math.max(0, askSize / maxAskSize));
-                      const bidWidth = `${Math.max(0.06, bidRatio) * 100}%`;
-                      const askWidth = `${Math.max(0.06, askRatio) * 100}%`;
+                      const bidWidth = `${Math.max(0.06, row.bid?.ratio || 0) * 100}%`;
+                      const askWidth = `${Math.max(0.06, row.ask?.ratio || 0) * 100}%`;
 
-                      const bidAmount = row.bid ? formatAmount(row.bid.sz) : '--';
-                      const askAmount = row.ask ? formatAmount(row.ask.sz) : '--';
+                      const bidAmount = row.bid ? formatAmount(row.bid.cumulativeSz) : '--';
+                      const askAmount = row.ask ? formatAmount(row.ask.cumulativeSz) : '--';
                       const bidPrice = row.bid ? formatPrice(row.bid.px) : '--';
                       const askPrice = row.ask ? formatPrice(row.ask.px) : '--';
 

@@ -1,17 +1,33 @@
-import { memo, useEffect, useMemo, useState } from 'react';
+import { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { Path, Svg } from 'react-native-svg';
 import { Button, Sheet, Text, XStack, YStack } from 'tamagui';
 
-import { MarginModeSheetSkeleton } from '@/skeletons/MarginModeSheetSkeleton';
-import type { MarginModeSheetData, PerpsTradeMarginMode } from '@/types/ui';
+import { WalletActionButton } from '@/components/WalletActionButton';
+import { TradeMarginMode } from '@/constants/enum';
 
 interface MarginModeSheetProps {
     open: boolean;
-    onOpenChange: (open: boolean) => void;
-    data: MarginModeSheetData;
+    mode: TradeMarginMode;
     loading?: boolean;
-    onConfirm?: (mode: PerpsTradeMarginMode) => void;
+    disableCross?: boolean;
+    onOpenChange: (open: boolean) => void;
+    onConfirm?: (mode: TradeMarginMode) => void;
 }
+
+const MODE_OPTIONS = [
+    {
+        mode: TradeMarginMode.CROSS,
+        title: 'Cross',
+        description:
+            'All cross positions share the same cross margin as collateral. In the event of liquidation, your cross margin balance and any remaining open positions under assets in this mode may be forfeited.',
+    },
+    {
+        mode: TradeMarginMode.ISOLATED,
+        title: 'Isolated',
+        description:
+            'Manage your risk on individual positions by restricting the amount of margin allocated to each. lf the margin ratio of an isolated position reaches 100%, the position will be liquidated. Margin can be added or removed to individual positions in this mode.',
+    },
+];
 
 function SelectedIcon() {
     return (
@@ -71,7 +87,7 @@ function OptionCard({
                         {title}
                     </Text>
                 </XStack>
-                <Text color="rgba(70, 70, 70, 0.8)" fontSize={13} lineHeight={17} fontWeight={500}>
+                <Text color="rgba(70, 70, 70, 0.8)" textAlign="left" fontSize={13} lineHeight={17} fontWeight={500}>
                     {description}
                 </Text>
             </YStack>
@@ -81,21 +97,28 @@ function OptionCard({
 
 export const MarginModeSheet = memo<MarginModeSheetProps>(function MarginModeSheet({
     open,
+    mode,
+    loading,
+    disableCross,
     onOpenChange,
-    data,
-    loading = false,
     onConfirm,
 }) {
     const [position, setPosition] = useState(0);
-    const [selectedMode, setSelectedMode] = useState<PerpsTradeMarginMode>(data.currentMode);
+    const [selectedMode, setSelectedMode] = useState<TradeMarginMode>(mode);
 
     useEffect(() => {
-        setSelectedMode(data.currentMode);
-    }, [data.currentMode, open]);
+        setSelectedMode(mode);
+    }, [mode, open]);
 
-    const selectedOption = useMemo(
-        () => data.options.find((option) => option.mode === selectedMode) ?? data.options[0],
-        [data.options, selectedMode],
+    const handleChange = useCallback(() => {
+        if (loading) return;
+
+        onConfirm?.(selectedMode);
+    }, [loading, selectedMode, onConfirm]);
+
+    const options = useMemo(
+        () => (disableCross ? MODE_OPTIONS.filter((option) => option.mode !== TradeMarginMode.CROSS) : MODE_OPTIONS),
+        [disableCross],
     );
 
     return (
@@ -130,49 +153,40 @@ export const MarginModeSheet = memo<MarginModeSheetProps>(function MarginModeShe
                 paddingBottom={16}
                 paddingHorizontal={16}
                 gap={16}
-                minHeight={410}
             >
                 <Sheet.Handle width={48} height={4} borderRadius={100} backgroundColor="#D1D1D1" marginBottom={0} />
 
-                {loading ? (
-                    <MarginModeSheetSkeleton />
-                ) : (
-                    <>
-                        <Text color="#171717" fontSize={20} lineHeight={24} fontWeight={700} fontFamily="$body">
-                            Margin Mode
-                        </Text>
+                <Text color="#171717" fontSize={20} lineHeight={24} fontWeight={700} fontFamily="$body">
+                    Margin Mode
+                </Text>
 
-                        <YStack gap={12}>
-                            {data.options.map((option) => (
-                                <OptionCard
-                                    key={option.mode}
-                                    selected={selectedMode === option.mode}
-                                    title={option.title}
-                                    description={option.description}
-                                    onPress={() => setSelectedMode(option.mode)}
-                                />
-                            ))}
-                        </YStack>
+                <YStack gap={12}>
+                    {options.map((option) => (
+                        <OptionCard
+                            key={option.mode}
+                            selected={selectedMode === option.mode}
+                            title={option.title}
+                            description={option.description}
+                            onPress={() => setSelectedMode(option.mode)}
+                        />
+                    ))}
+                </YStack>
 
-                        <Button
-                            unstyled
-                            height={48}
-                            borderRadius={96}
-                            backgroundColor="#171717"
-                            alignItems="center"
-                            justifyContent="center"
-                            pressStyle={{ opacity: 0.9 }}
-                            onPress={() => {
-                                onConfirm?.(selectedOption?.mode ?? selectedMode);
-                                onOpenChange(false);
-                            }}
-                        >
-                            <Text color="#E8E8E8" fontSize={16} lineHeight={24} fontWeight={700}>
-                                Confirm
-                            </Text>
-                        </Button>
-                    </>
-                )}
+                <WalletActionButton
+                    unstyled
+                    loading={loading}
+                    height={48}
+                    borderRadius={96}
+                    backgroundColor="#171717"
+                    alignItems="center"
+                    justifyContent="center"
+                    pressStyle={{ opacity: 0.9 }}
+                    onPress={handleChange}
+                >
+                    <Text color="#E8E8E8" fontSize={16} lineHeight={24} fontWeight={700}>
+                        Confirm
+                    </Text>
+                </WalletActionButton>
             </Sheet.Frame>
         </Sheet>
     );

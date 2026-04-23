@@ -2,15 +2,13 @@ import { memo, useState } from 'react';
 import { Path, Svg } from 'react-native-svg';
 import { Button, Sheet, Text, XStack, YStack } from 'tamagui';
 
+import { navigate } from '@/helpers/navigate';
 import { AccountAmountSheetSkeleton } from '@/skeletons/AccountAmountSheetSkeleton';
-import type { AccountAmountActionType, AccountAmountSheetData } from '@/types/ui';
 
 interface AccountAmountSheetProps {
     open: boolean;
     onOpenChange: (open: boolean) => void;
-    data: AccountAmountSheetData;
     loading?: boolean;
-    onAction?: (action: AccountAmountActionType) => void | Promise<void>;
 }
 
 function ArrowUpIcon() {
@@ -49,8 +47,8 @@ function ActionButton({
     onPress,
 }: {
     label: string;
-    action: AccountAmountActionType;
-    onPress: (action: AccountAmountActionType) => void;
+    action: 'withdraw' | 'addFunds';
+    onPress: (action: 'withdraw' | 'addFunds') => void;
 }) {
     return (
         <Button
@@ -77,15 +75,13 @@ function ActionButton({
 export const AccountAmountSheet = memo<AccountAmountSheetProps>(function AccountAmountSheet({
     open,
     onOpenChange,
-    data,
     loading = false,
-    onAction,
 }) {
     const [position, setPosition] = useState(0);
 
-    const handleAction = async (action: AccountAmountActionType) => {
-        await onAction?.(action);
+    const handleAction = async (action: 'withdraw' | 'addFunds') => {
         onOpenChange(false);
+        navigate(action, {});
     };
 
     return (
@@ -132,7 +128,7 @@ export const AccountAmountSheet = memo<AccountAmountSheetProps>(function Account
                     <YStack width="100%" gap={32}>
                         <XStack width="100%" alignItems="center" justifyContent="space-between" paddingTop={12}>
                             <Text color="#171717" fontSize={20} lineHeight={24} fontWeight={700} fontFamily="$body">
-                                {data.title}
+                                Portfolio
                             </Text>
                             <YStack width={24} height={24} />
                         </XStack>
@@ -144,28 +140,22 @@ export const AccountAmountSheet = memo<AccountAmountSheetProps>(function Account
                                 </Text>
                                 <XStack alignItems="flex-end" gap={0}>
                                     <Text color="#070809" fontSize={48} lineHeight={56} fontWeight={700}>
-                                        {data.totalBalanceWhole}
+                                        {'0'}
                                     </Text>
                                     <Text color="#070809" fontSize={24} lineHeight={32} fontWeight={600}>
-                                        {data.totalBalanceFraction}
+                                        {'0'}
                                     </Text>
                                 </XStack>
                             </XStack>
 
                             <Text color="rgba(70, 70, 70, 0.8)" fontSize={13} lineHeight={17} fontWeight={400}>
-                                {data.availableLabel}
+                                Available: {'0'}
                             </Text>
                         </YStack>
 
                         <XStack width="100%" alignItems="center" justifyContent="center" gap={16}>
-                            {data.actions.map((item) => (
-                                <ActionButton
-                                    key={item.type}
-                                    action={item.type}
-                                    label={item.label}
-                                    onPress={handleAction}
-                                />
-                            ))}
+                            <ActionButton action="withdraw" label="Withdraw" onPress={handleAction} />
+                            <ActionButton action="addFunds" label="Add Funds" onPress={handleAction} />
                         </XStack>
                     </YStack>
                 )}

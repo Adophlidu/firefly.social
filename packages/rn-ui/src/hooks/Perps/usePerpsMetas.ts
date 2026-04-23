@@ -1,11 +1,13 @@
 import type { MetaResponse } from '@nktkas/hyperliquid';
 import { useQuery } from '@tanstack/react-query';
+import { useAtomValue } from 'jotai';
 import { useMemo } from 'react';
 
 import { STALE_TIMES } from '@/constants/enum';
 import { resolveMetaAvatar } from '@/helpers/resolveMetaAvatar';
-import { useHyperliquid } from '@/hooks/useHyperliquid';
+import { useAllPerpMetas } from '@/hooks/Perps/useAllPerpMetas';
 import { getPerpsTokens } from '@/services/firefly/getPerpsTokens';
+import { allDexsAssetCtxsAtom } from '@/store/websocket';
 import type { PerpsMeta } from '@/types/ui';
 
 interface Options {
@@ -18,7 +20,14 @@ function isLowerCaseEqual(str1: string, str2: string) {
     return str1.toLowerCase() === str2.toLowerCase();
 }
 
-function searchMetas(metas: MetaResponse['universe'], keyword?: string) {
+function searchMetas(
+    metas: Array<
+        MetaResponse['universe'][number] & {
+            index: number;
+        }
+    >,
+    keyword?: string,
+) {
     if (!keyword) return metas;
 
     const fullMatch = metas.filter((meta) => isLowerCaseEqual(meta.name, keyword));
@@ -30,26 +39,9 @@ function searchMetas(metas: MetaResponse['universe'], keyword?: string) {
 }
 
 export function usePerpsMetas({ category, keyword }: Options) {
-    const { infoClient } = useHyperliquid();
+    const allDexsAssetCtxs = useAtomValue(allDexsAssetCtxsAtom);
 
-    const {
-        data: perpsMetas,
-        isLoading: isPerpsMetasLoading,
-        error,
-    } = useQuery({
-        queryKey: ['perps', 'metas'],
-        staleTime: STALE_TIMES.HOUR_1,
-        queryFn: () => infoClient.allPerpMetas(),
-    });
-    const {
-        data: perpsMids,
-        isLoading: isPerpsMidsLoading,
-        error: perpsMidsError,
-    } = useQuery({
-        queryKey: ['perps', 'mids'],
-        staleTime: STALE_TIMES.MINUTE_1,
-        queryFn: () => infoClient.allMids(),
-    });
+    const { data: perpsMetas, isLoading: isPerpsMetasLoading } = useAllPerpMetas();
     const {
         data: perpsMetaIds,
         isLoading: isPerpsMetaIdsLoading,
@@ -61,7 +53,13 @@ export function usePerpsMetas({ category, keyword }: Options) {
     });
 
     const perpsList = useMemo<PerpsMeta[]>(() => {
-        const universe = perpsMetas?.flatMap((x) => x.universe) || [];
+        const universe =
+            perpsMetas?.flatMap((x) =>
+                x.universe.map((x, i) => ({
+                    ...x,
+                    index: i,
+                })),
+            ) || [];
         if (!universe?.length || !category) return [];
 
         const filteredIds = perpsMetaIds?.filter((meta) => meta.category_name === category).map((meta) => meta.name);
@@ -72,22 +70,34 @@ export function usePerpsMetas({ category, keyword }: Options) {
             keyword,
         );
         return filteredMetas.map((meta) => {
-            const [dex, name] = meta.name.split(':');
+            const [_dex, _name] = meta.name.split(':');
+            const dex = _name ? _dex : undefined;
+
+            const assetCtx = allDexsAssetCtxs?.find(([d]) => d === (dex || ''))?.[1]?.[meta.index];
+            const priceDiff = assetCtx ? parseFloat(assetCtx.markPx) - parseFloat(assetCtx.prevDayPx) : undefined;
+            const priceDiffRatio =
+                assetCtx && priceDiff
+                    ? parseFloat(assetCtx.prevDayPx) > 0
+                        ? (priceDiff / parseFloat(assetCtx.prevDayPx)) * 100
+                        : undefined
+                    : undefined;
 
             return {
                 ...meta,
-                dex: name ? dex : undefined,
-                name: name || meta.name,
+                dex,
                 avatar: resolveMetaAvatar(meta.name),
-                mid: perpsMids?.[meta.name] || perpsMids?.[name || ''],
+                mid: assetCtx?.markPx ?? undefined,
+                dayNtlVlm: assetCtx?.dayNtlVlm,
+                priceDiff,
+                priceDiffRatio,
             };
         });
-    }, [perpsMetas, perpsMids, perpsMetaIds, keyword, category]);
+    }, [perpsMetas, perpsMetaIds, keyword, category, allDexsAssetCtxs]);
 
     return {
         data: perpsList,
-        error: error || perpsMidsError || perpsMetaIdsError,
+        error: perpsMetaIdsError,
         isLoading: isPerpsMetaIdsLoading,
-        isGlobalLoading: isPerpsMetasLoading || isPerpsMidsLoading,
+        isGlobalLoading: isPerpsMetasLoading,
     };
 }

@@ -10,13 +10,10 @@ import { STALE_TIMES } from '@/constants/enum';
 import { usePerpsMetas } from '@/hooks/Perps/usePerpsMetas';
 import { getPerpsCategories } from '@/services/firefly/getPerpsCategories';
 import { PerpsMarketSkeleton } from '@/skeletons/PerpsMarketSkeleton';
-import type { FetchPerpsMarketPage } from '@/types/services';
 import type { PerpsMarketSort, PerpsMarketSortItem, PerpsMarketTab, PerpsMeta } from '@/types/ui';
 
 export interface PerpsMarketProps {
     onMarketSelect?: (item: PerpsMeta) => void;
-    fetchPerpsMarketPage?: FetchPerpsMarketPage;
-    pageSize?: number;
 }
 
 export const PerpsMarket = memo<PerpsMarketProps>(function PerpsMarket({ onMarketSelect }) {

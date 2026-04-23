@@ -2,6 +2,8 @@ import { memo } from 'react';
 import { Path, Svg } from 'react-native-svg';
 import { Button, Text, XStack } from 'tamagui';
 
+import { navigate } from '@/helpers/navigate';
+
 export type PerpsTradeDetailTab = 'positions' | 'orders';
 
 interface PerpsTradeDetailTabsProps {
@@ -9,7 +11,6 @@ interface PerpsTradeDetailTabsProps {
     positionsCount: number;
     ordersCount: number;
     onTabChange: (tab: PerpsTradeDetailTab) => void;
-    onHistoryPress?: () => void;
 }
 
 function CalendarIcon() {
@@ -34,7 +35,6 @@ export const PerpsTradeDetailTabs = memo<PerpsTradeDetailTabsProps>(function Per
     positionsCount,
     ordersCount,
     onTabChange,
-    onHistoryPress,
 }) {
     return (
         <XStack alignItems="center" justifyContent="space-between">
@@ -89,7 +89,7 @@ export const PerpsTradeDetailTabs = memo<PerpsTradeDetailTabsProps>(function Per
                 alignItems="center"
                 justifyContent="center"
                 pressStyle={{ opacity: 0.72 }}
-                onPress={onHistoryPress}
+                onPress={() => navigate('history', {})}
             >
                 <CalendarIcon />
             </Button>

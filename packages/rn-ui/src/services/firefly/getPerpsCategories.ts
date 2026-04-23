@@ -1,9 +1,9 @@
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData';
-import { fireflySessionHolder } from '@/providers/fireflySessionHolder';
+import { getFireflyEndpoint } from '@/store/fireflyEndpoint';
 import type { FireflyResponse } from '@/types/firefly';
 
 export async function getPerpsCategories() {
-    const response = await fireflySessionHolder.fetch<
+    const response = await getFireflyEndpoint().fetch<
         FireflyResponse<
             Array<{
                 name: string;

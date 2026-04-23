@@ -1,6 +1,7 @@
 import { memo, useCallback, useEffect, useState } from 'react';
-import { Button, Input, Sheet, Text, XStack, YStack } from 'tamagui';
+import { Input, Sheet, Text, XStack, YStack } from 'tamagui';
 
+import { WalletActionButton } from '@/components/WalletActionButton';
 import { TpSlSheetSkeleton } from '@/skeletons/TpSlSheetSkeleton';
 import type { TpSlSheetData, TpSlValueType } from '@/types/ui';
 
@@ -313,7 +314,7 @@ export const TpSlSheet = memo<TpSlSheetProps>(function TpSlSheet({
                             </XStack>
                         </YStack>
 
-                        <Button
+                        <WalletActionButton
                             unstyled
                             height={48}
                             borderRadius={96}
@@ -334,7 +335,7 @@ export const TpSlSheet = memo<TpSlSheetProps>(function TpSlSheet({
                             <Text color="#E8E8E8" fontSize={16} lineHeight={24} fontWeight={700}>
                                 Confirm
                             </Text>
-                        </Button>
+                        </WalletActionButton>
 
                         <YStack alignItems="center" paddingTop={8}>
                             <YStack width={134} height={5} borderRadius={100} backgroundColor="#000000" />

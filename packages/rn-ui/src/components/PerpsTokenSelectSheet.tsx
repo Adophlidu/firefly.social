@@ -56,6 +56,11 @@ export const PerpsTokenSelectSheet = memo<PerpsTokenSelectSheetProps>(function P
                 <Sheet.Handle width={48} height={4} borderRadius={100} backgroundColor="#D1D1D1" marginBottom={0} />
 
                 <PerpsMarket onMarketSelect={onTokenSelected} />
+                {/* <YStack flex={1}>
+                    <ScrollView height="100%" showsVerticalScrollIndicator={false}>
+                        <PerpsMarket onMarketSelect={onTokenSelected} />
+                    </ScrollView>
+                </YStack> */}
             </Sheet.Frame>
         </Sheet>
     );

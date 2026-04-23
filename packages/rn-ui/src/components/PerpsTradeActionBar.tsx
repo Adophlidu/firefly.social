@@ -1,40 +1,57 @@
-import { memo } from 'react';
+import { memo, useCallback } from 'react';
 import { Button, Text, XStack } from 'tamagui';
 
-import type { PerpsDetailActionButton } from '@/types/ui';
+import { navigate } from '@/helpers/navigate';
 
 interface PerpsTradeActionBarProps {
-    actions: PerpsDetailActionButton[];
+    coin: string;
 }
 
-export const PerpsTradeActionBar = memo<PerpsTradeActionBarProps>(function PerpsTradeActionBar({ actions }) {
+export const PerpsTradeActionBar = memo<PerpsTradeActionBarProps>(function PerpsTradeActionBar({ coin }) {
+    const goToTrade = useCallback(() => {
+        navigate('trade', { coin });
+    }, [coin]);
+
     return (
         <XStack width="100%" gap={10}>
-            {actions.map((action) => {
-                const backgroundColor = action.tone === 'buy' ? '#3A9B35' : '#FF3C33';
-
-                return (
-                    <Button
-                        key={action.label}
-                        unstyled
-                        flex={1}
-                        height={60}
-                        borderRadius={100}
-                        backgroundColor={backgroundColor}
-                        alignItems="center"
-                        justifyContent="center"
-                        shadowColor={action.tone === 'buy' ? '#3A9B35' : '#FF3C33'}
-                        shadowOpacity={0.12}
-                        shadowRadius={8}
-                        shadowOffset={{ width: 0, height: 4 }}
-                        pressStyle={{ opacity: 0.9, scale: 0.99 }}
-                    >
-                        <Text color="#FFFFFF" fontSize={16} lineHeight={24} fontWeight={700}>
-                            {action.label}
-                        </Text>
-                    </Button>
-                );
-            })}
+            <Button
+                unstyled
+                flex={1}
+                height={48}
+                borderRadius={100}
+                backgroundColor="#3A9B35"
+                alignItems="center"
+                justifyContent="center"
+                shadowColor="#3A9B35"
+                shadowOpacity={0.12}
+                shadowRadius={8}
+                shadowOffset={{ width: 0, height: 4 }}
+                pressStyle={{ opacity: 0.9, scale: 0.99 }}
+                onPress={goToTrade}
+            >
+                <Text color="#FFFFFF" fontSize={16} lineHeight={24} fontWeight={700}>
+                    Buy/Long
+                </Text>
+            </Button>
+            <Button
+                unstyled
+                flex={1}
+                height={48}
+                borderRadius={100}
+                backgroundColor="#FF3C33"
+                alignItems="center"
+                justifyContent="center"
+                shadowColor="#FF3C33"
+                shadowOpacity={0.12}
+                shadowRadius={8}
+                shadowOffset={{ width: 0, height: 4 }}
+                pressStyle={{ opacity: 0.9, scale: 0.99 }}
+                onPress={goToTrade}
+            >
+                <Text color="#FFFFFF" fontSize={16} lineHeight={24} fontWeight={700}>
+                    Sell/Short
+                </Text>
+            </Button>
         </XStack>
     );
 });

@@ -1,93 +1,70 @@
-import { memo, useEffect, useMemo, useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 import { ScrollView, YStack } from 'tamagui';
 
 import { OrderBook } from '@/components/OrderBook';
 import { PerpsDetailTopBar } from '@/components/PerpsDetailTopBar';
 import { PerpsKlinePlaceholder } from '@/components/PerpsKlinePlaceholder';
 import { PerpsTickerSummary } from '@/components/PerpsTickerSummary';
+import { PerpsTokenSelectSheet } from '@/components/PerpsTokenSelectSheet';
 import { PerpsTradeActionBar } from '@/components/PerpsTradeActionBar';
-import { loadPerpsDetailPage } from '@/services/perpsDetail';
+import { useCoinInfo } from '@/hooks/Perps/useCoinInfo';
 import { PerpsDetailSkeleton } from '@/skeletons/PerpsDetailSkeleton';
-import type { FetchPerpsDetailPage } from '@/types/services';
-import type { PerpsDetailPageData } from '@/types/ui';
+import type { PerpsMeta } from '@/types/ui';
 
 export interface PerpsMarketDetailProps {
-    market?: string;
     coin: string;
-    onBack?: () => void;
-    fetchPerpsDetailPage?: FetchPerpsDetailPage;
 }
 
-export const PerpsMarketDetail = memo<PerpsMarketDetailProps>(function PerpsMarketDetail({
-    market = 'TEST',
-    coin,
-    onBack,
-    fetchPerpsDetailPage,
-}) {
-    const [loading, setLoading] = useState(true);
-    const [pageData, setPageData] = useState<PerpsDetailPageData | null>(null);
+export const PerpsMarketDetail = memo<PerpsMarketDetailProps>(function PerpsMarketDetail({ coin }) {
+    const [currentCoin, setCurrentCoin] = useState(coin);
+    const [isTokenSelectorOpen, setTokenSelectorOpen] = useState(false);
 
-    const loadData = useMemo(() => {
-        return fetchPerpsDetailPage ?? loadPerpsDetailPage;
-    }, [fetchPerpsDetailPage]);
+    const { data: coinInfo } = useCoinInfo(currentCoin);
 
-    useEffect(() => {
-        let cancelled = false;
+    const onTokenChange = useCallback((meta: PerpsMeta) => {
+        setCurrentCoin(meta.name);
+        setTokenSelectorOpen(false);
+    }, []);
+    const onOpenSelector = useCallback(() => {
+        setTokenSelectorOpen(true);
+    }, []);
 
-        const run = async () => {
-            setLoading(true);
-
-            try {
-                const response = await loadData({ market });
-                if (!cancelled) {
-                    setPageData(response.data);
-                }
-            } finally {
-                if (!cancelled) {
-                    setLoading(false);
-                }
-            }
-        };
-
-        run();
-
-        return () => {
-            cancelled = true;
-        };
-    }, [loadData, market]);
-
-    if (loading || !pageData) {
+    if (!coinInfo) {
         return <PerpsDetailSkeleton />;
     }
 
     return (
-        <YStack height="100%" minHeight={0} backgroundColor="#FFFFFF">
+        <YStack fullscreen height="100%" minHeight={0} backgroundColor="#FFFFFF">
             <YStack paddingTop={2}>
                 <PerpsDetailTopBar
-                    symbol={pageData.ticker.symbol}
-                    leverage={pageData.ticker.leverage}
-                    marketType={pageData.ticker.marketType}
-                    onBack={onBack}
+                    symbol={coinInfo.name}
+                    leverage={`${coinInfo.maxLeverage}`}
+                    marketType={coinInfo.dex || 'Perp'}
+                    onOpenSelector={onOpenSelector}
                 />
             </YStack>
 
             <ScrollView flex={1} minHeight={0} showsVerticalScrollIndicator={false}>
                 <YStack paddingHorizontal={12} paddingTop={6} paddingBottom={8} gap={14}>
-                    <PerpsTickerSummary ticker={pageData.ticker} />
+                    <PerpsTickerSummary coinInfo={coinInfo} />
                     <PerpsKlinePlaceholder />
                     <OrderBook
-                        coin={coin}
-                        buyLabel={pageData.orderBook.buyLabel}
-                        sellLabel={pageData.orderBook.sellLabel}
-                        unitLabel={pageData.orderBook.unitLabel}
-                        rows={12}
+                        coin={currentCoin}
+                        szDecimal={coinInfo.szDecimals}
+                        midPrice={coinInfo.assetCtx?.midPx || coinInfo.assetCtx?.markPx || '0'}
                     />
                 </YStack>
             </ScrollView>
 
             <YStack paddingHorizontal={12} paddingTop={8} paddingBottom={12}>
-                <PerpsTradeActionBar actions={pageData.actions} />
+                <PerpsTradeActionBar coin={currentCoin} />
             </YStack>
+
+            <PerpsTokenSelectSheet
+                open={isTokenSelectorOpen}
+                onOpenChange={setTokenSelectorOpen}
+                onTokenSelected={onTokenChange}
+            />
         </YStack>
     );
 });

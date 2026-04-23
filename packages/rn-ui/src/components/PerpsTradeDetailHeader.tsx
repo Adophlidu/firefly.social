@@ -1,42 +1,39 @@
-import { memo, useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 import { Button, Text, XStack, YStack } from 'tamagui';
 
-import { TagBadge } from '@/../../../packages/rn-ui/src/components/TagBadge';
 import { AccountAmountSheet } from '@/components/AccountAmountSheet';
+import { PerpsTokenSelectSheet } from '@/components/PerpsTokenSelectSheet';
+import { TagBadge } from '@/components/TagBadge';
+import { formatCoinName } from '@/helpers/formatCoinName';
+import { navigate } from '@/helpers/navigate';
 import { BackIcon } from '@/icons/BackIcon';
 import { ChartIcon } from '@/icons/ChartIcon';
 import { ChevronDownIcon } from '@/icons/ChevronDownIcon';
-import type { AccountAmountActionType, AccountAmountSheetData, PerpsTradeDetailTicker } from '@/types/ui';
+import type { CoinInfo, PerpsMeta } from '@/types/ui';
 
 interface PerpsTradeDetailHeaderProps {
     available: string;
-    ticker: PerpsTradeDetailTicker;
-    title?: string;
-    onBack?: () => void;
-    onSettingsPress?: () => void;
-    onAccountAmountAction?: (actionType: AccountAmountActionType) => void;
+    coin: CoinInfo;
+    onTokenSelect?: (token: PerpsMeta) => void;
 }
-
-const defaultAccountAmountData: AccountAmountSheetData = {
-    title: 'Portfolio',
-    totalBalanceWhole: '2,900',
-    totalBalanceFraction: '.45',
-    availableLabel: 'Available: $742.86',
-    actions: [
-        { type: 'withdraw', label: 'Withdraw' },
-        { type: 'addFunds', label: 'Add Funds' },
-    ],
-};
 
 export const PerpsTradeDetailHeader = memo<PerpsTradeDetailHeaderProps>(function PerpsTradeDetailHeader({
     available,
-    ticker,
-    title = 'Perps',
-    onBack,
-    onSettingsPress,
-    onAccountAmountAction,
+    coin,
+    onTokenSelect = () => {},
 }) {
     const [accountAmountSheetOpen, setAccountAmountSheetOpen] = useState(false);
+    const [isTokenSelectorOpen, setTokenSelectorOpen] = useState(false);
+
+    const onTokenChange = useCallback(
+        (meta: PerpsMeta) => {
+            onTokenSelect(meta);
+            setTokenSelectorOpen(false);
+        },
+        [onTokenSelect],
+    );
+
+    const changeColor = (coin.priceDiffRatio ?? 0) < 0 ? '#FF372B' : '#429F37';
 
     return (
         <YStack>
@@ -48,7 +45,7 @@ export const PerpsTradeDetailHeader = memo<PerpsTradeDetailHeaderProps>(function
                     alignItems="center"
                     justifyContent="center"
                     pressStyle={{ opacity: 0.72 }}
-                    onPress={onBack}
+                    onPress={() => navigate('__parent__', {})}
                     icon={<BackIcon width={24} height={24} />}
                 />
 
@@ -60,7 +57,7 @@ export const PerpsTradeDetailHeader = memo<PerpsTradeDetailHeaderProps>(function
                     fontFamily="$body"
                     textAlign="center"
                 >
-                    {title}
+                    {coin.dex || 'Perps'}
                 </Text>
 
                 <Button
@@ -86,12 +83,12 @@ export const PerpsTradeDetailHeader = memo<PerpsTradeDetailHeaderProps>(function
 
             <YStack paddingHorizontal={12} paddingVertical={8} gap={8}>
                 <XStack alignItems="center" justifyContent="space-between">
-                    <YStack>
+                    <YStack onPress={() => setTokenSelectorOpen(true)}>
                         <XStack alignItems="center" gap={4}>
                             <Text color="#171717" fontSize={20} lineHeight={24} fontWeight={700} fontFamily="$body">
-                                {ticker.symbol}
+                                {`${formatCoinName(coin.name)}USDC`}
                             </Text>
-                            <TagBadge label={ticker.leverage} />
+                            <TagBadge label={`${coin.maxLeverage}x`} />
                             <Button
                                 unstyled
                                 width={16}
@@ -99,17 +96,18 @@ export const PerpsTradeDetailHeader = memo<PerpsTradeDetailHeaderProps>(function
                                 alignItems="center"
                                 justifyContent="center"
                                 pressStyle={{ opacity: 0.72 }}
-                                onPress={onSettingsPress}
                                 icon={<ChevronDownIcon />}
                             />
                         </XStack>
                         <XStack alignItems="center" gap={4}>
                             <Text color="rgba(70, 70, 70, 0.8)" fontSize={13} lineHeight={17} fontWeight={500}>
-                                {ticker.marketType}
+                                {coin.dex || 'Perps'}
                             </Text>
-                            <Text color="#429F37" fontSize={12} lineHeight={14} fontWeight={500}>
-                                {ticker.priceChangeLabel}
-                            </Text>
+                            {coin.priceDiffRatio ? (
+                                <Text color={changeColor} fontSize={12} lineHeight={14} fontWeight={500}>
+                                    {coin.priceDiffRatio.toFixed(2) || '-'}%
+                                </Text>
+                            ) : null}
                         </XStack>
                     </YStack>
                     <Button
@@ -119,17 +117,18 @@ export const PerpsTradeDetailHeader = memo<PerpsTradeDetailHeaderProps>(function
                         alignItems="center"
                         justifyContent="center"
                         pressStyle={{ opacity: 0.72 }}
-                        onPress={onSettingsPress}
+                        onPress={() => navigate('details', { coin: coin.name })}
                         icon={<ChartIcon width={24} height={24} />}
                     />
                 </XStack>
             </YStack>
 
-            <AccountAmountSheet
-                open={accountAmountSheetOpen}
-                onOpenChange={setAccountAmountSheetOpen}
-                data={defaultAccountAmountData}
-                onAction={onAccountAmountAction}
+            <AccountAmountSheet open={accountAmountSheetOpen} onOpenChange={setAccountAmountSheetOpen} />
+
+            <PerpsTokenSelectSheet
+                open={isTokenSelectorOpen}
+                onOpenChange={setTokenSelectorOpen}
+                onTokenSelected={onTokenChange}
             />
         </YStack>
     );

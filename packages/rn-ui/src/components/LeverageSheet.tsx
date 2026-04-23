@@ -1,15 +1,18 @@
-import { memo, type ReactNode, useEffect, useState } from 'react';
+import { memo, type ReactNode, useCallback, useEffect, useState } from 'react';
 import { Path, Svg } from 'react-native-svg';
 import { Button, Sheet, Slider, Text, XStack, YStack } from 'tamagui';
 
-import { LeverageSheetSkeleton } from '@/skeletons/LeverageSheetSkeleton';
-import type { LeverageSheetData } from '@/types/ui';
+import { WalletActionButton } from '@/components/WalletActionButton';
 
 interface LeverageSheetProps {
     open: boolean;
-    onOpenChange: (open: boolean) => void;
-    data: LeverageSheetData;
+    current: number;
+    coinName: string;
+    max: number;
+    min?: number;
+    step?: number;
     loading?: boolean;
+    onOpenChange: (open: boolean) => void;
     onConfirm?: (leverage: number) => void;
 }
 
@@ -66,21 +69,39 @@ function ControlButton({ children, onPress }: { children: ReactNode; onPress: ()
     );
 }
 
+function getNodes(name: string, maxLeverage: number) {
+    return [
+        `Control the leverage used for ${name} positions. The maximum leverage is ${maxLeverage}x.`,
+        // 'Maximum position at current leverage: 150,000,000 USDC.',
+        'Max position size decreases the higher your leverage.',
+    ];
+}
+
 export const LeverageSheet = memo<LeverageSheetProps>(function LeverageSheet({
     open,
+    max,
+    current,
+    min = 1,
+    step = 1,
+    coinName,
+    loading,
     onOpenChange,
-    data,
-    loading = false,
     onConfirm,
 }) {
     const [position, setPosition] = useState(0);
-    const [leverage, setLeverage] = useState(data.currentLeverage);
+    const [leverage, setLeverage] = useState(current);
 
     useEffect(() => {
-        setLeverage(data.currentLeverage);
-    }, [data.currentLeverage, open]);
+        setLeverage(current);
+    }, [current, open]);
 
-    const clamp = (value: number) => Math.min(data.maxLeverage, Math.max(data.minLeverage, value));
+    const handleChange = useCallback(() => {
+        if (loading) return;
+
+        onConfirm?.(leverage);
+    }, [loading, leverage, onConfirm]);
+
+    const clamp = (value: number) => Math.min(max, Math.max(min, value));
 
     return (
         <Sheet
@@ -120,105 +141,91 @@ export const LeverageSheet = memo<LeverageSheetProps>(function LeverageSheet({
             >
                 <Sheet.Handle width={48} height={4} borderRadius={100} backgroundColor="#D1D1D1" marginBottom={0} />
 
-                {loading ? (
-                    <LeverageSheetSkeleton />
-                ) : (
-                    <>
-                        <YStack width="100%">
-                            <XStack width="100%" alignItems="center" justifyContent="space-between" paddingTop={12}>
-                                <Text color="#171717" fontSize={20} lineHeight={24} fontWeight={700} fontFamily="$body">
-                                    Adjust Leverage
-                                </Text>
-                                <YStack width={24} height={24} />
-                            </XStack>
-                        </YStack>
+                <YStack width="100%">
+                    <XStack width="100%" alignItems="center" justifyContent="space-between" paddingTop={12}>
+                        <Text color="#171717" fontSize={20} lineHeight={24} fontWeight={700} fontFamily="$body">
+                            Adjust Leverage
+                        </Text>
+                        <YStack width={24} height={24} />
+                    </XStack>
+                </YStack>
 
-                        <YStack gap={8}>
-                            <XStack alignItems="center" justifyContent="space-between">
-                                <ControlButton onPress={() => setLeverage((value) => clamp(value - data.step))}>
-                                    <MinusIcon />
-                                </ControlButton>
-                                <Text
-                                    color="#171717"
-                                    fontSize={32}
-                                    lineHeight={40}
-                                    fontWeight={600}
-                                    fontFamily="$body"
-                                    textAlign="center"
-                                >
-                                    {leverage}x
-                                </Text>
-                                <ControlButton onPress={() => setLeverage((value) => clamp(value + data.step))}>
-                                    <PlusIcon />
-                                </ControlButton>
-                            </XStack>
-
-                            <YStack height={15} paddingTop={5} paddingBottom={24} justifyContent="center">
-                                <Slider
-                                    value={[leverage]}
-                                    onValueChange={([next]) => setLeverage(clamp(Math.round(next)))}
-                                    min={data.minLeverage}
-                                    max={data.maxLeverage}
-                                    step={data.step}
-                                    size="$1"
-                                >
-                                    <Slider.Track backgroundColor="#5E69FF" height={4} opacity={0.2}>
-                                        <Slider.TrackActive backgroundColor="#5E69FF" />
-                                    </Slider.Track>
-                                    <Slider.Thumb
-                                        index={0}
-                                        circular
-                                        size={12}
-                                        backgroundColor="#5E69FF"
-                                        borderWidth={2}
-                                        borderColor="#FFFFFF"
-                                        shadowColor="#5E69FF"
-                                        shadowOpacity={0.36}
-                                        shadowRadius={4}
-                                        shadowOffset={{ width: 0, height: 2 }}
-                                    />
-                                </Slider>
-                            </YStack>
-                        </YStack>
-
-                        <YStack gap={4}>
-                            {data.notes.map((note) => (
-                                <XStack key={note} alignItems="flex-start" gap={6}>
-                                    <Text color="rgba(70, 70, 70, 0.8)" fontSize={13} lineHeight={17} fontWeight={500}>
-                                        •
-                                    </Text>
-                                    <Text
-                                        flex={1}
-                                        color="rgba(70, 70, 70, 0.8)"
-                                        fontSize={13}
-                                        lineHeight={17}
-                                        fontWeight={500}
-                                    >
-                                        {note}
-                                    </Text>
-                                </XStack>
-                            ))}
-                        </YStack>
-
-                        <Button
-                            unstyled
-                            height={48}
-                            borderRadius={96}
-                            backgroundColor="#171717"
-                            alignItems="center"
-                            justifyContent="center"
-                            pressStyle={{ opacity: 0.9 }}
-                            onPress={() => {
-                                onConfirm?.(leverage);
-                                onOpenChange(false);
-                            }}
+                <YStack gap={8}>
+                    <XStack alignItems="center" justifyContent="space-between">
+                        <ControlButton onPress={() => setLeverage((value) => clamp(value - step))}>
+                            <MinusIcon />
+                        </ControlButton>
+                        <Text
+                            color="#171717"
+                            fontSize={32}
+                            lineHeight={40}
+                            fontWeight={600}
+                            fontFamily="$body"
+                            textAlign="center"
                         >
-                            <Text color="#E8E8E8" fontSize={16} lineHeight={24} fontWeight={700}>
-                                Confirm
+                            {leverage}x
+                        </Text>
+                        <ControlButton onPress={() => setLeverage((value) => clamp(value + step))}>
+                            <PlusIcon />
+                        </ControlButton>
+                    </XStack>
+
+                    <YStack height={15} paddingTop={5} paddingBottom={24} justifyContent="center">
+                        <Slider
+                            value={[leverage]}
+                            onValueChange={([next]) => setLeverage(clamp(Math.round(next)))}
+                            min={min}
+                            max={max}
+                            step={step}
+                            size="$1"
+                        >
+                            <Slider.Track backgroundColor="#5E69FF" height={4} opacity={0.2}>
+                                <Slider.TrackActive backgroundColor="#5E69FF" />
+                            </Slider.Track>
+                            <Slider.Thumb
+                                index={0}
+                                circular
+                                size={12}
+                                backgroundColor="#5E69FF"
+                                borderWidth={2}
+                                borderColor="#FFFFFF"
+                                shadowColor="#5E69FF"
+                                shadowOpacity={0.36}
+                                shadowRadius={4}
+                                shadowOffset={{ width: 0, height: 2 }}
+                            />
+                        </Slider>
+                    </YStack>
+                </YStack>
+
+                <YStack gap={4}>
+                    {getNodes(coinName, max).map((note) => (
+                        <XStack key={note} alignItems="flex-start" gap={6}>
+                            <Text color="rgba(70, 70, 70, 0.8)" fontSize={13} lineHeight={17} fontWeight={500}>
+                                •
                             </Text>
-                        </Button>
-                    </>
-                )}
+                            <Text flex={1} color="rgba(70, 70, 70, 0.8)" fontSize={13} lineHeight={17} fontWeight={500}>
+                                {note}
+                            </Text>
+                        </XStack>
+                    ))}
+                </YStack>
+
+                <WalletActionButton
+                    unstyled
+                    loading={loading}
+                    height={48}
+                    borderRadius={96}
+                    backgroundColor="#171717"
+                    alignItems="center"
+                    justifyContent="center"
+                    pressStyle={{ opacity: 0.9 }}
+                    onPress={handleChange}
+                >
+                    <Text color="#E8E8E8" fontSize={16} lineHeight={24} fontWeight={700}>
+                        Confirm
+                    </Text>
+                </WalletActionButton>
             </Sheet.Frame>
         </Sheet>
     );
