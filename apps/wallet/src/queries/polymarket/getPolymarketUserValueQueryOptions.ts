@@ -13,7 +13,7 @@ export function getPolymarketUserValueQueryOptions(user?: Address) {
                 if (!user) return [];
 
                 const res = await polymarketDataEndpoint.getUserValue(user);
-                if (res.ok) throw new Error('Failed to fetch polymarket value');
+                if (!res.ok) throw new Error('Failed to fetch polymarket value');
                 return res.data;
             } catch (error) {
                 logger.error('Error fetching polymarket user value', { error, user });

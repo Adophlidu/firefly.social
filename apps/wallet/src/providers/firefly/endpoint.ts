@@ -43,6 +43,7 @@ import {
     type Response,
     type SearchProfileResponse,
     type SearchTokenResponse,
+    type TokenAsset,
     type WalletHistoryTransactionsResponse,
     type WalletProfileResponse,
     type WalletProfiles,
@@ -58,6 +59,17 @@ export class FireflyEndpoint extends Fetch {
             }),
         );
         return resolveFireflyResponseData(result.data).data;
+    }
+
+    async getTokenByAddress(walletAddress: string, chainId: number, tokenAddress: string) {
+        const result = await this.get<Response<Omit<TokenAsset, 'tokenLogoUrl'> | null>>(
+            urlcat('/swap/wallet/asset/token', {
+                address: walletAddress,
+                chainId,
+                tokenAddress,
+            }),
+        );
+        return resolveFireflyResponseData(result.data);
     }
 
     async getWalletHistoryTransactions(

@@ -120,6 +120,7 @@ export function useAddFunds(options: Options) {
                     queryKey: getPolymarketProfileListQueryOptions(proxyAddress, true).queryKey,
                 }),
                 queryClient.refetchQueries({ queryKey: ['multi-chain-token', proxyAddress.toLowerCase(), polygon.id] }),
+                queryClient.refetchQueries({ queryKey: ['polymarket-balance'] }),
                 queryClient.refetchQueries({
                     queryKey: getPolymarketUserValueQueryOptions(proxyAddress).queryKey,
                     exact: true,

@@ -559,9 +559,6 @@ msgstr "Scheduled"
 msgid "You claimed {amount} {symbol} to your <0>Firefly Wallet</0>."
 msgstr "You claimed {amount} {symbol} to your <0>Firefly Wallet</0>."
 
-msgid "Total amount of BTC held in treasuries by public companies and governments."
-msgstr "Total amount of BTC held in treasuries by public companies and governments."
-
 msgid "Nickname"
 msgstr "Nickname"
 
@@ -597,6 +594,10 @@ msgstr "Club details"
 
 msgid "The scheduled time has passed. Please reset."
 msgstr "The scheduled time has passed. Please reset."
+
+#. placeholder {0}: coin.name
+msgid "Total amount of {0} held in treasuries by public companies and governments."
+msgstr "Total amount of {0} held in treasuries by public companies and governments."
 
 msgid "Failed to un-bookmark article."
 msgstr "Failed to un-bookmark article."

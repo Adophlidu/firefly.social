@@ -156,6 +156,7 @@ function WithdrawClient() {
                     exact: true,
                     type: 'all',
                 }),
+                queryClient.refetchQueries({ queryKey: ['polymarket-balance'] }),
                 queryClient.invalidateQueries({
                     queryKey: ['multi-chain-token'],
                 }),

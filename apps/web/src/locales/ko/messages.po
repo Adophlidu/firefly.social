@@ -555,9 +555,6 @@ msgstr ""
 msgid "You claimed {amount} {symbol} to your <0>Firefly Wallet</0>."
 msgstr ""
 
-msgid "Total amount of BTC held in treasuries by public companies and governments."
-msgstr ""
-
 msgid "Nickname"
 msgstr ""
 
@@ -592,6 +589,10 @@ msgid "Club details"
 msgstr ""
 
 msgid "The scheduled time has passed. Please reset."
+msgstr ""
+
+#. placeholder {0}: coin.name
+msgid "Total amount of {0} held in treasuries by public companies and governments."
 msgstr ""
 
 msgid "Failed to un-bookmark article."

@@ -3,14 +3,12 @@ import BetEntryIcon from '@dimensiondev/assets/bet-entry.svg';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { Link } from '@tanstack/react-router';
-import { BigNumber } from 'bignumber.js';
 import type { Address } from 'viem';
 
 import { formatPortfolioUSDCe } from '@/helpers/formatPortfolioUSDCe.js';
+import { usePolymarketBalance } from '@/hooks/usePolymarketBalance.js';
 import { cn } from '@/lib/utils.js';
 import { getPolymarketAccountQueryOptions } from '@/queries/firefly/getPolymarketAccountQueryOptions.js';
-import { getPolymarketWithdrawableAmountQueryOptions } from '@/queries/firefly/getPolymarketWithdrawableAmountQueryOptions.js';
-import { getPolymarketUserValueQueryOptions } from '@/queries/polymarket/getPolymarketUserValueQueryOptions.js';
 
 export function BetEntry({ className }: { className?: string }) {
     const { data: proxyAddress, isLoading: isLoadingProxyAddress } = useQuery({
@@ -21,20 +19,11 @@ export function BetEntry({ className }: { className?: string }) {
     });
 
     const hasBetAccount = Boolean(proxyAddress);
-    const { data: availableBalance, isLoading: isLoadingAvailableBalance } = useQuery({
-        ...getPolymarketWithdrawableAmountQueryOptions(proxyAddress),
-        enabled: hasBetAccount,
-    });
-    const { data: polymarketValue, isLoading: isLoadingPolymarketValue } = useQuery({
-        ...getPolymarketUserValueQueryOptions(proxyAddress),
-        enabled: hasBetAccount,
-    });
+    const { totalBalance, isLoading } = usePolymarketBalance(proxyAddress);
 
-    const totalBalanceBN = BigNumber(availableBalance ?? 0).plus(polymarketValue ?? 0);
-    const portfolioText = formatPortfolioUSDCe(totalBalanceBN);
+    const portfolioText = formatPortfolioUSDCe(totalBalance);
 
-    const isLoadingSection =
-        isLoadingProxyAddress || (hasBetAccount && (isLoadingAvailableBalance || isLoadingPolymarketValue));
+    const isLoadingSection = isLoadingProxyAddress || (hasBetAccount && isLoading);
     if (isLoadingSection) {
         return <div className={cn('bg-lightBg h-[80px] w-full animate-pulse rounded-[15px]', className)} />;
     }

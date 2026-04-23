@@ -8,7 +8,6 @@ import { isZero } from '@dimensiondev/web3/numbers';
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute, Link, Outlet, useLocation, useNavigate } from '@tanstack/react-router';
-import { BigNumber } from 'bignumber.js';
 import { Suspense, useCallback } from 'react';
 import { toast } from 'sonner';
 import type { Address } from 'viem';
@@ -24,12 +23,11 @@ import { formatPercentRate } from '@/helpers/formatPercentRate.js';
 import { formatPnlUSD } from '@/helpers/formatPnlUSD.js';
 import { formatPortfolioUSDCe } from '@/helpers/formatPortfolioUSDCe.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
+import { usePolymarketBalance } from '@/hooks/usePolymarketBalance.js';
 import { cn } from '@/lib/utils.js';
 import { getPolymarketAccountQueryOptions } from '@/queries/firefly/getPolymarketAccountQueryOptions.js';
 import { getPolymarketProfileListQueryOptions } from '@/queries/firefly/getPolymarketProfileListQueryOptions.js';
 import { getPolymarketUpgradeTaskQueryOptions } from '@/queries/firefly/getPolymarketUpgradeTaskQueryOptions.js';
-import { getPolymarketWithdrawableAmountQueryOptions } from '@/queries/firefly/getPolymarketWithdrawableAmountQueryOptions.js';
-import { getPolymarketUserValueQueryOptions } from '@/queries/polymarket/getPolymarketUserValueQueryOptions.js';
 import { getFireflyEndpoint } from '@/store/fireflyEndpoint.js';
 
 const POLYMARKET_HOME_POLL_MS = 10_000;
@@ -100,20 +98,11 @@ function TabNavigation() {
 
 export function ClientLayout() {
     const { data } = useSuspenseQuery(getPolymarketAccountQueryOptions());
-    const { data: availableBalance } = useSuspenseQuery({
-        ...getPolymarketWithdrawableAmountQueryOptions(data.proxyAddress),
-        refetchInterval: POLYMARKET_HOME_POLL_MS,
-    });
-
-    const { data: polymarketValue } = useSuspenseQuery({
-        ...getPolymarketUserValueQueryOptions(data.proxyAddress),
-        refetchInterval: POLYMARKET_HOME_POLL_MS,
-    });
+    const { totalBalance, availableBalance } = usePolymarketBalance(data.proxyAddress, POLYMARKET_HOME_POLL_MS);
 
     const { data: upgradeTask } = useSuspenseQuery(getPolymarketUpgradeTaskQueryOptions(data.proxyAddress));
 
-    const totalBalanceBN = BigNumber(availableBalance ?? 0).plus(polymarketValue ?? 0);
-    const portfolioText = formatPortfolioUSDCe(totalBalanceBN);
+    const portfolioText = formatPortfolioUSDCe(totalBalance);
     const availableText = isZero(availableBalance) ? '$0' : formatTokenUSD(availableBalance, { minDisplay: 0.01 });
 
     const usdceBalance = upgradeTask?.usdce_balance ?? 0;
@@ -146,8 +135,8 @@ export function ClientLayout() {
 
     return (
         <>
-            <div className="flex flex-col items-center px-4 py-8 text-center">
-                <div className="text-main mx-auto mb-2 h-8 w-auto min-w-[100px] truncate text-[40px] font-bold leading-8">
+            <div className="flex flex-col items-center gap-2 px-4 py-8 text-center">
+                <div className="text-main mx-auto h-8 w-auto min-w-[100px] truncate text-[40px] font-bold leading-8">
                     {portfolioText}
                 </div>
                 <div className="text-second h-4 text-[13px] leading-4">

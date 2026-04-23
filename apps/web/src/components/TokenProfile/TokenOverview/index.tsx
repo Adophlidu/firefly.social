@@ -157,13 +157,14 @@ export const TokenOverview = memo<TokenOverviewProps>(function TokenOverview({
                                     </Trans>
                                 }
                             />
-                            {treasuryHoldings ? (
+                            {treasuryHoldings && coin?.name ? (
                                 <InfoCard
                                     title={<Trans>Total Treasury Holding</Trans>}
                                     value={formatMarketCap(treasuryHoldings, 2)}
                                     description={
                                         <Trans>
-                                            Total amount of BTC held in treasuries by public companies and governments.
+                                            Total amount of {coin.name} held in treasuries by public companies and
+                                            governments.
                                         </Trans>
                                     }
                                 />

@@ -555,9 +555,6 @@ msgstr "已定时"
 msgid "You claimed {amount} {symbol} to your <0>Firefly Wallet</0>."
 msgstr "你领取的 {amount} {symbol} 已转入你的 <0>Firefly 钱包</0>。"
 
-msgid "Total amount of BTC held in treasuries by public companies and governments."
-msgstr "上市公司和政府国库持有的比特币总量。"
-
 msgid "Nickname"
 msgstr "昵称"
 
@@ -593,6 +590,10 @@ msgstr "圈子详情"
 
 msgid "The scheduled time has passed. Please reset."
 msgstr "预定时间已过，请重新设置。"
+
+#. placeholder {0}: coin.name
+msgid "Total amount of {0} held in treasuries by public companies and governments."
+msgstr ""
 
 msgid "Failed to un-bookmark article."
 msgstr "取消收藏文章失败。"
