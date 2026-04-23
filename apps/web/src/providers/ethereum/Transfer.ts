@@ -1,12 +1,11 @@
 import { getAvailableBalance, switchEthereumChain, waitForEthereumTransaction } from '@dimensiondev/web3/actions';
 import { isGreaterThan, isLessThan, leftShift, multipliedBy, rightShift, ZERO } from '@dimensiondev/web3/numbers';
-import { getTokenAbiForWagmi } from '@dimensiondev/web3/utils';
+import { getTokenAbiForWagmi, isNativeTokenDebank } from '@dimensiondev/web3/utils';
 import { type Address, type Hash, parseUnits } from 'viem';
 import { getAccount, getBalance, sendTransaction, writeContract } from 'wagmi/actions';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { getDefaultGas } from '@/providers/ethereum/getDefaultGas.js';
-import { isNativeTokenDebank } from '@/providers/ethereum/isNativeTokenDebank.js';
 import { EthereumNetwork } from '@/providers/ethereum/Network.js';
 import { checkFreeGasEligibility } from '@/providers/firefly/freeGas/checkFreeGasEligibility.js';
 import type { Token, TransactionOptions, TransferProvider } from '@/providers/types/Transfer.js';

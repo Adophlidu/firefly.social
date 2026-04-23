@@ -2,9 +2,8 @@
 
 import LinkIcon from '@dimensiondev/assets/link-square.svg';
 import { safeUnreachable } from '@dimensiondev/utils';
-import { isValidChainIdEthereum, isValidChainIdSolana } from '@dimensiondev/web3/chains';
+import { isValidChainIdEthereum, isValidChainIdSolana, resolveWagmiChain } from '@dimensiondev/web3/chains';
 import { EthExplorerResolver, SolanaExplorerResolver } from '@dimensiondev/web3/resolvers';
-import { resolveWagmiChain } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { type ReactNode, useMemo } from 'react';
 

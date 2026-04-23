@@ -1,4 +1,4 @@
-import { isFreeGasSupportedChain } from '@dimensiondev/web3/utils';
+import { isFreeGasSupportedChain } from '@dimensiondev/web3/chains';
 import urlcat from 'urlcat';
 
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';

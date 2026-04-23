@@ -18,7 +18,7 @@ const RUNTIME_TO_CHAIN_ID: Readonly<Record<string, number>> = {
     base: 8453,
     celo: 42220,
     zksync: 324,
-    solana: 501,
+    solana: 101,
 };
 
 const RUNTIME_FALLBACK_INFO: Readonly<Record<string, ChainInfo>> = {

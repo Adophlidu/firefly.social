@@ -1,5 +1,6 @@
 import { createWagmiPublicClient } from '@dimensiondev/web3/actions';
-import { isFreeGasSupportedChain, isSupportedStablecoin, resolvePublicRpcUrl } from '@dimensiondev/web3/utils';
+import { isFreeGasSupportedChain } from '@dimensiondev/web3/chains';
+import { isSupportedStablecoin, resolvePublicRpcUrl } from '@dimensiondev/web3/utils';
 import type { Address } from 'viem';
 
 import { logger } from '@/lib/Logger.js';

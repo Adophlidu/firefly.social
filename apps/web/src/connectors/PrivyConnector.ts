@@ -1,7 +1,8 @@
 'use client';
 
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
-import { isFreeGasSupportedChain, isSupportedStablecoin } from '@dimensiondev/web3/utils';
+import { isFreeGasSupportedChain } from '@dimensiondev/web3/chains';
+import { isSupportedStablecoin } from '@dimensiondev/web3/utils';
 import { compact } from 'lodash-es';
 import { type Address, type Hex, numberToHex, type RpcError, SwitchChainError, UserRejectedRequestError } from 'viem';
 import { mainnet } from 'viem/chains';

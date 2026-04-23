@@ -1,4 +1,4 @@
-import { resolveWagmiChain } from '@dimensiondev/web3/utils';
+import { resolveWagmiChain } from '@dimensiondev/web3/chains';
 
 import { resolveTransferProvider } from '@/helpers/resolveTokenTransfer.js';
 import { logger } from '@/libs/Logger.js';

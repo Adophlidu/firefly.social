@@ -1,6 +1,6 @@
 import { runInSafeAsync } from '@dimensiondev/utils';
+import { resolveWagmiChain } from '@dimensiondev/web3/chains';
 import { leftShift } from '@dimensiondev/web3/numbers';
-import { resolveWagmiChain } from '@dimensiondev/web3/utils';
 import { useQueries } from '@tanstack/react-query';
 import { compact, uniq } from 'lodash-es';
 import { erc20Abi } from 'viem';

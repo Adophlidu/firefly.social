@@ -1,10 +1,9 @@
 import { isValidChainIdSolana } from '@dimensiondev/web3/chains';
 import { ETH_ZERO_ADDRESS } from '@dimensiondev/web3/constants';
 import { NetworkType } from '@dimensiondev/web3/enums';
-import { isValidAddressEthereum } from '@dimensiondev/web3/utils';
+import { isNativeTokenDebank, isValidAddressEthereum } from '@dimensiondev/web3/utils';
 
 import { TokenType } from '@/constants/enum.js';
-import { isNativeTokenDebank } from '@/providers/ethereum/isNativeTokenDebank.js';
 import type { Token } from '@/providers/types/Transfer.js';
 import type { FungibleToken } from '@/web3-shared/base/specs.js';
 import { EthereumSchemaType } from '@/web3-shared/evm/types.js';

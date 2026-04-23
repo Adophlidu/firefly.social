@@ -1,4 +1,4 @@
-import type { CurrencyType, NetworkPluginID, TokenType } from '@/constants/enum.js';
+import type { CurrencyType, TokenType } from '@/constants/enum.js';
 import type { LiteralUnion } from '@/types/utility.js';
 
 type Color =
@@ -70,43 +70,6 @@ interface Identity {
 }
 
 type Price = Partial<Record<CurrencyType, string>>;
-
-export interface ChainDescriptor<ChainId, SchemaType> {
-    chainId: ChainId;
-    name: string;
-    fullName?: string;
-    shortName?: string;
-    nativeCurrency: FungibleToken<ChainId, SchemaType>;
-    // EIP3091
-    explorerUrl: {
-        url: string;
-        parameters?: Record<string, string | number | boolean>;
-    };
-    features?: string[];
-}
-
-export interface NetworkDescriptor<ChainId> {
-    /** An unique ID for each network */
-    ID: string;
-    /** The ID of the plugin that provides the functionality of the network. */
-    networkSupporterPluginID: NetworkPluginID;
-    /** The chain id */
-    chainId: ChainId;
-    /** The network icon */
-    icon: string;
-    /** The network icon in fixed color */
-    iconColor: Color;
-    /** The average time for mining a block (unit: seconds). */
-    averageBlockDelay: number;
-    /** The background gradient color for relative network bar */
-    backgroundGradient?: string;
-    /** The network name. e.g. Ethereum */
-    name: string;
-    /** The network short name. e.g. 'ETH' */
-    shortName?: string;
-    /** Is a mainnet network */
-    isMainnet: boolean;
-}
 
 interface Token<ChainId, SchemaType> {
     /** For NFT, it could be `${chainId}.${contractAddress}.${tokenId}` */

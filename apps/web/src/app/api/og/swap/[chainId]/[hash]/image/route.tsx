@@ -2,6 +2,7 @@
 
 import type { NextRequestContext } from '@dimensiondev/types';
 import { compose } from '@dimensiondev/utils';
+import { getChainIcon } from '@dimensiondev/web3/chains';
 import { formatAddress } from '@dimensiondev/web3/utils';
 import { first } from 'lodash-es';
 import { ImageResponse } from 'next/og.js';
@@ -20,7 +21,6 @@ import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
 import { getPublicUrl } from '@/helpers/getPublicUrl.js';
 import { getSharerHandle } from '@/helpers/getSharerHandle.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
-import { resolveChainIcon } from '@/helpers/resolveChainIcon.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { getSwapActivityByHash } from '@/providers/firefly/endpoint/getSwapActivityByHash.js';
 import type { SwapActivity } from '@/providers/types/Firefly.js';
@@ -41,10 +41,10 @@ async function SwapOpenGraphImage({ swap, sharerHandle }: { swap: SwapActivity; 
     const fromToken = await fetchImageAsBase64(swap.from_token?.logo, OG_FALLBACK_AVATAR);
     const toToken = await fetchImageAsBase64(swap.to_token?.logo, OG_FALLBACK_AVATAR);
 
-    const chainIconUrl = resolveChainIcon(swap.chain_id);
+    const chainIconUrl = getChainIcon(swap.chain_id);
     const chainIcon = await fetchImageAsBase64(chainIconUrl);
 
-    const toChainIconUrl = swap.to_chain_id ? resolveChainIcon(swap.to_chain_id) : null;
+    const toChainIconUrl = swap.to_chain_id ? getChainIcon(swap.to_chain_id) : null;
     const toChainIcon = await fetchImageAsBase64(toChainIconUrl);
 
     const fromTokenAmountNum = Number(swap.from_token?.amount_num);

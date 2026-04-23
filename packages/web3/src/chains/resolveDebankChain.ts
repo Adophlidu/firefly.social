@@ -1,26 +1,13 @@
 /* cspell:disable */
-import {
-    arbitrum,
-    aurora,
-    avalanche,
-    base,
-    bsc,
-    celo,
-    confluxESpace,
-    fantom,
-    gnosis,
-    lens,
-    linea,
-    mainnet,
-    metis,
-    optimism,
-    plasma,
-    polygon,
-    scroll,
-    zkSync,
-} from 'viem/chains';
+interface DebankChain {
+    id: string;
+    community_id: number;
+    name: string;
+    native_token_id: string;
+    logo_url: string;
+}
 
-export const DEBANK_CHAINS = [
+const DEBANK_CHAINS: readonly DebankChain[] = [
     {
         id: 'eth',
         community_id: 1,
@@ -118,13 +105,6 @@ export const DEBANK_CHAINS = [
         name: 'Boba',
         native_token_id: 'boba',
         logo_url: '/image/chains/boba.png',
-    },
-    {
-        id: 'metis',
-        community_id: 1088,
-        name: 'Metis',
-        native_token_id: 'metis',
-        logo_url: '/image/chains/metis.png',
     },
     {
         id: 'btt',
@@ -373,23 +353,12 @@ export const DEBANK_CHAINS = [
     },
 ];
 
-export const DEBANK_CHAIN_TO_CHAIN_ID_MAP: Record<string, number> = {
-    arb: arbitrum.id,
-    aurora: aurora.id,
-    avax: avalanche.id,
-    bsc: bsc.id,
-    cfx: confluxESpace.id,
-    eth: mainnet.id,
-    ftm: fantom.id,
-    matic: polygon.id,
-    metis: metis.id,
-    op: optimism.id,
-    xdai: gnosis.id,
-    base: base.id,
-    scrl: scroll.id,
-    lens: lens.id,
-    linea: linea.id,
-    era: zkSync.id,
-    celo: celo.id,
-    plasma: plasma.id,
-};
+export function resolveDebankChain(chainIdOrDebankChain: string | number | undefined): DebankChain | undefined {
+    if (!chainIdOrDebankChain) return undefined;
+
+    if (typeof chainIdOrDebankChain === 'number') {
+        return DEBANK_CHAINS.find((chain) => chain.community_id === chainIdOrDebankChain);
+    }
+
+    return DEBANK_CHAINS.find((chain) => chain.id === chainIdOrDebankChain);
+}

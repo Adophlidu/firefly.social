@@ -1,4 +1,4 @@
-import { isValidChainIdEthereum, solana } from '@dimensiondev/web3/chains';
+import { isValidChainIdEthereum, resolveDebankChain, solana } from '@dimensiondev/web3/chains';
 import {
     ETH_NATIVE_TOKEN_ADDRESS,
     ETH_ZERO_ADDRESS,
@@ -10,7 +10,6 @@ import { rightShift } from '@dimensiondev/web3/numbers';
 import { isSameAddress } from '@dimensiondev/web3/utils';
 import { toHex } from 'viem';
 
-import { resolveDebankChain } from '@/helpers/resolveDebankChain.js';
 import type { TokenAsset } from '@/providers/types/Firefly.js';
 import type { Token } from '@/providers/types/Transfer.js';
 

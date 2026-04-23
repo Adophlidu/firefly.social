@@ -1,13 +1,12 @@
 'use client';
 
 import { classNames } from '@dimensiondev/utils';
-import { getChainIcon } from '@dimensiondev/web3/chains';
+import { getChainIcon, resolveDebankChain } from '@dimensiondev/web3/chains';
 import type { NetworkType } from '@dimensiondev/web3/enums';
 import type { HTMLProps } from 'react';
 
 import { Image } from '@/components/Image.js';
 import { resolveCoinGeckoChainIcon } from '@/helpers/resolveCoinGeckoChainIcon.js';
-import { resolveDebankChain } from '@/helpers/resolveDebankChain.js';
 
 interface ChainIconProps extends HTMLProps<HTMLImageElement> {
     networkType?: NetworkType;

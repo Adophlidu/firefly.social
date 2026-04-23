@@ -1,9 +1,9 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { resolveDebankChain } from '@dimensiondev/web3/chains';
 import urlcat from 'urlcat';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { STALE_TIMES } from '@/constants/query.js';
-import { resolveDebankChain } from '@/helpers/resolveDebankChain.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { Token as DebankToken } from '@/providers/types/Debank.js';
 import type { DebankTokensResponse } from '@/providers/types/Firefly.js';

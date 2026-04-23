@@ -5,17 +5,17 @@ import InfoIcon from '@dimensiondev/assets/info-outline.svg';
 import SearchIcon from '@dimensiondev/assets/search.svg';
 import WalletIcon from '@dimensiondev/assets/wallet.fill.svg';
 import { safeUnreachable, unreachable } from '@dimensiondev/utils';
-import { solana as solanaMainnetChain } from '@dimensiondev/web3/chains';
+import { resolveWagmiChain, solana as solanaMainnetChain } from '@dimensiondev/web3/chains';
 import { ETH_ZERO_ADDRESS, SOL_ZERO_ADDRESS } from '@dimensiondev/web3/constants';
 import { NetworkType } from '@dimensiondev/web3/enums';
 import { isGreaterThanOrEqualTo, multipliedBy, plus } from '@dimensiondev/web3/numbers';
 import {
     formatLamportsToSol,
+    isNativeTokenDebank,
     isSameAddress,
     isValidAddress,
     isValidAddressEthereum,
     isValidAddressSolana,
-    resolveWagmiChain,
 } from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
@@ -45,7 +45,6 @@ import { Button } from '@/components/ui/button.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { config } from '@/configs/wagmiClient.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
-import { isNativeTokenDebank } from '@/helpers/isNativeTokenDebank.js';
 import { normalizeDecimalInput } from '@/helpers/normalizeDecimalInput.js';
 import { removeTrailingZeros } from '@/helpers/removeTrailingZeros.js';
 import { resolveEvmConnector } from '@/helpers/resolveEvmConnector.js';
