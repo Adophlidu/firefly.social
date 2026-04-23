@@ -43,7 +43,7 @@ msgid "Send a tip"
 msgstr "發送打賞"
 
 msgid "Invalid cast link."
-msgstr ""
+msgstr "無效的連結"
 
 #. placeholder {0}: resolveSourceName(x)
 msgid "Your post was sent to {0}."
@@ -593,7 +593,7 @@ msgstr "預約時間已過，請重新設定。"
 
 #. placeholder {0}: coin.name
 msgid "Total amount of {0} held in treasuries by public companies and governments."
-msgstr ""
+msgstr "上市公司和國庫持有的 {0} 總額。"
 
 msgid "Failed to un-bookmark article."
 msgstr "取消收藏文章失敗。"
@@ -1036,7 +1036,7 @@ msgid "The gas abuse function is not included. If there is a gas abuse function,
 msgstr "未包含 Gas 濫用的機制。若存在，項目方可能擁有控制合約的權限。"
 
 msgid "The snap contains an invalid submit URL."
-msgstr ""
+msgstr "該快照包含無效的提交 URL。"
 
 msgid "Select Wallet"
 msgstr "選擇錢包"
@@ -2484,7 +2484,7 @@ msgid "New"
 msgstr "新增"
 
 msgid "Delete Firefly account"
-msgstr ""
+msgstr "刪除 Firefly 帳戶"
 
 msgid "Estimated network fee"
 msgstr "預估手續費"
