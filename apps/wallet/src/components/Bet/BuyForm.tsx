@@ -242,8 +242,11 @@ export function BuyMarketForm({
                 render={({ field }) => (
                     <div className="flex w-full flex-1 flex-col items-center justify-center">
                         <BetAmountStepper
-                            value={field.value}
-                            onChange={(e) => field.onChange(normalizeBetInput(e.target.value, 'usd'))}
+                            value={field.value ? `$${field.value}` : ''}
+                            onChange={(e) => {
+                                const value = e.target.value;
+                                return field.onChange(value === '$' ? '' : normalizeBetInput(value, 'usd'));
+                            }}
                             onDecrease={() => {
                                 const n = safe(field.value, 0);
                                 field.onChange(normalizeBetInput(BigNumber.max(0, n.minus(1)).toString(), 'usd'));

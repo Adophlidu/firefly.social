@@ -44,7 +44,7 @@ export function BetAmountStepper({
             </Button>
             <div className="flex w-full flex-col items-center">
                 <input
-                    type="number"
+                    type="text"
                     inputMode="decimal"
                     {...inputProps}
                     autoComplete="off"
