@@ -18,13 +18,13 @@ export function DiscoverPredictionTimeline() {
     const { platforms } = usePredictionSourceFilterStore(PredictionFilterNamespace.Discover);
 
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['bets', 'list', 'discover', platforms.join(',')],
+        queryKey: ['bets', 'list', 'discover', platforms],
         queryFn: async ({ pageParam }) => {
             const indicator = createIndicator(undefined, pageParam);
             try {
                 return await getDiscoverPredictionList({
                     indicator,
-                    platform: platforms,
+                    platforms,
                 });
             } catch {
                 return createPageable([], indicator);

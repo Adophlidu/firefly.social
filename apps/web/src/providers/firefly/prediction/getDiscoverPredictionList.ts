@@ -12,13 +12,13 @@ import { settings } from '@/settings/index.js';
 interface Options {
     size?: number;
     cursor?: string;
-    platform?: PredictionPlatform[];
+    platforms?: PredictionPlatform[];
     indicator?: PageIndicator;
 }
 
 export async function getDiscoverPredictionList(options: Options) {
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/discover/bets', {
-        platform: options.platform?.join(',') || undefined,
+        platform: options.platforms?.join(',') || undefined,
         size: options.size || 20,
         cursor: options.indicator?.id,
     });

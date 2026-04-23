@@ -43,10 +43,10 @@ const usePredictionSourceFilterStoreBase = createSelectors(useStateStore);
 
 export function usePredictionSourceFilterStore(namespace: PredictionFilterNamespace) {
     const { platforms, setPlatforms } = usePredictionSourceFilterStoreBase();
-    const filteredPlatforms = useMemo(() => {
-        const selectedPlatforms = SORTED_BETS_PLATFORM.filter((x) => platforms[namespace].includes(x));
-        return selectedPlatforms.length === SORTED_BETS_PLATFORM.length ? [] : selectedPlatforms;
-    }, [platforms, namespace]);
+    const filteredPlatforms = useMemo(
+        () => SORTED_BETS_PLATFORM.filter((x) => platforms[namespace].includes(x)),
+        [platforms, namespace],
+    );
 
     return {
         platforms: filteredPlatforms,

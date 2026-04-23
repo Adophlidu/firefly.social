@@ -22,7 +22,7 @@ export function FollowingPredictionTimeline() {
     const { platforms } = usePredictionSourceFilterStore(PredictionFilterNamespace.Following);
 
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['bets', 'list', 'following', currentProfileSession?.profileId, platforms.join(',')],
+        queryKey: ['bets', 'list', 'following', currentProfileSession?.profileId, platforms],
         queryFn: async ({ pageParam }) => {
             const indicator = createIndicator(undefined, pageParam);
             try {

@@ -33,7 +33,7 @@ export async function getFollowingPredictionList({
         body: JSON.stringify({
             platformFollowing,
             size,
-            platform: platforms?.join(',') || undefined,
+            platform: !platforms || platforms.length > 1 ? undefined : platforms[0],
             cursor: indicator?.id,
         }),
     });
