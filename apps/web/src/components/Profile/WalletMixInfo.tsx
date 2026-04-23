@@ -20,7 +20,7 @@ import { Source } from '@/constants/enum.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByFireflyProfile } from '@/helpers/getStampAvatarByProfileId.js';
-import { isMPCWallet } from '@/helpers/isMPCWallet.js';
+import { isMPCWallet, isPrivyMPCWallet } from '@/helpers/isMPCWallet.js';
 import { getUserTotalBalance } from '@/providers/debank/getUserTotalBalance.js';
 import { getUserSolanaTotalValue } from '@/providers/okx/getUserSolanaTotalValue.js';
 import type { FireflyProfile, WalletProfile } from '@/providers/types/Firefly.js';
@@ -41,13 +41,13 @@ export function WalletMixInfo({ profiles = EMPTY_LIST, hasFireflyAccount = false
     const defaultWalletProfiles = shouldCollapse
         ? walletProfiles.filter((profile) => {
               const origin = profile.__origin__ as WalletProfile;
-              return profile.isDefault || (origin && isMPCWallet(origin));
+              return profile.isDefault || (origin && isPrivyMPCWallet(origin));
           })
         : walletProfiles.slice(0, 2);
     const remaining = shouldCollapse
         ? walletProfiles.filter((profile) => {
               const origin = profile.__origin__ as WalletProfile;
-              return !profile.isDefault && !(origin && isMPCWallet(origin));
+              return !profile.isDefault && !(origin && isPrivyMPCWallet(origin));
           })
         : walletProfiles.slice(defaultWalletProfiles.length);
 

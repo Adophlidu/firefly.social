@@ -16,7 +16,7 @@ import { useSortFireflyProfiles } from '@/components/Profile/ProfileSourceTabs/u
 import { SORTED_PROFILE_SOURCES } from '@/constants/computed.js';
 import { type ProfilePageSource, Source } from '@/constants/enum.js';
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
-import { isMPCWallet } from '@/helpers/isMPCWallet.js';
+import { isPrivyMPCWallet } from '@/helpers/isMPCWallet.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
@@ -76,20 +76,20 @@ export function ProfileSourceTabs({
                 const hasMPCWallet = isWalletProfile
                     ? currentSourceProfiles.some((profile) => {
                           const origin = profile.__origin__ as WalletProfile | undefined;
-                          return !!origin && isMPCWallet(origin);
+                          return !!origin && isPrivyMPCWallet(origin);
                       })
                     : false;
                 const shouldCollapseWalletProfiles = isWalletProfile && hasMPCWallet && !isWalletProfilesExpanded;
                 const visibleProfiles = shouldCollapseWalletProfiles
                     ? currentSourceProfiles.filter((profile) => {
                           const origin = profile.__origin__ as WalletProfile | undefined;
-                          return profile.isDefault || (!!origin && isMPCWallet(origin));
+                          return profile.isDefault || (!!origin && isPrivyMPCWallet(origin));
                       })
                     : currentSourceProfiles;
                 const collapsedProfiles = shouldCollapseWalletProfiles
                     ? currentSourceProfiles.filter((profile) => {
                           const origin = profile.__origin__ as WalletProfile | undefined;
-                          return !profile.isDefault && !(origin && isMPCWallet(origin));
+                          return !profile.isDefault && !(origin && isPrivyMPCWallet(origin));
                       })
                     : [];
                 const topProfile = defaultProfile;
