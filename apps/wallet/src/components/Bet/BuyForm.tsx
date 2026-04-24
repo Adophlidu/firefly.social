@@ -1,9 +1,10 @@
 import LightningIcon from '@dimensiondev/assets/lightning.svg';
 import { createWagmiPublicClient } from '@dimensiondev/web3/actions';
 import { safe } from '@dimensiondev/web3/numbers';
-import { addAndSwitchChain, isSameAddress, resolvePublicRpcUrl } from '@dimensiondev/web3/utils';
+import { isSameAddress, resolvePublicRpcUrl } from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
+import type { ConnectedWallet } from '@privy-io/react-auth';
 import { useQuery, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { BigNumber } from 'bignumber.js';
 import { useCallback, useMemo, useRef, useState } from 'react';
@@ -29,6 +30,8 @@ import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { getUserFacingErrorMessage } from '@/helpers/getErrorMessage.js';
 import { getLimitPriceCentsInputConfig } from '@/helpers/getLimitPriceCentsInputConfig.js';
 import { normalizeBetInput } from '@/helpers/normalizeBetInput.js';
+import { resolveEvmConnector, switchEvmConnectorChain } from '@/helpers/resolveEvmConnector.js';
+import { useEmbeddedEvmWalletContext } from '@/hooks/useCachedWalletAddresses.js';
 import { cn } from '@/lib/utils.js';
 import type { TokenAsset } from '@/providers/types/Firefly.js';
 import type { Token } from '@/providers/types/Transfer.js';
@@ -60,14 +63,21 @@ function useWalletUsdcPolBalance() {
 
 async function topUpBetsAccountFromWallet(params: {
     config: Config;
+    wallet: ConnectedWallet;
     fromAddress: Address;
     proxyAddress: Address;
     topUpUsd: BigNumber;
 }) {
-    const { config, fromAddress, proxyAddress, topUpUsd } = params;
+    const { config, wallet, fromAddress, proxyAddress, topUpUsd } = params;
     if (topUpUsd.lte(0)) return;
 
-    await addAndSwitchChain(config, polygon.id);
+    const connector = await resolveEvmConnector(wallet);
+    if (connector) {
+        await switchEvmConnectorChain(wallet, connector, polygon.id);
+    } else {
+        await wallet.switchChain(polygon.id);
+    }
+
     const parsedValue = parseUnits(topUpUsd.decimalPlaces(6, BigNumber.ROUND_CEIL).toFixed(6), 6);
 
     const transferCall = {
@@ -124,6 +134,7 @@ function useQuickBuyAction(params: {
     const { proxyAddress, topUpUsd, submitDisabled, loading, onPlaceOrder } = params;
     const config = useConfig();
     const { address } = useConnection();
+    const { wallet: embeddedWallet } = useEmbeddedEvmWalletContext();
     const queryClient = useQueryClient();
     const isSubmittingRef = useRef(false);
     const [isQuickBuying, setIsQuickBuying] = useState(false);
@@ -131,7 +142,7 @@ function useQuickBuyAction(params: {
     const runQuickBuy = useCallback(async () => {
         if (submitDisabled) return;
         if (isSubmittingRef.current || loading || isQuickBuying) return;
-        if (!address) return toast.error(<Trans>Unable to add funds to predictions account.</Trans>);
+        if (!address || !embeddedWallet) return toast.error(<Trans>Unable to add funds to predictions account.</Trans>);
 
         isSubmittingRef.current = true;
 
@@ -142,6 +153,7 @@ function useQuickBuyAction(params: {
             try {
                 await topUpBetsAccountFromWallet({
                     config,
+                    wallet: embeddedWallet,
                     fromAddress: address as Address,
                     proxyAddress,
                     topUpUsd,
@@ -173,7 +185,18 @@ function useQuickBuyAction(params: {
             setIsQuickBuying(false);
             isSubmittingRef.current = false;
         }
-    }, [address, config, isQuickBuying, loading, onPlaceOrder, proxyAddress, queryClient, submitDisabled, topUpUsd]);
+    }, [
+        address,
+        embeddedWallet,
+        config,
+        isQuickBuying,
+        loading,
+        onPlaceOrder,
+        proxyAddress,
+        queryClient,
+        submitDisabled,
+        topUpUsd,
+    ]);
 
     return { runQuickBuy, isQuickBuying };
 }

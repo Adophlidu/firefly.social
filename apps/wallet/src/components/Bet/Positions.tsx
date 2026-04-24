@@ -48,7 +48,7 @@ export function Positions() {
             };
         },
         getNextPageParam: (lastPage) => lastPage.nextOffset,
-        select: (data) => data.pages.flatMap((p) => p.data ?? []),
+        select: (data) => data.pages.flatMap((p) => p.data || []).filter((x) => x.shares > 0),
     });
 
     const closedQueryResult = useSuspenseInfiniteQuery({

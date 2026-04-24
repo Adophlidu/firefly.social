@@ -47,8 +47,7 @@ import { config } from '@/configs/wagmiClient.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { normalizeDecimalInput } from '@/helpers/normalizeDecimalInput.js';
 import { removeTrailingZeros } from '@/helpers/removeTrailingZeros.js';
-import { resolveEvmConnector } from '@/helpers/resolveEvmConnector.js';
-import { switchSwapEvmConnectorChain } from '@/helpers/swap/resolveSwapEvmConnector.js';
+import { resolveEvmConnector, switchEvmConnectorChain } from '@/helpers/resolveEvmConnector.js';
 import { resolveSwapEvmSigningWallet } from '@/helpers/swap/resolveSwapSigningWallet.js';
 import { useAutoHeightTextarea } from '@/hooks/useAutoHeightTextarea.js';
 import { useEmbeddedEvmAddress } from '@/hooks/useCachedWalletAddresses.js';
@@ -121,7 +120,7 @@ function Form() {
                 });
                 if (signingWallet) connector = await resolveEvmConnector(signingWallet);
                 if (signingWallet && connector) {
-                    await switchSwapEvmConnectorChain(signingWallet, connector, values.token.chainId);
+                    await switchEvmConnectorChain(signingWallet, connector, values.token.chainId);
                 }
             }
             const hash = await transfer.transfer({

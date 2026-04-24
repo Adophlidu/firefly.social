@@ -1,6 +1,9 @@
+import { chains } from '@dimensiondev/web3/chains';
 import type { ConnectedWallet } from '@privy-io/react-auth';
 
 import { config } from '@/configs/wagmiClient.js';
+
+type EvmConnector = (typeof config.connectors)[number];
 
 function getPrivyWagmiConnectorId(wallet: ConnectedWallet): string {
     return wallet.walletClientType === 'privy' ? `${wallet.meta.id}.${wallet.address}` : wallet.meta.id;
@@ -18,4 +21,30 @@ export async function resolveEvmConnector(wallet: ConnectedWallet) {
     }
 
     return null;
+}
+
+export async function switchEvmConnectorChain(wallet: ConnectedWallet, connector: EvmConnector, chainId: number) {
+    // Switch at the Privy wallet level first — updates the wallet's internal
+    // chain state so Privy's signing UI shows the correct chain.
+    await wallet.switchChain(chainId);
+
+    const currentChainId = await connector.getChainId();
+    if (currentChainId === chainId) return;
+    if (!connector.switchChain) {
+        throw new Error('Selected EVM wallet does not support chain switching');
+    }
+
+    const chain = chains.find((item) => item.id === chainId);
+
+    await connector.switchChain({
+        chainId,
+        addEthereumChainParameter: chain
+            ? {
+                  chainName: chain.name,
+                  nativeCurrency: chain.nativeCurrency,
+                  rpcUrls: chain.rpcUrls.default.http,
+                  blockExplorerUrls: chain.blockExplorers?.default.url ? [chain.blockExplorers.default.url] : [],
+              }
+            : undefined,
+    });
 }

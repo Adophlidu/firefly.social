@@ -20,12 +20,12 @@ import { config } from '@/configs/wagmiClient.js';
 import { env } from '@/constants/env.js';
 import { tryFreeGasTransaction } from '@/helpers/freeGas/tryFreeGasTransaction.js';
 import { getUserFacingErrorMessage } from '@/helpers/getErrorMessage.js';
+import { resolveEvmConnector, switchEvmConnectorChain } from '@/helpers/resolveEvmConnector.js';
 import { signAndBroadcastSolanaTransaction } from '@/helpers/signAndBroadcastSolanaTransaction.js';
 import type { BuildSwapAnalyticsParamsInput } from '@/helpers/swap/buildSwapAnalyticsParams.js';
 import { executeEvmApproval } from '@/helpers/swap/executeEvmApproval.js';
 import { fetchSwapQuote } from '@/helpers/swap/fetchSwapQuote.js';
 import type { HandleSwapSuccessParams } from '@/helpers/swap/handleSwapSuccess.js';
-import { resolveSwapEvmConnector, switchSwapEvmConnectorChain } from '@/helpers/swap/resolveSwapEvmConnector.js';
 import {
     resolveSwapEvmSigningWallet,
     resolveSwapSolanaSigningWallet,
@@ -109,12 +109,12 @@ async function executeEvmSwap({
     onSuccess,
     freeGasTxType,
 }: ExecuteEvmSwapParams): Promise<void> {
-    const connector = await resolveSwapEvmConnector(evmSigningWallet);
+    const connector = await resolveEvmConnector(evmSigningWallet);
     if (!connector) {
         throw new Error('Selected EVM wallet connector is not available for signing');
     }
 
-    await switchSwapEvmConnectorChain(evmSigningWallet, connector, chainId);
+    await switchEvmConnectorChain(evmSigningWallet, connector, chainId);
     const quoteResult = await fetchSwapQuote(quoteParams);
 
     // Check and execute ERC20 approval if needed
