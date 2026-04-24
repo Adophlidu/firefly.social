@@ -47,7 +47,7 @@ export function Provider({
     useEffect(() => {
         setToken(token ?? null);
         setApiMode(apiMode ?? 'prod');
-    }, [token, apiMode, setApiMode, setToken, setExchangeClient]);
+    }, [token, apiMode, setApiMode, setToken]);
     useEffect(() => {
         if (!authToken || !walletClient) {
             setExchangeClient(null);
@@ -76,8 +76,10 @@ export function Provider({
     }, []);
 
     return (
-        <TamaguiProvider config={config} defaultTheme={theme} {...rest}>
-            <QueryClientProvider client={queryClient}>{!authToken ? <LoginFallback /> : children}</QueryClientProvider>
-        </TamaguiProvider>
+        <QueryClientProvider client={queryClient}>
+            <TamaguiProvider config={config} defaultTheme={theme} {...rest}>
+                {!authToken ? <LoginFallback /> : children}
+            </TamaguiProvider>
+        </QueryClientProvider>
     );
 }
