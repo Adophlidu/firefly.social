@@ -22,6 +22,7 @@ import { getPolymarketToWinAmountQueryOptions } from '@/queries/firefly/getPolym
 
 interface SubmitMarketArgs {
     shares: number;
+    fullSell: boolean;
 }
 interface SubmitLimitArgs {
     shares: number;
@@ -29,6 +30,7 @@ interface SubmitLimitArgs {
 }
 
 const POLYMARKET_QUOTE_POLL_MS = 3000;
+const SELL_ALL_EPSILON = 0.000001;
 
 export function SellMarketForm({
     outcome,
@@ -170,7 +172,11 @@ export function SellMarketForm({
                     loading={loading}
                     onClick={() => {
                         if (submitDisabled) return;
-                        return onSubmit({ shares: sharesBN.toNumber() });
+                        return onSubmit({
+                            shares: sharesBN.toNumber(),
+                            fullSell:
+                                availableSharesBN.gt(0) && availableSharesBN.minus(sharesBN).lte(SELL_ALL_EPSILON),
+                        });
                     }}
                 >
                     {isOverMax ? <Trans>Insufficient Balance</Trans> : <Trans>Sell {outcome}</Trans>}

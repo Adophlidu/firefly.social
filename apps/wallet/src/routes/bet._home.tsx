@@ -99,9 +99,12 @@ function TabNavigation() {
 export function ClientLayout() {
     const queryClient = useQueryClient();
     const { data } = useSuspenseQuery(getPolymarketAccountQueryOptions());
-    const { totalBalance, availableBalance } = usePolymarketBalance(data.proxyAddress, POLYMARKET_HOME_POLL_MS);
-
     const { data: upgradeTask } = useSuspenseQuery(getPolymarketUpgradeTaskQueryOptions(data.proxyAddress));
+    const { totalBalance, availableBalance } = usePolymarketBalance(
+        data.proxyAddress,
+        POLYMARKET_HOME_POLL_MS,
+        upgradeTask?.is_upgraded,
+    );
 
     const portfolioText = formatPortfolioUSDCe(totalBalance);
     const availableText = isZero(availableBalance) ? '$0' : formatTokenUSD(availableBalance, { minDisplay: 0.01 });

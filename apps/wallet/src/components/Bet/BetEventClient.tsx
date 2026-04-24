@@ -24,6 +24,7 @@ import { MarketNotFoundError } from '@/constants/error.js';
 import { getErrorMessage } from '@/helpers/getErrorMessage.js';
 import { optimisticAddBalance, optimisticSubtractBalance } from '@/helpers/polymarketBalanceCache.js';
 import {
+    markSoldPosition,
     optimisticAddPosition,
     optimisticSubtractPositionShares,
     optimisticUpdatePositionShares,
@@ -239,7 +240,12 @@ export default function BetEventClient({ id }: { id: string }) {
 
     const { mutateAsync: placeOrder, isPending } = useMutation({
         mutationKey: ['polymarket-place-order', id, safeOutcomeIndex, orderType],
-        async mutationFn(args: { side: 'BUY' | 'SELL'; amount: number; overrideLimitPrice?: number }) {
+        async mutationFn(args: {
+            side: 'BUY' | 'SELL';
+            amount: number;
+            overrideLimitPrice?: number;
+            fullSell?: boolean;
+        }) {
             if (isMarketResolvedOrDisputed) throw new Error(NO_NEW_BETS_ACCEPTED_ERROR_CODE);
             const tokenId = tokenIds[safeOutcomeIndex];
             if (!tokenId) throw new Error('Missing tokenId for selected outcome');
@@ -307,11 +313,18 @@ export default function BetEventClient({ id }: { id: string }) {
 
             if (!isLimitOrder && account?.proxyAddress && variables?.side === 'SELL' && conditionId) {
                 const soldShares = BigNumber(variables.amount ?? 0);
-                optimisticSubtractPositionShares(queryClient, {
+                const matcher = { conditionId, tokenId: selectedTokenId, outcomeLabel };
+                const { positionRemoved } = optimisticSubtractPositionShares(queryClient, {
                     proxyAddress: account.proxyAddress,
-                    matcher: { conditionId, tokenId: selectedTokenId, outcomeLabel },
+                    matcher,
                     sharesToSubtract: soldShares,
                 });
+                if (variables.fullSell || positionRemoved) {
+                    markSoldPosition(queryClient, {
+                        proxyAddress: account.proxyAddress,
+                        matcher,
+                    });
+                }
             }
 
             if (!isLimitOrder && account?.proxyAddress && variables?.side === 'BUY' && conditionId && selectedTokenId) {
@@ -453,7 +466,7 @@ export default function BetEventClient({ id }: { id: string }) {
                             conditionId={conditionId}
                             loading={isPending}
                             submitDisabled={isMarketResolvedOrDisputed}
-                            onSubmit={({ shares }) => placeOrder({ side: 'SELL', amount: shares })}
+                            onSubmit={({ shares, fullSell }) => placeOrder({ side: 'SELL', amount: shares, fullSell })}
                         />
                     ) : (
                         <SellLimitForm

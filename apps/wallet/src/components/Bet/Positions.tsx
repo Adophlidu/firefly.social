@@ -1,12 +1,17 @@
 import ArrowLineDownIcon from '@dimensiondev/assets/arrow-line-down.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { Trans } from '@lingui/react/macro';
-import { useSuspenseInfiniteQuery, useSuspenseQuery } from '@tanstack/react-query';
+import { useQuery, useSuspenseInfiniteQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 
 import { PositionCard } from '@/components/Bet/PositionCard.js';
 import { ListInPage } from '@/components/ListInPage.js';
-import { getPositionsQueryKeys } from '@/helpers/polymarketPositionsCache.js';
+import {
+    filterSoldPositions,
+    getPositionsQueryKeys,
+    getSoldPositionsQueryKey,
+    type SoldPositionMatcher,
+} from '@/helpers/polymarketPositionsCache.js';
 import { cn } from '@/lib/utils.js';
 import { mapPolymarketV2ToLegacy, type PolymarketPosition } from '@/providers/types/Firefly.js';
 import { getPolymarketAccountQueryOptions } from '@/queries/firefly/getPolymarketAccountQueryOptions.js';
@@ -20,6 +25,11 @@ export function Positions() {
     const proxy = proxyAddress.toLowerCase();
     const positionsQueryKeys = getPositionsQueryKeys(proxyAddress);
     const [showClosed, setShowClosed] = useState(false);
+    const { data: soldPositions = EMPTY_LIST } = useQuery<SoldPositionMatcher[]>({
+        queryKey: getSoldPositionsQueryKey(proxyAddress),
+        queryFn: () => [],
+        staleTime: Number.POSITIVE_INFINITY,
+    });
 
     const activeQueryResult = useSuspenseInfiniteQuery({
         queryKey: positionsQueryKeys.current,
@@ -61,7 +71,7 @@ export function Positions() {
         select: (data) => data.pages.flatMap((p) => p.data ?? []),
     });
 
-    const activePositions = activeQueryResult.data || EMPTY_LIST;
+    const activePositions = filterSoldPositions(activeQueryResult.data || EMPTY_LIST, soldPositions);
     const closedPositions = closedQueryResult.data || EMPTY_LIST;
     const hasAnyPositions = activePositions.length > 0 || closedPositions.length > 0;
 

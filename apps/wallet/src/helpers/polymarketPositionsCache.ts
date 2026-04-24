@@ -10,12 +10,17 @@ export interface PositionsPage {
 }
 export type PositionsInfiniteData = InfiniteData<PositionsPage>;
 export type PositionsQueryScope = 'current' | 'closed';
+export interface OptimisticSubtractPositionSharesResult {
+    positionFound: boolean;
+    positionRemoved: boolean;
+}
 
 export interface PositionMatcher {
     conditionId: string;
     tokenId?: string;
     outcomeLabel?: string;
 }
+export type SoldPositionMatcher = PositionMatcher;
 
 export interface MarketData {
     title: string;
@@ -27,6 +32,10 @@ export interface MarketData {
 
 export function getPositionsQueryKey(proxyAddress: Address, scope: PositionsQueryScope = 'current') {
     return ['polymarket-positions', proxyAddress.toLowerCase(), scope] as const;
+}
+
+export function getSoldPositionsQueryKey(proxyAddress: Address) {
+    return ['polymarket-sold-positions', proxyAddress.toLowerCase()] as const;
 }
 
 export function getPositionsQueryKeys(proxyAddress: Address) {
@@ -69,6 +78,57 @@ function getPositionIdentity(position: Pick<PolymarketPosition, 'Id' | 'tokenId'
     return position.Id || position.tokenId || position.conditionId;
 }
 
+function soldPositionMatches(
+    position: PolymarketPosition,
+    soldPosition: SoldPositionMatcher,
+    positions: PolymarketPosition[],
+) {
+    const conditionMatches = positions.filter((x) => x.conditionId === soldPosition.conditionId);
+    return positionMatches(position, soldPosition, conditionMatches.length === 1);
+}
+
+function sameSoldPosition(left: SoldPositionMatcher, right: SoldPositionMatcher) {
+    if (left.conditionId !== right.conditionId) return false;
+    if (left.tokenId && right.tokenId) return left.tokenId === right.tokenId;
+    if (left.outcomeLabel && right.outcomeLabel) {
+        return left.outcomeLabel.toLowerCase() === right.outcomeLabel.toLowerCase();
+    }
+    return !left.tokenId && !right.tokenId && !left.outcomeLabel && !right.outcomeLabel;
+}
+
+export function filterSoldPositions(positions: PolymarketPosition[], soldPositions: SoldPositionMatcher[]) {
+    if (!positions.length || !soldPositions.length) return positions;
+
+    return positions.filter((position) => {
+        return !soldPositions.some((soldPosition) => soldPositionMatches(position, soldPosition, positions));
+    });
+}
+
+export function markSoldPosition(
+    queryClient: QueryClient,
+    params: {
+        proxyAddress: Address;
+        matcher: SoldPositionMatcher;
+    },
+) {
+    queryClient.setQueryData<SoldPositionMatcher[]>(getSoldPositionsQueryKey(params.proxyAddress), (old = []) => {
+        const next = old.filter((position) => !sameSoldPosition(position, params.matcher));
+        return [...next, params.matcher];
+    });
+}
+
+export function clearSoldPosition(
+    queryClient: QueryClient,
+    params: {
+        proxyAddress: Address;
+        matcher: SoldPositionMatcher;
+    },
+) {
+    queryClient.setQueryData<SoldPositionMatcher[]>(getSoldPositionsQueryKey(params.proxyAddress), (old = []) => {
+        return old.filter((position) => !sameSoldPosition(position, params.matcher));
+    });
+}
+
 /**
  * Add a new position to the cache (first buy in a market).
  */
@@ -94,6 +154,14 @@ export function optimisticAddPosition(
     const queryKey = getPositionsQueryKey(params.proxyAddress);
     const proxy = params.proxyAddress.toLowerCase();
     const totalBuy = shares.times(price);
+    clearSoldPosition(queryClient, {
+        proxyAddress: params.proxyAddress,
+        matcher: {
+            conditionId: params.conditionId,
+            tokenId: params.tokenId,
+            outcomeLabel: params.marketData.outcomeLabel,
+        },
+    });
 
     const newPosition: PolymarketPosition = {
         is_closed: false,
@@ -171,6 +239,12 @@ export function optimisticUpdatePositionShares(
 
     const queryKey = getPositionsQueryKey(params.proxyAddress);
     let positionFound = false;
+    if (shareDelta.gt(0)) {
+        clearSoldPosition(queryClient, {
+            proxyAddress: params.proxyAddress,
+            matcher: params.matcher,
+        });
+    }
 
     queryClient.setQueryData<PositionsInfiniteData>(queryKey, (old) => {
         if (!old) return old;
@@ -276,7 +350,7 @@ export function optimisticRemovePosition(
 /**
  * Subtract shares from a position (for SELL).
  * Automatically removes the position if shares become zero or negative.
- * Returns true if a matching position was found.
+ * Returns whether a matching position was found and whether it was removed.
  */
 export function optimisticSubtractPositionShares(
     queryClient: QueryClient,
@@ -285,12 +359,15 @@ export function optimisticSubtractPositionShares(
         matcher: PositionMatcher;
         sharesToSubtract: BigNumber.Value;
     },
-): boolean {
+): OptimisticSubtractPositionSharesResult {
     const sharesToSubtract = BigNumber(params.sharesToSubtract);
-    if (!sharesToSubtract.isFinite() || sharesToSubtract.lte(0)) return false;
+    if (!sharesToSubtract.isFinite() || sharesToSubtract.lte(0)) {
+        return { positionFound: false, positionRemoved: false };
+    }
 
     const queryKey = getPositionsQueryKey(params.proxyAddress);
     let positionFound = false;
+    let positionRemoved = false;
 
     queryClient.setQueryData<PositionsInfiniteData>(queryKey, (old) => {
         if (!old) return old;
@@ -318,6 +395,7 @@ export function optimisticSubtractPositionShares(
 
                             // Remove position if shares <= 0
                             if (!nextShares.isFinite() || nextShares.lte(0)) {
+                                positionRemoved = true;
                                 return null;
                             }
 
@@ -332,5 +410,5 @@ export function optimisticSubtractPositionShares(
         };
     });
 
-    return positionFound;
+    return { positionFound, positionRemoved };
 }

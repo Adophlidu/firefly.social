@@ -9,5 +9,6 @@ export function getPolymarketAccountQueryOptions() {
             return getFireflyEndpoint().getPolymarketAccount();
         },
         retry: 0,
+        retryOnMount: false,
     });
 }

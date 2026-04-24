@@ -1,12 +1,12 @@
 import LightningIcon from '@dimensiondev/assets/lightning.svg';
 import { Trans } from '@lingui/react/macro';
-import type { BigNumber } from 'bignumber.js';
 import { useMemo } from 'react';
 
 import { DialogOrDrawer, DialogOrDrawerContent, DialogOrDrawerFooter } from '@/components/DialogOrDrawer.js';
 import { Button } from '@/components/ui/button.js';
 import { formatTokenItemAmount } from '@/helpers/formatTokenItemAmount.js';
 import { formatTokenUSDConditional } from '@/helpers/formatTokenUSDConditional.js';
+import { pusdTokenFallback } from '@/hooks/bet/useTokenDetail.js';
 import { cn } from '@/lib/utils.js';
 
 export interface QuickBuyConfirmDialogProps {
@@ -74,7 +74,9 @@ export function QuickBuyConfirmDialog({
                                         {fireflyPayText}
                                     </div>
                                     <div className="text-second text-xs font-medium leading-3">
-                                        <Trans>Available:</Trans> {availableText} <span>USDC.e</span>
+                                        <Trans>
+                                            Available: {availableText} {pusdTokenFallback.symbol}
+                                        </Trans>
                                     </div>
                                 </div>
                             </div>

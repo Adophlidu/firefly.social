@@ -22,6 +22,10 @@ msgstr "複製到剪貼簿"
 msgid "To"
 msgstr "至"
 
+#. placeholder {0}: pusdTokenFallback.symbol
+msgid "Available: {availableText} {0}"
+msgstr ""
+
 msgid "Show assets < 1 USD"
 msgstr "顯示小於 1 美元的資產"
 
@@ -791,9 +795,6 @@ msgstr "<0><1/><2>已撤銷</2></0><3>於</3><4/>"
 
 msgid "NFT Sent Failed"
 msgstr "發送 NFT 失敗"
-
-msgid "Available:"
-msgstr "可用："
 
 msgid "Failed to search. Please try again."
 msgstr "搜尋失敗，請重試。"

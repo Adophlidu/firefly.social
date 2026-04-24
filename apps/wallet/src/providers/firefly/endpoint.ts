@@ -195,7 +195,7 @@ export class FireflyEndpoint extends Fetch {
 
     async getPolymarketAccount() {
         const result = await this.get<PolymarketAccount>(`/polymarket/v1/polymarket/getAccount`);
-        if (result.data.code === ErrorCode.InvalidPolymarketAccount) {
+        if (result.status === 400 || result.data?.code === ErrorCode.InvalidPolymarketAccount) {
             throw new InvalidPolymarketAccountError();
         }
         return resolveFireflyResponseData(result.data);

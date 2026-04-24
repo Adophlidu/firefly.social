@@ -3,7 +3,11 @@ import { BigNumber } from 'bignumber.js';
 import { beforeEach, describe, expect, it } from 'vitest';
 
 import {
+    clearSoldPosition,
+    filterSoldPositions,
     getPositionsQueryKey,
+    getSoldPositionsQueryKey,
+    markSoldPosition,
     optimisticAddPosition,
     optimisticSubtractPositionShares,
     optimisticUpdatePositionShares,
@@ -370,7 +374,7 @@ describe('optimisticSubtractPositionShares', () => {
             matcher: { conditionId: 'cond-1' },
             sharesToSubtract: 0,
         });
-        expect(result).toBe(false);
+        expect(result).toEqual({ positionFound: false, positionRemoved: false });
     });
 
     it('returns false when sharesToSubtract is negative', () => {
@@ -379,7 +383,7 @@ describe('optimisticSubtractPositionShares', () => {
             matcher: { conditionId: 'cond-1' },
             sharesToSubtract: -10,
         });
-        expect(result).toBe(false);
+        expect(result).toEqual({ positionFound: false, positionRemoved: false });
     });
 
     it('decreases shares correctly', () => {
@@ -399,7 +403,7 @@ describe('optimisticSubtractPositionShares', () => {
             sharesToSubtract: 30,
         });
 
-        expect(result).toBe(true);
+        expect(result).toEqual({ positionFound: true, positionRemoved: false });
         const data = queryClient.getQueryData<PositionsInfiniteData>(getPositionsQueryKey(TEST_PROXY_ADDRESS));
         expect(data?.pages[0]?.data?.[0]?.shares).toBe(70);
     });
@@ -421,7 +425,7 @@ describe('optimisticSubtractPositionShares', () => {
             sharesToSubtract: 100,
         });
 
-        expect(result).toBe(true);
+        expect(result).toEqual({ positionFound: true, positionRemoved: true });
         const data = queryClient.getQueryData<PositionsInfiniteData>(getPositionsQueryKey(TEST_PROXY_ADDRESS));
         expect(data?.pages[0]?.data).toHaveLength(0);
     });
@@ -513,8 +517,45 @@ describe('optimisticSubtractPositionShares', () => {
             sharesToSubtract: 30,
         });
 
-        expect(result).toBe(true);
+        expect(result).toEqual({ positionFound: true, positionRemoved: false });
         const data = queryClient.getQueryData<PositionsInfiniteData>(getPositionsQueryKey(TEST_PROXY_ADDRESS));
         expect(data?.pages[0]?.data?.[0]?.shares).toBe(70);
+    });
+});
+
+describe('sold positions filter', () => {
+    let queryClient: QueryClient;
+
+    beforeEach(() => {
+        queryClient = new QueryClient();
+    });
+
+    it('marks and filters a sold position from stale current positions', () => {
+        const soldPosition = createMockPosition({ conditionId: 'cond-1', tokenId: 'token-1' });
+        const activePosition = createMockPosition({ conditionId: 'cond-2', tokenId: 'token-2' });
+
+        markSoldPosition(queryClient, {
+            proxyAddress: TEST_PROXY_ADDRESS,
+            matcher: { conditionId: 'cond-1', tokenId: 'token-1' },
+        });
+
+        const soldPositions = queryClient.getQueryData(getSoldPositionsQueryKey(TEST_PROXY_ADDRESS));
+        const filtered = filterSoldPositions([soldPosition, activePosition], soldPositions || []);
+
+        expect(filtered).toEqual([activePosition]);
+    });
+
+    it('clears a sold position marker', () => {
+        markSoldPosition(queryClient, {
+            proxyAddress: TEST_PROXY_ADDRESS,
+            matcher: { conditionId: 'cond-1', tokenId: 'token-1' },
+        });
+
+        clearSoldPosition(queryClient, {
+            proxyAddress: TEST_PROXY_ADDRESS,
+            matcher: { conditionId: 'cond-1', tokenId: 'token-1' },
+        });
+
+        expect(queryClient.getQueryData(getSoldPositionsQueryKey(TEST_PROXY_ADDRESS))).toEqual([]);
     });
 });

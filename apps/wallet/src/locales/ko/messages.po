@@ -22,6 +22,10 @@ msgstr ""
 msgid "To"
 msgstr ""
 
+#. placeholder {0}: pusdTokenFallback.symbol
+msgid "Available: {availableText} {0}"
+msgstr ""
+
 msgid "Show assets < 1 USD"
 msgstr ""
 
@@ -790,9 +794,6 @@ msgid "<0><1/><2>Revoked</2></0><3>on</3><4/>"
 msgstr ""
 
 msgid "NFT Sent Failed"
-msgstr ""
-
-msgid "Available:"
 msgstr ""
 
 msgid "Failed to search. Please try again."
