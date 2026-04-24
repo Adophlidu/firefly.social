@@ -11,6 +11,7 @@ import { polygon } from 'viem/chains';
 
 import { getUserFacingErrorMessage } from '@/helpers/getErrorMessage.js';
 import { optimisticAddBalance } from '@/helpers/polymarketBalanceCache.js';
+import { uploadSwapTx } from '@/helpers/swap/uploadSwapTx.js';
 import { useAddFundsWithPolUsdc } from '@/hooks/bet/useAddFundsWithPolUsdc.js';
 import { pusdTokenFallback } from '@/hooks/bet/useTokenDetail.js';
 import { useSwapExecuteCore } from '@/hooks/swap/useSwapExecuteCore.js';
@@ -55,8 +56,9 @@ export function useAddFunds(options: Options) {
         throwError: true,
         onStepChange: () => {},
         onFromAmountChange: () => {},
-        onSuccess: async ({ toastId: innerToastId }) => {
+        onSuccess: async ({ toastId: innerToastId, endpoint, chainId, hash, isCrossChain }) => {
             toast.dismiss(innerToastId);
+            await uploadSwapTx(endpoint, chainId, hash, isCrossChain);
         },
     });
 
