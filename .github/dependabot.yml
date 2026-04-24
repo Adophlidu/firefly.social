@@ -16,19 +16,6 @@ updates:
                 - version-update:semver-major
                 - version-update:semver-minor
 
-    # Next.js app
-    - package-ecosystem: 'npm'
-      directory: '/apps/web'
-      schedule:
-          interval: 'weekly'
-      open-pull-requests-limit: 20
-      versioning-strategy: increase
-      ignore:
-          - dependency-name: '*'
-            update-types:
-                - version-update:semver-major
-                - version-update:semver-minor
-
     # Workspace packages (each owns a package.json; lockfile lives at repo root)
     - package-ecosystem: 'npm'
       directory: '/packages/assets'
