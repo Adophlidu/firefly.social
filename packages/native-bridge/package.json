@@ -42,7 +42,7 @@
         "@farcaster/miniapp-host": "^0.2.16",
         "@types/lodash-es": "^4.17.12",
         "tsup": "^8.5.1",
-        "@typescript/native-preview": "7.0.0-dev.20260417.1",
+        "@typescript/native-preview": "7.0.0-dev.20260424.1",
         "viem": "^2.43.5"
     },
     "peerDependencies": {
