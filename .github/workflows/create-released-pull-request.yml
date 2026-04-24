@@ -84,14 +84,10 @@ jobs:
                   done
                   echo "current_snapshot=$current_snapshot" >> $GITHUB_ENV
 
-                  for name in "${app_names[@]}"; do
-                    if [ "$release_type" = "major" ]; then
-                      pnpm --filter "$name" version major --no-git-tag-version
-                    elif [ "$release_type" = "minor" ]; then
-                      pnpm --filter "$name" version minor --no-git-tag-version
-                    else
-                      pnpm --filter "$name" version patch --no-git-tag-version
-                    fi
+                  for pkgjson2 in apps/*/package.json; do
+                    [ -f "$pkgjson2" ] || continue
+                    dir=$(dirname "$pkgjson2")
+                    pnpm -C "$dir" version "$release_type" --no-git-tag-version
                   done
 
                   new_snapshot=""
