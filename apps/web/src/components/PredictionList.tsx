@@ -3,6 +3,7 @@
 import { createIndicator } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
+import { uniqBy } from 'lodash-es';
 
 import { BetItem } from '@/components/BetItem.js';
 import { ListInPage } from '@/components/ListInPage.js';
@@ -42,7 +43,11 @@ export function PredictionList({ source }: Props) {
             if (lastPage?.data.length === 0) return undefined;
             return lastPage?.nextIndicator?.id;
         },
-        select: (data) => data.pages.flatMap((x) => x?.data || []),
+        select: (data) =>
+            uniqBy(
+                data.pages.flatMap((x) => x?.data || []),
+                'id',
+            ),
     });
 
     return (
@@ -52,7 +57,7 @@ export function PredictionList({ source }: Props) {
                 source={Source.Prediction}
                 VirtualListProps={{
                     listKey: `${ScrollListKey.Prediction}:explore:${source}`,
-                    computeItemKey: (index, item) => `${item.id}-${index}`,
+                    computeItemKey: (_, item) => item.id,
                     itemContent: getBetsItemContent,
                 }}
                 NoResultsFallbackProps={{
