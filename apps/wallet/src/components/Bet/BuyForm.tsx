@@ -284,21 +284,13 @@ export function BuyMarketForm({
                                 <Trans>Avg. Price</Trans>
                             </span>
                             <Skeleton className="h-5 w-24" isLoading={isLoadingToWin}>
-                                <div className="h-5">
-                                    {toWin?.avg_price ? (
-                                        <>{formatPriceToCents(toWin.avg_price)}</>
-                                    ) : (
-                                        formatPriceToCents(0)
-                                    )}
-                                </div>
+                                <div className="h-5">{formatPriceToCents(toWin?.avg_price ?? 0)}</div>
                             </Skeleton>
                         </div>
                     </div>
                     <div className="text-success text-lg font-bold">
                         <Skeleton className="h-5 w-24" isLoading={isLoadingToWin}>
-                            <div>
-                                {toWin?.win_amount ? formatTokenUSD(toWin.win_amount, { minDisplay: 0.01 }) : null}
-                            </div>
+                            <div>{formatTokenUSD(toWin?.win_amount ?? 0, { minDisplay: 0.01 })}</div>
                         </Skeleton>
                     </div>
                 </div>

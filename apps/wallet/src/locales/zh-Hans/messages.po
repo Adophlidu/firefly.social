@@ -295,6 +295,9 @@ msgstr ""
 msgid "Your funds are now in your predict wallet."
 msgstr "资金已到达您的预测钱包。"
 
+msgid "Order placed"
+msgstr ""
+
 msgid "Failed to place buy order. "
 msgstr "下单买入失败。"
 

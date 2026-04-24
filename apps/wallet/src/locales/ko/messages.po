@@ -295,6 +295,9 @@ msgstr ""
 msgid "Your funds are now in your predict wallet."
 msgstr ""
 
+msgid "Order placed"
+msgstr ""
+
 msgid "Failed to place buy order. "
 msgstr ""
 

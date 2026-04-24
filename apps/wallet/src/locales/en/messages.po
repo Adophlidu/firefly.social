@@ -295,6 +295,9 @@ msgstr "<0>{releaseAmountText}</0><1>to release</1>"
 msgid "Your funds are now in your predict wallet."
 msgstr "Your funds are now in your predict wallet."
 
+msgid "Order placed"
+msgstr "Order placed"
+
 msgid "Failed to place buy order. "
 msgstr "Failed to place buy order. "
 

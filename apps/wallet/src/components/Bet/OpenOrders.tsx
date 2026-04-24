@@ -14,6 +14,7 @@ import { BigNumber } from 'bignumber.js';
 import { type ReactNode, useState } from 'react';
 import { toast } from 'sonner';
 
+import { OpenOrdersSkeleton } from '@/components/Bet/OpenOrdersSkeleton.js';
 import {
     DialogOrDrawer,
     DialogOrDrawerClose,
@@ -51,6 +52,8 @@ export function OpenOrders() {
             return data.pages.flatMap((p) => p.list ?? EMPTY_LIST);
         },
     });
+
+    if (queryResult.isFetching && !queryResult.data.length) return <OpenOrdersSkeleton />;
 
     return (
         <ListInPage<PolymarketOpenOrderDetail>

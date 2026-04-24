@@ -52,7 +52,7 @@ export function useWithdrawToken() {
             id: data.address,
             decimals: data.decimals,
             chainId: data.chainId,
-            logoUrl: data.logoURI,
+            logoUrl: data.logoURI || pusdTokenFallback.logoUrl,
             name: data.name,
             symbol: data.symbol,
             price: data.price,

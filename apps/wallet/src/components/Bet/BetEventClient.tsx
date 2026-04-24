@@ -278,7 +278,11 @@ export default function BetEventClient({ id }: { id: string }) {
         },
         async onSuccess(_data, variables) {
             toast.dismiss(PLACE_ORDER_TOAST_ID);
-            if (variables?.side === 'SELL') {
+            const isLimitOrder = variables.overrideLimitPrice !== undefined;
+
+            if (isLimitOrder) {
+                toast.success(<Trans>Order placed</Trans>);
+            } else if (variables?.side === 'SELL') {
                 toast.success(
                     <>
                         <Trans>Sold</Trans> {outcome}
@@ -295,7 +299,13 @@ export default function BetEventClient({ id }: { id: string }) {
             // 1. Optimistically update Positions list first (before navigation)
             const outcomeLabel = (outcomeOptions[safeOutcomeIndex]?.outcome ?? '').toString().toLowerCase();
 
-            if (account?.proxyAddress && variables?.side === 'SELL' && conditionId) {
+            if (account?.proxyAddress && isLimitOrder) {
+                queryClient.invalidateQueries({
+                    queryKey: ['polymarket-open-orders', account.proxyAddress.toLowerCase()],
+                });
+            }
+
+            if (!isLimitOrder && account?.proxyAddress && variables?.side === 'SELL' && conditionId) {
                 const soldShares = BigNumber(variables.amount ?? 0);
                 optimisticSubtractPositionShares(queryClient, {
                     proxyAddress: account.proxyAddress,
@@ -304,10 +314,8 @@ export default function BetEventClient({ id }: { id: string }) {
                 });
             }
 
-            if (account?.proxyAddress && variables?.side === 'BUY' && conditionId && selectedTokenId) {
-                const boughtShares = variables.overrideLimitPrice
-                    ? BigNumber(variables.amount ?? 0)
-                    : BigNumber(_data?.makingAmount ?? 0);
+            if (!isLimitOrder && account?.proxyAddress && variables?.side === 'BUY' && conditionId && selectedTokenId) {
+                const boughtShares = BigNumber(_data?.makingAmount ?? 0);
                 const purchasePrice = variables.overrideLimitPrice ?? outcomePrices?.bestAsk ?? 0;
 
                 if (boughtShares.isFinite() && boughtShares.gt(0)) {
@@ -343,7 +351,7 @@ export default function BetEventClient({ id }: { id: string }) {
             navigate({ to: '/bet', replace: true });
 
             // 3. Optimistically update balance after navigation
-            if (account?.proxyAddress && variables?.side === 'SELL' && conditionId) {
+            if (!isLimitOrder && account?.proxyAddress && variables?.side === 'SELL' && conditionId) {
                 const soldShares = BigNumber(variables.amount ?? 0);
                 const sellPrice = variables.overrideLimitPrice ?? outcomePrices?.bestBid ?? 0;
                 const receivedAmount = soldShares.times(sellPrice);

@@ -9,6 +9,7 @@ import { formatPortfolioUSDCe } from '@/helpers/formatPortfolioUSDCe.js';
 import { usePolymarketBalance } from '@/hooks/usePolymarketBalance.js';
 import { cn } from '@/lib/utils.js';
 import { getPolymarketAccountQueryOptions } from '@/queries/firefly/getPolymarketAccountQueryOptions.js';
+import { getPolymarketUpgradeTaskQueryOptions } from '@/queries/firefly/getPolymarketUpgradeTaskQueryOptions.js';
 
 export function BetEntry({ className }: { className?: string }) {
     const { data: proxyAddress, isLoading: isLoadingProxyAddress } = useQuery({
@@ -17,9 +18,10 @@ export function BetEntry({ className }: { className?: string }) {
             return data.proxyAddress as Address;
         },
     });
+    const { data: upgradeTask } = useQuery(getPolymarketUpgradeTaskQueryOptions(proxyAddress));
 
     const hasBetAccount = Boolean(proxyAddress);
-    const { totalBalance, isLoading } = usePolymarketBalance(proxyAddress);
+    const { totalBalance, isLoading } = usePolymarketBalance(proxyAddress, undefined, upgradeTask?.is_upgraded);
 
     const portfolioText = formatPortfolioUSDCe(totalBalance);
 

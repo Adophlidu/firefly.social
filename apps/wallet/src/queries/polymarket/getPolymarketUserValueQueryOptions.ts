@@ -22,7 +22,7 @@ export function getPolymarketUserValueQueryOptions(user?: Address) {
             }
         },
         select(list) {
-            const row = (list ?? []).find((x) => isSameAddress(String(x?.user ?? ''), user));
+            const row = (list ?? []).find((x) => isSameAddress(x?.user ?? '', user));
             return row?.value ?? 0;
         },
         refetchOnWindowFocus: false,

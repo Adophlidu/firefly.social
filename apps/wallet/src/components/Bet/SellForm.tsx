@@ -117,19 +117,13 @@ export function SellMarketForm({
                                 <Trans>Avg. Price</Trans>
                             </span>
                             <Skeleton className="h-5 w-24" isLoading={isLoadingToWin}>
-                                <div className="h-5">
-                                    {toWin?.avg_price ? (
-                                        <>{formatPriceToCents(toWin.avg_price)}</>
-                                    ) : (
-                                        formatPriceToCents(0)
-                                    )}
-                                </div>
+                                <div className="h-5">{formatPriceToCents(toWin?.avg_price ?? 0)}</div>
                             </Skeleton>
                         </div>
                     </div>
                     <div className="text-success text-lg font-bold">
                         <Skeleton className="h-5 w-24" isLoading={isLoadingToWin}>
-                            <div>{toWin?.win_amount ? formatPnlUSD(toWin.win_amount) : null}</div>
+                            <div>{formatPnlUSD(toWin?.win_amount ?? 0)}</div>
                         </Skeleton>
                     </div>
                 </div>

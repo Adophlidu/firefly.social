@@ -6,7 +6,7 @@ import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-b
 import type { ErrorPageProps } from '@dimensiondev/types';
 import { isZero } from '@dimensiondev/web3/numbers';
 import { Trans } from '@lingui/react/macro';
-import { useSuspenseQuery } from '@tanstack/react-query';
+import { useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute, Link, Outlet, useLocation, useNavigate } from '@tanstack/react-router';
 import { Suspense, useCallback } from 'react';
 import { toast } from 'sonner';
@@ -97,6 +97,7 @@ function TabNavigation() {
 }
 
 export function ClientLayout() {
+    const queryClient = useQueryClient();
     const { data } = useSuspenseQuery(getPolymarketAccountQueryOptions());
     const { totalBalance, availableBalance } = usePolymarketBalance(data.proxyAddress, POLYMARKET_HOME_POLL_MS);
 
@@ -127,11 +128,16 @@ export function ClientLayout() {
 
         try {
             await getFireflyEndpoint().polymarketV2Wrap(data.proxyAddress);
+            await Promise.all([
+                queryClient.invalidateQueries({ queryKey: ['polymarket-upgrade-task', data.proxyAddress] }),
+                queryClient.invalidateQueries({ queryKey: ['getPolymarketAccount'] }),
+                queryClient.invalidateQueries({ queryKey: ['polymarket-withdrawable-amount', data.proxyAddress] }),
+            ]);
             toast.success(<Trans>Done</Trans>);
         } catch {
             toast.error(<Trans>Failed to release</Trans>);
         }
-    }, [data.proxyAddress, releaseAmountText]);
+    }, [data.proxyAddress, queryClient, releaseAmountText]);
 
     return (
         <>
