@@ -2027,7 +2027,7 @@ Packages with Single Version
  plyr@3.8.4
 *plyr-react@5.3.0
  pngjs@5.0.0
- pofile@1.1.4
+*pofile@1.1.4
  pony-cause@2.1.11
  popmotion@11.0.3
  porto@0.2.35
