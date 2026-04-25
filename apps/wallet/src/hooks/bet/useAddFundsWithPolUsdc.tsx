@@ -1,5 +1,5 @@
 import { createWagmiPublicClient } from '@dimensiondev/web3/actions';
-import { addAndSwitchChain, resolvePublicRpcUrl } from '@dimensiondev/web3/utils';
+import { resolvePublicRpcUrl } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useSetActiveWallet } from '@privy-io/wagmi';
 import { useAsyncFn } from 'react-use';
@@ -10,6 +10,7 @@ import { simulateContract, waitForTransactionReceipt, writeContract } from 'wagm
 import { queryClient } from '@/configs/queryClient.js';
 import { InsufficientGasError } from '@/constants/error.js';
 import { tryFreeGasTransaction } from '@/helpers/freeGas/tryFreeGasTransaction.js';
+import { resolveEvmConnector, switchEvmConnectorChain } from '@/helpers/resolveEvmConnector.js';
 import { toastLoading } from '@/helpers/toastLoading.js';
 import { useEmbeddedEvmWalletContext } from '@/hooks/useCachedWalletAddresses.js';
 import type { SwapToken } from '@/providers/swap/types.js';
@@ -43,7 +44,12 @@ export function useAddFundsWithPolUsdc({ depositToken, polymarketAddress, amount
         await setActiveWallet(embeddedWallet);
         await queryClient.cancelQueries(getPolymarketAccountQueryOptions());
         const parsedValue = parseUnits(amount, depositToken.decimals);
-        await addAndSwitchChain(config, depositToken.chainId);
+        const connector = await resolveEvmConnector(embeddedWallet);
+        if (connector) {
+            await switchEvmConnectorChain(embeddedWallet, connector, depositToken.chainId);
+        } else {
+            await embeddedWallet.switchChain(depositToken.chainId);
+        }
 
         const transferCall = {
             abi: erc20Abi,
