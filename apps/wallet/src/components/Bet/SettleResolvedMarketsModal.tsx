@@ -3,6 +3,7 @@ import ClaimProceedsSuccessIcon from '@dimensiondev/assets/claim-proceeds-succes
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
 import { waitForEthereumTransaction } from '@dimensiondev/web3/actions';
 import { Trans } from '@lingui/react/macro';
+import { useSignMessage } from '@privy-io/react-auth';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { BigNumber } from 'bignumber.js';
 import { useMemo } from 'react';
@@ -10,7 +11,6 @@ import { toast } from 'sonner';
 import type { Address, Hash } from 'viem';
 import { polygon } from 'viem/chains';
 import { useConfig } from 'wagmi';
-import { signMessage } from 'wagmi/actions';
 
 import { DialogOrDrawerContent, DialogOrDrawerHeader, DialogOrDrawerTitle } from '@/components/DialogOrDrawer.js';
 import { Image } from '@/components/Image.js';
@@ -49,6 +49,7 @@ export function SettleResolvedMarketsModal({
 }: SettleResolvedMarketsModalProps) {
     const config = useConfig();
     const queryClient = useQueryClient();
+    const { signMessage } = useSignMessage();
 
     // Build claim items for batch API (only winning items)
     const claimItems = useMemo(() => {
@@ -59,7 +60,10 @@ export function SettleResolvedMarketsModal({
         mutationKey: ['polymarket-settle-resolved-markets', proxyAddress],
         async mutationFn() {
             store.set(showEmbeddedWalletUIAtom, false);
-            const signature = await signMessage(config, { message: POLYMARKET_CLAIM_ORIGINAL_MESSAGE });
+            const { signature } = await signMessage(
+                { message: POLYMARKET_CLAIM_ORIGINAL_MESSAGE },
+                { uiOptions: { showWalletUIs: false } },
+            );
             const data = await getFireflyEndpoint().polymarketBatchClaimV2({
                 items: claimItems,
                 original_message: POLYMARKET_CLAIM_ORIGINAL_MESSAGE,

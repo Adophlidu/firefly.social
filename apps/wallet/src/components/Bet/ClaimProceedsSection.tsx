@@ -4,6 +4,7 @@ import ClaimProceedsSuccessIcon from '@dimensiondev/assets/claim-proceeds-succes
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
 import { waitForEthereumTransaction } from '@dimensiondev/web3/actions';
 import { Trans } from '@lingui/react/macro';
+import { useSignMessage } from '@privy-io/react-auth';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { BigNumber } from 'bignumber.js';
 import { useMemo, useState } from 'react';
@@ -11,7 +12,6 @@ import { toast } from 'sonner';
 import type { Address, Hash } from 'viem';
 import { polygon } from 'viem/chains';
 import { useConfig } from 'wagmi';
-import { signMessage } from 'wagmi/actions';
 
 import {
     DialogOrDrawer,
@@ -37,6 +37,7 @@ const POLYMARKET_CLAIM_ORIGINAL_MESSAGE = 'polymarket claim proceed';
 
 export function ClaimProceedsSection({ proxyAddress }: { proxyAddress: Address }) {
     const config = useConfig();
+    const { signMessage } = useSignMessage();
     const queryClient = useQueryClient();
     const [open, setOpen] = useState(false);
     const { data } = useSuspenseQuery(getPolymarketClaimableProceedsQueryOptions(proxyAddress));
@@ -61,7 +62,10 @@ export function ClaimProceedsSection({ proxyAddress }: { proxyAddress: Address }
         mutationKey: ['polymarket-claim-proceeds', proxyAddress],
         async mutationFn() {
             store.set(showEmbeddedWalletUIAtom, false);
-            const signature = await signMessage(config, { message: POLYMARKET_CLAIM_ORIGINAL_MESSAGE });
+            const { signature } = await signMessage(
+                { message: POLYMARKET_CLAIM_ORIGINAL_MESSAGE },
+                { uiOptions: { showWalletUIs: false } },
+            );
             const data = await getFireflyEndpoint().polymarketBatchClaimV2({
                 items: claimItems,
                 original_message: POLYMARKET_CLAIM_ORIGINAL_MESSAGE,
