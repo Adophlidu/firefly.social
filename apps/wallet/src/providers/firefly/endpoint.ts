@@ -349,7 +349,7 @@ export class FireflyEndpoint extends Fetch {
     }
 
     async getPolymarketUserActivity(options: { proxyWallet: string; limit?: number; cursor?: string }) {
-        const url = urlcat('/v1/polymarket/user/activity', {
+        const url = urlcat('/v2/polymarket/user/activity', {
             proxy_wallet: options.proxyWallet,
             limit: options.limit,
             cursor: options.cursor,
