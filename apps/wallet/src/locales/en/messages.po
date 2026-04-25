@@ -378,6 +378,10 @@ msgstr "Added"
 msgid "Reload"
 msgstr "Reload"
 
+#. placeholder {0}: shares.count
+msgid "{0, plural, one {# share} other {# shares}}"
+msgstr "{0, plural, one {# share} other {# shares}}"
+
 msgid "Receive Wallet"
 msgstr "Receive Wallet"
 
@@ -510,12 +514,6 @@ msgstr "Interacted"
 
 msgid "Authentication Error"
 msgstr "Authentication Error"
-
-#. placeholder {0}: shares.count
-#. placeholder {1}: shares.display
-#. placeholder {2}: shares.display
-msgid "{0, plural, one {{1} share} other {{2} shares}}"
-msgstr "{0, plural, one {{1} share} other {{2} shares}}"
 
 msgid "The address could not be found."
 msgstr "The address could not be found."
@@ -795,6 +793,10 @@ msgstr "<0><1/><2>Revoked</2></0><3>on</3><4/>"
 
 msgid "NFT Sent Failed"
 msgstr "NFT Sent Failed"
+
+msgid "Available:"
+msgstr ""
+
 
 msgid "Failed to search. Please try again."
 msgstr "Failed to search. Please try again."

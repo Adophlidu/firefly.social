@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 import dotenv from 'dotenv';
 import esbuild from 'esbuild';
 
-import { findRepoRoot } from '../../../packages/scripts/repo-root.cjs';
+import { findRepoRoot } from '../../../packages/tolgee/lib/repo-root.cjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const repoRoot = findRepoRoot(__dirname);

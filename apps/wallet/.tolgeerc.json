@@ -19,5 +19,13 @@
         "path": "./src/locales",
         "fileStructureTemplate": "{languageTag}/messages.{extension}",
         "states": ["UNTRANSLATED", "TRANSLATED", "REVIEWED"]
+    },
+    "fireflyTolgee": {
+        "context": "Firefly wallet: Lingui PO files under src/locales; use pnpm tolgee:sync after pull to re-extract/compile. API key: TOLGEE_API_KEY in .env.",
+        "restoreAfterPull": true,
+        "sync": {
+            "extractScript": "lingui:extract",
+            "compileScript": "lingui:compile"
+        }
     }
 }

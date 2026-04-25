@@ -65,7 +65,7 @@ async function ensureTolgeeLanguages(opts) {
             body,
         });
         if (postRes.ok) {
-            console.log(`[tolgee-ensure-languages] Added language "${tag}" to project ${projectId}`);
+            console.log(`[firefly-tolgee] Added language "${tag}" to project ${projectId}`);
             continue;
         }
         const errText = await postRes.text();

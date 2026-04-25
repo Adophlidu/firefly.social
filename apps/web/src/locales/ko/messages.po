@@ -4916,15 +4916,13 @@ msgstr ""
 msgid "Feedback"
 msgstr ""
 
-#. placeholder {0}: <> <span className="text-main font-semibold">{traderCount}</span> person I follow have traded </>
-#. placeholder {1}: <> <span className="text-main font-semibold">{traderCount}</span> people I follow have traded </>
-#. js-lingui:icu=%7BtraderCount%2C+plural%2C+one+%7B%7B0%7D%7D+other+%7B%7B1%7D%7D%7D&pluralize_on=traderCount
-msgid "{0}"
-msgid_plural "{1}"
-msgstr[0] ""
-
 msgid "Mirror disabled"
 msgstr ""
+
+#. js-lingui:icu=%7BtraderCount%2C+plural%2C+one+%7B%23+person+I+follow+has+traded%7D+other+%7B%23+people+I+follow+have+traded%7D%7D&pluralize_on=traderCount
+msgid "# person I follow has traded"
+msgid_plural "# people I follow have traded"
+msgstr[0] ""
 
 msgid "Show more comments"
 msgstr ""

@@ -378,6 +378,10 @@ msgstr "已新增"
 msgid "Reload"
 msgstr "重新載入"
 
+#. placeholder {0}: shares.count
+msgid "{0, plural, one {# share} other {# shares}}"
+msgstr ""
+
 msgid "Receive Wallet"
 msgstr "收款錢包"
 
@@ -510,12 +514,6 @@ msgstr "已互動"
 
 msgid "Authentication Error"
 msgstr "驗證錯誤"
-
-#. placeholder {0}: shares.count
-#. placeholder {1}: shares.display
-#. placeholder {2}: shares.display
-msgid "{0, plural, one {{1} share} other {{2} shares}}"
-msgstr ""
 
 msgid "The address could not be found."
 msgstr "找不到該地址。"

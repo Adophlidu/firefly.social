@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Rebuild scripts/lingui-gettext-plural-metadata.json from the English catalog.
+ * Rebuild apps/wallet/lingui-gettext-plural-metadata.json from the English catalog.
  * Run after `lingui extract` when gettext plural entries change.
  *
  * Works with both Lingui output (split msgid / msgid_plural + js-lingui) and
@@ -8,16 +8,16 @@
  */
 const fs = require('fs');
 const path = require('path');
-const { findRepoRoot } = require('./repo-root.cjs');
+
 const PO = require(
     require.resolve('pofile', {
         paths: [require.resolve('@lingui/format-po-gettext/package.json')],
     }),
 );
 
-const ROOT = findRepoRoot(__dirname);
-const EN_PO = path.join(ROOT, 'apps/web/src/locales/en/messages.po');
-const OUT = path.join(__dirname, 'lingui-gettext-plural-metadata.json');
+const APP_ROOT = path.resolve(__dirname, '..');
+const EN_PO = path.join(APP_ROOT, 'src/locales/en/messages.po');
+const OUT = path.join(APP_ROOT, 'lingui-gettext-plural-metadata.json');
 
 function refKey(refs) {
     const paths = [...refs].map((r) => r.replace(/:\d+$/, ''));
@@ -89,6 +89,7 @@ for (const item of po.items) {
 
 function collectTransExplicitIds(srcDir) {
     const ids = new Set();
+
     function walk(dir) {
         for (const ent of fs.readdirSync(dir, { withFileTypes: true })) {
             const p = path.join(dir, ent.name);
@@ -103,11 +104,12 @@ function collectTransExplicitIds(srcDir) {
             }
         }
     }
+
     walk(srcDir);
     return ids;
 }
 
-const explicitFromSrc = collectTransExplicitIds(path.join(ROOT, 'apps/web', 'src'));
+const explicitFromSrc = collectTransExplicitIds(path.join(APP_ROOT, 'src'));
 const explicitMsgids = [...new Set([...explicitFromPo, ...explicitFromSrc])].sort();
 
 const payload = { byRefKey, byTolgeeDuplicateIcuMsgid, explicitMsgids };
@@ -120,5 +122,5 @@ console.log(
     'Tolgee ICU keys,',
     explicitMsgids.length,
     'explicit msgid(s) to',
-    path.relative(ROOT, OUT),
+    path.relative(process.cwd(), OUT),
 );

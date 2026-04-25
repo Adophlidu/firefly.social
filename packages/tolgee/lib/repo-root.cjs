@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 
 /**
- * @param {string} fromDir Directory to start from (e.g. __dirname of a file under packages/scripts)
+ * @param {string} fromDir Directory to start from (e.g. __dirname of a file under packages/tolgee)
  * @returns {string} Absolute path to the monorepo root (pnpm-lock.yaml + package.json)
  */
 function findRepoRoot(fromDir) {

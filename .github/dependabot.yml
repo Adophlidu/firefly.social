@@ -102,7 +102,7 @@ updates:
                 - version-update:semver-minor
 
     - package-ecosystem: 'npm'
-      directory: '/packages/scripts'
+      directory: '/packages/tolgee'
       schedule:
           interval: 'weekly'
       open-pull-requests-limit: 20

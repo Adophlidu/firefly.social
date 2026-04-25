@@ -1,0 +1,7 @@
+{
+    "byRefKey": {},
+    "byTolgeeDuplicateIcuMsgid": {
+        "{0, plural, one {# share} other {# shares}}": "js-lingui:icu=%7B0%2C+plural%2C+one+%7B%23+share%7D+other+%7B%23+shares%7D%7D&pluralize_on=0"
+    },
+    "explicitMsgids": []
+}

@@ -283,18 +283,8 @@ export const TokenMarketData = memo(function TokenMarketData({
                                 <div className="text-second text-sm leading-[14px]">
                                     <Plural
                                         value={traderCount}
-                                        one={
-                                            <>
-                                                <span className="text-main font-semibold">{traderCount}</span> person I
-                                                follow have traded
-                                            </>
-                                        }
-                                        other={
-                                            <>
-                                                <span className="text-main font-semibold">{traderCount}</span> people I
-                                                follow have traded
-                                            </>
-                                        }
+                                        one="# person I follow has traded"
+                                        other="# people I follow have traded"
                                     />
                                 </div>
                             ) : null}
