@@ -236,7 +236,7 @@ importers:
         specifier: ^1.168.23
         version: 1.168.23(react-dom@19.2.5)(react@19.2.5)
       '@tanstack/react-start':
-        specifier: ^1.167.43
+        specifier: ^1.167.45
         version: 1.167.45(react-dom@19.2.5)(react@19.2.5)(vite@7.3.2)
       '@typescript/native-preview':
         specifier: 7.0.0-dev.20260424.1
