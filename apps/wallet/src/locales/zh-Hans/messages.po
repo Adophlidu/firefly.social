@@ -24,7 +24,7 @@ msgstr "至"
 
 #. placeholder {0}: pusdTokenFallback.symbol
 msgid "Available: {availableText} {0}"
-msgstr ""
+msgstr "可用余额：{availableText} {0}"
 
 msgid "Show assets < 1 USD"
 msgstr "显示小于 1 美元的资产"
@@ -158,7 +158,7 @@ msgid "Confirm"
 msgstr "确认"
 
 msgid "Assets to Release"
-msgstr ""
+msgstr "待释放资产"
 
 msgid "Predict on Polymarket"
 msgstr "在 Polymarket 上预测"
@@ -294,13 +294,13 @@ msgid "Copy address"
 msgstr "复制地址"
 
 msgid "<0>{releaseAmountText}</0><1>to release</1>"
-msgstr ""
+msgstr "<0>{releaseAmountText}</0><1>待释放</1>"
 
 msgid "Your funds are now in your predict wallet."
 msgstr "资金已到达您的预测钱包。"
 
 msgid "Order placed"
-msgstr ""
+msgstr "下单成功"
 
 msgid "Failed to place buy order. "
 msgstr "下单买入失败。"
@@ -315,7 +315,7 @@ msgid "Outcome"
 msgstr "预测结果"
 
 msgid "Failed to upgrade"
-msgstr ""
+msgstr "升级失败"
 
 msgid "Unable to add funds to predictions account."
 msgstr "无法向预测账户充值。"
@@ -380,7 +380,7 @@ msgstr "重新加载"
 
 #. placeholder {0}: shares.count
 msgid "{0, plural, one {# share} other {# shares}}"
-msgstr ""
+msgstr "# 份"
 
 msgid "Receive Wallet"
 msgstr "收款钱包"
@@ -436,7 +436,7 @@ msgid "Release Now"
 msgstr "立即释放"
 
 msgid "Migrate to Polymarket V2"
-msgstr ""
+msgstr "迁移至 Polymarket V2"
 
 msgid "Network error. Please try again."
 msgstr "网络错误，请重试。"
@@ -611,7 +611,7 @@ msgid "<0><1/><2>Approved</2></0><3>on</3><4/>"
 msgstr "<0><1/><2>已授权</2></0><3>于</3><4/>"
 
 msgid "Failed to release"
-msgstr ""
+msgstr "待释放资产"
 
 msgid "Buy"
 msgstr "买入"

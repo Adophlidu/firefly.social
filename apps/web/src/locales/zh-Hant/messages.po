@@ -2301,7 +2301,7 @@ msgstr "您確定要檢舉此系列嗎？"
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7B%23+share%7D+other+%7B%23+shares%7D%7D&pluralize_on=0
 msgid "# share"
 msgid_plural "# shares"
-msgstr[0] ""
+msgstr[0] "# 份"
 
 msgid "Claimed"
 msgstr "已領取"
@@ -4546,9 +4546,7 @@ msgid "Unexpected step for setting password: {step}."
 msgstr "驗證密碼時出現意外步驟：{step}。"
 
 msgid "If you have multiple Firefly accounts created with different social logins, deleting this account will help you consolidate your social accounts into one. However, if you're trying to access a different Firefly wallet linked to another social account, consider switching accounts instead of deleting."
-msgstr ""
-"如果你使用不同的社交帳號建立了多個 Firefly 帳戶，刪除此帳戶可以幫助你整合所有社交帳戶。\n"
-"但如果你仍想存取綁定至另一個社交帳號的 Firefly 錢包，建議你切換帳戶，而不是刪除帳戶。"
+msgstr "如果你使用不同的社交帳號建立了多個 Firefly 帳戶，刪除此帳戶可以幫助你整合所有社交帳戶。但如果你仍想存取綁定至另一個社交帳號的 Firefly 錢包，建議你切換帳戶，而不是刪除帳戶。"
 
 msgid "Contract Address"
 msgstr "合約地址"

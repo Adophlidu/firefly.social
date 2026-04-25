@@ -11,7 +11,6 @@
             { "path": "./src/locales/zh-Hans/messages.po", "language": "zh-Hans" },
             { "path": "./src/locales/zh-Hant/messages.po", "language": "zh-Hant" }
         ],
-        "forceMode": "OVERRIDE",
         "removeOtherKeys": true,
         "convertPlaceholdersToIcu": false
     },
