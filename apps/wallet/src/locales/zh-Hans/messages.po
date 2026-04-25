@@ -725,7 +725,7 @@ msgid "All networks"
 msgstr "所有网络"
 
 msgid "Swap"
-msgstr "兑换 (Swap)"
+msgstr "兑换"
 
 msgid "Keep it safe and do not share"
 msgstr "请妥善保管，切勿泄露"
