@@ -3,8 +3,8 @@ Package Analysis
 
 Application: apps/web
 
-Total packages: 2362
-Packages with multiple versions: 382
+Total packages: 2374
+Packages with multiple versions: 383
 
 Legend:
   * = Direct dependency (listed in package.json for this app's scope)
@@ -374,6 +374,7 @@ Packages with Multiple Versions
  undici-types@6.20.0,7.19.0
  unist-util-is@2.1.3,6.0.0
  unist-util-visit-parents@2.0.1,6.0.1
+ unplugin@2.3.10,3.0.0
  unstorage@1.17.4,2.0.0-alpha.7
  uuid@8.3.2,9.0.1
 *viem@2.23.2,2.43.5,2.47.10,2.47.4
@@ -1155,21 +1156,21 @@ Packages with Single Version
 *@tanstack/react-query@5.85.9
 *@tanstack/react-query-next-experimental@5.85.9
 *@tanstack/react-ranger@0.0.5
-*@tanstack/react-router@1.168.23
- @tanstack/react-start@1.167.45
- @tanstack/react-start-client@1.166.40
- @tanstack/react-start-rsc@0.0.24
- @tanstack/react-start-server@1.166.41
+*@tanstack/react-router@1.168.24
+ @tanstack/react-start@1.167.48
+ @tanstack/react-start-client@1.166.42
+ @tanstack/react-start-rsc@0.0.27
+ @tanstack/react-start-server@1.166.43
  @tanstack/react-store@0.9.3
- @tanstack/router-core@1.168.15
- @tanstack/router-generator@1.166.33
- @tanstack/router-plugin@1.167.23
+ @tanstack/router-core@1.168.16
+ @tanstack/router-generator@1.166.34
+ @tanstack/router-plugin@1.167.26
  @tanstack/router-utils@1.161.7
- @tanstack/start-client-core@1.167.17
+ @tanstack/start-client-core@1.167.19
  @tanstack/start-fn-stubs@1.161.6
- @tanstack/start-plugin-core@1.169.1
- @tanstack/start-server-core@1.167.19
- @tanstack/start-storage-context@1.166.29
+ @tanstack/start-plugin-core@1.169.4
+ @tanstack/start-server-core@1.167.21
+ @tanstack/start-storage-context@1.166.30
  @tanstack/store@0.9.3
  @tanstack/virtual-file-routes@1.161.7
  @testing-library/dom@10.4.1
@@ -1846,6 +1847,18 @@ Packages with Single Version
  libphonenumber-js@1.12.41
  lie@3.1.1
  lighthouse-logger@1.4.2
+ lightningcss@1.32.0
+ lightningcss-android-arm64@1.32.0
+ lightningcss-darwin-arm64@1.32.0
+ lightningcss-darwin-x64@1.32.0
+ lightningcss-freebsd-x64@1.32.0
+ lightningcss-linux-arm-gnueabihf@1.32.0
+ lightningcss-linux-arm64-gnu@1.32.0
+ lightningcss-linux-arm64-musl@1.32.0
+ lightningcss-linux-x64-gnu@1.32.0
+ lightningcss-linux-x64-musl@1.32.0
+ lightningcss-win32-arm64-msvc@1.32.0
+ lightningcss-win32-x64-msvc@1.32.0
  lilconfig@3.1.3
  linebreak@1.1.0
  lines-and-columns@1.2.4
@@ -2303,7 +2316,6 @@ Packages with Single Version
 *unist-util-visit@5.0.0
  universalify@2.0.1
  unpipe@1.0.0
- unplugin@2.3.10
  unrs-resolver@1.11.1
 *unstated-next@1.1.0
  update-browserslist-db@1.2.3

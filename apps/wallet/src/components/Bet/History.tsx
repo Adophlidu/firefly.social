@@ -208,11 +208,7 @@ function HistoryItem({ item }: { item: PolymarketActivityItem }) {
                         )}
                     </div>
                     <div className="text-second text-xs leading-[14px]">
-                        <Plural
-                            value={shares.count}
-                            one="# share"
-                            other="# shares"
-                        />
+                        <Plural value={shares.count} one="# share" other="# shares" />
                     </div>
                 </div>
                 <div className="flex shrink-0 flex-col items-end justify-center">

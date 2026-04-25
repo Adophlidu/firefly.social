@@ -794,10 +794,6 @@ msgstr "<0><1/><2>Revoked</2></0><3>on</3><4/>"
 msgid "NFT Sent Failed"
 msgstr "NFT Sent Failed"
 
-msgid "Available:"
-msgstr ""
-
-
 msgid "Failed to search. Please try again."
 msgstr "Failed to search. Please try again."
 
