@@ -1,14 +1,17 @@
 import betImageFallback from '@dimensiondev/assets/bet-image-fallback.svg?url';
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { useState } from 'react';
+import { lazy, Suspense, useState } from 'react';
 import type { Address } from 'viem';
 
-import { SettleResolvedMarketsModal } from '@/components/Bet/SettleResolvedMarketsModal.js';
 import { DialogOrDrawer, DialogOrDrawerTrigger } from '@/components/DialogOrDrawer.js';
 import { Image } from '@/components/Image.js';
 import { formatPnlUSD } from '@/helpers/formatPnlUSD.js';
 import { getPolymarketClaimableProceedsQueryOptions } from '@/queries/firefly/getPolymarketClaimableProceedsQueryOptions.js';
+
+const SettleResolvedMarketsModal = lazy(() =>
+    import('@/components/Bet/SettleResolvedMarketsModal.js').then((m) => ({ default: m.SettleResolvedMarketsModal })),
+);
 
 export function SettleResolvedMarketsSection({ proxyAddress }: { proxyAddress: Address }) {
     const [open, setOpen] = useState(false);
@@ -58,12 +61,14 @@ export function SettleResolvedMarketsSection({ proxyAddress }: { proxyAddress: A
                 </button>
             </DialogOrDrawerTrigger>
 
-            <SettleResolvedMarketsModal
-                onOpenChange={setOpen}
-                proxyAddress={proxyAddress}
-                winningItems={winningItems}
-                totalWinAmount={totalWinAmount}
-            />
+            <Suspense fallback={null}>
+                <SettleResolvedMarketsModal
+                    onOpenChange={setOpen}
+                    proxyAddress={proxyAddress}
+                    winningItems={winningItems}
+                    totalWinAmount={totalWinAmount}
+                />
+            </Suspense>
         </DialogOrDrawer>
     );
 }
