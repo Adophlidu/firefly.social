@@ -496,8 +496,6 @@ export type GetPolymarketPositionInfoResponse = Response<{
     cursor: null | string;
 }>;
 
-export type GetPolymarketCurrentPositionsResponse = Response<{ data: PolymarketPosition[] }>;
-
 export interface PolymarketPositionV2 {
     proxyWallet?: string;
     asset?: string;

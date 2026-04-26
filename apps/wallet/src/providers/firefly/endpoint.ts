@@ -18,7 +18,6 @@ import {
     type GetCollectionResponse,
     type GetMultiChainTokenListResponse,
     type GetPolymarketAccountOpenOrdersResponse,
-    type GetPolymarketCurrentPositionsResponse,
     type GetPolymarketHistoryResponse,
     type GetPolymarketPositionInfoResponse,
     type GetPolymarketTokenIdBetSharesResponse,
@@ -274,14 +273,6 @@ export class FireflyEndpoint extends Fetch {
             is_claim: options?.isClaim,
             conditionId: options?.conditionId,
             eventId: options?.eventId,
-        });
-        return resolveFireflyResponseData(result.data);
-    }
-
-    async getPolymarketCurrentPositions(wallet: Address, isPolymarketProxy: boolean) {
-        const result = await this.post<GetPolymarketCurrentPositionsResponse>(`/v1/polymarket/current/positions`, {
-            wallet,
-            is_polymarketProxy: isPolymarketProxy,
         });
         return resolveFireflyResponseData(result.data);
     }
