@@ -80,7 +80,8 @@ function getPrivyEvmProvider({
             const freeGas = isFreeGasCandidate(params);
 
             // Only open wallet for interactive methods that aren't free-gas candidates
-            if (!silent && INTERACTIVE_METHODS.has(params.method) && !freeGas) {
+            const didOpen = !silent && INTERACTIVE_METHODS.has(params.method) && !freeGas;
+            if (didOpen) {
                 useGlobalState.getState().updateFireflyWalletIsOpen(true);
             }
             if (!useFireflyWalletStore.getState().isAuthorized) {
@@ -92,7 +93,7 @@ function getPrivyEvmProvider({
             return new Promise(async (resolve, reject) => {
                 // Only watch for user-dismissal if wallet was opened
                 let unsubscribe: (() => void) | null = null;
-                if (!silent && !freeGas) {
+                if (didOpen) {
                     unsubscribe = useGlobalState.subscribe((state) => {
                         if (!state.fireflyWalletIsOpen) {
                             unsubscribe?.();
@@ -104,7 +105,7 @@ function getPrivyEvmProvider({
                     .request(IframeBridgeMethod.FIREFLY_WALLET_EVM_RPC, params)
                     .then((rpcResult) => {
                         unsubscribe?.();
-                        if (!silent && !freeGas) {
+                        if (didOpen) {
                             useGlobalState.getState().updateFireflyWalletIsOpen(false);
                         } else if (silent) {
                             iframeBridgeProvider.request(IframeBridgeMethod.FIREFLY_WALLET_VISIBILITY, {
