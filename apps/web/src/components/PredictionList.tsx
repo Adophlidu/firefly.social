@@ -15,12 +15,13 @@ import type { PolymarketEventListData } from '@/providers/types/Firefly.js';
 
 function getBetsItemContent(_: number, data: PolymarketEventListData) {
     return (
-        <BetItem
-            key={data.id}
-            event={formatPolymarketEventListData(data)}
-            openLinkInNewTab={false}
-            platform={PredictionPlatform.Polymarket}
-        />
+        <div className="pb-4" key={data.id}>
+            <BetItem
+                event={formatPolymarketEventListData(data)}
+                openLinkInNewTab={false}
+                platform={PredictionPlatform.Polymarket}
+            />
+        </div>
     );
 }
 
