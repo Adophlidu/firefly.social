@@ -375,7 +375,11 @@ export default memo(function TransactionDetailContent({ transaction, onClose }: 
                                     />
                                 ) : undefined
                             }
-                            text={transaction.project_name ?? (toAddressName || '')}
+                            text={
+                                transaction.project_name ||
+                                formatAddress(transaction.token_approve?.spender_address || '', 4) ||
+                                ''
+                            }
                             onNavigate={(href) => handleNavigateInternal(href)}
                         />
                     </Trans>
