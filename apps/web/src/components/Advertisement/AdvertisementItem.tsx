@@ -20,7 +20,7 @@ function isExternalLink(link: string, origin: string) {
 
 export function AdvertisementItem({ ad, origin = '' }: { ad: Advertisement; origin?: string }) {
     return ad.type === AdvertisementType.Link && ad.link ? (
-        <Link href={ad.link} target={isExternalLink(ad.link, origin) ? '_blank' : undefined}>
+        <Link href={ad.link} target={isExternalLink(ad.link, origin) ? '_blank' : undefined} prefetch={false}>
             <Image className="w-full cursor-pointer rounded-xl" alt={ad.link} src={ad.image} width={346} height={130} />
         </Link>
     ) : ad.function ? (
