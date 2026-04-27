@@ -232,7 +232,10 @@ export default memo(function TransactionDetailContent({ transaction, onClose }: 
 
     const isSolana = transaction.chain_id === solana.id;
     const fromAddress = transaction.from_address || token?.sender;
-    const toAddress = transaction.to_address || token?.recipient;
+    const toAddress =
+        transaction.category === TransactionHistoryCategory.TokenSend
+            ? token?.recipient
+            : transaction.to_address || token?.recipient;
 
     const fromAddressName = fromAddress ? formatAddress(fromAddress, 4).toLowerCase() : undefined;
     const toAddressName = toAddress ? formatAddress(toAddress, 4).toLowerCase() : undefined;
