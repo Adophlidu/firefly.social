@@ -308,7 +308,14 @@ const SnackbarContent = forwardRef<
                 {variantIcons[variant]}
                 <div className="flex-1">{children}</div>
             </div>
-            {onClose ? <CloseButton className="ml-4 p-2" size={16} onClick={onClose} /> : null}
+            {onClose ? (
+                <CloseButton
+                    className="ml-4 p-2"
+                    size={16}
+                    onClick={onClose}
+                    IconProps={{ className: '!text-white' }}
+                />
+            ) : null}
         </div>
     );
 });
