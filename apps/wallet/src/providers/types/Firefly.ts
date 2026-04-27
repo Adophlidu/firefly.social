@@ -428,10 +428,6 @@ export type GetPolymarketToWinAmountResponse = Response<{
 
 export type CancelPolymarketOrderResponse = Response<{}>;
 
-export type GetPolymarketTokenIdBetSharesResponse = Response<{
-    balance: string;
-}>;
-
 export interface PolymarketClaimResult {
     status: string;
     hash: string;
@@ -451,15 +447,6 @@ export interface PolymarketBatchClaimV2Body {
     signature_message: string;
 }
 
-export interface PolymarketSingleClaimV1Body {
-    condition_id: string;
-    negative_risk: boolean;
-    amount?: PolymarketClaimAmount;
-    original_message: string;
-    signature_message: string;
-}
-
-export type PolymarketClaimV1Response = Response<PolymarketClaimResult>;
 export type PolymarketClaimV2Response = Response<PolymarketClaimResult>;
 
 export interface PolymarketPosition {
@@ -490,11 +477,6 @@ export interface PolymarketPosition {
     pnl_rate: number;
     marketSlug: string;
 }
-
-export type GetPolymarketPositionInfoResponse = Response<{
-    data: PolymarketPosition[];
-    cursor: null | string;
-}>;
 
 export interface PolymarketPositionV2 {
     proxyWallet?: string;

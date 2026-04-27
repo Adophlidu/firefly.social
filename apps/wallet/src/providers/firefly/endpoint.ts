@@ -19,8 +19,6 @@ import {
     type GetMultiChainTokenListResponse,
     type GetPolymarketAccountOpenOrdersResponse,
     type GetPolymarketHistoryResponse,
-    type GetPolymarketPositionInfoResponse,
-    type GetPolymarketTokenIdBetSharesResponse,
     type GetPolymarketToWinAmountResponse,
     type GetPolymarketV2PositionsResponse,
     type NFTDetailsResponse,
@@ -29,12 +27,10 @@ import {
     type PolymarketAccount,
     type PolymarketActivityResponse,
     type PolymarketBatchClaimV2Body,
-    type PolymarketClaimV1Response,
     type PolymarketClaimV2Response,
     type PolymarketOrderBookData,
     type PolymarketProfileListResponse,
     type PolymarketProfilePnLResponse,
-    type PolymarketSingleClaimV1Body,
     type PolymarketUpgradeResponse,
     type PolymarketUpgradeTaskResponse,
     type PolymarketWithdrawResponse,
@@ -252,31 +248,6 @@ export class FireflyEndpoint extends Fetch {
         return resolveFireflyResponseData(result.data);
     }
 
-    async getPolymarketPositionsInfo(
-        wallet: Address,
-        options?: {
-            excludeWin?: boolean;
-            limit?: number;
-            cursor?: number;
-            isPolymarketProxy?: boolean;
-            isClaim?: boolean;
-            conditionId?: string;
-            eventId?: string;
-        },
-    ) {
-        const result = await this.post<GetPolymarketPositionInfoResponse>(`/v1/polymarket/positions/info`, {
-            wallet,
-            exclude_win: options?.excludeWin,
-            limit: options?.limit,
-            cursor: options?.cursor,
-            is_polymarketProxy: options?.isPolymarketProxy,
-            is_claim: options?.isClaim,
-            conditionId: options?.conditionId,
-            eventId: options?.eventId,
-        });
-        return resolveFireflyResponseData(result.data);
-    }
-
     async getPolymarketV2CurrentPositions(
         wallet: Address,
         options?: {
@@ -365,21 +336,8 @@ export class FireflyEndpoint extends Fetch {
         return resolveFireflyResponseData(result.data);
     }
 
-    async polymarketClaimV1(body: PolymarketSingleClaimV1Body) {
-        const result = await this.post<PolymarketClaimV1Response>('/polymarket/v1/polymarket/claim', body);
-        return resolveFireflyResponseData(result.data);
-    }
-
     async polymarketBatchClaimV2(body: PolymarketBatchClaimV2Body) {
         const result = await this.post<PolymarketClaimV2Response>('/polymarket/v2/polymarket/claim', body);
-        return resolveFireflyResponseData(result.data);
-    }
-
-    async getPolymarketTokenIdBetShares(tokenId: string) {
-        const result = await this.post<GetPolymarketTokenIdBetSharesResponse>(
-            '/polymarket/v1/polymarket/getTokenIdBetShares',
-            { tokenId },
-        );
         return resolveFireflyResponseData(result.data);
     }
 

@@ -2,12 +2,15 @@ import ClaimIcon from '@dimensiondev/assets/claim-proceeds-success.svg';
 import CloseIcon from '@dimensiondev/assets/close.svg';
 import WarnIcon from '@dimensiondev/assets/warn.svg';
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
+import { waitForEthereumTransaction } from '@dimensiondev/web3/actions';
 import { Trans } from '@lingui/react/macro';
+import { useSignMessage } from '@privy-io/react-auth';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { type PropsWithChildren, type ReactNode, useCallback, useState } from 'react';
 import { toast } from 'sonner';
+import type { Hash } from 'viem';
+import { polygon } from 'viem/chains';
 import { useConfig } from 'wagmi';
-import { signMessage } from 'wagmi/actions';
 
 import {
     DialogOrDrawer,
@@ -37,6 +40,7 @@ interface Props {
 
 export function PositionClaimModal({ position, children, open: controlledOpen, onClose }: PropsWithChildren<Props>) {
     const config = useConfig();
+    const { signMessage } = useSignMessage();
     const queryClient = useQueryClient();
     const { data: account } = useSuspenseQuery(getPolymarketAccountQueryOptions());
     const [internalOpen, setInternalOpen] = useState(false);
@@ -78,14 +82,23 @@ export function PositionClaimModal({ position, children, open: controlledOpen, o
     const { mutate, isPending } = useMutation({
         async mutationFn() {
             store.set(showEmbeddedWalletUIAtom, false);
-            const signature = await signMessage(config, { message: POLYMARKET_CLAIM_ORIGINAL_MESSAGE });
-            return getFireflyEndpoint().polymarketClaimV1({
-                condition_id: position.conditionId,
-                negative_risk: Boolean(position.negRisk),
-                ...(claimAmount ? { amount: claimAmount } : {}),
+            const { signature } = await signMessage(
+                { message: POLYMARKET_CLAIM_ORIGINAL_MESSAGE },
+                { uiOptions: { showWalletUIs: false } },
+            );
+            const data = await getFireflyEndpoint().polymarketBatchClaimV2({
+                items: [
+                    {
+                        condition_id: position.conditionId,
+                        negative_risk: Boolean(position.negRisk),
+                        ...(claimAmount ? { amount: claimAmount } : {}),
+                    },
+                ],
                 original_message: POLYMARKET_CLAIM_ORIGINAL_MESSAGE,
                 signature_message: signature,
             });
+            await waitForEthereumTransaction(config, polygon.id, data.hash as Hash);
+            return data;
         },
         async onSuccess() {
             toast.success(isWin ? <Trans>Claim requested</Trans> : <Trans>Position closed</Trans>);
@@ -98,10 +111,7 @@ export function PositionClaimModal({ position, children, open: controlledOpen, o
                     positionId: position.Id,
                     tokenId: position.tokenId,
                 });
-                // Don't refetch positions immediately — V1 claim API doesn't wait for
-                // on-chain confirmation, so the backend still returns stale data.
-                // The optimistic removal handles the UI; the list will sync on next
-                // focus/remount once the backend has processed the claim.
+                queryClient.refetchQueries({ queryKey: positionsQueryKeys.current });
                 queryClient.refetchQueries({ queryKey: claimableQueryKey, exact: true });
 
                 // Notify parent page to refetch

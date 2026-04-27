@@ -3,7 +3,7 @@ import { resolvePublicRpcUrl } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useSetActiveWallet } from '@privy-io/wagmi';
 import { useAsyncFn } from 'react-use';
-import { type Address, erc20Abi, parseUnits } from 'viem';
+import { type Address, encodeFunctionData, erc20Abi, parseUnits } from 'viem';
 import { useConfig } from 'wagmi';
 import { simulateContract, waitForTransactionReceipt, writeContract } from 'wagmi/actions';
 
@@ -71,7 +71,11 @@ export function useAddFundsWithPolUsdc({ depositToken, polymarketAddress, amount
             txType: FreeGasTxType.PolymarketDeposit,
             from: embeddedAddress,
             to: depositToken.address as Address,
-            data: (request as { data?: `0x${string}` }).data ?? '0x',
+            data: encodeFunctionData({
+                abi: erc20Abi,
+                functionName: 'transfer',
+                args: [polymarketAddress as Address, parsedValue],
+            }),
         });
         if (freeGasResult.type === 'free-gas') {
             txHash = freeGasResult.hash as Address;

@@ -3,17 +3,15 @@ import InfoOutlineIcon from '@dimensiondev/assets/info-outline.svg';
 import { isSolanaChain } from '@dimensiondev/web3/chains';
 import { isGreaterThan, isLessThan } from '@dimensiondev/web3/numbers';
 import { Trans } from '@lingui/react/macro';
-import { useSetActiveWallet } from '@privy-io/wagmi';
+import { useSignMessage } from '@privy-io/react-auth';
 import { useMutation, useQuery, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
-import { signMessage } from '@wagmi/core';
 import { BigNumber } from 'bignumber.js';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { toast } from 'sonner';
 import { useDebounceValue } from 'usehooks-ts';
 import { parseUnits } from 'viem';
 import { polygon } from 'viem/chains';
-import { useConfig } from 'wagmi';
 
 import { BetError } from '@/components/Bet/BetError.js';
 import {
@@ -73,7 +71,7 @@ function WithdrawClient() {
     const queryClient = useQueryClient();
 
     const { evmAddress, solanaAddress, evmWallet, isLoading: isEmbeddedWalletLoading } = useEmbeddedWalletAddresses();
-    const { setActiveWallet } = useSetActiveWallet();
+    const { signMessage } = useSignMessage();
     const inputRef = useRef<HTMLInputElement | null>(null);
     const [value, setValue] = useState('');
     const { inputProps } = useDecimalInput({ value, onValueChange: setValue, maxDecimals: 2 });
@@ -98,7 +96,6 @@ function WithdrawClient() {
         },
         enabled: !!debounceValue && isGreaterThan(debounceValue, 0) && !!targetToken,
     });
-    const config = useConfig();
     const isSubmittingRef = useRef(false);
     const toastId = 'polymarket-withdraw';
     useEffect(() => {
@@ -111,19 +108,18 @@ function WithdrawClient() {
             if (!targetToken) {
                 throw new Error('No token selected');
             }
-            if (!evmWallet || !evmAddress || !receiverAddress) {
+            if (!receiverAddress) {
                 throw new Error('Embedded wallet not ready');
             }
 
             toastLoading(<Trans>Withdrawing funds to your Firefly wallet...</Trans>, { id: toastId });
             store.set(showEmbeddedWalletUIAtom, false);
-            await setActiveWallet(evmWallet);
             const amount = parseUnits(value, pusdTokenFallback.decimals);
             const originalMessage = 'polymarket withdraw';
-            const signature = await signMessage(config, {
-                message: originalMessage,
-                account: evmAddress as `0x${string}`,
-            });
+            const { signature } = await signMessage(
+                { message: originalMessage },
+                { uiOptions: { showWalletUIs: false } },
+            );
             const hash = await getFireflyEndpoint().polymarketWithdraw(
                 amount.toString(),
                 targetToken.id,
