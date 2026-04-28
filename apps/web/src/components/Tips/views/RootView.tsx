@@ -59,7 +59,6 @@ export function RootView() {
                 open={open}
                 onBack={onBack}
                 onClose={onClose}
-                disableScrollLock={false}
                 disableDialogClose={false}
             >
                 <div className="bg-lightBottom text-medium text-lightMain dark:bg-darkBottom z-10 transition-all">

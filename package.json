@@ -83,7 +83,6 @@
             }
         },
         "patchedDependencies": {
-            "@headlessui/react@2.1.10": "patches/@headlessui__react@2.1.10.patch",
             "@lens-protocol/client@0.0.0-canary-20250430134539": "patches/@lens-protocol__client@0.0.0-canary-20250430134539.patch",
             "@lexical/react@0.18.0": "patches/@lexical__react@0.18.0.patch",
             "@reown/appkit@1.8.19": "patches/@reown__appkit@1.8.19.patch",

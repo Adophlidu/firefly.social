@@ -245,13 +245,7 @@ function ComposeModalUI({ ref }: Props) {
     }, [posts.length]);
 
     return (
-        <Modal
-            open={open}
-            onClose={onClose}
-            dialogPanelClassName="flex-col"
-            disableScrollLock={false}
-            disableDialogClose
-        >
+        <Modal open={open} onClose={onClose} dialogPanelClassName="flex-col" disableDialogClose>
             <div className="bg-lightBottom dark:bg-darkBottom relative flex h-screen w-screen flex-col overflow-auto transition-all md:h-auto md:w-[600px] md:flex-[0] md:overflow-visible md:rounded-xl lg:grow-0 dark:text-gray-950">
                 {/* Loading */}
                 {isBusy ? (

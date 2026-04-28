@@ -27,7 +27,7 @@ export function Popover({
 
     return (
         <Transition appear show={open} as={Fragment}>
-            <Dialog as="div" onClose={() => onClose?.()} disableScrollLock>
+            <Dialog as="div" onClose={() => onClose?.()}>
                 {enableBackdrop ? (
                     <Transition.Child
                         as={Fragment}

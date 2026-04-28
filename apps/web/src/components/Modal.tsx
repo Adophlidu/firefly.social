@@ -1,7 +1,7 @@
 import { classNames } from '@dimensiondev/utils';
 import { Dialog, Transition } from '@headlessui/react';
 import { noop } from 'lodash-es';
-import { Fragment, memo, type ReactNode, useRef } from 'react';
+import { Fragment, memo, type ReactNode, useEffect, useRef } from 'react';
 
 import { ModalBody } from '@/components/ModalBody.js';
 import { ModalTitle } from '@/components/ModalTitle.js';
@@ -18,7 +18,6 @@ export interface ModalProps {
     enableClose?: boolean;
     enableBack?: boolean;
     enableBackdrop?: boolean;
-    disableScrollLock?: boolean;
     /**
      * Close the `onClose` of the dialog.
      * The `onClose` of Dialog will respond to all click events outside the `Dialog.Panel`.
@@ -43,7 +42,6 @@ export const Modal = memo(function Modal({
     enableClose = false,
     enableBack = false,
     enableBackdrop = true,
-    disableScrollLock = true,
     disableDialogClose = true,
     disableBackdropClose = false,
     dialogClassName,
@@ -53,21 +51,38 @@ export const Modal = memo(function Modal({
 }: ModalProps) {
     const ref = useRef<HTMLDivElement>(null);
 
+    useEffect(() => {
+        if (!open) return;
+
+        const scrollY = window.scrollY;
+
+        document.body.style.position = 'fixed';
+        document.body.style.top = `-${scrollY}px`;
+        document.body.style.width = '100%';
+
+        return () => {
+            document.body.style.position = '';
+            document.body.style.top = '';
+            document.body.style.width = '';
+            window.scrollTo(0, scrollY);
+        };
+    }, [open]);
+
     return (
         <Transition appear show={open} as={Fragment}>
             <Dialog
-                initialFocus={ref}
                 className={classNames('z-modal relative', dialogClassName)}
                 onClose={disableDialogClose ? noop : onClose}
-                disableScrollLock={disableScrollLock}
+                tabIndex={-1}
             >
-                <div className="fixed inset-0 overflow-y-auto">
+                <div className="fixed inset-0">
                     <div
                         className={classNames(
-                            'flex min-h-full items-center justify-center overflow-auto p-0 text-center md:p-4',
+                            'flex min-h-full items-center justify-center p-0 text-center md:p-4',
                             dialogPanelClassName,
                         )}
                         ref={ref}
+                        tabIndex={-1}
                     >
                         {enableBackdrop ? (
                             <Transition.Child

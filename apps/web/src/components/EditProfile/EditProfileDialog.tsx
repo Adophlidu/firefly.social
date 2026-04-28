@@ -17,13 +17,7 @@ export function EditProfileDialog({
     open: boolean;
 }) {
     return (
-        <Modal
-            open={open}
-            onClose={onClose}
-            dialogPanelClassName="flex-col"
-            disableScrollLock={false}
-            disableDialogClose
-        >
+        <Modal open={open} onClose={onClose} dialogPanelClassName="flex-col" disableDialogClose>
             <div className="bg-primaryBottom shadow-popover relative flex w-screen grow flex-col overflow-auto transition-all md:h-auto md:max-h-[800px] md:w-[455px] md:rounded-xl lg:grow-0">
                 <div className="bg-primaryBottom shadow-popover relative flex w-screen grow flex-col overflow-auto transition-all md:h-auto md:max-h-[800px] md:w-[455px] md:rounded-xl lg:grow-0">
                     <ModalTitle title={<Trans>Edit Profile</Trans>} onClose={onClose} />
