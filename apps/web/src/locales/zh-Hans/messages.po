@@ -4983,9 +4983,6 @@ msgstr "选择或设置跨平台@所使用的用户名。"
 msgid "<0>{0}</0> recasted"
 msgstr "<0>{0}</0> 转发了"
 
-msgid "Copy Trade"
-msgstr "一键跟单"
-
 msgid "Close"
 msgstr "关闭"
 

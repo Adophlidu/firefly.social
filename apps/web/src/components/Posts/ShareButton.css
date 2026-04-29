@@ -1,0 +1,34 @@
+@keyframes airplane-r2-animation-keyframes {
+    0% {
+        transform: translate3d(-10.4px, 14.7px, 0px);
+        animation-timing-function: linear;
+    }
+    63.1579% {
+        transform: translate3d(-10.4px, 14.7px, 0px);
+        animation-timing-function: linear;
+    }
+    100% {
+        transform: translate3d(0px, 0px, 0px);
+        animation-timing-function: linear;
+    }
+}
+.airplane-r2-animation {
+    animation: airplane-r2-animation-keyframes 1.9s linear 0s infinite normal forwards running;
+}
+@keyframes airplane-r1-animation-keyframes {
+    0% {
+        transform: translate3d(0px, 0px, 0px);
+        animation-timing-function: linear;
+    }
+    63.1684% {
+        transform: translate3d(0px, 0px, 0px);
+        animation-timing-function: linear;
+    }
+    100% {
+        transform: translate3d(10.6px, -12.2px, 0px);
+        animation-timing-function: linear;
+    }
+}
+.airplane-r1-animation {
+    animation: airplane-r1-animation-keyframes 1.9s linear 0s infinite normal forwards running;
+}

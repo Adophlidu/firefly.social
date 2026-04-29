@@ -1,7 +1,7 @@
 'use client';
 
+import LightningIcon from '@dimensiondev/assets/lightning-sharp.svg';
 import MirrorIcon from '@dimensiondev/assets/mirror.svg';
-import ShareIcon from '@dimensiondev/assets/share.svg';
 import ShareImageIcon from '@dimensiondev/assets/share-image.svg';
 import { classNames } from '@dimensiondev/utils';
 import { MenuItem } from '@headlessui/react';
@@ -20,6 +20,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
 import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
+import { ShareButtonWithAnimation } from '@/components/Posts/ShareButton.js';
 import { SwapAccessPath, SwapButton } from '@/components/TokenProfile/SwapButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { queryClient } from '@/configs/queryClient.js';
@@ -104,7 +105,7 @@ export const SwapActions = memo<SwapActionsProps>(function SwapActions({ activit
         <div className={classNames('mt-2 flex items-center justify-between gap-2')}>
             <SwapButton
                 loginRequired
-                className="!ml-0 flex !rounded-lg !px-2 !py-1 !text-[12px] !font-medium !leading-5"
+                className="!text-commonWarn !ml-0 flex items-center !gap-1 !rounded-lg bg-transparent !p-0 !text-[12px] !font-normal !leading-5"
                 swapProps={{
                     entry: SwapAccessPath.CopyTrade,
                     chainId: activity.chain_id,
@@ -113,7 +114,8 @@ export const SwapActions = memo<SwapActionsProps>(function SwapActions({ activit
                     toChainId: activity.to_chain_id,
                 }}
             >
-                <Trans>Copy Trade</Trans>
+                <LightningIcon width="28px" height="28px" className="hover:bg-commonWarn/30 rounded-full p-1" />
+                <Trans>Buy</Trans>
             </SwapButton>
             <div className="flex items-center gap-5">
                 <div
@@ -146,7 +148,7 @@ export const SwapActions = memo<SwapActionsProps>(function SwapActions({ activit
                                 whileTap={{ scale: 0.9 }}
                                 className="hover:bg-link/[0.2] hover:text-link inline-flex size-7 items-center justify-center rounded-full disabled:opacity-60"
                             >
-                                <ShareIcon className="size-4" />
+                                <ShareButtonWithAnimation />
                             </motion.div>
                         </Tooltip>
                     }

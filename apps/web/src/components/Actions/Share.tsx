@@ -1,7 +1,6 @@
 'use client';
 
 import SendIcon from '@dimensiondev/assets/send.svg';
-import ShareIcon from '@dimensiondev/assets/share.svg';
 import { classNames } from '@dimensiondev/utils';
 import { MenuItem } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
@@ -13,6 +12,7 @@ import { CopyLinkButton } from '@/components/Actions/CopyLinkButton.js';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
+import { ShareButtonWithAnimation } from '@/components/Posts/ShareButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { SITE_URL } from '@/constants/static.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
@@ -41,9 +41,9 @@ export const Share = memo<ShareProps>(function Share({ post, disabled = false, c
                     <motion.div
                         onClick={() => capturePostActionEvent('share', post)}
                         whileTap={{ scale: 0.9 }}
-                        className="hover:bg-link/[0.2] hover:text-link inline-flex size-7 items-center justify-center rounded-full disabled:opacity-60"
+                        className="hover:bg-link/[0.2] hover:text-link group inline-flex size-7 items-center justify-center rounded-full disabled:opacity-60"
                     >
-                        <ShareIcon width={17} height={16} />
+                        <ShareButtonWithAnimation />
                     </motion.div>
                 </Tooltip>
             }

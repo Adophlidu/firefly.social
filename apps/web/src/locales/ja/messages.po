@@ -4983,9 +4983,6 @@ msgstr ""
 msgid "<0>{0}</0> recasted"
 msgstr ""
 
-msgid "Copy Trade"
-msgstr ""
-
 msgid "Close"
 msgstr ""
 

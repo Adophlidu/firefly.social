@@ -190,7 +190,7 @@ export function PostBodyContent({ ref, ...props }: PostBodyContentProps) {
 
     if (isQuote) {
         return (
-            <div className="text-main my-2 break-words text-base" ref={mergedRef}>
+            <div className="text-main mt-2 break-words text-base" ref={mergedRef}>
                 <NakedMarkup
                     post={post}
                     className={classNames(

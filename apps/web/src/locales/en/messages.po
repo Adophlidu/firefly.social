@@ -5008,9 +5008,6 @@ msgstr "Choose or set the handles for cross at."
 msgid "<0>{0}</0> recasted"
 msgstr "<0>{0}</0> recasted"
 
-msgid "Copy Trade"
-msgstr "Copy Trade"
-
 msgid "Close"
 msgstr "Close"
 
