@@ -88,14 +88,18 @@ class LensPoll implements Provider {
 
         const isPrivy = walletType === 'privy';
         const accountForTx = isPrivy ? privyEvm : currentAddress;
+        // Use silent Privy client whenever the signing address is the Firefly wallet
+        const useSilentPrivy = !!privyEvm && !!accountForTx && isSameEthereumAddress(accountForTx, privyEvm);
         await Promise.all(
             result.transactions.map(async (transaction) => {
                 const options = {
                     account: accountForTx ? getAddress(accountForTx) : null,
                     data: transaction.data,
                     gas: BigInt(transaction.gasLimit),
+                    gasPerPubdata: BigInt(transaction.gasPerPubdata),
                     maxFeePerGas: BigInt(transaction.maxFeePerGas),
                     maxPriorityFeePerGas: BigInt(transaction.maxPriorityFeePerGas),
+                    nonce: transaction.nonce,
                     paymaster: transaction.paymaster,
                     paymasterInput: transaction.paymasterInput,
                     to: transaction.to,
@@ -103,11 +107,13 @@ class LensPoll implements Provider {
                 };
 
                 const hash = await sendCustomEip712Transaction(wagmiConfig, lens.id, options, {
-                    client: isPrivy
+                    client: useSilentPrivy
                         ? await createPrivyWalletClient({
                               chainId: lens.id,
                           })
                         : undefined,
+                    rpcUrl: transaction.RPC,
+                    skipPrepare: true,
                 });
                 await waitForEthereumTransaction(wagmiConfig, transaction.chainId, hash);
             }),

@@ -54,6 +54,7 @@ function buildCSP(): string {
         'cca-lite.coinbase.com',
         'eth.llamarpc.com',
         'polygon.drpc.org',
+        '*.alchemy.com',
 
         'explorer-api.walletconnect.com',
         'pulse.walletconnect.org',
