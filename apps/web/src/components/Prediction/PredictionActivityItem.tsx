@@ -4,6 +4,7 @@ import { memo, useCallback } from 'react';
 import type { Address } from 'viem';
 
 import { Avatar } from '@/components/Avatar.js';
+import { DefiUnitedBadge } from '@/components/DefiUnitedBadge/index.js';
 import { FeedFollowSource } from '@/components/FeedFollowSource.js';
 import { Link } from '@/components/Link.js';
 import { PredictionActivityAction } from '@/components/Prediction/PredictionActivityAction.js';
@@ -17,6 +18,7 @@ import { getEnsNameFromDisplayInfo } from '@/helpers/getEnsNameFromDisplayInfo.j
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getWalletProfileAvatar } from '@/helpers/getWalletProfileAvatar.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
+import { useDefiUnitedBadge } from '@/hooks/useDefiUnitedBadge.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import type { BetsActivity } from '@/providers/types/Firefly.js';
 
@@ -37,6 +39,7 @@ export const PredictionActivityItem = memo<PredictionActivityItemProps>(function
         ? getProfileUrl({ source: Source.Wallet, profileId: walletAddress }, WalletProfileCategory.Prediction)
         : '';
     const ensName = getEnsNameFromDisplayInfo(activity, walletAddress);
+    const { data: defiUnitedTier } = useDefiUnitedBadge(walletAddress);
 
     const wrapper = useCallback(
         (children: React.ReactNode) => (
@@ -99,6 +102,7 @@ export const PredictionActivityItem = memo<PredictionActivityItemProps>(function
                                 <span className="ml-2 max-md:hidden">{addressName}</span>
                             )
                         ) : null}
+                        {defiUnitedTier ? <DefiUnitedBadge tier={defiUnitedTier} className="shrink-0" /> : null}
                         {activity.timestamp ? (
                             <span className="whitespace-nowrap pl-1">
                                 · <TimestampFormatter time={activity.timestamp * 1000} /> ·

@@ -708,3 +708,9 @@ export enum EnsNameSource {
     Sns = 'sns',
     Skr = 'seekerid',
 }
+
+export enum DefiUnitedTier {
+    Bronze = 1,
+    Silver = 2,
+    Gold = 3,
+}

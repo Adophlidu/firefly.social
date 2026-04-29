@@ -7,6 +7,7 @@ import { memo } from 'react';
 
 import { Avatar } from '@/components/Avatar.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
+import { DefiUnitedBadge } from '@/components/DefiUnitedBadge/index.js';
 import { Link } from '@/components/Link.js';
 import { BioMarkup } from '@/components/Markup/BioMarkup.js';
 import { FollowButton } from '@/components/Profile/FollowButton.js';
@@ -22,6 +23,7 @@ import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
+import { useDefiUnitedBadgeByProfile } from '@/hooks/useDefiUnitedBadge.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
@@ -51,6 +53,7 @@ export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ identit
         refetchOnWindowFocus: false,
         refetchOnReconnect: false,
     });
+    const { data: defiUnitedTier } = useDefiUnitedBadgeByProfile(profile);
 
     if (isLoading) {
         return (
@@ -97,6 +100,7 @@ export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ identit
                             {profile.displayName}
                         </Link>
                         <ProfileVerifyBadge profile={profile} className="flex shrink-0 items-center space-x-1" />
+                        {defiUnitedTier ? <DefiUnitedBadge tier={defiUnitedTier} className="shrink-0" /> : null}
                         <SocialSourceIcon source={profile.source} className="ml-auto shrink-0" size={18} />
                     </div>
 

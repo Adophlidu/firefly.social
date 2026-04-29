@@ -4,6 +4,7 @@ import { classNames } from '@dimensiondev/utils';
 import { Plural, Trans } from '@lingui/react/macro';
 
 import { Avatar } from '@/components/Avatar.js';
+import { DefiUnitedBadge } from '@/components/DefiUnitedBadge/index.js';
 import { Link } from '@/components/Link.js';
 import { BioMarkup } from '@/components/Markup/BioMarkup.js';
 import { NoSSR } from '@/components/NoSSR.js';
@@ -17,6 +18,7 @@ import { FollowCategory, Source } from '@/constants/enum.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
+import { useDefiUnitedBadgeByProfile } from '@/hooks/useDefiUnitedBadge.js';
 import { useProfileHighlighted } from '@/hooks/useProfileHighlighted.js';
 import { useRefreshedProfileInProfilePage } from '@/hooks/useRefreshedProfile.js';
 import { getLargeTwitterAvatar } from '@/providers/twitter/getLargeTwitterAvatar.js';
@@ -31,6 +33,7 @@ export const PROFILE_ACTION_ID = 'profile-action';
 export function SocialProfileInfo(props: InfoProps) {
     const { profile } = useRefreshedProfileInProfilePage(props.profile);
     const { data: highlighted } = useProfileHighlighted(props.profile);
+    const { data: defiUnitedTier } = useDefiUnitedBadgeByProfile(profile);
 
     const { source, followerCount = 0, followingCount = 0 } = profile;
 
@@ -68,6 +71,7 @@ export function SocialProfileInfo(props: InfoProps) {
                                 </h1>
                             </TextOverflowTooltip>
                             <ProfileVerifyBadge className="flex shrink-0 items-center space-x-1" profile={profile} />
+                            {defiUnitedTier ? <DefiUnitedBadge tier={defiUnitedTier} className="shrink-0" /> : null}
                         </div>
                         <div id={PROFILE_ACTION_ID} className="ml-auto flex items-center gap-2">
                             <NoSSR>

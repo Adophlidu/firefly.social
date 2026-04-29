@@ -1433,6 +1433,9 @@ msgstr "6h"
 msgid "Multi-device login is required for schedule post. Set a 6-digit password to verify your identity."
 msgstr "Multi-device login is required for schedule post. Set a 6-digit password to verify your identity."
 
+msgid "DeFiUnited Supporter"
+msgstr "DeFiUnited Supporter"
+
 msgid "Audio Cover"
 msgstr "Audio Cover"
 

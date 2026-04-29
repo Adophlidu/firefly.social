@@ -13,9 +13,11 @@ import { useQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import { memo, useMemo } from 'react';
 
+import { DefiUnitedBadge } from '@/components/DefiUnitedBadge/index.js';
 import { InteractiveTippy } from '@/components/InteractiveTippy.js';
 import { RelatedSourceIcon } from '@/components/RelatedSourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
+import { useDefiUnitedBadge } from '@/hooks/useDefiUnitedBadge.js';
 import { fireflyWalletProvider } from '@/providers/firefly/Wallet.js';
 import { RelatedWalletSource, type VerifiedSource, type WalletProfile } from '@/providers/types/Firefly.js';
 
@@ -57,6 +59,7 @@ export const WalletProfileTags = memo<WalletProfileTagsProps>(function WalletPro
         queryKey: ['wallet-relation', profile.address.toLowerCase()],
         queryFn: () => fireflyWalletProvider.getWalletRelation(profile.address),
     });
+    const { data: defiUnitedTier } = useDefiUnitedBadge(profile.address);
 
     const allEnsList = useMemo<
         Array<{
@@ -123,6 +126,7 @@ export const WalletProfileTags = memo<WalletProfileTagsProps>(function WalletPro
                 dynamicTagsCount >= 4 ? 'gap-0.5' : 'gap-1.5',
             )}
         >
+            {defiUnitedTier ? <DefiUnitedBadge tier={defiUnitedTier} /> : null}
             {networkType === NetworkType.Ethereum ? <EvmIcon width={ICON_SIZE} height={ICON_SIZE} /> : null}
             {networkType === NetworkType.Solana ? <SolanaIcon width={ICON_SIZE} height={ICON_SIZE} /> : null}
             {walletRelation?.verifiedSources?.map((x) => {

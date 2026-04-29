@@ -11,6 +11,7 @@ import type { Address } from 'viem';
 import { Avatar } from '@/components/Avatar.js';
 import { ChainIcon } from '@/components/ChainIcon.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
+import { DefiUnitedBadge } from '@/components/DefiUnitedBadge/index.js';
 import { useDisableScrollRestore } from '@/components/DisableScrollRestore/index.js';
 import { FeedFollowSource } from '@/components/FeedFollowSource.js';
 import { Image } from '@/components/Image.js';
@@ -31,6 +32,7 @@ import { getWalletProfileAvatar } from '@/helpers/getWalletProfileAvatar.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
 import { resolveTxPageUrl } from '@/helpers/resolveTxPageUrl.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
+import { useDefiUnitedBadge } from '@/hooks/useDefiUnitedBadge.js';
 import { captureSwapEvent } from '@/providers/telemetry/captureSwapEvent.js';
 import type { SwapActivity } from '@/providers/types/Firefly.js';
 import { EventId } from '@/providers/types/Telemetry.js';
@@ -52,6 +54,7 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
     const disableScrollRestore = useDisableScrollRestore();
     const ensHandle = getEnsNameFromDisplayInfo(activity, activity.owner);
     const isCrossChain = activity.is_cross_chain;
+    const { data: defiUnitedTier } = useDefiUnitedBadge(activity.owner);
 
     return (
         <motion.article
@@ -103,6 +106,7 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
                                     {addressName}
                                 </Link>
                             ) : null}
+                            {defiUnitedTier ? <DefiUnitedBadge tier={defiUnitedTier} className="shrink-0" /> : null}
                             {activity.timestamp ? (
                                 <span className="whitespace-nowrap pl-1">
                                     · <TimestampFormatter time={Number(activity.timestamp) * 1000} /> ·

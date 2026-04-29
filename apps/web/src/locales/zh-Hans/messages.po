@@ -1426,6 +1426,9 @@ msgstr "6 小时"
 msgid "Multi-device login is required for schedule post. Set a 6-digit password to verify your identity."
 msgstr "定时发布需启用多设备登录。请设置 6 位数字密码以验证身份。"
 
+msgid "DeFiUnited Supporter"
+msgstr ""
+
 msgid "Audio Cover"
 msgstr "音频封面"
 

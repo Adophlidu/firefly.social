@@ -4,11 +4,13 @@ import type { HTMLProps, ReactNode } from 'react';
 import type { Address } from 'viem';
 
 import { ConditionalLink } from '@/components/ConditionalLink.js';
+import { DefiUnitedBadge } from '@/components/DefiUnitedBadge/index.js';
 import { EnsName } from '@/components/Profile/EnsName.js';
 import { Time } from '@/components/Semantic/Time.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { Source } from '@/constants/enum.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
+import { useDefiUnitedBadge } from '@/hooks/useDefiUnitedBadge.js';
 
 export interface ActivityCellHeaderProps extends HTMLProps<HTMLDivElement> {
     address?: Address | null;
@@ -38,6 +40,7 @@ export function ActivityCellHeader({
         externalAuthorUrl ?? (address ? getProfileUrl({ source: Source.Wallet, profileId: address }) : null);
     const addressText = address ? formatAddressEthereum(address, 4) : '';
     const mainContent = displayName || addressText;
+    const { data: defiUnitedTier } = useDefiUnitedBadge(address);
 
     return (
         <div className={classNames('flex items-start gap-3', className)} {...rest}>
@@ -61,6 +64,8 @@ export function ActivityCellHeader({
                         {username ? <>@{username}</> : <address className="truncate not-italic">{addressText}</address>}
                     </ConditionalLink>
                 ) : null}
+
+                {defiUnitedTier ? <DefiUnitedBadge tier={defiUnitedTier} className="shrink-0" /> : null}
 
                 {time ? (
                     <Time dateTime={time} className="text-secondary mx-1 whitespace-nowrap">
