@@ -17,3 +17,5 @@ export const NFT_ENABLED = env.external.NEXT_PUBLIC_NFT_FEATURES === STATUS.Enab
 
 // Minimum deposit amount in USD for bets
 export const BET_DEPOSIT_MIN_USD = 1;
+
+export const PRIVY_CONNECTOR_ID = 'firefly-backend-wallet';

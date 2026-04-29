@@ -4,8 +4,6 @@ import { estimateSwapGas, waitForEthereumTransaction } from '@dimensiondev/web3/
 import { type ChainId, isSolanaChain } from '@dimensiondev/web3/chains';
 import { getSolanaRPCUrl } from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
-import { type ConnectedWallet, useWallets as useEvmWallets } from '@privy-io/react-auth';
-import { useWallets as useSolanaWallets } from '@privy-io/react-auth/solana';
 import { CoreConnectionController, CoreProviderController } from '@reown/appkit';
 import type { Provider as SolanaProvider } from '@reown/appkit-adapter-solana';
 import bs58 from 'bs58';
@@ -14,13 +12,16 @@ import { type ReactNode, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import { toast } from 'sonner';
 import type { Address, Hex } from 'viem';
+import { type Connection, useConnections } from 'wagmi';
 import { sendTransaction } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmiClient.js';
+import { privySolanaProvider } from '@/connectors/PrivySolanaWalletAdapter.js';
 import { env } from '@/constants/env.js';
+import { PRIVY_CONNECTOR_ID } from '@/constants/static.js';
 import { tryFreeGasTransaction } from '@/helpers/freeGas/tryFreeGasTransaction.js';
 import { getUserFacingErrorMessage } from '@/helpers/getErrorMessage.js';
-import { resolveEvmConnector, switchEvmConnectorChain } from '@/helpers/resolveEvmConnector.js';
+import { switchEvmConnectorChain } from '@/helpers/resolveEvmConnector.js';
 import { signAndBroadcastSolanaTransaction } from '@/helpers/signAndBroadcastSolanaTransaction.js';
 import type { BuildSwapAnalyticsParamsInput } from '@/helpers/swap/buildSwapAnalyticsParams.js';
 import { executeEvmApproval } from '@/helpers/swap/executeEvmApproval.js';
@@ -31,7 +32,7 @@ import {
     resolveSwapSolanaSigningWallet,
 } from '@/helpers/swap/resolveSwapSigningWallet.js';
 import { toastLoading } from '@/helpers/toastLoading.js';
-import { useAppKitSolanaWallets } from '@/hooks/useAppKitSolanaWallets.js';
+import { type AppKitSolanaWallet, useAppKitSolanaWallets } from '@/hooks/useAppKitSolanaWallets.js';
 import { logger } from '@/lib/Logger.js';
 import { createSwapEndpoint, type SwapToken } from '@/providers/swap/index.js';
 import type { FreeGasTxType } from '@/providers/types/FreeGas.js';
@@ -44,7 +45,7 @@ export type SwapAnalyticsParams = Omit<BuildSwapAnalyticsParamsInput, 'solanaWal
 
 interface ExecuteEvmSwapParams {
     quoteParams: Parameters<typeof fetchSwapQuote>[0];
-    evmSigningWallet: ConnectedWallet;
+    evmSigningWallet: Connection;
     fromToken: { address: string; decimals: number };
     fromAmount: string;
     chainId: number;
@@ -58,13 +59,13 @@ interface ExecuteEvmSwapParams {
     onSuccess?: (data: SwapSuccessParams) => Promise<void>;
     freeGasTxType?: FreeGasTxType;
 }
-interface SolanaSigningWallet {
-    type: 'privy' | 'appkit';
-    wallet: any;
-}
+
 interface ExecuteSolanaSwapParams {
     quoteResult: { tx: { data: string; to: string; value: string; gas?: string; gasPrice?: string } };
-    solanaSigningWallet: SolanaSigningWallet;
+    solanaSigningWallet: {
+        type: 'appkit' | 'privy';
+        wallet: AppKitSolanaWallet;
+    };
     chainId: number;
     isCrossChain: boolean;
     toastId: string;
@@ -109,12 +110,12 @@ async function executeEvmSwap({
     onSuccess,
     freeGasTxType,
 }: ExecuteEvmSwapParams): Promise<void> {
-    const connector = await resolveEvmConnector(evmSigningWallet);
+    const connector = evmSigningWallet.connector;
     if (!connector) {
         throw new Error('Selected EVM wallet connector is not available for signing');
     }
 
-    await switchEvmConnectorChain(evmSigningWallet, connector, chainId);
+    await switchEvmConnectorChain(connector, chainId);
     const quoteResult = await fetchSwapQuote(quoteParams);
 
     // Check and execute ERC20 approval if needed
@@ -207,18 +208,22 @@ async function executeSolanaSwap({
     onSuccess,
 }: ExecuteSolanaSwapParams): Promise<void> {
     const txBytes = bs58.decode(quoteResult.tx.data);
+    const transaction = web3.VersionedTransaction.deserialize(txBytes);
+
+    // Ensure the wallet is connected to the correct chain before signing
+    await CoreConnectionController.switchConnection({
+        connection: solanaSigningWallet.wallet.connection,
+        namespace: 'solana',
+    });
 
     let hash: string;
-    if (solanaSigningWallet.type === 'appkit') {
-        // Use AppKit provider for external Solana wallets
-        await CoreConnectionController.switchConnection({
-            connection: solanaSigningWallet.wallet.connection,
-            namespace: 'solana',
-        });
+    if (
+        solanaSigningWallet.type !== 'privy' ||
+        solanaSigningWallet.wallet.connection.connectorId !== PRIVY_CONNECTOR_ID
+    ) {
         const provider = CoreProviderController.state.providers.solana as SolanaProvider;
         if (!provider) throw new Error('AppKit Solana provider not available');
 
-        const transaction = web3.VersionedTransaction.deserialize(txBytes);
         const connection = new web3.Connection(
             getSolanaRPCUrl({ httpUrl: env.external.NEXT_PUBLIC_SOLANA_RPC_URL }),
             'confirmed',
@@ -227,7 +232,7 @@ async function executeSolanaSwap({
         hash = typeof signature === 'string' ? signature : bs58.encode(signature);
     } else {
         // Use Privy signing path
-        hash = await signAndBroadcastSolanaTransaction(solanaSigningWallet.wallet, new Uint8Array(txBytes));
+        hash = await signAndBroadcastSolanaTransaction(privySolanaProvider, transaction);
     }
     setTxHash(hash);
 
@@ -295,15 +300,14 @@ export function useSwapExecuteCore({
     const [txHash, setTxHash] = useState<string | null>(null);
 
     const authToken = useAtomValue(fireflySessionTokenAtom);
-    const { wallets: solanaWallets } = useSolanaWallets();
-    const { wallets: evmWallets } = useEvmWallets();
-    const appKitSolanaWallets = useAppKitSolanaWallets();
+    const appKitSolanaWallets = useAppKitSolanaWallets(false);
+    const connections = useConnections();
 
     const preferEmbeddedSigner = accessPath === SwapAccessPath.WalletGUI;
-    const evmSigningWallet = resolveSwapEvmSigningWallet(evmWallets, walletAddress, {
+    const evmSigningWallet = resolveSwapEvmSigningWallet(connections, walletAddress, {
         preferEmbedded: preferEmbeddedSigner,
     });
-    const solanaSigningWallet = resolveSwapSolanaSigningWallet(walletAddress, solanaWallets, appKitSolanaWallets, {
+    const solanaSigningWallet = resolveSwapSolanaSigningWallet(walletAddress, appKitSolanaWallets, {
         preferEmbedded: preferEmbeddedSigner,
     });
 
@@ -373,7 +377,7 @@ export function useSwapExecuteCore({
                     onSuccess: (data) => onSuccess(data, analyticsParams),
                 });
             } else {
-                if (!evmSigningWallet) throw new Error('Selected EVM wallet is not available for signing');
+                if (!evmSigningWallet?.connector) throw new Error('Selected EVM wallet is not available for signing');
                 await executeEvmSwap({
                     quoteParams,
                     evmSigningWallet,

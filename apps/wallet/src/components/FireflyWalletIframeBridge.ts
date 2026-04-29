@@ -1,3 +1,4 @@
+import { web3 } from '@coral-xyz/anchor';
 import {
     IframeBridgeMethod,
     iframeBridgeProvider,
@@ -7,25 +8,20 @@ import {
     type SolanaRequestArguments,
     type SolanaResponse,
 } from '@dimensiondev/iframe-bridge';
-import { delay, unreachable } from '@dimensiondev/utils';
+import { delay, NotImplementedError, unreachable } from '@dimensiondev/utils';
 import { solana } from '@dimensiondev/web3/chains';
-import { useSessionSigners, useSignMessage as useEthereumSignMessage, useWallets } from '@privy-io/react-auth';
-import {
-    type ConnectedStandardSolanaWallet,
-    useSignMessage as useSolanaSignMessage,
-    useWallets as useSolanaWallets,
-} from '@privy-io/react-auth/solana';
 import { useNavigate, useRouter } from '@tanstack/react-router';
 import { getWalletClient } from '@wagmi/core';
 import bs58 from 'bs58';
 import { useSetAtom } from 'jotai';
-import { first } from 'lodash-es';
 import { memo, useEffect, useRef } from 'react';
-import { isHex, toHex } from 'viem';
+import { type Address, isHex, toHex } from 'viem';
+import { useConnectors, useSignMessage } from 'wagmi';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { config } from '@/configs/wagmiClient.js';
-import { SOLANA_MAINNET_PRIVY } from '@/constants/solana.js';
+import { privySolanaProvider } from '@/connectors/PrivySolanaWalletAdapter.js';
+import { PRIVY_CONNECTOR_ID } from '@/constants/static.js';
 import { decodeFreeGasTxType } from '@/helpers/freeGas/decodeFreeGasTxType.js';
 import { tryFreeGasTransaction } from '@/helpers/freeGas/tryFreeGasTransaction.js';
 import { isRunningInIframe } from '@/helpers/isRunningInIframe.js';
@@ -34,6 +30,7 @@ import {
     signAndBroadcastSolanaTransaction,
     signAndBroadcastSolanaTransactions,
 } from '@/helpers/signAndBroadcastSolanaTransaction.js';
+import { usePrivyWallet } from '@/hooks/usePrivyWallet.js';
 import { useWaitForPrivyLogin } from '@/hooks/useWaitForPrivyLogin.js';
 import { logger } from '@/lib/Logger.js';
 import { showEmbeddedWalletUIAtom } from '@/store/embeddedWallets.js';
@@ -63,33 +60,32 @@ function withTransactionChainId(
 }
 
 export const FireflyWalletIframeBridge = memo(function IframeBridge() {
-    const { wallets: evmWallets } = useWallets();
-    const { wallets } = useSolanaWallets();
-    const { signMessage: signEthereumMessage } = useEthereumSignMessage();
-    const { signMessage: signSolanaMessage } = useSolanaSignMessage();
-    const { addSessionSigners } = useSessionSigners();
-    const wallet = first(wallets);
+    const { evmAddress } = usePrivyWallet();
+    const evmAddressRef = useRef(evmAddress);
+
+    const { mutateAsync: signEthereumMessage } = useSignMessage();
+    const connectors = useConnectors();
+    const connectorsRef = useRef(connectors);
     const waitForPrivyLogin = useWaitForPrivyLogin();
-    const solanaWalletRef = useRef<ConnectedStandardSolanaWallet>(wallet);
-    const evmWalletsRef = useRef(evmWallets);
     const setShowEmbeddedWalletUI = useSetAtom(showEmbeddedWalletUIAtom);
     const navigate = useNavigate();
     const router = useRouter();
+    const pathnameRef = useRef(router.state.location.pathname);
 
     useEffect(() => {
-        solanaWalletRef.current = wallet;
-    }, [wallet]);
-
+        evmAddressRef.current = evmAddress;
+    }, [evmAddress]);
     useEffect(() => {
-        evmWalletsRef.current = evmWallets;
-    }, [evmWallets]);
+        connectorsRef.current = connectors;
+    }, [connectors]);
+    useEffect(() => {
+        pathnameRef.current = router.state.location.pathname;
+    }, [router.state.location.pathname]);
 
     const handlersRef = useRef({
         navigate,
         setShowEmbeddedWalletUI,
-        addSessionSigners,
         signEthereumMessage,
-        signSolanaMessage,
         waitForPrivyLogin,
     });
 
@@ -97,25 +93,16 @@ export const FireflyWalletIframeBridge = memo(function IframeBridge() {
         handlersRef.current = {
             navigate,
             setShowEmbeddedWalletUI,
-            addSessionSigners,
             signEthereumMessage,
-            signSolanaMessage,
             waitForPrivyLogin,
         };
-    }, [
-        navigate,
-        setShowEmbeddedWalletUI,
-        addSessionSigners,
-        signEthereumMessage,
-        signSolanaMessage,
-        waitForPrivyLogin,
-    ]);
+    }, [navigate, setShowEmbeddedWalletUI, signEthereumMessage, waitForPrivyLogin]);
 
     useEffect(() => {
         if (!isRunningInIframe()) return;
 
         function ensureHomePage() {
-            const currentPath = router.state.location.pathname;
+            const currentPath = pathnameRef.current;
             if (currentPath !== '/') {
                 handlersRef.current.navigate({ to: '/', replace: true });
             }
@@ -194,9 +181,10 @@ export const FireflyWalletIframeBridge = memo(function IframeBridge() {
             [IframeBridgeMethod.FIREFLY_WALLET_EVM_RPC]: async (args) => {
                 ensureHomePage();
                 await handlersRef.current.waitForPrivyLogin();
-                const privyEvmWallet =
-                    evmWalletsRef.current.find((w) => w.walletClientType === 'privy') ?? first(evmWalletsRef.current);
-                const connector = privyEvmWallet ? await resolveEvmConnector(privyEvmWallet) : undefined;
+                const privyEvmWallet = evmAddressRef.current;
+                const connector = privyEvmWallet
+                    ? await resolveEvmConnector(privyEvmWallet, PRIVY_CONNECTOR_ID)
+                    : undefined;
                 const walletClient = await getWalletClient(config, { connector: connector ?? undefined });
 
                 switch (args.method) {
@@ -263,78 +251,58 @@ export const FireflyWalletIframeBridge = memo(function IframeBridge() {
             [IframeBridgeMethod.FIREFLY_WALLET_SOLANA_RPC]: async ({ method, params: p }): Promise<SolanaResponse> => {
                 ensureHomePage();
                 await handlersRef.current.waitForPrivyLogin();
-                const wallet = solanaWalletRef.current!;
+
                 switch (method) {
                     case SolanaMethod.SignMessage: {
                         const params = p as SolanaRequestArguments[SolanaMethod.SignMessage];
-                        const { signature } = await wallet.signMessage({
-                            message: bs58.decode(params.message),
-                        });
+                        const signature = await privySolanaProvider.signMessage(bs58.decode(params.message));
                         return bs58.encode(signature) as never;
                     }
                     case SolanaMethod.SignAndSendTransaction: {
                         const params = p as SolanaRequestArguments[SolanaMethod.SignAndSendTransaction];
-                        return (await signAndBroadcastSolanaTransaction(
-                            wallet,
-                            bs58.decode(params.transaction),
-                        )) as never;
+                        const txBytes = bs58.decode(params.transaction);
+                        const transaction = web3.VersionedTransaction.deserialize(txBytes);
+                        return (await signAndBroadcastSolanaTransaction(privySolanaProvider, transaction)) as never;
                     }
                     case SolanaMethod.SignAndSendAllTransactions: {
                         const params = p as SolanaRequestArguments[SolanaMethod.SignAndSendAllTransactions];
                         return (await signAndBroadcastSolanaTransactions(
-                            wallet,
-                            params.transactions.map((transaction) => bs58.decode(transaction)),
+                            privySolanaProvider,
+                            params.transactions.map((transaction) => {
+                                const txBytes = bs58.decode(transaction);
+                                return web3.VersionedTransaction.deserialize(txBytes);
+                            }),
                         )) as never;
                     }
                     case SolanaMethod.SignTransaction: {
                         const params = p as SolanaRequestArguments[SolanaMethod.SignTransaction];
-                        const { signedTransaction } = await wallet.signTransaction({
-                            chain: SOLANA_MAINNET_PRIVY,
-                            transaction: bs58.decode(params.transaction),
-                        });
-                        return bs58.encode(signedTransaction);
+                        const txBytes = bs58.decode(params.transaction);
+                        const transaction = web3.VersionedTransaction.deserialize(txBytes);
+                        const signedTransaction = await privySolanaProvider.signTransaction(transaction);
+                        return bs58.encode(signedTransaction.signatures[0]);
                     }
                     default:
                         unreachable(method);
                 }
             },
             [IframeBridgeMethod.FIREFLY_WALLET_ADD_SESSION_SIGNER]: async ({ address, signers }) => {
-                const { waitForPrivyLogin, addSessionSigners } = handlersRef.current;
-                await waitForPrivyLogin();
-                await addSessionSigners({
-                    address,
-                    signers,
-                });
+                throw new NotImplementedError('Adding session signers is currently not supported in the iframe bridge');
             },
             [IframeBridgeMethod.FIREFLY_WALLET_SIGN_MESSAGE]: async ({ chainId, address, message }) => {
-                const { waitForPrivyLogin, signSolanaMessage, signEthereumMessage } = handlersRef.current;
+                const { waitForPrivyLogin, signEthereumMessage } = handlersRef.current;
                 await waitForPrivyLogin();
                 if (parseInt(chainId, 16) === solana.id) {
-                    const wallet = solanaWalletRef.current;
-                    if (!wallet) throw new Error('No Solana wallet found');
-                    const { signature } = await signSolanaMessage({
-                        message: bs58.decode(message),
-                        wallet,
-                        options: {
-                            uiOptions: {
-                                showWalletUIs: false,
-                            },
-                        },
-                    });
+                    const signature = await privySolanaProvider.signMessage(bs58.decode(message));
                     return bs58.encode(signature);
                 }
 
                 try {
-                    const promise = signEthereumMessage(
-                        { message },
-                        {
-                            address,
-                            uiOptions: {
-                                showWalletUIs: false,
-                            },
-                        },
-                    );
-                    const { signature } = await promise;
+                    const promise = signEthereumMessage({
+                        message,
+                        account: address as Address,
+                        connector: connectorsRef.current.find((c) => c.id === PRIVY_CONNECTOR_ID),
+                    });
+                    const signature = await promise;
                     return signature;
                 } catch (error) {
                     if ((error as Error)?.message === 'Unable to connect to wallet') {

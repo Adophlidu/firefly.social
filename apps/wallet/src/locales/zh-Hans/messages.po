@@ -32,11 +32,14 @@ msgstr "显示小于 1 美元的资产"
 msgid "History"
 msgstr "历史记录"
 
-msgid "Funding"
-msgstr "资金/注资"
+msgid "Make sure to send funds on Ethereum."
+msgstr ""
 
 msgid "Load failed"
 msgstr "加载失败"
+
+msgid "Failed to disable authentication"
+msgstr ""
 
 msgid "Positions"
 msgstr "仓位"
@@ -61,6 +64,9 @@ msgstr "余额不足？您的 Firefly 钱包可以自动补足差额。"
 
 msgid "Authenticating..."
 msgstr "身份认证中..."
+
+msgid "Transfer from an exchange"
+msgstr ""
 
 #. placeholder {0}: transaction.tx_status
 msgid "{0, select, success {Success} fail {Failed} other {Failed}}"
@@ -96,6 +102,9 @@ msgstr "支付"
 msgid "Solana"
 msgstr "Solana"
 
+msgid "Receive funds"
+msgstr ""
+
 msgid "Failed to claim winnings"
 msgstr "领取奖金失败"
 
@@ -108,11 +117,17 @@ msgstr "领取请求已提交"
 msgid "Review"
 msgstr "预览/检查"
 
+msgid "Confirm to reset PIN code? For your security, this action requires sending a verification code to your recovery email to confirm your identity."
+msgstr ""
+
 msgid "No closed positions found in this wallet"
 msgstr "钱包中未发现已关闭仓位"
 
 msgid "View closed positions"
 msgstr "查看已平仓位"
+
+msgid "The PINs you entered do not match. Please check and try again."
+msgstr ""
 
 msgid "Great job predicting the future!"
 msgstr "预测精准！干得漂亮！"
@@ -148,11 +163,17 @@ msgstr "通过 {0}"
 msgid "To Address"
 msgstr "接收方地址"
 
+msgid "A 6-digit verification code has been sent to your email. Please enter the code to complete verification."
+msgstr ""
+
 msgid "Approved"
 msgstr "已批准/已授权"
 
 msgid "{riskTokenSymbol} is a high-risk token"
 msgstr "{riskTokenSymbol} 是高风险代币"
+
+msgid "The new email address you entered is the same as your current one. Please enter a different email address."
+msgstr ""
 
 msgid "Confirm"
 msgstr "确认"
@@ -175,17 +196,20 @@ msgstr "ENS 查询失败，请重试。"
 msgid "From Address"
 msgstr "发送方地址"
 
-msgid "Connecting to wallet..."
-msgstr "正在连接钱包..."
-
 msgid "Position closed"
 msgstr "仓位已平"
 
 msgid "No Route Found"
 msgstr "未找到交易路径"
 
+msgid "Failed to enable authentication"
+msgstr ""
+
 msgid "Placing order..."
 msgstr "正在下单..."
+
+msgid "Set Recovery Email"
+msgstr ""
 
 msgid "Close lost position"
 msgstr "关闭亏损仓位"
@@ -218,6 +242,9 @@ msgstr "预测钱包支付"
 msgid "Shares"
 msgstr "份额"
 
+msgid "Change Recovery Email"
+msgstr ""
+
 msgid "Transaction Hash"
 msgstr "交易哈希 (TxHash)"
 
@@ -238,6 +265,9 @@ msgstr "网络成本"
 
 msgid "Revoked Failed"
 msgstr "撤销失败"
+
+msgid "Forgot your PIN code?"
+msgstr ""
 
 msgid "Recent"
 msgstr "最近"
@@ -266,6 +296,9 @@ msgstr "连接钱包"
 msgid "No more history"
 msgstr "没有更多历史记录"
 
+msgid "Recovery Email"
+msgstr ""
+
 msgid "Transaction failed: minimum return amount not reached. Try increasing slippage."
 msgstr "交易失败：未达到预期最小数额。请尝试提高滑点。"
 
@@ -283,6 +316,9 @@ msgstr "完成"
 
 msgid "Bridged Failed"
 msgstr "跨链失败"
+
+msgid "Enter new PIN"
+msgstr ""
 
 msgid "Pay Wallet"
 msgstr "支付钱包"
@@ -308,6 +344,9 @@ msgstr "下单买入失败。"
 msgid "Draft"
 msgstr "草稿"
 
+msgid "PIN is acceptable, but consider adding more unique digits."
+msgstr ""
+
 msgid "Firefly Wallet Pay"
 msgstr "Firefly 钱包支付"
 
@@ -322,6 +361,9 @@ msgstr "无法向预测账户充值。"
 
 msgid "Back to Bets"
 msgstr "返回投注"
+
+msgid "Please login to view security settings."
+msgstr ""
 
 msgid "Receive at least"
 msgstr "至少收到"
@@ -350,14 +392,17 @@ msgstr "自定义 (0.5-100%)"
 msgid "Upgrade your Firefly prediction account NOW to ensure your predictions continue seamlessly."
 msgstr "立即升级您的 Firefly 预测账户，确保您的预测活动无缝延续。"
 
-msgid "Wallet funding is not enabled"
-msgstr "钱包充值功能未开启"
+msgid "Set PIN Code"
+msgstr ""
 
 msgid "Order cancelled"
 msgstr "订单已取消"
 
 msgid "Sent"
 msgstr "已发送"
+
+msgid "Copy"
+msgstr ""
 
 msgid "Amount"
 msgstr "数额"
@@ -387,6 +432,9 @@ msgstr "收款钱包"
 
 msgid "Claimed"
 msgstr "已领取"
+
+msgid "Next"
+msgstr ""
 
 msgid "Recipient"
 msgstr "收款方"
@@ -450,6 +498,9 @@ msgstr "报告问题"
 msgid "Withdrawing funds to your Firefly wallet..."
 msgstr "正在提现至您的 Firefly 钱包..."
 
+msgid "Failed to set PIN. Please try again later."
+msgstr ""
+
 msgid "To win"
 msgstr "预期盈利"
 
@@ -467,6 +518,9 @@ msgstr "资金正在到账途中..."
 
 msgid "NFT Minted"
 msgstr "NFT 已铸造"
+
+msgid "Deposit"
+msgstr ""
 
 #. placeholder {0}: formatTokenItemAmount(withdrawableAmount)
 #. placeholder {0}: formatTokenUSD(availableAmount, { minDisplay: 0.01 })
@@ -490,6 +544,9 @@ msgstr "热门"
 
 msgid "Network Fee"
 msgstr "网络费用 (Gas)"
+
+msgid "Please re-enter the PIN you just set to confirm."
+msgstr ""
 
 msgid "Market"
 msgstr "市场"
@@ -524,6 +581,9 @@ msgstr "钱包中未发现活跃仓位"
 msgid "Add"
 msgstr "添加"
 
+msgid "Confirm new PIN"
+msgstr ""
+
 msgid "Portfolio"
 msgstr "资产组合"
 
@@ -537,6 +597,9 @@ msgstr "使用 <0>{0}</0>"
 
 msgid "<0><1/><2>Sent</2></0><3>to</3><4/>"
 msgstr "<0><1/><2>发送</2></0><3>至</3><4/>"
+
+msgid "Resend"
+msgstr ""
 
 msgid "Insufficient Balance"
 msgstr "余额不足"
@@ -574,14 +637,20 @@ msgstr "出错了"
 msgid "Enter or search for a recipient wallet"
 msgstr "输入或搜索收款钱包"
 
-msgid "Select a method for funding your Firefly wallet."
-msgstr "选择一种方式为您的 Firefly 钱包充值。"
+msgid "Please enter a valid email address. If you want to reset your PIN code, a verification code will be sent to this email to reset it."
+msgstr ""
+
+msgid "Email"
+msgstr ""
 
 msgid "PnL"
 msgstr "盈亏"
 
 msgid "Failed to close position"
 msgstr "平仓失败"
+
+msgid "Failed to init exchange options. Please try again later."
+msgstr ""
 
 msgid "Network"
 msgstr "网络"
@@ -595,8 +664,14 @@ msgstr "交易在执行过程中失败。"
 msgid "Failed to fetch token info"
 msgstr "获取代币信息失败"
 
+msgid "Authentication"
+msgstr ""
+
 msgid "Sent Failed"
 msgstr "发送失败"
+
+msgid "Please enter your new email address. We will send a verification code to confirm the change. Once updated, PIN reset codes and security verifications will be sent to this new email."
+msgstr ""
 
 msgid "Received Failed"
 msgstr "接收失败"
@@ -618,6 +693,9 @@ msgstr "买入"
 
 msgid "Swapped"
 msgstr "已兑换"
+
+msgid "PIN is too weak. Avoid sequential digits."
+msgstr ""
 
 msgid "Auto"
 msgstr "自动"
@@ -654,11 +732,18 @@ msgstr "解除 {0} 限制"
 msgid "To <0>{0}</0>"
 msgstr "至 <0>{0}</0>"
 
+msgid "Enable authentication"
+msgstr ""
+
 msgid "Sold"
 msgstr "已卖出"
 
 msgid "We do not recommend ever sharing it with any app or person."
 msgstr "我们建议您永远不要将其泄露给任何应用或个人。"
+
+#. js-lingui-explicit-id
+msgid "second"
+msgstr ""
 
 msgid "View on Explorer"
 msgstr "在区块浏览器上查看"
@@ -696,6 +781,9 @@ msgstr "所有链"
 msgid "Status"
 msgstr "状态"
 
+msgid "PIN is too weak. Avoid repeated digits."
+msgstr ""
+
 #. placeholder {0}: item.project_name
 msgid "on {0}"
 msgstr "在 {0}"
@@ -712,11 +800,17 @@ msgstr "搜索代币"
 msgid "Your transaction has been completed."
 msgstr "您的交易已完成。"
 
+msgid "Must be a 6-digit number."
+msgstr ""
+
 msgid "Predictions"
 msgstr "预测市场"
 
 msgid "Your transaction failed."
 msgstr "您的交易失败。"
+
+msgid "Change Email"
+msgstr ""
 
 msgid "Buy {outcome}"
 msgstr "买入 {outcome}"
@@ -730,11 +824,20 @@ msgstr "兑换"
 msgid "Keep it safe and do not share"
 msgstr "请妥善保管，切勿泄露"
 
+msgid "Scan this code or copy your wallet address to receive funds on Ethereum."
+msgstr ""
+
 msgid "Your funds have been withdrawn to your Firefly wallet."
 msgstr "资金已成功提现至您的 Firefly 钱包。"
 
 msgid "Bridged"
 msgstr "已跨链"
+
+msgid "Verify Email"
+msgstr ""
+
+msgid "Enter the PIN code to verify identity"
+msgstr ""
 
 msgid "Select Token"
 msgstr "选择代币"
@@ -752,8 +855,18 @@ msgstr "快捷买入"
 msgid "Your tokens"
 msgstr "您的代币资产"
 
+msgid "Please enter a valid email address."
+msgstr ""
+
 msgid "Sell {outcome}"
 msgstr "卖出 {outcome}"
+
+msgid "Reset PIN Code"
+msgstr ""
+
+#. placeholder {0}: desensitizeEmail(emailAddress)
+msgid "To secure your assets, please enter the verification code sent to your recovery email{0} to verify your identity."
+msgstr ""
 
 msgid "This market may have been removed or the link is invalid."
 msgstr "该市场可能已被移除或链接失效。"
@@ -782,8 +895,14 @@ msgstr "卖出"
 msgid "The market is marked as closed."
 msgstr "该市场已关闭。"
 
+msgid "Set a PIN to secure your assets. This code will be used to confirm transactions."
+msgstr ""
+
 msgid "Token added"
 msgstr "代币已添加"
+
+msgid "PIN is extremely strong."
+msgstr ""
 
 msgid "Add Funds"
 msgstr "充值/注资"
@@ -815,11 +934,11 @@ msgstr "亏损"
 msgid "Close"
 msgstr "关闭"
 
+msgid "Security & Privacy"
+msgstr ""
+
 msgid "Current settings"
 msgstr "当前设置"
-
-msgid "OK"
-msgstr "确定"
 
 msgid "NFT"
 msgstr "NFT"

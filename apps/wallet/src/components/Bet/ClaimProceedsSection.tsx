@@ -4,7 +4,6 @@ import ClaimProceedsSuccessIcon from '@dimensiondev/assets/claim-proceeds-succes
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
 import { waitForEthereumTransaction } from '@dimensiondev/web3/actions';
 import { Trans } from '@lingui/react/macro';
-import { useSignMessage } from '@privy-io/react-auth';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { BigNumber } from 'bignumber.js';
 import { useMemo, useState } from 'react';
@@ -25,6 +24,7 @@ import { formatPercentRateMin } from '@/helpers/formatPercentRate.js';
 import { formatPnlUSD } from '@/helpers/formatPnlUSD.js';
 import { computeClaimAmount } from '@/helpers/polymarketClaim.js';
 import { getPositionsQueryKeys } from '@/helpers/polymarketPositionsCache.js';
+import { useSignMessageWithPrivy } from '@/hooks/useSignMessageWithPrivy.js';
 import { cn } from '@/lib/utils.js';
 import { getPolymarketClaimableProceedsQueryOptions } from '@/queries/firefly/getPolymarketClaimableProceedsQueryOptions.js';
 import { getPolymarketWithdrawableAmountQueryOptions } from '@/queries/firefly/getPolymarketWithdrawableAmountQueryOptions.js';
@@ -37,7 +37,7 @@ const POLYMARKET_CLAIM_ORIGINAL_MESSAGE = 'polymarket claim proceed';
 
 export function ClaimProceedsSection({ proxyAddress }: { proxyAddress: Address }) {
     const config = useConfig();
-    const { signMessage } = useSignMessage();
+    const signMessage = useSignMessageWithPrivy();
     const queryClient = useQueryClient();
     const [open, setOpen] = useState(false);
     const { data } = useSuspenseQuery(getPolymarketClaimableProceedsQueryOptions(proxyAddress));
@@ -62,10 +62,7 @@ export function ClaimProceedsSection({ proxyAddress }: { proxyAddress: Address }
         mutationKey: ['polymarket-claim-proceeds', proxyAddress],
         async mutationFn() {
             store.set(showEmbeddedWalletUIAtom, false);
-            const { signature } = await signMessage(
-                { message: POLYMARKET_CLAIM_ORIGINAL_MESSAGE },
-                { uiOptions: { showWalletUIs: false } },
-            );
+            const signature = await signMessage(POLYMARKET_CLAIM_ORIGINAL_MESSAGE);
             const data = await getFireflyEndpoint().polymarketBatchClaimV2({
                 items: claimItems,
                 original_message: POLYMARKET_CLAIM_ORIGINAL_MESSAGE,

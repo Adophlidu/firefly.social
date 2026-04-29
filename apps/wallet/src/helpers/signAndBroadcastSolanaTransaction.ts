@@ -1,9 +1,8 @@
 import { web3 } from '@coral-xyz/anchor';
 import { getSolanaRPCUrl } from '@dimensiondev/web3/utils';
-import type { ConnectedStandardSolanaWallet } from '@privy-io/react-auth/solana';
+import type { AnyTransaction, Provider as SolanaProvider } from '@reown/appkit-adapter-solana/react';
 
 import { env } from '@/constants/env.js';
-import { SOLANA_MAINNET_PRIVY } from '@/constants/solana.js';
 
 function getSolanaConnection(connection?: web3.Connection) {
     return (
@@ -13,23 +12,21 @@ function getSolanaConnection(connection?: web3.Connection) {
 }
 
 export async function signAndBroadcastSolanaTransaction(
-    wallet: ConnectedStandardSolanaWallet,
-    transaction: Uint8Array,
+    wallet: SolanaProvider,
+    transaction: AnyTransaction,
     connection?: web3.Connection,
 ) {
-    const { signedTransaction } = await wallet.signTransaction({
-        chain: SOLANA_MAINNET_PRIVY,
-        transaction,
-    });
+    const signedTx = await wallet.signTransaction(transaction);
+    const serializedTx = signedTx.serialize();
 
-    return getSolanaConnection(connection).sendRawTransaction(signedTransaction, {
+    return getSolanaConnection(connection).sendRawTransaction(serializedTx, {
         preflightCommitment: 'confirmed',
     });
 }
 
 export async function signAndBroadcastSolanaTransactions(
-    wallet: ConnectedStandardSolanaWallet,
-    transactions: Uint8Array[],
+    wallet: SolanaProvider,
+    transactions: AnyTransaction[],
     connection?: web3.Connection,
 ) {
     const rpcConnection = getSolanaConnection(connection);

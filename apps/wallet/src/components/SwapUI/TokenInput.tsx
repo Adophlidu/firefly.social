@@ -3,18 +3,19 @@ import ArrowDownIcon from '@dimensiondev/assets/arrow-line-down.svg';
 import FireflyRoundIcon from '@dimensiondev/assets/firefly.round.svg';
 import { isSolanaChain } from '@dimensiondev/web3/chains';
 import { isGreaterThan, multipliedBy, toFixed } from '@dimensiondev/web3/numbers';
-import { formatAddress } from '@dimensiondev/web3/utils';
+import { formatAddress, isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { useWallets as useEvmWallets } from '@privy-io/react-auth';
 import { useAtomValue, useSetAtom } from 'jotai';
-import { compact } from 'lodash-es';
+import { compact, first } from 'lodash-es';
 import { type ChangeEvent, memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useConnections } from 'wagmi';
 
 import { WalletFilter } from '@/components/SwapUI/WalletFilter.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
 import { Input } from '@/components/ui/input.js';
 import { SwapFromPage } from '@/constants/enum.js';
+import { PRIVY_CONNECTOR_ID } from '@/constants/static.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { formatTokenAmount, parseInputAmount } from '@/helpers/swap/formatSwapAmount.js';
 import { useEffectiveSwapWalletAddress } from '@/hooks/swap/useEffectiveSwapWalletAddress.js';
@@ -83,7 +84,7 @@ export const TokenInput = memo(function TokenInput({
 
     const { evmAddress, solanaAddress, isPrivyReady } = useSwapContextWalletAddresses();
     const domainNameMap = useWalletDomainNames(evmAddress, solanaAddress);
-    const { wallets: evmWallets } = useEvmWallets();
+    const connections = useConnections();
 
     const displayAmount = type === 'pay' ? fromAmount : toAmount;
     const isEditable = type === 'pay';
@@ -101,7 +102,7 @@ export const TokenInput = memo(function TokenInput({
 
         // Check if the wallet is an EVM wallet by looking at all known EVM addresses
         const allEvmAddresses = new Set(
-            compact([evmAddress, externalEvmAddress, ...evmWallets.map((w) => w.address?.toLowerCase())]),
+            compact([evmAddress, externalEvmAddress, ...connections.map((w) => first(w.accounts)?.toLowerCase())]),
         );
 
         const isSolanaAddress = !allEvmAddresses.has(walletAddress.toLowerCase());
@@ -134,7 +135,7 @@ export const TokenInput = memo(function TokenInput({
         walletAddress,
         evmAddress,
         externalEvmAddress,
-        evmWallets,
+        connections,
         type,
         setFromAmount,
         setFromAddress,
@@ -205,10 +206,10 @@ export const TokenInput = memo(function TokenInput({
     const walletIcon = useMemo(() => {
         if (!walletAddress) return null;
         if (isSolanaChain(chainId)) return null; // Solana wallets are always embedded
-        const evmWallet = evmWallets.find((w) => w.address === walletAddress);
-        if (!evmWallet || evmWallet.walletClientType === 'privy') return null;
-        return evmWallet.meta.icon ?? null;
-    }, [walletAddress, chainId, evmWallets]);
+        const evmWallet = connections.find((w) => w.accounts.some((acc) => isSameEthereumAddress(acc, walletAddress)));
+        if (!evmWallet || evmWallet.connector.id === PRIVY_CONNECTOR_ID) return null;
+        return evmWallet.connector.icon ?? null;
+    }, [walletAddress, chainId, connections]);
 
     return (
         <div className={cn('bg-lightBg flex flex-col gap-2 rounded-2xl px-3 pb-5 pt-3', className)}>

@@ -1,16 +1,12 @@
-import { type ConnectedWallet, usePrivy, useWallets as useEvmWallets } from '@privy-io/react-auth';
-import type { ConnectedStandardSolanaWallet } from '@privy-io/react-auth/solana';
-import { useWallets as useSolanaWallets } from '@privy-io/react-auth/solana';
 import { useAtomValue, useSetAtom } from 'jotai';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type { Address } from 'viem';
 
+import { usePrivyWallet } from '@/hooks/usePrivyWallet.js';
 import { accessPathAtom, SwapAccessPath } from '@/store/swap/swapState.js';
 import {
     clearExpiredCachesAtom,
     getLatestValidWalletCache,
-    saveWalletCacheAtom,
-    setPrivyTokenAtom,
     type WalletAddressCache,
 } from '@/store/walletAddressCache.js';
 
@@ -30,12 +26,8 @@ function getInitialCache(): WalletAddressCache | null {
 }
 
 export function useCachedWalletAddresses(): CachedWalletAddresses {
-    const privy = usePrivy();
-    const { ready: evmReady, wallets: evmWallets } = useEvmWallets();
-    const { ready: solanaReady, wallets: solanaWallets } = useSolanaWallets();
+    const { isPrivyReady, evmAddress, solanaAddress } = usePrivyWallet();
 
-    const setPrivyToken = useSetAtom(setPrivyTokenAtom);
-    const saveWalletCache = useSetAtom(saveWalletCacheAtom);
     const clearExpiredCaches = useSetAtom(clearExpiredCachesAtom);
 
     // Initialize cache from localStorage immediately (synchronously)
@@ -49,46 +41,16 @@ export function useCachedWalletAddresses(): CachedWalletAddresses {
         clearExpiredCaches();
     }, [clearExpiredCaches]);
 
-    // Privy readiness check
-    const isPrivyReady = evmReady && solanaReady && evmWallets.length > 0 && solanaWallets.length > 0;
-
-    // Live addresses from Privy
-    const liveEvmAddress = evmWallets?.[0]?.address ?? null;
-    const liveSolanaAddress = solanaWallets?.[0]?.address ?? null;
-
-    // Update cache when Privy becomes ready with wallet addresses
-    useEffect(() => {
-        if (!isPrivyReady || !liveEvmAddress || !liveSolanaAddress) return;
-
-        const updateCache = async () => {
-            try {
-                const token = await privy.getAccessToken();
-                if (token) {
-                    setPrivyToken(token);
-                    saveWalletCache({
-                        evmAddress: liveEvmAddress,
-                        solanaAddress: liveSolanaAddress,
-                        token,
-                    });
-                }
-            } catch {
-                // Token fetch failed, skip cache update
-            }
-        };
-
-        updateCache();
-    }, [isPrivyReady, liveEvmAddress, liveSolanaAddress, privy, setPrivyToken, saveWalletCache]);
-
     // Wallet names from Privy
-    const evmWalletName = evmWallets?.[0]?.walletClientType ?? 'Embedded';
-    const solanaWalletName = solanaWallets?.[0]?.standardWallet?.name ?? 'Embedded';
+    const evmWalletName = 'Embedded';
+    const solanaWalletName = 'Embedded';
 
     return useMemo(() => {
         // If Privy is ready, use live addresses
         if (isPrivyReady) {
             return {
-                evmAddress: liveEvmAddress,
-                solanaAddress: liveSolanaAddress,
+                evmAddress,
+                solanaAddress,
                 evmWalletName,
                 solanaWalletName,
                 isFromCache: false,
@@ -98,20 +60,20 @@ export function useCachedWalletAddresses(): CachedWalletAddresses {
         }
 
         // Use cached addresses from localStorage (read on mount)
-        const evmAddress = initialCache?.evmAddress ?? null;
-        const solanaAddress = initialCache?.solanaAddress ?? null;
-        const hasCache = evmAddress !== null && solanaAddress !== null;
+        const evmAddressInCache = initialCache?.evmAddress ?? null;
+        const solanaAddressInCache = initialCache?.solanaAddress ?? null;
+        const hasCache = evmAddressInCache !== null && solanaAddressInCache !== null;
 
         return {
-            evmAddress,
-            solanaAddress,
+            evmAddress: evmAddressInCache,
+            solanaAddress: solanaAddressInCache,
             evmWalletName,
             solanaWalletName,
             isFromCache: hasCache,
             isPrivyReady: false,
             isLoading: !hasCache,
         };
-    }, [isPrivyReady, liveEvmAddress, liveSolanaAddress, initialCache, evmWalletName, solanaWalletName]);
+    }, [isPrivyReady, initialCache, evmWalletName, solanaWalletName, evmAddress, solanaAddress]);
 }
 
 export function useCachedEvmAddress(): string | null {
@@ -134,28 +96,14 @@ export function useEmbeddedWalletAddresses(): {
     solanaAddress: string | null;
     isPrivyReady: boolean;
     isLoading: boolean;
-    evmWallet: ConnectedWallet | null;
-    solanaWallet: ConnectedStandardSolanaWallet | null;
 } {
-    const { ready: evmReady, wallets: evmWallets } = useEvmWallets();
-    const { ready: solanaReady, wallets: solanaWallets } = useSolanaWallets();
-
-    const isPrivyReady = evmReady && solanaReady && evmWallets.length > 0 && solanaWallets.length > 0;
-
-    // Find embedded wallets (walletClientType === 'privy' for EVM, isPrivyWallet for Solana)
-    const embeddedEvmWallet = useMemo(() => evmWallets.find((w) => w.walletClientType === 'privy'), [evmWallets]);
-    const embeddedSolanaWallet = useMemo(
-        () => solanaWallets.find((w) => 'isPrivyWallet' in w.standardWallet && w.standardWallet.isPrivyWallet),
-        [solanaWallets],
-    );
+    const { isPrivyReady, evmAddress, solanaAddress } = usePrivyWallet();
 
     return {
-        evmAddress: embeddedEvmWallet?.address ?? null,
-        solanaAddress: embeddedSolanaWallet?.address ?? null,
+        evmAddress,
+        solanaAddress,
         isPrivyReady,
         isLoading: !isPrivyReady,
-        evmWallet: embeddedEvmWallet ?? null,
-        solanaWallet: embeddedSolanaWallet ?? null,
     };
 }
 
@@ -166,19 +114,15 @@ export function useEmbeddedEvmAddress(): string | null {
 
 export function useEmbeddedEvmWalletContext(): {
     address: Address | null;
-    wallet: ConnectedWallet | null;
     isReady: boolean;
     isLoading: boolean;
 } {
-    const { ready, wallets } = useEvmWallets();
-
-    const wallet = useMemo(() => wallets.find((w) => w.walletClientType === 'privy') ?? null, [wallets]);
+    const { isPrivyReady, evmAddress } = usePrivyWallet();
 
     return {
-        address: (wallet?.address as Address | undefined) ?? null,
-        wallet,
-        isReady: ready && !!wallet,
-        isLoading: !ready,
+        address: evmAddress as Address | null,
+        isReady: isPrivyReady,
+        isLoading: !isPrivyReady,
     };
 }
 

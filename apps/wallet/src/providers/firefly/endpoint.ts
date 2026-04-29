@@ -2,7 +2,7 @@ import urlcat from 'urlcat';
 import type { Address, Hex } from 'viem';
 
 import type { SocialSource } from '@/constants/enum.js';
-import { InvalidPolymarketAccountError } from '@/constants/error.js';
+import { EmailCodeLimitExceededError, InvalidPolymarketAccountError } from '@/constants/error.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { resolveSourceInUrlForApi } from '@/helpers/resolveSourceInUrl.js';
 import { Fetch } from '@/lib/Fetch.js';
@@ -478,4 +478,70 @@ export class FireflyEndpoint extends Fetch {
         >(url);
         return resolveFireflyResponseData(result.data);
     }
+
+    // #region Pin code workflow related endpoints
+    async sendCodeToEmail(email: string) {
+        const result = await this.post<Response<void>>('/v3/auth/email/generateOTP', {
+            email,
+        });
+        if (result.status === 400) {
+            throw new EmailCodeLimitExceededError();
+        }
+
+        return resolveFireflyResponseData(result.data);
+    }
+
+    async addPinCode(codeHash: string, email: string, emailCode: string) {
+        const result = await this.post<Response<void>>('/v1/privy-code/add-privy-code', {
+            privy_code_hash: codeHash,
+            email,
+            email_verify_code: emailCode,
+        });
+        return resolveFireflyResponseData(result.data);
+    }
+
+    async updatePinCode(codeHash: string, emailCode: string) {
+        const result = await this.post<Response<void>>('/v1/privy-code/update-privy-code', {
+            new_privy_code_hash: codeHash,
+            email_verify_code: emailCode,
+        });
+        return resolveFireflyResponseData(result.data);
+    }
+
+    async updatePinCodeEmail(codeHash: string, email: string, emailCode: string) {
+        const result = await this.post<Response<void>>('/v1/privy-code/update-privy-email', {
+            privy_code_hash: codeHash,
+            new_email: email,
+            email_verify_code: emailCode,
+        });
+        return resolveFireflyResponseData(result.data);
+    }
+
+    async verifyPinCode(codeHash: string) {
+        const result = await this.post<Response<void>>('/v1/privy-code/verify-privy-code', {
+            privy_code_hash: codeHash,
+        });
+        return resolveFireflyResponseData(result.data);
+    }
+
+    async getPinCodeStatus() {
+        const result = await this.post<
+            Response<{
+                email: string;
+                is_set_pin_code: boolean;
+                enable: boolean;
+            }>
+        >('/v1/privy-code/status');
+        return resolveFireflyResponseData(result.data);
+    }
+
+    async updatePinCodeEnableStatus(codeHash: string, enabled: boolean) {
+        const result = await this.post<Response<void>>('/v1/privy-code/update-enable', {
+            privy_code_hash: codeHash,
+            value: enabled,
+        });
+        return resolveFireflyResponseData(result.data);
+    }
+
+    // #endregion
 }

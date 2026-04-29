@@ -11,11 +11,13 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SwapRouteImport } from './routes/swap'
 import { Route as SendRouteImport } from './routes/send'
+import { Route as SecurityRouteImport } from './routes/security'
 import { Route as DevRouteImport } from './routes/dev'
 import { Route as BetRouteImport } from './routes/bet'
 import { Route as HomeRouteImport } from './routes/_home'
 import { Route as SwapIndexRouteImport } from './routes/swap.index'
 import { Route as SendIndexRouteImport } from './routes/send.index'
+import { Route as SecurityIndexRouteImport } from './routes/security.index'
 import { Route as HomeIndexRouteImport } from './routes/_home.index'
 import { Route as SwapSelectTokenRouteImport } from './routes/swap.select-token'
 import { Route as SendTokensRouteImport } from './routes/send.tokens'
@@ -52,6 +54,11 @@ const SendRoute = SendRouteImport.update({
   path: '/send',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SecurityRoute = SecurityRouteImport.update({
+  id: '/security',
+  path: '/security',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DevRoute = DevRouteImport.update({
   id: '/dev',
   path: '/dev',
@@ -75,6 +82,11 @@ const SendIndexRoute = SendIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => SendRoute,
+} as any)
+const SecurityIndexRoute = SecurityIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => SecurityRoute,
 } as any)
 const HomeIndexRoute = HomeIndexRouteImport.update({
   id: '/',
@@ -205,6 +217,7 @@ export interface FileRoutesByFullPath {
   '/': typeof HomeIndexRoute
   '/bet': typeof BetHomeRouteWithChildren
   '/dev': typeof DevRouteWithChildren
+  '/security': typeof SecurityRouteWithChildren
   '/send': typeof SendRouteWithChildren
   '/swap': typeof SwapRouteWithChildren
   '/nfts': typeof HomeNftsRoute
@@ -221,6 +234,7 @@ export interface FileRoutesByFullPath {
   '/send/success': typeof SendSuccessRoute
   '/send/tokens': typeof SendTokensRoute
   '/swap/select-token': typeof SwapSelectTokenRoute
+  '/security/': typeof SecurityIndexRoute
   '/send/': typeof SendIndexRoute
   '/swap/': typeof SwapIndexRoute
   '/api/polymarket-clob/$': typeof ApiPolymarketClobSplatRoute
@@ -251,6 +265,7 @@ export interface FileRoutesByTo {
   '/send/tokens': typeof SendTokensRoute
   '/swap/select-token': typeof SwapSelectTokenRoute
   '/': typeof HomeIndexRoute
+  '/security': typeof SecurityIndexRoute
   '/send': typeof SendIndexRoute
   '/swap': typeof SwapIndexRoute
   '/api/polymarket-clob/$': typeof ApiPolymarketClobSplatRoute
@@ -267,6 +282,7 @@ export interface FileRoutesById {
   '/_home': typeof HomeRouteWithChildren
   '/bet': typeof BetRouteWithChildren
   '/dev': typeof DevRouteWithChildren
+  '/security': typeof SecurityRouteWithChildren
   '/send': typeof SendRouteWithChildren
   '/swap': typeof SwapRouteWithChildren
   '/_home/nfts': typeof HomeNftsRoute
@@ -285,6 +301,7 @@ export interface FileRoutesById {
   '/send/tokens': typeof SendTokensRoute
   '/swap/select-token': typeof SwapSelectTokenRoute
   '/_home/': typeof HomeIndexRoute
+  '/security/': typeof SecurityIndexRoute
   '/send/': typeof SendIndexRoute
   '/swap/': typeof SwapIndexRoute
   '/api/polymarket-clob/$': typeof ApiPolymarketClobSplatRoute
@@ -303,6 +320,7 @@ export interface FileRouteTypes {
     | '/'
     | '/bet'
     | '/dev'
+    | '/security'
     | '/send'
     | '/swap'
     | '/nfts'
@@ -319,6 +337,7 @@ export interface FileRouteTypes {
     | '/send/success'
     | '/send/tokens'
     | '/swap/select-token'
+    | '/security/'
     | '/send/'
     | '/swap/'
     | '/api/polymarket-clob/$'
@@ -349,6 +368,7 @@ export interface FileRouteTypes {
     | '/send/tokens'
     | '/swap/select-token'
     | '/'
+    | '/security'
     | '/send'
     | '/swap'
     | '/api/polymarket-clob/$'
@@ -364,6 +384,7 @@ export interface FileRouteTypes {
     | '/_home'
     | '/bet'
     | '/dev'
+    | '/security'
     | '/send'
     | '/swap'
     | '/_home/nfts'
@@ -382,6 +403,7 @@ export interface FileRouteTypes {
     | '/send/tokens'
     | '/swap/select-token'
     | '/_home/'
+    | '/security/'
     | '/send/'
     | '/swap/'
     | '/api/polymarket-clob/$'
@@ -399,6 +421,7 @@ export interface RootRouteChildren {
   HomeRoute: typeof HomeRouteWithChildren
   BetRoute: typeof BetRouteWithChildren
   DevRoute: typeof DevRouteWithChildren
+  SecurityRoute: typeof SecurityRouteWithChildren
   SendRoute: typeof SendRouteWithChildren
   SwapRoute: typeof SwapRouteWithChildren
   ApiPolymarketClobSplatRoute: typeof ApiPolymarketClobSplatRoute
@@ -420,6 +443,13 @@ declare module '@tanstack/react-router' {
       path: '/send'
       fullPath: '/send'
       preLoaderRoute: typeof SendRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/security': {
+      id: '/security'
+      path: '/security'
+      fullPath: '/security'
+      preLoaderRoute: typeof SecurityRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dev': {
@@ -456,6 +486,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/send/'
       preLoaderRoute: typeof SendIndexRouteImport
       parentRoute: typeof SendRoute
+    }
+    '/security/': {
+      id: '/security/'
+      path: '/'
+      fullPath: '/security/'
+      preLoaderRoute: typeof SecurityIndexRouteImport
+      parentRoute: typeof SecurityRoute
     }
     '/_home/': {
       id: '/_home/'
@@ -698,6 +735,18 @@ const DevRouteChildren: DevRouteChildren = {
 
 const DevRouteWithChildren = DevRoute._addFileChildren(DevRouteChildren)
 
+interface SecurityRouteChildren {
+  SecurityIndexRoute: typeof SecurityIndexRoute
+}
+
+const SecurityRouteChildren: SecurityRouteChildren = {
+  SecurityIndexRoute: SecurityIndexRoute,
+}
+
+const SecurityRouteWithChildren = SecurityRoute._addFileChildren(
+  SecurityRouteChildren,
+)
+
 interface SendRouteChildren {
   SendFailedRoute: typeof SendFailedRoute
   SendFormRoute: typeof SendFormRoute
@@ -736,6 +785,7 @@ const rootRouteChildren: RootRouteChildren = {
   HomeRoute: HomeRouteWithChildren,
   BetRoute: BetRouteWithChildren,
   DevRoute: DevRouteWithChildren,
+  SecurityRoute: SecurityRouteWithChildren,
   SendRoute: SendRouteWithChildren,
   SwapRoute: SwapRouteWithChildren,
   ApiPolymarketClobSplatRoute: ApiPolymarketClobSplatRoute,

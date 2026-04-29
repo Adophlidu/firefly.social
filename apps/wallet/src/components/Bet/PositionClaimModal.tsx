@@ -4,7 +4,6 @@ import WarnIcon from '@dimensiondev/assets/warn.svg';
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
 import { waitForEthereumTransaction } from '@dimensiondev/web3/actions';
 import { Trans } from '@lingui/react/macro';
-import { useSignMessage } from '@privy-io/react-auth';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { type PropsWithChildren, type ReactNode, useCallback, useState } from 'react';
 import { toast } from 'sonner';
@@ -22,6 +21,7 @@ import { Button } from '@/components/ui/button.js';
 import { formatPnlUSD } from '@/helpers/formatPnlUSD.js';
 import { computeClaimAmount } from '@/helpers/polymarketClaim.js';
 import { getPositionsQueryKeys, optimisticRemovePosition } from '@/helpers/polymarketPositionsCache.js';
+import { useSignMessageWithPrivy } from '@/hooks/useSignMessageWithPrivy.js';
 import { cn } from '@/lib/utils.js';
 import type { PolymarketPosition } from '@/providers/types/Firefly.js';
 import { getPolymarketAccountQueryOptions } from '@/queries/firefly/getPolymarketAccountQueryOptions.js';
@@ -40,7 +40,7 @@ interface Props {
 
 export function PositionClaimModal({ position, children, open: controlledOpen, onClose }: PropsWithChildren<Props>) {
     const config = useConfig();
-    const { signMessage } = useSignMessage();
+    const signMessage = useSignMessageWithPrivy();
     const queryClient = useQueryClient();
     const { data: account } = useSuspenseQuery(getPolymarketAccountQueryOptions());
     const [internalOpen, setInternalOpen] = useState(false);
@@ -82,10 +82,7 @@ export function PositionClaimModal({ position, children, open: controlledOpen, o
     const { mutate, isPending } = useMutation({
         async mutationFn() {
             store.set(showEmbeddedWalletUIAtom, false);
-            const { signature } = await signMessage(
-                { message: POLYMARKET_CLAIM_ORIGINAL_MESSAGE },
-                { uiOptions: { showWalletUIs: false } },
-            );
+            const signature = await signMessage(POLYMARKET_CLAIM_ORIGINAL_MESSAGE);
             const data = await getFireflyEndpoint().polymarketBatchClaimV2({
                 items: [
                     {

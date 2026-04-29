@@ -1,7 +1,6 @@
 import { createWagmiPublicClient } from '@dimensiondev/web3/actions';
 import { resolvePublicRpcUrl } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
-import { useSetActiveWallet } from '@privy-io/wagmi';
 import { useAsyncFn } from 'react-use';
 import { type Address, encodeFunctionData, erc20Abi, parseUnits } from 'viem';
 import { useConfig } from 'wagmi';
@@ -9,6 +8,7 @@ import { simulateContract, waitForTransactionReceipt, writeContract } from 'wagm
 
 import { queryClient } from '@/configs/queryClient.js';
 import { InsufficientGasError } from '@/constants/error.js';
+import { PRIVY_CONNECTOR_ID } from '@/constants/static.js';
 import { tryFreeGasTransaction } from '@/helpers/freeGas/tryFreeGasTransaction.js';
 import { resolveEvmConnector, switchEvmConnectorChain } from '@/helpers/resolveEvmConnector.js';
 import { toastLoading } from '@/helpers/toastLoading.js';
@@ -26,12 +26,11 @@ interface Options {
 }
 
 export function useAddFundsWithPolUsdc({ depositToken, polymarketAddress, amount, toastId }: Options) {
-    const { wallet: embeddedWallet, address: embeddedAddress } = useEmbeddedEvmWalletContext();
-    const { setActiveWallet } = useSetActiveWallet();
+    const { address: embeddedAddress } = useEmbeddedEvmWalletContext();
     const config = useConfig();
 
     return useAsyncFn(async () => {
-        if (!embeddedWallet || !embeddedAddress) {
+        if (!embeddedAddress) {
             throw new Error('Embedded wallet not ready');
         }
         if (!depositToken) {
@@ -41,14 +40,11 @@ export function useAddFundsWithPolUsdc({ depositToken, polymarketAddress, amount
             throw new Error('Polymarket address not ready');
         }
 
-        await setActiveWallet(embeddedWallet);
         await queryClient.cancelQueries(getPolymarketAccountQueryOptions());
         const parsedValue = parseUnits(amount, depositToken.decimals);
-        const connector = await resolveEvmConnector(embeddedWallet);
+        const connector = await resolveEvmConnector(embeddedAddress, PRIVY_CONNECTOR_ID);
         if (connector) {
-            await switchEvmConnectorChain(embeddedWallet, connector, depositToken.chainId);
-        } else {
-            await embeddedWallet.switchChain(depositToken.chainId);
+            await switchEvmConnectorChain(connector, depositToken.chainId);
         }
 
         const transferCall = {
@@ -123,5 +119,5 @@ export function useAddFundsWithPolUsdc({ depositToken, polymarketAddress, amount
             txHash,
         );
         return polymarketAddress as Address;
-    }, [amount, depositToken, polymarketAddress, config, embeddedWallet, embeddedAddress, toastId, setActiveWallet]);
+    }, [amount, depositToken, polymarketAddress, config, embeddedAddress, toastId]);
 }

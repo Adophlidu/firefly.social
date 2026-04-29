@@ -1,21 +1,14 @@
 import { chains } from '@dimensiondev/web3/chains';
-import type { ConnectedWallet } from '@privy-io/react-auth';
 
 import { config } from '@/configs/wagmiClient.js';
 
 type EvmConnector = (typeof config.connectors)[number];
 
-function getPrivyWagmiConnectorId(wallet: ConnectedWallet): string {
-    return wallet.walletClientType === 'privy' ? `${wallet.meta.id}.${wallet.address}` : wallet.meta.id;
-}
-
-export async function resolveEvmConnector(wallet: ConnectedWallet) {
-    const connectorId = getPrivyWagmiConnectorId(wallet);
-
+export async function resolveEvmConnector(address: string, connectorId?: string) {
     for (const connector of config.connectors) {
-        if (connector.id !== connectorId) continue;
+        if (connectorId && connector.id !== connectorId) continue;
         const accounts = await connector.getAccounts().catch(() => []);
-        if (accounts.some((account) => account.toLowerCase() === wallet.address.toLowerCase())) {
+        if (accounts.some((account) => account.toLowerCase() === address.toLowerCase())) {
             return connector;
         }
     }
@@ -23,11 +16,7 @@ export async function resolveEvmConnector(wallet: ConnectedWallet) {
     return null;
 }
 
-export async function switchEvmConnectorChain(wallet: ConnectedWallet, connector: EvmConnector, chainId: number) {
-    // Switch at the Privy wallet level first — updates the wallet's internal
-    // chain state so Privy's signing UI shows the correct chain.
-    await wallet.switchChain(chainId);
-
+export async function switchEvmConnectorChain(connector: EvmConnector, chainId: number) {
     const currentChainId = await connector.getChainId();
     if (currentChainId === chainId) return;
     if (!connector.switchChain) {

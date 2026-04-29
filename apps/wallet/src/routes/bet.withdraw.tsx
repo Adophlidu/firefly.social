@@ -3,7 +3,6 @@ import InfoOutlineIcon from '@dimensiondev/assets/info-outline.svg';
 import { isSolanaChain } from '@dimensiondev/web3/chains';
 import { isGreaterThan, isLessThan } from '@dimensiondev/web3/numbers';
 import { Trans } from '@lingui/react/macro';
-import { useSignMessage } from '@privy-io/react-auth';
 import { useMutation, useQuery, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 import { BigNumber } from 'bignumber.js';
@@ -12,6 +11,7 @@ import { toast } from 'sonner';
 import { useDebounceValue } from 'usehooks-ts';
 import { parseUnits } from 'viem';
 import { polygon } from 'viem/chains';
+import { useConnectors, useSignMessage } from 'wagmi';
 
 import { BetError } from '@/components/Bet/BetError.js';
 import {
@@ -29,6 +29,7 @@ import { TokenIcon } from '@/components/TokenIcon.js';
 import { Button } from '@/components/ui/button.js';
 import { useComeback } from '@/components/useComeback.js';
 import { SwapFromPage } from '@/constants/enum.js';
+import { PRIVY_CONNECTOR_ID } from '@/constants/static.js';
 import { formatTokenItemAmount } from '@/helpers/formatTokenItemAmount.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { optimisticSubtractBalance } from '@/helpers/polymarketBalanceCache.js';
@@ -69,9 +70,10 @@ function WithdrawPage() {
 function WithdrawClient() {
     const comeback = useComeback('/bet');
     const queryClient = useQueryClient();
+    const connectors = useConnectors();
 
-    const { evmAddress, solanaAddress, evmWallet, isLoading: isEmbeddedWalletLoading } = useEmbeddedWalletAddresses();
-    const { signMessage } = useSignMessage();
+    const { evmAddress, solanaAddress, isLoading: isEmbeddedWalletLoading } = useEmbeddedWalletAddresses();
+    const { mutateAsync } = useSignMessage();
     const inputRef = useRef<HTMLInputElement | null>(null);
     const [value, setValue] = useState('');
     const { inputProps } = useDecimalInput({ value, onValueChange: setValue, maxDecimals: 2 });
@@ -116,10 +118,10 @@ function WithdrawClient() {
             store.set(showEmbeddedWalletUIAtom, false);
             const amount = parseUnits(value, pusdTokenFallback.decimals);
             const originalMessage = 'polymarket withdraw';
-            const { signature } = await signMessage(
-                { message: originalMessage },
-                { uiOptions: { showWalletUIs: false } },
-            );
+            const signature = await mutateAsync({
+                message: originalMessage,
+                connector: connectors.find((c) => c.id === PRIVY_CONNECTOR_ID),
+            });
             const hash = await getFireflyEndpoint().polymarketWithdraw(
                 amount.toString(),
                 targetToken.id,
@@ -197,7 +199,7 @@ function WithdrawClient() {
         return <Trans>Withdraw</Trans>;
     }, [isLessThanMinimum, isInsufficientBalance]);
 
-    if (isEmbeddedWalletLoading || !evmAddress || !evmWallet || !receiverAddress) {
+    if (isEmbeddedWalletLoading || !evmAddress || !receiverAddress) {
         return <LoadingPanel />;
     }
 

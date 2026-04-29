@@ -10,13 +10,12 @@ import {
     ZERO,
 } from '@dimensiondev/web3/numbers';
 import { getSolanaRPCUrl, isZeroAddressSolana, parseSolToLamports } from '@dimensiondev/web3/utils';
-import type { ConnectedStandardSolanaWallet } from '@privy-io/react-auth/solana';
+import type { Provider as SolanaProvider } from '@reown/appkit-adapter-solana';
 import {
     createAssociatedTokenAccountInstruction,
     createTransferInstruction,
     getAssociatedTokenAddress,
 } from '@solana/spl-token';
-import type { BigNumber } from 'bignumber.js';
 
 import { env } from '@/constants/env.js';
 import { signAndBroadcastSolanaTransaction } from '@/helpers/signAndBroadcastSolanaTransaction.js';
@@ -35,7 +34,7 @@ export class SolanaTransfer implements TransferProvider {
         return this._connection;
     }
 
-    constructor(protected wallet: ConnectedStandardSolanaWallet) {}
+    constructor(protected wallet: SolanaProvider) {}
 
     async transfer(options: TransactionOptions): Promise<string> {
         const { token } = options;
@@ -51,7 +50,10 @@ export class SolanaTransfer implements TransferProvider {
     }
 
     async validateBalance({ token, amount }: TransactionOptions): Promise<boolean> {
-        const balanceRes = await getTokenBalance(token, this.wallet.address, solana.id);
+        const address = this.wallet.publicKey?.toString();
+        if (!address) return false;
+
+        const balanceRes = await getTokenBalance(token, address, solana.id);
         let balance = balanceRes.value;
         if (isZeroAddressSolana(token.id)) {
             const available = minus(balance, defaultFee);
@@ -72,7 +74,11 @@ export class SolanaTransfer implements TransferProvider {
         isValid: boolean;
         gas: BigNumber;
     }> {
-        const account = this.wallet.address;
+        const account = this.wallet.publicKey?.toString();
+        if (!account) {
+            return { isValid: false, gas: ZERO };
+        }
+
         // Parallelize independent RPC calls for better performance
         const [nativeBalance, transaction, blockHash] = await Promise.all([
             getNativeTokenBalance(account, solana.id),
@@ -90,7 +96,9 @@ export class SolanaTransfer implements TransferProvider {
     }
 
     async getAvailableBalance({ token, account: accountOverride }: TransactionOptions): Promise<string> {
-        const account = accountOverride ?? this.wallet.address;
+        const account = accountOverride ?? this.wallet.publicKey?.toString();
+        if (!account) return '0';
+
         const balanceRes = await getTokenBalance(token, account, solana.id);
         let balance = balanceRes.value;
         if (isZeroAddressSolana(token.id)) {
@@ -101,53 +109,46 @@ export class SolanaTransfer implements TransferProvider {
     }
 
     private async transferNative(options: TransactionOptions): Promise<string> {
-        const account = this.wallet.address;
+        const account = this.wallet.publicKey?.toString();
+        if (!account) {
+            throw new Error('Wallet not connected');
+        }
 
         const transaction = await this.getNativeTransferTransaction(options);
         const blockHash = await this.connection.getLatestBlockhash();
         transaction.feePayer = new web3.PublicKey(account);
         transaction.recentBlockhash = blockHash.blockhash;
 
-        const signature = await signAndBroadcastSolanaTransaction(
-            this.wallet,
-            new Uint8Array(
-                transaction.serialize({
-                    requireAllSignatures: false,
-                    verifySignatures: false,
-                }),
-            ),
-            this.connection,
-        );
+        const signature = await signAndBroadcastSolanaTransaction(this.wallet, transaction, this.connection);
         await this.connection.confirmTransaction(signature.toString(), 'processed');
         return signature;
     }
 
     private async transferContract(options: TransactionOptions): Promise<string> {
-        const account = this.wallet.address;
+        const account = this.wallet.publicKey?.toString();
+        if (!account) {
+            throw new Error('Wallet not connected');
+        }
 
         const transaction = await this.getSplTransferTransaction(options);
         const blockHash = await this.connection.getLatestBlockhash();
         transaction.feePayer = new web3.PublicKey(account);
         transaction.recentBlockhash = blockHash.blockhash;
 
-        const signature = await signAndBroadcastSolanaTransaction(
-            this.wallet,
-            new Uint8Array(
-                transaction.serialize({
-                    requireAllSignatures: false,
-                    verifySignatures: false,
-                }),
-            ),
-            this.connection,
-        );
+        const signature = await signAndBroadcastSolanaTransaction(this.wallet, transaction, this.connection);
         await this.connection.confirmTransaction(signature.toString(), 'processed');
         return signature;
     }
 
     private async getNativeTransferTransaction(options: TransactionOptions) {
+        const fromPubkey = this.wallet.publicKey;
+        if (!fromPubkey) {
+            throw new Error('Wallet not connected');
+        }
+
         return new web3.Transaction().add(
             web3.SystemProgram.transfer({
-                fromPubkey: new web3.PublicKey(this.wallet.address),
+                fromPubkey,
                 toPubkey: new web3.PublicKey(options.to),
                 lamports: parseSolToLamports(options.amount),
             }),
@@ -155,7 +156,11 @@ export class SolanaTransfer implements TransferProvider {
     }
 
     async getSplTransferTransaction(options: TransactionOptions) {
-        const fromPubkey = new web3.PublicKey(this.wallet.address);
+        const fromPubkey = this.wallet.publicKey;
+        if (!fromPubkey) {
+            throw new Error('Wallet not connected');
+        }
+
         const toPubkey = new web3.PublicKey(options.to);
         const mintPubkey = new web3.PublicKey(options.token.id);
         const tokenAmount = Number.parseInt(rightShift(options.amount, options.token.decimals).toString(), 10);

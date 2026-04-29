@@ -1,27 +1,21 @@
-import { chains } from '@dimensiondev/web3/chains';
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { useFundWallet } from '@privy-io/react-auth';
-import { useQueryClient } from '@tanstack/react-query';
 import { Link, useLocation, useNavigate } from '@tanstack/react-router';
 import { useSetAtom } from 'jotai';
 import { compact } from 'lodash-es';
-import { type PropsWithChildren, useCallback } from 'react';
+import { type PropsWithChildren, useCallback, useState } from 'react';
 
 import { BetEntry } from '@/components/Bet/BetEntry.js';
-import { Confirm } from '@/components/ConfirmModal.js';
+import { DepositModal } from '@/components/DepositModal/index.js';
 import { FireflyWalletHomePageUI } from '@/components/FireflyWallet/FireflyWalletHomePageUI.js';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs.js';
 import { ModalType } from '@/configs/modalRoutes.js';
 import { NFT_ENABLED } from '@/constants/static.js';
-import { useEmbeddedEvmAddress } from '@/hooks/useCachedWalletAddresses.js';
 import { useTotalBalance } from '@/hooks/useTotalBalance.js';
 import { resetSwapWalletContext } from '@/store/swap/swapState.js';
 
 export function FireflyWalletHomePage({ children }: PropsWithChildren) {
-    const queryClient = useQueryClient();
-    const { data: balance = '0', refetch: refetchBalance, isFetching: isLoadingBalance } = useTotalBalance();
-    const firstEvmWallet = useEmbeddedEvmAddress();
+    const { data: balance = '0', isFetching: isLoadingBalance } = useTotalBalance();
+    const [isDepositModalOpen, setIsDepositModalOpen] = useState(false);
 
     const navigate = useNavigate();
     const resetSwapCtx = useSetAtom(resetSwapWalletContext);
@@ -36,49 +30,17 @@ export function FireflyWalletHomePage({ children }: PropsWithChildren) {
         });
     }, [location.pathname, navigate]);
 
+    const onDepositModalClose = useCallback(() => {
+        setIsDepositModalOpen(false);
+    }, []);
+    const openDepositModal = useCallback(() => {
+        setIsDepositModalOpen(true);
+    }, []);
+
     const openSwap = useCallback(() => {
         resetSwapCtx();
         navigate({ to: '/swap' });
     }, [navigate, resetSwapCtx]);
-
-    const { fundWallet } = useFundWallet();
-    const fund = useCallback(async () => {
-        if (!firstEvmWallet) return;
-
-        try {
-            const result = await fundWallet({
-                address: firstEvmWallet,
-                options: {
-                    amount: '0.01',
-                    uiConfig: {
-                        landing: {
-                            title: t`Select a method for funding your Firefly wallet.`,
-                        },
-                    },
-                },
-            });
-            if (result.status === 'cancelled') return;
-            const addresses = compact([firstEvmWallet?.toLowerCase()]);
-            const chainIds = chains.map((x) => x.id);
-            await Promise.all([
-                queryClient.refetchQueries({
-                    queryKey: ['multi-chain-token', ...addresses, chainIds],
-                }),
-                refetchBalance(),
-                queryClient.refetchQueries({
-                    queryKey: ['wallet-transaction-history', firstEvmWallet?.toLowerCase(), chainIds],
-                }),
-            ]);
-        } catch (err) {
-            if ((err as Error).message.includes('Wallet funding is not enabled')) {
-                await Confirm.call({
-                    title: <Trans>Funding</Trans>,
-                    message: <Trans>Wallet funding is not enabled</Trans>,
-                    buttonLabel: <Trans>OK</Trans>,
-                });
-            }
-        }
-    }, [fundWallet, firstEvmWallet, queryClient, refetchBalance]);
 
     return (
         <>
@@ -91,7 +53,7 @@ export function FireflyWalletHomePage({ children }: PropsWithChildren) {
                     navigate({ to: '/send/tokens' });
                 }}
                 onSwap={openSwap}
-                onFund={fund}
+                onFund={openDepositModal}
             >
                 <BetEntry className="mt-3" />
             </FireflyWalletHomePageUI>
@@ -119,6 +81,7 @@ export function FireflyWalletHomePage({ children }: PropsWithChildren) {
                     })}
                 </TabsList>
             </Tabs>
+            <DepositModal open={isDepositModalOpen} onClose={onDepositModalClose} />
             {children}
         </>
     );

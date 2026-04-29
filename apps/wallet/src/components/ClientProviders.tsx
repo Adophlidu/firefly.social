@@ -2,12 +2,12 @@ import { initGlobalErrorHandlers } from '@dimensiondev/exception-tracker';
 import { type ComponentType, type ReactNode, useEffect, useState } from 'react';
 
 import { DefaultPendingComponent } from '@/components/DefaultPendingComponent.js';
+import { PrivyWalletAutomator } from '@/components/PrivyWalletAutomator.js';
 import { initExceptionTracker } from '@/configs/exceptionTracker.js';
 import { isRunningInIframe } from '@/helpers/isRunningInIframe.js';
 
 interface PrivyClientModules {
     Providers: ComponentType<{ children: ReactNode }>;
-    PrivyLoginHandler: ComponentType;
     FireflyWalletIframeBridge: ComponentType;
 }
 
@@ -23,17 +23,14 @@ export function ClientProviders({ children }: ClientProvidersProps) {
 
     useEffect(() => {
         // Only import Privy-dependent modules on the client side
-        Promise.all([
-            import('./Providers.js'),
-            import('./PrivyLoginHandler.js'),
-            import('./FireflyWalletIframeBridge.js'),
-        ]).then(([providersModule, privyLoginModule, iframeBridgeModule]) => {
-            setModules({
-                Providers: providersModule.Providers,
-                PrivyLoginHandler: privyLoginModule.PrivyLoginHandler,
-                FireflyWalletIframeBridge: iframeBridgeModule.FireflyWalletIframeBridge,
-            });
-        });
+        Promise.all([import('./Providers.js'), import('./FireflyWalletIframeBridge.js')]).then(
+            ([providersModule, iframeBridgeModule]) => {
+                setModules({
+                    Providers: providersModule.Providers,
+                    FireflyWalletIframeBridge: iframeBridgeModule.FireflyWalletIframeBridge,
+                });
+            },
+        );
     }, []);
 
     // During SSR or while loading, show spinner
@@ -41,11 +38,11 @@ export function ClientProviders({ children }: ClientProvidersProps) {
         return <DefaultPendingComponent />;
     }
 
-    const { Providers, PrivyLoginHandler, FireflyWalletIframeBridge } = modules;
+    const { Providers, FireflyWalletIframeBridge } = modules;
 
     return (
         <Providers>
-            <PrivyLoginHandler />
+            <PrivyWalletAutomator />
             {isRunningInIframe() ? <FireflyWalletIframeBridge /> : null}
             {children}
         </Providers>

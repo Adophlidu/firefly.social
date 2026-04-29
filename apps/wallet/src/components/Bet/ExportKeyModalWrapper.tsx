@@ -4,9 +4,9 @@ import KeyIcon from '@dimensiondev/assets/key.svg';
 import SecurityIcon from '@dimensiondev/assets/security.svg';
 import WarningIcon from '@dimensiondev/assets/warning.svg';
 import { Trans } from '@lingui/react/macro';
-import { useSignMessage } from '@privy-io/react-auth';
 import { useState } from 'react';
 import { useAsyncFn } from 'react-use';
+import { useConnectors, useSignMessage } from 'wagmi';
 
 import {
     DialogOrDrawer,
@@ -16,6 +16,7 @@ import {
 } from '@/components/DialogOrDrawer.js';
 import { Button } from '@/components/ui/button.js';
 import type { RouteModalProps } from '@/configs/modalRoutes.js';
+import { PRIVY_CONNECTOR_ID } from '@/constants/static.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
 import { getFireflyEndpoint } from '@/store/fireflyEndpoint.js';
 
@@ -48,20 +49,19 @@ function ExportPrivateKeyResult({ privateKey }: { privateKey: string }) {
 
 export function ExportKeyModalWrapper({ modalType, open, onClose }: RouteModalProps) {
     const [confirmed, setConfirmed] = useState(false);
-    const { signMessage } = useSignMessage();
+    const { mutateAsync: signMessage } = useSignMessage();
+    const connectors = useConnectors();
     const [privateKey, setPrivateKey] = useState('');
 
     const [{ loading: exporting }, exportPrivateKey] = useAsyncFn(async () => {
         const message = `Export Polymarket Private Key ${Date.now()}`;
-        const { signature } = await signMessage(
-            { message },
-            {
-                uiOptions: { showWalletUIs: false },
-            },
-        );
+        const signature = await signMessage({
+            message,
+            connector: connectors.find((c) => c.id === PRIVY_CONNECTOR_ID),
+        });
         const pk = await getFireflyEndpoint().exportPolymarketPrivateKey(message, signature);
         return pk;
-    }, [signMessage]);
+    }, [signMessage, connectors]);
 
     return (
         <DialogOrDrawer open={open} onOpenChange={(isOpen) => !isOpen && onClose(modalType)}>

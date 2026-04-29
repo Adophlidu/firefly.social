@@ -19,16 +19,15 @@ import {
 } from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { useWallets } from '@privy-io/react-auth';
-import { useWallets as useSolanaWallets } from '@privy-io/react-auth/solana';
 import { useQuery } from '@tanstack/react-query';
 import { type HistoryState, Navigate, useNavigate, useRouter } from '@tanstack/react-router';
 import { omit } from 'lodash-es';
 import { RefreshCcw } from 'lucide-react';
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';
 import { useAsyncFn } from 'react-use';
 import { type Address, formatEther } from 'viem';
+import { useConnections } from 'wagmi';
 
 import { ActionButton } from '@/components/ActionButton.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -44,13 +43,15 @@ import { TokenIcon } from '@/components/TokenIcon.js';
 import { Button } from '@/components/ui/button.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { config } from '@/configs/wagmiClient.js';
+import { privySolanaProvider } from '@/connectors/PrivySolanaWalletAdapter.js';
+import { PRIVY_CONNECTOR_ID } from '@/constants/static.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { normalizeDecimalInput } from '@/helpers/normalizeDecimalInput.js';
 import { removeTrailingZeros } from '@/helpers/removeTrailingZeros.js';
 import { resolveEvmConnector, switchEvmConnectorChain } from '@/helpers/resolveEvmConnector.js';
 import { resolveSwapEvmSigningWallet } from '@/helpers/swap/resolveSwapSigningWallet.js';
 import { useAutoHeightTextarea } from '@/hooks/useAutoHeightTextarea.js';
-import { useEmbeddedEvmAddress } from '@/hooks/useCachedWalletAddresses.js';
+import { useEmbeddedWalletAddresses } from '@/hooks/useCachedWalletAddresses.js';
 import { cn } from '@/lib/utils.js';
 import { coinGeckoEndpoint } from '@/providers/coingecko/index.js';
 import { getDefaultGas } from '@/providers/ethereum/getDefaultGas.js';
@@ -89,73 +90,11 @@ export function FormView() {
 function Form() {
     const router = useRouter();
     const { handleSubmit, control, register, setValue } = useFormContext<FormValues>();
-    const evmAddress = useEmbeddedEvmAddress();
-    const { wallets: evmWallets } = useWallets();
-    const { wallets: solanaWallets } = useSolanaWallets();
-    const solana = solanaWallets.find((w) => 'isPrivyWallet' in w.standardWallet && w.standardWallet.isPrivyWallet)!;
+    const { evmAddress, solanaAddress } = useEmbeddedWalletAddresses();
+    const connections = useConnections();
 
     const evmTransfer = EthereumTransfer;
-    const solanaTransfer = useMemo(() => new SolanaTransfer(solana), [solana]);
-
-    function resolveTransferProvider(networkType: NetworkType): TransferProvider {
-        switch (networkType) {
-            case NetworkType.Ethereum:
-                return evmTransfer as TransferProvider;
-            case NetworkType.Solana:
-                return solanaTransfer;
-            default:
-                unreachable(networkType);
-        }
-    }
-
-    const [{ loading: isSending }, onSubmit] = useAsyncFn(async (values: FormValues) => {
-        try {
-            const to = values.to;
-            const transfer = resolveTransferProvider(networkType);
-            let connector: Awaited<ReturnType<typeof resolveEvmConnector>> = null;
-            let signingWallet: ReturnType<typeof resolveSwapEvmSigningWallet> = null;
-            if (networkType === NetworkType.Ethereum) {
-                signingWallet = resolveSwapEvmSigningWallet(evmWallets, evmAddress, {
-                    preferEmbedded: true,
-                });
-                if (signingWallet) connector = await resolveEvmConnector(signingWallet);
-                if (signingWallet && connector) {
-                    await switchEvmConnectorChain(signingWallet, connector, values.token.chainId);
-                }
-            }
-            const hash = await transfer.transfer({
-                token: values.token,
-                to,
-                amount: values.amount,
-                connector: connector ?? undefined,
-            });
-            router.navigate({
-                to: RoutePath.Success,
-                state: { ...values, hash } as unknown as HistoryState,
-            });
-            let address: string | undefined;
-            switch (networkType) {
-                case NetworkType.Ethereum:
-                    address = evmAddress!;
-                    break;
-                case NetworkType.Solana:
-                    address = solana.address;
-                    break;
-                default:
-                    safeUnreachable(networkType);
-                    return;
-            }
-
-            if (!address) return;
-
-            // TODO: capture firefly wallet event
-        } catch (error) {
-            router.navigate({
-                to: RoutePath.Failed,
-                state: { error } as unknown as HistoryState,
-            });
-        }
-    });
+    const solanaTransfer = useMemo(() => new SolanaTransfer(privySolanaProvider), []);
 
     const watching = useWatch({ control });
     const { to, amount } = watching;
@@ -169,12 +108,12 @@ function Form() {
     const toQueryKey = networkType === NetworkType.Ethereum ? (to?.toLowerCase() ?? '') : (to ?? '');
     const tokenQueryKey = token ? { id: token.id, chainId: token.chainId, decimals: token.decimals } : null;
 
-    const account = networkType === NetworkType.Solana ? solana.address : evmAddress!;
+    const account = networkType === NetworkType.Solana ? solanaAddress : evmAddress!;
     const { data: availableBalance, isLoading: isLoadingAvailableBalance } = useQuery({
         queryKey: ['token-available-balance', networkType, tokenQueryKey, account],
         enabled: !!token && !!networkType,
         async queryFn() {
-            if (!token || !networkType) return null;
+            if (!token || !networkType || !account) return null;
             const transfer = resolveTransferProvider(networkType);
             return transfer.getAvailableBalance({
                 to: networkType === NetworkType.Solana ? SOL_ZERO_ADDRESS : ETH_ZERO_ADDRESS,
@@ -221,7 +160,7 @@ function Form() {
                     };
                 }
                 case NetworkType.Solana: {
-                    if (!solana.address) return null;
+                    if (!solanaAddress) return null;
                     const transaction = await solanaTransfer.getTransferTransaction({
                         amount,
                         to: to ?? SOL_ZERO_ADDRESS,
@@ -229,7 +168,7 @@ function Form() {
                     });
                     const latestBlockhash = await solanaTransfer.connection.getLatestBlockhash();
                     transaction.recentBlockhash = latestBlockhash.blockhash;
-                    transaction.feePayer = new web3.PublicKey(solana.address);
+                    transaction.feePayer = new web3.PublicKey(solanaAddress);
                     const fee = await transaction.getEstimatedFee(solanaTransfer.connection);
                     if (!fee) return null;
                     const price = await coinGeckoEndpoint.getFungibleTokenPrice(
@@ -285,6 +224,75 @@ function Form() {
         enabled: Boolean(to && amount && token && networkType),
         retry: 1,
     });
+
+    const resolveTransferProvider = useCallback(
+        (networkType: NetworkType) => {
+            switch (networkType) {
+                case NetworkType.Ethereum:
+                    return evmTransfer as TransferProvider;
+                case NetworkType.Solana:
+                    return solanaTransfer;
+                default:
+                    unreachable(networkType);
+            }
+        },
+        [evmTransfer, solanaTransfer],
+    );
+    const [{ loading: isSending }, onSubmit] = useAsyncFn(
+        async (values: FormValues) => {
+            try {
+                if (!evmAddress || !solanaAddress) {
+                    throw new Error('Wallet not connected');
+                }
+
+                const to = values.to;
+                const transfer = resolveTransferProvider(networkType);
+                let connector: Awaited<ReturnType<typeof resolveEvmConnector>> = null;
+                let signingWallet: ReturnType<typeof resolveSwapEvmSigningWallet> = null;
+                if (networkType === NetworkType.Ethereum) {
+                    signingWallet = resolveSwapEvmSigningWallet(connections, evmAddress, {
+                        preferEmbedded: true,
+                    });
+                    if (signingWallet) connector = await resolveEvmConnector(evmAddress, PRIVY_CONNECTOR_ID);
+                    if (signingWallet && connector) {
+                        await switchEvmConnectorChain(connector, values.token.chainId);
+                    }
+                }
+                const hash = await transfer.transfer({
+                    token: values.token,
+                    to,
+                    amount: values.amount,
+                    connector: connector ?? undefined,
+                });
+                router.navigate({
+                    to: RoutePath.Success,
+                    state: { ...values, hash } as unknown as HistoryState,
+                });
+                let address: string | undefined;
+                switch (networkType) {
+                    case NetworkType.Ethereum:
+                        address = evmAddress!;
+                        break;
+                    case NetworkType.Solana:
+                        address = solanaAddress;
+                        break;
+                    default:
+                        safeUnreachable(networkType);
+                        return;
+                }
+
+                if (!address) return;
+
+                // TODO: capture firefly wallet event
+            } catch (error) {
+                router.navigate({
+                    to: RoutePath.Failed,
+                    state: { error } as unknown as HistoryState,
+                });
+            }
+        },
+        [evmAddress, solanaAddress, connections, router, networkType, resolveTransferProvider],
+    );
 
     useAutoHeightTextarea(() => document.getElementById('send-transaction-recipient') as HTMLTextAreaElement);
 

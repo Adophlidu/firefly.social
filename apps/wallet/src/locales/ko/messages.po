@@ -32,10 +32,13 @@ msgstr ""
 msgid "History"
 msgstr ""
 
-msgid "Funding"
+msgid "Make sure to send funds on Ethereum."
 msgstr ""
 
 msgid "Load failed"
+msgstr ""
+
+msgid "Failed to disable authentication"
 msgstr ""
 
 msgid "Positions"
@@ -60,6 +63,9 @@ msgid "Low on balance? Your Firefly Wallet can automatically cover the rest."
 msgstr ""
 
 msgid "Authenticating..."
+msgstr ""
+
+msgid "Transfer from an exchange"
 msgstr ""
 
 #. placeholder {0}: transaction.tx_status
@@ -96,6 +102,9 @@ msgstr ""
 msgid "Solana"
 msgstr ""
 
+msgid "Receive funds"
+msgstr ""
+
 msgid "Failed to claim winnings"
 msgstr ""
 
@@ -108,10 +117,16 @@ msgstr ""
 msgid "Review"
 msgstr ""
 
+msgid "Confirm to reset PIN code? For your security, this action requires sending a verification code to your recovery email to confirm your identity."
+msgstr ""
+
 msgid "No closed positions found in this wallet"
 msgstr ""
 
 msgid "View closed positions"
+msgstr ""
+
+msgid "The PINs you entered do not match. Please check and try again."
 msgstr ""
 
 msgid "Great job predicting the future!"
@@ -148,10 +163,16 @@ msgstr ""
 msgid "To Address"
 msgstr ""
 
+msgid "A 6-digit verification code has been sent to your email. Please enter the code to complete verification."
+msgstr ""
+
 msgid "Approved"
 msgstr ""
 
 msgid "{riskTokenSymbol} is a high-risk token"
+msgstr ""
+
+msgid "The new email address you entered is the same as your current one. Please enter a different email address."
 msgstr ""
 
 msgid "Confirm"
@@ -175,16 +196,19 @@ msgstr ""
 msgid "From Address"
 msgstr ""
 
-msgid "Connecting to wallet..."
-msgstr ""
-
 msgid "Position closed"
 msgstr ""
 
 msgid "No Route Found"
 msgstr ""
 
+msgid "Failed to enable authentication"
+msgstr ""
+
 msgid "Placing order..."
+msgstr ""
+
+msgid "Set Recovery Email"
 msgstr ""
 
 msgid "Close lost position"
@@ -218,6 +242,9 @@ msgstr ""
 msgid "Shares"
 msgstr ""
 
+msgid "Change Recovery Email"
+msgstr ""
+
 msgid "Transaction Hash"
 msgstr ""
 
@@ -237,6 +264,9 @@ msgid "Network cost"
 msgstr ""
 
 msgid "Revoked Failed"
+msgstr ""
+
+msgid "Forgot your PIN code?"
 msgstr ""
 
 msgid "Recent"
@@ -266,6 +296,9 @@ msgstr ""
 msgid "No more history"
 msgstr ""
 
+msgid "Recovery Email"
+msgstr ""
+
 msgid "Transaction failed: minimum return amount not reached. Try increasing slippage."
 msgstr ""
 
@@ -282,6 +315,9 @@ msgid "Done"
 msgstr ""
 
 msgid "Bridged Failed"
+msgstr ""
+
+msgid "Enter new PIN"
 msgstr ""
 
 msgid "Pay Wallet"
@@ -308,6 +344,9 @@ msgstr ""
 msgid "Draft"
 msgstr ""
 
+msgid "PIN is acceptable, but consider adding more unique digits."
+msgstr ""
+
 msgid "Firefly Wallet Pay"
 msgstr ""
 
@@ -321,6 +360,9 @@ msgid "Unable to add funds to predictions account."
 msgstr ""
 
 msgid "Back to Bets"
+msgstr ""
+
+msgid "Please login to view security settings."
 msgstr ""
 
 msgid "Receive at least"
@@ -350,13 +392,16 @@ msgstr ""
 msgid "Upgrade your Firefly prediction account NOW to ensure your predictions continue seamlessly."
 msgstr ""
 
-msgid "Wallet funding is not enabled"
+msgid "Set PIN Code"
 msgstr ""
 
 msgid "Order cancelled"
 msgstr ""
 
 msgid "Sent"
+msgstr ""
+
+msgid "Copy"
 msgstr ""
 
 msgid "Amount"
@@ -386,6 +431,9 @@ msgid "Receive Wallet"
 msgstr ""
 
 msgid "Claimed"
+msgstr ""
+
+msgid "Next"
 msgstr ""
 
 msgid "Recipient"
@@ -450,6 +498,9 @@ msgstr ""
 msgid "Withdrawing funds to your Firefly wallet..."
 msgstr ""
 
+msgid "Failed to set PIN. Please try again later."
+msgstr ""
+
 msgid "To win"
 msgstr ""
 
@@ -466,6 +517,9 @@ msgid "Your funds are on the way..."
 msgstr ""
 
 msgid "NFT Minted"
+msgstr ""
+
+msgid "Deposit"
 msgstr ""
 
 #. placeholder {0}: formatTokenItemAmount(withdrawableAmount)
@@ -489,6 +543,9 @@ msgid "Trendings"
 msgstr ""
 
 msgid "Network Fee"
+msgstr ""
+
+msgid "Please re-enter the PIN you just set to confirm."
 msgstr ""
 
 msgid "Market"
@@ -524,6 +581,9 @@ msgstr ""
 msgid "Add"
 msgstr ""
 
+msgid "Confirm new PIN"
+msgstr ""
+
 msgid "Portfolio"
 msgstr ""
 
@@ -536,6 +596,9 @@ msgid "With <0>{0}</0>"
 msgstr ""
 
 msgid "<0><1/><2>Sent</2></0><3>to</3><4/>"
+msgstr ""
+
+msgid "Resend"
 msgstr ""
 
 msgid "Insufficient Balance"
@@ -574,13 +637,19 @@ msgstr ""
 msgid "Enter or search for a recipient wallet"
 msgstr ""
 
-msgid "Select a method for funding your Firefly wallet."
+msgid "Please enter a valid email address. If you want to reset your PIN code, a verification code will be sent to this email to reset it."
+msgstr ""
+
+msgid "Email"
 msgstr ""
 
 msgid "PnL"
 msgstr ""
 
 msgid "Failed to close position"
+msgstr ""
+
+msgid "Failed to init exchange options. Please try again later."
 msgstr ""
 
 msgid "Network"
@@ -595,7 +664,13 @@ msgstr ""
 msgid "Failed to fetch token info"
 msgstr ""
 
+msgid "Authentication"
+msgstr ""
+
 msgid "Sent Failed"
+msgstr ""
+
+msgid "Please enter your new email address. We will send a verification code to confirm the change. Once updated, PIN reset codes and security verifications will be sent to this new email."
 msgstr ""
 
 msgid "Received Failed"
@@ -617,6 +692,9 @@ msgid "Buy"
 msgstr ""
 
 msgid "Swapped"
+msgstr ""
+
+msgid "PIN is too weak. Avoid sequential digits."
 msgstr ""
 
 msgid "Auto"
@@ -654,10 +732,17 @@ msgstr ""
 msgid "To <0>{0}</0>"
 msgstr ""
 
+msgid "Enable authentication"
+msgstr ""
+
 msgid "Sold"
 msgstr ""
 
 msgid "We do not recommend ever sharing it with any app or person."
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "second"
 msgstr ""
 
 msgid "View on Explorer"
@@ -696,6 +781,9 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
+msgid "PIN is too weak. Avoid repeated digits."
+msgstr ""
+
 #. placeholder {0}: item.project_name
 msgid "on {0}"
 msgstr ""
@@ -712,10 +800,16 @@ msgstr ""
 msgid "Your transaction has been completed."
 msgstr ""
 
+msgid "Must be a 6-digit number."
+msgstr ""
+
 msgid "Predictions"
 msgstr ""
 
 msgid "Your transaction failed."
+msgstr ""
+
+msgid "Change Email"
 msgstr ""
 
 msgid "Buy {outcome}"
@@ -730,10 +824,19 @@ msgstr ""
 msgid "Keep it safe and do not share"
 msgstr ""
 
+msgid "Scan this code or copy your wallet address to receive funds on Ethereum."
+msgstr ""
+
 msgid "Your funds have been withdrawn to your Firefly wallet."
 msgstr ""
 
 msgid "Bridged"
+msgstr ""
+
+msgid "Verify Email"
+msgstr ""
+
+msgid "Enter the PIN code to verify identity"
 msgstr ""
 
 msgid "Select Token"
@@ -752,7 +855,17 @@ msgstr ""
 msgid "Your tokens"
 msgstr ""
 
+msgid "Please enter a valid email address."
+msgstr ""
+
 msgid "Sell {outcome}"
+msgstr ""
+
+msgid "Reset PIN Code"
+msgstr ""
+
+#. placeholder {0}: desensitizeEmail(emailAddress)
+msgid "To secure your assets, please enter the verification code sent to your recovery email{0} to verify your identity."
 msgstr ""
 
 msgid "This market may have been removed or the link is invalid."
@@ -782,7 +895,13 @@ msgstr ""
 msgid "The market is marked as closed."
 msgstr ""
 
+msgid "Set a PIN to secure your assets. This code will be used to confirm transactions."
+msgstr ""
+
 msgid "Token added"
+msgstr ""
+
+msgid "PIN is extremely strong."
 msgstr ""
 
 msgid "Add Funds"
@@ -815,10 +934,10 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
-msgid "Current settings"
+msgid "Security & Privacy"
 msgstr ""
 
-msgid "OK"
+msgid "Current settings"
 msgstr ""
 
 msgid "NFT"

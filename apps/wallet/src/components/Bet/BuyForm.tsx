@@ -4,7 +4,6 @@ import { safe } from '@dimensiondev/web3/numbers';
 import { isSameAddress, resolvePublicRpcUrl } from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import type { ConnectedWallet } from '@privy-io/react-auth';
 import { useQuery, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { BigNumber } from 'bignumber.js';
 import { useCallback, useMemo, useRef, useState } from 'react';
@@ -13,7 +12,7 @@ import { toast } from 'sonner';
 import { useDebounceValue } from 'usehooks-ts';
 import { type Address, erc20Abi, parseUnits } from 'viem';
 import { polygon } from 'viem/chains';
-import { type Config, useConfig, useConnection } from 'wagmi';
+import { type Config, type Connection, useConfig, useConnection, useConnections } from 'wagmi';
 import { simulateContract, waitForTransactionReceipt, writeContract } from 'wagmi/actions';
 
 import { BetAmountStepper } from '@/components/Bet/BetAmountStepper.js';
@@ -24,14 +23,14 @@ import { Skeleton } from '@/components/Skeleton.js';
 import { Button } from '@/components/ui/button.js';
 import { InsufficientGasError } from '@/constants/error.js';
 import { P_USDC_POLYGON_ADDRESS } from '@/constants/ethereum.js';
+import { PRIVY_CONNECTOR_ID } from '@/constants/static.js';
 import { formatPriceToCents } from '@/helpers/formatPriceToCents.js';
 import { formatTokenFromFireflyTokenAsset } from '@/helpers/formatTokenFromFireflyTokenAsset.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { getUserFacingErrorMessage } from '@/helpers/getErrorMessage.js';
 import { getLimitPriceCentsInputConfig } from '@/helpers/getLimitPriceCentsInputConfig.js';
 import { normalizeBetInput } from '@/helpers/normalizeBetInput.js';
-import { resolveEvmConnector, switchEvmConnectorChain } from '@/helpers/resolveEvmConnector.js';
-import { useEmbeddedEvmWalletContext } from '@/hooks/useCachedWalletAddresses.js';
+import { switchEvmConnectorChain } from '@/helpers/resolveEvmConnector.js';
 import { cn } from '@/lib/utils.js';
 import type { TokenAsset } from '@/providers/types/Firefly.js';
 import type { Token } from '@/providers/types/Transfer.js';
@@ -63,7 +62,7 @@ function useWalletUsdcPolBalance() {
 
 async function topUpBetsAccountFromWallet(params: {
     config: Config;
-    wallet: ConnectedWallet;
+    wallet: Connection;
     fromAddress: Address;
     proxyAddress: Address;
     topUpUsd: BigNumber;
@@ -71,12 +70,8 @@ async function topUpBetsAccountFromWallet(params: {
     const { config, wallet, fromAddress, proxyAddress, topUpUsd } = params;
     if (topUpUsd.lte(0)) return;
 
-    const connector = await resolveEvmConnector(wallet);
-    if (connector) {
-        await switchEvmConnectorChain(wallet, connector, polygon.id);
-    } else {
-        await wallet.switchChain(polygon.id);
-    }
+    const connector = wallet.connector;
+    await switchEvmConnectorChain(connector, polygon.id);
 
     const parsedValue = parseUnits(topUpUsd.decimalPlaces(6, BigNumber.ROUND_CEIL).toFixed(6), 6);
 
@@ -134,10 +129,12 @@ function useQuickBuyAction(params: {
     const { proxyAddress, topUpUsd, submitDisabled, loading, onPlaceOrder } = params;
     const config = useConfig();
     const { address } = useConnection();
-    const { wallet: embeddedWallet } = useEmbeddedEvmWalletContext();
+    const connections = useConnections();
     const queryClient = useQueryClient();
     const isSubmittingRef = useRef(false);
     const [isQuickBuying, setIsQuickBuying] = useState(false);
+
+    const embeddedWallet = useMemo(() => connections.find((c) => c.connector.id === PRIVY_CONNECTOR_ID), [connections]);
 
     const runQuickBuy = useCallback(async () => {
         if (submitDisabled) return;

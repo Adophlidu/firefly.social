@@ -7,6 +7,8 @@ import {
 import type { Connection } from '@reown/appkit/react';
 import { useEffect, useMemo, useState } from 'react';
 
+import { PRIVY_CONNECTOR_ID } from '@/constants/static.js';
+
 export interface AppKitSolanaWallet {
     address: string;
     name: string;
@@ -15,7 +17,7 @@ export interface AppKitSolanaWallet {
     connection: Connection;
 }
 
-export function useAppKitSolanaWallets(): AppKitSolanaWallet[] {
+export function useAppKitSolanaWallets(filterPrivy = true): AppKitSolanaWallet[] {
     const [connections, setConnections] = useState<Connection[]>([]);
     const [, setTick] = useState(0);
 
@@ -39,7 +41,7 @@ export function useAppKitSolanaWallets(): AppKitSolanaWallet[] {
 
     return useMemo(() => {
         return connections
-            .filter((conn) => conn.connectorId !== 'network.privy' && conn.accounts.length > 0)
+            .filter((conn) => (!filterPrivy || conn.connectorId !== PRIVY_CONNECTOR_ID) && conn.accounts.length > 0)
             .flatMap((conn) => {
                 const connector = CoreConnectorController.getConnectorById(conn.connectorId);
                 const connectorImage = CoreAssetUtil.getConnectorImage(connector);
@@ -52,5 +54,5 @@ export function useAppKitSolanaWallets(): AppKitSolanaWallet[] {
                     connection: conn,
                 }));
             });
-    }, [connections]);
+    }, [connections, filterPrivy]);
 }

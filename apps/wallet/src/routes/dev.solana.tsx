@@ -1,8 +1,13 @@
 import { web3 } from '@coral-xyz/anchor';
-import { IframeBridgeMethod, SolanaMethod, type SolanaResponse } from '@dimensiondev/iframe-bridge';
-import { iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
+import {
+    IframeBridgeMethod,
+    iframeBridgeProvider,
+    SolanaMethod,
+    type SolanaResponse,
+} from '@dimensiondev/iframe-bridge';
 import { solana } from '@dimensiondev/web3/chains';
-import { useWallets as useSolanaWallets } from '@privy-io/react-auth/solana';
+import { useAppKitProvider } from '@reown/appkit/react';
+import type { Provider } from '@reown/appkit-adapter-solana';
 import { useQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 import bs58 from 'bs58';
@@ -22,9 +27,8 @@ export const Route = createFileRoute('/dev/solana')({
 });
 
 function SolanaDevPage() {
-    const { wallets } = useSolanaWallets();
-    const solWallet = wallets?.[0];
-    const solAddress = solWallet?.address || '';
+    const { walletProvider } = useAppKitProvider<Provider>('solana');
+    const solAddress = walletProvider?.publicKey?.toString() || '';
 
     const form = useForm<{ tokenId: string; to: string; amount: string }>({
         defaultValues: { tokenId: '', to: '', amount: '' },
@@ -49,10 +53,10 @@ function SolanaDevPage() {
     const canSubmit = !!solAddress && !!selectedToken && !!to && !!amount;
 
     const onSubmit = async () => {
-        if (!selectedToken || !solWallet) return;
+        if (!selectedToken || !walletProvider) return;
 
         try {
-            const transfer = new SolanaTransfer(solWallet);
+            const transfer = new SolanaTransfer(walletProvider);
             const transaction = await transfer.getTransferTransaction({
                 amount,
                 to,

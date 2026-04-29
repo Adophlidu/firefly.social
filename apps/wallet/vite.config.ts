@@ -95,7 +95,7 @@ export default defineConfig({
         include: ['buffer', 'react-use'],
     },
     ssr: {
-        noExternal: ['react-use', '@lingui/core', '@lingui/react', '@privy-io/react-auth'],
+        noExternal: ['react-use', '@lingui/core', '@lingui/react'],
         external: ['@solana/spl-token', '@solana/buffer-layout-utils', 'bigint-buffer', 'bindings'],
     },
 });

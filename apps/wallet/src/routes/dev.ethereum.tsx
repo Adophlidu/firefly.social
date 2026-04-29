@@ -1,7 +1,6 @@
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
 import { chains } from '@dimensiondev/web3/chains';
 import { isNativeTokenDebank } from '@dimensiondev/web3/utils';
-import { useWallets } from '@privy-io/react-auth';
 import { useQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 import { useMemo } from 'react';
@@ -13,6 +12,7 @@ import { Button } from '@/components/ui/button.js';
 import { Select, SelectContent, SelectItem, SelectTrigger } from '@/components/ui/select.js';
 import { APP_BASE_PATH } from '@/constants/static.js';
 import { formatTokenFromFireflyTokenAsset } from '@/helpers/formatTokenFromFireflyTokenAsset.js';
+import { usePrivyWallet } from '@/hooks/usePrivyWallet.js';
 import { logger } from '@/lib/Logger.js';
 import { getMultiChainTokensQuery } from '@/queries/firefly/multiChainTokens.js';
 
@@ -20,9 +20,8 @@ export const Route = createFileRoute('/dev/ethereum')({
     component: EthereumDevPage,
 });
 
-function EthereumDevPage() {
-    const { wallets } = useWallets();
-    const evmAddress = wallets?.[0]?.address || '';
+export function EthereumDevPage() {
+    const { evmAddress } = usePrivyWallet();
 
     const form = useForm<{
         chainId: number;

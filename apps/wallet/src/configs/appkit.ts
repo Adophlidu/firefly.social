@@ -1,18 +1,14 @@
-import { type AppKitNetwork, solana } from '@reown/appkit/networks';
+import type { AppKitNetwork } from '@reown/appkit/networks';
 import { createAppKit } from '@reown/appkit/react';
-import { SolanaAdapter } from '@reown/appkit-adapter-solana/react';
-import { PhantomWalletAdapter } from '@solana/wallet-adapter-phantom';
 
+import { solanaAdapter, solanaNetworks } from '@/configs/solanaClient.js';
+import { wagmiAdapter, wagmiNetworks } from '@/configs/wagmiClient.js';
 import { env } from '@/constants/env.js';
 
-const solanaAdapter = new SolanaAdapter({
-    wallets: [new PhantomWalletAdapter()],
-});
-
-const networks = [solana] as [AppKitNetwork, ...AppKitNetwork[]];
+const networks = [...wagmiNetworks, ...solanaNetworks] as [AppKitNetwork, ...AppKitNetwork[]];
 
 export const appkit = createAppKit({
-    adapters: [solanaAdapter],
+    adapters: [wagmiAdapter, solanaAdapter],
     networks,
     projectId: env.external.NEXT_PUBLIC_W3M_PROJECT_ID,
     showWallets: false,

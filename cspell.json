@@ -215,7 +215,8 @@
         "zerion",
         "zksync",
         "zora",
-        "zustand"
+        "zustand",
+        "Automator"
     ],
     "ignoreWords": [
         "Aave",
