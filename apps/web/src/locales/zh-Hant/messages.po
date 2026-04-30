@@ -4989,6 +4989,9 @@ msgstr "關閉"
 msgid "Login"
 msgstr "登入"
 
+msgid "Security & Privacy"
+msgstr ""
+
 msgid "Loading..."
 msgstr "載入中……"
 

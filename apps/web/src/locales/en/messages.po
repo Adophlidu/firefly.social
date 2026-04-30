@@ -5014,6 +5014,9 @@ msgstr "Close"
 msgid "Login"
 msgstr "Login"
 
+msgid "Security & Privacy"
+msgstr "Security & Privacy"
+
 msgid "Loading..."
 msgstr "Loading..."
 

@@ -38,7 +38,11 @@ export const PinCodeModal = createCallable<Props, string | null>(function PinCod
                 onSuccess(null);
             }}
         >
-            <DialogOrDrawerContent className="!m-0 !h-full !max-h-full w-full !rounded-none" bodyClassName="!p-0">
+            {/* Pin Code Modal will open anywhere, must has highest z-index */}
+            <DialogOrDrawerContent
+                className="z-[999999999] !m-0 !h-full !max-h-full w-full !rounded-none"
+                bodyClassName="!p-0"
+            >
                 <VisuallyHidden asChild>
                     <DialogOrDrawerHeader>
                         <DialogOrDrawerTitle>Pin Code</DialogOrDrawerTitle>

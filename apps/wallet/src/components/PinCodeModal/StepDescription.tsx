@@ -74,7 +74,7 @@ export const StepDescription = memo(function StepDescription() {
                 case PinCodeAction.VerifyEmail:
                     return emailAddress ? (
                         <Trans>
-                            To secure your assets, please enter the verification code sent to your recovery email
+                            To secure your assets, please enter the verification code sent to your recovery email{' '}
                             {desensitizeEmail(emailAddress)} to verify your identity.
                         </Trans>
                     ) : null;

@@ -751,6 +751,10 @@ msgstr "在区块浏览器上查看"
 msgid "Add Token"
 msgstr "添加代币"
 
+#. placeholder {0}: desensitizeEmail(emailAddress)
+msgid "To secure your assets, please enter the verification code sent to your recovery email {0} to verify your identity."
+msgstr ""
+
 msgid "NFT Received Failed"
 msgstr "接收 NFT 失败"
 
@@ -862,10 +866,6 @@ msgid "Sell {outcome}"
 msgstr "卖出 {outcome}"
 
 msgid "Reset PIN Code"
-msgstr ""
-
-#. placeholder {0}: desensitizeEmail(emailAddress)
-msgid "To secure your assets, please enter the verification code sent to your recovery email{0} to verify your identity."
 msgstr ""
 
 msgid "This market may have been removed or the link is invalid."

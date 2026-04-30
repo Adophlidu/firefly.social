@@ -4989,6 +4989,9 @@ msgstr ""
 msgid "Login"
 msgstr ""
 
+msgid "Security & Privacy"
+msgstr ""
+
 msgid "Loading..."
 msgstr ""
 
