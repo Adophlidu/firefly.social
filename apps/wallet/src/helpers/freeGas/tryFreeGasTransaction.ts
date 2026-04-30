@@ -3,6 +3,7 @@ import { isFreeGasSupportedChain } from '@dimensiondev/web3/chains';
 import { isSupportedStablecoin, resolvePublicRpcUrl } from '@dimensiondev/web3/utils';
 import type { Address } from 'viem';
 
+import { withPinCodeCheck } from '@/helpers/withPinCodeCheck.js';
 import { logger } from '@/lib/Logger.js';
 import { type FreeGasTx, FreeGasTxType } from '@/providers/types/FreeGas.js';
 import { getFireflyEndpoint } from '@/store/fireflyEndpoint.js';
@@ -16,10 +17,9 @@ export interface TryFreeGasParams {
     value?: string;
     tokenAddress?: string;
 }
+export type TryFreeGasResult = { type: 'free-gas'; hash: string } | { type: 'fallback' };
 
-export async function tryFreeGasTransaction(
-    params: TryFreeGasParams,
-): Promise<{ type: 'free-gas'; hash: string } | { type: 'fallback' }> {
+async function executeFreeGasTransaction(params: TryFreeGasParams, privyCodeHash?: string): Promise<TryFreeGasResult> {
     try {
         const { chainId, txType, from, to, data, value, tokenAddress } = params;
 
@@ -71,6 +71,7 @@ export async function tryFreeGasTransaction(
             txType,
             nonce,
             tx,
+            privy_code_hash: privyCodeHash,
         });
 
         if (result.canFreeGas) {
@@ -86,4 +87,8 @@ export async function tryFreeGasTransaction(
     } catch {
         return { type: 'fallback' };
     }
+}
+
+export async function tryFreeGasTransaction(params: TryFreeGasParams): Promise<TryFreeGasResult> {
+    return withPinCodeCheck((codeHash) => executeFreeGasTransaction(params, codeHash));
 }

@@ -164,6 +164,9 @@ const createAllEvents = (router: ReturnType<typeof useRouter>) => {
         [IframeBridgeMethod.FIREFLY_WALLET_VISIBILITY]: async () => {
             throw new NotImplementedError();
         },
+        [IframeBridgeMethod.FIREFLY_WALLET_SKIP_WALLET_AUTH]: async () => {
+            throw new NotImplementedError();
+        },
         [IframeBridgeMethod.FIREFLY_WALLET_SIGN_MESSAGE]: async () => {
             throw new NotImplementedError();
         },

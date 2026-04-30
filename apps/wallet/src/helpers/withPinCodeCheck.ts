@@ -4,11 +4,14 @@ import { queryClient } from '@/configs/queryClient.js';
 import { PinCodeWorkflow } from '@/constants/pinCode.js';
 import { runPinCodeWorkflow } from '@/helpers/runPinCodeWorkflow.js';
 import { getSecuritySettingsQuery } from '@/queries/firefly/getSecuritySettingsQuery.js';
+import { skipPinCodeAtom } from '@/store/embeddedWallets.js';
 import { getFireflyEndpoint } from '@/store/fireflyEndpoint.js';
 import { store } from '@/store/index.js';
 import { pinCodeAtom } from '@/store/pinCode.js';
 
 export async function withPinCodeCheck<T>(callback: (pinCode?: string) => Promise<T>): Promise<T> {
+    if (store.get(skipPinCodeAtom)) return callback();
+
     const pinConfig = await runInSafeAsync(() =>
         queryClient.ensureQueryData({
             ...getSecuritySettingsQuery(),

@@ -10,6 +10,7 @@ import type { SocialSource } from '@/constants/enum.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
 import { sharePostAfterClaimed } from '@/helpers/sharePostAfterClaimed.js';
+import { withSkipWalletAuth } from '@/helpers/withSkipWalletAuth.js';
 import { usePrivyAppkitAccountByNetwork } from '@/hooks/appkit/usePrivyAppkitAccountByNetwork.js';
 import { getCurrentClaimProfile } from '@/providers/ethereum/getCurrentClaimProfile.js';
 import { finishClaiming } from '@/providers/firefly/red-packet/finishClaiming.js';
@@ -29,44 +30,49 @@ export function useVerifyAndClaim(payload: RedPacketJSONPayload, source: SocialS
     const account = appkitAccount.account?.address || '';
     const { refetch } = useParseRedPacket(account, post);
 
-    const [{ loading }, handleClaim] = useAsyncFn(async () => {
-        try {
-            const result = networkType === NetworkType.Ethereum ? await claimWithEthereum() : await claimWithSolana();
-            if (!result.canClaim) return false;
+    const [{ loading }, handleClaim] = useAsyncFn(
+        () =>
+            withSkipWalletAuth(async () => {
+                try {
+                    const result =
+                        networkType === NetworkType.Ethereum ? await claimWithEthereum() : await claimWithSolana();
+                    if (!result.canClaim) return false;
 
-            const profile = await getCurrentClaimProfile(source);
-            if (result.tx && profile?.profileId && profile.handle) {
-                await runInSafeAsync(() =>
-                    finishClaiming(
-                        payload.rpid,
-                        profile.platform,
-                        profile.profileId || '',
-                        profile.handle || '',
-                        result.tx || '',
-                    ),
-                );
-            }
-            refetch();
+                    const profile = await getCurrentClaimProfile(source);
+                    if (result.tx && profile?.profileId && profile.handle) {
+                        await runInSafeAsync(() =>
+                            finishClaiming(
+                                payload.rpid,
+                                profile.platform,
+                                profile.profileId || '',
+                                profile.handle || '',
+                                result.tx || '',
+                            ),
+                        );
+                    }
+                    refetch();
 
-            sharePostAfterClaimed({
-                post,
-                amount: result.amount || '',
-                symbol,
-                networkType,
-                chainId: payload.chainId,
-                txHash: result.tx,
-            });
-            enqueueSuccessMessage(
-                result.amount && symbol
-                    ? t`Claimed lucky drop with ${result.amount} ${symbol} successfully`
-                    : t`Claimed lucky drop successfully`,
-            );
-            return true;
-        } catch (error) {
-            enqueueMessageFromError(error, t`Failed to claim red packet`);
-            throw error;
-        }
-    }, [networkType, claimWithEthereum, claimWithSolana, source, refetch, post, symbol, payload.chainId, payload.rpid]);
+                    sharePostAfterClaimed({
+                        post,
+                        amount: result.amount || '',
+                        symbol,
+                        networkType,
+                        chainId: payload.chainId,
+                        txHash: result.tx,
+                    });
+                    enqueueSuccessMessage(
+                        result.amount && symbol
+                            ? t`Claimed lucky drop with ${result.amount} ${symbol} successfully`
+                            : t`Claimed lucky drop successfully`,
+                    );
+                    return true;
+                } catch (error) {
+                    enqueueMessageFromError(error, t`Failed to claim red packet`);
+                    throw error;
+                }
+            }),
+        [networkType, claimWithEthereum, claimWithSolana, source, refetch, post, symbol, payload.chainId, payload.rpid],
+    );
 
     switch (networkType) {
         case NetworkType.Solana:

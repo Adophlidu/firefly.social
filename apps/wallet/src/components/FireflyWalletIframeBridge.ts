@@ -33,7 +33,7 @@ import {
 import { usePrivyWallet } from '@/hooks/usePrivyWallet.js';
 import { useWaitForPrivyLogin } from '@/hooks/useWaitForPrivyLogin.js';
 import { logger } from '@/lib/Logger.js';
-import { showEmbeddedWalletUIAtom } from '@/store/embeddedWallets.js';
+import { showEmbeddedWalletUIAtom, skipPinCodeAtom } from '@/store/embeddedWallets.js';
 
 type FireflyWalletEvmRpcRequest = IframeBridgeRequestArguments[IframeBridgeMethod.FIREFLY_WALLET_EVM_RPC];
 
@@ -68,6 +68,7 @@ export const FireflyWalletIframeBridge = memo(function IframeBridge() {
     const connectorsRef = useRef(connectors);
     const waitForPrivyLogin = useWaitForPrivyLogin();
     const setShowEmbeddedWalletUI = useSetAtom(showEmbeddedWalletUIAtom);
+    const setSkipAuth = useSetAtom(skipPinCodeAtom);
     const navigate = useNavigate();
     const router = useRouter();
     const pathnameRef = useRef(router.state.location.pathname);
@@ -87,6 +88,7 @@ export const FireflyWalletIframeBridge = memo(function IframeBridge() {
         setShowEmbeddedWalletUI,
         signEthereumMessage,
         waitForPrivyLogin,
+        setSkipAuth,
     });
 
     useEffect(() => {
@@ -95,8 +97,9 @@ export const FireflyWalletIframeBridge = memo(function IframeBridge() {
             setShowEmbeddedWalletUI,
             signEthereumMessage,
             waitForPrivyLogin,
+            setSkipAuth,
         };
-    }, [navigate, setShowEmbeddedWalletUI, signEthereumMessage, waitForPrivyLogin]);
+    }, [navigate, setShowEmbeddedWalletUI, signEthereumMessage, waitForPrivyLogin, setSkipAuth]);
 
     useEffect(() => {
         if (!isRunningInIframe()) return;
@@ -168,6 +171,9 @@ export const FireflyWalletIframeBridge = memo(function IframeBridge() {
             },
             [IframeBridgeMethod.FIREFLY_WALLET_VISIBILITY]: async ({ visible }) => {
                 handlersRef.current.setShowEmbeddedWalletUI(Boolean(visible));
+            },
+            [IframeBridgeMethod.FIREFLY_WALLET_SKIP_WALLET_AUTH]: async ({ skip }) => {
+                handlersRef.current.setSkipAuth(Boolean(skip));
             },
             [IframeBridgeMethod.FIREFLY_WALLET_AUTHORIZED]: async () => {
                 throw new Error('Not implemented');

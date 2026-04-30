@@ -12,6 +12,7 @@ import { polygon } from 'viem/chains';
 import { getUserFacingErrorMessage } from '@/helpers/getErrorMessage.js';
 import { optimisticAddBalance } from '@/helpers/polymarketBalanceCache.js';
 import { uploadSwapTx } from '@/helpers/swap/uploadSwapTx.js';
+import { withSkipPinCodeCheck } from '@/helpers/withSkipPinCodeCheck.js';
 import { useAddFundsWithPolUsdc } from '@/hooks/bet/useAddFundsWithPolUsdc.js';
 import { pusdTokenFallback } from '@/hooks/bet/useTokenDetail.js';
 import { useSwapExecuteCore } from '@/hooks/swap/useSwapExecuteCore.js';
@@ -63,31 +64,32 @@ export function useAddFunds(options: Options) {
     });
 
     return useMutation({
-        async mutationFn() {
-            store.set(showEmbeddedWalletUIAtom, false);
+        mutationFn: () =>
+            withSkipPinCodeCheck(async () => {
+                store.set(showEmbeddedWalletUIAtom, false);
 
-            if (!walletAddress || !isPrivyReady) {
-                throw new Error('Wallet not ready');
-            }
-            if (!depositToken) {
-                throw new Error('Deposit token not ready');
-            }
-            if (!polymarketAddress) {
-                throw new Error('Polymarket address not ready');
-            }
+                if (!walletAddress || !isPrivyReady) {
+                    throw new Error('Wallet not ready');
+                }
+                if (!depositToken) {
+                    throw new Error('Deposit token not ready');
+                }
+                if (!polymarketAddress) {
+                    throw new Error('Polymarket address not ready');
+                }
 
-            if (
-                depositToken.chainId === pusdTokenFallback.chainId &&
-                isNativeTokenOrSameAddress(depositToken.address, pusdTokenFallback.address)
-            ) {
-                await addFundsWithPolUsdc();
-            } else {
-                await addFundsWithSwap();
-            }
+                if (
+                    depositToken.chainId === pusdTokenFallback.chainId &&
+                    isNativeTokenOrSameAddress(depositToken.address, pusdTokenFallback.address)
+                ) {
+                    await addFundsWithPolUsdc();
+                } else {
+                    await addFundsWithSwap();
+                }
 
-            return polymarketAddress as Address;
-        },
-        async onSuccess(proxyAddress: Address) {
+                return polymarketAddress as Address;
+            }),
+        async onSuccess(proxyAddress) {
             store.set(showEmbeddedWalletUIAtom, true);
             optimisticAddBalance(queryClient, proxyAddress, multipliedBy(amount, depositToken?.price ?? 0));
 

@@ -14,6 +14,7 @@ import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromSto
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { memoizePromiseWithTime } from '@/helpers/memoizePromise.js';
 import { getPollDurationSeconds } from '@/helpers/polls.js';
+import { withSkipWalletAuth } from '@/helpers/withSkipWalletAuth.js';
 import { commitPoll } from '@/providers/firefly/poll/commitPoll.js';
 import { ensureLensResultSync } from '@/providers/lens/ensureLensResultSync.js';
 import { isLensOwnerOrManager } from '@/providers/lens/isLensOwnerOrManager.js';
@@ -63,91 +64,95 @@ class LensPoll implements Provider {
         options: PollOption[];
         allOptions?: PollOption[];
     }): Promise<VoteResponseData> {
-        const currentProfile = getCurrentProfileFromStorage(Source.Lens) as Profile;
-        if (!currentProfile?.profileId) throw new AuthenticationError('No profile found, please login first.');
+        return withSkipWalletAuth(async () => {
+            const currentProfile = getCurrentProfileFromStorage(Source.Lens) as Profile;
+            if (!currentProfile?.profileId) throw new AuthenticationError('No profile found, please login first.');
 
-        const walletClient = await getWalletClientRequired(wagmiConfig, {
-            chainId: lens.id,
-        });
-        const privyEvm = first(useFireflyWalletStore.getState().wallets.ethereum)?.address ?? null;
-        const currentAddress = walletClient.account.address;
+            const walletClient = await getWalletClientRequired(wagmiConfig, {
+                chainId: lens.id,
+            });
+            const privyEvm = first(useFireflyWalletStore.getState().wallets.ethereum)?.address ?? null;
+            const currentAddress = walletClient.account.address;
 
-        const walletType = await runInSafeAsync(() => getWalletTypeToVote(currentProfile, currentAddress, privyEvm));
-        if (!walletType) {
-            throw new WalletAddressMismatchError();
-        }
+            const walletType = await runInSafeAsync(() =>
+                getWalletTypeToVote(currentProfile, currentAddress, privyEvm),
+            );
+            if (!walletType) {
+                throw new WalletAddressMismatchError();
+            }
 
-        const result = await vote(
-            postId,
-            options.map((x) => +x.id),
-        );
-        const firstTransaction = first(result.transactions);
-        if (!firstTransaction) {
-            throw new Error('No transaction found.');
-        }
+            const result = await vote(
+                postId,
+                options.map((x) => +x.id),
+            );
+            const firstTransaction = first(result.transactions);
+            if (!firstTransaction) {
+                throw new Error('No transaction found.');
+            }
 
-        const isPrivy = walletType === 'privy';
-        const accountForTx = isPrivy ? privyEvm : currentAddress;
-        // Use silent Privy client whenever the signing address is the Firefly wallet
-        const useSilentPrivy = !!privyEvm && !!accountForTx && isSameEthereumAddress(accountForTx, privyEvm);
-        await Promise.all(
-            result.transactions.map(async (transaction) => {
-                const options = {
-                    account: accountForTx ? getAddress(accountForTx) : null,
-                    data: transaction.data,
-                    gas: BigInt(transaction.gasLimit),
-                    gasPerPubdata: BigInt(transaction.gasPerPubdata),
-                    maxFeePerGas: BigInt(transaction.maxFeePerGas),
-                    maxPriorityFeePerGas: BigInt(transaction.maxPriorityFeePerGas),
-                    nonce: transaction.nonce,
-                    paymaster: transaction.paymaster,
-                    paymasterInput: transaction.paymasterInput,
-                    to: transaction.to,
-                    value: BigInt(transaction.amount),
+            const isPrivy = walletType === 'privy';
+            const accountForTx = isPrivy ? privyEvm : currentAddress;
+            // Use silent Privy client whenever the signing address is the Firefly wallet
+            const useSilentPrivy = !!privyEvm && !!accountForTx && isSameEthereumAddress(accountForTx, privyEvm);
+            await Promise.all(
+                result.transactions.map(async (transaction) => {
+                    const options = {
+                        account: accountForTx ? getAddress(accountForTx) : null,
+                        data: transaction.data,
+                        gas: BigInt(transaction.gasLimit),
+                        gasPerPubdata: BigInt(transaction.gasPerPubdata),
+                        maxFeePerGas: BigInt(transaction.maxFeePerGas),
+                        maxPriorityFeePerGas: BigInt(transaction.maxPriorityFeePerGas),
+                        nonce: transaction.nonce,
+                        paymaster: transaction.paymaster,
+                        paymasterInput: transaction.paymasterInput,
+                        to: transaction.to,
+                        value: BigInt(transaction.amount),
+                    };
+
+                    const hash = await sendCustomEip712Transaction(wagmiConfig, lens.id, options, {
+                        client: useSilentPrivy
+                            ? await createPrivyWalletClient({
+                                  chainId: lens.id,
+                              })
+                            : undefined,
+                        rpcUrl: transaction.RPC,
+                        skipPrepare: true,
+                    });
+                    await waitForEthereumTransaction(wagmiConfig, transaction.chainId, hash);
+                }),
+            );
+
+            if (allOptions?.length) {
+                const selectedIds = options.map((option) => option.id);
+                const voteCount = sumBy(allOptions, (x) => x.votes || 0) + options.length;
+                return {
+                    is_success: true,
+                    choice_detail: allOptions.map((option) => {
+                        const isSelected = selectedIds.includes(option.id);
+                        const votes = isSelected ? (option.votes || 0) + 1 : option.votes || 0;
+                        return {
+                            id: +option.id,
+                            name: option.label,
+                            count: votes,
+                            is_select: isSelected,
+                            percent: (votes / voteCount) * 100,
+                        };
+                    }),
                 };
+            }
 
-                const hash = await sendCustomEip712Transaction(wagmiConfig, lens.id, options, {
-                    client: useSilentPrivy
-                        ? await createPrivyWalletClient({
-                              chainId: lens.id,
-                          })
-                        : undefined,
-                    rpcUrl: transaction.RPC,
-                    skipPrepare: true,
-                });
-                await waitForEthereumTransaction(wagmiConfig, transaction.chainId, hash);
-            }),
-        );
-
-        if (allOptions?.length) {
-            const selectedIds = options.map((option) => option.id);
-            const voteCount = sumBy(allOptions, (x) => x.votes || 0) + options.length;
             return {
                 is_success: true,
-                choice_detail: allOptions.map((option) => {
-                    const isSelected = selectedIds.includes(option.id);
-                    const votes = isSelected ? (option.votes || 0) + 1 : option.votes || 0;
-                    return {
-                        id: +option.id,
-                        name: option.label,
-                        count: votes,
-                        is_select: isSelected,
-                        percent: (votes / voteCount) * 100,
-                    };
-                }),
+                choice_detail: options.map((option) => ({
+                    id: +option.id,
+                    name: option.label,
+                    count: (option.votes || 0) + 1,
+                    is_select: true,
+                    percent: null,
+                })),
             };
-        }
-
-        return {
-            is_success: true,
-            choice_detail: options.map((option) => ({
-                id: +option.id,
-                name: option.label,
-                count: (option.votes || 0) + 1,
-                is_select: true,
-                percent: null,
-            })),
-        };
+        });
     }
 
     getPollById(pollId: string): Promise<Poll> {

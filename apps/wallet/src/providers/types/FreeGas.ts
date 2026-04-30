@@ -22,6 +22,7 @@ export interface FreeGasRequestBody {
     txType: FreeGasTxType;
     nonce: number;
     tx: FreeGasTx;
+    privy_code_hash?: string;
 }
 
 export interface FreeGasResponse {

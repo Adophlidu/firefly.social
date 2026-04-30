@@ -1,10 +1,13 @@
+import { isSameAddress } from '@dimensiondev/web3/utils';
 import { useQueryClient } from '@tanstack/react-query';
 import { useAtomValue, useSetAtom } from 'jotai';
 import { useCallback } from 'react';
+import { useAsyncFn } from 'react-use';
 
 import { buildSwapAnalyticsParams } from '@/helpers/swap/buildSwapAnalyticsParams.js';
 import { handleSwapSuccess } from '@/helpers/swap/handleSwapSuccess.js';
 import { captureWalletTelemetryEvent, WalletTelemetryEventId } from '@/helpers/swap/swapAnalytics.js';
+import { withSkipPinCodeCheck } from '@/helpers/withSkipPinCodeCheck.js';
 import { useEffectiveSwapWalletAddress } from '@/hooks/swap/useEffectiveSwapWalletAddress.js';
 import { useResolvedSwapTokens } from '@/hooks/swap/useResolvedSwapTokens.js';
 import {
@@ -13,6 +16,7 @@ import {
     useSwapExecuteCore,
 } from '@/hooks/swap/useSwapExecuteCore.js';
 import { useSwapContextWalletAddresses } from '@/hooks/useCachedWalletAddresses.js';
+import { usePrivyWallet } from '@/hooks/usePrivyWallet.js';
 import { slippageAtom } from '@/store/swap/swapSettings.js';
 import { accessPathAtom, fromAmountAtom, swapStepAtom } from '@/store/swap/swapState.js';
 
@@ -25,6 +29,7 @@ export interface UseSwapExecuteResult {
 
 export function useSwapExecute(): UseSwapExecuteResult {
     const queryClient = useQueryClient();
+    const { evmAddress, solanaAddress } = usePrivyWallet();
 
     const { fromToken, toToken, resolvedFromChain: fromChainId, resolvedToChain: toChainId } = useResolvedSwapTokens();
     const fromAmount = useAtomValue(fromAmountAtom);
@@ -74,7 +79,7 @@ export function useSwapExecute(): UseSwapExecuteResult {
         [solanaWalletName, evmWalletName],
     );
 
-    return useSwapExecuteCore({
+    const { execute, ...rest } = useSwapExecuteCore({
         fromToken,
         toToken,
         fromAmount,
@@ -90,4 +95,25 @@ export function useSwapExecute(): UseSwapExecuteResult {
         onSuccess,
         onSwapStart,
     });
+
+    const [{ loading, error }, handleExecute] = useAsyncFn(async () => {
+        if (!walletAddress || !recipientAddress || !evmAddress || !solanaAddress) return execute();
+
+        const allAddresses = [evmAddress, solanaAddress];
+        if (
+            allAddresses.some((x) => isSameAddress(x, walletAddress)) &&
+            allAddresses.some((x) => isSameAddress(x, recipientAddress))
+        ) {
+            return withSkipPinCodeCheck(execute);
+        }
+
+        return execute();
+    }, [walletAddress, recipientAddress, evmAddress, solanaAddress, execute]);
+
+    return {
+        ...rest,
+        loading: loading || rest.loading,
+        error: error?.message || rest.error,
+        execute: handleExecute,
+    };
 }

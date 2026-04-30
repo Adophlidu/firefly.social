@@ -7,6 +7,8 @@ export const showEmbeddedWalletUIAtom = atom(true);
 
 export const chainIdAtom = atom<number>(mainnet.id);
 
+export const skipPinCodeAtom = atom(false);
+
 const baseEvmWalletAddressAtom = atom<string | null>(null);
 const baseSolanaWalletAddressAtom = atom<string | null>(null);
 

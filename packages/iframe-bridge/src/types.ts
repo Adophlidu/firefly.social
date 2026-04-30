@@ -24,6 +24,7 @@ export enum IframeBridgeMethod {
     FIREFLY_WALLET_ADD_SESSION_SIGNER = 'firefly_wallet_add_session_signer',
     FIREFLY_WALLET_NOTIFY = 'firefly_wallet_notify',
     FIREFLY_WALLET_REFRESH = 'firefly_wallet_refresh',
+    FIREFLY_WALLET_SKIP_WALLET_AUTH = 'firefly_wallet_skip_wallet_auth',
 
     // firefly.social/masko-iframe
     MASKO_PLAY_ANIMATION = 'masko_play_animation',
@@ -105,6 +106,9 @@ export interface IframeBridgeRequestArguments {
         text: string;
     };
     [IframeBridgeMethod.ENABLE_SYNC_SESSION]: {};
+    [IframeBridgeMethod.FIREFLY_WALLET_SKIP_WALLET_AUTH]: {
+        skip: boolean;
+    };
 }
 
 export interface IframeBridgeResponseResult {
@@ -127,4 +131,5 @@ export interface IframeBridgeResponseResult {
     [IframeBridgeMethod.MASKO_PLAY_ANIMATION]: void;
     [IframeBridgeMethod.MASKO_SHOW_TEXT]: void;
     [IframeBridgeMethod.ENABLE_SYNC_SESSION]: void;
+    [IframeBridgeMethod.FIREFLY_WALLET_SKIP_WALLET_AUTH]: void;
 }
