@@ -8,12 +8,16 @@ import { useEffectOnce } from 'react-use';
 
 import { SnackbarProvider } from '@/components/Snackbar.js';
 import { usePathname } from '@/esm/navigation.js';
+import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
+import { persistSharerSession } from '@/helpers/sharerSession.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { logger } from '@/libs/Logger.js';
 import { configureErrorCapture } from '@/providers/errorCapture/configure.js';
+import { trackReferralEvent } from '@/providers/firefly/referral/trackReferral.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
+import { SessionType } from '@/providers/types/SocialMedia.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import { recordUserThemeMode } from '@/services/recordUserThemeMode.js';
 import { setupFirebaseFcmConnection } from '@/services/setupFirebaseFcmConnection.js';
@@ -47,11 +51,6 @@ export const InitialProviders = memo(function Providers(props: { children: React
     useEffectOnce(() => {
         if (!viewerId) setViewerId(crypto.randomUUID());
 
-        const sid = new URLSearchParams(bom.location?.search).get('sid');
-        if (sid) {
-            void TelemetryProvider.captureEventInSafe(EventId.PAGE_LOAD_SHARE_ID_DETECTED, {});
-        }
-
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker
                 .register('/sw.js', { scope: '/' })
@@ -63,6 +62,21 @@ export const InitialProviders = memo(function Providers(props: { children: React
     useEffect(() => {
         if (isLogin) setupFirebaseFcmConnection();
     }, [isLogin]);
+
+    const handledSharerId = useRef<string | null>(null);
+    useEffect(() => {
+        const sid = new URLSearchParams(bom.location?.search ?? '').get('sid');
+        if (!sid) return;
+        if (handledSharerId.current === sid) return;
+        handledSharerId.current = sid;
+
+        const currentUid = getSessionFromStorage(SessionType.Firefly)?.payload?.uid;
+        if (currentUid && currentUid === sid) return;
+
+        persistSharerSession(sid);
+        void trackReferralEvent(sid).catch((error) => logger.error('Failed to track referral event', { sid, error }));
+        void TelemetryProvider.captureEventInSafe(EventId.PAGE_LOAD_SHARE_ID_DETECTED, {});
+    });
 
     const entryPathname = useRef('');
     const pathname = usePathname();
