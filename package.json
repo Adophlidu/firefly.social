@@ -93,8 +93,7 @@
             "twitter-text@3.1.0": "patches/twitter-text@3.1.0.patch",
             "urlcat@3.1.0": "patches/urlcat@3.1.0.patch",
             "@bprogress/react@1.2.7": "patches/@bprogress__react@1.2.7.patch",
-            "@safe-global/safe-apps-sdk@9.1.0": "patches/@safe-global__safe-apps-sdk@9.1.0.patch",
-            "zod@4.3.6": "patches/zod@4.3.6.patch"
+            "@safe-global/safe-apps-sdk@9.1.0": "patches/@safe-global__safe-apps-sdk@9.1.0.patch"
         }
     }
 }
