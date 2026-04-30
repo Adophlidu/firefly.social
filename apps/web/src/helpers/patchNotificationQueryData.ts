@@ -9,8 +9,17 @@ import type { ScheduleNotification, TipsNotification, UnifiedNotification } from
 import { type Notification, NotificationType, type Post, type Profile } from '@/providers/types/SocialMedia.js';
 
 type Patcher = (old: Draft<Notification>) => void;
+type SocialNotification = Exclude<Notification, UnifiedNotification | TipsNotification | ScheduleNotification>;
 
-export function patchNotificationQueryData(source: Source, patcher: Patcher) {
+function shouldSkipNotification(notification: Notification) {
+    return (
+        notification.type === NotificationType.Tips ||
+        notification.type === NotificationType.Schedule ||
+        UNIFIED_NOTIFICATION_TYPES.includes(notification.type as NotificationType)
+    );
+}
+
+export function patchNotificationQueryData(_source: Source, patcher: Patcher) {
     queryClient.setQueriesData<{ pages: Array<{ data: Notification[] }> }>({ queryKey: ['notifications'] }, (old) => {
         if (!old) return old;
 
@@ -24,20 +33,13 @@ export function patchNotificationQueryData(source: Source, patcher: Patcher) {
 
 type PostPatcher = (old: Draft<Post>) => void;
 
-export function patchNotificationQueryDataOnPost(source: Source, patcher: PostPatcher) {
-    patchNotificationQueryData(source, (notification) => {
-        if (
-            notification.type === NotificationType.Tips ||
-            notification.type === NotificationType.Schedule ||
-            UNIFIED_NOTIFICATION_TYPES.includes(notification.type as NotificationType)
-        ) {
-            return;
-        }
+export function patchNotificationQueryDataOnPost(_source: Source, patcher: PostPatcher) {
+    patchNotificationQueryData(_source, (notification) => {
+        if (shouldSkipNotification(notification)) return;
 
         // Only these these types have interaction.
         let target: Post | undefined = undefined;
         const type = notification.type;
-        type SocialNotification = Exclude<Notification, UnifiedNotification | TipsNotification | ScheduleNotification>;
         const notif = notification as SocialNotification;
         switch (type) {
             case NotificationType.Comment: {
@@ -72,6 +74,8 @@ export function patchNotificationQueryDataOnPost(source: Source, patcher: PostPa
                 break;
             }
             case NotificationType.Follow:
+            case NotificationType.Tips:
+            case NotificationType.Schedule:
             case NotificationType.LikeMatters:
             case NotificationType.LikeMirror:
             case NotificationType.LikeParagraph:
@@ -93,19 +97,12 @@ export function patchNotificationQueryDataOnPost(source: Source, patcher: PostPa
 
 type ProfilePatcher = (old: Draft<Profile>) => void;
 
-export function patchNotificationQueryDataOnAuthor(source: Source, patcher: ProfilePatcher) {
-    patchNotificationQueryData(source, (notification) => {
-        if (
-            notification.type === NotificationType.Tips ||
-            notification.type === NotificationType.Schedule ||
-            UNIFIED_NOTIFICATION_TYPES.includes(notification.type as NotificationType)
-        ) {
-            return;
-        }
+export function patchNotificationQueryDataOnAuthor(_source: Source, patcher: ProfilePatcher) {
+    patchNotificationQueryData(_source, (notification) => {
+        if (shouldSkipNotification(notification)) return;
 
         let target: Profile | undefined = undefined;
         const type = notification.type;
-        type SocialNotification = Exclude<Notification, UnifiedNotification | TipsNotification | ScheduleNotification>;
         const notif = notification as SocialNotification;
         switch (type) {
             case NotificationType.Comment: {
@@ -142,6 +139,8 @@ export function patchNotificationQueryDataOnAuthor(source: Source, patcher: Prof
                 target = first(reactionNotif.reactors);
                 break;
             }
+            case NotificationType.Tips:
+            case NotificationType.Schedule:
             case NotificationType.LikeMatters:
             case NotificationType.LikeMirror:
             case NotificationType.LikeParagraph:

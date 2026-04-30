@@ -1,10 +1,11 @@
+import { Md5 } from '@dimensiondev/utils';
+
 import {
     LIMO_REGEXP,
     MIRROR_ARTICLE_REGEXP,
     MIRROR_SUBDOMAIN_ARTICLE_REGEXP,
     PARAGRAPH_ARTICLE_REGEXP,
 } from '@/constants/regexp.js';
-import { Md5 } from '@/helpers/md5.js';
 import { getParagraphArticleIdWithLink } from '@/providers/firefly/article/getParagraphArticleIdWithLink.js';
 
 export async function getArticleIdFromUrl(url: string) {

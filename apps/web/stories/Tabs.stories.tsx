@@ -8,8 +8,6 @@ const meta = {
     component: Tabs,
 } satisfies Meta<typeof Tabs>;
 
-type Story = StoryObj<typeof meta>;
-
 function Render(args: Omit<TabsProps, 'onChange' | 'value'>) {
     const [value, setValue] = useState('react');
     return (

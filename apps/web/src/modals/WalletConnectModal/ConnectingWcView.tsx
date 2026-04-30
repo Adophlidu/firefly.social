@@ -1,10 +1,10 @@
+import { getNetworkTypeFromCaipAddress } from '@dimensiondev/web3/utils';
 import { CoreChainController, CoreRouterController } from '@reown/appkit';
 import { useLocation } from '@tanstack/react-router';
 import { last } from 'lodash-es';
 import { memo, useEffect } from 'react';
 import urlcat from 'urlcat';
 
-import { getNetworkTypeFromCaipAddress } from '@/helpers/getNetworkTypeFromCaipAddress.js';
 import { isPrivyAddress } from '@/helpers/isPrivyAddress.js';
 import { WalletConnectContext } from '@/hooks/useWalletConnectContext.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/refs.js';

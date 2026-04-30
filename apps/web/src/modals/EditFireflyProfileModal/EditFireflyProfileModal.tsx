@@ -8,11 +8,6 @@ import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { EditFireflyProfileModalRefType } from '@/modals/EditFireflyProfileModal/refs.js';
 import type { AllConnections, FireflyAccountProfile } from '@/providers/types/Firefly.js';
 
-interface EditFireflyProfileModalOpenProps {
-    profile?: FireflyAccountProfile | null;
-    connections?: AllConnections;
-}
-
 interface Props {
     ref: React.Ref<EditFireflyProfileModalRefType>;
 }

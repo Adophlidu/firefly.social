@@ -122,7 +122,7 @@ export const buttonDisabledAtom = atom((get) => {
     const errorMessage = errorRecord[step];
     if (errorMessage) return true;
 
-    if (step !== PinCodeAction.SetEmail && value.length !== PIN_CODE_LENGTH && !/^\d+$/.test(value)) return true;
+    if (step !== PinCodeAction.SetEmail && (value.length !== PIN_CODE_LENGTH || !/^\d+$/.test(value))) return true;
 
     return !!get(errMessageAtom);
 });
