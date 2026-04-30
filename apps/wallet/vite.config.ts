@@ -81,6 +81,7 @@ export default defineConfig({
         // virtual store paths; dedupe so the same Config instance works across both.
         dedupe: ['wagmi', '@wagmi/core'],
         alias: {
+            pino: resolve(__dirname, 'src/shims/pino.ts'),
             '@react-native-async-storage/async-storage': resolve(__dirname, 'src/shims/async-storage.ts'),
         },
     },
@@ -96,6 +97,14 @@ export default defineConfig({
     },
     ssr: {
         noExternal: ['react-use', '@lingui/core', '@lingui/react'],
-        external: ['@solana/spl-token', '@solana/buffer-layout-utils', 'bigint-buffer', 'bindings'],
+        external: [
+            '@solana/spl-token',
+            '@solana/buffer-layout-utils',
+            'bigint-buffer',
+            'bindings',
+            '@solana/wallet-adapter-base',
+            // In ssr, alias doesn't work for pino
+            'pino',
+        ],
     },
 });
