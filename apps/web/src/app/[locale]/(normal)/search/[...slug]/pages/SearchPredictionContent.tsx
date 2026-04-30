@@ -44,6 +44,7 @@ export function SearchPredictionContent() {
 
             // Use identifier if URL matches, otherwise use full searchKeyword
             const keyword = isPredictionUrl && urlResult.identifier ? urlResult.identifier : searchKeyword;
+            if (!keyword.trim()) return { data: [], nextIndicator: undefined };
 
             const indicator = createIndicator(undefined, pageParam);
             const result = await searchPrediction({
