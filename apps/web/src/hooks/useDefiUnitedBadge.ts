@@ -23,12 +23,9 @@ const SOURCE_TO_PLATFORM: Partial<Record<Source, BadgeLevelPlatform>> = {
 };
 
 async function fetchBadgeLevel(platform: BadgeLevelPlatform, id: string): Promise<DefiUnitedTier | null> {
-    const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/unifi/badge-level');
-    const res = await fetchJson<{ data: BadgeLevelResponse }>(url, {
-        method: 'POST',
-        body: JSON.stringify({ platform, id }),
-    });
-    return res.data.level || null;
+    const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/unifi/badge-level', { platform, id });
+    const res = await fetchJson<{ data: BadgeLevelResponse }>(url);
+    return res.data.level ?? null;
 }
 
 /**
