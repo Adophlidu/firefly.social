@@ -1,8 +1,6 @@
 'use client';
 
 import 'swiper/css';
-import 'swiper/css/autoplay';
-import 'swiper/css/effect-coverflow';
 
 import { runInSafeAsync } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';

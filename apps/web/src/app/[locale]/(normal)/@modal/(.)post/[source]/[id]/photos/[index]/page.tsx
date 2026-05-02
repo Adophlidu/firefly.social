@@ -1,8 +1,6 @@
 'use client';
 
 import 'swiper/css';
-import 'swiper/css/keyboard';
-import 'swiper/css/navigation';
 
 import type { LayoutProps } from '@dimensiondev/types';
 import { NotFoundError } from '@dimensiondev/utils';

@@ -1,8 +1,6 @@
 'use client';
 
 import 'swiper/css';
-import 'swiper/css/keyboard';
-import 'swiper/css/navigation';
 
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
