@@ -5,7 +5,7 @@ import { multipliedBy } from '@dimensiondev/web3/numbers';
 import { Trans } from '@lingui/react/macro';
 
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
-import { formatTokenItemAmount } from '@/components/Tips/formatTokenItemAmount.js';
+import { formatTokenItemAmount } from '@/helpers/formatTokenItemAmount.js';
 import { TokenIcon } from '@/components/Tips/TokenIcon.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import type { Token as RawToken } from '@/hooks/useCustomFungibleTokens.js';

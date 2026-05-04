@@ -22,7 +22,7 @@ import { SwapFromPage } from '@/constants/enum.js';
 import { BET_DEPOSIT_MIN_USD } from '@/constants/static.js';
 import { formatTokenItemAmount } from '@/helpers/formatTokenItemAmount.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
-import { removeTrailingZeros } from '@/helpers/removeTrailingZeros.js';
+import { removeTrailingZeros } from '@dimensiondev/utils';
 import { useAddFunds } from '@/hooks/bet/useAddFunds.js';
 import { useCheckGasForDeposit } from '@/hooks/bet/useCheckGasForDeposit.js';
 import { pusdTokenFallback, useDepositToken } from '@/hooks/bet/useTokenDetail.js';

@@ -11,7 +11,7 @@ import { useSyncLimitPriceCents } from '@/components/Bet/useSyncLimitPriceCents.
 import { Skeleton } from '@/components/Skeleton.js';
 import { Button } from '@/components/ui/button.js';
 import { formatPnlUSD } from '@/helpers/formatPnlUSD.js';
-import { formatPriceToCents } from '@/helpers/formatPriceToCents.js';
+import { formatPriceToCents } from '@dimensiondev/utils';
 import { formatTokenItemAmount } from '@/helpers/formatTokenItemAmount.js';
 import { getLimitPriceCentsInputConfig } from '@/helpers/getLimitPriceCentsInputConfig.js';
 import { normalizeBetInput } from '@/helpers/normalizeBetInput.js';

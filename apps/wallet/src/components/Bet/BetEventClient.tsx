@@ -3,7 +3,7 @@ import CloseIcon from '@dimensiondev/assets/close.svg';
 import SwapIcon from '@dimensiondev/assets/doube-arrow.svg';
 import RandomIcon from '@dimensiondev/assets/random-firefly.svg';
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
-import { parseJson } from '@dimensiondev/utils';
+import { parseJson, removeTrailingZeros } from '@dimensiondev/utils';
 import { createWagmiPublicClient } from '@dimensiondev/web3/actions';
 import { resolvePublicRpcUrl } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
@@ -29,7 +29,6 @@ import {
     optimisticSubtractPositionShares,
     optimisticUpdatePositionShares,
 } from '@/helpers/polymarketPositionsCache.js';
-import { removeTrailingZeros } from '@/helpers/removeTrailingZeros.js';
 import { polymarketGammaEndpoint } from '@/providers/polymarket/gamma.js';
 import {
     type MarketPriceChangeData,

@@ -1,5 +1,5 @@
 import betImageFallback from '@dimensiondev/assets/bet-image-fallback.svg?url';
-import { parseJson } from '@dimensiondev/utils';
+import { formatPriceToCents, parseJson } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from '@tanstack/react-router';
@@ -12,7 +12,6 @@ import { Image } from '@/components/Image.js';
 import { Skeleton } from '@/components/Skeleton.js';
 import { Button } from '@/components/ui/button.js';
 import { formatPercentRate } from '@/helpers/formatPercentRate.js';
-import { formatPriceToCents } from '@/helpers/formatPriceToCents.js';
 import { formatTokenItemAmount } from '@/helpers/formatTokenItemAmount.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { cn } from '@/lib/utils.js';

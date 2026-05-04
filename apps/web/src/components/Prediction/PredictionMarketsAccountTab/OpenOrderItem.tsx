@@ -1,7 +1,7 @@
 'use client';
 
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
-import { classNames } from '@dimensiondev/utils';
+import { classNames, formatPriceToCents } from '@dimensiondev/utils';
 import { multipliedBy, safe } from '@dimensiondev/web3/numbers';
 import { Trans } from '@lingui/react/macro';
 import { BigNumber } from 'bignumber.js';
@@ -10,10 +10,9 @@ import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { formatTokenItemAmount } from '@/components/Tips/formatTokenItemAmount.js';
+import { formatTokenItemAmount } from '@/helpers/formatTokenItemAmount.js';
 import { waitForAuthorization } from '@/connectors/PrivyConnector.js';
 import type { PredictionPlatform } from '@/constants/enum.js';
-import { formatPriceToCents } from '@/helpers/formatPriceToCents.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';

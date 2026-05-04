@@ -1,6 +1,6 @@
 'use client';
 
-import { classNames, safeUnreachable } from '@dimensiondev/utils';
+import { classNames, removeTrailingZeros, safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { compact, first, isUndefined } from 'lodash-es';
 
@@ -9,7 +9,6 @@ import { formatPolymarketNumber } from '@/components/Polymarket/formatPolymarket
 import { PredictionPositionAction } from '@/components/Prediction/PredictionPositionAction.js';
 import { PredictionPlatform } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
-import { removeTrailingZeros } from '@/helpers/removeTrailingZeros.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import {
     captureOpinionProfilePositionsEventClick,

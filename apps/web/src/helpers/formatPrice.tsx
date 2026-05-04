@@ -1,6 +1,6 @@
 import { BigNumber } from 'bignumber.js';
 
-import { removeTrailingZeros } from '@/helpers/removeTrailingZeros.js';
+import { removeTrailingZeros } from '@dimensiondev/utils';
 
 export function formatPrice(price: number | string | undefined, digits?: number) {
     if (price === undefined) return;

@@ -1,6 +1,6 @@
 'use client';
 
-import { classNames } from '@dimensiondev/utils';
+import { classNames, removeTrailingZeros } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { isUndefined, last } from 'lodash-es';
@@ -12,7 +12,6 @@ import { PredictionContext } from '@/components/Prediction/PredictionContext.js'
 import { PredictionPlatform, Source } from '@/constants/enum.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { openPredictionPage } from '@/helpers/openPredictionPage.js';
-import { removeTrailingZeros } from '@/helpers/removeTrailingZeros.js';
 import { getPolymarketOrderBooks } from '@/providers/firefly/prediction/getPolymarketOrderBook.js';
 import type { BetsMarketDataForUI } from '@/types/prediction.js';
 

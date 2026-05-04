@@ -271,6 +271,7 @@ function TransactionHistoryTokenItem({ item }: { item: TransactionHistoryItem })
         ].includes(item.category)
     ) {
         const nft = item.nft_receives[0] || item.nft_sends[0];
+        if (!nft) return null;
         return <TokenIcon icon={nft.nft.logo} networkType={networkType} chainId={chainId} />;
     }
     if (item.category === TransactionHistoryCategory.TokenApprove) {

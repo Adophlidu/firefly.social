@@ -47,7 +47,7 @@ import { privySolanaProvider } from '@/connectors/PrivySolanaWalletAdapter.js';
 import { PRIVY_CONNECTOR_ID } from '@/constants/static.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { normalizeDecimalInput } from '@/helpers/normalizeDecimalInput.js';
-import { removeTrailingZeros } from '@/helpers/removeTrailingZeros.js';
+import { removeTrailingZeros } from '@dimensiondev/utils';
 import { resolveEvmConnector, switchEvmConnectorChain } from '@/helpers/resolveEvmConnector.js';
 import { resolveSwapEvmSigningWallet } from '@/helpers/swap/resolveSwapSigningWallet.js';
 import { useAutoHeightTextarea } from '@/hooks/useAutoHeightTextarea.js';

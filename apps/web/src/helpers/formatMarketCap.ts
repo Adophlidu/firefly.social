@@ -1,7 +1,7 @@
 import { rightShift } from '@dimensiondev/web3/numbers';
 import { BigNumber } from 'bignumber.js';
 
-import { removeTrailingZeros } from '@/helpers/removeTrailingZeros.js';
+import { removeTrailingZeros } from '@dimensiondev/utils';
 
 function abbreviationForZero(str: string, zeroCount: number) {
     if (zeroCount <= 1) return str;

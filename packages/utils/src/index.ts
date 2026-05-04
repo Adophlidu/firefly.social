@@ -27,4 +27,6 @@ export * from '@/runInSafe.js';
 export * from '@/squashCallback.js';
 export * from '@/timeout.js';
 export * from '@/ts.js';
+export * from '@/formatPriceToCents.js';
+export * from '@/removeTrailingZeros.js';
 export * from '@/unreachable.js';

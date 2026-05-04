@@ -24,7 +24,7 @@ import { Button } from '@/components/ui/button.js';
 import { InsufficientGasError } from '@/constants/error.js';
 import { P_USDC_POLYGON_ADDRESS } from '@/constants/ethereum.js';
 import { PRIVY_CONNECTOR_ID } from '@/constants/static.js';
-import { formatPriceToCents } from '@/helpers/formatPriceToCents.js';
+import { formatPriceToCents } from '@dimensiondev/utils';
 import { formatTokenFromFireflyTokenAsset } from '@/helpers/formatTokenFromFireflyTokenAsset.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { getUserFacingErrorMessage } from '@/helpers/getErrorMessage.js';

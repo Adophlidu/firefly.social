@@ -1,4 +1,4 @@
-import { removeTrailingZeros } from '@/helpers/removeTrailingZeros.js';
+import { removeTrailingZeros } from '@dimensiondev/utils';
 
 const SUFFIXES = [
     { threshold: 1_000_000_000_000, suffix: 'T' },
