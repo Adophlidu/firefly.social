@@ -157,9 +157,7 @@ export class CoinGecko extends Fetch {
 
     async getTokenPriceByAddress(platform_id: string, address: string) {
         const price = await this.getTokenPrices(platform_id, [address]);
-        const currencies = Object.entries(price).find(([key, value]) => {
-            return isSameAddress(key, address) ? value : undefined;
-        })?.[1];
+        const currencies = Object.entries(price).find(([key]) => isSameAddress(key, address))?.[1];
         return currencies?.usd ? Number(currencies.usd) : undefined;
     }
 }

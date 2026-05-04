@@ -47,5 +47,5 @@ export function useCheckPostMedias() {
         }
 
         return false;
-    }, [availableSources, videos, images, type, imageCount]);
+    }, [availableSources, videos, images, type]);
 }

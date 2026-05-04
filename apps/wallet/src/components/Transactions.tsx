@@ -239,7 +239,6 @@ function ItemEnd({ item }: { item: TransactionHistoryItem }) {
         ].includes(item.category)
     ) {
         const nft = item.nft_receives[0] || item.nft_sends[0];
-        if (!nft) return null;
         const link = getBlockExplorersURL(item.chain_id, nft.nft.address, 'address');
         if (!link) return null;
         return (

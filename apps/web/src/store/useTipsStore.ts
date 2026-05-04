@@ -83,12 +83,12 @@ const useTipsStoreWithSelectors = createSelectors(useTipsStoreBase);
 export function useTipsStore() {
     const state = useTipsStoreWithSelectors();
 
-    const [tokenAmount] = useDebounceValue(() => {
+    const computedTokenAmount = (() => {
         if (!state.token || state.amount) return state.amount;
         if (!state.token.price || !state.selectedUsdtValue) return state.amount;
-
         return dividedBy(state.selectedUsdtValue, state.token.price).toString();
-    }, 400);
+    })();
+    const [tokenAmount] = useDebounceValue(computedTokenAmount, 400);
 
     return {
         ...state,

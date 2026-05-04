@@ -22,7 +22,7 @@ export function getTransactionHistory(chains: number[], address: string | undefi
         },
         initialPageParam: '',
         getNextPageParam: (lastPage: WalletHistoryTransactionsResponseData) => {
-            return lastPage.cursor;
+            return lastPage.cursor || undefined;
         },
     });
 }

@@ -67,7 +67,6 @@ function getContext(source: ProfileSource) {
 
 function getFireflySession(account: Account) {
     if (account.session.type === SessionType.Firefly) {
-        if (!account.session) throw new Error('Firefly session is not found');
         return account.session as FireflySession;
     }
     return account.fireflySession;

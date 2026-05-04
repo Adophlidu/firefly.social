@@ -14,6 +14,7 @@ import { settings } from '@/settings/index.js';
 import type { CompositePost } from '@/types/compose.js';
 
 interface Report {
+    source: SocialSource;
     // client uuid for distinguishing logs
     relation_id: string;
     // in seconds
@@ -55,6 +56,7 @@ async function report(post: CompositePost) {
             if (!profileId) return null;
 
             return {
+                source: x,
                 ua_type: 'web',
                 relation_id: relationId,
                 // TODO: post time of the original post
@@ -70,7 +72,6 @@ async function report(post: CompositePost) {
 
     const allSettled = await Promise.allSettled(
         reports.map(async (x) => {
-            if (!x) return null;
             await reportPostCreation(
                 x.platform as FireflyPlatform,
                 x.platform_id,
@@ -98,10 +99,7 @@ async function report(post: CompositePost) {
     );
 
     allSettled.forEach((x, i) => {
-        const source = SORTED_SOCIAL_SOURCES[i];
-
-        // ignore null report
-        if (x.status === 'fulfilled' && x.value === null) return;
+        const source = reports[i].source;
 
         if (x.status === 'rejected') {
             logger.error(`[report]: occurs error when report ${source} post: ${post.postId[source]}`, x.reason);

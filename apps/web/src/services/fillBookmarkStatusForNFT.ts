@@ -11,10 +11,9 @@ export async function fillBookmarkStatusForNonFungibleAssets(assets: EVM.Asset[]
 
     const bookmarkData = (await runInSafeAsync(() => getFireflyBookmarksByIds(FireflyPlatform.NFTs, nftIds))) || [];
 
+    const bookmarkedIds = new Set(bookmarkData.filter((b) => !!b.has_book_marked).map((b) => b.post_id.toLowerCase()));
     return assets.map((item) => ({
         ...item,
-        hasBookmarked: bookmarkData.some(
-            (bookmark) => bookmark.post_id.toLowerCase() === resolveNFTIdFromAsset(item) && !!bookmark.has_book_marked,
-        ),
+        hasBookmarked: bookmarkedIds.has(resolveNFTIdFromAsset(item).toLowerCase()),
     }));
 }

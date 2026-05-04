@@ -181,7 +181,8 @@ export class MarketsWebSocketProvider {
     }
 
     public subscribeToMarket(assetsIds: string[], callback: (message?: MarketMessage) => void) {
-        this.assetsIds = assetsIds;
+        const newIds = assetsIds.filter((id) => !this.assetsIds.includes(id));
+        if (newIds.length) this.assetsIds = [...this.assetsIds, ...newIds];
         this.onEventCallbacks.push(callback);
 
         if (this.ws && this.ws.readyState === WebSocket.OPEN) {

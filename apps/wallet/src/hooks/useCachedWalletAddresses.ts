@@ -25,6 +25,8 @@ function getInitialCache(): WalletAddressCache | null {
     return getLatestValidWalletCache();
 }
 
+const EMBEDDED_WALLET_NAME = 'Embedded';
+
 export function useCachedWalletAddresses(): CachedWalletAddresses {
     const { isPrivyReady, evmAddress, solanaAddress } = usePrivyWallet();
 
@@ -41,18 +43,14 @@ export function useCachedWalletAddresses(): CachedWalletAddresses {
         clearExpiredCaches();
     }, [clearExpiredCaches]);
 
-    // Wallet names from Privy
-    const evmWalletName = 'Embedded';
-    const solanaWalletName = 'Embedded';
-
     return useMemo(() => {
         // If Privy is ready, use live addresses
         if (isPrivyReady) {
             return {
                 evmAddress,
                 solanaAddress,
-                evmWalletName,
-                solanaWalletName,
+                evmWalletName: EMBEDDED_WALLET_NAME,
+                solanaWalletName: EMBEDDED_WALLET_NAME,
                 isFromCache: false,
                 isPrivyReady: true,
                 isLoading: false,
@@ -67,13 +65,13 @@ export function useCachedWalletAddresses(): CachedWalletAddresses {
         return {
             evmAddress: evmAddressInCache,
             solanaAddress: solanaAddressInCache,
-            evmWalletName,
-            solanaWalletName,
+            evmWalletName: EMBEDDED_WALLET_NAME,
+            solanaWalletName: EMBEDDED_WALLET_NAME,
             isFromCache: hasCache,
             isPrivyReady: false,
             isLoading: !hasCache,
         };
-    }, [isPrivyReady, initialCache, evmWalletName, solanaWalletName, evmAddress, solanaAddress]);
+    }, [isPrivyReady, initialCache, evmAddress, solanaAddress]);
 }
 
 export function useCachedEvmAddress(): string | null {

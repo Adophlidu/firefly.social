@@ -1,7 +1,7 @@
 'use client';
 
 import { t } from '@lingui/core/macro';
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useCopyToClipboard } from 'usehooks-ts';
 
 import { enqueueSuccessMessage, type MessageOptions } from '@/helpers/enqueueMessage.js';
@@ -19,6 +19,10 @@ export function useCopyText(
 
     const [copied, setCopied] = useState(false);
     const [, copyToClipboard] = useCopyToClipboard();
+
+    useEffect(() => {
+        return () => clearTimeout(timerRef.current);
+    }, []);
 
     const handleCopy = useCallback(
         (immediateText?: string, immediateOptions?: ImmediateOptions) => {
