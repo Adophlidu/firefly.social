@@ -9,8 +9,8 @@ import { useAsyncFn } from 'react-use';
 
 import { Image } from '@/components/Image.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { formatTokenItemAmount } from '@/helpers/formatTokenItemAmount.js';
 import { TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
+import { formatTokenItemAmount } from '@/helpers/formatTokenItemAmount.js';
 import { resolveNetworkProvider } from '@/helpers/resolveTokenTransfer.js';
 import { useTipsStore } from '@/store/useTipsStore.js';
 

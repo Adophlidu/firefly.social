@@ -1,4 +1,4 @@
-import { runInSafeAsync } from '@dimensiondev/utils';
+import { removeTrailingZeros,runInSafeAsync  } from '@dimensiondev/utils';
 import { resolveWagmiChain } from '@dimensiondev/web3/chains';
 import { leftShift } from '@dimensiondev/web3/numbers';
 import { useQueries } from '@tanstack/react-query';
@@ -11,7 +11,6 @@ import { useShallow } from 'zustand/shallow';
 import { queryClient } from '@/configs/queryClient.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { formatCustomTokenToTipsToken } from '@/helpers/formatCustomTokenToTipsToken.js';
-import { removeTrailingZeros } from '@dimensiondev/utils';
 import { getFungibleTokenPrice } from '@/providers/coingecko/getFungibleTokenPrice.js';
 import type { Token as TipsToken } from '@/providers/types/Transfer.js';
 import { CustomTokenType, useCustomTokenStore } from '@/store/useCustomTokenStore.js';

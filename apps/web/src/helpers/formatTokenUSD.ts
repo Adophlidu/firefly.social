@@ -1,6 +1,5 @@
-import { isZero } from '@dimensiondev/web3/numbers';
-
 import { removeTrailingZeros } from '@dimensiondev/utils';
+import { isZero } from '@dimensiondev/web3/numbers';
 
 /**
  * Format USD amount according to the following rules:

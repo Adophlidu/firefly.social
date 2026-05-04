@@ -1,6 +1,7 @@
 import betImageFallback from '@dimensiondev/assets/bet-image-fallback.svg?url';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
+import { formatPriceToCents } from '@dimensiondev/utils';
 import { multipliedBy, safe } from '@dimensiondev/web3/numbers';
 import { Trans } from '@lingui/react/macro';
 import {
@@ -26,7 +27,6 @@ import {
 import { Image } from '@/components/Image.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { Button } from '@/components/ui/button.js';
-import { formatPriceToCents } from '@dimensiondev/utils';
 import { formatTokenItemAmount } from '@/helpers/formatTokenItemAmount.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { cn } from '@/lib/utils.js';
