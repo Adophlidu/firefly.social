@@ -4,5 +4,5 @@ import type { CoinGeckoPlatform } from '@/providers/types/CoinGecko.js';
 
 export async function getSupportedPlatforms() {
     const response = await fetchJson<CoinGeckoPlatform[]>(`${COINGECKO_ROOT_URL}/asset_platforms`);
-    return response.filter((x) => x.id && x.chain_identifier) ?? [];
+    return response.filter((x) => x.id) || [];
 }

@@ -71,12 +71,28 @@ export type Runtime =
     | 'stellar'
     | 'the-open-network'
     | 'tron'
-    | 'zksync';
+    | 'zksync'
+    | 'monad'
+    | 'moonriver'
+    | 'sui'
+    | 'xrp'
+    | 'sonic'
+    | 'ink'
+    | 'unichain'
+    | 'xdc-network'
+    | 'hyperevm'
+    | 'plume-network'
+    | 'sei-v2'
+    | 'world-chain'
+    | 'morph-l2'
+    | 'starknet'
+    | 'aptos';
 
 export interface Contract {
     runtime: Runtime;
     /** patched at runtime */
     chainId?: number;
+    chainName: string;
     address: string;
     icon_url?: string;
 }

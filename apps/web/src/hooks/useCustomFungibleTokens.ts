@@ -1,4 +1,4 @@
-import { removeTrailingZeros,runInSafeAsync  } from '@dimensiondev/utils';
+import { removeTrailingZeros, runInSafeAsync } from '@dimensiondev/utils';
 import { resolveWagmiChain } from '@dimensiondev/web3/chains';
 import { leftShift } from '@dimensiondev/web3/numbers';
 import { useQueries } from '@tanstack/react-query';

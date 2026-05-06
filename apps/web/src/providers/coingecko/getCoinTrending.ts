@@ -5,7 +5,7 @@ import { resolveCoinGeckoChainId } from '@/helpers/resolveCoinGeckoChainId.js';
 import { getCoinInfo } from '@/providers/coingecko/getCoinInfo.js';
 import { getSupportedPlatforms } from '@/providers/coingecko/getSupportedPlatforms.js';
 import { trendingModifiers } from '@/providers/coingecko/trendingModifiers.js';
-import { type Contract, type Trending, TrendingProvider } from '@/providers/types/Trending.js';
+import { type Contract, type Runtime, type Trending, TrendingProvider } from '@/providers/types/Trending.js';
 
 export async function getCoinTrending(coinId: string): Promise<Trending> {
     const info = await getCoinInfo(coinId);
@@ -19,11 +19,16 @@ export async function getCoinTrending(coinId: string): Promise<Trending> {
         : '';
     const platforms = await getSupportedPlatforms();
     const contracts: Contract[] = Object.entries(info.platforms)
-        .map(([runtime, address]) => ({
-            chainId: platforms.find((x) => x.id === runtime)?.chain_identifier ?? resolveCoinGeckoChainId(runtime),
-            address,
-            runtime,
-        }))
+        .map(([runtime, address]): Contract => {
+            const platform = platforms.find((x) => x.id === runtime);
+            return {
+                chainId: platform?.chain_identifier ?? resolveCoinGeckoChainId(runtime),
+                address,
+                runtime: runtime as Runtime,
+                chainName: platform?.name || runtime,
+                icon_url: platform?.image.small,
+            };
+        })
         .filter((x) => x.address) as Contract[];
 
     const trending: Trending = {
