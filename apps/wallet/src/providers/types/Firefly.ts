@@ -48,7 +48,7 @@ export interface TransactionHistoryToken {
     address: string;
     symbol: string;
     name: string;
-    logo: string;
+    logo: string | null;
     decimal: number;
     price: string;
 }
@@ -73,7 +73,7 @@ export interface TransactionHistoryNFTAction {
         symbol: string;
         name: string;
         token_id: string;
-        logo: string;
+        logo: string | null;
     };
     amount: string;
     user_address: string;

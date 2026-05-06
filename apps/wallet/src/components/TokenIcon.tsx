@@ -9,13 +9,12 @@ import { cn } from '@/lib/utils.js';
 export interface TokenIconProps extends HTMLProps<HTMLSpanElement> {
     networkType?: NetworkType;
     chainId?: number;
-    address?: string;
     name?: string;
     symbol?: string;
     /** icon url */
-    icon?: string;
+    icon?: string | null;
     /** badge icon url */
-    badgeIcon?: string;
+    badgeIcon?: string | null;
     roundedSquareBadge?: boolean;
     size?: number;
     badgeSize?: number;
@@ -26,7 +25,6 @@ export interface TokenIconProps extends HTMLProps<HTMLSpanElement> {
 export const TokenIcon = memo(function TokenIcon({
     networkType,
     chainId,
-    address,
     icon,
     badgeIcon,
     roundedSquareBadge,

@@ -1,18 +1,9 @@
-import ClipboardTextIcon from '@dimensiondev/assets/clipboard-text.svg';
-import Receive from '@dimensiondev/assets/download1.svg';
-import Interaction from '@dimensiondev/assets/interaction.svg';
-import Revoke from '@dimensiondev/assets/revoke.svg';
-import Send from '@dimensiondev/assets/send1.svg';
-import Approve from '@dimensiondev/assets/tick-circle.svg';
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
-import { safeUnreachable } from '@dimensiondev/utils';
-import { getChainName, solana } from '@dimensiondev/web3/chains';
-import { NetworkType } from '@dimensiondev/web3/enums';
-import { formatAddress, getBlockExplorersURL } from '@dimensiondev/web3/utils';
+import { getChainName } from '@dimensiondev/web3/chains';
+import { formatAddress } from '@dimensiondev/web3/utils';
 import { Select, Trans } from '@lingui/react/macro';
 import { Link, useNavigate } from '@tanstack/react-router';
-import { first } from 'lodash-es';
-import { memo, type MouseEvent, useCallback, useMemo } from 'react';
+import { memo, type MouseEvent, type ReactNode, useCallback, useMemo } from 'react';
 import type { Address } from 'viem';
 import { mainnet } from 'viem/chains';
 import { useEnsName } from 'wagmi';
@@ -25,11 +16,19 @@ import { InlineTarget } from '@/components/TransactionDetailModal/InlineTarget.j
 import { TokenInfoRow } from '@/components/TransactionDetailModal/TokenInfoRow.js';
 import { TransactionDate } from '@/components/TransactionDetailModal/TransactionDate.js';
 import { TxLink } from '@/components/TransactionDetailModal/TxLink.js';
+import {
+    buildTransactionPresentation,
+    TransactionAssetRowLabel,
+    TransactionCategoryIcon,
+    TransactionContractFallbackIcon,
+    TransactionDetailActionLabel,
+    TransactionDetailPreposition,
+    type TransactionPresentation,
+    TransactionProjectLogo,
+} from '@/components/TransactionPresentation.js';
 import { Source } from '@/constants/enum.js';
-import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
-import { isUnlimit } from '@/helpers/isUnlimit.js';
 import { cn } from '@/lib/utils.js';
 import {
     TransactionHistoryCategory,
@@ -42,200 +41,163 @@ export interface TransactionDetailContentProps {
     onClose?: () => void;
 }
 
-const TransactionCategoryIcon = memo(function TransactionCategoryIcon({
-    category,
+export const TransactionDetailContentCard = memo(function TransactionDetailContentCard({
+    presentation,
+    onNavigate,
 }: {
-    category: TransactionHistoryCategory;
+    presentation: TransactionPresentation;
+    onNavigate?: (href: string) => void;
 }) {
-    switch (category) {
-        case TransactionHistoryCategory.TokenReceive:
-            return <Receive className="size-3" />;
-        case TransactionHistoryCategory.TokenSend:
-            return <Send className="size-3" />;
-        case TransactionHistoryCategory.TokenApprove:
-            return <Approve className="size-3" />;
-        case TransactionHistoryCategory.ContractInteraction:
-            return <Interaction className="size-3" />;
-        case TransactionHistoryCategory.TokenRevoke:
-            return <Revoke className="size-3" />;
-        case TransactionHistoryCategory.TokenSwap:
-            return <Interaction className="size-3" />;
-        case TransactionHistoryCategory.NftReceive:
-            return <Receive className="size-3" />;
-        case TransactionHistoryCategory.NftSend:
-            return <Send className="size-3" />;
-        case TransactionHistoryCategory.NftMint:
-            return <Interaction className="size-3" />;
-        case TransactionHistoryCategory.TokenBridge:
-            return <Interaction className="size-3" />;
-        default:
-            safeUnreachable(category);
-            return <Interaction className="size-3" />;
-    }
+    if (!presentation.assetRows.length) return null;
+
+    return (
+        <div>
+            {presentation.assetRows.map((row) => (
+                <TokenInfoRow
+                    key={row.id}
+                    chainId={row.chainId}
+                    label={<TransactionAssetRowLabel label={row.label} />}
+                    tokenLogo={row.tokenLogo}
+                    tokenSymbol={row.tokenSymbol}
+                    tokenName={row.tokenName}
+                    amountText={row.amountText}
+                    amountPrefix={row.amountPrefix}
+                    amountClassName={row.amountClassName}
+                    showLabelMarginTop={row.showLabelMarginTop}
+                    amount={row.amount}
+                    price={row.price}
+                    address={row.address}
+                    onNavigate={onNavigate}
+                />
+            ))}
+        </div>
+    );
 });
 
-export const TransactionDetailContentCard = memo(function TransactionDetailContentCard({
+function WalletAvatar({ address, className, size = 40 }: { address?: string; className?: string; size?: number }) {
+    if (!address) {
+        return (
+            <span
+                className={cn('bg-bg inline-block rounded-full', className)}
+                style={{
+                    width: size,
+                    height: size,
+                }}
+            />
+        );
+    }
+
+    return (
+        <Image
+            width={size}
+            height={size}
+            src={getStampAvatarByProfileId(Source.Wallet, address)}
+            alt={formatAddress(address, 4).toLowerCase()}
+            className={cn('rounded-full', className)}
+        />
+    );
+}
+
+function DetailAddressValue({
+    chainId,
+    address,
+    avatarAddress,
+    logo,
+}: {
+    chainId: number;
+    address?: string;
+    avatarAddress?: string;
+    logo?: ReactNode;
+}) {
+    return (
+        <span className="flex items-center gap-1">
+            {avatarAddress ? <WalletAvatar address={avatarAddress} className="size-5" size={20} /> : logo}
+            {address ? (
+                <AddressLink chainId={chainId} address={address} />
+            ) : (
+                <span className="text-main text-sm font-medium">--</span>
+            )}
+        </span>
+    );
+}
+
+function TransactionDetailSubtitle({
     transaction,
+    presentation,
+    fromEnsHandle,
+    toEnsHandle,
+    fromAddressName,
+    toAddressName,
     onNavigate,
 }: {
     transaction: TransactionHistoryItem;
-    onNavigate?: (href: string) => void;
+    presentation: TransactionPresentation;
+    fromEnsHandle?: string | null;
+    toEnsHandle?: string | null;
+    fromAddressName?: string;
+    toAddressName?: string;
+    onNavigate: (href?: string) => void;
 }) {
-    switch (transaction.category) {
-        case TransactionHistoryCategory.TokenReceive: {
-            const token = first(transaction.token_receives);
-            if (!token) return null;
-            return (
-                <TokenInfoRow
-                    chainId={transaction.chain_id}
-                    label={<Trans>Received</Trans>}
-                    tokenLogo={token?.token.logo ?? null}
-                    tokenSymbol={token?.token.symbol ?? null}
-                    tokenName={token?.token.name ?? null}
-                    amountText={token?.amount ? renderShrankPrice(formatPrice(token.amount) ?? '') : null}
-                    amountPrefix="+"
-                    amountClassName="text-success"
-                    amount={token?.amount}
-                    price={token?.token.price}
-                    onNavigate={onNavigate}
-                />
-            );
-        }
-        case TransactionHistoryCategory.TokenSend: {
-            const token = first(transaction.token_sends);
-            if (!token) return null;
-            return (
-                <TokenInfoRow
-                    chainId={transaction.chain_id}
-                    label={<Trans>Sent</Trans>}
-                    tokenLogo={token?.token.logo ?? null}
-                    tokenSymbol={token?.token.symbol ?? null}
-                    tokenName={token?.token.name ?? null}
-                    amountText={token?.amount ? renderShrankPrice(formatPrice(token.amount) ?? '') : null}
-                    amountPrefix="-"
-                    amountClassName="text-main"
-                    amount={token?.amount}
-                    price={token?.token.price}
-                    onNavigate={onNavigate}
-                />
-            );
-        }
-        case TransactionHistoryCategory.TokenApprove: {
-            const token = transaction.token_approve?.token;
-            if (!token) return null;
-            return (
-                <TokenInfoRow
-                    chainId={transaction.chain_id}
-                    label={<Trans>Approved</Trans>}
-                    tokenLogo={token?.logo ?? null}
-                    tokenSymbol={token?.symbol ?? null}
-                    tokenName={token?.name ?? null}
-                    amountText={null}
-                    amountPrefix=""
-                    amountClassName="text-main"
-                    price={token?.price}
-                    address={token?.address}
-                    onNavigate={onNavigate}
-                />
-            );
-        }
-        case TransactionHistoryCategory.TokenRevoke: {
-            const token = transaction.token_approve?.token;
-            if (!token) return null;
-            return (
-                <TokenInfoRow
-                    chainId={transaction.chain_id}
-                    label={<Trans>Revoked</Trans>}
-                    tokenLogo={token?.logo ?? null}
-                    tokenSymbol={token?.symbol ?? null}
-                    tokenName={token?.name ?? null}
-                    amountText={
-                        transaction.token_approve?.amount ? (
-                            isUnlimit(transaction.token_approve.amount) ? (
-                                <Trans>Unlimit {transaction.token_approve.token.symbol}</Trans>
-                            ) : (
-                                renderShrankPrice(formatPrice(transaction.token_approve.amount) ?? '')
-                            )
-                        ) : null
-                    }
-                    amountPrefix=""
-                    amountClassName="text-main"
-                    price={token?.price}
-                    address={token?.address}
-                    onNavigate={onNavigate}
-                />
-            );
-        }
-        case TransactionHistoryCategory.TokenSwap:
-        case TransactionHistoryCategory.ContractInteraction:
-        case TransactionHistoryCategory.TokenBridge: {
-            const sentToken = first(transaction.token_sends);
-            const receivedToken = first(transaction.token_receives);
-            return (
-                <div>
-                    {sentToken ? (
-                        <TokenInfoRow
-                            chainId={transaction.chain_id}
-                            label={<Trans>Sent</Trans>}
-                            tokenLogo={sentToken?.token.logo ?? null}
-                            tokenSymbol={sentToken?.token.symbol ?? null}
-                            tokenName={sentToken?.token.name ?? null}
-                            amountText={
-                                sentToken?.amount ? renderShrankPrice(formatPrice(sentToken.amount) ?? '') : null
-                            }
-                            amountPrefix="-"
-                            amountClassName="text-main"
-                            amount={sentToken?.amount}
-                            price={sentToken?.token.price}
-                            address={sentToken?.token.address}
-                            onNavigate={onNavigate}
-                        />
-                    ) : null}
+    const target = presentation.subtitleTarget;
+    if (!target) return null;
 
-                    {receivedToken ? (
-                        <TokenInfoRow
-                            chainId={transaction.chain_id}
-                            label={<Trans>Received</Trans>}
-                            tokenLogo={receivedToken?.token.logo ?? null}
-                            tokenSymbol={receivedToken?.token.symbol ?? null}
-                            tokenName={receivedToken?.token.name ?? null}
-                            amountText={
-                                receivedToken?.amount
-                                    ? renderShrankPrice(formatPrice(receivedToken.amount) ?? '')
-                                    : null
-                            }
-                            amountPrefix="+"
-                            amountClassName="text-success"
-                            showLabelMarginTop
-                            amount={receivedToken?.amount}
-                            price={receivedToken?.token.price}
-                            address={receivedToken?.token.address}
-                            onNavigate={onNavigate}
-                        />
-                    ) : null}
-                </div>
-            );
-        }
-        case TransactionHistoryCategory.NftReceive:
-        case TransactionHistoryCategory.NftSend:
-        case TransactionHistoryCategory.NftMint:
-            return null;
-        default:
-            safeUnreachable(transaction.category);
-            return null;
+    let href: string | undefined;
+    let logo: ReactNode;
+    let text: ReactNode = '--';
+
+    if (target.type === 'from-wallet') {
+        href = target.address ? getProfileUrl({ source: Source.Wallet, profileId: target.address }) : undefined;
+        logo = target.address ? <WalletAvatar address={target.address} className="size-5" size={20} /> : undefined;
+        text = fromEnsHandle ?? fromAddressName ?? '--';
+    } else if (target.type === 'to-wallet') {
+        href = target.address ? getProfileUrl({ source: Source.Wallet, profileId: target.address }) : undefined;
+        logo = target.address ? <WalletAvatar address={target.address} className="size-5" size={20} /> : undefined;
+        text = toEnsHandle ?? toAddressName ?? '--';
+    } else if (target.type === 'project') {
+        href = target.address ? getProfileUrl({ source: Source.Wallet, profileId: target.address }) : undefined;
+        logo = target.logo ? <TransactionProjectLogo src={target.logo} alt={target.name} /> : undefined;
+        text =
+            target.name ?? target.rawText ?? (target.address ? formatAddress(target.address, 4).toLowerCase() : '--');
+    } else {
+        href = target.address ? getProfileUrl({ source: Source.Wallet, profileId: target.address }) : undefined;
+        logo = target.logo ? (
+            <TransactionProjectLogo src={target.logo} alt={transaction.project_name} />
+        ) : (
+            <TransactionContractFallbackIcon />
+        );
+        text = target.address ? formatAddress(target.address, 4).toLowerCase() : '--';
     }
-});
+
+    const targetNode = href ? (
+        <InlineTarget href={href} logo={logo} text={text} onNavigate={onNavigate} />
+    ) : (
+        <span className="flex items-center gap-x-1">
+            {logo}
+            <span className="text-sm font-semibold leading-[18px]">{text}</span>
+        </span>
+    );
+
+    return (
+        <>
+            <div className="border-main text-main flex items-center rounded-lg border px-2 py-[2px]">
+                <TransactionCategoryIcon category={transaction.category} />
+                <span className="text-sm">
+                    <TransactionDetailActionLabel category={transaction.category} />
+                </span>
+            </div>
+            <span className="text-xs leading-[12px]">
+                <TransactionDetailPreposition category={transaction.category} />
+            </span>
+            {targetNode}
+        </>
+    );
+}
 
 export default memo(function TransactionDetailContent({ transaction, onClose }: TransactionDetailContentProps) {
-    const token = first(transaction.token_receives) || first(transaction.token_sends);
-    const profileUrl = getProfileUrl({ source: Source.Wallet, profileId: transaction.from_address });
-
-    const isSolana = transaction.chain_id === solana.id;
-    const fromAddress = transaction.from_address || token?.sender;
-    const toAddress =
-        transaction.category === TransactionHistoryCategory.TokenSend
-            ? token?.recipient
-            : transaction.to_address || token?.recipient;
+    const presentation = useMemo(() => buildTransactionPresentation(transaction), [transaction]);
+    const { fromAddress, toAddress } = presentation;
+    const profileAddress = presentation.profileAddress;
+    const profileUrl = profileAddress ? getProfileUrl({ source: Source.Wallet, profileId: profileAddress }) : undefined;
 
     const fromAddressName = fromAddress ? formatAddress(fromAddress, 4).toLowerCase() : undefined;
     const toAddressName = toAddress ? formatAddress(toAddress, 4).toLowerCase() : undefined;
@@ -244,23 +206,21 @@ export default memo(function TransactionDetailContent({ transaction, onClose }: 
         address: fromAddress as Address,
         chainId: mainnet.id,
         query: {
-            enabled: !isSolana,
+            enabled: !presentation.isSolana && !!fromAddress,
         },
     });
     const { data: toEnsHandle } = useEnsName({
         address: toAddress as Address,
         chainId: mainnet.id,
         query: {
-            enabled: !isSolana,
+            enabled: !presentation.isSolana && !!toAddress,
         },
     });
-
-    const href = getBlockExplorersURL(transaction.chain_id, transaction.hash, 'tx');
 
     const navigate = useNavigate();
 
     const navigateWithinApp = useCallback(
-        (path: string) => {
+        (path?: string) => {
             if (!path) return;
             const isEmbedded = typeof window !== 'undefined' && window.top && window.top !== window;
             if (isEmbedded) {
@@ -273,7 +233,7 @@ export default memo(function TransactionDetailContent({ transaction, onClose }: 
     );
 
     const handleNavigateInternal = useCallback(
-        (path: string) => {
+        (path?: string) => {
             if (!path) return;
             onClose?.();
             navigateWithinApp(path);
@@ -282,7 +242,7 @@ export default memo(function TransactionDetailContent({ transaction, onClose }: 
     );
 
     const handleInternalLinkClick = useCallback(
-        (event: MouseEvent<HTMLAnchorElement>, path: string) => {
+        (event: MouseEvent<HTMLAnchorElement>, path?: string) => {
             if (
                 !path ||
                 event.defaultPrevented ||
@@ -300,201 +260,50 @@ export default memo(function TransactionDetailContent({ transaction, onClose }: 
         [handleNavigateInternal],
     );
 
-    const subtitle = useMemo(() => {
-        if (!fromAddress || !toAddress) return null;
+    const showContractRow =
+        transaction.category === TransactionHistoryCategory.TokenApprove ||
+        transaction.category === TransactionHistoryCategory.TokenRevoke ||
+        transaction.category === TransactionHistoryCategory.ContractInteraction;
 
-        switch (transaction.category) {
-            case TransactionHistoryCategory.TokenReceive:
-                return (
-                    <Trans>
-                        <div className="border-main text-main flex items-center rounded-lg border px-2 py-[2px]">
-                            <TransactionCategoryIcon category={transaction.category} />
-                            <span className="text-sm">Received</span>
-                        </div>
-                        <span className="text-xs leading-[12px]">from</span>
-                        <InlineTarget
-                            href={getProfileUrl({ source: Source.Wallet, profileId: fromAddress })}
-                            logo={
-                                <Image
-                                    src={getStampAvatarByProfileId(Source.Wallet, fromAddress)}
-                                    width={20}
-                                    height={20}
-                                    alt={fromAddressName || ''}
-                                    className="rounded-full"
-                                />
-                            }
-                            text={fromEnsHandle ?? fromAddressName}
-                            onNavigate={(href) => handleNavigateInternal(href)}
-                        />
-                    </Trans>
-                );
-            case TransactionHistoryCategory.TokenSend:
-                return (
-                    <Trans>
-                        <div className="border-main text-main flex items-center rounded-lg border px-2 py-[2px]">
-                            <TransactionCategoryIcon category={transaction.category} />
-                            <span className="text-sm">Sent</span>
-                        </div>
-                        <span className="text-xs leading-[12px]">to</span>
-                        <InlineTarget
-                            href={getProfileUrl({ source: Source.Wallet, profileId: toAddress })}
-                            logo={
-                                <Image
-                                    src={getStampAvatarByProfileId(Source.Wallet, toAddress)}
-                                    width={20}
-                                    height={20}
-                                    alt={toAddressName || ''}
-                                    className="rounded-full"
-                                />
-                            }
-                            text={toEnsHandle ?? toAddressName}
-                            onNavigate={(href) => handleNavigateInternal(href)}
-                        />
-                    </Trans>
-                );
-            case TransactionHistoryCategory.TokenApprove:
-                return (
-                    <Trans>
-                        <div className="border-main text-main flex items-center rounded-lg border px-2 py-[2px]">
-                            <TransactionCategoryIcon category={transaction.category} />
-                            <span className="text-sm">Approved</span>
-                        </div>
-                        <span className="text-xs leading-[12px]">on</span>
-                        <InlineTarget
-                            href={getProfileUrl({
-                                source: Source.Wallet,
-                                profileId: transaction.token_approve?.spender_address ?? toAddress,
-                            })}
-                            logo={
-                                transaction.project_logo ? (
-                                    <Image
-                                        src={transaction.project_logo}
-                                        width={20}
-                                        height={20}
-                                        alt={transaction.project_name}
-                                    />
-                                ) : undefined
-                            }
-                            text={
-                                transaction.project_name ||
-                                formatAddress(transaction.token_approve?.spender_address || '', 4) ||
-                                ''
-                            }
-                            onNavigate={(href) => handleNavigateInternal(href)}
-                        />
-                    </Trans>
-                );
-
-            case TransactionHistoryCategory.TokenRevoke:
-                return (
-                    <Trans>
-                        <div className="border-main text-main flex items-center rounded-lg border px-2 py-[2px]">
-                            <TransactionCategoryIcon category={transaction.category} />
-                            <span className="text-sm">Revoked</span>
-                        </div>
-                        <span className="text-xs leading-[12px]">on</span>
-                        <InlineTarget
-                            href={getProfileUrl({
-                                source: Source.Wallet,
-                                profileId: transaction.token_approve?.spender_address ?? toAddress,
-                            })}
-                            logo={
-                                transaction.project_logo ? (
-                                    <Image
-                                        src={transaction.project_logo}
-                                        width={20}
-                                        height={20}
-                                        alt={transaction.project_name}
-                                    />
-                                ) : undefined
-                            }
-                            text={transaction.token_approve?.spender_address ?? (toAddressName || '')}
-                            onNavigate={(href) => handleNavigateInternal(href)}
-                        />
-                    </Trans>
-                );
-            case TransactionHistoryCategory.TokenSwap:
-            case TransactionHistoryCategory.ContractInteraction:
-            case TransactionHistoryCategory.NftReceive:
-            case TransactionHistoryCategory.NftSend:
-            case TransactionHistoryCategory.NftMint:
-            case TransactionHistoryCategory.TokenBridge: {
-                const logoSrc =
-                    transaction.project_logo ||
-                    first(transaction.token_sends)?.token.logo ||
-                    first(transaction.token_receives)?.token.logo ||
-                    transaction.token_approve?.token.logo;
-                const logoNode = logoSrc ? (
-                    <Image src={logoSrc} width={20} height={20} alt={transaction.project_name} />
-                ) : (
-                    <ClipboardTextIcon className="text-secondary size-3" />
-                );
-                return (
-                    <Trans>
-                        <div className="border-main text-main flex items-center rounded-lg border px-2 py-[2px]">
-                            <TransactionCategoryIcon category={transaction.category} />
-                            <span className="text-sm">Interacted</span>
-                        </div>
-                        <span className="text-xs leading-[12px]">with</span>
-                        <InlineTarget
-                            href={getProfileUrl({ source: Source.Wallet, profileId: toAddress })}
-                            logo={logoNode}
-                            text={toAddressName || ''}
-                            onNavigate={(href) => handleNavigateInternal(href)}
-                        />
-                    </Trans>
-                );
-            }
-            default:
-                safeUnreachable(transaction.category);
-                return null;
-        }
-    }, [
-        transaction,
-        toEnsHandle,
-        toAddress,
-        fromAddress,
-        fromEnsHandle,
-        fromAddressName,
-        toAddressName,
-        handleNavigateInternal,
-    ]);
-
-    if (!fromAddress || !toAddress) return null;
+    const networkName = presentation.isSolana ? 'Solana' : getChainName(transaction.chain_id);
 
     return (
         <div>
             <div className="flex items-center gap-3">
-                <Link
-                    to={profileUrl}
-                    onClick={(event: React.MouseEvent<HTMLAnchorElement>) => handleInternalLinkClick(event, profileUrl)}
-                >
-                    <Image
-                        width={40}
-                        height={40}
-                        src={getStampAvatarByProfileId(Source.Wallet, fromAddress)}
-                        alt={fromAddressName || ''}
-                        className="size-10 rounded-full"
-                    />
-                </Link>
-                <div className="flex flex-col">
+                {profileUrl ? (
+                    <Link
+                        to={profileUrl}
+                        onClick={(event: MouseEvent<HTMLAnchorElement>) => handleInternalLinkClick(event, profileUrl)}
+                    >
+                        <WalletAvatar address={profileAddress} className="size-10" />
+                    </Link>
+                ) : (
+                    <WalletAvatar address={profileAddress} className="size-10" />
+                )}
+                <div className="flex min-w-0 flex-col">
                     <div className="text-medium flex items-center gap-x-1">
-                        <Link
-                            to={profileUrl}
-                            className="text-lightMain min-w-0 truncate text-base font-semibold"
-                            onClick={(event: React.MouseEvent<HTMLAnchorElement>) =>
-                                handleInternalLinkClick(event, profileUrl)
-                            }
-                        >
-                            {fromEnsHandle ? <span>{fromEnsHandle}</span> : fromAddressName}
-                        </Link>
+                        {profileUrl ? (
+                            <Link
+                                to={profileUrl}
+                                className="text-lightMain min-w-0 truncate text-base font-semibold"
+                                onClick={(event: MouseEvent<HTMLAnchorElement>) =>
+                                    handleInternalLinkClick(event, profileUrl)
+                                }
+                            >
+                                {fromEnsHandle ? <span>{fromEnsHandle}</span> : (fromAddressName ?? '--')}
+                            </Link>
+                        ) : (
+                            <span className="text-lightMain min-w-0 truncate text-base font-semibold">
+                                {fromEnsHandle ? <span>{fromEnsHandle}</span> : (fromAddressName ?? '--')}
+                            </span>
+                        )}
                     </div>
                     <div className="text-second flex items-center gap-x-1 text-sm">
-                        {fromEnsHandle ? (
+                        {fromEnsHandle && profileUrl ? (
                             <Link
                                 to={profileUrl}
                                 className="text-second"
-                                onClick={(event: React.MouseEvent<HTMLAnchorElement>) =>
+                                onClick={(event: MouseEvent<HTMLAnchorElement>) =>
                                     handleInternalLinkClick(event, profileUrl)
                                 }
                             >
@@ -504,63 +313,61 @@ export default memo(function TransactionDetailContent({ transaction, onClose }: 
                     </div>
                 </div>
             </div>
-            <div className="mt-3 flex items-center gap-x-2">{subtitle}</div>
+            <div className="mt-3 flex items-center gap-x-2">
+                <TransactionDetailSubtitle
+                    transaction={transaction}
+                    presentation={presentation}
+                    fromEnsHandle={fromEnsHandle}
+                    toEnsHandle={toEnsHandle}
+                    fromAddressName={fromAddressName}
+                    toAddressName={toAddressName}
+                    onNavigate={handleNavigateInternal}
+                />
+            </div>
             <div className="mt-3">
-                <TransactionDetailContentCard transaction={transaction} onNavigate={handleNavigateInternal} />
+                <TransactionDetailContentCard presentation={presentation} onNavigate={handleNavigateInternal} />
             </div>
 
             <div className="mt-5 space-y-3">
                 {transaction.category === TransactionHistoryCategory.TokenSend ? (
-                    <div>
-                        <div className="flex items-center justify-between">
-                            <span className="text-second text-sm">
-                                <Trans>To Address</Trans>
-                            </span>
-                            <span className="flex items-center gap-1">
-                                <Image
-                                    src={getStampAvatarByProfileId(Source.Wallet, toAddress)}
-                                    width={20}
-                                    height={20}
-                                    alt={toAddressName || ''}
-                                    className="rounded-full"
-                                />
-                                <AddressLink chainId={transaction.chain_id} address={toAddress} />
-                            </span>
-                        </div>
+                    <div className="flex items-center justify-between">
+                        <span className="text-second text-sm">
+                            <Trans>To Address</Trans>
+                        </span>
+                        <DetailAddressValue
+                            chainId={transaction.chain_id}
+                            address={toAddress}
+                            avatarAddress={toAddress}
+                        />
                     </div>
                 ) : null}
                 {transaction.category === TransactionHistoryCategory.TokenReceive ? (
-                    <div>
-                        <div className="flex items-center justify-between">
-                            <span className="text-second text-sm">
-                                <Trans>From Address</Trans>
-                            </span>
-                            <span className="flex gap-1">
-                                <AddressLink chainId={transaction.chain_id} address={fromAddress} />
-                            </span>
-                        </div>
+                    <div className="flex items-center justify-between">
+                        <span className="text-second text-sm">
+                            <Trans>From Address</Trans>
+                        </span>
+                        <DetailAddressValue chainId={transaction.chain_id} address={fromAddress} />
                     </div>
                 ) : null}
-                {transaction.category === TransactionHistoryCategory.TokenApprove ||
-                transaction.category === TransactionHistoryCategory.TokenRevoke ||
-                transaction.category === TransactionHistoryCategory.ContractInteraction ? (
-                    <div>
-                        <div className="flex items-center justify-between">
-                            <span className="text-second text-sm">
-                                <Trans>Contract</Trans>
-                            </span>
-                            <span className="flex gap-1">
-                                {transaction.project_logo ? (
+                {showContractRow ? (
+                    <div className="flex items-center justify-between">
+                        <span className="text-second text-sm">
+                            <Trans>Contract</Trans>
+                        </span>
+                        <DetailAddressValue
+                            chainId={transaction.chain_id}
+                            address={presentation.contractAddress}
+                            logo={
+                                transaction.project_logo ? (
                                     <Image
                                         src={transaction.project_logo}
                                         alt={transaction.project_name}
                                         width={20}
                                         height={20}
                                     />
-                                ) : null}
-                                <AddressLink chainId={transaction.chain_id} address={toAddress} />
-                            </span>
-                        </div>
+                                ) : undefined
+                            }
+                        />
                     </div>
                 ) : null}
                 <div className="flex items-center justify-between">
@@ -573,7 +380,7 @@ export default memo(function TransactionDetailContent({ transaction, onClose }: 
                     <span className="text-second text-sm">
                         <Trans>Block</Trans>
                     </span>
-                    <span className="text-main text-sm font-medium">{transaction.block_number}</span>
+                    <span className="text-main text-sm font-medium">{transaction.block_number || '--'}</span>
                 </div>
                 <div className="flex items-center justify-between">
                     <span className="text-second text-sm">
@@ -582,14 +389,12 @@ export default memo(function TransactionDetailContent({ transaction, onClose }: 
                     <span
                         className={cn('flex items-center gap-2 text-sm font-medium', {
                             'text-success': transaction.tx_status === TransactionState.Success,
-
                             'text-danger': transaction.tx_status === TransactionState.Failed,
                         })}
                     >
                         <div
                             className={cn('size-1 rounded-full', {
                                 'bg-success': transaction.tx_status === TransactionState.Success,
-
                                 'bg-danger': transaction.tx_status === TransactionState.Failed,
                             })}
                         />
@@ -601,14 +406,8 @@ export default memo(function TransactionDetailContent({ transaction, onClose }: 
                         <Trans>Network</Trans>
                     </span>
                     <div className="flex items-center gap-1">
-                        <ChainIcon
-                            chainId={transaction.chain_id}
-                            size={20}
-                            networkType={transaction.chain_id === 101 ? NetworkType.Solana : NetworkType.Ethereum}
-                        />
-                        <span className="text-lightMain text-sm font-medium">
-                            {transaction.chain_id === 101 ? 'Solana' : getChainName(transaction.chain_id)}
-                        </span>
+                        <ChainIcon chainId={transaction.chain_id} size={20} networkType={presentation.networkType} />
+                        <span className="text-lightMain text-sm font-medium">{networkName}</span>
                     </div>
                 </div>
                 <div className="flex items-center justify-between">
@@ -623,9 +422,10 @@ export default memo(function TransactionDetailContent({ transaction, onClose }: 
 
             <div className="mt-6 md:mt-6">
                 <ClickableButton
+                    disabled={!presentation.explorerUrl}
                     className="bg-lightMain text-primaryBottom fixed bottom-6 left-1/2 z-20 flex h-12 w-[calc(100%-32px)] -translate-x-1/2 items-center justify-center rounded-xl text-sm font-bold shadow-lg md:static md:h-10 md:w-full md:translate-x-0 md:rounded-lg md:shadow-none"
                     onClick={() => {
-                        window.open(href, '_blank');
+                        if (presentation.explorerUrl) window.open(presentation.explorerUrl, '_blank');
                     }}
                 >
                     <Trans>View on Explorer</Trans>

@@ -56,9 +56,6 @@ msgstr "地址、ENS 或社交帳號"
 msgid "Your recovery phrase is like a password, keep it secret."
 msgstr "助記詞等同於最高控制權限，請嚴格保密。"
 
-msgid "<0><1/><2>Interacted</2></0><3>with</3><4/>"
-msgstr "<0><1/><2>互動</2></0><3>對象</3><4/>"
-
 msgid "Low on balance? Your Firefly Wallet can automatically cover the rest."
 msgstr "餘額不足？您的 Firefly 錢包可以自動補足差額。"
 
@@ -156,7 +153,7 @@ msgstr "已複製"
 msgid "Total"
 msgstr "總計"
 
-#. placeholder {0}: item.project_name
+#. placeholder {0}: subtitle.projectName
 msgid "via {0}"
 msgstr "透過 {0}"
 
@@ -239,6 +236,9 @@ msgstr "連接時間較長，請稍候"
 msgid "Predict Wallet Pay"
 msgstr "預測錢包支付"
 
+msgid "with"
+msgstr ""
+
 msgid "Shares"
 msgstr "份額"
 
@@ -311,6 +311,9 @@ msgstr "交易被拒絕。"
 msgid "Cancel"
 msgstr "取消"
 
+msgid "to"
+msgstr ""
+
 msgid "Done"
 msgstr "完成"
 
@@ -365,6 +368,9 @@ msgstr "返回投注"
 msgid "Please login to view security settings."
 msgstr ""
 
+msgid "on"
+msgstr ""
+
 msgid "Receive at least"
 msgstr "至少收到"
 
@@ -391,6 +397,9 @@ msgstr "自定義 (0.5-100%)"
 
 msgid "Upgrade your Firefly prediction account NOW to ensure your predictions continue seamlessly."
 msgstr "立即升級您的 Firefly 預測帳戶，確保您的預測活動無縫延續。"
+
+msgid "from"
+msgstr ""
 
 msgid "Set PIN Code"
 msgstr ""
@@ -432,6 +441,10 @@ msgstr "收款錢包"
 
 msgid "Claimed"
 msgstr "已領取"
+
+#. placeholder {0}: token.symbol
+msgid "Unlimited {0}"
+msgstr ""
 
 msgid "Next"
 msgstr ""
@@ -590,13 +603,9 @@ msgstr "資產組合"
 msgid "{betText} • Won <0>{wonText}({pctText})</0>"
 msgstr "{betText} • 獲利 <0>{wonText}({pctText})</0>"
 
-#. placeholder {0}: item.project_name || formatAddress(address, 4)
-#. placeholder {0}: item.project_name || formatAddress(nft?.nft.address || item.to_address, 4)
+#. placeholder {0}: subtitle.text ?? '--'
 msgid "With <0>{0}</0>"
 msgstr "使用 <0>{0}</0>"
-
-msgid "<0><1/><2>Sent</2></0><3>to</3><4/>"
-msgstr "<0><1/><2>發送</2></0><3>至</3><4/>"
 
 msgid "Resend"
 msgstr ""
@@ -609,9 +618,6 @@ msgstr "全部"
 
 msgid "Search symbol or contract"
 msgstr "搜尋代號或合約地址"
-
-msgid "<0><1/><2>Received</2></0><3>from</3><4/>"
-msgstr "<0><1/><2>接收</2></0><3>來自</3><4/>"
 
 msgid "Failed to add funds."
 msgstr "充值失敗。"
@@ -682,9 +688,6 @@ msgstr "可用：{availableText}"
 msgid "Confirming..."
 msgstr "確認中..."
 
-msgid "<0><1/><2>Approved</2></0><3>on</3><4/>"
-msgstr "<0><1/><2>已授權</2></0><3>於</3><4/>"
-
 msgid "Failed to release"
 msgstr "待釋放資產"
 
@@ -712,8 +715,7 @@ msgstr "用戶已拒絕交易"
 msgid "Polymarket V2 is now live. Release your available balance of {releaseAmountText} USDC.e as pUSD to keep your predictions going."
 msgstr "Polymarket V2 現已上線。將您可用的 {releaseAmountText} USDC.e 釋放為 pUSD，以繼續進行預測。"
 
-#. placeholder {0}: formatAddress(address, 4)
-#. placeholder {0}: formatAddress(nft.sender, 4)
+#. placeholder {0}: subtitle.text ?? '--'
 msgid "From <0>{0}</0>"
 msgstr "來自 <0>{0}</0>"
 
@@ -723,12 +725,7 @@ msgstr "進入您的預測錢包"
 msgid "Cancelled."
 msgstr "已取消。"
 
-#. placeholder {0}: transaction.token_approve.token.symbol
-msgid "Unlimit {0}"
-msgstr "解除 {0} 限制"
-
-#. placeholder {0}: formatAddress(nft.recipient, 4)
-#. placeholder {0}: formatAddress(token.recipient, 4)
+#. placeholder {0}: subtitle.text ?? '--'
 msgid "To <0>{0}</0>"
 msgstr "至 <0>{0}</0>"
 
@@ -788,7 +785,7 @@ msgstr "狀態"
 msgid "PIN is too weak. Avoid repeated digits."
 msgstr ""
 
-#. placeholder {0}: item.project_name
+#. placeholder {0}: subtitle.projectName
 msgid "on {0}"
 msgstr "在 {0}"
 
@@ -906,9 +903,6 @@ msgstr ""
 
 msgid "Add Funds"
 msgstr "充值/注資"
-
-msgid "<0><1/><2>Revoked</2></0><3>on</3><4/>"
-msgstr "<0><1/><2>已撤銷</2></0><3>於</3><4/>"
 
 msgid "NFT Sent Failed"
 msgstr "發送 NFT 失敗"
