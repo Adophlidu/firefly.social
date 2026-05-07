@@ -154,7 +154,7 @@ export function PositionCard({ position, showAction = true }: { position: Polyma
             ) : showAction && !position.isClaimable && !position.is_closed ? (
                 <Button
                     size="lg"
-                    className="hover:bg-highlight w-full font-bold"
+                    className="hover:bg-highlight w-full rounded-[10px] font-bold"
                     colorPattern="purple"
                     type="button"
                     onClick={navigateToSell}

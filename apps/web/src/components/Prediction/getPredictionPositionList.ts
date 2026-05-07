@@ -5,6 +5,7 @@ import { PredictionPlatform } from '@/constants/enum.js';
 import { getClosedPositions } from '@/providers/firefly/prediction/getClosedPositions.js';
 import { getCurrentPositions } from '@/providers/firefly/prediction/getCurrentPositions.js';
 import { getPredictionHistoryList } from '@/providers/firefly/prediction/getPredictionHistoryList.js';
+import { getRedeemablePositions } from '@/providers/firefly/prediction/getRedeemablePositions.js';
 import type { PolymarketPositionV2Data } from '@/providers/types/Firefly.js';
 import type { PredictionPositionDataForUI } from '@/types/prediction.js';
 
@@ -61,11 +62,35 @@ export async function getPredictionPositionList(
         case PredictionPlatform.Polymarket: {
             const { positionType = 'current', address, indicator, limit, eventId } = options;
             const isClosed = positionType === 'closed';
-            const fetcher = isClosed ? getClosedPositions : getCurrentPositions;
-            const result = await fetcher({ address, indicator, limit, eventId });
+
+            if (isClosed) {
+                const isFirstPage = !indicator?.id;
+                const [redeemableResult, closedResult] = await Promise.all([
+                    isFirstPage ? getRedeemablePositions({ address, eventId }) : Promise.resolve([]),
+                    getClosedPositions({ address, indicator, limit, eventId }),
+                ]);
+
+                const redeemableUI = redeemableResult.map((p) => mapV2ToUI(p, true));
+                const closedUI = closedResult.data.map((p) => mapV2ToUI(p, true));
+
+                // Deduplicate by conditionId (redeemable positions take priority)
+                const seen = new Set<string>();
+                const merged = [...redeemableUI, ...closedUI].filter((p) => {
+                    if (seen.has(p.conditionId)) return false;
+                    seen.add(p.conditionId);
+                    return p.shares > 0;
+                });
+
+                return {
+                    ...closedResult,
+                    data: merged,
+                };
+            }
+
+            const result = await getCurrentPositions({ address, indicator, limit, eventId });
             return {
                 ...result,
-                data: result.data.map((position) => mapV2ToUI(position, isClosed)),
+                data: result.data.map((position) => mapV2ToUI(position, false)),
             };
         }
         case PredictionPlatform.Opinion: {

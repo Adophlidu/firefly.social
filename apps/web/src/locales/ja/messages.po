@@ -982,6 +982,9 @@ msgstr ""
 msgid "No predictions found"
 msgstr ""
 
+msgid "Won"
+msgstr ""
+
 msgid "Edit profile"
 msgstr ""
 
@@ -1363,6 +1366,9 @@ msgid "<0/>EVM wallets"
 msgstr ""
 
 msgid "{addressName} is already connected."
+msgstr ""
+
+msgid "Total trade"
 msgstr ""
 
 #. placeholder {0}: outcome.label
@@ -4591,6 +4597,7 @@ msgid "Select Token"
 msgstr ""
 
 #. placeholder {0}: formatPolymarketNumber(position.shares, { symbol: null })
+#. placeholder {0}: formatPolymarketNumber(totalBought, { symbol: null })
 msgid "{0} shares"
 msgstr ""
 
@@ -4715,6 +4722,9 @@ msgid "PnL%"
 msgstr ""
 
 msgid "Article removed from your Bookmarks"
+msgstr ""
+
+msgid "Lost"
 msgstr ""
 
 msgid "Mint function"

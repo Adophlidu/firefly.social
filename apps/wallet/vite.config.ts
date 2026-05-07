@@ -105,6 +105,7 @@ export default defineConfig({
             '@solana/wallet-adapter-base',
             // In ssr, alias doesn't work for pino
             'pino',
+            'pino-std-serializers',
         ],
     },
 });

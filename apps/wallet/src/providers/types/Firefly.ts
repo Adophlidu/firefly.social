@@ -471,6 +471,7 @@ export interface PolymarketPosition {
     shares: number;
     total_buy: number;
     avg_price: number;
+    current_value?: number;
     notfill_pnl: number;
     fill_pnl: number;
     pnl: number;
@@ -513,14 +514,20 @@ export interface PolymarketPositionV2 {
     isMutil?: number;
 }
 
+export type PolymarketV2PositionSortBy = 'CURRENT' | 'TIMESTAMP' | 'REALIZEDPNL' | 'AVGPRICE' | 'TITLE';
+export type PolymarketV2PositionSortDirection = 'ASC' | 'DESC';
+
 /** Map v2 position to legacy PolymarketPosition for UI compatibility */
 export function mapPolymarketV2ToLegacy(pos: PolymarketPositionV2, isClosed: boolean): PolymarketPosition {
     // current position
     const isCurrent = 'redeemable' in pos;
+    const curPrice = pos.curPrice ?? 0;
+    const size = (isClosed ? pos.totalBought : pos.size) ?? 0;
     const avgPrice = pos.avgPrice ?? 0;
     const totalBought = pos.totalBought ?? 0;
     const pnl = (isCurrent ? pos.cashPnl : pos.realizedPnl) || 0;
-    const pnlRate = pos.percentPnl ? pos.percentPnl / 100 : pnl / (totalBought * avgPrice);
+    const totalTrade = totalBought * avgPrice;
+    const pnlRate = isCurrent && pos.percentPnl ? pos.percentPnl / 100 : totalTrade > 0 ? pnl / totalTrade : 0;
 
     return {
         is_closed: isClosed,
@@ -528,11 +535,12 @@ export function mapPolymarketV2ToLegacy(pos: PolymarketPositionV2, isClosed: boo
         isClaimable: pos.redeemable ?? false,
         isWin: pnl > 0,
         event_slugs: pos.eventSlug ? [pos.eventSlug] : [],
-        cur_price: pos.curPrice ?? 0,
+        cur_price: curPrice,
+        current_value: isClosed ? totalTrade + pnl : (pos.currentValue ?? curPrice * size),
         title: pos.title ?? '',
         image: pos.icon ?? '',
         offset: pos.outcomeIndex ?? 0,
-        closed_time: isClosed ? (pos.timestamp ?? 0) : 0,
+        closed_time: pos.timestamp ?? 0,
         conditionId: pos.conditionId ?? '',
         vote_status: pos.outcome ?? '',
         resolvedResult: pos.resolvedResult ?? '',
@@ -541,7 +549,7 @@ export function mapPolymarketV2ToLegacy(pos: PolymarketPositionV2, isClosed: boo
         wallet: pos.proxyWallet ?? '',
         tokenId: pos.asset ?? '',
         Id: pos.asset ?? pos.conditionId ?? '',
-        shares: (isClosed ? pos.totalBought : pos.size) ?? 0,
+        shares: size,
         total_buy: pos.totalBought ?? 0,
         avg_price: pos.avgPrice ?? 0,
         notfill_pnl: pos.realizedPnl ?? 0,

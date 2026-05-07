@@ -44,6 +44,9 @@ msgstr "Failed to disable authentication"
 msgid "Positions"
 msgstr "Positions"
 
+msgid "Alphabetically"
+msgstr "Alphabetically"
+
 msgid "in your Firefly wallet"
 msgstr "in your Firefly wallet"
 
@@ -117,12 +120,6 @@ msgstr "Review"
 msgid "Confirm to reset PIN code? For your security, this action requires sending a verification code to your recovery email to confirm your identity."
 msgstr "Confirm to reset PIN code? For your security, this action requires sending a verification code to your recovery email to confirm your identity."
 
-msgid "No closed positions found in this wallet"
-msgstr "No closed positions found in this wallet"
-
-msgid "View closed positions"
-msgstr "View closed positions"
-
 msgid "The PINs you entered do not match. Please check and try again."
 msgstr "The PINs you entered do not match. Please check and try again."
 
@@ -140,9 +137,6 @@ msgstr "Retry"
 
 msgid "Tokens"
 msgstr "Tokens"
-
-msgid "Start trading on prediction markets"
-msgstr "Start trading on prediction markets"
 
 msgid "Skip"
 msgstr "Skip"
@@ -219,6 +213,9 @@ msgstr "Market not found"
 
 msgid "See details"
 msgstr "See details"
+
+msgid "Won"
+msgstr "Won"
 
 #. placeholder {0}: formatTokenItemAmount(availableSharesBN, 2)
 msgid "{0} shares available"
@@ -337,6 +334,9 @@ msgstr "<0>{releaseAmountText}</0><1>to release</1>"
 
 msgid "Your funds are now in your predict wallet."
 msgstr "Your funds are now in your predict wallet."
+
+msgid "No positions found"
+msgstr "No positions found"
 
 msgid "Order placed"
 msgstr "Order placed"
@@ -461,6 +461,10 @@ msgstr "Back"
 msgid "Wallet addresses linked to social accounts may change or be inaccurate. Always verify before sending."
 msgstr "Wallet addresses linked to social accounts may change or be inaccurate. Always verify before sending."
 
+#. placeholder {0}: formatPnlUSD(getPositionLoss(position))
+msgid "Lost {0}"
+msgstr "Lost {0}"
+
 msgid "Login In Firefly"
 msgstr "Login In Firefly"
 
@@ -502,6 +506,9 @@ msgstr "Migrate to Polymarket V2"
 msgid "Network error. Please try again."
 msgstr "Network error. Please try again."
 
+msgid "Better luck on the next prediction."
+msgstr "Better luck on the next prediction."
+
 msgid "No tokens found"
 msgstr "No tokens found"
 
@@ -522,9 +529,6 @@ msgstr "Try again"
 
 msgid "Something went wrong."
 msgstr "Something went wrong."
-
-msgid "No any positions found in this wallet"
-msgstr "No any positions found in this wallet"
 
 msgid "Your funds are on the way..."
 msgstr "Your funds are on the way..."
@@ -579,6 +583,14 @@ msgstr "Receive"
 msgid "Time"
 msgstr "Time"
 
+msgid "Explore markets"
+msgstr "Explore markets"
+
+#. placeholder {0}: formatPnlUSD(pnlValue)
+#. placeholder {1}: formatPercentRate(pnlRate)
+msgid "Total PnL: <0>{0}({1})</0>"
+msgstr "Total PnL: <0>{0}({1})</0>"
+
 msgid "Interacted"
 msgstr "Interacted"
 
@@ -588,17 +600,14 @@ msgstr "Authentication Error"
 msgid "The address could not be found."
 msgstr "The address could not be found."
 
-msgid "No active positions found in this wallet"
-msgstr "No active positions found in this wallet"
-
 msgid "Add"
 msgstr "Add"
 
 msgid "Confirm new PIN"
 msgstr "Confirm new PIN"
 
-msgid "Portfolio"
-msgstr "Portfolio"
+msgid "Sort closed positions"
+msgstr "Sort closed positions"
 
 msgid "{betText} • Won <0>{wonText}({pctText})</0>"
 msgstr "{betText} • Won <0>{wonText}({pctText})</0>"
@@ -606,6 +615,9 @@ msgstr "{betText} • Won <0>{wonText}({pctText})</0>"
 #. placeholder {0}: subtitle.text ?? '--'
 msgid "With <0>{0}</0>"
 msgstr "With <0>{0}</0>"
+
+msgid "Date"
+msgstr "Date"
 
 msgid "Resend"
 msgstr "Resend"
@@ -652,11 +664,20 @@ msgstr "Email"
 msgid "PnL"
 msgstr "PnL"
 
+msgid "Avg Price"
+msgstr "Avg Price"
+
+msgid "Total traded"
+msgstr "Total traded"
+
 msgid "Failed to close position"
 msgstr "Failed to close position"
 
 msgid "Failed to init exchange options. Please try again later."
 msgstr "Failed to init exchange options. Please try again later."
+
+msgid "Close all the losses"
+msgstr "Close all the losses"
 
 msgid "Network"
 msgstr "Network"
@@ -669,6 +690,9 @@ msgstr "Transaction failed during execution."
 
 msgid "Failed to fetch token info"
 msgstr "Failed to fetch token info"
+
+msgid "Missed this round"
+msgstr "Missed this round"
 
 msgid "Authentication"
 msgstr "Authentication"
@@ -687,6 +711,9 @@ msgstr "Available: {availableText}"
 
 msgid "Confirming..."
 msgstr "Confirming..."
+
+msgid "Closed Positions"
+msgstr "Closed Positions"
 
 msgid "Failed to release"
 msgstr "Failed to release"
@@ -722,6 +749,9 @@ msgstr "From <0>{0}</0>"
 msgid "into your predict wallet"
 msgstr "into your predict wallet"
 
+msgid "No activities found"
+msgstr "No activities found"
+
 msgid "Cancelled."
 msgstr "Cancelled."
 
@@ -754,6 +784,9 @@ msgstr "To secure your assets, please enter the verification code sent to your r
 
 msgid "NFT Received Failed"
 msgstr "NFT Received Failed"
+
+msgid "Close losses"
+msgstr "Close losses"
 
 msgid "Primary"
 msgstr "Primary"
@@ -831,6 +864,9 @@ msgstr "Scan this code or copy your wallet address to receive funds on Ethereum.
 msgid "Your funds have been withdrawn to your Firefly wallet."
 msgstr "Your funds have been withdrawn to your Firefly wallet."
 
+msgid "Failed to close losses"
+msgstr "Failed to close losses"
+
 msgid "Bridged"
 msgstr "Bridged"
 
@@ -844,6 +880,7 @@ msgid "Select Token"
 msgstr "Select Token"
 
 #. placeholder {0}: formatTokenItemAmount(position.shares, 2)
+#. placeholder {0}: formatTokenItemAmount(totalBought, 2)
 msgid "{0} shares"
 msgstr "{0} shares"
 
@@ -868,8 +905,8 @@ msgstr "Reset PIN Code"
 msgid "This market may have been removed or the link is invalid."
 msgstr "This market may have been removed or the link is invalid."
 
-msgid "PnL%"
-msgstr "PnL%"
+msgid "Trading Activities"
+msgstr "Trading Activities"
 
 msgid "Lost"
 msgstr "Lost"
@@ -928,8 +965,17 @@ msgstr "You lost"
 msgid "Close"
 msgstr "Close"
 
+#. placeholder {0}: claimItems.length
+#. placeholder {1}: positions.length
+msgid "{0} of {1} positions will be closed"
+msgstr "{0} of {1} positions will be closed"
+
 msgid "Security & Privacy"
 msgstr "Security & Privacy"
+
+#. placeholder {0}: formatPriceToCents(position.avg_price, 1)
+msgid "Avg {0}"
+msgstr "Avg {0}"
 
 msgid "Current settings"
 msgstr "Current settings"

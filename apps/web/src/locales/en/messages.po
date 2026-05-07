@@ -987,6 +987,9 @@ msgstr "Failed to decrypt post on {sourceName}."
 msgid "No predictions found"
 msgstr "No predictions found"
 
+msgid "Won"
+msgstr "Won"
+
 msgid "Edit profile"
 msgstr "Edit profile"
 
@@ -1371,6 +1374,9 @@ msgstr "<0/>EVM wallets"
 
 msgid "{addressName} is already connected."
 msgstr "{addressName} is already connected."
+
+msgid "Total trade"
+msgstr "Total trade"
 
 #. placeholder {0}: outcome.label
 msgid "Buy {0}"
@@ -4614,6 +4620,7 @@ msgid "Select Token"
 msgstr "Select Token"
 
 #. placeholder {0}: formatPolymarketNumber(position.shares, { symbol: null })
+#. placeholder {0}: formatPolymarketNumber(totalBought, { symbol: null })
 msgid "{0} shares"
 msgstr "{0} shares"
 
@@ -4740,6 +4747,9 @@ msgstr "PnL%"
 
 msgid "Article removed from your Bookmarks"
 msgstr "Article removed from your Bookmarks"
+
+msgid "Lost"
+msgstr "Lost"
 
 msgid "Mint function"
 msgstr "Mint function"

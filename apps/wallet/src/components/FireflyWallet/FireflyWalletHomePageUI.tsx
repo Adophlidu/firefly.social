@@ -12,6 +12,7 @@ import type {
     SVGAttributes,
 } from 'react';
 
+import { CurrencyAmount } from '@/components/Bet/CurrencyAmount.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { cn } from '@/lib/utils.js';
@@ -74,16 +75,11 @@ export function FireflyWalletHomePageUI({
             {title ? <div className="text-center text-base font-semibold leading-6">{title}</div> : null}
             <div className="mt-2 flex w-full flex-col">
                 <div className="mb-8 flex flex-col space-y-2 text-center">
-                    <div
-                        className={cn(
-                            'text-main mx-auto h-8 w-auto min-w-[100px] truncate text-[40px] font-bold leading-8',
-                            {
-                                'bg-bg animate-pulse rounded-lg': !!loadingBalance,
-                            },
-                        )}
-                    >
-                        {loadingBalance ? '' : formatTokenUSD(balance)}
-                    </div>
+                    {loadingBalance ? (
+                        <div className="bg-bg h-12 w-20 animate-pulse rounded-lg" />
+                    ) : (
+                        <CurrencyAmount amount={balance} formatted={formatTokenUSD(balance)} />
+                    )}
                 </div>
                 <div className="flex w-full gap-3">
                     <ActionButton Icon={SendIcon} onClick={onSend} className="min-w-0 shrink-0">

@@ -31,11 +31,11 @@ export function SettleResolvedMarketsSection({ proxyAddress }: { proxyAddress: A
             <DialogOrDrawerTrigger asChild>
                 <button
                     type="button"
-                    className="border-line font-inter box-border flex w-full items-center justify-between gap-3 rounded-xl border p-4"
+                    className="border-success/20 font-inter dark:bg-lightBg box-border flex w-full items-center justify-between gap-3 rounded-xl border bg-[radial-gradient(circle_at_0%_100%,#e9ffe6_0%,#ffffff_58%)] p-4 shadow-[0_8px_8px_rgba(0,0,0,0.08)] dark:bg-none"
                 >
                     <span className="flex flex-col items-start justify-center text-left">
                         <span className="text-success text-sm font-semibold leading-5">{totalWonText}</span>
-                        <span className="text-main text-sm font-semibold leading-5">
+                        <span className="text-second text-xs leading-[14px]">
                             <Trans>Claim all the winnings</Trans>
                         </span>
                     </span>

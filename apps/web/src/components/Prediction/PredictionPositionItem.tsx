@@ -1,5 +1,7 @@
 'use client';
 
+import WonIcon from '@dimensiondev/assets/polymarket-claim.svg';
+import LostIcon from '@dimensiondev/assets/polymarket-lost.svg';
 import { classNames, removeTrailingZeros, safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { compact, first, isUndefined } from 'lodash-es';
@@ -52,6 +54,12 @@ function formatBetsPrice(price: number) {
     return removeTrailingZeros(formatPolymarketNumber(price * 100, { digits: 1, sign: false, symbol: '' })) + '¢';
 }
 
+function formatSignedPercent(rate: number) {
+    if (!Number.isFinite(rate) || rate === 0) return '0%';
+    const text = `${removeTrailingZeros((Math.abs(rate) * 100).toFixed(2))}%`;
+    return rate > 0 ? `+${text}` : `-${text}`;
+}
+
 export function PredictionPositionItem({
     positionData: position,
     platform,
@@ -92,6 +100,92 @@ export function PredictionPositionItem({
             });
         }
     };
+
+    if (position.is_closed) {
+        const isWon = position.pnl > 0;
+        const totalBought = position.total_buy || position.shares;
+        const totalTrade = position.avg_price * totalBought;
+        const settlementValue = position.current_value ?? totalTrade + position.pnl;
+        const pnlRate = totalTrade > 0 ? position.pnl / totalTrade : position.pnl_rate;
+
+        return (
+            <div key={position.Id} className="border-line flex w-full flex-col gap-3 rounded-xl border p-3">
+                <div className="flex w-full items-center gap-2">
+                    <div className="size-10 shrink-0 overflow-hidden rounded-lg">
+                        {position.image ? (
+                            <Image
+                                width={40}
+                                height={40}
+                                className="size-full object-cover"
+                                src={position.image}
+                                alt={displayTitle}
+                            />
+                        ) : null}
+                    </div>
+                    <div className="flex min-w-0 flex-1 flex-col gap-0.5">
+                        {eventUrl ? (
+                            <Link
+                                href={eventUrl}
+                                onClick={handleEventClick}
+                                className="text-main line-clamp-2 min-w-0 break-words text-sm font-semibold leading-5 hover:underline"
+                            >
+                                {displayTitle}
+                            </Link>
+                        ) : (
+                            <h3 className="text-main line-clamp-2 min-w-0 break-words text-sm font-semibold leading-5">
+                                {displayTitle}
+                            </h3>
+                        )}
+                        <div className="flex min-w-0 items-center gap-1">
+                            <span
+                                className={classNames(
+                                    'flex h-5 shrink-0 items-center gap-0.5 rounded-[10px] pl-1 pr-1.5 text-xs font-medium leading-[14px]',
+                                    isWon ? 'bg-[#DCF1D9] text-[#48AD3C]' : 'bg-[#FFE6E4] text-[#FF564D]',
+                                )}
+                            >
+                                {isWon ? <WonIcon className="size-3.5" /> : <LostIcon className="size-3.5" />}
+                                <span>{isWon ? <Trans>Won</Trans> : <Trans>Lost</Trans>}</span>
+                            </span>
+                            <span className="text-main truncate text-xs leading-[14px]">
+                                {position.vote_status || '-'}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div className="flex items-start gap-2">
+                    <div className="flex min-w-0 flex-1 flex-col">
+                        <div className="text-main truncate text-sm font-semibold leading-5">
+                            <Trans>{formatPolymarketNumber(totalBought, { symbol: null })} shares</Trans>
+                        </div>
+                        <div className="text-second truncate text-xs leading-[14px]">
+                            <Trans>Avg</Trans> {formatBetsPrice(position.avg_price)}
+                        </div>
+                    </div>
+                    <div className="flex min-w-0 flex-1 flex-col">
+                        <div
+                            className={classNames(
+                                'truncate text-sm font-semibold leading-5',
+                                isWon ? 'text-success' : 'text-danger',
+                            )}
+                        >
+                            {formatPolymarketNumber(position.pnl, { sign: true })}({formatSignedPercent(pnlRate)})
+                        </div>
+                        <div className="text-second truncate text-xs leading-[14px]">
+                            {formatPolymarketNumber(settlementValue)}
+                        </div>
+                    </div>
+                    <div className="flex min-w-0 flex-1 flex-col">
+                        <div className="text-main truncate text-sm font-semibold leading-5">
+                            {formatPolymarketNumber(totalTrade)}
+                        </div>
+                        <div className="text-second text-xs leading-[14px]">
+                            <Trans>Total trade</Trans>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div key={position.Id} className="border-line flex flex-col items-start gap-3 rounded-xl border p-3">

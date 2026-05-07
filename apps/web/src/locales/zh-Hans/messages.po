@@ -982,6 +982,9 @@ msgstr "无法解密 {sourceName} 上的帖子。"
 msgid "No predictions found"
 msgstr "未找到预测结果"
 
+msgid "Won"
+msgstr ""
+
 msgid "Edit profile"
 msgstr "编辑个人资料"
 
@@ -1364,6 +1367,9 @@ msgstr "<0/>EVM 钱包"
 
 msgid "{addressName} is already connected."
 msgstr "{addressName} 已经绑定了。"
+
+msgid "Total trade"
+msgstr ""
 
 #. placeholder {0}: outcome.label
 msgid "Buy {0}"
@@ -4591,6 +4597,7 @@ msgid "Select Token"
 msgstr "选择代币"
 
 #. placeholder {0}: formatPolymarketNumber(position.shares, { symbol: null })
+#. placeholder {0}: formatPolymarketNumber(totalBought, { symbol: null })
 msgid "{0} shares"
 msgstr "{0} 份"
 
@@ -4716,6 +4723,9 @@ msgstr "盈亏%"
 
 msgid "Article removed from your Bookmarks"
 msgstr "文章已经从你的收藏中移除"
+
+msgid "Lost"
+msgstr ""
 
 msgid "Mint function"
 msgstr "铸造功能"

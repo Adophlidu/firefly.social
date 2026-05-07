@@ -1,5 +1,4 @@
 import ArrowRightIcon from '@dimensiondev/assets/arrow-right2.svg';
-import BetEntryIcon from '@dimensiondev/assets/bet-entry.svg';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { Link } from '@tanstack/react-router';
@@ -26,57 +25,25 @@ export function BetEntry({ className }: { className?: string }) {
     const portfolioText = formatPortfolioUSDCe(totalBalance);
 
     const isLoadingSection = isLoadingProxyAddress || (hasBetAccount && isLoading);
-    if (isLoadingSection) {
-        return <div className={cn('bg-lightBg h-[80px] w-full animate-pulse rounded-[15px]', className)} />;
-    }
-
-    if (hasBetAccount) {
-        return (
-            <Link
-                to="/bet"
-                className={cn(
-                    'flex w-full items-center gap-2 rounded-[15px] bg-gradient-to-r from-[#DAD4FF] to-[#FFD285] p-0.5 shadow-lg',
-                    className,
-                )}
-            >
-                <span className="bg-primaryBottom flex flex-1 items-center gap-4 rounded-[13px] p-4">
-                    <BetEntryIcon width={48} height={48} className="shrink-0" />
-                    <span className="text-base font-semibold leading-6">
-                        <Trans>Predictions</Trans>
-                    </span>
-                    <span className="flex w-full flex-1 items-center gap-2">
-                        <span className="flex flex-1 flex-col items-end justify-center">
-                            <span className="text-main text-[13px] font-semibold leading-5">{portfolioText}</span>
-                            <span className="text-second text-xs leading-[14px]">
-                                <Trans>Portfolio</Trans>
-                            </span>
-                        </span>
-                    </span>
-                </span>
-            </Link>
-        );
-    }
 
     return (
         <Link
             to="/bet"
-            className={cn(
-                'bg-lightBg to-danger/30 ring-primaryBottom flex w-full items-center rounded-2xl bg-gradient-to-r from-transparent p-4 shadow-lg ring-2',
-                className,
-            )}
+            className={cn('flex w-full items-center justify-between duration-100 active:scale-[0.99]', className)}
         >
-            <BetEntryIcon width={48} height={48} className="mr-4 shrink-0" />
-            <span className="flex flex-col items-start">
-                <span className="flex items-center">
-                    <span className="text-base font-semibold leading-6">
-                        <Trans>Predictions</Trans>
-                    </span>
-                    <ArrowRightIcon width={24} height={24} className="text-second ml-auto shrink-0" />
+            <span className="flex min-w-0 items-center">
+                <span className="text-main text-base font-semibold leading-6">
+                    <Trans>Predictions</Trans>
                 </span>
-                <span className="text-second text-[13px] font-medium">
-                    <Trans>Start trading on prediction markets</Trans>
-                </span>
+                <ArrowRightIcon width={20} height={20} className="text-second shrink-0" />
             </span>
+            {isLoadingSection ? (
+                <div className="bg-lightBg h-6 w-10 shrink-0 animate-pulse rounded-full" />
+            ) : (
+                <span className="text-main shrink-0 text-right text-sm font-semibold leading-[14px]">
+                    {hasBetAccount ? portfolioText : '$0'}
+                </span>
+            )}
         </Link>
     );
 }

@@ -1,5 +1,6 @@
 import ArrowRightIcon from '@dimensiondev/assets/arrow-right2.svg';
 import DepositIcon from '@dimensiondev/assets/deposit.svg';
+import HistoryIcon from '@dimensiondev/assets/wallet/cal-history.svg';
 import WithdrawIcon from '@dimensiondev/assets/withdraw.svg';
 import { captureException, ExceptionId } from '@dimensiondev/exception-tracker';
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
@@ -14,6 +15,7 @@ import type { Address } from 'viem';
 
 import { BetError } from '@/components/Bet/BetError.js';
 import { BetNavigationBar } from '@/components/Bet/BetNavigationBar.js';
+import { CurrencyAmount } from '@/components/Bet/CurrencyAmount.js';
 import { HeaderLoading } from '@/components/Bet/HeaderLoading.js';
 import { Confirm } from '@/components/ConfirmModal.js';
 import { ErrorBoundary } from '@/components/ErrorBoundary.js';
@@ -21,10 +23,8 @@ import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs.js';
 import { InvalidPolymarketAccountError } from '@/constants/error.js';
 import { formatPercentRate } from '@/helpers/formatPercentRate.js';
 import { formatPnlUSD } from '@/helpers/formatPnlUSD.js';
-import { formatPortfolioUSDCe } from '@/helpers/formatPortfolioUSDCe.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { usePolymarketBalance } from '@/hooks/usePolymarketBalance.js';
-import { cn } from '@/lib/utils.js';
 import { getPolymarketAccountQueryOptions } from '@/queries/firefly/getPolymarketAccountQueryOptions.js';
 import { getPolymarketProfileListQueryOptions } from '@/queries/firefly/getPolymarketProfileListQueryOptions.js';
 import { getPolymarketUpgradeTaskQueryOptions } from '@/queries/firefly/getPolymarketUpgradeTaskQueryOptions.js';
@@ -51,6 +51,27 @@ export const Route = createFileRoute('/bet/_home')({
 });
 
 function BetHomeLayout() {
+    const location = useLocation();
+    const navigate = useNavigate();
+    const isHistoryPage = location.pathname === '/bet/history';
+
+    if (isHistoryPage) {
+        return (
+            <div className="flex w-full flex-1 flex-col items-center">
+                <BetNavigationBar
+                    hideActions
+                    title={<Trans>History</Trans>}
+                    onBack={() => navigate({ to: '/bet', replace: true })}
+                />
+                <div className="flex min-h-[calc(100vh-44px)] w-full flex-col items-center">
+                    <ErrorBoundary fallback={betHomeErrorFallback} catch={betHomeCatchHandler}>
+                        <Outlet />
+                    </ErrorBoundary>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="flex w-full flex-1 flex-col items-center">
             <BetNavigationBar />
@@ -76,23 +97,31 @@ function TabNavigation() {
     const tabs = [
         { path: '/bet', label: <Trans>Positions</Trans> },
         { path: '/bet/order/open', label: <Trans>Open orders</Trans> },
-        { path: '/bet/history', label: <Trans>History</Trans> },
     ];
 
     return (
-        <Tabs
-            className="bg-primaryBottom sticky top-0 z-10 mb-2 mt-4 w-full px-4"
-            value={pathnameInTab}
-            onValueChange={(path) => navigate({ to: path, resetScroll: false })}
-        >
-            <TabsList variant="second" className="w-full">
-                {tabs.map(({ path, label }) => (
-                    <TabsTrigger key={path} variant="second" value={path}>
-                        {label}
-                    </TabsTrigger>
-                ))}
-            </TabsList>
-        </Tabs>
+        <div className="bg-primaryBottom sticky top-0 z-10 mb-2 mt-4 flex w-full items-center gap-4 px-4">
+            <Tabs
+                className="min-w-0 flex-1"
+                value={pathnameInTab}
+                onValueChange={(path) => navigate({ to: path, resetScroll: false })}
+            >
+                <TabsList variant="second" className="flex w-full justify-normal">
+                    {tabs.map(({ path, label }) => (
+                        <TabsTrigger key={path} variant="second" value={path}>
+                            {label}
+                        </TabsTrigger>
+                    ))}
+
+                    <Link
+                        to="/bet/history"
+                        className="text-main !ml-auto flex size-9 shrink-0 items-center justify-center"
+                    >
+                        <HistoryIcon width={24} height={24} />
+                    </Link>
+                </TabsList>
+            </Tabs>
+        </div>
     );
 }
 
@@ -106,7 +135,6 @@ export function ClientLayout() {
         upgradeTask?.is_upgraded,
     );
 
-    const portfolioText = formatPortfolioUSDCe(totalBalance);
     const availableText = isZero(availableBalance) ? '$0' : formatTokenUSD(availableBalance, { minDisplay: 0.01 });
 
     const usdceBalance = upgradeTask?.usdce_balance ?? 0;
@@ -144,18 +172,23 @@ export function ClientLayout() {
 
     return (
         <>
-            <div className="flex flex-col items-center gap-2 px-4 py-8 text-center">
-                <div className="text-main mx-auto h-8 w-auto min-w-[100px] truncate text-[40px] font-bold leading-8">
-                    {portfolioText}
+            <div className="flex w-full flex-col justify-start gap-2 p-4">
+                <div className="text-main w-auto truncate text-[40px] font-bold leading-8">
+                    <CurrencyAmount amount={totalBalance} />
                 </div>
-                <div className="text-second h-4 text-[13px] leading-4">
+                <Suspense
+                    fallback={<div className="bg-lightBg col-span-2 grid h-[17px] w-40 animate-pulse rounded-xl" />}
+                >
+                    <PNL proxyAddress={data.proxyAddress} />
+                </Suspense>
+                <div className="text-second h-4 text-[13px] leading-[17px]">
                     <Trans>Available: {availableText}</Trans>
                 </div>
             </div>
-            <div className="grid w-full grid-cols-2 gap-4 px-3">
+            <div className="grid w-full grid-cols-2 gap-3 px-3">
                 <Link
                     to="/bet/withdraw"
-                    className="bg-lightBg flex w-full flex-col items-center gap-0.5 rounded-xl py-2.5 text-sm font-medium"
+                    className="bg-lightBg flex w-full items-center justify-center gap-[6px] rounded-[20px] py-2.5 text-sm font-medium"
                 >
                     <WithdrawIcon width={24} height={24} className="text-highlight" />
                     <span>
@@ -164,7 +197,7 @@ export function ClientLayout() {
                 </Link>
                 <Link
                     to="/bet/deposit"
-                    className="bg-lightBg flex w-full flex-col items-center gap-0.5 rounded-xl py-2.5 text-sm font-medium"
+                    className="bg-lightBg flex w-full items-center justify-center gap-[6px] rounded-[20px] py-2.5 text-sm font-medium"
                 >
                     <DepositIcon width={24} height={24} className="text-highlight" />
                     <span>
@@ -187,11 +220,6 @@ export function ClientLayout() {
                         <ArrowRightIcon width={16} height={16} className="text-second" />
                     </button>
                 ) : null}
-                <Suspense
-                    fallback={<div className="bg-lightBg col-span-2 grid h-[68px] w-full animate-pulse rounded-xl" />}
-                >
-                    <PNL proxyAddress={data.proxyAddress} />
-                </Suspense>
             </div>
         </>
     );
@@ -205,30 +233,23 @@ function PNL({ proxyAddress }: { proxyAddress: Address }) {
 
     const pnlValue = profile?.pnl ?? 0;
     const pnlRate = profile?.pnl_rate ?? 0;
-    const pnlColor = pnlValue >= 0 ? 'text-success' : 'text-danger';
 
     return (
-        <button
+        <div
             onClick={() =>
                 iframeBridgeProvider.request(IframeBridgeMethod.NAVIGATE, {
                     path: `/polymarket/profile/${profile?.proxy ?? proxyAddress}`,
                 })
             }
-            className="bg-lightBg col-span-2 grid w-full grid-cols-[1fr_1fr_24px] items-center rounded-xl p-4"
+            className="text-second flex cursor-pointer items-center gap-1 whitespace-nowrap rounded-xl text-[13px] leading-[17px]"
         >
-            <span className="flex flex-col items-start">
-                <span className={cn('text-sm font-semibold', pnlColor)}>{formatPnlUSD(pnlValue)}</span>
-                <span className="text-second text-xs">
-                    <Trans>PnL</Trans>
+            <Trans>
+                Total PnL:{' '}
+                <span className={pnlValue >= 0 ? 'text-success font-bold' : 'text-danger font-bold'}>
+                    {formatPnlUSD(pnlValue)}({formatPercentRate(pnlRate)})
                 </span>
-            </span>
-            <span className="flex flex-col items-start">
-                <span className={cn('text-sm font-semibold', pnlColor)}>{formatPercentRate(pnlRate)}</span>
-                <span className="text-second text-xs">
-                    <Trans>PnL%</Trans>
-                </span>
-            </span>
-            <ArrowRightIcon width={24} height={24} className="text-second" />
-        </button>
+            </Trans>
+            <ArrowRightIcon width={16} height={16} className="text-second" />
+        </div>
     );
 }

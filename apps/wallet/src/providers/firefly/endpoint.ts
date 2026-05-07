@@ -33,6 +33,8 @@ import {
     type PolymarketProfilePnLResponse,
     type PolymarketUpgradeResponse,
     type PolymarketUpgradeTaskResponse,
+    type PolymarketV2PositionSortBy,
+    type PolymarketV2PositionSortDirection,
     type PolymarketWithdrawResponse,
     type PreviewPolymarketWithdrawResponse,
     type Response,
@@ -255,6 +257,8 @@ export class FireflyEndpoint extends Fetch {
             offset?: number;
             limit?: number;
             eventId?: string;
+            sortBy?: PolymarketV2PositionSortBy;
+            sortDirection?: PolymarketV2PositionSortDirection;
         },
     ) {
         const url = urlcat('/v2/polymarket/current/positions', {
@@ -263,6 +267,8 @@ export class FireflyEndpoint extends Fetch {
             offset: options?.offset ?? 0,
             limit: options?.limit ?? 20,
             ...(options?.eventId ? { eventId: options.eventId } : {}),
+            ...(options?.sortBy ? { sortBy: options.sortBy } : {}),
+            ...(options?.sortDirection ? { sortDirection: options.sortDirection } : {}),
         });
         const result = await this.get<GetPolymarketV2PositionsResponse>(url);
         return resolveFireflyResponseData(result.data);
@@ -274,6 +280,8 @@ export class FireflyEndpoint extends Fetch {
             offset?: number;
             limit?: number;
             eventId?: string;
+            sortBy?: PolymarketV2PositionSortBy;
+            sortDirection?: PolymarketV2PositionSortDirection;
         },
     ) {
         const url = urlcat('/v2/polymarket/closed/positions', {
@@ -281,6 +289,8 @@ export class FireflyEndpoint extends Fetch {
             offset: options?.offset ?? 0,
             limit: options?.limit ?? 20,
             ...(options?.eventId ? { eventId: options.eventId } : {}),
+            ...(options?.sortBy ? { sortBy: options.sortBy } : {}),
+            ...(options?.sortDirection ? { sortDirection: options.sortDirection } : {}),
         });
         const result = await this.get<GetPolymarketV2PositionsResponse>(url);
         return resolveFireflyResponseData(result.data);

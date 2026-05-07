@@ -4,6 +4,7 @@ import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-b
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { useLocation, useNavigate } from '@tanstack/react-router';
+import type { ReactNode } from 'react';
 
 import { NavigationBar, NavigationBarRight } from '@/components/NavigationBar.js';
 import { ModalType } from '@/configs/modalRoutes.js';
@@ -12,9 +13,11 @@ import { getPolymarketSettingQueryOptions } from '@/queries/firefly/getPolymarke
 
 interface Props {
     hideActions?: boolean;
+    title?: ReactNode;
+    onBack?: () => void;
 }
 
-export function BetNavigationBar({ hideActions }: Props) {
+export function BetNavigationBar({ hideActions, title, onBack }: Props) {
     const navigate = useNavigate();
     const location = useLocation();
     const { data: account } = useQuery(getPolymarketAccountQueryOptions());
@@ -34,8 +37,8 @@ export function BetNavigationBar({ hideActions }: Props) {
     };
 
     return (
-        <NavigationBar onBack={() => navigate({ to: '/', replace: true })}>
-            <Trans>Predictions</Trans>
+        <NavigationBar onBack={onBack ?? (() => navigate({ to: '/', replace: true }))}>
+            {title ?? <Trans>Predictions</Trans>}
             {!hideActions ? (
                 <NavigationBarRight>
                     <button
