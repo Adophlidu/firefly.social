@@ -28,22 +28,23 @@ export async function restoreFarcasterAccountsIfNeeded(accounts: Account[]): Pro
         restoringFarcasterAccounts.set(fireflySession.profileId, 'pending');
 
         const farcasterAccountInfos = await getFarcasterAccountInfos();
-        if (!farcasterAccountInfos.length) return;
 
-        const loggedInFids = new Set(accounts.map((x) => String(x.profile.profileId)));
-        const unLoginAccountInfos = farcasterAccountInfos.filter((x) => !loggedInFids.has(String(x.fid)));
+        if (farcasterAccountInfos.length) {
+            const loggedInFids = new Set(accounts.map((x) => String(x.profile.profileId)));
+            const unLoginAccountInfos = farcasterAccountInfos.filter((x) => !loggedInFids.has(String(x.fid)));
 
-        const allSettled = await Promise.allSettled(
-            unLoginAccountInfos.map((info) => createFarcasterFromFirefly(info)),
-        );
+            const allSettled = await Promise.allSettled(
+                unLoginAccountInfos.map((info) => createFarcasterFromFirefly(info)),
+            );
 
-        if (isSameSession(fireflySessionHolder.session, fireflySession)) {
-            const unLoginAccounts = allSettled.filter((x) => x.status === 'fulfilled').map((x) => x.value);
-            await addAccounts(fireflySession, unLoginAccounts, { skipResumeFireflySession: true });
+            if (isSameSession(fireflySessionHolder.session, fireflySession)) {
+                const unLoginAccounts = allSettled.filter((x) => x.status === 'fulfilled').map((x) => x.value);
+                await addAccounts(fireflySession, unLoginAccounts, { skipResumeFireflySession: true });
+            }
         }
+
+        restoringFarcasterAccounts.set(fireflySession.profileId, 'succeed');
     } catch (error) {
         restoringFarcasterAccounts.set(fireflySession.profileId, 'failed');
-    } finally {
-        restoringFarcasterAccounts.set(fireflySession.profileId, 'succeed');
     }
 }

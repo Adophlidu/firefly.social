@@ -466,7 +466,6 @@ export function BuyLimitForm({
 
     const total = sharesBN.times(limitPriceDollars);
     const totalUSD = total.isFinite() ? total : BigNumber(0);
-    const shouldQuickBuy = totalUSD.gt(betsBalance) && totalUSD.lte(totalBalance);
 
     const sharesNum = Number.isFinite(Number(shares)) && Number(shares) > 0 ? Number(shares) : 0;
 
