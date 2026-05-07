@@ -54,8 +54,8 @@
         "README.md"
     ],
     "scripts": {
-        "build": "tsup",
-        "dev": "tsup --watch",
+        "build": "tsdown",
+        "dev": "tsdown --watch",
         "typecheck": "tsc --noEmit",
         "clean": "rm -rf dist"
     },
@@ -78,7 +78,7 @@
     },
     "devDependencies": {
         "@types/punycode": "^2.1.4",
-        "tsup": "^8.5.1",
+        "tsdown": "^0.21.10",
         "typescript": "5.9.3",
         "wagmi": "^3.1.4"
     },
