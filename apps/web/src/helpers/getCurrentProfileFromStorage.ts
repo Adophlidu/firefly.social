@@ -49,7 +49,7 @@ export function getCurrentProfileAllFromStorage(): Record<ProfileSource, StatePr
     };
 }
 
-export function getProfilesFromStorage<T extends ProfileSource>(source: T): StateProfile[] {
+export function getProfilesFromStorage<T extends ProfileSource>(source: T, onlyValidSession = false): StateProfile[] {
     if (typeof window === 'undefined') return [];
     const state = bom.localStorage?.getItem(resolveProfileStorageKey(source));
     if (!state) return [];
@@ -60,5 +60,18 @@ export function getProfilesFromStorage<T extends ProfileSource>(source: T): Stat
         return [];
     }
 
-    return parsed.data.state.accounts.map((x) => x.profile);
+    const accounts = parsed.data.state.accounts;
+    if (!onlyValidSession) return accounts.map((x) => x.profile);
+
+    return accounts
+        .filter((account) => {
+            try {
+                const parts = account.session.split(':');
+                const body = JSON.parse(atob(parts[1]));
+                return typeof body.expiresAt === 'number' && body.expiresAt > Date.now();
+            } catch {
+                return false;
+            }
+        })
+        .map((x) => x.profile);
 }

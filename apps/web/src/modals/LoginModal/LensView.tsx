@@ -110,7 +110,7 @@ export const LensView = memo(function LensView() {
         },
         select: (profiles) => {
             if (!profiles) return EMPTY_LIST;
-            const allProfiles = getProfilesFromStorage(Source.Lens);
+            const allProfiles = getProfilesFromStorage(Source.Lens, true);
             const list = profiles.filter((x) => !allProfiles.some((y) => isSameProfile(x, y)));
             if (expectedProfile) return list.sort((x) => (x.profileId === expectedProfile ? -1 : 0));
             return list;
