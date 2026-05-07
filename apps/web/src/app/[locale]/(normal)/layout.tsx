@@ -23,9 +23,10 @@ interface Props {
     children: ReactNode;
     modal: ReactNode;
     sidebar: ReactNode;
+    subnav: ReactNode;
 }
 
-export default async function Layout({ children, modal, sidebar }: Props) {
+export default async function Layout({ children, modal, sidebar, subnav }: Props) {
     return (
         <>
             <main className="md:border-line flex w-full flex-[1_1_100%] flex-col md:border-r md:pl-[235px] lg:w-[888px] lg:max-w-[calc(100%-384px)] lg:pl-[289px]">
@@ -55,7 +56,10 @@ export default async function Layout({ children, modal, sidebar }: Props) {
                         <NavigatorBar />
                     </IfPathname>
 
-                    <HeaderSearchBar />
+                    <IfPathname isOneOf={['/search', '/explore']}>
+                        <HeaderSearchBar />
+                        {subnav}
+                    </IfPathname>
                 </div>
                 {children}
                 {modal}

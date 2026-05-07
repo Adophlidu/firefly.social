@@ -55,7 +55,7 @@ function useDetectAddress(address?: string) {
     });
 }
 
-function SearchBar({ slot, autoSearchType = false, className, ...rest }: SearchBarProps) {
+export function SearchBar({ slot, autoSearchType = false, className, ...rest }: SearchBarProps) {
     const [showRecommendation, setShowRecommendation] = useState(false);
     const keepOriginalInputRef = useRef(false);
 
@@ -139,17 +139,7 @@ function SearchBar({ slot, autoSearchType = false, className, ...rest }: SearchB
     if (slot === 'secondary' && (isSearchPage || isExplorePage)) return null;
 
     return (
-        <div
-            className={classNames(
-                'hidden items-center pt-2.5 md:flex',
-                {
-                    sticky: isExplorePage,
-                },
-                className,
-            )}
-            {...rest}
-            ref={rootRef}
-        >
+        <div className={classNames('hidden items-center pt-2.5 md:flex', className)} {...rest} ref={rootRef}>
             {isSearchPage && slot === 'header' ? (
                 <BackButton className="mr-7 cursor-pointer" onClick={comeback} />
             ) : null}
@@ -226,10 +216,7 @@ function SearchBar({ slot, autoSearchType = false, className, ...rest }: SearchB
 }
 
 export function HeaderSearchBar() {
-    const pathname = usePathname();
-    const isSearchPage = isRoutePathname(pathname, PageRoute.Search);
-    const isExplorePage = isRoutePathname(pathname, PageRoute.Explore);
-    return isSearchPage || isExplorePage ? <SearchBar slot="header" className="px-4 py-2.5" /> : null;
+    return <SearchBar slot="header" className="px-4 py-2.5" />;
 }
 
 export function AsideSearchBar() {

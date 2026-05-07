@@ -35,7 +35,7 @@ export const ExploreSourceTabs = memo<ExploreSourceTabsProps>(function ExploreSo
     const hasFireflySlug = exploreTypes.some((x) => x.id === POLYMARKET_FIREFLY_SLUG);
 
     return (
-        <SourceTabs className="!z-20 md:!top-[57px]">
+        <SourceTabs className="!static !z-auto">
             {exploreTypes.map(({ type: x, id, link, label }) => {
                 const isActive =
                     x === explore && x === ExploreType.Prediction

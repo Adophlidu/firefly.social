@@ -4,9 +4,6 @@ import type { MessageDescriptor } from '@lingui/core';
 import { msg } from '@lingui/core/macro';
 import { last } from 'lodash-es';
 
-import { ClubTypeTab } from '@/components/Search/CommunityTypeTab.js';
-import { SearchSources } from '@/components/Search/SearchSources.js';
-import { SearchTabs } from '@/components/Search/SearchTabs.js';
 import { ClubType, SearchType, SourceInURL } from '@/constants/enum.js';
 import { notFound, redirect } from '@/esm/navigation/server.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
@@ -78,12 +75,5 @@ export default async function Layout(props: Props) {
 
     if (!checkSlug(params.slug)) notFound();
 
-    return (
-        <div>
-            <SearchTabs />
-            <ClubTypeTab className="bg-primaryBottom sticky top-[98px] z-20 md:!top-[103px]" />
-            <SearchSources className="bg-primaryBottom sticky top-[98px] z-20 md:!top-[103px]" />
-            {props.children}
-        </div>
-    );
+    return <div>{props.children}</div>;
 }

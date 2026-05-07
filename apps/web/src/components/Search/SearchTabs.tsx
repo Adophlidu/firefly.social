@@ -72,7 +72,7 @@ export const SearchTabs = memo(function SearchTabs() {
     }, [source, searchKeyword, clubType]);
 
     return (
-        <nav className="no-scrollbar border-line bg-primaryBottom sticky top-[54px] z-20 flex w-full gap-x-4 overflow-x-auto border-b px-4 md:top-[57px]">
+        <nav className="no-scrollbar border-line bg-primaryBottom flex w-full gap-x-4 overflow-x-auto border-b px-4">
             {tabs.map((tab) => {
                 const isActive = isRoutePathname(pathname, tab.link.split('?')[0] as `/${string}`);
 

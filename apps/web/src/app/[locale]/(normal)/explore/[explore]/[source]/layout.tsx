@@ -1,8 +1,7 @@
 import type { LayoutProps } from '@dimensiondev/types';
 import { msg } from '@lingui/core/macro';
 
-import { ExploreSourceNav } from '@/components/SourceNav/ExploreSourceNav.js';
-import { type ExploreSourceInURL, ExploreType } from '@/constants/enum.js';
+import { ExploreType } from '@/constants/enum.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 
@@ -23,21 +22,5 @@ export async function generateMetadata(props: Props) {
 }
 
 export default async function Layout(props: Props) {
-    const { source } = await props.params;
-    const explore = (await props.params).explore as ExploreType;
-
-    if (explore === ExploreType.Prediction) {
-        return props.children;
-    }
-
-    return (
-        <>
-            <ExploreSourceNav
-                explore={explore}
-                source={source as ExploreSourceInURL}
-                className="bg-primaryBottom sticky top-[98px] z-20 md:!top-[103px]"
-            />
-            {props.children}
-        </>
-    );
+    return <>{props.children}</>;
 }
