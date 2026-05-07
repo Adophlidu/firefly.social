@@ -1,14 +1,10 @@
 name: Tolgee upload
 
 on:
-    push:
-        branches:
-            - main
     workflow_dispatch:
 
 jobs:
     upload-sources:
-        if: github.ref == 'refs/heads/main'
         runs-on: ubuntu-latest
         steps:
             - name: Checkout code
