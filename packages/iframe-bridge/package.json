@@ -41,7 +41,7 @@
     "devDependencies": {
         "@types/lodash-es": "^4.17.12",
         "tsdown": "^0.21.10",
-        "@typescript/native-preview": "7.0.0-dev.20260501.1"
+        "@typescript/native-preview": "7.0.0-dev.20260508.1"
     },
     "peerDependencies": {
         "typescript": ">=5.0.0"
