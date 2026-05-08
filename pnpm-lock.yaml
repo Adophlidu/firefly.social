@@ -525,8 +525,8 @@ importers:
         specifier: workspace:^
         version: link:../../packages/web3
       '@farcaster/core':
-        specifier: ^0.18.10
-        version: 0.18.10(typescript@5.9.3)(zod@3.25.76)
+        specifier: ^0.18.11
+        version: 0.18.11(typescript@5.9.3)(zod@3.25.76)
       '@farcaster/miniapp-host':
         specifier: ^0.2.16
         version: 0.2.16(react@19.2.5)(typescript@5.9.3)(zod@3.25.76)
@@ -3994,8 +3994,8 @@ packages:
     engines: {node: '>=14.0.0', npm: '>=6.0.0'}
     dev: false
 
-  /@farcaster/core@0.18.10(typescript@5.9.3)(zod@3.25.76):
-    resolution: {integrity: sha512-k4mO3lQFAUr+9nzoMbGeDRMK3BZ/q/1z+hZvGGAfIlueca0wRSEkzRUv1eSJp4sSsZG6sVAdcEQD2q+mpMuw1w==}
+  /@farcaster/core@0.18.11(typescript@5.9.3)(zod@3.25.76):
+    resolution: {integrity: sha512-8e7O7rhP8JepdkP8Y2e8PRi/pRIbBfS0oHG7qkX1EWRHPLZITeys2FuyE4NrIGlCnXwOShcjPR36KabYzJKngw==}
     dependencies:
       '@faker-js/faker': 7.6.0
       '@noble/curves': 1.9.2
