@@ -445,6 +445,9 @@ msgstr ""
 msgid "Turn off"
 msgstr ""
 
+msgid "Price to beat"
+msgstr ""
+
 #. placeholder {0}: publishedByFirefly ? ( <FireflyMonochromeIcon fontSize={15} width={15} height={15} className="mb-1 inline" /> ) : null
 msgid "Posted via {0} <0>{platformName}</0>"
 msgstr ""
@@ -1375,6 +1378,9 @@ msgstr ""
 msgid "{addressName} is already connected."
 msgstr ""
 
+msgid "Tomorrow"
+msgstr ""
+
 msgid "Total trade"
 msgstr ""
 
@@ -1738,6 +1744,12 @@ msgstr ""
 msgid "Newest"
 msgstr ""
 
+msgid "Current price"
+msgstr ""
+
+msgid "Ended: "
+msgstr ""
+
 msgid "User Name should not exceed {extra} characters"
 msgstr ""
 
@@ -1951,6 +1963,9 @@ msgid "Translated from {contentLanguage}"
 msgstr ""
 
 msgid "Failed to open miniapp"
+msgstr ""
+
+msgid "Past"
 msgstr ""
 
 msgid "Leaving Firefly"
@@ -2250,6 +2265,9 @@ msgid "Enter Amount Each"
 msgstr ""
 
 msgid "firefly.eth liked your transaction"
+msgstr ""
+
+msgid "Failed to get live market URL. Please try again later."
 msgstr ""
 
 msgid "Image"
@@ -3018,6 +3036,9 @@ msgid "Switch"
 msgstr ""
 
 msgid "Drafts"
+msgstr ""
+
+msgid "Go to live market"
 msgstr ""
 
 msgid "Failed to like prediction."
@@ -4847,6 +4868,9 @@ msgstr ""
 msgid "Type filter"
 msgstr ""
 
+msgid "No price data."
+msgstr ""
+
 msgid "No malicious mining activities involved."
 msgstr ""
 
@@ -4872,6 +4896,9 @@ msgid "Media"
 msgstr ""
 
 msgid "Are you sure you want to continue?"
+msgstr ""
+
+msgid "Yesterday"
 msgstr ""
 
 msgid "Remind me later"
@@ -4995,6 +5022,9 @@ msgstr ""
 msgid "Transaction completed!"
 msgstr ""
 
+msgid "Target"
+msgstr ""
+
 msgid "You're trying to connect a different account than the one currently active on Firefly. Please try again."
 msgstr ""
 
@@ -5064,6 +5094,9 @@ msgid "Top Collectors"
 msgstr ""
 
 msgid "OK"
+msgstr ""
+
+msgid "Final price"
 msgstr ""
 
 msgid "Quote"

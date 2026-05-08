@@ -31,6 +31,7 @@ export class RtdsWebSocketProvider {
     private reconnectDelay = 3000;
     private isConnected = false;
     private pingInterval: number | null = null;
+    private reconnectTimer: ReturnType<typeof setTimeout> | null = null;
     private symbol = '';
     private callback: ((price: number, timestamp: number) => void) | null = null;
     private historyCallback: ((points: Array<{ price: number; timestamp: number }>) => void) | null = null;
@@ -54,7 +55,8 @@ export class RtdsWebSocketProvider {
         this.reconnectAttempts += 1;
         const delay = this.reconnectDelay * this.reconnectAttempts;
 
-        setTimeout(() => {
+        this.reconnectTimer = setTimeout(() => {
+            this.reconnectTimer = null;
             if (!this.isConnected) {
                 this.connect();
             }
@@ -175,6 +177,11 @@ export class RtdsWebSocketProvider {
 
     public close() {
         this.cleanupPing();
+
+        if (this.reconnectTimer !== null) {
+            clearTimeout(this.reconnectTimer);
+            this.reconnectTimer = null;
+        }
 
         if (this.ws) {
             this.ws.onopen = null;

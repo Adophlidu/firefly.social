@@ -3,7 +3,7 @@ import type { NextRequest } from 'next/server.js';
 import urlcat from 'urlcat';
 import z from 'zod';
 
-import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
+import { createErrorResponseJson, createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { getSearchParamsWithZodSchema } from '@/helpers/getSearchParamsWithZodSchema.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
@@ -20,7 +20,7 @@ const ParamsSchema = z.object({
 
 export const GET = compose(withRequestErrorHandler(), async (request: NextRequest) => {
     if (request.nextUrl.searchParams.size === 0) {
-        return new Response('Invalid Params: No parameters provided', { status: 400 });
+        return createErrorResponseJson('Invalid Params: No parameters provided', { status: 400 });
     }
 
     const params = getSearchParamsWithZodSchema(request, ParamsSchema);

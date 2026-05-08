@@ -124,7 +124,7 @@ export function formatPolymarketEvent(detail: PolymarketEvent): BetsEventDataFor
         platform: PredictionPlatform.Polymarket,
         description: detail.description,
         isSingleEvent: detail.markets?.length === 0,
-        tags: detail.tags.map((tag) => tag),
+        tags: detail.tags,
         endTime: new Date(detail.endDate).getTime(),
         volume: detail.volume,
         markets: sortMarkets(markets),

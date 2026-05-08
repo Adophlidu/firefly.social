@@ -442,6 +442,9 @@ msgstr "抱歉，你输入的用户名或密码不正确"
 msgid "Turn off"
 msgstr "关闭"
 
+msgid "Price to beat"
+msgstr ""
+
 #. placeholder {0}: publishedByFirefly ? ( <FireflyMonochromeIcon fontSize={15} width={15} height={15} className="mb-1 inline" /> ) : null
 msgid "Posted via {0} <0>{platformName}</0>"
 msgstr "通过 {0}<0>{platformName}</0> 发布"
@@ -1368,6 +1371,9 @@ msgstr "<0/>EVM 钱包"
 msgid "{addressName} is already connected."
 msgstr "{addressName} 已经绑定了。"
 
+msgid "Tomorrow"
+msgstr ""
+
 msgid "Total trade"
 msgstr ""
 
@@ -1730,6 +1736,12 @@ msgstr "地址"
 msgid "Newest"
 msgstr "最新"
 
+msgid "Current price"
+msgstr ""
+
+msgid "Ended: "
+msgstr ""
+
 msgid "User Name should not exceed {extra} characters"
 msgstr "用户名长度不能超过 {extra} 个字符"
 
@@ -1943,6 +1955,9 @@ msgstr "翻译自{contentLanguage}"
 
 msgid "Failed to open miniapp"
 msgstr "打开 miniapp 失败"
+
+msgid "Past"
+msgstr ""
 
 msgid "Leaving Firefly"
 msgstr "即将离开 Firefly"
@@ -2240,6 +2255,9 @@ msgstr "输入每个数额"
 
 msgid "firefly.eth liked your transaction"
 msgstr "firefly.eth 点赞了你的交易"
+
+msgid "Failed to get live market URL. Please try again later."
+msgstr ""
 
 msgid "Image"
 msgstr "图片"
@@ -3002,6 +3020,9 @@ msgstr "切换"
 
 msgid "Drafts"
 msgstr "草稿"
+
+msgid "Go to live market"
+msgstr ""
 
 msgid "Failed to like prediction."
 msgstr "点赞失败。"
@@ -4823,6 +4844,9 @@ msgstr "已取消隐藏 {handleOrEnsOrAddress}。"
 msgid "Type filter"
 msgstr "类型筛选"
 
+msgid "No price data."
+msgstr ""
+
 msgid "No malicious mining activities involved."
 msgstr "未发现恶意挖矿活动。"
 
@@ -4849,6 +4873,9 @@ msgstr "媒体"
 
 msgid "Are you sure you want to continue?"
 msgstr "你确定要继续吗？"
+
+msgid "Yesterday"
+msgstr ""
 
 msgid "Remind me later"
 msgstr "稍后提醒我"
@@ -4970,6 +4997,9 @@ msgstr "验证密码时出现意外步骤：{step}。"
 msgid "Transaction completed!"
 msgstr "交易完成！"
 
+msgid "Target"
+msgstr ""
+
 msgid "You're trying to connect a different account than the one currently active on Firefly. Please try again."
 msgstr "你正在尝试连接与当前Firefly活跃账户不一致的其他账户。请重试。"
 
@@ -5040,6 +5070,9 @@ msgstr "铸造收集者"
 
 msgid "OK"
 msgstr "确定"
+
+msgid "Final price"
+msgstr ""
 
 msgid "Quote"
 msgstr "引用"

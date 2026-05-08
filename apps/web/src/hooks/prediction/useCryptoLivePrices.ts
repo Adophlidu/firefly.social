@@ -14,21 +14,23 @@ interface Options {
 export function useCryptoLivePrices(crypto: PredictionCrypto, { onPriceUpdate }: Options = {}) {
     const [points, setPoints] = useState<LivelinePoint[]>([]);
     const [latestPrice, setLatestPrice] = useState<number | null>(null);
-    const providersRef = useRef<RtdsWebSocketProvider[]>([]);
+    const providerRef = useRef<RtdsWebSocketProvider | null>(null);
+    const onPriceUpdateRef = useRef(onPriceUpdate);
+    onPriceUpdateRef.current = onPriceUpdate;
 
     useEffect(() => {
         const ticker = resolveChainLinkCrypto(crypto);
         const provider = new RtdsWebSocketProvider();
         const symbol = `${ticker.toLowerCase()}/usd`;
 
-        providersRef.current = [...providersRef.current, provider];
+        providerRef.current = provider;
 
         provider.subscribe(
             symbol,
             (price, timestamp) => {
                 const timeSec = timestamp / 1000;
                 setLatestPrice(price);
-                onPriceUpdate?.(price);
+                onPriceUpdateRef.current?.(price);
                 setPoints((prev) => {
                     const next = [...prev, { time: timeSec, value: price }];
                     return next.length > MAX_POINTS ? next.slice(next.length - MAX_POINTS) : next;
@@ -41,15 +43,15 @@ export function useCryptoLivePrices(crypto: PredictionCrypto, { onPriceUpdate }:
                 }));
                 setPoints(historical);
                 setLatestPrice(historical[historical.length - 1].value);
-                onPriceUpdate?.(historical[historical.length - 1].value);
+                onPriceUpdateRef.current?.(historical[historical.length - 1].value);
             },
         );
 
         return () => {
             provider.close();
-            providersRef.current.forEach((p) => p.close());
+            providerRef.current = null;
         };
-    }, [crypto, onPriceUpdate]);
+    }, [crypto]);
 
     return { points, latestPrice };
 }

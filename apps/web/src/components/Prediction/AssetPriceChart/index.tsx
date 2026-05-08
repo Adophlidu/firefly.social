@@ -53,21 +53,18 @@ export function AssetPriceChart({
 
     return (
         <div>
-            {/* Stats row */}
-            {startTime && endDate && recurrence ? (
-                <AssetPrices
-                    isActive={isActive}
-                    endDate={endDate}
-                    startTime={startTime}
-                    recurrence={recurrence}
-                    latestPrice={latestPrice}
-                    seriesId={seriesId}
-                    platform={platform}
-                    crypto={crypto}
-                    priceToBeat={priceToBeat}
-                    finalPrice={finalPrice}
-                />
-            ) : null}
+            <AssetPrices
+                isActive={isActive}
+                endDate={endDate}
+                startTime={startTime}
+                recurrence={recurrence}
+                latestPrice={latestPrice}
+                seriesId={seriesId}
+                platform={platform}
+                crypto={crypto}
+                priceToBeat={priceToBeat}
+                finalPrice={finalPrice}
+            />
 
             <div className="px-4">
                 {isActive ? (

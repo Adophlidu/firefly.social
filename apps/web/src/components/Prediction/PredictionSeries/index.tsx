@@ -8,6 +8,7 @@ import { memo, use, useEffect, useMemo, useState } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { PredictionContext } from '@/components/Prediction/PredictionContext.js';
+import { STALE_TIMES } from '@/constants/query.js';
 import { PredictionMarketBuyButtons } from '@/components/Prediction/PredictionMarketBuyButtons.js';
 import { ActiveTag } from '@/components/Prediction/PredictionSeries/ActiveTag.js';
 import { EventResult } from '@/components/Prediction/PredictionSeries/EventResult.js';
@@ -45,7 +46,7 @@ export const PredictionSeries = memo<PredictionSeriesProps>(function PredictionS
 
     const { data } = useQuery({
         queryKey: [Source.Prediction, 'series', platform, id, eventSlug],
-        staleTime: 1000 * 60 * 5, // 5 minutes
+        staleTime: STALE_TIMES.MINUTE_5,
         queryFn: () => getEventsBySeries(platform, id, recurrence === PredictionRecurrence.FiveMinutes ? 490 : 200),
     });
 

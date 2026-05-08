@@ -2,7 +2,7 @@ import { compose } from '@dimensiondev/utils';
 import type { NextRequest } from 'next/server.js';
 import z from 'zod';
 
-import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
+import { createErrorResponseJson, createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { getSearchParamsWithZodSchema } from '@/helpers/getSearchParamsWithZodSchema.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { getPolymarketEventsBySeries } from '@/providers/prediction/polymarket/getEventsBySeries.js';
@@ -26,11 +26,11 @@ const ParamsSchema = z.object({
 
 export const GET = compose(withRequestErrorHandler(), async (request: NextRequest) => {
     if (request.nextUrl.searchParams.size === 0) {
-        return new Response('Invalid Params: No parameters provided', { status: 400 });
+        return createErrorResponseJson('Invalid Params: No parameters provided', { status: 400 });
     }
 
     const { seriesId, ...options } = getSearchParamsWithZodSchema(request, ParamsSchema);
-    const { events } = await getPolymarketEventsBySeries(seriesId, options);
+    const { events, next_cursor } = await getPolymarketEventsBySeries(seriesId, options);
 
-    return createSuccessResponseJson({ events });
+    return createSuccessResponseJson({ events, next_cursor });
 });

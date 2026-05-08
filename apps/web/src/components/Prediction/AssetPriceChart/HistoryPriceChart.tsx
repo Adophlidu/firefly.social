@@ -228,7 +228,7 @@ export const HistoryPriceChart = memo<HistoryPriceChartProps>(function HistoryPr
     priceToBeat,
 }) {
     const { data, isLoading } = useQuery({
-        queryKey: [Source.Prediction, 'crypto-prices', crypto],
+        queryKey: [Source.Prediction, 'crypto-prices', crypto, eventStartTime, endDate, recurrence],
         staleTime: STALE_TIMES.MINUTE_5,
         queryFn: async () => {
             const response = await fetchJson<ResponseJson<CryptoPriceHistory>>(

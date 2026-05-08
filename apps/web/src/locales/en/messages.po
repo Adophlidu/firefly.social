@@ -445,6 +445,9 @@ msgstr "Sorry, the username or password you entered is incorrect"
 msgid "Turn off"
 msgstr "Turn off"
 
+msgid "Price to beat"
+msgstr "Price to beat"
+
 #. placeholder {0}: publishedByFirefly ? ( <FireflyMonochromeIcon fontSize={15} width={15} height={15} className="mb-1 inline" /> ) : null
 msgid "Posted via {0} <0>{platformName}</0>"
 msgstr "Posted via {0} <0>{platformName}</0>"
@@ -1375,6 +1378,9 @@ msgstr "<0/>EVM wallets"
 msgid "{addressName} is already connected."
 msgstr "{addressName} is already connected."
 
+msgid "Tomorrow"
+msgstr "Tomorrow"
+
 msgid "Total trade"
 msgstr "Total trade"
 
@@ -1738,6 +1744,12 @@ msgstr "Address"
 msgid "Newest"
 msgstr "Newest"
 
+msgid "Current price"
+msgstr "Current price"
+
+msgid "Ended: "
+msgstr "Ended: "
+
 msgid "User Name should not exceed {extra} characters"
 msgstr "User Name should not exceed {extra} characters"
 
@@ -1952,6 +1964,9 @@ msgstr "Translated from {contentLanguage}"
 
 msgid "Failed to open miniapp"
 msgstr "Failed to open miniapp"
+
+msgid "Past"
+msgstr "Past"
 
 msgid "Leaving Firefly"
 msgstr "Leaving Firefly"
@@ -2251,6 +2266,9 @@ msgstr "Enter Amount Each"
 
 msgid "firefly.eth liked your transaction"
 msgstr "firefly.eth liked your transaction"
+
+msgid "Failed to get live market URL. Please try again later."
+msgstr "Failed to get live market URL. Please try again later."
 
 msgid "Image"
 msgstr "Image"
@@ -3019,6 +3037,9 @@ msgstr "Switch"
 
 msgid "Drafts"
 msgstr "Drafts"
+
+msgid "Go to live market"
+msgstr "Go to live market"
 
 msgid "Failed to like prediction."
 msgstr "Failed to like prediction."
@@ -4847,6 +4868,9 @@ msgstr "Unmuted {handleOrEnsOrAddress}."
 msgid "Type filter"
 msgstr "Type filter"
 
+msgid "No price data."
+msgstr "No price data."
+
 msgid "No malicious mining activities involved."
 msgstr "No malicious mining activities involved."
 
@@ -4873,6 +4897,9 @@ msgstr "Media"
 
 msgid "Are you sure you want to continue?"
 msgstr "Are you sure you want to continue?"
+
+msgid "Yesterday"
+msgstr "Yesterday"
 
 msgid "Remind me later"
 msgstr "Remind me later"
@@ -4995,6 +5022,9 @@ msgstr "Unexpected step for verifying password: {step}."
 msgid "Transaction completed!"
 msgstr "Transaction completed!"
 
+msgid "Target"
+msgstr "Target"
+
 msgid "You're trying to connect a different account than the one currently active on Firefly. Please try again."
 msgstr "You're trying to connect a different account than the one currently active on Firefly. Please try again."
 
@@ -5065,6 +5095,9 @@ msgstr "Top Collectors"
 
 msgid "OK"
 msgstr "OK"
+
+msgid "Final price"
+msgstr "Final price"
 
 msgid "Quote"
 msgstr "Quote"
