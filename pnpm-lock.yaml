@@ -777,8 +777,8 @@ importers:
         specifier: ^3.25.76
         version: 3.25.76
       zustand:
-        specifier: ^5.0.12
-        version: 5.0.12(@types/react@19.2.14)(immer@10.2.0)(react@19.2.5)
+        specifier: ^5.0.13
+        version: 5.0.13(@types/react@19.2.14)(immer@10.2.0)(react@19.2.5)
     devDependencies:
       '@dimensiondev/tolgee':
         specifier: workspace:^
@@ -27205,8 +27205,8 @@ packages:
       react: 19.2.5
       use-sync-external-store: 1.5.0(react@19.2.5)
 
-  /zustand@5.0.12(@types/react@19.2.14)(immer@10.2.0)(react@19.2.5):
-    resolution: {integrity: sha512-i77ae3aZq4dhMlRhJVCYgMLKuSiZAaUPAct2AksxQ+gOtimhGMdXljRT21P5BNpeT4kXlLIckvkPM029OljD7g==}
+  /zustand@5.0.13(@types/react@19.2.14)(immer@10.2.0)(react@19.2.5):
+    resolution: {integrity: sha512-efI2tVaVQPqtOh114loML/Z80Y4NP3yc+Ff0fYiZJPauNeWZeIp/bRFD7I9bfmCOYBh/PHxlglQ9+wvlwnPikQ==}
     engines: {node: '>=12.20.0'}
     peerDependencies:
       '@types/react': ^19.2.14
@@ -27259,4 +27259,3 @@ packages:
 time:
   /@testing-library/react@16.3.2: '2026-01-19T10:59:08.185Z'
   /tsdown@0.21.10: '2026-04-22T15:56:09.847Z'
-  /zustand@5.0.12: '2026-03-16T02:43:50.373Z'

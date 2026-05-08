@@ -124,7 +124,7 @@
         "viem": "^2.45.2",
         "wagmi": "^3.1.4",
         "zod": "^3.25.76",
-        "zustand": "^5.0.12"
+        "zustand": "^5.0.13"
     },
     "devDependencies": {
         "@dimensiondev/tolgee": "workspace:^",
