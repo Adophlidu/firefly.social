@@ -1,14 +1,14 @@
 'use client';
 
 import { safeUnreachable } from '@dimensiondev/utils';
-import { useMemo } from 'react';
+import { use, useMemo } from 'react';
 
 import { Loading } from '@/components/Loading.js';
+import { PredictionContext } from '@/components/Prediction/PredictionContext.js';
 import { PredictionMarketResolution } from '@/components/Prediction/PredictionMarketResolution.js';
 import { PredictionPlatform } from '@/constants/enum.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { BetsEventInfoTab, useBetsEventInfoTab } from '@/hooks/prediction/useBetsEventInfoTab.js';
-import type { BetsEventDataForUI } from '@/types/prediction.js';
 
 const PredictionMarketTopHolders = dynamic(
     () =>
@@ -29,7 +29,6 @@ const PredictionEventInfo = dynamic(
 
 interface PredictionBaseInfoTabContentProps {
     platform: PredictionPlatform;
-    detail: BetsEventDataForUI;
     showResolution?: boolean;
     eventSlug?: string;
     eventTitle?: string;
@@ -37,17 +36,19 @@ interface PredictionBaseInfoTabContentProps {
 
 export function PredictionBaseInfoTabContent({
     platform,
-    detail,
     showResolution,
     eventSlug,
     eventTitle,
 }: PredictionBaseInfoTabContentProps) {
+    const { event: detail } = use(PredictionContext);
     const [tab] = useBetsEventInfoTab(showResolution);
 
     const marketIds = useMemo(
-        () => detail.markets.map((x) => (platform === PredictionPlatform.Opinion ? x.questionId : x.conditionId)),
-        [detail.markets, platform],
+        () => detail?.markets.map((x) => (platform === PredictionPlatform.Opinion ? x.questionId : x.conditionId)),
+        [detail?.markets, platform],
     );
+
+    if (!detail || !marketIds) return null;
 
     switch (tab) {
         case BetsEventInfoTab.TopHolders:

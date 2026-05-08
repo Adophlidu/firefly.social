@@ -3,7 +3,7 @@ Package Analysis
 
 Application: apps/web
 
-Total packages: 2304
+Total packages: 2305
 Packages with multiple versions: 359
 
 Legend:
@@ -1810,6 +1810,7 @@ Packages with Single Version
  lit@3.3.0
  lit-element@4.2.0
  lit-html@3.3.0
+*liveline@0.0.7
  loader-runner@4.3.1
  loadjs@4.3.0
  local-pkg@1.1.2

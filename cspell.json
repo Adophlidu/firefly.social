@@ -511,7 +511,13 @@
         "muti",
         "USDB",
         "SAMEORIGIN",
-        "nosniff"
+        "nosniff",
+        "Liveline",
+        "Dogecoin",
+        "fiveminute",
+        "fourhour",
+        "RTDS",
+        "chainlink"
     ],
     "flagWords": [],
     "ignorePaths": [

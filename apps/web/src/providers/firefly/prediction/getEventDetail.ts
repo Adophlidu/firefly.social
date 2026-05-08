@@ -1,15 +1,14 @@
-import { parseJson, safeUnreachable } from '@dimensiondev/utils';
-import { first, last } from 'lodash-es';
+import { safeUnreachable } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
-import { BetsMarketResolveStatus, PredictionPlatform } from '@/constants/enum.js';
+import { PredictionPlatform } from '@/constants/enum.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
+import { formatOpinionEvent, formatPolymarketEvent } from '@/providers/firefly/prediction/formatEvents.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { getPolymarketEvent } from '@/providers/prediction/polymarket/getEvent.js';
-import type { PolymarketEvent } from '@/providers/prediction/polymarket/type.js';
 import type { OpinionMarketDetail, Response } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
-import type { BetsEventDataForUI, BetsMarketDataForUI } from '@/types/prediction.js';
+import type { BetsEventDataForUI } from '@/types/prediction.js';
 
 export async function getOpinionMarketDetail(topicId: string, isMutil: boolean) {
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/opinion/market/detail', {
@@ -36,159 +35,6 @@ export async function getOpinionMarketDetail(topicId: string, isMutil: boolean) 
 interface Options {
     id: string;
     isMutil: boolean;
-}
-
-function sortMarkets(markets: BetsMarketDataForUI[]) {
-    return [
-        ...markets.filter((market) => !market.isResolved && !market.isClosed),
-        ...markets.filter((market) => market.isResolved || market.isClosed),
-    ];
-}
-
-function filterAndSortPolymarketMarkets(detail: PolymarketEvent) {
-    const markets = (detail.markets || []).filter((market) => market.active);
-    try {
-        if (detail.sortBy === 'price') {
-            markets.sort((a, b) => {
-                const aPrices = parseJson<string[]>(a.outcomePrices);
-                const bPrices = parseJson<string[]>(b.outcomePrices);
-                const aPrice = first(aPrices) || '0';
-                const bPrice = first(bPrices) || '0';
-                return Number.parseFloat(bPrice) - Number.parseFloat(aPrice);
-            });
-        } else {
-            markets.sort((a, b) => {
-                const aThreshold = a.groupItemThreshold || '0';
-                const bThreshold = b.groupItemThreshold || '0';
-                return Number.parseFloat(aThreshold) - Number.parseFloat(bThreshold);
-            });
-        }
-
-        return markets;
-    } catch {
-        return markets;
-    }
-}
-
-function formatPolymarketEvent(detail: PolymarketEvent): BetsEventDataForUI {
-    const markets: BetsMarketDataForUI[] = filterAndSortPolymarketMarkets(detail).map((market) => {
-        const outcomeLabels = parseJson<string[]>(market.outcomes);
-        const outcomeIds = parseJson<string[]>(market.clobTokenIds);
-        const prices = parseJson<string[]>(market.outcomePrices);
-        const isResolved = market.umaResolutionStatus === BetsMarketResolveStatus.Resolved;
-        const outcomes = (outcomeLabels || []).map((x, i) => ({
-            id: outcomeIds?.[i] || '',
-            label: x,
-            price: prices?.[i] || '0',
-        }));
-        const statusList: BetsMarketResolveStatus[] = [];
-        const statuses = parseJson<BetsMarketResolveStatus[]>(market.umaResolutionStatuses || '[]');
-        if (statuses && Array.isArray(statuses)) {
-            statusList.push(
-                ...statuses.filter((s) =>
-                    [
-                        BetsMarketResolveStatus.Proposed,
-                        BetsMarketResolveStatus.Disputed,
-                        BetsMarketResolveStatus.Resolved,
-                    ].includes(s),
-                ),
-            );
-            if (isResolved) {
-                if (!statusList.includes(BetsMarketResolveStatus.Disputed) && statuses.length > 0) {
-                    statusList.splice(1, 0, BetsMarketResolveStatus.NoDisputed);
-                }
-                if (last(statusList) !== BetsMarketResolveStatus.Resolved) {
-                    statusList.push(BetsMarketResolveStatus.Resolved);
-                }
-            }
-            if (last(statusList) === BetsMarketResolveStatus.Disputed && !isResolved) {
-                statusList.push(BetsMarketResolveStatus.Review);
-            }
-        }
-
-        return {
-            id: market.id,
-            slug: market.slug,
-            questionId: market.id,
-            volume: market.volume,
-            title: market.groupItemTitle || market.question,
-            isResolved,
-            resolvedOutcomeId:
-                isResolved && outcomes?.length === 2
-                    ? Number.parseFloat(outcomes[0].price) >= Number.parseFloat(outcomes[1].price)
-                        ? outcomes[0].id
-                        : outcomes[1].id
-                    : undefined,
-            isClosed: !!market.closed,
-            createTime: new Date(market.startDate || market.createdAt).getTime(),
-            image: market.image,
-            conditionId: market.conditionId,
-            outcomes,
-            statusList,
-            bestAsk: market.bestAsk,
-            bestBid: market.bestBid,
-        };
-    });
-
-    return {
-        id: detail.id,
-        slug: detail.slug,
-        title: detail.title,
-        image: detail.image,
-        status: detail.active ? 'active' : 'ended',
-        platform: PredictionPlatform.Polymarket,
-        description: detail.description,
-        isSingleEvent: detail.markets?.length === 0,
-        tags: detail.tags.map((tag) => tag),
-        endTime: new Date(detail.endDate).getTime(),
-        volume: detail.volume,
-        markets: sortMarkets(markets),
-    };
-}
-
-function formatOpinionMarket(market: OpinionMarketDetail): BetsMarketDataForUI {
-    const isResolved = market.status === 4;
-
-    return {
-        id: `${market.topicId}`,
-        questionId: market.questionId,
-        conditionId: market.conditionId,
-        title: market.title,
-        image: market.thumbnailUrl,
-        volume: market.volume,
-        isResolved,
-        isClosed: false,
-        resolvedOutcomeId:
-            isResolved && market.resultPos
-                ? market.resultPos === market.yesPos
-                    ? 'yes'
-                    : market.resultPos === market.noPos
-                      ? 'no'
-                      : undefined
-                : undefined,
-        createTime: market.createTime * 1000,
-        outcomes: [
-            { id: 'yes', label: market.yesLabel || 'YES', price: market.yesMarketPrice || '0' },
-            { id: 'no', label: market.noLabel || 'NO', price: market.noMarketPrice || '0' },
-        ],
-    };
-}
-
-function formatOpinionEvent(detail: OpinionMarketDetail): BetsEventDataForUI {
-    const markets = (detail.childList || []).map(formatOpinionMarket);
-
-    return {
-        id: detail.questionId,
-        title: detail.title,
-        image: detail.thumbnailUrl,
-        status: 'active',
-        description: detail.rules,
-        platform: PredictionPlatform.Opinion,
-        endTime: detail.cutoffTime * 1000,
-        volume: detail.volume,
-        isSingleEvent: markets.length === 0,
-        markets: markets.length ? sortMarkets(markets) : [formatOpinionMarket(detail)],
-    };
 }
 
 export async function getEventDetail(

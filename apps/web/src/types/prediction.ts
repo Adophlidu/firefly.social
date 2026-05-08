@@ -1,4 +1,4 @@
-import type { SPREAD_SETTING_OPTIONS } from '@/constants/bets.js';
+import type { PredictionCrypto, SPREAD_SETTING_OPTIONS } from '@/constants/bets.js';
 import type { BetsMarketResolveStatus, PredictionPlatform, SocialSource } from '@/constants/enum.js';
 import type { PolymarketOpenOrderDetail } from '@/providers/types/Firefly.js';
 
@@ -119,8 +119,15 @@ export interface BetsEventDataForUI {
     closed?: boolean;
     archived?: boolean;
     sortBy?: string;
-    series?: Array<{ recurrence?: string }>;
+    series?: Array<{ recurrence?: PredictionRecurrence; id: string; originalRecurrence?: PredictionRecurrence }>;
     startDate?: string;
+    startTime?: string;
+    endDate?: string;
+    cryptoData?: {
+        name: PredictionCrypto;
+        priceToBeat?: number;
+        finalPrice?: number;
+    };
 }
 
 export interface BetsTopHolderForUI {
@@ -148,3 +155,10 @@ export interface BetsOrderBookItem {
 }
 
 export type PredictionOpenOrder = PolymarketOpenOrderDetail;
+
+export enum PredictionRecurrence {
+    FiveMinutes = '5m',
+    FifteenMinutes = '15m',
+    FourHours = '4h',
+    Daily = 'daily',
+}

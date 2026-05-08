@@ -56,6 +56,9 @@ function buildCSP(): string {
         'polygon.drpc.org',
         '*.alchemy.com',
 
+        // polymarket
+        '*.polymarket.com',
+
         'explorer-api.walletconnect.com',
         'pulse.walletconnect.org',
         'relay.walletconnect.org',

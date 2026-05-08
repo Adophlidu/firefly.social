@@ -1,0 +1,87 @@
+'use client';
+
+import { useState } from 'react';
+
+import { Loading } from '@/components/Loading.js';
+import { AssetPrices } from '@/components/Prediction/AssetPriceChart/AssetPrices.js';
+import { CRYPTO_PRICE_CHART_HEIGHT, type PredictionCrypto } from '@/constants/bets.js';
+import type { PredictionPlatform } from '@/constants/enum.js';
+import { dynamic } from '@/esm/dynamic.js';
+import type { PredictionRecurrence } from '@/types/prediction.js';
+
+const LivePriceChart = dynamic(
+    () => import('@/components/Prediction/AssetPriceChart/LivePriceChart.js').then((m) => m.LivePriceChart),
+    {
+        ssr: false,
+        loading: () => <Loading minHeight={CRYPTO_PRICE_CHART_HEIGHT} />,
+    },
+);
+const HistoryPriceChart = dynamic(
+    () => import('@/components/Prediction/AssetPriceChart/HistoryPriceChart.js').then((m) => m.HistoryPriceChart),
+    {
+        ssr: false,
+        loading: () => <Loading minHeight={CRYPTO_PRICE_CHART_HEIGHT} />,
+    },
+);
+
+interface AssetPriceChartProps {
+    isActive: boolean;
+    crypto: PredictionCrypto;
+    seriesId: string;
+    platform: PredictionPlatform;
+    startTime?: string;
+    endDate?: string;
+    recurrence?: PredictionRecurrence;
+    priceToBeat?: number;
+    finalPrice?: number;
+}
+
+export function AssetPriceChart({
+    isActive,
+    crypto,
+    recurrence,
+    startTime,
+    endDate,
+    platform,
+    seriesId,
+    priceToBeat,
+    finalPrice,
+}: AssetPriceChartProps) {
+    const [latestPrice, setLatestPrice] = useState<number | null>(null);
+
+    if (!startTime || !endDate || !recurrence) return null;
+
+    return (
+        <div>
+            {/* Stats row */}
+            {startTime && endDate && recurrence ? (
+                <AssetPrices
+                    isActive={isActive}
+                    endDate={endDate}
+                    startTime={startTime}
+                    recurrence={recurrence}
+                    latestPrice={latestPrice}
+                    seriesId={seriesId}
+                    platform={platform}
+                    crypto={crypto}
+                    priceToBeat={priceToBeat}
+                    finalPrice={finalPrice}
+                />
+            ) : null}
+
+            <div className="px-4">
+                {isActive ? (
+                    <LivePriceChart crypto={crypto} recurrence={recurrence} onPriceUpdate={setLatestPrice} />
+                ) : (
+                    <HistoryPriceChart
+                        crypto={crypto}
+                        eventStartTime={startTime}
+                        endDate={endDate}
+                        recurrence={recurrence}
+                        priceToBeat={priceToBeat}
+                    />
+                )}
+            </div>
+        </div>
+    );
+}

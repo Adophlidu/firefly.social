@@ -3,31 +3,31 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { skipToken, useQuery } from '@tanstack/react-query';
 import { compact, first } from 'lodash-es';
-import { memo, useMemo, useState } from 'react';
+import { memo, use, useMemo, useState } from 'react';
 
+import { PredictionContext } from '@/components/Prediction/PredictionContext.js';
 import { MarketsAccountDataTab } from '@/components/Prediction/PredictionMarketsAccountTab/MarketsAccountDataTab.js';
 import { MarketsAccountDataTabContent } from '@/components/Prediction/PredictionMarketsAccountTab/MarketsAccountDataTabContent.js';
 import { PredictionPlatform, Source } from '@/constants/enum.js';
 import { getAccountMarketPositions } from '@/providers/firefly/prediction/getAccountMarketPositions.js';
 import { MarketsAccountTabType } from '@/providers/prediction/polymarket/constants.js';
 import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
-import type { BetsEventDataForUI } from '@/types/prediction.js';
 
 interface PredictionMarketsAccountTabProps {
-    event: BetsEventDataForUI;
     platform: PredictionPlatform;
     eventSlug?: string;
 }
 
 export const PredictionMarketsAccountTab = memo<PredictionMarketsAccountTabProps>(function PredictionMarketsAccountTab({
-    event,
     eventSlug,
     platform,
 }) {
+    const { event } = use(PredictionContext);
+
     const [currentTab, setCurrentTab] = useState(MarketsAccountTabType.Markets);
     const { currentProfileSession } = useFireflyProfileStore();
 
-    const markets = event.markets || EMPTY_LIST;
+    const markets = event?.markets || EMPTY_LIST;
     const marketIds = markets.map((x) => x.conditionId);
     const enabled = !!currentProfileSession && platform === PredictionPlatform.Polymarket && marketIds.length > 0;
     const { data } = useQuery({
@@ -63,6 +63,8 @@ export const PredictionMarketsAccountTab = memo<PredictionMarketsAccountTabProps
             ),
         [data],
     );
+
+    if (!event) return null;
 
     const firstMarket = first(markets);
     if (!wallets.length && markets.length <= 1 && (firstMarket?.isClosed || firstMarket?.isResolved)) return null;

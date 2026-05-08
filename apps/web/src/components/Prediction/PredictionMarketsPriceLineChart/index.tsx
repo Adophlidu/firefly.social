@@ -124,51 +124,54 @@ export function PredictionMarketsPriceLineChart({
     const firstMarket = markets[0];
 
     return (
-        <div className="p-4">
-            <ChartLabels labels={labels} isSingleMarket={markets.length === 1} />
-            <PriceHistoryChart
-                outcomeId={outcomeId}
-                platform={platform}
-                markets={marketsWithSettings}
-                timeRange={timeRange}
-                onPayloadChange={setPayload}
-            />
-            <div className="mt-4 flex items-start gap-3">
-                <TimeRangeSettings platform={platform} timeRange={timeRange} onTimeRangeChange={setTimeRange} />
-                {markets.length > 1 ? (
-                    <MarketSettings markets={marketsWithSettings} onMarketsChange={setMarketsWithSettings} />
-                ) : (
-                    <ClickableButton
-                        className="hover:bg-bg -mt-1 flex size-6 items-center justify-center rounded"
-                        onClick={() => {
-                            const firstMarket = first(markets);
-                            if (!firstMarket) return;
-
-                            const outcomeIndex = firstMarket.outcomes.findIndex((o) => o.id === outcomeId);
-                            if (outcomeIndex === -1) return;
-
-                            const nextOutcome = firstMarket.outcomes[(outcomeIndex + 1) % firstMarket.outcomes.length];
-                            setOutcomeId(nextOutcome.id);
-                        }}
-                    >
-                        <ToggleIcon width={16} height={16} />
-                    </ClickableButton>
-                )}
-            </div>
-            {markets.length === 1 &&
-            supportOrderBook &&
-            !firstMarket.isResolved &&
-            !firstMarket.isClosed &&
-            showBuyButtons ? (
-                <PredictionMarketBuyButtons
-                    className="mt-6"
+        <div>
+            <div className="p-4">
+                <ChartLabels labels={labels} isSingleMarket={markets.length === 1} />
+                <PriceHistoryChart
+                    outcomeId={outcomeId}
                     platform={platform}
-                    market={firstMarket}
-                    size="large"
-                    showPrice
-                    autoRefreshPrice
+                    markets={marketsWithSettings}
+                    timeRange={timeRange}
+                    onPayloadChange={setPayload}
                 />
-            ) : null}
+                <div className="mt-4 flex items-start gap-3">
+                    <TimeRangeSettings platform={platform} timeRange={timeRange} onTimeRangeChange={setTimeRange} />
+                    {markets.length > 1 ? (
+                        <MarketSettings markets={marketsWithSettings} onMarketsChange={setMarketsWithSettings} />
+                    ) : (
+                        <ClickableButton
+                            className="hover:bg-bg -mt-1 flex size-6 items-center justify-center rounded"
+                            onClick={() => {
+                                const firstMarket = first(markets);
+                                if (!firstMarket) return;
+
+                                const outcomeIndex = firstMarket.outcomes.findIndex((o) => o.id === outcomeId);
+                                if (outcomeIndex === -1) return;
+
+                                const nextOutcome =
+                                    firstMarket.outcomes[(outcomeIndex + 1) % firstMarket.outcomes.length];
+                                setOutcomeId(nextOutcome.id);
+                            }}
+                        >
+                            <ToggleIcon width={16} height={16} />
+                        </ClickableButton>
+                    )}
+                </div>
+                {markets.length === 1 &&
+                supportOrderBook &&
+                !firstMarket.isResolved &&
+                !firstMarket.isClosed &&
+                showBuyButtons ? (
+                    <PredictionMarketBuyButtons
+                        className="mt-6"
+                        platform={platform}
+                        market={firstMarket}
+                        size="large"
+                        showPrice
+                        autoRefreshPrice
+                    />
+                ) : null}
+            </div>
         </div>
     );
 }

@@ -1,3 +1,5 @@
+import type { PredictionRecurrence } from '@/types/prediction.js';
+
 export type PolymarketResponse<T extends object> =
     | T
     | {
@@ -79,7 +81,7 @@ export interface PolymarketSeries {
     slug: string;
     title: string;
     seriesType: string;
-    recurrence: string;
+    recurrence: PredictionRecurrence;
     image: string;
     icon: string;
     active: boolean;
@@ -127,7 +129,13 @@ export interface PolymarketEvent {
     sortBy: string;
     markets: PolymarketMarket[];
     series: PolymarketSeries[];
+    seriesSlug?: string;
     tags: PolymarketTag[];
+    startTime?: string;
+    eventMetadata?: {
+        priceToBeat?: number;
+        finalPrice?: number;
+    };
 }
 
 export interface PolymarketPriceHistory {
@@ -151,3 +159,17 @@ export interface UserStatsResponse {
 export type PriceHistoryInterval = '1m' | '1w' | '1d' | '6h' | '1h' | 'max';
 
 export type PolymarketEventLocale = 'zh' | 'zh-Hant' | 'ja' | 'ko';
+
+export interface CryptoPrice {
+    cached: boolean;
+    closePrice: number | null;
+    completed: boolean;
+    incomplete: boolean;
+    openPrice: number | null;
+    timestamp: number;
+}
+
+export type CryptoPriceHistory = Array<{
+    timestamp: number; // milliseconds
+    value: number;
+}>;
