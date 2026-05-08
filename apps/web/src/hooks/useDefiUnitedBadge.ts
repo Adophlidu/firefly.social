@@ -1,4 +1,5 @@
-import { useQuery } from '@tanstack/react-query';
+import { isValidAddressEthereum } from '@dimensiondev/web3/utils';
+import { skipToken, useQuery } from '@tanstack/react-query';
 import urlcat from 'urlcat';
 
 import type { DefiUnitedTier } from '@/constants/enum.js';
@@ -32,13 +33,10 @@ async function fetchBadgeLevel(platform: BadgeLevelPlatform, id: string): Promis
  * Lookup DefiUnited donation tier by wallet address.
  */
 export function useDefiUnitedBadge(address: string | null | undefined) {
+    const valid = !!address && isValidAddressEthereum(address);
     return useQuery({
-        queryKey: ['defiunited-badge', address?.toLowerCase()],
-        queryFn: async (): Promise<DefiUnitedTier | null> => {
-            if (!address) return null;
-            return fetchBadgeLevel('eth', address);
-        },
-        enabled: !!address,
+        queryKey: ['defiunited-badge', valid ? address!.toLowerCase() : undefined],
+        queryFn: valid ? async () => fetchBadgeLevel('eth', address) : skipToken,
         refetchOnMount: false,
         refetchOnWindowFocus: false,
         refetchOnReconnect: false,
