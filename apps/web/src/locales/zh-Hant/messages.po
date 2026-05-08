@@ -986,7 +986,7 @@ msgid "No predictions found"
 msgstr "未發現任何預測"
 
 msgid "Won"
-msgstr ""
+msgstr "獲勝"
 
 msgid "Edit profile"
 msgstr "編輯個人檔案"
@@ -1375,7 +1375,7 @@ msgid "Tomorrow"
 msgstr ""
 
 msgid "Total trade"
-msgstr ""
+msgstr "總交易量"
 
 #. placeholder {0}: outcome.label
 msgid "Buy {0}"
@@ -1439,7 +1439,7 @@ msgid "Multi-device login is required for schedule post. Set a 6-digit password 
 msgstr "定時發佈需啟用多裝置登入。請設定 6 位數字密碼以驗證身份。"
 
 msgid "DeFiUnited Supporter"
-msgstr ""
+msgstr "DeFiUnited 支持者"
 
 msgid "Audio Cover"
 msgstr "音訊封面"
@@ -4746,7 +4746,7 @@ msgid "Article removed from your Bookmarks"
 msgstr "文章已從你的書籤中移除"
 
 msgid "Lost"
-msgstr ""
+msgstr "輸掉"
 
 msgid "Mint function"
 msgstr "鑄造功能"
@@ -5030,7 +5030,7 @@ msgid "Login"
 msgstr "登入"
 
 msgid "Security & Privacy"
-msgstr ""
+msgstr "安全與隱私"
 
 msgid "Loading..."
 msgstr "載入中……"

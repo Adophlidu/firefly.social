@@ -986,7 +986,7 @@ msgid "No predictions found"
 msgstr "未找到预测结果"
 
 msgid "Won"
-msgstr ""
+msgstr "获胜"
 
 msgid "Edit profile"
 msgstr "编辑个人资料"
@@ -1375,7 +1375,7 @@ msgid "Tomorrow"
 msgstr ""
 
 msgid "Total trade"
-msgstr ""
+msgstr "总交易量"
 
 #. placeholder {0}: outcome.label
 msgid "Buy {0}"
@@ -1439,7 +1439,7 @@ msgid "Multi-device login is required for schedule post. Set a 6-digit password 
 msgstr "定时发布需启用多设备登录。请设置 6 位数字密码以验证身份。"
 
 msgid "DeFiUnited Supporter"
-msgstr ""
+msgstr "DeFiUnited 支持者"
 
 msgid "Audio Cover"
 msgstr "音频封面"
@@ -4746,7 +4746,7 @@ msgid "Article removed from your Bookmarks"
 msgstr "文章已经从你的收藏中移除"
 
 msgid "Lost"
-msgstr ""
+msgstr "输掉"
 
 msgid "Mint function"
 msgstr "铸造功能"
@@ -5030,7 +5030,7 @@ msgid "Login"
 msgstr "登录"
 
 msgid "Security & Privacy"
-msgstr ""
+msgstr "安全与隐私"
 
 msgid "Loading..."
 msgstr "加载中..."
