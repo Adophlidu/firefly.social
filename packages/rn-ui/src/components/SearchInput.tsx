@@ -23,7 +23,7 @@ const InputWrapper = styled(XStack, {
 const StyledInput = styled(Input, {
     unstyled: true,
     height: '100%',
-    width: '100%',
+    flex: 1,
     fontSize: 14,
     color: '#171717',
     padding: 0,

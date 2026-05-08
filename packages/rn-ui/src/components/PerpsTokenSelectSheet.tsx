@@ -1,5 +1,5 @@
 import { memo, useState } from 'react';
-import { Sheet } from 'tamagui';
+import { Sheet, YStack } from 'tamagui';
 
 import type { PerpsMeta } from '@/types/ui';
 import { PerpsMarket } from '@/ui/Perps/PerpsMarket';
@@ -22,7 +22,8 @@ export const PerpsTokenSelectSheet = memo<PerpsTokenSelectSheetProps>(function P
             modal
             open={open}
             onOpenChange={onOpenChange}
-            snapPointsMode="fit"
+            snapPointsMode="percent"
+            snapPoints={[80]}
             dismissOnSnapToBottom
             position={position}
             onPositionChange={setPosition}
@@ -41,8 +42,8 @@ export const PerpsTokenSelectSheet = memo<PerpsTokenSelectSheetProps>(function P
                 borderColor="rgba(34, 33, 47, 0.03)"
                 borderTopLeftRadius={36}
                 borderTopRightRadius={36}
-                borderBottomLeftRadius={36}
-                borderBottomRightRadius={36}
+                borderBottomLeftRadius={0}
+                borderBottomRightRadius={0}
                 shadowColor="#403D57"
                 shadowOpacity={0.1}
                 shadowRadius={20}
@@ -51,11 +52,13 @@ export const PerpsTokenSelectSheet = memo<PerpsTokenSelectSheetProps>(function P
                 paddingBottom={16}
                 paddingHorizontal={16}
                 gap={16}
-                minHeight={250}
+                height="100%"
             >
                 <Sheet.Handle width={48} height={4} borderRadius={100} backgroundColor="#D1D1D1" marginBottom={0} />
 
-                <PerpsMarket onMarketSelect={onTokenSelected} />
+                <YStack flex={1} minHeight={0} width="100%">
+                    <PerpsMarket onMarketSelect={onTokenSelected} />
+                </YStack>
                 {/* <YStack flex={1}>
                     <ScrollView height="100%" showsVerticalScrollIndicator={false}>
                         <PerpsMarket onMarketSelect={onTokenSelected} />

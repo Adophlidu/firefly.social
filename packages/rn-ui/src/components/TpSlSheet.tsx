@@ -272,7 +272,7 @@ export const TpSlSheet = memo<TpSlSheetProps>(function TpSlSheet({
                                         fontWeight={500}
                                         placeholder="TP Price"
                                         placeholderTextColor="rgba(70, 70, 70, 0.4)"
-                                        width="100%"
+                                        flex={1}
                                     />
                                 </XStack>
                                 <PercentField
@@ -303,7 +303,7 @@ export const TpSlSheet = memo<TpSlSheetProps>(function TpSlSheet({
                                         fontWeight={500}
                                         placeholder="SL Price"
                                         placeholderTextColor="rgba(70, 70, 70, 0.4)"
-                                        width="100%"
+                                        flex={1}
                                     />
                                 </XStack>
                                 <PercentField

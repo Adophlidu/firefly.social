@@ -12,12 +12,14 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SwapRouteImport } from './routes/swap'
 import { Route as SendRouteImport } from './routes/send'
 import { Route as SecurityRouteImport } from './routes/security'
+import { Route as PerpsRouteImport } from './routes/perps'
 import { Route as DevRouteImport } from './routes/dev'
 import { Route as BetRouteImport } from './routes/bet'
 import { Route as HomeRouteImport } from './routes/_home'
 import { Route as SwapIndexRouteImport } from './routes/swap.index'
 import { Route as SendIndexRouteImport } from './routes/send.index'
 import { Route as SecurityIndexRouteImport } from './routes/security.index'
+import { Route as PerpsIndexRouteImport } from './routes/perps.index'
 import { Route as HomeIndexRouteImport } from './routes/_home.index'
 import { Route as SwapSelectTokenRouteImport } from './routes/swap.select-token'
 import { Route as SendTokensRouteImport } from './routes/send.tokens'
@@ -25,6 +27,8 @@ import { Route as SendSuccessRouteImport } from './routes/send.success'
 import { Route as SendRecipientsRouteImport } from './routes/send.recipients'
 import { Route as SendFormRouteImport } from './routes/send.form'
 import { Route as SendFailedRouteImport } from './routes/send.failed'
+import { Route as PerpsTokenRouteImport } from './routes/perps.token'
+import { Route as PerpsHistoryRouteImport } from './routes/perps.history'
 import { Route as DevSolanaRouteImport } from './routes/dev.solana'
 import { Route as DevEthereumRouteImport } from './routes/dev.ethereum'
 import { Route as BetWithdrawRouteImport } from './routes/bet.withdraw'
@@ -59,6 +63,11 @@ const SecurityRoute = SecurityRouteImport.update({
   path: '/security',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PerpsRoute = PerpsRouteImport.update({
+  id: '/perps',
+  path: '/perps',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DevRoute = DevRouteImport.update({
   id: '/dev',
   path: '/dev',
@@ -87,6 +96,11 @@ const SecurityIndexRoute = SecurityIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => SecurityRoute,
+} as any)
+const PerpsIndexRoute = PerpsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => PerpsRoute,
 } as any)
 const HomeIndexRoute = HomeIndexRouteImport.update({
   id: '/',
@@ -122,6 +136,16 @@ const SendFailedRoute = SendFailedRouteImport.update({
   id: '/failed',
   path: '/failed',
   getParentRoute: () => SendRoute,
+} as any)
+const PerpsTokenRoute = PerpsTokenRouteImport.update({
+  id: '/token',
+  path: '/token',
+  getParentRoute: () => PerpsRoute,
+} as any)
+const PerpsHistoryRoute = PerpsHistoryRouteImport.update({
+  id: '/history',
+  path: '/history',
+  getParentRoute: () => PerpsRoute,
 } as any)
 const DevSolanaRoute = DevSolanaRouteImport.update({
   id: '/solana',
@@ -217,6 +241,7 @@ export interface FileRoutesByFullPath {
   '/': typeof HomeIndexRoute
   '/bet': typeof BetHomeRouteWithChildren
   '/dev': typeof DevRouteWithChildren
+  '/perps': typeof PerpsRouteWithChildren
   '/security': typeof SecurityRouteWithChildren
   '/send': typeof SendRouteWithChildren
   '/swap': typeof SwapRouteWithChildren
@@ -228,12 +253,15 @@ export interface FileRoutesByFullPath {
   '/bet/withdraw': typeof BetWithdrawRoute
   '/dev/ethereum': typeof DevEthereumRoute
   '/dev/solana': typeof DevSolanaRoute
+  '/perps/history': typeof PerpsHistoryRoute
+  '/perps/token': typeof PerpsTokenRoute
   '/send/failed': typeof SendFailedRoute
   '/send/form': typeof SendFormRoute
   '/send/recipients': typeof SendRecipientsRoute
   '/send/success': typeof SendSuccessRoute
   '/send/tokens': typeof SendTokensRoute
   '/swap/select-token': typeof SwapSelectTokenRoute
+  '/perps/': typeof PerpsIndexRoute
   '/security/': typeof SecurityIndexRoute
   '/send/': typeof SendIndexRoute
   '/swap/': typeof SwapIndexRoute
@@ -258,6 +286,8 @@ export interface FileRoutesByTo {
   '/bet/withdraw': typeof BetWithdrawRoute
   '/dev/ethereum': typeof DevEthereumRoute
   '/dev/solana': typeof DevSolanaRoute
+  '/perps/history': typeof PerpsHistoryRoute
+  '/perps/token': typeof PerpsTokenRoute
   '/send/failed': typeof SendFailedRoute
   '/send/form': typeof SendFormRoute
   '/send/recipients': typeof SendRecipientsRoute
@@ -265,6 +295,7 @@ export interface FileRoutesByTo {
   '/send/tokens': typeof SendTokensRoute
   '/swap/select-token': typeof SwapSelectTokenRoute
   '/': typeof HomeIndexRoute
+  '/perps': typeof PerpsIndexRoute
   '/security': typeof SecurityIndexRoute
   '/send': typeof SendIndexRoute
   '/swap': typeof SwapIndexRoute
@@ -282,6 +313,7 @@ export interface FileRoutesById {
   '/_home': typeof HomeRouteWithChildren
   '/bet': typeof BetRouteWithChildren
   '/dev': typeof DevRouteWithChildren
+  '/perps': typeof PerpsRouteWithChildren
   '/security': typeof SecurityRouteWithChildren
   '/send': typeof SendRouteWithChildren
   '/swap': typeof SwapRouteWithChildren
@@ -294,6 +326,8 @@ export interface FileRoutesById {
   '/bet/withdraw': typeof BetWithdrawRoute
   '/dev/ethereum': typeof DevEthereumRoute
   '/dev/solana': typeof DevSolanaRoute
+  '/perps/history': typeof PerpsHistoryRoute
+  '/perps/token': typeof PerpsTokenRoute
   '/send/failed': typeof SendFailedRoute
   '/send/form': typeof SendFormRoute
   '/send/recipients': typeof SendRecipientsRoute
@@ -301,6 +335,7 @@ export interface FileRoutesById {
   '/send/tokens': typeof SendTokensRoute
   '/swap/select-token': typeof SwapSelectTokenRoute
   '/_home/': typeof HomeIndexRoute
+  '/perps/': typeof PerpsIndexRoute
   '/security/': typeof SecurityIndexRoute
   '/send/': typeof SendIndexRoute
   '/swap/': typeof SwapIndexRoute
@@ -320,6 +355,7 @@ export interface FileRouteTypes {
     | '/'
     | '/bet'
     | '/dev'
+    | '/perps'
     | '/security'
     | '/send'
     | '/swap'
@@ -331,12 +367,15 @@ export interface FileRouteTypes {
     | '/bet/withdraw'
     | '/dev/ethereum'
     | '/dev/solana'
+    | '/perps/history'
+    | '/perps/token'
     | '/send/failed'
     | '/send/form'
     | '/send/recipients'
     | '/send/success'
     | '/send/tokens'
     | '/swap/select-token'
+    | '/perps/'
     | '/security/'
     | '/send/'
     | '/swap/'
@@ -361,6 +400,8 @@ export interface FileRouteTypes {
     | '/bet/withdraw'
     | '/dev/ethereum'
     | '/dev/solana'
+    | '/perps/history'
+    | '/perps/token'
     | '/send/failed'
     | '/send/form'
     | '/send/recipients'
@@ -368,6 +409,7 @@ export interface FileRouteTypes {
     | '/send/tokens'
     | '/swap/select-token'
     | '/'
+    | '/perps'
     | '/security'
     | '/send'
     | '/swap'
@@ -384,6 +426,7 @@ export interface FileRouteTypes {
     | '/_home'
     | '/bet'
     | '/dev'
+    | '/perps'
     | '/security'
     | '/send'
     | '/swap'
@@ -396,6 +439,8 @@ export interface FileRouteTypes {
     | '/bet/withdraw'
     | '/dev/ethereum'
     | '/dev/solana'
+    | '/perps/history'
+    | '/perps/token'
     | '/send/failed'
     | '/send/form'
     | '/send/recipients'
@@ -403,6 +448,7 @@ export interface FileRouteTypes {
     | '/send/tokens'
     | '/swap/select-token'
     | '/_home/'
+    | '/perps/'
     | '/security/'
     | '/send/'
     | '/swap/'
@@ -421,6 +467,7 @@ export interface RootRouteChildren {
   HomeRoute: typeof HomeRouteWithChildren
   BetRoute: typeof BetRouteWithChildren
   DevRoute: typeof DevRouteWithChildren
+  PerpsRoute: typeof PerpsRouteWithChildren
   SecurityRoute: typeof SecurityRouteWithChildren
   SendRoute: typeof SendRouteWithChildren
   SwapRoute: typeof SwapRouteWithChildren
@@ -450,6 +497,13 @@ declare module '@tanstack/react-router' {
       path: '/security'
       fullPath: '/security'
       preLoaderRoute: typeof SecurityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/perps': {
+      id: '/perps'
+      path: '/perps'
+      fullPath: '/perps'
+      preLoaderRoute: typeof PerpsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dev': {
@@ -493,6 +547,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/security/'
       preLoaderRoute: typeof SecurityIndexRouteImport
       parentRoute: typeof SecurityRoute
+    }
+    '/perps/': {
+      id: '/perps/'
+      path: '/'
+      fullPath: '/perps/'
+      preLoaderRoute: typeof PerpsIndexRouteImport
+      parentRoute: typeof PerpsRoute
     }
     '/_home/': {
       id: '/_home/'
@@ -542,6 +603,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/send/failed'
       preLoaderRoute: typeof SendFailedRouteImport
       parentRoute: typeof SendRoute
+    }
+    '/perps/token': {
+      id: '/perps/token'
+      path: '/token'
+      fullPath: '/perps/token'
+      preLoaderRoute: typeof PerpsTokenRouteImport
+      parentRoute: typeof PerpsRoute
+    }
+    '/perps/history': {
+      id: '/perps/history'
+      path: '/history'
+      fullPath: '/perps/history'
+      preLoaderRoute: typeof PerpsHistoryRouteImport
+      parentRoute: typeof PerpsRoute
     }
     '/dev/solana': {
       id: '/dev/solana'
@@ -735,6 +810,20 @@ const DevRouteChildren: DevRouteChildren = {
 
 const DevRouteWithChildren = DevRoute._addFileChildren(DevRouteChildren)
 
+interface PerpsRouteChildren {
+  PerpsHistoryRoute: typeof PerpsHistoryRoute
+  PerpsTokenRoute: typeof PerpsTokenRoute
+  PerpsIndexRoute: typeof PerpsIndexRoute
+}
+
+const PerpsRouteChildren: PerpsRouteChildren = {
+  PerpsHistoryRoute: PerpsHistoryRoute,
+  PerpsTokenRoute: PerpsTokenRoute,
+  PerpsIndexRoute: PerpsIndexRoute,
+}
+
+const PerpsRouteWithChildren = PerpsRoute._addFileChildren(PerpsRouteChildren)
+
 interface SecurityRouteChildren {
   SecurityIndexRoute: typeof SecurityIndexRoute
 }
@@ -785,6 +874,7 @@ const rootRouteChildren: RootRouteChildren = {
   HomeRoute: HomeRouteWithChildren,
   BetRoute: BetRouteWithChildren,
   DevRoute: DevRouteWithChildren,
+  PerpsRoute: PerpsRouteWithChildren,
   SecurityRoute: SecurityRouteWithChildren,
   SendRoute: SendRouteWithChildren,
   SwapRoute: SwapRouteWithChildren,

@@ -1,30 +1,26 @@
+import { useAtomValue } from 'jotai';
 import { memo, useMemo, useState } from 'react';
 import { Button, Text, XStack, YStack, type YStackProps } from 'tamagui';
 
+import { NoDataFallback } from '@/components/NoDataFallback';
+import { navigate } from '@/helpers/navigate';
+import { BackIcon } from '@/icons/BackIcon';
+import { walletAddressAtom } from '@/store/wallet';
 import type { TradesHistoryTab } from '@/types/ui';
-import { AccountHistory, type AccountHistoryProps } from '@/ui/Perps/AccountHistory';
-import { TradingHistory, type TradingHistoryProps } from '@/ui/Perps/TradingHistory';
+import { AccountHistory } from '@/ui/Perps/AccountHistory';
+import { TradingHistory } from '@/ui/Perps/TradingHistory';
 
 interface TradesHistoryProps extends Omit<YStackProps, 'children'> {
-    walletAddress: string;
     defaultTab?: TradesHistoryTab;
-    tradingPageSize?: number;
-    accountPageSize?: number;
-    fetchTradingHistory?: TradingHistoryProps['fetchTradingHistory'];
-    fetchAccountHistory?: AccountHistoryProps['fetchAccountHistory'];
     onTabChange?: (tab: TradesHistoryTab) => void;
 }
 
 export const TradesHistory = memo<TradesHistoryProps>(function TradesHistory({
-    walletAddress,
     defaultTab = 'trading',
-    tradingPageSize,
-    accountPageSize,
-    fetchTradingHistory,
-    fetchAccountHistory,
     onTabChange,
     ...rest
 }) {
+    const walletAddress = useAtomValue(walletAddressAtom);
     const [tab, setTab] = useState<TradesHistoryTab>(defaultTab);
     const [accountVisited, setAccountVisited] = useState(defaultTab === 'account');
 
@@ -46,10 +42,21 @@ export const TradesHistory = memo<TradesHistoryProps>(function TradesHistory({
             gap={12}
             {...rest}
         >
-            <XStack justifyContent="center" paddingVertical={4}>
+            <XStack height={44} alignItems="center" justifyContent="space-between">
+                <Button
+                    unstyled
+                    width={24}
+                    height={24}
+                    alignItems="center"
+                    justifyContent="center"
+                    pressStyle={{ opacity: 0.72 }}
+                    onPress={() => navigate('__parent__', {})}
+                    icon={<BackIcon width={24} height={24} />}
+                />
                 <Text color="#171717" fontSize={20} lineHeight={24} fontWeight={600}>
                     My trades
                 </Text>
+                <XStack width={24} height={24} />
             </XStack>
 
             <XStack paddingHorizontal={16} gap={16}>
@@ -81,37 +88,27 @@ export const TradesHistory = memo<TradesHistoryProps>(function TradesHistory({
                 })}
             </XStack>
 
-            <YStack flex={1} minHeight={0}>
-                {tab === 'trading' ? (
-                    <YStack flex={1} minHeight={0}>
-                        <TradingHistory
-                            walletAddress={walletAddress}
-                            pageSize={tradingPageSize}
-                            fetchTradingHistory={fetchTradingHistory}
-                        />
-                    </YStack>
-                ) : null}
-
-                {accountVisited ? (
-                    <YStack display={tab === 'account' ? 'flex' : 'none'} flex={1} minHeight={0}>
+            {walletAddress ? (
+                <YStack flex={1} minHeight={0}>
+                    {tab === 'trading' ? (
                         <YStack flex={1} minHeight={0}>
-                            <AccountHistory
-                                walletAddress={walletAddress}
-                                pageSize={accountPageSize}
-                                fetchAccountHistory={fetchAccountHistory}
-                            />
+                            <TradingHistory walletAddress={walletAddress} />
                         </YStack>
-                    </YStack>
-                ) : null}
-            </YStack>
+                    ) : null}
+
+                    {accountVisited ? (
+                        <YStack display={tab === 'account' ? 'flex' : 'none'} flex={1} minHeight={0}>
+                            <YStack flex={1} minHeight={0}>
+                                <AccountHistory walletAddress={walletAddress} />
+                            </YStack>
+                        </YStack>
+                    ) : null}
+                </YStack>
+            ) : (
+                <YStack>
+                    <NoDataFallback />
+                </YStack>
+            )}
         </YStack>
     );
 });
-
-export type {
-    AccountHistoryPageResponse as AccountHistoryPage,
-    FetchAccountHistory,
-    FetchTradingHistory,
-    TradingHistoryPageResponse as TradingHistoryPage,
-} from '@/types/services';
-export type { AccountHistoryItem, TradesHistoryTab, TradingHistoryItem } from '@/types/ui';

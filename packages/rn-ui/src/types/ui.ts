@@ -1,4 +1,4 @@
-import type { ClearinghouseStateResponse, MarginTableResponse } from '@nktkas/hyperliquid';
+import type { ClearinghouseStateResponse, MarginTableResponse, UserFillsResponse } from '@nktkas/hyperliquid';
 import type { AbstractViemJsonRpcAccount } from '@nktkas/hyperliquid/signing';
 import type { ReactNode } from 'react';
 
@@ -157,6 +157,7 @@ export interface PerpsMeta {
     priceChangeValue?: number;
     dex?: string;
     dayNtlVlm?: string;
+    openInterest?: string;
     priceDiff?: number;
     priceDiffRatio?: number;
 }
@@ -237,3 +238,5 @@ export type NavigateFunc = <T extends PagePath>(
     to: T,
     options: T extends 'trade' ? { coin: string } : T extends 'details' ? { coin: string } : {},
 ) => void;
+
+export type UserFill = UserFillsResponse[number];

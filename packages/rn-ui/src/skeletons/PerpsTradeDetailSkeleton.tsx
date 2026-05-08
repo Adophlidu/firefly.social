@@ -44,7 +44,7 @@ function SkeletonPositionCard() {
 
 export const PerpsTradeDetailSkeleton = memo(function PerpsTradeDetailSkeleton() {
     return (
-        <YStack backgroundColor="#FFFFFF" height="100%" minHeight={0}>
+        <YStack fullscreen backgroundColor="#FFFFFF" minHeight={0}>
             {/* Top bar */}
             <XStack height={44} alignItems="center" justifyContent="space-between" paddingHorizontal={12}>
                 <SkeletonBlock width={24} height={24} radius={12} />

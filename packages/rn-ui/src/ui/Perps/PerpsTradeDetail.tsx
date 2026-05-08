@@ -83,7 +83,7 @@ export const PerpsTradeDetail = memo<PerpsTradeDetailProps>(function PerpsTradeD
 
     return (
         <YStack fullscreen minHeight={0} backgroundColor="#FFFFFF">
-            <PerpsTradeDetailHeader available={'0'} coin={coinInfo} onTokenSelect={onCoinChange} />
+            <PerpsTradeDetailHeader coin={coinInfo} onTokenSelect={onCoinChange} />
 
             <ScrollView flex={1} minHeight={0} showsVerticalScrollIndicator={false}>
                 <YStack gap={12}>

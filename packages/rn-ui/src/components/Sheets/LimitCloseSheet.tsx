@@ -158,7 +158,8 @@ export const LimitCloseSheet = memo<LimitCloseSheetProps>(function LimitCloseShe
                             <TokenAmountInput
                                 decimal={2}
                                 disabled={disabled}
-                                width="100"
+                                flex={1}
+                                minWidth={0}
                                 value={usdc}
                                 onChangeText={setUsdc}
                             />
@@ -196,7 +197,8 @@ export const LimitCloseSheet = memo<LimitCloseSheetProps>(function LimitCloseShe
                     >
                         <TokenAmountInput
                             disabled={disabled}
-                            width="100"
+                            flex={1}
+                            minWidth={0}
                             value={amountRatio}
                             onChangeText={onSliderChange}
                             decimal={0}

@@ -8,6 +8,7 @@ import { formatCoinName } from '@/helpers/formatCoinName';
 import { useCountdown } from '@/hooks/Perps/useCountdown';
 import { useOrderBook } from '@/hooks/Perps/useOrderBook';
 import { useOrderBookSteps } from '@/hooks/Perps/useOrderBookSteps';
+import { PerpsTradeOrderBookPanelSkeleton } from '@/skeletons/PerpsTradeOrderBookPanelSkeleton';
 import { orderBookStepIndexAtom } from '@/store/global';
 import { coinNameAtom, orderSafeTypeAtom } from '@/store/tradeForm';
 import type { L2BookLevel } from '@/types/ui';
@@ -105,7 +106,7 @@ export const PerpsTradeOrderBookPanel = memo<PerpsTradeOrderBookPanelProps>(func
     const steps = useOrderBookSteps(midPrice, szDecimals);
 
     if (!asks.length && !bids.length) {
-        return null;
+        return <PerpsTradeOrderBookPanelSkeleton />;
     }
 
     return (

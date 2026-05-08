@@ -81,8 +81,11 @@ export default defineConfig({
         // virtual store paths; dedupe so the same Config instance works across both.
         dedupe: ['wagmi', '@wagmi/core'],
         alias: {
+            'react-native': resolve(__dirname, 'node_modules/react-native-web'),
+            'react-native-svg': resolve(__dirname, 'node_modules/@tamagui/react-native-svg'),
             pino: resolve(__dirname, 'src/shims/pino.ts'),
             '@react-native-async-storage/async-storage': resolve(__dirname, 'src/shims/async-storage.ts'),
+            '@dimensiondev/rn-ui': resolve(__dirname, '../../packages/rn-ui/src/index.ts'),
         },
     },
     define: {

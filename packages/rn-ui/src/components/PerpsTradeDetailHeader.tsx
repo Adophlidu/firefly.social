@@ -5,25 +5,26 @@ import { AccountAmountSheet } from '@/components/AccountAmountSheet';
 import { PerpsTokenSelectSheet } from '@/components/PerpsTokenSelectSheet';
 import { TagBadge } from '@/components/TagBadge';
 import { formatCoinName } from '@/helpers/formatCoinName';
+import { formatUSDC } from '@/helpers/formatUSDC';
 import { navigate } from '@/helpers/navigate';
+import { usePerpsComputedAccountValue } from '@/hooks/Perps/usePerpsComputedAccountValue';
 import { BackIcon } from '@/icons/BackIcon';
 import { ChartIcon } from '@/icons/ChartIcon';
 import { ChevronDownIcon } from '@/icons/ChevronDownIcon';
 import type { CoinInfo, PerpsMeta } from '@/types/ui';
 
 interface PerpsTradeDetailHeaderProps {
-    available: string;
     coin: CoinInfo;
     onTokenSelect?: (token: PerpsMeta) => void;
 }
 
 export const PerpsTradeDetailHeader = memo<PerpsTradeDetailHeaderProps>(function PerpsTradeDetailHeader({
-    available,
     coin,
     onTokenSelect = () => {},
 }) {
     const [accountAmountSheetOpen, setAccountAmountSheetOpen] = useState(false);
     const [isTokenSelectorOpen, setTokenSelectorOpen] = useState(false);
+    const { withdrawable, isLoading } = usePerpsComputedAccountValue();
 
     const onTokenChange = useCallback(
         (meta: PerpsMeta) => {
@@ -34,6 +35,7 @@ export const PerpsTradeDetailHeader = memo<PerpsTradeDetailHeaderProps>(function
     );
 
     const changeColor = (coin.priceDiffRatio ?? 0) < 0 ? '#FF372B' : '#429F37';
+    const availableDisplay = isLoading ? '--' : formatUSDC(withdrawable ?? 0);
 
     return (
         <YStack>
@@ -76,7 +78,7 @@ export const PerpsTradeDetailHeader = memo<PerpsTradeDetailHeaderProps>(function
                     }}
                 >
                     <Text color="#171717" fontSize={14} lineHeight={20} fontWeight={600}>
-                        {available}
+                        {availableDisplay}
                     </Text>
                 </Button>
             </XStack>

@@ -166,6 +166,9 @@ importers:
       '@dimensiondev/native-bridge':
         specifier: workspace:^
         version: link:../../packages/native-bridge
+      '@dimensiondev/rn-ui':
+        specifier: workspace:^
+        version: link:../../packages/rn-ui
       '@dimensiondev/types':
         specifier: workspace:^
         version: link:../../packages/types
@@ -226,6 +229,9 @@ importers:
       '@solana/wallet-adapter-phantom':
         specifier: ^0.9.28
         version: 0.9.28(@solana/web3.js@1.98.4)
+      '@tamagui/react-native-svg':
+        specifier: 2.0.0-rc.41
+        version: 2.0.0-rc.41
       '@tanstack/react-query':
         specifier: 5.85.9
         version: 5.85.9(react@19.2.5)
@@ -298,6 +304,9 @@ importers:
       react-hook-form:
         specifier: 7.53.2
         version: 7.53.2(react@19.2.5)
+      react-native-web:
+        specifier: ^0.21.2
+        version: 0.21.2(react-dom@19.2.5)(react@19.2.5)
       react-qr-code:
         specifier: ^2.0.21
         version: 2.0.21(react@19.2.5)
@@ -1088,6 +1097,9 @@ importers:
       jotai-effect:
         specifier: ^2.2.3
         version: 2.2.3(jotai@2.19.1)
+      jotai-tanstack-query:
+        specifier: ^0.11.0
+        version: 0.11.0(@tanstack/query-core@5.85.9)(@tanstack/react-query@5.85.9)(jotai@2.19.1)(react@19.2.5)
       lucide-react-native:
         specifier: ^0.473.0
         version: 0.473.0(react-native-svg@15.15.4)(react-native@0.84.1)(react@19.2.5)
@@ -7582,6 +7594,10 @@ packages:
     resolution: {integrity: sha512-Z1jQI2NpdFJCVgpY+8Dq/Bt3d+YUi1928Q+/CZm/oh66fzM0RUl54vvuXlPJKybH4pdCZey1eDTPaLHkMPNgWA==}
     dev: false
 
+  /@react-native/normalize-colors@0.74.89:
+    resolution: {integrity: sha512-qoMMXddVKVhZ8PA1AbUCk83trpd6N+1nF2A6k1i6LsQObyS92fELuk8kU/lQs6M7BsMHwqyLCpQJ1uFgNvIQXg==}
+    dev: false
+
   /@react-native/normalize-colors@0.84.1:
     resolution: {integrity: sha512-/UPaQ4jl95soXnLDEJ6Cs6lnRXhwbxtT4KbZz+AFDees7prMV2NOLcHfCnzmTabf5Y3oxENMVBL666n4GMLcTA==}
 
@@ -12088,6 +12104,15 @@ packages:
       - react-native-worklets-core
       - sf-symbols-typescript
       - zeego
+    dev: false
+
+  /@tamagui/react-native-svg@2.0.0-rc.41:
+    resolution: {integrity: sha512-FfaurIc047PiSRkwlppXqVyJuBIoEe08F2msjLUXyZPk2mBEC6KoqNoNlFOa5vcuv5AZqAdEtGr++7G8cSllHQ==}
+    peerDependencies:
+      react-native-svg: '*'
+    peerDependenciesMeta:
+      react-native-svg:
+        optional: true
     dev: false
 
   /@tamagui/react-native-use-pressable@1.144.4(react@19.2.5):
@@ -18326,6 +18351,24 @@ packages:
     dependencies:
       bser: 2.1.1
 
+  /fbjs-css-vars@1.0.2:
+    resolution: {integrity: sha512-b2XGFAFdWZWg0phtAWLHCk836A1Xann+I+Dgd3Gk64MHKZO44FfoD1KxyvbSh0qZsIoXQGGlVztIY+oitJPpRQ==}
+    dev: false
+
+  /fbjs@3.0.5:
+    resolution: {integrity: sha512-ztsSx77JBtkuMrEypfhgc3cI0+0h+svqeie7xHbh1k/IKdcydnvadp/mUaGgjAOXQmQSxsqgaRhS3q9fy+1kxg==}
+    dependencies:
+      cross-fetch: 3.2.0
+      fbjs-css-vars: 1.0.2
+      loose-envify: 1.4.0
+      object-assign: 4.1.1
+      promise: 7.3.1
+      setimmediate: 1.0.5
+      ua-parser-js: 1.0.41
+    transitivePeerDependencies:
+      - encoding
+    dev: false
+
   /fdir@6.5.0(picomatch@4.0.4):
     resolution: {integrity: sha512-tIbYtZbucOs0BRGqPJkshJUYdL+SDH7dVM8gjy+ERp3WAUjLEFJE+02kanyHtwjWOnwrKYBiwAmM0p4kLJAnXg==}
     engines: {node: '>=12.0.0'}
@@ -19860,6 +19903,25 @@ packages:
       jotai: 2.19.1(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.5)
     dev: false
 
+  /jotai-tanstack-query@0.11.0(@tanstack/query-core@5.85.9)(@tanstack/react-query@5.85.9)(jotai@2.19.1)(react@19.2.5):
+    resolution: {integrity: sha512-Ys0u0IuuS6/okUJOulFTdCVfVaeKbm1+lKVSN9zHhIxtrAXl9FM4yu7fNvxM6fSz/NCE9tZOKR0MQ3hvplaH8A==}
+    peerDependencies:
+      '@tanstack/query-core': '*'
+      '@tanstack/react-query': 5.85.9
+      jotai: '>=2.0.0'
+      react: 19.2.5
+    peerDependenciesMeta:
+      '@tanstack/react-query':
+        optional: true
+      react:
+        optional: true
+    dependencies:
+      '@tanstack/query-core': 5.85.9
+      '@tanstack/react-query': 5.85.9(react@19.2.5)
+      jotai: 2.19.1(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.5)
+      react: 19.2.5
+    dev: false
+
   /jotai@2.19.1(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.5):
     resolution: {integrity: sha512-sqm9lVZiqBHZH8aSRk32DSiZDHY3yUIlulXYn9GQj7/LvoUdYXSMti7ZPJGo+6zjzKFt5a25k/I6iBCi43PJcw==}
     engines: {node: '>=12.20.0'}
@@ -20567,6 +20629,10 @@ packages:
 
   /memoize-one@5.2.1:
     resolution: {integrity: sha512-zYiwtZUcYyXKo/np96AGZAckk+FWWsUdJ3cHGGmld7+AhvcWmQyGCYUh1hc4Q/pkOhb65dQR/pqCyK0cOaHz4Q==}
+
+  /memoize-one@6.0.0:
+    resolution: {integrity: sha512-rkpe71W0N0c0Xz6QD0eJETuWAJGnJ9afsl1srmwPrI+yBCkge5EycXXbYRyvL29zZVUWQCY7InPRCv3GDXuZNw==}
+    dev: false
 
   /merge-stream@2.0.0:
     resolution: {integrity: sha512-abv/qOcuPfk3URPfDzmZU1LKmuw8kT+0nIHvKrKgFrwifol/doWcdA4ZqsWQ8ENrFKkd67Mfpo/LovbIUsbt3w==}
@@ -22685,6 +22751,12 @@ packages:
     engines: {node: '>= 0.6.0'}
     dev: true
 
+  /promise@7.3.1:
+    resolution: {integrity: sha512-nolQXZ/4L+bP/UGlkfaIujX9BKxGwmQ9OT4mOt5yvy8iK1h3wqTEJCijzGANTCCl9nWjY41juyAn2K3Q1hLLTg==}
+    dependencies:
+      asap: 2.0.6
+    dev: false
+
   /promise@8.3.0:
     resolution: {integrity: sha512-rZPNPKTOYVNEEKFaq1HqTgOwZD+4/YHS5ukLzQCypkj+OkYx7iv0mA91lJlpPPZ8vMau3IIGj5Qlwrx+8iiSmg==}
     dependencies:
@@ -23013,6 +23085,26 @@ packages:
       react: 19.2.5
       react-native: 0.84.1(@babel/core@7.29.0)(@react-native/metro-config@0.85.0)(@types/react@19.2.14)(react@19.2.5)
       warn-once: 0.1.1
+    dev: false
+
+  /react-native-web@0.21.2(react-dom@19.2.5)(react@19.2.5):
+    resolution: {integrity: sha512-SO2t9/17zM4iEnFvlu2DA9jqNbzNhoUP+AItkoCOyFmDMOhUnBBznBDCYN92fGdfAkfQlWzPoez6+zLxFNsZEg==}
+    peerDependencies:
+      react: 19.2.5
+      react-dom: 19.2.5
+    dependencies:
+      '@babel/runtime': 7.29.2
+      '@react-native/normalize-colors': 0.74.89
+      fbjs: 3.0.5
+      inline-style-prefixer: 7.0.1
+      memoize-one: 6.0.0
+      nullthrows: 1.1.1
+      postcss-value-parser: 4.2.0
+      react: 19.2.5
+      react-dom: 19.2.5(react@19.2.5)
+      styleq: 0.1.3
+    transitivePeerDependencies:
+      - encoding
     dev: false
 
   /react-native-worklets@0.8.1(@babel/core@7.29.0)(@react-native/metro-config@0.85.0)(react-native@0.84.1)(react@19.2.5):
@@ -24006,7 +24098,6 @@ packages:
 
   /setimmediate@1.0.5:
     resolution: {integrity: sha512-MATJdZp8sLqDl/68LfQmbP8zKPLQNV6BIZoIgrscFDQ+RsvK/BxeDQOgyxKKoh0y/8h3BqVFnCqQ/gd+reiIXA==}
-    dev: true
 
   /setprototypeof@1.2.0:
     resolution: {integrity: sha512-E5LDX7Wrp85Kil5bhZv46j8jOeboKq5JMmYM3gVGdGH8xFpPWXUMsNrlODCrkoxMEeNi/XZIwuRvY4XNwYMJpw==}
@@ -24601,6 +24692,10 @@ packages:
       '@babel/core': 7.29.0
       client-only: 0.0.1
       react: 19.2.5
+
+  /styleq@0.1.3:
+    resolution: {integrity: sha512-3ZUifmCDCQanjeej1f6kyl/BeP/Vae5EYkQ9iJfUm/QwZvlgnZzyflqAsAWYURdtea8Vkvswu2GrC57h3qffcA==}
+    dev: false
 
   /stylis@4.3.6:
     resolution: {integrity: sha512-yQ3rwFWRfwNUY7H5vpU0wfdkNSnvnJinhF9830Swlaxl03zsOjCfmX0ugac+3LtK0lYSgwL/KXc8oYL3mG4YFQ==}
@@ -25399,6 +25494,11 @@ packages:
     resolution: {integrity: sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==}
     engines: {node: '>=14.17'}
     hasBin: true
+
+  /ua-parser-js@1.0.41:
+    resolution: {integrity: sha512-LbBDqdIC5s8iROCUjMbW1f5dJQTEFB1+KO9ogbvlb3nm9n4YHa5p4KTvFPWvh2Hs8gZMBuiB1/8+pdfe/tDPug==}
+    hasBin: true
+    dev: false
 
   /ufo@1.6.3:
     resolution: {integrity: sha512-yDJTmhydvl5lJzBmy/hyOAA0d+aqCBuwl818haVdYCRrWV84o7YyeVm4QlVHStqNrrJSTb6jKuFAVqAFsr+K3Q==}

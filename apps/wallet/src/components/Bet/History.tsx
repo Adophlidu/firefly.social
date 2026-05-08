@@ -713,7 +713,7 @@ function getClaimActivity(item: PolymarketActivityItem): PolymarketActivityMarke
     if ('claim' in item && item.claim) return item.claim;
     if ((item.type as string) === 'REDEEM') {
         // Some V2 API responses use uppercase type; try nested `claim` field first
-        const nested = (item as Record<string, unknown>)['claim'];
+        const nested = (item as Record<string, unknown>).claim;
         if (nested && typeof nested === 'object') return nested as PolymarketActivityMarketAction;
     }
     return undefined;
@@ -723,7 +723,7 @@ function getTradeActivity(item: PolymarketActivityItem): PolymarketActivityMarke
     if ('trade' in item && item.trade) return item.trade;
     if ((item.type as string) === 'TRADE') {
         // Some V2 API responses use uppercase type; try nested `trade` field first
-        const nested = (item as Record<string, unknown>)['trade'];
+        const nested = (item as Record<string, unknown>).trade;
         if (nested && typeof nested === 'object') return nested as PolymarketActivityMarketAction;
     }
     return undefined;

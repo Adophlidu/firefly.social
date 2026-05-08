@@ -1,52 +1,72 @@
-import { memo, useCallback, useEffect, useState } from 'react';
-import { ScrollView, Text, XStack, YStack } from 'tamagui';
+import { useQuery } from '@tanstack/react-query';
+import { BigNumber } from 'bignumber.js';
+import { memo, useMemo } from 'react';
+import { Button, ScrollView, Text, XStack, YStack } from 'tamagui';
 
-import { loadTradingHistoryPage } from '@/services/tradesHistory';
+import { CoinAvatar } from '@/components/CoinAvatar';
+import { NoDataFallback } from '@/components/NoDataFallback';
+import { formatCoinName } from '@/helpers/formatCoinName';
+import { multipliedBy } from '@/helpers/number';
+import { infoClient } from '@/providers/client';
 import { TradingHistorySkeleton } from '@/skeletons/TradingHistorySkeleton';
-import type { FetchTradingHistory } from '@/types/services';
-import type { TradingHistoryItem } from '@/types/ui';
+import type { UserFill } from '@/types/ui';
 
 export interface TradingHistoryProps {
     walletAddress: string;
-    pageSize?: number;
-    fetchTradingHistory?: FetchTradingHistory;
 }
 
 interface TradingHistoryItemCardProps {
-    item: TradingHistoryItem;
+    item: UserFill;
 }
 
 const TradingHistoryItemCard = memo<TradingHistoryItemCardProps>(function TradingHistoryItemCard({ item }) {
-    const pnlColor = item.pnl?.startsWith('-') ? '#FF372B' : '#429F37';
+    const directionInfo = useMemo(() => {
+        const side = item.side;
+        let directionColor = '#429F37';
+        if (side === 'A') {
+            directionColor = '#FF372B';
+        }
+
+        let directionStr = item.dir;
+        if (item.liquidation?.method) {
+            const liqPrefix = item.liquidation.method === 'backstop' ? 'Backstop Liq' : 'Market Liq';
+            directionStr = `${liqPrefix}: ${item.dir}`;
+        }
+
+        return { directionStr, directionColor };
+    }, [item.side, item.dir, item.liquidation?.method]);
+    const closePnlInfo = useMemo(() => {
+        const closePnl = item.closedPnl;
+        const closePnlBN = new BigNumber(closePnl).minus(new BigNumber(item.fee));
+        let closePnlPlusOrMinus = '';
+        let closePnlColor = '#429F37';
+        if (closePnlBN.lt(0)) {
+            closePnlColor = '#FF372B';
+            closePnlPlusOrMinus = '-';
+        }
+        const closePnlStr = closePnlBN.abs().toFixed();
+        return { closePnlFormatted: closePnlStr, closePnlColor, closePnlPlusOrMinus };
+    }, [item.closedPnl, item.fee]);
+
+    const coinName = formatCoinName(item.coin);
 
     return (
         <YStack backgroundColor="#FFFFFF" borderWidth={1} borderColor="#F0F0F0" borderRadius={12} padding={12} gap={12}>
             <XStack alignItems="center" gap={8}>
-                <YStack
-                    width={36}
-                    height={36}
-                    borderRadius={18}
-                    backgroundColor="#F8F7F9"
-                    justifyContent="center"
-                    alignItems="center"
-                >
-                    <Text color="#171717" fontSize={12} fontWeight={600}>
-                        {item.symbol.slice(0, 1)}
-                    </Text>
-                </YStack>
+                <CoinAvatar name={item.coin} size={36} />
 
                 <YStack flex={1} gap={2}>
                     <Text color="#181818" fontSize={14} lineHeight={20} fontWeight={600}>
-                        {item.symbol}
+                        {coinName}
                     </Text>
-                    <Text color="rgba(70, 70, 70, 0.8)" fontSize={12} lineHeight={14}>
-                        {item.action}
+                    <Text color={directionInfo.directionColor} fontSize={12} lineHeight={14}>
+                        {directionInfo.directionStr}
                     </Text>
                 </YStack>
 
-                {item.pnl ? (
-                    <Text color={pnlColor} fontSize={14} lineHeight={20} fontWeight={600}>
-                        {item.pnl}
+                {item.closedPnl ? (
+                    <Text color={closePnlInfo.closePnlColor} fontSize={14} lineHeight={20} fontWeight={600}>
+                        {closePnlInfo.closePnlPlusOrMinus}${closePnlInfo.closePnlFormatted}
                     </Text>
                 ) : null}
             </XStack>
@@ -54,7 +74,7 @@ const TradingHistoryItemCard = memo<TradingHistoryItemCardProps>(function Tradin
             <XStack gap={8}>
                 <YStack flex={1}>
                     <Text color="#181818" fontSize={14} lineHeight={20} fontWeight={600}>
-                        {item.price}
+                        {item.px}
                     </Text>
                     <Text color="rgba(70, 70, 70, 0.8)" fontSize={12} lineHeight={14}>
                         Price
@@ -63,7 +83,7 @@ const TradingHistoryItemCard = memo<TradingHistoryItemCardProps>(function Tradin
 
                 <YStack flex={1}>
                     <Text color="#181818" fontSize={14} lineHeight={20} fontWeight={600}>
-                        {item.positionSize}
+                        {item.sz} {coinName}
                     </Text>
                     <Text color="rgba(70, 70, 70, 0.8)" fontSize={12} lineHeight={14}>
                         Position Size
@@ -72,7 +92,7 @@ const TradingHistoryItemCard = memo<TradingHistoryItemCardProps>(function Tradin
 
                 <YStack flex={1}>
                     <Text color="#181818" fontSize={14} lineHeight={20} fontWeight={600}>
-                        {item.tradeValue}
+                        {multipliedBy(item.px, item.sz).toFormat(2)} {item.feeToken || 'USDC'}
                     </Text>
                     <Text color="rgba(70, 70, 70, 0.8)" fontSize={12} lineHeight={14}>
                         Trade Value
@@ -81,86 +101,24 @@ const TradingHistoryItemCard = memo<TradingHistoryItemCardProps>(function Tradin
             </XStack>
 
             <Text color="rgba(70, 70, 70, 0.8)" fontSize={12} lineHeight={14}>
-                {item.timestamp}
+                {new Date(item.time).toLocaleString()}
             </Text>
         </YStack>
     );
 });
 
-export const TradingHistory = memo<TradingHistoryProps>(function TradingHistory({
-    walletAddress,
-    pageSize = 20,
-    fetchTradingHistory,
-}) {
-    const [items, setItems] = useState<TradingHistoryItem[]>([]);
-    const [page, setPage] = useState(0);
-    const [hasMore, setHasMore] = useState(true);
-    const [loading, setLoading] = useState(false);
-    const [loadingMore, setLoadingMore] = useState(false);
-    const [error, setError] = useState<string | null>(null);
-
-    const loadPage = useCallback(
-        async (nextPage: number, append: boolean) => {
-            if (!walletAddress) return;
-
-            const loadTradingHistory = fetchTradingHistory ?? loadTradingHistoryPage;
-            const response = await loadTradingHistory({ walletAddress, page: nextPage, pageSize });
-
-            setItems((prev) => (append ? [...prev, ...response.items] : response.items));
-            setPage(nextPage);
-            setHasMore(response.hasMore);
+export const TradingHistory = memo<TradingHistoryProps>(function TradingHistory({ walletAddress }) {
+    const { data, isLoading, error, refetch, isRefetching } = useQuery({
+        queryKey: ['tradingHistory', walletAddress],
+        enabled: !!walletAddress,
+        queryFn: async () => {
+            const data = await infoClient.userFills({
+                user: walletAddress,
+                aggregateByTime: true,
+            });
+            return data;
         },
-        [walletAddress, pageSize, fetchTradingHistory],
-    );
-
-    const loadFirstPage = useCallback(async () => {
-        setLoading(true);
-        setError(null);
-
-        try {
-            await loadPage(1, false);
-        } catch {
-            setError('Failed to load trading history');
-        } finally {
-            setLoading(false);
-        }
-    }, [loadPage]);
-
-    const loadMore = useCallback(async () => {
-        if (loadingMore || loading || !hasMore) return;
-
-        setLoadingMore(true);
-        setError(null);
-
-        try {
-            await loadPage(page + 1, true);
-        } catch {
-            setError('Failed to load more trading history');
-        } finally {
-            setLoadingMore(false);
-        }
-    }, [loadPage, page, hasMore, loading, loadingMore]);
-
-    const handleScroll = useCallback(
-        (event: any) => {
-            const { contentOffset, contentSize, layoutMeasurement } = event.nativeEvent;
-            const isNearBottom = layoutMeasurement.height + contentOffset.y >= contentSize.height - 120;
-
-            if (isNearBottom) {
-                loadMore();
-            }
-        },
-        [loadMore],
-    );
-
-    useEffect(() => {
-        setItems([]);
-        setPage(0);
-        setHasMore(true);
-        setError(null);
-        if (!walletAddress) return;
-        loadFirstPage();
-    }, [walletAddress, loadFirstPage]);
+    });
 
     if (!walletAddress) {
         return (
@@ -172,37 +130,69 @@ export const TradingHistory = memo<TradingHistoryProps>(function TradingHistory(
         );
     }
 
-    if (loading) {
+    if (isLoading) {
         return <TradingHistorySkeleton />;
+    }
+    if (error && !data?.length) {
+        return (
+            <YStack alignItems="center" justifyContent="center" gap={8} paddingVertical={20}>
+                <Text color="#FF372B" fontSize={12} lineHeight={14}>
+                    Failed to load trading history
+                </Text>
+                <Button
+                    unstyled
+                    backgroundColor="#F8F7F9"
+                    borderWidth={1}
+                    borderColor="#F0F0F0"
+                    borderRadius={8}
+                    paddingHorizontal={12}
+                    paddingVertical={6}
+                    pressStyle={{ opacity: 0.75 }}
+                    onPress={() => {
+                        void refetch();
+                    }}
+                >
+                    <Text color="#171717" fontSize={12} lineHeight={14} fontWeight={600}>
+                        {isRefetching ? 'Retrying...' : 'Retry'}
+                    </Text>
+                </Button>
+            </YStack>
+        );
+    }
+    if (!data?.length) {
+        return <NoDataFallback />;
     }
 
     return (
-        <ScrollView
-            flex={1}
-            minHeight={0}
-            showsVerticalScrollIndicator={false}
-            onScroll={handleScroll}
-            scrollEventThrottle={16}
-        >
+        <ScrollView flex={1} minHeight={0} showsVerticalScrollIndicator={false} scrollEventThrottle={16}>
             <YStack gap={12} paddingBottom={16}>
-                {items.map((item) => (
-                    <TradingHistoryItemCard key={item.id} item={item} />
+                {data.map((item) => (
+                    <TradingHistoryItemCard key={`${item.oid}-${item.hash}`} item={item} />
                 ))}
 
                 {error ? (
-                    <XStack justifyContent="center" paddingTop={4}>
+                    <YStack alignItems="center" gap={8} paddingTop={4}>
                         <Text color="#FF372B" fontSize={12} lineHeight={14}>
-                            {error}
+                            Failed to refresh trading history
                         </Text>
-                    </XStack>
-                ) : null}
-
-                {loadingMore ? (
-                    <XStack justifyContent="center" paddingVertical={4}>
-                        <Text color="rgba(70, 70, 70, 0.8)" fontSize={12} lineHeight={14}>
-                            Loading more...
-                        </Text>
-                    </XStack>
+                        <Button
+                            unstyled
+                            backgroundColor="#F8F7F9"
+                            borderWidth={1}
+                            borderColor="#F0F0F0"
+                            borderRadius={8}
+                            paddingHorizontal={12}
+                            paddingVertical={6}
+                            pressStyle={{ opacity: 0.75 }}
+                            onPress={() => {
+                                void refetch();
+                            }}
+                        >
+                            <Text color="#171717" fontSize={12} lineHeight={14} fontWeight={600}>
+                                {isRefetching ? 'Retrying...' : 'Retry'}
+                            </Text>
+                        </Button>
+                    </YStack>
                 ) : null}
             </YStack>
         </ScrollView>

@@ -41,7 +41,8 @@ export const SizeInput = memo<SizeInputProps>(function SizeInput() {
             gap={4}
         >
             <TokenAmountInput
-                width="100%"
+                flex={1}
+                minWidth={0}
                 height="100%"
                 value={inputValue}
                 onChangeText={setInputValue}

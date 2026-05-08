@@ -45,23 +45,30 @@ export const LimitPriceInput = memo<LimitPriceInputProps>(function LimitPriceInp
             borderWidth={1}
             borderColor="rgba(34, 33, 47, 0.15)"
         >
-            <TokenAmountInput decimal={priceDecimal} value={price} width="100%" height="100%" onChangeText={setPrice} />
+            <TokenAmountInput
+                decimal={priceDecimal}
+                value={price}
+                flex={1}
+                minWidth={0}
+                height="100%"
+                onChangeText={setPrice}
+            />
             <Text fontSize={14} flexShrink={0} fontWeight={500} color="rgba(70, 70, 70, 0.40)">
                 USDC
             </Text>
-            <Button.Text
+            <Button
+                unstyled
                 flexShrink={0}
-                color="#5E69FF"
-                fontSize={14}
-                fontWeight={500}
                 onPress={() => {
                     if (midPrice) {
                         setPrice(midPrice);
                     }
                 }}
             >
-                Mid
-            </Button.Text>
+                <Text color="#5E69FF" fontSize={14} fontWeight={500}>
+                    Mid
+                </Text>
+            </Button>
         </XStack>
     );
 });

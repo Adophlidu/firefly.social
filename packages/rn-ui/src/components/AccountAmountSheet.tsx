@@ -2,7 +2,9 @@ import { memo, useState } from 'react';
 import { Path, Svg } from 'react-native-svg';
 import { Button, Sheet, Text, XStack, YStack } from 'tamagui';
 
+import { formatUSDC } from '@/helpers/formatUSDC';
 import { navigate } from '@/helpers/navigate';
+import { usePerpsComputedAccountValue } from '@/hooks/Perps/usePerpsComputedAccountValue';
 import { AccountAmountSheetSkeleton } from '@/skeletons/AccountAmountSheetSkeleton';
 
 interface AccountAmountSheetProps {
@@ -78,6 +80,11 @@ export const AccountAmountSheet = memo<AccountAmountSheetProps>(function Account
     loading = false,
 }) {
     const [position, setPosition] = useState(0);
+    const { accountValue, withdrawable, isLoading, error, refetch } = usePerpsComputedAccountValue();
+
+    const portfolioDisplay = formatUSDC(accountValue ?? 0);
+    const [portfolioIntegerPart, portfolioDecimalPart] = portfolioDisplay.replace('$', '').split('.');
+    const availableDisplay = formatUSDC(withdrawable ?? 0);
 
     const handleAction = async (action: 'withdraw' | 'addFunds') => {
         onOpenChange(false);
@@ -122,7 +129,7 @@ export const AccountAmountSheet = memo<AccountAmountSheetProps>(function Account
             >
                 <Sheet.Handle width={48} height={4} borderRadius={100} backgroundColor="#D1D1D1" marginBottom={0} />
 
-                {loading ? (
+                {loading || isLoading ? (
                     <AccountAmountSheetSkeleton />
                 ) : (
                     <YStack width="100%" gap={32}>
@@ -140,18 +147,42 @@ export const AccountAmountSheet = memo<AccountAmountSheetProps>(function Account
                                 </Text>
                                 <XStack alignItems="flex-end" gap={0}>
                                     <Text color="#070809" fontSize={48} lineHeight={56} fontWeight={700}>
-                                        {'0'}
+                                        {portfolioIntegerPart || '0'}
                                     </Text>
                                     <Text color="#070809" fontSize={24} lineHeight={32} fontWeight={600}>
-                                        {'0'}
+                                        .{portfolioDecimalPart || '00'}
                                     </Text>
                                 </XStack>
                             </XStack>
 
                             <Text color="rgba(70, 70, 70, 0.8)" fontSize={13} lineHeight={17} fontWeight={400}>
-                                Available: {'0'}
+                                Available: {availableDisplay}
                             </Text>
                         </YStack>
+
+                        {error ? (
+                            <YStack width="100%" alignItems="center" gap={8} marginTop={-16}>
+                                <Text color="#FF372B" fontSize={12} lineHeight={14}>
+                                    Failed to load account value
+                                </Text>
+                                <Button
+                                    unstyled
+                                    borderWidth={1}
+                                    borderColor="#F0F0F0"
+                                    borderRadius={8}
+                                    paddingHorizontal={12}
+                                    paddingVertical={6}
+                                    pressStyle={{ opacity: 0.72 }}
+                                    onPress={() => {
+                                        void refetch();
+                                    }}
+                                >
+                                    <Text color="#171717" fontSize={12} lineHeight={14} fontWeight={600}>
+                                        Retry
+                                    </Text>
+                                </Button>
+                            </YStack>
+                        ) : null}
 
                         <XStack width="100%" alignItems="center" justifyContent="center" gap={16}>
                             <ActionButton action="withdraw" label="Withdraw" onPress={handleAction} />

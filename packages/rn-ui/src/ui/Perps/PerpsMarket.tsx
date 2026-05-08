@@ -58,6 +58,28 @@ export const PerpsMarket = memo<PerpsMarketProps>(function PerpsMarket({ onMarke
     }, [categories, isLoading]);
 
     const showFullSkeleton = isLoading || isGlobalLoading;
+    const sortedPerpsMeta = useMemo(() => {
+        const list = [...(perpsMeta || [])];
+        const getNumeric = (value?: string | number) => {
+            if (value === undefined || value === null) return 0;
+            const parsed = Number(value);
+            return Number.isFinite(parsed) ? parsed : 0;
+        };
+
+        if (activeSort === 'volume') {
+            list.sort((a, b) => getNumeric(b.dayNtlVlm) - getNumeric(a.dayNtlVlm));
+            return list;
+        }
+        if (activeSort === 'priceChange') {
+            list.sort((a, b) => getNumeric(b.priceDiffRatio) - getNumeric(a.priceDiffRatio));
+            return list;
+        }
+        if (activeSort === 'openInterest') {
+            list.sort((a, b) => getNumeric(b.openInterest) - getNumeric(a.openInterest));
+            return list;
+        }
+        return list;
+    }, [activeSort, perpsMeta]);
 
     if (showFullSkeleton) {
         return <PerpsMarketSkeleton mode="full" />;
@@ -95,7 +117,7 @@ export const PerpsMarket = memo<PerpsMarketProps>(function PerpsMarket({ onMarke
                 </XStack>
 
                 <PerpsMarketList
-                    items={perpsMeta}
+                    items={sortedPerpsMeta}
                     loading={isMetaLoading}
                     loadingMore={false}
                     error={error?.message || null}

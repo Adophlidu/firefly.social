@@ -8,7 +8,6 @@ import { memo, use, useEffect, useMemo, useState } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { PredictionContext } from '@/components/Prediction/PredictionContext.js';
-import { STALE_TIMES } from '@/constants/query.js';
 import { PredictionMarketBuyButtons } from '@/components/Prediction/PredictionMarketBuyButtons.js';
 import { ActiveTag } from '@/components/Prediction/PredictionSeries/ActiveTag.js';
 import { EventResult } from '@/components/Prediction/PredictionSeries/EventResult.js';
@@ -18,6 +17,7 @@ import { ToggleChartTypeButtons } from '@/components/Prediction/PredictionSeries
 import { PLATFORMS_SUPPORTING_ORDER_BOOK } from '@/constants/bets.js';
 import type { PredictionPlatform } from '@/constants/enum.js';
 import { Source } from '@/constants/enum.js';
+import { STALE_TIMES } from '@/constants/query.js';
 import { Link } from '@/esm/Link.js';
 import { resolvePredictionEventUrl } from '@/helpers/resolvePredictionEventUrl.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';

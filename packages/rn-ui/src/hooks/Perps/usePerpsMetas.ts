@@ -88,6 +88,7 @@ export function usePerpsMetas({ category, keyword }: Options) {
                 avatar: resolveMetaAvatar(meta.name),
                 mid: assetCtx?.markPx ?? undefined,
                 dayNtlVlm: assetCtx?.dayNtlVlm,
+                openInterest: assetCtx?.openInterest,
                 priceDiff,
                 priceDiffRatio,
             };
