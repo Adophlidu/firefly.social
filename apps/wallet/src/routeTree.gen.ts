@@ -29,6 +29,7 @@ import { Route as SendFormRouteImport } from './routes/send.form'
 import { Route as SendFailedRouteImport } from './routes/send.failed'
 import { Route as PerpsTokenRouteImport } from './routes/perps.token'
 import { Route as PerpsHistoryRouteImport } from './routes/perps.history'
+import { Route as PerpsDepositRouteImport } from './routes/perps.deposit'
 import { Route as DevSolanaRouteImport } from './routes/dev.solana'
 import { Route as DevEthereumRouteImport } from './routes/dev.ethereum'
 import { Route as BetWithdrawRouteImport } from './routes/bet.withdraw'
@@ -147,6 +148,11 @@ const PerpsHistoryRoute = PerpsHistoryRouteImport.update({
   path: '/history',
   getParentRoute: () => PerpsRoute,
 } as any)
+const PerpsDepositRoute = PerpsDepositRouteImport.update({
+  id: '/deposit',
+  path: '/deposit',
+  getParentRoute: () => PerpsRoute,
+} as any)
 const DevSolanaRoute = DevSolanaRouteImport.update({
   id: '/solana',
   path: '/solana',
@@ -253,6 +259,7 @@ export interface FileRoutesByFullPath {
   '/bet/withdraw': typeof BetWithdrawRoute
   '/dev/ethereum': typeof DevEthereumRoute
   '/dev/solana': typeof DevSolanaRoute
+  '/perps/deposit': typeof PerpsDepositRoute
   '/perps/history': typeof PerpsHistoryRoute
   '/perps/token': typeof PerpsTokenRoute
   '/send/failed': typeof SendFailedRoute
@@ -286,6 +293,7 @@ export interface FileRoutesByTo {
   '/bet/withdraw': typeof BetWithdrawRoute
   '/dev/ethereum': typeof DevEthereumRoute
   '/dev/solana': typeof DevSolanaRoute
+  '/perps/deposit': typeof PerpsDepositRoute
   '/perps/history': typeof PerpsHistoryRoute
   '/perps/token': typeof PerpsTokenRoute
   '/send/failed': typeof SendFailedRoute
@@ -326,6 +334,7 @@ export interface FileRoutesById {
   '/bet/withdraw': typeof BetWithdrawRoute
   '/dev/ethereum': typeof DevEthereumRoute
   '/dev/solana': typeof DevSolanaRoute
+  '/perps/deposit': typeof PerpsDepositRoute
   '/perps/history': typeof PerpsHistoryRoute
   '/perps/token': typeof PerpsTokenRoute
   '/send/failed': typeof SendFailedRoute
@@ -367,6 +376,7 @@ export interface FileRouteTypes {
     | '/bet/withdraw'
     | '/dev/ethereum'
     | '/dev/solana'
+    | '/perps/deposit'
     | '/perps/history'
     | '/perps/token'
     | '/send/failed'
@@ -400,6 +410,7 @@ export interface FileRouteTypes {
     | '/bet/withdraw'
     | '/dev/ethereum'
     | '/dev/solana'
+    | '/perps/deposit'
     | '/perps/history'
     | '/perps/token'
     | '/send/failed'
@@ -439,6 +450,7 @@ export interface FileRouteTypes {
     | '/bet/withdraw'
     | '/dev/ethereum'
     | '/dev/solana'
+    | '/perps/deposit'
     | '/perps/history'
     | '/perps/token'
     | '/send/failed'
@@ -616,6 +628,13 @@ declare module '@tanstack/react-router' {
       path: '/history'
       fullPath: '/perps/history'
       preLoaderRoute: typeof PerpsHistoryRouteImport
+      parentRoute: typeof PerpsRoute
+    }
+    '/perps/deposit': {
+      id: '/perps/deposit'
+      path: '/deposit'
+      fullPath: '/perps/deposit'
+      preLoaderRoute: typeof PerpsDepositRouteImport
       parentRoute: typeof PerpsRoute
     }
     '/dev/solana': {
@@ -811,12 +830,14 @@ const DevRouteChildren: DevRouteChildren = {
 const DevRouteWithChildren = DevRoute._addFileChildren(DevRouteChildren)
 
 interface PerpsRouteChildren {
+  PerpsDepositRoute: typeof PerpsDepositRoute
   PerpsHistoryRoute: typeof PerpsHistoryRoute
   PerpsTokenRoute: typeof PerpsTokenRoute
   PerpsIndexRoute: typeof PerpsIndexRoute
 }
 
 const PerpsRouteChildren: PerpsRouteChildren = {
+  PerpsDepositRoute: PerpsDepositRoute,
   PerpsHistoryRoute: PerpsHistoryRoute,
   PerpsTokenRoute: PerpsTokenRoute,
   PerpsIndexRoute: PerpsIndexRoute,

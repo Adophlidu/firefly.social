@@ -129,6 +129,9 @@ msgstr "预测精准！干得漂亮！"
 msgid "I understand"
 msgstr "我已知晓并理解"
 
+msgid "Deposit submitted. Funds will appear on Hyperliquid shortly."
+msgstr ""
+
 msgid "Your Private Key"
 msgstr "您的私钥"
 
@@ -143,6 +146,10 @@ msgstr "跳过"
 
 msgid "Copied"
 msgstr "已复制"
+
+#. placeholder {0}: formatTokenItemAmount(usdcToken?.balance ?? '0')
+msgid "{0} USDC in your Firefly wallet"
+msgstr ""
 
 msgid "Total"
 msgstr "总计"
@@ -640,6 +647,12 @@ msgstr "领取所有奖金"
 msgid "Unlimited"
 msgstr "无限量"
 
+msgid "Deposit failed."
+msgstr ""
+
+msgid "Perps"
+msgstr ""
+
 msgid "Swapped Failed"
 msgstr "兑换失败"
 
@@ -803,6 +816,9 @@ msgstr "合约地址"
 msgid "Minimum $1.00"
 msgstr "最低 $1.00"
 
+msgid "into your perps account"
+msgstr ""
+
 msgid "No wallet address found for this user."
 msgstr "未找到该用户的钱包地址。"
 
@@ -871,6 +887,9 @@ msgid "Bridged"
 msgstr "已跨链"
 
 msgid "Verify Email"
+msgstr ""
+
+msgid "Minimum {MIN_HYPERLIQUID_DEPOSIT_USDC} USDC"
 msgstr ""
 
 msgid "Enter the PIN code to verify identity"

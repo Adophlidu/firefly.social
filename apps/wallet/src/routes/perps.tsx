@@ -8,7 +8,7 @@ export const Route = createFileRoute('/perps')({
 
 function PerpsLayout() {
     return (
-        <div>
+        <div className="flex min-h-0 w-full flex-1 flex-col">
             <ClientOnly>
                 <PerpsProvider>
                     <Outlet />

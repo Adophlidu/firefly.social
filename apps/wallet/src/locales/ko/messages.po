@@ -129,6 +129,9 @@ msgstr ""
 msgid "I understand"
 msgstr ""
 
+msgid "Deposit submitted. Funds will appear on Hyperliquid shortly."
+msgstr ""
+
 msgid "Your Private Key"
 msgstr ""
 
@@ -142,6 +145,10 @@ msgid "Skip"
 msgstr ""
 
 msgid "Copied"
+msgstr ""
+
+#. placeholder {0}: formatTokenItemAmount(usdcToken?.balance ?? '0')
+msgid "{0} USDC in your Firefly wallet"
 msgstr ""
 
 msgid "Total"
@@ -640,6 +647,12 @@ msgstr ""
 msgid "Unlimited"
 msgstr ""
 
+msgid "Deposit failed."
+msgstr ""
+
+msgid "Perps"
+msgstr ""
+
 msgid "Swapped Failed"
 msgstr ""
 
@@ -803,6 +816,9 @@ msgstr ""
 msgid "Minimum $1.00"
 msgstr ""
 
+msgid "into your perps account"
+msgstr ""
+
 msgid "No wallet address found for this user."
 msgstr ""
 
@@ -871,6 +887,9 @@ msgid "Bridged"
 msgstr ""
 
 msgid "Verify Email"
+msgstr ""
+
+msgid "Minimum {MIN_HYPERLIQUID_DEPOSIT_USDC} USDC"
 msgstr ""
 
 msgid "Enter the PIN code to verify identity"

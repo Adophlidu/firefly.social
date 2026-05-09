@@ -8,6 +8,7 @@ import { useConnectors, useWalletClient } from 'wagmi';
 
 import { useComeback } from '@/components/useComeback.js';
 import { env } from '@/constants/env.js';
+import { PRIVY_CONNECTOR_ID } from '@/constants/static.js';
 import { logger } from '@/lib/Logger.js';
 import { fireflySessionTokenAtom } from '@/store/fireflySession.js';
 
@@ -17,8 +18,7 @@ export function PerpsProvider({ children }: PropsWithChildren) {
     const connectors = useConnectors();
     const navigate = useNavigate();
     const { data } = useWalletClient({
-        // TODO: replace to privy connector id when it's ready
-        connector: connectors.find((c) => c.id === 'PRIVY'),
+        connector: connectors.find((c) => c.id === PRIVY_CONNECTOR_ID),
     });
 
     const toastFn: ToastFn = useCallback(({ message, type, error }) => {
@@ -51,6 +51,7 @@ export function PerpsProvider({ children }: PropsWithChildren) {
                     return navigate({ to: `/perps/?token=${token || ''}` });
                 }
                 case 'addFunds':
+                    return navigate({ to: '/perps/deposit' });
                 case 'withdraw':
                     return;
                 case 'history':
@@ -76,7 +77,7 @@ export function PerpsProvider({ children }: PropsWithChildren) {
             toast={toastFn}
             navigate={navigateFn}
         >
-            {children}
+            <div className="flex min-h-0 w-full flex-1 flex-col">{children}</div>
         </Provider>
     );
 }
