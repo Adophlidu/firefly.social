@@ -3,6 +3,7 @@ import { useAtomValue } from 'jotai';
 import { useEffect, useMemo, useRef, useState } from 'react';
 
 import { dividedBy, plus } from '@/helpers/number';
+import { createLatestRafThrottle } from '@/helpers/rafThrottleLatest';
 import { subscriptionClientAtom } from '@/store/wallet';
 import type { L2BookEvent } from '@/types/ui';
 
@@ -47,6 +48,13 @@ export function useOrderBook(coinName: string, maxRows = 7, stepIndex = 0, rever
     useEffect(() => {
         if (!subscriptionClient) return;
 
+        let cancelled = false;
+        const throttle = createLatestRafThrottle<L2BookEvent>((data) => {
+            if (!cancelled) {
+                setOrderBook(data);
+            }
+        });
+
         // Unsubscribe from previous subscriptions
         const subscriptions = [...lastSubscription.current];
         subscriptions.forEach((sub) =>
@@ -56,13 +64,15 @@ export function useOrderBook(coinName: string, maxRows = 7, stepIndex = 0, rever
         );
         subscriptionClient
             .l2Book({ coin: coinName, ...resolveStepParam(stepIndex) }, (data) => {
-                setOrderBook(data);
+                throttle.schedule(data);
             })
             .then((sub) => {
                 lastSubscription.current.push(sub);
             });
 
         return () => {
+            cancelled = true;
+            throttle.dispose();
             lastSubscription.current.forEach((sub) => sub.unsubscribe());
         };
     }, [coinName, subscriptionClient, stepIndex]);

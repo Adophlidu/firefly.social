@@ -1,5 +1,5 @@
 import { useAtomValue, useSetAtom } from 'jotai';
-import { memo, useCallback, useEffect, useMemo } from 'react';
+import { memo, useCallback, useEffect, useMemo, useRef } from 'react';
 import { ScrollView, XStack, YStack } from 'tamagui';
 
 import { PerpsTradeDetailHeader } from '@/components/PerpsTradeDetailHeader';
@@ -54,22 +54,43 @@ export const PerpsTradeDetail = memo<PerpsTradeDetailProps>(function PerpsTradeD
         [setCoinName],
     );
 
+    const lastPriceStringsRef = useRef({ mark: '', mid: '' });
     useEffect(() => {
         if (!coinInfo?.assetCtx) {
-            setMarketPrice('0');
-            setMidPrice('0');
+            const z = lastPriceStringsRef.current;
+            if (z.mark !== '0' || z.mid !== '0') {
+                lastPriceStringsRef.current = { mark: '0', mid: '0' };
+                setMarketPrice('0');
+                setMidPrice('0');
+            }
             return;
         }
 
         const marketPrice = coinInfo.assetCtx.markPx || '0';
+        const mid = coinInfo.assetCtx.midPx || marketPrice;
+        const prev = lastPriceStringsRef.current;
+        if (prev.mark === marketPrice && prev.mid === mid) {
+            return;
+        }
+        lastPriceStringsRef.current = { mark: marketPrice, mid };
         setMarketPrice(marketPrice);
-        setMidPrice(coinInfo.assetCtx.midPx || marketPrice);
+        setMidPrice(mid);
     }, [coinInfo?.assetCtx, setMarketPrice, setMidPrice]);
+
+    const lastSzDecimalsRef = useRef<number | null>(null);
     useEffect(() => {
-        setSizeDecimal(coinInfo?.szDecimals || 1);
+        const next = coinInfo?.szDecimals ?? 1;
+        if (lastSzDecimalsRef.current === next) return;
+        lastSzDecimalsRef.current = next;
+        setSizeDecimal(next);
     }, [coinInfo?.szDecimals, setSizeDecimal]);
+
+    const lastCoinIndexRef = useRef<number | null | undefined>(undefined);
     useEffect(() => {
-        setCoinIndex(coinInfo?.index ?? null);
+        const next = coinInfo?.index ?? null;
+        if (lastCoinIndexRef.current === next) return;
+        lastCoinIndexRef.current = next;
+        setCoinIndex(next);
     }, [coinInfo?.index, setCoinIndex]);
     useEffect(() => {
         if (coin) {
@@ -83,7 +104,13 @@ export const PerpsTradeDetail = memo<PerpsTradeDetailProps>(function PerpsTradeD
 
     return (
         <YStack fullscreen minHeight={0} backgroundColor="#FFFFFF">
-            <PerpsTradeDetailHeader coin={coinInfo} onTokenSelect={onCoinChange} />
+            <PerpsTradeDetailHeader
+                dex={coinInfo.dex || ''}
+                name={coinInfo.name}
+                maxLeverage={coinInfo.maxLeverage}
+                priceDiffRatio={coinInfo.priceDiffRatio}
+                onTokenSelect={onCoinChange}
+            />
 
             <ScrollView flex={1} minHeight={0} showsVerticalScrollIndicator={false}>
                 <YStack gap={12}>

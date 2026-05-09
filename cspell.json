@@ -203,6 +203,7 @@
         "unrecognised",
         "unretweet",
         "Unsourced",
+        "unstub",
         "unsubscription",
         "unvote",
         "upvotes",
@@ -468,6 +469,7 @@
         "tippyjs",
         "tomo",
         "transak",
+        "treemap",
         "trimify",
         "truthsocial",
         "Tweetv",
@@ -554,6 +556,7 @@
         "pnpm-lock.yaml",
         "public/**",
         "scripts/**",
+        "statoscope.json",
         "tsconfig.tsbuildinfo"
     ],
     "overrides": []

@@ -11,15 +11,21 @@ import { usePerpsComputedAccountValue } from '@/hooks/Perps/usePerpsComputedAcco
 import { BackIcon } from '@/icons/BackIcon';
 import { ChartIcon } from '@/icons/ChartIcon';
 import { ChevronDownIcon } from '@/icons/ChevronDownIcon';
-import type { CoinInfo, PerpsMeta } from '@/types/ui';
+import type { PerpsMeta } from '@/types/ui';
 
 interface PerpsTradeDetailHeaderProps {
-    coin: CoinInfo;
+    dex: string;
+    name: string;
+    maxLeverage: number;
+    priceDiffRatio?: number;
     onTokenSelect?: (token: PerpsMeta) => void;
 }
 
 export const PerpsTradeDetailHeader = memo<PerpsTradeDetailHeaderProps>(function PerpsTradeDetailHeader({
-    coin,
+    dex,
+    name,
+    maxLeverage,
+    priceDiffRatio,
     onTokenSelect = () => {},
 }) {
     const [accountAmountSheetOpen, setAccountAmountSheetOpen] = useState(false);
@@ -34,8 +40,9 @@ export const PerpsTradeDetailHeader = memo<PerpsTradeDetailHeaderProps>(function
         [onTokenSelect],
     );
 
-    const changeColor = (coin.priceDiffRatio ?? 0) < 0 ? '#FF372B' : '#429F37';
+    const changeColor = (priceDiffRatio ?? 0) < 0 ? '#FF372B' : '#429F37';
     const availableDisplay = isLoading ? '--' : formatUSDC(withdrawable ?? 0);
+    const dexLabel = dex || 'Perps';
 
     return (
         <YStack>
@@ -59,7 +66,7 @@ export const PerpsTradeDetailHeader = memo<PerpsTradeDetailHeaderProps>(function
                     fontFamily="$body"
                     textAlign="center"
                 >
-                    {coin.dex || 'Perps'}
+                    {dexLabel}
                 </Text>
 
                 <Button
@@ -88,9 +95,9 @@ export const PerpsTradeDetailHeader = memo<PerpsTradeDetailHeaderProps>(function
                     <YStack onPress={() => setTokenSelectorOpen(true)}>
                         <XStack alignItems="center" gap={4}>
                             <Text color="#171717" fontSize={20} lineHeight={24} fontWeight={700} fontFamily="$body">
-                                {`${formatCoinName(coin.name)}USDC`}
+                                {`${formatCoinName(name)}USDC`}
                             </Text>
-                            <TagBadge label={`${coin.maxLeverage}x`} />
+                            <TagBadge label={`${maxLeverage}x`} />
                             <Button
                                 unstyled
                                 width={16}
@@ -103,11 +110,11 @@ export const PerpsTradeDetailHeader = memo<PerpsTradeDetailHeaderProps>(function
                         </XStack>
                         <XStack alignItems="center" gap={4}>
                             <Text color="rgba(70, 70, 70, 0.8)" fontSize={13} lineHeight={17} fontWeight={500}>
-                                {coin.dex || 'Perps'}
+                                {dexLabel}
                             </Text>
-                            {coin.priceDiffRatio ? (
+                            {priceDiffRatio ? (
                                 <Text color={changeColor} fontSize={12} lineHeight={14} fontWeight={500}>
-                                    {coin.priceDiffRatio.toFixed(2) || '-'}%
+                                    {priceDiffRatio.toFixed(2) || '-'}%
                                 </Text>
                             ) : null}
                         </XStack>
@@ -119,7 +126,7 @@ export const PerpsTradeDetailHeader = memo<PerpsTradeDetailHeaderProps>(function
                         alignItems="center"
                         justifyContent="center"
                         pressStyle={{ opacity: 0.72 }}
-                        onPress={() => navigate('details', { coin: coin.name })}
+                        onPress={() => navigate('details', { coin: name })}
                         icon={<ChartIcon width={24} height={24} />}
                     />
                 </XStack>

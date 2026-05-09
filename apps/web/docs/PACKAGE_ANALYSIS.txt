@@ -4,7 +4,7 @@ Package Analysis
 Application: apps/web
 
 Total packages: 2322
-Packages with multiple versions: 363
+Packages with multiple versions: 359
 
 Legend:
   * = Direct dependency (listed in package.json for this app's scope)
@@ -66,11 +66,7 @@ Packages with Multiple Versions
  @esbuild/win32-arm64@0.25.12,0.27.0
  @esbuild/win32-ia32@0.25.12,0.27.0
  @esbuild/win32-x64@0.25.12,0.27.0
- @floating-ui/core@1.7.4,1.7.5
- @floating-ui/dom@1.7.5,1.7.6
  @floating-ui/react@0.26.28,0.27.19
- @floating-ui/react-dom@2.1.7,2.1.8
- @floating-ui/utils@0.2.10,0.2.11
  @jridgewell/sourcemap-codec@1.5.0,1.5.5
 *@lingui/conf@5.5.2,5.9.5
  @lingui/format-po@5.5.2,5.9.5
@@ -626,7 +622,11 @@ Packages with Single Version
  @firebase/util@1.11.0
  @firebase/vertexai@1.2.1
  @firebase/webchannel-wrapper@1.0.3
+ @floating-ui/core@1.7.5
+ @floating-ui/dom@1.7.6
+ @floating-ui/react-dom@2.1.8
  @floating-ui/react-native@0.10.9
+ @floating-ui/utils@0.2.11
  @giphy/colors@1.0.1
  @giphy/js-analytics@5.0.0
 *@giphy/js-fetch-api@5.7.0

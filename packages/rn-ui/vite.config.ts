@@ -1,47 +1,109 @@
+import { resolve } from 'node:path';
+
 import react from '@vitejs/plugin-react';
-import { resolve } from 'path';
-import { defineConfig } from 'vite';
+import { defineConfig, type PluginOption, type UserConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 
-export default defineConfig({
-    plugins: [
+const srcDir = resolve(__dirname, 'src');
+
+/**
+ * Dependencies expected from the host app (see package.json peerDependencies).
+ * Keeps dist output small; Metro/Vite dedupe a single copy at runtime.
+ */
+function isExternal(id: string): boolean {
+    if (id === 'react' || id === 'react/jsx-runtime' || id === 'react/jsx-dev-runtime') {
+        return true;
+    }
+    if (id === 'react-dom') {
+        return true;
+    }
+    if (id === 'react-native' || id.startsWith('react-native/')) {
+        return true;
+    }
+    if (id === 'react-native-svg') {
+        return true;
+    }
+    if (id === 'tamagui' || id.startsWith('tamagui/')) {
+        return true;
+    }
+    if (id.startsWith('@tamagui/')) {
+        return true;
+    }
+    if (id.startsWith('@tanstack/react-query')) {
+        return true;
+    }
+    if (id === 'jotai' || id.startsWith('jotai/')) {
+        return true;
+    }
+    if (id === 'bignumber.js') {
+        return true;
+    }
+    if (id === 'urlcat') {
+        return true;
+    }
+    if (id.startsWith('@nktkas/')) {
+        return true;
+    }
+    if (id === '@dimensiondev/utils') {
+        return true;
+    }
+    if (id === 'lucide-react-native' || id.startsWith('lucide-react-native/')) {
+        return true;
+    }
+    return false;
+}
+
+export default defineConfig(async (): Promise<UserConfig> => {
+    const plugins: PluginOption[] = [
         react(),
         dts({
             rollupTypes: true,
             insertTypesEntry: true,
             include: ['src'],
+            entryRoot: srcDir,
         }),
-    ],
-    resolve: {
-        alias: {
-            '@': resolve(__dirname, 'src'),
+    ];
+    if (process.env.ANALYZE === '1') {
+        const { visualizer } = await import('rollup-plugin-visualizer');
+        plugins.push(
+            visualizer({
+                filename: resolve(__dirname, 'dist/stats.html'),
+                gzipSize: true,
+                brotliSize: true,
+                open: false,
+            }) as PluginOption,
+        );
+    }
+    return {
+        plugins,
+        resolve: {
+            alias: {
+                '@': srcDir,
+            },
         },
-    },
-    build: {
-        lib: {
-            entry: resolve(__dirname, 'src/index.ts'),
-            name: 'RnUi',
-            formats: ['es', 'cjs'],
-            fileName: (format) => `index.${format === 'es' ? 'js' : 'cjs'}`,
-        },
-        rollupOptions: {
-            external: [
-                'react',
-                'react-dom',
-                'react-native',
-                'tamagui',
-                '@tamagui/core',
-                '@tamagui/config',
-                'react-native-svg',
-            ],
-            output: {
-                globals: {
-                    react: 'React',
-                    'react-dom': 'ReactDOM',
-                    'react-native': 'ReactNative',
-                    tamagui: 'Tamagui',
+        build: {
+            lib: {
+                entry: {
+                    index: resolve(__dirname, 'src/index.ts'),
+                    perps: resolve(__dirname, 'src/entries/perps.ts'),
+                    provider: resolve(__dirname, 'src/entries/provider.ts'),
+                },
+                name: 'RnUi',
+                formats: ['es', 'cjs'],
+                fileName: (format, entryName) =>
+                    `${entryName}.${format === 'es' ? 'js' : 'cjs'}`,
+            },
+            rollupOptions: {
+                external: isExternal,
+                output: {
+                    globals: {
+                        react: 'React',
+                        'react-dom': 'ReactDOM',
+                        'react-native': 'ReactNative',
+                        tamagui: 'Tamagui',
+                    },
                 },
             },
         },
-    },
+    };
 });
