@@ -478,9 +478,9 @@ function CloseLossesDialog({
                         </button>
                     </DialogOrDrawerClose>
                 </div>
-                <div className="flex flex-col gap-6">
+                <div className="flex min-h-0 flex-col gap-6">
                     <div className="flex flex-col items-center gap-2">
-                        <div className="bg-second/60 text-primaryBottom flex size-10 items-center justify-center rounded-full">
+                        <div className="bg-second/60 text-primaryBottom flex items-center justify-center rounded-full">
                             <WarnIcon width={64} height={64} className="text-third" />
                         </div>
                         <div className="text-main text-center text-base font-semibold leading-6">
@@ -527,7 +527,7 @@ function CloseLossesDialog({
                         type="button"
                         size="lg"
                         variant="primary"
-                        className="h-10 w-full rounded-full font-bold"
+                        className="h-10 w-full shrink-0 rounded-full font-bold"
                         loading={isPending}
                         disabled={isPending || !claimItems.length}
                         onClick={() => mutate()}
