@@ -17,6 +17,7 @@ import { settings } from '@/settings/index.js';
 export function configureErrorCapture(): void {
     configureExceptionTracker({
         enabled: IS_PRODUCTION,
+        reportResourceLoadErrors: false,
         getClient: () => ({
             version: envs.shared.VERSION,
             commitHash: envs.shared.COMMIT_HASH,

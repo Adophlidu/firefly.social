@@ -76,6 +76,10 @@ Optional. Error message patterns to ignore (noise reduction). Merged with built-
 - **String** – substring match (`message.includes(pattern)`)
 - **RegExp** – regex test (`pattern.test(message)`)
 
+#### `reportResourceLoadErrors`
+
+Optional. When set to `false`, the package does not register the capture-phase listener for failed resource loads (IMG, SCRIPT, LINK, etc.). Defaults to `true` when omitted.
+
 ### 2. Use the APIs
 
 ```ts

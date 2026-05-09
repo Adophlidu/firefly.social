@@ -48,6 +48,11 @@ export interface ExceptionTrackerConfig {
     getUserContext?: () => UserContext;
     /** Error message patterns to ignore. Strings use substring match; RegExp uses regex test. Merged with built-in defaults. */
     ignoredErrors?: IgnoredErrorPattern[];
+    /**
+     * When `false`, skips registering the capture-phase listener for failed IMG/SCRIPT/LINK/etc. loads.
+     * Defaults to `true` when omitted (backward compatible).
+     */
+    reportResourceLoadErrors?: boolean;
 }
 
 let config: ExceptionTrackerConfig | null = null;

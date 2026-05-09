@@ -202,8 +202,10 @@ export function initGlobalErrorHandlers(): void {
     // Unhandled Promise rejections
     window.addEventListener('unhandledrejection', handleUnhandledRejection);
 
-    // Resource loading errors (capture phase to catch before bubble)
-    window.addEventListener('error', handleResourceError, true);
+    // Resource loading errors (capture phase to catch before bubble) — opt out via configureExceptionTracker
+    if (getExceptionTrackerConfig()?.reportResourceLoadErrors !== false) {
+        window.addEventListener('error', handleResourceError, true);
+    }
 
     initialized = true;
 }
