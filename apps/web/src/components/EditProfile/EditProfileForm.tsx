@@ -125,7 +125,7 @@ function FormField({ field, profile }: { field: ProfileEditableField; profile: P
             return (
                 <div className="space-y-1.5">
                     <div className="flex w-full flex-row items-start space-x-1">
-                        <label className="leading-12 text-main h-12 min-w-[110px] text-sm font-bold">
+                        <label className="text-main h-12 min-w-[110px] text-sm font-bold leading-[3rem]">
                             <Trans>Bio</Trans>
                         </label>
                         <FormInputContainer name="bio" className="h-[100px] flex-1">
@@ -188,8 +188,8 @@ export const EditProfileForm = memo<EditProfileFormProps>(function EditProfileFo
     const fields = EDIT_PROFILE_FIELDS[profile.source] ?? [];
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="flex w-full flex-1 flex-col text-left">
-            <div className="flex flex-col gap-4 p-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="flex min-h-0 w-full flex-1 flex-col text-left">
+            <div className="no-scrollbar flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto px-4 pb-4">
                 <div className="flex w-full items-center gap-4">
                     <EditProfileAvatar pfp={profile.pfp} name="pfp" />
                     <div className="text-main flex flex-col space-y-2 text-left">
@@ -225,7 +225,7 @@ export const EditProfileForm = memo<EditProfileFormProps>(function EditProfileFo
                     <FormField key={field} field={field} profile={profile} />
                 ))}
             </div>
-            <div className="shadow-accountCardShadowLight mt-auto flex w-full justify-end p-4">
+            <div className="flex w-full shrink-0 justify-end px-4 pb-4">
                 <ClickableButton
                     enableDefault
                     enablePropagate

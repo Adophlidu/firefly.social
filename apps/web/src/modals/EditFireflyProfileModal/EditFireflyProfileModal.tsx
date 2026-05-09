@@ -1,4 +1,5 @@
 import { delay } from '@dimensiondev/utils';
+import { Trans } from '@lingui/react/macro';
 import { useState } from 'react';
 
 import { Loading } from '@/components/Loading.js';
@@ -39,14 +40,20 @@ export function EditFireflyProfileModal({ ref }: Props) {
     });
 
     return (
-        <Modal open={open} onClose={() => dispatch?.close()} dialogPanelClassName="flex-col">
-            <div className="bg-primaryBottom shadow-popover relative flex w-screen grow flex-col overflow-auto transition-all md:h-auto md:max-h-[800px] md:w-[455px] md:rounded-xl lg:grow-0">
-                <EditFireflyProfileModalContent
-                    profile={profile}
-                    connections={connections}
-                    onClose={() => dispatch?.close()}
-                />
-            </div>
+        <Modal
+            open={open}
+            onClose={() => dispatch?.close()}
+            title={<Trans>Edit Profile</Trans>}
+            enableClose
+            className="w-screen md:w-[455px]"
+            dialogPanelClassName="flex-col"
+            panelClassName="flex flex-col overflow-auto !px-4 !pb-4 pt-0 md:max-h-[800px]"
+        >
+            <EditFireflyProfileModalContent
+                profile={profile}
+                connections={connections}
+                onClose={() => dispatch?.close()}
+            />
         </Modal>
     );
 }

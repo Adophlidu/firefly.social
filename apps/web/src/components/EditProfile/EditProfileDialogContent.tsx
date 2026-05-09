@@ -21,7 +21,9 @@ export function EditProfileDialogContent({ profile, onClose }: EditProfileDialog
 
     return (
         <FormProvider {...form}>
-            <EditProfileForm profile={profile} onClose={onClose} />
+            <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
+                <EditProfileForm profile={profile} onClose={onClose} />
+            </div>
         </FormProvider>
     );
 }

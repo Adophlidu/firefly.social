@@ -39,6 +39,8 @@ import { EditCrossAtModal } from '@/modals/EditCrossAtModal/EditCrossAtModal.js'
 import { EditCrossAtModalRef } from '@/modals/EditCrossAtModal/refs.js';
 import { EditFireflyProfileModal } from '@/modals/EditFireflyProfileModal/EditFireflyProfileModal.js';
 import { EditFireflyProfileModalRef } from '@/modals/EditFireflyProfileModal/refs.js';
+import { EditProfileModal } from '@/modals/EditProfileModal/EditProfileModal.js';
+import { EditProfileModalRef } from '@/modals/EditProfileModal/refs.js';
 import { FrameViewerModal } from '@/modals/FrameViewerModal/FrameViewerModal.js';
 import { FrameViewerModalRef } from '@/modals/FrameViewerModal/refs.js';
 import { ImageEditorModal } from '@/modals/ImageEditorModal/ImageEditorModal.js';
@@ -113,6 +115,7 @@ export const Modals = memo(function Modals() {
                 <CreateFireflyAccountGuideModal ref={CreateFireflyAccountGuideModalRef.register} />
                 <EditCrossAtModal ref={EditCrossAtModalRef.register} />
                 <EditFireflyProfileModal ref={EditFireflyProfileModalRef.register} />
+                <EditProfileModal ref={EditProfileModalRef.register} />
                 <FrameViewerModal ref={FrameViewerModalRef.register} />
                 <MyWalletsModal ref={MyWalletsModalRef.register} />
                 <NonFungibleCollectionSelectModal ref={NonFungibleTokenCollectionSelectModalRef.register} />

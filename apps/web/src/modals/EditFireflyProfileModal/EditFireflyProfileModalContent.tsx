@@ -1,10 +1,8 @@
-import { Dialog } from '@headlessui/react';
 import { useQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import { useMemo } from 'react';
 
 import { EditFireflyProfileRouter } from '@/components/EditFireflyProfile/EditFireflyProfileRouter.js';
-import { CloseButton } from '@/components/IconButton.js';
 import { Loading } from '@/components/Loading.js';
 import { Source } from '@/constants/enum.js';
 import { isSocialSource } from '@/helpers/isSource.js';
@@ -40,14 +38,9 @@ export function EditFireflyProfileModalContent({ connections, profile, onClose }
 
     if (isLoading) {
         return (
-            <>
-                <Dialog.Title as="h3" className="pt-safe relative h-14 shrink-0">
-                    <CloseButton className="text-fourMain absolute left-4 top-1/2 -translate-y-1/2" onClick={onClose} />
-                </Dialog.Title>
-                <div className="flex h-[366px] w-full items-center justify-center">
-                    <Loading />
-                </div>
-            </>
+            <div className="flex h-[366px] w-full items-center justify-center">
+                <Loading />
+            </div>
         );
     }
 

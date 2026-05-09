@@ -86,27 +86,25 @@ export const Modal = memo(function Modal({
                     >
                         {enableBackdrop ? (
                             <Transition.Child
-                                as={Fragment}
+                                as="div"
+                                className="bg-main/25 fixed inset-0"
                                 enter="ease-out duration-300"
                                 enterFrom="opacity-0"
                                 enterTo="opacity-100"
                                 leave="ease-in duration-200"
                                 leaveFrom="opacity-100"
                                 leaveTo="opacity-0"
-                            >
-                                <div
-                                    className="bg-main/25 fixed inset-0 bg-opacity-30"
-                                    onClick={(ev) => {
-                                        ev.preventDefault();
-                                        ev.stopPropagation();
-                                        if (disableBackdropClose) return;
-                                        onClose?.();
-                                    }}
-                                />
-                            </Transition.Child>
+                                onClick={(ev) => {
+                                    ev.preventDefault();
+                                    ev.stopPropagation();
+                                    if (disableBackdropClose) return;
+                                    onClose?.();
+                                }}
+                            />
                         ) : null}
                         <Transition.Child
-                            as={Fragment}
+                            as="div"
+                            className="contents"
                             enter="ease-out duration-300"
                             enterFrom="opacity-0"
                             enterTo="opacity-100"

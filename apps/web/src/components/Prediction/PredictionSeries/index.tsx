@@ -42,7 +42,7 @@ export const PredictionSeries = memo<PredictionSeriesProps>(function PredictionS
     endTime,
 }) {
     const { event, isActive } = use(PredictionContext);
-    const [ended, setEnded] = useState(false);
+    const [now, setNow] = useState(() => Date.now());
 
     const { data } = useQuery({
         queryKey: [Source.Prediction, 'series', platform, id, eventSlug],
@@ -68,8 +68,8 @@ export const PredictionSeries = memo<PredictionSeriesProps>(function PredictionS
                 event.markets.some((market) => !market.isClosed && !market.isResolved) &&
                 event.startTime &&
                 event.endDate &&
-                Date.now() >= new Date(event.startTime).getTime() &&
-                Date.now() <= new Date(event.endDate).getTime(),
+                now >= new Date(event.startTime).getTime() &&
+                now <= new Date(event.endDate).getTime(),
         );
         if (currentIndex === -1)
             return {
@@ -92,13 +92,13 @@ export const PredictionSeries = memo<PredictionSeriesProps>(function PredictionS
             upcoming: upcoming.slice(CURRENT_COUNT),
             liveEvent: data[currentIndex],
         };
-    }, [data, recurrence, ended]);
+    }, [data, recurrence, now]);
 
     useEffect(() => {
         if (!endTime || Date.now() >= endTime) return;
 
         const timer = setTimeout(() => {
-            setEnded(true);
+            setNow(Date.now());
         }, endTime - Date.now());
 
         return () => clearTimeout(timer);
