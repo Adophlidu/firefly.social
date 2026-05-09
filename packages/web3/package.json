@@ -1,6 +1,6 @@
 {
     "name": "@dimensiondev/web3",
-    "version": "0.1.32",
+    "version": "0.1.33",
     "description": "Shared Web3 utility functions for Firefly projects",
     "type": "module",
     "main": "./dist/utils.js",

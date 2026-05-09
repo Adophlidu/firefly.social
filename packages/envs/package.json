@@ -1,6 +1,6 @@
 {
     "name": "@dimensiondev/envs",
-    "version": "0.1.32",
+    "version": "0.1.33",
     "description": "Environment configuration for Firefly projects",
     "type": "module",
     "main": "./dist/index.js",
