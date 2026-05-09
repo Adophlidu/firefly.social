@@ -77,6 +77,19 @@ export function removeSharerParam(url: string): string {
 }
 
 /**
+ * Extracts the sharer parameter (sid) from a URL.
+ */
+export function getSharerParam(url: string): string | undefined {
+    if (!url) return undefined;
+    try {
+        const parsedUrl = createUrl(url);
+        return parsedUrl.searchParams.get('sid') ?? undefined;
+    } catch {
+        return undefined;
+    }
+}
+
+/**
  * Adds the sharer parameter to every Firefly-owned URL found in arbitrary pasted text.
  */
 export function addSharerParamToFireflyUrls(text: string, sharerId?: string): string {

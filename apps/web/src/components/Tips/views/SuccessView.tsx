@@ -19,6 +19,8 @@ import { getMentionCharsByIdentity } from '@/helpers/getMentionCharsByIdentity.j
 import { openWindow } from '@/helpers/openWindow.js';
 import { resolveFireflyMention } from '@/helpers/resolveFireflyMention.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
+import { addSharerParam } from '@/helpers/sharerUrl.js';
+import { useCurrentFireflyAccountUID } from '@/hooks/useCurrentFireflyAccountUID.js';
 import { useCurrentVisitingChannel } from '@/hooks/useCurrentVisitingChannel.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { ComposeModalRef } from '@/modals/ComposeModal/refs.js';
@@ -27,6 +29,7 @@ import { useTipsStore } from '@/store/useTipsStore.js';
 
 export function SuccessView() {
     const isLogin = useIsLoginFirefly();
+    const ffid = useCurrentFireflyAccountUID();
     const { context } = useMatch({ from: rootRouteId });
     const currentChannel = useCurrentVisitingChannel();
 
@@ -60,7 +63,7 @@ export function SuccessView() {
                         ` , sent you some $${token?.symbol} via `,
                         fireflyMention,
                         ' ✨ Keep shinning! \r\n',
-                        hash && token?.chainId ? RouteResolver.tx(token.chainId, hash) : '',
+                        hash && token?.chainId ? addSharerParam(RouteResolver.tx(token.chainId, hash), ffid) : '',
                     ],
                 }).then((res) => {
                     if (!res?.post || !hash) return;
@@ -73,7 +76,7 @@ export function SuccessView() {
             enqueueErrorMessage(<Trans>Something went wrong, please try again.</Trans>, { error });
             throw error;
         }
-    }, [context, post, recipient, token?.symbol, hash, currentChannel, identity, token?.chainId, isLogin]);
+    }, [context, post, recipient, token?.symbol, hash, currentChannel, identity, token?.chainId, isLogin, ffid]);
 
     if (!token || !recipient) return null;
 

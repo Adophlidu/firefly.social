@@ -35,4 +35,25 @@ describe('getClassifyPostLinks', () => {
         expect(fetchJson).not.toHaveBeenCalledWith(expect.stringContaining(encodeURIComponent(originalUrl)));
         expect(result).toEqual([{ url: originalUrl, result: { quote } }]);
     });
+
+    it('restores sid into og.url for Firefly URLs', async () => {
+        const originalUrl = 'https://firefly.social/post/x/123?sid=abc';
+        const normalizedUrl = 'https://firefly.social/post/x/123';
+
+        fetchJson.mockResolvedValue({
+            success: true,
+            data: [
+                {
+                    url: normalizedUrl,
+                    result: { oembed: { og: { url: normalizedUrl, title: 'Test' } } },
+                },
+            ],
+        });
+
+        const result = await getClassifyPostLinks([originalUrl]);
+
+        expect(result).toHaveLength(1);
+        expect(result[0].url).toBe(originalUrl);
+        expect(result[0]!.result.oembed!.og.url).toBe('https://firefly.social/post/x/123?sid=abc');
+    });
 });

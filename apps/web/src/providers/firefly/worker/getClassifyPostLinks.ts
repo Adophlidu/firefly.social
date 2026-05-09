@@ -2,7 +2,7 @@ import urlcat from 'urlcat';
 
 import { FIREFLY_WORKER_HOST } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
-import { removeSharerParam } from '@/helpers/sharerUrl.js';
+import { addSharerParam, getSharerParam, removeSharerParam } from '@/helpers/sharerUrl.js';
 import type { EVM } from '@/providers/nftscan/types.js';
 import type { SnapshotProposal } from '@/providers/snapshot/type.js';
 import type { Article } from '@/providers/types/Article.js';
@@ -52,6 +52,18 @@ export async function getClassifyPostLinks(urls: string[]) {
 
     return normalizedUrls.flatMap((normalizedUrl, index) => {
         const result = resultMap.get(normalizedUrl);
-        return result ? [{ url: urls[index], result }] : [];
+        if (!result) return [];
+
+        if (result.oembed?.og) {
+            const sid = getSharerParam(urls[index]);
+            if (sid) {
+                result.oembed = {
+                    ...result.oembed,
+                    og: { ...result.oembed.og, url: addSharerParam(result.oembed.og.url, sid) },
+                };
+            }
+        }
+
+        return [{ url: urls[index], result }];
     });
 }

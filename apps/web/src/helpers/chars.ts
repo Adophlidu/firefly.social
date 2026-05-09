@@ -9,7 +9,10 @@ import {
 } from '@/constants/limitation.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
+import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { resolveSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
+import { addSharerParam } from '@/helpers/sharerUrl.js';
+import { SessionType } from '@/providers/types/SocialMedia.js';
 import { resolveLengthCalculator } from '@/services/resolveLengthCalculator.js';
 import type { Chars, PromoteLinkChars } from '@/types/chars.js';
 import type { CompositePost } from '@/types/compose.js';
@@ -30,7 +33,8 @@ export function readChars({ chars, strategy = 'both', source, keepPostLinks = fa
 
     const promoteLink = promoteLinkChars?.content;
     const profile = source ? getCurrentProfileFromStorage(source) : null;
-    const specifiedUrl = profile ? urlcat(location.origin, getProfileUrl(profile)) : '';
+    const uid = getSessionFromStorage(SessionType.Firefly)?.payload?.uid;
+    const specifiedUrl = profile ? addSharerParam(urlcat(location.origin, getProfileUrl(profile)), uid) : '';
 
     return list
         .sort((a, b) => {

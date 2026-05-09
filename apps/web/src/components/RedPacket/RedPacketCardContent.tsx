@@ -37,8 +37,10 @@ import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPaylo
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { openComposeModal } from '@/helpers/openComposeModal.js';
 import { usePreloadImage } from '@/helpers/preloadImage.js';
+import { addSharerParam } from '@/helpers/sharerUrl.js';
 import { usePrivyAppkitAccountByNetwork } from '@/hooks/appkit/usePrivyAppkitAccountByNetwork.js';
 import { useAvailableBalance } from '@/hooks/useAvailableBalance.js';
+import { useCurrentFireflyAccountUID } from '@/hooks/useCurrentFireflyAccountUID.js';
 import { RedPacketModalRef } from '@/modals/RedPacketModal/refs.js';
 import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
 import { type RedPacketJSONPayload, RedPacketStatus } from '@/providers/types/FireflyRedPacket.js';
@@ -52,6 +54,7 @@ interface Props {
 
 export function RedPacketCardContent({ payload, post }: Props) {
     const networkType = getNetworkTypeFromRpPayload(payload);
+    const ffid = useCurrentFireflyAccountUID();
 
     const [requirementOpen, setRequirementOpen] = useState(false);
 
@@ -112,7 +115,7 @@ export function RedPacketCardContent({ payload, post }: Props) {
     const { value: balance = 0 } = balanceResult ?? {};
 
     const handleShare = useCallback(async () => {
-        const postUrl = urlcat(SITE_URL, getPostUrl(post));
+        const postUrl = addSharerParam(urlcat(SITE_URL, getPostUrl(post)), ffid);
         openComposeModal({
             type: 'compose',
             chars: [
@@ -124,7 +127,7 @@ export function RedPacketCardContent({ payload, post }: Props) {
             ],
             source: post.source,
         });
-    }, [post, isClaimed]);
+    }, [post, isClaimed, ffid]);
 
     const [{ loading: refundLoading }, refund] = useRefundCallback(payload.rpid, {
         chainId: parsedChainId,

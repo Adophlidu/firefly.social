@@ -42,16 +42,16 @@ function getValidSharerSession(): SharerSession | null {
     return session;
 }
 
-export function persistSharerSession(sid: string) {
+export function persistSharerSession(sid: string, deviceId?: string) {
     if (!sid) return;
 
-    const deviceId = getValidSharerSession()?.deviceId ?? createSharerDeviceId();
+    const effectiveDeviceId = deviceId ?? getValidSharerSession()?.deviceId ?? createSharerDeviceId();
     bom.localStorage?.setItem(
         SHARER_SESSION_KEY,
         JSON.stringify({
             sid,
             detectedAt: Date.now(),
-            deviceId,
+            deviceId: effectiveDeviceId,
         } satisfies SharerSession),
     );
 }

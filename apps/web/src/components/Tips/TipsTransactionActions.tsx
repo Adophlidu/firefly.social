@@ -26,7 +26,9 @@ import { SITE_URL } from '@/constants/static.js';
 import { getMentionCharsByIdentity } from '@/helpers/getMentionCharsByIdentity.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
+import { addSharerParam } from '@/helpers/sharerUrl.js';
 import { updateTipsReactionStatus } from '@/helpers/updateTipsReactionStatus.js';
+import { useCurrentFireflyAccountUID } from '@/hooks/useCurrentFireflyAccountUID.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { ComposeModalRef } from '@/modals/ComposeModal/refs.js';
 import type { ComposeModalOpenProps } from '@/modals/ComposeModal/types.js';
@@ -56,16 +58,18 @@ async function sharePost(
         tokenSymbol,
         view,
         chainId,
+        ffid,
     }: {
         txHash: string;
         tokenSymbol: string;
         view?: TipsDetailViewType;
         chainId: number;
+        ffid?: string;
     },
     addressForMention: string,
     mentionChars: MentionChars | null,
 ) {
-    const tipsLink = RouteResolver.tx(chainId, txHash, view);
+    const tipsLink = addSharerParam(RouteResolver.tx(chainId, txHash, view), ffid);
     const mentionNode = mentionChars || formatAddress(addressForMention, 4);
 
     const options: ComposeModalOpenProps =
@@ -103,6 +107,7 @@ export function TipsTransactionActions({
     className,
 }: TipsTransactionActionsProps) {
     const isLogin = useIsLoginFirefly();
+    const ffid = useCurrentFireflyAccountUID();
     const { data, isLoading } = useQuery({
         queryKey: ['tips', txHash, isLogin],
         enabled: autoQuery && isLogin,
@@ -143,6 +148,7 @@ export function TipsTransactionActions({
                     tokenSymbol,
                     view,
                     chainId,
+                    ffid,
                 },
                 addressForMention,
                 mentionChars,
@@ -154,7 +160,7 @@ export function TipsTransactionActions({
                 updateTipsReactionStatus(txHash, TxReactionType.ShareTip, true);
             }
         },
-        [txHash, tokenSymbol, isLogin, addressForMention, view, chainId, fromAddress, accountIdForMention],
+        [txHash, tokenSymbol, isLogin, addressForMention, view, chainId, fromAddress, accountIdForMention, ffid],
     );
 
     const repostedStatus = autoQuery && isLogin ? data?.has_reposted : reposted;
@@ -188,7 +194,10 @@ export function TipsTransactionActions({
                     <>
                         <MenuItem>
                             {({ close }) => (
-                                <CopyLinkButton link={RouteResolver.tx(chainId, txHash)} onClick={close}>
+                                <CopyLinkButton
+                                    link={addSharerParam(RouteResolver.tx(chainId, txHash), ffid)}
+                                    onClick={close}
+                                >
                                     <Trans>Copy link</Trans>
                                 </CopyLinkButton>
                             )}

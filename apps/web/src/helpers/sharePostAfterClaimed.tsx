@@ -6,10 +6,13 @@ import urlcat from 'urlcat';
 import type { NetworkType } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/static.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
+import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { openComposeModal } from '@/helpers/openComposeModal.js';
+import { addSharerParam } from '@/helpers/sharerUrl.js';
 import { useOpenFireflyWallet } from '@/hooks/useOpenFireflyWallet.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+import { SessionType } from '@/providers/types/SocialMedia.js';
 
 interface ShareOptions {
     post: Post;
@@ -43,7 +46,8 @@ function ClaimMessage({ amount, symbol, networkType, chainId, txHash }: Props) {
 }
 
 export function sharePostAfterClaimed({ post, ...rest }: ShareOptions) {
-    const postUrl = urlcat(SITE_URL, getPostUrl(post));
+    const uid = getSessionFromStorage(SessionType.Firefly)?.payload?.uid;
+    const postUrl = addSharerParam(urlcat(SITE_URL, getPostUrl(post)), uid);
 
     ConfirmModalRef.open({
         title: <Trans>Lucky Drop</Trans>,

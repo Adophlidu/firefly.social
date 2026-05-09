@@ -157,7 +157,7 @@ export default function MainView() {
         networkType === NetworkType.Ethereum ? rpSupportedChains.every((chain) => chain.id !== +chainId) : false;
     const freeGasAction = isNotEnoughAllowance
         ? { txType: 'token_approve' as const, to: token.address as string }
-        : { txType: 'redpacket_send' as const, to: getRedPacketContractAddress(chainId) };
+        : { txType: 'redpacket_send' as const, to: isEVM ? getRedPacketContractAddress(chainId) : '' };
     const shouldCheckFreeGasEligibility = isEVM && insufficientGas && !!account && isPrivyAddress(account);
     const { data: canUseFreeGasForCurrentStep = false, isLoading: isCheckingFreeGasEligibility } = useQuery({
         queryKey: [

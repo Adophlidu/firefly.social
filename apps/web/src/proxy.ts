@@ -13,6 +13,7 @@ import {
 } from '@/proxy/handlers/localeRewrite.js';
 import { handlePostRequests } from '@/proxy/handlers/postRequests.js';
 import { handleProfileRoutes } from '@/proxy/handlers/profileRoutes.js';
+import { handleReferralTracking } from '@/proxy/handlers/referralTracking.js';
 import { handleTokenRequests } from '@/proxy/handlers/tokenRequests.js';
 
 import proxyRewriteRoutes from '../.next-config/rewrite.config.json' with { type: 'json' };
@@ -60,6 +61,7 @@ export default function proxy(request: NextRequest) {
     if (shouldSkipLocaleRewrite(pathname) || isPublicAssetPath(pathname) || hasLocalePrefix(pathname)) {
         const response = NextResponse.next({ request });
         setGeoCookies(request, response);
+        handleReferralTracking(request, response);
         return response;
     }
 

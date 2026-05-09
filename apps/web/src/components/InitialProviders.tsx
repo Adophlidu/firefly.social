@@ -66,16 +66,40 @@ export const InitialProviders = memo(function Providers(props: { children: React
     const handledSharerId = useRef<string | null>(null);
     useEffect(() => {
         const sid = new URLSearchParams(bom.location?.search ?? '').get('sid');
-        if (!sid) return;
-        if (handledSharerId.current === sid) return;
-        handledSharerId.current = sid;
+        if (sid) {
+            if (handledSharerId.current === sid) return;
+            handledSharerId.current = sid;
 
-        const currentUid = getSessionFromStorage(SessionType.Firefly)?.payload?.uid;
-        if (currentUid && currentUid === sid) return;
+            const currentUid = getSessionFromStorage(SessionType.Firefly)?.payload?.uid;
+            if (currentUid && currentUid === sid) return;
 
-        persistSharerSession(sid);
-        void trackReferralEvent(sid).catch((error) => logger.error('Failed to track referral event', { sid, error }));
-        void TelemetryProvider.captureEventInSafe(EventId.PAGE_LOAD_SHARE_ID_DETECTED, {});
+            persistSharerSession(sid);
+            void trackReferralEvent(sid).catch((error) =>
+                logger.error('Failed to track referral event', { sid, error }),
+            );
+            void TelemetryProvider.captureEventInSafe(EventId.PAGE_LOAD_SHARE_ID_DETECTED, {});
+            return;
+        }
+
+        // Fallback: read sharer session from cookies set by middleware for proxy routes
+        const cookieSid = document.cookie
+            .split('; ')
+            .find((row) => row.startsWith('firefly_sharer_sid='))
+            ?.split('=')[1];
+        if (!cookieSid) return;
+        if (handledSharerId.current === cookieSid) return;
+        handledSharerId.current = cookieSid;
+
+        const deviceId = document.cookie
+            .split('; ')
+            .find((row) => row.startsWith('firefly_device_id='))
+            ?.split('=')[1];
+
+        persistSharerSession(cookieSid, deviceId);
+
+        // Clear the cookies
+        document.cookie = 'firefly_sharer_sid=; path=/; max-age=0';
+        document.cookie = 'firefly_device_id=; path=/; max-age=0';
     });
 
     const entryPathname = useRef('');

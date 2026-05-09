@@ -18,6 +18,8 @@ import { isEmptyPost } from '@/helpers/isEmptyPost.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { createLocalMediaObject } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { addSharerParam } from '@/helpers/sharerUrl.js';
+import { useCurrentFireflyAccountUID } from '@/hooks/useCurrentFireflyAccountUID.js';
 import { useCurrentProfiles } from '@/hooks/useCurrentProfile.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
@@ -36,9 +38,16 @@ interface Options {
     draftPost: CompositePost;
     full: boolean;
     availableProfiles: Profile[];
+    uid?: string;
 }
 
-async function recoverCompositePost({ draft, draftPost, full, availableProfiles }: Options): Promise<CompositePost> {
+async function recoverCompositePost({
+    draft,
+    draftPost,
+    full,
+    availableProfiles,
+    uid,
+}: Options): Promise<CompositePost> {
     const post: CompositePost = {
         ...draftPost,
         ...(full
@@ -137,7 +146,9 @@ async function recoverCompositePost({ draft, draftPost, full, availableProfiles 
                     availableProfiles.some((profile) => profile.source === source),
                 );
                 const preferProfile = availableProfiles.find((profile) => profile.source === preferSource);
-                const preferProfileLink = preferProfile ? urlcat(origin, getProfileUrl(preferProfile)) : '';
+                const preferProfileLink = preferProfile
+                    ? addSharerParam(urlcat(origin, getProfileUrl(preferProfile)), uid)
+                    : '';
                 if (preferProfileLink) {
                     postChars = [
                         ...postChars.slice(0, -1),
@@ -161,6 +172,7 @@ async function recoverCompositePost({ draft, draftPost, full, availableProfiles 
 
 export function useApplyDraftPost() {
     const profiles = useCurrentProfiles();
+    const uid = useCurrentFireflyAccountUID();
 
     const { updateChars, apply, focused } = useComposeStateStore();
     const { updateScheduleTime } = useComposeScheduleStateStore();
@@ -213,6 +225,7 @@ export function useApplyDraftPost() {
                             draftPost: x,
                             full,
                             availableProfiles,
+                            uid,
                         }),
                     ),
                 );
@@ -236,7 +249,7 @@ export function useApplyDraftPost() {
                 throw error;
             }
         },
-        [profiles, focused, setEditorContent, updateChars, updateScheduleTime, apply],
+        [profiles, uid, focused, setEditorContent, updateChars, updateScheduleTime, apply],
     );
 }
 

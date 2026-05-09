@@ -20,8 +20,10 @@ import { getCompositePost } from '@/helpers/getCompositePost.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { createLocalMediaObject } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolveSourcesName } from '@/helpers/resolveSourceName.js';
+import { addSharerParam } from '@/helpers/sharerUrl.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
+import { useCurrentFireflyAccountUID } from '@/hooks/useCurrentFireflyAccountUID.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { RedPacketModalRef } from '@/modals/RedPacketModal/refs.js';
@@ -38,14 +40,16 @@ export const RedPacketAction = memo<RedPacketActionProps>(function RedPacketActi
     const { switchChainAsync } = useSwitchChain();
     const setEditorContent = useSetEditorContent();
     const profilesAll = useCurrentProfilesAll();
+    const ffid = useCurrentFireflyAccountUID();
     const { cursor, updateChars, addImage, updateIsBusy } = useComposeStateStore();
 
     const promoteLink = useMemo(() => {
         const preferSource = SORTED_SOCIAL_SOURCES.find((x) => availableSources.includes(x) && profilesAll[x]);
         if (!preferSource) return SITE_URL;
         const preferProfile = profilesAll[preferSource]!;
-        return urlcat(location.origin, getProfileUrl(preferProfile));
-    }, [profilesAll, availableSources]);
+        const baseUrl = urlcat(location.origin, getProfileUrl(preferProfile));
+        return addSharerParam(baseUrl, ffid);
+    }, [profilesAll, availableSources, ffid]);
 
     const [{ loading }, openRedPacketComposeDialog] = useAsyncFn(async () => {
         if (!ethereum.address && !solana.address) {
