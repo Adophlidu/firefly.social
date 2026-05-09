@@ -958,7 +958,7 @@ msgid "PIN is extremely strong."
 msgstr ""
 
 msgid "Add Funds"
-msgstr "充值/注資"
+msgstr "充值"
 
 msgid "NFT Sent Failed"
 msgstr "發送 NFT 失敗"
