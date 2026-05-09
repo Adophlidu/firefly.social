@@ -33,12 +33,7 @@ export function useListenAssetCtx() {
                 const leverage = data.leverage.value;
                 const balance = data.availableToTrade?.[0] || '0';
                 const prev = lastSnapshotRef.current;
-                if (
-                    prev &&
-                    prev.marginMode === marginMode &&
-                    prev.leverage === leverage &&
-                    prev.balance === balance
-                ) {
+                if (prev && prev.marginMode === marginMode && prev.leverage === leverage && prev.balance === balance) {
                     return;
                 }
                 lastSnapshotRef.current = { marginMode, leverage, balance };

@@ -73,45 +73,47 @@ export function ReceiveModal({ open, items, loading, onClose }: Props) {
                     <LoadingSkeleton />
                 ) : (
                     <AnimatePresence mode="wait" initial={false}>
-                        {selected ? (
-                            <motion.div
-                                key="qrcode"
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                exit={{ opacity: 0 }}
-                                transition={{ duration: 0.1 }}
-                                className="z-10 flex w-full flex-col items-center text-center"
-                            >
-                                <div className="size-[270px] rounded-2xl bg-white p-4">
-                                    <QRCode value={selected.address} size={238} />
-                                </div>
-                                <div className="mb-6 mt-4 w-full break-all text-sm font-medium leading-[18px]">
-                                    {selected.address}
-                                </div>
-                                <div className="w-full">
-                                    <CopyButton address={selected.address} />
-                                </div>
-                            </motion.div>
-                        ) : (
-                            <motion.div
-                                key="list"
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                exit={{ opacity: 0 }}
-                                transition={{ duration: 0.1 }}
-                                className="z-10 flex h-auto w-full flex-col space-y-2"
-                            >
-                                {items.map((item, i) => (
-                                    <ReceiveChainItem
-                                        key={i}
-                                        {...item}
-                                        onClickQrCodeButton={() => {
-                                            setChainId(item.chainId);
-                                        }}
-                                    />
-                                ))}
-                            </motion.div>
-                        )}
+                        <div className="no-scrollbar h-[370px] overflow-y-auto">
+                            {selected ? (
+                                <motion.div
+                                    key="qrcode"
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    transition={{ duration: 0.1 }}
+                                    className="z-10 flex w-full flex-col items-center text-center"
+                                >
+                                    <div className="size-[270px] rounded-2xl bg-white p-4">
+                                        <QRCode value={selected.address} size={238} />
+                                    </div>
+                                    <div className="mb-6 mt-4 w-full break-all text-sm font-medium leading-[18px]">
+                                        {selected.address}
+                                    </div>
+                                    <div className="w-full">
+                                        <CopyButton address={selected.address} />
+                                    </div>
+                                </motion.div>
+                            ) : (
+                                <motion.div
+                                    key="list"
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    transition={{ duration: 0.1 }}
+                                    className="z-10 flex h-auto w-full flex-col space-y-2"
+                                >
+                                    {items.map((item, i) => (
+                                        <ReceiveChainItem
+                                            key={i}
+                                            {...item}
+                                            onClickQrCodeButton={() => {
+                                                setChainId(item.chainId);
+                                            }}
+                                        />
+                                    ))}
+                                </motion.div>
+                            )}
+                        </div>
                     </AnimatePresence>
                 )}
             </DialogOrDrawerContent>

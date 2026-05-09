@@ -18,10 +18,7 @@ export function useCoinInfo(coinName?: string) {
 
     const { data: allMetas, isLoading } = useAllPerpMetas();
 
-    const staticPart = useMemo(
-        () => (coinName ? resolveCoinStatic(allMetas, coinName) : null),
-        [allMetas, coinName],
-    );
+    const staticPart = useMemo(() => (coinName ? resolveCoinStatic(allMetas, coinName) : null), [allMetas, coinName]);
 
     const stableCoinRef = useRef<{ sig: string; coin: CoinInfo } | null>(null);
 
@@ -43,13 +40,7 @@ export function useCoinInfo(coinName?: string) {
             }
         }
 
-        const sig = coinInfoStableSignature(
-            coinName,
-            staticPart.hlCoinIndex,
-            assetCtx,
-            priceDiff,
-            priceDiffRatio,
-        );
+        const sig = coinInfoStableSignature(coinName, staticPart.hlCoinIndex, assetCtx, priceDiff, priceDiffRatio);
 
         if (prevEntry && prevEntry.sig === sig) {
             return prevEntry.coin;

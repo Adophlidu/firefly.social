@@ -1,20 +1,8 @@
 import { type CSSProperties, memo } from 'react';
 
 /** Mirrors `packages/rn-ui/src/skeletons/PerpsTradeDetailSkeleton.tsx` for lazy-route fallback only. */
-function Block({
-    className = '',
-    style,
-}: {
-    className?: string;
-    style?: CSSProperties;
-}) {
-    return (
-        <div
-            className={`shrink-0 rounded-lg bg-[#EDEEF2] ${className}`}
-            style={style}
-            aria-hidden
-        />
-    );
+function Block({ className = '', style }: { className?: string; style?: CSSProperties }) {
+    return <div className={`shrink-0 rounded-lg bg-[#EDEEF2] ${className}`} style={style} aria-hidden />;
 }
 
 function SkeletonPositionCard() {

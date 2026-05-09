@@ -515,9 +515,7 @@ const TokenItemBase = memo(function TokenItemBase({ token, onClick, subtitle, ch
                 badgeClassName="rounded-md border-[1.5px] border-white"
             />
             <div className="flex flex-1 flex-col items-start gap-1">
-                <span className="text-main truncate text-[14px] font-semibold leading-[14px]">
-                    {token.name} {token.symbol}
-                </span>
+                <span className="text-main truncate text-sm font-semibold">{token.name}</span>
                 <span className="text-secondary truncate text-[12px] font-medium leading-[14px]">{subtitle}</span>
             </div>
             {children}

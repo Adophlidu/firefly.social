@@ -46,19 +46,31 @@ Example pattern:
 ```js
 // metro.config.cjs
 const path = require('node:path');
-const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config');
+const {
+    getDefaultConfig,
+    mergeConfig,
+} = require('@react-native/metro-config');
 const monorepoRoot = path.resolve(__dirname, '../..');
 
 const config = {
-    watchFolders: [path.join(monorepoRoot, 'packages/rn-ui')],
+    watchFolders: [
+        path.join(monorepoRoot, 'packages/rn-ui'),
+    ],
     resolver: {
         unstable_enablePackageExports: true,
         // Prefer "react-native" / "import" conditions from package.json exports
-        resolverMainFields: ['react-native', 'browser', 'main'],
+        resolverMainFields: [
+            'react-native',
+            'browser',
+            'main',
+        ],
     },
 };
 
-module.exports = mergeConfig(getDefaultConfig(__dirname), config);
+module.exports = mergeConfig(
+    getDefaultConfig(__dirname),
+    config,
+);
 ```
 
 Adjust `watchFolders` to the actual path of `packages/rn-ui` on disk.

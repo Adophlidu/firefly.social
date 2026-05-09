@@ -363,7 +363,7 @@ function Form() {
                                 },
                             })}
                             onFocus={() => setIsFocusingAddressInput(true)}
-                            className="text-medium text-main placeholder:text-second max-h-9 min-h-[18px] flex-1 resize-none border-none bg-transparent p-0 pl-3 font-medium leading-[18px] focus:!shadow-none focus:!outline-none focus:!ring-transparent"
+                            className="text-medium no-scrollbar text-main placeholder:text-second max-h-9 min-h-[18px] flex-1 resize-none border-none bg-transparent p-0 pl-3 font-medium leading-[18px] focus:!shadow-none focus:!outline-none focus:!ring-transparent"
                             autoComplete="off"
                             autoCorrect="off"
                             spellCheck="false"
