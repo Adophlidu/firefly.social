@@ -9,14 +9,7 @@ import { PerpsTradeForm } from '@/components/TradeForm/index';
 import { formatFundingRate } from '@/helpers/formatFundingRate';
 import { useCoinInfo } from '@/hooks/Perps/useCoinInfo';
 import { PerpsTradeDetailSkeleton } from '@/skeletons/PerpsTradeDetailSkeleton';
-import {
-    coinIndexAtom,
-    coinNameAtom,
-    marketPriceAtom,
-    midPriceAtom,
-    setCoinNameAtom,
-    sizeDecimalAtom,
-} from '@/store/tradeForm';
+import { coinNameAtom, marketPriceAtom, midPriceAtom, setCoinNameAtom, sizeDecimalAtom } from '@/store/tradeForm';
 import type { SubmitAddToPosition, SubmitTpSl } from '@/types/services';
 import type { PerpsMeta } from '@/types/ui';
 
@@ -36,7 +29,6 @@ export const PerpsTradeDetail = memo<PerpsTradeDetailProps>(function PerpsTradeD
     const setMidPrice = useSetAtom(midPriceAtom);
     const setSizeDecimal = useSetAtom(sizeDecimalAtom);
     const setCoinName = useSetAtom(setCoinNameAtom);
-    const setCoinIndex = useSetAtom(coinIndexAtom);
 
     const { data: coinInfo, isLoading: isCoinInfoLoading } = useCoinInfo(coinName);
 
@@ -85,13 +77,6 @@ export const PerpsTradeDetail = memo<PerpsTradeDetailProps>(function PerpsTradeD
         setSizeDecimal(next);
     }, [coinInfo?.szDecimals, setSizeDecimal]);
 
-    const lastCoinIndexRef = useRef<number | null | undefined>(undefined);
-    useEffect(() => {
-        const next = coinInfo?.index ?? null;
-        if (lastCoinIndexRef.current === next) return;
-        lastCoinIndexRef.current = next;
-        setCoinIndex(next);
-    }, [coinInfo?.index, setCoinIndex]);
     useEffect(() => {
         if (coin) {
             setCoinName(coin);

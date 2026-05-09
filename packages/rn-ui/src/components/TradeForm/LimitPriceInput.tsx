@@ -2,9 +2,10 @@ import { useAtomValue, useSetAtom } from 'jotai';
 import { memo } from 'react';
 import { Button, Text, XStack } from 'tamagui';
 
-import { TokenAmountInput } from '@/components/TokenAmountInput';
+import { UsdPriceInput } from '@/components/UsdPriceInput';
 import { OrderType } from '@/constants/enum';
-import { limitPriceAtom, midPriceAtom, orderTypeAtom, priceDecimalAtom, setLimitPriceAtom } from '@/store/tradeForm';
+import { formatPrice } from '@/helpers/formatPrice';
+import { limitPriceAtom, midPriceAtom, orderTypeAtom, setLimitPriceAtom, sizeDecimalAtom } from '@/store/tradeForm';
 
 interface LimitPriceInputProps {}
 
@@ -13,7 +14,7 @@ export const LimitPriceInput = memo<LimitPriceInputProps>(function LimitPriceInp
     const midPrice = useAtomValue(midPriceAtom);
     const price = useAtomValue(limitPriceAtom);
     const setPrice = useSetAtom(setLimitPriceAtom);
-    const priceDecimal = useAtomValue(priceDecimalAtom);
+    const szDecimals = useAtomValue(sizeDecimalAtom);
 
     if (orderType === OrderType.MARKET) {
         return (
@@ -45,8 +46,8 @@ export const LimitPriceInput = memo<LimitPriceInputProps>(function LimitPriceInp
             borderWidth={1}
             borderColor="rgba(34, 33, 47, 0.15)"
         >
-            <TokenAmountInput
-                decimal={priceDecimal}
+            <UsdPriceInput
+                szDecimals={szDecimals}
                 value={price}
                 flex={1}
                 minWidth={0}
@@ -61,7 +62,7 @@ export const LimitPriceInput = memo<LimitPriceInputProps>(function LimitPriceInp
                 flexShrink={0}
                 onPress={() => {
                     if (midPrice) {
-                        setPrice(midPrice);
+                        setPrice(formatPrice(midPrice, szDecimals));
                     }
                 }}
             >

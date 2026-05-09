@@ -7,7 +7,6 @@ import { formatCoinName } from '@/helpers/formatCoinName';
 import { SwitchIcon } from '@/icons/SwitchIcon';
 import {
     coinNameAtom,
-    priceDecimalAtom,
     setInputTypeAtom,
     setSizeInputValueAtom,
     sizeDecimalAtom,
@@ -22,7 +21,6 @@ export const SizeInput = memo<SizeInputProps>(function SizeInput() {
     const inputType = useAtomValue(sizeInputTypeAtom);
     const setInputType = useSetAtom(setInputTypeAtom);
     const coinDecimal = useAtomValue(sizeDecimalAtom);
-    const priceDecimal = useAtomValue(priceDecimalAtom);
 
     const inputValue = useAtomValue(sizeInputValueAtom);
     const setInputValue = useSetAtom(setSizeInputValueAtom);
@@ -46,7 +44,7 @@ export const SizeInput = memo<SizeInputProps>(function SizeInput() {
                 height="100%"
                 value={inputValue}
                 onChangeText={setInputValue}
-                decimal={inputType === 'amount' ? coinDecimal : priceDecimal}
+                decimal={inputType === 'amount' ? coinDecimal : 2}
             />
             <Popover placement="top-end">
                 <Popover.Trigger disabled={disabled} asChild>

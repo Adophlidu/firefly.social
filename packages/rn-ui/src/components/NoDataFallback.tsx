@@ -24,7 +24,7 @@ export function NoDataFallback({ message }: NoDataFallbackProps) {
                 width="90%"
                 maxWidth={319}
             >
-                <Text fontSize={14} fontWeight={700} color="#E8E8E8">
+                <Text fontSize={14} fontWeight={700} textAlign="center" color="#E8E8E8">
                     Learn more about Perps
                 </Text>
             </Button>

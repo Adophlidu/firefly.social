@@ -2,6 +2,7 @@ import { memo, type ReactNode, useCallback, useEffect, useState } from 'react';
 import { Path, Svg } from 'react-native-svg';
 import { Button, Sheet, Slider, Text, XStack, YStack } from 'tamagui';
 
+import { SheetDragHandle } from '@/components/SheetDragHandle';
 import { WalletActionButton } from '@/components/WalletActionButton';
 
 interface LeverageSheetProps {
@@ -139,7 +140,7 @@ export const LeverageSheet = memo<LeverageSheetProps>(function LeverageSheet({
                 gap={16}
                 minHeight={349}
             >
-                <Sheet.Handle width={48} height={4} borderRadius={100} backgroundColor="#D1D1D1" marginBottom={0} />
+                <SheetDragHandle />
 
                 <YStack width="100%">
                     <XStack width="100%" alignItems="center" justifyContent="space-between" paddingTop={12}>

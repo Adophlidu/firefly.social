@@ -5,14 +5,23 @@ import { OrderType, TradeMarginMode } from '@/constants/enum';
 import { MAX_DECIMALS_PERPS } from '@/constants/static';
 import { formatPrice } from '@/helpers/formatPrice';
 import { dividedBy, isNumber, isZero, multipliedBy } from '@/helpers/number';
+import { resolveCoinStatic } from '@/helpers/perpsCoinInfoResolve';
 import { isValidSize } from '@/helpers/tradeForm';
+import { allMetaAtom } from '@/store/meta';
 import type { OrderSafeType, SizeInputType } from '@/types/ui';
 
 export const coinNameAtom = atom<string>('BTC');
 export const sizeDecimalAtom = atom<number>(1);
 export const marketPriceAtom = atom<string>('0');
 export const midPriceAtom = atom<string>('0');
-export const coinIndexAtom = atom<number | null>(null);
+export const coinIndexAtom = atom<number | null>((get) => {
+    const coinName = get(coinNameAtom);
+    const allMeta = get(allMetaAtom);
+    if (allMeta.status !== 'success') return null;
+
+    const staticPart = resolveCoinStatic(allMeta.data, coinName);
+    return staticPart?.hlCoinIndex ?? null;
+});
 
 export const marginModeAtom = atom<TradeMarginMode>(TradeMarginMode.ISOLATED);
 export const leverageAtom = atom<number>(1);
@@ -86,10 +95,13 @@ const updateSliderValueAtom = atom(null, (get, set) => {
 
 // order type change
 export const toggleOrderTypeAtom = atom(null, (get, set, newValue: OrderType) => {
-    const marketPrice = get(marketPriceAtom);
+    const midPrice = get(midPriceAtom);
 
     set(orderTypeAtom, newValue);
-    set(limitPriceAtom, newValue === OrderType.MARKET || !isNumber(marketPrice) ? '0' : marketPrice);
+    set(
+        limitPriceAtom,
+        newValue === OrderType.MARKET || !isNumber(midPrice) ? '0' : formatPrice(midPrice, get(sizeDecimalAtom)),
+    );
 
     set(updateSliderValueAtom);
 });
@@ -166,9 +178,10 @@ export const setInputTypeAtom = atom(null, (get, set, newValue: SizeInputType) =
 });
 // limit price change
 export const setLimitPriceAtom = atom(null, (get, set, newValue: string) => {
-    const marketPrice = get(marketPriceAtom);
-    const validPrice = isNumber(marketPrice) ? marketPrice : '0';
-    set(limitPriceAtom, isNumber(newValue) || !newValue ? newValue : validPrice);
+    const midPrice = get(midPriceAtom);
+    const validMidPrice = isNumber(midPrice) ? formatPrice(midPrice, get(sizeDecimalAtom)) : '0';
+    const validPrice = isNumber(newValue) || !newValue ? newValue : validMidPrice;
+    set(limitPriceAtom, validPrice);
 
     set(updateSliderValueAtom);
 });
@@ -194,5 +207,4 @@ export const setCoinNameAtom = atom(null, (_, set, newValue: string) => {
     set(tpRatioAtom, '');
     set(slRatioAtom, '');
     set(limitPriceAtom, '0');
-    set(coinIndexAtom, null);
 });

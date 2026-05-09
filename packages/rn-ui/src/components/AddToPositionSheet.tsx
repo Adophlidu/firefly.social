@@ -2,6 +2,7 @@ import { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { Path, Svg } from 'react-native-svg';
 import { Button, Input, Sheet, Text, XStack, YStack } from 'tamagui';
 
+import { SheetDragHandle } from '@/components/SheetDragHandle';
 import { AddToPositionSheetSkeleton } from '@/skeletons/AddToPositionSheetSkeleton';
 import type { AddToPositionSheetData } from '@/types/ui';
 
@@ -101,7 +102,7 @@ export const AddToPositionSheet = memo<AddToPositionSheetProps>(function AddToPo
                 paddingHorizontal={16}
                 gap={16}
             >
-                <Sheet.Handle width={48} height={4} borderRadius={100} backgroundColor="#D1D1D1" marginBottom={0} />
+                <SheetDragHandle />
 
                 {loading ? <AddToPositionSheetSkeleton /> : null}
 

@@ -2,6 +2,7 @@ import { memo, useState } from 'react';
 import { Path, Svg } from 'react-native-svg';
 import { Button, ScrollView, Sheet, styled, Text, XStack, YStack } from 'tamagui';
 
+import { SheetDragHandle } from '@/components/SheetDragHandle';
 import { SolidArrowIcon } from '@/icons/SolidArrowIcon';
 
 interface SortByFilterProps {
@@ -117,7 +118,7 @@ export const SortByFilter = memo<SortByFilterProps>(function SortByFilter({ valu
                     paddingHorizontal={16}
                     gap={8}
                 >
-                    <Sheet.Handle width={48} height={4} borderRadius={100} backgroundColor="#D1D1D1" marginBottom={4} />
+                    <SheetDragHandle marginBottom={4} />
 
                     <ScrollView width="100%" showsVerticalScrollIndicator={false}>
                         <YStack gap={2} width="100%">

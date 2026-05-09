@@ -149,6 +149,10 @@ export const TradeDetailTabs = memo<TradeDetailTabsProps>(function TradeDetailTa
         [activePosition, market, submitTpSlHandler],
     );
 
+    const onTpSl = useCallback(() => {
+        setActiveTab('orders');
+    }, []);
+
     const orderCancels = useMemo(
         () => filteredOrders.map((order) => ({ oid: order.oid, coin: order.coin })),
         [filteredOrders],
@@ -198,7 +202,7 @@ export const TradeDetailTabs = memo<TradeDetailTabsProps>(function TradeDetailTa
             </XStack>
 
             {activeTab === 'positions' ? (
-                <ActivePositions positions={filteredPositions} />
+                <ActivePositions positions={filteredPositions} onTpSl={onTpSl} />
             ) : (
                 <OpenOrders openOrders={filteredOrders} />
             )}

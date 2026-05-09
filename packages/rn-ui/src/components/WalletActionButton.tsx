@@ -71,7 +71,9 @@ export const WalletActionButton = memo<Props>(function WalletActionButton({
         onPress?.();
     }, [state, walletClient, address, onPress]);
 
-    const disabled = isLoading || loading || isExecuting || disabledProp;
+    const disabled =
+        (isLoading || loading || isExecuting || disabledProp) &&
+        ![UserActionState.CONNECT, UserActionState.AGREE_LEGAL].includes(state);
 
     return (
         <Button onPress={disabled ? undefined : execute} disabled={disabled} opacity={disabled ? 0.5 : 1} {...rest}>

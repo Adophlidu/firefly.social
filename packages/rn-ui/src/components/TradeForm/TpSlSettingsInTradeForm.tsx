@@ -49,6 +49,7 @@ export const TpSlSettingsInTradeForm = memo<Props>(function TpSlSettingsInTradeF
                         <TokenAmountInput
                             placeholder="Gain"
                             flex={1}
+                            height="100%"
                             decimal={2}
                             value={tpRatio}
                             onChangeText={(value) => setTpRatio(value)}
@@ -69,6 +70,7 @@ export const TpSlSettingsInTradeForm = memo<Props>(function TpSlSettingsInTradeF
                         <TokenAmountInput
                             placeholder="Loss"
                             flex={1}
+                            height="100%"
                             decimal={2}
                             value={slRatio}
                             onChangeText={(value) => setSlRatio(value)}

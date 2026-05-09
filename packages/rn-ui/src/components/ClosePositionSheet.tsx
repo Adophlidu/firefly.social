@@ -2,6 +2,7 @@ import { memo, useCallback, useState } from 'react';
 import { Path, Svg } from 'react-native-svg';
 import { Button, Input, Sheet, Text, XStack, YStack } from 'tamagui';
 
+import { SheetDragHandle } from '@/components/SheetDragHandle';
 import type { ClosePositionSheetData } from '@/types/ui';
 
 interface ClosePositionSheetProps {
@@ -116,7 +117,7 @@ export const ClosePositionSheet = memo<ClosePositionSheetProps>(function ClosePo
                 paddingHorizontal={16}
                 gap={16}
             >
-                <Sheet.Handle width={48} height={4} borderRadius={100} backgroundColor="#D1D1D1" marginBottom={0} />
+                <SheetDragHandle />
 
                 {/* Title */}
                 <Text color="#171717" fontSize={20} lineHeight={24} fontWeight={700} fontFamily="$body">

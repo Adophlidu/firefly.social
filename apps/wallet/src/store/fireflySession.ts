@@ -24,10 +24,10 @@ export const fireflySessionStorageAtom = atomWithStorage<{
 export const fireflySessionTokenAtom = atom((get) => {
     const currentProfileSession = get(fireflySessionStorageAtom)?.state.currentProfileSession;
     if (!currentProfileSession) return null;
-    const [, session] = currentProfileSession.split(':');
+    const [, _session] = currentProfileSession.split(':');
     return (
         parseJson<{
             token: string;
-        }>(atob(session))?.token ?? null
+        }>(atob(_session))?.token ?? null
     );
 });

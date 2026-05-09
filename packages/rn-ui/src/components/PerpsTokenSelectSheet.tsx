@@ -1,6 +1,7 @@
 import { memo, useState } from 'react';
 import { Sheet, YStack } from 'tamagui';
 
+import { SheetDragHandle } from '@/components/SheetDragHandle';
 import type { PerpsMeta } from '@/types/ui';
 import { PerpsMarket } from '@/ui/Perps/PerpsMarket';
 
@@ -54,7 +55,7 @@ export const PerpsTokenSelectSheet = memo<PerpsTokenSelectSheetProps>(function P
                 gap={16}
                 height="100%"
             >
-                <Sheet.Handle width={48} height={4} borderRadius={100} backgroundColor="#D1D1D1" marginBottom={0} />
+                <SheetDragHandle />
 
                 <YStack flex={1} minHeight={0} width="100%">
                     <PerpsMarket onMarketSelect={onTokenSelected} />

@@ -10,9 +10,10 @@ import { LimitCloseSheet } from '../Sheets/LimitCloseSheet';
 
 interface ActivePositionsProps {
     positions: Position[];
+    onTpSl?: (position: Position) => void;
 }
 
-export const ActivePositions = memo<ActivePositionsProps>(function ActivePositions({ positions }) {
+export const ActivePositions = memo<ActivePositionsProps>(function ActivePositions({ positions, onTpSl }) {
     const [limitSheetOpen, setLimitSheetOpen] = useState(false);
     const [closeType, setCloseType] = useState<'limit' | 'market'>('limit');
     const [selectedPosition, setSelectedPosition] = useState<Position | null>(null);
@@ -48,6 +49,7 @@ export const ActivePositions = memo<ActivePositionsProps>(function ActivePositio
                         disabled={isClosing}
                         onLimitClose={handleLimitClose}
                         onMarketClose={handleMarketClose}
+                        onTpSl={onTpSl}
                     />
                 ))}
             </YStack>

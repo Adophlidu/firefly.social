@@ -1,6 +1,8 @@
 import { memo, useState } from 'react';
 import { Button, Sheet, Text, XStack, YStack } from 'tamagui';
 
+import { SheetDragHandle } from '@/components/SheetDragHandle';
+
 interface CloseAllConfirmSheetProps {
     type: 'position' | 'order';
     open: boolean;
@@ -53,7 +55,7 @@ export const CloseAllConfirmSheet = memo<CloseAllConfirmSheetProps>(function Clo
                 paddingHorizontal={16}
                 gap={16}
             >
-                <Sheet.Handle width={48} height={4} borderRadius={100} backgroundColor="#D1D1D1" marginBottom={0} />
+                <SheetDragHandle />
 
                 <YStack width="100%">
                     <XStack width="100%" alignItems="center" justifyContent="space-between" paddingTop={12}>

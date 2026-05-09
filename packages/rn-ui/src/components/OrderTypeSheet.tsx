@@ -2,6 +2,7 @@ import { memo, useEffect, useState } from 'react';
 import { Path, Svg } from 'react-native-svg';
 import { Button, Sheet, Text, YStack } from 'tamagui';
 
+import { SheetDragHandle } from '@/components/SheetDragHandle';
 import { OrderType } from '@/constants/enum';
 
 interface OrderTypeSheetProps {
@@ -122,15 +123,7 @@ export const OrderTypeSheet = memo<OrderTypeSheetProps>(function OrderTypeSheet(
                 minHeight={124}
             >
                 <YStack width="100%" gap={4}>
-                    <YStack width="100%" alignItems="center">
-                        <Sheet.Handle
-                            width={48}
-                            height={4}
-                            borderRadius={100}
-                            backgroundColor="#D1D1D1"
-                            marginBottom={0}
-                        />
-                    </YStack>
+                    <SheetDragHandle />
                 </YStack>
 
                 <YStack width="100%" gap={0}>

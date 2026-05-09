@@ -100,3 +100,50 @@ export const allDexsClearinghouseStateAtom = withAtomEffect(
         };
     },
 );
+
+interface SpotStateBalanceSchema {
+    coin: string;
+    token: number;
+    total: string;
+    hold: string;
+}
+
+interface SpotStateSchema {
+    balances?: SpotStateBalanceSchema[];
+}
+
+interface SpotStateEventSchema {
+    user?: string;
+    spotState?: SpotStateSchema;
+}
+
+export const spotStateAtom = withAtomEffect(atom<SpotStateSchema | undefined>(undefined), (get, set) => {
+    const walletAddress = get(walletAddressAtom);
+    const subscriptionClient = get(subscriptionClientAtom);
+    if (!walletAddress || !subscriptionClient) {
+        set(spotStateAtom, undefined);
+        return;
+    }
+
+    let subscription: ISubscription;
+    subscriptionClient
+        .spotState(
+            {
+                user: walletAddress,
+            },
+            (data: SpotStateEventSchema) => {
+                set(spotStateAtom, data?.spotState);
+            },
+        )
+        .then((sub) => {
+            subscription = sub;
+        })
+        .catch(() => {
+            set(spotStateAtom, undefined);
+        });
+
+    return () => {
+        subscription?.unsubscribe();
+        set(spotStateAtom, undefined);
+    };
+});

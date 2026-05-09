@@ -75,7 +75,6 @@ export const PerpsPositionCard = memo<PerpsPositionCardProps>(function PerpsPosi
     const isBuy = isGreaterThan(position.szi, '0');
     const directionVariant = isBuy ? 'buy' : 'sell';
     const directionLabel = isBuy ? 'Buy' : 'Sell';
-    const hasTpSl = true;
 
     const { winRatio, winUsdc } = useMemo(() => {
         if (isZero(position.unrealizedPnl)) return { winRatio: 0, winUsdc: 0 };
@@ -200,7 +199,7 @@ export const PerpsPositionCard = memo<PerpsPositionCardProps>(function PerpsPosi
             </YStack>
 
             {/* TP/SL */}
-            <XStack alignItems="center" gap={4}>
+            {/* <XStack alignItems="center" gap={4}>
                 <Text color="rgba(70, 70, 70, 0.4)" fontSize={12} lineHeight={14}>
                     TP/SL
                 </Text>
@@ -215,7 +214,7 @@ export const PerpsPositionCard = memo<PerpsPositionCardProps>(function PerpsPosi
                         --/--
                     </Text>
                 )}
-            </XStack>
+            </XStack> */}
 
             {/* Action Buttons */}
             <XStack gap={12} alignItems="center" justifyContent="center">

@@ -1,3 +1,5 @@
+import { formatCoinName } from '@/helpers/formatCoinName';
+
 export function resolveMetaAvatar(name: string) {
-    return `https://app.hyperliquid.xyz/coins/${name}.svg`;
+    return `https://uni.onekey-asset.com/static/hyperliquid/${formatCoinName(name)}.png`;
 }

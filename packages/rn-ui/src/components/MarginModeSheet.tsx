@@ -2,6 +2,7 @@ import { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { Path, Svg } from 'react-native-svg';
 import { Button, Sheet, Text, XStack, YStack } from 'tamagui';
 
+import { SheetDragHandle } from '@/components/SheetDragHandle';
 import { WalletActionButton } from '@/components/WalletActionButton';
 import { TradeMarginMode } from '@/constants/enum';
 
@@ -154,7 +155,7 @@ export const MarginModeSheet = memo<MarginModeSheetProps>(function MarginModeShe
                 paddingHorizontal={16}
                 gap={16}
             >
-                <Sheet.Handle width={48} height={4} borderRadius={100} backgroundColor="#D1D1D1" marginBottom={0} />
+                <SheetDragHandle />
 
                 <Text color="#171717" fontSize={20} lineHeight={24} fontWeight={700} fontFamily="$body">
                     Margin Mode

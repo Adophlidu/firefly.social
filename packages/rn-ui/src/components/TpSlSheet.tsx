@@ -1,6 +1,7 @@
 import { memo, useCallback, useEffect, useState } from 'react';
 import { Input, Sheet, Text, XStack, YStack } from 'tamagui';
 
+import { SheetDragHandle } from '@/components/SheetDragHandle';
 import { WalletActionButton } from '@/components/WalletActionButton';
 import { TpSlSheetSkeleton } from '@/skeletons/TpSlSheetSkeleton';
 import type { TpSlSheetData, TpSlValueType } from '@/types/ui';
@@ -233,7 +234,7 @@ export const TpSlSheet = memo<TpSlSheetProps>(function TpSlSheet({
                 gap={16}
                 minHeight={352}
             >
-                <Sheet.Handle width={48} height={4} borderRadius={100} backgroundColor="#D1D1D1" marginBottom={0} />
+                <SheetDragHandle />
 
                 {loading ? <TpSlSheetSkeleton /> : null}
 

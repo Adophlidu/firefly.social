@@ -4,6 +4,7 @@ import { atomWithQuery } from 'jotai-tanstack-query';
 
 import { infoClient } from '@/providers/client';
 import { walletAddressAtom } from '@/store/wallet';
+import { allDexsClearinghouseStateAtom, spotStateAtom } from '@/store/websocket';
 
 export type PerpsAbstractionMode =
     | 'DEFAULT'
@@ -36,6 +37,13 @@ export interface PerpsComputedAccountValueResult {
     isLoading: boolean;
 }
 
+interface PerpsClearinghouseAggregateLike {
+    marginSummary?: {
+        accountValue?: string;
+    };
+    withdrawable?: string;
+}
+
 export const perpsComputedAccountValueWalletAddressAtom = atom((get) => {
     return get(walletAddressAtom) || undefined;
 });
@@ -60,8 +68,12 @@ function normalizeMode(mode?: string): PerpsAbstractionMode {
 }
 
 function computeSpotTotalUsd(spotData: PerpsSpotDataLike | undefined, markPriceMap: Record<string, string>) {
-    if (!spotData?.balances?.length) return undefined;
-    const total = spotData.balances.reduce((acc, balance) => {
+    const balances = spotData?.balances;
+    // Loaded spot state with no balances is a valid empty portfolio (not "still loading").
+    if (!balances?.length) {
+        return '0';
+    }
+    const total = balances.reduce((acc, balance) => {
         const price = markPriceMap[balance.coin] || (balance.coin === 'USDC' ? '1' : '0');
         return acc.plus(new BigNumber(balance.total).multipliedBy(price));
     }, new BigNumber(0));
@@ -119,8 +131,35 @@ export const perpsAbstractionModeAtom = atom<PerpsAbstractionMode>((get) => {
     return normalizeMode(data);
 });
 
+export const perpsAggregatedClearinghouseStateAtom = atom<PerpsClearinghouseAggregateLike | undefined>((get) => {
+    const allDexsState = get(allDexsClearinghouseStateAtom);
+    if (!allDexsState.length) return undefined;
+
+    const aggregated = allDexsState.reduce(
+        (acc, [, state]) => {
+            if (!state) return acc;
+            acc.accountValue = acc.accountValue.plus(state.marginSummary?.accountValue || '0');
+            acc.withdrawable = acc.withdrawable.plus(state.withdrawable || '0');
+            return acc;
+        },
+        {
+            accountValue: new BigNumber(0),
+            withdrawable: new BigNumber(0),
+        },
+    );
+
+    return {
+        marginSummary: {
+            accountValue: aggregated.accountValue.toFixed(),
+        },
+        withdrawable: aggregated.withdrawable.toFixed(),
+    };
+});
+
 export const perpsAccountSummaryAtom = atom<PerpsAccountSummaryLike | undefined>((get) => {
-    const { data } = get(perpsClearinghouseStateQueryAtom) as any;
+    const websocketData = get(perpsAggregatedClearinghouseStateAtom);
+    const { data: queryData } = get(perpsClearinghouseStateQueryAtom) as any;
+    const data = websocketData ?? queryData;
     if (!data) return undefined;
     return {
         accountValue: data.marginSummary?.accountValue,
@@ -129,8 +168,10 @@ export const perpsAccountSummaryAtom = atom<PerpsAccountSummaryLike | undefined>
 });
 
 export const perpsSpotDataAtom = atom<PerpsSpotDataLike | undefined>((get) => {
-    const { data: spotState } = get(perpsSpotClearinghouseStateQueryAtom) as any;
+    const websocketSpotState = get(spotStateAtom);
+    const { data: spotStateQueryData } = get(perpsSpotClearinghouseStateQueryAtom) as any;
     const { data: spotMetaAndAssetCtxs } = get(perpsSpotMetaAndAssetCtxsQueryAtom) as any;
+    const spotState = websocketSpotState ?? spotStateQueryData;
     if (!spotState || !spotMetaAndAssetCtxs) return undefined;
 
     const [, spotAssetCtxs] = spotMetaAndAssetCtxs;
@@ -154,19 +195,21 @@ export const perpsComputedAccountValueAtom = atom<PerpsComputedAccountValueResul
     const summary = get(perpsAccountSummaryAtom);
     const spotData = get(perpsSpotDataAtom);
 
-    // Mode unknown or DEFAULT: fallback to clearinghouse values and keep loading.
+    // Mode unknown or DEFAULT: show perps clearinghouse only. Loading is driven by
+    // perpsComputedAccountValueQueryStateAtom (queries), not stuck true here — otherwise
+    // sheets that gate UI on isLoading never reveal actions (e.g. deposit).
     if (!mode || mode === 'DEFAULT') {
         return {
             accountValue: summary?.accountValue,
             withdrawable: summary?.withdrawable,
-            isLoading: true,
+            isLoading: false,
         };
     }
 
     const isUnified = mode === 'UNIFIED_ACCOUNT' || mode === 'PORTFOLIO_MARGIN';
 
     if (isUnified) {
-        if (!spotData?.spotTotalUsd) {
+        if (!spotData) {
             return {
                 accountValue: undefined,
                 withdrawable: undefined,
@@ -192,7 +235,8 @@ export const perpsComputedAccountValueAtom = atom<PerpsComputedAccountValueResul
     return {
         accountValue: spotValue.plus(perpsValue).toFixed(),
         withdrawable: summary?.withdrawable,
-        isLoading: !spotData?.spotTotalUsd,
+        // Wait until spot payload exists; empty balances yield spotTotalUsd "0" from computeSpotTotalUsd.
+        isLoading: !spotData,
     };
 });
 
@@ -200,15 +244,20 @@ export const perpsComputedAccountValueQueryStateAtom = atom((get) => {
     const walletAddress = get(perpsComputedAccountValueWalletAddressAtom);
     const abstractionQuery = get(perpsUserAbstractionQueryAtom) as any;
     const clearinghouseQuery = get(perpsClearinghouseStateQueryAtom) as any;
+    const aggregatedClearinghouse = get(perpsAggregatedClearinghouseStateAtom);
     const spotStateQuery = get(perpsSpotClearinghouseStateQueryAtom) as any;
+    const websocketSpotState = get(spotStateAtom);
     const spotMetaQuery = get(perpsSpotMetaAndAssetCtxsQueryAtom) as any;
     const computedValue = get(perpsComputedAccountValueAtom);
+
+    const shouldWaitClearinghouseQuery = !aggregatedClearinghouse && clearinghouseQuery.isPending;
+    const shouldWaitSpotStateQuery = !websocketSpotState && spotStateQuery.isPending;
 
     const isLoading =
         Boolean(walletAddress) &&
         (abstractionQuery.isPending ||
-            clearinghouseQuery.isPending ||
-            spotStateQuery.isPending ||
+            shouldWaitClearinghouseQuery ||
+            shouldWaitSpotStateQuery ||
             spotMetaQuery.isPending ||
             computedValue.isLoading);
 

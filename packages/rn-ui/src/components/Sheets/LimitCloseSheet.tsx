@@ -4,6 +4,7 @@ import { Button, Sheet, Slider, Text, XStack, YStack } from 'tamagui';
 
 import { ButtonUI } from '@/components/ButtonUI';
 import { CoinAvatar } from '@/components/CoinAvatar';
+import { SheetDragHandle } from '@/components/SheetDragHandle';
 import { TokenAmountInput } from '@/components/TokenAmountInput';
 import { formatCoinName } from '@/helpers/formatCoinName';
 import { dividedBy, isGreaterThan, isLessThan, isZero, minus, multipliedBy, toFixed } from '@/helpers/number';
@@ -115,7 +116,7 @@ export const LimitCloseSheet = memo<LimitCloseSheetProps>(function LimitCloseShe
                 paddingHorizontal={16}
                 gap={16}
             >
-                <Sheet.Handle width={48} height={4} borderRadius={100} backgroundColor="#D1D1D1" marginBottom={0} />
+                <SheetDragHandle />
 
                 <YStack width="100%">
                     <XStack width="100%" alignItems="center" justifyContent="space-between" paddingTop={12}>
