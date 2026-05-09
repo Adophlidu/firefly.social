@@ -62,7 +62,7 @@ export function EditFireflyProfileForm() {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="flex w-full flex-1 flex-col text-left">
-            <div className="flex flex-col items-center pb-7 pt-4 text-center">
+            <div className="flex flex-col items-center p-4 text-center">
                 <div className="mb-10">
                     <label htmlFor="avatar-upload" className="relative cursor-pointer">
                         <EditProfileAvatar pfp={context.profile?.avatar} name="avatar" size={120} />
@@ -96,7 +96,7 @@ export function EditFireflyProfileForm() {
                 </label>
                 <FormInput
                     name="displayName"
-                    className="max-w-[310px] text-center"
+                    className="w-full text-center"
                     placeholder={t`Enter your nickname on Firefly`}
                     options={{
                         required: true,
