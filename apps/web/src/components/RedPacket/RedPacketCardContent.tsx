@@ -227,7 +227,7 @@ export function RedPacketCardContent({ payload, post }: Props) {
                                 borderRadius: '0 0 18px 18px',
                             }}
                         />
-                        <div className="z-10 max-w-[50%]">
+                        <div className="z-10 max-w-[50%] text-left">
                             <div className="mb-2 line-clamp-2 max-w-full text-[20px] font-bold">
                                 {payload.sender.message}
                             </div>
