@@ -87,7 +87,7 @@
         "bignumber.js": "9.3.1",
         "punycode": "^2.3.1",
         "urlcat": "^3.1.0",
-        "viem": "^2.45.2"
+        "viem": "^2.48.11"
     },
     "peerDependencies": {
         "typescript": ">=5.0.0",
