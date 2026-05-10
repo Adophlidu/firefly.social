@@ -78,7 +78,7 @@ export const LimitCloseSheet = memo<LimitCloseSheetProps>(function LimitCloseShe
     }, []);
 
     const disabled = !isValidSize(absSize);
-    const winColor = winInUsdc ? (isGreaterThan(winInUsdc, 0) ? '#429F37' : '#FF372B') : '#171717';
+    const winColor = winInUsdc ? (isGreaterThan(winInUsdc, 0) ? '$textSuccess' : '$textCritical') : '$text';
     const confirmDisabled = disabled || !usdcToUse || isZero(newSize) || !newSize;
 
     return (
@@ -97,17 +97,17 @@ export const LimitCloseSheet = memo<LimitCloseSheetProps>(function LimitCloseShe
                 enterStyle={{ opacity: 0 }}
                 exitStyle={{ opacity: 0 }}
                 opacity={0.16}
-                backgroundColor="#000000"
+                backgroundColor="$text"
             />
 
             <Sheet.Frame
                 borderWidth={1}
-                borderColor="rgba(34, 33, 47, 0.03)"
+                borderColor="$bgHover"
                 borderTopLeftRadius={36}
                 borderTopRightRadius={36}
                 borderBottomLeftRadius={36}
                 borderBottomRightRadius={36}
-                shadowColor="#403D57"
+                shadowColor="$text"
                 shadowOpacity={0.1}
                 shadowRadius={20}
                 shadowOffset={{ width: 0, height: 16 }}
@@ -120,7 +120,7 @@ export const LimitCloseSheet = memo<LimitCloseSheetProps>(function LimitCloseShe
 
                 <YStack width="100%">
                     <XStack width="100%" alignItems="center" justifyContent="space-between" paddingTop={12}>
-                        <Text color="#171717" fontSize={20} lineHeight={24} fontWeight={700} fontFamily="$body">
+                        <Text color="$text" fontSize={20} lineHeight={24} fontWeight={700} fontFamily="$body">
                             {type === 'limit' ? 'Limit Close' : 'Market Close'}
                         </Text>
                         <YStack width={24} height={24} />
@@ -130,12 +130,12 @@ export const LimitCloseSheet = memo<LimitCloseSheetProps>(function LimitCloseShe
                 <XStack width="100%" alignItems="center" justifyContent="space-between">
                     <XStack alignItems="center" gap="$2">
                         <CoinAvatar name={coinName} size={30} />
-                        <Text color="#171717" fontSize={14} fontWeight={600}>
+                        <Text color="$text" fontSize={14} fontWeight={600}>
                             Current Price
                         </Text>
                     </XStack>
 
-                    <Text color="#171717" fontSize={16} fontWeight={600}>
+                    <Text color="$text" fontSize={16} fontWeight={600}>
                         {marketPrice ? `$${marketPrice}` : '--'}
                     </Text>
                 </XStack>
@@ -143,7 +143,7 @@ export const LimitCloseSheet = memo<LimitCloseSheetProps>(function LimitCloseShe
                 {/* usdc input */}
                 {type === 'limit' ? (
                     <XStack width="100%" alignItems="center" justifyContent="space-between" gap="$2">
-                        <Text fontSize={13} fontWeight={500} color="rgba(70, 70, 70, 0.80)">
+                        <Text fontSize={13} fontWeight={500} color="$textSubdued">
                             Price(USDC)
                         </Text>
                         <XStack
@@ -152,7 +152,7 @@ export const LimitCloseSheet = memo<LimitCloseSheetProps>(function LimitCloseShe
                             paddingHorizontal="$2"
                             borderRadius="$2"
                             borderWidth={1}
-                            borderColor="rgba(34, 33, 47, 0.15)"
+                            borderColor="$borderSubdued"
                             alignItems="center"
                             gap="$2"
                         >
@@ -172,7 +172,7 @@ export const LimitCloseSheet = memo<LimitCloseSheetProps>(function LimitCloseShe
                                         setUsdc(toFixed(midPrice, 2));
                                     }}
                                 >
-                                    <Text fontSize={14} fontWeight={500} color="#5E69FF">
+                                    <Text fontSize={14} fontWeight={500} color="$accent">
                                         Mid
                                     </Text>
                                 </Button>
@@ -183,7 +183,7 @@ export const LimitCloseSheet = memo<LimitCloseSheetProps>(function LimitCloseShe
 
                 {/* amount input */}
                 <XStack width="100%" alignItems="center" justifyContent="space-between" gap="$2">
-                    <Text fontSize={13} fontWeight={500} color="rgba(70, 70, 70, 0.80)">
+                    <Text fontSize={13} fontWeight={500} color="$textSubdued">
                         Amount({formatCoinName(coinName)})
                     </Text>
                     <XStack
@@ -192,7 +192,7 @@ export const LimitCloseSheet = memo<LimitCloseSheetProps>(function LimitCloseShe
                         paddingHorizontal="$2"
                         borderRadius="$2"
                         borderWidth={1}
-                        borderColor="rgba(34, 33, 47, 0.15)"
+                        borderColor="$borderSubdued"
                         alignItems="center"
                         gap="$2"
                     >
@@ -204,7 +204,7 @@ export const LimitCloseSheet = memo<LimitCloseSheetProps>(function LimitCloseShe
                             onChangeText={onSliderChange}
                             decimal={0}
                         />
-                        <Text fontSize={14} fontWeight={500} color="#171717">
+                        <Text fontSize={14} fontWeight={500} color="$text">
                             %
                         </Text>
                     </XStack>
@@ -219,31 +219,31 @@ export const LimitCloseSheet = memo<LimitCloseSheetProps>(function LimitCloseShe
                         size="$1"
                         disabled={disabled}
                     >
-                        <Slider.Track backgroundColor="#EFEFF3" height={2}>
-                            <Slider.TrackActive backgroundColor="#171717" />
+                        <Slider.Track backgroundColor="$bgSubdued" height={2}>
+                            <Slider.TrackActive backgroundColor="$text" />
                         </Slider.Track>
                         <Slider.Thumb
                             index={0}
                             circular
                             size={14}
-                            backgroundColor="#171717"
+                            backgroundColor="$text"
                             borderWidth={2}
-                            borderColor="#FFFFFF"
+                            borderColor="$bg"
                         />
                     </Slider>
                 </YStack>
 
                 <XStack width="100" alignItems="center" justifyContent="space-between">
-                    <Text fontSize={13} fontWeight={500} color="rgba(70, 70, 70, 0.80)">
+                    <Text fontSize={13} fontWeight={500} color="$textSubdued">
                         Size
                     </Text>
-                    <Text fontSize={14} fontWeight={500} color="#171717">
+                    <Text fontSize={14} fontWeight={500} color="$text">
                         {newSize} {formatCoinName(coinName)}
                     </Text>
                 </XStack>
 
                 <XStack width="100" alignItems="center" justifyContent="space-between">
-                    <Text fontSize={13} fontWeight={500} color="rgba(70, 70, 70, 0.80)">
+                    <Text fontSize={13} fontWeight={500} color="$textSubdued">
                         Est. Closed PnL
                     </Text>
                     <Text fontSize={14} fontWeight={500} color={winColor}>
@@ -258,11 +258,11 @@ export const LimitCloseSheet = memo<LimitCloseSheetProps>(function LimitCloseShe
                         borderRadius={96}
                         flex={1}
                         borderWidth={1}
-                        borderColor="#171717"
+                        borderColor="$text"
                         justifyContent="center"
                         onPress={() => onOpenChange(false)}
                     >
-                        <Text fontSize={16} fontWeight={700} color="#171717">
+                        <Text fontSize={16} fontWeight={700} color="$text">
                             Cancel
                         </Text>
                     </Button>
@@ -271,7 +271,7 @@ export const LimitCloseSheet = memo<LimitCloseSheetProps>(function LimitCloseShe
                         height={48}
                         borderRadius={96}
                         flex={1}
-                        backgroundColor="#171717"
+                        backgroundColor="$text"
                         justifyContent="center"
                         disabled={confirmDisabled}
                         onPress={() => {
@@ -279,7 +279,7 @@ export const LimitCloseSheet = memo<LimitCloseSheetProps>(function LimitCloseShe
                             onOpenChange(false);
                         }}
                     >
-                        <Text fontSize={16} fontWeight={700} color="#E8E8E8">
+                        <Text fontSize={16} fontWeight={700} color="$bgHover">
                             Close
                         </Text>
                     </ButtonUI>

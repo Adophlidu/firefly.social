@@ -16,7 +16,7 @@ export const SubmitButtonItem = memo<SubmitButtonItemProps>(function SubmitButto
     return (
         <WalletActionButton
             unstyled
-            backgroundColor={isLong ? '#429F37' : '#FF372B'}
+            backgroundColor={isLong ? '$textSuccess' : '$textCritical'}
             borderRadius={22}
             height={36}
             alignItems="center"
@@ -27,7 +27,7 @@ export const SubmitButtonItem = memo<SubmitButtonItemProps>(function SubmitButto
             pressStyle={{ opacity: 0.9 }}
             onPress={onPress}
         >
-            <Text color="#FFFFFF" fontSize={12} lineHeight={14} fontWeight={500} textAlign="center">
+            <Text color="$bg" fontSize={12} lineHeight={14} fontWeight={500} textAlign="center">
                 {label || (isLong ? 'Buy/Long' : 'Sell/Short')}
             </Text>
         </WalletActionButton>

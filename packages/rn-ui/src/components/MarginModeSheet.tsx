@@ -1,6 +1,6 @@
 import { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { Path, Svg } from 'react-native-svg';
-import { Button, Sheet, Text, XStack, YStack } from 'tamagui';
+import { Button, Sheet, Text, useTheme, XStack, YStack } from 'tamagui';
 
 import { SheetDragHandle } from '@/components/SheetDragHandle';
 import { WalletActionButton } from '@/components/WalletActionButton';
@@ -31,15 +31,16 @@ const MODE_OPTIONS = [
 ];
 
 function SelectedIcon() {
+    const theme = useTheme();
     return (
         <Svg width="20" height="20" viewBox="0 0 20 20" fill="none">
             <Path
                 d="M4.2 2.9H15.8C16.52 2.9 17.1 3.48 17.1 4.2V15.8C17.1 16.52 16.52 17.1 15.8 17.1H4.2C3.48 17.1 2.9 16.52 2.9 15.8V4.2C2.9 3.48 3.48 2.9 4.2 2.9Z"
-                fill="#171717"
+                fill={theme.text!.get()}
             />
             <Path
                 d="M6.2 10.1L8.55 12.45L13.8 7.2"
-                stroke="#FFFFFF"
+                stroke={theme.bg!.get()}
                 strokeWidth="1.4"
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -49,11 +50,12 @@ function SelectedIcon() {
 }
 
 function UnselectedIcon() {
+    const theme = useTheme();
     return (
         <Svg width="20" height="20" viewBox="0 0 20 20" fill="none">
             <Path
                 d="M4.2 2.9H15.8C16.52 2.9 17.1 3.48 17.1 4.2V15.8C17.1 16.52 16.52 17.1 15.8 17.1H4.2C3.48 17.1 2.9 16.52 2.9 15.8V4.2C2.9 3.48 3.48 2.9 4.2 2.9Z"
-                stroke="#171717"
+                stroke={theme.text!.get()}
                 strokeWidth="1.2"
             />
         </Svg>
@@ -84,11 +86,11 @@ function OptionCard({
             <YStack gap={8} width="100%">
                 <XStack gap={6} alignItems="center">
                     {selected ? <SelectedIcon /> : <UnselectedIcon />}
-                    <Text color="#171717" fontSize={16} lineHeight={20} fontWeight={500}>
+                    <Text color="$text" fontSize={16} lineHeight={20} fontWeight={500}>
                         {title}
                     </Text>
                 </XStack>
-                <Text color="rgba(70, 70, 70, 0.8)" textAlign="left" fontSize={13} lineHeight={17} fontWeight={500}>
+                <Text color="$textSubdued" textAlign="left" fontSize={13} lineHeight={17} fontWeight={500}>
                     {description}
                 </Text>
             </YStack>
@@ -138,15 +140,15 @@ export const MarginModeSheet = memo<MarginModeSheetProps>(function MarginModeShe
                 enterStyle={{ opacity: 0 }}
                 exitStyle={{ opacity: 0 }}
                 opacity={0.16}
-                backgroundColor="#000000"
+                backgroundColor="$text"
             />
 
             <Sheet.Frame
                 borderWidth={1}
-                borderColor="rgba(34, 33, 47, 0.03)"
+                borderColor="$bgHover"
                 borderTopLeftRadius={36}
                 borderTopRightRadius={36}
-                shadowColor="#403D57"
+                shadowColor="$text"
                 shadowOpacity={0.1}
                 shadowRadius={20}
                 shadowOffset={{ width: 0, height: 16 }}
@@ -157,7 +159,7 @@ export const MarginModeSheet = memo<MarginModeSheetProps>(function MarginModeShe
             >
                 <SheetDragHandle />
 
-                <Text color="#171717" fontSize={20} lineHeight={24} fontWeight={700} fontFamily="$body">
+                <Text color="$text" fontSize={20} lineHeight={24} fontWeight={700} fontFamily="$body">
                     Margin Mode
                 </Text>
 
@@ -178,13 +180,13 @@ export const MarginModeSheet = memo<MarginModeSheetProps>(function MarginModeShe
                     loading={loading}
                     height={48}
                     borderRadius={96}
-                    backgroundColor="#171717"
+                    backgroundColor="$text"
                     alignItems="center"
                     justifyContent="center"
                     pressStyle={{ opacity: 0.9 }}
                     onPress={handleChange}
                 >
-                    <Text color="#E8E8E8" fontSize={16} lineHeight={24} fontWeight={700}>
+                    <Text color="$bgHover" fontSize={16} lineHeight={24} fontWeight={700}>
                         Confirm
                     </Text>
                 </WalletActionButton>

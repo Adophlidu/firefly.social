@@ -1,7 +1,7 @@
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { memo, useEffect, useState } from 'react';
 import { Path, Svg } from 'react-native-svg';
-import { Button, Text, XStack, YStack } from 'tamagui';
+import { Button, Text, useTheme, XStack, YStack } from 'tamagui';
 
 import { LeverageSheet } from '@/components/LeverageSheet';
 import { MarginModeSheet } from '@/components/MarginModeSheet';
@@ -34,12 +34,13 @@ interface PerpsTradeFormProps {
     coinIndex: number;
 }
 
-function ChevronDownIcon({ color = '#171717' }: { color?: string }) {
+function ChevronDownIcon({ color }: { color?: string }) {
+    const theme = useTheme();
     return (
         <Svg width="14" height="14" viewBox="0 0 14 14" fill="none">
             <Path
                 d="M3.1 5.85L6.13 8.87C6.61 9.35 7.4 9.35 7.88 8.87L10.9 5.85"
-                stroke={color}
+                stroke={color ?? theme.text!.get()}
                 strokeWidth="1.2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -49,17 +50,19 @@ function ChevronDownIcon({ color = '#171717' }: { color?: string }) {
 }
 
 function AddCircleIcon() {
+    const theme = useTheme();
+    const stroke = theme.text!.get();
     return (
         <Svg width="12" height="12" viewBox="0 0 12 12" fill="none">
             <Path
                 d="M6 11C8.76 11 11 8.76 11 6C11 3.24 8.76 1 6 1C3.24 1 1 3.24 1 6C1 8.76 3.24 11 6 11Z"
-                stroke="#171717"
+                stroke={stroke}
                 strokeWidth="0.8"
                 strokeLinecap="round"
                 strokeLinejoin="round"
             />
-            <Path d="M4 6H8" stroke="#171717" strokeWidth="0.8" strokeLinecap="round" strokeLinejoin="round" />
-            <Path d="M6 8V4" stroke="#171717" strokeWidth="0.8" strokeLinecap="round" strokeLinejoin="round" />
+            <Path d="M4 6H8" stroke={stroke} strokeWidth="0.8" strokeLinecap="round" strokeLinejoin="round" />
+            <Path d="M6 8V4" stroke={stroke} strokeWidth="0.8" strokeLinecap="round" strokeLinejoin="round" />
         </Svg>
     );
 }
@@ -68,7 +71,7 @@ function DropdownButton({ label, flex, onPress }: { label: string; flex?: boolea
     return (
         <Button
             unstyled
-            backgroundColor="#F8F7F9"
+            backgroundColor="$bgSubdued"
             borderRadius={6}
             height={28}
             paddingHorizontal={10}
@@ -80,7 +83,7 @@ function DropdownButton({ label, flex, onPress }: { label: string; flex?: boolea
             pressStyle={{ opacity: 0.75 }}
             onPress={onPress}
         >
-            <Text color="#171717" fontSize={12} lineHeight={14} fontWeight={500}>
+            <Text color="$text" fontSize={12} lineHeight={14} fontWeight={500}>
                 {label}
             </Text>
             <ChevronDownIcon />
@@ -155,11 +158,11 @@ export const PerpsTradeForm = memo<PerpsTradeFormProps>(function PerpsTradeForm(
                 {/* Available */}
                 <Button unstyled onPress={() => navigate('addFunds', {})}>
                     <XStack height={24} alignItems="center" justifyContent="space-between">
-                        <Text color="rgba(70, 70, 70, 0.4)" fontSize={12} lineHeight={14} fontWeight={500}>
+                        <Text color="$textDisabled" fontSize={12} lineHeight={14} fontWeight={500}>
                             Available
                         </Text>
                         <XStack alignItems="center" justifyContent="flex-end" gap={4}>
-                            <Text color="#171717" fontSize={12} lineHeight={14} fontWeight={500}>
+                            <Text color="$text" fontSize={12} lineHeight={14} fontWeight={500}>
                                 {`$${formatAmount(available || '0')}`}
                             </Text>
                             <AddCircleIcon />

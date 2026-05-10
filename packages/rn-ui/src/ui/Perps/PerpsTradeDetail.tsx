@@ -88,7 +88,7 @@ export const PerpsTradeDetail = memo<PerpsTradeDetailProps>(function PerpsTradeD
     }
 
     return (
-        <YStack fullscreen minHeight={0} backgroundColor="#FFFFFF">
+        <YStack fullscreen minHeight={0} backgroundColor="$bg">
             <PerpsTradeDetailHeader
                 dex={coinInfo.dex || ''}
                 name={coinInfo.name}

@@ -39,32 +39,25 @@ export const OpenOrderCard = memo<OpenOrderCardProps>(function OpenOrderCard({ o
     const [{ loading }, removeOrder] = useCancelOrders(cancelInfo);
 
     return (
-        <YStack
-            borderWidth={1}
-            borderColor="rgba(34, 33, 47, 0.08)"
-            borderRadius={16}
-            backgroundColor="#FFFFFF"
-            padding={12}
-            gap={12}
-        >
+        <YStack borderWidth={1} borderColor="$bgHover" borderRadius={16} backgroundColor="$bg" padding={12} gap={12}>
             <XStack alignItems="center" justifyContent="space-between">
                 <XStack alignItems="center" gap={10} flex={1} minWidth={0}>
                     <CoinAvatar name={order.coin} />
 
                     <YStack flex={1} minWidth={0} gap={4}>
-                        <Text color="#171717" fontSize={13} lineHeight={14} fontWeight={600}>
+                        <Text color="$text" fontSize={13} lineHeight={14} fontWeight={600}>
                             {formatCoinName(order.coin)}
                         </Text>
 
                         <XStack gap={4} alignItems="center" flexWrap="wrap">
                             <XStack
-                                backgroundColor={isMainOrder ? '#DCF1D9' : '#FFE6E4'}
+                                backgroundColor={isMainOrder ? '$bgSuccessSubdued' : '$bgCriticalSubdued'}
                                 borderRadius={96}
                                 paddingHorizontal={6}
                                 paddingVertical={2}
                             >
                                 <Text
-                                    color={isMainOrder ? '#48AD3C' : '#FF564D'}
+                                    color={isMainOrder ? '$textSuccess' : '$textCritical'}
                                     fontSize={12}
                                     lineHeight={14}
                                     fontWeight={500}
@@ -74,12 +67,12 @@ export const OpenOrderCard = memo<OpenOrderCardProps>(function OpenOrderCard({ o
                             </XStack>
                             {/* {order.leverageLabel ? (
                                 <XStack
-                                    backgroundColor="#EFEFF3"
+                                    backgroundColor="$bgSubdued"
                                     borderRadius={96}
                                     paddingHorizontal={6}
                                     paddingVertical={2}
                                 >
-                                    <Text color="#A9A6BC" fontSize={12} lineHeight={14} fontWeight={500}>
+                                    <Text color="$textTertiary" fontSize={12} lineHeight={14} fontWeight={500}>
                                         {order.leverageLabel}
                                     </Text>
                                 </XStack>
@@ -103,26 +96,26 @@ export const OpenOrderCard = memo<OpenOrderCardProps>(function OpenOrderCard({ o
 
             <XStack justifyContent="space-between" gap={8}>
                 <YStack flex={1} gap={2}>
-                    <Text color="rgba(70, 70, 70, 0.4)" fontSize={12} lineHeight={14} fontWeight={500}>
+                    <Text color="$textDisabled" fontSize={12} lineHeight={14} fontWeight={500}>
                         Size
                     </Text>
-                    <Text color="#171717" fontSize={14} lineHeight={20} fontWeight={500}>
+                    <Text color="$text" fontSize={14} lineHeight={20} fontWeight={500}>
                         {order.sz}
                     </Text>
                 </YStack>
                 <YStack flex={1} gap={2} alignItems="center">
-                    <Text color="rgba(70, 70, 70, 0.4)" fontSize={12} lineHeight={14} fontWeight={500}>
+                    <Text color="$textDisabled" fontSize={12} lineHeight={14} fontWeight={500}>
                         Filled
                     </Text>
-                    <Text color="#171717" fontSize={14} lineHeight={20} fontWeight={500}>
+                    <Text color="$text" fontSize={14} lineHeight={20} fontWeight={500}>
                         -
                     </Text>
                 </YStack>
                 <YStack flex={1} gap={2} alignItems="flex-end">
-                    <Text color="rgba(70, 70, 70, 0.4)" fontSize={12} lineHeight={14} fontWeight={500}>
+                    <Text color="$textDisabled" fontSize={12} lineHeight={14} fontWeight={500}>
                         Order price
                     </Text>
-                    <Text color="#171717" fontSize={14} lineHeight={20} fontWeight={500}>
+                    <Text color="$text" fontSize={14} lineHeight={20} fontWeight={500}>
                         {order.isTrigger ? 'Market' : order.limitPx}
                     </Text>
                 </YStack>
@@ -130,15 +123,15 @@ export const OpenOrderCard = memo<OpenOrderCardProps>(function OpenOrderCard({ o
 
             <XStack justifyContent="space-between" gap={8}>
                 <YStack flex={1} gap={2}>
-                    <Text color="rgba(70, 70, 70, 0.4)" fontSize={12} lineHeight={14} fontWeight={500}>
+                    <Text color="$textDisabled" fontSize={12} lineHeight={14} fontWeight={500}>
                         Trigger Condition
                     </Text>
-                    <Text color="#171717" fontSize={14} lineHeight={20} fontWeight={500}>
+                    <Text color="$text" fontSize={14} lineHeight={20} fontWeight={500}>
                         {order.triggerCondition}
                     </Text>
                 </YStack>
                 <YStack flex={1} alignItems="flex-end" justifyContent="flex-end">
-                    <Text color="rgba(70, 70, 70, 0.8)" fontSize={12} lineHeight={14} fontWeight={400}>
+                    <Text color="$textSubdued" fontSize={12} lineHeight={14} fontWeight={400}>
                         {formatOrderTime(order.timestamp)}
                     </Text>
                 </YStack>

@@ -3,7 +3,7 @@ import { QueryClientProvider } from '@tanstack/react-query';
 import { useAtom, useSetAtom } from 'jotai';
 import { type ReactNode, useEffect } from 'react';
 import { useColorScheme } from 'react-native';
-import { TamaguiProvider, type TamaguiProviderProps } from 'tamagui';
+import { TamaguiProvider } from 'tamagui';
 
 import { LoginFallback } from '@/components/LoginFallback';
 import { queryClient } from '@/configs/queryClient';
@@ -15,26 +15,18 @@ import { exchangeClientAtom, subscriptionClientAtom, walletClientAtom } from '@/
 import config from '@/tamagui.config';
 import type { NavigateFunc, ToastFn, WalletClient } from '@/types/ui';
 
-interface ProviderProps extends TamaguiProviderProps {
+interface ProviderProps {
     token: string | null;
     apiMode?: 'prod' | 'dev';
     children?: ReactNode;
     walletClient?: WalletClient;
     toast: ToastFn;
     navigate: NavigateFunc;
+    theme?: 'light' | 'dark' | 'system';
 }
 const wsTransport = new WebSocketTransport();
 
-export function Provider({
-    children,
-    defaultTheme = 'light',
-    token,
-    apiMode,
-    walletClient,
-    toast,
-    navigate,
-    ...rest
-}: ProviderProps) {
+export function Provider({ children, theme = 'system', token, apiMode, walletClient, toast, navigate }: ProviderProps) {
     const colorScheme = useColorScheme();
     const [authToken, setToken] = useAtom(sessionTokenAtom);
     const setApiMode = useSetAtom(apiModeAtom);
@@ -42,7 +34,8 @@ export function Provider({
     const setWalletClient = useSetAtom(walletClientAtom);
     const setToast = useSetAtom(toastAtom);
     const setNavigate = useSetAtom(navigateAtom);
-    const theme = defaultTheme || (colorScheme === 'dark' ? 'dark' : 'light');
+    const resolvedTheme: 'light' | 'dark' =
+        theme === 'light' || theme === 'dark' ? theme : colorScheme === 'dark' ? 'dark' : 'light';
 
     useEffect(() => {
         setToken(token ?? null);
@@ -77,7 +70,7 @@ export function Provider({
 
     return (
         <QueryClientProvider client={queryClient}>
-            <TamaguiProvider config={config} defaultTheme={theme} {...rest}>
+            <TamaguiProvider config={config} defaultTheme={resolvedTheme}>
                 {!authToken ? <LoginFallback /> : children}
             </TamaguiProvider>
         </QueryClientProvider>

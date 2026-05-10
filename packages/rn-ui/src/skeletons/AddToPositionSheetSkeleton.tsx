@@ -2,7 +2,7 @@ import { memo } from 'react';
 import { XStack, YStack } from 'tamagui';
 
 function Block({ width, height, radius = 8 }: { width?: number | string; height: number; radius?: number }) {
-    return <YStack width={width} height={height} borderRadius={radius} backgroundColor="#EDEEF2" />;
+    return <YStack width={width} height={height} borderRadius={radius} backgroundColor="$bgHover" />;
 }
 
 export const AddToPositionSheetSkeleton = memo(function AddToPositionSheetSkeleton() {
@@ -19,7 +19,7 @@ export const AddToPositionSheetSkeleton = memo(function AddToPositionSheetSkelet
                 </XStack>
             </YStack>
 
-            <YStack borderWidth={1} borderColor="rgba(34, 33, 47, 0.15)" borderRadius={16} padding={12} gap={12}>
+            <YStack borderWidth={1} borderColor="$borderSubdued" borderRadius={16} padding={12} gap={12}>
                 <XStack alignItems="center" justifyContent="space-between">
                     <Block width={60} height={17} radius={6} />
                     <Block width={128} height={40} radius={8} />
@@ -31,7 +31,7 @@ export const AddToPositionSheetSkeleton = memo(function AddToPositionSheetSkelet
                     <Block width={96} height={17} radius={6} />
                     <Block width={86} height={18} radius={6} />
                 </XStack>
-                <YStack height={1} backgroundColor="rgba(34, 33, 47, 0.08)" />
+                <YStack height={1} backgroundColor="$bgHover" />
                 <XStack alignItems="center" justifyContent="space-between">
                     <Block width={64} height={17} radius={6} />
                     <Block width={72} height={18} radius={6} />

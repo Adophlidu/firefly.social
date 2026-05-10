@@ -2,7 +2,7 @@ import { memo } from 'react';
 import { XStack, YStack } from 'tamagui';
 
 function SkeletonBlock({ width, height, radius = 8 }: { width?: number | string; height: number; radius?: number }) {
-    return <YStack width={width} height={height} borderRadius={radius} backgroundColor="#EDEEF2" />;
+    return <YStack width={width} height={height} borderRadius={radius} backgroundColor="$bgHover" />;
 }
 
 export const TradingHistorySkeleton = memo(function TradingHistorySkeleton() {
@@ -11,9 +11,9 @@ export const TradingHistorySkeleton = memo(function TradingHistorySkeleton() {
             {Array.from({ length: 4 }, (_, index) => (
                 <YStack
                     key={index}
-                    backgroundColor="#FFFFFF"
+                    backgroundColor="$bg"
                     borderWidth={1}
-                    borderColor="#F0F0F0"
+                    borderColor="$border"
                     borderRadius={12}
                     padding={12}
                     gap={12}

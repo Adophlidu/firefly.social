@@ -55,11 +55,7 @@ export const OrderBookStepPopover = memo<OrderBookStepPopoverProps>(function Ord
                                 height={36}
                                 onPress={() => setStepIndex(i)}
                             >
-                                <Text
-                                    fontSize={14}
-                                    fontWeight={500}
-                                    color={i === stepIndex ? '#171717' : 'rgba(70, 70, 70, 0.80)'}
-                                >
+                                <Text fontSize={14} fontWeight={500} color={i === stepIndex ? '$text' : '$textSubdued'}>
                                     {step}
                                 </Text>
                             </Button>

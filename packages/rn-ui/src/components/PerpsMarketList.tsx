@@ -51,7 +51,7 @@ export const PerpsMarketList = memo<PerpsMarketListProps>(function PerpsMarketLi
 
                 {!loading && error ? (
                     <XStack justifyContent="center" paddingTop={4}>
-                        <Text color="#FF372B" fontSize={12} lineHeight={14}>
+                        <Text color="$textCritical" fontSize={12} lineHeight={14}>
                             {error}
                         </Text>
                     </XStack>
@@ -59,7 +59,7 @@ export const PerpsMarketList = memo<PerpsMarketListProps>(function PerpsMarketLi
 
                 {!loading && !error && items.length === 0 ? (
                     <XStack justifyContent="center" paddingTop={4}>
-                        <Text color="rgba(70, 70, 70, 0.8)" fontSize={12} lineHeight={14}>
+                        <Text color="$textSubdued" fontSize={12} lineHeight={14}>
                             No markets found
                         </Text>
                     </XStack>

@@ -86,9 +86,9 @@ export const PerpsMarket = memo<PerpsMarketProps>(function PerpsMarket({ onMarke
     }
 
     return (
-        <YStack height="100%" minHeight={0} backgroundColor="#FFFFFF">
+        <YStack height="100%" minHeight={0} backgroundColor="$bg">
             <YStack flexShrink={0} alignItems="center" gap={8} paddingTop={12} paddingBottom={10}>
-                <Text color="#000000" fontSize={20} lineHeight={24} fontWeight={600}>
+                <Text color="$text" fontSize={20} lineHeight={24} fontWeight={600}>
                     Perps
                 </Text>
             </YStack>

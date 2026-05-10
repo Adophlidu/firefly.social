@@ -58,7 +58,7 @@ function ActionButton({
             unstyled
             flex={1}
             minHeight={44}
-            backgroundColor="#171717"
+            backgroundColor="$text"
             borderRadius={22}
             alignItems="center"
             justifyContent="center"
@@ -67,7 +67,7 @@ function ActionButton({
         >
             <XStack alignItems="center" gap={6}>
                 {action === 'withdraw' ? <ArrowUpIcon /> : <ArrowDownIcon />}
-                <Text color="#FFFFFF" fontSize={14} lineHeight={18} fontWeight={500}>
+                <Text color="$bg" fontSize={14} lineHeight={18} fontWeight={500}>
                     {label}
                 </Text>
             </XStack>
@@ -108,17 +108,17 @@ export const AccountAmountSheet = memo<AccountAmountSheetProps>(function Account
                 enterStyle={{ opacity: 0 }}
                 exitStyle={{ opacity: 0 }}
                 opacity={0.16}
-                backgroundColor="#000000"
+                backgroundColor="$text"
             />
 
             <Sheet.Frame
                 borderWidth={1}
-                borderColor="rgba(34, 33, 47, 0.03)"
+                borderColor="$bgHover"
                 borderTopLeftRadius={36}
                 borderTopRightRadius={36}
                 borderBottomLeftRadius={36}
                 borderBottomRightRadius={36}
-                shadowColor="#403D57"
+                shadowColor="$text"
                 shadowOpacity={0.1}
                 shadowRadius={20}
                 shadowOffset={{ width: 0, height: 16 }}
@@ -135,7 +135,7 @@ export const AccountAmountSheet = memo<AccountAmountSheetProps>(function Account
                 ) : (
                     <YStack width="100%" gap={32}>
                         <XStack width="100%" alignItems="center" justifyContent="space-between" paddingTop={12}>
-                            <Text color="#171717" fontSize={20} lineHeight={24} fontWeight={700} fontFamily="$body">
+                            <Text color="$text" fontSize={20} lineHeight={24} fontWeight={700} fontFamily="$body">
                                 Portfolio
                             </Text>
                             <YStack width={24} height={24} />
@@ -143,33 +143,33 @@ export const AccountAmountSheet = memo<AccountAmountSheetProps>(function Account
 
                         <YStack width="100%" alignItems="center" gap={4}>
                             <XStack alignItems="flex-end" gap={4}>
-                                <Text color="#B0B7BF" fontSize={48} lineHeight={56} fontWeight={400}>
+                                <Text color="$textTertiary" fontSize={48} lineHeight={56} fontWeight={400}>
                                     $
                                 </Text>
                                 <XStack alignItems="flex-end" gap={0}>
-                                    <Text color="#070809" fontSize={48} lineHeight={56} fontWeight={700}>
+                                    <Text color="$text" fontSize={48} lineHeight={56} fontWeight={700}>
                                         {portfolioIntegerPart || '0'}
                                     </Text>
-                                    <Text color="#070809" fontSize={24} lineHeight={32} fontWeight={600}>
+                                    <Text color="$text" fontSize={24} lineHeight={32} fontWeight={600}>
                                         .{portfolioDecimalPart || '00'}
                                     </Text>
                                 </XStack>
                             </XStack>
 
-                            <Text color="rgba(70, 70, 70, 0.8)" fontSize={13} lineHeight={17} fontWeight={400}>
+                            <Text color="$textSubdued" fontSize={13} lineHeight={17} fontWeight={400}>
                                 Available: {availableDisplay}
                             </Text>
                         </YStack>
 
                         {error ? (
                             <YStack width="100%" alignItems="center" gap={8} marginTop={-16}>
-                                <Text color="#FF372B" fontSize={12} lineHeight={14}>
+                                <Text color="$textCritical" fontSize={12} lineHeight={14}>
                                     Failed to load account value
                                 </Text>
                                 <Button
                                     unstyled
                                     borderWidth={1}
-                                    borderColor="#F0F0F0"
+                                    borderColor="$border"
                                     borderRadius={8}
                                     paddingHorizontal={12}
                                     paddingVertical={6}
@@ -178,7 +178,7 @@ export const AccountAmountSheet = memo<AccountAmountSheetProps>(function Account
                                         void refetch();
                                     }}
                                 >
-                                    <Text color="#171717" fontSize={12} lineHeight={14} fontWeight={600}>
+                                    <Text color="$text" fontSize={12} lineHeight={14} fontWeight={600}>
                                         Retry
                                     </Text>
                                 </Button>

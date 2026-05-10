@@ -40,7 +40,7 @@ export const PerpsTradeDetailHeader = memo<PerpsTradeDetailHeaderProps>(function
         [onTokenSelect],
     );
 
-    const changeColor = (priceDiffRatio ?? 0) < 0 ? '#FF372B' : '#429F37';
+    const changeColor = (priceDiffRatio ?? 0) < 0 ? '$textCritical' : '$textSuccess';
     const availableDisplay = isLoading ? '--' : formatUSDC(withdrawable ?? 0);
     const dexLabel = dex || 'Perps';
 
@@ -59,7 +59,7 @@ export const PerpsTradeDetailHeader = memo<PerpsTradeDetailHeaderProps>(function
                 />
 
                 <Text
-                    color="#181818"
+                    color="$text"
                     fontSize={18}
                     lineHeight={24}
                     fontWeight={600}
@@ -71,9 +71,9 @@ export const PerpsTradeDetailHeader = memo<PerpsTradeDetailHeaderProps>(function
 
                 <Button
                     unstyled
-                    backgroundColor="#F8F7F9"
+                    backgroundColor="$bgSubdued"
                     borderWidth={1}
-                    borderColor="rgba(34, 33, 47, 0.03)"
+                    borderColor="$bgHover"
                     borderRadius={16}
                     paddingHorizontal={12}
                     paddingVertical={6}
@@ -84,7 +84,7 @@ export const PerpsTradeDetailHeader = memo<PerpsTradeDetailHeaderProps>(function
                         setAccountAmountSheetOpen(true);
                     }}
                 >
-                    <Text color="#171717" fontSize={14} lineHeight={20} fontWeight={600}>
+                    <Text color="$text" fontSize={14} lineHeight={20} fontWeight={600}>
                         {availableDisplay}
                     </Text>
                 </Button>
@@ -94,7 +94,7 @@ export const PerpsTradeDetailHeader = memo<PerpsTradeDetailHeaderProps>(function
                 <XStack alignItems="center" justifyContent="space-between">
                     <YStack onPress={() => setTokenSelectorOpen(true)}>
                         <XStack alignItems="center" gap={4}>
-                            <Text color="#171717" fontSize={20} lineHeight={24} fontWeight={700} fontFamily="$body">
+                            <Text color="$text" fontSize={20} lineHeight={24} fontWeight={700} fontFamily="$body">
                                 {`${formatCoinName(name)}USDC`}
                             </Text>
                             <TagBadge label={`${maxLeverage}x`} />
@@ -109,7 +109,7 @@ export const PerpsTradeDetailHeader = memo<PerpsTradeDetailHeaderProps>(function
                             />
                         </XStack>
                         <XStack alignItems="center" gap={4}>
-                            <Text color="rgba(70, 70, 70, 0.8)" fontSize={13} lineHeight={17} fontWeight={500}>
+                            <Text color="$textSubdued" fontSize={13} lineHeight={17} fontWeight={500}>
                                 {dexLabel}
                             </Text>
                             {priceDiffRatio ? (

@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { Path, Svg } from 'react-native-svg';
-import { Button, Text, XStack, YStack } from 'tamagui';
+import { Button, Text, useTheme, XStack, YStack } from 'tamagui';
 
 import { TagBadge } from '@/components/TagBadge';
 import { EditIcon } from '@/icons/EditIcon';
@@ -16,11 +16,12 @@ interface PerpsPositionCardProps {
 }
 
 function ArrowRightIcon() {
+    const theme = useTheme();
     return (
         <Svg width="12" height="12" viewBox="0 0 12 12" fill="none">
             <Path
                 d="M4.45 9.96L7.89 6.52C8.21 6.2 8.21 5.68 7.89 5.36L4.45 1.92"
-                stroke="#171717"
+                stroke={theme.text!.get()}
                 strokeWidth="1.2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -34,7 +35,7 @@ function ActionButton({ label, onPress }: { label: string; onPress?: () => void 
         <Button
             unstyled
             flex={1}
-            backgroundColor="#E8E8E8"
+            backgroundColor="$bgHover"
             borderRadius={22}
             paddingVertical={8}
             alignItems="center"
@@ -42,7 +43,7 @@ function ActionButton({ label, onPress }: { label: string; onPress?: () => void 
             pressStyle={{ opacity: 0.75 }}
             onPress={onPress}
         >
-            <Text color="#171717" fontSize={12} lineHeight={14} fontWeight={500} textAlign="center">
+            <Text color="$text" fontSize={12} lineHeight={14} fontWeight={500} textAlign="center">
                 {label}
             </Text>
         </Button>
@@ -56,25 +57,25 @@ export const PerpsPositionCard = memo<PerpsPositionCardProps>(function PerpsPosi
     onAddToPosition,
     onTpSl,
 }) {
-    const pnlColor = position.pnlValue >= 0 ? '#429F37' : '#FF372B';
-    const fundingColor = position.fundingValue >= 0 ? '#429F37' : '#FF372B';
+    const pnlColor = position.pnlValue >= 0 ? '$textSuccess' : '$textCritical';
+    const fundingColor = position.fundingValue >= 0 ? '$textSuccess' : '$textCritical';
     const directionVariant = position.direction === 'buy' ? 'buy' : 'sell';
     const directionLabel = position.direction === 'buy' ? 'Buy' : 'Sell';
     const hasTpSl = position.tpPrice !== '--' || position.slPrice !== '--';
 
     return (
-        <YStack backgroundColor="#FFFFFF" borderWidth={1} borderColor="#F0F0F0" borderRadius={12} padding={12} gap={12}>
+        <YStack backgroundColor="$bg" borderWidth={1} borderColor="$border" borderRadius={12} padding={12} gap={12}>
             {/* Header */}
             <YStack>
                 {/* Symbol Row */}
                 <XStack alignItems="center" justifyContent="space-between">
                     <XStack alignItems="center" gap={4}>
-                        <Text color="#171717" fontSize={14} lineHeight={14} fontWeight={600}>
+                        <Text color="$text" fontSize={14} lineHeight={14} fontWeight={600}>
                             {position.symbol}
                         </Text>
                         <ArrowRightIcon />
                     </XStack>
-                    <Text color="rgba(70, 70, 70, 0.4)" fontSize={12} lineHeight={14}>
+                    <Text color="$textDisabled" fontSize={12} lineHeight={14}>
                         PnL(USDC)
                     </Text>
                 </XStack>
@@ -97,22 +98,22 @@ export const PerpsPositionCard = memo<PerpsPositionCardProps>(function PerpsPosi
                 <XStack gap={8} alignItems="center">
                     <YStack flex={1}>
                         <XStack alignItems="flex-start">
-                            <Text color="rgba(70, 70, 70, 0.4)" fontSize={12} lineHeight={14}>
+                            <Text color="$textDisabled" fontSize={12} lineHeight={14}>
                                 Size({position.sizeUnit})
                             </Text>
                             <SwapIcon width={16} height={16} />
                         </XStack>
-                        <Text color="#171717" fontSize={14} lineHeight={20} fontWeight={600}>
+                        <Text color="$text" fontSize={14} lineHeight={20} fontWeight={600}>
                             {position.sizeCoin}
                         </Text>
                     </YStack>
 
                     <YStack flex={1} paddingLeft={16}>
-                        <Text color="rgba(70, 70, 70, 0.4)" fontSize={12} lineHeight={14}>
+                        <Text color="$textDisabled" fontSize={12} lineHeight={14}>
                             Margin
                         </Text>
                         <XStack alignItems="center" gap={2}>
-                            <Text color="#171717" fontSize={14} lineHeight={20} fontWeight={600}>
+                            <Text color="$text" fontSize={14} lineHeight={20} fontWeight={600}>
                                 {position.margin}
                             </Text>
                             <Button
@@ -129,7 +130,7 @@ export const PerpsPositionCard = memo<PerpsPositionCardProps>(function PerpsPosi
                     </YStack>
 
                     <YStack flex={1} alignItems="flex-end">
-                        <Text color="rgba(70, 70, 70, 0.4)" fontSize={12} lineHeight={14} textAlign="right">
+                        <Text color="$textDisabled" fontSize={12} lineHeight={14} textAlign="right">
                             Funding
                         </Text>
                         <Text color={fundingColor} fontSize={14} lineHeight={20} fontWeight={600}>
@@ -143,28 +144,28 @@ export const PerpsPositionCard = memo<PerpsPositionCardProps>(function PerpsPosi
             <YStack>
                 <XStack gap={8} alignItems="center">
                     <YStack flex={1}>
-                        <Text color="rgba(70, 70, 70, 0.4)" fontSize={12} lineHeight={14}>
+                        <Text color="$textDisabled" fontSize={12} lineHeight={14}>
                             Entry Price
                         </Text>
-                        <Text color="#171717" fontSize={14} lineHeight={20} fontWeight={600}>
+                        <Text color="$text" fontSize={14} lineHeight={20} fontWeight={600}>
                             {position.entryPrice}
                         </Text>
                     </YStack>
 
                     <YStack flex={1} paddingLeft={16}>
-                        <Text color="rgba(70, 70, 70, 0.4)" fontSize={12} lineHeight={14}>
+                        <Text color="$textDisabled" fontSize={12} lineHeight={14}>
                             Mark Price
                         </Text>
-                        <Text color="#171717" fontSize={14} lineHeight={20} fontWeight={600}>
+                        <Text color="$text" fontSize={14} lineHeight={20} fontWeight={600}>
                             {position.markPrice}
                         </Text>
                     </YStack>
 
                     <YStack flex={1} alignItems="flex-end">
-                        <Text color="rgba(70, 70, 70, 0.4)" fontSize={12} lineHeight={14} textAlign="right">
+                        <Text color="$textDisabled" fontSize={12} lineHeight={14} textAlign="right">
                             Liq. Price
                         </Text>
-                        <Text color="#171717" fontSize={14} lineHeight={20} fontWeight={600}>
+                        <Text color="$text" fontSize={14} lineHeight={20} fontWeight={600}>
                             {position.liqPrice}
                         </Text>
                     </YStack>
@@ -173,17 +174,17 @@ export const PerpsPositionCard = memo<PerpsPositionCardProps>(function PerpsPosi
 
             {/* TP/SL */}
             <XStack alignItems="center" gap={4}>
-                <Text color="rgba(70, 70, 70, 0.4)" fontSize={12} lineHeight={14}>
+                <Text color="$textDisabled" fontSize={12} lineHeight={14}>
                     TP/SL
                 </Text>
                 {hasTpSl ? (
                     <Text fontSize={14} lineHeight={20} fontWeight={600}>
-                        <Text color="#429F37">{position.tpPrice}</Text>
-                        <Text color="#171717"> / </Text>
-                        <Text color="#FF372B">{position.slPrice}</Text>
+                        <Text color="$textSuccess">{position.tpPrice}</Text>
+                        <Text color="$text"> / </Text>
+                        <Text color="$textCritical">{position.slPrice}</Text>
                     </Text>
                 ) : (
-                    <Text color="#171717" fontSize={14} lineHeight={20} fontWeight={600}>
+                    <Text color="$text" fontSize={14} lineHeight={20} fontWeight={600}>
                         --/--
                     </Text>
                 )}

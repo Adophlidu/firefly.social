@@ -12,7 +12,7 @@ export const SheetDragHandle = memo(function SheetDragHandle({
     width = 48,
     height = 4,
     borderRadius = 100,
-    backgroundColor = '#D1D1D1',
+    backgroundColor = '$borderSubdued',
     marginBottom = 0,
     alignSelf = 'center',
     ...rest

@@ -19,17 +19,17 @@ export const PerpsTradeActionBar = memo<PerpsTradeActionBarProps>(function Perps
                 flex={1}
                 height={48}
                 borderRadius={100}
-                backgroundColor="#3A9B35"
+                backgroundColor="$textSuccess"
                 alignItems="center"
                 justifyContent="center"
-                shadowColor="#3A9B35"
+                shadowColor="$textSuccess"
                 shadowOpacity={0.12}
                 shadowRadius={8}
                 shadowOffset={{ width: 0, height: 4 }}
                 pressStyle={{ opacity: 0.9, scale: 0.99 }}
                 onPress={goToTrade}
             >
-                <Text color="#FFFFFF" fontSize={16} lineHeight={24} fontWeight={700}>
+                <Text color="$bg" fontSize={16} lineHeight={24} fontWeight={700}>
                     Buy/Long
                 </Text>
             </Button>
@@ -38,17 +38,17 @@ export const PerpsTradeActionBar = memo<PerpsTradeActionBarProps>(function Perps
                 flex={1}
                 height={48}
                 borderRadius={100}
-                backgroundColor="#FF3C33"
+                backgroundColor="$textCritical"
                 alignItems="center"
                 justifyContent="center"
-                shadowColor="#FF3C33"
+                shadowColor="$textCritical"
                 shadowOpacity={0.12}
                 shadowRadius={8}
                 shadowOffset={{ width: 0, height: 4 }}
                 pressStyle={{ opacity: 0.9, scale: 0.99 }}
                 onPress={goToTrade}
             >
-                <Text color="#FFFFFF" fontSize={16} lineHeight={24} fontWeight={700}>
+                <Text color="$bg" fontSize={16} lineHeight={24} fontWeight={700}>
                     Sell/Short
                 </Text>
             </Button>

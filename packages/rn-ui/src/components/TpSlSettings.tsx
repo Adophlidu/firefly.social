@@ -180,7 +180,7 @@ export const TpSlSettings = memo<TpSlSettingsProps>(function TpSlSettings({
                     paddingHorizontal={8}
                     borderRadius={6}
                     borderWidth={1}
-                    borderColor="rgba(34, 33, 47, 0.15)"
+                    borderColor="$borderSubdued"
                 >
                     <TokenAmountInput
                         decimal={decimal}
@@ -202,7 +202,7 @@ export const TpSlSettings = memo<TpSlSettingsProps>(function TpSlSettings({
                     paddingHorizontal={8}
                     borderRadius={6}
                     borderWidth={1}
-                    borderColor="rgba(34, 33, 47, 0.15)"
+                    borderColor="$borderSubdued"
                 >
                     <TokenAmountInput
                         decimal={2}
@@ -228,7 +228,7 @@ export const TpSlSettings = memo<TpSlSettingsProps>(function TpSlSettings({
                     paddingHorizontal={8}
                     borderRadius={6}
                     borderWidth={1}
-                    borderColor="rgba(34, 33, 47, 0.15)"
+                    borderColor="$borderSubdued"
                 >
                     <TokenAmountInput
                         decimal={decimal}
@@ -250,7 +250,7 @@ export const TpSlSettings = memo<TpSlSettingsProps>(function TpSlSettings({
                     paddingHorizontal={8}
                     borderRadius={6}
                     borderWidth={1}
-                    borderColor="rgba(34, 33, 47, 0.15)"
+                    borderColor="$borderSubdued"
                 >
                     <TokenAmountInput
                         decimal={2}

@@ -1,6 +1,6 @@
 import { memo, useEffect, useState } from 'react';
 import { Path, Svg } from 'react-native-svg';
-import { Button, Sheet, Text, YStack } from 'tamagui';
+import { Button, Sheet, Text, useTheme, YStack } from 'tamagui';
 
 import { SheetDragHandle } from '@/components/SheetDragHandle';
 import { OrderType } from '@/constants/enum';
@@ -18,15 +18,16 @@ const ORDER_TYPE_OPTIONS = [
 ];
 
 function RadioChecked() {
+    const theme = useTheme();
     return (
         <Svg width="24" height="24" viewBox="0 0 24 24" fill="none">
             <Path
                 d="M12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22Z"
-                fill="#171717"
+                fill={theme.text!.get()}
             />
             <Path
                 d="M8.1 12L10.9 14.8L15.9 9.8"
-                stroke="white"
+                stroke={theme.bg!.get()}
                 strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -36,11 +37,12 @@ function RadioChecked() {
 }
 
 function RadioUnchecked() {
+    const theme = useTheme();
     return (
         <Svg width="24" height="24" viewBox="0 0 24 24" fill="none">
             <Path
                 d="M12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22Z"
-                stroke="rgba(23, 23, 23, 0.4)"
+                stroke={theme.textDisabled!.get()}
                 strokeWidth="1.5"
             />
         </Svg>
@@ -59,7 +61,7 @@ function SheetOption({ label, selected, onPress }: { label: string; selected: bo
             pressStyle={{ opacity: 0.78 }}
             onPress={onPress}
         >
-            <Text color="#171717" fontSize={16} lineHeight={24} fontWeight={600}>
+            <Text color="$text" fontSize={16} lineHeight={24} fontWeight={600}>
                 {label}
             </Text>
             {selected ? <RadioChecked /> : <RadioUnchecked />}
@@ -102,17 +104,17 @@ export const OrderTypeSheet = memo<OrderTypeSheetProps>(function OrderTypeSheet(
                 enterStyle={{ opacity: 0 }}
                 exitStyle={{ opacity: 0 }}
                 opacity={0.16}
-                backgroundColor="#000000"
+                backgroundColor="$text"
             />
 
             <Sheet.Frame
                 borderWidth={1}
-                borderColor="rgba(34, 33, 47, 0.03)"
+                borderColor="$bgHover"
                 borderTopLeftRadius={36}
                 borderTopRightRadius={36}
                 borderBottomLeftRadius={36}
                 borderBottomRightRadius={36}
-                shadowColor="#403D57"
+                shadowColor="$text"
                 shadowOpacity={0.1}
                 shadowRadius={20}
                 shadowOffset={{ width: 0, height: 16 }}

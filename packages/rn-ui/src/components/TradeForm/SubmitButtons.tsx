@@ -23,18 +23,18 @@ export const SubmitButtons = memo<SubmitButtonsProps>(function SubmitButtons({ m
             <YStack gap={2}>
                 <YStack>
                     <XStack height={24} alignItems="center" justifyContent="space-between">
-                        <Text color="rgba(70, 70, 70, 0.4)" fontSize={12} lineHeight={14} fontWeight={500}>
+                        <Text color="$textDisabled" fontSize={12} lineHeight={14} fontWeight={500}>
                             Est. Liq. price
                         </Text>
-                        <Text color="#171717" fontSize={12} lineHeight={14} fontWeight={500}>
+                        <Text color="$text" fontSize={12} lineHeight={14} fontWeight={500}>
                             {buyLiquidationPrice ? formatAmount(buyLiquidationPrice) : '-'}
                         </Text>
                     </XStack>
                     <XStack height={24} alignItems="center" justifyContent="space-between">
-                        <Text color="rgba(70, 70, 70, 0.4)" fontSize={12} lineHeight={14} fontWeight={500}>
+                        <Text color="$textDisabled" fontSize={12} lineHeight={14} fontWeight={500}>
                             Cost
                         </Text>
-                        <Text color="#171717" fontSize={12} lineHeight={14} fontWeight={500}>
+                        <Text color="$text" fontSize={12} lineHeight={14} fontWeight={500}>
                             {marginRequired ? `${marginRequired} USDC` : '-'}
                         </Text>
                     </XStack>
@@ -46,18 +46,18 @@ export const SubmitButtons = memo<SubmitButtonsProps>(function SubmitButtons({ m
             <YStack gap={2}>
                 <YStack>
                     <XStack height={24} alignItems="center" justifyContent="space-between">
-                        <Text color="rgba(70, 70, 70, 0.4)" fontSize={12} lineHeight={14} fontWeight={500}>
+                        <Text color="$textDisabled" fontSize={12} lineHeight={14} fontWeight={500}>
                             Est. Liq. price
                         </Text>
-                        <Text color="#171717" fontSize={12} lineHeight={14} fontWeight={500}>
+                        <Text color="$text" fontSize={12} lineHeight={14} fontWeight={500}>
                             {sellLiquidationPrice ? formatAmount(sellLiquidationPrice) : '-'}
                         </Text>
                     </XStack>
                     <XStack height={24} alignItems="center" justifyContent="space-between">
-                        <Text color="rgba(70, 70, 70, 0.4)" fontSize={12} lineHeight={14} fontWeight={500}>
+                        <Text color="$textDisabled" fontSize={12} lineHeight={14} fontWeight={500}>
                             Cost
                         </Text>
-                        <Text color="#171717" fontSize={12} lineHeight={14} fontWeight={500}>
+                        <Text color="$text" fontSize={12} lineHeight={14} fontWeight={500}>
                             {marginRequired ? `${marginRequired} USDC` : '-'}
                         </Text>
                     </XStack>

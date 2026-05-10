@@ -1,7 +1,7 @@
 import { useAtomValue } from 'jotai';
 import { memo, useCallback, useMemo, useState } from 'react';
 import { Path, Svg } from 'react-native-svg';
-import { Button, Text, XStack, YStack } from 'tamagui';
+import { Button, Text, useTheme, XStack, YStack } from 'tamagui';
 
 import { AddToPositionSheet } from '@/components/AddToPositionSheet';
 import { ButtonUI } from '@/components/ButtonUI';
@@ -50,15 +50,16 @@ const defaultTpSlData: TpSlSheetData = {
 };
 
 function CheckboxCheckedIcon() {
+    const theme = useTheme();
     return (
         <Svg width="16" height="16" viewBox="0 0 16 16" fill="none">
             <Path
                 d="M1.33 4.93C1.33 2.73 2.73 1.33 4.93 1.33H11.06C13.27 1.33 14.67 2.73 14.67 4.93V11.07C14.67 13.27 13.27 14.67 11.07 14.67H4.93C2.73 14.67 1.33 13.27 1.33 11.07V4.93Z"
-                fill="#171717"
+                fill={theme.text!.get()}
             />
             <Path
                 d="M5.16 8L7.15 9.99L10.84 6.01"
-                stroke="white"
+                stroke={theme.bg!.get()}
                 strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -178,16 +179,16 @@ export const TradeDetailTabs = memo<TradeDetailTabsProps>(function TradeDetailTa
                 <Button unstyled onPress={() => setShowCurrent((prev) => !prev)}>
                     <XStack gap={6} height={24} alignItems="center">
                         <CheckboxCheckedIcon />
-                        <Text color="#171717" fontSize={12} lineHeight={14} fontWeight={500}>
+                        <Text color="$text" fontSize={12} lineHeight={14} fontWeight={500}>
                             Current symbol
                         </Text>
                     </XStack>
                 </Button>
                 <ButtonUI
                     unstyled
-                    backgroundColor="#FFFFFF"
+                    backgroundColor="$bg"
                     borderWidth={1}
-                    borderColor="rgba(0, 0, 0, 0.06)"
+                    borderColor="$borderSubdued"
                     borderRadius={16}
                     paddingHorizontal={16}
                     paddingVertical={4}
@@ -195,7 +196,7 @@ export const TradeDetailTabs = memo<TradeDetailTabsProps>(function TradeDetailTa
                     disabled={isCancelAllLoading}
                     onPress={isCancelAllLoading ? undefined : handleCloseAll}
                 >
-                    <Text color="#171717" fontSize={14} lineHeight={18} fontWeight={500} textAlign="center">
+                    <Text color="$text" fontSize={14} lineHeight={18} fontWeight={500} textAlign="center">
                         Clear all
                     </Text>
                 </ButtonUI>

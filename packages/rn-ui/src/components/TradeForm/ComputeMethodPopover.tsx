@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { Button, Popover, Text, XStack, YStack } from 'tamagui';
+import { Button, Popover, Text, useTheme, XStack, YStack } from 'tamagui';
 
 import { ChevronDownIcon } from '@/icons/ChevronDownIcon';
 import type { ComputeMethod } from '@/types/ui';
@@ -11,15 +11,16 @@ interface Props {
 }
 
 export const ComputeMethodPopover = memo<Props>(function ComputeMethodPopover({ disabled = false, type, onChange }) {
+    const theme = useTheme();
     return (
         <Popover placement="top-end">
             <Popover.Trigger disabled={disabled} asChild>
                 <Button unstyled height="100%">
                     <XStack alignItems="center" height="100%" gap={2}>
-                        <Text fontSize={14} fontWeight={500} color="#171717">
+                        <Text fontSize={14} fontWeight={500} color="$text">
                             {type === 'ratio' ? '%' : '$'}
                         </Text>
-                        <ChevronDownIcon width={14} height={14} stroke="rgba(70, 70, 70, 0.40)" />
+                        <ChevronDownIcon width={14} height={14} stroke={theme.textDisabled!.get()} />
                     </XStack>
                 </Button>
             </Popover.Trigger>
@@ -43,7 +44,7 @@ export const ComputeMethodPopover = memo<Props>(function ComputeMethodPopover({ 
                             height={36}
                             onPress={() => onChange('ratio')}
                         >
-                            <Text fontSize={14} fontWeight={600} color="#171717">
+                            <Text fontSize={14} fontWeight={600} color="$text">
                                 %
                             </Text>
                         </Button>
@@ -59,7 +60,7 @@ export const ComputeMethodPopover = memo<Props>(function ComputeMethodPopover({ 
                             height={36}
                             onPress={() => onChange('usd')}
                         >
-                            <Text fontSize={14} fontWeight={600} color="#171717">
+                            <Text fontSize={14} fontWeight={600} color="$text">
                                 $
                             </Text>
                         </Button>

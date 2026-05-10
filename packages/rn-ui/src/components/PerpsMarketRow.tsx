@@ -26,13 +26,13 @@ const LeverageBadge = styled(XStack, {
     paddingHorizontal: 6,
     paddingVertical: 2,
     borderRadius: 999,
-    backgroundColor: '#EFEFF3',
+    backgroundColor: '$bgSubdued',
     alignItems: 'center',
     justifyContent: 'center',
 });
 
 export const PerpsMarketRow = memo<PerpsMarketRowProps>(function PerpsMarketRow({ item, onPress }) {
-    const changeColor = (item.priceDiffRatio ?? 0) < 0 ? '#FF372B' : '#429F37';
+    const changeColor = (item.priceDiffRatio ?? 0) < 0 ? '$textCritical' : '$textSuccess';
     const coinName = formatCoinName(item.name);
 
     return (
@@ -41,24 +41,24 @@ export const PerpsMarketRow = memo<PerpsMarketRowProps>(function PerpsMarketRow(
 
             <YStack flex={1} gap={2} minWidth={0}>
                 <XStack gap={4} alignItems="center">
-                    <Text color="#171717" fontSize={14} lineHeight={14} fontWeight={600}>
+                    <Text color="$text" fontSize={14} lineHeight={14} fontWeight={600}>
                         {coinName}
                     </Text>
 
                     <LeverageBadge>
-                        <Text color="#A9A6BC" fontSize={12} lineHeight={14} fontWeight={500}>
+                        <Text color="$textTertiary" fontSize={12} lineHeight={14} fontWeight={500}>
                             {item.maxLeverage}x
                         </Text>
                     </LeverageBadge>
                 </XStack>
 
-                <Text color="rgba(70, 70, 70, 0.4)" fontSize={12} lineHeight={14} fontWeight={500}>
+                <Text color="$textDisabled" fontSize={12} lineHeight={14} fontWeight={500}>
                     {item.dayNtlVlm ? `$${nFormatter(parseFloat(item.dayNtlVlm))}` : '-'} Vol
                 </Text>
             </YStack>
 
             <YStack alignItems="flex-end" gap={2} minWidth={96}>
-                <Text color="#171717" fontSize={14} lineHeight={14} fontWeight={600}>
+                <Text color="$text" fontSize={14} lineHeight={14} fontWeight={600}>
                     {item.mid ? `$${item.mid}` : '-'}
                 </Text>
 

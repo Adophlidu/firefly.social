@@ -17,10 +17,10 @@ interface TpSlSheetProps {
 function MetaRow({ label, value }: { label: string; value: string }) {
     return (
         <XStack alignItems="center" justifyContent="space-between">
-            <Text color="rgba(70, 70, 70, 0.4)" fontSize={12} lineHeight={14} fontWeight={500}>
+            <Text color="$textDisabled" fontSize={12} lineHeight={14} fontWeight={500}>
                 {label}
             </Text>
-            <Text color="#171717" fontSize={12} lineHeight={14} fontWeight={500}>
+            <Text color="$text" fontSize={12} lineHeight={14} fontWeight={500}>
                 {value}
             </Text>
         </XStack>
@@ -110,12 +110,12 @@ function PercentField({
             flex={1}
             height={32}
             borderWidth={1}
-            borderColor="rgba(34, 33, 47, 0.15)"
+            borderColor="$borderSubdued"
             borderRadius={6}
             alignItems="center"
             paddingHorizontal={8}
         >
-            <Text color="rgba(70, 70, 70, 0.4)" fontSize={14} lineHeight={18} fontWeight={500}>
+            <Text color="$textDisabled" fontSize={14} lineHeight={18} fontWeight={500}>
                 {sign}
             </Text>
 
@@ -125,18 +125,18 @@ function PercentField({
                 value={value}
                 onChangeText={onChangeText}
                 keyboardType="numeric"
-                color="#171717"
+                color="$text"
                 fontSize={14}
                 lineHeight={18}
                 fontWeight={500}
                 textAlign="right"
                 placeholder="0.00"
-                placeholderTextColor="rgba(70, 70, 70, 0.4)"
+                placeholderTextColor="$textDisabled"
                 padding={0}
                 minWidth={20}
             />
 
-            <Text color="rgba(70, 70, 70, 0.4)" fontSize={14} lineHeight={18} fontWeight={500}>
+            <Text color="$textDisabled" fontSize={14} lineHeight={18} fontWeight={500}>
                 %
             </Text>
         </XStack>
@@ -216,15 +216,15 @@ export const TpSlSheet = memo<TpSlSheetProps>(function TpSlSheet({
                 enterStyle={{ opacity: 0 }}
                 exitStyle={{ opacity: 0 }}
                 opacity={0.16}
-                backgroundColor="#000000"
+                backgroundColor="$text"
             />
 
             <Sheet.Frame
                 borderWidth={1}
-                borderColor="rgba(34, 33, 47, 0.03)"
+                borderColor="$bgHover"
                 borderTopLeftRadius={36}
                 borderTopRightRadius={36}
-                shadowColor="#403D57"
+                shadowColor="$text"
                 shadowOpacity={0.1}
                 shadowRadius={20}
                 shadowOffset={{ width: 0, height: 16 }}
@@ -240,7 +240,7 @@ export const TpSlSheet = memo<TpSlSheetProps>(function TpSlSheet({
 
                 {!loading ? (
                     <>
-                        <Text color="#171717" fontSize={20} lineHeight={24} fontWeight={700}>
+                        <Text color="$text" fontSize={20} lineHeight={24} fontWeight={700}>
                             TP/SL
                         </Text>
 
@@ -257,7 +257,7 @@ export const TpSlSheet = memo<TpSlSheetProps>(function TpSlSheet({
                                     flex={1}
                                     height={32}
                                     borderWidth={1}
-                                    borderColor="rgba(34, 33, 47, 0.15)"
+                                    borderColor="$borderSubdued"
                                     borderRadius={6}
                                     alignItems="center"
                                     paddingHorizontal={8}
@@ -267,12 +267,12 @@ export const TpSlSheet = memo<TpSlSheetProps>(function TpSlSheet({
                                         value={tpPrice}
                                         onChangeText={handleTpPriceChange}
                                         keyboardType="numeric"
-                                        color="#171717"
+                                        color="$text"
                                         fontSize={14}
                                         lineHeight={18}
                                         fontWeight={500}
                                         placeholder="TP Price"
-                                        placeholderTextColor="rgba(70, 70, 70, 0.4)"
+                                        placeholderTextColor="$textDisabled"
                                         flex={1}
                                     />
                                 </XStack>
@@ -288,7 +288,7 @@ export const TpSlSheet = memo<TpSlSheetProps>(function TpSlSheet({
                                     flex={1}
                                     height={32}
                                     borderWidth={1}
-                                    borderColor="rgba(34, 33, 47, 0.15)"
+                                    borderColor="$borderSubdued"
                                     borderRadius={6}
                                     alignItems="center"
                                     paddingHorizontal={8}
@@ -298,12 +298,12 @@ export const TpSlSheet = memo<TpSlSheetProps>(function TpSlSheet({
                                         value={slPrice}
                                         onChangeText={handleSlPriceChange}
                                         keyboardType="numeric"
-                                        color="#171717"
+                                        color="$text"
                                         fontSize={14}
                                         lineHeight={18}
                                         fontWeight={500}
                                         placeholder="SL Price"
-                                        placeholderTextColor="rgba(70, 70, 70, 0.4)"
+                                        placeholderTextColor="$textDisabled"
                                         flex={1}
                                     />
                                 </XStack>
@@ -319,7 +319,7 @@ export const TpSlSheet = memo<TpSlSheetProps>(function TpSlSheet({
                             unstyled
                             height={48}
                             borderRadius={96}
-                            backgroundColor="#171717"
+                            backgroundColor="$text"
                             alignItems="center"
                             justifyContent="center"
                             pressStyle={{ opacity: 0.9 }}
@@ -333,13 +333,13 @@ export const TpSlSheet = memo<TpSlSheetProps>(function TpSlSheet({
                                 onOpenChange(false);
                             }}
                         >
-                            <Text color="#E8E8E8" fontSize={16} lineHeight={24} fontWeight={700}>
+                            <Text color="$bgHover" fontSize={16} lineHeight={24} fontWeight={700}>
                                 Confirm
                             </Text>
                         </WalletActionButton>
 
                         <YStack alignItems="center" paddingTop={8}>
-                            <YStack width={134} height={5} borderRadius={100} backgroundColor="#000000" />
+                            <YStack width={134} height={5} borderRadius={100} backgroundColor="$text" />
                         </YStack>
                     </>
                 ) : null}

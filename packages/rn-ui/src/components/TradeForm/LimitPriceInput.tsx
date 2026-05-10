@@ -19,17 +19,17 @@ export const LimitPriceInput = memo<LimitPriceInputProps>(function LimitPriceInp
     if (orderType === OrderType.MARKET) {
         return (
             <XStack
-                backgroundColor="#F8F7F9"
+                backgroundColor="$bgSubdued"
                 borderRadius={6}
                 borderWidth={1}
-                borderColor="rgba(34, 33, 47, 0.03)"
+                borderColor="$bgHover"
                 height={40}
                 alignItems="center"
                 justifyContent="center"
                 paddingHorizontal={8}
                 paddingVertical={5}
             >
-                <Text fontSize={14} fontWeight={500} color="rgba(70, 70, 70, 0.40)">
+                <Text fontSize={14} fontWeight={500} color="$textDisabled">
                     Market Price
                 </Text>
             </XStack>
@@ -44,7 +44,7 @@ export const LimitPriceInput = memo<LimitPriceInputProps>(function LimitPriceInp
             paddingHorizontal={8}
             borderRadius={6}
             borderWidth={1}
-            borderColor="rgba(34, 33, 47, 0.15)"
+            borderColor="$borderSubdued"
         >
             <UsdPriceInput
                 szDecimals={szDecimals}
@@ -54,7 +54,7 @@ export const LimitPriceInput = memo<LimitPriceInputProps>(function LimitPriceInp
                 height="100%"
                 onChangeText={setPrice}
             />
-            <Text fontSize={14} flexShrink={0} fontWeight={500} color="rgba(70, 70, 70, 0.40)">
+            <Text fontSize={14} flexShrink={0} fontWeight={500} color="$textDisabled">
                 USDC
             </Text>
             <Button
@@ -66,7 +66,7 @@ export const LimitPriceInput = memo<LimitPriceInputProps>(function LimitPriceInp
                     }
                 }}
             >
-                <Text color="#5E69FF" fontSize={14} fontWeight={500}>
+                <Text color="$accent" fontSize={14} fontWeight={500}>
                     Mid
                 </Text>
             </Button>

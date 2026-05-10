@@ -19,9 +19,9 @@ const AccountHistoryItemCard = memo<AccountHistoryItemCardProps>(function Accoun
 
     return (
         <XStack
-            backgroundColor="#FFFFFF"
+            backgroundColor="$bg"
             borderWidth={1}
-            borderColor="#F0F0F0"
+            borderColor="$border"
             borderRadius={12}
             padding={12}
             alignItems="center"
@@ -31,25 +31,30 @@ const AccountHistoryItemCard = memo<AccountHistoryItemCardProps>(function Accoun
                 width={40}
                 height={40}
                 borderRadius={20}
-                backgroundColor="#F8F7F9"
+                backgroundColor="$bgSubdued"
                 justifyContent="center"
                 alignItems="center"
             >
-                <Text color={positive ? '#429F37' : '#FF372B'} fontSize={16} lineHeight={20} fontWeight={600}>
+                <Text
+                    color={positive ? '$textSuccess' : '$textCritical'}
+                    fontSize={16}
+                    lineHeight={20}
+                    fontWeight={600}
+                >
                     {positive ? '\u2193' : '\u2191'}
                 </Text>
             </YStack>
 
             <YStack flex={1} gap={2}>
-                <Text color="#181818" fontSize={14} lineHeight={20} fontWeight={600}>
+                <Text color="$text" fontSize={14} lineHeight={20} fontWeight={600}>
                     {item.title}
                 </Text>
-                <Text color="rgba(70, 70, 70, 0.8)" fontSize={12} lineHeight={14}>
+                <Text color="$textSubdued" fontSize={12} lineHeight={14}>
                     {item.timeAgo}
                 </Text>
             </YStack>
 
-            <Text color={positive ? '#429F37' : '#FF372B'} fontSize={14} lineHeight={20} fontWeight={600}>
+            <Text color={positive ? '$textSuccess' : '$textCritical'} fontSize={14} lineHeight={20} fontWeight={600}>
                 {item.amount}
             </Text>
         </XStack>
@@ -70,7 +75,7 @@ export const AccountHistory = memo<AccountHistoryProps>(function AccountHistory(
     if (!walletAddress) {
         return (
             <XStack justifyContent="center" paddingVertical={20}>
-                <Text color="rgba(70, 70, 70, 0.8)" fontSize={12} lineHeight={14}>
+                <Text color="$textSubdued" fontSize={12} lineHeight={14}>
                     Wallet: --
                 </Text>
             </XStack>
@@ -83,14 +88,14 @@ export const AccountHistory = memo<AccountHistoryProps>(function AccountHistory(
     if (error && !items?.length) {
         return (
             <YStack alignItems="center" justifyContent="center" gap={8} paddingVertical={20}>
-                <Text color="#FF372B" fontSize={12} lineHeight={14}>
+                <Text color="$textCritical" fontSize={12} lineHeight={14}>
                     Failed to load account history
                 </Text>
                 <Button
                     unstyled
-                    backgroundColor="#F8F7F9"
+                    backgroundColor="$bgSubdued"
                     borderWidth={1}
-                    borderColor="#F0F0F0"
+                    borderColor="$border"
                     borderRadius={8}
                     paddingHorizontal={12}
                     paddingVertical={6}
@@ -99,7 +104,7 @@ export const AccountHistory = memo<AccountHistoryProps>(function AccountHistory(
                         void refetch();
                     }}
                 >
-                    <Text color="#171717" fontSize={12} lineHeight={14} fontWeight={600}>
+                    <Text color="$text" fontSize={12} lineHeight={14} fontWeight={600}>
                         {isRefetching ? 'Retrying...' : 'Retry'}
                     </Text>
                 </Button>
@@ -119,14 +124,14 @@ export const AccountHistory = memo<AccountHistoryProps>(function AccountHistory(
 
                 {error ? (
                     <YStack alignItems="center" gap={8} paddingTop={4}>
-                        <Text color="#FF372B" fontSize={12} lineHeight={14}>
+                        <Text color="$textCritical" fontSize={12} lineHeight={14}>
                             Failed to refresh account history
                         </Text>
                         <Button
                             unstyled
-                            backgroundColor="#F8F7F9"
+                            backgroundColor="$bgSubdued"
                             borderWidth={1}
-                            borderColor="#F0F0F0"
+                            borderColor="$border"
                             borderRadius={8}
                             paddingHorizontal={12}
                             paddingVertical={6}
@@ -135,7 +140,7 @@ export const AccountHistory = memo<AccountHistoryProps>(function AccountHistory(
                                 void refetch();
                             }}
                         >
-                            <Text color="#171717" fontSize={12} lineHeight={14} fontWeight={600}>
+                            <Text color="$text" fontSize={12} lineHeight={14} fontWeight={600}>
                                 {isRefetching ? 'Retrying...' : 'Retry'}
                             </Text>
                         </Button>

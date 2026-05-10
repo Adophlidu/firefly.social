@@ -34,7 +34,7 @@ export const PerpsMarketDetail = memo<PerpsMarketDetailProps>(function PerpsMark
     }
 
     return (
-        <YStack fullscreen height="100%" minHeight={0} backgroundColor="#FFFFFF">
+        <YStack fullscreen height="100%" minHeight={0} backgroundColor="$bg">
             <YStack paddingTop={2}>
                 <PerpsDetailTopBar
                     symbol={coinInfo.name}

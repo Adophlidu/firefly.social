@@ -1,6 +1,6 @@
 import { memo, type ReactNode, useCallback, useEffect, useState } from 'react';
 import { Path, Svg } from 'react-native-svg';
-import { Button, Sheet, Slider, Text, XStack, YStack } from 'tamagui';
+import { Button, Sheet, Slider, Text, useTheme, XStack, YStack } from 'tamagui';
 
 import { SheetDragHandle } from '@/components/SheetDragHandle';
 import { WalletActionButton } from '@/components/WalletActionButton';
@@ -18,11 +18,12 @@ interface LeverageSheetProps {
 }
 
 function MinusIcon() {
+    const theme = useTheme();
     return (
         <Svg width="24" height="24" viewBox="0 0 24 24" fill="none">
             <Path
                 d="M6 12H18"
-                stroke="rgba(70, 70, 70, 0.8)"
+                stroke={theme.textSubdued!.get()}
                 strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -32,22 +33,12 @@ function MinusIcon() {
 }
 
 function PlusIcon() {
+    const theme = useTheme();
+    const stroke = theme.textSubdued!.get();
     return (
         <Svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <Path
-                d="M6 12H18"
-                stroke="rgba(70, 70, 70, 0.8)"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-            />
-            <Path
-                d="M12 18V6"
-                stroke="rgba(70, 70, 70, 0.8)"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-            />
+            <Path d="M6 12H18" stroke={stroke} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <Path d="M12 18V6" stroke={stroke} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         </Svg>
     );
 }
@@ -58,7 +49,7 @@ function ControlButton({ children, onPress }: { children: ReactNode; onPress: ()
             unstyled
             width={40}
             height={40}
-            backgroundColor="#F8F7F9"
+            backgroundColor="$bgSubdued"
             borderRadius={8}
             alignItems="center"
             justifyContent="center"
@@ -120,17 +111,17 @@ export const LeverageSheet = memo<LeverageSheetProps>(function LeverageSheet({
                 enterStyle={{ opacity: 0 }}
                 exitStyle={{ opacity: 0 }}
                 opacity={0.16}
-                backgroundColor="#000000"
+                backgroundColor="$text"
             />
 
             <Sheet.Frame
                 borderWidth={1}
-                borderColor="rgba(34, 33, 47, 0.03)"
+                borderColor="$bgHover"
                 borderTopLeftRadius={36}
                 borderTopRightRadius={36}
                 borderBottomLeftRadius={36}
                 borderBottomRightRadius={36}
-                shadowColor="#403D57"
+                shadowColor="$text"
                 shadowOpacity={0.1}
                 shadowRadius={20}
                 shadowOffset={{ width: 0, height: 16 }}
@@ -144,7 +135,7 @@ export const LeverageSheet = memo<LeverageSheetProps>(function LeverageSheet({
 
                 <YStack width="100%">
                     <XStack width="100%" alignItems="center" justifyContent="space-between" paddingTop={12}>
-                        <Text color="#171717" fontSize={20} lineHeight={24} fontWeight={700} fontFamily="$body">
+                        <Text color="$text" fontSize={20} lineHeight={24} fontWeight={700} fontFamily="$body">
                             Adjust Leverage
                         </Text>
                         <YStack width={24} height={24} />
@@ -157,7 +148,7 @@ export const LeverageSheet = memo<LeverageSheetProps>(function LeverageSheet({
                             <MinusIcon />
                         </ControlButton>
                         <Text
-                            color="#171717"
+                            color="$text"
                             fontSize={32}
                             lineHeight={40}
                             fontWeight={600}
@@ -180,17 +171,17 @@ export const LeverageSheet = memo<LeverageSheetProps>(function LeverageSheet({
                             step={step}
                             size="$1"
                         >
-                            <Slider.Track backgroundColor="#5E69FF" height={4} opacity={0.2}>
-                                <Slider.TrackActive backgroundColor="#5E69FF" />
+                            <Slider.Track backgroundColor="$accent" height={4} opacity={0.2}>
+                                <Slider.TrackActive backgroundColor="$accent" />
                             </Slider.Track>
                             <Slider.Thumb
                                 index={0}
                                 circular
                                 size={12}
-                                backgroundColor="#5E69FF"
+                                backgroundColor="$accent"
                                 borderWidth={2}
-                                borderColor="#FFFFFF"
-                                shadowColor="#5E69FF"
+                                borderColor="$bg"
+                                shadowColor="$accent"
                                 shadowOpacity={0.36}
                                 shadowRadius={4}
                                 shadowOffset={{ width: 0, height: 2 }}
@@ -202,10 +193,10 @@ export const LeverageSheet = memo<LeverageSheetProps>(function LeverageSheet({
                 <YStack gap={4}>
                     {getNodes(coinName, max).map((note) => (
                         <XStack key={note} alignItems="flex-start" gap={6}>
-                            <Text color="rgba(70, 70, 70, 0.8)" fontSize={13} lineHeight={17} fontWeight={500}>
+                            <Text color="$textSubdued" fontSize={13} lineHeight={17} fontWeight={500}>
                                 •
                             </Text>
-                            <Text flex={1} color="rgba(70, 70, 70, 0.8)" fontSize={13} lineHeight={17} fontWeight={500}>
+                            <Text flex={1} color="$textSubdued" fontSize={13} lineHeight={17} fontWeight={500}>
                                 {note}
                             </Text>
                         </XStack>
@@ -217,13 +208,13 @@ export const LeverageSheet = memo<LeverageSheetProps>(function LeverageSheet({
                     loading={loading}
                     height={48}
                     borderRadius={96}
-                    backgroundColor="#171717"
+                    backgroundColor="$text"
                     alignItems="center"
                     justifyContent="center"
                     pressStyle={{ opacity: 0.9 }}
                     onPress={handleChange}
                 >
-                    <Text color="#E8E8E8" fontSize={16} lineHeight={24} fontWeight={700}>
+                    <Text color="$bgHover" fontSize={16} lineHeight={24} fontWeight={700}>
                         Confirm
                     </Text>
                 </WalletActionButton>

@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { Path, Svg } from 'react-native-svg';
-import { Button, Text, XStack } from 'tamagui';
+import { Button, Text, useTheme, XStack } from 'tamagui';
 
 import { navigate } from '@/helpers/navigate';
 
@@ -14,14 +14,16 @@ interface PerpsTradeDetailTabsProps {
 }
 
 function CalendarIcon() {
+    const theme = useTheme();
+    const stroke = theme.text!.get();
     return (
         <Svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <Path d="M8 2V5" stroke="#171717" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            <Path d="M16 2V5" stroke="#171717" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            <Path d="M3.5 9.09H20.5" stroke="#171717" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <Path d="M8 2V5" stroke={stroke} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <Path d="M16 2V5" stroke={stroke} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <Path d="M3.5 9.09H20.5" stroke={stroke} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             <Path
                 d="M21 8.5V17C21 20 19.5 22 16 22H8C4.5 22 3 20 3 17V8.5C3 5.5 4.5 3.5 8 3.5H16C19.5 3.5 21 5.5 21 8.5Z"
-                stroke="#171717"
+                stroke={stroke}
                 strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -45,12 +47,12 @@ export const PerpsTradeDetailTabs = memo<PerpsTradeDetailTabsProps>(function Per
                     alignItems="center"
                     justifyContent="center"
                     borderBottomWidth={activeTab === 'positions' ? 2.5 : 0}
-                    borderBottomColor="#171717"
+                    borderBottomColor="$text"
                     onPress={() => onTabChange('positions')}
                     pressStyle={{ opacity: 0.75 }}
                 >
                     <Text
-                        color={activeTab === 'positions' ? '#171717' : 'rgba(70, 70, 70, 0.8)'}
+                        color={activeTab === 'positions' ? '$text' : '$textSubdued'}
                         fontSize={16}
                         lineHeight={24}
                         fontWeight={600}
@@ -66,12 +68,12 @@ export const PerpsTradeDetailTabs = memo<PerpsTradeDetailTabsProps>(function Per
                     justifyContent="center"
                     paddingHorizontal={4}
                     borderBottomWidth={activeTab === 'orders' ? 2.5 : 0}
-                    borderBottomColor="#171717"
+                    borderBottomColor="$text"
                     onPress={() => onTabChange('orders')}
                     pressStyle={{ opacity: 0.75 }}
                 >
                     <Text
-                        color={activeTab === 'orders' ? '#171717' : 'rgba(70, 70, 70, 0.8)'}
+                        color={activeTab === 'orders' ? '$text' : '$textSubdued'}
                         fontSize={16}
                         lineHeight={24}
                         fontWeight={600}

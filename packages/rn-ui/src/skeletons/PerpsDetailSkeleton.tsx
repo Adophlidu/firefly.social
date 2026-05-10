@@ -2,12 +2,12 @@ import { memo } from 'react';
 import { XStack, YStack } from 'tamagui';
 
 function SkeletonBlock({ width, height, radius = 8 }: { width?: number | string; height: number; radius?: number }) {
-    return <YStack width={width} height={height} borderRadius={radius} backgroundColor="#EDEEF2" />;
+    return <YStack width={width} height={height} borderRadius={radius} backgroundColor="$bgHover" />;
 }
 
 export const PerpsDetailSkeleton = memo(function PerpsDetailSkeleton() {
     return (
-        <YStack backgroundColor="#FFFFFF" height="100%" minHeight={0}>
+        <YStack backgroundColor="$bg" height="100%" minHeight={0}>
             <XStack height={44} alignItems="center" justifyContent="space-between" paddingHorizontal={12}>
                 <SkeletonBlock width={24} height={24} radius={12} />
                 <SkeletonBlock width={158} height={24} radius={10} />

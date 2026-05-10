@@ -36,7 +36,7 @@ export const TradesHistory = memo<TradesHistoryProps>(function TradesHistory({
         <YStack
             height="100%"
             minHeight={0}
-            backgroundColor="#FFFFFF"
+            backgroundColor="$bg"
             paddingHorizontal={12}
             paddingTop={10}
             gap={12}
@@ -53,7 +53,7 @@ export const TradesHistory = memo<TradesHistoryProps>(function TradesHistory({
                     onPress={() => navigate('__parent__', {})}
                     icon={<BackIcon width={24} height={24} />}
                 />
-                <Text color="#171717" fontSize={20} lineHeight={24} fontWeight={600}>
+                <Text color="$text" fontSize={20} lineHeight={24} fontWeight={600}>
                     My trades
                 </Text>
                 <XStack width={24} height={24} />
@@ -69,7 +69,7 @@ export const TradesHistory = memo<TradesHistoryProps>(function TradesHistory({
                             unstyled
                             height={44}
                             borderBottomWidth={2.5}
-                            borderBottomColor={active ? '#171717' : 'transparent'}
+                            borderBottomColor={active ? '$text' : 'transparent'}
                             justifyContent="center"
                             alignItems="center"
                             onPress={() => {
@@ -80,7 +80,12 @@ export const TradesHistory = memo<TradesHistoryProps>(function TradesHistory({
                                 onTabChange?.(item.value);
                             }}
                         >
-                            <Text color={active ? '#171717' : '#9EA1B0'} fontSize={16} lineHeight={24} fontWeight={600}>
+                            <Text
+                                color={active ? '$text' : '$textTertiary'}
+                                fontSize={16}
+                                lineHeight={24}
+                                fontWeight={600}
+                            >
                                 {item.label}
                             </Text>
                         </Button>

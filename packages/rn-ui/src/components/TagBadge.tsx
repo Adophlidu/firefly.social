@@ -7,9 +7,9 @@ interface TagBadgeProps {
 }
 
 const variantStyles = {
-    buy: { bg: '#DCF1D9', color: '#48AD3C' },
-    sell: { bg: '#FFE6E4', color: '#FF564D' },
-    neutral: { bg: '#EFEFF3', color: '#A9A6BC' },
+    buy: { bg: '$bgSuccessSubdued', color: '$textSuccess' },
+    sell: { bg: '$bgCriticalSubdued', color: '$textCritical' },
+    neutral: { bg: '$bgSubdued', color: '$textTertiary' },
 };
 
 export const TagBadge = memo<TagBadgeProps>(function TagBadge({ label, variant = 'neutral' }) {

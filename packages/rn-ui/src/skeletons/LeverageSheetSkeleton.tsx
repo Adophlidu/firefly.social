@@ -2,7 +2,7 @@ import { memo } from 'react';
 import { XStack, YStack } from 'tamagui';
 
 function Block({ width, height, radius = 8 }: { width?: number | string; height: number; radius?: number }) {
-    return <YStack width={width} height={height} borderRadius={radius} backgroundColor="#EDEEF2" />;
+    return <YStack width={width} height={height} borderRadius={radius} backgroundColor="$bgHover" />;
 }
 
 export const LeverageSheetSkeleton = memo(function LeverageSheetSkeleton() {

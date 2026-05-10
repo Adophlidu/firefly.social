@@ -31,7 +31,7 @@ export const SizeInput = memo<SizeInputProps>(function SizeInput() {
         <XStack
             borderRadius={6}
             borderWidth={1}
-            borderColor="rgba(34, 33, 47, 0.15)"
+            borderColor="$borderSubdued"
             height={40}
             alignItems="center"
             paddingHorizontal={8}
@@ -50,7 +50,7 @@ export const SizeInput = memo<SizeInputProps>(function SizeInput() {
                 <Popover.Trigger disabled={disabled} asChild>
                     <Button unstyled>
                         <XStack alignItems="center" justifyContent="flex-end" gap={4}>
-                            <Text color="rgba(70, 70, 70, 0.8)" fontSize={12} lineHeight={14} fontWeight={500}>
+                            <Text color="$textSubdued" fontSize={12} lineHeight={14} fontWeight={500}>
                                 {inputType === 'amount' ? formatCoinName(coinName) : 'USDC'}
                             </Text>
                             <SwitchIcon width={14} height={14} />
@@ -75,7 +75,7 @@ export const SizeInput = memo<SizeInputProps>(function SizeInput() {
                                 height={36}
                                 onPress={() => setInputType('usd')}
                             >
-                                <Text fontSize={14} fontWeight={600} color="#171717">
+                                <Text fontSize={14} fontWeight={600} color="$text">
                                     USDC
                                 </Text>
                             </Button>
@@ -91,7 +91,7 @@ export const SizeInput = memo<SizeInputProps>(function SizeInput() {
                                 height={36}
                                 onPress={() => setInputType('amount')}
                             >
-                                <Text fontSize={14} fontWeight={600} color="#171717">
+                                <Text fontSize={14} fontWeight={600} color="$text">
                                     {formatCoinName(coinName)}
                                 </Text>
                             </Button>

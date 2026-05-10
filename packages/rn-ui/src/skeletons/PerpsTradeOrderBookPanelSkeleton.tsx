@@ -2,7 +2,7 @@ import { memo } from 'react';
 import { XStack, YStack } from 'tamagui';
 
 function SkeletonBlock({ width, height, radius = 4 }: { width?: number | string; height: number; radius?: number }) {
-    return <YStack width={width} height={height} borderRadius={radius} backgroundColor="#F1F2F5" />;
+    return <YStack width={width} height={height} borderRadius={radius} backgroundColor="$bgSubdued" />;
 }
 
 export const PerpsTradeOrderBookPanelSkeleton = memo(function PerpsTradeOrderBookPanelSkeleton() {

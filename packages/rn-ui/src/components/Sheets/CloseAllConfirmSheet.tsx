@@ -36,17 +36,17 @@ export const CloseAllConfirmSheet = memo<CloseAllConfirmSheetProps>(function Clo
                 enterStyle={{ opacity: 0 }}
                 exitStyle={{ opacity: 0 }}
                 opacity={0.16}
-                backgroundColor="#000000"
+                backgroundColor="$text"
             />
 
             <Sheet.Frame
                 borderWidth={1}
-                borderColor="rgba(34, 33, 47, 0.03)"
+                borderColor="$bgHover"
                 borderTopLeftRadius={36}
                 borderTopRightRadius={36}
                 borderBottomLeftRadius={36}
                 borderBottomRightRadius={36}
-                shadowColor="#403D57"
+                shadowColor="$text"
                 shadowOpacity={0.1}
                 shadowRadius={20}
                 shadowOffset={{ width: 0, height: 16 }}
@@ -59,7 +59,7 @@ export const CloseAllConfirmSheet = memo<CloseAllConfirmSheetProps>(function Clo
 
                 <YStack width="100%">
                     <XStack width="100%" alignItems="center" justifyContent="space-between" paddingTop={12}>
-                        <Text color="#171717" fontSize={20} lineHeight={24} fontWeight={700} fontFamily="$body">
+                        <Text color="$text" fontSize={20} lineHeight={24} fontWeight={700} fontFamily="$body">
                             {isPosition ? 'Cancel all positions' : 'Cancel all orders'}
                         </Text>
                         <YStack width={24} height={24} />
@@ -69,16 +69,16 @@ export const CloseAllConfirmSheet = memo<CloseAllConfirmSheetProps>(function Clo
                 <YStack>
                     {isPosition ? (
                         <>
-                            <Text fontSize={13} fontWeight={500} color="rgba(70, 70, 70, 0.80)">
+                            <Text fontSize={13} fontWeight={500} color="$textSubdued">
                                 Your positions will all be closed at market price, and any open orders (or reduce-only
                                 orders) will be canceled.
                             </Text>
-                            <Text fontSize={13} fontWeight={500} color="rgba(70, 70, 70, 0.80)">
+                            <Text fontSize={13} fontWeight={500} color="$textSubdued">
                                 Options won't be affected.
                             </Text>
                         </>
                     ) : (
-                        <Text fontSize={13} fontWeight={500} color="rgba(70, 70, 70, 0.80)">
+                        <Text fontSize={13} fontWeight={500} color="$textSubdued">
                             This will cancel all your open orders, including take-profit and stop-loss orders.
                         </Text>
                     )}
@@ -90,11 +90,11 @@ export const CloseAllConfirmSheet = memo<CloseAllConfirmSheetProps>(function Clo
                         borderRadius={96}
                         flex={1}
                         borderWidth={1}
-                        borderColor="#171717"
+                        borderColor="$text"
                         justifyContent="center"
                         onPress={() => onOpenChange(false)}
                     >
-                        <Text fontSize={16} fontWeight={700} color="#171717">
+                        <Text fontSize={16} fontWeight={700} color="$text">
                             Back
                         </Text>
                     </Button>
@@ -103,14 +103,14 @@ export const CloseAllConfirmSheet = memo<CloseAllConfirmSheetProps>(function Clo
                         height={48}
                         borderRadius={96}
                         flex={1}
-                        backgroundColor="#171717"
+                        backgroundColor="$text"
                         justifyContent="center"
                         onPress={() => {
                             onConfirm?.();
                             onOpenChange(false);
                         }}
                     >
-                        <Text fontSize={16} fontWeight={700} color="#E8E8E8">
+                        <Text fontSize={16} fontWeight={700} color="$bgHover">
                             Confirm
                         </Text>
                     </Button>

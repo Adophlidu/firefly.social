@@ -29,11 +29,11 @@ export const LiteTabs = memo<LiteTabsProps>(function LiteTabs({ value, data, onC
 
                     return (
                         <TabButton
-                            borderBottomColor={isActive ? '#171717' : 'transparent'}
+                            borderBottomColor={isActive ? '$text' : 'transparent'}
                             key={index}
                             onPress={() => onChange(item.value)}
                         >
-                            <TabText color={isActive ? '#171717' : '#9EA1B0'}>{item.label}</TabText>
+                            <TabText color={isActive ? '$text' : '$textTertiary'}>{item.label}</TabText>
                         </TabButton>
                     );
                 })}

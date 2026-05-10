@@ -20,7 +20,7 @@ export const TpSlSettingsInTradeForm = memo<Props>(function TpSlSettingsInTradeF
             <Button unstyled onPress={() => setSafeType('reduceOnly')}>
                 <XStack height={24} alignItems="center" gap={6}>
                     {safeType === 'reduceOnly' ? <CheckboxChecked /> : <CheckboxUnchecked />}
-                    <Text color="#171717" fontSize={12} lineHeight={14} fontWeight={500}>
+                    <Text color="$text" fontSize={12} lineHeight={14} fontWeight={500}>
                         Reduce Only
                     </Text>
                 </XStack>
@@ -30,7 +30,7 @@ export const TpSlSettingsInTradeForm = memo<Props>(function TpSlSettingsInTradeF
                     <Button unstyled onPress={() => setSafeType('tpSl')} pressStyle={{ opacity: 0.75 }}>
                         {safeType === 'tpSl' ? <CheckboxChecked /> : <CheckboxUnchecked />}
                     </Button>
-                    <Text color="#171717" fontSize={12} lineHeight={14} fontWeight={500}>
+                    <Text color="$text" fontSize={12} lineHeight={14} fontWeight={500}>
                         TP / SL
                     </Text>
                 </XStack>
@@ -41,7 +41,7 @@ export const TpSlSettingsInTradeForm = memo<Props>(function TpSlSettingsInTradeF
                         paddingHorizontal={8}
                         borderRadius={6}
                         borderWidth={1}
-                        borderColor="rgba(34, 33, 47, 0.15)"
+                        borderColor="$borderSubdued"
                         alignItems="center"
                         gap="$2"
                         height={32}
@@ -54,7 +54,7 @@ export const TpSlSettingsInTradeForm = memo<Props>(function TpSlSettingsInTradeF
                             value={tpRatio}
                             onChangeText={(value) => setTpRatio(value)}
                         />
-                        <Text fontSize={14} fontWeight={500} color="#171717">
+                        <Text fontSize={14} fontWeight={500} color="$text">
                             %
                         </Text>
                     </XStack>
@@ -62,7 +62,7 @@ export const TpSlSettingsInTradeForm = memo<Props>(function TpSlSettingsInTradeF
                         paddingHorizontal={8}
                         borderRadius={6}
                         borderWidth={1}
-                        borderColor="rgba(34, 33, 47, 0.15)"
+                        borderColor="$borderSubdued"
                         alignItems="center"
                         gap="$2"
                         height={32}
@@ -75,7 +75,7 @@ export const TpSlSettingsInTradeForm = memo<Props>(function TpSlSettingsInTradeF
                             value={slRatio}
                             onChangeText={(value) => setSlRatio(value)}
                         />
-                        <Text fontSize={14} fontWeight={500} color="#171717">
+                        <Text fontSize={14} fontWeight={500} color="$text">
                             %
                         </Text>
                     </XStack>

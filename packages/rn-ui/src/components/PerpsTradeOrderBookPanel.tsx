@@ -1,7 +1,7 @@
 import { useAtomValue } from 'jotai';
 import { memo } from 'react';
 import { Path, Svg } from 'react-native-svg';
-import { Button, Text, XStack, YStack } from 'tamagui';
+import { Button, Text, useTheme, XStack, YStack } from 'tamagui';
 
 import { OrderBookStepPopover } from '@/components/OrderBookStepPopover';
 import { formatCoinName } from '@/helpers/formatCoinName';
@@ -24,11 +24,12 @@ type PerpsTradeOrderBookEntry = L2BookLevel & {
 };
 
 function ChevronDownSmallIcon() {
+    const theme = useTheme();
     return (
         <Svg width="16" height="16" viewBox="0 0 16 16" fill="none">
             <Path
                 d="M4.12 6.39L7 9.27C7.39 9.66 8.02 9.66 8.41 9.27L11.29 6.39"
-                stroke="#A9A6BC"
+                stroke={theme.textTertiary!.get()}
                 strokeWidth="1.2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -49,14 +50,14 @@ function AskRow({ entry }: { entry: PerpsTradeOrderBookEntry }) {
                     top={0}
                     bottom={0}
                     width={barWidth}
-                    backgroundColor="rgba(255, 230, 228, 0.88)"
+                    backgroundColor="$bgCriticalSubdued"
                 />
-                <Text color="#FF564D" fontSize={12} lineHeight={14} fontWeight={500} zIndex={1}>
+                <Text color="$textCritical" fontSize={12} lineHeight={14} fontWeight={500} zIndex={1}>
                     {entry.px}
                 </Text>
             </XStack>
             <XStack flex={1} alignItems="center" justifyContent="flex-end" paddingVertical={5}>
-                <Text color="#171717" fontSize={12} lineHeight={14} fontWeight={500}>
+                <Text color="$text" fontSize={12} lineHeight={14} fontWeight={500}>
                     {entry.sz}
                 </Text>
             </XStack>
@@ -76,14 +77,14 @@ function BidRow({ entry }: { entry: PerpsTradeOrderBookEntry }) {
                     top={0}
                     bottom={0}
                     width={barWidth}
-                    backgroundColor="rgba(220, 241, 217, 0.88)"
+                    backgroundColor="$bgSuccessSubdued"
                 />
-                <Text color="#48AD3C" fontSize={12} lineHeight={14} fontWeight={500} zIndex={1}>
+                <Text color="$textSuccess" fontSize={12} lineHeight={14} fontWeight={500} zIndex={1}>
                     {entry.px}
                 </Text>
             </XStack>
             <XStack flex={1} alignItems="center" justifyContent="flex-end" paddingVertical={5}>
-                <Text color="#171717" fontSize={12} lineHeight={14} fontWeight={500}>
+                <Text color="$text" fontSize={12} lineHeight={14} fontWeight={500}>
                     {entry.cumulativeSz}
                 </Text>
             </XStack>
@@ -114,14 +115,14 @@ export const PerpsTradeOrderBookPanel = memo<PerpsTradeOrderBookPanelProps>(func
             <YStack gap={4}>
                 {/* Funding / Countdown */}
                 <YStack>
-                    <Text color="rgba(70, 70, 70, 0.8)" fontSize={12} lineHeight={14}>
+                    <Text color="$textSubdued" fontSize={12} lineHeight={14}>
                         Funding / Countdown
                     </Text>
                     <XStack>
-                        <Text color="#429F37" fontSize={12} lineHeight={14}>
+                        <Text color="$textSuccess" fontSize={12} lineHeight={14}>
                             {fundingRate}
                         </Text>
-                        <Text color="rgba(70, 70, 70, 0.8)" fontSize={12} lineHeight={14}>
+                        <Text color="$textSubdued" fontSize={12} lineHeight={14}>
                             {` / ${countdown}`}
                         </Text>
                     </XStack>
@@ -130,14 +131,14 @@ export const PerpsTradeOrderBookPanel = memo<PerpsTradeOrderBookPanelProps>(func
                 {/* Column Headers */}
                 <XStack alignItems="center" gap={4}>
                     <YStack flex={1}>
-                        <Text color="rgba(70, 70, 70, 0.8)" fontSize={12} lineHeight={14}>
+                        <Text color="$textSubdued" fontSize={12} lineHeight={14}>
                             Price
                         </Text>
-                        <Text color="rgba(70, 70, 70, 0.8)" fontSize={12} lineHeight={14}>
+                        <Text color="$textSubdued" fontSize={12} lineHeight={14}>
                             (USDC)
                         </Text>
                     </YStack>
-                    <Text flex={1} color="rgba(70, 70, 70, 0.8)" fontSize={12} lineHeight={14} textAlign="right">
+                    <Text flex={1} color="$textSubdued" fontSize={12} lineHeight={14} textAlign="right">
                         {`Amount\n(${formatCoinName(coinName)})`}
                     </Text>
                 </XStack>
@@ -152,10 +153,10 @@ export const PerpsTradeOrderBookPanel = memo<PerpsTradeOrderBookPanelProps>(func
 
             {/* Last Price */}
             <YStack alignItems="flex-start" justifyContent="center">
-                <Text color="#FF564D" fontSize={16} lineHeight={24} fontWeight={600}>
+                <Text color="$textCritical" fontSize={16} lineHeight={24} fontWeight={600}>
                     {midPrice || '-'}
                 </Text>
-                {/* <Text color="rgba(70, 70, 70, 0.8)" fontSize={12} lineHeight={14}>
+                {/* <Text color="$textSubdued" fontSize={12} lineHeight={14}>
                     {'123.45 USDC'}
                 </Text> */}
             </YStack>
@@ -172,7 +173,7 @@ export const PerpsTradeOrderBookPanel = memo<PerpsTradeOrderBookPanelProps>(func
                 <OrderBookStepPopover midPrice={midPrice} szDecimals={szDecimals}>
                     <Button
                         unstyled
-                        backgroundColor="#F8F7F9"
+                        backgroundColor="$bgSubdued"
                         borderRadius={4}
                         height={24}
                         paddingHorizontal={8}
@@ -182,7 +183,7 @@ export const PerpsTradeOrderBookPanel = memo<PerpsTradeOrderBookPanelProps>(func
                         justifyContent="space-between"
                         width="100%"
                     >
-                        <Text color="#171717" fontSize={12} lineHeight={14} fontWeight={500}>
+                        <Text color="$text" fontSize={12} lineHeight={14} fontWeight={500}>
                             {steps[stepIndex] ?? '-'}
                         </Text>
                         <ChevronDownSmallIcon />

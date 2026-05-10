@@ -1,6 +1,6 @@
 import { useAtomValue } from 'jotai';
 import { memo, useMemo } from 'react';
-import { Button, Text, XStack, YStack } from 'tamagui';
+import { Button, Text, useTheme, XStack, YStack } from 'tamagui';
 
 import { OrderBookStepPopover } from '@/components/OrderBookStepPopover';
 import { formatCoinName } from '@/helpers/formatCoinName';
@@ -52,6 +52,7 @@ const formatPrice = (value: string | number | undefined) => {
 };
 
 export const OrderBook = memo<OrderBookProps>(function OrderBook({ coin, rows: rowLimit = 15, szDecimal, midPrice }) {
+    const theme = useTheme();
     const stepIndex = useAtomValue(orderBookStepIndexAtom);
     const steps = useOrderBookSteps(midPrice, szDecimal);
     const { asks, bids } = useOrderBook(coin, rowLimit, stepIndex, false);
@@ -79,7 +80,7 @@ export const OrderBook = memo<OrderBookProps>(function OrderBook({ coin, rows: r
     return (
         <YStack
             width="100%"
-            backgroundColor="#FFFFFF"
+            backgroundColor="$bg"
             borderRadius={12}
             paddingHorizontal={12}
             paddingTop={8}
@@ -87,14 +88,14 @@ export const OrderBook = memo<OrderBookProps>(function OrderBook({ coin, rows: r
             gap={4}
         >
             <XStack alignItems="center" paddingBottom={2} justifyContent="space-between">
-                <Text color="rgba(70, 70, 70, 0.8)" fontSize={12} lineHeight={14}>
+                <Text color="$textSubdued" fontSize={12} lineHeight={14}>
                     Buy({coinName})
                 </Text>
 
                 <OrderBookStepPopover placement="top" midPrice={midPrice} szDecimals={szDecimal}>
                     <Button
                         unstyled
-                        backgroundColor="#F8F7F9"
+                        backgroundColor="$bgSubdued"
                         borderRadius={96}
                         height={22}
                         paddingHorizontal={8}
@@ -103,15 +104,15 @@ export const OrderBook = memo<OrderBookProps>(function OrderBook({ coin, rows: r
                         pressStyle={{ opacity: 0.75 }}
                     >
                         <XStack height="100%" alignItems="center" gap={4}>
-                            <Text fontSize={12} fontWeight={500} color="#171717">
+                            <Text fontSize={12} fontWeight={500} color="$text">
                                 {steps[stepIndex] ?? '-'}
                             </Text>
-                            <SwitchIcon stroke="#171717" />
+                            <SwitchIcon stroke={theme.text!.get()} />
                         </XStack>
                     </Button>
                 </OrderBookStepPopover>
 
-                <Text color="rgba(70, 70, 70, 0.8)" fontSize={12} lineHeight={14}>
+                <Text color="$textSubdued" fontSize={12} lineHeight={14}>
                     Sell({coinName})
                 </Text>
             </XStack>
@@ -120,8 +121,8 @@ export const OrderBook = memo<OrderBookProps>(function OrderBook({ coin, rows: r
                 <YStack gap={6} paddingVertical={4}>
                     {Array.from({ length: maxRows }, (_, index) => (
                         <XStack key={index} width="100%" gap={8}>
-                            <YStack flex={1} height={22} borderRadius={6} backgroundColor="#F1F2F5" />
-                            <YStack flex={1} height={22} borderRadius={6} backgroundColor="#F1F2F5" />
+                            <YStack flex={1} height={22} borderRadius={6} backgroundColor="$bgSubdued" />
+                            <YStack flex={1} height={22} borderRadius={6} backgroundColor="$bgSubdued" />
                         </XStack>
                     ))}
                 </YStack>
@@ -157,14 +158,14 @@ export const OrderBook = memo<OrderBookProps>(function OrderBook({ coin, rows: r
                                       width={bidWidth}
                                       zIndex={0}
                                       pointerEvents="none"
-                                      backgroundColor="rgba(220, 241, 217, 0.62)"
+                                      backgroundColor="$bgSuccessSubdued"
                                   />
 
-                                  <Text zIndex={1} color="#171717" fontSize={12} lineHeight={14} fontWeight={500}>
+                                  <Text zIndex={1} color="$text" fontSize={12} lineHeight={14} fontWeight={500}>
                                       {bidAmount}
                                   </Text>
 
-                                  <Text zIndex={1} color="#48AD3C" fontSize={12} lineHeight={14} fontWeight={500}>
+                                  <Text zIndex={1} color="$textSuccess" fontSize={12} lineHeight={14} fontWeight={500}>
                                       {bidPrice}
                                   </Text>
                               </XStack>
@@ -187,14 +188,14 @@ export const OrderBook = memo<OrderBookProps>(function OrderBook({ coin, rows: r
                                       width={askWidth}
                                       zIndex={0}
                                       pointerEvents="none"
-                                      backgroundColor="rgba(255, 230, 228, 0.62)"
+                                      backgroundColor="$bgCriticalSubdued"
                                   />
 
-                                  <Text zIndex={1} color="#FF564D" fontSize={12} lineHeight={14} fontWeight={500}>
+                                  <Text zIndex={1} color="$textCritical" fontSize={12} lineHeight={14} fontWeight={500}>
                                       {askPrice}
                                   </Text>
 
-                                  <Text zIndex={1} color="#171717" fontSize={12} lineHeight={14} fontWeight={500}>
+                                  <Text zIndex={1} color="$text" fontSize={12} lineHeight={14} fontWeight={500}>
                                       {askAmount}
                                   </Text>
                               </XStack>

@@ -18,7 +18,7 @@ export const PerpsKlinePlaceholder = memo(function PerpsKlinePlaceholder() {
                         pressStyle={{ opacity: 0.75 }}
                     >
                         <Text
-                            color={index === 2 ? '#171717' : 'rgba(70, 70, 70, 0.4)'}
+                            color={index === 2 ? '$text' : '$textDisabled'}
                             fontSize={13}
                             lineHeight={17}
                             fontWeight={500}
@@ -33,19 +33,19 @@ export const PerpsKlinePlaceholder = memo(function PerpsKlinePlaceholder() {
                 height={320}
                 borderRadius={10}
                 borderWidth={1}
-                borderColor="#EFEFF3"
-                backgroundColor="#F8F7F9"
+                borderColor="$bgSubdued"
+                backgroundColor="$bgSubdued"
                 justifyContent="center"
                 alignItems="center"
                 overflow="hidden"
             >
-                <Text color="rgba(70, 70, 70, 0.55)" fontSize={13} lineHeight={17} fontWeight={500}>
+                <Text color="$textSubdued" fontSize={13} lineHeight={17} fontWeight={500}>
                     K-line area placeholder
                 </Text>
             </YStack>
 
             <YStack gap={8}>
-                <Text color="rgba(70, 70, 70, 0.8)" fontSize={12} lineHeight={14} fontWeight={500}>
+                <Text color="$textSubdued" fontSize={12} lineHeight={14} fontWeight={500}>
                     Volume
                 </Text>
 
