@@ -7,6 +7,8 @@ import { getSearchParamsWithZodSchema } from '@/helpers/getSearchParamsWithZodSc
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { getPolymarketEventsBySeries } from '@/providers/prediction/polymarket/getEventsBySeries.js';
 
+export const runtime = 'edge';
+
 const ParamsSchema = z.object({
     seriesId: z.string(),
     limit: z.coerce.number().int().positive().max(500).default(20),

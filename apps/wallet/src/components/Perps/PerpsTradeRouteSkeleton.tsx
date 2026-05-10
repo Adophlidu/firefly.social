@@ -81,7 +81,7 @@ export const PerpsTradeRouteSkeleton = memo(function PerpsTradeRouteSkeleton() {
 
                 <div className="flex min-w-0 flex-[200] shrink-0 flex-col gap-1.5">
                     <div className="flex gap-1.5">
-                        <Block className="h-7 w-[60%] rounded-md" />
+                        <Block className="h-7 w-3/5 rounded-md" />
                         <Block className="h-7 w-[35%] rounded-md" />
                     </div>
                     <Block className="h-7 w-full rounded-md" />

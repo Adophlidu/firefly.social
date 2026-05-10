@@ -5,12 +5,14 @@ import urlcat from 'urlcat';
 import { z } from 'zod';
 
 import { createErrorResponseJson, createSuccessResponseJson } from '@/helpers/createResponseJson.js';
+import { decryptAes256Edge } from '@/helpers/edgeCrypto.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { getHeadersWithZodSchema } from '@/helpers/getHeadersWithZodSchema.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import type { EncryptedAccountInfoResponse } from '@/providers/types/Firefly.js';
-import { decryptAes256 } from '@/services/crypto.js';
 import { settings } from '@/settings/index.js';
+
+export const runtime = 'edge';
 
 const HeadersSchema = z.object({
     authorization: z.string().min(1, 'Unauthorized'),
@@ -49,7 +51,11 @@ export const GET = compose(withRequestErrorHandler(), async (request: NextReques
         return createErrorResponseJson(response.error?.[0] ?? 'Failed to get farcaster account info.', { status: 400 });
     }
     const encrypted = response.data.data;
-    const decrypted = decryptAes256(encrypted, envs.internal.SESSION_CIPHER_KEY, envs.internal.SESSION_CIPHER_IV);
+    const decrypted = await decryptAes256Edge(
+        encrypted,
+        envs.internal.SESSION_CIPHER_KEY,
+        envs.internal.SESSION_CIPHER_IV,
+    );
     const data = AccountInfoScheme.parse(parseJson(decrypted));
     return createSuccessResponseJson(data);
 });

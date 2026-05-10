@@ -11,6 +11,8 @@ import { CryptoPriceVariant, POLYMARKET_API_DOMAIN } from '@/providers/predictio
 import { resolvePolymarketResponse } from '@/providers/prediction/polymarket/resolvePolymarketResponse.js';
 import type { CryptoPrice, PolymarketResponse } from '@/providers/prediction/polymarket/type.js';
 
+export const runtime = 'edge';
+
 const ParamsSchema = z.object({
     symbol: z.string(),
     variant: z.nativeEnum(CryptoPriceVariant),

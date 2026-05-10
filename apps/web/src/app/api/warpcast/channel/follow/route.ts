@@ -10,6 +10,8 @@ import { getHeadersWithZodSchema } from '@/helpers/getHeadersWithZodSchema.js';
 import { getSearchParamsWithZodSchema } from '@/helpers/getSearchParamsWithZodSchema.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 
+export const runtime = 'edge';
+
 const ParamsSchema = z.object({
     channelId: z.string(),
 });

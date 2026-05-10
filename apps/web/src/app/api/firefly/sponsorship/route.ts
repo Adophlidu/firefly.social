@@ -11,6 +11,8 @@ import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { generateFarcasterSignatures } from '@/providers/firefly/auth/generateFarcasterSignatures.js';
 import { HexString } from '@/schemas/HexString.js';
 
+export const runtime = 'edge';
+
 const BodySchema = z.object({
     key: HexString,
 });

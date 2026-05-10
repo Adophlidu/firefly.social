@@ -5,7 +5,7 @@ import type { CoinInfo, PerpAssetCtxSchema, PerpsMeta } from '@/types/ui';
 /** Minimal shape of `infoClient.allPerpMetas()` entries used for resolution. */
 export interface PerpMetaDexEntry {
     universe: PerpsMeta[];
-    marginTables?: [number, MarginTableResponse][];
+    marginTables?: Array<[number, MarginTableResponse]>;
 }
 
 /**

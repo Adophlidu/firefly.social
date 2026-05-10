@@ -81,6 +81,7 @@ export function removeSharerParam(url: string): string {
  */
 export function getSharerParam(url: string): string | undefined {
     if (!url) return undefined;
+
     try {
         const parsedUrl = createUrl(url);
         return parsedUrl.searchParams.get('sid') ?? undefined;

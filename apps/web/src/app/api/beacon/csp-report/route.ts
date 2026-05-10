@@ -4,6 +4,8 @@ import type { NextRequest } from 'next/server.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { logger } from '@/libs/Logger.js';
 
+export const runtime = 'edge';
+
 const MAX_BODY_BYTES = 4096;
 
 function parseReportBody(raw: string): unknown {

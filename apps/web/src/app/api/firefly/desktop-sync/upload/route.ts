@@ -14,6 +14,8 @@ import type { DesktopLinkInfoStatusResponse } from '@/providers/types/Firefly.js
 import { settings } from '@/settings/index.js';
 import type { AuthDataToUpload, DesktopSyncPayload } from '@/types/sync.js';
 
+export const runtime = 'edge';
+
 const HeadersSchema = z.object({
     authorization: z.string().min(1, 'Unauthorized'),
 });

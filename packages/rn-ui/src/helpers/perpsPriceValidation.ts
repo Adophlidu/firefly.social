@@ -13,14 +13,14 @@ export function validatePerpsPriceInput(input: string, szDecimals = 2): boolean 
     if (text === '00') return false;
 
     // Prevent leading zeros like "01", "001" but allow "0", "0.", "0.1"
-    if (text.length > 1 && text[0] === '0' && text[1] !== '.') {
+    if (text.length > 1 && text.startsWith('0') && text[1] !== '.') {
         return false;
     }
 
     const maxDecimals = MAX_DECIMALS_PERPS - szDecimals;
 
     if (!/^[0-9]*\.?[0-9]*$/.test(text) || text.split('.').length > 2) return false;
-    if (maxDecimals === 0) return !/\./.test(text);
+    if (maxDecimals === 0) return !text.includes('.');
 
     const [integerPart = '0', decimalPart = ''] = text.split('.');
     if (integerPart.length > MAX_PRICE_INTEGER_DIGITS) return false;
@@ -47,14 +47,14 @@ export function validateSpotPriceInput(input: string, szDecimals = 0): boolean {
     const text = normalizePriceInput(input);
     if (text === '00') return false;
 
-    if (text.length > 1 && text[0] === '0' && text[1] !== '.') {
+    if (text.length > 1 && text.startsWith('0') && text[1] !== '.') {
         return false;
     }
 
     const maxDecimals = Math.max(0, MAX_DECIMALS_SPOT - szDecimals);
 
     if (!/^[0-9]*\.?[0-9]*$/.test(text) || text.split('.').length > 2) return false;
-    if (maxDecimals <= 0) return !/\./.test(text);
+    if (maxDecimals <= 0) return !text.includes('.');
 
     const [integerPart = '0', decimalPart = ''] = text.split('.');
     if (integerPart.length > MAX_PRICE_INTEGER_DIGITS) return false;

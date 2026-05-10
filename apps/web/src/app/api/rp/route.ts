@@ -13,6 +13,8 @@ import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { createRedPacketImage } from '@/services/createRedPacketImage.js';
 import { TokenType, UsageType } from '@/types/rp.js';
 
+export const runtime = 'edge';
+
 const TokenSchema = z.object({
     type: z.nativeEnum(TokenType),
     symbol: z.string(),

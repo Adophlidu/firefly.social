@@ -7,6 +7,8 @@ import { getSearchParamsWithZodSchema } from '@/helpers/getSearchParamsWithZodSc
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { waitForSignedKeyRequest } from '@/providers/farcaster/waitForSignedKeyRequest.js';
 
+export const runtime = 'edge';
+
 const Schema = z.object({
     token: z.string(),
 });
