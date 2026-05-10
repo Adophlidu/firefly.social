@@ -519,7 +519,8 @@
         "fiveminute",
         "fourhour",
         "RTDS",
-        "chainlink"
+        "chainlink",
+        "tsgo"
     ],
     "flagWords": [],
     "ignorePaths": [

@@ -5,26 +5,26 @@
     "main": "./dist/index.cjs",
     "module": "./dist/index.js",
     "types": "./dist/index.d.ts",
-    "react-native": "./src/index.ts",
+    "react-native": "./dist/index.ts",
     "files": [
         "dist",
         "src"
     ],
     "exports": {
         ".": {
-            "react-native": "./src/index.ts",
+            "react-native": "./dist/index.ts",
             "types": "./dist/index.d.ts",
             "import": "./dist/index.js",
             "require": "./dist/index.cjs"
         },
         "./provider": {
-            "react-native": "./src/entries/provider.ts",
+            "react-native": "./dist/entries/provider.ts",
             "types": "./dist/provider.d.ts",
             "import": "./dist/provider.js",
             "require": "./dist/provider.cjs"
         },
         "./perps": {
-            "react-native": "./src/entries/perps.ts",
+            "react-native": "./dist/entries/perps.ts",
             "types": "./dist/perps.d.ts",
             "import": "./dist/perps.js",
             "require": "./dist/perps.cjs"

@@ -1,70 +1,73 @@
 # CLAUDE.md
 
-Behavioral guidelines to reduce common LLM coding mistakes. Merge with project-specific instructions as needed.
+Project-specific guidelines for AI-assisted development on Firefly.
 
-**Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
+## Repository Overview
 
-## 1. Think Before Coding
+Firefly is a multi-chain Web3 social platform (Next.js 16 / React 19) supporting Farcaster, Bluesky, Lens, and EVM/Solana wallets. The monorepo uses pnpm workspaces + Turbo; the primary app is `apps/web`.
 
-**Don't assume. Don't hide confusion. Surface tradeoffs.**
+## Verification Commands
 
-Before implementing:
+Run these before claiming work is done.
 
-- State your assumptions explicitly. If uncertain, ask.
-- If multiple interpretations exist, present them - don't pick silently.
-- If a simpler approach exists, say so. Push back when warranted.
-- If something is unclear, stop. Name what's confusing. Ask.
-
-## 2. Simplicity First
-
-**Minimum code that solves the problem. Nothing speculative.**
-
-- No features beyond what was asked.
-- No abstractions for single-use code.
-- No "flexibility" or "configurability" that wasn't requested.
-- No error handling for impossible scenarios.
-- If you write 200 lines and it could be 50, rewrite it.
-
-Ask yourself: "Would a senior engineer say this is over complicated?" If yes, simplify.
-
-## 3. Surgical Changes
-
-**Touch only what you must. Clean up only your own mess.**
-
-When editing existing code:
-
-- Don't "improve" adjacent code, comments, or formatting.
-- Don't refactor things that aren't broken.
-- Match existing style, even if you'd do it differently.
-- If you notice unrelated dead code, mention it - don't delete it.
-
-When your changes create orphans:
-
-- Remove imports/variables/functions that YOUR changes made unused.
-- Don't remove pre-existing dead code unless asked.
-
-The test: Every changed line should trace directly to the user's request.
-
-## 4. Goal-Driven Execution
-
-**Define success criteria. Loop until verified.**
-
-Transform tasks into verifiable goals:
-
-- "Add validation" → "Write tests for invalid inputs, then make them pass"
-- "Fix the bug" → "Write a test that reproduces it, then make it pass"
-- "Refactor X" → "Ensure tests pass before and after"
-
-For multi-step tasks, state a brief plan:
-
-```
-1. [Step] → verify: [check]
-2. [Step] → verify: [check]
-3. [Step] → verify: [check]
+```bash
+pnpm typecheck        # uses tsgo, not tsc
+pnpm lint             # ESLint 9 flat config via Turbo
+pnpm test             # Vitest; test files in apps/web/tests/
 ```
 
-Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
+CI blocks on: typecheck, lint, vitest, cspell, conventional commits.
 
----
+## Architecture
 
-**These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to over complication, and clarifying questions come before implementation rather than after mistakes.
+ESLint enforces a strict layer hierarchy — violations fail lint:
+
+- **Workspace**: Layer 1 packages must NOT import sibling Layer 1 packages
+- **In-app**: lower layers (helpers → store → services/providers → hooks → components/modals) must NOT import higher layers
+
+See `/architecture` for the full layer diagram, package list, violation examples, and fixes.
+
+## Restricted Patterns
+
+**Imports:**
+
+- ❌ NEVER use relative paths (`../`) for internal imports — ESLint forbids them
+- ✅ All `@/` internal imports require `.js` extension: `import { Foo } from '@/components/Foo.js'`
+- ❌ NEVER import `next/image` / `next/link` / `next/navigation` directly
+- ✅ Use ESM shims: `@/esm/Image.js`, `@/esm/Link.js`, `@/esm/navigation.js`, `@/esm/dynamic.js`
+- ❌ NEVER use `clsx`, `cx`, or template literals for class names
+- ✅ Use `classNames(...)` from `@dimensiondev/utils`
+
+**Components:**
+
+- ❌ NEVER add `'use client'` to page components in `app/` unless required
+- ✅ Client components: `'use client'` as **first line**, then a **blank line**, then imports
+- ✅ Wrap non-trivial components with `memo()`: `export const Foo = memo(function Foo(props) { ... })`
+
+**i18n:**
+
+- ❌ NEVER hardcode user-visible strings without i18n wrapping
+- ✅ JSX: `<Trans>text</Trans>` from `@lingui/react/macro`
+- ✅ JS: `` t`text` `` from `@lingui/core/macro`
+
+## Git
+
+- **Base branch**: `main`
+- **Commit format**: `feat(scope): description` / `fix(scope):` / `chore(scope):`
+- ❌ NEVER commit directly to `main` or `released` — create a feature branch first (`feat/...`, `fix/...`, etc.)
+- ❌ Do NOT include AI tool attribution lines in commit messages
+- cspell checks commit messages — add new technical terms to `cspell.json`
+
+## Debugging
+
+- After a fix the user reports as not working, do NOT retry the same approach with minor tweaks. Re-analyze the root cause from scratch and propose a fundamentally different approach.
+- When the user reports a visual bug, confirm the specific platform and expected vs. actual behavior before attempting a fix. Never assume the root cause.
+
+## Skills Reference
+
+For detailed guidance, invoke these commands:
+
+- `/commit` — Pre-checked commit workflow with conventional commit format
+- `/architecture` — Full layer rules with violation examples and fixes
+- `/i18n` — Lingui workflow, plurals, Tolgee sync
+- `/rn-ui` — `@dimensiondev/rn-ui` entry points, Provider setup, peer deps
