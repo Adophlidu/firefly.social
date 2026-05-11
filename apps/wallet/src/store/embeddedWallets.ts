@@ -9,6 +9,13 @@ export const chainIdAtom = atom<number>(mainnet.id);
 
 export const skipPinCodeAtom = atom(false);
 
+/** Set while handling `FIREFLY_WALLET_EVM_RPC` so the provider can show dApp domain (hostname). */
+export interface EvmRpcRequestContext {
+    requestOrigin?: string;
+}
+
+export const evmRpcRequestContextAtom = atom<EvmRpcRequestContext | null>(null);
+
 const baseEvmWalletAddressAtom = atom<string | null>(null);
 const baseSolanaWalletAddressAtom = atom<string | null>(null);
 

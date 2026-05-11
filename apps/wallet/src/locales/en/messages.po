@@ -22,6 +22,9 @@ msgstr "Copy to clipboard"
 msgid "To"
 msgstr "To"
 
+msgid "Unlimited Amount"
+msgstr "Unlimited Amount"
+
 #. placeholder {0}: pusdTokenFallback.symbol
 msgid "Available: {availableText} {0}"
 msgstr "Available: {availableText} {0}"
@@ -125,6 +128,9 @@ msgstr "The PINs you entered do not match. Please check and try again."
 
 msgid "Great job predicting the future!"
 msgstr "Great job predicting the future!"
+
+msgid "Invalid amount"
+msgstr "Invalid amount"
 
 msgid "I understand"
 msgstr "I understand"
@@ -351,6 +357,9 @@ msgstr "Failed to place buy order. "
 msgid "Draft"
 msgstr "Draft"
 
+msgid "Domain"
+msgstr "Domain"
+
 msgid "PIN is acceptable, but consider adding more unique digits."
 msgstr "PIN is acceptable, but consider adding more unique digits."
 
@@ -461,6 +470,9 @@ msgstr "Back"
 msgid "Wallet addresses linked to social accounts may change or be inaccurate. Always verify before sending."
 msgstr "Wallet addresses linked to social accounts may change or be inaccurate. Always verify before sending."
 
+msgid "Enter an amount"
+msgstr "Enter an amount"
+
 #. placeholder {0}: formatPnlUSD(getPositionLoss(position))
 msgid "Lost {0}"
 msgstr "Lost {0}"
@@ -493,6 +505,9 @@ msgstr "You've hit rock bottom."
 
 msgid "View"
 msgstr "View"
+
+msgid "Unavailable"
+msgstr "Unavailable"
 
 msgid "Release Now"
 msgstr "Release Now"
@@ -627,6 +642,9 @@ msgstr "All"
 
 msgid "Search symbol or contract"
 msgstr "Search symbol or contract"
+
+msgid "Custom Allowance"
+msgstr "Custom Allowance"
 
 msgid "Failed to add funds."
 msgstr "Failed to add funds."
@@ -772,6 +790,9 @@ msgstr "Enable authentication"
 msgid "Sold"
 msgstr "Sold"
 
+msgid "Wallet"
+msgstr "Wallet"
+
 msgid "We do not recommend ever sharing it with any app or person."
 msgstr "We do not recommend ever sharing it with any app or person."
 
@@ -797,6 +818,9 @@ msgstr "Close losses"
 
 msgid "Primary"
 msgstr "Primary"
+
+msgid "Save"
+msgstr "Save"
 
 msgid "Predict. Trade. Simply fund your Firefly predict wallet to begin."
 msgstr "Predict. Trade. Simply fund your Firefly predict wallet to begin."
@@ -933,6 +957,9 @@ msgstr "Clear"
 msgid "Revoked"
 msgstr "Revoked"
 
+msgid "Chain"
+msgstr "Chain"
+
 msgid "Failed to add token"
 msgstr "Failed to add token"
 
@@ -988,6 +1015,9 @@ msgstr "{0} of {1} positions will be closed"
 
 msgid "Security & Privacy"
 msgstr "Security & Privacy"
+
+msgid "Approve"
+msgstr "Approve"
 
 #. placeholder {0}: formatPriceToCents(position.avg_price, 1)
 msgid "Avg {0}"

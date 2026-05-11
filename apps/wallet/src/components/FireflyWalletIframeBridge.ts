@@ -33,7 +33,8 @@ import {
 import { usePrivyWallet } from '@/hooks/usePrivyWallet.js';
 import { useWaitForPrivyLogin } from '@/hooks/useWaitForPrivyLogin.js';
 import { logger } from '@/lib/Logger.js';
-import { showEmbeddedWalletUIAtom, skipPinCodeAtom } from '@/store/embeddedWallets.js';
+import { evmRpcRequestContextAtom, showEmbeddedWalletUIAtom, skipPinCodeAtom } from '@/store/embeddedWallets.js';
+import { store } from '@/store/index.js';
 
 type FireflyWalletEvmRpcRequest = IframeBridgeRequestArguments[IframeBridgeMethod.FIREFLY_WALLET_EVM_RPC];
 
@@ -193,65 +194,78 @@ export const FireflyWalletIframeBridge = memo(function IframeBridge() {
                     : undefined;
                 const walletClient = await getWalletClient(config, { connector: connector ?? undefined });
 
-                switch (args.method) {
-                    case 'wallet_switchEthereumChain': {
-                        if (
-                            Array.isArray(args.params) &&
-                            args.params[0] &&
-                            'chainId' in args.params[0] &&
-                            isHex(args.params[0].chainId)
-                        ) {
-                            const chainIdHex = args.params[0].chainId;
-                            await walletClient.switchChain({
-                                id: Number.parseInt(chainIdHex, 16),
-                            });
+                store.set(evmRpcRequestContextAtom, {
+                    requestOrigin: args.requestOrigin,
+                });
+
+                try {
+                    switch (args.method) {
+                        case 'wallet_switchEthereumChain': {
+                            if (
+                                Array.isArray(args.params) &&
+                                args.params[0] &&
+                                'chainId' in args.params[0] &&
+                                isHex(args.params[0].chainId)
+                            ) {
+                                const chainIdHex = args.params[0].chainId;
+                                await walletClient.switchChain({
+                                    id: Number.parseInt(chainIdHex, 16),
+                                });
+                            }
+                            return null;
                         }
-                        return null;
-                    }
-                    case 'eth_chainId': {
-                        const chainId = await walletClient.getChainId();
-                        return toHex(chainId);
-                    }
-                    default: {
-                        const currentChainId = await walletClient.getChainId().catch(() => undefined);
-                        const requestArgs = withTransactionChainId(args, currentChainId);
+                        case 'eth_chainId': {
+                            const chainId = await walletClient.getChainId();
+                            return toHex(chainId);
+                        }
+                        default: {
+                            const currentChainId = await walletClient.getChainId().catch(() => undefined);
+                            const { requestOrigin: _omit, ...rpcPayload } = args;
+                            const requestArgs = withTransactionChainId(
+                                rpcPayload as FireflyWalletEvmRpcRequest,
+                                currentChainId,
+                            );
 
-                        // Try free-gas for known calldata types (ERC20 transfer / approve)
-                        if (args.method === 'eth_sendTransaction' && Array.isArray(args.params) && args.params[0]) {
-                            const tx = args.params[0] as Record<string, unknown>;
-                            const data = typeof tx.data === 'string' ? tx.data : undefined;
-                            const txType = decodeFreeGasTxType(data);
+                            // Try free-gas for known calldata types (ERC20 transfer / approve)
+                            if (args.method === 'eth_sendTransaction' && Array.isArray(args.params) && args.params[0]) {
+                                const tx = args.params[0] as Record<string, unknown>;
+                                const data = typeof tx.data === 'string' ? tx.data : undefined;
+                                const txType = decodeFreeGasTxType(data);
 
-                            if (txType !== null) {
-                                try {
-                                    const from = typeof tx.from === 'string' ? (tx.from as `0x${string}`) : undefined;
-                                    const to = typeof tx.to === 'string' ? (tx.to as `0x${string}`) : undefined;
-                                    const value = typeof tx.value === 'string' ? tx.value : undefined;
-                                    const chainId = currentChainId;
+                                if (txType !== null) {
+                                    try {
+                                        const from =
+                                            typeof tx.from === 'string' ? (tx.from as `0x${string}`) : undefined;
+                                        const to = typeof tx.to === 'string' ? (tx.to as `0x${string}`) : undefined;
+                                        const value = typeof tx.value === 'string' ? tx.value : undefined;
+                                        const chainId = currentChainId;
 
-                                    if (from && to && data && chainId) {
-                                        const result = await tryFreeGasTransaction({
-                                            chainId,
-                                            txType,
-                                            from,
-                                            to,
-                                            data: data as `0x${string}`,
-                                            value,
-                                        });
-                                        if (result.type === 'free-gas') return result.hash as never;
+                                        if (from && to && data && chainId) {
+                                            const result = await tryFreeGasTransaction({
+                                                chainId,
+                                                txType,
+                                                from,
+                                                to,
+                                                data: data as `0x${string}`,
+                                                value,
+                                            });
+                                            if (result.type === 'free-gas') return result.hash as never;
+                                        }
+                                    } catch {
+                                        logger.debug(
+                                            '[IframeBridge] free-gas attempt failed, falling back to walletClient',
+                                        );
                                     }
-                                } catch {
-                                    logger.debug(
-                                        '[IframeBridge] free-gas attempt failed, falling back to walletClient',
-                                    );
                                 }
                             }
-                        }
 
-                        // free-gas attempt failed or not eligible — signal parent to open wallet for signing
-                        iframeBridgeProvider.request(IframeBridgeMethod.FIREFLY_WALLET_OPEN, {});
-                        return walletClient.request(requestArgs as never);
+                            // free-gas attempt failed or not eligible — signal parent to open wallet for signing
+                            iframeBridgeProvider.request(IframeBridgeMethod.FIREFLY_WALLET_OPEN, {});
+                            return walletClient.request(requestArgs as never);
+                        }
                     }
+                } finally {
+                    store.set(evmRpcRequestContextAtom, null);
                 }
             },
             [IframeBridgeMethod.FIREFLY_WALLET_SOLANA_RPC]: async ({ method, params: p }): Promise<SolanaResponse> => {

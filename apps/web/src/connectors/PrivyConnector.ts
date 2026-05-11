@@ -102,7 +102,10 @@ function getPrivyEvmProvider({
                     });
                 }
                 iframeBridgeProvider
-                    .request(IframeBridgeMethod.FIREFLY_WALLET_EVM_RPC, params)
+                    .request(IframeBridgeMethod.FIREFLY_WALLET_EVM_RPC, {
+                        ...params,
+                        requestOrigin: typeof window !== 'undefined' ? window.location.hostname : undefined,
+                    })
                     .then((rpcResult) => {
                         unsubscribe?.();
                         if (didOpen) {

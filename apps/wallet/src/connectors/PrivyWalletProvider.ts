@@ -1,11 +1,13 @@
-import { unreachable } from '@dimensiondev/utils';
+import { unreachable, UserRejectionError } from '@dimensiondev/utils';
 import { compact } from 'lodash-es';
-import { type Address, type Hash, isHex } from 'viem';
+import { type Address, type Hash, type Hex, isHex } from 'viem';
 
+import { TokenApproveFlowModal } from '@/components/TokenApproveFlow/TokenApproveFlowModal.js';
+import { tryParseErc20ApproveSession, tryParseTokenApprovalTypedData } from '@/helpers/evm/tokenApprovalSession.js';
 import { withPinCodeCheck } from '@/helpers/withPinCodeCheck.js';
 import { BrowserEventEmitter } from '@/lib/EventEmitter.js';
 import type { EvmTransaction } from '@/providers/types/Privy.js';
-import { chainIdAtom, evmWalletAddressAtom } from '@/store/embeddedWallets.js';
+import { chainIdAtom, evmRpcRequestContextAtom, evmWalletAddressAtom } from '@/store/embeddedWallets.js';
 import { store } from '@/store/index.js';
 import { getPrivyWalletApi } from '@/store/privyWalletApiAtom.js';
 
@@ -75,47 +77,101 @@ export class PrivyWalletProvider extends BrowserEventEmitter {
                 });
             }
 
-            case 'eth_sendTransaction':
-                try {
-                    if (Array.isArray(params) && params[0] && typeof params[0] === 'object') {
-                        const transaction: EvmTransaction = {
-                            from: params[0].from,
-                            to: params[0].to,
-                            value: params[0].value,
-                            data: params[0].data,
-                            gas_limit: params[0].gasLimit,
-                            gas: params[0].gas,
-                            gasPrice: params[0].gasPrice,
-                            type: isHex(params[0].type) ? parseInt(params[0].type, 16) : params[0].type || undefined,
-                            chain_id: store.get(chainIdAtom).toString(),
-                        };
-
-                        return await withPinCodeCheck(async (pinCode) => {
-                            const result = await getPrivyWalletApi().sendEvmTransaction({
-                                transaction,
-                                privy_code_hash: pinCode,
-                            });
-                            return result.hash as RpcResponse<M>;
-                        });
-                    }
-
+            case 'eth_sendTransaction': {
+                if (!Array.isArray(params) || !params[0] || typeof params[0] !== 'object') {
                     throw new Error('Invalid parameters for eth_sendTransaction');
-                } catch (_e) {
-                    throw new Error('User rejected the request.');
+                }
+                const rawTx = params[0] as Record<string, unknown> & {
+                    from?: string;
+                    to?: string;
+                    value?: string;
+                    data?: string;
+                    gasLimit?: string;
+                    gas?: string;
+                    gasPrice?: string;
+                    type?: string | number;
+                };
+                const dataHex = typeof rawTx.data === 'string' ? (rawTx.data as Hex) : undefined;
+                const approvalSession = tryParseErc20ApproveSession(rawTx.to, dataHex);
+                const walletAddress = store.get(evmWalletAddressAtom) ?? '';
+                const chainId = store.get(chainIdAtom);
+                const requestOrigin = store.get(evmRpcRequestContextAtom)?.requestOrigin;
+                if (approvalSession && walletAddress) {
+                    const ui = await TokenApproveFlowModal.call({
+                        session: approvalSession,
+                        walletAddress,
+                        chainId,
+                        requestOrigin,
+                        txBase: rawTx,
+                    });
+                    if (!ui.accepted) throw new UserRejectionError('User rejected token approval');
+                    if (ui.kind === 'erc20Approve') {
+                        rawTx.data = ui.calldata;
+                    }
                 }
 
-            case 'eth_signTypedData_v4': {
-                if (Array.isArray(params) && params[1] && typeof params[1] === 'string') {
-                    return withPinCodeCheck(async (pinCode) => {
-                        const typedSig = await getPrivyWalletApi().signEip712TypedData({
-                            json_str: params[1],
+                try {
+                    const txType: 0 | 1 | 2 | 4 | undefined =
+                        typeof rawTx.type === 'string' && isHex(rawTx.type)
+                            ? (parseInt(rawTx.type, 16) as 0 | 1 | 2 | 4)
+                            : typeof rawTx.type === 'number'
+                              ? (rawTx.type as 0 | 1 | 2 | 4)
+                              : undefined;
+
+                    const transaction: EvmTransaction = {
+                        from: String(rawTx.from ?? ''),
+                        to: String(rawTx.to ?? ''),
+                        value: String(rawTx.value ?? '0'),
+                        data: String(rawTx.data ?? ''),
+                        gas_limit: String(rawTx.gasLimit ?? '0'),
+                        gas: String(rawTx.gas ?? '0'),
+                        gasPrice: String(rawTx.gasPrice ?? '0'),
+                        type: txType,
+                        chain_id: chainId.toString(),
+                    };
+
+                    return await withPinCodeCheck(async (pinCode) => {
+                        const result = await getPrivyWalletApi().sendEvmTransaction({
+                            transaction,
                             privy_code_hash: pinCode,
                         });
-                        return typedSig.signature as RpcResponse<M>;
+                        return result.hash as RpcResponse<M>;
                     });
+                } catch (error) {
+                    if (error instanceof UserRejectionError) throw error;
+                    throw new Error('User rejected the request.');
+                }
+            }
+
+            case 'eth_signTypedData_v4': {
+                if (!Array.isArray(params) || !params[1] || typeof params[1] !== 'string') {
+                    throw new Error('Invalid parameters for eth_signTypedData_v4');
+                }
+                let typedDataJson = params[1] as string;
+                const typedSession = tryParseTokenApprovalTypedData(typedDataJson);
+                const walletAddress = store.get(evmWalletAddressAtom) ?? '';
+                const chainId = store.get(chainIdAtom);
+                const requestOrigin = store.get(evmRpcRequestContextAtom)?.requestOrigin;
+                if (typedSession && walletAddress) {
+                    const ui = await TokenApproveFlowModal.call({
+                        session: typedSession,
+                        walletAddress,
+                        chainId,
+                        requestOrigin,
+                    });
+                    if (!ui.accepted) throw new UserRejectionError('User rejected token approval');
+                    if (ui.kind === 'eip2612Permit' || ui.kind === 'permit2Single') {
+                        typedDataJson = ui.typedDataJson;
+                    }
                 }
 
-                throw new Error('Invalid parameters for eth_signTypedData_v4');
+                return withPinCodeCheck(async (pinCode) => {
+                    const typedSig = await getPrivyWalletApi().signEip712TypedData({
+                        json_str: typedDataJson,
+                        privy_code_hash: pinCode,
+                    });
+                    return typedSig.signature as RpcResponse<M>;
+                });
             }
             case 'eth_chainId': {
                 const chainId = store.get(chainIdAtom);

@@ -72,6 +72,8 @@ export interface IframeBridgeRequestArguments {
     [IframeBridgeMethod.FIREFLY_WALLET_EVM_RPC]: {
         method: string;
         params?: unknown[] | object;
+        /** Hostname for embedded-wallet approval UI (e.g. window.location.hostname) */
+        requestOrigin?: string;
     };
     [IframeBridgeMethod.FIREFLY_WALLET_SOLANA_RPC]: SolanaRequestArgument;
     [IframeBridgeMethod.FIREFLY_WALLET_AUTHORIZED]: {};

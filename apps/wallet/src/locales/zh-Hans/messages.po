@@ -22,6 +22,9 @@ msgstr "复制到剪贴板"
 msgid "To"
 msgstr "至"
 
+msgid "Unlimited Amount"
+msgstr ""
+
 #. placeholder {0}: pusdTokenFallback.symbol
 msgid "Available: {availableText} {0}"
 msgstr "可用余额：{availableText} {0}"
@@ -125,6 +128,9 @@ msgstr ""
 
 msgid "Great job predicting the future!"
 msgstr "预测精准！干得漂亮！"
+
+msgid "Invalid amount"
+msgstr ""
 
 msgid "I understand"
 msgstr "我已知晓并理解"
@@ -351,6 +357,9 @@ msgstr "下单买入失败。"
 msgid "Draft"
 msgstr "草稿"
 
+msgid "Domain"
+msgstr ""
+
 msgid "PIN is acceptable, but consider adding more unique digits."
 msgstr ""
 
@@ -461,6 +470,9 @@ msgstr "返回"
 msgid "Wallet addresses linked to social accounts may change or be inaccurate. Always verify before sending."
 msgstr "绑定到社交账号的地址可能会变动。发送前请务必仔细核实。"
 
+msgid "Enter an amount"
+msgstr ""
+
 #. placeholder {0}: formatPnlUSD(getPositionLoss(position))
 msgid "Lost {0}"
 msgstr ""
@@ -493,6 +505,9 @@ msgstr "已经到底啦。"
 
 msgid "View"
 msgstr "查看"
+
+msgid "Unavailable"
+msgstr ""
 
 msgid "Release Now"
 msgstr "立即释放"
@@ -627,6 +642,9 @@ msgstr "全部"
 
 msgid "Search symbol or contract"
 msgstr "搜索代号或合约地址"
+
+msgid "Custom Allowance"
+msgstr ""
 
 msgid "Failed to add funds."
 msgstr "充值失败。"
@@ -772,6 +790,9 @@ msgstr ""
 msgid "Sold"
 msgstr "已卖出"
 
+msgid "Wallet"
+msgstr ""
+
 msgid "We do not recommend ever sharing it with any app or person."
 msgstr "我们建议您永远不要将其泄露给任何应用或个人。"
 
@@ -797,6 +818,9 @@ msgstr ""
 
 msgid "Primary"
 msgstr "主要"
+
+msgid "Save"
+msgstr ""
 
 msgid "Predict. Trade. Simply fund your Firefly predict wallet to begin."
 msgstr "预测、交易。只需为 Firefly 预测钱包充值即可开始。"
@@ -933,6 +957,9 @@ msgstr "清除"
 msgid "Revoked"
 msgstr "已撤销授权"
 
+msgid "Chain"
+msgstr ""
+
 msgid "Failed to add token"
 msgstr "添加代币失败"
 
@@ -987,6 +1014,9 @@ msgid "{0} of {1} positions will be closed"
 msgstr ""
 
 msgid "Security & Privacy"
+msgstr ""
+
+msgid "Approve"
 msgstr ""
 
 #. placeholder {0}: formatPriceToCents(position.avg_price, 1)
