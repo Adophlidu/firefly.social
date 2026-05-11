@@ -44,9 +44,16 @@ function buildCSP(): string {
         // CDN
         '*.cloudflarestream.com',
 
+        // CDN
+        '*.cloudflarestream.com',
+
+        // Farcaster
+        '*.farcaster.xyz',
+
         // Twitter
         'video.twimg.com',
 
+        // Lens
         'api.lens.xyz',
         'rpc.lens.xyz',
 
