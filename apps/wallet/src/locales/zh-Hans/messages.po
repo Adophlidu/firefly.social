@@ -810,6 +810,9 @@ msgstr "预测、交易。只需为 Firefly 预测钱包充值即可开始。"
 msgid "Failed to withdraw."
 msgstr "提现失败。"
 
+msgid "Est. fee"
+msgstr ""
+
 msgid "Contract address"
 msgstr "合约地址"
 

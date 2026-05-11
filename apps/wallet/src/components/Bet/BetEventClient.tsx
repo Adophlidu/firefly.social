@@ -29,6 +29,11 @@ import {
     optimisticSubtractPositionShares,
     optimisticUpdatePositionShares,
 } from '@/helpers/polymarketPositionsCache.js';
+import {
+    computePolymarketLimitBuyFeeUsd,
+    computePolymarketMarketBuyFeeUsd,
+    parsePolymarketTakerFeeRate,
+} from '@/helpers/polymarketTakerFee.js';
 import { polymarketGammaEndpoint } from '@/providers/polymarket/gamma.js';
 import {
     type MarketPriceChangeData,
@@ -226,6 +231,12 @@ export default function BetEventClient({ id }: { id: string }) {
 
     const outcomePrices = outcomeOptions[safeOutcomeIndex];
     const outcome = outcomeOptions[safeOutcomeIndex]?.outcome ?? '';
+
+    const outcomeAvgPriceForFee = useMemo(() => {
+        const raw = data?.parsedOutcomePrices?.[safeOutcomeIndex];
+        const p = typeof raw === 'number' ? raw : typeof raw === 'string' ? Number.parseFloat(String(raw)) : NaN;
+        return Number.isFinite(p) && p > 0 && p < 1 ? p : 0.5;
+    }, [data?.parsedOutcomePrices, safeOutcomeIndex]);
     // Use outcomePrices directly (single source of truth for UI display + defaults).
 
     const submitDisabledReason: ReactNode | null = useMemo((): ReactNode | null => {
@@ -371,10 +382,24 @@ export default function BetEventClient({ id }: { id: string }) {
             }
 
             if (account?.proxyAddress && variables?.side === 'BUY') {
-                const spentAmount = variables.overrideLimitPrice
-                    ? BigNumber(variables.amount ?? 0).times(variables.overrideLimitPrice)
-                    : BigNumber(variables.amount ?? 0);
-                optimisticSubtractBalance(queryClient, account.proxyAddress, spentAmount);
+                const feeRateBn = parsePolymarketTakerFeeRate(data?.feesEnabled, data?.feeSchedule);
+                let spentWithFee: BigNumber;
+                if (variables.overrideLimitPrice !== undefined) {
+                    const shares = BigNumber(variables.amount ?? 0);
+                    const lp = BigNumber(variables.overrideLimitPrice);
+                    const notional = shares.times(lp);
+                    const fee = computePolymarketLimitBuyFeeUsd(shares, feeRateBn, lp);
+                    spentWithFee = notional.plus(fee);
+                } else {
+                    const amt = BigNumber(variables.amount ?? 0);
+                    const raw = data?.parsedOutcomePrices?.[safeOutcomeIndex];
+                    const p =
+                        typeof raw === 'number' ? raw : typeof raw === 'string' ? Number.parseFloat(String(raw)) : NaN;
+                    const avgP = Number.isFinite(p) && p > 0 && p < 1 ? p : 0.5;
+                    const fee = computePolymarketMarketBuyFeeUsd(amt, feeRateBn, avgP);
+                    spentWithFee = amt.plus(fee);
+                }
+                optimisticSubtractBalance(queryClient, account.proxyAddress, spentWithFee);
 
                 // Notify parent page after BUY
                 iframeBridgeProvider.request(IframeBridgeMethod.FIREFLY_WALLET_NOTIFY, {
@@ -440,6 +465,9 @@ export default function BetEventClient({ id }: { id: string }) {
                         tokenId={selectedTokenId}
                         loading={isPending}
                         submitDisabled={isMarketResolvedOrDisputed}
+                        feesEnabled={data?.feesEnabled}
+                        feeSchedule={data?.feeSchedule}
+                        outcomeAvgPriceForFee={outcomeAvgPriceForFee}
                         onSubmit={(amount) => placeOrder({ side: 'BUY', amount: Number(amount) })}
                     />
                 ) : (
@@ -450,6 +478,8 @@ export default function BetEventClient({ id }: { id: string }) {
                         orderPriceMinTickSize={orderPriceMinTickSize}
                         loading={isPending}
                         submitDisabled={isMarketResolvedOrDisputed}
+                        feesEnabled={data?.feesEnabled}
+                        feeSchedule={data?.feeSchedule}
                         onSubmit={({ shares, limitPrice }) =>
                             placeOrder({ side: 'BUY', amount: shares, overrideLimitPrice: limitPrice })
                         }

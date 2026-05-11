@@ -810,6 +810,9 @@ msgstr "Predict. Trade. Simply fund your Firefly predict wallet to begin."
 msgid "Failed to withdraw."
 msgstr "Failed to withdraw."
 
+msgid "Est. fee"
+msgstr "Est. fee"
+
 msgid "Contract address"
 msgstr "Contract address"
 

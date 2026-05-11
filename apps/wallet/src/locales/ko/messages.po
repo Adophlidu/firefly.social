@@ -810,6 +810,9 @@ msgstr ""
 msgid "Failed to withdraw."
 msgstr ""
 
+msgid "Est. fee"
+msgstr ""
+
 msgid "Contract address"
 msgstr ""
 

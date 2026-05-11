@@ -243,6 +243,9 @@ export interface PolymarketGammaMarket {
     liquidityClob?: number | null;
     makerBaseFee?: number | null;
     takerBaseFee?: number | null;
+    /** When true, apply `feeSchedule` taker rate (Gamma / CLOB). */
+    feesEnabled?: boolean | null;
+    feeSchedule?: { rate?: string | null } | null;
     customLiveness?: number | null;
     acceptingOrders?: boolean | null;
     notificationsEnabled?: boolean | null;

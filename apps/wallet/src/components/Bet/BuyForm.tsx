@@ -30,6 +30,11 @@ import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { getUserFacingErrorMessage } from '@/helpers/getErrorMessage.js';
 import { getLimitPriceCentsInputConfig } from '@/helpers/getLimitPriceCentsInputConfig.js';
 import { normalizeBetInput } from '@/helpers/normalizeBetInput.js';
+import {
+    computePolymarketLimitBuyFeeUsd,
+    computePolymarketMarketBuyFeeUsd,
+    parsePolymarketTakerFeeRate,
+} from '@/helpers/polymarketTakerFee.js';
 import { switchEvmConnectorChain } from '@/helpers/resolveEvmConnector.js';
 import { cn } from '@/lib/utils.js';
 import type { TokenAsset } from '@/providers/types/Firefly.js';
@@ -204,12 +209,19 @@ export function BuyMarketForm({
     onSubmit,
     loading,
     submitDisabled,
+    feesEnabled,
+    feeSchedule,
+    outcomeAvgPriceForFee,
 }: {
     outcome: string;
     tokenId: string;
     onSubmit: (amount: string) => Promise<unknown> | void;
     loading?: boolean;
     submitDisabled?: boolean;
+    feesEnabled?: boolean | null;
+    feeSchedule?: { rate?: string | null } | null;
+    /** Gamma outcome price (0–1) for fee math; mirrors Android `conditionOutcomes` price. */
+    outcomeAvgPriceForFee?: number;
 }) {
     const { data: account } = useSuspenseQuery(getPolymarketAccountQueryOptions());
     const { data: availableAmount } = useSuspenseQuery(getBetsAvailableUSDQueryOptions(account.proxyAddress));
@@ -222,6 +234,20 @@ export function BuyMarketForm({
     const amount = form.watch('amount');
     const amountBN = safe(amount, 0);
 
+    const feeRate = useMemo(() => parsePolymarketTakerFeeRate(feesEnabled, feeSchedule), [feesEnabled, feeSchedule]);
+    const avgPriceForFee =
+        typeof outcomeAvgPriceForFee === 'number' &&
+        Number.isFinite(outcomeAvgPriceForFee) &&
+        outcomeAvgPriceForFee > 0 &&
+        outcomeAvgPriceForFee < 1
+            ? outcomeAvgPriceForFee
+            : 0.5;
+    const takerFeeUsd = useMemo(() => {
+        if (!amountBN.isFinite() || amountBN.lte(0)) return BigNumber(0);
+        return computePolymarketMarketBuyFeeUsd(amountBN, feeRate, avgPriceForFee);
+    }, [amountBN, avgPriceForFee, feeRate]);
+    const totalSpendUsd = amountBN.plus(takerFeeUsd);
+
     const [debouncedAmount] = useDebounceValue(amount, 300);
     const shouldPollQuote = safe(debouncedAmount, 0).gt(0);
     const { data: toWin, isLoading: isLoadingToWin } = useQuery({
@@ -231,8 +257,8 @@ export function BuyMarketForm({
 
     const betsBalance = BigNumber(availableAmount || 0);
     const totalBalance = betsBalance.plus(walletUsdcBalance || 0);
-    const isOverTotalBalance = amountBN.gt(totalBalance);
-    const isOverBetsBalance = amountBN.gt(betsBalance);
+    const isOverTotalBalance = totalSpendUsd.gt(totalBalance);
+    const isOverBetsBalance = totalSpendUsd.gt(betsBalance);
     const isLessThanMinimum = Boolean(amount) && amountBN.lt(MINIMUM_USD);
     const inputValid = amountBN.gt(0);
     const canNormalBuy = inputValid && !isOverBetsBalance && !isLessThanMinimum;
@@ -242,7 +268,7 @@ export function BuyMarketForm({
 
     const { runQuickBuy, isQuickBuying } = useQuickBuyAction({
         proxyAddress: account.proxyAddress as Address,
-        topUpUsd: BigNumber.max(0, amountBN.minus(betsBalance)),
+        topUpUsd: BigNumber.max(0, totalSpendUsd.minus(betsBalance)),
         submitDisabled,
         loading,
         onPlaceOrder: () => onSubmit(amount),
@@ -314,6 +340,14 @@ export function BuyMarketForm({
                         </Skeleton>
                     </div>
                 </div>
+                {takerFeeUsd.gt(0) ? (
+                    <div className="text-second flex justify-between px-2 text-[13px]">
+                        <span>
+                            <Trans>Est. fee</Trans>
+                        </span>
+                        <span>{formatTokenUSD(takerFeeUsd.toString(), { minDisplay: 0.01 })}</span>
+                    </div>
+                ) : null}
                 <div className="flex items-center justify-between gap-3">
                     {[1, 20, 100, 'Max'].map((price) => (
                         <button
@@ -326,7 +360,12 @@ export function BuyMarketForm({
                             )}
                             onClick={() => {
                                 if (price === 'Max') {
-                                    const next = normalizeBetInput(BigNumber(availableAmount || 0).toString(), 'usd');
+                                    const maxBalance = BigNumber(availableAmount || 0);
+                                    const fee = computePolymarketMarketBuyFeeUsd(maxBalance, feeRate, avgPriceForFee);
+                                    const next = normalizeBetInput(
+                                        BigNumber.max(0, maxBalance.minus(fee)).toString(),
+                                        'usd',
+                                    );
                                     form.setValue('amount', next, {
                                         shouldDirty: true,
                                         shouldTouch: true,
@@ -365,10 +404,13 @@ export function BuyMarketForm({
                             open={quickBuyConfirmOpen}
                             onOpenChange={setQuickBuyConfirmOpen}
                             outcome={outcome}
-                            predictWalletPayUsd={BigNumber.min(betsBalance, amountBN)}
-                            fireflyWalletPayUsd={BigNumber.max(0, amountBN.minus(BigNumber.min(betsBalance, amountBN)))}
+                            predictWalletPayUsd={BigNumber.min(betsBalance, totalSpendUsd)}
+                            fireflyWalletPayUsd={BigNumber.max(
+                                0,
+                                totalSpendUsd.minus(BigNumber.min(betsBalance, totalSpendUsd)),
+                            )}
                             fireflyWalletAvailableUsd={walletUsdcBalance || 0}
-                            totalUsd={amountBN}
+                            totalUsd={totalSpendUsd}
                             confirmDisabled={Boolean(submitDisabled) || !canQuickBuy}
                             confirming={isQuickBuying}
                             onConfirm={async () => {
@@ -410,6 +452,8 @@ export function BuyLimitForm({
     onSubmit,
     loading,
     submitDisabled,
+    feesEnabled,
+    feeSchedule,
 }: {
     outcome: string;
     tokenId: string;
@@ -418,6 +462,8 @@ export function BuyLimitForm({
     onSubmit: (params: { shares: number; limitPrice: number }) => Promise<unknown> | void;
     loading?: boolean;
     submitDisabled?: boolean;
+    feesEnabled?: boolean | null;
+    feeSchedule?: { rate?: string | null } | null;
 }) {
     const { data: account } = useSuspenseQuery(getPolymarketAccountQueryOptions());
     const { data: availableAmount } = useSuspenseQuery(getBetsAvailableUSDQueryOptions(account.proxyAddress));
@@ -461,11 +507,25 @@ export function BuyLimitForm({
                   .toNumber();
 
     const sharesBN = BigNumber(shares || 0);
-    const isOverTotalBalance = sharesBN.isFinite() ? sharesBN.gt(maxSharesByTotalBalance) : false;
-    const isOverBetsBalance = sharesBN.isFinite() ? sharesBN.gt(maxSharesByBetsBalance) : false;
 
     const total = sharesBN.times(limitPriceDollars);
     const totalUSD = total.isFinite() ? total : BigNumber(0);
+
+    const feeRate = useMemo(() => parsePolymarketTakerFeeRate(feesEnabled, feeSchedule), [feesEnabled, feeSchedule]);
+    const limitTakerFeeUsd = useMemo(() => {
+        if (
+            !sharesBN.isFinite() ||
+            !limitPriceDollars.isFinite() ||
+            limitPriceDollars.lte(0) ||
+            limitPriceDollars.gte(1)
+        )
+            return BigNumber(0);
+        return computePolymarketLimitBuyFeeUsd(sharesBN, feeRate, limitPriceDollars);
+    }, [feeRate, limitPriceDollars, sharesBN]);
+    const totalSpendUsd = totalUSD.plus(limitTakerFeeUsd);
+
+    const isOverTotalBalance = totalSpendUsd.isFinite() ? totalSpendUsd.gt(totalBalance) : false;
+    const isOverBetsBalance = totalSpendUsd.isFinite() ? totalSpendUsd.gt(betsBalance) : false;
 
     const sharesNum = Number.isFinite(Number(shares)) && Number(shares) > 0 ? Number(shares) : 0;
 
@@ -507,7 +567,7 @@ export function BuyLimitForm({
 
     const { runQuickBuy, isQuickBuying } = useQuickBuyAction({
         proxyAddress: account.proxyAddress as Address,
-        topUpUsd: BigNumber.max(0, totalUSD.minus(betsBalance)),
+        topUpUsd: BigNumber.max(0, totalSpendUsd.minus(betsBalance)),
         submitDisabled,
         loading,
         onPlaceOrder: () =>
@@ -530,11 +590,18 @@ export function BuyLimitForm({
         if (delta === 'max') {
             // "Max" should match the "Available" amount shown (prediction wallet / bets balance).
             // Only fall back to total balance when bets balance is zero, so users can still Quick Buy easily.
-            const maxShares = betsBalance.gt(0) ? maxSharesByBetsBalance : maxSharesByTotalBalance;
-            const v = normalizeBetInput(
-                BigNumber(maxShares).decimalPlaces(2, BigNumber.ROUND_FLOOR).toString(),
-                'shares',
-            );
+            const balance = betsBalance.gt(0) ? betsBalance : BigNumber(totalBalance || 0);
+            const initialShares =
+                balance.gt(0) && p.isFinite() && p.gt(0)
+                    ? balance.div(p).decimalPlaces(2, BigNumber.ROUND_FLOOR)
+                    : BigNumber(0);
+            const fee = computePolymarketLimitBuyFeeUsd(initialShares, feeRate, p);
+            const adjustedBalance = BigNumber.max(0, balance.minus(fee));
+            const maxShares =
+                adjustedBalance.gt(0) && p.isFinite() && p.gt(0)
+                    ? adjustedBalance.div(p).decimalPlaces(2, BigNumber.ROUND_FLOOR)
+                    : BigNumber(0);
+            const v = normalizeBetInput(maxShares.toString(), 'shares');
             form.setValue('shares', v, { shouldDirty: true, shouldTouch: true, shouldValidate: true });
             return;
         }
@@ -640,6 +707,14 @@ export function BuyLimitForm({
                             {formatTokenUSD(totalUSD.toString(), { minDisplay: 0.01 })}
                         </div>
                     </div>
+                    {limitTakerFeeUsd.gt(0) ? (
+                        <div className="text-second inline-flex w-full items-center justify-between text-[13px]">
+                            <span>
+                                <Trans>Est. fee</Trans>
+                            </span>
+                            <span>{formatTokenUSD(limitTakerFeeUsd.toString(), { minDisplay: 0.01 })}</span>
+                        </div>
+                    ) : null}
                     <div className="inline-flex w-full items-center justify-between">
                         <div className="text-main text-center text-lg font-bold leading-6">
                             <Trans>To win</Trans>
@@ -674,10 +749,13 @@ export function BuyLimitForm({
                             open={quickBuyConfirmOpen}
                             onOpenChange={setQuickBuyConfirmOpen}
                             outcome={outcome}
-                            predictWalletPayUsd={BigNumber.min(betsBalance, totalUSD)}
-                            fireflyWalletPayUsd={BigNumber.max(0, totalUSD.minus(betsBalance))}
+                            predictWalletPayUsd={BigNumber.min(betsBalance, totalSpendUsd)}
+                            fireflyWalletPayUsd={BigNumber.max(
+                                0,
+                                totalSpendUsd.minus(BigNumber.min(betsBalance, totalSpendUsd)),
+                            )}
                             fireflyWalletAvailableUsd={walletUsdcBalance || 0}
-                            totalUsd={totalUSD}
+                            totalUsd={totalSpendUsd}
                             confirmDisabled={Boolean(submitDisabled) || !canQuickBuy}
                             confirming={isQuickBuying}
                             onConfirm={async () => {
