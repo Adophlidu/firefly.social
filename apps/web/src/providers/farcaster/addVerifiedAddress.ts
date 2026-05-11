@@ -1,6 +1,6 @@
 import { safeUnreachable } from '@dimensiondev/utils';
 import { createWagmiPublicClient } from '@dimensiondev/web3/actions';
-import { ensureHexPrefix } from '@dimensiondev/web3/utils';
+import { ensureHexPrefix, resolvePublicRpcUrl } from '@dimensiondev/web3/utils';
 import bs58 from 'bs58';
 import { toBytes } from 'viem';
 import { mainnet } from 'viem/chains';
@@ -36,7 +36,7 @@ enum AddressType {
 }
 
 async function checkEthereumAddressType(address: string): Promise<AddressType> {
-    const client = createWagmiPublicClient(mainnet.id);
+    const client = createWagmiPublicClient(mainnet.id, resolvePublicRpcUrl(mainnet.id));
     const code = await client.getCode({
         address: address as `0x${string}`,
     });
