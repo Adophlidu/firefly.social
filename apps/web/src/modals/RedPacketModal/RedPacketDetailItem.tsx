@@ -16,6 +16,7 @@ import { SITE_URL } from '@/constants/static.js';
 import { Image } from '@/esm/Image.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { resolveSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
+import { resolveTokenLogoURL } from '@/helpers/resolveTokenLogoURL.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { RedPacketAccountItem } from '@/modals/RedPacketModal/RedPacketAccountItem.js';
 import { RedPacketActionButton } from '@/modals/RedPacketModal/RedPacketActionButton.js';
@@ -105,7 +106,15 @@ export const RedPacketDetailItem = memo<Props>(function RedPacketDetailItem({
     const { account } = useChainContext({ networkType });
     const icon = getChainIcon(networkType === NetworkType.Solana ? solana.id : chain_id);
 
-    const logoUrl = token_logo !== 'missing.png' ? token_logo : undefined;
+    const logoUrl = (() => {
+        if (token_logo === 'missing.png') return undefined;
+        if (token_logo.includes('static.debank.com')) {
+            const match = token_logo.match(/\/logo_url\/([^/]+)\//);
+            if (match?.[1]) return resolveTokenLogoURL(chain_id, match[1]);
+            return undefined;
+        }
+        return token_logo;
+    })();
     const message = rp_msg || <Trans>Hope this sparks a smile.</Trans>;
 
     return (

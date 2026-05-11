@@ -1,5 +1,5 @@
 import { classNames } from '@dimensiondev/utils';
-import { EthChainResolver } from '@dimensiondev/web3/resolvers';
+import { isSolanaChain } from '@dimensiondev/web3/chains';
 import { isZeroAddressEthereum } from '@dimensiondev/web3/utils';
 import { first } from 'lodash-es';
 import { type HTMLProps, memo, useCallback, useMemo, useState } from 'react';
@@ -8,6 +8,7 @@ import { ChainIcon } from '@/components/ChainIcon.js';
 import type { NetworkType } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import { optimizeCDNImageSize } from '@/helpers/optimizeCDNImageSize.js';
+import { resolveTokenLogoURL } from '@/helpers/resolveTokenLogoURL.js';
 
 export interface TokenIconProps extends HTMLProps<HTMLSpanElement> {
     networkType?: NetworkType;
@@ -52,7 +53,8 @@ export const TokenIcon = memo(function TokenIcon({
 
     const tokenIcon = useMemo(() => {
         if (chainId && isZeroAddressEthereum(address)) {
-            return EthChainResolver.nativeCurrency(chainId).logoURL;
+            if (isSolanaChain(chainId)) return icon;
+            return resolveTokenLogoURL(chainId, address ?? '0x0000000000000000000000000000000000000000');
         }
         return icon;
     }, [icon, address, chainId]);

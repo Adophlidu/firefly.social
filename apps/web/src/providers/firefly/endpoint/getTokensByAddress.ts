@@ -4,6 +4,7 @@ import urlcat from 'urlcat';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { STALE_TIMES } from '@/constants/query.js';
+import { resolveTokenLogoURL } from '@/helpers/resolveTokenLogoURL.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { Token as DebankToken } from '@/providers/types/Debank.js';
 import type { DebankTokensResponse } from '@/providers/types/Firefly.js';
@@ -33,10 +34,15 @@ export async function getTokensByAddress(address: string): Promise<
 
     return tokens.map((token) => {
         const chain = resolveDebankChain(token.chain);
+        const chainId = chain?.community_id;
         return {
             ...token,
-            chainId: chain?.community_id,
+            chainId,
             chainLogoUrl: chain?.logo_url,
+            logo_url:
+                chainId && token.logo_url?.includes('static.debank.com')
+                    ? resolveTokenLogoURL(chainId, token.id)
+                    : token.logo_url,
         };
     });
 }

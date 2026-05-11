@@ -86,7 +86,8 @@ export function optimizeCDNImageSize(url: string, width: number, height = width)
         }
         return s.join('/');
     }
-    if (url.startsWith('https://stamp.firefly.land/avatar/')) {
+    // stamp.firefly.land supports `s=` on all endpoints: /avatar/*, /logo/*
+    if (url.startsWith('https://stamp.firefly.land/')) {
         const u = new URL(url);
         u.searchParams.set('s', `${width * devicePixelRatio}`);
         return u.toString();
