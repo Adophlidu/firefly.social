@@ -7,10 +7,10 @@ import { ETH_ZERO_ADDRESS } from '@dimensiondev/web3/constants';
 import { NetworkType } from '@dimensiondev/web3/enums';
 import { isZero, leftShift } from '@dimensiondev/web3/numbers';
 import {
+    isNativeTokenAddress,
     isSameAddress,
     isSameEthereumAddress,
     isValidAddressEthereum,
-    isZeroAddressEthereum,
     isZeroAddressSolana,
 } from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
@@ -81,7 +81,7 @@ export const FungibleTokenInput = memo<FungibleTokenInputProps>(function Fungibl
     }, [account, token, networkType, onTokenChange]);
 
     const isSolana = networkType === NetworkType.Solana;
-    const isNativeToken = isSolana ? isZeroAddressSolana(token?.address) : isZeroAddressEthereum(token?.address);
+    const isNativeToken = isSolana ? isZeroAddressSolana(token?.address) : isNativeTokenAddress(token?.address);
 
     const { RE_MATCH_WHOLE_AMOUNT, RE_MATCH_FRACTION_AMOUNT } = useMemo(
         () => ({

@@ -1,7 +1,7 @@
 'use client';
 
 import { isGreaterThan as isGt, multipliedBy, ZERO } from '@dimensiondev/web3/numbers';
-import { isZeroAddressEthereum } from '@dimensiondev/web3/utils';
+import { isNativeTokenAddress } from '@dimensiondev/web3/utils';
 import { useMemo } from 'react';
 import { useBalance, useEstimateFeesPerGas } from 'wagmi';
 
@@ -16,7 +16,7 @@ export function useEVMAvailableBalance(
     overrides?: ChainContextOverrides,
     enabled = true,
 ) {
-    const isNativeToken = isZeroAddressEthereum(address);
+    const isNativeToken = isNativeTokenAddress(address);
     const { chainId, isEIP1559, account } = useChainContext(overrides);
 
     const { data: balance } = useBalanceOf(chainId, account as `0x${string}`, address, enabled);

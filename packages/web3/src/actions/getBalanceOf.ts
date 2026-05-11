@@ -3,10 +3,10 @@ import { erc20Abi } from 'viem';
 import type { Config } from 'wagmi';
 import { getBalance, multicall } from 'wagmi/actions';
 
-import { isZeroAddress } from '@/utils/isZeroAddress.js';
+import { isNativeTokenAddress } from '@/utils/isZeroAddress.js';
 
 export async function getBalanceOf(config: Config, chainId: number, account: string, address?: string) {
-    if (!address || isZeroAddress(address)) {
+    if (!address || isNativeTokenAddress(address)) {
         return getBalance(config, {
             chainId,
             address: account as Address,

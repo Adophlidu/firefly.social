@@ -33,7 +33,7 @@ export function isZeroAddress(address?: string): boolean {
     return isZeroAddressEthereum(address) || isZeroAddressSolana(address);
 }
 
-export function isNativeTokenAddress(address: string): boolean {
+export function isNativeTokenAddress(address: string | undefined): boolean {
     if (!address) return true;
     return NATIVE_TOKEN_ADDRESSES.has(address.toLowerCase());
 }
