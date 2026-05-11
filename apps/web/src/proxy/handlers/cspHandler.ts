@@ -37,6 +37,7 @@ function buildCSP(): string {
         '*.bsky.network',
         'bsky.social',
         'public.api.bsky.app',
+        '*.farcaster.xyz',
 
         // Twitter
         'video.twimg.com',
@@ -90,11 +91,14 @@ function buildCSP(): string {
     // what iframe we can load, fallback to child-src, then default-src
     const frameSrc = ["'self'", ...EXTRA_SOURCES];
 
+    const mediaSrc = ["'self'", 'blob:', 'data:', ...EXTRA_SOURCES];
+
     const directives = [
         `default-src ${defaultSrc.join(' ')}`,
         `connect-src ${connectSrc.join(' ')}`,
         `script-src ${scriptSrc.join(' ')}`,
         `img-src ${imgSrc.join(' ')}`,
+        `media-src ${mediaSrc.join(' ')}`,
         `style-src ${styleSrc.join(' ')}`,
         `font-src ${fontSrc.join(' ')}`,
         `worker-src ${workerSrc.join(' ')}`,
