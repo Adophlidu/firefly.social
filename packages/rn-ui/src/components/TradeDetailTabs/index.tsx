@@ -1,3 +1,5 @@
+import { useQueryClient } from '@tanstack/react-query';
+import { BigNumber } from 'bignumber.js';
 import { useAtomValue } from 'jotai';
 import { memo, useCallback, useMemo, useState } from 'react';
 import { Path, Svg } from 'react-native-svg';
@@ -11,15 +13,32 @@ import { CloseAllConfirmSheet } from '@/components/Sheets/CloseAllConfirmSheet';
 import { TpSlSheet } from '@/components/TpSlSheet';
 import { ActivePositions } from '@/components/TradeDetailTabs/ActivePositions';
 import { OpenOrders } from '@/components/TradeDetailTabs/OpenOrders';
+import { formatAmount } from '@/helpers/formatAmount';
+import { formatCoinName } from '@/helpers/formatCoinName';
+import { isGreaterThan } from '@/helpers/number';
+import { findFullPositionTpslOrders } from '@/helpers/perpsPositionTpsl';
+import { toast } from '@/helpers/toast';
 import { useActivePositions } from '@/hooks/Perps/useActivePositions';
-import { useCancelOrders } from '@/hooks/Perps/useCancelOrders';
+import { type PerpOrderCancelId, runCancelPerpOpenOrders } from '@/hooks/Perps/useCancelOrders';
+import { useCancelPerpOrder } from '@/hooks/Perps/useCancelPerpOrder';
+import { useCoinInfo } from '@/hooks/Perps/useCoinInfo';
+import { useMarketCloseAllPositions } from '@/hooks/Perps/useMarketCloseAllPositions';
 import { useOpenOrders } from '@/hooks/Perps/useOpenOrders';
+import { useSetPositionTpsl } from '@/hooks/Perps/useSetPositionTpsl';
 import { useAsyncFn } from '@/hooks/useAsyncFn';
 import { submitAddToPosition } from '@/services/addToPosition';
-import { submitTpSl } from '@/services/tpSl';
 import { coinNameAtom } from '@/store/tradeForm';
+import { exchangeClientAtom } from '@/store/wallet';
 import type { SubmitAddToPosition, SubmitTpSl } from '@/types/services';
-import type { AddToPositionSheetData, ClosePositionSheetData, PerpsPositionItem, TpSlSheetData } from '@/types/ui';
+import type {
+    AddToPositionSheetData,
+    ClosePositionSheetData,
+    PerpsPositionItem,
+    Position,
+    TpSlSheetData,
+} from '@/types/ui';
+
+type CloseAllIntent = { kind: 'positions'; positions: Position[] } | { kind: 'orders'; orderIds: PerpOrderCancelId[] };
 
 interface TradeDetailTabsProps {
     market: string;
@@ -34,19 +53,6 @@ const defaultAddToPositionData: AddToPositionSheetData = {
     minimumAmount: 5.05,
     liquidationPrice: '$92,356',
     newTotal: '$110.21',
-};
-
-const defaultTpSlData: TpSlSheetData = {
-    symbol: 'BTCUSDC',
-    entryPrice: '68,523',
-    markPrice: '72,101',
-    estimatedLiqPrice: '32,538',
-    tpPrice: '',
-    tpOperator: '+',
-    tpType: 'percent',
-    slPrice: '',
-    slOperator: '-',
-    slType: 'percent',
 };
 
 function CheckboxCheckedIcon() {
@@ -81,12 +87,14 @@ export const TradeDetailTabs = memo<TradeDetailTabsProps>(function TradeDetailTa
     const [addSheetData] = useState<AddToPositionSheetData>(defaultAddToPositionData);
     const [activePosition] = useState<PerpsPositionItem | null>(null);
     const [tpSlSheetOpen, setTpSlSheetOpen] = useState(false);
-    const [tpSlSheetLoading] = useState(false);
+    const [tpSlPosition, setTpSlPosition] = useState<Position | null>(null);
     const [closeAllConfirmOpen, setCloseAllConfirmOpen] = useState(false);
-    const [tpSlSheetData] = useState<TpSlSheetData>(defaultTpSlData);
+    const [closeAllIntent, setCloseAllIntent] = useState<CloseAllIntent | null>(null);
     const [showCurrent, setShowCurrent] = useState(false);
 
     const coinName = useAtomValue(coinNameAtom);
+    const exchangeClient = useAtomValue(exchangeClientAtom);
+    const queryClient = useQueryClient();
 
     const openOrders = useOpenOrders();
     const positions = useActivePositions();
@@ -106,16 +114,70 @@ export const TradeDetailTabs = memo<TradeDetailTabsProps>(function TradeDetailTa
         return submitAddPosition ?? submitAddToPosition;
     }, [submitAddPosition]);
 
-    const submitTpSlHandler = useMemo(() => {
-        return submitTpSlValue ?? submitTpSl;
-    }, [submitTpSlValue]);
+    const { data: tpSlCoinInfo } = useCoinInfo(tpSlPosition?.coin);
+
+    const tpSlOrders = useMemo(
+        () =>
+            tpSlPosition ? findFullPositionTpslOrders(openOrders, tpSlPosition.coin) : { tpOrder: null, slOrder: null },
+        [openOrders, tpSlPosition],
+    );
+
+    const tpSlSheetData = useMemo((): TpSlSheetData | null => {
+        if (!tpSlPosition) return null;
+        const mark = tpSlCoinInfo?.assetCtx?.markPx || '0';
+        const liq = tpSlPosition.liquidationPx ? formatAmount(tpSlPosition.liquidationPx, 4) : '--';
+        const isLong = isGreaterThan(tpSlPosition.szi, '0');
+        const levRaw = Number(tpSlPosition.leverage.value);
+        const leverage = Number.isFinite(levRaw) && levRaw > 0 ? levRaw : 1;
+        const szDecimals = tpSlCoinInfo?.szDecimals ?? 0;
+        const absSzi = new BigNumber(tpSlPosition.szi).abs();
+        const positionSizeAbs = absSzi.isFinite() && absSzi.gt(0) ? absSzi.toFixed(szDecimals) : '0';
+        return {
+            symbol: formatCoinName(tpSlPosition.coin),
+            entryPrice: tpSlPosition.entryPx,
+            markPrice: mark === '0' ? '--' : mark,
+            estimatedLiqPrice: liq,
+            tpPrice: '',
+            tpType: 'percent',
+            slPrice: '',
+            slType: 'percent',
+            side: isLong ? 'long' : 'short',
+            leverage,
+            szDecimals,
+            positionSizeAbs,
+        };
+    }, [tpSlPosition, tpSlCoinInfo]);
+
+    const [{ loading: submitTpSlLoading }, submitPositionTpSl] = useSetPositionTpsl({
+        position: tpSlPosition ?? undefined,
+        coinInfo: tpSlCoinInfo ?? undefined,
+        markPx: tpSlCoinInfo?.assetCtx?.markPx,
+        hasExistingTp: Boolean(tpSlOrders.tpOrder),
+        hasExistingSl: Boolean(tpSlOrders.slOrder),
+    });
+
+    const [{ loading: cancelPerpLoading }, cancelPerpOrder] = useCancelPerpOrder();
 
     const handleCloseAll = useCallback(() => {
-        const list = activeTab === 'positions' ? filteredPositions : filteredOrders;
-        if (!list.length) return;
-
+        if (activeTab === 'positions') {
+            if (!filteredPositions.length) return;
+            setCloseAllIntent({ kind: 'positions', positions: [...filteredPositions] });
+        } else {
+            if (!filteredOrders.length) return;
+            setCloseAllIntent({
+                kind: 'orders',
+                orderIds: filteredOrders.map((o) => ({ oid: o.oid, coin: o.coin })),
+            });
+        }
         setCloseAllConfirmOpen(true);
     }, [activeTab, filteredOrders, filteredPositions]);
+
+    const handleCloseAllConfirmOpenChange = useCallback((open: boolean) => {
+        setCloseAllConfirmOpen(open);
+        if (!open) {
+            setCloseAllIntent(null);
+        }
+    }, []);
 
     const handleConfirmAdd = useCallback(
         async (amount: number) => {
@@ -136,35 +198,83 @@ export const TradeDetailTabs = memo<TradeDetailTabsProps>(function TradeDetailTa
             slPrice: string;
             tpType: 'percent';
             slType: 'percent';
-        }) => {
-            if (!activePosition) return;
-            await submitTpSlHandler({
-                market,
-                positionId: activePosition.id,
-                tpPrice,
-                slPrice,
-                tpType,
-                slType,
-            });
+        }): Promise<boolean> => {
+            if (!tpSlPosition) return false;
+            if (submitTpSlValue) {
+                const result = await submitTpSlValue({
+                    market,
+                    positionId: tpSlPosition.coin,
+                    coin: tpSlPosition.coin,
+                    tpPrice,
+                    slPrice,
+                    tpType,
+                    slType,
+                });
+                return result.success;
+            }
+            return submitPositionTpSl({ tpPrice, slPrice });
         },
-        [activePosition, market, submitTpSlHandler],
+        [tpSlPosition, market, submitTpSlValue, submitPositionTpSl],
     );
 
-    const onTpSl = useCallback(() => {
-        setActiveTab('orders');
+    const handleOpenTpSl = useCallback((position: Position) => {
+        setTpSlPosition(position);
+        setTpSlSheetOpen(true);
     }, []);
 
-    const orderCancels = useMemo(
-        () => filteredOrders.map((order) => ({ oid: order.oid, coin: order.coin })),
-        [filteredOrders],
-    );
-    const [, cancelOrders] = useCancelOrders(orderCancels);
-    const [{ loading: isCancelAllLoading }, cancelAll] = useAsyncFn(async () => {
-        if (activeTab === 'orders') {
-            await cancelOrders();
-            return;
+    const handleTpSlSheetOpenChange = useCallback((open: boolean) => {
+        setTpSlSheetOpen(open);
+        if (!open) {
+            setTpSlPosition(null);
         }
-    }, [activeTab, cancelOrders]);
+    }, []);
+
+    const handleCancelTpOrder = useCallback(async () => {
+        const o = tpSlOrders.tpOrder;
+        if (!o || !tpSlPosition) return;
+        await cancelPerpOrder({ coin: tpSlPosition.coin, oid: o.oid });
+    }, [tpSlOrders.tpOrder, tpSlPosition, cancelPerpOrder]);
+
+    const handleCancelSlOrder = useCallback(async () => {
+        const o = tpSlOrders.slOrder;
+        if (!o || !tpSlPosition) return;
+        await cancelPerpOrder({ coin: tpSlPosition.coin, oid: o.oid });
+    }, [tpSlOrders.slOrder, tpSlPosition, cancelPerpOrder]);
+
+    const [, marketCloseAll] = useMarketCloseAllPositions();
+
+    const [{ loading: isCloseAllLoading }, executeCloseAll] = useAsyncFn(
+        async (intent: CloseAllIntent) => {
+            if (intent.kind === 'orders') {
+                try {
+                    if (!exchangeClient) {
+                        throw new Error('Exchange client not initialized');
+                    }
+                    await runCancelPerpOpenOrders(queryClient, exchangeClient, intent.orderIds);
+                } catch (error) {
+                    toast({
+                        message:
+                            error instanceof Error
+                                ? error.message
+                                : intent.orderIds.length > 1
+                                  ? 'Failed to cancel orders'
+                                  : 'Failed to cancel order',
+                        type: 'error',
+                        error,
+                    });
+                }
+
+                return;
+            }
+            await marketCloseAll(intent.positions);
+        },
+        [exchangeClient, queryClient, marketCloseAll],
+    );
+
+    const handleConfirmCloseAll = useCallback(() => {
+        if (!closeAllIntent) return;
+        void executeCloseAll(closeAllIntent);
+    }, [closeAllIntent, executeCloseAll]);
 
     return (
         <YStack paddingHorizontal={12} gap={16}>
@@ -193,8 +303,8 @@ export const TradeDetailTabs = memo<TradeDetailTabsProps>(function TradeDetailTa
                     paddingHorizontal={16}
                     paddingVertical={4}
                     pressStyle={{ opacity: 0.75 }}
-                    disabled={isCancelAllLoading}
-                    onPress={isCancelAllLoading ? undefined : handleCloseAll}
+                    disabled={isCloseAllLoading}
+                    onPress={isCloseAllLoading ? undefined : handleCloseAll}
                 >
                     <Text color="$text" fontSize={14} lineHeight={18} fontWeight={500} textAlign="center">
                         Clear all
@@ -203,7 +313,14 @@ export const TradeDetailTabs = memo<TradeDetailTabsProps>(function TradeDetailTa
             </XStack>
 
             {activeTab === 'positions' ? (
-                <ActivePositions positions={filteredPositions} onTpSl={onTpSl} />
+                <ActivePositions
+                    positions={filteredPositions}
+                    openOrders={openOrders}
+                    onTpSl={handleOpenTpSl}
+                    onViewOpenOrders={() => {
+                        setActiveTab('orders');
+                    }}
+                />
             ) : (
                 <OpenOrders openOrders={filteredOrders} />
             )}
@@ -220,19 +337,39 @@ export const TradeDetailTabs = memo<TradeDetailTabsProps>(function TradeDetailTa
                 onConfirm={handleConfirmAdd}
             />
 
-            <TpSlSheet
-                open={tpSlSheetOpen}
-                onOpenChange={setTpSlSheetOpen}
-                data={tpSlSheetData}
-                loading={tpSlSheetLoading}
-                onConfirm={handleConfirmTpSl}
-            />
+            {tpSlSheetData ? (
+                <TpSlSheet
+                    open={tpSlSheetOpen}
+                    onOpenChange={handleTpSlSheetOpenChange}
+                    data={tpSlSheetData}
+                    loading={Boolean(tpSlSheetOpen && !tpSlCoinInfo)}
+                    existingTp={
+                        tpSlOrders.tpOrder
+                            ? {
+                                  triggerPx: tpSlOrders.tpOrder.triggerPx,
+                                  onCancel: handleCancelTpOrder,
+                              }
+                            : undefined
+                    }
+                    existingSl={
+                        tpSlOrders.slOrder
+                            ? {
+                                  triggerPx: tpSlOrders.slOrder.triggerPx,
+                                  onCancel: handleCancelSlOrder,
+                              }
+                            : undefined
+                    }
+                    cancelLoading={cancelPerpLoading}
+                    confirmLoading={submitTpSlLoading}
+                    onConfirm={handleConfirmTpSl}
+                />
+            ) : null}
 
             <CloseAllConfirmSheet
-                type={activeTab === 'positions' ? 'position' : 'order'}
+                type={closeAllIntent?.kind === 'positions' ? 'position' : 'order'}
                 open={closeAllConfirmOpen}
-                onOpenChange={setCloseAllConfirmOpen}
-                onConfirm={cancelAll}
+                onOpenChange={handleCloseAllConfirmOpenChange}
+                onConfirm={handleConfirmCloseAll}
             />
         </YStack>
     );

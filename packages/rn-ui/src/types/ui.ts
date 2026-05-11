@@ -20,17 +20,6 @@ export interface PerpsMarketSortItem {
 
 export type TradesHistoryTab = 'trading' | 'account';
 
-export interface TradingHistoryItem {
-    id: string;
-    symbol: string;
-    action: string;
-    price: string;
-    positionSize: string;
-    tradeValue: string;
-    timestamp: string;
-    pnl?: string;
-}
-
 export interface AccountHistoryItem {
     id: string;
     type: 'addFunds' | 'withdraw';
@@ -43,12 +32,6 @@ export interface AccountHistoryItem {
 
 export type PerpsTradeMarginMode = 'cross' | 'isolated';
 export type PerpsTradeDirection = 'buy' | 'sell';
-
-export interface PerpsTradeOrderBookEntry {
-    px: string;
-    sz: string;
-    ratio: number;
-}
 
 export interface PerpsPositionItem {
     id: string;
@@ -94,11 +77,6 @@ export interface AddToPositionSheetData {
     newTotal: string;
 }
 
-export interface AddToPositionSheetQuery {
-    market: string;
-    positionId: string;
-}
-
 export interface AddToPositionInput {
     market: string;
     positionId: string;
@@ -120,11 +98,17 @@ export interface TpSlSheetData {
     markPrice: string;
     estimatedLiqPrice: string;
     tpPrice: string;
-    tpOperator: '+';
     tpType: TpSlValueType;
     slPrice: string;
-    slOperator: '-';
     slType: TpSlValueType;
+    /** Position side for OneKey-style TP/SL % ↔ price (ROE × leverage). */
+    side: 'long' | 'short';
+    /** Position leverage (e.g. 10 for 10x). */
+    leverage: number;
+    /** Perp `szDecimals` for `formatPrice` when deriving prices from %. */
+    szDecimals: number;
+    /** Absolute position size (coin) for expected PnL at TP/SL trigger (OneKey `calculateProfitLoss`). */
+    positionSizeAbs: string;
 }
 
 export interface SubmitTpSlInput {
@@ -134,6 +118,8 @@ export interface SubmitTpSlInput {
     slPrice: string;
     tpType: TpSlValueType;
     slType: TpSlValueType;
+    /** Optional; hosts may use for HL `coin` when not using the default exchange submit path. */
+    coin?: string;
 }
 
 export interface SubmitTpSlResult {
@@ -232,7 +218,7 @@ export interface OpenOrder {
 }
 export type Position = ClearinghouseStateResponse['assetPositions'][number]['position'];
 
-type PagePath = 'trade' | 'details' | 'history' | '__parent__' | 'withdraw' | 'addFunds';
+type PagePath = 'trade' | 'details' | 'history' | '__parent__' | 'withdraw' | 'addFunds' | 'perps-website';
 
 export type NavigateFunc = <T extends PagePath>(
     to: T,

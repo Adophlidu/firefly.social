@@ -6,7 +6,9 @@ import { Button, ScrollView, Text, XStack, YStack } from 'tamagui';
 import { CoinAvatar } from '@/components/CoinAvatar';
 import { NoDataFallback } from '@/components/NoDataFallback';
 import { formatCoinName } from '@/helpers/formatCoinName';
+import { formatPrice } from '@/helpers/formatPrice';
 import { multipliedBy } from '@/helpers/number';
+import { useCoinInfo } from '@/hooks/Perps/useCoinInfo';
 import { infoClient } from '@/providers/client';
 import { TradingHistorySkeleton } from '@/skeletons/TradingHistorySkeleton';
 import type { UserFill } from '@/types/ui';
@@ -20,6 +22,9 @@ interface TradingHistoryItemCardProps {
 }
 
 const TradingHistoryItemCard = memo<TradingHistoryItemCardProps>(function TradingHistoryItemCard({ item }) {
+    const { data } = useCoinInfo(item.coin);
+    const szDecimals = data?.szDecimals || 2;
+
     const directionInfo = useMemo(() => {
         const side = item.side;
         let directionColor = '$textSuccess';
@@ -74,7 +79,7 @@ const TradingHistoryItemCard = memo<TradingHistoryItemCardProps>(function Tradin
             <XStack gap={8}>
                 <YStack flex={1}>
                     <Text color="$text" fontSize={14} lineHeight={20} fontWeight={600}>
-                        {item.px}
+                        {formatPrice(item.px, szDecimals)}
                     </Text>
                     <Text color="$textSubdued" fontSize={12} lineHeight={14}>
                         Price

@@ -16,10 +16,19 @@ The host app **must** install the packages listed under `peerDependencies` in [p
 ## Entry points and bundle size
 
 - **Full API**: `@dimensiondev/rn-ui` — re-exports provider, perps screens, and `tamagui`.
-- **Lighter shell**: `@dimensiondev/rn-ui/provider` — `Provider`, `config`, and shared types only (smaller graph than the full entry).
+- **Lighter shell**: `@dimensiondev/rn-ui/provider` — `Provider`, `PerpsBindingsProvider`, `PerpsAuthGate`, `config`, default `queryClient` / `queryClientConfig`, and shared types (smaller graph than the full entry).
 - **Perps screens only**: `@dimensiondev/rn-ui/perps` — `PerpsMarketDetail`, `PerpsTradeDetail`, `TradesHistory`.
 
 Published `dist` splits shared chunks (e.g. perps UI vs provider). Prefer the subpath that matches what you import.
+
+### Provider composition
+
+- **Jotai isolation** — rn-ui uses a **dedicated** `createStore()` instance (exported as `store` from the package’s store module), not the host process default store. **`Provider`** and **`PerpsBindingsProvider`** both mount `JotaiProvider` with that same `store` so atom hooks and imperative `store.get` / `store.set` stay aligned. Nested `JotaiProvider` with the same `store` reference is safe. Host `JotaiProvider` / host atoms remain separate.
+- **`Provider`** — `QueryClientProvider` (optional **`queryClient`**) → `TamaguiProvider` → **`JotaiProvider`** → `children`. Tamagui + RQ shell only; perps wiring is still composed separately.
+- **`PerpsBindingsProvider`** — **`JotaiProvider`** (same `store`) → sync effects (`token`, `apiMode`, `walletClient`, `toast`, `navigate`, Hyperliquid clients). Wrap **outside or inside** `Provider` depending on Tamagui/RQ reuse; typical wallet order: `PerpsBindingsProvider` → `Provider` → `PerpsAuthGate` → routes.
+- **`PerpsAuthGate`** — reads `sessionTokenAtom`; must sit under an rn-ui `JotaiProvider` (as in the example). Renders `LoginFallback` when unauthenticated.
+
+Example (Firefly wallet): `PerpsBindingsProvider` → `Provider` → `PerpsAuthGate` → routes.
 
 `package.json` sets `"react-native"` under `exports` so Metro can resolve **TypeScript source** in `src/` when you enable package exports (see below).
 

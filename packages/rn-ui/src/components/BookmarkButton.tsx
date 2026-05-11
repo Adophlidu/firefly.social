@@ -1,9 +1,8 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useAtomValue } from 'jotai';
 import { memo } from 'react';
 
 import { ButtonUI } from '@/components/ButtonUI';
-import { queryClient } from '@/configs/queryClient';
 import { STALE_TIMES } from '@/constants/enum';
 import { toast } from '@/helpers/toast';
 import { useAsyncFn } from '@/hooks/useAsyncFn';
@@ -20,6 +19,7 @@ interface BookmarkButtonProps {
 
 export const BookmarkButton = memo<BookmarkButtonProps>(function BookmarkButton({ coinName }) {
     const tokenAtom = useAtomValue(sessionTokenAtom);
+    const queryClient = useQueryClient();
 
     const { data, isLoading } = useQuery({
         queryKey: ['bookmarks', coinName],
@@ -54,7 +54,7 @@ export const BookmarkButton = memo<BookmarkButtonProps>(function BookmarkButton(
                           : 'Failed to add bookmark',
             });
         }
-    }, [coinName, isBookmarked]);
+    }, [coinName, isBookmarked, queryClient]);
 
     if (!tokenAtom) return null;
 

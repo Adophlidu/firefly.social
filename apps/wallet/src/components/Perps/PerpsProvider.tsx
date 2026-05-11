@@ -1,4 +1,4 @@
-import { type NavigateFunc, Provider, type ToastFn } from '@dimensiondev/rn-ui';
+import { type NavigateFunc, PerpsAuthGate, PerpsBindingsProvider, Provider, type ToastFn } from '@dimensiondev/rn-ui';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { useNavigate } from '@tanstack/react-router';
 import { useAtomValue } from 'jotai';
@@ -9,6 +9,7 @@ import { useConnectors, useWalletClient } from 'wagmi';
 import { useComeback } from '@/components/useComeback.js';
 import { env } from '@/constants/env.js';
 import { PRIVY_CONNECTOR_ID } from '@/constants/static.js';
+import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { logger } from '@/lib/Logger.js';
 import { fireflySessionTokenAtom } from '@/store/fireflySession.js';
 
@@ -17,6 +18,7 @@ export function PerpsProvider({ children }: PropsWithChildren) {
     const comeback = useComeback();
     const connectors = useConnectors();
     const navigate = useNavigate();
+    const isDarkMode = useIsDarkMode();
     const { data } = useWalletClient({
         connector: connectors.find((c) => c.id === PRIVY_CONNECTOR_ID),
     });
@@ -56,6 +58,8 @@ export function PerpsProvider({ children }: PropsWithChildren) {
                     return;
                 case 'history':
                     return navigate({ to: '/perps/history' });
+                case 'perps-website':
+                    return;
                 case '__parent__':
                     comeback();
                     return;
@@ -70,14 +74,18 @@ export function PerpsProvider({ children }: PropsWithChildren) {
     const isDevApi = env.external.NEXT_PUBLIC_FIREFLY_ROOT_URL.startsWith('https://api-dev.firefly.land');
 
     return (
-        <Provider
-            token={token}
-            apiMode={isDevApi ? 'dev' : 'prod'}
-            walletClient={data}
-            toast={toastFn}
-            navigate={navigateFn}
-        >
-            <div className="flex min-h-0 w-full flex-1 flex-col">{children}</div>
+        <Provider theme={isDarkMode ? 'dark' : 'light'}>
+            <PerpsBindingsProvider
+                token={token}
+                apiMode={isDevApi ? 'dev' : 'prod'}
+                walletClient={data}
+                toast={toastFn}
+                navigate={navigateFn}
+            >
+                <PerpsAuthGate>
+                    <div className="flex min-h-0 w-full flex-1 flex-col">{children}</div>
+                </PerpsAuthGate>
+            </PerpsBindingsProvider>
         </Provider>
     );
 }

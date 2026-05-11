@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import { Button, Text, YStack } from 'tamagui';
 
+import { navigate } from '@/helpers/navigate';
 import { FallbackIcon } from '@/icons/FallbackIcon';
 
 interface NoDataFallbackProps {
@@ -23,6 +24,9 @@ export function NoDataFallback({ message }: NoDataFallbackProps) {
                 justifyContent="center"
                 width="90%"
                 maxWidth={319}
+                onPress={() => {
+                    navigate('perps-website', {});
+                }}
             >
                 <Text fontSize={14} fontWeight={700} textAlign="center" color="$bgHover">
                     Learn more about Perps

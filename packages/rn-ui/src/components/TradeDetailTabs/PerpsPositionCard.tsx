@@ -1,11 +1,13 @@
-import { memo, useMemo } from 'react';
+import { BigNumber } from 'bignumber.js';
+import { memo, useCallback, useMemo, useState } from 'react';
 import { Path, Svg } from 'react-native-svg';
 import { Button, Text, useTheme, XStack, YStack } from 'tamagui';
 
 import { TagBadge } from '@/components/TagBadge';
-import { formatAmount } from '@/helpers/formatAmount';
 import { formatCoinName } from '@/helpers/formatCoinName';
+import { formatPrice } from '@/helpers/formatPrice';
 import { formatUSDC } from '@/helpers/formatUSDC';
+import { navigate } from '@/helpers/navigate';
 import { dividedBy, isGreaterThan, isZero, multipliedBy } from '@/helpers/number';
 import { useCoinInfo } from '@/hooks/Perps/useCoinInfo';
 import { EditIcon } from '@/icons/EditIcon';
@@ -16,11 +18,16 @@ import { ButtonUI } from '../ButtonUI';
 
 interface PerpsPositionCardProps {
     position: Position;
+    /** TP/SL row data from `buildPositionTpSlByCoin` (includes `showViewOrders` for entry-attached TP/SL). */
+    tpSl?: { tp: string; sl: string; showViewOrders?: boolean };
     disabled?: boolean;
     onLimitClose?: (position: Position) => void;
     onMarketClose?: (position: Position) => void;
-    onAddToPosition?: (position: Position) => void;
+    /** Isolated margin row: opens add-margin flow when set. */
+    onAdjustMargin?: (position: Position) => void;
     onTpSl?: (position: Position) => void;
+    /** When `tpSl.showViewOrders`, opens the open-orders tab (parent provides). */
+    onViewOpenOrders?: () => void;
 }
 
 function ArrowRightIcon() {
@@ -61,12 +68,19 @@ function ActionButton({ label, disabled, onPress }: { label: string; disabled?: 
 
 export const PerpsPositionCard = memo<PerpsPositionCardProps>(function PerpsPositionCard({
     position,
+    tpSl,
     disabled,
     onLimitClose,
     onMarketClose,
-    onAddToPosition,
+    onAdjustMargin,
     onTpSl,
+    onViewOpenOrders,
 }) {
+    const [sizeDisplayMode, setSizeDisplayMode] = useState<'coin' | 'usdc'>('coin');
+    const toggleSizeDisplayMode = useCallback(() => {
+        setSizeDisplayMode((m) => (m === 'coin' ? 'usdc' : 'coin'));
+    }, []);
+
     const { data: coinInfo } = useCoinInfo(position.coin);
 
     const marketPrice = coinInfo?.assetCtx?.markPx;
@@ -76,6 +90,12 @@ export const PerpsPositionCard = memo<PerpsPositionCardProps>(function PerpsPosi
     const isBuy = isGreaterThan(position.szi, '0');
     const directionVariant = isBuy ? 'buy' : 'sell';
     const directionLabel = isBuy ? 'Buy' : 'Sell';
+    const canAdjustIsolatedMargin = position.leverage.type === 'isolated' && typeof onAdjustMargin === 'function';
+    const szDecimals = coinInfo?.szDecimals || 2;
+
+    const tpDisplay = tpSl?.tp ?? '--';
+    const slDisplay = tpSl?.sl ?? '--';
+    const showViewOrders = Boolean(tpSl?.showViewOrders);
 
     const { winRatio, winUsdc } = useMemo(() => {
         if (isZero(position.unrealizedPnl)) return { winRatio: 0, winUsdc: 0 };
@@ -90,13 +110,37 @@ export const PerpsPositionCard = memo<PerpsPositionCardProps>(function PerpsPosi
         return { winRatio: `${symbol}${ratio}%`, winUsdc: `${symbol}${formatUSDC(position.unrealizedPnl)}` };
     }, [position, isBuy]);
 
+    const sizeUsdcDisplay = useMemo(() => {
+        if (!marketPrice) {
+            return '--';
+        }
+        const sz = new BigNumber(position.szi || '0').abs();
+        const mark = new BigNumber(marketPrice);
+        if (!sz.isFinite() || sz.isZero() || !mark.isFinite() || mark.lte(0)) {
+            return '--';
+        }
+        return formatUSDC(sz.multipliedBy(mark));
+    }, [marketPrice, position.szi]);
+
+    const sizeLabel = sizeDisplayMode === 'coin' ? `Size(${formatCoinName(position.coin)})` : 'Size (USDC)';
+    const sizeValue = sizeDisplayMode === 'coin' ? position.szi?.replace(/^-/, '') || '--' : sizeUsdcDisplay;
+
     return (
         <YStack backgroundColor="$bg" borderWidth={1} borderColor="$border" borderRadius={12} padding={12} gap={12}>
             {/* Header */}
             <YStack gap={4}>
                 {/* Symbol Row */}
                 <XStack alignItems="center" justifyContent="space-between">
-                    <XStack alignItems="center" gap={4}>
+                    <XStack
+                        alignItems="center"
+                        gap={4}
+                        onPress={() => {
+                            navigate('details', { coin: position.coin });
+                        }}
+                        pressStyle={{ opacity: 0.72 }}
+                        hoverStyle={{ opacity: 0.92 }}
+                        cursor="pointer"
+                    >
                         <Text color="$text" fontSize={14} lineHeight={14} fontWeight={600}>
                             {formatCoinName(position.coin)}
                         </Text>
@@ -123,15 +167,21 @@ export const PerpsPositionCard = memo<PerpsPositionCardProps>(function PerpsPosi
             {/* Size / Margin / Funding */}
             <YStack>
                 <XStack gap={8} alignItems="center">
-                    <YStack flex={1}>
-                        <XStack alignItems="flex-start">
+                    <YStack
+                        flex={1}
+                        onPress={toggleSizeDisplayMode}
+                        pressStyle={{ opacity: 0.72 }}
+                        hoverStyle={{ opacity: 0.92 }}
+                        cursor="pointer"
+                    >
+                        <XStack alignItems="center" alignSelf="flex-start" gap={4}>
                             <Text color="$textDisabled" fontSize={12} lineHeight={14}>
-                                Size({formatCoinName(position.coin)})
+                                {sizeLabel}
                             </Text>
                             <SwapIcon width={16} height={16} />
                         </XStack>
                         <Text color="$text" fontSize={14} lineHeight={20} fontWeight={600}>
-                            {position.szi?.replace(/^-/, '') || '--'}
+                            {sizeValue}
                         </Text>
                     </YStack>
 
@@ -143,16 +193,19 @@ export const PerpsPositionCard = memo<PerpsPositionCardProps>(function PerpsPosi
                             <Text color="$text" fontSize={14} lineHeight={20} fontWeight={600}>
                                 {position.marginUsed ? formatUSDC(position.marginUsed) : '--'}
                             </Text>
-                            <Button
-                                unstyled
-                                width={16}
-                                height={16}
-                                alignItems="center"
-                                justifyContent="center"
-                                pressStyle={{ opacity: 0.72 }}
-                                onPress={() => onAddToPosition?.(position)}
-                                icon={<EditIcon width={16} height={16} />}
-                            />
+                            {canAdjustIsolatedMargin ? (
+                                <Button
+                                    unstyled
+                                    width={16}
+                                    height={16}
+                                    alignItems="center"
+                                    justifyContent="center"
+                                    pressStyle={{ opacity: 0.72 }}
+                                    disabled={disabled}
+                                    onPress={() => onAdjustMargin?.(position)}
+                                    icon={<EditIcon width={16} height={16} />}
+                                />
+                            ) : null}
                         </XStack>
                     </YStack>
 
@@ -175,7 +228,7 @@ export const PerpsPositionCard = memo<PerpsPositionCardProps>(function PerpsPosi
                             Entry Price
                         </Text>
                         <Text color="$text" fontSize={14} lineHeight={20} fontWeight={600}>
-                            {position.entryPx}
+                            {formatPrice(position.entryPx, szDecimals)}
                         </Text>
                     </YStack>
 
@@ -184,7 +237,7 @@ export const PerpsPositionCard = memo<PerpsPositionCardProps>(function PerpsPosi
                             Mark Price
                         </Text>
                         <Text color="$text" fontSize={14} lineHeight={20} fontWeight={600}>
-                            {marketPrice || '--'}
+                            {marketPrice ? formatPrice(marketPrice, szDecimals) : '--'}
                         </Text>
                     </YStack>
 
@@ -193,29 +246,41 @@ export const PerpsPositionCard = memo<PerpsPositionCardProps>(function PerpsPosi
                             Liq. Price
                         </Text>
                         <Text color="$text" fontSize={14} lineHeight={20} fontWeight={600}>
-                            {position.liquidationPx ? formatAmount(position.liquidationPx, 4) : '--'}
+                            {position.liquidationPx ? formatPrice(position.liquidationPx, szDecimals) : '--'}
                         </Text>
                     </YStack>
                 </XStack>
             </YStack>
 
-            {/* TP/SL */}
-            {/* <XStack alignItems="center" gap={4}>
+            {/* TP/SL — OneKey: entry TP/SL without position-order triggers → “View orders” */}
+            <XStack alignItems="center" gap={4}>
                 <Text color="$textDisabled" fontSize={12} lineHeight={14}>
                     TP/SL
                 </Text>
-                {hasTpSl ? (
-                    <Text fontSize={14} lineHeight={20} fontWeight={600}>
-                        <Text color="$textSuccess">{''}</Text>
-                        <Text color="$text"> / </Text>
-                        <Text color="$textCritical">{''}</Text>
+                {showViewOrders ? (
+                    <Text
+                        color="$textSuccess"
+                        fontSize={14}
+                        lineHeight={20}
+                        fontWeight={600}
+                        onPress={() => {
+                            if (!disabled) {
+                                onViewOpenOrders?.();
+                            }
+                        }}
+                        pressStyle={{ opacity: 0.72 }}
+                        cursor="pointer"
+                    >
+                        View orders
                     </Text>
                 ) : (
-                    <Text color="$text" fontSize={14} lineHeight={20} fontWeight={600}>
-                        --/--
+                    <Text fontSize={14} lineHeight={20} fontWeight={600}>
+                        <Text color="$textSuccess">{tpDisplay}</Text>
+                        <Text color="$text"> / </Text>
+                        <Text color="$textCritical">{slDisplay}</Text>
                     </Text>
                 )}
-            </XStack> */}
+            </XStack>
 
             {/* Action Buttons */}
             <XStack gap={12} alignItems="center" justifyContent="center">

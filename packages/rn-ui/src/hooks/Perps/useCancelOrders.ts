@@ -1,64 +1,66 @@
-import type { AllPerpMetasResponse } from '@nktkas/hyperliquid';
+import type { ExchangeClient } from '@nktkas/hyperliquid';
+import type { QueryClient } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import { useAtomValue } from 'jotai';
 
-import { queryClient } from '@/configs/queryClient';
 import { STALE_TIMES } from '@/constants/enum';
+import { resolvePerpCoinIndex } from '@/helpers/resolvePerpCoinIndex';
 import { toast } from '@/helpers/toast';
 import { useAsyncFn } from '@/hooks/useAsyncFn';
 import { infoClient } from '@/providers/client';
 import { exchangeClientAtom } from '@/store/wallet';
 
-function resolveCoinIndex(coinName: string, allMetas: AllPerpMetasResponse) {
-    if (!allMetas?.length) return -1;
-
-    const dexIndex = allMetas.findIndex((meta) => meta.universe.some((c) => c.name === coinName));
-    if (dexIndex === -1) return -1;
-
-    const meta = allMetas[dexIndex];
-    const coinIndex = meta.universe.findIndex((c) => c.name === coinName);
-    if (coinIndex === -1) return -1;
-
-    return dexIndex === 0 ? coinIndex : 100000 + dexIndex * 10000 + coinIndex;
+export interface PerpOrderCancelId {
+    oid: string | number;
+    coin: string;
 }
 
-export function useCancelOrders(
-    orderIds: Array<{
-        oid: string | number;
-        coin: string;
-    }>,
-) {
+/** Imperative cancel (e.g. Clear-all snapshot); same behavior as `useCancelOrders` no-arg call. */
+export async function runCancelPerpOpenOrders(
+    queryClient: QueryClient,
+    exchangeClient: ExchangeClient,
+    orderIds: PerpOrderCancelId[],
+): Promise<void> {
+    if (!orderIds.length) return;
+
+    if (!exchangeClient) {
+        throw new Error('Exchange client not initialized');
+    }
+
+    const allMetas = await queryClient.ensureQueryData({
+        queryKey: ['perps', 'all-metas'],
+        staleTime: STALE_TIMES.MINUTE_10,
+        queryFn: () => infoClient.allPerpMetas(),
+    });
+    if (!allMetas?.length) {
+        throw new Error('Failed to fetch market metadata');
+    }
+
+    const cancels = orderIds.map(({ coin, oid }) => ({
+        o: oid,
+        a: resolvePerpCoinIndex(coin, allMetas),
+    }));
+    if (cancels.some((c) => c.a === -1)) {
+        throw new Error('Failed to resolve coin index for one or more orders');
+    }
+
+    await exchangeClient.cancel({ cancels });
+    toast({
+        message: orderIds.length > 1 ? 'Orders cancelled' : 'Order cancelled',
+        type: 'success',
+    });
+}
+
+export function useCancelOrders(orderIds: PerpOrderCancelId[]) {
     const exchangeClient = useAtomValue(exchangeClientAtom);
+    const queryClient = useQueryClient();
 
     return useAsyncFn(async () => {
-        if (!orderIds.length) return;
-
         try {
             if (!exchangeClient) {
                 throw new Error('Exchange client not initialized');
             }
-
-            const allMetas = await queryClient.ensureQueryData({
-                queryKey: ['perps', 'all-metas'],
-                staleTime: STALE_TIMES.MINUTE_10,
-                queryFn: () => infoClient.allPerpMetas(),
-            });
-            if (!allMetas?.length) {
-                throw new Error('Failed to fetch market metadata');
-            }
-
-            const cancels = orderIds.map(({ coin, oid }) => ({
-                o: oid,
-                a: resolveCoinIndex(coin, allMetas),
-            }));
-            if (cancels.some((c) => c.a === -1)) {
-                throw new Error('Failed to resolve coin index for one or more orders');
-            }
-
-            await exchangeClient.cancel({ cancels });
-            toast({
-                message: orderIds.length > 1 ? 'Orders cancelled' : 'Order cancelled',
-                type: 'success',
-            });
+            await runCancelPerpOpenOrders(queryClient, exchangeClient, orderIds);
         } catch (error) {
             toast({
                 message:
@@ -71,5 +73,5 @@ export function useCancelOrders(
                 error,
             });
         }
-    }, [orderIds, exchangeClient]);
+    }, [orderIds, exchangeClient, queryClient]);
 }

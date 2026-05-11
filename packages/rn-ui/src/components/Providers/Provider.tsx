@@ -1,77 +1,30 @@
-import { ExchangeClient, SubscriptionClient, WebSocketTransport } from '@nktkas/hyperliquid';
-import { QueryClientProvider } from '@tanstack/react-query';
-import { useAtom, useSetAtom } from 'jotai';
-import { type ReactNode, useEffect } from 'react';
+import { type QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import type { ReactNode } from 'react';
 import { useColorScheme } from 'react-native';
 import { TamaguiProvider } from 'tamagui';
 
-import { LoginFallback } from '@/components/LoginFallback';
-import { queryClient } from '@/configs/queryClient';
-import { httpTransport } from '@/providers/client';
-import { store } from '@/store';
-import { navigateAtom, toastAtom } from '@/store/global';
-import { apiModeAtom, sessionTokenAtom } from '@/store/session';
-import { exchangeClientAtom, subscriptionClientAtom, walletClientAtom } from '@/store/wallet';
+import { queryClient as defaultQueryClient } from '@/configs/queryClient';
 import config from '@/tamagui.config';
-import type { NavigateFunc, ToastFn, WalletClient } from '@/types/ui';
 
-interface ProviderProps {
-    token: string | null;
-    apiMode?: 'prod' | 'dev';
+export interface ProviderProps {
     children?: ReactNode;
-    walletClient?: WalletClient;
-    toast: ToastFn;
-    navigate: NavigateFunc;
     theme?: 'light' | 'dark' | 'system';
+    /** When omitted, uses the package default client from `@/configs/queryClient`. */
+    queryClient?: QueryClient;
 }
-const wsTransport = new WebSocketTransport();
 
-export function Provider({ children, theme = 'system', token, apiMode, walletClient, toast, navigate }: ProviderProps) {
+/** React Query + Tamagui shell only. Compose `PerpsBindingsProvider` and optionally `PerpsAuthGate` outside or inside as needed. */
+export function Provider({ children, theme = 'system', queryClient: queryClientProp }: ProviderProps) {
     const colorScheme = useColorScheme();
-    const [authToken, setToken] = useAtom(sessionTokenAtom);
-    const setApiMode = useSetAtom(apiModeAtom);
-    const setExchangeClient = useSetAtom(exchangeClientAtom);
-    const setWalletClient = useSetAtom(walletClientAtom);
-    const setToast = useSetAtom(toastAtom);
-    const setNavigate = useSetAtom(navigateAtom);
     const resolvedTheme: 'light' | 'dark' =
         theme === 'light' || theme === 'dark' ? theme : colorScheme === 'dark' ? 'dark' : 'light';
 
-    useEffect(() => {
-        setToken(token ?? null);
-        setApiMode(apiMode ?? 'prod');
-    }, [token, apiMode, setApiMode, setToken]);
-    useEffect(() => {
-        if (!authToken || !walletClient) {
-            setExchangeClient(null);
-            setWalletClient(null);
-            return;
-        }
-        const exchangeClient = new ExchangeClient({
-            transport: httpTransport,
-            wallet: walletClient,
-        });
-        setExchangeClient(exchangeClient);
-        setWalletClient(walletClient);
-    }, [authToken, walletClient, setExchangeClient, setWalletClient]);
-    useEffect(() => {
-        if (typeof toast === 'function') {
-            setToast({ toast });
-        }
-    }, [toast, setToast]);
-    useEffect(() => {
-        if (typeof navigate === 'function') {
-            setNavigate({ navigate });
-        }
-    }, [navigate, setNavigate]);
-    useEffect(() => {
-        store.set(subscriptionClientAtom, new SubscriptionClient({ transport: wsTransport }));
-    }, []);
+    const qc = queryClientProp ?? defaultQueryClient;
 
     return (
-        <QueryClientProvider client={queryClient}>
+        <QueryClientProvider client={qc}>
             <TamaguiProvider config={config} defaultTheme={resolvedTheme}>
-                {!authToken ? <LoginFallback /> : children}
+                {children}
             </TamaguiProvider>
         </QueryClientProvider>
     );

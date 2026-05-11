@@ -1,4 +1,6 @@
+import { BigNumber } from 'bignumber.js';
 import { memo, useCallback, useState } from 'react';
+import { Circle, Path, Svg } from 'react-native-svg';
 import { Button, Text, XStack, YStack } from 'tamagui';
 
 import { AccountAmountSheet } from '@/components/AccountAmountSheet';
@@ -12,6 +14,21 @@ import { BackIcon } from '@/icons/BackIcon';
 import { ChartIcon } from '@/icons/ChartIcon';
 import { ChevronDownIcon } from '@/icons/ChevronDownIcon';
 import type { PerpsMeta } from '@/types/ui';
+
+function DepositHeaderIcon() {
+    return (
+        <Svg width={20} height={20} viewBox="0 0 20 20" fill="none">
+            <Circle cx={10} cy={10} r={8.75} stroke="#FFFFFF" strokeWidth={1.2} />
+            <Path
+                d="M10 6.75V11.25M7.25 11.25L10 13L12.75 11.25"
+                stroke="#FFFFFF"
+                strokeWidth={1.35}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+        </Svg>
+    );
+}
 
 interface PerpsTradeDetailHeaderProps {
     dex: string;
@@ -30,7 +47,7 @@ export const PerpsTradeDetailHeader = memo<PerpsTradeDetailHeaderProps>(function
 }) {
     const [accountAmountSheetOpen, setAccountAmountSheetOpen] = useState(false);
     const [isTokenSelectorOpen, setTokenSelectorOpen] = useState(false);
-    const { withdrawable, isLoading } = usePerpsComputedAccountValue();
+    const { accountValue, isLoading } = usePerpsComputedAccountValue();
 
     const onTokenChange = useCallback(
         (meta: PerpsMeta) => {
@@ -41,7 +58,11 @@ export const PerpsTradeDetailHeader = memo<PerpsTradeDetailHeaderProps>(function
     );
 
     const changeColor = (priceDiffRatio ?? 0) < 0 ? '$textCritical' : '$textSuccess';
-    const availableDisplay = isLoading ? '--' : formatUSDC(withdrawable ?? 0);
+    // Avoid flashing Deposit: when loading ends, accountValue can still be undefined for a tick
+    // before clearinghouse marginSummary is applied — do not treat undefined as zero.
+    const accountValueReady = !isLoading && accountValue !== undefined;
+    const totalDisplay = accountValueReady ? formatUSDC(accountValue) : '--';
+    const showDepositCta = accountValueReady && new BigNumber(accountValue).lte(0);
     const dexLabel = dex || 'Perps';
 
     return (
@@ -71,22 +92,35 @@ export const PerpsTradeDetailHeader = memo<PerpsTradeDetailHeaderProps>(function
 
                 <Button
                     unstyled
-                    backgroundColor="$bgSubdued"
-                    borderWidth={1}
-                    borderColor="$bgHover"
+                    backgroundColor={showDepositCta ? '$accent' : '$bgSubdued'}
+                    borderWidth={showDepositCta ? 0 : 1}
+                    borderColor={showDepositCta ? 'transparent' : '$bgHover'}
                     borderRadius={16}
                     paddingHorizontal={12}
                     paddingVertical={6}
                     alignItems="center"
-                    gap={6}
+                    justifyContent="center"
                     pressStyle={{ opacity: 0.75 }}
                     onPress={() => {
+                        if (showDepositCta) {
+                            void navigate('addFunds', {});
+                            return;
+                        }
                         setAccountAmountSheetOpen(true);
                     }}
                 >
-                    <Text color="$text" fontSize={14} lineHeight={20} fontWeight={600}>
-                        {availableDisplay}
-                    </Text>
+                    {showDepositCta ? (
+                        <XStack alignItems="center" gap={4}>
+                            <DepositHeaderIcon />
+                            <Text color="#FFFFFF" fontSize={14} lineHeight={20} fontWeight={600}>
+                                Deposit
+                            </Text>
+                        </XStack>
+                    ) : (
+                        <Text color="$text" fontSize={14} lineHeight={20} fontWeight={600}>
+                            {totalDisplay}
+                        </Text>
+                    )}
                 </Button>
             </XStack>
 

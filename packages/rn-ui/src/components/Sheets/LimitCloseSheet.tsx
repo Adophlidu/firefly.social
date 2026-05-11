@@ -6,8 +6,10 @@ import { ButtonUI } from '@/components/ButtonUI';
 import { CoinAvatar } from '@/components/CoinAvatar';
 import { SheetDragHandle } from '@/components/SheetDragHandle';
 import { TokenAmountInput } from '@/components/TokenAmountInput';
+import { UsdPriceInput } from '@/components/UsdPriceInput';
 import { formatCoinName } from '@/helpers/formatCoinName';
-import { dividedBy, isGreaterThan, isLessThan, isZero, minus, multipliedBy, toFixed } from '@/helpers/number';
+import { formatPrice } from '@/helpers/formatPrice';
+import { dividedBy, isGreaterThan, isLessThan, isZero, minus, multipliedBy } from '@/helpers/number';
 import { isValidSize } from '@/helpers/tradeForm';
 import { useCoinInfo } from '@/hooks/Perps/useCoinInfo';
 
@@ -156,9 +158,9 @@ export const LimitCloseSheet = memo<LimitCloseSheetProps>(function LimitCloseShe
                             alignItems="center"
                             gap="$2"
                         >
-                            <TokenAmountInput
-                                decimal={2}
+                            <UsdPriceInput
                                 disabled={disabled}
+                                szDecimals={szDecimals}
                                 flex={1}
                                 minWidth={0}
                                 value={usdc}
@@ -169,7 +171,7 @@ export const LimitCloseSheet = memo<LimitCloseSheetProps>(function LimitCloseShe
                                     unstyled
                                     flexShrink={0}
                                     onPress={() => {
-                                        setUsdc(toFixed(midPrice, 2));
+                                        setUsdc(formatPrice(midPrice, szDecimals));
                                     }}
                                 >
                                     <Text fontSize={14} fontWeight={500} color="$accent">

@@ -1,9 +1,9 @@
+import { useQueryClient } from '@tanstack/react-query';
 import { useAtomValue } from 'jotai';
 import type { ComponentProps } from 'react';
 import { memo, useMemo } from 'react';
 import { Button } from 'tamagui';
 
-import { queryClient } from '@/configs/queryClient';
 import { UserActionState } from '@/constants/enum';
 import { toast } from '@/helpers/toast';
 import { useUserActionState } from '@/hooks/Perps/useUserActionState';
@@ -26,6 +26,7 @@ export const WalletActionButton = memo<Props>(function WalletActionButton({
     children,
     ...rest
 }) {
+    const queryClient = useQueryClient();
     const { state, isLoading, address } = useUserActionState();
     const walletClient = useAtomValue(walletClientAtom);
 
@@ -69,7 +70,7 @@ export const WalletActionButton = memo<Props>(function WalletActionButton({
         }
 
         onPress?.();
-    }, [state, walletClient, address, onPress]);
+    }, [state, walletClient, address, onPress, queryClient]);
 
     const disabled =
         (isLoading || loading || isExecuting || disabledProp) &&
