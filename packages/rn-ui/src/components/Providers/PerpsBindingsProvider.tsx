@@ -1,9 +1,8 @@
 import { ExchangeClient, SubscriptionClient, WebSocketTransport } from '@nktkas/hyperliquid';
-import { Provider as JotaiProvider, useAtomValue, useSetAtom } from 'jotai';
+import { useAtomValue, useSetAtom } from 'jotai';
 import { type ReactNode, useEffect } from 'react';
 
 import { httpTransport } from '@/providers/client';
-import { store } from '@/store';
 import { navigateAtom, toastAtom } from '@/store/global';
 import { apiModeAtom, sessionTokenAtom } from '@/store/session';
 import { exchangeClientAtom, subscriptionClientAtom, walletClientAtom } from '@/store/wallet';
@@ -20,16 +19,12 @@ export interface PerpsBindingsProviderProps {
     navigate: NavigateFunc;
 }
 
-/**
- * Mounts an isolated Jotai `store` for rn-ui and syncs session token, API mode, Hyperliquid
- * clients, and host toast/navigate into that store. Does not wrap QueryClient or Tamagui.
- */
 export function PerpsBindingsProvider({ children, ...syncProps }: PerpsBindingsProviderProps) {
     return (
-        <JotaiProvider store={store}>
+        <>
             <PerpsBindingsSync {...syncProps} />
             {children}
-        </JotaiProvider>
+        </>
     );
 }
 
