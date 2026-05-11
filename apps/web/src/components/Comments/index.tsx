@@ -12,7 +12,7 @@ import { HideComments } from '@/components/HideComments.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
 import { ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
-import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { resolveProviderOptions, resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { enrichPostWithFireflyArticle } from '@/services/getPostById.js';
 
@@ -36,7 +36,7 @@ export const CommentList = memo<CommentListProps>(function CommentList({
         queryFn: async ({ pageParam }) => {
             if (!postId) return createPageable<Post>(EMPTY_LIST, createIndicator());
 
-            const provider = resolveSocialMediaProvider(source);
+            const provider = resolveSocialMediaProvider(source, resolveProviderOptions(source, pageParam));
             const comments = await provider.getCommentsById(postId, createIndicator(undefined, pageParam));
 
             if (source === Source.Bsky) {

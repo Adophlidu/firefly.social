@@ -227,6 +227,6 @@ export class NitterError extends Error {
 }
 
 export class TweetUnavailableError extends Error {
-    static message = 'You’re unable to view this Post because this account owner limits who can view their Posts.';
+    static message = "You're unable to view this Post because this account owner limits who can view their Posts.";
     override name = 'TweetUnavailableError';
 }

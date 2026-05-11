@@ -8,7 +8,7 @@ import { ListInPage } from '@/components/ListInPage.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
 import { ScrollListKey, SocialProfileCategory, type SocialSource } from '@/constants/enum.js';
 import { getPostsSelector } from '@/helpers/getPostsSelector.js';
-import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { resolveProviderOptions, resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useIsProfileProtected } from '@/hooks/useIsProfileProtected.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -25,7 +25,7 @@ export function RepliesList({ profileId, source }: RepliesListProps) {
         queryFn: async ({ pageParam }) => {
             if (!profileId) return createPageable<Post>(EMPTY_LIST, createIndicator());
 
-            const provider = resolveSocialMediaProvider(source);
+            const provider = resolveSocialMediaProvider(source, resolveProviderOptions(source, pageParam));
             const posts = await provider.getRepliesPostsByProfileId(profileId, createIndicator(undefined, pageParam));
 
             return posts;

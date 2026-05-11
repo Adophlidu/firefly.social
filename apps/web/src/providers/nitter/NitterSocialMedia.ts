@@ -46,6 +46,14 @@ function notImplementedWhenClientHasTwitterSession(): boolean {
     return !isServer && Boolean(twitterSessionHolder.session);
 }
 
+/** fires when the PageIndicator arg looks like a Twitter v2 next_token (lowercase, short). */
+function whenNotV11Cursor(argIndex: number): (...args: unknown[]) => boolean {
+    return (...args: unknown[]): boolean => {
+        const indicator = args[argIndex] as PageIndicator | undefined;
+        return !!indicator?.id && /^[a-z0-9]+$/.test(indicator.id);
+    };
+}
+
 @SetQueryDataForPosts
 @AddAuthorHighlightStatusForPosts(Source.Twitter)
 class NitterSocialMedia implements Provider {
@@ -294,6 +302,7 @@ class NitterSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
+    @Throw(() => new NotImplementedError(), whenNotV11Cursor(1))
     async getPostsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const username = await getTwitterHandleById(profileId);
         const pageable = await runInSafeAsync(async () => {
@@ -309,6 +318,7 @@ class NitterSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
+    @Throw(() => new NotImplementedError(), whenNotV11Cursor(1))
     async getRepliesPostsByProfileId(
         profileId: string,
         indicator?: PageIndicator,
@@ -324,6 +334,7 @@ class NitterSocialMedia implements Provider {
         return pageable ?? createPageable(EMPTY_LIST, createIndicator(indicator));
     }
 
+    @Throw(() => new NotImplementedError(), whenNotV11Cursor(1))
     async getCommentsById(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const { tweet, replies, after } = await NitterAPIProvider.getTweetStatus('web', postId, {
             cursor: indicator?.id,
@@ -339,7 +350,9 @@ class NitterSocialMedia implements Provider {
             return createPageable(
                 await patchPostsClientToFirefly(data),
                 createIndicator(indicator),
-                replies.bottom ? createNextIndicator(indicator, replies.bottom) : undefined,
+                replies.bottom && replies.tweets.length > 0
+                    ? createNextIndicator(indicator, replies.bottom)
+                    : undefined,
             );
         });
         return pageable ?? createPageable(EMPTY_LIST, createIndicator(indicator));
@@ -373,6 +386,7 @@ class NitterSocialMedia implements Provider {
     }
 
     @Throw(() => new NotImplementedError(), notImplementedWhenClientHasTwitterSession)
+    @Throw(() => new NotImplementedError(), whenNotV11Cursor(2))
     async searchPosts(
         q: string,
         _fullMatch?: boolean,

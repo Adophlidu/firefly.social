@@ -46,6 +46,17 @@ function createTwitterSocialMediaResolverProxy(preferred: 'nitter' | 'twitter'):
     ) as OfficialSocialMedia;
 }
 
+/** Check if a cursor looks like a Nitter (v1.1) cursor (has uppercase/base64 chars). */
+export function isNitterCursor(cursor: string): boolean {
+    return /[A-Z]/.test(cursor);
+}
+
+/** Resolve Twitter provider options based on cursor format in pageParam. */
+export function resolveProviderOptions(source: SocialSource, pageParam?: string): Options | undefined {
+    if (source !== Source.Twitter || !pageParam) return undefined;
+    return { [Source.Twitter]: isNitterCursor(pageParam) || isServer ? 'nitter' : 'twitter' };
+}
+
 export function resolveSocialMediaProvider(source: SocialSource, options?: Options) {
     switch (source) {
         case Source.Lens:

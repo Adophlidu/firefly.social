@@ -4,7 +4,7 @@
  * @param factory Invoked on each call; must return an `Error` or subclass.
  * @param when When provided and returns true, `factory()` is thrown instead of running the method.
  */
-export function Throw<E extends Error>(factory: () => E, when?: () => boolean) {
+export function Throw<E extends Error>(factory: () => E, when?: (...args: unknown[]) => boolean) {
     return function <This, Args extends readonly unknown[], Return>(
         _target: object,
         _propertyKey: string | number | symbol,
@@ -16,7 +16,7 @@ export function Throw<E extends Error>(factory: () => E, when?: () => boolean) {
         if (when) {
             const original = descriptor.value;
             descriptor.value = function (this: This, ...args: Args): Return {
-                if (when()) throw factory();
+                if (when(...args)) throw factory();
                 return Reflect.apply(original, this, args) as Return;
             };
         } else {

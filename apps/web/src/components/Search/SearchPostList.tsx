@@ -14,7 +14,7 @@ import { ScrollListKey, type SearchType, type SocialSource, Source } from '@/con
 import { REQUIRE_LOGIN_SOURCES_IN_SEARCH } from '@/constants/static.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveSearchUrlType, SearchUrlKind } from '@/helpers/resolveSearchUrlType.js';
-import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { resolveProviderOptions, resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { logger } from '@/libs/Logger.js';
 import { getPostByShortId } from '@/providers/firefly/farcaster-hub/getPostByShortId.js';
@@ -87,7 +87,10 @@ export const SearchPostList = memo<Props>(function SearchPostList({
                         pageParam || source === Source.Lens
                             ? createIndicator(undefined, pageParam, pageSize)
                             : undefined;
-                    const provider = resolveSocialMediaProvider(socialSource);
+                    const provider = resolveSocialMediaProvider(
+                        socialSource,
+                        resolveProviderOptions(socialSource, pageParam),
+                    );
                     const result = await provider.searchPosts(
                         searchKeyword.replace(/^#/, ''),
                         searchKeyword.includes(' '),

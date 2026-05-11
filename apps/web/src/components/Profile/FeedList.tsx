@@ -12,7 +12,7 @@ import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.
 import { ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
 import { getPostsSelector } from '@/helpers/getPostsSelector.js';
 import { isSamePost } from '@/helpers/isSamePost.js';
-import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { resolveProviderOptions, resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useIsProfileProtected } from '@/hooks/useIsProfileProtected.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -39,9 +39,12 @@ export function FeedList({ profileId, source }: FeedListProps) {
         queryFn: async ({ pageParam }) => {
             if (!profileId) return createPageable<Post>(EMPTY_LIST, createIndicator());
 
-            const provider = resolveSocialMediaProvider(source, {
-                [Source.Twitter]: forceTwitterOfficial ? 'twitter' : undefined,
-            });
+            const provider = resolveSocialMediaProvider(
+                source,
+                resolveProviderOptions(source, pageParam) ?? {
+                    [Source.Twitter]: forceTwitterOfficial ? 'twitter' : undefined,
+                },
+            );
             const pageIndicator = createIndicator(undefined, pageParam);
             const posts = await provider.getPostsByProfileId(profileId, pageIndicator);
 

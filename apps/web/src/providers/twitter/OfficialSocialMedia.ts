@@ -31,6 +31,7 @@ import { SetQueryDataForFollowProfile } from '@/decorators/SetQueryDataForFollow
 import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js';
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
+import { Throw } from '@/decorators/Throw.js';
 import { UndoRepostStatusToTwitterPosts } from '@/decorators/UndoRepostStatusToTwitterPosts.js';
 import { WithMutedProfilesQuery } from '@/decorators/WithMutedProfilesQuery.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
@@ -74,6 +75,14 @@ import {
 import { useTwitterLikeStore } from '@/store/useTwitterLikeStore.js';
 import { useTwitterRetweetStore } from '@/store/useTwitterRetweetStore.js';
 import type { PartialWith, ResponseJson } from '@/types/utility.js';
+
+/** fires when the PageIndicator arg looks like a Nitter/v1.1 cursor (contains uppercase). */
+function whenNotV2Cursor(argIndex: number): (...args: unknown[]) => boolean {
+    return (...args: unknown[]): boolean => {
+        const indicator = args[argIndex] as PageIndicator | undefined;
+        return !!indicator?.id && /[A-Z]/.test(indicator.id);
+    };
+}
 
 @SetQueryDataForLikePost(Source.Twitter)
 @SetQueryDataForBookmarkPost(Source.Twitter)
@@ -398,6 +407,7 @@ class OfficialSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
+    @Throw(() => new NotImplementedError(), whenNotV2Cursor(1))
     async getPostsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const url = urlcat(`/api/twitter/userTimeline/${profileId}`, {
             limit: 25,
@@ -422,6 +432,7 @@ class OfficialSocialMedia implements Provider {
         return { ...postWithPageable, data: postWithPageable.data.map((post) => ({ ...post, hasLiked: true })) };
     }
 
+    @Throw(() => new NotImplementedError(), whenNotV2Cursor(1))
     async getRepliesPostsByProfileId(
         profileId: string,
         indicator?: PageIndicator,
@@ -435,6 +446,7 @@ class OfficialSocialMedia implements Provider {
         return formatTweetsPage(data, indicator);
     }
 
+    @Throw(() => new NotImplementedError(), whenNotV2Cursor(1))
     async getCommentsById(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const url = urlcat(`/api/twitter/${postId}/comments`, {
             limit: 25,
@@ -475,6 +487,7 @@ class OfficialSocialMedia implements Provider {
         }
     }
 
+    @Throw(() => new NotImplementedError(), whenNotV2Cursor(2))
     async searchPosts(
         q: string,
         _fullMatch?: boolean,
