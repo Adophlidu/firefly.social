@@ -20,7 +20,7 @@ import { TokenIcon } from '@/components/TokenIcon.js';
 import { Button } from '@/components/ui/button.js';
 import { useComeback } from '@/components/useComeback.js';
 import { SwapFromPage } from '@/constants/enum.js';
-import { PRIVY_CONNECTOR_ID } from '@/constants/static.js';
+import { BET_DEPOSIT_MIN_USD, PRIVY_CONNECTOR_ID } from '@/constants/static.js';
 import { formatTokenItemAmount } from '@/helpers/formatTokenItemAmount.js';
 import { optimisticSubtractBalance } from '@/helpers/polymarketBalanceCache.js';
 import { toastLoading } from '@/helpers/toastLoading.js';
@@ -75,11 +75,11 @@ function WithdrawClient() {
     const { token: targetToken, isLoading: isLoadingTargetToken } = useWithdrawToken(supportedTokens);
 
     const minCheckoutUsd = useMemo(() => {
-        if (!supportedTokens || !targetToken) return 1;
+        if (!supportedTokens || !targetToken) return BET_DEPOSIT_MIN_USD;
         const match = supportedTokens.find(
             (t) => isSameEthereumAddress(t.token_address, targetToken.id) && t.chain_id === targetToken.chainId,
         );
-        return match?.min_checkout_usd ?? 1;
+        return match?.min_checkout_usd ?? BET_DEPOSIT_MIN_USD;
     }, [supportedTokens, targetToken]);
 
     const { data: withdrawPreview, isLoading: isLoadingWithdrawPreview } = useQuery({
