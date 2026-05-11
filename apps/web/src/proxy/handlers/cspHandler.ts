@@ -33,11 +33,16 @@ function buildCSP(): string {
         'api.firefly.land',
         'api-dev.firefly.land',
         'firefly.land',
+        'grove.storage',
 
+        'stream.farcaster.xyz',
         '*.bsky.network',
         'bsky.social',
         'public.api.bsky.app',
         '*.farcaster.xyz',
+
+        // CDN
+        '*.cloudflarestream.com',
 
         // Twitter
         'video.twimg.com',
@@ -46,7 +51,7 @@ function buildCSP(): string {
         'rpc.lens.xyz',
 
         'static.cloudflareinsights.com',
-        'www.google-analytics.com',
+        '*.google-analytics.com',
 
         // Web3 APIs
         '*.quiknode.pro',
@@ -79,11 +84,31 @@ function buildCSP(): string {
         ...EXTRA_SOURCES,
     ].filter(Boolean) as string[];
 
-    const imgSrc = ['*', 'data:', 'blob:'];
+    const mediaSrc = ['*', 'data:', 'blob:'];
 
-    const styleSrc = ["'self'", "'unsafe-inline'", 'fonts.reown.com', 'fonts.googleapis.com', ...EXTRA_SOURCES];
+    const styleSrc = [
+        "'self'",
+        "'unsafe-inline'",
+        'fonts.reown.com',
+        'fonts.googleapis.com',
+        'media.firefly.land',
+        // TODO: really? why we have CSS from these domains?
+        'coin-images.coingecko.com',
+        'imagedelivery.net',
+        'warpcast.com',
+        ...EXTRA_SOURCES,
+    ];
 
-    const fontSrc = ["'self'", 'fonts.reown.com', 'fonts.googleapis.com', ...EXTRA_SOURCES];
+    const fontSrc = [
+        "'self'",
+        'fonts.reown.com',
+        'fonts.googleapis.com',
+        'imagedelivery.net',
+        'coin-images.coingecko.com',
+        'media.firefly.land',
+        'warpcast.com',
+        ...EXTRA_SOURCES,
+    ];
 
     // fallback to child-src, then default-src
     const workerSrc = ["'self'", ...EXTRA_SOURCES];
@@ -91,13 +116,11 @@ function buildCSP(): string {
     // what iframe we can load, fallback to child-src, then default-src
     const frameSrc = ["'self'", ...EXTRA_SOURCES];
 
-    const mediaSrc = ["'self'", 'blob:', 'data:', ...EXTRA_SOURCES];
-
     const directives = [
         `default-src ${defaultSrc.join(' ')}`,
         `connect-src ${connectSrc.join(' ')}`,
         `script-src ${scriptSrc.join(' ')}`,
-        `img-src ${imgSrc.join(' ')}`,
+        `img-src ${mediaSrc.join(' ')}`,
         `media-src ${mediaSrc.join(' ')}`,
         `style-src ${styleSrc.join(' ')}`,
         `font-src ${fontSrc.join(' ')}`,
