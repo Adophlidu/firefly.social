@@ -212,9 +212,6 @@ msgstr "Set Recovery Email"
 msgid "Close lost position"
 msgstr "Close lost position"
 
-msgid "Service fee"
-msgstr "Service fee"
-
 msgid "Market not found"
 msgstr "Market not found"
 
@@ -423,10 +420,6 @@ msgstr "Copy"
 msgid "Amount"
 msgstr "Amount"
 
-#. placeholder {0}: formatTokenUSD(withdrawPreview?.fee ?? 0, { minDisplay: 0.01 })
-msgid "Service fee: <0>{0}</0>"
-msgstr "Service fee: <0>{0}</0>"
-
 msgid "Claim"
 msgstr "Claim"
 
@@ -480,9 +473,6 @@ msgstr "Bridge"
 
 msgid "Enter amount"
 msgstr "Enter amount"
-
-msgid "Firefly charges a fee for withdraw based on the withdraw funds amount."
-msgstr "Firefly charges a fee for withdraw based on the withdraw funds amount."
 
 #. placeholder {0}: formatTokenItemAmount(availableSharesBN, 2)
 #. placeholder {0}: formatTokenUSD(availableAmount, { minDisplay: 0.01 })
@@ -712,6 +702,10 @@ msgstr "Authentication"
 
 msgid "Sent Failed"
 msgstr "Sent Failed"
+
+#. placeholder {0}: minCheckoutUsd.toFixed(2)
+msgid "Minimum ${0}"
+msgstr "Minimum ${0}"
 
 msgid "Please enter your new email address. We will send a verification code to confirm the change. Once updated, PIN reset codes and security verifications will be sent to this new email."
 msgstr "Please enter your new email address. We will send a verification code to confirm the change. Once updated, PIN reset codes and security verifications will be sent to this new email."

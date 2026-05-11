@@ -212,9 +212,6 @@ msgstr ""
 msgid "Close lost position"
 msgstr ""
 
-msgid "Service fee"
-msgstr ""
-
 msgid "Market not found"
 msgstr ""
 
@@ -423,10 +420,6 @@ msgstr ""
 msgid "Amount"
 msgstr ""
 
-#. placeholder {0}: formatTokenUSD(withdrawPreview?.fee ?? 0, { minDisplay: 0.01 })
-msgid "Service fee: <0>{0}</0>"
-msgstr ""
-
 msgid "Claim"
 msgstr ""
 
@@ -479,9 +472,6 @@ msgid "Bridge"
 msgstr ""
 
 msgid "Enter amount"
-msgstr ""
-
-msgid "Firefly charges a fee for withdraw based on the withdraw funds amount."
 msgstr ""
 
 #. placeholder {0}: formatTokenItemAmount(availableSharesBN, 2)
@@ -711,6 +701,10 @@ msgid "Authentication"
 msgstr ""
 
 msgid "Sent Failed"
+msgstr ""
+
+#. placeholder {0}: minCheckoutUsd.toFixed(2)
+msgid "Minimum ${0}"
 msgstr ""
 
 msgid "Please enter your new email address. We will send a verification code to confirm the change. Once updated, PIN reset codes and security verifications will be sent to this new email."

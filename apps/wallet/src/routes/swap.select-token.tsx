@@ -5,6 +5,7 @@ import { isSolanaChain } from '@dimensiondev/web3/chains';
 import { formatTokenAddress, isNativeTokenOrSameAddress } from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
+import { useQuery } from '@tanstack/react-query';
 import { createFileRoute, useSearch } from '@tanstack/react-router';
 import { useAtomValue, useSetAtom } from 'jotai';
 import { ChevronDown, ChevronUp } from 'lucide-react';
@@ -23,6 +24,7 @@ import { useGoBackAfterSelectToken } from '@/hooks/swap/useGoBackAfterSelectToke
 import { useSwapSupportedChains } from '@/hooks/swap/useSwapSupportedChains.js';
 import { useSearchTokens, useSwapTokens } from '@/hooks/swap/useSwapTokens.js';
 import type { SelectTokenSearch, SwapToken } from '@/providers/swap/types.js';
+import { getPolymarketWithdrawSupportedTokensQueryOptions } from '@/queries/firefly/getPolymarketWithdrawSupportedTokensQueryOptions.js';
 import {
     fromAddressAtom,
     fromAmountAtom,
@@ -73,7 +75,7 @@ function SelectTokenPage() {
     });
     const { data: supportedChains, isLoading: isLoadingChains } = useSwapSupportedChains();
     const {
-        myTokens,
+        myTokens: rawMyTokens,
         recentTokens,
         trendingTokens: trendingTokensForSwap,
         isLoading,
@@ -86,6 +88,20 @@ function SelectTokenPage() {
         hideRecent,
         supportedChains,
     });
+    const { data: withdrawSupportedTokens } = useQuery({
+        ...getPolymarketWithdrawSupportedTokensQueryOptions(),
+        enabled: from === SwapFromPage.BetWithdraw || from === SwapFromPage.BetDeposit,
+    });
+
+    const myTokens = useMemo(() => {
+        if ((from !== SwapFromPage.BetWithdraw && from !== SwapFromPage.BetDeposit) || !withdrawSupportedTokens?.length)
+            return rawMyTokens;
+
+        const supportedSet = new Set(
+            withdrawSupportedTokens.map((t) => `${t.chain_id}-${t.token_address.toLowerCase()}`),
+        );
+        return rawMyTokens.filter((token) => supportedSet.has(`${token.chainId}-${token.address.toLowerCase()}`));
+    }, [rawMyTokens, withdrawSupportedTokens, from]);
     const trendingTokens = useMemo(
         () => (from === SwapFromPage.BetWithdraw ? trendingTokensForWithdraw : trendingTokensForSwap) || [],
         [trendingTokensForWithdraw, trendingTokensForSwap, from],

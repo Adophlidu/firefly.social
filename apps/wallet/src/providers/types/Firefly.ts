@@ -397,6 +397,19 @@ export type PreviewPolymarketWithdrawResponse = Response<{
     fee: number;
 }>;
 
+export interface WithdrawSupportedToken {
+    chain_id: number;
+    chain_name: string;
+    token_address: string;
+    token_symbol: string;
+    token_name: string;
+    min_checkout_usd: number;
+    token_icon: string;
+    token_decimals: number;
+}
+
+export type WithdrawSupportedTokensResponse = Response<WithdrawSupportedToken[]>;
+
 export interface CreatePolymarketOrderResult {
     orderId: string;
     takingAmount: string;

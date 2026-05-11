@@ -31,6 +31,7 @@ import { useSwapQuoteCore } from '@/hooks/swap/useSwapQuoteCore.js';
 import { useEmbeddedWalletAddresses } from '@/hooks/useCachedWalletAddresses.js';
 import { useDecimalInput } from '@/hooks/useDecimalInput.js';
 import { cn } from '@/lib/utils.js';
+import { getPolymarketWithdrawSupportedTokensQueryOptions } from '@/queries/firefly/getPolymarketWithdrawSupportedTokensQueryOptions.js';
 import { getFireflyEndpoint } from '@/store/fireflyEndpoint.js';
 
 export const Route = createFileRoute('/bet/deposit')({
@@ -69,6 +70,18 @@ function DepositClient() {
         isBalanceLoading,
         isDefaultTokenLoading,
     } = useDepositToken();
+
+    const { data: supportedTokens } = useQuery(getPolymarketWithdrawSupportedTokensQueryOptions());
+
+    const minCheckoutUsd = useMemo(() => {
+        if (!supportedTokens || !depositToken) return BET_DEPOSIT_MIN_USD;
+        const match = supportedTokens.find(
+            (t) =>
+                t.token_address.toLowerCase() === (depositToken.address ?? '').toLowerCase() &&
+                t.chain_id === depositToken.chainId,
+        );
+        return match?.min_checkout_usd ?? BET_DEPOSIT_MIN_USD;
+    }, [supportedTokens, depositToken]);
 
     const maxDecimals = inputType === InputType.Amount && depositToken ? depositToken.decimals : 2;
     const { inputProps } = useDecimalInput({ value, onValueChange: setValue, maxDecimals });
@@ -131,7 +144,7 @@ function DepositClient() {
 
     const isInsufficientBalance = depositToken ? isLessThan(depositToken.balance, amount) : false;
     const receivedUsdc = isSameToken ? usdcValue : (quote?.toAmount ?? '0');
-    const isLessThanMinimum = isLessThan(receivedUsdc, BET_DEPOSIT_MIN_USD);
+    const isLessThanMinimum = isLessThan(receivedUsdc, minCheckoutUsd);
     const disabled =
         !value ||
         isInsufficientBalance ||
@@ -149,10 +162,10 @@ function DepositClient() {
             return <Trans>Insufficient Gas</Trans>;
         }
         if (isLessThanMinimum) {
-            return <Trans>Minimum $1.00</Trans>;
+            return <Trans>Minimum ${minCheckoutUsd.toFixed(2)}</Trans>;
         }
         return <Trans>Add Funds</Trans>;
-    }, [isLessThanMinimum, isInsufficientGas, isInsufficientBalance]);
+    }, [isLessThanMinimum, isInsufficientGas, isInsufficientBalance, minCheckoutUsd]);
 
     const { mutateAsync, isPending } = useAddFunds({
         depositToken: depositToken ?? undefined,

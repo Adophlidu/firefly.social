@@ -1,7 +1,7 @@
 import ArrowDownIcon from '@dimensiondev/assets/arrow-line-down.svg';
-import InfoOutlineIcon from '@dimensiondev/assets/info-outline.svg';
 import { isSolanaChain } from '@dimensiondev/web3/chains';
 import { isGreaterThan, isLessThan } from '@dimensiondev/web3/numbers';
+import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useMutation, useQuery, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
@@ -14,15 +14,6 @@ import { polygon } from 'viem/chains';
 import { useConnectors, useSignMessage } from 'wagmi';
 
 import { BetError } from '@/components/Bet/BetError.js';
-import {
-    DialogOrDrawer,
-    DialogOrDrawerClose,
-    DialogOrDrawerContent,
-    DialogOrDrawerDescription,
-    DialogOrDrawerFooter,
-    DialogOrDrawerTitle,
-    DialogOrDrawerTrigger,
-} from '@/components/DialogOrDrawer.js';
 import { LoadingPanel } from '@/components/LoadingPanel.js';
 import { NavigationBar } from '@/components/NavigationBar.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
@@ -31,11 +22,10 @@ import { useComeback } from '@/components/useComeback.js';
 import { SwapFromPage } from '@/constants/enum.js';
 import { PRIVY_CONNECTOR_ID } from '@/constants/static.js';
 import { formatTokenItemAmount } from '@/helpers/formatTokenItemAmount.js';
-import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { optimisticSubtractBalance } from '@/helpers/polymarketBalanceCache.js';
 import { toastLoading } from '@/helpers/toastLoading.js';
 import { waitForPolymarketWithdraw } from '@/helpers/waitForPolymarketWithdraw.js';
-import { pusdTokenFallback, useWithdrawToken } from '@/hooks/bet/useTokenDetail.js';
+import { useWithdrawToken } from '@/hooks/bet/useTokenDetail.js';
 import { useGoToSelectToken } from '@/hooks/swap/useGoToSelectToken.js';
 import { useEmbeddedWalletAddresses } from '@/hooks/useCachedWalletAddresses.js';
 import { useDecimalInput } from '@/hooks/useDecimalInput.js';
@@ -43,6 +33,7 @@ import { cn } from '@/lib/utils.js';
 import { getPolymarketAccountQueryOptions } from '@/queries/firefly/getPolymarketAccountQueryOptions.js';
 import { getPolymarketProfileListQueryOptions } from '@/queries/firefly/getPolymarketProfileListQueryOptions.js';
 import { getPolymarketWithdrawableAmountQueryOptions } from '@/queries/firefly/getPolymarketWithdrawableAmountQueryOptions.js';
+import { getPolymarketWithdrawSupportedTokensQueryOptions } from '@/queries/firefly/getPolymarketWithdrawSupportedTokensQueryOptions.js';
 import { getPolymarketUserValueQueryOptions } from '@/queries/polymarket/getPolymarketUserValueQueryOptions.js';
 import { showEmbeddedWalletUIAtom } from '@/store/embeddedWallets.js';
 import { getFireflyEndpoint } from '@/store/fireflyEndpoint.js';
@@ -53,8 +44,6 @@ export const Route = createFileRoute('/bet/withdraw')({
     pendingComponent: LoadingPanel,
     errorComponent: BetError,
 });
-
-const MINIMUM_USD = 1;
 
 function WithdrawPage() {
     return (
@@ -81,15 +70,24 @@ function WithdrawClient() {
     const { data: withdrawableAmount } = useSuspenseQuery(
         getPolymarketWithdrawableAmountQueryOptions(account.proxyAddress),
     );
+    const { data: supportedTokens } = useQuery(getPolymarketWithdrawSupportedTokensQueryOptions());
     const [debounceValue] = useDebounceValue(value, 300);
-    const { token: targetToken, isLoading: isLoadingTargetToken } = useWithdrawToken();
+    const { token: targetToken, isLoading: isLoadingTargetToken } = useWithdrawToken(supportedTokens);
+
+    const minCheckoutUsd = useMemo(() => {
+        if (!supportedTokens || !targetToken) return 1;
+        const match = supportedTokens.find(
+            (t) => isSameEthereumAddress(t.token_address, targetToken.id) && t.chain_id === targetToken.chainId,
+        );
+        return match?.min_checkout_usd ?? 1;
+    }, [supportedTokens, targetToken]);
 
     const { data: withdrawPreview, isLoading: isLoadingWithdrawPreview } = useQuery({
         queryKey: ['withdraw-preview', targetToken?.chainId, targetToken?.id, debounceValue],
         async queryFn() {
             if (!targetToken) return null;
 
-            const amount = parseUnits(debounceValue, pusdTokenFallback.decimals);
+            const amount = parseUnits(debounceValue, targetToken.decimals);
             return getFireflyEndpoint().getPolymarketWithdrawAmount(
                 amount.toString(),
                 targetToken.id,
@@ -116,7 +114,7 @@ function WithdrawClient() {
 
             toastLoading(<Trans>Withdrawing funds to your Firefly wallet...</Trans>, { id: toastId });
             store.set(showEmbeddedWalletUIAtom, false);
-            const amount = parseUnits(value, pusdTokenFallback.decimals);
+            const amount = parseUnits(value, targetToken.decimals);
             const originalMessage = 'polymarket withdraw';
             const signature = await mutateAsync({
                 message: originalMessage,
@@ -181,7 +179,7 @@ function WithdrawClient() {
     });
 
     const isInsufficientBalance = !isSuccess && !isPending && isLessThan(withdrawableAmount, value);
-    const isLessThanMinimum = isLessThan(value, MINIMUM_USD);
+    const isLessThanMinimum = isLessThan(value, minCheckoutUsd);
     const disabled =
         !value ||
         isInsufficientBalance ||
@@ -194,10 +192,10 @@ function WithdrawClient() {
             return <Trans>Insufficient Balance</Trans>;
         }
         if (isLessThanMinimum) {
-            return <Trans>Minimum $1.00</Trans>;
+            return <Trans>Minimum ${minCheckoutUsd.toFixed(2)}</Trans>;
         }
         return <Trans>Withdraw</Trans>;
-    }, [isLessThanMinimum, isInsufficientBalance]);
+    }, [isLessThanMinimum, isInsufficientBalance, minCheckoutUsd]);
 
     if (isEmbeddedWalletLoading || !evmAddress || !receiverAddress) {
         return <LoadingPanel />;
@@ -306,49 +304,6 @@ function WithdrawClient() {
                 >
                     {buttonLabel}
                 </Button>
-                <DialogOrDrawer>
-                    <DialogOrDrawerTrigger asChild>
-                        <button
-                            type="button"
-                            className="text-second mt-4 flex h-3.5 w-full items-center justify-center text-xs"
-                        >
-                            <span className="mr-1">
-                                <Trans>
-                                    Service fee:{' '}
-                                    <span
-                                        className={cn('h-3.5 rounded', {
-                                            'bg-lightBg w-20 text-transparent': isLoadingWithdrawPreview,
-                                        })}
-                                    >
-                                        {formatTokenUSD(withdrawPreview?.fee ?? 0, { minDisplay: 0.01 })}
-                                    </span>
-                                </Trans>
-                            </span>
-                            <InfoOutlineIcon width={14} height={14} />
-                        </button>
-                    </DialogOrDrawerTrigger>
-
-                    <DialogOrDrawerContent>
-                        <div className="flex w-full items-center gap-2 py-6">
-                            <InfoOutlineIcon width={24} height={24} />
-                            <DialogOrDrawerTitle className="text-main text-left text-xl font-semibold leading-6">
-                                <Trans>Service fee</Trans>
-                            </DialogOrDrawerTitle>
-                        </div>
-
-                        <DialogOrDrawerDescription className="text-main pb-6 text-left text-base font-medium leading-5">
-                            <Trans>Firefly charges a fee for withdraw based on the withdraw funds amount.</Trans>
-                        </DialogOrDrawerDescription>
-
-                        <DialogOrDrawerFooter className="w-full pt-0">
-                            <DialogOrDrawerClose asChild>
-                                <Button variant="primary" size="lg" className="w-full rounded-full" type="button">
-                                    <Trans>Done</Trans>
-                                </Button>
-                            </DialogOrDrawerClose>
-                        </DialogOrDrawerFooter>
-                    </DialogOrDrawerContent>
-                </DialogOrDrawer>
             </div>
         </div>
     );

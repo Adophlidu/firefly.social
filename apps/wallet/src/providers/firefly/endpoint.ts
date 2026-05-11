@@ -44,6 +44,7 @@ import {
     type WalletHistoryTransactionsResponse,
     type WalletProfileResponse,
     type WalletProfiles,
+    type WithdrawSupportedTokensResponse,
 } from '@/providers/types/Firefly.js';
 import type { FreeGasRequestBody, FreeGasResponse } from '@/providers/types/FreeGas.js';
 
@@ -246,6 +247,13 @@ export class FireflyEndpoint extends Fetch {
                 token_address: tokenAddress,
                 chain_id: chainId,
             }),
+        );
+        return resolveFireflyResponseData(result.data);
+    }
+
+    async getPolymarketWithdrawSupportedTokens() {
+        const result = await this.get<WithdrawSupportedTokensResponse>(
+            '/polymarket/v1/polymarket/withdraw/supported_tokens',
         );
         return resolveFireflyResponseData(result.data);
     }

@@ -1,6 +1,5 @@
 import { classNames } from '@dimensiondev/utils';
 import { isSolanaChain } from '@dimensiondev/web3/chains';
-import { isZeroAddressEthereum } from '@dimensiondev/web3/utils';
 import { first } from 'lodash-es';
 import { type HTMLProps, memo, useCallback, useMemo, useState } from 'react';
 
@@ -52,7 +51,7 @@ export const TokenIcon = memo(function TokenIcon({
     }, [hasErrorOptimized]);
 
     const tokenIcon = useMemo(() => {
-        if (chainId && isZeroAddressEthereum(address)) {
+        if (chainId) {
             if (isSolanaChain(chainId)) return icon;
             return resolveTokenLogoURL(chainId, address ?? '0x0000000000000000000000000000000000000000');
         }

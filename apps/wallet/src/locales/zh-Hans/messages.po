@@ -212,9 +212,6 @@ msgstr ""
 msgid "Close lost position"
 msgstr "关闭亏损仓位"
 
-msgid "Service fee"
-msgstr "服务费"
-
 msgid "Market not found"
 msgstr "未找到相关市场"
 
@@ -423,10 +420,6 @@ msgstr ""
 msgid "Amount"
 msgstr "数额"
 
-#. placeholder {0}: formatTokenUSD(withdrawPreview?.fee ?? 0, { minDisplay: 0.01 })
-msgid "Service fee: <0>{0}</0>"
-msgstr "服务费：<0>{0}</0>"
-
 msgid "Claim"
 msgstr "领取"
 
@@ -480,9 +473,6 @@ msgstr "跨链桥"
 
 msgid "Enter amount"
 msgstr "输入金额"
-
-msgid "Firefly charges a fee for withdraw based on the withdraw funds amount."
-msgstr "Firefly 将根据提现金额收取相应手续费。"
 
 #. placeholder {0}: formatTokenItemAmount(availableSharesBN, 2)
 #. placeholder {0}: formatTokenUSD(availableAmount, { minDisplay: 0.01 })
@@ -712,6 +702,10 @@ msgstr ""
 
 msgid "Sent Failed"
 msgstr "发送失败"
+
+#. placeholder {0}: minCheckoutUsd.toFixed(2)
+msgid "Minimum ${0}"
+msgstr ""
 
 msgid "Please enter your new email address. We will send a verification code to confirm the change. Once updated, PIN reset codes and security verifications will be sent to this new email."
 msgstr ""

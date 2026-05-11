@@ -14,6 +14,7 @@ import { useSwapTokenDetail } from '@/hooks/swap/useSwapTokenDetail.js';
 import { useEmbeddedWalletAddresses } from '@/hooks/useCachedWalletAddresses.js';
 import { useTokenBalance } from '@/hooks/useTokenBalance.js';
 import { createSwapEndpoint } from '@/providers/swap/swapEndpoint.js';
+import type { WithdrawSupportedToken } from '@/providers/types/Firefly.js';
 
 interface SelectedToken {
     address?: string;
@@ -37,22 +38,56 @@ export const pusdTokenFallback = {
     networkType: NetworkType.Ethereum,
 };
 
-export function useWithdrawToken() {
+export const usdcPolygonTokenFallback = {
+    amount: 0,
+    decimals: 6,
+    id: '0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359',
+    address: '0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359',
+    logoUrl: 'https://sdk-cdn.fun.xyz/images/usdc.svg',
+    name: 'USD Coin',
+    price: 1,
+    rawAmount: '0',
+    rawAmountHexStr: '0x0',
+    symbol: 'USDC',
+    chainId: polygon.id,
+    balance: '0',
+    usdValue: 1,
+    networkType: NetworkType.Ethereum,
+};
+
+export function useWithdrawToken(supportedTokens?: WithdrawSupportedToken[]) {
     const { address, chainId } = useSearch({ from: '/bet/withdraw' }) as SelectedToken;
+
+    const isValidSelection =
+        supportedTokens && address
+            ? supportedTokens.some(
+                  (t) =>
+                      t.token_address.toLowerCase() === address.toLowerCase() &&
+                      t.chain_id === (chainId ? Number.parseInt(chainId, 10) : usdcPolygonTokenFallback.chainId),
+              )
+            : true;
+
+    const targetAddress = isValidSelection ? address || usdcPolygonTokenFallback.id : usdcPolygonTokenFallback.id;
+    const targetChainId = isValidSelection
+        ? chainId
+            ? Number.parseInt(chainId, 10)
+            : usdcPolygonTokenFallback.chainId
+        : usdcPolygonTokenFallback.chainId;
+
     const { data, isLoading, error } = useSwapTokenDetail({
-        address: address || pusdTokenFallback.id,
-        chainId: chainId ? Number.parseInt(chainId, 10) : pusdTokenFallback.chainId,
+        address: targetAddress,
+        chainId: targetChainId,
     });
 
     if (isLoading) return { token: null, isLoading };
-    if (error || !data) return { token: pusdTokenFallback, isLoading: false };
+    if (error || !data) return { token: usdcPolygonTokenFallback, isLoading: false };
 
     return {
         token: {
             id: data.address,
             decimals: data.decimals,
             chainId: data.chainId,
-            logoUrl: data.logoURI || pusdTokenFallback.logoUrl,
+            logoUrl: data.logoURI || usdcPolygonTokenFallback.logoUrl,
             name: data.name,
             symbol: data.symbol,
             price: data.price,
@@ -87,8 +122,8 @@ export function useDepositToken() {
 
             const polygonUsdc = data.find(
                 (token) =>
-                    token.chainId === pusdTokenFallback.chainId &&
-                    isNativeTokenOrSameAddress(token.address, pusdTokenFallback.address),
+                    token.chainId === usdcPolygonTokenFallback.chainId &&
+                    isNativeTokenOrSameAddress(token.address, usdcPolygonTokenFallback.address),
             );
             if (polygonUsdc && isGreaterThan(polygonUsdc.balance ?? '0', BET_DEPOSIT_MIN_USD)) {
                 return polygonUsdc;
@@ -112,12 +147,12 @@ export function useDepositToken() {
 
     const targetTokenAddress = isDefaultTokenLoading
         ? undefined
-        : address || defaultToken?.address || pusdTokenFallback.id;
+        : address || defaultToken?.address || usdcPolygonTokenFallback.id;
     const targetTokenChainId = isDefaultTokenLoading
         ? undefined
         : chainId
           ? Number.parseInt(chainId, 10)
-          : defaultToken?.chainId || pusdTokenFallback.chainId;
+          : defaultToken?.chainId || usdcPolygonTokenFallback.chainId;
     const { data, isLoading, error } = useSwapTokenDetail({
         address: targetTokenAddress,
         chainId: targetTokenChainId,
@@ -127,7 +162,7 @@ export function useDepositToken() {
         isLoading || isDefaultTokenLoading
             ? null
             : error || !data
-              ? pusdTokenFallback
+              ? usdcPolygonTokenFallback
               : {
                     id: data.address,
                     address: data.address,
