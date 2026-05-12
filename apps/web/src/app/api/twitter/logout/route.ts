@@ -9,7 +9,7 @@ export const runtime = 'edge';
 export const POST = compose(withTwitterRequestErrorHandler, withRequestErrorHandler({ throwError: true }), async () => {
     return createSuccessResponseJson(null, {
         headers: {
-            'Set-Cookie': `twitterToken=; path=/; Max-Age=-1; SameSite=Lax; Secure;`,
+            'Set-Cookie': `twitterToken=; path=/; Max-Age=-1; SameSite=Lax; Secure; HttpOnly;`,
         },
     });
 });

@@ -21,7 +21,7 @@ export const POST = compose(
         const data = await TwitterSessionPayload.concealPayload(payload);
         return createSuccessResponseJson(data, {
             headers: {
-                'Set-Cookie': `twitterToken=${encodeAsciiPayload(data)}; path=/; Max-Age=31536000; SameSite=Lax; Secure;`,
+                'Set-Cookie': `twitterToken=${encodeAsciiPayload(data)}; path=/; Max-Age=31536000; SameSite=Lax; Secure; HttpOnly;`,
             },
         });
     },
