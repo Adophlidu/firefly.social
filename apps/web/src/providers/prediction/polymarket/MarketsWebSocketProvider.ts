@@ -41,7 +41,7 @@ export class MarketsWebSocketProvider {
     private isConnected = false;
     private pingInterval: number | null = null;
     private assetsIds: string[] = [];
-    private onEventCallbacks: Array<(message?: MarketMessage) => void> = [];
+    private onEventCallbacks: Set<(message?: MarketMessage) => void> = new Set();
 
     private connect() {
         const fullUrl = `${POLYMARKET_WS_URL}/ws/${MARKET_CHANNEL}`;
@@ -87,7 +87,7 @@ export class MarketsWebSocketProvider {
             if (message === 'PONG' || message === 'ping') return;
 
             const parsedMessage = parseJson<MarketMessage>(message);
-            this.onEventCallbacks.forEach((callback) => callback(parsedMessage));
+            this.onEventCallbacks.forEach((cb) => cb(parsedMessage));
         } catch (error) {
             logger.error('Error handling message:', error);
         }
@@ -176,19 +176,22 @@ export class MarketsWebSocketProvider {
         }
 
         this.assetsIds = [];
-        this.onEventCallbacks = [];
+        this.onEventCallbacks.clear();
         this.isConnected = false;
     }
 
-    public subscribeToMarket(assetsIds: string[], callback: (message?: MarketMessage) => void) {
+    public subscribeToMarket(assetsIds: string[], callback: (message?: MarketMessage) => void): () => void {
         this.assetsIds = assetsIds;
-        this.onEventCallbacks.push(callback);
+        this.onEventCallbacks.add(callback);
 
         if (this.ws && this.ws.readyState === WebSocket.OPEN) {
             this.sendInitialSubscription();
-            return;
+        } else {
+            this.connect();
         }
 
-        this.connect();
+        return () => {
+            this.onEventCallbacks.delete(callback);
+        };
     }
 }
