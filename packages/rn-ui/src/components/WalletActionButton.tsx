@@ -1,14 +1,13 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { useAtomValue } from 'jotai';
-import type { ComponentProps } from 'react';
-import { memo, useMemo } from 'react';
+import type { ComponentProps, ReactNode } from 'react';
+import { cloneElement, isValidElement, memo, useMemo } from 'react';
 import { Button } from 'tamagui';
 
 import { UserActionState } from '@/constants/enum';
 import { toast } from '@/helpers/toast';
 import { useUserActionState } from '@/hooks/Perps/useUserActionState';
 import { useAsyncFn } from '@/hooks/useAsyncFn';
-import { LoadingIcon } from '@/icons/LoadingIcon';
 import { acceptTerms } from '@/services/acceptTerms';
 import { walletClientAtom } from '@/store/wallet';
 
@@ -31,22 +30,18 @@ export const WalletActionButton = memo<Props>(function WalletActionButton({
     const walletClient = useAtomValue(walletClientAtom);
 
     const buttonLabel = useMemo(() => {
-        if (state === UserActionState.CONNECT) {
-            return 'Connect';
+        let override: string | undefined;
+        if (state === UserActionState.CONNECT) override = 'Connect';
+        else if (state === UserActionState.AGREE_LEGAL) override = 'Agree Legal';
+        else if (state === UserActionState.DEPOSIT) override = 'Deposit';
+        else if (state === UserActionState.APPROVE_AGENT) override = 'Approve Agent';
+        else if (state === UserActionState.DISABLED) override = 'Unavailable';
+
+        if (override === undefined) return children;
+        if (isValidElement<{ children?: ReactNode }>(children)) {
+            return cloneElement(children, undefined, override);
         }
-        if (state === UserActionState.AGREE_LEGAL) {
-            return 'Agree Legal';
-        }
-        if (state === UserActionState.DEPOSIT) {
-            return 'Deposit';
-        }
-        if (state === UserActionState.APPROVE_AGENT) {
-            return 'Approve Agent';
-        }
-        if (state === UserActionState.DISABLED) {
-            return 'Unavailable';
-        }
-        return children;
+        return override;
     }, [state, children]);
 
     const [{ loading: isExecuting }, execute] = useAsyncFn(async () => {
@@ -78,7 +73,7 @@ export const WalletActionButton = memo<Props>(function WalletActionButton({
 
     return (
         <Button onPress={disabled ? undefined : execute} disabled={disabled} opacity={disabled ? 0.5 : 1} {...rest}>
-            {loading || isExecuting ? <LoadingIcon size={loadingSize} /> : buttonLabel}
+            {buttonLabel}
         </Button>
     );
 });

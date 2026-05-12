@@ -2,7 +2,9 @@ import { type CSSProperties, memo } from 'react';
 
 /** Mirrors `packages/rn-ui/src/skeletons/PerpsTradeDetailSkeleton.tsx` for lazy-route fallback only. */
 function Block({ className = '', style }: { className?: string; style?: CSSProperties }) {
-    return <div className={`shrink-0 rounded-lg bg-[#EDEEF2] ${className}`} style={style} aria-hidden />;
+    return (
+        <div className={`shrink-0 rounded-lg bg-[#EDEEF2] dark:bg-[#252525] ${className}`} style={style} aria-hidden />
+    );
 }
 
 function SkeletonPositionCard() {
@@ -66,7 +68,7 @@ export const PerpsTradeRouteSkeleton = memo(function PerpsTradeRouteSkeleton() {
             </div>
 
             <div className="flex min-h-0 gap-2 px-3">
-                <div className="flex min-w-0 flex-[143] shrink-0 flex-col gap-1.5">
+                <div className="flex min-w-0 flex-[164] shrink-0 flex-col gap-1.5">
                     <Block className="h-7 w-full rounded-md" />
                     <Block className="h-3.5 w-full rounded" />
                     {Array.from({ length: 7 }, (_, i) => (

@@ -1,6 +1,7 @@
 import { memo, useCallback } from 'react';
 import { ScrollView, Text, XStack, YStack } from 'tamagui';
 
+import { NoDataFallback } from '@/components/NoDataFallback';
 import { PerpsMarketRow } from '@/components/PerpsMarketRow';
 import { PerpsMarketSkeleton } from '@/skeletons/PerpsMarketSkeleton';
 import type { PerpsMeta } from '@/types/ui';
@@ -59,9 +60,7 @@ export const PerpsMarketList = memo<PerpsMarketListProps>(function PerpsMarketLi
 
                 {!loading && !error && items.length === 0 ? (
                     <XStack justifyContent="center" paddingTop={4}>
-                        <Text color="$textSubdued" fontSize={12} lineHeight={14}>
-                            No markets found
-                        </Text>
+                        <NoDataFallback message="No markets found" hideButton />
                     </XStack>
                 ) : null}
 

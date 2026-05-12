@@ -42,6 +42,7 @@ export const BookmarkButton = memo<BookmarkButtonProps>(function BookmarkButton(
             }
 
             queryClient.setQueryData(['bookmarks', coinName], !isBookmarked);
+            queryClient.invalidateQueries({ queryKey: ['perps', 'favorites'] });
         } catch (error) {
             toast({
                 type: 'error',

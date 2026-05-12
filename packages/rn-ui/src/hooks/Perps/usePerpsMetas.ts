@@ -6,7 +6,9 @@ import { useMemo } from 'react';
 import { STALE_TIMES } from '@/constants/enum';
 import { resolveMetaAvatar } from '@/helpers/resolveMetaAvatar';
 import { useAllPerpMetas } from '@/hooks/Perps/useAllPerpMetas';
+import { getFavorites } from '@/services/firefly/getFavorites';
 import { getPerpsTokens } from '@/services/firefly/getPerpsTokens';
+import { walletAddressAtom } from '@/store/wallet';
 import { allDexsAssetCtxsAtom } from '@/store/websocket';
 import type { PerpsMeta } from '@/types/ui';
 
@@ -40,17 +42,37 @@ function searchMetas(
 
 export function usePerpsMetas({ category, keyword }: Options) {
     const allDexsAssetCtxs = useAtomValue(allDexsAssetCtxsAtom);
+    const address = useAtomValue(walletAddressAtom);
 
     const { data: perpsMetas, isLoading: isPerpsMetasLoading } = useAllPerpMetas();
+    const isFavorites = category === 'favorites';
     const {
-        data: perpsMetaIds,
-        isLoading: isPerpsMetaIdsLoading,
-        error: perpsMetaIdsError,
+        data: categoryMetas,
+        isLoading: isCategoryLoading,
+        error: categoryError,
     } = useQuery({
         queryKey: ['perps', 'meta-ids'],
         staleTime: STALE_TIMES.MINUTE_10,
         queryFn: () => getPerpsTokens(),
     });
+    const {
+        data: favoriteMetas,
+        isLoading: isFavoriteMetasLoading,
+        error: favoriteMetasError,
+    } = useQuery({
+        queryKey: ['perps', 'favorites', address],
+        enabled: !!address && isFavorites,
+        queryFn: () => getFavorites({ limit: 200 }),
+        select: (data) =>
+            data?.data?.map((item) => ({
+                name: item.name,
+                category_name: 'favorites',
+            })),
+    });
+
+    const perpsMetaIds = isFavorites ? favoriteMetas : categoryMetas;
+    const isPerpsMetaIdsLoading = isFavoriteMetasLoading || isCategoryLoading;
+    const perpsMetaIdsError = isFavorites ? favoriteMetasError : categoryError;
 
     const perpsList = useMemo<PerpsMeta[]>(() => {
         const universe =
