@@ -3,11 +3,6 @@
 import { IS_DEVELOPMENT } from '@dimensiondev/constants';
 import { type NextRequest, NextResponse } from 'next/server.js';
 
-import { SITE_URL } from '@/constants/static.js';
-
-/** Production-only CSP violation ingestion (not per-request origin). */
-const CSP_REPORT_URI = `${SITE_URL}/api/beacon/csp-report`;
-
 const EXTRA_SOURCES = IS_DEVELOPMENT
     ? [
           'http://localhost:3000',
@@ -133,7 +128,6 @@ function buildCSP(): string {
         `font-src ${fontSrc.join(' ')}`,
         `worker-src ${workerSrc.join(' ')}`,
         `frame-src ${frameSrc.join(' ')}`,
-        `report-uri ${CSP_REPORT_URI}`,
     ].filter(Boolean);
 
     return directives.join('; ');
