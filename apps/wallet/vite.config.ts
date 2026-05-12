@@ -4,6 +4,7 @@ import { resolve } from 'node:path';
 import { lingui } from '@lingui/vite-plugin';
 import svgrJsx from '@svgr/plugin-jsx';
 import svgrSvgo from '@svgr/plugin-svgo';
+import { tamaguiPlugin } from '@tamagui/vite-plugin';
 import { tanstackStart } from '@tanstack/react-start/plugin/vite';
 import react from '@vitejs/plugin-react';
 import { nitro } from 'nitro/vite';
@@ -15,6 +16,8 @@ import viteTsconfigPaths from 'vite-tsconfig-paths';
 const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? '/wallet-iframe';
 const NEXT_PUBLIC_VERCEL_ENV = process.env.NEXT_PUBLIC_VERCEL_ENV ?? 'development';
 const PACKAGE_VERSION = JSON.parse(readFileSync(new URL('./package.json', import.meta.url), 'utf8')).version as string;
+
+const rnUiTamaguiConfig = resolve(__dirname, '../../packages/rn-ui/src/tamagui.config.ts');
 
 export default defineConfig({
     base: BASE_PATH,
@@ -48,6 +51,13 @@ export default defineConfig({
             },
         }),
         nitro(),
+        tamaguiPlugin({
+            optimize: true,
+            // Wallet already aliases react-native / react-native-svg for RNW; avoid Tamagui overriding.
+            disableResolveConfig: true,
+            config: rnUiTamaguiConfig,
+            components: ['tamagui'],
+        }),
         react({
             babel: {
                 plugins: ['macros', 'babel-plugin-react-compiler'],

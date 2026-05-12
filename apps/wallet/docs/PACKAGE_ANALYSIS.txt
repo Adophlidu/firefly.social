@@ -3,8 +3,8 @@ Package Analysis
 
 Application: apps/wallet
 
-Total packages: 2322
-Packages with multiple versions: 359
+Total packages: 2366
+Packages with multiple versions: 448
 
 Legend:
   * = Direct dependency (listed in package.json for this app's scope)
@@ -40,32 +40,32 @@ Packages with Multiple Versions
 *@coral-xyz/anchor@0.31.1,0.32.1
  @emotion/is-prop-valid@0.8.8,1.4.0
  @emotion/memoize@0.7.4,0.9.0
- @esbuild/aix-ppc64@0.25.12,0.27.0
- @esbuild/android-arm@0.25.12,0.27.0
- @esbuild/android-arm64@0.25.12,0.27.0
- @esbuild/android-x64@0.25.12,0.27.0
- @esbuild/darwin-arm64@0.25.12,0.27.0
- @esbuild/darwin-x64@0.25.12,0.27.0
- @esbuild/freebsd-arm64@0.25.12,0.27.0
- @esbuild/freebsd-x64@0.25.12,0.27.0
- @esbuild/linux-arm@0.25.12,0.27.0
- @esbuild/linux-arm64@0.25.12,0.27.0
- @esbuild/linux-ia32@0.25.12,0.27.0
- @esbuild/linux-loong64@0.25.12,0.27.0
- @esbuild/linux-mips64el@0.25.12,0.27.0
- @esbuild/linux-ppc64@0.25.12,0.27.0
- @esbuild/linux-riscv64@0.25.12,0.27.0
- @esbuild/linux-s390x@0.25.12,0.27.0
- @esbuild/linux-x64@0.25.12,0.27.0
- @esbuild/netbsd-arm64@0.25.12,0.27.0
- @esbuild/netbsd-x64@0.25.12,0.27.0
- @esbuild/openbsd-arm64@0.25.12,0.27.0
- @esbuild/openbsd-x64@0.25.12,0.27.0
+ @esbuild/aix-ppc64@0.24.2,0.25.12,0.27.0
+ @esbuild/android-arm@0.24.2,0.25.12,0.27.0
+ @esbuild/android-arm64@0.24.2,0.25.12,0.27.0
+ @esbuild/android-x64@0.24.2,0.25.12,0.27.0
+ @esbuild/darwin-arm64@0.24.2,0.25.12,0.27.0
+ @esbuild/darwin-x64@0.24.2,0.25.12,0.27.0
+ @esbuild/freebsd-arm64@0.24.2,0.25.12,0.27.0
+ @esbuild/freebsd-x64@0.24.2,0.25.12,0.27.0
+ @esbuild/linux-arm@0.24.2,0.25.12,0.27.0
+ @esbuild/linux-arm64@0.24.2,0.25.12,0.27.0
+ @esbuild/linux-ia32@0.24.2,0.25.12,0.27.0
+ @esbuild/linux-loong64@0.24.2,0.25.12,0.27.0
+ @esbuild/linux-mips64el@0.24.2,0.25.12,0.27.0
+ @esbuild/linux-ppc64@0.24.2,0.25.12,0.27.0
+ @esbuild/linux-riscv64@0.24.2,0.25.12,0.27.0
+ @esbuild/linux-s390x@0.24.2,0.25.12,0.27.0
+ @esbuild/linux-x64@0.24.2,0.25.12,0.27.0
+ @esbuild/netbsd-arm64@0.24.2,0.25.12,0.27.0
+ @esbuild/netbsd-x64@0.24.2,0.25.12,0.27.0
+ @esbuild/openbsd-arm64@0.24.2,0.25.12,0.27.0
+ @esbuild/openbsd-x64@0.24.2,0.25.12,0.27.0
  @esbuild/openharmony-arm64@0.25.12,0.27.0
- @esbuild/sunos-x64@0.25.12,0.27.0
- @esbuild/win32-arm64@0.25.12,0.27.0
- @esbuild/win32-ia32@0.25.12,0.27.0
- @esbuild/win32-x64@0.25.12,0.27.0
+ @esbuild/sunos-x64@0.24.2,0.25.12,0.27.0
+ @esbuild/win32-arm64@0.24.2,0.25.12,0.27.0
+ @esbuild/win32-ia32@0.24.2,0.25.12,0.27.0
+ @esbuild/win32-x64@0.24.2,0.25.12,0.27.0
  @floating-ui/react@0.26.28,0.27.19
  @jridgewell/sourcemap-codec@1.5.0,1.5.5
 *@lingui/conf@5.5.2,5.9.5
@@ -143,22 +143,103 @@ Packages with Multiple Versions
  @solana/transactions@4.0.0,5.4.0
  @storybook/icons@1.6.0,2.0.2
  @swc/helpers@0.5.15,0.5.18
- @tamagui/compose-refs@1.144.4,2.0.0-rc.41
- @tamagui/constants@1.144.4,2.0.0-rc.41
-*@tamagui/core@1.144.4,2.0.0-rc.41
- @tamagui/helpers@1.144.4,2.0.0-rc.41
+ @tamagui/accordion@1.114.0,1.144.4
+ @tamagui/adapt@1.114.0,1.144.4
+ @tamagui/alert-dialog@1.114.0,1.144.4
+ @tamagui/animate@1.114.0,1.144.4
+ @tamagui/animate-presence@1.114.0,1.144.4
+ @tamagui/animations-css@1.114.0,1.144.4
+ @tamagui/animations-moti@1.114.0,1.144.4
+ @tamagui/animations-react-native@1.114.0,1.144.4
+ @tamagui/avatar@1.114.0,1.144.4
+ @tamagui/button@1.114.0,1.144.4
+ @tamagui/card@1.114.0,1.144.4
+ @tamagui/checkbox@1.114.0,1.144.4
+ @tamagui/checkbox-headless@1.114.0,1.144.4
+ @tamagui/collapsible@1.114.0,1.144.4
+ @tamagui/collection@1.114.0,1.144.4
+ @tamagui/colors@1.114.0,1.144.4
+ @tamagui/compose-refs@1.114.0,1.144.4,2.0.0-rc.41
+*@tamagui/config@1.114.0,1.144.4
+ @tamagui/config-default@1.114.0,1.144.4
+ @tamagui/constants@1.114.0,1.144.4,2.0.0-rc.41
+*@tamagui/core@1.114.0,1.144.4,2.0.0-rc.41
+ @tamagui/create-context@1.114.0,1.144.4
+ @tamagui/create-theme@1.114.0,1.144.4
+ @tamagui/cubic-bezier-animator@1.114.0,1.144.4
+ @tamagui/dialog@1.114.0,1.144.4
+ @tamagui/dismissable@1.114.0,1.144.4
+ @tamagui/elements@1.114.0,1.144.4
+ @tamagui/fake-react-native@1.114.0,1.144.4
+ @tamagui/floating@1.114.0,1.144.4
+ @tamagui/focus-scope@1.114.0,1.144.4
+ @tamagui/focusable@1.114.0,1.144.4
+ @tamagui/font-inter@1.114.0,1.144.4
+ @tamagui/font-silkscreen@1.114.0,1.144.4
+ @tamagui/font-size@1.114.0,1.144.4
+ @tamagui/form@1.114.0,1.144.4
+ @tamagui/get-button-sized@1.114.0,1.144.4
+ @tamagui/get-font-sized@1.114.0,1.144.4
+ @tamagui/get-token@1.114.0,1.144.4
+ @tamagui/group@1.114.0,1.144.4
+*@tamagui/helpers@1.114.0,1.144.4,2.0.0-rc.41
+ @tamagui/helpers-tamagui@1.114.0,1.144.4
+ @tamagui/image@1.114.0,1.144.4
  @tamagui/is-equal-shallow@1.144.4,2.0.0-rc.41
- @tamagui/normalize-css-color@1.144.4,2.0.0-rc.41
- @tamagui/react-native-media-driver@1.144.4,2.0.0-rc.41
- @tamagui/react-native-use-pressable@1.144.4,2.0.0-rc.41
- @tamagui/simple-hash@1.144.4,2.0.0-rc.41
- @tamagui/timer@1.144.4,2.0.0-rc.41
- @tamagui/types@1.144.4,2.0.0-rc.41
- @tamagui/use-did-finish-ssr@1.144.4,2.0.0-rc.41
+ @tamagui/label@1.114.0,1.144.4
+ @tamagui/linear-gradient@1.114.0,1.144.4
+ @tamagui/list-item@1.114.0,1.144.4
+ @tamagui/normalize-css-color@1.114.0,1.144.4,2.0.0-rc.41
+ @tamagui/polyfill-dev@1.114.0,1.144.4
+ @tamagui/popover@1.114.0,1.144.4
+ @tamagui/popper@1.114.0,1.144.4
+ @tamagui/portal@1.114.0,1.144.4
+ @tamagui/progress@1.114.0,1.144.4
+ @tamagui/radio-group@1.114.0,1.144.4
+ @tamagui/radio-headless@1.114.0,1.144.4
+ @tamagui/react-native-media-driver@1.114.0,1.144.4,2.0.0-rc.41
+*@tamagui/react-native-svg@1.114.0,2.0.0-rc.41
+ @tamagui/react-native-use-pressable@1.114.0,1.144.4,2.0.0-rc.41
+ @tamagui/react-native-use-responder-events@1.114.0,1.144.4
+ @tamagui/remove-scroll@1.114.0,1.144.4
+ @tamagui/roving-focus@1.114.0,1.144.4
+ @tamagui/scroll-view@1.114.0,1.144.4
+ @tamagui/select@1.114.0,1.144.4
+ @tamagui/separator@1.114.0,1.144.4
+ @tamagui/shapes@1.114.0,1.144.4
+ @tamagui/sheet@1.114.0,1.144.4
+ @tamagui/shorthands@1.114.0,1.144.4
+ @tamagui/simple-hash@1.114.0,1.144.4,2.0.0-rc.41
+ @tamagui/slider@1.114.0,1.144.4
+ @tamagui/stacks@1.114.0,1.144.4
+ @tamagui/start-transition@1.114.0,1.144.4
+ @tamagui/switch@1.114.0,1.144.4
+ @tamagui/switch-headless@1.114.0,1.144.4
+ @tamagui/tabs@1.114.0,1.144.4
+ @tamagui/text@1.114.0,1.144.4
+ @tamagui/theme@1.114.0,1.144.4
+ @tamagui/theme-builder@1.114.0,1.144.4
+ @tamagui/themes@1.114.0,1.144.4
+ @tamagui/timer@1.114.0,1.144.4,2.0.0-rc.41
+ @tamagui/toggle-group@1.114.0,1.144.4
+ @tamagui/tooltip@1.114.0,1.144.4
+ @tamagui/types@1.114.0,1.144.4,2.0.0-rc.41
+ @tamagui/use-callback-ref@1.114.0,1.144.4
+ @tamagui/use-constant@1.114.0,1.144.4
+ @tamagui/use-controllable-state@1.114.0,1.144.4
+ @tamagui/use-debounce@1.114.0,1.144.4
+ @tamagui/use-did-finish-ssr@1.114.0,1.144.4,2.0.0-rc.41
+ @tamagui/use-direction@1.114.0,1.144.4
  @tamagui/use-element-layout@1.144.4,2.0.0-rc.41
- @tamagui/use-event@1.144.4,2.0.0-rc.41
- @tamagui/use-force-update@1.144.4,2.0.0-rc.41
- @tamagui/web@1.144.4,2.0.0-rc.41
+ @tamagui/use-escape-keydown@1.114.0,1.144.4
+ @tamagui/use-event@1.114.0,1.144.4,2.0.0-rc.41
+ @tamagui/use-force-update@1.114.0,1.144.4,2.0.0-rc.41
+ @tamagui/use-keyboard-visible@1.114.0,1.144.4
+ @tamagui/use-presence@1.114.0,1.144.4
+ @tamagui/use-previous@1.114.0,1.144.4
+ @tamagui/use-window-dimensions@1.114.0,1.144.4
+ @tamagui/visually-hidden@1.114.0,1.144.4
+ @tamagui/web@1.114.0,1.144.4,2.0.0-rc.41
  @tanstack/query-core@5.100.9,5.85.9
  @types/estree@1.0.7,1.0.8,1.0.9
  @types/unist@2.0.11,3.0.3
@@ -224,7 +305,7 @@ Packages with Multiple Versions
  enhanced-resolve@5.20.1,5.21.2
  entities@4.5.0,6.0.1,7.0.1
  es-module-lexer@1.7.0,2.0.0,2.1.0
- esbuild@0.25.12,0.27.0
+ esbuild@0.24.2,0.25.12,0.27.0
  escape-string-regexp@1.0.5,2.0.0,4.0.0,5.0.0
 *eslint-config-next@16.0.11,16.2.4
 *eslint-plugin-react-hooks@5.2.0,7.0.1
@@ -254,8 +335,10 @@ Packages with Multiple Versions
  ignore@5.3.2,7.0.5
  image-size@1.2.1,2.0.2
  indent-string@4.0.0,5.0.0
+ inline-style-prefixer@6.0.4,7.0.1
  is-core-module@2.16.1,2.16.2
  is-docker@2.2.1,3.0.0
+ is-plain-object@2.0.4,5.0.0
  is-wsl@2.2.0,3.1.1
  isarray@1.0.0,2.0.5
  jackspeak@3.4.3,4.1.1
@@ -308,6 +391,7 @@ Packages with Multiple Versions
  path-exists@4.0.0,5.0.0
  path-scurry@1.11.1,2.0.2
  picomatch@2.3.1,4.0.3,4.0.4
+ pkg-dir@4.2.0,5.0.0
  pkg-types@1.3.1,2.3.0
 *postcss@8.4.31,8.5.14
  preact@10.24.2,10.27.2
@@ -316,7 +400,9 @@ Packages with Multiple Versions
 *punycode@1.4.1,2.3.1
  quansync@0.2.11,1.0.0
  react-is@16.13.1,17.0.2,18.3.1
+*react-native-web@0.19.13,0.21.2
  react-refresh@0.14.2,0.17.0,0.18.0
+ react-remove-scroll@2.5.5,2.7.2
  readable-stream@2.3.8,3.6.2
  readdirp@3.5.0,3.6.0,5.0.0
  resolve@1.22.11,1.22.12,2.0.0-next.5
@@ -325,6 +411,7 @@ Packages with Multiple Versions
  safe-buffer@5.1.2,5.2.1
  semver@6.3.1,7.5.4,7.7.1,7.7.2,7.7.3,7.7.4
  signal-exit@3.0.7,4.1.0
+ slash@3.0.0,4.0.0
  source-map@0.5.6,0.5.7,0.6.1,0.7.6
  srvx@0.10.1,0.11.15
  statuses@1.5.0,2.0.2
@@ -335,6 +422,7 @@ Packages with Multiple Versions
  strip-indent@3.0.0,4.1.1
  superstruct@0.15.5,2.0.2
  supports-color@7.2.0,8.1.1
+*tamagui@1.114.0,1.144.4
  tapable@2.3.2,2.3.3
  terser@5.46.1,5.47.1
  terser-webpack-plugin@5.4.0,5.5.0
@@ -355,6 +443,7 @@ Packages with Multiple Versions
  unstorage@1.17.4,2.0.0-alpha.7
  uuid@8.3.2,9.0.1
 *vite-tsconfig-paths@5.1.4,6.1.1
+ w-json@1.3.10,1.3.11
  webidl-conversions@3.0.1,8.0.1
  webpack@5.105.4,5.106.2
  webpack-sources@3.3.4,3.4.1
@@ -1034,92 +1123,22 @@ Packages with Single Version
  @swc/counter@0.1.3
  @swc/types@0.1.26
 *@tailwindcss/forms@0.5.11
- @tamagui/accordion@1.144.4
- @tamagui/adapt@1.144.4
- @tamagui/alert-dialog@1.144.4
- @tamagui/animate@1.144.4
- @tamagui/animate-presence@1.144.4
- @tamagui/animations-css@1.144.4
- @tamagui/animations-moti@1.144.4
- @tamagui/animations-react-native@1.144.4
- @tamagui/avatar@1.144.4
- @tamagui/button@1.144.4
- @tamagui/card@1.144.4
- @tamagui/checkbox@1.144.4
- @tamagui/checkbox-headless@1.144.4
- @tamagui/collapsible@1.144.4
- @tamagui/collection@1.144.4
- @tamagui/colors@1.144.4
-*@tamagui/config@1.144.4
- @tamagui/config-default@1.144.4
- @tamagui/create-context@1.144.4
- @tamagui/create-theme@1.144.4
- @tamagui/cubic-bezier-animator@1.144.4
- @tamagui/dialog@1.144.4
- @tamagui/dismissable@1.144.4
- @tamagui/elements@1.144.4
- @tamagui/fake-react-native@1.144.4
- @tamagui/floating@1.144.4
- @tamagui/focus-scope@1.144.4
- @tamagui/focusable@1.144.4
- @tamagui/font-inter@1.144.4
- @tamagui/font-silkscreen@1.144.4
- @tamagui/font-size@1.144.4
- @tamagui/form@1.144.4
- @tamagui/get-button-sized@1.144.4
- @tamagui/get-font-sized@1.144.4
- @tamagui/get-token@1.144.4
- @tamagui/group@1.144.4
+ @tamagui/aria-hidden@1.114.0
+ @tamagui/babel-plugin-fully-specified@1.114.0
+ @tamagui/build@1.114.0
+ @tamagui/cli-color@1.114.0
+ @tamagui/generate-themes@1.114.0
  @tamagui/helpers-icon@2.0.0-rc.41
- @tamagui/helpers-tamagui@1.144.4
- @tamagui/image@1.144.4
- @tamagui/label@1.144.4
- @tamagui/linear-gradient@1.144.4
- @tamagui/list-item@1.144.4
+ @tamagui/helpers-node@1.114.0
 *@tamagui/lucide-icons-2@2.0.0-rc.41
  @tamagui/native@2.0.0-rc.41
- @tamagui/polyfill-dev@1.144.4
- @tamagui/popover@1.144.4
- @tamagui/popper@1.144.4
- @tamagui/portal@1.144.4
- @tamagui/progress@1.144.4
- @tamagui/radio-group@1.144.4
- @tamagui/radio-headless@1.144.4
-*@tamagui/react-native-svg@2.0.0-rc.41
- @tamagui/react-native-use-responder-events@1.144.4
- @tamagui/remove-scroll@1.144.4
- @tamagui/roving-focus@1.144.4
- @tamagui/scroll-view@1.144.4
- @tamagui/select@1.144.4
- @tamagui/separator@1.144.4
- @tamagui/shapes@1.144.4
- @tamagui/sheet@1.144.4
- @tamagui/shorthands@1.144.4
+ @tamagui/proxy-worm@1.114.0
+ @tamagui/react-native-web-internals@1.114.0
+ @tamagui/react-native-web-lite@1.114.0
  @tamagui/sizable-context@2.0.0-rc.41
- @tamagui/slider@1.144.4
- @tamagui/stacks@1.144.4
- @tamagui/start-transition@1.144.4
- @tamagui/switch@1.144.4
- @tamagui/switch-headless@1.144.4
- @tamagui/tabs@1.144.4
- @tamagui/text@1.144.4
- @tamagui/theme@1.144.4
- @tamagui/theme-builder@1.144.4
- @tamagui/themes@1.144.4
- @tamagui/toggle-group@1.144.4
- @tamagui/tooltip@1.144.4
+ @tamagui/static@1.114.0
  @tamagui/use-async@1.144.4
- @tamagui/use-callback-ref@1.144.4
- @tamagui/use-constant@1.144.4
- @tamagui/use-controllable-state@1.144.4
- @tamagui/use-debounce@1.144.4
- @tamagui/use-direction@1.144.4
- @tamagui/use-escape-keydown@1.144.4
- @tamagui/use-keyboard-visible@1.144.4
- @tamagui/use-presence@1.144.4
- @tamagui/use-previous@1.144.4
- @tamagui/use-window-dimensions@1.144.4
- @tamagui/visually-hidden@1.144.4
+*@tamagui/vite-plugin@1.114.0
  @tamagui/z-index-stack@1.144.4
  @tanstack/history@1.161.6
  @tanstack/ranger@0.0.4
@@ -1186,12 +1205,14 @@ Packages with Single Version
  @types/eslint@9.6.1
  @types/eslint-scope@3.7.7
  @types/estree-jsx@1.0.5
+ @types/fs-extra@9.0.13
  @types/graceful-fs@4.1.9
  @types/hast@3.0.4
  @types/istanbul-lib-coverage@2.0.6
  @types/istanbul-lib-report@3.0.3
  @types/istanbul-reports@3.0.4
  @types/js-cookie@2.2.7
+ @types/js-yaml@4.0.9
  @types/jsesc@2.5.1
  @types/json-schema@7.0.15
  @types/json5@0.0.29
@@ -1347,6 +1368,7 @@ Packages with Single Version
  ast-kit@3.0.0-beta.1
  ast-types@0.16.1
  ast-types-flow@0.0.8
+ astral-regex@2.0.0
  async-function@1.0.0
  asynckit@0.4.0
  atomic-sleep@1.0.0
@@ -1359,6 +1381,8 @@ Packages with Single Version
  axobject-query@4.1.0
  babel-dead-code-elimination@1.0.12
  babel-jest@29.7.0
+ babel-literal-to-ast@2.1.0
+ babel-plugin-fully-specified@1.3.1
  babel-plugin-istanbul@6.1.1
  babel-plugin-jest-hoist@29.6.3
 *babel-plugin-macros@3.1.0
@@ -1413,6 +1437,7 @@ Packages with Single Version
  character-entities-legacy@3.0.0
  character-reference-invalid@2.0.1
  charenc@0.0.2
+ check-dependency-version-consistency@4.1.1
  check-error@2.1.1
  cheerio@1.2.0
  cheerio-select@2.1.0
@@ -1531,6 +1556,7 @@ Packages with Single Version
  diff@8.0.4
  diffie-hellman@5.0.3
  dijkstrajs@1.0.3
+ dir-glob@3.0.1
  dlv@1.1.3
  dom-helpers@5.2.1
  dom-serializer@2.0.0
@@ -1547,6 +1573,7 @@ Packages with Single Version
  duplexer@0.1.2
  duration-js@4.0.0
  eastasianwidth@0.2.0
+ edit-json-file@1.8.1
  ee-first@1.1.1
  elliptic@6.6.1
  emoji-picker-react@4.12.4
@@ -1568,6 +1595,8 @@ Packages with Single Version
  es-toolkit@1.39.3
  es6-promise@4.2.8
  es6-promisify@5.0.0
+ esbuild-plugin-es5@2.1.1
+ esbuild-register@3.6.0
  escalade@3.2.0
  escape-html@1.0.3
 *eslint@9.39.4
@@ -1584,6 +1613,7 @@ Packages with Single Version
 *eslint-plugin-unicorn@62.0.0
 *eslint-plugin-unused-imports@4.3.0
  esm@3.2.25
+ esm-resolve@1.0.11
  espree@10.4.0
  esprima@4.0.1
  esquery@1.7.0
@@ -1596,6 +1626,7 @@ Packages with Single Version
  events@3.3.0
  eventsource@2.0.2
  evp_bytestokey@1.0.3
+ execa@5.1.1
  expect-type@1.2.1
  exponential-backoff@3.1.3
  exsolve@1.0.8
@@ -1604,6 +1635,7 @@ Packages with Single Version
  fast-deep-equal@3.1.3
  fast-json-stable-stringify@2.1.0
  fast-levenshtein@2.0.6
+ fast-loops@1.1.4
  fast-shallow-equal@1.0.0
  fast-stable-stringify@1.0.0
  fast-uri@3.0.6
@@ -1621,7 +1653,10 @@ Packages with Single Version
  file-uri-to-path@1.0.0
  fill-range@7.1.1
  finalhandler@1.1.2
+ find-cache-dir@3.3.2
+ find-root@1.1.0
  find-up-simple@1.0.1
+ find-value@1.0.13
  firebase@11.6.1
  flairup@1.0.0
  flatted@3.4.1
@@ -1652,10 +1687,12 @@ Packages with Single Version
  get-package-type@0.1.0
  get-proto@1.0.1
  get-stdin@9.0.0
+ get-stream@6.0.1
  get-symbol-description@1.1.0
  glob-to-regexp@0.4.1
  global-dirs@3.0.1
  globalthis@1.0.4
+ globby@13.2.2
  globrex@0.1.2
  gopd@1.2.0
  gql.tada@1.8.10
@@ -1688,6 +1725,7 @@ Packages with Single Version
  http-proxy-agent@7.0.2
  https-browserify@1.0.0
  https-proxy-agent@7.0.6
+ human-signals@2.1.0
  humanize-ms@1.2.1
  hyphenate-style-name@1.1.0
  iconv-lite@0.6.3
@@ -1705,7 +1743,6 @@ Packages with Single Version
  inherits@2.0.4
  ini@2.0.0
  inline-style-parser@0.2.4
- inline-style-prefixer@7.0.1
  internal-slot@1.1.0
  internmap@2.0.3
  intersection-observer@0.12.2
@@ -1745,13 +1782,14 @@ Packages with Single Version
  is-obj@2.0.0
  is-observable@2.1.0
  is-plain-obj@4.1.0
- is-plain-object@5.0.0
  is-potential-custom-element-name@1.0.1
+ is-primitive@3.0.1
  is-reference@1.2.1
  is-regex@1.2.1
  is-retry-allowed@2.2.0
  is-set@2.0.3
  is-shared-array-buffer@1.0.4
+ is-stream@2.0.1
  is-string@1.1.1
  is-symbol@1.1.1
  is-typed-array@1.1.15
@@ -1763,12 +1801,14 @@ Packages with Single Version
  isbot@5.1.37
  isexe@2.0.0
  iso-datestring-validator@2.2.2
+ isobject@3.0.1
  isomorphic-timers-promises@1.0.1
  isomorphic-ws@4.0.1
  isomorphic.js@0.2.5
  isows@1.0.7
  istanbul-lib-coverage@3.2.2
  istanbul-lib-instrument@5.2.1
+ iterate-object@1.3.5
  iterator.prototype@1.1.5
  jayson@4.3.0
  jest-environment-node@29.7.0
@@ -1838,6 +1878,7 @@ Packages with Single Version
  lodash.get@4.4.2
  lodash.merge@4.6.2
  lodash.throttle@4.1.1
+ lodash.truncate@4.4.2
  log-symbols@4.1.0
  long@5.3.1
  longest-streak@3.1.0
@@ -1847,6 +1888,7 @@ Packages with Single Version
 *lucide-react@0.546.0
 *lucide-react-native@0.473.0
  lz-string@1.5.0
+ make-dir@3.1.0
  makeerror@1.0.12
  marky@1.3.0
  math-intrinsics@1.1.0
@@ -1928,6 +1970,7 @@ Packages with Single Version
  node-stdlib-browser@1.3.1
  nodemailer@7.0.13
  normalize-path@3.0.0
+ npm-run-path@4.0.1
  nth-check@2.1.1
  nullthrows@1.1.1
 *nuqs@2.8.9
@@ -1955,6 +1998,7 @@ Packages with Single Version
  optionator@0.9.4
  ora@5.4.1
  os-browserify@0.3.0
+ outdent@0.8.0
  own-keys@1.0.1
  oxc-minify@0.110.0
  oxc-transform@0.110.0
@@ -1982,7 +2026,6 @@ Packages with Single Version
  pino-abstract-transport@3.0.0
  pino-std-serializers@7.1.0
  pirates@4.0.7
- pkg-dir@5.0.0
  pluralize@8.0.0
  plurals-cldr@2.0.1
  plyr@3.8.4
@@ -2021,6 +2064,7 @@ Packages with Single Version
  queue@6.0.2
  queue-microtask@1.2.3
  quick-format-unescaped@4.0.4
+ r-json@1.3.1
  radix3@1.1.2
  randombytes@2.1.0
  randomfill@1.0.4
@@ -2043,10 +2087,8 @@ Packages with Single Version
  react-native-is-edge-to-edge@1.3.1
  react-native-reanimated@4.3.1
 *react-native-svg@15.15.4
-*react-native-web@0.21.2
  react-native-worklets@0.8.3
 *react-qr-code@2.0.21
- react-remove-scroll@2.7.2
  react-remove-scroll-bar@2.3.8
  react-smooth@4.0.4
  react-style-singleton@2.2.3
@@ -2118,6 +2160,7 @@ Packages with Single Version
  set-function-name@2.0.2
  set-harmonic-interval@1.0.1
  set-proto@1.0.0
+ set-value@4.1.0
  setimmediate@1.0.5
  setprototypeof@1.2.0
  sha.js@2.4.12
@@ -2131,7 +2174,7 @@ Packages with Single Version
  side-channel-weakmap@1.0.2
  siginfo@2.0.0
  sirv@2.0.4
- slash@3.0.0
+ slice-ansi@4.0.0
  snake-case@3.0.4
  sockjs-client@1.6.1
  sonic-boom@4.2.0
@@ -2166,6 +2209,7 @@ Packages with Single Version
  string.prototype.trimstart@1.0.8
  stringify-entities@4.0.4
  strip-bom@3.0.0
+ strip-final-newline@2.0.0
  strip-json-comments@3.1.1
  strip-literal@3.1.0
  strip-markdown@6.0.0
@@ -2184,11 +2228,11 @@ Packages with Single Version
  swiper@12.1.4
  symbol-tree@3.2.4
  tabbable@6.4.0
+ table@6.9.0
 *tailwind-merge@3.5.0
 *tailwindcss@3.4.19
 *tailwindcss-animate@1.0.7
 *tailwindcss-safe-area@0.6.0
-*tamagui@1.144.4
  test-exclude@6.0.0
  text-encoding-utf-8@1.0.2
  thenify@3.3.1

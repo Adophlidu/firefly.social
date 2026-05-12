@@ -50,6 +50,9 @@ rewrite.config.dev.json
 
 .turbo/
 
+# Tamagui static extract / compiler output (e.g. apps/wallet/.tamagui)
+.tamagui/
+
 .pnpm-store/
 
 # packages build output and dependencies

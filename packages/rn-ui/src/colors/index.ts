@@ -1,2 +1,2 @@
-export { darkColors } from '@/colors/dark';
-export { lightColors, type ThemeColors } from '@/colors/light';
+export { darkColors } from './dark';
+export { lightColors, type ThemeColors } from './light';

@@ -6,7 +6,7 @@ React Native UI for Firefly perps flows (Tamagui). Built as a library with **pee
 
 The host app **must** install the packages listed under `peerDependencies` in [package.json](./package.json) at compatible versions (copy the version ranges from that file). Notable entries:
 
-- `tamagui`, `@tamagui/core`, `@tamagui/config`, `@tamagui/lucide-icons-2`
+- `tamagui`, `@tamagui/core`, `@tamagui/config`, `@tamagui/helpers`, `@tamagui/lucide-icons-2`
 - `jotai`, `jotai-tanstack-query`, `jotai-effect`
 - `@tanstack/react-query`
 - `@nktkas/hyperliquid`
@@ -96,3 +96,18 @@ Large JS downloads are only one input to perceived performance. If the UI still 
 ## Web / `react-native-web` hosts
 
 Map `react-native` to `react-native-web` in the bundler (see `apps/wallet` Vite `resolve.alias`). Ensure the same peer versions as a native app so Jotai and React Query share one instance with `@dimensiondev/rn-ui`.
+
+### Tamagui compile-time optimization (Vite / Metro)
+
+Tamagui’s static extractor runs in the **host** bundler (not inside the published `dist/` graph by default). It rewrites `.tsx` that imports Tamagui primitives and may inject imports such as `@tamagui/helpers`, so the host must resolve those packages at the **same Tamagui minor** as `tamagui` (mismatched `@tamagui/core` vs `tamagui` breaks the extractor’s `require()` of the bundled config).
+
+**Vite (see `apps/wallet/vite.config.ts`):**
+
+- Add dev dependency `@tamagui/vite-plugin` aligned with `tamagui` (e.g. `1.114.0`).
+- Register `tamaguiPlugin({ optimize: true, disableResolveConfig: true, config: '<absolute-or-repo-relative>/packages/rn-ui/src/tamagui.config.ts', components: ['tamagui'] })` **before** `@vitejs/plugin-react`. Use `disableResolveConfig: true` when the app already aliases `react-native` / `react-native-svg` for RNW.
+- Pin `tamagui`, `@tamagui/core`, `@tamagui/config`, and `@tamagui/helpers` to the same release line (exact versions avoid pnpm resolving `^1.114.0` to a newer `@tamagui/core` that breaks `setupHooks` during extraction).
+- Ensure `@tamagui/helpers` is a **direct** dependency of the host (or linked workspace package) so injected imports resolve when compiling `packages/rn-ui/src` via alias.
+
+**Verification:** a successful production client build logs lines such as `TradesHistory · 13 found · 12 opt · 10 flat` (found / optimized / flattened views). Compare gzip size of client chunks with `optimize: true` toggled off if you need a quantitative A/B.
+
+**Metro (native app):** use `@tamagui/babel-plugin` with `config` pointing at the same `tamagui.config.ts` the app uses at runtime, and `components: ['tamagui']` (and your design-system package name if applicable). Include `node_modules/@dimensiondev/rn-ui` in the Babel processing scope if you consume the prebuilt tarball instead of `src/`.
