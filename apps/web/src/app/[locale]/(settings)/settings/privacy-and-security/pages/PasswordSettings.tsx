@@ -116,7 +116,7 @@ export const PasswordSettings = memo(function PasswordSettings() {
             {data ? (
                 <div className="w-full">
                     <ClickableButton
-                        className="text-main mt-4 flex h-6 w-full items-center justify-between text-base"
+                        className="text-main hover:bg-bg -mx-3 mt-2 flex w-full items-center justify-between rounded-md px-3 py-1 text-base transition-colors"
                         onClick={() => {
                             PasswordModalRef.open({ workflow: PasswordWorkflow.Change });
                         }}
@@ -127,7 +127,7 @@ export const PasswordSettings = memo(function PasswordSettings() {
                         <RightArrowIcon width={24} height={24} />
                     </ClickableButton>
                     <ClickableButton
-                        className="text-main mt-4 flex h-6 w-full items-center justify-between text-base"
+                        className="text-main hover:bg-bg -mx-3 mt-2 flex w-full items-center justify-between rounded-md px-3 py-1 text-base transition-colors"
                         onClick={() => {
                             PasswordModalRef.open({ workflow: PasswordWorkflow.Reset });
                         }}
