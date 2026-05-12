@@ -46,7 +46,6 @@ rewrite.config.dev.json
 *.log
 
 .cursor/
-.claude/
 
 .turbo/
 
@@ -66,3 +65,5 @@ packages/*/node_modules/
 .eslintcache
 *.har
 .gstack/
+
+.playwright-mcp/
