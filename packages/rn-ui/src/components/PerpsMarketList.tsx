@@ -1,4 +1,5 @@
 import { memo, useCallback } from 'react';
+import type { NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
 import { ScrollView, Text, XStack, YStack } from 'tamagui';
 
 import { NoDataFallback } from '@/components/NoDataFallback';
@@ -24,7 +25,8 @@ export const PerpsMarketList = memo<PerpsMarketListProps>(function PerpsMarketLi
     onMarketSelect,
 }) {
     const handleScroll = useCallback(
-        (event: any) => {
+        (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+            if (loading || loadingMore) return;
             const { contentOffset, contentSize, layoutMeasurement } = event.nativeEvent;
             const isNearBottom = layoutMeasurement.height + contentOffset.y >= contentSize.height - 120;
 
@@ -32,7 +34,7 @@ export const PerpsMarketList = memo<PerpsMarketListProps>(function PerpsMarketLi
                 onLoadMore?.();
             }
         },
-        [onLoadMore],
+        [loading, loadingMore, onLoadMore],
     );
 
     return (

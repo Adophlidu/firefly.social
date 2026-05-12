@@ -10,14 +10,12 @@ import { acceptTermsSheetOpenAtom } from '@/store/tradeForm';
 
 interface Props extends ComponentProps<typeof Button> {
     loading?: boolean;
-    loadingSize?: number;
     onPress?: () => void;
 }
 
 export const WalletActionButton = memo<Props>(function WalletActionButton({
     onPress,
     loading,
-    loadingSize = 20,
     disabled: disabledProp,
     children,
     ...rest

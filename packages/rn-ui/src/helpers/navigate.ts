@@ -7,5 +7,4 @@ export const navigate: NavigateFunc = (to, options) => {
     if (typeof navigateFunc === 'function') {
         navigateFunc(to, options);
     }
-    console.log('Navigate to:', to, options);
 };
