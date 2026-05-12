@@ -9,7 +9,7 @@ function Block({ className = '', style }: { className?: string; style?: CSSPrope
 
 function SkeletonPositionCard() {
     return (
-        <div className="flex flex-col gap-3 rounded-xl border border-[#F0F0F0] p-3">
+        <div className="flex flex-col gap-3 rounded-xl border border-[#F0F0F0] p-3 dark:border-[#2D2D2D]">
             <div className="flex flex-col gap-1">
                 <div className="flex justify-between">
                     <Block className="h-3.5 w-[60px] rounded-md" />
@@ -46,7 +46,7 @@ function SkeletonPositionCard() {
 
 export const PerpsTradeRouteSkeleton = memo(function PerpsTradeRouteSkeleton() {
     return (
-        <div className="flex min-h-0 min-w-0 flex-1 flex-col bg-white">
+        <div className="flex min-h-0 min-w-0 flex-1 flex-col bg-white dark:bg-[#171717]">
             <div className="flex h-11 items-center justify-between px-3">
                 <Block className="size-6 rounded-xl" />
                 <Block className="h-6 w-[60px] rounded-[10px]" />
