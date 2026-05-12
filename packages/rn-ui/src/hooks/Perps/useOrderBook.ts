@@ -67,13 +67,15 @@ export function useOrderBook(coinName: string, maxRows = 7, stepIndex = 0, rever
                 throttle.schedule(data);
             })
             .then((sub) => {
-                lastSubscription.current.push(sub);
+                if (cancelled) sub.unsubscribe();
+                else lastSubscription.current.push(sub);
             });
 
         return () => {
             cancelled = true;
             throttle.dispose();
             lastSubscription.current.forEach((sub) => sub.unsubscribe());
+            lastSubscription.current = [];
         };
     }, [coinName, subscriptionClient, stepIndex]);
 

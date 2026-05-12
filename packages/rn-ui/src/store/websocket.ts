@@ -24,19 +24,20 @@ export const assetCtxsAtom = withAtomEffect(atom<PerpAssetCtxSchema[]>([]), (get
         return;
     }
 
-    let subscription: ISubscription;
+    let cleanedUp = false;
+    let subscription: ISubscription | undefined;
     subscriptionClient
         .assetCtxs((ctxs) => {
             set(assetCtxsAtom, ctxs.ctxs);
         })
         .then((sub) => {
-            subscription = sub;
+            if (cleanedUp) sub.unsubscribe();
+            else subscription = sub;
         });
 
     return () => {
-        if (subscription) {
-            subscription.unsubscribe();
-        }
+        cleanedUp = true;
+        subscription?.unsubscribe();
     };
 });
 
@@ -49,20 +50,21 @@ export const allDexsAssetCtxsAtom = withAtomEffect(
             return;
         }
 
-        let subscription: ISubscription;
+        let cleanedUp = false;
+        let subscription: ISubscription | undefined;
 
         subscriptionClient
             .allDexsAssetCtxs((data) => {
                 set(allDexsAssetCtxsAtom, data.ctxs);
             })
             .then((sub) => {
-                subscription = sub;
+                if (cleanedUp) sub.unsubscribe();
+                else subscription = sub;
             });
 
         return () => {
-            if (subscription) {
-                subscription.unsubscribe();
-            }
+            cleanedUp = true;
+            subscription?.unsubscribe();
         };
     },
 );

@@ -13,16 +13,19 @@ export function useOpenOrders() {
     useEffect(() => {
         if (!value || !subscriptionClient) return;
 
-        let subscription: ISubscription;
+        let cleanedUp = false;
+        let subscription: ISubscription | undefined;
         subscriptionClient
             .openOrders({ user: value, dex: 'ALL_DEXS' }, (data) => {
                 setOpenOrders(data.orders as OpenOrder[]);
             })
             .then((sub) => {
-                subscription = sub;
+                if (cleanedUp) sub.unsubscribe();
+                else subscription = sub;
             });
 
         return () => {
+            cleanedUp = true;
             subscription?.unsubscribe();
             setOpenOrders([]);
         };

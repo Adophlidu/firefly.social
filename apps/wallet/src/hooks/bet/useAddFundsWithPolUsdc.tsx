@@ -2,7 +2,7 @@ import { createWagmiPublicClient } from '@dimensiondev/web3/actions';
 import { resolvePublicRpcUrl } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useAsyncFn } from 'react-use';
-import { type Address, encodeFunctionData, erc20Abi, parseUnits } from 'viem';
+import { type Address, encodeFunctionData, erc20Abi, type Hash, parseUnits } from 'viem';
 import { useConfig } from 'wagmi';
 import { simulateContract, waitForTransactionReceipt, writeContract } from 'wagmi/actions';
 
@@ -61,7 +61,7 @@ export function useAddFundsWithPolUsdc({ depositToken, polymarketAddress, amount
         });
 
         // Try free-gas for Polymarket deposit
-        let txHash: Address;
+        let txHash: Hash;
         const freeGasResult = await tryFreeGasTransaction({
             chainId: depositToken.chainId,
             txType: FreeGasTxType.PolymarketDeposit,
@@ -74,7 +74,7 @@ export function useAddFundsWithPolUsdc({ depositToken, polymarketAddress, amount
             }),
         });
         if (freeGasResult.type === 'free-gas') {
-            txHash = freeGasResult.hash as Address;
+            txHash = freeGasResult.hash as Hash;
         } else {
             // Free-gas not available — verify user has enough native token to pay gas
             let gas: bigint | undefined;

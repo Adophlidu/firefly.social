@@ -39,8 +39,7 @@ export function minus(a: BigNumber.Value, b: BigNumber.Value) {
 
 /** scale 10 ** n * m */
 export function scale10(m: BigNumber.Value, n = 1) {
-    const x = new BigNumber(1).shiftedBy(n);
-    return n === 1 ? x : x.multipliedBy(m);
+    return new BigNumber(1).shiftedBy(n).multipliedBy(m);
 }
 
 /** n * (10 ** m) */

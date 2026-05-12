@@ -17,12 +17,11 @@ function getFundingCountdown() {
 }
 
 export function useCountdown() {
-    const [countdown, setCountdown] = useState('');
+    const [countdown, setCountdown] = useState(getFundingCountdown);
 
     useEffect(() => {
         const interval = setInterval(() => {
-            const countdown = getFundingCountdown();
-            setCountdown(countdown);
+            setCountdown(getFundingCountdown());
         }, 1000);
 
         return () => clearInterval(interval);
