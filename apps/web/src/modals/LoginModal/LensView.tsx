@@ -8,6 +8,7 @@ import { AbortError, ForbiddenError, runInSafeAsync } from '@dimensiondev/utils'
 import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import { lastLoggedInAccount } from '@lens-protocol/client/actions';
 import { Trans } from '@lingui/react/macro';
+import { useAppKitAccount } from '@reown/appkit/react';
 import { useQuery } from '@tanstack/react-query';
 import { useLocation, useRouter } from '@tanstack/react-router';
 import { compact, first, uniqBy } from 'lodash-es';
@@ -70,6 +71,9 @@ export const LensView = memo(function LensView() {
     const { history } = router;
 
     const account = useConnection();
+    const { address: appkitEvmAddress } = useAppKitAccount({ namespace: 'eip155' });
+    const address = account.address ?? appkitEvmAddress;
+    const isConnected = account.isConnected || !!appkitEvmAddress;
     const { data: canBindMoreAccount } = useCanBindMoreAccount(Source.Lens);
     const { expectedProfile } = useLocation().search as { expectedProfile?: string };
 
@@ -81,16 +85,16 @@ export const LensView = memo(function LensView() {
         isRefetching,
     } = useQuery({
         retry: false,
-        enabled: !!account.address,
+        enabled: !!address,
         staleTime: 0,
-        queryKey: ['lens', 'profiles', account.address?.toLowerCase()],
+        queryKey: ['lens', 'profiles', address?.toLowerCase()],
         queryFn: async () => {
             try {
-                if (!account.address) return EMPTY_LIST;
+                if (!address) return EMPTY_LIST;
 
-                const profiles = await getProfilesByAddress(account.address);
+                const profiles = await getProfilesByAddress(address);
                 const lastLoggedIn = await runInSafeAsync(() =>
-                    ensureLensResult(lastLoggedInAccount(lensClientHolder.client, { address: account.address })),
+                    ensureLensResult(lastLoggedInAccount(lensClientHolder.client, { address })),
                 );
                 return uniqBy(
                     compact([
@@ -120,7 +124,7 @@ export const LensView = memo(function LensView() {
     const profiles = frozenProfiles || managedProfiles;
     const currentProfile = selectedProfile || first(profiles);
     const isFetching = isLoading || isRefetching;
-    const isPrivy = !!account.address && account.connector?.id === PRIVY_CONNECTOR_ID;
+    const isPrivy = !!address && account.connector?.id === PRIVY_CONNECTOR_ID;
 
     const [{ loading }, login] = useAsyncFn(async () => {
         if (!currentProfile) return;
@@ -182,7 +186,7 @@ export const LensView = memo(function LensView() {
                 <ScanIcon className="size-[20px]" />
             </div>
             <div className="my-3 px-2 text-center text-[14px] leading-[14px] max-md:hidden">
-                {account.isConnected ? (
+                {isConnected ? (
                     <Trans>
                         Or select an account from your
                         <span
@@ -199,7 +203,7 @@ export const LensView = memo(function LensView() {
                 )}
             </div>
 
-            {account.address ? (
+            {address ? (
                 profiles.length > 0 ? (
                     <div className="no-scrollbar flex max-h-[278px] flex-col gap-2 overflow-auto max-md:max-h-[calc(100vh_-_136px)]">
                         {profiles.map((profile) => {
@@ -285,7 +289,7 @@ export const LensView = memo(function LensView() {
                 )
             ) : null}
 
-            {account.address ? (
+            {address ? (
                 <ClickableButton
                     disabled={!currentProfile || !profiles.length || isFetching}
                     loading={loading}
