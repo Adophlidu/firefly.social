@@ -1,3 +1,4 @@
+import { IS_PRODUCTION } from '@dimensiondev/constants';
 import { reportExceptionServer } from '@dimensiondev/exception-tracker';
 import type { NextRequestContext } from '@dimensiondev/types';
 import { NotFoundError, parseJson, UnauthorizedError } from '@dimensiondev/utils';
@@ -55,7 +56,7 @@ export function withRequestErrorHandler<P>(options?: { throwError?: boolean }) {
                     }
 
                     const err = error instanceof Error ? error : new Error(String(error));
-                    return createErrorResponseJson(err.message, {
+                    return createErrorResponseJson(IS_PRODUCTION ? 'Internal server error' : err.message, {
                         status: 500,
                     });
                 }
