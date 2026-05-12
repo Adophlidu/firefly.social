@@ -1,15 +1,12 @@
-import { useQueryClient } from '@tanstack/react-query';
-import { useAtomValue } from 'jotai';
+import { useSetAtom } from 'jotai';
 import type { ComponentProps, ReactNode } from 'react';
 import { cloneElement, isValidElement, memo, useMemo } from 'react';
 import { Button } from 'tamagui';
 
 import { UserActionState } from '@/constants/enum';
-import { toast } from '@/helpers/toast';
 import { useUserActionState } from '@/hooks/Perps/useUserActionState';
 import { useAsyncFn } from '@/hooks/useAsyncFn';
-import { acceptTerms } from '@/services/acceptTerms';
-import { walletClientAtom } from '@/store/wallet';
+import { acceptTermsSheetOpenAtom } from '@/store/tradeForm';
 
 interface Props extends ComponentProps<typeof Button> {
     loading?: boolean;
@@ -25,9 +22,8 @@ export const WalletActionButton = memo<Props>(function WalletActionButton({
     children,
     ...rest
 }) {
-    const queryClient = useQueryClient();
-    const { state, isLoading, address } = useUserActionState();
-    const walletClient = useAtomValue(walletClientAtom);
+    const { state, isLoading } = useUserActionState();
+    const setAcceptTermsSheetOpen = useSetAtom(acceptTermsSheetOpenAtom);
 
     const buttonLabel = useMemo(() => {
         let override: string | undefined;
@@ -45,19 +41,10 @@ export const WalletActionButton = memo<Props>(function WalletActionButton({
     }, [state, children]);
 
     const [{ loading: isExecuting }, execute] = useAsyncFn(async () => {
-        if (!walletClient || !address) return;
-
         if (state === UserActionState.CONNECT) return;
         if (state === UserActionState.AGREE_LEGAL) {
-            try {
-                await acceptTerms(walletClient, address);
-                await queryClient.refetchQueries({
-                    queryKey: ['wallet', 'legalCheck', address?.toLowerCase()],
-                });
-            } catch {
-                toast({ message: 'Failed to agree to legal terms. Please try again.', type: 'error' });
-                return;
-            }
+            setAcceptTermsSheetOpen(true);
+            return;
         }
 
         if (state !== UserActionState.READY) {
@@ -65,7 +52,7 @@ export const WalletActionButton = memo<Props>(function WalletActionButton({
         }
 
         onPress?.();
-    }, [state, walletClient, address, onPress, queryClient]);
+    }, [state, onPress, setAcceptTermsSheetOpen]);
 
     const disabled =
         (isLoading || loading || isExecuting || disabledProp) &&

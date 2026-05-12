@@ -1,3 +1,4 @@
+import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
 import { type NavigateFunc, PerpsAuthGate, PerpsBindingsProvider, Provider, type ToastFn } from '@dimensiondev/rn-ui';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { useNavigate } from '@tanstack/react-router';
@@ -8,6 +9,7 @@ import { useConnectors, useWalletClient } from 'wagmi';
 
 import { useComeback } from '@/components/useComeback.js';
 import { env } from '@/constants/env.js';
+import { ABOUT_URL, PRIVACY_URL, TERMS_URL } from '@/constants/hyperliquid.js';
 import { PRIVY_CONNECTOR_ID } from '@/constants/static.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { logger } from '@/lib/Logger.js';
@@ -59,9 +61,25 @@ export function PerpsProvider({ children }: PropsWithChildren) {
                 case 'history':
                     return navigate({ to: '/perps/history' });
                 case 'perps-website':
+                    iframeBridgeProvider.request(IframeBridgeMethod.NAVIGATE, {
+                        path: ABOUT_URL,
+                        external: true,
+                    });
                     return;
                 case '__parent__':
                     comeback();
+                    return;
+                case 'perps-privacy':
+                    iframeBridgeProvider.request(IframeBridgeMethod.NAVIGATE, {
+                        path: PRIVACY_URL,
+                        external: true,
+                    });
+                    return;
+                case 'perps-terms':
+                    iframeBridgeProvider.request(IframeBridgeMethod.NAVIGATE, {
+                        path: TERMS_URL,
+                        external: true,
+                    });
                     return;
                 default:
                     safeUnreachable(to);

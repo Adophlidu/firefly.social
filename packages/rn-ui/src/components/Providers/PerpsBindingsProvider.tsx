@@ -2,6 +2,7 @@ import { ExchangeClient, SubscriptionClient, WebSocketTransport } from '@nktkas/
 import { useAtomValue, useSetAtom } from 'jotai';
 import { type ReactNode, useEffect } from 'react';
 
+import { AcceptTermsSheet } from '@/components/Sheets/AcceptTermsSheet';
 import { httpTransport } from '@/providers/client';
 import { navigateAtom, toastAtom } from '@/store/global';
 import { apiModeAtom, sessionTokenAtom } from '@/store/session';
@@ -23,6 +24,7 @@ export function PerpsBindingsProvider({ children, ...syncProps }: PerpsBindingsP
     return (
         <>
             <PerpsBindingsSync {...syncProps} />
+            <AcceptTermsSheet />
             {children}
         </>
     );

@@ -80,6 +80,7 @@ export interface IframeBridgeRequestArguments {
     [IframeBridgeMethod.NAVIGATE]: {
         path: string;
         replace?: boolean;
+        external?: boolean;
     };
     [IframeBridgeMethod.FIREFLY_WALLET_VISIBILITY]: {
         visible: boolean;

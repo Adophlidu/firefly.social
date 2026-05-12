@@ -41,6 +41,7 @@ export const slRatioAtom = atom<string>('');
 // sheet
 export const leverageSheetOpenAtom = atom(false);
 export const marginModeSheetOpenAtom = atom(false);
+export const acceptTermsSheetOpenAtom = atom(false);
 
 export const currentPriceAtom = atom((get) => {
     const orderType = get(orderTypeAtom);

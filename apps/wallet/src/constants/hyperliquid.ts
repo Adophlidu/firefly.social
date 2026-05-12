@@ -39,3 +39,7 @@ export const HYPERLIQUID_DEPOSIT_ADDRESS = '0x2df1c51e09aecf9cacb7bc98cb1742757f
 
 /** Minimum deposit in USDC (UI convention aligned with OneKey). */
 export const MIN_HYPERLIQUID_DEPOSIT_USDC = 5;
+
+export const TERMS_URL = 'https://app.hyperliquid.xyz/terms';
+export const PRIVACY_URL = 'https://app.hyperliquid.xyz/privacyPolicy';
+export const ABOUT_URL = 'https://hyperliquid.gitbook.io/hyperliquid-docs';

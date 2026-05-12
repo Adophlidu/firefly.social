@@ -154,7 +154,9 @@ const createAllEvents = (router: ReturnType<typeof useRouter>) => {
             void reconnectPrivyWallet();
         },
         [IframeBridgeMethod.NAVIGATE]: async (params: IframeBridgeRequestArguments[IframeBridgeMethod.NAVIGATE]) => {
-            if (params.replace) {
+            if (params.external) {
+                window.open(params.path, '_blank', 'noopener');
+            } else if (params.replace) {
                 router.replace(params.path);
             } else {
                 router.push(params.path);

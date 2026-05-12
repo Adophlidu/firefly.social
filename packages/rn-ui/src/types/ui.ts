@@ -218,7 +218,16 @@ export interface OpenOrder {
 }
 export type Position = ClearinghouseStateResponse['assetPositions'][number]['position'];
 
-type PagePath = 'trade' | 'details' | 'history' | '__parent__' | 'withdraw' | 'addFunds' | 'perps-website';
+type PagePath =
+    | 'trade'
+    | 'details'
+    | 'history'
+    | '__parent__'
+    | 'withdraw'
+    | 'addFunds'
+    | 'perps-website'
+    | 'perps-terms'
+    | 'perps-privacy';
 
 export type NavigateFunc = <T extends PagePath>(
     to: T,
