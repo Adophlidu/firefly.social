@@ -2,15 +2,15 @@ import '@/components/Posts/ShareButton.css';
 
 import Send2Icon from '@dimensiondev/assets/send2.svg';
 import Send2FilledIcon from '@dimensiondev/assets/send2filled.svg';
-import { type RefObject, useRef } from 'react';
-import { useHover } from 'usehooks-ts';
+import { createContext, use, useRef } from 'react';
 
+export const ShareButtonWithAnimationContext = createContext(false);
 export function ShareButtonWithAnimation() {
     const ref = useRef<HTMLElement>(null);
-    const hover = useHover(ref as RefObject<HTMLElement>);
+    const hover = use(ShareButtonWithAnimationContext);
     const animate = hover;
     return (
-        <span ref={ref} className={animate ? 'size-6' : 'size-6 p-1'} style={{}}>
+        <span ref={ref} className={animate ? 'size-6' : 'size-6 p-1'}>
             {animate ? (
                 <span className="absolute -ml-3 size-6" style={{ clipPath: 'circle(40% at 50% 50%)' }}>
                     <Send2FilledIcon width={23} height={23} className="airplane-r1-animation" />

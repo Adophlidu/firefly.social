@@ -4,7 +4,8 @@ import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
 import { isUndefined } from 'lodash-es';
-import { type HTMLProps, memo, type ReactNode, useMemo } from 'react';
+import { type HTMLProps, memo, type ReactNode, useMemo, useRef } from 'react';
+import { useHover } from 'usehooks-ts';
 
 import { PostActions } from '@/components/Actions/index.js';
 import { useDisableScrollRestore } from '@/components/DisableScrollRestore/index.js';
@@ -12,6 +13,7 @@ import { NoSSR } from '@/components/NoSSR.js';
 import { FeedActionType } from '@/components/Posts/ActionType.js';
 import { PostBody } from '@/components/Posts/PostBody.js';
 import { PostHeader } from '@/components/Posts/PostHeader.js';
+import { ShareButtonWithAnimationContext } from '@/components/Posts/ShareButton.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { PageRoute, Source } from '@/constants/enum.js';
 import { usePathname, useRouter } from '@/esm/navigation.js';
@@ -80,6 +82,9 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
     }, [post, isPostPage]);
     const disableScrollRestore = useDisableScrollRestore();
 
+    const ref = useRef<HTMLElement>(null!);
+    const hover = useHover(ref);
+
     if (!isProfilePage && !isDetail && muted)
         return keepMutedSpace ? <div className="pointer-events-none -mt-px h-px" /> : null;
 
@@ -87,6 +92,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
 
     return (
         <motion.article
+            ref={ref}
             initial={!disableAnimate ? { opacity: 0 } : false}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -128,49 +134,53 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
                 return;
             }}
         >
-            {header}
-            <NoSSR mode="mounted">
-                {!isComment ? <FeedActionType isDetail={isDetail} post={post} listKey={listKey} index={index} /> : null}
-            </NoSSR>
+            <ShareButtonWithAnimationContext.Provider value={hover}>
+                {header}
+                <NoSSR mode="mounted">
+                    {!isComment ? (
+                        <FeedActionType isDetail={isDetail} post={post} listKey={listKey} index={index} />
+                    ) : null}
+                </NoSSR>
 
-            <PostHeader
-                isComment={isComment}
-                post={post}
-                onClickProfileLink={() => {
-                    if (listKey && !isUndefined(index)) setScrollIndex(listKey, index);
-                }}
-            />
+                <PostHeader
+                    isComment={isComment}
+                    post={post}
+                    onClickProfileLink={() => {
+                        if (listKey && !isUndefined(index)) setScrollIndex(listKey, index);
+                    }}
+                />
 
-            <PostBody
-                post={post}
-                showMore={showMore}
-                showTranslate={showTranslate}
-                isDetail={isDetail}
-                isComment={isComment}
-                fireflyArticleToggle={!!isPostPage && !postLink.includes(pathname)}
-                listKey={listKey}
-                index={index}
-            />
-            <NoSSR mode="mounted">
-                {showPostAction && !post.isTruthSocial ? (
-                    <PostActions
-                        post={post}
-                        disabled={!isBookmarkPage && post.isHidden}
-                        showChannelTag={!isComment && !isChannelPage && showChannelTag}
-                        onSetScrollIndex={() => {
-                            if (listKey && !isUndefined(index)) setScrollIndex(listKey, index);
-                        }}
-                    />
-                ) : null}
-            </NoSSR>
+                <PostBody
+                    post={post}
+                    showMore={showMore}
+                    showTranslate={showTranslate}
+                    isDetail={isDetail}
+                    isComment={isComment}
+                    fireflyArticleToggle={!!isPostPage && !postLink.includes(pathname)}
+                    listKey={listKey}
+                    index={index}
+                />
+                <NoSSR mode="mounted">
+                    {showPostAction && !post.isTruthSocial ? (
+                        <PostActions
+                            post={post}
+                            disabled={!isBookmarkPage && post.isHidden}
+                            showChannelTag={!isComment && !isChannelPage && showChannelTag}
+                            onSetScrollIndex={() => {
+                                if (listKey && !isUndefined(index)) setScrollIndex(listKey, index);
+                            }}
+                        />
+                    ) : null}
+                </NoSSR>
 
-            {show ? (
-                <div className="text-medium text-highlight mt-2 w-full cursor-pointer text-center font-bold">
-                    <div>
-                        <Trans>Show More</Trans>
+                {show ? (
+                    <div className="text-medium text-highlight mt-2 w-full cursor-pointer text-center font-bold">
+                        <div>
+                            <Trans>Show More</Trans>
+                        </div>
                     </div>
-                </div>
-            ) : null}
+                ) : null}
+            </ShareButtonWithAnimationContext.Provider>
         </motion.article>
     );
 });
