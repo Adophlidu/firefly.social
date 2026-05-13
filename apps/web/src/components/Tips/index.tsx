@@ -14,7 +14,7 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';
 import { STALE_TIMES } from '@/constants/query.js';
-import { enqueueErrorMessage, enqueueInfoMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueErrorMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
@@ -71,7 +71,7 @@ export function Tips({
             if (!relatedProfiles?.some((profile) => profile.identity.source === Source.Wallet)) {
                 const fireflyAccountName = fireflyProfiles.account?.displayName;
                 const displayName = fireflyAccountName || (handle ? `@${handle}` : identity.id);
-                enqueueInfoMessage(<Trans>Sorry, we are not able to find a wallet for {displayName}.</Trans>);
+                enqueueWarningMessage(<Trans>Sorry, we are not able to find a wallet for {displayName}.</Trans>);
                 return;
             }
 
