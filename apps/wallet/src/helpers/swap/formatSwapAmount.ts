@@ -66,7 +66,9 @@ export function formatGasEstimate(gasUsd: number | undefined | null): string {
 }
 
 /**
- * Parse user input amount - remove thousand separators and validate
+ * Parse user input amount - remove thousand separators, validate, and strip leading zeros.
+ *
+ * Examples: `000` → `0`, `01.5` → `1.5`, `0.5` → `0.5`, `0.` → `0.`, `.5` → `.5`.
  */
 export function parseInputAmount(input: string): string {
     // Remove commas and whitespace
@@ -75,5 +77,9 @@ export function parseInputAmount(input: string): string {
     // Validate it's a valid number
     if (!/^\d*\.?\d*$/.test(cleaned)) return '';
 
-    return cleaned;
+    const dotIndex = cleaned.indexOf('.');
+    const intPart = dotIndex === -1 ? cleaned : cleaned.slice(0, dotIndex);
+    const fracPart = dotIndex === -1 ? '' : cleaned.slice(dotIndex);
+    const strippedInt = intPart.replace(/^0+(?=\d)/, '');
+    return strippedInt + fracPart;
 }
