@@ -506,9 +506,6 @@ msgstr "已经到底啦。"
 msgid "View"
 msgstr "查看"
 
-msgid "Unavailable"
-msgstr ""
-
 msgid "Release Now"
 msgstr "立即释放"
 

@@ -506,9 +506,6 @@ msgstr "You've hit rock bottom."
 msgid "View"
 msgstr "View"
 
-msgid "Unavailable"
-msgstr "Unavailable"
-
 msgid "Release Now"
 msgstr "Release Now"
 

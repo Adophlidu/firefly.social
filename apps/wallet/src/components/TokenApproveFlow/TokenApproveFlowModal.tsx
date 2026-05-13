@@ -1,5 +1,7 @@
 import { delay } from '@dimensiondev/utils';
 import { getChainName } from '@dimensiondev/web3/chains';
+import { ETH_ZERO_ADDRESS } from '@dimensiondev/web3/constants';
+import { multipliedBy } from '@dimensiondev/web3/numbers';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
@@ -33,7 +35,9 @@ import {
     type TokenApprovalSession,
     unlimitedApprovalAmount,
 } from '@/helpers/evm/tokenApprovalSession.js';
+import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { formatTokenAmount, parseInputAmount } from '@/helpers/swap/formatSwapAmount.js';
+import { coinGeckoEndpoint } from '@/providers/coingecko/index.js';
 
 export type TokenApproveFlowModalResult =
     | { accepted: false }
@@ -104,18 +108,19 @@ export const TokenApproveFlowModal = createCallable<TokenApproveFlowModalProps, 
             return encodeErc20ApproveCalldata(session.spender, amount);
         }, [session, amount]);
 
-        const { data: gasLabel, isLoading: gasLoading } = useQuery({
+        const isErc20Approve = session.kind === 'erc20Approve';
+        const { data: gasWeiCost, isLoading: gasLoading } = useQuery({
             queryKey: ['tokenApproveGas', chainId, walletAddress, tokenAddress, calldataForDraft, txBase],
             enabled:
                 open &&
                 view === 'summary' &&
-                session.kind === 'erc20Approve' &&
+                isErc20Approve &&
                 !!calldataForDraft &&
                 isAddress(walletAddress) &&
                 isAddress(tokenAddress),
             queryFn: async () => {
                 const client = getPublicClient(config, { chainId });
-                if (!client) return t`Unavailable`;
+                if (!client) return null;
                 const valueHex = txBase?.value;
                 const value = typeof valueHex === 'string' && valueHex.startsWith('0x') ? BigInt(valueHex) : 0n;
                 const gas = await client.estimateGas({
@@ -125,17 +130,24 @@ export const TokenApproveFlowModal = createCallable<TokenApproveFlowModalProps, 
                     value,
                 });
                 const fees = await client.estimateFeesPerGas().catch(() => null);
-                let weiCost: bigint;
-                if (fees?.maxFeePerGas) {
-                    weiCost = gas * fees.maxFeePerGas;
-                } else {
-                    const price = await client.getGasPrice().catch(() => null);
-                    if (!price) return t`Unavailable`;
-                    weiCost = gas * price;
-                }
-                return `${formatEther(weiCost).slice(0, 10)} ETH`;
+                if (fees?.maxFeePerGas) return gas * fees.maxFeePerGas;
+                const gasPrice = await client.getGasPrice().catch(() => null);
+                if (!gasPrice) return null;
+                return gas * gasPrice;
             },
         });
+
+        const { data: nativeTokenPrice, isLoading: priceLoading } = useQuery({
+            queryKey: ['fungible', 'token-price', chainId, ETH_ZERO_ADDRESS],
+            enabled: open && view === 'summary' && isErc20Approve,
+            queryFn: () => coinGeckoEndpoint.getFungibleTokenPrice(chainId, ETH_ZERO_ADDRESS),
+        });
+
+        const gasUsdLabel = useMemo(() => {
+            if (!gasWeiCost || !nativeTokenPrice) return null;
+            const usd = multipliedBy(nativeTokenPrice, formatEther(gasWeiCost)).toString();
+            return formatTokenUSD(usd, { minDisplay: 0.01 });
+        }, [gasWeiCost, nativeTokenPrice]);
 
         const approveDisplay = useMemo(() => {
             if (isDisplayUnlimitedAllowance(amount, kind)) {
@@ -293,12 +305,12 @@ export const TokenApproveFlowModal = createCallable<TokenApproveFlowModalProps, 
                                             </button>
                                         )}
                                     </SummaryRow>
-                                    {session.kind === 'erc20Approve' ? (
+                                    {isErc20Approve ? (
                                         <SummaryRow label={t`Network Fee`}>
-                                            {gasLoading || !gasLabel ? (
+                                            {gasLoading || priceLoading ? (
                                                 <Skeleton className="ml-auto h-[18px] w-[80px]" />
                                             ) : (
-                                                gasLabel
+                                                (gasUsdLabel ?? '--')
                                             )}
                                         </SummaryRow>
                                     ) : null}
