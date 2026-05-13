@@ -120,7 +120,7 @@ function WithdrawClient() {
                 message: originalMessage,
                 connector: connectors.find((c) => c.id === PRIVY_CONNECTOR_ID),
             });
-            const hash = await getFireflyEndpoint().polymarketWithdraw(
+            const { hash, isDepositAddress } = await getFireflyEndpoint().polymarketWithdraw(
                 amount.toString(),
                 targetToken.id,
                 targetToken.chainId,
@@ -128,7 +128,7 @@ function WithdrawClient() {
                 signature,
             );
 
-            const status = await waitForPolymarketWithdraw(hash, targetToken.chainId !== polygon.id);
+            const status = await waitForPolymarketWithdraw(hash, targetToken.chainId !== polygon.id, isDepositAddress);
             if (!status) {
                 throw new Error('Failed to confirm withdraw status from Firefly');
             }

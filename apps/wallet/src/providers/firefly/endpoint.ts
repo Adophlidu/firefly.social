@@ -224,7 +224,7 @@ export class FireflyEndpoint extends Fetch {
         chainId: number,
         originalMessage: string,
         signatureMessage: string,
-    ): Promise<Hex> {
+    ): Promise<{ hash: Hex; isDepositAddress: boolean }> {
         const result = await this.post<PolymarketWithdrawResponse>(`/polymarket/v2/polymarket/withdraw`, {
             amount,
             token_address: tokenAddress,
@@ -234,10 +234,10 @@ export class FireflyEndpoint extends Fetch {
         });
         const resolvedData = resolveFireflyResponseData(result.data);
         if (resolvedData.status !== 'success' || !resolvedData.hash) {
-            throw new Error('Failed to initiate withdraw');
+            throw new Error(resolvedData.error_message || 'Failed to initiate withdraw');
         }
 
-        return resolvedData.hash;
+        return { hash: resolvedData.hash, isDepositAddress: resolvedData.is_deposit_address };
     }
 
     async getPolymarketWithdrawAmount(amount: string, tokenAddress: string, chainId: number) {
@@ -483,10 +483,11 @@ export class FireflyEndpoint extends Fetch {
         return resolveFireflyResponseData(result.data);
     }
 
-    async getPolymarketWithdrawStatus(hash: string, isBridge: boolean) {
+    async getPolymarketWithdrawStatus(hash: string, isBridge: boolean, isDepositAddress: boolean) {
         const url = urlcat('/polymarket/v1/polymarket/withdraw/status', {
             hash,
             is_bridge: isBridge ? 1 : 0,
+            is_deposit_address: isDepositAddress ? 1 : 0,
         });
         const result = await this.get<
             Response<{

@@ -389,6 +389,8 @@ export type PolymarketProfileListResponse = Response<PolymarketProfileListItem[]
 export type PolymarketWithdrawResponse = Response<{
     hash: Hex | '';
     status: 'success' | 'failed';
+    is_deposit_address: boolean;
+    error_message: string;
 }>;
 
 export type PreviewPolymarketWithdrawResponse = Response<{
