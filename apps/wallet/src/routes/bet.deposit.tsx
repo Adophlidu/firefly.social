@@ -323,7 +323,7 @@ function DepositClient() {
                                 if (!depositToken) return;
 
                                 const ratedValueBigInt = BigInt(
-                                    BigNumber(depositToken.rawAmount).times(Math.min(rate, 0.95)).toFixed(0),
+                                    BigNumber(depositToken.rawAmount).times(rate).toFixed(0),
                                 );
                                 const newAmount = formatUnits(ratedValueBigInt, depositToken.decimals);
                                 setValue(
