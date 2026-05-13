@@ -36,19 +36,19 @@ msgid "History"
 msgstr "历史记录"
 
 msgid "Make sure to send funds on Ethereum."
-msgstr ""
+msgstr "请确保在以太坊 (Ethereum) 网络上发送资金。"
 
 msgid "Load failed"
 msgstr "加载失败"
 
 msgid "Failed to disable authentication"
-msgstr ""
+msgstr "禁用身份验证失败"
 
 msgid "Positions"
 msgstr "仓位"
 
 msgid "Alphabetically"
-msgstr ""
+msgstr "按字母顺序"
 
 msgid "in your Firefly wallet"
 msgstr "在您的 Firefly 钱包中"
@@ -69,7 +69,7 @@ msgid "Authenticating..."
 msgstr "身份认证中..."
 
 msgid "Transfer from an exchange"
-msgstr ""
+msgstr "从交易所转账"
 
 #. placeholder {0}: transaction.tx_status
 msgid "{0, select, success {Success} fail {Failed} other {Failed}}"
@@ -106,7 +106,7 @@ msgid "Solana"
 msgstr "Solana"
 
 msgid "Receive funds"
-msgstr ""
+msgstr "接收资金"
 
 msgid "Failed to claim winnings"
 msgstr "领取奖金失败"
@@ -121,10 +121,10 @@ msgid "Review"
 msgstr "预览/检查"
 
 msgid "Confirm to reset PIN code? For your security, this action requires sending a verification code to your recovery email to confirm your identity."
-msgstr ""
+msgstr "确认重置 PIN 码？为了您的安全，此操作需要向您的恢复邮箱发送验证码以确认您的身份。"
 
 msgid "The PINs you entered do not match. Please check and try again."
-msgstr ""
+msgstr "您输入的 PIN 码不一致。请检查并重试。"
 
 msgid "Great job predicting the future!"
 msgstr "预测精准！干得漂亮！"
@@ -136,7 +136,7 @@ msgid "I understand"
 msgstr "我已知晓并理解"
 
 msgid "Deposit submitted. Funds will appear on Hyperliquid shortly."
-msgstr ""
+msgstr "充值已提交。资金将很快显示在 Hyperliquid 账户上。"
 
 msgid "Your Private Key"
 msgstr "您的私钥"
@@ -155,7 +155,7 @@ msgstr "已复制"
 
 #. placeholder {0}: formatTokenItemAmount(usdcToken?.balance ?? '0')
 msgid "{0} USDC in your Firefly wallet"
-msgstr ""
+msgstr "您的 Firefly 钱包中有 {0} USDC"
 
 msgid "Total"
 msgstr "总计"
@@ -168,7 +168,7 @@ msgid "To Address"
 msgstr "接收方地址"
 
 msgid "A 6-digit verification code has been sent to your email. Please enter the code to complete verification."
-msgstr ""
+msgstr "已向您的邮箱发送 6 位数验证码。请输入验证码以完成验证。"
 
 msgid "Approved"
 msgstr "已批准/已授权"
@@ -177,7 +177,7 @@ msgid "{riskTokenSymbol} is a high-risk token"
 msgstr "{riskTokenSymbol} 是高风险代币"
 
 msgid "The new email address you entered is the same as your current one. Please enter a different email address."
-msgstr ""
+msgstr "您输入的新邮箱地址与当前邮箱相同。请输入一个不同的邮箱地址。"
 
 msgid "Confirm"
 msgstr "确认"
@@ -207,13 +207,13 @@ msgid "No Route Found"
 msgstr "未找到交易路径"
 
 msgid "Failed to enable authentication"
-msgstr ""
+msgstr "启用身份验证失败"
 
 msgid "Placing order..."
 msgstr "正在下单..."
 
 msgid "Set Recovery Email"
-msgstr ""
+msgstr "设置恢复邮箱"
 
 msgid "Close lost position"
 msgstr "关闭亏损仓位"
@@ -225,7 +225,7 @@ msgid "See details"
 msgstr "查看详情"
 
 msgid "Won"
-msgstr ""
+msgstr "盈利"
 
 #. placeholder {0}: formatTokenItemAmount(availableSharesBN, 2)
 msgid "{0} shares available"
@@ -244,13 +244,13 @@ msgid "Predict Wallet Pay"
 msgstr "预测钱包支付"
 
 msgid "with"
-msgstr ""
+msgstr "与"
 
 msgid "Shares"
 msgstr "份额"
 
 msgid "Change Recovery Email"
-msgstr ""
+msgstr "更改恢复邮箱"
 
 msgid "Transaction Hash"
 msgstr "交易哈希 (TxHash)"
@@ -274,7 +274,7 @@ msgid "Revoked Failed"
 msgstr "撤销失败"
 
 msgid "Forgot your PIN code?"
-msgstr ""
+msgstr "忘记 PIN 码？"
 
 msgid "Recent"
 msgstr "最近"
@@ -304,7 +304,7 @@ msgid "No more history"
 msgstr "没有更多历史记录"
 
 msgid "Recovery Email"
-msgstr ""
+msgstr "恢复邮箱"
 
 msgid "Transaction failed: minimum return amount not reached. Try increasing slippage."
 msgstr "交易失败：未达到预期最小数额。请尝试提高滑点。"
@@ -319,7 +319,7 @@ msgid "Cancel"
 msgstr "取消"
 
 msgid "to"
-msgstr ""
+msgstr "至"
 
 msgid "Done"
 msgstr "完成"
@@ -328,7 +328,7 @@ msgid "Bridged Failed"
 msgstr "跨链失败"
 
 msgid "Enter new PIN"
-msgstr ""
+msgstr "输入新 PIN 码"
 
 msgid "Pay Wallet"
 msgstr "支付钱包"
@@ -346,7 +346,7 @@ msgid "Your funds are now in your predict wallet."
 msgstr "资金已到达您的预测钱包。"
 
 msgid "No positions found"
-msgstr ""
+msgstr "未找到仓位"
 
 msgid "Order placed"
 msgstr "下单成功"
@@ -361,7 +361,7 @@ msgid "Domain"
 msgstr ""
 
 msgid "PIN is acceptable, but consider adding more unique digits."
-msgstr ""
+msgstr "PIN 码可用，但建议添加更多不重复的数字以提高安全性。"
 
 msgid "Firefly Wallet Pay"
 msgstr "Firefly 钱包支付"
@@ -379,10 +379,10 @@ msgid "Back to Bets"
 msgstr "返回投注"
 
 msgid "Please login to view security settings."
-msgstr ""
+msgstr "请登录以查看安全设置。"
 
 msgid "on"
-msgstr ""
+msgstr "在"
 
 msgid "Receive at least"
 msgstr "至少收到"
@@ -412,10 +412,10 @@ msgid "Upgrade your Firefly prediction account NOW to ensure your predictions co
 msgstr "立即升级您的 Firefly 预测账户，确保您的预测活动无缝延续。"
 
 msgid "from"
-msgstr ""
+msgstr "从"
 
 msgid "Set PIN Code"
-msgstr ""
+msgstr "设置 PIN 码"
 
 msgid "Order cancelled"
 msgstr "订单已取消"
@@ -424,7 +424,7 @@ msgid "Sent"
 msgstr "已发送"
 
 msgid "Copy"
-msgstr ""
+msgstr "复制"
 
 msgid "Amount"
 msgstr "数额"
@@ -443,7 +443,7 @@ msgstr "重新加载"
 
 #. placeholder {0}: shares.count
 msgid "{0, plural, one {# share} other {# shares}}"
-msgstr "# 份"
+msgstr "'#' 份"
 
 msgid "Receive Wallet"
 msgstr "收款钱包"
@@ -453,10 +453,10 @@ msgstr "已领取"
 
 #. placeholder {0}: token.symbol
 msgid "Unlimited {0}"
-msgstr ""
+msgstr "无限 {0}"
 
 msgid "Next"
-msgstr ""
+msgstr "下一步"
 
 msgid "Recipient"
 msgstr "收款方"
@@ -475,7 +475,7 @@ msgstr ""
 
 #. placeholder {0}: formatPnlUSD(getPositionLoss(position))
 msgid "Lost {0}"
-msgstr ""
+msgstr "亏损 {0}"
 
 msgid "Login In Firefly"
 msgstr "登录 Firefly"
@@ -519,7 +519,7 @@ msgid "Network error. Please try again."
 msgstr "网络错误，请重试。"
 
 msgid "Better luck on the next prediction."
-msgstr ""
+msgstr "祝您下一次预测好运。"
 
 msgid "No tokens found"
 msgstr "未找到代币"
@@ -531,7 +531,7 @@ msgid "Withdrawing funds to your Firefly wallet..."
 msgstr "正在提现至您的 Firefly 钱包..."
 
 msgid "Failed to set PIN. Please try again later."
-msgstr ""
+msgstr "设置 PIN 码失败。请稍后再试。"
 
 msgid "To win"
 msgstr "预期盈利"
@@ -549,7 +549,7 @@ msgid "NFT Minted"
 msgstr "NFT 已铸造"
 
 msgid "Deposit"
-msgstr ""
+msgstr "充值"
 
 #. placeholder {0}: formatTokenItemAmount(withdrawableAmount)
 #. placeholder {0}: formatTokenUSD(availableAmount, { minDisplay: 0.01 })
@@ -575,7 +575,7 @@ msgid "Network Fee"
 msgstr "网络费用 (Gas)"
 
 msgid "Please re-enter the PIN you just set to confirm."
-msgstr ""
+msgstr "请重新输入您刚刚设置的 PIN 码以确认。"
 
 msgid "Market"
 msgstr "市场"
@@ -596,12 +596,12 @@ msgid "Time"
 msgstr "时间"
 
 msgid "Explore markets"
-msgstr ""
+msgstr "探索市场"
 
 #. placeholder {0}: formatPnlUSD(pnlValue)
 #. placeholder {1}: formatPercentRate(pnlRate)
 msgid "Total PnL: <0>{0}({1})</0>"
-msgstr ""
+msgstr "总盈亏: <0>{0}({1})</0>"
 
 msgid "Interacted"
 msgstr "已交互"
@@ -616,10 +616,10 @@ msgid "Add"
 msgstr "添加"
 
 msgid "Confirm new PIN"
-msgstr ""
+msgstr "确认新 PIN 码"
 
 msgid "Sort closed positions"
-msgstr ""
+msgstr "排序已平仓位"
 
 msgid "{betText} • Won <0>{wonText}({pctText})</0>"
 msgstr "{betText} • 盈利 <0>{wonText}({pctText})</0>"
@@ -629,10 +629,10 @@ msgid "With <0>{0}</0>"
 msgstr "使用 <0>{0}</0>"
 
 msgid "Date"
-msgstr ""
+msgstr "日期"
 
 msgid "Resend"
-msgstr ""
+msgstr "重新发送"
 
 msgid "Insufficient Balance"
 msgstr "余额不足"
@@ -656,10 +656,10 @@ msgid "Unlimited"
 msgstr "无限量"
 
 msgid "Deposit failed."
-msgstr ""
+msgstr "充值失败。"
 
 msgid "Perps"
-msgstr ""
+msgstr "永续合约"
 
 msgid "Swapped Failed"
 msgstr "兑换失败"
@@ -677,28 +677,28 @@ msgid "Enter or search for a recipient wallet"
 msgstr "输入或搜索收款钱包"
 
 msgid "Please enter a valid email address. If you want to reset your PIN code, a verification code will be sent to this email to reset it."
-msgstr ""
+msgstr "请输入有效的邮箱地址。如果您想重置 PIN 码，验证码将发送到此邮箱。"
 
 msgid "Email"
-msgstr ""
+msgstr "邮箱"
 
 msgid "PnL"
 msgstr "盈亏"
 
 msgid "Avg Price"
-msgstr ""
+msgstr "均价"
 
 msgid "Total traded"
-msgstr ""
+msgstr "总交易量"
 
 msgid "Failed to close position"
 msgstr "平仓失败"
 
 msgid "Failed to init exchange options. Please try again later."
-msgstr ""
+msgstr "初始化交易所选项失败。请稍后再试。"
 
 msgid "Close all the losses"
-msgstr ""
+msgstr "平掉所有亏损仓位"
 
 msgid "Network"
 msgstr "网络"
@@ -713,10 +713,10 @@ msgid "Failed to fetch token info"
 msgstr "获取代币信息失败"
 
 msgid "Missed this round"
-msgstr ""
+msgstr "错过了这一轮"
 
 msgid "Authentication"
-msgstr ""
+msgstr "身份验证"
 
 msgid "Sent Failed"
 msgstr "发送失败"
@@ -726,7 +726,7 @@ msgid "Minimum ${0}"
 msgstr ""
 
 msgid "Please enter your new email address. We will send a verification code to confirm the change. Once updated, PIN reset codes and security verifications will be sent to this new email."
-msgstr ""
+msgstr "请输入您的新邮箱地址。我们将发送验证码以确认更改。更新后，PIN 码重置代码和安全验证将发送到这个新邮箱。"
 
 msgid "Received Failed"
 msgstr "接收失败"
@@ -738,7 +738,7 @@ msgid "Confirming..."
 msgstr "确认中..."
 
 msgid "Closed Positions"
-msgstr ""
+msgstr "已平仓位"
 
 msgid "Failed to release"
 msgstr "待释放资产"
@@ -750,7 +750,7 @@ msgid "Swapped"
 msgstr "已兑换"
 
 msgid "PIN is too weak. Avoid sequential digits."
-msgstr ""
+msgstr "PIN 码太弱。请避免使用连续数字。"
 
 msgid "Auto"
 msgstr "自动"
@@ -775,7 +775,7 @@ msgid "into your predict wallet"
 msgstr "进入您的预测钱包"
 
 msgid "No activities found"
-msgstr ""
+msgstr "未找到活动"
 
 msgid "Cancelled."
 msgstr "已取消。"
@@ -785,7 +785,7 @@ msgid "To <0>{0}</0>"
 msgstr "至 <0>{0}</0>"
 
 msgid "Enable authentication"
-msgstr ""
+msgstr "启用身份验证"
 
 msgid "Sold"
 msgstr "已卖出"
@@ -798,7 +798,7 @@ msgstr "我们建议您永远不要将其泄露给任何应用或个人。"
 
 #. js-lingui-explicit-id
 msgid "second"
-msgstr ""
+msgstr "秒"
 
 msgid "View on Explorer"
 msgstr "在区块浏览器上查看"
@@ -808,13 +808,13 @@ msgstr "添加代币"
 
 #. placeholder {0}: desensitizeEmail(emailAddress)
 msgid "To secure your assets, please enter the verification code sent to your recovery email {0} to verify your identity."
-msgstr ""
+msgstr "为了保护您的资产安全，请输入发送到您的恢复邮箱 {0} 的验证码以验证您的身份。"
 
 msgid "NFT Received Failed"
 msgstr "接收 NFT 失败"
 
 msgid "Close losses"
-msgstr ""
+msgstr "平掉亏损"
 
 msgid "Primary"
 msgstr "主要"
@@ -838,7 +838,7 @@ msgid "Minimum $1.00"
 msgstr "最低 $1.00"
 
 msgid "into your perps account"
-msgstr ""
+msgstr "到您的永续合约账户"
 
 msgid "No wallet address found for this user."
 msgstr "未找到该用户的钱包地址。"
@@ -853,7 +853,7 @@ msgid "Status"
 msgstr "状态"
 
 msgid "PIN is too weak. Avoid repeated digits."
-msgstr ""
+msgstr "PIN 码太弱。请避免使用重复数字。"
 
 #. placeholder {0}: subtitle.projectName
 msgid "on {0}"
@@ -872,7 +872,7 @@ msgid "Your transaction has been completed."
 msgstr "您的交易已完成。"
 
 msgid "Must be a 6-digit number."
-msgstr ""
+msgstr "必须是 6 位数字。"
 
 msgid "Predictions"
 msgstr "预测市场"
@@ -881,7 +881,7 @@ msgid "Your transaction failed."
 msgstr "您的交易失败。"
 
 msgid "Change Email"
-msgstr ""
+msgstr "更改邮箱"
 
 msgid "Buy {outcome}"
 msgstr "买入 {outcome}"
@@ -896,25 +896,25 @@ msgid "Keep it safe and do not share"
 msgstr "请妥善保管，切勿泄露"
 
 msgid "Scan this code or copy your wallet address to receive funds on Ethereum."
-msgstr ""
+msgstr "扫描此二维码或复制您的钱包地址，以在以太坊网络接收资金。"
 
 msgid "Your funds have been withdrawn to your Firefly wallet."
 msgstr "资金已成功提现至您的 Firefly 钱包。"
 
 msgid "Failed to close losses"
-msgstr ""
+msgstr "平掉亏损失败"
 
 msgid "Bridged"
 msgstr "已跨链"
 
 msgid "Verify Email"
-msgstr ""
+msgstr "验证邮箱"
 
 msgid "Minimum {MIN_HYPERLIQUID_DEPOSIT_USDC} USDC"
-msgstr ""
+msgstr "最低金额 {MIN_HYPERLIQUID_DEPOSIT_USDC} USDC"
 
 msgid "Enter the PIN code to verify identity"
-msgstr ""
+msgstr "输入 PIN 码以验证身份"
 
 msgid "Select Token"
 msgstr "选择代币"
@@ -934,19 +934,19 @@ msgid "Your tokens"
 msgstr "您的代币资产"
 
 msgid "Please enter a valid email address."
-msgstr ""
+msgstr "请输入有效的邮箱地址。"
 
 msgid "Sell {outcome}"
 msgstr "卖出 {outcome}"
 
 msgid "Reset PIN Code"
-msgstr ""
+msgstr "重置 PIN 码"
 
 msgid "This market may have been removed or the link is invalid."
 msgstr "该市场可能已被移除或链接失效。"
 
 msgid "Trading Activities"
-msgstr ""
+msgstr "交易活动"
 
 msgid "Lost"
 msgstr "亏损"
@@ -973,13 +973,13 @@ msgid "The market is marked as closed."
 msgstr "该市场已关闭。"
 
 msgid "Set a PIN to secure your assets. This code will be used to confirm transactions."
-msgstr ""
+msgstr "设置 PIN 码以保护您的资产安全。此代码将用于确认交易。"
 
 msgid "Token added"
 msgstr "代币已添加"
 
 msgid "PIN is extremely strong."
-msgstr ""
+msgstr "PIN 码非常强。"
 
 msgid "Add Funds"
 msgstr "充值"
@@ -1011,17 +1011,17 @@ msgstr "关闭"
 #. placeholder {0}: claimItems.length
 #. placeholder {1}: positions.length
 msgid "{0} of {1} positions will be closed"
-msgstr ""
+msgstr "将平仓 {0}/{1} 个仓位"
 
 msgid "Security & Privacy"
-msgstr ""
+msgstr "安全与隐私"
 
 msgid "Approve"
 msgstr ""
 
 #. placeholder {0}: formatPriceToCents(position.avg_price, 1)
 msgid "Avg {0}"
-msgstr ""
+msgstr "平均 {0}"
 
 msgid "Current settings"
 msgstr "当前设置"
