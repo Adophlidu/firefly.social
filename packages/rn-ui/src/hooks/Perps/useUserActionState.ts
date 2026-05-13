@@ -14,12 +14,6 @@ export function useUserActionState() {
     return {
         isLoading,
         address,
-        state: !address
-            ? UserActionState.CONNECT
-            : disabled
-              ? UserActionState.DISABLED
-              : legalCheck?.acceptedTerms === false
-                ? UserActionState.AGREE_LEGAL
-                : UserActionState.READY,
+        state: !address ? UserActionState.CONNECT : disabled ? UserActionState.DISABLED : UserActionState.READY,
     };
 }
