@@ -1,7 +1,7 @@
 import { safeUnreachable } from '@dimensiondev/utils';
 import { produce } from 'immer';
 import { atom } from 'jotai';
-import { atomWithStorage } from 'jotai/utils';
+import { atomWithStorage, unwrap } from 'jotai/utils';
 import type { Address } from 'viem';
 
 import { createPersistStorage } from '@/helpers/createPersistStorage.js';
@@ -68,6 +68,10 @@ export const customTokensAtom = atom(async (get) => {
     }
     return Object.values(state.state.tokens);
 });
+
+// Read-side wrapper: underlying storage is async (localforage), so reading
+// customTokensAtom directly suspends. Unwrap returns a sync fallback instead.
+export const customTokensUnwrappedAtom = unwrap(customTokensAtom, (prev) => prev ?? []);
 
 export const addCustomTokenAtom = atom(null, async (get, set, token: CustomToken) => {
     const key = generateTokenKey(token);

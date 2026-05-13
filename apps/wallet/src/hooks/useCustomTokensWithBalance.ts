@@ -7,7 +7,7 @@ import { formatCustomTokenToTokenAsset } from '@/helpers/formatCustomTokenToToke
 import { useCachedEvmAddress } from '@/hooks/useCachedWalletAddresses.js';
 import { logger } from '@/lib/Logger.js';
 import type { TokenAsset } from '@/providers/types/Firefly.js';
-import { customTokensAtom, CustomTokenType, type ERC20Token } from '@/store/customToken.js';
+import { customTokensUnwrappedAtom, CustomTokenType, type ERC20Token } from '@/store/customToken.js';
 
 /**
  * Hook to fetch custom ERC20 tokens with their balances
@@ -18,7 +18,7 @@ export function useCustomTokensWithBalance(): {
     isLoading: boolean;
 } {
     const evmAddress = useCachedEvmAddress();
-    const customTokens = useAtomValue(customTokensAtom);
+    const customTokens = useAtomValue(customTokensUnwrappedAtom);
 
     // Filter only ERC20 tokens
     const erc20Tokens = customTokens.filter((token) => token.type === CustomTokenType.ERC20) as ERC20Token[];
