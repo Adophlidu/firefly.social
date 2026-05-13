@@ -22,7 +22,7 @@ export const ActionButton = memo<ActionButtonProps>(function ActionButton({
                     'bg-main text-primaryBottom': variant === 'primary',
                     'border-main text-fourMain border border-opacity-40 py-2.5 text-sm leading-[18px]':
                         variant === 'secondary',
-                    'bg-commonDanger text-lightBottom': variant === 'danger',
+                    'bg-commonDanger text-white': variant === 'danger',
                 },
                 props.className,
             )}

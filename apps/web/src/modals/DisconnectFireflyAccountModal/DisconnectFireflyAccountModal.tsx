@@ -118,7 +118,7 @@ export function DisconnectFireflyAccountModal({ ref }: Props) {
                     </div>
                     <ClickableButton
                         className={classNames(
-                            'bg-commonDanger text-lightBottom mx-6 flex h-10 min-h-10 flex-1 items-center justify-center rounded-full py-2 font-bold',
+                            'bg-commonDanger mx-6 flex h-10 min-h-10 flex-1 items-center justify-center rounded-full py-2 font-bold text-white',
                         )}
                         disabled={loading}
                         onClick={() => confirm()}

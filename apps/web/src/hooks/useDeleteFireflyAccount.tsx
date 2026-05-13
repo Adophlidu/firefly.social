@@ -30,7 +30,7 @@ function CountdownButton() {
             disabled={count > 0}
             onClick={() => ConfirmModalRef.close(true)}
             className={classNames(
-                'bg-commonDanger text-lightBottom flex flex-1 items-center justify-center overflow-hidden rounded-full py-2 font-bold',
+                'bg-commonDanger flex flex-1 items-center justify-center overflow-hidden rounded-full py-2 font-bold text-white',
             )}
         >
             {count > 0 ? <Trans>{count}s</Trans> : <Trans>Confirm</Trans>}
