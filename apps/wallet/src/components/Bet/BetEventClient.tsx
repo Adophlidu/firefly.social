@@ -29,11 +29,7 @@ import {
     optimisticSubtractPositionShares,
     optimisticUpdatePositionShares,
 } from '@/helpers/polymarketPositionsCache.js';
-import {
-    computePolymarketLimitBuyFeeUsd,
-    computePolymarketMarketBuyFeeUsd,
-    parsePolymarketTakerFeeRate,
-} from '@/helpers/polymarketTakerFee.js';
+import { computePolymarketMarketBuyFeeUsd, parsePolymarketTakerFeeRate } from '@/helpers/polymarketTakerFee.js';
 import { polymarketGammaEndpoint } from '@/providers/polymarket/gamma.js';
 import {
     type MarketPriceChangeData,
@@ -387,9 +383,7 @@ export default function BetEventClient({ id }: { id: string }) {
                 if (variables.overrideLimitPrice !== undefined) {
                     const shares = BigNumber(variables.amount ?? 0);
                     const lp = BigNumber(variables.overrideLimitPrice);
-                    const notional = shares.times(lp);
-                    const fee = computePolymarketLimitBuyFeeUsd(shares, feeRateBn, lp);
-                    spentWithFee = notional.plus(fee);
+                    spentWithFee = shares.times(lp);
                 } else {
                     const amt = BigNumber(variables.amount ?? 0);
                     const raw = data?.parsedOutcomePrices?.[safeOutcomeIndex];
@@ -478,8 +472,6 @@ export default function BetEventClient({ id }: { id: string }) {
                         orderPriceMinTickSize={orderPriceMinTickSize}
                         loading={isPending}
                         submitDisabled={isMarketResolvedOrDisputed}
-                        feesEnabled={data?.feesEnabled}
-                        feeSchedule={data?.feeSchedule}
                         onSubmit={({ shares, limitPrice }) =>
                             placeOrder({ side: 'BUY', amount: shares, overrideLimitPrice: limitPrice })
                         }
