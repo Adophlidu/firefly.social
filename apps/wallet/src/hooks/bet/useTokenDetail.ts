@@ -8,7 +8,10 @@ import { BigNumber } from 'bignumber.js';
 import { compact, first, orderBy } from 'lodash-es';
 import { polygon } from 'viem/chains';
 
-import { P_USDC_POLYGON_ADDRESS as P_USD_POLYGON_ADDRESS, SUPPORTED_SWAP_EVM_CHAIN_IDS } from '@/constants/ethereum.js';
+import {
+    P_USDC_POLYGON_ADDRESS as P_USD_POLYGON_ADDRESS,
+    POLYMARKET_DEPOSIT_EVM_CHAIN_IDS,
+} from '@/constants/ethereum.js';
 import { BET_DEPOSIT_MIN_USD } from '@/constants/static.js';
 import { useSwapTokenDetail } from '@/hooks/swap/useSwapTokenDetail.js';
 import { useEmbeddedWalletAddresses } from '@/hooks/useCachedWalletAddresses.js';
@@ -109,7 +112,7 @@ export function useDepositToken() {
 
             const endpoint = createSwapEndpoint();
             const tokenMap = await endpoint.getUserTokenBalancesMultiChain(compact([evmAddress, solanaAddress]), [
-                ...SUPPORTED_SWAP_EVM_CHAIN_IDS,
+                ...POLYMARKET_DEPOSIT_EVM_CHAIN_IDS,
                 solana.id,
             ]);
             return [

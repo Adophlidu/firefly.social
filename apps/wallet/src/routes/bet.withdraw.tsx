@@ -87,7 +87,7 @@ function WithdrawClient() {
         async queryFn() {
             if (!targetToken) return null;
 
-            const amount = parseUnits(debounceValue, targetToken.decimals);
+            const amount = parseUnits(debounceValue, 6);
             return getFireflyEndpoint().getPolymarketWithdrawAmount(
                 amount.toString(),
                 targetToken.id,
@@ -114,7 +114,7 @@ function WithdrawClient() {
 
             toastLoading(<Trans>Withdrawing funds to your Firefly wallet...</Trans>, { id: toastId });
             store.set(showEmbeddedWalletUIAtom, false);
-            const amount = parseUnits(value, targetToken.decimals);
+            const amount = parseUnits(value, 6);
             const originalMessage = 'polymarket withdraw';
             const signature = await mutateAsync({
                 message: originalMessage,

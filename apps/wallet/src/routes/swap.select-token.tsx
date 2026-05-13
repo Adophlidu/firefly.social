@@ -16,6 +16,7 @@ import { NavigationBar } from '@/components/NavigationBar.js';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
 import { SwapFromPage } from '@/constants/enum.js';
+import { POLYMARKET_DEPOSIT_EVM_CHAIN_IDS } from '@/constants/ethereum.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { formatTokenAmount } from '@/helpers/swap/formatSwapAmount.js';
 import { useTrendingTokensForWithdraw } from '@/hooks/bet/useTrendingTokensForWithdraw.js';
@@ -66,14 +67,19 @@ function SelectTokenPage() {
     const [showChainMenu, setShowChainMenu] = useState(false);
     const chainMenuRef = useRef<HTMLDivElement>(null);
 
-    const hideTrending = from === SwapFromPage.BetDeposit;
-    const hideRecent = from === SwapFromPage.BetDeposit;
+    const isBetDeposit = from === SwapFromPage.BetDeposit;
+    const isBetPage = isBetDeposit || from === SwapFromPage.BetWithdraw;
 
     const { data: trendingTokensForWithdraw } = useTrendingTokensForWithdraw({
         enabled: from === SwapFromPage.BetWithdraw,
         chainId: selectedChainId ?? undefined,
     });
     const { data: supportedChains, isLoading: isLoadingChains } = useSwapSupportedChains();
+    const depositChainIds = useMemo(() => new Set([...POLYMARKET_DEPOSIT_EVM_CHAIN_IDS, 101]), []);
+    const filteredSupportedChains = useMemo(
+        () => (isBetPage ? supportedChains?.filter((c) => depositChainIds.has(c.chainId)) : supportedChains),
+        [isBetPage, supportedChains, depositChainIds],
+    );
     const {
         myTokens: rawMyTokens,
         recentTokens,
@@ -84,24 +90,23 @@ function SelectTokenPage() {
         chainId: selectedChainId ?? undefined,
         selectedWalletAddress: effectiveWalletAddress,
         currentChainId,
-        hideTrending: hideTrending || from === SwapFromPage.BetWithdraw,
-        hideRecent,
+        hideTrending: isBetPage,
+        hideRecent: isBetDeposit,
         supportedChains,
     });
     const { data: withdrawSupportedTokens } = useQuery({
         ...getPolymarketWithdrawSupportedTokensQueryOptions(),
-        enabled: from === SwapFromPage.BetWithdraw || from === SwapFromPage.BetDeposit,
+        enabled: isBetPage,
     });
 
     const myTokens = useMemo(() => {
-        if ((from !== SwapFromPage.BetWithdraw && from !== SwapFromPage.BetDeposit) || !withdrawSupportedTokens?.length)
-            return rawMyTokens;
+        if (!isBetPage || !withdrawSupportedTokens?.length) return rawMyTokens;
 
         const supportedSet = new Set(
             withdrawSupportedTokens.map((t) => `${t.chain_id}-${t.token_address.toLowerCase()}`),
         );
         return rawMyTokens.filter((token) => supportedSet.has(`${token.chainId}-${token.address.toLowerCase()}`));
-    }, [rawMyTokens, withdrawSupportedTokens, from]);
+    }, [isBetPage, withdrawSupportedTokens, rawMyTokens]);
     const trendingTokens = useMemo(
         () => (from === SwapFromPage.BetWithdraw ? trendingTokensForWithdraw : trendingTokensForSwap) || [],
         [trendingTokensForWithdraw, trendingTokensForSwap, from],
@@ -266,7 +271,7 @@ function SelectTokenPage() {
                                 >
                                     <Trans>All</Trans>
                                 </button>
-                                {supportedChains.map((chain) => (
+                                {filteredSupportedChains.map((chain) => (
                                     <button
                                         key={chain.chainId}
                                         type="button"
@@ -313,7 +318,7 @@ function SelectTokenPage() {
                                         ) : null}
                                     </button>
                                     <div className="bg-line h-px" />
-                                    {supportedChains.map((chain) => (
+                                    {filteredSupportedChains.map((chain) => (
                                         <button
                                             key={chain.chainId}
                                             type="button"
@@ -347,7 +352,7 @@ function SelectTokenPage() {
 
             <div className="no-scrollbar min-h-0 flex-1 overflow-y-auto">
                 {(isSearchMode ? isSearching : isLoading || isLoadingChains) ? (
-                    <LoadingSkeleton hideTrending={hideTrending} hideRecent={hideRecent} />
+                    <LoadingSkeleton hideTrending={isBetDeposit} hideRecent={isBetDeposit} />
                 ) : hasNoResults ? (
                     <NoResultsFallback
                         className="mt-8"
@@ -369,7 +374,7 @@ function SelectTokenPage() {
                     <div className="flex flex-col gap-4">
                         {visibleMyTokens.length > 0 || foldedMyTokens.length > 0 ? (
                             <div className="flex flex-col">
-                                {hideTrending && hideRecent ? null : (
+                                {isBetDeposit && isBetDeposit ? null : (
                                     <div className="text-secondary px-3 text-[13px] font-medium leading-[17px]">
                                         <Trans>Your tokens</Trans>
                                     </div>
