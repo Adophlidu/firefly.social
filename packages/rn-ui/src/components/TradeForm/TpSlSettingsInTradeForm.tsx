@@ -46,6 +46,9 @@ export const TpSlSettingsInTradeForm = memo<Props>(function TpSlSettingsInTradeF
                         gap="$2"
                         height={32}
                     >
+                        <Text fontSize={14} fontWeight={500} color="$text">
+                            +
+                        </Text>
                         <TokenAmountInput
                             placeholder="Gain"
                             flex={1}
@@ -67,6 +70,9 @@ export const TpSlSettingsInTradeForm = memo<Props>(function TpSlSettingsInTradeF
                         gap="$2"
                         height={32}
                     >
+                        <Text fontSize={14} fontWeight={500} color="$text">
+                            -
+                        </Text>
                         <TokenAmountInput
                             placeholder="Loss"
                             flex={1}
