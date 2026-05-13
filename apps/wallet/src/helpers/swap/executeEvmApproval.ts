@@ -7,6 +7,7 @@ import { readContract, sendTransaction } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmiClient.js';
 import { tryFreeGasTransaction } from '@/helpers/freeGas/tryFreeGasTransaction.js';
+import { logger } from '@/lib/Logger.js';
 import type { SwapEndpoint } from '@/providers/swap/swapEndpoint.js';
 import type { SwapToken } from '@/providers/swap/types.js';
 import { FreeGasTxType } from '@/providers/types/FreeGas.js';
@@ -85,6 +86,11 @@ export async function executeEvmApproval(params: ExecuteEvmApprovalParams): Prom
 
     const allowanceBigInt = allowance as bigint;
     const amountBigInt = BigInt(amountInSmallest);
+    logger.info('Checking token allowance', {
+        token: fromToken.symbol,
+        allowance: allowanceBigInt.toString(),
+        amount: amountBigInt.toString(),
+    });
 
     if (allowanceBigInt >= amountBigInt) return;
 

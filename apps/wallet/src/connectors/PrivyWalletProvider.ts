@@ -121,10 +121,10 @@ export class PrivyWalletProvider extends BrowserEventEmitter {
                     const transaction: EvmTransaction = {
                         from: String(rawTx.from ?? ''),
                         to: String(rawTx.to ?? ''),
-                        value: String(rawTx.value ?? '0'),
-                        data: String(rawTx.data ?? ''),
-                        gas_limit: String(rawTx.gas ?? '0'),
-                        gasPrice: String(rawTx.gasPrice ?? '0'),
+                        value: rawTx.value ? String(rawTx.value) : undefined,
+                        data: rawTx.data ? String(rawTx.data) : undefined,
+                        gas_limit: rawTx.gas ? String(rawTx.gas) : undefined,
+                        gasPrice: rawTx.gasPrice ? String(rawTx.gasPrice) : undefined,
                         type: txType,
                         chain_id: chainId.toString(),
                     };

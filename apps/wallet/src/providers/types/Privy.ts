@@ -8,9 +8,8 @@ export interface EvmTransaction {
     data?: string;
     value?: string;
     type?: 0 | 1 | 2 | 4;
-    gas_limit: string;
-    gas?: string;
-    gasPrice: string;
+    gas_limit?: string;
+    gasPrice?: string;
     max_fee_per_gas?: string;
     max_priority_fee_per_gas?: string;
 }
