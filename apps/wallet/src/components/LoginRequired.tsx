@@ -4,9 +4,12 @@ import type { PropsWithChildren } from 'react';
 import { Button } from '@/components/ui/button.js';
 import { env } from '@/constants/env.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
+import { useIsPublicRoute } from '@/hooks/useIsPublicRoute.js';
 
 export function LoginRequired({ children }: PropsWithChildren) {
+    const isPublicRoute = useIsPublicRoute();
     const isLoginFirefly = useIsLoginFirefly();
+    if (isPublicRoute) return children;
     if (!isLoginFirefly) {
         return (
             <div className="flex h-48 w-full flex-col items-center justify-center">

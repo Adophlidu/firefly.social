@@ -10,6 +10,7 @@ export const FIREFLY_STAMP_DEV_URL = 'https://stamp-dev.firefly.land/avatar';
 export const FIREFLY_WORKER_HOST = 'https://firefly.r2d2.to';
 
 export const APP_BASE_PATH = env.external.NEXT_PUBLIC_BASE_PATH.replace(/\/$/, '');
+export const KLINE_BASE_URL = env.external.NEXT_PUBLIC_KLINE_BASE_URL.replace(/\/$/, '');
 
 export const POAP_CONTRACT_ADDRESS = '0x22C1f6050E56d2876009903609a2cC3fEf83B415';
 

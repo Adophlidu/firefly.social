@@ -17,7 +17,7 @@ import { useConnectors, useWalletClient } from 'wagmi';
 import { useComeback } from '@/components/useComeback.js';
 import { env } from '@/constants/env.js';
 import { ABOUT_URL, PRIVACY_URL, TERMS_URL } from '@/constants/hyperliquid.js';
-import { APP_BASE_PATH, PRIVY_CONNECTOR_ID } from '@/constants/static.js';
+import { KLINE_BASE_URL, PRIVY_CONNECTOR_ID } from '@/constants/static.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { logger } from '@/lib/Logger.js';
 import { fireflySessionTokenAtom } from '@/store/fireflySession.js';
@@ -99,10 +99,10 @@ export function PerpsProvider({ children }: PropsWithChildren) {
     const isDevApi = env.external.NEXT_PUBLIC_FIREFLY_ROOT_URL.startsWith('https://api-dev.firefly.land');
 
     const buildPerpsKlineChartUrl: PerpsKlineChartUrlBuilder = useCallback((coin, walletAddress) => {
-        const params = new URLSearchParams({ coin, interval: '1h' });
+        const params = new URLSearchParams({ coin, interval: '1m' });
         if (walletAddress) params.set('address', walletAddress);
 
-        return `${APP_BASE_PATH}/perp-kline-chart?${params.toString()}`;
+        return `${KLINE_BASE_URL}/perp-kline-chart?${params.toString()}`;
     }, []);
 
     return (
