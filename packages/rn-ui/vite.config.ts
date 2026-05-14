@@ -23,6 +23,9 @@ function isExternal(id: string): boolean {
     if (id === 'react-native-svg') {
         return true;
     }
+    if (id === 'react-native-webview') {
+        return true;
+    }
     if (id === 'tamagui' || id.startsWith('tamagui/')) {
         return true;
     }

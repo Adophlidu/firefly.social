@@ -3,7 +3,7 @@ import { ScrollView, YStack } from 'tamagui';
 
 import { OrderBook } from '@/components/OrderBook';
 import { PerpsDetailTopBar } from '@/components/PerpsDetailTopBar';
-import { PerpsKlinePlaceholder } from '@/components/PerpsKlinePlaceholder';
+import { PerpsKline } from '@/components/PerpsKline/PerpsKline';
 import { PerpsTickerSummary } from '@/components/PerpsTickerSummary';
 import { PerpsTokenSelectSheet } from '@/components/PerpsTokenSelectSheet';
 import { PerpsTradeActionBar } from '@/components/PerpsTradeActionBar';
@@ -47,7 +47,7 @@ export const PerpsMarketDetail = memo<PerpsMarketDetailProps>(function PerpsMark
             <ScrollView flex={1} minHeight={0} showsVerticalScrollIndicator={false}>
                 <YStack paddingHorizontal={12} paddingTop={6} paddingBottom={8} gap={14}>
                     <PerpsTickerSummary coinInfo={coinInfo} />
-                    <PerpsKlinePlaceholder />
+                    <PerpsKline coin={currentCoin} />
                     <OrderBook
                         coin={currentCoin}
                         szDecimal={coinInfo.szDecimals}

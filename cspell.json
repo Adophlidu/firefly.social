@@ -521,7 +521,8 @@
         "RTDS",
         "chainlink",
         "tsgo",
-        "ntli"
+        "ntli",
+        "horz"
     ],
     "flagWords": [],
     "ignorePaths": [

@@ -187,6 +187,8 @@ export interface CommonQueryOptions {
     refetchInterval?: number | false;
 }
 
+export type PerpsKlineChartUrlBuilder = (coin: string, walletAddress: string | null) => string;
+
 export type ToastFn = (options: {
     message: ReactNode;
     type: 'success' | 'error' | 'info';

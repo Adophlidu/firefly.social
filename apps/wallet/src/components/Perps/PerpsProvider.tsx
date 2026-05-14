@@ -1,5 +1,12 @@
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
-import { type NavigateFunc, PerpsAuthGate, PerpsBindingsProvider, Provider, type ToastFn } from '@dimensiondev/rn-ui';
+import {
+    type NavigateFunc,
+    PerpsAuthGate,
+    PerpsBindingsProvider,
+    type PerpsKlineChartUrlBuilder,
+    Provider,
+    type ToastFn,
+} from '@dimensiondev/rn-ui';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { useNavigate } from '@tanstack/react-router';
 import { useAtomValue } from 'jotai';
@@ -10,7 +17,7 @@ import { useConnectors, useWalletClient } from 'wagmi';
 import { useComeback } from '@/components/useComeback.js';
 import { env } from '@/constants/env.js';
 import { ABOUT_URL, PRIVACY_URL, TERMS_URL } from '@/constants/hyperliquid.js';
-import { PRIVY_CONNECTOR_ID } from '@/constants/static.js';
+import { APP_BASE_PATH, PRIVY_CONNECTOR_ID } from '@/constants/static.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { logger } from '@/lib/Logger.js';
 import { fireflySessionTokenAtom } from '@/store/fireflySession.js';
@@ -91,6 +98,13 @@ export function PerpsProvider({ children }: PropsWithChildren) {
 
     const isDevApi = env.external.NEXT_PUBLIC_FIREFLY_ROOT_URL.startsWith('https://api-dev.firefly.land');
 
+    const buildPerpsKlineChartUrl: PerpsKlineChartUrlBuilder = useCallback((coin, walletAddress) => {
+        const params = new URLSearchParams({ coin, interval: '1h' });
+        if (walletAddress) params.set('address', walletAddress);
+
+        return `${APP_BASE_PATH}/perp-kline-chart?${params.toString()}`;
+    }, []);
+
     return (
         <Provider theme={isDarkMode ? 'dark' : 'light'}>
             <PerpsBindingsProvider
@@ -99,6 +113,7 @@ export function PerpsProvider({ children }: PropsWithChildren) {
                 walletClient={data}
                 toast={toastFn}
                 navigate={navigateFn}
+                buildPerpsKlineChartUrl={buildPerpsKlineChartUrl}
             >
                 <PerpsAuthGate>
                     <div className="flex min-h-0 w-full flex-1 flex-col">{children}</div>

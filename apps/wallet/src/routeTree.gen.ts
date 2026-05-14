@@ -13,6 +13,7 @@ import { Route as SwapRouteImport } from './routes/swap'
 import { Route as SendRouteImport } from './routes/send'
 import { Route as SecurityRouteImport } from './routes/security'
 import { Route as PerpsRouteImport } from './routes/perps'
+import { Route as PerpKlineChartRouteImport } from './routes/perp-kline-chart'
 import { Route as DevRouteImport } from './routes/dev'
 import { Route as BetRouteImport } from './routes/bet'
 import { Route as HomeRouteImport } from './routes/_home'
@@ -67,6 +68,11 @@ const SecurityRoute = SecurityRouteImport.update({
 const PerpsRoute = PerpsRouteImport.update({
   id: '/perps',
   path: '/perps',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PerpKlineChartRoute = PerpKlineChartRouteImport.update({
+  id: '/perp-kline-chart',
+  path: '/perp-kline-chart',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DevRoute = DevRouteImport.update({
@@ -247,6 +253,7 @@ export interface FileRoutesByFullPath {
   '/': typeof HomeIndexRoute
   '/bet': typeof BetHomeRouteWithChildren
   '/dev': typeof DevRouteWithChildren
+  '/perp-kline-chart': typeof PerpKlineChartRoute
   '/perps': typeof PerpsRouteWithChildren
   '/security': typeof SecurityRouteWithChildren
   '/send': typeof SendRouteWithChildren
@@ -285,6 +292,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/bet': typeof BetHomeIndexRoute
   '/dev': typeof DevRouteWithChildren
+  '/perp-kline-chart': typeof PerpKlineChartRoute
   '/nfts': typeof HomeNftsRoute
   '/receive': typeof HomeReceiveRoute
   '/transactions': typeof HomeTransactionsRoute
@@ -321,6 +329,7 @@ export interface FileRoutesById {
   '/_home': typeof HomeRouteWithChildren
   '/bet': typeof BetRouteWithChildren
   '/dev': typeof DevRouteWithChildren
+  '/perp-kline-chart': typeof PerpKlineChartRoute
   '/perps': typeof PerpsRouteWithChildren
   '/security': typeof SecurityRouteWithChildren
   '/send': typeof SendRouteWithChildren
@@ -364,6 +373,7 @@ export interface FileRouteTypes {
     | '/'
     | '/bet'
     | '/dev'
+    | '/perp-kline-chart'
     | '/perps'
     | '/security'
     | '/send'
@@ -402,6 +412,7 @@ export interface FileRouteTypes {
   to:
     | '/bet'
     | '/dev'
+    | '/perp-kline-chart'
     | '/nfts'
     | '/receive'
     | '/transactions'
@@ -437,6 +448,7 @@ export interface FileRouteTypes {
     | '/_home'
     | '/bet'
     | '/dev'
+    | '/perp-kline-chart'
     | '/perps'
     | '/security'
     | '/send'
@@ -479,6 +491,7 @@ export interface RootRouteChildren {
   HomeRoute: typeof HomeRouteWithChildren
   BetRoute: typeof BetRouteWithChildren
   DevRoute: typeof DevRouteWithChildren
+  PerpKlineChartRoute: typeof PerpKlineChartRoute
   PerpsRoute: typeof PerpsRouteWithChildren
   SecurityRoute: typeof SecurityRouteWithChildren
   SendRoute: typeof SendRouteWithChildren
@@ -516,6 +529,13 @@ declare module '@tanstack/react-router' {
       path: '/perps'
       fullPath: '/perps'
       preLoaderRoute: typeof PerpsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/perp-kline-chart': {
+      id: '/perp-kline-chart'
+      path: '/perp-kline-chart'
+      fullPath: '/perp-kline-chart'
+      preLoaderRoute: typeof PerpKlineChartRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dev': {
@@ -895,6 +915,7 @@ const rootRouteChildren: RootRouteChildren = {
   HomeRoute: HomeRouteWithChildren,
   BetRoute: BetRouteWithChildren,
   DevRoute: DevRouteWithChildren,
+  PerpKlineChartRoute: PerpKlineChartRoute,
   PerpsRoute: PerpsRouteWithChildren,
   SecurityRoute: SecurityRouteWithChildren,
   SendRoute: SendRouteWithChildren,

@@ -4,10 +4,10 @@ import { type ReactNode, useEffect } from 'react';
 
 import { AcceptTermsSheet } from '@/components/Sheets/AcceptTermsSheet';
 import { httpTransport } from '@/providers/client';
-import { navigateAtom, toastAtom } from '@/store/global';
+import { navigateAtom, perpsKlineChartUrlBuilderAtom, toastAtom } from '@/store/global';
 import { apiModeAtom, sessionTokenAtom } from '@/store/session';
 import { exchangeClientAtom, subscriptionClientAtom, walletClientAtom } from '@/store/wallet';
-import type { NavigateFunc, ToastFn, WalletClient } from '@/types/ui';
+import type { NavigateFunc, PerpsKlineChartUrlBuilder, ToastFn, WalletClient } from '@/types/ui';
 
 const wsTransport = new WebSocketTransport();
 
@@ -18,6 +18,12 @@ export interface PerpsBindingsProviderProps {
     walletClient?: WalletClient;
     toast: ToastFn;
     navigate: NavigateFunc;
+    /**
+     * Builds the URL `PerpsKline` should load in its iframe/WebView. The host owns
+     * the chart route path so rn-ui stays decoupled from any app's base path. If
+     * omitted, `PerpsKline` renders nothing.
+     */
+    buildPerpsKlineChartUrl?: PerpsKlineChartUrlBuilder;
 }
 
 export function PerpsBindingsProvider({ children, ...syncProps }: PerpsBindingsProviderProps) {
@@ -37,6 +43,7 @@ function PerpsBindingsSync({
     walletClient,
     toast,
     navigate,
+    buildPerpsKlineChartUrl,
 }: Omit<PerpsBindingsProviderProps, 'children'>) {
     const authToken = useAtomValue(sessionTokenAtom);
     const setToken = useSetAtom(sessionTokenAtom);
@@ -46,6 +53,7 @@ function PerpsBindingsSync({
     const setToast = useSetAtom(toastAtom);
     const setNavigate = useSetAtom(navigateAtom);
     const setSubscriptionClient = useSetAtom(subscriptionClientAtom);
+    const setPerpsKlineChartUrlBuilder = useSetAtom(perpsKlineChartUrlBuilderAtom);
 
     useEffect(() => {
         setToken(token ?? null);
@@ -81,6 +89,12 @@ function PerpsBindingsSync({
     useEffect(() => {
         setSubscriptionClient(new SubscriptionClient({ transport: wsTransport }));
     }, [setSubscriptionClient]);
+
+    useEffect(() => {
+        if (typeof buildPerpsKlineChartUrl === 'function') {
+            setPerpsKlineChartUrlBuilder({ build: buildPerpsKlineChartUrl });
+        }
+    }, [buildPerpsKlineChartUrl, setPerpsKlineChartUrlBuilder]);
 
     return null;
 }

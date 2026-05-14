@@ -63,8 +63,14 @@
         "react": "*",
         "react-native": "*",
         "react-native-svg": "*",
+        "react-native-webview": "*",
         "tamagui": "^1.114.0",
         "urlcat": "^3.1.0"
+    },
+    "peerDependenciesMeta": {
+        "react-native-webview": {
+            "optional": true
+        }
     },
     "devDependencies": {
         "@dimensiondev/utils": "workspace:^",
@@ -84,6 +90,7 @@
         "jotai-tanstack-query": "^0.11.0",
         "lucide-react-native": "^0.473.0",
         "react-native-svg": "^15.15.4",
+        "react-native-webview": "^13.0.0",
         "rollup-plugin-visualizer": "^7.0.0",
         "tamagui": "^1.114.0",
         "urlcat": "^3.1.0",

@@ -65,3 +65,4 @@ packages/*/node_modules/
 .claude/settings*
 
 .playwright-mcp/
+docs/agents/
