@@ -59,9 +59,14 @@ export function dividedBy(a: BigNumber.Value, b: BigNumber.Value) {
 
 export function toFixed(value: BigNumber.Value | undefined): string;
 export function toFixed(value: BigNumber.Value | undefined, decimalPlaces: number): string;
-export function toFixed(value: BigNumber.Value = 0, decimalPlaces?: number) {
+export function toFixed(
+    value: BigNumber.Value | undefined,
+    decimalPlaces: number,
+    roundingMode: BigNumber.RoundingMode,
+): string;
+export function toFixed(value: BigNumber.Value = 0, decimalPlaces?: number, roundingMode?: BigNumber.RoundingMode) {
     const n = new BigNumber(value);
-    return decimalPlaces !== undefined ? n.toFixed(decimalPlaces) : n.toFixed();
+    return decimalPlaces !== undefined ? n.toFixed(decimalPlaces, roundingMode) : n.toFixed();
 }
 
 export function safe(value: BigNumber.Value, fallback: BigNumber.Value) {

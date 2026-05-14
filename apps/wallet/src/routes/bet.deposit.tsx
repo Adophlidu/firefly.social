@@ -329,8 +329,12 @@ function DepositClient() {
                                 setValue(
                                     removeTrailingZeros(
                                         inputType === InputType.Amount
-                                            ? toFixed(newAmount, maxDecimals)
-                                            : toFixed(multipliedBy(newAmount, depositToken.price ?? 0), maxDecimals),
+                                            ? toFixed(newAmount, maxDecimals, BigNumber.ROUND_FLOOR)
+                                            : toFixed(
+                                                  multipliedBy(newAmount, depositToken.price ?? 0),
+                                                  maxDecimals,
+                                                  BigNumber.ROUND_FLOOR,
+                                              ),
                                     ),
                                 );
                             }}
