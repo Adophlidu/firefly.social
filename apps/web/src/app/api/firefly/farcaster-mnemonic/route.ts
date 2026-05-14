@@ -52,5 +52,10 @@ export const POST = compose(withRequestErrorHandler(), async (request: NextReque
         envs.internal.SESSION_CIPHER_IV,
     );
 
-    return createSuccessResponseJson(decrypted.split(' '));
+    return createSuccessResponseJson(decrypted.split(' '), {
+        headers: {
+            'Cache-Control': 'no-store, no-cache, must-revalidate, private',
+            Pragma: 'no-cache',
+        },
+    });
 });
