@@ -1,8 +1,8 @@
 import { BigNumber } from 'bignumber.js';
 
 import { formatPrice } from '@/helpers/formatPrice';
+import { isValidSize } from '@/helpers/isValidSize';
 import { isZero } from '@/helpers/number';
-import { isValidSize } from '@/helpers/tradeForm';
 
 interface Options {
     entryPrice: string;

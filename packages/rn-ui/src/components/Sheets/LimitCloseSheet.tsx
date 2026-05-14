@@ -9,8 +9,8 @@ import { TokenAmountInput } from '@/components/TokenAmountInput';
 import { UsdPriceInput } from '@/components/UsdPriceInput';
 import { formatCoinName } from '@/helpers/formatCoinName';
 import { formatPrice } from '@/helpers/formatPrice';
+import { isValidSize } from '@/helpers/isValidSize';
 import { dividedBy, isGreaterThan, isLessThan, isZero, minus, multipliedBy } from '@/helpers/number';
-import { isValidSize } from '@/helpers/tradeForm';
 import { useCoinInfo } from '@/hooks/Perps/useCoinInfo';
 
 interface LimitCloseSheetProps {

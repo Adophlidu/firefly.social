@@ -30,12 +30,7 @@ export const PerpKlineIntervalPills = memo<PerpKlineIntervalPillsProps>(function
                         pressStyle={{ opacity: 0.75 }}
                         onPress={() => onChange(interval)}
                     >
-                        <Text
-                            color={active ? '$text' : '$textDisabled'}
-                            fontSize={13}
-                            lineHeight={17}
-                            fontWeight={500}
-                        >
+                        <Text color={active ? '$text' : '$textDisabled'} fontSize={13} lineHeight={17} fontWeight={500}>
                             {interval}
                         </Text>
                     </Button>

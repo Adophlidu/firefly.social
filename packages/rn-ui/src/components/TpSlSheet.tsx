@@ -5,6 +5,7 @@ import { SheetDragHandle } from '@/components/SheetDragHandle';
 import { UnstyledInput } from '@/components/UnstyledInput';
 import { WalletActionButton } from '@/components/WalletActionButton';
 import { formatAmount } from '@/helpers/formatAmount';
+import { isValidSize } from '@/helpers/isValidSize';
 import { normalizePriceInput, validatePerpsPriceInput } from '@/helpers/perpsPriceValidation';
 import { computeTpslExpectedPnlUsd, type TpslExpectedPnlResult } from '@/helpers/tpslExpectedPnl';
 import {
@@ -13,7 +14,6 @@ import {
     tpslPercentDisplayToPrice,
     tpslPriceToPercentDisplay,
 } from '@/helpers/tpslPercentPrice';
-import { isValidSize } from '@/helpers/tradeForm';
 import { TpSlSheetSkeleton } from '@/skeletons/TpSlSheetSkeleton';
 import type { TpSlSheetData, TpSlValueType } from '@/types/ui';
 

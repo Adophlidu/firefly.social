@@ -4,9 +4,9 @@ import { atom } from 'jotai';
 import { OrderType, TradeMarginMode } from '@/constants/enum';
 import { MAX_DECIMALS_PERPS } from '@/constants/static';
 import { formatPrice } from '@/helpers/formatPrice';
+import { isValidSize } from '@/helpers/isValidSize';
 import { dividedBy, isNumber, isZero, multipliedBy } from '@/helpers/number';
 import { resolveCoinStatic } from '@/helpers/perpsCoinInfoResolve';
-import { isValidSize } from '@/helpers/tradeForm';
 import { allMetaAtom } from '@/store/meta';
 import type { OrderSafeType, SizeInputType } from '@/types/ui';
 

@@ -3,9 +3,9 @@ import { useAtomValue } from 'jotai';
 
 import { calculateSlippagePrice } from '@/helpers/calculateSlippagePrice';
 import { compact } from '@/helpers/compact';
+import { isValidSize } from '@/helpers/isValidSize';
 import { isGreaterThan } from '@/helpers/number';
 import { toast } from '@/helpers/toast';
-import { isValidSize } from '@/helpers/tradeForm';
 import { useAsyncFn } from '@/hooks/useAsyncFn';
 import { exchangeClientAtom } from '@/store/wallet';
 import type { CoinInfo, Position } from '@/types/ui';

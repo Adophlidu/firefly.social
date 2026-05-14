@@ -4,9 +4,9 @@ import { OrderType } from '@/constants/enum';
 import { calculateSlippagePrice } from '@/helpers/calculateSlippagePrice';
 import { calculateTpSlPrice } from '@/helpers/calculateTpSlPrice';
 import { compact } from '@/helpers/compact';
+import { isValidSize } from '@/helpers/isValidSize';
 import { isGreaterThanOrEqualTo, isLessThan, isNumber, isZero } from '@/helpers/number';
 import { toast } from '@/helpers/toast';
-import { isValidSize } from '@/helpers/tradeForm';
 import { useAsyncFn } from '@/hooks/useAsyncFn';
 import {
     coinIndexAtom,

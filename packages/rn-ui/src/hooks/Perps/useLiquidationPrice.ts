@@ -2,7 +2,7 @@ import { useAtomValue } from 'jotai';
 import { useMemo } from 'react';
 
 import { calculateLiquidationPrice } from '@/helpers/calculateLiquidationPrice';
-import { isValidSize } from '@/helpers/tradeForm';
+import { isValidSize } from '@/helpers/isValidSize';
 import { assetBalanceAtom, currentPriceAtom, leverageAtom, sizeAtom } from '@/store/tradeForm';
 
 export function useLiquidationPrice(maxLeverage: number) {

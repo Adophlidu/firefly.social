@@ -1,7 +1,7 @@
 import { useAtomValue } from 'jotai';
 
 import { getMarginRequired } from '@/helpers/calculateLiquidationPrice';
-import { isValidSize } from '@/helpers/tradeForm';
+import { isValidSize } from '@/helpers/isValidSize';
 import { currentPriceAtom, leverageAtom, sizeAtom } from '@/store/tradeForm';
 
 export function useMarginRequired() {

@@ -2,8 +2,8 @@ import { useAtomValue } from 'jotai';
 import type { ReactNode } from 'react';
 import { useMemo } from 'react';
 
+import { isValidSize } from '@/helpers/isValidSize';
 import { isLessThan } from '@/helpers/number';
-import { isValidSize } from '@/helpers/tradeForm';
 import { useMarginRequired } from '@/hooks/Perps/useMarginRequired';
 import { assetBalanceAtom, currentPriceAtom, sizeAtom } from '@/store/tradeForm';
 
