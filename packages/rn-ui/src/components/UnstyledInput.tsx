@@ -9,6 +9,8 @@ export function UnstyledInput(props: Props) {
             unstyled
             backgroundColor="transparent"
             borderWidth={0}
+            paddingVertical={0}
+            includeFontPadding={false}
             outlineStyle="none"
             focusStyle={{
                 borderWidth: 0,
