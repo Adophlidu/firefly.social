@@ -77,6 +77,7 @@ function FormField({ field, profile }: { field: ProfileEditableField; profile: P
                                 name="website"
                                 options={{
                                     setValueAs(value: string) {
+                                        if (!value) return '';
                                         return parseUrl(value)?.toString();
                                     },
                                     pattern: {
