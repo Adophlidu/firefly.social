@@ -28,6 +28,7 @@ export const PredictionActivityAction = memo<PredictionActivityActionProps>(func
     const basePolymarketUrl = activity.topicId
         ? RouteResolver.betsEventDetail(activity.platform, activity.topicId, {
               multiple: activity.isMutil === 1,
+              appendRoot: true,
           })
         : (activity.url ?? '');
     const polymarketUrl = useShareUrl(basePolymarketUrl);
