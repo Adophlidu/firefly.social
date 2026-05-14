@@ -443,7 +443,7 @@ msgstr "Reload"
 
 #. placeholder {0}: shares.count
 msgid "{0, plural, one {# share} other {# shares}}"
-msgstr "'#' share"
+msgstr "{0, plural, one {# share} other {# shares}}"
 
 msgid "Receive Wallet"
 msgstr "Receive Wallet"

@@ -17,6 +17,8 @@ export async function getRedeemablePositions({
         redeemable: true,
         limit: 200,
         offset: 0,
+        sortBy: 'CURRENT',
+        sortDirection: 'DESC',
         ...(eventId ? { eventId } : {}),
     });
 

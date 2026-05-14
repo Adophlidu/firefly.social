@@ -83,7 +83,7 @@ async function PredictionProfileOpenGraphImage({
     const pnlHistory = profile.pnl_history;
     const hasHistory = pnlHistory?.pnl_items && pnlHistory.pnl_items.length > 0;
     const netPnl = pnlHistory?.net_pnl || 0;
-    const netPnlRate = pnlHistory?.net_pnl_rate || 0;
+    const netPnlRate = Math.max(-1, pnlHistory?.net_pnl_rate || 0);
 
     let chartPath = '';
     let chartAreaPath = '';

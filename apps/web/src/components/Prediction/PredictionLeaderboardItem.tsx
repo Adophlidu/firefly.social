@@ -59,7 +59,7 @@ export const PredictionLeaderboardItem = memo<PredictionLeaderboardItemProps>(fu
             ? Number.parseFloat(item.pnl_rate)
             : item.pnl_rate
         : null;
-    const rate = !isNil(rateValue) && !Number.isNaN(rateValue) ? rateValue * 100 : null;
+    const rate = !isNil(rateValue) && !Number.isNaN(rateValue) ? Math.max(-100, rateValue * 100) : null;
     const pnlRateValue = !isNil(rate) ? `${rate.toFixed(2)}%` : '-';
     const pnlRateColorClass = !isNil(rate) ? (rate >= 0 ? 'text-success' : 'text-danger') : 'text-success';
 

@@ -30,6 +30,8 @@ export async function getCurrentPositions({
         redeemable: false,
         offset,
         limit,
+        sortBy: 'CURRENT',
+        sortDirection: 'DESC',
         ...(eventId ? { eventId } : {}),
     });
 

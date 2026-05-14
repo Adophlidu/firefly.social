@@ -106,7 +106,7 @@ export function PredictionPositionItem({
         const totalBought = position.total_buy || position.shares;
         const totalTrade = position.avg_price * totalBought;
         const settlementValue = position.current_value ?? totalTrade + position.pnl;
-        const pnlRate = totalTrade > 0 ? position.pnl / totalTrade : position.pnl_rate;
+        const pnlRate = Math.max(-1, totalTrade > 0 ? position.pnl / totalTrade : position.pnl_rate);
 
         return (
             <div key={position.Id} className="border-line flex w-full flex-col gap-3 rounded-xl border p-3">

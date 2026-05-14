@@ -492,6 +492,7 @@ export interface PolymarketPosition {
     pnl: number;
     pnl_rate: number;
     marketSlug: string;
+    endDate?: string;
 }
 
 export interface PolymarketPositionV2 {
@@ -572,6 +573,7 @@ export function mapPolymarketV2ToLegacy(pos: PolymarketPositionV2, isClosed: boo
         pnl,
         pnl_rate: pnlRate,
         marketSlug: pos.slug ?? '',
+        endDate: pos.endDate,
     };
 }
 
@@ -653,6 +655,17 @@ export type PolymarketActivityItem =
            * Some backend rows may omit this field.
            */
           claim?: PolymarketActivityMarketAction;
+          /**
+           * V2 API returns trade field for claim records.
+           */
+          trade?: PolymarketActivityMarketAction;
+      }
+    | {
+          type: 'lost';
+          proxyWallet: string;
+          timestamp: number; // seconds
+          transactionHash: string;
+          trade?: PolymarketActivityMarketAction;
       }
     | {
           type: 'deposit';

@@ -6,7 +6,11 @@ import { getClosedPositions } from '@/providers/firefly/prediction/getClosedPosi
 import { getCurrentPositions } from '@/providers/firefly/prediction/getCurrentPositions.js';
 import { getPredictionHistoryList } from '@/providers/firefly/prediction/getPredictionHistoryList.js';
 import { getRedeemablePositions } from '@/providers/firefly/prediction/getRedeemablePositions.js';
-import type { PolymarketPositionV2Data } from '@/providers/types/Firefly.js';
+import type {
+    PolymarketPositionV2Data,
+    PolymarketV2PositionSortBy,
+    PolymarketV2PositionSortDirection,
+} from '@/providers/types/Firefly.js';
 import type { PredictionPositionDataForUI } from '@/types/prediction.js';
 
 interface Options {
@@ -16,6 +20,8 @@ interface Options {
     indicator?: PageIndicator;
     eventId?: string;
     positionType?: 'current' | 'closed';
+    sortBy?: PolymarketV2PositionSortBy;
+    sortDirection?: PolymarketV2PositionSortDirection;
 }
 
 function mapV2ToUI(position: PolymarketPositionV2Data, isClosed: boolean): PredictionPositionDataForUI {
@@ -26,14 +32,17 @@ function mapV2ToUI(position: PolymarketPositionV2Data, isClosed: boolean): Predi
     const avgPrice = position.avgPrice ?? 0;
     const totalBought = position.totalBought ?? 0;
     const pnl = (isCurrent ? position.cashPnl : position.realizedPnl) || 0;
-    const pnlRate =
-        isCurrent && position.percentPnl ? position.percentPnl / 100 : avgPrice ? pnl / (totalBought * avgPrice) : 0;
+    const pnlRate = Math.max(
+        -1,
+        isCurrent && position.percentPnl ? position.percentPnl / 100 : avgPrice ? pnl / (totalBought * avgPrice) : 0,
+    );
 
     return {
         Id: position.conditionId ?? '',
         IsClaim: isClosed,
         avg_price: avgPrice,
         closed_time: isClosed ? (position.timestamp ?? null) : null,
+        endDate: position.endDate,
         conditionId: position.conditionId ?? '',
         cur_price: curPrice,
         current_value: isClosed ? avgPrice * totalBought + pnl : (position.currentValue ?? curPrice * size),
@@ -60,14 +69,14 @@ export async function getPredictionPositionList(
 ): Promise<Pageable<PredictionPositionDataForUI, PageIndicator>> {
     switch (platform) {
         case PredictionPlatform.Polymarket: {
-            const { positionType = 'current', address, indicator, limit, eventId } = options;
+            const { positionType = 'current', address, indicator, limit, eventId, sortBy, sortDirection } = options;
             const isClosed = positionType === 'closed';
 
             if (isClosed) {
                 const isFirstPage = !indicator?.id;
                 const [redeemableResult, closedResult] = await Promise.all([
                     isFirstPage ? getRedeemablePositions({ address, eventId }) : Promise.resolve([]),
-                    getClosedPositions({ address, indicator, limit, eventId }),
+                    getClosedPositions({ address, indicator, limit, eventId, sortBy, sortDirection }),
                 ]);
 
                 const redeemableUI = redeemableResult.map((p) => mapV2ToUI(p, true));

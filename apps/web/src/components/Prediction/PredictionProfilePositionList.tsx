@@ -94,6 +94,7 @@ export const PredictionProfilePositionList = memo<Props>(function PredictionProf
 
         return unsubscribe;
     }, [platform, address, queryClient, subscribeToWalletEvents]);
+
     const { data: socialProfile } = useProxyWalletInfo(platform, proxyAddress);
     const fireflyAccountId = socialProfile?.fireflyAccountId;
 
@@ -131,6 +132,8 @@ export const PredictionProfilePositionList = memo<Props>(function PredictionProf
                     isProxyAddress: !!proxyAddress,
                     indicator,
                     positionType: 'closed',
+                    sortBy: 'TIMESTAMP',
+                    sortDirection: 'DESC',
                 });
             } catch {
                 return createPageable([], indicator);
@@ -142,7 +145,7 @@ export const PredictionProfilePositionList = memo<Props>(function PredictionProf
     });
 
     const activePositions = activeQueryResult.data || EMPTY_LIST;
-    const closedPositions = closedQueryResult.data || EMPTY_LIST;
+    const closedPositions = closedQueryResult.data?.length ? closedQueryResult.data : EMPTY_LIST;
     const hasAnyPositions = activePositions.length > 0 || closedPositions.length > 0;
 
     return (

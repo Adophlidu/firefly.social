@@ -141,13 +141,14 @@ function ClosedPositionsHistory() {
     });
 
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['polymarket-history-closed-positions', proxy],
+        queryKey: ['polymarket-history-closed-positions', proxy, sortBy],
         initialPageParam: 0,
         async queryFn({ pageParam }) {
             const offset = pageParam as number;
             const closedPositions = await getFireflyEndpoint().getPolymarketV2ClosedPositions(proxyAddress, {
                 offset,
                 limit: PAGE_SIZE,
+                sortBy,
                 sortDirection: 'DESC',
             });
             return {
@@ -160,10 +161,11 @@ function ClosedPositionsHistory() {
         select: (data) => data.pages.flatMap((p) => p.data || []),
     });
 
-    const positions = useMemo(
-        () => sortClosedPositions(dedupePositions([...redeemablePositions, ...(queryResult.data || [])]), sortBy),
-        [redeemablePositions, queryResult.data, sortBy],
-    );
+    const positions = useMemo(() => {
+        if (!redeemablePositions.length) return queryResult.data;
+        if (!queryResult.data?.length) return redeemablePositions;
+        return sortClosedPositions(dedupePositions([...redeemablePositions, ...(queryResult.data || [])]), sortBy);
+    }, [redeemablePositions, queryResult.data, sortBy]);
     const closeableLosses = useMemo(
         () => positions.filter((position) => position.isClaimable && !position.isWin && !position.is_closed),
         [positions],
@@ -216,7 +218,7 @@ function TradingActivitiesHistory() {
         initialPageParam: undefined as undefined | string,
         async queryFn({ pageParam }) {
             return getFireflyEndpoint().getPolymarketUserActivity({
-                proxyWallet: account.proxyAddress,
+                proxyWallet: proxy,
                 cursor: pageParam,
             });
         },
@@ -568,11 +570,11 @@ function HistoryItem({ item }: { item: PolymarketActivityItem }) {
         return (
             <HistoryCard>
                 <div className="flex items-center gap-2">
-                    <div className="bg-lightBg flex size-10 items-center justify-center rounded-full">
+                    <div className="bg-lightBg flex size-10 items-center justify-center rounded-lg">
                         {isIn ? <ArrowDown width={20} height={20} /> : <ArrowUp width={20} height={20} />}
                     </div>
                     <div className="min-w-0 flex-1">
-                        <div className="text-main truncate text-sm font-semibold leading-5">
+                        <div className="text-main truncate text-sm font-bold leading-5">
                             {isIn ? <Trans>Add Funds</Trans> : <Trans>Withdraw</Trans>}
                         </div>
                         <div className="text-second text-xs leading-[14px]">{whenRelative}</div>
@@ -592,30 +594,41 @@ function HistoryItem({ item }: { item: PolymarketActivityItem }) {
         );
     }
 
-    if (isClaimActivity(item)) {
+    if (isClaimOrLostActivity(item)) {
         const claim = getClaimActivity(item);
-        if (!claim) {
+        const trade = claim ?? getTradeActivity(item);
+        const isLost =
+            item.type === 'lost' ||
+            (item.type === 'claim' && claim && !BigNumber(parseUsdcAmount(claim.usdcSize) ?? 0).gt(0));
+        if (!trade && !claim) {
             return (
                 <HistoryCard>
                     <div className="flex items-center justify-between gap-6">
-                        <div className="text-main text-sm font-semibold leading-5">
-                            <Trans>Claim</Trans>
+                        <div
+                            className={
+                                isLost
+                                    ? 'text-danger font-bedstead text-sm font-bold leading-5'
+                                    : 'text-main text-sm font-semibold leading-5'
+                            }
+                        >
+                            {isLost ? <Trans>Lost</Trans> : <Trans>Claim</Trans>}
                         </div>
                         <div className="text-second text-xs leading-[14px]">{whenRelative}</div>
                     </div>
                 </HistoryCard>
             );
         }
-        const claimedAmount = parseUsdcAmount(claim.usdcSize);
-        const isClaimed = BigNumber(claimedAmount ?? 0).gt(0);
-        const handleClick = claim.eventSlug ? () => navigateToDetail(claim.eventSlug) : undefined;
+        const marketAction = claim ?? trade!;
+        const claimedAmount = parseUsdcAmount(marketAction.usdcSize);
+        const isClaimed = !isLost && BigNumber(claimedAmount ?? 0).gt(0);
+        const handleClick = marketAction.eventSlug ? () => navigateToDetail(marketAction.eventSlug) : undefined;
         return (
             <HistoryCard onClick={handleClick}>
-                <MarketHeader image={claim.icon} title={claim.title} />
+                <MarketHeader image={marketAction.icon} title={marketAction.title} />
                 {isClaimed ? (
                     <div className="mt-3 flex flex-col gap-1">
                         <div className="flex items-center justify-between gap-6">
-                            <div className="text-main text-sm font-bold leading-5">
+                            <div className="font-bedstead text-main text-sm font-bold leading-5">
                                 <Trans>Claimed</Trans>
                             </div>
                             <div className="text-success text-sm font-semibold leading-5">
@@ -625,8 +638,8 @@ function HistoryItem({ item }: { item: PolymarketActivityItem }) {
                         <div className="text-second text-xs leading-[14px]">{whenRelative}</div>
                     </div>
                 ) : (
-                    <div className="mt-3 flex flex-col gap-1">
-                        <div className="text-danger text-sm font-bold leading-5">
+                    <div className="mt-3 flex items-center justify-between gap-6">
+                        <div className="font-bedstead text-danger text-sm font-bold leading-5">
                             <Trans>Lost</Trans>
                         </div>
                         <div className="text-second text-xs leading-[14px]">{whenRelative}</div>
@@ -705,12 +718,16 @@ function HistoryItem({ item }: { item: PolymarketActivityItem }) {
     );
 }
 
-function isClaimActivity(item: PolymarketActivityItem) {
-    return item.type === 'claim' || (item.type as string) === 'REDEEM';
+function isClaimOrLostActivity(item: PolymarketActivityItem) {
+    return item.type === 'claim' || item.type === 'lost' || (item.type as string) === 'REDEEM';
 }
 
 function getClaimActivity(item: PolymarketActivityItem): PolymarketActivityMarketAction | undefined {
     if ('claim' in item && item.claim) return item.claim;
+    // V2 API returns trade field for claim records
+    const tradeField = (item as Record<string, unknown>).trade;
+    if (tradeField && typeof tradeField === 'object' && item.type === 'claim')
+        return tradeField as PolymarketActivityMarketAction;
     if ((item.type as string) === 'REDEEM') {
         // Some V2 API responses use uppercase type; try nested `claim` field first
         const nested = (item as Record<string, unknown>).claim;
@@ -774,6 +791,23 @@ function parseUsdcAmount(value?: string) {
 }
 
 function sortClosedPositions(positions: PolymarketPosition[], sortBy: ClosedPositionSortBy) {
+    if (sortBy === 'TIMESTAMP') {
+        // Align with iOS: for redeemable positions without closed_time, synthesize a timestamp
+        // from endDate (end of that day) so they interleave with closed positions by day.
+        const getTimestamp = (p: PolymarketPosition): number => {
+            if (p.closed_time) return p.closed_time;
+            if (p.endDate) {
+                const date = new Date(p.endDate);
+                if (!isNaN(date.getTime())) {
+                    date.setHours(23, 59, 59, 0);
+                    return Math.floor(date.getTime() / 1000);
+                }
+            }
+            return 0;
+        };
+        return [...positions].sort((a, b) => getTimestamp(b) - getTimestamp(a));
+    }
+
     return [...positions].sort((a, b) => {
         switch (sortBy) {
             case 'REALIZEDPNL':
@@ -782,9 +816,8 @@ function sortClosedPositions(positions: PolymarketPosition[], sortBy: ClosedPosi
                 return b.avg_price - a.avg_price;
             case 'TITLE':
                 return b.title.localeCompare(a.title);
-            case 'TIMESTAMP':
             default:
-                return b.closed_time - a.closed_time;
+                return 0;
         }
     });
 }

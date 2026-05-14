@@ -9,7 +9,12 @@ import urlcat from 'urlcat';
 
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import type { PolymarketPositionV2Data, Response } from '@/providers/types/Firefly.js';
+import type {
+    PolymarketPositionV2Data,
+    PolymarketV2PositionSortBy,
+    PolymarketV2PositionSortDirection,
+    Response,
+} from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 export async function getClosedPositions({
@@ -17,11 +22,15 @@ export async function getClosedPositions({
     indicator,
     limit = 20,
     eventId,
+    sortBy,
+    sortDirection,
 }: {
     address: string;
     indicator?: PageIndicator;
     limit?: number;
     eventId?: string;
+    sortBy?: PolymarketV2PositionSortBy;
+    sortDirection?: PolymarketV2PositionSortDirection;
 }): Promise<Pageable<PolymarketPositionV2Data, PageIndicator>> {
     const offset = indicator?.id ? +indicator.id : 0;
 
@@ -29,6 +38,8 @@ export async function getClosedPositions({
         user: address,
         offset,
         limit,
+        sortBy: sortBy ?? 'CURRENT',
+        sortDirection: sortDirection ?? 'DESC',
         ...(eventId ? { eventId } : {}),
     });
 

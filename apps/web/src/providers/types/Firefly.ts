@@ -2745,6 +2745,9 @@ export interface PolymarketTagData {
     isCarousel?: boolean;
 }
 
+export type PolymarketV2PositionSortBy = 'CURRENT' | 'TIMESTAMP' | 'REALIZEDPNL' | 'AVGPRICE' | 'TITLE';
+export type PolymarketV2PositionSortDirection = 'ASC' | 'DESC';
+
 export interface PolymarketPositionV2Data {
     proxyWallet?: string;
     asset?: string;
