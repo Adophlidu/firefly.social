@@ -1,4 +1,4 @@
-import type { ThemeColors } from './light';
+import type { ThemeColors } from '@/colors/light';
 
 export const darkColors: ThemeColors = {
     bg: '#171717',
