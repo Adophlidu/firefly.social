@@ -1,5 +1,4 @@
 import { memo, useState } from 'react';
-import { Button, Text, YStack } from 'tamagui';
 
 import { PerpKlineIntervalPills } from '@/components/PerpKlineChart/PerpKlineIntervalPills.js';
 import { PerpKlineRenderer } from '@/components/PerpKlineChart/PerpKlineRenderer.js';
@@ -27,50 +26,33 @@ export const PerpKlineChart = memo<PerpKlineChartProps>(function PerpKlineChart(
     const showChart = !showSkeleton && !showError;
 
     return (
-        <YStack width="100%" height="100%" gap={6} padding={8} backgroundColor="$bg">
-            <YStack gap={4}>
+        <div className="bg-bg flex size-full flex-col gap-1.5 p-2">
+            <div className="flex flex-col gap-1">
                 <PerpKlineIntervalPills value={interval} onChange={setInterval} />
 
-                <Text color="$text" fontSize={14} lineHeight={18} fontWeight={600}>
+                <span className="text-main text-sm font-semibold leading-[18px]">
                     {coin}USD · {interval} · Hyperliquid
-                </Text>
-            </YStack>
+                </span>
+            </div>
 
-            <YStack flex={1} minHeight={0} borderRadius={10} overflow="hidden">
-                {showSkeleton ? <YStack width="100%" height="100%" backgroundColor="$bgHover" /> : null}
+            <div className="min-h-0 flex-1 overflow-hidden rounded-[10px]">
+                {showSkeleton ? <div className="bg-lightBg size-full animate-pulse" /> : null}
 
                 {showError ? (
-                    <YStack
-                        width="100%"
-                        height="100%"
-                        backgroundColor="$bgSubdued"
-                        justifyContent="center"
-                        alignItems="center"
-                        gap={12}
-                    >
-                        <Text color="$textSubdued" fontSize={13} lineHeight={17} fontWeight={500}>
-                            Chart unavailable
-                        </Text>
-                        <Button
-                            unstyled
-                            height={32}
-                            paddingHorizontal={16}
-                            borderRadius={16}
-                            backgroundColor="$bgHover"
-                            justifyContent="center"
-                            alignItems="center"
-                            pressStyle={{ opacity: 0.75 }}
-                            onPress={retry}
+                    <div className="bg-lightBg flex size-full flex-col items-center justify-center gap-3">
+                        <span className="text-second text-[13px] font-medium leading-[17px]">Chart unavailable</span>
+                        <button
+                            type="button"
+                            className="bg-lightBg inline-flex h-8 items-center justify-center rounded-full px-4 active:opacity-75"
+                            onClick={retry}
                         >
-                            <Text color="$text" fontSize={13} lineHeight={17} fontWeight={500}>
-                                Retry
-                            </Text>
-                        </Button>
-                    </YStack>
+                            <span className="text-main text-[13px] font-medium leading-[17px]">Retry</span>
+                        </button>
+                    </div>
                 ) : null}
 
                 {showChart ? <PerpKlineRenderer candles={candles} markers={markers} /> : null}
-            </YStack>
-        </YStack>
+            </div>
+        </div>
     );
 });

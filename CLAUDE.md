@@ -44,6 +44,13 @@ See `/architecture` for the full layer diagram, package list, violation examples
 - ✅ Client components: `'use client'` as **first line**, then a **blank line**, then imports
 - ✅ Wrap non-trivial components with `memo()`: `export const Foo = memo(function Foo(props) { ... })`
 
+**Tamagui boundary:**
+
+- ❌ NEVER import from `tamagui` or `@tamagui/*` inside `apps/wallet` or `apps/web`
+- ✅ Only `packages/rn-ui` may use Tamagui directly
+- ✅ Apps consume Tamagui-based UI through `@dimensiondev/rn-ui` exports (whole-screen components, hooks, `Provider`)
+- Reason: workspaces resolved different Tamagui versions (`1.114.0` vs `1.144.4`), so mixing in-app Tamagui with rn-ui's `Provider` loaded two Tamagui copies at runtime, causing React error #321 in production (`/perp-kline-chart`). Keeping Tamagui inside one package eliminates the version-split foot-gun.
+
 **i18n:**
 
 - ❌ NEVER hardcode user-visible strings without i18n wrapping
@@ -71,3 +78,17 @@ For detailed guidance, invoke these commands:
 - `/architecture` — Full layer rules with violation examples and fixes
 - `/i18n` — Lingui workflow, plurals, Tolgee sync
 - `/rn-ui` — `@dimensiondev/rn-ui` entry points, Provider setup, peer deps
+
+## Agent skills
+
+### Issue tracker
+
+Issues are tracked in Jira at `mask.atlassian.net` with `FW-XXXX` keys, via the Atlassian MCP tools. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Triage state is applied as Jira labels using the default label vocabulary. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context layout: `CONTEXT.md` and `docs/adr/` at the repo root. See `docs/agents/domain.md`.

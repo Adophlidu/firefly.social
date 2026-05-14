@@ -1,4 +1,3 @@
-import { Provider } from '@dimensiondev/rn-ui';
 import { createFileRoute } from '@tanstack/react-router';
 
 import { PerpKlineChart } from '@/components/PerpKlineChart/PerpKlineChart.js';
@@ -31,10 +30,8 @@ function PerpKlineChartPage() {
     const { coin, interval, address } = Route.useSearch();
 
     return (
-        <Provider>
-            <div style={{ width: '100vw', height: '100vh' }}>
-                <PerpKlineChart coin={coin} initialInterval={interval} walletAddress={address ?? null} />
-            </div>
-        </Provider>
+        <div style={{ width: '100vw', height: '100vh' }}>
+            <PerpKlineChart coin={coin} initialInterval={interval} walletAddress={address ?? null} />
+        </div>
     );
 }

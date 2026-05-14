@@ -14,15 +14,20 @@ import {
     type UTCTimestamp,
 } from 'lightweight-charts';
 import { memo, useEffect, useRef } from 'react';
-import { useTheme } from 'tamagui';
 
 import type { CandleDatum, FillMarker } from '@/components/PerpKlineChart/types.js';
+import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 
 const VOLUME_PANE_TOP = 0.78;
 const UP_COLOR = '#26A69A';
 const DOWN_COLOR = '#EF5350';
 const UP_COLOR_FAINT = 'rgba(38, 166, 154, 0.55)';
 const DOWN_COLOR_FAINT = 'rgba(239, 83, 80, 0.55)';
+
+const TEXT_COLOR_LIGHT = '#767676';
+const TEXT_COLOR_DARK = 'rgba(255, 255, 255, 0.78)';
+const GRID_COLOR_LIGHT = '#f4f4f4';
+const GRID_COLOR_DARK = 'rgba(255, 255, 255, 0.18)';
 
 export interface PerpKlineRendererProps {
     candles: readonly CandleDatum[];
@@ -83,9 +88,9 @@ export const PerpKlineRenderer = memo<PerpKlineRendererProps>(function PerpKline
     const markersDataRef = useRef<readonly FillMarker[]>(markers);
     candlesRef.current = candles;
     markersDataRef.current = markers;
-    const theme = useTheme();
-    const textColor = theme.textSubdued?.get() ?? '#A0A0A0';
-    const gridColor = theme.bgSubdued?.get() ?? 'rgba(255, 255, 255, 0.06)';
+    const isDarkMode = useIsDarkMode();
+    const textColor = isDarkMode ? TEXT_COLOR_DARK : TEXT_COLOR_LIGHT;
+    const gridColor = isDarkMode ? GRID_COLOR_DARK : GRID_COLOR_LIGHT;
 
     useEffect(() => {
         const container = containerRef.current;

@@ -1,7 +1,7 @@
 import { memo } from 'react';
-import { Button, Text, XStack } from 'tamagui';
 
 import type { KlineInterval } from '@/components/PerpKlineChart/types.js';
+import { cn } from '@/lib/utils.js';
 
 const INTERVALS: readonly KlineInterval[] = ['1m', '15m', '1h', '4h', 'D'];
 
@@ -15,27 +15,27 @@ export const PerpKlineIntervalPills = memo<PerpKlineIntervalPillsProps>(function
     onChange,
 }) {
     return (
-        <XStack alignItems="center">
+        <div className="flex items-center">
             {INTERVALS.map((interval) => {
                 const active = interval === value;
                 return (
-                    <Button
+                    <button
                         key={interval}
-                        unstyled
-                        height={36}
-                        minWidth={44}
-                        paddingHorizontal={6}
-                        justifyContent="center"
-                        alignItems="center"
-                        pressStyle={{ opacity: 0.75 }}
-                        onPress={() => onChange(interval)}
+                        type="button"
+                        className="inline-flex h-9 min-w-[44px] items-center justify-center px-1.5 active:opacity-75"
+                        onClick={() => onChange(interval)}
                     >
-                        <Text color={active ? '$text' : '$textDisabled'} fontSize={13} lineHeight={17} fontWeight={500}>
+                        <span
+                            className={cn(
+                                'text-[13px] font-medium leading-[17px]',
+                                active ? 'text-main' : 'text-deactivate',
+                            )}
+                        >
                             {interval}
-                        </Text>
-                    </Button>
+                        </span>
+                    </button>
                 );
             })}
-        </XStack>
+        </div>
     );
 });

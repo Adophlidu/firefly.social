@@ -96,7 +96,7 @@ export default defineConfig({
             'react-native-webview': resolve(__dirname, 'src/shims/react-native-webview.ts'),
             pino: resolve(__dirname, 'src/shims/pino.ts'),
             '@react-native-async-storage/async-storage': resolve(__dirname, 'src/shims/async-storage.ts'),
-            '@dimensiondev/rn-ui': resolve(__dirname, '../../packages/rn-ui/src/index.ts'),
+            '@dimensiondev/rn-ui': resolve(__dirname, '../../packages/rn-ui/src'),
         },
     },
     define: {
