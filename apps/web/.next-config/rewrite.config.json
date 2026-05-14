@@ -43,5 +43,10 @@
         "staging": "https://firefly-sitemap.pages.dev/sitemap",
         "canary": "https://firefly-sitemap.pages.dev/sitemap",
         "production": "https://firefly-sitemap.pages.dev/sitemap"
+    },
+    "/perp-kline-chart": {
+        "staging": "https://firefly-social-wallet-staging.firefly.social/wallet-iframe/perp-kline-chart",
+        "canary": "https://firefly-social-wallet-staging.firefly.social/wallet-iframe/perp-kline-chart",
+        "production": "https://firefly-social-wallet.firefly.social/wallet-iframe/perp-kline-chart"
     }
 }

@@ -17,7 +17,7 @@ import { useConnectors, useWalletClient } from 'wagmi';
 import { useComeback } from '@/components/useComeback.js';
 import { env } from '@/constants/env.js';
 import { ABOUT_URL, PRIVACY_URL, TERMS_URL } from '@/constants/hyperliquid.js';
-import { KLINE_BASE_URL, PRIVY_CONNECTOR_ID } from '@/constants/static.js';
+import { PRIVY_CONNECTOR_ID } from '@/constants/static.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { logger } from '@/lib/Logger.js';
 import { fireflySessionTokenAtom } from '@/store/fireflySession.js';
@@ -102,7 +102,7 @@ export function PerpsProvider({ children }: PropsWithChildren) {
         const params = new URLSearchParams({ coin, interval: '1m' });
         if (walletAddress) params.set('address', walletAddress);
 
-        return `${KLINE_BASE_URL}/perp-kline-chart?${params.toString()}`;
+        return `/perp-kline-chart?${params.toString()}`;
     }, []);
 
     return (
