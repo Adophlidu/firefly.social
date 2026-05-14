@@ -69,20 +69,13 @@ jobs:
                     exit 1
                   fi
 
-                  current_snapshot=""
-                  first=true
+                  current_version=""
                   for pkgjson in apps/*/package.json; do
                     [ -f "$pkgjson" ] || continue
-                    name=$(node -p "require('./$pkgjson').name")
-                    ver=$(node -p "require('./$pkgjson').version")
-                    if [ "$first" = true ]; then
-                      current_snapshot="$name@$ver"
-                      first=false
-                    else
-                      current_snapshot="$current_snapshot, $name@$ver"
-                    fi
+                    current_version=$(node -p "require('./$pkgjson').version")
+                    break
                   done
-                  echo "current_snapshot=$current_snapshot" >> $GITHUB_ENV
+                  echo "current_version=$current_version" >> $GITHUB_ENV
 
                   for pkgjson2 in apps/*/package.json; do
                     [ -f "$pkgjson2" ] || continue
@@ -98,22 +91,12 @@ jobs:
                     "
                   done
 
-                  new_snapshot=""
-                  first=true
                   declare -a vers
                   for pkgjson in apps/*/package.json; do
                     [ -f "$pkgjson" ] || continue
-                    name=$(node -p "require('./$pkgjson').name")
                     ver=$(node -p "require('./$pkgjson').version")
                     vers+=("$ver")
-                    if [ "$first" = true ]; then
-                      new_snapshot="$name@$ver"
-                      first=false
-                    else
-                      new_snapshot="$new_snapshot, $name@$ver"
-                    fi
                   done
-                  echo "new_snapshot=$new_snapshot" >> $GITHUB_ENV
 
                   new_version=$(printf '%s\n' "${vers[@]}" | sort -u | paste -sd- -)
                   echo "new_version=$new_version" >> $GITHUB_ENV
@@ -124,11 +107,11 @@ jobs:
                   release_type="${{ github.event.inputs.release_type }}"
 
                   if [ "$release_type" = "major" ]; then
-                    pr_title="[Release] New release ${{ env.new_snapshot }} (major)"
+                    pr_title="[Release] New release v${{ env.new_version }} (major)"
                   elif [ "$release_type" = "minor" ]; then
-                    pr_title="[Release] New release ${{ env.new_snapshot }} (minor)"
+                    pr_title="[Release] New release v${{ env.new_version }} (minor)"
                   else
-                    pr_title="[Release] Hotfix ${{ env.current_snapshot }} => ${{ env.new_snapshot }} (patch)"
+                    pr_title="[Release] Hotfix v${{ env.current_version }} => v${{ env.new_version }}"
                   fi
 
                   echo "pr_title=$pr_title" >> $GITHUB_ENV
@@ -145,7 +128,7 @@ jobs:
                   git add apps/*/package.json
                   git config --global user.name "github-actions[bot]"
                   git config --global user.email "github-actions[bot]@users.noreply.github.com"
-                  git commit -m "chore: bump app versions (${{ env.new_snapshot }})"
+                  git commit -m "chore: bump app versions to v${{ env.new_version }}"
                   git checkout -b "bump-version-${{ env.new_version }}"
                   git push origin "bump-version-${{ env.new_version }}"
 
