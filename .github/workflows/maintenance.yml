@@ -9,7 +9,7 @@ on:
     workflow_dispatch:
 
 jobs:
-    eslint:
+    maintenance:
         runs-on: ubuntu-latest
 
         steps:
@@ -38,6 +38,9 @@ jobs:
             - name: Run ESLint
               run: |
                   npx eslint --fix . || echo "ESLint completed with warnings"
+
+            - name: Generate Package Analysis
+              run: node .github/scripts/generate-package-analysis.mjs
 
             - name: Commit and Push changes if necessary
               run: |
