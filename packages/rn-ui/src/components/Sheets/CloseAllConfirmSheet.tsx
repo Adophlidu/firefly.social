@@ -89,10 +89,10 @@ export const CloseAllConfirmSheet = memo<CloseAllConfirmSheetProps>(function Clo
                         height={48}
                         borderRadius={96}
                         flex={1}
-                        flexDirection="row"
                         borderWidth={1}
                         borderColor="$text"
                         justifyContent="center"
+                        alignItems="center"
                         onPress={() => onOpenChange(false)}
                     >
                         <Text fontSize={16} fontWeight={700} color="$text">
@@ -104,9 +104,9 @@ export const CloseAllConfirmSheet = memo<CloseAllConfirmSheetProps>(function Clo
                         height={48}
                         borderRadius={96}
                         flex={1}
-                        flexDirection="row"
                         backgroundColor="$text"
                         justifyContent="center"
+                        alignItems="center"
                         onPress={() => {
                             onConfirm?.();
                             onOpenChange(false);

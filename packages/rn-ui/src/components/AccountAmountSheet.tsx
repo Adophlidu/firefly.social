@@ -1,6 +1,6 @@
 import { memo, useState } from 'react';
 import { Path, Svg } from 'react-native-svg';
-import { Button, Sheet, Text, XStack, YStack } from 'tamagui';
+import { Button, Sheet, Text, useTheme, XStack, YStack } from 'tamagui';
 
 import { SheetDragHandle } from '@/components/SheetDragHandle';
 import { formatUSDC } from '@/helpers/formatUSDC';
@@ -15,12 +15,15 @@ interface AccountAmountSheetProps {
 }
 
 function ArrowUpIcon() {
+    const theme = useTheme();
+    const stroke = theme.bg?.get() || 'white';
+
     return (
         <Svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-            <Path d="M10 16V4" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <Path d="M10 16V4" stroke={stroke} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             <Path
                 d="M13.5 7.5L10 4L6.5 7.5"
-                stroke="white"
+                stroke={stroke}
                 strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -30,12 +33,15 @@ function ArrowUpIcon() {
 }
 
 function ArrowDownIcon() {
+    const theme = useTheme();
+    const stroke = theme.bg?.get() || 'white';
+
     return (
         <Svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-            <Path d="M10 4V16" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <Path d="M10 4V16" stroke={stroke} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             <Path
                 d="M6.5 12.5L10 16L13.5 12.5"
-                stroke="white"
+                stroke={stroke}
                 strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"

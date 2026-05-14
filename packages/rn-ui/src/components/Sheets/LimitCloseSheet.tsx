@@ -227,7 +227,7 @@ export const LimitCloseSheet = memo<LimitCloseSheetProps>(function LimitCloseShe
                         <Slider.Thumb
                             index={0}
                             circular
-                            size={14}
+                            size={20}
                             backgroundColor="$text"
                             borderWidth={2}
                             borderColor="$bg"
@@ -262,6 +262,7 @@ export const LimitCloseSheet = memo<LimitCloseSheetProps>(function LimitCloseShe
                         borderWidth={1}
                         borderColor="$text"
                         justifyContent="center"
+                        alignItems="center"
                         onPress={() => onOpenChange(false)}
                     >
                         <Text fontSize={16} fontWeight={700} color="$text">
@@ -275,6 +276,7 @@ export const LimitCloseSheet = memo<LimitCloseSheetProps>(function LimitCloseShe
                         flex={1}
                         backgroundColor="$text"
                         justifyContent="center"
+                        alignItems="center"
                         disabled={confirmDisabled}
                         onPress={() => {
                             onConfirm?.(usdcToUse, newSize);

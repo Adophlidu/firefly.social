@@ -23,17 +23,15 @@ function formatOrderTime(timestamp: number) {
 }
 
 export const OpenOrderCard = memo<OpenOrderCardProps>(function OpenOrderCard({ order }) {
-    const isMainOrder = !order.isTrigger;
+    const isMainOrder = order.side === 'B';
 
     const direction = useMemo(() => {
-        if (!order.isTrigger) {
-            return order.side === 'B' ? 'Long' : 'Short';
+        if (order.side === 'B') {
+            return order.reduceOnly ? 'Close Short' : 'Long';
         }
 
-        if (order.side === 'B') return 'Close Short';
-        if (order.side === 'A') return 'Close Long';
-        return '';
-    }, [order.isTrigger, order.side]);
+        return order.reduceOnly ? 'Close Long' : 'Short';
+    }, [order.reduceOnly, order.side]);
 
     const cancelInfo = useMemo(() => [{ oid: order.oid, coin: order.coin }], [order.oid, order.coin]);
     const [{ loading }, removeOrder] = useCancelOrders(cancelInfo);
@@ -105,18 +103,18 @@ export const OpenOrderCard = memo<OpenOrderCardProps>(function OpenOrderCard({ o
                 </YStack>
                 <YStack flex={1} gap={2} alignItems="center">
                     <Text color="$textDisabled" fontSize={12} lineHeight={14} fontWeight={500}>
-                        Filled
+                        Original Size
                     </Text>
                     <Text color="$text" fontSize={14} lineHeight={20} fontWeight={500}>
-                        -
+                        {order.origSz}
                     </Text>
                 </YStack>
                 <YStack flex={1} gap={2} alignItems="flex-end">
                     <Text color="$textDisabled" fontSize={12} lineHeight={14} fontWeight={500}>
-                        Order price
+                        Execute price
                     </Text>
                     <Text color="$text" fontSize={14} lineHeight={20} fontWeight={500}>
-                        {order.isTrigger ? 'Market' : order.limitPx}
+                        {order.orderType.includes('Market') ? 'Market' : order.limitPx}
                     </Text>
                 </YStack>
             </XStack>

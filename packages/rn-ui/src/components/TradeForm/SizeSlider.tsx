@@ -16,7 +16,7 @@ export const SizeSlider = memo<SizeSliderProps>(function SizeSlider() {
                 <Slider.Track backgroundColor="$bgSubdued" height={2}>
                     <Slider.TrackActive backgroundColor="$text" />
                 </Slider.Track>
-                <Slider.Thumb index={0} circular size={14} backgroundColor="$text" borderWidth={2} borderColor="$bg" />
+                <Slider.Thumb index={0} circular size={20} backgroundColor="$text" borderWidth={2} borderColor="$bg" />
             </Slider>
         </YStack>
     );

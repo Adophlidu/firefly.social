@@ -1,7 +1,8 @@
 import { memo, useCallback, useEffect, useMemo, useState } from 'react';
-import { Button, Input, Sheet, Text, XStack, YStack } from 'tamagui';
+import { Button, Sheet, Text, XStack, YStack } from 'tamagui';
 
 import { SheetDragHandle } from '@/components/SheetDragHandle';
+import { UnstyledInput } from '@/components/UnstyledInput';
 import { WalletActionButton } from '@/components/WalletActionButton';
 import { formatAmount } from '@/helpers/formatAmount';
 import { normalizePriceInput, validatePerpsPriceInput } from '@/helpers/perpsPriceValidation';
@@ -142,8 +143,7 @@ function PercentField({
                 {sign}
             </Text>
 
-            <Input
-                unstyled
+            <UnstyledInput
                 flex={1}
                 value={value}
                 onChangeText={onChangeText}
@@ -427,13 +427,13 @@ export const TpSlSheet = memo<TpSlSheetProps>(function TpSlSheet({
                                             alignItems="center"
                                             paddingHorizontal={8}
                                         >
-                                            <Input
-                                                unstyled
+                                            <UnstyledInput
                                                 value={tpPrice}
                                                 onChangeText={handleTpPriceChange}
                                                 keyboardType="numeric"
                                                 color="$text"
                                                 fontSize={14}
+                                                height={32}
                                                 lineHeight={18}
                                                 fontWeight={500}
                                                 placeholder="TP Price"
@@ -456,13 +456,13 @@ export const TpSlSheet = memo<TpSlSheetProps>(function TpSlSheet({
                                             alignItems="center"
                                             paddingHorizontal={8}
                                         >
-                                            <Input
-                                                unstyled
+                                            <UnstyledInput
                                                 value={slPrice}
                                                 onChangeText={handleSlPriceChange}
                                                 keyboardType="numeric"
                                                 color="$text"
                                                 fontSize={14}
+                                                height={32}
                                                 lineHeight={18}
                                                 fontWeight={500}
                                                 placeholder="SL Price"

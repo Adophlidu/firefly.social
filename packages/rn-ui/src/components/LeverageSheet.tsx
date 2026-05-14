@@ -177,7 +177,7 @@ export const LeverageSheet = memo<LeverageSheetProps>(function LeverageSheet({
                             <Slider.Thumb
                                 index={0}
                                 circular
-                                size={12}
+                                size={20}
                                 backgroundColor="$accent"
                                 borderWidth={2}
                                 borderColor="$bg"
