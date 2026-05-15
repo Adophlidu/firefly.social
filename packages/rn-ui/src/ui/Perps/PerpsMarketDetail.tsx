@@ -18,6 +18,7 @@ export interface PerpsMarketDetailProps {
 export const PerpsMarketDetail = memo<PerpsMarketDetailProps>(function PerpsMarketDetail({ coin }) {
     const [currentCoin, setCurrentCoin] = useState(coin);
     const [isTokenSelectorOpen, setTokenSelectorOpen] = useState(false);
+    const [isKlineInteracting, setKlineInteracting] = useState(false);
 
     const { data: coinInfo } = useCoinInfo(currentCoin);
 
@@ -27,6 +28,12 @@ export const PerpsMarketDetail = memo<PerpsMarketDetailProps>(function PerpsMark
     }, []);
     const onOpenSelector = useCallback(() => {
         setTokenSelectorOpen(true);
+    }, []);
+    const onKlineInteractionStart = useCallback(() => {
+        setKlineInteracting(true);
+    }, []);
+    const onKlineInteractionEnd = useCallback(() => {
+        setKlineInteracting(false);
     }, []);
 
     if (!coinInfo) {
@@ -44,10 +51,14 @@ export const PerpsMarketDetail = memo<PerpsMarketDetailProps>(function PerpsMark
                 />
             </YStack>
 
-            <ScrollView flex={1} minHeight={0} showsVerticalScrollIndicator={false}>
+            <ScrollView flex={1} minHeight={0} scrollEnabled={!isKlineInteracting} showsVerticalScrollIndicator={false}>
                 <YStack paddingHorizontal={12} paddingTop={6} paddingBottom={8} gap={14}>
                     <PerpsTickerSummary coinInfo={coinInfo} />
-                    <PerpsKline coin={currentCoin} />
+                    <PerpsKline
+                        coin={currentCoin}
+                        onInteractionStart={onKlineInteractionStart}
+                        onInteractionEnd={onKlineInteractionEnd}
+                    />
                     <OrderBook
                         coin={currentCoin}
                         szDecimal={coinInfo.szDecimals}

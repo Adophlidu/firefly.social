@@ -11,9 +11,11 @@ const CHART_HEIGHT = 320;
 
 export interface PerpsKlineProps {
     coin: string;
+    onInteractionStart?: () => void;
+    onInteractionEnd?: () => void;
 }
 
-export const PerpsKline = memo<PerpsKlineProps>(function PerpsKline({ coin }) {
+export const PerpsKline = memo<PerpsKlineProps>(function PerpsKline({ coin, onInteractionEnd, onInteractionStart }) {
     const walletAddress = useAtomValue(walletAddressAtom);
     const { build } = useAtomValue(perpsKlineChartUrlBuilderAtom);
     const src = useMemo(() => build(coin, walletAddress), [build, coin, walletAddress]);
@@ -54,6 +56,10 @@ export const PerpsKline = memo<PerpsKlineProps>(function PerpsKline({ coin }) {
                 <WebView
                     source={{ uri: src }}
                     sharedCookiesEnabled
+                    scrollEnabled={false}
+                    onTouchStart={onInteractionStart}
+                    onTouchEnd={onInteractionEnd}
+                    onTouchCancel={onInteractionEnd}
                     style={{ flex: 1, backgroundColor: 'transparent' }}
                 />
             )}
