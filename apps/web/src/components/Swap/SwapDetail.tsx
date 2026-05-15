@@ -46,7 +46,7 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ chainId, h
 
     const { data: activity, isLoading } = useQuery({
         queryKey: ['swap-detail', hash, chainId, polling],
-        queryFn: () => getSwapActivityByHash(hash, chainId, { polling }),
+        queryFn: () => getSwapActivityByHash(hash, chainId, { polling, waitForToken: false }),
         refetchInterval: (query) => {
             const data = query.state.data;
             // When polling, keep refetching every 2s until data appears
@@ -272,23 +272,25 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ chainId, h
                 </div>
 
                 <div className="mt-4 space-y-2">
-                    <div className="flex items-center justify-between text-sm">
-                        <span className="text-second">
-                            <Trans>Contract</Trans>
-                        </span>
-                        <div className="flex items-center gap-1">
-                            <AddressLink chainId={activity.chain_id} address={activity.router_address} />
-                            {activity.dex_logo ? (
-                                <Image
-                                    src={activity.dex_logo}
-                                    alt={activity.dex_name}
-                                    className="size-4 rounded-full"
-                                    width={16}
-                                    height={16}
-                                />
-                            ) : null}
+                    {activity.router_address ? (
+                        <div className="flex items-center justify-between text-sm">
+                            <span className="text-second">
+                                <Trans>Contract</Trans>
+                            </span>
+                            <div className="flex items-center gap-1">
+                                <AddressLink chainId={activity.chain_id} address={activity.router_address} />
+                                {activity.dex_logo ? (
+                                    <Image
+                                        src={activity.dex_logo}
+                                        alt={activity.dex_name}
+                                        className="size-4 rounded-full"
+                                        width={16}
+                                        height={16}
+                                    />
+                                ) : null}
+                            </div>
                         </div>
-                    </div>
+                    ) : null}
                     {explorerLink ? (
                         <div className="text-highlight flex min-w-0 items-center justify-between gap-2 text-sm">
                             <span className="text-second shrink-0">

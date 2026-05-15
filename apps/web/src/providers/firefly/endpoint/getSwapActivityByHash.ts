@@ -7,8 +7,13 @@ import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { SwapActivityDetail } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
-export async function getSwapActivityByHash(hash: string, chainId: number, options?: { polling?: boolean }) {
-    const { polling = false } = options ?? {};
+interface Options {
+    polling?: boolean;
+    waitForToken?: boolean;
+}
+
+export async function getSwapActivityByHash(hash: string, chainId: number, options?: Options) {
+    const { polling = false, waitForToken = true } = options ?? {};
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/swap/detail');
     const response = await fireflySessionHolder.fetch<SwapActivityDetail>(url, {
         method: 'POST',
@@ -43,7 +48,7 @@ export async function getSwapActivityByHash(hash: string, chainId: number, optio
         };
 
         const tx = await fetchRealtime();
-        if (tx?.from_token) return tx;
+        if (tx?.from_token || (!!tx && !waitForToken)) return tx;
 
         // When polling, retry up to 5 times if backend hasn't indexed swap data yet
         if (polling) {
