@@ -66,7 +66,7 @@
         "@tanstack/react-ranger": "^0.0.5",
         "@tanstack/react-router": "^1.169.2",
         "@tippyjs/react": "^4.2.6",
-        "@typescript/native-preview": "7.0.0-dev.20260508.1",
+        "@typescript/native-preview": "7.0.0-dev.20260515.1",
         "@vercel/kv": "^1.0.1",
         "@wagmi/core": "^3.1.0",
         "accounts": "~0.8.1",

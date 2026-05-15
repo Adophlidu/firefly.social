@@ -83,7 +83,7 @@
         "@tanstack/react-query": "5.85.9",
         "@types/react": "^19.0.0",
         "@types/react-native": "^0.73.0",
-        "@typescript/native-preview": "7.0.0-dev.20260508.1",
+        "@typescript/native-preview": "7.0.0-dev.20260515.1",
         "@vitejs/plugin-react": "^4.2.1",
         "bignumber.js": "9.3.1",
         "jotai": "^2.19.1",
