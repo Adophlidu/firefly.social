@@ -431,8 +431,10 @@ export default memo(function ConfirmView() {
                             </Trans>
                         </div>
                         <div className="text-danger">
-                            By clicking &quot;Next&quot;, you acknowledge the risk associated with decentralized
-                            networks and beta products.
+                            <Trans>
+                                By clicking &quot;Next&quot;, you acknowledge the risk associated with decentralized
+                                networks and beta products.
+                            </Trans>
                         </div>
                     </div>
                 </div>

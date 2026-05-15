@@ -2473,6 +2473,9 @@ msgstr "Back"
 msgid "Display Name should not exceed 20 characters"
 msgstr "Display Name should not exceed 20 characters"
 
+msgid "By clicking \"Next\", you acknowledge the risk associated with decentralized networks and beta products."
+msgstr "By clicking \"Next\", you acknowledge the risk associated with decentralized networks and beta products."
+
 msgid "Decrypt"
 msgstr "Decrypt"
 

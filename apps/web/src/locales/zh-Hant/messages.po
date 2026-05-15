@@ -2461,6 +2461,9 @@ msgstr "返回"
 msgid "Display Name should not exceed 20 characters"
 msgstr "名稱不得超過 20 字元"
 
+msgid "By clicking \"Next\", you acknowledge the risk associated with decentralized networks and beta products."
+msgstr ""
+
 msgid "Decrypt"
 msgstr "解密"
 

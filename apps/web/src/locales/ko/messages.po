@@ -2461,6 +2461,9 @@ msgstr ""
 msgid "Display Name should not exceed 20 characters"
 msgstr ""
 
+msgid "By clicking \"Next\", you acknowledge the risk associated with decentralized networks and beta products."
+msgstr ""
+
 msgid "Decrypt"
 msgstr ""
 
