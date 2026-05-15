@@ -74,7 +74,7 @@ export function OpenOrders() {
     );
 }
 
-function getItemContent(index: number, item: PolymarketOpenOrderDetail) {
+function getItemContent(_index: number, item: PolymarketOpenOrderDetail) {
     return <OpenOrderItem item={item} />;
 }
 

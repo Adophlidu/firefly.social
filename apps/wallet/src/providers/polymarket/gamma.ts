@@ -14,8 +14,17 @@ export class PolymarketGammaEndpoint extends Fetch {
     }
 
     async getMarketByConditionId(conditionId: string) {
-        const url = urlcat('/markets/:conditionId', { conditionId });
-        return this.get<PolymarketGammaMarket>(url);
+        const url = urlcat('/markets/keyset', { condition_ids: conditionId });
+        const result = await this.get<{ markets?: PolymarketGammaMarket[] }>(url);
+        if (result.ok && result.data?.markets?.length) {
+            return { ok: true as const, status: result.status, data: result.data.markets[0], raw: result.raw };
+        }
+        return {
+            ok: false as const,
+            status: result.status,
+            data: undefined as unknown as PolymarketGammaMarket,
+            raw: result.raw,
+        };
     }
 
     async getEventBySlug(slug: string, options?: { includeChat?: boolean; includeTemplate?: boolean }) {
