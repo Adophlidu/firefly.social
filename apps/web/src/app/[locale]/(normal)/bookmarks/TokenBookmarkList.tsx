@@ -25,7 +25,7 @@ function ListHeader() {
                 <Trans>Volume(24h) · Market Cap</Trans>
             </div>
             <div className="font-inter text-secondary ml-auto text-right text-[13px] leading-[17px]">
-                Price · Change(24h)
+                <Trans>Price · Change(24h)</Trans>
             </div>
         </div>
     );

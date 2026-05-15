@@ -1083,6 +1083,9 @@ msgstr ""
 msgid "Followed by {0}"
 msgstr ""
 
+msgid "Price · Change(24h)"
+msgstr ""
+
 #. placeholder {0}: GIF_MEDIA_SOURCE_CONFIG[source].join(', ')
 msgid "GIF source not supported. Supported sources: {0}"
 msgstr ""
@@ -1255,6 +1258,9 @@ msgid "Verified addresses"
 msgstr ""
 
 msgid "Buy {secondOutcome}"
+msgstr ""
+
+msgid "The error has been reported automatically."
 msgstr ""
 
 msgid "It is wallet retrieved from public verifiable data registries or our entity algorithm. Please add this wallet to set as primary wallet."
@@ -1545,6 +1551,9 @@ msgid "Replying to <0>@{0}</0> ,<1>@{1}</1> and <2>{2} others</2> on {3}"
 msgstr ""
 
 msgid "Connect Wallet"
+msgstr ""
+
+msgid "Try to recover"
 msgstr ""
 
 msgid "Custom amount"

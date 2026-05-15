@@ -1078,6 +1078,9 @@ msgstr "其他账号"
 msgid "Followed by {0}"
 msgstr "已被 {0} 关注"
 
+msgid "Price · Change(24h)"
+msgstr ""
+
 #. placeholder {0}: GIF_MEDIA_SOURCE_CONFIG[source].join(', ')
 msgid "GIF source not supported. Supported sources: {0}"
 msgstr "不支持GIF来源。支持来源：{0}"
@@ -1250,6 +1253,9 @@ msgstr "已验证地址"
 
 msgid "Buy {secondOutcome}"
 msgstr "买入 {secondOutcome}"
+
+msgid "The error has been reported automatically."
+msgstr ""
 
 msgid "It is wallet retrieved from public verifiable data registries or our entity algorithm. Please add this wallet to set as primary wallet."
 msgstr "这是从公开数据库或我们的算法中检索到的钱包。请先添加此钱包再设置为主钱包。"
@@ -1539,6 +1545,9 @@ msgstr "在{3}回复 <0>@{0}</0>，<1>@{1}</1> 和 <2>其他{2} 人</2>"
 
 msgid "Connect Wallet"
 msgstr "连接钱包"
+
+msgid "Try to recover"
+msgstr ""
 
 msgid "Custom amount"
 msgstr "自定义数额"
