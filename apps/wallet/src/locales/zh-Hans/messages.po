@@ -443,7 +443,7 @@ msgstr "重新加载"
 
 #. placeholder {0}: shares.count
 msgid "{0, plural, one {# share} other {# shares}}"
-msgstr "'#' 份"
+msgstr "{0, plural, one {# 份} other {# 份}}"
 
 msgid "Receive Wallet"
 msgstr "收款钱包"
