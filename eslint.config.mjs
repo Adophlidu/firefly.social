@@ -1,5 +1,9 @@
 import nextPlugin from '@next/eslint-plugin-next';
+import typescriptEslintEslintPlugin from '@typescript-eslint/eslint-plugin';
 import { defineConfig, globalIgnores } from 'eslint/config';
+import importPlugin from 'eslint-plugin-import';
+import simpleImportSort from 'eslint-plugin-simple-import-sort';
+import unusedImports from 'eslint-plugin-unused-imports';
 import {
     sharedEslintPlugins,
     sharedEslintRulesWithoutRelativePaths,
@@ -29,6 +33,7 @@ export default defineConfig([
         'apps/**/scripts/**',
         'apps/**/src/polyfills',
         'apps/**/src/locales/**',
+        'workers/**/dist/**',
         '*.config.ts',
         '**/*.config.js',
         '**/*.config.cjs',
@@ -159,6 +164,69 @@ export default defineConfig([
                     rootDir: 'apps/wallet/src',
                 },
             ],
+        },
+    },
+
+    // Cloudflare Workers — TypeScript-aware lint without React/Tailwind rules.
+    {
+        files: ['workers/**/*.ts'],
+        plugins: {
+            '@typescript-eslint': typescriptEslintEslintPlugin,
+            import: importPlugin,
+            'simple-import-sort': simpleImportSort,
+            'unused-imports': unusedImports,
+        },
+        languageOptions: {
+            parser: tsParser,
+            ecmaVersion: 'latest',
+            sourceType: 'module',
+            parserOptions: {
+                project: true,
+                warnOnUnsupportedTypeScriptVersion: false,
+            },
+        },
+        rules: {
+            'default-case-last': 'error',
+            eqeqeq: 'error',
+            'no-console': 'off',
+            'no-constant-condition': 'warn',
+            'no-debugger': 'warn',
+            'no-duplicate-case': 'error',
+            'no-multiple-empty-lines': ['error', { max: 1, maxEOF: 1, maxBOF: 0 }],
+            'no-restricted-imports': ['error'],
+            'no-return-await': 'error',
+            'no-self-compare': 'error',
+            'no-unused-vars': 'off',
+            'prefer-const': 'warn',
+            'object-shorthand': 'warn',
+            'unused-imports/no-unused-imports': 'error',
+            'simple-import-sort/imports': 'error',
+            'simple-import-sort/exports': 'error',
+            'import/first': 'error',
+            'import/newline-after-import': 'error',
+            'import/no-duplicates': 'error',
+            '@typescript-eslint/no-unused-vars': [
+                'warn',
+                {
+                    args: 'after-used',
+                    argsIgnorePattern: '^_',
+                    vars: 'all',
+                    varsIgnorePattern: '^_',
+                    caughtErrors: 'all',
+                    caughtErrorsIgnorePattern: '^_',
+                    destructuredArrayIgnorePattern: '^_',
+                },
+            ],
+            '@typescript-eslint/consistent-type-imports': [
+                'warn',
+                { prefer: 'type-imports', fixStyle: 'separate-type-imports' },
+            ],
+            '@typescript-eslint/no-import-type-side-effects': 'error',
+            '@typescript-eslint/array-type': ['warn', { default: 'array-simple' }],
+            '@typescript-eslint/consistent-type-definitions': ['warn', 'interface'],
+            '@typescript-eslint/no-inferrable-types': ['error', { ignoreParameters: false }],
+            '@typescript-eslint/prefer-optional-chain': 'warn',
+            '@typescript-eslint/prefer-string-starts-ends-with': 'warn',
         },
     },
 

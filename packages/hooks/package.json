@@ -24,12 +24,6 @@
         "typecheck": "tsc --noEmit",
         "clean": "rm -rf dist"
     },
-    "keywords": [
-        "react",
-        "hooks",
-        "query",
-        "typescript"
-    ],
     "author": "Firefly Team",
     "license": "MIT",
     "repository": {
@@ -49,8 +43,8 @@
     "devDependencies": {
         "@types/lodash-es": "^4.17.12",
         "@types/react": "19.2.14",
-        "tsdown": "^0.21.10",
-        "typescript": "5.9.3"
+        "@typescript/native-preview": "7.0.0-dev.20260515.1",
+        "tsdown": "^0.21.10"
     },
     "peerDependencies": {
         "react": ">=19.0.0",

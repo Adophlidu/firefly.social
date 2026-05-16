@@ -10,7 +10,8 @@ import {
 } from '@dimensiondev/iframe-bridge';
 import { bom } from '@dimensiondev/utils';
 import type { Provider as CoreProvider, RequestArguments } from '@reown/appkit';
-import type { AnyTransaction, Provider, TransactionOrVersionedTransaction } from '@reown/appkit-adapter-solana';
+import type { TransactionOrVersionedTransaction } from '@reown/appkit-adapter-solana';
+import type { AnyTransaction, Provider } from '@reown/appkit-utils/solana';
 import {
     BaseMessageSignerWalletAdapter,
     scopePollingDetectionStrategy,

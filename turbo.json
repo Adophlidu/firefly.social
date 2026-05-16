@@ -32,6 +32,17 @@
             "dependsOn": ["^build"],
             "outputs": [".next/**", "!.next/cache/**", "dist/**"]
         },
+        "workers:build": {
+            "dependsOn": ["^build"],
+            "cache": false
+        },
+        "workers:deploy": {
+            "dependsOn": ["workers:build"],
+            "cache": false
+        },
+        "workers:typecheck": {
+            "dependsOn": ["^build"]
+        },
         "lint": {
             "inputs": [
                 "**/*.{ts,tsx,js,jsx,mjs,cjs}",

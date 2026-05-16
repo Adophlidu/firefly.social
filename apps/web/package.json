@@ -58,6 +58,7 @@
         "@reown/appkit": "1.8.19",
         "@reown/appkit-adapter-solana": "1.8.19",
         "@reown/appkit-adapter-wagmi": "1.8.19",
+        "@reown/appkit-utils": "1.8.19",
         "@solana/spl-token": "^0.4.14",
         "@solana/wallet-adapter-base": "^0.9.27",
         "@solana/wallet-adapter-phantom": "^0.9.28",
@@ -66,7 +67,6 @@
         "@tanstack/react-ranger": "^0.0.5",
         "@tanstack/react-router": "^1.169.2",
         "@tippyjs/react": "^4.2.6",
-        "@typescript/native-preview": "7.0.0-dev.20260515.1",
         "@vercel/kv": "^1.0.1",
         "@wagmi/core": "^3.1.0",
         "accounts": "~0.8.1",
@@ -128,6 +128,7 @@
         "zustand": "^5.0.13"
     },
     "devDependencies": {
+        "@typescript/native-preview": "7.0.0-dev.20260515.1",
         "@dimensiondev/tolgee": "workspace:^",
         "@lingui/cli": "^5.9.5",
         "@lingui/conf": "^5.9.5",

@@ -24,12 +24,6 @@
         "typecheck": "tsgo --noEmit",
         "clean": "rm -rf dist"
     },
-    "keywords": [
-        "env",
-        "environment",
-        "config",
-        "firefly"
-    ],
     "author": "Firefly Team",
     "license": "MIT",
     "repository": {
@@ -46,8 +40,8 @@
         "zod": "^3.25.76"
     },
     "devDependencies": {
-        "tsdown": "^0.21.10",
-        "@typescript/native-preview": "7.0.0-dev.20260515.1"
+        "@typescript/native-preview": "7.0.0-dev.20260515.1",
+        "tsdown": "^0.21.10"
     },
     "peerDependencies": {
         "typescript": ">=5.0.0"

@@ -59,12 +59,6 @@
         "typecheck": "tsc --noEmit",
         "clean": "rm -rf dist"
     },
-    "keywords": [
-        "web3",
-        "evm",
-        "solana",
-        "helpers"
-    ],
     "author": "Firefly Team",
     "license": "MIT",
     "repository": {
@@ -76,21 +70,20 @@
         "registry": "https://npm.pkg.github.com",
         "access": "restricted"
     },
-    "devDependencies": {
-        "@types/punycode": "^2.1.4",
-        "tsdown": "^0.21.10",
-        "typescript": "5.9.3",
-        "wagmi": "^3.1.4"
-    },
     "dependencies": {
         "@coral-xyz/anchor": "^0.31.1",
         "bignumber.js": "9.3.1",
         "punycode": "^2.3.1",
         "urlcat": "^3.1.0",
-        "viem": "^2.48.11"
+        "viem": "^2.48.11",
+        "wagmi": "^3.1.4"
+    },
+    "devDependencies": {
+        "@typescript/native-preview": "7.0.0-dev.20260515.1",
+        "@types/punycode": "^2.1.4",
+        "tsdown": "^0.21.10"
     },
     "peerDependencies": {
-        "typescript": ">=5.0.0",
-        "wagmi": "^3.1.0"
+        "typescript": ">=5.0.0"
     }
 }

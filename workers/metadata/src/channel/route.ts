@@ -1,0 +1,68 @@
+import { ONE_MONTH } from '@dimensiondev/workers-shared/constants/duration.js';
+import type { SocialSourceInURL } from '@dimensiondev/workers-shared/constants/source.js';
+import {
+    createSuccessResponseJson,
+    createZodErrorResponseJson,
+} from '@dimensiondev/workers-shared/helpers/createResponseJson.js';
+import { createSiteMetadata } from '@dimensiondev/workers-shared/helpers/createSiteMetadata.js';
+import { getOrigin } from '@dimensiondev/workers-shared/helpers/getOrigin.js';
+import { withCache } from '@dimensiondev/workers-shared/middlewares/withCache.js';
+import { withErrorHandler } from '@dimensiondev/workers-shared/middlewares/withErrorHandler.js';
+import { Pathname } from '@dimensiondev/workers-shared/schemas/Pathname.js';
+import { zValidator } from '@hono/zod-validator';
+import type { Context } from 'hono';
+import { Hono } from 'hono';
+import z from 'zod';
+
+import { createMetadataChannelById } from '@/metadata/src/channel/createMetadataChannelById.js';
+import { isSocialSourceInUrl } from '@/metadata/src/channel/isSocialSourceInUrl.js';
+
+type Metadata = Record<string, unknown>;
+
+const VERSION = 2;
+
+const QuerySchema = z.object({
+    id: z.string(),
+    source: z.string(),
+    pathname: Pathname,
+});
+
+const ChannelMetadataRoute = new Hono<{ Bindings: { METADATA_CACHE: KVNamespace } }>();
+
+function getCacheKey(source: string, id: string, pathname: string, c: Context) {
+    return `metadata:channel:${VERSION}:${getOrigin(c)}:${source}_${id}_${pathname}`;
+}
+
+ChannelMetadataRoute.get(
+    '/channel',
+    zValidator('query', QuerySchema, (result) => {
+        if (!result.success) {
+            return createZodErrorResponseJson(result.error, {
+                status: 400,
+            });
+        }
+    }),
+    (c) =>
+        withErrorHandler(async () => {
+            const { id, source, pathname } = c.req.valid('query');
+            const source_ = source as SocialSourceInURL;
+            if (!isSocialSourceInUrl(source_)) {
+                const metadata = createSiteMetadata(pathname);
+                return createSuccessResponseJson(metadata);
+            }
+
+            const cacheKey = getCacheKey(source, id, pathname, c);
+            const metadata = await withCache<Metadata>({
+                context: c,
+                ttl: ONE_MONTH,
+                getKey: () => cacheKey,
+                getCache: () => c.env.METADATA_CACHE,
+                compute: async () => {
+                    return createMetadataChannelById(source_, id, pathname, c);
+                },
+            });
+            return createSuccessResponseJson(metadata);
+        }),
+);
+
+export { ChannelMetadataRoute };

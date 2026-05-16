@@ -1,0 +1,23 @@
+{
+    "$schema": "../../node_modules/wrangler/config-schema.json",
+    "name": "firefly-frame-worker",
+    "main": "./src/index.ts",
+    "compatibility_flags": ["nodejs_compat_v2"],
+    "compatibility_date": "2024-09-23",
+    "kv_namespaces": [
+        {
+            "binding": "FRAME_CACHE",
+            "id": "d96ae9fdefac427b8e11dfaa62a3f7df",
+        },
+        {
+            "binding": "TCO_CACHE",
+            "id": "d96ae9fdefac427b8e11dfaa62a3f7df",
+        },
+    ],
+    "routes": [
+        {
+            "pattern": "firefly.r2d2.to/frame*",
+            "zone_id": "a07cf7abe7b5b21f1a1cf50687bac75a",
+        },
+    ],
+}

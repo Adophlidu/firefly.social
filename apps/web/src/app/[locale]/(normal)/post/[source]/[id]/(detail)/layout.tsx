@@ -3,19 +3,20 @@ import { Trans } from '@lingui/react/macro';
 import type { Metadata } from 'next';
 
 import { Comeback } from '@/components/Comeback.js';
-import type { SocialSourceInURL } from '@/constants/enum.js';
+import type { SourceInURL } from '@/constants/enum.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isSocialSourceInUrl } from '@/helpers/isSource.js';
 import { setupLocaleFromParams } from '@/i18n/static.js';
 import { createPostMetadata } from '@/providers/firefly/metadata/createPostMetadata.js';
 
-interface Props extends LayoutProps<{ id: string; source: SocialSourceInURL; locale: string }> {}
+interface Props extends LayoutProps<{ id: string; source: string; locale: string }> {}
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
     const { source, id } = await props.params;
+    const typedSource = source as SourceInURL;
 
-    return isSocialSourceInUrl(source)
-        ? createPostMetadata(source, id, `/post/${source}/${id}`)
+    return isSocialSourceInUrl(typedSource)
+        ? createPostMetadata(typedSource, id, `/post/${source}/${id}`)
         : createSiteMetadata(`/post/${source}/${id}`);
 }
 

@@ -24,14 +24,6 @@
         "typecheck": "tsgo --noEmit",
         "clean": "rm -rf dist"
     },
-    "keywords": [
-        "utilities",
-        "helpers",
-        "browser",
-        "dom",
-        "promise",
-        "typescript"
-    ],
     "author": "Firefly Team",
     "license": "MIT",
     "repository": {

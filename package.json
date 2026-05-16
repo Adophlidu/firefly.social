@@ -19,7 +19,10 @@
         "packages:dev": "pnpm -r --filter='./packages/*' run dev",
         "packages:typecheck": "pnpm -r --filter='./packages/*' run typecheck",
         "packages:clean": "pnpm -r --filter='./packages/*' run clean",
-        "packages:publish": "pnpm -r --filter='./packages/*' publish --no-git-checks"
+        "packages:publish": "pnpm -r --filter='./packages/*' publish --no-git-checks",
+        "workers:build": "pnpm -r --filter='./workers/*' run build",
+        "workers:typecheck": "pnpm -r --filter='./workers/*' run typecheck",
+        "workers:publish": "pnpm -r --filter='./workers/*' run deploy"
     },
     "dependencies": {
         "core-js": "3.42.0"
@@ -73,6 +76,7 @@
             "react-use": "17.6.0",
             "sha.js": "2.4.12",
             "uint8arrays": "3.1.1",
+            "typescript": "5.9.3",
             "use-sync-external-store": "1.5.0"
         },
         "onlyBuiltDependencies": [],
