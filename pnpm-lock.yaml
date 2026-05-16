@@ -1616,68 +1616,6 @@ importers:
         specifier: ^4.45.4
         version: 4.45.4(@cloudflare/workers-types@4.20251011.0)
 
-  workers/pocker-labs:
-    dependencies:
-      '@dimensiondev/workers-shared':
-        specifier: workspace:*
-        version: link:../shared
-      '@hono/zod-validator':
-        specifier: ^0.7.1
-        version: 0.7.1(hono@4.12.18)(zod@4.4.3)
-      hono:
-        specifier: ^4.8.5
-        version: 4.12.18
-      typescript:
-        specifier: 5.9.3
-        version: 5.9.3
-      zod:
-        specifier: ^4.0.5
-        version: 4.4.3
-    devDependencies:
-      '@cloudflare/workers-types':
-        specifier: ^4.20251011.0
-        version: 4.20251011.0
-      '@types/node':
-        specifier: 22.10.10
-        version: 22.10.10
-      '@typescript/native-preview':
-        specifier: 7.0.0-dev.20260515.1
-        version: 7.0.0-dev.20260515.1
-      wrangler:
-        specifier: ^4.45.4
-        version: 4.45.4(@cloudflare/workers-types@4.20251011.0)
-
-  workers/polymarket:
-    dependencies:
-      '@dimensiondev/workers-shared':
-        specifier: workspace:*
-        version: link:../shared
-      '@hono/zod-validator':
-        specifier: ^0.7.1
-        version: 0.7.1(hono@4.12.18)(zod@4.4.3)
-      hono:
-        specifier: ^4.8.5
-        version: 4.12.18
-      typescript:
-        specifier: 5.9.3
-        version: 5.9.3
-      zod:
-        specifier: ^4.0.5
-        version: 4.4.3
-    devDependencies:
-      '@cloudflare/workers-types':
-        specifier: ^4.20251011.0
-        version: 4.20251011.0
-      '@types/node':
-        specifier: 22.10.10
-        version: 22.10.10
-      '@typescript/native-preview':
-        specifier: 7.0.0-dev.20260515.1
-        version: 7.0.0-dev.20260515.1
-      wrangler:
-        specifier: ^4.45.4
-        version: 4.45.4(@cloudflare/workers-types@4.20251011.0)
-
   workers/proxy-image:
     dependencies:
       '@dimensiondev/workers-shared':
