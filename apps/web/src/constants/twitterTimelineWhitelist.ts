@@ -44,7 +44,7 @@ export const TWITTER_TIMELINE_WHITELIST_UID_SET: ReadonlySet<string> = new Set([
     '1870672279', // x: @periclesukraine
     '1871112690', // x: @JYdmnLFG
     '1902565460', // x: @flock_io
-    '1918273493', // suji
+    '2296550846', // suji
     '1933944826', // x: @thecryptoskanda
     '1946863584', // x: @MayGordon01
     '1980518414', // x: @periclesrus
