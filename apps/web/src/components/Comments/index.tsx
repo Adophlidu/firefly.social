@@ -3,7 +3,7 @@
 import MessagesIcon from '@dimensiondev/assets/messages.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import type { SocialSource } from '@dimensiondev/enums';
-import { Source } from '@dimensiondev/enums';
+import { ScrollListKey, Source } from '@dimensiondev/enums';
 import { createIndicator, createPageable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
@@ -13,7 +13,6 @@ import { CommentsFooter, type CommentsFooterProps } from '@/components/Comments/
 import { HideComments } from '@/components/HideComments.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
-import { ScrollListKey } from '@/constants/enum.js';
 import { resolveProviderOptions, resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { enrichPostWithFireflyArticle } from '@/services/getPostById.js';

@@ -1,5 +1,6 @@
 'use client';
 
+import { PageRoute } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import urlcat from 'urlcat';
@@ -9,7 +10,6 @@ import { LoggedInSources } from '@/app/[locale]/(whiteboard)/components/Signup/L
 import { MusicTogglePlay } from '@/app/[locale]/(whiteboard)/components/Signup/MusicTogglePlay.js';
 import { ShadowInAndOut } from '@/app/[locale]/(whiteboard)/components/Signup/ShadowInAndOut.js';
 import { SquareButton } from '@/app/[locale]/(whiteboard)/components/Signup/SquareButton.js';
-import { PageRoute } from '@/constants/enum.js';
 import { FIREFLY_MENTION } from '@/constants/mentions.js';
 import { SITE_URL } from '@/constants/static.js';
 import { useSearchParams } from '@/esm/navigation.js';

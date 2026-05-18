@@ -1,7 +1,7 @@
 'use client';
 
 import type { SocialSource } from '@dimensiondev/enums';
-import { Source } from '@dimensiondev/enums';
+import { ScrollListKey, Source } from '@dimensiondev/enums';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import { createIndicator, type Pageable, type PageIndicator } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
@@ -14,7 +14,6 @@ import { Link } from '@/components/Link.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { Loading } from '@/components/Loading.js';
 import { ProfileInList } from '@/components/ProfileInList.js';
-import { ScrollListKey } from '@/constants/enum.js';
 import { useAsyncStatus } from '@/hooks/useAsyncStatus.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';

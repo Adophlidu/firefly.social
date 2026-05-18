@@ -1,6 +1,6 @@
+import type { FollowingSource } from '@dimensiondev/enums';
 import urlcat from 'urlcat';
 
-import type { FollowingSource } from '@/constants/enum.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 
 export function resolveFollowingUrl(source: FollowingSource) {

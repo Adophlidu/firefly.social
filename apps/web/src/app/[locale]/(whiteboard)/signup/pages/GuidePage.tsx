@@ -2,13 +2,13 @@
 
 import AppleIcon from '@dimensiondev/assets/apple-small.svg';
 import GoogleStoreIcon from '@dimensiondev/assets/google-store.svg';
+import { SignupStep } from '@dimensiondev/enums';
 import { bom } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useEffect, useState } from 'react';
 
 import { ShadowInAndOut } from '@/app/[locale]/(whiteboard)/components/Signup/ShadowInAndOut.js';
 import { SquareButton } from '@/app/[locale]/(whiteboard)/components/Signup/SquareButton.js';
-import { SignupStep } from '@/constants/enum.js';
 import { bedStead } from '@/fonts/bedStead/index.js';
 import { useCheckFireflyAccount } from '@/hooks/useCheckFireflyAccount.js';
 import { useThrottledCallback } from '@/hooks/useThrottledCallback.js';

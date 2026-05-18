@@ -1,7 +1,6 @@
-import { SourceInURL } from '@dimensiondev/enums';
+import { CharTag, SourceInURL } from '@dimensiondev/enums';
 import { describe, expect, test } from 'vitest';
 
-import { CharTag } from '@/constants/enum.js';
 import { recoverCharsByMentions } from '@/helpers/recoverCharsByMentions.js';
 
 type Mention = Parameters<typeof recoverCharsByMentions>[1][number];

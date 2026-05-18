@@ -1,9 +1,9 @@
+import type { RestrictionType } from '@dimensiondev/enums';
 import { SessionType, Source, SourceInURL } from '@dimensiondev/enums';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import { first } from 'lodash-es';
 
 import { HOME_CLUB } from '@/constants/channel.js';
-import type { RestrictionType } from '@/constants/enum.js';
 import { readChars } from '@/helpers/chars.js';
 import { createDummyPost } from '@/helpers/createDummyPost.js';
 import { detectMentionsForLens } from '@/helpers/detectMentions.js';

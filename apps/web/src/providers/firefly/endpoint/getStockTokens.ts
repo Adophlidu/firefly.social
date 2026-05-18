@@ -1,7 +1,7 @@
+import type { TimeRangeFilter } from '@dimensiondev/enums';
 import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
-import type { TimeRangeFilter } from '@/constants/enum.js';
 import { formatTrendingToken } from '@/helpers/formatTrendingToken.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { resolveTimeRangeSortString } from '@/helpers/resolveTimeRangeName.js';

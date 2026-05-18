@@ -1,6 +1,6 @@
+import type { BookmarkSource } from '@dimensiondev/enums';
 import urlcat from 'urlcat';
 
-import type { BookmarkSource } from '@/constants/enum.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 
 export function resolveBookmarkUrl(source: BookmarkSource) {

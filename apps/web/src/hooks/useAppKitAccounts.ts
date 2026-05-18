@@ -1,4 +1,5 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { ConnectionSource } from '@dimensiondev/enums';
 import { NetworkType } from '@dimensiondev/web3/enums';
 import { getAddressType, isSameAddress } from '@dimensiondev/web3/utils';
 import {
@@ -12,7 +13,6 @@ import type { CaipAddress, Connection } from '@reown/appkit/react';
 import { compact } from 'lodash-es';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { ConnectionSource } from '@/constants/enum.js';
 import { walletConnectIcon, walletConnectId } from '@/constants/reown.js';
 import { networkTypeToChainNamespace } from '@/helpers/networkTypeToChainNamespace.js';
 import { usePrivyConnections } from '@/hooks/usePrivyConnections.js';

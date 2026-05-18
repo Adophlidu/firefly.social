@@ -1,10 +1,10 @@
 'use client';
 
+import { PageRoute } from '@dimensiondev/enums';
 import { memo, useEffect } from 'react';
 
 import { ClickableArea } from '@/components/ClickableArea.js';
 import type { MarkupLinkProps } from '@/components/Markup/MarkupLink/type.js';
-import { PageRoute } from '@/constants/enum.js';
 import { useRouter } from '@/esm/navigation.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import { useEverSeen } from '@/hooks/useEverSeen.js';

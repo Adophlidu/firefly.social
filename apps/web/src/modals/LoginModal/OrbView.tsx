@@ -1,7 +1,7 @@
 'use client';
 
 import ReloadIcon from '@dimensiondev/assets/reload.svg';
-import { Source } from '@dimensiondev/enums';
+import { AsyncStatus, Source } from '@dimensiondev/enums';
 import { AbortError, classNames, ForbiddenError, InvalidResultError, retry } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
@@ -13,7 +13,6 @@ import { ClickableArea } from '@/components/ClickableArea.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ScannableQRCode } from '@/components/ScannableQRCode.js';
-import { AsyncStatus } from '@/constants/enum.js';
 import { InvalidOrbPermissionError } from '@/constants/error.js';
 import { FAKE_REFRESH_TOKEN } from '@/constants/lens.js';
 import { ORB_REPLY_COUNTDOWN, SEVEN_DAYS } from '@/constants/static.js';

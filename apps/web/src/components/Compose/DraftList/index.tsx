@@ -1,3 +1,4 @@
+import { ScrollListKey } from '@dimensiondev/enums';
 import { createIndicator, createPageable } from '@dimensiondev/utils';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { memo, useCallback, useMemo } from 'react';
@@ -6,7 +7,6 @@ import { DraftListItem } from '@/components/Compose/DraftList/DraftListItem.js';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { VirtualList } from '@/components/VirtualList/VirtualList.js';
 import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
-import { ScrollListKey } from '@/constants/enum.js';
 import { logger } from '@/libs/Logger.js';
 import { getCloudDraftList } from '@/providers/firefly/cloud-draft/getCloudDraftList.js';
 import { mergeDrafts } from '@/services/mergeDrafts.js';

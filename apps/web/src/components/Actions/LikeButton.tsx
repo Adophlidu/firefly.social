@@ -1,10 +1,9 @@
-import { Source } from '@dimensiondev/enums';
+import { ExtraLikeType, Source } from '@dimensiondev/enums';
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { memo } from 'react';
 
 import { LikeButtonUI } from '@/components/Actions/LikeButtonUI.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
-import { ExtraLikeType } from '@/constants/enum.js';
 import { type LikeTarget, useToggleLike } from '@/hooks/useToggleLike.js';
 
 type LikeButtonProps = LikeTarget & {

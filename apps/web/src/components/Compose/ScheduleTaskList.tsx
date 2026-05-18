@@ -3,6 +3,7 @@
 import Close from '@dimensiondev/assets/close.svg';
 import Info from '@dimensiondev/assets/info.svg';
 import Trash from '@dimensiondev/assets/trash2.svg';
+import { ScheduleTaskStatus, ScrollListKey } from '@dimensiondev/enums';
 import { classNames, createIndicator, createPageable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
@@ -20,7 +21,6 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { VirtualList } from '@/components/VirtualList/VirtualList.js';
 import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 import { queryClient } from '@/configs/queryClient.js';
-import { ScheduleTaskStatus, ScrollListKey } from '@/constants/enum.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';

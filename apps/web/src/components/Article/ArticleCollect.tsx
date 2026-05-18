@@ -2,7 +2,7 @@
 
 import CollectFillIcon from '@dimensiondev/assets/collect-fill.svg';
 import LinkIcon from '@dimensiondev/assets/link-square.svg';
-import { ArticlePlatform } from '@dimensiondev/enums';
+import { ArticlePlatform, MintStatus } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { isZero } from '@dimensiondev/web3/numbers';
 import { formatAddressEthereum } from '@dimensiondev/web3/utils';
@@ -18,7 +18,6 @@ import { ChainGuardButton } from '@/components/ChainGuardButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
-import { MintStatus } from '@/constants/enum.js';
 import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { openWindow } from '@/helpers/openWindow.js';

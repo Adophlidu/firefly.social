@@ -1,3 +1,4 @@
+import { RestrictionType } from '@dimensiondev/enums';
 import { Popover, PopoverButton } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { memo, useState } from 'react';
@@ -7,7 +8,6 @@ import { ReplyRestriction } from '@/components/Compose/ReplyRestriction.js';
 import { ReplyRestrictionText } from '@/components/Compose/ReplyRestrictionText.js';
 import { Popover as PopoverModal } from '@/components/Popover.js';
 import { ENABLED_REPLY_SETTINGS_POST_SOURCES } from '@/constants/computed.js';
-import { RestrictionType } from '@/constants/enum.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useValidRestrictionTypes } from '@/hooks/useValidRestrictionTypes.js';

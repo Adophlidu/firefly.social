@@ -1,10 +1,10 @@
 'use client';
 
 import ComeBack from '@dimensiondev/assets/comeback.svg';
+import { PageRoute } from '@dimensiondev/enums';
 import type { PropsWithChildren } from 'react';
 
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
-import { PageRoute } from '@/constants/enum.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 
 export function ActivityDesktopNavigationBar({ children }: PropsWithChildren) {

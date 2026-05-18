@@ -9,12 +9,11 @@ import LensLogo from '@dimensiondev/assets/lens-logo.svg';
 import SmallLogo from '@dimensiondev/assets/logo-small.svg';
 import SignupBg from '@dimensiondev/assets/signup-bg.svg';
 import TwitterLogo from '@dimensiondev/assets/x-logo.svg';
-import { Source } from '@dimensiondev/enums';
+import { SignupStep, Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { AnimatePresence, motion } from 'framer-motion';
 import type { PropsWithChildren } from 'react';
 
-import { SignupStep } from '@/constants/enum.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 
 type PageBackgroundProps = PropsWithChildren<{

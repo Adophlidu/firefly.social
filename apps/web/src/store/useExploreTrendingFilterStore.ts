@@ -1,7 +1,7 @@
+import { TimeRangeFilter } from '@dimensiondev/enums';
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
-import { TimeRangeFilter } from '@/constants/enum.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 
 interface FilterState {

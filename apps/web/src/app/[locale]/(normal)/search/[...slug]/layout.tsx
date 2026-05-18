@@ -1,11 +1,10 @@
-import { SourceInURL } from '@dimensiondev/enums';
+import { ClubType, SearchType, SourceInURL } from '@dimensiondev/enums';
 import type { LayoutProps } from '@dimensiondev/types';
 import { createLookupTableResolver, isValidEnumValue } from '@dimensiondev/utils';
 import type { MessageDescriptor } from '@lingui/core';
 import { msg } from '@lingui/core/macro';
 import { last } from 'lodash-es';
 
-import { ClubType, SearchType } from '@/constants/enum.js';
 import { notFound, redirect } from '@/esm/navigation/server.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';

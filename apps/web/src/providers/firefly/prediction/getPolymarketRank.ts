@@ -1,7 +1,7 @@
+import type { PolymarketRankOrder, PolymarketRankPeriod } from '@dimensiondev/enums';
 import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
-import type { PolymarketRankOrder, PolymarketRankPeriod } from '@/constants/enum.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { Response } from '@/providers/types/Firefly.js';

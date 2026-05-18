@@ -1,9 +1,9 @@
+import type { NotificationSource } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
-import type { NotificationSource } from '@/constants/enum.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import type { NotificationType } from '@/providers/types/SocialMedia.js';
 

@@ -1,3 +1,4 @@
+import { FileMimeType } from '@dimensiondev/enums';
 import { PopoverPanel } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
 import { uniq } from 'lodash-es';
@@ -12,7 +13,6 @@ import {
     SORTED_POLL_SOURCES,
     SORTED_SOCIAL_SOURCES,
 } from '@/constants/computed.js';
-import { FileMimeType } from '@/constants/enum.js';
 import { ensureGifSource } from '@/helpers/checkPostGif.js';
 import { getCurrentPostGifLimits, getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
 import { resolveSourcesName } from '@/helpers/resolveSourceName.js';

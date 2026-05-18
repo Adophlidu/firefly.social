@@ -1,6 +1,5 @@
+import { MetadataAttributeType } from '@dimensiondev/enums';
 import { z } from 'zod';
-
-import { MetadataAttributeType } from '@/constants/enum.js';
 
 function nonEmptySchema(schema: z.ZodString): z.ZodType<string, z.ZodTypeDef, unknown> {
     return z.preprocess((val, ctx) => {

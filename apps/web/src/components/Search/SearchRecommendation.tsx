@@ -2,6 +2,7 @@
 
 import SearchIcon from '@dimensiondev/assets/search.svg';
 import type { Source } from '@dimensiondev/enums';
+import { PageRoute, SearchType } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { isValidAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
@@ -13,7 +14,6 @@ import { Link } from '@/components/Link.js';
 import { SuggestCollectionList } from '@/components/Search/SuggestCollectionList.js';
 import { SuggestProfileList } from '@/components/Search/SuggestProfileList.js';
 import { SuggestTokenList } from '@/components/Search/SuggestTokenList.js';
-import { PageRoute, SearchType } from '@/constants/enum.js';
 import { usePathname } from '@/esm/navigation.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { resolveSearchTypeFromQuery } from '@/helpers/resolveSearchTypeFromQuery.js';

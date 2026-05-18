@@ -1,6 +1,7 @@
 'use client';
 
 import DoubleUser from '@dimensiondev/assets/double-user.svg';
+import { SignupStep } from '@dimensiondev/enums';
 import { classNames, delay } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 
@@ -8,7 +9,6 @@ import { AccountConnectButton } from '@/components/AccountConnectButton.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { WalletConnectButton } from '@/components/WalletConnectButton.js';
-import { SignupStep } from '@/constants/enum.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';

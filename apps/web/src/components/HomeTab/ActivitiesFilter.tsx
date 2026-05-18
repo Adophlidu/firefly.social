@@ -1,13 +1,12 @@
 'use client';
 
 import FilterIcon from '@dimensiondev/assets/filter.svg';
-import { Locale } from '@dimensiondev/enums';
+import { ActivitiesPlatform, Locale } from '@dimensiondev/enums';
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { memo, useEffect, useMemo } from 'react';
 
 import { TypeFilter } from '@/components/TypeFilter/index.js';
-import { ActivitiesPlatform } from '@/constants/enum.js';
 import { useLocale } from '@/helpers/getCookies.js';
 import { captureArticlePlatformFilterTabEvent } from '@/providers/telemetry/captureFilterTabEvent.js';
 import { type ActivitiesFilterNamespace, useActivitiesFilterStore } from '@/store/useActivitiesFilterStore.js';

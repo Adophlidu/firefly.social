@@ -3,6 +3,7 @@
 import FireflyAvatar from '@dimensiondev/assets/firefly.round.svg';
 import PlusIcon from '@dimensiondev/assets/plus.svg';
 import ScanIcon from '@dimensiondev/assets/scan.svg';
+import type { ThirdPartySource } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
@@ -15,7 +16,6 @@ import urlcat from 'urlcat';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileSourceIcon } from '@/components/ProfileSourceIcon.js';
 import { SORTED_LOGIN_SOCIAL_SOURCES, SORTED_THIRD_PARTY_SOURCES_IN_URL } from '@/constants/computed.js';
-import type { ThirdPartySource } from '@/constants/enum.js';
 import { MAX_ACCOUNT_COUNT_PER_SOURCE } from '@/constants/static.js';
 import { formatAccountFromConnections } from '@/helpers/formatAccountFromConnections.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';

@@ -1,4 +1,4 @@
-import type { UploadMediaStatus } from '@/constants/enum.js';
+import type { UploadMediaStatus } from '@dimensiondev/enums';
 
 export interface TwitterMediaResponse {
     file: File;

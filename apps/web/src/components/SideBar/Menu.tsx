@@ -3,7 +3,7 @@
 import CircleShareIcon from '@dimensiondev/assets/circle-share.svg';
 import SettingsSelectedIcon from '@dimensiondev/assets/setting.selected.svg';
 import SettingsIcon from '@dimensiondev/assets/setting.svg';
-import { STATUS } from '@dimensiondev/enums';
+import { PageRoute, STATUS } from '@dimensiondev/enums';
 import { envs } from '@dimensiondev/envs';
 import { Trans } from '@lingui/react/macro';
 import { compact } from 'lodash-es';
@@ -19,7 +19,6 @@ import { HomeEntry } from '@/components/SideBar/HomeEntry.js';
 import { NotificationMenu } from '@/components/SideBar/NotificationMenu.js';
 import { Post } from '@/components/SideBar/Post.js';
 import { Profile } from '@/components/SideBar/Profile.js';
-import { PageRoute } from '@/constants/enum.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { usePathname } from '@/esm/navigation.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';

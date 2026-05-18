@@ -1,4 +1,5 @@
-import { EngagementType } from '@/constants/enum.js';
+import { EngagementType } from '@dimensiondev/enums';
+
 import { isSocialSource } from '@/helpers/isSource.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 

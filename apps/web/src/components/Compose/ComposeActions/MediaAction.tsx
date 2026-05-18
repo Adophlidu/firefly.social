@@ -1,6 +1,7 @@
 'use client';
 
 import GalleryIcon from '@dimensiondev/assets/gallery.svg';
+import { FileMimeType } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { Popover } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
@@ -10,7 +11,6 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { Media } from '@/components/Compose/Media.js';
 import { Popover as PopoverModal } from '@/components/Popover.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { FileMimeType } from '@/constants/enum.js';
 import {
     getCurrentPostGifLimits,
     getCurrentPostImageLimits,

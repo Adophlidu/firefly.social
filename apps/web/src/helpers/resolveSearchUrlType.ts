@@ -1,7 +1,6 @@
-import { PredictionPlatform, Source } from '@dimensiondev/enums';
+import { PredictionPlatform, SearchType, Source } from '@dimensiondev/enums';
 import { parseUrl } from '@dimensiondev/utils';
 
-import { SearchType } from '@/constants/enum.js';
 import {
     FARCASTER_PROFILE_REGEX,
     HEY_POST_REGEX,

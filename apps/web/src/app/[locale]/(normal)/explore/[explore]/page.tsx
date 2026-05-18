@@ -1,3 +1,4 @@
+import { ExploreType } from '@dimensiondev/enums';
 import type { LayoutProps } from '@dimensiondev/types';
 import { first } from 'lodash-es';
 import urlcat from 'urlcat';
@@ -5,7 +6,6 @@ import urlcat from 'urlcat';
 import { ProjectTrendingList } from '@/components/ProjectTrendingList.js';
 import { TrumpTruthSocialPosts } from '@/components/TrumpTruthSocial/TrumpTruthSocialPosts.js';
 import { queryClient } from '@/configs/queryClient.js';
-import { ExploreType } from '@/constants/enum.js';
 import { notFound, redirect, RedirectType } from '@/esm/navigation/server.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 import { getEventSlugList } from '@/providers/firefly/prediction/getEventSlugList.js';

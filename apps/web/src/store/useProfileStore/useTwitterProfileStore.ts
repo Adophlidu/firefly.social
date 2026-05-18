@@ -1,12 +1,11 @@
 'use client';
 
-import { SessionType } from '@dimensiondev/enums';
+import { AsyncStatus, SessionType } from '@dimensiondev/enums';
 import { AuthenticationError, bom, ForbiddenError, runInSafeAsync } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import dayjs from 'dayjs';
 import { getSession, signOut } from 'next-auth/react';
 
-import { AsyncStatus } from '@/constants/enum.js';
 import { FetchError, FireflyAlreadyBoundError } from '@/constants/error.js';
 import { HIDDEN_SECRET } from '@/constants/static.js';
 import { createSelectors } from '@/helpers/createSelector.js';

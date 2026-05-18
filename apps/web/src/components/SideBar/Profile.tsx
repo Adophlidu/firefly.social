@@ -2,11 +2,11 @@
 
 import ProfileSelectedIcon from '@dimensiondev/assets/profile.selected.svg';
 import ProfileIcon from '@dimensiondev/assets/profile.svg';
+import { PageRoute } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 import { useMemo } from 'react';
 
 import { BaseMenuItem } from '@/components/SideBar/BaseMenuItem.js';
-import { PageRoute } from '@/constants/enum.js';
 import { usePathname } from '@/esm/navigation.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';

@@ -1,7 +1,6 @@
+import type { LoginFallbackSource } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 import { createLookupTableResolver } from '@dimensiondev/utils';
-
-import type { LoginFallbackSource } from '@/constants/enum.js';
 
 export const resolveFallbackImageUrl = createLookupTableResolver<LoginFallbackSource, string>(
     {

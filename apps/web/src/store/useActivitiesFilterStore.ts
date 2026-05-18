@@ -1,8 +1,8 @@
+import type { ActivitiesPlatform } from '@dimensiondev/enums';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
-import type { ActivitiesPlatform } from '@/constants/enum.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 
 export enum ActivitiesFilterNamespace {

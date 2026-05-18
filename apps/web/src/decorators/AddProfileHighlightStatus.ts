@@ -1,11 +1,10 @@
 import type { SocialSource } from '@dimensiondev/enums';
-import { Source, SourceInURL } from '@dimensiondev/enums';
+import { Source, SourceInURL, SparksAccountStatus } from '@dimensiondev/enums';
 import { runInSafe, runInSafeAsync } from '@dimensiondev/utils';
 import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import { compact, uniqBy } from 'lodash-es';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { SparksAccountStatus } from '@/constants/enum.js';
 import { resolveSourceInUrlForApi } from '@/helpers/resolveSourceInUrl.js';
 import { checkGenesisSparksAccounts } from '@/providers/firefly/endpoint/checkGenesisSparksAccounts.js';
 import type { SparksAccountInfo } from '@/providers/types/Firefly.js';

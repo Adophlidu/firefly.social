@@ -1,9 +1,7 @@
 // cspell:disable
 
-import type { ProfilePageSource, SocialSource, Source } from '@dimensiondev/enums';
+import type { ClickOrigin, ProfilePageSource, SocialSource, Source } from '@dimensiondev/enums';
 import type { ExceptionId } from '@dimensiondev/exception-tracker';
-
-import type { ClickOrigin } from '@/constants/enum.js';
 
 export enum VersionFilter {
     // the current working version

@@ -1,9 +1,8 @@
 'use client';
 
-import { Source } from '@dimensiondev/enums';
+import { AsyncStatus, Source } from '@dimensiondev/enums';
 import { bom } from '@dimensiondev/utils';
 
-import { AsyncStatus } from '@/constants/enum.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { getLensProfileByHandle } from '@/providers/lens/getLensProfileByHandle.js';
 import type { LensSession } from '@/providers/lens/Session.js';

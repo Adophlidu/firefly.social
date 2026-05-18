@@ -1,11 +1,10 @@
-import { Source, SourceInURL } from '@dimensiondev/enums';
+import { MuteType, Source, SourceInURL } from '@dimensiondev/enums';
 import type { LayoutProps } from '@dimensiondev/types';
 import { createLookupTableResolver } from '@dimensiondev/utils';
 import type { MessageDescriptor } from '@lingui/core';
 import { msg } from '@lingui/core/macro';
 import type { ReactNode } from 'react';
 
-import { MuteType } from '@/constants/enum.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';

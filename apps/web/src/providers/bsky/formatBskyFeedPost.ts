@@ -6,12 +6,11 @@ import {
     AppBskyFeedThreadgate,
     RichText,
 } from '@atproto/api';
-import { SessionType, Source } from '@dimensiondev/enums';
+import { RestrictionType, SessionType, Source } from '@dimensiondev/enums';
 import { parseUrl } from '@dimensiondev/utils';
 import { produce } from 'immer';
 import { compact, first, initial, isUndefined, omitBy } from 'lodash-es';
 
-import { RestrictionType } from '@/constants/enum.js';
 import { TENOR_GIF_REGEXP } from '@/constants/regexp.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { isFireflyPostUrl } from '@/helpers/fireflyPostUrl.js';

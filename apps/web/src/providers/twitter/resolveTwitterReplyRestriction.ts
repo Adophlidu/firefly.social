@@ -1,6 +1,5 @@
+import { RestrictionType } from '@dimensiondev/enums';
 import { createLookupTableResolver } from '@dimensiondev/utils';
-
-import { RestrictionType } from '@/constants/enum.js';
 
 export const resolveTwitterReplyRestriction = createLookupTableResolver<
     RestrictionType,

@@ -1,12 +1,12 @@
 'use client';
 
+import { PolymarketRankOrder, PolymarketRankPeriod } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { compact } from 'lodash-es';
 import { memo, useMemo } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { PolymarketRankOrder, PolymarketRankPeriod } from '@/constants/enum.js';
 
 interface PredictionLeaderboardFiltersProps {
     period: PolymarketRankPeriod;

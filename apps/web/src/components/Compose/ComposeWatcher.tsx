@@ -1,8 +1,8 @@
 'use client';
 
+import { AsyncStatus } from '@dimensiondev/enums';
 import { memo, useEffect, useRef } from 'react';
 
-import { AsyncStatus } from '@/constants/enum.js';
 import { useSearchParams } from '@/esm/navigation.js';
 import { openComposeModal } from '@/helpers/openComposeModal.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';

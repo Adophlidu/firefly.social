@@ -1,8 +1,7 @@
-import { Source } from '@dimensiondev/enums';
+import { AsyncStatus, Source } from '@dimensiondev/enums';
 import { memo, type ReactNode, useMemo } from 'react';
 
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
-import { AsyncStatus } from '@/constants/enum.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';

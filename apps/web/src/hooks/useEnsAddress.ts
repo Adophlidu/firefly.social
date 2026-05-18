@@ -1,7 +1,7 @@
+import { EnsNameSource } from '@dimensiondev/enums';
 import { skipToken, useQueries, useQuery } from '@tanstack/react-query';
 import type { Address } from 'viem';
 
-import { EnsNameSource } from '@/constants/enum.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { createDeduplicatedFetch } from '@/helpers/createDeduplicatedFetch.js';
 import { fetchAddressByEnsName } from '@/services/fetchAddressByEnsName.js';

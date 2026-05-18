@@ -1,12 +1,11 @@
 'use client';
 
-import { Source } from '@dimensiondev/enums';
+import { ScrollListKey, Source } from '@dimensiondev/enums';
 import { useMultiInfiniteQueryPageable } from '@dimensiondev/hooks';
 
 import { getForYouActivities } from '@/components/Activities/getActivities.js';
 import { getActivitiesItemContent } from '@/components/Activities/getActivitiesItemContent.js';
 import { ListInPage } from '@/components/ListInPage.js';
-import { ScrollListKey } from '@/constants/enum.js';
 import { ActivitiesFilterNamespace, useActivitiesFilterStore } from '@/store/useActivitiesFilterStore.js';
 
 export function ForYouActivities() {

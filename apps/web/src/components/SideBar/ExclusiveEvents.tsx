@@ -1,11 +1,11 @@
 'use client';
 
+import { PageRoute } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 import { memo, useRef } from 'react';
 import { useHover } from 'usehooks-ts';
 
 import { BaseMenuItem } from '@/components/SideBar/BaseMenuItem.js';
-import { PageRoute } from '@/constants/enum.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useMounted } from '@/hooks/useMounted.js';
 

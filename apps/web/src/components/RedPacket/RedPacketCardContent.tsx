@@ -1,5 +1,6 @@
 'use client';
 
+import { RedpacketTxType } from '@dimensiondev/enums';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import { createWagmiPublicClient } from '@dimensiondev/web3/actions';
 import { NetworkType } from '@dimensiondev/web3/enums';
@@ -29,7 +30,6 @@ import { RequirementsModal } from '@/components/RedPacket/RequirementsModal.js';
 import { Timer } from '@/components/RedPacket/Timer.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { SUPPORTED_MEDIA_CORS_SOURCES } from '@/constants/computed.js';
-import { RedpacketTxType } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/static.js';
 import { Image } from '@/esm/Image.js';
 import { getNativeToken } from '@/helpers/getNativeToken.js';

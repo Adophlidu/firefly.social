@@ -1,9 +1,9 @@
 'use client';
 
+import { SearchType } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 
 import { NotFound } from '@/components/NotFound.js';
-import { SearchType } from '@/constants/enum.js';
 
 export default function ArticleNotFound() {
     return (

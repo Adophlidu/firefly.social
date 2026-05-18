@@ -1,4 +1,5 @@
-import { PageRoute } from '@/constants/enum.js';
+import { PageRoute } from '@dimensiondev/enums';
+
 import { usePathname } from '@/esm/navigation.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 

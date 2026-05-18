@@ -1,7 +1,7 @@
 import type { SocialSource } from '@dimensiondev/enums';
+import { FileMimeType } from '@dimensiondev/enums';
 import { t } from '@lingui/core/macro';
 
-import { FileMimeType } from '@/constants/enum.js';
 import { formatFileSize } from '@/helpers/formatFileSize.js';
 import { getPostGifSizeLimit, getPostImageSizeLimit, getPostVideoSizeLimit } from '@/helpers/getPostLimitation.js';
 import { getVideoMetadata } from '@/helpers/getVideoMetadata.js';

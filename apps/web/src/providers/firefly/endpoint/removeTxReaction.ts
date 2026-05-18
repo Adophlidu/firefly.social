@@ -1,6 +1,6 @@
+import type { TxReactionType } from '@dimensiondev/enums';
 import urlcat from 'urlcat';
 
-import type { TxReactionType } from '@/constants/enum.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { EmptyResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';

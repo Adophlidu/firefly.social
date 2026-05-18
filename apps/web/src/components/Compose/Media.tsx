@@ -2,6 +2,7 @@
 
 import ImageIcon from '@dimensiondev/assets/image.svg';
 import VideoIcon from '@dimensiondev/assets/video.svg';
+import { FileMimeType } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { Popover, Transition } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
@@ -18,7 +19,6 @@ import {
     GIF_MEDIA_SOURCE_CONFIG,
     SUPPORTED_VIDEO_SOURCES,
 } from '@/constants/computed.js';
-import { FileMimeType } from '@/constants/enum.js';
 import {
     getCurrentPostGifLimits,
     getCurrentPostImageLimits,

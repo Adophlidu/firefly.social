@@ -1,7 +1,7 @@
+import { FileMimeType } from '@dimensiondev/enums';
 import type { Metadata } from 'next';
 import urlcat from 'urlcat';
 
-import { FileMimeType } from '@/constants/enum.js';
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL, SITE_URL_OFFICIAL } from '@/constants/static.js';
 
 export function createSiteMetadata(pathname: string, metadata?: Partial<Metadata>) {

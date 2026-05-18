@@ -1,5 +1,5 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
-import { Source } from '@dimensiondev/enums';
+import { type NotificationSource, ScrollListKey, Source } from '@dimensiondev/enums';
 import { createIndicator, createPageable } from '@dimensiondev/utils';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { memo } from 'react';
@@ -8,7 +8,6 @@ import { getNotificationItemContent } from '@/app/[locale]/(normal)/notification
 import { updateNotificationReadStatus } from '@/app/[locale]/(normal)/notifications/[source]/pages/updateNotificationReadStatus.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { Loading } from '@/components/Loading.js';
-import { type NotificationSource, ScrollListKey } from '@/constants/enum.js';
 import { mergeNotifications } from '@/helpers/mergeNotifications.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';

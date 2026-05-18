@@ -1,6 +1,6 @@
 'use client';
 
-import type { PredictionPlatform } from '@dimensiondev/enums';
+import type { BetsPriceTimeRange, PredictionPlatform } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { memo, useMemo } from 'react';
@@ -9,7 +9,6 @@ import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, YAxis } f
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Loading } from '@/components/Loading.js';
 import { ChartTooltip } from '@/components/Prediction/PredictionMarketsPriceLineChart/ChartTooltip.js';
-import type { BetsPriceTimeRange } from '@/constants/enum.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { toFixedTrimmed } from '@/helpers/polymarket.js';
 import { getBetsMarketPriceHistory } from '@/providers/prediction/getBetsMarketPriceHistory.js';

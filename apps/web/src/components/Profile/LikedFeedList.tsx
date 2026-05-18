@@ -1,12 +1,11 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import type { SocialSource } from '@dimensiondev/enums';
-import { SocialProfileCategory } from '@dimensiondev/enums';
+import { ScrollListKey, SocialProfileCategory } from '@dimensiondev/enums';
 import { createIndicator, createPageable } from '@dimensiondev/utils';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
-import { ScrollListKey } from '@/constants/enum.js';
 import { getPostsSelector } from '@/helpers/getPostsSelector.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import type { Post } from '@/providers/types/SocialMedia.js';

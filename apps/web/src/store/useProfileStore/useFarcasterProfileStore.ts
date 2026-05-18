@@ -1,8 +1,8 @@
 'use client';
 
+import { AsyncStatus } from '@dimensiondev/enums';
 import { bom } from '@dimensiondev/utils';
 
-import { AsyncStatus } from '@/constants/enum.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';

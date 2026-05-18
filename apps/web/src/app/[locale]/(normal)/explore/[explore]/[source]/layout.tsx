@@ -1,7 +1,7 @@
+import { ExploreType } from '@dimensiondev/enums';
 import type { LayoutProps } from '@dimensiondev/types';
 import { msg } from '@lingui/core/macro';
 
-import { ExploreType } from '@/constants/enum.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 

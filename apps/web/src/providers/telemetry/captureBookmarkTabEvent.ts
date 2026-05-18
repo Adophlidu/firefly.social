@@ -1,7 +1,7 @@
+import type { BookmarkSource } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 import { createLookupTableResolver, runInSafeAsync, UnreachableError } from '@dimensiondev/utils';
 
-import type { BookmarkSource } from '@/constants/enum.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 

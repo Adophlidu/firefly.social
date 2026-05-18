@@ -1,6 +1,6 @@
 'use client';
 
-import { Source } from '@dimensiondev/enums';
+import { ActivitiesPlatform, ScrollListKey, Source } from '@dimensiondev/enums';
 import { useMultiInfiniteQueryPageable } from '@dimensiondev/hooks';
 import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
 
@@ -8,7 +8,6 @@ import { getProfileActivities } from '@/components/Activities/getActivities.js';
 import { getActivitiesItemContent } from '@/components/Activities/getActivitiesItemContent.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { useWalletMixAddresses } from '@/components/Profile/useWalletMixAddresses.js';
-import { ActivitiesPlatform, ScrollListKey } from '@/constants/enum.js';
 import { VITALIK_ADDRESS } from '@/constants/static.js';
 import { ActivitiesFilterNamespace, useActivitiesFilterStore } from '@/store/useActivitiesFilterStore.js';
 

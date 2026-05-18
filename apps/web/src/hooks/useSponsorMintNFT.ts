@@ -1,10 +1,10 @@
+import { MintStatus } from '@dimensiondev/enums';
 import { t } from '@lingui/core/macro';
 import { useAsyncFn } from 'react-use';
 import type { Address, Hex } from 'viem';
 import { sendTransaction, waitForTransactionReceipt } from 'wagmi/actions';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
-import { MintStatus } from '@/constants/enum.js';
 import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { getSponsorMintStatus } from '@/providers/firefly/wallet-transaction/getSponsorMintStatus.js';
 import { mintNFTBySponsor } from '@/providers/firefly/wallet-transaction/mintNFTBySponsor.js';

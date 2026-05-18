@@ -1,4 +1,4 @@
-import type { AdFunctionType, AdvertisementType } from '@/constants/enum.js';
+import type { AdFunctionType, AdvertisementType } from '@dimensiondev/enums';
 
 export interface Advertisement {
     sort: number;

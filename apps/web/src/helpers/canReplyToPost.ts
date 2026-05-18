@@ -1,9 +1,8 @@
-import { Source } from '@dimensiondev/enums';
+import { RestrictionType, Source } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { isUndefined } from 'lodash-es';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { RestrictionType } from '@/constants/enum.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';

@@ -1,10 +1,9 @@
-import { Source } from '@dimensiondev/enums';
+import { RestrictionType, Source } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import type { ReactNode } from 'react';
 
 import { Link } from '@/components/Link.js';
-import { RestrictionType } from '@/constants/enum.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 export function resolveMessageForCommentDisabled(post: Post): {

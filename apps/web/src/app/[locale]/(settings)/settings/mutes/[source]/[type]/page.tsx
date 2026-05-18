@@ -1,11 +1,10 @@
 'use client';
 
-import type { SourceInURL } from '@dimensiondev/enums';
+import type { MuteType, SourceInURL } from '@dimensiondev/enums';
 import type { LayoutProps } from '@dimensiondev/types';
 import { use } from 'react';
 
 import { MutedListPage } from '@/app/[locale]/(settings)/settings/mutes/[source]/[type]/pages/MutedListPage.js';
-import type { MuteType } from '@/constants/enum.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { useMuteMenuList } from '@/hooks/useMuteMenuList.js';
 

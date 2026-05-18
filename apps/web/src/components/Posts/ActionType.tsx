@@ -3,7 +3,7 @@
 import LikeIcon from '@dimensiondev/assets/like.svg';
 import LikedIcon from '@dimensiondev/assets/liked.svg';
 import MirrorIcon from '@dimensiondev/assets/mirror.svg';
-import { Source } from '@dimensiondev/enums';
+import { PageRoute, Source } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 import { first } from 'lodash-es';
 import { memo } from 'react';
@@ -12,7 +12,6 @@ import { ClickableArea } from '@/components/ClickableArea.js';
 import { Link } from '@/components/Link.js';
 import { ThreadBody } from '@/components/Posts/ThreadBody.js';
 import { ThreadBodyWithQuery } from '@/components/Posts/ThreadBodyWithQuery.js';
-import { PageRoute } from '@/constants/enum.js';
 import { usePathname } from '@/esm/navigation.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';

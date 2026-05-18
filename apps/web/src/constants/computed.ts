@@ -1,20 +1,6 @@
 /* cspell:disable */
 
 import {
-    FollowCategory,
-    PredictionPlatform,
-    type ProfilePageSource,
-    SocialProfileCategory,
-    type SocialSource,
-    Source,
-    SourceInURL,
-    WalletProfileCategory,
-} from '@dimensiondev/enums';
-import { solana } from '@dimensiondev/web3/chains';
-import { NetworkType } from '@dimensiondev/web3/enums';
-import { arbitrum, base, bsc, mainnet, optimism, polygon } from 'viem/chains';
-
-import {
     type BookmarkSource,
     ChannelTabType,
     type DiscoverSource,
@@ -22,14 +8,26 @@ import {
     type ExploreSource,
     ExploreType,
     FileMimeType,
+    FollowCategory,
     type FollowingSource,
     type NotificationSource,
+    PredictionPlatform,
     ProfileEditableField,
+    type ProfilePageSource,
     SearchType,
     type SocialDiscoverSource,
+    SocialProfileCategory,
+    type SocialSource,
+    Source,
+    SourceInURL,
     TokenCategory,
     TrendingType,
-} from '@/constants/enum.js';
+    WalletProfileCategory,
+} from '@dimensiondev/enums';
+import { solana } from '@dimensiondev/web3/chains';
+import { NetworkType } from '@dimensiondev/web3/enums';
+import { arbitrum, base, bsc, mainnet, optimism, polygon } from 'viem/chains';
+
 import { type Attachment, NotificationType } from '@/providers/types/SocialMedia.js';
 import type { Runtime } from '@/providers/types/Trending.js';
 import { MediaSource } from '@/types/compose.js';

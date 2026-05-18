@@ -1,5 +1,6 @@
 'use client';
 
+import { SearchType } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { memo, useMemo } from 'react';
 
@@ -9,7 +10,6 @@ import {
     SORTED_SEARCHABLE_POST_BY_PROFILE_SOURCES,
     SORTED_SOCIAL_SOURCES,
 } from '@/constants/computed.js';
-import { SearchType } from '@/constants/enum.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveSearchKeyword } from '@/helpers/resolveSearchKeyword.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';

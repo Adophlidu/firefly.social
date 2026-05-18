@@ -1,6 +1,7 @@
 'use client';
 
 import SmallCloseIcon from '@dimensiondev/assets/small-close.svg';
+import { ExploreSwitchType } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo, useLayoutEffect, useRef } from 'react';
@@ -9,7 +10,6 @@ import { useHover } from 'usehooks-ts';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { SourceTab } from '@/components/SourceTabs/SourceTab.js';
-import { ExploreSwitchType } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { useRouter } from '@/esm/navigation.js';
 import { useExploreDataSwitchConfig } from '@/hooks/useExploreDataSwitchConfig.js';

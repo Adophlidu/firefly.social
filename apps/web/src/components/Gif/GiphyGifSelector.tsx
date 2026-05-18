@@ -1,6 +1,7 @@
 'use client';
 
 import SearchIcon from '@dimensiondev/assets/search.svg';
+import { GiphyTabType } from '@dimensiondev/enums';
 import { envs } from '@dimensiondev/envs';
 import { classNames } from '@dimensiondev/utils';
 import { SearchBar, SearchContextManager } from '@giphy/react-components';
@@ -13,7 +14,6 @@ import { useSize } from 'react-use';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { EmojiList } from '@/components/Gif/EmojiList.js';
 import { GiphyGifList } from '@/components/Gif/GiphyGifList.js';
-import { GiphyTabType } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { IGif } from '@/types/giphy.js';

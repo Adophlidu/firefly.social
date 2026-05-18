@@ -1,6 +1,6 @@
 'use client';
 
-import type { SourceInURL } from '@dimensiondev/enums';
+import type { NotificationSource, SourceInURL } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 import type { LayoutProps } from '@dimensiondev/types';
 import { use } from 'react';
@@ -8,7 +8,6 @@ import { use } from 'react';
 import { FireflyNotifications } from '@/app/[locale]/(normal)/notifications/[source]/pages/FireflyNotifications.js';
 import { SocialNotifications } from '@/app/[locale]/(normal)/notifications/[source]/pages/SocialNotifications.js';
 import { Loading } from '@/components/Loading.js';
-import type { NotificationSource } from '@/constants/enum.js';
 import { resolveSource } from '@/helpers/resolveSource.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 

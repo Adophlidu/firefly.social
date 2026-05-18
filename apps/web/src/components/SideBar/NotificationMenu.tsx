@@ -6,13 +6,12 @@ import NotificationSelectedIcon from '@dimensiondev/assets/notification.selected
 import NotificationIcon from '@dimensiondev/assets/notification.svg';
 import NotificationDotIcon from '@dimensiondev/assets/notification-dot.svg';
 import NotificationDotSelectedIcon from '@dimensiondev/assets/notification-dot-selected.svg';
-import { Source } from '@dimensiondev/enums';
+import { NotificationSourceType, PageRoute, Source } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo, useCallback } from 'react';
 
 import { BaseMenuItem } from '@/components/SideBar/BaseMenuItem.js';
-import { NotificationSourceType, PageRoute } from '@/constants/enum.js';
 import { usePathname } from '@/esm/navigation.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { resolveNotificationUrl } from '@/helpers/resolveNotificationUrl.js';

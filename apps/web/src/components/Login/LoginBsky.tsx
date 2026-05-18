@@ -1,13 +1,12 @@
 'use client';
 
 /* cspell:disable */
-
 import type { AuthFactorTokenRequiredError } from '@atproto/api/dist/client/types/com/atproto/server/createSession.js';
 import AtIcon from '@dimensiondev/assets/at.svg';
 import GlobalIcon from '@dimensiondev/assets/global.svg';
 import LockIcon from '@dimensiondev/assets/lock.svg';
 import SecurityIcon from '@dimensiondev/assets/shield-security.svg';
-import { Source } from '@dimensiondev/enums';
+import { AsyncStatus, Source } from '@dimensiondev/enums';
 import { AbortError, classNames, ForbiddenError, parseUrl } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
@@ -23,7 +22,6 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { createLoginBskyFormResolver, type loginBskySchema } from '@/components/Login/createFormResolver.js';
 import { formatBskyLoginIdentifier } from '@/components/Login/formatBskyLoginIdentifier.js';
 import { DEFAULT_SERVICE_URL } from '@/constants/bsky.js';
-import { AsyncStatus } from '@/constants/enum.js';
 import { FireflyAlreadyBoundError } from '@/constants/error.js';
 import {
     enqueueForbiddenMessage,

@@ -1,8 +1,8 @@
+import { PasswordStep, PasswordWorkflow } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 import { memo, type ReactNode } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { PasswordStep, PasswordWorkflow } from '@/constants/enum.js';
 
 export type StepDescriptions = Partial<Record<`${PasswordWorkflow}-${PasswordStep}`, ReactNode>>;
 

@@ -1,9 +1,9 @@
+import { ClickOrigin } from '@dimensiondev/enums';
 import type { NetworkType } from '@dimensiondev/web3/enums';
 import { CoreApiController } from '@reown/appkit';
 import { useEffect, useState } from 'react';
 import { createContainer } from 'unstated-next';
 
-import { ClickOrigin } from '@/constants/enum.js';
 import { networkTypeToChainNamespace } from '@/helpers/networkTypeToChainNamespace.js';
 import type { ChainNamespace } from '@/types/utility.js';
 

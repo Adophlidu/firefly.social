@@ -1,9 +1,9 @@
+import { KeyType } from '@dimensiondev/enums';
 import type { NextRequestContext } from '@dimensiondev/types';
 import { compose } from '@dimensiondev/utils';
 import type { NextRequest } from 'next/server.js';
 import { z } from 'zod';
 
-import { KeyType } from '@/constants/enum.js';
 import { MalformedRequestError } from '@/constants/error.js';
 import { createRedirectResponse } from '@/helpers/createRedirectResponse.js';
 import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';

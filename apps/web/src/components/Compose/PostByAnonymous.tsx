@@ -3,6 +3,7 @@
 import AnonymousAvatar from '@dimensiondev/assets/anonymous-avatar.svg';
 import InfoIcon from '@dimensiondev/assets/info-outline.svg';
 import type { SocialSource } from '@dimensiondev/enums';
+import { RestrictionType } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo, useCallback } from 'react';
@@ -12,7 +13,6 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { ANONYMOUS_HANDLE_BY_SOURCE } from '@/constants/computed.js';
-import { RestrictionType } from '@/constants/enum.js';
 import { useAnonymousPostAvailability } from '@/hooks/useAnonymousPostAvailability.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';

@@ -2,10 +2,9 @@
 
 import ComposeAddIcon from '@dimensiondev/assets/compose-add.svg';
 import ReplyIcon from '@dimensiondev/assets/reply.svg';
-import { Source } from '@dimensiondev/enums';
+import { PageRoute, Source } from '@dimensiondev/enums';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { PageRoute } from '@/constants/enum.js';
 import { usePathname } from '@/esm/navigation.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';

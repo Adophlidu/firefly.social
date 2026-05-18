@@ -1,11 +1,10 @@
 'use client';
 
 import { EMPTY_LIST } from '@dimensiondev/constants';
-import { FireflyPlatform } from '@dimensiondev/enums';
+import { CharTag, FireflyPlatform } from '@dimensiondev/enums';
 import { compact } from 'lodash-es';
 import { useEffect, useRef } from 'react';
 
-import { CharTag } from '@/constants/enum.js';
 import { SITE_URL_OFFICIAL } from '@/constants/static.js';
 import { useRouter } from '@/esm/navigation.js';
 import { formatSearchProfile } from '@/helpers/formatSearchProfile.js';

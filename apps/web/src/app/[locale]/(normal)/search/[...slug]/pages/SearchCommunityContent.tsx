@@ -1,9 +1,9 @@
 'use client';
 
+import { ClubType } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 
 import { SearchChannelContent } from '@/app/[locale]/(normal)/search/[...slug]/pages/SearchChannelContent.js';
-import { ClubType } from '@/constants/enum.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
 
 export function SearchCommunityContent() {

@@ -1,9 +1,8 @@
-import { ArticlePlatform, Source } from '@dimensiondev/enums';
+import { ArticlePlatform, ArticlePlatformId, ExtraLikeType, Source, TxReactionType } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useMutation } from '@tanstack/react-query';
 
-import { ArticlePlatformId, ExtraLikeType, TxReactionType } from '@/constants/enum.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { updateQueryForLikeReaction } from '@/helpers/updateQueryForLikeReaction.js';

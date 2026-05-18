@@ -1,10 +1,10 @@
 'use client';
 
+import { ExploreSwitchType } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 
 import { SettingsSection } from '@/app/[locale]/(settings)/components/Section.js';
 import { Switch } from '@/components/Switch/index.js';
-import { ExploreSwitchType } from '@/constants/enum.js';
 import { useExploreDataSwitchConfig } from '@/hooks/useExploreDataSwitchConfig.js';
 
 export default function PreferencePage() {

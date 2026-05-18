@@ -1,9 +1,9 @@
 import type { AppBskyEmbedExternal, AppBskyEmbedImages, AppBskyEmbedVideo, RichText } from '@atproto/api';
+import { BskyEmbedType, FileMimeType } from '@dimensiondev/enums';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import { first } from 'lodash-es';
 import urlcat from 'urlcat';
 
-import { BskyEmbedType, FileMimeType } from '@/constants/enum.js';
 import { BSKY_IMAGE_LIMITATION } from '@/constants/limitation.js';
 import { base64ToFile } from '@/helpers/base64ToFile.js';
 import { blobToBase64 } from '@/helpers/blobToBase64.js';

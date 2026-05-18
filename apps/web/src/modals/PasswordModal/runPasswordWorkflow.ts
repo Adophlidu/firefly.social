@@ -1,8 +1,8 @@
+import { PasswordStep, PasswordWorkflow } from '@dimensiondev/enums';
 import { runInSafeAsync, safeUnreachable, unreachable } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { PasswordStep, PasswordWorkflow } from '@/constants/enum.js';
 import { FireflyResponseCode } from '@/constants/responseCode.js';
 import { enqueueErrorMessage, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { isStrongDigitPassword, isValidPassword } from '@/modals/PasswordModal/isValidPassword.js';

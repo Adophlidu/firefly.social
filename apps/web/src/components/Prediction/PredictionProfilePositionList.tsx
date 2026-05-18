@@ -2,7 +2,7 @@
 
 import ArrowLineDownIcon from '@dimensiondev/assets/arrow-line-down.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
-import { PredictionPlatform, Source } from '@dimensiondev/enums';
+import { PredictionPlatform, ScrollListKey, Source } from '@dimensiondev/enums';
 import { classNames, createIndicator, createPageable } from '@dimensiondev/utils';
 import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
@@ -12,7 +12,6 @@ import { memo, type ReactNode, useEffect, useMemo, useState } from 'react';
 import { ListInPage } from '@/components/ListInPage.js';
 import { getPredictionPositionList } from '@/components/Prediction/getPredictionPositionList.js';
 import { PredictionPositionItem } from '@/components/Prediction/PredictionPositionItem.js';
-import { ScrollListKey } from '@/constants/enum.js';
 import { useAllProxyWallets } from '@/hooks/prediction/useAllProxyWallets.js';
 import { useProxyWalletInfo } from '@/hooks/prediction/useProxyWalletInfo.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';

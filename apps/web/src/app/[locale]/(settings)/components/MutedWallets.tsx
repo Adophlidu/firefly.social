@@ -1,10 +1,9 @@
-import { Source } from '@dimensiondev/enums';
+import { ScrollListKey, Source } from '@dimensiondev/enums';
 import { createIndicator } from '@dimensiondev/utils';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { WalletItem } from '@/components/WalletItem.js';
-import { ScrollListKey } from '@/constants/enum.js';
 import { getBlockedWallets } from '@/providers/firefly/endpoint/getBlockedWallets.js';
 import type { WalletProfile } from '@/providers/types/Firefly.js';
 

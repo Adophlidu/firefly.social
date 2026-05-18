@@ -1,3 +1,4 @@
+import type { NotificationSourceInURL } from '@dimensiondev/enums';
 import { SourceInURL } from '@dimensiondev/enums';
 import type { LayoutProps } from '@dimensiondev/types';
 import { Trans } from '@lingui/react/macro';
@@ -6,7 +7,6 @@ import { NoSSR } from '@/components/NoSSR.js';
 import { NotificationSettings } from '@/components/Notification/NotificationSettings.js';
 import { NotificationTabs } from '@/components/Notification/NotificationTabs.js';
 import { TimelineTitle } from '@/components/TimelineTitle.js';
-import type { NotificationSourceInURL } from '@/constants/enum.js';
 import { resolveNotificationSource } from '@/helpers/resolveSourceInUrl.js';
 import { setupLocaleFromParams } from '@/i18n/static.js';
 

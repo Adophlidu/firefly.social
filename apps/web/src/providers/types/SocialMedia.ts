@@ -1,9 +1,16 @@
 import type { BlobRef } from '@atproto/api';
-import type { FireflyPlatform, Locale, ProfileSource, SessionType, SocialSource } from '@dimensiondev/enums';
+import type {
+    BookmarkType,
+    FireflyPlatform,
+    Locale,
+    ProfileSource,
+    RestrictionType,
+    SessionType,
+    SocialSource,
+} from '@dimensiondev/enums';
 import type { Pageable, PageIndicator } from '@dimensiondev/utils';
 import type { NetworkType } from '@dimensiondev/web3/enums';
 
-import type { BookmarkType, RestrictionType } from '@/constants/enum.js';
 import type { Account } from '@/providers/types/Account.js';
 import type {
     FireflyIdentity,

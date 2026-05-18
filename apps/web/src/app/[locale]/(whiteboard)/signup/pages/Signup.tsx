@@ -2,6 +2,7 @@
 
 import '@/styles/signup.css';
 
+import { PageRoute, SignupStep } from '@dimensiondev/enums';
 import { delay, safeUnreachable } from '@dimensiondev/utils';
 import { AnimatePresence } from 'framer-motion';
 import { useCallback, useRef, useState } from 'react';
@@ -14,7 +15,6 @@ import { PageBackground } from '@/app/[locale]/(whiteboard)/signup/pages/PageBac
 import { SocialLoginPage } from '@/app/[locale]/(whiteboard)/signup/pages/SocialLoginPage.js';
 import { SuccessPage } from '@/app/[locale]/(whiteboard)/signup/pages/SuccessPage.js';
 import { queryClient } from '@/configs/queryClient.js';
-import { PageRoute, SignupStep } from '@/constants/enum.js';
 import { SIGNUP_AUDIO_ID } from '@/constants/static.js';
 import { useRouter } from '@/esm/navigation.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';

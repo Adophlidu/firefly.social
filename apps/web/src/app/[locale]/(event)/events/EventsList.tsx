@@ -1,6 +1,6 @@
 'use client';
 
-import { Source } from '@dimensiondev/enums';
+import { Agent, ScrollListKey, Source } from '@dimensiondev/enums';
 import { createIndicator } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
@@ -10,7 +10,6 @@ import { getActivityListItem } from '@/components/Activity/ActivityListItem.js';
 import { ActivityMobileNavigationBar } from '@/components/Activity/ActivityMobileNavigationBar.js';
 import { useAgent } from '@/components/AgentProvider.js';
 import { ListInPage } from '@/components/ListInPage.js';
-import { Agent, ScrollListKey } from '@/constants/enum.js';
 import { getFireflyActivityList } from '@/providers/firefly/activity/getFireflyActivityList.js';
 
 export function EventsList() {

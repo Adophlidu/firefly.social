@@ -3,7 +3,7 @@
 import LightningIcon from '@dimensiondev/assets/lightning-sharp.svg';
 import MirrorIcon from '@dimensiondev/assets/mirror.svg';
 import ShareImageIcon from '@dimensiondev/assets/share-image.svg';
-import { Source, SwapAccessPath } from '@dimensiondev/enums';
+import { Source, SwapAccessPath, TxReactionType } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { MenuItem } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
@@ -25,7 +25,6 @@ import { ShareButtonWithAnimation } from '@/components/Posts/ShareButton.js';
 import { SwapButton } from '@/components/TokenProfile/SwapButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { queryClient } from '@/configs/queryClient.js';
-import { TxReactionType } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/static.js';
 import { downloadImage } from '@/helpers/downloadImage.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';

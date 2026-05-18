@@ -3,7 +3,7 @@
 import ProtectedIcon from '@dimensiondev/assets/protected.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import type { SocialSource } from '@dimensiondev/enums';
-import { Source } from '@dimensiondev/enums';
+import { ScrollListKey, Source } from '@dimensiondev/enums';
 import { createIndicator, createPageable } from '@dimensiondev/utils';
 import { useQuery, useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
@@ -11,7 +11,6 @@ import { ProtectedPostsMessage } from '@/components/fallbacks/ProtectedPostsMess
 import { ListInPage } from '@/components/ListInPage.js';
 import { pinnedPostQueryOptions } from '@/components/Posts/queries/pinnedPostQueryOptions.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
-import { ScrollListKey } from '@/constants/enum.js';
 import { getPostsSelector } from '@/helpers/getPostsSelector.js';
 import { isSamePost } from '@/helpers/isSamePost.js';
 import { resolveProviderOptions, resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';

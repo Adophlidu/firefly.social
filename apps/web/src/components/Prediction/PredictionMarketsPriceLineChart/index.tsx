@@ -2,6 +2,7 @@
 
 import ToggleIcon from '@dimensiondev/assets/toggle.svg';
 import type { PredictionPlatform } from '@dimensiondev/enums';
+import { BetsPriceTimeRange } from '@dimensiondev/enums';
 import { first, isUndefined, sumBy } from 'lodash-es';
 import { useMemo, useState } from 'react';
 
@@ -12,7 +13,6 @@ import { ChartLabels } from '@/components/Prediction/PredictionMarketsPriceLineC
 import { MarketSettings } from '@/components/Prediction/PredictionMarketsPriceLineChart/MarketSettings.js';
 import { TimeRangeSettings } from '@/components/Prediction/PredictionMarketsPriceLineChart/TimeRangeSettings.js';
 import { MAX_MARKETS_COUNT_SELECTABLE, PLATFORMS_SUPPORTING_ORDER_BOOK } from '@/constants/bets.js';
-import { BetsPriceTimeRange } from '@/constants/enum.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { toFixedTrimmed } from '@/helpers/polymarket.js';
 import type { BetsMarketDataForUI, BetsMarketWithSettings } from '@/types/prediction.js';

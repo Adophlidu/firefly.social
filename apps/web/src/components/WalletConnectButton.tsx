@@ -1,6 +1,7 @@
 'use client';
 
 import WalletIcon from '@dimensiondev/assets/wallet.svg';
+import { ClickOrigin } from '@dimensiondev/enums';
 import { classNames, delay } from '@dimensiondev/utils';
 import { getChainIcon, solana as solanaMainnetChain } from '@dimensiondev/web3/chains';
 import { NetworkType } from '@dimensiondev/web3/enums';
@@ -11,7 +12,6 @@ import { mainnet } from 'viem/chains';
 
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
-import { ClickOrigin } from '@/constants/enum.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { MyWalletsModalRef } from '@/modals/MyWalletsModal/refs.js';

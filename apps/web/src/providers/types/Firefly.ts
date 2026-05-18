@@ -2,16 +2,22 @@ import type {
     ActivityStatus,
     ArticlePlatform,
     ArticleType,
+    BookmarkType,
     ErcType,
+    ExploreSwitchType,
     FansStatus,
     FireflyPlatform,
+    MintStatus,
     OgStatus,
+    PolymarketBetType,
     PredictionPlatform,
     RelatedWalletSource,
+    S3ConvertStatus,
     SocialSource,
     SocialSourceInURL,
     Source,
     SourceInURL,
+    SparksAccountStatus,
     TipsNotificationType,
     TokenPlatformType,
     WalletProfileDataSource,
@@ -22,14 +28,6 @@ import type { NetworkType } from '@dimensiondev/web3/enums';
 import type { ReactNode } from 'react';
 import type { Address, Hex } from 'viem';
 
-import type {
-    BookmarkType,
-    ExploreSwitchType,
-    MintStatus,
-    PolymarketBetType,
-    S3ConvertStatus,
-    SparksAccountStatus,
-} from '@/constants/enum.js';
 import type { EVM } from '@/providers/nftscan/types.js';
 import type { PolymarketEventLocale } from '@/providers/prediction/polymarket/type.js';
 import type { SnapshotActivity, SnapshotChoice, SnapshotProposal } from '@/providers/snapshot/type.js';

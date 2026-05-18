@@ -1,10 +1,10 @@
 'use client';
 
+import { RedpacketTxType } from '@dimensiondev/enums';
 import { unreachable } from '@dimensiondev/utils';
 import { NetworkType } from '@dimensiondev/web3/enums';
 import type { Address } from 'viem';
 
-import { RedpacketTxType } from '@/constants/enum.js';
 import { SOLANA_REDPACKET_CLAIM_GAS, SOLANA_REDPACKET_CREATE_GAS } from '@/constants/rp.js';
 import type { ChainContextOverrides } from '@/hooks/useChainContext.js';
 import { useEVMAvailableBalance } from '@/hooks/useEVMAvailableBalance.js';

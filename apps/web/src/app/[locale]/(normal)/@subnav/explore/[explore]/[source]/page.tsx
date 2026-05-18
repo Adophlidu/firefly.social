@@ -1,3 +1,4 @@
+import { type ExploreSourceInURL, ExploreType } from '@dimensiondev/enums';
 import type { LayoutProps } from '@dimensiondev/types';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 
@@ -6,7 +7,6 @@ import { NoSSR } from '@/components/NoSSR.js';
 import { ExploreSourceNav } from '@/components/SourceNav/ExploreSourceNav.js';
 import { PredictionSourceNav } from '@/components/SourceNav/PredictionSourceNav.js';
 import { queryClientConfig } from '@/configs/queryClient.js';
-import { type ExploreSourceInURL, ExploreType } from '@/constants/enum.js';
 import { logger } from '@/libs/Logger.js';
 import { getEventSlugList } from '@/providers/firefly/prediction/getEventSlugList.js';
 

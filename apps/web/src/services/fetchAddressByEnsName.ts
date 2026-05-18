@@ -1,6 +1,6 @@
+import { EnsNameSource } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 
-import { EnsNameSource } from '@/constants/enum.js';
 import { resolveAddressFromProfile } from '@/helpers/resolveAddressFromProfile.js';
 import { searchIdentity } from '@/providers/firefly/endpoint/searchIdentity.js';
 import { lookup } from '@/services/ens.js';

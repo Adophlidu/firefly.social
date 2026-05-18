@@ -1,4 +1,4 @@
-import { Source, SourceInURL } from '@dimensiondev/enums';
+import { ScrollListKey, Source, SourceInURL } from '@dimensiondev/enums';
 import { classNames, createIndicator } from '@dimensiondev/utils';
 import { formatAddressEthereum } from '@dimensiondev/web3/utils';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
@@ -11,7 +11,6 @@ import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { VirtualList } from '@/components/VirtualList/VirtualList.js';
 import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
-import { ScrollListKey } from '@/constants/enum.js';
 import { humanize, nFormatter } from '@/helpers/formatCommentCounts.js';
 import { formatSnapshotChoice } from '@/helpers/formatSnapshotChoice.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';

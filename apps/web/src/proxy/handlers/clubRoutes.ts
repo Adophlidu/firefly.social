@@ -1,7 +1,7 @@
+import { ChannelTabType } from '@dimensiondev/enums';
 import { type NextRequest, NextResponse } from 'next/server.js';
 import urlcat from 'urlcat';
 
-import { ChannelTabType } from '@/constants/enum.js';
 import { parseClubUrl } from '@/helpers/parseClubUrl.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 

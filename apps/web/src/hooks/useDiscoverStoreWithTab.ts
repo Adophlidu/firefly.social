@@ -1,7 +1,7 @@
 import type { SocialSource } from '@dimensiondev/enums';
+import { HomeTab } from '@dimensiondev/enums';
 import { useMemo } from 'react';
 
-import { HomeTab } from '@/constants/enum.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useDiscoverStore } from '@/store/useDiscoverStore.js';
 

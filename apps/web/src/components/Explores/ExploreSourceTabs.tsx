@@ -1,5 +1,6 @@
 'use client';
 
+import { ExploreType } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 import { first } from 'lodash-es';
 import { memo, type ReactNode } from 'react';
@@ -8,7 +9,6 @@ import { NoSSR } from '@/components/NoSSR.js';
 import { SourceTabs } from '@/components/SourceTabs/index.js';
 import { SourceTab } from '@/components/SourceTabs/SourceTab.js';
 import { ToggleEnableButton } from '@/components/TrumpTruthSocial/ToggleEnableButton.js';
-import { ExploreType } from '@/constants/enum.js';
 import { useSelectedLayoutSegments } from '@/esm/navigation.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 import { useExploreTabs } from '@/hooks/useExploreTabs.js';

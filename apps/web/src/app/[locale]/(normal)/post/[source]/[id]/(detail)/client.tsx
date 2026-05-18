@@ -2,7 +2,7 @@
 
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import type { SocialSource } from '@dimensiondev/enums';
-import { Source } from '@dimensiondev/enums';
+import { SearchType, Source } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { Suspense, useEffect } from 'react';
@@ -21,7 +21,6 @@ import { PostDetailEffect } from '@/components/PostDetailEffect.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { ThreadBody } from '@/components/Posts/ThreadBody.js';
 import { Section } from '@/components/Semantic/Section.js';
-import { SearchType } from '@/constants/enum.js';
 import { TweetUnavailableError } from '@/constants/error.js';
 import { MIN_POST_SIZE_PER_THREAD } from '@/constants/static.js';
 import { notFound } from '@/esm/navigation.js';

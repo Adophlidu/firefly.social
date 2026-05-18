@@ -1,9 +1,8 @@
-import { type ProfileSource, Source } from '@dimensiondev/enums';
+import { NotificationSourceType, type ProfileSource, Source } from '@dimensiondev/enums';
 import type { Pageable, PageIndicator } from '@dimensiondev/utils';
 import { runInSafeAsync } from '@dimensiondev/utils';
 
 import { X_WEBHOOK_WHITELIST_CLIENT_IDS } from '@/constants/computed.js';
-import { NotificationSourceType } from '@/constants/enum.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { isSocialSource } from '@/helpers/isSource.js';
 import { logger } from '@/libs/Logger.js';

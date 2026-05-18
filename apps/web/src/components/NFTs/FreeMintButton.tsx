@@ -1,6 +1,7 @@
 'use client';
 
 import WebsiteIcon from '@dimensiondev/assets/website-circle.svg';
+import { MintStatus } from '@dimensiondev/enums';
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { chains } from '@dimensiondev/web3/chains';
 import { NetworkType } from '@dimensiondev/web3/enums';
@@ -13,7 +14,6 @@ import { useChainId, useConnection, useSwitchChain } from 'wagmi';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { Link } from '@/components/Link.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { MintStatus } from '@/constants/enum.js';
 import { useSponsorMintStatus } from '@/hooks/useSponsorMintStatus.js';
 import { FreeMintModal } from '@/modals/FreeMintModal/FreeMintModal.js';
 import { FreeMintModalRef } from '@/modals/FreeMintModal/refs.js';

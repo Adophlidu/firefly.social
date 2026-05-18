@@ -1,7 +1,7 @@
+import { BetsLeaderboardTab } from '@dimensiondev/enums';
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
-import { BetsLeaderboardTab } from '@/constants/enum.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 
 interface BetsLeaderboardState {

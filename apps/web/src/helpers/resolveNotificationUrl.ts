@@ -1,6 +1,6 @@
+import type { NotificationSource } from '@dimensiondev/enums';
 import urlcat from 'urlcat';
 
-import type { NotificationSource } from '@/constants/enum.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 
 export function resolveNotificationUrl(source: NotificationSource) {

@@ -1,12 +1,12 @@
 'use client';
 
+import { ChannelTabType } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { memo } from 'react';
 
 import { ChannelFollowerList } from '@/components/Channel/ChannelFollowerList.js';
 import { ChannelMemberList } from '@/components/Channel/ChannelMemberList.js';
 import { PostList } from '@/components/Channel/PostList.js';
-import { ChannelTabType } from '@/constants/enum.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
 export const ChannelContentList = memo(function ChannelContentList({

@@ -1,12 +1,12 @@
 'use client';
 
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { AsyncStatus } from '@dimensiondev/enums';
 import type { WritableDraft } from 'immer';
 import { create } from 'zustand';
 import { persist, type PersistOptions } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
-import { AsyncStatus } from '@/constants/enum.js';
 import type { CustomSelectors } from '@/helpers/createSelector.js';
 import { createSessionStorage, type SessionState } from '@/helpers/createSessionStorage.js';
 import { isSameAccount } from '@/helpers/isSameAccount.js';

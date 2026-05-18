@@ -1,8 +1,8 @@
+import type { BookmarkType } from '@dimensiondev/enums';
 import { FireflyPlatform } from '@dimensiondev/enums';
 import { skipToken, useQuery } from '@tanstack/react-query';
 import { uniq } from 'lodash-es';
 
-import type { BookmarkType } from '@/constants/enum.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { getFireflyBookmarksByIds } from '@/providers/firefly/endpoint/getFireflyBookmarkIds.js';

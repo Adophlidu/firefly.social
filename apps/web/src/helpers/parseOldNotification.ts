@@ -1,5 +1,6 @@
+import { type NotificationSource, PageRoute } from '@dimensiondev/enums';
+
 import { DEFAULT_NOTIFICATION_SOURCE } from '@/constants/computed.js';
-import { type NotificationSource, PageRoute } from '@/constants/enum.js';
 import { isNotificationSource } from '@/helpers/isSource.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 

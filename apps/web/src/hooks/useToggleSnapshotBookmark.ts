@@ -1,7 +1,6 @@
-import { FireflyPlatform } from '@dimensiondev/enums';
+import { BookmarkType, FireflyPlatform } from '@dimensiondev/enums';
 import { t } from '@lingui/core/macro';
 
-import { BookmarkType } from '@/constants/enum.js';
 import { useToggleBookmarkMutation } from '@/hooks/useToggleBookmarkMutation.js';
 import { farcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';

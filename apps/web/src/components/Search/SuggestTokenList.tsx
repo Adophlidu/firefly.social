@@ -1,7 +1,7 @@
 'use client';
 
 import { EMPTY_LIST } from '@dimensiondev/constants';
-import { TokenPlatformType } from '@dimensiondev/enums';
+import { SearchType, TokenPlatformType } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { sortBy, uniqBy } from 'lodash-es';
@@ -10,7 +10,6 @@ import { memo } from 'react';
 import { Link } from '@/components/Link.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SearchableTokenItem } from '@/components/Search/SearchableTokenItem.js';
-import { SearchType } from '@/constants/enum.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import { searchTokens } from '@/providers/firefly/worker/searchTokens.js';

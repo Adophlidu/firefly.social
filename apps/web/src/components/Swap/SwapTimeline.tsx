@@ -2,7 +2,7 @@
 
 import SwapEmptyIcon from '@dimensiondev/assets/swap-empty.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
-import { Source } from '@dimensiondev/enums';
+import { ExploreType, ScrollListKey, Source } from '@dimensiondev/enums';
 import { createIndicator } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
@@ -13,7 +13,6 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { ListInPage, type ListInPageProps } from '@/components/ListInPage.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { SwapActivityItem } from '@/components/Swap/SwapActivityItem.js';
-import { ExploreType, ScrollListKey } from '@/constants/enum.js';
 import { useRouter } from '@/esm/navigation.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';

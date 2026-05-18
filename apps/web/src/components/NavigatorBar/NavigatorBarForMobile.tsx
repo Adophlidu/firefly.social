@@ -3,6 +3,7 @@
 import FireflyIcon from '@dimensiondev/assets/firefly.svg';
 import MagnifierIcon from '@dimensiondev/assets/magnifier.svg';
 import MenuIcon from '@dimensiondev/assets/menu.svg';
+import { PageRoute } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { first } from 'lodash-es';
 import { memo, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
@@ -14,7 +15,6 @@ import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { SearchInput } from '@/components/Search/SearchInput.js';
 import { SearchRecommendation } from '@/components/Search/SearchRecommendation.js';
 import { IS_FIREFOX } from '@/constants/browser.js';
-import { PageRoute } from '@/constants/enum.js';
 import { usePathname, useRouter } from '@/esm/navigation.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { parseDiscoverPageUrl } from '@/helpers/parseDiscoverPageUrl.js';

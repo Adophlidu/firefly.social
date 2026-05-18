@@ -1,10 +1,9 @@
-import { Source } from '@dimensiondev/enums';
+import { ClubType, SearchType, Source } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { useCallback } from 'react';
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
-import { ClubType, SearchType } from '@/constants/enum.js';
 import { usePathname, useRouter, useSearchParams } from '@/esm/navigation.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';

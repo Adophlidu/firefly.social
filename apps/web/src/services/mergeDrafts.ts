@@ -1,10 +1,9 @@
-import { Source } from '@dimensiondev/enums';
+import { DraftPostType, Source } from '@dimensiondev/enums';
 import type { Pageable, PageIndicator } from '@dimensiondev/utils';
 import { safeUnreachable } from '@dimensiondev/utils';
 import dayjs from 'dayjs';
 import { compact, first, isUndefined, orderBy, values } from 'lodash-es';
 
-import { DraftPostType } from '@/constants/enum.js';
 import { POLL_CHOICE_TYPE, POLL_STRATEGIES } from '@/constants/poll.js';
 import { isValidRestrictionType } from '@/helpers/isValidRestrictionType.js';
 import { recoverCharsByMentions } from '@/helpers/recoverCharsByMentions.js';

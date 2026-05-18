@@ -1,4 +1,4 @@
-import { FarcasterSignType } from '@/constants/enum.js';
+import { FarcasterSignType } from '@dimensiondev/enums';
 
 export function resolveFarcasterDefaultSignType(count?: number) {
     if (typeof count !== 'number') return FarcasterSignType.RelayService;

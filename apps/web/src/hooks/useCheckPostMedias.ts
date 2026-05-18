@@ -1,9 +1,8 @@
-import { Source } from '@dimensiondev/enums';
+import { FileMimeType, Source } from '@dimensiondev/enums';
 import { t } from '@lingui/core/macro';
 import { useCallback } from 'react';
 
 import { SUPPORTED_VIDEO_SOURCES } from '@/constants/computed.js';
-import { FileMimeType } from '@/constants/enum.js';
 import { MAX_FILE_SIZE_PER_VIDEO } from '@/constants/limitation.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { formatFileSize } from '@/helpers/formatFileSize.js';

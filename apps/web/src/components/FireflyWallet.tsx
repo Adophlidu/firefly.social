@@ -5,7 +5,7 @@ import MoreIcon from '@dimensiondev/assets/more-fill.svg';
 import ReloadIcon from '@dimensiondev/assets/reload.svg';
 import SecurityIcon from '@dimensiondev/assets/security-solid.svg';
 import WalletIcon from '@dimensiondev/assets/wallet.svg';
-import { WalletSource } from '@dimensiondev/enums';
+import { PageRoute, WalletSource } from '@dimensiondev/enums';
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { NetworkType } from '@dimensiondev/web3/enums';
@@ -16,7 +16,6 @@ import { useUpdateEffect } from 'react-use';
 import type { Address } from 'viem';
 
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
-import { PageRoute } from '@/constants/enum.js';
 import { usePathname } from '@/esm/navigation.js';
 import { useAllConnections } from '@/hooks/useAllConnections.js';
 import { useIsCreatedPrivyWallet } from '@/hooks/useIsCreatedPrivyWallet.js';

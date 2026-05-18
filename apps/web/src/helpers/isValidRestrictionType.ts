@@ -1,7 +1,5 @@
 import type { SocialSource } from '@dimensiondev/enums';
-import { Source } from '@dimensiondev/enums';
-
-import { RestrictionType } from '@/constants/enum.js';
+import { RestrictionType, Source } from '@dimensiondev/enums';
 
 const restrictionConfig: Record<RestrictionType, SocialSource[]> = {
     [RestrictionType.Everyone]: [Source.Farcaster, Source.Lens, Source.Twitter, Source.Bsky],

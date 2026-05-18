@@ -1,10 +1,10 @@
+import { ScrollListKey } from '@dimensiondev/enums';
 import { noop } from 'lodash-es';
 import { createContext, type Dispatch, type SetStateAction, useMemo, useState } from 'react';
 
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { VirtualList } from '@/components/VirtualList/VirtualList.js';
 import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
-import { ScrollListKey } from '@/constants/enum.js';
 import { RedPacketDetailItem } from '@/modals/RedPacketModal/RedPacketDetailItem.js';
 import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 

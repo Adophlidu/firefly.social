@@ -1,9 +1,7 @@
-import { Source } from '@dimensiondev/enums';
+import { type ExploreSource, type NotificationSource, Source, TrendingType } from '@dimensiondev/enums';
 import { createLookupTableResolver, UnreachableError } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import type { JSX } from 'react';
-
-import { type ExploreSource, type NotificationSource, TrendingType } from '@/constants/enum.js';
 
 export const resolveSourceName = createLookupTableResolver<Source, string>(
     {

@@ -1,9 +1,9 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { NotificationSourceType } from '@dimensiondev/enums';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
-import { NotificationSourceType } from '@/constants/enum.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import type { SearchTokenInfo } from '@/providers/types/Firefly.js';
 

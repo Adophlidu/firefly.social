@@ -1,6 +1,6 @@
 'use client';
 
-import { Source } from '@dimensiondev/enums';
+import { type ExploreSource, type ExploreSourceInURL, ExploreType, Source, TrendingType } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { solana } from '@dimensiondev/web3/chains';
 import { NetworkType } from '@dimensiondev/web3/enums';
@@ -11,7 +11,6 @@ import { base, bsc, mainnet } from 'viem/chains';
 import { FilterPanel } from '@/components/FilterPanel.js';
 import { SourceNav } from '@/components/SourceNav/SourceNav.js';
 import { EXPLORE_SOURCES } from '@/constants/computed.js';
-import { type ExploreSource, type ExploreSourceInURL, ExploreType, TrendingType } from '@/constants/enum.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 import { resolveExploreSource } from '@/helpers/resolveSourceInUrl.js';
 import { resolveExploreSourceName } from '@/helpers/resolveSourceName.js';

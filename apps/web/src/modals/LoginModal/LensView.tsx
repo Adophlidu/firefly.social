@@ -3,7 +3,7 @@
 import OrbIcon from '@dimensiondev/assets/orb.svg';
 import ScanIcon from '@dimensiondev/assets/scan.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
-import { Source, STATUS } from '@dimensiondev/enums';
+import { AsyncStatus, Source, STATUS } from '@dimensiondev/enums';
 import { envs } from '@dimensiondev/envs';
 import { AbortError, ForbiddenError, runInSafeAsync } from '@dimensiondev/utils';
 import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
@@ -23,7 +23,6 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SignupEntry } from '@/components/Profile/SignupEntry.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { PRIVY_CONNECTOR_ID } from '@/connectors/PrivyConnector.js';
-import { AsyncStatus } from '@/constants/enum.js';
 import { FireflyAlreadyBoundError } from '@/constants/error.js';
 import {
     enqueueForbiddenMessage,

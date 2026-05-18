@@ -1,4 +1,4 @@
-import { FileMimeType } from '@/constants/enum.js';
+import { FileMimeType } from '@dimensiondev/enums';
 
 function fetchImage(url: string, cors?: boolean): Promise<HTMLImageElement> {
     return new Promise((resolve, reject) => {

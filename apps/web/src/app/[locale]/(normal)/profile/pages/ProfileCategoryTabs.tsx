@@ -1,7 +1,7 @@
 'use client';
 
 import type { ProfilePageSource } from '@dimensiondev/enums';
-import { SocialProfileCategory, Source, WalletProfileCategory } from '@dimensiondev/enums';
+import { ExploreSwitchType, SocialProfileCategory, Source, WalletProfileCategory } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { NetworkType } from '@dimensiondev/web3/enums';
 import { getAddressType, isSameEthereumAddress } from '@dimensiondev/web3/utils';
@@ -19,7 +19,6 @@ import {
     SORTED_PROFILE_TAB_TYPE,
     WALLET_PROFILE_TAB_TYPES,
 } from '@/constants/computed.js';
-import { ExploreSwitchType } from '@/constants/enum.js';
 import { TRUMP_TWITTER_PROFILE } from '@/constants/mentions.js';
 import { VITALIK_ADDRESS } from '@/constants/static.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';

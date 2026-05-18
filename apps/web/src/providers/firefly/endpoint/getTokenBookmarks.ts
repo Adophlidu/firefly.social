@@ -1,4 +1,4 @@
-import { SessionType } from '@dimensiondev/enums';
+import { BookmarkType, SessionType } from '@dimensiondev/enums';
 import {
     createIndicator,
     createNextIndicator,
@@ -9,7 +9,6 @@ import {
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
-import { BookmarkType } from '@/constants/enum.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { getSingleCoin } from '@/providers/firefly/endpoint/getSingleCoin.js';

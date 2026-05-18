@@ -1,8 +1,8 @@
+import { PageRoute } from '@dimensiondev/enums';
 import { bom, delay } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { useEffect, useRef } from 'react';
 
-import { PageRoute } from '@/constants/enum.js';
 import { EVENT_FORBIDDEN, EVENT_SOCIAL_ACCOUNT_EXPIRED } from '@/constants/event.js';
 import { listenCustomEvent } from '@/helpers/dispatchCustomEvents.js';
 import { enqueueForbiddenMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';

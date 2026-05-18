@@ -1,6 +1,7 @@
 'use client';
 
 import type { SocialSource, SocialSourceInURL } from '@dimensiondev/enums';
+import { EngagementType } from '@dimensiondev/enums';
 import type { LayoutProps } from '@dimensiondev/types';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { memo, Suspense, use } from 'react';
@@ -9,7 +10,6 @@ import { LikeList } from '@/components/Engagement/LikeList.js';
 import { QuoteList } from '@/components/Engagement/QuoteList.js';
 import { RepostList } from '@/components/Engagement/RepostList.js';
 import { Loading } from '@/components/Loading.js';
-import { EngagementType } from '@/constants/enum.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 
 interface ContentListProps {

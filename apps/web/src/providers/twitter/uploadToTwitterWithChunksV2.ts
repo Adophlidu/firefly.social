@@ -1,8 +1,8 @@
+import { type FileMimeType, UploadMediaStatus } from '@dimensiondev/enums';
 import { delay, safeUnreachable, TimeoutError, UnreachableError } from '@dimensiondev/utils';
 import type { UploadMediaV1Params } from 'twitter-api-v2';
 import urlcat from 'urlcat';
 
-import { type FileMimeType, UploadMediaStatus } from '@/constants/enum.js';
 import { getTwitterMediaCategory } from '@/providers/twitter/getTwitterMediaCategory.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import type { FinishUploadResponseV2, GetUploadStatusResponseV2, UploadMediaResponseV2 } from '@/types/twitter.js';

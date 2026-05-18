@@ -1,6 +1,7 @@
 'use client';
 
 import RedPacketIcon from '@dimensiondev/assets/red-packet.svg';
+import { CharTag, FileMimeType } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
@@ -13,7 +14,6 @@ import { useChainId, useSwitchChain } from 'wagmi';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { ENABLED_RP_SOURCES, SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
-import { CharTag, FileMimeType } from '@/constants/enum.js';
 import { RP_HASH_TAG, SITE_URL } from '@/constants/static.js';
 import { fetchImageAsPNG } from '@/helpers/fetchImageAsPNG.js';
 import { getCompositePost } from '@/helpers/getCompositePost.js';

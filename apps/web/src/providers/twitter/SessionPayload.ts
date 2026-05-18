@@ -1,9 +1,9 @@
 /* cspell:disable */
 
+import { KeyType } from '@dimensiondev/enums';
 import { envs } from '@dimensiondev/envs';
 import { kv } from '@vercel/kv';
 
-import { KeyType } from '@/constants/enum.js';
 import { HIDDEN_SECRET } from '@/constants/static.js';
 
 export interface SessionPayload {

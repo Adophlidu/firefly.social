@@ -1,6 +1,6 @@
 'use client';
 
-import { PredictionPlatform, Source } from '@dimensiondev/enums';
+import { PredictionPlatform, ScrollListKey, Source } from '@dimensiondev/enums';
 import { createIndicator } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
@@ -8,7 +8,6 @@ import { uniqBy } from 'lodash-es';
 
 import { BetItem } from '@/components/BetItem.js';
 import { ListInPage } from '@/components/ListInPage.js';
-import { ScrollListKey } from '@/constants/enum.js';
 import { useSearchParams } from '@/esm/navigation.js';
 import { formatPolymarketEventListData } from '@/helpers/formatPolymarketEventListData.js';
 import { getEventList } from '@/providers/firefly/prediction/getEventList.js';

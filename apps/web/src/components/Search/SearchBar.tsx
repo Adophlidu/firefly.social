@@ -1,6 +1,7 @@
 'use client';
 
 import SearchIcon from '@dimensiondev/assets/search.svg';
+import { ExploreType, PageRoute, SearchType } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { isValidAddress, isValidAddressEthereum } from '@dimensiondev/web3/utils';
 import { skipToken, useQuery } from '@tanstack/react-query';
@@ -11,7 +12,6 @@ import { BackButton } from '@/components/IconButton.js';
 import { SearchInput } from '@/components/Search/SearchInput.js';
 import { SearchRecommendation } from '@/components/Search/SearchRecommendation.js';
 import { Section } from '@/components/Semantic/Section.js';
-import { ExploreType, PageRoute, SearchType } from '@/constants/enum.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { usePathname, useRouter } from '@/esm/navigation.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';

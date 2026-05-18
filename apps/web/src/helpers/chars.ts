@@ -1,9 +1,8 @@
 import type { SocialSource } from '@dimensiondev/enums';
-import { SessionType, Source } from '@dimensiondev/enums';
+import { CharTag, SessionType, Source } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
-import { CharTag } from '@/constants/enum.js';
 import {
     MAX_CHAR_SIZE_PER_POST,
     MAX_CHAR_SIZE_PRO_PER_POST,

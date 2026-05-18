@@ -1,10 +1,9 @@
-import type { FireflyPlatform } from '@dimensiondev/enums';
+import type { BookmarkType, FireflyPlatform } from '@dimensiondev/enums';
 import { SessionType, Source } from '@dimensiondev/enums';
 import type { Pageable, PageIndicator } from '@dimensiondev/utils';
 import { NotImplementedError } from '@dimensiondev/utils';
 import type { NetworkType } from '@dimensiondev/web3/enums';
 
-import type { BookmarkType } from '@/constants/enum.js';
 import { AddBookmarkStatusForPosts } from '@/decorators/AddBookmarkStatusForPosts.js';
 import { AddAuthorHighlightStatusForPosts } from '@/decorators/AddProfileHighlightStatus.js';
 import { SetQueryDataForActPost } from '@/decorators/SetQueryDataForActPost.js';

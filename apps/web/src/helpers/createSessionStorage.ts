@@ -1,8 +1,8 @@
+import { AsyncStatus } from '@dimensiondev/enums';
 import { parseJson } from '@dimensiondev/utils';
 import type { z } from 'zod';
 import type { PersistStorage, StorageValue } from 'zustand/middleware';
 
-import { AsyncStatus } from '@/constants/enum.js';
 import { logger } from '@/libs/Logger.js';
 import { SessionFactory } from '@/providers/base/SessionFactory.js';
 import type { Account } from '@/providers/types/Account.js';

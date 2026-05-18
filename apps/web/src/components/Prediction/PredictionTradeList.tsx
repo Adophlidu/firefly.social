@@ -1,7 +1,7 @@
 'use client';
 
 import type { PredictionPlatform } from '@dimensiondev/enums';
-import { Source } from '@dimensiondev/enums';
+import { ScrollListKey, Source } from '@dimensiondev/enums';
 import { createIndicator, createPageable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
@@ -9,7 +9,6 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { ListInPage } from '@/components/ListInPage.js';
 import { Loading } from '@/components/Loading.js';
 import { PredictionTradeItem } from '@/components/Prediction/PredictionTradeItem.js';
-import { ScrollListKey } from '@/constants/enum.js';
 import { getPredictionTimelineByAddress } from '@/providers/firefly/prediction/getPredictionTimelineByAddress.js';
 import type { BetsActivity } from '@/providers/types/Firefly.js';
 import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';

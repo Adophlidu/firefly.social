@@ -1,9 +1,9 @@
 import type { SocialSource } from '@dimensiondev/enums';
+import { HomeTab } from '@dimensiondev/enums';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
-import { HomeTab } from '@/constants/enum.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 
 interface DiscoverState {

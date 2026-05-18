@@ -1,9 +1,9 @@
+import { PageRoute } from '@dimensiondev/enums';
 import { memo } from 'react';
 
 import { Link } from '@/components/Link.js';
 import { Menu } from '@/components/SideBar/Menu.js';
 import { SideBarLogo } from '@/components/SideBar/SidebarLogo.js';
-import { PageRoute } from '@/constants/enum.js';
 
 export const SideBarForDesktop = memo(function SideBarForDesktop() {
     return (

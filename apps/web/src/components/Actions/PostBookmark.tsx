@@ -1,8 +1,8 @@
+import { BookmarkType } from '@dimensiondev/enums';
 import { type HTMLProps, memo, useCallback } from 'react';
 
 import { Bookmark } from '@/components/Actions/Bookmark.js';
 import { BookmarkMenuItem } from '@/components/Actions/BookmarkMenuItem.js';
-import { BookmarkType } from '@/constants/enum.js';
 import { resolveFireflyPlatformFromSocialSource } from '@/helpers/resolveFireflyPlatform.js';
 import { useHasBookmarked } from '@/hooks/useHasBookmarked.js';
 import { useToggleBookmark } from '@/hooks/useToggleBookmark.js';

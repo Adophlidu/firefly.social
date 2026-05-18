@@ -1,9 +1,9 @@
+import { PasswordStep, PasswordWorkflow, PasswordWorkflowConfig } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { memo, useCallback, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
-import { PasswordStep, PasswordWorkflow, PasswordWorkflowConfig } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';
 import { SESSION_PASSWORD_INPUT_ID } from '@/constants/static.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';

@@ -1,4 +1,5 @@
-import { PasswordWorkflow } from '@/constants/enum.js';
+import { PasswordWorkflow } from '@dimensiondev/enums';
+
 import { FireflyResponseCode } from '@/constants/responseCode.js';
 import { PasswordModalRef } from '@/modals/PasswordModal/refs.js';
 import type { StepDescriptions } from '@/modals/PasswordModal/StepDescription.js';

@@ -1,6 +1,6 @@
 'use client';
 
-import { Locale } from '@dimensiondev/enums';
+import { Locale, PageRoute } from '@dimensiondev/enums';
 import { I18nProvider } from '@lingui/react';
 import { Trans } from '@lingui/react/macro';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
@@ -9,7 +9,6 @@ import { LayoutBody } from '@/app/layout-body.js';
 import { AgentProvider } from '@/components/AgentProvider.js';
 import { BaseNotFound } from '@/components/BaseNotFound.js';
 import { Link } from '@/components/Link.js';
-import { PageRoute } from '@/constants/enum.js';
 import { getI18nInstance, setupAndActiveI18n } from '@/i18n/core.js';
 
 function getLocaleFromCookie(): Locale {

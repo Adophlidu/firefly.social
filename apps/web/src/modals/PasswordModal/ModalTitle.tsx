@@ -1,8 +1,7 @@
+import { PasswordStep, PasswordWorkflow } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
-
-import { PasswordStep, PasswordWorkflow } from '@/constants/enum.js';
 
 interface ModalTitleProps {
     workflow: PasswordWorkflow;

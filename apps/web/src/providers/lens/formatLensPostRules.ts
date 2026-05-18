@@ -1,6 +1,5 @@
+import { RestrictionType } from '@dimensiondev/enums';
 import type { CreatePostRequest } from '@lens-protocol/client';
-
-import { RestrictionType } from '@/constants/enum.js';
 
 export function formatLensPostRules(restrictions?: RestrictionType[]): CreatePostRequest['rules'] {
     const followersOnly = restrictions?.includes(RestrictionType.YouFollower);

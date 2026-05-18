@@ -1,11 +1,10 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
-import { ActivityStatus } from '@dimensiondev/enums';
+import { ActivityStatus, AdvertisementType } from '@dimensiondev/enums';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import { headers } from 'next/headers.js';
 
 import { AdvertisementItem } from '@/components/Advertisement/AdvertisementItem.js';
 import { AdvertisementSkeleton } from '@/components/Advertisement/AdvertisementSkeleton.js';
-import { AdvertisementType } from '@/constants/enum.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { logger } from '@/libs/Logger.js';
 import { getFireflyActivityList } from '@/providers/firefly/activity/getFireflyActivityList.js';

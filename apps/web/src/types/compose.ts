@@ -1,7 +1,6 @@
 import type { BlobRef } from '@atproto/api';
-import type { SocialSource } from '@dimensiondev/enums';
+import type { RestrictionType, SocialSource } from '@dimensiondev/enums';
 
-import type { RestrictionType } from '@/constants/enum.js';
 import type { CompositePoll } from '@/providers/types/Poll.js';
 import type { Channel, Post } from '@/providers/types/SocialMedia.js';
 import type { Chars } from '@/types/chars.js';

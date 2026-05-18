@@ -1,7 +1,7 @@
+import { MetadataAttributeType } from '@dimensiondev/enums';
 import { setAccountMetadata } from '@lens-protocol/client/actions';
 import { compact } from 'lodash-es';
 
-import { MetadataAttributeType } from '@/constants/enum.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { handleOperationWithLensChain } from '@/providers/lens/handleOperationWithLensChain.js';
 import { lensSessionClientHolder } from '@/providers/lens/LensSessionClientHolder.js';

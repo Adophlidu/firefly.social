@@ -1,7 +1,7 @@
+import { KeyType } from '@dimensiondev/enums';
 import { kv } from '@vercel/kv';
 import { compact } from 'lodash-es';
 
-import { KeyType } from '@/constants/enum.js';
 import { HIDDEN_SECRET } from '@/constants/static.js';
 import type { SocialAccountTwitter } from '@/types/sync.js';
 

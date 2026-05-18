@@ -1,8 +1,8 @@
 // cspell:ignore logreport getpoststate getpostliststate postid
+import { KeyType } from '@dimensiondev/enums';
 import { isServer } from '@tanstack/react-query';
 import urlcat from 'urlcat';
 
-import { KeyType } from '@/constants/enum.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import type { PostListState, PostState } from '@/providers/types/Firefly.js';

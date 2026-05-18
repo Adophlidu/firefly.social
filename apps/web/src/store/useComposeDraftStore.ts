@@ -1,12 +1,12 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import type { SocialSource } from '@dimensiondev/enums';
+import { DraftPostType } from '@dimensiondev/enums';
 import type { Draft as WritableDraft } from 'immer';
 import { useMemo } from 'react';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
-import { DraftPostType } from '@/constants/enum.js';
 import { createPersistStorage } from '@/helpers/createPersistStorage.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';

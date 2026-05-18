@@ -1,8 +1,8 @@
 'use client';
 
+import { PageRoute } from '@dimensiondev/enums';
 import { useCallback } from 'react';
 
-import { PageRoute } from '@/constants/enum.js';
 import { useRouter } from '@/esm/navigation.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';

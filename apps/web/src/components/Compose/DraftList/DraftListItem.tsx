@@ -2,6 +2,7 @@
 
 import CloudIcon from '@dimensiondev/assets/cloud.svg';
 import Trash from '@dimensiondev/assets/trash2.svg';
+import { DraftPostType } from '@dimensiondev/enums';
 import { classNames, runInSafeAsync } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
@@ -18,7 +19,6 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { queryClient } from '@/configs/queryClient.js';
-import { DraftPostType } from '@/constants/enum.js';
 import { readChars } from '@/helpers/chars.js';
 import { enqueueErrorMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';

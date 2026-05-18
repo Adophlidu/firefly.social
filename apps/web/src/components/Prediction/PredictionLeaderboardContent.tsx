@@ -1,17 +1,17 @@
 'use client';
 
-import { Source } from '@dimensiondev/enums';
-import { createIndicator } from '@dimensiondev/utils';
-import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
-
-import { ListInPage } from '@/components/ListInPage.js';
-import { PredictionLeaderboardItem } from '@/components/Prediction/PredictionLeaderboardItem.js';
 import {
     BetsLeaderboardTab,
     type PolymarketRankOrder,
     type PolymarketRankPeriod,
     ScrollListKey,
-} from '@/constants/enum.js';
+    Source,
+} from '@dimensiondev/enums';
+import { createIndicator } from '@dimensiondev/utils';
+import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
+
+import { ListInPage } from '@/components/ListInPage.js';
+import { PredictionLeaderboardItem } from '@/components/Prediction/PredictionLeaderboardItem.js';
 import { getPolymarketRank, type PolymarketRankItem } from '@/providers/firefly/prediction/getPolymarketRank.js';
 
 function getPredictionLeaderboardItem(index: number, tab: BetsLeaderboardTab, item: PolymarketRankItem) {

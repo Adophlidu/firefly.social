@@ -3,7 +3,7 @@
 import ImageDownloadIcon from '@dimensiondev/assets/image-download.svg';
 import MirrorIcon from '@dimensiondev/assets/mirror.svg';
 import ShareIcon from '@dimensiondev/assets/share.svg';
-import { Source, TipsDetailViewType, TipsNotificationType } from '@dimensiondev/enums';
+import { ExtraLikeType, Source, TipsDetailViewType, TipsNotificationType, TxReactionType } from '@dimensiondev/enums';
 import { classNames, runInSafeAsync } from '@dimensiondev/utils';
 import { formatAddress } from '@dimensiondev/web3/utils';
 import { MenuItem } from '@headlessui/react';
@@ -21,7 +21,6 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { ExtraLikeType, TxReactionType } from '@/constants/enum.js';
 import { FIREFLY_MENTION } from '@/constants/mentions.js';
 import { SITE_URL } from '@/constants/static.js';
 import { getMentionCharsByIdentity } from '@/helpers/getMentionCharsByIdentity.js';

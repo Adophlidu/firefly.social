@@ -1,8 +1,7 @@
 import type { SocialSource } from '@dimensiondev/enums';
-import { Source } from '@dimensiondev/enums';
+import { AsyncStatus, Source } from '@dimensiondev/enums';
 
 import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
-import { AsyncStatus } from '@/constants/enum.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useThirdPartyProfileStore } from '@/store/useProfileStore/useThirdPartyProfileStore.js';

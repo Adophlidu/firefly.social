@@ -1,4 +1,14 @@
-import type { ProfilePageSource, SocialSource, SocialSourceInURL, SourceInURL } from '@dimensiondev/enums';
+import type {
+    BookmarkSource,
+    DiscoverSource,
+    FollowingSource,
+    NotificationSource,
+    ProfilePageSource,
+    SocialDiscoverSource,
+    SocialSource,
+    SocialSourceInURL,
+    SourceInURL,
+} from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 
 import {
@@ -10,13 +20,6 @@ import {
     SOCIAL_DISCOVER_SOURCE,
     SORTED_SOCIAL_SOURCES,
 } from '@/constants/computed.js';
-import type {
-    BookmarkSource,
-    DiscoverSource,
-    FollowingSource,
-    NotificationSource,
-    SocialDiscoverSource,
-} from '@/constants/enum.js';
 import { resolveSourceInUrl, resolveSourceInUrlForApi } from '@/helpers/resolveSourceInUrl.js';
 
 export function isDiscoverSource(source: string): source is DiscoverSource {

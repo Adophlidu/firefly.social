@@ -4,7 +4,7 @@ import FireflyLogo from '@dimensiondev/assets/firefly-small.svg';
 import ShadowLeftArrow from '@dimensiondev/assets/left-arrow-shadow.svg';
 import OrbLogo from '@dimensiondev/assets/orb.svg';
 import QrScan from '@dimensiondev/assets/qr-scan.svg';
-import { Source } from '@dimensiondev/enums';
+import { AsyncStatus, LensSignType, PageRoute, SignupStep, Source } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
 import { first } from 'lodash-es';
@@ -19,7 +19,6 @@ import {
 import { LoginButton } from '@/app/[locale]/(whiteboard)/components/Signup/LoginButton.js';
 import { ShadowInAndOut } from '@/app/[locale]/(whiteboard)/components/Signup/ShadowInAndOut.js';
 import { SquareButton } from '@/app/[locale]/(whiteboard)/components/Signup/SquareButton.js';
-import { AsyncStatus, LensSignType, PageRoute, SignupStep } from '@/constants/enum.js';
 import { useRouter } from '@/esm/navigation.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { formatFireflyAccountProfileFromFireflyConnections } from '@/helpers/formatFireflyAccountProfileFromFireflyConnections.js';

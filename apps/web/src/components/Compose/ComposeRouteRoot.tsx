@@ -1,5 +1,6 @@
 'use client';
 
+import { DraftPostType } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 import { Outlet, useRouter, useRouterState } from '@tanstack/react-router';
 import { isEqual } from 'lodash-es';
@@ -8,7 +9,6 @@ import { useEffect } from 'react';
 import { ComposeSend } from '@/components/Compose/ComposeSend.js';
 import { DraftButton } from '@/components/IconButton.js';
 import { ModalTitle } from '@/components/ModalTitle.js';
-import { DraftPostType } from '@/constants/enum.js';
 import { isEmptyPost } from '@/helpers/isEmptyPost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSaveDraftInCompose } from '@/hooks/useSaveDraftInCompose.js';

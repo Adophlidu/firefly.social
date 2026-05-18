@@ -1,8 +1,8 @@
+import { ExploreSwitchType } from '@dimensiondev/enums';
 import { useQuery } from '@tanstack/react-query';
 import { useAsyncFn } from 'react-use';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { ExploreSwitchType } from '@/constants/enum.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { getExploreSwitchConfigList } from '@/providers/firefly/endpoint/getExploreSwitchConfigList.js';
 import { setExploreSwitchConfig } from '@/providers/firefly/endpoint/setExploreSwitchConfig.js';

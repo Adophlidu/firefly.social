@@ -1,10 +1,10 @@
+import { CharTag } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext.js';
 import { $createParagraphNode, $createTextNode, $getRoot, type ParagraphNode } from 'lexical';
 import { useCallback } from 'react';
 
 import { $createMentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
-import { CharTag } from '@/constants/enum.js';
 import type { Chars, ComplexChars } from '@/types/chars.js';
 
 function updateParagraphNode(paragraphNode: ParagraphNode, chars: ComplexChars) {

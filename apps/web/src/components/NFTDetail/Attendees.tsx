@@ -2,7 +2,7 @@
 
 import LinkIcon from '@dimensiondev/assets/link-square.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
-import { Source } from '@dimensiondev/enums';
+import { ScrollListKey, Source } from '@dimensiondev/enums';
 import { createIndicator } from '@dimensiondev/utils';
 import { formatAddressEthereum } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
@@ -15,7 +15,6 @@ import { ListInPage } from '@/components/ListInPage.js';
 import { WatchButton } from '@/components/Profile/WatchButton.js';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { ScrollListKey } from '@/constants/enum.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { getPoapHolders } from '@/providers/firefly/nft/getPoapHolders.js';

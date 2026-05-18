@@ -3,13 +3,13 @@
 import BuyIcon from '@dimensiondev/assets/bet-buy.svg';
 import SellIcon from '@dimensiondev/assets/bet-sell.svg';
 import type { PredictionPlatform } from '@dimensiondev/enums';
+import { PolymarketBetType } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import type { PropsWithChildren } from 'react';
 
 import { ActivityCellActionTag } from '@/components/ActivityCell/ActivityCellActionTag.js';
 import { PredictionPlatformName } from '@/components/Prediction/PredictionPlatformName.js';
-import { PolymarketBetType } from '@/constants/enum.js';
 import { toFixedTrimmed } from '@/helpers/polymarket.js';
 
 interface Props {

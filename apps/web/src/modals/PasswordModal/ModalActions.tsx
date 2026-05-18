@@ -1,8 +1,8 @@
+import { PasswordStep, PasswordWorkflow } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { PasswordStep, PasswordWorkflow } from '@/constants/enum.js';
 
 interface ModalActionsProps {
     workflow: PasswordWorkflow;

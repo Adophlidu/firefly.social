@@ -1,8 +1,7 @@
+import { TimeRangeFilter } from '@dimensiondev/enums';
 import { createLookupTableResolver, UnreachableError } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import type { JSX } from 'react';
-
-import { TimeRangeFilter } from '@/constants/enum.js';
 
 export const resolveTimeRangeName = createLookupTableResolver<TimeRangeFilter, string | JSX.Element>(
     {

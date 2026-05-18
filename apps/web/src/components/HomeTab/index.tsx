@@ -1,7 +1,7 @@
 'use client';
 
 import ArrowDownCircleIcon from '@dimensiondev/assets/arrow-circle-down.svg';
-import { Source } from '@dimensiondev/enums';
+import { HomeTab, Source } from '@dimensiondev/enums';
 import { classNames, getEnumAsArray } from '@dimensiondev/utils';
 import { NetworkType } from '@dimensiondev/web3/enums';
 import { MenuButton, MenuItem, MenuItems } from '@headlessui/react';
@@ -15,7 +15,6 @@ import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { PredictionPlatformFilter } from '@/components/Prediction/PredictionPlatformFilter.js';
 import { ChainFilter } from '@/components/Swap/ChainFilter.js';
 import { SolidTabs } from '@/components/Tabs/SolidTabs.js';
-import { HomeTab } from '@/constants/enum.js';
 import { usePathname } from '@/esm/navigation.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { parseDiscoverPageUrl } from '@/helpers/parseDiscoverPageUrl.js';

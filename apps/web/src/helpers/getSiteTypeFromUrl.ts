@@ -1,6 +1,6 @@
+import { ExternalSiteDomain } from '@dimensiondev/enums';
 import { parseUrl } from '@dimensiondev/utils';
 
-import { ExternalSiteDomain } from '@/constants/enum.js';
 import { matchDomainSuffix } from '@/helpers/matchDomainSuffix.js';
 
 function parseSiteType(url: string) {

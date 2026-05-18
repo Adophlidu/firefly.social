@@ -1,5 +1,6 @@
 'use client';
 
+import { TokenCategory } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 import { compact } from 'lodash-es';
 import { type ReadonlyURLSearchParams, usePathname, useSearchParams } from 'next/navigation.js';
@@ -9,7 +10,6 @@ import urlcat from 'urlcat';
 import { SourceTabs } from '@/components/SourceTabs/index.js';
 import { SourceTab } from '@/components/SourceTabs/SourceTab.js';
 import { TOKEN_CATEGORIES, TRACING_CHAINS } from '@/constants/computed.js';
-import { TokenCategory } from '@/constants/enum.js';
 import { NO_TRACING_COINS } from '@/constants/static.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { CoinGeckoToken } from '@/providers/types/CoinGecko.js';

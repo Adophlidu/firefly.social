@@ -1,4 +1,5 @@
-import type { PasswordWorkflow } from '@/constants/enum.js';
+import type { PasswordWorkflow } from '@dimensiondev/enums';
+
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import type { StepDescriptions } from '@/modals/PasswordModal/StepDescription.js';
 

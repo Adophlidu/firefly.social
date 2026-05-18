@@ -1,5 +1,6 @@
 'use client';
 
+import { BetsLeaderboardTab, PolymarketRankOrder, PolymarketRankPeriod } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { Suspense, useCallback, useState } from 'react';
@@ -8,7 +9,6 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { Loading } from '@/components/Loading.js';
 import { PredictionLeaderboardContent } from '@/components/Prediction/PredictionLeaderboardContent.js';
 import { PredictionLeaderboardFilters } from '@/components/Prediction/PredictionLeaderboardFilters.js';
-import { BetsLeaderboardTab, PolymarketRankOrder, PolymarketRankPeriod } from '@/constants/enum.js';
 import { useBetsLeaderboardStore } from '@/store/useBetsLeaderboardStore.js';
 
 export default function BetsLeaderboardPage() {

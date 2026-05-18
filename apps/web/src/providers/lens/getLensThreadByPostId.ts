@@ -1,6 +1,6 @@
+import { KeyType } from '@dimensiondev/enums';
 import { first } from 'lodash-es';
 
-import { KeyType } from '@/constants/enum.js';
 import { MAX_POST_SIZE_PER_THREAD } from '@/constants/static.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';

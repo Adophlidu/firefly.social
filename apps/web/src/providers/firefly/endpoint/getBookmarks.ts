@@ -1,5 +1,5 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
-import { FireflyPlatform } from '@dimensiondev/enums';
+import { BookmarkType, FireflyPlatform } from '@dimensiondev/enums';
 import {
     createIndicator,
     createNextIndicator,
@@ -10,7 +10,6 @@ import {
 import { compact, isEmpty } from 'lodash-es';
 import urlcat from 'urlcat';
 
-import { BookmarkType } from '@/constants/enum.js';
 import { formatFarcasterPostFromFirefly } from '@/providers/farcaster/formatFarcasterPostFromFirefly.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';

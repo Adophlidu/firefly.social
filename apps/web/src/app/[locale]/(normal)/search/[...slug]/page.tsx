@@ -1,5 +1,6 @@
 'use client';
 
+import { SearchType } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 
 import { SearchChannelContent } from '@/app/[locale]/(normal)/search/[...slug]/pages/SearchChannelContent.js';
@@ -8,7 +9,6 @@ import { SearchPostContent } from '@/app/[locale]/(normal)/search/[...slug]/page
 import { SearchPredictionContent } from '@/app/[locale]/(normal)/search/[...slug]/pages/SearchPredictionContent.js';
 import { SearchProfileContent } from '@/app/[locale]/(normal)/search/[...slug]/pages/SearchProfileContent.js';
 import { SearchTokenContent } from '@/app/[locale]/(normal)/search/[...slug]/pages/SearchTokenContent.js';
-import { SearchType } from '@/constants/enum.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
 
 export default function Page() {

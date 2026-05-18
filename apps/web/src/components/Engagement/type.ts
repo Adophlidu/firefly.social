@@ -1,6 +1,4 @@
-import type { SocialSource } from '@dimensiondev/enums';
-
-import type { EngagementType } from '@/constants/enum.js';
+import type { EngagementType, SocialSource } from '@dimensiondev/enums';
 
 export interface PostEngagementListProps {
     postId: string;

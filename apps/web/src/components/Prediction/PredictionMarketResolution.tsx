@@ -1,10 +1,10 @@
 'use client';
 
+import { BetsMarketResolveStatus } from '@dimensiondev/enums';
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { Fragment } from 'react';
 
-import { BetsMarketResolveStatus } from '@/constants/enum.js';
 import type { BetsMarketDataForUI } from '@/types/prediction.js';
 
 interface PredictionMarketResolutionProps {

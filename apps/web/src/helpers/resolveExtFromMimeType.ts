@@ -1,6 +1,5 @@
+import { FileMimeType } from '@dimensiondev/enums';
 import { createLookupTableResolver } from '@dimensiondev/utils';
-
-import { FileMimeType } from '@/constants/enum.js';
 
 export const resolveExtFromMimeType = createLookupTableResolver<FileMimeType, string>(
     {

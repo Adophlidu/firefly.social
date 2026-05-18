@@ -1,7 +1,7 @@
 import type { ProfilePageSource } from '@dimensiondev/enums';
+import { SparksAccountStatus } from '@dimensiondev/enums';
 import { skipToken, useQuery } from '@tanstack/react-query';
 
-import { SparksAccountStatus } from '@/constants/enum.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { checkGenesisSparksAccount } from '@/providers/firefly/endpoint/checkGenesisSparksAccounts.js';
 

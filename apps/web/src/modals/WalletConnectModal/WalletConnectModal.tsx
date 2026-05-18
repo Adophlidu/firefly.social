@@ -1,12 +1,12 @@
 'use client';
 
+import { ClickOrigin } from '@dimensiondev/enums';
 import { delay } from '@dimensiondev/utils';
 import { useAppKitTheme } from '@reown/appkit/react';
 import { RouterProvider } from '@tanstack/react-router';
 import type { Ref } from 'react';
 
 import { Modal } from '@/components/Modal.js';
-import { ClickOrigin } from '@/constants/enum.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { WalletConnectContext } from '@/hooks/useWalletConnectContext.js';

@@ -1,11 +1,11 @@
 'use client';
 
 import ComebackIcon from '@dimensiondev/assets/comeback.svg';
+import { PageRoute } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import type { PropsWithChildren } from 'react';
 
 import { Headline } from '@/app/[locale]/(settings)/components/Headline.js';
-import { PageRoute } from '@/constants/enum.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 
 type PageHeaderProps = PropsWithChildren<{

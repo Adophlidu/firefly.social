@@ -1,10 +1,9 @@
 import type { SocialSource } from '@dimensiondev/enums';
-import { Source } from '@dimensiondev/enums';
+import { EngagementType, Source } from '@dimensiondev/enums';
 import { first } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { SORTED_ENGAGEMENT_TAB_TYPE } from '@/constants/computed.js';
-import { EngagementType } from '@/constants/enum.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 

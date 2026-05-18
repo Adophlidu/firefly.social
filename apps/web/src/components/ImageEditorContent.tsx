@@ -1,5 +1,6 @@
 'use client';
 
+import { FileMimeType } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 import { type Ranger, useRanger } from '@tanstack/react-ranger';
 import { Fragment, useCallback, useRef, useState } from 'react';
@@ -7,7 +8,6 @@ import type { AvatarEditorProps } from 'react-avatar-editor';
 import AvatarEditor from 'react-avatar-editor';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { FileMimeType } from '@/constants/enum.js';
 
 export interface ImageEditorContentProps {
     file: string | File;

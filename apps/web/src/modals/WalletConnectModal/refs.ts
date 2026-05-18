@@ -1,6 +1,6 @@
+import type { ClickOrigin } from '@dimensiondev/enums';
 import type { NetworkType } from '@dimensiondev/web3/enums';
 
-import type { ClickOrigin } from '@/constants/enum.js';
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 
 export interface WalletConnectModalOpenProps {

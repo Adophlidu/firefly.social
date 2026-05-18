@@ -1,11 +1,11 @@
 'use client';
 
+import { AdFunctionType, AdvertisementType } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
-import { AdFunctionType, AdvertisementType } from '@/constants/enum.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import type { Advertisement } from '@/types/advertisement.js';
 

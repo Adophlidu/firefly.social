@@ -1,10 +1,10 @@
 'use client';
 
+import { PageRoute } from '@dimensiondev/enums';
 import { bom } from '@dimensiondev/utils';
 import { useEffect } from 'react';
 import { useTimeoutFn } from 'react-use';
 
-import { PageRoute } from '@/constants/enum.js';
 import { usePathname } from '@/esm/navigation.js';
 import { isPathnameForceRedirect } from '@/helpers/isPathnameForceRedirect.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';

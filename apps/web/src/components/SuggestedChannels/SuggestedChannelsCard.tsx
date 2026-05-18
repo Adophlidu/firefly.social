@@ -1,5 +1,6 @@
 'use client';
 
+import { ExploreType } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 
@@ -9,7 +10,6 @@ import { ChannelTippy } from '@/components/Channel/ChannelTippy.js';
 import { Link } from '@/components/Link.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { SuggestedChannelsSkeleton } from '@/components/SuggestedChannels/SuggestedChannelsSkeleton.js';
-import { ExploreType } from '@/constants/enum.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';

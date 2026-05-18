@@ -1,8 +1,7 @@
-import { Source } from '@dimensiondev/enums';
+import { MuteType, Source } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 import { useMemo } from 'react';
 
-import { MuteType } from '@/constants/enum.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 

@@ -1,6 +1,6 @@
+import { PasswordStep, PasswordWorkflow } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 
-import { PasswordStep, PasswordWorkflow } from '@/constants/enum.js';
 import { uploadLocalMetrics } from '@/services/metrics.js';
 import { verifyAndGetPassword } from '@/services/verifyAndGetPassword.js';
 import { useLensProfileStore } from '@/store/useProfileStore/useLensProfileStore.js';

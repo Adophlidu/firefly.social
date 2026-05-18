@@ -1,12 +1,12 @@
 'use client';
 
 import type { SocialSource } from '@dimensiondev/enums';
+import { ChannelTabType } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 
 import { CHANNEL_TAB_TYPE } from '@/constants/computed.js';
-import { ChannelTabType } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { resolveChannelUrl } from '@/helpers/resolveChannelUrl.js';
 

@@ -1,5 +1,6 @@
 'use client';
 
+import { PageRoute } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { signIn } from 'next-auth/react';
@@ -8,7 +9,6 @@ import { useEffectOnce } from 'react-use';
 import urlcat from 'urlcat';
 
 import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { PageRoute } from '@/constants/enum.js';
 import { usePathname } from '@/esm/navigation.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 

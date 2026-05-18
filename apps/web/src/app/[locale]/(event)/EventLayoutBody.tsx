@@ -1,5 +1,6 @@
 'use client';
 
+import { Agent, PageRoute } from '@dimensiondev/enums';
 import type { ReactNode } from 'react';
 
 import { useAgent } from '@/components/AgentProvider.js';
@@ -10,7 +11,6 @@ import { AsideSearchBar, HeaderSearchBar } from '@/components/Search/SearchBar.j
 import { SideBar } from '@/components/SideBar/index.js';
 import { SuggestedChannels } from '@/components/SuggestedChannels/SuggestedChannels.js';
 import { SuggestedFollows } from '@/components/SuggestedFollows/SuggestedFollows.js';
-import { Agent, PageRoute } from '@/constants/enum.js';
 
 export function EventLayoutBody({ children }: { children: ReactNode }) {
     const agent = useAgent();

@@ -1,5 +1,6 @@
 'use client';
 
+import { CharTag } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { ContentEditable } from '@lexical/react/LexicalContentEditable.js';
 import { HashtagPlugin } from '@lexical/react/LexicalHashtagPlugin.js';
@@ -17,7 +18,6 @@ import { $isMentionNode, type MentionNode } from '@/components/Lexical/nodes/Men
 import { MentionsPlugin } from '@/components/Lexical/plugins/AtMentionsPlugin.js';
 import { LexicalAutoLinkPlugin } from '@/components/Lexical/plugins/AutoLinkPlugin.js';
 import { SharerLinkPastePlugin } from '@/components/Lexical/plugins/SharerLinkPastePlugin.js';
-import { CharTag } from '@/constants/enum.js';
 import { writeChars } from '@/helpers/chars.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import type { Chars, ComplexChars } from '@/types/chars.js';

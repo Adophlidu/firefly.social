@@ -1,6 +1,7 @@
 'use client';
 
 import RightArrowIcon from '@dimensiondev/assets/right-arrow.svg';
+import { PasswordWorkflow } from '@dimensiondev/enums';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
@@ -11,7 +12,6 @@ import { ContentCard } from '@/app/[locale]/(settings)/settings/privacy-and-secu
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Switch } from '@/components/Switch/index.js';
 import { queryClient } from '@/configs/queryClient.js';
-import { PasswordWorkflow } from '@/constants/enum.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
