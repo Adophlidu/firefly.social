@@ -1,4 +1,5 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { SessionType } from '@dimensiondev/enums';
 import {
     createIndicator,
     createNextIndicator,
@@ -15,7 +16,7 @@ import { ensureCursor } from '@/providers/lens/ensureCursor.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { formatLensProfileV3 } from '@/providers/lens/formatLensProfile.js';
 import { getLensClient } from '@/providers/lens/getLensClient.js';
-import { type Profile, SessionType } from '@/providers/types/SocialMedia.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export async function getLensSuggestedFollows(indicator?: PageIndicator): Promise<Pageable<Profile>> {
     const session = getSessionFromStorage(SessionType.Lens);

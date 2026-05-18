@@ -17,7 +17,6 @@ import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tips } from '@/components/Tips/index.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { ENABLED_BOOKMARK_SOURCES } from '@/constants/computed.js';
-
 import { mergePostDetailCache } from '@/helpers/mergePostDetailCache.js';
 import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';

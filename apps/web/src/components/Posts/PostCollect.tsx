@@ -1,7 +1,7 @@
 'use client';
 
-import { Source } from '@dimensiondev/enums';
 import LinkIcon from '@dimensiondev/assets/link.svg';
+import { Source } from '@dimensiondev/enums';
 import { EthExplorerResolver } from '@dimensiondev/web3/resolvers';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
@@ -15,7 +15,6 @@ import { useConnection } from 'wagmi';
 import { Avatar } from '@/components/Avatar.js';
 import { ChainGuardButton } from '@/components/ChainGuardButton.js';
 import { Link } from '@/components/Link.js';
-
 import { FetchError } from '@/constants/error.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getTimeLeft } from '@/helpers/formatTimestamp.js';

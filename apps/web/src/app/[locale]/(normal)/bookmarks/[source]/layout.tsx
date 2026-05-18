@@ -5,7 +5,6 @@ import { Trans } from '@lingui/react/macro';
 
 import { BookmarkSourceTabs } from '@/app/[locale]/(normal)/bookmarks/[source]/BookmarkSourceTabs.js';
 import { TimelineTitle } from '@/components/TimelineTitle.js';
-
 import { notFound } from '@/esm/navigation/server.js';
 import { isBookmarkSource } from '@/helpers/isSource.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';

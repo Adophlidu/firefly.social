@@ -1,3 +1,4 @@
+import { SessionType } from '@dimensiondev/enums';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import { isServer } from '@tanstack/react-query';
 
@@ -7,7 +8,6 @@ import { formatBskyChannel } from '@/providers/bsky/formatBskyChannel.js';
 import { resolveBskyResponseData } from '@/providers/bsky/resolveBskyResponseData.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
-import { SessionType } from '@/providers/types/SocialMedia.js';
 
 export async function getBskyChannelById(
     channelId: string,

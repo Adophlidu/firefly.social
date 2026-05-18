@@ -1,7 +1,7 @@
 'use client';
 
-import { Source } from '@dimensiondev/enums';
 import LinkIcon from '@dimensiondev/assets/link-square.svg';
+import { Source } from '@dimensiondev/enums';
 import { formatAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';

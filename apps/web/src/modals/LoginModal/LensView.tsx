@@ -1,10 +1,10 @@
 'use client';
 
-import { Source } from '@dimensiondev/enums';
 import OrbIcon from '@dimensiondev/assets/orb.svg';
 import ScanIcon from '@dimensiondev/assets/scan.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
-import { envs, STATUS } from '@dimensiondev/envs';
+import { Source, STATUS } from '@dimensiondev/enums';
+import { envs } from '@dimensiondev/envs';
 import { AbortError, ForbiddenError, runInSafeAsync } from '@dimensiondev/utils';
 import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import { lastLoggedInAccount } from '@lens-protocol/client/actions';

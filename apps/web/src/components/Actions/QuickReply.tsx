@@ -1,6 +1,7 @@
 'use client';
 
 import SendIcon from '@dimensiondev/assets/send.svg';
+import type { SocialSource } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 
@@ -8,7 +9,6 @@ import { ActionButton } from '@/components/ActionButton.js';
 import { ActionDisabledMessage } from '@/components/Actions/ActionDisabledMessage.js';
 import { Avatar } from '@/components/Avatar.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
-import type { SocialSource } from '@/constants/enum.js';
 import { useCommentPost } from '@/hooks/useCommentPost.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import type { Post } from '@/providers/types/SocialMedia.js';

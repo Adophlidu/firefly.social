@@ -1,7 +1,7 @@
-import { Source } from '@dimensiondev/enums';
+import type { SocialSource } from '@dimensiondev/enums';
+import { SessionType, Source } from '@dimensiondev/enums';
 import { bom, createLookupTableResolver, parseJson } from '@dimensiondev/utils';
 
-import type { SocialSource } from '@/constants/enum.js';
 import { resolveProfileStorageKeyBySessionType } from '@/helpers/resolveProfileStorageKey.js';
 import { logger } from '@/libs/Logger.js';
 import { SessionFactory } from '@/providers/base/SessionFactory.js';
@@ -11,7 +11,6 @@ import type { FireflySession } from '@/providers/firefly/Session.js';
 import type { LensSession } from '@/providers/lens/Session.js';
 import type { ThirdPartySession } from '@/providers/third-party/Session.js';
 import type { TwitterSession } from '@/providers/twitter/Session.js';
-import { SessionType } from '@/providers/types/SocialMedia.js';
 import { ProfileStoreSchema } from '@/schemas/ProfileStore.js';
 
 interface SessionTypes {

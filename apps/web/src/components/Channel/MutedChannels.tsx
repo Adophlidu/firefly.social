@@ -1,9 +1,10 @@
+import type { SocialSource } from '@dimensiondev/enums';
 import { createIndicator } from '@dimensiondev/utils';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { ChannelInList } from '@/components/ChannelInList.js';
 import { ListInPage } from '@/components/ListInPage.js';
-import { ScrollListKey, type SocialSource } from '@/constants/enum.js';
+import { ScrollListKey } from '@/constants/enum.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 

@@ -1,7 +1,7 @@
 'use client';
 
-import { SourceInURL } from '@dimensiondev/enums';
 import SnapshotIcon from '@dimensiondev/assets/snapshot.svg';
+import { SourceInURL } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { formatAddressEthereum } from '@dimensiondev/web3/utils';
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';

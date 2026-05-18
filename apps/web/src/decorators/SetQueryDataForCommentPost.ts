@@ -1,6 +1,6 @@
+import type { SocialSource } from '@dimensiondev/enums';
 import { produce } from 'immer';
 
-import type { SocialSource } from '@/constants/enum.js';
 import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';
 import type { Post, Provider } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/utility.js';

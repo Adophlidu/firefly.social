@@ -1,8 +1,8 @@
+import { SessionType } from '@dimensiondev/enums';
 import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import type { Notification as LensNotification } from '@lens-protocol/client';
 
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
-import { SessionType } from '@/providers/types/SocialMedia.js';
 
 // filter thread notifications created by the current profile
 export function filterNotifications(notifications: readonly LensNotification[]) {

@@ -1,7 +1,7 @@
 'use client';
 
-import { SourceInURL } from '@dimensiondev/enums';
 import SnapshotIcon from '@dimensiondev/assets/snapshot.svg';
+import { SourceInURL } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { memo } from 'react';
 import urlcat from 'urlcat';
@@ -10,7 +10,6 @@ import { SnapshotMoreAction } from '@/components/Actions/SnapshotMore.js';
 import { ActivityCellHeader } from '@/components/ActivityCell/ActivityCellHeader.js';
 import { Avatar } from '@/components/Avatar.js';
 import { Link } from '@/components/Link.js';
-
 import { getWalletProfileAvatar } from '@/helpers/getWalletProfileAvatar.js';
 import { useEnsName } from '@/hooks/useEnsName.js';
 import type { SnapshotActivity } from '@/providers/snapshot/type.js';

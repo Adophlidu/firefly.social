@@ -27,7 +27,6 @@ import {
     type TransactionPresentation,
     TransactionProjectLogo,
 } from '@/components/TransactionPresentation.js';
-
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { cn } from '@/lib/utils.js';

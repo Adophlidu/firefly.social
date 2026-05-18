@@ -1,8 +1,8 @@
+import type { SocialSource } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 import { NotFoundError } from '@dimensiondev/utils';
 import { last } from 'lodash-es';
 
-import type { SocialSource } from '@/constants/enum.js';
 import { extractArticleIdFromUrl } from '@/helpers/fireflyPostUrl.js';
 import { matchUrls } from '@/helpers/matchUrls.js';
 import { isValidPostId } from '@/helpers/postId.js';

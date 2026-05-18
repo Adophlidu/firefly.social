@@ -1,9 +1,9 @@
 'use client';
 
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { WalletSource } from '@dimensiondev/enums';
 import { useQuery } from '@tanstack/react-query';
 
-import { WalletSource } from '@/constants/enum.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { getAllConnectionsFormatted } from '@/providers/firefly/endpoint/getAllConnectionsFormatted.js';
 

@@ -1,6 +1,7 @@
+import type { SocialSource } from '@dimensiondev/enums';
 import { parseJson } from '@dimensiondev/utils';
 
-import type { ProfileSource, SocialSource } from '@/constants/enum.js';
+import type { ProfileSource } from '@/constants/enum.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { logger } from '@/libs/Logger.js';
 

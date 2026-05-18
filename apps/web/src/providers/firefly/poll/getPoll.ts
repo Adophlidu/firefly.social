@@ -1,6 +1,6 @@
+import type { SocialSource } from '@dimensiondev/enums';
 import urlcat from 'urlcat';
 
-import type { SocialSource } from '@/constants/enum.js';
 import { formatFireflyPoll } from '@/helpers/formatFireflyPoll.js';
 import { getSessionFromStorageBySource } from '@/helpers/getSessionFromStorage.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';

@@ -1,5 +1,5 @@
-import { Source } from '@dimensiondev/enums';
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { Source } from '@dimensiondev/enums';
 import { ETH_ZERO_ADDRESS } from '@dimensiondev/web3/constants';
 import { dividedBy } from '@dimensiondev/web3/numbers';
 import { assign } from 'lodash-es';

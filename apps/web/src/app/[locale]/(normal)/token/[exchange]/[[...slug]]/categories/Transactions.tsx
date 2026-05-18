@@ -1,7 +1,7 @@
 'use client';
 
-import { Source } from '@dimensiondev/enums';
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { solana as solanaMainnetChain } from '@dimensiondev/web3/chains';
 import { ETH_NATIVE_TOKEN_ADDRESS } from '@dimensiondev/web3/constants';
@@ -17,7 +17,6 @@ import { DisableScrollRestoreContext } from '@/components/DisableScrollRestore/i
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { SwapTimeline, type SwapTimelineProps } from '@/components/Swap/SwapTimeline.js';
 import { TokenContext } from '@/components/Token/TokenContext.js';
-
 import { Link } from '@/esm/Link.js';
 import { usePathname, useRouter, useSearchParams } from '@/esm/navigation.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';

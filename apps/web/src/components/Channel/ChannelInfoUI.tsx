@@ -1,5 +1,6 @@
 'use client';
 
+import type { SocialSource } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
@@ -12,7 +13,6 @@ import { ChannelInfoBio } from '@/components/Channel/ChannelInfoBio.js';
 import { Link } from '@/components/Link.js';
 import { NoSSR } from '@/components/NoSSR.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-import type { SocialSource } from '@/constants/enum.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 

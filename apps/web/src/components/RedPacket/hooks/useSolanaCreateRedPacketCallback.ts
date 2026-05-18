@@ -1,5 +1,6 @@
 import { web3 } from '@coral-xyz/anchor';
-import { envs, STATUS } from '@dimensiondev/envs';
+import { STATUS } from '@dimensiondev/enums';
+import { envs } from '@dimensiondev/envs';
 import { rightShift, toFixed } from '@dimensiondev/web3/numbers';
 import { isZeroAddressSolana } from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';

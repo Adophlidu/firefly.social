@@ -1,8 +1,8 @@
+import { SiteCookies } from '@dimensiondev/enums';
 import { compose } from '@dimensiondev/utils';
 import type { NextRequest } from 'next/server.js';
 import { z } from 'zod';
 
-import { SiteCookies } from '@/constants/enum.js';
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { getSearchParamsWithZodSchema } from '@/helpers/getSearchParamsWithZodSchema.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';

@@ -1,4 +1,5 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import type { SocialSourceInURL } from '@dimensiondev/enums';
 import {
     createIndicator,
     createNextIndicator,
@@ -7,7 +8,6 @@ import {
     type PageIndicator,
 } from '@dimensiondev/utils';
 
-import type { SocialSourceInURL } from '@/constants/enum.js';
 import { getBlockedRelations } from '@/providers/firefly/endpoint/getBlockedRelations.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { getProfilesByIds } from '@/services/getProfilesByIds.js';

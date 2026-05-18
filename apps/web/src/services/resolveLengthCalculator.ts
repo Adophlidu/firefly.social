@@ -1,8 +1,7 @@
+import type { SocialSource } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 import { createLookupTableResolver, NotImplementedError } from '@dimensiondev/utils';
 import twitterText from 'twitter-text';
-
-import type { SocialSource } from '@/constants/enum.js';
 
 // calculate length for farcaster in bytes
 // learn more: https://hackmd.io/@farcasterxyz/BJeFoxdy3

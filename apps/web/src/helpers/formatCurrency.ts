@@ -1,7 +1,7 @@
+import { CurrencyType } from '@dimensiondev/enums';
 import { scale10 } from '@dimensiondev/web3/numbers';
 import { BigNumber } from 'bignumber.js';
 
-import { CurrencyType } from '@/constants/enum.js';
 import type { LiteralUnion } from '@/types/utility.js';
 
 interface FormatterCurrencyOptions {

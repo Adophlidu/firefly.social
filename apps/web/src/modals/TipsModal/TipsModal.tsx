@@ -6,7 +6,6 @@ import { type Ref, useCallback, useMemo } from 'react';
 
 import { TipsModelRouter, TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { TIPS_SUPPORT_NETWORKS } from '@/constants/computed.js';
-
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { getEnsNameFromWalletProfile } from '@/helpers/getEnsNameFromWalletProfile.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';

@@ -1,8 +1,9 @@
+import { FrameProtocol } from '@dimensiondev/enums';
 import { digestImageUrl } from '@dimensiondev/workers-sizeof/digestImageUrl.js';
 import type { Context } from 'hono';
 
 import type { FrameInput, FrameV1 } from '@/frame/src/types.js';
-import { ActionType, FrameProtocol } from '@/frame/src/types.js';
+import { ActionType } from '@/frame/src/types.js';
 
 interface FrameMetadata {
     title?: string;

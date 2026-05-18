@@ -1,3 +1,4 @@
+import { SessionType } from '@dimensiondev/enums';
 import { NotImplementedError, runInSafeAsync } from '@dimensiondev/utils';
 import {
     createIndicator,
@@ -6,6 +7,7 @@ import {
     type Pageable,
     type PageIndicator,
 } from '@dimensiondev/utils';
+import type { NetworkType } from '@dimensiondev/web3/enums';
 import urlcat from 'urlcat';
 
 import { WARPCAST_ROOT_URL_V1 } from '@/constants/static.js';
@@ -17,18 +19,16 @@ import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import type { Account } from '@/providers/types/Account.js';
 import type { NotificationSettings, WalletProfile } from '@/providers/types/Firefly.js';
 import type { Session } from '@/providers/types/Session.js';
-import {
-    type Channel,
-    type Friendship,
-    type NetworkType,
-    type Notification,
-    type Post,
-    type Profile,
-    type ProfileBadge,
-    type ProfileEditable,
-    type ProfileForSignup,
-    type Provider,
-    SessionType,
+import type {
+    Channel,
+    Friendship,
+    Notification,
+    Post,
+    Profile,
+    ProfileBadge,
+    ProfileEditable,
+    ProfileForSignup,
+    Provider,
 } from '@/providers/types/SocialMedia.js';
 import type { Channel as WarpcastChannel } from '@/providers/types/Warpcast.js';
 import type { ResponseJson } from '@/types/utility.js';

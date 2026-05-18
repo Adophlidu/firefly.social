@@ -3,7 +3,6 @@ import type { LayoutProps } from '@dimensiondev/types';
 
 import { RedirectProfilePage } from '@/app/[locale]/(normal)/profile/pages/RedirectProfilePage.js';
 import { RedirectWithFireflyUID } from '@/app/[locale]/(normal)/profile/pages/RedirectWithFireflyUID.js';
-
 import { notFound } from '@/esm/navigation/server.js';
 import { isNumericalProfileId as isUID } from '@/helpers/isNumericalProfileId.js';
 import { isSocialSource } from '@/helpers/isSource.js';

@@ -1,7 +1,7 @@
+import { SocialProfileCategory, WalletProfileCategory } from '@dimensiondev/enums';
 import { type NextRequest, NextResponse } from 'next/server.js';
 import urlcat from 'urlcat';
 
-import { SocialProfileCategory, WalletProfileCategory } from '@/constants/enum.js';
 import { isFollowCategory } from '@/helpers/isFollowCategory.js';
 import { isProfilePageSource, isSocialSource } from '@/helpers/isSource.js';
 import { parseProfileUrl } from '@/helpers/parseProfileUrl.js';

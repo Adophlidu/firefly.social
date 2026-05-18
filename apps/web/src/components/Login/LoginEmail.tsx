@@ -1,8 +1,8 @@
 'use client';
 
-import { Source } from '@dimensiondev/enums';
 import EmailIcon from '@dimensiondev/assets/email2.svg';
 import LockIcon from '@dimensiondev/assets/lock.svg';
+import { Source } from '@dimensiondev/enums';
 import { AbortError, ForbiddenError } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';

@@ -1,8 +1,8 @@
+import type { SocialSource } from '@dimensiondev/enums';
 import { EthChainResolver } from '@dimensiondev/web3/resolvers';
 import { useAsyncFn } from 'react-use';
 import { mainnet } from 'viem/chains';
 
-import type { SocialSource } from '@/constants/enum.js';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { claimRedPacket } from '@/providers/ethereum/red-packet/claimRedPacket.js';

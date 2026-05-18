@@ -1,4 +1,5 @@
-import type { SocialSource } from '@/constants/enum.js';
+import type { SocialSource } from '@dimensiondev/enums';
+
 import { deletePostFromQueryData } from '@/helpers/deletePostFromQueryData.js';
 import type { Provider } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/utility.js';

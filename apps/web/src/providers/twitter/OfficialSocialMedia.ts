@@ -1,5 +1,6 @@
-import { Source } from '@dimensiondev/enums';
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import type { Locale } from '@dimensiondev/enums';
+import { FireflyPlatform, SessionType, Source } from '@dimensiondev/enums';
 import { NotImplementedError, runInSafeAsync } from '@dimensiondev/utils';
 import {
     createIndicator,
@@ -19,7 +20,6 @@ import type {
 } from 'twitter-api-v2';
 import urlcat from 'urlcat';
 
-import { FireflyPlatform, type Locale } from '@/constants/enum.js';
 import { TWITTER_PROFILE_SEARCH_REGEXP } from '@/constants/regexp.js';
 import { AddLikeStatusToTwitterPosts } from '@/decorators/AddLikeStatusToTwitterPosts.js';
 import { AddAuthorHighlightStatusForPosts } from '@/decorators/AddProfileHighlightStatus.js';
@@ -71,7 +71,6 @@ import {
     type ProfileEditable,
     type ProfileForSignup,
     type Provider,
-    SessionType,
 } from '@/providers/types/SocialMedia.js';
 import { useTwitterLikeStore } from '@/store/useTwitterLikeStore.js';
 import { useTwitterRetweetStore } from '@/store/useTwitterRetweetStore.js';

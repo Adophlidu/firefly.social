@@ -1,10 +1,9 @@
-import { Source } from '@dimensiondev/enums';
 import Play from '@dimensiondev/assets/play.svg';
+import { Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 
 import { Image } from '@/components/Image.js';
 import { VideoPoster } from '@/components/Posts/VideoPoster.js';
-
 import { dynamic } from '@/esm/dynamic.js';
 import { computeSize } from '@/helpers/computeSize.js';
 import { optimizeCDNImageSize } from '@/helpers/optimizeCDNImageSize.js';

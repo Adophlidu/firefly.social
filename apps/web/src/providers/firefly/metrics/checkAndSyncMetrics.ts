@@ -1,7 +1,7 @@
+import type { SocialSource } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 import { compact } from 'lodash-es';
 
-import type { SocialSource } from '@/constants/enum.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { getAccountMetricsData } from '@/helpers/getAccountMetricsData.js';
 import { getAllProfiles } from '@/helpers/getAllProfiles.js';

@@ -1,5 +1,6 @@
 import ArrowDown from '@dimensiondev/assets/arrow-line-down.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import type { SocialSource } from '@dimensiondev/enums';
 import { Popover, PopoverButton, PopoverPanel, Transition } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { compact, isEqual, values } from 'lodash-es';
@@ -10,7 +11,6 @@ import { CloseButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-import type { SocialSource } from '@/constants/enum.js';
 import { formatFireflyProfileToProfile } from '@/helpers/formatSearchProfile.js';
 import { resolveFireflyPlatformFromSocialSource } from '@/helpers/resolveFireflyPlatform.js';
 import { resolveSocialSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';

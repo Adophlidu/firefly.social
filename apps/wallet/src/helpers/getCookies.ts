@@ -1,6 +1,5 @@
+import { Locale, SiteCookies } from '@dimensiondev/enums';
 import { bom, isValidEnumValue } from '@dimensiondev/utils';
-
-import { Locale, SiteCookies } from '@/constants/enum.js';
 
 export function resolveLocale(locale: string): Locale {
     return isValidEnumValue(locale, Locale) ? (locale as Locale) : resolveLanguageLocale(bom.navigator?.language);

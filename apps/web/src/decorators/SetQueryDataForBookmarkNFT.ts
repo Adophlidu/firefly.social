@@ -1,9 +1,8 @@
-import { Source } from '@dimensiondev/enums';
+import { FireflyPlatform, Source } from '@dimensiondev/enums';
 import { type Draft, produce } from 'immer';
 import { gnosis } from 'viem/chains';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { FireflyPlatform } from '@/constants/enum.js';
 import { POAP_CONTRACT_ADDRESS } from '@/constants/static.js';
 import type { PageData } from '@/decorators/types.js';
 import { patchTransactionsQuery } from '@/helpers/patchTransactionsQuery.js';

@@ -1,6 +1,6 @@
+import type { SocialSource } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 
-import type { SocialSource } from '@/constants/enum.js';
 import { SessionExpiredError } from '@/constants/error.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';

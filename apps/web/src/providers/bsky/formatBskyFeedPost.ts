@@ -1,4 +1,3 @@
-import { Source } from '@dimensiondev/enums';
 import {
     AppBskyEmbedRecord,
     AppBskyEmbedRecordWithMedia,
@@ -7,6 +6,7 @@ import {
     AppBskyFeedThreadgate,
     RichText,
 } from '@atproto/api';
+import { SessionType, Source } from '@dimensiondev/enums';
 import { parseUrl } from '@dimensiondev/utils';
 import { produce } from 'immer';
 import { compact, first, initial, isUndefined, omitBy } from 'lodash-es';
@@ -20,7 +20,7 @@ import { PostAtUri } from '@/providers/bsky/AtUri.js';
 import { AppBskyEmbed, AppBskyFeed, AppBskyRecord } from '@/providers/bsky/contentChecker.js';
 import { formatBskyModeratorProfile } from '@/providers/bsky/formatBskyModeratorProfile.js';
 import { formatBskyProfile } from '@/providers/bsky/formatBskyProfile.js';
-import { type Attachment, type Post, type Profile, SessionType } from '@/providers/types/SocialMedia.js';
+import type { Attachment, Post, Profile } from '@/providers/types/SocialMedia.js';
 
 function parseBskyGifUri(uri: string): boolean {
     const parsedURL = parseUrl(uri);

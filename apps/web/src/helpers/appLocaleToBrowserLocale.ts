@@ -1,4 +1,4 @@
-import { Locale } from '@/constants/enum.js';
+import { Locale } from '@dimensiondev/enums';
 
 export function appLocaleToBrowserLocale(appLocale: Locale) {
     switch (appLocale) {

@@ -2,7 +2,8 @@
 
 import Close from '@dimensiondev/assets/close.svg';
 import Info from '@dimensiondev/assets/info.svg';
-import { envs, STATUS } from '@dimensiondev/envs';
+import { STATUS } from '@dimensiondev/enums';
+import { envs } from '@dimensiondev/envs';
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';

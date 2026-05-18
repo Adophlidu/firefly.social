@@ -1,8 +1,9 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import type { SocialSource } from '@dimensiondev/enums';
 import { compact, values } from 'lodash-es';
 import { useAsyncFn } from 'react-use';
 
-import { DraftPostType, type SocialSource } from '@/constants/enum.js';
+import { DraftPostType } from '@/constants/enum.js';
 import { getCompositePost } from '@/helpers/getCompositePost.js';
 import { isEmptyPost } from '@/helpers/isEmptyPost.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';

@@ -1,8 +1,8 @@
+import type { SocialSource } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 import { ETH_ZERO_ADDRESS } from '@dimensiondev/web3/constants';
 import { compact } from 'lodash-es';
 
-import type { SocialSource } from '@/constants/enum.js';
 import { readChars } from '@/helpers/chars.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';

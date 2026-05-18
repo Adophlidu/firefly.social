@@ -1,3 +1,4 @@
+import { Locale } from '@dimensiondev/enums';
 import { i18n } from '@lingui/core';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration.js';
@@ -5,7 +6,6 @@ import relativeTime from 'dayjs/plugin/relativeTime.js';
 import utc from 'dayjs/plugin/utc.js';
 import dayjsTwitter from 'dayjs-twitter';
 
-import { Locale } from '@/constants/enum.js';
 import { getDayjsLocaleName } from '@/helpers/dayjsLocale.js';
 import { getLocalFromClientCookies } from '@/helpers/getCookies.js';
 

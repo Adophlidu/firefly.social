@@ -1,3 +1,4 @@
+import { SessionType } from '@dimensiondev/enums';
 import { ETH_ZERO_ADDRESS } from '@dimensiondev/web3/constants';
 import { postId as formatPostId } from '@lens-protocol/client';
 import { signFrameAction } from '@lens-protocol/client/actions';
@@ -11,7 +12,6 @@ import { ensureLensResultSync } from '@/providers/lens/ensureLensResultSync.js';
 import { lensSessionClientHolder } from '@/providers/lens/LensSessionClientHolder.js';
 import type { Additional, Provider } from '@/providers/types/Frame.js';
 import type { FrameSignaturePacket } from '@/providers/types/Lens.js';
-import { SessionType } from '@/providers/types/SocialMedia.js';
 import type { Index } from '@/types/frame.js';
 
 class FrameProvider implements Provider<FrameSignaturePacket> {

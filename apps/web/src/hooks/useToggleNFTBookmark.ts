@@ -1,8 +1,8 @@
+import { FireflyPlatform } from '@dimensiondev/enums';
 import { ETH_ZERO_ADDRESS } from '@dimensiondev/web3/constants';
 import { t } from '@lingui/core/macro';
 import { useIsMutating, useMutation } from '@tanstack/react-query';
 
-import { FireflyPlatform } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';
 import { usePathname } from '@/esm/navigation.js';
 import { enqueueErrorMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';

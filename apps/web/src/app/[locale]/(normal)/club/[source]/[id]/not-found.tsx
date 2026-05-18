@@ -1,10 +1,11 @@
 'use client';
 
+import type { SocialSourceInURL } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 
 import { NotFound } from '@/components/NotFound.js';
-import { SearchType, type SocialSourceInURL } from '@/constants/enum.js';
+import { SearchType } from '@/constants/enum.js';
 import { useParams } from '@/esm/navigation.js';
 import { isSocialSourceInUrl } from '@/helpers/isSource.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';

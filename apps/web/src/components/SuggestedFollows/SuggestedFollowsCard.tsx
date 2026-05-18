@@ -1,8 +1,8 @@
 'use client';
 
-import { Source } from '@dimensiondev/enums';
 import 'swiper/css';
 
+import { Source } from '@dimensiondev/enums';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';

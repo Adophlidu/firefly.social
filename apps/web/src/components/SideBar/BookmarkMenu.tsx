@@ -1,15 +1,14 @@
 'use client';
 
-import { Source } from '@dimensiondev/enums';
 import BookmarkSelectedIcon from '@dimensiondev/assets/bookmark.selected.svg';
 import BookmarkIcon from '@dimensiondev/assets/bookmark.svg';
+import { Source } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo, useMemo } from 'react';
 
 import { BaseMenuItem } from '@/components/SideBar/BaseMenuItem.js';
 import { BOOKMARK_SOURCES, DEFAULT_BOOKMARK_SOURCE } from '@/constants/computed.js';
-
 import { resolveBookmarkUrl } from '@/helpers/resolveBookmarkUrl.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 

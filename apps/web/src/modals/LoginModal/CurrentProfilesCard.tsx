@@ -2,6 +2,7 @@
 
 import PlusIcon from '@dimensiondev/assets/plus.svg';
 import SwitchIcon from '@dimensiondev/assets/switch.svg';
+import type { SocialSource } from '@dimensiondev/enums';
 import { classNames, delay } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useRouter } from '@tanstack/react-router';
@@ -17,7 +18,7 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileSourceIcon } from '@/components/ProfileSourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { PageRoute, type SocialSource } from '@/constants/enum.js';
+import { PageRoute } from '@/constants/enum.js';
 import { SessionExpiredError } from '@/constants/error.js';
 import { MAX_ACCOUNT_COUNT_PER_SOURCE } from '@/constants/static.js';
 import { usePathname } from '@/esm/navigation.js';

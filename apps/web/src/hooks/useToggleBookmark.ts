@@ -1,6 +1,7 @@
+import type { SocialSource } from '@dimensiondev/enums';
 import { t } from '@lingui/core/macro';
 
-import { BookmarkType, type SocialSource } from '@/constants/enum.js';
+import { BookmarkType } from '@/constants/enum.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveFireflyPlatformFromSocialSource } from '@/helpers/resolveFireflyPlatform.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';

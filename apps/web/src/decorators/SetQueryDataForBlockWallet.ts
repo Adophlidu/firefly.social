@@ -3,7 +3,6 @@ import { isSameAddress, isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import { type Draft, produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
-
 import type { PageData } from '@/decorators/types.js';
 import { patchActivitiesQuery } from '@/helpers/patchActivitiesQuery.js';
 import { patchTransactionsQuery } from '@/helpers/patchTransactionsQuery.js';

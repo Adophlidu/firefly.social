@@ -1,8 +1,8 @@
 'use client';
 
-import { Source } from '@dimensiondev/enums';
 import LikeIcon from '@dimensiondev/assets/heart.svg';
 import UserIcon from '@dimensiondev/assets/user.svg';
+import { Source } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 import { memo, type MouseEvent, useCallback } from 'react';
 
@@ -10,7 +10,6 @@ import { Avatar } from '@/components/Avatar.js';
 import { ToggleFollowChannelButton } from '@/components/Channel/ToggleFollowChannelButton.js';
 import { BioMarkup } from '@/components/Markup/BioMarkup.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-
 import { useRouter } from '@/esm/navigation.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';

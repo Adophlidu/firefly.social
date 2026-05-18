@@ -1,4 +1,4 @@
-import type { SocialSource } from '@/constants/enum.js';
+import type { SocialSource } from '@dimensiondev/enums';
 
 export function createDummyChannel(source: SocialSource, id: string, name = id) {
     return {

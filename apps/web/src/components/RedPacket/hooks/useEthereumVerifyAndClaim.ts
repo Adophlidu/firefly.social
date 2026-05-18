@@ -1,3 +1,4 @@
+import type { SocialSource } from '@dimensiondev/enums';
 import { NetworkType } from '@dimensiondev/web3/enums';
 import { EthChainResolver } from '@dimensiondev/web3/resolvers';
 import { t } from '@lingui/core/macro';
@@ -12,7 +13,6 @@ import { useClaimCallback } from '@/components/RedPacket/hooks/useClaimCallback.
 import { useClaimStrategyStatus } from '@/components/RedPacket/hooks/useClaimStrategyStatus.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
-import type { SocialSource } from '@/constants/enum.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { usePrivyAppkitAccountByNetwork } from '@/hooks/appkit/usePrivyAppkitAccountByNetwork.js';

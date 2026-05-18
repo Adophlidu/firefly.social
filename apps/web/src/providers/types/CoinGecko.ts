@@ -1,3 +1,4 @@
+import type { CurrencyType } from '@dimensiondev/enums';
 import type { Address } from 'viem';
 
 import type { Runtime } from '@/providers/types/Trending.js';
@@ -159,17 +160,6 @@ export interface CoinGeckoCoinMarketInfo {
     symbol: string;
     total_supply: number;
     total_volume: number;
-}
-
-enum CurrencyType {
-    NATIVE = 'native',
-    BTC = 'btc',
-    ETH = 'eth',
-    USD = 'usd',
-    CNY = 'cny',
-    HKD = 'hkd',
-    JPY = 'jpy',
-    EUR = 'eur',
 }
 
 export type Price = Partial<Record<CurrencyType, string>>;

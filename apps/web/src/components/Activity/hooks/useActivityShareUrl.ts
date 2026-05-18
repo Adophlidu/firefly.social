@@ -1,8 +1,9 @@
+import type { SocialSource } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 import urlcat from 'urlcat';
 
 import { useActivityCurrentAccountHandle } from '@/components/Activity/hooks/useActivityCurrentAccountHandle.js';
-import { PageRoute, type SocialSource } from '@/constants/enum.js';
+import { PageRoute } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/static.js';
 import { resolveActivityShareUrl } from '@/helpers/resolveActivityUrl.js';
 

@@ -1,4 +1,4 @@
-import { Source, SourceInURL } from '@dimensiondev/enums';
+import { SessionType, Source, SourceInURL } from '@dimensiondev/enums';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import { first } from 'lodash-es';
 
@@ -22,7 +22,7 @@ import { video } from '@/providers/lens/metadata/post/Video.js';
 import { lensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { createPollPost } from '@/providers/orb/createPollPost.js';
 import type { CompositePoll } from '@/providers/types/Poll.js';
-import { type Channel, SessionType } from '@/providers/types/SocialMedia.js';
+import type { Channel } from '@/providers/types/SocialMedia.js';
 import { createPostTo } from '@/services/createPostTo.js';
 import { uploadAndConvertToM3u8 } from '@/services/uploadAndConvertToM3u8.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';

@@ -1,5 +1,6 @@
-import { Source } from '@dimensiondev/enums';
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import type { SocialSource } from '@dimensiondev/enums';
+import { SessionType, Source } from '@dimensiondev/enums';
 import { createIndicator } from '@dimensiondev/utils';
 import { useQuery } from '@tanstack/react-query';
 import { uniqBy } from 'lodash-es';
@@ -8,7 +9,6 @@ import { useDebounceValue } from 'usehooks-ts';
 
 import { FF_GARDEN_CHANNEL, HOME_CHANNEL, HOME_CLUB } from '@/constants/channel.js';
 import { SORTED_CHANNEL_SOURCES } from '@/constants/computed.js';
-import type { SocialSource } from '@/constants/enum.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';
@@ -17,7 +17,6 @@ import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { formatChannelFromOrb } from '@/providers/lens/formatChannelFromOrb.js';
 import type { GetClubsData, SearchClubsData } from '@/providers/orb/type.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
-import { SessionType } from '@/providers/types/SocialMedia.js';
 import type { ResponseJson } from '@/types/utility.js';
 
 interface SearchExtraOptions {

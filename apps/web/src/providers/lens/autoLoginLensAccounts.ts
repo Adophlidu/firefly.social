@@ -4,7 +4,6 @@ import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import { compact } from 'lodash-es';
 
 import { queryClient } from '@/configs/queryClient.js';
-
 import { MAX_ACCOUNT_COUNT_PER_SOURCE } from '@/constants/static.js';
 import { ensureCreatedFireflyWallet } from '@/helpers/ensureCreatedFireflyWallet.js';
 import { queryMyAllConnections } from '@/helpers/queryMyAllConnections.js';

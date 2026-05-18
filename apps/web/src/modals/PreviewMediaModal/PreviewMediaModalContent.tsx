@@ -1,9 +1,9 @@
 'use client';
 
-import { Source } from '@dimensiondev/enums';
 import 'swiper/css';
 
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import type { Source } from '@dimensiondev/enums';
 import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
 import { useMemo, useRef } from 'react';
 import { Keyboard, Navigation } from 'swiper/modules';
@@ -12,7 +12,6 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { CloseButton } from '@/components/IconButton.js';
 import { SUPPORTED_PREVIEW_MEDIA_TYPES } from '@/constants/computed.js';
-
 import { PreviewContent } from '@/modals/PreviewMediaModal/PreviewContent.js';
 import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
 

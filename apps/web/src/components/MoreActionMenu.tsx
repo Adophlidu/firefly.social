@@ -1,8 +1,8 @@
+import type { SocialSource } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { Menu, MenuButton, type MenuButtonProps, type MenuProps, Transition } from '@headlessui/react';
 import { type ElementType, Fragment, type MouseEvent, type ReactNode, useEffect } from 'react';
 
-import type { SocialSource } from '@/constants/enum.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { stopEvent } from '@/helpers/stopEvent.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';

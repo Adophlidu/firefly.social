@@ -1,3 +1,4 @@
+import type { SocialSource } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { type Draft, produce } from 'immer';
@@ -5,7 +6,6 @@ import { first, uniqBy } from 'lodash-es';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { UNIFIED_NOTIFICATION_TYPES } from '@/constants/computed.js';
-import type { SocialSource } from '@/constants/enum.js';
 import { toProfileId } from '@/helpers/isSameProfile.js';
 import { patchNotificationQueryDataOnAuthor } from '@/helpers/patchNotificationQueryData.js';
 import { type Matcher, patchPostQueryData } from '@/helpers/patchPostQueryData.js';

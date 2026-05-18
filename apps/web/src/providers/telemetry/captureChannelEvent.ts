@@ -1,7 +1,7 @@
+import type { SocialSource } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 import { runInSafeAsync, safeUnreachable } from '@dimensiondev/utils';
 
-import type { SocialSource } from '@/constants/enum.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';

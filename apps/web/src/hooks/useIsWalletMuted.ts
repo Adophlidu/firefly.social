@@ -1,7 +1,7 @@
+import { FireflyPlatform } from '@dimensiondev/enums';
 import { isValidAddressEthereum } from '@dimensiondev/web3/utils';
 import { useQuery } from '@tanstack/react-query';
 
-import { FireflyPlatform } from '@/constants/enum.js';
 import { isProfileMuted } from '@/providers/firefly/endpoint/isProfileMuted.js';
 
 export function useIsWalletMuted(address: string, enabled = true) {

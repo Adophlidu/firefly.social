@@ -1,4 +1,4 @@
-import { Source } from '@dimensiondev/enums';
+import { SessionType, Source } from '@dimensiondev/enums';
 import { NotAllowedError, safeUnreachable, UnreachableError } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
@@ -17,7 +17,6 @@ import { resolveTwitterResponseData } from '@/providers/twitter/resolveTwitterRe
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import type { BindResponse } from '@/providers/types/Firefly.js';
 import type { Session } from '@/providers/types/Session.js';
-import { SessionType } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
 import type { ResponseJson } from '@/types/utility.js';
 

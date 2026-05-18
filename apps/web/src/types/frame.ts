@@ -1,6 +1,7 @@
 /* cspell:disable */
 
-import type { FrameProtocol } from '@/constants/enum.js';
+import type { FrameProtocol } from '@dimensiondev/enums';
+
 import type { LiteralOrString } from '@/types/utility.js';
 
 // #region frame v1

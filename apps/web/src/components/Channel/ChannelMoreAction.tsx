@@ -1,7 +1,7 @@
 'use client';
 
-import { Source } from '@dimensiondev/enums';
 import MoreIcon from '@dimensiondev/assets/more-fill.svg';
+import { Source } from '@dimensiondev/enums';
 import { MenuItem, type MenuProps } from '@headlessui/react';
 import { memo } from 'react';
 
@@ -10,7 +10,6 @@ import { MuteChannelButton } from '@/components/Actions/MuteChannelButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
-
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { useToggleMutedChannel } from '@/hooks/useToggleMutedChannel.js';

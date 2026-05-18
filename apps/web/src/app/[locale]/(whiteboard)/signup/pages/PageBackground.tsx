@@ -1,4 +1,3 @@
-import { Source } from '@dimensiondev/enums';
 import BskyLogo from '@dimensiondev/assets/bsky-logo.svg';
 import CloudBigIcon from '@dimensiondev/assets/cloud-big.svg';
 import CloudMediumIcon from '@dimensiondev/assets/cloud-medium.svg';
@@ -10,6 +9,7 @@ import LensLogo from '@dimensiondev/assets/lens-logo.svg';
 import SmallLogo from '@dimensiondev/assets/logo-small.svg';
 import SignupBg from '@dimensiondev/assets/signup-bg.svg';
 import TwitterLogo from '@dimensiondev/assets/x-logo.svg';
+import { Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { AnimatePresence, motion } from 'framer-motion';
 import type { PropsWithChildren } from 'react';

@@ -1,4 +1,5 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { FireflyPlatform } from '@dimensiondev/enums';
 import {
     createIndicator,
     createNextIndicator,
@@ -8,7 +9,7 @@ import {
 } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
-import { BookmarkType, FireflyPlatform } from '@/constants/enum.js';
+import { BookmarkType } from '@/constants/enum.js';
 import { PostAtUri } from '@/providers/bsky/AtUri.js';
 import { formatBskyPost } from '@/providers/bsky/formatBskyFeedPost.js';
 import { resolveBskyResponseData } from '@/providers/bsky/resolveBskyResponseData.js';

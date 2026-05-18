@@ -1,5 +1,5 @@
-import { Source } from '@dimensiondev/enums';
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { SessionType, Source } from '@dimensiondev/enums';
 import { NotFoundError, NotImplementedError, runInSafeAsync, UnauthorizedError } from '@dimensiondev/utils';
 import {
     createIndicator,
@@ -29,17 +29,16 @@ import type { Account } from '@/providers/types/Account.js';
 import type { NotificationSettings } from '@/providers/types/Firefly.js';
 import { UserTimelineTab } from '@/providers/types/Nitter.js';
 import type { Session } from '@/providers/types/Session.js';
-import {
-    type Channel,
-    type Friendship,
-    type Notification,
-    type Post,
-    type Profile,
-    type ProfileBadge,
-    type ProfileEditable,
-    type ProfileForSignup,
-    type Provider,
-    SessionType,
+import type {
+    Channel,
+    Friendship,
+    Notification,
+    Post,
+    Profile,
+    ProfileBadge,
+    ProfileEditable,
+    ProfileForSignup,
+    Provider,
 } from '@/providers/types/SocialMedia.js';
 
 function notImplementedWhenClientHasTwitterSession(): boolean {

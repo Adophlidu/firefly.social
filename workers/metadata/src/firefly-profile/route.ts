@@ -1,6 +1,6 @@
+import { Source } from '@dimensiondev/enums';
 import { ONE_MONTH } from '@dimensiondev/workers-shared/constants/duration.js';
 import { SITE_DESCRIPTION, SITE_URL } from '@dimensiondev/workers-shared/constants/metadata.js';
-import { Source } from '@dimensiondev/workers-shared/constants/source.js';
 import { createPageTitleOG } from '@dimensiondev/workers-shared/helpers/createPageTitleOG.js';
 import {
     createSuccessResponseJson,

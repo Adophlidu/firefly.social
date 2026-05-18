@@ -1,7 +1,7 @@
+import type { SocialSource } from '@dimensiondev/enums';
 import urlcat from 'urlcat';
 import type { Address, Hex } from 'viem';
 
-import type { SocialSource } from '@/constants/enum.js';
 import { EmailCodeLimitExceededError, InvalidPolymarketAccountError } from '@/constants/error.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { resolveSourceInUrlForApi } from '@/helpers/resolveSourceInUrl.js';

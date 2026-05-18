@@ -1,20 +1,4 @@
-import { Source, SourceInURL } from '@dimensiondev/enums';
-
-export { NetworkType } from '@dimensiondev/web3/enums';
-
-// The maskbook blockchain network plugin ID
-export enum NetworkPluginID {
-    PLUGIN_EVM = 'com.mask.evm',
-    PLUGIN_SOLANA = 'com.mask.solana',
-}
-
-export type ThemeMode = 'light' | 'dark' | 'default';
-
-export enum Locale {
-    en = 'en',
-    zhHans = 'zh-Hans',
-    zhHant = 'zh-Hant',
-}
+import type { SocialSource, Source, SourceInURL } from '@dimensiondev/enums';
 
 export enum PageRoute {
     Home = '/',
@@ -59,37 +43,6 @@ export enum Agent {
     Browser = 'browser',
 }
 
-export enum FireflyPlatform {
-    Farcaster = 'farcaster',
-    Lens = 'lens',
-    Twitter = 'twitter',
-    Bsky = 'bsky',
-    Firefly = 'firefly',
-    Article = 'article',
-    Wallet = 'wallet',
-    NFTs = 'nfts',
-    Token = 'token',
-    DAOs = 'snapshot',
-    Polymarket = 'polymarket',
-    Prediction = 'bets',
-}
-
-export enum ConnectionPlatform {
-    Farcaster = 'farcaster',
-    Lens = 'lens',
-    Twitter = 'twitter',
-    Bsky = 'bsky',
-    Solana = 'solana',
-    Wallet = 'wallet',
-    Firefly = 'firefly',
-    Telegram = 'telegram',
-    Apple = 'apple',
-    Google = 'google',
-    Email = 'email',
-}
-
-export type SocialSource = Source.Farcaster | Source.Lens | Source.Twitter | Source.Bsky;
-
 export type ThirdPartySource = Source.Telegram | Source.Apple | Source.Google | Source.Email;
 
 // Strictly match the SessionType
@@ -107,14 +60,6 @@ export type ProfileSource =
 export type LoginSource = SocialSource | ThirdPartySource;
 export type RequestedLoginSource = Source.Twitter;
 
-export type SocialSourceInURL =
-    | SourceInURL.Farcaster
-    | SourceInURL.Lens
-    | SourceInURL.Twitter
-    | SourceInURL.Bsky
-    | SourceInURL.X;
-export type ProfilePageSource = SocialSource | Source.Wallet | Source.WalletMix;
-export type ProfilePageSourceInURL = SocialSourceInURL | SourceInURL.Wallet | SourceInURL.WalletMix;
 export type SocialDiscoverSource = Source.Farcaster | Source.Lens | Source.Bsky | Source.Twitter;
 export type DiscoverSource = Source.Posts | Source.Activities | Source.Transactions | Source.Prediction;
 export type BookmarkSource =
@@ -126,6 +71,7 @@ export type BookmarkSource =
     | Source.Bsky
     | Source.Prediction;
 export type FollowingSource = DiscoverSource | Source.Transactions | Source.Activities | Source.Prediction;
+
 export type ExploreSource = Source.Farcaster | Source.Lens | Source.Bsky | Source.Twitter | TrendingType;
 export type ExploreSourceInURL =
     | SourceInURL.Farcaster
@@ -134,6 +80,7 @@ export type ExploreSourceInURL =
     | SourceInURL.Twitter
     | SourceInURL.X
     | TrendingType;
+
 export type NotificationSource = Source.Notifications | Source.Twitter | Source.Lens | Source.Farcaster | Source.Bsky;
 export type NotificationSourceInURL =
     | SourceInURL.Notifications
@@ -141,6 +88,7 @@ export type NotificationSourceInURL =
     | SourceInURL.Lens
     | SourceInURL.Farcaster
     | SourceInURL.Bsky;
+
 export type LoginFallbackSource =
     | SocialSource
     | Source.Article
@@ -189,22 +137,6 @@ export enum KeyType {
     ConsumerSecret = '/v2/consumerSecret',
     GetTwitterAvatarById = '/v2/getTwitterAvatar',
     PostState = '/v2/post-state',
-}
-
-export enum SocialProfileCategory {
-    Feed = 'feed',
-    Replies = 'replies',
-    Likes = 'likes',
-    Media = 'media',
-    Collected = 'collected',
-    Channels = 'channels',
-    TruthSocial = 'truth-social',
-}
-
-export enum WalletProfileCategory {
-    Activities = 'activities',
-    Transactions = 'transactions',
-    Prediction = 'prediction',
 }
 
 export enum EngagementType {
@@ -267,6 +199,7 @@ export enum FarcasterSignType {
     RecoveryPhrase = 'recovery_phrase',
     FireflySponsorship = 'firefly_sponsorship',
 }
+
 export enum BookmarkType {
     All = 'all',
     Text = 'text',
@@ -286,29 +219,10 @@ export enum SolanaNetworkType {
     Privy = 'privy-solana',
 }
 
-export enum CurrencyType {
-    NATIVE = 'native',
-    BTC = 'btc',
-    ETH = 'eth',
-    USD = 'usd',
-    CNY = 'cny',
-    HKD = 'hkd',
-    JPY = 'jpy',
-    EUR = 'eur',
-}
-
 export enum TokenType {
     Fungible = 'Fungible',
     NonFungible = 'NonFungible',
 }
-
-export const enum FollowCategory {
-    Following = 'following',
-    Followers = 'followers',
-    Mutuals = 'mutuals',
-}
-
-export type ProfileCategory = FollowCategory | SocialProfileCategory | WalletProfileCategory;
 
 export enum ChannelTabType {
     Members = 'members',
@@ -327,19 +241,6 @@ export enum GiphyTabType {
     Stickers = 'stickers',
     Text = 'text',
     Emoji = 'emoji',
-}
-
-export enum WalletSource {
-    Farcaster = 'farcaster',
-    Lens = 'lens',
-    Twitter = 'twitter',
-    Firefly = 'firefly',
-    Article = 'article',
-    Wallet = 'wallet',
-    NFTs = 'nfts',
-    LensContract = 'lens_contract',
-    Particle = 'particle',
-    Privy = 'privy',
 }
 
 export enum AdvertisementType {
@@ -373,11 +274,6 @@ export enum FileMimeType {
     WEBM = 'video/webm',
     GPP = 'video/3gpp',
     GPP2 = 'video/3gpp2',
-}
-
-export enum FrameProtocol {
-    OpenFrame = 'of',
-    Farcaster = 'fc',
 }
 
 export enum S3ConvertStatus {
@@ -471,12 +367,6 @@ export enum ClickOrigin {
     NavBar = 'nav_bar',
     Settings = 'settings',
     Others = 'others',
-}
-
-export enum SiteCookies {
-    Locale = 'locale',
-    FireflyRootAPI = 'firefly_root_api',
-    FireflyRootClass = 'firefly_root_class',
 }
 
 export enum TokenCategory {

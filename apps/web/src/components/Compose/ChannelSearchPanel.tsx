@@ -1,8 +1,9 @@
 'use client';
 
-import { Source } from '@dimensiondev/enums';
 import SearchIcon from '@dimensiondev/assets/search.svg';
 import UserIcon from '@dimensiondev/assets/user.svg';
+import type { SocialSource } from '@dimensiondev/enums';
+import { Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { PopoverPanel, Transition } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
@@ -13,7 +14,6 @@ import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SearchInput } from '@/components/Search/SearchInput.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-import type { SocialSource } from '@/constants/enum.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { isSameChannel } from '@/helpers/isSameChannel.js';
 import { resolveChannelName } from '@/helpers/resolveChannelName.js';

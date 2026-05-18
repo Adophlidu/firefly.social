@@ -1,4 +1,4 @@
-import type { ProfileSource, SocialSource, SourceInURL } from '@/shared/src/constants/source.js';
+import type { ProfileSource, SocialSource, SourceInURL } from '@dimensiondev/enums';
 
 export interface FireflyResponse<T> {
     code: number;

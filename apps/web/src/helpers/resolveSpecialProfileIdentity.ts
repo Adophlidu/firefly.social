@@ -1,4 +1,4 @@
-import { Source } from '@dimensiondev/enums';
+import type { Source } from '@dimensiondev/enums';
 
 // cSpell:disable
 

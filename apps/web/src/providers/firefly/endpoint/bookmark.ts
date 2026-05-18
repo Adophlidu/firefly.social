@@ -1,6 +1,7 @@
+import { FireflyPlatform } from '@dimensiondev/enums';
 import urlcat from 'urlcat';
 
-import { type BookmarkType, FireflyPlatform } from '@/constants/enum.js';
+import type { BookmarkType } from '@/constants/enum.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { settings } from '@/settings/index.js';
 

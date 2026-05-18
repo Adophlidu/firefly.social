@@ -1,4 +1,5 @@
-import { envs, STATUS } from '@dimensiondev/envs';
+import { STATUS } from '@dimensiondev/enums';
+import { envs } from '@dimensiondev/envs';
 import { memo } from 'react';
 
 import { SnapCard } from '@/components/Snap/Card.js';

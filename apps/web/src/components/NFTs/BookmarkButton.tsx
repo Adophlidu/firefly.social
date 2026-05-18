@@ -1,6 +1,7 @@
 'use client';
 
 import BookmarkIcon from '@dimensiondev/assets/bookmark.svg';
+import { FireflyPlatform } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo, type ReactNode } from 'react';
@@ -8,7 +9,6 @@ import { memo, type ReactNode } from 'react';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { FireflyPlatform } from '@/constants/enum.js';
 import { usePathname } from '@/esm/navigation.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useHasBookmarked } from '@/hooks/useHasBookmarked.js';

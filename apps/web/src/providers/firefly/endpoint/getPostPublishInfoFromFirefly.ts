@@ -1,6 +1,6 @@
+import type { SocialSource, SocialSourceInURL } from '@dimensiondev/enums';
 import urlcat from 'urlcat';
 
-import type { SocialSource, SocialSourceInURL } from '@/constants/enum.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';

@@ -1,5 +1,5 @@
-import { Source } from '@dimensiondev/enums';
 import LinkOut from '@dimensiondev/assets/link.svg';
+import { Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { NetworkType } from '@dimensiondev/web3/enums';
 import { formatAddress, isValidAddressEthereum } from '@dimensiondev/web3/utils';

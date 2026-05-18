@@ -1,8 +1,9 @@
+import { SessionType } from '@dimensiondev/enums';
 import { runInSafeAsync } from '@dimensiondev/utils';
 
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { getChannelByHandle } from '@/providers/firefly/farcaster-hub/getChannelByHandle.js';
-import { type Channel, SessionType } from '@/providers/types/SocialMedia.js';
+import type { Channel } from '@/providers/types/SocialMedia.js';
 import { getChannelFollowStatus } from '@/providers/warpcast/getChannelFollowStatus.js';
 
 export async function getChannelById(channelId: string, includeFollowingStatus?: boolean): Promise<Channel> {

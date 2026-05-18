@@ -1,4 +1,5 @@
-import type { FireflyPlatform } from '@/constants/enum.js';
+import type { FireflyPlatform } from '@dimensiondev/enums';
+
 import { getPlatformQueryKey } from '@/helpers/getPlatformQueryKey.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import { unblock } from '@/providers/firefly/endpoint/unblock.js';

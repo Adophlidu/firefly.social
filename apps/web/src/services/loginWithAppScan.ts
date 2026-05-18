@@ -1,11 +1,12 @@
 'use client';
 
+import type { SocialSource } from '@dimensiondev/enums';
+import { SessionType } from '@dimensiondev/enums';
 import { t } from '@lingui/core/macro';
 import { compact } from 'lodash-es';
 
 import { decryptAppScanLoginEncryptedData } from '@/actions/decryptAppScanLoginEncryptedData.js';
 import { queryClient } from '@/configs/queryClient.js';
-import type { SocialSource } from '@/constants/enum.js';
 import { DecryptionError } from '@/constants/error.js';
 import { resolveSessionHolderFromProfileSource } from '@/helpers/resolveSessionHolder.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
@@ -18,7 +19,6 @@ import type { LensSession } from '@/providers/lens/Session.js';
 import type { TwitterSession } from '@/providers/twitter/Session.js';
 import type { Account } from '@/providers/types/Account.js';
 import { DesktopLinkInfoStatus, type DesktopLinkInfoStatusData } from '@/providers/types/Firefly.js';
-import { SessionType } from '@/providers/types/SocialMedia.js';
 import { addAccounts } from '@/services/account.js';
 import { ensureSessionIsValid } from '@/services/ensureSessionIsValid.js';
 import { restoreCurrentLensAccountAfterAppScan } from '@/services/restoreCurrentLensAccountAfterAppScan.js';

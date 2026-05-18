@@ -2,11 +2,11 @@
 
 import AddIcon from '@dimensiondev/assets/add-small.svg';
 import OtherIcon from '@dimensiondev/assets/other.svg';
+import type { SocialSource } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
 
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-import type { SocialSource } from '@/constants/enum.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { LoginModalRef } from '@/modals/LoginModal/refs.js';
 

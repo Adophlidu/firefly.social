@@ -1,6 +1,6 @@
+import type { NetworkType } from '@dimensiondev/web3/enums';
 import type { BigNumber } from 'bignumber.js';
 
-import type { NetworkType } from '@/constants/enum.js';
 import type { Token as DebankToken } from '@/providers/types/Debank.js';
 
 export type Token<ChainIdLike = number, AddressLike = string> = DebankToken<AddressLike> & {

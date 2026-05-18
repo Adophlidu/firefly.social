@@ -1,9 +1,9 @@
+import type { SocialSource } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 import { resolveValue, safeUnreachable } from '@dimensiondev/utils';
 import type { Link, Node as MdastNode, Root, Text } from 'mdast';
 import flatMap from 'unist-util-flatmap';
 
-import type { SocialSource } from '@/constants/enum.js';
 import {
     BSKY_MENTION_REGEX,
     FARCASTER_MENTION_REGEX,

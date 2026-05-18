@@ -10,6 +10,7 @@
         "typecheck": "tsgo --noEmit"
     },
     "dependencies": {
+        "@dimensiondev/enums": "workspace:^",
         "bs58": "^6.0.0",
         "hono": "^4.8.5",
         "viem": "^2.48.11",

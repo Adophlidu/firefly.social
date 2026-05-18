@@ -1,7 +1,5 @@
-import { Source } from '@dimensiondev/enums';
+import { FireflyPlatform, Source } from '@dimensiondev/enums';
 import { createLookupTableResolver, UnreachableError } from '@dimensiondev/utils';
-
-import { FireflyPlatform } from '@/constants/enum.js';
 
 export const resolveSourceFromFireflyPlatform = createLookupTableResolver<FireflyPlatform, Source>(
     {
@@ -15,7 +13,8 @@ export const resolveSourceFromFireflyPlatform = createLookupTableResolver<Firefl
         [FireflyPlatform.NFTs]: Source.NFTs,
         [FireflyPlatform.Token]: Source.Tokens,
         [FireflyPlatform.DAOs]: Source.DAOs,
-        [FireflyPlatform.Polymarket]: Source.Polymarket,
+        [FireflyPlatform.Polymarket]: Source.Prediction,
+        [FireflyPlatform.Prediction]: Source.Prediction,
     },
     (walletSource) => {
         throw new UnreachableError('FireflyPlatform', walletSource);

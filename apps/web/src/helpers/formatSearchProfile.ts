@@ -1,9 +1,8 @@
-import { Source } from '@dimensiondev/enums';
+import { FireflyPlatform, Source } from '@dimensiondev/enums';
 import { isValidAddress, isZeroAddress } from '@dimensiondev/web3/utils';
 import { compact, first } from 'lodash-es';
 
 import { SORTED_PROFILE_SOURCES } from '@/constants/computed.js';
-import { FireflyPlatform } from '@/constants/enum.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { isSocialSource } from '@/helpers/isSource.js';
 import { resolveAddressFromProfile } from '@/helpers/resolveAddressFromProfile.js';

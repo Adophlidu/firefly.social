@@ -1,5 +1,6 @@
 'use client';
 
+import type { SocialSource } from '@dimensiondev/enums';
 import { classNames, runInSafe } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo, useState } from 'react';
@@ -7,7 +8,6 @@ import { useAsyncFn } from 'react-use';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
-import type { SocialSource } from '@/constants/enum.js';
 import { WalletAddressMismatchError } from '@/constants/error.js';
 import { POLL_CHOICE_TYPE } from '@/constants/poll.js';
 import {

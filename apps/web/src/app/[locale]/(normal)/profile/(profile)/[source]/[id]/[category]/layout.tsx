@@ -1,13 +1,13 @@
-import type { LayoutProps } from '@dimensiondev/types';
-import type { Metadata } from 'next';
-
-import { ProfileCategoryTabs } from '@/app/[locale]/(normal)/profile/pages/ProfileCategoryTabs.js';
 import type {
     ProfilePageSourceInURL,
     SocialProfileCategory,
     SocialSource,
     WalletProfileCategory,
-} from '@/constants/enum.js';
+} from '@dimensiondev/enums';
+import type { LayoutProps } from '@dimensiondev/types';
+import type { Metadata } from 'next';
+
+import { ProfileCategoryTabs } from '@/app/[locale]/(normal)/profile/pages/ProfileCategoryTabs.js';
 import { notFound } from '@/esm/navigation/server.js';
 import { createMetadataProfileById } from '@/helpers/createMetadataProfileById.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';

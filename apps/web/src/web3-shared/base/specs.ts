@@ -1,4 +1,6 @@
-import type { CurrencyType, TokenType } from '@/constants/enum.js';
+import type { CurrencyType } from '@dimensiondev/enums';
+
+import type { TokenType } from '@/constants/enum.js';
 import type { LiteralUnion } from '@/types/utility.js';
 
 type Color =

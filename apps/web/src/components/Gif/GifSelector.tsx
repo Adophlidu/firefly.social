@@ -6,7 +6,6 @@ import { useCallback } from 'react';
 
 import { TenorGifSelector } from '@/components/Gif/TenorGifSelector.js';
 import { Loading } from '@/components/Loading.js';
-
 import { dynamic } from '@/esm/dynamic.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { formatFileSize } from '@/helpers/formatFileSize.js';

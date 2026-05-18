@@ -1,5 +1,5 @@
-import { Source } from '@dimensiondev/enums';
 import { AppBskyActorDefs } from '@atproto/api';
+import { Source } from '@dimensiondev/enums';
 import { first } from 'lodash-es';
 
 import { BSKY_MENTION_REGEX } from '@/constants/regexp.js';

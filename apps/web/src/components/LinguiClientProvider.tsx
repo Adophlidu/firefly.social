@@ -1,11 +1,11 @@
 'use client';
 
+import { Locale, SiteCookies } from '@dimensiondev/enums';
 import { bom } from '@dimensiondev/utils';
 import { I18nProvider } from '@lingui/react';
 import { isServer } from '@tanstack/react-query';
 import type { PropsWithChildren } from 'react';
 
-import { Locale, SiteCookies } from '@/constants/enum.js';
 import { getI18nInstance, setupAndActiveI18n } from '@/i18n/core.js';
 
 type LinguiClientProviderProps = PropsWithChildren<{ locale?: string }>;

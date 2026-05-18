@@ -1,6 +1,7 @@
 'use client';
 
-import { Source } from '@dimensiondev/enums';
+import type { ProfilePageSource } from '@dimensiondev/enums';
+import { SocialProfileCategory, Source, WalletProfileCategory } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { NetworkType } from '@dimensiondev/web3/enums';
 import { getAddressType, isSameEthereumAddress } from '@dimensiondev/web3/utils';
@@ -18,12 +19,7 @@ import {
     SORTED_PROFILE_TAB_TYPE,
     WALLET_PROFILE_TAB_TYPES,
 } from '@/constants/computed.js';
-import {
-    ExploreSwitchType,
-    type ProfilePageSource,
-    SocialProfileCategory,
-    WalletProfileCategory,
-} from '@/constants/enum.js';
+import { ExploreSwitchType } from '@/constants/enum.js';
 import { TRUMP_TWITTER_PROFILE } from '@/constants/mentions.js';
 import { VITALIK_ADDRESS } from '@/constants/static.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
@@ -83,7 +79,7 @@ export function ProfileCategoryTabs({
     const isCurrentProfile = currentProfiles.some((x) => isSameFireflyIdentity(x.identity, { id, source }));
     const { refreshedSocialProfile } = useContext(ProfileContext);
 
-    const tabTitles: Record<WalletProfileCategory, ReactNode> = useMemo(
+    const tabTitles: Partial<Record<WalletProfileCategory, ReactNode>> = useMemo(
         () => ({
             [WalletProfileCategory.Activities]: <Trans>Activities</Trans>,
             [WalletProfileCategory.Transactions]: <Trans>Transactions</Trans>,

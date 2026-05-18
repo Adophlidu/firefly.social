@@ -1,7 +1,7 @@
 'use client';
 
-import type { Source } from '@dimensiondev/enums';
 import SearchIcon from '@dimensiondev/assets/search.svg';
+import type { Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { isValidAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';

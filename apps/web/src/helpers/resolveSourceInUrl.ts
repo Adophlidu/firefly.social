@@ -1,3 +1,4 @@
+import type { ProfilePageSource, ProfilePageSourceInURL, SocialSource, SocialSourceInURL } from '@dimensiondev/enums';
 import { Source, SourceInURL } from '@dimensiondev/enums';
 import { createLookupTableResolver, UnreachableError } from '@dimensiondev/utils';
 
@@ -6,10 +7,6 @@ import {
     type ExploreSourceInURL,
     type NotificationSource,
     type NotificationSourceInURL,
-    type ProfilePageSource,
-    type ProfilePageSourceInURL,
-    type SocialSource,
-    type SocialSourceInURL,
     TrendingType,
 } from '@/constants/enum.js';
 

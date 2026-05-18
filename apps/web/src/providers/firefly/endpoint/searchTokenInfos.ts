@@ -1,4 +1,4 @@
-import { NODE_ENV } from '@dimensiondev/envs';
+import { NODE_ENV } from '@dimensiondev/enums';
 import urlcat from 'urlcat';
 
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';

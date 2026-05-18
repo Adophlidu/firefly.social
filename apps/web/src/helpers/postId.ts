@@ -1,5 +1,5 @@
+import type { SocialSource } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
-import type { SocialSource } from '@/constants/enum.js';
 
 const NUMERICAL_ID_RE = /^\d+$/;
 

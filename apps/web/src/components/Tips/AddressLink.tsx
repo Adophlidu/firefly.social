@@ -1,12 +1,12 @@
 'use client';
 
 import LinkIcon from '@dimensiondev/assets/link-square.svg';
+import type { NetworkType } from '@dimensiondev/web3/enums';
 import { Trans } from '@lingui/react/macro';
 import { useMemo } from 'react';
 
 import { Link } from '@/components/Link.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import type { NetworkType } from '@/constants/enum.js';
 import { resolveNetworkProvider } from '@/helpers/resolveTokenTransfer.js';
 
 interface AddressLinkProps {

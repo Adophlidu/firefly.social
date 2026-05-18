@@ -1,6 +1,7 @@
+import { FireflyPlatform } from '@dimensiondev/enums';
 import { fetchAccountsBulk } from '@lens-protocol/client/actions';
 
-import { CharTag, FireflyPlatform } from '@/constants/enum.js';
+import { CharTag } from '@/constants/enum.js';
 import { MENTION_REGEX } from '@/constants/regexp.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { lensClientHolder } from '@/providers/lens/LensClientHolder.js';

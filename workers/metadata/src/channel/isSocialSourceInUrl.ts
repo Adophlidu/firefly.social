@@ -1,4 +1,4 @@
-import type { SocialSourceInURL, SourceInURL } from '@dimensiondev/workers-shared/constants/source.js';
+import type { SocialSourceInURL, SourceInURL } from '@dimensiondev/enums';
 import { SORTED_SOCIAL_SOURCES } from '@dimensiondev/workers-shared/constants/source.js';
 import { resolveSourceInUrl, resolveSourceInUrlForApi } from '@dimensiondev/workers-shared/helpers/resolveSource.js';
 

@@ -1,12 +1,13 @@
 'use client';
 
-import { Source } from '@dimensiondev/enums';
 import EngagementIcon from '@dimensiondev/assets/engagement.svg';
 import FollowUserIcon from '@dimensiondev/assets/follow-user.svg';
 import MoreIcon from '@dimensiondev/assets/more.svg';
 import PendingIcon from '@dimensiondev/assets/pending.svg';
 import TrashIcon from '@dimensiondev/assets/trash.svg';
 import UnFollowUserIcon from '@dimensiondev/assets/unfollow-user.svg';
+import type { SocialSource } from '@dimensiondev/enums';
+import { Source } from '@dimensiondev/enums';
 import { MenuItem } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { memo, useCallback } from 'react';
@@ -24,7 +25,6 @@ import { ToggleFollowButton } from '@/components/Profile/ToggleFollowButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { ENABLED_BOOKMARK_SOURCES } from '@/constants/computed.js';
-import type { SocialSource } from '@/constants/enum.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolvePostEngagementUrl } from '@/helpers/resolveEngagementUrl.js';
 import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';

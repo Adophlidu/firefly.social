@@ -1,4 +1,5 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { SessionType } from '@dimensiondev/enums';
 import {
     createIndicator,
     createNextIndicator,
@@ -18,7 +19,6 @@ import { getNFTDetails } from '@/providers/firefly/nft/getNFTDetails.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { NFTSCAN_CHAIN_IDS } from '@/providers/nftscan/constants.js';
 import type { BookmarkResponse, NFTBookmarkContent, NFTDetail } from '@/providers/types/Firefly.js';
-import { SessionType } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
 
 type ParamTuple = [chainId: number, address: string, tokenId: string];

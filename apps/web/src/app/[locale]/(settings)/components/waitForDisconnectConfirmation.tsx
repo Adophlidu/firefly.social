@@ -6,7 +6,6 @@ import { Trans } from '@lingui/react/macro';
 import { WalletItem } from '@/app/[locale]/(settings)/components/WalletItem.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
-
 import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
 import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
 import { getProfilesByIds } from '@/services/getProfilesByIds.js';

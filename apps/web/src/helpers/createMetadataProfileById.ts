@@ -1,5 +1,6 @@
+import type { ProfilePageSourceInURL } from '@dimensiondev/enums';
 import { SourceInURL } from '@dimensiondev/enums';
-import type { ProfilePageSourceInURL } from '@/constants/enum.js';
+
 import { createProfileMetadata } from '@/providers/firefly/metadata/createProfileMetadata.js';
 import { createWalletProfileMetadata } from '@/providers/firefly/metadata/createWalletProfileMetadata.js';
 

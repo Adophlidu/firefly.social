@@ -1,4 +1,4 @@
-import { Source } from '@dimensiondev/enums';
+import { SessionType, Source } from '@dimensiondev/enums';
 import { bom, parseJson } from '@dimensiondev/utils';
 import type { EnvironmentConfig, IStorageProvider } from '@lens-protocol/client';
 import z from 'zod';
@@ -8,7 +8,6 @@ import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { updateCurrentSessionToStorage } from '@/helpers/updateCurrentSessionToStorage.js';
 import { resolveLensSessionKey } from '@/providers/lens/resolveLensSessionKey.js';
 import { LensSession } from '@/providers/lens/Session.js';
-import { SessionType } from '@/providers/types/SocialMedia.js';
 
 const LensSessionScheme = z.object({
     data: z.object({

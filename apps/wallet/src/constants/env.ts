@@ -1,8 +1,7 @@
 /* cspell:disable */
+import { type NODE_ENV, STATUS, VERCEL_ENV } from '@dimensiondev/enums';
 import { bom } from '@dimensiondev/utils';
 import { z } from 'zod';
-
-import { type NODE_ENV, STATUS, VERCEL_ENV } from '@/constants/enum.js';
 
 const InternalEnvSchema = z.object({});
 

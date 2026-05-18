@@ -1,6 +1,6 @@
-import { Source } from '@dimensiondev/enums';
 import PriceDownIcon from '@dimensiondev/assets/price-down.svg';
 import PriceUpIcon from '@dimensiondev/assets/price-up.svg';
+import { Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { isZero, minus } from '@dimensiondev/web3/numbers';
 import { Trans } from '@lingui/react/macro';

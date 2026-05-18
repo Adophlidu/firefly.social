@@ -1,8 +1,8 @@
-import { Source } from '@dimensiondev/enums';
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import type { SocialSource } from '@dimensiondev/enums';
+import { Source } from '@dimensiondev/enums';
 import { unreachable } from '@dimensiondev/utils';
 
-import type { SocialSource } from '@/constants/enum.js';
 import { flatLenConnections } from '@/helpers/formatWalletConnection.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { getFarcasterProfilesByIds } from '@/providers/farcaster/getFarcasterProfilesByIds.js';

@@ -45,8 +45,6 @@ rewrite.config.dev.json
 
 *.log
 
-.cursor/
-
 .turbo/
 
 .pnpm-store/
@@ -61,6 +59,7 @@ packages/*/node_modules/
 # eslint cache
 .eslintcache
 *.har
+.cursor/
 .gstack/
 .claude/settings*
 

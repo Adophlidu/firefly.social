@@ -1,6 +1,6 @@
+import type { SocialSource } from '@dimensiondev/enums';
 import { useCallback } from 'react';
 
-import type { SocialSource } from '@/constants/enum.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
 import { createLocalMediaObject } from '@/helpers/resolveMediaObjectUrl.js';

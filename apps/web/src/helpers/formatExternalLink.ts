@@ -1,8 +1,9 @@
+import type { SocialSource } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
-import { ExternalSiteDomain, type SocialSource } from '@/constants/enum.js';
+import { ExternalSiteDomain } from '@/constants/enum.js';
 import { FARCASTER_DETAIL_REGEX, TWEET_REGEX } from '@/constants/regexp.js';
 import { SITE_URL } from '@/constants/static.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';

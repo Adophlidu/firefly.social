@@ -1,5 +1,6 @@
-import { Source } from '@dimensiondev/enums';
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import type { SocialSource } from '@dimensiondev/enums';
+import { FireflyPlatform, Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import type { AutoLinkNode } from '@lexical/link';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext.js';
@@ -20,7 +21,6 @@ import { $createMentionNode, MentionNode } from '@/components/Lexical/nodes/Ment
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { FireflyPlatform, type SocialSource } from '@/constants/enum.js';
 import { getSafeMentionQueryText } from '@/helpers/getMentionOriginalText.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { resolveSocialSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';

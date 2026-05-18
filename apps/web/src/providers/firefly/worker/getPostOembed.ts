@@ -1,4 +1,5 @@
-import { envs, STATUS } from '@dimensiondev/envs';
+import { STATUS } from '@dimensiondev/enums';
+import { envs } from '@dimensiondev/envs';
 import { parseUrl } from '@dimensiondev/utils';
 import { isValidDomainEthereum } from '@dimensiondev/web3/utils';
 import urlcat from 'urlcat';

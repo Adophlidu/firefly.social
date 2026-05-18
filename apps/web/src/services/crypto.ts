@@ -1,4 +1,5 @@
-import { envs, NODE_ENV } from '@dimensiondev/envs';
+import { NODE_ENV } from '@dimensiondev/enums';
+import { envs } from '@dimensiondev/envs';
 import crypto from 'crypto';
 
 import { FIREFLY_ROOT_URL_DEV } from '@/constants/static.js';

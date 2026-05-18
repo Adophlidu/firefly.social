@@ -1,10 +1,9 @@
-import { Source } from '@dimensiondev/enums';
+import { SessionType, Source } from '@dimensiondev/enums';
 import { bom } from '@dimensiondev/utils';
 
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { getSharerSessionId } from '@/helpers/sharerSession.js';
-import { SessionType } from '@/providers/types/SocialMedia.js';
 import { useDeveloperSettingsState } from '@/store/useDeveloperSettingsStore.js';
 
 export function getPublicParameters(eventId: string, previousEventId: string | null) {

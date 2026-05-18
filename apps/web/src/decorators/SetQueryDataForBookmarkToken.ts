@@ -1,8 +1,7 @@
-import { Source } from '@dimensiondev/enums';
+import { FireflyPlatform, Source } from '@dimensiondev/enums';
 import { produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { FireflyPlatform } from '@/constants/enum.js';
 import type { PageData } from '@/decorators/types.js';
 import { resolveTokenBookmarkId } from '@/helpers/resolveTokenBookmarkId.js';
 import type { FireflyBookmark } from '@/providers/firefly/Bookmark.js';

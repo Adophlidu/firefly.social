@@ -1,6 +1,6 @@
-import { Source } from '@dimensiondev/enums';
 import type { AppBskyFeedDefs } from '@atproto/api';
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { Source } from '@dimensiondev/enums';
 import { runInSafeAsync, safeUnreachable } from '@dimensiondev/utils';
 import {
     createIndicator,

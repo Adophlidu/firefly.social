@@ -6,7 +6,6 @@ import { ToggleMutedProfileButton } from '@/components/Actions/ToggleMutedProfil
 import { Link } from '@/components/Link.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 

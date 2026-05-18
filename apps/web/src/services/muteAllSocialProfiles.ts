@@ -1,4 +1,4 @@
-import { Source, SourceInURL } from '@dimensiondev/enums';
+import { SessionType, Source, SourceInURL } from '@dimensiondev/enums';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import { fetchAccountsBulk } from '@lens-protocol/client/actions';
 
@@ -13,7 +13,6 @@ import { lensSessionClientHolder } from '@/providers/lens/LensSessionClientHolde
 import { lensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { twitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
-import { SessionType } from '@/providers/types/SocialMedia.js';
 
 export async function muteAllSocialProfiles(identity: FireflyIdentity) {
     const twitterSession = getSessionFromStorage(SessionType.Twitter);

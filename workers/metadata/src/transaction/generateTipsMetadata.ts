@@ -1,3 +1,4 @@
+import { TipsDetailViewType } from '@dimensiondev/enums';
 import { createSiteMetadata } from '@dimensiondev/workers-shared/helpers/createSiteMetadata.js';
 import { resolveSiteUrl } from '@dimensiondev/workers-shared/helpers/resolveSiteUrl.js';
 import { urlcat } from '@dimensiondev/workers-shared/helpers/urlcat.js';
@@ -5,7 +6,6 @@ import type { Context } from 'hono';
 
 import { getMaintainAccountInfo } from '@/metadata/src/transaction/getMaintainAccountInfo.js';
 import type { TipsDetail } from '@/metadata/src/transaction/types.js';
-import { TipsDetailViewType } from '@/metadata/src/transaction/types.js';
 
 export function generateTipsMetadata(pathname: string, hash: string, chainId: number, tips: TipsDetail, c: Context) {
     const accountInfo = getMaintainAccountInfo(tips, TipsDetailViewType.Sender, c);

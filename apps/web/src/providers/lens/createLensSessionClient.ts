@@ -1,4 +1,4 @@
-import { Source } from '@dimensiondev/enums';
+import { SessionType, Source } from '@dimensiondev/enums';
 import { type AccessToken, type IdToken, mainnet, PublicClient, type RefreshToken } from '@lens-protocol/client';
 
 import { SessionExpiredError } from '@/constants/error.js';
@@ -18,7 +18,6 @@ import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { SessionStorageProvider } from '@/providers/lens/SessionStorageProvider.js';
 import { captureAccountLoginEvent } from '@/providers/telemetry/captureAccountEvent.js';
 import type { Account } from '@/providers/types/Account.js';
-import { SessionType } from '@/providers/types/SocialMedia.js';
 import { uploadMetricsToFirefly } from '@/services/uploadMetrics.js';
 import { useTokenPasswordStore } from '@/store/useTokenPasswordStore.js';
 

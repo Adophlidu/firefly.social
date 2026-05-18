@@ -1,7 +1,7 @@
 'use client';
 
-import { Source } from '@dimensiondev/enums';
 import MoreIcon from '@dimensiondev/assets/more-fill.svg';
+import { Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { formatAddress, isValidAddressEthereum } from '@dimensiondev/web3/utils';
 import { MenuItem, type MenuProps } from '@headlessui/react';
@@ -15,7 +15,6 @@ import { MuteWalletButton } from '@/components/Actions/MuteWalletButton.js';
 import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Tips } from '@/components/Tips/index.js';
-
 import { useEnsName } from '@/hooks/useEnsName.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useFireflyProfileByIdentity } from '@/hooks/useFireflyProfileByIdentity.js';

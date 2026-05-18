@@ -1,10 +1,10 @@
 'use client';
 
+import { Locale } from '@dimensiondev/enums';
 import { nativeBridgeProvider, SupportedMethod } from '@dimensiondev/native-bridge';
 import { useLingui } from '@lingui/react';
 import { useQuery } from '@tanstack/react-query';
 
-import { Locale } from '@/constants/enum.js';
 import { resolveLocale } from '@/helpers/getCookies.js';
 
 function resolveValidLocale(locale: string) {

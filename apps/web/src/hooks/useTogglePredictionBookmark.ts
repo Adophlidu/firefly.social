@@ -1,6 +1,7 @@
+import { FireflyPlatform } from '@dimensiondev/enums';
 import { t } from '@lingui/core/macro';
 
-import { BookmarkType, FireflyPlatform } from '@/constants/enum.js';
+import { BookmarkType } from '@/constants/enum.js';
 import { patchPredictionActivityData } from '@/helpers/patchPredictionActivityData.js';
 import { useToggleBookmarkMutation } from '@/hooks/useToggleBookmarkMutation.js';
 import { bookmark } from '@/providers/firefly/endpoint/bookmark.js';

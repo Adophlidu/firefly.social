@@ -1,4 +1,4 @@
-import { SourceInURL } from '@dimensiondev/enums';
+import type { SourceInURL } from '@dimensiondev/enums';
 import { z } from 'zod';
 
 import { narrowToSocialSourceInURL } from '@/helpers/narrowToSocialSource.js';

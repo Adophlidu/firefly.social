@@ -1,9 +1,9 @@
-import { Source, SourceInURL } from '@dimensiondev/enums';
+import type { SocialSource, SocialSourceInURL } from '@dimensiondev/enums';
+import { FireflyPlatform, SessionType, Source, SourceInURL } from '@dimensiondev/enums';
 import { createLookupTableResolver, UnreachableError } from '@dimensiondev/utils';
 
-import { FireflyPlatform, type ProfileSource, type SocialSource, type SocialSourceInURL } from '@/constants/enum.js';
+import type { ProfileSource } from '@/constants/enum.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
-import { SessionType } from '@/providers/types/SocialMedia.js';
 
 export const resolveSource = createLookupTableResolver<SourceInURL, Source>(
     {

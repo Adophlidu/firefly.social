@@ -1,4 +1,4 @@
-import { Source } from '@dimensiondev/workers-shared/constants/source.js';
+import { Source } from '@dimensiondev/enums';
 import type { FireflyPost } from '@dimensiondev/workers-shared/types/firefly.js';
 
 import { resolvePostUrl } from '@/metadata/src/post/resolvePostUrl.js';

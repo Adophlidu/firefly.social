@@ -1,4 +1,5 @@
 import type { BlobRef } from '@atproto/api';
+import { SessionType } from '@dimensiondev/enums';
 import { delay, parseUrl } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
@@ -9,7 +10,6 @@ import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { resolveExtFromMimeType } from '@/helpers/resolveExtFromMimeType.js';
 import { getPdsServiceUrlFromSession } from '@/providers/bsky/getPdsServiceUrlFromSession.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
-import { SessionType } from '@/providers/types/SocialMedia.js';
 
 interface UploadLimits {
     canUpload: boolean;

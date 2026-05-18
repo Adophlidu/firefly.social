@@ -1,8 +1,7 @@
-import { Source } from '@dimensiondev/enums';
+import { Source, STATUS } from '@dimensiondev/enums';
 import { bom, safeUnreachable } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
-import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { FIREFLY_STAMP_DEV_URL, FIREFLY_STAMP_URL } from '@/constants/static.js';
 

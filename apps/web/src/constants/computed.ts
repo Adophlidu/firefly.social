@@ -1,6 +1,7 @@
 /* cspell:disable */
 
-import { Source, SourceInURL } from '@dimensiondev/enums';
+import type { ProfilePageSource, SocialSource } from '@dimensiondev/enums';
+import { FollowCategory, SocialProfileCategory, Source, SourceInURL, WalletProfileCategory } from '@dimensiondev/enums';
 import { envs } from '@dimensiondev/envs';
 import { solana } from '@dimensiondev/web3/chains';
 import { NetworkType } from '@dimensiondev/web3/enums';
@@ -14,19 +15,14 @@ import {
     type ExploreSource,
     ExploreType,
     FileMimeType,
-    FollowCategory,
     type FollowingSource,
     type NotificationSource,
     PredictionPlatform,
     ProfileEditableField,
-    type ProfilePageSource,
     SearchType,
     type SocialDiscoverSource,
-    SocialProfileCategory,
-    type SocialSource,
     TokenCategory,
     TrendingType,
-    WalletProfileCategory,
 } from '@/constants/enum.js';
 import { type Attachment, NotificationType } from '@/providers/types/SocialMedia.js';
 import type { Runtime } from '@/providers/types/Trending.js';

@@ -1,6 +1,7 @@
+import { ArticlePlatform } from '@dimensiondev/enums';
+
 import { parseParagraphHtml } from '@/metadata/src/article/parseParagraphHtml.js';
 import type { Article } from '@/metadata/src/article/types.js';
-import { ArticlePlatform } from '@/metadata/src/article/types.js';
 
 async function getArticleContent(article: Article) {
     if (

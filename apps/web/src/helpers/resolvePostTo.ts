@@ -1,7 +1,7 @@
+import type { SocialSource } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 import { createLookupTableResolver, UnreachableError } from '@dimensiondev/utils';
 
-import type { SocialSource } from '@/constants/enum.js';
 import { postToBsky } from '@/providers/bsky/postToBsky.js';
 import { postToFarcaster } from '@/providers/farcaster/postToFarcaster.js';
 import { postToLens } from '@/providers/lens/postToLens.js';

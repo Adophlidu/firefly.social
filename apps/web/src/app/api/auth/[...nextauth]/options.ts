@@ -1,6 +1,7 @@
 /* cspell:disable */
 
-import { envs, NODE_ENV } from '@dimensiondev/envs';
+import { NODE_ENV } from '@dimensiondev/enums';
+import { envs } from '@dimensiondev/envs';
 import type { AuthOptions } from 'next-auth';
 import type { Provider } from 'next-auth/providers/index';
 

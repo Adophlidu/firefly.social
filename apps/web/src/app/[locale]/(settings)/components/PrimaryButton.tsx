@@ -2,6 +2,7 @@
 
 import StarFilledIcon from '@dimensiondev/assets/star-filled.svg';
 import StarOutlineIcon from '@dimensiondev/assets/star-outline.svg';
+import type { ConnectionPlatform } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import {
     formatAddressEthereum,
@@ -17,7 +18,6 @@ import { useAsyncFn } from 'react-use';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import type { ConnectionPlatform } from '@/constants/enum.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { fireflyWalletProvider } from '@/providers/firefly/Wallet.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';

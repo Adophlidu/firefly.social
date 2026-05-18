@@ -1,7 +1,6 @@
-import { Source } from '@dimensiondev/enums';
+import type { SocialSource } from '@dimensiondev/enums';
+import { FireflyPlatform, Source } from '@dimensiondev/enums';
 import { createLookupTableResolver, UnreachableError } from '@dimensiondev/utils';
-
-import { FireflyPlatform, type SocialSource } from '@/constants/enum.js';
 
 export const resolveFireflyPlatform = createLookupTableResolver<Source, FireflyPlatform | null>(
     {

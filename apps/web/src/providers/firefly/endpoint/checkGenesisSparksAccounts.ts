@@ -1,8 +1,8 @@
+import type { ProfilePageSource } from '@dimensiondev/enums';
 import { createBatcher } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
 import { queryClient } from '@/configs/queryClient.js';
-import type { ProfilePageSource } from '@/constants/enum.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { resolveSourceInUrlForApi } from '@/helpers/resolveSourceInUrl.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';

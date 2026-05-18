@@ -2,7 +2,6 @@ import { Source } from '@dimensiondev/enums';
 import { afterEach, describe, expect, it } from 'vitest';
 
 import { queryClient } from '@/configs/queryClient.js';
-
 import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';
 import { type Post, ProfileStatus } from '@/providers/types/SocialMedia.js';
 

@@ -1,3 +1,4 @@
+import type { SocialSource } from '@dimensiondev/enums';
 import { useQuery } from '@tanstack/react-query';
 import { memo, useEffect, useMemo, useState } from 'react';
 
@@ -5,7 +6,6 @@ import { ChannelCard } from '@/components/Channel/ChannelCard.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { InteractiveTippy } from '@/components/InteractiveTippy.js';
 import { TippyContext, useTippyContext } from '@/components/TippyContext/index.js';
-import type { SocialSource } from '@/constants/enum.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { useRouter } from '@/esm/navigation.js';
 import { isChannelNotFoundError } from '@/helpers/isChannelNotFoundError.js';

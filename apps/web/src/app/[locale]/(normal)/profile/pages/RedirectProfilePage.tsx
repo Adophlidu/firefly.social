@@ -1,8 +1,9 @@
 'use client';
 
+import type { SocialSource } from '@dimensiondev/enums';
 import { type ReactNode, useEffect } from 'react';
 
-import { PageRoute, type SocialSource } from '@/constants/enum.js';
+import { PageRoute } from '@/constants/enum.js';
 import { redirect, RedirectType } from '@/esm/navigation.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { resolveFireflyIdentity } from '@/helpers/resolveFireflyProfileId.js';

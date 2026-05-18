@@ -1,6 +1,6 @@
-import { envs, STATUS } from '@dimensiondev/envs';
+import { STATUS, WalletSource } from '@dimensiondev/enums';
+import { envs } from '@dimensiondev/envs';
 
-import { WalletSource } from '@/constants/enum.js';
 import { formatWalletConnections } from '@/helpers/formatWalletConnection.js';
 import { getAllConnections } from '@/providers/firefly/endpoint/getAllConnections.js';
 

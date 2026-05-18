@@ -1,6 +1,6 @@
+import { Locale } from '@dimensiondev/enums';
 import type { Dayjs } from 'dayjs';
 
-import { Locale } from '@/constants/enum.js';
 import { getDayjsLocaleName } from '@/helpers/dayjsLocale.js';
 import { getLocalFromClientCookies } from '@/helpers/getCookies.js';
 

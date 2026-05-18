@@ -1,4 +1,4 @@
-import { Source } from '@dimensiondev/enums';
+import { SessionType, Source } from '@dimensiondev/enums';
 import {
     createLookupTableResolver,
     NotAllowedError,
@@ -13,7 +13,6 @@ import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import type { Account } from '@/providers/types/Account.js';
 import type { Session } from '@/providers/types/Session.js';
-import { SessionType } from '@/providers/types/SocialMedia.js';
 import { type AccountPairs, EventId, FarcasterLoginType } from '@/providers/types/Telemetry.js';
 
 const resolveLoginEventId = createLookupTableResolver<LoginSource, EventId>(

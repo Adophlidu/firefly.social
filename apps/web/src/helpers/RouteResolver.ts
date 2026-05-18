@@ -1,8 +1,7 @@
-import { Source } from '@dimensiondev/enums';
+import type { ProfileCategory, ProfilePageSource, Source } from '@dimensiondev/enums';
 import urlcat from 'urlcat';
 
-import { PredictionPlatform, SignupStep, TipsDetailViewType } from '@/constants/enum.js';
-import type { ProfileCategory, ProfilePageSource } from '@/constants/enum.js';
+import type { PredictionPlatform, SignupStep, TipsDetailViewType } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/static.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 

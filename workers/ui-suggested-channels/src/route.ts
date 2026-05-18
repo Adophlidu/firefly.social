@@ -1,5 +1,5 @@
+import { Source } from '@dimensiondev/enums';
 import { ONE_HOUR } from '@dimensiondev/workers-shared/constants/duration.js';
-import { Source } from '@dimensiondev/workers-shared/constants/source.js';
 import {
     createSuccessResponseJson,
     createZodErrorResponseJson,

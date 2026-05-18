@@ -1,8 +1,8 @@
+import type { ThemeMode } from '@dimensiondev/enums';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
-import type { ThemeMode } from '@/constants/enum.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 
 interface ThemeModeState {

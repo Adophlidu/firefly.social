@@ -1,5 +1,6 @@
 'use client';
 
+import { SessionType } from '@dimensiondev/enums';
 import { initGlobalErrorHandlers } from '@dimensiondev/exception-tracker';
 import { bom, classNames } from '@dimensiondev/utils';
 import { isServer } from '@tanstack/react-query';
@@ -17,7 +18,6 @@ import { logger } from '@/libs/Logger.js';
 import { configureErrorCapture } from '@/providers/errorCapture/configure.js';
 import { trackReferralEvent } from '@/providers/firefly/referral/trackReferral.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
-import { SessionType } from '@/providers/types/SocialMedia.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import { recordUserThemeMode } from '@/services/recordUserThemeMode.js';
 import { setupFirebaseFcmConnection } from '@/services/setupFirebaseFcmConnection.js';

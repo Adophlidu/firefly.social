@@ -1,3 +1,4 @@
+import type { PredictionPlatform } from '@dimensiondev/enums';
 import { fetchJson } from '@dimensiondev/workers-shared/helpers/fetchJson.js';
 import { first } from '@dimensiondev/workers-shared/helpers/first.js';
 import { isSameAddress } from '@dimensiondev/workers-shared/helpers/isSameAddress.js';
@@ -8,7 +9,6 @@ import type { Context } from 'hono';
 
 import type { WalletProfiles } from '@/metadata/src/firefly-profile/types.js';
 import { extractFallbackInfo } from '@/metadata/src/helpers/extractFallbackInfo.js';
-import type { PredictionPlatform } from '@/metadata/src/prediction/types.js';
 
 interface WalletProfileInfoListResponse {
     walletAddress: Array<Record<string, WalletProfiles>>;

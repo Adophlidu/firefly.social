@@ -1,9 +1,9 @@
 'use client';
 
-import { Source } from '@dimensiondev/enums';
 import '@/styles/limo.css';
 import '@/styles/paragraph.css';
 
+import { Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 
 import { ArticleActions } from '@/components/Article/ArticleActions.js';
@@ -13,7 +13,6 @@ import { SanitizerDiv } from '@/components/DomPurify.js';
 import { ArticleMarkup } from '@/components/Markup/ArticleMarkup.js';
 import { ImageAsset } from '@/components/Posts/ImageAsset.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/browser.js';
-
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { PreviewMediaModalRef } from '@/modals/PreviewMediaModal/refs.js';

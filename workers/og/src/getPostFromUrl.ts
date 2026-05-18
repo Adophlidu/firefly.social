@@ -1,6 +1,6 @@
+import type { SocialSource, SocialSourceInURL } from '@dimensiondev/enums';
+import { Source } from '@dimensiondev/enums';
 import { resolveHandle } from '@dimensiondev/workers-bsky-identity/resolveHandle.js';
-import type { SocialSource, SocialSourceInURL } from '@dimensiondev/workers-shared/constants/source.js';
-import { Source } from '@dimensiondev/workers-shared/constants/source.js';
 import { attemptUntil } from '@dimensiondev/workers-shared/helpers/attemptUntil.js';
 import { fetchFireflyEndpointRpc } from '@dimensiondev/workers-shared/helpers/fetchFireflyEndpointRpc.js';
 import { fetchFireflyRpc } from '@dimensiondev/workers-shared/helpers/fetchFireflyRpc.js';

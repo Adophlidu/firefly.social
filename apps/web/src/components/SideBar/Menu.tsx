@@ -3,7 +3,8 @@
 import CircleShareIcon from '@dimensiondev/assets/circle-share.svg';
 import SettingsSelectedIcon from '@dimensiondev/assets/setting.selected.svg';
 import SettingsIcon from '@dimensiondev/assets/setting.svg';
-import { envs, STATUS } from '@dimensiondev/envs';
+import { STATUS } from '@dimensiondev/enums';
+import { envs } from '@dimensiondev/envs';
 import { Trans } from '@lingui/react/macro';
 import { compact } from 'lodash-es';
 import { memo } from 'react';

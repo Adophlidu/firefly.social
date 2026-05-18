@@ -1,5 +1,5 @@
+import type { SocialSourceInURL } from '@dimensiondev/enums';
 import { SITE_URL } from '@dimensiondev/workers-shared/constants/metadata.js';
-import type { SocialSourceInURL } from '@dimensiondev/workers-shared/constants/source.js';
 import { createPageTitleOG } from '@dimensiondev/workers-shared/helpers/createPageTitleOG.js';
 import { createSiteMetadata } from '@dimensiondev/workers-shared/helpers/createSiteMetadata.js';
 import { fetchFireflyRpc } from '@dimensiondev/workers-shared/helpers/fetchFireflyRpc.js';

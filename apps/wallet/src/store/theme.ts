@@ -1,6 +1,5 @@
+import type { ThemeMode } from '@dimensiondev/enums';
 import { atomWithStorage, createJSONStorage } from 'jotai/utils';
-
-import type { ThemeMode } from '@/constants/enum.js';
 
 export const themeStorageAtom = atomWithStorage<{
     state: {

@@ -1,8 +1,8 @@
 'use client';
 
-import { Source } from '@dimensiondev/enums';
 import LinkIcon from '@dimensiondev/assets/link-square.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { Source } from '@dimensiondev/enums';
 import { createIndicator } from '@dimensiondev/utils';
 import { formatAddressEthereum } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';

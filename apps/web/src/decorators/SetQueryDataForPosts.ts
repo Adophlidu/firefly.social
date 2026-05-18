@@ -4,7 +4,6 @@ import { runInSafeAsync } from '@dimensiondev/utils';
 import { compact } from 'lodash-es';
 
 import { queryClient } from '@/configs/queryClient.js';
-
 import { mergePostDetailCache } from '@/helpers/mergePostDetailCache.js';
 import { prefetchPostLinks } from '@/helpers/prefetchPostLinks.js';
 import type { Post, Provider } from '@/providers/types/SocialMedia.js';

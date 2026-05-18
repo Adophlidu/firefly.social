@@ -1,7 +1,7 @@
+import { Locale } from '@dimensiondev/enums';
 import type { PageIndicator } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
-import { Locale } from '@/constants/enum.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import type { RootdataPeopleResponse } from '@/providers/types/Firefly.js';

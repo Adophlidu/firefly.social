@@ -1,4 +1,4 @@
-import { Source, SourceInURL } from '@dimensiondev/enums';
+import { SessionType, Source, SourceInURL } from '@dimensiondev/enums';
 import { sortBy, toInteger } from 'lodash-es';
 
 import { MAX_IMAGE_SIZE_PER_POST, MAX_IMAGE_SIZE_PRO_PER_POST } from '@/constants/limitation.js';
@@ -13,7 +13,6 @@ import { farcasterPostIdToHash } from '@/providers/farcaster/farcasterPostIdToHa
 import { getAllMentionsForFarcaster } from '@/providers/farcaster/getAllMentionsForFarcaster.js';
 import { getFarcasterMediaObjects } from '@/providers/farcaster/getFarcasterMediaObjects.js';
 import { FarcasterPollProvider } from '@/providers/farcaster/Poll.js';
-import { SessionType } from '@/providers/types/SocialMedia.js';
 import { uploadAndConvertToM3u8 } from '@/services/uploadAndConvertToM3u8.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
 import type { ComposeType, CompositePost } from '@/types/compose.js';

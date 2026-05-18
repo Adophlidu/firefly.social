@@ -1,5 +1,5 @@
-import { Source } from '@dimensiondev/enums';
 import type { AppRouterProgressInstance } from '@bprogress/next';
+import { SessionType, Source } from '@dimensiondev/enums';
 import type { Context, SetPrimaryButton } from '@farcaster/miniapp-host';
 import { memo, useMemo, useState } from 'react';
 
@@ -8,7 +8,6 @@ import { FootnoteLink } from '@/components/FootnoteLink.js';
 import { frameComposeCast } from '@/components/Frame/V2/frameComposeCast.js';
 import { frameSwapToken } from '@/components/Frame/V2/frameSwapToken.js';
 import { Image } from '@/components/Image.js';
-
 import { SITE_NAME } from '@/constants/static.js';
 import { useRouter } from '@/esm/navigation.js';
 import { getCurrentProfileFromStorage, type StateProfile } from '@/helpers/getCurrentProfileFromStorage.js';
@@ -21,7 +20,7 @@ import { FrameViewerModalRef } from '@/modals/FrameViewerModal/refs.js';
 import { RelayConfirmationPopoverRef } from '@/modals/FrameViewerModal/RelayConfirmationPopover.js';
 import { FarcasterFrameHost } from '@/providers/frame/Host.js';
 import { captureFrameActionEvent } from '@/providers/telemetry/captureFrameActionEvent.js';
-import { type Post, type Profile, SessionType } from '@/providers/types/SocialMedia.js';
+import type { Post, Profile } from '@/providers/types/SocialMedia.js';
 import type { FrameV2 } from '@/types/frame.js';
 
 function createFrameHost(

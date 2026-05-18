@@ -1,7 +1,7 @@
+import type { ProfilePageSource } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 
-import type { ProfilePageSource } from '@/constants/enum.js';
 import { WatchType } from '@/providers/types/Firefly.js';
 
 export function resolveWatchTypeToSource(watchType: WatchType): ProfilePageSource {

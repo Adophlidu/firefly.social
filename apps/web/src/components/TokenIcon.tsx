@@ -1,10 +1,10 @@
 import { classNames } from '@dimensiondev/utils';
 import { isSolanaChain } from '@dimensiondev/web3/chains';
+import type { NetworkType } from '@dimensiondev/web3/enums';
 import { first } from 'lodash-es';
 import { type HTMLProps, memo, useCallback, useMemo, useState } from 'react';
 
 import { ChainIcon } from '@/components/ChainIcon.js';
-import type { NetworkType } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import { optimizeCDNImageSize } from '@/helpers/optimizeCDNImageSize.js';
 import { resolveTokenLogoURL } from '@/helpers/resolveTokenLogoURL.js';

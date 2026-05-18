@@ -1,12 +1,12 @@
 /* cspell:disable */
 
 import { IS_PREVIEW } from '@dimensiondev/constants';
+import { Locale } from '@dimensiondev/enums';
 import { compose } from '@dimensiondev/utils';
 import { toArray } from 'lodash-es';
 import type { NextRequest } from 'next/server.js';
 import { z } from 'zod';
 
-import { Locale } from '@/constants/enum.js';
 import { CACHE_AGE_INDEFINITE_ON_DISK } from '@/constants/static.js';
 import { getSearchParamsWithZodSchema } from '@/helpers/getSearchParamsWithZodSchema.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';

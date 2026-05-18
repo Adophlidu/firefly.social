@@ -1,3 +1,4 @@
+import { SessionType } from '@dimensiondev/enums';
 import { parseJson, parseUrl, safeUnreachable, UnreachableError } from '@dimensiondev/utils';
 import { z } from 'zod';
 
@@ -10,7 +11,6 @@ import { LensSession } from '@/providers/lens/Session.js';
 import { ThirdPartySession } from '@/providers/third-party/Session.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import type { Session } from '@/providers/types/Session.js';
-import { SessionType } from '@/providers/types/SocialMedia.js';
 
 const SessionSchema = z.object({
     profileId: z.string(),

@@ -1,5 +1,5 @@
-import type { SocialSource } from '@dimensiondev/workers-shared/constants/source.js';
-import { Source } from '@dimensiondev/workers-shared/constants/source.js';
+import type { SocialSource } from '@dimensiondev/enums';
+import { Source } from '@dimensiondev/enums';
 import { compact } from '@dimensiondev/workers-shared/helpers/compact.js';
 import { fetchFireflyRpc } from '@dimensiondev/workers-shared/helpers/fetchFireflyRpc.js';
 import { resolveSocialSourceInUrl } from '@dimensiondev/workers-shared/helpers/resolveSource.js';

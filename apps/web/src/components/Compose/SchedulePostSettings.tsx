@@ -1,8 +1,8 @@
 'use client';
 
-import { Source } from '@dimensiondev/enums';
 import CalendarIcon from '@dimensiondev/assets/calendar.svg';
 import TimerIcon from '@dimensiondev/assets/timer.svg';
+import { Source } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 import dayjs from 'dayjs';
 import { noop } from 'lodash-es';
@@ -13,7 +13,6 @@ import { DatePicker } from '@/components/Calendar/DatePicker.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { TimePicker } from '@/components/TimePicker.js';
 import { queryClient } from '@/configs/queryClient.js';
-
 import { CreateScheduleError, SessionExpiredError } from '@/constants/error.js';
 import { EVENT_SOCIAL_ACCOUNT_EXPIRED } from '@/constants/event.js';
 import { checkScheduleTime } from '@/helpers/checkScheduleTime.js';

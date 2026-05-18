@@ -1,3 +1,5 @@
+import type { PredictionPlatform } from '@dimensiondev/enums';
+
 export type PolymarketResponse<T extends object> =
     | T
     | {
@@ -122,11 +124,6 @@ export interface OpinionMarketDetail {
     resultPos: string;
     createTime: number; // timestamp in seconds
     childList?: Array<Omit<OpinionMarketDetail, 'childList'>>;
-}
-
-export enum PredictionPlatform {
-    Polymarket = 'polymarket',
-    Opinion = 'opinion',
 }
 
 export interface PolymarketProfileData {

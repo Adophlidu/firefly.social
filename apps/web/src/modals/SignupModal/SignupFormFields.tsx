@@ -1,3 +1,4 @@
+import type { SocialSource } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 import { classNames, runInSafeAsync, safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
@@ -8,7 +9,6 @@ import { ErrorMessage, ValidationErrorCode } from '@/components/Form/ErrorMessag
 import { FormInput } from '@/components/Form/FormInput.js';
 import { FormTextarea } from '@/components/Form/FormTextarea.js';
 import { queryClient } from '@/configs/queryClient.js';
-import type { SocialSource } from '@/constants/enum.js';
 import {
     MAX_PROFILE_BIO_SIZE,
     MAX_PROFILE_DISPLAY_NAME_SIZE,

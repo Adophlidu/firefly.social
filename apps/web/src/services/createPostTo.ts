@@ -1,7 +1,7 @@
+import type { SocialSource } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 import { runInSafeAsync, safeUnreachable, UnreachableError } from '@dimensiondev/utils';
 
-import type { SocialSource } from '@/constants/enum.js';
 import { mergeMediaObjects } from '@/helpers/mergeMediaObjects.js';
 import { PostAtUri } from '@/providers/bsky/AtUri.js';
 import { twitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';

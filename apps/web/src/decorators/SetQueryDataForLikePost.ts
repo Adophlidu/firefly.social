@@ -1,4 +1,5 @@
-import type { SocialSource } from '@/constants/enum.js';
+import type { SocialSource } from '@dimensiondev/enums';
+
 import { patchNotificationQueryDataOnPost } from '@/helpers/patchNotificationQueryData.js';
 import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';
 import type { Post, Provider } from '@/providers/types/SocialMedia.js';

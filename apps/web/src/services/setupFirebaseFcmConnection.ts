@@ -1,3 +1,4 @@
+import { SessionType } from '@dimensiondev/enums';
 import { envs } from '@dimensiondev/envs';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import { getToken } from 'firebase/messaging';
@@ -7,7 +8,6 @@ import { NOTIFICATION_PERMISSION_KEY } from '@/constants/static.js';
 import { enqueuePermissionMessage } from '@/helpers/enqueuePermissionMessage.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { uploadNotificationSubscription } from '@/providers/firefly/endpoint/uploadNotificationSubscription.js';
-import { SessionType } from '@/providers/types/SocialMedia.js';
 
 interface Options {
     showUi?: boolean;

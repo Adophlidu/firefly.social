@@ -1,4 +1,4 @@
-import { NODE_ENV } from '@dimensiondev/envs';
+import { NODE_ENV } from '@dimensiondev/enums';
 import { isLessThan, leftShift, scale10 } from '@dimensiondev/web3/numbers';
 import { BigNumber } from 'bignumber.js';
 

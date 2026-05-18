@@ -1,7 +1,7 @@
 'use client';
 
-import { Source } from '@dimensiondev/enums';
 import SettingIcon from '@dimensiondev/assets/setting.svg';
+import { Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { NetworkType } from '@dimensiondev/web3/enums';
 import { formatAddress, getAddressType } from '@dimensiondev/web3/utils';

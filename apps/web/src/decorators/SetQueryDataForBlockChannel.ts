@@ -1,7 +1,8 @@
+import type { SocialSource } from '@dimensiondev/enums';
 import { produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { SearchType, type SocialSource } from '@/constants/enum.js';
+import { SearchType } from '@/constants/enum.js';
 import { getSessionFromStorageBySource } from '@/helpers/getSessionFromStorage.js';
 import { type Matcher, patchPostQueryData } from '@/helpers/patchPostQueryData.js';
 import type { Channel, Provider } from '@/providers/types/SocialMedia.js';

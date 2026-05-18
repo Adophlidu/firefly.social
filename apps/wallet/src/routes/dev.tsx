@@ -1,6 +1,6 @@
+import { STATUS } from '@dimensiondev/enums';
 import { createFileRoute, notFound, Outlet } from '@tanstack/react-router';
 
-import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 
 export const Route = createFileRoute('/dev')({

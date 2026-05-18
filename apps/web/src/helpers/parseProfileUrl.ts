@@ -1,5 +1,6 @@
-import { Source } from '@dimensiondev/enums';
-import { PageRoute, WalletProfileCategory } from '@/constants/enum.js';
+import { Source, WalletProfileCategory } from '@dimensiondev/enums';
+
+import { PageRoute } from '@/constants/enum.js';
 import { isFollowCategory } from '@/helpers/isFollowCategory.js';
 import { isSocialProfileCategory } from '@/helpers/isSocialProfileCategory.js';
 import { isProfilePageSource, isSocialSource } from '@/helpers/isSource.js';

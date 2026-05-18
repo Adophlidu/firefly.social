@@ -1,7 +1,7 @@
+import type { SocialSourceInURL } from '@dimensiondev/enums';
+import { Source, SourceInURL } from '@dimensiondev/enums';
 import { digestDocumentUrl } from '@dimensiondev/workers-oembed/digestDocumentUrl.js';
 import { SITE_DESCRIPTION, SITE_NAME } from '@dimensiondev/workers-shared/constants/metadata.js';
-import type { SocialSourceInURL } from '@dimensiondev/workers-shared/constants/source.js';
-import { Source, SourceInURL } from '@dimensiondev/workers-shared/constants/source.js';
 import { compact } from '@dimensiondev/workers-shared/helpers/compact.js';
 import { createSiteMetadata } from '@dimensiondev/workers-shared/helpers/createSiteMetadata.js';
 import { fetchFireflyRpc } from '@dimensiondev/workers-shared/helpers/fetchFireflyRpc.js';

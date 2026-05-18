@@ -1,3 +1,4 @@
+import type { SocialSourceInURL } from '@dimensiondev/enums';
 import { Source, SourceInURL } from '@dimensiondev/enums';
 import type { LayoutProps, SearchProps } from '@dimensiondev/types';
 import { Trans } from '@lingui/react/macro';
@@ -5,7 +6,6 @@ import type { Metadata } from 'next';
 
 import { Comeback } from '@/components/Comeback.js';
 import { ArticleMarkup } from '@/components/Markup/ArticleMarkup.js';
-import type { SocialSourceInURL } from '@/constants/enum.js';
 import { notFound, redirect } from '@/esm/navigation/server.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isSocialSourceInUrl } from '@/helpers/isSource.js';

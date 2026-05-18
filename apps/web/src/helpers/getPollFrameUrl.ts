@@ -1,6 +1,6 @@
+import type { SocialSource } from '@dimensiondev/enums';
 import urlcat from 'urlcat';
 
-import type { SocialSource } from '@/constants/enum.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';

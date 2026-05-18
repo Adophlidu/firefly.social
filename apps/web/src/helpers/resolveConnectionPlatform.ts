@@ -1,7 +1,7 @@
-import { Source, SourceInURL } from '@dimensiondev/enums';
+import { ConnectionPlatform, Source, SourceInURL } from '@dimensiondev/enums';
 import { createLookupTableResolver, UnreachableError } from '@dimensiondev/utils';
 
-import { ConnectionPlatform, type ProfileSource } from '@/constants/enum.js';
+import type { ProfileSource } from '@/constants/enum.js';
 import type { WalletConnection } from '@/providers/types/Firefly.js';
 
 export const resolveConnectionPlatform = createLookupTableResolver<

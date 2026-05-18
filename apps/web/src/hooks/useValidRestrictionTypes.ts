@@ -1,7 +1,8 @@
+import type { SocialSource } from '@dimensiondev/enums';
 import { getEnumAsArray } from '@dimensiondev/utils';
 import { useMemo } from 'react';
 
-import { RestrictionType, type SocialSource } from '@/constants/enum.js';
+import { RestrictionType } from '@/constants/enum.js';
 import { isValidRestrictionType } from '@/helpers/isValidRestrictionType.js';
 
 export function useValidRestrictionTypes(sources: SocialSource[]) {

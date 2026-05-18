@@ -1,5 +1,5 @@
-import { Source } from '@dimensiondev/enums';
 import type { AppBskyFeedDefs } from '@atproto/api';
+import { Source } from '@dimensiondev/enums';
 
 import { ChannelAtUri } from '@/providers/bsky/AtUri.js';
 import { formatBskyProfile } from '@/providers/bsky/formatBskyProfile.js';

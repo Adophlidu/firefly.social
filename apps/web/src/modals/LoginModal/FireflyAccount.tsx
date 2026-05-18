@@ -1,11 +1,11 @@
 'use client';
 
-import { Source } from '@dimensiondev/enums';
 import CloudIcon from '@dimensiondev/assets/cloud.svg';
 import EditIcon from '@dimensiondev/assets/edit.svg';
 import LogoutIcon from '@dimensiondev/assets/log-out.svg';
 import MoreIcon from '@dimensiondev/assets/more-fill.svg';
 import ScanIcon from '@dimensiondev/assets/scan.svg';
+import { SessionType, Source } from '@dimensiondev/enums';
 import { MenuButton as HeadlessMenuButton, MenuItem } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
@@ -32,7 +32,6 @@ import { getMetricsStatus } from '@/providers/firefly/metrics/getMetricsStatus.j
 import { captureEditProfileClickEvent } from '@/providers/telemetry/captureProfileActionEvent.js';
 import { captureMultiDeviceLoginClickEvent } from '@/providers/telemetry/captureSyncTokenEvent.js';
 import type { AllConnections, FireflyAccountProfile } from '@/providers/types/Firefly.js';
-import { SessionType } from '@/providers/types/SocialMedia.js';
 import { mergeMetrics } from '@/services/metrics.js';
 import { verifyAndGetPassword } from '@/services/verifyAndGetPassword.js';
 

@@ -1,8 +1,9 @@
-import { Source } from '@dimensiondev/enums';
+import type { SocialSource } from '@dimensiondev/enums';
+import { SessionType, Source } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
-import { CharTag, type SocialSource } from '@/constants/enum.js';
+import { CharTag } from '@/constants/enum.js';
 import {
     MAX_CHAR_SIZE_PER_POST,
     MAX_CHAR_SIZE_PRO_PER_POST,
@@ -13,7 +14,6 @@ import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { resolveSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { addSharerParam } from '@/helpers/sharerUrl.js';
-import { SessionType } from '@/providers/types/SocialMedia.js';
 import { resolveLengthCalculator } from '@/services/resolveLengthCalculator.js';
 import type { Chars, PromoteLinkChars } from '@/types/chars.js';
 import type { CompositePost } from '@/types/compose.js';

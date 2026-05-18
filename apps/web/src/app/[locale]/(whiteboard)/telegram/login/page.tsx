@@ -1,7 +1,7 @@
 'use client';
 
-import { Source } from '@dimensiondev/enums';
 import FullLogo from '@dimensiondev/assets/logo-full.svg';
+import { SessionType, Source } from '@dimensiondev/enums';
 import { AbortError, delay, ForbiddenError } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import dayjs from 'dayjs';
@@ -11,7 +11,6 @@ import { useAsync } from 'react-use';
 
 import { Loading } from '@/components/Loading.js';
 import { OpenFireflyAppButton } from '@/components/OpenFireflyAppButton.js';
-
 import { FireflyAlreadyBoundError } from '@/constants/error.js';
 import { useRouter } from '@/esm/navigation.js';
 import { createDummyProfileFromThirdPartySession } from '@/helpers/createDummyProfile.js';
@@ -23,7 +22,6 @@ import {
 } from '@/helpers/enqueueMessage.js';
 import { isSameSession } from '@/helpers/isSameSession.js';
 import { ThirdPartySession } from '@/providers/third-party/Session.js';
-import { SessionType } from '@/providers/types/SocialMedia.js';
 import { addAccount } from '@/services/account.js';
 import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';
 import { useThirdPartyProfileStore } from '@/store/useProfileStore/useThirdPartyProfileStore.js';

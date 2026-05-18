@@ -1,4 +1,4 @@
-import { Source } from '@dimensiondev/enums';
+import { SessionType, Source } from '@dimensiondev/enums';
 import type { Pageable, PageIndicator } from '@dimensiondev/utils';
 import { NotImplementedError } from '@dimensiondev/utils';
 import { isValidAddressEthereum } from '@dimensiondev/web3/utils';
@@ -79,17 +79,16 @@ import { upvoteLensPost } from '@/providers/lens/upvoteLensPost.js';
 import type { Account as FireflyAccount } from '@/providers/types/Account.js';
 import type { NotificationSettings } from '@/providers/types/Firefly.js';
 import type { Session } from '@/providers/types/Session.js';
-import {
-    type Channel,
-    type Friendship,
-    type Notification,
-    type Post,
-    type Profile,
-    type ProfileBadge,
-    type ProfileEditable,
-    type ProfileForSignup,
-    type Provider,
-    SessionType,
+import type {
+    Channel,
+    Friendship,
+    Notification,
+    Post,
+    Profile,
+    ProfileBadge,
+    ProfileEditable,
+    ProfileForSignup,
+    Provider,
 } from '@/providers/types/SocialMedia.js';
 
 @WithMutedProfilesQuery()

@@ -1,10 +1,10 @@
 'use client';
 
-import { Source } from '@dimensiondev/enums';
 import '@/styles/limo.css';
 import '@/styles/paragraph.css';
 import '@/styles/matters.css';
 
+import { Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { compact } from 'lodash-es';
@@ -17,7 +17,6 @@ import { Link } from '@/components/Link.js';
 import { ArticleMarkup } from '@/components/Markup/ArticleMarkup.js';
 import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
 import { ImageAsset } from '@/components/Posts/ImageAsset.js';
-
 import { interceptExternalUrl } from '@/helpers/interceptExternalUrl.js';
 import { isTrustedUrl } from '@/helpers/isTrustedUrl.js';
 import { openWindow } from '@/helpers/openWindow.js';

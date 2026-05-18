@@ -1,6 +1,5 @@
 'use client';
 
-import { Source } from '@dimensiondev/enums';
 import AppleDarkIcon from '@dimensiondev/assets/apple.dark.svg';
 import AppleIcon from '@dimensiondev/assets/apple.svg';
 import EmailDarkIcon from '@dimensiondev/assets/email-small.dark.svg';
@@ -9,6 +8,7 @@ import GoogleIcon from '@dimensiondev/assets/google.svg';
 import GoogleSmallIcon from '@dimensiondev/assets/google-small.svg';
 import FireflyIcon from '@dimensiondev/assets/logo.svg';
 import TelegramIcon from '@dimensiondev/assets/telegram.svg';
+import { Source } from '@dimensiondev/enums';
 import { useSizeStyle } from '@dimensiondev/hooks';
 import { safeUnreachable } from '@dimensiondev/utils';
 import type { SVGProps } from 'react';

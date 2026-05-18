@@ -1,5 +1,5 @@
+import type { SocialSourceInURL } from '@dimensiondev/enums';
 import { ONE_MONTH } from '@dimensiondev/workers-shared/constants/duration.js';
-import type { SocialSourceInURL } from '@dimensiondev/workers-shared/constants/source.js';
 import {
     createSuccessResponseJson,
     createZodErrorResponseJson,

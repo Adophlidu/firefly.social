@@ -1,6 +1,7 @@
 'use client';
 
-import { Source } from '@dimensiondev/enums';
+import type { SocialSource } from '@dimensiondev/enums';
+import { FireflyPlatform, Source } from '@dimensiondev/enums';
 import { createIndicator } from '@dimensiondev/utils';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact, uniqBy } from 'lodash-es';
@@ -8,7 +9,7 @@ import { compact, uniqBy } from 'lodash-es';
 import { ListInPage } from '@/components/ListInPage.js';
 import { Empty } from '@/components/Search/Empty.js';
 import { SearchableProfileItem } from '@/components/Search/SearchableProfileItem.js';
-import { FireflyPlatform, ScrollListKey, type SocialSource } from '@/constants/enum.js';
+import { ScrollListKey } from '@/constants/enum.js';
 import { toFireflyPlatformId } from '@/helpers/isSameProfile.js';
 import { resolveFireflyPlatform } from '@/helpers/resolveFireflyPlatform.js';
 import { resolveSearchUrlType, SearchUrlKind } from '@/helpers/resolveSearchUrlType.js';

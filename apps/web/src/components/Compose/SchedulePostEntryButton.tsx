@@ -1,7 +1,8 @@
 'use client';
 
 import ScheduleIcon from '@dimensiondev/assets/schedule.svg';
-import { envs, STATUS } from '@dimensiondev/envs';
+import { STATUS } from '@dimensiondev/enums';
+import { envs } from '@dimensiondev/envs';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import dayjs from 'dayjs';

@@ -1,5 +1,6 @@
+import type { SessionType } from '@dimensiondev/enums';
+
 import type { Session } from '@/providers/types/Session.js';
-import type { SessionType } from '@/providers/types/SocialMedia.js';
 
 export abstract class BaseSession implements Session {
     constructor(

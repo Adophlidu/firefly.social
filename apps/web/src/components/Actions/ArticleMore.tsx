@@ -1,7 +1,7 @@
 'use client';
 
-import { Source } from '@dimensiondev/enums';
 import MoreIcon from '@dimensiondev/assets/more.svg';
+import { Source } from '@dimensiondev/enums';
 import { formatAddress, isValidAddressEthereum } from '@dimensiondev/web3/utils';
 import { MenuItem } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
@@ -16,7 +16,6 @@ import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Tips } from '@/components/Tips/index.js';
 import { Tooltip } from '@/components/Tooltip.js';
-
 import { useEnsName } from '@/hooks/useEnsName.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';

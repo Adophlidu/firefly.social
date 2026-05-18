@@ -1,5 +1,6 @@
+import type { SocialSource } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
-import type { SocialSource } from '@/constants/enum.js';
+
 import { useTokenBalanceForLoggedInLensProfile } from '@/hooks/useTokenBalanceForCurrentProfile.js';
 
 export function useTokenBalanceInPostCollect(source: SocialSource, tokenAddress?: string) {

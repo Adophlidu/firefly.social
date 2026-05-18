@@ -1,12 +1,12 @@
 'use client';
 
-import { Source } from '@dimensiondev/enums';
 import '@/styles/notification.css';
 
 import NotificationSelectedIcon from '@dimensiondev/assets/notification.selected.svg';
 import NotificationIcon from '@dimensiondev/assets/notification.svg';
 import NotificationDotIcon from '@dimensiondev/assets/notification-dot.svg';
 import NotificationDotSelectedIcon from '@dimensiondev/assets/notification-dot-selected.svg';
+import { Source } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo, useCallback } from 'react';

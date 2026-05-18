@@ -1,8 +1,8 @@
 'use client';
 
-import { Source } from '@dimensiondev/enums';
 import EvmIcon from '@dimensiondev/assets/evm.svg';
 import SolanaIcon from '@dimensiondev/assets/solana.svg';
+import { Source } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { NetworkType } from '@dimensiondev/web3/enums';
 import { isSameAddress, isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3/utils';

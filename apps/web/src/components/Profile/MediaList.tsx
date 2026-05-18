@@ -1,13 +1,14 @@
-import { Source } from '@dimensiondev/enums';
 import ProtectedIcon from '@dimensiondev/assets/protected.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import type { SocialSource } from '@dimensiondev/enums';
+import { SocialProfileCategory, Source } from '@dimensiondev/enums';
 import { createIndicator, createPageable } from '@dimensiondev/utils';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { ProtectedPostsMessage } from '@/components/fallbacks/ProtectedPostsMessage.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
-import { ScrollListKey, SocialProfileCategory, type SocialSource } from '@/constants/enum.js';
+import { ScrollListKey } from '@/constants/enum.js';
 import { getPostsSelector } from '@/helpers/getPostsSelector.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useIsProfileProtected } from '@/hooks/useIsProfileProtected.js';

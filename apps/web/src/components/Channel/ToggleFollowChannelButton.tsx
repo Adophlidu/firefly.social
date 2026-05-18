@@ -9,7 +9,6 @@ import { useAsyncFn } from 'react-use';
 
 import type { ClickableButtonProps } from '@/components/ClickableButton.js';
 import { ToggleJoinButton } from '@/components/ToggleJoinButton.js';
-
 import { STALE_TIMES } from '@/constants/query.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';

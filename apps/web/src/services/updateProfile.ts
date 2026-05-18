@@ -1,10 +1,10 @@
+import type { SocialSource } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { produce } from 'immer';
 import { pickBy } from 'lodash-es';
 
 import { queryClient } from '@/configs/queryClient.js';
-import type { SocialSource } from '@/constants/enum.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { type Matcher, patchPostQueryData } from '@/helpers/patchPostQueryData.js';

@@ -1,11 +1,11 @@
 /* cspell:disable */
+import type { Locale } from '@dimensiondev/enums';
 import { safeUnreachable, UnreachableError } from '@dimensiondev/utils';
 import satori from 'satori';
 import urlcat from 'urlcat';
 
 import { RedPacketCover } from '@/components/RedPacket/Cover.js';
 import { RedPacketPayload } from '@/components/RedPacket/Payload.js';
-import type { Locale } from '@/constants/enum.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { loadTwemojiUrls } from '@/helpers/loadTwemojiUrls.js';
 import { removeVS16s } from '@/helpers/removeVS16s.js';

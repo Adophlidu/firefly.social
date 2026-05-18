@@ -1,9 +1,9 @@
 import { classNames } from '@dimensiondev/utils';
+import type { NetworkType } from '@dimensiondev/web3/enums';
 import { BigNumber } from 'bignumber.js';
 import { type HTMLProps, useMemo } from 'react';
 
 import { TokenIcon } from '@/components/Tips/TokenIcon.js';
-import type { NetworkType } from '@/constants/enum.js';
 import { formatCurrency } from '@/helpers/formatCurrency.js';
 import { formatFungibleTokenToDebankToken } from '@/helpers/formatToken.js';
 import { useChainContext } from '@/hooks/useChainContext.js';

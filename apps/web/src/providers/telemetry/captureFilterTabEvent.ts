@@ -1,4 +1,6 @@
-import type { ActivitiesPlatform, SocialSource } from '@/constants/enum.js';
+import type { SocialSource } from '@dimensiondev/enums';
+
+import type { ActivitiesPlatform } from '@/constants/enum.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import { EventId } from '@/providers/types/Telemetry.js';

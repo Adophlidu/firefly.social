@@ -1,3 +1,4 @@
+import { SessionType } from '@dimensiondev/enums';
 import { NotAllowedError, safeUnreachable, TimeoutError, UnreachableError } from '@dimensiondev/utils';
 import { first } from 'lodash-es';
 import urlcat from 'urlcat';
@@ -19,7 +20,6 @@ import { resolveTwitterResponseData } from '@/providers/twitter/resolveTwitterRe
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import type { LoginResponse } from '@/providers/types/Firefly.js';
 import type { Session } from '@/providers/types/Session.js';
-import { SessionType } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
 import type { ResponseJson } from '@/types/utility.js';
 

@@ -1,9 +1,9 @@
+import { SessionType } from '@dimensiondev/enums';
 import { NotAllowedError } from '@dimensiondev/utils';
 import { ETH_ZERO_ADDRESS } from '@dimensiondev/web3/constants';
 
 import { BaseSession } from '@/providers/base/Session.js';
 import type { Session } from '@/providers/types/Session.js';
-import { SessionType } from '@/providers/types/SocialMedia.js';
 
 export class LensSession extends BaseSession implements Session {
     constructor(

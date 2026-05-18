@@ -1,12 +1,4 @@
-export enum TipsNotificationType {
-    Tip = 'tip',
-    Like = 'like',
-}
-
-export enum TipsDetailViewType {
-    Sender = 'sender',
-    Receiver = 'receiver',
-}
+import type { TipsNotificationType } from '@dimensiondev/enums';
 
 export enum WatchType {
     Wallet = 'wallet',

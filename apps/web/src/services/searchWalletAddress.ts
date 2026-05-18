@@ -1,3 +1,4 @@
+import { FireflyPlatform } from '@dimensiondev/enums';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import { formatAddress, isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3/utils';
 import type { Address } from 'viem';
@@ -5,7 +6,6 @@ import { mainnet } from 'viem/chains';
 import { getEnsAvatar, getEnsName } from 'wagmi/actions';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
-import { FireflyPlatform } from '@/constants/enum.js';
 import { trimify } from '@/helpers/trimify.js';
 import type { Profile as FireflyProfile } from '@/providers/types/Firefly.js';
 

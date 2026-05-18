@@ -1,7 +1,8 @@
 'use client';
 
-import { Source } from '@dimensiondev/enums';
-import { envs, STATUS } from '@dimensiondev/envs';
+import type { ProfilePageSource } from '@dimensiondev/enums';
+import { Source, STATUS } from '@dimensiondev/enums';
+import { envs } from '@dimensiondev/envs';
 import { classNames } from '@dimensiondev/utils';
 import { MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
@@ -15,7 +16,6 @@ import { ProfileSourceTabsContainer } from '@/components/Profile/ProfileSourceTa
 import { TriggerButton } from '@/components/Profile/ProfileSourceTabs/TriggerButton.js';
 import { useSortFireflyProfiles } from '@/components/Profile/ProfileSourceTabs/useSortFireflyProfiles.js';
 import { SORTED_PROFILE_SOURCES } from '@/constants/computed.js';
-import type { ProfilePageSource } from '@/constants/enum.js';
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
 import { isPrivyMPCWallet } from '@/helpers/isMPCWallet.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';

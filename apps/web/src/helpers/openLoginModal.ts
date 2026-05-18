@@ -1,4 +1,5 @@
-import { envs, STATUS } from '@dimensiondev/envs';
+import { SessionType, STATUS } from '@dimensiondev/enums';
+import { envs } from '@dimensiondev/envs';
 import { bom } from '@dimensiondev/utils';
 
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
@@ -6,7 +7,6 @@ import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { isPathnameForceRedirect } from '@/helpers/isPathnameForceRedirect.js';
 import { CreateFireflyAccountGuideModalRef } from '@/modals/CreateFireflyAccountGuideModal/refs.js';
 import { type LoginModalOpenProps, LoginModalRef } from '@/modals/LoginModal/refs.js';
-import { SessionType } from '@/providers/types/SocialMedia.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
 
 export function openLoginModal(props: LoginModalOpenProps | void, forceOpen = false) {

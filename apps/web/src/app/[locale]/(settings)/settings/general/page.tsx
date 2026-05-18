@@ -1,5 +1,7 @@
 'use client';
 
+import type { ThemeMode } from '@dimensiondev/enums';
+import { Locale, SiteCookies } from '@dimensiondev/enums';
 import { getEnumAsArray } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { isServer } from '@tanstack/react-query';
@@ -9,7 +11,6 @@ import { changeCookies } from '@/actions/changeCookies.js';
 import { OptionButton } from '@/app/[locale]/(settings)/components/OptionButton.js';
 import { SettingsSection } from '@/app/[locale]/(settings)/components/Section.js';
 import { Subtitle } from '@/app/[locale]/(settings)/components/Subtitle.js';
-import { Locale, SiteCookies, type ThemeMode } from '@/constants/enum.js';
 import { useCookie, useLocale } from '@/helpers/getCookies.js';
 import { supportedLocales } from '@/i18n/index.js';
 import { logger } from '@/libs/Logger.js';

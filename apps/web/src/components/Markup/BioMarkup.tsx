@@ -1,5 +1,6 @@
 'use client';
 
+import type { SocialSource } from '@dimensiondev/enums';
 import { compact } from 'lodash-es';
 import { type HTMLProps, memo, useMemo } from 'react';
 import ReactMarkdown from 'react-markdown';
@@ -14,7 +15,6 @@ import { DisableItalicPlugin } from '@/components/Markup/plugins/DisableItalicPl
 import { HashTagLink } from '@/components/Markup/plugins/HashTagLink.js';
 import { MentionPlugin } from '@/components/Markup/plugins/MentionPlugin.js';
 import { MergeAdjacentTextPlugin } from '@/components/Markup/plugins/MergeAdjacentTextPlugin.js';
-import type { SocialSource } from '@/constants/enum.js';
 import {
     BIO_TWITTER_PROFILE_REGEX,
     CHANNEL_REGEX,

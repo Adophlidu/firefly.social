@@ -1,8 +1,7 @@
-import { Source } from '@dimensiondev/enums';
+import { SessionType, Source } from '@dimensiondev/enums';
 import { isServer } from '@tanstack/react-query';
 
 import { PUBLIC_SERVICE_URL } from '@/constants/bsky.js';
-
 import { SessionExpiredError } from '@/constants/error.js';
 import { EVENT_SOCIAL_ACCOUNT_EXPIRED } from '@/constants/event.js';
 import { dispatchCustomEvent } from '@/helpers/dispatchCustomEvents.js';
@@ -11,7 +10,6 @@ import { updateCurrentSessionToStorage } from '@/helpers/updateCurrentSessionToS
 import { getPdsServiceUrlFromSession } from '@/providers/bsky/getPdsServiceUrlFromSession.js';
 import { isErrorResponse } from '@/providers/bsky/isErrorResponse.js';
 import { refreshBskySession } from '@/providers/bsky/refreshBskySession.js';
-import { SessionType } from '@/providers/types/SocialMedia.js';
 
 export class SessionManager {
     private refreshSessionPromise: Promise<void> | undefined;

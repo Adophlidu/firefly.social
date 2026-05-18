@@ -1,4 +1,5 @@
-import { STATUS } from '@/constants/enum.js';
+import { STATUS } from '@dimensiondev/enums';
+
 import { env } from '@/constants/env.js';
 
 export const COINGECKO_ROOT_URL = 'https://coingecko-agent.r2d2.to/api/v3';

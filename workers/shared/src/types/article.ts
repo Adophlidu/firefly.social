@@ -1,3 +1,4 @@
+import type { ArticlePlatform, ArticleType } from '@dimensiondev/enums';
 import type { Address } from 'viem';
 
 export enum WatchType {
@@ -24,18 +25,6 @@ export interface FireflyDisplayInfo {
     fireflyName: string;
     fireflyUid: string;
     fireflyAvatarUrl: string;
-}
-
-export enum ArticlePlatform {
-    Mirror = 'mirror',
-    Paragraph = 'paragraph',
-    Limo = 'limo',
-    Matters = 'matters',
-}
-
-export enum ArticleType {
-    Post = 'post',
-    Revise = 'revise',
 }
 
 export interface Article {

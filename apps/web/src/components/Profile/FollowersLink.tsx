@@ -1,12 +1,11 @@
 'use client';
 
-import { Source } from '@dimensiondev/enums';
+import { FollowCategory, Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { Plural } from '@lingui/react/macro';
 import { type HTMLProps, memo } from 'react';
 
 import { Link } from '@/components/Link.js';
-import { FollowCategory } from '@/constants/enum.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';

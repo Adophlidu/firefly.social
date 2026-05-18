@@ -1,10 +1,10 @@
+import { SnapshotState } from '@dimensiondev/enums';
 import { fetchJson } from '@dimensiondev/workers-shared/helpers/fetchJson.js';
 import type { Context } from 'hono';
 
 import { SNAPSHOT_GRAPHQL_URL } from '@/snapshot/src/constants.js';
 import { ProposalsQuery } from '@/snapshot/src/queries.js';
 import type { SnapshotProposal } from '@/snapshot/src/types.js';
-import { SnapshotState } from '@/snapshot/src/types.js';
 
 function getProposalState(proposal: SnapshotProposal) {
     if (proposal.state === SnapshotState.Closed) {

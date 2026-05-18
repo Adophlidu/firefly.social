@@ -1,4 +1,4 @@
-import { NODE_ENV } from '@dimensiondev/envs';
+import { NODE_ENV } from '@dimensiondev/enums';
 
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { logger } from '@/libs/Logger.js';

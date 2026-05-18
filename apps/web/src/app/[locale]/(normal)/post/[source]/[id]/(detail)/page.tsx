@@ -1,3 +1,4 @@
+import type { SocialSourceInURL } from '@dimensiondev/enums';
 import type { LayoutProps } from '@dimensiondev/types';
 import { UnauthorizedError } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
@@ -10,7 +11,6 @@ import { getPostDetailQuery, getPostThreadQuery } from '@/app/[locale]/(normal)/
 import { Comeback } from '@/components/Comeback.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { queryClientConfig } from '@/configs/queryClient.js';
-import type { SocialSourceInURL } from '@/constants/enum.js';
 import { notFound } from '@/esm/navigation/server.js';
 import { isRequestedLoginSource } from '@/helpers/isRequestedLoginSource.js';
 import { isSocialSourceInUrl } from '@/helpers/isSource.js';

@@ -4,7 +4,6 @@ import { safeUnreachable } from '@dimensiondev/utils';
 import { getSingleNFTFeedItemContent } from '@/components/NFTs/VirtualListHelper.js';
 import { PredictionActivityItem } from '@/components/Prediction/PredictionActivityItem.js';
 import { SwapActivityItem } from '@/components/Swap/SwapActivityItem.js';
-
 import type { TransactionsItem } from '@/providers/types/Firefly.js';
 
 export function getTransactionsItemContent(data: TransactionsItem, index: number, listKey: string) {

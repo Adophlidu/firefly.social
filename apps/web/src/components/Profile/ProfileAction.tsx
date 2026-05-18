@@ -8,7 +8,6 @@ import { EditProfileButton } from '@/components/EditProfile/EditProfileButton.js
 import { FollowButton } from '@/components/Profile/FollowButton.js';
 import { ProfileLoginStatus } from '@/components/Profile/ProfileLoginStatus.js';
 import { ProfileMoreAction, type ProfileMoreActionProps } from '@/components/Profile/ProfileMoreAction.js';
-
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveFireflyIdentity } from '@/helpers/resolveFireflyProfileId.js';

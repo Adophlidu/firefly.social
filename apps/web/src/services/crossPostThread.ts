@@ -1,17 +1,17 @@
-import { Source } from '@dimensiondev/enums';
+import type { SocialSource } from '@dimensiondev/enums';
+import { SessionType, Source } from '@dimensiondev/enums';
 import { delay, safeUnreachable } from '@dimensiondev/utils';
 import { plural, t } from '@lingui/core/macro';
 import { compact, difference, first } from 'lodash-es';
 
 import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
-import type { SocialSource } from '@/constants/enum.js';
 import { enqueueErrorsMessage, enqueueSuccessMessage, MessageKey } from '@/helpers/enqueueMessage.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { getThreadFailedAt } from '@/helpers/getThreadFailedAt.js';
 import { resolveSourceName, resolveSourcesName } from '@/helpers/resolveSourceName.js';
 import { SnackbarRef } from '@/modals/Snackbar/refs.js';
 import { captureComposeEvent } from '@/providers/telemetry/captureComposeEvent.js';
-import { type Post, SessionType } from '@/providers/types/SocialMedia.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 import { crossPost } from '@/services/crossPost.js';
 import { reportCrossedPost } from '@/services/reportCrossedPost.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';

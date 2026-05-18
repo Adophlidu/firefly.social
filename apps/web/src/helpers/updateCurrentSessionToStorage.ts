@@ -1,7 +1,8 @@
+import type { SocialSource } from '@dimensiondev/enums';
 import { bom, parseJson } from '@dimensiondev/utils';
 import type { z } from 'zod';
 
-import type { ProfileSource, SocialSource } from '@/constants/enum.js';
+import type { ProfileSource } from '@/constants/enum.js';
 import { setSessionStateToStorage } from '@/helpers/createSessionStorage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveProfileStorageKey } from '@/helpers/resolveProfileStorageKey.js';

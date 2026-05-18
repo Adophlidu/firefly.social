@@ -1,4 +1,3 @@
-import { Source } from '@dimensiondev/enums';
 import BskyIcon from '@dimensiondev/assets/bsky-circle.svg';
 import BskyFillIcon from '@dimensiondev/assets/bsky-fill.svg';
 import BskySquareIcon from '@dimensiondev/assets/bsky-square.svg';
@@ -10,11 +9,12 @@ import ColorfulLensIcon from '@dimensiondev/assets/lens-circle-small.svg';
 import LensFillIcon from '@dimensiondev/assets/lens-fill.svg';
 import LensSquareIcon from '@dimensiondev/assets/lens-square.svg';
 import XFillIcon from '@dimensiondev/assets/x-fill.svg';
+import type { SocialSource } from '@dimensiondev/enums';
+import { Source } from '@dimensiondev/enums';
 import { useSizeStyle } from '@dimensiondev/hooks';
 import { memo } from 'react';
 
 import { XIcon } from '@/components/XIcon.js';
-import type { SocialSource } from '@/constants/enum.js';
 
 interface SocialSourceIconProps extends React.SVGAttributes<SVGElement> {
     size?: number;

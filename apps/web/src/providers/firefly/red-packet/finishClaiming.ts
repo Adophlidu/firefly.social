@@ -1,10 +1,10 @@
+import { SessionType } from '@dimensiondev/enums';
 import urlcat from 'urlcat';
 
 import { FIREFLY_ROOT_URL_DEV } from '@/constants/static.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
-import { SessionType } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
 
 export async function finishClaiming(

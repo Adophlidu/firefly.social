@@ -1,7 +1,7 @@
 'use client';
 
-import { Source } from '@dimensiondev/enums';
-import { envs, STATUS } from '@dimensiondev/envs';
+import { Source, STATUS } from '@dimensiondev/enums';
+import { envs } from '@dimensiondev/envs';
 import { Trans } from '@lingui/react/macro';
 
 import { AccountCards } from '@/app/[locale]/(settings)/components/AccountCard.js';
@@ -10,7 +10,6 @@ import { SettingsSection } from '@/app/[locale]/(settings)/components/Section.js
 import { ThirdPartAccounts } from '@/app/[locale]/(settings)/components/ThirdPartAccounts.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
-
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 

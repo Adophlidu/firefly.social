@@ -1,7 +1,7 @@
+import type { SocialSourceInURL } from '@dimensiondev/enums';
 import { SourceInURL } from '@dimensiondev/enums';
 import { safeUnreachable, UnreachableError } from '@dimensiondev/utils';
 
-import type { SocialSourceInURL } from '@/constants/enum.js';
 import { getBskyProfilesByIds } from '@/providers/bsky/getBskyProfilesByIds.js';
 import { getFarcasterProfilesByIds } from '@/providers/farcaster/getFarcasterProfilesByIds.js';
 import { getLensProfilesByIds } from '@/providers/lens/getLensProfilesById.js';

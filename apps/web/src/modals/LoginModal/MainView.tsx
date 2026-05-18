@@ -1,9 +1,9 @@
 'use client';
 
-import { Source } from '@dimensiondev/enums';
 import FireflyAvatar from '@dimensiondev/assets/firefly.round.svg';
 import PlusIcon from '@dimensiondev/assets/plus.svg';
 import ScanIcon from '@dimensiondev/assets/scan.svg';
+import { Source } from '@dimensiondev/enums';
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { rootRouteId, useMatch, useRouter } from '@tanstack/react-router';

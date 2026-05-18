@@ -1,3 +1,4 @@
+import { SessionType } from '@dimensiondev/enums';
 import { parseJson } from '@dimensiondev/utils';
 import { create } from 'zustand';
 import { persist, type PersistStorage } from 'zustand/middleware';
@@ -6,7 +7,6 @@ import { immer } from 'zustand/middleware/immer';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { SessionFactory } from '@/providers/base/SessionFactory.js';
-import { SessionType } from '@/providers/types/SocialMedia.js';
 import { decryptPassword, encryptPassword } from '@/services/crypto.js';
 
 interface TokenPasswordState {

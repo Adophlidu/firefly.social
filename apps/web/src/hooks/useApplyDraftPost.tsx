@@ -1,3 +1,4 @@
+import type { SocialSource } from '@dimensiondev/enums';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import { toFixed } from '@dimensiondev/web3/numbers';
 import { t } from '@lingui/core/macro';
@@ -8,7 +9,7 @@ import urlcat from 'urlcat';
 
 import { formatSenderName } from '@/components/RedPacket/helpers.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
-import { CharTag, DraftPostType, FileMimeType, type SocialSource } from '@/constants/enum.js';
+import { CharTag, DraftPostType, FileMimeType } from '@/constants/enum.js';
 import { DEFAULT_THEME_ID } from '@/constants/rp.js';
 import { RP_HASH_TAG, SITE_URL } from '@/constants/static.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';

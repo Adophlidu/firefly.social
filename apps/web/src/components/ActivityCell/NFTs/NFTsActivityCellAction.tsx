@@ -1,12 +1,12 @@
 'use client';
 
-import { Source } from '@dimensiondev/enums';
 import AcquiredIcon from '@dimensiondev/assets/acquired.svg';
 import BoughtIcon from '@dimensiondev/assets/bought.svg';
 import BurnIcon from '@dimensiondev/assets/burn.svg';
 import MintIcon from '@dimensiondev/assets/minted.svg';
 import SentIcon from '@dimensiondev/assets/sent.svg';
 import SoldIcon from '@dimensiondev/assets/sold.svg';
+import { Source } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { formatAddressEthereum, isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
@@ -16,7 +16,6 @@ import { ActivityCellActionTag } from '@/components/ActivityCell/ActivityCellAct
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
-
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { type EVM as NFTScanEVM, TransEventType } from '@/providers/nftscan/types.js';

@@ -1,6 +1,6 @@
 'use client';
 
-import { Source } from '@dimensiondev/enums';
+import { SessionType, Source } from '@dimensiondev/enums';
 import { bom, ForbiddenError } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import dayjs from 'dayjs';
@@ -23,7 +23,6 @@ import { resolveSourceFromSessionType } from '@/helpers/resolveSource.js';
 import { logger } from '@/libs/Logger.js';
 import { ThirdPartySession } from '@/providers/third-party/Session.js';
 import { thirdPartySessionHolder } from '@/providers/third-party/SessionHolder.js';
-import { SessionType } from '@/providers/types/SocialMedia.js';
 import type { ThirdPartySessionType } from '@/providers/types/ThirdParty.js';
 import { addAccount } from '@/services/account.js';
 import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';

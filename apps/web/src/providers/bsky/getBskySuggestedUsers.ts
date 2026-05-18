@@ -1,17 +1,16 @@
-import { Source } from '@dimensiondev/enums';
 import type { AppBskyActorDefs } from '@atproto/api';
+import { SessionType, Source } from '@dimensiondev/enums';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import { createPageable, type Pageable, type PageIndicator } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
 import { queryClient } from '@/configs/queryClient.js';
-
 import { STALE_TIMES } from '@/constants/query.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { formatBskyProfile } from '@/providers/bsky/formatBskyProfile.js';
 import { getBskyProfilesByIds } from '@/providers/bsky/getBskyProfilesByIds.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
-import { type Profile, SessionType } from '@/providers/types/SocialMedia.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface Options {
     category?: string;

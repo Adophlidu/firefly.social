@@ -1,12 +1,13 @@
 'use client';
 
+import type { SocialSource } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 
 import { ChannelList } from '@/components/Channel/ChannelList.js';
 import { PredictionList } from '@/components/PredictionList.js';
 import { SuggestedFollowUsersList } from '@/components/SuggestedFollows/SuggestedFollowUsersList.js';
 import { TokenTrendingList } from '@/components/TokenTrendingList.js';
-import { ExploreType, type SocialSource, TrendingType } from '@/constants/enum.js';
+import { ExploreType, TrendingType } from '@/constants/enum.js';
 
 interface Props {
     source: string;

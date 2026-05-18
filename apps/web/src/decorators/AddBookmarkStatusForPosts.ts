@@ -1,4 +1,5 @@
-import type { SocialSource } from '@/constants/enum.js';
+import type { SocialSource } from '@dimensiondev/enums';
+
 import type { Provider } from '@/providers/types/SocialMedia.js';
 import { fillBookmarkStatusForPosts } from '@/services/fillBookmarkStatusForPosts.js';
 import type { ClassType } from '@/types/utility.js';

@@ -1,3 +1,5 @@
+import type { FrameProtocol } from '@dimensiondev/enums';
+
 export type Index = 1 | 2 | 3 | 4;
 
 export enum ActionType {
@@ -6,11 +8,6 @@ export enum ActionType {
     Link = 'link',
     Mint = 'mint',
     Transaction = 'tx',
-}
-
-export enum FrameProtocol {
-    OpenFrame = 'of',
-    Farcaster = 'fc',
 }
 
 export interface FrameInput {

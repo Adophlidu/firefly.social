@@ -1,11 +1,11 @@
 'use client';
 
+import { FollowCategory } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 import { compact } from 'lodash-es';
 import { type PropsWithChildren, useMemo } from 'react';
 
 import { SecondTabs } from '@/components/Tabs/SecondTabs.js';
-import { FollowCategory } from '@/constants/enum.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';

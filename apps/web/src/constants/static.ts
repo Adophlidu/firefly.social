@@ -1,9 +1,10 @@
 /* cspell:disable */
 
-import { Source } from '@dimensiondev/enums';
-import { envs, NODE_ENV, STATUS } from '@dimensiondev/envs';
+import type { SocialSource } from '@dimensiondev/enums';
+import { NODE_ENV, Source, STATUS } from '@dimensiondev/enums';
+import { envs } from '@dimensiondev/envs';
 
-import type { RequestedLoginSource, SocialSource } from '@/constants/enum.js';
+import type { RequestedLoginSource } from '@/constants/enum.js';
 
 export const SITE_NAME = 'Firefly ✨ Everything App for Web3 Natives';
 export const SITE_DESCRIPTION = "Firefly is a social app for exploring what's happening onchain.";

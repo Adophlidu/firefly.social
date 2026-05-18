@@ -17,4 +17,10 @@ patches/
 
 # Next applications
 apps/**/.next/
-routeTree.gen.ts
+
+# Ignore codegen
+*.gen.ts
+
+# Ignore agents
+.cursor
+.claude

@@ -1,4 +1,5 @@
-import type { SocialSource } from '@/constants/enum.js';
+import type { SocialSource } from '@dimensiondev/enums';
+
 import {
     getPostVideoDurationMax,
     getPostVideoDurationMin,

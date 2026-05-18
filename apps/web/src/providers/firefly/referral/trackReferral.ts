@@ -1,3 +1,4 @@
+import { SessionType } from '@dimensiondev/enums';
 import { bom } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
@@ -5,7 +6,6 @@ import { fetchJson } from '@/helpers/fetchJson.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { getOrCreateSharerSessionDeviceId, getSharerSessionId } from '@/helpers/sharerSession.js';
 import type { FireflySession } from '@/providers/firefly/Session.js';
-import { SessionType } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
 
 function resolveReferralUid(value: string | null | undefined): number | null {

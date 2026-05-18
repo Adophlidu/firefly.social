@@ -1,5 +1,6 @@
 import LinkIcon from '@dimensiondev/assets/link-square.svg';
 import WalletIcon from '@dimensiondev/assets/wallet.fill.svg';
+import type { SocialSource } from '@dimensiondev/enums';
 import { formatAddress, getBlockExplorersURL } from '@dimensiondev/web3/utils';
 import { omitBy } from 'lodash-es';
 import type { HTMLProps, ReactNode } from 'react';
@@ -7,7 +8,6 @@ import { mainnet } from 'viem/chains';
 
 import { Image } from '@/components/Image.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-import type { SocialSource } from '@/constants/enum.js';
 import { cn } from '@/lib/utils.js';
 
 export interface RecipientItemProps extends Pick<HTMLProps<'div'>, 'className'> {

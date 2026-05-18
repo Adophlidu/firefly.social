@@ -1,12 +1,13 @@
 'use client';
 
+import type { SocialSource } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 import { type PropsWithChildren, useMemo } from 'react';
 
 import { Comeback } from '@/components/Comeback.js';
 import { SecondTabs } from '@/components/Tabs/SecondTabs.js';
 import { SORTED_ENGAGEMENT_TAB_TYPE } from '@/constants/computed.js';
-import { EngagementType, type SocialSource } from '@/constants/enum.js';
+import { EngagementType } from '@/constants/enum.js';
 import { resolveEngagementUrl } from '@/helpers/resolveEngagementUrl.js';
 
 export function EngagementLayout({

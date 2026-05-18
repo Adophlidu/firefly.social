@@ -1,4 +1,4 @@
-import { Source } from '@dimensiondev/enums';
+import { SessionType, Source } from '@dimensiondev/enums';
 import { classNames, parseUrl } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
@@ -9,7 +9,6 @@ import urlcat from 'urlcat';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ScannableQRCode } from '@/components/ScannableQRCode.js';
-
 import { FARCASTER_REPLY_URL, SITE_URL } from '@/constants/static.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
@@ -18,7 +17,7 @@ import { useAbortController } from '@/hooks/useAbortController.js';
 import { logger } from '@/libs/Logger.js';
 import type { RelayConfirmationContext } from '@/modals/FrameViewerModal/RelayConfirmationRouter.js';
 import { captureFrameSignInEvent } from '@/providers/telemetry/captureFrameSignInEvent.js';
-import { type Profile, SessionType } from '@/providers/types/SocialMedia.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 import { pollingChannelToken } from '@/providers/warpcast/pollingChannelToken.js';
 
 export function RelayServiceSignIn() {

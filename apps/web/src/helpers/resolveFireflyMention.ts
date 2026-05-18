@@ -1,7 +1,7 @@
+import type { SocialSource } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 import { createLookupTableResolver, UnreachableError } from '@dimensiondev/utils';
 
-import type { SocialSource } from '@/constants/enum.js';
 import {
     FIREFLY_BSKY_PROFILE,
     FIREFLY_FARCASTER_PROFILE,

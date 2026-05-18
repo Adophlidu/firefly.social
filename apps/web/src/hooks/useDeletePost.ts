@@ -1,7 +1,7 @@
+import type { SocialSource } from '@dimensiondev/enums';
 import { t } from '@lingui/core/macro';
 import { useAsyncFn } from 'react-use';
 
-import type { SocialSource } from '@/constants/enum.js';
 import { usePathname } from '@/esm/navigation.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';

@@ -1,5 +1,6 @@
+import type { ProfilePageSource, SocialSource, SocialSourceInURL, SourceInURL } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
-import type { SourceInURL } from '@dimensiondev/enums';
+
 import {
     BOOKMARK_SOURCES,
     DISCOVER_SOURCES,
@@ -14,10 +15,7 @@ import type {
     DiscoverSource,
     FollowingSource,
     NotificationSource,
-    ProfilePageSource,
     SocialDiscoverSource,
-    SocialSource,
-    SocialSourceInURL,
 } from '@/constants/enum.js';
 import { resolveSourceInUrl, resolveSourceInUrlForApi } from '@/helpers/resolveSourceInUrl.js';
 

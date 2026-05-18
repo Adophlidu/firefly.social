@@ -1,4 +1,5 @@
-import { Source } from '@dimensiondev/enums';
+import type { SocialSource } from '@dimensiondev/enums';
+import { SessionType, Source } from '@dimensiondev/enums';
 import { runInSafe, runInSafeAsync, safeUnreachable } from '@dimensiondev/utils';
 import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import { compact, first } from 'lodash-es';
@@ -6,7 +7,7 @@ import { signOut } from 'next-auth/react';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { NEXT_AUTH_SOURCES, SORTED_SOCIAL_SOURCES, SORTED_THIRD_PARTY_SOURCES } from '@/constants/computed.js';
-import type { ProfileSource, SocialSource } from '@/constants/enum.js';
+import type { ProfileSource } from '@/constants/enum.js';
 import { SessionExpiredError } from '@/constants/error.js';
 import { EVENT_SOCIAL_ACCOUNT_EXPIRED } from '@/constants/event.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
@@ -48,7 +49,7 @@ import { TwitterAuthProvider } from '@/providers/twitter/Auth.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import type { Account } from '@/providers/types/Account.js';
-import { type Profile, SessionType } from '@/providers/types/SocialMedia.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 import { ensureSessionIsValid } from '@/services/ensureSessionIsValid.js';
 import { downloadAccounts } from '@/services/metrics.js';
 import { restoreFireflySession } from '@/services/restoreFireflySession.js';

@@ -1,15 +1,8 @@
-import type { ArticleType } from '@dimensiondev/workers-shared/types/article.js';
+import type { ArticlePlatform, ArticleType } from '@dimensiondev/enums';
 import type { FireflyResponse } from '@dimensiondev/workers-shared/types/firefly.js';
 import type { Address } from 'viem';
 
 import type { FireflyDisplayInfo, FollowingSource } from '@/metadata/src/transaction/types.js';
-
-export enum ArticlePlatform {
-    Mirror = 'mirror',
-    Paragraph = 'paragraph',
-    Limo = 'limo',
-    Matters = 'matters',
-}
 
 export interface Article {
     timestamp: string;

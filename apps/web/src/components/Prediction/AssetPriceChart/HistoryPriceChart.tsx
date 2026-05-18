@@ -1,5 +1,5 @@
-import { Source } from '@dimensiondev/enums';
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { Source } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
@@ -12,7 +12,6 @@ import { Loading } from '@/components/Loading.js';
 import { CryptoIcon } from '@/components/Prediction/PredictionSeries/CryptoIconButton.js';
 import { SafePadding } from '@/components/PriceChart/config.js';
 import { CRYPTO_PRICE_CHART_HEIGHT, type PredictionCrypto } from '@/constants/bets.js';
-
 import { STALE_TIMES } from '@/constants/query.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';

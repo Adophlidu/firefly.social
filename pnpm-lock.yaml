@@ -1016,6 +1016,9 @@ importers:
 
   packages/envs:
     dependencies:
+      '@dimensiondev/enums':
+        specifier: workspace:^
+        version: link:../enums
       '@dimensiondev/utils':
         specifier: workspace:^
         version: link:../utils
@@ -1433,6 +1436,9 @@ importers:
 
   workers/frame:
     dependencies:
+      '@dimensiondev/enums':
+        specifier: workspace:^
+        version: link:../../packages/enums
       '@dimensiondev/workers-shared':
         specifier: workspace:*
         version: link:../shared
@@ -1532,6 +1538,12 @@ importers:
 
   workers/metadata:
     dependencies:
+      '@dimensiondev/enums':
+        specifier: workspace:^
+        version: link:../../packages/enums
+      '@dimensiondev/web3':
+        specifier: workspace:^
+        version: link:../../packages/web3
       '@dimensiondev/workers-bsky-identity':
         specifier: workspace:*
         version: link:../bsky-identity
@@ -1612,6 +1624,9 @@ importers:
 
   workers/og:
     dependencies:
+      '@dimensiondev/enums':
+        specifier: workspace:^
+        version: link:../../packages/enums
       '@dimensiondev/workers-bsky-identity':
         specifier: workspace:*
         version: link:../bsky-identity
@@ -1729,6 +1744,9 @@ importers:
 
   workers/shared:
     dependencies:
+      '@dimensiondev/enums':
+        specifier: workspace:^
+        version: link:../../packages/enums
       bs58:
         specifier: ^6.0.0
         version: 6.0.0
@@ -1828,6 +1846,9 @@ importers:
 
   workers/snapshot:
     dependencies:
+      '@dimensiondev/enums':
+        specifier: workspace:^
+        version: link:../../packages/enums
       '@dimensiondev/workers-shared':
         specifier: workspace:*
         version: link:../shared
@@ -1924,6 +1945,9 @@ importers:
 
   workers/ui-suggested-channels:
     dependencies:
+      '@dimensiondev/enums':
+        specifier: workspace:^
+        version: link:../../packages/enums
       '@dimensiondev/workers-shared':
         specifier: workspace:*
         version: link:../shared

@@ -1,4 +1,5 @@
-import { FireflyPlatform } from '@/constants/enum.js';
+import { FireflyPlatform } from '@dimensiondev/enums';
+
 import type { FireflyDisplayInfo, FireflyDisplayInfoV2 } from '@/providers/types/Firefly.js';
 
 function isLowerEqual(a?: string | null, b?: string | null) {

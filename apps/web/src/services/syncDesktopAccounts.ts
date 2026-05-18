@@ -1,4 +1,5 @@
-import { Source, SourceInURL } from '@dimensiondev/enums';
+import { SessionType, Source, SourceInURL } from '@dimensiondev/enums';
+
 import { encrypt } from '@/helpers/encodec.js';
 import { getAccountsFromStorage } from '@/helpers/getAccountsFromStorage.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
@@ -7,7 +8,6 @@ import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { LensSession } from '@/providers/lens/Session.js';
 import type { TwitterSession } from '@/providers/twitter/Session.js';
-import { SessionType } from '@/providers/types/SocialMedia.js';
 import type {
     DesktopSyncPayload,
     SocialAccountBsky,

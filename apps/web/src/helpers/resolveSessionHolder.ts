@@ -1,7 +1,8 @@
+import type { SocialSource } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 import { createLookupTableResolver, UnreachableError } from '@dimensiondev/utils';
 
-import type { ProfileSource, SocialSource } from '@/constants/enum.js';
+import type { ProfileSource } from '@/constants/enum.js';
 import type { SessionHolder } from '@/providers/base/SessionHolder.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';

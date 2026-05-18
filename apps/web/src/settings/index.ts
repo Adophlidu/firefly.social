@@ -1,4 +1,5 @@
-import { envs, STATUS } from '@dimensiondev/envs';
+import { STATUS } from '@dimensiondev/enums';
+import { envs } from '@dimensiondev/envs';
 
 import {
     FARCASTER_POLL_MINI_APP_URL,

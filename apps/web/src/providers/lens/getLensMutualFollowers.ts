@@ -1,3 +1,4 @@
+import { SessionType } from '@dimensiondev/enums';
 import {
     createIndicator,
     createNextIndicator,
@@ -16,7 +17,6 @@ import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { formatLensProfileV3 } from '@/providers/lens/formatLensProfile.js';
 import { getLensClient } from '@/providers/lens/getLensClient.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { SessionType } from '@/providers/types/SocialMedia.js';
 
 export async function getLensMutualFollowers(
     profileId: string,

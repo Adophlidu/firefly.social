@@ -1,11 +1,4 @@
-export enum SnapshotState {
-    Active = 'active',
-    Pending = 'pending',
-    Passed = 'passed',
-    Rejected = 'rejected',
-    Executed = 'executed',
-    Closed = 'closed',
-}
+import type { SnapshotState } from '@dimensiondev/enums';
 
 export type SnapshotChoice = number[] | { [key: string]: number } | number | string;
 

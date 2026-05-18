@@ -1,5 +1,6 @@
+import type { SocialSource } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
-import type { SocialSource } from '@/constants/enum.js';
+
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';

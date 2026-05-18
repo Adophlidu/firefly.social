@@ -1,9 +1,9 @@
+import { TipsDetailViewType } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/workers-shared/helpers/unreachable.js';
 import type { Context } from 'hono';
 
 import { formatTipsAccount } from '@/metadata/src/transaction/formatTipsAccount.js';
 import type { TipsDetail } from '@/metadata/src/transaction/types.js';
-import { TipsDetailViewType } from '@/metadata/src/transaction/types.js';
 
 export function getMaintainAccountInfo(data: TipsDetail, view: TipsDetailViewType, c: Context) {
     switch (view) {

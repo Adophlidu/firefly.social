@@ -1,4 +1,4 @@
-import { NODE_ENV } from '@dimensiondev/envs';
+import { NODE_ENV } from '@dimensiondev/enums';
 import { getPublicKey, sign } from '@noble/ed25519';
 import { bytesToHex, hexToBytes } from 'viem';
 

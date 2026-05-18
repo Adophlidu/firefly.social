@@ -1,12 +1,11 @@
 'use server';
 
-import { SourceInURL } from '@dimensiondev/enums';
+import { SessionType, SourceInURL } from '@dimensiondev/enums';
 import { parseJson, runInSafeAsync, safeUnreachable } from '@dimensiondev/utils';
 import { ensureHexPrefix } from '@dimensiondev/web3/utils';
 import { compact } from 'lodash-es';
 
 import { DEFAULT_SERVICE_URL } from '@/constants/bsky.js';
-
 import { HIDDEN_SECRET } from '@/constants/static.js';
 import { decrypt } from '@/helpers/encodec.js';
 import { formatFireflyAccountProfileFromFireflyConnections } from '@/helpers/formatFireflyAccountProfileFromFireflyConnections.js';
@@ -17,7 +16,6 @@ import { FireflySession } from '@/providers/firefly/Session.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import { TwitterSessionPayload } from '@/providers/twitter/SessionPayload.js';
-import { SessionType } from '@/providers/types/SocialMedia.js';
 import type { AuthDataFromApp } from '@/types/sync.js';
 
 export async function decryptAppScanLoginEncryptedData(

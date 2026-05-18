@@ -1,7 +1,7 @@
+import type { ProfileCategory, ProfilePageSourceInURL } from '@dimensiondev/enums';
 import type { LayoutProps } from '@dimensiondev/types';
 
 import { RelationContentList } from '@/app/[locale]/(normal)/profile/pages/RelationContentList.js';
-import type { ProfileCategory, ProfilePageSourceInURL } from '@/constants/enum.js';
 
 interface Props extends LayoutProps<{ id: string; category: ProfileCategory; source: ProfilePageSourceInURL }> {}
 

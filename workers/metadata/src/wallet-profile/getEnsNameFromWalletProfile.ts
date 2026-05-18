@@ -1,8 +1,8 @@
+import { NetworkType } from '@dimensiondev/web3/enums';
 import { first } from '@dimensiondev/workers-shared/helpers/first.js';
 import { safeUnreachable } from '@dimensiondev/workers-shared/helpers/unreachable.js';
 
 import type { WalletProfile } from '@/metadata/src/firefly-profile/types.js';
-import { NetworkType } from '@/metadata/src/profile/enums.js';
 
 /**
  * Get the ENS name from a wallet profile. The priority is as follows:

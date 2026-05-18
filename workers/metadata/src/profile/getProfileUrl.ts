@@ -1,8 +1,7 @@
-import type { ProfilePageSource } from '@dimensiondev/workers-shared/constants/source.js';
-import { Source } from '@dimensiondev/workers-shared/constants/source.js';
+import type { ProfileCategory, ProfilePageSource } from '@dimensiondev/enums';
+import { Source } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/workers-shared/helpers/unreachable.js';
 
-import type { ProfileCategory } from '@/metadata/src/profile/enums.js';
 import { resolveProfileUrl } from '@/metadata/src/profile/resolveProfileUrl.js';
 
 /**

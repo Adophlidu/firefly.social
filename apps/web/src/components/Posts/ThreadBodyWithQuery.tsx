@@ -1,10 +1,10 @@
 'use client';
 
+import type { SocialSource } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { useQuery } from '@tanstack/react-query';
 
 import { ThreadBody, type ThreadBodyProps } from '@/components/Posts/ThreadBody.js';
-import type { SocialSource } from '@/constants/enum.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 
 export interface ThreadBodyWithQuery extends Omit<ThreadBodyProps, 'post'> {

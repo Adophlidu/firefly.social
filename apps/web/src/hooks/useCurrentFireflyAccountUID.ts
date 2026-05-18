@@ -1,7 +1,7 @@
+import { SessionType } from '@dimensiondev/enums';
 import { useMemo } from 'react';
 
 import type { FireflySession } from '@/providers/firefly/Session.js';
-import { SessionType } from '@/providers/types/SocialMedia.js';
 import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 
 function getSessionUid(session: unknown): string | undefined {

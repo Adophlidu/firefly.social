@@ -1,4 +1,4 @@
-import { Source } from '@dimensiondev/enums';
+import { Source, WalletProfileCategory } from '@dimensiondev/enums';
 import { formatAddress } from '@dimensiondev/web3/utils';
 import { first } from 'lodash-es';
 import { memo, useCallback } from 'react';
@@ -14,7 +14,6 @@ import { PredictionPlatformIcon } from '@/components/Prediction/PredictionPlatfo
 import { EnsName } from '@/components/Profile/EnsName.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { WalletBaseMoreAction } from '@/components/WalletBaseMoreAction.js';
-import { WalletProfileCategory } from '@/constants/enum.js';
 import { getEnsNameFromDisplayInfo } from '@/helpers/getEnsNameFromDisplayInfo.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getWalletProfileAvatar } from '@/helpers/getWalletProfileAvatar.js';

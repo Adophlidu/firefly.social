@@ -1,7 +1,7 @@
 'use client';
 
-import { Source } from '@dimensiondev/enums';
 import MoreIcon from '@dimensiondev/assets/more-fill.svg';
+import { Source } from '@dimensiondev/enums';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import { ETH_ZERO_ADDRESS } from '@dimensiondev/web3/constants';
 import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
@@ -13,7 +13,6 @@ import { useAsyncFn } from 'react-use';
 import { useConnection } from 'wagmi';
 
 import { IconButton } from '@/components/IconButton.js';
-
 import { STALE_TIMES } from '@/constants/query.js';
 import { SEVEN_DAYS } from '@/constants/static.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';

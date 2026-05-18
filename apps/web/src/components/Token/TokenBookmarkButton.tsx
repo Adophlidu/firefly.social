@@ -3,6 +3,7 @@
 import BookmarkActiveIcon from '@dimensiondev/assets/bookmark.selected.svg';
 import BookmarkIcon from '@dimensiondev/assets/bookmark.svg';
 import WarningFill from '@dimensiondev/assets/warning-fill.svg';
+import { FireflyPlatform } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useMutation } from '@tanstack/react-query';
@@ -12,7 +13,6 @@ import { memo } from 'react';
 import { ClickableArea, type ClickableAreaProps } from '@/components/ClickableArea.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { FireflyPlatform } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { resolveTokenBookmarkId } from '@/helpers/resolveTokenBookmarkId.js';

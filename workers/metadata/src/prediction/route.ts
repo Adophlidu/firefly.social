@@ -1,3 +1,4 @@
+import type { PredictionPlatform } from '@dimensiondev/enums';
 import { ONE_MONTH } from '@dimensiondev/workers-shared/constants/duration.js';
 import { SITE_NAME } from '@dimensiondev/workers-shared/constants/metadata.js';
 import { createPageTitleOG } from '@dimensiondev/workers-shared/helpers/createPageTitleOG.js';
@@ -21,7 +22,6 @@ import z from 'zod';
 import { getEventDetail } from '@/metadata/src/prediction/getPredictionBySlug.js';
 import { getPredictionProfile } from '@/metadata/src/prediction/getPredictionProfile.js';
 import { getSocialProfile } from '@/metadata/src/prediction/getSocialProfile.js';
-import type { PredictionPlatform } from '@/metadata/src/prediction/types.js';
 
 type Metadata = Record<string, unknown>;
 

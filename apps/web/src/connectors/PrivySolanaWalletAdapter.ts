@@ -1,6 +1,7 @@
 'use client';
 
 import { web3 } from '@coral-xyz/anchor';
+import { SessionType, WalletSource } from '@dimensiondev/enums';
 import {
     IframeBridgeMethod,
     iframeBridgeProvider,
@@ -33,11 +34,9 @@ import { FIREFLY_WALLET_IFRAME_ID } from '@/components/FireflyWallet.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { PRIVY_CONNECTOR_ID, waitForAuthorization } from '@/connectors/PrivyConnector.js';
 import { ProviderEventEmitter } from '@/connectors/ProviderEventEmitter.js';
-import { WalletSource } from '@/constants/enum.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { queryMyAllConnections } from '@/helpers/queryMyAllConnections.js';
 import { logger } from '@/libs/Logger.js';
-import { SessionType } from '@/providers/types/SocialMedia.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';

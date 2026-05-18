@@ -1,4 +1,6 @@
-import { BookmarkType, FireflyPlatform } from '@/constants/enum.js';
+import { FireflyPlatform } from '@dimensiondev/enums';
+
+import { BookmarkType } from '@/constants/enum.js';
 import { SetQueryDataForBookmarkNFT } from '@/decorators/SetQueryDataForBookmarkNFT.js';
 import { SetQueryDataForBookmarkToken } from '@/decorators/SetQueryDataForBookmarkToken.js';
 import { resolveTokenBookmarkId } from '@/helpers/resolveTokenBookmarkId.js';

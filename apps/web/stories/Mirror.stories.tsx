@@ -1,6 +1,6 @@
-import { Source } from '@dimensiondev/enums';
 import '../src/app/globals.css';
 
+import { Source } from '@dimensiondev/enums';
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { action } from 'storybook/actions';
 

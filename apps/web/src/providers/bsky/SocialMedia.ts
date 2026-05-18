@@ -1,8 +1,10 @@
-import { Source } from '@dimensiondev/enums';
+import type { FireflyPlatform } from '@dimensiondev/enums';
+import { SessionType, Source } from '@dimensiondev/enums';
 import type { Pageable, PageIndicator } from '@dimensiondev/utils';
 import { NotImplementedError } from '@dimensiondev/utils';
+import type { NetworkType } from '@dimensiondev/web3/enums';
 
-import type { BookmarkType, FireflyPlatform } from '@/constants/enum.js';
+import type { BookmarkType } from '@/constants/enum.js';
 import { AddBookmarkStatusForPosts } from '@/decorators/AddBookmarkStatusForPosts.js';
 import { AddAuthorHighlightStatusForPosts } from '@/decorators/AddProfileHighlightStatus.js';
 import { SetQueryDataForActPost } from '@/decorators/SetQueryDataForActPost.js';
@@ -72,18 +74,16 @@ import { unbookmark } from '@/providers/firefly/endpoint/unbookmark.js';
 import type { Account } from '@/providers/types/Account.js';
 import type { NotificationSettings, WalletProfile } from '@/providers/types/Firefly.js';
 import type { Session } from '@/providers/types/Session.js';
-import {
-    type Channel,
-    type Friendship,
-    type NetworkType,
-    type Notification,
-    type Post,
-    type Profile,
-    type ProfileBadge,
-    type ProfileEditable,
-    type ProfileForSignup,
-    type Provider,
-    SessionType,
+import type {
+    Channel,
+    Friendship,
+    Notification,
+    Post,
+    Profile,
+    ProfileBadge,
+    ProfileEditable,
+    ProfileForSignup,
+    Provider,
 } from '@/providers/types/SocialMedia.js';
 
 @SetQueryDataForLikePost(Source.Bsky)

@@ -1,10 +1,10 @@
+import type { SocialSourceInURL } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 import { delay } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { ConnectorNotConnectedError } from '@wagmi/core';
 import { first } from 'lodash-es';
 
-import type { SocialSourceInURL } from '@/constants/enum.js';
 import { CreateScheduleError } from '@/constants/error.js';
 import { readChars } from '@/helpers/chars.js';
 import { checkScheduleTime } from '@/helpers/checkScheduleTime.js';

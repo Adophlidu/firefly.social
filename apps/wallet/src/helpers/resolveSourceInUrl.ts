@@ -1,7 +1,6 @@
+import type { ProfilePageSource, ProfilePageSourceInURL, SocialSource, SocialSourceInURL } from '@dimensiondev/enums';
 import { Source, SourceInURL } from '@dimensiondev/enums';
 import { createLookupTableResolver, UnreachableError } from '@dimensiondev/utils';
-
-import type { ProfilePageSource, ProfilePageSourceInURL, SocialSource, SocialSourceInURL } from '@/constants/enum.js';
 
 export const resolveProfileSourceInURL = createLookupTableResolver<ProfilePageSource, ProfilePageSourceInURL>(
     {

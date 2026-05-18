@@ -1,8 +1,8 @@
+import type { SocialSource } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 import { attemptUntil, safeUnreachable, UnreachableError } from '@dimensiondev/utils';
 import { isServer } from '@tanstack/react-query';
 
-import type { SocialSource } from '@/constants/enum.js';
 import { bskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { farcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { lensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';

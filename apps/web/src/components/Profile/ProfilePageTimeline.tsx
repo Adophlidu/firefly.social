@@ -1,12 +1,13 @@
 'use client';
 
+import type { ProfileCategory, SocialProfileCategory, WalletProfileCategory } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
+
 import { LoginRequiredGuard } from '@/components/LoginRequiredGuard.js';
 import { PinnedPost } from '@/components/Posts/PinnedPost.js';
 import { SocialProfileContentList } from '@/components/Profile/SocialProfileContentList.js';
 import { WalletProfileContentList } from '@/components/Profile/WalletProfileContentList.js';
 import { SORTED_PROFILE_TAB_TYPE_REQUIRE_LOGIN } from '@/constants/computed.js';
-import type { ProfileCategory, SocialProfileCategory, WalletProfileCategory } from '@/constants/enum.js';
 import { isSocialSource } from '@/helpers/isSource.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 

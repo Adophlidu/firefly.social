@@ -3,7 +3,6 @@ import { createBatcher } from '@dimensiondev/utils';
 import { compact } from 'lodash-es';
 
 import { queryClient } from '@/configs/queryClient.js';
-
 import { resolveFireflyPlatform } from '@/helpers/resolveFireflyPlatform.js';
 import { resolveSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { formatBskyProfile } from '@/providers/bsky/formatBskyProfile.js';

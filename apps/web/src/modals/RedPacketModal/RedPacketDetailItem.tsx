@@ -1,3 +1,5 @@
+import type { SocialSource } from '@dimensiondev/enums';
+import { FireflyPlatform } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { getChainIcon, solana } from '@dimensiondev/web3/chains';
 import { NetworkType } from '@dimensiondev/web3/enums';
@@ -11,7 +13,6 @@ import urlcat from 'urlcat';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
-import { FireflyPlatform, type SocialSource } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/static.js';
 import { Image } from '@/esm/Image.js';
 import { formatBalance } from '@/helpers/formatBalance.js';

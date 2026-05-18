@@ -1,4 +1,6 @@
-import type { RestrictionType, SocialSourceInURL } from '@/constants/enum.js';
+import type { SocialSourceInURL } from '@dimensiondev/enums';
+
+import type { RestrictionType } from '@/constants/enum.js';
 
 export enum CloudDraftType {
     MainPost = 'main_compose',

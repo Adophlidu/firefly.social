@@ -5,7 +5,6 @@ import { useMemo } from 'react';
 
 import { EditFireflyProfileRouter } from '@/components/EditFireflyProfile/EditFireflyProfileRouter.js';
 import { Loading } from '@/components/Loading.js';
-
 import { isSocialSource } from '@/helpers/isSource.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import type { AllConnections, FireflyAccountProfile } from '@/providers/types/Firefly.js';

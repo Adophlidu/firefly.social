@@ -1,3 +1,4 @@
+import { PredictionPlatform } from '@dimensiondev/enums';
 import { fetchJson } from '@dimensiondev/workers-shared/helpers/fetchJson.js';
 import { resolveFireflyResponseData } from '@dimensiondev/workers-shared/helpers/resolveFireflyResponseData.js';
 import { resolveFireflyRootUrl } from '@dimensiondev/workers-shared/helpers/resolveFireflyRootUrl.js';
@@ -9,7 +10,6 @@ import type { Context } from 'hono';
 import { POLYMARKET_MARKET_API_DOMAIN } from '@/metadata/src/prediction/constants.js';
 import { resolvePolymarketResponse } from '@/metadata/src/prediction/resolvePolymarketResponse.js';
 import type { OpinionMarketDetail, PolymarketEventResponse } from '@/metadata/src/prediction/types.js';
-import { PredictionPlatform } from '@/metadata/src/prediction/types.js';
 
 async function getPolymarketEventBySlug(slug: string, c: Context) {
     const url = urlcat(POLYMARKET_MARKET_API_DOMAIN, `/events/slug/${slug}`, {

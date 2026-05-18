@@ -1,8 +1,10 @@
 /* cspell:disable */
 
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { SessionType } from '@dimensiondev/enums';
 import type { Pageable, PageIndicator } from '@dimensiondev/utils';
 import { NotImplementedError } from '@dimensiondev/utils';
+import type { NetworkType } from '@dimensiondev/web3/enums';
 import urlcat from 'urlcat';
 
 import { MessageType, ReactionType } from '@/constants/farcaster.js';
@@ -20,18 +22,16 @@ import { searchProfiles } from '@/providers/neynar/searchProfiles.js';
 import type { Account } from '@/providers/types/Account.js';
 import type { Channel as FireflyChannel, NotificationSettings, WalletProfile } from '@/providers/types/Firefly.js';
 import type { Session } from '@/providers/types/Session.js';
-import {
-    type Channel,
-    type Friendship,
-    type NetworkType,
-    type Notification,
-    type Post,
-    type Profile,
-    type ProfileBadge,
-    type ProfileEditable,
-    type ProfileForSignup,
-    type Provider,
-    SessionType,
+import type {
+    Channel,
+    Friendship,
+    Notification,
+    Post,
+    Profile,
+    ProfileBadge,
+    ProfileEditable,
+    ProfileForSignup,
+    Provider,
 } from '@/providers/types/SocialMedia.js';
 
 class NeynarSocialMedia implements Provider {

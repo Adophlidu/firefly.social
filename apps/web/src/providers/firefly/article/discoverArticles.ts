@@ -1,8 +1,8 @@
+import { Locale } from '@dimensiondev/enums';
 import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@dimensiondev/utils';
 import { isZero } from '@dimensiondev/web3/numbers';
 import urlcat from 'urlcat';
 
-import { Locale } from '@/constants/enum.js';
 import { formatArticleFromFirefly } from '@/helpers/formatArticleFromFirefly.js';
 import { getLocalFromClientCookies } from '@/helpers/getCookies.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';

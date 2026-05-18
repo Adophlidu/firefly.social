@@ -1,14 +1,9 @@
 import type { BlobRef } from '@atproto/api';
+import type { FireflyPlatform, Locale, SessionType, SocialSource } from '@dimensiondev/enums';
 import type { Pageable, PageIndicator } from '@dimensiondev/utils';
+import type { NetworkType } from '@dimensiondev/web3/enums';
 
-import type {
-    BookmarkType,
-    FireflyPlatform,
-    Locale,
-    ProfileSource,
-    RestrictionType,
-    SocialSource,
-} from '@/constants/enum.js';
+import type { BookmarkType, ProfileSource, RestrictionType } from '@/constants/enum.js';
 import type { Account } from '@/providers/types/Account.js';
 import type {
     FireflyIdentity,
@@ -21,23 +16,6 @@ import type {
 import type { Poll } from '@/providers/types/Poll.js';
 import type { Session } from '@/providers/types/Session.js';
 import type { RedPacketPayload } from '@/types/rp.js';
-
-// Strictly match the ProfileSource
-export enum SessionType {
-    Apple = 'Apple',
-    Email = 'Email',
-    Google = 'Google',
-    Telegram = 'Telegram',
-    Twitter = 'Twitter',
-    Lens = 'Lens',
-    Farcaster = 'Farcaster',
-    Firefly = 'Firefly',
-    Bsky = 'Bsky',
-}
-
-export enum NetworkType {
-    Ethereum = 'Ethereum',
-}
 
 export enum ReactionType {
     Upvote = 'Upvote', // aka. like

@@ -6,7 +6,6 @@ import { Trans } from '@lingui/react/macro';
 import { NavigatorBar } from '@/components/NavigatorBar/index.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { TimelineTitle } from '@/components/TimelineTitle.js';
-
 import { redirect, useSearchParams } from '@/esm/navigation.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isSocialSource } from '@/helpers/isSource.js';

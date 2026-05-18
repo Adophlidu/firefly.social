@@ -1,5 +1,6 @@
 'use client';
 
+import type { ProfileCategory, ProfilePageSourceInURL } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 import type { LayoutProps } from '@dimensiondev/types';
 import { useQuery } from '@tanstack/react-query';
@@ -9,7 +10,6 @@ import { Loading } from '@/components/Loading.js';
 import { LoginRequiredGuard } from '@/components/LoginRequiredGuard.js';
 import { ProfileContext } from '@/components/Profile/ProfileContext.js';
 import { ProfilePageTimeline } from '@/components/Profile/ProfilePageTimeline.js';
-import type { ProfileCategory, ProfilePageSourceInURL } from '@/constants/enum.js';
 import { notFound, useSearchParams } from '@/esm/navigation.js';
 import { isRequestedLoginSource } from '@/helpers/isRequestedLoginSource.js';
 import { isProfilePageSource } from '@/helpers/isSource.js';

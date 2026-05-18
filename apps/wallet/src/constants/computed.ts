@@ -1,7 +1,6 @@
-import { Source } from '@dimensiondev/enums';
+import type { SocialSource } from '@dimensiondev/enums';
+import { FollowCategory, SocialProfileCategory, Source, WalletProfileCategory } from '@dimensiondev/enums';
 import { NetworkType } from '@dimensiondev/web3/enums';
-
-import { FollowCategory, SocialProfileCategory, type SocialSource, WalletProfileCategory } from '@/constants/enum.js';
 
 export const LOGIN_SORTED_PROFILE_TAB_TYPE: Record<SocialSource, SocialProfileCategory[]> = {
     [Source.Lens]: [

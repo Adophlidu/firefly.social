@@ -1,3 +1,4 @@
+import type { FollowCategory } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 import type { LayoutProps } from '@dimensiondev/types';
 import { Trans } from '@lingui/react/macro';
@@ -8,7 +9,6 @@ import { LoginRequiredGuard } from '@/components/LoginRequiredGuard.js';
 import { NoSSR } from '@/components/NoSSR.js';
 import { Title } from '@/components/Profile/Title.js';
 import { REQUIRE_LOGIN_FOLLOWING_CATEGORY } from '@/constants/computed.js';
-import type { FollowCategory } from '@/constants/enum.js';
 import { notFound } from '@/esm/navigation/server.js';
 import { isFollowCategory } from '@/helpers/isFollowCategory.js';
 import { isSocialSource } from '@/helpers/isSource.js';

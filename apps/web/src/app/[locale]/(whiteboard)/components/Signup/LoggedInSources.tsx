@@ -1,11 +1,10 @@
-import { Source } from '@dimensiondev/enums';
 import ColorfulLensIcon from '@dimensiondev/assets/lens-circle-small.svg';
 import XSquareLightIcon from '@dimensiondev/assets/x-square-light.svg';
+import { Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { memo, useMemo } from 'react';
 
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 
 export const LoggedInSources = memo(function LoggedInSources() {

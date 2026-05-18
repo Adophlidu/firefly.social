@@ -1,3 +1,4 @@
+import { Locale } from '@dimensiondev/enums';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import { type ReactNode, Suspense } from 'react';
 
@@ -5,7 +6,6 @@ import { LayoutBody } from '@/app/layout-body.js';
 import { AgentProvider } from '@/components/AgentProvider.js';
 import { LangSetter } from '@/components/LangSetter.js';
 import { VercelRegion } from '@/components/VercelRegion.js';
-import { Locale } from '@/constants/enum.js';
 import { setupLocaleFromParams } from '@/i18n/static.js';
 
 const LOCALES = Object.values(Locale);

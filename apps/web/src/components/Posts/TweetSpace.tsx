@@ -1,9 +1,9 @@
 'use client';
 
-import { Source } from '@dimensiondev/enums';
 import CalendarIcon from '@dimensiondev/assets/calendar.svg';
 import EmptyStatusIcon from '@dimensiondev/assets/empty-status.svg';
 import MicrophoneIcon from '@dimensiondev/assets/microphone.svg';
+import { Source } from '@dimensiondev/enums';
 import { resolveValue, safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
@@ -16,7 +16,6 @@ import { Link } from '@/components/Link.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { LoginRequiredGuard } from '@/components/LoginRequiredGuard.js';
 import { ProfileVerifyBadge } from '@/components/ProfileVerifyBadge/index.js';
-
 import { isToday } from '@/helpers/isToday.js';
 import { isTomorrow } from '@/helpers/isTomorrow.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';

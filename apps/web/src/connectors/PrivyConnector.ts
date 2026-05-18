@@ -1,5 +1,6 @@
 'use client';
 
+import { SessionType, WalletSource } from '@dimensiondev/enums';
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
 import { isFreeGasSupportedChain } from '@dimensiondev/web3/chains';
 import { isSupportedStablecoin } from '@dimensiondev/web3/utils';
@@ -9,11 +10,9 @@ import { mainnet } from 'viem/chains';
 import { ChainNotConfiguredError, ConnectorChainMismatchError, createConnector, type CreateConnectorFn } from 'wagmi';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { WalletSource } from '@/constants/enum.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { queryMyAllConnections } from '@/helpers/queryMyAllConnections.js';
 import { logger } from '@/libs/Logger.js';
-import { SessionType } from '@/providers/types/SocialMedia.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { EthereumMethodType } from '@/web3-shared/evm/types.js';

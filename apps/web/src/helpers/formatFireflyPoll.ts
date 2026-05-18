@@ -1,4 +1,5 @@
-import type { SocialSource } from '@/constants/enum.js';
+import type { SocialSource } from '@dimensiondev/enums';
+
 import { POLL_STRATEGIES } from '@/constants/poll.js';
 import type { FireflyPoll, Poll } from '@/providers/types/Poll.js';
 

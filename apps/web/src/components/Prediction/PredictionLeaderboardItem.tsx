@@ -1,9 +1,9 @@
 'use client';
 
-import { Source } from '@dimensiondev/enums';
 import MedalBronzeIcon from '@dimensiondev/assets/medal-bronze.svg';
 import MedalGoldIcon from '@dimensiondev/assets/medal-gold.svg';
 import MedalSilverIcon from '@dimensiondev/assets/medal-silver.svg';
+import { Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { formatAddressEthereum } from '@dimensiondev/web3/utils';
 import { isNil } from 'lodash-es';

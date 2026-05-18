@@ -1,3 +1,4 @@
+import type { SocialSource } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { compact } from 'lodash-es';
@@ -9,7 +10,7 @@ import { DisableScrollRestoreContext } from '@/components/DisableScrollRestore/i
 import { Empty } from '@/components/Search/Empty.js';
 import { SearchPostList } from '@/components/Search/SearchPostList.js';
 import { SORTED_TOKEN_FEEDS_SOURCES } from '@/constants/computed.js';
-import { SearchType, type SocialSource } from '@/constants/enum.js';
+import { SearchType } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { usePathname, useRouter, useSearchParams } from '@/esm/navigation.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';

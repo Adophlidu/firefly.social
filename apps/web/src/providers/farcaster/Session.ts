@@ -1,3 +1,4 @@
+import { SessionType } from '@dimensiondev/enums';
 import { NotAllowedError } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
@@ -5,7 +6,6 @@ import { WARPCAST_ROOT_URL_V2 } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { BaseSession } from '@/providers/base/Session.js';
 import type { Session } from '@/providers/types/Session.js';
-import { SessionType } from '@/providers/types/SocialMedia.js';
 
 export const FAKE_SIGNER_REQUEST_TOKEN = 'fake_signer_request_token';
 

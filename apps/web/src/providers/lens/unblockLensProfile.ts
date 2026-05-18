@@ -1,7 +1,7 @@
+import { FireflyPlatform } from '@dimensiondev/enums';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import { unmuteAccount } from '@lens-protocol/client/actions';
 
-import { FireflyPlatform } from '@/constants/enum.js';
 import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
 import { unblockProfileFor } from '@/providers/firefly/farcaster-account/unblockProfileFor.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';

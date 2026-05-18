@@ -13,7 +13,6 @@ import { MarkupLink } from '@/components/Markup/MarkupLink/index.js';
 import type { MarkupLinkProps } from '@/components/Markup/MarkupLink/type.js';
 import { NFTPlugin } from '@/components/Markup/plugins/NFT.js';
 import { ImageAsset, type ImageAssetProps } from '@/components/Posts/ImageAsset.js';
-
 import { BIO_TWITTER_PROFILE_REGEX, EMAIL_REGEX, URL_REGEX } from '@/constants/regexp.js';
 import { trimify } from '@/helpers/trimify.js';
 import { PreviewMediaModalRef } from '@/modals/PreviewMediaModal/refs.js';

@@ -1,3 +1,4 @@
+import { PredictionPlatform } from '@dimensiondev/enums';
 import { getEventDetail } from '@dimensiondev/workers-metadata/prediction/getPredictionBySlug.js';
 import { getPredictionProfile } from '@dimensiondev/workers-metadata/prediction/getPredictionProfile.js';
 import type {
@@ -6,7 +7,6 @@ import type {
     OpinionMarketDetail,
     PolymarketEvent,
 } from '@dimensiondev/workers-metadata/prediction/types.js';
-import { PredictionPlatform } from '@dimensiondev/workers-metadata/prediction/types.js';
 import { parseJson } from '@dimensiondev/workers-shared/helpers/parseJson.js';
 import type { Context } from 'hono';
 

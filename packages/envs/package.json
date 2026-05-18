@@ -36,6 +36,7 @@
         "access": "restricted"
     },
     "dependencies": {
+        "@dimensiondev/enums": "workspace:^",
         "@dimensiondev/utils": "workspace:^",
         "zod": "^3.25.76"
     },

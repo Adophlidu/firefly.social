@@ -1,7 +1,7 @@
 'use client';
 
-import { Source } from '@dimensiondev/enums';
 import MuteIcon from '@dimensiondev/assets/mute.svg';
+import { Source } from '@dimensiondev/enums';
 import { formatAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { type HTMLProps, memo } from 'react';
@@ -11,7 +11,6 @@ import type { Address } from 'viem';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { queryClient } from '@/configs/queryClient.js';
-
 import { setBlockStatus } from '@/decorators/SetQueryDataForBlockProfile.js';
 import { setWalletBlockStatus } from '@/decorators/SetQueryDataForBlockWallet.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';

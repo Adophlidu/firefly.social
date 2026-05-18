@@ -2,9 +2,9 @@
  * ISR-safe i18n setup — no cookies/headers dependency.
  * Import this module instead of '@/i18n/index.js' in layouts/pages that need ISR/SSG.
  */
+import { Locale } from '@dimensiondev/enums';
 import { getI18n } from '@lingui/react/server';
 
-import { Locale } from '@/constants/enum.js';
 import { setupAndActiveI18n } from '@/i18n/core.js';
 
 const LOCALES = Object.values(Locale);

@@ -1,4 +1,4 @@
-import type { SessionType } from '@/providers/types/SocialMedia.js';
+import type { SessionType } from '@dimensiondev/enums';
 
 export interface Session {
     profileId: string | number;

@@ -1,15 +1,14 @@
 'use client';
 
-import { Source } from '@dimensiondev/enums';
 import PolymarketSquare from '@dimensiondev/assets/polymarket-square.svg';
 import PolymarketSquareWhite from '@dimensiondev/assets/polymarket-square-white.svg';
 import VerifyIcon from '@dimensiondev/assets/verify.svg';
+import { Source } from '@dimensiondev/enums';
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import type { HTMLProps } from 'react';
 
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
-
 import { useProfileVerifyBadge } from '@/hooks/useProfileVerifyBadge.js';
 import { type Profile, ProfileBadgePresetColors } from '@/providers/types/SocialMedia.js';
 

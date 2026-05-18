@@ -1,6 +1,8 @@
 /* cspell:disable */
 
-import { CharTag, FireflyPlatform } from '@/constants/enum.js';
+import { FireflyPlatform } from '@dimensiondev/enums';
+
+import { CharTag } from '@/constants/enum.js';
 import type { Profile } from '@/providers/types/Firefly.js';
 import type { MentionChars } from '@/types/chars.js';
 

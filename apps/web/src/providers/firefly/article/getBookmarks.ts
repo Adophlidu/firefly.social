@@ -1,3 +1,4 @@
+import { FireflyPlatform } from '@dimensiondev/enums';
 import {
     createIndicator,
     createNextIndicator,
@@ -8,7 +9,7 @@ import {
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
-import { BookmarkType, FireflyPlatform } from '@/constants/enum.js';
+import { BookmarkType } from '@/constants/enum.js';
 import { formatArticleFromFirefly } from '@/helpers/formatArticleFromFirefly.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { Article } from '@/providers/types/Article.js';

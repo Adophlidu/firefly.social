@@ -1,5 +1,6 @@
-import type { ProfilePageSource } from '@dimensiondev/workers-shared/constants/source.js';
-import { Source } from '@dimensiondev/workers-shared/constants/source.js';
+import type { ProfileCategory, ProfilePageSource } from '@dimensiondev/enums';
+import { Source } from '@dimensiondev/enums';
+import { NetworkType } from '@dimensiondev/web3/enums';
 import { resolveProfileSourceInURL } from '@dimensiondev/workers-shared/helpers/resolveSource.js';
 
 import {
@@ -7,8 +8,6 @@ import {
     SORTED_PROFILE_TAB_TYPE,
     WALLET_PROFILE_TAB_TYPES,
 } from '@/metadata/src/profile/constants.js';
-import type { ProfileCategory } from '@/metadata/src/profile/enums.js';
-import { NetworkType } from '@/metadata/src/profile/enums.js';
 import { getAddressType } from '@/metadata/src/profile/getAddressType.js';
 import { isFollowCategory } from '@/metadata/src/profile/isFollowCategory.js';
 

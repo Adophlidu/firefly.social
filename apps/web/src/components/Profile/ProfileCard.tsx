@@ -1,6 +1,6 @@
 'use client';
 
-import { Source } from '@dimensiondev/enums';
+import { FollowCategory, Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
@@ -15,7 +15,6 @@ import { FollowButton } from '@/components/Profile/FollowButton.js';
 import { FollowersLink } from '@/components/Profile/FollowersLink.js';
 import { ProfileVerifyBadge } from '@/components/ProfileVerifyBadge/index.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-import { FollowCategory } from '@/constants/enum.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';

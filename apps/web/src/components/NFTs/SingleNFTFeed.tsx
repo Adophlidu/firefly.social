@@ -10,7 +10,6 @@ import { Avatar } from '@/components/Avatar.js';
 import { FeedFollowSource } from '@/components/FeedFollowSource.js';
 import { Link } from '@/components/Link.js';
 import { NFTFeedHeader } from '@/components/NFTs/NFTFeedHeader.js';
-
 import { useRouter } from '@/esm/navigation.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getWalletProfileAvatar } from '@/helpers/getWalletProfileAvatar.js';

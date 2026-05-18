@@ -1,9 +1,9 @@
+import { Locale } from '@dimensiondev/enums';
 import { bom } from '@dimensiondev/utils';
 import { i18n as i18nCore, type Messages, setupI18n } from '@lingui/core';
 import { setI18n } from '@lingui/react/server';
 import dayjs from 'dayjs';
 
-import { Locale } from '@/constants/enum.js';
 import { getDayjsLocaleName } from '@/helpers/dayjsLocale.js';
 import { getLocalFromClientCookies, resolveLanguageLocale } from '@/helpers/getCookies.js';
 import { logger } from '@/lib/Logger.js';

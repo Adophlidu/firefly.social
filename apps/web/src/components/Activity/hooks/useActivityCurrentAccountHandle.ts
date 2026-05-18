@@ -1,8 +1,8 @@
+import type { SocialSource } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 
 import { useActivityConnections } from '@/components/Activity/hooks/useActivityConnections.js';
-import type { SocialSource } from '@/constants/enum.js';
 
 export function useActivityCurrentAccountHandle(source: SocialSource) {
     const { data } = useActivityConnections();

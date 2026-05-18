@@ -5,7 +5,6 @@ import { useQueries } from '@tanstack/react-query';
 import { compact, first } from 'lodash-es';
 
 import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
-
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useAllConnections } from '@/hooks/useAllConnections.js';
 import type { LensConnection } from '@/providers/types/Firefly.js';

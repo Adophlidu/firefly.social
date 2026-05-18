@@ -1,7 +1,7 @@
+import type { SocialSource } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 import { parseUrl } from '@dimensiondev/utils';
 
-import type { SocialSource } from '@/constants/enum.js';
 import { isValidPollFrameUrl } from '@/helpers/resolveEmbedMediaType.js';
 import { settings } from '@/settings/index.js';
 

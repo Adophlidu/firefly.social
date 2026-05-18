@@ -1,10 +1,10 @@
+import type { SocialSource } from '@dimensiondev/enums';
 import { useRef } from 'react';
 
 import { FootnoteLink } from '@/components/FootnoteLink.js';
 import { Button } from '@/components/Frame/V1/Button.js';
 import { Input } from '@/components/Frame/V1/Input.js';
 import { Image } from '@/components/Image.js';
-import type { SocialSource } from '@/constants/enum.js';
 import { getSessionFromStorageBySource } from '@/helpers/getSessionFromStorage.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { ActionType, type FrameButton, type FrameV1 } from '@/types/frame.js';

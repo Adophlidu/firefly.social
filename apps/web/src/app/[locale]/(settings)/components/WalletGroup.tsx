@@ -1,12 +1,12 @@
 'use client';
 
 import QuestionIcon from '@dimensiondev/assets/question.svg';
+import { WalletSource } from '@dimensiondev/enums';
 import { AnimatePresence } from 'framer-motion';
 import { memo, type ReactNode } from 'react';
 
 import { WalletItem } from '@/app/[locale]/(settings)/components/WalletItem.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { WalletSource } from '@/constants/enum.js';
 import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
 
 interface WalletGroupProps {

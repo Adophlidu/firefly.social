@@ -7,7 +7,6 @@ import urlcat from 'urlcat';
 
 import { DraftPageTab } from '@/components/Compose/DraftPage.js';
 import { SUPPORTED_FRAME_SOURCES } from '@/constants/computed.js';
-
 import { CreateScheduleError } from '@/constants/error.js';
 import { readChars } from '@/helpers/chars.js';
 import { checkScheduleTime } from '@/helpers/checkScheduleTime.js';

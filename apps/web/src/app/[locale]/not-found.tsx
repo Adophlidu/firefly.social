@@ -1,9 +1,10 @@
+import { Locale } from '@dimensiondev/enums';
 import { msg } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 
 import { BaseNotFound } from '@/components/BaseNotFound.js';
 import { Link } from '@/components/Link.js';
-import { Locale, PageRoute } from '@/constants/enum.js';
+import { PageRoute } from '@/constants/enum.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { setupLocaleFromParams } from '@/i18n/static.js';

@@ -1,7 +1,8 @@
 'use client';
 
-import { Source } from '@dimensiondev/enums';
 import InfoIcon from '@dimensiondev/assets/info.svg';
+import type { SocialSource } from '@dimensiondev/enums';
+import { Source } from '@dimensiondev/enums';
 import { classNames, delay } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { rootRouteId, useRouteContext } from '@tanstack/react-router';
@@ -15,7 +16,7 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { ENABLED_REPLY_SETTINGS_POST_SOURCES } from '@/constants/computed.js';
-import { RestrictionType, type SocialSource } from '@/constants/enum.js';
+import { RestrictionType } from '@/constants/enum.js';
 import { SessionExpiredError } from '@/constants/error.js';
 import { enqueueErrorMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';

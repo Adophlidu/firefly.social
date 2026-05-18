@@ -1,9 +1,9 @@
+import type { ProfilePageSource } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 
 import { ProfileInfo } from '@/components/Profile/ProfileInfo.js';
 import { WalletMixInfo } from '@/components/Profile/WalletMixInfo.js';
-import type { ProfilePageSource } from '@/constants/enum.js';
 import type { FireflyProfile, WalletProfile } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 

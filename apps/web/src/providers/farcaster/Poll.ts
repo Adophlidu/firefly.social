@@ -1,4 +1,4 @@
-import { Source, SourceInURL } from '@dimensiondev/enums';
+import { SessionType, Source, SourceInURL } from '@dimensiondev/enums';
 import { NotImplementedError } from '@dimensiondev/utils';
 import { first } from 'lodash-es';
 
@@ -8,7 +8,6 @@ import { getPollDurationSeconds } from '@/helpers/polls.js';
 import { commitPoll } from '@/providers/firefly/poll/commitPoll.js';
 import { voteV2 } from '@/providers/firefly/poll/voteV2.js';
 import type { CompositePoll, Poll, PollOption, Provider, VoteResponseData } from '@/providers/types/Poll.js';
-import { SessionType } from '@/providers/types/SocialMedia.js';
 
 @SetQueryDataForVote(Source.Farcaster)
 class FarcasterPoll implements Provider {

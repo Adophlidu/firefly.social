@@ -1,4 +1,6 @@
-import type { CharTag, SocialSource } from '@/constants/enum.js';
+import type { SocialSource } from '@dimensiondev/enums';
+
+import type { CharTag } from '@/constants/enum.js';
 import type { RP_HASH_TAG } from '@/constants/static.js';
 import type { Profile } from '@/providers/types/Firefly.js';
 

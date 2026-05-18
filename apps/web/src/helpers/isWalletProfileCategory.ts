@@ -1,9 +1,5 @@
-import { WalletProfileCategory } from '@/constants/enum.js';
+import { WalletProfileCategory } from '@dimensiondev/enums';
 
 export function isWalletProfileCategory(category: string): category is WalletProfileCategory {
-    return [
-        WalletProfileCategory.Activities,
-        WalletProfileCategory.Transactions,
-        WalletProfileCategory.Prediction,
-    ].includes(category as WalletProfileCategory);
+    return Object.values(WalletProfileCategory).includes(category as WalletProfileCategory);
 }

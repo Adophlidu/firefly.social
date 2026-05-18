@@ -1,21 +1,25 @@
-import { Source, SourceInURL } from '@dimensiondev/enums';
+import type {
+    FireflyPlatform,
+    SocialSource,
+    SocialSourceInURL,
+    Source,
+    SourceInURL,
+    WalletSource,
+} from '@dimensiondev/enums';
 import type { NetworkType } from '@dimensiondev/web3/enums';
 import type { ReactNode } from 'react';
 import type { Address, Hex } from 'viem';
 
-import {
+import type {
     BookmarkType,
     ExploreSwitchType,
-    FireflyPlatform,
     MintStatus,
     PolymarketBetType,
     PredictionPlatform,
     S3ConvertStatus,
     SparksAccountStatus,
     TipsNotificationType,
-    WalletSource,
 } from '@/constants/enum.js';
-import type { SocialSource, SocialSourceInURL } from '@/constants/enum.js';
 import type { ErcType, EVM } from '@/providers/nftscan/types.js';
 import type { PolymarketEventLocale } from '@/providers/prediction/polymarket/type.js';
 import type { SnapshotActivity, SnapshotChoice, SnapshotProposal } from '@/providers/snapshot/type.js';

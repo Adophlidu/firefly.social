@@ -1,8 +1,8 @@
+import { WalletSource } from '@dimensiondev/enums';
 import { NetworkType } from '@dimensiondev/web3/enums';
 import { compact } from 'lodash-es';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { WalletSource } from '@/constants/enum.js';
 import { queryMyAllConnections } from '@/helpers/queryMyAllConnections.js';
 import { createPrivyWallet } from '@/providers/firefly/endpoint/createPrivyWallet.js';
 

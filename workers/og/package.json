@@ -17,6 +17,7 @@
         "@dimensiondev/workers-shared": "workspace:*",
         "@dimensiondev/workers-snap": "workspace:*",
         "@dimensiondev/workers-snapshot": "workspace:*",
+        "@dimensiondev/enums": "workspace:^",
         "@hono/zod-validator": "^0.7.1",
         "hono": "^4.8.5",
         "zod": "^4.0.5"

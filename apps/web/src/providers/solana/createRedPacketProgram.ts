@@ -1,7 +1,8 @@
 /* cspell:disable */
 
 import { Program, web3 } from '@coral-xyz/anchor';
-import { envs, STATUS } from '@dimensiondev/envs';
+import { STATUS } from '@dimensiondev/enums';
+import { envs } from '@dimensiondev/envs';
 import { getSolanaRPCUrl } from '@dimensiondev/web3/utils';
 
 import { privySolanaProvider } from '@/connectors/PrivySolanaWalletAdapter.js';

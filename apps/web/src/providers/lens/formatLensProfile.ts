@@ -1,4 +1,5 @@
 import { Source } from '@dimensiondev/enums';
+import { NetworkType } from '@dimensiondev/web3/enums';
 import type { Account, AccountMention } from '@lens-protocol/client';
 
 import { IMAGE_KIT_AVATAR } from '@/constants/static.js';
@@ -7,7 +8,7 @@ import { formatGroveImage } from '@/helpers/formatGroveImage.js';
 import { formatImageUrl } from '@/helpers/formatImageUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { sanitizeDStorageUrl } from '@/helpers/sanitizeDStorageUrl.js';
-import { NetworkType, type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
+import { type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
 
 function getAvatar(profile: Account, namedTransform = IMAGE_KIT_AVATAR) {
     return formatImageUrl(

@@ -1,13 +1,14 @@
 'use client';
 
 import FilterIcon from '@dimensiondev/assets/filter.svg';
+import type { SocialSource } from '@dimensiondev/enums';
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { TypeFilter } from '@/components/TypeFilter/index.js';
 import { SOCIAL_DISCOVER_SOURCE_LOGIN_REQUIRED, SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
-import { HomeTab, type SocialSource } from '@/constants/enum.js';
+import { HomeTab } from '@/constants/enum.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';

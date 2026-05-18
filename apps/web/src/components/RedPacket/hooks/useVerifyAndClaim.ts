@@ -1,3 +1,4 @@
+import type { SocialSource } from '@dimensiondev/enums';
 import { runInSafeAsync, unreachable } from '@dimensiondev/utils';
 import { NetworkType } from '@dimensiondev/web3/enums';
 import { t } from '@lingui/core/macro';
@@ -6,7 +7,6 @@ import { useAsyncFn } from 'react-use';
 import { useEthereumVerifyAndClaim } from '@/components/RedPacket/hooks/useEthereumVerifyAndClaim.js';
 import { useParseRedPacket } from '@/components/RedPacket/hooks/useParseRedPacket.js';
 import { useSolanaVerifyAndClaim } from '@/components/RedPacket/hooks/useSolanaVerifyAndClaim.js';
-import type { SocialSource } from '@/constants/enum.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
 import { sharePostAfterClaimed } from '@/helpers/sharePostAfterClaimed.js';

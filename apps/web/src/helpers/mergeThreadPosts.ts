@@ -1,8 +1,8 @@
+import type { SocialSource } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { compact, first, last, uniqBy } from 'lodash-es';
 
-import type { SocialSource } from '@/constants/enum.js';
 import { MIN_POST_SIZE_PER_THREAD } from '@/constants/static.js';
 import { isSamePost } from '@/helpers/isSamePost.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';

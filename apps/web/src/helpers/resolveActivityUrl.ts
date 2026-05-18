@@ -1,8 +1,8 @@
+import type { SocialSource } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 import { createLookupTableResolver, UnreachableError } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
-import type { SocialSource } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/static.js';
 
 export enum ReferralAccountPlatform {

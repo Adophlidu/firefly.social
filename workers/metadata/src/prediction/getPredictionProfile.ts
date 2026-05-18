@@ -1,3 +1,4 @@
+import { PredictionPlatform } from '@dimensiondev/enums';
 import { FIREFLY_STAMP_DEV_URL, FIREFLY_STAMP_URL } from '@dimensiondev/workers-shared/constants/metadata.js';
 import { fetchJson } from '@dimensiondev/workers-shared/helpers/fetchJson.js';
 import { first } from '@dimensiondev/workers-shared/helpers/first.js';
@@ -9,7 +10,6 @@ import type { FireflyResponse } from '@dimensiondev/workers-shared/types/firefly
 import type { Context } from 'hono';
 
 import type { BetPortfolioItem, PolymarketProfileData } from '@/metadata/src/prediction/types.js';
-import { PredictionPlatform } from '@/metadata/src/prediction/types.js';
 
 export async function getPolyMarketProfile(address: string, c: Context) {
     const url = urlcat(resolveFireflyRootUrl(c), '/v1/polymarket/profile/info');

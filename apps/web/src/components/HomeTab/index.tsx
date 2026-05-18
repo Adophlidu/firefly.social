@@ -1,7 +1,7 @@
 'use client';
 
-import { Source } from '@dimensiondev/enums';
 import ArrowDownCircleIcon from '@dimensiondev/assets/arrow-circle-down.svg';
+import { Source } from '@dimensiondev/enums';
 import { classNames, getEnumAsArray } from '@dimensiondev/utils';
 import { NetworkType } from '@dimensiondev/web3/enums';
 import { MenuButton, MenuItem, MenuItems } from '@headlessui/react';

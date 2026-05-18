@@ -1,12 +1,11 @@
 'use client';
 
-import { Source } from '@dimensiondev/enums';
 import TipsIcon from '@dimensiondev/assets/tips.svg';
+import { Source } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 import { useAsyncFn } from 'react-use';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
-
 import { enqueueInfoMessage } from '@/helpers/enqueueMessage.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';

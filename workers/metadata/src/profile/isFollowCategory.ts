@@ -1,4 +1,4 @@
-import { FollowCategory } from '@/metadata/src/profile/enums.js';
+import { FollowCategory } from '@dimensiondev/enums';
 
 const FOLLOWING_CATEGORY = [FollowCategory.Followers, FollowCategory.Mutuals, FollowCategory.Following] as const;
 

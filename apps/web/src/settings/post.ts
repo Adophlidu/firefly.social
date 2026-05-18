@@ -1,7 +1,8 @@
-import { envs, STATUS } from '@dimensiondev/envs';
+import type { SocialSource } from '@dimensiondev/enums';
+import { STATUS } from '@dimensiondev/enums';
+import { envs } from '@dimensiondev/envs';
 
 import { SUPPORTED_ANONYMOUS_POST_SOURCES } from '@/constants/computed.js';
-import type { SocialSource } from '@/constants/enum.js';
 
 export const postFeatures = {
     anonymousPost(source?: SocialSource | null) {

@@ -1,10 +1,10 @@
 'use client';
 
-import { Source, SourceInURL } from '@dimensiondev/enums';
 import AppleIcon from '@dimensiondev/assets/apple-small.svg';
 import EmailIcon from '@dimensiondev/assets/email.svg';
 import GoogleIcon from '@dimensiondev/assets/google-small.svg';
 import TelegramIcon from '@dimensiondev/assets/telegram.svg';
+import { Source, SourceInURL } from '@dimensiondev/enums';
 import { classNames, runInSafeAsync } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';

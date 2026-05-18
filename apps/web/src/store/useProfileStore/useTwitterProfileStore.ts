@@ -1,5 +1,6 @@
 'use client';
 
+import { SessionType } from '@dimensiondev/enums';
 import { AuthenticationError, bom, ForbiddenError, runInSafeAsync } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import dayjs from 'dayjs';
@@ -14,7 +15,6 @@ import { addTwitterAccount } from '@/providers/twitter/addTwitterAccount.js';
 import { TwitterAuthProvider } from '@/providers/twitter/Auth.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
-import { SessionType } from '@/providers/types/SocialMedia.js';
 import { createProfileState, customSelectors } from '@/store/useProfileStore/createProfileState.js';
 
 interface TwitterNextSession {

@@ -6,7 +6,6 @@ import { Link } from '@/components/Link.js';
 import { ArticleMarkup } from '@/components/Markup/ArticleMarkup.js';
 import { ImageAsset } from '@/components/Posts/ImageAsset.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/browser.js';
-
 import { TWITTER_ARTICLE_REGEX } from '@/constants/regexp.js';
 import { PreviewMediaModalRef } from '@/modals/PreviewMediaModal/refs.js';
 

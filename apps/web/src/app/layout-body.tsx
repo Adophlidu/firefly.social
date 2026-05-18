@@ -1,6 +1,7 @@
 'use client';
 
-import { envs, STATUS } from '@dimensiondev/envs';
+import { STATUS } from '@dimensiondev/enums';
+import { envs } from '@dimensiondev/envs';
 import { type ReactNode, Suspense } from 'react';
 
 import { useAgent } from '@/components/AgentProvider.js';

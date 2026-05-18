@@ -9,7 +9,6 @@ import { DefiUnitedBadge } from '@/components/DefiUnitedBadge/index.js';
 import { EnsName } from '@/components/Profile/EnsName.js';
 import { Time } from '@/components/Semantic/Time.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
-
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { useDefiUnitedBadge } from '@/hooks/useDefiUnitedBadge.js';
 

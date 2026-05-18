@@ -1,6 +1,6 @@
+import type { FireflyPlatform } from '@dimensiondev/enums';
 import urlcat from 'urlcat';
 
-import type { FireflyPlatform } from '@/constants/enum.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { settings } from '@/settings/index.js';
 

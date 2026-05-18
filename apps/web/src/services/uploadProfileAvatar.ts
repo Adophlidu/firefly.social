@@ -1,7 +1,7 @@
+import type { SocialSource } from '@dimensiondev/enums';
 import { Source, SourceInURL } from '@dimensiondev/enums';
 import { unreachable } from '@dimensiondev/utils';
 
-import type { SocialSource } from '@/constants/enum.js';
 import { uploadProfileAvatar as uploadTwitterProfileAvatar } from '@/providers/twitter/uploadProfileAvatar.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
 

@@ -1,10 +1,10 @@
 'use client';
 
-import { Source } from '@dimensiondev/enums';
 import FireflyLogo from '@dimensiondev/assets/firefly-small.svg';
 import ShadowLeftArrow from '@dimensiondev/assets/left-arrow-shadow.svg';
 import OrbLogo from '@dimensiondev/assets/orb.svg';
 import QrScan from '@dimensiondev/assets/qr-scan.svg';
+import { Source } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
 import { first } from 'lodash-es';

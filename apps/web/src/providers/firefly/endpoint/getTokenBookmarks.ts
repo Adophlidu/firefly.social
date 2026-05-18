@@ -1,3 +1,4 @@
+import { SessionType } from '@dimensiondev/enums';
 import {
     createIndicator,
     createNextIndicator,
@@ -14,7 +15,6 @@ import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData
 import { getSingleCoin } from '@/providers/firefly/endpoint/getSingleCoin.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { Bookmarkable, BookmarkResponse, TokenWithMarketData } from '@/providers/types/Firefly.js';
-import { SessionType } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
 
 export async function getTokenBookmarks(

@@ -1,8 +1,8 @@
+import { SessionType } from '@dimensiondev/enums';
 import { runInSafeAsync } from '@dimensiondev/utils';
 
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
-import { SessionType } from '@/providers/types/SocialMedia.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 
 export async function captureTokenSyncYesEvent() {

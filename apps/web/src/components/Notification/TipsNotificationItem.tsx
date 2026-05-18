@@ -1,8 +1,8 @@
 'use client';
 
-import { Source } from '@dimensiondev/enums';
 import FireflyRoundIcon from '@dimensiondev/assets/firefly.round.svg';
 import TipIcon from '@dimensiondev/assets/tips.svg';
+import { Source } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { getChainName } from '@dimensiondev/web3/chains';
 import { formatAddress } from '@dimensiondev/web3/utils';

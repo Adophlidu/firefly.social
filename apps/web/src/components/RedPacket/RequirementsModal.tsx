@@ -1,6 +1,5 @@
 'use client';
 
-import { Source } from '@dimensiondev/enums';
 import AddUser from '@dimensiondev/assets/add-user.svg';
 import CloseSquareIcon from '@dimensiondev/assets/close-square.svg';
 import Comment from '@dimensiondev/assets/comment-rp.svg';
@@ -13,6 +12,7 @@ import LoadingIcon from '@dimensiondev/assets/loader2.svg';
 import Repost from '@dimensiondev/assets/repost.svg';
 import NFTHolder from '@dimensiondev/assets/rp-nft-holder.svg';
 import TickSquareIcon from '@dimensiondev/assets/tick-square.svg';
+import { Source } from '@dimensiondev/enums';
 import { classNames, getEnumAsArray } from '@dimensiondev/utils';
 import { NetworkType } from '@dimensiondev/web3/enums';
 import { isZero } from '@dimensiondev/web3/numbers';
@@ -29,7 +29,6 @@ import { Modal } from '@/components/Modal.js';
 import { MentionLink } from '@/components/RedPacket/MentionLink.js';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
-
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';

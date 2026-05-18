@@ -1,4 +1,5 @@
 import { Source } from '@dimensiondev/enums';
+
 import { type ExploreSource, ExploreType, TrendingType } from '@/constants/enum.js';
 
 export function parseOldExploreUrl(url: URL): { source: ExploreSource; type: ExploreType } | null {

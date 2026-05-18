@@ -7,7 +7,6 @@ import { getAddress } from 'viem';
 import { lens } from 'viem/chains';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
-
 import { WalletAddressMismatchError } from '@/constants/error.js';
 import { SetQueryDataForVote } from '@/decorators/SetQueryDataForVote.js';
 import { createPrivyWalletClient } from '@/helpers/createPrivyWalletClient.js';

@@ -1,9 +1,9 @@
 'use client';
 
-import { Source } from '@dimensiondev/enums';
 import ExchangeIcon from '@dimensiondev/assets/exchange.svg';
 import ExportIcon from '@dimensiondev/assets/export.svg';
 import MoreIcon from '@dimensiondev/assets/more-circle.svg';
+import { Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { chains } from '@dimensiondev/web3/chains';
 import { NetworkType } from '@dimensiondev/web3/enums';
@@ -26,7 +26,6 @@ import { NoSSR } from '@/components/NoSSR.js';
 import { EnsName } from '@/components/Profile/EnsName.js';
 import { SwapActions } from '@/components/Swap/SwapActions.js';
 import { WalletBaseMoreAction } from '@/components/WalletBaseMoreAction.js';
-
 import { notFound, useSearchParams } from '@/esm/navigation.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';

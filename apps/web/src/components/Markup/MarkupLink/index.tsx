@@ -22,7 +22,6 @@ import { ToggleMore } from '@/components/Markup/MarkupLink/ToggleMore.js';
 import type { MarkupLinkProps } from '@/components/Markup/MarkupLink/type.js';
 import { NoSSR } from '@/components/NoSSR.js';
 import { ProfileTippy } from '@/components/Profile/ProfileTippy.js';
-
 import {
     BIO_TWITTER_PROFILE_REGEX,
     EMAIL_REGEX,

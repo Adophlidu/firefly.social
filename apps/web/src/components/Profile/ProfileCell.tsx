@@ -1,3 +1,4 @@
+import type { SocialSource } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import type { HTMLProps } from 'react';
 
@@ -7,7 +8,6 @@ import { Link } from '@/components/Link.js';
 import { FollowButton } from '@/components/Profile/FollowButton.js';
 import { ProfileTippy } from '@/components/Profile/ProfileTippy.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-import type { SocialSource } from '@/constants/enum.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { resolveFireflyIdentity } from '@/helpers/resolveFireflyProfileId.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';

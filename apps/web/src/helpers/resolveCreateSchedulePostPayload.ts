@@ -1,7 +1,7 @@
+import type { SocialSource } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 import { createLookupTableResolver, UnreachableError } from '@dimensiondev/utils';
 
-import type { SocialSource } from '@/constants/enum.js';
 import {
     createFarcasterSchedulePostPayload,
     type FarcasterSchedulePostPayload,

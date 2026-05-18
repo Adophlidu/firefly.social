@@ -1,3 +1,4 @@
+import { TipsNotificationType } from '@dimensiondev/enums';
 import { fetchJson } from '@dimensiondev/workers-shared/helpers/fetchJson.js';
 import { resolveFireflyResponseData } from '@dimensiondev/workers-shared/helpers/resolveFireflyResponseData.js';
 import { resolveFireflyRootUrl } from '@dimensiondev/workers-shared/helpers/resolveFireflyRootUrl.js';
@@ -6,7 +7,6 @@ import type { FireflyResponse } from '@dimensiondev/workers-shared/types/firefly
 import type { Context } from 'hono';
 
 import type { TipsDetail } from '@/metadata/src/transaction/types.js';
-import { TipsNotificationType } from '@/metadata/src/transaction/types.js';
 
 export async function getTipsTransactionByHash(hash: string, c: Context) {
     const url = urlcat(resolveFireflyRootUrl(c), '/v1/token_tips/detail', {

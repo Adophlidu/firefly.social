@@ -3,8 +3,7 @@ import { isValidAddressEthereum } from '@dimensiondev/web3/utils';
 import { skipToken, useQuery } from '@tanstack/react-query';
 import urlcat from 'urlcat';
 
-import { DefiUnitedTier } from '@/constants/enum.js';
-
+import type { DefiUnitedTier } from '@/constants/enum.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';

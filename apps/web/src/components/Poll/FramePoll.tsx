@@ -1,8 +1,8 @@
+import type { SocialSource } from '@dimensiondev/enums';
 import { useQuery } from '@tanstack/react-query';
 import { memo } from 'react';
 
 import { PollCard } from '@/components/Poll/PollCard.js';
-import type { SocialSource } from '@/constants/enum.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { patchNotificationQueryDataOnPost } from '@/helpers/patchNotificationQueryData.js';
 import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';

@@ -1,4 +1,5 @@
-import { FireflyPlatform } from '@/constants/enum.js';
+import { FireflyPlatform } from '@dimensiondev/enums';
+
 import { getBskyProfileById } from '@/providers/bsky/getBskyProfileById.js';
 import { getBlockRelation } from '@/providers/firefly/endpoint/getBlockRelation.js';
 

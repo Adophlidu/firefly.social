@@ -1,5 +1,7 @@
 'use client';
 
+import type { SocialSource } from '@dimensiondev/enums';
+import { SocialProfileCategory } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { memo } from 'react';
 
@@ -11,7 +13,6 @@ import { LikedFeedList } from '@/components/Profile/LikedFeedList.js';
 import { MediaList } from '@/components/Profile/MediaList.js';
 import { RepliesList } from '@/components/Profile/RepliesList.js';
 import { TrumpTruthSocialPosts } from '@/components/TrumpTruthSocial/TrumpTruthSocialPosts.js';
-import { SocialProfileCategory, type SocialSource } from '@/constants/enum.js';
 import { useAsyncStatus } from '@/hooks/useAsyncStatus.js';
 
 export const SocialProfileContentList = memo(function SocialProfileContentList({

@@ -2,6 +2,7 @@
 
 import DisconnectIcon from '@dimensiondev/assets/disconnect.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { WalletSource } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 import { useAsyncFn } from 'react-use';
 
@@ -10,7 +11,6 @@ import {
     waitForDisconnectConfirmation,
 } from '@/app/[locale]/(settings)/components/waitForDisconnectConfirmation.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { WalletSource } from '@/constants/enum.js';
 import { enqueueErrorMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { resolveConnectionPlatform } from '@/helpers/resolveConnectionPlatform.js';
 import { useAllConnections } from '@/hooks/useAllConnections.js';
