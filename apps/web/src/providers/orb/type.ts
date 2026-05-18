@@ -1,7 +1,7 @@
 import type { Address, Hash, Hex } from 'viem';
 
 export interface OrbResponse<T> {
-    status: 'SUCCESS' | 'ERROR';
+    status: 'SUCCESS' | 'ERROR' | 'FAILED';
     data: T;
     msg?: string;
 }
@@ -87,10 +87,18 @@ export interface ExploreClubsData {
             description?: string;
             picture?: string;
             cover?: string;
+            feed?: string;
         };
         stats?: {
             totalMembers?: number;
             timeCreated?: number;
+        };
+        operations?: {
+            canManage?: boolean;
+            canPost?: boolean;
+            isAdmin?: boolean;
+            isMember?: boolean;
+            isOwner?: boolean;
         };
     }>;
     pageInfo?: {
@@ -102,3 +110,30 @@ export interface ExploreClubsData {
 }
 
 export type ExploreClubsResponse = OrbResponse<ExploreClubsData>;
+
+export interface OrbClubSection {
+    items: ExploreClubsData['clubs'];
+    key: string;
+    label: string;
+    type: string;
+    total?: number;
+    pageInfo?: ExploreClubsData['pageInfo'];
+}
+
+export interface GetClubsData {
+    items: OrbClubSection[];
+    categories?: Array<{
+        key: string;
+        label: string;
+        type: string;
+    }>;
+}
+
+export type GetClubsResponse = OrbResponse<GetClubsData>;
+
+export interface SearchClubsData {
+    items: ExploreClubsData['clubs'];
+    pageInfo?: ExploreClubsData['pageInfo'];
+}
+
+export type SearchClubsResponse = OrbResponse<SearchClubsData>;

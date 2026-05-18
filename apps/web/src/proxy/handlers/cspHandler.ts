@@ -28,7 +28,7 @@ function buildCSP(): string {
         'api.firefly.land',
         'api-dev.firefly.land',
         'firefly.land',
-        'grove.storage',
+        '*.grove.storage',
 
         'stream.farcaster.xyz',
         '*.bsky.network',

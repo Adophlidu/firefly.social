@@ -32,6 +32,9 @@ export function formatChannelFromOrb(club: OrbClub | WorkerClub, owner?: Profile
         } satisfies Channel;
     }
 
+    const canPost = club.operations?.canPost ?? true;
+    const feedId = club.metadata?.feed;
+
     return {
         source: Source.Lens,
         id: club.metadata?.address || club.id || '',
@@ -44,6 +47,9 @@ export function formatChannelFromOrb(club: OrbClub | WorkerClub, owner?: Profile
         timestamp: club.stats?.timeCreated ?? 0,
         ownerId: overrideOwnerId ?? club.metadata?.ownedBy,
         lead: owner,
+        isMember: club.operations?.isMember,
+        unavailable: !canPost || !feedId,
+        feedId,
         __original__: club,
     } satisfies Channel;
 }

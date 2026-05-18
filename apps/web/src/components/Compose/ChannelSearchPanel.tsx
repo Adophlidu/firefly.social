@@ -38,7 +38,7 @@ export function ChannelSearchPanel({ onSelected, className, source, ...rest }: C
     const { updateChannel } = useComposeStateStore();
     const { channel: selectedChannel, rpPayload } = useCompositePost();
 
-    const { data, isLoading, isError } = useSearchChannels(inputText, source, !!rpPayload);
+    const { data, isLoading, isError } = useSearchChannels(inputText, source, !!rpPayload, selectedChannel[source]);
 
     const InputBox = (
         <div className="bg-lightBg text-main relative mx-0 flex h-10 grow items-center rounded-xl px-3 md:mx-3">
@@ -126,7 +126,7 @@ export function ChannelSearchPanel({ onSelected, className, source, ...rest }: C
 
     const content = (
         <div className="md:bg-lightBottom md:dark:bg-darkBottom flex flex-col gap-2">
-            {[Source.Farcaster].includes(source) ? InputBox : null}
+            {[Source.Farcaster, Source.Lens].includes(source) ? InputBox : null}
             {ListBox}
         </div>
     );
