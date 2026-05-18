@@ -1,6 +1,5 @@
-import { Source } from '@dimensiondev/enums';
+import { type ProfileSource, Source } from '@dimensiondev/enums';
 
-import type { ProfileSource } from '@/constants/enum.js';
 import { useBskyProfileStore } from '@/store/useProfileStore/useBskyProfileStore.js';
 import { useFarcasterProfileStore } from '@/store/useProfileStore/useFarcasterProfileStore.js';
 import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';

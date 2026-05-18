@@ -1,8 +1,8 @@
+import type { PredictionPlatform } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 import { useEffect, useRef } from 'react';
 
 import { queryClient } from '@/configs/queryClient.js';
-import type { PredictionPlatform } from '@/constants/enum.js';
 
 interface Options {
     platform: PredictionPlatform;

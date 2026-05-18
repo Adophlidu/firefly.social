@@ -1,9 +1,9 @@
-import type { SocialSource } from '@dimensiondev/enums';
+import type { ProfileSource, SocialSource } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 import z from 'zod';
 
 import { SORTED_SOCIAL_SOURCES, SORTED_THIRD_PARTY_SOURCES } from '@/constants/computed.js';
-import { AsyncStatus, type ProfileSource } from '@/constants/enum.js';
+import { AsyncStatus } from '@/constants/enum.js';
 import { type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
 
 export const ProfileSchema = z.custom<Profile>(

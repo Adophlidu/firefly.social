@@ -1,7 +1,7 @@
+import { PredictionPlatform } from '@dimensiondev/enums';
 import type { Pageable, PageIndicator } from '@dimensiondev/utils';
 import { NotImplementedError, unreachable } from '@dimensiondev/utils';
 
-import { PredictionPlatform } from '@/constants/enum.js';
 import { getPolymarketOpenOrders } from '@/providers/firefly/prediction/getPolymarketOpenOrders.js';
 import type { PredictionOpenOrder } from '@/types/prediction.js';
 

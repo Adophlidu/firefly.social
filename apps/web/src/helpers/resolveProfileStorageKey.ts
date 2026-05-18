@@ -1,7 +1,5 @@
-import { SessionType, Source } from '@dimensiondev/enums';
+import { type ProfileSource, SessionType, Source } from '@dimensiondev/enums';
 import { createLookupTableResolver } from '@dimensiondev/utils';
-
-import type { ProfileSource } from '@/constants/enum.js';
 
 const sessionTypeToProfileSource = createLookupTableResolver<SessionType, ProfileSource>(
     {

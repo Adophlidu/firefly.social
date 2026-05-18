@@ -1,5 +1,6 @@
 'use client';
 
+import type { PredictionPlatform } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { skipToken, useQuery } from '@tanstack/react-query';
@@ -12,7 +13,6 @@ import { Loading } from '@/components/Loading.js';
 import { OrderBookHeader } from '@/components/Prediction/PredictionMarketOrderBook/OrderBookHeader.js';
 import { OrderBookUI } from '@/components/Prediction/PredictionMarketOrderBook/OrderBookUI.js';
 import { SPREAD_SETTING_OPTIONS } from '@/constants/bets.js';
-import type { PredictionPlatform } from '@/constants/enum.js';
 import { openPredictionPage } from '@/helpers/openPredictionPage.js';
 import { getBetsMarketOrderBook } from '@/providers/prediction/getBetsMarketOrderBook.js';
 import type { BetsMarketDataForUI, BetsOrderBookItem, MarketOrderBookSpread } from '@/types/prediction.js';

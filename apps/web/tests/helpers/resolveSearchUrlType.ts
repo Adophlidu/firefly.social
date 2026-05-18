@@ -1,7 +1,7 @@
-import { Source } from '@dimensiondev/enums';
+import { PredictionPlatform, Source } from '@dimensiondev/enums';
 import { describe, expect, test } from 'vitest';
 
-import { PredictionPlatform, SearchType } from '@/constants/enum.js';
+import { SearchType } from '@/constants/enum.js';
 import { resolveSearchUrlType, SearchUrlKind } from '@/helpers/resolveSearchUrlType.js';
 
 describe('resolveSearchUrlType', () => {

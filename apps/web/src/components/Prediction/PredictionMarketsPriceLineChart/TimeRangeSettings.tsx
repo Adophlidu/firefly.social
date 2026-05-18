@@ -1,11 +1,12 @@
 'use client';
 
+import { PredictionPlatform } from '@dimensiondev/enums';
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo, useMemo } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { BetsPriceTimeRange, PredictionPlatform } from '@/constants/enum.js';
+import { BetsPriceTimeRange } from '@/constants/enum.js';
 
 interface TimeRangeSettingsProps {
     platform: PredictionPlatform;

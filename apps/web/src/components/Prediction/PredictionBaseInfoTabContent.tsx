@@ -1,12 +1,12 @@
 'use client';
 
+import { PredictionPlatform } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { use, useMemo } from 'react';
 
 import { Loading } from '@/components/Loading.js';
 import { PredictionContext } from '@/components/Prediction/PredictionContext.js';
 import { PredictionMarketResolution } from '@/components/Prediction/PredictionMarketResolution.js';
-import { PredictionPlatform } from '@/constants/enum.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { BetsEventInfoTab, useBetsEventInfoTab } from '@/hooks/prediction/useBetsEventInfoTab.js';
 

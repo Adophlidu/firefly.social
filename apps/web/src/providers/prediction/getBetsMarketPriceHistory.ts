@@ -1,8 +1,9 @@
+import { PredictionPlatform } from '@dimensiondev/enums';
 import { safeUnreachable, unreachable } from '@dimensiondev/utils';
 import dayjs from 'dayjs';
 import { compact, first } from 'lodash-es';
 
-import { BetsPriceTimeRange, PredictionPlatform } from '@/constants/enum.js';
+import { BetsPriceTimeRange } from '@/constants/enum.js';
 import { getOpinionMarketPriceHistory } from '@/providers/firefly/prediction/getOpinionMarketPriceHistory.js';
 import { getPriceHistory } from '@/providers/prediction/polymarket/getPriceHistory.js';
 import type { PolymarketPriceHistory, PriceHistoryInterval } from '@/providers/prediction/polymarket/type.js';

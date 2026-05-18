@@ -1,5 +1,5 @@
+import { PredictionPlatform } from '@dimensiondev/enums';
 /* eslint-disable @next/next/no-img-element */
-
 import type { NextRequestContext } from '@dimensiondev/types';
 import { compose } from '@dimensiondev/utils';
 import { first } from 'lodash-es';
@@ -8,7 +8,7 @@ import type { NextRequest } from 'next/server.js';
 import type { HTMLProps } from 'react';
 import { z } from 'zod';
 
-import { BetsPriceTimeRange, PredictionPlatform } from '@/constants/enum.js';
+import { BetsPriceTimeRange } from '@/constants/enum.js';
 import { CACHE_AGE_INDEFINITE_ON_DISK } from '@/constants/static.js';
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
 import { fetchImageAsBase64 } from '@/helpers/fetchAvatarAsBase64.js';

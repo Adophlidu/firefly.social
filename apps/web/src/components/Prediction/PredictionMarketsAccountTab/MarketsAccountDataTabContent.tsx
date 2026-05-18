@@ -1,11 +1,11 @@
 'use client';
 
+import type { PredictionPlatform } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { memo } from 'react';
 
 import { Loading } from '@/components/Loading.js';
 import { PredictionMarketList } from '@/components/Prediction/PredictionMarketList.js';
-import type { PredictionPlatform } from '@/constants/enum.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { MarketsAccountTabType } from '@/providers/prediction/polymarket/constants.js';
 import type { BetsMarketDataForUI } from '@/types/prediction.js';

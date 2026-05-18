@@ -1,7 +1,7 @@
+import { PredictionPlatform } from '@dimensiondev/enums';
 import { NotImplementedError, unreachable } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
-import { PredictionPlatform } from '@/constants/enum.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';
 import { formatPolymarketEvent } from '@/providers/firefly/prediction/formatEvents.js';

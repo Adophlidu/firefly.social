@@ -1,7 +1,7 @@
+import { PredictionPlatform } from '@dimensiondev/enums';
 import type { LayoutProps, SearchProps } from '@dimensiondev/types';
 
 import { PredictionEventDetailContent } from '@/components/Prediction/PredictionEventDetailContent.js';
-import { PredictionPlatform } from '@/constants/enum.js';
 
 export const revalidate = 60;
 

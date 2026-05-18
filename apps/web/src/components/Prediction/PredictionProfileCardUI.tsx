@@ -1,5 +1,6 @@
 'use client';
 
+import { PredictionPlatform } from '@dimensiondev/enums';
 import { formatAddressEthereum } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo, useMemo } from 'react';
@@ -8,7 +9,6 @@ import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { formatPolymarketNumber } from '@/components/Polymarket/formatPolymarketNumber.js';
 import { PredictionPlatformIcon } from '@/components/Prediction/PredictionPlatformIcon.js';
 import { PredictionPlatformName } from '@/components/Prediction/PredictionPlatformName.js';
-import { PredictionPlatform } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';

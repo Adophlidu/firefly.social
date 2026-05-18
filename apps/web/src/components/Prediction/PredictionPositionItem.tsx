@@ -2,6 +2,7 @@
 
 import WonIcon from '@dimensiondev/assets/polymarket-claim.svg';
 import LostIcon from '@dimensiondev/assets/polymarket-lost.svg';
+import { PredictionPlatform } from '@dimensiondev/enums';
 import { classNames, removeTrailingZeros, safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { compact, first, isUndefined } from 'lodash-es';
@@ -9,7 +10,6 @@ import { compact, first, isUndefined } from 'lodash-es';
 import { Link } from '@/components/Link.js';
 import { formatPolymarketNumber } from '@/components/Polymarket/formatPolymarketNumber.js';
 import { PredictionPositionAction } from '@/components/Prediction/PredictionPositionAction.js';
-import { PredictionPlatform } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import {

@@ -199,6 +199,11 @@ export enum WalletSource {
     Privy = 'privy',
 }
 
+export enum FrameProtocol {
+    OpenFrame = 'of',
+    Farcaster = 'fc',
+}
+
 export enum ArticlePlatform {
     Mirror = 'mirror',
     Paragraph = 'paragraph',
@@ -223,11 +228,6 @@ export enum SnapshotState {
     Rejected = 'rejected',
     Executed = 'executed',
     Closed = 'closed',
-}
-
-export enum FrameProtocol {
-    OpenFrame = 'of',
-    Farcaster = 'fc',
 }
 
 export enum TipsNotificationType {

@@ -45,18 +45,6 @@ export enum Agent {
 
 export type ThirdPartySource = Source.Telegram | Source.Apple | Source.Google | Source.Email;
 
-// Strictly match the SessionType
-export type ProfileSource =
-    | Source.Farcaster
-    | Source.Lens
-    | Source.Twitter
-    | Source.Bsky
-    | Source.Firefly
-    | Source.Telegram
-    | Source.Apple
-    | Source.Google
-    | Source.Email;
-
 export type LoginSource = SocialSource | ThirdPartySource;
 export type RequestedLoginSource = Source.Twitter;
 
@@ -212,11 +200,6 @@ export enum MuteType {
     Profile = 'profile',
     Channel = 'channel',
     Wallet = 'wallet',
-}
-
-export enum SolanaNetworkType {
-    Appkit = 'appkit',
-    Privy = 'privy-solana',
 }
 
 export enum TokenType {
@@ -383,7 +366,7 @@ export enum ActivitiesPlatform {
     Matters = 'Matters',
 }
 
-export enum PlatformId {
+export enum ArticlePlatformId {
     Mirror = 10096,
     Paragraph = 10097,
     Limo = 10098,
@@ -505,11 +488,6 @@ export enum ExtraLikeType {
 export enum ConnectionSource {
     Appkit = 'appkit',
     Privy = 'privy',
-}
-
-export enum PredictionPlatform {
-    Polymarket = 'polymarket',
-    Opinion = 'opinion',
 }
 
 export enum BetsPriceTimeRange {

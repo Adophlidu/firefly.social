@@ -1,7 +1,7 @@
+import { PredictionPlatform } from '@dimensiondev/enums';
 import { unreachable } from '@dimensiondev/utils';
 import { createIndicator, type PageIndicator } from '@dimensiondev/utils';
 
-import { PredictionPlatform } from '@/constants/enum.js';
 import {
     getOpinionBetsTopHolders,
     getPolymarketBetsTopHolders,

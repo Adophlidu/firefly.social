@@ -1,3 +1,4 @@
+import type { PredictionPlatform } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
@@ -7,7 +8,6 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ActiveTag } from '@/components/Prediction/PredictionSeries/ActiveTag.js';
 import { queryClient } from '@/configs/queryClient.js';
-import type { PredictionPlatform } from '@/constants/enum.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { useRouter } from '@/esm/navigation.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';

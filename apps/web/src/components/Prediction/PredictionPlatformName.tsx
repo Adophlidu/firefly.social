@@ -1,9 +1,8 @@
 'use client';
 
+import { PredictionPlatform } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
-
-import { PredictionPlatform } from '@/constants/enum.js';
 
 interface PredictionPlatformNameProps {
     platform: PredictionPlatform;

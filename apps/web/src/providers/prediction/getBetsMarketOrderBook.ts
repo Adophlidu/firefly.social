@@ -1,7 +1,7 @@
+import { PredictionPlatform } from '@dimensiondev/enums';
 import { NotImplementedError, unreachable } from '@dimensiondev/utils';
 import { has } from 'lodash-es';
 
-import { PredictionPlatform } from '@/constants/enum.js';
 import { getPolymarketLastPrice } from '@/providers/firefly/prediction/getPolymarketLastPrice.js';
 import { getPolymarketOrderBook } from '@/providers/firefly/prediction/getPolymarketOrderBook.js';
 import { getPolymarketSpreads } from '@/providers/firefly/prediction/getPolymarketSpreads.js';

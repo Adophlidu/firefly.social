@@ -1,12 +1,12 @@
 'use client';
 
+import type { PredictionPlatform } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { formatAddressEthereum } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import type { HTMLProps } from 'react';
 
 import { Avatar } from '@/components/Avatar.js';
-import type { PredictionPlatform } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { toFixedTrimmed } from '@/helpers/polymarket.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';

@@ -1,6 +1,6 @@
 'use client';
 
-import type { SocialSource } from '@dimensiondev/enums';
+import type { PredictionPlatform, SocialSource } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 import { useQuery } from '@tanstack/react-query';
 import { memo, useCallback, useMemo } from 'react';
@@ -8,7 +8,6 @@ import type { Address } from 'viem';
 
 import { FollowButton } from '@/components/Profile/FollowButton.js';
 import { WatchButton } from '@/components/Profile/WatchButton.js';
-import type { PredictionPlatform } from '@/constants/enum.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { isSocialSource } from '@/helpers/isSource.js';

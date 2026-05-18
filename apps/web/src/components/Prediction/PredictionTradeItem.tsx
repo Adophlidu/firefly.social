@@ -2,6 +2,7 @@
 
 import BuyIcon from '@dimensiondev/assets/polymarket-bought.svg';
 import SellIcon from '@dimensiondev/assets/polymarket-sold.svg';
+import { PredictionPlatform } from '@dimensiondev/enums';
 import { classNames, removeTrailingZeros } from '@dimensiondev/utils';
 import { rightShift } from '@dimensiondev/web3/numbers';
 import { Plural, Trans } from '@lingui/react/macro';
@@ -10,7 +11,6 @@ import type { HTMLProps } from 'react';
 
 import { Link } from '@/components/Link.js';
 import { PredictionTime } from '@/components/Prediction/PredictionTime.js';
-import { PredictionPlatform } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import { toFixedTrimmed } from '@/helpers/polymarket.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';

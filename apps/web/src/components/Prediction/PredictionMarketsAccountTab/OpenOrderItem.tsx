@@ -1,5 +1,6 @@
 'use client';
 
+import type { PredictionPlatform } from '@dimensiondev/enums';
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
 import { classNames, formatPriceToCents } from '@dimensiondev/utils';
 import { multipliedBy, safe } from '@dimensiondev/web3/numbers';
@@ -11,7 +12,6 @@ import urlcat from 'urlcat';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { waitForAuthorization } from '@/connectors/PrivyConnector.js';
-import type { PredictionPlatform } from '@/constants/enum.js';
 import { formatTokenItemAmount } from '@/helpers/formatTokenItemAmount.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';

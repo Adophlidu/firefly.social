@@ -1,3 +1,4 @@
+import type { PredictionPlatform } from '@dimensiondev/enums';
 import { uniq } from 'lodash-es';
 import { useMemo } from 'react';
 import { create } from 'zustand';
@@ -5,7 +6,6 @@ import { createJSONStorage, persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
 import { SORTED_BETS_PLATFORM } from '@/constants/computed.js';
-import type { PredictionPlatform } from '@/constants/enum.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 
 export enum PredictionFilterNamespace {

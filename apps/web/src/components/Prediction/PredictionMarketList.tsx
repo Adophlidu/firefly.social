@@ -1,5 +1,6 @@
 'use client';
 
+import { PredictionPlatform } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { isZero } from '@dimensiondev/web3/numbers';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
@@ -13,7 +14,6 @@ import { PredictionContext } from '@/components/Prediction/PredictionContext.js'
 import { PredictionEventImage } from '@/components/Prediction/PredictionEventImage.js';
 import { PredictionMarketBuyButtons } from '@/components/Prediction/PredictionMarketBuyButtons.js';
 import { PLATFORMS_SUPPORTING_ORDER_BOOK } from '@/constants/bets.js';
-import { PredictionPlatform } from '@/constants/enum.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { bedStead } from '@/fonts/bedStead/index.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';

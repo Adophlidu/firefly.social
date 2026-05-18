@@ -1,11 +1,11 @@
 'use client';
 
+import type { PredictionPlatform } from '@dimensiondev/enums';
 import { useState } from 'react';
 
 import { Loading } from '@/components/Loading.js';
 import { AssetPrices } from '@/components/Prediction/AssetPriceChart/AssetPrices.js';
 import { CRYPTO_PRICE_CHART_HEIGHT, type PredictionCrypto } from '@/constants/bets.js';
-import type { PredictionPlatform } from '@/constants/enum.js';
 import { dynamic } from '@/esm/dynamic.js';
 import type { PredictionRecurrence } from '@/types/prediction.js';
 

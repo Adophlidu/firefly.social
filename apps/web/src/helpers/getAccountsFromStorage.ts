@@ -1,6 +1,6 @@
+import type { ProfileSource } from '@dimensiondev/enums';
 import { bom, parseJson } from '@dimensiondev/utils';
 
-import type { ProfileSource } from '@/constants/enum.js';
 import { resolveProfileStorageKey } from '@/helpers/resolveProfileStorageKey.js';
 import { logger } from '@/libs/Logger.js';
 import { SessionFactory } from '@/providers/base/SessionFactory.js';

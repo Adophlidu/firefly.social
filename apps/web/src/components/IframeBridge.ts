@@ -1,6 +1,6 @@
 'use client';
 
-import type { SocialSource } from '@dimensiondev/enums';
+import type { ProfileSource, SocialSource } from '@dimensiondev/enums';
 import {
     IframeBridgeMethod,
     iframeBridgeProvider,
@@ -11,7 +11,6 @@ import { NotImplementedError, safeUnreachable } from '@dimensiondev/utils';
 import { memo, useEffect } from 'react';
 
 import { IS_MOBILE_DEVICE } from '@/constants/browser.js';
-import type { ProfileSource } from '@/constants/enum.js';
 import { useRouter } from '@/esm/navigation.js';
 import {
     enqueueErrorMessage,

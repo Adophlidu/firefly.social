@@ -1,7 +1,7 @@
+import { PredictionPlatform } from '@dimensiondev/enums';
 import { runInSafeAsync, safeUnreachable } from '@dimensiondev/utils';
 import { first } from 'lodash-es';
 
-import { PredictionPlatform } from '@/constants/enum.js';
 import { formatOpinionProfile, formatPolymarketProfile } from '@/helpers/formatPredictionProfile.js';
 import { getPredictionPnlHistory } from '@/providers/firefly/prediction/getPredictionPnlHistory.js';
 import { getPredictionPortfolio } from '@/providers/firefly/prediction/getPredictionPortfolio.js';

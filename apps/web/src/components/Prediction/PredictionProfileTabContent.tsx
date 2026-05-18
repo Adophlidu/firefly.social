@@ -1,12 +1,12 @@
 'use client';
 
+import { PredictionPlatform } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { Suspense } from 'react';
 
 import { Loading } from '@/components/Loading.js';
 import { PredictionProfilePositionList } from '@/components/Prediction/PredictionProfilePositionList.js';
 import { PredictionTradeList } from '@/components/Prediction/PredictionTradeList.js';
-import { PredictionPlatform } from '@/constants/enum.js';
 import { Category, usePredictionProfileTab } from '@/hooks/prediction/usePredictionProfileTab.js';
 import type { PredictionProfileDataForUI } from '@/types/prediction.js';
 

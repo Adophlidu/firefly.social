@@ -1,7 +1,7 @@
+import { PredictionPlatform } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
-import { PredictionPlatform } from '@/constants/enum.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { formatOpinionEvent, formatPolymarketEvent } from '@/providers/firefly/prediction/formatEvents.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';

@@ -1,11 +1,11 @@
 'use client';
 
 import FireflyMonochromeIcon from '@dimensiondev/assets/firefly-monochrome.svg';
+import { PredictionPlatform } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { memo, type SyntheticEvent, useCallback, useState } from 'react';
 
 import { Image, type ImageProps } from '@/components/Image.js';
-import { PredictionPlatform } from '@/constants/enum.js';
 
 interface PredictionEventImageProps extends ImageProps {
     platform: PredictionPlatform;

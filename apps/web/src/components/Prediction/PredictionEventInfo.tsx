@@ -1,5 +1,6 @@
 'use client';
 
+import { PredictionPlatform } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
@@ -7,7 +8,6 @@ import { memo, type ReactNode } from 'react';
 
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { PredictionDescription } from '@/components/Prediction/PredictionDescription.js';
-import { PredictionPlatform } from '@/constants/enum.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getPolymarketOpenInterest } from '@/providers/firefly/prediction/getPolymarketOpenInterest.js';
 import type { BetsEventTagForUI } from '@/types/prediction.js';

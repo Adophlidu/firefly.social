@@ -1,9 +1,9 @@
 'use client';
 
+import { PredictionPlatform } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 
-import { PredictionPlatform } from '@/constants/enum.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { computeVolume } from '@/helpers/polymarket.js';
 import type { BetsActivity } from '@/providers/types/Firefly.js';

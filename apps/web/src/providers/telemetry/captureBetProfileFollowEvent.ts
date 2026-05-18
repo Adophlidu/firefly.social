@@ -1,6 +1,6 @@
+import { PredictionPlatform } from '@dimensiondev/enums';
 import type { SocialSource, Source } from '@dimensiondev/enums';
 
-import { PredictionPlatform } from '@/constants/enum.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 

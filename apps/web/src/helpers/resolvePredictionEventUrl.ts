@@ -1,4 +1,5 @@
-import { PredictionPlatform } from '@/constants/enum.js';
+import { PredictionPlatform } from '@dimensiondev/enums';
+
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import type { BetsEventDataForUI } from '@/types/prediction.js';
 

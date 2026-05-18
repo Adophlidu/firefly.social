@@ -1,8 +1,8 @@
+import type { PredictionPlatform } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 import { useMemo } from 'react';
 
 import { extractFallbackInfo } from '@/components/Prediction/extractFallbackInfo.js';
-import type { PredictionPlatform } from '@/constants/enum.js';
 import { useProxyWalletInfo } from '@/hooks/prediction/useProxyWalletInfo.js';
 
 interface Options {

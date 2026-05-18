@@ -1,7 +1,7 @@
+import type { PredictionPlatform } from '@dimensiondev/enums';
 import { Locale } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 
-import type { PredictionPlatform } from '@/constants/enum.js';
 import { translatePolymarketEventData } from '@/providers/firefly/prediction/translatePolymarketEventData.js';
 import type { PolymarketEventLocale } from '@/providers/prediction/polymarket/type.js';
 import type { BetsEventDataForUI } from '@/types/prediction.js';

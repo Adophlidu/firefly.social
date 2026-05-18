@@ -2,6 +2,7 @@
 
 import TimeIcon from '@dimensiondev/assets/time.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { PredictionPlatform } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { isZero } from '@dimensiondev/web3/numbers';
 import { Trans } from '@lingui/react/macro';
@@ -15,7 +16,6 @@ import { Link } from '@/components/Link.js';
 import { BUTTON_COLORS } from '@/components/Prediction/PredictionActivityRate.js';
 import { PredictionEventImage } from '@/components/Prediction/PredictionEventImage.js';
 import { Timer } from '@/components/RedPacket/Timer.js';
-import { PredictionPlatform, type PredictionPlatform as PredictionPlatformType } from '@/constants/enum.js';
 import { bedStead } from '@/fonts/bedStead/index.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { openPredictionPage } from '@/helpers/openPredictionPage.js';
@@ -147,7 +147,7 @@ const getMarketData = (market: BetsMarketDataForUI) => {
 
 interface BetItemProps {
     event: BetsEventDataForUI;
-    platform: PredictionPlatformType;
+    platform: PredictionPlatform;
     className?: string;
     openLinkInNewTab?: boolean;
     onLinkClick?: () => void;

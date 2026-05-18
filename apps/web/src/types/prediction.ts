@@ -1,7 +1,7 @@
-import type { SocialSource } from '@dimensiondev/enums';
+import type { PredictionPlatform, SocialSource } from '@dimensiondev/enums';
 
 import type { PredictionCrypto, SPREAD_SETTING_OPTIONS } from '@/constants/bets.js';
-import type { BetsMarketResolveStatus, PredictionPlatform } from '@/constants/enum.js';
+import type { BetsMarketResolveStatus } from '@/constants/enum.js';
 import type { PolymarketOpenOrderDetail } from '@/providers/types/Firefly.js';
 
 export type MarketOrderBookSpread = (typeof SPREAD_SETTING_OPTIONS)[number];

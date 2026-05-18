@@ -1,12 +1,12 @@
 'use client';
 
+import type { PredictionPlatform } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 
 import { Tab, Tabs } from '@/components/Tabs/index.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/browser.js';
-import type { PredictionPlatform } from '@/constants/enum.js';
 import { MarketsAccountTabType } from '@/providers/prediction/polymarket/constants.js';
 import {
     captureOpinionEventTabClick,

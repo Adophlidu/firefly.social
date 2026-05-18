@@ -1,6 +1,6 @@
+import type { PredictionPlatform } from '@dimensiondev/enums';
 import urlcat from 'urlcat';
 
-import type { PredictionPlatform } from '@/constants/enum.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { WalletProfileInfoListResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';

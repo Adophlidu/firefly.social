@@ -1,7 +1,15 @@
 /* cspell:disable */
 
-import type { ProfilePageSource, SocialSource } from '@dimensiondev/enums';
-import { FollowCategory, SocialProfileCategory, Source, SourceInURL, WalletProfileCategory } from '@dimensiondev/enums';
+import {
+    FollowCategory,
+    PredictionPlatform,
+    type ProfilePageSource,
+    SocialProfileCategory,
+    type SocialSource,
+    Source,
+    SourceInURL,
+    WalletProfileCategory,
+} from '@dimensiondev/enums';
 import { envs } from '@dimensiondev/envs';
 import { solana } from '@dimensiondev/web3/chains';
 import { NetworkType } from '@dimensiondev/web3/enums';
@@ -17,7 +25,6 @@ import {
     FileMimeType,
     type FollowingSource,
     type NotificationSource,
-    PredictionPlatform,
     ProfileEditableField,
     SearchType,
     type SocialDiscoverSource,

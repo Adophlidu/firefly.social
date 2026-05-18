@@ -1,6 +1,6 @@
+import { PredictionPlatform } from '@dimensiondev/enums';
 import { parseJson } from '@dimensiondev/utils';
 
-import { PredictionPlatform } from '@/constants/enum.js';
 import type { PolymarketEventListData, PolymarketMarketData } from '@/providers/types/Firefly.js';
 import type { BetsEventDataForUI, BetsMarketDataForUI } from '@/types/prediction.js';
 

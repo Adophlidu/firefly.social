@@ -1,7 +1,8 @@
+import { PredictionPlatform } from '@dimensiondev/enums';
 import { parseJson } from '@dimensiondev/utils';
 import { first, last } from 'lodash-es';
 
-import { BetsMarketResolveStatus, PredictionPlatform } from '@/constants/enum.js';
+import { BetsMarketResolveStatus } from '@/constants/enum.js';
 import { resolveCryptoFromPolymarketEvent } from '@/providers/firefly/prediction/resolveCryptoFromPolymarketEvent.js';
 import type { PolymarketEvent } from '@/providers/prediction/polymarket/type.js';
 import type { OpinionMarketDetail } from '@/providers/types/Firefly.js';

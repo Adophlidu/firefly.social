@@ -1,5 +1,6 @@
 'use client';
 
+import { PredictionPlatform } from '@dimensiondev/enums';
 import { anySignal } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
@@ -8,7 +9,6 @@ import { memo } from 'react';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Loading } from '@/components/Loading.js';
 import { PredictionTopHoldersUI } from '@/components/Prediction/PredictionMarketTopHolders/PredictionTopHoldersUI.js';
-import { PredictionPlatform } from '@/constants/enum.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { getBetsMarketTopHolders } from '@/providers/prediction/getBetsMarketTopHolders.js';
 import type { BetsMarketDataForUI } from '@/types/prediction.js';

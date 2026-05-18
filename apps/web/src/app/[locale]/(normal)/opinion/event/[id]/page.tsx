@@ -1,8 +1,8 @@
+import { PredictionPlatform } from '@dimensiondev/enums';
 import type { LayoutProps, SearchProps } from '@dimensiondev/types';
 import type { Metadata } from 'next';
 
 import { PredictionEventDetailContent } from '@/components/Prediction/PredictionEventDetailContent.js';
-import { PredictionPlatform } from '@/constants/enum.js';
 import { createPredictionEventMetadata } from '@/providers/firefly/metadata/createPredictionEventMetadata.js';
 
 export const revalidate = 60;

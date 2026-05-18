@@ -1,5 +1,6 @@
 import type {
     FireflyPlatform,
+    PredictionPlatform,
     SocialSource,
     SocialSourceInURL,
     Source,
@@ -15,7 +16,6 @@ import type {
     ExploreSwitchType,
     MintStatus,
     PolymarketBetType,
-    PredictionPlatform,
     S3ConvertStatus,
     SparksAccountStatus,
     TipsNotificationType,

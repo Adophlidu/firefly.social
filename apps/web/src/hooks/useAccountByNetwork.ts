@@ -10,9 +10,13 @@ import { first } from 'lodash-es';
 import { useMemo } from 'react';
 import { useConnection } from 'wagmi';
 
-import { SolanaNetworkType } from '@/constants/enum.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/refs.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
+
+enum SolanaNetworkType {
+    Appkit = 'appkit',
+    Privy = 'privy-solana',
+}
 
 export function useAccountByNetwork(networkType = NetworkType.Ethereum) {
     const account = useConnection();

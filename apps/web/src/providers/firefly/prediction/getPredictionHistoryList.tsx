@@ -1,7 +1,7 @@
+import type { PredictionPlatform } from '@dimensiondev/enums';
 import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
-import type { PredictionPlatform } from '@/constants/enum.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { BetsPosition, Response as FireflyResponse } from '@/providers/types/Firefly.js';

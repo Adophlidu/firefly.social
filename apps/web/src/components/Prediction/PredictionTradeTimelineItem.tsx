@@ -1,5 +1,6 @@
 'use client';
 
+import { PredictionPlatform } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { multipliedBy } from '@dimensiondev/web3/numbers';
 import { formatAddress } from '@dimensiondev/web3/utils';
@@ -7,7 +8,6 @@ import { Trans } from '@lingui/react/macro';
 
 import { Avatar } from '@/components/Avatar.js';
 import { ProfileSourceIcon } from '@/components/ProfileSourceIcon.js';
-import { PredictionPlatform } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { isSocialSource } from '@/helpers/isSource.js';
 import { toFixedTrimmed } from '@/helpers/polymarket.js';

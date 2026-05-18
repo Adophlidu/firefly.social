@@ -1,8 +1,8 @@
 'use client';
 
+import { PredictionPlatform } from '@dimensiondev/enums';
 import { useEffect } from 'react';
 
-import { PredictionPlatform } from '@/constants/enum.js';
 import {
     captureOpinionEventOpenSuccess,
     capturePolymarketCategoryView,

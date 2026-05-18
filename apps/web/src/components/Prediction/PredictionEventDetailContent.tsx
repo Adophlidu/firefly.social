@@ -1,4 +1,5 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import type { PredictionPlatform } from '@dimensiondev/enums';
 import { Locale } from '@dimensiondev/enums';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
@@ -14,7 +15,6 @@ import { PredictionEventPageHeader } from '@/components/Prediction/PredictionEve
 import { PredictionMarketsAccountTab } from '@/components/Prediction/PredictionMarketsAccountTab/index.js';
 import { PredictionSeries } from '@/components/Prediction/PredictionSeries/index.js';
 import { PredictionSingleChart } from '@/components/Prediction/PredictionSingleChart/index.js';
-import type { PredictionPlatform } from '@/constants/enum.js';
 import { notFound } from '@/esm/navigation/server.js';
 import { setupLocaleFromParams } from '@/i18n/static.js';
 import { getEventDetail } from '@/providers/firefly/prediction/getEventDetail.js';

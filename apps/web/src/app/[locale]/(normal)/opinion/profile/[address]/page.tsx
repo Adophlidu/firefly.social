@@ -1,7 +1,7 @@
+import { PredictionPlatform } from '@dimensiondev/enums';
 import type { LayoutProps } from '@dimensiondev/types';
 
 import { PredictionProfileDetailContent } from '@/components/Prediction/PredictionProfileDetailContent.js';
-import { PredictionPlatform } from '@/constants/enum.js';
 
 export const revalidate = 60;
 

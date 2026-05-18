@@ -3,14 +3,13 @@
 import MedalBronzeIcon from '@dimensiondev/assets/medal-bronze.svg';
 import MedalGoldIcon from '@dimensiondev/assets/medal-gold.svg';
 import MedalSilverIcon from '@dimensiondev/assets/medal-silver.svg';
-import { Source } from '@dimensiondev/enums';
+import { PredictionPlatform, Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { formatAddressEthereum } from '@dimensiondev/web3/utils';
 import { isNil } from 'lodash-es';
 import { memo } from 'react';
 
 import { Avatar } from '@/components/Avatar.js';
-import { PredictionPlatform } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { humanize } from '@/helpers/formatCommentCounts.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';

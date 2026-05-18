@@ -1,8 +1,7 @@
-import { Source } from '@dimensiondev/enums';
+import { type ProfileSource, Source } from '@dimensiondev/enums';
 import { bom, parseJson } from '@dimensiondev/utils';
 import type { z } from 'zod';
 
-import type { ProfileSource } from '@/constants/enum.js';
 import { resolveProfileStorageKey } from '@/helpers/resolveProfileStorageKey.js';
 import { logger } from '@/libs/Logger.js';
 import { type ProfileSchema, ProfileStoreSchema } from '@/schemas/ProfileStore.js';

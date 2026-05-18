@@ -3,7 +3,7 @@ import { safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useMutation } from '@tanstack/react-query';
 
-import { ExtraLikeType, PlatformId, TxReactionType } from '@/constants/enum.js';
+import { ArticlePlatformId, ExtraLikeType, TxReactionType } from '@/constants/enum.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { updateQueryForLikeReaction } from '@/helpers/updateQueryForLikeReaction.js';
@@ -41,7 +41,7 @@ export type LikeTarget =
 
 interface LikeParams {
     reactionType: TxReactionType;
-    platformId: PlatformId | string;
+    platformId: ArticlePlatformId | string;
     reactionId: string;
     reactionOwnerId: string;
 }
@@ -55,28 +55,28 @@ function resolveArticleParams(article: Article) {
         case ArticlePlatform.Matters:
             return {
                 reactionType: TxReactionType.LikeMatters,
-                platformId: PlatformId.Matters,
+                platformId: ArticlePlatformId.Matters,
                 reactionId,
                 reactionOwnerId,
             };
         case ArticlePlatform.Mirror:
             return {
                 reactionType: TxReactionType.LikeMirror,
-                platformId: PlatformId.Mirror,
+                platformId: ArticlePlatformId.Mirror,
                 reactionId,
                 reactionOwnerId,
             };
         case ArticlePlatform.Paragraph:
             return {
                 reactionType: TxReactionType.LikeParagraph,
-                platformId: PlatformId.Paragraph,
+                platformId: ArticlePlatformId.Paragraph,
                 reactionId,
                 reactionOwnerId,
             };
         case ArticlePlatform.Limo:
             return {
                 reactionType: TxReactionType.LikeLimo,
-                platformId: PlatformId.Limo,
+                platformId: ArticlePlatformId.Limo,
                 reactionId,
                 reactionOwnerId,
             };
@@ -92,14 +92,14 @@ function resolveLikeParams({ type, data }: LikeTarget): LikeParams | undefined {
         case Source.DAOs:
             return {
                 reactionType: TxReactionType.LikeDAO,
-                platformId: PlatformId.Others,
+                platformId: ArticlePlatformId.Others,
                 reactionId: data.hash,
                 reactionOwnerId: data.owner,
             };
         case Source.Prediction:
             return {
                 reactionType: TxReactionType.LikeBets,
-                platformId: PlatformId.Others,
+                platformId: ArticlePlatformId.Others,
                 reactionId: data.transactionHash,
                 reactionOwnerId: data.owner,
             };
