@@ -40,7 +40,7 @@ export const EventsPopover = memo<PropsWithChildren<EventsPopoverProps>>(functio
                             portal={false}
                             anchor="top start"
                             style={{ height: 36 * events.length + 32 }}
-                            className="no-scrollbar bg-lightBottom text-medium shadow-popover dark:border-line dark:bg-darkBottom absolute bottom-full right-0 z-30 w-[200px] !max-w-[80vw] -translate-y-3 rounded-lg py-4 [--anchor-max-height:214px] dark:border dark:shadow-none"
+                            className="no-scrollbar bg-lightBottom text-medium shadow-popover dark:border-line dark:bg-darkBottom absolute bottom-full right-0 z-30 w-[240px] !max-w-[80vw] -translate-y-3 rounded-lg py-4 [--anchor-max-height:214px] dark:border dark:shadow-none"
                         >
                             <div>
                                 {events.map((event) => {

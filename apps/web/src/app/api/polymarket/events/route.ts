@@ -24,6 +24,7 @@ const ParamsSchema = z.object({
     start_time_max: z.string().optional(),
     end_date_min: z.string().optional(),
     end_date_max: z.string().optional(),
+    after_cursor: z.string().optional(),
 });
 
 export const GET = compose(withRequestErrorHandler(), async (request: NextRequest) => {

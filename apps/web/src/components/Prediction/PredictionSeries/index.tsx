@@ -71,6 +71,7 @@ export const PredictionSeries = memo<PredictionSeriesProps>(function PredictionS
                 now >= new Date(event.startTime).getTime() &&
                 now <= new Date(event.endDate).getTime(),
         );
+
         if (currentIndex === -1)
             return {
                 past: [],
@@ -107,7 +108,8 @@ export const PredictionSeries = memo<PredictionSeriesProps>(function PredictionS
     if (!past.length && !currents.length && !upcoming.length) return null;
     if (!event) return null;
 
-    const selectedPast = past.find((e) => e.slug === eventSlug);
+    const isInCurrents = currents.some((e) => e.slug === eventSlug);
+    const selectedEvent = data?.find((e) => e.slug === eventSlug) || event;
     const showBuyButtons =
         isActive &&
         event.markets.length === 1 &&
@@ -123,27 +125,30 @@ export const PredictionSeries = memo<PredictionSeriesProps>(function PredictionS
                     {past.length ? (
                         <EventsPopover eventSlug={eventSlug} events={past} showResult>
                             <div className="flex items-center gap-2">
-                                {hasResolved ? (
-                                    past.slice(0, CURRENT_COUNT).map((e) => (
-                                        <Link onClick={stopPropagation} key={e.id} href={resolvePredictionEventUrl(e)}>
-                                            <EventResult event={e} />
-                                        </Link>
-                                    ))
-                                ) : (
-                                    <span className="shrink-0 whitespace-nowrap text-[10px] font-bold">
-                                        <Trans>Past</Trans>
-                                    </span>
-                                )}
+                                <span className="shrink-0 whitespace-nowrap text-[10px] font-bold">
+                                    <Trans>Past</Trans>
+                                </span>
+                                {hasResolved
+                                    ? past.slice(0, CURRENT_COUNT).map((e) => (
+                                          <Link
+                                              onClick={stopPropagation}
+                                              key={e.id}
+                                              href={resolvePredictionEventUrl(e)}
+                                          >
+                                              <EventResult event={e} />
+                                          </Link>
+                                      ))
+                                    : null}
                                 <ArrowLineDown className="size-[7px] shrink-0" />
                             </div>
                         </EventsPopover>
                     ) : null}
-                    {selectedPast ? (
+                    {selectedEvent && !isInCurrents ? (
                         <ClickableButton className="bg-main text-primaryBottom flex h-[30px] items-center gap-1 rounded-full px-3 text-[10px] font-bold">
-                            {selectedPast.markets.some((m) => m.isClosed || m.isResolved) ? (
+                            {selectedEvent.markets.some((m) => m.isClosed || m.isResolved) ? (
                                 <Trans>Ended: </Trans>
                             ) : null}
-                            <EventTime event={selectedPast} onlyShowDate />
+                            <EventTime event={selectedEvent} onlyShowDate />
                         </ClickableButton>
                     ) : null}
                     {currents.map((e) => {
