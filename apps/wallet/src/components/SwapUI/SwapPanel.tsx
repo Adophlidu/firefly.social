@@ -2,7 +2,7 @@ import ArrowSwapHorizontalIcon from '@dimensiondev/assets/arrow-swap-horizontal.
 import InfoCircleBoldIcon from '@dimensiondev/assets/info-circle-bold.svg';
 import SwapFlipIcon from '@dimensiondev/assets/swap-flip.svg';
 import SwapLoadingIcon from '@dimensiondev/assets/swap-loading.svg';
-import { toFixed } from '@dimensiondev/web3/numbers';
+import { isLessThan, minus, multipliedBy, toFixed } from '@dimensiondev/web3/numbers';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
@@ -14,6 +14,7 @@ import { SwapReview } from '@/components/SwapUI/SwapReview.js';
 import { TokenInput } from '@/components/SwapUI/TokenInput.js';
 import { formatRate } from '@/helpers/swap/formatSwapAmount.js';
 import { useEffectiveSwapWalletAddress } from '@/hooks/swap/useEffectiveSwapWalletAddress.js';
+import { useNativeTokenGasReserve } from '@/hooks/swap/useNativeTokenGasReserve.js';
 import { useResolvedSwapTokens } from '@/hooks/swap/useResolvedSwapTokens.js';
 import { useSwapExecute } from '@/hooks/swap/useSwapExecute.js';
 import { useSwapQuote } from '@/hooks/swap/useSwapQuote.js';
@@ -47,6 +48,8 @@ export const SwapPanel = memo(function SwapPanel({ className }: SwapPanelProps) 
     const payAddress = useEffectiveSwapWalletAddress('pay', resolvedFromChain);
     const receiveAddress = useEffectiveSwapWalletAddress('receive', resolvedToChain);
 
+    const { gasReserve, isLoading: isGasReserveLoading } = useNativeTokenGasReserve(fromToken, resolvedFromChain);
+
     // Collect unique chain IDs from selected tokens
     const balanceChainIds = useMemo(
         () => uniq([resolvedFromChain, resolvedToChain]),
@@ -76,6 +79,13 @@ export const SwapPanel = memo(function SwapPanel({ className }: SwapPanelProps) 
         return match?.balance;
     }, [balancesByWallet, fromToken, payAddress]);
 
+    const effectiveFromBalance = useMemo(() => {
+        if (!fromBalance) return fromBalance;
+        if (gasReserve === null) return fromBalance;
+        const afterGas = minus(fromBalance, gasReserve);
+        return isLessThan(afterGas, 0) ? '0' : afterGas.toString();
+    }, [fromBalance, gasReserve]);
+
     const toBalance = useMemo(() => {
         if (!balancesByWallet || !toToken || !receiveAddress) return undefined;
         const tokens = balancesByWallet.get(receiveAddress.toLowerCase());
@@ -100,13 +110,12 @@ export const SwapPanel = memo(function SwapPanel({ className }: SwapPanelProps) 
 
     const handlePercentageClick = useCallback(
         (percentage: number) => {
-            if (!fromBalance) return;
-            const balanceNum = Number.parseFloat(fromBalance);
-            if (isNaN(balanceNum)) return;
-            const amount = (balanceNum * percentage) / 100;
-            setFromAmount(toFixed(amount, 6));
+            if (!effectiveFromBalance) return;
+            const amount = multipliedBy(effectiveFromBalance, percentage / 100);
+            const precision = percentage === 100 ? (fromToken?.decimals ?? 6) : 6;
+            setFromAmount(toFixed(amount, precision));
         },
-        [fromBalance, setFromAmount],
+        [effectiveFromBalance, setFromAmount, fromToken?.decimals],
     );
 
     const isLoading = quoteLoading || executionLoading;
@@ -198,6 +207,7 @@ export const SwapPanel = memo(function SwapPanel({ className }: SwapPanelProps) 
                         type="button"
                         className="bg-lightBg w-[70px] rounded-2xl px-4 py-1 text-center text-[16px] font-semibold leading-6"
                         onClick={() => handlePercentageClick(value)}
+                        disabled={isGasReserveLoading}
                     >
                         {label}
                     </button>

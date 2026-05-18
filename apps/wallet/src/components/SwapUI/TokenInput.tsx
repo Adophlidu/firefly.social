@@ -2,7 +2,7 @@ import AddCircleLinearIcon from '@dimensiondev/assets/add-circle-linear.svg';
 import ArrowDownIcon from '@dimensiondev/assets/arrow-line-down.svg';
 import FireflyRoundIcon from '@dimensiondev/assets/firefly.round.svg';
 import { isSolanaChain } from '@dimensiondev/web3/chains';
-import { isGreaterThan, multipliedBy, toFixed } from '@dimensiondev/web3/numbers';
+import { isGreaterThan, isLessThan, minus, multipliedBy, plus, toFixed } from '@dimensiondev/web3/numbers';
 import { formatAddress, isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
@@ -20,6 +20,7 @@ import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { formatTokenAmount, parseInputAmount } from '@/helpers/swap/formatSwapAmount.js';
 import { useEffectiveSwapWalletAddress } from '@/hooks/swap/useEffectiveSwapWalletAddress.js';
 import { useGoToSelectToken } from '@/hooks/swap/useGoToSelectToken.js';
+import { useNativeTokenGasReserve } from '@/hooks/swap/useNativeTokenGasReserve.js';
 import { useSwapQuote } from '@/hooks/swap/useSwapQuote.js';
 import { useSwapContextWalletAddresses } from '@/hooks/useCachedWalletAddresses.js';
 import { useWalletDomainNames } from '@/hooks/useWalletDomainNames.js';
@@ -96,6 +97,11 @@ export const TokenInput = memo(function TokenInput({
 
     const hasWallet = isPrivyReady && !!walletAddress;
 
+    const { gasReserve, isLoading: isGasReserveLoading } = useNativeTokenGasReserve(
+        isEditable ? token : null,
+        isEditable ? chainId : null,
+    );
+
     // Detect wallet type change and reset state
     useEffect(() => {
         if (!walletAddress) return;
@@ -156,12 +162,17 @@ export const TokenInput = memo(function TokenInput({
 
     const handlePercentageClick = useCallback(
         (percentage: number) => {
-            if (!balance || !onAmountChange || !token) return;
-            const amount = multipliedBy(balance, percentage / 100);
+            if (!balance || !onAmountChange || !token?.decimals) return;
+            let effectiveBalance = balance;
+            if (gasReserve !== null) {
+                const afterGas = minus(balance, gasReserve);
+                effectiveBalance = isLessThan(afterGas, 0) ? '0' : afterGas.toString();
+            }
+            const amount = multipliedBy(effectiveBalance, percentage / 100);
             const truncated = toFixed(amount, token.decimals);
             onAmountChange(truncated);
         },
-        [balance, onAmountChange, token],
+        [balance, onAmountChange, token?.decimals, gasReserve],
     );
 
     const goToSelectToken = useGoToSelectToken({
@@ -199,9 +210,10 @@ export const TokenInput = memo(function TokenInput({
     }, [usdValue]);
 
     const isInsufficient = useMemo(() => {
-        if (!isEditable || !fromAmount) return false;
-        return isGreaterThan(fromAmount, balance || '0');
-    }, [isEditable, fromAmount, balance]);
+        if (!isEditable || !fromAmount || Number.parseFloat(fromAmount) === 0) return false;
+        const totalNeeded = gasReserve !== null ? plus(fromAmount, gasReserve) : fromAmount;
+        return isGreaterThan(totalNeeded, balance || '0');
+    }, [isEditable, fromAmount, balance, gasReserve]);
 
     const walletIcon = useMemo(() => {
         if (!walletAddress) return null;
@@ -300,6 +312,7 @@ export const TokenInput = memo(function TokenInput({
                                     type="button"
                                     className="text-highlight font-medium"
                                     onClick={() => handlePercentageClick(100)}
+                                    disabled={isGasReserveLoading}
                                 >
                                     <Trans>Max</Trans>
                                 </button>

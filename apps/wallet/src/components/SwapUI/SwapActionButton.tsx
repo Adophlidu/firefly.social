@@ -1,11 +1,11 @@
 import SwapLoadingIcon from '@dimensiondev/assets/swap-loading.svg';
-import { isGreaterThan } from '@dimensiondev/web3/numbers';
-import { isNativeTokenAddress } from '@dimensiondev/web3/utils';
+import { isGreaterThan, isLessThan, minus } from '@dimensiondev/web3/numbers';
 import { Trans } from '@lingui/react/macro';
 import { useAtomValue } from 'jotai';
 import { memo, type ReactNode, useMemo } from 'react';
 
 import { ActionButton } from '@/components/ActionButton.js';
+import { useNativeTokenGasReserve } from '@/hooks/swap/useNativeTokenGasReserve.js';
 import { useResolvedSwapTokens } from '@/hooks/swap/useResolvedSwapTokens.js';
 import { useSwapQuote } from '@/hooks/swap/useSwapQuote.js';
 import { useSwapContextWalletAddresses } from '@/hooks/useCachedWalletAddresses.js';
@@ -30,6 +30,7 @@ export const SwapActionButton = memo(function SwapActionButton({
     const fromAmount = useAtomValue(fromAmountAtom);
     const isCrossChain = useAtomValue(isCrossChainAtom);
     const { quote, isPending } = useSwapQuote();
+    const { gasReserve } = useNativeTokenGasReserve(fromToken, resolvedFromChain);
 
     const { evmAddress, solanaAddress, isPrivyReady } = useSwapContextWalletAddresses();
 
@@ -50,19 +51,11 @@ export const SwapActionButton = memo(function SwapActionButton({
     }, [fromToken, fromAmount, fromBalance, isBalanceLoading]);
 
     // Check for insufficient gas (native token balance for gas fees)
-    // This is a simplified check - in production would need to compare gas estimate vs native balance
     const isInsufficientGas = useMemo(() => {
-        if (!quote || !('gasEstimate' in quote) || !quote.gasEstimate || !fromToken) return false;
-        // For native tokens (ETH, SOL, etc.), check if balance minus swap amount covers gas
-        if (isNativeTokenAddress(fromToken.address)) {
-            const balanceNum = Number.parseFloat(fromBalance || '0');
-            const amountNum = Number.parseFloat(fromAmount || '0');
-            const gasEstimate = Number.parseFloat(quote.gasEstimate);
-            // Rough estimate: if remaining balance after swap < 10x gas estimate, likely insufficient
-            return balanceNum - amountNum < gasEstimate * 0.001;
-        }
-        return false;
-    }, [quote, fromToken, fromAmount, fromBalance]);
+        if (!fromToken || !fromAmount || gasReserve === null || !fromBalance) return false;
+        const remaining = minus(fromBalance, fromAmount);
+        return isLessThan(remaining, gasReserve);
+    }, [fromToken, fromAmount, fromBalance, gasReserve]);
 
     const buttonState = useMemo<{ label: ReactNode; disabled: boolean; isLoading?: boolean }>(() => {
         const actionLabel = isCrossChain ? <Trans>Bridge</Trans> : <Trans>Swap</Trans>;
