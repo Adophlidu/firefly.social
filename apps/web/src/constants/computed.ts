@@ -91,7 +91,6 @@ export const WALLET_PROFILE_TAB_TYPES: Record<NetworkType, WalletProfileCategory
     [NetworkType.Ethereum]: [
         WalletProfileCategory.Transactions,
         WalletProfileCategory.Prediction,
-        WalletProfileCategory.NFTs,
         WalletProfileCategory.Activities,
     ],
     [NetworkType.Solana]: [WalletProfileCategory.Transactions],
@@ -227,7 +226,6 @@ export const EXPLORE_TYPES: ExploreType[] = [
     ExploreType.TopProfiles,
     ExploreType.TruthSocial,
     ExploreType.CryptoTrends,
-    ExploreType.NFTs,
     ExploreType.TopChannels,
     ExploreType.Projects,
 ];
@@ -249,7 +247,6 @@ export const EXPLORE_DEFAULT_SOURCE: Record<ExploreType, ExploreSource | undefin
     [ExploreType.TruthSocial]: undefined,
     [ExploreType.CryptoTrends]: TrendingType.Trending,
     [ExploreType.TopChannels]: Source.Lens,
-    [ExploreType.NFTs]: TrendingType.Trending,
     [ExploreType.Prediction]: undefined,
 };
 
@@ -259,7 +256,6 @@ export const BOOKMARK_SOURCES: BookmarkSource[] = [
     Source.Bsky,
     Source.Tokens,
     Source.Prediction,
-    Source.NFTs,
     Source.Article,
     Source.DAOs,
 ];

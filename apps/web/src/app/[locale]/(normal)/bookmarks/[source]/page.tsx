@@ -6,7 +6,6 @@ import { Suspense, use } from 'react';
 
 import { ArticleBookmarkList } from '@/app/[locale]/(normal)/bookmarks/ArticleBookmarkList.js';
 import { BookmarkList } from '@/app/[locale]/(normal)/bookmarks/BookmarkList.js';
-import { NFTBookmarkList } from '@/app/[locale]/(normal)/bookmarks/NFTBookmarkList.js';
 import { PredictionBookmarkList } from '@/app/[locale]/(normal)/bookmarks/PredictionBookmarkList.js';
 import { TokenBookmarkList } from '@/app/[locale]/(normal)/bookmarks/TokenBookmarkList.js';
 import { Loading } from '@/components/Loading.js';
@@ -21,8 +20,6 @@ function BookmarkListContent({ source }: { source: BookmarkSource }) {
             return <SnapshotBookmarkList />;
         case Source.Article:
             return <ArticleBookmarkList />;
-        case Source.NFTs:
-            return <NFTBookmarkList />;
         case Source.Tokens:
             return <TokenBookmarkList />;
         case Source.Prediction:

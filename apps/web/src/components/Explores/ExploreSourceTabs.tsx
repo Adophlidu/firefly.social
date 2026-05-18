@@ -29,7 +29,6 @@ export const ExploreSourceTabs = memo<ExploreSourceTabsProps>(function ExploreSo
         [ExploreType.CryptoTrends]: <Trans>Tokens</Trans>,
         [ExploreType.TopChannels]: <Trans>Clubs</Trans>,
         [ExploreType.TruthSocial]: <Trans>Truth Social</Trans>,
-        [ExploreType.NFTs]: <Trans>NFTs</Trans>,
         [ExploreType.Prediction]: <Trans>Predictions</Trans>,
     };
     const hasFireflySlug = exploreTypes.some((x) => x.id === POLYMARKET_FIREFLY_SLUG);

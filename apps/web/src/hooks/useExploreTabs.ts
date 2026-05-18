@@ -5,7 +5,6 @@ import { useMemo } from 'react';
 import { EXPLORE_TYPES } from '@/constants/computed.js';
 import { ExploreType } from '@/constants/enum.js';
 import { STALE_TIMES } from '@/constants/query.js';
-import { NFT_ENABLED } from '@/constants/static.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { getEventSlugList } from '@/providers/firefly/prediction/getEventSlugList.js';
 import { POLYMARKET_FIREFLY_SLUG } from '@/providers/prediction/polymarket/constants.js';
@@ -20,7 +19,7 @@ export function useExploreTabs() {
     });
 
     return useMemo(() => {
-        let baseTypes = EXPLORE_TYPES.filter((x) => (NFT_ENABLED ? true : x !== ExploreType.NFTs)).map((type) => ({
+        let baseTypes = EXPLORE_TYPES.map((type) => ({
             type,
             id: `${type}`,
             link: '',

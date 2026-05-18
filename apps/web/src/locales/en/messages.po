@@ -254,9 +254,6 @@ msgstr "Display Name"
 msgid "Your Lens login token has expired. Please sign in again."
 msgstr "Your Lens login token has expired. Please sign in again."
 
-msgid "Search NFT"
-msgstr "Search NFT"
-
 msgid "Blackmail activities found."
 msgstr "Blackmail activities found."
 
@@ -2594,9 +2591,6 @@ msgstr "GIF count limit reached"
 
 msgid "<0>Sold</0><1/>"
 msgstr "<0>Sold</0><1/>"
-
-msgid "Show more collections"
-msgstr "Show more collections"
 
 msgid "Unsaved draft found"
 msgstr "Unsaved draft found"

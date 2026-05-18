@@ -4,12 +4,9 @@ import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { memo } from 'react';
 
-import { Link } from '@/components/Link.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SearchableCollectionItem } from '@/components/Search/SearchableCollectionItem.js';
-import { SearchType } from '@/constants/enum.js';
 import { STALE_TIMES } from '@/constants/query.js';
-import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import { searchCollections } from '@/services/searchCollections.js';
 
 interface SuggestCollectionListProps {
@@ -62,11 +59,6 @@ export const SuggestCollectionList = memo<SuggestCollectionListProps>(function S
                     </div>
                 </div>
             )}
-            <div className="px-3 pb-4 pt-2">
-                <Link className="text-secondary text-sm leading-[18px]" href={resolveSearchUrl(query, SearchType.NFTs)}>
-                    <Trans>Show more collections</Trans>
-                </Link>
-            </div>
         </div>
     );
 });

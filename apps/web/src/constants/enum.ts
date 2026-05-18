@@ -170,7 +170,6 @@ export type BookmarkSource =
     | Source.Lens
     | Source.Article
     | Source.DAOs
-    | Source.NFTs
     | Source.Tokens
     | Source.Bsky
     | Source.Prediction;
@@ -208,7 +207,6 @@ export enum ExploreType {
     TopProfiles = 'users',
     TopChannels = 'clubs',
     TruthSocial = 'truth-social',
-    NFTs = 'nfts',
     Prediction = 'prediction',
 }
 
@@ -223,7 +221,6 @@ export enum SearchType {
     Profiles = 'users',
     Posts = 'posts',
     Channels = 'channels',
-    NFTs = 'nfts',
     Tokens = 'tokens',
     Clubs = 'clubs',
     Prediction = 'prediction',
@@ -253,7 +250,6 @@ export enum SocialProfileCategory {
 }
 
 export enum WalletProfileCategory {
-    NFTs = 'nfts',
     Activities = 'activities',
     Transactions = 'transactions',
     Prediction = 'prediction',

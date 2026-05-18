@@ -3,7 +3,6 @@
 import { safeUnreachable } from '@dimensiondev/utils';
 
 import { SearchChannelContent } from '@/app/[locale]/(normal)/search/[...slug]/pages/SearchChannelContent.js';
-import { SearchCollectionContent } from '@/app/[locale]/(normal)/search/[...slug]/pages/SearchCollectionContent.js';
 import { SearchCommunityContent } from '@/app/[locale]/(normal)/search/[...slug]/pages/SearchCommunityContent.js';
 import { SearchPostContent } from '@/app/[locale]/(normal)/search/[...slug]/pages/SearchPostContent.js';
 import { SearchPredictionContent } from '@/app/[locale]/(normal)/search/[...slug]/pages/SearchPredictionContent.js';
@@ -24,8 +23,6 @@ export default function Page() {
             return <SearchChannelContent />;
         case SearchType.Tokens:
             return <SearchTokenContent />;
-        case SearchType.NFTs:
-            return <SearchCollectionContent />;
         case SearchType.Clubs:
             return <SearchCommunityContent />;
         case SearchType.Prediction:

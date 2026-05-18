@@ -252,9 +252,6 @@ msgstr "名稱"
 msgid "Your Lens login token has expired. Please sign in again."
 msgstr "您的 Lens 登入權杖已過期，請重新登入。"
 
-msgid "Search NFT"
-msgstr "搜尋 NFT"
-
 msgid "Blackmail activities found."
 msgstr "發現勒索活動。"
 
@@ -2582,9 +2579,6 @@ msgstr "達到 GIF 數量上限"
 
 msgid "<0>Sold</0><1/>"
 msgstr "<0>卖出</0><1/>"
-
-msgid "Show more collections"
-msgstr "顯示更多系列"
 
 msgid "Unsaved draft found"
 msgstr "發現未儲存的草稿"

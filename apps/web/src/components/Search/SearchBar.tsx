@@ -32,7 +32,6 @@ interface SearchBarProps extends HTMLProps<HTMLDivElement> {
 const SEARCH_TYPE_TO_EXPLORE: Partial<Record<SearchType, ExploreType>> = {
     [SearchType.Profiles]: ExploreType.TopProfiles,
     [SearchType.Tokens]: ExploreType.CryptoTrends,
-    [SearchType.NFTs]: ExploreType.NFTs,
     [SearchType.Clubs]: ExploreType.TopChannels,
     [SearchType.Prediction]: ExploreType.Prediction,
 };

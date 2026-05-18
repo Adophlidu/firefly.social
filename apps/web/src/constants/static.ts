@@ -138,8 +138,6 @@ export const EVENT_ROUTES: Array<`/${string}`> = ['/event', '/events'];
 export const INTERNAL_ROUTES: Array<`/${string}`> = ['/frame', '/login', '/redirect', '/telegram'];
 export const WHITEBOARD_ROUTES: Array<`/${string}`> = [...INTERNAL_ROUTES, '/signup'];
 
-export const NFT_ENABLED = envs.external.NEXT_PUBLIC_NFT_FEATURES === STATUS.Enabled;
-
 export const MAX_POST_SIZE_PER_THREAD = envs.shared.NODE_ENV === NODE_ENV.Development ? 10 : 25;
 
 export const REQUIRE_LOGIN_SOURCES: RequestedLoginSource[] =

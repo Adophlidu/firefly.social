@@ -3,7 +3,6 @@
 import { safeUnreachable } from '@dimensiondev/utils';
 
 import { ChannelList } from '@/components/Channel/ChannelList.js';
-import { TrendingNFTs } from '@/components/Explores/TrendingNFTs.js';
 import { PredictionList } from '@/components/PredictionList.js';
 import { SuggestedFollowUsersList } from '@/components/SuggestedFollows/SuggestedFollowUsersList.js';
 import { TokenTrendingList } from '@/components/TokenTrendingList.js';
@@ -35,8 +34,6 @@ export function ExplorePage({ source, type }: Props) {
                     return null;
             }
         }
-        case ExploreType.NFTs:
-            return <TrendingNFTs />;
         case ExploreType.Projects:
         case ExploreType.TruthSocial:
             return null;

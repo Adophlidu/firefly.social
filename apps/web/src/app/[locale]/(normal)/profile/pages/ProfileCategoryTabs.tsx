@@ -25,7 +25,7 @@ import {
     WalletProfileCategory,
 } from '@/constants/enum.js';
 import { TRUMP_TWITTER_PROFILE } from '@/constants/mentions.js';
-import { NFT_ENABLED, VITALIK_ADDRESS } from '@/constants/static.js';
+import { VITALIK_ADDRESS } from '@/constants/static.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
@@ -86,7 +86,6 @@ export function ProfileCategoryTabs({
     const tabTitles: Record<WalletProfileCategory, ReactNode> = useMemo(
         () => ({
             [WalletProfileCategory.Activities]: <Trans>Activities</Trans>,
-            [WalletProfileCategory.NFTs]: <Trans>NFTs</Trans>,
             [WalletProfileCategory.Transactions]: <Trans>Transactions</Trans>,
             [WalletProfileCategory.Prediction]: <Trans>Predictions</Trans>,
         }),
@@ -99,9 +98,7 @@ export function ProfileCategoryTabs({
             const tabs =
                 addressType === NetworkType.Solana
                     ? WALLET_PROFILE_TAB_TYPES.solana
-                    : WALLET_PROFILE_TAB_TYPES.ethereum.filter((x) =>
-                          NFT_ENABLED ? true : x !== WalletProfileCategory.NFTs,
-                      );
+                    : WALLET_PROFILE_TAB_TYPES.ethereum;
             return tabs.map((type) => ({ type, title: tabTitles[type] }));
         }
 

@@ -33,14 +33,7 @@ export function ComposeButtonForMobile() {
 
     if (!isLogin) return null;
     if (isPostPage && !isCurrentLogin) return null;
-    if (
-        isArticlePage ||
-        currentSource === Source.NFTs ||
-        currentSource === Source.Article ||
-        isNFTPage ||
-        isPredictionPage(pathname)
-    )
-        return null;
+    if (isArticlePage || currentSource === Source.Article || isNFTPage || isPredictionPage(pathname)) return null;
 
     return (
         <ClickableButton

@@ -84,7 +84,6 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_SPARKS: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_LENS_SIGNUP: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_FARCASTER_SIGNUP: z.nativeEnum(STATUS).default(STATUS.Disabled),
-    NEXT_PUBLIC_NFT_FEATURES: z.nativeEnum(STATUS).default(STATUS.Enabled),
     NEXT_PUBLIC_X_WEBHOOK_RECEIVER_IDS: z.string().optional(), // comma separated client ids: id1,id2,...
 
     // app url scheme
@@ -164,7 +163,6 @@ export const envs = {
         NEXT_PUBLIC_SPARKS: process.env.NEXT_PUBLIC_SPARKS,
         NEXT_PUBLIC_LENS_SIGNUP: process.env.NEXT_PUBLIC_LENS_SIGNUP,
         NEXT_PUBLIC_FARCASTER_SIGNUP: process.env.NEXT_PUBLIC_FARCASTER_SIGNUP,
-        NEXT_PUBLIC_NFT_FEATURES: process.env.NEXT_PUBLIC_NFT_FEATURES,
         NEXT_PUBLIC_X_WEBHOOK_RECEIVER_IDS: process.env.NEXT_PUBLIC_X_WEBHOOK_RECEIVER_IDS,
 
         // app scheme url

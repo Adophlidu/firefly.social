@@ -28,7 +28,6 @@ export const BookmarkMenu = memo<BookmarkMenuProps>(function BookmarkMenu({ isSe
                 case Source.Lens:
                     return !!allProfiles[source]?.profileId;
                 case Source.Article:
-                case Source.NFTs:
                 case Source.Tokens:
                 case Source.Prediction:
                 case Source.DAOs:

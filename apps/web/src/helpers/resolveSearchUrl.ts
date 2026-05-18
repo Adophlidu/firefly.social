@@ -3,7 +3,7 @@ import urlcat from 'urlcat';
 import { ClubType, SearchType, Source } from '@/constants/enum.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 
-const TYPES_WITHOUT_SOURCE = [SearchType.Profiles, SearchType.NFTs, SearchType.Tokens, SearchType.Prediction];
+const TYPES_WITHOUT_SOURCE = [SearchType.Profiles, SearchType.Tokens, SearchType.Prediction];
 
 function resolveClubType(source: Source, clubType?: ClubType) {
     if (clubType) return clubType;

@@ -16,7 +16,6 @@ const BOOKMARK_SOURCE_PARAMS: SourceInURL[] = [
     SourceInURL.Bsky,
     SourceInURL.Tokens,
     SourceInURL.Prediction,
-    SourceInURL.NFTs,
     SourceInURL.Article,
     SourceInURL.DAOs,
 ];
