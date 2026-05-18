@@ -1,6 +1,6 @@
+import { Source } from '@dimensiondev/enums';
 import { compact } from 'lodash-es';
 
-import { Source } from '@/constants/enum.js';
 import { readChars } from '@/helpers/chars.js';
 import { downloadMediaObjects } from '@/helpers/downloadMediaObjects.js';
 import { createTwitterMediaObject, resolveUploadId } from '@/helpers/resolveMediaObjectUrl.js';

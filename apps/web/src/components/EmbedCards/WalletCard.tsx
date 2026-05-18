@@ -1,5 +1,6 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { solana } from '@dimensiondev/web3/chains';
@@ -20,7 +21,7 @@ import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { AddressLink } from '@/components/Tips/AddressLink.js';
 import { Tips } from '@/components/Tips/index.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
-import { type ProfilePageSource, Source } from '@/constants/enum.js';
+import type { ProfilePageSource } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { getEnsNameFromWalletProfile } from '@/helpers/getEnsNameFromWalletProfile.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';

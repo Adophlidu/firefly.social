@@ -1,6 +1,6 @@
+import { Source } from '@dimensiondev/enums';
 import { safeUnreachable, UnreachableError } from '@dimensiondev/utils';
 
-import { Source } from '@/constants/enum.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { logger } from '@/libs/Logger.js';
 import { getAllPlatformProfileFromFirefly } from '@/providers/firefly/endpoint/getAllPlatformProfileFromFirefly.js';

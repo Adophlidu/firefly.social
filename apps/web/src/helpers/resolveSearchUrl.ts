@@ -1,6 +1,7 @@
+import { Source } from '@dimensiondev/enums';
 import urlcat from 'urlcat';
 
-import { ClubType, SearchType, Source } from '@/constants/enum.js';
+import { ClubType, SearchType } from '@/constants/enum.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 
 const TYPES_WITHOUT_SOURCE = [SearchType.Profiles, SearchType.Tokens, SearchType.Prediction];

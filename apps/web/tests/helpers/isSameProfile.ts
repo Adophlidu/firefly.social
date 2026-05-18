@@ -1,6 +1,7 @@
+import { Source } from '@dimensiondev/enums';
 import { describe, expect, it, vi } from 'vitest';
 
-import { type SocialSource, Source } from '@/constants/enum.js';
+import type { SocialSource } from '@/constants/enum.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import type { ProfileLike } from '@/providers/types/SocialMedia.js';
 

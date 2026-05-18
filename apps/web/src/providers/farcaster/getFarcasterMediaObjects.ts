@@ -1,6 +1,6 @@
+import { Source } from '@dimensiondev/enums';
 import { uniqBy } from 'lodash-es';
 
-import { Source } from '@/constants/enum.js';
 import { isFrameV1 } from '@/helpers/frame.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { getFarcasterPollUrl } from '@/helpers/getPollFrameUrl.js';

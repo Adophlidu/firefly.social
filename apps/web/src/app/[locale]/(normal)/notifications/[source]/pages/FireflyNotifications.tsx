@@ -1,3 +1,4 @@
+import { Source } from '@dimensiondev/enums';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { useMultiInfiniteQueryPageable } from '@dimensiondev/hooks';
 import { createIndicator, createPageable } from '@dimensiondev/utils';
@@ -8,7 +9,7 @@ import { updateNotificationReadStatus } from '@/app/[locale]/(normal)/notificati
 import { ListInPage } from '@/components/ListInPage.js';
 import { Loading } from '@/components/Loading.js';
 import { SOCIAL_NOTIFICATION_TYPES, UNIFIED_NOTIFICATION_TYPES } from '@/constants/computed.js';
-import { ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
+import { ScrollListKey, type SocialSource } from '@/constants/enum.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';

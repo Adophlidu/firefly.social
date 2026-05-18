@@ -1,3 +1,4 @@
+import { Source } from '@dimensiondev/enums';
 import ArrowLineDownIcon from '@dimensiondev/assets/arrow-line-down.svg';
 import DangerIcon from '@dimensiondev/assets/danger.svg';
 import FireflyLogo from '@dimensiondev/assets/firefly.round.svg';
@@ -6,7 +7,7 @@ import { classNames, resolveValue } from '@dimensiondev/utils';
 import type { HTMLProps } from 'react';
 
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-import { type ProfilePageSource, Source } from '@/constants/enum.js';
+import type { ProfilePageSource } from '@/constants/enum.js';
 
 export function SourceIcon({
     source,

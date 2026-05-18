@@ -1,5 +1,6 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import BskyIcon from '@dimensiondev/assets/bsky-circle.svg';
 import BskyFillIcon from '@dimensiondev/assets/bsky-fill.svg';
 import BskySquareIcon from '@dimensiondev/assets/bsky-square.svg';
@@ -15,7 +16,7 @@ import { useSizeStyle } from '@dimensiondev/hooks';
 import { memo } from 'react';
 
 import { XIcon } from '@/components/XIcon.js';
-import { type SocialSource, Source } from '@/constants/enum.js';
+import type { SocialSource } from '@/constants/enum.js';
 
 // --lens-face-color
 

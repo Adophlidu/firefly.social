@@ -1,6 +1,6 @@
+import { Source } from '@dimensiondev/enums';
 import { NotImplementedError } from '@dimensiondev/utils';
 
-import { Source } from '@/constants/enum.js';
 import { SetQueryDataForVote } from '@/decorators/SetQueryDataForVote.js';
 import { getPollDurationSeconds } from '@/helpers/polls.js';
 import type { CompositePoll, Poll, PollOption, Provider, VoteResponseData } from '@/providers/types/Poll.js';

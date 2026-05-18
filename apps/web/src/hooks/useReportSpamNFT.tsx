@@ -1,10 +1,11 @@
+import { Source } from '@dimensiondev/enums';
 import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { type Draft, produce } from 'immer';
 import { useAsyncFn } from 'react-use';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { Source } from '@/constants/enum.js';
+
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';

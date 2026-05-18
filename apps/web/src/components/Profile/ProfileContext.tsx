@@ -1,9 +1,9 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import { skipToken, useQuery } from '@tanstack/react-query';
 import { createContext, type PropsWithChildren, useMemo } from 'react';
 
-import { Source } from '@/constants/enum.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useAsyncStatus } from '@/hooks/useAsyncStatus.js';

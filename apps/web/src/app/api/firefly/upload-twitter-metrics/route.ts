@@ -1,9 +1,9 @@
+import { SourceInURL } from '@dimensiondev/enums';
 import { envs } from '@dimensiondev/envs';
 import { compose } from '@dimensiondev/utils';
 import type { NextRequest } from 'next/server.js';
 import z from 'zod';
 
-import { SourceInURL } from '@/constants/enum.js';
 import { createErrorResponseJson, createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { getJsonBodyWithZodSchema } from '@/helpers/getJsonBodyWithZodSchema.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';

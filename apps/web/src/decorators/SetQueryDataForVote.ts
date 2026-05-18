@@ -1,7 +1,8 @@
+import { Source } from '@dimensiondev/enums';
 import { produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { type SocialSource, Source } from '@/constants/enum.js';
+import type { SocialSource } from '@/constants/enum.js';
 import { getSessionFromStorageBySource } from '@/helpers/getSessionFromStorage.js';
 import type { Poll, PollOption, Provider, VoteResponseData } from '@/providers/types/Poll.js';
 import type { ClassType } from '@/types/utility.js';

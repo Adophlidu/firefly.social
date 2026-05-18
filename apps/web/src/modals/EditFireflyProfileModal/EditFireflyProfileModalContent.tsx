@@ -1,10 +1,11 @@
+import { Source } from '@dimensiondev/enums';
 import { useQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import { useMemo } from 'react';
 
 import { EditFireflyProfileRouter } from '@/components/EditFireflyProfile/EditFireflyProfileRouter.js';
 import { Loading } from '@/components/Loading.js';
-import { Source } from '@/constants/enum.js';
+
 import { isSocialSource } from '@/helpers/isSource.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import type { AllConnections, FireflyAccountProfile } from '@/providers/types/Firefly.js';

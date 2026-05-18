@@ -1,4 +1,4 @@
-import { Source } from '@/constants/enum.js';
+import { Source } from '@dimensiondev/enums';
 import { NOT_DEPEND_SECRET } from '@/constants/static.js';
 import { createDummyProfileFromThirdPartySession } from '@/helpers/createDummyProfile.js';
 import { ThirdPartySession } from '@/providers/third-party/Session.js';

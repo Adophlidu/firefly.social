@@ -1,4 +1,4 @@
-import type { Source } from '@/constants/enum.js';
+import { Source } from '@dimensiondev/enums';
 import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';
 import type { Provider } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/utility.js';

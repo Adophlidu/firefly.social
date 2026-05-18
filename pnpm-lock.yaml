@@ -155,6 +155,9 @@ importers:
       '@dimensiondev/constants':
         specifier: workspace:^
         version: link:../../packages/constants
+      '@dimensiondev/enums':
+        specifier: workspace:^
+        version: link:../../packages/enums
       '@dimensiondev/exception-tracker':
         specifier: workspace:^
         version: link:../../packages/exception-tracker
@@ -540,6 +543,9 @@ importers:
       '@dimensiondev/constants':
         specifier: workspace:^
         version: link:../../packages/constants
+      '@dimensiondev/enums':
+        specifier: workspace:^
+        version: link:../../packages/enums
       '@dimensiondev/envs':
         specifier: workspace:^
         version: link:../../packages/envs
@@ -983,6 +989,19 @@ importers:
   packages/assets: {}
 
   packages/constants:
+    dependencies:
+      typescript:
+        specifier: 5.9.3
+        version: 5.9.3
+    devDependencies:
+      '@typescript/native-preview':
+        specifier: 7.0.0-dev.20260515.1
+        version: 7.0.0-dev.20260515.1
+      tsdown:
+        specifier: ^0.21.10
+        version: 0.21.10(@typescript/native-preview@7.0.0-dev.20260515.1)(typescript@5.9.3)
+
+  packages/enums:
     dependencies:
       typescript:
         specifier: 5.9.3
@@ -3011,13 +3030,6 @@ packages:
       '@babel/template': 7.28.6
       '@babel/types': 7.29.0
 
-  /@babel/parser@7.28.6:
-    resolution: {integrity: sha512-TeR9zWR18BvbfPmGbLampPMW+uW1NZnJlRuuHso8i87QZNq2JRF9i6RgxRqtEq+wQGsS19NNTWr2duhnE49mfQ==}
-    engines: {node: '>=6.0.0'}
-    hasBin: true
-    dependencies:
-      '@babel/types': 7.29.0
-
   /@babel/parser@7.29.2:
     resolution: {integrity: sha512-4GgRzy/+fsBa72/RZVJmGKPmZu9Byn8o4MoLpmNe1m8ZfYnz5emHLQz3U4gLud6Zwl0RZIcgiLD7Uq7ySFuDLA==}
     engines: {node: '>=6.0.0'}
@@ -4270,7 +4282,7 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       '@babel/code-frame': 7.28.6
-      '@babel/parser': 7.29.2
+      '@babel/parser': 7.29.3
       '@babel/types': 7.29.0
 
   /@babel/traverse@7.28.6:
@@ -4294,19 +4306,12 @@ packages:
       '@babel/code-frame': 7.29.0
       '@babel/generator': 7.29.1
       '@babel/helper-globals': 7.28.0
-      '@babel/parser': 7.29.2
+      '@babel/parser': 7.29.3
       '@babel/template': 7.28.6
       '@babel/types': 7.29.0
       debug: 4.4.3
     transitivePeerDependencies:
       - supports-color
-
-  /@babel/types@7.28.6:
-    resolution: {integrity: sha512-0ZrskXVEHSWIqZM/sQZ4EV3jZJXRkio/WCxaqKZP1g//CEWEPSfeZFcms4XeKBCHU0ZKnIkdJeU/kF+eRp5lBg==}
-    engines: {node: '>=6.9.0'}
-    dependencies:
-      '@babel/helper-string-parser': 7.27.1
-      '@babel/helper-validator-identifier': 7.28.5
 
   /@babel/types@7.29.0:
     resolution: {integrity: sha512-LwdZHpScM4Qz8Xw2iKSzS+cfglZzJGvofQICy7W7v4caru4EaAmyUuO6BGrbyQ2mYV11W0U8j5mBhd14dd3B0A==}
@@ -17181,18 +17186,18 @@ packages:
   /@types/babel__generator@7.27.0:
     resolution: {integrity: sha512-ufFd2Xi92OAVPYsy+P4n7/U7e68fex0+Ee8gSG9KX7eo084CWiQ4sdxktvdl0bOPupXtVJPY19zk6EwWqUQ8lg==}
     dependencies:
-      '@babel/types': 7.28.6
+      '@babel/types': 7.29.0
 
   /@types/babel__template@7.4.4:
     resolution: {integrity: sha512-h/NUaSyG5EyxBIp8YRxo4RMe2/qQgvyowRwVMzhYhBCONbW8PUsg4lkFMrhgZhUe5z3L3MiLDuvyJ/CaPa2A8A==}
     dependencies:
-      '@babel/parser': 7.28.6
-      '@babel/types': 7.28.6
+      '@babel/parser': 7.29.3
+      '@babel/types': 7.29.0
 
   /@types/babel__traverse@7.20.7:
     resolution: {integrity: sha512-dkO5fhS7+/oos4ciWxyEyjWe48zmG6wbCheo/G2ZnHx4fs3EU6YC6UM8rk56gAjNJ9P3MTH2jo5jb92/K6wbng==}
     dependencies:
-      '@babel/types': 7.28.6
+      '@babel/types': 7.29.0
 
   /@types/bs58@4.0.4:
     resolution: {integrity: sha512-0IEpMFXXQi2zXaXl9GJ3sRwQo0uEkD+yFOv+FnAU5lkPtcu6h61xb7jc2CFPEZ5BUOaiP13ThuGc9HD4R8lR5g==}

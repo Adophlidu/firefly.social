@@ -1,5 +1,6 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import CloudIcon from '@dimensiondev/assets/cloud.svg';
 import EditIcon from '@dimensiondev/assets/edit.svg';
 import LogoutIcon from '@dimensiondev/assets/log-out.svg';
@@ -16,7 +17,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
-import { PageRoute, PasswordWorkflow, Source } from '@/constants/enum.js';
+import { PageRoute, PasswordWorkflow } from '@/constants/enum.js';
 import { useRouter as useNextRouter } from '@/esm/navigation.js';
 import { enqueueMessageFromError, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { getAccountsFromStorage } from '@/helpers/getAccountsFromStorage.js';

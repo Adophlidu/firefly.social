@@ -1,6 +1,6 @@
+import { Source } from '@dimensiondev/enums';
 import { last } from 'lodash-es';
 
-import { Source } from '@/constants/enum.js';
 import { isSamePost } from '@/helpers/isSamePost.js';
 import { uniqProfiles } from '@/helpers/uniqProfiles.js';
 import {

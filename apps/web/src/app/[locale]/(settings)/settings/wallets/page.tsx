@@ -1,5 +1,6 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import EvmIcon from '@dimensiondev/assets/evm.svg';
 import SolanaIcon from '@dimensiondev/assets/solana.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
@@ -12,7 +13,7 @@ import { WalletGroup } from '@/app/[locale]/(settings)/components/WalletGroup.js
 import { Loading } from '@/components/Loading.js';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
-import { Source } from '@/constants/enum.js';
+
 import { useAllConnections } from '@/hooks/useAllConnections.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 

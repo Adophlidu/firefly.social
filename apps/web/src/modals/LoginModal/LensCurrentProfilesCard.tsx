@@ -1,10 +1,11 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import { useQuery } from '@tanstack/react-query';
 import { memo } from 'react';
 
-import { type SocialSource, Source } from '@/constants/enum.js';
+import type { SocialSource } from '@/constants/enum.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { MAX_ACCOUNT_COUNT_PER_SOURCE } from '@/constants/static.js';
 import { CurrentProfilesCard } from '@/modals/LoginModal/CurrentProfilesCard.js';

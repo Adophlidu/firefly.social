@@ -1,3 +1,4 @@
+import { Source } from '@dimensiondev/enums';
 import { memo, useCallback } from 'react';
 import type { Address } from 'viem';
 
@@ -5,7 +6,7 @@ import { Bookmark } from '@/components/Actions/Bookmark.js';
 import { LikeButton } from '@/components/Actions/LikeButton.js';
 import { ShareAction } from '@/components/Actions/ShareAction.js';
 import { Tips } from '@/components/Tips/index.js';
-import { Source } from '@/constants/enum.js';
+
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useShareUrl } from '@/hooks/useShareUrl.js';

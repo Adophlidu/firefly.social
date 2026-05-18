@@ -1,9 +1,10 @@
+import { Source } from '@dimensiondev/enums';
 import { NetworkType } from '@dimensiondev/web3/enums';
 import { isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3/utils';
 import { isObject } from 'lodash-es';
 import type { Address } from 'viem';
 
-import { type ProfilePageSource, Source } from '@/constants/enum.js';
+import type { ProfilePageSource } from '@/constants/enum.js';
 import { getAllPlatformProfileFromFirefly } from '@/providers/firefly/endpoint/getAllPlatformProfileFromFirefly.js';
 import type { WalletProfile, WalletProfiles } from '@/providers/types/Firefly.js';
 

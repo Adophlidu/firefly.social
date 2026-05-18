@@ -1,7 +1,7 @@
+import { Source } from '@dimensiondev/enums';
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@dimensiondev/utils';
 import type { UserV2, UserV2TimelineResult } from 'twitter-api-v2';
 
-import { Source } from '@/constants/enum.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 

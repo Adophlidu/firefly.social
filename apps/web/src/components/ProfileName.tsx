@@ -1,6 +1,6 @@
+import { Source } from '@dimensiondev/enums';
 import { memo } from 'react';
 
-import { Source } from '@/constants/enum.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface ProfileNameProps {

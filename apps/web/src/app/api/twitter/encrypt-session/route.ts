@@ -1,8 +1,8 @@
+import { SourceInURL } from '@dimensiondev/enums';
 import { envs } from '@dimensiondev/envs';
 import { compose } from '@dimensiondev/utils';
 import { z } from 'zod';
 
-import { SourceInURL } from '@/constants/enum.js';
 import { createErrorResponseJson, createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { getSearchParamsWithZodSchema } from '@/helpers/getSearchParamsWithZodSchema.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';

@@ -1,3 +1,4 @@
+import { Source } from '@dimensiondev/enums';
 import type { LayoutProps } from '@dimensiondev/types';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
@@ -9,7 +10,7 @@ import { ProfileContextProvider } from '@/components/Profile/ProfileContext.js';
 import { ProfileInfoCard } from '@/components/Profile/ProfileInfoCard.js';
 import { ProfileSourceTabs } from '@/components/Profile/ProfileSourceTabs/index.js';
 import { SuspendedAccountFallback } from '@/components/SuspendedAccountFallback.js';
-import { type LoginFallbackSource, Source } from '@/constants/enum.js';
+import type { LoginFallbackSource } from '@/constants/enum.js';
 import { AccountSuspendedError } from '@/constants/error.js';
 import { notFound } from '@/esm/navigation/server.js';
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';

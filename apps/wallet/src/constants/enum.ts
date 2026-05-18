@@ -1,3 +1,5 @@
+import { Source, SourceInURL } from '@dimensiondev/enums';
+
 export enum NODE_ENV {
     Production = 'production',
     Development = 'development',
@@ -21,56 +23,6 @@ export enum Locale {
     en = 'en',
     zhHans = 'zh-Hans',
     zhHant = 'zh-Hant',
-}
-
-export enum Source {
-    Farcaster = 'Farcaster',
-    Lens = 'Lens',
-    Twitter = 'Twitter',
-    Bsky = 'Bsky',
-    Firefly = 'Firefly',
-    Article = 'Article',
-    Wallet = 'Wallet',
-    WalletMix = 'Wallets',
-    NFTs = 'NFTs',
-    Tokens = 'Tokens',
-    Polymarket = 'Polymarket',
-    Telegram = 'Telegram',
-    Google = 'Google',
-    Apple = 'Apple',
-    Email = 'Email',
-    DAOs = 'DAOs',
-    Posts = 'Posts',
-    Notifications = 'Notifications',
-    Swap = 'Swap',
-    Transactions = 'Transactions',
-    Activities = 'Activities',
-}
-
-export enum SourceInURL {
-    Farcaster = 'farcaster',
-    Lens = 'lens',
-    Twitter = 'twitter',
-    Bsky = 'bsky',
-    Firefly = 'firefly',
-    Article = 'article',
-    Wallet = 'wallet',
-    WalletMix = 'wallets',
-    NFTs = 'nfts',
-    Tokens = 'tokens',
-    Polymarket = 'polymarket',
-    Telegram = 'telegram',
-    Google = 'google',
-    Apple = 'apple',
-    Email = 'email',
-    DAOs = 'daos',
-    Posts = 'posts',
-    Notifications = 'all',
-    Swap = 'swap',
-    FarcasterV2 = 'far',
-    X = 'x',
-    Transactions = 'transactions',
-    Activities = 'activities',
 }
 
 export enum FireflyPlatform {

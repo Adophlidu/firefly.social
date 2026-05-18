@@ -1,5 +1,6 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { Plural, Trans } from '@lingui/react/macro';
 import { isUndefined } from 'lodash-es';
@@ -11,7 +12,7 @@ import { BioMarkup } from '@/components/Markup/BioMarkup.js';
 import { PlainParagraph, VoidLineBreak } from '@/components/Markup/overrides.js';
 import { FollowButton } from '@/components/Profile/FollowButton.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-import { FollowCategory, Source } from '@/constants/enum.js';
+import { FollowCategory } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';

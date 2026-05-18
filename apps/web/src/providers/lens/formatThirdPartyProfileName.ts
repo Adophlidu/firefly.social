@@ -1,4 +1,4 @@
-import { Source } from '@/constants/enum.js';
+import { Source } from '@dimensiondev/enums';
 import { EMAIL_REGEX } from '@/constants/regexp.js';
 import { formatEmail } from '@/helpers/formatEmail.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';

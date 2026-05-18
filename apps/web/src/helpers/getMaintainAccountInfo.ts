@@ -1,7 +1,8 @@
+import { Source } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { formatAddress } from '@dimensiondev/web3/utils';
 
-import { Source, TipsDetailViewType } from '@/constants/enum.js';
+import { TipsDetailViewType } from '@/constants/enum.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import type { TipsAccountInfo, TipsDetail as TipsDetailType } from '@/providers/types/Firefly.js';

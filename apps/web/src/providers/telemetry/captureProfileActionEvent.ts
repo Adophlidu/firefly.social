@@ -1,6 +1,7 @@
+import { Source } from '@dimensiondev/enums';
 import { createLookupTableResolver, runInSafeAsync, UnreachableError } from '@dimensiondev/utils';
 
-import { type ProfilePageSource, type SocialSource, Source } from '@/constants/enum.js';
+import type { ProfilePageSource, SocialSource } from '@/constants/enum.js';
 import { getProfileEventParameters } from '@/providers/telemetry/getProfileEventParameters.js';
 import { getWalletEventParameters } from '@/providers/telemetry/getWalletEventParameters.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';

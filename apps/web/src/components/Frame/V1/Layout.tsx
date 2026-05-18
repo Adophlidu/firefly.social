@@ -1,5 +1,6 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { isValidAddressEthereum, parseCAIP10 } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
@@ -12,7 +13,7 @@ import { z } from 'zod';
 
 import { Card } from '@/components/Frame/V1/Card.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
-import { type SocialSource, Source } from '@/constants/enum.js';
+import type { SocialSource } from '@/constants/enum.js';
 import { FIREFLY_WORKER_HOST } from '@/constants/static.js';
 import { enqueueErrorMessage, enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { fetchJson } from '@/helpers/fetchJson.js';

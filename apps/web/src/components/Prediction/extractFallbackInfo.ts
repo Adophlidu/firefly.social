@@ -1,7 +1,8 @@
+import { Source } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { first } from 'lodash-es';
 
-import { type SocialSource, Source } from '@/constants/enum.js';
+import type { SocialSource } from '@/constants/enum.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import type { WalletProfileInfo } from '@/providers/types/Firefly.js';
 

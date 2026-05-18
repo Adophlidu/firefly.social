@@ -1,4 +1,4 @@
-import { Source } from '@/constants/enum.js';
+import { Source } from '@dimensiondev/enums';
 import { formatFireflyAccountProfileFromFireflyConnections } from '@/helpers/formatFireflyAccountProfileFromFireflyConnections.js';
 import { formatWalletConnections } from '@/helpers/formatWalletConnection.js';
 import { getAllConnections } from '@/providers/firefly/endpoint/getAllConnections.js';

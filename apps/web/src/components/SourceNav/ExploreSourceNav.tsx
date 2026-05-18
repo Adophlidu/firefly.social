@@ -1,5 +1,6 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { solana } from '@dimensiondev/web3/chains';
 import { omit } from 'lodash-es';
@@ -14,7 +15,6 @@ import {
     type ExploreSourceInURL,
     ExploreType,
     NetworkType,
-    Source,
     TrendingType,
 } from '@/constants/enum.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';

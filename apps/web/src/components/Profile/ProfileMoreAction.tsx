@@ -1,5 +1,6 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import MoreIcon from '@dimensiondev/assets/more-fill.svg';
 import SearchIcon from '@dimensiondev/assets/search.svg';
 import { classNames } from '@dimensiondev/utils';
@@ -16,7 +17,7 @@ import { ReportProfileButton } from '@/components/Actions/ReportProfileButton.js
 import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { SORTED_SEARCHABLE_POST_BY_PROFILE_SOURCES } from '@/constants/computed.js';
-import { SearchType, Source } from '@/constants/enum.js';
+import { SearchType } from '@/constants/enum.js';
 import { useRouter } from '@/esm/navigation.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';

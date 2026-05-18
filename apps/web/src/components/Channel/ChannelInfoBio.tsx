@@ -1,7 +1,8 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import { BioMarkup } from '@/components/Markup/BioMarkup.js';
-import { type SocialSource, Source } from '@/constants/enum.js';
+import type { SocialSource } from '@/constants/enum.js';
 
 export function ChannelInfoBio({
     description,

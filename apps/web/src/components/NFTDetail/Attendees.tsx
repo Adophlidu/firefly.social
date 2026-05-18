@@ -1,5 +1,6 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import LinkIcon from '@dimensiondev/assets/link-square.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { createIndicator } from '@dimensiondev/utils';
@@ -14,7 +15,7 @@ import { ListInPage } from '@/components/ListInPage.js';
 import { WatchButton } from '@/components/Profile/WatchButton.js';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { ScrollListKey, Source } from '@/constants/enum.js';
+import { ScrollListKey } from '@/constants/enum.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { getPoapHolders } from '@/providers/firefly/nft/getPoapHolders.js';

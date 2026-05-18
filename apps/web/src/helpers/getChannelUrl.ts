@@ -1,6 +1,6 @@
+import { Source } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 
-import { Source } from '@/constants/enum.js';
 import { resolveChannelUrl } from '@/helpers/resolveChannelUrl.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 

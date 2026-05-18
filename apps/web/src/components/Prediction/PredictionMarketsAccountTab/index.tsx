@@ -1,5 +1,6 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { skipToken, useQuery } from '@tanstack/react-query';
 import { compact, first } from 'lodash-es';
@@ -8,7 +9,7 @@ import { memo, use, useMemo, useState } from 'react';
 import { PredictionContext } from '@/components/Prediction/PredictionContext.js';
 import { MarketsAccountDataTab } from '@/components/Prediction/PredictionMarketsAccountTab/MarketsAccountDataTab.js';
 import { MarketsAccountDataTabContent } from '@/components/Prediction/PredictionMarketsAccountTab/MarketsAccountDataTabContent.js';
-import { PredictionPlatform, Source } from '@/constants/enum.js';
+import { PredictionPlatform } from '@/constants/enum.js';
 import { getAccountMarketPositions } from '@/providers/firefly/prediction/getAccountMarketPositions.js';
 import { MarketsAccountTabType } from '@/providers/prediction/polymarket/constants.js';
 import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';

@@ -1,3 +1,4 @@
+import type { Source } from '@dimensiondev/enums';
 import ComebackIcon from '@dimensiondev/assets/comeback.svg';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { type ReactNode, Suspense } from 'react';
@@ -6,7 +7,7 @@ import { MutedWallets } from '@/app/[locale]/(settings)/components/MutedWallets.
 import { MutedChannels } from '@/components/Channel/MutedChannels.js';
 import { Loading } from '@/components/Loading.js';
 import { MutedProfiles } from '@/components/Profile/MutedProfiles.js';
-import { MuteType, PageRoute, type Source } from '@/constants/enum.js';
+import { MuteType, PageRoute } from '@/constants/enum.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 

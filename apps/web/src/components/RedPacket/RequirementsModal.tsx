@@ -1,5 +1,6 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import AddUser from '@dimensiondev/assets/add-user.svg';
 import CloseSquareIcon from '@dimensiondev/assets/close-square.svg';
 import Comment from '@dimensiondev/assets/comment-rp.svg';
@@ -28,7 +29,7 @@ import { Modal } from '@/components/Modal.js';
 import { MentionLink } from '@/components/RedPacket/MentionLink.js';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
-import { Source } from '@/constants/enum.js';
+
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';

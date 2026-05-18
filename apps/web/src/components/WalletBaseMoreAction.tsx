@@ -1,5 +1,6 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import MoreIcon from '@dimensiondev/assets/more.svg';
 import { envs, STATUS } from '@dimensiondev/envs';
 import { formatAddress, isValidAddressEthereum } from '@dimensiondev/web3/utils';
@@ -15,7 +16,7 @@ import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Tips } from '@/components/Tips/index.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { Source } from '@/constants/enum.js';
+
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useEnsName } from '@/hooks/useEnsName.js';

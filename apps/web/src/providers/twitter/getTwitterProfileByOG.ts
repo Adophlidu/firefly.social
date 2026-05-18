@@ -1,6 +1,6 @@
+import { Source } from '@dimensiondev/enums';
 import { runInSafeAsync } from '@dimensiondev/utils';
 
-import { Source } from '@/constants/enum.js';
 import { OpenGraphProcessor } from '@/providers/og/Processor.js';
 import { convertTwitterAvatar } from '@/providers/twitter/formatTwitterProfile.js';
 import { type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';

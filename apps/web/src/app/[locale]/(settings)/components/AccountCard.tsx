@@ -1,5 +1,6 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import DisconnectIcon from '@dimensiondev/assets/disconnect.svg';
 import InfoIcon from '@dimensiondev/assets/info-outline.svg';
 import { t } from '@lingui/core/macro';
@@ -18,7 +19,7 @@ import { Loading } from '@/components/Loading.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { type SocialSource, Source } from '@/constants/enum.js';
+import type { SocialSource } from '@/constants/enum.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getSessionsFromStorageBySource } from '@/helpers/getSessionFromStorage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';

@@ -1,5 +1,6 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import AppleDarkIcon from '@dimensiondev/assets/apple.dark.svg';
 import AppleIcon from '@dimensiondev/assets/apple.svg';
 import EmailDarkIcon from '@dimensiondev/assets/email-small.dark.svg';
@@ -13,7 +14,7 @@ import { safeUnreachable } from '@dimensiondev/utils';
 import type { SVGProps } from 'react';
 
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-import { type ProfileSource, Source } from '@/constants/enum.js';
+import type { ProfileSource } from '@/constants/enum.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 
 interface ProfileSourceIcon extends SVGProps<SVGSVGElement> {

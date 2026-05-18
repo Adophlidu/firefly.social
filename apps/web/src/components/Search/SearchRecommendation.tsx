@@ -1,5 +1,6 @@
 'use client';
 
+import type { Source } from '@dimensiondev/enums';
 import SearchIcon from '@dimensiondev/assets/search.svg';
 import { classNames } from '@dimensiondev/utils';
 import { isValidAddress } from '@dimensiondev/web3/utils';
@@ -12,7 +13,7 @@ import { Link } from '@/components/Link.js';
 import { SuggestCollectionList } from '@/components/Search/SuggestCollectionList.js';
 import { SuggestProfileList } from '@/components/Search/SuggestProfileList.js';
 import { SuggestTokenList } from '@/components/Search/SuggestTokenList.js';
-import { PageRoute, SearchType, type Source } from '@/constants/enum.js';
+import { PageRoute, SearchType } from '@/constants/enum.js';
 import { usePathname } from '@/esm/navigation.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { resolveSearchTypeFromQuery } from '@/helpers/resolveSearchTypeFromQuery.js';

@@ -1,6 +1,6 @@
+import { Source, SourceInURL } from '@dimensiondev/enums';
 import { sortBy, toInteger } from 'lodash-es';
 
-import { Source, SourceInURL } from '@/constants/enum.js';
 import { MAX_IMAGE_SIZE_PER_POST, MAX_IMAGE_SIZE_PRO_PER_POST } from '@/constants/limitation.js';
 import { URL_REGEX } from '@/constants/regexp.js';
 import { readChars } from '@/helpers/chars.js';

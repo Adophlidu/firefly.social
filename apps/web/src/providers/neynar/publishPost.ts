@@ -1,8 +1,8 @@
+import { Source } from '@dimensiondev/enums';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { sortBy, toInteger, uniqBy } from 'lodash-es';
 import { toHex } from 'viem';
 
-import { Source } from '@/constants/enum.js';
 import { MessageType } from '@/constants/farcaster.js';
 import { MAX_IMAGE_SIZE_PER_POST, MAX_IMAGE_SIZE_PRO_PER_POST } from '@/constants/limitation.js';
 import { URL_REGEX } from '@/constants/regexp.js';

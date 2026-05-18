@@ -1,5 +1,6 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import ArrowLineDown from '@dimensiondev/assets/arrow-line-down.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
@@ -15,8 +16,8 @@ import { EventsPopover } from '@/components/Prediction/PredictionSeries/EventsPo
 import { EventTime } from '@/components/Prediction/PredictionSeries/EventTime.js';
 import { ToggleChartTypeButtons } from '@/components/Prediction/PredictionSeries/ToggleChartTypeButtons.js';
 import { PLATFORMS_SUPPORTING_ORDER_BOOK } from '@/constants/bets.js';
-import type { PredictionPlatform } from '@/constants/enum.js';
-import { Source } from '@/constants/enum.js';
+import { PredictionPlatform } from '@/constants/enum.js';
+
 import { STALE_TIMES } from '@/constants/query.js';
 import { Link } from '@/esm/Link.js';
 import { resolvePredictionEventUrl } from '@/helpers/resolvePredictionEventUrl.js';

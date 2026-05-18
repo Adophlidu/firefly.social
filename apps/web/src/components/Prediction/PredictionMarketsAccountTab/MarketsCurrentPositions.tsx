@@ -1,5 +1,6 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import { classNames, removeTrailingZeros } from '@dimensiondev/utils';
 import { formatAddressEthereum, isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
@@ -17,7 +18,7 @@ import {
 } from '@/components/Prediction/PredictionMarketsAccountTab/WalletsFilter.js';
 import { PredictionPositionAction } from '@/components/Prediction/PredictionPositionAction.js';
 import { PredictionPositionItem } from '@/components/Prediction/PredictionPositionItem.js';
-import { PredictionPlatform, Source } from '@/constants/enum.js';
+import { PredictionPlatform } from '@/constants/enum.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 import type { BetsMarketDataForUI, PredictionPositionDataForUI } from '@/types/prediction.js';
 

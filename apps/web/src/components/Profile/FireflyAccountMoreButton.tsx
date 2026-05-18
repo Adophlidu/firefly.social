@@ -1,5 +1,6 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import MoreIcon from '@dimensiondev/assets/more.svg';
 import { formatAddress } from '@dimensiondev/web3/utils';
 import { MenuItem, MenuItems } from '@headlessui/react';
@@ -8,7 +9,7 @@ import { Trans } from '@lingui/react/macro';
 import { CopyLinkButton } from '@/components/Actions/CopyLinkButton.js';
 import { MuteAllByProfile, MuteAllByWallet } from '@/components/Actions/MuteAllProfile.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
-import { Source } from '@/constants/enum.js';
+
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { useEnsName } from '@/hooks/useEnsName.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';

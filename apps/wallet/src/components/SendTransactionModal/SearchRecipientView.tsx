@@ -1,3 +1,4 @@
+import { Source } from '@dimensiondev/enums';
 import LeftArrowIcon from '@dimensiondev/assets/left-arrow.svg';
 import SearchIcon from '@dimensiondev/assets/search.svg';
 import type { ErrorPageProps } from '@dimensiondev/types';
@@ -26,7 +27,7 @@ import { ListInPage } from '@/components/ListInPage.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { RecipientItem, type RecipientItemProps } from '@/components/SendTransactionModal/RecipientItem.js';
 import { type FormValues, RoutePath } from '@/components/SendTransactionModal/types.js';
-import { Source } from '@/constants/enum.js';
+
 import { formatSearchIdentities } from '@/helpers/formatSearchIdentities.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { logger } from '@/lib/Logger.js';

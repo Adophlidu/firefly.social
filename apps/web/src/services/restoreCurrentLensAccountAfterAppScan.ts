@@ -1,6 +1,6 @@
+import { Source } from '@dimensiondev/enums';
 import { runInSafeAsync } from '@dimensiondev/utils';
 
-import { Source } from '@/constants/enum.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { setPrivyAsLensManager } from '@/providers/lens/setPrivyAsLensManager.js';

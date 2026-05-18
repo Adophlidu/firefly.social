@@ -1,6 +1,6 @@
+import { Source } from '@dimensiondev/enums';
 import type { Account, AccountMention } from '@lens-protocol/client';
 
-import { Source } from '@/constants/enum.js';
 import { IMAGE_KIT_AVATAR } from '@/constants/static.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { formatGroveImage } from '@/helpers/formatGroveImage.js';

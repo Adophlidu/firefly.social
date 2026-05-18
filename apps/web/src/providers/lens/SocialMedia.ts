@@ -1,8 +1,8 @@
+import { Source } from '@dimensiondev/enums';
 import type { Pageable, PageIndicator } from '@dimensiondev/utils';
 import { NotImplementedError } from '@dimensiondev/utils';
 import { isValidAddressEthereum } from '@dimensiondev/web3/utils';
 
-import { Source } from '@/constants/enum.js';
 import { AddAuthorHighlightStatusForPosts } from '@/decorators/AddProfileHighlightStatus.js';
 import { SetQueryDataForActPost } from '@/decorators/SetQueryDataForActPost.js';
 import { SetQueryDataForBlockProfile } from '@/decorators/SetQueryDataForBlockProfile.js';

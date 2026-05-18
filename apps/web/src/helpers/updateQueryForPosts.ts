@@ -1,7 +1,8 @@
+import { Source } from '@dimensiondev/enums';
 import { type Draft, produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { SearchType, Source } from '@/constants/enum.js';
+import { SearchType } from '@/constants/enum.js';
 import type { PageData } from '@/decorators/types.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 

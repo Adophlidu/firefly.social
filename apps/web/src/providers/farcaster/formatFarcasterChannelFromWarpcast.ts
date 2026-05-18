@@ -1,4 +1,4 @@
-import { Source } from '@/constants/enum.js';
+import { Source } from '@dimensiondev/enums';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 import type { Channel as WarpcastChannel } from '@/providers/types/Warpcast.js';
 

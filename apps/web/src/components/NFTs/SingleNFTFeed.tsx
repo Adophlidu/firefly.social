@@ -1,3 +1,4 @@
+import { Source } from '@dimensiondev/enums';
 import { motion } from 'framer-motion';
 import { first, isUndefined } from 'lodash-es';
 import { memo } from 'react';
@@ -9,7 +10,7 @@ import { Avatar } from '@/components/Avatar.js';
 import { FeedFollowSource } from '@/components/FeedFollowSource.js';
 import { Link } from '@/components/Link.js';
 import { NFTFeedHeader } from '@/components/NFTs/NFTFeedHeader.js';
-import { Source } from '@/constants/enum.js';
+
 import { useRouter } from '@/esm/navigation.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getWalletProfileAvatar } from '@/helpers/getWalletProfileAvatar.js';

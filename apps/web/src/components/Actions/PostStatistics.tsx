@@ -1,5 +1,6 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { Plural, Trans } from '@lingui/react/macro';
 import dayjs from 'dayjs';
@@ -10,7 +11,7 @@ import { PostPublishPlatform } from '@/components/Actions/PostPublishPlatform.js
 import { Link } from '@/components/Link.js';
 import { ChannelAnchor } from '@/components/Posts/ChannelAnchor.js';
 import { Time } from '@/components/Semantic/Time.js';
-import { EngagementType, PageRoute, Source } from '@/constants/enum.js';
+import { EngagementType, PageRoute } from '@/constants/enum.js';
 import { usePathname } from '@/esm/navigation.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { formatLocalizedDate, formatLocalizedTime, getTimeLeft } from '@/helpers/formatTimestamp.js';

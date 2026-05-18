@@ -1,6 +1,7 @@
+import { Source, SourceInURL } from '@dimensiondev/enums';
 import { createLookupTableResolver, UnreachableError } from '@dimensiondev/utils';
 
-import { type SocialSource, type SocialSourceInURL, Source, SourceInURL } from '@/constants/enum.js';
+import type { SocialSource, SocialSourceInURL } from '@/constants/enum.js';
 
 export const narrowToSocialSource = createLookupTableResolver<Source, SocialSource>(
     {
@@ -17,6 +18,7 @@ export const narrowToSocialSource = createLookupTableResolver<Source, SocialSour
         [Source.Tokens]: Source.Farcaster,
         [Source.DAOs]: Source.Farcaster,
         [Source.Prediction]: Source.Farcaster,
+        [Source.Polymarket]: Source.Farcaster,
         [Source.Telegram]: Source.Farcaster,
         [Source.Google]: Source.Farcaster,
         [Source.Apple]: Source.Farcaster,
@@ -49,6 +51,7 @@ export const narrowToSocialSourceInURL = createLookupTableResolver<SourceInURL, 
         [SourceInURL.Tokens]: SourceInURL.Farcaster,
         [SourceInURL.DAOs]: SourceInURL.Farcaster,
         [SourceInURL.Prediction]: SourceInURL.Farcaster,
+        [SourceInURL.Polymarket]: SourceInURL.Farcaster,
         [SourceInURL.Telegram]: SourceInURL.Farcaster,
         [SourceInURL.Google]: SourceInURL.Farcaster,
         [SourceInURL.Apple]: SourceInURL.Farcaster,

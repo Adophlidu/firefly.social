@@ -1,3 +1,4 @@
+import { Source } from '@dimensiondev/enums';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { clone, difference, uniq } from 'lodash-es';
 import type { SetStateAction } from 'react';
@@ -6,7 +7,7 @@ import { immer } from 'zustand/middleware/immer';
 
 import { HOME_CHANNEL, HOME_CLUB } from '@/constants/channel.js';
 import { SORTED_POLL_SOURCES, SORTED_SOCIAL_SOURCES, SUPPORTED_FRAME_SOURCES } from '@/constants/computed.js';
-import { CharTag, RestrictionType, type SocialSource, Source } from '@/constants/enum.js';
+import { CharTag, RestrictionType, type SocialSource } from '@/constants/enum.js';
 import { MAX_FRAME_SIZE_PER_POST } from '@/constants/static.js';
 import { readChars } from '@/helpers/chars.js';
 import { createSelectors } from '@/helpers/createSelector.js';

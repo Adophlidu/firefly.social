@@ -1,7 +1,7 @@
+import { Source } from '@dimensiondev/enums';
 import { envs } from '@dimensiondev/envs';
 import { compact, last } from 'lodash-es';
 
-import { Source } from '@/constants/enum.js';
 import { TRUMP_TWITTER_PROFILE } from '@/constants/mentions.js';
 import { MENTION_REGEX, URL_REGEX } from '@/constants/regexp.js';
 import { getEmbedUrls } from '@/helpers/getEmbedUrls.js';

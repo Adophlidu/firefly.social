@@ -1,6 +1,6 @@
+import { Source } from '@dimensiondev/enums';
 import type { Account } from '@lens-protocol/client';
 
-import { Source } from '@/constants/enum.js';
 import { SessionExpiredError } from '@/constants/error.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { refreshLensSession } from '@/providers/lens/refreshLensSession.js';

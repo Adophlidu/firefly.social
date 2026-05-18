@@ -1,5 +1,6 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import PoapIcon from '@dimensiondev/assets/poap.svg';
 import { classNames } from '@dimensiondev/utils';
 import { formatAddressEthereum } from '@dimensiondev/web3/utils';
@@ -12,7 +13,7 @@ import { GridListInPage } from '@/components/GridListInPage.js';
 import { Link } from '@/components/Link.js';
 import { NFTImage } from '@/components/NFTImage.js';
 import { BookmarkInIcon } from '@/components/NFTs/BookmarkButton.js';
-import { Source } from '@/constants/enum.js';
+
 import { POAP_CONTRACT_ADDRESS } from '@/constants/static.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';

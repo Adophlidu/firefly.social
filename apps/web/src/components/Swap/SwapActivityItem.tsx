@@ -1,5 +1,6 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import ExchangeIcon from '@dimensiondev/assets/exchange.svg';
 import { formatAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
@@ -21,7 +22,7 @@ import { SwapActions } from '@/components/Swap/SwapActions.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
 import { WalletBaseMoreAction } from '@/components/WalletBaseMoreAction.js';
-import { Source } from '@/constants/enum.js';
+
 import { useRouter } from '@/esm/navigation.js';
 import { formatTokenAmount } from '@/helpers/formatTokenAmount.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';

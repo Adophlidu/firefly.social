@@ -1,6 +1,6 @@
+import { Source } from '@dimensiondev/enums';
 import { first, uniqBy } from 'lodash-es';
 
-import { Source } from '@/constants/enum.js';
 import { readChars } from '@/helpers/chars.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { downloadMediaObjects } from '@/helpers/downloadMediaObjects.js';

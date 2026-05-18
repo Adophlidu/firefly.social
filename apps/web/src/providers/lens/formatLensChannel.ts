@@ -1,6 +1,6 @@
+import { Source } from '@dimensiondev/enums';
 import type { Group, LoggedInGroupOperations, PostGroupInfo } from '@lens-protocol/client';
 
-import { Source } from '@/constants/enum.js';
 import { formatLensImageUrl } from '@/helpers/formatImageUrl.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 

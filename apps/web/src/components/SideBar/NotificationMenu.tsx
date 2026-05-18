@@ -1,5 +1,6 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import '@/styles/notification.css';
 
 import NotificationSelectedIcon from '@dimensiondev/assets/notification.selected.svg';
@@ -11,7 +12,7 @@ import { Trans } from '@lingui/react/macro';
 import { memo, useCallback } from 'react';
 
 import { BaseMenuItem } from '@/components/SideBar/BaseMenuItem.js';
-import { NotificationSourceType, PageRoute, Source } from '@/constants/enum.js';
+import { NotificationSourceType, PageRoute } from '@/constants/enum.js';
 import { usePathname } from '@/esm/navigation.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { resolveNotificationUrl } from '@/helpers/resolveNotificationUrl.js';

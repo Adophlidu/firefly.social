@@ -1,5 +1,6 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { motion } from 'framer-motion';
 import { isUndefined } from 'lodash-es';
@@ -12,7 +13,7 @@ import { FeedActionType } from '@/components/Posts/ActionType.js';
 import { PostBody } from '@/components/Posts/PostBody.js';
 import { PostHeader } from '@/components/Posts/PostHeader.js';
 import { queryClient } from '@/configs/queryClient.js';
-import { PageRoute, Source } from '@/constants/enum.js';
+import { PageRoute } from '@/constants/enum.js';
 import { usePathname, useRouter } from '@/esm/navigation.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';

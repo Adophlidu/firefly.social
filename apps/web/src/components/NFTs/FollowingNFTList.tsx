@@ -1,5 +1,6 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { useMultiInfiniteQueryPageable } from '@dimensiondev/hooks';
 import { createIndicator, createPageable } from '@dimensiondev/utils';
@@ -8,7 +9,7 @@ import { compact, sortBy } from 'lodash-es';
 import { ListInPage } from '@/components/ListInPage.js';
 import { getSingleFollowingNFTItemContent } from '@/components/NFTs/VirtualListHelper.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
-import { ScrollListKey, Source } from '@/constants/enum.js';
+import { ScrollListKey } from '@/constants/enum.js';
 import { getFollowingNFTs } from '@/providers/firefly/endpoint/getFollowingNFTs.js';
 import { NFTSCAN_CHAIN_IDS } from '@/providers/nftscan/constants.js';
 

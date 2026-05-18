@@ -1,8 +1,8 @@
+import { Source } from '@dimensiondev/enums';
 import { fetchAccountBalances } from '@lens-protocol/client/actions';
 import { useQuery } from '@tanstack/react-query';
 import { first } from 'lodash-es';
 
-import { Source } from '@/constants/enum.js';
 import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';

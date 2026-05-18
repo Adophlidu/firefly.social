@@ -1,5 +1,6 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { formatAddress, isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
@@ -11,7 +12,7 @@ import { ToggleMutedButton } from '@/components/Actions/ToggleMutedButton.js';
 import { Avatar } from '@/components/Avatar.js';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { Link } from '@/components/Link.js';
-import { Source } from '@/constants/enum.js';
+
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';

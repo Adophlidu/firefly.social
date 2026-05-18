@@ -1,5 +1,6 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { useMultiInfiniteQueryPageable } from '@dimensiondev/hooks';
 import { createIndicator, createPageable } from '@dimensiondev/utils';
@@ -12,7 +13,7 @@ import { Loading } from '@/components/Loading.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
-import { HomeTab, ScrollListKey, Source } from '@/constants/enum.js';
+import { HomeTab, ScrollListKey } from '@/constants/enum.js';
 import { mergeThreadPostsWithoutSource } from '@/helpers/mergeThreadPosts.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';

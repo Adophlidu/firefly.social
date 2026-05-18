@@ -1,6 +1,6 @@
+import { Source } from '@dimensiondev/enums';
 import { bom } from '@dimensiondev/utils';
 
-import { Source } from '@/constants/enum.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 
 export function getCurrentSourceFromUrl() {

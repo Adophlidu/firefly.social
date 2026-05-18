@@ -1,3 +1,4 @@
+import { Source } from '@dimensiondev/enums';
 import {
     createIndicator,
     createNextIndicator,
@@ -8,7 +9,6 @@ import {
 import { fetchNotifications } from '@lens-protocol/client/actions';
 import { compact, first, flatMap } from 'lodash-es';
 
-import { Source } from '@/constants/enum.js';
 import { uniqProfiles } from '@/helpers/uniqProfiles.js';
 import { ensureCursor } from '@/providers/lens/ensureCursor.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';

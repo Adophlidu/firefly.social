@@ -1,5 +1,6 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { useMultiInfiniteQueryPageable } from '@dimensiondev/hooks';
 import { createIndicator, createPageable } from '@dimensiondev/utils';
@@ -10,7 +11,7 @@ import { memo, type ReactNode } from 'react';
 import { ListInPage } from '@/components/ListInPage.js';
 import { Empty } from '@/components/Search/Empty.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
-import { ScrollListKey, type SearchType, type SocialSource, Source } from '@/constants/enum.js';
+import { ScrollListKey, type SearchType, type SocialSource } from '@/constants/enum.js';
 import { REQUIRE_LOGIN_SOURCES_IN_SEARCH } from '@/constants/static.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveSearchUrlType, SearchUrlKind } from '@/helpers/resolveSearchUrlType.js';

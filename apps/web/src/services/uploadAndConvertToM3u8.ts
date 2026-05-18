@@ -1,7 +1,8 @@
+import type { SourceInURL } from '@dimensiondev/enums';
 import { delay, parseUrl, safeUnreachable, UnreachableError } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
-import { S3ConvertStatus, type SourceInURL } from '@/constants/enum.js';
+import { S3ConvertStatus } from '@/constants/enum.js';
 import { getVideoMetadata } from '@/helpers/getVideoMetadata.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';

@@ -1,8 +1,8 @@
+import { Source } from '@dimensiondev/enums';
 import { parseJson } from '@dimensiondev/utils';
 import { useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 
-import { Source } from '@/constants/enum.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import type { FrameV2 } from '@/types/frame.js';
 

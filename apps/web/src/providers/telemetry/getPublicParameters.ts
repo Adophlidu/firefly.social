@@ -1,6 +1,6 @@
+import { Source } from '@dimensiondev/enums';
 import { bom } from '@dimensiondev/utils';
 
-import { Source } from '@/constants/enum.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { getSharerSessionId } from '@/helpers/sharerSession.js';

@@ -1,5 +1,6 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import WarnIcon from '@dimensiondev/assets/warning-circle.svg';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
@@ -7,7 +8,7 @@ import { memo } from 'react';
 
 import { Link } from '@/components/Link.js';
 import type { PostBodyContentProps } from '@/components/Posts/PostBodyContent.js';
-import { Source } from '@/constants/enum.js';
+
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Post } from '@/providers/types/SocialMedia.js';

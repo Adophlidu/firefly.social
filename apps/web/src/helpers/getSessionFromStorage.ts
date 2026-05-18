@@ -1,6 +1,7 @@
+import { Source } from '@dimensiondev/enums';
 import { bom, createLookupTableResolver, parseJson } from '@dimensiondev/utils';
 
-import { type SocialSource, Source } from '@/constants/enum.js';
+import type { SocialSource } from '@/constants/enum.js';
 import { resolveProfileStorageKeyBySessionType } from '@/helpers/resolveProfileStorageKey.js';
 import { logger } from '@/libs/Logger.js';
 import { SessionFactory } from '@/providers/base/SessionFactory.js';

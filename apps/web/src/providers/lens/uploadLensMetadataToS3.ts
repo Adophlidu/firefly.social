@@ -1,4 +1,4 @@
-import { SourceInURL } from '@/constants/enum.js';
+import { SourceInURL } from '@dimensiondev/enums';
 import type { AccountMetadata } from '@/providers/lens/metadata/Account.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
 

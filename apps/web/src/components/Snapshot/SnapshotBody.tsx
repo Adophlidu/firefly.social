@@ -1,5 +1,6 @@
 'use client';
 
+import { SourceInURL } from '@dimensiondev/enums';
 import SnapshotIcon from '@dimensiondev/assets/snapshot.svg';
 import { classNames } from '@dimensiondev/utils';
 import { formatAddressEthereum } from '@dimensiondev/web3/utils';
@@ -29,7 +30,7 @@ import { SnapshotStatus } from '@/components/Snapshot/SnapshotStatus.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/browser.js';
-import { SnapshotState, SourceInURL } from '@/constants/enum.js';
+import { SnapshotState } from '@/constants/enum.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { formatSnapshotChoice } from '@/helpers/formatSnapshotChoice.js';
 import { openComposeModal } from '@/helpers/openComposeModal.js';

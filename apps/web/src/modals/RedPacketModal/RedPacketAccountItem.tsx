@@ -1,10 +1,10 @@
+import { Source } from '@dimensiondev/enums';
 import LinkOut from '@dimensiondev/assets/link.svg';
 import { classNames } from '@dimensiondev/utils';
 import { NetworkType } from '@dimensiondev/web3/enums';
 import { formatAddress, isValidAddressEthereum } from '@dimensiondev/web3/utils';
 import { memo } from 'react';
 
-import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { resolvePlatformProfileUrl } from '@/helpers/resolvePlatformProfile.js';

@@ -1,5 +1,6 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { Select, Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
@@ -17,7 +18,7 @@ import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
-import { Source } from '@/constants/enum.js';
+
 import { useRouter } from '@/esm/navigation.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';

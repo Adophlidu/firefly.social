@@ -1,5 +1,6 @@
 /* cspell:disable */
 
+import { Source, SourceInURL } from '@dimensiondev/enums';
 import { envs } from '@dimensiondev/envs';
 import { solana } from '@dimensiondev/web3/chains';
 import { NetworkType } from '@dimensiondev/web3/enums';
@@ -23,8 +24,6 @@ import {
     type SocialDiscoverSource,
     SocialProfileCategory,
     type SocialSource,
-    Source,
-    SourceInURL,
     TokenCategory,
     TrendingType,
     WalletProfileCategory,

@@ -1,8 +1,9 @@
+import { Source } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { type SocialSource, Source } from '@/constants/enum.js';
+import type { SocialSource } from '@/constants/enum.js';
 import type { Channel, Provider } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/utility.js';
 

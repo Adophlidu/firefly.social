@@ -1,3 +1,4 @@
+import { Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { useQuery } from '@tanstack/react-query';
 import { first, isUndefined } from 'lodash-es';
@@ -11,7 +12,7 @@ import { SingleArticleHeader } from '@/components/Article/SingleArticleHeader.js
 import { FeedFollowSource } from '@/components/FeedFollowSource.js';
 import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
 import { queryClient } from '@/configs/queryClient.js';
-import { Source } from '@/constants/enum.js';
+
 import { FIREFLY_WORKER_HOST } from '@/constants/static.js';
 import { useRouter } from '@/esm/navigation.js';
 import { extractFirstImageFromHtml } from '@/helpers/extractFirstImageFromHtml.js';

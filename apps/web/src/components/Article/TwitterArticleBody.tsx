@@ -1,3 +1,4 @@
+import { Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { useMemo } from 'react';
 
@@ -5,7 +6,7 @@ import { Link } from '@/components/Link.js';
 import { ArticleMarkup } from '@/components/Markup/ArticleMarkup.js';
 import { ImageAsset } from '@/components/Posts/ImageAsset.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/browser.js';
-import { Source } from '@/constants/enum.js';
+
 import { TWITTER_ARTICLE_REGEX } from '@/constants/regexp.js';
 import { PreviewMediaModalRef } from '@/modals/PreviewMediaModal/refs.js';
 

@@ -1,3 +1,4 @@
+import { Source, SourceInURL } from '@dimensiondev/enums';
 import { envs } from '@dimensiondev/envs';
 import { parseJson, runInSafeAsync, safeUnreachable } from '@dimensiondev/utils';
 import { ensureHexPrefix } from '@dimensiondev/web3/utils';
@@ -6,7 +7,6 @@ import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 import { sha256, toHex } from 'viem';
 
-import { Source, SourceInURL } from '@/constants/enum.js';
 import { SessionExpiredError } from '@/constants/error.js';
 import { SEVEN_DAYS } from '@/constants/static.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';

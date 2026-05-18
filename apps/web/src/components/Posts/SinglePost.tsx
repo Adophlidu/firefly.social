@@ -1,5 +1,6 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
@@ -15,7 +16,7 @@ import { PostBody } from '@/components/Posts/PostBody.js';
 import { PostHeader } from '@/components/Posts/PostHeader.js';
 import { ShareButtonWithAnimationContext } from '@/components/Posts/ShareButton.js';
 import { queryClient } from '@/configs/queryClient.js';
-import { PageRoute, Source } from '@/constants/enum.js';
+import { PageRoute } from '@/constants/enum.js';
 import { usePathname, useRouter } from '@/esm/navigation.js';
 import { isFireflyPostUrl } from '@/helpers/fireflyPostUrl.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';

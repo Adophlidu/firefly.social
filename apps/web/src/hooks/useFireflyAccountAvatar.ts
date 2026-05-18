@@ -1,8 +1,9 @@
+import { Source } from '@dimensiondev/enums';
 import { compact, first } from 'lodash-es';
 import { useMemo } from 'react';
 
 import { SORTED_SOCIAL_ACCOUNT_AVATAR_SOURCE } from '@/constants/computed.js';
-import { Source } from '@/constants/enum.js';
+
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { useAllConnections } from '@/hooks/useAllConnections.js';
 import type {

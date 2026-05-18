@@ -1,12 +1,12 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 import { useSearchParams } from 'next/navigation.js';
 
 import { NavigatorBar } from '@/components/NavigatorBar/index.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { TimelineTitle } from '@/components/TimelineTitle.js';
-import { Source } from '@/constants/enum.js';
 
 export default function Page() {
     const searchParams = useSearchParams();

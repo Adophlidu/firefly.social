@@ -1,5 +1,6 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import { createIndicator } from '@dimensiondev/utils';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
@@ -10,7 +11,6 @@ import {
     type PolymarketRankOrder,
     type PolymarketRankPeriod,
     ScrollListKey,
-    Source,
 } from '@/constants/enum.js';
 import { getPolymarketRank, type PolymarketRankItem } from '@/providers/firefly/prediction/getPolymarketRank.js';
 

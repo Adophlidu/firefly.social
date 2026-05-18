@@ -1,5 +1,6 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import LinkIcon from '@dimensiondev/assets/link-square.svg';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { NetworkType } from '@dimensiondev/web3/enums';
@@ -16,7 +17,7 @@ import { PredictionProfilesCard } from '@/components/Prediction/PredictionProfil
 import { EnsName } from '@/components/Profile/EnsName.js';
 import { WalletActions } from '@/components/Profile/WalletActions.js';
 import { WalletProfileTags } from '@/components/Profile/WalletProfileTags.js';
-import { Source } from '@/constants/enum.js';
+
 import { formatPrice } from '@/helpers/formatPrice.js';
 import { getEnsNameFromWalletProfile } from '@/helpers/getEnsNameFromWalletProfile.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';

@@ -1,3 +1,4 @@
+import { SourceInURL } from '@dimensiondev/enums';
 import {
     createIndicator,
     createNextIndicator,
@@ -9,7 +10,6 @@ import { NetworkType } from '@dimensiondev/web3/enums';
 import urlcat from 'urlcat';
 import type { Address } from 'viem';
 
-import { SourceInURL } from '@/constants/enum.js';
 import { getWalletProfileByAddressOrEns } from '@/providers/firefly/endpoint/getWalletProfileByAddressOrEns.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { BlockedUsersResponse, WalletProfile } from '@/providers/types/Firefly.js';

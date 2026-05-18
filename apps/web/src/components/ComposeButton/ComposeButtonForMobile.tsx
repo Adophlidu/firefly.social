@@ -1,10 +1,11 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import ComposeAddIcon from '@dimensiondev/assets/compose-add.svg';
 import ReplyIcon from '@dimensiondev/assets/reply.svg';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { PageRoute, Source } from '@/constants/enum.js';
+import { PageRoute } from '@/constants/enum.js';
 import { usePathname } from '@/esm/navigation.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';

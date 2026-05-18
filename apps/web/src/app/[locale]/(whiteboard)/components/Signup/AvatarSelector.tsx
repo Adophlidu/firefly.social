@@ -1,3 +1,4 @@
+import { Source } from '@dimensiondev/enums';
 import AddIcon from '@dimensiondev/assets/add-small.svg';
 import CameraIcon from '@dimensiondev/assets/camera.svg';
 import RefreshIcon from '@dimensiondev/assets/refresh.svg';
@@ -19,7 +20,7 @@ import { ImageWithLoading } from '@/app/[locale]/(whiteboard)/components/Signup/
 import { SocialAvatarSelector } from '@/app/[locale]/(whiteboard)/components/Signup/SocialAvatarSelector.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ALLOWED_IMAGES_MIMES } from '@/constants/computed.js';
-import { Source } from '@/constants/enum.js';
+
 import { Image } from '@/esm/Image.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { ImageEditorModalRef } from '@/modals/ImageEditorModal/refs.js';

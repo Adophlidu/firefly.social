@@ -1,9 +1,9 @@
+import { Source } from '@dimensiondev/enums';
 import { IS_PRODUCTION } from '@dimensiondev/constants';
 import { envs } from '@dimensiondev/envs';
 import { configureExceptionTracker } from '@dimensiondev/exception-tracker';
 import { bom } from '@dimensiondev/utils';
 
-import { Source } from '@/constants/enum.js';
 import { EXCEPTION_TRACKER_URL } from '@/constants/static.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';

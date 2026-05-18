@@ -1,3 +1,4 @@
+import { Source } from '@dimensiondev/enums';
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
 import { getChainName } from '@dimensiondev/web3/chains';
 import { formatAddress } from '@dimensiondev/web3/utils';
@@ -26,7 +27,7 @@ import {
     type TransactionPresentation,
     TransactionProjectLogo,
 } from '@/components/TransactionPresentation.js';
-import { Source } from '@/constants/enum.js';
+
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { cn } from '@/lib/utils.js';

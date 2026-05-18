@@ -1,4 +1,5 @@
-import { type SocialSource, Source } from '@/constants/enum.js';
+import { Source } from '@dimensiondev/enums';
+import type { SocialSource } from '@/constants/enum.js';
 import { useAllConnections } from '@/hooks/useAllConnections.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
 

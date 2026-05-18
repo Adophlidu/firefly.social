@@ -1,7 +1,8 @@
+import { Source } from '@dimensiondev/enums';
 import { createLookupTableResolver, UnreachableError } from '@dimensiondev/utils';
 
 import { SORTED_MEDIA_SOURCES } from '@/constants/computed.js';
-import { FileMimeType, type SocialSource, Source } from '@/constants/enum.js';
+import { FileMimeType, type SocialSource } from '@/constants/enum.js';
 import { type MediaObject, MediaSource, type VideoMetadata } from '@/types/compose.js';
 import type { IGif } from '@/types/giphy.js';
 import type { TwitterMediaResponse } from '@/types/twitter.js';

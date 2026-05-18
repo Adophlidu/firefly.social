@@ -1,7 +1,8 @@
+import { Source } from '@dimensiondev/enums';
 import { produce, type WritableDraft } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
-import type { Source } from '@/constants/enum.js';
+
 import type { BetsActivity, SwapActivity, TransactionsItem } from '@/providers/types/Firefly.js';
 import type { NFTFeedV3 } from '@/providers/types/NFTs.js';
 

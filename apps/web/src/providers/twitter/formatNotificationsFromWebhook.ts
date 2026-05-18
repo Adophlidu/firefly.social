@@ -1,6 +1,6 @@
+import { Source } from '@dimensiondev/enums';
 import { compact, first, isUndefined } from 'lodash-es';
 
-import { Source } from '@/constants/enum.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { getBestVideoUrl } from '@/providers/twitter/formatTwitterMedia.js';
 import { convertTwitterAvatar } from '@/providers/twitter/formatTwitterProfile.js';

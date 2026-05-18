@@ -1,9 +1,9 @@
+import { Source } from '@dimensiondev/enums';
 import { resolveValue, safeUnreachable } from '@dimensiondev/utils';
 import { NetworkType } from '@dimensiondev/web3/enums';
 import { getAddressType } from '@dimensiondev/web3/utils';
 import { isHex } from 'viem';
 
-import { Source } from '@/constants/enum.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import { getFireflyEndpoint } from '@/store/fireflyEndpoint.js';
 
@@ -41,6 +41,7 @@ export async function getAllPlatformProfileFromFirefly(identity: FireflyIdentity
             case Source.NFTs:
             case Source.Tokens:
             case Source.Polymarket:
+            case Source.Prediction:
             case Source.Telegram:
             case Source.Google:
             case Source.Apple:

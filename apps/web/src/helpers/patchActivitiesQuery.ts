@@ -1,7 +1,8 @@
+import { Source } from '@dimensiondev/enums';
 import { produce, type WritableDraft } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
-import type { Source } from '@/constants/enum.js';
+
 import type { Article } from '@/providers/types/Article.js';
 import type { ActivitiesItem, FollowingSnapshotActivity } from '@/providers/types/Firefly.js';
 

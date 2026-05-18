@@ -2,6 +2,7 @@
 
 /* cspell:disable */
 
+import { Source } from '@dimensiondev/enums';
 import type { AuthFactorTokenRequiredError } from '@atproto/api/dist/client/types/com/atproto/server/createSession.js';
 import AtIcon from '@dimensiondev/assets/at.svg';
 import GlobalIcon from '@dimensiondev/assets/global.svg';
@@ -22,7 +23,7 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { createLoginBskyFormResolver, type loginBskySchema } from '@/components/Login/createFormResolver.js';
 import { formatBskyLoginIdentifier } from '@/components/Login/formatBskyLoginIdentifier.js';
 import { DEFAULT_SERVICE_URL } from '@/constants/bsky.js';
-import { AsyncStatus, Source } from '@/constants/enum.js';
+import { AsyncStatus } from '@/constants/enum.js';
 import { FireflyAlreadyBoundError } from '@/constants/error.js';
 import {
     enqueueForbiddenMessage,

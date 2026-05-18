@@ -1,3 +1,4 @@
+import { Source } from '@dimensiondev/enums';
 import PriceDownIcon from '@dimensiondev/assets/price-down.svg';
 import PriceUpIcon from '@dimensiondev/assets/price-up.svg';
 import { classNames } from '@dimensiondev/utils';
@@ -10,7 +11,7 @@ import urlcat from 'urlcat';
 import { CountdownTimer } from '@/components/Prediction/AssetPriceChart/CountdownTimer.js';
 import { GoLiveButton } from '@/components/Prediction/AssetPriceChart/GoLiveButton.js';
 import type { PredictionCrypto } from '@/constants/bets.js';
-import { type PredictionPlatform, Source } from '@/constants/enum.js';
+import type { PredictionPlatform } from '@/constants/enum.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';

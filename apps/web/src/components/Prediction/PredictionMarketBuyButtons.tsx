@@ -1,5 +1,6 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import { classNames, removeTrailingZeros } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
@@ -9,7 +10,7 @@ import { memo, use, useMemo } from 'react';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { AnimatedText } from '@/components/Prediction/AnimatedText.js';
 import { PredictionContext } from '@/components/Prediction/PredictionContext.js';
-import { PredictionPlatform, Source } from '@/constants/enum.js';
+import { PredictionPlatform } from '@/constants/enum.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { openPredictionPage } from '@/helpers/openPredictionPage.js';
 import { getPolymarketOrderBooks } from '@/providers/firefly/prediction/getPolymarketOrderBook.js';

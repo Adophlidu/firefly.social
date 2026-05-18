@@ -1,9 +1,10 @@
+import { Source } from '@dimensiondev/enums';
 import type { StateSnapshot } from 'react-virtuoso';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
-import { AsyncStatus, type ProfileSource, Source } from '@/constants/enum.js';
+import { AsyncStatus, type ProfileSource } from '@/constants/enum.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { getCurrentSourceFromUrl } from '@/helpers/getCurrentSourceFromUrl.js';
 

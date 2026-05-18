@@ -1,3 +1,4 @@
+import { Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { formatAddressEthereum } from '@dimensiondev/web3/utils';
 import type { HTMLProps, ReactNode } from 'react';
@@ -8,7 +9,7 @@ import { DefiUnitedBadge } from '@/components/DefiUnitedBadge/index.js';
 import { EnsName } from '@/components/Profile/EnsName.js';
 import { Time } from '@/components/Semantic/Time.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
-import { Source } from '@/constants/enum.js';
+
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { useDefiUnitedBadge } from '@/hooks/useDefiUnitedBadge.js';
 

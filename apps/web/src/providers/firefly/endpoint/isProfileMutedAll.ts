@@ -1,6 +1,7 @@
+import { Source } from '@dimensiondev/enums';
 import urlcat from 'urlcat';
 
-import { type ProfilePageSource, Source } from '@/constants/enum.js';
+import type { ProfilePageSource } from '@/constants/enum.js';
 import { getPlatformQueryKey } from '@/helpers/getPlatformQueryKey.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';

@@ -1,9 +1,9 @@
+import { Source } from '@dimensiondev/enums';
 import dayjs from 'dayjs';
 import { compact, first, last } from 'lodash-es';
 import type { ApiV2Includes, TweetV2 } from 'twitter-api-v2';
 import urlcat from 'urlcat';
 
-import { Source } from '@/constants/enum.js';
 import { POLL_CHOICE_TYPE, POLL_STRATEGIES } from '@/constants/poll.js';
 import { URL_REGEX } from '@/constants/regexp.js';
 import { SITE_URL } from '@/constants/static.js';

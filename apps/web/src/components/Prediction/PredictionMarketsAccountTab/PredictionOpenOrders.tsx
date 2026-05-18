@@ -1,5 +1,6 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
@@ -8,7 +9,7 @@ import { memo } from 'react';
 import { Loading } from '@/components/Loading.js';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { OpenOrderItem } from '@/components/Prediction/PredictionMarketsAccountTab/OpenOrderItem.js';
-import { PredictionPlatform, Source } from '@/constants/enum.js';
+import { PredictionPlatform } from '@/constants/enum.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { getPredictionOpenOrders } from '@/providers/prediction/getPredictionOpenOrders.js';
 import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';

@@ -1,7 +1,7 @@
+import { Source } from '@dimensiondev/enums';
 import { compact } from 'lodash-es';
 import { sha256, toHex } from 'viem';
 
-import { Source } from '@/constants/enum.js';
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';
 import { uploadMetrics } from '@/providers/firefly/metrics/uploadMetrics.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';

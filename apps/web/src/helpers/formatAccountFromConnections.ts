@@ -1,6 +1,6 @@
+import { Source, SourceInURL } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 
-import { Source, SourceInURL } from '@/constants/enum.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { ThirdPartySession } from '@/providers/third-party/Session.js';

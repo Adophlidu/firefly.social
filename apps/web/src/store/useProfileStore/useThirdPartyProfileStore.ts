@@ -1,12 +1,13 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import { bom, ForbiddenError } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import dayjs from 'dayjs';
 import { getSession, signOut } from 'next-auth/react';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { AsyncStatus, Source } from '@/constants/enum.js';
+import { AsyncStatus } from '@/constants/enum.js';
 import { FireflyAlreadyBoundError } from '@/constants/error.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { createSelectors } from '@/helpers/createSelector.js';

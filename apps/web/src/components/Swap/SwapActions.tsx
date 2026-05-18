@@ -1,5 +1,6 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import LightningIcon from '@dimensiondev/assets/lightning-sharp.svg';
 import MirrorIcon from '@dimensiondev/assets/mirror.svg';
 import ShareImageIcon from '@dimensiondev/assets/share-image.svg';
@@ -24,7 +25,7 @@ import { ShareButtonWithAnimation } from '@/components/Posts/ShareButton.js';
 import { SwapAccessPath, SwapButton } from '@/components/TokenProfile/SwapButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { queryClient } from '@/configs/queryClient.js';
-import { Source, TxReactionType } from '@/constants/enum.js';
+import { TxReactionType } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/static.js';
 import { downloadImage } from '@/helpers/downloadImage.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';

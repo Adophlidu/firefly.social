@@ -1,3 +1,4 @@
+import { Source } from '@dimensiondev/enums';
 import PoapIcon from '@dimensiondev/assets/poap.svg';
 import { formatAddressEthereum } from '@dimensiondev/web3/utils';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
@@ -10,7 +11,7 @@ import { useEnsName } from 'wagmi';
 import { ChainIcon } from '@/components/ChainIcon.js';
 import { GridListInPage } from '@/components/GridListInPage.js';
 import { Image } from '@/components/Image.js';
-import { Source } from '@/constants/enum.js';
+
 import { POAP_CONTRACT_ADDRESS } from '@/constants/static.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';

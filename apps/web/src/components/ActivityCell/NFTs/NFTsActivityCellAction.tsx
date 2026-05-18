@@ -1,5 +1,6 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import AcquiredIcon from '@dimensiondev/assets/acquired.svg';
 import BoughtIcon from '@dimensiondev/assets/bought.svg';
 import BurnIcon from '@dimensiondev/assets/burn.svg';
@@ -15,7 +16,7 @@ import { ActivityCellActionTag } from '@/components/ActivityCell/ActivityCellAct
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
-import { Source } from '@/constants/enum.js';
+
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { type EVM as NFTScanEVM, TransEventType } from '@/providers/nftscan/types.js';

@@ -1,6 +1,6 @@
+import { Source } from '@dimensiondev/enums';
 import urlcat from 'urlcat';
 
-import { Source } from '@/constants/enum.js';
 import { getPlatformQueryKey } from '@/helpers/getPlatformQueryKey.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { FireflyIdentity, MuteAllResponse } from '@/providers/types/Firefly.js';

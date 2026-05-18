@@ -1,7 +1,8 @@
+import { Source } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import type { Account } from '@lens-protocol/client';
 
-import { type SocialSource, Source } from '@/constants/enum.js';
+import type { SocialSource } from '@/constants/enum.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { trimify } from '@/helpers/trimify.js';
 

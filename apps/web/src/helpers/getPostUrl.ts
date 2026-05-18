@@ -1,4 +1,4 @@
-import { Source } from '@/constants/enum.js';
+import { Source } from '@dimensiondev/enums';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 

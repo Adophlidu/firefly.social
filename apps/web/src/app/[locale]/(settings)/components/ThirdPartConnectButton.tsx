@@ -1,5 +1,6 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { signIn } from 'next-auth/react';
@@ -7,7 +8,7 @@ import { useAsyncFn } from 'react-use';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { Source, type ThirdPartySource } from '@/constants/enum.js';
+import type { ThirdPartySource } from '@/constants/enum.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { LoginModalRef } from '@/modals/LoginModal/refs.js';

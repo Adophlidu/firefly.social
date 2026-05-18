@@ -1,9 +1,10 @@
+import { Source } from '@dimensiondev/enums';
 import { resolveValue, safeUnreachable } from '@dimensiondev/utils';
 import type { Root } from 'mdast';
 import flatMap from 'unist-util-flatmap';
 
 import { splitTextChildren } from '@/components/Markup/plugins/splitTextChildren.js';
-import { type SocialSource, Source } from '@/constants/enum.js';
+import type { SocialSource } from '@/constants/enum.js';
 
 const DEFAULT_HASH_TAG_REGEX = /#(?![0-9]+$)(?=.*[a-zA-Z])[\p{L}\p{N}_-]+/gu;
 const TWITTER_HASH_TAG_REGEXP = /(^|\s)#(?![0-9]+$)(?=.*[a-zA-Z])[\p{L}\p{N}_]+/gu;

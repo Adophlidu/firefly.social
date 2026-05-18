@@ -1,6 +1,6 @@
+import { Source } from '@dimensiondev/enums';
 import { isSameAddress } from '@dimensiondev/web3/utils';
 
-import { Source } from '@/constants/enum.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { getWalletProfileAvatar } from '@/helpers/getWalletProfileAvatar.js';
 import type { SwapActivity } from '@/providers/types/Firefly.js';

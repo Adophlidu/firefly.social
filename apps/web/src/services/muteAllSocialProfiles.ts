@@ -1,7 +1,7 @@
+import { Source, SourceInURL } from '@dimensiondev/enums';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import { fetchAccountsBulk } from '@lens-protocol/client/actions';
 
-import { Source, SourceInURL } from '@/constants/enum.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { resolveSourceInUrlForApi } from '@/helpers/resolveSourceInUrl.js';
 import { bskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';

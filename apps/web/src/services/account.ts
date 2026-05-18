@@ -1,3 +1,4 @@
+import { Source } from '@dimensiondev/enums';
 import { runInSafe, runInSafeAsync, safeUnreachable } from '@dimensiondev/utils';
 import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import { compact, first } from 'lodash-es';
@@ -5,7 +6,7 @@ import { signOut } from 'next-auth/react';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { NEXT_AUTH_SOURCES, SORTED_SOCIAL_SOURCES, SORTED_THIRD_PARTY_SOURCES } from '@/constants/computed.js';
-import { type ProfileSource, type SocialSource, Source } from '@/constants/enum.js';
+import type { ProfileSource, SocialSource } from '@/constants/enum.js';
 import { SessionExpiredError } from '@/constants/error.js';
 import { EVENT_SOCIAL_ACCOUNT_EXPIRED } from '@/constants/event.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';

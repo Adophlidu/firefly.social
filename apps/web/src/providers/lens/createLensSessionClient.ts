@@ -1,6 +1,6 @@
+import { Source } from '@dimensiondev/enums';
 import { type AccessToken, type IdToken, mainnet, PublicClient, type RefreshToken } from '@lens-protocol/client';
 
-import { Source } from '@/constants/enum.js';
 import { SessionExpiredError } from '@/constants/error.js';
 import { EVENT_SOCIAL_ACCOUNT_EXPIRED } from '@/constants/event.js';
 import { FireflyResponseCode } from '@/constants/responseCode.js';

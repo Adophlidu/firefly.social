@@ -1,5 +1,6 @@
 'use client';
 
+import { Source, SourceInURL } from '@dimensiondev/enums';
 import AppleIcon from '@dimensiondev/assets/apple-small.svg';
 import EmailIcon from '@dimensiondev/assets/email.svg';
 import GoogleIcon from '@dimensiondev/assets/google-small.svg';
@@ -13,7 +14,7 @@ import { type FunctionComponent, type SVGAttributes, useMemo } from 'react';
 import { ThirdPartConnectButton } from '@/app/[locale]/(settings)/components/ThirdPartConnectButton.js';
 import { ThirdPartDisconnectButton } from '@/app/[locale]/(settings)/components/ThirdPartDisconnectButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { Source, SourceInURL, type ThirdPartySource } from '@/constants/enum.js';
+import type { ThirdPartySource } from '@/constants/enum.js';
 import { formatAccountFromConnections } from '@/helpers/formatAccountFromConnections.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';

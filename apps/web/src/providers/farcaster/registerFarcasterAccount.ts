@@ -1,4 +1,4 @@
-import { Source } from '@/constants/enum.js';
+import { Source } from '@dimensiondev/enums';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';
 import { parseFarcasterBioContext } from '@/providers/farcaster/formatFarcasterProfileFromFirefly.js';

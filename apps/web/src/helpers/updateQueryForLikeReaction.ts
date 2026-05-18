@@ -1,8 +1,9 @@
+import { Source } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { ExtraLikeType, Source, TxReactionType } from '@/constants/enum.js';
+import { ExtraLikeType, TxReactionType } from '@/constants/enum.js';
 import type { PageData } from '@/decorators/types.js';
 import { patchPredictionActivityData } from '@/helpers/patchPredictionActivityData.js';
 import { patchTransactionsQuery } from '@/helpers/patchTransactionsQuery.js';

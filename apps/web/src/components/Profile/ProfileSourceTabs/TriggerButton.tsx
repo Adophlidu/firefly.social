@@ -1,3 +1,4 @@
+import { Source } from '@dimensiondev/enums';
 import { envs, STATUS } from '@dimensiondev/envs';
 import { classNames } from '@dimensiondev/utils';
 import { MenuButton } from '@headlessui/react';
@@ -8,7 +9,7 @@ import { type Ref, useLayoutEffect, useRef } from 'react';
 import { Link } from '@/components/Link.js';
 import { PROFILE_SOURCE_TABS_CONTAINER_ID } from '@/components/Profile/ProfileSourceTabs/constants.js';
 import { ProfileTriggerContent } from '@/components/Profile/ProfileSourceTabs/SourceIcon.js';
-import { Source } from '@/constants/enum.js';
+
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isMPCWallet } from '@/helpers/isMPCWallet.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';

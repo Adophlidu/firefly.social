@@ -1,6 +1,6 @@
 /* cspell:disable */
 
-import { Source } from '@/constants/enum.js';
+import { Source } from '@dimensiondev/enums';
 import { type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
 
 export function formatBskyModeratorProfile(did: string): Profile | undefined {

@@ -1,10 +1,11 @@
+import { SourceInURL } from '@dimensiondev/enums';
 import type { LayoutProps } from '@dimensiondev/types';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import type { Metadata } from 'next';
 
 import { ChannelInfoUI } from '@/components/Channel/ChannelInfoUI.js';
 import { Title } from '@/components/Channel/Title.js';
-import { type SocialSourceInURL, SourceInURL } from '@/constants/enum.js';
+import type { SocialSourceInURL } from '@/constants/enum.js';
 import { notFound } from '@/esm/navigation/server.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';

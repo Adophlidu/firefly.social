@@ -1,9 +1,9 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 
-import { Source } from '@/constants/enum.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';

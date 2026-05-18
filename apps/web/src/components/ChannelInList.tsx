@@ -1,5 +1,6 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { Plural, Trans } from '@lingui/react/macro';
 import { isUndefined } from 'lodash-es';
@@ -13,7 +14,7 @@ import { Link } from '@/components/Link.js';
 import { BioMarkup } from '@/components/Markup/BioMarkup.js';
 import { PlainParagraph, VoidLineBreak } from '@/components/Markup/overrides.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-import { Source } from '@/constants/enum.js';
+
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';

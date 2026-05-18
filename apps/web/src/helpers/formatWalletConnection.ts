@@ -1,4 +1,4 @@
-import { Source } from '@/constants/enum.js';
+import { Source } from '@dimensiondev/enums';
 import { isSameConnectionAddress } from '@/helpers/isSameConnectionAddress.js';
 import type {
     AllConnections,

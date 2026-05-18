@@ -1,6 +1,6 @@
+import { Source } from '@dimensiondev/enums';
 import type { MiniAppHost } from '@farcaster/miniapp-host';
 
-import { Source } from '@/constants/enum.js';
 import { createDummyChannel } from '@/helpers/createDummyChannel.js';
 import { ComposeModalRef } from '@/modals/ComposeModal/refs.js';
 import { FrameViewerModalRef } from '@/modals/FrameViewerModal/refs.js';

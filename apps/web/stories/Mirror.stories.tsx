@@ -1,10 +1,10 @@
+import { Source } from '@dimensiondev/enums';
 import '../src/app/globals.css';
 
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { action } from 'storybook/actions';
 
 import { MirrorUI } from '@/components/Actions/Mirror.js';
-import { Source } from '@/constants/enum.js';
 
 const meta = {
     title: 'common/Action/Mirror',

@@ -1,7 +1,7 @@
+import { Source, SourceInURL } from '@dimensiondev/enums';
 import { NotImplementedError } from '@dimensiondev/utils';
 import { first } from 'lodash-es';
 
-import { Source, SourceInURL } from '@/constants/enum.js';
 import { SetQueryDataForVote } from '@/decorators/SetQueryDataForVote.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { getPollDurationSeconds } from '@/helpers/polls.js';

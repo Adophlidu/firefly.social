@@ -1,8 +1,9 @@
+import { Source } from '@dimensiondev/enums';
 import { createLookupTableResolver, UnreachableError } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import type { JSX } from 'react';
 
-import { type ExploreSource, type NotificationSource, Source, TrendingType } from '@/constants/enum.js';
+import { type ExploreSource, type NotificationSource, TrendingType } from '@/constants/enum.js';
 
 export const resolveSourceName = createLookupTableResolver<Source, string>(
     {
@@ -18,6 +19,7 @@ export const resolveSourceName = createLookupTableResolver<Source, string>(
         [Source.Tokens]: 'Tokens',
         [Source.DAOs]: 'DAOs',
         [Source.Prediction]: 'Predictions',
+        [Source.Polymarket]: 'Predictions',
         [Source.Telegram]: 'Telegram',
         [Source.Google]: 'Google',
         [Source.Apple]: 'Apple',
@@ -46,6 +48,7 @@ export const resolveSourceUIName = createLookupTableResolver<Source, string | JS
         [Source.Tokens]: <Trans>Tokens</Trans>,
         [Source.DAOs]: <Trans>DAOs</Trans>,
         [Source.Prediction]: <Trans>Predictions</Trans>,
+        [Source.Polymarket]: <Trans>Predictions</Trans>,
         [Source.Telegram]: 'Telegram',
         [Source.Google]: 'Google',
         [Source.Apple]: 'Apple',

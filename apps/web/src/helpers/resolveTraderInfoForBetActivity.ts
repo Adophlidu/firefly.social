@@ -1,8 +1,8 @@
+import { Source } from '@dimensiondev/enums';
 import { runInSafe } from '@dimensiondev/utils';
 import { formatAddress, isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3/utils';
 import { first } from 'lodash-es';
 
-import { Source } from '@/constants/enum.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { resolveSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { resolveWatchTypeToSource } from '@/helpers/resolveWatchTypeToSource.js';

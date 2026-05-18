@@ -1,8 +1,8 @@
+import { Source, SourceInURL } from '@dimensiondev/enums';
 import { envs } from '@dimensiondev/envs';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { sha256, toHex } from 'viem';
 
-import { Source, SourceInURL } from '@/constants/enum.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { getPublicKeyInHexFromPrivateKey } from '@/providers/farcaster/ed25519.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';

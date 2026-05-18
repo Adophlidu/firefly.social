@@ -1,3 +1,4 @@
+import { Source } from '@dimensiondev/enums';
 import {
     AppBskyEmbedRecord,
     AppBskyEmbedRecordWithMedia,
@@ -10,7 +11,7 @@ import { parseUrl } from '@dimensiondev/utils';
 import { produce } from 'immer';
 import { compact, first, initial, isUndefined, omitBy } from 'lodash-es';
 
-import { RestrictionType, Source } from '@/constants/enum.js';
+import { RestrictionType } from '@/constants/enum.js';
 import { TENOR_GIF_REGEXP } from '@/constants/regexp.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { isFireflyPostUrl } from '@/helpers/fireflyPostUrl.js';

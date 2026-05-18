@@ -2,6 +2,7 @@
 set -euo pipefail
 
 # Build packages
+pnpm --filter @dimensiondev/enums build
 pnpm --filter @dimensiondev/constants build
 pnpm --filter @dimensiondev/types build
 pnpm --filter @dimensiondev/utils build

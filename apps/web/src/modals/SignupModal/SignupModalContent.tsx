@@ -1,5 +1,6 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import { isUserRejectErrorInWallet } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
@@ -11,7 +12,7 @@ import { refreshPageCache } from '@/actions/refreshPageCache.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
-import { type SocialSource, Source } from '@/constants/enum.js';
+import type { SocialSource } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';
 import { enqueueErrorMessage, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { getCurrentProfileAllFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';

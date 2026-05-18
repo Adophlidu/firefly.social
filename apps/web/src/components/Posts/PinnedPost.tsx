@@ -1,12 +1,13 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import PinnedIcon from '@dimensiondev/assets/pinned.svg';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 
 import { pinnedPostQueryOptions } from '@/components/Posts/queries/pinnedPostQueryOptions.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
-import { type SocialSource, Source } from '@/constants/enum.js';
+import type { SocialSource } from '@/constants/enum.js';
 
 interface Props {
     source: SocialSource;

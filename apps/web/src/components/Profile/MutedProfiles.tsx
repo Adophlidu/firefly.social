@@ -1,9 +1,10 @@
+import { Source } from '@dimensiondev/enums';
 import { createIndicator } from '@dimensiondev/utils';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { MutedProfileItem } from '@/components/Profile/MutedProfileItem.js';
-import { ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
+import { ScrollListKey, type SocialSource } from '@/constants/enum.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';

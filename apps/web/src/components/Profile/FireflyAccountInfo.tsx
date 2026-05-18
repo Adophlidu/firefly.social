@@ -1,5 +1,6 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import SettingIcon from '@dimensiondev/assets/setting.svg';
 import { classNames } from '@dimensiondev/utils';
 import { NetworkType } from '@dimensiondev/web3/enums';
@@ -20,7 +21,7 @@ import { TipsButton } from '@/components/Profile/TipsButton.js';
 import { Title } from '@/components/Profile/Title.js';
 import { WalletActions } from '@/components/Profile/WalletActions.js';
 import { WALLET_PROFILE_ACTION_ID } from '@/components/Profile/WalletInfo.js';
-import { PageRoute, Source } from '@/constants/enum.js';
+import { PageRoute } from '@/constants/enum.js';
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
 import { getEnsNameFromWalletProfile } from '@/helpers/getEnsNameFromWalletProfile.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';

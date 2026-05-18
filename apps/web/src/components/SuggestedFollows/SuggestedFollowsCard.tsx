@@ -1,5 +1,6 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import 'swiper/css';
 
 import { runInSafeAsync } from '@dimensiondev/utils';
@@ -15,7 +16,7 @@ import { Link } from '@/components/Link.js';
 import { ProfileSlide } from '@/components/SuggestedFollows/ProfileSlide.js';
 import { SuggestedFollowsSkeleton } from '@/components/SuggestedFollows/SuggestedFollowsSkeleton.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
-import { ExploreType, Source } from '@/constants/enum.js';
+import { ExploreType } from '@/constants/enum.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { isSocialDiscoverSource } from '@/helpers/isSource.js';
 import { mergeLists } from '@/helpers/mergeLists.js';

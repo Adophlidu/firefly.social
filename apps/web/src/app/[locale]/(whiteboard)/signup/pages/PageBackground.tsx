@@ -1,3 +1,4 @@
+import { Source } from '@dimensiondev/enums';
 import BskyLogo from '@dimensiondev/assets/bsky-logo.svg';
 import CloudBigIcon from '@dimensiondev/assets/cloud-big.svg';
 import CloudMediumIcon from '@dimensiondev/assets/cloud-medium.svg';
@@ -13,7 +14,7 @@ import { classNames } from '@dimensiondev/utils';
 import { AnimatePresence, motion } from 'framer-motion';
 import type { PropsWithChildren } from 'react';
 
-import { SignupStep, Source } from '@/constants/enum.js';
+import { SignupStep } from '@/constants/enum.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 
 type PageBackgroundProps = PropsWithChildren<{

@@ -1,6 +1,7 @@
+import { Source } from '@dimensiondev/enums';
 import { runInSafeAsync } from '@dimensiondev/utils';
 
-import { FileMimeType, FireflyPlatform, Source } from '@/constants/enum.js';
+import { FileMimeType, FireflyPlatform } from '@/constants/enum.js';
 import { BSKY_IMAGE_LIMITATION, BSKY_SHORT_POST_LIMIT, MAX_IMAGE_SIZE_PER_POST } from '@/constants/limitation.js';
 import { readChars } from '@/helpers/chars.js';
 import { compressImage } from '@/helpers/compressImage.js';

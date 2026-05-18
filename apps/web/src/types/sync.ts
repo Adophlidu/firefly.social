@@ -1,4 +1,4 @@
-import type { SourceInURL } from '@/constants/enum.js';
+import { SourceInURL } from '@dimensiondev/enums';
 
 export interface SocialAccountTwitter {
     type: SourceInURL.X;

@@ -1,9 +1,10 @@
+import { Source } from '@dimensiondev/enums';
 import { createMemoryHistory, createRouter, RouterProvider } from '@tanstack/react-router';
 import { type Ref, useRef, useState } from 'react';
 import urlcat from 'urlcat';
 
 import { Modal } from '@/components/Modal.js';
-import { LensSignType, Source } from '@/constants/enum.js';
+import { LensSignType } from '@/constants/enum.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';

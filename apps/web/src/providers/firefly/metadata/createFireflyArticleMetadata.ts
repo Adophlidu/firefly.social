@@ -1,7 +1,7 @@
+import { SourceInURL } from '@dimensiondev/enums';
 import type { Metadata } from 'next';
 import urlcat from 'urlcat';
 
-import { SourceInURL } from '@/constants/enum.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';
 import { fetchMetadataApi } from '@/providers/firefly/metadata/fetchMetadataApi.js';

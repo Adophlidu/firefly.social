@@ -1,3 +1,4 @@
+import { Source } from '@dimensiondev/enums';
 import LeftArrowIcon from '@dimensiondev/assets/left-arrow.svg';
 import type { NetworkType } from '@dimensiondev/web3/enums';
 import { t } from '@lingui/core/macro';
@@ -16,7 +17,7 @@ import {
     type RecipientItemProps,
 } from '@/components/SendTransactionModal/RecipientItem.js';
 import { type FormValues, RoutePath } from '@/components/SendTransactionModal/types.js';
-import { type ProfilePageSource, Source } from '@/constants/enum.js';
+import type { ProfilePageSource } from '@/constants/enum.js';
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
 import { getEnsNameFromWalletProfile } from '@/helpers/getEnsNameFromWalletProfile.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';

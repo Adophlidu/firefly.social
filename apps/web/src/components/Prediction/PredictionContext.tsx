@@ -1,11 +1,12 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import { skipToken, useQuery } from '@tanstack/react-query';
 import { debounce, first, isArray, isObject } from 'lodash-es';
 import { createContext, memo, type PropsWithChildren, useEffect, useMemo, useState } from 'react';
 
 import { PredictionChartType } from '@/constants/bets.js';
-import { PredictionPlatform, Source } from '@/constants/enum.js';
+import { PredictionPlatform } from '@/constants/enum.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { useListenPredictionDeadline } from '@/hooks/prediction/useListenPredictionDeadline.js';
 import { getEventDetail } from '@/providers/firefly/prediction/getEventDetail.js';

@@ -1,5 +1,6 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import '@/styles/limo.css';
 import '@/styles/paragraph.css';
 import '@/styles/matters.css';
@@ -16,7 +17,7 @@ import { Link } from '@/components/Link.js';
 import { ArticleMarkup } from '@/components/Markup/ArticleMarkup.js';
 import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
 import { ImageAsset } from '@/components/Posts/ImageAsset.js';
-import { Source } from '@/constants/enum.js';
+
 import { interceptExternalUrl } from '@/helpers/interceptExternalUrl.js';
 import { isTrustedUrl } from '@/helpers/isTrustedUrl.js';
 import { openWindow } from '@/helpers/openWindow.js';

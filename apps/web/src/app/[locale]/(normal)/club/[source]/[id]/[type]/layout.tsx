@@ -1,9 +1,10 @@
+import { SourceInURL } from '@dimensiondev/enums';
 import type { LayoutProps } from '@dimensiondev/types';
 import type { Metadata } from 'next';
 
 import { ChannelTabs } from '@/components/Channel/ChannelTabs.js';
 import { CHANNEL_TAB_TYPE } from '@/constants/computed.js';
-import { ChannelTabType, type SocialSourceInURL, SourceInURL } from '@/constants/enum.js';
+import { ChannelTabType, type SocialSourceInURL } from '@/constants/enum.js';
 import { notFound } from '@/esm/navigation/server.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { createChannelMetadata } from '@/providers/firefly/metadata/createChannelMetadata.js';

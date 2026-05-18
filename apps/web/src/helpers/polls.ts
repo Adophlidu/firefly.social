@@ -1,4 +1,5 @@
-import { type SocialSource, Source } from '@/constants/enum.js';
+import { Source } from '@dimensiondev/enums';
+import type { SocialSource } from '@/constants/enum.js';
 import {
     POLL_CHOICE_TYPE,
     POLL_DEFAULT_VALID_IN_DAYS,

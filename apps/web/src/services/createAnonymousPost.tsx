@@ -1,10 +1,11 @@
+import { Source, SourceInURL } from '@dimensiondev/enums';
 import { delay, NotImplementedError, safeUnreachable, TimeoutError, unreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { compact, first } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { ANONYMOUS_HANDLE_BY_SOURCE } from '@/constants/computed.js';
-import { type SocialSource, Source, SourceInURL } from '@/constants/enum.js';
+import type { SocialSource } from '@/constants/enum.js';
 import { readChars } from '@/helpers/chars.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { createS3MediaObject, resolveImageUrl } from '@/helpers/resolveMediaObjectUrl.js';

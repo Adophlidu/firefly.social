@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 
+import { Source } from '@dimensiondev/enums';
 import type { NextRequestContext } from '@dimensiondev/types';
 import { compose } from '@dimensiondev/utils';
 import { formatAddress, isSameEthereumAddress } from '@dimensiondev/web3/utils';
@@ -10,7 +11,7 @@ import type { HTMLProps } from 'react';
 import { z } from 'zod';
 
 import { extractFallbackInfo } from '@/components/Prediction/extractFallbackInfo.js';
-import { PredictionPlatform, Source } from '@/constants/enum.js';
+import { PredictionPlatform } from '@/constants/enum.js';
 import { CACHE_AGE_INDEFINITE_ON_DISK } from '@/constants/static.js';
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
 import { fetchImageAsBase64FromUrls } from '@/helpers/fetchAvatarAsBase64.js';

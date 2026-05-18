@@ -1,4 +1,4 @@
-import { Source, SourceInURL } from '@/constants/enum.js';
+import { Source, SourceInURL } from '@dimensiondev/enums';
 import { encrypt } from '@/helpers/encodec.js';
 import { getAccountsFromStorage } from '@/helpers/getAccountsFromStorage.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';

@@ -1,5 +1,6 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import EmailIcon from '@dimensiondev/assets/email2.svg';
 import LockIcon from '@dimensiondev/assets/lock.svg';
 import { AbortError, ForbiddenError } from '@dimensiondev/utils';
@@ -12,7 +13,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { ClearButton } from '@/components/IconButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SendPasscodeButton } from '@/components/Login/SendPasscodeButton.js';
-import { AsyncStatus, Source } from '@/constants/enum.js';
+import { AsyncStatus } from '@/constants/enum.js';
 import { FireflyAlreadyBoundError } from '@/constants/error.js';
 import { EMAIL_REGEX } from '@/constants/regexp.js';
 import {

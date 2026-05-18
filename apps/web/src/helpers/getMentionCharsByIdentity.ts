@@ -1,7 +1,8 @@
+import { Source } from '@dimensiondev/enums';
 import { compact } from 'lodash-es';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { CharTag, FireflyPlatform, type SocialSource, Source } from '@/constants/enum.js';
+import { CharTag, FireflyPlatform, type SocialSource } from '@/constants/enum.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
 import { resolveFireflyPlatform } from '@/helpers/resolveFireflyPlatform.js';

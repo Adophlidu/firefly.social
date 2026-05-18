@@ -1,6 +1,7 @@
+import { Source } from '@dimensiondev/enums';
 import { useCallback } from 'react';
 
-import { type ProfilePageSource, type SocialSource, Source } from '@/constants/enum.js';
+import type { ProfilePageSource, SocialSource } from '@/constants/enum.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import {

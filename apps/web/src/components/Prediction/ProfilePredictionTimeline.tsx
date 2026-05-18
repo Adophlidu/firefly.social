@@ -1,12 +1,13 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import { createIndicator } from '@dimensiondev/utils';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { memo, useCallback } from 'react';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { PredictionActivityItem } from '@/components/Prediction/PredictionActivityItem.js';
-import { ScrollListKey, Source } from '@/constants/enum.js';
+import { ScrollListKey } from '@/constants/enum.js';
 import { getPredictionTimelineByAddress } from '@/providers/firefly/prediction/getPredictionTimelineByAddress.js';
 import { captureProfilePolymarketLinkClick } from '@/providers/telemetry/capturePolymarketEvent.js';
 import type { BetsActivity } from '@/providers/types/Firefly.js';

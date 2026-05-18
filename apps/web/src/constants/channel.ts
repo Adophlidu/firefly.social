@@ -1,4 +1,4 @@
-import { Source } from '@/constants/enum.js';
+import { Source } from '@dimensiondev/enums';
 import { createDummyChannel } from '@/helpers/createDummyChannel.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 

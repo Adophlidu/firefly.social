@@ -1,7 +1,7 @@
+import { Source } from '@dimensiondev/enums';
 import { useQuery } from '@tanstack/react-query';
 import { sumBy } from 'lodash-es';
 
-import { Source } from '@/constants/enum.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';

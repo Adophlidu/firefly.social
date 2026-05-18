@@ -1,3 +1,5 @@
+import { Source, SourceInURL } from '@dimensiondev/enums';
+
 export { NetworkType } from '@dimensiondev/web3/enums';
 
 // The maskbook blockchain network plugin ID
@@ -41,56 +43,6 @@ export enum PageRoute {
     Signup = '/signup',
     Sparks = '/sparks',
     MysteryBox = '/mystery-box',
-}
-
-export enum Source {
-    Farcaster = 'Farcaster',
-    Lens = 'Lens',
-    Twitter = 'Twitter',
-    Bsky = 'Bsky',
-    Firefly = 'Firefly',
-    Article = 'Article',
-    Wallet = 'Wallet',
-    WalletMix = 'Wallets',
-    NFTs = 'NFTs',
-    Tokens = 'Tokens',
-    Telegram = 'Telegram',
-    Google = 'Google',
-    Apple = 'Apple',
-    Email = 'Email',
-    DAOs = 'DAOs',
-    Posts = 'Posts',
-    Notifications = 'Notifications',
-    Swap = 'Swap',
-    Transactions = 'Transactions',
-    Activities = 'Activities',
-    Prediction = 'Prediction',
-}
-
-export enum SourceInURL {
-    Farcaster = 'farcaster',
-    Lens = 'lens',
-    Twitter = 'twitter',
-    Bsky = 'bsky',
-    Firefly = 'firefly',
-    Article = 'article',
-    Wallet = 'wallet',
-    WalletMix = 'wallets',
-    NFTs = 'nfts',
-    Tokens = 'tokens',
-    Telegram = 'telegram',
-    Google = 'google',
-    Apple = 'apple',
-    Email = 'email',
-    DAOs = 'daos',
-    Posts = 'posts',
-    Notifications = 'all',
-    Swap = 'swap',
-    FarcasterV2 = 'far',
-    X = 'x',
-    Transactions = 'trades',
-    Activities = 'activities',
-    Prediction = 'prediction',
 }
 
 export const enum CharTag {

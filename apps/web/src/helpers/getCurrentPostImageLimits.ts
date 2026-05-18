@@ -1,4 +1,5 @@
-import { type SocialSource, Source } from '@/constants/enum.js';
+import { Source } from '@dimensiondev/enums';
+import type { SocialSource } from '@/constants/enum.js';
 import {
     MAX_GIF_SIZE_PER_POST,
     MAX_GIF_SIZE_PRO_PER_POST,

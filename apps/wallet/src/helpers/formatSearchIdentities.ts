@@ -1,3 +1,4 @@
+import { Source } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { ETH_ZERO_ADDRESS } from '@dimensiondev/web3/constants';
 import { NetworkType } from '@dimensiondev/web3/enums';
@@ -7,7 +8,7 @@ import type { Address } from 'viem';
 
 import type { RecipientItemProps } from '@/components/SendTransactionModal/RecipientItem.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
-import { type SocialSource, Source } from '@/constants/enum.js';
+import type { SocialSource } from '@/constants/enum.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { resolveSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';

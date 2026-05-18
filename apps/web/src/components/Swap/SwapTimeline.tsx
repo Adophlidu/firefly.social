@@ -1,5 +1,6 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import SwapEmptyIcon from '@dimensiondev/assets/swap-empty.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { createIndicator } from '@dimensiondev/utils';
@@ -12,7 +13,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { ListInPage, type ListInPageProps } from '@/components/ListInPage.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { SwapActivityItem } from '@/components/Swap/SwapActivityItem.js';
-import { ExploreType, ScrollListKey, Source } from '@/constants/enum.js';
+import { ExploreType, ScrollListKey } from '@/constants/enum.js';
 import { useRouter } from '@/esm/navigation.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';

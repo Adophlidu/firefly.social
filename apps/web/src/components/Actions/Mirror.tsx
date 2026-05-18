@@ -1,5 +1,6 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import MirrorIcon from '@dimensiondev/assets/mirror.svg';
 import MirrorLargeIcon from '@dimensiondev/assets/mirror-large.svg';
 import QuoteDownIcon from '@dimensiondev/assets/quote-down.svg';
@@ -13,7 +14,7 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { type SocialSource, Source } from '@/constants/enum.js';
+import type { SocialSource } from '@/constants/enum.js';
 import { humanize } from '@/helpers/formatCommentCounts.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { openComposeModal } from '@/helpers/openComposeModal.js';

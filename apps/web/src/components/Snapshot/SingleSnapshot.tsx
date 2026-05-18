@@ -1,3 +1,4 @@
+import { Source } from '@dimensiondev/enums';
 import { memo } from 'react';
 
 import { LikeButton } from '@/components/Actions/LikeButton.js';
@@ -8,7 +9,7 @@ import { SnapshotActions } from '@/components/Snapshot/SnapshotActions.js';
 import { SnapshotBody } from '@/components/Snapshot/SnapshotBody.js';
 import { SnapshotFallbackContent } from '@/components/Snapshot/SnapshotFallbackContent.js';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
-import { Source } from '@/constants/enum.js';
+
 import { formatSnapshotChoice } from '@/helpers/formatSnapshotChoice.js';
 import type { SnapshotActivity, SnapshotProposal } from '@/providers/snapshot/type.js';
 

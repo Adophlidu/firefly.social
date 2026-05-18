@@ -1,5 +1,6 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import { isZero } from '@dimensiondev/web3/numbers';
 import { formatAddressEthereum } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
@@ -14,7 +15,7 @@ import { toRate } from '@/components/Polymarket/toRate.js';
 import { PredictionPlatformName } from '@/components/Prediction/PredictionPlatformName.js';
 import { PredictionProfileFollowButton } from '@/components/Prediction/PredictionProfileFollowButton.js';
 import { ProfileSourceIcon } from '@/components/ProfileSourceIcon.js';
-import { PredictionPlatform, Source } from '@/constants/enum.js';
+import { PredictionPlatform } from '@/constants/enum.js';
 import { BET_PROFILE_FOLLOW_BUTTON_ID } from '@/constants/static.js';
 import { Link } from '@/esm/Link.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';

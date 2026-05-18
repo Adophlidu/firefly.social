@@ -26,6 +26,7 @@
         "@coral-xyz/anchor": "^0.32.1",
         "@dimensiondev/assets": "workspace:^",
         "@dimensiondev/constants": "workspace:^",
+        "@dimensiondev/enums": "workspace:^",
         "@dimensiondev/exception-tracker": "workspace:^",
         "@dimensiondev/hooks": "workspace:^",
         "@dimensiondev/iframe-bridge": "workspace:^",

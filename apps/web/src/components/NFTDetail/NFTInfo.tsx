@@ -1,5 +1,6 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import CalendarIcon from '@dimensiondev/assets/calendar.svg';
 import LocationIcon from '@dimensiondev/assets/location.svg';
 import PoapIcon from '@dimensiondev/assets/poap.svg';
@@ -17,7 +18,7 @@ import { PoapTrait } from '@/components/NFTDetail/PoapTrait.js';
 import { BookmarkInIcon } from '@/components/NFTs/BookmarkButton.js';
 import { FreeMintButton } from '@/components/NFTs/FreeMintButton.js';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
-import { Source } from '@/constants/enum.js';
+
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { resolveNFTId } from '@/helpers/resolveNFTIdFromAsset.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';

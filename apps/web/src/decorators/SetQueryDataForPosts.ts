@@ -1,9 +1,10 @@
+import { Source } from '@dimensiondev/enums';
 import type { Pageable, PageIndicator } from '@dimensiondev/utils';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import { compact } from 'lodash-es';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { Source } from '@/constants/enum.js';
+
 import { mergePostDetailCache } from '@/helpers/mergePostDetailCache.js';
 import { prefetchPostLinks } from '@/helpers/prefetchPostLinks.js';
 import type { Post, Provider } from '@/providers/types/SocialMedia.js';

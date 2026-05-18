@@ -1,4 +1,4 @@
-import { Source } from '@/constants/enum.js';
+import { Source } from '@dimensiondev/enums';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import type { FireflyAccountProfile, FireflyConnection } from '@/providers/types/Firefly.js';
 

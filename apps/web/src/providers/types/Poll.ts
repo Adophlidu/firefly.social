@@ -1,6 +1,7 @@
+import { SourceInURL } from '@dimensiondev/enums';
 import type { Pageable } from '@dimensiondev/utils';
 
-import type { SocialSource, SourceInURL } from '@/constants/enum.js';
+import type { SocialSource } from '@/constants/enum.js';
 import type { POLL_CHOICE_TYPE, POLL_STRATEGIES } from '@/constants/poll.js';
 import type { Response as FireflyResponse } from '@/providers/types/Firefly.js';
 

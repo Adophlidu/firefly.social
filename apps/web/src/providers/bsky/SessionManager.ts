@@ -1,7 +1,8 @@
+import { Source } from '@dimensiondev/enums';
 import { isServer } from '@tanstack/react-query';
 
 import { PUBLIC_SERVICE_URL } from '@/constants/bsky.js';
-import { Source } from '@/constants/enum.js';
+
 import { SessionExpiredError } from '@/constants/error.js';
 import { EVENT_SOCIAL_ACCOUNT_EXPIRED } from '@/constants/event.js';
 import { dispatchCustomEvent } from '@/helpers/dispatchCustomEvents.js';

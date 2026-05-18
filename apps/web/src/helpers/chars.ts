@@ -1,7 +1,8 @@
+import { Source } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
-import { CharTag, type SocialSource, Source } from '@/constants/enum.js';
+import { CharTag, type SocialSource } from '@/constants/enum.js';
 import {
     MAX_CHAR_SIZE_PER_POST,
     MAX_CHAR_SIZE_PRO_PER_POST,

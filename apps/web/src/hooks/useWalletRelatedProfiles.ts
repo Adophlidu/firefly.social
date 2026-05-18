@@ -1,7 +1,7 @@
+import { Source } from '@dimensiondev/enums';
 import { useQuery } from '@tanstack/react-query';
 import { uniqBy } from 'lodash-es';
 
-import { Source } from '@/constants/enum.js';
 import { getAllPlatformProfileByIdentity } from '@/providers/firefly/endpoint/getAllPlatformProfileByIdentity.js';
 
 /**

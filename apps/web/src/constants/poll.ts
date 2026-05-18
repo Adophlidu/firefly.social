@@ -1,4 +1,5 @@
-import { type SocialSource, Source } from '@/constants/enum.js';
+import { Source } from '@dimensiondev/enums';
+import type { SocialSource } from '@/constants/enum.js';
 
 // https://github.com/orb-club/orb-on-lens/blob/main/polls/APIS.md
 export const ORB_POLL_CONTRACT = '0x0B9507487800F0c385A240199fDf1d79131E8e25';

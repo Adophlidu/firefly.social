@@ -1,6 +1,6 @@
+import { Source } from '@dimensiondev/enums';
 import { shuffle } from 'lodash-es';
 
-import { Source } from '@/constants/enum.js';
 import type { TransactionsItem } from '@/providers/types/Firefly.js';
 
 export function shuffleTransactions(list: TransactionsItem[]) {

@@ -1,6 +1,7 @@
+import { Source } from '@dimensiondev/enums';
 import { useSuspenseQuery } from '@tanstack/react-query';
 
-import { type SocialSource, Source } from '@/constants/enum.js';
+import type { SocialSource } from '@/constants/enum.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 

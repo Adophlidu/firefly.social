@@ -1,5 +1,6 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import FireflyRoundIcon from '@dimensiondev/assets/firefly.round.svg';
 import TipIcon from '@dimensiondev/assets/tips.svg';
 import { safeUnreachable } from '@dimensiondev/utils';
@@ -13,7 +14,7 @@ import { NoSSR } from '@/components/NoSSR.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { TipsTransactionActions } from '@/components/Tips/TipsTransactionActions.js';
 import { WalletBaseMoreAction } from '@/components/WalletBaseMoreAction.js';
-import { Source, TipsDetailViewType, TipsNotificationType } from '@/constants/enum.js';
+import { TipsDetailViewType, TipsNotificationType } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import { Link } from '@/esm/Link.js';
 import { useRouter } from '@/esm/navigation.js';

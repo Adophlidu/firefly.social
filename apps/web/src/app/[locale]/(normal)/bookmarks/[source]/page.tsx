@@ -1,5 +1,7 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
+import type { SourceInURL } from '@dimensiondev/enums';
 import type { LayoutProps } from '@dimensiondev/types';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { Suspense, use } from 'react';
@@ -10,7 +12,7 @@ import { PredictionBookmarkList } from '@/app/[locale]/(normal)/bookmarks/Predic
 import { TokenBookmarkList } from '@/app/[locale]/(normal)/bookmarks/TokenBookmarkList.js';
 import { Loading } from '@/components/Loading.js';
 import { SnapshotBookmarkList } from '@/components/Snapshot/SnapshotBookmarkList.js';
-import { type BookmarkSource, Source, type SourceInURL } from '@/constants/enum.js';
+import type { BookmarkSource } from '@/constants/enum.js';
 import { resolveSource } from '@/helpers/resolveSource.js';
 import { useMounted } from '@/hooks/useMounted.js';
 

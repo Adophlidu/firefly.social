@@ -1,7 +1,7 @@
+import { Source } from '@dimensiondev/enums';
 import { compose } from '@dimensiondev/utils';
 import { z } from 'zod';
 
-import { Source } from '@/constants/enum.js';
 import {
     MAX_PROFILE_BIO_SIZE,
     MAX_PROFILE_DISPLAY_NAME_SIZE,

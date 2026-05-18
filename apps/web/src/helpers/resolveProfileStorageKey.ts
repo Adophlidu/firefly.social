@@ -1,6 +1,7 @@
+import { Source } from '@dimensiondev/enums';
 import { createLookupTableResolver } from '@dimensiondev/utils';
 
-import { type ProfileSource, Source } from '@/constants/enum.js';
+import type { ProfileSource } from '@/constants/enum.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 
 const sessionTypeToProfileSource = createLookupTableResolver<SessionType, ProfileSource>(

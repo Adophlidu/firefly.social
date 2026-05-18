@@ -1,5 +1,6 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import MedalBronzeIcon from '@dimensiondev/assets/medal-bronze.svg';
 import MedalGoldIcon from '@dimensiondev/assets/medal-gold.svg';
 import MedalSilverIcon from '@dimensiondev/assets/medal-silver.svg';
@@ -9,7 +10,7 @@ import { isNil } from 'lodash-es';
 import { memo } from 'react';
 
 import { Avatar } from '@/components/Avatar.js';
-import { PredictionPlatform, Source } from '@/constants/enum.js';
+import { PredictionPlatform } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { humanize } from '@/helpers/formatCommentCounts.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';

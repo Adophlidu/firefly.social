@@ -1,5 +1,6 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import EvmIcon from '@dimensiondev/assets/evm.svg';
 import FireflyLogo from '@dimensiondev/assets/firefly.round.svg';
 import SolanaIcon from '@dimensiondev/assets/solana.svg';
@@ -16,7 +17,7 @@ import { useState } from 'react';
 import { Avatar } from '@/components/Avatar.js';
 import { Link } from '@/components/Link.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
-import { Source } from '@/constants/enum.js';
+
 import { formatPrice } from '@/helpers/formatPrice.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByFireflyProfile } from '@/helpers/getStampAvatarByProfileId.js';

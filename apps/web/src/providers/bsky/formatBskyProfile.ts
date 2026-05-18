@@ -1,7 +1,7 @@
+import { Source } from '@dimensiondev/enums';
 import { AppBskyActorDefs } from '@atproto/api';
 import { first } from 'lodash-es';
 
-import { Source } from '@/constants/enum.js';
 import { BSKY_MENTION_REGEX } from '@/constants/regexp.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { AppBskyProfile } from '@/providers/bsky/contentChecker.js';

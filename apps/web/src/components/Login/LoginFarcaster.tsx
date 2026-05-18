@@ -1,5 +1,6 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import { envs, STATUS } from '@dimensiondev/envs';
 import {
     AbortError,
@@ -22,7 +23,7 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SignupEntry } from '@/components/Profile/SignupEntry.js';
 import { ScannableQRCode } from '@/components/ScannableQRCode.js';
 import { IS_MOBILE_DEVICE } from '@/constants/browser.js';
-import { AsyncStatus, FarcasterSignType, FarcasterSignType as SignType, Source } from '@/constants/enum.js';
+import { AsyncStatus, FarcasterSignType, FarcasterSignType as SignType } from '@/constants/enum.js';
 import {
     FarcasterPatchSignerError,
     FireflyAccountAbsentError,

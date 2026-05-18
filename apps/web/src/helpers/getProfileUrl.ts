@@ -1,7 +1,8 @@
+import { Source } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
-import { type ProfileCategory, type ProfilePageSource, Source } from '@/constants/enum.js';
+import type { ProfileCategory, ProfilePageSource } from '@/constants/enum.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 
 /**

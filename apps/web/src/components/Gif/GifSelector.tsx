@@ -1,11 +1,12 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 import { useCallback } from 'react';
 
 import { TenorGifSelector } from '@/components/Gif/TenorGifSelector.js';
 import { Loading } from '@/components/Loading.js';
-import { Source } from '@/constants/enum.js';
+
 import { dynamic } from '@/esm/dynamic.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { formatFileSize } from '@/helpers/formatFileSize.js';

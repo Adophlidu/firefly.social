@@ -1,10 +1,11 @@
+import { Source, SourceInURL } from '@dimensiondev/enums';
 import type { LayoutProps } from '@dimensiondev/types';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 
 import { BookmarkSourceTabs } from '@/app/[locale]/(normal)/bookmarks/[source]/BookmarkSourceTabs.js';
 import { TimelineTitle } from '@/components/TimelineTitle.js';
-import { Source, SourceInURL } from '@/constants/enum.js';
+
 import { notFound } from '@/esm/navigation/server.js';
 import { isBookmarkSource } from '@/helpers/isSource.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';

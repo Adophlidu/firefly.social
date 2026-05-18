@@ -1,8 +1,8 @@
+import { Source } from '@dimensiondev/enums';
 import { envs, STATUS } from '@dimensiondev/envs';
 import { bom, safeUnreachable } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
-import { Source } from '@/constants/enum.js';
 import { FIREFLY_STAMP_DEV_URL, FIREFLY_STAMP_URL, SITE_URL } from '@/constants/static.js';
 import type { FireflyProfile, LensV3Profile, WalletProfile } from '@/providers/types/Firefly.js';
 
@@ -33,6 +33,7 @@ export function getStampAvatarByProfileId(source: Source, profileId: string, siz
         case Source.Article:
         case Source.DAOs:
         case Source.Prediction:
+        case Source.Polymarket:
             return urlcat(STAMP_URL, '/:address', { address: profileId, s });
         case Source.Telegram:
         case Source.Google:

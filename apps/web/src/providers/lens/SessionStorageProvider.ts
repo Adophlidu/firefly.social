@@ -1,8 +1,8 @@
+import { Source } from '@dimensiondev/enums';
 import { bom, parseJson } from '@dimensiondev/utils';
 import type { EnvironmentConfig, IStorageProvider } from '@lens-protocol/client';
 import z from 'zod';
 
-import { Source } from '@/constants/enum.js';
 import { SEVEN_DAYS } from '@/constants/static.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { updateCurrentSessionToStorage } from '@/helpers/updateCurrentSessionToStorage.js';

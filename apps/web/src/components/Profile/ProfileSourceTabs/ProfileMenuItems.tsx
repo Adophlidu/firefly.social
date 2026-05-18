@@ -1,3 +1,4 @@
+import { Source } from '@dimensiondev/enums';
 import ArrowLineDownIcon from '@dimensiondev/assets/arrow-line-down.svg';
 import FireflyLogo from '@dimensiondev/assets/firefly.round.svg';
 import { envs, STATUS } from '@dimensiondev/envs';
@@ -10,7 +11,7 @@ import { useMount } from 'react-use';
 import { Avatar } from '@/components/Avatar.js';
 import { Link } from '@/components/Link.js';
 import { SourceIcon } from '@/components/Profile/ProfileSourceTabs/SourceIcon.js';
-import { type ProfilePageSource, Source } from '@/constants/enum.js';
+import type { ProfilePageSource } from '@/constants/enum.js';
 import { usePathname } from '@/esm/navigation.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByFireflyProfile } from '@/helpers/getStampAvatarByProfileId.js';

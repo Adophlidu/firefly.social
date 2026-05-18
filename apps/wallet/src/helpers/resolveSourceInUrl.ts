@@ -1,13 +1,7 @@
+import { Source, SourceInURL } from '@dimensiondev/enums';
 import { createLookupTableResolver, UnreachableError } from '@dimensiondev/utils';
 
-import {
-    type ProfilePageSource,
-    type ProfilePageSourceInURL,
-    type SocialSource,
-    type SocialSourceInURL,
-    Source,
-    SourceInURL,
-} from '@/constants/enum.js';
+import type { ProfilePageSource, ProfilePageSourceInURL, SocialSource, SocialSourceInURL } from '@/constants/enum.js';
 
 export const resolveProfileSourceInURL = createLookupTableResolver<ProfilePageSource, ProfilePageSourceInURL>(
     {
@@ -49,6 +43,7 @@ export const resolveSourceInUrlForApi = createLookupTableResolver<Source, Source
         [Source.Tokens]: SourceInURL.Tokens,
         [Source.DAOs]: SourceInURL.DAOs,
         [Source.Polymarket]: SourceInURL.Polymarket,
+        [Source.Prediction]: SourceInURL.Prediction,
         [Source.Telegram]: SourceInURL.Telegram,
         [Source.Google]: SourceInURL.Google,
         [Source.Apple]: SourceInURL.Apple,

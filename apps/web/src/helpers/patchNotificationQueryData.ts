@@ -1,10 +1,11 @@
+import { Source } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { type Draft, produce } from 'immer';
 import { first } from 'lodash-es';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { UNIFIED_NOTIFICATION_TYPES } from '@/constants/computed.js';
-import type { Source } from '@/constants/enum.js';
+
 import type { ScheduleNotification, TipsNotification, UnifiedNotification } from '@/providers/types/Firefly.js';
 import { type Notification, NotificationType, type Post, type Profile } from '@/providers/types/SocialMedia.js';
 

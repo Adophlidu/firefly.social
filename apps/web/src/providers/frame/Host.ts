@@ -1,3 +1,4 @@
+import { Source } from '@dimensiondev/enums';
 import { assert, NotImplementedError } from '@dimensiondev/utils';
 import { ETHEREUM_CHAIN_IDS } from '@dimensiondev/web3/chains';
 import { parseCAIP19 } from '@dimensiondev/web3/utils';
@@ -7,7 +8,6 @@ import { first } from 'lodash-es';
 import type { UnwrapPromise } from 'next/dist/lib/coalesced-function.js';
 import urlcat from 'urlcat';
 
-import { Source } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/static.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { getProfileById } from '@/helpers/getProfileById.js';

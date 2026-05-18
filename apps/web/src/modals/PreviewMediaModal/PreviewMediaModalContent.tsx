@@ -1,5 +1,6 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import 'swiper/css';
 
 import { EMPTY_LIST } from '@dimensiondev/constants';
@@ -11,7 +12,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { CloseButton } from '@/components/IconButton.js';
 import { SUPPORTED_PREVIEW_MEDIA_TYPES } from '@/constants/computed.js';
-import type { Source } from '@/constants/enum.js';
+
 import { PreviewContent } from '@/modals/PreviewMediaModal/PreviewContent.js';
 import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
 

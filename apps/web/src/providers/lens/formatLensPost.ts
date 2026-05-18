@@ -1,3 +1,4 @@
+import { Source } from '@dimensiondev/enums';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { safeUnreachable } from '@dimensiondev/utils';
 import type {
@@ -12,7 +13,6 @@ import type {
 } from '@lens-protocol/client';
 import { compact, first, isEmpty, last, uniqBy } from 'lodash-es';
 
-import { Source } from '@/constants/enum.js';
 import { URL_REGEX } from '@/constants/regexp.js';
 import { formatLensImageUrl } from '@/helpers/formatImageUrl.js';
 import { getEmbedUrls } from '@/helpers/getEmbedUrls.js';

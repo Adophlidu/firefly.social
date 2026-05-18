@@ -1,8 +1,8 @@
+import { Source } from '@dimensiondev/enums';
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
 import { runInSafe } from '@dimensiondev/utils';
 import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
 
-import { Source } from '@/constants/enum.js';
 import { ensureCreatedFireflyWallet } from '@/helpers/ensureCreatedFireflyWallet.js';
 import { AddLensManagerModalRef } from '@/modals/AddLensManagerModal/refs.js';
 import { LoginModalRef } from '@/modals/LoginModal/refs.js';

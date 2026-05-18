@@ -1,4 +1,4 @@
-import { Source } from '@/constants/enum.js';
+import { Source } from '@dimensiondev/enums';
 import { getPostPublishInfoFromFirefly } from '@/providers/firefly/endpoint/getPostPublishInfoFromFirefly.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 

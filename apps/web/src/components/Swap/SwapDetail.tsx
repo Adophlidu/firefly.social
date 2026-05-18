@@ -1,5 +1,6 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import ExchangeIcon from '@dimensiondev/assets/exchange.svg';
 import ExportIcon from '@dimensiondev/assets/export.svg';
 import MoreIcon from '@dimensiondev/assets/more-circle.svg';
@@ -25,7 +26,7 @@ import { NoSSR } from '@/components/NoSSR.js';
 import { EnsName } from '@/components/Profile/EnsName.js';
 import { SwapActions } from '@/components/Swap/SwapActions.js';
 import { WalletBaseMoreAction } from '@/components/WalletBaseMoreAction.js';
-import { Source } from '@/constants/enum.js';
+
 import { notFound, useSearchParams } from '@/esm/navigation.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';

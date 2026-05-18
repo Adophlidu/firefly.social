@@ -1,9 +1,10 @@
+import { SourceInURL } from '@dimensiondev/enums';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { createNextIndicator, createPageable, type PageIndicator } from '@dimensiondev/utils';
 import { uniq } from 'lodash-es';
 import urlcat from 'urlcat';
 
-import type { SocialSource, SourceInURL } from '@/constants/enum.js';
+import type { SocialSource } from '@/constants/enum.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { resolveSourceInUrlForApi } from '@/helpers/resolveSourceInUrl.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';

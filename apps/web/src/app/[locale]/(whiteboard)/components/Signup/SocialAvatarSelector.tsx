@@ -1,3 +1,4 @@
+import { Source } from '@dimensiondev/enums';
 import ColorfulLensIcon from '@dimensiondev/assets/lens-circle-small.svg';
 import SwitchAvatar from '@dimensiondev/assets/switch-avatar.svg';
 import { Popover, PopoverButton, PopoverPanel, Transition } from '@headlessui/react';
@@ -5,7 +6,7 @@ import { Fragment } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-import { Source } from '@/constants/enum.js';
+
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface SocialAvatarSelectorProps {

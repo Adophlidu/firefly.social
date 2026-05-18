@@ -1,5 +1,6 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import LinkIcon from '@dimensiondev/assets/link.svg';
 import Music from '@dimensiondev/assets/music.svg';
 import Play from '@dimensiondev/assets/play.svg';
@@ -15,7 +16,7 @@ import { VideoAsset } from '@/components/Posts/VideoAsset.js';
 import { VideoSwiper } from '@/components/Posts/VideoSwiper.js';
 import { WithPreviewLink } from '@/components/Posts/WithPreviewLink.js';
 import { SUPPORTED_MULTIPLE_EMBED_SOURCES, SUPPORTED_PREVIEW_MEDIA_TYPES } from '@/constants/computed.js';
-import { Source } from '@/constants/enum.js';
+
 import { IMAGE_KIT_ATTACHMENT } from '@/constants/static.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { formatImageUrl } from '@/helpers/formatImageUrl.js';

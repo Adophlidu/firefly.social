@@ -1,7 +1,8 @@
+import { Source } from '@dimensiondev/enums';
 import { mainnet } from 'viem/chains';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
-import { ClickOrigin, Source } from '@/constants/enum.js';
+import { ClickOrigin } from '@/constants/enum.js';
 import { Protocol } from '@/constants/farcaster.js';
 import { getSessionsFromStorageBySource } from '@/helpers/getSessionFromStorage.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';

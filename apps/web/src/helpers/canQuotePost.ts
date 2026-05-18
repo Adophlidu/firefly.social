@@ -1,4 +1,4 @@
-import { Source } from '@/constants/enum.js';
+import { Source } from '@dimensiondev/enums';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import type { Post } from '@/providers/types/SocialMedia.js';

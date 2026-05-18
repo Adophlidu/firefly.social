@@ -1,7 +1,7 @@
+import { Source } from '@dimensiondev/enums';
 import { formatAddressEthereum, formatAddressSolana } from '@dimensiondev/web3/utils';
 import { compact } from 'lodash-es';
 
-import { Source } from '@/constants/enum.js';
 import { getEnsNameFromWalletProfile } from '@/helpers/getEnsNameFromWalletProfile.js';
 import {
     RelatedWalletSource,

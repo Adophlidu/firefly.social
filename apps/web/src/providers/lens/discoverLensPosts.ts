@@ -1,3 +1,4 @@
+import { Source } from '@dimensiondev/enums';
 import {
     createIndicator,
     createNextIndicator,
@@ -9,7 +10,6 @@ import { PageSize } from '@lens-protocol/client';
 import { fetchPosts, fetchTimelineHighlights } from '@lens-protocol/client/actions';
 import { compact } from 'lodash-es';
 
-import { Source } from '@/constants/enum.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { ensureCursor } from '@/providers/lens/ensureCursor.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';

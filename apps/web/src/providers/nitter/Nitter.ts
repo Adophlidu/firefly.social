@@ -1,7 +1,7 @@
+import { Source } from '@dimensiondev/enums';
 import { bom, NotFoundError } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
-import { Source } from '@/constants/enum.js';
 import { AccountSuspendedError, NitterError } from '@/constants/error.js';
 import { FIREFLY_NITTER_URL } from '@/constants/static.js';
 import { LimitConcurrency } from '@/decorators/LimitConcurrency.js';

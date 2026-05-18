@@ -1,8 +1,9 @@
+import { Source } from '@dimensiondev/enums';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
-import { type SocialSource, Source } from '@/constants/enum.js';
+import type { SocialSource } from '@/constants/enum.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 

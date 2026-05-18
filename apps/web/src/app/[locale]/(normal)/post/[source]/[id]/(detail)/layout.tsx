@@ -1,9 +1,10 @@
+import { SourceInURL } from '@dimensiondev/enums';
 import type { LayoutProps } from '@dimensiondev/types';
 import { Trans } from '@lingui/react/macro';
 import type { Metadata } from 'next';
 
 import { Comeback } from '@/components/Comeback.js';
-import type { SourceInURL } from '@/constants/enum.js';
+
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isSocialSourceInUrl } from '@/helpers/isSource.js';
 import { setupLocaleFromParams } from '@/i18n/static.js';

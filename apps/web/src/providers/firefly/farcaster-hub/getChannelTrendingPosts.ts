@@ -1,3 +1,4 @@
+import { Source } from '@dimensiondev/enums';
 import {
     createIndicator,
     createNextIndicator,
@@ -7,7 +8,6 @@ import {
 } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
-import { Source } from '@/constants/enum.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { formatFarcasterPostFromFirefly } from '@/providers/farcaster/formatFarcasterPostFromFirefly.js';

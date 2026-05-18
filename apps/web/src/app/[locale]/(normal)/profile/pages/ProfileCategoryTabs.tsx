@@ -1,5 +1,6 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { NetworkType } from '@dimensiondev/web3/enums';
 import { getAddressType, isSameEthereumAddress } from '@dimensiondev/web3/utils';
@@ -21,7 +22,6 @@ import {
     ExploreSwitchType,
     type ProfilePageSource,
     SocialProfileCategory,
-    Source,
     WalletProfileCategory,
 } from '@/constants/enum.js';
 import { TRUMP_TWITTER_PROFILE } from '@/constants/mentions.js';

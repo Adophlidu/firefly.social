@@ -1,5 +1,6 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import { useMultiInfiniteQueryPageable } from '@dimensiondev/hooks';
 import { createIndicator, createPageable } from '@dimensiondev/utils';
 
@@ -7,7 +8,7 @@ import { getFollowingActivities } from '@/components/Activities/getActivities.js
 import { getActivitiesItemContent } from '@/components/Activities/getActivitiesItemContent.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
-import { ScrollListKey, Source } from '@/constants/enum.js';
+import { ScrollListKey } from '@/constants/enum.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';

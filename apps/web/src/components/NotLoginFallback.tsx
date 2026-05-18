@@ -1,11 +1,12 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import { classNames, createLookupTableResolver } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { type HTMLProps, memo, type ReactNode } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { type LoginFallbackSource, type ProfileSource, Source } from '@/constants/enum.js';
+import type { LoginFallbackSource, ProfileSource } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveFallbackImageUrl } from '@/helpers/resolveFallbackImageUrl.js';

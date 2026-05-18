@@ -1,6 +1,6 @@
+import { Source } from '@dimensiondev/enums';
 import { first } from 'lodash-es';
 
-import { Source } from '@/constants/enum.js';
 import { CastType } from '@/constants/farcaster.js';
 import { FARCASTER_MENTION_REGEX } from '@/constants/regexp.js';
 import { logger } from '@/libs/Logger.js';

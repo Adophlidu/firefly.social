@@ -1,9 +1,9 @@
+import { Source } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { NetworkType } from '@dimensiondev/web3/enums';
 import { getAddressType } from '@dimensiondev/web3/utils';
 import { isHex } from 'viem';
 
-import { Source } from '@/constants/enum.js';
 import { isAbnormalFarHandle, resolveFidFromAbnormalFarHandle } from '@/providers/farcaster/isAbnormalFarHandle.js';
 import { getAllRelatedProfileInfo } from '@/providers/firefly/endpoint/getAllRelatedProfileInfo.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
@@ -53,6 +53,7 @@ function getQueryKey(identity: FireflyIdentity, forceHandle: boolean) {
         case Source.Transactions:
         case Source.Activities:
         case Source.Prediction:
+        case Source.Polymarket:
             return '';
         default:
             safeUnreachable(identity.source);

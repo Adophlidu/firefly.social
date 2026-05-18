@@ -1,4 +1,4 @@
-import { Source } from '@/constants/enum.js';
+import { Source } from '@dimensiondev/enums';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 // ! only lens now

@@ -1,5 +1,6 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import FollowIcon from '@dimensiondev/assets/follow-bold.svg';
 import FollowedIcon from '@dimensiondev/assets/followed.svg';
 import MutualFollowIcon from '@dimensiondev/assets/mutual-follow.svg';
@@ -12,7 +13,7 @@ import { TwitterFollowButton } from '@/components/Actions/TwitterFollowButton.js
 import type { ClickableButtonProps } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ToggleFollowButton } from '@/components/Profile/ToggleFollowButton.js';
-import { Source } from '@/constants/enum.js';
+
 import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useWatchProfileFollowStatus } from '@/hooks/useWatchProfileFollowStatus.js';

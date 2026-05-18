@@ -1,3 +1,5 @@
+import { Source } from '@dimensiondev/enums';
+import type { SourceInURL } from '@dimensiondev/enums';
 import {
     BOOKMARK_SOURCES,
     DISCOVER_SOURCES,
@@ -7,17 +9,15 @@ import {
     SOCIAL_DISCOVER_SOURCE,
     SORTED_SOCIAL_SOURCES,
 } from '@/constants/computed.js';
-import {
-    type BookmarkSource,
-    type DiscoverSource,
-    type FollowingSource,
-    type NotificationSource,
-    type ProfilePageSource,
-    type SocialDiscoverSource,
-    type SocialSource,
-    type SocialSourceInURL,
-    Source,
-    type SourceInURL,
+import type {
+    BookmarkSource,
+    DiscoverSource,
+    FollowingSource,
+    NotificationSource,
+    ProfilePageSource,
+    SocialDiscoverSource,
+    SocialSource,
+    SocialSourceInURL,
 } from '@/constants/enum.js';
 import { resolveSourceInUrl, resolveSourceInUrlForApi } from '@/helpers/resolveSourceInUrl.js';
 

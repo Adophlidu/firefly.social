@@ -1,3 +1,4 @@
+import { Source } from '@dimensiondev/enums';
 import { AuthenticationError, NotImplementedError, runInSafeAsync } from '@dimensiondev/utils';
 import { sendCustomEip712Transaction, waitForEthereumTransaction } from '@dimensiondev/web3/actions';
 import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
@@ -6,7 +7,7 @@ import { getAddress } from 'viem';
 import { lens } from 'viem/chains';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
-import { Source } from '@/constants/enum.js';
+
 import { WalletAddressMismatchError } from '@/constants/error.js';
 import { SetQueryDataForVote } from '@/decorators/SetQueryDataForVote.js';
 import { createPrivyWalletClient } from '@/helpers/createPrivyWalletClient.js';

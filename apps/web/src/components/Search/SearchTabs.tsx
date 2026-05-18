@@ -1,12 +1,13 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { type JSX, memo, useMemo } from 'react';
 
 import { Link } from '@/components/Link.js';
 import { SORTED_SEARCH_TYPE, SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
-import { type ClubType, SearchType, type SocialSource, Source } from '@/constants/enum.js';
+import { type ClubType, SearchType, type SocialSource } from '@/constants/enum.js';
 import { usePathname } from '@/esm/navigation.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';

@@ -1,7 +1,8 @@
+import { Source } from '@dimensiondev/enums';
 import { produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { Source } from '@/constants/enum.js';
+
 import type { PageData } from '@/decorators/types.js';
 import type { BetsActivity } from '@/providers/types/Firefly.js';
 

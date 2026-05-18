@@ -1,7 +1,8 @@
+import { Source } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { compact, entries, first, isUndefined, values } from 'lodash-es';
 
-import { CharTag, type SocialSource, type SocialSourceInURL, Source } from '@/constants/enum.js';
+import { CharTag, type SocialSource, type SocialSourceInURL } from '@/constants/enum.js';
 import { readChars } from '@/helpers/chars.js';
 import { getPollDurationSeconds } from '@/helpers/polls.js';
 import { resolveSocialSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';

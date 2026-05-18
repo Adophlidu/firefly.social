@@ -1,4 +1,4 @@
-import { Source } from '@/constants/enum.js';
+import { Source } from '@dimensiondev/enums';
 import { FireflyAccountAbsentError, FireflyAlreadyBoundError } from '@/constants/error.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { getFarcasterProfileById } from '@/providers/firefly/farcaster-hub/getFarcasterProfileById.js';

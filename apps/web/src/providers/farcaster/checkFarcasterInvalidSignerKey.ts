@@ -1,4 +1,5 @@
-import { FarcasterSignType, Source } from '@/constants/enum.js';
+import { Source } from '@dimensiondev/enums';
+import { FarcasterSignType } from '@/constants/enum.js';
 import { FarcasterInvalidSignerKey } from '@/constants/error.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 

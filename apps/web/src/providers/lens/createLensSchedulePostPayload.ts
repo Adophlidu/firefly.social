@@ -1,4 +1,4 @@
-import { Source, SourceInURL } from '@/constants/enum.js';
+import { Source, SourceInURL } from '@dimensiondev/enums';
 import { readChars } from '@/helpers/chars.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { createS3MediaObject, resolveImageUrl } from '@/helpers/resolveMediaObjectUrl.js';

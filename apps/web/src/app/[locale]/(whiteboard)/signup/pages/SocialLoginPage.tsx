@@ -1,5 +1,6 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import FireflyLogo from '@dimensiondev/assets/firefly-small.svg';
 import ShadowLeftArrow from '@dimensiondev/assets/left-arrow-shadow.svg';
 import OrbLogo from '@dimensiondev/assets/orb.svg';
@@ -18,7 +19,7 @@ import {
 import { LoginButton } from '@/app/[locale]/(whiteboard)/components/Signup/LoginButton.js';
 import { ShadowInAndOut } from '@/app/[locale]/(whiteboard)/components/Signup/ShadowInAndOut.js';
 import { SquareButton } from '@/app/[locale]/(whiteboard)/components/Signup/SquareButton.js';
-import { AsyncStatus, LensSignType, PageRoute, SignupStep, Source } from '@/constants/enum.js';
+import { AsyncStatus, LensSignType, PageRoute, SignupStep } from '@/constants/enum.js';
 import { useRouter } from '@/esm/navigation.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { formatFireflyAccountProfileFromFireflyConnections } from '@/helpers/formatFireflyAccountProfileFromFireflyConnections.js';

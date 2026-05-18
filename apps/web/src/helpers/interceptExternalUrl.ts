@@ -1,7 +1,8 @@
+import { Source } from '@dimensiondev/enums';
 import { parseUrl, safeUnreachable } from '@dimensiondev/utils';
 
 import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
-import { ExternalSiteDomain, Source } from '@/constants/enum.js';
+import { ExternalSiteDomain } from '@/constants/enum.js';
 import { getArticleIdFromUrl } from '@/helpers/getArticleIdFromUrl.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { getSiteTypeFromUrl } from '@/helpers/getSiteTypeFromUrl.js';

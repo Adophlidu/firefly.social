@@ -1,5 +1,6 @@
 'use client';
 
+import type { Source } from '@dimensiondev/enums';
 import { useMultiInfiniteQueryPageable } from '@dimensiondev/hooks';
 import { createIndicator } from '@dimensiondev/utils';
 import { uniqBy } from 'lodash-es';
@@ -7,7 +8,7 @@ import { memo } from 'react';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
-import { HomeTab, ScrollListKey, type SocialSource, type Source } from '@/constants/enum.js';
+import { HomeTab, ScrollListKey, type SocialSource } from '@/constants/enum.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useDiscoverSources } from '@/hooks/useDiscoverSources.js';
 import type { Post } from '@/providers/types/SocialMedia.js';

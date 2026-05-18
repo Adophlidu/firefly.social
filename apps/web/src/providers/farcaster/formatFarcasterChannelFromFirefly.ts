@@ -1,6 +1,6 @@
+import { Source } from '@dimensiondev/enums';
 import { uniqBy } from 'lodash-es';
 
-import { Source } from '@/constants/enum.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { parseFarcasterBioContext } from '@/providers/farcaster/formatFarcasterProfileFromFirefly.js';
 import type {

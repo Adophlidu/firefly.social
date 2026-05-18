@@ -1,3 +1,4 @@
+import { Source } from '@dimensiondev/enums';
 import {
     createLookupTableResolver,
     NotAllowedError,
@@ -6,7 +7,7 @@ import {
     UnreachableError,
 } from '@dimensiondev/utils';
 
-import { type LoginSource, type ProfileSource, Source } from '@/constants/enum.js';
+import type { LoginSource, ProfileSource } from '@/constants/enum.js';
 import { getProfilesFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';

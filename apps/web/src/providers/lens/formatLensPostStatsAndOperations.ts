@@ -1,8 +1,9 @@
+import { Source } from '@dimensiondev/enums';
 import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import type { LoggedInPostOperations, PostAction, PostStats } from '@lens-protocol/client';
 
 import { SORTED_POLL_SOURCES } from '@/constants/computed.js';
-import { Source } from '@/constants/enum.js';
+
 import { ORB_POLL_CONTRACT } from '@/constants/poll.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 

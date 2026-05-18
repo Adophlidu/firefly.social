@@ -1,8 +1,9 @@
 'use client';
 
+import { Source } from '@dimensiondev/enums';
 import { bom } from '@dimensiondev/utils';
 
-import { AsyncStatus, Source } from '@/constants/enum.js';
+import { AsyncStatus } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { createSelectors } from '@/helpers/createSelector.js';

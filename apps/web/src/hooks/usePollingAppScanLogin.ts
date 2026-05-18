@@ -1,10 +1,11 @@
+import { Source } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { useAsyncFn } from 'react-use';
 
-import { AsyncStatus, Source } from '@/constants/enum.js';
+import { AsyncStatus } from '@/constants/enum.js';
 import { enqueueErrorMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { getErrorMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { useCallbackRef } from '@/hooks/useCallbackRef.js';

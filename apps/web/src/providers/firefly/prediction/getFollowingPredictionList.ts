@@ -1,8 +1,9 @@
+import { SourceInURL } from '@dimensiondev/enums';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
-import type { PredictionPlatform, SourceInURL } from '@/constants/enum.js';
+import { PredictionPlatform } from '@/constants/enum.js';
 import { formatPolymarketFromFirefly } from '@/helpers/formatPolymarketFromFirefly.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
