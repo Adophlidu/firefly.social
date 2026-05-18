@@ -1,3 +1,4 @@
+import { TokenPlatformType } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { isValidAddress } from '@dimensiondev/web3/utils';
 import { type HTMLProps, memo } from 'react';
@@ -9,7 +10,7 @@ import { TokenIcon } from '@/components/TokenIcon.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
-import { type Bookmarkable, TokenPlatformType, type TokenWithMarketData } from '@/providers/types/Firefly.js';
+import type { Bookmarkable, TokenWithMarketData } from '@/providers/types/Firefly.js';
 
 interface BookmarkedTokenItemProps extends HTMLProps<HTMLAnchorElement> {
     token: Bookmarkable<TokenWithMarketData>;

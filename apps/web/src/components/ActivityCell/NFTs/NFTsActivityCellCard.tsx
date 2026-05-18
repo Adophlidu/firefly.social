@@ -3,6 +3,7 @@
 import CalendarIcon from '@dimensiondev/assets/calendar.svg';
 import LocationIcon from '@dimensiondev/assets/location.svg';
 import PoapIcon from '@dimensiondev/assets/poap.svg';
+import { TransEventType } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { memo } from 'react';
 
@@ -16,7 +17,7 @@ import { BookmarkInIcon } from '@/components/NFTs/BookmarkButton.js';
 import { resolveNFTId } from '@/helpers/resolveNFTIdFromAsset.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { usePoapTraits } from '@/hooks/usePoapTraits.js';
-import { type EVM, TransEventType } from '@/providers/nftscan/types.js';
+import type { EVM } from '@/providers/nftscan/types.js';
 import type { NFTFeedV3 } from '@/providers/types/NFTs.js';
 
 interface NFTsActivityCellCardProps {

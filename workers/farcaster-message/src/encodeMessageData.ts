@@ -1,11 +1,12 @@
 // Import types only - no runtime code
+import { FarcasterNetwork } from '@dimensiondev/enums';
 import type { PartialWith } from '@dimensiondev/workers-shared/types/utils.js';
 import type { MessageData } from '@farcaster/core';
 import { blake3 } from '@noble/hashes/blake3';
 import { bytesToHex, hexToBytes } from 'viem';
 
 import { getPublicKeyInHexFromPrivateKey, signMessageWithPrivateKey } from '@/farcaster-message/src/ed25519.js';
-import { FarcasterNetwork, HashScheme, SignatureScheme } from '@/farcaster-message/src/enums.js';
+import { HashScheme, SignatureScheme } from '@/farcaster-message/src/enums.js';
 import { processMessageData } from '@/farcaster-message/src/processMessageData.js';
 import { toFarcasterTime } from '@/farcaster-message/src/toFarcasterTime.js';
 

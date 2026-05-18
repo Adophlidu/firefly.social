@@ -1,9 +1,8 @@
 'use client';
 
+import { ActivityStatus } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
-
-import { ActivityStatus } from '@/providers/types/Firefly.js';
 
 export function ActivityStatusTag({ status }: { status: ActivityStatus }) {
     switch (status) {

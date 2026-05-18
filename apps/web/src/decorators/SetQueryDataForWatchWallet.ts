@@ -1,4 +1,4 @@
-import { Source } from '@dimensiondev/enums';
+import { Source, WatchType } from '@dimensiondev/enums';
 import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import { type Draft, produce } from 'immer';
 
@@ -8,7 +8,6 @@ import { patchActivitiesQuery } from '@/helpers/patchActivitiesQuery.js';
 import { patchTransactionsQuery } from '@/helpers/patchTransactionsQuery.js';
 import type { FireflyWallet } from '@/providers/firefly/Wallet.js';
 import type { Article } from '@/providers/types/Article.js';
-import { WatchType } from '@/providers/types/Firefly.js';
 import type { ClassType } from '@/types/utility.js';
 
 function toggleWatch(address: string, status: boolean) {

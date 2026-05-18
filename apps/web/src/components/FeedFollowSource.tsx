@@ -4,6 +4,7 @@ import FarcasterIcon from '@dimensiondev/assets/farcaster-fill.svg';
 import LensIcon from '@dimensiondev/assets/lens-fill.svg';
 import StarIcon from '@dimensiondev/assets/star.svg';
 import TwitterIcon from '@dimensiondev/assets/x-fill.svg';
+import { WatchType } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 import type { ReactNode } from 'react';
 
@@ -11,7 +12,7 @@ import { ClickableArea } from '@/components/ClickableArea.js';
 import { Link } from '@/components/Link.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { resolveWatchTypeToSource } from '@/helpers/resolveWatchTypeToSource.js';
-import { type FollowingSource, WatchType } from '@/providers/types/Firefly.js';
+import type { FollowingSource } from '@/providers/types/Firefly.js';
 
 export function FeedFollowSource({ source }: { source?: FollowingSource }) {
     if (!source) return null;

@@ -1,8 +1,9 @@
+import { WatchType } from '@dimensiondev/enums';
 import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
 
 import { getEnsNameFromDisplayInfo } from '@/helpers/getEnsNameFromDisplayInfo.js';
 import type { SnapshotActivity } from '@/providers/snapshot/type.js';
-import { type FireflySnapshotActivity, WatchType } from '@/providers/types/Firefly.js';
+import type { FireflySnapshotActivity } from '@/providers/types/Firefly.js';
 
 export function formatSnapshotActivityFromFirefly(snapshot: FireflySnapshotActivity): SnapshotActivity {
     const authorId = snapshot.owner;

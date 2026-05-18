@@ -1,15 +1,10 @@
+import { SwapAccessPath } from '@dimensiondev/enums';
 import { isNativeTokenOrSameAddress } from '@dimensiondev/web3/utils';
 import { atom } from 'jotai';
 import { mainnet } from 'viem/chains';
 
 import { DEFAULT_SWAP_TOKENS, getDefaultSwapToken } from '@/providers/swap/defaultTokens.js';
 
-// Access path for analytics
-export enum SwapAccessPath {
-    TokenDetail = '1', // External access from token detail
-    WalletGUI = '2', // Internal wallet GUI access (default)
-    CopyTrade = '3', // External access from copy trade
-}
 export const accessPathAtom = atom<SwapAccessPath>(SwapAccessPath.WalletGUI); // Default to Wallet GUI
 
 // External wallet addresses passed from mask.social (for wallet filter default selection)

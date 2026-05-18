@@ -2,6 +2,7 @@
 
 import ArrowDownIcon from '@dimensiondev/assets/arrow-line-down.svg';
 import SmallFireflyAvatar from '@dimensiondev/assets/small-firefly.svg';
+import { WalletProfileDataSource } from '@dimensiondev/enums';
 import { formatAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useRouter } from '@tanstack/react-router';
@@ -10,7 +11,7 @@ import { memo, useCallback } from 'react';
 
 import { RecipientAvatar } from '@/components/Tips/RecipientAvatar.js';
 import { TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
-import { type WalletProfile, WalletProfileDataSource } from '@/providers/types/Firefly.js';
+import type { WalletProfile } from '@/providers/types/Firefly.js';
 import { useTipsStore } from '@/store/useTipsStore.js';
 
 export const TipsRecipient = memo(function TipsRecipient() {

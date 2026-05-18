@@ -1,5 +1,6 @@
 'use client';
 
+import { CustomTokenType } from '@dimensiondev/enums';
 import { delay } from '@dimensiondev/utils';
 import { privyVisibleChains, visibleChains } from '@dimensiondev/web3/chains';
 import { isSameAddress, isValidAddressEthereum } from '@dimensiondev/web3/utils';
@@ -25,7 +26,7 @@ import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { AddCustomERC20ModalOpenProps, AddCustomERC20ModalRefType } from '@/modals/AddCustomERC20Modal/refs.js';
 import { searchTokenLogoURI } from '@/providers/firefly/endpoint/searchTokenLogoURI.js';
-import { CustomTokenType, useCustomTokenStore } from '@/store/useCustomTokenStore.js';
+import { useCustomTokenStore } from '@/store/useCustomTokenStore.js';
 
 interface AddCustomERC20ModalContentProps {
     onClose: () => void;

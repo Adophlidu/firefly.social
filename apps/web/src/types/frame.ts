@@ -1,19 +1,11 @@
 /* cspell:disable */
 
-import type { FrameProtocol } from '@dimensiondev/enums';
+import type { ActionType, FrameProtocol } from '@dimensiondev/enums';
 
 import type { LiteralOrString } from '@/types/utility.js';
 
 // #region frame v1
 export type Index = 1 | 2 | 3 | 4;
-
-export enum ActionType {
-    Post = 'post',
-    PostRedirect = 'post_redirect',
-    Link = 'link',
-    Mint = 'mint',
-    Transaction = 'tx',
-}
 
 export interface FrameInput {
     label: string;

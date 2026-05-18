@@ -1,7 +1,7 @@
 'use client';
 
 import type { SocialSource } from '@dimensiondev/enums';
-import { SessionType, Source } from '@dimensiondev/enums';
+import { ActionType, SessionType, Source } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { isValidAddressEthereum, parseCAIP10 } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
@@ -31,7 +31,6 @@ import type { Additional } from '@/providers/types/Frame.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { getFrameMintTransaction } from '@/services/getFrameMintTransaction.js';
 import {
-    ActionType,
     type FrameButton,
     type FrameV1,
     type LinkDigestedResponse,

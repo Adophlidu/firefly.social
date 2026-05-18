@@ -1,6 +1,7 @@
 'use client';
 
 import SwapIcon from '@dimensiondev/assets/swap.svg';
+import { SwapAccessPath } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useAsyncFn } from 'react-use';
@@ -12,11 +13,6 @@ import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { useOpenFireflyWallet } from '@/hooks/useOpenFireflyWallet.js';
 import { captureSwapEvent } from '@/providers/telemetry/captureSwapEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
-
-export enum SwapAccessPath {
-    TokenDetail = '1', // External access from token detail
-    CopyTrade = '3', // External access from copy trade
-}
 
 interface SwapParams {
     chainId?: number;

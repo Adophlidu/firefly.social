@@ -1,3 +1,4 @@
+import { CustomTokenType } from '@dimensiondev/enums';
 import { removeTrailingZeros, runInSafeAsync } from '@dimensiondev/utils';
 import { resolveWagmiChain } from '@dimensiondev/web3/chains';
 import { leftShift } from '@dimensiondev/web3/numbers';
@@ -13,7 +14,7 @@ import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { formatCustomTokenToTipsToken } from '@/helpers/formatCustomTokenToTipsToken.js';
 import { getFungibleTokenPrice } from '@/providers/coingecko/getFungibleTokenPrice.js';
 import type { Token as TipsToken } from '@/providers/types/Transfer.js';
-import { CustomTokenType, useCustomTokenStore } from '@/store/useCustomTokenStore.js';
+import { useCustomTokenStore } from '@/store/useCustomTokenStore.js';
 
 export interface Token extends TipsToken {
     custom?: boolean;

@@ -1,3 +1,4 @@
+import { SwapAccessPath } from '@dimensiondev/enums';
 import { InvalidResultError, retry } from '@dimensiondev/utils';
 import { isSolanaChain } from '@dimensiondev/web3/chains';
 import { multipliedBy } from '@dimensiondev/web3/numbers';
@@ -24,7 +25,6 @@ import { getPolymarketProfileListQueryOptions } from '@/queries/firefly/getPolym
 import { getPolymarketUserValueQueryOptions } from '@/queries/polymarket/getPolymarketUserValueQueryOptions.js';
 import { showEmbeddedWalletUIAtom } from '@/store/embeddedWallets.js';
 import { store } from '@/store/index.js';
-import { SwapAccessPath } from '@/store/swap/swapState.js';
 
 interface Options {
     depositToken?: SwapToken;

@@ -1,14 +1,9 @@
-import { Source } from '@dimensiondev/enums';
+import { RelatedWalletSource, Source, WalletProfileDataSource } from '@dimensiondev/enums';
 import { formatAddressEthereum, formatAddressSolana } from '@dimensiondev/web3/utils';
 import { compact } from 'lodash-es';
 
 import { getEnsNameFromWalletProfile } from '@/helpers/getEnsNameFromWalletProfile.js';
-import {
-    RelatedWalletSource,
-    type WalletProfile,
-    WalletProfileDataSource,
-    type WalletProfiles,
-} from '@/providers/types/Firefly.js';
+import type { WalletProfile, WalletProfiles } from '@/providers/types/Firefly.js';
 
 function patchWalletProfile(profile: WalletProfile) {
     profile.verifiedSources.forEach((source) => {

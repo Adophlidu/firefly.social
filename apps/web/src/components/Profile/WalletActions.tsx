@@ -1,6 +1,6 @@
 'use client';
 
-import { Source } from '@dimensiondev/enums';
+import { Source, WalletProfileDataSource } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { NetworkType } from '@dimensiondev/web3/enums';
 import { isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3/utils';
@@ -18,7 +18,7 @@ import { openWindow } from '@/helpers/openWindow.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { captureFireflyWalletEvent } from '@/providers/telemetry/captureFireflyWalletEvent.js';
-import { type WalletProfile, WalletProfileDataSource } from '@/providers/types/Firefly.js';
+import type { WalletProfile } from '@/providers/types/Firefly.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 

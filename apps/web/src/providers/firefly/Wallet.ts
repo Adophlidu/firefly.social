@@ -1,4 +1,5 @@
 import type { ConnectionPlatform } from '@dimensiondev/enums';
+import { WatchType } from '@dimensiondev/enums';
 import { isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3/utils';
 import urlcat from 'urlcat';
 
@@ -11,16 +12,15 @@ import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData
 import { block } from '@/providers/firefly/endpoint/block.js';
 import { unblock } from '@/providers/firefly/endpoint/unblock.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import {
-    type BindWalletResponse,
-    type DetectAddressResponse,
-    type EmptyResponse,
-    type FireflyWalletConnection,
-    type HexResponse,
-    type Response,
-    type WalletRelation,
-    type WalletRelationResponse,
-    WatchType,
+import type {
+    BindWalletResponse,
+    DetectAddressResponse,
+    EmptyResponse,
+    FireflyWalletConnection,
+    HexResponse,
+    Response,
+    WalletRelation,
+    WalletRelationResponse,
 } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 

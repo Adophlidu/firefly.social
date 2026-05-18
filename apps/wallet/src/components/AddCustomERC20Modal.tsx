@@ -1,3 +1,4 @@
+import { CustomTokenType } from '@dimensiondev/enums';
 import { visibleChains } from '@dimensiondev/web3/chains';
 import { isSameAddress, isValidAddressEthereum } from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
@@ -25,7 +26,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger } from '@/components/u
 import { config } from '@/configs/wagmiClient.js';
 import { useMultiChainTokens } from '@/hooks/useMultiChainTokens.js';
 import { searchTokenLogoURI } from '@/queries/firefly/searchTokenLogoURI.js';
-import { addCustomTokenAtom, CustomTokenType } from '@/store/customToken.js';
+import { addCustomTokenAtom } from '@/store/customToken.js';
 
 export interface AddCustomERC20ModalProps {
     open: boolean;

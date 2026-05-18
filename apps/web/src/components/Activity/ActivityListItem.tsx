@@ -1,6 +1,7 @@
 'use client';
 
 import CalendarIcon from '@dimensiondev/assets/activity-calendar.svg';
+import { ActivityStatus } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useState } from 'react';
@@ -10,7 +11,7 @@ import { ActivityStatusTag } from '@/components/Activity/ActivityStatus.js';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
 import { formatEventTimestamp } from '@/helpers/formatTimestamp.js';
-import { type ActivityListItem as TypeActivityListItem, ActivityStatus } from '@/providers/types/Firefly.js';
+import type { ActivityListItem as TypeActivityListItem } from '@/providers/types/Firefly.js';
 
 export function getActivityListItem(index: number, data: TypeActivityListItem) {
     return <ActivityListItem data={data} index={index} />;

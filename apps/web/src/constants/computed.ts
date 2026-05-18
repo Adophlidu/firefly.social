@@ -10,7 +10,6 @@ import {
     SourceInURL,
     WalletProfileCategory,
 } from '@dimensiondev/enums';
-import { envs } from '@dimensiondev/envs';
 import { solana } from '@dimensiondev/web3/chains';
 import { NetworkType } from '@dimensiondev/web3/enums';
 import { arbitrum, base, bsc, mainnet, optimism, polygon } from 'viem/chains';
@@ -56,6 +55,7 @@ export const SORTED_PROFILE_TAB_TYPE: Record<SocialSource, SocialProfileCategory
     ],
     [Source.Bsky]: [SocialProfileCategory.Feed, SocialProfileCategory.Replies, SocialProfileCategory.Media],
 };
+
 export const LOGIN_SORTED_PROFILE_TAB_TYPE: Record<SocialSource, SocialProfileCategory[]> = {
     [Source.Lens]: [
         SocialProfileCategory.Feed,
@@ -359,9 +359,8 @@ export const SOCIAL_NOTIFICATION_TYPES: NotificationType[] = [
 
 export const SORTED_BETS_PLATFORM: PredictionPlatform[] = [PredictionPlatform.Polymarket, PredictionPlatform.Opinion];
 
-export const X_WEBHOOK_WHITELIST_CLIENT_IDS: string[] = (() => {
-    const ids = envs.external.NEXT_PUBLIC_X_WEBHOOK_RECEIVER_IDS;
-    if (!ids) return [];
-
-    return ids.split(',').map((id) => id.trim());
-})();
+export const X_WEBHOOK_WHITELIST_CLIENT_IDS = [
+    '1642807673610715136', // neoding555
+    '295218901', // vk
+    '635682749', // suji
+];

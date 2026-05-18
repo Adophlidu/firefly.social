@@ -1,6 +1,4 @@
-export enum ServerErrorCodes {
-    UNKNOWN = 40001,
-}
+import { ServerErrorCodes } from '@dimensiondev/enums';
 
 export function createResponseJson(data: unknown, init?: ResponseInit) {
     const status = init?.status ?? 200;

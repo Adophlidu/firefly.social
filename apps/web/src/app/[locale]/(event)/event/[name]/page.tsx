@@ -1,3 +1,4 @@
+import { ActivityStatus } from '@dimensiondev/enums';
 import type { LayoutProps } from '@dimensiondev/types';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import type { Metadata } from 'next';
@@ -7,7 +8,6 @@ import { dynamic } from '@/esm/dynamic.js';
 import { notFound } from '@/esm/navigation/server.js';
 import { getFireflyActivityInfo } from '@/providers/firefly/activity/getFireflyActivityInfo.js';
 import { createEventMetadata } from '@/providers/firefly/metadata/createEventMetadata.js';
-import { ActivityStatus } from '@/providers/types/Firefly.js';
 
 export const revalidate = 300;
 

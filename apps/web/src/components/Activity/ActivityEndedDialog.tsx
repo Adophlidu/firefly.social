@@ -1,12 +1,13 @@
 'use client';
 
+import { ActivityStatus } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 import { type ReactNode, useCallback } from 'react';
 
 import { Modal } from '@/components/Modal.js';
 import { PageRoute } from '@/constants/enum.js';
 import { useRouter } from '@/esm/navigation.js';
-import { type ActivityInfoResponse, ActivityStatus } from '@/providers/types/Firefly.js';
+import type { ActivityInfoResponse } from '@/providers/types/Firefly.js';
 
 interface Props {
     data: Pick<Required<ActivityInfoResponse>['data'], 'status'>;

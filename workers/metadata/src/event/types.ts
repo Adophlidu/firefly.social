@@ -1,10 +1,5 @@
+import type { ActivityStatus } from '@dimensiondev/enums';
 import type { FireflyResponse } from '@dimensiondev/workers-shared/types/firefly.js';
-
-export enum ActivityStatus {
-    Upcoming = 0,
-    Active = 1,
-    Ended = 2,
-}
 
 export interface ActivityInfo {
     id: number;

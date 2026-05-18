@@ -1,14 +1,22 @@
 import type {
+    ActivityStatus,
     ArticlePlatform,
     ArticleType,
+    ErcType,
+    FansStatus,
     FireflyPlatform,
+    OgStatus,
     PredictionPlatform,
+    RelatedWalletSource,
     SocialSource,
     SocialSourceInURL,
     Source,
     SourceInURL,
     TipsNotificationType,
+    TokenPlatformType,
+    WalletProfileDataSource,
     WalletSource,
+    WatchType,
 } from '@dimensiondev/enums';
 import type { NetworkType } from '@dimensiondev/web3/enums';
 import type { ReactNode } from 'react';
@@ -22,7 +30,7 @@ import type {
     S3ConvertStatus,
     SparksAccountStatus,
 } from '@/constants/enum.js';
-import type { ErcType, EVM } from '@/providers/nftscan/types.js';
+import type { EVM } from '@/providers/nftscan/types.js';
 import type { PolymarketEventLocale } from '@/providers/prediction/polymarket/type.js';
 import type { SnapshotActivity, SnapshotChoice, SnapshotProposal } from '@/providers/snapshot/type.js';
 import type { TwitterSession } from '@/providers/twitter/Session.js';
@@ -44,11 +52,6 @@ export enum EmbedMediaType {
     CAST = 'cast',
     APPLICATION = 'application',
     UNKNOWN = 'unknown',
-}
-
-export enum TokenPlatformType {
-    Cex = 'cex',
-    Dex = 'dex',
 }
 
 export interface Cast {
@@ -506,32 +509,6 @@ export type SearchChannelsResponse = Response<{
     size: number;
 }>;
 
-export enum RelatedWalletSource {
-    firefly = 'firefly',
-    cyber = 'cyber',
-    hand_writing = 'hand_writing',
-    opensea = 'opensea',
-    pfp = 'pfp',
-    rss3 = 'rss3',
-    twitter_hexagon = 'twitter_hexagon',
-    uniswap = 'uniswap',
-    ethLeaderboard = 'web ens data',
-    lens = 'lens',
-    farcaster = 'farcaster',
-    other = 'other',
-    twitter = 'twitter',
-    particle = 'particle',
-}
-
-export enum WatchType {
-    Wallet = 'wallet',
-    SolanaWallet = 'solana',
-    MaskX = 'maskx',
-    Twitter = 'twitter',
-    Lens = 'lens',
-    Farcaster = 'farcaster',
-}
-
 export interface FollowingSource {
     id?: string;
     handle?: string;
@@ -545,11 +522,6 @@ export interface VerifiedSource {
     source: RelatedWalletSource;
     provider: string;
     verifiedText: string;
-}
-
-export const enum WalletProfileDataSource {
-    Particle = 'particle',
-    Privy = 'privy',
 }
 
 export interface WalletProfileIdentity {
@@ -998,12 +970,6 @@ export type ConvertM3u8StatusResponse = Response<{
     jobId: string;
     status: S3ConvertStatus;
 }>;
-
-export enum ActivityStatus {
-    Upcoming = 0,
-    Active = 1,
-    Ended = 2,
-}
 
 export interface ActivityListItem {
     id: number;
@@ -2381,20 +2347,6 @@ interface OgUser {
     handle: string;
     IsClaim: boolean;
     IsActive: boolean;
-}
-
-export enum OgStatus {
-    isOgActive = 1,
-    isOgInactive = 2,
-    isNotOg = 3,
-    isNotBoundX = 4,
-}
-
-export enum FansStatus {
-    isFansActive = 1,
-    isFansInactive = 2,
-    isNotFans = 3,
-    isNotBoundX = 4,
 }
 
 export type SparksAccountResponse = Response<{

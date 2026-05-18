@@ -1,3 +1,4 @@
+import { SwapAccessPath } from '@dimensiondev/enums';
 import { isSolanaChain } from '@dimensiondev/web3/chains';
 import { useAtomValue } from 'jotai';
 import { useMemo } from 'react';
@@ -9,7 +10,6 @@ import {
     externalSolanaAddressAtom,
     selectedPayWalletAtom,
     selectedReceiveWalletAtom,
-    SwapAccessPath,
 } from '@/store/swap/swapState.js';
 
 /**

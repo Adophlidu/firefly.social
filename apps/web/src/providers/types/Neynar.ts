@@ -1,6 +1,6 @@
+import type { FarcasterNetwork } from '@dimensiondev/enums';
 import type { Hex } from 'viem';
 
-import type { FarcasterNetwork } from '@/constants/farcaster.js';
 import type { ProfileStatus } from '@/providers/types/SocialMedia.js';
 
 export type NeynarResponse<T> =

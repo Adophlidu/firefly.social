@@ -3,11 +3,10 @@
 import FarcasterIcon from '@dimensiondev/assets/farcaster-fill.svg';
 import LensIcon from '@dimensiondev/assets/lens-fill.svg';
 import XIcon from '@dimensiondev/assets/x-fill.svg';
+import { RelatedWalletSource } from '@dimensiondev/enums';
 import { useSizeStyle } from '@dimensiondev/hooks';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { memo, type SVGProps } from 'react';
-
-import { RelatedWalletSource } from '@/providers/types/Firefly.js';
 
 interface RelatedSourceIconProps extends SVGProps<SVGSVGElement> {
     size?: number;

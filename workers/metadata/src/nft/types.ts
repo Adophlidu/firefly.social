@@ -1,5 +1,5 @@
+import type { ErcType } from '@dimensiondev/enums';
 import type { FireflyResponse } from '@dimensiondev/workers-shared/types/firefly.js';
-import type { ErcType } from '@dimensiondev/workers-shared/types/nftscan.js';
 
 export interface Attribute {
     attribute_name: string;

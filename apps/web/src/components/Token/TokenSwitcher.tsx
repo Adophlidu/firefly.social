@@ -2,6 +2,7 @@
 
 import LineArrowUp from '@dimensiondev/assets/line-arrow-up.svg';
 import PriceArrow from '@dimensiondev/assets/price-arrow.svg';
+import { TokenPlatformType } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { isNumber } from 'lodash-es';
@@ -9,7 +10,7 @@ import { type HTMLProps, memo, useState } from 'react';
 
 import { TokenIcon } from '@/components/TokenIcon.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
-import { type SearchTokenInfo, TokenPlatformType } from '@/providers/types/Firefly.js';
+import type { SearchTokenInfo } from '@/providers/types/Firefly.js';
 
 interface Props extends Omit<HTMLProps<HTMLDivElement>, 'onSelect'> {
     tokenInfos: SearchTokenInfo[];

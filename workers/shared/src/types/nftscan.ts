@@ -1,15 +1,4 @@
-export enum TransEventType {
-    Sale = 'Sale',
-    Mint = 'Mint',
-    Transfer = 'Transfer',
-    Burn = 'Burn',
-    /** non-exist */
-    Poap = 'Poap',
-}
-export enum ErcType {
-    ERC721 = 'erc721',
-    ERC1155 = 'erc1155',
-}
+import type { ErcType, TransEventType } from '@dimensiondev/enums';
 
 export namespace EVM {
     export interface Attribute {

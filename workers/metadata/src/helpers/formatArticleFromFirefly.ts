@@ -1,4 +1,4 @@
-import { ArticlePlatform, ArticleType } from '@dimensiondev/enums';
+import { ArticlePlatform, ArticleType, WatchType } from '@dimensiondev/enums';
 import { MATTERS_ARTICLE_URL } from '@dimensiondev/workers-shared/constants/matters.js';
 import { isSameAddress } from '@dimensiondev/workers-shared/helpers/isSameAddress.js';
 import { parseParagraphHtml } from '@dimensiondev/workers-shared/helpers/parseParagraphHtml.js';
@@ -6,7 +6,6 @@ import { urlcat } from '@dimensiondev/workers-shared/helpers/urlcat.js';
 import type { Article } from '@dimensiondev/workers-shared/types/article.js';
 
 import type { Article as FireflyArticle } from '@/metadata/src/article/types.js';
-import { WatchType } from '@/metadata/src/transaction/types.js';
 
 export async function formatArticleFromFirefly(article: FireflyArticle): Promise<Article> {
     const isMattersArticle = article.platform === ArticlePlatform.Matters;

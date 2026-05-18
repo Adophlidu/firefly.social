@@ -1,14 +1,6 @@
-import type { FrameProtocol } from '@dimensiondev/enums';
+import type { ActionType, FrameProtocol } from '@dimensiondev/enums';
 
 export type Index = 1 | 2 | 3 | 4;
-
-export enum ActionType {
-    Post = 'post',
-    PostRedirect = 'post_redirect',
-    Link = 'link',
-    Mint = 'mint',
-    Transaction = 'tx',
-}
 
 export interface FrameInput {
     label: string;

@@ -1,10 +1,9 @@
 // Utility types for improved type safety
 
 // Replace any for better type safety
+import type { ServerErrorCodes } from '@dimensiondev/enums';
 import type { ConnectorControllerState } from '@reown/appkit';
 import type ReactMarkdown from 'react-markdown';
-
-import type { ServerErrorCodes } from '@/helpers/createResponseJson.js';
 
 // Non-nullable type
 type NonNullable<T> = T extends null | undefined ? never : T;

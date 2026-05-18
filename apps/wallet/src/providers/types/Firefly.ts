@@ -1,4 +1,10 @@
-import type { FireflyPlatform, SocialSourceInURL, Source } from '@dimensiondev/enums';
+import type {
+    FireflyPlatform,
+    RelatedWalletSource,
+    SocialSourceInURL,
+    Source,
+    WalletProfileDataSource,
+} from '@dimensiondev/enums';
 import type { NetworkType } from '@dimensiondev/web3/enums';
 import type { Address, Hex } from 'viem';
 
@@ -184,28 +190,6 @@ export type SearchProfileResponse = Response<{
     cursor: number;
     size: number;
 }>;
-
-export enum RelatedWalletSource {
-    firefly = 'firefly',
-    cyber = 'cyber',
-    hand_writing = 'hand_writing',
-    opensea = 'opensea',
-    pfp = 'pfp',
-    rss3 = 'rss3',
-    twitter_hexagon = 'twitter_hexagon',
-    uniswap = 'uniswap',
-    ethLeaderboard = 'web ens data',
-    lens = 'lens',
-    farcaster = 'farcaster',
-    other = 'other',
-    twitter = 'twitter',
-    particle = 'particle',
-}
-
-export const enum WalletProfileDataSource {
-    Particle = 'particle',
-    Privy = 'privy',
-}
 
 export interface VerifiedSource {
     source: RelatedWalletSource;

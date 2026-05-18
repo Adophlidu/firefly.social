@@ -1,6 +1,7 @@
 'use client';
 
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { TokenPlatformType } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { sortBy, uniqBy } from 'lodash-es';
@@ -13,7 +14,6 @@ import { SearchType } from '@/constants/enum.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import { searchTokens } from '@/providers/firefly/worker/searchTokens.js';
-import { TokenPlatformType } from '@/providers/types/Firefly.js';
 
 interface SuggestTokenListProps {
     query: string;

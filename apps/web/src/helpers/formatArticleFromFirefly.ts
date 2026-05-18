@@ -1,4 +1,4 @@
-import { ArticlePlatform, ArticleType } from '@dimensiondev/enums';
+import { ArticlePlatform, ArticleType, WatchType } from '@dimensiondev/enums';
 import { formatAddress, isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import { first } from 'lodash-es';
 import urlcat from 'urlcat';
@@ -6,7 +6,7 @@ import urlcat from 'urlcat';
 import { MATTERS_ARTICLE_URL } from '@/constants/matters.js';
 import { parseParagraphHtml } from '@/helpers/parseParagraphHtml.js';
 import type { Article } from '@/providers/types/Article.js';
-import { type Article as FireflyArticle, WatchType } from '@/providers/types/Firefly.js';
+import type { Article as FireflyArticle } from '@/providers/types/Firefly.js';
 
 function resolveArticleAuthor(article: FireflyArticle): Article['author'] {
     const isMattersArticle = article.platform === ArticlePlatform.Matters;

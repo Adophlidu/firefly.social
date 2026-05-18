@@ -1,6 +1,7 @@
 import FireflyIcon from '@dimensiondev/assets/firefly.round.svg';
 import PlusIcon from '@dimensiondev/assets/plus.svg';
 import WalletIcon from '@dimensiondev/assets/wallet.svg';
+import { WalletProfileDataSource } from '@dimensiondev/enums';
 import { NetworkType } from '@dimensiondev/web3/enums';
 import { isSameAddress, isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
@@ -22,7 +23,6 @@ import { AppKitAccountItem } from '@/modals/MyWalletsModal/AppKitAccountItem.js'
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/refs.js';
 import { fireflyWalletProvider } from '@/providers/firefly/Wallet.js';
 import { captureFireflyWalletEvent } from '@/providers/telemetry/captureFireflyWalletEvent.js';
-import { WalletProfileDataSource } from '@/providers/types/Firefly.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';

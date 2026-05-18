@@ -1,3 +1,4 @@
+import { CustomTokenType } from '@dimensiondev/enums';
 import { getBalanceOf } from '@dimensiondev/web3/actions';
 import { useQueries } from '@tanstack/react-query';
 import { useAtomValue } from 'jotai';
@@ -7,7 +8,7 @@ import { formatCustomTokenToTokenAsset } from '@/helpers/formatCustomTokenToToke
 import { useCachedEvmAddress } from '@/hooks/useCachedWalletAddresses.js';
 import { logger } from '@/lib/Logger.js';
 import type { TokenAsset } from '@/providers/types/Firefly.js';
-import { customTokensUnwrappedAtom, CustomTokenType, type ERC20Token } from '@/store/customToken.js';
+import { customTokensUnwrappedAtom, type ERC20Token } from '@/store/customToken.js';
 
 /**
  * Hook to fetch custom ERC20 tokens with their balances

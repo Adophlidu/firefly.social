@@ -1,4 +1,5 @@
 import { web3 } from '@coral-xyz/anchor';
+import { SwapAccessPath } from '@dimensiondev/enums';
 import { delay } from '@dimensiondev/utils';
 import { estimateSwapGas, waitForEthereumTransaction } from '@dimensiondev/web3/actions';
 import { type ChainId, isSolanaChain } from '@dimensiondev/web3/chains';
@@ -38,7 +39,7 @@ import { createSwapEndpoint, type SwapToken } from '@/providers/swap/index.js';
 import type { FreeGasTxType } from '@/providers/types/FreeGas.js';
 import { fireflySessionTokenAtom } from '@/store/fireflySession.js';
 import { getSlippagePercent, type SlippageValue } from '@/store/swap/swapSettings.js';
-import { SwapAccessPath, type SwapStep } from '@/store/swap/swapState.js';
+import type { SwapStep } from '@/store/swap/swapState.js';
 
 export type SwapSuccessParams = Omit<HandleSwapSuccessParams, 'refetchBalances' | 'analyticsParams'>;
 export type SwapAnalyticsParams = Omit<BuildSwapAnalyticsParamsInput, 'solanaWalletName' | 'evmWalletName'>;

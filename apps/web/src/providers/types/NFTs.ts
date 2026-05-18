@@ -1,6 +1,7 @@
+import type { TransEventType } from '@dimensiondev/enums';
 import type { Address } from 'viem';
 
-import type { EVM, TransEventType } from '@/providers/nftscan/types.js';
+import type { EVM } from '@/providers/nftscan/types.js';
 import type { FireflyDisplayInfo, FollowingSource, NFTDetail } from '@/providers/types/Firefly.js';
 
 interface Response<T> {

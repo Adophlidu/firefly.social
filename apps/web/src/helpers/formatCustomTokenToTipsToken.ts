@@ -1,5 +1,7 @@
+import { CustomTokenType } from '@dimensiondev/enums';
+
 import type { Token } from '@/providers/types/Transfer.js';
-import { type CustomToken, CustomTokenType } from '@/store/useCustomTokenStore.js';
+import type { CustomToken } from '@/store/useCustomTokenStore.js';
 
 export function formatCustomTokenToTipsToken<T extends Token>(token: CustomToken, options?: Partial<T>): T {
     if (token.type !== CustomTokenType.ERC20) {

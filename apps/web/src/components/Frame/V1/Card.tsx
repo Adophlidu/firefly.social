@@ -1,4 +1,5 @@
 import type { SocialSource } from '@dimensiondev/enums';
+import { ActionType } from '@dimensiondev/enums';
 import { useRef } from 'react';
 
 import { FootnoteLink } from '@/components/FootnoteLink.js';
@@ -7,7 +8,7 @@ import { Input } from '@/components/Frame/V1/Input.js';
 import { Image } from '@/components/Image.js';
 import { getSessionFromStorageBySource } from '@/helpers/getSessionFromStorage.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
-import { ActionType, type FrameButton, type FrameV1 } from '@/types/frame.js';
+import type { FrameButton, FrameV1 } from '@/types/frame.js';
 
 interface CardProps {
     frame: FrameV1;

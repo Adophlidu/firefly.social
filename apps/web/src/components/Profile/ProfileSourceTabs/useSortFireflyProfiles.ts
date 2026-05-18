@@ -1,15 +1,10 @@
 import type { ProfilePageSource, SocialSource } from '@dimensiondev/enums';
-import { Source } from '@dimensiondev/enums';
+import { Source, WalletProfileDataSource } from '@dimensiondev/enums';
 import { useCallback } from 'react';
 
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
-import {
-    type FireflyIdentity,
-    type FireflyProfile,
-    type WalletProfile,
-    WalletProfileDataSource,
-} from '@/providers/types/Firefly.js';
+import type { FireflyIdentity, FireflyProfile, WalletProfile } from '@/providers/types/Firefly.js';
 
 export function useSortFireflyProfiles() {
     const profileAll = useCurrentProfilesAll();

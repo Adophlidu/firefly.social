@@ -1,5 +1,6 @@
 'use client';
 
+import { TokenPlatformType } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { formatTokenAddress, isValidAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
@@ -14,7 +15,6 @@ import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
 import { getSingleCoin } from '@/providers/firefly/endpoint/getSingleCoin.js';
 import type { TokenWithMarket } from '@/providers/firefly/worker/searchTokens.js';
-import { TokenPlatformType } from '@/providers/types/Firefly.js';
 
 interface SearchableTokenItemProps extends HTMLProps<HTMLAnchorElement> {
     token: TokenWithMarket;

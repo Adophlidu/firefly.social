@@ -1,5 +1,6 @@
 'use client';
 
+import { TokenPlatformType } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { redirect } from 'next/navigation.js';
@@ -9,7 +10,6 @@ import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { Empty } from '@/components/Search/Empty.js';
 import { SearchableTokenItem } from '@/components/Search/SearchableTokenItem.js';
 import { searchTokens, type TokenWithMarket } from '@/providers/firefly/worker/searchTokens.js';
-import { TokenPlatformType } from '@/providers/types/Firefly.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
 
 export function SearchTokenContent() {

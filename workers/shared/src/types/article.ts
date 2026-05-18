@@ -1,14 +1,5 @@
-import type { ArticlePlatform, ArticleType } from '@dimensiondev/enums';
+import type { ArticlePlatform, ArticleType, WatchType } from '@dimensiondev/enums';
 import type { Address } from 'viem';
-
-export enum WatchType {
-    Wallet = 'wallet',
-    SolanaWallet = 'solana',
-    MaskX = 'maskx',
-    Twitter = 'twitter',
-    Lens = 'lens',
-    Farcaster = 'farcaster',
-}
 
 export interface FollowingSource {
     id?: string;

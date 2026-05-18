@@ -1390,6 +1390,9 @@ importers:
 
   workers/farcaster-message:
     dependencies:
+      '@dimensiondev/enums':
+        specifier: workspace:^
+        version: link:../../packages/enums
       '@dimensiondev/workers-shared':
         specifier: workspace:*
         version: link:../shared
@@ -1911,6 +1914,9 @@ importers:
 
   workers/token:
     dependencies:
+      '@dimensiondev/enums':
+        specifier: workspace:^
+        version: link:../../packages/enums
       '@dimensiondev/workers-shared':
         specifier: workspace:*
         version: link:../shared

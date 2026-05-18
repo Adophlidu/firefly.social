@@ -1,3 +1,4 @@
+import type { FansStatus, OgStatus } from '@dimensiondev/enums';
 import type { FireflyResponse } from '@dimensiondev/workers-shared/types/firefly.js';
 
 export interface OgUser {
@@ -6,20 +7,6 @@ export interface OgUser {
     handle: string;
     IsClaim: boolean;
     IsActive: boolean;
-}
-
-export enum OgStatus {
-    isOgActive = 1,
-    isOgInactive = 2,
-    isNotOg = 3,
-    isNotBoundX = 4,
-}
-
-export enum FansStatus {
-    isFansActive = 1,
-    isFansInactive = 2,
-    isNotFans = 3,
-    isNotBoundX = 4,
 }
 
 export interface SparksProfile {

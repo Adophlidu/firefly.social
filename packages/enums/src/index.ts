@@ -239,3 +239,106 @@ export enum TipsDetailViewType {
     Sender = 'sender',
     Receiver = 'receiver',
 }
+
+export enum ErcType {
+    ERC721 = 'erc721',
+    ERC1155 = 'erc1155',
+}
+
+export enum TransEventType {
+    Sale = 'Sale',
+    Mint = 'Mint',
+    Transfer = 'Transfer',
+    Burn = 'Burn',
+    /** non-exist */
+    Poap = 'Poap',
+}
+
+export enum RelatedWalletSource {
+    firefly = 'firefly',
+    cyber = 'cyber',
+    hand_writing = 'hand_writing',
+    opensea = 'opensea',
+    pfp = 'pfp',
+    rss3 = 'rss3',
+    twitter_hexagon = 'twitter_hexagon',
+    uniswap = 'uniswap',
+    ethLeaderboard = 'web ens data',
+    lens = 'lens',
+    farcaster = 'farcaster',
+    other = 'other',
+    twitter = 'twitter',
+    particle = 'particle',
+}
+
+export enum WalletProfileDataSource {
+    Particle = 'particle',
+    Privy = 'privy',
+}
+
+export enum WatchType {
+    Wallet = 'wallet',
+    SolanaWallet = 'solana',
+    MaskX = 'maskx',
+    Twitter = 'twitter',
+    Lens = 'lens',
+    Farcaster = 'farcaster',
+}
+
+export enum ActionType {
+    Post = 'post',
+    PostRedirect = 'post_redirect',
+    Link = 'link',
+    Mint = 'mint',
+    Transaction = 'tx',
+}
+
+export enum TokenPlatformType {
+    Cex = 'cex',
+    Dex = 'dex',
+}
+
+export enum SwapAccessPath {
+    TokenDetail = '1',
+    WalletGUI = '2',
+    CopyTrade = '3',
+}
+
+export enum ServerErrorCodes {
+    UNKNOWN = 40001,
+}
+
+export enum OgStatus {
+    isOgActive = 1,
+    isOgInactive = 2,
+    isNotOg = 3,
+    isNotBoundX = 4,
+}
+
+export enum FansStatus {
+    isFansActive = 1,
+    isFansInactive = 2,
+    isNotFans = 3,
+    isNotBoundX = 4,
+}
+
+export enum FarcasterNetwork {
+    NONE = 0,
+    /** MAINNET - Public primary network */
+    MAINNET = 1,
+    /** TESTNET - Public test network */
+    TESTNET = 2,
+    /** DEVNET - Private test network */
+    DEVNET = 3,
+}
+
+export enum CustomTokenType {
+    ERC20 = 'ERC20',
+    ERC721 = 'ERC721',
+}
+
+export enum ActivityStatus {
+    Upcoming = 0,
+    Active = 1,
+    Ended = 2,
+}

@@ -1,13 +1,3 @@
-export enum FarcasterNetwork {
-    NONE = 0,
-    /** MAINNET - Public primary network */
-    MAINNET = 1,
-    /** TESTNET - Public test network */
-    TESTNET = 2,
-    /** DEVNET - Private test network */
-    DEVNET = 3,
-}
-
 export enum HashScheme {
     NONE = 0,
     /** BLAKE3 - Default scheme for hashing MessageData */

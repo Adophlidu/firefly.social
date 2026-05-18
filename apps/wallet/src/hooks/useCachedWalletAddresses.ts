@@ -1,9 +1,10 @@
+import { SwapAccessPath } from '@dimensiondev/enums';
 import { useAtomValue, useSetAtom } from 'jotai';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type { Address } from 'viem';
 
 import { usePrivyWallet } from '@/hooks/usePrivyWallet.js';
-import { accessPathAtom, SwapAccessPath } from '@/store/swap/swapState.js';
+import { accessPathAtom } from '@/store/swap/swapState.js';
 import {
     clearExpiredCachesAtom,
     getLatestValidWalletCache,

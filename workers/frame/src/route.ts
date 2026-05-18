@@ -1,3 +1,4 @@
+import { ActionType } from '@dimensiondev/enums';
 import { ONE_MONTH } from '@dimensiondev/workers-shared/constants/duration.js';
 import {
     createErrorResponseJson,
@@ -18,7 +19,6 @@ import { z } from 'zod';
 import { digestDocument, digestDocumentUrl } from '@/frame/src/digestDocumentUrl.js';
 import { getFrameErrorMessage } from '@/frame/src/getFrameErrorMessage.js';
 import { getGatewayErrorMessage } from '@/frame/src/getGatewayErrorMessage.js';
-import { ActionType } from '@/frame/src/types.js';
 
 const VERSION = 1;
 

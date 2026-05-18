@@ -1,13 +1,4 @@
-import type { TipsNotificationType } from '@dimensiondev/enums';
-
-export enum WatchType {
-    Wallet = 'wallet',
-    SolanaWallet = 'solana',
-    MaskX = 'maskx',
-    Twitter = 'twitter',
-    Lens = 'lens',
-    Farcaster = 'farcaster',
-}
+import type { TipsNotificationType, WatchType } from '@dimensiondev/enums';
 
 export interface TipsAccountInfo {
     firefly_uid: string;

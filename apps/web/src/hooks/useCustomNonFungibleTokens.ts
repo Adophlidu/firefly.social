@@ -1,9 +1,10 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { CustomTokenType } from '@dimensiondev/enums';
 import { useQuery } from '@tanstack/react-query';
 import { useConnection } from 'wagmi';
 
 import { getCollections } from '@/providers/firefly/nft/getCollections.js';
-import { CustomTokenType, useCustomTokenStore } from '@/store/useCustomTokenStore.js';
+import { useCustomTokenStore } from '@/store/useCustomTokenStore.js';
 
 export function useCustomNonFungibleTokens() {
     const tokens = useCustomTokenStore((state) =>

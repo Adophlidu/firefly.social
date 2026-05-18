@@ -5,6 +5,7 @@ import EnsIcon from '@dimensiondev/assets/ens.svg';
 import EvmIcon from '@dimensiondev/assets/evm.svg';
 import SnsIcon from '@dimensiondev/assets/sns.svg';
 import SolanaIcon from '@dimensiondev/assets/solana.svg';
+import { RelatedWalletSource } from '@dimensiondev/enums';
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { NetworkType } from '@dimensiondev/web3/enums';
 import { getAddressType } from '@dimensiondev/web3/utils';
@@ -19,7 +20,7 @@ import { RelatedSourceIcon } from '@/components/RelatedSourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { useDefiUnitedBadge } from '@/hooks/useDefiUnitedBadge.js';
 import { fireflyWalletProvider } from '@/providers/firefly/Wallet.js';
-import { RelatedWalletSource, type VerifiedSource, type WalletProfile } from '@/providers/types/Firefly.js';
+import type { VerifiedSource, WalletProfile } from '@/providers/types/Firefly.js';
 
 interface WalletProfileTagsProps {
     profile: WalletProfile;

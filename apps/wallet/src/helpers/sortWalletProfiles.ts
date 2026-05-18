@@ -1,4 +1,6 @@
-import { RelatedWalletSource, type WalletProfile, WalletProfileDataSource } from '@/providers/types/Firefly.js';
+import { RelatedWalletSource, WalletProfileDataSource } from '@dimensiondev/enums';
+
+import type { WalletProfile } from '@/providers/types/Firefly.js';
 
 export function isFireflyVerified(wallet: WalletProfile): boolean {
     return (

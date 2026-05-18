@@ -1,3 +1,4 @@
+import type { SwapAccessPath } from '@dimensiondev/enums';
 import { isNativeTokenAddress } from '@dimensiondev/web3/utils';
 import { createFileRoute, useNavigate, useSearch } from '@tanstack/react-router';
 import { useSetAtom } from 'jotai';
@@ -13,7 +14,6 @@ import {
     fromChainIdAtom,
     setFromTokenAtom,
     setToTokenAtom,
-    type SwapAccessPath,
     toChainIdAtom,
 } from '@/store/swap/swapState.js';
 

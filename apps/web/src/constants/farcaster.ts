@@ -3,16 +3,6 @@ export enum Protocol {
     SOLANA = 1,
 }
 
-export enum FarcasterNetwork {
-    NONE = 0,
-    /** MAINNET - Public primary network */
-    MAINNET = 1,
-    /** TESTNET - Public test network */
-    TESTNET = 2,
-    /** DEVNET - Private test network */
-    DEVNET = 3,
-}
-
 export enum CastType {
     CAST = 0,
     LONG_CAST = 1,

@@ -1,3 +1,4 @@
+import { FansStatus, OgStatus } from '@dimensiondev/enums';
 import { ONE_MONTH } from '@dimensiondev/workers-shared/constants/duration.js';
 import {
     createSuccessResponseJson,
@@ -15,7 +16,6 @@ import z from 'zod';
 import { createSparksAccountMetadata } from '@/metadata/src/sparks-account/createSparksAccountMetadata.js';
 import { createSparksDefaultMetadata } from '@/metadata/src/sparks-account/createSparksDefaultMetadata.js';
 import { getSparksProfileByUid } from '@/metadata/src/sparks-account/getSparksProfileByUid.js';
-import { FansStatus, OgStatus } from '@/metadata/src/sparks-account/types.js';
 
 type Metadata = Record<string, unknown>;
 

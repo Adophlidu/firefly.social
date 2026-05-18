@@ -1,7 +1,7 @@
 'use client';
 
 import LinkIcon from '@dimensiondev/assets/link-square.svg';
-import { Source } from '@dimensiondev/enums';
+import { Source, WalletProfileDataSource } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { NetworkType } from '@dimensiondev/web3/enums';
 import { formatAddress, getAddressType } from '@dimensiondev/web3/utils';
@@ -24,7 +24,7 @@ import { isMPCWallet } from '@/helpers/isMPCWallet.js';
 import { getUserTotalBalance } from '@/providers/debank/getUserTotalBalance.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
 import { getUserSolanaTotalValue } from '@/providers/okx/getUserSolanaTotalValue.js';
-import { type WalletProfile, WalletProfileDataSource } from '@/providers/types/Firefly.js';
+import type { WalletProfile } from '@/providers/types/Firefly.js';
 
 interface WalletInfoProps {
     profile: WalletProfile;

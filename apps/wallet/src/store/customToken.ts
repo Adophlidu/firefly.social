@@ -1,3 +1,4 @@
+import { CustomTokenType } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { produce } from 'immer';
 import { atom } from 'jotai';
@@ -5,11 +6,6 @@ import { atomWithStorage, unwrap } from 'jotai/utils';
 import type { Address } from 'viem';
 
 import { createPersistStorage } from '@/helpers/createPersistStorage.js';
-
-export enum CustomTokenType {
-    ERC20 = 'ERC20',
-    ERC721 = 'ERC721',
-}
 
 export interface ERC20Token {
     type: CustomTokenType.ERC20;
