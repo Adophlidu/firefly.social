@@ -1,3 +1,4 @@
+import { useLingui } from '@lingui/react/macro';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useAtomValue } from 'jotai';
 import { memo } from 'react';
@@ -18,6 +19,7 @@ interface BookmarkButtonProps {
 }
 
 export const BookmarkButton = memo<BookmarkButtonProps>(function BookmarkButton({ coinName }) {
+    const { i18n } = useLingui();
     const tokenAtom = useAtomValue(sessionTokenAtom);
     const queryClient = useQueryClient();
 
@@ -51,11 +53,11 @@ export const BookmarkButton = memo<BookmarkButtonProps>(function BookmarkButton(
                     error instanceof Error
                         ? error.message
                         : isBookmarked
-                          ? 'Failed to remove bookmark'
-                          : 'Failed to add bookmark',
+                          ? i18n._('rn-ui.bookmark.failureRemove')
+                          : i18n._('rn-ui.bookmark.failureAdd'),
             });
         }
-    }, [coinName, isBookmarked, queryClient]);
+    }, [coinName, i18n, isBookmarked, queryClient]);
 
     if (!tokenAtom) return null;
 

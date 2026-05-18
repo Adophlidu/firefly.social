@@ -1,3 +1,4 @@
+import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 import { Text } from 'tamagui';
 
@@ -28,7 +29,12 @@ export const SubmitButtonItem = memo<SubmitButtonItemProps>(function SubmitButto
             onPress={onPress}
         >
             <Text color="$bg" fontSize={12} lineHeight={14} fontWeight={500} textAlign="center">
-                {label || (isLong ? 'Buy/Long' : 'Sell/Short')}
+                {label ||
+                    (isLong ? (
+                        <Trans id="rn-ui.trade-form.buy-long">Buy/Long</Trans>
+                    ) : (
+                        <Trans id="rn-ui.trade-form.sell-short">Sell/Short</Trans>
+                    ))}
             </Text>
         </WalletActionButton>
     );

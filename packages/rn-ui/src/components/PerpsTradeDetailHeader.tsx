@@ -1,3 +1,4 @@
+import { Trans, useLingui } from '@lingui/react/macro';
 import { BigNumber } from 'bignumber.js';
 import { memo, useCallback, useState } from 'react';
 import { Circle, Path, Svg } from 'react-native-svg';
@@ -45,6 +46,7 @@ export const PerpsTradeDetailHeader = memo<PerpsTradeDetailHeaderProps>(function
     priceDiffRatio,
     onTokenSelect = () => {},
 }) {
+    const { i18n } = useLingui();
     const [accountAmountSheetOpen, setAccountAmountSheetOpen] = useState(false);
     const [isTokenSelectorOpen, setTokenSelectorOpen] = useState(false);
     const { accountValue, isLoading } = usePerpsComputedAccountValue();
@@ -63,7 +65,7 @@ export const PerpsTradeDetailHeader = memo<PerpsTradeDetailHeaderProps>(function
     const accountValueReady = !isLoading && accountValue !== undefined;
     const totalDisplay = accountValueReady ? formatUSDC(accountValue) : '--';
     const showDepositCta = accountValueReady && new BigNumber(accountValue).lte(0);
-    const dexLabel = dex || 'Perps';
+    const dexLabel = dex || i18n._('rn-ui.perpsMarket.title');
 
     return (
         <YStack>
@@ -113,7 +115,7 @@ export const PerpsTradeDetailHeader = memo<PerpsTradeDetailHeaderProps>(function
                         <XStack alignItems="center" gap={4}>
                             <DepositHeaderIcon />
                             <Text color="#FFFFFF" fontSize={14} lineHeight={20} fontWeight={600}>
-                                Deposit
+                                <Trans id="rn-ui.walletAction.deposit">Deposit</Trans>
                             </Text>
                         </XStack>
                     ) : (

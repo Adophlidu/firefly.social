@@ -1,3 +1,4 @@
+import { useLingui } from '@lingui/react/macro';
 import { memo } from 'react';
 import { Input, styled, XStack } from 'tamagui';
 
@@ -40,10 +41,11 @@ const StyledInput = styled(Input, {
 });
 
 export const SearchInput = memo<SearchInputProps>(function SearchInput({ value, onChange }) {
+    const { i18n } = useLingui();
     return (
         <InputWrapper>
             <SearchIcon />
-            <StyledInput placeholder="Search" value={value} onChangeText={onChange} />
+            <StyledInput placeholder={i18n._('rn-ui.search.placeholder')} value={value} onChangeText={onChange} />
         </InputWrapper>
     );
 });

@@ -115,6 +115,7 @@
         "momoka",
         "movr",
         "msgid",
+        "msgstr",
         "Msgids",
         "muln",
         "multicall",
@@ -542,7 +543,8 @@
         "chainlink",
         "tsgo",
         "ntli",
-        "horz"
+        "horz",
+        "autoplan"
     ],
     "flagWords": [],
     "ignorePaths": [
@@ -579,6 +581,9 @@
         "pnpm-lock.yaml",
         "public/**",
         "scripts/**",
+        "packages/**/scripts/**",
+        "packages/**/locales/**",
+        "TODOS.md",
         "statoscope.json",
         "tsconfig.tsbuildinfo"
     ],

@@ -1,3 +1,4 @@
+import { useLingui } from '@lingui/react/macro';
 import { memo, useState } from 'react';
 import { Path, Svg } from 'react-native-svg';
 import { Button, ScrollView, Sheet, styled, Text, useTheme, XStack, YStack } from 'tamagui';
@@ -66,6 +67,7 @@ function SelectedIcon() {
 }
 
 export const SortByFilter = memo<SortByFilterProps>(function SortByFilter({ value, data, onChange }) {
+    const { i18n } = useLingui();
     const [position, setPosition] = useState(0);
     const [open, setOpen] = useState(false);
     const theme = useTheme();
@@ -79,7 +81,7 @@ export const SortByFilter = memo<SortByFilterProps>(function SortByFilter({ valu
             >
                 <TriggerContent>
                     <Text color="$text" fontSize={14} lineHeight={18} fontWeight={400}>
-                        {data.find((item) => item.value === value)?.label || 'Select'}
+                        {data.find((item) => item.value === value)?.label || i18n._('rn-ui.sort.select')}
                     </Text>
 
                     <SolidArrowIcon width={14} height={14} stroke={theme.text!.get()} />

@@ -5,9 +5,11 @@ import {
     PerpsBindingsProvider,
     type PerpsKlineChartUrlBuilder,
     Provider,
+    type RnUiLocale,
     type ToastFn,
 } from '@dimensiondev/rn-ui';
 import { safeUnreachable } from '@dimensiondev/utils';
+import { useLingui } from '@lingui/react';
 import { useNavigate } from '@tanstack/react-router';
 import { useAtomValue } from 'jotai';
 import { type PropsWithChildren, useCallback } from 'react';
@@ -22,12 +24,20 @@ import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { logger } from '@/lib/Logger.js';
 import { fireflySessionTokenAtom } from '@/store/fireflySession.js';
 
+const RN_UI_SUPPORTED_LOCALES: ReadonlySet<RnUiLocale> = new Set(['en', 'ko', 'ja', 'zh-Hans', 'zh-Hant']);
+
+function toRnUiLocale(walletLocale: string): RnUiLocale {
+    return RN_UI_SUPPORTED_LOCALES.has(walletLocale as RnUiLocale) ? (walletLocale as RnUiLocale) : 'en';
+}
+
 export function PerpsProvider({ children }: PropsWithChildren) {
     const token = useAtomValue(fireflySessionTokenAtom);
     const comeback = useComeback();
     const connectors = useConnectors();
     const navigate = useNavigate();
     const isDarkMode = useIsDarkMode();
+    const { i18n } = useLingui();
+    const locale = toRnUiLocale(i18n.locale);
     const { data } = useWalletClient({
         connector: connectors.find((c) => c.id === PRIVY_CONNECTOR_ID),
     });
@@ -106,7 +116,7 @@ export function PerpsProvider({ children }: PropsWithChildren) {
     }, []);
 
     return (
-        <Provider theme={isDarkMode ? 'dark' : 'light'}>
+        <Provider locale={locale} theme={isDarkMode ? 'dark' : 'light'}>
             <PerpsBindingsProvider
                 token={token}
                 apiMode={isDevApi ? 'dev' : 'prod'}

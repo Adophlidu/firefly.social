@@ -1,3 +1,4 @@
+import { Trans } from '@lingui/react/macro';
 import { useAtomValue, useSetAtom } from 'jotai';
 import { memo } from 'react';
 import { Button, Text, XStack } from 'tamagui';
@@ -30,7 +31,7 @@ export const LimitPriceInput = memo<LimitPriceInputProps>(function LimitPriceInp
                 paddingVertical={5}
             >
                 <Text fontSize={14} fontWeight={500} color="$textDisabled">
-                    Market Price
+                    <Trans id="rn-ui.trade-form.market-price">Market Price</Trans>
                 </Text>
             </XStack>
         );

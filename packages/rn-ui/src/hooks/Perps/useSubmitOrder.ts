@@ -1,3 +1,4 @@
+import { useLingui } from '@lingui/react/macro';
 import { useAtomValue, useSetAtom } from 'jotai';
 
 import { OrderType } from '@/constants/enum';
@@ -23,6 +24,7 @@ import {
 import { exchangeClientAtom } from '@/store/wallet';
 
 export function useSubmitOrder() {
+    const { i18n } = useLingui();
     const size = useAtomValue(sizeAtom);
     const coinIndex = useAtomValue(coinIndexAtom);
     const exchangeClient = useAtomValue(exchangeClientAtom);
@@ -142,7 +144,7 @@ export function useSubmitOrder() {
                 });
 
                 toast({
-                    message: 'Order submitted successfully',
+                    message: i18n._('rn-ui.submitOrder.success'),
                     type: 'success',
                 });
 
@@ -150,7 +152,7 @@ export function useSubmitOrder() {
                 setInputValue('');
             } catch (error) {
                 toast({
-                    message: error instanceof Error ? error.message : 'Failed to submit order',
+                    message: error instanceof Error ? error.message : i18n._('rn-ui.submitOrder.failure'),
                     type: 'error',
                     error,
                 });
@@ -163,6 +165,7 @@ export function useSubmitOrder() {
             currentPrice,
             safeType,
             coinIndex,
+            i18n,
             tpRatio,
             slRatio,
             leverage,

@@ -1,3 +1,4 @@
+import { Trans } from '@lingui/react/macro';
 import { memo, useCallback, useMemo, useState } from 'react';
 import { YStack } from 'tamagui';
 
@@ -79,7 +80,7 @@ export const ActivePositions = memo<ActivePositionsProps>(function ActivePositio
     const tpSlByCoin = useMemo(() => buildPositionTpSlByCoin(openOrders), [openOrders]);
 
     if (!positions.length) {
-        return <NoDataFallback message="No open positions" />;
+        return <NoDataFallback message={<Trans id="rn-ui.activePositions.empty">No open positions</Trans>} />;
     }
 
     return (

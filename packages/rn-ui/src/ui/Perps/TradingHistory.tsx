@@ -1,3 +1,4 @@
+import { Trans, useLingui } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { BigNumber } from 'bignumber.js';
 import { memo, useMemo } from 'react';
@@ -5,6 +6,7 @@ import { Button, ScrollView, Text, XStack, YStack } from 'tamagui';
 
 import { CoinAvatar } from '@/components/CoinAvatar';
 import { NoDataFallback } from '@/components/NoDataFallback';
+import { OrderDirectionLabel } from '@/components/OrderDirectionLabel';
 import { formatCoinName } from '@/helpers/formatCoinName';
 import { formatPrice } from '@/helpers/formatPrice';
 import { multipliedBy } from '@/helpers/number';
@@ -22,6 +24,7 @@ interface TradingHistoryItemCardProps {
 }
 
 const TradingHistoryItemCard = memo<TradingHistoryItemCardProps>(function TradingHistoryItemCard({ item }) {
+    const { i18n } = useLingui();
     const { data } = useCoinInfo(item.coin);
     const szDecimals = data?.szDecimals || 2;
 
@@ -34,12 +37,15 @@ const TradingHistoryItemCard = memo<TradingHistoryItemCardProps>(function Tradin
 
         let directionStr = item.dir;
         if (item.liquidation?.method) {
-            const liqPrefix = item.liquidation.method === 'backstop' ? 'Backstop Liq' : 'Market Liq';
+            const liqPrefix =
+                item.liquidation.method === 'backstop'
+                    ? i18n._('rn-ui.tradingHistory.liqBackstop')
+                    : i18n._('rn-ui.tradingHistory.liqMarket');
             directionStr = `${liqPrefix}: ${item.dir}`;
         }
 
         return { directionStr, directionColor };
-    }, [item.side, item.dir, item.liquidation?.method]);
+    }, [i18n, item.side, item.dir, item.liquidation?.method]);
     const closePnlInfo = useMemo(() => {
         const closePnl = item.closedPnl;
         const closePnlBN = new BigNumber(closePnl).minus(new BigNumber(item.fee));
@@ -65,7 +71,7 @@ const TradingHistoryItemCard = memo<TradingHistoryItemCardProps>(function Tradin
                         {coinName}
                     </Text>
                     <Text color={directionInfo.directionColor} fontSize={12} lineHeight={14}>
-                        {directionInfo.directionStr}
+                        <OrderDirectionLabel direction={directionInfo.directionStr} />
                     </Text>
                 </YStack>
 
@@ -82,7 +88,7 @@ const TradingHistoryItemCard = memo<TradingHistoryItemCardProps>(function Tradin
                         {formatPrice(item.px, szDecimals)}
                     </Text>
                     <Text color="$textSubdued" fontSize={12} lineHeight={14}>
-                        Price
+                        <Trans id="rn-ui.tradingHistory.price">Price</Trans>
                     </Text>
                 </YStack>
 
@@ -91,7 +97,7 @@ const TradingHistoryItemCard = memo<TradingHistoryItemCardProps>(function Tradin
                         {item.sz} {coinName}
                     </Text>
                     <Text color="$textSubdued" fontSize={12} lineHeight={14}>
-                        Position Size
+                        <Trans id="rn-ui.tradingHistory.position-size">Position Size</Trans>
                     </Text>
                 </YStack>
 
@@ -100,7 +106,7 @@ const TradingHistoryItemCard = memo<TradingHistoryItemCardProps>(function Tradin
                         {multipliedBy(item.px, item.sz).toFormat(2)} {item.feeToken || 'USDC'}
                     </Text>
                     <Text color="$textSubdued" fontSize={12} lineHeight={14}>
-                        Trade Value
+                        <Trans id="rn-ui.tradingHistory.trade-value">Trade Value</Trans>
                     </Text>
                 </YStack>
             </XStack>
@@ -113,6 +119,7 @@ const TradingHistoryItemCard = memo<TradingHistoryItemCardProps>(function Tradin
 });
 
 export const TradingHistory = memo<TradingHistoryProps>(function TradingHistory({ walletAddress }) {
+    const { i18n } = useLingui();
     const { data, isLoading, error, refetch, isRefetching } = useQuery({
         queryKey: ['tradingHistory', walletAddress],
         enabled: !!walletAddress,
@@ -129,7 +136,7 @@ export const TradingHistory = memo<TradingHistoryProps>(function TradingHistory(
         return (
             <XStack justifyContent="center" paddingVertical={20}>
                 <Text color="$textSubdued" fontSize={12} lineHeight={14}>
-                    Wallet: --
+                    <Trans id="rn-ui.accountHistory.noWallet">Wallet: --</Trans>
                 </Text>
             </XStack>
         );
@@ -142,7 +149,7 @@ export const TradingHistory = memo<TradingHistoryProps>(function TradingHistory(
         return (
             <YStack alignItems="center" justifyContent="center" gap={8} paddingVertical={20}>
                 <Text color="$textCritical" fontSize={12} lineHeight={14}>
-                    Failed to load trading history
+                    <Trans id="rn-ui.tradingHistory.loadFailed">Failed to load trading history</Trans>
                 </Text>
                 <Button
                     unstyled
@@ -158,7 +165,7 @@ export const TradingHistory = memo<TradingHistoryProps>(function TradingHistory(
                     }}
                 >
                     <Text color="$text" fontSize={12} lineHeight={14} fontWeight={600}>
-                        {isRefetching ? 'Retrying...' : 'Retry'}
+                        {isRefetching ? i18n._('rn-ui.action.retrying') : i18n._('rn-ui.action.retry')}
                     </Text>
                 </Button>
             </YStack>
@@ -178,7 +185,7 @@ export const TradingHistory = memo<TradingHistoryProps>(function TradingHistory(
                 {error ? (
                     <YStack alignItems="center" gap={8} paddingTop={4}>
                         <Text color="$textCritical" fontSize={12} lineHeight={14}>
-                            Failed to refresh trading history
+                            <Trans id="rn-ui.tradingHistory.refreshFailed">Failed to refresh trading history</Trans>
                         </Text>
                         <Button
                             unstyled
@@ -194,7 +201,7 @@ export const TradingHistory = memo<TradingHistoryProps>(function TradingHistory(
                             }}
                         >
                             <Text color="$text" fontSize={12} lineHeight={14} fontWeight={600}>
-                                {isRefetching ? 'Retrying...' : 'Retry'}
+                                {isRefetching ? i18n._('rn-ui.action.retrying') : i18n._('rn-ui.action.retry')}
                             </Text>
                         </Button>
                     </YStack>

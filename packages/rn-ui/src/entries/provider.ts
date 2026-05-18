@@ -4,6 +4,8 @@ export { PerpsBindingsProvider } from '../components/Providers/PerpsBindingsProv
 export type { ProviderProps } from '../components/Providers/Provider';
 export { Provider } from '../components/Providers/Provider';
 export { queryClient, queryClientConfig } from '../configs/queryClient';
+export type { RnUiLocale } from '../i18n/index.js';
+export { setupRnUiI18n, SUPPORTED_LOCALES } from '../i18n/index.js';
 export { config } from '../tamagui.config.js';
 export type * from '../types/services.js';
 export type * from '../types/ui.js';

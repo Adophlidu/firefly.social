@@ -1,3 +1,4 @@
+import { Trans, useLingui } from '@lingui/react/macro';
 import { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { Button, Sheet, Text, XStack, YStack } from 'tamagui';
 
@@ -71,9 +72,10 @@ function ExistingSideRow({
     pnlLabel?: 'profit' | 'loss';
     expectedPnl?: TpslExpectedPnlResult;
 }) {
+    const { i18n } = useLingui();
     const display = formatAmount(triggerPx, 4);
     const pnlColor = expectedPnl && !expectedPnl.isNegative ? '$textSuccess' : expectedPnl ? '$textCritical' : '$text';
-    const pnlPrefix = pnlLabel === 'loss' ? 'Loss' : 'Profit';
+    const pnlPrefix = pnlLabel === 'loss' ? i18n._('rn-ui.tpsl.expectedLoss') : i18n._('rn-ui.tpsl.expectedProfit');
 
     return (
         <YStack gap={4}>
@@ -97,7 +99,7 @@ function ExistingSideRow({
                             lineHeight={18}
                             fontWeight={600}
                         >
-                            Cancel
+                            <Trans id="rn-ui.action.cancel">Cancel</Trans>
                         </Text>
                     </Button>
                 </XStack>
@@ -177,6 +179,7 @@ export const TpSlSheet = memo<TpSlSheetProps>(function TpSlSheet({
     confirmLoading = false,
     onConfirm,
 }) {
+    const { i18n } = useLingui();
     const [sheetPosition, setSheetPosition] = useState(0);
     const [tpPrice, setTpPrice] = useState(data.tpPrice);
     const [slPrice, setSlPrice] = useState(data.slPrice);
@@ -382,19 +385,19 @@ export const TpSlSheet = memo<TpSlSheetProps>(function TpSlSheet({
                 {!loading ? (
                     <>
                         <Text color="$text" fontSize={20} lineHeight={24} fontWeight={700}>
-                            TP/SL
+                            <Trans id="rn-ui.tpsl.title">TP/SL</Trans>
                         </Text>
 
                         <YStack gap={8}>
-                            <MetaRow label="Symbol" value={data.symbol} />
-                            <MetaRow label="Entry Price(USDC)" value={data.entryPrice} />
-                            <MetaRow label="Mark Price(USDC)" value={data.markPrice} />
-                            <MetaRow label="Est. Liq. Price(USDC)" value={data.estimatedLiqPrice} />
+                            <MetaRow label={i18n._('rn-ui.tpsl.symbol')} value={data.symbol} />
+                            <MetaRow label={i18n._('rn-ui.tpsl.entryPrice')} value={data.entryPrice} />
+                            <MetaRow label={i18n._('rn-ui.tpsl.markPrice')} value={data.markPrice} />
+                            <MetaRow label={i18n._('rn-ui.tpsl.estimatedLiqPrice')} value={data.estimatedLiqPrice} />
                         </YStack>
 
                         {existingTp ? (
                             <ExistingSideRow
-                                label="Take profit"
+                                label={i18n._('rn-ui.tpsl.takeProfit')}
                                 triggerPx={existingTp.triggerPx}
                                 onCancel={existingTp.onCancel}
                                 disabled={cancelLoading}
@@ -405,7 +408,7 @@ export const TpSlSheet = memo<TpSlSheetProps>(function TpSlSheet({
 
                         {existingSl ? (
                             <ExistingSideRow
-                                label="Stop loss"
+                                label={i18n._('rn-ui.tpsl.stopLoss')}
                                 triggerPx={existingSl.triggerPx}
                                 onCancel={existingSl.onCancel}
                                 disabled={cancelLoading}
@@ -436,7 +439,7 @@ export const TpSlSheet = memo<TpSlSheetProps>(function TpSlSheet({
                                                 height={32}
                                                 lineHeight={18}
                                                 fontWeight={500}
-                                                placeholder="TP Price"
+                                                placeholder={i18n._('rn-ui.tpsl.tpPricePlaceholder')}
                                                 placeholderTextColor="$textDisabled"
                                                 flex={1}
                                             />
@@ -465,7 +468,7 @@ export const TpSlSheet = memo<TpSlSheetProps>(function TpSlSheet({
                                                 height={32}
                                                 lineHeight={18}
                                                 fontWeight={500}
-                                                placeholder="SL Price"
+                                                placeholder={i18n._('rn-ui.tpsl.slPricePlaceholder')}
                                                 placeholderTextColor="$textDisabled"
                                                 flex={1}
                                             />
@@ -491,7 +494,7 @@ export const TpSlSheet = memo<TpSlSheetProps>(function TpSlSheet({
                             }}
                         >
                             <Text color="$bgHover" fontSize={16} lineHeight={24} fontWeight={700}>
-                                Confirm
+                                <Trans id="rn-ui.action.confirm">Confirm</Trans>
                             </Text>
                         </WalletActionButton>
                     </>

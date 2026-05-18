@@ -1,3 +1,4 @@
+import { Trans } from '@lingui/react/macro';
 import { useAtomValue } from 'jotai';
 import { memo } from 'react';
 import { Path, Svg } from 'react-native-svg';
@@ -116,7 +117,7 @@ export const PerpsTradeOrderBookPanel = memo<PerpsTradeOrderBookPanelProps>(func
                 {/* Funding / Countdown */}
                 <YStack>
                     <Text color="$textSubdued" fontSize={12} lineHeight={14}>
-                        Funding / Countdown
+                        <Trans id="rn-ui.PerpsTradeOrderBookPanel.fundingCountdown">Funding / Countdown</Trans>
                     </Text>
                     <XStack>
                         <Text color="$textSuccess" fontSize={12} lineHeight={14}>
@@ -132,14 +133,15 @@ export const PerpsTradeOrderBookPanel = memo<PerpsTradeOrderBookPanelProps>(func
                 <XStack alignItems="center" gap={4}>
                     <YStack flex={1}>
                         <Text color="$textSubdued" fontSize={12} lineHeight={14}>
-                            Price
+                            <Trans id="rn-ui.PerpsTradeOrderBookPanel.price">Price</Trans>
                         </Text>
                         <Text color="$textSubdued" fontSize={12} lineHeight={14}>
                             (USDC)
                         </Text>
                     </YStack>
                     <Text flex={1} color="$textSubdued" fontSize={12} lineHeight={14} textAlign="right">
-                        {`Amount\n(${formatCoinName(coinName)})`}
+                        <Trans id="rn-ui.PerpsTradeOrderBookPanel.amount">Amount</Trans>
+                        {`\n(${formatCoinName(coinName)})`}
                     </Text>
                 </XStack>
 

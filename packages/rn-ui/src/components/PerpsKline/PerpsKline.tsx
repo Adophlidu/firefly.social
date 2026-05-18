@@ -1,3 +1,4 @@
+import { Trans, useLingui } from '@lingui/react/macro';
 import { useAtomValue } from 'jotai';
 import { memo, useMemo } from 'react';
 import { Platform } from 'react-native';
@@ -16,6 +17,7 @@ export interface PerpsKlineProps {
 }
 
 export const PerpsKline = memo<PerpsKlineProps>(function PerpsKline({ coin, onInteractionEnd, onInteractionStart }) {
+    const { i18n } = useLingui();
     const walletAddress = useAtomValue(walletAddressAtom);
     const { build } = useAtomValue(perpsKlineChartUrlBuilderAtom);
     const src = useMemo(() => build(coin, walletAddress), [build, coin, walletAddress]);
@@ -31,7 +33,7 @@ export const PerpsKline = memo<PerpsKlineProps>(function PerpsKline({ coin, onIn
                 alignItems="center"
             >
                 <Text color="$textSubdued" fontSize={12}>
-                    Chart URL not configured
+                    <Trans id="rn-ui.kline.urlNotConfigured">Chart URL not configured</Trans>
                 </Text>
             </YStack>
         );
@@ -42,7 +44,7 @@ export const PerpsKline = memo<PerpsKlineProps>(function PerpsKline({ coin, onIn
             {Platform.OS === 'web' ? (
                 <iframe
                     src={src}
-                    title="Perp K-line"
+                    title={i18n._('rn-ui.kline.title')}
                     style={{
                         width: '100%',
                         height: '100%',

@@ -1,3 +1,4 @@
+import { Trans, useLingui } from '@lingui/react/macro';
 import { memo, type ReactNode, useCallback, useEffect, useState } from 'react';
 import { Path, Svg } from 'react-native-svg';
 import { Button, Sheet, Slider, Text, useTheme, XStack, YStack } from 'tamagui';
@@ -61,11 +62,12 @@ function ControlButton({ children, onPress }: { children: ReactNode; onPress: ()
     );
 }
 
-function getNodes(name: string, maxLeverage: number) {
+type I18n = ReturnType<typeof useLingui>['i18n'];
+
+function getNodes(i18n: I18n, name: string, maxLeverage: number) {
     return [
-        `Control the leverage used for ${name} positions. The maximum leverage is ${maxLeverage}x.`,
-        // 'Maximum position at current leverage: 150,000,000 USDC.',
-        'Max position size decreases the higher your leverage.',
+        i18n._('rn-ui.leverage.note.controlMax', { name, maxLeverage }),
+        i18n._('rn-ui.leverage.note.sizeDecreases'),
     ];
 }
 
@@ -80,6 +82,7 @@ export const LeverageSheet = memo<LeverageSheetProps>(function LeverageSheet({
     onOpenChange,
     onConfirm,
 }) {
+    const { i18n } = useLingui();
     const [position, setPosition] = useState(0);
     const [leverage, setLeverage] = useState(current);
 
@@ -136,7 +139,7 @@ export const LeverageSheet = memo<LeverageSheetProps>(function LeverageSheet({
                 <YStack width="100%">
                     <XStack width="100%" alignItems="center" justifyContent="space-between" paddingTop={12}>
                         <Text color="$text" fontSize={20} lineHeight={24} fontWeight={700} fontFamily="$body">
-                            Adjust Leverage
+                            <Trans id="rn-ui.leverage.title">Adjust Leverage</Trans>
                         </Text>
                         <YStack width={24} height={24} />
                     </XStack>
@@ -191,7 +194,7 @@ export const LeverageSheet = memo<LeverageSheetProps>(function LeverageSheet({
                 </YStack>
 
                 <YStack gap={4}>
-                    {getNodes(coinName, max).map((note) => (
+                    {getNodes(i18n, coinName, max).map((note) => (
                         <XStack key={note} alignItems="flex-start" gap={6}>
                             <Text color="$textSubdued" fontSize={13} lineHeight={17} fontWeight={500}>
                                 •
@@ -215,7 +218,7 @@ export const LeverageSheet = memo<LeverageSheetProps>(function LeverageSheet({
                     onPress={handleChange}
                 >
                     <Text color="$bgHover" fontSize={16} lineHeight={24} fontWeight={700}>
-                        Confirm
+                        <Trans id="rn-ui.action.confirm">Confirm</Trans>
                     </Text>
                 </WalletActionButton>
             </Sheet.Frame>

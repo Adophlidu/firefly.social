@@ -1,3 +1,5 @@
+import { Trans } from '@lingui/react/macro';
+import type { ReactNode } from 'react';
 import { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { Path, Svg } from 'react-native-svg';
 import { Button, Sheet, Text, useTheme, XStack, YStack } from 'tamagui';
@@ -14,21 +16,6 @@ interface MarginModeSheetProps {
     onOpenChange: (open: boolean) => void;
     onConfirm?: (mode: TradeMarginMode) => void;
 }
-
-const MODE_OPTIONS = [
-    {
-        mode: TradeMarginMode.CROSS,
-        title: 'Cross',
-        description:
-            'All cross positions share the same cross margin as collateral. In the event of liquidation, your cross margin balance and any remaining open positions under assets in this mode may be forfeited.',
-    },
-    {
-        mode: TradeMarginMode.ISOLATED,
-        title: 'Isolated',
-        description:
-            'Manage your risk on individual positions by restricting the amount of margin allocated to each. lf the margin ratio of an isolated position reaches 100%, the position will be liquidated. Margin can be added or removed to individual positions in this mode.',
-    },
-];
 
 function SelectedIcon() {
     const theme = useTheme();
@@ -69,8 +56,8 @@ function OptionCard({
     onPress,
 }: {
     selected: boolean;
-    title: string;
-    description: string;
+    title: ReactNode;
+    description: ReactNode;
     onPress: () => void;
 }) {
     return (
@@ -109,6 +96,35 @@ export const MarginModeSheet = memo<MarginModeSheetProps>(function MarginModeShe
     const [position, setPosition] = useState(0);
     const [selectedMode, setSelectedMode] = useState<TradeMarginMode>(mode);
 
+    const MODE_OPTIONS = useMemo(
+        () =>
+            [
+                {
+                    mode: TradeMarginMode.CROSS,
+                    titleId: <Trans id="rn-ui.marginMode.cross.title">Cross</Trans>,
+                    descriptionId: (
+                        <Trans id="rn-ui.marginMode.cross.description">
+                            All cross positions share the same cross margin as collateral. In the event of liquidation,
+                            your cross margin balance and any remaining open positions under assets in this mode may be
+                            forfeited.
+                        </Trans>
+                    ),
+                },
+                {
+                    mode: TradeMarginMode.ISOLATED,
+                    titleId: <Trans id="rn-ui.marginMode.isolated.title">Isolated</Trans>,
+                    descriptionId: (
+                        <Trans id="rn-ui.marginMode.isolated.description">
+                            Manage your risk on individual positions by restricting the amount of margin allocated to
+                            each. lf the margin ratio of an isolated position reaches 100%, the position will be
+                            liquidated. Margin can be added or removed to individual positions in this mode.
+                        </Trans>
+                    ),
+                },
+            ] as const,
+        [],
+    );
+
     useEffect(() => {
         setSelectedMode(mode);
     }, [mode, open]);
@@ -121,7 +137,7 @@ export const MarginModeSheet = memo<MarginModeSheetProps>(function MarginModeShe
 
     const options = useMemo(
         () => (disableCross ? MODE_OPTIONS.filter((option) => option.mode !== TradeMarginMode.CROSS) : MODE_OPTIONS),
-        [disableCross],
+        [disableCross, MODE_OPTIONS],
     );
 
     return (
@@ -160,7 +176,7 @@ export const MarginModeSheet = memo<MarginModeSheetProps>(function MarginModeShe
                 <SheetDragHandle />
 
                 <Text color="$text" fontSize={20} lineHeight={24} fontWeight={700} fontFamily="$body">
-                    Margin Mode
+                    <Trans id="rn-ui.marginMode.title">Margin Mode</Trans>
                 </Text>
 
                 <YStack gap={12}>
@@ -168,8 +184,8 @@ export const MarginModeSheet = memo<MarginModeSheetProps>(function MarginModeShe
                         <OptionCard
                             key={option.mode}
                             selected={selectedMode === option.mode}
-                            title={option.title}
-                            description={option.description}
+                            title={option.titleId}
+                            description={option.descriptionId}
                             onPress={() => setSelectedMode(option.mode)}
                         />
                     ))}
@@ -187,7 +203,7 @@ export const MarginModeSheet = memo<MarginModeSheetProps>(function MarginModeShe
                     onPress={handleChange}
                 >
                     <Text color="$bgHover" fontSize={16} lineHeight={24} fontWeight={700}>
-                        Confirm
+                        <Trans id="rn-ui.action.confirm">Confirm</Trans>
                     </Text>
                 </WalletActionButton>
             </Sheet.Frame>

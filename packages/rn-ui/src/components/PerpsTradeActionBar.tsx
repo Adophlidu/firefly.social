@@ -1,3 +1,4 @@
+import { Trans } from '@lingui/react/macro';
 import { memo, useCallback } from 'react';
 import { Button, Text, XStack } from 'tamagui';
 
@@ -30,7 +31,7 @@ export const PerpsTradeActionBar = memo<PerpsTradeActionBarProps>(function Perps
                 onPress={goToTrade}
             >
                 <Text color="$bg" fontSize={16} lineHeight={24} fontWeight={700}>
-                    Buy/Long
+                    <Trans id="rn-ui.trade-form.buy-long">Buy/Long</Trans>
                 </Text>
             </Button>
             <Button
@@ -49,7 +50,7 @@ export const PerpsTradeActionBar = memo<PerpsTradeActionBarProps>(function Perps
                 onPress={goToTrade}
             >
                 <Text color="$bg" fontSize={16} lineHeight={24} fontWeight={700}>
-                    Sell/Short
+                    <Trans id="rn-ui.trade-form.sell-short">Sell/Short</Trans>
                 </Text>
             </Button>
         </XStack>

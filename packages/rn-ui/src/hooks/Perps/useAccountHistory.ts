@@ -1,3 +1,4 @@
+import { useLingui } from '@lingui/react/macro';
 import type { UserNonFundingLedgerUpdatesResponse } from '@nktkas/hyperliquid/api/info';
 import { useQuery } from '@tanstack/react-query';
 import { BigNumber } from 'bignumber.js';
@@ -7,6 +8,7 @@ import { infoClient } from '@/providers/client';
 import type { AccountHistoryItem } from '@/types/ui';
 
 type NonFundingLedgerUpdate = UserNonFundingLedgerUpdatesResponse[number];
+type I18n = ReturnType<typeof useLingui>['i18n'];
 
 interface UseAccountHistoryParams {
     walletAddress?: string;
@@ -26,47 +28,45 @@ function formatAmount(value?: string, positive = true) {
     return `${prefix}$${formatNumericAmount(safeValue)}`;
 }
 
-function formatTimeAgo(time: number) {
+function formatTimeAgo(i18n: I18n, time: number) {
     const diffMs = Math.max(Date.now() - time, 0);
-    const diffMinutes = Math.floor(diffMs / (1000 * 60));
-    if (diffMinutes < 1) return 'just now';
-    if (diffMinutes < 60) return `${diffMinutes} minute${diffMinutes > 1 ? 's' : ''} ago`;
+    const diffMinutes = Math.floor(diffMs / 60_000);
+    if (diffMinutes < 1) return i18n._('rn-ui.accountHistory.justNow');
+    if (diffMinutes < 60) return i18n._('rn-ui.accountHistory.minutesAgo', { count: diffMinutes });
 
     const diffHours = Math.floor(diffMinutes / 60);
-    if (diffHours < 24) return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
+    if (diffHours < 24) return i18n._('rn-ui.accountHistory.hoursAgo', { count: diffHours });
 
     const diffDays = Math.floor(diffHours / 24);
-    return `${diffDays} day${diffDays > 1 ? 's' : ''} ago`;
+    return i18n._('rn-ui.accountHistory.daysAgo', { count: diffDays });
 }
 
-function getDisplayTitle(type: NonFundingLedgerUpdate['delta']['type'], positive: boolean) {
+function getDisplayTitle(i18n: I18n, type: NonFundingLedgerUpdate['delta']['type'], positive: boolean) {
     switch (type) {
         case 'deposit':
-            return 'Deposit';
+            return i18n._('rn-ui.accountHistory.deposit');
         case 'withdraw':
-            return 'Withdraw';
+            return i18n._('rn-ui.accountHistory.withdraw');
         case 'accountClassTransfer':
-            return 'Account Transfer';
+            return i18n._('rn-ui.accountHistory.accountTransfer');
         case 'internalTransfer':
-            return positive ? 'Receive' : 'Send';
         case 'subAccountTransfer':
-            return positive ? 'Receive' : 'Send';
         case 'spotTransfer':
-            return positive ? 'Receive' : 'Send';
+            return positive ? i18n._('rn-ui.accountHistory.receive') : i18n._('rn-ui.accountHistory.send');
         case 'vaultDeposit':
-            return 'Vault Deposit';
+            return i18n._('rn-ui.accountHistory.vaultDeposit');
         case 'vaultWithdraw':
-            return 'Vault Withdraw';
+            return i18n._('rn-ui.accountHistory.vaultWithdraw');
         case 'vaultDistribution':
-            return 'Vault Distribution';
+            return i18n._('rn-ui.accountHistory.vaultDistribution');
         case 'liquidation':
-            return 'Liquidation';
+            return i18n._('rn-ui.accountHistory.liquidation');
         case 'rewardsClaim':
-            return 'Rewards Claim';
+            return i18n._('rn-ui.accountHistory.rewardsClaim');
         case 'send':
-            return positive ? 'Receive' : 'Send';
+            return positive ? i18n._('rn-ui.accountHistory.receive') : i18n._('rn-ui.accountHistory.send');
         default:
-            return 'Account Update';
+            return i18n._('rn-ui.accountHistory.accountUpdate');
     }
 }
 
@@ -117,7 +117,11 @@ function isPositiveUpdate(update: NonFundingLedgerUpdate, walletAddress?: string
     return !NEGATIVE_TYPES.has(delta.type);
 }
 
-function mapToAccountHistoryItem(update: NonFundingLedgerUpdate, walletAddress?: string): AccountHistoryItem {
+function mapToAccountHistoryItem(
+    i18n: I18n,
+    update: NonFundingLedgerUpdate,
+    walletAddress?: string,
+): AccountHistoryItem {
     const positive = isPositiveUpdate(update, walletAddress);
     const delta = update.delta;
     let amountValue = getAmountValue(update);
@@ -135,15 +139,16 @@ function mapToAccountHistoryItem(update: NonFundingLedgerUpdate, walletAddress?:
     return {
         id: `${update.hash}-${update.time}`,
         type: positive ? 'addFunds' : 'withdraw',
-        title: getDisplayTitle(update.delta.type, positive),
-        timeAgo: formatTimeAgo(update.time),
+        title: getDisplayTitle(i18n, update.delta.type, positive),
+        timeAgo: formatTimeAgo(i18n, update.time),
         amount: formatAmount(amountValue, positive),
     };
 }
 
 export function useAccountHistory({ walletAddress }: UseAccountHistoryParams) {
+    const { i18n } = useLingui();
     return useQuery({
-        queryKey: ['accountHistory', walletAddress],
+        queryKey: ['accountHistory', walletAddress, i18n.locale],
         enabled: Boolean(walletAddress),
         queryFn: async () => {
             if (!walletAddress) return [];
@@ -158,7 +163,7 @@ export function useAccountHistory({ walletAddress }: UseAccountHistoryParams) {
                     return arr.findIndex((item) => item.hash === update.hash) === index;
                 });
 
-            return dedupedByHash.map((update) => mapToAccountHistoryItem(update, walletAddress));
+            return dedupedByHash.map((update) => mapToAccountHistoryItem(i18n, update, walletAddress));
         },
     });
 }

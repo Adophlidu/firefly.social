@@ -31,8 +31,10 @@ export default defineConfig([
         'apps/**/public/**',
         'apps/**/setups/**',
         'apps/**/scripts/**',
+        'packages/**/scripts/**',
         'apps/**/src/polyfills',
         'apps/**/src/locales/**',
+        'packages/**/src/locales/**',
         'workers/**/dist/**',
         '*.config.ts',
         '**/*.config.js',
@@ -121,6 +123,32 @@ export default defineConfig([
         files: ['packages/**/*.{ts,tsx,js,jsx,mjs,cjs}', 'apps/web/src/services/**/*.{ts,tsx,js,jsx,mjs,cjs}'],
         rules: {
             'no-console': 'off',
+        },
+    },
+    {
+        // rn-ui owns an instance-scoped Lingui i18n (never touches the
+        // @lingui/core global). The bare `t` macro from @lingui/core/macro
+        // compiles to a global-i18n call, which would race with the
+        // consumer app's own Lingui instance. Only `<Trans>` (and friends)
+        // from @lingui/react/macro and `useLingui()` from @lingui/react
+        // are safe inside rn-ui — they read the I18nContext that rn-ui's
+        // Provider wraps its subtree with. See design doc P4 + premise
+        // checks in dudu-feat-rn-ui-i18n-design-*.md.
+        files: ['packages/rn-ui/src/**/*.{ts,tsx,js,jsx}'],
+        rules: {
+            'no-restricted-imports': [
+                'error',
+                {
+                    paths: [
+                        {
+                            name: '@lingui/core/macro',
+                            importNames: ['t'],
+                            message:
+                                'rn-ui uses an instance-scoped i18n. Use <Trans> or <Plural> from @lingui/react/macro for JSX, or `useLingui().i18n._(...)` from @lingui/react for non-JSX. The bare `t` macro compiles to global-i18n calls and would race with the consumer app.',
+                        },
+                    ],
+                },
+            ],
         },
     },
     {

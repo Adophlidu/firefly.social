@@ -1,3 +1,4 @@
+import { Trans } from '@lingui/react/macro';
 import { BigNumber } from 'bignumber.js';
 import { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { Button, Sheet, Slider, Text, XStack, YStack } from 'tamagui';
@@ -123,7 +124,11 @@ export const LimitCloseSheet = memo<LimitCloseSheetProps>(function LimitCloseShe
                 <YStack width="100%">
                     <XStack width="100%" alignItems="center" justifyContent="space-between" paddingTop={12}>
                         <Text color="$text" fontSize={20} lineHeight={24} fontWeight={700} fontFamily="$body">
-                            {type === 'limit' ? 'Limit Close' : 'Market Close'}
+                            {type === 'limit' ? (
+                                <Trans id="rn-ui.position.limitClose">Limit Close</Trans>
+                            ) : (
+                                <Trans id="rn-ui.position.marketClose">Market Close</Trans>
+                            )}
                         </Text>
                         <YStack width={24} height={24} />
                     </XStack>
@@ -133,7 +138,7 @@ export const LimitCloseSheet = memo<LimitCloseSheetProps>(function LimitCloseShe
                     <XStack alignItems="center" gap="$2">
                         <CoinAvatar name={coinName} size={30} />
                         <Text color="$text" fontSize={14} fontWeight={600}>
-                            Current Price
+                            <Trans id="rn-ui.closePosition.currentPrice">Current Price</Trans>
                         </Text>
                     </XStack>
 
@@ -146,7 +151,7 @@ export const LimitCloseSheet = memo<LimitCloseSheetProps>(function LimitCloseShe
                 {type === 'limit' ? (
                     <XStack width="100%" alignItems="center" justifyContent="space-between" gap="$2">
                         <Text fontSize={13} fontWeight={500} color="$textSubdued">
-                            Price(USDC)
+                            <Trans id="rn-ui.limitClose.priceUsdc">Price(USDC)</Trans>
                         </Text>
                         <XStack
                             width={200}
@@ -175,7 +180,7 @@ export const LimitCloseSheet = memo<LimitCloseSheetProps>(function LimitCloseShe
                                     }}
                                 >
                                     <Text fontSize={14} fontWeight={500} color="$accent">
-                                        Mid
+                                        <Trans id="rn-ui.limitClose.mid">Mid</Trans>
                                     </Text>
                                 </Button>
                             ) : null}
@@ -186,7 +191,7 @@ export const LimitCloseSheet = memo<LimitCloseSheetProps>(function LimitCloseShe
                 {/* amount input */}
                 <XStack width="100%" alignItems="center" justifyContent="space-between" gap="$2">
                     <Text fontSize={13} fontWeight={500} color="$textSubdued">
-                        Amount({formatCoinName(coinName)})
+                        <Trans id="rn-ui.limitClose.amount">Amount({formatCoinName(coinName)})</Trans>
                     </Text>
                     <XStack
                         width={200}
@@ -237,7 +242,7 @@ export const LimitCloseSheet = memo<LimitCloseSheetProps>(function LimitCloseShe
 
                 <XStack width="100" alignItems="center" justifyContent="space-between">
                     <Text fontSize={13} fontWeight={500} color="$textSubdued">
-                        Size
+                        <Trans id="rn-ui.openOrder.size">Size</Trans>
                     </Text>
                     <Text fontSize={14} fontWeight={500} color="$text">
                         {newSize} {formatCoinName(coinName)}
@@ -246,7 +251,7 @@ export const LimitCloseSheet = memo<LimitCloseSheetProps>(function LimitCloseShe
 
                 <XStack width="100" alignItems="center" justifyContent="space-between">
                     <Text fontSize={13} fontWeight={500} color="$textSubdued">
-                        Est. Closed PnL
+                        <Trans id="rn-ui.closePosition.estClosedPnl">Est. Closed PnL</Trans>
                     </Text>
                     <Text fontSize={14} fontWeight={500} color={winColor}>
                         {winInUsdc || '--'} USDC
@@ -266,7 +271,7 @@ export const LimitCloseSheet = memo<LimitCloseSheetProps>(function LimitCloseShe
                         onPress={() => onOpenChange(false)}
                     >
                         <Text fontSize={16} fontWeight={700} color="$text">
-                            Cancel
+                            <Trans id="rn-ui.action.cancel">Cancel</Trans>
                         </Text>
                     </Button>
                     <ButtonUI
@@ -284,7 +289,7 @@ export const LimitCloseSheet = memo<LimitCloseSheetProps>(function LimitCloseShe
                         }}
                     >
                         <Text fontSize={16} fontWeight={700} color="$bgHover">
-                            Close
+                            <Trans id="rn-ui.closePosition.confirm">Close</Trans>
                         </Text>
                     </ButtonUI>
                 </XStack>

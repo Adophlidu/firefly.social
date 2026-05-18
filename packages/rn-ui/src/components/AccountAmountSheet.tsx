@@ -1,3 +1,4 @@
+import { Trans, useLingui } from '@lingui/react/macro';
 import { memo, useState } from 'react';
 import { Path, Svg } from 'react-native-svg';
 import { Button, Sheet, Text, useTheme, XStack, YStack } from 'tamagui';
@@ -86,6 +87,7 @@ export const AccountAmountSheet = memo<AccountAmountSheetProps>(function Account
     onOpenChange,
     loading = false,
 }) {
+    const { i18n } = useLingui();
     const [position, setPosition] = useState(0);
     const { accountValue, withdrawable, isLoading, error, refetch } = usePerpsComputedAccountValue();
 
@@ -142,7 +144,7 @@ export const AccountAmountSheet = memo<AccountAmountSheetProps>(function Account
                     <YStack width="100%" gap={32}>
                         <XStack width="100%" alignItems="center" justifyContent="space-between" paddingTop={12}>
                             <Text color="$text" fontSize={20} lineHeight={24} fontWeight={700} fontFamily="$body">
-                                Portfolio
+                                <Trans id="rn-ui.accountAmount.portfolio">Portfolio</Trans>
                             </Text>
                             <YStack width={24} height={24} />
                         </XStack>
@@ -163,7 +165,7 @@ export const AccountAmountSheet = memo<AccountAmountSheetProps>(function Account
                             </XStack>
 
                             <Text color="$textSubdued" fontSize={13} lineHeight={17} fontWeight={400}>
-                                Available: {availableDisplay}
+                                <Trans id="rn-ui.accountAmount.available">Available: {availableDisplay}</Trans>
                             </Text>
                         </YStack>
 
@@ -185,15 +187,23 @@ export const AccountAmountSheet = memo<AccountAmountSheetProps>(function Account
                                     }}
                                 >
                                     <Text color="$text" fontSize={12} lineHeight={14} fontWeight={600}>
-                                        Retry
+                                        <Trans id="rn-ui.action.retry">Retry</Trans>
                                     </Text>
                                 </Button>
                             </YStack>
                         ) : null}
 
                         <XStack width="100%" alignItems="center" justifyContent="center" gap={16}>
-                            <ActionButton action="withdraw" label="Withdraw" onPress={handleAction} />
-                            <ActionButton action="addFunds" label="Add Funds" onPress={handleAction} />
+                            <ActionButton
+                                action="withdraw"
+                                label={i18n._('rn-ui.accountAmount.withdraw')}
+                                onPress={handleAction}
+                            />
+                            <ActionButton
+                                action="addFunds"
+                                label={i18n._('rn-ui.accountAmount.addFunds')}
+                                onPress={handleAction}
+                            />
                         </XStack>
                     </YStack>
                 )}

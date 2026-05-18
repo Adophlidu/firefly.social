@@ -1,3 +1,4 @@
+import { useLingui } from '@lingui/react/macro';
 import { useQueryClient } from '@tanstack/react-query';
 import { BigNumber } from 'bignumber.js';
 import { useAtomValue } from 'jotai';
@@ -18,6 +19,7 @@ import type { Position } from '@/types/ui';
  * Market-close every position in one batch (same order shape as `useClosePosition` market path).
  */
 export function useMarketCloseAllPositions() {
+    const { i18n } = useLingui();
     const exchangeClient = useAtomValue(exchangeClientAtom);
     const queryClient = useQueryClient();
     const allDexsAssetCtxs = useAtomValue(allDexsAssetCtxsAtom);
@@ -117,23 +119,26 @@ export function useMarketCloseAllPositions() {
 
                 if (errors.length) {
                     toast({
-                        message: `Some positions closed; skipped: ${errors.join('; ')}`,
+                        message: i18n._('rn-ui.marketCloseAll.partial', { details: errors.join('; ') }),
                         type: 'info',
                     });
                 } else {
                     toast({
-                        message: positions.length > 1 ? 'Positions closed at market' : 'Position closed at market',
+                        message:
+                            positions.length > 1
+                                ? i18n._('rn-ui.marketCloseAll.successMany')
+                                : i18n._('rn-ui.marketCloseAll.successOne'),
                         type: 'success',
                     });
                 }
             } catch (error) {
                 toast({
-                    message: error instanceof Error ? error.message : 'Failed to close positions',
+                    message: error instanceof Error ? error.message : i18n._('rn-ui.marketCloseAll.failure'),
                     type: 'error',
                     error,
                 });
             }
         },
-        [exchangeClient, queryClient, allDexsAssetCtxs],
+        [exchangeClient, i18n, queryClient, allDexsAssetCtxs],
     );
 }

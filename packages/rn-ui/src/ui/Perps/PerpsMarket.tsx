@@ -1,3 +1,4 @@
+import { Trans, useLingui } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { memo, useEffect, useMemo, useState } from 'react';
 import { Text, XStack, YStack } from 'tamagui';
@@ -17,14 +18,18 @@ export interface PerpsMarketProps {
 }
 
 export const PerpsMarket = memo<PerpsMarketProps>(function PerpsMarket({ onMarketSelect }) {
+    const { i18n } = useLingui();
     const [search, setSearch] = useState('');
     const [activeTab, setActiveTab] = useState('');
     const [activeSort, setActiveSort] = useState<PerpsMarketSort>('volume');
-    const [sortOptions] = useState<PerpsMarketSortItem[]>([
-        { label: 'Volume', value: 'volume' },
-        { label: 'Price Change', value: 'priceChange' },
-        { label: 'Open Interest', value: 'openInterest' },
-    ]);
+    const sortOptions = useMemo<PerpsMarketSortItem[]>(
+        () => [
+            { label: i18n._('rn-ui.perpsMarket.sort.volume'), value: 'volume' },
+            { label: i18n._('rn-ui.perpsMarket.sort.priceChange'), value: 'priceChange' },
+            { label: i18n._('rn-ui.perpsMarket.sort.openInterest'), value: 'openInterest' },
+        ],
+        [i18n],
+    );
 
     const { data, isLoading } = useQuery({
         queryKey: ['perps', 'categories'],
@@ -40,15 +45,15 @@ export const PerpsMarket = memo<PerpsMarketProps>(function PerpsMarket({ onMarke
 
     const categories = useMemo(
         () => [
-            { label: 'Favorites', value: 'favorites' },
+            { label: i18n._('rn-ui.perpsMarket.category.favorites'), value: 'favorites' },
             ...(!data?.length
-                ? [{ label: 'All', value: 'all' }]
+                ? [{ label: i18n._('rn-ui.perpsMarket.category.all'), value: 'all' }]
                 : data.map((category) => ({
                       label: category.display_name,
                       value: category.name,
                   }))),
         ],
-        [data],
+        [data, i18n],
     );
 
     useEffect(() => {
@@ -89,7 +94,7 @@ export const PerpsMarket = memo<PerpsMarketProps>(function PerpsMarket({ onMarke
         <YStack height="100%" minHeight={0} backgroundColor="$bg">
             <YStack flexShrink={0} alignItems="center" gap={8} paddingTop={12} paddingBottom={10}>
                 <Text color="$text" fontSize={20} lineHeight={24} fontWeight={600}>
-                    Perps
+                    <Trans id="rn-ui.perpsMarket.title">Perps</Trans>
                 </Text>
             </YStack>
 

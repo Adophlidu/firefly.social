@@ -1,3 +1,4 @@
+import { useLingui } from '@lingui/react/macro';
 import { memo, useCallback, useState } from 'react';
 import { ScrollView, YStack } from 'tamagui';
 
@@ -16,6 +17,7 @@ export interface PerpsMarketDetailProps {
 }
 
 export const PerpsMarketDetail = memo<PerpsMarketDetailProps>(function PerpsMarketDetail({ coin }) {
+    const { i18n } = useLingui();
     const [currentCoin, setCurrentCoin] = useState(coin);
     const [isTokenSelectorOpen, setTokenSelectorOpen] = useState(false);
     const [isKlineInteracting, setKlineInteracting] = useState(false);
@@ -46,7 +48,7 @@ export const PerpsMarketDetail = memo<PerpsMarketDetailProps>(function PerpsMark
                 <PerpsDetailTopBar
                     symbol={coinInfo.name}
                     leverage={`${coinInfo.maxLeverage}`}
-                    marketType={coinInfo.dex || 'Perp'}
+                    marketType={coinInfo.dex || i18n._('rn-ui.market.perpType')}
                     onOpenSelector={onOpenSelector}
                 />
             </YStack>

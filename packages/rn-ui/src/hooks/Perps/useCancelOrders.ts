@@ -1,3 +1,4 @@
+import { useLingui } from '@lingui/react/macro';
 import type { ExchangeClient } from '@nktkas/hyperliquid';
 import type { QueryClient } from '@tanstack/react-query';
 import { useQueryClient } from '@tanstack/react-query';
@@ -15,11 +16,27 @@ export interface PerpOrderCancelId {
     coin: string;
 }
 
+/**
+ * Optional translator. When provided, the helper emits translated toast copy
+ * matching the consumer's active locale. When omitted, falls back to source
+ * English so non-component (test/script) callers still work.
+ */
+export interface RunCancelToastCopy {
+    success: { one: string; many: string };
+    failure: { one: string; many: string };
+}
+
+const DEFAULT_CANCEL_COPY: RunCancelToastCopy = {
+    success: { one: 'Order cancelled', many: 'Orders cancelled' },
+    failure: { one: 'Failed to cancel order', many: 'Failed to cancel orders' },
+};
+
 /** Imperative cancel (e.g. Clear-all snapshot); same behavior as `useCancelOrders` no-arg call. */
 export async function runCancelPerpOpenOrders(
     queryClient: QueryClient,
     exchangeClient: ExchangeClient,
     orderIds: PerpOrderCancelId[],
+    copy: RunCancelToastCopy = DEFAULT_CANCEL_COPY,
 ): Promise<void> {
     if (!orderIds.length) return;
 
@@ -46,12 +63,13 @@ export async function runCancelPerpOpenOrders(
 
     await exchangeClient.cancel({ cancels });
     toast({
-        message: orderIds.length > 1 ? 'Orders cancelled' : 'Order cancelled',
+        message: orderIds.length > 1 ? copy.success.many : copy.success.one,
         type: 'success',
     });
 }
 
 export function useCancelOrders(orderIds: PerpOrderCancelId[]) {
+    const { i18n } = useLingui();
     const exchangeClient = useAtomValue(exchangeClientAtom);
     const queryClient = useQueryClient();
 
@@ -60,18 +78,27 @@ export function useCancelOrders(orderIds: PerpOrderCancelId[]) {
             if (!exchangeClient) {
                 throw new Error('Exchange client not initialized');
             }
-            await runCancelPerpOpenOrders(queryClient, exchangeClient, orderIds);
+            await runCancelPerpOpenOrders(queryClient, exchangeClient, orderIds, {
+                success: {
+                    one: i18n._('rn-ui.cancelOrders.successOne'),
+                    many: i18n._('rn-ui.cancelOrders.successMany'),
+                },
+                failure: {
+                    one: i18n._('rn-ui.cancelOrders.failureOne'),
+                    many: i18n._('rn-ui.cancelOrders.failureMany'),
+                },
+            });
         } catch (error) {
             toast({
                 message:
                     error instanceof Error
                         ? error.message
                         : orderIds.length > 1
-                          ? 'Failed to cancel orders'
-                          : 'Failed to cancel order',
+                          ? i18n._('rn-ui.cancelOrders.failureMany')
+                          : i18n._('rn-ui.cancelOrders.failureOne'),
                 type: 'error',
                 error,
             });
         }
-    }, [orderIds, exchangeClient, queryClient]);
+    }, [i18n, orderIds, exchangeClient, queryClient]);
 }

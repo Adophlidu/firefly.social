@@ -1,3 +1,4 @@
+import { Trans, useLingui } from '@lingui/react/macro';
 import { useAtomValue } from 'jotai';
 import { memo, useMemo, useState } from 'react';
 import { Button, Text, XStack, YStack, type YStackProps } from 'tamagui';
@@ -20,16 +21,17 @@ export const TradesHistory = memo<TradesHistoryProps>(function TradesHistory({
     onTabChange,
     ...rest
 }) {
+    const { i18n } = useLingui();
     const walletAddress = useAtomValue(walletAddressAtom);
     const [tab, setTab] = useState<TradesHistoryTab>(defaultTab);
     const [accountVisited, setAccountVisited] = useState(defaultTab === 'account');
 
     const tabs = useMemo(
         () => [
-            { value: 'trading' as const, label: 'Trading history' },
-            { value: 'account' as const, label: 'Account history' },
+            { value: 'trading' as const, label: i18n._('rn-ui.tradesHistory.tabs.trading') },
+            { value: 'account' as const, label: i18n._('rn-ui.tradesHistory.tabs.account') },
         ],
-        [],
+        [i18n],
     );
 
     return (
@@ -54,7 +56,7 @@ export const TradesHistory = memo<TradesHistoryProps>(function TradesHistory({
                     icon={<BackIcon width={24} height={24} />}
                 />
                 <Text color="$text" fontSize={20} lineHeight={24} fontWeight={600}>
-                    My trades
+                    <Trans id="rn-ui.tradesHistory.title">My trades</Trans>
                 </Text>
                 <XStack width={24} height={24} />
             </XStack>

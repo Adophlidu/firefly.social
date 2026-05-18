@@ -1,3 +1,4 @@
+import { Trans } from '@lingui/react/macro';
 import { memo, useCallback } from 'react';
 import type { NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
 import { ScrollView, Text, XStack, YStack } from 'tamagui';
@@ -62,7 +63,7 @@ export const PerpsMarketList = memo<PerpsMarketListProps>(function PerpsMarketLi
 
                 {!loading && !error && items.length === 0 ? (
                     <XStack justifyContent="center" paddingTop={4}>
-                        <NoDataFallback message="No markets found" hideButton />
+                        <NoDataFallback message={<Trans id="rn-ui.market.empty">No markets found</Trans>} hideButton />
                     </XStack>
                 ) : null}
 

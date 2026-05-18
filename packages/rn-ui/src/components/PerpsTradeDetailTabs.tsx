@@ -1,3 +1,4 @@
+import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 import { Path, Svg } from 'react-native-svg';
 import { Button, Text, useTheme, XStack } from 'tamagui';
@@ -58,7 +59,7 @@ export const PerpsTradeDetailTabs = memo<PerpsTradeDetailTabsProps>(function Per
                         fontWeight={600}
                         fontFamily="$body"
                     >
-                        Positions({positionsCount})
+                        <Trans id="rn-ui.trade-detail.positions">Positions({positionsCount})</Trans>
                     </Text>
                 </Button>
                 <Button
@@ -79,7 +80,7 @@ export const PerpsTradeDetailTabs = memo<PerpsTradeDetailTabsProps>(function Per
                         fontWeight={600}
                         fontFamily="$body"
                     >
-                        Orders({ordersCount})
+                        <Trans id="rn-ui.trade-detail.orders">Orders({ordersCount})</Trans>
                     </Text>
                 </Button>
             </XStack>

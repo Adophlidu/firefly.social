@@ -1,3 +1,4 @@
+import { Trans } from '@lingui/react/macro';
 import { useAtomValue } from 'jotai';
 import { memo, useMemo } from 'react';
 import { Button, Text, useTheme, XStack, YStack } from 'tamagui';
@@ -89,7 +90,7 @@ export const OrderBook = memo<OrderBookProps>(function OrderBook({ coin, rows: r
         >
             <XStack alignItems="center" paddingBottom={2} justifyContent="space-between">
                 <Text color="$textSubdued" fontSize={12} lineHeight={14}>
-                    Buy({coinName})
+                    <Trans id="rn-ui.OrderBook.buy">Buy({coinName})</Trans>
                 </Text>
 
                 <OrderBookStepPopover placement="top" midPrice={midPrice} szDecimals={szDecimal}>
@@ -113,7 +114,7 @@ export const OrderBook = memo<OrderBookProps>(function OrderBook({ coin, rows: r
                 </OrderBookStepPopover>
 
                 <Text color="$textSubdued" fontSize={12} lineHeight={14}>
-                    Sell({coinName})
+                    <Trans id="rn-ui.OrderBook.sell">Sell({coinName})</Trans>
                 </Text>
             </XStack>
 

@@ -1,3 +1,4 @@
+import { Trans } from '@lingui/react/macro';
 import { BigNumber } from 'bignumber.js';
 import { memo } from 'react';
 import { Text, XStack, YStack } from 'tamagui';
@@ -27,7 +28,7 @@ export const PerpsTickerSummary = memo<PerpsTickerSummaryProps>(function PerpsTi
         <XStack justifyContent="space-between" alignItems="flex-start" gap={12} width="100%">
             <YStack gap={2}>
                 <Text color="$textDisabled" fontSize={12} lineHeight={14} fontWeight={500}>
-                    Last Price
+                    <Trans id="rn-ui.ticker-summary.last-price">Last Price</Trans>
                 </Text>
 
                 <Text color="$textSuccess" fontSize={24} lineHeight={32} fontWeight={700}>
@@ -48,7 +49,7 @@ export const PerpsTickerSummary = memo<PerpsTickerSummaryProps>(function PerpsTi
 
                 <XStack gap={4} alignItems="center">
                     <Text color="$textDisabled" fontSize={12} lineHeight={14} fontWeight={500}>
-                        Mark Price
+                        <Trans id="rn-ui.ticker-summary.mark-price">Mark Price</Trans>
                     </Text>
                     <Text color="$text" fontSize={12} lineHeight={14} fontWeight={500}>
                         {coinInfo.assetCtx?.markPx ? formatPrice(coinInfo.assetCtx.markPx, coinInfo.szDecimals) : '-'}
@@ -59,7 +60,7 @@ export const PerpsTickerSummary = memo<PerpsTickerSummaryProps>(function PerpsTi
             <YStack width={160} gap={8} paddingTop={4}>
                 <XStack alignItems="center" justifyContent="space-between">
                     <Text color="$textDisabled" fontSize={12} lineHeight={14} fontWeight={500}>
-                        24h Volume
+                        <Trans id="rn-ui.ticker-summary.volume">24h Volume</Trans>
                     </Text>
 
                     <Text color="$text" fontSize={12} lineHeight={14} fontWeight={500}>
@@ -68,7 +69,7 @@ export const PerpsTickerSummary = memo<PerpsTickerSummaryProps>(function PerpsTi
                 </XStack>
                 <XStack alignItems="center" justifyContent="space-between">
                     <Text color="$textDisabled" fontSize={12} lineHeight={14} fontWeight={500}>
-                        Open Interest
+                        <Trans id="rn-ui.ticker-summary.open-interest">Open Interest</Trans>
                     </Text>
 
                     <Text color="$text" fontSize={12} lineHeight={14} fontWeight={500}>
@@ -77,7 +78,7 @@ export const PerpsTickerSummary = memo<PerpsTickerSummaryProps>(function PerpsTi
                 </XStack>
                 <XStack alignItems="center" justifyContent="space-between">
                     <Text color="$textDisabled" fontSize={12} lineHeight={14} fontWeight={500}>
-                        Funding
+                        <Trans id="rn-ui.ticker-summary.funding">Funding</Trans>
                     </Text>
 
                     <Text color="$text" fontSize={12} lineHeight={14} fontWeight={500}>

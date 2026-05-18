@@ -1,7 +1,9 @@
+import { Trans, useLingui } from '@lingui/react/macro';
 import { memo, useMemo } from 'react';
 import { Button, Text, XStack, YStack } from 'tamagui';
 
 import { CoinAvatar } from '@/components/CoinAvatar';
+import { OrderTypeLabel } from '@/components/OrderTypeLabel';
 import { formatCoinName } from '@/helpers/formatCoinName';
 import { useCancelOrders } from '@/hooks/Perps/useCancelOrders';
 import { RemoveIcon } from '@/icons/RemoveIcon';
@@ -23,15 +25,15 @@ function formatOrderTime(timestamp: number) {
 }
 
 export const OpenOrderCard = memo<OpenOrderCardProps>(function OpenOrderCard({ order }) {
+    const { i18n } = useLingui();
     const isMainOrder = order.side === 'B';
 
     const direction = useMemo(() => {
         if (order.side === 'B') {
-            return order.reduceOnly ? 'Close Short' : 'Long';
+            return order.reduceOnly ? i18n._('rn-ui.direction.closeShort') : i18n._('rn-ui.direction.long');
         }
-
-        return order.reduceOnly ? 'Close Long' : 'Short';
-    }, [order.reduceOnly, order.side]);
+        return order.reduceOnly ? i18n._('rn-ui.direction.closeLong') : i18n._('rn-ui.direction.short');
+    }, [i18n, order.reduceOnly, order.side]);
 
     const cancelInfo = useMemo(() => [{ oid: order.oid, coin: order.coin }], [order.oid, order.coin]);
     const [{ loading }, removeOrder] = useCancelOrders(cancelInfo);
@@ -60,7 +62,8 @@ export const OpenOrderCard = memo<OpenOrderCardProps>(function OpenOrderCard({ o
                                     lineHeight={14}
                                     fontWeight={500}
                                 >
-                                    {`${order.orderType}${direction ? ` / ${direction}` : ''}`}
+                                    <OrderTypeLabel type={order.orderType} />
+                                    {direction ? ` / ${direction}` : ''}
                                 </Text>
                             </XStack>
                             {/* {order.leverageLabel ? (
@@ -95,7 +98,7 @@ export const OpenOrderCard = memo<OpenOrderCardProps>(function OpenOrderCard({ o
             <XStack justifyContent="space-between" gap={8}>
                 <YStack flex={1} gap={2}>
                     <Text color="$textDisabled" fontSize={12} lineHeight={14} fontWeight={500}>
-                        Size
+                        <Trans id="rn-ui.openOrder.size">Size</Trans>
                     </Text>
                     <Text color="$text" fontSize={14} lineHeight={20} fontWeight={500}>
                         {order.sz}
@@ -103,7 +106,7 @@ export const OpenOrderCard = memo<OpenOrderCardProps>(function OpenOrderCard({ o
                 </YStack>
                 <YStack flex={1} gap={2} alignItems="center">
                     <Text color="$textDisabled" fontSize={12} lineHeight={14} fontWeight={500}>
-                        Original Size
+                        <Trans id="rn-ui.openOrder.originalSize">Original Size</Trans>
                     </Text>
                     <Text color="$text" fontSize={14} lineHeight={20} fontWeight={500}>
                         {order.origSz}
@@ -111,10 +114,10 @@ export const OpenOrderCard = memo<OpenOrderCardProps>(function OpenOrderCard({ o
                 </YStack>
                 <YStack flex={1} gap={2} alignItems="flex-end">
                     <Text color="$textDisabled" fontSize={12} lineHeight={14} fontWeight={500}>
-                        Execute price
+                        <Trans id="rn-ui.openOrder.executePrice">Execute price</Trans>
                     </Text>
                     <Text color="$text" fontSize={14} lineHeight={20} fontWeight={500}>
-                        {order.orderType.includes('Market') ? 'Market' : order.limitPx}
+                        {order.orderType.includes('Market') ? i18n._('rn-ui.orderType.market') : order.limitPx}
                     </Text>
                 </YStack>
             </XStack>
@@ -122,7 +125,7 @@ export const OpenOrderCard = memo<OpenOrderCardProps>(function OpenOrderCard({ o
             <XStack justifyContent="space-between" gap={8}>
                 <YStack flex={1} gap={2}>
                     <Text color="$textDisabled" fontSize={12} lineHeight={14} fontWeight={500}>
-                        Trigger Condition
+                        <Trans id="rn-ui.openOrder.triggerCondition">Trigger Condition</Trans>
                     </Text>
                     <Text color="$text" fontSize={14} lineHeight={20} fontWeight={500}>
                         {order.triggerCondition}

@@ -1,3 +1,4 @@
+import { useLingui } from '@lingui/react/macro';
 import { BigNumber } from 'bignumber.js';
 import { useAtomValue } from 'jotai';
 
@@ -18,6 +19,7 @@ interface UseAdjustIsolatedMarginOptions {
 }
 
 export function useAdjustIsolatedMargin({ coinName, position }: UseAdjustIsolatedMarginOptions) {
+    const { i18n } = useLingui();
     const exchangeClient = useAtomValue(exchangeClientAtom);
     const { data: coinInfo } = useCoinInfo(coinName);
     const { withdrawable } = usePerpsComputedAccountValue();
@@ -30,25 +32,27 @@ export function useAdjustIsolatedMargin({ coinName, position }: UseAdjustIsolate
             const maxAdd = new BigNumber(withdrawable || '0');
 
             if (amountBn.isNaN() || !amountBn.isFinite() || amountBn.lte(0)) {
-                toast({ message: 'Enter a valid amount', type: 'error' });
+                toast({ message: i18n._('rn-ui.adjustMargin.error.invalidAmount'), type: 'error' });
                 return false;
             }
 
             if (amountBn.lt(MIN_ISOLATED_MARGIN_ADD_USD)) {
                 toast({
-                    message: `Minimum amount is $${MIN_ISOLATED_MARGIN_ADD_USD.toFixed(2)}`,
+                    message: i18n._('rn-ui.adjustMargin.error.minimumAmount', {
+                        minAmount: MIN_ISOLATED_MARGIN_ADD_USD.toFixed(2),
+                    }),
                     type: 'error',
                 });
                 return false;
             }
 
             if (amountBn.gt(maxAdd)) {
-                toast({ message: 'Amount exceeds withdrawable balance', type: 'error' });
+                toast({ message: i18n._('rn-ui.adjustMargin.error.exceedsWithdrawable'), type: 'error' });
                 return false;
             }
 
             if (position.leverage.type !== 'isolated') {
-                toast({ message: 'Margin can only be adjusted for isolated positions', type: 'error' });
+                toast({ message: i18n._('rn-ui.adjustMargin.error.isolatedOnly'), type: 'error' });
                 return false;
             }
 
@@ -70,19 +74,19 @@ export function useAdjustIsolatedMargin({ coinName, position }: UseAdjustIsolate
                 });
 
                 toast({
-                    message: 'Margin updated successfully',
+                    message: i18n._('rn-ui.adjustMargin.success'),
                     type: 'success',
                 });
                 return true;
             } catch (error) {
                 toast({
-                    message: error instanceof Error ? error.message : 'Failed to update margin',
+                    message: error instanceof Error ? error.message : i18n._('rn-ui.adjustMargin.error.failure'),
                     type: 'error',
                     error,
                 });
                 return false;
             }
         },
-        [exchangeClient, coinInfo, coinName, position, withdrawable],
+        [exchangeClient, coinInfo, coinName, i18n, position, withdrawable],
     );
 }

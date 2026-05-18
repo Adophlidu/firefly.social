@@ -1145,6 +1145,27 @@ importers:
       '@dimensiondev/utils':
         specifier: workspace:^
         version: link:../utils
+      '@lingui/babel-plugin-lingui-macro':
+        specifier: ^5.9.5
+        version: 5.9.5(typescript@5.9.3)
+      '@lingui/cli':
+        specifier: ^5.9.5
+        version: 5.9.5(typescript@5.9.3)
+      '@lingui/conf':
+        specifier: ^5.9.5
+        version: 5.9.5(typescript@5.9.3)
+      '@lingui/core':
+        specifier: ^5.9.5
+        version: 5.9.5(@lingui/babel-plugin-lingui-macro@5.9.5)
+      '@lingui/format-po-gettext':
+        specifier: ^5.9.5
+        version: 5.9.5(typescript@5.9.3)
+      '@lingui/react':
+        specifier: ^5.9.5
+        version: 5.9.5(@lingui/babel-plugin-lingui-macro@5.9.5)(react@19.2.5)
+      '@lingui/vite-plugin':
+        specifier: ^5.9.5
+        version: 5.9.5(typescript@5.9.3)(vite@7.3.3)
       '@nktkas/hyperliquid':
         specifier: ^0.32.2
         version: 0.32.2(typescript@5.9.3)
@@ -1211,6 +1232,9 @@ importers:
       vite-plugin-dts:
         specifier: ^4.0.0
         version: 4.5.4(@types/node@22.10.10)(typescript@5.9.3)(vite@7.3.3)
+      vitest:
+        specifier: ^3.2.4
+        version: 3.2.4(@types/node@22.10.10)(jsdom@27.4.0)
 
   packages/tolgee:
     dependencies:
@@ -7465,7 +7489,7 @@ packages:
     dependencies:
       '@babel/core': 7.29.0
       '@babel/generator': 7.29.1
-      '@babel/parser': 7.29.2
+      '@babel/parser': 7.29.3
       '@babel/runtime': 7.29.2
       '@babel/types': 7.29.0
       '@lingui/babel-plugin-extract-messages': 5.9.5
@@ -7503,7 +7527,7 @@ packages:
       '@babel/runtime': 7.29.2
       cosmiconfig: 8.3.6(typescript@5.9.3)
       jest-validate: 29.7.0
-      jiti: 2.6.1
+      jiti: 2.7.0
       picocolors: 1.1.1
     transitivePeerDependencies:
       - typescript
@@ -7516,7 +7540,7 @@ packages:
       '@babel/runtime': 7.29.2
       cosmiconfig: 8.3.6(typescript@5.9.3)
       jest-validate: 29.7.0
-      jiti: 2.6.1
+      jiti: 2.7.0
       picocolors: 1.1.1
     transitivePeerDependencies:
       - typescript
@@ -7645,6 +7669,25 @@ packages:
       js-sha256: 0.10.1
     dev: true
 
+  /@lingui/react@5.9.5(@lingui/babel-plugin-lingui-macro@5.9.5)(react@19.2.5):
+    resolution: {integrity: sha512-jzYoA/f4jrTfpOB+jrMhlC835UwqSXJdepr7cfWsmg+Rpp3HBSREtfrogaz1LqLI/AVnkmfp10Mo6VOp/8qeOQ==}
+    engines: {node: '>=20.0.0'}
+    peerDependencies:
+      '@lingui/babel-plugin-lingui-macro': 5.9.5
+      babel-plugin-macros: 2 || 3
+      react: 19.2.5
+    peerDependenciesMeta:
+      '@lingui/babel-plugin-lingui-macro':
+        optional: true
+      babel-plugin-macros:
+        optional: true
+    dependencies:
+      '@babel/runtime': 7.29.2
+      '@lingui/babel-plugin-lingui-macro': 5.9.5(typescript@5.9.3)
+      '@lingui/core': 5.9.5(@lingui/babel-plugin-lingui-macro@5.9.5)
+      react: 19.2.5
+    dev: true
+
   /@lingui/react@5.9.5(babel-plugin-macros@3.1.0)(react@19.2.5):
     resolution: {integrity: sha512-jzYoA/f4jrTfpOB+jrMhlC835UwqSXJdepr7cfWsmg+Rpp3HBSREtfrogaz1LqLI/AVnkmfp10Mo6VOp/8qeOQ==}
     engines: {node: '>=20.0.0'}
@@ -7688,6 +7731,21 @@ packages:
       vite: ^3 || ^4 || ^5.0.9 || ^6 || ^7 || ^8
     dependencies:
       '@lingui/cli': 5.9.5(babel-plugin-macros@3.1.0)(typescript@5.9.3)
+      '@lingui/conf': 5.9.5(typescript@5.9.3)
+      vite: 7.3.3(@types/node@22.10.10)
+    transitivePeerDependencies:
+      - babel-plugin-macros
+      - supports-color
+      - typescript
+    dev: true
+
+  /@lingui/vite-plugin@5.9.5(typescript@5.9.3)(vite@7.3.3):
+    resolution: {integrity: sha512-oFlEkr4/56yWZYVJ5xfYfJUTgegSKkbQUo/t/MJVFcyxiMvtGsyzrZdm7grwbY9v8JbVyW5BdcIGN6/Z8wvEtw==}
+    engines: {node: '>=20.0.0'}
+    peerDependencies:
+      vite: ^3 || ^4 || ^5.0.9 || ^6 || ^7 || ^8
+    dependencies:
+      '@lingui/cli': 5.9.5(typescript@5.9.3)
       '@lingui/conf': 5.9.5(typescript@5.9.3)
       vite: 7.3.3(@types/node@22.10.10)
     transitivePeerDependencies:
@@ -24140,11 +24198,11 @@ packages:
   /jiti@2.6.1:
     resolution: {integrity: sha512-ekilCSN1jwRvIbgeg/57YFh8qQDNbwDb9xT/qu2DAHbFFZUicIl4ygVaAvzveMhMVr3LnpSKTNnwt8PoOfmKhQ==}
     hasBin: true
+    dev: false
 
   /jiti@2.7.0:
     resolution: {integrity: sha512-AC/7JofJvZGrrneWNaEnJeOLUx+JlGt7tNa0wZiRPT4MY1wmfKjt2+6O2p2uz2+skll8OZZmJMNqeke7kKbNgQ==}
     hasBin: true
-    dev: false
 
   /jju@1.4.0:
     resolution: {integrity: sha512-8wb9Yw966OSxApiCt0K3yNJL8pnNeIv+OEq2YMidz4FKP6nonSRoOXc80iXY4JaN2FC11B9qsNmDsm+ZOfMROA==}

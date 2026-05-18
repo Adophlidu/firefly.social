@@ -1,0 +1,784 @@
+msgid ""
+msgstr ""
+"Language: zh-Hant\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: generate-locale-catalogs.mjs\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.accountAmount.addFunds"
+msgstr "充值"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.accountAmount.available"
+msgstr "可用：{availableDisplay}"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.accountAmount.portfolio"
+msgstr "賬戶總價值"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.accountAmount.withdraw"
+msgstr "提現"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.accountHistory.accountTransfer"
+msgstr "帳戶劃轉"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.accountHistory.accountUpdate"
+msgstr "帳戶更新"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.accountHistory.daysAgo"
+msgstr "{count} 天前"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.accountHistory.deposit"
+msgstr "充值"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.accountHistory.hoursAgo"
+msgstr "{count} 小時前"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.accountHistory.justNow"
+msgstr "剛剛"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.accountHistory.liquidation"
+msgstr "強平"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.accountHistory.loadFailed"
+msgstr "載入帳戶歷史失敗"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.accountHistory.minutesAgo"
+msgstr "{count} 分鐘前"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.accountHistory.noWallet"
+msgstr "錢包：--"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.accountHistory.receive"
+msgstr "收款"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.accountHistory.refreshFailed"
+msgstr "重新整理帳戶歷史失敗"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.accountHistory.rewardsClaim"
+msgstr "領取獎勵"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.accountHistory.send"
+msgstr "轉出"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.accountHistory.vaultDeposit"
+msgstr "金庫存入"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.accountHistory.vaultDistribution"
+msgstr "金庫分配"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.accountHistory.vaultWithdraw"
+msgstr "金庫提取"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.accountHistory.withdraw"
+msgstr "提現"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.action.back"
+msgstr "返回"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.action.cancel"
+msgstr "取消"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.action.confirm"
+msgstr "確認"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.action.retry"
+msgstr "重試"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.action.retrying"
+msgstr "重試中…"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.activePositions.empty"
+msgstr "暫無持倉"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.addMargin.amount"
+msgstr "金額"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.addMargin.confirm"
+msgstr "追加"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.addMargin.currentPrice"
+msgstr "當前價格"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.addMargin.liquidationPrice"
+msgstr "強平價格"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.addMargin.minimumWarning"
+msgstr "最低 {minAmount}"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.addMargin.newTotal"
+msgstr "新保證金合計"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.addMargin.title"
+msgstr "追加保證金"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.adjustMargin.error.exceedsWithdrawable"
+msgstr "金額超過可提取餘額"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.adjustMargin.error.failure"
+msgstr "更新保證金失敗"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.adjustMargin.error.invalidAmount"
+msgstr "請輸入有效金額"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.adjustMargin.error.isolatedOnly"
+msgstr "僅逐倉倉位可調整保證金"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.adjustMargin.error.minimumAmount"
+msgstr "最低金額為 ${minAmount}"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.adjustMargin.success"
+msgstr "保證金已更新"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.bookmark.failureAdd"
+msgstr "加入收藏失敗"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.bookmark.failureRemove"
+msgstr "取消收藏失敗"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.cancelAll.orders.body"
+msgstr "將取消所有未成交訂單，包括止盈和止損訂單。"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.cancelAll.orders.title"
+msgstr "取消全部訂單"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.cancelAll.positions.body"
+msgstr "所有倉位將以市價平倉，未成交訂單（含只減倉訂單）將被取消。"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.cancelAll.positions.note"
+msgstr "期權不受影響。"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.cancelAll.positions.title"
+msgstr "全部平倉"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.cancelOrder.failure"
+msgstr "取消訂單失敗"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.cancelOrder.success"
+msgstr "訂單已取消"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.cancelOrders.failureMany"
+msgstr "取消訂單失敗"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.cancelOrders.failureOne"
+msgstr "取消訂單失敗"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.cancelOrders.successMany"
+msgstr "訂單已取消"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.cancelOrders.successOne"
+msgstr "訂單已取消"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.changeLeverage.failure"
+msgstr "調整槓桿失敗"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.changeMarginMode.failure"
+msgstr "切換保證金模式失敗"
+
+#. js-lingui-explicit-id
+#. placeholder {0}: data.available
+msgid "rn-ui.closePosition.availableSuffix"
+msgstr "{0} 可用"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.closePosition.confirm"
+msgstr "平倉"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.closePosition.currentPrice"
+msgstr "當前價格"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.closePosition.estClosedPnl"
+msgstr "預估平倉盈虧"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.closePosition.failure"
+msgstr "平倉失敗"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.closePosition.leverage"
+msgstr "槓桿"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.closePosition.receive"
+msgstr "接收"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.closePosition.success"
+msgstr "平倉成功"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.closePosition.title"
+msgstr "平倉"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.direction.buy"
+msgstr "買入"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.direction.closeLong"
+msgstr "平多"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.direction.closeShort"
+msgstr "平空"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.direction.long"
+msgstr "做多"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.direction.sell"
+msgstr "賣出"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.direction.short"
+msgstr "做空"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.fallback.learnMore"
+msgstr "了解更多永續合約"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.fallback.noData"
+msgstr "暫無資料"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.kline.title"
+msgstr "價格圖表"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.kline.urlNotConfigured"
+msgstr "未設定圖表網址"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.leverage.note.controlMax"
+msgstr "{name} 最高槓桿為 {maxLeverage}x"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.leverage.note.sizeDecreases"
+msgstr "提高槓桿會降低最大可開倉位"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.leverage.title"
+msgstr "調整槓桿"
+
+#. js-lingui-explicit-id
+#. placeholder {0}: formatCoinName(coinName)
+msgid "rn-ui.limitClose.amount"
+msgstr "數量({0})"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.limitClose.mid"
+msgstr "中間價"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.limitClose.priceUsdc"
+msgstr "價格(USDC)"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.marginMode.cross.description"
+msgstr "所有全倉倉位共享同一全倉保證金作為抵押。若發生強平，您的全倉保證金餘額及該模式下該資產下的其餘未平倉位可能被沒收。"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.marginMode.cross.title"
+msgstr "全倉"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.marginMode.isolated.description"
+msgstr "透過為每筆倉位單獨分配保證金來管理風險。逐倉倉位保證金比率達到 100% 時將強平。此模式下可為單筆倉位追加或移除保證金。"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.marginMode.isolated.title"
+msgstr "逐倉"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.marginMode.title"
+msgstr "保證金模式"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.market.empty"
+msgstr "未找到市場"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.market.perpType"
+msgstr "永續"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.marketCloseAll.failure"
+msgstr "平倉失敗"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.marketCloseAll.partial"
+msgstr "部分倉位已平倉；已跳過：{details}"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.marketCloseAll.successMany"
+msgstr "已市價平倉"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.marketCloseAll.successOne"
+msgstr "已市價平倉"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.openOrder.executePrice"
+msgstr "成交價格"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.openOrder.originalSize"
+msgstr "原始數量"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.openOrder.size"
+msgstr "數量"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.openOrder.triggerCondition"
+msgstr "觸發條件"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.openOrders.empty"
+msgstr "暫無未成交訂單"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.order-type.limit"
+msgstr "限價"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.order-type.market"
+msgstr "市價"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.order-type.stop-limit"
+msgstr "限價止損"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.order-type.stop-market"
+msgstr "市價止損"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.order-type.take-profit-limit"
+msgstr "限價止盈"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.order-type.take-profit-market"
+msgstr "市價止盈"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.OrderBook.buy"
+msgstr "買入({coinName})"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.OrderBook.sell"
+msgstr "賣出({coinName})"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.OrderDirectionLabel.closeLong"
+msgstr "平多"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.OrderDirectionLabel.closeShort"
+msgstr "平空"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.OrderDirectionLabel.openLong"
+msgstr "開多"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.OrderDirectionLabel.openShort"
+msgstr "開空"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.orderType.limit"
+msgstr "限價"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.orderType.market"
+msgstr "市價"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.perpsMarket.category.all"
+msgstr "全部"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.perpsMarket.category.favorites"
+msgstr "收藏"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.perpsMarket.sort.openInterest"
+msgstr "持倉量"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.perpsMarket.sort.priceChange"
+msgstr "漲跌幅"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.perpsMarket.sort.volume"
+msgstr "成交量"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.perpsMarket.title"
+msgstr "永續合約"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.PerpsTradeOrderBookPanel.amount"
+msgstr "數量"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.PerpsTradeOrderBookPanel.fundingCountdown"
+msgstr "資金費 / 倒計時"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.PerpsTradeOrderBookPanel.price"
+msgstr "價格"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.position.entryPrice"
+msgstr "開倉價"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.position.funding"
+msgstr "資金費"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.position.limitClose"
+msgstr "限價平倉"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.position.liqPrice"
+msgstr "強平價"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.position.margin"
+msgstr "保證金"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.position.marketClose"
+msgstr "市價平倉"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.position.markPrice"
+msgstr "標記價格"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.position.pnlUsdc"
+msgstr "盈虧(USDC)"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.position.sizeCoin"
+msgstr "數量({coin})"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.position.sizeUsdc"
+msgstr "數量(USDC)"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.position.viewOrders"
+msgstr "查看訂單"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.search.placeholder"
+msgstr "搜尋"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.sort.select"
+msgstr "選擇"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.submitButton.insufficientBalance"
+msgstr "餘額不足"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.submitButton.insufficientMargin"
+msgstr "保證金不足"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.submitOrder.failure"
+msgstr "提交訂單失敗"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.submitOrder.success"
+msgstr "訂單已提交"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.ticker-summary.funding"
+msgstr "資金費"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.ticker-summary.last-price"
+msgstr "最新價"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.ticker-summary.mark-price"
+msgstr "標記價格"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.ticker-summary.open-interest"
+msgstr "持倉量"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.ticker-summary.volume"
+msgstr "24小時成交量"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.tpsl.entryPrice"
+msgstr "開倉價(USDC)"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.tpsl.error.failure"
+msgstr "設定止盈止損失敗"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.tpsl.error.marketUnavailable"
+msgstr "倉位或市場資料不可用"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.tpsl.error.markPriceUnavailable"
+msgstr "標記價格不可用，請稍後重試"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.tpsl.error.priceRequired"
+msgstr "請輸入止盈和/或止損價格"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.tpsl.error.slAboveMark.short"
+msgstr "空倉止損價須高於標記價格"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.tpsl.error.slBelowMark.long"
+msgstr "多倉止損價須低於標記價格"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.tpsl.error.tpAboveMark.long"
+msgstr "多倉止盈價須高於標記價格"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.tpsl.error.tpBelowMark.short"
+msgstr "空倉止盈價須低於標記價格"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.tpsl.estimatedLiqPrice"
+msgstr "預估強平價(USDC)"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.tpsl.expectedLoss"
+msgstr "虧損"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.tpsl.expectedProfit"
+msgstr "盈利"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.tpsl.markPrice"
+msgstr "標記價格(USDC)"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.tpsl.slPricePlaceholder"
+msgstr "止損價"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.tpsl.stopLoss"
+msgstr "止損"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.tpsl.success"
+msgstr "止盈止損已更新"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.tpsl.symbol"
+msgstr "交易對"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.tpsl.takeProfit"
+msgstr "止盈"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.tpsl.title"
+msgstr "止盈/止損"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.tpsl.tpPricePlaceholder"
+msgstr "止盈價"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.trade-detail.clear-all-orders"
+msgstr "全部撤單"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.trade-detail.clear-all-positions"
+msgstr "全部平倉"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.trade-detail.current-symbol"
+msgstr "僅當前交易對"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.trade-detail.orders"
+msgstr "訂單({ordersCount})"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.trade-detail.positions"
+msgstr "持倉({positionsCount})"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.trade-form.available"
+msgstr "可用"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.trade-form.buy-long"
+msgstr "買入/做多"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.trade-form.cost"
+msgstr "成本"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.trade-form.estimated-liquidation-price"
+msgstr "預估強平價"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.trade-form.market-price"
+msgstr "市場價格"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.trade-form.sell-short"
+msgstr "賣出/做空"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.tradeForm.gainPlaceholder"
+msgstr "盈利"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.tradeForm.lossPlaceholder"
+msgstr "虧損"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.tradeForm.reduceOnly"
+msgstr "只減倉"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.tradeForm.tpSlCheckbox"
+msgstr "止盈 / 止損"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.tradesHistory.tabs.account"
+msgstr "帳戶歷史"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.tradesHistory.tabs.trading"
+msgstr "交易歷史"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.tradesHistory.title"
+msgstr "我的交易"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.tradingHistory.liqBackstop"
+msgstr "強平（兜底）"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.tradingHistory.liqMarket"
+msgstr "強平（市價）"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.tradingHistory.loadFailed"
+msgstr "載入交易歷史失敗"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.tradingHistory.position-size"
+msgstr "倉位數量"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.tradingHistory.price"
+msgstr "價格"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.tradingHistory.refreshFailed"
+msgstr "重新整理交易歷史失敗"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.tradingHistory.trade-value"
+msgstr "成交額"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.walletAction.agreeLegal"
+msgstr "同意條款"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.walletAction.approveAgent"
+msgstr "授權代理"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.walletAction.connect"
+msgstr "連接錢包"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.walletAction.deposit"
+msgstr "充值"
+
+#. js-lingui-explicit-id
+msgid "rn-ui.walletAction.unavailable"
+msgstr "不可用"

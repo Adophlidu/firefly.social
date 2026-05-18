@@ -1,3 +1,4 @@
+import { useLingui } from '@lingui/react/macro';
 import { useAtomValue } from 'jotai';
 
 import { calculateSlippagePrice } from '@/helpers/calculateSlippagePrice';
@@ -15,6 +16,7 @@ interface ClosePositionOptions {
 }
 
 export function useClosePosition({ coinName, type, position }: ClosePositionOptions) {
+    const { i18n } = useLingui();
     const exchangeClient = useAtomValue(exchangeClientAtom);
     const { data: coinInfo } = useCoinInfo(coinName);
 
@@ -52,17 +54,17 @@ export function useClosePosition({ coinName, type, position }: ClosePositionOpti
                     ],
                 });
                 toast({
-                    message: 'Position closed successfully',
+                    message: i18n._('rn-ui.closePosition.success'),
                     type: 'success',
                 });
             } catch (error) {
                 toast({
-                    message: error instanceof Error ? error.message : 'Failed to close position',
+                    message: error instanceof Error ? error.message : i18n._('rn-ui.closePosition.failure'),
                     type: 'error',
                     error,
                 });
             }
         },
-        [exchangeClient, coinInfo, type, position, coinName],
+        [exchangeClient, coinInfo, i18n, type, position, coinName],
     );
 }

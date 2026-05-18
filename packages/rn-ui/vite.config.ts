@@ -1,5 +1,6 @@
 import { resolve } from 'node:path';
 
+import { lingui } from '@lingui/vite-plugin';
 import react from '@vitejs/plugin-react';
 import { defineConfig, type PluginOption, type UserConfig } from 'vite';
 import dts from 'vite-plugin-dts';
@@ -53,12 +54,23 @@ function isExternal(id: string): boolean {
     if (id === 'lucide-react-native' || id.startsWith('lucide-react-native/')) {
         return true;
     }
+    if (id === '@lingui/core' || id.startsWith('@lingui/core/')) {
+        return true;
+    }
+    if (id === '@lingui/react' || id.startsWith('@lingui/react/')) {
+        return true;
+    }
     return false;
 }
 
 export default defineConfig(async (): Promise<UserConfig> => {
     const plugins: PluginOption[] = [
-        react(),
+        react({
+            babel: {
+                plugins: ['@lingui/babel-plugin-lingui-macro'],
+            },
+        }),
+        lingui(),
         dts({
             rollupTypes: true,
             insertTypesEntry: true,

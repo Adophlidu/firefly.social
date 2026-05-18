@@ -1,4 +1,5 @@
 // useChangeMarginMode
+import { useLingui } from '@lingui/react/macro';
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 
 import { TradeMarginMode } from '@/constants/enum';
@@ -8,6 +9,7 @@ import { leverageAtom, marginModeAtom, marginModeSheetOpenAtom } from '@/store/t
 import { exchangeClientAtom, walletAddressAtom } from '@/store/wallet';
 
 export function useChangeMarginMode(coinIndex: number) {
+    const { i18n } = useLingui();
     const value = useAtomValue(walletAddressAtom);
     const exchangeClient = useAtomValue(exchangeClientAtom);
     const [marginMode, setMarginMode] = useAtom(marginModeAtom);
@@ -29,12 +31,12 @@ export function useChangeMarginMode(coinIndex: number) {
                 setMarginModeSheetOpen(false);
             } catch (error) {
                 toast({
-                    message: error instanceof Error ? error.message : 'Failed to change margin mode',
+                    message: error instanceof Error ? error.message : i18n._('rn-ui.changeMarginMode.failure'),
                     type: 'error',
                     error,
                 });
             }
         },
-        [value, exchangeClient, coinIndex, marginMode, leverage, setMarginMode, setMarginModeSheetOpen],
+        [value, exchangeClient, coinIndex, i18n, marginMode, leverage, setMarginMode, setMarginModeSheetOpen],
     );
 }

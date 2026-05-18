@@ -1,3 +1,4 @@
+import { useLingui } from '@lingui/react/macro';
 import { useAtomValue, useSetAtom } from 'jotai';
 
 import { TradeMarginMode } from '@/constants/enum';
@@ -7,6 +8,7 @@ import { leverageAtom, leverageSheetOpenAtom, marginModeAtom, setLeverageAtom } 
 import { exchangeClientAtom, walletAddressAtom } from '@/store/wallet';
 
 export function useChangeLeverage(coinIndex: number) {
+    const { i18n } = useLingui();
     const value = useAtomValue(walletAddressAtom);
     const exchangeClient = useAtomValue(exchangeClientAtom);
     const marginMode = useAtomValue(marginModeAtom);
@@ -29,12 +31,12 @@ export function useChangeLeverage(coinIndex: number) {
                 setLeverageSheetOpen(false);
             } catch (error) {
                 toast({
-                    message: error instanceof Error ? error.message : 'Failed to change leverage',
+                    message: error instanceof Error ? error.message : i18n._('rn-ui.changeLeverage.failure'),
                     type: 'error',
                     error,
                 });
             }
         },
-        [value, exchangeClient, coinIndex, marginMode, leverage, setLeverage, setLeverageSheetOpen],
+        [value, exchangeClient, coinIndex, i18n, marginMode, leverage, setLeverage, setLeverageSheetOpen],
     );
 }

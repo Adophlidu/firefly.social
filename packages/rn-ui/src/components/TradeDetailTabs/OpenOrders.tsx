@@ -1,3 +1,4 @@
+import { Trans } from '@lingui/react/macro';
 import { memo, useMemo } from 'react';
 import { YStack } from 'tamagui';
 
@@ -37,7 +38,7 @@ export const OpenOrders = memo<OpenOrdersProps>(function OpenOrders({ openOrders
     const sortedOrders = useMemo(() => sortOrders(openOrders), [openOrders]);
 
     if (!sortedOrders.length) {
-        return <NoDataFallback message="No open orders" />;
+        return <NoDataFallback message={<Trans id="rn-ui.openOrders.empty">No open orders</Trans>} />;
     }
 
     return (

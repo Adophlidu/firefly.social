@@ -1,3 +1,4 @@
+import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 import { Text, XStack, YStack } from 'tamagui';
 
@@ -24,7 +25,7 @@ export const SubmitButtons = memo<SubmitButtonsProps>(function SubmitButtons({ m
                 <YStack>
                     <XStack height={24} alignItems="center" justifyContent="space-between">
                         <Text color="$textDisabled" fontSize={12} lineHeight={14} fontWeight={500}>
-                            Est. Liq. price
+                            <Trans id="rn-ui.trade-form.estimated-liquidation-price">Est. Liq. price</Trans>
                         </Text>
                         <Text color="$text" fontSize={12} lineHeight={14} fontWeight={500}>
                             {buyLiquidationPrice ? formatAmount(buyLiquidationPrice) : '-'}
@@ -32,7 +33,7 @@ export const SubmitButtons = memo<SubmitButtonsProps>(function SubmitButtons({ m
                     </XStack>
                     <XStack height={24} alignItems="center" justifyContent="space-between">
                         <Text color="$textDisabled" fontSize={12} lineHeight={14} fontWeight={500}>
-                            Cost
+                            <Trans id="rn-ui.trade-form.cost">Cost</Trans>
                         </Text>
                         <Text color="$text" fontSize={12} lineHeight={14} fontWeight={500}>
                             {marginRequired ? `${marginRequired} USDC` : '-'}
@@ -47,7 +48,7 @@ export const SubmitButtons = memo<SubmitButtonsProps>(function SubmitButtons({ m
                 <YStack>
                     <XStack height={24} alignItems="center" justifyContent="space-between">
                         <Text color="$textDisabled" fontSize={12} lineHeight={14} fontWeight={500}>
-                            Est. Liq. price
+                            <Trans id="rn-ui.trade-form.estimated-liquidation-price">Est. Liq. price</Trans>
                         </Text>
                         <Text color="$text" fontSize={12} lineHeight={14} fontWeight={500}>
                             {sellLiquidationPrice ? formatAmount(sellLiquidationPrice) : '-'}
@@ -55,7 +56,7 @@ export const SubmitButtons = memo<SubmitButtonsProps>(function SubmitButtons({ m
                     </XStack>
                     <XStack height={24} alignItems="center" justifyContent="space-between">
                         <Text color="$textDisabled" fontSize={12} lineHeight={14} fontWeight={500}>
-                            Cost
+                            <Trans id="rn-ui.trade-form.cost">Cost</Trans>
                         </Text>
                         <Text color="$text" fontSize={12} lineHeight={14} fontWeight={500}>
                             {marginRequired ? `${marginRequired} USDC` : '-'}

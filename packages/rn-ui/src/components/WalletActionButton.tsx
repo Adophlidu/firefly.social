@@ -1,3 +1,4 @@
+import { useLingui } from '@lingui/react/macro';
 import { useSetAtom } from 'jotai';
 import type { ComponentProps, ReactNode } from 'react';
 import { cloneElement, isValidElement, memo, useMemo } from 'react';
@@ -20,23 +21,24 @@ export const WalletActionButton = memo<Props>(function WalletActionButton({
     children,
     ...rest
 }) {
+    const { i18n } = useLingui();
     const { state, isLoading } = useUserActionState();
     const setAcceptTermsSheetOpen = useSetAtom(acceptTermsSheetOpenAtom);
 
     const buttonLabel = useMemo(() => {
         let override: string | undefined;
-        if (state === UserActionState.CONNECT) override = 'Connect';
-        else if (state === UserActionState.AGREE_LEGAL) override = 'Agree Legal';
-        else if (state === UserActionState.DEPOSIT) override = 'Deposit';
-        else if (state === UserActionState.APPROVE_AGENT) override = 'Approve Agent';
-        else if (state === UserActionState.DISABLED) override = 'Unavailable';
+        if (state === UserActionState.CONNECT) override = i18n._('rn-ui.walletAction.connect');
+        else if (state === UserActionState.AGREE_LEGAL) override = i18n._('rn-ui.walletAction.agreeLegal');
+        else if (state === UserActionState.DEPOSIT) override = i18n._('rn-ui.walletAction.deposit');
+        else if (state === UserActionState.APPROVE_AGENT) override = i18n._('rn-ui.walletAction.approveAgent');
+        else if (state === UserActionState.DISABLED) override = i18n._('rn-ui.walletAction.unavailable');
 
         if (override === undefined) return children;
         if (isValidElement<{ children?: ReactNode }>(children)) {
             return cloneElement(children, undefined, override);
         }
         return override;
-    }, [state, children]);
+    }, [i18n, state, children]);
 
     const [{ loading: isExecuting }, execute] = useAsyncFn(async () => {
         if (state === UserActionState.CONNECT) return;

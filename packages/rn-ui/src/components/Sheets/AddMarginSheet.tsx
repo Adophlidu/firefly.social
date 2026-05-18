@@ -1,3 +1,4 @@
+import { Trans } from '@lingui/react/macro';
 import { AlertCircle } from '@tamagui/lucide-icons-2';
 import { BigNumber } from 'bignumber.js';
 import { memo, useCallback, useEffect, useMemo, useState } from 'react';
@@ -73,6 +74,7 @@ export const AddMarginSheet = memo<AddMarginSheetProps>(function AddMarginSheet(
     }, [amountBn, isValidAmount, isSubmitting, onConfirm]);
 
     const liqDisplay = position?.liquidationPx ? formatAmount(position.liquidationPx, 4) : '--';
+    const minAmount = formatUSDC(MIN_ISOLATED_MARGIN_ADD_USD);
 
     return (
         <Sheet
@@ -114,7 +116,7 @@ export const AddMarginSheet = memo<AddMarginSheetProps>(function AddMarginSheet(
                 <YStack width="100%">
                     <XStack width="100%" alignItems="center" justifyContent="space-between" paddingTop={12}>
                         <Text color="$text" fontSize={20} lineHeight={24} fontWeight={700} fontFamily="$body">
-                            Add to Position
+                            <Trans id="rn-ui.addMargin.title">Add margin</Trans>
                         </Text>
                         <YStack width={24} height={24} />
                     </XStack>
@@ -124,7 +126,7 @@ export const AddMarginSheet = memo<AddMarginSheetProps>(function AddMarginSheet(
                     <XStack alignItems="center" gap="$2">
                         <CoinAvatar name={coinName} size={30} />
                         <Text color="$text" fontSize={14} fontWeight={600}>
-                            Current Price
+                            <Trans id="rn-ui.addMargin.currentPrice">Current Price</Trans>
                         </Text>
                     </XStack>
 
@@ -144,7 +146,7 @@ export const AddMarginSheet = memo<AddMarginSheetProps>(function AddMarginSheet(
                     <YStack paddingHorizontal={12} gap={4}>
                         <XStack width="100%" alignItems="center" justifyContent="space-between">
                             <Text fontSize={13} fontWeight={500} color="$textSubdued">
-                                Amount
+                                <Trans id="rn-ui.addMargin.amount">Amount</Trans>
                             </Text>
                             <XStack
                                 width={128}
@@ -175,14 +177,14 @@ export const AddMarginSheet = memo<AddMarginSheetProps>(function AddMarginSheet(
                             <XStack width="100%" alignItems="center" justifyContent="flex-end" gap={4}>
                                 <AlertCircle size={16} color="$textCritical" />
                                 <Text fontSize={13} fontWeight={600} color="$textCritical">
-                                    Minimum {formatUSDC(MIN_ISOLATED_MARGIN_ADD_USD)}
+                                    <Trans id="rn-ui.addMargin.minimumWarning">Minimum {minAmount}</Trans>
                                 </Text>
                             </XStack>
                         ) : null}
 
                         <XStack width="100%" alignItems="center" justifyContent="space-between" marginTop={4}>
                             <Text fontSize={13} fontWeight={500} color="$textSubdued">
-                                Liquidation Price
+                                <Trans id="rn-ui.addMargin.liquidationPrice">Liquidation Price</Trans>
                             </Text>
                             <Text fontSize={14} fontWeight={500} color="$text">
                                 {liqDisplay === '--' ? '--' : `$${liqDisplay}`}
@@ -194,7 +196,7 @@ export const AddMarginSheet = memo<AddMarginSheetProps>(function AddMarginSheet(
 
                     <XStack width="100%" alignItems="center" justifyContent="space-between" paddingHorizontal={12}>
                         <Text fontSize={13} fontWeight={500} color="$textSubdued">
-                            New Total
+                            <Trans id="rn-ui.addMargin.newTotal">New Total</Trans>
                         </Text>
                         <Text fontSize={14} fontWeight={500} color="$text">
                             {newTotalMargin || '--'}
@@ -215,7 +217,7 @@ export const AddMarginSheet = memo<AddMarginSheetProps>(function AddMarginSheet(
                         onPress={() => onOpenChange(false)}
                     >
                         <Text fontSize={14} fontWeight={700} color="$text">
-                            Cancel
+                            <Trans id="rn-ui.action.cancel">Cancel</Trans>
                         </Text>
                     </Button>
                     <Button
@@ -236,7 +238,7 @@ export const AddMarginSheet = memo<AddMarginSheetProps>(function AddMarginSheet(
                             fontWeight={700}
                             color={!isValidAmount || isSubmitting ? '$textSubdued' : '$bgHover'}
                         >
-                            Add
+                            <Trans id="rn-ui.addMargin.confirm">Add</Trans>
                         </Text>
                     </Button>
                 </XStack>

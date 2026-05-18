@@ -1,3 +1,4 @@
+import { Trans, useLingui } from '@lingui/react/macro';
 import { useQueryClient } from '@tanstack/react-query';
 import { BigNumber } from 'bignumber.js';
 import { useAtomValue } from 'jotai';
@@ -79,6 +80,7 @@ export const TradeDetailTabs = memo<TradeDetailTabsProps>(function TradeDetailTa
     submitAddPosition,
     submitTpSlValue,
 }) {
+    const { i18n } = useLingui();
     const [activeTab, setActiveTab] = useState<PerpsTradeDetailTab>('positions');
     const [closeSheetOpen, setCloseSheetOpen] = useState(false);
     const [closeSheetData] = useState<ClosePositionSheetData | null>(null);
@@ -250,15 +252,24 @@ export const TradeDetailTabs = memo<TradeDetailTabsProps>(function TradeDetailTa
                     if (!exchangeClient) {
                         throw new Error('Exchange client not initialized');
                     }
-                    await runCancelPerpOpenOrders(queryClient, exchangeClient, intent.orderIds);
+                    await runCancelPerpOpenOrders(queryClient, exchangeClient, intent.orderIds, {
+                        success: {
+                            one: i18n._('rn-ui.cancelOrders.successOne'),
+                            many: i18n._('rn-ui.cancelOrders.successMany'),
+                        },
+                        failure: {
+                            one: i18n._('rn-ui.cancelOrders.failureOne'),
+                            many: i18n._('rn-ui.cancelOrders.failureMany'),
+                        },
+                    });
                 } catch (error) {
                     toast({
                         message:
                             error instanceof Error
                                 ? error.message
                                 : intent.orderIds.length > 1
-                                  ? 'Failed to cancel orders'
-                                  : 'Failed to cancel order',
+                                  ? i18n._('rn-ui.cancelOrders.failureMany')
+                                  : i18n._('rn-ui.cancelOrders.failureOne'),
                         type: 'error',
                         error,
                     });
@@ -268,7 +279,7 @@ export const TradeDetailTabs = memo<TradeDetailTabsProps>(function TradeDetailTa
             }
             await marketCloseAll(intent.positions);
         },
-        [exchangeClient, queryClient, marketCloseAll],
+        [exchangeClient, i18n, queryClient, marketCloseAll],
     );
 
     const handleConfirmCloseAll = useCallback(() => {
@@ -290,7 +301,7 @@ export const TradeDetailTabs = memo<TradeDetailTabsProps>(function TradeDetailTa
                     <XStack gap={6} height={24} alignItems="center">
                         <CheckboxCheckedIcon />
                         <Text color="$text" fontSize={12} lineHeight={14} fontWeight={500}>
-                            Current symbol
+                            <Trans id="rn-ui.trade-detail.current-symbol">Current symbol</Trans>
                         </Text>
                     </XStack>
                 </Button>
@@ -307,7 +318,11 @@ export const TradeDetailTabs = memo<TradeDetailTabsProps>(function TradeDetailTa
                     onPress={isCloseAllLoading ? undefined : handleCloseAll}
                 >
                     <Text color="$text" fontSize={14} lineHeight={18} fontWeight={500} textAlign="center">
-                        Clear all
+                        {activeTab === 'positions' ? (
+                            <Trans id="rn-ui.trade-detail.clear-all-positions">Close all</Trans>
+                        ) : (
+                            <Trans id="rn-ui.trade-detail.clear-all-orders">Cancel all</Trans>
+                        )}
                     </Text>
                 </ButtonUI>
             </XStack>

@@ -1,3 +1,4 @@
+import { Trans, useLingui } from '@lingui/react/macro';
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { memo, useEffect, useState } from 'react';
 import { Path, Svg } from 'react-native-svg';
@@ -96,6 +97,7 @@ export const PerpsTradeForm = memo<PerpsTradeFormProps>(function PerpsTradeForm(
     maxLeverage = 1,
     coinIndex,
 }) {
+    const { i18n } = useLingui();
     const [leverageSheetOpen, setLeverageSheetOpen] = useAtom(leverageSheetOpenAtom);
     const [marginModeSheetOpen, setMarginModeSheetOpen] = useAtom(marginModeSheetOpenAtom);
     const [orderTypeSheetOpen, setOrderTypeSheetOpen] = useState(false);
@@ -132,7 +134,11 @@ export const PerpsTradeForm = memo<PerpsTradeFormProps>(function PerpsTradeForm(
                 {/* Cross / Leverage */}
                 <XStack gap={6} alignItems="center">
                     <DropdownButton
-                        label={currentMode === TradeMarginMode.CROSS ? 'Cross' : 'Isolated'}
+                        label={
+                            currentMode === TradeMarginMode.CROSS
+                                ? i18n._('rn-ui.marginMode.cross.title')
+                                : i18n._('rn-ui.marginMode.isolated.title')
+                        }
                         flex
                         onPress={() => setMarginModeSheetOpen(true)}
                     />
@@ -141,7 +147,11 @@ export const PerpsTradeForm = memo<PerpsTradeFormProps>(function PerpsTradeForm(
 
                 {/* Order Type */}
                 <DropdownButton
-                    label={orderType === OrderType.MARKET ? 'Market' : 'Limit'}
+                    label={
+                        orderType === OrderType.MARKET
+                            ? i18n._('rn-ui.orderType.market')
+                            : i18n._('rn-ui.orderType.limit')
+                    }
                     flex
                     onPress={() => setOrderTypeSheetOpen(true)}
                 />
@@ -159,7 +169,7 @@ export const PerpsTradeForm = memo<PerpsTradeFormProps>(function PerpsTradeForm(
                 <Button unstyled onPress={() => navigate('addFunds', {})}>
                     <XStack height={24} alignItems="center" justifyContent="space-between">
                         <Text color="$textDisabled" fontSize={12} lineHeight={14} fontWeight={500}>
-                            Available
+                            <Trans id="rn-ui.trade-form.available">Available</Trans>
                         </Text>
                         <XStack alignItems="center" justifyContent="flex-end" gap={4}>
                             <Text color="$text" fontSize={12} lineHeight={14} fontWeight={500}>

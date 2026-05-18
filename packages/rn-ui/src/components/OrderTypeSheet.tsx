@@ -1,3 +1,4 @@
+import { useLingui } from '@lingui/react/macro';
 import { memo, useEffect, useState } from 'react';
 import { Path, Svg } from 'react-native-svg';
 import { Button, Sheet, Text, useTheme, YStack } from 'tamagui';
@@ -13,9 +14,9 @@ interface OrderTypeSheetProps {
 }
 
 const ORDER_TYPE_OPTIONS = [
-    { value: OrderType.MARKET, label: 'Market' },
-    { value: OrderType.LIMIT, label: 'Limit' },
-];
+    { value: OrderType.MARKET, labelId: 'rn-ui.orderType.market' },
+    { value: OrderType.LIMIT, labelId: 'rn-ui.orderType.limit' },
+] as const;
 
 function RadioChecked() {
     const theme = useTheme();
@@ -75,6 +76,7 @@ export const OrderTypeSheet = memo<OrderTypeSheetProps>(function OrderTypeSheet(
     onOpenChange,
     onConfirm,
 }) {
+    const { i18n } = useLingui();
     const [position, setPosition] = useState(0);
     const [selectedType, setSelectedType] = useState<OrderType>(orderType);
 
@@ -132,7 +134,7 @@ export const OrderTypeSheet = memo<OrderTypeSheetProps>(function OrderTypeSheet(
                     {ORDER_TYPE_OPTIONS.map((option) => (
                         <SheetOption
                             key={option.value}
-                            label={option.label}
+                            label={i18n._(option.labelId)}
                             selected={selectedType === option.value}
                             onPress={() => handleSelect(option.value)}
                         />

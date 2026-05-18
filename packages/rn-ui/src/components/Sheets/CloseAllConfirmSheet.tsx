@@ -1,3 +1,4 @@
+import { Trans } from '@lingui/react/macro';
 import { memo, useState } from 'react';
 import { Button, Sheet, Text, XStack, YStack } from 'tamagui';
 
@@ -60,7 +61,11 @@ export const CloseAllConfirmSheet = memo<CloseAllConfirmSheetProps>(function Clo
                 <YStack width="100%">
                     <XStack width="100%" alignItems="center" justifyContent="space-between" paddingTop={12}>
                         <Text color="$text" fontSize={20} lineHeight={24} fontWeight={700} fontFamily="$body">
-                            {isPosition ? 'Cancel all positions' : 'Cancel all orders'}
+                            {isPosition ? (
+                                <Trans id="rn-ui.cancelAll.positions.title">Cancel all positions</Trans>
+                            ) : (
+                                <Trans id="rn-ui.cancelAll.orders.title">Cancel all orders</Trans>
+                            )}
                         </Text>
                         <YStack width={24} height={24} />
                     </XStack>
@@ -70,16 +75,20 @@ export const CloseAllConfirmSheet = memo<CloseAllConfirmSheetProps>(function Clo
                     {isPosition ? (
                         <>
                             <Text fontSize={13} fontWeight={500} color="$textSubdued">
-                                Your positions will all be closed at market price, and any open orders (or reduce-only
-                                orders) will be canceled.
+                                <Trans id="rn-ui.cancelAll.positions.body">
+                                    Your positions will all be closed at market price, and any open orders (or
+                                    reduce-only orders) will be canceled.
+                                </Trans>
                             </Text>
                             <Text fontSize={13} fontWeight={500} color="$textSubdued">
-                                Options won't be affected.
+                                <Trans id="rn-ui.cancelAll.positions.note">Options won't be affected.</Trans>
                             </Text>
                         </>
                     ) : (
                         <Text fontSize={13} fontWeight={500} color="$textSubdued">
-                            This will cancel all your open orders, including take-profit and stop-loss orders.
+                            <Trans id="rn-ui.cancelAll.orders.body">
+                                This will cancel all your open orders, including take-profit and stop-loss orders.
+                            </Trans>
                         </Text>
                     )}
                 </YStack>
@@ -96,7 +105,7 @@ export const CloseAllConfirmSheet = memo<CloseAllConfirmSheetProps>(function Clo
                         onPress={() => onOpenChange(false)}
                     >
                         <Text fontSize={16} fontWeight={700} color="$text">
-                            Back
+                            <Trans id="rn-ui.action.back">Back</Trans>
                         </Text>
                     </Button>
                     <Button
@@ -113,7 +122,7 @@ export const CloseAllConfirmSheet = memo<CloseAllConfirmSheetProps>(function Clo
                         }}
                     >
                         <Text fontSize={16} fontWeight={700} color="$bgHover">
-                            Confirm
+                            <Trans id="rn-ui.action.confirm">Confirm</Trans>
                         </Text>
                     </Button>
                 </XStack>

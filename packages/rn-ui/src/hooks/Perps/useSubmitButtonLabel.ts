@@ -1,3 +1,4 @@
+import { useLingui } from '@lingui/react/macro';
 import { useAtomValue } from 'jotai';
 import type { ReactNode } from 'react';
 import { useMemo } from 'react';
@@ -11,6 +12,7 @@ export function useSubmitButtonLabel(): {
     label?: ReactNode;
     disabled: boolean;
 } {
+    const { i18n } = useLingui();
     const size = useAtomValue(sizeAtom);
     const currentPrice = useAtomValue(currentPriceAtom);
     const balance = useAtomValue(assetBalanceAtom);
@@ -24,17 +26,17 @@ export function useSubmitButtonLabel(): {
         }
         if (!isValidSize(balance)) {
             return {
-                label: 'Insufficient balance',
+                label: i18n._('rn-ui.submitButton.insufficientBalance'),
                 disabled: true,
             };
         }
         if (isValidSize(marginRequired) && isLessThan(balance, marginRequired)) {
             return {
-                label: 'Insufficient margin',
+                label: i18n._('rn-ui.submitButton.insufficientMargin'),
                 disabled: true,
             };
         }
 
         return { disabled: false };
-    }, [size, currentPrice, balance, marginRequired]);
+    }, [i18n, size, currentPrice, balance, marginRequired]);
 }

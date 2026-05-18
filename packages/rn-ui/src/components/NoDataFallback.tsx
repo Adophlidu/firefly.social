@@ -1,3 +1,4 @@
+import { Trans } from '@lingui/react/macro';
 import type { ReactNode } from 'react';
 import { Button, Text, YStack } from 'tamagui';
 
@@ -14,7 +15,7 @@ export function NoDataFallback({ message, hideButton = false }: NoDataFallbackPr
         <YStack alignItems="center" width="100%" paddingVertical={40} paddingHorizontal={20}>
             <FallbackIcon />
             <Text fontWeight={500} fontSize={14} color="$textTertiary">
-                {message || 'No data available'}
+                {message ?? <Trans id="rn-ui.fallback.noData">No data available</Trans>}
             </Text>
             {!hideButton ? (
                 <Button
@@ -31,7 +32,7 @@ export function NoDataFallback({ message, hideButton = false }: NoDataFallbackPr
                     }}
                 >
                     <Text fontSize={14} fontWeight={700} textAlign="center" color="$bgHover">
-                        Learn more about Perps
+                        <Trans id="rn-ui.fallback.learnMore">Learn more about Perps</Trans>
                     </Text>
                 </Button>
             ) : null}

@@ -1,3 +1,4 @@
+import { Trans, useLingui } from '@lingui/react/macro';
 import { memo, useCallback, useState } from 'react';
 import { Path, Svg } from 'react-native-svg';
 import { Button, Input, Sheet, Text, useTheme, XStack, YStack } from 'tamagui';
@@ -73,6 +74,7 @@ export const ClosePositionSheet = memo<ClosePositionSheetProps>(function ClosePo
     data,
     onConfirm,
 }) {
+    const { i18n } = useLingui();
     const [position, setPosition] = useState(0);
     const [amountText, setAmountText] = useState('0');
 
@@ -131,7 +133,7 @@ export const ClosePositionSheet = memo<ClosePositionSheetProps>(function ClosePo
 
                 {/* Title */}
                 <Text color="$text" fontSize={20} lineHeight={24} fontWeight={700} fontFamily="$body">
-                    Close Position
+                    <Trans id="rn-ui.closePosition.title">Close Position</Trans>
                 </Text>
 
                 {/* Token row: icon + Current Price + price value */}
@@ -139,7 +141,7 @@ export const ClosePositionSheet = memo<ClosePositionSheetProps>(function ClosePo
                     <BtcIcon />
                     <XStack flex={1} alignItems="center" justifyContent="space-between">
                         <Text color="$text" fontSize={14} lineHeight={14} fontWeight={600}>
-                            Current Price
+                            <Trans id="rn-ui.closePosition.currentPrice">Current Price</Trans>
                         </Text>
                         <Text color="$text" fontSize={16} lineHeight={20} fontWeight={600} textAlign="right">
                             {data.currentPrice}
@@ -200,16 +202,20 @@ export const ClosePositionSheet = memo<ClosePositionSheetProps>(function ClosePo
                     </XStack>
 
                     <Text color="$textSubdued" fontSize={13} lineHeight={17} textAlign="center">
-                        {data.available} available
+                        <Trans id="rn-ui.closePosition.availableSuffix">{data.available} available</Trans>
                     </Text>
                 </YStack>
 
                 {/* Info card */}
                 <YStack borderWidth={1} borderColor="$borderSubdued" borderRadius={16} paddingVertical={12}>
-                    <InfoRow label="Leverage" value={data.leverage} />
-                    <InfoRow label="Receive" value={data.receive} />
+                    <InfoRow label={i18n._('rn-ui.closePosition.leverage')} value={data.leverage} />
+                    <InfoRow label={i18n._('rn-ui.closePosition.receive')} value={data.receive} />
                     <YStack height={1} backgroundColor="$bgHover" />
-                    <InfoRow label="Est. Closed PnL" value={data.estClosedPnl} valueColor={pnlColor} />
+                    <InfoRow
+                        label={i18n._('rn-ui.closePosition.estClosedPnl')}
+                        value={data.estClosedPnl}
+                        valueColor={pnlColor}
+                    />
                 </YStack>
 
                 {/* Action buttons */}
@@ -227,7 +233,7 @@ export const ClosePositionSheet = memo<ClosePositionSheetProps>(function ClosePo
                         onPress={() => onOpenChange(false)}
                     >
                         <Text color="$text" fontSize={14} lineHeight={24} fontWeight={700} textAlign="center">
-                            Cancel
+                            <Trans id="rn-ui.action.cancel">Cancel</Trans>
                         </Text>
                     </Button>
 
@@ -252,7 +258,7 @@ export const ClosePositionSheet = memo<ClosePositionSheetProps>(function ClosePo
                             lineHeight={24}
                             fontWeight={700}
                         >
-                            Close
+                            <Trans id="rn-ui.closePosition.confirm">Close</Trans>
                         </Text>
                     </Button>
                 </XStack>

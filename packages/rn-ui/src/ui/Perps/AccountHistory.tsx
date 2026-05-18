@@ -1,3 +1,4 @@
+import { Trans, useLingui } from '@lingui/react/macro';
 import { memo } from 'react';
 import { Button, ScrollView, Text, XStack, YStack } from 'tamagui';
 
@@ -41,7 +42,7 @@ const AccountHistoryItemCard = memo<AccountHistoryItemCardProps>(function Accoun
                     lineHeight={20}
                     fontWeight={600}
                 >
-                    {positive ? '\u2193' : '\u2191'}
+                    {positive ? '↓' : '↑'}
                 </Text>
             </YStack>
 
@@ -62,6 +63,7 @@ const AccountHistoryItemCard = memo<AccountHistoryItemCardProps>(function Accoun
 });
 
 export const AccountHistory = memo<AccountHistoryProps>(function AccountHistory({ walletAddress }) {
+    const { i18n } = useLingui();
     const {
         data: items,
         isLoading,
@@ -76,7 +78,7 @@ export const AccountHistory = memo<AccountHistoryProps>(function AccountHistory(
         return (
             <XStack justifyContent="center" paddingVertical={20}>
                 <Text color="$textSubdued" fontSize={12} lineHeight={14}>
-                    Wallet: --
+                    <Trans id="rn-ui.accountHistory.noWallet">Wallet: --</Trans>
                 </Text>
             </XStack>
         );
@@ -89,7 +91,7 @@ export const AccountHistory = memo<AccountHistoryProps>(function AccountHistory(
         return (
             <YStack alignItems="center" justifyContent="center" gap={8} paddingVertical={20}>
                 <Text color="$textCritical" fontSize={12} lineHeight={14}>
-                    Failed to load account history
+                    <Trans id="rn-ui.accountHistory.loadFailed">Failed to load account history</Trans>
                 </Text>
                 <Button
                     unstyled
@@ -105,7 +107,7 @@ export const AccountHistory = memo<AccountHistoryProps>(function AccountHistory(
                     }}
                 >
                     <Text color="$text" fontSize={12} lineHeight={14} fontWeight={600}>
-                        {isRefetching ? 'Retrying...' : 'Retry'}
+                        {isRefetching ? i18n._('rn-ui.action.retrying') : i18n._('rn-ui.action.retry')}
                     </Text>
                 </Button>
             </YStack>
@@ -125,7 +127,7 @@ export const AccountHistory = memo<AccountHistoryProps>(function AccountHistory(
                 {error ? (
                     <YStack alignItems="center" gap={8} paddingTop={4}>
                         <Text color="$textCritical" fontSize={12} lineHeight={14}>
-                            Failed to refresh account history
+                            <Trans id="rn-ui.accountHistory.refreshFailed">Failed to refresh account history</Trans>
                         </Text>
                         <Button
                             unstyled
@@ -141,7 +143,7 @@ export const AccountHistory = memo<AccountHistoryProps>(function AccountHistory(
                             }}
                         >
                             <Text color="$text" fontSize={12} lineHeight={14} fontWeight={600}>
-                                {isRefetching ? 'Retrying...' : 'Retry'}
+                                {isRefetching ? i18n._('rn-ui.action.retrying') : i18n._('rn-ui.action.retry')}
                             </Text>
                         </Button>
                     </YStack>

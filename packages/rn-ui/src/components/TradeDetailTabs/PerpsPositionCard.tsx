@@ -1,3 +1,4 @@
+import { Trans, useLingui } from '@lingui/react/macro';
 import { BigNumber } from 'bignumber.js';
 import { memo, useCallback, useMemo, useState } from 'react';
 import { Path, Svg } from 'react-native-svg';
@@ -76,6 +77,7 @@ export const PerpsPositionCard = memo<PerpsPositionCardProps>(function PerpsPosi
     onTpSl,
     onViewOpenOrders,
 }) {
+    const { i18n } = useLingui();
     const [sizeDisplayMode, setSizeDisplayMode] = useState<'coin' | 'usdc'>('coin');
     const toggleSizeDisplayMode = useCallback(() => {
         setSizeDisplayMode((m) => (m === 'coin' ? 'usdc' : 'coin'));
@@ -89,7 +91,7 @@ export const PerpsPositionCard = memo<PerpsPositionCardProps>(function PerpsPosi
     const fundingColor = isGreaterThan(position.cumFunding.sinceOpen, 0) ? '$textSuccess' : '$textCritical';
     const isBuy = isGreaterThan(position.szi, '0');
     const directionVariant = isBuy ? 'buy' : 'sell';
-    const directionLabel = isBuy ? 'Buy' : 'Sell';
+    const directionLabel = isBuy ? i18n._('rn-ui.direction.buy') : i18n._('rn-ui.direction.sell');
     const canAdjustIsolatedMargin = position.leverage.type === 'isolated' && typeof onAdjustMargin === 'function';
     const szDecimals = coinInfo?.szDecimals || 2;
 
@@ -122,7 +124,10 @@ export const PerpsPositionCard = memo<PerpsPositionCardProps>(function PerpsPosi
         return formatUSDC(sz.multipliedBy(mark));
     }, [marketPrice, position.szi]);
 
-    const sizeLabel = sizeDisplayMode === 'coin' ? `Size(${formatCoinName(position.coin)})` : 'Size (USDC)';
+    const sizeLabel =
+        sizeDisplayMode === 'coin'
+            ? i18n._('rn-ui.position.sizeCoin', { coin: formatCoinName(position.coin) })
+            : i18n._('rn-ui.position.sizeUsdc');
     const sizeValue = sizeDisplayMode === 'coin' ? position.szi?.replace(/^-/, '') || '--' : sizeUsdcDisplay;
 
     return (
@@ -147,7 +152,7 @@ export const PerpsPositionCard = memo<PerpsPositionCardProps>(function PerpsPosi
                         <ArrowRightIcon />
                     </XStack>
                     <Text color="$textDisabled" fontSize={12} lineHeight={14}>
-                        PnL(USDC)
+                        <Trans id="rn-ui.position.pnlUsdc">PnL(USDC)</Trans>
                     </Text>
                 </XStack>
 
@@ -155,7 +160,13 @@ export const PerpsPositionCard = memo<PerpsPositionCardProps>(function PerpsPosi
                 <XStack alignItems="center" justifyContent="space-between">
                     <XStack alignItems="center" gap={4}>
                         <TagBadge label={directionLabel} variant={directionVariant} />
-                        <TagBadge label={position.leverage.type === 'cross' ? 'Cross' : 'Isolated'} />
+                        <TagBadge
+                            label={
+                                position.leverage.type === 'cross'
+                                    ? i18n._('rn-ui.marginMode.cross.title')
+                                    : i18n._('rn-ui.marginMode.isolated.title')
+                            }
+                        />
                         <TagBadge label={`${position.leverage.value}x`} />
                     </XStack>
                     <Text color={pnlColor} fontSize={14} lineHeight={14} fontWeight={600}>
@@ -187,7 +198,7 @@ export const PerpsPositionCard = memo<PerpsPositionCardProps>(function PerpsPosi
 
                     <YStack flex={1} paddingLeft={16}>
                         <Text color="$textDisabled" fontSize={12} lineHeight={14}>
-                            Margin
+                            <Trans id="rn-ui.position.margin">Margin</Trans>
                         </Text>
                         <XStack alignItems="center" gap={2}>
                             <Text color="$text" fontSize={14} lineHeight={20} fontWeight={600}>
@@ -211,7 +222,7 @@ export const PerpsPositionCard = memo<PerpsPositionCardProps>(function PerpsPosi
 
                     <YStack flex={1} alignItems="flex-end">
                         <Text color="$textDisabled" fontSize={12} lineHeight={14} textAlign="right">
-                            Funding
+                            <Trans id="rn-ui.position.funding">Funding</Trans>
                         </Text>
                         <Text color={fundingColor} fontSize={14} lineHeight={20} fontWeight={600}>
                             {formatUSDC(position.cumFunding.sinceOpen)}
@@ -225,7 +236,7 @@ export const PerpsPositionCard = memo<PerpsPositionCardProps>(function PerpsPosi
                 <XStack gap={8} alignItems="center">
                     <YStack flex={1}>
                         <Text color="$textDisabled" fontSize={12} lineHeight={14}>
-                            Entry Price
+                            <Trans id="rn-ui.position.entryPrice">Entry Price</Trans>
                         </Text>
                         <Text color="$text" fontSize={14} lineHeight={20} fontWeight={600}>
                             {formatPrice(position.entryPx, szDecimals)}
@@ -234,7 +245,7 @@ export const PerpsPositionCard = memo<PerpsPositionCardProps>(function PerpsPosi
 
                     <YStack flex={1} paddingLeft={16}>
                         <Text color="$textDisabled" fontSize={12} lineHeight={14}>
-                            Mark Price
+                            <Trans id="rn-ui.position.markPrice">Mark Price</Trans>
                         </Text>
                         <Text color="$text" fontSize={14} lineHeight={20} fontWeight={600}>
                             {marketPrice ? formatPrice(marketPrice, szDecimals) : '--'}
@@ -243,7 +254,7 @@ export const PerpsPositionCard = memo<PerpsPositionCardProps>(function PerpsPosi
 
                     <YStack flex={1} alignItems="flex-end">
                         <Text color="$textDisabled" fontSize={12} lineHeight={14} textAlign="right">
-                            Liq. Price
+                            <Trans id="rn-ui.position.liqPrice">Liq. Price</Trans>
                         </Text>
                         <Text color="$text" fontSize={14} lineHeight={20} fontWeight={600}>
                             {position.liquidationPx ? formatPrice(position.liquidationPx, szDecimals) : '--'}
@@ -255,7 +266,7 @@ export const PerpsPositionCard = memo<PerpsPositionCardProps>(function PerpsPosi
             {/* TP/SL — OneKey: entry TP/SL without position-order triggers → “View orders” */}
             <XStack alignItems="center" gap={4}>
                 <Text color="$textDisabled" fontSize={12} lineHeight={14}>
-                    TP/SL
+                    <Trans id="rn-ui.tpsl.title">TP/SL</Trans>
                 </Text>
                 {showViewOrders ? (
                     <Text
@@ -271,7 +282,7 @@ export const PerpsPositionCard = memo<PerpsPositionCardProps>(function PerpsPosi
                         pressStyle={{ opacity: 0.72 }}
                         cursor="pointer"
                     >
-                        View orders
+                        <Trans id="rn-ui.position.viewOrders">View orders</Trans>
                     </Text>
                 ) : (
                     <Text fontSize={14} lineHeight={20} fontWeight={600}>
@@ -284,9 +295,21 @@ export const PerpsPositionCard = memo<PerpsPositionCardProps>(function PerpsPosi
 
             {/* Action Buttons */}
             <XStack gap={12} alignItems="center" justifyContent="center">
-                <ActionButton disabled={disabled} label="TP/SL" onPress={() => onTpSl?.(position)} />
-                <ActionButton disabled={disabled} label="Limit Close" onPress={() => onLimitClose?.(position)} />
-                <ActionButton disabled={disabled} label="Market Close" onPress={() => onMarketClose?.(position)} />
+                <ActionButton
+                    disabled={disabled}
+                    label={i18n._('rn-ui.tpsl.title')}
+                    onPress={() => onTpSl?.(position)}
+                />
+                <ActionButton
+                    disabled={disabled}
+                    label={i18n._('rn-ui.position.limitClose')}
+                    onPress={() => onLimitClose?.(position)}
+                />
+                <ActionButton
+                    disabled={disabled}
+                    label={i18n._('rn-ui.position.marketClose')}
+                    onPress={() => onMarketClose?.(position)}
+                />
             </XStack>
         </YStack>
     );

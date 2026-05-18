@@ -1,3 +1,4 @@
+import { Trans, useLingui } from '@lingui/react/macro';
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { memo } from 'react';
 import { Button, Text, XStack, YStack } from 'tamagui';
@@ -10,6 +11,7 @@ import { orderSafeTypeAtom, setOrderSafeTypeAtom, slRatioAtom, tpRatioAtom } fro
 interface Props {}
 
 export const TpSlSettingsInTradeForm = memo<Props>(function TpSlSettingsInTradeForm() {
+    const { i18n } = useLingui();
     const safeType = useAtomValue(orderSafeTypeAtom);
     const setSafeType = useSetAtom(setOrderSafeTypeAtom);
     const [tpRatio, setTpRatio] = useAtom(tpRatioAtom);
@@ -21,7 +23,7 @@ export const TpSlSettingsInTradeForm = memo<Props>(function TpSlSettingsInTradeF
                 <XStack height={24} alignItems="center" gap={6}>
                     {safeType === 'reduceOnly' ? <CheckboxChecked /> : <CheckboxUnchecked />}
                     <Text color="$text" fontSize={12} lineHeight={14} fontWeight={500}>
-                        Reduce Only
+                        <Trans id="rn-ui.tradeForm.reduceOnly">Reduce Only</Trans>
                     </Text>
                 </XStack>
             </Button>
@@ -31,7 +33,7 @@ export const TpSlSettingsInTradeForm = memo<Props>(function TpSlSettingsInTradeF
                         {safeType === 'tpSl' ? <CheckboxChecked /> : <CheckboxUnchecked />}
                     </Button>
                     <Text color="$text" fontSize={12} lineHeight={14} fontWeight={500}>
-                        TP / SL
+                        <Trans id="rn-ui.tradeForm.tpSlCheckbox">TP / SL</Trans>
                     </Text>
                 </XStack>
             </Button>
@@ -50,7 +52,7 @@ export const TpSlSettingsInTradeForm = memo<Props>(function TpSlSettingsInTradeF
                             +
                         </Text>
                         <TokenAmountInput
-                            placeholder="Gain"
+                            placeholder={i18n._('rn-ui.tradeForm.gainPlaceholder')}
                             flex={1}
                             height="100%"
                             decimal={2}
@@ -74,7 +76,7 @@ export const TpSlSettingsInTradeForm = memo<Props>(function TpSlSettingsInTradeF
                             -
                         </Text>
                         <TokenAmountInput
-                            placeholder="Loss"
+                            placeholder={i18n._('rn-ui.tradeForm.lossPlaceholder')}
                             flex={1}
                             height="100%"
                             decimal={2}

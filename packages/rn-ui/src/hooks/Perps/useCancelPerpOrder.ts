@@ -1,3 +1,4 @@
+import { useLingui } from '@lingui/react/macro';
 import { useQueryClient } from '@tanstack/react-query';
 import { useAtomValue } from 'jotai';
 
@@ -9,6 +10,7 @@ import { infoClient } from '@/providers/client';
 import { exchangeClientAtom } from '@/store/wallet';
 
 export function useCancelPerpOrder() {
+    const { i18n } = useLingui();
     const exchangeClient = useAtomValue(exchangeClientAtom);
     const queryClient = useQueryClient();
 
@@ -35,19 +37,19 @@ export function useCancelPerpOrder() {
 
                 await exchangeClient.cancel({ cancels: [{ a, o: params.oid }] });
                 toast({
-                    message: 'Order cancelled',
+                    message: i18n._('rn-ui.cancelOrder.success'),
                     type: 'success',
                 });
                 return true;
             } catch (error) {
                 toast({
-                    message: error instanceof Error ? error.message : 'Failed to cancel order',
+                    message: error instanceof Error ? error.message : i18n._('rn-ui.cancelOrder.failure'),
                     type: 'error',
                     error,
                 });
                 return false;
             }
         },
-        [exchangeClient, queryClient],
+        [exchangeClient, i18n, queryClient],
     );
 }
