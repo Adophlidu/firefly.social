@@ -13,6 +13,8 @@ export function UnstyledInput(props: Props) {
             padding={0}
             includeFontPadding={false}
             outlineStyle="none"
+            color="$text"
+            placeholderTextColor="$textDisabled"
             focusStyle={
                 Platform.OS === 'web'
                     ? {

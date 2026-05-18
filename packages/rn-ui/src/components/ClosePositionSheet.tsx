@@ -1,9 +1,10 @@
 import { Trans, useLingui } from '@lingui/react/macro';
 import { memo, useCallback, useState } from 'react';
 import { Path, Svg } from 'react-native-svg';
-import { Button, Input, Sheet, Text, useTheme, XStack, YStack } from 'tamagui';
+import { Button, Sheet, Text, useTheme, XStack, YStack } from 'tamagui';
 
 import { SheetDragHandle } from '@/components/SheetDragHandle';
+import { UnstyledInput } from '@/components/UnstyledInput';
 import type { ClosePositionSheetData } from '@/types/ui';
 
 interface ClosePositionSheetProps {
@@ -170,8 +171,7 @@ export const ClosePositionSheet = memo<ClosePositionSheetProps>(function ClosePo
                             <Text color="$text" fontSize={40} lineHeight={40} fontWeight={700}>
                                 $
                             </Text>
-                            <Input
-                                unstyled
+                            <UnstyledInput
                                 value={amountText}
                                 onChangeText={handleAmountChange}
                                 keyboardType="numeric"
@@ -182,7 +182,6 @@ export const ClosePositionSheet = memo<ClosePositionSheetProps>(function ClosePo
                                 fontWeight={700}
                                 minWidth={40}
                                 maxWidth={180}
-                                padding={0}
                             />
                         </XStack>
 
