@@ -1,6 +1,6 @@
+import type { SnapshotState } from '@dimensiondev/enums';
 import type { Address } from 'viem';
 
-import type { SnapshotState } from '@/constants/enum.js';
 import type { FireflyDisplayInfo } from '@/providers/types/Firefly.js';
 
 export type SnapshotChoice = number[] | { [key: string]: number } | number | string;

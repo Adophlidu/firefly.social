@@ -1,7 +1,7 @@
 'use client';
 
 import MoreIcon from '@dimensiondev/assets/more.svg';
-import { Source } from '@dimensiondev/enums';
+import { ArticlePlatform, Source } from '@dimensiondev/enums';
 import { formatAddress, isValidAddressEthereum } from '@dimensiondev/web3/utils';
 import { MenuItem } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
@@ -20,7 +20,7 @@ import { useEnsName } from '@/hooks/useEnsName.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useToggleArticleBookmark } from '@/hooks/useToggleArticleBookmark.js';
-import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
+import type { Article } from '@/providers/types/Article.js';
 
 interface MoreProps {
     article: Article;

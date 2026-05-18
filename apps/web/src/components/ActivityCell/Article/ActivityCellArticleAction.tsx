@@ -2,13 +2,13 @@
 
 import PostedIcon from '@dimensiondev/assets/posted.svg';
 import RevisedIcon from '@dimensiondev/assets/revised.svg';
+import { ArticlePlatform, ArticleType } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import type { ReactNode } from 'react';
 
 import { ActivityCellAction } from '@/components/ActivityCell/ActivityCellAction.js';
 import { ActivityCellActionTag } from '@/components/ActivityCell/ActivityCellActionTag.js';
-import { ArticlePlatform, ArticleType } from '@/providers/types/Article.js';
 
 interface Props {
     type: ArticleType;

@@ -1,4 +1,5 @@
-import { SnapshotState } from '@/constants/enum.js';
+import { SnapshotState } from '@dimensiondev/enums';
+
 import type { SnapshotActivity, SnapshotProposal } from '@/providers/snapshot/type.js';
 import type { UnifiedNotification } from '@/providers/types/Firefly.js';
 

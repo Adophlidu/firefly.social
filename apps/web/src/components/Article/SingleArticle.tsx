@@ -1,4 +1,4 @@
-import { Source } from '@dimensiondev/enums';
+import { ArticlePlatform, Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { useQuery } from '@tanstack/react-query';
 import { first, isUndefined } from 'lodash-es';
@@ -19,7 +19,7 @@ import { fetchJson } from '@/helpers/fetchJson.js';
 import { getArticleUrl } from '@/helpers/getArticleUrl.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { captureArticleClickEvent } from '@/providers/telemetry/captureClickEvent.js';
-import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
+import type { Article } from '@/providers/types/Article.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { type LinkDigested, PayloadType } from '@/types/og.js';
 import type { ResponseJson } from '@/types/utility.js';

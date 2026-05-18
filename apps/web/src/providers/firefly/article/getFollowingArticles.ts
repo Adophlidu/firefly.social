@@ -1,3 +1,4 @@
+import type { ArticlePlatform } from '@dimensiondev/enums';
 import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@dimensiondev/utils';
 import { isZero } from '@dimensiondev/web3/numbers';
 import urlcat from 'urlcat';
@@ -5,7 +6,6 @@ import urlcat from 'urlcat';
 import { formatArticleFromFirefly } from '@/helpers/formatArticleFromFirefly.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import type { ArticlePlatform } from '@/providers/types/Article.js';
 import type { GetFollowingArticlesResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 

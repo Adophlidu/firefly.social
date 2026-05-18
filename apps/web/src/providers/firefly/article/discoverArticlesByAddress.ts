@@ -1,3 +1,4 @@
+import { ArticlePlatform } from '@dimensiondev/enums';
 import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@dimensiondev/utils';
 import { isZero } from '@dimensiondev/web3/numbers';
 import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
@@ -8,7 +9,6 @@ import { VITALIK_ADDRESS } from '@/constants/static.js';
 import { formatArticleFromFirefly } from '@/helpers/formatArticleFromFirefly.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { ArticlePlatform } from '@/providers/types/Article.js';
 import type { DiscoverArticlesResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 

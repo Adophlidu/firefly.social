@@ -1,4 +1,4 @@
-import { Source } from '@dimensiondev/enums';
+import { ArticlePlatform, Source } from '@dimensiondev/enums';
 import { isSameAddress, isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import { type Draft, produce } from 'immer';
 
@@ -8,7 +8,7 @@ import { patchActivitiesQuery } from '@/helpers/patchActivitiesQuery.js';
 import { patchTransactionsQuery } from '@/helpers/patchTransactionsQuery.js';
 import type { FireflyWallet } from '@/providers/firefly/Wallet.js';
 import type { SnapshotActivity } from '@/providers/snapshot/type.js';
-import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
+import type { Article } from '@/providers/types/Article.js';
 import type { WalletProfile } from '@/providers/types/Firefly.js';
 import type { FollowingNFT, NFTFeedV3 } from '@/providers/types/NFTs.js';
 import type { ClassType } from '@/types/utility.js';

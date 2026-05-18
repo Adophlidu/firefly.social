@@ -1,10 +1,13 @@
 import type {
+    ArticlePlatform,
+    ArticleType,
     FireflyPlatform,
     PredictionPlatform,
     SocialSource,
     SocialSourceInURL,
     Source,
     SourceInURL,
+    TipsNotificationType,
     WalletSource,
 } from '@dimensiondev/enums';
 import type { NetworkType } from '@dimensiondev/web3/enums';
@@ -18,13 +21,12 @@ import type {
     PolymarketBetType,
     S3ConvertStatus,
     SparksAccountStatus,
-    TipsNotificationType,
 } from '@/constants/enum.js';
 import type { ErcType, EVM } from '@/providers/nftscan/types.js';
 import type { PolymarketEventLocale } from '@/providers/prediction/polymarket/type.js';
 import type { SnapshotActivity, SnapshotChoice, SnapshotProposal } from '@/providers/snapshot/type.js';
 import type { TwitterSession } from '@/providers/twitter/Session.js';
-import type { Article as FormattedArticle, ArticlePlatform, ArticleType } from '@/providers/types/Article.js';
+import type { Article as FormattedArticle } from '@/providers/types/Article.js';
 import type { CoinGeckoAsset } from '@/providers/types/CoinGecko.js';
 import type { Token as DebankToken } from '@/providers/types/Debank.js';
 import type { NFTFeedV3 } from '@/providers/types/NFTs.js';

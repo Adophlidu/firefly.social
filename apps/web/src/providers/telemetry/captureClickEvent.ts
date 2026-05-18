@@ -1,7 +1,7 @@
+import { ArticlePlatform } from '@dimensiondev/enums';
 import { runInSafeAsync, safeUnreachable } from '@dimensiondev/utils';
 
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
-import { ArticlePlatform } from '@/providers/types/Article.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 
 export function captureDraftClickEvent() {

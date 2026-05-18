@@ -1,6 +1,6 @@
 'use client';
 
-import { Source } from '@dimensiondev/enums';
+import { ArticlePlatform, Source } from '@dimensiondev/enums';
 import { NetworkType } from '@dimensiondev/web3/enums';
 import { isValidAddressEthereum } from '@dimensiondev/web3/utils';
 import { useQuery } from '@tanstack/react-query';
@@ -25,7 +25,7 @@ import { DraggablePopoverRef } from '@/modals/DraggablePopover/refs.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/refs.js';
 import { getArticleById } from '@/providers/firefly/article/getArticleById.js';
 import { captureArticleShareClickEvent } from '@/providers/telemetry/captureClickEvent.js';
-import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
+import type { Article } from '@/providers/types/Article.js';
 import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 
 interface ArticleActionsProps {

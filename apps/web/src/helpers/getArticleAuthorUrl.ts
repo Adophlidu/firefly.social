@@ -1,9 +1,9 @@
-import { SourceInURL } from '@dimensiondev/enums';
+import { ArticlePlatform, SourceInURL } from '@dimensiondev/enums';
 import { isValidAddressEthereum } from '@dimensiondev/web3/utils';
 import urlcat from 'urlcat';
 
 import { MATTERS_SITE_URL } from '@/constants/matters.js';
-import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
+import type { Article } from '@/providers/types/Article.js';
 
 export function getArticleAuthorUrl(article: Article): string {
     const isMattersArticle = article.platform === ArticlePlatform.Matters;

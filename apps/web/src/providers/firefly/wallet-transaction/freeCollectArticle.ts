@@ -1,8 +1,8 @@
+import type { ArticlePlatform } from '@dimensiondev/enums';
 import urlcat from 'urlcat';
 
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import type { ArticlePlatform } from '@/providers/types/Article.js';
 import type { CollectArticleResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 

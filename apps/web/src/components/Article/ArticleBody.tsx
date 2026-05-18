@@ -3,7 +3,7 @@
 import '@/styles/limo.css';
 import '@/styles/paragraph.css';
 
-import { Source } from '@dimensiondev/enums';
+import { ArticlePlatform, Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 
 import { ArticleActions } from '@/components/Article/ArticleActions.js';
@@ -16,7 +16,7 @@ import { IS_APPLE, IS_SAFARI } from '@/constants/browser.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { PreviewMediaModalRef } from '@/modals/PreviewMediaModal/refs.js';
-import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
+import type { Article } from '@/providers/types/Article.js';
 
 interface Props {
     cover?: string;

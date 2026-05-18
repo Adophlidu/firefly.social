@@ -2,6 +2,7 @@
 
 import DownloadIcon from '@dimensiondev/assets/download-tip.svg';
 import MoreIcon from '@dimensiondev/assets/more-circle.svg';
+import { TipsDetailViewType } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { multipliedBy } from '@dimensiondev/web3/numbers';
 import { Trans } from '@lingui/react/macro';
@@ -18,7 +19,6 @@ import { NoSSR } from '@/components/NoSSR.js';
 import { TipsTransactionActions } from '@/components/Tips/TipsTransactionActions.js';
 import { WalletEnsName } from '@/components/Tips/WalletEnsName.js';
 import { WalletBaseMoreAction } from '@/components/WalletBaseMoreAction.js';
-import { TipsDetailViewType } from '@/constants/enum.js';
 import { notFound } from '@/esm/navigation.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { formatTokenAmount } from '@/helpers/formatTokenAmount.js';

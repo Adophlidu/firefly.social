@@ -3,11 +3,10 @@
 import ActiveIcon from '@dimensiondev/assets/snapshot-active.svg';
 import ClosedIcon from '@dimensiondev/assets/snapshot-closed.svg';
 import RejectedIcon from '@dimensiondev/assets/snapshot-rejected.svg';
+import { SnapshotState } from '@dimensiondev/enums';
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useMemo } from 'react';
-
-import { SnapshotState } from '@/constants/enum.js';
 
 interface Props {
     status: SnapshotState;

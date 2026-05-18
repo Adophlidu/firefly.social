@@ -4,7 +4,7 @@ import '@/styles/limo.css';
 import '@/styles/paragraph.css';
 import '@/styles/matters.css';
 
-import { Source } from '@dimensiondev/enums';
+import { ArticlePlatform, Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { compact } from 'lodash-es';
@@ -26,7 +26,7 @@ import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import { ConfirmLeavingModalRef } from '@/modals/ConfirmLeavingModal/refs.js';
 import { PreviewMediaModalRef } from '@/modals/PreviewMediaModal/refs.js';
 import { captureArticleViewSourceClickEvent } from '@/providers/telemetry/captureClickEvent.js';
-import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
+import type { Article } from '@/providers/types/Article.js';
 import type { Attachment } from '@/providers/types/SocialMedia.js';
 
 interface ArticleDetailContentProps {

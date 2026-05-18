@@ -1,5 +1,6 @@
 'use client';
 
+import { ArticlePlatform } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { isValidAddressEthereum } from '@dimensiondev/web3/utils';
 import { memo, useCallback } from 'react';
@@ -13,7 +14,7 @@ import { getWalletProfileAvatar } from '@/helpers/getWalletProfileAvatar.js';
 import { resolveArticlePlatformIcon } from '@/helpers/resolveArticlePlatformIcon.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import { useEnsName } from '@/hooks/useEnsName.js';
-import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
+import type { Article } from '@/providers/types/Article.js';
 
 interface SingleArticleHeaderProps {
     article: Article;

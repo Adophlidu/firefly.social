@@ -2,6 +2,7 @@
 
 import CollectFillIcon from '@dimensiondev/assets/collect-fill.svg';
 import LinkIcon from '@dimensiondev/assets/link-square.svg';
+import { ArticlePlatform } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { isZero } from '@dimensiondev/web3/numbers';
 import { formatAddressEthereum } from '@dimensiondev/web3/utils';
@@ -28,7 +29,7 @@ import { freeCollectArticle } from '@/providers/firefly/wallet-transaction/freeC
 import { getArticleMetadata } from '@/providers/firefly/wallet-transaction/getArticleMetadata.js';
 import { addArticleMetadata } from '@/providers/paragraph/addArticleMetadata.js';
 import { captureArticleCollectEvent } from '@/providers/telemetry/captureArticleCollectEvent.js';
-import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
+import type { Article } from '@/providers/types/Article.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 
 interface ArticleCollectProps {

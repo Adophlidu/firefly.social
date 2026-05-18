@@ -1,7 +1,7 @@
+import { ArticlePlatform } from '@dimensiondev/enums';
 import { createLookupTableResolver } from '@dimensiondev/utils';
 
 import { ActivitiesPlatform } from '@/constants/enum.js';
-import { ArticlePlatform } from '@/providers/types/Article.js';
 
 export const resolveArticlePlatform = createLookupTableResolver<ActivitiesPlatform, ArticlePlatform | undefined>(
     {

@@ -1,6 +1,6 @@
+import type { TipsNotificationType } from '@dimensiondev/enums';
 import urlcat from 'urlcat';
 
-import type { TipsNotificationType } from '@/constants/enum.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { TipsDetailResponse } from '@/providers/types/Firefly.js';

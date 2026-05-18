@@ -1,4 +1,4 @@
-import { Source } from '@dimensiondev/enums';
+import { ArticlePlatform, Source } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useMutation } from '@tanstack/react-query';
@@ -13,7 +13,7 @@ import { removeTxReaction } from '@/providers/firefly/endpoint/removeTxReaction.
 import type { SnapshotActivity } from '@/providers/snapshot/type.js';
 import { captureArticleLikeSuccessEvent } from '@/providers/telemetry/captureClickEvent.js';
 import { captureSwapEvent } from '@/providers/telemetry/captureSwapEvent.js';
-import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
+import type { Article } from '@/providers/types/Article.js';
 import type { BetsActivity, SwapActivity, TipsLikeStatusData } from '@/providers/types/Firefly.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 

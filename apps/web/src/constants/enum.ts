@@ -277,15 +277,6 @@ export enum ExternalSiteDomain {
     Bsky = 'bsky.app',
 }
 
-export enum SnapshotState {
-    Active = 'active',
-    Pending = 'pending',
-    Passed = 'passed',
-    Rejected = 'rejected',
-    Executed = 'executed',
-    Closed = 'closed',
-}
-
 export enum PolymarketBetType {
     Buy = 'buy',
     Sell = 'sell',
@@ -406,16 +397,6 @@ export enum SignupStep {
     LoginSocialPlatform = 'login_social_platform',
     CreateAccountForm = 'create_account_form',
     Success = 'success',
-}
-
-export enum TipsNotificationType {
-    Tip = 'tip',
-    Like = 'like',
-}
-
-export enum TipsDetailViewType {
-    Sender = 'sender',
-    Receiver = 'receiver',
 }
 
 export enum TxReactionType {
