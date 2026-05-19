@@ -15,6 +15,7 @@ import {
     rightShift,
     ZERO,
 } from '@dimensiondev/web3/numbers';
+import type { FungibleToken } from '@dimensiondev/web3/types';
 import { getTokenAbiForWagmi } from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
@@ -48,7 +49,6 @@ import { RedPacketContext, redPacketRandomTabs } from '@/modals/RedPacketModal/R
 import { TypeTabs } from '@/modals/RedPacketModal/TypeTabs.js';
 import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
 import { checkFreeGasEligibility } from '@/providers/firefly/freeGas/checkFreeGasEligibility.js';
-import type { FungibleToken } from '@/web3-shared/base/specs.js';
 
 export default function MainView() {
     const { history } = useRouter();

@@ -4,6 +4,7 @@ import { SORTED_SOCIAL_SOURCES } from '@dimensiondev/constants/computed';
 import { NetworkType } from '@dimensiondev/enums';
 import type { EthereumSchemaType } from '@dimensiondev/web3/enums';
 import { multipliedBy } from '@dimensiondev/web3/numbers';
+import type { FungibleToken } from '@dimensiondev/web3/types';
 import { Trans } from '@lingui/react/macro';
 import { useLocation } from '@tanstack/react-router';
 import { compact, first, flatten, noop, uniqBy } from 'lodash-es';
@@ -32,7 +33,6 @@ import { useRedPacketThemes } from '@/hooks/useRedPacketThemes.js';
 import type { Collection } from '@/modals/NonFungibleCollectionSelectModal/CollectionItem.js';
 import type { FireflyRedPacketAPI, RequirementType } from '@/providers/types/FireflyRedPacket.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
-import type { FungibleToken } from '@/web3-shared/base/specs.js';
 
 export const redPacketRandomTabs = [
     {

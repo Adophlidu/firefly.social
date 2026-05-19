@@ -10,6 +10,7 @@ export default defineConfig({
         'src/actions.ts',
         'src/abi.ts',
         'src/enums.ts',
+        'src/types.ts',
     ],
     fixedExtension: false,
     dts: true,

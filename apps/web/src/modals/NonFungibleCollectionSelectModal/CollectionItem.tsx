@@ -1,10 +1,10 @@
 import LinkIcon from '@dimensiondev/assets/link-square.svg';
 import { EthExplorerResolver } from '@dimensiondev/web3/resolvers';
+import type { NonFungibleCollection } from '@dimensiondev/web3/types';
 import { Trans } from '@lingui/react/macro';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
-import type { NonFungibleCollection } from '@/web3-shared/base/specs.js';
 
 export interface Collection
     extends Pick<NonFungibleCollection<number>, 'chainId' | 'address' | 'name' | 'iconURL' | 'ownersTotal' | 'id'> {

@@ -3,6 +3,7 @@ import { waitForEthereumTransaction } from '@dimensiondev/web3/actions';
 import { EthereumSchemaType } from '@dimensiondev/web3/enums';
 import { rightShift, toFixed } from '@dimensiondev/web3/numbers';
 import { EthChainResolver } from '@dimensiondev/web3/resolvers';
+import type { FungibleToken } from '@dimensiondev/web3/types';
 import { t } from '@lingui/core/macro';
 import { first, omit, pick } from 'lodash-es';
 import { useContext, useMemo } from 'react';
@@ -27,7 +28,6 @@ import { captureLuckyDropEvent } from '@/providers/telemetry/captureLuckyDropEve
 import type { FireflyRedPacketAPI, RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import type { RedPacketCreationSuccessEventArgs, RedPacketMetadata } from '@/types/rp.js';
-import type { FungibleToken } from '@/web3-shared/base/specs.js';
 
 function treeShakePayloadInfo(payload: RedPacketJSONPayload): RedPacketMetadata {
     const token = pick(payload.token, ['decimals', 'symbol', 'address', 'chainId']) as FungibleToken<

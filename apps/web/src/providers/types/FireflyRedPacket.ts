@@ -1,9 +1,9 @@
 import type { NetworkType } from '@dimensiondev/enums';
 import type { EthereumSchemaType } from '@dimensiondev/web3/enums';
+import type { FungibleToken } from '@dimensiondev/web3/types';
 import type { Hex } from 'viem';
 
 import type { RedPacketMetadata } from '@/types/rp.js';
-import type { FungibleToken } from '@/web3-shared/base/specs.js';
 
 type WithoutChainId<T> = Omit<T, 'chain_id'>;
 type WithNumberChainId<T> = WithoutChainId<T> & { chain_id: number };

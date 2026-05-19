@@ -6,6 +6,7 @@ import { safeUnreachable } from '@dimensiondev/utils';
 import { rpSupportedChains } from '@dimensiondev/web3/chains';
 import { ETH_ZERO_ADDRESS } from '@dimensiondev/web3/constants';
 import { isZero, leftShift } from '@dimensiondev/web3/numbers';
+import type { FungibleToken } from '@dimensiondev/web3/types';
 import {
     isNativeTokenAddress,
     isSameAddress,
@@ -22,7 +23,6 @@ import { TokenIcon } from '@/components/TokenIcon.js';
 import { NUMERIC_INPUT_REGEXP_PATTERN } from '@/constants/regexp.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { TokenSelectorModalRef } from '@/modals/TokenSelectorModal/refs.js';
-import type { FungibleToken } from '@/web3-shared/base/specs.js';
 
 const MIN_AMOUNT_LENGTH = 1;
 const MAX_AMOUNT_LENGTH = 79;

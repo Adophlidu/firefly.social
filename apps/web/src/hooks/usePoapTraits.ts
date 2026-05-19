@@ -1,9 +1,9 @@
 import { parseUrl } from '@dimensiondev/utils';
+import type { NonFungibleTokenTrait } from '@dimensiondev/web3/types';
 import dayjs from 'dayjs';
 import { useMemo } from 'react';
 
 import type { EVM as NFTScanEVM } from '@/providers/nftscan/types.js';
-import type { NonFungibleTokenTrait } from '@/web3-shared/base/specs.js';
 
 function findTraitValue(traits: NFTScanEVM.Attribute[] | NonFungibleTokenTrait[], type: string) {
     const trait = traits.find((trait) => {

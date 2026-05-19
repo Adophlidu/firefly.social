@@ -2,6 +2,7 @@
 
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { EthereumSchemaType } from '@dimensiondev/web3/enums';
+import type { NonFungibleTokenTrait } from '@dimensiondev/web3/types';
 import { useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 import { gnosis } from 'viem/chains';
@@ -14,7 +15,6 @@ import { NFTNavbar } from '@/components/NFTs/NFTNavbar.js';
 import { POAP_CONTRACT_ADDRESS } from '@/constants/static.js';
 import { notFound } from '@/esm/navigation.js';
 import { getPOAP } from '@/providers/firefly/nft/getPOAP.js';
-import type { NonFungibleTokenTrait } from '@/web3-shared/base/specs.js';
 
 export function PoapDetailPage({ tokenId }: { tokenId: string }) {
     const { data: poap, isLoading } = useQuery({

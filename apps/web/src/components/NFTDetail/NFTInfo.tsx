@@ -6,6 +6,7 @@ import PoapIcon from '@dimensiondev/assets/poap.svg';
 import WebsiteIcon from '@dimensiondev/assets/website-circle.svg';
 import { Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
+import type { NonFungibleTokenTrait } from '@dimensiondev/web3/types';
 import { formatAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 
@@ -26,7 +27,6 @@ import { useEnsName } from '@/hooks/useEnsName.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { usePoapTraits } from '@/hooks/usePoapTraits.js';
 import type { EVM } from '@/providers/nftscan/types.js';
-import type { NonFungibleTokenTrait } from '@/web3-shared/base/specs.js';
 
 interface NFTInfoProps {
     ownerAddress?: string;

@@ -1,8 +1,8 @@
 import { isMilliseconds, isUnix } from '@dimensiondev/utils';
+import type { NonFungibleTokenTrait } from '@dimensiondev/web3/types';
 import dayjs from 'dayjs';
 
 import { formatDate } from '@/helpers/formatTimestamp.js';
-import type { NonFungibleTokenTrait } from '@/web3-shared/base/specs.js';
 
 function getNFTPropertyDateString(dateString: string) {
     if (isUnix(dateString)) return formatDate(dayjs.unix(Number.parseInt(dateString, 10)).toDate());

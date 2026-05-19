@@ -1,6 +1,9 @@
 import type { TokenType } from '@dimensiondev/enums';
 
-import type { LiteralUnion } from '@/types/utility.js';
+// https://github.com/microsoft/TypeScript/issues/29729#issuecomment-1483854699
+interface Nothing {}
+
+type LiteralUnion<U, T = U extends string ? string : U extends number ? number : never> = U | (T & Nothing);
 
 interface Token<ChainId, SchemaType> {
     /** For NFT, it could be `${chainId}.${contractAddress}.${tokenId}` */

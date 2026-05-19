@@ -2,6 +2,7 @@ import { web3 } from '@coral-xyz/anchor';
 import { STATUS } from '@dimensiondev/enums';
 import { envs } from '@dimensiondev/envs';
 import { rightShift, toFixed } from '@dimensiondev/web3/numbers';
+import type { FungibleToken } from '@dimensiondev/web3/types';
 import { isZeroAddressSolana } from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
 import { BigNumber } from 'bignumber.js';
@@ -32,7 +33,6 @@ import { captureLuckyDropEvent } from '@/providers/telemetry/captureLuckyDropEve
 import type { FireflyRedPacketAPI, RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import type { RedPacketMetadata } from '@/types/rp.js';
-import type { FungibleToken } from '@/web3-shared/base/specs.js';
 
 function treeShakePayloadInfo(payload: RedPacketJSONPayload): RedPacketMetadata {
     const token = pick(payload.token, ['decimals', 'symbol', 'address', 'chainId']) as FungibleToken<number, number>;

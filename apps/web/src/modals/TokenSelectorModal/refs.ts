@@ -1,9 +1,9 @@
 import type { NetworkType } from '@dimensiondev/enums';
 import type { EthereumSchemaType } from '@dimensiondev/web3/enums';
+import type { FungibleToken } from '@dimensiondev/web3/types';
 
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import type { Token } from '@/providers/types/Transfer.js';
-import type { FungibleToken } from '@/web3-shared/base/specs.js';
 
 export interface TokenSelectorModalOpenProps {
     address: string;
