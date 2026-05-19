@@ -3,7 +3,7 @@
 import '@/styles/limo.css';
 import '@/styles/paragraph.css';
 
-import { ArticlePlatform, Source } from '@dimensiondev/enums';
+import { ArticlePlatform, AttachmentType, Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 
 import { ArticleActions } from '@/components/Article/ArticleActions.js';
@@ -54,7 +54,7 @@ export function ArticleBody({ cover, article, onClick }: Props) {
 
                         if (cover)
                             PreviewMediaModalRef.open({
-                                medias: [{ type: 'Image', uri: cover }],
+                                medias: [{ type: AttachmentType.Image, uri: cover }],
                                 index: 0,
                                 source: Source.Article,
                             });

@@ -1,8 +1,7 @@
 import FireflyIcon from '@dimensiondev/assets/firefly.round.svg';
 import PlusIcon from '@dimensiondev/assets/plus.svg';
 import WalletIcon from '@dimensiondev/assets/wallet.svg';
-import { ConnectionSource, WalletProfileDataSource } from '@dimensiondev/enums';
-import { NetworkType } from '@dimensiondev/web3/enums';
+import { ConnectionSource, NetworkType, WalletProfileDataSource } from '@dimensiondev/enums';
 import { isSameAddress, isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';

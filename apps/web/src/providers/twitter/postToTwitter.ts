@@ -1,4 +1,4 @@
-import { Source } from '@dimensiondev/enums';
+import { PostType, Source } from '@dimensiondev/enums';
 import { first, uniqBy } from 'lodash-es';
 
 import { readChars } from '@/helpers/chars.js';
@@ -10,7 +10,7 @@ import { TwitterPollProvider } from '@/providers/twitter/Poll.js';
 import { twitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 import { uploadToTwitter, uploadVideoToTwitter } from '@/providers/twitter/uploadToTwitter.js';
 import type { Poll } from '@/providers/types/Poll.js';
-import type { Post, PostType } from '@/providers/types/SocialMedia.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 import { createPostTo } from '@/services/createPostTo.js';
 import { useTwitterProfileStore } from '@/store/useProfileStore/useTwitterProfileStore.js';
 import type { MediaObject, PostFunctionParams } from '@/types/compose.js';
@@ -57,7 +57,7 @@ export async function postToTwitter({ type, compositePost, keepPostLinks, signal
                 'id',
             ),
             restrictions: restriction ? [restriction] : undefined,
-            parentPostId: postType === 'Post' ? '' : (twitterParentPost?.postId ?? ''),
+            parentPostId: postType === PostType.Post ? '' : (twitterParentPost?.postId ?? ''),
             source: Source.Twitter,
             poll: first(polls),
         } satisfies Post;
@@ -81,17 +81,23 @@ export async function postToTwitter({ type, compositePost, keepPostLinks, signal
             return uploaded.map((x, index) => createTwitterMediaObject(x, downloaded[index]));
         },
         compose: (images, videos, polls) => {
-            return twitterSocialMediaProxy.publishPostWithOptions(composeDraft('Post', images, videos, polls));
+            return twitterSocialMediaProxy.publishPostWithOptions(composeDraft(PostType.Post, images, videos, polls));
         },
         reply: (images, videos, polls) => {
             if (!twitterParentPost?.postId) throw new Error('No parent post found.');
-            return twitterSocialMediaProxy.publishPostWithOptions(composeDraft('Comment', images, videos, polls), {
-                excludeReplyProfileIds,
-            });
+            return twitterSocialMediaProxy.publishPostWithOptions(
+                composeDraft(PostType.Comment, images, videos, polls),
+                {
+                    excludeReplyProfileIds,
+                },
+            );
         },
         quote: (images, videos) => {
             if (!twitterParentPost?.postId) throw new Error('No parent post found.');
-            return twitterSocialMediaProxy.quotePost(twitterParentPost.postId, composeDraft('Quote', images, videos));
+            return twitterSocialMediaProxy.quotePost(
+                twitterParentPost.postId,
+                composeDraft(PostType.Quote, images, videos),
+            );
         },
     });
 

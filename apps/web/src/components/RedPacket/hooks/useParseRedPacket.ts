@@ -1,3 +1,4 @@
+import { AttachmentType } from '@dimensiondev/enums';
 import { useQuery } from '@tanstack/react-query';
 import { compact, first } from 'lodash-es';
 
@@ -18,7 +19,7 @@ export function useParseRedPacket(account: string | undefined, post: Post, enabl
     const source = post.source;
     const { currentProfile } = useProfileStore(source);
     const image = first(
-        compact(post.metadata.content?.attachments?.filter((x) => x.type === 'Image').map((x) => x.uri)),
+        compact(post.metadata.content?.attachments?.filter((x) => x.type === AttachmentType.Image).map((x) => x.uri)),
     );
 
     const { data, refetch, isLoading } = useQuery({

@@ -1,10 +1,10 @@
 /* cspell:disable */
 
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import type { NetworkType } from '@dimensiondev/enums';
 import { SessionType } from '@dimensiondev/enums';
 import type { Pageable, PageIndicator } from '@dimensiondev/utils';
 import { NotImplementedError } from '@dimensiondev/utils';
-import type { NetworkType } from '@dimensiondev/web3/enums';
 import urlcat from 'urlcat';
 
 import { MessageType, ReactionType } from '@/constants/farcaster.js';

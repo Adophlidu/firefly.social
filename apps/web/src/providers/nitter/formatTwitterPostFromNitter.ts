@@ -1,4 +1,4 @@
-import { Source } from '@dimensiondev/enums';
+import { AttachmentType, PostType, Source } from '@dimensiondev/enums';
 import dayjs from 'dayjs';
 import { compact, first, last } from 'lodash-es';
 import type { ApiV2Includes, TweetV2 } from 'twitter-api-v2';
@@ -104,11 +104,11 @@ export function formatTwitterPostFromNitter(
         ...(tweet.photos
             ?.filter((photo) => photo.trim())
             .map<Attachment>((photo) => ({
-                type: 'Image',
+                type: AttachmentType.Image,
                 uri: getTwitterNitterPicOrigUrl(photo),
             })) ?? []),
         ...compact(tweet.gifs).map<Attachment>(({ url, thumb }) => ({
-            type: 'AnimatedGif',
+            type: AttachmentType.AnimatedGif,
             uri: getTwitterNitterPicUrl(url),
             coverUri: getTwitterNitterPicUrl(thumb),
         })),
@@ -116,7 +116,7 @@ export function formatTwitterPostFromNitter(
             .map<Attachment>(({ variants, thumb }) => {
                 const uri = last(variants)?.url!;
                 return {
-                    type: 'Video',
+                    type: AttachmentType.Video,
                     uri,
                     coverUri: getTwitterNitterPicUrl(thumb),
                     ...extractDimensionsFromUrl(uri),
@@ -132,7 +132,7 @@ export function formatTwitterPostFromNitter(
         ...options?.base,
         publicationId: tweet.id,
         postId: tweet.id,
-        type: 'Post',
+        type: PostType.Post,
         source: Source.Twitter,
         restrictions: resolveTweetReplySettings(options?.tweet?.reply_settings),
         author: includesUser ? formatTwitterProfile(includesUser) : formatTwitterProfileFromNitter(tweet.user),
@@ -163,16 +163,16 @@ export function formatTwitterPostFromNitter(
 
     if (tweet.replyId !== '0') {
         post.parentPostId = tweet.replyId;
-        post.type = 'Comment';
+        post.type = PostType.Comment;
     }
 
     if (tweet.quote && tweet.quote.id !== '0') {
         post.quoteOn = formatTwitterPostFromNitter(tweet.quote);
-        post.type = 'Quote';
+        post.type = PostType.Quote;
     }
 
     if (tweet.retweet) {
-        post.type = 'Mirror';
+        post.type = PostType.Mirror;
         post.reporter = post.author;
         post.author = formatTwitterProfileFromNitter(tweet.retweet.user);
         post.mirrorOn = formatTwitterPostFromNitter(tweet.retweet);

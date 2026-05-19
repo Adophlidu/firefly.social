@@ -1,9 +1,19 @@
 'use client';
 
+import {
+    LOGIN_SORTED_PROFILE_TAB_TYPE,
+    SORTED_PROFILE_TAB_TYPE,
+    WEB_WALLET_PROFILE_TAB_TYPES,
+} from '@dimensiondev/constants/computed';
 import type { ProfilePageSource } from '@dimensiondev/enums';
-import { ExploreSwitchType, SocialProfileCategory, Source, WalletProfileCategory } from '@dimensiondev/enums';
+import {
+    ExploreSwitchType,
+    NetworkType,
+    SocialProfileCategory,
+    Source,
+    WalletProfileCategory,
+} from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
-import { NetworkType } from '@dimensiondev/web3/enums';
 import { getAddressType, isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { type ReactNode, useContext, useMemo } from 'react';
@@ -14,11 +24,6 @@ import { PredictionPlatformFilter } from '@/components/Prediction/PredictionPlat
 import { ProfileContext } from '@/components/Profile/ProfileContext.js';
 import { ChainFilter } from '@/components/Swap/ChainFilter.js';
 import { ToggleEnableButton } from '@/components/TrumpTruthSocial/ToggleEnableButton.js';
-import {
-    LOGIN_SORTED_PROFILE_TAB_TYPE,
-    SORTED_PROFILE_TAB_TYPE,
-    WALLET_PROFILE_TAB_TYPES,
-} from '@/constants/computed.js';
 import { TRUMP_TWITTER_PROFILE } from '@/constants/mentions.js';
 import { VITALIK_ADDRESS } from '@/constants/static.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
@@ -92,8 +97,8 @@ export function ProfileCategoryTabs({
         if (source === Source.Wallet || source === Source.WalletMix) {
             const tabs =
                 addressType === NetworkType.Solana
-                    ? WALLET_PROFILE_TAB_TYPES.solana
-                    : WALLET_PROFILE_TAB_TYPES.ethereum;
+                    ? WEB_WALLET_PROFILE_TAB_TYPES.solana
+                    : WEB_WALLET_PROFILE_TAB_TYPES.ethereum;
             return tabs.map((type) => ({ type, title: tabTitles[type] }));
         }
 

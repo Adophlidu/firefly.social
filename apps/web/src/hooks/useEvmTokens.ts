@@ -1,6 +1,6 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { NetworkType } from '@dimensiondev/enums';
 import { chains } from '@dimensiondev/web3/chains';
-import { NetworkType } from '@dimensiondev/web3/enums';
 import { isGreaterThan, multipliedBy } from '@dimensiondev/web3/numbers';
 import { useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';

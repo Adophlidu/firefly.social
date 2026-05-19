@@ -1,7 +1,6 @@
 import LeftArrowIcon from '@dimensiondev/assets/left-arrow.svg';
-import type { ProfilePageSource } from '@dimensiondev/enums';
+import type { NetworkType, ProfilePageSource } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
-import type { NetworkType } from '@dimensiondev/web3/enums';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';

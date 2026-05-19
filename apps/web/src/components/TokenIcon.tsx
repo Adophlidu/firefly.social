@@ -1,6 +1,6 @@
+import type { NetworkType } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { isSolanaChain } from '@dimensiondev/web3/chains';
-import type { NetworkType } from '@dimensiondev/web3/enums';
 import { first } from 'lodash-es';
 import { type HTMLProps, memo, useCallback, useMemo, useState } from 'react';
 

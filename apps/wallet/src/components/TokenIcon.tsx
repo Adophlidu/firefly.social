@@ -1,4 +1,4 @@
-import type { NetworkType } from '@dimensiondev/web3/enums';
+import type { NetworkType } from '@dimensiondev/enums';
 import { first } from 'lodash-es';
 import { type HTMLProps, memo, useCallback, useState } from 'react';
 

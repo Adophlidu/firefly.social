@@ -2,6 +2,7 @@
 
 import AnonymousAvatar from '@dimensiondev/assets/anonymous-avatar.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { ENABLED_REPLY_SOURCES } from '@dimensiondev/constants/computed';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { uniqBy } from 'lodash-es';
@@ -12,7 +13,6 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ExcludeReplyUserListModal } from '@/components/Posts/ExcludeReplyUserList.js';
 import { PostBody } from '@/components/Posts/PostBody.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
-import { ENABLED_REPLY_SOURCES } from '@/constants/computed.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';

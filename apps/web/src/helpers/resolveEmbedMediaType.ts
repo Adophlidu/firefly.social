@@ -1,3 +1,4 @@
+import { AttachmentType } from '@dimensiondev/enums';
 import { parseUrl, safeUnreachable } from '@dimensiondev/utils';
 
 import { FRAME_DEV_SERVER_URL, FRAME_SERVER_URL } from '@/constants/static.js';
@@ -24,7 +25,7 @@ function getResourceType(urlString: string) {
     // media.tenor.com is a CDN for GIFs, but it doesn't have a file extension.
     // cspell: disable-next-line
     if (['imagedelivery.net', 'media.tenor.com', 'tba-social.mypinata.cloud'].includes(parsedURL.hostname)) {
-        return 'Image';
+        return AttachmentType.Image;
     }
 
     // cspell: disable-next-line
@@ -36,17 +37,17 @@ function getResourceType(urlString: string) {
 
     // cspell: ignore takocdn
     if (parsedURL.hostname === 'takocdn.xyz' && parsedURL.pathname.startsWith('/images/')) {
-        return 'Image';
+        return AttachmentType.Image;
     }
 
     if (['png', 'jpeg', 'gif', 'webp', 'bmp', 'jpg', 'heic', 'heif'].includes(fileExtension)) {
-        return 'Image';
+        return AttachmentType.Image;
     } else if (['mp4', 'webm', 'ogg', 'm3u8', 'mov'].includes(fileExtension)) {
-        return 'Video';
+        return AttachmentType.Video;
     } else if (['mp3'].includes(fileExtension)) {
-        return 'Audio';
+        return AttachmentType.Audio;
     } else if (isValidPollFrameUrl(parsedURL.origin)) {
-        return 'Poll';
+        return AttachmentType.Poll;
     }
     return;
 }
@@ -64,16 +65,16 @@ export function resolveEmbedMediaType(url: string, type?: EmbedMediaType) {
 
     switch (type) {
         case EmbedMediaType.IMAGE:
-            return 'Image';
+            return AttachmentType.Image;
         case EmbedMediaType.AUDIO:
-            if (url.includes('m3u8')) return 'Video';
-            return 'Audio';
+            if (url.includes('m3u8')) return AttachmentType.Video;
+            return AttachmentType.Audio;
         case EmbedMediaType.VIDEO:
-            return 'Video';
+            return AttachmentType.Video;
         case EmbedMediaType.UNKNOWN:
-            return 'Unknown';
+            return AttachmentType.Unknown;
         case EmbedMediaType.FRAME:
-            if (isValidPollFrameUrl(url)) return 'Poll';
+            if (isValidPollFrameUrl(url)) return AttachmentType.Poll;
             return;
         case EmbedMediaType.APPLICATION:
         case EmbedMediaType.CAST:

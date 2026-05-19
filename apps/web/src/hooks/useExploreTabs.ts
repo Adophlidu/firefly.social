@@ -1,9 +1,9 @@
+import { EXPLORE_TYPES } from '@dimensiondev/constants/computed';
 import { ExploreType } from '@dimensiondev/enums';
 import { useQuery } from '@tanstack/react-query';
 import { first } from 'lodash-es';
 import { useMemo } from 'react';
 
-import { EXPLORE_TYPES } from '@/constants/computed.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { getEventSlugList } from '@/providers/firefly/prediction/getEventSlugList.js';

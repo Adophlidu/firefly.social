@@ -1,11 +1,11 @@
 import type {
     FireflyPlatform,
+    NetworkType,
     RelatedWalletSource,
     SocialSourceInURL,
     Source,
     WalletProfileDataSource,
 } from '@dimensiondev/enums';
-import type { NetworkType } from '@dimensiondev/web3/enums';
 import type { Address, Hex } from 'viem';
 
 import type { EVM } from '@/providers/nftscan/types.js';

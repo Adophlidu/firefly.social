@@ -1,10 +1,9 @@
 'use client';
 
 import WebsiteIcon from '@dimensiondev/assets/website-circle.svg';
-import { MintStatus } from '@dimensiondev/enums';
+import { MintStatus, NetworkType } from '@dimensiondev/enums';
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { chains } from '@dimensiondev/web3/chains';
-import { NetworkType } from '@dimensiondev/web3/enums';
 import { Trans } from '@lingui/react/macro';
 import { useMemo } from 'react';
 import { useAsyncFn } from 'react-use';

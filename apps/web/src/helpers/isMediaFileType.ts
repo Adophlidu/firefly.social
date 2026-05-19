@@ -1,4 +1,4 @@
-import { ALLOWED_IMAGES_MIMES, ALLOWED_MEDIA_MIMES, ALLOWED_VIDEO_MIMES } from '@/constants/computed.js';
+import { ALLOWED_IMAGES_MIMES, ALLOWED_MEDIA_MIMES, ALLOWED_VIDEO_MIMES } from '@dimensiondev/constants/computed';
 
 type AllowedVideoMime = (typeof ALLOWED_VIDEO_MIMES)[number];
 type AllowedImageMime = (typeof ALLOWED_IMAGES_MIMES)[number];

@@ -1,12 +1,11 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
-import { Source } from '@dimensiondev/enums';
+import { NotificationType, Source } from '@dimensiondev/enums';
 import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { TipsNotification, TipsNotificationsResponse } from '@/providers/types/Firefly.js';
-import { NotificationType } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
 
 export async function getTipsNotifications(indicator?: PageIndicator) {

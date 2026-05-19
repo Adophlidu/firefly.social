@@ -1,5 +1,5 @@
+import type { NetworkType } from '@dimensiondev/enums';
 import { WalletSource } from '@dimensiondev/enums';
-import type { NetworkType } from '@dimensiondev/web3/enums';
 import { formatAddress, isSameAddress } from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
 import { first } from 'lodash-es';

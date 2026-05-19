@@ -1,4 +1,4 @@
-import type { NetworkType } from '@dimensiondev/web3/enums';
+import type { NetworkType } from '@dimensiondev/enums';
 
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import type { Token } from '@/providers/types/Transfer.js';

@@ -1,6 +1,6 @@
+import { NetworkType } from '@dimensiondev/enums';
 import { unreachable } from '@dimensiondev/utils';
 import { solana } from '@dimensiondev/web3/chains';
-import { NetworkType } from '@dimensiondev/web3/enums';
 import { mainnet } from 'viem/chains';
 import { useAccount, useChainId } from 'wagmi';
 

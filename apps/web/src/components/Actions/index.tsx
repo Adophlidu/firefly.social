@@ -1,6 +1,7 @@
 'use client';
 
-import { Source } from '@dimensiondev/enums';
+import { ENABLED_BOOKMARK_SOURCES } from '@dimensiondev/constants/computed';
+import { PostType, Source } from '@dimensiondev/enums';
 import { classNames, NotFoundError } from '@dimensiondev/utils';
 import { useQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
@@ -16,7 +17,6 @@ import { Share } from '@/components/Actions/Share.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tips } from '@/components/Tips/index.js';
 import { queryClient } from '@/configs/queryClient.js';
-import { ENABLED_BOOKMARK_SOURCES } from '@/constants/computed.js';
 import { mergePostDetailCache } from '@/helpers/mergePostDetailCache.js';
 import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
@@ -67,7 +67,7 @@ export const PostActionsWithGrid = memo<PostActionsWithGridProps>(function PostA
         enabled: isDetail,
     });
 
-    const isComment = post.type === 'Comment';
+    const isComment = post.type === PostType.Comment;
     const identity = useFireflyIdentity(post.source, resolveFireflyProfileId(post.author) ?? '');
     const actions = compact([
         <div key="comment">
@@ -136,7 +136,7 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
     ...rest
 }) {
     const isMedium = useIsMedium('max');
-    const isComment = post.type === 'Comment';
+    const isComment = post.type === PostType.Comment;
     const isDetailPage = useIsPostDetailPage();
 
     const identity = useFireflyIdentity(post.source, resolveFireflyProfileId(post.author) ?? '');

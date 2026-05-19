@@ -1,4 +1,4 @@
-import { NetworkType } from '@dimensiondev/web3/enums';
+import { NetworkType } from '@dimensiondev/enums';
 import { isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/workers-shared/helpers/isAddress.js';
 
 export function getAddressType(address: string) {

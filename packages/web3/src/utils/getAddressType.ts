@@ -1,4 +1,5 @@
-import { NetworkType } from '@/enums.js';
+import { NetworkType } from '@dimensiondev/enums';
+
 import { isValidAddressEthereum, isValidAddressSolana } from '@/utils/isValidAddress.js';
 
 export function getAddressType(address: string, strict = true) {

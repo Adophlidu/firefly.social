@@ -1,8 +1,8 @@
+import { GIF_MEDIA_SOURCE_CONFIG } from '@dimensiondev/constants/computed';
 import type { SocialSource } from '@dimensiondev/enums';
-import { FileMimeType } from '@dimensiondev/enums';
+import { FileMimeType, MediaSource } from '@dimensiondev/enums';
 
-import { GIF_MEDIA_SOURCE_CONFIG } from '@/constants/computed.js';
-import { type MediaObject, MediaSource } from '@/types/compose.js';
+import type { MediaObject } from '@/types/compose.js';
 
 export function ensureGifSource(medias: MediaObject[], source: SocialSource) {
     const validGifSources = GIF_MEDIA_SOURCE_CONFIG[source];

@@ -1,4 +1,4 @@
-import { NetworkType } from '@dimensiondev/web3/enums';
+import { NetworkType } from '@dimensiondev/enums';
 import { first } from '@dimensiondev/workers-shared/helpers/first.js';
 import { safeUnreachable } from '@dimensiondev/workers-shared/helpers/unreachable.js';
 

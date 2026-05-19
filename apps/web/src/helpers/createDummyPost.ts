@@ -1,5 +1,5 @@
 import type { SocialSource } from '@dimensiondev/enums';
-import { Source } from '@dimensiondev/enums';
+import { PostType, Source } from '@dimensiondev/enums';
 import { ETH_ZERO_ADDRESS } from '@dimensiondev/web3/constants';
 import { compact } from 'lodash-es';
 
@@ -34,7 +34,7 @@ export function createDummyCommentPost(source: SocialSource, compositePost: Comp
     if (!parentPost || !postId) return null;
     return {
         publicationId: crypto.randomUUID(),
-        type: 'Comment',
+        type: PostType.Comment,
         source,
         postId,
         parentPostId: parentPost.postId,

@@ -1,11 +1,11 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
-import type { SocialSourceInURL } from '@dimensiondev/enums';
+import { SUPPORTED_PREVIEW_MEDIA_TYPES } from '@dimensiondev/constants/computed';
+import { AttachmentType, type SocialSourceInURL } from '@dimensiondev/enums';
 import type { LayoutProps } from '@dimensiondev/types';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import { notFound } from 'next/navigation.js';
 
 import { PreviewImageModal } from '@/components/PreviewImageModal.js';
-import { SUPPORTED_PREVIEW_MEDIA_TYPES } from '@/constants/computed.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 
@@ -28,7 +28,7 @@ export default async function Photo(props: Props) {
     const attachments =
         post.metadata.content?.attachments?.filter((x) => SUPPORTED_PREVIEW_MEDIA_TYPES.includes(x.type)) ?? EMPTY_LIST;
 
-    const assets = asset?.type === 'Image' && attachments.length === 1 ? [asset] : attachments;
+    const assets = asset?.type === AttachmentType.Image && attachments.length === 1 ? [asset] : attachments;
     return (
         <PreviewImageModal postId={postId} assets={assets} source={source} index={Number.isNaN(+index) ? 0 : +index} />
     );

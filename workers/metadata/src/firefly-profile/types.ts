@@ -1,5 +1,4 @@
-import type { RelatedWalletSource, WalletProfileDataSource } from '@dimensiondev/enums';
-import type { NetworkType } from '@dimensiondev/web3/enums';
+import type { NetworkType, RelatedWalletSource, WalletProfileDataSource } from '@dimensiondev/enums';
 import type { FireflyResponse } from '@dimensiondev/workers-shared/types/firefly.js';
 
 export interface VerifiedSource {

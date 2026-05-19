@@ -1,6 +1,6 @@
 'use client';
 
-import { Source } from '@dimensiondev/enums';
+import { AttachmentType, Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { memo, useRef } from 'react';
 import ReactMarkdown, { type Options as ReactMarkdownOptions } from 'react-markdown';
@@ -71,7 +71,7 @@ export const ArticleMarkup = memo<ArticleMarkupProps>(function ArticleMarkup({
                                 if (!src) return;
                                 PreviewMediaModalRef.open({
                                     index: Math.max(index, 0),
-                                    medias: images.current.map((uri) => ({ type: 'Image', uri })),
+                                    medias: images.current.map((uri) => ({ type: AttachmentType.Image, uri })),
                                     source: Source.Article,
                                 });
                             }}

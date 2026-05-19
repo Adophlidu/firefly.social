@@ -1,11 +1,11 @@
 'use client';
 
 import FireflyMonochromeIcon from '@dimensiondev/assets/firefly-monochrome.svg';
+import { SUPPORTED_FETCH_POST_PUBLISH_INFO_SOURCES } from '@dimensiondev/constants/computed';
 import { Trans } from '@lingui/react/macro';
 import { skipToken, useQuery } from '@tanstack/react-query';
 import { memo, useMemo } from 'react';
 
-import { SUPPORTED_FETCH_POST_PUBLISH_INFO_SOURCES } from '@/constants/computed.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { isSendFromFirefly } from '@/helpers/isSendFromFirefly.js';
 import type { Post } from '@/providers/types/SocialMedia.js';

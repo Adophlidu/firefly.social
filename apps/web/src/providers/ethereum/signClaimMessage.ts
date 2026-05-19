@@ -1,4 +1,4 @@
-import { NetworkType } from '@dimensiondev/web3/enums';
+import { NetworkType } from '@dimensiondev/enums';
 import { type Hex, hexToBytes } from 'viem';
 import { signMessage } from 'viem/accounts';
 

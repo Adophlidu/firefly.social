@@ -2,9 +2,9 @@
 
 import QuestionIcon from '@dimensiondev/assets/question.svg';
 import RedPacketIcon from '@dimensiondev/assets/red-packet.svg';
+import { NetworkType } from '@dimensiondev/enums';
 import { waitForEthereumTransaction } from '@dimensiondev/web3/actions';
 import { rpSupportedChains } from '@dimensiondev/web3/chains';
-import { NetworkType } from '@dimensiondev/web3/enums';
 import {
     isGreaterThan,
     isLessThan,

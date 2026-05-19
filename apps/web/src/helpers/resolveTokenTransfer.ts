@@ -1,5 +1,5 @@
+import { NetworkType } from '@dimensiondev/enums';
 import { createLookupTableResolver, UnreachableError } from '@dimensiondev/utils';
-import { NetworkType } from '@dimensiondev/web3/enums';
 
 import { EthereumNetwork } from '@/providers/ethereum/Network.js';
 import { EthereumTransfer } from '@/providers/ethereum/Transfer.js';

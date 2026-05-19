@@ -1,4 +1,4 @@
-import { Source } from '@dimensiondev/enums';
+import { NotificationType, Source } from '@dimensiondev/enums';
 import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@dimensiondev/utils';
 import { compact, first } from 'lodash-es';
 import urlcat from 'urlcat';
@@ -11,7 +11,6 @@ import {
     type ScheduleNotificationsResponse,
     ScheduleTaskStatus,
 } from '@/providers/types/Firefly.js';
-import { NotificationType } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
 
 function formatScheduleNotification(notification: ScheduleNotificationData) {

@@ -1,5 +1,5 @@
 import type { AppBskyEmbedExternal, AppBskyEmbedImages, AppBskyEmbedVideo, RichText } from '@atproto/api';
-import { BskyEmbedType, FileMimeType } from '@dimensiondev/enums';
+import { AttachmentType, BskyEmbedType, FileMimeType } from '@dimensiondev/enums';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import { first } from 'lodash-es';
 import urlcat from 'urlcat';
@@ -15,11 +15,11 @@ import { getPostOembed } from '@/providers/firefly/worker/getPostOembed.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 export async function resolveBskyEmbed(post: Post, richText?: RichText, signal?: AbortSignal) {
-    const images = post.mediaObjects?.filter((media) => media.type === 'Image' && !!media.blobRef);
+    const images = post.mediaObjects?.filter((media) => media.type === AttachmentType.Image && !!media.blobRef);
     const gifs = post.mediaObjects?.filter(
-        (media) => media.type === 'Image' && media.mimeType === FileMimeType.GIF && !!media.blobRef,
+        (media) => media.type === AttachmentType.Image && media.mimeType === FileMimeType.GIF && !!media.blobRef,
     );
-    const videos = post.mediaObjects?.filter((media) => media.type === 'Video' && !!media.blobRef);
+    const videos = post.mediaObjects?.filter((media) => media.type === AttachmentType.Video && !!media.blobRef);
 
     const gif = first(gifs);
     if (gif) {

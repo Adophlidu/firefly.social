@@ -1,8 +1,8 @@
 'use client';
 
+import { NetworkType } from '@dimensiondev/enums';
 import { unreachable } from '@dimensiondev/utils';
 import { solana } from '@dimensiondev/web3/chains';
-import { NetworkType } from '@dimensiondev/web3/enums';
 import { isSameSolanaAddress } from '@dimensiondev/web3/utils';
 import { useAppKitAccount } from '@reown/appkit/react';
 import { useAppKitConnection } from '@reown/appkit-adapter-solana/react';

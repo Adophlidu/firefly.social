@@ -1,4 +1,4 @@
-import { NetworkType } from '@dimensiondev/web3/enums';
+import { NetworkType } from '@dimensiondev/enums';
 import { EthChainResolver } from '@dimensiondev/web3/resolvers';
 import { useQuery } from '@tanstack/react-query';
 import type { Address } from 'viem';

@@ -1,10 +1,10 @@
 'use client';
 
+import { BOOKMARK_SOURCES } from '@dimensiondev/constants/computed';
 import type { BookmarkSource } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 
 import { SolidSourceTabs } from '@/components/Tabs/SolidSourceTabs.js';
-import { BOOKMARK_SOURCES } from '@/constants/computed.js';
 import { resolveBookmarkUrl } from '@/helpers/resolveBookmarkUrl.js';
 import { captureBookmarkTabClick } from '@/providers/telemetry/captureBookmarkTabEvent.js';
 import { captureBookmarkTokenViewEvent } from '@/providers/telemetry/captureTokenEvent.js';

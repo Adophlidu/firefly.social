@@ -1,4 +1,4 @@
-import { NetworkType } from '@dimensiondev/web3/enums';
+import { NetworkType } from '@dimensiondev/enums';
 import { useMemo } from 'react';
 import { arbitrum, base, bsc, mainnet, optimism, polygon } from 'viem/chains';
 import { create } from 'zustand';

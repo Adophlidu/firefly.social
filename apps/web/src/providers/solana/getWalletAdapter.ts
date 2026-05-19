@@ -1,7 +1,7 @@
 'use client';
 
 import type { web3 } from '@coral-xyz/anchor';
-import { NetworkType } from '@dimensiondev/web3/enums';
+import { NetworkType } from '@dimensiondev/enums';
 import { CoreProviderController } from '@reown/appkit';
 import type { Provider } from '@reown/appkit-utils/solana';
 

@@ -1,11 +1,11 @@
 'use client';
 
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { SORTED_SOCIAL_SOURCES } from '@dimensiondev/constants/computed';
 import type { ProfilePageSource } from '@dimensiondev/enums';
-import { Source } from '@dimensiondev/enums';
+import { NetworkType, Source } from '@dimensiondev/enums';
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { solana } from '@dimensiondev/web3/chains';
-import { NetworkType } from '@dimensiondev/web3/enums';
 import { SolanaExplorerResolver } from '@dimensiondev/web3/resolvers';
 import { formatAddress, getAddressType, isSameAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
@@ -21,7 +21,6 @@ import { Image } from '@/components/Image.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { AddressLink } from '@/components/Tips/AddressLink.js';
 import { Tips } from '@/components/Tips/index.js';
-import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
 import { Link } from '@/esm/Link.js';
 import { getEnsNameFromWalletProfile } from '@/helpers/getEnsNameFromWalletProfile.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';

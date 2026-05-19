@@ -1,5 +1,6 @@
 'use client';
 
+import { ENABLED_FOLLOWING_LIST_SOURCES } from '@dimensiondev/constants/computed';
 import { FollowCategory, Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { Plural, Trans } from '@lingui/react/macro';
@@ -14,7 +15,6 @@ import { Mutuals } from '@/components/Profile/Mutuals.js';
 import { ProfileAction } from '@/components/Profile/ProfileAction.js';
 import { ProfileVerifyBadge } from '@/components/ProfileVerifyBadge/index.js';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
-import { ENABLED_FOLLOWING_LIST_SOURCES } from '@/constants/computed.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';

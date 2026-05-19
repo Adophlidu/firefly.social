@@ -1,5 +1,5 @@
 import { type $Typed, type AppBskyFeedThreadgate, ComAtprotoRepoApplyWrites, RichText } from '@atproto/api';
-import { BskyEmbedType, RestrictionType } from '@dimensiondev/enums';
+import { BskyEmbedType, PostType, RestrictionType } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { compact, first } from 'lodash-es';
 
@@ -115,7 +115,7 @@ export async function publishPostToBsky(post: Post, isQuote: boolean, options?: 
         },
     ];
 
-    if (post.type !== 'Comment' && post.restrictions?.some((x) => x !== RestrictionType.Everyone)) {
+    if (post.type !== PostType.Comment && post.restrictions?.some((x) => x !== RestrictionType.Everyone)) {
         writes.push({
             $type: 'com.atproto.repo.applyWrites#create',
             collection: 'app.bsky.feed.threadgate',
@@ -130,7 +130,7 @@ export async function publishPostToBsky(post: Post, isQuote: boolean, options?: 
         });
     }
 
-    if (post.type !== 'Comment' && options?.disableQuote) {
+    if (post.type !== PostType.Comment && options?.disableQuote) {
         writes.push({
             $type: 'com.atproto.repo.applyWrites#create',
             collection: 'app.bsky.feed.postgate',

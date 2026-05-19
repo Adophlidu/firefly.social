@@ -1,5 +1,5 @@
 import type { SocialSource } from '@dimensiondev/enums';
-import { NetworkType } from '@dimensiondev/web3/enums';
+import { NetworkType } from '@dimensiondev/enums';
 import { EthChainResolver } from '@dimensiondev/web3/resolvers';
 import { t } from '@lingui/core/macro';
 import { last } from 'lodash-es';

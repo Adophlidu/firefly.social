@@ -1,5 +1,4 @@
-import { FireflyPlatform, WalletSource } from '@dimensiondev/enums';
-import { NetworkType } from '@dimensiondev/web3/enums';
+import { FireflyPlatform, NetworkType, WalletSource } from '@dimensiondev/enums';
 import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import { produce } from 'immer';
 

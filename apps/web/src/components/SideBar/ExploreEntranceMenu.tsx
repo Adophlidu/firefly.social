@@ -2,12 +2,12 @@
 
 import ExploreSelectedIcon from '@dimensiondev/assets/explore.selected.svg';
 import ExploreIcon from '@dimensiondev/assets/explore.svg';
+import { DEFAULT_EXPLORE_TYPE } from '@dimensiondev/constants/computed';
 import { Trans } from '@lingui/react/macro';
 import { first } from 'lodash-es';
 import { memo, useMemo } from 'react';
 
 import { BaseMenuItem } from '@/components/SideBar/BaseMenuItem.js';
-import { DEFAULT_EXPLORE_TYPE } from '@/constants/computed.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 import { useExploreTabs } from '@/hooks/useExploreTabs.js';
 

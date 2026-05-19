@@ -1,8 +1,8 @@
+import { SORTED_POLL_SOURCES } from '@dimensiondev/constants/computed';
 import type { SocialSource } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 import { compact } from 'lodash-es';
 
-import { SORTED_POLL_SOURCES } from '@/constants/computed.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import type { ComposeEventParameters } from '@/providers/types/Telemetry.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';

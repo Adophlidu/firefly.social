@@ -1,8 +1,8 @@
 'use client';
 
+import type { NetworkType } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { getChainIcon, resolveDebankChain } from '@dimensiondev/web3/chains';
-import type { NetworkType } from '@dimensiondev/web3/enums';
 import type { HTMLProps } from 'react';
 
 import { Image } from '@/components/Image.js';

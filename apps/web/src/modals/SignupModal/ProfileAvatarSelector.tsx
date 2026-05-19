@@ -1,10 +1,10 @@
 import EditIcon from '@dimensiondev/assets/edit.svg';
+import { ALLOWED_IMAGES_MIMES } from '@dimensiondev/constants/computed';
 import { first } from 'lodash-es';
 import { memo } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import { EditProfileAvatar } from '@/components/EditProfile/EditProfileAvatar.js';
-import { ALLOWED_IMAGES_MIMES } from '@/constants/computed.js';
 import { ImageEditorModalRef } from '@/modals/ImageEditorModal/refs.js';
 
 interface Props {

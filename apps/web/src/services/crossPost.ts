@@ -1,3 +1,4 @@
+import { SORTED_SOCIAL_SOURCES, SUPPORTED_FRAME_SOURCES } from '@dimensiondev/constants/computed';
 import type { SocialSource } from '@dimensiondev/enums';
 import { NODE_ENV } from '@dimensiondev/enums';
 import { envs } from '@dimensiondev/envs';
@@ -6,7 +7,6 @@ import { produce } from 'immer';
 import { compact, difference, first } from 'lodash-es';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { SORTED_SOCIAL_SOURCES, SUPPORTED_FRAME_SOURCES } from '@/constants/computed.js';
 import { SessionExpiredError } from '@/constants/error.js';
 import { canQuotePost } from '@/helpers/canQuotePost.js';
 import { readChars } from '@/helpers/chars.js';

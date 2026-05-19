@@ -1,6 +1,6 @@
+import { NetworkType } from '@dimensiondev/enums';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import { createWagmiPublicClient } from '@dimensiondev/web3/actions';
-import { NetworkType } from '@dimensiondev/web3/enums';
 import { toFixed, ZERO } from '@dimensiondev/web3/numbers';
 import { resolvePublicRpcUrl } from '@dimensiondev/web3/utils';
 import { useQuery } from '@tanstack/react-query';

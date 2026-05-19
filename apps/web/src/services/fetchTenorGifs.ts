@@ -1,9 +1,9 @@
+import { MediaSource } from '@dimensiondev/enums';
 import { envs } from '@dimensiondev/envs';
 import { compact, first } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { fetchJson } from '@/helpers/fetchJson.js';
-import { MediaSource } from '@/types/compose.js';
 import type { IGif } from '@/types/giphy.js';
 
 interface FetchTenorGifsOptions {

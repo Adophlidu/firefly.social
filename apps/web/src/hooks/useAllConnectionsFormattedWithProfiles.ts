@@ -1,10 +1,10 @@
+import { SORTED_SOCIAL_SOURCES } from '@dimensiondev/constants/computed';
 import { Source } from '@dimensiondev/enums';
 import { unreachable } from '@dimensiondev/utils';
 import { isSameAddress } from '@dimensiondev/web3/utils';
 import { useQueries } from '@tanstack/react-query';
 import { compact, first } from 'lodash-es';
 
-import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useAllConnections } from '@/hooks/useAllConnections.js';
 import type { LensConnection } from '@/providers/types/Firefly.js';

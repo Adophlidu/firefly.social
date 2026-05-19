@@ -1,15 +1,14 @@
-import { Source } from '@dimensiondev/enums';
+import { NotificationType, Source } from '@dimensiondev/enums';
 import { last } from 'lodash-es';
 
 import { isSamePost } from '@/helpers/isSamePost.js';
 import { uniqProfiles } from '@/helpers/uniqProfiles.js';
-import {
-    type FollowNotification,
-    type MirrorNotification,
-    type Notification,
-    NotificationType,
-    type Profile,
-    type ReactionNotification,
+import type {
+    FollowNotification,
+    MirrorNotification,
+    Notification,
+    Profile,
+    ReactionNotification,
 } from '@/providers/types/SocialMedia.js';
 
 function isSameNotificationInType(a: Notification, b: Notification): boolean {

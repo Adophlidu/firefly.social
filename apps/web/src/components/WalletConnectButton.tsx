@@ -1,10 +1,9 @@
 'use client';
 
 import WalletIcon from '@dimensiondev/assets/wallet.svg';
-import { ClickOrigin } from '@dimensiondev/enums';
+import { ClickOrigin, NetworkType } from '@dimensiondev/enums';
 import { classNames, delay } from '@dimensiondev/utils';
 import { getChainIcon, solana as solanaMainnetChain } from '@dimensiondev/web3/chains';
-import { NetworkType } from '@dimensiondev/web3/enums';
 import { Trans } from '@lingui/react/macro';
 import { compact } from 'lodash-es';
 import { memo, useMemo } from 'react';

@@ -1,6 +1,6 @@
+import { SOCIAL_DISCOVER_SOURCE } from '@dimensiondev/constants/computed';
 import { HomeTab, type SocialDiscoverSource } from '@dimensiondev/enums';
 
-import { SOCIAL_DISCOVER_SOURCE } from '@/constants/computed.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useDiscoverStoreWithTab } from '@/hooks/useDiscoverStoreWithTab.js';
 import { useSocialDiscoverSourcesWithWhitelist } from '@/hooks/useSocialDiscoverSourcesWithWhitelist.js';

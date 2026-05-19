@@ -1,5 +1,5 @@
 import Play from '@dimensiondev/assets/play.svg';
-import { Source } from '@dimensiondev/enums';
+import { AttachmentType, Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 
 import { Image } from '@/components/Image.js';
@@ -20,7 +20,7 @@ interface VideoAssetProps {
 }
 
 export function VideoAsset({ asset, minimal, source, autoPlay, videoClassName }: VideoAssetProps) {
-    const isGif = asset.type === 'AnimatedGif';
+    const isGif = asset.type === AttachmentType.AnimatedGif;
     const { width, height } = asset;
     const [renderWidth] = computeSize(width || 1000, height || 1000, {
         minWidth: 50,

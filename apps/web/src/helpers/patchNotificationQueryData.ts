@@ -1,12 +1,13 @@
+import { UNIFIED_NOTIFICATION_TYPES } from '@dimensiondev/constants/computed';
 import type { Source } from '@dimensiondev/enums';
+import { NotificationType } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { type Draft, produce } from 'immer';
 import { first } from 'lodash-es';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { UNIFIED_NOTIFICATION_TYPES } from '@/constants/computed.js';
 import type { ScheduleNotification, TipsNotification, UnifiedNotification } from '@/providers/types/Firefly.js';
-import { type Notification, NotificationType, type Post, type Profile } from '@/providers/types/SocialMedia.js';
+import type { Notification, Post, Profile } from '@/providers/types/SocialMedia.js';
 
 type Patcher = (old: Draft<Notification>) => void;
 type SocialNotification = Exclude<Notification, UnifiedNotification | TipsNotification | ScheduleNotification>;

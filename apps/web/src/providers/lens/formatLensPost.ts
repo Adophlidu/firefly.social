@@ -1,5 +1,5 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
-import { Source } from '@dimensiondev/enums';
+import { AttachmentType, PostType, Source } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import type {
     AnyMedia,
@@ -28,7 +28,7 @@ import { formatLensPostOperations, formatLensPostStats } from '@/providers/lens/
 import { formatLensProfileByMention, formatLensProfileV3 } from '@/providers/lens/formatLensProfile.js';
 import { isMutedLensAccount } from '@/providers/lens/isMutedLensAccount.js';
 import { LensMetadataAttributeKey } from '@/providers/types/Lens.js';
-import type { Attachment, MediaObject, Post, PostType, Profile } from '@/providers/types/SocialMedia.js';
+import type { Attachment, MediaObject, Post, Profile } from '@/providers/types/SocialMedia.js';
 
 const PLACEHOLDER_IMAGE = 'https://static-assets.hey.xyz/images/placeholder.webp';
 
@@ -64,7 +64,7 @@ function getAttachmentsV3(attachments?: AnyMedia[] | null) {
                     if (attachment.item) {
                         return {
                             uri: formatLensImageUrl(attachment.item),
-                            type: 'Image',
+                            type: AttachmentType.Image,
                         };
                     }
                     return;
@@ -73,7 +73,7 @@ function getAttachmentsV3(attachments?: AnyMedia[] | null) {
                         return {
                             uri: formatLensImageUrl(attachment.item),
                             coverUri: formatLensImageUrl(attachment.cover),
-                            type: 'Video',
+                            type: AttachmentType.Video,
                             ...resolveSizeFromS3Url(attachment.item),
                         };
                     }
@@ -84,7 +84,7 @@ function getAttachmentsV3(attachments?: AnyMedia[] | null) {
                             uri: formatLensImageUrl(attachment.item),
                             coverUri: formatLensImageUrl(attachment.cover),
                             artist: attachment.artist ?? undefined,
-                            type: 'Audio',
+                            type: AttachmentType.Audio,
                         };
                     }
                     return;
@@ -144,7 +144,7 @@ function formatContentV3(metadata: FullPostMetadata, author: Profile, mentions: 
             const asset = metadata.image?.item
                 ? ({
                       uri: formatLensImageUrl(metadata.image.item),
-                      type: 'Image',
+                      type: AttachmentType.Image,
                       title: metadata.image.altTag || metadata.title || '',
                   } satisfies Attachment)
                 : undefined;
@@ -166,7 +166,7 @@ function formatContentV3(metadata: FullPostMetadata, author: Profile, mentions: 
                 coverUri: formatLensImageUrl(metadata.audio.cover || audioAttachments?.coverUri || PLACEHOLDER_IMAGE),
                 artist: metadata.audio.artist || audioAttachments?.artist,
                 title: metadata.title || '',
-                type: 'Audio',
+                type: AttachmentType.Audio,
             } satisfies Attachment;
 
             return {
@@ -183,7 +183,7 @@ function formatContentV3(metadata: FullPostMetadata, author: Profile, mentions: 
             const asset = {
                 uri: formatLensImageUrl(videoUrl),
                 coverUri: formatLensImageUrl(metadata.video.cover || videoAttachment?.coverUri || PLACEHOLDER_IMAGE),
-                type: 'Video',
+                type: AttachmentType.Video,
                 ...resolveSizeFromS3Url(videoUrl),
             } satisfies Attachment;
 
@@ -291,7 +291,7 @@ export function formatLensQuoteOrCommentV3(
 
     return {
         publicationId: result.id,
-        type: type || result.__typename,
+        type: type ?? PostType.Post,
         source: Source.Lens,
         postId: result.id,
         slug: result.slug,
@@ -405,7 +405,7 @@ export function formatLensPostV3(result: AnyPost): Post {
 
         return {
             publicationId: result.id,
-            type: 'Mirror',
+            type: PostType.Mirror,
             postId: mirrorOn.id,
             slug: mirrorOn.slug,
             timestamp: new Date(result.timestamp).getTime(),
@@ -454,7 +454,7 @@ export function formatLensPostV3(result: AnyPost): Post {
     if (result.quoteOf) {
         return {
             publicationId: result.id,
-            type: result.__typename,
+            type: PostType.Post,
             source: Source.Lens,
             postId: result.id,
             slug: result.slug,
@@ -490,7 +490,7 @@ export function formatLensPostV3(result: AnyPost): Post {
     } else if (result.commentOn) {
         return {
             publicationId: result.id,
-            type: 'Comment',
+            type: PostType.Comment,
             source: Source.Lens,
             postId: result.id,
             slug: result.slug,
@@ -531,7 +531,7 @@ export function formatLensPostV3(result: AnyPost): Post {
     } else {
         return {
             publicationId: result.id,
-            type: result.__typename,
+            type: PostType.Post,
             source: Source.Lens,
             postId: result.id,
             slug: result.slug,

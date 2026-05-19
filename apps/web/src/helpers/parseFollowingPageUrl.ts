@@ -1,6 +1,6 @@
+import { FOLLOWING_SOURCES } from '@dimensiondev/constants/computed';
 import { type FollowingSource, PageRoute } from '@dimensiondev/enums';
 
-import { FOLLOWING_SOURCES } from '@/constants/computed.js';
 import { matchPath } from '@/helpers/matchPath.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 

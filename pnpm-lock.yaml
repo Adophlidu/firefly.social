@@ -990,6 +990,9 @@ importers:
 
   packages/constants:
     dependencies:
+      '@dimensiondev/enums':
+        specifier: workspace:^
+        version: link:../enums
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -1294,6 +1297,9 @@ importers:
       '@coral-xyz/anchor':
         specifier: ^0.31.1
         version: 0.31.1(typescript@5.9.3)
+      '@dimensiondev/enums':
+        specifier: workspace:^
+        version: link:../enums
       bignumber.js:
         specifier: 9.3.1
         version: 9.3.1
@@ -18315,9 +18321,9 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@wagmi/core': 3.0.2(@tanstack/query-core@5.100.9)(@types/react@19.2.14)(immer@10.2.0)(react@19.2.5)(typescript@5.9.3)(use-sync-external-store@1.5.0)(viem@2.48.11)
+      '@wagmi/core': 3.0.2(react@19.2.5)(typescript@5.9.3)(use-sync-external-store@1.5.0)(viem@2.48.11)
       typescript: 5.9.3
-      viem: 2.48.11(typescript@5.9.3)(zod@3.25.76)
+      viem: 2.48.11(typescript@5.9.3)(zod@4.4.3)
     dev: false
 
   /@wagmi/connectors@8.0.10(@wagmi/core@3.4.9)(accounts@0.8.10)(typescript@5.9.3)(viem@2.48.11):

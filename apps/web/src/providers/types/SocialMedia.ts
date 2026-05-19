@@ -1,15 +1,18 @@
 import type { BlobRef } from '@atproto/api';
 import type {
+    AttachmentType,
     BookmarkType,
     FireflyPlatform,
     Locale,
+    NetworkType,
+    NotificationType,
+    PostType,
     ProfileSource,
     RestrictionType,
     SessionType,
     SocialSource,
 } from '@dimensiondev/enums';
 import type { Pageable, PageIndicator } from '@dimensiondev/utils';
-import type { NetworkType } from '@dimensiondev/web3/enums';
 
 import type { Account } from '@/providers/types/Account.js';
 import type {
@@ -26,25 +29,6 @@ import type { RedPacketPayload } from '@/types/rp.js';
 
 export enum ReactionType {
     Upvote = 'Upvote', // aka. like
-}
-
-export enum NotificationType {
-    Reaction = 'reaction',
-    Comment = 'comment',
-    Mirror = 'mirror',
-    Quote = 'quote',
-    Follow = 'follow',
-    Mention = 'mention',
-    Act = 'act',
-    Tips = 'tips',
-    Schedule = 'schedule',
-    LikeMatters = 'like_matters',
-    LikeMirror = 'like_mirror',
-    LikeParagraph = 'like_paragraph',
-    LikeLimo = 'like_limo',
-    LikeBets = 'like_bets',
-    LikeDAO = 'like_dao',
-    LikeNFT = 'like_nft',
 }
 
 export enum ProfileStatus {
@@ -139,13 +123,13 @@ export interface MediaObject {
     url: string;
     // for bsky
     blobRef?: BlobRef;
-    type?: 'Image' | 'Video';
+    type?: AttachmentType.Image | AttachmentType.Video;
     width?: number;
     height?: number;
 }
 
 export interface Attachment {
-    type: 'Image' | 'Video' | 'Audio' | 'Poll' | 'AnimatedGif' | 'Unknown';
+    type: AttachmentType;
     uri: string;
     coverUri?: string;
     artist?: string;
@@ -153,8 +137,6 @@ export interface Attachment {
     width?: number;
     height?: number;
 }
-
-export type PostType = 'Post' | 'Comment' | 'Quote' | 'Mirror';
 
 export interface Post {
     /**

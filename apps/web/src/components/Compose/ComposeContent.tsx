@@ -1,4 +1,5 @@
-import type { SocialSource } from '@dimensiondev/enums';
+import { SORTED_SOCIAL_SOURCES } from '@dimensiondev/constants/computed';
+import { AttachmentType, type SocialSource } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { last } from 'lodash-es';
 
@@ -12,7 +13,6 @@ import { PostLinksInCompose } from '@/components/Posts/PostLinks.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { Reply } from '@/components/Posts/Reply.js';
 import { RemoveButton } from '@/components/RemoveButton.js';
-import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
 import { resolveEmbedMediaType } from '@/helpers/resolveEmbedMediaType.js';
 import { sanitizeDStorageUrl } from '@/helpers/sanitizeDStorageUrl.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
@@ -34,7 +34,7 @@ export function ComposeContent(props: ComposeContentProps) {
         ) ?? [];
     const replying = type === 'reply' && !!post;
 
-    const imagesInUrl = urls.filter((url) => resolveEmbedMediaType(url) === 'Image');
+    const imagesInUrl = urls.filter((url) => resolveEmbedMediaType(url) === AttachmentType.Image);
     const lastImageInUrl = last(imagesInUrl);
 
     return (

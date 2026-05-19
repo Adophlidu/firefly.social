@@ -1,6 +1,6 @@
 'use client';
 
-import { Source } from '@dimensiondev/enums';
+import { NotificationType, Source } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { Select, Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
@@ -25,7 +25,7 @@ import { toProfileId } from '@/helpers/isSameProfile.js';
 import { resolveNotificationIcon } from '@/helpers/resolveNotificationIcon.js';
 import { isProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import type { ScheduleNotification, TipsNotification, UnifiedNotification } from '@/providers/types/Firefly.js';
-import { type Notification, NotificationType } from '@/providers/types/SocialMedia.js';
+import type { Notification } from '@/providers/types/SocialMedia.js';
 
 interface NotificationItemProps {
     notification: Exclude<Notification, TipsNotification | ScheduleNotification | UnifiedNotification>;

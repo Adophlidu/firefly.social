@@ -1,5 +1,5 @@
+import type { NetworkType } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
-import type { NetworkType } from '@dimensiondev/web3/enums';
 import { BigNumber } from 'bignumber.js';
 import { type HTMLProps, useMemo } from 'react';
 

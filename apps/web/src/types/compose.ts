@@ -1,5 +1,5 @@
 import type { BlobRef } from '@atproto/api';
-import type { RestrictionType, SocialSource } from '@dimensiondev/enums';
+import type { MediaSource, RestrictionType, SocialSource } from '@dimensiondev/enums';
 
 import type { CompositePoll } from '@/providers/types/Poll.js';
 import type { Channel, Post } from '@/providers/types/SocialMedia.js';
@@ -7,17 +7,6 @@ import type { Chars } from '@/types/chars.js';
 import type { Frame } from '@/types/frame.js';
 import type { OpenGraph } from '@/types/og.js';
 import type { RedPacketPayload } from '@/types/rp.js';
-
-export enum MediaSource {
-    Local = 'local',
-    Twimg = 'Twimg',
-    IPFS = 'ipfs',
-    Imgur = 'imgur',
-    S3 = 's3',
-    Giphy = 'giphy',
-    Tenor = 'tenor',
-    Host = 'host',
-}
 
 export interface MediaObject {
     id: string;

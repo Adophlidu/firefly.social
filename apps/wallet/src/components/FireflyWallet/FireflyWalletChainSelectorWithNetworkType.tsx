@@ -1,6 +1,6 @@
 import EVMIcon from '@dimensiondev/assets/evm-chains.svg';
 import SolanaIcon from '@dimensiondev/assets/solana.colored.svg';
-import { NetworkType } from '@dimensiondev/web3/enums';
+import { NetworkType } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 import { useMemo } from 'react';
 

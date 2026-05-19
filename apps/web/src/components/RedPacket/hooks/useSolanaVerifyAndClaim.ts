@@ -1,7 +1,7 @@
 import { web3 } from '@coral-xyz/anchor';
 import type { SocialSource } from '@dimensiondev/enums';
+import { NetworkType } from '@dimensiondev/enums';
 import { solana } from '@dimensiondev/web3/chains';
-import { NetworkType } from '@dimensiondev/web3/enums';
 import { isZeroAddressSolana } from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';
 import { useAsyncFn } from 'react-use';

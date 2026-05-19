@@ -1,4 +1,4 @@
-import { FileMimeType } from '@dimensiondev/enums';
+import { AttachmentType, FileMimeType } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { first, last } from 'lodash-es';
 import type { MediaObjectV2, MediaVariantsV2 } from 'twitter-api-v2';
@@ -22,14 +22,14 @@ export function formatTwitterMedia(twitterMedia: MediaObjectV2): Attachment | nu
         case 'photo':
             return twitterMedia.url
                 ? {
-                      type: 'Image',
+                      type: AttachmentType.Image,
                       uri: twitterMedia.url,
                   }
                 : null;
         case 'animated_gif':
             return twitterMedia.variants?.[0].url
                 ? {
-                      type: 'AnimatedGif',
+                      type: AttachmentType.AnimatedGif,
                       uri: twitterMedia.variants[0].url,
                       coverUri: twitterMedia.preview_image_url,
                       width: twitterMedia.width,
@@ -40,7 +40,7 @@ export function formatTwitterMedia(twitterMedia: MediaObjectV2): Attachment | nu
             const uri = getBestVideoUrl(twitterMedia.variants ?? []);
             return uri
                 ? {
-                      type: 'Video',
+                      type: AttachmentType.Video,
                       uri,
                       coverUri: twitterMedia.preview_image_url,
                       width: twitterMedia.width,

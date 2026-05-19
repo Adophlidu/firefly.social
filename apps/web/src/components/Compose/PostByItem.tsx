@@ -1,6 +1,7 @@
 'use client';
 
 import InfoIcon from '@dimensiondev/assets/info.svg';
+import { ENABLED_REPLY_SETTINGS_POST_SOURCES } from '@dimensiondev/constants/computed';
 import type { SocialSource } from '@dimensiondev/enums';
 import { RestrictionType, Source } from '@dimensiondev/enums';
 import { classNames, delay } from '@dimensiondev/utils';
@@ -15,7 +16,6 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { ENABLED_REPLY_SETTINGS_POST_SOURCES } from '@/constants/computed.js';
 import { SessionExpiredError } from '@/constants/error.js';
 import { enqueueErrorMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';

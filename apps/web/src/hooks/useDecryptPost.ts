@@ -1,10 +1,9 @@
-import { Source } from '@dimensiondev/enums';
-import { NetworkType } from '@dimensiondev/web3/enums';
+import { ENABLED_DECRYPT_SOURCES } from '@dimensiondev/constants/computed';
+import { NetworkType, Source } from '@dimensiondev/enums';
 import { t } from '@lingui/core/macro';
 import { useAsyncFn } from 'react-use';
 import { useConnection } from 'wagmi';
 
-import { ENABLED_DECRYPT_SOURCES } from '@/constants/computed.js';
 import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { memoizePromise } from '@/helpers/memoizePromise.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';

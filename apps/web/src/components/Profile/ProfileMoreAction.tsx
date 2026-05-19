@@ -2,6 +2,7 @@
 
 import MoreIcon from '@dimensiondev/assets/more-fill.svg';
 import SearchIcon from '@dimensiondev/assets/search.svg';
+import { SORTED_SEARCHABLE_POST_BY_PROFILE_SOURCES } from '@dimensiondev/constants/computed';
 import { SearchType, Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { MenuItem, type MenuProps } from '@headlessui/react';
@@ -16,7 +17,6 @@ import { MuteProfileButton } from '@/components/Actions/MuteProfileButton.js';
 import { ReportProfileButton } from '@/components/Actions/ReportProfileButton.js';
 import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
-import { SORTED_SEARCHABLE_POST_BY_PROFILE_SOURCES } from '@/constants/computed.js';
 import { useRouter } from '@/esm/navigation.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';

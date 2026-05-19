@@ -1,10 +1,10 @@
 'use client';
 
 import ArrowDown from '@dimensiondev/assets/arrow-down.svg';
+import { NetworkType } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { rpSupportedChains } from '@dimensiondev/web3/chains';
 import { ETH_ZERO_ADDRESS } from '@dimensiondev/web3/constants';
-import { NetworkType } from '@dimensiondev/web3/enums';
 import { isZero, leftShift } from '@dimensiondev/web3/numbers';
 import {
     isNativeTokenAddress,

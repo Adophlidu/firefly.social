@@ -1,6 +1,5 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
-import { ConnectionSource } from '@dimensiondev/enums';
-import { NetworkType } from '@dimensiondev/web3/enums';
+import { ConnectionSource, NetworkType } from '@dimensiondev/enums';
 import { getAddressType, isSameAddress } from '@dimensiondev/web3/utils';
 import {
     CoreAssetUtil,

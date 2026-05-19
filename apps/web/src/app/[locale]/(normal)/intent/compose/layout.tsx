@@ -1,8 +1,8 @@
+import { DEFAULT_SOCIAL_SOURCE, DISCOVER_SOURCES } from '@dimensiondev/constants/computed';
 import type { PropsWithChildren } from 'react';
 
 import { SourceTabs } from '@/components/SourceTabs/index.js';
 import { SourceTab } from '@/components/SourceTabs/SourceTab.js';
-import { DEFAULT_SOCIAL_SOURCE, DISCOVER_SOURCES } from '@/constants/computed.js';
 import { resolveDiscoverUrl } from '@/helpers/resolveDiscoverUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 

@@ -1,9 +1,9 @@
+import { MediaSource } from '@dimensiondev/enums';
 import { Grid, SearchContext, SuggestionBar } from '@giphy/react-components';
 import { memo, useContext } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { MediaSource } from '@/types/compose.js';
 import type { IGif } from '@/types/giphy.js';
 
 interface GiphyGifListProps {

@@ -1,6 +1,6 @@
 import type { AppBskyFeedDefs } from '@atproto/api';
 import { EMPTY_LIST } from '@dimensiondev/constants';
-import { Source } from '@dimensiondev/enums';
+import { NotificationType, PostType, Source } from '@dimensiondev/enums';
 import { runInSafeAsync, safeUnreachable } from '@dimensiondev/utils';
 import {
     createIndicator,
@@ -16,15 +16,14 @@ import { formatBskyFeedPost, formatBskyPost } from '@/providers/bsky/formatBskyF
 import { formatBskyProfile } from '@/providers/bsky/formatBskyProfile.js';
 import { resolveBskyResponseData } from '@/providers/bsky/resolveBskyResponseData.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
-import {
-    type CommentNotification,
-    type FollowNotification,
-    type MentionNotification,
-    type MirrorNotification,
-    type Notification,
-    NotificationType,
-    type QuoteNotification,
-    type ReactionNotification,
+import type {
+    CommentNotification,
+    FollowNotification,
+    MentionNotification,
+    MirrorNotification,
+    Notification,
+    QuoteNotification,
+    ReactionNotification,
 } from '@/providers/types/SocialMedia.js';
 
 export async function getBskyNotifications(
@@ -117,7 +116,7 @@ export async function getBskyNotifications(
                             comment: comment
                                 ? {
                                       ...comment,
-                                      type: 'Comment',
+                                      type: PostType.Comment,
                                       commentOn: parentPost,
                                   }
                                 : null,
@@ -145,7 +144,7 @@ export async function getBskyNotifications(
                             type: NotificationType.Quote,
                             quote: {
                                 ...quote,
-                                type: 'Quote',
+                                type: PostType.Quote,
                                 quoteOn: targetPost,
                             },
                             post: targetPost,

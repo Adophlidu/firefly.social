@@ -1,4 +1,4 @@
-import type { Source } from '@dimensiondev/enums';
+import { AttachmentType, type Source } from '@dimensiondev/enums';
 import { memo } from 'react';
 
 import { Image } from '@/components/Image.js';
@@ -11,7 +11,7 @@ interface PreviewContentProps {
 }
 
 export const PreviewContent = memo<PreviewContentProps>(function PreviewContent({ source, asset }) {
-    return asset.type === 'Image' ? (
+    return asset.type === AttachmentType.Image ? (
         <Image
             key={asset.uri}
             src={asset.uri}
@@ -20,7 +20,7 @@ export const PreviewContent = memo<PreviewContentProps>(function PreviewContent(
             height={1000}
             className="max-h-[calc(100vh-110px)] w-auto object-contain max-md:h-[calc(calc(100vh-env(safe-area-inset-bottom)-env(safe-area-inset-top)-90px))] max-md:max-w-[calc(100%-30px)]"
         />
-    ) : asset.type === 'AnimatedGif' ? (
+    ) : asset.type === AttachmentType.AnimatedGif ? (
         <div className="w-[85vw]">
             <VideoAsset asset={asset} source={source} autoPlay />
         </div>

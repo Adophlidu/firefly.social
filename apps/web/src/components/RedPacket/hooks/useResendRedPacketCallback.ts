@@ -1,4 +1,4 @@
-import type { NetworkType } from '@dimensiondev/web3/enums';
+import type { NetworkType } from '@dimensiondev/enums';
 import { toFixed } from '@dimensiondev/web3/numbers';
 import { t } from '@lingui/core/macro';
 import { useAsyncFn } from 'react-use';

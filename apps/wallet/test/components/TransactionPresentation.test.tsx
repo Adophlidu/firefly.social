@@ -1,5 +1,5 @@
+import { NetworkType } from '@dimensiondev/enums';
 import { solana } from '@dimensiondev/web3/chains';
-import { NetworkType } from '@dimensiondev/web3/enums';
 import { formatAddress } from '@dimensiondev/web3/utils';
 import { isValidElement } from 'react';
 import { describe, expect, it } from 'vitest';

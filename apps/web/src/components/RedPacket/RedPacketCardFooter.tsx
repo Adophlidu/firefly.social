@@ -3,9 +3,9 @@
 import QuestionIcon from '@dimensiondev/assets/question.svg';
 import SendIcon from '@dimensiondev/assets/send.svg';
 import WalletIcon from '@dimensiondev/assets/wallet.svg';
+import { NetworkType } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { solana } from '@dimensiondev/web3/chains';
-import { NetworkType } from '@dimensiondev/web3/enums';
 import { Trans } from '@lingui/react/macro';
 import { memo, useCallback } from 'react';
 import { mainnet } from 'viem/chains';

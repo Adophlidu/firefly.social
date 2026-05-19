@@ -3,10 +3,9 @@
 import ExchangeIcon from '@dimensiondev/assets/exchange.svg';
 import ExportIcon from '@dimensiondev/assets/export.svg';
 import MoreIcon from '@dimensiondev/assets/more-circle.svg';
-import { Source } from '@dimensiondev/enums';
+import { NetworkType, Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { chains } from '@dimensiondev/web3/chains';
-import { NetworkType } from '@dimensiondev/web3/enums';
 import { formatAddress } from '@dimensiondev/web3/utils';
 import { Select, Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';

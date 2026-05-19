@@ -1,5 +1,6 @@
+import { SORTED_SOCIAL_SOURCES } from '@dimensiondev/constants/computed';
 import type { SocialSource } from '@dimensiondev/enums';
-import { CharTag, DraftPostType, FileMimeType } from '@dimensiondev/enums';
+import { CharTag, DraftPostType, FileMimeType, MediaSource } from '@dimensiondev/enums';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import { toFixed } from '@dimensiondev/web3/numbers';
 import { t } from '@lingui/core/macro';
@@ -9,7 +10,6 @@ import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
 
 import { formatSenderName } from '@/components/RedPacket/helpers.js';
-import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
 import { DEFAULT_THEME_ID } from '@/constants/rp.js';
 import { RP_HASH_TAG, SITE_URL } from '@/constants/static.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
@@ -32,7 +32,7 @@ import type { Post, Profile } from '@/providers/types/SocialMedia.js';
 import { type Draft, useComposeDraftState } from '@/store/useComposeDraftStore.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import { createInitPostState, useComposeStateStore } from '@/store/useComposeStore.js';
-import { type ComposeType, type CompositePost, MediaSource } from '@/types/compose.js';
+import type { ComposeType, CompositePost } from '@/types/compose.js';
 
 interface Options {
     draft: Draft;

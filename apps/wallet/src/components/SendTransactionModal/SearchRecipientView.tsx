@@ -1,9 +1,8 @@
 import LeftArrowIcon from '@dimensiondev/assets/left-arrow.svg';
 import SearchIcon from '@dimensiondev/assets/search.svg';
-import { Source } from '@dimensiondev/enums';
+import { NetworkType, Source } from '@dimensiondev/enums';
 import type { ErrorPageProps } from '@dimensiondev/types';
 import { createIndicator, createNextIndicator, createPageable } from '@dimensiondev/utils';
-import { NetworkType } from '@dimensiondev/web3/enums';
 import {
     isValidAddressEthereum,
     isValidAddressSolana,

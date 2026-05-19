@@ -1,5 +1,4 @@
-import type { SocialSource } from '@dimensiondev/enums';
-import { Source } from '@dimensiondev/enums';
+import { PostType, type SocialSource, Source } from '@dimensiondev/enums';
 
 import { patchNotificationQueryDataOnPost } from '@/helpers/patchNotificationQueryData.js';
 import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';
@@ -48,7 +47,7 @@ function toggleMirror(source: SocialSource, postId: string, status: boolean, key
         // remove mirrored post
         updateQueryForPosts(source, (posts) => {
             const index = posts.findIndex(
-                (p) => (p.postId === postId || p.publicationId === postId) && p.type === 'Mirror',
+                (p) => (p.postId === postId || p.publicationId === postId) && p.type === PostType.Mirror,
             );
             if (index !== -1) posts.splice(index, 1);
         });

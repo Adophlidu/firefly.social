@@ -1,15 +1,15 @@
 'use client';
 
+import {
+    SORTED_SEARCH_TYPE,
+    SORTED_SEARCHABLE_POST_BY_PROFILE_SOURCES,
+    SORTED_SOCIAL_SOURCES,
+} from '@dimensiondev/constants/computed';
 import { SearchType } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { memo, useMemo } from 'react';
 
 import { SourceNav } from '@/components/SourceNav/SourceNav.js';
-import {
-    SORTED_SEARCH_TYPE,
-    SORTED_SEARCHABLE_POST_BY_PROFILE_SOURCES,
-    SORTED_SOCIAL_SOURCES,
-} from '@/constants/computed.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveSearchKeyword } from '@/helpers/resolveSearchKeyword.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';

@@ -1,4 +1,4 @@
-import { FileMimeType, FireflyPlatform, Source } from '@dimensiondev/enums';
+import { AttachmentType, FileMimeType, FireflyPlatform, PostType, Source } from '@dimensiondev/enums';
 import { runInSafeAsync } from '@dimensiondev/utils';
 
 import { BSKY_IMAGE_LIMITATION, BSKY_SHORT_POST_LIMIT, MAX_IMAGE_SIZE_PER_POST } from '@/constants/limitation.js';
@@ -18,10 +18,12 @@ import { bskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { uploadVideoToBsky } from '@/providers/bsky/uploadVideoToBsky.js';
 import { postArticle } from '@/providers/firefly/article/postArticle.js';
 import { updateArticle } from '@/providers/firefly/article/updateArticle.js';
-import type { Post, PostType } from '@/providers/types/SocialMedia.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 import { createPostTo } from '@/services/createPostTo.js';
 import { useBskyProfileStore } from '@/store/useProfileStore/useBskyProfileStore.js';
 import type { MediaObject, PostFunctionParams } from '@/types/compose.js';
+
+type PostMediaObject = NonNullable<Post['mediaObjects']>[number];
 
 export async function postToBsky({
     type,
@@ -35,11 +37,11 @@ export async function postToBsky({
     const bskyPostId = postId.Bsky;
     const rootPost = getCompositePost(id);
     const bskyRootPostId =
-        bskyParentPost?.type === 'Quote'
+        bskyParentPost?.type === PostType.Quote
             ? bskyParentPost?.publicationId
             : (rootPost?.rootPost.postId.Bsky ?? bskyParentPost?.rootPostId ?? bskyParentPost?.publicationId ?? '');
     const bskyRootPostContentURI =
-        bskyParentPost?.type === 'Quote'
+        bskyParentPost?.type === PostType.Quote
             ? bskyParentPost?.metadata?.contentURI
             : (rootPost?.rootPost.postContentURI.Bsky ??
               bskyParentPost?.rootContentURI ??
@@ -75,22 +77,26 @@ export async function postToBsky({
                 },
             },
             mediaObjects: [
-                ...images.map((media) => ({
-                    blobRef: media.blobRef,
-                    url: resolveImageUrl(Source.Bsky, media),
-                    mimeType: media.mimeType || media.file.type,
-                    title: media.file.name,
-                    type: 'Image' as const,
-                    width: media.width,
-                    height: media.height,
-                })),
-                ...videos.map((media) => ({
-                    blobRef: media.blobRef,
-                    url: media.blobRef?.ref,
-                    type: 'Video' as const,
-                    width: media.width,
-                    height: media.height,
-                })),
+                ...images.map(
+                    (media): PostMediaObject => ({
+                        blobRef: media.blobRef,
+                        url: resolveImageUrl(Source.Bsky, media),
+                        mimeType: media.mimeType || media.file.type,
+                        title: media.file.name,
+                        type: AttachmentType.Image,
+                        width: media.width,
+                        height: media.height,
+                    }),
+                ),
+                ...videos.map(
+                    (media): PostMediaObject => ({
+                        blobRef: media.blobRef,
+                        url: media.blobRef?.ref,
+                        type: AttachmentType.Video,
+                        width: media.width,
+                        height: media.height,
+                    }),
+                ),
             ].slice(0, MAX_IMAGE_SIZE_PER_POST[Source.Bsky]),
         } satisfies Post;
     };
@@ -172,7 +178,7 @@ export async function postToBsky({
             return [];
         },
         async compose(images, videos) {
-            return handleLongPost('Post', images, videos, (draft) =>
+            return handleLongPost(PostType.Post, images, videos, (draft) =>
                 bskySocialMediaProvider.publishPost(draft, signal),
             );
         },
@@ -185,7 +191,7 @@ export async function postToBsky({
             )
                 throw new Error('No parent post found.');
 
-            return handleLongPost('Comment', images, videos, (draft) =>
+            return handleLongPost(PostType.Comment, images, videos, (draft) =>
                 bskySocialMediaProvider.publishPost(draft, signal),
             );
         },
@@ -198,7 +204,7 @@ export async function postToBsky({
             )
                 throw new Error('No parent post found.');
 
-            return handleLongPost('Quote', images, videos, (draft) =>
+            return handleLongPost(PostType.Quote, images, videos, (draft) =>
                 bskySocialMediaProvider.quotePost(bskyParentPost.postId, draft, undefined, signal),
             );
         },

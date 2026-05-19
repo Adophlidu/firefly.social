@@ -1,7 +1,6 @@
 'use client';
 
-import type { SocialSource, Source } from '@dimensiondev/enums';
-import { HomeTab, ScrollListKey } from '@dimensiondev/enums';
+import { HomeTab, PostType, ScrollListKey, type SocialSource, type Source } from '@dimensiondev/enums';
 import { useMultiInfiniteQueryPageable } from '@dimensiondev/hooks';
 import { createIndicator } from '@dimensiondev/utils';
 import { uniqBy } from 'lodash-es';
@@ -29,7 +28,7 @@ export const DiscoverPostList = memo<{ source: SocialSource | Source.Posts }>(fu
                 page.data.concat().sort((a, b) => (b.timestamp ?? 0) - (a.timestamp ?? 0)),
             );
             return uniqBy(posts, (post) => {
-                if (post.mirrors?.length || post.type === 'Mirror') return `${post.postId}:mirror`;
+                if (post.mirrors?.length || post.type === PostType.Mirror) return `${post.postId}:mirror`;
                 return post.postId;
             });
         },

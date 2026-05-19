@@ -464,6 +464,22 @@ export enum ExtraLikeType {
     Tips = 'tips',
 }
 
+export enum AttachmentType {
+    Image = 'Image',
+    Video = 'Video',
+    Audio = 'Audio',
+    Poll = 'Poll',
+    AnimatedGif = 'AnimatedGif',
+    Unknown = 'Unknown',
+}
+
+export enum PostType {
+    Post = 'Post',
+    Comment = 'Comment',
+    Quote = 'Quote',
+    Mirror = 'Mirror',
+}
+
 export enum DraftPostType {
     LocalNormal = 'local_normal',
     LocalTemp = 'local_temp',
@@ -513,6 +529,17 @@ export enum AsyncStatus {
 }
 
 // --- Media & upload ---
+
+export enum MediaSource {
+    Local = 'local',
+    Twimg = 'Twimg',
+    IPFS = 'ipfs',
+    Imgur = 'imgur',
+    S3 = 's3',
+    Giphy = 'giphy',
+    Tenor = 'tenor',
+    Host = 'host',
+}
 
 export enum FileMimeType {
     JPEG = 'image/jpeg',
@@ -619,7 +646,31 @@ export enum NotificationSourceType {
     X = 'x',
 }
 
+export enum NotificationType {
+    Reaction = 'reaction',
+    Comment = 'comment',
+    Mirror = 'mirror',
+    Quote = 'quote',
+    Follow = 'follow',
+    Mention = 'mention',
+    Act = 'act',
+    Tips = 'tips',
+    Schedule = 'schedule',
+    LikeMatters = 'like_matters',
+    LikeMirror = 'like_mirror',
+    LikeParagraph = 'like_paragraph',
+    LikeLimo = 'like_limo',
+    LikeBets = 'like_bets',
+    LikeDAO = 'like_dao',
+    LikeNFT = 'like_nft',
+}
+
 // --- Wallet, tokens & swap ---
+
+export enum NetworkType {
+    Ethereum = 'ethereum',
+    Solana = 'solana',
+}
 
 export enum WalletSource {
     Farcaster = 'farcaster',

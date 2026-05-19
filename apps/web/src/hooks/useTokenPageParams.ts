@@ -1,4 +1,5 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { TOKEN_CATEGORIES } from '@dimensiondev/constants/computed';
 import { TokenCategory } from '@dimensiondev/enums';
 import { solana } from '@dimensiondev/web3/chains';
 import { ETH_NATIVE_TOKEN_ADDRESS, SOL_NATIVE_TOKEN_ADDRESS } from '@dimensiondev/web3/constants';
@@ -7,7 +8,7 @@ import { compact, first, sortBy } from 'lodash-es';
 import { use } from 'react';
 
 import type { TokenPageProps } from '@/app/[locale]/(normal)/token/[exchange]/[[...slug]]/types.js';
-import { TOKEN_CATEGORIES, TRACING_CHAINS } from '@/constants/computed.js';
+import { TRACING_CHAINS } from '@/constants/computed.js';
 import { COINGECKO_SOL_COIN_ID, NO_TRACING_COINS } from '@/constants/static.js';
 import { resolveCoinGeckoCoinChainId } from '@/helpers/resolveCoingeckoCoinChainId.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';

@@ -1,5 +1,5 @@
 import type { SocialSource } from '@dimensiondev/enums';
-import { NetworkType } from '@dimensiondev/web3/enums';
+import { NetworkType } from '@dimensiondev/enums';
 import { useQuery } from '@tanstack/react-query';
 
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';

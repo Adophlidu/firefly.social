@@ -1,5 +1,6 @@
 'use client';
 
+import { SORTED_ENGAGEMENT_TAB_TYPE } from '@dimensiondev/constants/computed';
 import type { SocialSource } from '@dimensiondev/enums';
 import { EngagementType } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
@@ -7,7 +8,6 @@ import { type PropsWithChildren, useMemo } from 'react';
 
 import { Comeback } from '@/components/Comeback.js';
 import { SecondTabs } from '@/components/Tabs/SecondTabs.js';
-import { SORTED_ENGAGEMENT_TAB_TYPE } from '@/constants/computed.js';
 import { resolveEngagementUrl } from '@/helpers/resolveEngagementUrl.js';
 
 export function EngagementLayout({

@@ -1,5 +1,5 @@
+import { NetworkType } from '@dimensiondev/enums';
 import { delay, parseUrl } from '@dimensiondev/utils';
-import { NetworkType } from '@dimensiondev/web3/enums';
 import { Trans } from '@lingui/react/macro';
 import { useCallback } from 'react';
 import { useAsyncFn } from 'react-use';

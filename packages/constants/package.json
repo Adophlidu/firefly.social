@@ -11,7 +11,15 @@
             "types": "./dist/index.d.ts",
             "import": "./dist/index.js",
             "require": "./dist/index.cjs"
+        },
+        "./computed": {
+            "types": "./dist/computed.d.ts",
+            "import": "./dist/computed.js",
+            "require": "./dist/computed.cjs"
         }
+    },
+    "dependencies": {
+        "@dimensiondev/enums": "workspace:^"
     },
     "files": [
         "dist",

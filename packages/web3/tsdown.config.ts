@@ -7,7 +7,6 @@ export default defineConfig({
         'src/resolvers.ts',
         'src/constants.ts',
         'src/numbers.ts',
-        'src/enums.ts',
         'src/actions.ts',
         'src/abi.ts',
     ],

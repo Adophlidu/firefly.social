@@ -1,6 +1,6 @@
+import { NetworkType } from '@dimensiondev/enums';
 import { switchEthereumChain } from '@dimensiondev/web3/actions';
 import { chains } from '@dimensiondev/web3/chains';
-import { NetworkType } from '@dimensiondev/web3/enums';
 import { ConnectorChainMismatchError, ConnectorNotConnectedError } from '@wagmi/core';
 import type { Config } from 'wagmi';
 import { getWalletClient, type GetWalletClientParameters, type GetWalletClientReturnType } from 'wagmi/actions';

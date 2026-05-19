@@ -1,5 +1,6 @@
 'use client';
 
+import { SORTED_THIRD_PARTY_SOURCES } from '@dimensiondev/constants/computed';
 import type { ThirdPartySource } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
@@ -13,7 +14,6 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ProfileInList } from '@/components/Login/ProfileInList.js';
 import { Modal } from '@/components/Modal.js';
 import { queryClient } from '@/configs/queryClient.js';
-import { SORTED_THIRD_PARTY_SOURCES } from '@/constants/computed.js';
 import { enqueueErrorMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { resolveConnectionPlatform } from '@/helpers/resolveConnectionPlatform.js';
 import { stopEvent } from '@/helpers/stopEvent.js';

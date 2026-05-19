@@ -1,4 +1,4 @@
-import type { NetworkType } from '@dimensiondev/web3/enums';
+import type { NetworkType } from '@dimensiondev/enums';
 import type { BigNumber } from 'bignumber.js';
 
 import type { Token as DebankToken } from '@/providers/types/Debank.js';

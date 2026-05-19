@@ -1,6 +1,6 @@
 import AddIcon from '@dimensiondev/assets/add-circle.svg';
+import { NetworkType } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
-import { NetworkType } from '@dimensiondev/web3/enums';
 import { DialogTitle } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { useCallback, useState } from 'react';

@@ -1,9 +1,9 @@
+import { SORTED_SOCIAL_SOURCES } from '@dimensiondev/constants/computed';
 import type { SocialSource } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 import { compact, first } from 'lodash-es';
 import { useMemo } from 'react';
 
-import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useBskyProfileStore } from '@/store/useProfileStore/useBskyProfileStore.js';
 import { useFarcasterProfileStore } from '@/store/useProfileStore/useFarcasterProfileStore.js';

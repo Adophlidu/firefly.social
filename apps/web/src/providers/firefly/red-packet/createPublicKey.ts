@@ -1,4 +1,4 @@
-import { NetworkType } from '@dimensiondev/web3/enums';
+import { NetworkType } from '@dimensiondev/enums';
 import urlcat from 'urlcat';
 import type { Hex } from 'viem';
 

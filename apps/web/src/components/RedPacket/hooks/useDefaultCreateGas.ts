@@ -1,5 +1,5 @@
+import { NetworkType } from '@dimensiondev/enums';
 import { unreachable } from '@dimensiondev/utils';
-import { NetworkType } from '@dimensiondev/web3/enums';
 
 import { useEthereumDefaultGas } from '@/components/RedPacket/hooks/useEthereumDefaultGas.js';
 import { useSolanaDefaultGas } from '@/components/RedPacket/hooks/useSolanaDefaultGas.js';

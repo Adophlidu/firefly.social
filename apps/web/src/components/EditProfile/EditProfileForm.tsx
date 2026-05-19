@@ -1,5 +1,6 @@
 'use client';
 
+import { ALLOWED_IMAGES_MIMES, EDIT_PROFILE_FIELDS } from '@dimensiondev/constants/computed';
 import { ProfileEditableField } from '@dimensiondev/enums';
 import { parseUrl, safeUnreachable } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
@@ -15,7 +16,6 @@ import { FormInput } from '@/components/Form/FormInput.js';
 import { FormInputContainer } from '@/components/Form/FormInputContainer.js';
 import { FormTextarea } from '@/components/Form/FormTextarea.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { ALLOWED_IMAGES_MIMES, EDIT_PROFILE_FIELDS } from '@/constants/computed.js';
 import {
     MAX_PROFILE_BIO_SIZE,
     MAX_PROFILE_DISPLAY_NAME_SIZE,

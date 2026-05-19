@@ -1,7 +1,6 @@
 'use client';
 
-import { ArticlePlatform, Source } from '@dimensiondev/enums';
-import { NetworkType } from '@dimensiondev/web3/enums';
+import { ArticlePlatform, NetworkType, Source } from '@dimensiondev/enums';
 import { isValidAddressEthereum } from '@dimensiondev/web3/utils';
 import { useQuery } from '@tanstack/react-query';
 import { memo, useCallback } from 'react';

@@ -1,4 +1,5 @@
-import { SUFFIX_NAMES } from '@/constants/computed.js';
+import { SUFFIX_NAMES } from '@dimensiondev/constants/computed';
+
 import { memoizePromiseWithTime } from '@/helpers/memoizePromise.js';
 import { uploadMediaToken } from '@/providers/firefly/farcaster-hub/uploadMediaToken.js';
 import { uploadToS3ByBase64 } from '@/providers/firefly/worker/uploadToS3ByBase64.js';

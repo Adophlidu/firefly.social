@@ -1,5 +1,5 @@
+import { NetworkType } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
-import { NetworkType } from '@dimensiondev/web3/enums';
 
 import type { ChainNamespace } from '@/types/utility.js';
 

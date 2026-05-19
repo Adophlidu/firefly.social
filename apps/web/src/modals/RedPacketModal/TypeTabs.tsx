@@ -1,5 +1,5 @@
+import { NetworkType } from '@dimensiondev/enums';
 import { unreachable } from '@dimensiondev/utils';
-import { NetworkType } from '@dimensiondev/web3/enums';
 import { memo, useCallback, useContext } from 'react';
 
 import { Tab, Tabs } from '@/components/Tabs/index.js';

@@ -8,6 +8,8 @@ import type {
     FansStatus,
     FireflyPlatform,
     MintStatus,
+    NetworkType,
+    NotificationType as SocialNotificationType,
     OgStatus,
     PolymarketBetType,
     PredictionPlatform,
@@ -24,7 +26,6 @@ import type {
     WalletSource,
     WatchType,
 } from '@dimensiondev/enums';
-import type { NetworkType } from '@dimensiondev/web3/enums';
 import type { ReactNode } from 'react';
 import type { Address, Hex } from 'viem';
 
@@ -36,7 +37,6 @@ import type { Article as FormattedArticle } from '@/providers/types/Article.js';
 import type { CoinGeckoAsset } from '@/providers/types/CoinGecko.js';
 import type { Token as DebankToken } from '@/providers/types/Debank.js';
 import type { NFTFeedV3 } from '@/providers/types/NFTs.js';
-import type { NotificationType as SocialNotificationType } from '@/providers/types/SocialMedia.js';
 import type { LiteralOrString, PartialWith } from '@/types/utility.js';
 
 export enum EmbedMediaType {

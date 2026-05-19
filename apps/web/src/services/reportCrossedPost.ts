@@ -1,3 +1,4 @@
+import { SORTED_SOCIAL_SOURCES } from '@dimensiondev/constants/computed';
 import type { SocialSource } from '@dimensiondev/enums';
 import { FireflyPlatform, Source } from '@dimensiondev/enums';
 import { createLookupTableResolver, UnreachableError } from '@dimensiondev/utils';
@@ -5,7 +6,6 @@ import dayjs from 'dayjs';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
-import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { logger } from '@/libs/Logger.js';
 import { reportPostCreation } from '@/providers/firefly/report/reportPostCreation.js';

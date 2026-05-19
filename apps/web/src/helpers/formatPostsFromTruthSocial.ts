@@ -1,4 +1,4 @@
-import { Source } from '@dimensiondev/enums';
+import { AttachmentType, PostType, Source } from '@dimensiondev/enums';
 import { envs } from '@dimensiondev/envs';
 import { compact, last } from 'lodash-es';
 
@@ -30,8 +30,8 @@ function formatAuthor(account: TruthSocialPost['account']): Profile {
 }
 
 function resolveMediaType(media: TruthSocialPost['media_attachments'][number]) {
-    if (media.type === 'image') return 'Image';
-    if (media.type === 'video') return 'Video';
+    if (media.type === 'image') return AttachmentType.Image;
+    if (media.type === 'video') return AttachmentType.Video;
     return undefined;
 }
 
@@ -112,7 +112,7 @@ export function formatPostsFromTruthSocial(data: TruthSocialPost): Post {
         source: Source.Twitter,
         publicationId: data.truth_id,
         postId: data.truth_id,
-        type: 'Post',
+        type: PostType.Post,
         timestamp: new Date(data.post_time).getTime(),
         author: formatAuthor(data.account),
         permalink: data.url,

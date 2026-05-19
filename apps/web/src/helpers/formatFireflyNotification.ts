@@ -1,5 +1,5 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
-import { Source } from '@dimensiondev/enums';
+import { NotificationType, Source } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 
 import { formatFarcasterPostFromFirefly } from '@/providers/farcaster/formatFarcasterPostFromFirefly.js';
@@ -8,7 +8,7 @@ import {
     type Notification as FireflyNotification,
     NotificationType as FireflyNotificationType,
 } from '@/providers/types/Firefly.js';
-import { type Notification, NotificationType } from '@/providers/types/SocialMedia.js';
+import type { Notification } from '@/providers/types/SocialMedia.js';
 
 export function formatFireflyNotification(profileId: string, notification: FireflyNotification): Notification | null {
     const notificationId = `${profileId}_${notification.timestamp}_${notification.notificationType}`;

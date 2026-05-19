@@ -1,7 +1,8 @@
 'use client';
 
 import { EMPTY_LIST } from '@dimensiondev/constants';
-import { HomeTab, ScrollListKey, Source } from '@dimensiondev/enums';
+import { SORTED_SOCIAL_SOURCES } from '@dimensiondev/constants/computed';
+import { HomeTab, PostType, ScrollListKey, Source } from '@dimensiondev/enums';
 import { useMultiInfiniteQueryPageable } from '@dimensiondev/hooks';
 import { createIndicator, createPageable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
@@ -12,7 +13,6 @@ import { ListInPage } from '@/components/ListInPage.js';
 import { Loading } from '@/components/Loading.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
-import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
 import { mergeThreadPostsWithoutSource } from '@/helpers/mergeThreadPosts.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
@@ -44,7 +44,7 @@ const FollowingPostsTimeline = memo(function FollowingPostsTimeline() {
                 page.data.concat().sort((a, b) => (b.timestamp ?? 0) - (a.timestamp ?? 0)),
             );
             const uniqPosts = uniqBy(posts, (post) => {
-                if (post.mirrors?.length || post.type === 'Mirror') return `${post.postId}:mirror`;
+                if (post.mirrors?.length || post.type === PostType.Mirror) return `${post.postId}:mirror`;
                 return post.postId;
             });
             return mergeThreadPostsWithoutSource(uniqPosts);

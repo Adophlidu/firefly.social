@@ -1,16 +1,16 @@
 'use client';
 
+import { EXPLORE_SOURCES } from '@dimensiondev/constants/computed';
 import { type ExploreSource, type ExploreSourceInURL, ExploreType, Source, TrendingType } from '@dimensiondev/enums';
+import { NetworkType } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { solana } from '@dimensiondev/web3/chains';
-import { NetworkType } from '@dimensiondev/web3/enums';
 import { omit } from 'lodash-es';
 import { type HTMLProps, memo, useMemo } from 'react';
 import { base, bsc, mainnet } from 'viem/chains';
 
 import { FilterPanel } from '@/components/FilterPanel.js';
 import { SourceNav } from '@/components/SourceNav/SourceNav.js';
-import { EXPLORE_SOURCES } from '@/constants/computed.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 import { resolveExploreSource } from '@/helpers/resolveSourceInUrl.js';
 import { resolveExploreSourceName } from '@/helpers/resolveSourceName.js';

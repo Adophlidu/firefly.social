@@ -3,8 +3,9 @@ import ArrowRightIcon from '@dimensiondev/assets/arrow-circle-right.svg';
 import ArrowDownIcon from '@dimensiondev/assets/arrow-down.svg';
 import InfoIcon from '@dimensiondev/assets/info.svg';
 import QuestionIcon from '@dimensiondev/assets/question.svg';
+import { ALLOWED_COVER_MIMES } from '@dimensiondev/constants/computed';
+import { NetworkType } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
-import { NetworkType } from '@dimensiondev/web3/enums';
 import { multipliedBy, rightShift } from '@dimensiondev/web3/numbers';
 import { formatAddress, isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
@@ -19,7 +20,6 @@ import { useCreateRedPacketCallback } from '@/components/RedPacket/hooks/useCrea
 import { RedPacketEnvelope } from '@/components/RedPacket/RedPacketEnvelope.js';
 import { Tab, Tabs } from '@/components/Tabs/index.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { ALLOWED_COVER_MIMES } from '@/constants/computed.js';
 import { DEFAULT_THEME_ID } from '@/constants/rp.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { formatCurrency } from '@/helpers/formatCurrency.js';

@@ -19,8 +19,8 @@ import xdaiImage from '@dimensiondev/assets/chains/xdai.png';
 import xlayerImage from '@dimensiondev/assets/chains/xlayer.png';
 import zksyncImage from '@dimensiondev/assets/chains/zksync.png';
 import zoraImage from '@dimensiondev/assets/chains/zora.png';
+import type { NetworkType } from '@dimensiondev/enums';
 import { isSameSolanaChainId, solana } from '@dimensiondev/web3/chains';
-import type { NetworkType } from '@dimensiondev/web3/enums';
 import { type HTMLProps, memo } from 'react';
 import {
     arbitrum,

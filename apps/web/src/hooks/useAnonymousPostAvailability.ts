@@ -1,10 +1,10 @@
+import { SUPPORTED_ANONYMOUS_POST_SOURCES } from '@dimensiondev/constants/computed';
 import type { SocialSource } from '@dimensiondev/enums';
 import { Source, STATUS } from '@dimensiondev/enums';
 import { envs } from '@dimensiondev/envs';
 import { useQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 
-import { SUPPORTED_ANONYMOUS_POST_SOURCES } from '@/constants/computed.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { getPostByAnonymousRateLimits } from '@/providers/firefly/endpoint/getPostByAnonymousRateLimits.js';

@@ -1,6 +1,7 @@
 import WalletIcon from '@dimensiondev/assets/wallet2.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
-import { NetworkType } from '@dimensiondev/web3/enums';
+import { SORTED_SOCIAL_SOURCES } from '@dimensiondev/constants/computed';
+import { NetworkType } from '@dimensiondev/enums';
 import { multipliedBy } from '@dimensiondev/web3/numbers';
 import { Trans } from '@lingui/react/macro';
 import { useLocation } from '@tanstack/react-router';
@@ -19,7 +20,6 @@ import { switchChain } from 'wagmi/actions';
 
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
-import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
 import { ChainConfigMismatchError } from '@/constants/error.js';
 import { RED_PACKET_DEFAULT_SHARES } from '@/constants/rp.js';
 import { getNativeToken } from '@/helpers/getNativeToken.js';

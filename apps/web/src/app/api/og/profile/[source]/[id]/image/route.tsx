@@ -1,10 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 
+import { SORTED_SOCIAL_ACCOUNT_AVATAR_SOURCE } from '@dimensiondev/constants/computed';
 import type { ProfilePageSource, SocialSource } from '@dimensiondev/enums';
-import { Source } from '@dimensiondev/enums';
+import { NetworkType, Source } from '@dimensiondev/enums';
 import type { NextRequestContext } from '@dimensiondev/types';
 import { compose, runInSafeAsync, safeUnreachable } from '@dimensiondev/utils';
-import { NetworkType } from '@dimensiondev/web3/enums';
 import { formatAddress, getAddressType } from '@dimensiondev/web3/utils';
 import { compact, first } from 'lodash-es';
 import { ImageResponse } from 'next/og.js';
@@ -12,7 +12,6 @@ import type { NextRequest } from 'next/server.js';
 import type { HTMLProps } from 'react';
 import { z } from 'zod';
 
-import { SORTED_SOCIAL_ACCOUNT_AVATAR_SOURCE } from '@/constants/computed.js';
 import { CACHE_AGE_INDEFINITE_ON_DISK } from '@/constants/static.js';
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
 import { fetchImageAsBase64 } from '@/helpers/fetchAvatarAsBase64.js';

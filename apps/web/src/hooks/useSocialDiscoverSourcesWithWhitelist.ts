@@ -1,6 +1,6 @@
+import { SOCIAL_DISCOVER_SOURCE, SOCIAL_DISCOVER_WHITELIST_SOURCE } from '@dimensiondev/constants/computed';
 import { HomeTab } from '@dimensiondev/enums';
 
-import { SOCIAL_DISCOVER_SOURCE, SOCIAL_DISCOVER_WHITELIST_SOURCE } from '@/constants/computed.js';
 import { TWITTER_TIMELINE_WHITELIST_UID_SET } from '@/constants/twitterTimelineWhitelist.js';
 import { useCurrentFireflyAccountUID } from '@/hooks/useCurrentFireflyAccountUID.js';
 

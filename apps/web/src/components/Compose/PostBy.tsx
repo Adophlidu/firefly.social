@@ -1,3 +1,10 @@
+import {
+    ENABLED_RP_SOURCES,
+    ENABLED_SCHEDULE_POST_SOURCES,
+    GIF_MEDIA_SOURCE_CONFIG,
+    SORTED_POLL_SOURCES,
+    SORTED_SOCIAL_SOURCES,
+} from '@dimensiondev/constants/computed';
 import { FileMimeType } from '@dimensiondev/enums';
 import { PopoverPanel } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
@@ -6,13 +13,6 @@ import { useMemo } from 'react';
 
 import { PostByAnonymous } from '@/components/Compose/PostByAnonymous.js';
 import { PostByItem } from '@/components/Compose/PostByItem.js';
-import {
-    ENABLED_RP_SOURCES,
-    ENABLED_SCHEDULE_POST_SOURCES,
-    GIF_MEDIA_SOURCE_CONFIG,
-    SORTED_POLL_SOURCES,
-    SORTED_SOCIAL_SOURCES,
-} from '@/constants/computed.js';
 import { ensureGifSource } from '@/helpers/checkPostGif.js';
 import { getCurrentPostGifLimits, getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
 import { resolveSourcesName } from '@/helpers/resolveSourceName.js';

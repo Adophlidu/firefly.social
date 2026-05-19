@@ -1,4 +1,4 @@
-import type { SocialSource } from '@dimensiondev/enums';
+import { PostType, type SocialSource } from '@dimensiondev/enums';
 import { t } from '@lingui/core/macro';
 import { useAsyncFn } from 'react-use';
 
@@ -22,7 +22,7 @@ export function useDeletePost(source: SocialSource) {
                 const result = await provider.deletePost(post.postId);
                 if (!result) throw new Error(`Failed to delete post: ${post.postId}`);
 
-                if (isRoutePathname(pathname, '/post') && post.type === 'Post') {
+                if (isRoutePathname(pathname, '/post') && post.type === PostType.Post) {
                     navBack();
                 }
                 capturePostActionEvent('delete', post);

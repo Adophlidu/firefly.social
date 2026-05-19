@@ -1,5 +1,5 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
-import { RestrictionType, Source } from '@dimensiondev/enums';
+import { PostType, RestrictionType, Source } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@dimensiondev/utils';
 import { compact, find, first, last } from 'lodash-es';
@@ -54,7 +54,7 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
     const ret: Post = {
         publicationId: item.id,
         postId: item.id,
-        type: 'Post',
+        type: PostType.Post,
         source: Source.Twitter,
         hasMirrored: item.retweeted || undefined,
         restrictions: resolveTweetReplySettings(item.reply_settings),
@@ -106,7 +106,7 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
         __original__: item,
     };
     if (repliedTweet) {
-        ret.type = 'Comment';
+        ret.type = PostType.Comment;
         ret.commentOn = tweetV2ToPost(repliedTweet, includes);
         content = content.replace(/^(@\w+\s*)+/, '');
         let endCommentOn = ret.commentOn;
@@ -130,7 +130,7 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
         }
     }
     if (retweeted) {
-        ret.type = 'Mirror';
+        ret.type = PostType.Mirror;
         if (resolveTwitterRetweetStatus(item, twitterSessionHolder.session?.profileId, retweetedTweet)) {
             ret.hasMirrored = true;
         }
@@ -225,7 +225,7 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
 
     if (quotedTweet) {
         ret.quoteOn = tweetV2ToPost(quotedTweet, includes);
-        ret.type = 'Quote';
+        ret.type = PostType.Quote;
         // remove quote tweet url from content
         const quoteUrls = oembedUrls.filter((url) => url.match(TWEET_REGEX)?.[3] === ret.quoteOn?.postId);
         quoteUrls.forEach((url) => {
@@ -235,7 +235,7 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
     }
 
     // For Mirror (retweet), copy quoteOn from mirrorOn if it exists
-    if (ret.type === 'Mirror' && ret.mirrorOn?.quoteOn && !ret.quoteOn) {
+    if (ret.type === PostType.Mirror && ret.mirrorOn?.quoteOn && !ret.quoteOn) {
         ret.quoteOn = ret.mirrorOn.quoteOn;
     }
 

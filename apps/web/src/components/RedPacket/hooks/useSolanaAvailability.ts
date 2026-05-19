@@ -1,5 +1,5 @@
 import { BN, web3 } from '@coral-xyz/anchor';
-import { NetworkType } from '@dimensiondev/web3/enums';
+import { NetworkType } from '@dimensiondev/enums';
 import { minus } from '@dimensiondev/web3/numbers';
 import { useQuery } from '@tanstack/react-query';
 

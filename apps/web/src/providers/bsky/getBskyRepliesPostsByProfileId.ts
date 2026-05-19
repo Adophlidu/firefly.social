@@ -1,3 +1,4 @@
+import { PostType } from '@dimensiondev/enums';
 import {
     createIndicator,
     createNextIndicator,
@@ -26,7 +27,7 @@ export async function getBskyRepliesPostsByProfileId(
     );
     const data = resolveBskyResponseData(response, `Failed to get replies post by profile id = ${profileId}.`);
     return createPageable(
-        data.feed.map(formatBskyFeedPost).filter((x) => x.type !== 'Mirror'),
+        data.feed.map(formatBskyFeedPost).filter((x) => x.type !== PostType.Mirror),
         createIndicator(indicator),
         data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
     );

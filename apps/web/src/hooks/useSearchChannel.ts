@@ -1,4 +1,5 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { SORTED_CHANNEL_SOURCES } from '@dimensiondev/constants/computed';
 import type { SocialSource } from '@dimensiondev/enums';
 import { SessionType, Source } from '@dimensiondev/enums';
 import { createIndicator } from '@dimensiondev/utils';
@@ -8,7 +9,6 @@ import urlcat from 'urlcat';
 import { useDebounceValue } from 'usehooks-ts';
 
 import { FF_GARDEN_CHANNEL, HOME_CHANNEL, HOME_CLUB } from '@/constants/channel.js';
-import { SORTED_CHANNEL_SOURCES } from '@/constants/computed.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';

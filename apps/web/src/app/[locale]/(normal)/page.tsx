@@ -1,9 +1,9 @@
 'use client';
 
+import { DEFAULT_SOCIAL_SOURCE } from '@dimensiondev/constants/computed';
 import type { ReactNode } from 'react';
 
 import { NoSSR } from '@/components/NoSSR.js';
-import { DEFAULT_SOCIAL_SOURCE } from '@/constants/computed.js';
 import { redirect, RedirectType } from '@/esm/navigation.js';
 import { resolveDiscoverUrl } from '@/helpers/resolveDiscoverUrl.js';
 import { resolveFollowingUrl } from '@/helpers/resolveFollowingUrl.js';

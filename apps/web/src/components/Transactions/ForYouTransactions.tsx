@@ -1,9 +1,8 @@
 'use client';
 
-import { ScrollListKey, Source } from '@dimensiondev/enums';
+import { NetworkType, ScrollListKey, Source } from '@dimensiondev/enums';
 import { useMultiInfiniteQueryPageable } from '@dimensiondev/hooks';
 import type { Pageable, PageIndicator } from '@dimensiondev/utils';
-import { NetworkType } from '@dimensiondev/web3/enums';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { getForYouTransactions } from '@/components/Transactions/getTransactions.js';

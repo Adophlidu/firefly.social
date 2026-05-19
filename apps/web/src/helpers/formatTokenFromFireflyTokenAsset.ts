@@ -1,3 +1,4 @@
+import { NetworkType } from '@dimensiondev/enums';
 import { isValidChainIdEthereum, resolveDebankChain, solana } from '@dimensiondev/web3/chains';
 import {
     ETH_NATIVE_TOKEN_ADDRESS,
@@ -5,7 +6,6 @@ import {
     SOL_NATIVE_TOKEN_ADDRESS,
     SOL_ZERO_ADDRESS,
 } from '@dimensiondev/web3/constants';
-import { NetworkType } from '@dimensiondev/web3/enums';
 import { rightShift } from '@dimensiondev/web3/numbers';
 import { isSameAddress } from '@dimensiondev/web3/utils';
 import { toHex } from 'viem';

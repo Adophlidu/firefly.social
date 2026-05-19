@@ -1,8 +1,8 @@
 'use client';
 
+import { DEFAULT_NOTIFICATION_SOURCE } from '@dimensiondev/constants/computed';
 import { useEffect } from 'react';
 
-import { DEFAULT_NOTIFICATION_SOURCE } from '@/constants/computed.js';
 import { useRouter } from '@/esm/navigation.js';
 import { resolveNotificationUrl } from '@/helpers/resolveNotificationUrl.js';
 

@@ -1,6 +1,5 @@
 import type { ProfileCategory, ProfilePageSource } from '@dimensiondev/enums';
-import { Source } from '@dimensiondev/enums';
-import { NetworkType } from '@dimensiondev/web3/enums';
+import { NetworkType, Source } from '@dimensiondev/enums';
 import { resolveProfileSourceInURL } from '@dimensiondev/workers-shared/helpers/resolveSource.js';
 
 import {

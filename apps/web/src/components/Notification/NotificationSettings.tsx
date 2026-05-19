@@ -1,8 +1,9 @@
 'use client';
 
 import FilterIcon from '@dimensiondev/assets/filter.svg';
+import { UNIFIED_NOTIFICATION_TYPES } from '@dimensiondev/constants/computed';
 import type { NotificationSource } from '@dimensiondev/enums';
-import { Source } from '@dimensiondev/enums';
+import { NotificationType, Source } from '@dimensiondev/enums';
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
@@ -11,14 +12,12 @@ import { useAsyncFn } from 'react-use';
 
 import { Switch } from '@/components/Switch/index.js';
 import { TypeFilter } from '@/components/TypeFilter/index.js';
-import { UNIFIED_NOTIFICATION_TYPES } from '@/constants/computed.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { useAsyncStatus } from '@/hooks/useAsyncStatus.js';
 import { getBskyNotificationSettings } from '@/providers/bsky/getBskyNotificationSettings.js';
 import { setBskyNotificationSettings } from '@/providers/bsky/setBskyNotificationSettings.js';
 import { farcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { captureQualityFilterOffEvent } from '@/providers/telemetry/captureFilterTabEvent.js';
-import { NotificationType } from '@/providers/types/SocialMedia.js';
 import { useNotificationStateStore } from '@/store/useNotificationStore.js';
 
 export function NotificationSettings({ source }: { source: NotificationSource }) {

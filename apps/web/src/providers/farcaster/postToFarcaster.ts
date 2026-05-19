@@ -1,4 +1,4 @@
-import { Source, SourceInURL } from '@dimensiondev/enums';
+import { PostType, Source, SourceInURL } from '@dimensiondev/enums';
 import { toInteger } from 'lodash-es';
 
 import { MAX_IMAGE_SIZE_PER_POST, MAX_IMAGE_SIZE_PRO_PER_POST } from '@/constants/limitation.js';
@@ -11,7 +11,7 @@ import { getFarcasterMediaObjects } from '@/providers/farcaster/getFarcasterMedi
 import { FarcasterPollProvider } from '@/providers/farcaster/Poll.js';
 import { farcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import type { Poll } from '@/providers/types/Poll.js';
-import type { Post, PostType } from '@/providers/types/SocialMedia.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 import { createPostTo } from '@/services/createPostTo.js';
 import { uploadAndConvertToM3u8 } from '@/services/uploadAndConvertToM3u8.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
@@ -95,18 +95,18 @@ export async function postToFarcaster({ type, compositePost, keepPostLinks, sign
             return [pollStub];
         },
         compose: async (images, videos, polls) => {
-            return farcasterSocialMediaProvider.publishPost(composeDraft('Post', images, videos, polls));
+            return farcasterSocialMediaProvider.publishPost(composeDraft(PostType.Post, images, videos, polls));
         },
         reply: async (images, videos, polls) => {
             if (!farcasterParentPost) throw new Error('No parent post found.');
             // for farcaster, post id is read from post.commentOn.postId
-            return farcasterSocialMediaProvider.commentPost('', composeDraft('Comment', images, videos, polls));
+            return farcasterSocialMediaProvider.commentPost('', composeDraft(PostType.Comment, images, videos, polls));
         },
         quote: async (images, videos, polls) => {
             if (!farcasterParentPost) throw new Error('No parent post found.');
             return farcasterSocialMediaProvider.quotePost(
                 farcasterParentPost.postId,
-                composeDraft('Quote', images, videos, polls),
+                composeDraft(PostType.Quote, images, videos, polls),
                 toInteger(farcasterParentPost.author.profileId),
             );
         },

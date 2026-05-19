@@ -1,7 +1,7 @@
 'use client';
 
+import { NetworkType } from '@dimensiondev/enums';
 import { unreachable } from '@dimensiondev/utils';
-import { NetworkType } from '@dimensiondev/web3/enums';
 import { Trans } from '@lingui/react/macro';
 import { memo, type MouseEvent } from 'react';
 import { useAsyncFn } from 'react-use';

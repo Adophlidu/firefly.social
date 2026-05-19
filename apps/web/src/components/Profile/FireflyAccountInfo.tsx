@@ -1,9 +1,8 @@
 'use client';
 
 import SettingIcon from '@dimensiondev/assets/setting.svg';
-import { PageRoute, Source } from '@dimensiondev/enums';
+import { NetworkType, PageRoute, Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
-import { NetworkType } from '@dimensiondev/web3/enums';
 import { formatAddress, getAddressType } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';

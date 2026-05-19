@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 
-import type { SocialSource } from '@dimensiondev/enums';
-import { Source } from '@dimensiondev/enums';
+import { AttachmentType, type SocialSource, Source } from '@dimensiondev/enums';
 import type { NextRequestContext } from '@dimensiondev/types';
 import { compose, safeUnreachable } from '@dimensiondev/utils';
 import dayjs from 'dayjs';
@@ -47,14 +46,14 @@ function resolveAttachmentsSrc(asset?: Attachment) {
     if (!asset) return null;
 
     switch (asset.type) {
-        case 'Image':
+        case AttachmentType.Image:
             return asset.uri;
-        case 'Video':
-        case 'AnimatedGif':
+        case AttachmentType.Video:
+        case AttachmentType.AnimatedGif:
             return asset.coverUri;
-        case 'Audio':
-        case 'Poll':
-        case 'Unknown':
+        case AttachmentType.Audio:
+        case AttachmentType.Poll:
+        case AttachmentType.Unknown:
             return null;
         default:
             safeUnreachable(asset.type);

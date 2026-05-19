@@ -1,4 +1,5 @@
 import EditProfileIcon from '@dimensiondev/assets/edit-profile.svg';
+import { SORTED_CROSS_AT_SOCIAL_SOURCES } from '@dimensiondev/constants/computed';
 import { FireflyPlatform } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { MenuButton, MenuItem, MenuItems } from '@headlessui/react';
@@ -9,7 +10,6 @@ import { useAsyncFn } from 'react-use';
 
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-import { SORTED_CROSS_AT_SOCIAL_SOURCES } from '@/constants/computed.js';
 import { resolveSocialSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';

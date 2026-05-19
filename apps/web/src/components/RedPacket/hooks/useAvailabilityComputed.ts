@@ -1,6 +1,6 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { NetworkType } from '@dimensiondev/enums';
 import { solana } from '@dimensiondev/web3/chains';
-import { NetworkType } from '@dimensiondev/web3/enums';
 import { isSameAddress } from '@dimensiondev/web3/utils';
 import { type QueryObserverResult, type RefetchOptions, useQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';

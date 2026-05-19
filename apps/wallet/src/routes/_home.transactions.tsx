@@ -1,5 +1,5 @@
+import { NetworkType } from '@dimensiondev/enums';
 import { chains, solana } from '@dimensiondev/web3/chains';
-import { NetworkType } from '@dimensiondev/web3/enums';
 import { createFileRoute } from '@tanstack/react-router';
 import { lazy, Suspense, useState } from 'react';
 

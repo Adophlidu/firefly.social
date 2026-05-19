@@ -1,10 +1,10 @@
+import { SORTED_SOCIAL_SOURCES } from '@dimensiondev/constants/computed';
 import type { SocialSource } from '@dimensiondev/enums';
 import { SessionType, Source } from '@dimensiondev/enums';
 import { delay, safeUnreachable } from '@dimensiondev/utils';
 import { plural, t } from '@lingui/core/macro';
 import { compact, difference, first } from 'lodash-es';
 
-import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
 import { enqueueErrorsMessage, enqueueSuccessMessage, MessageKey } from '@/helpers/enqueueMessage.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { getThreadFailedAt } from '@/helpers/getThreadFailedAt.js';

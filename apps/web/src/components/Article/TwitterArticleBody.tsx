@@ -1,4 +1,4 @@
-import { Source } from '@dimensiondev/enums';
+import { AttachmentType, Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { useMemo } from 'react';
 
@@ -37,7 +37,7 @@ export function TwitterArticleBody({ cover, title, content, oembedUrls }: Props)
 
                         if (cover)
                             PreviewMediaModalRef.open({
-                                medias: [{ type: 'Image', uri: cover }],
+                                medias: [{ type: AttachmentType.Image, uri: cover }],
                                 index: 0,
                                 source: Source.Article,
                             });

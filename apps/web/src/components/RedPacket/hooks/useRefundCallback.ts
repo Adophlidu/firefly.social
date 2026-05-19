@@ -1,5 +1,5 @@
+import { NetworkType } from '@dimensiondev/enums';
 import { unreachable } from '@dimensiondev/utils';
-import { NetworkType } from '@dimensiondev/web3/enums';
 import { t } from '@lingui/core/macro';
 import { produce } from 'immer';
 import { useAsyncFn } from 'react-use';

@@ -1,3 +1,12 @@
+import {
+    BOOKMARK_SOURCES,
+    DISCOVER_SOURCES,
+    FOLLOWING_SOURCES,
+    NOTIFICATION_SOURCES,
+    PROFILE_PAGE_SOURCES,
+    SOCIAL_DISCOVER_SOURCE,
+    SORTED_SOCIAL_SOURCES,
+} from '@dimensiondev/constants/computed';
 import type {
     BookmarkSource,
     DiscoverSource,
@@ -11,15 +20,6 @@ import type {
 } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 
-import {
-    BOOKMARK_SOURCES,
-    DISCOVER_SOURCES,
-    FOLLOWING_SOURCES,
-    NOTIFICATION_SOURCES,
-    PROFILE_PAGE_SOURCES,
-    SOCIAL_DISCOVER_SOURCE,
-    SORTED_SOCIAL_SOURCES,
-} from '@/constants/computed.js';
 import { resolveSourceInUrl, resolveSourceInUrlForApi } from '@/helpers/resolveSourceInUrl.js';
 
 export function isDiscoverSource(source: string): source is DiscoverSource {

@@ -1,8 +1,8 @@
+import { SORTED_SOCIAL_SOURCES } from '@dimensiondev/constants/computed';
 import type { NotificationSourceType } from '@dimensiondev/enums';
 import { compact } from 'lodash-es';
 import { useMemo } from 'react';
 
-import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { getIsActivated } from '@/services/listenNotifications.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';

@@ -1,8 +1,8 @@
+import { X_WEBHOOK_WHITELIST_CLIENT_IDS } from '@dimensiondev/constants/computed';
 import { envs } from '@dimensiondev/envs';
 import { isServer } from '@tanstack/react-query';
 import urlcat from 'urlcat';
 
-import { X_WEBHOOK_WHITELIST_CLIENT_IDS } from '@/constants/computed.js';
 import { X_WEBHOOK_RECEIVER_URL } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { logger } from '@/libs/Logger.js';

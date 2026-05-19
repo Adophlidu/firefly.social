@@ -4,7 +4,7 @@ import '@/styles/limo.css';
 import '@/styles/paragraph.css';
 import '@/styles/matters.css';
 
-import { ArticlePlatform, Source } from '@dimensiondev/enums';
+import { ArticlePlatform, AttachmentType, Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { compact } from 'lodash-es';
@@ -67,7 +67,7 @@ export function ArticleDetailContent({ article, cover }: ArticleDetailContentPro
                             event.preventDefault();
                             if (cover)
                                 PreviewMediaModalRef.open({
-                                    medias: [{ type: 'Image', uri: cover }],
+                                    medias: [{ type: AttachmentType.Image, uri: cover }],
                                     index: 0,
                                     source: Source.Article,
                                 });
@@ -133,7 +133,7 @@ export function ArticleDetailContent({ article, cover }: ArticleDetailContentPro
                                         const src = x.getAttribute('src');
                                         if (!src) return;
                                         return {
-                                            type: 'Image',
+                                            type: AttachmentType.Image,
                                             uri: src,
                                         };
                                     }),

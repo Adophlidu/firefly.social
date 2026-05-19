@@ -2,11 +2,11 @@
 
 import HomeSelectedIcon from '@dimensiondev/assets/home.selected.svg';
 import HomeIcon from '@dimensiondev/assets/home.svg';
+import { DEFAULT_SOCIAL_SOURCE } from '@dimensiondev/constants/computed';
 import { PageRoute } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 
 import { BaseMenuItem } from '@/components/SideBar/BaseMenuItem.js';
-import { DEFAULT_SOCIAL_SOURCE } from '@/constants/computed.js';
 import { usePathname } from '@/esm/navigation.js';
 import { parseDiscoverPageUrl } from '@/helpers/parseDiscoverPageUrl.js';
 import { parseFollowingPageUrl } from '@/helpers/parseFollowingPageUrl.js';

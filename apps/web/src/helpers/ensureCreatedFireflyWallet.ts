@@ -1,5 +1,4 @@
-import { WalletSource } from '@dimensiondev/enums';
-import { NetworkType } from '@dimensiondev/web3/enums';
+import { NetworkType, WalletSource } from '@dimensiondev/enums';
 import { compact } from 'lodash-es';
 
 import { queryClient } from '@/configs/queryClient.js';

@@ -1,7 +1,7 @@
+import { SORTED_SOCIAL_SOURCES } from '@dimensiondev/constants/computed';
 import type { SocialSource } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 
-import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import type { FireflyIdentity, FireflyProfile, WalletProfile } from '@/providers/types/Firefly.js';
 

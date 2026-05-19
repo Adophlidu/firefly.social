@@ -1,5 +1,6 @@
 'use client';
 
+import { SORTED_SOCIAL_SOURCES } from '@dimensiondev/constants/computed';
 import type { SocialSource } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 import { runInSafeAsync } from '@dimensiondev/utils';
@@ -12,7 +13,6 @@ import { FormProvider, useForm, useFormContext } from 'react-hook-form';
 import { refreshPageCache } from '@/actions/refreshPageCache.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { queryClient } from '@/configs/queryClient.js';
-import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
 import { FetchError } from '@/constants/error.js';
 import { enqueueErrorMessage, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { getCurrentProfileAllFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';

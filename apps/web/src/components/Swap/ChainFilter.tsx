@@ -1,4 +1,4 @@
-import type { NetworkType } from '@dimensiondev/web3/enums';
+import type { NetworkType } from '@dimensiondev/enums';
 import { memo, type ReactNode } from 'react';
 
 import { FilterPanel } from '@/components/FilterPanel.js';

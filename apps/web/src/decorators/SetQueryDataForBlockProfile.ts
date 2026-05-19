@@ -1,16 +1,16 @@
+import { UNIFIED_NOTIFICATION_TYPES } from '@dimensiondev/constants/computed';
 import type { SocialSource } from '@dimensiondev/enums';
-import { Source } from '@dimensiondev/enums';
+import { NotificationType, Source } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { type Draft, produce } from 'immer';
 import { first, uniqBy } from 'lodash-es';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { UNIFIED_NOTIFICATION_TYPES } from '@/constants/computed.js';
 import { toProfileId } from '@/helpers/isSameProfile.js';
 import { patchNotificationQueryDataOnAuthor } from '@/helpers/patchNotificationQueryData.js';
 import { type Matcher, patchPostQueryData } from '@/helpers/patchPostQueryData.js';
 import type { ScheduleNotification, TipsNotification, UnifiedNotification } from '@/providers/types/Firefly.js';
-import { type Notification, NotificationType, type Profile, type Provider } from '@/providers/types/SocialMedia.js';
+import type { Notification, Profile, Provider } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/utility.js';
 
 interface PagesData {

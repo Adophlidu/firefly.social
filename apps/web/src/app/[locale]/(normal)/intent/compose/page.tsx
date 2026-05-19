@@ -1,10 +1,10 @@
 'use client';
 
+import { DEFAULT_SOCIAL_SOURCE } from '@dimensiondev/constants/computed';
 import { useSearchParams } from 'next/navigation.js';
 import { useEffect } from 'react';
 
 import { ShareLinkPage } from '@/app/[locale]/(normal)/intent/compose/pages/ShareLinkPage.js';
-import { DEFAULT_SOCIAL_SOURCE } from '@/constants/computed.js';
 import { useRouter } from '@/esm/navigation.js';
 import { resolveDiscoverUrl } from '@/helpers/resolveDiscoverUrl.js';
 import { trimify } from '@/helpers/trimify.js';

@@ -1,10 +1,10 @@
+import { SORTED_SOCIAL_SOURCES } from '@dimensiondev/constants/computed';
 import { Trans } from '@lingui/react/macro';
 import { useState } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileInList } from '@/components/Login/ProfileInList.js';
 import { Modal } from '@/components/Modal.js';
-import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { ConfirmSyncSessionModalRefType } from '@/modals/ConfirmSyncSessionModal/refs.js';

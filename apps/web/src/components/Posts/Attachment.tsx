@@ -3,7 +3,8 @@
 import LinkIcon from '@dimensiondev/assets/link.svg';
 import Music from '@dimensiondev/assets/music.svg';
 import Play from '@dimensiondev/assets/play.svg';
-import { Source } from '@dimensiondev/enums';
+import { SUPPORTED_MULTIPLE_EMBED_SOURCES, SUPPORTED_PREVIEW_MEDIA_TYPES } from '@dimensiondev/constants/computed';
+import { AttachmentType, Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { first } from 'lodash-es';
@@ -15,7 +16,6 @@ import { SingleImage } from '@/components/Posts/SingleImage.js';
 import { VideoAsset } from '@/components/Posts/VideoAsset.js';
 import { VideoSwiper } from '@/components/Posts/VideoSwiper.js';
 import { WithPreviewLink } from '@/components/Posts/WithPreviewLink.js';
-import { SUPPORTED_MULTIPLE_EMBED_SOURCES, SUPPORTED_PREVIEW_MEDIA_TYPES } from '@/constants/computed.js';
 import { IMAGE_KIT_ATTACHMENT } from '@/constants/static.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { formatImageUrl } from '@/helpers/formatImageUrl.js';
@@ -66,12 +66,12 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
     isDetail = false,
     minimal = false,
 }) {
-    const videos = attachments.filter((a) => a.type === 'Video');
+    const videos = attachments.filter((a) => a.type === AttachmentType.Video);
     const video: Attachment | undefined = first(videos);
-    const gifAttachments = attachments.filter((a) => a.type === 'AnimatedGif');
+    const gifAttachments = attachments.filter((a) => a.type === AttachmentType.AnimatedGif);
     const imageAttachments = attachments.filter((x) => {
-        if (video || gifAttachments.length > 1) return ['Image', 'AnimatedGif'].includes(x.type);
-        return x.type === 'Image';
+        if (video || gifAttachments.length > 1) return SUPPORTED_PREVIEW_MEDIA_TYPES.includes(x.type);
+        return x.type === AttachmentType.Image;
     });
     const asset = imageAttachments[0];
 
@@ -88,7 +88,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
         [asset],
     );
 
-    if (minimal && asset?.type === 'Audio') {
+    if (minimal && asset?.type === AttachmentType.Audio) {
         return (
             <div className="size-[120px]">
                 {asset.coverUri ? (
@@ -119,7 +119,9 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
     }
 
     const isSoloImage =
-        !post?.metadata.content?.content && attachmentsSnapshot.length === 1 && attachmentsSnapshot[0].type === 'Image';
+        !post?.metadata.content?.content &&
+        attachmentsSnapshot.length === 1 &&
+        attachmentsSnapshot[0].type === AttachmentType.Image;
 
     return (
         <div
@@ -136,7 +138,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                     useModal={post.source === Source.Twitter}
                     disablePreview={!SUPPORTED_PREVIEW_MEDIA_TYPES.includes(asset.type)}
                 >
-                    {asset.type === 'Image' ? (
+                    {asset.type === AttachmentType.Image ? (
                         <div
                             className={classNames({
                                 'w-full': !minimal,
@@ -198,7 +200,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                                     useModal={post.source === Source.Twitter}
                                     disablePreview={!SUPPORTED_PREVIEW_MEDIA_TYPES.includes(attachment.type)}
                                 >
-                                    {attachment.type === 'Image' ? (
+                                    {attachment.type === AttachmentType.Image ? (
                                         <Image
                                             className="h-full shrink-0 cursor-pointer rounded-lg object-cover"
                                             loading="lazy"
@@ -237,10 +239,10 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                     })}
                 </div>
             ) : null}
-            {asset?.type === 'Audio' && !minimal ? (
+            {asset?.type === AttachmentType.Audio && !minimal ? (
                 <Audio src={asset.uri} poster={asset.coverUri} artist={asset.artist} title={asset.title} />
             ) : null}
-            {asset?.type === 'Unknown' && !minimal ? (
+            {asset?.type === AttachmentType.Unknown && !minimal ? (
                 <div className={classNames('my-2')}>
                     <div
                         className={classNames(

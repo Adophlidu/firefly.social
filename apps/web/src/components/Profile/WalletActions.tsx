@@ -1,8 +1,7 @@
 'use client';
 
-import { Source, WalletProfileDataSource } from '@dimensiondev/enums';
+import { NetworkType, Source, WalletProfileDataSource } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
-import { NetworkType } from '@dimensiondev/web3/enums';
 import { isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import urlcat from 'urlcat';

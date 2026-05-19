@@ -1,4 +1,4 @@
-import type { NetworkType } from '@dimensiondev/web3/enums';
+import type { NetworkType } from '@dimensiondev/enums';
 import type { Hex } from 'viem';
 
 import type { RedPacketMetadata } from '@/types/rp.js';

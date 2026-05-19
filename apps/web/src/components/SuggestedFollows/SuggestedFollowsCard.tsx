@@ -2,6 +2,7 @@
 
 import 'swiper/css';
 
+import { SORTED_SOCIAL_SOURCES } from '@dimensiondev/constants/computed';
 import { ExploreType, Source } from '@dimensiondev/enums';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
@@ -15,7 +16,6 @@ import { AsideTitle } from '@/components/AsideTitle.js';
 import { Link } from '@/components/Link.js';
 import { ProfileSlide } from '@/components/SuggestedFollows/ProfileSlide.js';
 import { SuggestedFollowsSkeleton } from '@/components/SuggestedFollows/SuggestedFollowsSkeleton.js';
-import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { isSocialDiscoverSource } from '@/helpers/isSource.js';
 import { mergeLists } from '@/helpers/mergeLists.js';

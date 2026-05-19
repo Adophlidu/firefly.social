@@ -1,5 +1,4 @@
-import type { ClickOrigin } from '@dimensiondev/enums';
-import type { NetworkType } from '@dimensiondev/web3/enums';
+import type { ClickOrigin, NetworkType } from '@dimensiondev/enums';
 
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 

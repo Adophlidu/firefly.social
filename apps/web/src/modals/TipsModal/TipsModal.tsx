@@ -1,11 +1,10 @@
-import { Source } from '@dimensiondev/enums';
-import { NetworkType } from '@dimensiondev/web3/enums';
+import { TIPS_SUPPORT_NETWORKS } from '@dimensiondev/constants/computed';
+import { NetworkType, Source } from '@dimensiondev/enums';
 import { formatAddressEthereum, isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { type Ref, useCallback, useMemo } from 'react';
 
 import { TipsModelRouter, TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
-import { TIPS_SUPPORT_NETWORKS } from '@/constants/computed.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { getEnsNameFromWalletProfile } from '@/helpers/getEnsNameFromWalletProfile.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';

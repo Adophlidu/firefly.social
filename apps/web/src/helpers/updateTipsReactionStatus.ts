@@ -1,10 +1,9 @@
-import { Source, TxReactionType } from '@dimensiondev/enums';
+import { NotificationType, Source, TxReactionType } from '@dimensiondev/enums';
 import { produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { patchNotificationQueryData } from '@/helpers/patchNotificationQueryData.js';
 import type { TipsDetail } from '@/providers/types/Firefly.js';
-import { NotificationType } from '@/providers/types/SocialMedia.js';
 
 export function updateTipsReactionStatus(
     txHash: string,

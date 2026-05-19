@@ -1,7 +1,7 @@
 'use client';
 
 import ErrorIcon from '@dimensiondev/assets/error-circle.svg';
-import { NetworkType } from '@dimensiondev/web3/enums';
+import { NetworkType } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 
 import { ActionButton } from '@/components/ActionButton.js';

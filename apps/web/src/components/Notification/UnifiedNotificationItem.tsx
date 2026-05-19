@@ -2,6 +2,8 @@
 
 import FireflyMonochromeIcon from '@dimensiondev/assets/firefly-monochrome.svg';
 import LikeIcon from '@dimensiondev/assets/like.svg';
+import { ARTICLE_LIKE_NOTIFICATION_TYPES } from '@dimensiondev/constants/computed';
+import { NotificationType } from '@dimensiondev/enums';
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
@@ -15,7 +17,6 @@ import { SnapshotBody } from '@/components/Snapshot/SnapshotBody.js';
 import { SnapshotFallbackContent } from '@/components/Snapshot/SnapshotFallbackContent.js';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
-import { ARTICLE_LIKE_NOTIFICATION_TYPES } from '@/constants/computed.js';
 import { useRouter } from '@/esm/navigation.js';
 import { formatArticleFromNotification } from '@/helpers/formatArticleFromNotification.js';
 import { formatPolymarketFromFirefly } from '@/helpers/formatPolymarketFromFirefly.js';
@@ -24,7 +25,6 @@ import { formatSnapshotActivityFromNotification } from '@/helpers/formatSnapshot
 import { getArticleUrl } from '@/helpers/getArticleUrl.js';
 import type { SnapshotActivity } from '@/providers/snapshot/type.js';
 import type { UnifiedNotification } from '@/providers/types/Firefly.js';
-import { NotificationType } from '@/providers/types/SocialMedia.js';
 
 interface UnifiedNotificationItemProps {
     notification: UnifiedNotification;

@@ -5,10 +5,9 @@ import MessagesIcon from '@dimensiondev/assets/message2.svg';
 import MirrorIcon from '@dimensiondev/assets/mirror-large.svg';
 import ScheduleIcon from '@dimensiondev/assets/schedule.svg';
 import TipsIcon from '@dimensiondev/assets/tips.svg';
+import { NotificationType } from '@dimensiondev/enums';
 import { createLookupTableResolver } from '@dimensiondev/utils';
 import type { FunctionComponent, SVGAttributes } from 'react';
-
-import { NotificationType } from '@/providers/types/SocialMedia.js';
 
 export const resolveNotificationIcon = createLookupTableResolver<
     NotificationType,

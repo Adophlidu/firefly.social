@@ -1,5 +1,5 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
-import { NetworkType } from '@dimensiondev/web3/enums';
+import { NetworkType } from '@dimensiondev/enums';
 import type { Address } from 'viem';
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';

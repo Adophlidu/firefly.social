@@ -1,7 +1,7 @@
 'use client';
 
 import LinkIcon from '@dimensiondev/assets/link.svg';
-import { Source } from '@dimensiondev/enums';
+import { AttachmentType, Source } from '@dimensiondev/enums';
 import { EthExplorerResolver } from '@dimensiondev/web3/resolvers';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
@@ -208,13 +208,13 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
                     {post.metadata.content?.content}
                     {compact(
                         [
-                            post.metadata.content?.attachments?.filter((x) => x.type === 'Image').length
+                            post.metadata.content?.attachments?.filter((x) => x.type === AttachmentType.Image).length
                                 ? '[Photo]'
                                 : undefined,
-                            post.metadata.content?.attachments?.filter((x) => x.type === 'Video').length
+                            post.metadata.content?.attachments?.filter((x) => x.type === AttachmentType.Video).length
                                 ? '[Video]'
                                 : undefined,
-                            post.metadata.content?.attachments?.filter((x) => x.type === 'Poll').length
+                            post.metadata.content?.attachments?.filter((x) => x.type === AttachmentType.Poll).length
                                 ? '[Poll]'
                                 : undefined,
                         ].join(''),

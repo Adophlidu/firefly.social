@@ -1,5 +1,5 @@
 import type { SocialSource } from '@dimensiondev/enums';
-import { Source } from '@dimensiondev/enums';
+import { PostType, Source } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { compact, first, last, uniqBy } from 'lodash-es';
 
@@ -11,14 +11,14 @@ import type { Post } from '@/providers/types/SocialMedia.js';
 function mergeThreadPostsForFarcaster(posts: Post[]) {
     const threads = compact(
         posts.map((x) =>
-            x.threads?.length && x.threads.length >= MIN_POST_SIZE_PER_THREAD - 1 && x.type !== 'Mirror'
+            x.threads?.length && x.threads.length >= MIN_POST_SIZE_PER_THREAD - 1 && x.type !== PostType.Mirror
                 ? x
                 : undefined,
         ),
     );
 
     const data = posts.filter((x) => {
-        if (x.type !== 'Comment') return true;
+        if (x.type !== PostType.Comment) return true;
         if (
             (x.root?.postId &&
                 threads.some((thread) => isSamePost(thread, x.root) && isSameProfile(thread.author, x.author))) ||
@@ -32,7 +32,7 @@ function mergeThreadPostsForFarcaster(posts: Post[]) {
 
     return data.map((x) => {
         // The data in the threads field of firefly will omit the root post.
-        if (x.threads?.length && x.threads.length >= MIN_POST_SIZE_PER_THREAD - 1 && x.type !== 'Mirror') {
+        if (x.threads?.length && x.threads.length >= MIN_POST_SIZE_PER_THREAD - 1 && x.type !== PostType.Mirror) {
             const current = x.threads.length === 2 ? last(x.threads) : first(x.threads);
             const parent = x.threads.length === 2 ? first(x.threads) : undefined;
             if (!current) return x;
@@ -50,7 +50,7 @@ function mergeThreadPostsForFarcaster(posts: Post[]) {
 
 function mergeThreadPostsForLens(posts: Post[]) {
     const filtered = posts.filter((post, index, arr) => {
-        if (post.type !== 'Comment') return true;
+        if (post.type !== PostType.Comment) return true;
 
         if (
             !post.root &&
@@ -63,14 +63,14 @@ function mergeThreadPostsForLens(posts: Post[]) {
     });
 
     return uniqBy(filtered, (x) => {
-        if (x.type === 'Mirror') return `Mirror:${x.publicationId}`;
-        if (x.type !== 'Comment' || !x.root) return x.publicationId;
-        if (x.type === 'Comment' && x.firstComment?.postId !== x.postId) return x.publicationId;
+        if (x.type === PostType.Mirror) return `Mirror:${x.publicationId}`;
+        if (x.type !== PostType.Comment || !x.root) return x.publicationId;
+        if (x.type === PostType.Comment && x.firstComment?.postId !== x.postId) return x.publicationId;
 
         return x.root.publicationId;
     }).map((post) => {
         if (
-            post.type === 'Comment' &&
+            post.type === PostType.Comment &&
             isSamePost(post.firstComment, post) &&
             isSameProfile(post.commentOn?.author, post.author) &&
             isSameProfile(post.root?.author, post.author)
@@ -88,11 +88,11 @@ function mergeThreadPostsForLens(posts: Post[]) {
 function mergeThreadPostsForTweet(posts: Post[]) {
     const rootPostMap = new Map(posts.map((post) => [post.postId, post]));
     return uniqBy(posts, (x) => {
-        if (x.type === 'Mirror') return `Mirror:${x.postId}`;
-        if (x.type === 'Comment' && x.rootPostId) return x.rootPostId;
+        if (x.type === PostType.Mirror) return `Mirror:${x.postId}`;
+        if (x.type === PostType.Comment && x.rootPostId) return x.rootPostId;
         return x.postId;
     }).map((post) => {
-        if (post.type === 'Comment') {
+        if (post.type === PostType.Comment) {
             return {
                 ...post,
                 root:
@@ -114,11 +114,11 @@ function mergeThreadPostsForTweet(posts: Post[]) {
 function mergeThreadPostsForBsky(posts: Post[]) {
     const rootPostMap = new Map(posts.map((post) => [post.publicationId, post]));
     return uniqBy(posts, (x) => {
-        if (x.type === 'Mirror') return `Mirror:${x.publicationId}`;
-        if (x.type === 'Comment' && x.rootPostId) return x.rootPostId;
+        if (x.type === PostType.Mirror) return `Mirror:${x.publicationId}`;
+        if (x.type === PostType.Comment && x.rootPostId) return x.rootPostId;
         return x.publicationId;
     }).map((post) => {
-        if (post.type === 'Comment' && isSameProfile(post.commentOn?.author, post.author)) {
+        if (post.type === PostType.Comment && isSameProfile(post.commentOn?.author, post.author)) {
             const root =
                 post.rootPostId &&
                 post.parentPostId !== post.rootPostId &&
@@ -166,7 +166,7 @@ export function mergeThreadPostsWithoutSource(posts: Post[]): Post[] {
     const record = new Set();
     const threads = compact(
         posts.map((x) =>
-            x.threads?.length && x.threads.length >= MIN_POST_SIZE_PER_THREAD - 1 && x.type !== 'Mirror'
+            x.threads?.length && x.threads.length >= MIN_POST_SIZE_PER_THREAD - 1 && x.type !== PostType.Mirror
                 ? x
                 : undefined,
         ),
@@ -174,7 +174,7 @@ export function mergeThreadPostsWithoutSource(posts: Post[]): Post[] {
     const filtered = posts.filter((post, index, arr) => {
         switch (post.source) {
             case Source.Farcaster: {
-                if (post.type !== 'Comment') return true;
+                if (post.type !== PostType.Comment) return true;
                 if (
                     (post.root?.postId &&
                         threads.some(
@@ -191,7 +191,7 @@ export function mergeThreadPostsWithoutSource(posts: Post[]): Post[] {
             }
 
             case Source.Lens: {
-                if (post.type !== 'Comment') return true;
+                if (post.type !== PostType.Comment) return true;
 
                 if (
                     !post.root &&
@@ -204,7 +204,7 @@ export function mergeThreadPostsWithoutSource(posts: Post[]): Post[] {
             }
 
             case Source.Twitter: {
-                if (post.type !== 'Comment') return true;
+                if (post.type !== PostType.Comment) return true;
                 if (record.has(post.postId) || record.has(post.commentOn?.postId) || record.has(post.postId))
                     return false;
 
@@ -221,7 +221,7 @@ export function mergeThreadPostsWithoutSource(posts: Post[]): Post[] {
                 return true;
             }
             case Source.Bsky:
-                if (post.type !== 'Comment') return true;
+                if (post.type !== PostType.Comment) return true;
                 if (record.has(post.postId) || record.has(post.commentOn?.postId)) return false;
                 if (
                     post.root &&
@@ -240,8 +240,8 @@ export function mergeThreadPostsWithoutSource(posts: Post[]): Post[] {
     });
 
     return uniqBy(filtered, (x) => {
-        if (x.type === 'Mirror') return `Mirror:${x.publicationId}`;
-        if (x.type !== 'Comment' || !x.root) return x.publicationId;
+        if (x.type === PostType.Mirror) return `Mirror:${x.publicationId}`;
+        if (x.type !== PostType.Comment || !x.root) return x.publicationId;
 
         return x.root.publicationId;
     }).map((post) => {
@@ -250,7 +250,7 @@ export function mergeThreadPostsWithoutSource(posts: Post[]): Post[] {
                 if (
                     post.threads?.length &&
                     post.threads.length >= MIN_POST_SIZE_PER_THREAD - 1 &&
-                    post.type !== 'Mirror'
+                    post.type !== PostType.Mirror
                 ) {
                     const current = post.threads.length === 2 ? last(post.threads) : first(post.threads);
                     const parent = post.threads.length === 2 ? first(post.threads) : undefined;
@@ -267,7 +267,7 @@ export function mergeThreadPostsWithoutSource(posts: Post[]): Post[] {
             }
             case Source.Lens: {
                 if (
-                    post.type === 'Comment' &&
+                    post.type === PostType.Comment &&
                     isSamePost(post.firstComment, post) &&
                     isSameProfile(post.commentOn?.author, post.author) &&
                     isSameProfile(post.root?.author, post.author)

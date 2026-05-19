@@ -32,11 +32,6 @@
             "import": "./dist/numbers.js",
             "require": "./dist/numbers.cjs"
         },
-        "./enums": {
-            "types": "./dist/enums.d.ts",
-            "import": "./dist/enums.js",
-            "require": "./dist/enums.cjs"
-        },
         "./actions": {
             "types": "./dist/actions.d.ts",
             "import": "./dist/actions.js",
@@ -71,6 +66,7 @@
         "access": "restricted"
     },
     "dependencies": {
+        "@dimensiondev/enums": "workspace:^",
         "@coral-xyz/anchor": "^0.31.1",
         "bignumber.js": "9.3.1",
         "punycode": "^2.3.1",

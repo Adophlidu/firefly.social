@@ -2,6 +2,7 @@
 
 import FireflyRoundIcon from '@dimensiondev/assets/firefly-pure.svg';
 import ScheduleIcon from '@dimensiondev/assets/schedule.svg';
+import { SORTED_SCHEDULE_POST_SOURCES } from '@dimensiondev/constants/computed';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
@@ -9,7 +10,6 @@ import { compact, first, last } from 'lodash-es';
 import { useCallback } from 'react';
 
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
-import { SORTED_SCHEDULE_POST_SOURCES } from '@/constants/computed.js';
 import { useRouter } from '@/esm/navigation.js';
 import { openComposeModal } from '@/helpers/openComposeModal.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';

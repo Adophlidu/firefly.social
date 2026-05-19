@@ -1,22 +1,20 @@
-import { Source } from '@dimensiondev/enums';
+import { AttachmentType, NotificationType, PostType, Source } from '@dimensiondev/enums';
 import { compact, first, isUndefined } from 'lodash-es';
 
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { getBestVideoUrl } from '@/providers/twitter/formatTwitterMedia.js';
 import { convertTwitterAvatar } from '@/providers/twitter/formatTwitterProfile.js';
-import {
-    type Attachment,
-    type CommentNotification,
-    type FollowNotification,
-    type MentionNotification,
-    type MirrorNotification,
-    type Notification,
-    NotificationType,
-    type Post,
-    type PostType,
-    type Profile,
-    type QuoteNotification,
-    type ReactionNotification,
+import type {
+    Attachment,
+    CommentNotification,
+    FollowNotification,
+    MentionNotification,
+    MirrorNotification,
+    Notification,
+    Post,
+    Profile,
+    QuoteNotification,
+    ReactionNotification,
 } from '@/providers/types/SocialMedia.js';
 import type {
     FavoriteEvent,
@@ -76,14 +74,14 @@ function formatMedias(medias: NotificationMedia[]) {
                 case 'photo':
                     return media.media_url_https
                         ? {
-                              type: 'Image',
+                              type: AttachmentType.Image,
                               uri: media.media_url_https,
                           }
                         : null;
                 case 'animated_gif':
                     return media.video_info?.variants?.[0]?.url
                         ? {
-                              type: 'AnimatedGif',
+                              type: AttachmentType.AnimatedGif,
                               uri: media.video_info.variants[0].url,
                               coverUri: media.media_url_https,
                               width: media.sizes?.medium?.w,
@@ -94,7 +92,7 @@ function formatMedias(medias: NotificationMedia[]) {
                     const uri = getBestVideoUrl(media.video_info?.variants || []);
                     return uri
                         ? {
-                              type: 'Video',
+                              type: AttachmentType.Video,
                               uri,
                               coverUri: media.media_url_https,
                               width: media.sizes?.medium?.w,
@@ -126,11 +124,11 @@ function formatPostText(data: NotificationPost) {
 }
 
 function formatPostType(data: NotificationPost): PostType {
-    if (data.is_quote_status) return 'Quote';
-    if (data.retweeted_status) return 'Mirror';
-    if (data.in_reply_to_status_id) return 'Comment';
+    if (data.is_quote_status) return PostType.Quote;
+    if (data.retweeted_status) return PostType.Mirror;
+    if (data.in_reply_to_status_id) return PostType.Comment;
 
-    return 'Post';
+    return PostType.Post;
 }
 
 function formatNotificationPost(data: NotificationPost): Post {
@@ -171,7 +169,7 @@ function formatNotificationPost(data: NotificationPost): Post {
         __original__: data,
     };
 
-    if (type === 'Quote' && data.quoted_status) {
+    if (type === PostType.Quote && data.quoted_status) {
         post.quoteOn = formatNotificationPost(data.quoted_status);
     }
 
@@ -241,7 +239,7 @@ function formatCreateTweetNotification(data: TweetCreateEvent, viewerId: string)
                 commentOn: {
                     publicationId: data.in_reply_to_status_id_str || '',
                     postId: data.in_reply_to_status_id_str || '',
-                    type: 'Post',
+                    type: PostType.Post,
                     source: Source.Twitter,
                     author: {
                         ...createDummyProfile(Source.Twitter),

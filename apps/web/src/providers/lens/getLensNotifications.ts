@@ -1,4 +1,4 @@
-import { Source } from '@dimensiondev/enums';
+import { NotificationType, PostType, Source } from '@dimensiondev/enums';
 import {
     createIndicator,
     createNextIndicator,
@@ -29,7 +29,7 @@ import {
     isRepostNotification,
 } from '@/providers/lens/isNotification.js';
 import { lensSessionClientHolder } from '@/providers/lens/LensSessionClientHolder.js';
-import { type Notification, NotificationType, ReactionType } from '@/providers/types/SocialMedia.js';
+import { type Notification, ReactionType } from '@/providers/types/SocialMedia.js';
 
 export async function getLensNotifications(
     highSignalFilter?: boolean,
@@ -67,7 +67,7 @@ export async function getLensNotifications(
             if (isMutedLensAccount(item.quote.author)) return null;
 
             const time = item.quote.timestamp;
-            const quoteOf = formatLensQuoteOrCommentV3(item.quote.quoteOf, 'Quote');
+            const quoteOf = formatLensQuoteOrCommentV3(item.quote.quoteOf, PostType.Quote);
             if (!quoteOf) return null;
 
             return {
@@ -102,7 +102,7 @@ export async function getLensNotifications(
         if (isCommentNotification(item)) {
             if (isMutedLensAccount(item.comment.author)) return null;
 
-            const commentOn = formatLensQuoteOrCommentV3(item.comment.commentOn, 'Comment');
+            const commentOn = formatLensQuoteOrCommentV3(item.comment.commentOn, PostType.Comment);
             if (!commentOn) return null;
 
             return {

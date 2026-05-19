@@ -1,13 +1,13 @@
 'use client';
 
 import FilterIcon from '@dimensiondev/assets/filter.svg';
+import { SORTED_BETS_PLATFORM } from '@dimensiondev/constants/computed';
 import type { PredictionPlatform } from '@dimensiondev/enums';
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
 import { memo } from 'react';
 
 import { PredictionPlatformName } from '@/components/Prediction/PredictionPlatformName.js';
 import { TypeFilter } from '@/components/TypeFilter/index.js';
-import { SORTED_BETS_PLATFORM } from '@/constants/computed.js';
 import {
     type PredictionFilterNamespace,
     usePredictionSourceFilterStore,

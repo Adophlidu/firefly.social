@@ -2,7 +2,13 @@
 
 import ImageIcon from '@dimensiondev/assets/image.svg';
 import VideoIcon from '@dimensiondev/assets/video.svg';
-import { FileMimeType } from '@dimensiondev/enums';
+import {
+    ALLOWED_IMAGES_MIMES,
+    ALLOWED_VIDEO_MIMES,
+    GIF_MEDIA_SOURCE_CONFIG,
+    SUPPORTED_VIDEO_SOURCES,
+} from '@dimensiondev/constants/computed';
+import { FileMimeType, MediaSource } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { Popover, Transition } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
@@ -14,12 +20,6 @@ import { useUpdateImages } from '@/components/Compose/useUpdateImages.js';
 import { useUpdateVideos } from '@/components/Compose/useUpdateVideos.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import {
-    ALLOWED_IMAGES_MIMES,
-    ALLOWED_VIDEO_MIMES,
-    GIF_MEDIA_SOURCE_CONFIG,
-    SUPPORTED_VIDEO_SOURCES,
-} from '@/constants/computed.js';
-import {
     getCurrentPostGifLimits,
     getCurrentPostImageLimits,
     getCurrentPostVideoLimits,
@@ -28,7 +28,6 @@ import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { captureImageAddClickEvent } from '@/providers/telemetry/captureClickEvent.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
-import { MediaSource } from '@/types/compose.js';
 
 interface MediaProps {
     close: () => void;

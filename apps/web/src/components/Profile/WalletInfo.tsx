@@ -1,9 +1,8 @@
 'use client';
 
 import LinkIcon from '@dimensiondev/assets/link-square.svg';
-import { Source, WalletProfileDataSource } from '@dimensiondev/enums';
+import { NetworkType, Source, WalletProfileDataSource } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
-import { NetworkType } from '@dimensiondev/web3/enums';
 import { formatAddress, getAddressType } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';

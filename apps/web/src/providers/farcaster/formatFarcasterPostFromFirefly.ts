@@ -1,4 +1,4 @@
-import { Source } from '@dimensiondev/enums';
+import { PostType, Source } from '@dimensiondev/enums';
 import { isSameUrl, parseUrl } from '@dimensiondev/utils';
 import { compact, last, uniqWith } from 'lodash-es';
 
@@ -12,7 +12,7 @@ import { resolveSizeFromS3Url } from '@/helpers/resolveSizeFromS3Url.js';
 import { formatChannelFromFirefly } from '@/providers/farcaster/formatFarcasterChannelFromFirefly.js';
 import { formatFarcasterProfileFromFirefly } from '@/providers/farcaster/formatFarcasterProfileFromFirefly.js';
 import { type Cast, EmbedMediaType } from '@/providers/types/Firefly.js';
-import type { Attachment, Post, PostType, Profile } from '@/providers/types/SocialMedia.js';
+import type { Attachment, Post, Profile } from '@/providers/types/SocialMedia.js';
 
 function getCoverUriFromUrl(url: string) {
     const parsed = parseUrl(url);
@@ -91,10 +91,10 @@ function formatContent(cast: Cast): Post['metadata']['content'] {
 }
 
 function getPostTypeByCast(cast: Cast) {
-    if (cast.quotedCast) return 'Quote';
-    if (cast.recastedBy) return 'Mirror';
-    if (cast.parentCast) return 'Comment';
-    return 'Post';
+    if (cast.quotedCast) return PostType.Quote;
+    if (cast.recastedBy) return PostType.Mirror;
+    if (cast.parentCast) return PostType.Comment;
+    return PostType.Post;
 }
 
 /**
@@ -143,7 +143,7 @@ export function formatFarcasterPostFromFirefly(cast: Cast, type?: PostType): Pos
         canComment: true,
         commentOn: cast.parentCast ? formatFarcasterPostFromFirefly(cast.parentCast) : undefined,
         root: cast.rootParentCast ? formatFarcasterPostFromFirefly(cast.rootParentCast) : undefined,
-        threads: compact(cast.threads?.map((x) => formatFarcasterPostFromFirefly(x, 'Comment'))),
+        threads: compact(cast.threads?.map((x) => formatFarcasterPostFromFirefly(x, PostType.Comment))),
         channel: cast.channel ? formatChannelFromFirefly(cast.channel) : undefined,
         quoteOn: cast.quotedCast ? formatFarcasterPostFromFirefly(cast.quotedCast) : undefined,
         sendFrom: {

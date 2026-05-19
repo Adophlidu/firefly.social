@@ -1,13 +1,13 @@
 'use client';
 
 import PollIcon from '@dimensiondev/assets/poll.svg';
+import { SORTED_POLL_SOURCES } from '@dimensiondev/constants/computed';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { SORTED_POLL_SOURCES } from '@/constants/computed.js';
 import { resolveSourcesName } from '@/helpers/resolveSourceName.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';

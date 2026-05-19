@@ -1,6 +1,6 @@
 import CircleSuccessIcon from '@dimensiondev/assets/circle-success.svg';
+import type { NetworkType } from '@dimensiondev/enums';
 import { SessionType } from '@dimensiondev/enums';
-import type { NetworkType } from '@dimensiondev/web3/enums';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import urlcat from 'urlcat';

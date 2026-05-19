@@ -1,6 +1,5 @@
 import type { ProfilePageSource } from '@dimensiondev/enums';
-import { Source } from '@dimensiondev/enums';
-import { NetworkType } from '@dimensiondev/web3/enums';
+import { NetworkType, Source } from '@dimensiondev/enums';
 import { isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3/utils';
 import { isObject } from 'lodash-es';
 import type { Address } from 'viem';

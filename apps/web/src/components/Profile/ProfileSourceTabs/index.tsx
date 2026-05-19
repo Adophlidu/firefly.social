@@ -1,5 +1,6 @@
 'use client';
 
+import { SORTED_PROFILE_SOURCES } from '@dimensiondev/constants/computed';
 import type { ProfilePageSource } from '@dimensiondev/enums';
 import { Source, STATUS } from '@dimensiondev/enums';
 import { envs } from '@dimensiondev/envs';
@@ -15,7 +16,6 @@ import { ProfileMenuItem, TopProfileMenuItem } from '@/components/Profile/Profil
 import { ProfileSourceTabsContainer } from '@/components/Profile/ProfileSourceTabs/ProfileSourceTabsContainer.js';
 import { TriggerButton } from '@/components/Profile/ProfileSourceTabs/TriggerButton.js';
 import { useSortFireflyProfiles } from '@/components/Profile/ProfileSourceTabs/useSortFireflyProfiles.js';
-import { SORTED_PROFILE_SOURCES } from '@/constants/computed.js';
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
 import { isPrivyMPCWallet } from '@/helpers/isMPCWallet.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';

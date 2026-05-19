@@ -1,10 +1,10 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { SORTED_SOCIAL_SOURCES } from '@dimensiondev/constants/computed';
 import type { SocialSource } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 import { compact, first, uniqBy } from 'lodash-es';
 import { useMemo } from 'react';
 
-import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
 import { toFireflyIdentityId } from '@/helpers/isSameProfile.js';
 import { resolveFireflyIdentity } from '@/helpers/resolveFireflyProfileId.js';
 import { useAllProfiles } from '@/hooks/useAllProfiles.js';

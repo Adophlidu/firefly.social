@@ -1,3 +1,4 @@
+import type { NetworkType } from '@dimensiondev/enums';
 import { SessionType } from '@dimensiondev/enums';
 import { NotImplementedError, runInSafeAsync } from '@dimensiondev/utils';
 import {
@@ -7,7 +8,6 @@ import {
     type Pageable,
     type PageIndicator,
 } from '@dimensiondev/utils';
-import type { NetworkType } from '@dimensiondev/web3/enums';
 import urlcat from 'urlcat';
 
 import { WARPCAST_ROOT_URL_V1 } from '@/constants/static.js';

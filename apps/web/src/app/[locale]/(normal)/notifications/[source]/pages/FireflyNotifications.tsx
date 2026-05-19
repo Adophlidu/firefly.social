@@ -1,6 +1,7 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { SOCIAL_NOTIFICATION_TYPES, UNIFIED_NOTIFICATION_TYPES } from '@dimensiondev/constants/computed';
 import type { SocialSource } from '@dimensiondev/enums';
-import { ScrollListKey, Source } from '@dimensiondev/enums';
+import { NotificationType, ScrollListKey, Source } from '@dimensiondev/enums';
 import { useMultiInfiniteQueryPageable } from '@dimensiondev/hooks';
 import { createIndicator, createPageable } from '@dimensiondev/utils';
 import { memo, useMemo } from 'react';
@@ -9,7 +10,6 @@ import { getNotificationItemContent } from '@/app/[locale]/(normal)/notification
 import { updateNotificationReadStatus } from '@/app/[locale]/(normal)/notifications/[source]/pages/updateNotificationReadStatus.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { Loading } from '@/components/Loading.js';
-import { SOCIAL_NOTIFICATION_TYPES, UNIFIED_NOTIFICATION_TYPES } from '@/constants/computed.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
@@ -17,7 +17,7 @@ import { useNotificationSources } from '@/hooks/useNotificationSources.js';
 import { getAllNotifications } from '@/providers/firefly/endpoint/getAllNotifications.js';
 import { getScheduleNotifications } from '@/providers/firefly/endpoint/getScheduleNotifications.js';
 import { getTipsNotifications } from '@/providers/firefly/endpoint/getTipsNotifications.js';
-import { type Notification, NotificationType } from '@/providers/types/SocialMedia.js';
+import type { Notification } from '@/providers/types/SocialMedia.js';
 import { listenNotifications } from '@/services/listenNotifications.js';
 import { useNotificationStateStore } from '@/store/useNotificationStore.js';
 

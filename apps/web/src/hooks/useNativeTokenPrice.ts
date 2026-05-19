@@ -1,4 +1,4 @@
-import { NetworkType } from '@dimensiondev/web3/enums';
+import { NetworkType } from '@dimensiondev/enums';
 import { useQuery } from '@tanstack/react-query';
 
 import { STALE_TIMES } from '@/constants/query.js';

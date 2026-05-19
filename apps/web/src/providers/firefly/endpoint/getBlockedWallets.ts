@@ -1,4 +1,4 @@
-import { SourceInURL } from '@dimensiondev/enums';
+import { NetworkType, SourceInURL } from '@dimensiondev/enums';
 import {
     createIndicator,
     createNextIndicator,
@@ -6,7 +6,6 @@ import {
     type Pageable,
     type PageIndicator,
 } from '@dimensiondev/utils';
-import { NetworkType } from '@dimensiondev/web3/enums';
 import urlcat from 'urlcat';
 import type { Address } from 'viem';
 

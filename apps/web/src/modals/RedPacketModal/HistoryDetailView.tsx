@@ -1,4 +1,4 @@
-import type { NetworkType } from '@dimensiondev/web3/enums';
+import type { NetworkType } from '@dimensiondev/enums';
 import { useLocation } from '@tanstack/react-router';
 import { first } from 'lodash-es';
 import { memo, Suspense } from 'react';

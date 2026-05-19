@@ -1,8 +1,9 @@
+import { MediaSource } from '@dimensiondev/enums';
 import urlcat from 'urlcat';
 
 import { FIREFLY_WORKER_HOST } from '@/constants/static.js';
 import { resolveMediaObjectUrl } from '@/helpers/resolveMediaObjectUrl.js';
-import { type MediaObject, MediaSource } from '@/types/compose.js';
+import type { MediaObject } from '@/types/compose.js';
 
 async function downloadUrl(url: string, name: string) {
     const response = await fetch(url);

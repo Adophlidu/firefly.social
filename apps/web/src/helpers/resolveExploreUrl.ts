@@ -1,7 +1,7 @@
+import { EXPLORE_DEFAULT_SOURCE } from '@dimensiondev/constants/computed';
 import type { ExploreSource, ExploreType } from '@dimensiondev/enums';
 import urlcat from 'urlcat';
 
-import { EXPLORE_DEFAULT_SOURCE } from '@/constants/computed.js';
 import { resolveExploreSourceInURL } from '@/helpers/resolveSourceInUrl.js';
 
 export function resolveExploreUrl(explore: ExploreType, source?: ExploreSource) {

@@ -1,3 +1,4 @@
+import { SORTED_TOKEN_FEEDS_SOURCES } from '@dimensiondev/constants/computed';
 import type { SocialSource } from '@dimensiondev/enums';
 import { SearchType, Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
@@ -9,7 +10,6 @@ import TokenPageLoading from '@/app/[locale]/(normal)/token/[exchange]/[[...slug
 import { DisableScrollRestoreContext } from '@/components/DisableScrollRestore/index.js';
 import { Empty } from '@/components/Search/Empty.js';
 import { SearchPostList } from '@/components/Search/SearchPostList.js';
-import { SORTED_TOKEN_FEEDS_SOURCES } from '@/constants/computed.js';
 import { Link } from '@/esm/Link.js';
 import { usePathname, useRouter, useSearchParams } from '@/esm/navigation.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';

@@ -1,4 +1,4 @@
-import { NetworkType } from '@dimensiondev/web3/enums';
+import { NetworkType } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 import { memo, Suspense, useContext, useState } from 'react';
 

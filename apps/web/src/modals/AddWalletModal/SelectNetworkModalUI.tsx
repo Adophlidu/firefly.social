@@ -1,7 +1,7 @@
 'use client';
 
+import { NetworkType } from '@dimensiondev/enums';
 import { getChainIcon, solana } from '@dimensiondev/web3/chains';
-import { NetworkType } from '@dimensiondev/web3/enums';
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 import { mainnet } from 'viem/chains';

@@ -1,6 +1,7 @@
 'use client';
 
 import EditIcon from '@dimensiondev/assets/edit.svg';
+import { ALLOWED_IMAGES_MIMES } from '@dimensiondev/constants/computed';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQueryClient } from '@tanstack/react-query';
@@ -15,7 +16,6 @@ import { EditProfileAvatar } from '@/components/EditProfile/EditProfileAvatar.js
 import { ErrorMessage } from '@/components/Form/ErrorMessage.js';
 import { FormInput } from '@/components/Form/FormInput.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { ALLOWED_IMAGES_MIMES } from '@/constants/computed.js';
 import { FIREFLY_DISPLAY_NAME_REGEXP } from '@/constants/regexp.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { ImageEditorModalRef } from '@/modals/ImageEditorModal/refs.js';

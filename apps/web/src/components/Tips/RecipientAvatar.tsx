@@ -1,8 +1,8 @@
 import EvmDashIcon from '@dimensiondev/assets/evm-dash.svg';
 import WalletIcon from '@dimensiondev/assets/wallet-icon.svg';
+import { NetworkType } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { getChainIcon, solana } from '@dimensiondev/web3/chains';
-import { NetworkType } from '@dimensiondev/web3/enums';
 import { memo } from 'react';
 
 import { Image } from '@/components/Image.js';

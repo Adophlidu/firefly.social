@@ -1,6 +1,7 @@
 'use client';
 
 import ScheduleIcon from '@dimensiondev/assets/schedule.svg';
+import { ENABLED_SCHEDULE_POST_SOURCES } from '@dimensiondev/constants/computed';
 import { STATUS } from '@dimensiondev/enums';
 import { envs } from '@dimensiondev/envs';
 import { classNames } from '@dimensiondev/utils';
@@ -10,7 +11,6 @@ import { type HTMLProps, useCallback } from 'react';
 
 import { SchedulePostSettings } from '@/components/Compose/SchedulePostSettings.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { ENABLED_SCHEDULE_POST_SOURCES } from '@/constants/computed.js';
 import { resolveSourcesName } from '@/helpers/resolveSourceName.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';

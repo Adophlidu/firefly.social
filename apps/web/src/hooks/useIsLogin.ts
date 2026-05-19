@@ -1,7 +1,7 @@
+import { SORTED_SOCIAL_SOURCES } from '@dimensiondev/constants/computed';
 import type { SocialSource } from '@dimensiondev/enums';
 import { HomeTab } from '@dimensiondev/enums';
 
-import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useSocialDiscoverSourcesWithWhitelist } from '@/hooks/useSocialDiscoverSourcesWithWhitelist.js';
 

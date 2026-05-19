@@ -1,5 +1,4 @@
-import { Source } from '@dimensiondev/enums';
-import { NetworkType } from '@dimensiondev/web3/enums';
+import { NetworkType, Source } from '@dimensiondev/enums';
 import type { Account, AccountMention } from '@lens-protocol/client';
 
 import { IMAGE_KIT_AVATAR } from '@/constants/static.js';

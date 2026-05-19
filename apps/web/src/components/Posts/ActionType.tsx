@@ -3,7 +3,7 @@
 import LikeIcon from '@dimensiondev/assets/like.svg';
 import LikedIcon from '@dimensiondev/assets/liked.svg';
 import MirrorIcon from '@dimensiondev/assets/mirror.svg';
-import { PageRoute, Source } from '@dimensiondev/enums';
+import { PageRoute, PostType, Source } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 import { first } from 'lodash-es';
 import { memo } from 'react';
@@ -37,7 +37,7 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({
 }) {
     const currentProfile = useCurrentProfile(post.source);
 
-    const isComment = post.type === 'Comment';
+    const isComment = post.type === PostType.Comment;
     const showThread = isComment || !post.comments?.length;
 
     const pathname = usePathname();
@@ -64,7 +64,7 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({
 
     return (
         <ClickableArea className="w-full">
-            {post.type === 'Mirror' && post.reporter && !isPostPage ? (
+            {post.type === PostType.Mirror && post.reporter && !isPostPage ? (
                 <div className="text-medium text-secondary mb-3 flex items-center space-x-2">
                     <MirrorIcon width={16} height={16} className="shrink-0" />
                     <Link href={getProfileUrl(post.reporter)} className="flex min-w-0 space-x-1">
@@ -157,7 +157,7 @@ interface PostParentProps {
 }
 
 function PostRoot({ post, isDetail, listKey, index }: PostParentProps) {
-    if (post.type !== 'Comment') return null;
+    if (post.type !== PostType.Comment) return null;
     // avoid undefined === undefined
     if (
         (post.rootPostId && post.rootPostId === post.parentPostId) ||
@@ -182,7 +182,7 @@ function PostRoot({ post, isDetail, listKey, index }: PostParentProps) {
 }
 
 function PostParent({ post, isDetail, listKey, index }: PostParentProps) {
-    if (post.type !== 'Comment') return null;
+    if (post.type !== PostType.Comment) return null;
     if (post.commentOn) {
         return <ThreadBody isDetail={isDetail} post={post.commentOn} listKey={listKey} index={index} />;
     }

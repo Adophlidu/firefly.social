@@ -1,6 +1,6 @@
 import type { SocialSource } from '@dimensiondev/enums';
+import { NetworkType } from '@dimensiondev/enums';
 import { runInSafeAsync, unreachable } from '@dimensiondev/utils';
-import { NetworkType } from '@dimensiondev/web3/enums';
 import { t } from '@lingui/core/macro';
 import { useAsyncFn } from 'react-use';
 

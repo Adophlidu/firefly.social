@@ -1,13 +1,13 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { UNIFIED_NOTIFICATION_TYPES } from '@dimensiondev/constants/computed';
+import type { NotificationType } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
-import { UNIFIED_NOTIFICATION_TYPES } from '@/constants/computed.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { AllNotificationsResponse, UnifiedNotification } from '@/providers/types/Firefly.js';
-import type { NotificationType } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
 
 export async function getAllNotifications(types?: string[], indicator?: PageIndicator) {

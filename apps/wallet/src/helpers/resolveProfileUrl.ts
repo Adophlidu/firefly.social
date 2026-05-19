@@ -1,14 +1,13 @@
-import type { ProfileCategory, ProfilePageSource } from '@dimensiondev/enums';
-import { Source } from '@dimensiondev/enums';
-import { NetworkType } from '@dimensiondev/web3/enums';
-import { getAddressType } from '@dimensiondev/web3/utils';
-import urlcat from 'urlcat';
-
 import {
     LOGIN_SORTED_PROFILE_TAB_TYPE,
     SORTED_PROFILE_TAB_TYPE,
     WALLET_PROFILE_TAB_TYPES,
-} from '@/constants/computed.js';
+} from '@dimensiondev/constants/computed';
+import type { ProfileCategory, ProfilePageSource } from '@dimensiondev/enums';
+import { NetworkType, Source } from '@dimensiondev/enums';
+import { getAddressType } from '@dimensiondev/web3/utils';
+import urlcat from 'urlcat';
+
 import { isFollowCategory } from '@/helpers/isFollowCategory.js';
 import { resolveProfileSourceInURL } from '@/helpers/resolveSourceInUrl.js';
 

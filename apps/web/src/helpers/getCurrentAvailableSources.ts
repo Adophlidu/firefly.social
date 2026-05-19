@@ -1,6 +1,6 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { SORTED_SOCIAL_SOURCES } from '@dimensiondev/constants/computed';
 
-import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
 import { getCurrentProfileAllFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 
 export function getCurrentAvailableSources() {

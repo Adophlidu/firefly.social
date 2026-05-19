@@ -1,6 +1,5 @@
-import { Source } from '@dimensiondev/enums';
+import { NetworkType, Source } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
-import { NetworkType } from '@dimensiondev/web3/enums';
 import { getAddressType } from '@dimensiondev/web3/utils';
 import { isHex } from 'viem';
 

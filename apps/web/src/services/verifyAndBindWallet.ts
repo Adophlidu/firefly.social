@@ -1,6 +1,5 @@
-import { ClickOrigin } from '@dimensiondev/enums';
+import { ClickOrigin, NetworkType } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
-import { NetworkType } from '@dimensiondev/web3/enums';
 import bs58 from 'bs58';
 import type { Address } from 'viem';
 

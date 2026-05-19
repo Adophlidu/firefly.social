@@ -1,4 +1,4 @@
-import type { SocialSource } from '@dimensiondev/enums';
+import { PostType, type SocialSource } from '@dimensiondev/enums';
 import type { Pageable, PageIndicator } from '@dimensiondev/utils';
 import type { InfiniteData } from '@tanstack/react-query';
 import { uniqBy } from 'lodash-es';
@@ -13,7 +13,7 @@ export function getPostsSelector(source: SocialSource) {
             uniqBy(
                 data.pages.flatMap((x) => x?.data || []),
                 (post) => {
-                    if (post.mirrors?.length || post.type === 'Mirror') return `${post.postId}:mirror`;
+                    if (post.mirrors?.length || post.type === PostType.Mirror) return `${post.postId}:mirror`;
                     return post.postId;
                 },
             ),

@@ -4,10 +4,10 @@ import ComebackIcon from '@dimensiondev/assets/comeback2.svg';
 import InfoIcon from '@dimensiondev/assets/info-outline.svg';
 import SearchIcon from '@dimensiondev/assets/search.svg';
 import WalletIcon from '@dimensiondev/assets/wallet.fill.svg';
+import { NetworkType } from '@dimensiondev/enums';
 import { removeTrailingZeros, safeUnreachable, unreachable } from '@dimensiondev/utils';
 import { resolveWagmiChain, solana as solanaMainnetChain } from '@dimensiondev/web3/chains';
 import { ETH_ZERO_ADDRESS, SOL_ZERO_ADDRESS } from '@dimensiondev/web3/constants';
-import { NetworkType } from '@dimensiondev/web3/enums';
 import { isGreaterThanOrEqualTo, multipliedBy, plus } from '@dimensiondev/web3/numbers';
 import {
     formatLamportsToSol,

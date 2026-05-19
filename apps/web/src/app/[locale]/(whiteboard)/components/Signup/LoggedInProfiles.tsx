@@ -1,3 +1,4 @@
+import { SORTED_THIRD_PARTY_SOURCES_IN_URL } from '@dimensiondev/constants/computed';
 import type { SocialSource } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 import { motion } from 'framer-motion';
@@ -5,7 +6,6 @@ import { Fragment } from 'react';
 
 import { ProfileSourceIcon } from '@/components/ProfileSourceIcon.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-import { SORTED_THIRD_PARTY_SOURCES_IN_URL } from '@/constants/computed.js';
 import { formatAccountFromConnections } from '@/helpers/formatAccountFromConnections.js';
 import { useAllConnections } from '@/hooks/useAllConnections.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';

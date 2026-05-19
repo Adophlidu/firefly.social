@@ -1,7 +1,7 @@
 'use client';
 
 import LinkIcon from '@dimensiondev/assets/link-square.svg';
-import type { NetworkType } from '@dimensiondev/web3/enums';
+import type { NetworkType } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 import { useMemo } from 'react';
 
