@@ -211,8 +211,9 @@ function ComposeModalUI({ ref }: Props) {
                 });
                 return CloseAction.Saved;
             } else {
-                dispatch?.close();
+                editor.update(() => $getRoot().clear());
                 removeTempDrafts();
+                dispatch?.close();
             }
         } else {
             dispatch?.close();
