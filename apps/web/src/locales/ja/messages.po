@@ -4769,6 +4769,9 @@ msgstr ""
 msgid "Token holder of any one below"
 msgstr ""
 
+msgid "World Cup"
+msgstr ""
+
 msgid "Text"
 msgstr ""
 

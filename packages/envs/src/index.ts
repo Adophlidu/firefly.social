@@ -67,6 +67,7 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_TIPS: z.nativeEnum(STATUS).default(STATUS.Enabled),
     NEXT_PUBLIC_WALLET_MIX: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_SPARKS: z.nativeEnum(STATUS).default(STATUS.Disabled),
+    NEXT_PUBLIC_WORLD_CUP: z.nativeEnum(STATUS).default(STATUS.Enabled),
     NEXT_PUBLIC_LENS_SIGNUP: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_FARCASTER_SIGNUP: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_X_WEBHOOK_RECEIVER_IDS: z.string().optional(), // comma separated client ids: id1,id2,...
@@ -146,6 +147,7 @@ export const envs = {
         NEXT_PUBLIC_TIPS: process.env.NEXT_PUBLIC_TIPS,
         NEXT_PUBLIC_WALLET_MIX: process.env.NEXT_PUBLIC_WALLET_MIX,
         NEXT_PUBLIC_SPARKS: process.env.NEXT_PUBLIC_SPARKS,
+        NEXT_PUBLIC_WORLD_CUP: process.env.NEXT_PUBLIC_WORLD_CUP,
         NEXT_PUBLIC_LENS_SIGNUP: process.env.NEXT_PUBLIC_LENS_SIGNUP,
         NEXT_PUBLIC_FARCASTER_SIGNUP: process.env.NEXT_PUBLIC_FARCASTER_SIGNUP,
         NEXT_PUBLIC_X_WEBHOOK_RECEIVER_IDS: process.env.NEXT_PUBLIC_X_WEBHOOK_RECEIVER_IDS,

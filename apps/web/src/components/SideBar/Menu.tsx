@@ -1,6 +1,7 @@
 'use client';
 
 import CircleShareIcon from '@dimensiondev/assets/circle-share.svg';
+import CupIcon from '@dimensiondev/assets/cup.svg';
 import SettingsSelectedIcon from '@dimensiondev/assets/setting.selected.svg';
 import SettingsIcon from '@dimensiondev/assets/setting.svg';
 import { PageRoute, STATUS } from '@dimensiondev/enums';
@@ -73,6 +74,15 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                       href: PageRoute.Sparks,
                                       name: <Trans>Genesis Sparks</Trans>,
                                       match: () => isRoutePathname(pathname, PageRoute.Sparks),
+                                  }
+                                : undefined,
+                            envs.external.NEXT_PUBLIC_WORLD_CUP === STATUS.Enabled
+                                ? {
+                                      href: PageRoute.WorldCup,
+                                      name: <Trans>World Cup</Trans>,
+                                      icon: CupIcon,
+                                      selectedIcon: CupIcon,
+                                      match: () => isRoutePathname(pathname, PageRoute.WorldCup),
                                   }
                                 : undefined,
                             {

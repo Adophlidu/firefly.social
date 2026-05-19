@@ -319,6 +319,7 @@ export enum PageRoute {
     Signup = '/signup',
     Sparks = '/sparks',
     MysteryBox = '/mystery-box',
+    WorldCup = '/world-cup',
 }
 
 export enum HomeTab {
