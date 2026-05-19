@@ -174,11 +174,6 @@ export function resolveCryptoUpDownFromEvent(event: PolymarketEventLike): Polyma
     return classifyPolymarketCryptoSlug(getPolymarketEventSlug(event));
 }
 
-/** Type guard for 5m / 15m / 4h Up/Down events. */
-export function isCryptoUpDownShortEvent(event: PolymarketEventLike): event is PolymarketEventLike & { slug: string } {
-    return resolveCryptoUpDownFromEvent(event).kind === 'crypto-up-down-short';
-}
-
 function isPredictionRecurrence(value: string): value is PredictionRecurrence {
     return (Object.values(PredictionRecurrence) as string[]).includes(value);
 }

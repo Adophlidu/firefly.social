@@ -9,7 +9,6 @@ import type { Hex } from 'viem';
 import { gnosis } from 'viem/chains';
 
 import { ChainIcon } from '@/components/ChainIcon.js';
-import { GridListInPage } from '@/components/GridListInPage.js';
 import { Link } from '@/components/Link.js';
 import { NFTImage } from '@/components/NFTImage.js';
 import { BookmarkInIcon } from '@/components/NFTs/BookmarkButton.js';
@@ -17,7 +16,6 @@ import { POAP_CONTRACT_ADDRESS } from '@/constants/static.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
-import { usePoapsByWallet } from '@/hooks/nft/usePoapsByWallet.js';
 import { useEnsName } from '@/hooks/useEnsName.js';
 import type { EVM } from '@/providers/nftscan/types.js';
 import type { NFTDetail } from '@/providers/types/Firefly.js';
@@ -175,27 +173,3 @@ export const POAPGridListComponent = {
     List: GridList,
     Item: GridItem,
 };
-
-export function POAPList({ address }: { address: string }) {
-    const queryResult = usePoapsByWallet(address);
-
-    return (
-        <div className="px-3">
-            <GridListInPage
-                queryResult={queryResult}
-                className="mt-5"
-                VirtualGridListProps={{
-                    components: POAPGridListComponent,
-                    itemContent: (index, item) => {
-                        return getPoapItemContent(index, item, {
-                            isPoap: true,
-                        });
-                    },
-                }}
-                NoResultsFallbackProps={{
-                    className: 'mt-20',
-                }}
-            />
-        </div>
-    );
-}

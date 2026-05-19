@@ -6,11 +6,6 @@ export type PolymarketResponse<T extends object> =
           error: string;
       };
 
-export type TradedMarketsResponse = PolymarketResponse<{
-    traded: number;
-    user: string;
-}>;
-
 export type VolumeTradedResponse = PolymarketResponse<
     Array<{
         amount: number;

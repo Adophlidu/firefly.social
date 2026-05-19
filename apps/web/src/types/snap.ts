@@ -96,8 +96,6 @@ export type SnapAction =
     | SnapSendTokenAction
     | SnapSwapTokenAction;
 
-export type SnapActionType = SnapAction['action'];
-
 // #endregion
 
 // #region Snap Element Props
@@ -370,8 +368,6 @@ export type SnapElement =
     | SnapSliderElement
     | SnapSwitchElement
     | SnapToggleGroupElement;
-
-export type SnapElementType = SnapElement['type'];
 
 // #endregion
 
