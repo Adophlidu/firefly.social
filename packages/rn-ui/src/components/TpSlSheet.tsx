@@ -349,6 +349,7 @@ export const TpSlSheet = memo<TpSlSheetProps>(function TpSlSheet({
             onOpenChange={onOpenChange}
             snapPointsMode="fit"
             dismissOnSnapToBottom
+            moveOnKeyboardChange
             position={sheetPosition}
             onPositionChange={setSheetPosition}
             zIndex={100_000}

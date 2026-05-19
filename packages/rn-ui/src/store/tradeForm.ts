@@ -209,3 +209,21 @@ export const setCoinNameAtom = atom(null, (_, set, newValue: string) => {
     set(slRatioAtom, '');
     set(limitPriceAtom, '0');
 });
+
+/** Reset all trade-form fields to initial values (e.g. when entering `PerpsTradeDetail`). */
+export const resetTradeFormAtom = atom(null, (_, set) => {
+    set(midPriceAtom, '0');
+    set(marginModeAtom, TradeMarginMode.ISOLATED);
+    set(sizeAtom, '0');
+    set(sizeInputValueAtom, '');
+    set(sizeInputTypeAtom, 'amount');
+    set(sliderValueAtom, 0);
+    set(orderTypeAtom, OrderType.MARKET);
+    set(limitPriceAtom, '0');
+    set(orderSafeTypeAtom, 'tpSl');
+    set(tpRatioAtom, '');
+    set(slRatioAtom, '');
+    set(leverageSheetOpenAtom, false);
+    set(marginModeSheetOpenAtom, false);
+    set(acceptTermsSheetOpenAtom, false);
+});

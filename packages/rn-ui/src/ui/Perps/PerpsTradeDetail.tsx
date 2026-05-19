@@ -1,5 +1,6 @@
 import { useAtomValue, useSetAtom } from 'jotai';
 import { memo, useCallback, useEffect, useMemo, useRef } from 'react';
+import { Platform } from 'react-native';
 import { ScrollView, XStack, YStack } from 'tamagui';
 
 import { PerpsTradeDetailHeader } from '@/components/PerpsTradeDetailHeader';
@@ -9,7 +10,14 @@ import { PerpsTradeForm } from '@/components/TradeForm/index';
 import { formatFundingRate } from '@/helpers/formatFundingRate';
 import { useCoinInfo } from '@/hooks/Perps/useCoinInfo';
 import { PerpsTradeDetailSkeleton } from '@/skeletons/PerpsTradeDetailSkeleton';
-import { coinNameAtom, marketPriceAtom, midPriceAtom, setCoinNameAtom, sizeDecimalAtom } from '@/store/tradeForm';
+import {
+    coinNameAtom,
+    marketPriceAtom,
+    midPriceAtom,
+    resetTradeFormAtom,
+    setCoinNameAtom,
+    sizeDecimalAtom,
+} from '@/store/tradeForm';
 import type { SubmitAddToPosition, SubmitTpSl } from '@/types/services';
 import type { PerpsMeta } from '@/types/ui';
 
@@ -29,6 +37,12 @@ export const PerpsTradeDetail = memo<PerpsTradeDetailProps>(function PerpsTradeD
     const setMidPrice = useSetAtom(midPriceAtom);
     const setSizeDecimal = useSetAtom(sizeDecimalAtom);
     const setCoinName = useSetAtom(setCoinNameAtom);
+    const resetTradeForm = useSetAtom(resetTradeFormAtom);
+
+    useEffect(() => {
+        if (Platform.OS === 'web') return;
+        resetTradeForm();
+    }, []);
 
     const { data: coinInfo, isLoading: isCoinInfoLoading } = useCoinInfo(coinName);
 

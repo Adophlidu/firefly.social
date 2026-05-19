@@ -37,9 +37,11 @@ export function Provider({ children, theme = 'system', queryClient: queryClientP
 
     return (
         <QueryClientProvider client={qc}>
-            <TamaguiProvider config={config} defaultTheme={resolvedTheme}>
-                <I18nProvider i18n={i18n}>{children}</I18nProvider>
-            </TamaguiProvider>
+            <I18nProvider i18n={i18n}>
+                <TamaguiProvider config={config} defaultTheme={resolvedTheme}>
+                    {children}
+                </TamaguiProvider>
+            </I18nProvider>
         </QueryClientProvider>
     );
 }
