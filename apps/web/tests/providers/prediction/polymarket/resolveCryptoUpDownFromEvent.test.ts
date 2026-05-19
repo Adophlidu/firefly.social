@@ -7,6 +7,7 @@ import {
     getCryptoUpDownIntervalFromEvent,
     getPolymarketEventSlug,
     getPredictionRecurrenceFromPolymarketEvent,
+    type PolymarketEventLike,
     resolveCryptoUpDownFromEvent,
 } from '@/providers/prediction/polymarket/resolveCryptoUpDownFromEvent.js';
 import type { PolymarketEvent } from '@/providers/prediction/polymarket/type.js';
@@ -51,7 +52,7 @@ describe('resolveCryptoUpDownFromEvent', () => {
         const event = {
             slug: '',
             markets: [{ slug: 'sol-up-or-down-5m-1700000000' }],
-        };
+        } as PolymarketEventLike;
         expect(getPolymarketEventSlug(event)).toBe('sol-up-or-down-5m-1700000000');
         expect(getCryptoUpDownIntervalFromEvent(event)).toBe('5m');
     });
@@ -167,19 +168,19 @@ describe('getPredictionRecurrenceFromPolymarketEvent', () => {
         ).toBe(PredictionRecurrence.FifteenMinutes);
     });
 
-    it('returns null for hourly slug without series recurrence', () => {
+    it('returns Hour for hourly up-down slug', () => {
         expect(
             getPredictionRecurrenceFromPolymarketEvent(
                 createMinimalEvent({ slug: 'bitcoin-up-or-down-january-15-2025-3pm-et' }),
             ),
-        ).toBeNull();
+        ).toBe(PredictionRecurrence.Hour);
     });
 
-    it('returns null for unrelated events', () => {
+    it('returns undefined for unrelated events', () => {
         expect(
             getPredictionRecurrenceFromPolymarketEvent(
                 createMinimalEvent({ slug: 'presidential-election-winner-2028' }),
             ),
-        ).toBeNull();
+        ).toBeUndefined();
     });
 });

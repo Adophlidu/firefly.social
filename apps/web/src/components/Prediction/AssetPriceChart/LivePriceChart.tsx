@@ -109,9 +109,21 @@ export const LivePriceChart = memo<LivePriceChartProps>(function LivePriceChart(
     const formatValue = useCallback((price: number) => formatCryptoPrice(crypto, price), [crypto]);
 
     const plotHeight = getCryptoPricePlotHeight();
-    const values = useMemo(() => displayedPoints.map((point) => point.value), [displayedPoints]);
+    const values = useMemo(() => {
+        const seriesValues = displayedPoints.map((point) => point.value);
+        if (priceToBeat !== undefined && Number.isFinite(priceToBeat)) {
+            return [...seriesValues, priceToBeat];
+        }
+        return seriesValues;
+    }, [displayedPoints, priceToBeat]);
     const { ticks } = useMemo(() => computeCryptoPriceYTicks({ values }), [values]);
-    const yRange = useMemo(() => computeChartYRange(displayedPoints, latestPrice ?? 0), [displayedPoints, latestPrice]);
+    const yRange = useMemo(
+        () =>
+            computeChartYRange(displayedPoints, latestPrice ?? 0, {
+                extraValues: priceToBeat !== undefined && Number.isFinite(priceToBeat) ? [priceToBeat] : undefined,
+            }),
+        [displayedPoints, latestPrice, priceToBeat],
+    );
     const yScale = useCallback(
         (value: number) => priceToChartY(value, yRange, CRYPTO_PRICE_CHART_MARGIN.top, plotHeight),
         [yRange, plotHeight],

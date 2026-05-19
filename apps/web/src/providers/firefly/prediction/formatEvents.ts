@@ -8,6 +8,22 @@ import type { PolymarketEvent } from '@/providers/prediction/polymarket/type.js'
 import type { OpinionMarketDetail } from '@/providers/types/Firefly.js';
 import { type BetsEventDataForUI, type BetsMarketDataForUI, PredictionRecurrence } from '@/types/prediction.js';
 
+const CRYPTO_PRICE_SERIES_RECURRENCES: PredictionRecurrence[] = [
+    PredictionRecurrence.FiveMinutes,
+    PredictionRecurrence.FifteenMinutes,
+    PredictionRecurrence.FourHours,
+    PredictionRecurrence.Daily,
+    PredictionRecurrence.Hour,
+];
+
+function hasCryptoPriceSeries(detail: PolymarketEvent) {
+    return (
+        detail.series?.some((series) =>
+            CRYPTO_PRICE_SERIES_RECURRENCES.includes(series.recurrence as PredictionRecurrence),
+        ) ?? false
+    );
+}
+
 function filterAndSortPolymarketMarkets(detail: PolymarketEvent) {
     const markets = (detail.markets || []).filter((market) => market.active);
     try {
@@ -116,6 +132,8 @@ export function formatPolymarketEvent(detail: PolymarketEvent): BetsEventDataFor
 
     const cryptoName = resolveCryptoFromPolymarketEvent(detail);
     const eventStartTime = first(detail.markets)?.eventStartTime;
+    const cryptoRecurrence = getPredictionRecurrenceFromPolymarketEvent(detail);
+    const showCryptoData = !!cryptoName && (!!cryptoRecurrence || hasCryptoPriceSeries(detail));
 
     return {
         id: detail.id,
@@ -132,24 +150,14 @@ export function formatPolymarketEvent(detail: PolymarketEvent): BetsEventDataFor
         markets: sortMarkets(markets),
         startTime: eventStartTime || detail.startTime || detail.startDate,
         endDate: detail.endDate,
-        cryptoData:
-            cryptoName &&
-            detail.series?.some((s) =>
-                [
-                    PredictionRecurrence.FiveMinutes,
-                    PredictionRecurrence.FifteenMinutes,
-                    PredictionRecurrence.FourHours,
-                    PredictionRecurrence.Daily,
-                    PredictionRecurrence.Hour,
-                ].includes(s.recurrence),
-            )
-                ? {
-                      name: cryptoName,
-                      recurrence: getPredictionRecurrenceFromPolymarketEvent(detail) ?? undefined,
-                      priceToBeat: detail.eventMetadata?.priceToBeat,
-                      finalPrice: detail.eventMetadata?.finalPrice,
-                  }
-                : undefined,
+        cryptoData: showCryptoData
+            ? {
+                  name: cryptoName,
+                  recurrence: cryptoRecurrence,
+                  priceToBeat: detail.eventMetadata?.priceToBeat,
+                  finalPrice: detail.eventMetadata?.finalPrice,
+              }
+            : undefined,
         series: detail.series
             ?.filter((s) => s.active)
             ?.map((s) => ({

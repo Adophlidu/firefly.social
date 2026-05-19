@@ -30,7 +30,7 @@ export interface CryptoUpDownShortMarket {
     interval: CryptoUpDownInterval;
     recurrence: PredictionRecurrence;
     variant: CryptoPriceVariant;
-    /** Unix seconds at the end of the slug (`…-5m-1716123456`). */
+    /** Unix seconds from the slug suffix (`…-5m-1716123456`). */
     windowStartUnix: number;
     slug: string;
 }
@@ -186,10 +186,10 @@ function isPredictionRecurrence(value: string): value is PredictionRecurrence {
 /**
  * Resolves `PredictionRecurrence` from a Polymarket event.
  *
- * Priority: slug patterns (5m / 15m / 4h / daily / multistrike-4h) → `event.series[0].recurrence`.
- * Hourly Up/Down slugs and unrecognized markets return `null` unless series recurrence is set.
+ * Priority: slug patterns (5m / 15m / 4h / hourly / daily / multistrike-4h) → `event.series[0].recurrence`.
+ * Unrecognized markets return `undefined` unless series recurrence is set.
  */
-export function getPredictionRecurrenceFromPolymarketEvent(event: PolymarketEvent): PredictionRecurrence | null {
+export function getPredictionRecurrenceFromPolymarketEvent(event: PolymarketEvent): PredictionRecurrence | undefined {
     const classification = resolveCryptoUpDownFromEvent(event);
 
     switch (classification.kind) {
@@ -200,6 +200,7 @@ export function getPredictionRecurrenceFromPolymarketEvent(event: PolymarketEven
         case 'multistrike-4h':
             return PredictionRecurrence.FourHours;
         case 'hourly-up-down':
+            return PredictionRecurrence.Hour;
         case 'other':
             break;
     }
@@ -209,5 +210,5 @@ export function getPredictionRecurrenceFromPolymarketEvent(event: PolymarketEven
         return seriesRecurrence;
     }
 
-    return null;
+    return undefined;
 }

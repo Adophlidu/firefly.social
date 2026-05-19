@@ -6,7 +6,7 @@ export interface ChartValuePoint {
 export function computeChartYRange(
     visible: ChartValuePoint[],
     currentValue: number,
-    options?: { exaggerate?: boolean },
+    options?: { exaggerate?: boolean; extraValues?: number[] },
 ): { min: number; max: number } {
     const exaggerate = options?.exaggerate ?? false;
     let targetMin = Infinity;
@@ -15,6 +15,12 @@ export function computeChartYRange(
     for (const point of visible) {
         if (point.value < targetMin) targetMin = point.value;
         if (point.value > targetMax) targetMax = point.value;
+    }
+
+    for (const value of options?.extraValues ?? []) {
+        if (!Number.isFinite(value)) continue;
+        if (value < targetMin) targetMin = value;
+        if (value > targetMax) targetMax = value;
     }
 
     if (currentValue < targetMin) targetMin = currentValue;

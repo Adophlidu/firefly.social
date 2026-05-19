@@ -233,7 +233,11 @@ export const HistoryPriceChart = memo<HistoryPriceChartProps>(function HistoryPr
     });
 
     const values = useMemo(() => data?.map((point) => point.value) ?? [], [data]);
-    const { ticks, domain: yDomain } = useMemo(() => computeCryptoPriceYTicks({ values }), [values]);
+    const { ticks, domain: yDomain } = useMemo(() => {
+        const tickValues =
+            priceToBeat !== undefined && Number.isFinite(priceToBeat) ? [...values, priceToBeat] : values;
+        return computeCryptoPriceYTicks({ values: tickValues });
+    }, [values, priceToBeat]);
 
     const Overlay = useCallback(
         (props: object) => {
