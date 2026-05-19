@@ -13,7 +13,9 @@ export function formatPercentRate(rate: string | number, decimals = 2): string {
 
     const percent = num * 100;
     if (percent === 0) return '0%';
-    const fixed = percent.toFixed(decimals);
+    const factor = Math.pow(10, decimals);
+    const rounded = Math.round(percent * factor) / factor;
+    const fixed = rounded.toFixed(decimals);
     const trimmed = fixed.replace(/\.?0+$/, '');
     return `${trimmed}%`;
 }
@@ -42,7 +44,9 @@ export function formatPercentRateMin(
     if (abs > 0 && abs < minPercent) {
         return `${percent < 0 ? '-' : ''}<${minPercent.toFixed(decimals)}%`;
     }
-    const fixed = percent.toFixed(decimals);
+    const factor = Math.pow(10, decimals);
+    const rounded = Math.round(percent * factor) / factor;
+    const fixed = rounded.toFixed(decimals);
     const trimmed = fixed.replace(/\.?0+$/, '');
     return `${trimmed}%`;
 }
