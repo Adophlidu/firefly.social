@@ -128,11 +128,12 @@ function TabNavigation() {
 export function ClientLayout() {
     const queryClient = useQueryClient();
     const { data } = useSuspenseQuery(getPolymarketAccountQueryOptions());
-    const { data: upgradeTask } = useSuspenseQuery(getPolymarketUpgradeTaskQueryOptions(data.proxyAddress));
+    const proxyAddress = data.proxyAddress;
+    const { data: upgradeTask } = useSuspenseQuery(getPolymarketUpgradeTaskQueryOptions(proxyAddress));
     const { totalBalance, availableBalance } = usePolymarketBalance(
-        data.proxyAddress,
+        proxyAddress,
         POLYMARKET_HOME_POLL_MS,
-        upgradeTask?.is_upgraded,
+        upgradeTask?.is_upgraded ?? true,
     );
 
     const availableText = isZero(availableBalance) ? '$0' : formatTokenUSD(availableBalance, { minDisplay: 0.01 });
@@ -158,17 +159,17 @@ export function ClientLayout() {
         if (!confirmed) return;
 
         try {
-            await getFireflyEndpoint().polymarketV2Wrap(data.proxyAddress);
+            await getFireflyEndpoint().polymarketV2Wrap(proxyAddress);
             await Promise.all([
-                queryClient.invalidateQueries({ queryKey: ['polymarket-upgrade-task', data.proxyAddress] }),
+                queryClient.invalidateQueries({ queryKey: ['polymarket-upgrade-task', proxyAddress] }),
                 queryClient.invalidateQueries({ queryKey: ['getPolymarketAccount'] }),
-                queryClient.invalidateQueries({ queryKey: ['polymarket-withdrawable-amount', data.proxyAddress] }),
+                queryClient.invalidateQueries({ queryKey: ['polymarket-withdrawable-amount', proxyAddress] }),
             ]);
             toast.success(<Trans>Done</Trans>);
         } catch {
             toast.error(<Trans>Failed to release</Trans>);
         }
-    }, [data.proxyAddress, queryClient, releaseAmountText]);
+    }, [proxyAddress, queryClient, releaseAmountText]);
 
     return (
         <>
@@ -179,7 +180,7 @@ export function ClientLayout() {
                 <Suspense
                     fallback={<div className="bg-lightBg col-span-2 grid h-[17px] w-40 animate-pulse rounded-xl" />}
                 >
-                    <PNL proxyAddress={data.proxyAddress} />
+                    <PNL proxyAddress={proxyAddress} />
                 </Suspense>
                 <div className="text-second h-4 text-[13px] leading-[17px]">
                     <Trans>Available: {availableText}</Trans>

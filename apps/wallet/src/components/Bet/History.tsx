@@ -4,6 +4,7 @@ import betImageFallback from '@dimensiondev/assets/bet-image-fallback.svg?url';
 import WonIcon from '@dimensiondev/assets/polymarket-claim.svg';
 import LostIcon from '@dimensiondev/assets/polymarket-lost.svg';
 import WarnIcon from '@dimensiondev/assets/warn.svg';
+import { EMPTY_LIST } from '@dimensiondev/constants';
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
 import { formatPriceToCents, removeTrailingZeros } from '@dimensiondev/utils';
 import { waitForEthereumTransaction } from '@dimensiondev/web3/actions';
@@ -127,7 +128,7 @@ function ClosedPositionsHistory() {
     const proxy = proxyAddress.toLowerCase();
 
     // Keyed on proxy only — changing sortBy won't trigger a re-fetch of these 200 items
-    const { data: redeemablePositions = [] } = useSuspenseQuery({
+    const { data: redeemablePositions = EMPTY_LIST } = useSuspenseQuery({
         queryKey: ['polymarket-history-redeemable', proxy],
         async queryFn() {
             const positions = await getFireflyEndpoint().getPolymarketV2CurrentPositions(proxyAddress, {
@@ -135,7 +136,8 @@ function ClosedPositionsHistory() {
                 offset: 0,
                 limit: 200,
             });
-            return (positions ?? []).map((p) => mapPolymarketV2ToLegacy(p, false)).filter((x) => x.shares > 0);
+            if (!positions) return EMPTY_LIST;
+            return positions.map((p) => mapPolymarketV2ToLegacy(p, false)).filter((x) => x.shares > 0);
         },
         staleTime: 30_000,
     });
@@ -170,7 +172,7 @@ function ClosedPositionsHistory() {
         () =>
             positions
                 .filter((position) => position.isClaimable && !position.isWin && !position.is_closed)
-                .sort((a, b) => b.pnl - a.pnl),
+                .sort((a, b) => Math.abs(b.pnl) - Math.abs(a.pnl)),
         [positions],
     );
 
@@ -326,7 +328,9 @@ function ClosedPositionCard({ position }: { position: PolymarketPosition }) {
         typeof currentValue === 'number' && Number.isFinite(currentValue)
             ? BigNumber(currentValue)
             : totalTrade.plus(position.pnl);
-    const pnlRate = totalTrade.gt(0) ? BigNumber(position.pnl).div(totalTrade).toNumber() : position.pnl_rate;
+    const pnlRate = totalTrade.gt(0)
+        ? Math.max(BigNumber(position.pnl).div(totalTrade).toNumber(), -1)
+        : position.pnl_rate;
     const isWon = position.pnl > 0;
 
     const navigateToDetail = () => {
@@ -818,7 +822,7 @@ function sortClosedPositions(positions: PolymarketPosition[], sortBy: ClosedPosi
             case 'AVGPRICE':
                 return b.avg_price - a.avg_price;
             case 'TITLE':
-                return b.title.localeCompare(a.title);
+                return b.title.localeCompare(a.title, undefined, { sensitivity: 'variant' });
             default:
                 return 0;
         }

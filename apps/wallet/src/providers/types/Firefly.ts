@@ -527,7 +527,8 @@ export function mapPolymarketV2ToLegacy(pos: PolymarketPositionV2, isClosed: boo
     const totalBought = pos.totalBought ?? 0;
     const pnl = (isCurrent ? pos.cashPnl : pos.realizedPnl) || 0;
     const totalTrade = totalBought * avgPrice;
-    const pnlRate = isCurrent && pos.percentPnl ? pos.percentPnl / 100 : totalTrade > 0 ? pnl / totalTrade : 0;
+    const pnlRate =
+        isCurrent && pos.percentPnl ? pos.percentPnl / 100 : totalTrade > 0 ? Math.max(pnl / totalTrade, -1) : 0;
 
     return {
         is_closed: isClosed,
