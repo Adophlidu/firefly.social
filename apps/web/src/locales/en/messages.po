@@ -4586,9 +4586,6 @@ msgstr "Snapshot removed from your Bookmarks"
 msgid "Minting Date"
 msgstr "Minting Date"
 
-msgid "Logs"
-msgstr "Logs"
-
 msgid "Reauthorize"
 msgstr "Reauthorize"
 

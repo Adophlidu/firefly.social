@@ -11,7 +11,7 @@ import { SITE_URL_OFFICIAL } from '@/constants/static.js';
 export function LinkCloud() {
     const links = [
         {
-            name: envs.shared.VERSION ? `v${envs.shared.VERSION}` : <Trans>Logs</Trans>,
+            name: IS_PRODUCTION ? null : envs.shared.VERSION ? `v${envs.shared.VERSION}` : 'Logs',
             link: '/next-debug.log',
             visible: !IS_PRODUCTION,
         },

@@ -4563,9 +4563,6 @@ msgstr ""
 msgid "Minting Date"
 msgstr ""
 
-msgid "Logs"
-msgstr ""
-
 msgid "Reauthorize"
 msgstr ""
 

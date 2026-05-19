@@ -4563,9 +4563,6 @@ msgstr "提案已从收藏夹移除"
 msgid "Minting Date"
 msgstr "铸造日期"
 
-msgid "Logs"
-msgstr "日志"
-
 msgid "Reauthorize"
 msgstr "重新授权"
 

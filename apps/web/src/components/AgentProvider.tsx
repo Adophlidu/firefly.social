@@ -2,7 +2,7 @@
 
 import { Agent } from '@dimensiondev/enums';
 import { isValidEnumValue } from '@dimensiondev/utils';
-import { createContext, type ReactNode, useContext, useState } from 'react';
+import { createContext, type ReactNode, useContext, useEffect, useState } from 'react';
 
 const AgentContext = createContext<Agent | null>(null);
 
@@ -23,7 +23,10 @@ function detectAgent(): Agent | null {
 
 export function AgentProvider({ children }: { children: ReactNode }) {
     // Lazy initializer runs synchronously on client first render — no flash
-    const [agent] = useState<Agent | null>(() => detectAgent());
+    const [agent, setAgent] = useState<Agent | null>(null);
+    useEffect(() => {
+        setAgent(detectAgent());
+    }, []);
 
     return <AgentContext value={agent}>{children}</AgentContext>;
 }
