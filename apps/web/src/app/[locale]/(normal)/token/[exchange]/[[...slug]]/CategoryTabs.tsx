@@ -2,6 +2,7 @@
 
 import { TOKEN_CATEGORIES } from '@dimensiondev/constants/computed';
 import { TokenCategory } from '@dimensiondev/enums';
+import { isTrackedChain } from '@dimensiondev/web3/chains';
 import { Trans } from '@lingui/react/macro';
 import { compact } from 'lodash-es';
 import { type ReadonlyURLSearchParams, usePathname, useSearchParams } from 'next/navigation.js';
@@ -10,7 +11,6 @@ import urlcat from 'urlcat';
 
 import { SourceTabs } from '@/components/SourceTabs/index.js';
 import { SourceTab } from '@/components/SourceTabs/SourceTab.js';
-import { TRACING_CHAINS } from '@/constants/computed.js';
 import { NO_TRACING_COINS } from '@/constants/static.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { CoinGeckoToken } from '@/providers/types/CoinGecko.js';
@@ -35,9 +35,9 @@ export const CategoryTabs = memo<Props>(function CategoryTabs({ token, ...rest }
     const isMedium = useIsMedium();
 
     const tokenId = token.id;
-    const isTracingChain = token?.chainId ? TRACING_CHAINS.includes(token.chainId) : true;
+    const isTracingChain = token?.chainId ? isTrackedChain(token.chainId) : true;
     const isTracingPlatform = Array.isArray(token?.platform_info)
-        ? token.platform_info.some((x) => TRACING_CHAINS.includes(x.chain_id))
+        ? token.platform_info.some((x) => isTrackedChain(x.chain_id))
         : true;
 
     const categories = compact([

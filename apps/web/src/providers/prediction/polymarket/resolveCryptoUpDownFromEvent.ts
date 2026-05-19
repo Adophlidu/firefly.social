@@ -63,7 +63,10 @@ export type PolymarketCryptoMarketClassification =
     | PolymarketDailyUpDownMarket
     | PolymarketOtherCryptoMarket;
 
-export type PolymarketEventLike = Pick<PolymarketEvent, 'slug' | 'markets'>;
+export interface PolymarketEventLike {
+    slug: string;
+    markets?: Array<{ slug: string }>;
+}
 
 function normalizeSlug(slug: string | null | undefined): string | null {
     const trimmed = slug?.trim();
@@ -186,7 +189,7 @@ function isPredictionRecurrence(value: string): value is PredictionRecurrence {
  * Priority: slug patterns (5m / 15m / 4h / daily / multistrike-4h) → `event.series[0].recurrence`.
  * Hourly Up/Down slugs and unrecognized markets return `null` unless series recurrence is set.
  */
-export function getPredictionRecurrenceFromPolymarketEvent(event: PolymarketEvent): PredictionRecurrence | undefined {
+export function getPredictionRecurrenceFromPolymarketEvent(event: PolymarketEvent): PredictionRecurrence | null {
     const classification = resolveCryptoUpDownFromEvent(event);
 
     switch (classification.kind) {
@@ -197,7 +200,6 @@ export function getPredictionRecurrenceFromPolymarketEvent(event: PolymarketEven
         case 'multistrike-4h':
             return PredictionRecurrence.FourHours;
         case 'hourly-up-down':
-            return PredictionRecurrence.Hour;
         case 'other':
             break;
     }
@@ -207,5 +209,5 @@ export function getPredictionRecurrenceFromPolymarketEvent(event: PolymarketEven
         return seriesRecurrence;
     }
 
-    return;
+    return null;
 }

@@ -145,7 +145,7 @@ export function formatPolymarketEvent(detail: PolymarketEvent): BetsEventDataFor
             )
                 ? {
                       name: cryptoName,
-                      recurrence: getPredictionRecurrenceFromPolymarketEvent(detail),
+                      recurrence: getPredictionRecurrenceFromPolymarketEvent(detail) ?? undefined,
                       priceToBeat: detail.eventMetadata?.priceToBeat,
                       finalPrice: detail.eventMetadata?.finalPrice,
                   }

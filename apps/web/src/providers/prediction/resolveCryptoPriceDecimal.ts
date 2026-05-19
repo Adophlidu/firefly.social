@@ -2,7 +2,7 @@ import { createLookupTableResolver, safeUnreachable } from '@dimensiondev/utils'
 
 import { PredictionCrypto } from '@/constants/bets.js';
 
-export const resolveCrypPriceDecimal = createLookupTableResolver<PredictionCrypto, number>(
+export const resolveCryptoPriceDecimal = createLookupTableResolver<PredictionCrypto, number>(
     {
         [PredictionCrypto.Bitcoin]: 2,
         [PredictionCrypto.Ethereum]: 2,

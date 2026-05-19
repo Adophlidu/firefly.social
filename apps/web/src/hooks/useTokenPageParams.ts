@@ -1,14 +1,13 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { TOKEN_CATEGORIES } from '@dimensiondev/constants/computed';
 import { TokenCategory } from '@dimensiondev/enums';
-import { solana } from '@dimensiondev/web3/chains';
+import { isTrackedChain, solana } from '@dimensiondev/web3/chains';
 import { ETH_NATIVE_TOKEN_ADDRESS, SOL_NATIVE_TOKEN_ADDRESS } from '@dimensiondev/web3/constants';
 import { isValidAddress, isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3/utils';
 import { compact, first, sortBy } from 'lodash-es';
 import { use } from 'react';
 
 import type { TokenPageProps } from '@/app/[locale]/(normal)/token/[exchange]/[[...slug]]/types.js';
-import { TRACING_CHAINS } from '@/constants/computed.js';
 import { COINGECKO_SOL_COIN_ID, NO_TRACING_COINS } from '@/constants/static.js';
 import { resolveCoinGeckoCoinChainId } from '@/helpers/resolveCoingeckoCoinChainId.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
@@ -46,9 +45,9 @@ export function useTokenPageParams({ params, searchParams }: TokenPageProps) {
 
     const updatedChainId =
         token?.chainId ?? chainId ?? trending?.coin.chainId ?? (coinChainId ? coinChainId : firstContract?.chainId);
-    const isTracingChain = updatedChainId ? TRACING_CHAINS.includes(updatedChainId) : true;
+    const isTracingChain = updatedChainId ? isTrackedChain(updatedChainId) : true;
     const isTracingPlatform = Array.isArray(token?.platform_info)
-        ? token.platform_info.some((x) => TRACING_CHAINS.includes(x.chain_id))
+        ? token.platform_info.some((x) => isTrackedChain(x.chain_id))
         : true;
     const categories = compact([
         ...(tokenId && (NO_TRACING_COINS.includes(tokenId) || !isTracingChain || !isTracingPlatform)

@@ -1,7 +1,7 @@
 import type { PredictionCrypto } from '@/constants/bets.js';
-import { resolveCrypPriceDecimal } from '@/providers/prediction/resolveCrypPriceDecimal.js';
+import { resolveCryptoPriceDecimal } from '@/providers/prediction/resolveCryptoPriceDecimal.js';
 
 export function formatCryptoPrice(crypto: PredictionCrypto, price: number) {
-    const decimal = resolveCrypPriceDecimal(crypto);
+    const decimal = resolveCryptoPriceDecimal(crypto);
     return `$${price.toLocaleString('en-US', { minimumFractionDigits: decimal, maximumFractionDigits: decimal })}`;
 }

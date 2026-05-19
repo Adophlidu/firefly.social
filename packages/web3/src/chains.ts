@@ -5,6 +5,7 @@ export * from '@/chains/getChainName.js';
 export * from '@/chains/isFreeGasSupportedChain.js';
 export * from '@/chains/isSameSolanaChainId.js';
 export * from '@/chains/isSolanaChain.js';
+export * from '@/chains/isTrackedChain.js';
 export * from '@/chains/isValidChainIdEthereum.js';
 export * from '@/chains/isValidChainIdSolana.js';
 export * from '@/chains/normalizeSolChainId.js';
