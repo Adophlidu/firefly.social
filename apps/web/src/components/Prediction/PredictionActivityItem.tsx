@@ -1,13 +1,15 @@
 import { Source, WalletProfileCategory } from '@dimensiondev/enums';
 import { formatAddress } from '@dimensiondev/web3/utils';
 import { first } from 'lodash-es';
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useRef } from 'react';
+import { useHover } from 'usehooks-ts';
 import type { Address } from 'viem';
 
 import { Avatar } from '@/components/Avatar.js';
 import { DefiUnitedBadge } from '@/components/DefiUnitedBadge/index.js';
 import { FeedFollowSource } from '@/components/FeedFollowSource.js';
 import { Link } from '@/components/Link.js';
+import { ShareButtonWithAnimationContext } from '@/components/Posts/ShareButton.js';
 import { PredictionActivityAction } from '@/components/Prediction/PredictionActivityAction.js';
 import { PredictionActivityBody } from '@/components/Prediction/PredictionActivityBody.js';
 import { PredictionPlatformIcon } from '@/components/Prediction/PredictionPlatformIcon.js';
@@ -40,6 +42,8 @@ export const PredictionActivityItem = memo<PredictionActivityItemProps>(function
         : '';
     const ensName = getEnsNameFromDisplayInfo(activity, walletAddress);
     const { data: defiUnitedTier } = useDefiUnitedBadge(walletAddress);
+    const root = useRef(null!);
+    const isHover = useHover(root);
 
     const wrapper = useCallback(
         (children: React.ReactNode) => (
@@ -60,64 +64,72 @@ export const PredictionActivityItem = memo<PredictionActivityItemProps>(function
     );
 
     return (
-        <div className="border-line border-b px-4 py-3">
-            {activity.followingSources?.length ? <FeedFollowSource source={first(activity.followingSources)} /> : null}
-            <div className="flex gap-x-3">
-                <div>
-                    {profileUrl ? (
-                        <Link href={profileUrl}>
+        <div className="border-line border-b px-4 py-3" ref={root}>
+            <ShareButtonWithAnimationContext value={isHover}>
+                {activity.followingSources?.length ? (
+                    <FeedFollowSource source={first(activity.followingSources)} />
+                ) : null}
+                <div className="flex gap-x-3">
+                    <div>
+                        {profileUrl ? (
+                            <Link href={profileUrl}>
+                                <Avatar
+                                    alt={walletAddress}
+                                    className="size-10 rounded-full"
+                                    src={getWalletProfileAvatar(activity.displayInfo)}
+                                    size={40}
+                                />
+                            </Link>
+                        ) : (
                             <Avatar
                                 alt={walletAddress}
                                 className="size-10 rounded-full"
                                 src={getWalletProfileAvatar(activity.displayInfo)}
                                 size={40}
                             />
-                        </Link>
-                    ) : (
-                        <Avatar
-                            alt={walletAddress}
-                            className="size-10 rounded-full"
-                            src={getWalletProfileAvatar(activity.displayInfo)}
-                            size={40}
-                        />
-                    )}
-                </div>
-                <div className="min-w-0 flex-1 overflow-hidden">
-                    <div className="text-medium text-second flex items-center gap-x-1">
-                        {profileUrl ? (
-                            <Link href={profileUrl} className="text-lightMain min-w-0 truncate font-bold">
-                                {ensName ? <EnsName ens={ensName} /> : addressName}
-                            </Link>
-                        ) : (
-                            <span className="text-lightMain min-w-0 truncate font-bold">
-                                {ensName ? <EnsName ens={ensName} /> : addressName}
-                            </span>
-                        )}
-                        {ensName ? (
-                            profileUrl ? (
-                                <Link href={profileUrl} className="ml-2 max-md:hidden">
-                                    {addressName}
-                                </Link>
-                            ) : (
-                                <span className="ml-2 max-md:hidden">{addressName}</span>
-                            )
-                        ) : null}
-                        {defiUnitedTier ? <DefiUnitedBadge tier={defiUnitedTier} className="shrink-0" /> : null}
-                        {activity.timestamp ? (
-                            <span className="whitespace-nowrap pl-1">
-                                · <TimestampFormatter time={activity.timestamp * 1000} /> ·
-                            </span>
-                        ) : null}
-                        <PredictionPlatformIcon platform={activity.platform} size={15} className="mr-auto shrink-0" />
-                        {isMyProfile || !walletAddress ? null : (
-                            <WalletBaseMoreAction address={walletAddress as Address} ens={ensName} />
                         )}
                     </div>
-                    <PredictionActivityBody activity={activity} wrapper={wrapper} />
+                    <div className="min-w-0 flex-1 overflow-hidden">
+                        <div className="text-medium text-second flex items-center gap-x-1">
+                            {profileUrl ? (
+                                <Link href={profileUrl} className="text-lightMain min-w-0 truncate font-bold">
+                                    {ensName ? <EnsName ens={ensName} /> : addressName}
+                                </Link>
+                            ) : (
+                                <span className="text-lightMain min-w-0 truncate font-bold">
+                                    {ensName ? <EnsName ens={ensName} /> : addressName}
+                                </span>
+                            )}
+                            {ensName ? (
+                                profileUrl ? (
+                                    <Link href={profileUrl} className="ml-2 max-md:hidden">
+                                        {addressName}
+                                    </Link>
+                                ) : (
+                                    <span className="ml-2 max-md:hidden">{addressName}</span>
+                                )
+                            ) : null}
+                            {defiUnitedTier ? <DefiUnitedBadge tier={defiUnitedTier} className="shrink-0" /> : null}
+                            {activity.timestamp ? (
+                                <span className="whitespace-nowrap pl-1">
+                                    · <TimestampFormatter time={activity.timestamp * 1000} /> ·
+                                </span>
+                            ) : null}
+                            <PredictionPlatformIcon
+                                platform={activity.platform}
+                                size={15}
+                                className="mr-auto shrink-0"
+                            />
+                            {isMyProfile || !walletAddress ? null : (
+                                <WalletBaseMoreAction address={walletAddress as Address} ens={ensName} />
+                            )}
+                        </div>
+                        <PredictionActivityBody activity={activity} wrapper={wrapper} />
 
-                    <PredictionActivityAction activity={activity} />
+                        <PredictionActivityAction activity={activity} />
+                    </div>
                 </div>
-            </div>
+            </ShareButtonWithAnimationContext>
         </div>
     );
 });

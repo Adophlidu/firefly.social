@@ -2,15 +2,17 @@ import { ArticlePlatform, Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { useQuery } from '@tanstack/react-query';
 import { first, isUndefined } from 'lodash-es';
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useRef } from 'react';
 import { useMount } from 'react-use';
 import urlcat from 'urlcat';
+import { useHover } from 'usehooks-ts';
 
 import { ActivityCellArticleAction } from '@/components/ActivityCell/Article/ActivityCellArticleAction.js';
 import { ArticleBody } from '@/components/Article/ArticleBody.js';
 import { SingleArticleHeader } from '@/components/Article/SingleArticleHeader.js';
 import { FeedFollowSource } from '@/components/FeedFollowSource.js';
 import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
+import { ShareButtonWithAnimationContext } from '@/components/Posts/ShareButton.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { FIREFLY_WORKER_HOST } from '@/constants/static.js';
 import { useRouter } from '@/esm/navigation.js';
@@ -40,6 +42,8 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
     const router = useRouter();
     const setScrollIndex = useGlobalState.use.setScrollIndex();
     const identity = useFireflyIdentity(Source.Wallet, article.author.id);
+    const root = useRef(null!);
+    const isHover = useHover(root);
 
     const cover = useQuery({
         queryKey: ['article', 'cover', article.id],
@@ -87,6 +91,7 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
 
     return (
         <article
+            ref={root}
             className={classNames(
                 'border-line hover:bg-bg border-b bg-bottom px-3 py-2 max-md:px-4 max-md:py-3 md:px-4 md:py-3',
                 {
@@ -95,16 +100,20 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
             )}
             onClick={handleClick}
         >
-            {!isBookmark ? <FeedFollowSource source={first(article.followingSources)} /> : null}
-            <SingleArticleHeader article={article} isBookmark={isBookmark} onClickLink={handleLinkClick} />
-            {isMuted ? (
-                <CollapsedContent className="mt-2 pl-[52px]" authorMuted isQuote={false} />
-            ) : (
-                <div className="-mt-2 pl-[52px]">
-                    {!isBookmark ? <ActivityCellArticleAction type={article.type} platform={article.platform} /> : null}
-                    <ArticleBody onClick={handleClick} cover={cover?.data ?? undefined} article={article} />
-                </div>
-            )}
+            <ShareButtonWithAnimationContext value={isHover}>
+                {!isBookmark ? <FeedFollowSource source={first(article.followingSources)} /> : null}
+                <SingleArticleHeader article={article} isBookmark={isBookmark} onClickLink={handleLinkClick} />
+                {isMuted ? (
+                    <CollapsedContent className="mt-2 pl-[52px]" authorMuted isQuote={false} />
+                ) : (
+                    <div className="-mt-2 pl-[52px]">
+                        {!isBookmark ? (
+                            <ActivityCellArticleAction type={article.type} platform={article.platform} />
+                        ) : null}
+                        <ArticleBody onClick={handleClick} cover={cover?.data ?? undefined} article={article} />
+                    </div>
+                )}
+            </ShareButtonWithAnimationContext>
         </article>
     );
 });

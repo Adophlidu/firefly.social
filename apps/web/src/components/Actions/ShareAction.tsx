@@ -1,7 +1,6 @@
 'use client';
 
 import SendIcon from '@dimensiondev/assets/send.svg';
-import ShareIcon from '@dimensiondev/assets/share.svg';
 import { MenuItem } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
@@ -11,6 +10,7 @@ import { CopyLinkButton } from '@/components/Actions/CopyLinkButton.js';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
+import { ShareButtonWithAnimation } from '@/components/Posts/ShareButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { openComposeModal } from '@/helpers/openComposeModal.js';
 
@@ -30,7 +30,7 @@ export const ShareAction = memo(function ShareAction({ link, onClick }: ShareAct
                         whileTap={{ scale: 0.9 }}
                         className="text-second hover:bg-link/[0.2] hover:text-link inline-flex size-7 items-center justify-center rounded-full"
                     >
-                        <ShareIcon width={17} height={16} />
+                        <ShareButtonWithAnimation />
                     </motion.span>
                 </Tooltip>
             }

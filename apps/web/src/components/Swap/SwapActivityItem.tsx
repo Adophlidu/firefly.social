@@ -6,7 +6,8 @@ import { formatAddress } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
 import { first, isUndefined } from 'lodash-es';
-import { memo } from 'react';
+import { memo, useRef } from 'react';
+import { useHover } from 'usehooks-ts';
 import type { Address } from 'viem';
 
 import { Avatar } from '@/components/Avatar.js';
@@ -17,6 +18,7 @@ import { useDisableScrollRestore } from '@/components/DisableScrollRestore/index
 import { FeedFollowSource } from '@/components/FeedFollowSource.js';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
+import { ShareButtonWithAnimationContext } from '@/components/Posts/ShareButton.js';
 import { EnsName } from '@/components/Profile/EnsName.js';
 import { SwapActions } from '@/components/Swap/SwapActions.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
@@ -55,9 +57,12 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
     const ensHandle = getEnsNameFromDisplayInfo(activity, activity.owner);
     const isCrossChain = activity.is_cross_chain;
     const { data: defiUnitedTier } = useDefiUnitedBadge(activity.owner);
+    const root = useRef(null!);
+    const isHovered = useHover(root);
 
     return (
         <motion.article
+            ref={root}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -223,7 +228,9 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
                             </Link>
                         ) : null}
 
-                        <SwapActions activity={activity} />
+                        <ShareButtonWithAnimationContext value={isHovered}>
+                            <SwapActions activity={activity} />
+                        </ShareButtonWithAnimationContext>
                     </ClickableArea>
                 </div>
             </div>
