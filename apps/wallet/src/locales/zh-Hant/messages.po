@@ -23,7 +23,7 @@ msgid "To"
 msgstr "至"
 
 msgid "Unlimited Amount"
-msgstr ""
+msgstr "無限額度"
 
 #. placeholder {0}: pusdTokenFallback.symbol
 msgid "Available: {availableText} {0}"
@@ -130,7 +130,7 @@ msgid "Great job predicting the future!"
 msgstr "預測精準！做得好！"
 
 msgid "Invalid amount"
-msgstr ""
+msgstr "無效金額"
 
 msgid "I understand"
 msgstr "我已知曉並理解"
@@ -171,7 +171,7 @@ msgid "A 6-digit verification code has been sent to your email. Please enter the
 msgstr "已向您的信箱發送 6 位數驗證碼。請輸入驗證碼以完成驗證。"
 
 msgid "Approved"
-msgstr "已核准/已授權"
+msgstr "已授權"
 
 msgid "{riskTokenSymbol} is a high-risk token"
 msgstr "{riskTokenSymbol} 是高風險代幣"
@@ -358,7 +358,7 @@ msgid "Draft"
 msgstr "草稿"
 
 msgid "Domain"
-msgstr ""
+msgstr "網域"
 
 msgid "PIN is acceptable, but consider adding more unique digits."
 msgstr "PIN 碼可用，但建議增加更多不重複的數字以提高安全性。"
@@ -471,7 +471,7 @@ msgid "Wallet addresses linked to social accounts may change or be inaccurate. A
 msgstr "綁定到社交帳號的地址可能會變動。發送前請務必仔細核實。"
 
 msgid "Enter an amount"
-msgstr ""
+msgstr "輸入金額"
 
 #. placeholder {0}: formatPnlUSD(getPositionLoss(position))
 msgid "Lost {0}"
@@ -641,7 +641,7 @@ msgid "Search symbol or contract"
 msgstr "搜尋代號或合約地址"
 
 msgid "Custom Allowance"
-msgstr ""
+msgstr "自訂額度"
 
 msgid "Failed to add funds."
 msgstr "充值失敗。"
@@ -720,7 +720,7 @@ msgstr "發送失敗"
 
 #. placeholder {0}: minCheckoutUsd.toFixed(2)
 msgid "Minimum ${0}"
-msgstr ""
+msgstr "最低 ${0}"
 
 msgid "Please enter your new email address. We will send a verification code to confirm the change. Once updated, PIN reset codes and security verifications will be sent to this new email."
 msgstr "請輸入您的新信箱地址。我們將發送驗證碼以確認更改。更新後，PIN 碼重設代碼和安全驗證將發送到這個新信箱。"
@@ -788,7 +788,7 @@ msgid "Sold"
 msgstr "已賣出"
 
 msgid "Wallet"
-msgstr ""
+msgstr "錢包"
 
 msgid "We do not recommend ever sharing it with any app or person."
 msgstr "我們建議您永遠不要將其洩露給任何應用程式或個人。"
@@ -817,7 +817,7 @@ msgid "Primary"
 msgstr "主要"
 
 msgid "Save"
-msgstr ""
+msgstr "儲存"
 
 msgid "Predict. Trade. Simply fund your Firefly predict wallet to begin."
 msgstr "預測、交易。只需為 Firefly 預測錢包充值即可開始。"
@@ -826,7 +826,7 @@ msgid "Failed to withdraw."
 msgstr "提現失敗。"
 
 msgid "Est. fee"
-msgstr ""
+msgstr "預估費用"
 
 msgid "Contract address"
 msgstr "合約地址"
@@ -955,7 +955,7 @@ msgid "Revoked"
 msgstr "已撤銷授權"
 
 msgid "Chain"
-msgstr ""
+msgstr "鏈"
 
 msgid "Failed to add token"
 msgstr "新增代幣失敗"
@@ -1014,7 +1014,7 @@ msgid "Security & Privacy"
 msgstr "安全與隱私"
 
 msgid "Approve"
-msgstr ""
+msgstr "授權"
 
 #. placeholder {0}: formatPriceToCents(position.avg_price, 1)
 msgid "Avg {0}"

@@ -440,7 +440,7 @@ msgid "Turn off"
 msgstr "關閉"
 
 msgid "Price to beat"
-msgstr ""
+msgstr "需超越的價格"
 
 #. placeholder {0}: publishedByFirefly ? ( <FireflyMonochromeIcon fontSize={15} width={15} height={15} className="mb-1 inline" /> ) : null
 msgid "Posted via {0} <0>{platformName}</0>"
@@ -1375,7 +1375,7 @@ msgid "{addressName} is already connected."
 msgstr "{addressName} 已經綁定了。"
 
 msgid "Tomorrow"
-msgstr ""
+msgstr "明天"
 
 msgid "Total trade"
 msgstr "總交易量"
@@ -1743,10 +1743,10 @@ msgid "Newest"
 msgstr "最新"
 
 msgid "Current price"
-msgstr ""
+msgstr "目前價格"
 
 msgid "Ended: "
-msgstr ""
+msgstr "已結束："
 
 msgid "User Name should not exceed {extra} characters"
 msgstr "用戶名稱不應超過 {extra} 個字元"
@@ -1963,7 +1963,7 @@ msgid "Failed to open miniapp"
 msgstr "打開 miniapp 失敗"
 
 msgid "Past"
-msgstr ""
+msgstr "過去"
 
 msgid "Leaving Firefly"
 msgstr "即將離開 Firefly"
@@ -2263,7 +2263,7 @@ msgid "firefly.eth liked your transaction"
 msgstr "firefly.eth 喜歡您的交易"
 
 msgid "Failed to get live market URL. Please try again later."
-msgstr ""
+msgstr "取得即時市場網址失敗。請稍後再試。"
 
 msgid "Image"
 msgstr "圖片"
@@ -3028,7 +3028,7 @@ msgid "Drafts"
 msgstr "草稿"
 
 msgid "Go to live market"
-msgstr ""
+msgstr "前往即時市場"
 
 msgid "Failed to like prediction."
 msgstr "無法按讚預測。"
@@ -4848,7 +4848,7 @@ msgid "Type filter"
 msgstr "類型篩選"
 
 msgid "No price data."
-msgstr ""
+msgstr "無價格資料。"
 
 msgid "No malicious mining activities involved."
 msgstr "未涉及惡意挖礦活動。"
@@ -4878,7 +4878,7 @@ msgid "Are you sure you want to continue?"
 msgstr "確定要繼續嗎？"
 
 msgid "Yesterday"
-msgstr ""
+msgstr "昨天"
 
 msgid "Remind me later"
 msgstr "稍後提醒"
@@ -5001,7 +5001,7 @@ msgid "Transaction completed!"
 msgstr "交易完成！"
 
 msgid "Target"
-msgstr ""
+msgstr "目標"
 
 msgid "You're trying to connect a different account than the one currently active on Firefly. Please try again."
 msgstr "你正在嘗試連接與目前在 Firefly 上活躍帳戶不同的其他帳戶。請重試。"
@@ -5075,7 +5075,7 @@ msgid "OK"
 msgstr "確認"
 
 msgid "Final price"
-msgstr ""
+msgstr "最終價格"
 
 msgid "Quote"
 msgstr "引用"
