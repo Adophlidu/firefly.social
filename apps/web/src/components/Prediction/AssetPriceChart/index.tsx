@@ -68,7 +68,12 @@ export function AssetPriceChart({
 
             <div className="px-4">
                 {isActive ? (
-                    <LivePriceChart crypto={crypto} recurrence={recurrence} onPriceUpdate={setLatestPrice} />
+                    <LivePriceChart
+                        crypto={crypto}
+                        recurrence={recurrence}
+                        priceToBeat={priceToBeat}
+                        onPriceUpdate={setLatestPrice}
+                    />
                 ) : (
                     <HistoryPriceChart
                         crypto={crypto}

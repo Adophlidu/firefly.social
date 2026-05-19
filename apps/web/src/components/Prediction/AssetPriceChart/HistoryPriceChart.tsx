@@ -3,20 +3,26 @@ import { Source } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useMemo } from 'react';
 import { Customized, Line, LineChart, ResponsiveContainer, Tooltip, type TooltipProps, XAxis, YAxis } from 'recharts';
-import type { AxisDomain } from 'recharts/types/util/types.js';
 import urlcat from 'urlcat';
 
 import { Loading } from '@/components/Loading.js';
+import {
+    CRYPTO_PRICE_CHART_LABEL_INSET,
+    CRYPTO_PRICE_CHART_MARGIN,
+    getCryptoPricePlotHeight,
+} from '@/components/Prediction/AssetPriceChart/chartLayout.js';
+import { CryptoPriceTargetOverlay } from '@/components/Prediction/AssetPriceChart/CryptoPriceTargetOverlay.js';
 import { CryptoIcon } from '@/components/Prediction/PredictionSeries/CryptoIconButton.js';
-import { SafePadding } from '@/components/PriceChart/config.js';
 import { CRYPTO_PRICE_CHART_HEIGHT, type PredictionCrypto } from '@/constants/bets.js';
 import { STALE_TIMES } from '@/constants/query.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';
 import { resolveBinanceCrypto } from '@/providers/firefly/prediction/resolveCrypto.js';
 import { resolveCryptoPriceVariant } from '@/providers/firefly/prediction/resolveCryptoPriceVariant.js';
+import { computeCryptoPriceYTicks } from '@/providers/prediction/computeCryptoPriceYTicks.js';
+import { formatCryptoPrice } from '@/providers/prediction/formatCryptoPrice.js';
 import type { CryptoPriceHistory } from '@/providers/prediction/polymarket/type.js';
 import { resolveCryptoColor } from '@/providers/prediction/resolveCryptoColor.js';
 import type { PredictionRecurrence } from '@/types/prediction.js';
@@ -30,21 +36,12 @@ interface HistoryPriceChartProps {
     priceToBeat?: number;
 }
 
-const YAxisDomain: AxisDomain = ([dataMin, dataMax]) => {
-    const padding = (dataMax - dataMin) * (SafePadding / CRYPTO_PRICE_CHART_HEIGHT);
-    return [dataMin - padding, dataMax + padding];
-};
-
-function formatPrice(price: number) {
-    return `$${price.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 })}`;
-}
-
 interface ChartOverlayProps {
+    crypto: PredictionCrypto;
     xAxisMap?: Record<string, { scale: (v: number) => number }>;
     yAxisMap?: Record<string, { scale: (v: number) => number; domain: number[] }>;
     priceToBeat: number | null;
-    dataMin: number;
-    dataMax: number;
+    ticks: number[];
     timestamps: number[];
     width?: number;
     height?: number;
@@ -64,11 +61,11 @@ function ChartOverlay({
     yAxisMap,
     xAxisMap,
     priceToBeat = null,
-    dataMin,
-    dataMax,
+    ticks,
     timestamps,
     width: totalWidth,
     offset,
+    crypto,
 }: ChartOverlayProps) {
     const yAxis = yAxisMap ? yAxisMap[Object.keys(yAxisMap)[0]] : null;
     const xAxis = xAxisMap ? xAxisMap[Object.keys(xAxisMap)[0]] : null;
@@ -79,82 +76,58 @@ function ChartOverlay({
     const left = offset?.left ?? 0;
     const right = offset?.right ?? 0;
     const top = offset?.top ?? 0;
-    const lineWidth = (totalWidth ?? 0) - left - right;
-    const dataMid = (dataMin + dataMax) / 2;
-    const refLines = [
-        { value: dataMax, y: yScale(dataMax) },
-        { value: dataMid, y: yScale(dataMid) },
-        { value: dataMin, y: yScale(dataMin) },
-    ];
+    const plotWidth = (totalWidth ?? 0) - left - right;
+    const plotRight = left + plotWidth;
+    // Recharts axis scales already include offset.top/left in their range — do not add margin again.
+    const refLines = ticks.map((value) => ({ value, y: yScale(value) }));
 
-    const targetY = priceToBeat !== null ? yScale(priceToBeat) : null;
-    const badgeWidth = 46;
-    const badgeHeight = 14;
-    const badgePad = 8;
-    const labelX = left + lineWidth - 4;
+    const chartRight = (totalWidth ?? 0) - CRYPTO_PRICE_CHART_LABEL_INSET;
+    const plotHeight = offset?.height ?? getCryptoPricePlotHeight();
+    const domain = yAxis.domain;
+    const range = { min: domain[0], max: domain[1] };
 
     return (
         <g>
             {/* Reference lines */}
-            {refLines.map(({ value, y }, i) => (
-                <g key={`${value}-${i}`} className="text-second">
-                    <line
-                        x1={left}
-                        y1={y + top}
-                        x2={left + lineWidth - badgeWidth - badgePad}
-                        y2={y + top}
-                        stroke="currentColor"
-                        strokeWidth={0.5}
-                        strokeDasharray="3 3"
-                    />
-                    <text
-                        x={labelX}
-                        y={y + top + 4}
-                        textAnchor="end"
-                        fill="currentColor"
-                        fontSize={8}
-                        fontFamily="Inter, sans-serif"
-                    >
-                        {formatPrice(value)}
-                    </text>
-                </g>
-            ))}
+            {refLines.map(({ value, y }, i) => {
+                return (
+                    <g key={`${value}-${i}`} className="text-second">
+                        <line
+                            x1={left}
+                            y1={y}
+                            x2={plotRight}
+                            y2={y}
+                            stroke="currentColor"
+                            strokeWidth={0.5}
+                            strokeDasharray="3 3"
+                        />
+                        <text
+                            x={chartRight}
+                            y={y}
+                            textAnchor="end"
+                            dominantBaseline="middle"
+                            fill="currentColor"
+                            fontSize={8}
+                            fontFamily="Inter, sans-serif"
+                        >
+                            {formatCryptoPrice(crypto, value)}
+                        </text>
+                    </g>
+                );
+            })}
 
-            {/* Target dashed line + badge */}
-            {targetY !== null && priceToBeat !== null ? (
-                <g>
-                    <line
-                        x1={left}
-                        y1={targetY + top}
-                        x2={left + lineWidth}
-                        y2={targetY + top}
-                        stroke="currentColor"
-                        strokeWidth={1}
-                        strokeDasharray="3 3"
-                        className="text-second"
-                    />
-                    {/* Badge background */}
-                    <rect
-                        x={left + lineWidth - badgeWidth}
-                        y={targetY + top - badgeHeight / 2}
-                        width={badgeWidth}
-                        height={badgeHeight}
-                        rx={badgeHeight / 2}
-                        fill="currentColor"
-                        className="text-second"
-                    />
-                    <text
-                        x={left + lineWidth - badgeWidth / 2}
-                        y={targetY + top + 3.5}
-                        textAnchor="middle"
-                        fill="white"
-                        fontSize={9}
-                        fontWeight="bold"
-                        fontFamily="Inter, sans-serif"
-                    >
-                        <Trans>Target</Trans>
-                    </text>
-                </g>
+            {priceToBeat !== null ? (
+                <CryptoPriceTargetOverlay
+                    priceToBeat={priceToBeat}
+                    ticks={ticks}
+                    yScale={yScale}
+                    left={left}
+                    plotRight={plotRight}
+                    chartRight={chartRight}
+                    plotTop={top}
+                    plotHeight={plotHeight}
+                    range={range}
+                />
             ) : null}
 
             {/* X-axis time labels */}
@@ -163,7 +136,13 @@ function ChartOverlay({
                       const count = 7;
                       const last = timestamps.length - 1;
                       const indices = Array.from({ length: count }, (_, i) => Math.round((i / (count - 1)) * last));
-                      const chartBottom = top + (CRYPTO_PRICE_CHART_HEIGHT - (offset?.bottom ?? 0));
+                      // offset.height is the plot area height; bottom edge = top + height
+                      const plotBottom =
+                          top +
+                          (offset?.height ??
+                              CRYPTO_PRICE_CHART_HEIGHT -
+                                  CRYPTO_PRICE_CHART_MARGIN.top -
+                                  CRYPTO_PRICE_CHART_MARGIN.bottom);
                       return (
                           <g className="text-second">
                               {indices.map((idx, i) => {
@@ -174,8 +153,9 @@ function ChartOverlay({
                                       <text
                                           key={`ts-${ts}-${i}`}
                                           x={x}
-                                          y={chartBottom + 8}
+                                          y={plotBottom + 6}
                                           textAnchor={anchor}
+                                          dominantBaseline="hanging"
                                           fill="currentColor"
                                           fontSize={6}
                                           fontWeight="bold"
@@ -210,7 +190,7 @@ function CustomTooltip(props: TooltipProps<number, string>) {
                     >
                         <CryptoIcon crypto={crypto} width={12} height={12} />
                     </div>
-                    <span>{formatPrice(payload.value as number)}</span>
+                    <span>{formatCryptoPrice(crypto, payload.value as number)}</span>
                 </div>
                 <p className="text-second font-medium">{dayjs(payload.payload.date).format('MMM D, YYYY h:mm:ss A')}</p>
             </div>
@@ -252,24 +232,24 @@ export const HistoryPriceChart = memo<HistoryPriceChartProps>(function HistoryPr
         },
     });
 
+    const values = useMemo(() => data?.map((point) => point.value) ?? [], [data]);
+    const { ticks, domain: yDomain } = useMemo(() => computeCryptoPriceYTicks({ values }), [values]);
+
     const Overlay = useCallback(
         (props: object) => {
-            const values = data?.map((d) => d.value) || [];
-            const dataMin = Math.min(...values);
-            const dataMax = Math.max(...values);
-            const timestamps = data?.map((d) => d.date) || [];
+            const timestamps = data?.map((point) => point.date) ?? [];
 
             return (
                 <ChartOverlay
                     {...(props as ChartOverlayProps)}
+                    crypto={crypto}
                     priceToBeat={priceToBeat ?? null}
-                    dataMin={dataMin}
-                    dataMax={dataMax}
+                    ticks={ticks}
                     timestamps={timestamps}
                 />
             );
         },
-        [priceToBeat, data],
+        [priceToBeat, ticks, data, crypto],
     );
 
     if (isLoading) return <Loading minHeight={CRYPTO_PRICE_CHART_HEIGHT} />;
@@ -287,12 +267,12 @@ export const HistoryPriceChart = memo<HistoryPriceChartProps>(function HistoryPr
     return (
         <div className="relative w-full" style={{ height: CRYPTO_PRICE_CHART_HEIGHT }}>
             <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={data} margin={{ top: 0, right: 0, left: 0, bottom: 20 }}>
+                <LineChart data={data} margin={CRYPTO_PRICE_CHART_MARGIN}>
                     <Tooltip cursor={{ strokeDasharray: '3 3' }} content={CustomTooltip} />
-                    <XAxis hide dataKey="date" />
-                    <YAxis hide domain={YAxisDomain} />
+                    <XAxis hide dataKey="date" padding={{ left: 0, right: 4 }} />
+                    <YAxis hide type="number" domain={yDomain} allowDataOverflow={false} />
                     <Line
-                        type="monotone"
+                        type="linear"
                         dataKey="value"
                         stroke={color}
                         strokeWidth={2}

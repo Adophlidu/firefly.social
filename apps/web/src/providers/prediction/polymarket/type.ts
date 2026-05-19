@@ -74,6 +74,7 @@ export interface PolymarketMarket {
     orderPriceMinTickSize: string;
     bestAsk?: number;
     bestBid?: number;
+    eventStartTime?: string;
 }
 
 export interface PolymarketSeries {

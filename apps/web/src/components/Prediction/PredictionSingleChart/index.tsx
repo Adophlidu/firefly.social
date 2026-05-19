@@ -25,10 +25,10 @@ export const PredictionSingleChart = memo(function PredictionSingleChart() {
     if (!event || !showSingleChart) return null;
 
     const series = first(event.series || []);
-    const recurrence = series?.recurrence;
+    const recurrence = series?.recurrence ? event.cryptoData?.recurrence || series.recurrence : null;
     if (recurrence && event.markets.length !== 1) return null;
 
-    const showPriceChart = !!recurrence && !!event.cryptoData?.name;
+    const showPriceChart = !!recurrence && !!event.cryptoData?.name && !!series;
 
     if (showPriceChart && chartType === PredictionChartType.PriceLine) {
         return (

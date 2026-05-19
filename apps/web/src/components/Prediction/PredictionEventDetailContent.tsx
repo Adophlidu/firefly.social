@@ -60,7 +60,7 @@ export async function PredictionEventDetailContent({ id, isMutil, platform }: Pr
                     <PredictionSeries
                         platform={platform}
                         id={series.id}
-                        recurrence={series.recurrence}
+                        recurrence={event.cryptoData?.recurrence || series?.recurrence}
                         eventSlug={eventSlug}
                     />
                 ) : null}

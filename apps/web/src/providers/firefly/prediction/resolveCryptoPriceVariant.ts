@@ -13,6 +13,8 @@ export function resolveCryptoPriceVariant(recurrence: PredictionRecurrence) {
             return CryptoPriceVariant.FourHour;
         case PredictionRecurrence.Daily:
             return CryptoPriceVariant.Day;
+        case PredictionRecurrence.Hour:
+            return CryptoPriceVariant.Hour;
         default:
             unreachable(recurrence);
     }

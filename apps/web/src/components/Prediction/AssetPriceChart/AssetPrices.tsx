@@ -17,13 +17,10 @@ import { fetchJson } from '@/helpers/fetchJson.js';
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';
 import { resolveBinanceCrypto } from '@/providers/firefly/prediction/resolveCrypto.js';
 import { resolveCryptoPriceVariant } from '@/providers/firefly/prediction/resolveCryptoPriceVariant.js';
+import { formatCryptoPrice } from '@/providers/prediction/formatCryptoPrice.js';
 import type { CryptoPrice } from '@/providers/prediction/polymarket/type.js';
 import type { PredictionRecurrence } from '@/types/prediction.js';
 import type { ResponseJson } from '@/types/utility.js';
-
-function formatPrice(price: number) {
-    return `$${price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-}
 
 interface AssetPricesProps {
     endDate: string;
@@ -52,6 +49,7 @@ export const AssetPrices = memo<AssetPricesProps>(function AssetPrices({
     const { data } = useQuery({
         queryKey: [Source.Prediction, 'crypto-price', platform, crypto, startTime, endDate],
         staleTime: STALE_TIMES.MINUTE_5,
+        enabled: !rest.priceToBeat || !rest.finalPrice, // skip if both prices are provided
         queryFn: async () => {
             const response = await fetchJson<ResponseJson<CryptoPrice>>(
                 urlcat('/api/polymarket/crypto-price', {
@@ -67,8 +65,8 @@ export const AssetPrices = memo<AssetPricesProps>(function AssetPrices({
 
     const completed = !isActive;
 
-    const finalPrice = data?.closePrice ?? rest.finalPrice ?? null;
-    const priceToBeat = data?.openPrice ?? rest.priceToBeat ?? null;
+    const finalPrice = rest.finalPrice ?? data?.closePrice ?? null;
+    const priceToBeat = rest.priceToBeat ?? data?.openPrice ?? null;
     const currentPrice = completed ? finalPrice : latestPrice;
     const priceDiff = currentPrice !== null && priceToBeat ? minus(currentPrice, priceToBeat).toNumber() : null;
     const priceChanged = priceDiff !== null && !isZero(priceDiff);
@@ -81,7 +79,7 @@ export const AssetPrices = memo<AssetPricesProps>(function AssetPrices({
                         <Trans>Price to beat</Trans>
                     </span>
                     <span className="text-second text-base font-black">
-                        {priceToBeat ? formatPrice(priceToBeat) : 'N/A'}
+                        {priceToBeat ? formatCryptoPrice(crypto, priceToBeat) : 'N/A'}
                     </span>
                 </div>
                 <div className="border-lightLineSecond flex flex-col gap-1 border-l pl-5">
@@ -102,7 +100,7 @@ export const AssetPrices = memo<AssetPricesProps>(function AssetPrices({
                         ) : null}
                     </div>
                     <span className={classNames('text-base font-black', completed ? 'text-main' : 'text-warn')}>
-                        {currentPrice !== null ? formatPrice(currentPrice) : 'N/A'}
+                        {currentPrice !== null ? formatCryptoPrice(crypto, currentPrice) : 'N/A'}
                     </span>
                 </div>
             </div>

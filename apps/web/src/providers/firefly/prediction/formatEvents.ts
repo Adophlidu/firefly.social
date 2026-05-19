@@ -3,6 +3,7 @@ import { parseJson } from '@dimensiondev/utils';
 import { first, last } from 'lodash-es';
 
 import { resolveCryptoFromPolymarketEvent } from '@/providers/firefly/prediction/resolveCryptoFromPolymarketEvent.js';
+import { getPredictionRecurrenceFromPolymarketEvent } from '@/providers/prediction/polymarket/resolveCryptoUpDownFromEvent.js';
 import type { PolymarketEvent } from '@/providers/prediction/polymarket/type.js';
 import type { OpinionMarketDetail } from '@/providers/types/Firefly.js';
 import { type BetsEventDataForUI, type BetsMarketDataForUI, PredictionRecurrence } from '@/types/prediction.js';
@@ -114,6 +115,7 @@ export function formatPolymarketEvent(detail: PolymarketEvent): BetsEventDataFor
     });
 
     const cryptoName = resolveCryptoFromPolymarketEvent(detail);
+    const eventStartTime = first(detail.markets)?.eventStartTime;
 
     return {
         id: detail.id,
@@ -128,7 +130,7 @@ export function formatPolymarketEvent(detail: PolymarketEvent): BetsEventDataFor
         endTime: new Date(detail.endDate).getTime(),
         volume: detail.volume,
         markets: sortMarkets(markets),
-        startTime: detail.startTime || detail.startDate,
+        startTime: eventStartTime || detail.startTime || detail.startDate,
         endDate: detail.endDate,
         cryptoData:
             cryptoName &&
@@ -138,10 +140,12 @@ export function formatPolymarketEvent(detail: PolymarketEvent): BetsEventDataFor
                     PredictionRecurrence.FifteenMinutes,
                     PredictionRecurrence.FourHours,
                     PredictionRecurrence.Daily,
+                    PredictionRecurrence.Hour,
                 ].includes(s.recurrence),
             )
                 ? {
                       name: cryptoName,
+                      recurrence: getPredictionRecurrenceFromPolymarketEvent(detail),
                       priceToBeat: detail.eventMetadata?.priceToBeat,
                       finalPrice: detail.eventMetadata?.finalPrice,
                   }

@@ -127,6 +127,7 @@ export interface BetsEventDataForUI {
     endDate?: string;
     cryptoData?: {
         name: PredictionCrypto;
+        recurrence?: PredictionRecurrence;
         priceToBeat?: number;
         finalPrice?: number;
     };
@@ -163,4 +164,5 @@ export enum PredictionRecurrence {
     FifteenMinutes = '15m',
     FourHours = '4h',
     Daily = 'daily',
+    Hour = 'hourly',
 }

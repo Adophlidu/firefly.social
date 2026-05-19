@@ -1,20 +1,28 @@
-import { Liveline } from 'liveline';
-import { memo, useEffect, useMemo, useState } from 'react';
+'use client';
 
+import { Liveline } from 'liveline';
+import { memo, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+
+import {
+    CRYPTO_PRICE_CHART_LABEL_INSET,
+    CRYPTO_PRICE_CHART_MARGIN,
+    getCryptoPricePlotHeight,
+} from '@/components/Prediction/AssetPriceChart/chartLayout.js';
+import { CryptoPriceTargetOverlay } from '@/components/Prediction/AssetPriceChart/CryptoPriceTargetOverlay.js';
 import { CRYPTO_PRICE_CHART_HEIGHT, type PredictionCrypto } from '@/constants/bets.js';
 import { useCryptoLivePrices } from '@/hooks/prediction/useCryptoLivePrices.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
+import { computeChartYRange, priceToChartY } from '@/providers/prediction/computeChartYRange.js';
+import { computeCryptoPriceYTicks } from '@/providers/prediction/computeCryptoPriceYTicks.js';
+import { formatCryptoPrice } from '@/providers/prediction/formatCryptoPrice.js';
 import { resolveCryptoColor } from '@/providers/prediction/resolveCryptoColor.js';
 import { PredictionRecurrence } from '@/types/prediction.js';
 
 interface LivePriceChartProps {
     crypto: PredictionCrypto;
     recurrence: PredictionRecurrence;
+    priceToBeat?: number;
     onPriceUpdate?: (price: number) => void;
-}
-
-function formatPrice(price: number) {
-    return `$${price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 }
 
 function recurrenceToSeconds(recurrence: PredictionRecurrence): number {
@@ -27,6 +35,8 @@ function recurrenceToSeconds(recurrence: PredictionRecurrence): number {
             return 14400;
         case PredictionRecurrence.Daily:
             return 86400;
+        case PredictionRecurrence.Hour:
+            return 3600;
         default:
             return 300;
     }
@@ -44,7 +54,14 @@ function getWindowSlots(recurrence: PredictionRecurrence, count = 5): number[] {
     return slots;
 }
 
-export const LivePriceChart = memo<LivePriceChartProps>(function LivePriceChart({ crypto, recurrence, onPriceUpdate }) {
+export const LivePriceChart = memo<LivePriceChartProps>(function LivePriceChart({
+    crypto,
+    recurrence,
+    priceToBeat,
+    onPriceUpdate,
+}) {
+    const containerRef = useRef<HTMLDivElement>(null);
+    const [containerWidth, setContainerWidth] = useState(0);
     const [selectedSlot, setSelectedSlot] = useState<number | null>(null);
     const slots = useMemo(() => getWindowSlots(recurrence, 5), [recurrence]);
     const isDark = useIsDarkMode();
@@ -52,6 +69,22 @@ export const LivePriceChart = memo<LivePriceChartProps>(function LivePriceChart(
     const { points, latestPrice } = useCryptoLivePrices(crypto, {
         onPriceUpdate,
     });
+
+    useLayoutEffect(() => {
+        const element = containerRef.current;
+        if (!element) return;
+
+        const updateWidth = () => {
+            setContainerWidth(element.clientWidth);
+        };
+
+        updateWidth();
+        const observer = new ResizeObserver(updateWidth);
+        observer.observe(element);
+        return () => {
+            observer.disconnect();
+        };
+    }, []);
 
     useEffect(() => {
         if (slots.length > 0 && selectedSlot === null) {
@@ -73,9 +106,24 @@ export const LivePriceChart = memo<LivePriceChartProps>(function LivePriceChart(
         return Math.ceil(nowSec - displayedPoints[0].time);
     }, [displayedPoints, windowSecs]);
 
+    const formatValue = useCallback((price: number) => formatCryptoPrice(crypto, price), [crypto]);
+
+    const plotHeight = getCryptoPricePlotHeight();
+    const values = useMemo(() => displayedPoints.map((point) => point.value), [displayedPoints]);
+    const { ticks } = useMemo(() => computeCryptoPriceYTicks({ values }), [values]);
+    const yRange = useMemo(() => computeChartYRange(displayedPoints, latestPrice ?? 0), [displayedPoints, latestPrice]);
+    const yScale = useCallback(
+        (value: number) => priceToChartY(value, yRange, CRYPTO_PRICE_CHART_MARGIN.top, plotHeight),
+        [yRange, plotHeight],
+    );
+
+    const showTarget =
+        priceToBeat !== undefined && priceToBeat !== null && Number.isFinite(priceToBeat) && containerWidth > 0;
+    const plotRight = containerWidth - CRYPTO_PRICE_CHART_MARGIN.right;
+    const chartRight = containerWidth - CRYPTO_PRICE_CHART_LABEL_INSET;
+
     return (
-        <div className="relative" style={{ height: CRYPTO_PRICE_CHART_HEIGHT }}>
-            {/* Liveline chart */}
+        <div ref={containerRef} className="relative overflow-visible" style={{ height: CRYPTO_PRICE_CHART_HEIGHT }}>
             <Liveline
                 data={displayedPoints}
                 value={latestPrice ?? 0}
@@ -84,10 +132,31 @@ export const LivePriceChart = memo<LivePriceChartProps>(function LivePriceChart(
                 fill
                 pulse
                 theme={isDark ? 'dark' : 'light'}
-                formatValue={formatPrice}
+                formatValue={formatValue}
+                padding={CRYPTO_PRICE_CHART_MARGIN}
                 loading={points.length === 0}
                 style={{ height: CRYPTO_PRICE_CHART_HEIGHT, width: '100%' }}
             />
+            {showTarget ? (
+                <svg
+                    className="pointer-events-none absolute inset-0 overflow-visible"
+                    width={containerWidth}
+                    height={CRYPTO_PRICE_CHART_HEIGHT}
+                    aria-hidden
+                >
+                    <CryptoPriceTargetOverlay
+                        priceToBeat={priceToBeat}
+                        ticks={ticks}
+                        yScale={yScale}
+                        left={CRYPTO_PRICE_CHART_MARGIN.left}
+                        plotRight={plotRight}
+                        chartRight={chartRight}
+                        plotTop={CRYPTO_PRICE_CHART_MARGIN.top}
+                        plotHeight={plotHeight}
+                        range={yRange}
+                    />
+                </svg>
+            ) : null}
         </div>
     );
 });
