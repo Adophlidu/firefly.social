@@ -1,4 +1,5 @@
 import { createWagmiPublicClient } from '@dimensiondev/web3/actions';
+import { EthereumSchemaType } from '@dimensiondev/web3/enums';
 import { isLessThan } from '@dimensiondev/web3/numbers';
 import { resolvePublicRpcUrl } from '@dimensiondev/web3/utils';
 import { omit } from 'lodash-es';
@@ -10,7 +11,6 @@ import { logger } from '@/libs/Logger.js';
 import { getEvmNativeTokenAddress } from '@/providers/ethereum/getNativeTokenAddress.js';
 import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
 import type { CreateRedPacketContext, CreateRedPacketParams } from '@/providers/ethereum/red-packet/types.js';
-import { EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
 export async function createRedPacketParams(context: CreateRedPacketContext) {
     const { creator, duration, isRandom, message, name, shares, total, token, chainId, version, publicKey } = context;

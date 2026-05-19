@@ -1,11 +1,11 @@
 import { NetworkType, TokenType } from '@dimensiondev/enums';
 import { isValidChainIdSolana } from '@dimensiondev/web3/chains';
 import { ETH_ZERO_ADDRESS } from '@dimensiondev/web3/constants';
+import { EthereumSchemaType } from '@dimensiondev/web3/enums';
 import { isNativeTokenDebank, isValidAddressEthereum } from '@dimensiondev/web3/utils';
 
 import type { Token } from '@/providers/types/Transfer.js';
 import type { FungibleToken } from '@/web3-shared/base/specs.js';
-import { EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
 export function formatDebankTokenToFungibleToken(token: Token): FungibleToken<number, number, Token> {
     // it is not a valid address if its native token

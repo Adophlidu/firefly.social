@@ -5,6 +5,7 @@ import { EMPTY_LIST } from '@dimensiondev/constants';
 import { CustomTokenType } from '@dimensiondev/enums';
 import { delay } from '@dimensiondev/utils';
 import { chains } from '@dimensiondev/web3/chains';
+import { EthereumSchemaType } from '@dimensiondev/web3/enums';
 import { isSameAddress, isValidAddressEthereum } from '@dimensiondev/web3/utils';
 import { DialogTitle } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
@@ -28,7 +29,6 @@ import type { AddCustomERC721ModalOpenProps, AddCustomERC721ModalRefType } from 
 import { getCollection } from '@/providers/firefly/nft/getCollection.js';
 import { NFTSCAN_CHAIN_IDS } from '@/providers/nftscan/constants.js';
 import { useCustomTokenStore } from '@/store/useCustomTokenStore.js';
-import { EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
 const CHAIN_IDS = NFTSCAN_CHAIN_IDS.filter((id) => chains.some((chain) => chain.id === id));
 

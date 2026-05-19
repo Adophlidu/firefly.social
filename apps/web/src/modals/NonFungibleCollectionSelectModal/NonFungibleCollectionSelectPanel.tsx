@@ -1,5 +1,6 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { chains } from '@dimensiondev/web3/chains';
+import { EthereumSchemaType } from '@dimensiondev/web3/enums';
 import { t } from '@lingui/core/macro';
 import Fuse from 'fuse.js';
 import { memo, useCallback, useMemo, useState } from 'react';
@@ -13,7 +14,6 @@ import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useNFTCollections } from '@/hooks/useNFTCollections.js';
 import { type Collection, CollectionItem } from '@/modals/NonFungibleCollectionSelectModal/CollectionItem.js';
 import { NFTSCAN_CHAIN_IDS } from '@/providers/nftscan/constants.js';
-import { EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
 interface NonFungibleCollectionSelectPanelProps {
     onSelected?: (selected: Collection) => void;

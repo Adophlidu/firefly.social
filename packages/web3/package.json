@@ -41,6 +41,11 @@
             "types": "./dist/abi.d.ts",
             "import": "./dist/abi.js",
             "require": "./dist/abi.cjs"
+        },
+        "./enums": {
+            "types": "./dist/enums.d.ts",
+            "import": "./dist/enums.js",
+            "require": "./dist/enums.cjs"
         }
     },
     "files": [

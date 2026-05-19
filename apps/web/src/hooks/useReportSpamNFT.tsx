@@ -10,9 +10,8 @@ import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal/refs.js';
 import { reportNFT } from '@/providers/firefly/report/reportNFT.js';
+import type { NFTDetail } from '@/providers/types/Firefly.js';
 import type { FollowingNFT, NFTFeedV3 } from '@/providers/types/NFTs.js';
-import type { NonFungibleAsset } from '@/web3-shared/base/specs.js';
-import type { EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
 interface PagesData {
     pages: Array<{ data: FollowingNFT[] | NFTFeedV3[] }>;
@@ -26,17 +25,17 @@ interface PagesData {
 function filterOutActivities(address: string) {
     // To report an NFT collection, we need to get its collection id first.
     // Therefore, query data for the collection will exist
-    const data = queryClient.getQueriesData<NonFungibleAsset<number, EthereumSchemaType>>({
+    const data = queryClient.getQueriesData<NFTDetail>({
         queryKey: ['nft-detail'],
     });
     const queryData = data.find(([queryKey, data]) => {
         if (queryKey.length !== 4) return false;
-        return isSameEthereumAddress(data?.collection?.address, address);
+        return isSameEthereumAddress(data?.collection?.contract_address, address);
     });
     const nftDetail = queryData?.[1];
     if (!nftDetail) return;
 
-    const { address: contractAddress, chainId: nftChainId } = nftDetail;
+    const { contract_address: contractAddress, chain_id: nftChainId } = nftDetail;
 
     const patcher = (old: Draft<PagesData> | undefined) => {
         if (!old) return old;

@@ -5,6 +5,7 @@ import RedPacketIcon from '@dimensiondev/assets/red-packet.svg';
 import { NetworkType } from '@dimensiondev/enums';
 import { waitForEthereumTransaction } from '@dimensiondev/web3/actions';
 import { rpSupportedChains } from '@dimensiondev/web3/chains';
+import type { EthereumSchemaType } from '@dimensiondev/web3/enums';
 import {
     isGreaterThan,
     isLessThan,
@@ -48,7 +49,6 @@ import { TypeTabs } from '@/modals/RedPacketModal/TypeTabs.js';
 import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
 import { checkFreeGasEligibility } from '@/providers/firefly/freeGas/checkFreeGasEligibility.js';
 import type { FungibleToken } from '@/web3-shared/base/specs.js';
-import type { EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
 export default function MainView() {
     const { history } = useRouter();

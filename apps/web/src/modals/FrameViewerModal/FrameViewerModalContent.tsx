@@ -1,6 +1,7 @@
 import { EMPTY_LIST, IS_DEVELOPMENT } from '@dimensiondev/constants';
 import { classNames, delay } from '@dimensiondev/utils';
 import { switchEthereumChain } from '@dimensiondev/web3/actions';
+import { EthereumMethodType } from '@dimensiondev/web3/enums';
 import { exposeToIframe } from '@farcaster/miniapp-host';
 import { Trans } from '@lingui/react/macro';
 import { useEffect, useRef } from 'react';
@@ -25,7 +26,6 @@ import { checkMiniAppBlocking } from '@/providers/firefly/worker/checkMiniAppBlo
 import { FarcasterFrameHost } from '@/providers/frame/Host.js';
 import { captureFrameActionEvent } from '@/providers/telemetry/captureFrameActionEvent.js';
 import type { Frame, FrameV2 } from '@/types/frame.js';
-import { EthereumMethodType } from '@/web3-shared/evm/types.js';
 
 function createEthProvider(frame: Frame) {
     return createEIP1193Provider(

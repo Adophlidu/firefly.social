@@ -1,5 +1,6 @@
 import type { NetworkType } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
+import type { EthereumSchemaType } from '@dimensiondev/web3/enums';
 import { BigNumber } from 'bignumber.js';
 import { type HTMLProps, useMemo } from 'react';
 
@@ -9,7 +10,6 @@ import { formatFungibleTokenToDebankToken } from '@/helpers/formatToken.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { useFungibleTokenPrice } from '@/hooks/useFungibleTokenPrice.js';
 import type { FungibleToken } from '@/web3-shared/base/specs.js';
-import type { EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
 interface Props extends HTMLProps<HTMLDivElement> {
     amount?: string;

@@ -1,10 +1,10 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { asyncIteratorToArray } from '@dimensiondev/utils';
 import { pageableToIterator, type PageIndicator } from '@dimensiondev/utils';
+import type { EthereumSchemaType } from '@dimensiondev/web3/enums';
 import { useQuery } from '@tanstack/react-query';
 
 import { getUserCollections } from '@/providers/firefly/nft/getUserCollections.js';
-import type { EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
 interface Options {
     account: string | undefined;

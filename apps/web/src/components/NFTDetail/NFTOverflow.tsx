@@ -3,6 +3,7 @@
 import LinkIcon from '@dimensiondev/assets/link-square.svg';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { isValidChainIdEthereum, isValidChainIdSolana, resolveWagmiChain } from '@dimensiondev/web3/chains';
+import { EthereumSchemaType } from '@dimensiondev/web3/enums';
 import { EthExplorerResolver, SolanaExplorerResolver } from '@dimensiondev/web3/resolvers';
 import { Trans } from '@lingui/react/macro';
 import { type ReactNode, useMemo } from 'react';
@@ -11,7 +12,6 @@ import { ChainIcon } from '@/components/ChainIcon.js';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { Link } from '@/components/Link.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
-import { EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
 function DetailsGroup(props: { field: ReactNode; value: ReactNode }) {
     return (

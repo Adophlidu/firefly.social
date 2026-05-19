@@ -2,6 +2,7 @@ import WalletIcon from '@dimensiondev/assets/wallet2.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { SORTED_SOCIAL_SOURCES } from '@dimensiondev/constants/computed';
 import { NetworkType } from '@dimensiondev/enums';
+import type { EthereumSchemaType } from '@dimensiondev/web3/enums';
 import { multipliedBy } from '@dimensiondev/web3/numbers';
 import { Trans } from '@lingui/react/macro';
 import { useLocation } from '@tanstack/react-router';
@@ -32,7 +33,6 @@ import type { Collection } from '@/modals/NonFungibleCollectionSelectModal/Colle
 import type { FireflyRedPacketAPI, RequirementType } from '@/providers/types/FireflyRedPacket.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 import type { FungibleToken } from '@/web3-shared/base/specs.js';
-import type { EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
 export const redPacketRandomTabs = [
     {

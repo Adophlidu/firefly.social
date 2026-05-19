@@ -7,10 +7,7 @@ import { Image } from '@/components/Image.js';
 import type { NonFungibleCollection } from '@/web3-shared/base/specs.js';
 
 export interface Collection
-    extends Pick<
-        NonFungibleCollection<number, unknown>,
-        'chainId' | 'address' | 'name' | 'iconURL' | 'ownersTotal' | 'id'
-    > {
+    extends Pick<NonFungibleCollection<number>, 'chainId' | 'address' | 'name' | 'iconURL' | 'ownersTotal' | 'id'> {
     custom?: boolean;
 }
 

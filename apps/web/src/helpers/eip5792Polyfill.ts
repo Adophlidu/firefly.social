@@ -1,8 +1,8 @@
+import { EthereumMethodType } from '@dimensiondev/web3/enums';
 import { isValidAddressEthereum as isAddress } from '@dimensiondev/web3/utils';
 import type { Address, Hex } from 'viem';
 
 import type { RequestArguments } from '@/types/ethereum.js';
-import { EthereumMethodType } from '@/web3-shared/evm/types.js';
 
 interface Call {
     to?: Hex; // allow contract creation if omitted

@@ -9,6 +9,7 @@ export default defineConfig({
         'src/numbers.ts',
         'src/actions.ts',
         'src/abi.ts',
+        'src/enums.ts',
     ],
     fixedExtension: false,
     dts: true,

@@ -1,8 +1,8 @@
 import type { NetworkType, SocialSource } from '@dimensiondev/enums';
+import type { EthereumSchemaType } from '@dimensiondev/web3/enums';
 
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import type { FungibleToken } from '@/web3-shared/base/specs.js';
-import type { EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
 export interface CreateRedPacketContext {
     networkType: NetworkType;

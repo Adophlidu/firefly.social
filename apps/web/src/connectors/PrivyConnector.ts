@@ -3,6 +3,7 @@
 import { SessionType, WalletSource } from '@dimensiondev/enums';
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
 import { isFreeGasSupportedChain } from '@dimensiondev/web3/chains';
+import { EthereumMethodType } from '@dimensiondev/web3/enums';
 import { isSupportedStablecoin } from '@dimensiondev/web3/utils';
 import { compact } from 'lodash-es';
 import { type Address, type Hex, numberToHex, type RpcError, SwitchChainError, UserRejectedRequestError } from 'viem';
@@ -15,7 +16,6 @@ import { queryMyAllConnections } from '@/helpers/queryMyAllConnections.js';
 import { logger } from '@/libs/Logger.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
-import { EthereumMethodType } from '@/web3-shared/evm/types.js';
 
 export const PRIVY_CONNECTOR_ID = 'network.privy';
 

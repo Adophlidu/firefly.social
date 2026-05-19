@@ -1,6 +1,7 @@
 import { NetworkType } from '@dimensiondev/enums';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import { createWagmiPublicClient } from '@dimensiondev/web3/actions';
+import { EthereumSchemaType } from '@dimensiondev/web3/enums';
 import { toFixed, ZERO } from '@dimensiondev/web3/numbers';
 import { resolvePublicRpcUrl } from '@dimensiondev/web3/utils';
 import { useQuery } from '@tanstack/react-query';
@@ -13,7 +14,6 @@ import { getEvmNativeTokenAddress } from '@/providers/ethereum/getNativeTokenAdd
 import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
 import { createRedPacketParams } from '@/providers/ethereum/red-packet/createRedPacketParams.js';
 import type { CreateRedPacketContext } from '@/providers/ethereum/red-packet/types.js';
-import { EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
 export function useEthereumDefaultGas(context: CreateRedPacketContext, enabled = true) {
     const { account, chainId } = useChainContext({

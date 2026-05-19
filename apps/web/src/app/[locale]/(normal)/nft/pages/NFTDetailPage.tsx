@@ -2,6 +2,7 @@
 
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { ErcType } from '@dimensiondev/enums';
+import { EthereumSchemaType } from '@dimensiondev/web3/enums';
 import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import { gnosis } from 'viem/chains';
 
@@ -14,7 +15,6 @@ import { NFTNavbar } from '@/components/NFTs/NFTNavbar.js';
 import { POAP_CONTRACT_ADDRESS } from '@/constants/static.js';
 import { notFound } from '@/esm/navigation.js';
 import { useNFTDetail } from '@/hooks/useNFTDetail.js';
-import { EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
 interface NFTDetailPageProps {
     chainId: number;

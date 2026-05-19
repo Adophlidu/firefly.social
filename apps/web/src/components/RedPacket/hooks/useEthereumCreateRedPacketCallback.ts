@@ -1,5 +1,6 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { waitForEthereumTransaction } from '@dimensiondev/web3/actions';
+import { EthereumSchemaType } from '@dimensiondev/web3/enums';
 import { rightShift, toFixed } from '@dimensiondev/web3/numbers';
 import { EthChainResolver } from '@dimensiondev/web3/resolvers';
 import { t } from '@lingui/core/macro';
@@ -27,7 +28,6 @@ import type { FireflyRedPacketAPI, RedPacketJSONPayload } from '@/providers/type
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import type { RedPacketCreationSuccessEventArgs, RedPacketMetadata } from '@/types/rp.js';
 import type { FungibleToken } from '@/web3-shared/base/specs.js';
-import { EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
 function treeShakePayloadInfo(payload: RedPacketJSONPayload): RedPacketMetadata {
     const token = pick(payload.token, ['decimals', 'symbol', 'address', 'chainId']) as FungibleToken<
