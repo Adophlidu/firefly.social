@@ -95,7 +95,7 @@ export const AssetPrices = memo<AssetPricesProps>(function AssetPrices({
                         {priceChanged ? (
                             <>
                                 {priceDiff > 0 ? <PriceUpIcon /> : <PriceDownIcon />}
-                                <span className="text-[10px] font-bold">{`${priceDiff > 0 ? '+' : '-'}$${Math.abs(priceDiff).toFixed(2)}`}</span>
+                                <span className="text-[10px] font-bold">{`${priceDiff > 0 ? '+' : '-'}${formatCryptoPrice(crypto, Math.abs(priceDiff))}`}</span>
                             </>
                         ) : null}
                     </div>

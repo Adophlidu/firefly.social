@@ -25,6 +25,18 @@ const ParamsSchema = z.object({
     end_date_min: z.string().optional(),
     end_date_max: z.string().optional(),
     after_cursor: z.string().optional(),
+    closed: z
+        .enum(['true', 'false'])
+        .transform((val) => val === 'true')
+        .optional(),
+    active: z
+        .enum(['true', 'false'])
+        .transform((val) => val === 'true')
+        .optional(),
+    archived: z
+        .enum(['true', 'false'])
+        .transform((val) => val === 'true')
+        .optional(),
 });
 
 export const GET = compose(withRequestErrorHandler(), async (request: NextRequest) => {

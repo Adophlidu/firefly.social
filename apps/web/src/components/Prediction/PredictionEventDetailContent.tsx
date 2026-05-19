@@ -5,6 +5,7 @@ import { runInSafeAsync } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { first } from 'lodash-es';
 
+import { EventSeriesPills } from '@/components/Prediction/EventSeriesPills/index.js';
 // Client component for tracking
 import { PolymarketEventTracker } from '@/components/Prediction/PolymarketEventTracker.js';
 import { PredictionBaseInfoTabContent } from '@/components/Prediction/PredictionBaseInfoTabContent.js';
@@ -13,7 +14,6 @@ import { PredictionContextProvider } from '@/components/Prediction/PredictionCon
 import { PredictionEventOverview } from '@/components/Prediction/PredictionEventOverview.js';
 import { PredictionEventPageHeader } from '@/components/Prediction/PredictionEventPageHeader.js';
 import { PredictionMarketsAccountTab } from '@/components/Prediction/PredictionMarketsAccountTab/index.js';
-import { PredictionSeries } from '@/components/Prediction/PredictionSeries/index.js';
 import { PredictionSingleChart } from '@/components/Prediction/PredictionSingleChart/index.js';
 import { notFound } from '@/esm/navigation/server.js';
 import { setupLocaleFromParams } from '@/i18n/static.js';
@@ -56,14 +56,7 @@ export async function PredictionEventDetailContent({ id, isMutil, platform }: Pr
             <PredictionContextProvider event={event} translatedEvent={translatedEvent}>
                 <PredictionEventOverview />
                 <PredictionSingleChart />
-                {series?.recurrence ? (
-                    <PredictionSeries
-                        platform={platform}
-                        id={series.id}
-                        recurrence={event.cryptoData?.recurrence || series?.recurrence}
-                        eventSlug={eventSlug}
-                    />
-                ) : null}
+                {series?.recurrence ? <EventSeriesPills currentEvent={event} series={series} /> : null}
                 <PredictionMarketsAccountTab eventSlug={id} platform={platform} />
                 <PredictionBaseInfoTabs showResolution={showResolution} eventSlug={eventSlug} />
                 <PredictionBaseInfoTabContent

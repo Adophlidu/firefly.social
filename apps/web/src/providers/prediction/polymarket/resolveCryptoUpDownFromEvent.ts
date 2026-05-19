@@ -210,5 +210,24 @@ export function getPredictionRecurrenceFromPolymarketEvent(event: PolymarketEven
         return seriesRecurrence;
     }
 
-    return undefined;
+    return;
+}
+
+/**
+ * Polymarket hides `EventSeriesPills` for crypto price markets (see `shouldHideSeriesPills` in their frontend).
+ * Firefly still renders `PredictionSeries` for these so QA can compare same-cycle navigation unless product opts out.
+ */
+export function shouldHidePolymarketSeriesPills(event: PolymarketEventLike): boolean {
+    const classification = classifyPolymarketCryptoSlug(getPolymarketEventSlug(event));
+    switch (classification.kind) {
+        case 'crypto-up-down-short':
+        case 'hourly-up-down':
+        case 'daily-up-down':
+        case 'multistrike-4h':
+            return true;
+        case 'other':
+            return classification.isUpDownFamily;
+        default:
+            return false;
+    }
 }

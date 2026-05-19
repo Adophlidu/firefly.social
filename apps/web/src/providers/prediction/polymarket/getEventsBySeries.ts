@@ -17,6 +17,9 @@ interface Options {
     end_date_min?: string;
     end_date_max?: string;
     after_cursor?: string;
+    closed?: boolean;
+    active?: boolean;
+    archived?: boolean;
 }
 
 export async function getPolymarketEventsBySeries(seriesId: string, options?: Options) {

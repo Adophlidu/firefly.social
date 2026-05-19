@@ -121,7 +121,12 @@ export interface BetsEventDataForUI {
     closed?: boolean;
     archived?: boolean;
     sortBy?: string;
-    series?: Array<{ recurrence?: PredictionRecurrence; id: string; originalRecurrence?: PredictionRecurrence }>;
+    series?: Array<{
+        recurrence?: PredictionRecurrence;
+        id: string;
+        slug?: string;
+        originalRecurrence?: PredictionRecurrence;
+    }>;
     startDate?: string;
     startTime?: string;
     endDate?: string;

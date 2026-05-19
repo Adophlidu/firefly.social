@@ -9,6 +9,7 @@ import {
     getPredictionRecurrenceFromPolymarketEvent,
     type PolymarketEventLike,
     resolveCryptoUpDownFromEvent,
+    shouldHidePolymarketSeriesPills,
 } from '@/providers/prediction/polymarket/resolveCryptoUpDownFromEvent.js';
 import type { PolymarketEvent } from '@/providers/prediction/polymarket/type.js';
 import { PredictionRecurrence } from '@/types/prediction.js';
@@ -182,5 +183,13 @@ describe('getPredictionRecurrenceFromPolymarketEvent', () => {
                 createMinimalEvent({ slug: 'presidential-election-winner-2028' }),
             ),
         ).toBeUndefined();
+    });
+
+    it('matches Polymarket shouldHideSeriesPills for crypto up/down slugs', () => {
+        expect(shouldHidePolymarketSeriesPills({ slug: 'btc-updown-15m-1716123456', markets: [] })).toBe(true);
+        expect(
+            shouldHidePolymarketSeriesPills({ slug: 'bitcoin-up-or-down-january-15-2025-3pm-et', markets: [] }),
+        ).toBe(true);
+        expect(shouldHidePolymarketSeriesPills({ slug: 'presidential-election-winner-2028', markets: [] })).toBe(false);
     });
 });
