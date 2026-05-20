@@ -14,6 +14,7 @@ import { logger } from '@/libs/Logger.js';
 import { getEventDetail } from '@/providers/firefly/prediction/getEventDetail.js';
 import { searchPrediction } from '@/providers/firefly/prediction/searchPrediction.js';
 import { capturePolymarketSearchEventClick } from '@/providers/telemetry/capturePolymarketEvent.js';
+import { useSearchPredictionFilterStore } from '@/store/useSearchPredictionFilterStore.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
 import type { BetsEventDataForUI } from '@/types/prediction.js';
 
@@ -33,9 +34,10 @@ function getBetsItemContent(_: number, data: BetsEventDataForUI) {
 
 export function SearchPredictionContent() {
     const { searchKeyword, searchType, source } = useSearchStateStore();
+    const eventStatus = useSearchPredictionFilterStore.use.eventStatus();
 
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['search', searchType, searchKeyword, source],
+        queryKey: ['search', searchType, searchKeyword, source, eventStatus],
         queryFn: async ({ pageParam }) => {
             // Check if searchKeyword is a prediction URL and extract identifier if it matches
             const urlResult = resolveSearchUrlType(searchKeyword);
@@ -52,6 +54,7 @@ export function SearchPredictionContent() {
                 indicator,
                 limit: 20,
                 sort: 'volume_24hr',
+                eventsStatus: eventStatus,
                 searchTags: true,
             });
 

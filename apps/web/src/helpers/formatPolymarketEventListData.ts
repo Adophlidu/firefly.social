@@ -1,12 +1,20 @@
-import { PredictionPlatform } from '@dimensiondev/enums';
+import { BetsMarketResolveStatus, PredictionPlatform } from '@dimensiondev/enums';
 import { parseJson } from '@dimensiondev/utils';
 
-import type { PolymarketEventListData, PolymarketMarketData } from '@/providers/types/Firefly.js';
+import {
+    type PolymarketEventListData,
+    type PolymarketMarketData,
+    PolymarketUmaResolutionStatus,
+} from '@/providers/types/Firefly.js';
 import type { BetsEventDataForUI, BetsMarketDataForUI } from '@/types/prediction.js';
 
 export function formatPolymarketMarketToBetsMarket(market: PolymarketMarketData): BetsMarketDataForUI {
     const outcomeLabels = parseJson<string[]>(market.outcomes) ?? [];
     const outcomePrices = parseJson<string[]>(market.outcomePrices) ?? [];
+    const resolutionStatuses = parseJson<BetsMarketResolveStatus[]>(market.umaResolutionStatuses || '[]') ?? [];
+    const isResolved =
+        market.umaResolutionStatus === PolymarketUmaResolutionStatus.Resolved ||
+        resolutionStatuses.includes(BetsMarketResolveStatus.Resolved);
 
     const outcomes = outcomeLabels.map((label, index) => ({
         id: `${market.id}-${index}`,
@@ -20,7 +28,7 @@ export function formatPolymarketMarketToBetsMarket(market: PolymarketMarketData)
         questionId: market.questionID || '',
         title: market.question,
         volume: market.volume,
-        isResolved: market.umaResolutionStatuses === 'Resolved',
+        isResolved,
         isClosed: market.closed,
         createTime: new Date(market.createdAt).getTime(),
         resolvedOutcomeId: market.resolvedBy,
@@ -50,5 +58,10 @@ export function formatPolymarketEventListData(event: PolymarketEventListData): B
         closed: event.closed,
         archived: event.archived,
         startDate: event.startDate,
+        tags: event.tags?.map((tag) => ({
+            id: tag.id,
+            label: tag.label,
+            slug: tag.slug,
+        })),
     };
 }

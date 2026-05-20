@@ -1550,6 +1550,9 @@ msgstr "合约拥有者在交易冷却期上没有限制。"
 msgid "Available"
 msgstr "可用的"
 
+msgid "Event Status"
+msgstr ""
+
 #. placeholder {0}: filteredProfiles[0].handle
 #. placeholder {1}: filteredProfiles[1].handle
 #. placeholder {2}: filteredProfiles.length - 2
@@ -2188,6 +2191,9 @@ msgstr "修改密码"
 
 msgid "Verified by {provider}"
 msgstr "由 {provider} 校验"
+
+msgid "Search Filter"
+msgstr ""
 
 #. placeholder {0}: session.type
 msgid "This {0} account is already linked"
@@ -3395,6 +3401,9 @@ msgstr "已从你的社交图谱中断开绑定"
 msgid "Malicious mining activities."
 msgstr "恶意挖矿活动。"
 
+msgid "Resolved"
+msgstr ""
+
 msgid "Comment or mention"
 msgstr "评论或提及"
 
@@ -3991,6 +4000,9 @@ msgstr "确认断开此账号及相关钱包与 Firefly 社交图谱的绑定吗
 
 msgid "Unfollowed {handleOrEnsOrAddress} on Firefly"
 msgstr "在 Firefly 上取消关注 {handleOrEnsOrAddress}"
+
+msgid "Topics"
+msgstr ""
 
 msgid "Enter your password to verify your identity."
 msgstr "请输入密码以验证您的身份。"

@@ -12,8 +12,17 @@ import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData
 import type { PolymarketEventListData, Response } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
+export interface PredictionSearchTag {
+    id: string;
+    label: string;
+    slug?: string;
+    event_count?: number;
+    forceHide?: boolean;
+}
+
 interface GammaSearchResponse {
     events?: PolymarketEventListData[];
+    tags?: PredictionSearchTag[];
     pagination: {
         totalResults: number;
         hasMore: boolean;
@@ -25,7 +34,7 @@ export interface SearchBetsOptions {
     indicator?: PageIndicator;
     limit?: number;
     sort?: 'volume_24hr' | 'startDate' | 'endDate';
-    eventsStatus?: 'active' | 'closed' | 'archived';
+    eventsStatus?: 'active' | 'resolved' | 'archived';
     searchTags?: boolean;
 }
 
@@ -36,7 +45,7 @@ export async function searchPrediction({
     sort = 'volume_24hr',
     eventsStatus,
     searchTags = true,
-}: SearchBetsOptions): Promise<Pageable<PolymarketEventListData, PageIndicator>> {
+}: SearchBetsOptions): Promise<Pageable<PolymarketEventListData, PageIndicator> & { tags: PredictionSearchTag[] }> {
     const page = indicator?.id ? Number.parseInt(indicator.id, 10) : 1;
 
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/polymarket/public-search', {
@@ -53,9 +62,13 @@ export async function searchPrediction({
 
     const data = resolveFireflyResponseData(response);
     const events = data?.events || [];
+    const tags = data?.tags || [];
     const currentIndicator = createIndicator(indicator);
     const hasMore = data?.pagination.hasMore ?? false;
     const nextIndicator = hasMore ? createNextIndicator(indicator, `${page + 1}`) : undefined;
 
-    return createPageable<PolymarketEventListData>(events, currentIndicator, nextIndicator);
+    return {
+        ...createPageable<PolymarketEventListData>(events, currentIndicator, nextIndicator),
+        tags,
+    };
 }

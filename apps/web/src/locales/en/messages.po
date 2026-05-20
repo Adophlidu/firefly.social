@@ -1557,6 +1557,9 @@ msgstr "The contract owner has no restrictions on trading cooldown."
 msgid "Available"
 msgstr "Available"
 
+msgid "Event Status"
+msgstr "Event Status"
+
 #. placeholder {0}: filteredProfiles[0].handle
 #. placeholder {1}: filteredProfiles[1].handle
 #. placeholder {2}: filteredProfiles.length - 2
@@ -2198,6 +2201,9 @@ msgstr "Change password"
 
 msgid "Verified by {provider}"
 msgstr "Verified by {provider}"
+
+msgid "Search Filter"
+msgstr "Search Filter"
 
 #. placeholder {0}: session.type
 msgid "This {0} account is already linked"
@@ -3413,6 +3419,9 @@ msgstr "Disconnected from your social graph"
 msgid "Malicious mining activities."
 msgstr "Malicious mining activities."
 
+msgid "Resolved"
+msgstr "Resolved"
+
 msgid "Comment or mention"
 msgstr "Comment or mention"
 
@@ -4013,6 +4022,9 @@ msgstr "Confirm to disconnect this account and related wallets from Firefly’s 
 
 msgid "Unfollowed {handleOrEnsOrAddress} on Firefly"
 msgstr "Unfollowed {handleOrEnsOrAddress} on Firefly"
+
+msgid "Topics"
+msgstr "Topics"
 
 msgid "Enter your password to verify your identity."
 msgstr "Enter your password to verify your identity."

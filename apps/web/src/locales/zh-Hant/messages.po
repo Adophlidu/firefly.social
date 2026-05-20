@@ -1550,6 +1550,9 @@ msgstr "合約擁有者未設定交易冷卻限制。"
 msgid "Available"
 msgstr "可用的"
 
+msgid "Event Status"
+msgstr ""
+
 #. placeholder {0}: filteredProfiles[0].handle
 #. placeholder {1}: filteredProfiles[1].handle
 #. placeholder {2}: filteredProfiles.length - 2
@@ -2188,6 +2191,9 @@ msgstr "變更密碼"
 
 msgid "Verified by {provider}"
 msgstr "由 {provider} 驗證"
+
+msgid "Search Filter"
+msgstr ""
 
 #. placeholder {0}: session.type
 msgid "This {0} account is already linked"
@@ -3395,6 +3401,9 @@ msgstr "已從你的社交圖譜中斷開綁定"
 msgid "Malicious mining activities."
 msgstr "惡意挖礦活動。"
 
+msgid "Resolved"
+msgstr ""
+
 msgid "Comment or mention"
 msgstr "留言或提及"
 
@@ -3991,6 +4000,9 @@ msgstr "確認要斷開該帳號及相關錢包與 Firefly 社交圖譜的綁定
 
 msgid "Unfollowed {handleOrEnsOrAddress} on Firefly"
 msgstr "於 Firefly 上取消追蹤 {handleOrEnsOrAddress}"
+
+msgid "Topics"
+msgstr ""
 
 msgid "Enter your password to verify your identity."
 msgstr "請輸入密碼以驗證您的身份。"

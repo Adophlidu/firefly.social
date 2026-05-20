@@ -1550,6 +1550,9 @@ msgstr ""
 msgid "Available"
 msgstr ""
 
+msgid "Event Status"
+msgstr ""
+
 #. placeholder {0}: filteredProfiles[0].handle
 #. placeholder {1}: filteredProfiles[1].handle
 #. placeholder {2}: filteredProfiles.length - 2
@@ -2187,6 +2190,9 @@ msgid "Change password"
 msgstr ""
 
 msgid "Verified by {provider}"
+msgstr ""
+
+msgid "Search Filter"
 msgstr ""
 
 #. placeholder {0}: session.type
@@ -3395,6 +3401,9 @@ msgstr ""
 msgid "Malicious mining activities."
 msgstr ""
 
+msgid "Resolved"
+msgstr ""
+
 msgid "Comment or mention"
 msgstr ""
 
@@ -3990,6 +3999,9 @@ msgid "Confirm to disconnect this account and related wallets from Firefly’s s
 msgstr ""
 
 msgid "Unfollowed {handleOrEnsOrAddress} on Firefly"
+msgstr ""
+
+msgid "Topics"
 msgstr ""
 
 msgid "Enter your password to verify your identity."

@@ -8,6 +8,7 @@ import { IfPathname } from '@/components/IfPathname.js';
 import { LinkCloud } from '@/components/LinkCloud.js';
 import { NavigatorBar } from '@/components/NavigatorBar/index.js';
 import { AsideSearchBar, HeaderSearchBar } from '@/components/Search/SearchBar.js';
+import { SearchPredictionFilterSidebar } from '@/components/Search/SearchPredictionFilterSidebar.js';
 import { Section } from '@/components/Semantic/Section.js';
 import { SuggestedChannels } from '@/components/SuggestedChannels/SuggestedChannels.js';
 import { SuggestedFollows } from '@/components/SuggestedFollows/SuggestedFollows.js';
@@ -71,23 +72,31 @@ export default async function Layout({ children, modal, sidebar, subnav }: Props
                     <IfPathname
                         isOneOf={parallelSidebarPatterns}
                         otherwise={
-                            <>
-                                <Section title="Advertisement" className="mt-[26px]">
-                                    <Advertisement />
-                                </Section>
-                                <WithinDiscover
-                                    otherwise={
-                                        <>
-                                            <SuggestedFollows />
-                                            <SuggestedChannels />
-                                        </>
-                                    }
-                                >
-                                    <Section title="Web3 Calendar">
-                                        <Calendar />
-                                    </Section>
-                                </WithinDiscover>
-                            </>
+                            <IfPathname
+                                exact
+                                isOneOf={['/search/prediction']}
+                                otherwise={
+                                    <>
+                                        <Section title="Advertisement" className="mt-[26px]">
+                                            <Advertisement />
+                                        </Section>
+                                        <WithinDiscover
+                                            otherwise={
+                                                <>
+                                                    <SuggestedFollows />
+                                                    <SuggestedChannels />
+                                                </>
+                                            }
+                                        >
+                                            <Section title="Web3 Calendar">
+                                                <Calendar />
+                                            </Section>
+                                        </WithinDiscover>
+                                    </>
+                                }
+                            >
+                                <SearchPredictionFilterSidebar />
+                            </IfPathname>
                         }
                     >
                         {sidebar}
