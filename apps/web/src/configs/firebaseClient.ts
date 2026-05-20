@@ -1,5 +1,5 @@
 import { SITE_NAME } from '@dimensiondev/constants/static';
-import { envs } from '@dimensiondev/envs';
+import { envs } from '@dimensiondev/envs/web';
 import { parseUrl } from '@dimensiondev/utils';
 import { type Analytics, getAnalytics, isSupported as isAnalyticsSupported, logEvent } from 'firebase/analytics';
 import { type FirebaseApp, type FirebaseOptions, initializeApp } from 'firebase/app';

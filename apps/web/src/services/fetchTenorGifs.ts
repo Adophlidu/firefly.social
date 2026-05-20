@@ -1,5 +1,5 @@
 import { MediaSource } from '@dimensiondev/enums';
-import { envs } from '@dimensiondev/envs';
+import { envs } from '@dimensiondev/envs/web';
 import { compact, first } from 'lodash-es';
 import urlcat from 'urlcat';
 

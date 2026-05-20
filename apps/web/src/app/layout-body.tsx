@@ -2,7 +2,7 @@
 
 import { EVENT_ROUTES, INTERNAL_ROUTES, WHITEBOARD_ROUTES } from '@dimensiondev/constants/static';
 import { Agent, STATUS } from '@dimensiondev/enums';
-import { envs } from '@dimensiondev/envs';
+import { envs } from '@dimensiondev/envs/web';
 import { type ReactNode, Suspense } from 'react';
 
 import { useAgent } from '@/components/AgentProvider.js';

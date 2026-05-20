@@ -1,5 +1,5 @@
 import { STATUS } from '@dimensiondev/enums';
-import { envs } from '@dimensiondev/envs';
+import { envs } from '@dimensiondev/envs/web';
 import type { ReactNode } from 'react';
 
 import { FrameLayout as FrameLayoutV1 } from '@/components/Frame/V1/Layout.js';

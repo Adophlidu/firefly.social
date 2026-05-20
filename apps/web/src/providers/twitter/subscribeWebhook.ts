@@ -1,6 +1,6 @@
 import { X_WEBHOOK_WHITELIST_CLIENT_IDS } from '@dimensiondev/constants/computed';
 import { X_WEBHOOK_RECEIVER_URL } from '@dimensiondev/constants/static';
-import { envs } from '@dimensiondev/envs';
+import { envs } from '@dimensiondev/envs/web';
 import { isServer } from '@tanstack/react-query';
 import urlcat from 'urlcat';
 

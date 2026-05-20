@@ -1,9 +1,13 @@
 /* cspell:disable */
-import { type NODE_ENV, STATUS, VERCEL_ENV } from '@dimensiondev/enums';
-import { bom } from '@dimensiondev/utils';
+import type { NODE_ENV } from '@dimensiondev/enums';
+import { STATUS, VERCEL_ENV } from '@dimensiondev/enums';
 import { z } from 'zod';
 
-const InternalEnvSchema = z.object({});
+// Dynamic process.env[key] omitted: vite-plugin-node-polyfills injects a shim that can't resolve from packages/envs during wallet SSR builds.
+function getEnvValue(key: string): string | undefined {
+    const viteEnv = (import.meta as unknown as { env?: Record<string, string> }).env;
+    return viteEnv?.[key];
+}
 
 const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_VERCEL_ENV: z.nativeEnum(VERCEL_ENV).default(VERCEL_ENV.Development),
@@ -24,27 +28,13 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_W3M_PROJECT_ID: z.string().default('invalid_w3m_project_id'),
 });
 
-// Helper to get env value from import.meta.env (client) or process.env (server)
-function getEnvValue(key: string): string | undefined {
-    // In Vite/TanStack Start, use import.meta.env for client-side
-    if (import.meta?.env?.[key]) {
-        return import.meta.env[key] as string | undefined;
-    }
-    // Fallback to process.env for SSR/Node
-    return process.env[key];
-}
-
 export const env = {
     shared: {
         NODE_ENV: (getEnvValue('NODE_ENV') || process.env.NODE_ENV) as NODE_ENV,
         VERSION: process.env.npm_package_version || '',
         COMMIT_HASH: process.env.COMMIT_HASH,
     },
-    internal: ((!bom.window || process.env.VITEST) &&
-    !process.env.GITHUB_ACTIONS &&
-    !('browser' in (process as unknown as { browser?: unknown }))
-        ? InternalEnvSchema.parse(process.env)
-        : {}) as z.infer<typeof InternalEnvSchema>,
+    internal: {} as Record<never, never>,
     external: ExternalEnvSchema.parse({
         NEXT_PUBLIC_VERCEL_ENV: getEnvValue('NEXT_PUBLIC_VERCEL_ENV'),
         NEXT_PUBLIC_PRIVY_APP_ID: getEnvValue('NEXT_PUBLIC_PRIVY_APP_ID'),

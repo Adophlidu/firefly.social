@@ -1,7 +1,7 @@
 'use client';
 
 import { Source, STATUS } from '@dimensiondev/enums';
-import { envs } from '@dimensiondev/envs';
+import { envs } from '@dimensiondev/envs/web';
 import { Trans } from '@lingui/react/macro';
 
 import { AccountCards } from '@/app/[locale]/(settings)/components/AccountCard.js';

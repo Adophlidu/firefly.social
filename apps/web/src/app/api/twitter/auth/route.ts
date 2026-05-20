@@ -1,4 +1,4 @@
-import { envs } from '@dimensiondev/envs';
+import { envs } from '@dimensiondev/envs/web';
 import { compose, UnauthorizedError } from '@dimensiondev/utils';
 
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';

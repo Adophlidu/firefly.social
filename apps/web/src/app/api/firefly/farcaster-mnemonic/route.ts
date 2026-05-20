@@ -1,4 +1,4 @@
-import { envs } from '@dimensiondev/envs';
+import { envs } from '@dimensiondev/envs/web';
 import { compose } from '@dimensiondev/utils';
 import { first } from 'lodash-es';
 import type { NextRequest } from 'next/server.js';

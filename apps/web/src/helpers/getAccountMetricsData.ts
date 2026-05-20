@@ -1,5 +1,5 @@
 import { Source, SourceInURL } from '@dimensiondev/enums';
-import { envs } from '@dimensiondev/envs';
+import { envs } from '@dimensiondev/envs/web';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { sha256, toHex } from 'viem';
 

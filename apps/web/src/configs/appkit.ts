@@ -4,7 +4,7 @@
 
 import { IS_PRODUCTION } from '@dimensiondev/constants';
 import { SITE_DESCRIPTION, SITE_NAME } from '@dimensiondev/constants/static';
-import { envs } from '@dimensiondev/envs';
+import { envs } from '@dimensiondev/envs/web';
 import type { AppKitNetwork } from '@reown/appkit/networks';
 import { createAppKit } from '@reown/appkit/react';
 import { lens, lensTestnet } from 'viem/chains';

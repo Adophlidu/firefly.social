@@ -1,4 +1,5 @@
-import { env } from '@/constants/env.js';
+import { env } from '@dimensiondev/envs/wallet';
+
 import { JsonRPC } from '@/lib/JsonRpc.js';
 
 export interface SolanaRPCInterface {

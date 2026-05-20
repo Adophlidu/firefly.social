@@ -1,5 +1,5 @@
 import { SourceInURL } from '@dimensiondev/enums';
-import { envs } from '@dimensiondev/envs';
+import { envs } from '@dimensiondev/envs/web';
 import { compose } from '@dimensiondev/utils';
 import { z } from 'zod';
 

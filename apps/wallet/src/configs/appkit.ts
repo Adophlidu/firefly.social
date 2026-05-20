@@ -1,9 +1,9 @@
+import { env } from '@dimensiondev/envs/wallet';
 import type { AppKitNetwork } from '@reown/appkit/networks';
 import { createAppKit } from '@reown/appkit/react';
 
 import { solanaAdapter, solanaNetworks } from '@/configs/solanaClient.js';
 import { wagmiAdapter, wagmiNetworks } from '@/configs/wagmiClient.js';
-import { env } from '@/constants/env.js';
 
 const networks = [...wagmiNetworks, ...solanaNetworks] as [AppKitNetwork, ...AppKitNetwork[]];
 

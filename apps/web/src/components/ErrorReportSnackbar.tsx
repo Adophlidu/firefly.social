@@ -1,6 +1,6 @@
 'use client';
 
-import { envs } from '@dimensiondev/envs';
+import { envs } from '@dimensiondev/envs/web';
 import { ExceptionId } from '@dimensiondev/exception-tracker';
 import { useReportErrorOnce } from '@dimensiondev/exception-tracker/client';
 import { ClipboardDocumentCheckIcon, ClipboardDocumentIcon, XCircleIcon } from '@heroicons/react/24/solid';

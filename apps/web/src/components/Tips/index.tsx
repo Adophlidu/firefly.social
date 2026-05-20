@@ -2,7 +2,7 @@
 
 import TipsIcon from '@dimensiondev/assets/tips.svg';
 import { Source, STATUS } from '@dimensiondev/enums';
-import { envs } from '@dimensiondev/envs';
+import { envs } from '@dimensiondev/envs/web';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';

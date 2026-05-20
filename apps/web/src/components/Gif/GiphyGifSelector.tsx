@@ -2,7 +2,7 @@
 
 import SearchIcon from '@dimensiondev/assets/search.svg';
 import { GiphyTabType } from '@dimensiondev/enums';
-import { envs } from '@dimensiondev/envs';
+import { envs } from '@dimensiondev/envs/web';
 import { classNames } from '@dimensiondev/utils';
 import { SearchBar, SearchContextManager } from '@giphy/react-components';
 import { IS_SAFARI } from '@lexical/utils';

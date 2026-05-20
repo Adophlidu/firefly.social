@@ -1,6 +1,6 @@
 import { FIREFLY_WORKER_HOST } from '@dimensiondev/constants/static';
 import { STATUS } from '@dimensiondev/enums';
-import { envs } from '@dimensiondev/envs';
+import { envs } from '@dimensiondev/envs/web';
 import { parseUrl } from '@dimensiondev/utils';
 import { isValidDomainEthereum } from '@dimensiondev/web3/utils';
 import urlcat from 'urlcat';

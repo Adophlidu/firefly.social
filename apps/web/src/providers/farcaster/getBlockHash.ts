@@ -1,6 +1,6 @@
 import { web3 } from '@coral-xyz/anchor';
 import { STATUS } from '@dimensiondev/enums';
-import { envs } from '@dimensiondev/envs';
+import { envs } from '@dimensiondev/envs/web';
 import { createWagmiPublicClient } from '@dimensiondev/web3/actions';
 import { getSolanaRPCUrl, resolvePublicRpcUrl } from '@dimensiondev/web3/utils';
 import { optimism } from 'viem/chains';

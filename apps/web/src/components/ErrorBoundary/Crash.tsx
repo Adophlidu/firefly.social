@@ -1,6 +1,6 @@
 'use client';
 
-import { envs } from '@dimensiondev/envs';
+import { envs } from '@dimensiondev/envs/web';
 import { Trans } from '@lingui/react/macro';
 
 import { useCopyText } from '@/hooks/useCopyText.js';

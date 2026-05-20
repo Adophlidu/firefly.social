@@ -1,4 +1,4 @@
-import { envs } from '@dimensiondev/envs';
+import { envs } from '@dimensiondev/envs/web';
 import { parseJson } from '@dimensiondev/utils';
 import { cookies, headers } from 'next/headers.js';
 import type { NextRequest } from 'next/server.js';

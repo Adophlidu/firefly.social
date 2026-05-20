@@ -1,8 +1,7 @@
 import { IS_PRODUCTION } from '@dimensiondev/constants';
+import { env } from '@dimensiondev/envs/wallet';
 import { configureExceptionTracker } from '@dimensiondev/exception-tracker';
 import { bom } from '@dimensiondev/utils';
-
-import { env } from '@/constants/env.js';
 
 /**
  * Configures the exception tracker for client and server reporting.

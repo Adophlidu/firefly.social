@@ -2,7 +2,7 @@
 
 import { FARCASTER_REPLY_COUNTDOWN } from '@dimensiondev/constants/static';
 import { AsyncStatus, FarcasterSignType, FarcasterSignType as SignType, Source, STATUS } from '@dimensiondev/enums';
-import { envs } from '@dimensiondev/envs';
+import { envs } from '@dimensiondev/envs/web';
 import {
     AbortError,
     classNames,

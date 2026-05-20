@@ -1,5 +1,5 @@
 import { X_WEBHOOK_RECEIVER_URL } from '@dimensiondev/constants/static';
-import { envs } from '@dimensiondev/envs';
+import { envs } from '@dimensiondev/envs/web';
 import urlcat from 'urlcat';
 
 import { fetchJson } from '@/helpers/fetchJson.js';

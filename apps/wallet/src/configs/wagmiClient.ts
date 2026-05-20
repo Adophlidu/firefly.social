@@ -1,3 +1,4 @@
+import { env } from '@dimensiondev/envs/wallet';
 import type { AppKitNetwork } from '@reown/appkit/networks';
 import { WagmiAdapter } from '@reown/appkit-adapter-wagmi';
 import { createStorage } from '@wagmi/core';
@@ -31,7 +32,6 @@ import {
 } from 'viem/chains';
 
 import { createPrivyWalletConnector } from '@/connectors/createPrivyWalletConnector.js';
-import { env } from '@/constants/env.js';
 
 const storage = createStorage({
     key: 'firefly-wallet',

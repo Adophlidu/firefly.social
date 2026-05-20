@@ -5,7 +5,7 @@ import CupIcon from '@dimensiondev/assets/cup.svg';
 import SettingsSelectedIcon from '@dimensiondev/assets/setting.selected.svg';
 import SettingsIcon from '@dimensiondev/assets/setting.svg';
 import { PageRoute, STATUS } from '@dimensiondev/enums';
-import { envs } from '@dimensiondev/envs';
+import { envs } from '@dimensiondev/envs/web';
 import { Trans } from '@lingui/react/macro';
 import { compact } from 'lodash-es';
 import { memo } from 'react';

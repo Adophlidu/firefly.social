@@ -7,7 +7,7 @@ import {
     FRAME_SERVER_URL,
 } from '@dimensiondev/constants/static';
 import { STATUS } from '@dimensiondev/enums';
-import { envs } from '@dimensiondev/envs';
+import { envs } from '@dimensiondev/envs/web';
 
 export const settings = {
     get dev() {

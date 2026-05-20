@@ -1,6 +1,6 @@
 import { FIREFLY_ROOT_URL_DEV } from '@dimensiondev/constants/static';
 import { NODE_ENV } from '@dimensiondev/enums';
-import { envs } from '@dimensiondev/envs';
+import { envs } from '@dimensiondev/envs/web';
 import crypto from 'crypto';
 
 import { logger } from '@/libs/Logger.js';

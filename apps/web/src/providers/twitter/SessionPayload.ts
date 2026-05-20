@@ -2,7 +2,7 @@
 
 import { HIDDEN_SECRET } from '@dimensiondev/constants/static';
 import { KeyType } from '@dimensiondev/enums';
-import { envs } from '@dimensiondev/envs';
+import { envs } from '@dimensiondev/envs/web';
 import { kv } from '@vercel/kv';
 
 export interface SessionPayload {

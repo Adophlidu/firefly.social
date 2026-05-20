@@ -1,8 +1,7 @@
 import { web3 } from '@coral-xyz/anchor';
+import { env } from '@dimensiondev/envs/wallet';
 import { getSolanaRPCUrl } from '@dimensiondev/web3/utils';
 import type { AnyTransaction, Provider as SolanaProvider } from '@reown/appkit-adapter-solana/react';
-
-import { env } from '@/constants/env.js';
 
 function getSolanaConnection(connection?: web3.Connection) {
     return (

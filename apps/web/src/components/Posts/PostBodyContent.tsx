@@ -4,7 +4,7 @@ import { EMPTY_LIST } from '@dimensiondev/constants';
 import { SUPPORTED_MULTIPLE_EMBED_SOURCES } from '@dimensiondev/constants/computed';
 import { MIN_CHAR_LENGTH_TO_TRANSLATE, RP_HASH_TAG } from '@dimensiondev/constants/static';
 import { PageRoute, Source, STATUS } from '@dimensiondev/enums';
-import { envs } from '@dimensiondev/envs';
+import { envs } from '@dimensiondev/envs/web';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { isUndefined } from 'lodash-es';

@@ -158,6 +158,9 @@ importers:
       '@dimensiondev/enums':
         specifier: workspace:^
         version: link:../../packages/enums
+      '@dimensiondev/envs':
+        specifier: workspace:^
+        version: link:../../packages/envs
       '@dimensiondev/exception-tracker':
         specifier: workspace:^
         version: link:../../packages/exception-tracker

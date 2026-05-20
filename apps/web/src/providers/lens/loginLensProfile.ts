@@ -1,4 +1,4 @@
-import { envs } from '@dimensiondev/envs';
+import { envs } from '@dimensiondev/envs/web';
 import { SeverityError } from '@dimensiondev/utils';
 import type { ChallengeRequest, SignMessage } from '@lens-protocol/client';
 

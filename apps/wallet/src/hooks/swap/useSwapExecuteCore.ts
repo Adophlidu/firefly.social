@@ -1,6 +1,7 @@
 import { web3 } from '@coral-xyz/anchor';
 import { PRIVY_CONNECTOR_ID } from '@dimensiondev/constants/static';
 import { SwapAccessPath } from '@dimensiondev/enums';
+import { env } from '@dimensiondev/envs/wallet';
 import { delay } from '@dimensiondev/utils';
 import { estimateSwapGas, waitForEthereumTransaction } from '@dimensiondev/web3/actions';
 import { type ChainId, isSolanaChain } from '@dimensiondev/web3/chains';
@@ -19,7 +20,6 @@ import { sendTransaction } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmiClient.js';
 import { privySolanaProvider } from '@/connectors/PrivySolanaWalletAdapter.js';
-import { env } from '@/constants/env.js';
 import { tryFreeGasTransaction } from '@/helpers/freeGas/tryFreeGasTransaction.js';
 import { getUserFacingErrorMessage } from '@/helpers/getErrorMessage.js';
 import { switchEvmConnectorChain } from '@/helpers/resolveEvmConnector.js';

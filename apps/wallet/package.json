@@ -25,6 +25,7 @@
     "dependencies": {
         "@coral-xyz/anchor": "^0.32.1",
         "@dimensiondev/assets": "workspace:^",
+        "@dimensiondev/envs": "workspace:^",
         "@dimensiondev/constants": "workspace:^",
         "@dimensiondev/enums": "workspace:^",
         "@dimensiondev/exception-tracker": "workspace:^",

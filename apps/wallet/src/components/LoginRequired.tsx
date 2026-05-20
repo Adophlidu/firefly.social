@@ -1,8 +1,8 @@
+import { env } from '@dimensiondev/envs/wallet';
 import { Trans } from '@lingui/react/macro';
 import type { PropsWithChildren } from 'react';
 
 import { Button } from '@/components/ui/button.js';
-import { env } from '@/constants/env.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { useIsPublicRoute } from '@/hooks/useIsPublicRoute.js';
 

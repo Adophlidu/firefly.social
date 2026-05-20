@@ -1,5 +1,5 @@
 import { Source, STATUS } from '@dimensiondev/enums';
-import { envs } from '@dimensiondev/envs';
+import { envs } from '@dimensiondev/envs/web';
 import { compact, values } from 'lodash-es';
 import { useMemo } from 'react';
 

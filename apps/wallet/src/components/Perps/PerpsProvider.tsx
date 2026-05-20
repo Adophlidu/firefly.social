@@ -1,4 +1,5 @@
 import { PRIVY_CONNECTOR_ID } from '@dimensiondev/constants/static';
+import { env } from '@dimensiondev/envs/wallet';
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
 import {
     type NavigateFunc,
@@ -18,7 +19,6 @@ import { toast } from 'sonner';
 import { useConnectors, useWalletClient } from 'wagmi';
 
 import { useComeback } from '@/components/useComeback.js';
-import { env } from '@/constants/env.js';
 import { ABOUT_URL, PRIVACY_URL, TERMS_URL } from '@/constants/hyperliquid.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { logger } from '@/lib/Logger.js';

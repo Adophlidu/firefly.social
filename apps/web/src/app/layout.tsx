@@ -4,7 +4,7 @@ import '@/app/globals.css';
 
 import { IS_PRODUCTION } from '@dimensiondev/constants';
 import { STATUS } from '@dimensiondev/enums';
-import { envs } from '@dimensiondev/envs';
+import { envs } from '@dimensiondev/envs/web';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import type { ReactNode } from 'react';
 

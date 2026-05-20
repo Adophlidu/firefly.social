@@ -1,6 +1,6 @@
 import { FIREFLY_STAMP_DEV_URL, FIREFLY_STAMP_URL } from '@dimensiondev/constants/static';
 import { Source, STATUS } from '@dimensiondev/enums';
-import { envs } from '@dimensiondev/envs';
+import { envs } from '@dimensiondev/envs/web';
 import { bom, safeUnreachable } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 

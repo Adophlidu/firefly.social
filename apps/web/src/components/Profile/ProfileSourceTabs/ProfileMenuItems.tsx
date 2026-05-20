@@ -2,7 +2,7 @@ import ArrowLineDownIcon from '@dimensiondev/assets/arrow-line-down.svg';
 import FireflyLogo from '@dimensiondev/assets/firefly.round.svg';
 import type { ProfilePageSource } from '@dimensiondev/enums';
 import { Source, STATUS } from '@dimensiondev/enums';
-import { envs } from '@dimensiondev/envs';
+import { envs } from '@dimensiondev/envs/web';
 import { classNames, delay } from '@dimensiondev/utils';
 import { MenuItem } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';

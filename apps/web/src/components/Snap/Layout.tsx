@@ -1,5 +1,5 @@
 import { STATUS } from '@dimensiondev/enums';
-import { envs } from '@dimensiondev/envs';
+import { envs } from '@dimensiondev/envs/web';
 import { memo } from 'react';
 
 import { SnapCard } from '@/components/Snap/Card.js';

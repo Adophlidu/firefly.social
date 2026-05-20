@@ -1,7 +1,7 @@
 import { SITE_URL_OFFICIAL } from '@dimensiondev/constants/static';
 import type { RequestedLoginSource, SocialSource } from '@dimensiondev/enums';
 import { NODE_ENV, Source, STATUS } from '@dimensiondev/enums';
-import { envs } from '@dimensiondev/envs';
+import { envs } from '@dimensiondev/envs/web';
 
 export const SITE_URL = envs.external.NEXT_PUBLIC_SITE_URL ?? SITE_URL_OFFICIAL;
 

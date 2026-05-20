@@ -1,4 +1,4 @@
-import { envs } from '@dimensiondev/envs';
+import { envs } from '@dimensiondev/envs/web';
 
 import { SITE_URL } from '@/constants/static.js';
 import type { NextFetchersOptions } from '@/helpers/fetch.js';

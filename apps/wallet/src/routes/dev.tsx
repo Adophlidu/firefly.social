@@ -1,7 +1,6 @@
 import { STATUS } from '@dimensiondev/enums';
+import { env } from '@dimensiondev/envs/wallet';
 import { createFileRoute, notFound, Outlet } from '@tanstack/react-router';
-
-import { env } from '@/constants/env.js';
 
 export const Route = createFileRoute('/dev')({
     beforeLoad: () => {

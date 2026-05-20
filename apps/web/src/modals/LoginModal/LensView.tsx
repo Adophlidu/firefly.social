@@ -4,7 +4,7 @@ import OrbIcon from '@dimensiondev/assets/orb.svg';
 import ScanIcon from '@dimensiondev/assets/scan.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { AsyncStatus, Source, STATUS } from '@dimensiondev/enums';
-import { envs } from '@dimensiondev/envs';
+import { envs } from '@dimensiondev/envs/web';
 import { AbortError, ForbiddenError, runInSafeAsync } from '@dimensiondev/utils';
 import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import { lastLoggedInAccount } from '@lens-protocol/client/actions';

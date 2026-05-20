@@ -3,7 +3,7 @@
 import { SORTED_PROFILE_SOURCES } from '@dimensiondev/constants/computed';
 import type { ProfilePageSource } from '@dimensiondev/enums';
 import { Source, STATUS } from '@dimensiondev/enums';
-import { envs } from '@dimensiondev/envs';
+import { envs } from '@dimensiondev/envs/web';
 import { classNames } from '@dimensiondev/utils';
 import { MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';

@@ -1,6 +1,6 @@
+import { env } from '@dimensiondev/envs/wallet';
 import { atom } from 'jotai';
 
-import { env } from '@/constants/env.js';
 import { FireflyEndpoint } from '@/providers/firefly/endpoint.js';
 import { fireflySessionTokenAtom } from '@/store/fireflySession.js';
 import { store } from '@/store/index.js';

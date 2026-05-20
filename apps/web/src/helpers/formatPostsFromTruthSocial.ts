@@ -1,5 +1,5 @@
 import { AttachmentType, PostType, Source } from '@dimensiondev/enums';
-import { envs } from '@dimensiondev/envs';
+import { envs } from '@dimensiondev/envs/web';
 import { compact, last } from 'lodash-es';
 
 import { TRUMP_TWITTER_PROFILE } from '@/constants/mentions.js';

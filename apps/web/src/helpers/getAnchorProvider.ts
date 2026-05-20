@@ -1,6 +1,6 @@
 import { AnchorProvider, web3 } from '@coral-xyz/anchor';
 import { STATUS } from '@dimensiondev/enums';
-import { envs } from '@dimensiondev/envs';
+import { envs } from '@dimensiondev/envs/web';
 import { getSolanaRPCUrl } from '@dimensiondev/web3/utils';
 
 import { getWalletAdaptorConnected } from '@/providers/solana/getWalletAdapter.js';

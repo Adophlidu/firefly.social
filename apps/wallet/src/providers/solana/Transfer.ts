@@ -1,4 +1,5 @@
 import { web3 } from '@coral-xyz/anchor';
+import { env } from '@dimensiondev/envs/wallet';
 import { solana } from '@dimensiondev/web3/chains';
 import {
     isGreaterThan,
@@ -17,7 +18,6 @@ import {
     getAssociatedTokenAddress,
 } from '@solana/spl-token';
 
-import { env } from '@/constants/env.js';
 import { signAndBroadcastSolanaTransaction } from '@/helpers/signAndBroadcastSolanaTransaction.js';
 import { getNativeTokenBalance, getTokenBalance } from '@/providers/solana/getTokenBalance.js';
 import type { Token, TransactionOptions, TransferProvider } from '@/providers/types/Transfer.js';

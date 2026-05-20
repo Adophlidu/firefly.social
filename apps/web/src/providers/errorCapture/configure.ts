@@ -1,7 +1,7 @@
 import { IS_PRODUCTION } from '@dimensiondev/constants';
 import { EXCEPTION_TRACKER_URL } from '@dimensiondev/constants/static';
 import { SessionType, Source } from '@dimensiondev/enums';
-import { envs } from '@dimensiondev/envs';
+import { envs } from '@dimensiondev/envs/web';
 import { configureExceptionTracker } from '@dimensiondev/exception-tracker';
 import { bom } from '@dimensiondev/utils';
 

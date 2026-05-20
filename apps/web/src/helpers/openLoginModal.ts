@@ -1,5 +1,5 @@
 import { SessionType, STATUS } from '@dimensiondev/enums';
-import { envs } from '@dimensiondev/envs';
+import { envs } from '@dimensiondev/envs/web';
 import { bom } from '@dimensiondev/utils';
 
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';

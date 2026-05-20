@@ -1,5 +1,5 @@
 import { STATUS, WalletSource } from '@dimensiondev/enums';
-import { envs } from '@dimensiondev/envs';
+import { envs } from '@dimensiondev/envs/web';
 
 import { formatWalletConnections } from '@/helpers/formatWalletConnection.js';
 import { getAllConnections } from '@/providers/firefly/endpoint/getAllConnections.js';

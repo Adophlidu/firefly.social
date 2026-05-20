@@ -1,5 +1,5 @@
 import { Source } from '@dimensiondev/enums';
-import { envs } from '@dimensiondev/envs';
+import { envs } from '@dimensiondev/envs/web';
 import { InvalidResultError, retry, runInSafeAsync } from '@dimensiondev/utils';
 import type { SessionClient } from '@lens-protocol/client';
 import { canCreateUsername, createAccountWithUsername, fetchAccount } from '@lens-protocol/client/actions';

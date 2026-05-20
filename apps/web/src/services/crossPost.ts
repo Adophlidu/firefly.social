@@ -1,7 +1,7 @@
 import { SORTED_SOCIAL_SOURCES, SUPPORTED_FRAME_SOURCES } from '@dimensiondev/constants/computed';
 import type { SocialSource } from '@dimensiondev/enums';
 import { NODE_ENV } from '@dimensiondev/enums';
-import { envs } from '@dimensiondev/envs';
+import { envs } from '@dimensiondev/envs/web';
 import { t } from '@lingui/core/macro';
 import { produce } from 'immer';
 import { compact, difference, first } from 'lodash-es';

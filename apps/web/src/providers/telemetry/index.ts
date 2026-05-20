@@ -1,5 +1,5 @@
 import { STATUS } from '@dimensiondev/enums';
-import { envs } from '@dimensiondev/envs';
+import { envs } from '@dimensiondev/envs/web';
 import { NotImplementedError, runInSafeAsync } from '@dimensiondev/utils';
 import { sendGAEvent } from '@next/third-parties/google';
 import { isHex } from 'viem';

@@ -1,5 +1,5 @@
 import type { NODE_ENV } from '@dimensiondev/enums';
-import { envs } from '@dimensiondev/envs';
+import { envs } from '@dimensiondev/envs/web';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { Trans } from '@lingui/react/macro';
 import { omit } from 'lodash-es';

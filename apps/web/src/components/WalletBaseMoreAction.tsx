@@ -2,7 +2,7 @@
 
 import MoreIcon from '@dimensiondev/assets/more.svg';
 import { Source, STATUS } from '@dimensiondev/enums';
-import { envs } from '@dimensiondev/envs';
+import { envs } from '@dimensiondev/envs/web';
 import { formatAddress, isValidAddressEthereum } from '@dimensiondev/web3/utils';
 import { MenuItem } from '@headlessui/react';
 import { t } from '@lingui/core/macro';

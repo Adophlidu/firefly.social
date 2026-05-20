@@ -1,5 +1,5 @@
 import { EXCEPTION_TRACKER_URL } from '@dimensiondev/constants/static';
-import { envs } from '@dimensiondev/envs';
+import { envs } from '@dimensiondev/envs/web';
 import { isExceptionTrackerEnabled } from '@dimensiondev/exception-tracker';
 import { compose } from '@dimensiondev/utils';
 import type { NextRequest } from 'next/server.js';

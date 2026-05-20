@@ -1,4 +1,4 @@
-import { envs } from '@dimensiondev/envs';
+import { envs } from '@dimensiondev/envs/web';
 import { bom, delay } from '@dimensiondev/utils';
 import { once } from 'lodash-es';
 

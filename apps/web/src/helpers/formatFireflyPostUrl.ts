@@ -1,5 +1,5 @@
 import type { SocialSource } from '@dimensiondev/enums';
-import { envs } from '@dimensiondev/envs';
+import { envs } from '@dimensiondev/envs/web';
 import urlcat from 'urlcat';
 
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';

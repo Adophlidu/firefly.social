@@ -1,6 +1,6 @@
+import { env } from '@dimensiondev/envs/wallet';
 import urlcat from 'urlcat';
 
-import { env } from '@/constants/env.js';
 import type { CoinbaseAsset, CoinbaseBuyerToken, CoinbaseNetwork } from '@/providers/types/PrivyAuth.js';
 
 const COINBASE_ASSET_ID: Record<CoinbaseAsset, string> = {

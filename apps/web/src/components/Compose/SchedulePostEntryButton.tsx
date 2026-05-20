@@ -3,7 +3,7 @@
 import ScheduleIcon from '@dimensiondev/assets/schedule.svg';
 import { ENABLED_SCHEDULE_POST_SOURCES } from '@dimensiondev/constants/computed';
 import { STATUS } from '@dimensiondev/enums';
-import { envs } from '@dimensiondev/envs';
+import { envs } from '@dimensiondev/envs/web';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import dayjs from 'dayjs';

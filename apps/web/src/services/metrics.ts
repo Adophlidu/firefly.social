@@ -1,6 +1,6 @@
 import { SEVEN_DAYS } from '@dimensiondev/constants/static';
 import { Source, SourceInURL } from '@dimensiondev/enums';
-import { envs } from '@dimensiondev/envs';
+import { envs } from '@dimensiondev/envs/web';
 import { parseJson, runInSafeAsync, safeUnreachable } from '@dimensiondev/utils';
 import { ensureHexPrefix } from '@dimensiondev/web3/utils';
 import { t } from '@lingui/core/macro';

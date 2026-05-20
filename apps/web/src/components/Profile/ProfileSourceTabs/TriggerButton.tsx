@@ -1,5 +1,5 @@
 import { Source, STATUS } from '@dimensiondev/enums';
-import { envs } from '@dimensiondev/envs';
+import { envs } from '@dimensiondev/envs/web';
 import { classNames } from '@dimensiondev/utils';
 import { MenuButton } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';

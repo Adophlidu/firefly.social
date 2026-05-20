@@ -1,7 +1,7 @@
 import { SUPPORTED_ANONYMOUS_POST_SOURCES } from '@dimensiondev/constants/computed';
 import type { SocialSource } from '@dimensiondev/enums';
 import { Source, STATUS } from '@dimensiondev/enums';
-import { envs } from '@dimensiondev/envs';
+import { envs } from '@dimensiondev/envs/web';
 import { useQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 

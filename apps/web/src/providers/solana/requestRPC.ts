@@ -1,5 +1,5 @@
 import { STATUS } from '@dimensiondev/enums';
-import { envs } from '@dimensiondev/envs';
+import { envs } from '@dimensiondev/envs/web';
 import { getSolanaRPCUrl } from '@dimensiondev/web3/utils';
 
 import { RPC_Error } from '@/constants/error.js';

@@ -1,6 +1,6 @@
+import { env } from '@dimensiondev/envs/wallet';
 import urlcat from 'urlcat';
 
-import { env } from '@/constants/env.js';
 import { resolvePrivyResponse } from '@/helpers/resolvePrivyResponse.js';
 import { Fetch } from '@/lib/Fetch.js';
 import type { CoinbaseAsset, CoinbaseBuyerToken, CoinbaseNetwork, PrivyResponse } from '@/providers/types/PrivyAuth.js';
