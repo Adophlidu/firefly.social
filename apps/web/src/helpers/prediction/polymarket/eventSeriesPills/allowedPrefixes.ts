@@ -29,10 +29,6 @@ export const HOURLY_UP_OR_DOWN_PREFIXES = [
 /** Polymarket `ALLOWED_PREFIXES` — prefixes eligible for live pill indicator. */
 export const ALLOWED_PREFIXES = [
     ...HOURLY_UP_OR_DOWN_PREFIXES,
-    'dogecoin-up-or-down',
-    'dogecoin-updown',
-    'doge-up-or-down',
-    'doge-updown',
     'hyperliquid-up-or-down',
     'fartcoin-up-or-down',
     'wti-up-or-down',

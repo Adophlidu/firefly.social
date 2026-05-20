@@ -9,7 +9,7 @@ export function toSeriesEventForPills(event: BetsEventDataForUI): SeriesEventFor
         startDate: event.startDate,
         startTime: event.startTime,
         closed: event.closed ?? event.status === 'ended',
-        markets: event.markets.length ? [{ eventStartTime: event.startTime }] : [{ eventStartTime: event.startTime }],
+        markets: [{ eventStartTime: event.startTime }],
     };
 }
 

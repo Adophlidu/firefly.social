@@ -1,5 +1,3 @@
-import urlcat from 'urlcat';
-
 import { fetchJson } from '@/helpers/fetchJson.js';
 import type { PastResultsRequest } from '@/helpers/prediction/polymarket/eventSeriesPills/buildPastResultsParams.js';
 import type { PastResultsData } from '@/helpers/prediction/polymarket/eventSeriesPills/types.js';
@@ -46,7 +44,7 @@ export async function getPolymarketPastResults(request: PastResultsRequest): Pro
 
     try {
         if (queryString.toString().length <= MAX_GET_QUERY_LENGTH) {
-            const url = urlcat('/api/polymarket/past-results', Object.fromEntries(queryString.entries()));
+            const url = `/api/polymarket/past-results?${queryString.toString()}`;
             const response = await fetchJson<ResponseJson<PastResultsData>>(url);
             return resolveResponseData(response) ?? null;
         }
