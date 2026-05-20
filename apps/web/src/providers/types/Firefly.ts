@@ -1749,11 +1749,6 @@ export type FollowingTraderCountResponse = Response<{ total: number }>;
 export type CollectionResponse = Response<EVM.Collection | null>;
 export type CollectionsResponse = Response<{ collections: EVM.Collection[]; cursor: string }>;
 
-export type NFTDetailsResponse = Response<{
-    nfts: NFTDetail[];
-    cursor: string;
-}>;
-
 export interface CollectionHolder {
     address: string;
     value: number;

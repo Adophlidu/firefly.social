@@ -1,8 +1,6 @@
 import { atom } from 'jotai';
 import { atomWithStorage, createJSONStorage } from 'jotai/utils';
 
-import { hashString } from '@/helpers/hashString.js';
-
 export interface WalletAddressCache {
     evmAddress: string;
     solanaAddress: string;
@@ -26,13 +24,6 @@ const walletAddressCacheStorageAtom = atomWithStorage<WalletAddressCacheStorage>
 
 // Store the current Privy token
 const privyTokenAtom = atom<string | null>(null);
-
-// Derive the hash from the current token
-export const jwtHashAtom = atom((get) => {
-    const token = get(privyTokenAtom);
-    if (!token) return null;
-    return hashString(token);
-});
 
 // Clear expired caches
 export const clearExpiredCachesAtom = atom(null, (get, set) => {
