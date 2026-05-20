@@ -25,13 +25,51 @@ describe('resolveCategorySlugContext', () => {
         expect(result?.depth).toBe(2);
     });
 
-    it('resolves a tertiary slug under secondary', () => {
+    it('resolves a tertiary slug under secondary when slug is unique', () => {
         const slugs = [slugItem('sports', [slugItem('basketball', [slugItem('nba', []), slugItem('cba', [])])])];
         const result = resolveCategorySlugContext(slugs, 'nba');
         expect(result?.primaryItem.slug).toBe('sports');
         expect(result?.secondaryItem?.slug).toBe('basketball');
         expect(result?.activeItem.slug).toBe('nba');
         expect(result?.depth).toBe(3);
+    });
+
+    it('prefers secondary when slug exists as both secondary chip and tertiary', () => {
+        const slugs = [
+            slugItem('sports', [
+                slugItem('nba', []),
+                slugItem('basketball', [slugItem('nba', []), slugItem('cba', [])]),
+            ]),
+        ];
+        const result = resolveCategorySlugContext(slugs, 'nba');
+        expect(result?.depth).toBe(2);
+        expect(result?.secondaryItem?.slug).toBe('nba');
+        expect(result?.activeItem.slug).toBe('nba');
+    });
+
+    it('resolves tertiary when parentSlug disambiguates duplicate slug', () => {
+        const slugs = [
+            slugItem('sports', [
+                slugItem('nba', []),
+                slugItem('basketball', [slugItem('nba', []), slugItem('cba', [])]),
+            ]),
+        ];
+        const result = resolveCategorySlugContext(slugs, 'nba', { parentSlug: 'basketball' });
+        expect(result?.depth).toBe(3);
+        expect(result?.secondaryItem?.slug).toBe('basketball');
+        expect(result?.activeItem.slug).toBe('nba');
+    });
+
+    it('resolves tertiary-only slug with parentSlug', () => {
+        const slugs = [slugItem('sports', [slugItem('basketball', [slugItem('nba', [])])])];
+        const result = resolveCategorySlugContext(slugs, 'nba', { parentSlug: 'basketball' });
+        expect(result?.depth).toBe(3);
+        expect(result?.secondaryItem?.slug).toBe('basketball');
+    });
+
+    it('returns null when parentSlug does not match a tertiary path', () => {
+        const slugs = [slugItem('sports', [slugItem('nba', []), slugItem('basketball', [slugItem('nba', [])])])];
+        expect(resolveCategorySlugContext(slugs, 'nba', { parentSlug: 'invalid' })).toBeNull();
     });
 
     it('returns null when slug is unknown', () => {

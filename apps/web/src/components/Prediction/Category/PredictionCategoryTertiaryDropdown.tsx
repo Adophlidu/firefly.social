@@ -9,6 +9,7 @@ import { Link } from '@/components/Link.js';
 import { secondaryChipClassName } from '@/components/Prediction/Category/PredictionCategorySecondaryChip.js';
 import { PredictionCategorySlugIcon } from '@/components/Prediction/Category/PredictionCategorySlugIcon.js';
 import { buildPredictionCategoryHref } from '@/helpers/prediction/category/buildPredictionCategoryHref.js';
+import { PREDICTION_CATEGORY_SCROLL_KEY_ATTR } from '@/helpers/prediction/category/getCategoryScrollKey.js';
 import type { CategorySlugContext } from '@/helpers/prediction/category/resolveCategorySlugContext.js';
 import type { PolymarketEventSlugListData } from '@/providers/types/Firefly.js';
 
@@ -26,7 +27,7 @@ export const PredictionCategoryTertiaryDropdown = memo<Props>(function Predictio
     const isOpenBySelection = context.depth === 3 && isSecondaryActive;
 
     return (
-        <Popover as="div" className="relative shrink-0">
+        <Popover as="div" className="relative shrink-0" {...{ [PREDICTION_CATEGORY_SCROLL_KEY_ATTR]: item.slug }}>
             {({ open }) => (
                 <>
                     <PopoverButton
@@ -60,7 +61,7 @@ export const PredictionCategoryTertiaryDropdown = memo<Props>(function Predictio
                                     return (
                                         <Link
                                             key={tertiary.slug}
-                                            href={buildPredictionCategoryHref(tertiary)}
+                                            href={buildPredictionCategoryHref(tertiary, item)}
                                             className={classNames(
                                                 'hover:bg-lightBg flex items-center gap-2 rounded-xl p-2 text-sm font-medium transition-colors',
                                                 isActive ? 'bg-highlight/10 text-highlight' : 'text-main',

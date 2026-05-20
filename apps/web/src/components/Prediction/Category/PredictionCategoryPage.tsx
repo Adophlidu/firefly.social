@@ -1,8 +1,8 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { parseAsStringEnum, useQueryState } from 'nuqs';
-import { Suspense, useCallback, useMemo } from 'react';
+import { parseAsString, parseAsStringEnum, useQueryState } from 'nuqs';
+import { Suspense, useCallback, useEffect, useMemo } from 'react';
 
 import { Loading } from '@/components/Loading.js';
 import { NotFound } from '@/components/NotFound.js';
@@ -13,13 +13,17 @@ import { PredictionCategoryPropsList } from '@/components/Prediction/Category/Pr
 import { PredictionCategorySecondaryNav } from '@/components/Prediction/Category/PredictionCategorySecondaryNav.js';
 import { PredictionCategoryToolbar } from '@/components/Prediction/Category/PredictionCategoryToolbar.js';
 import { STALE_TIMES } from '@/constants/query.js';
+import { useRouter } from '@/esm/navigation.js';
+import { buildPredictionCategoryHref } from '@/helpers/prediction/category/buildPredictionCategoryHref.js';
 import {
     PREDICTION_CATEGORY_GAMES_TAB,
     PREDICTION_CATEGORY_PROPS_TAB,
     type PredictionCategoryTab,
 } from '@/helpers/prediction/category/constants.js';
 import { getCategoryHeaderLabel } from '@/helpers/prediction/category/formatPolymarketSportsEventForUI.js';
+import { getDefaultSecondaryCategoryItem } from '@/helpers/prediction/category/getDefaultSecondaryCategoryItem.js';
 import { isSportsLiveCategoryContext } from '@/helpers/prediction/category/isSportsLiveCategoryContext.js';
+import type { CategoryRouteSearchParams } from '@/helpers/prediction/category/parseCategoryRouteParams.js';
 import { resolveCategorySlugContext } from '@/helpers/prediction/category/resolveCategorySlugContext.js';
 import { shouldShowGamesPropsTabs, shouldShowGamesTab } from '@/helpers/prediction/category/shouldShowGamesTab.js';
 import { getEventSlugList } from '@/providers/firefly/prediction/getEventSlugList.js';
@@ -29,16 +33,42 @@ interface Props {
 }
 
 export function PredictionCategoryPage({ slug }: Props) {
+    const router = useRouter();
     const { data: slugs, isPending } = useQuery({
         queryKey: ['prediction', 'category', 'slugs-list'],
         queryFn: () => getEventSlugList(),
         staleTime: STALE_TIMES.INFINITY,
     });
 
+    const [parentSlug] = useQueryState('parentSlug', parseAsString);
+    const [parentTagType] = useQueryState('parentTagType', parseAsString);
+
+    const routeParams = useMemo<CategoryRouteSearchParams>(
+        () => ({
+            parentSlug,
+            parentTagType,
+        }),
+        [parentSlug, parentTagType],
+    );
+
     const context = useMemo(() => {
         if (!slugs) return null;
-        return resolveCategorySlugContext(slugs, slug);
-    }, [slugs, slug]);
+        return resolveCategorySlugContext(slugs, slug, routeParams);
+    }, [slugs, slug, routeParams]);
+
+    const shouldRedirectToDefaultSecondary = useMemo(() => {
+        if (context?.depth !== 1) return false;
+        return !!getDefaultSecondaryCategoryItem(context.primaryItem);
+    }, [context]);
+
+    useEffect(() => {
+        if (!shouldRedirectToDefaultSecondary || !context) return;
+
+        const defaultSecondary = getDefaultSecondaryCategoryItem(context.primaryItem);
+        if (!defaultSecondary) return;
+
+        router.replace(buildPredictionCategoryHref(defaultSecondary));
+    }, [context, router, shouldRedirectToDefaultSecondary]);
 
     const showGamesList = shouldShowGamesTab(context?.activeItem);
     const showGamesPropsTabs = context ? shouldShowGamesPropsTabs(context) : false;
@@ -65,7 +95,7 @@ export function PredictionCategoryPage({ slug }: Props) {
         [setTab],
     );
 
-    if (isPending) {
+    if (isPending || shouldRedirectToDefaultSecondary) {
         return (
             <div className="flex flex-col">
                 <PredictionCategoryToolbar />

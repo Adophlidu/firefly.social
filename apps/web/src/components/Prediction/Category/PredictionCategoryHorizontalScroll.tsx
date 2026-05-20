@@ -4,8 +4,9 @@ import ArrowLeftIcon from '@dimensiondev/assets/arrow-left.svg';
 import ArrowRightIcon from '@dimensiondev/assets/arrow-right.svg';
 import { classNames } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
-import { memo, type PropsWithChildren, useCallback, useEffect, useRef, useState } from 'react';
+import { memo, type PropsWithChildren, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 
+import { PREDICTION_CATEGORY_SCROLL_KEY_ATTR } from '@/helpers/prediction/category/getCategoryScrollKey.js';
 import { useThrottledCallback } from '@/hooks/useThrottledCallback.js';
 
 enum ScrollDirection {
@@ -13,13 +14,36 @@ enum ScrollDirection {
     Right = 'right',
 }
 
+const SCROLL_CENTER_MAX_ATTEMPTS = 4;
+
+function getScrollLeftToCenter(container: HTMLElement, active: HTMLElement): number {
+    const targetLeft = active.offsetLeft - (container.clientWidth - active.clientWidth) / 2;
+    const maxScroll = Math.max(0, container.scrollWidth - container.clientWidth);
+    return Math.max(0, Math.min(targetLeft, maxScroll));
+}
+
+function scrollActiveItemIntoCenter(container: HTMLElement, scrollActiveKey: string): boolean {
+    const selector = `[${PREDICTION_CATEGORY_SCROLL_KEY_ATTR}="${CSS.escape(scrollActiveKey)}"]`;
+    const active = container.querySelector<HTMLElement>(selector);
+    if (!active) return false;
+
+    const targetLeft = getScrollLeftToCenter(container, active);
+    if (Math.abs(container.scrollLeft - targetLeft) <= 1) return true;
+
+    container.scrollTo({ left: targetLeft, behavior: 'instant' });
+    return true;
+}
+
 interface Props extends PropsWithChildren {
     className?: string;
+    /** When set, the matching child (`data-prediction-category-scroll-key`) scrolls to the horizontal center. */
+    scrollActiveKey?: string | null;
 }
 
 export const PredictionCategoryHorizontalScroll = memo<Props>(function PredictionCategoryHorizontalScroll({
     children,
     className,
+    scrollActiveKey,
 }) {
     const [hiddenLeft, setHiddenLeft] = useState(true);
     const [hiddenRight, setHiddenRight] = useState(true);
@@ -52,6 +76,34 @@ export const PredictionCategoryHorizontalScroll = memo<Props>(function Predictio
         if (!element) return;
         handleButtons(element);
     }, [children, handleButtons]);
+
+    useLayoutEffect(() => {
+        if (!scrollActiveKey) return;
+
+        const container = scrollRef.current;
+        if (!container) return;
+
+        let cancelled = false;
+        let attempts = 0;
+
+        const centerActiveItem = () => {
+            if (cancelled || attempts >= SCROLL_CENTER_MAX_ATTEMPTS) return;
+
+            attempts += 1;
+            if (scrollActiveItemIntoCenter(container, scrollActiveKey)) {
+                handleButtons(container);
+                return;
+            }
+
+            requestAnimationFrame(centerActiveItem);
+        };
+
+        centerActiveItem();
+
+        return () => {
+            cancelled = true;
+        };
+    }, [scrollActiveKey, handleButtons]);
 
     const onScrollTo = useCallback((direction: ScrollDirection) => {
         const element = scrollRef.current;

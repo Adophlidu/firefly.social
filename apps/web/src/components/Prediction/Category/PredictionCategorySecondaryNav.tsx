@@ -10,6 +10,10 @@ import { PredictionCategorySlugIcon } from '@/components/Prediction/Category/Pre
 import { PredictionCategoryTertiaryDropdown } from '@/components/Prediction/Category/PredictionCategoryTertiaryDropdown.js';
 import { PredictionCategoryVerticalDivider } from '@/components/Prediction/Category/PredictionCategoryVerticalDivider.js';
 import { buildPredictionCategoryHref } from '@/helpers/prediction/category/buildPredictionCategoryHref.js';
+import {
+    getSecondaryCategoryScrollKey,
+    PREDICTION_CATEGORY_SCROLL_KEY_ATTR,
+} from '@/helpers/prediction/category/getCategoryScrollKey.js';
 import { partitionSecondaryCategorySlugs } from '@/helpers/prediction/category/partitionCategorySlugs.js';
 import type { CategorySlugContext } from '@/helpers/prediction/category/resolveCategorySlugContext.js';
 import { hasTertiaryCategories } from '@/helpers/prediction/category/resolveCategorySlugIcon.js';
@@ -31,7 +35,11 @@ function isSecondaryChipActive(context: CategorySlugContext, slug: string): bool
 
 function SecondaryChipLink({ item, isActive }: { item: PolymarketEventSlugListData; isActive: boolean }) {
     return (
-        <Link href={buildPredictionCategoryHref(item)} className={secondaryChipClassName(isActive)}>
+        <Link
+            href={buildPredictionCategoryHref(item)}
+            {...{ [PREDICTION_CATEGORY_SCROLL_KEY_ATTR]: item.slug }}
+            className={secondaryChipClassName(isActive)}
+        >
             <PredictionCategorySlugIcon item={item} />
             <span className="whitespace-nowrap">{item.label}</span>
         </Link>
@@ -53,9 +61,13 @@ export const PredictionCategorySecondaryNav = memo<Props>(function PredictionCat
     if (!allItems.length) return null;
 
     const showDivider = leading.length > 0 && main.length > 0;
+    const scrollActiveKey = getSecondaryCategoryScrollKey(context);
 
     return (
-        <PredictionCategoryHorizontalScroll className="no-scrollbar flex items-center gap-2 overflow-x-auto px-4">
+        <PredictionCategoryHorizontalScroll
+            scrollActiveKey={scrollActiveKey}
+            className="no-scrollbar flex items-center gap-2 overflow-x-auto px-4"
+        >
             {leading.map((item) => renderSecondaryItem(item, context))}
             {showDivider ? <PredictionCategoryVerticalDivider /> : null}
             {main.map((item) => renderSecondaryItem(item, context))}
