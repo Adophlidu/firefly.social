@@ -70,6 +70,9 @@ msgstr "{txStatus, select, success {成功} fail {失败} pending {待处理} ot
 msgid "Failed to add to Bookmarks. {0}"
 msgstr "添加收藏失败 {0}"
 
+msgid "Other"
+msgstr ""
+
 msgid "Template"
 msgstr "模板"
 
@@ -3061,6 +3064,9 @@ msgstr "前往实时市场"
 
 msgid "Failed to like prediction."
 msgstr "点赞失败。"
+
+msgid "Failed to load games"
+msgstr ""
 
 msgid "No financial crime involved."
 msgstr "未识别到金融犯罪。"

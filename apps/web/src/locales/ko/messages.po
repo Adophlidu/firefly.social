@@ -70,6 +70,9 @@ msgstr ""
 msgid "Failed to add to Bookmarks. {0}"
 msgstr ""
 
+msgid "Other"
+msgstr ""
+
 msgid "Template"
 msgstr ""
 
@@ -3060,6 +3063,9 @@ msgid "Go to live market"
 msgstr ""
 
 msgid "Failed to like prediction."
+msgstr ""
+
+msgid "Failed to load games"
 msgstr ""
 
 msgid "No financial crime involved."

@@ -78,7 +78,15 @@ export const PredictionCategoryGamesList = memo<Props>(function PredictionCatego
         );
     }
 
-    if (isError || !hasVisibleContent) {
+    if (isError) {
+        return (
+            <p className="text-second px-4 py-12 text-center text-sm">
+                <Trans>Failed to load games</Trans>
+            </p>
+        );
+    }
+
+    if (!hasVisibleContent) {
         return (
             <p className="text-second px-4 py-12 text-center text-sm">
                 <Trans>No games found</Trans>

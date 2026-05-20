@@ -1,3 +1,4 @@
+import { t } from '@lingui/core/macro';
 import dayjs from 'dayjs';
 
 import type {
@@ -24,7 +25,7 @@ function resolveLeagueSectionTitle(event: PolymarketSportsEvent): string {
     const leagueId = event.leagueId?.trim();
     if (leagueId) return leagueId.toUpperCase();
 
-    return 'Other';
+    return t`Other`;
 }
 
 export function groupLiveSportsEventsByLeague(events: PolymarketSportsEvent[]): SportsEventDisplaySection[] {
@@ -52,7 +53,7 @@ export function groupSportsEventsForDisplay(response: PolymarketSportsListRespon
     if (response.live.length > 0) {
         sections.push({
             id: 'live',
-            title: 'Live',
+            title: t`Live`,
             events: response.live,
         });
     }
@@ -60,7 +61,7 @@ export function groupSportsEventsForDisplay(response: PolymarketSportsListRespon
     if (response.today.length > 0) {
         sections.push({
             id: 'today',
-            title: 'Today',
+            title: t`Today`,
             events: response.today,
         });
     }
@@ -68,7 +69,7 @@ export function groupSportsEventsForDisplay(response: PolymarketSportsListRespon
     if (response.tomorrow.length > 0) {
         sections.push({
             id: 'tomorrow',
-            title: 'Tomorrow',
+            title: t`Tomorrow`,
             events: response.tomorrow,
         });
     }

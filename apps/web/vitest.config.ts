@@ -17,6 +17,8 @@ export default defineConfig({
             '@': resolve(__dirname, 'src'),
             // mdast is types-only, point to stub file for runtime
             mdast: resolve(__dirname, 'src/stubs/mdast.ts'),
+            // @lingui/core/macro requires SWC/Babel transform; stub for tests
+            '@lingui/core/macro': resolve(__dirname, 'src/stubs/lingui-core-macro.ts'),
         },
     },
 });
