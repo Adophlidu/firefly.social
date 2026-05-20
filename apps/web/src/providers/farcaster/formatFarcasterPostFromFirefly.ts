@@ -1,8 +1,8 @@
+import { FIREFLY_S3_URL } from '@dimensiondev/constants/static';
 import { PostType, Source } from '@dimensiondev/enums';
 import { isSameUrl, parseUrl } from '@dimensiondev/utils';
 import { compact, last, uniqWith } from 'lodash-es';
 
-import { FIREFLY_S3_URL } from '@/constants/static.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { getEmbedUrls } from '@/helpers/getEmbedUrls.js';
 import { isIpfsCID } from '@/helpers/isIpfsCID.js';

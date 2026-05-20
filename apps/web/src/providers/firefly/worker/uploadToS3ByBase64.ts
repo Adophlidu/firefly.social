@@ -1,6 +1,6 @@
+import { FIREFLY_WORKER_HOST } from '@dimensiondev/constants/static';
 import urlcat from 'urlcat';
 
-import { FIREFLY_WORKER_HOST } from '@/constants/static.js';
 import { blobToBase64 } from '@/helpers/blobToBase64.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';

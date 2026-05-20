@@ -1,6 +1,5 @@
+import { FIREFLY_NITTER_URL } from '@dimensiondev/constants/static';
 import urlcat from 'urlcat';
-
-import { FIREFLY_NITTER_URL } from '@/constants/static.js';
 
 function removePrefix(s: string, prefix: string): string {
     if (s.startsWith(prefix) && prefix.length > 0) {

@@ -1,12 +1,12 @@
 'use client';
 
 import { IS_PRODUCTION } from '@dimensiondev/constants';
+import { SITE_URL_OFFICIAL } from '@dimensiondev/constants/static';
 import { envs } from '@dimensiondev/envs';
 import { Trans } from '@lingui/react/macro';
 import { compact } from 'lodash-es';
 
 import { Link } from '@/components/Link.js';
-import { SITE_URL_OFFICIAL } from '@/constants/static.js';
 
 export function LinkCloud() {
     const links = [

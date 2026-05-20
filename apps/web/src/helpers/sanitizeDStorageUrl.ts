@@ -4,7 +4,7 @@ import {
     HEY_IPFS_GW_URL,
     IMAGE_KIT_COVER,
     IPFS_GATEWAY,
-} from '@/constants/static.js';
+} from '@dimensiondev/constants/static';
 
 export function sanitizeDStorageUrl(hash?: string, gateway?: string, resize = true) {
     if (!hash) return '';

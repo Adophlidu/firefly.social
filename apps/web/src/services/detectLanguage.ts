@@ -1,8 +1,8 @@
 /* cspell:disable */
 
+import { MIN_CHAR_LENGTH_TO_TRANSLATE } from '@dimensiondev/constants/static';
 import { franc } from 'franc-min';
 
-import { MIN_CHAR_LENGTH_TO_TRANSLATE } from '@/constants/static.js';
 import { Language } from '@/types/language.js';
 
 function getLanguageFromCode(code: string): Language | null {

@@ -1,7 +1,7 @@
+import { TWITTER_UPLOAD_MEDIA_URL } from '@dimensiondev/constants/static';
 import { compose } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
-import { TWITTER_UPLOAD_MEDIA_URL } from '@/constants/static.js';
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { getSearchParamsWithZodSchema } from '@/helpers/getSearchParamsWithZodSchema.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';

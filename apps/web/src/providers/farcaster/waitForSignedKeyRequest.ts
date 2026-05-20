@@ -1,7 +1,7 @@
+import { WARPCAST_ROOT_URL_V2 } from '@dimensiondev/constants/static';
 import { AbortError, delay } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
-import { WARPCAST_ROOT_URL_V2 } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { logger } from '@/libs/Logger.js';
 import type { SignedKeyRequestResponse } from '@/providers/types/Warpcast.js';

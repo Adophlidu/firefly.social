@@ -1,6 +1,7 @@
 'use client';
 
 import { web3 } from '@coral-xyz/anchor';
+import { PRIVY_CONNECTOR_ID } from '@dimensiondev/constants/static';
 import type { Provider as CoreProvider, RequestArguments } from '@reown/appkit';
 import type { AnyTransaction, Provider, TransactionOrVersionedTransaction } from '@reown/appkit-adapter-solana';
 import {
@@ -21,7 +22,6 @@ import bs58 from 'bs58';
 import { compact, first } from 'lodash-es';
 
 import { ProviderEventEmitter } from '@/connectors/ProviderEventEmitter.js';
-import { PRIVY_CONNECTOR_ID } from '@/constants/static.js';
 import { withPinCodeCheck } from '@/helpers/withPinCodeCheck.js';
 import { logger } from '@/lib/Logger.js';
 import { solanaWalletAddressAtom } from '@/store/embeddedWallets.js';

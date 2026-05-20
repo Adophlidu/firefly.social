@@ -1,4 +1,5 @@
 import { EMPTY_LIST, IS_DEVELOPMENT } from '@dimensiondev/constants';
+import { EIP6963_PROVIDER_DESCRIPTION } from '@dimensiondev/constants/static';
 import { classNames, delay } from '@dimensiondev/utils';
 import { switchEthereumChain } from '@dimensiondev/web3/actions';
 import { EthereumMethodType } from '@dimensiondev/web3/enums';
@@ -12,7 +13,6 @@ import { useChainId, useConnection } from 'wagmi';
 import { frameSwapToken } from '@/components/Frame/V2/frameSwapToken.js';
 import { Image } from '@/components/Image.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
-import { EIP6963_PROVIDER_DESCRIPTION } from '@/constants/static.js';
 import { createEIP1193Provider } from '@/helpers/createEIP1193Provider.js';
 import { eip5792Polyfill } from '@/helpers/eip5792Polyfill.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';

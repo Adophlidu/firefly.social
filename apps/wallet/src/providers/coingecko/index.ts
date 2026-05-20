@@ -1,3 +1,4 @@
+import { COINGECKO_ROOT_URL } from '@dimensiondev/constants/static';
 import { isValidChainIdSolana, solana } from '@dimensiondev/web3/chains';
 import {
     isSameAddress,
@@ -25,7 +26,6 @@ import {
     zkSync,
 } from 'viem/chains';
 
-import { COINGECKO_ROOT_URL } from '@/constants/static.js';
 import { Fetch } from '@/lib/Fetch.js';
 import type { Price } from '@/providers/coingecko/types.js';
 

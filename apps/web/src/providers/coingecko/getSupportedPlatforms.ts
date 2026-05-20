@@ -1,4 +1,5 @@
-import { COINGECKO_ROOT_URL } from '@/constants/static.js';
+import { COINGECKO_ROOT_URL } from '@dimensiondev/constants/static';
+
 import { fetchJson } from '@/helpers/fetchJson.js';
 import type { CoinGeckoPlatform } from '@/providers/types/CoinGecko.js';
 

@@ -1,9 +1,9 @@
+import { NOT_DEPEND_SECRET } from '@dimensiondev/constants/static';
 import { SessionType, Source } from '@dimensiondev/enums';
 import { NotAllowedError, safeUnreachable, UnreachableError } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
 import { FireflyAlreadyBoundError, FireflyBindTimeoutError } from '@/constants/error.js';
-import { NOT_DEPEND_SECRET } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { getPdsServiceHostFromSession } from '@/providers/bsky/getPdsServiceUrlFromSession.js';

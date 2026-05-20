@@ -1,7 +1,7 @@
 import { defineConfig } from 'tsdown';
 
 export default defineConfig({
-    entry: ['src/index.ts', 'src/computed.ts'],
+    entry: ['src/runtime.ts', 'src/static.ts', 'src/computed.ts'],
     fixedExtension: false,
     dts: true,
     clean: true,

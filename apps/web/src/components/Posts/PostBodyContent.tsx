@@ -2,6 +2,7 @@
 
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { SUPPORTED_MULTIPLE_EMBED_SOURCES } from '@dimensiondev/constants/computed';
+import { MIN_CHAR_LENGTH_TO_TRANSLATE, RP_HASH_TAG } from '@dimensiondev/constants/static';
 import { PageRoute, Source, STATUS } from '@dimensiondev/enums';
 import { envs } from '@dimensiondev/envs';
 import { classNames } from '@dimensiondev/utils';
@@ -28,7 +29,6 @@ import { RedPacketCard } from '@/components/RedPacket/RedPacketCard.js';
 import { TruthSocialPostMarkup } from '@/components/TrumpTruthSocial/TruthSocialPostMarkup.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/browser.js';
-import { MIN_CHAR_LENGTH_TO_TRANSLATE, RP_HASH_TAG } from '@/constants/static.js';
 import { usePathname, useRouter } from '@/esm/navigation.js';
 import { getEncryptedPayloadFromText } from '@/helpers/getEncryptedPayloadFromText.js';
 import { getPollIdFromLink } from '@/helpers/getPollIdFromLink.js';

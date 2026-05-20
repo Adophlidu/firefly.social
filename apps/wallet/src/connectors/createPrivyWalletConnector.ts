@@ -1,8 +1,8 @@
+import { PRIVY_CONNECTOR_ID } from '@dimensiondev/constants/static';
 import { getAddress } from 'viem';
 import { createConnector } from 'wagmi';
 
 import { PrivyWalletProvider } from '@/connectors/PrivyWalletProvider.js';
-import { PRIVY_CONNECTOR_ID } from '@/constants/static.js';
 import { logger } from '@/lib/Logger.js';
 import { chainIdAtom } from '@/store/embeddedWallets.js';
 import { store } from '@/store/index.js';

@@ -1,9 +1,9 @@
+import { FIREFLY_WORKER_HOST } from '@dimensiondev/constants/static';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import { uniq } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { FIREFLY_WORKER_HOST } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import type { GetClassifyPostLinksResponse } from '@/providers/firefly/worker/getClassifyPostLinks.js';
 

@@ -1,9 +1,9 @@
+import { SEVEN_DAYS } from '@dimensiondev/constants/static';
 import { SessionType, Source } from '@dimensiondev/enums';
 import { bom, parseJson } from '@dimensiondev/utils';
 import type { EnvironmentConfig, IStorageProvider } from '@lens-protocol/client';
 import z from 'zod';
 
-import { SEVEN_DAYS } from '@/constants/static.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { updateCurrentSessionToStorage } from '@/helpers/updateCurrentSessionToStorage.js';
 import { resolveLensSessionKey } from '@/providers/lens/resolveLensSessionKey.js';

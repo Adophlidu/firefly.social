@@ -1,9 +1,9 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { POAP_CONTRACT_ADDRESS } from '@dimensiondev/constants/static';
 import { FireflyPlatform } from '@dimensiondev/enums';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import { gnosis } from 'viem/chains';
 
-import { POAP_CONTRACT_ADDRESS } from '@/constants/static.js';
 import { getFireflyBookmarksByIds } from '@/providers/firefly/endpoint/getFireflyBookmarkIds.js';
 import { getPOAPs } from '@/providers/firefly/nft/getPOAPs.js';
 

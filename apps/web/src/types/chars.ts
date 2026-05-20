@@ -1,6 +1,6 @@
+import type { RP_HASH_TAG } from '@dimensiondev/constants/static';
 import type { CharTag, SocialSource } from '@dimensiondev/enums';
 
-import type { RP_HASH_TAG } from '@/constants/static.js';
 import type { Profile } from '@/providers/types/Firefly.js';
 
 interface Segment {

@@ -1,12 +1,12 @@
 'use client';
 
+import { BET_PROFILE_FOLLOW_BUTTON_ID } from '@dimensiondev/constants/static';
 import type { PredictionPlatform } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { useEffect } from 'react';
 
 import { Comeback } from '@/components/Comeback.js';
 import { PredictionProfileFollowButton } from '@/components/Prediction/PredictionProfileFollowButton.js';
-import { BET_PROFILE_FOLLOW_BUTTON_ID } from '@/constants/static.js';
 import { usePredictionProfileData } from '@/hooks/prediction/usePredictionProfileData.js';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver.js';
 

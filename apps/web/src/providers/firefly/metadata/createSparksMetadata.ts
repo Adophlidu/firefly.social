@@ -1,7 +1,7 @@
+import { SITE_URL_OFFICIAL } from '@dimensiondev/constants/static';
 import type { Metadata } from 'next';
 import urlcat from 'urlcat';
 
-import { SITE_URL_OFFICIAL } from '@/constants/static.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getPublicS3Url } from '@/helpers/getPublicUrl.js';
 

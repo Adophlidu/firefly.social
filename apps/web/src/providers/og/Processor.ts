@@ -1,8 +1,8 @@
+import { FIREFLY_WORKER_HOST } from '@dimensiondev/constants/static';
 import { parseUrl } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
 import { MIRROR_HOSTNAME_REGEXP } from '@/constants/regexp.js';
-import { FIREFLY_WORKER_HOST } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { getMirrorPayload } from '@/providers/og/readers/payload.js';
 import type { LinkDigested, OpenGraph } from '@/types/og.js';

@@ -1,3 +1,4 @@
+import { BSKY_LOGIN_REQUIRED_FEEDS } from '@dimensiondev/constants/static';
 import {
     createIndicator,
     createNextIndicator,
@@ -6,7 +7,6 @@ import {
     type PageIndicator,
 } from '@dimensiondev/utils';
 
-import { BSKY_LOGIN_REQUIRED_FEEDS } from '@/constants/static.js';
 import { formatBskyChannel } from '@/providers/bsky/formatBskyChannel.js';
 import { resolveBskyResponseData } from '@/providers/bsky/resolveBskyResponseData.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';

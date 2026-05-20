@@ -1,10 +1,10 @@
+import { FIREFLY_WORKER_HOST } from '@dimensiondev/constants/static';
 import { STATUS } from '@dimensiondev/enums';
 import { envs } from '@dimensiondev/envs';
 import { parseUrl } from '@dimensiondev/utils';
 import { isValidDomainEthereum } from '@dimensiondev/web3/utils';
 import urlcat from 'urlcat';
 
-import { FIREFLY_WORKER_HOST } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { removeSharerParam } from '@/helpers/sharerUrl.js';
 import type { Post } from '@/providers/types/SocialMedia.js';

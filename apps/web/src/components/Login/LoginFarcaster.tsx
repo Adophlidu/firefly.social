@@ -1,5 +1,6 @@
 'use client';
 
+import { FARCASTER_REPLY_COUNTDOWN } from '@dimensiondev/constants/static';
 import { AsyncStatus, FarcasterSignType, FarcasterSignType as SignType, Source, STATUS } from '@dimensiondev/enums';
 import { envs } from '@dimensiondev/envs';
 import {
@@ -29,7 +30,6 @@ import {
     FireflyAlreadyBoundError,
     FireflyBindTimeoutError,
 } from '@/constants/error.js';
-import { FARCASTER_REPLY_COUNTDOWN } from '@/constants/static.js';
 import {
     enqueueForbiddenMessage,
     enqueueInfoMessage,

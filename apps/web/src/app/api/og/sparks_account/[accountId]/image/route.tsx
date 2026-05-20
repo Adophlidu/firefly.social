@@ -1,3 +1,4 @@
+import { CACHE_AGE_INDEFINITE_ON_DISK } from '@dimensiondev/constants/static';
 import { FansStatus, OgStatus } from '@dimensiondev/enums';
 import type { NextRequestContext } from '@dimensiondev/types';
 import { compose, runInSafeAsync } from '@dimensiondev/utils';
@@ -6,7 +7,6 @@ import type { NextRequest } from 'next/server.js';
 import { z } from 'zod';
 
 import { SparksAccountOgImage } from '@/app/api/og/sparks_account/[accountId]/image/SparksAccountOgImage.js';
-import { CACHE_AGE_INDEFINITE_ON_DISK } from '@/constants/static.js';
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
 import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
 import { getPublicS3Url } from '@/helpers/getPublicUrl.js';

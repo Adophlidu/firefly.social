@@ -1,5 +1,6 @@
 'use client';
 
+import { IMAGE_KIT_ATTACHMENT } from '@dimensiondev/constants/static';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { first } from 'lodash-es';
@@ -7,7 +8,6 @@ import { type HTMLProps, memo, useCallback } from 'react';
 
 import { ImageAsset } from '@/components/Posts/ImageAsset.js';
 import { RemoveButton } from '@/components/RemoveButton.js';
-import { IMAGE_KIT_ATTACHMENT } from '@/constants/static.js';
 import { formatImageUrl } from '@/helpers/formatImageUrl.js';
 import { resolveMediaObjectUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import { sanitizeDStorageUrl } from '@/helpers/sanitizeDStorageUrl.js';

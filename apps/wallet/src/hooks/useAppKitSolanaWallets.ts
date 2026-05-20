@@ -1,3 +1,4 @@
+import { PRIVY_CONNECTOR_ID } from '@dimensiondev/constants/static';
 import {
     CoreAssetUtil,
     CoreConnectionController,
@@ -6,8 +7,6 @@ import {
 } from '@reown/appkit';
 import type { Connection } from '@reown/appkit/react';
 import { useEffect, useMemo, useState } from 'react';
-
-import { PRIVY_CONNECTOR_ID } from '@/constants/static.js';
 
 export interface AppKitSolanaWallet {
     address: string;

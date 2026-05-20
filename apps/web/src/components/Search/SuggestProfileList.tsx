@@ -1,6 +1,7 @@
 'use client';
 
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { MAX_RECOMMEND_PROFILE_SIZE } from '@dimensiondev/constants/static';
 import { SearchType } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
@@ -10,7 +11,6 @@ import { Link } from '@/components/Link.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SearchableProfileItem } from '@/components/Search/SearchableProfileItem.js';
 import { STALE_TIMES } from '@/constants/query.js';
-import { MAX_RECOMMEND_PROFILE_SIZE } from '@/constants/static.js';
 import { toFireflyPlatformId } from '@/helpers/isSameProfile.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import { searchProfilesByKeyword } from '@/services/searchProfilesByKeyword.js';

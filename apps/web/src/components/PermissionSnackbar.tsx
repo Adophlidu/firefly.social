@@ -1,12 +1,12 @@
 'use client';
 
 import NotificationIcon from '@dimensiondev/assets/notification.svg';
+import { NOTIFICATION_PERMISSION_KEY } from '@dimensiondev/constants/static';
 import { Trans } from '@lingui/react/macro';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { CloseButton } from '@/components/IconButton.js';
 import { useSnackbar } from '@/components/Snackbar.js';
-import { NOTIFICATION_PERMISSION_KEY } from '@/constants/static.js';
 
 interface PermissionSnackbarProps {
     id: string;

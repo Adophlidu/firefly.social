@@ -1,6 +1,6 @@
+import { FIREFLY_WORKER_HOST } from '@dimensiondev/constants/static';
 import urlcat from 'urlcat';
 
-import { FIREFLY_WORKER_HOST } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { addSharerParam, getSharerParam, removeSharerParam } from '@/helpers/sharerUrl.js';
 import type { EVM } from '@/providers/nftscan/types.js';

@@ -1,6 +1,5 @@
+import { POLYMARKET_CLOB_API_ROOT_URL } from '@dimensiondev/constants/static';
 import { createFileRoute } from '@tanstack/react-router';
-
-import { POLYMARKET_CLOB_API_ROOT_URL } from '@/constants/static.js';
 
 function withCorsHeaders(headers: Headers) {
     headers.set('Access-Control-Allow-Origin', '*');

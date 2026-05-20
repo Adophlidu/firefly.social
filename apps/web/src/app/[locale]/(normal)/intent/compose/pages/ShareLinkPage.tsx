@@ -1,11 +1,11 @@
 'use client';
 
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { SITE_URL_OFFICIAL } from '@dimensiondev/constants/static';
 import { CharTag, FireflyPlatform } from '@dimensiondev/enums';
 import { compact } from 'lodash-es';
 import { useEffect, useRef } from 'react';
 
-import { SITE_URL_OFFICIAL } from '@/constants/static.js';
 import { useRouter } from '@/esm/navigation.js';
 import { formatSearchProfile } from '@/helpers/formatSearchProfile.js';
 import { getCurrentProfileAllFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';

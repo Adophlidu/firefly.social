@@ -1,8 +1,8 @@
+import { COINGECKO_ROOT_URL } from '@dimensiondev/constants/static';
 import type { PageIndicator } from '@dimensiondev/utils';
 import { plus } from '@dimensiondev/web3/numbers';
 import urlcat from 'urlcat';
 
-import { COINGECKO_ROOT_URL } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import type { TreasuryHoldings } from '@/providers/types/CoinGecko.js';
 

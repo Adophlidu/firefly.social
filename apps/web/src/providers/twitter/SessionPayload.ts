@@ -1,10 +1,9 @@
 /* cspell:disable */
 
+import { HIDDEN_SECRET } from '@dimensiondev/constants/static';
 import { KeyType } from '@dimensiondev/enums';
 import { envs } from '@dimensiondev/envs';
 import { kv } from '@vercel/kv';
-
-import { HIDDEN_SECRET } from '@/constants/static.js';
 
 export interface SessionPayload {
     clientId: string;

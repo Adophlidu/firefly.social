@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 
+import { CACHE_AGE_INDEFINITE_ON_DISK } from '@dimensiondev/constants/static';
 import { Source } from '@dimensiondev/enums';
 import type { NextRequestContext } from '@dimensiondev/types';
 import { compose } from '@dimensiondev/utils';
@@ -12,7 +13,6 @@ import type { HTMLProps } from 'react';
 import { z } from 'zod';
 
 import { ShrankPrice } from '@/components/ShrankPrice.js';
-import { CACHE_AGE_INDEFINITE_ON_DISK } from '@/constants/static.js';
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
 import { fetchImageAsBase64 } from '@/helpers/fetchAvatarAsBase64.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';

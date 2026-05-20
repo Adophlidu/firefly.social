@@ -1,3 +1,4 @@
+import { SNAPSHOT_IPFS_GATEWAY_URL } from '@dimensiondev/constants/static';
 import { classNames } from '@dimensiondev/utils';
 import { type ComponentType, memo } from 'react';
 import ReactMarkdown, { type Options } from 'react-markdown';
@@ -8,7 +9,6 @@ import { Code } from '@/components/Code.js';
 import { HashTagLink } from '@/components/Markup/plugins/HashTagLink.js';
 import { ImageAsset } from '@/components/Posts/ImageAsset.js';
 import { BIO_TWITTER_PROFILE_REGEX, MENTION_REGEX, SYMBOL_REGEX, URL_REGEX } from '@/constants/regexp.js';
-import { SNAPSHOT_IPFS_GATEWAY_URL } from '@/constants/static.js';
 import { sanitizeDStorageUrl } from '@/helpers/sanitizeDStorageUrl.js';
 import { trimify } from '@/helpers/trimify.js';
 import type { Pluggable } from '@/types/utility.js';

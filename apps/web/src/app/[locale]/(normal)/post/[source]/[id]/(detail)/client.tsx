@@ -1,6 +1,7 @@
 'use client';
 
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { MIN_POST_SIZE_PER_THREAD } from '@dimensiondev/constants/static';
 import type { SocialSource } from '@dimensiondev/enums';
 import { SearchType, Source } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
@@ -22,7 +23,6 @@ import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { ThreadBody } from '@/components/Posts/ThreadBody.js';
 import { Section } from '@/components/Semantic/Section.js';
 import { TweetUnavailableError } from '@/constants/error.js';
-import { MIN_POST_SIZE_PER_THREAD } from '@/constants/static.js';
 import { notFound } from '@/esm/navigation.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 

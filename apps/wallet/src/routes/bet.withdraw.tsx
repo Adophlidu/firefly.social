@@ -1,4 +1,5 @@
 import ArrowDownIcon from '@dimensiondev/assets/arrow-line-down.svg';
+import { BET_DEPOSIT_MIN_USD, PRIVY_CONNECTOR_ID } from '@dimensiondev/constants/static';
 import { SwapFromPage } from '@dimensiondev/enums';
 import { isSolanaChain } from '@dimensiondev/web3/chains';
 import { isGreaterThan, isLessThan } from '@dimensiondev/web3/numbers';
@@ -20,7 +21,6 @@ import { NavigationBar } from '@/components/NavigationBar.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
 import { Button } from '@/components/ui/button.js';
 import { useComeback } from '@/components/useComeback.js';
-import { BET_DEPOSIT_MIN_USD, PRIVY_CONNECTOR_ID } from '@/constants/static.js';
 import { formatTokenItemAmount } from '@/helpers/formatTokenItemAmount.js';
 import { optimisticSubtractBalance } from '@/helpers/polymarketBalanceCache.js';
 import { toastLoading } from '@/helpers/toastLoading.js';

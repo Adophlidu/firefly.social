@@ -1,9 +1,9 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { MAX_SEARCH_RECORD_SIZE } from '@dimensiondev/constants/static';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
-import { MAX_SEARCH_RECORD_SIZE } from '@/constants/static.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 
 interface SearchHistoryState {

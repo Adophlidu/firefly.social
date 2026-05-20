@@ -1,3 +1,4 @@
+import { VITALIK_ADDRESS } from '@dimensiondev/constants/static';
 import { ArticlePlatform } from '@dimensiondev/enums';
 import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@dimensiondev/utils';
 import { isZero } from '@dimensiondev/web3/numbers';
@@ -5,7 +6,6 @@ import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
-import { VITALIK_ADDRESS } from '@/constants/static.js';
 import { formatArticleFromFirefly } from '@/helpers/formatArticleFromFirefly.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';

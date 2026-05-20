@@ -2,6 +2,7 @@
 
 import RedPacketIcon from '@dimensiondev/assets/red-packet.svg';
 import { ENABLED_RP_SOURCES, SORTED_SOCIAL_SOURCES } from '@dimensiondev/constants/computed';
+import { RP_HASH_TAG } from '@dimensiondev/constants/static';
 import { CharTag, FileMimeType } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
@@ -14,7 +15,7 @@ import { useChainId, useSwitchChain } from 'wagmi';
 
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { RP_HASH_TAG, SITE_URL } from '@/constants/static.js';
+import { SITE_URL } from '@/constants/static.js';
 import { fetchImageAsPNG } from '@/helpers/fetchImageAsPNG.js';
 import { getCompositePost } from '@/helpers/getCompositePost.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';

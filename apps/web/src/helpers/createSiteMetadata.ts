@@ -1,8 +1,9 @@
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL_OFFICIAL } from '@dimensiondev/constants/static';
 import { FileMimeType } from '@dimensiondev/enums';
 import type { Metadata } from 'next';
 import urlcat from 'urlcat';
 
-import { SITE_DESCRIPTION, SITE_NAME, SITE_URL, SITE_URL_OFFICIAL } from '@/constants/static.js';
+import { SITE_URL } from '@/constants/static.js';
 
 export function createSiteMetadata(pathname: string, metadata?: Partial<Metadata>) {
     const title = metadata?.title ?? SITE_NAME;

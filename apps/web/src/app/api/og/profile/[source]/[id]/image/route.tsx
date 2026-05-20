@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 
 import { SORTED_SOCIAL_ACCOUNT_AVATAR_SOURCE } from '@dimensiondev/constants/computed';
+import { CACHE_AGE_INDEFINITE_ON_DISK } from '@dimensiondev/constants/static';
 import type { ProfilePageSource, SocialSource } from '@dimensiondev/enums';
 import { NetworkType, Source } from '@dimensiondev/enums';
 import type { NextRequestContext } from '@dimensiondev/types';
@@ -12,7 +13,6 @@ import type { NextRequest } from 'next/server.js';
 import type { HTMLProps } from 'react';
 import { z } from 'zod';
 
-import { CACHE_AGE_INDEFINITE_ON_DISK } from '@/constants/static.js';
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
 import { fetchImageAsBase64 } from '@/helpers/fetchAvatarAsBase64.js';
 import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';

@@ -1,3 +1,4 @@
+import { POAP_CONTRACT_ADDRESS } from '@dimensiondev/constants/static';
 import { useMultiInfiniteQueryPageable } from '@dimensiondev/hooks';
 import { createIndicator, createNextIndicator, createPageable } from '@dimensiondev/utils';
 import { isValidAddressEthereum } from '@dimensiondev/web3/utils';
@@ -11,7 +12,6 @@ import { GridListInPage } from '@/components/GridListInPage.js';
 import { Image } from '@/components/Image.js';
 import { POAPGridListComponent } from '@/components/NFTs/POAPList.js';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
-import { POAP_CONTRACT_ADDRESS } from '@/constants/static.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { NFTSCAN_CHAIN_IDS } from '@/providers/nftscan/constants.js';
 import type { EVM } from '@/providers/nftscan/types.js';

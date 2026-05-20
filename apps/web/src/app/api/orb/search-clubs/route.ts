@@ -1,9 +1,9 @@
+import { ORB_API_URL } from '@dimensiondev/constants/static';
 import { compose } from '@dimensiondev/utils';
 import type { NextRequest } from 'next/server.js';
 import urlcat from 'urlcat';
 import { z } from 'zod';
 
-import { ORB_API_URL } from '@/constants/static.js';
 import { createResponseJsonFromOrb } from '@/helpers/createResponseJsonFromOrb.js';
 import { fetchOrbJson } from '@/helpers/fetchOrbJson.js';
 import { getHeadersWithZodSchema } from '@/helpers/getHeadersWithZodSchema.js';

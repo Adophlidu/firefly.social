@@ -1,3 +1,4 @@
+import { SEVEN_DAYS } from '@dimensiondev/constants/static';
 import { Source, SourceInURL } from '@dimensiondev/enums';
 import { envs } from '@dimensiondev/envs';
 import { parseJson, runInSafeAsync, safeUnreachable } from '@dimensiondev/utils';
@@ -8,7 +9,6 @@ import urlcat from 'urlcat';
 import { sha256, toHex } from 'viem';
 
 import { SessionExpiredError } from '@/constants/error.js';
-import { SEVEN_DAYS } from '@/constants/static.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { fetchJson } from '@/helpers/fetchJson.js';

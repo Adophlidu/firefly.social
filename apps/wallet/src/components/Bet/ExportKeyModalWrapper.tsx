@@ -3,6 +3,7 @@ import CopyIcon from '@dimensiondev/assets/copy-2.svg';
 import KeyIcon from '@dimensiondev/assets/key.svg';
 import SecurityIcon from '@dimensiondev/assets/security.svg';
 import WarningIcon from '@dimensiondev/assets/warning.svg';
+import { PRIVY_CONNECTOR_ID } from '@dimensiondev/constants/static';
 import { Trans } from '@lingui/react/macro';
 import { useState } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -16,7 +17,6 @@ import {
 } from '@/components/DialogOrDrawer.js';
 import { Button } from '@/components/ui/button.js';
 import type { RouteModalProps } from '@/configs/modalRoutes.js';
-import { PRIVY_CONNECTOR_ID } from '@/constants/static.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
 import { getFireflyEndpoint } from '@/store/fireflyEndpoint.js';
 

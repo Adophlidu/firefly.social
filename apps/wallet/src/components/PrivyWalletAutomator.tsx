@@ -1,3 +1,4 @@
+import { PRIVY_CONNECTOR_ID } from '@dimensiondev/constants/static';
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
 import { CoreConnectionController } from '@reown/appkit';
 import { useQuery } from '@tanstack/react-query';
@@ -7,7 +8,6 @@ import { memo, useEffect } from 'react';
 import { useConnect, useConnection, useConnectors, useDisconnect } from 'wagmi';
 
 import { privySolanaProvider } from '@/connectors/PrivySolanaWalletAdapter.js';
-import { PRIVY_CONNECTOR_ID } from '@/constants/static.js';
 import { logger } from '@/lib/Logger.js';
 import { evmWalletAddressAtom, solanaWalletAddressAtom } from '@/store/embeddedWallets.js';
 import { fireflySessionTokenAtom } from '@/store/fireflySession.js';

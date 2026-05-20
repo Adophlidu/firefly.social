@@ -1,3 +1,4 @@
+import { SITE_NAME } from '@dimensiondev/constants/static';
 import { envs } from '@dimensiondev/envs';
 import { parseUrl } from '@dimensiondev/utils';
 import { type Analytics, getAnalytics, isSupported as isAnalyticsSupported, logEvent } from 'firebase/analytics';
@@ -10,7 +11,6 @@ import {
     type Unsubscribe,
 } from 'firebase/messaging';
 
-import { SITE_NAME } from '@/constants/static.js';
 import { logger } from '@/libs/Logger.js';
 
 function createFirebaseApp() {

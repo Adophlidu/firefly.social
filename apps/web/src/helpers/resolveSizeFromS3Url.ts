@@ -1,6 +1,5 @@
+import { FIREFLY_S3_URL } from '@dimensiondev/constants/static';
 import { parseUrl } from '@dimensiondev/utils';
-
-import { FIREFLY_S3_URL } from '@/constants/static.js';
 
 export function resolveSizeFromS3Url(s3Url: string) {
     const u = parseUrl(s3Url);

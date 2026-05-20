@@ -1,7 +1,7 @@
+import { SITE_URL_OFFICIAL } from '@dimensiondev/constants/static';
 import { parseUrl } from '@dimensiondev/utils';
 
 import { URL_REGEX } from '@/constants/regexp.js';
-import { SITE_URL_OFFICIAL } from '@/constants/static.js';
 import { matchDomainSuffix } from '@/helpers/matchDomainSuffix.js';
 
 const FIREFLY_DOMAINS = ['firefly.social', 'firefly.land'];

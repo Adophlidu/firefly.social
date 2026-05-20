@@ -1,3 +1,4 @@
+import { WARPCAST_ROOT_URL_V1 } from '@dimensiondev/constants/static';
 import type { NetworkType } from '@dimensiondev/enums';
 import { SessionType } from '@dimensiondev/enums';
 import { NotImplementedError, runInSafeAsync } from '@dimensiondev/utils';
@@ -10,7 +11,6 @@ import {
 } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
-import { WARPCAST_ROOT_URL_V1 } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';
 import { formatFarcasterChannelFromWarpcast } from '@/providers/farcaster/formatFarcasterChannelFromWarpcast.js';

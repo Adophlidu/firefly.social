@@ -1,7 +1,7 @@
+import { PRIVY_CONNECTOR_ID } from '@dimensiondev/constants/static';
 import { isSameSolanaAddress } from '@dimensiondev/web3/utils';
 import type { UseConnectionsReturnType } from 'wagmi';
 
-import { PRIVY_CONNECTOR_ID } from '@/constants/static.js';
 import type { AppKitSolanaWallet } from '@/hooks/useAppKitSolanaWallets.js';
 
 function isSameAddress(left: string | null | undefined, right: string | null | undefined): boolean {

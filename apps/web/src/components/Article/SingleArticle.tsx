@@ -1,3 +1,4 @@
+import { FIREFLY_WORKER_HOST } from '@dimensiondev/constants/static';
 import { ArticlePlatform, Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { useQuery } from '@tanstack/react-query';
@@ -14,7 +15,6 @@ import { FeedFollowSource } from '@/components/FeedFollowSource.js';
 import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
 import { ShareButtonWithAnimationContext } from '@/components/Posts/ShareButton.js';
 import { queryClient } from '@/configs/queryClient.js';
-import { FIREFLY_WORKER_HOST } from '@/constants/static.js';
 import { useRouter } from '@/esm/navigation.js';
 import { extractFirstImageFromHtml } from '@/helpers/extractFirstImageFromHtml.js';
 import { fetchJson } from '@/helpers/fetchJson.js';

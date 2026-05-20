@@ -1,10 +1,10 @@
 /* cspell:disable */
 
+import { HIDDEN_SECRET } from '@dimensiondev/constants/static';
 import { SessionType } from '@dimensiondev/enums';
 import { NotAllowedError } from '@dimensiondev/utils';
 import { signOut } from 'next-auth/react';
 
-import { HIDDEN_SECRET } from '@/constants/static.js';
 import { encodeAsciiPayload } from '@/helpers/encodeSessionPayload.js';
 import { BaseSession } from '@/providers/base/Session.js';
 import type { SessionPayload } from '@/providers/twitter/SessionPayload.js';

@@ -1,6 +1,6 @@
+import { FIREFLY_WORKER_HOST } from '@dimensiondev/constants/static';
 import urlcat from 'urlcat';
 
-import { FIREFLY_WORKER_HOST } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import type { IframeBlockerResponse } from '@/types/frame.js';
 import type { ResponseJson } from '@/types/utility.js';

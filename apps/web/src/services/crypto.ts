@@ -1,8 +1,8 @@
+import { FIREFLY_ROOT_URL_DEV } from '@dimensiondev/constants/static';
 import { NODE_ENV } from '@dimensiondev/enums';
 import { envs } from '@dimensiondev/envs';
 import crypto from 'crypto';
 
-import { FIREFLY_ROOT_URL_DEV } from '@/constants/static.js';
 import { logger } from '@/libs/Logger.js';
 import { settings } from '@/settings/index.js';
 

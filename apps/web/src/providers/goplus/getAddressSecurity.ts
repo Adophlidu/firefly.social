@@ -1,7 +1,7 @@
+import { GO_PLUS_LABS_ROOT_URL } from '@dimensiondev/constants/static';
 import { isEmpty } from 'lodash-es';
 import urlcat from 'urlcat';
 
-import { GO_PLUS_LABS_ROOT_URL } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { createSecurityResult } from '@/providers/goplus/createSecurityResult.js';
 import { AddressSecurityMessages } from '@/providers/goplus/rules.js';

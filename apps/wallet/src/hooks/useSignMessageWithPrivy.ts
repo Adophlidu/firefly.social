@@ -1,8 +1,7 @@
+import { PRIVY_CONNECTOR_ID } from '@dimensiondev/constants/static';
 import { useCallback } from 'react';
 import type { Address } from 'viem';
 import { useConnectors, useSignMessage } from 'wagmi';
-
-import { PRIVY_CONNECTOR_ID } from '@/constants/static.js';
 
 export function useSignMessageWithPrivy() {
     const connectors = useConnectors();

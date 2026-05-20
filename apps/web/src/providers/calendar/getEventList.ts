@@ -1,7 +1,7 @@
+import { CALENDAR_BASE_URL } from '@dimensiondev/constants/static';
 import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
-import { CALENDAR_BASE_URL } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { formatEvent } from '@/providers/calendar/formatEvent.js';
 import type { EventResponse } from '@/types/calendar.js';

@@ -1,6 +1,7 @@
 'use client';
 
 import MoreIcon from '@dimensiondev/assets/more-fill.svg';
+import { SEVEN_DAYS } from '@dimensiondev/constants/static';
 import { Source } from '@dimensiondev/enums';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import { ETH_ZERO_ADDRESS } from '@dimensiondev/web3/constants';
@@ -14,7 +15,6 @@ import { useConnection } from 'wagmi';
 
 import { IconButton } from '@/components/IconButton.js';
 import { STALE_TIMES } from '@/constants/query.js';
-import { SEVEN_DAYS } from '@/constants/static.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { AddLensManagerModalRef } from '@/modals/AddLensManagerModal/refs.js';

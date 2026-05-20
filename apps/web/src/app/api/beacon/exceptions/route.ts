@@ -1,10 +1,10 @@
+import { EXCEPTION_TRACKER_URL } from '@dimensiondev/constants/static';
 import { envs } from '@dimensiondev/envs';
 import { isExceptionTrackerEnabled } from '@dimensiondev/exception-tracker';
 import { compose } from '@dimensiondev/utils';
 import type { NextRequest } from 'next/server.js';
 import urlcat from 'urlcat';
 
-import { EXCEPTION_TRACKER_URL } from '@/constants/static.js';
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 

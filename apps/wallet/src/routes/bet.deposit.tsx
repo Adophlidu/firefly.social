@@ -1,5 +1,6 @@
 import ArrowDownIcon from '@dimensiondev/assets/arrow-line-down.svg';
 import BetSwitchIcon from '@dimensiondev/assets/bet-exchange.svg';
+import { BET_DEPOSIT_MIN_USD } from '@dimensiondev/constants/static';
 import { SwapFromPage } from '@dimensiondev/enums';
 import { removeTrailingZeros } from '@dimensiondev/utils';
 import { isSolanaChain } from '@dimensiondev/web3/chains';
@@ -20,7 +21,6 @@ import { LoadingPanel } from '@/components/LoadingPanel.js';
 import { NavigationBar } from '@/components/NavigationBar.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
 import { Button } from '@/components/ui/button.js';
-import { BET_DEPOSIT_MIN_USD } from '@/constants/static.js';
 import { formatTokenItemAmount } from '@/helpers/formatTokenItemAmount.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { useAddFunds } from '@/hooks/bet/useAddFunds.js';

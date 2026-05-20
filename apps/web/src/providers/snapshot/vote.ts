@@ -1,8 +1,8 @@
+import { SNAPSHOT_RELAY_URL, SNAPSHOT_SEQ_URL } from '@dimensiondev/constants/static';
 import { omit } from 'lodash-es';
 import { mainnet } from 'viem/chains';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
-import { SNAPSHOT_RELAY_URL, SNAPSHOT_SEQ_URL } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { SNAPSHOT_NAME, SNAPSHOT_VERSION } from '@/providers/snapshot/constants.js';

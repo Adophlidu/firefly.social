@@ -1,6 +1,7 @@
 'use client';
 
 import { TOKEN_CATEGORIES } from '@dimensiondev/constants/computed';
+import { NO_TRACING_COINS } from '@dimensiondev/constants/static';
 import { TokenCategory } from '@dimensiondev/enums';
 import { isTrackedChain } from '@dimensiondev/web3/chains';
 import { Trans } from '@lingui/react/macro';
@@ -11,7 +12,6 @@ import urlcat from 'urlcat';
 
 import { SourceTabs } from '@/components/SourceTabs/index.js';
 import { SourceTab } from '@/components/SourceTabs/SourceTab.js';
-import { NO_TRACING_COINS } from '@/constants/static.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { CoinGeckoToken } from '@/providers/types/CoinGecko.js';
 

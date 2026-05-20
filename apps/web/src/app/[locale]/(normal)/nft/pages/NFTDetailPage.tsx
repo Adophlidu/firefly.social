@@ -1,6 +1,7 @@
 'use client';
 
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { POAP_CONTRACT_ADDRESS } from '@dimensiondev/constants/static';
 import { ErcType } from '@dimensiondev/enums';
 import { EthereumSchemaType } from '@dimensiondev/web3/enums';
 import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
@@ -12,7 +13,6 @@ import { NFTInfo } from '@/components/NFTDetail/NFTInfo.js';
 import { NFTOverflow } from '@/components/NFTDetail/NFTOverflow.js';
 import { NFTProperties } from '@/components/NFTDetail/NFTProperties.js';
 import { NFTNavbar } from '@/components/NFTs/NFTNavbar.js';
-import { POAP_CONTRACT_ADDRESS } from '@/constants/static.js';
 import { notFound } from '@/esm/navigation.js';
 import { useNFTDetail } from '@/hooks/useNFTDetail.js';
 

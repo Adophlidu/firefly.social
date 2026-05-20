@@ -1,7 +1,7 @@
+import { FIREFLY_ROOT_URL_DEV } from '@dimensiondev/constants/static';
 import { SessionType } from '@dimensiondev/enums';
 import urlcat from 'urlcat';
 
-import { FIREFLY_ROOT_URL_DEV } from '@/constants/static.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';

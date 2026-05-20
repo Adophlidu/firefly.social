@@ -1,3 +1,4 @@
+import { PRIVY_CONNECTOR_ID } from '@dimensiondev/constants/static';
 import { createWagmiPublicClient } from '@dimensiondev/web3/actions';
 import { resolvePublicRpcUrl } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
@@ -8,7 +9,6 @@ import { simulateContract, waitForTransactionReceipt, writeContract } from 'wagm
 
 import { queryClient } from '@/configs/queryClient.js';
 import { InsufficientGasError } from '@/constants/error.js';
-import { PRIVY_CONNECTOR_ID } from '@/constants/static.js';
 import { tryFreeGasTransaction } from '@/helpers/freeGas/tryFreeGasTransaction.js';
 import { resolveEvmConnector, switchEvmConnectorChain } from '@/helpers/resolveEvmConnector.js';
 import { toastLoading } from '@/helpers/toastLoading.js';

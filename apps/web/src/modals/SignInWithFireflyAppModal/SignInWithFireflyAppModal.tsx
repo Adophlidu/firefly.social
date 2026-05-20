@@ -1,6 +1,7 @@
 'use client';
 
 import ReloadIcon from '@dimensiondev/assets/reload.svg';
+import { SITE_URL_OFFICIAL } from '@dimensiondev/constants/static';
 import { bom, classNames, delay } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
@@ -13,7 +14,7 @@ import urlcat from 'urlcat';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Modal } from '@/components/Modal.js';
 import { IS_MOBILE_DEVICE } from '@/constants/browser.js';
-import { SITE_URL, SITE_URL_OFFICIAL } from '@/constants/static.js';
+import { SITE_URL } from '@/constants/static.js';
 import { Link } from '@/esm/Link.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { openAppSchemes } from '@/helpers/openAppSchemes.js';

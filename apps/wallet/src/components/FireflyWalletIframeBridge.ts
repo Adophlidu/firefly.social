@@ -1,4 +1,5 @@
 import { web3 } from '@coral-xyz/anchor';
+import { PRIVY_CONNECTOR_ID } from '@dimensiondev/constants/static';
 import {
     IframeBridgeMethod,
     iframeBridgeProvider,
@@ -21,7 +22,6 @@ import { useConnectors, useSignMessage } from 'wagmi';
 import { queryClient } from '@/configs/queryClient.js';
 import { config } from '@/configs/wagmiClient.js';
 import { privySolanaProvider } from '@/connectors/PrivySolanaWalletAdapter.js';
-import { PRIVY_CONNECTOR_ID } from '@/constants/static.js';
 import { decodeFreeGasTxType } from '@/helpers/freeGas/decodeFreeGasTxType.js';
 import { tryFreeGasTransaction } from '@/helpers/freeGas/tryFreeGasTransaction.js';
 import { isRunningInIframe } from '@/helpers/isRunningInIframe.js';

@@ -2,6 +2,7 @@
 
 import PlusIcon from '@dimensiondev/assets/plus.svg';
 import SwitchIcon from '@dimensiondev/assets/switch.svg';
+import { MAX_ACCOUNT_COUNT_PER_SOURCE } from '@dimensiondev/constants/static';
 import type { SocialSource } from '@dimensiondev/enums';
 import { PageRoute } from '@dimensiondev/enums';
 import { classNames, delay } from '@dimensiondev/utils';
@@ -20,7 +21,6 @@ import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileSourceIcon } from '@/components/ProfileSourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { SessionExpiredError } from '@/constants/error.js';
-import { MAX_ACCOUNT_COUNT_PER_SOURCE } from '@/constants/static.js';
 import { usePathname } from '@/esm/navigation.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';

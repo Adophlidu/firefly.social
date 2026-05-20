@@ -1,7 +1,7 @@
+import { FIREFLY_WORKER_HOST } from '@dimensiondev/constants/static';
 import type { MessageData } from '@farcaster/core'; /* type only on runtime code */
 import urlcat from 'urlcat';
 
-import { FIREFLY_WORKER_HOST } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';

@@ -1,6 +1,7 @@
 'use client';
 
 import PoapIcon from '@dimensiondev/assets/poap.svg';
+import { POAP_CONTRACT_ADDRESS } from '@dimensiondev/constants/static';
 import { Source } from '@dimensiondev/enums';
 import { classNames } from '@dimensiondev/utils';
 import { formatAddressEthereum } from '@dimensiondev/web3/utils';
@@ -12,7 +13,6 @@ import { ChainIcon } from '@/components/ChainIcon.js';
 import { Link } from '@/components/Link.js';
 import { NFTImage } from '@/components/NFTImage.js';
 import { BookmarkInIcon } from '@/components/NFTs/BookmarkButton.js';
-import { POAP_CONTRACT_ADDRESS } from '@/constants/static.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';

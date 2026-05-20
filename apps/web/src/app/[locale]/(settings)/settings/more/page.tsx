@@ -5,6 +5,7 @@ import DocumentsIcon from '@dimensiondev/assets/documents.svg';
 import MaskRoundIcon from '@dimensiondev/assets/mask.round.svg';
 import SecurityIcon from '@dimensiondev/assets/security.svg';
 import TelegramIcon from '@dimensiondev/assets/telegram.svg';
+import { FIREFLY_TELEGRAM_URL } from '@dimensiondev/constants/static';
 import { Trans } from '@lingui/react/macro';
 
 import { DocumentCard } from '@/app/[locale]/(settings)/components/DocumentCard.js';
@@ -12,7 +13,6 @@ import { LinkCard } from '@/app/[locale]/(settings)/components/LinkCard.js';
 import { SettingsSection } from '@/app/[locale]/(settings)/components/Section.js';
 import { Subtitle } from '@/app/[locale]/(settings)/components/Subtitle.js';
 import { XIcon } from '@/components/XIcon.js';
-import { FIREFLY_TELEGRAM_URL } from '@/constants/static.js';
 
 function SmallXIcon() {
     return (

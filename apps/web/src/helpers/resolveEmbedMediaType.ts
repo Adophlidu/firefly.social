@@ -1,7 +1,7 @@
+import { FRAME_DEV_SERVER_URL, FRAME_SERVER_URL } from '@dimensiondev/constants/static';
 import { AttachmentType } from '@dimensiondev/enums';
 import { parseUrl, safeUnreachable } from '@dimensiondev/utils';
 
-import { FRAME_DEV_SERVER_URL, FRAME_SERVER_URL } from '@/constants/static.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isSameOriginUrl } from '@/helpers/isSameOriginUrl.js';
 import { EmbedMediaType } from '@/providers/types/Firefly.js';

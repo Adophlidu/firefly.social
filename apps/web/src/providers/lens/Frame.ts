@@ -1,10 +1,10 @@
+import { FIREFLY_LENS_V3_APP } from '@dimensiondev/constants/static';
 import { SessionType } from '@dimensiondev/enums';
 import { ETH_ZERO_ADDRESS } from '@dimensiondev/web3/constants';
 import { postId as formatPostId } from '@lens-protocol/client';
 import { signFrameAction } from '@lens-protocol/client/actions';
 import dayjs from 'dayjs';
 
-import { FIREFLY_LENS_V3_APP } from '@/constants/static.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';

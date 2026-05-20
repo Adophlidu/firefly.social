@@ -1,8 +1,8 @@
+import { WARPCAST_ROOT_URL_V2 } from '@dimensiondev/constants/static';
 import { SessionType } from '@dimensiondev/enums';
 import { NotAllowedError } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
-import { WARPCAST_ROOT_URL_V2 } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { BaseSession } from '@/providers/base/Session.js';
 import type { Session } from '@/providers/types/Session.js';

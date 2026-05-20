@@ -1,8 +1,8 @@
+import { FIREFLY_WORKER_HOST } from '@dimensiondev/constants/static';
 import type { ServerErrorCodes } from '@dimensiondev/enums';
 import { isValidAddressEthereum, isValidDomainEthereum } from '@dimensiondev/web3/utils';
 import urlcat from 'urlcat';
 
-import { FIREFLY_WORKER_HOST } from '@/constants/static.js';
 import { Fetch } from '@/lib/Fetch.js';
 
 export type ResponseJson<T> =

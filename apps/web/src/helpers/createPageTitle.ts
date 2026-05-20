@@ -1,7 +1,6 @@
+import { SITE_NAME } from '@dimensiondev/constants/static';
 import type { MessageDescriptor } from '@lingui/core';
 import { getI18n } from '@lingui/react/server';
-
-import { SITE_NAME } from '@/constants/static.js';
 
 function createPageTitle(title: string) {
     return `${title} • ${SITE_NAME}`;

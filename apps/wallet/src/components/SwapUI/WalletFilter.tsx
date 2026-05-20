@@ -1,12 +1,12 @@
 import FireflyRoundIcon from '@dimensiondev/assets/firefly.round.svg';
 import SelectedIcon from '@dimensiondev/assets/selected.svg';
+import { PRIVY_CONNECTOR_ID } from '@dimensiondev/constants/static';
 import { SwapAccessPath } from '@dimensiondev/enums';
 import { formatAddress } from '@dimensiondev/web3/utils';
 import { first } from 'lodash-es';
 import { memo, useCallback, useEffect, useMemo, useRef } from 'react';
 import { useConnections } from 'wagmi';
 
-import { PRIVY_CONNECTOR_ID } from '@/constants/static.js';
 import { useAppKitSolanaWallets } from '@/hooks/useAppKitSolanaWallets.js';
 import { usePrivyWallet } from '@/hooks/usePrivyWallet.js';
 

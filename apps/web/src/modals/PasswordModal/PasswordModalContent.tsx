@@ -1,3 +1,4 @@
+import { SESSION_PASSWORD_INPUT_ID } from '@dimensiondev/constants/static';
 import { PasswordStep, PasswordWorkflow, PasswordWorkflowConfig } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
@@ -5,7 +6,6 @@ import { memo, useCallback, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import { FetchError } from '@/constants/error.js';
-import { SESSION_PASSWORD_INPUT_ID } from '@/constants/static.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { isValidPassword } from '@/modals/PasswordModal/isValidPassword.js';
 import { ModalActions } from '@/modals/PasswordModal/ModalActions.js';

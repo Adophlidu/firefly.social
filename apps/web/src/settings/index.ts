@@ -1,6 +1,3 @@
-import { STATUS } from '@dimensiondev/enums';
-import { envs } from '@dimensiondev/envs';
-
 import {
     FARCASTER_POLL_MINI_APP_URL,
     FARCASTER_POLL_MINI_APP_URL_DEV,
@@ -8,7 +5,9 @@ import {
     FIREFLY_ROOT_URL_DEV,
     FRAME_DEV_SERVER_URL,
     FRAME_SERVER_URL,
-} from '@/constants/static.js';
+} from '@dimensiondev/constants/static';
+import { STATUS } from '@dimensiondev/enums';
+import { envs } from '@dimensiondev/envs';
 
 export const settings = {
     get dev() {

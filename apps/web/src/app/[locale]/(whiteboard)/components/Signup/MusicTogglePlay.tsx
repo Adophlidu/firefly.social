@@ -1,11 +1,11 @@
 import MusicBgIcon from '@dimensiondev/assets/music-bg.svg';
 import MusicPlayIcon from '@dimensiondev/assets/music-play.svg';
 import MusicStopIcon from '@dimensiondev/assets/music-stop.svg';
+import { SIGNUP_AUDIO_ID } from '@dimensiondev/constants/static';
 import { motion } from 'framer-motion';
 import { memo, useEffect, useState } from 'react';
 
 import { toggleSignupAudio } from '@/app/[locale]/(whiteboard)/signup/pages/audio.js';
-import { SIGNUP_AUDIO_ID } from '@/constants/static.js';
 
 export const MusicTogglePlay = memo(function MusicTogglePlay() {
     const [isPlaying, setIsPlaying] = useState(false);

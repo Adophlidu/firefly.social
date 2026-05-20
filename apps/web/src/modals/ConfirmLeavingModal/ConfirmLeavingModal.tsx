@@ -1,6 +1,6 @@
+import { SITE_URL_OFFICIAL } from '@dimensiondev/constants/static';
 import { Trans } from '@lingui/react/macro';
 
-import { SITE_URL_OFFICIAL } from '@/constants/static.js';
 import { isSameOriginUrl } from '@/helpers/isSameOriginUrl.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { ConfirmLeavingModalRef, type ConfirmLeavingModalRefType } from '@/modals/ConfirmLeavingModal/refs.js';

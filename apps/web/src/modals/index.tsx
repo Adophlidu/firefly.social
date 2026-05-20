@@ -1,10 +1,10 @@
 'use client';
 
+import { WHITEBOARD_ROUTES } from '@dimensiondev/constants/static';
 import { memo } from 'react';
 
 import { IfPathname } from '@/components/IfPathname.js';
 import { NoSSR } from '@/components/NoSSR.js';
-import { WHITEBOARD_ROUTES } from '@/constants/static.js';
 import { AddCustomERC20Modal } from '@/modals/AddCustomERC20Modal/AddCustomERC20Modal.js';
 import { AddCustomERC20ModalRef } from '@/modals/AddCustomERC20Modal/refs.js';
 import { AddCustomERC721Modal } from '@/modals/AddCustomERC721Modal/AddCustomERC721Modal.js';

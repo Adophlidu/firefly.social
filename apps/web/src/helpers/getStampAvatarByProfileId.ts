@@ -1,9 +1,10 @@
+import { FIREFLY_STAMP_DEV_URL, FIREFLY_STAMP_URL } from '@dimensiondev/constants/static';
 import { Source, STATUS } from '@dimensiondev/enums';
 import { envs } from '@dimensiondev/envs';
 import { bom, safeUnreachable } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
-import { FIREFLY_STAMP_DEV_URL, FIREFLY_STAMP_URL, SITE_URL } from '@/constants/static.js';
+import { SITE_URL } from '@/constants/static.js';
 import type { FireflyProfile, LensV3Profile, WalletProfile } from '@/providers/types/Firefly.js';
 
 const STAMP_URL =

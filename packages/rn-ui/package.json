@@ -58,6 +58,7 @@
         "access": "restricted"
     },
     "peerDependencies": {
+        "@dimensiondev/constants": "^0.1.40",
         "@dimensiondev/utils": "^0.1.31",
         "@lingui/core": "^5.9.5",
         "@lingui/react": "^5.9.5",
@@ -85,6 +86,7 @@
         }
     },
     "devDependencies": {
+        "@dimensiondev/constants": "workspace:^",
         "@dimensiondev/utils": "workspace:^",
         "@lingui/babel-plugin-lingui-macro": "^5.9.5",
         "@lingui/cli": "^5.9.5",

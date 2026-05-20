@@ -1,4 +1,5 @@
-import { SIGNUP_AUDIO_ID } from '@/constants/static.js';
+import { SIGNUP_AUDIO_ID } from '@dimensiondev/constants/static';
+
 import { logger } from '@/libs/Logger.js';
 
 let audioTimer: NodeJS.Timeout | null = null;

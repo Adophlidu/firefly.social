@@ -1,4 +1,4 @@
-import { SITE_HOSTNAME } from '@/constants/static.js';
+import { SITE_HOSTNAME } from '@dimensiondev/constants/static';
 
 const FIREFLY_POST_URL_PATTERN = /^\/post\/([^/]+)$/;
 

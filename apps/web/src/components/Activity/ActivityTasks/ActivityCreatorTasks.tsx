@@ -1,5 +1,6 @@
 'use client';
 
+import { FIREFLY_TELEGRAM_URL } from '@dimensiondev/constants/static';
 import { Source } from '@dimensiondev/enums';
 import { nativeBridgeProvider } from '@dimensiondev/native-bridge';
 import { classNames } from '@dimensiondev/utils';
@@ -9,7 +10,6 @@ import { useMemo } from 'react';
 
 import { Link } from '@/components/Activity/Link.js';
 import { IS_ANDROID } from '@/constants/browser.js';
-import { FIREFLY_TELEGRAM_URL } from '@/constants/static.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 

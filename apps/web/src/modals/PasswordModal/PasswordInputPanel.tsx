@@ -1,7 +1,6 @@
+import { METRICS_PASSWORD_LENGTH, SESSION_PASSWORD_INPUT_ID } from '@dimensiondev/constants/static';
 import { classNames } from '@dimensiondev/utils';
 import { type ChangeEvent, memo, useCallback, useEffect, useRef, useState } from 'react';
-
-import { METRICS_PASSWORD_LENGTH, SESSION_PASSWORD_INPUT_ID } from '@/constants/static.js';
 
 interface PasswordInputPanelProps {
     password: string;

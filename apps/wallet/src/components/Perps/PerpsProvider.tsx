@@ -1,3 +1,4 @@
+import { PRIVY_CONNECTOR_ID } from '@dimensiondev/constants/static';
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
 import {
     type NavigateFunc,
@@ -19,7 +20,6 @@ import { useConnectors, useWalletClient } from 'wagmi';
 import { useComeback } from '@/components/useComeback.js';
 import { env } from '@/constants/env.js';
 import { ABOUT_URL, PRIVACY_URL, TERMS_URL } from '@/constants/hyperliquid.js';
-import { PRIVY_CONNECTOR_ID } from '@/constants/static.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { logger } from '@/lib/Logger.js';
 import { fireflySessionTokenAtom } from '@/store/fireflySession.js';

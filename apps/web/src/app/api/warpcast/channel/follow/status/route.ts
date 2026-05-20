@@ -1,9 +1,9 @@
+import { WARPCAST_ROOT_URL_V1 } from '@dimensiondev/constants/static';
 import { compose } from '@dimensiondev/utils';
 import type { NextRequest } from 'next/server.js';
 import urlcat from 'urlcat';
 import { z } from 'zod';
 
-import { WARPCAST_ROOT_URL_V1 } from '@/constants/static.js';
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { getSearchParamsWithZodSchema } from '@/helpers/getSearchParamsWithZodSchema.js';

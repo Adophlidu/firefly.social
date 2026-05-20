@@ -1,6 +1,7 @@
 'use client';
 
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { POAP_CONTRACT_ADDRESS } from '@dimensiondev/constants/static';
 import { EthereumSchemaType } from '@dimensiondev/web3/enums';
 import type { NonFungibleTokenTrait } from '@dimensiondev/web3/types';
 import { useQuery } from '@tanstack/react-query';
@@ -12,7 +13,6 @@ import { Attendees } from '@/components/NFTDetail/Attendees.js';
 import { NFTInfo } from '@/components/NFTDetail/NFTInfo.js';
 import { NFTOverflow } from '@/components/NFTDetail/NFTOverflow.js';
 import { NFTNavbar } from '@/components/NFTs/NFTNavbar.js';
-import { POAP_CONTRACT_ADDRESS } from '@/constants/static.js';
 import { notFound } from '@/esm/navigation.js';
 import { getPOAP } from '@/providers/firefly/nft/getPOAP.js';
 

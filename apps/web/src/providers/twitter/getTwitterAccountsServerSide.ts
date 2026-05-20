@@ -1,8 +1,8 @@
+import { HIDDEN_SECRET } from '@dimensiondev/constants/static';
 import { KeyType } from '@dimensiondev/enums';
 import { kv } from '@vercel/kv';
 import { compact } from 'lodash-es';
 
-import { HIDDEN_SECRET } from '@/constants/static.js';
 import type { SocialAccountTwitter } from '@/types/sync.js';
 
 export async function getTwitterAccountsServerSide(accounts: SocialAccountTwitter[]): Promise<SocialAccountTwitter[]> {

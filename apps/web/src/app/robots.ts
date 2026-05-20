@@ -1,7 +1,6 @@
 import { IS_PRODUCTION } from '@dimensiondev/constants';
+import { SITE_URL_OFFICIAL } from '@dimensiondev/constants/static';
 import type { MetadataRoute } from 'next';
-
-import { SITE_URL_OFFICIAL } from '@/constants/static.js';
 
 export default function robots(): MetadataRoute.Robots {
     // Block everything on staging, preview, testing, etc

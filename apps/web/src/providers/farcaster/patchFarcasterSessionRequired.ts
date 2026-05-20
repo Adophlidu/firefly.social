@@ -1,5 +1,6 @@
+import { NOT_DEPEND_SECRET } from '@dimensiondev/constants/static';
+
 import { FarcasterPatchSignerError } from '@/constants/error.js';
-import { NOT_DEPEND_SECRET } from '@/constants/static.js';
 import { FAKE_SIGNER_REQUEST_TOKEN, type FarcasterSession } from '@/providers/farcaster/Session.js';
 
 export function patchFarcasterSessionRequired(session: FarcasterSession, fid: number, token: string | undefined) {

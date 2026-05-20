@@ -1,10 +1,10 @@
 import { IS_PRODUCTION } from '@dimensiondev/constants';
+import { EXCEPTION_TRACKER_URL } from '@dimensiondev/constants/static';
 import { SessionType, Source } from '@dimensiondev/enums';
 import { envs } from '@dimensiondev/envs';
 import { configureExceptionTracker } from '@dimensiondev/exception-tracker';
 import { bom } from '@dimensiondev/utils';
 
-import { EXCEPTION_TRACKER_URL } from '@/constants/static.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { settings } from '@/settings/index.js';

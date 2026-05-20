@@ -1,5 +1,6 @@
 'use client';
 
+import { HIDDEN_SECRET } from '@dimensiondev/constants/static';
 import { AsyncStatus, SessionType } from '@dimensiondev/enums';
 import { AuthenticationError, bom, ForbiddenError, runInSafeAsync } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
@@ -7,7 +8,6 @@ import dayjs from 'dayjs';
 import { getSession, signOut } from 'next-auth/react';
 
 import { FetchError, FireflyAlreadyBoundError } from '@/constants/error.js';
-import { HIDDEN_SECRET } from '@/constants/static.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { enqueueForbiddenMessage, enqueueMessageFromError, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { addTwitterAccount } from '@/providers/twitter/addTwitterAccount.js';

@@ -5,6 +5,7 @@ import {
     SORTED_PROFILE_TAB_TYPE,
     WEB_WALLET_PROFILE_TAB_TYPES,
 } from '@dimensiondev/constants/computed';
+import { VITALIK_ADDRESS } from '@dimensiondev/constants/static';
 import type { ProfilePageSource } from '@dimensiondev/enums';
 import {
     ExploreSwitchType,
@@ -25,7 +26,6 @@ import { ProfileContext } from '@/components/Profile/ProfileContext.js';
 import { ChainFilter } from '@/components/Swap/ChainFilter.js';
 import { ToggleEnableButton } from '@/components/TrumpTruthSocial/ToggleEnableButton.js';
 import { TRUMP_TWITTER_PROFILE } from '@/constants/mentions.js';
-import { VITALIK_ADDRESS } from '@/constants/static.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';

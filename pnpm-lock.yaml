@@ -1148,6 +1148,9 @@ importers:
         specifier: '*'
         version: 0.84.1(@babel/core@7.29.0)(@react-native/metro-config@0.85.3)(@types/react@19.2.14)(react@19.2.5)
     devDependencies:
+      '@dimensiondev/constants':
+        specifier: workspace:^
+        version: link:../constants
       '@dimensiondev/utils':
         specifier: workspace:^
         version: link:../utils
@@ -18321,9 +18324,9 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@wagmi/core': 3.0.2(react@19.2.5)(typescript@5.9.3)(use-sync-external-store@1.5.0)(viem@2.48.11)
+      '@wagmi/core': 3.0.2(@tanstack/query-core@5.100.9)(@types/react@19.2.14)(immer@10.2.0)(react@19.2.5)(typescript@5.9.3)(use-sync-external-store@1.5.0)(viem@2.48.11)
       typescript: 5.9.3
-      viem: 2.48.11(typescript@5.9.3)(zod@4.4.3)
+      viem: 2.48.11(typescript@5.9.3)(zod@3.25.76)
     dev: false
 
   /@wagmi/connectors@8.0.10(@wagmi/core@3.4.9)(accounts@0.8.10)(typescript@5.9.3)(viem@2.48.11):

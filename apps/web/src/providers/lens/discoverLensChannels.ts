@@ -1,3 +1,4 @@
+import { FIREFLY_WORKER_HOST } from '@dimensiondev/constants/static';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import {
     createIndicator,
@@ -9,7 +10,6 @@ import {
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
-import { FIREFLY_WORKER_HOST } from '@/constants/static.js';
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { formatChannelFromOrb } from '@/providers/lens/formatChannelFromOrb.js';

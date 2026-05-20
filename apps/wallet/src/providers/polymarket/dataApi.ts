@@ -1,7 +1,8 @@
+import { POLYMARKET_DATA_API_ROOT_URL } from '@dimensiondev/constants/static';
 import urlcat from 'urlcat';
 import type { Address } from 'viem';
 
-import { APP_BASE_PATH, POLYMARKET_DATA_API_ROOT_URL } from '@/constants/static.js';
+import { APP_BASE_PATH } from '@/constants/static.js';
 import { Fetch } from '@/lib/Fetch.js';
 
 export interface PolymarketUserValueResponse {

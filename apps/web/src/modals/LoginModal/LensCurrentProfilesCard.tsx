@@ -1,5 +1,6 @@
 'use client';
 
+import { MAX_ACCOUNT_COUNT_PER_SOURCE } from '@dimensiondev/constants/static';
 import type { SocialSource } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 import { runInSafeAsync } from '@dimensiondev/utils';
@@ -7,7 +8,6 @@ import { useQuery } from '@tanstack/react-query';
 import { memo } from 'react';
 
 import { STALE_TIMES } from '@/constants/query.js';
-import { MAX_ACCOUNT_COUNT_PER_SOURCE } from '@/constants/static.js';
 import { CurrentProfilesCard } from '@/modals/LoginModal/CurrentProfilesCard.js';
 import { autoLoginLensAccounts } from '@/providers/lens/autoLoginLensAccounts.js';
 import type { Account } from '@/providers/types/Account.js';

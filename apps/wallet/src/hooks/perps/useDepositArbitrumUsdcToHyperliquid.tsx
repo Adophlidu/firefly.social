@@ -1,3 +1,4 @@
+import { PRIVY_CONNECTOR_ID } from '@dimensiondev/constants/static';
 import { createWagmiPublicClient } from '@dimensiondev/web3/actions';
 import { resolvePublicRpcUrl } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
@@ -14,7 +15,6 @@ import {
     HYPERLIQUID_DEPOSIT_ADDRESS,
     HYPERLIQUID_QUERY_KEY_ROOT,
 } from '@/constants/hyperliquid.js';
-import { PRIVY_CONNECTOR_ID } from '@/constants/static.js';
 import { tryFreeGasTransaction } from '@/helpers/freeGas/tryFreeGasTransaction.js';
 import { resolveEvmConnector, switchEvmConnectorChain } from '@/helpers/resolveEvmConnector.js';
 import { toastLoading } from '@/helpers/toastLoading.js';

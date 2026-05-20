@@ -1,5 +1,6 @@
 'use client';
 
+import { FIREFLY_WORKER_HOST } from '@dimensiondev/constants/static';
 import { SocialProfileCategory, Source } from '@dimensiondev/enums';
 import { Trans } from '@lingui/react/macro';
 import { memo, useCallback, useLayoutEffect, useRef, useState } from 'react';
@@ -11,7 +12,6 @@ import { SnapContextProvider } from '@/components/Snap/SnapContext.js';
 import { SnapElementRenderer } from '@/components/Snap/SnapElementRenderer.js';
 import { snapOpenSendToken } from '@/components/Snap/snapSendToken.js';
 import { getSnapViewTokenPath } from '@/components/Snap/snapViewToken.js';
-import { FIREFLY_WORKER_HOST } from '@/constants/static.js';
 import { useRouter } from '@/esm/navigation.js';
 import { createDummyChannel } from '@/helpers/createDummyChannel.js';
 import { enqueueErrorMessage, enqueueMessageFromError, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';

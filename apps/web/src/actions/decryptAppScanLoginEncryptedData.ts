@@ -1,12 +1,12 @@
 'use server';
 
+import { HIDDEN_SECRET } from '@dimensiondev/constants/static';
 import { SessionType, SourceInURL } from '@dimensiondev/enums';
 import { parseJson, runInSafeAsync, safeUnreachable } from '@dimensiondev/utils';
 import { ensureHexPrefix } from '@dimensiondev/web3/utils';
 import { compact } from 'lodash-es';
 
 import { DEFAULT_SERVICE_URL } from '@/constants/bsky.js';
-import { HIDDEN_SECRET } from '@/constants/static.js';
 import { decrypt } from '@/helpers/encodec.js';
 import { formatFireflyAccountProfileFromFireflyConnections } from '@/helpers/formatFireflyAccountProfileFromFireflyConnections.js';
 import { BskySession } from '@/providers/bsky/Session.js';

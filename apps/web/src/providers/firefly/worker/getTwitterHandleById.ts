@@ -1,8 +1,8 @@
+import { FIREFLY_WORKER_HOST } from '@dimensiondev/constants/static';
 import { Source } from '@dimensiondev/enums';
 import urlcat from 'urlcat';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { FIREFLY_WORKER_HOST } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { isNumericalProfileId } from '@/helpers/isNumericalProfileId.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';

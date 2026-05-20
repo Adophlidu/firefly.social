@@ -1,4 +1,5 @@
-import { MAX_ACCOUNT_COUNT_PER_SOURCE } from '@/constants/static.js';
+import { MAX_ACCOUNT_COUNT_PER_SOURCE } from '@dimensiondev/constants/static';
+
 import { isSameAccount } from '@/helpers/isSameAccount.js';
 import type { LensSession } from '@/providers/lens/Session.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';

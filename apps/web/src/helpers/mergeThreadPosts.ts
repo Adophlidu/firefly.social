@@ -1,9 +1,9 @@
+import { MIN_POST_SIZE_PER_THREAD } from '@dimensiondev/constants/static';
 import type { SocialSource } from '@dimensiondev/enums';
 import { PostType, Source } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { compact, first, last, uniqBy } from 'lodash-es';
 
-import { MIN_POST_SIZE_PER_THREAD } from '@/constants/static.js';
 import { isSamePost } from '@/helpers/isSamePost.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import type { Post } from '@/providers/types/SocialMedia.js';

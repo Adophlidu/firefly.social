@@ -1,6 +1,7 @@
 import AddCircleLinearIcon from '@dimensiondev/assets/add-circle-linear.svg';
 import ArrowDownIcon from '@dimensiondev/assets/arrow-line-down.svg';
 import FireflyRoundIcon from '@dimensiondev/assets/firefly.round.svg';
+import { PRIVY_CONNECTOR_ID } from '@dimensiondev/constants/static';
 import { SwapFromPage } from '@dimensiondev/enums';
 import { isSolanaChain } from '@dimensiondev/web3/chains';
 import { isGreaterThan, isLessThan, minus, multipliedBy, plus, toFixed } from '@dimensiondev/web3/numbers';
@@ -15,7 +16,6 @@ import { useConnections } from 'wagmi';
 import { WalletFilter } from '@/components/SwapUI/WalletFilter.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
 import { Input } from '@/components/ui/input.js';
-import { PRIVY_CONNECTOR_ID } from '@/constants/static.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { formatTokenAmount, parseInputAmount } from '@/helpers/swap/formatSwapAmount.js';
 import { useEffectiveSwapWalletAddress } from '@/hooks/swap/useEffectiveSwapWalletAddress.js';

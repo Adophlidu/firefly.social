@@ -1,4 +1,5 @@
-import { CACHE_AGE_INDEFINITE_ON_DISK } from '@/constants/static.js';
+import { CACHE_AGE_INDEFINITE_ON_DISK } from '@dimensiondev/constants/static';
+
 import { createErrorResponseJson } from '@/helpers/createResponseJson.js';
 
 export async function createProxyImageResponse(url: string) {

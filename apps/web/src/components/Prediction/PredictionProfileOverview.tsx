@@ -1,5 +1,6 @@
 'use client';
 
+import { BET_PROFILE_FOLLOW_BUTTON_ID } from '@dimensiondev/constants/static';
 import { PredictionPlatform, Source } from '@dimensiondev/enums';
 import { isZero } from '@dimensiondev/web3/numbers';
 import { formatAddressEthereum } from '@dimensiondev/web3/utils';
@@ -15,7 +16,6 @@ import { toRate } from '@/components/Polymarket/toRate.js';
 import { PredictionPlatformName } from '@/components/Prediction/PredictionPlatformName.js';
 import { PredictionProfileFollowButton } from '@/components/Prediction/PredictionProfileFollowButton.js';
 import { ProfileSourceIcon } from '@/components/ProfileSourceIcon.js';
-import { BET_PROFILE_FOLLOW_BUTTON_ID } from '@/constants/static.js';
 import { Link } from '@/esm/Link.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';

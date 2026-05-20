@@ -6,7 +6,7 @@ const { fetchJson } = vi.hoisted(() => ({
     fetchJson: vi.fn(),
 }));
 
-vi.mock('@/constants/static.js', () => ({
+vi.mock('@dimensiondev/constants/static', () => ({
     FIREFLY_WORKER_HOST: 'https://worker.firefly.test',
 }));
 

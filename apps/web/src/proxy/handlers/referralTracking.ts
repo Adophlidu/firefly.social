@@ -1,6 +1,5 @@
+import { FIREFLY_ROOT_URL, FIREFLY_ROOT_URL_DEV } from '@dimensiondev/constants/static';
 import type { NextRequest, NextResponse } from 'next/server.js';
-
-import { FIREFLY_ROOT_URL, FIREFLY_ROOT_URL_DEV } from '@/constants/static.js';
 
 const DEVICE_ID_COOKIE = 'firefly_device_id';
 const SHARER_SID_COOKIE = 'firefly_sharer_sid';

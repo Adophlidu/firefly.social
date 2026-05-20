@@ -1,3 +1,4 @@
+import { BET_DEPOSIT_MIN_USD } from '@dimensiondev/constants/static';
 import { NetworkType } from '@dimensiondev/enums';
 import { isSolanaChain, solana } from '@dimensiondev/web3/chains';
 import { isGreaterThan, multipliedBy } from '@dimensiondev/web3/numbers';
@@ -12,7 +13,6 @@ import {
     P_USDC_POLYGON_ADDRESS as P_USD_POLYGON_ADDRESS,
     POLYMARKET_DEPOSIT_EVM_CHAIN_IDS,
 } from '@/constants/ethereum.js';
-import { BET_DEPOSIT_MIN_USD } from '@/constants/static.js';
 import { useSwapTokenDetail } from '@/hooks/swap/useSwapTokenDetail.js';
 import { useEmbeddedWalletAddresses } from '@/hooks/useCachedWalletAddresses.js';
 import { useTokenBalance } from '@/hooks/useTokenBalance.js';

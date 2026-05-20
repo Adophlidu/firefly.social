@@ -1,10 +1,10 @@
+import { NOT_DEPEND_SECRET } from '@dimensiondev/constants/static';
 import { SessionType } from '@dimensiondev/enums';
 import { NotAllowedError, safeUnreachable, TimeoutError, UnreachableError } from '@dimensiondev/utils';
 import { first } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { LoginEmailError } from '@/constants/error.js';
-import { NOT_DEPEND_SECRET } from '@/constants/static.js';
 import { fetch } from '@/helpers/fetch.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';

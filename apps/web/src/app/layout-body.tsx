@@ -1,5 +1,6 @@
 'use client';
 
+import { EVENT_ROUTES, INTERNAL_ROUTES, WHITEBOARD_ROUTES } from '@dimensiondev/constants/static';
 import { Agent, STATUS } from '@dimensiondev/enums';
 import { envs } from '@dimensiondev/envs';
 import { type ReactNode, Suspense } from 'react';
@@ -9,7 +10,6 @@ import { IfPathname } from '@/components/IfPathname.js';
 import { Providers } from '@/components/Providers.js';
 import { RouteProgressBar } from '@/components/RouteProgressBar.js';
 import { SideBar } from '@/components/SideBar/index.js';
-import { EVENT_ROUTES, INTERNAL_ROUTES, WHITEBOARD_ROUTES } from '@/constants/static.js';
 import { dynamic } from '@/esm/dynamic.js';
 
 const Modals = dynamic(() => import('@/modals/index.js').then((m) => m.Modals), { ssr: false });
