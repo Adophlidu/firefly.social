@@ -33,6 +33,18 @@ export const authOptions: AuthOptions = {
     providers,
     useSecureCookies: envs.shared.NODE_ENV === NODE_ENV.Production,
     cookies: {
+        // Apple Sign-In uses form_post (cross-origin POST from appleid.apple.com).
+        // SameSite=Lax cookies are not sent with cross-origin POSTs, so we must set
+        // SameSite=none on all cookies that need to survive the Apple callback round-trip.
+        callbackUrl: {
+            name: 'next-auth.callback-url',
+            options: {
+                httpOnly: true,
+                sameSite: 'none',
+                path: '/',
+                secure: true,
+            },
+        },
         nonce: {
             name: 'next-auth.nonce',
             options: {
