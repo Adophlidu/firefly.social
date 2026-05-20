@@ -3,8 +3,6 @@ import { getI18n } from '@lingui/react/server';
 import { getLocaleFromCookies, getLocalFromClientCookies } from '@/helpers/getCookies.js';
 import { setupAndActiveI18n } from '@/i18n/core.js';
 
-export { getI18nInstance, setupAndActiveI18n, supportedLocales } from '@/i18n/core.js';
-
 export async function setupLocaleForSSR() {
     const instance = getI18n();
     if (instance) return instance;

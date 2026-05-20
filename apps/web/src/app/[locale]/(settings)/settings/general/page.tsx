@@ -12,7 +12,7 @@ import { OptionButton } from '@/app/[locale]/(settings)/components/OptionButton.
 import { SettingsSection } from '@/app/[locale]/(settings)/components/Section.js';
 import { Subtitle } from '@/app/[locale]/(settings)/components/Subtitle.js';
 import { useCookie, useLocale } from '@/helpers/getCookies.js';
-import { supportedLocales } from '@/i18n/index.js';
+import { supportedLocales } from '@/i18n/core.js';
 import { logger } from '@/libs/Logger.js';
 import { useThemeModeStore } from '@/store/useThemeModeStore.js';
 
