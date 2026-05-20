@@ -46,5 +46,5 @@ interface PostLinkChars extends Segment {
     source: SocialSource;
 }
 
-export type ComplexChars = RP_Chars | MentionChars | FrameChars | PromoteLinkChars | PostLinkChars | PostLinkChars;
+export type ComplexChars = RP_Chars | MentionChars | FrameChars | PromoteLinkChars | PostLinkChars;
 export type Chars = string | Array<string | ComplexChars>;

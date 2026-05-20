@@ -1,15 +1,5 @@
 import type { Snap } from '@/types/snap.js';
 
-export function isSnap(value: unknown): value is Snap {
-    return (
-        typeof value === 'object' &&
-        value !== null &&
-        'version' in value &&
-        ((value as Snap).version === '1.0' || (value as Snap).version === '2.0') &&
-        'ui' in value
-    );
-}
-
 export function validateSnapStructure(snap: Snap): string | null {
     const isV2 = snap.version === '2.0';
     const { root, elements } = snap.ui;
