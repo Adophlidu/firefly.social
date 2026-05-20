@@ -2,8 +2,8 @@ import { BetsMarketResolveStatus } from '@dimensiondev/enums';
 import { describe, expect, it } from 'vitest';
 
 import { formatPolymarketMarketToBetsMarket } from '@/helpers/formatPolymarketEventListData.js';
-import { PolymarketUmaResolutionStatus } from '@/providers/types/Firefly.js';
 import type { PolymarketMarketData } from '@/providers/types/Firefly.js';
+import { PolymarketUmaResolutionStatus } from '@/providers/types/Firefly.js';
 
 function baseMarket(overrides: Partial<PolymarketMarketData> = {}): PolymarketMarketData {
     return {

@@ -4,7 +4,7 @@ import type { SocialSource } from '@dimensiondev/enums';
 import { NotificationType, ScrollListKey, Source } from '@dimensiondev/enums';
 import { useMultiInfiniteQueryPageable } from '@dimensiondev/hooks';
 import { createIndicator, createPageable } from '@dimensiondev/utils';
-import { memo, useMemo } from 'react';
+import { memo, useEffect, useMemo } from 'react';
 
 import { getNotificationItemContent } from '@/app/[locale]/(normal)/notifications/[source]/pages/getNotificationItemContent.js';
 import { updateNotificationReadStatus } from '@/app/[locale]/(normal)/notifications/[source]/pages/updateNotificationReadStatus.js';
@@ -98,9 +98,6 @@ export const FireflyNotifications = memo(function FireflyNotifications() {
             },
         })),
         (data) => {
-            updateNotificationReadStatus();
-            listenNotifications();
-
             const list = data.pages.flatMap((page) =>
                 page.data.concat().sort((a: Notification, b: Notification) => {
                     return (b.timestamp ?? 0) - (a.timestamp ?? 0);
@@ -111,6 +108,11 @@ export const FireflyNotifications = memo(function FireflyNotifications() {
             return list.filter((x) => types.includes(x.type));
         },
     );
+
+    useEffect(() => {
+        updateNotificationReadStatus();
+        listenNotifications();
+    }, []);
 
     if (!queryResult.isFetchingNextPage && queryResult.isFetching) {
         return <Loading />;

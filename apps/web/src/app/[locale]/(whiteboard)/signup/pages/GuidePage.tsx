@@ -19,8 +19,7 @@ interface GuidePageProps {
     changeStep: (step: SignupStep) => void;
 }
 
-function computeFontSize() {
-    const windowWidth = bom.window?.innerWidth || 1920;
+function computeFontSize(windowWidth = 1920) {
     return {
         title: Math.max(20, Math.min(40, (40 / 1920) * windowWidth)),
         tip: Math.max(14, Math.min(18, (18 / 1920) * windowWidth)),
@@ -29,18 +28,18 @@ function computeFontSize() {
 
 export function GuidePage({ changeStep }: GuidePageProps) {
     const { isLoading } = useCheckFireflyAccount(false, true);
-    const [fontSizes, setFontSizes] = useState(computeFontSize());
+    // Use SSR-safe default (1920) to avoid hydration mismatch; update to actual viewport in effect.
+    const [fontSizes, setFontSizes] = useState(() => computeFontSize());
 
-    // Throttle resize handler using requestAnimationFrame for optimal performance
     const throttledResize = useThrottledCallback(() => {
-        setFontSizes(computeFontSize());
+        setFontSizes(computeFontSize(bom.window?.innerWidth));
     });
 
     useEffect(() => {
+        setFontSizes(computeFontSize(bom.window?.innerWidth));
         bom.window?.addEventListener('resize', throttledResize, { passive: true });
         return () => {
             bom.window?.removeEventListener('resize', throttledResize);
-            // Cancel any pending animation frame on cleanup
             throttledResize.cancel();
         };
     }, [throttledResize]);

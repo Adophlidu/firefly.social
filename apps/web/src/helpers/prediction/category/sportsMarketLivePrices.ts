@@ -110,6 +110,7 @@ export function collectLiveSportsMarketAssetIds(events: PolymarketSportsEvent[])
 
     for (const event of events) {
         if (!isLiveSportsGameStatus(event.game_status)) continue;
+
         for (const assetId of collectSportsEventMarketAssetIds(event)) {
             ids.add(assetId);
         }
