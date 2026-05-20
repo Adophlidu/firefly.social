@@ -789,7 +789,7 @@ msgstr "我們建議您永遠不要將其洩露給任何應用程式或個人。
 
 #. js-lingui-explicit-id
 msgid "second"
-msgstr "秒"
+msgstr "{time}秒"
 
 msgid "View on Explorer"
 msgstr "在區塊瀏覽器上查看"
