@@ -6,7 +6,7 @@ import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { skipToken, useQuery } from '@tanstack/react-query';
 import { uniqBy } from 'lodash-es';
-import type { PropsWithChildren, ReactNode } from 'react';
+import { memo, type PropsWithChildren, type ReactNode } from 'react';
 
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -31,7 +31,7 @@ const STATUS_OPTIONS: Array<{
     },
 ];
 
-function TopicPill({ topic, onClick }: { topic: PredictionSearchTag; onClick: () => void }) {
+const TopicPill = memo(function TopicPill({ topic, onClick }: { topic: PredictionSearchTag; onClick: () => void }) {
     return (
         <ClickableButton
             className="bg-primaryBottom text-main hover:bg-bg rounded-full px-4 py-1.5 text-sm font-medium shadow-sm transition-colors"
@@ -40,9 +40,9 @@ function TopicPill({ topic, onClick }: { topic: PredictionSearchTag; onClick: ()
             {topic.label}
         </ClickableButton>
     );
-}
+});
 
-function StatusRow({
+const StatusRow = memo(function StatusRow({
     value,
     selected,
     children,
@@ -62,9 +62,9 @@ function StatusRow({
             <CircleCheckboxIcon checked={checked} />
         </ClickableButton>
     );
-}
+});
 
-export function SearchPredictionFilterSidebar() {
+export const SearchPredictionFilterSidebar = memo(function SearchPredictionFilterSidebar() {
     const { searchKeyword, searchType, updateState } = useSearchStateStore();
     const eventStatus = useSearchPredictionFilterStore.use.eventStatus();
     const keyword = searchKeyword.trim();
@@ -136,4 +136,4 @@ export function SearchPredictionFilterSidebar() {
             </div>
         </div>
     );
-}
+});
