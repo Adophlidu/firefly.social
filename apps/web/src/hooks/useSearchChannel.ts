@@ -1,7 +1,7 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { SORTED_CHANNEL_SOURCES } from '@dimensiondev/constants/computed';
 import type { SocialSource } from '@dimensiondev/enums';
-import { SessionType, Source } from '@dimensiondev/enums';
+import { Source } from '@dimensiondev/enums';
 import { createIndicator } from '@dimensiondev/utils';
 import { useQuery } from '@tanstack/react-query';
 import { uniqBy } from 'lodash-es';
@@ -10,11 +10,12 @@ import { useDebounceValue } from 'usehooks-ts';
 
 import { FF_GARDEN_CHANNEL, HOME_CHANNEL, HOME_CLUB } from '@/constants/channel.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
-import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
+import { createLensSession } from '@/providers/lens/createLensSession.js';
 import { formatChannelFromOrb } from '@/providers/lens/formatChannelFromOrb.js';
+import { lensSessionClientHolder } from '@/providers/lens/LensSessionClientHolder.js';
 import type { GetClubsData, SearchClubsData } from '@/providers/orb/type.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 import type { ResponseJson } from '@/types/utility.js';
@@ -28,8 +29,8 @@ interface SearchExtraOptions {
 const PROFILE_CHANNELS_LIMIT = 10;
 const LENS_CLUBS_LIMIT = 100;
 
-function getLensTokenHeaders() {
-    const session = getSessionFromStorage(SessionType.Lens);
+function getLensTokenHeaders(profileId?: string) {
+    const session = profileId ? createLensSession(profileId, lensSessionClientHolder.sessionClient) : null;
     return session?.token
         ? {
               'x-access-token': `Bearer ${session.token}`,
@@ -37,8 +38,8 @@ function getLensTokenHeaders() {
         : undefined;
 }
 
-async function fetchLensClubSection(category: 'MY_ADMIN_CLUBS' | 'MY_CLUBS') {
-    const headers = getLensTokenHeaders();
+async function fetchLensClubSection(category: 'MY_ADMIN_CLUBS' | 'MY_CLUBS', profileId?: string) {
+    const headers = getLensTokenHeaders(profileId);
     if (!headers) return EMPTY_LIST as Channel[];
 
     const response = await fetchJson<ResponseJson<GetClubsData>>(
@@ -53,8 +54,8 @@ async function fetchLensClubSection(category: 'MY_ADMIN_CLUBS' | 'MY_CLUBS') {
     return data.items.flatMap((section) => section.items).map((club) => formatChannelFromOrb(club));
 }
 
-async function searchLensClubsFromOrb(keyword: string) {
-    const headers = getLensTokenHeaders();
+async function searchLensClubsFromOrb(keyword: string, profileId?: string) {
+    const headers = getLensTokenHeaders(profileId);
     if (!headers) return EMPTY_LIST as Channel[];
 
     const response = await fetchJson<ResponseJson<SearchClubsData>>(
@@ -105,7 +106,7 @@ async function searchChannels(
     const provider = resolveSocialMediaProvider(source);
     if (source === Source.Lens && keyword) {
         try {
-            const channels = await searchLensClubsFromOrb(keyword);
+            const channels = await searchLensClubsFromOrb(keyword, profileId);
             if (channels.length) return channels.filter((x) => !x.unavailable);
         } catch {
             // Fall back to the Lens provider below if the Orb search endpoint is unavailable.
@@ -114,8 +115,8 @@ async function searchChannels(
 
     if (source === Source.Lens && !keyword) {
         const [adminClubs, joinedClubs] = await Promise.allSettled([
-            fetchLensClubSection('MY_ADMIN_CLUBS'),
-            fetchLensClubSection('MY_CLUBS'),
+            fetchLensClubSection('MY_ADMIN_CLUBS', profileId),
+            fetchLensClubSection('MY_CLUBS', profileId),
         ]);
 
         return orderLensClubs({
