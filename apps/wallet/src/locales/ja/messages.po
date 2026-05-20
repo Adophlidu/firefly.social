@@ -65,9 +65,6 @@ msgstr ""
 msgid "Low on balance? Your Firefly Wallet can automatically cover the rest."
 msgstr ""
 
-msgid "Authenticating..."
-msgstr ""
-
 msgid "Transfer from an exchange"
 msgstr ""
 
@@ -603,9 +600,6 @@ msgstr ""
 msgid "Interacted"
 msgstr ""
 
-msgid "Authentication Error"
-msgstr ""
-
 msgid "The address could not be found."
 msgstr ""
 
@@ -854,9 +848,6 @@ msgstr ""
 
 #. placeholder {0}: subtitle.projectName
 msgid "on {0}"
-msgstr ""
-
-msgid "Failed to authenticate. Please try again."
 msgstr ""
 
 msgid "Signing In"

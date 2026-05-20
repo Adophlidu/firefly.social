@@ -65,9 +65,6 @@ msgstr "Your recovery phrase is like a password, keep it secret."
 msgid "Low on balance? Your Firefly Wallet can automatically cover the rest."
 msgstr "Low on balance? Your Firefly Wallet can automatically cover the rest."
 
-msgid "Authenticating..."
-msgstr "Authenticating..."
-
 msgid "Transfer from an exchange"
 msgstr "Transfer from an exchange"
 
@@ -603,9 +600,6 @@ msgstr "Total PnL: <0>{0}({1})</0>"
 msgid "Interacted"
 msgstr "Interacted"
 
-msgid "Authentication Error"
-msgstr "Authentication Error"
-
 msgid "The address could not be found."
 msgstr "The address could not be found."
 
@@ -855,9 +849,6 @@ msgstr "PIN is too weak. Avoid repeated digits."
 #. placeholder {0}: subtitle.projectName
 msgid "on {0}"
 msgstr "on {0}"
-
-msgid "Failed to authenticate. Please try again."
-msgstr "Failed to authenticate. Please try again."
 
 msgid "Signing In"
 msgstr "Signing In"

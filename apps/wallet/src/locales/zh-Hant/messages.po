@@ -65,9 +65,6 @@ msgstr "助記詞等同於最高控制權限，請嚴格保密。"
 msgid "Low on balance? Your Firefly Wallet can automatically cover the rest."
 msgstr "餘額不足？您的 Firefly 錢包可以自動補足差額。"
 
-msgid "Authenticating..."
-msgstr "身份認證中..."
-
 msgid "Transfer from an exchange"
 msgstr "從交易所轉帳"
 
@@ -603,9 +600,6 @@ msgstr "總損益: <0>{0}({1})</0>"
 msgid "Interacted"
 msgstr "已互動"
 
-msgid "Authentication Error"
-msgstr "驗證錯誤"
-
 msgid "The address could not be found."
 msgstr "找不到該地址。"
 
@@ -855,9 +849,6 @@ msgstr "PIN 碼太弱。請避免使用重複數字。"
 #. placeholder {0}: subtitle.projectName
 msgid "on {0}"
 msgstr "在 {0}"
-
-msgid "Failed to authenticate. Please try again."
-msgstr "認證失敗，請重試。"
 
 msgid "Signing In"
 msgstr "登入中"
