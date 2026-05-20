@@ -55,6 +55,8 @@ function fixRecurrence(recurrence: PredictionRecurrence, startTime?: string, end
 }
 
 export function formatPolymarketEvent(detail: PolymarketEvent): BetsEventDataForUI {
+    const isSameImage = detail.markets?.every((market) => market.image === detail.image);
+
     const markets: BetsMarketDataForUI[] = filterAndSortPolymarketMarkets(detail).map((market) => {
         const outcomeLabels = parseJson<string[]>(market.outcomes);
         const outcomeIds = parseJson<string[]>(market.clobTokenIds);
@@ -105,7 +107,7 @@ export function formatPolymarketEvent(detail: PolymarketEvent): BetsEventDataFor
                     : undefined,
             isClosed: !!market.closed,
             createTime: new Date(market.startDate || market.createdAt).getTime(),
-            image: market.image,
+            image: isSameImage ? undefined : market.image,
             conditionId: market.conditionId,
             outcomes,
             statusList,
