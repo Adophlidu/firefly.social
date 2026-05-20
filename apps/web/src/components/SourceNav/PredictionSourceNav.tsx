@@ -1,13 +1,16 @@
 'use client';
 
+import ArrowLineDownIcon from '@dimensiondev/assets/arrow-line-down.svg';
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { classNames } from '@dimensiondev/utils';
+import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
+import { first } from 'lodash-es';
 import { useQueryState } from 'nuqs';
 import { type HTMLProps, memo, useLayoutEffect, useMemo, useRef } from 'react';
 
-import { Link } from '@/components/Link.js';
 import { STALE_TIMES } from '@/constants/query.js';
+import { Link } from '@/esm/Link.js';
 import { useParams } from '@/esm/navigation.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { getEventSlugList } from '@/providers/firefly/prediction/getEventSlugList.js';
@@ -17,6 +20,8 @@ import { captureExplorePredictionsCategoryClick } from '@/providers/telemetry/ca
 interface Props extends HTMLProps<HTMLDivElement> {
     className?: string;
 }
+
+const SLUG_WHITELIST = ['trending', 'new'];
 
 export const PredictionSourceNav = memo<Props>(function PredictionSourceNav({ className }) {
     const { source } = useParams<{ source: string }>();
@@ -50,7 +55,7 @@ export const PredictionSourceNav = memo<Props>(function PredictionSourceNav({ cl
                 ...filteredData,
             ];
         }
-        return filteredData;
+        return filteredData.filter((x) => SLUG_WHITELIST.includes(x.slug));
     }, [data, source, isFireflySlugPage]);
 
     useLayoutEffect(() => {
@@ -68,35 +73,53 @@ export const PredictionSourceNav = memo<Props>(function PredictionSourceNav({ cl
     if (!data || !tags?.length) return null;
 
     return (
-        <div
-            ref={containerRef}
-            className={classNames('no-scrollbar flex items-center justify-between overflow-x-auto', className)}
-        >
-            <nav className="flex space-x-2 px-1.5 pb-1.5 pt-3" aria-label="Tabs">
-                {tags.map((slug) => {
-                    const isActive = isFireflySlugPage ? subSlug === slug.slug : source === slug.slug;
-                    const href = isFireflySlugPage
-                        ? RouteResolver.explorePrediction({ slug: POLYMARKET_FIREFLY_SLUG, subSlug: slug.slug })
-                        : RouteResolver.explorePrediction({ slug: slug.slug });
+        <div className="flex w-full items-center gap-3 px-4">
+            <div
+                ref={containerRef}
+                className={classNames(
+                    'no-scrollbar flex min-w-0 flex-1 items-center justify-between overflow-x-auto',
+                    className,
+                )}
+            >
+                <nav className="flex space-x-2 px-1.5 pb-1.5 pt-3" aria-label="Tabs">
+                    {tags.map((slug) => {
+                        const isActive = isFireflySlugPage ? subSlug === slug.slug : source === slug.slug;
+                        const href = isFireflySlugPage
+                            ? RouteResolver.explorePrediction({ slug: POLYMARKET_FIREFLY_SLUG, subSlug: slug.slug })
+                            : RouteResolver.explorePrediction({ slug: slug.slug });
 
-                    return (
-                        <Link
-                            ref={isActive ? activeTabRef : undefined}
-                            href={href}
-                            key={slug.slug}
-                            className={classNames(
-                                'flex h-6 shrink-0 cursor-pointer list-none justify-center whitespace-nowrap rounded-md px-1.5 text-xs leading-6 lg:flex-initial lg:justify-start',
-                                isActive ? 'bg-highlight text-white' : 'bg-thirdMain text-second hover:text-highlight',
-                            )}
-                            onClick={() => {
-                                captureExplorePredictionsCategoryClick(slug.label);
-                            }}
-                        >
-                            {slug.label}
-                        </Link>
-                    );
+                        return (
+                            <Link
+                                ref={isActive ? activeTabRef : undefined}
+                                href={href}
+                                key={slug.slug}
+                                className={classNames(
+                                    'flex h-6 shrink-0 cursor-pointer list-none justify-center whitespace-nowrap rounded-md px-1.5 text-xs leading-6 lg:flex-initial lg:justify-start',
+                                    isActive
+                                        ? 'bg-highlight text-white'
+                                        : 'bg-thirdMain text-second hover:text-highlight',
+                                )}
+                                onClick={() => {
+                                    captureExplorePredictionsCategoryClick(slug.label);
+                                }}
+                            >
+                                {slug.label}
+                            </Link>
+                        );
+                    })}
+                </nav>
+            </div>
+            <Link
+                className="bg-highlight text-lightBottom flex h-[30px] items-center gap-1 rounded-full px-3"
+                href={RouteResolver.predictionCategory({
+                    slug: first(tags)?.slug || '',
                 })}
-            </nav>
+            >
+                <span className="text-sm">
+                    <Trans>View More</Trans>
+                </span>
+                <ArrowLineDownIcon width={14} height={14} className="-rotate-90" />
+            </Link>
         </div>
     );
 });

@@ -2481,12 +2481,80 @@ export type WalletProfileInfoListResponse = Response<{
 }>;
 
 export interface PolymarketEventSlugListData {
+    id?: number;
     slug: string;
+    slug_tag?: string;
     label: string;
-    sub_slug: Array<{
-        slug: string;
-        label: string;
-    }>;
+    icon_day?: string;
+    icon_night?: string;
+    type?: string;
+    sub_slug: PolymarketEventSlugListData[];
+}
+
+export interface PolymarketSportsScoreShow {
+    score: number[];
+    memo?: number[];
+}
+
+export interface PolymarketSportsLivestreamInfo {
+    livestream_url?: string;
+    player_url?: string;
+    in_whitelist?: boolean;
+    /** @deprecated Use livestream_url. */
+    url?: string;
+}
+
+export interface PolymarketSportsEvent extends PolymarketEventListData {
+    gameId?: string;
+    game_status?: string | number;
+    score_show?: PolymarketSportsScoreShow[];
+    score_type?: number;
+    period_show?: string;
+    livestream_info?: PolymarketSportsLivestreamInfo | null;
+    leagueName?: string;
+    leagueId?: string;
+    sportId?: string;
+    winResult?: number;
+    isDraw?: boolean;
+    drawTeams?: PolymarketSportsMarketTeam[];
+    homeTeamName?: string;
+    elapsed?: string;
+    period?: string;
+}
+
+export interface PolymarketSportsListResponse {
+    timezone: string;
+    live: PolymarketSportsEvent[];
+    today: PolymarketSportsEvent[];
+    tomorrow: PolymarketSportsEvent[];
+    afterTomorrow: PolymarketSportsEvent[];
+    closed: PolymarketSportsEvent[];
+}
+
+export interface PolymarketSportsListRequest {
+    children_tag_slug?: string;
+    children_children_tag_slug?: string;
+    children_tag_slug_type?: string;
+    children_children_tag_slug_type?: string;
+    timezone?: string;
+}
+
+export interface PolymarketSportsMarketTeam {
+    id?: string;
+    logo?: string;
+    name?: string;
+    abbreviation?: string;
+    alias?: string;
+    color?: string;
+    record?: string;
+}
+
+export interface PolymarketSportsMarketData extends PolymarketMarketData {
+    sportsMarketType?: string;
+    gameStartTime?: string;
+    teams?: PolymarketSportsMarketTeam[];
+    /** Draw games: 0 home, 1 draw, 2 away (set by backend). */
+    groupTypeFF?: number;
 }
 
 export enum PolymarketUmaResolutionStatus {

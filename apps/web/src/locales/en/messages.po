@@ -22,6 +22,9 @@ msgstr "Unmute successfully."
 msgid "Copy to clipboard"
 msgstr "Copy to clipboard"
 
+msgid "DRAW"
+msgstr "DRAW"
+
 msgid "Refunded"
 msgstr "Refunded"
 
@@ -505,6 +508,9 @@ msgstr "No financial crime found."
 msgid "Invalid password. Please ensure it is a 6-digit number."
 msgstr "Invalid password. Please ensure it is a 6-digit number."
 
+msgid "Props"
+msgstr "Props"
+
 msgid "Potential risk of external call."
 msgstr "Potential risk of external call."
 
@@ -904,6 +910,11 @@ msgstr "Quote post"
 msgid "No more data available."
 msgstr "No more data available."
 
+#. placeholder {0}: model.homeTeam.name
+#. placeholder {1}: model.awayTeam.name
+msgid "View {0} vs {1}"
+msgstr "View {0} vs {1}"
+
 msgid "Orb Mobile"
 msgstr "Orb Mobile"
 
@@ -1292,6 +1303,9 @@ msgstr "Failed to update profile."
 #. placeholder {0}: dayjs(space.scheduled_start).format('HH:mm')
 msgid "Today at {0}"
 msgstr "Today at {0}"
+
+msgid "FINAL"
+msgstr "FINAL"
 
 #. placeholder {0}: author.handle
 msgid "Unfollow @{0}"
@@ -1766,6 +1780,9 @@ msgstr "Failed to unfollow {handleOrEnsOrAddress} on Firefly."
 msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0} !"
 msgstr "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0} !"
 
+msgid "Open livestream"
+msgstr "Open livestream"
+
 msgid "The amount of coins that are circulating in the market and are tradeable by the public. It is comparable to looking at shares readily available in the market (not held & locked by insiders, governments)."
 msgstr "The amount of coins that are circulating in the market and are tradeable by the public. It is comparable to looking at shares readily available in the market (not held & locked by insiders, governments)."
 
@@ -1897,6 +1914,9 @@ msgstr "Social accounts"
 msgid "Invalid 2FA code. Please try again."
 msgstr "Invalid 2FA code. Please try again."
 
+msgid "View More"
+msgstr "View More"
+
 msgid "Installed"
 msgstr "Installed"
 
@@ -2024,6 +2044,9 @@ msgstr "Upload to change"
 
 msgid "Sign in within Firefly App"
 msgstr "Sign in within Firefly App"
+
+msgid "LIVE"
+msgstr "LIVE"
 
 msgid "Anti_whale(Limited number of transactions)"
 msgstr "Anti_whale(Limited number of transactions)"
@@ -2189,6 +2212,9 @@ msgstr "Cancel Repost"
 #. placeholder {0}: error.message
 msgid "Failed to verify address: {0}"
 msgstr "Failed to verify address: {0}"
+
+msgid "No games found"
+msgstr "No games found"
 
 msgid "Cross at handles"
 msgstr "Cross at handles"
@@ -2553,6 +2579,9 @@ msgstr "Saved on {0} at {1}"
 
 msgid "Settled as {outcome}"
 msgstr "Settled as {outcome}"
+
+msgid "Scroll categories left"
+msgstr "Scroll categories left"
 
 #. placeholder {0}: channel.name
 msgid "Confirm you want to mute /{0}?"
@@ -3197,6 +3226,9 @@ msgstr "Others in the conversation"
 msgid "Sign In"
 msgstr "Sign In"
 
+msgid "Scroll categories right"
+msgstr "Scroll categories right"
+
 msgid "Insufficient Balance"
 msgstr "Insufficient Balance"
 
@@ -3695,6 +3727,9 @@ msgstr "Custom amount is required for this token"
 
 msgid "No tax changes found for personal addresses."
 msgstr "No tax changes found for personal addresses."
+
+msgid "View Finished"
+msgstr "View Finished"
 
 msgid "This QR code is longer valid. Please scan a new one to continue."
 msgstr "This QR code is longer valid. Please scan a new one to continue."
@@ -4555,6 +4590,9 @@ msgstr "Streaming Error"
 
 msgid "Cybercrime found."
 msgstr "Cybercrime found."
+
+msgid "Games"
+msgstr "Games"
 
 #. placeholder {0}: channel.name
 msgid "Failed to add #{0} on {sourceName}"

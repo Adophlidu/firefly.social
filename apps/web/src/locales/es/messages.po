@@ -22,6 +22,9 @@ msgstr ""
 msgid "Copy to clipboard"
 msgstr ""
 
+msgid "DRAW"
+msgstr ""
+
 msgid "Refunded"
 msgstr ""
 
@@ -505,6 +508,9 @@ msgstr ""
 msgid "Invalid password. Please ensure it is a 6-digit number."
 msgstr ""
 
+msgid "Props"
+msgstr ""
+
 msgid "Potential risk of external call."
 msgstr ""
 
@@ -904,6 +910,11 @@ msgstr ""
 msgid "No more data available."
 msgstr ""
 
+#. placeholder {0}: model.homeTeam.name
+#. placeholder {1}: model.awayTeam.name
+msgid "View {0} vs {1}"
+msgstr ""
+
 msgid "Orb Mobile"
 msgstr ""
 
@@ -1291,6 +1302,9 @@ msgstr ""
 
 #. placeholder {0}: dayjs(space.scheduled_start).format('HH:mm')
 msgid "Today at {0}"
+msgstr ""
+
+msgid "FINAL"
 msgstr ""
 
 #. placeholder {0}: author.handle
@@ -1766,6 +1780,9 @@ msgstr ""
 msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0} !"
 msgstr ""
 
+msgid "Open livestream"
+msgstr ""
+
 msgid "The amount of coins that are circulating in the market and are tradeable by the public. It is comparable to looking at shares readily available in the market (not held & locked by insiders, governments)."
 msgstr ""
 
@@ -1897,6 +1914,9 @@ msgstr ""
 msgid "Invalid 2FA code. Please try again."
 msgstr ""
 
+msgid "View More"
+msgstr ""
+
 msgid "Installed"
 msgstr ""
 
@@ -2023,6 +2043,9 @@ msgid "Upload to change"
 msgstr ""
 
 msgid "Sign in within Firefly App"
+msgstr ""
+
+msgid "LIVE"
 msgstr ""
 
 msgid "Anti_whale(Limited number of transactions)"
@@ -2188,6 +2211,9 @@ msgstr ""
 
 #. placeholder {0}: error.message
 msgid "Failed to verify address: {0}"
+msgstr ""
+
+msgid "No games found"
 msgstr ""
 
 msgid "Cross at handles"
@@ -2552,6 +2578,9 @@ msgid "Saved on {0} at {1}"
 msgstr ""
 
 msgid "Settled as {outcome}"
+msgstr ""
+
+msgid "Scroll categories left"
 msgstr ""
 
 #. placeholder {0}: channel.name
@@ -3197,6 +3226,9 @@ msgstr ""
 msgid "Sign In"
 msgstr ""
 
+msgid "Scroll categories right"
+msgstr ""
+
 msgid "Insufficient Balance"
 msgstr ""
 
@@ -3694,6 +3726,9 @@ msgid "Custom amount is required for this token"
 msgstr ""
 
 msgid "No tax changes found for personal addresses."
+msgstr ""
+
+msgid "View Finished"
 msgstr ""
 
 msgid "This QR code is longer valid. Please scan a new one to continue."
@@ -4554,6 +4589,9 @@ msgid "Streaming Error"
 msgstr ""
 
 msgid "Cybercrime found."
+msgstr ""
+
+msgid "Games"
 msgstr ""
 
 #. placeholder {0}: channel.name

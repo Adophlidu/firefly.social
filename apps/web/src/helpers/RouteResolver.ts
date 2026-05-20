@@ -80,4 +80,28 @@ export class RouteResolver {
             subSlug: subSlug || undefined,
         });
     }
+
+    static predictionCategory({
+        slug,
+        tab,
+        tagType,
+        parentSlug,
+        parentTagType,
+        appendRoot = true,
+    }: {
+        slug: string;
+        tab?: 'games' | 'props';
+        tagType?: string;
+        parentSlug?: string;
+        parentTagType?: string;
+        appendRoot?: boolean;
+    }) {
+        return urlcat(appendRoot ? SITE_URL : '', '/prediction/category/:slug', {
+            slug,
+            tab: tab && tab !== 'games' ? tab : undefined,
+            tagType: tagType || undefined,
+            parentSlug: parentSlug || undefined,
+            parentTagType: parentTagType || undefined,
+        });
+    }
 }
