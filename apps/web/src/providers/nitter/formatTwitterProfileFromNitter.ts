@@ -1,8 +1,8 @@
 import { Source } from '@dimensiondev/enums';
+import { SITE_URL } from '@dimensiondev/envs/web';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
-import { SITE_URL } from '@/constants/static.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { parsePostUrl } from '@/helpers/parsePostUrl.js';

@@ -1,5 +1,5 @@
 import { IS_PRODUCTION } from '@dimensiondev/constants';
-import { env } from '@dimensiondev/envs/wallet';
+import { envs } from '@dimensiondev/envs/wallet';
 import { configureExceptionTracker } from '@dimensiondev/exception-tracker';
 import { bom } from '@dimensiondev/utils';
 
@@ -12,10 +12,10 @@ export function initExceptionTracker(): void {
         enabled: IS_PRODUCTION,
         ignoredErrors: ['[iframe-bridge]', 'Window load timeout', 'insufficient funds'],
         getClient: () => ({
-            version: env.shared.VERSION,
-            commitHash: env.shared.COMMIT_HASH ?? '',
+            version: envs.shared.VERSION,
+            commitHash: envs.shared.COMMIT_HASH ?? '',
             environment: IS_PRODUCTION ? 'production' : 'development',
-            vercelEnvironment: env.external.NEXT_PUBLIC_VERCEL_ENV,
+            vercelEnvironment: envs.external.NEXT_PUBLIC_VERCEL_ENV,
             beaconUrl: '/api/beacon/exceptions',
             serviceName: 'firefly-wallet',
             getBom: () => ({
@@ -24,16 +24,16 @@ export function initExceptionTracker(): void {
                 window: bom.window as (Window & Record<string, unknown>) | null,
             }),
             getUrls: () => ({
-                rootUrl: env.external.NEXT_PUBLIC_FIREFLY_ROOT_URL,
-                siteUrl: env.external.NEXT_PUBLIC_SITE_URL,
+                rootUrl: envs.external.NEXT_PUBLIC_FIREFLY_ROOT_URL,
+                siteUrl: envs.external.NEXT_PUBLIC_SITE_URL,
             }),
         }),
         getServer: () => ({
             baseUrl: '/',
-            version: env.shared.VERSION,
-            commitHash: env.shared.COMMIT_HASH ?? '',
+            version: envs.shared.VERSION,
+            commitHash: envs.shared.COMMIT_HASH ?? '',
             environment: IS_PRODUCTION ? 'production' : 'development',
-            vercelEnvironment: env.external.NEXT_PUBLIC_VERCEL_ENV,
+            vercelEnvironment: envs.external.NEXT_PUBLIC_VERCEL_ENV,
             serviceName: 'firefly-wallet',
         }),
     });

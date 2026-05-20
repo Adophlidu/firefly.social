@@ -1,6 +1,7 @@
 'use client';
 
 import SendIcon from '@dimensiondev/assets/send.svg';
+import { SITE_URL } from '@dimensiondev/envs/web';
 import { classNames } from '@dimensiondev/utils';
 import { MenuItem } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
@@ -14,7 +15,6 @@ import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { ShareButtonWithAnimation } from '@/components/Posts/ShareButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { SITE_URL } from '@/constants/static.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { openComposeModal } from '@/helpers/openComposeModal.js';
 import { useShareUrl } from '@/hooks/useShareUrl.js';

@@ -6,9 +6,9 @@ import type {
     Source,
     TipsDetailViewType,
 } from '@dimensiondev/enums';
+import { SITE_URL } from '@dimensiondev/envs/web';
 import urlcat from 'urlcat';
 
-import { SITE_URL } from '@/constants/static.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 
 export class RouteResolver {

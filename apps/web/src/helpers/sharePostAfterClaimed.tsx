@@ -1,11 +1,11 @@
 import CircleSuccessIcon from '@dimensiondev/assets/circle-success.svg';
 import type { NetworkType } from '@dimensiondev/enums';
 import { SessionType } from '@dimensiondev/enums';
+import { SITE_URL } from '@dimensiondev/envs/web';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import urlcat from 'urlcat';
 
-import { SITE_URL } from '@/constants/static.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { openComposeModal } from '@/helpers/openComposeModal.js';

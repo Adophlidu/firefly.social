@@ -1,5 +1,5 @@
 import { PRIVY_CONNECTOR_ID } from '@dimensiondev/constants/static';
-import { env } from '@dimensiondev/envs/wallet';
+import { IS_DEV_API } from '@dimensiondev/envs/wallet';
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
 import {
     type NavigateFunc,
@@ -106,8 +106,6 @@ export function PerpsProvider({ children }: PropsWithChildren) {
         [navigate, comeback],
     );
 
-    const isDevApi = env.external.NEXT_PUBLIC_FIREFLY_ROOT_URL.startsWith('https://api-dev.firefly.land');
-
     const buildPerpsKlineChartUrl: PerpsKlineChartUrlBuilder = useCallback((coin, walletAddress) => {
         const params = new URLSearchParams({ coin, interval: '1m' });
         if (walletAddress) params.set('address', walletAddress);
@@ -119,7 +117,7 @@ export function PerpsProvider({ children }: PropsWithChildren) {
         <Provider locale={locale} theme={isDarkMode ? 'dark' : 'light'}>
             <PerpsBindingsProvider
                 token={token}
-                apiMode={isDevApi ? 'dev' : 'prod'}
+                apiMode={IS_DEV_API ? 'dev' : 'prod'}
                 walletClient={data}
                 toast={toastFn}
                 navigate={navigateFn}

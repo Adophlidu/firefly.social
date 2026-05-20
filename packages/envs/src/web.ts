@@ -1,6 +1,6 @@
 /* cspell:disable */
-import type { NODE_ENV } from '@dimensiondev/enums';
-import { STATUS, VERCEL_ENV } from '@dimensiondev/enums';
+import type { NODE_ENV, RequestedLoginSource, SocialSource } from '@dimensiondev/enums';
+import { NODE_ENV as NodeEnv, Source, STATUS, VERCEL_ENV } from '@dimensiondev/enums';
 import { bom } from '@dimensiondev/utils';
 import { z } from 'zod';
 
@@ -182,3 +182,13 @@ export const envs = {
         NEXT_PUBLIC_PASSCODE_IV: process.env.NEXT_PUBLIC_PASSCODE_IV,
     }),
 };
+
+export const SITE_URL = envs.external.NEXT_PUBLIC_SITE_URL || 'https://firefly.social';
+
+export const MAX_POST_SIZE_PER_THREAD = envs.shared.NODE_ENV === NodeEnv.Development ? 10 : 25;
+
+export const REQUIRE_LOGIN_SOURCES: RequestedLoginSource[] =
+    envs.external.NEXT_PUBLIC_NITTER === STATUS.Enabled ? [] : [Source.Twitter];
+
+export const REQUIRE_LOGIN_SOURCES_IN_SEARCH: SocialSource[] =
+    envs.external.NEXT_PUBLIC_NITTER === STATUS.Enabled ? [Source.Bsky] : [Source.Twitter, Source.Bsky];

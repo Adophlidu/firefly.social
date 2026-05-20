@@ -10,6 +10,7 @@ import {
     sharedReactTailwindSettings,
     tsParser,
 } from './eslint.shared.mjs';
+import { walletEnvsImportRestriction, webEnvsImportRestriction } from './rules/eslint-envs-app-boundaries.mjs';
 import { importArchitecturalLayerZones } from './rules/eslint-import-architecture-zones.mjs';
 import { packageBoundaryConfigs } from './rules/eslint-package-layer-boundaries.mjs';
 import useClientNewline from './rules/eslint-plugin-use-client-newline.mjs';
@@ -117,6 +118,8 @@ export default defineConfig([
 
             // Next.js core-web-vitals rules
             ...nextPlugin.configs['core-web-vitals'].rules,
+
+            'no-restricted-imports': webEnvsImportRestriction,
         },
     },
     {
@@ -192,6 +195,8 @@ export default defineConfig([
                     rootDir: 'apps/wallet/src',
                 },
             ],
+
+            'no-restricted-imports': walletEnvsImportRestriction,
         },
     },
 

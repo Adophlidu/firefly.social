@@ -1,6 +1,7 @@
 'use client';
 
 import { NetworkType, Source, WalletProfileDataSource } from '@dimensiondev/enums';
+import { SITE_URL } from '@dimensiondev/envs/web';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { isValidAddressEthereum, isValidAddressSolana } from '@dimensiondev/web3/utils';
 import { Trans } from '@lingui/react/macro';
@@ -11,7 +12,6 @@ import { NoSSR } from '@/components/NoSSR.js';
 import { HackedButton } from '@/components/Profile/HackedButton.js';
 import { WalletMoreAction } from '@/components/Profile/WalletMoreAction.js';
 import { WatchButton } from '@/components/Profile/WatchButton.js';
-import { SITE_URL } from '@/constants/static.js';
 import { isMPCWallet } from '@/helpers/isMPCWallet.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';

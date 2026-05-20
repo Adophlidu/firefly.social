@@ -1,12 +1,12 @@
 import { web3 } from '@coral-xyz/anchor';
-import { env } from '@dimensiondev/envs/wallet';
+import { envs } from '@dimensiondev/envs/wallet';
 import { getSolanaRPCUrl } from '@dimensiondev/web3/utils';
 import type { AnyTransaction, Provider as SolanaProvider } from '@reown/appkit-adapter-solana/react';
 
 function getSolanaConnection(connection?: web3.Connection) {
     return (
         connection ??
-        new web3.Connection(getSolanaRPCUrl({ httpUrl: env.external.NEXT_PUBLIC_SOLANA_RPC_URL }), 'confirmed')
+        new web3.Connection(getSolanaRPCUrl({ httpUrl: envs.external.NEXT_PUBLIC_SOLANA_RPC_URL }), 'confirmed')
     );
 }
 

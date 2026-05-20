@@ -1,4 +1,5 @@
 import { AttachmentType, PostType, Source } from '@dimensiondev/enums';
+import { SITE_URL } from '@dimensiondev/envs/web';
 import dayjs from 'dayjs';
 import { compact, first, last } from 'lodash-es';
 import type { ApiV2Includes, TweetV2 } from 'twitter-api-v2';
@@ -6,7 +7,6 @@ import urlcat from 'urlcat';
 
 import { POLL_CHOICE_TYPE, POLL_STRATEGIES } from '@/constants/poll.js';
 import { URL_REGEX } from '@/constants/regexp.js';
-import { SITE_URL } from '@/constants/static.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { parsePostUrl } from '@/helpers/parsePostUrl.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';

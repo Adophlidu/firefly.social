@@ -1,3 +1,4 @@
+import { SITE_URL } from '@dimensiondev/envs/web';
 import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
 import { nativeBridgeProvider, SupportedMethod } from '@dimensiondev/native-bridge';
 import { parseUrl } from '@dimensiondev/utils';
@@ -5,7 +6,6 @@ import type { SignInOptions } from '@farcaster/miniapp-host';
 import { toHex } from 'viem';
 import { optimism } from 'viem/chains';
 
-import { SITE_URL } from '@/constants/static.js';
 import { logger } from '@/libs/Logger.js';
 import { createSiwfMessage } from '@/providers/warpcast/signInWithFarcaster.js';
 import type { FrameV2 } from '@/types/frame.js';

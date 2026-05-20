@@ -1,7 +1,7 @@
 import { KeyType } from '@dimensiondev/enums';
+import { MAX_POST_SIZE_PER_THREAD } from '@dimensiondev/envs/web';
 import { first } from 'lodash-es';
 
-import { MAX_POST_SIZE_PER_THREAD } from '@/constants/static.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { getCommentsByPostId } from '@/providers/lens/getCommentsByPostId.js';

@@ -2,6 +2,7 @@ import { SORTED_SOCIAL_SOURCES } from '@dimensiondev/constants/computed';
 import { RP_HASH_TAG } from '@dimensiondev/constants/static';
 import type { SocialSource } from '@dimensiondev/enums';
 import { CharTag, DraftPostType, FileMimeType, MediaSource } from '@dimensiondev/enums';
+import { SITE_URL } from '@dimensiondev/envs/web';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import { toFixed } from '@dimensiondev/web3/numbers';
 import { t } from '@lingui/core/macro';
@@ -12,7 +13,6 @@ import urlcat from 'urlcat';
 
 import { formatSenderName } from '@/components/RedPacket/helpers.js';
 import { DEFAULT_THEME_ID } from '@/constants/rp.js';
-import { SITE_URL } from '@/constants/static.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { fetchImageAsPNG } from '@/helpers/fetchImageAsPNG.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';

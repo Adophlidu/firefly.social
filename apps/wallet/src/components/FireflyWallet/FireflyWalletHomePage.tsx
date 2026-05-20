@@ -1,3 +1,5 @@
+import { STATUS } from '@dimensiondev/enums';
+import { envs } from '@dimensiondev/envs/wallet';
 import { Trans } from '@lingui/react/macro';
 import { Link, useLocation, useNavigate } from '@tanstack/react-router';
 import { useSetAtom } from 'jotai';
@@ -10,7 +12,6 @@ import { FireflyWalletHomePageUI } from '@/components/FireflyWallet/FireflyWalle
 import { PerpsEntry } from '@/components/Perps/PerpsEntry.js';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs.js';
 import { ModalType } from '@/configs/modalRoutes.js';
-import { NFT_ENABLED } from '@/constants/static.js';
 import { useTotalBalance } from '@/hooks/useTotalBalance.js';
 import { resetSwapWalletContext } from '@/store/swap/swapState.js';
 
@@ -67,7 +68,9 @@ export function FireflyWalletHomePage({ children }: PropsWithChildren) {
                 <TabsList variant="second" className="w-full">
                     {compact([
                         { pathname: '/', label: <Trans>Tokens</Trans> },
-                        NFT_ENABLED ? { pathname: '/nfts', label: <Trans>NFT</Trans> } : null,
+                        envs.external.NEXT_PUBLIC_NFT_FEATURES === STATUS.Enabled
+                            ? { pathname: '/nfts', label: <Trans>NFT</Trans> }
+                            : null,
                         { pathname: '/transactions', label: <Trans>Transactions</Trans> },
                     ]).map(({ pathname, label }) => {
                         return (

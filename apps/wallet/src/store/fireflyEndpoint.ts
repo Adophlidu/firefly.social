@@ -1,4 +1,4 @@
-import { env } from '@dimensiondev/envs/wallet';
+import { envs } from '@dimensiondev/envs/wallet';
 import { atom } from 'jotai';
 
 import { FireflyEndpoint } from '@/providers/firefly/endpoint.js';
@@ -9,14 +9,14 @@ const fireflyEndpointAtom = atom((get) => {
     const token = get(fireflySessionTokenAtom);
     if (token) {
         return new FireflyEndpoint({
-            baseURL: env.external.NEXT_PUBLIC_FIREFLY_ROOT_URL,
+            baseURL: envs.external.NEXT_PUBLIC_FIREFLY_ROOT_URL,
             headers: {
                 Authorization: `Bearer ${token}`,
             },
         });
     }
     return new FireflyEndpoint({
-        baseURL: env.external.NEXT_PUBLIC_FIREFLY_ROOT_URL,
+        baseURL: envs.external.NEXT_PUBLIC_FIREFLY_ROOT_URL,
     });
 });
 

@@ -1,6 +1,6 @@
 import { web3 } from '@coral-xyz/anchor';
 import { STATUS } from '@dimensiondev/enums';
-import { envs } from '@dimensiondev/envs/web';
+import { envs, SITE_URL } from '@dimensiondev/envs/web';
 import { rightShift, toFixed } from '@dimensiondev/web3/numbers';
 import type { FungibleToken } from '@dimensiondev/web3/types';
 import { isZeroAddressSolana } from '@dimensiondev/web3/utils';
@@ -18,7 +18,6 @@ import {
     RED_PACKET_DURATION,
     RED_PACKET_MIN_SHARES,
 } from '@/constants/rp.js';
-import { SITE_URL } from '@/constants/static.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getRpMaxShares } from '@/helpers/getRpLimitations.js';
 import { useChainContext } from '@/hooks/useChainContext.js';

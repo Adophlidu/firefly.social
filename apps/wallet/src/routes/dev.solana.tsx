@@ -1,4 +1,5 @@
 import { web3 } from '@coral-xyz/anchor';
+import { APP_BASE_PATH } from '@dimensiondev/envs/wallet';
 import {
     IframeBridgeMethod,
     iframeBridgeProvider,
@@ -16,7 +17,6 @@ import { useForm } from 'react-hook-form';
 
 import { Button } from '@/components/ui/button.js';
 import { Select, SelectContent, SelectItem, SelectTrigger } from '@/components/ui/select.js';
-import { APP_BASE_PATH } from '@/constants/static.js';
 import { formatTokenFromFireflyTokenAsset } from '@/helpers/formatTokenFromFireflyTokenAsset.js';
 import { logger } from '@/lib/Logger.js';
 import { SolanaTransfer } from '@/providers/solana/Transfer.js';

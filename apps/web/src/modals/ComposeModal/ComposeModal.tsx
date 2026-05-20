@@ -2,6 +2,7 @@
 
 import type { SocialSource } from '@dimensiondev/enums';
 import { CharTag, DraftPostType } from '@dimensiondev/enums';
+import { SITE_URL } from '@dimensiondev/envs/web';
 import { delay } from '@dimensiondev/utils';
 import { HashtagNode } from '@lexical/hashtag';
 import { AutoLinkNode, LinkNode } from '@lexical/link';
@@ -19,7 +20,6 @@ import { router } from '@/components/Compose/ComposeRouter.js';
 import { MentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Modal } from '@/components/Modal.js';
-import { SITE_URL } from '@/constants/static.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getCompositePost } from '@/helpers/getCompositePost.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';

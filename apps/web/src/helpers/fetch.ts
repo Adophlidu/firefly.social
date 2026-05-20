@@ -1,11 +1,11 @@
 import { FIREFLY_USER_AGENT, SITE_URL_OFFICIAL } from '@dimensiondev/constants/static';
+import { SITE_URL } from '@dimensiondev/envs/web';
 import { bom, ForbiddenError, NetworkError, parseUrl } from '@dimensiondev/utils';
 import { isServer } from '@tanstack/react-query';
 import urlcat from 'urlcat';
 
 import { FetchError, NftScanError } from '@/constants/error.js';
 import { EVENT_FORBIDDEN } from '@/constants/event.js';
-import { SITE_URL } from '@/constants/static.js';
 import { addHeaders } from '@/helpers/addHeader.js';
 import { dispatchCustomEvent } from '@/helpers/dispatchCustomEvents.js';
 import { getResponseText } from '@/helpers/getResponseText.js';

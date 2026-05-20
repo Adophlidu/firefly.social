@@ -1,4 +1,4 @@
-import { env } from '@dimensiondev/envs/wallet';
+import { envs } from '@dimensiondev/envs/wallet';
 import urlcat from 'urlcat';
 
 import type { CoinbaseAsset, CoinbaseBuyerToken, CoinbaseNetwork } from '@/providers/types/PrivyAuth.js';
@@ -26,7 +26,7 @@ export function resolveCoinbaseBuyerUrl(
         defaultExperience: 'buy',
         defaultNetwork: network,
         defaultPaymentMethod: 'CARD',
-        endPartnerName: `privy:${env.external.NEXT_PUBLIC_PRIVY_APP_ID}`,
+        endPartnerName: `privy:${envs.external.NEXT_PUBLIC_PRIVY_APP_ID}`,
         partnerUserId: partner_user_id,
         presetCryptoAmount: '0.01',
         sessionToken: session_token,

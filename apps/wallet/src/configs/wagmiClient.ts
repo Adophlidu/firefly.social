@@ -1,4 +1,4 @@
-import { env } from '@dimensiondev/envs/wallet';
+import { envs } from '@dimensiondev/envs/wallet';
 import type { AppKitNetwork } from '@reown/appkit/networks';
 import { WagmiAdapter } from '@reown/appkit-adapter-wagmi';
 import { createStorage } from '@wagmi/core';
@@ -67,12 +67,12 @@ export const wagmiNetworks = [
 ] as AppKitNetwork[];
 
 export const wagmiAdapter = new WagmiAdapter({
-    projectId: env.external.NEXT_PUBLIC_W3M_PROJECT_ID,
+    projectId: envs.external.NEXT_PUBLIC_W3M_PROJECT_ID,
     networks: wagmiNetworks,
     transports: {
-        [mainnet.id]: http(env.external.NEXT_PUBLIC_MAINNET_RPC_URL),
-        [optimism.id]: http(env.external.NEXT_PUBLIC_OPTIMISM_RPC_URL),
-        [polygon.id]: http(env.external.NEXT_PUBLIC_POLYGON_RPC_URL),
+        [mainnet.id]: http(envs.external.NEXT_PUBLIC_MAINNET_RPC_URL),
+        [optimism.id]: http(envs.external.NEXT_PUBLIC_OPTIMISM_RPC_URL),
+        [polygon.id]: http(envs.external.NEXT_PUBLIC_POLYGON_RPC_URL),
         [fantom.id]: http('https://rpc.ftm.tools'),
     },
     storage,

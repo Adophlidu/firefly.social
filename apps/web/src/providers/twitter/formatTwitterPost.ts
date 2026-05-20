@@ -1,5 +1,6 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { PostType, RestrictionType, Source } from '@dimensiondev/enums';
+import { SITE_URL } from '@dimensiondev/envs/web';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@dimensiondev/utils';
 import { compact, find, first, last } from 'lodash-es';
@@ -8,7 +9,6 @@ import urlcat from 'urlcat';
 
 import { POLL_CHOICE_TYPE, POLL_STRATEGIES } from '@/constants/poll.js';
 import { TWEET_REGEX } from '@/constants/regexp.js';
-import { SITE_URL } from '@/constants/static.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { getEmbedUrls } from '@/helpers/getEmbedUrls.js';
 import { isSamePost } from '@/helpers/isSamePost.js';

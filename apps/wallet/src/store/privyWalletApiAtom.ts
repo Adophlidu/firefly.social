@@ -1,4 +1,4 @@
-import { env } from '@dimensiondev/envs/wallet';
+import { envs } from '@dimensiondev/envs/wallet';
 import { atom } from 'jotai';
 
 import { PrivyWalletApi } from '@/providers/firefly/privyWallet.js';
@@ -9,7 +9,7 @@ const privyWalletApiAtom = atom((get) => {
     const token = get(fireflySessionTokenAtom);
 
     return new PrivyWalletApi({
-        baseURL: env.external.NEXT_PUBLIC_FIREFLY_ROOT_URL,
+        baseURL: envs.external.NEXT_PUBLIC_FIREFLY_ROOT_URL,
         headers: token
             ? {
                   Authorization: `Bearer ${token}`,

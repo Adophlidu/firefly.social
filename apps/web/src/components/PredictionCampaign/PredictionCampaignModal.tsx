@@ -1,12 +1,12 @@
 'use client';
 
+import { SITE_URL } from '@dimensiondev/envs/web';
 import { nativeBridgeProvider } from '@dimensiondev/native-bridge';
 import { memo, useEffect, useState } from 'react';
 import urlcat from 'urlcat';
 
 import { CloseButton } from '@/components/IconButton.js';
 import { IS_MOBILE_DEVICE } from '@/constants/browser.js';
-import { SITE_URL } from '@/constants/static.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 
 export const PredictionCampaignModal = memo(function PredictionCampaignModal() {

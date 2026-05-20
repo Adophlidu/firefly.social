@@ -2,6 +2,7 @@
 
 import { EMPTY_LIST } from '@dimensiondev/constants';
 import { ScrollListKey, type SearchType, type SocialSource, Source } from '@dimensiondev/enums';
+import { REQUIRE_LOGIN_SOURCES_IN_SEARCH } from '@dimensiondev/envs/web';
 import { useMultiInfiniteQueryPageable } from '@dimensiondev/hooks';
 import { createIndicator, createPageable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
@@ -11,7 +12,6 @@ import { memo, type ReactNode } from 'react';
 import { ListInPage } from '@/components/ListInPage.js';
 import { Empty } from '@/components/Search/Empty.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
-import { REQUIRE_LOGIN_SOURCES_IN_SEARCH } from '@/constants/static.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveSearchUrlType, SearchUrlKind } from '@/helpers/resolveSearchUrlType.js';
 import { resolveProviderOptions, resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';

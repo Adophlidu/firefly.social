@@ -28,7 +28,7 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_W3M_PROJECT_ID: z.string().default('invalid_w3m_project_id'),
 });
 
-export const env = {
+export const envs = {
     shared: {
         NODE_ENV: (getEnvValue('NODE_ENV') || process.env.NODE_ENV) as NODE_ENV,
         VERSION: process.env.npm_package_version || '',
@@ -39,7 +39,7 @@ export const env = {
         NEXT_PUBLIC_VERCEL_ENV: getEnvValue('NEXT_PUBLIC_VERCEL_ENV'),
         NEXT_PUBLIC_PRIVY_APP_ID: getEnvValue('NEXT_PUBLIC_PRIVY_APP_ID'),
         NEXT_PUBLIC_SITE_URL: getEnvValue('NEXT_PUBLIC_SITE_URL'),
-        NEXT_PUBLIC_BASE_PATH: getEnvValue('NEXT_PUBLIC_BASE_PATH'),
+        NEXT_PUBLIC_BASE_PATH: getEnvValue('NEXT_PUBLIC_BASE_PATH') ?? '/wallet-iframe',
         NEXT_PUBLIC_KLINE_BASE_URL: getEnvValue('NEXT_PUBLIC_KLINE_BASE_URL'),
         NEXT_PUBLIC_FIREFLY_ROOT_URL: getEnvValue('NEXT_PUBLIC_FIREFLY_ROOT_URL'),
         NEXT_PUBLIC_MAINNET_RPC_URL: getEnvValue('NEXT_PUBLIC_MAINNET_RPC_URL'),
@@ -54,3 +54,6 @@ export const env = {
         NEXT_PUBLIC_W3M_PROJECT_ID: getEnvValue('NEXT_PUBLIC_W3M_PROJECT_ID'),
     }),
 };
+
+export const APP_BASE_PATH = envs.external.NEXT_PUBLIC_BASE_PATH.replace(/\/$/, '');
+export const IS_DEV_API = envs.external.NEXT_PUBLIC_FIREFLY_ROOT_URL.startsWith('https://api-dev.firefly.land');

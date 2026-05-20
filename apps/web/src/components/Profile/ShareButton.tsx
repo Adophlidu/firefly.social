@@ -1,10 +1,10 @@
 'use client';
 
 import ShareIcon from '@dimensiondev/assets/share.svg';
+import { SITE_URL } from '@dimensiondev/envs/web';
 import urlcat from 'urlcat';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { SITE_URL } from '@/constants/static.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
 import { useShareUrl } from '@/hooks/useShareUrl.js';

@@ -1,4 +1,4 @@
-import { env } from '@dimensiondev/envs/wallet';
+import { envs } from '@dimensiondev/envs/wallet';
 import { Trans } from '@lingui/react/macro';
 import type { PropsWithChildren } from 'react';
 
@@ -14,7 +14,7 @@ export function LoginRequired({ children }: PropsWithChildren) {
         return (
             <div className="flex h-48 w-full flex-col items-center justify-center">
                 <Button asChild>
-                    <a href={env.external.NEXT_PUBLIC_SITE_URL} target="_blank" rel="noopener noreferrer">
+                    <a href={envs.external.NEXT_PUBLIC_SITE_URL} target="_blank" rel="noopener noreferrer">
                         <Trans>Login In Firefly</Trans>
                     </a>
                 </Button>

@@ -1,9 +1,8 @@
+import { envs } from '@dimensiondev/envs/wallet';
 import { createMemoryHistory, createRouter } from '@tanstack/react-router';
 
 import { DefaultPendingComponent } from '@/components/DefaultPendingComponent.js';
 import { routeTree } from '@/routeTree.gen.js';
-
-const basepath = process.env.NEXT_PUBLIC_BASE_PATH ?? '/wallet-iframe';
 
 // All static routes to preload (excluding dynamic routes with params)
 const staticRoutes = [
@@ -30,7 +29,7 @@ export function createAppRouter() {
 
     const router = createRouter({
         routeTree,
-        basepath,
+        basepath: envs.external.NEXT_PUBLIC_BASE_PATH,
         history,
         trailingSlash: 'never',
         // Preload routes when they enter the viewport

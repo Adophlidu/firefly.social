@@ -1,8 +1,8 @@
+import { SITE_URL } from '@dimensiondev/envs/web';
 import { bom } from '@dimensiondev/utils';
 import { isServer } from '@tanstack/react-query';
 import urlcat from 'urlcat';
 
-import { SITE_URL } from '@/constants/static.js';
 import type { NextFetchersOptions } from '@/helpers/fetch.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { SessionHolder } from '@/providers/base/SessionHolder.js';

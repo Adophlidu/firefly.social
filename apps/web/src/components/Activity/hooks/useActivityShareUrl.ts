@@ -1,9 +1,9 @@
 import type { SocialSource } from '@dimensiondev/enums';
 import { PageRoute, Source } from '@dimensiondev/enums';
+import { SITE_URL } from '@dimensiondev/envs/web';
 import urlcat from 'urlcat';
 
 import { useActivityCurrentAccountHandle } from '@/components/Activity/hooks/useActivityCurrentAccountHandle.js';
-import { SITE_URL } from '@/constants/static.js';
 import { resolveActivityShareUrl } from '@/helpers/resolveActivityUrl.js';
 
 const ACTIVITY_SHARE_URL_MAP: Record<string, SocialSource> = {

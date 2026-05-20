@@ -1,8 +1,7 @@
 import { FIREFLY_S3_URL } from '@dimensiondev/constants/static';
+import { SITE_URL } from '@dimensiondev/envs/web';
 import { isServer } from '@tanstack/react-query';
 import urlcat from 'urlcat';
-
-import { SITE_URL } from '@/constants/static.js';
 
 export function getPublicUrl(pathname: string) {
     return urlcat(

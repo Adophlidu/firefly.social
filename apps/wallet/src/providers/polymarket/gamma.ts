@@ -1,7 +1,7 @@
 import { POLYMARKET_GAMMA_API_ROOT_URL } from '@dimensiondev/constants/static';
+import { APP_BASE_PATH } from '@dimensiondev/envs/wallet';
 import urlcat from 'urlcat';
 
-import { APP_BASE_PATH } from '@/constants/static.js';
 import { Fetch } from '@/lib/Fetch.js';
 import type { PolymarketGammaEvent, PolymarketGammaMarket } from '@/providers/polymarket/types.js';
 

@@ -1,4 +1,5 @@
 import { EMPTY_LIST } from '@dimensiondev/constants';
+import { SITE_URL } from '@dimensiondev/envs/web';
 import { waitForEthereumTransaction } from '@dimensiondev/web3/actions';
 import { EthereumSchemaType } from '@dimensiondev/web3/enums';
 import { rightShift, toFixed } from '@dimensiondev/web3/numbers';
@@ -16,7 +17,6 @@ import RED_PACKET_ABI from '@/abis/RedPacket.json' with { type: 'json' };
 import { formatSenderName } from '@/components/RedPacket/helpers.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { DEFAULT_THEME_ID, RED_PACKET_CONTRACT_VERSION, RED_PACKET_DURATION } from '@/constants/rp.js';
-import { SITE_URL } from '@/constants/static.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { RedPacketContext } from '@/modals/RedPacketModal/RedPacketContext.js';

@@ -1,6 +1,7 @@
 import { SORTED_SOCIAL_SOURCES } from '@dimensiondev/constants/computed';
 import type { SocialSource } from '@dimensiondev/enums';
 import { FireflyPlatform, NetworkType } from '@dimensiondev/enums';
+import { SITE_URL } from '@dimensiondev/envs/web';
 import { classNames } from '@dimensiondev/utils';
 import { getChainIcon, solana } from '@dimensiondev/web3/chains';
 import { isValidAddressEthereum } from '@dimensiondev/web3/utils';
@@ -12,7 +13,6 @@ import urlcat from 'urlcat';
 
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
-import { SITE_URL } from '@/constants/static.js';
 import { Image } from '@/esm/Image.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { resolveSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';

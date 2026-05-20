@@ -2,6 +2,7 @@
 
 import { SUPPORTED_MEDIA_CORS_SOURCES } from '@dimensiondev/constants/computed';
 import { NetworkType, RedpacketTxType } from '@dimensiondev/enums';
+import { SITE_URL } from '@dimensiondev/envs/web';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import { createWagmiPublicClient } from '@dimensiondev/web3/actions';
 import { minus, ZERO } from '@dimensiondev/web3/numbers';
@@ -29,7 +30,6 @@ import { RedPacketCardFooter } from '@/components/RedPacket/RedPacketCardFooter.
 import { RequirementsModal } from '@/components/RedPacket/RequirementsModal.js';
 import { Timer } from '@/components/RedPacket/Timer.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { SITE_URL } from '@/constants/static.js';
 import { Image } from '@/esm/Image.js';
 import { getNativeToken } from '@/helpers/getNativeToken.js';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';

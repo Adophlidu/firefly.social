@@ -1,5 +1,6 @@
 import { FARCASTER_REPLY_URL } from '@dimensiondev/constants/static';
 import { SessionType, Source } from '@dimensiondev/enums';
+import { SITE_URL } from '@dimensiondev/envs/web';
 import { classNames, parseUrl } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
@@ -10,7 +11,6 @@ import urlcat from 'urlcat';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ScannableQRCode } from '@/components/ScannableQRCode.js';
-import { SITE_URL } from '@/constants/static.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';

@@ -1,13 +1,13 @@
 'use client';
 
 import AddThreadIcon from '@dimensiondev/assets/add-thread.svg';
+import { MAX_POST_SIZE_PER_THREAD } from '@dimensiondev/envs/web';
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { CountdownCircle } from '@/components/Compose/CountdownCircle.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { MAX_POST_SIZE_PER_THREAD } from '@/constants/static.js';
 import { measureChars } from '@/helpers/chars.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';

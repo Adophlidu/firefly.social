@@ -1,4 +1,4 @@
-import { env } from '@dimensiondev/envs/wallet';
+import { envs } from '@dimensiondev/envs/wallet';
 import urlcat from 'urlcat';
 
 import { resolvePrivyResponse } from '@/helpers/resolvePrivyResponse.js';
@@ -36,6 +36,6 @@ class PrivyAuthApi extends Fetch {
 export const privyAuthApi = new PrivyAuthApi({
     baseURL: 'https://auth.privy.io/api',
     headers: {
-        'privy-app-id': env.external.NEXT_PUBLIC_PRIVY_APP_ID,
+        'privy-app-id': envs.external.NEXT_PUBLIC_PRIVY_APP_ID,
     },
 });

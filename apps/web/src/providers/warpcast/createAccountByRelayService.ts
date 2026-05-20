@@ -1,8 +1,8 @@
 import { FARCASTER_REPLY_URL, NOT_DEPEND_SECRET, SITE_HOSTNAME } from '@dimensiondev/constants/static';
+import { SITE_URL } from '@dimensiondev/envs/web';
 import { parseUrl } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
-import { SITE_URL } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { getFarcasterProfileById } from '@/providers/firefly/farcaster-hub/getFarcasterProfileById.js';

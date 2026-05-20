@@ -1,11 +1,11 @@
 import { FIREFLY_STAMP_DEV_URL, FIREFLY_STAMP_URL } from '@dimensiondev/constants/static';
 import { Source, STATUS } from '@dimensiondev/enums';
-import { env } from '@dimensiondev/envs/wallet';
+import { envs } from '@dimensiondev/envs/wallet';
 import { bom, safeUnreachable } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
 const STAMP_URL =
-    env.external.NEXT_PUBLIC_FIREFLY_DEV_API === STATUS.Enabled ? FIREFLY_STAMP_DEV_URL : FIREFLY_STAMP_URL;
+    envs.external.NEXT_PUBLIC_FIREFLY_DEV_API === STATUS.Enabled ? FIREFLY_STAMP_DEV_URL : FIREFLY_STAMP_URL;
 
 export function getStampAvatarByProfileId(source: Source, profileId: string, size = 240) {
     const s = Math.min(size, 500);
@@ -17,11 +17,11 @@ export function getStampAvatarByProfileId(source: Source, profileId: string, siz
         case Source.Twitter:
             return bom.window
                 ? urlcat('/api/twitter/user/:id/avatar', { id: profileId, s })
-                : urlcat(env.external.NEXT_PUBLIC_SITE_URL, '/api/twitter/user/:id/avatar', { id: profileId, s });
+                : urlcat(envs.external.NEXT_PUBLIC_SITE_URL, '/api/twitter/user/:id/avatar', { id: profileId, s });
         case Source.Bsky:
             return bom.window
                 ? urlcat('/api/bsky/user/:id/avatar', { id: profileId, s })
-                : urlcat(env.external.NEXT_PUBLIC_SITE_URL, '/api/bsky/user/:id/avatar', { id: profileId, s });
+                : urlcat(envs.external.NEXT_PUBLIC_SITE_URL, '/api/bsky/user/:id/avatar', { id: profileId, s });
         case Source.Firefly:
             return urlcat(STAMP_URL, '/firefly/:id', { id: profileId, s });
         case Source.Wallet:

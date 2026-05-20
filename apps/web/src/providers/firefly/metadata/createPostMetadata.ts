@@ -1,7 +1,7 @@
+import { SITE_URL } from '@dimensiondev/envs/web';
 import type { Metadata } from 'next';
 import urlcat from 'urlcat';
 
-import { SITE_URL } from '@/constants/static.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';
 import { fetchMetadataApi } from '@/providers/firefly/metadata/fetchMetadataApi.js';

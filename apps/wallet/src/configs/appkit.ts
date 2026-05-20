@@ -1,4 +1,4 @@
-import { env } from '@dimensiondev/envs/wallet';
+import { envs } from '@dimensiondev/envs/wallet';
 import type { AppKitNetwork } from '@reown/appkit/networks';
 import { createAppKit } from '@reown/appkit/react';
 
@@ -10,7 +10,7 @@ const networks = [...wagmiNetworks, ...solanaNetworks] as [AppKitNetwork, ...App
 export const appkit = createAppKit({
     adapters: [wagmiAdapter, solanaAdapter],
     networks,
-    projectId: env.external.NEXT_PUBLIC_W3M_PROJECT_ID,
+    projectId: envs.external.NEXT_PUBLIC_W3M_PROJECT_ID,
     showWallets: false,
     features: {
         email: false,
