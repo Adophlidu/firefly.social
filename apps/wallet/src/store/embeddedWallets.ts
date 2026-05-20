@@ -43,5 +43,3 @@ export const solanaWalletAddressAtom = atom(
         set(baseSolanaWalletAddressAtom, token ? newAddress : null);
     },
 );
-
-export const isWalletAuthorizedAtom = atom((get) => !!get(evmWalletAddressAtom) && !!get(solanaWalletAddressAtom));

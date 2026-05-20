@@ -71,6 +71,3 @@ export function getSlippagePercent(slippage: SlippageValue): number {
     }
     return slippage;
 }
-
-// Preset slippage options
-export const SLIPPAGE_PRESETS: SlippageValue[] = ['auto', 0.1, 0.5, 1, 3];

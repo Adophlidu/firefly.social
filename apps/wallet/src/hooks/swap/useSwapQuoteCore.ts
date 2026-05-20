@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 
 import { useDebouncedValue } from '@/hooks/useDebouncedValue.js';
-import { createSwapEndpoint } from '@/providers/swap/index.js';
+import { createSwapEndpoint } from '@/providers/swap/swapEndpoint.js';
 import type { SwapToken } from '@/providers/swap/types.js';
 import { getSlippagePercent, type SlippageValue } from '@/store/swap/swapSettings.js';
 

@@ -35,7 +35,8 @@ import {
 import { toastLoading } from '@/helpers/toastLoading.js';
 import { type AppKitSolanaWallet, useAppKitSolanaWallets } from '@/hooks/useAppKitSolanaWallets.js';
 import { logger } from '@/lib/Logger.js';
-import { createSwapEndpoint, type SwapToken } from '@/providers/swap/index.js';
+import { createSwapEndpoint } from '@/providers/swap/swapEndpoint.js';
+import type { SwapToken } from '@/providers/swap/types.js';
 import type { FreeGasTxType } from '@/providers/types/FreeGas.js';
 import { fireflySessionTokenAtom } from '@/store/fireflySession.js';
 import { getSlippagePercent, type SlippageValue } from '@/store/swap/swapSettings.js';

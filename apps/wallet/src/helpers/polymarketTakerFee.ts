@@ -53,16 +53,3 @@ export function computePolymarketMarketBuyFeeUsd(
     const shares = computePolymarketMarketBuyShares(inputUsd, p);
     return computePolymarketTakerFeeUsd({ shares, feeRate: r, price: p });
 }
-
-export function computePolymarketLimitBuyFeeUsd(
-    shares: BigNumber.Value,
-    feeRate: BigNumber.Value,
-    limitPrice: BigNumber.Value,
-): BigNumber {
-    const s = BigNumber(shares);
-    const r = BigNumber(feeRate);
-    const p = BigNumber(limitPrice);
-    if (!s.isFinite() || s.lte(0) || !r.isFinite() || r.lte(0)) return BigNumber(0);
-    if (!p.isFinite() || p.lte(0) || p.gte(1)) return BigNumber(0);
-    return s.times(r).times(p).times(BigNumber(1).minus(p)).decimalPlaces(FEE_USD_DECIMALS, BigNumber.ROUND_HALF_UP);
-}

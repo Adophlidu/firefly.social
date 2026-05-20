@@ -14,18 +14,6 @@ export interface EvmTransaction {
     max_priority_fee_per_gas?: string;
 }
 
-export interface TypedData {
-    domain: {
-        name: string;
-        version: string;
-        chainId: number;
-        verifyingContract: string;
-    };
-    message: Record<string, any>;
-    primaryType: string;
-    types: Record<string, Array<{ name: string; type: string }>>;
-}
-
 export type SignEncoding = 'utf-8' | 'hex';
 
 export interface LinkedAccount {
@@ -108,12 +96,6 @@ export interface SignSolanaMessageRequest {
     privy_code_hash?: string;
 }
 
-export interface SignSolanaTransactionRequest {
-    transaction: string; // base64;
-    encoding: 'base64';
-    privy_code_hash?: string;
-}
-
 export interface SendSolanaTransactionRequest {
     transaction: string; // base58 encoded transaction
     privy_code_hash?: string;
@@ -124,11 +106,6 @@ export interface SendSolanaTransactionRequest {
 export type SignSolanaMessageResponse = Response<{
     signature: string;
     encoding: 'utf-8' | 'base64';
-}>;
-
-export type SignSolanaTransactionResponse = Response<{
-    signed_transaction: string;
-    encoding: 'base64';
 }>;
 
 export type SendSolanaTransactionResponse = Response<{

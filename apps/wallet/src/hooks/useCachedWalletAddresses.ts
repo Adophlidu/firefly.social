@@ -80,11 +80,6 @@ export function useCachedEvmAddress(): string | null {
     return evmAddress;
 }
 
-export function useCachedSolanaAddress(): string | null {
-    const { solanaAddress } = useCachedWalletAddresses();
-    return solanaAddress;
-}
-
 /**
  * Get specifically the embedded (Firefly) wallet addresses.
  * Unlike useCachedWalletAddresses, this always returns the embedded wallet,
@@ -106,11 +101,6 @@ export function useEmbeddedWalletAddresses(): {
     };
 }
 
-export function useEmbeddedEvmAddress(): string | null {
-    const { evmAddress } = useEmbeddedWalletAddresses();
-    return evmAddress;
-}
-
 export function useEmbeddedEvmWalletContext(): {
     address: Address | null;
     isReady: boolean;
@@ -123,11 +113,6 @@ export function useEmbeddedEvmWalletContext(): {
         isReady: isPrivyReady,
         isLoading: !isPrivyReady,
     };
-}
-
-export function useEmbeddedSolanaAddress(): string | null {
-    const { solanaAddress } = useEmbeddedWalletAddresses();
-    return solanaAddress;
 }
 
 /** Swap UI: in-wallet (`accessPath` 2) always uses embedded Firefly wallets, not Privy’s first-linked external wallet */

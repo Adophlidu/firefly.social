@@ -33,11 +33,3 @@ export function isPolymarketUpDownSlug(slug: string): boolean {
     if (classification.kind !== 'other') return true;
     return classification.isUpDownFamily;
 }
-
-export function resolvePastMarketVariantFromEvent(event: {
-    slug?: string;
-    markets?: Array<{ slug?: string }>;
-}): PastMarketVariant | null {
-    const slug = event.slug?.trim() || event.markets?.[0]?.slug?.trim();
-    return slug ? resolvePastMarketVariant(slug) : null;
-}

@@ -1808,12 +1808,6 @@ export type CollectionStatisticsResponse = Response<{
     volume_change_6h: string;
 }>;
 
-export interface NFTBookmarkContent {
-    nft_id: `${number}.${string}.${string}`;
-    own_num: 0;
-    following_own_num: 0;
-}
-
 type Stat = [number, number];
 
 export type TokenPriceStatsResponse = Response<{
@@ -2171,8 +2165,6 @@ export interface TrendingNFT {
     /** NFTScan collection */
     collection: EVM.Collection;
 }
-
-export type TrendingNFTsResponse = Response<TrendingNFT[]>;
 
 export interface TokenAsset {
     chainIndex: string;

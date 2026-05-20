@@ -79,18 +79,6 @@ export interface SwapApiResponse<T> {
     message?: string;
 }
 
-export interface AllTokensResponse {
-    tokens: SwapToken[];
-}
-
-export interface UserTokenBalancesResponse {
-    tokenAssets: SwapToken[];
-}
-
-export interface SupportedChainsResponse {
-    chains: SupportedChain[];
-}
-
 export interface GetQuoteParams {
     fromTokenAddress: string;
     toTokenAddress: string;
@@ -187,18 +175,6 @@ export interface RecentToken {
 export interface RecentTokenResponse {
     list: RecentToken[];
     cursor?: string;
-}
-
-export interface SwapExecutionResult {
-    success: boolean;
-    hash?: string;
-    error?: string;
-}
-
-export interface TokenWithBalance extends SwapToken {
-    formattedBalance: string;
-    formattedUsdValue: string;
-    isNative: boolean;
 }
 
 export interface SelectTokenSearch {
