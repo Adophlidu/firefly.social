@@ -182,6 +182,8 @@ function PredictionOutcomeButton({ className, slug, outcome, children }: Predict
     );
 }
 
+const MIN_RATIO_FOR_BACKGROUND = 5; // 5%
+
 export const BetItem = memo(function BetItem({
     event,
     className,
@@ -321,21 +323,33 @@ export const BetItem = memo(function BetItem({
 
                             const firstOutcome = outcomes[0] || 'Yes';
                             const secondOutcome = outcomes[1] || 'No';
+                            const ratio = isMarketResolved ? winningPercentage : firstPercentage;
+                            const ratioForBg = Math.ceil(ratio);
 
                             return (
-                                <div key={market.id} className="flex items-center gap-3 sm:gap-4">
-                                    <div className="min-w-0 flex-1">
-                                        <p className="text-lightMain truncate text-left text-sm leading-5">
-                                            {market.groupItemTitle || market.question || market.title}
-                                        </p>
-                                    </div>
-                                    <div className="flex shrink-0 flex-col text-right">
-                                        <p className="text-lightMain text-sm font-semibold leading-5">
-                                            {formatWinRate(isMarketResolved ? winningPercentage : firstPercentage)}
-                                        </p>
+                                <div key={market.id} className="flex flex-col items-center gap-3 sm:gap-4 md:flex-row">
+                                    <div
+                                        className="flex h-5 w-full min-w-0 flex-1 items-center gap-3 rounded-full px-2 md:w-auto"
+                                        style={{
+                                            background:
+                                                ratioForBg >= MIN_RATIO_FOR_BACKGROUND
+                                                    ? `linear-gradient(90deg, var(--Polymarket-yes-background, #DCF1D9) 0%, rgba(220, 241, 217, 0.00) ${ratioForBg}%)`
+                                                    : undefined,
+                                        }}
+                                    >
+                                        <div className="min-w-0 flex-1">
+                                            <p className="text-lightMain truncate text-left text-sm leading-5">
+                                                {market.groupItemTitle || market.question || market.title}
+                                            </p>
+                                        </div>
+                                        <div className="flex shrink-0 flex-col text-right">
+                                            <p className="text-lightMain text-sm font-semibold leading-5">
+                                                {formatWinRate(ratio)}
+                                            </p>
+                                        </div>
                                     </div>
                                     {isMarketResolved && winningOutcome ? (
-                                        <div className="flex shrink-0">
+                                        <div className="flex w-full shrink-0 md:w-auto">
                                             <span
                                                 className={classNames(
                                                     bedStead.className,
@@ -350,7 +364,7 @@ export const BetItem = memo(function BetItem({
                                             </span>
                                         </div>
                                     ) : platform !== PredictionPlatform.Opinion ? (
-                                        <div className="flex min-w-0 shrink-0 gap-2">
+                                        <div className="flex w-full min-w-0 shrink-0 gap-2 md:w-auto">
                                             <PredictionOutcomeButton
                                                 className={classNames(
                                                     'min-w-0 flex-1 overflow-hidden rounded-lg px-3 py-1.5 text-sm font-bold leading-6 sm:w-[100px] md:w-[120px]',

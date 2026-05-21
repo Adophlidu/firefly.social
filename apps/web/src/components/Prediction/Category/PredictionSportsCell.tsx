@@ -39,14 +39,7 @@ export const PredictionSportsCell = memo<Props>(function PredictionSportsCell({ 
             />
             <div className="pointer-events-none relative z-10 flex flex-col gap-3">
                 <SportsCellHeader model={model} />
-                {model.layout === 'threeWay' ? (
-                    <ThreeWaySportsCellBody model={model} />
-                ) : (
-                    <>
-                        <TeamRow team={model.homeTeam} gamePhase={model.gamePhase} />
-                        <TeamRow team={model.awayTeam} gamePhase={model.gamePhase} />
-                    </>
-                )}
+                <SportsCellBody model={model} />
             </div>
         </div>
     );
@@ -164,68 +157,68 @@ const LivestreamBroadcastIcon = memo(function LivestreamBroadcastIcon(props: SVG
     );
 });
 
-const ThreeWaySportsCellBody = memo<{ model: PredictionSportsCellViewModel }>(function ThreeWaySportsCellBody({
-    model,
-}) {
-    const showOutcomeButtons = model.gamePhase !== 'finished' && model.drawOutcome;
+const OUTCOME_BUTTON_WIDTH_CLASS = 'h-9 flex-1 min-w-0 shrink-0 md:w-32';
+
+const SportsCellBody = memo<{ model: PredictionSportsCellViewModel }>(function SportsCellBody({ model }) {
+    const showActions =
+        model.gamePhase !== 'finished' &&
+        (model.layout === 'binary' || (model.layout === 'threeWay' && model.drawOutcome));
 
     return (
-        <div className="flex items-center gap-3">
+        <div className="flex flex-col gap-3 md:flex-row md:items-center">
             <div className="flex min-w-0 flex-1 flex-col gap-3">
-                <TeamRow team={model.homeTeam} gamePhase={model.gamePhase} showOutcomeButton={false} />
-                <TeamRow team={model.awayTeam} gamePhase={model.gamePhase} showOutcomeButton={false} />
+                <TeamInfoRow team={model.homeTeam} gamePhase={model.gamePhase} />
+                <TeamInfoRow team={model.awayTeam} gamePhase={model.gamePhase} />
             </div>
-            {showOutcomeButtons ? (
-                <div className="pointer-events-auto relative z-20 flex shrink-0 flex-col gap-3">
-                    <OutcomePriceButton team={model.homeTeam} />
-                    <DrawOutcomePriceButton draw={model.drawOutcome!} />
-                    <OutcomePriceButton team={model.awayTeam} />
+            {showActions ? (
+                <div className="pointer-events-auto relative z-20 flex w-full flex-row gap-2 md:w-32 md:shrink-0 md:flex-col md:gap-3">
+                    <OutcomePriceButton team={model.homeTeam} className={OUTCOME_BUTTON_WIDTH_CLASS} />
+                    {model.layout === 'threeWay' && model.drawOutcome ? (
+                        <DrawOutcomePriceButton draw={model.drawOutcome} className={OUTCOME_BUTTON_WIDTH_CLASS} />
+                    ) : null}
+                    <OutcomePriceButton team={model.awayTeam} className={OUTCOME_BUTTON_WIDTH_CLASS} />
                 </div>
             ) : null}
         </div>
     );
 });
 
-const TeamRow = memo<{
+const TeamInfoRow = memo<{
     team: PredictionSportsTeamForUI;
     gamePhase: PredictionSportsCellViewModel['gamePhase'];
-    showOutcomeButton?: boolean;
-}>(function TeamRow({ team, gamePhase, showOutcomeButton = true }) {
+}>(function TeamInfoRow({ team, gamePhase }) {
     const isFinished = gamePhase === 'finished';
     const showLoserStyle = isFinished && team.isLoser;
 
     return (
-        <div className="flex items-center justify-between gap-2">
-            <div className={classNames('flex min-w-0 flex-1 items-center gap-2', showLoserStyle ? 'opacity-40' : '')}>
-                {typeof team.score === 'number' ? (
-                    <span
-                        className={classNames(
-                            'flex h-9 w-10 shrink-0 items-center justify-center rounded-lg text-sm font-bold',
-                            team.isWinner ? 'bg-main text-white' : 'bg-bg text-main',
-                        )}
-                    >
-                        {team.score}
-                    </span>
+        <div className={classNames('flex min-w-0 items-center gap-2', showLoserStyle ? 'opacity-40' : '')}>
+            {typeof team.score === 'number' ? (
+                <span
+                    className={classNames(
+                        'flex h-9 w-10 shrink-0 items-center justify-center rounded-lg text-sm font-bold',
+                        team.isWinner ? 'bg-main text-white' : 'bg-bg text-main',
+                    )}
+                >
+                    {team.score}
+                </span>
+            ) : null}
+            {team.logo ? (
+                <Image
+                    src={team.logo}
+                    alt=""
+                    width={36}
+                    height={36}
+                    className="size-9 shrink-0 rounded-lg object-cover"
+                />
+            ) : (
+                <span className="bg-bg size-9 shrink-0 rounded-lg" aria-hidden />
+            )}
+            <div className="flex min-w-0 items-center gap-2">
+                <span className="text-main truncate text-sm font-semibold leading-[18px]">{team.name}</span>
+                {team.record ? (
+                    <span className="text-second shrink-0 text-sm font-medium leading-[18px]">{team.record}</span>
                 ) : null}
-                {team.logo ? (
-                    <Image
-                        src={team.logo}
-                        alt=""
-                        width={36}
-                        height={36}
-                        className="size-9 shrink-0 rounded-lg object-cover"
-                    />
-                ) : (
-                    <span className="bg-bg size-9 shrink-0 rounded-lg" aria-hidden />
-                )}
-                <div className="flex min-w-0 items-center gap-2">
-                    <span className="text-main truncate text-sm font-semibold leading-[18px]">{team.name}</span>
-                    {team.record ? (
-                        <span className="text-second shrink-0 text-sm font-medium leading-[18px]">{team.record}</span>
-                    ) : null}
-                </div>
             </div>
-            {showOutcomeButton && gamePhase !== 'finished' ? <OutcomePriceButton team={team} /> : null}
         </div>
     );
 });
@@ -287,14 +280,18 @@ const SportsOutcomePriceButton = memo<SportsOutcomePriceButtonProps>(function Sp
     );
 });
 
-const DrawOutcomePriceButton = memo<{ draw: PredictionSportsDrawOutcomeForUI }>(function DrawOutcomePriceButton({
-    draw,
-}) {
+const DrawOutcomePriceButton = memo<{
+    draw: PredictionSportsDrawOutcomeForUI;
+    className: string;
+}>(function DrawOutcomePriceButton({ draw, className }) {
     return (
         <SportsOutcomePriceButton
             marketSlug={draw.marketSlug}
             outcomeIndex={draw.outcomeIndex}
-            className="bg-bg text-main flex h-9 w-32 shrink-0 items-center justify-center gap-1 rounded-lg px-4 text-sm"
+            className={classNames(
+                'bg-bg text-main flex items-center justify-center gap-1 rounded-lg px-4 text-sm',
+                className,
+            )}
         >
             <span className="font-medium opacity-80">
                 <Trans>DRAW</Trans>
@@ -304,7 +301,10 @@ const DrawOutcomePriceButton = memo<{ draw: PredictionSportsDrawOutcomeForUI }>(
     );
 });
 
-const OutcomePriceButton = memo<{ team: PredictionSportsTeamForUI }>(function OutcomePriceButton({ team }) {
+const OutcomePriceButton = memo<{
+    team: PredictionSportsTeamForUI;
+    className: string;
+}>(function OutcomePriceButton({ team, className }) {
     const abbreviation = team.abbreviation?.toUpperCase();
 
     return (
@@ -312,12 +312,13 @@ const OutcomePriceButton = memo<{ team: PredictionSportsTeamForUI }>(function Ou
             marketSlug={team.marketSlug}
             outcomeIndex={team.outcomeIndex}
             className={classNames(
-                'flex h-9 w-32 shrink-0 items-center justify-center gap-1 rounded-lg px-4 text-sm text-white',
+                'flex items-center justify-center gap-1 rounded-lg px-2 text-sm text-white',
                 team.color ? '' : 'bg-highlight',
+                className,
             )}
             style={team.color ? { backgroundColor: team.color } : undefined}
         >
-            {abbreviation ? <span className="font-medium opacity-80">{abbreviation}</span> : null}
+            {abbreviation ? <span className="min-w-0 truncate font-medium opacity-80">{abbreviation}</span> : null}
             <AnimatedPriceCents className="font-bold" priceCents={team.priceCents} />
         </SportsOutcomePriceButton>
     );
