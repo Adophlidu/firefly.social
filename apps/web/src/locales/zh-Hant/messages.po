@@ -2298,7 +2298,7 @@ msgid "firefly.eth liked your transaction"
 msgstr "firefly.eth 喜歡您的交易"
 
 msgid "Failed to get live market URL. Please try again later."
-msgstr "取得即時市場網址失敗。請稍後再試。"
+msgstr "無法取得即時市場連結。請稍後再試。"
 
 msgid "Image"
 msgstr "圖片"
