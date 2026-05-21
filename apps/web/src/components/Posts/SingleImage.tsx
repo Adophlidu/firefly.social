@@ -24,6 +24,7 @@ export const SingleImage = memo<SingleImageProps>(function SingleImage({
     maxWidth = 550,
     minHeight = 50,
     maxHeight = 450,
+    children,
     ...props
 }) {
     const optimizedSrc = src ? optimizeCDNImageSize(src, maxWidth, maxHeight) : undefined;
@@ -69,6 +70,7 @@ export const SingleImage = memo<SingleImageProps>(function SingleImage({
                 width: renderWidth,
             }}
         >
+            {children}
             <div className="absolute inset-0">
                 <img
                     src={finalSrc}

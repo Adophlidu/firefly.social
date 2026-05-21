@@ -6,7 +6,7 @@ import { Trans } from '@lingui/react/macro';
 import { first } from 'lodash-es';
 import { type HTMLProps, memo, useCallback } from 'react';
 
-import { ImageAsset } from '@/components/Posts/ImageAsset.js';
+import { SingleImage } from '@/components/Posts/SingleImage.js';
 import { RemoveButton } from '@/components/RemoveButton.js';
 import { formatImageUrl } from '@/helpers/formatImageUrl.js';
 import { resolveMediaObjectUrl } from '@/helpers/resolveMediaObjectUrl.js';
@@ -84,17 +84,21 @@ export const ComposeImages = memo(function ComposeImages({ images, readonly = fa
         if (!target) return null;
         return (
             <div {...rest} className={classNames('relative', rest.className)}>
-                <ImageAsset
-                    className="w-full cursor-pointer rounded-lg object-cover"
-                    width={1000}
-                    height={1000}
+                <SingleImage
+                    className="cursor-pointer rounded-lg object-cover"
+                    width={target.width || 1000}
+                    height={target.height || 1000}
                     src={sanitizeDStorageUrl(resolveMediaObjectUrl(target))}
                     alt={target.file.name}
-                    overSize={!target.isRpPayloadImage}
-                />
-                {!readonly ? (
-                    <RemoveButton className="absolute right-1 top-1 z-10" onClick={() => handleRemoveImage(target)} />
-                ) : null}
+                    maxHeight={288}
+                >
+                    {!readonly ? (
+                        <RemoveButton
+                            className="absolute right-1 top-1 z-10"
+                            onClick={() => handleRemoveImage(target)}
+                        />
+                    ) : null}
+                </SingleImage>
             </div>
         );
     }
