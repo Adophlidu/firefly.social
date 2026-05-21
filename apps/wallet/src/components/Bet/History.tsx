@@ -823,7 +823,7 @@ function sortClosedPositions(positions: PolymarketPosition[], sortBy: ClosedPosi
             case 'AVGPRICE':
                 return b.avg_price - a.avg_price;
             case 'TITLE':
-                return b.title.localeCompare(a.title, undefined, { sensitivity: 'variant' });
+                return a.title > b.title ? -1 : a.title < b.title ? 1 : 0;
             default:
                 return 0;
         }
