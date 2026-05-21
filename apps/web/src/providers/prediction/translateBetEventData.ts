@@ -15,6 +15,9 @@ interface Options {
 function transferPolymarketLocale(locale: Locale): PolymarketEventLocale | null {
     switch (locale) {
         case Locale.en:
+        case Locale.es:
+        case Locale.ja:
+        case Locale.ko:
             return null;
         case Locale.zhHans:
             return 'zh';

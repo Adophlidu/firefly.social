@@ -7,17 +7,26 @@ import dayjs from 'dayjs';
 import { getDayjsLocaleName } from '@/helpers/dayjsLocale.js';
 import { logger } from '@/libs/Logger.js';
 import { messages as en } from '@/locales/en/messages.js';
+import { messages as es } from '@/locales/es/messages.js';
+import { messages as ja } from '@/locales/ja/messages.js';
+import { messages as ko } from '@/locales/ko/messages.js';
 import { messages as zhHans } from '@/locales/zh-Hans/messages.js';
 import { messages as zhHant } from '@/locales/zh-Hant/messages.js';
 
 export const supportedLocales: Record<Locale, string> = {
     [Locale.en]: 'English',
+    [Locale.es]: 'Español',
+    [Locale.ja]: '日本語',
+    [Locale.ko]: '한국어',
     [Locale.zhHans]: '简体中文',
     [Locale.zhHant]: '繁體中文',
 };
 
 const messages: Record<Locale, Messages> = {
     [Locale.en]: en,
+    [Locale.es]: es,
+    [Locale.ja]: ja,
+    [Locale.ko]: ko,
     [Locale.zhHans]: zhHans,
     [Locale.zhHant]: zhHant,
 };

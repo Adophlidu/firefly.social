@@ -27,6 +27,9 @@ export enum SiteCookies {
 
 export enum Locale {
     en = 'en',
+    es = 'es',
+    ja = 'ja',
+    ko = 'ko',
     zhHans = 'zh-Hans',
     zhHant = 'zh-Hant',
 }

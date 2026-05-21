@@ -1,6 +1,6 @@
 import { formatter } from '@lingui/format-po';
 
-const locales = ['en', 'ko', 'ja', 'zh-Hans', 'zh-Hant'];
+const locales = ['en', 'es', 'ko', 'ja', 'zh-Hans', 'zh-Hant'];
 
 /** @type {import('@lingui/conf').LinguiConfig} */
 export default {

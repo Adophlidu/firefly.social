@@ -21,6 +21,9 @@ export async function getCookie(name: SiteCookies) {
 export function resolveLanguageLocale(language: string | undefined) {
     if (!language) return Locale.en;
     if (language.startsWith('en')) return Locale.en;
+    if (language.startsWith('es')) return Locale.es;
+    if (language.startsWith('ja')) return Locale.ja;
+    if (language.startsWith('ko')) return Locale.ko;
     if (language.startsWith('zh'))
         return ['zh', 'zh-CN', 'zh-SG'].includes(language) || language.startsWith('zh-Hans')
             ? Locale.zhHans
