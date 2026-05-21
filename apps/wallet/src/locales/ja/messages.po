@@ -14,1019 +14,1019 @@ msgstr ""
 "Language-Team: \n"
 
 msgid "Interacted Failed"
-msgstr ""
+msgstr "操作に失敗しました"
 
 msgid "Copy to clipboard"
-msgstr ""
+msgstr "クリップボードにコピー"
 
 msgid "To"
-msgstr ""
+msgstr "宛先"
 
 msgid "Unlimited Amount"
-msgstr ""
+msgstr "無制限"
 
 #. placeholder {0}: pusdTokenFallback.symbol
 msgid "Available: {availableText} {0}"
-msgstr ""
+msgstr "利用可能：{availableText} {0}"
 
 msgid "Show assets < 1 USD"
-msgstr ""
+msgstr "1ドル未満の資産を表示"
 
 msgid "History"
-msgstr ""
+msgstr "履歴"
 
 msgid "Make sure to send funds on Ethereum."
-msgstr ""
+msgstr "Ethereum ネットワークで送金してください。"
 
 msgid "Load failed"
-msgstr ""
+msgstr "読み込みに失敗しました"
 
 msgid "Failed to disable authentication"
-msgstr ""
+msgstr "認証の無効化に失敗しました"
 
 msgid "Positions"
-msgstr ""
+msgstr "ポジション"
 
 msgid "Alphabetically"
-msgstr ""
+msgstr "アルファベット順"
 
 msgid "in your Firefly wallet"
-msgstr ""
+msgstr "Firefly ウォレット内"
 
 msgid "Skip reviews"
-msgstr ""
+msgstr "確認をスキップ"
 
 msgid "Address, ENS, or social handle"
-msgstr ""
+msgstr "アドレス、ENS、またはソーシャルハンドル"
 
 msgid "Your recovery phrase is like a password, keep it secret."
-msgstr ""
+msgstr "リカバリーフレーズはパスワードと同じです。絶対に秘密にしてください。"
 
 msgid "Low on balance? Your Firefly Wallet can automatically cover the rest."
-msgstr ""
+msgstr "残高不足ですか？Firefly ウォレットが不足分を自動補填できます。"
 
 msgid "Transfer from an exchange"
-msgstr ""
+msgstr "取引所から送金"
 
 #. placeholder {0}: transaction.tx_status
 msgid "{0, select, success {Success} fail {Failed} other {Failed}}"
-msgstr ""
+msgstr "{0, select, success {成功} fail {失敗} other {失敗}}"
 
 msgid "Missed this round, but the next prediction is waiting for you!"
-msgstr ""
+msgstr "今回は逃しましたが、次の予測があなたを待っています！"
 
 msgid "Upgrade Now"
-msgstr ""
+msgstr "今すぐアップグレード"
 
 #. placeholder {0}: selected.name
 msgid "Your {0} Address"
-msgstr ""
+msgstr "あなたの {0} アドレス"
 
 msgid "Avg"
-msgstr ""
+msgstr "平均"
 
 msgid "Claim winnings"
-msgstr ""
+msgstr "賞金を受け取る"
 
 msgid "Transaction nonce error. Please try again."
-msgstr ""
+msgstr "トランザクション Nonce エラーです。再試行してください。"
 
 #. placeholder {0}: formatTokenItemAmount(depositToken.balance ?? '0')
 #. placeholder {1}: depositToken.symbol
 msgid "{0} {1} in your Firefly wallet"
-msgstr ""
+msgstr "Firefly ウォレット内に {0} {1}"
 
 msgid "Pay"
-msgstr ""
+msgstr "支払い"
 
 msgid "Solana"
-msgstr ""
+msgstr "Solana"
 
 msgid "Receive funds"
-msgstr ""
+msgstr "資金を受け取る"
 
 msgid "Failed to claim winnings"
-msgstr ""
+msgstr "賞金の受け取りに失敗しました"
 
 msgid "Transactions"
-msgstr ""
+msgstr "トランザクション"
 
 msgid "Claim requested"
-msgstr ""
+msgstr "受け取りリクエスト済み"
 
 msgid "Review"
-msgstr ""
+msgstr "確認"
 
 msgid "Confirm to reset PIN code? For your security, this action requires sending a verification code to your recovery email to confirm your identity."
-msgstr ""
+msgstr "PIN コードをリセットしますか？セキュリティのため、本人確認のためにリカバリーメールに確認コードを送信する必要があります。"
 
 msgid "The PINs you entered do not match. Please check and try again."
-msgstr ""
+msgstr "入力した PIN が一致しません。確認して再試行してください。"
 
 msgid "Great job predicting the future!"
-msgstr ""
+msgstr "予測が当たりました！素晴らしい！"
 
 msgid "Invalid amount"
-msgstr ""
+msgstr "無効な金額"
 
 msgid "I understand"
-msgstr ""
+msgstr "理解しました"
 
 msgid "Deposit submitted. Funds will appear on Hyperliquid shortly."
-msgstr ""
+msgstr "入金が送信されました。まもなく Hyperliquid に反映されます。"
 
 msgid "Your Private Key"
-msgstr ""
+msgstr "秘密鍵"
 
 msgid "Retry"
-msgstr ""
+msgstr "再試行"
 
 msgid "Tokens"
-msgstr ""
+msgstr "トークン"
 
 msgid "Skip"
-msgstr ""
+msgstr "スキップ"
 
 msgid "Copied"
-msgstr ""
+msgstr "コピーしました"
 
 #. placeholder {0}: formatTokenItemAmount(usdcToken?.balance ?? '0')
 msgid "{0} USDC in your Firefly wallet"
-msgstr ""
+msgstr "Firefly ウォレット内に {0} USDC"
 
 msgid "Total"
-msgstr ""
+msgstr "合計"
 
 #. placeholder {0}: subtitle.projectName
 msgid "via {0}"
-msgstr ""
+msgstr "{0} 経由"
 
 msgid "To Address"
-msgstr ""
+msgstr "送付先アドレス"
 
 msgid "A 6-digit verification code has been sent to your email. Please enter the code to complete verification."
-msgstr ""
+msgstr "6桁の確認コードをメールに送信しました。コードを入力して確認を完了してください。"
 
 msgid "Approved"
-msgstr ""
+msgstr "承認済み"
 
 msgid "{riskTokenSymbol} is a high-risk token"
-msgstr ""
+msgstr "{riskTokenSymbol} はリスクの高いトークンです"
 
 msgid "The new email address you entered is the same as your current one. Please enter a different email address."
-msgstr ""
+msgstr "入力した新しいメールアドレスは現在のものと同じです。別のメールアドレスを入力してください。"
 
 msgid "Confirm"
-msgstr ""
+msgstr "確認"
 
 msgid "Assets to Release"
-msgstr ""
+msgstr "解放する資産"
 
 msgid "Predict on Polymarket"
-msgstr ""
+msgstr "Polymarket で予測する"
 
 msgid "Keep Your Recovery Phrase Safe"
-msgstr ""
+msgstr "リカバリーフレーズを安全に保管してください"
 
 msgid "Bought"
-msgstr ""
+msgstr "購入済み"
 
 msgid "ENS lookup failed. Please try again."
-msgstr ""
+msgstr "ENS の検索に失敗しました。再試行してください。"
 
 msgid "From Address"
-msgstr ""
+msgstr "送付元アドレス"
 
 msgid "Position closed"
-msgstr ""
+msgstr "ポジションをクローズしました"
 
 msgid "No Route Found"
-msgstr ""
+msgstr "ルートが見つかりません"
 
 msgid "Failed to enable authentication"
-msgstr ""
+msgstr "認証の有効化に失敗しました"
 
 msgid "Placing order..."
-msgstr ""
+msgstr "注文中..."
 
 msgid "Set Recovery Email"
-msgstr ""
+msgstr "リカバリーメールを設定"
 
 msgid "Close lost position"
-msgstr ""
+msgstr "損失ポジションをクローズ"
 
 msgid "Market not found"
-msgstr ""
+msgstr "マーケットが見つかりません"
 
 msgid "See details"
-msgstr ""
+msgstr "詳細を見る"
 
 msgid "Won"
-msgstr ""
+msgstr "勝利"
 
 #. placeholder {0}: formatTokenItemAmount(availableSharesBN, 2)
 msgid "{0} shares available"
-msgstr ""
+msgstr "{0} 口利用可能"
 
 msgid "Price"
-msgstr ""
+msgstr "価格"
 
 msgid "Enable skip reviews"
-msgstr ""
+msgstr "確認スキップを有効にする"
 
 msgid "Connection taking longer than expected"
-msgstr ""
+msgstr "接続に予想以上の時間がかかっています"
 
 msgid "Predict Wallet Pay"
-msgstr ""
+msgstr "予測ウォレット支払い"
 
 msgid "with"
-msgstr ""
+msgstr "で"
 
 msgid "Shares"
-msgstr ""
+msgstr "口数"
 
 msgid "Change Recovery Email"
-msgstr ""
+msgstr "リカバリーメールを変更"
 
 msgid "Transaction Hash"
-msgstr ""
+msgstr "トランザクションハッシュ"
 
 msgid "Not enough gas to pay the network fee."
-msgstr ""
+msgstr "ネットワーク手数料を支払うための Gas が不足しています。"
 
 msgid "Are you sure you want to cancel this order?<0/>Once cancelled, it cannot be restored."
-msgstr ""
+msgstr "この注文をキャンセルしてよろしいですか？<0/>キャンセル後は元に戻せません。"
 
 msgid "Avg. Price"
-msgstr ""
+msgstr "平均約定価格"
 
 msgid "You won"
-msgstr ""
+msgstr "勝利"
 
 msgid "Network cost"
-msgstr ""
+msgstr "ネットワークコスト"
 
 msgid "Revoked Failed"
-msgstr ""
+msgstr "取り消しに失敗しました"
 
 msgid "Forgot your PIN code?"
-msgstr ""
+msgstr "PIN コードをお忘れですか？"
 
 msgid "Recent"
-msgstr ""
+msgstr "最近"
 
 msgid "Oops! We couldn't find any tokens matching your search."
-msgstr ""
+msgstr "お探しのトークンは見つかりませんでした。"
 
 msgid "Block"
-msgstr ""
+msgstr "ブロック"
 
 msgid "Max"
-msgstr ""
+msgstr "最大"
 
 msgid "Transaction Detail"
-msgstr ""
+msgstr "トランザクション詳細"
 
 msgid "Slippage"
-msgstr ""
+msgstr "スリッページ"
 
 msgid "NFT Minted Failed"
-msgstr ""
+msgstr "NFT の発行に失敗しました"
 
 msgid "Connect Wallet"
-msgstr ""
+msgstr "ウォレットを接続"
 
 msgid "No more history"
-msgstr ""
+msgstr "これ以上の履歴はありません"
 
 msgid "Recovery Email"
-msgstr ""
+msgstr "リカバリーメール"
 
 msgid "Transaction failed: minimum return amount not reached. Try increasing slippage."
-msgstr ""
+msgstr "トランザクション失敗：最小受取額に達しませんでした。スリッページを増やしてください。"
 
 msgid "There is no data available for display."
-msgstr ""
+msgstr "表示できるデータがありません。"
 
 msgid "Transaction was rejected."
-msgstr ""
+msgstr "トランザクションが拒否されました。"
 
 msgid "Cancel"
-msgstr ""
+msgstr "キャンセル"
 
 msgid "to"
-msgstr ""
+msgstr "宛先"
 
 msgid "Done"
-msgstr ""
+msgstr "完了"
 
 msgid "Bridged Failed"
-msgstr ""
+msgstr "ブリッジに失敗しました"
 
 msgid "Enter new PIN"
-msgstr ""
+msgstr "新しい PIN を入力"
 
 msgid "Pay Wallet"
-msgstr ""
+msgstr "支払いウォレット"
 
 msgid "Open orders"
-msgstr ""
+msgstr "未決注文"
 
 msgid "Copy address"
-msgstr ""
+msgstr "アドレスをコピー"
 
 msgid "<0>{releaseAmountText}</0><1>to release</1>"
-msgstr ""
+msgstr "<0>{releaseAmountText}</0><1>解放予定</1>"
 
 msgid "Your funds are now in your predict wallet."
-msgstr ""
+msgstr "資金が予測ウォレットに入金されました。"
 
 msgid "No positions found"
-msgstr ""
+msgstr "ポジションが見つかりません"
 
 msgid "Order placed"
-msgstr ""
+msgstr "注文しました"
 
 msgid "Failed to place buy order. "
-msgstr ""
+msgstr "買い注文の発注に失敗しました。"
 
 msgid "Draft"
-msgstr ""
+msgstr "下書き"
 
 msgid "Domain"
-msgstr ""
+msgstr "ドメイン"
 
 msgid "PIN is acceptable, but consider adding more unique digits."
-msgstr ""
+msgstr "PIN は使用可能ですが、より多くの異なる数字を使用することをお勧めします。"
 
 msgid "Firefly Wallet Pay"
-msgstr ""
+msgstr "Firefly ウォレット支払い"
 
 msgid "Outcome"
-msgstr ""
+msgstr "結果"
 
 msgid "Failed to upgrade"
-msgstr ""
+msgstr "アップグレードに失敗しました"
 
 msgid "Unable to add funds to predictions account."
-msgstr ""
+msgstr "予測アカウントへの入金ができません。"
 
 msgid "Back to Bets"
-msgstr ""
+msgstr "ベットに戻る"
 
 msgid "Please login to view security settings."
-msgstr ""
+msgstr "セキュリティ設定を表示するにはログインしてください。"
 
 msgid "on"
-msgstr ""
+msgstr "で"
 
 msgid "Receive at least"
-msgstr ""
+msgstr "最低受取額"
 
 msgid "Unable to open this market."
-msgstr ""
+msgstr "このマーケットを開けません。"
 
 msgid "Approved Failed"
-msgstr ""
+msgstr "承認に失敗しました"
 
 msgid "Rate"
-msgstr ""
+msgstr "レート"
 
 msgid "No more orders"
-msgstr ""
+msgstr "これ以上の注文はありません"
 
 msgid "No more positions"
-msgstr ""
+msgstr "これ以上のポジションはありません"
 
 msgid "Received"
-msgstr ""
+msgstr "受取済み"
 
 msgid "Custom (0.5-100%)"
-msgstr ""
+msgstr "カスタム (0.5-100%)"
 
 msgid "Upgrade your Firefly prediction account NOW to ensure your predictions continue seamlessly."
-msgstr ""
+msgstr "今すぐ Firefly 予測アカウントをアップグレードして、予測を途切れなく継続できるようにしてください。"
 
 msgid "from"
-msgstr ""
+msgstr "送付元"
 
 msgid "Set PIN Code"
-msgstr ""
+msgstr "PIN コードを設定"
 
 msgid "Order cancelled"
-msgstr ""
+msgstr "注文をキャンセルしました"
 
 msgid "Sent"
-msgstr ""
+msgstr "送信済み"
 
 msgid "Copy"
-msgstr ""
+msgstr "コピー"
 
 msgid "Amount"
-msgstr ""
+msgstr "金額"
 
 msgid "Claim"
-msgstr ""
+msgstr "受け取る"
 
 msgid "Current"
-msgstr ""
+msgstr "現在"
 
 msgid "Added"
-msgstr ""
+msgstr "追加済み"
 
 msgid "Reload"
-msgstr ""
+msgstr "再読み込み"
 
 #. placeholder {0}: shares.count
 msgid "{0, plural, one {# share} other {# shares}}"
-msgstr ""
+msgstr "{0, plural, one {# 口} other {# 口}}"
 
 msgid "Receive Wallet"
-msgstr ""
+msgstr "受取ウォレット"
 
 msgid "Claimed"
-msgstr ""
+msgstr "受取済み"
 
 #. placeholder {0}: token.symbol
 msgid "Unlimited {0}"
-msgstr ""
+msgstr "無制限 {0}"
 
 msgid "Next"
-msgstr ""
+msgstr "次へ"
 
 msgid "Recipient"
-msgstr ""
+msgstr "受取人"
 
 msgid "Insufficient Gas"
-msgstr ""
+msgstr "Gas 不足"
 
 msgid "Back"
-msgstr ""
+msgstr "戻る"
 
 msgid "Wallet addresses linked to social accounts may change or be inaccurate. Always verify before sending."
-msgstr ""
+msgstr "ソーシャルアカウントに紐付けられたウォレットアドレスは変更される場合があります。送金前に必ず確認してください。"
 
 msgid "Enter an amount"
-msgstr ""
+msgstr "金額を入力"
 
 #. placeholder {0}: formatPnlUSD(getPositionLoss(position))
 msgid "Lost {0}"
-msgstr ""
+msgstr "損失 {0}"
 
 msgid "Login In Firefly"
-msgstr ""
+msgstr "Firefly にログイン"
 
 msgid "Bridge"
-msgstr ""
+msgstr "ブリッジ"
 
 msgid "Enter amount"
-msgstr ""
+msgstr "金額を入力"
 
 #. placeholder {0}: formatTokenItemAmount(availableSharesBN, 2)
 #. placeholder {0}: formatTokenUSD(availableAmount, { minDisplay: 0.01 })
 msgid "Available {0}"
-msgstr ""
+msgstr "利用可能 {0}"
 
 msgid "Trade"
-msgstr ""
+msgstr "取引"
 
 msgid "No tokens available"
-msgstr ""
+msgstr "利用可能なトークンがありません"
 
 msgid "Send"
-msgstr ""
+msgstr "送金"
 
 msgid "You've hit rock bottom."
-msgstr ""
+msgstr "一番下まで来ました。"
 
 msgid "View"
-msgstr ""
+msgstr "表示"
 
 msgid "Release Now"
-msgstr ""
+msgstr "今すぐ解放"
 
 msgid "Migrate to Polymarket V2"
-msgstr ""
+msgstr "Polymarket V2 に移行"
 
 msgid "Network error. Please try again."
-msgstr ""
+msgstr "ネットワークエラーです。再試行してください。"
 
 msgid "Better luck on the next prediction."
-msgstr ""
+msgstr "次の予測ではよい結果を。"
 
 msgid "No tokens found"
-msgstr ""
+msgstr "トークンが見つかりません"
 
 msgid "Report issue"
-msgstr ""
+msgstr "問題を報告"
 
 msgid "Withdrawing funds to your Firefly wallet..."
-msgstr ""
+msgstr "Firefly ウォレットへ出金中..."
 
 msgid "Failed to set PIN. Please try again later."
-msgstr ""
+msgstr "PIN の設定に失敗しました。後でもう一度お試しください。"
 
 msgid "To win"
-msgstr ""
+msgstr "獲得予定"
 
 msgid "Try again"
-msgstr ""
+msgstr "再試行"
 
 msgid "Something went wrong."
-msgstr ""
+msgstr "エラーが発生しました。"
 
 msgid "Your funds are on the way..."
-msgstr ""
+msgstr "資金が送金中です..."
 
 msgid "NFT Minted"
-msgstr ""
+msgstr "NFT を発行しました"
 
 msgid "Deposit"
-msgstr ""
+msgstr "入金"
 
 #. placeholder {0}: formatTokenItemAmount(withdrawableAmount)
 #. placeholder {0}: formatTokenUSD(availableAmount, { minDisplay: 0.01 })
 msgid "{0} available"
-msgstr ""
+msgstr "{0} 利用可能"
 
 msgid "Contract"
-msgstr ""
+msgstr "コントラクト"
 
 msgid "Limit Price"
-msgstr ""
+msgstr "指値"
 
 msgid "NFT Received"
-msgstr ""
+msgstr "NFT を受け取りました"
 
 msgid "Close position"
-msgstr ""
+msgstr "ポジションをクローズ"
 
 msgid "Trendings"
-msgstr ""
+msgstr "トレンド"
 
 msgid "Network Fee"
-msgstr ""
+msgstr "ネットワーク手数料"
 
 msgid "Please re-enter the PIN you just set to confirm."
-msgstr ""
+msgstr "確認のため、設定した PIN を再入力してください。"
 
 msgid "Market"
-msgstr ""
+msgstr "マーケット"
 
 msgid "EVM"
-msgstr ""
+msgstr "EVM"
 
 msgid "Confirming your transaction..."
-msgstr ""
+msgstr "トランザクションを確認中..."
 
 msgid "Refresh"
-msgstr ""
+msgstr "更新"
 
 msgid "Receive"
-msgstr ""
+msgstr "受け取る"
 
 msgid "Time"
-msgstr ""
+msgstr "時間"
 
 msgid "Explore markets"
-msgstr ""
+msgstr "マーケットを探す"
 
 #. placeholder {0}: formatPnlUSD(pnlValue)
 #. placeholder {1}: formatPercentRate(pnlRate)
 msgid "Total PnL: <0>{0}({1})</0>"
-msgstr ""
+msgstr "合計 PnL: <0>{0}({1})</0>"
 
 msgid "Interacted"
-msgstr ""
+msgstr "操作済み"
 
 msgid "The address could not be found."
-msgstr ""
+msgstr "アドレスが見つかりませんでした。"
 
 msgid "Add"
-msgstr ""
+msgstr "追加"
 
 msgid "Confirm new PIN"
-msgstr ""
+msgstr "新しい PIN を確認"
 
 msgid "Sort closed positions"
-msgstr ""
+msgstr "クローズドポジションを並び替え"
 
 msgid "{betText} • Won <0>{wonText}({pctText})</0>"
-msgstr ""
+msgstr "{betText} • 勝利 <0>{wonText}({pctText})</0>"
 
 #. placeholder {0}: subtitle.text ?? '--'
 msgid "With <0>{0}</0>"
-msgstr ""
+msgstr "<0>{0}</0> で"
 
 msgid "Date"
-msgstr ""
+msgstr "日付"
 
 msgid "Resend"
-msgstr ""
+msgstr "再送信"
 
 msgid "Insufficient Balance"
-msgstr ""
+msgstr "残高不足"
 
 msgid "All"
-msgstr ""
+msgstr "すべて"
 
 msgid "Search symbol or contract"
-msgstr ""
+msgstr "シンボルまたはコントラクトで検索"
 
 msgid "Custom Allowance"
-msgstr ""
+msgstr "カスタム承認額"
 
 msgid "Failed to add funds."
-msgstr ""
+msgstr "入金に失敗しました。"
 
 msgid "Claim all the winnings"
-msgstr ""
+msgstr "すべての賞金を受け取る"
 
 msgid "Unlimited"
-msgstr ""
+msgstr "無制限"
 
 msgid "Deposit failed."
-msgstr ""
+msgstr "入金に失敗しました。"
 
 msgid "Perps"
-msgstr ""
+msgstr "無期限契約"
 
 msgid "Swapped Failed"
-msgstr ""
+msgstr "スワップに失敗しました"
 
 msgid "Cancel order?"
-msgstr ""
+msgstr "注文をキャンセルしますか？"
 
 msgid "Cancelling order..."
-msgstr ""
+msgstr "注文をキャンセル中..."
 
 msgid "Something went wrong"
-msgstr ""
+msgstr "エラーが発生しました"
 
 msgid "Enter or search for a recipient wallet"
-msgstr ""
+msgstr "受取ウォレットを入力または検索"
 
 msgid "Please enter a valid email address. If you want to reset your PIN code, a verification code will be sent to this email to reset it."
-msgstr ""
+msgstr "有効なメールアドレスを入力してください。PIN コードをリセットする場合は、確認コードがこのメールに送信されます。"
 
 msgid "Email"
-msgstr ""
+msgstr "メール"
 
 msgid "PnL"
-msgstr ""
+msgstr "損益"
 
 msgid "Avg Price"
-msgstr ""
+msgstr "平均価格"
 
 msgid "Total traded"
-msgstr ""
+msgstr "合計取引量"
 
 msgid "Failed to close position"
-msgstr ""
+msgstr "ポジションのクローズに失敗しました"
 
 msgid "Failed to init exchange options. Please try again later."
-msgstr ""
+msgstr "取引所オプションの初期化に失敗しました。後でもう一度お試しください。"
 
 msgid "Close all the losses"
-msgstr ""
+msgstr "すべての損失ポジションをクローズ"
 
 msgid "Network"
-msgstr ""
+msgstr "ネットワーク"
 
 msgid "Withdraw"
-msgstr ""
+msgstr "出金"
 
 msgid "Transaction failed during execution."
-msgstr ""
+msgstr "実行中にトランザクションが失敗しました。"
 
 msgid "Failed to fetch token info"
-msgstr ""
+msgstr "トークン情報の取得に失敗しました"
 
 msgid "Missed this round"
-msgstr ""
+msgstr "今回は逃しました"
 
 msgid "Authentication"
-msgstr ""
+msgstr "認証"
 
 msgid "Sent Failed"
-msgstr ""
+msgstr "送信に失敗しました"
 
 #. placeholder {0}: minCheckoutUsd.toFixed(2)
 msgid "Minimum ${0}"
-msgstr ""
+msgstr "最低 ${0}"
 
 msgid "Please enter your new email address. We will send a verification code to confirm the change. Once updated, PIN reset codes and security verifications will be sent to this new email."
-msgstr ""
+msgstr "新しいメールアドレスを入力してください。変更確認のために確認コードを送信します。更新後は、PIN リセットコードとセキュリティ確認がこの新しいメールに送信されます。"
 
 msgid "Received Failed"
-msgstr ""
+msgstr "受取に失敗しました"
 
 msgid "Available: {availableText}"
-msgstr ""
+msgstr "利用可能：{availableText}"
 
 msgid "Confirming..."
-msgstr ""
+msgstr "確認中..."
 
 msgid "Closed Positions"
-msgstr ""
+msgstr "クローズドポジション"
 
 msgid "Failed to release"
-msgstr ""
+msgstr "解放に失敗しました"
 
 msgid "Buy"
-msgstr ""
+msgstr "買い"
 
 msgid "Swapped"
-msgstr ""
+msgstr "スワップ済み"
 
 msgid "PIN is too weak. Avoid sequential digits."
-msgstr ""
+msgstr "PIN が弱すぎます。連続した数字は避けてください。"
 
 msgid "Auto"
-msgstr ""
+msgstr "自動"
 
 msgid "Select"
-msgstr ""
+msgstr "選択"
 
 msgid "Failed to place sell order. "
-msgstr ""
+msgstr "売り注文の発注に失敗しました。"
 
 msgid "User rejected"
-msgstr ""
+msgstr "ユーザーが拒否しました"
 
 msgid "Polymarket V2 is now live. Release your available balance of {releaseAmountText} USDC.e as pUSD to keep your predictions going."
-msgstr ""
+msgstr "Polymarket V2 が公開されました。予測を継続するために、利用可能残高 {releaseAmountText} USDC.e を pUSD として解放してください。"
 
 #. placeholder {0}: subtitle.text ?? '--'
 msgid "From <0>{0}</0>"
-msgstr ""
+msgstr "<0>{0}</0> から"
 
 msgid "into your predict wallet"
-msgstr ""
+msgstr "予測ウォレットへ"
 
 msgid "No activities found"
-msgstr ""
+msgstr "アクティビティが見つかりません"
 
 msgid "Cancelled."
-msgstr ""
+msgstr "キャンセルしました。"
 
 #. placeholder {0}: subtitle.text ?? '--'
 msgid "To <0>{0}</0>"
-msgstr ""
+msgstr "<0>{0}</0> へ"
 
 msgid "Enable authentication"
-msgstr ""
+msgstr "認証を有効にする"
 
 msgid "Sold"
-msgstr ""
+msgstr "売却済み"
 
 msgid "Wallet"
-msgstr ""
+msgstr "ウォレット"
 
 msgid "We do not recommend ever sharing it with any app or person."
-msgstr ""
+msgstr "いかなるアプリや人物にも共有しないことを強くお勧めします。"
 
 #. js-lingui-explicit-id
 msgid "second"
-msgstr ""
+msgstr "{time}秒"
 
 msgid "View on Explorer"
-msgstr ""
+msgstr "エクスプローラーで表示"
 
 msgid "Add Token"
-msgstr ""
+msgstr "トークンを追加"
 
 #. placeholder {0}: desensitizeEmail(emailAddress)
 msgid "To secure your assets, please enter the verification code sent to your recovery email {0} to verify your identity."
-msgstr ""
+msgstr "資産を保護するため、リカバリーメール {0} に送信された確認コードを入力して本人確認を完了してください。"
 
 msgid "NFT Received Failed"
-msgstr ""
+msgstr "NFT の受取に失敗しました"
 
 msgid "Close losses"
-msgstr ""
+msgstr "損失をクローズ"
 
 msgid "Primary"
-msgstr ""
+msgstr "プライマリ"
 
 msgid "Save"
-msgstr ""
+msgstr "保存"
 
 msgid "Predict. Trade. Simply fund your Firefly predict wallet to begin."
-msgstr ""
+msgstr "予測して取引しましょう。Firefly 予測ウォレットに入金するだけで始められます。"
 
 msgid "Failed to withdraw."
-msgstr ""
+msgstr "出金に失敗しました。"
 
 msgid "Est. fee"
-msgstr ""
+msgstr "推定手数料"
 
 msgid "Contract address"
-msgstr ""
+msgstr "コントラクトアドレス"
 
 msgid "Minimum $1.00"
-msgstr ""
+msgstr "最低 $1.00"
 
 msgid "into your perps account"
-msgstr ""
+msgstr "無期限契約アカウントへ"
 
 msgid "No wallet address found for this user."
-msgstr ""
+msgstr "このユーザーのウォレットアドレスが見つかりません。"
 
 msgid "Transaction failed"
-msgstr ""
+msgstr "トランザクションが失敗しました"
 
 msgid "All Chains"
-msgstr ""
+msgstr "すべてのチェーン"
 
 msgid "Status"
-msgstr ""
+msgstr "ステータス"
 
 msgid "PIN is too weak. Avoid repeated digits."
-msgstr ""
+msgstr "PIN が弱すぎます。同じ数字の繰り返しは避けてください。"
 
 #. placeholder {0}: subtitle.projectName
 msgid "on {0}"
-msgstr ""
+msgstr "{0} で"
 
 msgid "Signing In"
-msgstr ""
+msgstr "サインイン中"
 
 msgid "Search token"
-msgstr ""
+msgstr "トークンを検索"
 
 msgid "Your transaction has been completed."
-msgstr ""
+msgstr "トランザクションが完了しました。"
 
 msgid "Must be a 6-digit number."
-msgstr ""
+msgstr "6桁の数字である必要があります。"
 
 msgid "Predictions"
-msgstr ""
+msgstr "予測市場"
 
 msgid "Your transaction failed."
-msgstr ""
+msgstr "トランザクションが失敗しました。"
 
 msgid "Change Email"
-msgstr ""
+msgstr "メールを変更"
 
 msgid "Buy {outcome}"
-msgstr ""
+msgstr "{outcome} を購入"
 
 msgid "All networks"
-msgstr ""
+msgstr "すべてのネットワーク"
 
 msgid "Swap"
-msgstr ""
+msgstr "スワップ"
 
 msgid "Keep it safe and do not share"
-msgstr ""
+msgstr "安全に保管し、共有しないでください"
 
 msgid "Scan this code or copy your wallet address to receive funds on Ethereum."
-msgstr ""
+msgstr "このコードをスキャンするか、ウォレットアドレスをコピーして Ethereum で資金を受け取ってください。"
 
 msgid "Your funds have been withdrawn to your Firefly wallet."
-msgstr ""
+msgstr "Firefly ウォレットへの出金が完了しました。"
 
 msgid "Failed to close losses"
-msgstr ""
+msgstr "損失のクローズに失敗しました"
 
 msgid "Bridged"
-msgstr ""
+msgstr "ブリッジ済み"
 
 msgid "Verify Email"
-msgstr ""
+msgstr "メールを確認"
 
 msgid "Minimum {MIN_HYPERLIQUID_DEPOSIT_USDC} USDC"
-msgstr ""
+msgstr "最低 {MIN_HYPERLIQUID_DEPOSIT_USDC} USDC"
 
 msgid "Enter the PIN code to verify identity"
-msgstr ""
+msgstr "本人確認のために PIN コードを入力"
 
 msgid "Select Token"
-msgstr ""
+msgstr "トークンを選択"
 
 #. placeholder {0}: formatTokenItemAmount(position.shares, 2)
 #. placeholder {0}: formatTokenItemAmount(totalBought, 2)
 msgid "{0} shares"
-msgstr ""
+msgstr "{0} 口"
 
 msgid "Will receive"
-msgstr ""
+msgstr "受取予定"
 
 msgid "Quick Buy"
-msgstr ""
+msgstr "クイック購入"
 
 msgid "Your tokens"
-msgstr ""
+msgstr "保有トークン"
 
 msgid "Please enter a valid email address."
-msgstr ""
+msgstr "有効なメールアドレスを入力してください。"
 
 msgid "Sell {outcome}"
-msgstr ""
+msgstr "{outcome} を売却"
 
 msgid "Reset PIN Code"
-msgstr ""
+msgstr "PIN コードをリセット"
 
 msgid "This market may have been removed or the link is invalid."
-msgstr ""
+msgstr "このマーケットは削除されたか、リンクが無効です。"
 
 msgid "Trading Activities"
-msgstr ""
+msgstr "取引履歴"
 
 msgid "Lost"
-msgstr ""
+msgstr "損失"
 
 msgid "Clear"
-msgstr ""
+msgstr "クリア"
 
 msgid "Revoked"
-msgstr ""
+msgstr "取り消し済み"
 
 msgid "Chain"
-msgstr ""
+msgstr "チェーン"
 
 msgid "Failed to add token"
-msgstr ""
+msgstr "トークンの追加に失敗しました"
 
 msgid "We will find the lowest slippage for a successful swap"
-msgstr ""
+msgstr "スワップを成功させるための最適なルートを見つけます"
 
 msgid "Sell"
-msgstr ""
+msgstr "売り"
 
 msgid "The market is marked as closed."
-msgstr ""
+msgstr "このマーケットはクローズ済みとしてマークされています。"
 
 msgid "Set a PIN to secure your assets. This code will be used to confirm transactions."
-msgstr ""
+msgstr "資産を保護するために PIN を設定してください。このコードはトランザクションの確認に使用されます。"
 
 msgid "Token added"
-msgstr ""
+msgstr "トークンを追加しました"
 
 msgid "PIN is extremely strong."
-msgstr ""
+msgstr "PIN は非常に強固です。"
 
 msgid "Add Funds"
-msgstr ""
+msgstr "入金"
 
 msgid "NFT Sent Failed"
-msgstr ""
+msgstr "NFT の送信に失敗しました"
 
 msgid "Failed to search. Please try again."
-msgstr ""
+msgstr "検索に失敗しました。再試行してください。"
 
 msgid "Transaction completed!"
-msgstr ""
+msgstr "トランザクションが完了しました！"
 
 msgid "Limit"
-msgstr ""
+msgstr "指値"
 
 msgid "Swap faster by skipping the review step"
-msgstr ""
+msgstr "確認ステップをスキップしてスワップを高速化"
 
 msgid "Hide assets < 1 USD"
-msgstr ""
+msgstr "1ドル未満の資産を非表示"
 
 msgid "You lost"
-msgstr ""
+msgstr "損失"
 
 msgid "Close"
-msgstr ""
+msgstr "閉じる"
 
 #. placeholder {0}: claimItems.length
 #. placeholder {1}: positions.length
 msgid "{0} of {1} positions will be closed"
-msgstr ""
+msgstr "{1} 件中 {0} 件のポジションがクローズされます"
 
 msgid "Security & Privacy"
-msgstr ""
+msgstr "セキュリティとプライバシー"
 
 msgid "Approve"
-msgstr ""
+msgstr "承認"
 
 #. placeholder {0}: formatPriceToCents(position.avg_price, 1)
 msgid "Avg {0}"
-msgstr ""
+msgstr "平均 {0}"
 
 msgid "Current settings"
-msgstr ""
+msgstr "現在の設定"
 
 msgid "NFT"
-msgstr ""
+msgstr "NFT"
 
 msgid "NFT Sent"
-msgstr ""
+msgstr "NFT を送信しました"
 
 msgid "Failed to cancel order"
-msgstr ""
+msgstr "注文のキャンセルに失敗しました"
 
 #. placeholder {0}: isLoadingAvailableBalance ? '...' : availableBalance || token.balance || '0'
 #. placeholder {1}: token.symbol || '-'
 msgid "Balance: {0} {1}"
-msgstr ""
+msgstr "残高：{0} {1}"
 
 msgid "This wallet address is invalid"
-msgstr ""
+msgstr "このウォレットアドレスは無効です"

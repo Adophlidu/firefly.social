@@ -14,1019 +14,1019 @@ msgstr ""
 "Language-Team: \n"
 
 msgid "Interacted Failed"
-msgstr ""
+msgstr "상호작용 실패"
 
 msgid "Copy to clipboard"
-msgstr ""
+msgstr "클립보드에 복사"
 
 msgid "To"
-msgstr ""
+msgstr "받는 주소"
 
 msgid "Unlimited Amount"
-msgstr ""
+msgstr "무제한 금액"
 
 #. placeholder {0}: pusdTokenFallback.symbol
 msgid "Available: {availableText} {0}"
-msgstr ""
+msgstr "사용 가능: {availableText} {0}"
 
 msgid "Show assets < 1 USD"
-msgstr ""
+msgstr "1 USD 미만 자산 표시"
 
 msgid "History"
-msgstr ""
+msgstr "기록"
 
 msgid "Make sure to send funds on Ethereum."
-msgstr ""
+msgstr "Ethereum 네트워크에서 자금을 전송하세요."
 
 msgid "Load failed"
-msgstr ""
+msgstr "불러오기 실패"
 
 msgid "Failed to disable authentication"
-msgstr ""
+msgstr "인증 비활성화 실패"
 
 msgid "Positions"
-msgstr ""
+msgstr "포지션"
 
 msgid "Alphabetically"
-msgstr ""
+msgstr "알파벳순"
 
 msgid "in your Firefly wallet"
-msgstr ""
+msgstr "Firefly 지갑에서"
 
 msgid "Skip reviews"
-msgstr ""
+msgstr "검토 건너뛰기"
 
 msgid "Address, ENS, or social handle"
-msgstr ""
+msgstr "주소, ENS 또는 소셜 계정"
 
 msgid "Your recovery phrase is like a password, keep it secret."
-msgstr ""
+msgstr "복구 구문은 비밀번호와 같으니 절대 공유하지 마세요."
 
 msgid "Low on balance? Your Firefly Wallet can automatically cover the rest."
-msgstr ""
+msgstr "잔액이 부족한가요? Firefly 지갑이 자동으로 나머지를 보충해 드립니다."
 
 msgid "Transfer from an exchange"
-msgstr ""
+msgstr "거래소에서 전송"
 
 #. placeholder {0}: transaction.tx_status
 msgid "{0, select, success {Success} fail {Failed} other {Failed}}"
-msgstr ""
+msgstr "{0, select, success {성공} fail {실패} other {실패}}"
 
 msgid "Missed this round, but the next prediction is waiting for you!"
-msgstr ""
+msgstr "이번 라운드를 놓쳤지만, 다음 예측이 기다리고 있어요!"
 
 msgid "Upgrade Now"
-msgstr ""
+msgstr "지금 업그레이드"
 
 #. placeholder {0}: selected.name
 msgid "Your {0} Address"
-msgstr ""
+msgstr "내 {0} 주소"
 
 msgid "Avg"
-msgstr ""
+msgstr "평균"
 
 msgid "Claim winnings"
-msgstr ""
+msgstr "상금 수령"
 
 msgid "Transaction nonce error. Please try again."
-msgstr ""
+msgstr "트랜잭션 Nonce 오류입니다. 다시 시도해 주세요."
 
 #. placeholder {0}: formatTokenItemAmount(depositToken.balance ?? '0')
 #. placeholder {1}: depositToken.symbol
 msgid "{0} {1} in your Firefly wallet"
-msgstr ""
+msgstr "Firefly 지갑에 {0} {1} 있음"
 
 msgid "Pay"
-msgstr ""
+msgstr "결제"
 
 msgid "Solana"
-msgstr ""
+msgstr "Solana"
 
 msgid "Receive funds"
-msgstr ""
+msgstr "자금 받기"
 
 msgid "Failed to claim winnings"
-msgstr ""
+msgstr "상금 수령 실패"
 
 msgid "Transactions"
-msgstr ""
+msgstr "트랜잭션"
 
 msgid "Claim requested"
-msgstr ""
+msgstr "수령 요청됨"
 
 msgid "Review"
-msgstr ""
+msgstr "검토"
 
 msgid "Confirm to reset PIN code? For your security, this action requires sending a verification code to your recovery email to confirm your identity."
-msgstr ""
+msgstr "PIN 코드를 재설정하시겠습니까? 보안을 위해 신원 확인을 위한 인증 코드가 복구 이메일로 전송됩니다."
 
 msgid "The PINs you entered do not match. Please check and try again."
-msgstr ""
+msgstr "입력한 PIN이 일치하지 않습니다. 확인 후 다시 시도해 주세요."
 
 msgid "Great job predicting the future!"
-msgstr ""
+msgstr "훌륭한 예측입니다!"
 
 msgid "Invalid amount"
-msgstr ""
+msgstr "유효하지 않은 금액"
 
 msgid "I understand"
-msgstr ""
+msgstr "이해했습니다"
 
 msgid "Deposit submitted. Funds will appear on Hyperliquid shortly."
-msgstr ""
+msgstr "입금이 제출되었습니다. 곧 Hyperliquid에 자금이 표시됩니다."
 
 msgid "Your Private Key"
-msgstr ""
+msgstr "개인 키"
 
 msgid "Retry"
-msgstr ""
+msgstr "다시 시도"
 
 msgid "Tokens"
-msgstr ""
+msgstr "토큰"
 
 msgid "Skip"
-msgstr ""
+msgstr "건너뛰기"
 
 msgid "Copied"
-msgstr ""
+msgstr "복사됨"
 
 #. placeholder {0}: formatTokenItemAmount(usdcToken?.balance ?? '0')
 msgid "{0} USDC in your Firefly wallet"
-msgstr ""
+msgstr "Firefly 지갑에 {0} USDC 있음"
 
 msgid "Total"
-msgstr ""
+msgstr "합계"
 
 #. placeholder {0}: subtitle.projectName
 msgid "via {0}"
-msgstr ""
+msgstr "{0} 통해"
 
 msgid "To Address"
-msgstr ""
+msgstr "받는 주소"
 
 msgid "A 6-digit verification code has been sent to your email. Please enter the code to complete verification."
-msgstr ""
+msgstr "6자리 인증 코드가 이메일로 전송되었습니다. 코드를 입력하여 인증을 완료해 주세요."
 
 msgid "Approved"
-msgstr ""
+msgstr "승인됨"
 
 msgid "{riskTokenSymbol} is a high-risk token"
-msgstr ""
+msgstr "{riskTokenSymbol}은(는) 고위험 토큰입니다"
 
 msgid "The new email address you entered is the same as your current one. Please enter a different email address."
-msgstr ""
+msgstr "입력한 새 이메일 주소가 현재 이메일과 동일합니다. 다른 이메일 주소를 입력해 주세요."
 
 msgid "Confirm"
-msgstr ""
+msgstr "확인"
 
 msgid "Assets to Release"
-msgstr ""
+msgstr "해제할 자산"
 
 msgid "Predict on Polymarket"
-msgstr ""
+msgstr "Polymarket에서 예측"
 
 msgid "Keep Your Recovery Phrase Safe"
-msgstr ""
+msgstr "복구 구문을 안전하게 보관하세요"
 
 msgid "Bought"
-msgstr ""
+msgstr "구매됨"
 
 msgid "ENS lookup failed. Please try again."
-msgstr ""
+msgstr "ENS 조회에 실패했습니다. 다시 시도해 주세요."
 
 msgid "From Address"
-msgstr ""
+msgstr "보내는 주소"
 
 msgid "Position closed"
-msgstr ""
+msgstr "포지션 종료됨"
 
 msgid "No Route Found"
-msgstr ""
+msgstr "경로를 찾을 수 없음"
 
 msgid "Failed to enable authentication"
-msgstr ""
+msgstr "인증 활성화 실패"
 
 msgid "Placing order..."
-msgstr ""
+msgstr "주문 중..."
 
 msgid "Set Recovery Email"
-msgstr ""
+msgstr "복구 이메일 설정"
 
 msgid "Close lost position"
-msgstr ""
+msgstr "손실 포지션 종료"
 
 msgid "Market not found"
-msgstr ""
+msgstr "마켓을 찾을 수 없음"
 
 msgid "See details"
-msgstr ""
+msgstr "자세히 보기"
 
 msgid "Won"
-msgstr ""
+msgstr "수익"
 
 #. placeholder {0}: formatTokenItemAmount(availableSharesBN, 2)
 msgid "{0} shares available"
-msgstr ""
+msgstr "{0}주 사용 가능"
 
 msgid "Price"
-msgstr ""
+msgstr "가격"
 
 msgid "Enable skip reviews"
-msgstr ""
+msgstr "검토 건너뛰기 활성화"
 
 msgid "Connection taking longer than expected"
-msgstr ""
+msgstr "연결이 예상보다 오래 걸리고 있습니다"
 
 msgid "Predict Wallet Pay"
-msgstr ""
+msgstr "예측 지갑 결제"
 
 msgid "with"
-msgstr ""
+msgstr "사용"
 
 msgid "Shares"
-msgstr ""
+msgstr "주식 수"
 
 msgid "Change Recovery Email"
-msgstr ""
+msgstr "복구 이메일 변경"
 
 msgid "Transaction Hash"
-msgstr ""
+msgstr "트랜잭션 해시"
 
 msgid "Not enough gas to pay the network fee."
-msgstr ""
+msgstr "네트워크 수수료를 지불할 가스가 부족합니다."
 
 msgid "Are you sure you want to cancel this order?<0/>Once cancelled, it cannot be restored."
-msgstr ""
+msgstr "이 주문을 취소하시겠습니까?<0/>취소하면 복구할 수 없습니다."
 
 msgid "Avg. Price"
-msgstr ""
+msgstr "평균 체결가"
 
 msgid "You won"
-msgstr ""
+msgstr "수익"
 
 msgid "Network cost"
-msgstr ""
+msgstr "네트워크 비용"
 
 msgid "Revoked Failed"
-msgstr ""
+msgstr "취소 실패"
 
 msgid "Forgot your PIN code?"
-msgstr ""
+msgstr "PIN 코드를 잊으셨나요?"
 
 msgid "Recent"
-msgstr ""
+msgstr "최근"
 
 msgid "Oops! We couldn't find any tokens matching your search."
-msgstr ""
+msgstr "검색어와 일치하는 토큰을 찾을 수 없습니다."
 
 msgid "Block"
-msgstr ""
+msgstr "블록"
 
 msgid "Max"
-msgstr ""
+msgstr "최대"
 
 msgid "Transaction Detail"
-msgstr ""
+msgstr "트랜잭션 상세"
 
 msgid "Slippage"
-msgstr ""
+msgstr "슬리피지"
 
 msgid "NFT Minted Failed"
-msgstr ""
+msgstr "NFT 발행 실패"
 
 msgid "Connect Wallet"
-msgstr ""
+msgstr "지갑 연결"
 
 msgid "No more history"
-msgstr ""
+msgstr "더 이상 기록이 없습니다"
 
 msgid "Recovery Email"
-msgstr ""
+msgstr "복구 이메일"
 
 msgid "Transaction failed: minimum return amount not reached. Try increasing slippage."
-msgstr ""
+msgstr "트랜잭션 실패: 최소 수령 금액에 미달했습니다. 슬리피지를 높여 보세요."
 
 msgid "There is no data available for display."
-msgstr ""
+msgstr "표시할 데이터가 없습니다."
 
 msgid "Transaction was rejected."
-msgstr ""
+msgstr "트랜잭션이 거부되었습니다."
 
 msgid "Cancel"
-msgstr ""
+msgstr "취소"
 
 msgid "to"
-msgstr ""
+msgstr "에게"
 
 msgid "Done"
-msgstr ""
+msgstr "완료"
 
 msgid "Bridged Failed"
-msgstr ""
+msgstr "브릿지 실패"
 
 msgid "Enter new PIN"
-msgstr ""
+msgstr "새 PIN 입력"
 
 msgid "Pay Wallet"
-msgstr ""
+msgstr "결제 지갑"
 
 msgid "Open orders"
-msgstr ""
+msgstr "미체결 주문"
 
 msgid "Copy address"
-msgstr ""
+msgstr "주소 복사"
 
 msgid "<0>{releaseAmountText}</0><1>to release</1>"
-msgstr ""
+msgstr "<0>{releaseAmountText}</0><1>해제 예정</1>"
 
 msgid "Your funds are now in your predict wallet."
-msgstr ""
+msgstr "자금이 예측 지갑에 입금되었습니다."
 
 msgid "No positions found"
-msgstr ""
+msgstr "포지션을 찾을 수 없습니다"
 
 msgid "Order placed"
-msgstr ""
+msgstr "주문 완료"
 
 msgid "Failed to place buy order. "
-msgstr ""
+msgstr "매수 주문 실패. "
 
 msgid "Draft"
-msgstr ""
+msgstr "임시저장"
 
 msgid "Domain"
-msgstr ""
+msgstr "도메인"
 
 msgid "PIN is acceptable, but consider adding more unique digits."
-msgstr ""
+msgstr "PIN은 사용 가능하지만, 더 다양한 숫자를 추가하는 것이 좋습니다."
 
 msgid "Firefly Wallet Pay"
-msgstr ""
+msgstr "Firefly 지갑 결제"
 
 msgid "Outcome"
-msgstr ""
+msgstr "결과"
 
 msgid "Failed to upgrade"
-msgstr ""
+msgstr "업그레이드 실패"
 
 msgid "Unable to add funds to predictions account."
-msgstr ""
+msgstr "예측 계정에 자금을 추가할 수 없습니다."
 
 msgid "Back to Bets"
-msgstr ""
+msgstr "베팅으로 돌아가기"
 
 msgid "Please login to view security settings."
-msgstr ""
+msgstr "보안 설정을 보려면 로그인해 주세요."
 
 msgid "on"
-msgstr ""
+msgstr "에서"
 
 msgid "Receive at least"
-msgstr ""
+msgstr "최소 수령"
 
 msgid "Unable to open this market."
-msgstr ""
+msgstr "이 마켓을 열 수 없습니다."
 
 msgid "Approved Failed"
-msgstr ""
+msgstr "승인 실패"
 
 msgid "Rate"
-msgstr ""
+msgstr "환율"
 
 msgid "No more orders"
-msgstr ""
+msgstr "더 이상 주문이 없습니다"
 
 msgid "No more positions"
-msgstr ""
+msgstr "더 이상 포지션이 없습니다"
 
 msgid "Received"
-msgstr ""
+msgstr "수신됨"
 
 msgid "Custom (0.5-100%)"
-msgstr ""
+msgstr "사용자 지정 (0.5-100%)"
 
 msgid "Upgrade your Firefly prediction account NOW to ensure your predictions continue seamlessly."
-msgstr ""
+msgstr "지금 Firefly 예측 계정을 업그레이드하여 예측이 원활하게 계속되도록 하세요."
 
 msgid "from"
-msgstr ""
+msgstr "에서"
 
 msgid "Set PIN Code"
-msgstr ""
+msgstr "PIN 코드 설정"
 
 msgid "Order cancelled"
-msgstr ""
+msgstr "주문 취소됨"
 
 msgid "Sent"
-msgstr ""
+msgstr "전송됨"
 
 msgid "Copy"
-msgstr ""
+msgstr "복사"
 
 msgid "Amount"
-msgstr ""
+msgstr "금액"
 
 msgid "Claim"
-msgstr ""
+msgstr "수령"
 
 msgid "Current"
-msgstr ""
+msgstr "현재"
 
 msgid "Added"
-msgstr ""
+msgstr "추가됨"
 
 msgid "Reload"
-msgstr ""
+msgstr "새로고침"
 
 #. placeholder {0}: shares.count
 msgid "{0, plural, one {# share} other {# shares}}"
-msgstr ""
+msgstr "{0, plural, one {# 주} other {# 주}}"
 
 msgid "Receive Wallet"
-msgstr ""
+msgstr "수금 지갑"
 
 msgid "Claimed"
-msgstr ""
+msgstr "수령됨"
 
 #. placeholder {0}: token.symbol
 msgid "Unlimited {0}"
-msgstr ""
+msgstr "무제한 {0}"
 
 msgid "Next"
-msgstr ""
+msgstr "다음"
 
 msgid "Recipient"
-msgstr ""
+msgstr "수신자"
 
 msgid "Insufficient Gas"
-msgstr ""
+msgstr "가스 부족"
 
 msgid "Back"
-msgstr ""
+msgstr "뒤로"
 
 msgid "Wallet addresses linked to social accounts may change or be inaccurate. Always verify before sending."
-msgstr ""
+msgstr "소셜 계정에 연결된 지갑 주소는 변경되거나 부정확할 수 있습니다. 전송 전 반드시 확인하세요."
 
 msgid "Enter an amount"
-msgstr ""
+msgstr "금액을 입력하세요"
 
 #. placeholder {0}: formatPnlUSD(getPositionLoss(position))
 msgid "Lost {0}"
-msgstr ""
+msgstr "손실 {0}"
 
 msgid "Login In Firefly"
-msgstr ""
+msgstr "Firefly 로그인"
 
 msgid "Bridge"
-msgstr ""
+msgstr "브릿지"
 
 msgid "Enter amount"
-msgstr ""
+msgstr "금액 입력"
 
 #. placeholder {0}: formatTokenItemAmount(availableSharesBN, 2)
 #. placeholder {0}: formatTokenUSD(availableAmount, { minDisplay: 0.01 })
 msgid "Available {0}"
-msgstr ""
+msgstr "사용 가능 {0}"
 
 msgid "Trade"
-msgstr ""
+msgstr "거래"
 
 msgid "No tokens available"
-msgstr ""
+msgstr "사용 가능한 토큰 없음"
 
 msgid "Send"
-msgstr ""
+msgstr "전송"
 
 msgid "You've hit rock bottom."
-msgstr ""
+msgstr "더 이상 없습니다."
 
 msgid "View"
-msgstr ""
+msgstr "보기"
 
 msgid "Release Now"
-msgstr ""
+msgstr "지금 해제"
 
 msgid "Migrate to Polymarket V2"
-msgstr ""
+msgstr "Polymarket V2로 이전"
 
 msgid "Network error. Please try again."
-msgstr ""
+msgstr "네트워크 오류입니다. 다시 시도해 주세요."
 
 msgid "Better luck on the next prediction."
-msgstr ""
+msgstr "다음 예측에서 행운을 빌어요."
 
 msgid "No tokens found"
-msgstr ""
+msgstr "토큰을 찾을 수 없습니다"
 
 msgid "Report issue"
-msgstr ""
+msgstr "문제 신고"
 
 msgid "Withdrawing funds to your Firefly wallet..."
-msgstr ""
+msgstr "Firefly 지갑으로 출금 중..."
 
 msgid "Failed to set PIN. Please try again later."
-msgstr ""
+msgstr "PIN 설정에 실패했습니다. 나중에 다시 시도해 주세요."
 
 msgid "To win"
-msgstr ""
+msgstr "예상 수익"
 
 msgid "Try again"
-msgstr ""
+msgstr "다시 시도"
 
 msgid "Something went wrong."
-msgstr ""
+msgstr "오류가 발생했습니다."
 
 msgid "Your funds are on the way..."
-msgstr ""
+msgstr "자금이 전송 중입니다..."
 
 msgid "NFT Minted"
-msgstr ""
+msgstr "NFT 발행됨"
 
 msgid "Deposit"
-msgstr ""
+msgstr "입금"
 
 #. placeholder {0}: formatTokenItemAmount(withdrawableAmount)
 #. placeholder {0}: formatTokenUSD(availableAmount, { minDisplay: 0.01 })
 msgid "{0} available"
-msgstr ""
+msgstr "{0} 사용 가능"
 
 msgid "Contract"
-msgstr ""
+msgstr "컨트랙트"
 
 msgid "Limit Price"
-msgstr ""
+msgstr "지정가"
 
 msgid "NFT Received"
-msgstr ""
+msgstr "NFT 수신됨"
 
 msgid "Close position"
-msgstr ""
+msgstr "포지션 종료"
 
 msgid "Trendings"
-msgstr ""
+msgstr "트렌딩"
 
 msgid "Network Fee"
-msgstr ""
+msgstr "네트워크 수수료"
 
 msgid "Please re-enter the PIN you just set to confirm."
-msgstr ""
+msgstr "방금 설정한 PIN을 다시 입력하여 확인해 주세요."
 
 msgid "Market"
-msgstr ""
+msgstr "마켓"
 
 msgid "EVM"
-msgstr ""
+msgstr "EVM"
 
 msgid "Confirming your transaction..."
-msgstr ""
+msgstr "트랜잭션 확인 중..."
 
 msgid "Refresh"
-msgstr ""
+msgstr "새로고침"
 
 msgid "Receive"
-msgstr ""
+msgstr "수신"
 
 msgid "Time"
-msgstr ""
+msgstr "시간"
 
 msgid "Explore markets"
-msgstr ""
+msgstr "마켓 탐색"
 
 #. placeholder {0}: formatPnlUSD(pnlValue)
 #. placeholder {1}: formatPercentRate(pnlRate)
 msgid "Total PnL: <0>{0}({1})</0>"
-msgstr ""
+msgstr "총 PnL: <0>{0}({1})</0>"
 
 msgid "Interacted"
-msgstr ""
+msgstr "상호작용됨"
 
 msgid "The address could not be found."
-msgstr ""
+msgstr "주소를 찾을 수 없습니다."
 
 msgid "Add"
-msgstr ""
+msgstr "추가"
 
 msgid "Confirm new PIN"
-msgstr ""
+msgstr "새 PIN 확인"
 
 msgid "Sort closed positions"
-msgstr ""
+msgstr "종료 포지션 정렬"
 
 msgid "{betText} • Won <0>{wonText}({pctText})</0>"
-msgstr ""
+msgstr "{betText} • 수익 <0>{wonText}({pctText})</0>"
 
 #. placeholder {0}: subtitle.text ?? '--'
 msgid "With <0>{0}</0>"
-msgstr ""
+msgstr "<0>{0}</0> 사용"
 
 msgid "Date"
-msgstr ""
+msgstr "날짜"
 
 msgid "Resend"
-msgstr ""
+msgstr "재전송"
 
 msgid "Insufficient Balance"
-msgstr ""
+msgstr "잔액 부족"
 
 msgid "All"
-msgstr ""
+msgstr "전체"
 
 msgid "Search symbol or contract"
-msgstr ""
+msgstr "심볼 또는 컨트랙트 검색"
 
 msgid "Custom Allowance"
-msgstr ""
+msgstr "사용자 지정 한도"
 
 msgid "Failed to add funds."
-msgstr ""
+msgstr "자금 추가 실패."
 
 msgid "Claim all the winnings"
-msgstr ""
+msgstr "모든 상금 수령"
 
 msgid "Unlimited"
-msgstr ""
+msgstr "무제한"
 
 msgid "Deposit failed."
-msgstr ""
+msgstr "입금 실패."
 
 msgid "Perps"
-msgstr ""
+msgstr "퍼페츄얼"
 
 msgid "Swapped Failed"
-msgstr ""
+msgstr "스왑 실패"
 
 msgid "Cancel order?"
-msgstr ""
+msgstr "주문을 취소할까요?"
 
 msgid "Cancelling order..."
-msgstr ""
+msgstr "주문 취소 중..."
 
 msgid "Something went wrong"
-msgstr ""
+msgstr "오류가 발생했습니다"
 
 msgid "Enter or search for a recipient wallet"
-msgstr ""
+msgstr "수신 지갑 입력 또는 검색"
 
 msgid "Please enter a valid email address. If you want to reset your PIN code, a verification code will be sent to this email to reset it."
-msgstr ""
+msgstr "유효한 이메일 주소를 입력해 주세요. PIN 코드를 재설정하려면 인증 코드가 이 이메일로 전송됩니다."
 
 msgid "Email"
-msgstr ""
+msgstr "이메일"
 
 msgid "PnL"
-msgstr ""
+msgstr "손익"
 
 msgid "Avg Price"
-msgstr ""
+msgstr "평균가"
 
 msgid "Total traded"
-msgstr ""
+msgstr "총 거래량"
 
 msgid "Failed to close position"
-msgstr ""
+msgstr "포지션 종료 실패"
 
 msgid "Failed to init exchange options. Please try again later."
-msgstr ""
+msgstr "거래소 옵션 초기화 실패. 나중에 다시 시도해 주세요."
 
 msgid "Close all the losses"
-msgstr ""
+msgstr "모든 손실 포지션 종료"
 
 msgid "Network"
-msgstr ""
+msgstr "네트워크"
 
 msgid "Withdraw"
-msgstr ""
+msgstr "출금"
 
 msgid "Transaction failed during execution."
-msgstr ""
+msgstr "트랜잭션 실행 중 실패했습니다."
 
 msgid "Failed to fetch token info"
-msgstr ""
+msgstr "토큰 정보 가져오기 실패"
 
 msgid "Missed this round"
-msgstr ""
+msgstr "이번 라운드 놓침"
 
 msgid "Authentication"
-msgstr ""
+msgstr "인증"
 
 msgid "Sent Failed"
-msgstr ""
+msgstr "전송 실패"
 
 #. placeholder {0}: minCheckoutUsd.toFixed(2)
 msgid "Minimum ${0}"
-msgstr ""
+msgstr "최소 ${0}"
 
 msgid "Please enter your new email address. We will send a verification code to confirm the change. Once updated, PIN reset codes and security verifications will be sent to this new email."
-msgstr ""
+msgstr "새 이메일 주소를 입력해 주세요. 변경 확인을 위해 인증 코드가 전송됩니다. 업데이트 후 PIN 재설정 코드와 보안 인증은 새 이메일로 발송됩니다."
 
 msgid "Received Failed"
-msgstr ""
+msgstr "수신 실패"
 
 msgid "Available: {availableText}"
-msgstr ""
+msgstr "사용 가능: {availableText}"
 
 msgid "Confirming..."
-msgstr ""
+msgstr "확인 중..."
 
 msgid "Closed Positions"
-msgstr ""
+msgstr "종료된 포지션"
 
 msgid "Failed to release"
-msgstr ""
+msgstr "해제 실패"
 
 msgid "Buy"
-msgstr ""
+msgstr "매수"
 
 msgid "Swapped"
-msgstr ""
+msgstr "스왑됨"
 
 msgid "PIN is too weak. Avoid sequential digits."
-msgstr ""
+msgstr "PIN이 너무 약합니다. 연속된 숫자를 사용하지 마세요."
 
 msgid "Auto"
-msgstr ""
+msgstr "자동"
 
 msgid "Select"
-msgstr ""
+msgstr "선택"
 
 msgid "Failed to place sell order. "
-msgstr ""
+msgstr "매도 주문 실패. "
 
 msgid "User rejected"
-msgstr ""
+msgstr "사용자가 거부함"
 
 msgid "Polymarket V2 is now live. Release your available balance of {releaseAmountText} USDC.e as pUSD to keep your predictions going."
-msgstr ""
+msgstr "Polymarket V2가 출시되었습니다. 예측을 계속하려면 {releaseAmountText} USDC.e를 pUSD로 해제하세요."
 
 #. placeholder {0}: subtitle.text ?? '--'
 msgid "From <0>{0}</0>"
-msgstr ""
+msgstr "<0>{0}</0>에서"
 
 msgid "into your predict wallet"
-msgstr ""
+msgstr "예측 지갑으로"
 
 msgid "No activities found"
-msgstr ""
+msgstr "활동 내역 없음"
 
 msgid "Cancelled."
-msgstr ""
+msgstr "취소됨."
 
 #. placeholder {0}: subtitle.text ?? '--'
 msgid "To <0>{0}</0>"
-msgstr ""
+msgstr "<0>{0}</0>에게"
 
 msgid "Enable authentication"
-msgstr ""
+msgstr "인증 활성화"
 
 msgid "Sold"
-msgstr ""
+msgstr "매도됨"
 
 msgid "Wallet"
-msgstr ""
+msgstr "지갑"
 
 msgid "We do not recommend ever sharing it with any app or person."
-msgstr ""
+msgstr "어떤 앱이나 사람에게도 공유하지 않을 것을 권장합니다."
 
 #. js-lingui-explicit-id
 msgid "second"
-msgstr ""
+msgstr "{time}초"
 
 msgid "View on Explorer"
-msgstr ""
+msgstr "블록 탐색기에서 보기"
 
 msgid "Add Token"
-msgstr ""
+msgstr "토큰 추가"
 
 #. placeholder {0}: desensitizeEmail(emailAddress)
 msgid "To secure your assets, please enter the verification code sent to your recovery email {0} to verify your identity."
-msgstr ""
+msgstr "자산 보호를 위해 복구 이메일 {0}로 전송된 인증 코드를 입력하여 신원을 확인해 주세요."
 
 msgid "NFT Received Failed"
-msgstr ""
+msgstr "NFT 수신 실패"
 
 msgid "Close losses"
-msgstr ""
+msgstr "손실 포지션 종료"
 
 msgid "Primary"
-msgstr ""
+msgstr "기본"
 
 msgid "Save"
-msgstr ""
+msgstr "저장"
 
 msgid "Predict. Trade. Simply fund your Firefly predict wallet to begin."
-msgstr ""
+msgstr "예측하고 거래하세요. Firefly 예측 지갑에 자금을 추가하면 시작할 수 있습니다."
 
 msgid "Failed to withdraw."
-msgstr ""
+msgstr "출금 실패."
 
 msgid "Est. fee"
-msgstr ""
+msgstr "예상 수수료"
 
 msgid "Contract address"
-msgstr ""
+msgstr "컨트랙트 주소"
 
 msgid "Minimum $1.00"
-msgstr ""
+msgstr "최소 $1.00"
 
 msgid "into your perps account"
-msgstr ""
+msgstr "퍼페츄얼 계정으로"
 
 msgid "No wallet address found for this user."
-msgstr ""
+msgstr "이 사용자의 지갑 주소를 찾을 수 없습니다."
 
 msgid "Transaction failed"
-msgstr ""
+msgstr "트랜잭션 실패"
 
 msgid "All Chains"
-msgstr ""
+msgstr "모든 체인"
 
 msgid "Status"
-msgstr ""
+msgstr "상태"
 
 msgid "PIN is too weak. Avoid repeated digits."
-msgstr ""
+msgstr "PIN이 너무 약합니다. 반복된 숫자를 사용하지 마세요."
 
 #. placeholder {0}: subtitle.projectName
 msgid "on {0}"
-msgstr ""
+msgstr "{0}에서"
 
 msgid "Signing In"
-msgstr ""
+msgstr "로그인 중"
 
 msgid "Search token"
-msgstr ""
+msgstr "토큰 검색"
 
 msgid "Your transaction has been completed."
-msgstr ""
+msgstr "트랜잭션이 완료되었습니다."
 
 msgid "Must be a 6-digit number."
-msgstr ""
+msgstr "6자리 숫자여야 합니다."
 
 msgid "Predictions"
-msgstr ""
+msgstr "예측 마켓"
 
 msgid "Your transaction failed."
-msgstr ""
+msgstr "트랜잭션이 실패했습니다."
 
 msgid "Change Email"
-msgstr ""
+msgstr "이메일 변경"
 
 msgid "Buy {outcome}"
-msgstr ""
+msgstr "{outcome} 매수"
 
 msgid "All networks"
-msgstr ""
+msgstr "모든 네트워크"
 
 msgid "Swap"
-msgstr ""
+msgstr "스왑"
 
 msgid "Keep it safe and do not share"
-msgstr ""
+msgstr "안전하게 보관하고 공유하지 마세요"
 
 msgid "Scan this code or copy your wallet address to receive funds on Ethereum."
-msgstr ""
+msgstr "이 코드를 스캔하거나 지갑 주소를 복사하여 Ethereum에서 자금을 받으세요."
 
 msgid "Your funds have been withdrawn to your Firefly wallet."
-msgstr ""
+msgstr "자금이 Firefly 지갑으로 출금되었습니다."
 
 msgid "Failed to close losses"
-msgstr ""
+msgstr "손실 포지션 종료 실패"
 
 msgid "Bridged"
-msgstr ""
+msgstr "브릿지됨"
 
 msgid "Verify Email"
-msgstr ""
+msgstr "이메일 인증"
 
 msgid "Minimum {MIN_HYPERLIQUID_DEPOSIT_USDC} USDC"
-msgstr ""
+msgstr "최소 {MIN_HYPERLIQUID_DEPOSIT_USDC} USDC"
 
 msgid "Enter the PIN code to verify identity"
-msgstr ""
+msgstr "신원 확인을 위해 PIN 코드를 입력하세요"
 
 msgid "Select Token"
-msgstr ""
+msgstr "토큰 선택"
 
 #. placeholder {0}: formatTokenItemAmount(position.shares, 2)
 #. placeholder {0}: formatTokenItemAmount(totalBought, 2)
 msgid "{0} shares"
-msgstr ""
+msgstr "{0}주"
 
 msgid "Will receive"
-msgstr ""
+msgstr "받을 금액"
 
 msgid "Quick Buy"
-msgstr ""
+msgstr "빠른 매수"
 
 msgid "Your tokens"
-msgstr ""
+msgstr "내 토큰"
 
 msgid "Please enter a valid email address."
-msgstr ""
+msgstr "유효한 이메일 주소를 입력해 주세요."
 
 msgid "Sell {outcome}"
-msgstr ""
+msgstr "{outcome} 매도"
 
 msgid "Reset PIN Code"
-msgstr ""
+msgstr "PIN 코드 재설정"
 
 msgid "This market may have been removed or the link is invalid."
-msgstr ""
+msgstr "이 마켓이 삭제되었거나 링크가 유효하지 않을 수 있습니다."
 
 msgid "Trading Activities"
-msgstr ""
+msgstr "거래 활동"
 
 msgid "Lost"
-msgstr ""
+msgstr "손실"
 
 msgid "Clear"
-msgstr ""
+msgstr "지우기"
 
 msgid "Revoked"
-msgstr ""
+msgstr "취소됨"
 
 msgid "Chain"
-msgstr ""
+msgstr "체인"
 
 msgid "Failed to add token"
-msgstr ""
+msgstr "토큰 추가 실패"
 
 msgid "We will find the lowest slippage for a successful swap"
-msgstr ""
+msgstr "스왑 성공을 위한 최저 슬리피지를 찾아드립니다"
 
 msgid "Sell"
-msgstr ""
+msgstr "매도"
 
 msgid "The market is marked as closed."
-msgstr ""
+msgstr "이 마켓은 종료된 것으로 표시되어 있습니다."
 
 msgid "Set a PIN to secure your assets. This code will be used to confirm transactions."
-msgstr ""
+msgstr "자산 보호를 위해 PIN을 설정하세요. 이 코드는 트랜잭션 확인에 사용됩니다."
 
 msgid "Token added"
-msgstr ""
+msgstr "토큰 추가됨"
 
 msgid "PIN is extremely strong."
-msgstr ""
+msgstr "PIN이 매우 강력합니다."
 
 msgid "Add Funds"
-msgstr ""
+msgstr "자금 추가"
 
 msgid "NFT Sent Failed"
-msgstr ""
+msgstr "NFT 전송 실패"
 
 msgid "Failed to search. Please try again."
-msgstr ""
+msgstr "검색 실패. 다시 시도해 주세요."
 
 msgid "Transaction completed!"
-msgstr ""
+msgstr "트랜잭션 완료!"
 
 msgid "Limit"
-msgstr ""
+msgstr "지정가"
 
 msgid "Swap faster by skipping the review step"
-msgstr ""
+msgstr "검토 단계를 건너뛰어 더 빠르게 스왑"
 
 msgid "Hide assets < 1 USD"
-msgstr ""
+msgstr "1 USD 미만 자산 숨기기"
 
 msgid "You lost"
-msgstr ""
+msgstr "손실"
 
 msgid "Close"
-msgstr ""
+msgstr "닫기"
 
 #. placeholder {0}: claimItems.length
 #. placeholder {1}: positions.length
 msgid "{0} of {1} positions will be closed"
-msgstr ""
+msgstr "{1}개 중 {0}개 포지션이 종료됩니다"
 
 msgid "Security & Privacy"
-msgstr ""
+msgstr "보안 및 개인정보"
 
 msgid "Approve"
-msgstr ""
+msgstr "승인"
 
 #. placeholder {0}: formatPriceToCents(position.avg_price, 1)
 msgid "Avg {0}"
-msgstr ""
+msgstr "평균 {0}"
 
 msgid "Current settings"
-msgstr ""
+msgstr "현재 설정"
 
 msgid "NFT"
-msgstr ""
+msgstr "NFT"
 
 msgid "NFT Sent"
-msgstr ""
+msgstr "NFT 전송됨"
 
 msgid "Failed to cancel order"
-msgstr ""
+msgstr "주문 취소 실패"
 
 #. placeholder {0}: isLoadingAvailableBalance ? '...' : availableBalance || token.balance || '0'
 #. placeholder {1}: token.symbol || '-'
 msgid "Balance: {0} {1}"
-msgstr ""
+msgstr "잔액: {0} {1}"
 
 msgid "This wallet address is invalid"
-msgstr ""
+msgstr "유효하지 않은 지갑 주소입니다"

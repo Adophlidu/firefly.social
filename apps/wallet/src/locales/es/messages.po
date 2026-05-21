@@ -1,1030 +1,1032 @@
 msgid ""
 msgstr ""
 "Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Tolgee\n"
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"Content-Type: \n"
-"Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
 
 msgid "Interacted Failed"
-msgstr ""
+msgstr "Interacción fallida"
 
 msgid "Copy to clipboard"
-msgstr ""
+msgstr "Copiar al portapapeles"
 
 msgid "To"
-msgstr ""
+msgstr "Para"
 
 msgid "Unlimited Amount"
-msgstr ""
+msgstr "Monto ilimitado"
 
 #. placeholder {0}: pusdTokenFallback.symbol
 msgid "Available: {availableText} {0}"
-msgstr ""
+msgstr "Disponible: {availableText} {0}"
 
 msgid "Show assets < 1 USD"
-msgstr ""
+msgstr "Mostrar activos menores a 1 USD"
 
 msgid "History"
-msgstr ""
+msgstr "Historial"
 
 msgid "Make sure to send funds on Ethereum."
-msgstr ""
+msgstr "Asegúrese de enviar fondos en la red Ethereum."
 
 msgid "Load failed"
-msgstr ""
+msgstr "Error al cargar"
 
 msgid "Failed to disable authentication"
-msgstr ""
+msgstr "Error al deshabilitar la autenticación"
 
 msgid "Positions"
-msgstr ""
+msgstr "Posiciones"
 
 msgid "Alphabetically"
-msgstr ""
+msgstr "Alfabéticamente"
 
 msgid "in your Firefly wallet"
-msgstr ""
+msgstr "en su billetera Firefly"
 
 msgid "Skip reviews"
-msgstr ""
+msgstr "Omitir revisión"
 
 msgid "Address, ENS, or social handle"
-msgstr ""
+msgstr "Dirección, ENS o usuario de red social"
 
 msgid "Your recovery phrase is like a password, keep it secret."
-msgstr ""
+msgstr "Su frase de recuperación es como una contraseña, manténgala en secreto."
 
 msgid "Low on balance? Your Firefly Wallet can automatically cover the rest."
-msgstr ""
+msgstr "¿Saldo insuficiente? Su Firefly Wallet puede cubrir el resto automáticamente."
 
 msgid "Transfer from an exchange"
-msgstr ""
+msgstr "Transferir desde un exchange"
 
 #. placeholder {0}: transaction.tx_status
 msgid "{0, select, success {Success} fail {Failed} other {Failed}}"
-msgstr ""
+msgstr "{0, select, success {Exitoso} fail {Fallido} other {Fallido}}"
 
 msgid "Missed this round, but the next prediction is waiting for you!"
-msgstr ""
+msgstr "¡Se perdió esta ronda, pero la próxima predicción lo está esperando!"
 
 msgid "Upgrade Now"
-msgstr ""
+msgstr "Actualizar ahora"
 
 #. placeholder {0}: selected.name
 msgid "Your {0} Address"
-msgstr ""
+msgstr "Su dirección de {0}"
 
 msgid "Avg"
-msgstr ""
+msgstr "Prom."
 
 msgid "Claim winnings"
-msgstr ""
+msgstr "Reclamar ganancias"
 
 msgid "Transaction nonce error. Please try again."
-msgstr ""
+msgstr "Error de nonce en la transacción. Inténtelo nuevamente."
 
 #. placeholder {0}: formatTokenItemAmount(depositToken.balance ?? '0')
 #. placeholder {1}: depositToken.symbol
 msgid "{0} {1} in your Firefly wallet"
-msgstr ""
+msgstr "{0} {1} en su billetera Firefly"
 
 msgid "Pay"
-msgstr ""
+msgstr "Pagar"
 
 msgid "Solana"
-msgstr ""
+msgstr "Solana"
 
 msgid "Receive funds"
-msgstr ""
+msgstr "Recibir fondos"
 
 msgid "Failed to claim winnings"
-msgstr ""
+msgstr "Error al reclamar las ganancias"
 
 msgid "Transactions"
-msgstr ""
+msgstr "Transacciones"
 
 msgid "Claim requested"
-msgstr ""
+msgstr "Reclamo solicitado"
 
 msgid "Review"
-msgstr ""
+msgstr "Revisar"
 
 msgid "Confirm to reset PIN code? For your security, this action requires sending a verification code to your recovery email to confirm your identity."
-msgstr ""
+msgstr "¿Confirmar el restablecimiento del PIN? Por su seguridad, esta acción requiere enviar un código de verificación a su correo de recuperación para confirmar su identidad."
 
 msgid "The PINs you entered do not match. Please check and try again."
-msgstr ""
+msgstr "Los PIN ingresados no coinciden. Verifique e inténtelo nuevamente."
 
 msgid "Great job predicting the future!"
-msgstr ""
+msgstr "¡Excelente trabajo prediciendo el futuro!"
 
 msgid "Invalid amount"
-msgstr ""
+msgstr "Monto inválido"
 
 msgid "I understand"
-msgstr ""
+msgstr "Entiendo"
 
 msgid "Deposit submitted. Funds will appear on Hyperliquid shortly."
-msgstr ""
+msgstr "Depósito enviado. Los fondos aparecerán en Hyperliquid en breve."
 
 msgid "Your Private Key"
-msgstr ""
+msgstr "Su clave privada"
 
 msgid "Retry"
-msgstr ""
+msgstr "Reintentar"
 
 msgid "Tokens"
-msgstr ""
+msgstr "Tokens"
 
 msgid "Skip"
-msgstr ""
+msgstr "Omitir"
 
 msgid "Copied"
-msgstr ""
+msgstr "Copiado"
 
 #. placeholder {0}: formatTokenItemAmount(usdcToken?.balance ?? '0')
 msgid "{0} USDC in your Firefly wallet"
-msgstr ""
+msgstr "{0} USDC en su billetera Firefly"
 
 msgid "Total"
-msgstr ""
+msgstr "Total"
 
 #. placeholder {0}: subtitle.projectName
 msgid "via {0}"
-msgstr ""
+msgstr "a través de {0}"
 
 msgid "To Address"
-msgstr ""
+msgstr "Dirección de destino"
 
 msgid "A 6-digit verification code has been sent to your email. Please enter the code to complete verification."
-msgstr ""
+msgstr "Se ha enviado un código de verificación de 6 dígitos a su correo. Ingrese el código para completar la verificación."
 
 msgid "Approved"
-msgstr ""
+msgstr "Aprobado"
 
 msgid "{riskTokenSymbol} is a high-risk token"
-msgstr ""
+msgstr "{riskTokenSymbol} es un token de alto riesgo"
 
 msgid "The new email address you entered is the same as your current one. Please enter a different email address."
-msgstr ""
+msgstr "El nuevo correo electrónico ingresado es igual al actual. Ingrese una dirección diferente."
 
 msgid "Confirm"
-msgstr ""
+msgstr "Confirmar"
 
 msgid "Assets to Release"
-msgstr ""
+msgstr "Activos a liberar"
 
 msgid "Predict on Polymarket"
-msgstr ""
+msgstr "Predecir en Polymarket"
 
 msgid "Keep Your Recovery Phrase Safe"
-msgstr ""
+msgstr "Mantenga su frase de recuperación segura"
 
 msgid "Bought"
-msgstr ""
+msgstr "Comprado"
 
 msgid "ENS lookup failed. Please try again."
-msgstr ""
+msgstr "Error al consultar ENS. Inténtelo nuevamente."
 
 msgid "From Address"
-msgstr ""
+msgstr "Dirección de origen"
 
 msgid "Position closed"
-msgstr ""
+msgstr "Posición cerrada"
 
 msgid "No Route Found"
-msgstr ""
+msgstr "No se encontró ruta"
 
 msgid "Failed to enable authentication"
-msgstr ""
+msgstr "Error al habilitar la autenticación"
 
 msgid "Placing order..."
-msgstr ""
+msgstr "Colocando orden..."
 
 msgid "Set Recovery Email"
-msgstr ""
+msgstr "Establecer correo de recuperación"
 
 msgid "Close lost position"
-msgstr ""
+msgstr "Cerrar posición con pérdida"
 
 msgid "Market not found"
-msgstr ""
+msgstr "Mercado no encontrado"
 
 msgid "See details"
-msgstr ""
+msgstr "Ver detalles"
 
 msgid "Won"
-msgstr ""
+msgstr "Ganado"
 
 #. placeholder {0}: formatTokenItemAmount(availableSharesBN, 2)
 msgid "{0} shares available"
-msgstr ""
+msgstr "{0} acciones disponibles"
 
 msgid "Price"
-msgstr ""
+msgstr "Precio"
 
 msgid "Enable skip reviews"
-msgstr ""
+msgstr "Habilitar omisión de revisión"
 
 msgid "Connection taking longer than expected"
-msgstr ""
+msgstr "La conexión está tardando más de lo esperado"
 
 msgid "Predict Wallet Pay"
-msgstr ""
+msgstr "Pago con billetera de predicciones"
 
 msgid "with"
-msgstr ""
+msgstr "con"
 
 msgid "Shares"
-msgstr ""
+msgstr "Acciones"
 
 msgid "Change Recovery Email"
-msgstr ""
+msgstr "Cambiar correo de recuperación"
 
 msgid "Transaction Hash"
-msgstr ""
+msgstr "Hash de transacción"
 
 msgid "Not enough gas to pay the network fee."
-msgstr ""
+msgstr "Gas insuficiente para pagar la comisión de red."
 
 msgid "Are you sure you want to cancel this order?<0/>Once cancelled, it cannot be restored."
-msgstr ""
+msgstr "¿Está seguro de que desea cancelar esta orden?<0/>Una vez cancelada, no podrá restaurarse."
 
 msgid "Avg. Price"
-msgstr ""
+msgstr "Precio prom."
 
 msgid "You won"
-msgstr ""
+msgstr "Ganó"
 
 msgid "Network cost"
-msgstr ""
+msgstr "Costo de red"
 
 msgid "Revoked Failed"
-msgstr ""
+msgstr "Error al revocar"
 
 msgid "Forgot your PIN code?"
-msgstr ""
+msgstr "¿Olvidó su PIN?"
 
 msgid "Recent"
-msgstr ""
+msgstr "Recientes"
 
 msgid "Oops! We couldn't find any tokens matching your search."
-msgstr ""
+msgstr "¡Vaya! No encontramos ningún token que coincida con su búsqueda."
 
 msgid "Block"
-msgstr ""
+msgstr "Bloque"
 
 msgid "Max"
-msgstr ""
+msgstr "Máx."
 
 msgid "Transaction Detail"
-msgstr ""
+msgstr "Detalle de la transacción"
 
 msgid "Slippage"
-msgstr ""
+msgstr "Deslizamiento"
 
 msgid "NFT Minted Failed"
-msgstr ""
+msgstr "Error al acuñar NFT"
 
 msgid "Connect Wallet"
-msgstr ""
+msgstr "Conectar billetera"
 
 msgid "No more history"
-msgstr ""
+msgstr "No hay más historial"
 
 msgid "Recovery Email"
-msgstr ""
+msgstr "Correo de recuperación"
 
 msgid "Transaction failed: minimum return amount not reached. Try increasing slippage."
-msgstr ""
+msgstr "Transacción fallida: no se alcanzó el monto mínimo de retorno. Intente aumentar el deslizamiento."
 
 msgid "There is no data available for display."
-msgstr ""
+msgstr "No hay datos disponibles para mostrar."
 
 msgid "Transaction was rejected."
-msgstr ""
+msgstr "La transacción fue rechazada."
 
 msgid "Cancel"
-msgstr ""
+msgstr "Cancelar"
 
 msgid "to"
-msgstr ""
+msgstr "a"
 
 msgid "Done"
-msgstr ""
+msgstr "Listo"
 
 msgid "Bridged Failed"
-msgstr ""
+msgstr "Error en el puente"
 
 msgid "Enter new PIN"
-msgstr ""
+msgstr "Ingresar nuevo PIN"
 
 msgid "Pay Wallet"
-msgstr ""
+msgstr "Billetera de pago"
 
 msgid "Open orders"
-msgstr ""
+msgstr "Órdenes abiertas"
 
 msgid "Copy address"
-msgstr ""
+msgstr "Copiar dirección"
 
 msgid "<0>{releaseAmountText}</0><1>to release</1>"
-msgstr ""
+msgstr "<0>{releaseAmountText}</0><1>para liberar</1>"
 
 msgid "Your funds are now in your predict wallet."
-msgstr ""
+msgstr "Sus fondos ya están en su billetera de predicciones."
 
 msgid "No positions found"
-msgstr ""
+msgstr "No se encontraron posiciones"
 
 msgid "Order placed"
-msgstr ""
+msgstr "Orden colocada"
 
 msgid "Failed to place buy order. "
-msgstr ""
+msgstr "Error al colocar la orden de compra. "
 
 msgid "Draft"
-msgstr ""
+msgstr "Borrador"
 
 msgid "Domain"
-msgstr ""
+msgstr "Dominio"
 
 msgid "PIN is acceptable, but consider adding more unique digits."
-msgstr ""
+msgstr "El PIN es aceptable, pero considere agregar más dígitos únicos."
 
 msgid "Firefly Wallet Pay"
-msgstr ""
+msgstr "Pago con Firefly Wallet"
 
 msgid "Outcome"
-msgstr ""
+msgstr "Resultado"
 
 msgid "Failed to upgrade"
-msgstr ""
+msgstr "Error al actualizar"
 
 msgid "Unable to add funds to predictions account."
-msgstr ""
+msgstr "No se pueden agregar fondos a la cuenta de predicciones."
 
 msgid "Back to Bets"
-msgstr ""
+msgstr "Volver a las apuestas"
 
 msgid "Please login to view security settings."
-msgstr ""
+msgstr "Inicie sesión para ver la configuración de seguridad."
 
 msgid "on"
-msgstr ""
+msgstr "en"
 
 msgid "Receive at least"
-msgstr ""
+msgstr "Recibir al menos"
 
 msgid "Unable to open this market."
-msgstr ""
+msgstr "No se puede abrir este mercado."
 
 msgid "Approved Failed"
-msgstr ""
+msgstr "Error al aprobar"
 
 msgid "Rate"
-msgstr ""
+msgstr "Tasa"
 
 msgid "No more orders"
-msgstr ""
+msgstr "No hay más órdenes"
 
 msgid "No more positions"
-msgstr ""
+msgstr "No hay más posiciones"
 
 msgid "Received"
-msgstr ""
+msgstr "Recibido"
 
 msgid "Custom (0.5-100%)"
-msgstr ""
+msgstr "Personalizado (0.5-100%)"
 
 msgid "Upgrade your Firefly prediction account NOW to ensure your predictions continue seamlessly."
-msgstr ""
+msgstr "Actualice su cuenta de predicciones de Firefly AHORA para asegurar que sus predicciones continúen sin interrupciones."
 
 msgid "from"
-msgstr ""
+msgstr "de"
 
 msgid "Set PIN Code"
-msgstr ""
+msgstr "Establecer PIN"
 
 msgid "Order cancelled"
-msgstr ""
+msgstr "Orden cancelada"
 
 msgid "Sent"
-msgstr ""
+msgstr "Enviado"
 
 msgid "Copy"
-msgstr ""
+msgstr "Copiar"
 
 msgid "Amount"
-msgstr ""
+msgstr "Monto"
 
 msgid "Claim"
-msgstr ""
+msgstr "Reclamar"
 
 msgid "Current"
-msgstr ""
+msgstr "Actual"
 
 msgid "Added"
-msgstr ""
+msgstr "Agregado"
 
 msgid "Reload"
-msgstr ""
+msgstr "Recargar"
 
 #. placeholder {0}: shares.count
 msgid "{0, plural, one {# share} other {# shares}}"
-msgstr ""
+msgstr "{0, plural, one {# acción} other {# acciones}}"
 
 msgid "Receive Wallet"
-msgstr ""
+msgstr "Billetera receptora"
 
 msgid "Claimed"
-msgstr ""
+msgstr "Reclamado"
 
 #. placeholder {0}: token.symbol
 msgid "Unlimited {0}"
-msgstr ""
+msgstr "Ilimitado {0}"
 
 msgid "Next"
-msgstr ""
+msgstr "Siguiente"
 
 msgid "Recipient"
-msgstr ""
+msgstr "Destinatario"
 
 msgid "Insufficient Gas"
-msgstr ""
+msgstr "Gas insuficiente"
 
 msgid "Back"
-msgstr ""
+msgstr "Atrás"
 
 msgid "Wallet addresses linked to social accounts may change or be inaccurate. Always verify before sending."
-msgstr ""
+msgstr "Las direcciones vinculadas a cuentas sociales pueden cambiar o ser inexactas. Verifique siempre antes de enviar."
 
 msgid "Enter an amount"
-msgstr ""
+msgstr "Ingrese un monto"
 
 #. placeholder {0}: formatPnlUSD(getPositionLoss(position))
 msgid "Lost {0}"
-msgstr ""
+msgstr "Pérdida de {0}"
 
 msgid "Login In Firefly"
-msgstr ""
+msgstr "Iniciar sesión en Firefly"
 
 msgid "Bridge"
-msgstr ""
+msgstr "Puente"
 
 msgid "Enter amount"
-msgstr ""
+msgstr "Ingresar monto"
 
 #. placeholder {0}: formatTokenItemAmount(availableSharesBN, 2)
 #. placeholder {0}: formatTokenUSD(availableAmount, { minDisplay: 0.01 })
 msgid "Available {0}"
-msgstr ""
+msgstr "Disponible {0}"
 
 msgid "Trade"
-msgstr ""
+msgstr "Operar"
 
 msgid "No tokens available"
-msgstr ""
+msgstr "No hay tokens disponibles"
 
 msgid "Send"
-msgstr ""
+msgstr "Enviar"
 
 msgid "You've hit rock bottom."
-msgstr ""
+msgstr "Has llegado al fondo."
 
 msgid "View"
-msgstr ""
+msgstr "Ver"
 
 msgid "Release Now"
-msgstr ""
+msgstr "Liberar ahora"
 
 msgid "Migrate to Polymarket V2"
-msgstr ""
+msgstr "Migrar a Polymarket V2"
 
 msgid "Network error. Please try again."
-msgstr ""
+msgstr "Error de red. Inténtelo nuevamente."
 
 msgid "Better luck on the next prediction."
-msgstr ""
+msgstr "Mejor suerte en la próxima predicción."
 
 msgid "No tokens found"
-msgstr ""
+msgstr "No se encontraron tokens"
 
 msgid "Report issue"
-msgstr ""
+msgstr "Reportar problema"
 
 msgid "Withdrawing funds to your Firefly wallet..."
-msgstr ""
+msgstr "Retirando fondos a su billetera Firefly..."
 
 msgid "Failed to set PIN. Please try again later."
-msgstr ""
+msgstr "Error al establecer el PIN. Inténtelo nuevamente más tarde."
 
 msgid "To win"
-msgstr ""
+msgstr "Para ganar"
 
 msgid "Try again"
-msgstr ""
+msgstr "Intentar nuevamente"
 
 msgid "Something went wrong."
-msgstr ""
+msgstr "Algo salió mal."
 
 msgid "Your funds are on the way..."
-msgstr ""
+msgstr "Sus fondos están en camino..."
 
 msgid "NFT Minted"
-msgstr ""
+msgstr "NFT acuñado"
 
 msgid "Deposit"
-msgstr ""
+msgstr "Depositar"
 
 #. placeholder {0}: formatTokenItemAmount(withdrawableAmount)
 #. placeholder {0}: formatTokenUSD(availableAmount, { minDisplay: 0.01 })
 msgid "{0} available"
-msgstr ""
+msgstr "{0} disponible"
 
 msgid "Contract"
-msgstr ""
+msgstr "Contrato"
 
 msgid "Limit Price"
-msgstr ""
+msgstr "Precio límite"
 
 msgid "NFT Received"
-msgstr ""
+msgstr "NFT recibido"
 
 msgid "Close position"
-msgstr ""
+msgstr "Cerrar posición"
 
 msgid "Trendings"
-msgstr ""
+msgstr "Tendencias"
 
 msgid "Network Fee"
-msgstr ""
+msgstr "Comisión de red"
 
 msgid "Please re-enter the PIN you just set to confirm."
-msgstr ""
+msgstr "Vuelva a ingresar el PIN que acaba de establecer para confirmar."
 
 msgid "Market"
-msgstr ""
+msgstr "Mercado"
 
 msgid "EVM"
-msgstr ""
+msgstr "EVM"
 
 msgid "Confirming your transaction..."
-msgstr ""
+msgstr "Confirmando su transacción..."
 
 msgid "Refresh"
-msgstr ""
+msgstr "Actualizar"
 
 msgid "Receive"
-msgstr ""
+msgstr "Recibir"
 
 msgid "Time"
-msgstr ""
+msgstr "Hora"
 
 msgid "Explore markets"
-msgstr ""
+msgstr "Explorar mercados"
 
 #. placeholder {0}: formatPnlUSD(pnlValue)
 #. placeholder {1}: formatPercentRate(pnlRate)
 msgid "Total PnL: <0>{0}({1})</0>"
-msgstr ""
+msgstr "PnL total: <0>{0}({1})</0>"
 
 msgid "Interacted"
-msgstr ""
+msgstr "Interactuado"
 
 msgid "The address could not be found."
-msgstr ""
+msgstr "No se pudo encontrar la dirección."
 
 msgid "Add"
-msgstr ""
+msgstr "Agregar"
 
 msgid "Confirm new PIN"
-msgstr ""
+msgstr "Confirmar nuevo PIN"
 
 msgid "Sort closed positions"
-msgstr ""
+msgstr "Ordenar posiciones cerradas"
 
 msgid "{betText} • Won <0>{wonText}({pctText})</0>"
-msgstr ""
+msgstr "{betText} • Ganó <0>{wonText}({pctText})</0>"
 
 #. placeholder {0}: subtitle.text ?? '--'
 msgid "With <0>{0}</0>"
-msgstr ""
+msgstr "Con <0>{0}</0>"
 
 msgid "Date"
-msgstr ""
+msgstr "Fecha"
 
 msgid "Resend"
-msgstr ""
+msgstr "Reenviar"
 
 msgid "Insufficient Balance"
-msgstr ""
+msgstr "Saldo insuficiente"
 
 msgid "All"
-msgstr ""
+msgstr "Todos"
 
 msgid "Search symbol or contract"
-msgstr ""
+msgstr "Buscar símbolo o contrato"
 
 msgid "Custom Allowance"
-msgstr ""
+msgstr "Límite personalizado"
 
 msgid "Failed to add funds."
-msgstr ""
+msgstr "Error al agregar fondos."
 
 msgid "Claim all the winnings"
-msgstr ""
+msgstr "Reclamar todas las ganancias"
 
 msgid "Unlimited"
-msgstr ""
+msgstr "Ilimitado"
 
 msgid "Deposit failed."
-msgstr ""
+msgstr "Error al depositar."
 
 msgid "Perps"
-msgstr ""
+msgstr "Perps"
 
 msgid "Swapped Failed"
-msgstr ""
+msgstr "Error al intercambiar"
 
 msgid "Cancel order?"
-msgstr ""
+msgstr "¿Cancelar orden?"
 
 msgid "Cancelling order..."
-msgstr ""
+msgstr "Cancelando orden..."
 
 msgid "Something went wrong"
-msgstr ""
+msgstr "Algo salió mal"
 
 msgid "Enter or search for a recipient wallet"
-msgstr ""
+msgstr "Ingrese o busque una billetera destinataria"
 
 msgid "Please enter a valid email address. If you want to reset your PIN code, a verification code will be sent to this email to reset it."
-msgstr ""
+msgstr "Ingrese una dirección de correo válida. Si desea restablecer su PIN, se enviará un código de verificación a este correo."
 
 msgid "Email"
-msgstr ""
+msgstr "Correo electrónico"
 
 msgid "PnL"
-msgstr ""
+msgstr "PnL"
 
 msgid "Avg Price"
-msgstr ""
+msgstr "Precio prom."
 
 msgid "Total traded"
-msgstr ""
+msgstr "Total operado"
 
 msgid "Failed to close position"
-msgstr ""
+msgstr "Error al cerrar posición"
 
 msgid "Failed to init exchange options. Please try again later."
-msgstr ""
+msgstr "Error al inicializar las opciones del exchange. Inténtelo nuevamente más tarde."
 
 msgid "Close all the losses"
-msgstr ""
+msgstr "Cerrar todas las posiciones con pérdida"
 
 msgid "Network"
-msgstr ""
+msgstr "Red"
 
 msgid "Withdraw"
-msgstr ""
+msgstr "Retirar"
 
 msgid "Transaction failed during execution."
-msgstr ""
+msgstr "La transacción falló durante la ejecución."
 
 msgid "Failed to fetch token info"
-msgstr ""
+msgstr "Error al obtener información del token"
 
 msgid "Missed this round"
-msgstr ""
+msgstr "Se perdió esta ronda"
 
 msgid "Authentication"
-msgstr ""
+msgstr "Autenticación"
 
 msgid "Sent Failed"
-msgstr ""
+msgstr "Error al enviar"
 
 #. placeholder {0}: minCheckoutUsd.toFixed(2)
 msgid "Minimum ${0}"
-msgstr ""
+msgstr "Mínimo ${0}"
 
 msgid "Please enter your new email address. We will send a verification code to confirm the change. Once updated, PIN reset codes and security verifications will be sent to this new email."
-msgstr ""
+msgstr "Ingrese su nueva dirección de correo. Le enviaremos un código de verificación para confirmar el cambio. Una vez actualizado, los códigos de restablecimiento de PIN y las verificaciones de seguridad se enviarán a este nuevo correo."
 
 msgid "Received Failed"
-msgstr ""
+msgstr "Error al recibir"
 
 msgid "Available: {availableText}"
-msgstr ""
+msgstr "Disponible: {availableText}"
 
 msgid "Confirming..."
-msgstr ""
+msgstr "Confirmando..."
 
 msgid "Closed Positions"
-msgstr ""
+msgstr "Posiciones cerradas"
 
 msgid "Failed to release"
-msgstr ""
+msgstr "Error al liberar"
 
 msgid "Buy"
-msgstr ""
+msgstr "Comprar"
 
 msgid "Swapped"
-msgstr ""
+msgstr "Intercambiado"
 
 msgid "PIN is too weak. Avoid sequential digits."
-msgstr ""
+msgstr "El PIN es demasiado débil. Evite dígitos secuenciales."
 
 msgid "Auto"
-msgstr ""
+msgstr "Auto"
 
 msgid "Select"
-msgstr ""
+msgstr "Seleccionar"
 
 msgid "Failed to place sell order. "
-msgstr ""
+msgstr "Error al colocar la orden de venta. "
 
 msgid "User rejected"
-msgstr ""
+msgstr "Usuario rechazó"
 
 msgid "Polymarket V2 is now live. Release your available balance of {releaseAmountText} USDC.e as pUSD to keep your predictions going."
-msgstr ""
+msgstr "Polymarket V2 ya está activo. Libere su saldo disponible de {releaseAmountText} USDC.e como pUSD para continuar con sus predicciones."
 
 #. placeholder {0}: subtitle.text ?? '--'
 msgid "From <0>{0}</0>"
-msgstr ""
+msgstr "De <0>{0}</0>"
 
 msgid "into your predict wallet"
-msgstr ""
+msgstr "en su billetera de predicciones"
 
 msgid "No activities found"
-msgstr ""
+msgstr "No se encontraron actividades"
 
 msgid "Cancelled."
-msgstr ""
+msgstr "Cancelado."
 
 #. placeholder {0}: subtitle.text ?? '--'
 msgid "To <0>{0}</0>"
-msgstr ""
+msgstr "Para <0>{0}</0>"
 
 msgid "Enable authentication"
-msgstr ""
+msgstr "Habilitar autenticación"
 
 msgid "Sold"
-msgstr ""
+msgstr "Vendido"
 
 msgid "Wallet"
-msgstr ""
+msgstr "Billetera"
 
 msgid "We do not recommend ever sharing it with any app or person."
-msgstr ""
+msgstr "No recomendamos compartirla con ninguna aplicación ni persona."
 
 #. js-lingui-explicit-id
 msgid "second"
-msgstr ""
+msgstr "{time}s"
 
 msgid "View on Explorer"
-msgstr ""
+msgstr "Ver en el explorador"
 
 msgid "Add Token"
-msgstr ""
+msgstr "Agregar token"
 
 #. placeholder {0}: desensitizeEmail(emailAddress)
 msgid "To secure your assets, please enter the verification code sent to your recovery email {0} to verify your identity."
-msgstr ""
+msgstr "Para proteger sus activos, ingrese el código de verificación enviado a su correo de recuperación {0} para verificar su identidad."
 
 msgid "NFT Received Failed"
-msgstr ""
+msgstr "Error al recibir NFT"
 
 msgid "Close losses"
-msgstr ""
+msgstr "Cerrar posiciones con pérdida"
 
 msgid "Primary"
-msgstr ""
+msgstr "Principal"
 
 msgid "Save"
-msgstr ""
+msgstr "Guardar"
 
 msgid "Predict. Trade. Simply fund your Firefly predict wallet to begin."
-msgstr ""
+msgstr "Predice. Opera. Solo cargue fondos en su billetera de predicciones de Firefly para comenzar."
 
 msgid "Failed to withdraw."
-msgstr ""
+msgstr "Error al retirar."
 
 msgid "Est. fee"
-msgstr ""
+msgstr "Comisión est."
 
 msgid "Contract address"
-msgstr ""
+msgstr "Dirección del contrato"
 
 msgid "Minimum $1.00"
-msgstr ""
+msgstr "Mínimo $1.00"
 
 msgid "into your perps account"
-msgstr ""
+msgstr "en su cuenta de perps"
 
 msgid "No wallet address found for this user."
-msgstr ""
+msgstr "No se encontró dirección de billetera para este usuario."
 
 msgid "Transaction failed"
-msgstr ""
+msgstr "Transacción fallida"
 
 msgid "All Chains"
-msgstr ""
+msgstr "Todas las cadenas"
 
 msgid "Status"
-msgstr ""
+msgstr "Estado"
 
 msgid "PIN is too weak. Avoid repeated digits."
-msgstr ""
+msgstr "El PIN es demasiado débil. Evite dígitos repetidos."
 
 #. placeholder {0}: subtitle.projectName
 msgid "on {0}"
-msgstr ""
+msgstr "en {0}"
 
 msgid "Signing In"
-msgstr ""
+msgstr "Iniciando sesión"
 
 msgid "Search token"
-msgstr ""
+msgstr "Buscar token"
 
 msgid "Your transaction has been completed."
-msgstr ""
+msgstr "Su transacción ha sido completada."
 
 msgid "Must be a 6-digit number."
-msgstr ""
+msgstr "Debe ser un número de 6 dígitos."
 
 msgid "Predictions"
-msgstr ""
+msgstr "Predicciones"
 
 msgid "Your transaction failed."
-msgstr ""
+msgstr "Su transacción falló."
 
 msgid "Change Email"
-msgstr ""
+msgstr "Cambiar correo"
 
 msgid "Buy {outcome}"
-msgstr ""
+msgstr "Comprar {outcome}"
 
 msgid "All networks"
-msgstr ""
+msgstr "Todas las redes"
 
 msgid "Swap"
-msgstr ""
+msgstr "Intercambiar"
 
 msgid "Keep it safe and do not share"
-msgstr ""
+msgstr "Guárdelo en un lugar seguro y no lo comparta"
 
 msgid "Scan this code or copy your wallet address to receive funds on Ethereum."
-msgstr ""
+msgstr "Escanee este código o copie su dirección de billetera para recibir fondos en Ethereum."
 
 msgid "Your funds have been withdrawn to your Firefly wallet."
-msgstr ""
+msgstr "Sus fondos han sido retirados a su billetera Firefly."
 
 msgid "Failed to close losses"
-msgstr ""
+msgstr "Error al cerrar posiciones con pérdida"
 
 msgid "Bridged"
-msgstr ""
+msgstr "Transferido por puente"
 
 msgid "Verify Email"
-msgstr ""
+msgstr "Verificar correo"
 
 msgid "Minimum {MIN_HYPERLIQUID_DEPOSIT_USDC} USDC"
-msgstr ""
+msgstr "Mínimo {MIN_HYPERLIQUID_DEPOSIT_USDC} USDC"
 
 msgid "Enter the PIN code to verify identity"
-msgstr ""
+msgstr "Ingrese el PIN para verificar su identidad"
 
 msgid "Select Token"
-msgstr ""
+msgstr "Seleccionar token"
 
 #. placeholder {0}: formatTokenItemAmount(position.shares, 2)
 #. placeholder {0}: formatTokenItemAmount(totalBought, 2)
 msgid "{0} shares"
-msgstr ""
+msgstr "{0} acciones"
 
 msgid "Will receive"
-msgstr ""
+msgstr "Recibirá"
 
 msgid "Quick Buy"
-msgstr ""
+msgstr "Compra rápida"
 
 msgid "Your tokens"
-msgstr ""
+msgstr "Sus tokens"
 
 msgid "Please enter a valid email address."
-msgstr ""
+msgstr "Ingrese una dirección de correo electrónico válida."
 
 msgid "Sell {outcome}"
-msgstr ""
+msgstr "Vender {outcome}"
 
 msgid "Reset PIN Code"
-msgstr ""
+msgstr "Restablecer PIN"
 
 msgid "This market may have been removed or the link is invalid."
-msgstr ""
+msgstr "Es posible que este mercado haya sido eliminado o que el enlace no sea válido."
 
 msgid "Trading Activities"
-msgstr ""
+msgstr "Actividades de trading"
 
 msgid "Lost"
-msgstr ""
+msgstr "Perdido"
 
 msgid "Clear"
-msgstr ""
+msgstr "Limpiar"
 
 msgid "Revoked"
-msgstr ""
+msgstr "Revocado"
 
 msgid "Chain"
-msgstr ""
+msgstr "Cadena"
 
 msgid "Failed to add token"
-msgstr ""
+msgstr "Error al agregar token"
 
 msgid "We will find the lowest slippage for a successful swap"
-msgstr ""
+msgstr "Encontraremos el menor deslizamiento para un intercambio exitoso"
 
 msgid "Sell"
-msgstr ""
+msgstr "Vender"
 
 msgid "The market is marked as closed."
-msgstr ""
+msgstr "El mercado está marcado como cerrado."
 
 msgid "Set a PIN to secure your assets. This code will be used to confirm transactions."
-msgstr ""
+msgstr "Establezca un PIN para proteger sus activos. Este código se usará para confirmar las transacciones."
 
 msgid "Token added"
-msgstr ""
+msgstr "Token agregado"
 
 msgid "PIN is extremely strong."
-msgstr ""
+msgstr "El PIN es extremadamente seguro."
 
 msgid "Add Funds"
-msgstr ""
+msgstr "Agregar fondos"
 
 msgid "NFT Sent Failed"
-msgstr ""
+msgstr "Error al enviar NFT"
 
 msgid "Failed to search. Please try again."
-msgstr ""
+msgstr "Error al buscar. Inténtelo nuevamente."
 
 msgid "Transaction completed!"
-msgstr ""
+msgstr "¡Transacción completada!"
 
 msgid "Limit"
-msgstr ""
+msgstr "Límite"
 
 msgid "Swap faster by skipping the review step"
-msgstr ""
+msgstr "Intercambie más rápido omitiendo el paso de revisión"
 
 msgid "Hide assets < 1 USD"
-msgstr ""
+msgstr "Ocultar activos menores a 1 USD"
 
 msgid "You lost"
-msgstr ""
+msgstr "Perdió"
 
 msgid "Close"
-msgstr ""
+msgstr "Cerrar"
 
 #. placeholder {0}: claimItems.length
 #. placeholder {1}: positions.length
 msgid "{0} of {1} positions will be closed"
-msgstr ""
+msgstr "{0} de {1} posiciones serán cerradas"
 
 msgid "Security & Privacy"
-msgstr ""
+msgstr "Seguridad y privacidad"
 
 msgid "Approve"
-msgstr ""
+msgstr "Aprobar"
 
 #. placeholder {0}: formatPriceToCents(position.avg_price, 1)
 msgid "Avg {0}"
-msgstr ""
+msgstr "Prom. {0}"
 
 msgid "Current settings"
-msgstr ""
+msgstr "Configuración actual"
 
 msgid "NFT"
-msgstr ""
+msgstr "NFT"
 
 msgid "NFT Sent"
-msgstr ""
+msgstr "NFT enviado"
 
 msgid "Failed to cancel order"
-msgstr ""
+msgstr "Error al cancelar la orden"
 
 #. placeholder {0}: isLoadingAvailableBalance ? '...' : availableBalance || token.balance || '0'
 #. placeholder {1}: token.symbol || '-'
 msgid "Balance: {0} {1}"
-msgstr ""
+msgstr "Saldo: {0} {1}"
 
 msgid "This wallet address is invalid"
-msgstr ""
+msgstr "Esta dirección de billetera no es válida"
