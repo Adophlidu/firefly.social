@@ -170,9 +170,10 @@ function ClosedPositionsHistory() {
     }, [redeemablePositions, queryResult.data, sortBy]);
     const closeableLosses = useMemo(
         () =>
-            positions
-                .filter((position) => position.isClaimable && !position.isWin && !position.is_closed)
-                .sort((a, b) => Math.abs(b.pnl) - Math.abs(a.pnl)),
+            sortClosedPositions(
+                positions.filter((position) => position.isClaimable && !position.isWin && !position.is_closed),
+                'TIMESTAMP',
+            ),
         [positions],
     );
 
