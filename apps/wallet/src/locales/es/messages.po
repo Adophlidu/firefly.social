@@ -650,7 +650,7 @@ msgid "Deposit failed."
 msgstr "Error al depositar."
 
 msgid "Perps"
-msgstr "Perps"
+msgstr "Perpetuos"
 
 msgid "Swapped Failed"
 msgstr "Error al intercambiar"
@@ -674,7 +674,7 @@ msgid "Email"
 msgstr "Correo electrónico"
 
 msgid "PnL"
-msgstr "PnL"
+msgstr "P/G"
 
 msgid "Avg Price"
 msgstr "Precio prom."
@@ -744,7 +744,7 @@ msgid "PIN is too weak. Avoid sequential digits."
 msgstr "El PIN es demasiado débil. Evite dígitos secuenciales."
 
 msgid "Auto"
-msgstr "Auto"
+msgstr "Automático"
 
 msgid "Select"
 msgstr "Seleccionar"
@@ -789,7 +789,7 @@ msgstr "No recomendamos compartirla con ninguna aplicación ni persona."
 
 #. js-lingui-explicit-id
 msgid "second"
-msgstr "{time}s"
+msgstr "{time} s"
 
 msgid "View on Explorer"
 msgstr "Ver en el explorador"

@@ -12,7 +12,8 @@ pnpm --filter @dimensiondev/iframe-bridge build
 pnpm --filter @dimensiondev/native-bridge build
 pnpm --filter @dimensiondev/exception-tracker build
 
-# Compile i18n (defined in apps/web only)
+# Compile i18n (messages.ts is generated, not committed)
+pnpm --filter @dimensiondev/rn-ui lingui:compile
 pnpm --filter @dimensiondev/firefly-web lingui:compile
 
 # Run pre-build scripts (polyfills, bundled scripts, build metadata)

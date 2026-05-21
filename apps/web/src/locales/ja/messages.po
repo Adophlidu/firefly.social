@@ -14,844 +14,844 @@ msgstr ""
 "Language-Team: \n"
 
 msgid "Group {id} could not be found."
-msgstr ""
+msgstr "グループ {id} が見つかりませんでした。"
 
 msgid "Unmute successfully."
-msgstr ""
+msgstr "ミュート解除しました。"
 
 msgid "Copy to clipboard"
-msgstr ""
+msgstr "クリップボードにコピー"
 
 msgid "DRAW"
-msgstr ""
+msgstr "引き分け"
 
 msgid "Refunded"
-msgstr ""
+msgstr "返金済み"
 
 msgid "Volume"
-msgstr ""
+msgstr "取引量"
 
 #. js-lingui:icu=%7Bshares%2C+plural%2C+one+%7BRepost+or+Quote%7D+other+%7BReposts+or+Quotes%7D%7D&pluralize_on=shares
 msgid "Repost or Quote"
 msgid_plural "Reposts or Quotes"
-msgstr[0] ""
+msgstr[0] "転送または引用"
 
 msgid "Content is not suitable for all audiences"
-msgstr ""
+msgstr "このコンテンツは全ての方に適切ではありません"
 
 msgid "Ask a question"
-msgstr ""
+msgstr "質問する"
 
 msgid "Send a tip"
-msgstr ""
+msgstr "チップを送る"
 
 msgid "Invalid cast link."
-msgstr ""
+msgstr "無効なリンクです。"
 
 #. placeholder {0}: resolveSourceName(x)
 msgid "Your post was sent to {0}."
-msgstr ""
+msgstr "あなたの投稿が {0} に送信されました。"
 
 msgid "There is no data available to select."
-msgstr ""
+msgstr "選択できるデータがありません。"
 
 #. placeholder {0}: channel.id
 #. placeholder {0}: channel.name
 msgid "Mute /{0}"
-msgstr ""
+msgstr "/{0} をミュート"
 
 msgid "Blackmail activities."
-msgstr ""
+msgstr "脅迫行為。"
 
 msgid "{txStatus, select, success {Success} fail {Failed} pending {Pending} other {Failed}}"
-msgstr ""
+msgstr "{txStatus, select, success {成功} fail {失敗} pending {保留中} other {失敗}}"
 
 #. placeholder {0}: error.message
 msgid "Failed to add to Bookmarks. {0}"
-msgstr ""
+msgstr "ブックマークへの追加に失敗しました。{0}"
 
 msgid "Other"
-msgstr ""
+msgstr "その他"
 
 msgid "Template"
-msgstr ""
+msgstr "テンプレート"
 
 msgid "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
-msgstr ""
+msgstr "ウォレットを接続する際はご注意ください。悪意のあるウェブサイトがあなたの資産にアクセスしようとする場合があります。"
 
 msgid "Failed to collect article."
-msgstr ""
+msgstr "記事の収集に失敗しました。"
 
 msgid "<0>Fully Diluted Valuation (FDV) = Current Price x Total Supply</0><1>Fully Diluted Valuation (FDV) is the theoretical market capitalization of a coin if the entirety of its supply is in circulation, based on its current market price. The FDV value is theoretical as increasing the circulating supply of a coin may impact its market price. Also depending on the tokenomics, emission schedule or lock-up period of a coin's supply, it may take a significant time before its entire supply is released into circulation.</1>"
-msgstr ""
+msgstr "<0>完全希薄化時価総額 (FDV) = 現在価格 × 総供給量</0><1>完全希薄化時価総額 (FDV) は、現在の市場価格を基に、全供給量が流通した場合の理論上の時価総額です。FDV は理論値であり、流通供給量の増加はコインの市場価格に影響を与える可能性があります。また、トークノミクスや発行スケジュール、ロック期間によっては、全供給量が流通するまでに長い時間がかかる場合があります。</1>"
 
 msgid "Verified by Firefly"
-msgstr ""
+msgstr "Firefly による認証済み"
 
 msgid "Equal Split"
-msgstr ""
+msgstr "均等分割"
 
 #. placeholder {0}: formatPrice(totalBalance ?? 0)
 msgid "$ {0} <0>Net worth</0>"
-msgstr ""
+msgstr "$ {0} <0>純資産</0>"
 
 #. placeholder {0}: resolveSourceName(source)
 msgid "Failed to quote on {0}."
-msgstr ""
+msgstr "{0} での引用に失敗しました。"
 
 msgid "firefly.eth reposted your tips"
-msgstr ""
+msgstr "firefly.eth があなたのチップをリポストしました"
 
 msgid "Enter your email address below, and we’ll send a one-time passcode to confirm your address"
-msgstr ""
+msgstr "メール アドレスを入力してください。メールを確認するための 1 回限りの確認コードが送信されます。"
 
 #. placeholder {0}: profile.handle
 msgid "Followed @{0} on {sourceName}"
-msgstr ""
+msgstr "{sourceName} で @{0} をフォローしました"
 
 msgid "Search collection"
-msgstr ""
+msgstr "NFT コレクションを検索"
 
 msgid "Communities"
-msgstr ""
+msgstr "コミュニティ"
 
 #. placeholder {0}: error.message
 msgid "Failed to remove from Bookmarks. {0}"
-msgstr ""
+msgstr "ブックマークの削除に失敗しました。{0}"
 
 #. js-lingui:icu=%7BfollowerCount%2C+plural%2C+one+%7BFollower%7D+other+%7BFollowers%7D%7D&pluralize_on=followerCount
 msgid "Follower"
 msgid_plural "Followers"
-msgstr[0] ""
+msgstr[0] "フォロワー"
 
 msgid "Failed to sign in."
-msgstr ""
+msgstr "ログインに失敗しました。"
 
 msgid "The gas abuse function is included. The project owner may have the ability to control the contract."
-msgstr ""
+msgstr "ガス悪用の仕組みが含まれています。プロジェクトオーナーがコントラクトを制御できる可能性があります。"
 
 msgid "Projects"
-msgstr ""
+msgstr "プロジェクト"
 
 msgid "Do you want to retry with the full or remaining content?"
-msgstr ""
+msgstr "全てのコンテンツで再試行しますか、それとも残りの部分だけ送信しますか？"
 
 msgid "Connected wallets"
-msgstr ""
+msgstr "接続済みウォレット"
 
 msgid "Stealing attack found."
-msgstr ""
+msgstr "窃取攻撃が検出されました。"
 
 msgid "Please switch the wallet you want to connect"
-msgstr ""
+msgstr "接続するウォレットを切り替えてください"
 
 msgid "Be the first one to comment!"
-msgstr ""
+msgstr "最初のコメントを投稿しましょう！"
 
 msgid "Select which chain to connect to your multi chain wallet"
-msgstr ""
+msgstr "マルチチェーンウォレットに接続するチェーンを選択してください"
 
 msgid "Failed to mute all wallets and accounts."
-msgstr ""
+msgstr "全てのウォレットとアカウントのミュートに失敗しました。"
 
 #. placeholder {0}: notification.quote.quoteOn.type
 msgid "<0/> quoted your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</1>"
-msgstr ""
+msgstr "<0/> があなたの <1>{0, select, Post {投稿} Comment {コメント} Quote {引用} Mirror {リポスト} other {投稿}}</1> を引用しました"
 
 msgid "Followed {handleOrEnsOrAddress} on Firefly"
-msgstr ""
+msgstr "Firefly で {handleOrEnsOrAddress} をフォローしました"
 
 #. placeholder {0}: dayjs(space.scheduled_start).format('HH:mm')
 msgid "Tomorrow at {0}"
-msgstr ""
+msgstr "明日 {0}"
 
 msgid "Edit Image"
-msgstr ""
+msgstr "画像を編集"
 
 msgid "Failed to upload. File type is not supported on X."
-msgstr ""
+msgstr "アップロードに失敗しました。このファイル形式は X でサポートされていません。"
 
 msgid "Open Orders"
-msgstr ""
+msgstr "未約定注文"
 
 #. placeholder {0}: profile.handle
 msgid "Report @{0}"
-msgstr ""
+msgstr "@{0} を報告"
 
 msgid "Muted"
-msgstr ""
+msgstr "ミュート済み"
 
 msgid "No bids"
-msgstr ""
+msgstr "入札なし"
 
 msgid "Disconnect"
-msgstr ""
+msgstr "切断"
 
 msgid "No frame found."
-msgstr ""
+msgstr "フレームが見つかりませんでした。"
 
 #. placeholder {0}: percentageToNumber(info.sell_tax)
 msgid "Sell Tax: {0}%"
-msgstr ""
+msgstr "売却税率: {0}%"
 
 msgid "Failed to like."
-msgstr ""
+msgstr "いいねに失敗しました。"
 
 msgid "Coins"
-msgstr ""
+msgstr "コイン"
 
 msgid "Failed to translate post. Please retry later."
-msgstr ""
+msgstr "投稿の翻訳に失敗しました。後でもう一度お試しください。"
 
 msgid "Posts"
-msgstr ""
+msgstr "投稿"
 
 msgid "Scan this QR code if you’ve used Farcaster to sign in before.<0/><1>First time</1>? Go here to get started."
-msgstr ""
+msgstr "以前に Farcaster を使用してログインしたことがある場合は、この QR コードをスキャンしてください。 <0/><1>初めてログイン</1>しますか?ここをクリックして始めてください。"
 
 msgid "Tip unliked."
-msgstr ""
+msgstr "いいねを取り消しました。"
 
 msgid "FAILED THREAD POST"
-msgstr ""
+msgstr "スレッド投稿に失敗しました"
 
 msgid "Show assets < 1 USD"
-msgstr ""
+msgstr "1 USD 未満の資産を表示"
 
 msgid "Connecting wallets"
-msgstr ""
+msgstr "ウォレット接続中"
 
 msgid "Repost or quote"
-msgstr ""
+msgstr "リポストまたは引用"
 
 msgid "Delete post"
-msgstr ""
+msgstr "投稿を削除"
 
 msgid "This account has expired, please log in again."
-msgstr ""
+msgstr "このアカウントは有効期限が切れています。再度ログインしてください。"
 
 msgid "Turning off Multi-device login will clear all previously encrypted login sessions. A new password is required to re-enable."
-msgstr ""
+msgstr "マルチデバイスログインをオフにすると、既存の暗号化されたログインセッションが全て削除されます。再度有効にするには新しいパスワードが必要です。"
 
 msgid "History"
-msgstr ""
+msgstr "履歴"
 
 msgid "Money laundering."
-msgstr ""
+msgstr "マネーロンダリング。"
 
 msgid "Enter a new password to verify your identity."
-msgstr ""
+msgstr "本人確認のため新しいパスワードを入力してください。"
 
 msgid "This space does not exist."
-msgstr ""
+msgstr "このスペースは存在しません。"
 
 msgid "Failed to apply draft post."
-msgstr ""
+msgstr "下書き投稿の適用に失敗しました。"
 
 #. placeholder {0}: profile.handle
 msgid "Mute @{0}"
-msgstr ""
+msgstr "@{0} をミュート"
 
 msgid "Display Name"
-msgstr ""
+msgstr "表示名"
 
 msgid "Your Lens login token has expired. Please sign in again."
-msgstr ""
+msgstr "Lens のログイントークンが期限切れです。再度ログインしてください。"
 
 msgid "Blackmail activities found."
-msgstr ""
+msgstr "脅迫行為が検出されました。"
 
 #. placeholder {0}: formatFileSize(maxVideoSize)
 msgid "Failed to upload. Video size exceeds {0}"
-msgstr ""
+msgstr "アップロードに失敗しました。動画のサイズが {0} を超えています"
 
 msgid "The contract owner is not found to have the authority to modify the balance of tokens at other addresses."
-msgstr ""
+msgstr "コントラクトオーナーは他のアドレスのトークン残高を変更する権限を持っていません。"
 
 msgid "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)</1>"
-msgstr ""
+msgstr "<0>時価総額 = 現在価格 x 流通供給量</0><1>とは、暗号通貨の流通供給量の合計市場価値を指します。これは株式市場の指標に似ており、1 株あたりの価格に市場の発行済株式数 (内部関係者や政府によって所有および拘束されていない) を乗じたものです。</1>"
 
 msgid "Generating"
-msgstr ""
+msgstr "生成中"
 
 msgid "The post you quoted/replied has already deleted"
-msgstr ""
+msgstr "引用/返信した投稿は既に削除されています。"
 
 msgid "Join"
-msgstr ""
+msgstr "参加"
 
 msgid "Multi-device login sessions synced successfully."
-msgstr ""
+msgstr "マルチデバイスログインセッションの同期が完了しました。"
 
 #. placeholder {0}: error.status
 msgid "Failed to fetch: {0}. Please try again later."
-msgstr ""
+msgstr "取得に失敗しました: {0}。後でもう一度お試しください。"
 
 msgid "We are not aware of any code that prevents the sale of tokens."
-msgstr ""
+msgstr "トークンの売却を妨げるコードは検出されませんでした。"
 
 msgid "Positions"
-msgstr ""
+msgstr "ポジション"
 
 #. placeholder {0}: space.participant_count?.toLocaleString()
 msgid "{0} listening"
-msgstr ""
+msgstr "{0} 人が聴いています"
 
 msgid "No trades found"
-msgstr ""
+msgstr "取引が見つかりません"
 
 msgid "The task is still in progress, you can check on <0>this page</0> later"
-msgstr ""
+msgstr "タスクはまだ進行中です。後で<0>このページ</0>で確認できます"
 
 msgid "Functions that can suspend trading"
-msgstr ""
+msgstr "取引を停止できる機能"
 
 msgid "{count}s"
-msgstr ""
+msgstr "{count}秒"
 
 #. placeholder {0}: token.market_cap_rank
 msgid "Rank #{0}"
-msgstr ""
+msgstr "ランキング #{0}"
 
 msgid "Mute {walletHandle}"
-msgstr ""
+msgstr "{walletHandle} をミュート"
 
 msgid "Claimed successfully."
-msgstr ""
+msgstr "受け取りに成功しました。"
 
 msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
-msgstr ""
+msgstr "<0>暗号資産の生涯に存在するようにコーディングされたコインの最大数。株式市場で発行可能な株式の最大数に相当します。</0><1>最大供給量 = コードに定められた理論上の最大値</1>"
 
 msgid "Password Verification"
-msgstr ""
+msgstr "パスワード確認"
 
 msgid "This token is a gas abuser."
-msgstr ""
+msgstr "このトークンはガスを悪用しています。"
 
 #. placeholder {0}: sourceNames.slice(0, -1).join(', ')
 #. placeholder {1}: last(sourceNames) ?? ''
 msgid "{0} and {1}"
-msgstr ""
+msgstr "{0} と {1}"
 
 msgid "Malicious mining activities found."
-msgstr ""
+msgstr "悪意のあるマイニング行為が検出されました。"
 
 msgid "Collecting"
-msgstr ""
+msgstr "収集中"
 
 msgid "Your recovery phrase is like a password, keep it secret."
-msgstr ""
+msgstr "リカバリーフレーズはパスワードと同様です。秘密にしておいてください。"
 
 msgid "Open"
-msgstr ""
+msgstr "開く"
 
 msgid "Failed to disable Multi-device login. Please try again later."
-msgstr ""
+msgstr "マルチデバイスログインの無効化に失敗しました。後でもう一度お試しください。"
 
 msgid "You have exceeded the maximum number of attempts. Please try again later."
-msgstr ""
+msgstr "最大試行回数を超えました。後でもう一度お試しください。"
 
 msgid "FDV"
-msgstr ""
+msgstr "FDV"
 
 #. js-lingui:icu=%7Bhours%2C+plural%2C+one+%7B%23+hour+left%7D+other+%7B%23+hours+left%7D%7D&pluralize_on=hours
 msgid "# hour left"
 msgid_plural "# hours left"
-msgstr[0] ""
+msgstr[0] "残り # 時間"
 
 #. placeholder {0}: snapshot.title
 msgid "🙌 Just voted “{choice}” on “{0}”"
-msgstr ""
+msgstr "🙌 「{0}」で「{choice}」に投票しました"
 
 msgid "Ended"
-msgstr ""
+msgstr "終了"
 
 msgid "Profit/Loss"
-msgstr ""
+msgstr "損益"
 
 msgid "Failed to follow {handleOrEnsOrAddress} on Firefly."
-msgstr ""
+msgstr "Firefly で {handleOrEnsOrAddress} のフォローに失敗しました。"
 
 msgid "No cryptocurrency mixer found."
-msgstr ""
+msgstr "暗号資産ミキサーは検出されませんでした。"
 
 msgid "Feeds"
-msgstr ""
+msgstr "フィード"
 
 msgid "An unknown error occurred."
-msgstr ""
+msgstr "不明なエラーが発生しました。"
 
 #. placeholder {0}: profile.handle
 msgid "A follow request has been sent to @{0} and is pending their approval."
-msgstr ""
+msgstr "@{0} にフォローリクエストを送信しました。承認待ちです。"
 
 msgid "More"
-msgstr ""
+msgstr "もっと見る"
 
 msgid "Translate post"
-msgstr ""
+msgstr "投稿を翻訳"
 
 msgid "Set Password"
-msgstr ""
+msgstr "パスワードを設定"
 
 msgid "Joined"
-msgstr ""
+msgstr "参加済み"
 
 msgid "Global"
-msgstr ""
+msgstr "グローバル"
 
 #. placeholder {0}: resolveSourceName(source)
 msgid "Your {0} login token has expired. Please sign in again."
-msgstr ""
+msgstr "{0} のログイントークンが期限切れです。再度ログインしてください。"
 
 msgid "Free"
-msgstr ""
+msgstr "無料"
 
 #. placeholder {0}: error.message
 msgid "Failed to remove address: {0}"
-msgstr ""
+msgstr "アドレスの削除に失敗しました: {0}"
 
 msgid "Searching users"
-msgstr ""
+msgstr "ユーザーを検索中"
 
 msgid "Tax can be modified"
-msgstr ""
+msgstr "税率は変更可能です"
 
 msgid "<0>Burned</0><1/>"
-msgstr ""
+msgstr "<0>バーン済み</0><1/>"
 
 msgid "Fake KYC."
-msgstr ""
+msgstr "偽の KYC。"
 
 #. placeholder {0}: u.host
 msgid "Requested from <0>{0}</0>"
-msgstr ""
+msgstr "<0>{0}</0> からのリクエスト"
 
 msgid "Opinion"
-msgstr ""
+msgstr "意見"
 
 msgid "User Name can only contain lowercase letters, numbers, and -, and should not start with -"
-msgstr ""
+msgstr "ユーザー名は小文字、数字、ハイフン（-）のみ使用できます。ハイフンで始めることはできません"
 
 msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
-msgstr ""
+msgstr "🤑 {postUrl} で #FireflyLuckyDrop 🧧💰✨ を受け取りました！"
 
 msgid "Airdrop Scam"
-msgstr ""
+msgstr "エアドロップ詐欺"
 
 msgid "Sorry, the username or password you entered is incorrect"
-msgstr ""
+msgstr "入力したユーザー名またはパスワードが正しくありません"
 
 msgid "Turn off"
-msgstr ""
+msgstr "オフにする"
 
 msgid "Price to beat"
-msgstr ""
+msgstr "超えるべき価格"
 
 #. placeholder {0}: publishedByFirefly ? ( <FireflyMonochromeIcon fontSize={15} width={15} height={15} className="mb-1 inline" /> ) : null
 msgid "Posted via {0} <0>{platformName}</0>"
-msgstr ""
+msgstr "{0} <0>{platformName}</0> 経由で投稿"
 
 msgid "No bets found"
-msgstr ""
+msgstr "ベットが見つかりません"
 
 msgid "Firefly wallets"
-msgstr ""
+msgstr "Firefly ウォレット"
 
 msgid "The external call function is not included. If there is an external call function, the project owner may have the ability to control the contract."
-msgstr ""
+msgstr "外部呼び出し機能は含まれていません。外部呼び出し機能がある場合、プロジェクトオーナーがコントラクトを制御できる可能性があります。"
 
 msgid "Join our Discord"
-msgstr ""
+msgstr "Discord に参加する"
 
 msgid "Blocked"
-msgstr ""
+msgstr "ブロック済み"
 
 msgid "It is related account retrieved from connected wallets. Please sign in to set as primary account."
-msgstr ""
+msgstr "接続されたウォレットから取得した関連アカウントです。プライマリアカウントとして設定するにはログインしてください。"
 
 #. js-lingui:icu=%7BfollowerCount%2C+plural%2C+one+%7BMember%7D+other+%7BMembers%7D%7D&pluralize_on=followerCount
 msgid "Member"
 msgid_plural "Members"
-msgstr[0] ""
+msgstr[0] "メンバー"
 
 msgid "Mint Ended"
-msgstr ""
+msgstr "ミント終了"
 
 #. placeholder {0}: post.mirrors.length - 1
 msgid "<0>You</0> and {0} others recasted"
-msgstr ""
+msgstr "<0>あなた</0> と他 {0} 人がリポストしました"
 
 msgid "Activities"
-msgstr ""
+msgstr "アクティビティ"
 
 #. placeholder {0}: resolveSourceName(source)
 msgid "{0} profile created."
-msgstr ""
+msgstr "{0} のプロフィールが作成されました。"
 
 msgid "Above 10% may be considered a high tax rate. More than 50% tax rate means may not be tradable."
-msgstr ""
+msgstr "10% 以上は高税率とみなされる可能性があります。50% 以上の税率は取引不可能な場合があります。"
 
 msgid "Add Collection"
-msgstr ""
+msgstr "NFT コレクションを追加"
 
 msgid "Location should not exceed {maxLocationSize} characters"
-msgstr ""
+msgstr "所在地は {maxLocationSize} 文字以内にしてください"
 
 msgid "Post engagements"
-msgstr ""
+msgstr "投稿のエンゲージメント"
 
 msgid "No financial crime found."
-msgstr ""
+msgstr "金融犯罪は検出されませんでした。"
 
 msgid "Invalid password. Please ensure it is a 6-digit number."
-msgstr ""
+msgstr "無効なパスワードです。6桁の数字で入力してください。"
 
 msgid "Props"
-msgstr ""
+msgstr "プロップス"
 
 msgid "Potential risk of external call."
-msgstr ""
+msgstr "外部呼び出しの潜在的なリスクがあります。"
 
 msgid "Muted {handleOrEnsOrAddress}."
-msgstr ""
+msgstr "{handleOrEnsOrAddress} をミュートしました。"
 
 msgid "Swap liked."
-msgstr ""
+msgstr "いいねしました。"
 
 msgid "Avg"
-msgstr ""
+msgstr "平均"
 
 msgid "Claim winnings"
-msgstr ""
+msgstr "賞金を受け取る"
 
 msgid "FAILED POST"
-msgstr ""
+msgstr "投稿に失敗しました"
 
 msgid "User Name must start with a letter/number, only _ allowed in between"
-msgstr ""
+msgstr "ユーザー名は文字または数字で始まる必要があり、中間にはアンダースコア（_）のみ使用できます"
 
 msgid "MARKET"
-msgstr ""
+msgstr "マーケット"
 
 msgid "Published successfully on {sortedSourceNames}"
-msgstr ""
+msgstr "{sortedSourceNames} への投稿が完了しました"
 
 msgid "Year"
-msgstr ""
+msgstr "年"
 
 msgid "The token can be bought."
-msgstr ""
+msgstr "このトークンは購入可能です。"
 
 msgid "Failed to like swap."
-msgstr ""
+msgstr "スワップへのいいねに失敗しました。"
 
 msgid "Liked."
-msgstr ""
+msgstr "いいねしました。"
 
 msgid "Trending"
-msgstr ""
+msgstr "トレンド"
 
 msgid "View similar symbols"
-msgstr ""
+msgstr "類似した名前のトークンを見る"
 
 msgid "DAOs"
-msgstr ""
+msgstr "DAO"
 
 msgid "Scheduled"
-msgstr ""
+msgstr "予約済み"
 
 msgid "You claimed {amount} {symbol} to your <0>Firefly Wallet</0>."
-msgstr ""
+msgstr "{amount} {symbol} を <0>Firefly ウォレット</0> に受け取りました。"
 
 msgid "Nickname"
-msgstr ""
+msgstr "ニックネーム"
 
 msgid "MAX"
-msgstr ""
+msgstr "最大"
 
 msgid "Scan with your phone, or connect instantly via social."
-msgstr ""
+msgstr "スマートフォンでスキャンするか、ソーシャルアカウントですぐに接続してください。"
 
 msgid "You can save the failed parts of posts and send them later from your Drafts."
-msgstr ""
+msgstr "投稿に失敗した部分を下書きに保存して、後から送信できます。"
 
 msgid "Failed to add wallet"
-msgstr ""
+msgstr "ウォレットの追加に失敗しました"
 
 msgid "Markets Traded"
-msgstr ""
+msgstr "取引した市場"
 
 msgid "The external call function is included. The project owner may have the ability to control the contract."
-msgstr ""
+msgstr "外部呼び出し機能が含まれています。プロジェクトオーナーがコントラクトを制御できる可能性があります。"
 
 msgid "Solana"
-msgstr ""
+msgstr "Solana"
 
 msgid "Search in profile"
-msgstr ""
+msgstr "プロフィール内を検索"
 
 msgid "Casts"
-msgstr ""
+msgstr "投稿"
 
 msgid "Club details"
-msgstr ""
+msgstr "クラブの詳細"
 
 msgid "The scheduled time has passed. Please reset."
-msgstr ""
+msgstr "予定時刻が過ぎました。再設定してください。"
 
 #. placeholder {0}: coin.name
 msgid "Total amount of {0} held in treasuries by public companies and governments."
-msgstr ""
+msgstr "上場企業と政府が保有する {0} の総額。"
 
 msgid "Failed to un-bookmark article."
-msgstr ""
+msgstr "記事のブックマーク解除に失敗しました。"
 
 msgid "firefly.eth tipped you 100 USDC"
-msgstr ""
+msgstr "firefly.eth があなたに 100 USDC のチップを送りました"
 
 msgid "Poll"
-msgstr ""
+msgstr "アンケート"
 
 msgid "Transactions"
-msgstr ""
+msgstr "取引"
 
 #. placeholder {0}: post.source
 #. placeholder {0}: profile.source
 msgid "Report submitted on {0}"
-msgstr ""
+msgstr "{0} に報告を送信しました"
 
 msgid "Hack / Phish"
-msgstr ""
+msgstr "不審なアドレス"
 
 msgid "Back to list"
-msgstr ""
+msgstr "一覧に戻る"
 
 msgid "Users must follow your account."
-msgstr ""
+msgstr "ユーザーはあなたのアカウントをフォローする必要があります。"
 
 msgid "Failed to create custom theme."
-msgstr ""
+msgstr "カスタムテーマの作成に失敗しました。"
 
 #. placeholder {0}: formatBalance(1, token.decimals)
 #. placeholder {1}: token.symbol
 msgid "The minimum amount for each share is {0} {1}"
-msgstr ""
+msgstr "1 口あたりの最低金額は {0} {1} です"
 
 msgid "ACTIVITY"
-msgstr ""
+msgstr "アクティビティ"
 
 msgid "Adding..."
-msgstr ""
+msgstr "追加中..."
 
 #. placeholder {0}: first(post.mirrors)?.displayName
 msgid "<0>{0}</0> reposted"
-msgstr ""
+msgstr "<0>{0}</0> がリポストしました"
 
 msgid "Stealing attack."
-msgstr ""
+msgstr "窃取攻撃。"
 
 msgid "Failed to like snapshot."
-msgstr ""
+msgstr "スナップショットへのいいねに失敗しました。"
 
 msgid "Trying auto login..."
-msgstr ""
+msgstr "自動ログインを試みています..."
 
 msgid "Mint"
-msgstr ""
+msgstr "ミント"
 
 msgid "Failed to like the comment."
-msgstr ""
+msgstr "コメントへのいいねに失敗しました。"
 
 msgid "Reply restricted"
-msgstr ""
+msgstr "返信が制限されています"
 
 msgid "Sign in"
-msgstr ""
+msgstr "ログイン"
 
 msgid "Market Cap"
-msgstr ""
+msgstr "時価総額"
 
 #. placeholder {0}: nFormatter(+market.volume, 2)
 msgid "${0} Vol."
-msgstr ""
+msgstr "${0} 取引量"
 
 msgid "No closed positions found in this wallet"
-msgstr ""
+msgstr "このウォレットにはクローズドポジションが見つかりません"
 
 msgid "Signing in"
-msgstr ""
+msgstr "ログイン中"
 
 msgid "Contract source code verified"
-msgstr ""
+msgstr "コントラクトのソースコードが確認されました"
 
 msgid "Top Holders"
-msgstr ""
+msgstr "大口保有者"
 
 msgid "The contract owner has restrictions on personal slippage."
-msgstr ""
+msgstr "コントラクトオーナーは個人のスリッページに制限を設けています。"
 
 msgid "View closed positions"
-msgstr ""
+msgstr "クローズドポジションを見る"
 
 msgid "Anti whale can be modified."
-msgstr ""
+msgstr "反クジラ機能は変更可能です。"
 
 msgid "I understand"
-msgstr ""
+msgstr "了解しました"
 
 msgid "Overview"
-msgstr ""
+msgstr "概要"
 
 msgid "Stocks"
-msgstr ""
+msgstr "株式"
 
 msgid "Sorry, the email you entered is invalid"
-msgstr ""
+msgstr "入力したメールアドレスが無効です"
 
 msgid "No malicious mining activities found."
-msgstr ""
+msgstr "悪意のあるマイニング活動は検出されませんでした。"
 
 msgid "<0>The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
-msgstr ""
+msgstr "<0>既に作成されたコインの数量から、バーン（流通から除外）されたコインを差し引いた量。株式市場における発行済み株式に相当します。</0><1>総供給量 = オンチェーン供給量 - バーン済みトークン</1>"
 
 msgid "Failed to vote."
-msgstr ""
+msgstr "投票に失敗しました。"
 
 msgid "Markets"
-msgstr ""
+msgstr "マーケット"
 
 msgid "Your posts have published successfully."
-msgstr ""
+msgstr "投稿が正常に公開されました。"
 
 msgid "Retry"
-msgstr ""
+msgstr "再試行"
 
 msgid "Report post"
-msgstr ""
+msgstr "投稿を報告"
 
 #. placeholder {0}: decodeURIComponent(connectorName as string)
 msgid "Get {0}"
-msgstr ""
+msgstr "{0} を入手"
 
 msgid "Only approved followers can see these posts.<0/>To request access, click Follow."
-msgstr ""
+msgstr "承認されたフォロワーのみがこれらの投稿を見ることができます。<0/>アクセスをリクエストするには、フォローをクリックしてください。"
 
 msgid "Show less"
-msgstr ""
+msgstr "表示を減らす"
 
 #. placeholder {0}: resolveSourceName(account.profile.profileSource)
 #. placeholder {1}: account.profile.handle
 msgid "You are logging into a different Firefly account by {0} account <0>@{1}</0>. Continuing will <1>log out</1> your current Firefly account."
-msgstr ""
+msgstr "{0} アカウント <0>@{1}</0> で別の Firefly アカウントにログインしようとしています。続行すると現在の Firefly アカウントが <1>ログアウト</1> されます。"
 
 msgid "Scan and Get Firefly Mobile App"
-msgstr ""
+msgstr "QR コードをスキャンして Firefly モバイルアプリをダウンロード"
 
 msgid "Undo repost"
-msgstr ""
+msgstr "リポストを取り消す"
 
 msgid "Tokens"
-msgstr ""
+msgstr "トークン"
 
 msgid "Search {id}"
-msgstr ""
+msgstr "{id} を検索"
 
 msgid "Skip"
-msgstr ""
+msgstr "スキップ"
 
 msgid "Confirm to log out your Firefly account?"
-msgstr ""
+msgstr "Firefly アカウントからログアウトしますか？"
 
 msgid "Copied"
-msgstr ""
+msgstr "コピーしました"
 
 msgid "Liquidity"
-msgstr ""
+msgstr "流動性"
 
 msgid "Total"
-msgstr ""
+msgstr "合計"
 
 msgid "Scan this QR code to establish a new connection via Farcaster for free."
-msgstr ""
+msgstr "この QR コードをスキャンして、Farcaster 経由で無料で新しい接続を確立してください。"
 
 msgid "Trading cooldown function."
-msgstr ""
+msgstr "取引クールダウン機能。"
 
 msgid "Event Ended!"
-msgstr ""
+msgstr "イベントが終了しました！"
 
 msgid "Bluesky"
-msgstr ""
+msgstr "Bluesky"
 
 msgid "True Token"
-msgstr ""
+msgstr "正規トークン"
 
 msgid "These posts are protected"
-msgstr ""
+msgstr "これらの投稿は保護されています"
 
 msgid "The author is muted by you."
-msgstr ""
+msgstr "この投稿者をミュートしています。"
 
 msgid "Bookmarks"
-msgstr ""
+msgstr "ブックマーク"
 
 #. placeholder {0}: toFixedTrimmed(+activity.size, 2)
 msgid "×{0} shares"
-msgstr ""
+msgstr "×{0} 口"
 
 #. placeholder {0}: profile.handle
 msgid "Failed to report @{0}"
-msgstr ""
+msgstr "@{0} の報告に失敗しました"
 
 msgid "Only people who follow you"
-msgstr ""
+msgstr "あなたをフォローしている人のみ"
 
 msgid "This QR code is no longer valid. Please scan a new one to continue."
-msgstr ""
+msgstr "この QR コードは無効です。新しい QR コードをスキャンしてください。"
 
 msgid "Failed to login profile by orb"
-msgstr ""
+msgstr "Orb によるログインに失敗しました"
 
 #. placeholder {0}: mutuals[0].displayName
 #. placeholder {1}: mutuals[1].displayName
 #. placeholder {2}: mutualCount - 2
 msgid "Followed by {0} , {1}, and {2} others you follow"
-msgstr ""
+msgstr "あなたがフォローしている {0}、{1}、他 {2} 人にフォローされています"
 
 msgid "Ensure the pair code matches"
-msgstr ""
+msgstr "ペアコードが一致していることを確認してください"
 
 msgid "Report submitted"
-msgstr ""
+msgstr "報告を送信しました"
 
 msgid "Username"
-msgstr ""
+msgstr "ユーザー名"
 
 msgid "Tell us something about you!"
-msgstr ""
+msgstr "自己紹介をしてください！"
 
 #. placeholder {0}: post.stats.quotes
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7Bquote%7D+other+%7Bquotes%7D%7D&pluralize_on=0
 msgid "quote"
 msgid_plural "quotes"
-msgstr[0] ""
+msgstr[0] "引用"
 
 msgid "No hidden owner."
-msgstr ""
+msgstr "隠されたオーナーはいません。"
 
 msgid "Confirm"
-msgstr ""
+msgstr "確認"
 
 #. placeholder {0}: resolveSourceName(Source.Farcaster)
 msgid "{0} muted channels"
-msgstr ""
+msgstr "{0} のチャンネルをミュートしました"
 
 msgid "[Video]"
-msgstr ""
+msgstr "[動画]"
 
 msgid "Blockchain"
-msgstr ""
+msgstr "ブロックチェーン"
 
 #. placeholder {0}: trade.displayInfo?.ensHandle || addressName
 #. placeholder {1}: toFixedTrimmed(+trade.size, 2)
@@ -859,426 +859,426 @@ msgstr ""
 #. placeholder {3}: toFixedTrimmed(+trade.price * 100, 1)
 #. placeholder {4}: usdValue < 0.01 ? '< $0.01' : `$${toFixedTrimmed(usdValue, 2)}`
 msgid "<0>{0}</0> Sold <1>{1} {2}</1> for <2>{marketTitle}</2> at <3>{3}¢</3> <4>({4})</4>"
-msgstr ""
+msgstr "<0>{0}</0> が <2>{marketTitle}</2> の <1>{1} {2}</1> を <3>{3}¢</3> で売却しました <4>({4})</4>"
 
 msgid "Outcome proposed: {outcomeLabel}"
-msgstr ""
+msgstr "提案された結果: {outcomeLabel}"
 
 msgid "Mutes"
-msgstr ""
+msgstr "ミュート"
 
 msgid "Oops! Your account is currently blocked. Reach out to support for more details."
-msgstr ""
+msgstr "あなたのアカウントは現在ブロックされています。詳細についてはサポートにお問い合わせください。"
 
 msgid "Keep Your Recovery Phrase Safe"
-msgstr ""
+msgstr "リカバリーフレーズを安全に保管してください"
 
 msgid "Failed to bookmark NFT."
-msgstr ""
+msgstr "NFT のブックマークに失敗しました。"
 
 msgid "Hope this sparks a smile."
-msgstr ""
+msgstr "笑顔になれることを願っています。"
 
 msgid "Firefly wallet"
-msgstr ""
+msgstr "Firefly ウォレット"
 
 #. placeholder {0}: resolveSourcesName(ENABLED_SCHEDULE_POST_SOURCES, undefined, true)
 msgid "Scheduled posts are only available on {0}"
-msgstr ""
+msgstr "予約投稿は {0} でのみ利用可能です"
 
 msgid "NFTs"
-msgstr ""
+msgstr "NFT"
 
 msgid "Bought"
-msgstr ""
+msgstr "購入済み"
 
 msgid "Page not found"
-msgstr ""
+msgstr "ページが見つかりません"
 
 msgid "Connect Email"
-msgstr ""
+msgstr "メールアドレスを連携"
 
 #. placeholder {0}: resolveAppKitNetworkName(chains[0])
 msgid "Only {0}"
-msgstr ""
+msgstr "{0} のみ"
 
 msgid "Quote post"
-msgstr ""
+msgstr "投稿を引用"
 
 msgid "No more data available."
-msgstr ""
+msgstr "これ以上のデータはありません。"
 
 #. placeholder {0}: model.homeTeam.name
 #. placeholder {1}: model.awayTeam.name
 msgid "View {0} vs {1}"
-msgstr ""
+msgstr "{0} vs {1} を見る"
 
 msgid "Orb Mobile"
-msgstr ""
+msgstr "Orb モバイル"
 
 msgid "The self-destruct function is not included. If there is a self-destruct function, the project owner may have the ability to destroy the contract."
-msgstr ""
+msgstr "自己破壊機能は含まれていません。自己破壊機能がある場合、プロジェクトオーナーがコントラクトを破壊できる可能性があります。"
 
 msgid "Mint function is transparent or non-existent. Hidden mint functions may increase the amount of tokens in circulation and effect the price of the token."
-msgstr ""
+msgstr "ミント機能は透明または存在しません。隠されたミント機能はトークンの流通量を増やし、価格に影響を与える可能性があります。"
 
 msgid "X desktop login is currently unavailable on mobile."
-msgstr ""
+msgstr "X のデスクトップログインは現在モバイルでは利用できません。"
 
 msgid "Users must like, repost/quote, or comment on your post containing the Lucky Drop."
-msgstr ""
+msgstr "ユーザーはラッキードロップが含まれた投稿にいいね、リポスト/引用、またはコメントする必要があります。"
 
 msgid "Type something here..."
-msgstr ""
+msgstr "ここに入力してください..."
 
 msgid "Save Post?"
-msgstr ""
+msgstr "下書きを保存しますか？"
 
 msgid "Added successfully"
-msgstr ""
+msgstr "追加しました"
 
 msgid "Insufficient gas."
-msgstr ""
+msgstr "ガスが不足しています。"
 
 msgid "No selected choice."
-msgstr ""
+msgstr "選択肢が選ばれていません。"
 
 msgid "Honeypot related address."
-msgstr ""
+msgstr "ハニーポット関連のアドレス。"
 
 msgid "Custom"
-msgstr ""
+msgstr "カスタム"
 
 msgid "Failed to set password."
-msgstr ""
+msgstr "パスワードの設定に失敗しました。"
 
 msgid "Explore"
-msgstr ""
+msgstr "探索"
 
 msgid "Show Less"
-msgstr ""
+msgstr "表示を減らす"
 
 msgid "Only up to 2 images can be chosen."
-msgstr ""
+msgstr "画像は最大 2 枚まで選択できます。"
 
 msgid "Failed to delete"
-msgstr ""
+msgstr "削除に失敗しました"
 
 msgid "Follow to Collect"
-msgstr ""
+msgstr "フォローして収集"
 
 msgid "Scan this QR code and confirm on your Farcaster mobile app to register auth wallet."
-msgstr ""
+msgstr "この QR コードをスキャンし、Farcaster モバイルアプリで確認して認証ウォレットを登録してください。"
 
 #. placeholder {0}: post.metadata.content.asset.type
 msgid "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
-msgstr ""
+msgstr "{0, select, Image {[画像]} Video {[動画]} Audio {[音声]} Poll {[アンケート]} other {}}"
 
 msgid "Sending"
-msgstr ""
+msgstr "送信中"
 
 msgid "The author has disabled comments on this post."
-msgstr ""
+msgstr "投稿者がこの投稿のコメントを無効にしています。"
 
 msgid "Retry Stream"
-msgstr ""
+msgstr "ストリームを再試行"
 
 msgid "This event has ended. Stay tuned for what's next!"
-msgstr ""
+msgstr "このイベントは終了しました。次のイベントをお楽しみに！"
 
 #. placeholder {0}: profile.handle
 msgid "Failed to follow @{0} on {sourceName}."
-msgstr ""
+msgstr "{sourceName} で @{0} のフォローに失敗しました。"
 
 msgid "Failed to decrypt post on {sourceName}."
-msgstr ""
+msgstr "{sourceName} の投稿の復号化に失敗しました。"
 
 msgid "No predictions found"
-msgstr ""
+msgstr "予測が見つかりません"
 
 msgid "Won"
-msgstr ""
+msgstr "勝利"
 
 msgid "Edit profile"
-msgstr ""
+msgstr "プロフィールを編集"
 
 msgid "Functions with retrievable ownership"
-msgstr ""
+msgstr "所有権を回復できる機能"
 
 msgid "Enter your password to confirm your identity."
-msgstr ""
+msgstr "本人確認のためパスワードを入力してください。"
 
 msgid "The encrypted data not found."
-msgstr ""
+msgstr "暗号化されたデータが見つかりませんでした。"
 
 msgid "New Connect"
-msgstr ""
+msgstr "新しい接続"
 
 msgid "Attendees"
-msgstr ""
+msgstr "参加者"
 
 msgid "Connected accounts"
-msgstr ""
+msgstr "接続済みアカウント"
 
 msgid "Failed to load image."
-msgstr ""
+msgstr "画像の読み込みに失敗しました。"
 
 msgid "Failed to reset password."
-msgstr ""
+msgstr "パスワードのリセットに失敗しました。"
 
 #. placeholder {0}: space.name
 #. placeholder {1}: ensHandle.data || formatAddressEthereum(snapshot.author, 4)
 msgid "<0>{0}</0> by <1>{1}</1>"
-msgstr ""
+msgstr "<0>{0}</0>（<1>{1}</1> 作）"
 
 msgid "TOTAL"
-msgstr ""
+msgstr "合計"
 
 msgid "Failed to unlike tip."
-msgstr ""
+msgstr "チップのいいね取り消しに失敗しました。"
 
 msgid "Snapshot unliked."
-msgstr ""
+msgstr "スナップショットのいいねを取り消しました。"
 
 msgid "Connecting"
-msgstr ""
+msgstr "接続中"
 
 msgid "Translated"
-msgstr ""
+msgstr "翻訳済み"
 
 msgid "Genesis Sparks"
-msgstr ""
+msgstr "Genesis Sparks"
 
 msgid "The gas abuse function is not included. If there is a gas abuse function, the project owner may have the ability to control the contract."
-msgstr ""
+msgstr "ガス悪用の仕組みは含まれていません。存在する場合、プロジェクトオーナーがコントラクトを制御できる可能性があります。"
 
 msgid "The snap contains an invalid submit URL."
-msgstr ""
+msgstr "このスナップには無効な送信 URL が含まれています。"
 
 msgid "Select Wallet"
-msgstr ""
+msgstr "ウォレットを選択"
 
 msgid "Search"
-msgstr ""
+msgstr "検索"
 
 #. placeholder {0}: market?.price_change_percentage_24h_in_currency !== undefined ? ( <span className={isUp ? 'text-success' : 'text-fail'}> {market.price_change_percentage_24h_in_currency.toFixed(2)}% </span> ) : null
 #. placeholder {1}: renderShrankPrice(formatPrice(price) ?? '-')
 msgid "<0/>{0}<1>today</1><2>${1}</2>"
-msgstr ""
+msgstr "<0/>{0}<1>本日</1><2>${1}</2>"
 
 msgid "Perhaps the token is a honeypot."
-msgstr ""
+msgstr "このトークンはハニーポットの可能性があります。"
 
 #. placeholder {0}: renderShrankPrice(formatPrice(price) ?? '-')
 msgid "<0>today</0><1>${0}</1>"
-msgstr ""
+msgstr "<0>本日</0><1>${0}</1>"
 
 msgid "Insufficient Balance for Gas Fee"
-msgstr ""
+msgstr "ガス代の残高が不足しています"
 
 msgid "Current Positions"
-msgstr ""
+msgstr "現在のポジション"
 
 msgid "Price"
-msgstr ""
+msgstr "価格"
 
 msgid "Other accounts"
-msgstr ""
+msgstr "他のアカウント"
 
 #. placeholder {0}: mutuals[0].displayName
 msgid "Followed by {0}"
-msgstr ""
+msgstr "{0} にフォローされています"
 
 msgid "Price · Change(24h)"
-msgstr ""
+msgstr "価格・変動率（24時間）"
 
 #. placeholder {0}: GIF_MEDIA_SOURCE_CONFIG[source].join(', ')
 msgid "GIF source not supported. Supported sources: {0}"
-msgstr ""
+msgstr "この GIF ソースはサポートされていません。サポートされているソース: {0}"
 
 msgid "Remove Address"
-msgstr ""
+msgstr "アドレスを削除"
 
 msgid "Top 200 Web3 profiles powered by <0>Rootdata</0>"
-msgstr ""
+msgstr "<0>Rootdata</0> が提供するトップ 200 Web3 プロフィール"
 
 msgid "Failed to bookmark post."
-msgstr ""
+msgstr "投稿のブックマークに失敗しました。"
 
 #. js-lingui-explicit-id
 msgid "action-like"
-msgstr ""
+msgstr "いいね"
 
 #. js-lingui-explicit-id
 msgid "action-unlike"
-msgstr ""
+msgstr "いいね取り消し"
 
 msgid "Buy {firstOutcome}"
-msgstr ""
+msgstr "{firstOutcome} を購入"
 
 msgid "Minutes"
-msgstr ""
+msgstr "分"
 
 msgid "Sorry, today's free mint quota has been reached."
-msgstr ""
+msgstr "本日の無料ミント枠がいっぱいになりました。"
 
 msgid "Floor Price"
-msgstr ""
+msgstr "フロア価格"
 
 #. placeholder {0}: resolveSourceName(Source.Bsky)
 #. placeholder {0}: resolveSourceName(Source.Farcaster)
 #. placeholder {0}: resolveSourceName(Source.Lens)
 msgid "{0} muted users"
-msgstr ""
+msgstr "{0} のユーザーをミュートしました"
 
 msgid "This token is not a gas abuser."
-msgstr ""
+msgstr "このトークンにはガス悪用の問題はありません。"
 
 msgid "Host"
-msgstr ""
+msgstr "ホスト"
 
 msgid "Failed to fetch profiles."
-msgstr ""
+msgstr "プロフィールの取得に失敗しました。"
 
 msgid "All activities from {handleOrEnsOrAddress} will be hidden from you"
-msgstr ""
+msgstr "{handleOrEnsOrAddress} の全ての動向があなたから非表示になります"
 
 msgid "Open Google Form"
-msgstr ""
+msgstr "Google フォームを開く"
 
 msgid "Received time:"
-msgstr ""
+msgstr "受信時刻:"
 
 #. placeholder {0}: resolveSourcesName( availableSources.filter((x) => MAX_FILE_SIZE_PER_VIDEO[x] === videoSizeLimit), )
 #. placeholder {1}: formatFileSize(videoSizeLimit)
 msgid "Failed to upload on {0}. Video size exceeds {1}"
-msgstr ""
+msgstr "{0} へのアップロードに失敗しました。動画のサイズが {1} を超えています"
 
 msgid "Post is decrypting..."
-msgstr ""
+msgstr "投稿を復号化しています..."
 
 msgid "<0>Note:</0> If you cross-post a Lucky Drop to multiple social platforms, following your account on any one platform qualifies users to claim."
-msgstr ""
+msgstr "<0>注意:</0> ラッキードロップを複数のソーシャルプラットフォームにクロスポストした場合、いずれかのプラットフォームであなたのアカウントをフォローしていれば、ユーザーは受け取りの条件を満たします。"
 
 #. placeholder {0}: profile.handle
 msgid "Failed to unfollow @{0} on {sourceName}."
-msgstr ""
+msgstr "{sourceName} で @{0} のフォロー解除に失敗しました。"
 
 msgid "Or select an account from your<0>current wallet</0>"
-msgstr ""
+msgstr "または<0>現在のウォレット</0>からアカウントを選択してください"
 
 msgid "Sign in Confirmation"
-msgstr ""
+msgstr "ログイン確認"
 
 #. placeholder {0}: Math.floor(span / DAY_SPAN)
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7B%23+day%7D+other+%7B%23+days%7D%7D&pluralize_on=0
 msgid "# day"
 msgid_plural "# days"
-msgstr[0] ""
+msgstr[0] "# 日"
 
 msgid "Article unliked."
-msgstr ""
+msgstr "いいねを取り消しました。"
 
 msgid "Cloud Draft"
-msgstr ""
+msgstr "クラウド下書き"
 
 msgid "Scroll to center"
-msgstr ""
+msgstr "中央にスクロール"
 
 msgid "Honeypot related address found."
-msgstr ""
+msgstr "ハニーポット関連のアドレスが検出されました。"
 
 msgid "Suspected malicious address."
-msgstr ""
+msgstr "疑わしい悪意のあるアドレスです。"
 
 msgid "Muted {walletHandle}."
-msgstr ""
+msgstr "{walletHandle} をミュートしました。"
 
 msgid "Confirm Lucky Drop"
-msgstr ""
+msgstr "ラッキードロップを確認"
 
 msgid "Failed to enable Multi-device login. Please try again later."
-msgstr ""
+msgstr "マルチデバイスログインの有効化に失敗しました。後でもう一度お試しください。"
 
 msgid "Sanctioned address."
-msgstr ""
+msgstr "制裁対象のアドレスです。"
 
 msgid "Claim requirements"
-msgstr ""
+msgstr "受け取り条件"
 
 msgid "Random Split"
-msgstr ""
+msgstr "ランダム分割"
 
 #. placeholder {0}: resolveSourceName(Source.Lens)
 #. placeholder {0}: session.type
 msgid "Your {0} account is now connected"
-msgstr ""
+msgstr "あなたの {0} アカウントが接続されました"
 
 msgid "Time Out"
-msgstr ""
+msgstr "タイムアウト"
 
 msgid "Go to Farcaster"
-msgstr ""
+msgstr "Farcaster へ移動"
 
 msgid "Failed to refund red packet."
-msgstr ""
+msgstr "お年玉の返金に失敗しました。"
 
 msgid "Remove Poll"
-msgstr ""
+msgstr "アンケートを削除"
 
 msgid "No activity yet"
-msgstr ""
+msgstr "まだアクティビティがありません"
 
 msgid "User Name is not available"
-msgstr ""
+msgstr "ユーザー名は使用できません"
 
 msgid "Toggle trade view"
-msgstr ""
+msgstr "取引ビューを切り替え"
 
 msgid "Transaction"
-msgstr ""
+msgstr "取引"
 
 msgid "Paragraph article"
-msgstr ""
+msgstr "Paragraph 記事"
 
 msgid "Failed to delete scheduled post."
-msgstr ""
+msgstr "予約投稿の削除に失敗しました。"
 
 msgid "You haven't bookmarked any tokens."
-msgstr ""
+msgstr "ブックマークしたトークンはありません。"
 
 msgid "The blacklist function is not included. If there is a blacklist, some addresses may not be able to trade normally (honeypot risk)."
-msgstr ""
+msgstr "ブラックリスト機能は含まれていません。ブラックリストがある場合、一部のアドレスは正常に取引できない可能性があります（ハニーポットのリスク）。"
 
 msgid "Bio should be at least {minBioSize} characters"
-msgstr ""
+msgstr "自己紹介は {minBioSize} 文字以上にしてください"
 
 msgid "The contract owner may not contain the authority to modify the transaction tax. If the transaction tax is increased to more than 49%, the tokens will not be able to be traded (honeypot risk)."
-msgstr ""
+msgstr "コントラクトオーナーは取引税を変更する権限を持っていない可能性があります。取引税が 49% を超えると、トークンは取引できなくなる可能性があります（ハニーポットのリスク）。"
 
 msgid "The blacklist function is included. Some addresses may not be able to trade normally (honeypot risk)."
-msgstr ""
+msgstr "ブラックリスト機能が含まれています。一部のアドレスは正常に取引できない可能性があります（ハニーポットのリスク）。"
 
 msgid "Verified addresses"
-msgstr ""
+msgstr "認証済みアドレス"
 
 msgid "Buy {secondOutcome}"
-msgstr ""
+msgstr "{secondOutcome} を購入"
 
 msgid "The error has been reported automatically."
-msgstr ""
+msgstr "エラーは自動的に報告されました。"
 
 msgid "It is wallet retrieved from public verifiable data registries or our entity algorithm. Please add this wallet to set as primary wallet."
-msgstr ""
+msgstr "公開されている検証可能なデータレジストリまたは当社のアルゴリズムから取得したウォレットです。プライマリウォレットとして設定するには、このウォレットを追加してください。"
 
 msgid "Shares"
-msgstr ""
+msgstr "シェア"
 
 msgid "2FA confirmation code"
-msgstr ""
+msgstr "2FA 確認コード"
 
 msgid "Visit mask.io"
-msgstr ""
+msgstr "mask.io を開く"
 
 #. placeholder {0}: activity.is_cross_chain ? <Trans>Bridged</Trans> : <Trans>Swapped</Trans>
 #. placeholder {0}: isCrossChain ? <Trans>Bridged</Trans> : <Trans>Swapped</Trans>
@@ -1286,3939 +1286,3939 @@ msgstr ""
 #. placeholder {1}: activity.dex_logo ? ( <Image src={activity.dex_logo} alt={activity.dex_name} className="size-4 rounded-full" width={16} height={16} /> ) : null
 #. placeholder {2}: activity.dex_name || formatAddress(activity.router_address, 4)
 msgid "<0><1/><2>{0}</2></0><3>on</3>{1}<4>{2}</4>"
-msgstr ""
+msgstr "<0><1/><2>{0}</2></0><3>on</3>{1}<4>{2}</4>"
 
 msgid "1D"
-msgstr ""
+msgstr "1日"
 
 msgid "Reposted"
-msgstr ""
+msgstr "リポストしました"
 
 msgid "Failed to update profile."
-msgstr ""
+msgstr "プロフィールの更新に失敗しました。"
 
 #. placeholder {0}: dayjs(space.scheduled_start).format('HH:mm')
 msgid "Today at {0}"
-msgstr ""
+msgstr "今日 {0}"
 
 msgid "FINAL"
-msgstr ""
+msgstr "FINAL"
 
 #. placeholder {0}: author.handle
 msgid "Unfollow @{0}"
-msgstr ""
+msgstr "@{0} のフォローを解除"
 
 #. Last: {lastPrice}
 #. js-lingui-explicit-id
 #. placeholder {0}: lastPrice !== null ? `${(lastPrice * 100).toFixed(1)}¢` : '-'
 msgid "bets-last-price"
-msgstr ""
+msgstr "最新価格"
 
 #. Resolution
 #. js-lingui-explicit-id
 msgid "bets-resolution"
-msgstr ""
+msgstr "決議"
 
 #. Following
 #. js-lingui-explicit-id
 msgid "bets-trades-following"
-msgstr ""
+msgstr "フォロー中"
 
 #. Global
 #. js-lingui-explicit-id
 msgid "bets-trades-global"
-msgstr ""
+msgstr "グローバル"
 
 msgid "Add another post..."
-msgstr ""
+msgstr "別の投稿を追加..."
 
 #. placeholder {0}: resolveSourcesName(failedAt, '/')
 msgid "Your post failed to send to {0}. Click 'Retry' to attempt posting again."
-msgstr ""
+msgstr "{0} への投稿の送信に失敗しました。「再試行」をクリックして再度投稿してください。"
 
 msgid "Failed to disconnect. Please leave at least 1 account or wallet address connected to keep your immersive experience in Firefly."
-msgstr ""
+msgstr "切断に失敗しました。Firefly での体験を維持するため、少なくとも 1 つのアカウントまたはウォレットアドレスを接続したままにしてください。"
 
 msgid "7D"
-msgstr ""
+msgstr "7日"
 
 msgid "POST"
-msgstr ""
+msgstr "投稿"
 
 msgid "No opinion profile found."
-msgstr ""
+msgstr "Opinion プロフィールが見つかりません。"
 
 msgid "Transaction Hash"
-msgstr ""
+msgstr "トランザクションハッシュ"
 
 msgid "My Wallets"
-msgstr ""
+msgstr "マイウォレット"
 
 msgid "Password cannot be a sequence or repeated digits. Please try again."
-msgstr ""
+msgstr "パスワードは連続または繰り返しの数字にできません。もう一度お試しください。"
 
 msgid "Follow Pending"
-msgstr ""
+msgstr "フォロー承認待ち"
 
 msgid "Failed to unlike the post."
-msgstr ""
+msgstr "投稿のいいね取り消しに失敗しました。"
 
 msgid "1m left"
-msgstr ""
+msgstr "残り 1 分"
 
 #. js-lingui:icu=%7Bshares%2C+plural%2C+one+%7BRecast+or+Quote%7D+other+%7BRecasts+or+Quotes%7D%7D&pluralize_on=shares
 msgid "Recast or Quote"
 msgid_plural "Recasts or Quotes"
-msgstr[0] ""
+msgstr[0] "リキャストまたは引用"
 
 msgid "Mute {handleOrEnsOrAddress}"
-msgstr ""
+msgstr "{handleOrEnsOrAddress} をミュート"
 
 msgid "Unknown transaction method: {method}."
-msgstr ""
+msgstr "不明な取引メソッド: {method}。"
 
 msgid "Connect Ethereum Wallet"
-msgstr ""
+msgstr "Ethereum ウォレットを接続"
 
 #. placeholder {0}: post.poll ? ( <Trans>Ask a question</Trans> ) : index === 0 ? ( <Trans>What&apos;s happening...</Trans> ) : ( <Trans>Add another post...</Trans> )
 #. placeholder {1}: index === 0 ? ( <Trans>What&apos;s happening...</Trans> ) : ( <Trans>Add another post...</Trans> )
 msgid "{type, select, compose {{0}} quote {Add a comment} reply {Post your reply} other {{1}}}"
-msgstr ""
+msgstr "{type, select, compose {{0}} quote {コメントを追加} reply {返信を投稿} other {{1}}}"
 
 msgid "<0/>EVM wallets"
-msgstr ""
+msgstr "<0/>EVM ウォレット"
 
 msgid "{addressName} is already connected."
-msgstr ""
+msgstr "{addressName} は既に接続されています。"
 
 msgid "Tomorrow"
-msgstr ""
+msgstr "明日"
 
 msgid "Total trade"
-msgstr ""
+msgstr "総取引量"
 
 #. placeholder {0}: outcome.label
 msgid "Buy {0}"
-msgstr ""
+msgstr "{0} を購入"
 
 msgid "Failed to add bookmark."
-msgstr ""
+msgstr "ブックマークの追加に失敗しました。"
 
 msgid "Disputed"
-msgstr ""
+msgstr "異議申し立て中"
 
 msgid "No Airdrop Scam"
-msgstr ""
+msgstr "エアドロップ詐欺なし"
 
 msgid "Failed to bind Lens manager, please try again later."
-msgstr ""
+msgstr "Lens マネージャーのバインドに失敗しました。後でもう一度お試しください。"
 
 msgid "or"
-msgstr ""
+msgstr "または"
 
 msgid "Items"
-msgstr ""
+msgstr "項目"
 
 msgid "Channel {id} could not be found."
-msgstr ""
+msgstr "チャンネル {id} が見つかりませんでした。"
 
 msgid "Network cost"
-msgstr ""
+msgstr "ネットワーク手数料"
 
 msgid "Discard"
-msgstr ""
+msgstr "破棄"
 
 msgid "REPLY"
-msgstr ""
+msgstr "返信"
 
 msgid "Switch wallet"
-msgstr ""
+msgstr "ウォレットを切り替え"
 
 msgid "Failed to upload. More than {maxImageCount} images."
-msgstr ""
+msgstr "アップロードに失敗しました。画像は {maxImageCount} 枚までです。"
 
 msgid "Available Balance"
-msgstr ""
+msgstr "利用可能残高"
 
 msgid "Follow @thefireflyapp on X"
-msgstr ""
+msgstr "X で @thefireflyapp をフォロー"
 
 msgid "Minting Txn Hash"
-msgstr ""
+msgstr "ミント Txn ハッシュ"
 
 msgid "Enter your nickname on Firefly"
-msgstr ""
+msgstr "Firefly のニックネームを入力"
 
 msgid "Anti whale can not be modified."
-msgstr ""
+msgstr "反クジラ機能は変更できません。"
 
 msgid "6h"
-msgstr ""
+msgstr "6時間"
 
 msgid "Multi-device login is required for schedule post. Set a 6-digit password to verify your identity."
-msgstr ""
+msgstr "予約投稿にはマルチデバイスログインが必要です。本人確認のため 6 桁のパスワードを設定してください。"
 
 msgid "DeFiUnited Supporter"
-msgstr ""
+msgstr "DeFiUnited サポーター"
 
 msgid "Audio Cover"
-msgstr ""
+msgstr "オーディオカバー"
 
 msgid "Fake Token"
-msgstr ""
+msgstr "偽トークン"
 
 msgid "Recent"
-msgstr ""
+msgstr "最近"
 
 msgid "Sorry, give edit permission from Orb is necessary to continue."
-msgstr ""
+msgstr "申し訳ありません。続行するには Orb からの編集権限が必要です。"
 
 msgid "Info"
-msgstr ""
+msgstr "情報"
 
 msgid "Failed to bookmark article."
-msgstr ""
+msgstr "記事のブックマークに失敗しました。"
 
 msgid "No polymarket event found."
-msgstr ""
+msgstr "Polymarket イベントが見つかりません。"
 
 msgid "Event detail"
-msgstr ""
+msgstr "イベント詳細"
 
 msgid "Community"
-msgstr ""
+msgstr "コミュニティ"
 
 msgid "Holders"
-msgstr ""
+msgstr "ホルダー"
 
 msgid "Phishing activities found."
-msgstr ""
+msgstr "フィッシング行為が検出されました。"
 
 msgid "Light Mode"
-msgstr ""
+msgstr "ライトモード"
 
 msgid "Multi-device login is required for schedule post. Enter your password to confirm your identity."
-msgstr ""
+msgstr "予約投稿にはマルチデバイスログインが必要です。本人確認のためパスワードを入力してください。"
 
 msgid "Block"
-msgstr ""
+msgstr "ブロック"
 
 msgid "Free Collect"
-msgstr ""
+msgstr "無料コレクト"
 
 msgid "Max"
-msgstr ""
+msgstr "最大"
 
 msgid "Mute all"
-msgstr ""
+msgstr "すべてミュート"
 
 msgid "Swap unliked."
-msgstr ""
+msgstr "いいねを取り消しました。"
 
 msgid "Bio should not exceed {extra} characters"
-msgstr ""
+msgstr "自己紹介は {extra} 文字以内にしてください"
 
 msgid "Failed to generate signature packet with source = {source}."
-msgstr ""
+msgstr "source = {source} の署名パケットの生成に失敗しました。"
 
 msgid "Delete"
-msgstr ""
+msgstr "削除"
 
 #. placeholder {0}: post.source
 msgid "Failed to submit report on {0}."
-msgstr ""
+msgstr "{0} への報告の送信に失敗しました。"
 
 #. placeholder {0}: notification.post.type
 msgid "<0/> <1>liked your </1><2>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</2>"
-msgstr ""
+msgstr "<0/> <1>があなたの </1><2>{0, select, Post {投稿} Comment {コメント} Quote {引用} Mirror {リポスト} other {投稿}}</2> にいいねしました"
 
 msgid "Insufficient funds"
-msgstr ""
+msgstr "残高不足"
 
 msgid "Drop type"
-msgstr ""
+msgstr "ドロップタイプ"
 
 msgid "Scan the QR code with the <0>Firefly mobile app</0><1/>or <2>Camera app</2> to sign in instantly"
-msgstr ""
+msgstr "<0>Firefly モバイルアプリ</0><1/>または <2>カメラアプリ</2>で QR コードをスキャンしてすぐにログイン"
 
 msgid "Final Outcome"
-msgstr ""
+msgstr "最終結果"
 
 msgid "The contract owner has no restrictions on trading cooldown."
-msgstr ""
+msgstr "コントラクトオーナーは取引クールダウンに制限を設けていません。"
 
 msgid "Available"
-msgstr ""
+msgstr "利用可能"
 
 msgid "Event Status"
-msgstr ""
+msgstr "イベントステータス"
 
 #. placeholder {0}: filteredProfiles[0].handle
 #. placeholder {1}: filteredProfiles[1].handle
 #. placeholder {2}: filteredProfiles.length - 2
 #. placeholder {3}: resolveSourceName(post.source)
 msgid "Replying to <0>@{0}</0> ,<1>@{1}</1> and <2>{2} others</2> on {3}"
-msgstr ""
+msgstr "{3} で <0>@{0}</0>、<1>@{1}</1>、<2>他 {2} 人</2> に返信中"
 
 msgid "Connect Wallet"
-msgstr ""
+msgstr "ウォレットを接続"
 
 msgid "Try to recover"
-msgstr ""
+msgstr "復旧を試す"
 
 msgid "Custom amount"
-msgstr ""
+msgstr "カスタム金額"
 
 msgid "<0>Firefly is launching <1>Polymarket trading</1>, connecting onchain prediction markets with your social feed! We welcome you to join as an early contributor, starting with our <2>content bounty tasks</2>!</0><3>💰 Users who produce high-quality content can each earn <4>100 USDC</4>.</3><5>🧩 Create a post on Firefly to share your Polymarket trading story. You can talk about your predictions, trading strategies, insights, successes, or even failures on Polymarket. Submissions will be evaluated based on content quality, creativity, depth, readability, and reach. Winners will be announced on <6>@thefireflyapp</6> and contacted via DM.</5><7>📌 How to participate:</7><8><9><10>Create</10> an article or long thread sharing your <11>Polymarket trading story</11>, and publish it on any social platform supported by Firefly.</9><12><13>Follow & Mention</13> <14>@thefireflyapp</14>.</12><15><16>Register</16> your submission by filling out this form.</15></8>"
-msgstr ""
+msgstr "<0>Firefly は <1>Polymarket 取引</1>を開始し、オンチェーンの予測市場をソーシャルフィードとつなぎます！<2>コンテンツバウンティタスク</2>から、早期コントリビューターとしての参加を歓迎します！</0><3>💰 高品質なコンテンツを制作したユーザーは、それぞれ <4>100 USDC</4> を獲得できます。</3><5>🧩 Firefly で投稿を作成し、Polymarket での取引ストーリーを共有してください。予測、取引戦略、洞察、成功、失敗などについて語ることができます。投稿はコンテンツの質、創造性、深さ、読みやすさ、リーチに基づいて評価されます。受賞者は <6>@thefireflyapp</6> で発表され、DM で連絡します。</5><7>📌 参加方法:</7><8><9><10>作成</10> Firefly がサポートする任意のソーシャルプラットフォームで、<11>Polymarket 取引ストーリー</11>を共有する記事または長いスレッドを公開する。</9><12><13>フォロー＆メンション</13> <14>@thefireflyapp</14>。</12><15><16>登録</16> このフォームに記入して投稿を登録する。</15></8>"
 
 msgid "So sorry, we cant mint this NFT. Please try again later."
-msgstr ""
+msgstr "申し訳ありません。この NFT をミントできません。後でもう一度お試しください。"
 
 #. placeholder {0}: filteredProfiles[0].handle
 #. placeholder {1}: filteredProfiles[1].handle
 #. placeholder {2}: resolveSourceName(post.source)
 msgid "Replying to <0>@{0}</0> and <1>@{1}</1> on {2}"
-msgstr ""
+msgstr "{2} で <0>@{0}</0> と <1>@{1}</1> に返信中"
 
 msgid "Content preference"
-msgstr ""
+msgstr "コンテンツ設定"
 
 msgid "Save failed post?"
-msgstr ""
+msgstr "失敗した投稿を保存しますか？"
 
 #. js-lingui:icu=%7Bminutes%2C+plural%2C+one+%7B%23+minute+left%7D+other+%7B%23+minutes+left%7D%7D&pluralize_on=minutes
 msgid "# minute left"
 msgid_plural "# minutes left"
-msgstr[0] ""
+msgstr[0] "残り # 分"
 
 msgid "Owners"
-msgstr ""
+msgstr "オーナー"
 
 #. placeholder {0}: channel.id
 msgid "All posts from /{0} will be hidden from you"
-msgstr ""
+msgstr "/{0} からの全ての投稿があなたから非表示になります"
 
 msgid "Created"
-msgstr ""
+msgstr "作成済み"
 
 msgid "The content of this account is currently unavailable"
-msgstr ""
+msgstr "このアカウントのコンテンツは現在利用できません"
 
 msgid "Failed to like article."
-msgstr ""
+msgstr "記事へのいいねに失敗しました。"
 
 #. placeholder {0}: notification.source
 #. placeholder {1}: notification.post.type
 msgid "<0/> {0, select, Lens {reposted your} Farcaster {recasted your} Bsky {reposted your} other {reposted your}} <1>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</1>"
-msgstr ""
+msgstr "<0/> {0, select, Lens {があなたの} Farcaster {があなたの} Bsky {があなたの} other {があなたの}} <1>{1, select, Post {投稿} Comment {コメント} Quote {引用} Mirror {リポスト} other {投稿}}</1> をリポストしました"
 
 msgid "Mobile QR login is interrupted. Please try again."
-msgstr ""
+msgstr "モバイル QR ログインが中断されました。もう一度お試しください。"
 
 msgid "Wallet added successfully"
-msgstr ""
+msgstr "ウォレットが正常に追加されました"
 
 msgid "Total Treasury Holding"
-msgstr ""
+msgstr "トレジャリー総保有量"
 
 msgid "Closed"
-msgstr ""
+msgstr "終了"
 
 msgid "Non-sanctioned address found."
-msgstr ""
+msgstr "制裁対象外のアドレスが検出されました。"
 
 msgid "Anonymous"
-msgstr ""
+msgstr "匿名"
 
 msgid "Failed to un-bookmark NFT."
-msgstr ""
+msgstr "NFT のブックマーク解除に失敗しました。"
 
 msgid "There is no data available for display."
-msgstr ""
+msgstr "表示できるデータがありません。"
 
 msgid "Feed"
-msgstr ""
+msgstr "フィード"
 
 msgid "Search article"
-msgstr ""
+msgstr "記事を検索"
 
 msgid "Switch Done!"
-msgstr ""
+msgstr "切り替え完了！"
 
 msgid "Failed to repost."
-msgstr ""
+msgstr "リポストに失敗しました。"
 
 msgid "Failed to upload. Not a valid image type"
-msgstr ""
+msgstr "アップロードに失敗しました。有効な画像形式ではありません"
 
 msgid "Confirmation"
-msgstr ""
+msgstr "確認"
 
 msgid "Delete Firefly account?"
-msgstr ""
+msgstr "Firefly アカウントを削除しますか？"
 
 msgid "Search user"
-msgstr ""
+msgstr "ユーザーを検索"
 
 msgid "Cancel"
-msgstr ""
+msgstr "キャンセル"
 
 msgid "Live"
-msgstr ""
+msgstr "ライブ"
 
 msgid "Send on schedule"
-msgstr ""
+msgstr "予約送信"
 
 msgid "Failed to upload. Video is not supported yet."
-msgstr ""
+msgstr "アップロードに失敗しました。動画はまだサポートされていません。"
 
 #. placeholder {0}: formatFileSize(maxImageSize)
 msgid "Failed to upload. Image size exceeds {0}"
-msgstr ""
+msgstr "アップロードに失敗しました。画像のサイズが {0} を超えています"
 
 msgid "Download image"
-msgstr ""
+msgstr "画像をダウンロード"
 
 msgid "User Name should not be blank"
-msgstr ""
+msgstr "ユーザー名を空にすることはできません"
 
 msgid "Set a 6-digit password to verify your identity for multi-device login."
-msgstr ""
+msgstr "マルチデバイスログインの本人確認のため、6 桁のパスワードを設定してください。"
 
 msgid "Post on"
-msgstr ""
+msgstr "投稿先"
 
 msgid "Sorry, today's free collect quota has been reached."
-msgstr ""
+msgstr "申し訳ありません。本日の無料コレクト枠は上限に達しました。"
 
 msgid "Failed to un-bookmark snapshot."
-msgstr ""
+msgstr "Snapshot のブックマーク解除に失敗しました。"
 
 msgid "Whitelist function"
-msgstr ""
+msgstr "ホワイトリスト機能"
 
 msgid "Sign in via Firefly App"
-msgstr ""
+msgstr "Firefly アプリでログイン"
 
 msgid "Explore and follow accounts to see the feed"
-msgstr ""
+msgstr "アカウントを探索してフォローし、フィードを表示"
 
 msgid "Profile could not be found."
-msgstr ""
+msgstr "プロフィールが見つかりませんでした。"
 
 msgid "Muted contents"
-msgstr ""
+msgstr "ミュートしたコンテンツ"
 
 msgid "Collections"
-msgstr ""
+msgstr "コレクション"
 
 msgid "Sign to Authorize"
-msgstr ""
+msgstr "署名して承認"
 
 msgid "Done"
-msgstr ""
+msgstr "完了"
 
 msgid "Recasts"
-msgstr ""
+msgstr "リキャスト"
 
 #. placeholder {0}: dayjs(task.schedule_at).format('ddd, MMM DD, YYYY')
 #. placeholder {1}: dayjs(task.schedule_at).format('hh:mm A')
 msgid "will send on {0} at {1}"
-msgstr ""
+msgstr "{0} {1} に送信予定"
 
 #. placeholder {0}: resolveSourcesName(ENABLED_RP_SOURCES)
 msgid "Lucky drop is only available on {0}"
-msgstr ""
+msgstr "ラッキードロップは {0} でのみ利用可能です"
 
 msgid "Your account is requesting to sign in to mobile. Please confirm that the device is with you and that it is you who is signing in"
-msgstr ""
+msgstr "あなたのアカウントがモバイルへのログインをリクエストしています。デバイスが手元にあり、本人によるログインであることを確認してください"
 
 msgid "Failed to like the post."
-msgstr ""
+msgstr "投稿へのいいねに失敗しました。"
 
 msgid "Failed to remove draft. Please try again."
-msgstr ""
+msgstr "下書きの削除に失敗しました。もう一度お試しください。"
 
 msgid "Profile details"
-msgstr ""
+msgstr "プロフィール詳細"
 
 msgid "Enter the amount that each winner can claim"
-msgstr ""
+msgstr "各当選者が受け取れる金額を入力"
 
 #. placeholder {0}: dayjs(Number.parseInt(received_time, 10) * 1000).format( 'MM/DD/YYYY HH:mm', )
 #. placeholder {0}: dayjs(create_time * 1000).format('MM/DD/YYYY HH:mm')
 msgid "{0} (UTC+8)"
-msgstr ""
+msgstr "{0} (UTC+8)"
 
 #. placeholder {0}: channel.id
 #. placeholder {0}: channel.name
 msgid "Failed to mute /{0}."
-msgstr ""
+msgstr "/{0} のミュートに失敗しました。"
 
 msgid "Address"
-msgstr ""
+msgstr "アドレス"
 
 msgid "Newest"
-msgstr ""
+msgstr "最新"
 
 msgid "Current price"
-msgstr ""
+msgstr "現在価格"
 
 msgid "Ended: "
-msgstr ""
+msgstr "終了: "
 
 msgid "User Name should not exceed {extra} characters"
-msgstr ""
+msgstr "ユーザー名は {extra} 文字以内にしてください"
 
 msgid "Failed to unfollow {handleOrEnsOrAddress} on Firefly."
-msgstr ""
+msgstr "Firefly で {handleOrEnsOrAddress} のフォロー解除に失敗しました。"
 
 #. placeholder {0}: post.author.handle
 msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0} !"
-msgstr ""
+msgstr "🤑 {postUrl} で @{0} から #FireflyLuckyDrop 🧧💰✨ を受け取りました！"
 
 msgid "Open livestream"
-msgstr ""
+msgstr "ライブ配信を開く"
 
 msgid "The amount of coins that are circulating in the market and are tradeable by the public. It is comparable to looking at shares readily available in the market (not held & locked by insiders, governments)."
-msgstr ""
+msgstr "市場で流通し、一般の人が取引できるコインの量です。市場ですぐに売買できる株式（インサイダーや政府が保有・ロックしていないもの）に相当します。"
 
 msgid "{outcomeLabel} Holders"
-msgstr ""
+msgstr "{outcomeLabel} ホルダー"
 
 msgid "[Photo]"
-msgstr ""
+msgstr "[写真]"
 
 msgid "Total Value"
-msgstr ""
+msgstr "総額"
 
 #. placeholder {0}: post.stats.mirrors
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7Brepost%7D+other+%7Breposts%7D%7D&pluralize_on=0
 msgid "repost"
 msgid_plural "reposts"
-msgstr[0] ""
+msgstr[0] "リポスト"
 
 msgid "Bio"
-msgstr ""
+msgstr "自己紹介"
 
 #. placeholder {0}: account.profile.handle
 #. placeholder {1}: resolveSourceName(source)
 msgid "Failed to resume session for @{0} on {1}, you can refresh the page to try again."
-msgstr ""
+msgstr "{1} で @{0} のセッション再開に失敗しました。ページを更新してもう一度お試しください。"
 
 #. placeholder {0}: resolveSourceName(Source.Posts)
 msgid "Follow more friends to continue exploring on {0}."
-msgstr ""
+msgstr "{0} で探索を続けるには、もっと友達をフォローしてください。"
 
 msgid "Seems like this feature is not supported!"
-msgstr ""
+msgstr "この機能はサポートされていないようです！"
 
 #. placeholder {0}: resolveSourcesName(invalidSources)
 msgid "Lucky drop for {0} is coming soon."
-msgstr ""
+msgstr "{0} のラッキードロップは近日公開予定です。"
 
 msgid "This does not appear to be a honeypot."
-msgstr ""
+msgstr "ハニーポットではないようです。"
 
 msgid "No fake KYC involved."
-msgstr ""
+msgstr "偽の KYC は関与していません。"
 
 msgid "Your Firefly Account is now connected"
-msgstr ""
+msgstr "あなたの Firefly アカウントが接続されました"
 
 msgid "Legacy Firefly wallet"
-msgstr ""
+msgstr "レガシー Firefly ウォレット"
 
 msgid "Follow System"
-msgstr ""
+msgstr "システムに従う"
 
 msgid "Link up to three accounts"
-msgstr ""
+msgstr "最大 3 つのアカウントをリンク"
 
 msgid "THREAD POST"
-msgstr ""
+msgstr "スレッド投稿"
 
 msgid "Swaps"
-msgstr ""
+msgstr "スワップ"
 
 msgid "Total Gains"
-msgstr ""
+msgstr "総利益"
 
 msgid "Today"
-msgstr ""
+msgstr "今日"
 
 #. placeholder {0}: resolveSourceName(source)
 msgid "🎭 Replied on {0}."
-msgstr ""
+msgstr "🎭 {0} で返信しました。"
 
 msgid "Unknown"
-msgstr ""
+msgstr "不明"
 
 msgid "Bookmark not exist, please try going to the detail page and un-bookmark it."
-msgstr ""
+msgstr "ブックマークが存在しません。詳細ページでブックマークを解除してください。"
 
 msgid "Claimed lucky drop successfully"
-msgstr ""
+msgstr "ラッキードロップの受け取りに成功しました"
 
 msgid "The contract owner has restrictions on buying."
-msgstr ""
+msgstr "コントラクトオーナーは購入に制限を設けています。"
 
 msgid "Remove Choice"
-msgstr ""
+msgstr "選択肢を削除"
 
 msgid "Repost again"
-msgstr ""
+msgstr "再度リポスト"
 
 msgid "New connection via Farcaster"
-msgstr ""
+msgstr "Farcaster で新規接続"
 
 msgid "Rejected"
-msgstr ""
+msgstr "拒否済み"
 
 msgid "Update"
-msgstr ""
+msgstr "更新"
 
 msgid "Registered account not found. Please switch to another wallet and try again."
-msgstr ""
+msgstr "登録済みアカウントが見つかりません。別のウォレットに切り替えてもう一度お試しください。"
 
 msgid "<0/><1> followed you</1>"
-msgstr ""
+msgstr "<0/><1> があなたをフォローしました</1>"
 
 msgid "The token can not be bought."
-msgstr ""
+msgstr "このトークンは購入できません。"
 
 msgid "More Details"
-msgstr ""
+msgstr "詳細"
 
 #. placeholder {0}: toFixedTrimmed(+trade.size, 2)
 #. placeholder {1}: trade.outcome
 #. placeholder {2}: toFixedTrimmed(+trade.price * 100, 1)
 #. placeholder {3}: usdValue < 0.01 ? '< $0.01' : `$${toFixedTrimmed(usdValue, 2)}`
 msgid "<0>{displayName}</0> Bought <1>{0} {1}</1> for <2>{marketTitle}</2> at <3>{2}¢</3> <4>({3})</4>"
-msgstr ""
+msgstr "<0>{displayName}</0> が <3>{2}¢</3> で <2>{marketTitle}</2> の <1>{0} {1}</1> を購入しました <4>({3})</4>"
 
 msgid "Draft"
-msgstr ""
+msgstr "下書き"
 
 #. placeholder {0}: handle ? '@' + handle : identity.id
 msgid "Sorry, we are not able to find a wallet for {0}."
-msgstr ""
+msgstr "申し訳ありません。{0} のウォレットが見つかりません。"
 
 msgid "Social accounts"
-msgstr ""
+msgstr "ソーシャルアカウント"
 
 msgid "Invalid 2FA code. Please try again."
-msgstr ""
+msgstr "2FA コードが無効です。もう一度お試しください。"
 
 msgid "View More"
-msgstr ""
+msgstr "もっと見る"
 
 msgid "Installed"
-msgstr ""
+msgstr "インストール済み"
 
 msgid "Primary wallet"
-msgstr ""
+msgstr "プライマリウォレット"
 
 msgid "<0><1/><2>Sent a tip</2></0><3>to</3>{targetAccount}"
-msgstr ""
+msgstr "<0><1/><2>チップを送りました</2></0><3>宛先</3>{targetAccount}"
 
 msgid "Verified by Lens"
-msgstr ""
+msgstr "Lens による認証済み"
 
 msgid "Limo article"
-msgstr ""
+msgstr "Limo 記事"
 
 #. placeholder {0}: resolveSourceName(source)
 msgid "🎭 Quoted on {0}."
-msgstr ""
+msgstr "🎭 {0} で引用しました。"
 
 msgid "No proxy"
-msgstr ""
+msgstr "プロキシなし"
 
 #. placeholder {0}: profile.handle
 msgid "Muted @{0} on {sourceName}."
-msgstr ""
+msgstr "{sourceName} で @{0} をミュートしました。"
 
 msgid "Quotes"
-msgstr ""
+msgstr "引用"
 
 msgid "Token removed from your Bookmarks."
-msgstr ""
+msgstr "トークンがブックマークから削除されました。"
 
 msgid "There is no data available to display"
-msgstr ""
+msgstr "表示できるデータがありません"
 
 msgid "The user rejected the request."
-msgstr ""
+msgstr "ユーザーがリクエストを拒否しました。"
 
 msgid "👉 To stay updated on trades, enable notifications in your browser settings."
-msgstr ""
+msgstr "👉 取引の最新情報を受け取るには、ブラウザ設定で通知を有効にしてください。"
 
 msgid "Wallets"
-msgstr ""
+msgstr "ウォレット"
 
 msgid "Spread {spread}¢"
-msgstr ""
+msgstr "スプレッド {spread}¢"
 
 msgid "You might like"
-msgstr ""
+msgstr "おすすめ"
 
 msgid "firefly.eth liked your tips"
-msgstr ""
+msgstr "firefly.eth があなたのチップにいいねしました"
 
 msgid "Articles from {walletHandle} will now be hidden in your home timeline"
-msgstr ""
+msgstr "{walletHandle} からの記事はホームタイムラインで非表示になります"
 
 msgid "Please enter at least 2 characters."
-msgstr ""
+msgstr "2 文字以上入力してください。"
 
 msgid "Remove from Bookmarks"
-msgstr ""
+msgstr "ブックマークから削除"
 
 msgid "Article"
-msgstr ""
+msgstr "記事"
 
 msgid "Active"
-msgstr ""
+msgstr "アクティブ"
 
 msgid "Translated from {contentLanguage}"
-msgstr ""
+msgstr "{contentLanguage} から翻訳"
 
 msgid "Failed to open miniapp"
-msgstr ""
+msgstr "ミニアプリを開けませんでした"
 
 msgid "Past"
-msgstr ""
+msgstr "過去"
 
 msgid "Leaving Firefly"
-msgstr ""
+msgstr "Firefly を離れます"
 
 msgid "Authentication Failed"
-msgstr ""
+msgstr "認証に失敗しました"
 
 msgid "Log out"
-msgstr ""
+msgstr "ログアウト"
 
 msgid "Owner can't change balance"
-msgstr ""
+msgstr "オーナーは残高を変更できません"
 
 msgid "Attendance"
-msgstr ""
+msgstr "出席"
 
 msgid "Search predictions"
-msgstr ""
+msgstr "予測を検索"
 
 msgid "Oops... Not all the requirements have been met"
-msgstr ""
+msgstr "おっと... 全ての条件を満たしていません"
 
 msgid "Join our Telegram"
-msgstr ""
+msgstr "Telegram に参加"
 
 msgid "Volume Traded(shares)"
-msgstr ""
+msgstr "取引量（シェア）"
 
 msgid "Non-contract address."
-msgstr ""
+msgstr "非コントラクトアドレスです。"
 
 msgid "Darkweb transactions."
-msgstr ""
+msgstr "ダークウェブ取引。"
 
 msgid "Resolution"
-msgstr ""
+msgstr "決議"
 
 msgid "Show more"
-msgstr ""
+msgstr "もっと見る"
 
 msgid "Set as primary wallet"
-msgstr ""
+msgstr "プライマリウォレットに設定"
 
 msgid "24H Volume"
-msgstr ""
+msgstr "24時間取引量"
 
 msgid "Upload to change"
-msgstr ""
+msgstr "アップロードして変更"
 
 msgid "Sign in within Firefly App"
-msgstr ""
+msgstr "Firefly アプリ内でログイン"
 
 msgid "LIVE"
-msgstr ""
+msgstr "LIVE"
 
 msgid "Anti_whale(Limited number of transactions)"
-msgstr ""
+msgstr "反クジラ（取引回数制限あり）"
 
 #. placeholder {0}: collection.ownersTotal
 msgid "{0} items"
-msgstr ""
+msgstr "{0} 件"
 
 msgid "Balance"
-msgstr ""
+msgstr "残高"
 
 msgid "View resolved"
-msgstr ""
+msgstr "決議済みを表示"
 
 msgid "Unmuting..."
-msgstr ""
+msgstr "ミュート解除中..."
 
 msgid "Failed to sign in with Firefly Wallet."
-msgstr ""
+msgstr "Firefly ウォレットでのログインに失敗しました。"
 
 msgid "The passwords you entered don’t match. Please try again."
-msgstr ""
+msgstr "入力したパスワードが一致しません。もう一度お試しください。"
 
 msgid "One-time passcode sent to you"
-msgstr ""
+msgstr "ワンタイムパスコードを送信しました"
 
 msgid "Failed to show more."
-msgstr ""
+msgstr "さらに表示できませんでした。"
 
 msgid "The number of token transactions is limited. The number of scam token transactions may be limited (honeypot risk)."
-msgstr ""
+msgstr "トークン取引の回数に制限があります。詐欺トークンの取引回数が制限されている可能性があります（ハニーポットのリスク）。"
 
 msgid "Time Limit"
-msgstr ""
+msgstr "時間制限"
 
 msgid "Post removed from your Bookmarks"
-msgstr ""
+msgstr "投稿がブックマークから削除されました"
 
 msgid "Something went wrong. Please try again."
-msgstr ""
+msgstr "問題が発生しました。もう一度お試しください。"
 
 msgid "Sign in to unlock"
-msgstr ""
+msgstr "ログインしてロック解除"
 
 msgid "Suspended"
-msgstr ""
+msgstr "停止中"
 
 msgid "The transaction is in progress."
-msgstr ""
+msgstr "取引が進行中です。"
 
 msgid "There is no proxy in the contract. The proxy contract means contract owner can modify the function of the token and possibly effect the price."
-msgstr ""
+msgstr "コントラクトにプロキシはありません。プロキシコントラクトは、コントラクトオーナーがトークンの機能を変更し、価格に影響を与える可能性があることを意味します。"
 
 msgid "User Name should be at least {extra} characters"
-msgstr ""
+msgstr "ユーザー名は {extra} 文字以上にしてください"
 
 msgid "Received"
-msgstr ""
+msgstr "受信済み"
 
 msgid "Privacy and security"
-msgstr ""
+msgstr "プライバシーとセキュリティ"
 
 msgid "Create your Firefly Profile"
-msgstr ""
+msgstr "Firefly プロフィールを作成"
 
 #. js-lingui:icu=%7BtotalVotes%2C+plural%2C+one+%7B%7BtotalVotes%7D+Vote%7D+other+%7B%7BtotalVotes%7D+Votes%7D%7D&pluralize_on=totalVotes
 msgid "{totalVotes} Vote"
 msgid_plural "{totalVotes} Votes"
-msgstr[0] ""
+msgstr[0] "{totalVotes} 票"
 
 msgid "Full"
-msgstr ""
+msgstr "フル"
 
 msgid "Powered by"
-msgstr ""
+msgstr "Powered by"
 
 msgid "Stay in the loop with Firefly!"
-msgstr ""
+msgstr "Firefly で最新情報をキャッチ！"
 
 msgid "Log in with your X account to view"
-msgstr ""
+msgstr "表示するには X アカウントでログイン"
 
 msgid "Login to Firefly"
-msgstr ""
+msgstr "Firefly にログイン"
 
 msgid "So sorry, we are not able to mint this NFT at the moment."
-msgstr ""
+msgstr "申し訳ありません。現在この NFT をミントできません。"
 
 msgid "Content will be lost when leaving this page in anonymous mode."
-msgstr ""
+msgstr "匿名モードでこのページを離れると、コンテンツは失われます。"
 
 msgid "Post could not be found."
-msgstr ""
+msgstr "投稿が見つかりませんでした。"
 
 msgid "For you"
-msgstr ""
+msgstr "おすすめ"
 
 msgid "Reconnect"
-msgstr ""
+msgstr "再接続"
 
 msgid "No suspected malicious behavior found."
-msgstr ""
+msgstr "疑わしい悪意のある行為は検出されませんでした。"
 
 msgid "Your browser does not support the Firefly Bridge."
-msgstr ""
+msgstr "お使いのブラウザは Firefly Bridge をサポートしていません。"
 
 msgid "No matching collection"
-msgstr ""
+msgstr "一致するコレクションがありません"
 
 msgid "Canceled"
-msgstr ""
+msgstr "キャンセル済み"
 
 msgid "No content for the last two weeks."
-msgstr ""
+msgstr "過去 2 週間のコンテンツはありません。"
 
 msgid "Mobile App"
-msgstr ""
+msgstr "モバイルアプリ"
 
 msgid "Scan this QR code and confirm on your Farcaster mobile app to start using your public profile."
-msgstr ""
+msgstr "この QR コードをスキャンし、Farcaster モバイルアプリで確認してパブリックプロフィールの使用を開始してください。"
 
 msgid "The frame server failed to process the request."
-msgstr ""
+msgstr "フレームサーバーがリクエストの処理に失敗しました。"
 
 msgid "Discard Post"
-msgstr ""
+msgstr "投稿を破棄"
 
 msgid "New password cannot be the same as the old one. Please try again."
-msgstr ""
+msgstr "新しいパスワードは古いパスワードと同じにできません。もう一度お試しください。"
 
 msgid "Schedule"
-msgstr ""
+msgstr "予約"
 
 msgid "In some cases, you can also find a more detailed breakdown of holders in the explorer page."
-msgstr ""
+msgstr "場合によっては、エクスプローラーページでホルダーの詳細な内訳を確認できます。"
 
 msgid "Upload photo"
-msgstr ""
+msgstr "写真をアップロード"
 
 msgid "This token contract has a code that states that it cannot be sold. Maybe this is a honeypot."
-msgstr ""
+msgstr "このトークンコントラクトには売却できない旨のコードがあります。ハニーポットの可能性があります。"
 
 msgid "Change password"
-msgstr ""
+msgstr "パスワードを変更"
 
 msgid "Verified by {provider}"
-msgstr ""
+msgstr "{provider} による認証済み"
 
 msgid "Search Filter"
-msgstr ""
+msgstr "検索フィルター"
 
 #. placeholder {0}: session.type
 msgid "This {0} account is already linked"
-msgstr ""
+msgstr "この {0} アカウントは既にリンクされています"
 
 msgid "Resend full or remaining?"
-msgstr ""
+msgstr "全体または残りを再送信しますか？"
 
 msgid "Winners"
-msgstr ""
+msgstr "当選者"
 
 msgid "Cancel Repost"
-msgstr ""
+msgstr "リポストをキャンセル"
 
 #. placeholder {0}: error.message
 msgid "Failed to verify address: {0}"
-msgstr ""
+msgstr "アドレスの検証に失敗しました: {0}"
 
 msgid "No games found"
-msgstr ""
+msgstr "ゲームが見つかりません"
 
 msgid "Cross at handles"
-msgstr ""
+msgstr "クロスプラットフォームのハンドル"
 
 msgid "Add Wallet"
-msgstr ""
+msgstr "ウォレットを追加"
 
 #. placeholder {0}: mutuals[0].displayName
 #. placeholder {1}: mutuals[1].displayName
 msgid "Followed by {0} and {1}"
-msgstr ""
+msgstr "{0} と {1} にフォローされています"
 
 #. js-lingui:icu=%7Bdays%2C+plural%2C+one+%7B%23+day+left%7D+other+%7B%23+days+left%7D%7D&pluralize_on=days
 msgid "# day left"
 msgid_plural "# days left"
-msgstr[0] ""
+msgstr[0] "残り # 日"
 
 #. placeholder {0}: post?.author.handle
 msgid "REPLY to<0><1>@{0}</1></0>"
-msgstr ""
+msgstr "<0><1>@{0}</1></0> に返信"
 
 msgid "Total Losses"
-msgstr ""
+msgstr "総損失"
 
 msgid "Follow {handleOrEnsOrAddress}"
-msgstr ""
+msgstr "{handleOrEnsOrAddress} をフォロー"
 
 msgid "You can save this to send later from your drafts."
-msgstr ""
+msgstr "下書きに保存して後で送信できます。"
 
 msgid "Failed Post"
-msgstr ""
+msgstr "投稿失敗"
 
 msgid "Internal Server Error. Please try again later."
-msgstr ""
+msgstr "内部サーバーエラー。後でもう一度お試しください。"
 
 msgid "No cybercrime involved."
-msgstr ""
+msgstr "サイバー犯罪は関与していません。"
 
 msgid "Deleting your account will permanently disconnect your linked social accounts and remove your Firefly wallets."
-msgstr ""
+msgstr "アカウントを削除すると、リンクされたソーシャルアカウントが永久に切断され、Firefly ウォレットが削除されます。"
 
 msgid "Try searching for something else."
-msgstr ""
+msgstr "別のキーワードで検索してみてください。"
 
 #. placeholder {0}: provider.chain
 msgid "No connector found for {0}"
-msgstr ""
+msgstr "{0} のコネクターが見つかりません"
 
 #. placeholder {0}: channel.id
 msgid "Unmute /{0}"
-msgstr ""
+msgstr "/{0} のミュートを解除"
 
 msgid "No open orders found."
-msgstr ""
+msgstr "未約定注文が見つかりません。"
 
 msgid "No trades found in this wallet"
-msgstr ""
+msgstr "このウォレットに取引は見つかりません"
 
 msgid "Month"
-msgstr ""
+msgstr "月"
 
 msgid "Report spam"
-msgstr ""
+msgstr "スパムを報告"
 
 msgid "Failed to un-bookmark post."
-msgstr ""
+msgstr "投稿のブックマーク解除に失敗しました。"
 
 msgid "Channel"
-msgstr ""
+msgstr "チャンネル"
 
 msgid "You are not eligible to decrypt this post, try again with eligible {sourceName} account."
-msgstr ""
+msgstr "この投稿を復号化する資格がありません。条件を満たす {sourceName} アカウントでもう一度お試しください。"
 
 msgid "Copy"
-msgstr ""
+msgstr "コピー"
 
 msgid "Enter Amount Each"
-msgstr ""
+msgstr "各金額を入力"
 
 msgid "firefly.eth liked your transaction"
-msgstr ""
+msgstr "firefly.eth があなたの取引にいいねしました"
 
 msgid "Failed to get live market URL. Please try again later."
-msgstr ""
+msgstr "ライブマーケット URL の取得に失敗しました。後でもう一度お試しください。"
 
 msgid "Image"
-msgstr ""
+msgstr "画像"
 
 msgid "Failed to delete post."
-msgstr ""
+msgstr "投稿の削除に失敗しました。"
 
 msgid "The hidden owner function is not included. If there is a hidden owner, the project owner may have the ability to control the contract."
-msgstr ""
+msgstr "隠しオーナー機能は含まれていません。隠しオーナーがいる場合、プロジェクトオーナーがコントラクトを制御できる可能性があります。"
 
 msgid "🔥 Spotted a smart swap on Firefly! One-tap copy trading now available. #OnChainSocial"
-msgstr ""
+msgstr "🔥 Firefly でスマートスワップを発見！ワンタップのコピートレードが利用可能になりました。#OnChainSocial"
 
 #. placeholder {0}: profile.handle
 msgid "Failed to mute @{0} on {sourceName}."
-msgstr ""
+msgstr "{sourceName} で @{0} のミュートに失敗しました。"
 
 msgid "1H"
-msgstr ""
+msgstr "1時間"
 
 msgid "Google Play"
-msgstr ""
+msgstr "Google Play"
 
 msgid "Lucky drop created successfully"
-msgstr ""
+msgstr "ラッキードロップが正常に作成されました"
 
 #. placeholder {0}: error.message
 msgid "Connection failed. {0}"
-msgstr ""
+msgstr "接続に失敗しました。{0}"
 
 msgid "View Source"
-msgstr ""
+msgstr "ソースを表示"
 
 #. placeholder {0}: resolvedOutcome.outcome
 msgid "Settled as {0}"
-msgstr ""
+msgstr "{0} で決議"
 
 msgid "Financial crime found."
-msgstr ""
+msgstr "金融犯罪が検出されました。"
 
 msgid "Failed to like tip."
-msgstr ""
+msgstr "チップへのいいねに失敗しました。"
 
 msgid "No available wallet."
-msgstr ""
+msgstr "利用可能なウォレットがありません。"
 
 msgid "Current"
-msgstr ""
+msgstr "現在"
 
 #. placeholder {0}: author.handle
 #. placeholder {1}: resolveSourceName(source)
 msgid "You cannot reply to @{0} on {1}."
-msgstr ""
+msgstr "{1} では @{0} に返信できません。"
 
 msgid "Added"
-msgstr ""
+msgstr "追加済み"
 
 msgid "No stealing attack found."
-msgstr ""
+msgstr "窃取攻撃は検出されませんでした。"
 
 msgid "Share From"
-msgstr ""
+msgstr "共有元"
 
 msgid "Are you sure you want to report this collection?"
-msgstr ""
+msgstr "このコレクションを報告してもよろしいですか？"
 
 #. placeholder {0}: removeTrailingZeros(toFixedTrimmed(+trade.size, 2))
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7B%23+share%7D+other+%7B%23+shares%7D%7D&pluralize_on=0
 msgid "# share"
 msgid_plural "# shares"
-msgstr[0] ""
+msgstr[0] "# シェア"
 
 msgid "Claimed"
-msgstr ""
+msgstr "受け取り済み"
 
 msgid "No phishing activities found."
-msgstr ""
+msgstr "フィッシング行為は検出されませんでした。"
 
 msgid "The hidden owner function is included. The project owner may have the ability to control the contract."
-msgstr ""
+msgstr "隠しオーナー機能が含まれています。プロジェクトオーナーがコントラクトを制御できる可能性があります。"
 
 msgid "No cryptocurrency mixer involved."
-msgstr ""
+msgstr "暗号資産ミキサーは関与していません。"
 
 #. placeholder {0}: fromAccountInfo?.link ? ( <Link onClick={stopPropagation} className="font-bold hover:underline" href={fromAccountInfo.link} > {fromAccountInfo?.displayName || '-'} </Link> ) : ( <span className="font-bold">{fromAccountInfo?.displayName || '-'}</span> )
 #. placeholder {1}: formatTokenAmount(data.amount)
 #. placeholder {2}: data.token_symbol
 #. placeholder {3}: getChainName(data.chain_id)
 msgid "{0} tipped you <0>{1} ${2}</0> on <1>{3}</1>"
-msgstr ""
+msgstr "{0} が <1>{3}</1> で <0>{1} ${2}</0> のチップを送りました"
 
 msgid "Days"
-msgstr ""
+msgstr "日"
 
 msgid "Custom token amount"
-msgstr ""
+msgstr "カスタムトークン金額"
 
 msgid "Owner can change balance"
-msgstr ""
+msgstr "オーナーは残高を変更できます"
 
 msgid "Firefly User"
-msgstr ""
+msgstr "Firefly ユーザー"
 
 msgid "Login to enable all features"
-msgstr ""
+msgstr "ログインして全機能を有効化"
 
 msgid "Next"
-msgstr ""
+msgstr "次へ"
 
 msgid "Failed to send."
-msgstr ""
+msgstr "送信に失敗しました。"
 
 #. placeholder {0}: formatAddressEthereum(fromAddress, 4)
 msgid "<0>Acquired</0><1/><2>from</2><3><4>{0}</4></3>"
-msgstr ""
+msgstr "<0>取得</0><1/><2>元</2><3><4>{0}</4></3>"
 
 msgid "Matters article"
-msgstr ""
+msgstr "Matters 記事"
 
 msgid "Select up to {MAX_MARKETS_COUNT_SELECTABLE} options"
-msgstr ""
+msgstr "最大 {MAX_MARKETS_COUNT_SELECTABLE} 個のオプションを選択"
 
 msgid "Sign in with Lens"
-msgstr ""
+msgstr "Lens でログイン"
 
 msgid "<0>Bought</0><1/>"
-msgstr ""
+msgstr "<0>購入</0><1/>"
 
 msgid "Non-contract address found."
-msgstr ""
+msgstr "非コントラクトアドレスが検出されました。"
 
 msgid "Home"
-msgstr ""
+msgstr "ホーム"
 
 msgid "Sign in with recovery phrase"
-msgstr ""
+msgstr "リカバリーフレーズでログイン"
 
 msgid "Mint price"
-msgstr ""
+msgstr "ミント価格"
 
 msgid "Re-enter Password"
-msgstr ""
+msgstr "パスワードを再入力"
 
 msgid "Confirm to disconnect this account from Firefly’s social graph?"
-msgstr ""
+msgstr "このアカウントを Firefly のソーシャルグラフから切断しますか？"
 
 msgid "The contract owner has no restrictions on selling."
-msgstr ""
+msgstr "コントラクトオーナーは売却に制限を設けていません。"
 
 msgid "Follow @fireflyappcn on X"
-msgstr ""
+msgstr "X で @fireflyappcn をフォロー"
 
 msgid "Cost"
-msgstr ""
+msgstr "コスト"
 
 msgid "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
-msgstr ""
+msgstr "コントラクトには追加の発行機能が含まれている可能性があり、大量のトークンが生成され、トークン価格が大きく変動する可能性があります。トークン発行の指示に準拠しているか、プロジェクトチームに確認することをお勧めします。"
 
 msgid "Upcoming"
-msgstr ""
+msgstr "近日公開"
 
 #. placeholder {0}: collection.floor_price
 #. placeholder {1}: collection.price_symbol
 msgid "{0}{1} <0>Floor</0>"
-msgstr ""
+msgstr "{0}{1} <0>フロア価格</0>"
 
 msgid "Accounts Connected"
-msgstr ""
+msgstr "接続済みアカウント"
 
 msgid "No money laundering found."
-msgstr ""
+msgstr "マネーロンダリングは検出されませんでした。"
 
 msgid "Top 40 Projects powered by Rootdata"
-msgstr ""
+msgstr "Rootdata 提供の Top 40 プロジェクト"
 
 msgid "<0>Any assets in this Firefly wallet will be permanently lost and cannot be recovered.</0> Before proceeding, please withdraw all funds and assets from your Firefly wallets to avoid any loss."
-msgstr ""
+msgstr "<0>この Firefly ウォレット内の資産は永久に失われ、復元できません。</0> 続行する前に、損失を避けるため Firefly ウォレットから全ての資金と資産を引き出してください。"
 
 msgid "<0>Sent</0><1/>"
-msgstr ""
+msgstr "<0>送信</0><1/>"
 
 #. placeholder {0}: error.message
 msgid "Failed to show more. {0}"
-msgstr ""
+msgstr "さらに表示できませんでした。{0}"
 
 msgid "Notifications"
-msgstr ""
+msgstr "通知"
 
 msgid "Failed to change password."
-msgstr ""
+msgstr "パスワードの変更に失敗しました。"
 
 msgid "Voted"
-msgstr ""
+msgstr "投票済み"
 
 msgid "Lucky Drop"
-msgstr ""
+msgstr "ラッキードロップ"
 
 msgid "Back"
-msgstr ""
+msgstr "戻る"
 
 msgid "Display Name should not exceed 20 characters"
-msgstr ""
+msgstr "表示名は 20 文字以内にしてください"
 
 msgid "By clicking \"Next\", you acknowledge the risk associated with decentralized networks and beta products."
-msgstr ""
+msgstr "「次へ」をクリックすると、分散型ネットワークとベータ製品に関連するリスクを承認したことになります。"
 
 msgid "Decrypt"
-msgstr ""
+msgstr "復号化"
 
 msgid "Bad login state, please try to login again."
-msgstr ""
+msgstr "ログイン状態が不正です。再度ログインしてください。"
 
 msgid "Sign to Confirm"
-msgstr ""
+msgstr "署名して確認"
 
 msgid "Due to <0>X's API limitations</0>, you can only reply to posts that mention you."
-msgstr ""
+msgstr "<0>X の API 制限</0>により、あなたにメンションした投稿にのみ返信できます。"
 
 msgid "Failed to update notification settings"
-msgstr ""
+msgstr "通知設定の更新に失敗しました"
 
 msgid "Failed to resume Firefly session. Please try again."
-msgstr ""
+msgstr "Firefly セッションの再開に失敗しました。もう一度お試しください。"
 
 msgid "Reply"
-msgstr ""
+msgstr "返信"
 
 msgid "Blacklist function"
-msgstr ""
+msgstr "ブラックリスト機能"
 
 msgid "Article collected successfully!"
-msgstr ""
+msgstr "記事のコレクトに成功しました！"
 
 msgid "Up to 7 days can be set as the scheduled time. Please reset it"
-msgstr ""
+msgstr "予約時刻は最大 7 日まで設定できます。再設定してください"
 
 msgid "Posting..."
-msgstr ""
+msgstr "投稿中..."
 
 #. placeholder {0}: resolveSourceName(source)
 msgid "🎭 Your post was sent to {0}."
-msgstr ""
+msgstr "🎭 あなたの投稿が {0} に送信されました。"
 
 msgid "Add an existing account"
-msgstr ""
+msgstr "既存のアカウントを追加"
 
 msgid "Volume(24h) · Market Cap"
-msgstr ""
+msgstr "取引量(24h) · 時価総額"
 
 msgid "Connect"
-msgstr ""
+msgstr "接続"
 
 msgid "New"
-msgstr ""
+msgstr "新規"
 
 msgid "Delete Firefly account"
-msgstr ""
+msgstr "Firefly アカウントを削除"
 
 msgid "Estimated network fee"
-msgstr ""
+msgstr "推定ネットワーク手数料"
 
 msgid "Sorry, we are not able to find this collection"
-msgstr ""
+msgstr "申し訳ありません。このコレクションが見つかりません"
 
 msgid "<0>You</0> reposted"
-msgstr ""
+msgstr "<0>あなた</0> がリポストしました"
 
 msgid "🤑 Check this #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
-msgstr ""
+msgstr "🤑 {postUrl} でこの #FireflyLuckyDrop 🧧💰✨ をチェック！"
 
 #. placeholder {0}: dayjs(createdAt).format('ddd, MMM DD, YYYY')
 #. placeholder {1}: dayjs(createdAt).format('hh:mm A')
 msgid "Saved on {0} at {1}"
-msgstr ""
+msgstr "{0} {1} に保存"
 
 msgid "Settled as {outcome}"
-msgstr ""
+msgstr "{outcome} で決議"
 
 msgid "Scroll categories left"
-msgstr ""
+msgstr "カテゴリを左にスクロール"
 
 #. placeholder {0}: channel.name
 msgid "Confirm you want to mute /{0}?"
-msgstr ""
+msgstr "/{0} をミュートしてもよろしいですか？"
 
 msgid "No profile found"
-msgstr ""
+msgstr "プロフィールが見つかりません"
 
 msgid "Refund"
-msgstr ""
+msgstr "返金"
 
 msgid "Connecting..."
-msgstr ""
+msgstr "接続中..."
 
 #. placeholder {0}: data.daily_limit
 #. placeholder {1}: data.wait_seconds
 msgid "Limits: <0>{0} posts/day</0> with {1}-second intervals (applies to posts, replies, and quotes)."
-msgstr ""
+msgstr "制限: <0>1日 {0} 投稿</0>、{1} 秒間隔（投稿、返信、引用に適用）。"
 
 msgid "Platform fee"
-msgstr ""
+msgstr "プラットフォーム手数料"
 
 msgid "Failed to switch wallet."
-msgstr ""
+msgstr "ウォレットの切り替えに失敗しました。"
 
 msgid "Clubs"
-msgstr ""
+msgstr "クラブ"
 
 #. placeholder {0}: dayjs(scheduleTime).format('DD MMM, YYYY')
 #. placeholder {1}: dayjs(scheduleTime).format('hh:mm A')
 msgid "Your post will be sent on {0} at {1} <0>View</0>"
-msgstr ""
+msgstr "投稿は {0} {1} に送信されます <0>表示</0>"
 
 msgid "GIF count limit reached"
-msgstr ""
+msgstr "GIF 数の上限に達しました"
 
 msgid "<0>Sold</0><1/>"
-msgstr ""
+msgstr "<0>売却</0><1/>"
 
 msgid "Unsaved draft found"
-msgstr ""
+msgstr "未保存の下書きが見つかりました"
 
 #. placeholder {0}: profile.handle
 msgid "All posts from @{0} will be hidden from you"
-msgstr ""
+msgstr "@{0} からの全ての投稿があなたから非表示になります"
 
 msgid "No Farcaster account? <0>Sign up</0> on Firefly"
-msgstr ""
+msgstr "Farcaster アカウントがありませんか？ Firefly で<0>登録</0>"
 
 msgid "<0><1/><2>Received a tip</2></0><3>from</3>{targetAccount}"
-msgstr ""
+msgstr "<0><1/><2>チップを受け取りました</2></0><3>送信者</3>{targetAccount}"
 
 msgid "No function found that retrieves ownership"
-msgstr ""
+msgstr "所有権を取得する機能が見つかりません"
 
 msgid "Share Image"
-msgstr ""
+msgstr "画像を共有"
 
 msgid "No verified addresses found"
-msgstr ""
+msgstr "認証済みアドレスが見つかりません"
 
 msgid "Market Cap is sourced from CoinGecko and includes token issued on other blockchain."
-msgstr ""
+msgstr "時価総額は CoinGecko から取得され、他のブロックチェーンで発行されたトークンも含まれます。"
 
 msgid "The contract owner has restrictions on anti whale."
-msgstr ""
+msgstr "コントラクトオーナーは反クジラに制限を設けています。"
 
 msgid "Forgot your password? <0>Reset password</0>"
-msgstr ""
+msgstr "パスワードをお忘れですか？ <0>パスワードをリセット</0>"
 
 msgid "Everyone can reply"
-msgstr ""
+msgstr "全員が返信可能"
 
 #. js-lingui:icu=%7Bseconds%2C+plural%2C+one+%7B%23+second+left%7D+other+%7B%23+seconds+left%7D%7D&pluralize_on=seconds
 msgid "# second left"
 msgid_plural "# seconds left"
-msgstr[0] ""
+msgstr[0] "残り # 秒"
 
 msgid "Your email address"
-msgstr ""
+msgstr "メールアドレス"
 
 msgid "Checking wallet status..."
-msgstr ""
+msgstr "ウォレットの状態を確認中..."
 
 msgid "Sorry, the provider you entered is invalid"
-msgstr ""
+msgstr "申し訳ありません。入力したプロバイダーは無効です"
 
 msgid "Your vote is in!"
-msgstr ""
+msgstr "投票が完了しました！"
 
 msgid "Send"
-msgstr ""
+msgstr "送信"
 
 msgid "<0>You</0> liked"
-msgstr ""
+msgstr "<0>あなた</0> がいいねしました"
 
 msgid "The user canceled the operation."
-msgstr ""
+msgstr "ユーザーが操作をキャンセルしました。"
 
 msgid "Sign in on mobile"
-msgstr ""
+msgstr "モバイルでログイン"
 
 #. placeholder {0}: toFixedTrimmed(holder.shares, 1)
 msgid "{0} Shares"
-msgstr ""
+msgstr "{0} シェア"
 
 msgid "You've hit rock bottom."
-msgstr ""
+msgstr "最下部に到達しました。"
 
 msgid "View"
-msgstr ""
+msgstr "表示"
 
 msgid "No matching token"
-msgstr ""
+msgstr "一致するトークンがありません"
 
 msgid "Collected"
-msgstr ""
+msgstr "コレクト済み"
 
 msgid "Owned By"
-msgstr ""
+msgstr "所有者"
 
 msgid "Are you sure you want to report this post?"
-msgstr ""
+msgstr "この投稿を報告してもよろしいですか？"
 
 msgid "<0>Acquired</0><1/>"
-msgstr ""
+msgstr "<0>取得</0><1/>"
 
 msgid "Copy link to profile"
-msgstr ""
+msgstr "プロフィールリンクをコピー"
 
 msgid "Oops... Something went wrong. Please try again"
-msgstr ""
+msgstr "おっと... 問題が発生しました。もう一度お試しください"
 
 msgid "Encrypted choice"
-msgstr ""
+msgstr "暗号化された選択肢"
 
 msgid "Club could not be found."
-msgstr ""
+msgstr "クラブが見つかりませんでした。"
 
 msgid "Hide small transactions(<$100)"
-msgstr ""
+msgstr "少額取引（<$100）を非表示"
 
 msgid "No fake KYC found."
-msgstr ""
+msgstr "偽の KYC は検出されませんでした。"
 
 msgid "No whitelist"
-msgstr ""
+msgstr "ホワイトリストなし"
 
 msgid "Cancel repost successfully"
-msgstr ""
+msgstr "リポストのキャンセルに成功しました"
 
 msgid "<0>You</0> retruthed"
-msgstr ""
+msgstr "<0>あなた</0> がリトゥルースしました"
 
 msgid "Show more users"
-msgstr ""
+msgstr "ユーザーをもっと表示"
 
 msgid "View detail"
-msgstr ""
+msgstr "詳細を表示"
 
 #. placeholder {0}: post.reporter.displayName
 msgid "<0>{0}</0> <1>reposted</1>"
-msgstr ""
+msgstr "<0>{0}</0> <1>がリポストしました</1>"
 
 #. placeholder {0}: channel.id
 msgid "Followed /{0} on {sourceName}"
-msgstr ""
+msgstr "{sourceName} で /{0} をフォローしました"
 
 msgid "Collect Post"
-msgstr ""
+msgstr "投稿をコレクト"
 
 msgid "No tokens found"
-msgstr ""
+msgstr "トークンが見つかりません"
 
 msgid "Sorry, we are not able to find this token"
-msgstr ""
+msgstr "申し訳ありません。このトークンが見つかりません"
 
 msgid "Muting..."
-msgstr ""
+msgstr "ミュート中..."
 
 msgid "Reset Password"
-msgstr ""
+msgstr "パスワードをリセット"
 
 #. placeholder {0}: resolveSourcesName(SORTED_POLL_SOURCES, undefined, true)
 msgid "Polls are only available on {0}"
-msgstr ""
+msgstr "アンケートは {0} でのみ利用可能です"
 
 msgid "Contract address found."
-msgstr ""
+msgstr "コントラクトアドレスが検出されました。"
 
 msgid "Lens Auto Login"
-msgstr ""
+msgstr "Lens 自動ログイン"
 
 msgid "Added to bookmarks"
-msgstr ""
+msgstr "ブックマークに追加しました"
 
 msgid "Try again"
-msgstr ""
+msgstr "もう一度お試しください"
 
 #. placeholder {0}: post.stats.comments
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7Bcomment%7D+other+%7Bcomments%7D%7D&pluralize_on=0
 msgid "comment"
 msgid_plural "comments"
-msgstr[0] ""
+msgstr[0] "コメント"
 
 msgid "Something went wrong."
-msgstr ""
+msgstr "問題が発生しました。"
 
 msgid "Snapshot added to your Bookmarks"
-msgstr ""
+msgstr "Snapshot がブックマークに追加されました"
 
 msgid "No any positions found in this wallet"
-msgstr ""
+msgstr "このウォレットにポジションは見つかりません"
 
 msgid "Total volume"
-msgstr ""
+msgstr "総取引量"
 
 msgid "NFT added to your Bookmarks"
-msgstr ""
+msgstr "NFT がブックマークに追加されました"
 
 #. placeholder {0}: Math.floor(span / YEAR_SPAN)
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7B%23+year%7D+other+%7B%23+years%7D%7D&pluralize_on=0
 msgid "# year"
 msgid_plural "# years"
-msgstr[0] ""
+msgstr[0] "# 年"
 
 msgid "<0/> Loading"
-msgstr ""
+msgstr "<0/> 読み込み中"
 
 msgid "Are you sure you want to remove this NFT from your bookmarks?"
-msgstr ""
+msgstr "この NFT をブックマークから削除してもよろしいですか？"
 
 msgid "Net Worth"
-msgstr ""
+msgstr "純資産"
 
 msgid "Pinned"
-msgstr ""
+msgstr "ピン留め済み"
 
 msgid "We've detected logins available for sync."
-msgstr ""
+msgstr "同期可能なログインが検出されました。"
 
 msgid "Contract"
-msgstr ""
+msgstr "コントラクト"
 
 msgid "The contract owner may contain the authority to modify the transaction tax. If the transaction tax is increased to more than 49%, the tokens will not be able to be traded (honeypot risk)."
-msgstr ""
+msgstr "コントラクトオーナーは取引税を変更する権限を持っている可能性があります。取引税が 49% を超えると、トークンは取引できなくなる可能性があります（ハニーポットのリスク）。"
 
 msgid "All Wallets"
-msgstr ""
+msgstr "全ウォレット"
 
 msgid "Failed to remove bookmark."
-msgstr ""
+msgstr "ブックマークの削除に失敗しました。"
 
 msgid "Significant movements in token prices"
-msgstr ""
+msgstr "トークン価格の大幅な変動"
 
 msgid "Unknown status"
-msgstr ""
+msgstr "不明なステータス"
 
 msgid "Results"
-msgstr ""
+msgstr "結果"
 
 #. placeholder {0}: resolveSourceName(props.source)
 msgid "Create {0} Profile"
-msgstr ""
+msgstr "{0} プロフィールを作成"
 
 #. placeholder {0}: dayjs(scheduleTime).format('ddd, MMM DD, YYYY')
 #. placeholder {1}: dayjs(scheduleTime).format('hh:mm A')
 msgid "Will send on <0>{0} at <1>{1}</1></0>"
-msgstr ""
+msgstr "<0>{0} <1>{1}</1></0> に送信予定"
 
 msgid "Properties"
-msgstr ""
+msgstr "プロパティ"
 
 msgid "Executed"
-msgstr ""
+msgstr "実行済み"
 
 msgid "EVM"
-msgstr ""
+msgstr "EVM"
 
 msgid "This Email is already linked"
-msgstr ""
+msgstr "このメールは既にリンクされています"
 
 msgid "Yes"
-msgstr ""
+msgstr "はい"
 
 msgid "Failed to set schedule time."
-msgstr ""
+msgstr "予約時刻の設定に失敗しました。"
 
 msgid "[LuckyDrop]"
-msgstr ""
+msgstr "[ラッキードロップ]"
 
 msgid "Group"
-msgstr ""
+msgstr "グループ"
 
 msgid "Set {formattedAddress} as primary Solana wallet"
-msgstr ""
+msgstr "{formattedAddress} をプライマリ Solana ウォレットに設定"
 
 #. placeholder {0}: post.stats.mirrors
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7Brecast%7D+other+%7Brecasts%7D%7D&pluralize_on=0
 msgid "recast"
 msgid_plural "recasts"
-msgstr[0] ""
+msgstr[0] "リキャスト"
 
 msgid "Unliked."
-msgstr ""
+msgstr "いいねを取り消しました。"
 
 msgid "Failed to connect on {source}"
-msgstr ""
+msgstr "{source} での接続に失敗しました。"
 
 msgid "Customize your Lucky Drop sender: Choose from your social account handles or wallets."
-msgstr ""
+msgstr "ラッキードロップの送信者をカスタマイズ: ソーシャルアカウントのハンドルまたはウォレットから選択してください。"
 
 msgid "Open in Firefly App"
-msgstr ""
+msgstr "Firefly アプリで開く"
 
 msgid "Privacy Policy"
-msgstr ""
+msgstr "プライバシーポリシー"
 
 msgid "Refresh"
-msgstr ""
+msgstr "更新"
 
 #. placeholder {0}: formatAddressEthereum(toAddress, 4)
 msgid "<0>Sent</0><1/><2>to</2><3><4>{0}</4></3>"
-msgstr ""
+msgstr "<0>送信</0><1/><2>宛先</2><3><4>{0}</4></3>"
 
 #. placeholder {0}: index + 1
 msgid "Choice {0}"
-msgstr ""
+msgstr "選択肢 {0}"
 
 msgid "More details"
-msgstr ""
+msgstr "詳細"
 
 msgid "<0>Revised</0><1>an article on <2/></1>"
-msgstr ""
+msgstr "<0>更新</0><1><2/> で記事を更新しました</1>"
 
 msgid "Failed to create anonymous post"
-msgstr ""
+msgstr "匿名投稿の作成に失敗しました"
 
 msgid "Channels"
-msgstr ""
+msgstr "チャンネル"
 
 msgid "Set {formattedAddress} as primary EVM wallet"
-msgstr ""
+msgstr "{formattedAddress} をプライマリ EVM ウォレットに設定"
 
 #. placeholder {0}: result.amount
 msgid "Claimed lucky drop with {0} {symbol} successfully"
-msgstr ""
+msgstr "{0} {symbol} のラッキードロップの受け取りに成功しました"
 
 msgid "For a failed scheduled post, only the text content can be restored. Please redo the<0/>cross @, media uploads, and other actions."
-msgstr ""
+msgstr "失敗した予約投稿では、テキストコンテンツのみ復元できます。<0/>クロス @、メディアのアップロードなどを再度行ってください。"
 
 msgid "Time"
-msgstr ""
+msgstr "時間"
 
 msgid "Firefly"
-msgstr ""
+msgstr "Firefly"
 
 msgid "No voting power"
-msgstr ""
+msgstr "投票権がありません"
 
 msgid "NFT holder"
-msgstr ""
+msgstr "NFT ホルダー"
 
 msgid "Invalid website format"
-msgstr ""
+msgstr "無効なウェブサイト形式"
 
 msgid "Holders can sell all of the token."
-msgstr ""
+msgstr "ホルダーは全てのトークンを売却できます。"
 
 msgid "Select Network"
-msgstr ""
+msgstr "ネットワークを選択"
 
 msgid "Something went wrong. Please try again later."
-msgstr ""
+msgstr "問題が発生しました。後でもう一度お試しください。"
 
 #. placeholder {0}: channel.name
 msgid "Removed #{0} on {sourceName}"
-msgstr ""
+msgstr "{sourceName} で #{0} を削除しました"
 
 msgid "Your draft was saved."
-msgstr ""
+msgstr "下書きが保存されました。"
 
 msgid "The post you quoted/replied not found"
-msgstr ""
+msgstr "引用/返信した投稿が見つかりません"
 
 msgid "Follow @masknetwork on X"
-msgstr ""
+msgstr "X で @masknetwork をフォロー"
 
 msgid "Please select one EVM wallet and one Solana wallet for onchain features in Firefly."
-msgstr ""
+msgstr "Firefly のオンチェーン機能には、EVM ウォレット 1 つと Solana ウォレット 1 つを選択してください。"
 
 msgid "Token added to your Bookmarks. <0>View</0>"
-msgstr ""
+msgstr "トークンがブックマークに追加されました。<0>表示</0>"
 
 msgid "Reconnect if you’ve used Farcaster to sign in before.<0/>First time? New connect to get started."
-msgstr ""
+msgstr "以前 Farcaster でログインしたことがある場合は再接続してください。<0/>初めてですか？新規接続で始めてください。"
 
 msgid "Scan QR code to access your account"
-msgstr ""
+msgstr "QR コードをスキャンしてアカウントにアクセス"
 
 #. placeholder {0}: mutuals[0].displayName
 #. placeholder {1}: mutuals[1].displayName
 #. placeholder {2}: mutuals[2].displayName
 msgid "Followed by {0} , {1}, and {2}"
-msgstr ""
+msgstr "{0}、{1}、{2} にフォローされています"
 
 msgid "Vote"
-msgstr ""
+msgstr "投票"
 
 msgid "Verify and Claim"
-msgstr ""
+msgstr "検証して受け取る"
 
 msgid "Hide resolved"
-msgstr ""
+msgstr "決議済みを非表示"
 
 #. placeholder {0}: dayjs(space.ended_at).format('MMM DD')
 msgid "Ended on {0}"
-msgstr ""
+msgstr "{0} に終了"
 
 msgid "App Store"
-msgstr ""
+msgstr "App Store"
 
 msgid "Collect Article"
-msgstr ""
+msgstr "記事をコレクト"
 
 msgid "Collected by"
-msgstr ""
+msgstr "コレクト者"
 
 msgid "Forbidden. Please check your permissions."
-msgstr ""
+msgstr "禁止されています。権限を確認してください。"
 
 #. placeholder {0}: data.daily_limit
 #. placeholder {1}: data.wait_minutes
 msgid "Limits: <0>{0} posts/day</0> with {1}-minute intervals (applies to posts, replies, and quotes)."
-msgstr ""
+msgstr "制限: <0>1日 {0} 投稿</0>、{1} 分間隔（投稿、返信、引用に適用）。"
 
 msgid "Enter Number of Winners"
-msgstr ""
+msgstr "当選者数を入力"
 
 msgid "Please enter your 2FA confirmation code"
-msgstr ""
+msgstr "2FA 確認コードを入力してください"
 
 msgid "No active positions found in this wallet"
-msgstr ""
+msgstr "このウォレットにアクティブなポジションは見つかりません"
 
 msgid "Please switch to the wallet associated with your Lens account for signature."
-msgstr ""
+msgstr "署名のため、Lens アカウントに関連付けられたウォレットに切り替えてください。"
 
 msgid "No mint function"
-msgstr ""
+msgstr "ミント機能なし"
 
 msgid "Add"
-msgstr ""
+msgstr "追加"
 
 msgid "Expired"
-msgstr ""
+msgstr "期限切れ"
 
 #. placeholder {0}: formatFileSize(maxGifSize)
 msgid "Failed to upload. Gif size exceeds {0}"
-msgstr ""
+msgstr "アップロードに失敗しました。GIF のサイズが {0} を超えています"
 
 msgid "{days}d left"
-msgstr ""
+msgstr "残り {days} 日"
 
 #. placeholder {0}: Math.floor(span / HOUR_SPAN)
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7B%23+hour%7D+other+%7B%23+hours%7D%7D&pluralize_on=0
 msgid "# hour"
 msgid_plural "# hours"
-msgstr[0] ""
+msgstr[0] "# 時間"
 
 msgid "Nickname must not contain restricted symbols"
-msgstr ""
+msgstr "ニックネームに制限された記号を含めることはできません"
 
 msgid "Failed to login lens with orb"
-msgstr ""
+msgstr "Orb での Lens ログインに失敗しました"
 
 msgid "Money laundering found."
-msgstr ""
+msgstr "マネーロンダリングが検出されました。"
 
 msgid "Switch"
-msgstr ""
+msgstr "切り替え"
 
 msgid "Drafts"
-msgstr ""
+msgstr "下書き"
 
 msgid "Go to live market"
-msgstr ""
+msgstr "ライブマーケットへ移動"
 
 msgid "Failed to like prediction."
-msgstr ""
+msgstr "予測へのいいねに失敗しました。"
 
 msgid "Failed to load games"
-msgstr ""
+msgstr "ゲームの読み込みに失敗しました"
 
 msgid "No financial crime involved."
-msgstr ""
+msgstr "金融犯罪は関与していません。"
 
 msgid "View on Website"
-msgstr ""
+msgstr "ウェブサイトで表示"
 
 msgid "Sign Up"
-msgstr ""
+msgstr "登録"
 
 msgid "Failed to verify password."
-msgstr ""
+msgstr "パスワードの検証に失敗しました。"
 
 msgid "Club"
-msgstr ""
+msgstr "クラブ"
 
 msgid "6H"
-msgstr ""
+msgstr "6時間"
 
 msgid "Mint NFT"
-msgstr ""
+msgstr "NFT をミント"
 
 msgid "Sold Out"
-msgstr ""
+msgstr "売り切れ"
 
 #. js-lingui-explicit-id
 msgid "mirror-tooltip-recast-or-quote"
-msgstr ""
+msgstr "リキャストまたは引用"
 
 #. js-lingui-explicit-id
 msgid "mirror-tooltip-repost-or-quote"
-msgstr ""
+msgstr "リポストまたは引用"
 
 msgid "Oops… Something went wrong. Please try again"
-msgstr ""
+msgstr "おっと… 問題が発生しました。もう一度お試しください"
 
 msgid "Follow"
-msgstr ""
+msgstr "フォロー"
 
 msgid "Mint Again"
-msgstr ""
+msgstr "再度ミント"
 
 msgid "Repost"
-msgstr ""
+msgstr "リポスト"
 
 msgid "Address verified on Farcaster"
-msgstr ""
+msgstr "Farcaster で認証済みアドレス"
 
 #. placeholder {0}: collectParams.mintPrice
 msgid "Collect for {0} {nativeSymbol}"
-msgstr ""
+msgstr "{0} {nativeSymbol} でコレクト"
 
 msgid "Proxy contract"
-msgstr ""
+msgstr "プロキシコントラクト"
 
 msgid "Sorry, this wallet is already linked to another Firefly account. Please try a different one."
-msgstr ""
+msgstr "申し訳ありません。このウォレットは既に別の Firefly アカウントにリンクされています。別のウォレットをお試しください。"
 
 msgid "This token contract is open source. You can check the contract code for details. Unsourced token contracts are likely to have malicious functions to defraud their users of their assets."
-msgstr ""
+msgstr "このトークンコントラクトはオープンソースです。詳細はコントラクトコードを確認してください。ソース不明のトークンコントラクトには、ユーザーの資産を詐取する悪意のある機能がある可能性があります。"
 
 msgid "Share image"
-msgstr ""
+msgstr "画像を共有"
 
 msgid "Darkweb transactions found."
-msgstr ""
+msgstr "ダークウェブ取引が検出されました。"
 
 msgid "One Firefly account manages all your social accounts"
-msgstr ""
+msgstr "1 つの Firefly アカウントですべてのソーシャルアカウントを管理"
 
 msgid "Portfolio"
-msgstr ""
+msgstr "ポートフォリオ"
 
 msgid "Download Wallet"
-msgstr ""
+msgstr "ウォレットをダウンロード"
 
 #. placeholder {0}: resolveSourceName(source)
 msgid "Failed to reply on {0}."
-msgstr ""
+msgstr "{0} への返信に失敗しました。"
 
 msgid "Your gateway to a personalized social experience."
-msgstr ""
+msgstr "パーソナライズされたソーシャル体験へのゲートウェイ。"
 
 msgid "Account or App Password"
-msgstr ""
+msgstr "アカウントまたはアプリパスワード"
 
 msgid "Total amount shared among all winners"
-msgstr ""
+msgstr "全当選者で共有する総額"
 
 msgid "Post details"
-msgstr ""
+msgstr "投稿詳細"
 
 msgid "Leave"
-msgstr ""
+msgstr "退出"
 
 msgid "No money laundering involved."
-msgstr ""
+msgstr "マネーロンダリングは関与していません。"
 
 msgid "Sign in with Orb App"
-msgstr ""
+msgstr "Orb アプリでログイン"
 
 msgid "Cross-post to multiple platforms, track friends' trades, uncover alpha in social posts"
-msgstr ""
+msgstr "複数プラットフォームにクロスポスト、友達の取引を追跡、ソーシャル投稿からアルファを発見"
 
 msgid "Enter number of winners"
-msgstr ""
+msgstr "当選者数を入力"
 
 msgid "<0>Posted</0><1>an article on <2/></1>"
-msgstr ""
+msgstr "<0>投稿</0><1><2/> で記事を投稿しました</1>"
 
 msgid "Claims"
-msgstr ""
+msgstr "受け取り"
 
 msgid "Failed to bookmark snapshot."
-msgstr ""
+msgstr "Snapshot のブックマークに失敗しました。"
 
 #. placeholder {0}: humanize(count)
 msgid "{0} Comments"
-msgstr ""
+msgstr "{0} 件のコメント"
 
 msgid "Assuming circulating supply = total supply (includes locked, excludes burned)"
-msgstr ""
+msgstr "流通供給量 = 総供給量と仮定（ロック分を含み、バーン分を除く）"
 
 msgid "Resend"
-msgstr ""
+msgstr "再送信"
 
 msgid "Schedule Post"
-msgstr ""
+msgstr "投稿を予約"
 
 msgid "Download"
-msgstr ""
+msgstr "ダウンロード"
 
 msgid "Searching tokens"
-msgstr ""
+msgstr "トークンを検索中"
 
 msgid "The contract owner has the authority to modify the balance of tokens at other addresses, which may result in a loss of assets."
-msgstr ""
+msgstr "コントラクトオーナーは他のアドレスのトークン残高を変更する権限があり、資産の損失につながる可能性があります。"
 
 #. placeholder {0}: profile.handle
 msgid "Failed to unmute @{0} on {sourceName}."
-msgstr ""
+msgstr "{sourceName} で @{0} のミュート解除に失敗しました。"
 
 msgid "Others in the conversation"
-msgstr ""
+msgstr "会話の他の参加者"
 
 msgid "Sign In"
-msgstr ""
+msgstr "ログイン"
 
 msgid "Scroll categories right"
-msgstr ""
+msgstr "カテゴリを右にスクロール"
 
 msgid "Insufficient Balance"
-msgstr ""
+msgstr "残高不足"
 
 msgid "Empty"
-msgstr ""
+msgstr "空"
 
 msgid "All"
-msgstr ""
+msgstr "すべて"
 
 msgid "Share to"
-msgstr ""
+msgstr "共有先"
 
 msgid "Tax cannot be modified"
-msgstr ""
+msgstr "税は変更できません"
 
 msgid "View all"
-msgstr ""
+msgstr "すべて表示"
 
 msgid "This token contract has not been verified. We cannot check the contract code for details. Unsourced token contracts are likely to have malicious functions to defraud users of their assets."
-msgstr ""
+msgstr "このトークンコントラクトは検証されていません。コントラクトコードの詳細を確認できません。ソース不明のトークンコントラクトには、ユーザーの資産を詐取する悪意のある機能がある可能性があります。"
 
 msgid "Replies"
-msgstr ""
+msgstr "返信"
 
 msgid "Comment"
-msgstr ""
+msgstr "コメント"
 
 msgid "You haven't traded this token."
-msgstr ""
+msgstr "このトークンはまだ取引していません。"
 
 msgid "Non-sanctioned address."
-msgstr ""
+msgstr "制裁対象外のアドレスです。"
 
 msgid "Current Results"
-msgstr ""
+msgstr "現在の結果"
 
 msgid "Solana wallets"
-msgstr ""
+msgstr "Solana ウォレット"
 
 msgid "Connect the required social profile to select."
-msgstr ""
+msgstr "選択するには必要なソーシャルプロフィールを接続してください。"
 
 msgid "You can withdraw any unclaimed amount 24 hours after creating this lucky drop."
-msgstr ""
+msgstr "このラッキードロップを作成して 24 時間後、未受け取りの金額を引き出せます。"
 
 #. placeholder {0}: formatBalance(x.amount, x.decimals)
 msgid "no less than {0}"
-msgstr ""
+msgstr "{0} 以上"
 
 #. js-lingui-explicit-id
 msgid "nft-items"
-msgstr ""
+msgstr "NFT 項目"
 
 msgid "Enter Total Amount"
-msgstr ""
+msgstr "総額を入力"
 
 msgid "Set"
-msgstr ""
+msgstr "設定"
 
 msgid "This address is already verified"
-msgstr ""
+msgstr "このアドレスは既に認証済みです"
 
 #. placeholder {0}: toFixedTrimmed(+usdcSize, 2)
 msgid "<0>Made a prediction</0><1>worth ${0} at <2/></1>"
-msgstr ""
+msgstr "<0>予測しました</0><1><2/> で ${0} の価値</1>"
 
 msgid "[Poll]"
-msgstr ""
+msgstr "[アンケート]"
 
 msgid "Only people you mention"
-msgstr ""
+msgstr "メンションした人のみ"
 
 msgid "1M"
-msgstr ""
+msgstr "1ヶ月"
 
 #. placeholder {0}: fromAccountInfo?.link ? ( <Link onClick={stopPropagation} className="font-bold hover:underline" href={fromAccountInfo.link} > {fromAccountInfo?.displayName || '-'} </Link> ) : ( <span className="font-bold">{fromAccountInfo?.displayName || '-'}</span> )
 msgid "{0} liked your <0>tip</0>"
-msgstr ""
+msgstr "{0} があなたの <0>チップ</0> にいいねしました"
 
 #. placeholder {0}: dayjs(draft.createdAt).format('ddd, MMM DD, YYYY [at] h:mm A')
 msgid "Saved on {0}"
-msgstr ""
+msgstr "{0} に保存"
 
 #. placeholder {0}: error instanceof Error ? ` ${error.message}` : ''
 msgid "Failed to vote.{0}"
-msgstr ""
+msgstr "投票に失敗しました。{0}"
 
 msgid "Dex"
-msgstr ""
+msgstr "Dex"
 
 msgid "Add another option"
-msgstr ""
+msgstr "別のオプションを追加"
 
 #. placeholder {0}: space.participant_count?.toLocaleString()
 msgid "{0} turned in"
-msgstr ""
+msgstr "{0} が提出しました"
 
 #. placeholder {0}: resolveSourceName(x)
 msgid "Your posts have published successfully on {0}."
-msgstr ""
+msgstr "あなたの投稿が {0} に正常に公開されました。"
 
 msgid "Passed"
-msgstr ""
+msgstr "可決"
 
 msgid "Only people you follow"
-msgstr ""
+msgstr "フォローしている人のみ"
 
 msgid "Manage the accounts, wallets, and clubs that you’ve muted."
-msgstr ""
+msgstr "ミュートしたアカウント、ウォレット、クラブを管理します。"
 
 msgid "Description"
-msgstr ""
+msgstr "説明"
 
 msgid "Others"
-msgstr ""
+msgstr "その他"
 
 msgid "<0>{userName}</0> liked your <1>{itemType}</1>"
-msgstr ""
+msgstr "<0>{userName}</0> があなたの <1>{itemType}</1> にいいねしました"
 
 msgid "This token is not issued by its declared team. Some scams will create a well-known token with the same name to defraud their users of their assets."
-msgstr ""
+msgstr "このトークンは宣言されたチームによって発行されていません。詐欺では同名の有名トークンを作成してユーザーの資産を詐取することがあります。"
 
 msgid "The signer is not authorized to perform the requested operation. Please approve again."
-msgstr ""
+msgstr "署名者は要求された操作を実行する権限がありません。再度承認してください。"
 
 msgid "The account you are trying to log in with is already linked to a different Firefly account."
-msgstr ""
+msgstr "ログインしようとしているアカウントは既に別の Firefly アカウントにリンクされています。"
 
 msgid "Something went wrong"
-msgstr ""
+msgstr "問題が発生しました"
 
 msgid "Search post"
-msgstr ""
+msgstr "投稿を検索"
 
 msgid "Your Recovery Phrase"
-msgstr ""
+msgstr "リカバリーフレーズ"
 
 #. placeholder {0}: channel.name
 msgid "Added #{0} on {sourceName}"
-msgstr ""
+msgstr "{sourceName} で #{0} を追加しました"
 
 msgid "Failed to switch chain"
-msgstr ""
+msgstr "チェーンの切り替えに失敗しました"
 
 msgid "Muted wallets"
-msgstr ""
+msgstr "ミュートしたウォレット"
 
 msgid "Create time:"
-msgstr ""
+msgstr "作成時刻:"
 
 msgid "No polymarket profile found."
-msgstr ""
+msgstr "Polymarket プロフィールが見つかりません。"
 
 msgid "Username or email address"
-msgstr ""
+msgstr "ユーザー名またはメールアドレス"
 
 msgid "Everything app for Web3 natives"
-msgstr ""
+msgstr "Web3 ネイティブ向けのオールインワンアプリ"
 
 #. placeholder {0}: post.stats.countOpenActions
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7Bcollect%7D+other+%7Bcollects%7D%7D&pluralize_on=0
 msgid "collect"
 msgid_plural "collects"
-msgstr[0] ""
+msgstr[0] "コレクト"
 
 msgid "All wallets and accounts are muted."
-msgstr ""
+msgstr "すべてのウォレットとアカウントがミュートされています。"
 
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 msgid "Disconnected from your social graph"
-msgstr ""
+msgstr "ソーシャルグラフから切断されました"
 
 msgid "Malicious mining activities."
-msgstr ""
+msgstr "悪意のあるマイニング行為。"
 
 msgid "Resolved"
-msgstr ""
+msgstr "決議済み"
 
 msgid "Comment or mention"
-msgstr ""
+msgstr "コメントまたはメンション"
 
 msgid "24H"
-msgstr ""
+msgstr "24時間"
 
 msgid "No codes found to suspend trading."
-msgstr ""
+msgstr "取引を停止するコードは見つかりませんでした。"
 
 msgid "PnL"
-msgstr ""
+msgstr "損益"
 
 msgid "This token can self destruct."
-msgstr ""
+msgstr "このトークンは自己破壊できます。"
 
 #. js-lingui:icu=%7BattentionFactors%2C+plural%2C+one+%7B%23+Attention+item%7D+other+%7B%23+Attention+items%7D%7D&pluralize_on=attentionFactors
 msgid "# Attention item"
 msgid_plural "# Attention items"
-msgstr[0] ""
+msgstr[0] "# 注意項目"
 
 msgid "Hide more comments"
-msgstr ""
+msgstr "コメントを折りたたむ"
 
 msgid "No blacklist"
-msgstr ""
+msgstr "ブラックリストなし"
 
 msgid "Address removed on Farcaster"
-msgstr ""
+msgstr "Farcaster でアドレスが削除されました"
 
 msgid "Failed to switch wallet. Please try again"
-msgstr ""
+msgstr "ウォレットの切り替えに失敗しました。もう一度お試しください"
 
 msgid "Like / Repost / Comment"
-msgstr ""
+msgstr "いいね / リポスト / コメント"
 
 #. placeholder {0}: spreads !== null && !!asks.length && !!bids.length ? `${(spreads * 100).toFixed(1)}¢` : '0.0¢'
 msgid "Spread: {0}"
-msgstr ""
+msgstr "スプレッド: {0}"
 
 msgid "Let's go!"
-msgstr ""
+msgstr "さあ、始めましょう！"
 
 msgid "Trending Clubs"
-msgstr ""
+msgstr "トレンドクラブ"
 
 #. placeholder {0}: percentageToNumber(info.buy_tax)
 msgid "Buy Tax: {0}%"
-msgstr ""
+msgstr "購入税: {0}%"
 
 msgid "<0>Collected</0><1/>"
-msgstr ""
+msgstr "<0>コレクト</0><1/>"
 
 msgid "Post was deleted"
-msgstr ""
+msgstr "投稿は削除されました"
 
 msgid "Please confirm login in the app"
-msgstr ""
+msgstr "アプリでログインを確認してください"
 
 msgid "Website"
-msgstr ""
+msgstr "ウェブサイト"
 
 #. placeholder {0}: post.mirrors.find((profile) => !isSameProfile(profile, currentProfile)) ?.displayName
 msgid "<0>You</0> and {0} recasted"
-msgstr ""
+msgstr "<0>あなた</0> と {0} がリキャストしました"
 
 msgid "Stickers"
-msgstr ""
+msgstr "ステッカー"
 
 msgid "Estimated cost"
-msgstr ""
+msgstr "推定コスト"
 
 msgid "No trade records"
-msgstr ""
+msgstr "取引記録がありません"
 
 msgid "Minting"
-msgstr ""
+msgstr "ミント中"
 
 msgid "Failed to login."
-msgstr ""
+msgstr "ログインに失敗しました。"
 
 msgid "Network"
-msgstr ""
+msgstr "ネットワーク"
 
 msgid "Top Searches"
-msgstr ""
+msgstr "人気の検索"
 
 msgid "Article added to your Bookmarks"
-msgstr ""
+msgstr "記事がブックマークに追加されました"
 
 msgid "Dark Mode"
-msgstr ""
+msgstr "ダークモード"
 
 msgid "Just now"
-msgstr ""
+msgstr "たった今"
 
 msgid "Mine"
-msgstr ""
+msgstr "マイ"
 
 #. placeholder {0}: article.title
 #. placeholder {0}: profile.handle
 msgid "Failed to report @{0}."
-msgstr ""
+msgstr "@{0} の報告に失敗しました。"
 
 msgid "You may lose your assets if giving approval to the website of this token."
-msgstr ""
+msgstr "このトークンのウェブサイトに承認を与えると、資産を失う可能性があります。"
 
 msgid "Your Firefly Identity is now active."
-msgstr ""
+msgstr "あなたの Firefly ID が有効になりました。"
 
 msgid "Create a Post"
-msgstr ""
+msgstr "投稿を作成"
 
 msgid "Platform filter"
-msgstr ""
+msgstr "プラットフォームフィルター"
 
 msgid "Chain filter"
-msgstr ""
+msgstr "チェーンフィルター"
 
 msgid "Post with link"
-msgstr ""
+msgstr "リンク付きで投稿"
 
 msgid "Failed to mint NFT."
-msgstr ""
+msgstr "NFT のミントに失敗しました。"
 
 msgid "Unfollow"
-msgstr ""
+msgstr "フォロー解除"
 
 msgid "Rank #{tokenRank}"
-msgstr ""
+msgstr "ランキング #{tokenRank}"
 
 msgid "No one can reply"
-msgstr ""
+msgstr "誰も返信できません"
 
 #. placeholder {0}: snapshot.title
 msgid "🙌 Just voted on “{0}”"
-msgstr ""
+msgstr "🙌 「{0}」に投票しました"
 
 msgid "You can set one or multiple rules to be eligible to win a Lucky Drop."
-msgstr ""
+msgstr "ラッキードロップの受け取り資格となるルールを 1 つまたは複数設定できます。"
 
 #. placeholder {0}: collection.volume_1d
 #. placeholder {1}: collection.price_symbol
 msgid "{0} {1} <0>24H Vol</0>"
-msgstr ""
+msgstr "{0} {1} <0>24時間取引量</0>"
 
 msgid "No positions found."
-msgstr ""
+msgstr "ポジションが見つかりません。"
 
 msgid "NEW"
-msgstr ""
+msgstr "新着"
 
 #. placeholder {0}: resolveSourceName(Source.Bsky)
 #. placeholder {0}: resolveSourceName(Source.Farcaster)
 #. placeholder {0}: resolveSourceName(Source.Lens)
 msgid "Your {0} account is now connected."
-msgstr ""
+msgstr "あなたの {0} アカウントが接続されました。"
 
 msgid "Not Found"
-msgstr ""
+msgstr "見つかりません"
 
 msgid "Sorry, the passcode you entered is invalid"
-msgstr ""
+msgstr "申し訳ありません。入力したパスコードは無効です"
 
 msgid "Votes"
-msgstr ""
+msgstr "投票"
 
 #. placeholder {0}: data.daily_limit
 #. placeholder {1}: data.wait_minutes
 msgid "Your post will be shared anonymously through:<0/>X (Twitter): <1>@anoncast_</1><2/>Farcaster: <3>@anoncast</3> / <4>@anonworld</4><5>Limits: <6>{0} posts/day</6> with {1}-minute intervals (applies to posts, replies, and quotes).</5><7>Posts are anonymized using secure algorithms (takes a few minutes). Do not share sensitive content.</7>"
-msgstr ""
+msgstr "あなたの投稿は以下を通じて匿名で共有されます:<0/>X (Twitter): <1>@anoncast_</1><2/>Farcaster: <3>@anoncast</3> / <4>@anonworld</4><5>制限: <6>1日 {0} 投稿</6>、{1} 分間隔（投稿、返信、引用に適用）。</5><7>投稿は安全なアルゴリズムで匿名化されます（数分かかります）。機密性の高いコンテンツは共有しないでください。</7>"
 
 msgid "Bio should not exceed {maxBioSize} characters"
-msgstr ""
+msgstr "自己紹介は {maxBioSize} 文字以内にしてください"
 
 msgid "Snapshot liked."
-msgstr ""
+msgstr "いいねしました。"
 
 msgid "Circulating Supply"
-msgstr ""
+msgstr "流通供給量"
 
 msgid "The contract owner has no restrictions on personal slippage."
-msgstr ""
+msgstr "コントラクトオーナーは個人のスリッページに制限を設けていません。"
 
 msgid "Number of winners"
-msgstr ""
+msgstr "当選者数"
 
 msgid "5 minutes"
-msgstr ""
+msgstr "5 分"
 
 msgid "Display Name should not exceed {maxDisplayNameSize} characters"
-msgstr ""
+msgstr "表示名は {maxDisplayNameSize} 文字以内にしてください"
 
 msgid "ALL"
-msgstr ""
+msgstr "すべて"
 
 msgid "Note: Cloud drafts save text only. Please upload original images or video again."
-msgstr ""
+msgstr "注意: クラウド下書きはテキストのみ保存されます。元の画像または動画を再度アップロードしてください。"
 
 msgid "Turning off multi-device login will cause scheduled posts to fail. To ensure that posts are sent as scheduled, please make sure that multi-device login remains turned on."
-msgstr ""
+msgstr "マルチデバイスログインをオフにすると、予約投稿が失敗します。予定どおりに投稿を送信するには、マルチデバイスログインをオンにしたままにしてください。"
 
 msgid "This Bluesky account is already linked to another Firefly account."
-msgstr ""
+msgstr "この Bluesky アカウントは既に別の Firefly アカウントにリンクされています。"
 
 msgid "Failed to send tip."
-msgstr ""
+msgstr "チップの送信に失敗しました。"
 
 msgid "Failed to switch."
-msgstr ""
+msgstr "切り替えに失敗しました。"
 
 #. placeholder {0}: Math.floor(span / MINUTE_SPAN)
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7B%23+minute%7D+other+%7B%23+minutes%7D%7D&pluralize_on=0
 msgid "# minute"
 msgid_plural "# minutes"
-msgstr[0] ""
+msgstr[0] "# 分"
 
 msgid "<0/> and <1/>"
-msgstr ""
+msgstr "<0/> と <1/>"
 
 msgid "Post has been deleted"
-msgstr ""
+msgstr "投稿は削除されました"
 
 msgid "Multi-device login is now turned on and synced successfully."
-msgstr ""
+msgstr "マルチデバイスログインがオンになり、同期が完了しました。"
 
 msgid "This article is no longer available"
-msgstr ""
+msgstr "この記事は利用できなくなりました"
 
 msgid "Connecting Wallet"
-msgstr ""
+msgstr "ウォレットを接続中"
 
 msgid "Report article"
-msgstr ""
+msgstr "記事を報告"
 
 #. placeholder {0}: outcome.label
 msgid "<0>Buy {0}</0><1/>"
-msgstr ""
+msgstr "<0>{0} を購入</0><1/>"
 
 #. placeholder {0}: error.url
 msgid "Not Found. Please check your URL. [{0}]"
-msgstr ""
+msgstr "見つかりません。URL を確認してください。[{0}]"
 
 msgid "5m"
-msgstr ""
+msgstr "5分"
 
 msgid "{minutes}m left"
-msgstr ""
+msgstr "残り {minutes} 分"
 
 msgid "Neutral"
-msgstr ""
+msgstr "中立"
 
 #. placeholder {0}: profile.handle
 msgid "Unmuted @{0} on {sourceName}."
-msgstr ""
+msgstr "{sourceName} で @{0} のミュートを解除しました。"
 
 msgid "Turn on notifications to never miss important alerts."
-msgstr ""
+msgstr "重要なアラートを見逃さないよう、通知をオンにしてください。"
 
 msgid "Everyone"
-msgstr ""
+msgstr "全員"
 
 msgid "Tip sent successfully!"
-msgstr ""
+msgstr "チップの送信に成功しました！"
 
 msgid "Open Interest"
-msgstr ""
+msgstr "建玉"
 
 #. placeholder {0}: Math.floor(span / MONTH_SPAN)
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7B%23+month%7D+other+%7B%23+months%7D%7D&pluralize_on=0
 msgid "# month"
 msgid_plural "# months"
-msgstr[0] ""
+msgstr[0] "# ヶ月"
 
 msgid "This token is issued by its declared team. Some scams will create a well-known token with the same name to defraud their users of their assets."
-msgstr ""
+msgstr "このトークンは宣言されたチームによって発行されています。詐欺では同名の有名トークンを作成してユーザーの資産を詐取することがあります。"
 
 #. placeholder {0}: activeConnector.name
 msgid "Select Chain for {0}"
-msgstr ""
+msgstr "{0} のチェーンを選択"
 
 msgid "Search ${symbol}"
-msgstr ""
+msgstr "${symbol} を検索"
 
 msgid "If a suspendable code is included, the token maybe neither be bought nor sold (honeypot risk)."
-msgstr ""
+msgstr "停止可能なコードが含まれている場合、トークンは売買できない可能性があります（ハニーポットのリスク）。"
 
 msgid "All chains"
-msgstr ""
+msgstr "すべてのチェーン"
 
 msgid "Your email is now connected."
-msgstr ""
+msgstr "メールが接続されました。"
 
 msgid "Bookmark"
-msgstr ""
+msgstr "ブックマーク"
 
 msgid "Total Supply"
-msgstr ""
+msgstr "総供給量"
 
 msgid "Block transactions under $100"
-msgstr ""
+msgstr "$100 未満の取引をブロック"
 
 msgid "Prediction liked."
-msgstr ""
+msgstr "いいねしました。"
 
 msgid "Volume · MC"
-msgstr ""
+msgstr "取引量 · 時価総額"
 
 #. placeholder {0}: channel.id
 #. placeholder {0}: channel.name
 msgid "Failed to unmute /{0}."
-msgstr ""
+msgstr "/{0} のミュート解除に失敗しました。"
 
 msgid "Custom amount is required for this token"
-msgstr ""
+msgstr "このトークンにはカスタム金額が必要です"
 
 msgid "No tax changes found for personal addresses."
-msgstr ""
+msgstr "個人アドレスの税変更は見つかりませんでした。"
 
 msgid "View Finished"
-msgstr ""
+msgstr "終了済みを表示"
 
 msgid "This QR code is longer valid. Please scan a new one to continue."
-msgstr ""
+msgstr "この QR コードは無効です。続行するには新しいコードをスキャンしてください。"
 
 #. placeholder {0}: token.symbol
 msgid "Unlock {0}"
-msgstr ""
+msgstr "{0} をロック解除"
 
 msgid "Cover background"
-msgstr ""
+msgstr "カバー背景"
 
 msgid "Proposal"
-msgstr ""
+msgstr "提案"
 
 #. placeholder {0}: resolveSourceName(target!)
 msgid "Your post was sent to {0}"
-msgstr ""
+msgstr "あなたの投稿が {0} に送信されました"
 
 msgid "News"
-msgstr ""
+msgstr "ニュース"
 
 msgid "Truth Social"
-msgstr ""
+msgstr "Truth Social"
 
 msgid "Owned"
-msgstr ""
+msgstr "所有"
 
 msgid "Associated wallets"
-msgstr ""
+msgstr "関連ウォレット"
 
 msgid "Connected"
-msgstr ""
+msgstr "接続済み"
 
 msgid "No holders found."
-msgstr ""
+msgstr "ホルダーが見つかりません。"
 
 msgid "Buy"
-msgstr ""
+msgstr "購入"
 
 msgid "Select Chain"
-msgstr ""
+msgstr "チェーンを選択"
 
 msgid "Edit Profile"
-msgstr ""
+msgstr "プロフィールを編集"
 
 #. placeholder {0}: profile.handle
 msgid "Confirm you want to mute @{0}?"
-msgstr ""
+msgstr "@{0} をミュートしてもよろしいですか？"
 
 msgid "Verified by Farcaster"
-msgstr ""
+msgstr "Farcaster による認証済み"
 
 msgid "No asks"
-msgstr ""
+msgstr "売り注文なし"
 
 msgid "<0/> PnL(%)"
-msgstr ""
+msgstr "<0/> 損益(%)"
 
 msgid "OR"
-msgstr ""
+msgstr "または"
 
 msgid "The whitelist function is included. Some addresses may not be able to trade normally (honeypot risk)."
-msgstr ""
+msgstr "ホワイトリスト機能が含まれています。一部のアドレスは正常に取引できない可能性があります（ハニーポットのリスク）。"
 
 msgid "1Y"
-msgstr ""
+msgstr "1年"
 
 msgid "NFT ID"
-msgstr ""
+msgstr "NFT ID"
 
 msgid "Compose"
-msgstr ""
+msgstr "投稿"
 
 msgid "Primary account"
-msgstr ""
+msgstr "プライマリアカウント"
 
 #. placeholder {0}: notification.post.type
 msgid "<0/> mentioned you in a <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</1>"
-msgstr ""
+msgstr "<0/> が <1>{0, select, Post {投稿} Comment {コメント} Quote {引用} Mirror {リポスト} other {投稿}}</1> であなたにメンションしました"
 
 #. placeholder {0}: outcomeLabel || '-'
 msgid "Trade {0}"
-msgstr ""
+msgstr "{0} を取引"
 
 msgid "Sign in with Bluesky"
-msgstr ""
+msgstr "Bluesky でログイン"
 
 msgid "Failed to send tip. Please try again later."
-msgstr ""
+msgstr "チップの送信に失敗しました。後でもう一度お試しください。"
 
 msgid "Failed to unlike prediction."
-msgstr ""
+msgstr "予測のいいね取り消しに失敗しました。"
 
 #. placeholder {0}: first(post.reactions)?.displayName
 msgid "<0>{0}</0> liked"
-msgstr ""
+msgstr "<0>{0}</0> がいいねしました"
 
 msgid "Phishing activities."
-msgstr ""
+msgstr "フィッシング行為。"
 
 msgid "Show more tokens with small balances"
-msgstr ""
+msgstr "少額残高のトークンをもっと表示"
 
 msgid "Swapped"
-msgstr ""
+msgstr "スワップ済み"
 
 #. placeholder {0}: status.payload.farcasterChannelId
 msgid "Member of <0>/{0}</0>"
-msgstr ""
+msgstr "<0>/{0}</0> のメンバー"
 
 msgid "24h Vol"
-msgstr ""
+msgstr "24時間取引量"
 
 msgid "Requirements"
-msgstr ""
+msgstr "条件"
 
 msgid "Time range filter"
-msgstr ""
+msgstr "期間フィルター"
 
 msgid "EVM wallets"
-msgstr ""
+msgstr "EVM ウォレット"
 
 #. placeholder {0}: collection.floor_price
 #. placeholder {1}: collection.price_symbol
 msgid "{0} {1} <0>Floor</0>"
-msgstr ""
+msgstr "{0} {1} <0>フロア価格</0>"
 
 msgid "Hide tokens with small balances"
-msgstr ""
+msgstr "少額残高のトークンを非表示"
 
 msgid "Welcome back to Firefly!"
-msgstr ""
+msgstr "Firefly へようこそ！"
 
 #. js-lingui:icu=%7BriskyFactors%2C+plural%2C+one+%7B%23+Risky+item%7D+other+%7B%23+Risky+items%7D%7D&pluralize_on=riskyFactors
 msgid "# Risky item"
 msgid_plural "# Risky items"
-msgstr[0] ""
+msgstr[0] "# リスク項目"
 
 msgid "The password you entered is incorrect. Please try again."
-msgstr ""
+msgstr "入力したパスワードが正しくありません。もう一度お試しください。"
 
 msgid "The self-destruct function is included. The project owner may have the ability to destroy the contract."
-msgstr ""
+msgstr "自己破壊機能が含まれています。プロジェクトオーナーがコントラクトを破壊できる可能性があります。"
 
 msgid "Enable now"
-msgstr ""
+msgstr "今すぐ有効化"
 
 msgid "Failed to unlike the comment."
-msgstr ""
+msgstr "コメントのいいね取り消しに失敗しました。"
 
 msgid "Mute"
-msgstr ""
+msgstr "ミュート"
 
 msgid "Confirm to log out this account?"
-msgstr ""
+msgstr "このアカウントからログアウトしますか？"
 
 msgid "Statistic"
-msgstr ""
+msgstr "統計"
 
 msgid "A measure of a cryptocurrency trading volume across all tracked platforms in the last 24 hours. This is tracked on a rolling 24-hour basis with no open/closing times."
-msgstr ""
+msgstr "過去 24 時間にすべての追跡プラットフォームで取引された暗号資産の取引量の指標です。24 時間のローリングベースで追跡され、始値/終値の時間はありません。"
 
 msgid "Age"
-msgstr ""
+msgstr "経過期間"
 
 msgid "Preview"
-msgstr ""
+msgstr "プレビュー"
 
 msgid "Failed to recast."
-msgstr ""
+msgstr "リキャストに失敗しました。"
 
 msgid "Failed to upload. Video length exceeds {minDuration}s ~ {maxDuration}s"
-msgstr ""
+msgstr "アップロードに失敗しました。動画の長さが {minDuration}秒 ~ {maxDuration}秒 の制限を超えています"
 
 msgid "Reset password"
-msgstr ""
+msgstr "パスワードをリセット"
 
 msgid "Post collected successfully!"
-msgstr ""
+msgstr "投稿のコレクトに成功しました！"
 
 msgid "NFT minted successfully!"
-msgstr ""
+msgstr "NFT のミントに成功しました！"
 
 msgid "Reposts"
-msgstr ""
+msgstr "リポスト"
 
 msgid "Tip"
-msgstr ""
+msgstr "チップ"
 
 msgid "Unmute"
-msgstr ""
+msgstr "ミュート解除"
 
 msgid "Final outcome: {outcomeLabel}"
-msgstr ""
+msgstr "最終結果: {outcomeLabel}"
 
 msgid "The contract owner has no restrictions on anti whale."
-msgstr ""
+msgstr "コントラクトオーナーは反クジラに制限を設けていません。"
 
 msgid "Final review"
-msgstr ""
+msgstr "最終レビュー"
 
 msgid "Exclusive Events"
-msgstr ""
+msgstr "限定イベント"
 
 msgid "Display Name should not be blank"
-msgstr ""
+msgstr "表示名を空にすることはできません"
 
 msgid "Clear All"
-msgstr ""
+msgstr "すべてクリア"
 
 msgid "Failed to download image. Please try again later."
-msgstr ""
+msgstr "画像のダウンロードに失敗しました。後でもう一度お試しください。"
 
 msgid "Lens"
-msgstr ""
+msgstr "Lens"
 
 msgid "This contract is an Admin Upgradeability Proxy. The proxy contract means the contract owner can modify the function of the token and could possibly effect the price.There is possibly a way for the team to Rug or Scam. Please confirm the details with the project team before buying."
-msgstr ""
+msgstr "このコントラクトは Admin Upgradeability Proxy です。プロキシコントラクトは、コントラクトオーナーがトークンの機能を変更し、価格に影響を与える可能性があることを意味します。チームがラグプルまたは詐欺を行う可能性があります。購入前にプロジェクトチームに詳細を確認してください。"
 
 msgid "Congratulations!"
-msgstr ""
+msgstr "おめでとうございます！"
 
 msgid "Post added to your Bookmarks"
-msgstr ""
+msgstr "投稿がブックマークに追加されました"
 
 msgid "Volume Traded"
-msgstr ""
+msgstr "取引量"
 
 msgid "Clear all requirements"
-msgstr ""
+msgstr "すべての条件をクリア"
 
 msgid "please <0>change</0> to another wallet."
-msgstr ""
+msgstr "別のウォレットに<0>切り替え</0>てください。"
 
 msgid "Claim Requirements"
-msgstr ""
+msgstr "受け取り条件"
 
 msgid "Failed to fetch bookmarks."
-msgstr ""
+msgstr "ブックマークの取得に失敗しました。"
 
 #. placeholder {0}: filteredProfiles[0].handle
 #. placeholder {1}: filteredProfiles[1].handle
 #. placeholder {2}: filteredProfiles[2].handle
 #. placeholder {3}: resolveSourceName(post.source)
 msgid "Replying to <0>@{0}</0> ,<1>@{1}</1> and <2>@{2}</2> on {3}"
-msgstr ""
+msgstr "{3} で <0>@{0}</0>、<1>@{1}</1>、<2>@{2}</2> に返信中"
 
 msgid "Follow Back"
-msgstr ""
+msgstr "フォローバック"
 
 msgid "This wallet has been flagged as compromised. Please do not trust or interact with it. Avoid any transactions or sharing of sensitive information. Stay safe!"
-msgstr ""
+msgstr "このウォレットは侵害されたとフラグが付けられています。信頼したり操作したりしないでください。取引や機密情報の共有を避けてください。安全に！"
 
 msgid "Sold"
-msgstr ""
+msgstr "売却済み"
 
 msgid "Wallet"
-msgstr ""
+msgstr "ウォレット"
 
 msgid "Failed to read avatar file, please try again."
-msgstr ""
+msgstr "アバターファイルの読み込みに失敗しました。もう一度お試しください。"
 
 msgid "My Accounts"
-msgstr ""
+msgstr "マイアカウント"
 
 msgid "We do not recommend ever sharing it with any app or person."
-msgstr ""
+msgstr "いかなるアプリや人とも共有しないことをお勧めします。"
 
 msgid "Bookmarked Token"
-msgstr ""
+msgstr "ブックマークしたトークン"
 
 msgid "Confirm to disconnect this account and related wallets from Firefly’s social graph?"
-msgstr ""
+msgstr "このアカウントと関連ウォレットを Firefly のソーシャルグラフから切断しますか？"
 
 msgid "Unfollowed {handleOrEnsOrAddress} on Firefly"
-msgstr ""
+msgstr "Firefly で {handleOrEnsOrAddress} のフォローを解除しました"
 
 msgid "Topics"
-msgstr ""
+msgstr "トピック"
 
 msgid "Enter your password to verify your identity."
-msgstr ""
+msgstr "本人確認のためパスワードを入力してください。"
 
 #. placeholder {0}: profile.handle
 msgid "Unmute @{0}"
-msgstr ""
+msgstr "@{0} のミュートを解除"
 
 msgid "Are you sure you want to report this article?"
-msgstr ""
+msgstr "この記事を報告してもよろしいですか？"
 
 msgid "Failed to create Firefly profile."
-msgstr ""
+msgstr "Firefly プロフィールの作成に失敗しました。"
 
 msgid "Unauthorized. Please check your login."
-msgstr ""
+msgstr "未認証です。ログインを確認してください。"
 
 msgid "Failed to upload. Video size exceeds {minWidth}x{minHeight} ~ {maxWidth}x{maxHeight}"
-msgstr ""
+msgstr "アップロードに失敗しました。動画のサイズが {minWidth}x{minHeight} ~ {maxWidth}x{maxHeight} の制限を超えています"
 
 msgid "Mask Network"
-msgstr ""
+msgstr "Mask Network"
 
 #. placeholder {0}: token.symbol
 msgid "Grant access to your {0} for the Lucky Drop Smart contract. You only have to do this once per token."
-msgstr ""
+msgstr "ラッキードロップスマートコントラクトに {0} へのアクセスを許可してください。トークンごとに 1 回だけ行えば十分です。"
 
 msgid "Post your reply"
-msgstr ""
+msgstr "返信を投稿"
 
 msgid "Add Token"
-msgstr ""
+msgstr "トークンを追加"
 
 #. placeholder {0}: account?.uid
 msgid "UID: {0}"
-msgstr ""
+msgstr "UID: {0}"
 
 msgid "Owner can set a different tax rate for every assigned address."
-msgstr ""
+msgstr "オーナーは各指定アドレスに異なる税率を設定できます。"
 
 msgid "View on explorer"
-msgstr ""
+msgstr "エクスプローラーで表示"
 
 msgid "Your Telegram account is now connected"
-msgstr ""
+msgstr "あなたの Telegram アカウントが接続されました"
 
 #. placeholder {0}: notification.comment.commentOn.type
 msgid "<0/> commented on your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</1>"
-msgstr ""
+msgstr "<0/> があなたの <1>{0, select, Post {投稿} Comment {コメント} Quote {引用} Mirror {リポスト} other {投稿}}</1> にコメントしました"
 
 #. placeholder {0}: channel.name
 msgid "Failed to remove #{0} on {sourceName}"
-msgstr ""
+msgstr "{sourceName} で #{0} の削除に失敗しました"
 
 msgid "Price · Change"
-msgstr ""
+msgstr "価格 · 変動"
 
 msgid "NFT holder of any one below"
-msgstr ""
+msgstr "以下のいずれかの NFT ホルダー"
 
 msgid "Users"
-msgstr ""
+msgstr "ユーザー"
 
 msgid "Sanctioned address found."
-msgstr ""
+msgstr "制裁対象のアドレスが検出されました。"
 
 #. placeholder {0}: profile.handle
 msgid "Unfollowed @{0} on {sourceName}"
-msgstr ""
+msgstr "{sourceName} で @{0} のフォローを解除しました"
 
 msgid "Push notifications"
-msgstr ""
+msgstr "プッシュ通知"
 
 msgid "Your post was sent"
-msgstr ""
+msgstr "あなたの投稿が送信されました"
 
 msgid "Primary"
-msgstr ""
+msgstr "プライマリ"
 
 msgid "Remove"
-msgstr ""
+msgstr "削除"
 
 msgid "Failed to reconnect. Please scan another QR code to establish a new connection."
-msgstr ""
+msgstr "再接続に失敗しました。新しい接続を確立するには別の QR コードをスキャンしてください。"
 
 #. placeholder {0}: author.fullHandle || author.displayName
 msgid "by {0}"
-msgstr ""
+msgstr "{0} より"
 
 msgid "Associated wallet may be outdated or inaccurate. Please verify before sending."
-msgstr ""
+msgstr "関連ウォレットは古いか不正確な可能性があります。送信前に確認してください。"
 
 msgid "Cryptocurrency mixer."
-msgstr ""
+msgstr "暗号資産ミキサー。"
 
 #. placeholder {0}: author.handle
 msgid "Follow @{0}"
-msgstr ""
+msgstr "@{0} をフォロー"
 
 msgid "Biggest Win"
-msgstr ""
+msgstr "最大利益"
 
 msgid "Cancel Recast"
-msgstr ""
+msgstr "リキャストをキャンセル"
 
 msgid "Remove Truth Social"
-msgstr ""
+msgstr "Truth Social を削除"
 
 msgid "Reports"
-msgstr ""
+msgstr "報告"
 
 msgid "The connection has timed out. Please try again later."
-msgstr ""
+msgstr "接続がタイムアウトしました。後でもう一度お試しください。"
 
 msgid "Failed to disconnect"
-msgstr ""
+msgstr "切断に失敗しました"
 
 msgid "Website should not exceed {maxWebsiteSize} characters"
-msgstr ""
+msgstr "ウェブサイトは {maxWebsiteSize} 文字以内にしてください"
 
 msgid "Reload page"
-msgstr ""
+msgstr "ページを再読み込み"
 
 msgid "Scan the QR code with the <0>Camera app</0> <1/>and give <2>edit permission</2> to sign in instantly"
-msgstr ""
+msgstr "<0>カメラアプリ</0><1/>で QR コードをスキャンし、<2>編集権限</2>を付与してすぐにログイン"
 
 msgid "Save"
-msgstr ""
+msgstr "保存"
 
 msgid "Post has been encrypted"
-msgstr ""
+msgstr "投稿は暗号化されました"
 
 msgid "Leaderboard"
-msgstr ""
+msgstr "リーダーボード"
 
 msgid "firefly.eth swapped 1850 USDC for 0.5 ETH"
-msgstr ""
+msgstr "firefly.eth が 1850 USDC を 0.5 ETH にスワップしました"
 
 msgid "Updated profile successfully"
-msgstr ""
+msgstr "プロフィールを正常に更新しました"
 
 msgid "This mini app works only inside Farcaster. Open it there to check it out."
-msgstr ""
+msgstr "このミニアプリは Farcaster 内でのみ動作します。確認するには Farcaster で開いてください。"
 
 msgid "Standard"
-msgstr ""
+msgstr "標準"
 
 msgid "Emoji"
-msgstr ""
+msgstr "絵文字"
 
 #. placeholder {0}: profiles.length - 1
 msgid "<0/> and <1>{0} others</1>"
-msgstr ""
+msgstr "<0/> と <1>他 {0} 人</1>"
 
 msgid "Token ${symbol} could not be found."
-msgstr ""
+msgstr "トークン ${symbol} が見つかりませんでした。"
 
 msgid "Polymarket"
-msgstr ""
+msgstr "Polymarket"
 
 msgid "Video duration limit reached"
-msgstr ""
+msgstr "動画の長さ上限に達しました"
 
 msgid "Failed to report spam NFT."
-msgstr ""
+msgstr "スパム NFT の報告に失敗しました。"
 
 msgid "Confirm to disconnect this wallet and its associated account from Firefly?"
-msgstr ""
+msgstr "このウォレットと関連アカウントを Firefly から切断しますか？"
 
 #. placeholder {0}: toFixedTrimmed(+usdcSize, 2)
 msgid "<0>Sold a position</0><1>worth ${0} at <2/></1>"
-msgstr ""
+msgstr "<0>ポジションを売却</0><1><2/> で ${0} の価値</1>"
 
 msgid "No darkweb transactions found."
-msgstr ""
+msgstr "ダークウェブ取引は検出されませんでした。"
 
 msgid "Contract address"
-msgstr ""
+msgstr "コントラクトアドレス"
 
 msgid "Failed to publish on {sortedSourceNames}"
-msgstr ""
+msgstr "{sortedSourceNames} への公開に失敗しました"
 
 #. placeholder {0}: channel.name
 msgid "Failed to join #{0} on {sourceName}"
-msgstr ""
+msgstr "{sourceName} で #{0} への参加に失敗しました"
 
 msgid "Unfollow {handleOrEnsOrAddress}"
-msgstr ""
+msgstr "{handleOrEnsOrAddress} のフォローを解除"
 
 msgid "{hours}h left"
-msgstr ""
+msgstr "残り {hours} 時間"
 
 msgid "Events"
-msgstr ""
+msgstr "イベント"
 
 msgid "No cybercrime found."
-msgstr ""
+msgstr "サイバー犯罪は検出されませんでした。"
 
 msgid "Scan the QR code with your phone to download the app"
-msgstr ""
+msgstr "スマートフォンで QR コードをスキャンしてアプリをダウンロード"
 
 msgid "Articles"
-msgstr ""
+msgstr "記事"
 
 msgid "Quote posts disabled"
-msgstr ""
+msgstr "引用投稿は無効です"
 
 #. placeholder {0}: resolveSourceName(source)
 msgid "You need to connect your {0} account to use this feature."
-msgstr ""
+msgstr "この機能を使用するには {0} アカウントを接続する必要があります。"
 
 msgid "How to do?"
-msgstr ""
+msgstr "どうすればいいですか？"
 
 #. placeholder {0}: channel.id
 msgid "Failed to follow /{0} on {sourceName}"
-msgstr ""
+msgstr "{sourceName} で /{0} のフォローに失敗しました"
 
 msgid "Bad Request. Please check your request."
-msgstr ""
+msgstr "不正なリクエストです。リクエストを確認してください。"
 
 msgid "Sorry, there is no wallet address available for tipping."
-msgstr ""
+msgstr "申し訳ありません。チップ用のウォレットアドレスがありません。"
 
 msgid "Follow me"
-msgstr ""
+msgstr "フォローしてください"
 
 msgid "No matching users"
-msgstr ""
+msgstr "一致するユーザーがありません"
 
 msgid "✨ Turn on browser notifications to never miss a trade update."
-msgstr ""
+msgstr "✨ 取引の更新を見逃さないよう、ブラウザ通知をオンにしてください。"
 
 msgid "Quality filter"
-msgstr ""
+msgstr "品質フィルター"
 
 #. placeholder {0}: resolveSourceName(post.source)
 #. placeholder {0}: resolveSourceName(source)
 msgid "Connect to {0}"
-msgstr ""
+msgstr "{0} に接続"
 
 msgid "No blackmail activities found."
-msgstr ""
+msgstr "脅迫行為は検出されませんでした。"
 
 msgid "Followers you know"
-msgstr ""
+msgstr "知り合いのフォロワー"
 
 msgid "Settings"
-msgstr ""
+msgstr "設定"
 
 msgid "Font Color"
-msgstr ""
+msgstr "フォントの色"
 
 msgid "Choose Wallet"
-msgstr ""
+msgstr "ウォレットを選択"
 
 msgid "%Owned"
-msgstr ""
+msgstr "%所有"
 
 msgid "Final results"
-msgstr ""
+msgstr "最終結果"
 
 msgid "Grow your followers and engagement with Lucky Drop on Firefly!"
-msgstr ""
+msgstr "Firefly のラッキードロップでフォロワーとエンゲージメントを増やしましょう！"
 
 msgid "Transaction failed"
-msgstr ""
+msgstr "取引に失敗しました"
 
 #. placeholder {0}: profile.handle
 msgid "Set @{0} as primary account"
-msgstr ""
+msgstr "@{0} をプライマリアカウントに設定"
 
 msgid "1W"
-msgstr ""
+msgstr "1週"
 
 msgid "All Chains"
-msgstr ""
+msgstr "すべてのチェーン"
 
 msgid "Status"
-msgstr ""
+msgstr "ステータス"
 
 msgid "Pending"
-msgstr ""
+msgstr "保留中"
 
 msgid "Only people followed by the author can comment on this post."
-msgstr ""
+msgstr "作者がフォローしている人のみがこの投稿にコメントできます。"
 
 msgid "Unsent posts"
-msgstr ""
+msgstr "未送信の投稿"
 
 msgid "Disconnected from your Firefly account"
-msgstr ""
+msgstr "Firefly アカウントから切断されました"
 
 msgid "No blackmail activities involved."
-msgstr ""
+msgstr "脅迫行為は関与していません。"
 
 msgid "No Lens profile found,"
-msgstr ""
+msgstr "Lens プロフィールが見つかりません、"
 
 msgid "Creator"
-msgstr ""
+msgstr "作成者"
 
 msgid "No preview found for shared link"
-msgstr ""
+msgstr "共有リンクのプレビューが見つかりません"
 
 msgid "Scheduled Post"
-msgstr ""
+msgstr "予約投稿"
 
 msgid "Connect your wallet to unlock all features"
-msgstr ""
+msgstr "ウォレットを接続して全機能をロック解除"
 
 msgid "Suspected malicious address found."
-msgstr ""
+msgstr "疑わしい悪意のあるアドレスが検出されました。"
 
 msgid "Recasted"
-msgstr ""
+msgstr "リキャストしました"
 
 msgid "Holders can not sell all of the token."
-msgstr ""
+msgstr "ホルダーは全てのトークンを売却できません。"
 
 msgid "Only followers of the author can comment on this post."
-msgstr ""
+msgstr "作者のフォロワーのみがこの投稿にコメントできます。"
 
 msgid "No phishing activities involved."
-msgstr ""
+msgstr "フィッシング行為は関与していません。"
 
 msgid "Contract source code not verified"
-msgstr ""
+msgstr "コントラクトのソースコードが未検証"
 
 msgid "NFT removed from your Bookmarks"
-msgstr ""
+msgstr "NFT がブックマークから削除されました"
 
 msgid "Users must hold at least one NFT from the collections you specify."
-msgstr ""
+msgstr "ユーザーは指定したコレクションから少なくとも 1 つの NFT を保有している必要があります。"
 
 msgid "Successfully bound Lens manager."
-msgstr ""
+msgstr "Lens マネージャーのバインドに成功しました。"
 
 msgid "Multi-device login is now turned off and all previously sessions are cleared."
-msgstr ""
+msgstr "マルチデバイスログインがオフになり、以前のセッションはすべてクリアされました。"
 
 msgid "Search token"
-msgstr ""
+msgstr "トークンを検索"
 
 msgid "No one you follow has traded this token."
-msgstr ""
+msgstr "フォローしている人はこのトークンを取引していません。"
 
 msgid "Explore - Trending clubs from Farcaster, Lens and Bluesky - Firefly"
-msgstr ""
+msgstr "探索 - Farcaster、Lens、Bluesky のトレンドクラブ - Firefly"
 
 msgid "Remove from bookmarks"
-msgstr ""
+msgstr "ブックマークから削除"
 
 msgid "Search clubs"
-msgstr ""
+msgstr "クラブを検索"
 
 msgid "Failed to get recovery phrase. Please try again."
-msgstr ""
+msgstr "リカバリーフレーズの取得に失敗しました。もう一度お試しください。"
 
 msgid "Not Started"
-msgstr ""
+msgstr "未開始"
 
 msgid "Details"
-msgstr ""
+msgstr "詳細"
 
 msgid "Searching collections"
-msgstr ""
+msgstr "コレクションを検索中"
 
 msgid "Undefined user"
-msgstr ""
+msgstr "未定義のユーザー"
 
 msgid "Unmute {handleOrEnsOrAddress}"
-msgstr ""
+msgstr "{handleOrEnsOrAddress} のミュートを解除"
 
 msgid "Failed to collect post."
-msgstr ""
+msgstr "投稿のコレクトに失敗しました。"
 
 msgid "Verify"
-msgstr ""
+msgstr "検証"
 
 msgid "Explore now"
-msgstr ""
+msgstr "今すぐ探索"
 
 msgid "No anti_whale(Unlimited number of transactions)"
-msgstr ""
+msgstr "反クジラなし（取引回数無制限）"
 
 msgid "Cannot send tip to yourself"
-msgstr ""
+msgstr "自分自身にチップを送ることはできません"
 
 msgid "Adult content"
-msgstr ""
+msgstr "アダルトコンテンツ"
 
 msgid "{remainTryTimes} more incorrect password attempts will clear all your encrypted login sessions."
-msgstr ""
+msgstr "あと {remainTryTimes} 回パスワードを間違えると、暗号化されたログインセッションがすべてクリアされます。"
 
 msgid "Predictions"
-msgstr ""
+msgstr "予測"
 
 msgid "About"
-msgstr ""
+msgstr "について"
 
 msgid "Signed in successfully"
-msgstr ""
+msgstr "ログインに成功しました"
 
 msgid "Already signed in before?"
-msgstr ""
+msgstr "以前にログインしたことがありますか？"
 
 msgid "Hidden owner."
-msgstr ""
+msgstr "隠しオーナー。"
 
 msgid "No external call risk found."
-msgstr ""
+msgstr "外部呼び出しのリスクは検出されませんでした。"
 
 msgid "Order Book"
-msgstr ""
+msgstr "オーダーブック"
 
 #. placeholder {0}: timeLeft.hours
 #. placeholder {1}: timeLeft.minutes
 #. placeholder {2}: timeLeft.seconds
 msgid "{0}h: {1}m: {2}s"
-msgstr ""
+msgstr "{0}時: {1}分: {2}秒"
 
 msgid "Prediction unliked."
-msgstr ""
+msgstr "いいねを取り消しました。"
 
 #. placeholder {0}: resolveSourceName(source)
 #. placeholder {1}: error instanceof Error ? error.message : ''
 msgid "Failed to create {0} profile.{1}"
-msgstr ""
+msgstr "{0} プロフィールの作成に失敗しました。{1}"
 
 #. placeholder {0}: tokenCount && tokenCount > 1 ? <div className={tagClassName}>× {tokenCount}</div> : null
 #. placeholder {1}: feed.deployPlatform && feed.deployPlatformLogo ? ( <div className="flex items-center gap-1"> on <Image src={feed.deployPlatformLogo} className="size-[18px] rounded-full" alt={feed.deployPlatform} width={18} height={18} /> <span className="h-6 capitalize leading-6">{feed.deployPlatform}</span> </div> ) : null
 msgid "<0>Minted</0><1/>{0}{1}"
-msgstr ""
+msgstr "<0>ミント</0><1/>{0}{1}"
 
 msgid "Lens Auto login"
-msgstr ""
+msgstr "Lens 自動ログイン"
 
 msgid "Download App"
-msgstr ""
+msgstr "アプリをダウンロード"
 
 msgid "Total amount"
-msgstr ""
+msgstr "総額"
 
 msgid "Invalid signer key"
-msgstr ""
+msgstr "無効な署名キー"
 
 msgid "Unmuted {walletHandle}."
-msgstr ""
+msgstr "{walletHandle} のミュートを解除しました。"
 
 msgid "24 hours"
-msgstr ""
+msgstr "24 時間"
 
 msgid "Bio should be at least {extra} characters"
-msgstr ""
+msgstr "自己紹介は {extra} 文字以上にしてください"
 
 msgid "No opinion event found."
-msgstr ""
+msgstr "Opinion イベントが見つかりません。"
 
 msgid "👀 Firefly notifications are off. "
-msgstr ""
+msgstr "👀 Firefly の通知がオフです。 "
 
 msgid "Unsupported Chain"
-msgstr ""
+msgstr "サポートされていないチェーン"
 
 msgid "Password updated successfully."
-msgstr ""
+msgstr "パスワードが正常に更新されました。"
 
 msgid "Profile"
-msgstr ""
+msgstr "プロフィール"
 
 msgid "Failed to create red packet"
-msgstr ""
+msgstr "お年玉の作成に失敗しました"
 
 msgid "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or desktop!"
-msgstr ""
+msgstr "Firefly モバイルアプリまたはデスクトップで私のラッキードロップ 🧧💰✨ をチェック！"
 
 msgid "QUOTE"
-msgstr ""
+msgstr "引用"
 
 #. placeholder {0}: channel.id
 msgid "Unfollowed /{0} on {sourceName}"
-msgstr ""
+msgstr "{sourceName} で /{0} のフォローを解除しました"
 
 msgid "End Date"
-msgstr ""
+msgstr "終了日"
 
 msgid "The page could not be found."
-msgstr ""
+msgstr "ページが見つかりませんでした。"
 
 msgid "Swap"
-msgstr ""
+msgstr "スワップ"
 
 msgid "Farcaster"
-msgstr ""
+msgstr "Farcaster"
 
 msgid "Change Password"
-msgstr ""
+msgstr "パスワードを変更"
 
 msgid "The contract owner has restrictions on trading cooldown."
-msgstr ""
+msgstr "コントラクトオーナーは取引クールダウンに制限を設けています。"
 
 msgid "Replying to"
-msgstr ""
+msgstr "返信先"
 
 #. placeholder {0}: formatBalance(claim_amounts, token_decimal, { significant: 2, isPrecise: true, })
 #. placeholder {1}: formatBalance(total_amounts || '0', token_decimal ?? 18, { isFixed: true, fixedDecimals: token_decimal ?? 18, isPrecise: true, })
 msgid "<0>Claimed: </0><1>{claim_numbers}/{total_numbers}</1><2>{0}/{1}</2><3>{token_symbol}</3>"
-msgstr ""
+msgstr "<0>受け取り済み: </0><1>{claim_numbers}/{total_numbers}</1><2>{0}/{1}</2><3>{token_symbol}</3>"
 
 msgid "Keep it safe and do not share"
-msgstr ""
+msgstr "大切に保管し、共有しないでください"
 
 msgid "If you enter it in another app, it can steal your funds and Farcaster account."
-msgstr ""
+msgstr "他のアプリに入力すると、資金や Farcaster アカウントが盗まれる可能性があります。"
 
 msgid "1 hour"
-msgstr ""
+msgstr "1時間"
 
 msgid "View on website"
-msgstr ""
+msgstr "ウェブサイトで表示"
 
 #. placeholder {0}: post.moderator?.displayName
 msgid "Labeled by <0>{0}</0>."
-msgstr ""
+msgstr "<0>{0}</0> によってラベル付けされました。"
 
 msgid "Only mentioned profiles can comment on this post."
-msgstr ""
+msgstr "メンションされたプロフィールのみがこの投稿にコメントできます。"
 
 msgid "Collect"
-msgstr ""
+msgstr "収集"
 
 msgid "Account disabled due to potential risk. Contact us on <0>Telegram</0> to restore access."
-msgstr ""
+msgstr "潜在的なリスクのためアカウントが無効化されました。アクセスを復元するには <0>Telegram</0> でお問い合わせください。"
 
 #. placeholder {0}: failedAt.length
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7BYour+posts+failed+to+publish+on+%7BfirstPlatform%7D+due+to+an+error.+Click+%27Retry%27+to+attempt+posting+again.%7D+two+%7BYour+posts+failed+to+publish+on+%7BfirstPlatform%7D+and+%7BsecondPlatform%7D+due+to+an+error.+Click+%27Retry%27+to+attempt+posting+again.%7D+other+%7BYour+posts+failed+to+publish+due+to+an+error.+Click+%27Retry%27+to+attempt+posting+again.%7D%7D&pluralize_on=0
 msgid "Your posts failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again."
 msgid_plural "Your posts failed to publish due to an error. Click 'Retry' to attempt posting again."
-msgstr[0] ""
+msgstr[0] "投稿は公開できませんでした。 「再試行」をクリックしてください。"
 
 #. placeholder {0}: channel.lead.handle
 #. placeholder {0}: channel.lead?.handle || '-'
 msgid "By @{0}"
-msgstr ""
+msgstr "@{0} による"
 
 msgid "All posts and activities from this user will be hidden from you"
-msgstr ""
+msgstr "このユーザーのすべての投稿とアクティビティが非表示になります"
 
 msgid "Video"
-msgstr ""
+msgstr "動画"
 
 msgid "Unknown Collection"
-msgstr ""
+msgstr "不明なコレクション"
 
 msgid "Firefly Wallet"
-msgstr ""
+msgstr "Firefly ウォレット"
 
 msgid "Your sign-in process was interrupted, please try again"
-msgstr ""
+msgstr "サインインプロセスが中断されました。もう一度お試しください"
 
 msgid "Access Denied"
-msgstr ""
+msgstr "アクセス拒否"
 
 #. placeholder {0}: channel.name
 msgid "Joined #{0} on {sourceName}"
-msgstr ""
+msgstr "{sourceName} で #{0} に参加しました"
 
 msgid "Confirm to remove this verified address from your Farcaster profile?"
-msgstr ""
+msgstr "Farcaster プロフィールからこの認証済みアドレスを削除しますか？"
 
 msgid "Set as primary account"
-msgstr ""
+msgstr "プライマリアカウントに設定"
 
 msgid "Firefly Mobile"
-msgstr ""
+msgstr "Firefly モバイル"
 
 msgid "Streaming Error"
-msgstr ""
+msgstr "ストリーミングエラー"
 
 msgid "Cybercrime found."
-msgstr ""
+msgstr "サイバー犯罪が検出されました。"
 
 msgid "Games"
-msgstr ""
+msgstr "ゲーム"
 
 #. placeholder {0}: channel.name
 msgid "Failed to add #{0} on {sourceName}"
-msgstr ""
+msgstr "{sourceName} で #{0} の追加に失敗しました"
 
 msgid "Language"
-msgstr ""
+msgstr "言語"
 
 msgid "Address on Watching Lists"
-msgstr ""
+msgstr "ウォッチリストのアドレス"
 
 msgid "Please confirm the login with X."
-msgstr ""
+msgstr "X でログインを確認してください。"
 
 #. placeholder {0}: expiredAccounts.map((x) => `@${x.profile.handle}`).join(', ')
 #. placeholder {1}: resolveSourceName(source)
 msgid "Session expired for {0} on {1}."
-msgstr ""
+msgstr "{1} の {0} のセッションが期限切れです。"
 
 msgid "What's happening..."
-msgstr ""
+msgstr "いま何が起きているか..."
 
 msgid "FREE"
-msgstr ""
+msgstr "無料"
 
 msgid "Snapshot removed from your Bookmarks"
-msgstr ""
+msgstr "スナップショットをブックマークから削除しました"
 
 msgid "Minting Date"
-msgstr ""
+msgstr "ミント日"
 
 msgid "Reauthorize"
-msgstr ""
+msgstr "再認証"
 
 msgid "Failed to unlike."
-msgstr ""
+msgstr "いいね取り消しに失敗しました。"
 
 msgid "Max Supply"
-msgstr ""
+msgstr "最大供給量"
 
 msgid "24h"
-msgstr ""
+msgstr "24時間"
 
 msgid "Unexpected step for setting password: {step}."
-msgstr ""
+msgstr "パスワード設定の予期しないステップ: {step}。"
 
 msgid "If you have multiple Firefly accounts created with different social logins, deleting this account will help you consolidate your social accounts into one. However, if you're trying to access a different Firefly wallet linked to another social account, consider switching accounts instead of deleting."
-msgstr ""
+msgstr "異なるソーシャルログインで複数の Firefly アカウントを作成している場合、このアカウントを削除するとソーシャルアカウントを1つに統合できます。ただし、別のソーシャルアカウントにリンクされた別の Firefly ウォレットにアクセスしたい場合は、削除ではなくアカウントの切り替えを検討してください。"
 
 msgid "Contract Address"
-msgstr ""
+msgstr "コントラクトアドレス"
 
 msgid "Bridged"
-msgstr ""
+msgstr "ブリッジ済み"
 
 msgid "Claim Now"
-msgstr ""
+msgstr "今すぐ受け取る"
 
 #. placeholder {0}: getRpMaxShares(networkType)
 msgid "At most {0} recipients"
-msgstr ""
+msgstr "受取人は最大 {0} 人"
 
 msgid "General"
-msgstr ""
+msgstr "一般"
 
 msgid "Show more tokens"
-msgstr ""
+msgstr "もっとトークンを表示"
 
 msgid "<0>You</0> recasted"
-msgstr ""
+msgstr "<0>あなた</0>がリキャストしました"
 
 msgid "The whitelist function is not included. If there is a whitelist, some addresses may not be able to trade normally (honeypot risk)."
-msgstr ""
+msgstr "ホワイトリスト機能は含まれていません。ホワイトリストがある場合、一部のアドレスは正常に取引できない可能性があります（ハニーポットリスク）。"
 
 msgid "Location"
-msgstr ""
+msgstr "場所"
 
 msgid "There is no limit to the number of token transactions. The number of scam token transactions may be limited (honeypot risk)."
-msgstr ""
+msgstr "トークン取引回数に制限はありません。詐欺トークンの取引回数は制限される場合があります（ハニーポットリスク）。"
 
 #. placeholder {0}: nFormatter(collection.collection.amounts_total || collection.items_total || 0)
 #. placeholder {0}: nFormatter(collection.items_total || 0)
 msgid "{0} <0>Items</0>"
-msgstr ""
+msgstr "{0} <0>件</0>"
 
 msgid "Select Token"
-msgstr ""
+msgstr "トークンを選択"
 
 #. placeholder {0}: formatPolymarketNumber(position.shares, { symbol: null })
 #. placeholder {0}: formatPolymarketNumber(totalBought, { symbol: null })
 msgid "{0} shares"
-msgstr ""
+msgstr "{0} シェア"
 
 msgid "Members"
-msgstr ""
+msgstr "メンバー"
 
 msgid "Value"
-msgstr ""
+msgstr "価値"
 
 msgid "Your schedule thread has created successfully."
-msgstr ""
+msgstr "予約スレッドが正常に作成されました。"
 
 msgid "Super Follow"
-msgstr ""
+msgstr "スーパーフォロー"
 
 #. placeholder {0}: collectModule.amount
 #. placeholder {1}: collectModule.currency
 msgid "Collect for {0} {1}"
-msgstr ""
+msgstr "{0} {1} で収集"
 
 msgid "1h"
-msgstr ""
+msgstr "1時間"
 
 msgid "Verify Address"
-msgstr ""
+msgstr "アドレスを認証"
 
 msgid "Failed to disconnect."
-msgstr ""
+msgstr "切断に失敗しました。"
 
 #. js-lingui:icu=%7BfollowerCount%2C+plural%2C+one+%7BLike%7D+other+%7BLikes%7D%7D&pluralize_on=followerCount
 msgid "Like"
 msgid_plural "Likes"
-msgstr[0] ""
+msgstr[0] "のように"
 
 msgid "Cryptocurrency mixer found."
-msgstr ""
+msgstr "暗号通貨ミキサーが検出されました。"
 
 msgid "GIF"
-msgstr ""
+msgstr "GIF"
 
 msgid "Recast"
-msgstr ""
+msgstr "リキャスト"
 
 msgid "This is not an airdrop scam. Many scams attract users through airdrops."
-msgstr ""
+msgstr "これはエアドロップ詐欺ではありません。多くの詐欺はエアドロップでユーザーを誘います。"
 
 msgid "Wait for signing..."
-msgstr ""
+msgstr "署名を待っています..."
 
 #. placeholder {0}: market_cap ? `$${formatMarketCap(market_cap)}` : '-'
 #. placeholder {1}: rank ? ( <span className="bg-highlight inline-flex h-[14px] items-center rounded px-1 py-0.5 text-[10px] text-white"> Rank #{rank} </span> ) : null
 #. placeholder {1}: rank ? ( <span className="bg-highlight inline-flex h-[14px] items-center text-nowrap rounded px-1 py-0.5 text-[10px] text-white"> Rank #{rank} </span> ) : null
 msgid "<0>{0}</0><1>MC</1>{1}"
-msgstr ""
+msgstr "<0>{0}</0><1>時価総額</1>{1}"
 
 msgid "Resetting your 6-digit password will clear all previously encrypted login sessions."
-msgstr ""
+msgstr "6桁のパスワードをリセットすると、以前に暗号化されたすべてのログインセッションがクリアされます。"
 
 #. placeholder {0}: channel.name
 msgid "Left #{0} on {sourceName}"
-msgstr ""
+msgstr "{sourceName} で #{0} を退出しました"
 
 msgid "Last sale"
-msgstr ""
+msgstr "最終売却"
 
 msgid "Translating..."
-msgstr ""
+msgstr "翻訳中..."
 
 msgid "Export recovery phrase"
-msgstr ""
+msgstr "リカバリーフレーズをエクスポート"
 
 msgid "Pick a way to sign in"
-msgstr ""
+msgstr "サインイン方法を選択"
 
 msgid "Encrypt your login session with a 6-digit password to enable one-click login across devices."
-msgstr ""
+msgstr "6桁のパスワードでログインセッションを暗号化し、デバイス間でワンクリックログインを有効にします。"
 
 msgid "No stealing attack involved."
-msgstr ""
+msgstr "窃盗攻撃は関与していません。"
 
 msgid "Your account has not registered on Firefly"
-msgstr ""
+msgstr "アカウントは Firefly に登録されていません"
 
 msgid "Removed from bookmarks"
-msgstr ""
+msgstr "ブックマークから削除しました"
 
 msgid "Deleted your Firefly account"
-msgstr ""
+msgstr "Firefly アカウントを削除しました"
 
 #. placeholder {0}: post.author.displayName
 msgid "<0>{0}</0> retruthed"
-msgstr ""
+msgstr "<0>{0}</0>がリツイートしました"
 
 msgid "Graph"
-msgstr ""
+msgstr "グラフ"
 
 msgid "Sign in with Farcaster"
-msgstr ""
+msgstr "Farcaster でサインイン"
 
 msgid "The contract owner has no restrictions on buying."
-msgstr ""
+msgstr "コントラクトオーナーは購入に制限がありません。"
 
 msgid "Tips"
-msgstr ""
+msgstr "チップ"
 
 msgid "Back to home"
-msgstr ""
+msgstr "ホームに戻る"
 
 msgid "Financial crime."
-msgstr ""
+msgstr "金融犯罪。"
 
 msgid "Followers"
-msgstr ""
+msgstr "フォロワー"
 
 msgid "Search channel"
-msgstr ""
+msgstr "チャンネルを検索"
 
 msgid "This can’t be undone and you’ll lose your draft."
-msgstr ""
+msgstr "この操作は元に戻せず、下書きが失われます。"
 
 msgid "PnL%"
-msgstr ""
+msgstr "損益%"
 
 msgid "Article removed from your Bookmarks"
-msgstr ""
+msgstr "記事をブックマークから削除しました"
 
 msgid "Lost"
-msgstr ""
+msgstr "敗北"
 
 msgid "Mint function"
-msgstr ""
+msgstr "ミント機能"
 
 msgid "Clear"
-msgstr ""
+msgstr "クリア"
 
 msgid "6 hours"
-msgstr ""
+msgstr "6時間"
 
 msgid "Confirm to disconnect this wallet from Firefly?"
-msgstr ""
+msgstr "このウォレットを Firefly から切断しますか？"
 
 msgid "Message"
-msgstr ""
+msgstr "メッセージ"
 
 msgid "Token holder of any one below"
-msgstr ""
+msgstr "以下のいずれかのトークン保有者"
 
 msgid "World Cup"
-msgstr ""
+msgstr "ワールドカップ"
 
 msgid "Text"
-msgstr ""
+msgstr "テキスト"
 
 msgid "Reauthorize connected account"
-msgstr ""
+msgstr "接続済みアカウントを再認証"
 
 msgid "Select Collection"
-msgstr ""
+msgstr "コレクションを選択"
 
 msgid "Continue"
-msgstr ""
+msgstr "続ける"
 
 msgid "The scheduled time to send this post can be set up to 7 days in advance."
-msgstr ""
+msgstr "この投稿の送信予定時刻は最大7日前まで設定できます。"
 
 msgid "One-time passcode"
-msgstr ""
+msgstr "ワンタイムパスコード"
 
 msgid "Download media"
-msgstr ""
+msgstr "メディアをダウンロード"
 
 msgid "Chain"
-msgstr ""
+msgstr "チェーン"
 
 msgid "Failed to unlike article."
-msgstr ""
+msgstr "記事のいいね取り消しに失敗しました。"
 
 msgid "Copy frame URL"
-msgstr ""
+msgstr "Frame URL をコピー"
 
 msgid "This token can not self destruct."
-msgstr ""
+msgstr "このトークンは自己破壊できません。"
 
 msgid "Cybercrime."
-msgstr ""
+msgstr "サイバー犯罪。"
 
 msgid "Display"
-msgstr ""
+msgstr "表示"
 
 msgid "Sell"
-msgstr ""
+msgstr "売却"
 
 msgid "Terms of Service"
-msgstr ""
+msgstr "利用規約"
 
 msgid "Signing in..."
-msgstr ""
+msgstr "サインイン中..."
 
 msgid "Failed to claim red packet"
-msgstr ""
+msgstr "レッドパケットの受け取りに失敗しました"
 
 msgid "Mute successfully."
-msgstr ""
+msgstr "ミュートしました。"
 
 msgid "This wallet is already linked to a different Firefly account."
-msgstr ""
+msgstr "このウォレットは別の Firefly アカウントに既にリンクされています。"
 
 msgid "You are not eligible to claim this red packet"
-msgstr ""
+msgstr "このレッドパケットを受け取る資格がありません"
 
 msgid "Article could not be found"
-msgstr ""
+msgstr "記事が見つかりませんでした"
 
 msgid "Collectible could not be found."
-msgstr ""
+msgstr "コレクティブルが見つかりませんでした。"
 
 msgid "Contract address."
-msgstr ""
+msgstr "コントラクトアドレス。"
 
 msgid "[Quote]"
-msgstr ""
+msgstr "[引用]"
 
 msgid "Unmuted {handleOrEnsOrAddress}."
-msgstr ""
+msgstr "{handleOrEnsOrAddress} のミュートを解除しました。"
 
 msgid "Type filter"
-msgstr ""
+msgstr "タイプフィルター"
 
 msgid "No price data."
-msgstr ""
+msgstr "価格データがありません。"
 
 msgid "No malicious mining activities involved."
-msgstr ""
+msgstr "悪意のあるマイニング活動は関与していません。"
 
 msgid "No results for \"{keyword}\""
-msgstr ""
+msgstr "\"{keyword}\" の検索結果がありません"
 
 msgid "If this function exists, it is possible for the project owner to regain ownership even after relinquishing it"
-msgstr ""
+msgstr "この機能が存在する場合、プロジェクトオーナーは所有権を放棄した後でも所有権を取り戻す可能性があります"
 
 msgid "Refund successfully."
-msgstr ""
+msgstr "返金に成功しました。"
 
 msgid "Image count limit reached"
-msgstr ""
+msgstr "画像数の上限に達しました"
 
 msgid "No trading cooldown function."
-msgstr ""
+msgstr "取引クールダウン機能はありません。"
 
 msgid "No dispute"
-msgstr ""
+msgstr "異議なし"
 
 msgid "Media"
-msgstr ""
+msgstr "メディア"
 
 msgid "Are you sure you want to continue?"
-msgstr ""
+msgstr "続行してもよろしいですか？"
 
 msgid "Yesterday"
-msgstr ""
+msgstr "昨日"
 
 msgid "Remind me later"
-msgstr ""
+msgstr "後で通知"
 
 msgid "Signing to confirm"
-msgstr ""
+msgstr "確認のため署名中"
 
 msgid "Search <0>posts</0>, <1>users</1>, <2>predictions</2> and <3>tokens</3> by keyword or link"
-msgstr ""
+msgstr "キーワードまたはリンクで <0>投稿</0>、<1>ユーザー</1>、<2>予測</2>、<3>トークン</3> を検索"
 
 msgid "Choose a token to send"
-msgstr ""
+msgstr "送信するトークンを選択"
 
 msgid "Sorry, we are not able to find a wallet for {displayName}."
-msgstr ""
+msgstr "{displayName} のウォレットが見つかりませんでした。"
 
 msgid "Copy link"
-msgstr ""
+msgstr "リンクをコピー"
 
 msgid "Post"
-msgstr ""
+msgstr "投稿"
 
 msgid "Creator:"
-msgstr ""
+msgstr "作成者:"
 
 #. placeholder {0}: channel.name
 msgid "Failed to leave #{0} on {sourceName}"
-msgstr ""
+msgstr "{sourceName} で #{0} の退出に失敗しました"
 
 msgid "Something went wrong, please try again."
-msgstr ""
+msgstr "問題が発生しました。もう一度お試しください。"
 
 msgid "This Telegram account is already linked"
-msgstr ""
+msgstr "この Telegram アカウントは既にリンクされています"
 
 msgid "Following"
-msgstr ""
+msgstr "フォロー中"
 
 msgid "Trending Token"
-msgstr ""
+msgstr "トレンドトークン"
 
 msgid "Create a post to tell everyone about your participation. Votes can be changed while the proposal is active."
-msgstr ""
+msgstr "参加について皆に伝える投稿を作成してください。提案が有効な間は投票を変更できます。"
 
 msgid "For any inquiries, please <0>contact us</0>. All rights reserved by Firefly."
-msgstr ""
+msgstr "お問い合わせは <0>こちら</0> まで。著作権は Firefly に帰属します。"
 
 msgid "Note: X desktop login is currently unavailable on mobile."
-msgstr ""
+msgstr "注: モバイルでは現在 X のデスクトップログインは利用できません。"
 
 msgid "Post decrypted successfully!"
-msgstr ""
+msgstr "投稿の復号に成功しました！"
 
 msgid "Confirm to remove this Lucky drop? You can request a refund from your history after 24 hours."
-msgstr ""
+msgstr "この Lucky drop を削除しますか？24時間後に履歴から返金をリクエストできます。"
 
 msgid "This Lens account has expired, please log in again."
-msgstr ""
+msgstr "この Lens アカウントは期限切れです。再度ログインしてください。"
 
 msgid "Non-honeypot related address."
-msgstr ""
+msgstr "ハニーポット関連ではないアドレス。"
 
 msgid "Display Name should not exceed {extra} characters"
-msgstr ""
+msgstr "表示名は {extra} 文字を超えてはいけません"
 
 msgid "Exclusivity"
-msgstr ""
+msgstr "排他性"
 
 msgid "No darkweb transactions involved."
-msgstr ""
+msgstr "ダークウェブ取引は関与していません。"
 
 msgid "Show More"
-msgstr ""
+msgstr "もっと見る"
 
 msgid "Search..."
-msgstr ""
+msgstr "検索..."
 
 msgid "Feedback"
-msgstr ""
+msgstr "フィードバック"
 
 msgid "Mirror disabled"
-msgstr ""
+msgstr "ミラー無効"
 
 #. js-lingui:icu=%7BtraderCount%2C+plural%2C+one+%7B%23+person+I+follow+has+traded%7D+other+%7B%23+people+I+follow+have+traded%7D%7D&pluralize_on=traderCount
 msgid "# person I follow has traded"
 msgid_plural "# people I follow have traded"
-msgstr[0] ""
+msgstr[0] "私がフォローしている # 人が取引しました"
 
 msgid "Show more comments"
-msgstr ""
+msgstr "コメントをもっと表示"
 
 msgid "Different Account Detected"
-msgstr ""
+msgstr "別のアカウントが検出されました"
 
 msgid "Enter your username and password to sign in instantly"
-msgstr ""
+msgstr "ユーザー名とパスワードを入力してすぐにサインイン"
 
 msgid "No connected wallet."
-msgstr ""
+msgstr "接続されたウォレットがありません。"
 
 msgid "Failed to create schedule post."
-msgstr ""
+msgstr "予約投稿の作成に失敗しました。"
 
 msgid "Assign your Firefly Wallet as your Lens account manager to authorize Firefly for auto login."
-msgstr ""
+msgstr "Firefly ウォレットを Lens アカウントマネージャーに設定し、Firefly の自動ログインを許可します。"
 
 msgid "Snapshot DAO"
-msgstr ""
+msgstr "Snapshot DAO"
 
 msgid "Connect Solana Wallet"
-msgstr ""
+msgstr "Solana ウォレットを接続"
 
 msgid "Failed to unlike snapshot."
-msgstr ""
+msgstr "スナップショットのいいね取り消しに失敗しました。"
 
 msgid "Unexpected step for verifying password: {step}."
-msgstr ""
+msgstr "パスワード確認の予期しないステップ: {step}。"
 
 msgid "Transaction completed!"
-msgstr ""
+msgstr "取引が完了しました！"
 
 msgid "Target"
-msgstr ""
+msgstr "ターゲット"
 
 msgid "You're trying to connect a different account than the one currently active on Firefly. Please try again."
-msgstr ""
+msgstr "Firefly で現在アクティブなアカウントとは異なるアカウントを接続しようとしています。もう一度お試しください。"
 
 msgid "GIFs"
-msgstr ""
+msgstr "GIF"
 
 msgid "Hide assets < 1 USD"
-msgstr ""
+msgstr "1ドル未満の資産を非表示"
 
 #. placeholder {0}: notification.post.type
 msgid "<0/> <1>collected your </1><2>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</2>"
-msgstr ""
+msgstr "<0/> <1>があなたの </1><2>{0, select, Post {投稿} Comment {コメント} Quote {引用} Mirror {リポスト} other {投稿}}</2> を収集しました"
 
 msgid "Hours"
-msgstr ""
+msgstr "時間"
 
 msgid "Choose or set the handles for cross at."
-msgstr ""
+msgstr "クロス @ に使用するハンドルを選択または設定"
 
 #. placeholder {0}: first(post.mirrors)?.displayName
 msgid "<0>{0}</0> recasted"
-msgstr ""
+msgstr "<0>{0}</0>がリキャストしました"
 
 msgid "Close"
-msgstr ""
+msgstr "閉じる"
 
 msgid "Login"
-msgstr ""
+msgstr "ログイン"
 
 msgid "Security & Privacy"
-msgstr ""
+msgstr "セキュリティとプライバシー"
 
 msgid "Loading..."
-msgstr ""
+msgstr "読み込み中..."
 
 msgid "Scan the QR code with the <0>Firefly mobile app</0><1/>to sign in directly within the app."
-msgstr ""
+msgstr "<0>Firefly モバイルアプリ</0><1/>で QR コードをスキャンし、アプリ内で直接サインインしてください。"
 
 #. placeholder {0}: post.author.handle
 #. placeholder {1}: resolveSourceName(post.source)
 msgid "Replying to <0>@{0}</0> on {1}"
-msgstr ""
+msgstr "{1} で <0>@{0}</0> に返信"
 
 msgid "Share"
-msgstr ""
+msgstr "共有"
 
 msgid "Fake KYC found."
-msgstr ""
+msgstr "偽の KYC が検出されました。"
 
 msgid "You can turn it back on anytime in <0>Settings > Content preference</0>"
-msgstr ""
+msgstr "<0>設定 > コンテンツ設定</0> からいつでも再度有効にできます"
 
 msgid "Minted"
-msgstr ""
+msgstr "ミント済み"
 
 #. placeholder {0}: resolveSourceName(source)
 msgid "Failed to send your post to {0}."
-msgstr ""
+msgstr "{0} への投稿の送信に失敗しました。"
 
 msgid "Tip liked."
-msgstr ""
+msgstr "チップにいいねしました。"
 
 msgid "Trades"
-msgstr ""
+msgstr "取引"
 
 msgid "Top Collectors"
-msgstr ""
+msgstr "トップコレクター"
 
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 msgid "Final price"
-msgstr ""
+msgstr "最終価格"
 
 msgid "Quote"
-msgstr ""
+msgstr "引用"
 
 msgid "Would you like to restore it?"
-msgstr ""
+msgstr "復元しますか？"
 
 msgid "Create your Firefly profile"
-msgstr ""
+msgstr "Firefly プロフィールを作成"
 
 msgid "Collect Price"
-msgstr ""
+msgstr "収集価格"
 
 msgid "Failed to unlike swap."
-msgstr ""
+msgstr "スワップのいいね取り消しに失敗しました。"
 
 msgid "Remaining"
-msgstr ""
+msgstr "残り"
 
 msgid "Cancel recast successfully"
-msgstr ""
+msgstr "リキャストを正常にキャンセルしました"
 
 #. placeholder {0}: post.stats.reactions
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7Blike%7D+other+%7Blikes%7D%7D&pluralize_on=0
 msgid "like"
 msgid_plural "likes"
-msgstr[0] ""
+msgstr[0] "のように"
 
 msgid "Collectible"
-msgstr ""
+msgstr "コレクティブル"
 
 msgid "Posts from Trump on Truth Social (Explore, profile)"
-msgstr ""
+msgstr "Truth Social の Trump の投稿（探索、プロフィール）"
 
 msgid "Golden"
-msgstr ""
+msgstr "ゴールド"
 
 msgid "<0>change</0> wallet or <1>sign up</1> on Firefly"
-msgstr ""
+msgstr "Firefly でウォレットを<0>変更</0>するか <1>登録</1>"
 
 msgid "View engagements"
-msgstr ""
+msgstr "エンゲージメントを表示"
 
 #. placeholder {0}: token.amount ? formatTokenItemAmount(token.amount) : '-'
 #. placeholder {1}: token.symbol?.toUpperCase()
 msgid "Balance: {0} {1}"
-msgstr ""
+msgstr "残高: {0} {1}"
 
 msgid "Multi-device login"
-msgstr ""
+msgstr "マルチデバイスログイン"
 
 msgid "This token link is not supported."
-msgstr ""
+msgstr "このトークンリンクはサポートされていません。"
 
 #. placeholder {0}: channel.id
 msgid "Failed to unfollow /{0} on {sourceName}"
-msgstr ""
+msgstr "{sourceName} で /{0} のフォロー解除に失敗しました"
 
 msgid "Failed to create schedule thread posts."
-msgstr ""
+msgstr "予約スレッド投稿の作成に失敗しました。"
 
 msgid "Article liked."
-msgstr ""
+msgstr "記事にいいねしました。"
 
 msgid "This can’t be undone, and the scheduled send will be cancelled."
-msgstr ""
+msgstr "この操作は元に戻せず、予約送信はキャンセルされます。"
 
 msgid "Week"
-msgstr ""
+msgstr "週"
 
 msgid "The snap server failed to process the request."
-msgstr ""
+msgstr "Snap サーバーがリクエストの処理に失敗しました。"
 
 msgid "Are you sure you want to report this user?"
-msgstr ""
+msgstr "このユーザーを報告してもよろしいですか？"
 
 msgid "Success"
-msgstr ""
+msgstr "成功"
 
 msgid "The contract owner has restrictions on selling."
-msgstr ""
+msgstr "コントラクトオーナーは売却に制限があります。"
 
 msgid "Likes"
-msgstr ""
+msgstr "いいね"
 
 msgid "Please confirm the login with Farcaster."
-msgstr ""
+msgstr "Farcaster でログインを確認してください。"
