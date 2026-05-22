@@ -34,7 +34,7 @@ msgstr "取引量"
 #. js-lingui:icu=%7Bshares%2C+plural%2C+one+%7BRepost+or+Quote%7D+other+%7BReposts+or+Quotes%7D%7D&pluralize_on=shares
 msgid "Repost or Quote"
 msgid_plural "Reposts or Quotes"
-msgstr[0] "転送または引用"
+msgstr[0] "リポストまたは引用"
 
 msgid "Content is not suitable for all audiences"
 msgstr "このコンテンツは全ての方に適切ではありません"
@@ -2503,7 +2503,7 @@ msgid "Display Name should not exceed 20 characters"
 msgstr "表示名は 20 文字以内にしてください"
 
 msgid "By clicking \"Next\", you acknowledge the risk associated with decentralized networks and beta products."
-msgstr "「次へ」をクリックすると、分散型ネットワークとベータ製品に関連するリスクを承認したことになります。"
+msgstr ""
 
 msgid "Decrypt"
 msgstr "復号化"
@@ -3387,7 +3387,7 @@ msgstr "Web3 ネイティブ向けのオールインワンアプリ"
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7Bcollect%7D+other+%7Bcollects%7D%7D&pluralize_on=0
 msgid "collect"
 msgid_plural "collects"
-msgstr[0] "コレクト"
+msgstr[0] "コレクション"
 
 msgid "All wallets and accounts are muted."
 msgstr "すべてのウォレットとアカウントがミュートされています。"
@@ -3860,7 +3860,7 @@ msgstr "Firefly へようこそ！"
 #. js-lingui:icu=%7BriskyFactors%2C+plural%2C+one+%7B%23+Risky+item%7D+other+%7B%23+Risky+items%7D%7D&pluralize_on=riskyFactors
 msgid "# Risky item"
 msgid_plural "# Risky items"
-msgstr[0] "# リスク項目"
+msgstr[0] "# 高リスク項目"
 
 msgid "The password you entered is incorrect. Please try again."
 msgstr "入力したパスワードが正しくありません。もう一度お試しください。"
@@ -4542,7 +4542,7 @@ msgstr "潜在的なリスクのためアカウントが無効化されました
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7BYour+posts+failed+to+publish+on+%7BfirstPlatform%7D+due+to+an+error.+Click+%27Retry%27+to+attempt+posting+again.%7D+two+%7BYour+posts+failed+to+publish+on+%7BfirstPlatform%7D+and+%7BsecondPlatform%7D+due+to+an+error.+Click+%27Retry%27+to+attempt+posting+again.%7D+other+%7BYour+posts+failed+to+publish+due+to+an+error.+Click+%27Retry%27+to+attempt+posting+again.%7D%7D&pluralize_on=0
 msgid "Your posts failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again."
 msgid_plural "Your posts failed to publish due to an error. Click 'Retry' to attempt posting again."
-msgstr[0] "投稿は公開できませんでした。 「再試行」をクリックしてください。"
+msgstr[0] "エラーにより {firstPlatform} への投稿が失敗しました。「再試行」をクリックして再度投稿してください。"
 
 #. placeholder {0}: channel.lead.handle
 #. placeholder {0}: channel.lead?.handle || '-'
@@ -4710,7 +4710,7 @@ msgstr "切断に失敗しました。"
 #. js-lingui:icu=%7BfollowerCount%2C+plural%2C+one+%7BLike%7D+other+%7BLikes%7D%7D&pluralize_on=followerCount
 msgid "Like"
 msgid_plural "Likes"
-msgstr[0] "のように"
+msgstr[0] "いいね"
 
 msgid "Cryptocurrency mixer found."
 msgstr "暗号通貨ミキサーが検出されました。"
@@ -5024,7 +5024,7 @@ msgstr "ミラー無効"
 #. js-lingui:icu=%7BtraderCount%2C+plural%2C+one+%7B%23+person+I+follow+has+traded%7D+other+%7B%23+people+I+follow+have+traded%7D%7D&pluralize_on=traderCount
 msgid "# person I follow has traded"
 msgid_plural "# people I follow have traded"
-msgstr[0] "私がフォローしている # 人が取引しました"
+msgstr[0] "フォロー中の{0}人がトレードしました"
 
 msgid "Show more comments"
 msgstr "コメントをもっと表示"
@@ -5161,7 +5161,7 @@ msgstr "リキャストを正常にキャンセルしました"
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7Blike%7D+other+%7Blikes%7D%7D&pluralize_on=0
 msgid "like"
 msgid_plural "likes"
-msgstr[0] "のように"
+msgstr[0] "いいね"
 
 msgid "Collectible"
 msgstr "コレクティブル"

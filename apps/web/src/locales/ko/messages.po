@@ -34,7 +34,7 @@ msgstr "거래량"
 #. js-lingui:icu=%7Bshares%2C+plural%2C+one+%7BRepost+or+Quote%7D+other+%7BReposts+or+Quotes%7D%7D&pluralize_on=shares
 msgid "Repost or Quote"
 msgid_plural "Reposts or Quotes"
-msgstr[0] "전달 또는 인용"
+msgstr[0] "리포스트 또는 인용"
 
 msgid "Content is not suitable for all audiences"
 msgstr "모든 연령에 적합하지 않은 콘텐츠입니다"
@@ -122,7 +122,7 @@ msgstr "북마크 삭제에 실패했습니다. {0}"
 #. js-lingui:icu=%7BfollowerCount%2C+plural%2C+one+%7BFollower%7D+other+%7BFollowers%7D%7D&pluralize_on=followerCount
 msgid "Follower"
 msgid_plural "Followers"
-msgstr[0] "추종자"
+msgstr[0] "팔로워"
 
 msgid "Failed to sign in."
 msgstr "로그인에 실패했습니다."
@@ -357,7 +357,7 @@ msgstr "FDV"
 #. js-lingui:icu=%7Bhours%2C+plural%2C+one+%7B%23+hour+left%7D+other+%7B%23+hours+left%7D%7D&pluralize_on=hours
 msgid "# hour left"
 msgid_plural "# hours left"
-msgstr[0] "#시간 남음"
+msgstr[0] "# 시간 남음"
 
 #. placeholder {0}: snapshot.title
 msgid "🙌 Just voted “{choice}” on “{0}”"
@@ -473,7 +473,7 @@ msgstr "연결된 지갑에서 가져온 연관 계정입니다. 기본 계정�
 #. js-lingui:icu=%7BfollowerCount%2C+plural%2C+one+%7BMember%7D+other+%7BMembers%7D%7D&pluralize_on=followerCount
 msgid "Member"
 msgid_plural "Members"
-msgstr[0] "회원"
+msgstr[0] "멤버"
 
 msgid "Mint Ended"
 msgstr "민팅 종료"
@@ -835,7 +835,7 @@ msgstr "자신에 대해 소개해 주세요!"
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7Bquote%7D+other+%7Bquotes%7D%7D&pluralize_on=0
 msgid "quote"
 msgid_plural "quotes"
-msgstr[0] "인용하다"
+msgstr[0] "인용"
 
 msgid "No hidden owner."
 msgstr "숨겨진 소유자가 없습니다."
@@ -1174,7 +1174,7 @@ msgstr "로그인 확인"
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7B%23+day%7D+other+%7B%23+days%7D%7D&pluralize_on=0
 msgid "# day"
 msgid_plural "# days"
-msgstr[0] "#일"
+msgstr[0] "# 일"
 
 msgid "Article unliked."
 msgstr "아티클 좋아요가 취소되었습니다."
@@ -1369,7 +1369,7 @@ msgstr "1분 남음"
 #. js-lingui:icu=%7Bshares%2C+plural%2C+one+%7BRecast+or+Quote%7D+other+%7BRecasts+or+Quotes%7D%7D&pluralize_on=shares
 msgid "Recast or Quote"
 msgid_plural "Recasts or Quotes"
-msgstr[0] "리포스트 또는 인용"
+msgstr[0] "리캐스트 또는 인용"
 
 msgid "Mute {handleOrEnsOrAddress}"
 msgstr "{handleOrEnsOrAddress} 숨기기"
@@ -1590,7 +1590,7 @@ msgstr "실패한 게시물을 저장하시겠습니까?"
 #. js-lingui:icu=%7Bminutes%2C+plural%2C+one+%7B%23+minute+left%7D+other+%7B%23+minutes+left%7D%7D&pluralize_on=minutes
 msgid "# minute left"
 msgid_plural "# minutes left"
-msgstr[0] "#분 남음"
+msgstr[0] "# 분 남음"
 
 msgid "Owners"
 msgstr "소유자"
@@ -2112,7 +2112,7 @@ msgstr "Firefly 프로필 만들기"
 #. js-lingui:icu=%7BtotalVotes%2C+plural%2C+one+%7B%7BtotalVotes%7D+Vote%7D+other+%7B%7BtotalVotes%7D+Votes%7D%7D&pluralize_on=totalVotes
 msgid "{totalVotes} Vote"
 msgid_plural "{totalVotes} Votes"
-msgstr[0] "{totalVotes}표"
+msgstr[0] "{totalVotes} 투표"
 
 msgid "Full"
 msgstr "전체"
@@ -2229,7 +2229,7 @@ msgstr "{0} 및 {1}님이 팔로우함"
 #. js-lingui:icu=%7Bdays%2C+plural%2C+one+%7B%23+day+left%7D+other+%7B%23+days+left%7D%7D&pluralize_on=days
 msgid "# day left"
 msgid_plural "# days left"
-msgstr[0] "#일 남음"
+msgstr[0] "# 일 남음"
 
 #. placeholder {0}: post?.author.handle
 msgid "REPLY to<0><1>@{0}</1></0>"
@@ -2369,7 +2369,7 @@ msgstr "이 컬렉션을 신고하시겠습니까?"
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7B%23+share%7D+other+%7B%23+shares%7D%7D&pluralize_on=0
 msgid "# share"
 msgid_plural "# shares"
-msgstr[0] "#지분"
+msgstr[0] "# 공유"
 
 msgid "Claimed"
 msgstr "수령함"
@@ -2655,7 +2655,7 @@ msgstr "모든 사람이 답글 가능"
 #. js-lingui:icu=%7Bseconds%2C+plural%2C+one+%7B%23+second+left%7D+other+%7B%23+seconds+left%7D%7D&pluralize_on=seconds
 msgid "# second left"
 msgid_plural "# seconds left"
-msgstr[0] "#초 남음"
+msgstr[0] "# 초 남음"
 
 msgid "Your email address"
 msgstr "이메일 주소"
@@ -2803,7 +2803,7 @@ msgstr "NFT가 북마크에 추가되었습니다"
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7B%23+year%7D+other+%7B%23+years%7D%7D&pluralize_on=0
 msgid "# year"
 msgid_plural "# years"
-msgstr[0] "#년"
+msgstr[0] "# 년"
 
 msgid "<0/> Loading"
 msgstr "<0/> 로딩 중"
@@ -2881,7 +2881,7 @@ msgstr "{formattedAddress}을(를) 기본 Solana 지갑으로 설정"
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7Brecast%7D+other+%7Brecasts%7D%7D&pluralize_on=0
 msgid "recast"
 msgid_plural "recasts"
-msgstr[0] "리포스트"
+msgstr[0] "재게시"
 
 msgid "Unliked."
 msgstr "좋아요가 취소되었습니다."
@@ -3048,7 +3048,7 @@ msgstr "{days}일 남음"
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7B%23+hour%7D+other+%7B%23+hours%7D%7D&pluralize_on=0
 msgid "# hour"
 msgid_plural "# hours"
-msgstr[0] "#시간"
+msgstr[0] "# 시간"
 
 msgid "Nickname must not contain restricted symbols"
 msgstr "닉네임에 제한된 기호를 포함할 수 없습니다"
@@ -3422,7 +3422,7 @@ msgstr "이 토큰은 자기 파괴할 수 있습니다."
 #. js-lingui:icu=%7BattentionFactors%2C+plural%2C+one+%7B%23+Attention+item%7D+other+%7B%23+Attention+items%7D%7D&pluralize_on=attentionFactors
 msgid "# Attention item"
 msgid_plural "# Attention items"
-msgstr[0] "#주의 항목"
+msgstr[0] "# 주의 항목"
 
 msgid "Hide more comments"
 msgstr "댓글 더 접기"
@@ -3618,7 +3618,7 @@ msgstr "전환에 실패했습니다."
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7B%23+minute%7D+other+%7B%23+minutes%7D%7D&pluralize_on=0
 msgid "# minute"
 msgid_plural "# minutes"
-msgstr[0] "#분"
+msgstr[0] "# 분"
 
 msgid "<0/> and <1/>"
 msgstr "<0/> 및 <1/>"
@@ -3675,7 +3675,7 @@ msgstr "미결제약정"
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7B%23+month%7D+other+%7B%23+months%7D%7D&pluralize_on=0
 msgid "# month"
 msgid_plural "# months"
-msgstr[0] "#개월"
+msgstr[0] "# 개월"
 
 msgid "This token is issued by its declared team. Some scams will create a well-known token with the same name to defraud their users of their assets."
 msgstr "이 토큰은 선언된 팀이 발행했습니다. 일부 사기는 동일한 이름의 유명 토큰을 만들어 사용자 자산을 사취합니다."
@@ -3860,7 +3860,7 @@ msgstr "Firefly에 다시 오신 것을 환영합니다!"
 #. js-lingui:icu=%7BriskyFactors%2C+plural%2C+one+%7B%23+Risky+item%7D+other+%7B%23+Risky+items%7D%7D&pluralize_on=riskyFactors
 msgid "# Risky item"
 msgid_plural "# Risky items"
-msgstr[0] "#위험 항목"
+msgstr[0] "# 위험 항목"
 
 msgid "The password you entered is incorrect. Please try again."
 msgstr "입력한 비밀번호가 올바르지 않습니다. 다시 시도해 주세요."
@@ -4542,7 +4542,7 @@ msgstr "잠재적 위험으로 계정이 비활성화되었습니다. <0>Telegra
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7BYour+posts+failed+to+publish+on+%7BfirstPlatform%7D+due+to+an+error.+Click+%27Retry%27+to+attempt+posting+again.%7D+two+%7BYour+posts+failed+to+publish+on+%7BfirstPlatform%7D+and+%7BsecondPlatform%7D+due+to+an+error.+Click+%27Retry%27+to+attempt+posting+again.%7D+other+%7BYour+posts+failed+to+publish+due+to+an+error.+Click+%27Retry%27+to+attempt+posting+again.%7D%7D&pluralize_on=0
 msgid "Your posts failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again."
 msgid_plural "Your posts failed to publish due to an error. Click 'Retry' to attempt posting again."
-msgstr[0] "게시물을 게시하지 못했습니다. 다시 시도를 클릭하세요."
+msgstr[0] "{firstPlatform}에 게시물을 게시하지 못했습니다. '다시 시도'를 클릭하여 다시 게시해 보세요."
 
 #. placeholder {0}: channel.lead.handle
 #. placeholder {0}: channel.lead?.handle || '-'
@@ -4710,7 +4710,7 @@ msgstr "연결 해제에 실패했습니다."
 #. js-lingui:icu=%7BfollowerCount%2C+plural%2C+one+%7BLike%7D+other+%7BLikes%7D%7D&pluralize_on=followerCount
 msgid "Like"
 msgid_plural "Likes"
-msgstr[0] "좋다"
+msgstr[0] "좋아요"
 
 msgid "Cryptocurrency mixer found."
 msgstr "암호화폐 믹서가 발견되었습니다."
@@ -5024,7 +5024,7 @@ msgstr "미러 비활성화됨"
 #. js-lingui:icu=%7BtraderCount%2C+plural%2C+one+%7B%23+person+I+follow+has+traded%7D+other+%7B%23+people+I+follow+have+traded%7D%7D&pluralize_on=traderCount
 msgid "# person I follow has traded"
 msgid_plural "# people I follow have traded"
-msgstr[0] "내가 팔로우하는 사람 #명이 거래했습니다"
+msgstr[0] "내가 팔로우하는 사람이 거래했습니다"
 
 msgid "Show more comments"
 msgstr "댓글 더 보기"
@@ -5161,7 +5161,7 @@ msgstr "리캐스트가 성공적으로 취소되었습니다"
 #. js-lingui:icu=%7B0%2C+plural%2C+one+%7Blike%7D+other+%7Blikes%7D%7D&pluralize_on=0
 msgid "like"
 msgid_plural "likes"
-msgstr[0] "좋다"
+msgstr[0] "좋아요"
 
 msgid "Collectible"
 msgstr "수집품"
