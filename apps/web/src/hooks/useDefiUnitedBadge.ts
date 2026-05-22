@@ -2,19 +2,12 @@ import type { DefiUnitedTier } from '@dimensiondev/enums';
 import { Source } from '@dimensiondev/enums';
 import { isValidAddressEthereum } from '@dimensiondev/web3/utils';
 import { skipToken, useQuery } from '@tanstack/react-query';
-import urlcat from 'urlcat';
 
-import { fetchJson } from '@/helpers/fetchJson.js';
+import {
+    type BadgeLevelPlatform,
+    fetchDefiUnitedBadgeLevel,
+} from '@/providers/firefly/worker/fetchDefiUnitedBadgeLevel.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { settings } from '@/settings/index.js';
-
-type BadgeLevelPlatform = 'eth' | 'twitter' | 'lens' | 'farcaster' | 'account' | 'bsky';
-
-interface BadgeLevelResponse {
-    level: number;
-    platform: string;
-    profile_id: string;
-}
 
 const SOURCE_TO_PLATFORM: Partial<Record<Source, BadgeLevelPlatform>> = {
     [Source.Farcaster]: 'farcaster',
@@ -23,12 +16,6 @@ const SOURCE_TO_PLATFORM: Partial<Record<Source, BadgeLevelPlatform>> = {
     [Source.Bsky]: 'bsky',
 };
 
-async function fetchBadgeLevel(platform: BadgeLevelPlatform, id: string): Promise<DefiUnitedTier | null> {
-    const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/unifi/badge-level', { platform, id });
-    const res = await fetchJson<{ data: BadgeLevelResponse }>(url);
-    return res.data.level ?? null;
-}
-
 /**
  * Lookup DefiUnited donation tier by wallet address.
  */
@@ -36,7 +23,7 @@ export function useDefiUnitedBadge(address: string | null | undefined) {
     const valid = !!address && isValidAddressEthereum(address);
     return useQuery({
         queryKey: ['defiunited-badge', valid ? address!.toLowerCase() : undefined],
-        queryFn: valid ? async () => fetchBadgeLevel('eth', address) : skipToken,
+        queryFn: valid ? async () => fetchDefiUnitedBadgeLevel('eth', address!) : skipToken,
         refetchOnMount: false,
         refetchOnWindowFocus: false,
         refetchOnReconnect: false,
@@ -56,7 +43,7 @@ export function useDefiUnitedBadgeByProfile(profile: Profile | null | undefined)
             const platform = SOURCE_TO_PLATFORM[profile.source];
             if (!platform) return null;
 
-            return fetchBadgeLevel(platform, profile.profileId);
+            return fetchDefiUnitedBadgeLevel(platform, profile.profileId);
         },
         enabled: !!profile,
         refetchOnMount: false,
