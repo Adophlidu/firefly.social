@@ -1,4 +1,9 @@
 {
+    "/penalty-game": {
+        "staging": "https://firefly-world-cup-penalty-game.vercel.app/penalty-game",
+        "canary": "https://firefly-world-cup-penalty-game.vercel.app/penalty-game",
+        "production": "https://firefly-world-cup-penalty-game.vercel.app/penalty-game"
+    },
     "/particle-recovery": {
         "staging": "https://firefly-particle-recovery-dimension-dev.vercel.app/particle-recovery",
         "canary": "https://firefly-particle-recovery-dimension-dev.vercel.app/particle-recovery",
