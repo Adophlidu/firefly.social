@@ -99,31 +99,33 @@ export function formatTwitterPostFromNitter(
     },
 ): Post {
     const includesUser = options?.includes?.users?.find((u) => u.id === tweet.user.id);
-    const attachments = [
-        // Filter out empty photo strings to prevent redundant empty image attachments
-        ...(tweet.photos
-            ?.filter((photo) => photo.trim())
-            .map<Attachment>((photo) => ({
-                type: AttachmentType.Image,
-                uri: getTwitterNitterPicOrigUrl(photo),
-            })) ?? []),
-        ...compact(tweet.gifs).map<Attachment>(({ url, thumb }) => ({
-            type: AttachmentType.AnimatedGif,
-            uri: getTwitterNitterPicUrl(url),
-            coverUri: getTwitterNitterPicUrl(thumb),
-        })),
-        ...compact([tweet.video])
-            .map<Attachment>(({ variants, thumb }) => {
-                const uri = last(variants)?.url!;
-                return {
-                    type: AttachmentType.Video,
-                    uri,
-                    coverUri: getTwitterNitterPicUrl(thumb),
-                    ...extractDimensionsFromUrl(uri),
-                };
-            })
-            .filter((x) => x.uri),
-    ];
+    const attachments = (tweet.media ?? []).flatMap<Attachment>((m) => {
+        switch (m.type) {
+            case 'photo':
+                if (!m.url.trim()) return [];
+                return [{ type: AttachmentType.Image, uri: getTwitterNitterPicOrigUrl(m.url) }];
+            case 'gif':
+                return [
+                    {
+                        type: AttachmentType.AnimatedGif,
+                        uri: getTwitterNitterPicUrl(m.url),
+                        coverUri: getTwitterNitterPicUrl(m.thumb),
+                    },
+                ];
+            case 'video': {
+                const uri = last(m.variants)?.url;
+                if (!uri) return [];
+                return [
+                    {
+                        type: AttachmentType.Video,
+                        uri,
+                        coverUri: getTwitterNitterPicUrl(m.thumb),
+                        ...extractDimensionsFromUrl(uri),
+                    },
+                ];
+            }
+        }
+    });
 
     const content = parseTweetText(tweet.text) ?? '';
     const oembedUrls = parseTweetOembedUrls(tweet.text);

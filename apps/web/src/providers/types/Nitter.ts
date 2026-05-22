@@ -93,6 +93,7 @@ interface Stats {
     retweets: number;
     likes: number;
     quotes: number;
+    views: number;
 }
 
 interface TweetVideoVariant {
@@ -144,10 +145,32 @@ interface TweetPoll {
     durationMinutes: string;
 }
 
-interface TweetGif {
+interface TweetMediaPhoto {
+    type: 'photo';
+    url: string;
+    altText: string;
+}
+
+interface TweetMediaGif {
+    type: 'gif';
     url: string;
     thumb: string;
+    altText: string;
 }
+
+interface TweetMediaVideo {
+    type: 'video';
+    durationMs: number;
+    url: string;
+    thumb: string;
+    available: boolean;
+    reason: string;
+    title: string;
+    description: string;
+    variants: TweetVideoVariant[];
+}
+
+type TweetMedia = TweetMediaPhoto | TweetMediaGif | TweetMediaVideo;
 
 export interface Tweet {
     id: string;
@@ -168,8 +191,9 @@ export interface Tweet {
     quote: Tweet | null;
     card: TweetCard | null;
     poll: TweetPoll | null;
-    gif: TweetGif | null;
-    gifs: TweetGif[] | null;
-    video: TweetVideo | null;
-    photos: string[] | null;
+    media: TweetMedia[] | null;
+    history: number[] | null;
+    note: string | null;
+    isAd: boolean;
+    isAI: boolean;
 }
