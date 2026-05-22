@@ -19,7 +19,7 @@ export const WorldCupModal = memo(function WorldCupModal() {
                     aria-label="Close"
                 />
             </div>
-            <div className="relative flex-1 md:rounded-t-[32px]">
+            <div className="no-scrollbar relative flex-1 md:rounded-t-[32px]">
                 <iframe
                     src={urlcat(SITE_URL, '/world-cup-iframe')}
                     className="size-full md:rounded-t-[32px]"
