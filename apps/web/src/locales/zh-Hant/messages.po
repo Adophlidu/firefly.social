@@ -715,6 +715,9 @@ msgstr "未發現惡意挖礦活動"
 msgid "<0>The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
 msgstr "<0>已創建代幣總量扣除已銷毀代幣（退出流通）。類似股市流通股數概念。</0><1>總供應量 = 鏈上供應量 - 已焚毀代幣</1>"
 
+msgid "Totals"
+msgstr ""
+
 msgid "Failed to vote."
 msgstr "投票失敗。"
 
@@ -1508,6 +1511,9 @@ msgstr "免費鑄造收集"
 
 msgid "Max"
 msgstr "最大值"
+
+msgid "Moneyline"
+msgstr ""
 
 msgid "Mute all"
 msgstr "全部隱藏"
@@ -2853,6 +2859,9 @@ msgstr "將於 <0>{0} <1>{1}</1></0> 發布"
 msgid "Properties"
 msgstr "屬性"
 
+msgid "Market"
+msgstr ""
+
 msgid "Executed"
 msgstr "已執行"
 
@@ -3424,6 +3433,9 @@ msgid "# Attention item"
 msgid_plural "# Attention items"
 msgstr[0] "# 中風險項"
 
+msgid "No chart data available"
+msgstr ""
+
 msgid "Hide more comments"
 msgstr "隱藏更多留言"
 
@@ -3474,6 +3486,9 @@ msgstr "貼紙"
 
 msgid "Estimated cost"
 msgstr "預估成本"
+
+msgid "{homeLabel} holders"
+msgstr ""
 
 msgid "No trade records"
 msgstr "這裡還沒有交易记录"
@@ -3596,6 +3611,9 @@ msgstr "5 分鐘"
 msgid "Display Name should not exceed {maxDisplayNameSize} characters"
 msgstr "名稱不得超過 {maxDisplayNameSize} 字元"
 
+msgid "{awayLabel} holders"
+msgstr ""
+
 msgid "ALL"
 msgstr "全部"
 
@@ -3715,6 +3733,9 @@ msgstr "交易量 · 市值"
 #. placeholder {0}: channel.name
 msgid "Failed to unmute /{0}."
 msgstr "取消隱藏 /{0} 失敗。"
+
+msgid "{formattedVol} Vol."
+msgstr ""
 
 msgid "Custom amount is required for this token"
 msgstr "此代幣需要自訂數額"
@@ -4236,6 +4257,9 @@ msgstr "沒有符合的用戶"
 msgid "✨ Turn on browser notifications to never miss a trade update."
 msgstr "✨ 啟用瀏覽器通知，交易資訊即時掌握。"
 
+msgid "Spreads"
+msgstr ""
+
 msgid "Quality filter"
 msgstr "優質內容篩選"
 
@@ -4267,6 +4291,9 @@ msgstr "最終結果"
 
 msgid "Grow your followers and engagement with Lucky Drop on Firefly!"
 msgstr "透過 Firefly 的紅包功能，提升你的粉絲數與互動率！"
+
+msgid "Watch Stream"
+msgstr ""
 
 msgid "Transaction failed"
 msgstr "交易失敗"
@@ -4498,6 +4525,9 @@ msgstr "兌換"
 
 msgid "Farcaster"
 msgstr "Farcaster"
+
+msgid "Away"
+msgstr ""
 
 msgid "Change Password"
 msgstr "變更密碼"

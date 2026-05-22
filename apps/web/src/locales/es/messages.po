@@ -719,6 +719,9 @@ msgstr "No se encontró ninguna actividad minera maliciosa."
 msgid "<0>The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
 msgstr "<0>La cantidad de tokens que se han creado menos la cantidad de tokens que han sido destruidos (retirados de la circulación). Equivale a las acciones en circulación en el mercado de valores. </0><1>Suministro total = suministro en cadena - tokens quemados</1>"
 
+msgid "Totals"
+msgstr ""
+
 msgid "Failed to vote."
 msgstr "La votación fracasó."
 
@@ -1515,6 +1518,9 @@ msgstr "Colección de casting gratis"
 
 msgid "Max"
 msgstr "máximo"
+
+msgid "Moneyline"
+msgstr ""
 
 msgid "Mute all"
 msgstr "Ocultar todo"
@@ -2868,6 +2874,9 @@ msgstr "Se publicará el <0>{0} <1>{1}</1></0>"
 msgid "Properties"
 msgstr "propiedad"
 
+msgid "Market"
+msgstr ""
+
 msgid "Executed"
 msgstr "Ejecutado"
 
@@ -3443,6 +3452,9 @@ msgid_plural "# Attention items"
 msgstr[0] "# elemento de atención"
 msgstr[1] "# elementos de atención"
 
+msgid "No chart data available"
+msgstr ""
+
 msgid "Hide more comments"
 msgstr "Ocultar más comentarios"
 
@@ -3493,6 +3505,9 @@ msgstr "etiqueta engomada"
 
 msgid "Estimated cost"
 msgstr "Costo estimado"
+
+msgid "{homeLabel} holders"
+msgstr ""
 
 msgid "No trade records"
 msgstr "Aún no hay registro de transacciones"
@@ -3615,6 +3630,9 @@ msgstr "5 minutos"
 msgid "Display Name should not exceed {maxDisplayNameSize} characters"
 msgstr "El nombre completo no puede exceder {maxDisplayNameSize} caracteres"
 
+msgid "{awayLabel} holders"
+msgstr ""
+
 msgid "ALL"
 msgstr "todo"
 
@@ -3736,6 +3754,9 @@ msgstr "Volumen de negociación · Capitalización de mercado"
 #. placeholder {0}: channel.name
 msgid "Failed to unmute /{0}."
 msgstr "Error al mostrar/{0}."
+
+msgid "{formattedVol} Vol."
+msgstr ""
 
 msgid "Custom amount is required for this token"
 msgstr "Este token requiere una cantidad personalizada"
@@ -4258,6 +4279,9 @@ msgstr "No se encontró ningún usuario coincidente"
 msgid "✨ Turn on browser notifications to never miss a trade update."
 msgstr "✨ Active las notificaciones del navegador para monitorear la dinámica de las transacciones en tiempo real."
 
+msgid "Spreads"
+msgstr ""
+
 msgid "Quality filter"
 msgstr "Filtrado de contenidos de calidad"
 
@@ -4289,6 +4313,9 @@ msgstr "resultado final"
 
 msgid "Grow your followers and engagement with Lucky Drop on Firefly!"
 msgstr "¡Utiliza la función de sobre rojo de Firefly para aumentar tu base de fans y tu tasa de interacción!"
+
+msgid "Watch Stream"
+msgstr ""
 
 msgid "Transaction failed"
 msgstr "La transacción falló"
@@ -4520,6 +4547,9 @@ msgstr "intercambio"
 
 msgid "Farcaster"
 msgstr "Teleyector"
+
+msgid "Away"
+msgstr ""
 
 msgid "Change Password"
 msgstr "Cambiar la contraseña"

@@ -11,6 +11,7 @@ interface TimeRangeSettingsProps {
     platform: PredictionPlatform;
     timeRange: BetsPriceTimeRange;
     onTimeRangeChange: (timeRange: BetsPriceTimeRange) => void;
+    className?: string;
 }
 
 function TimeRangeLabel({ timeRange }: { timeRange: BetsPriceTimeRange }) {
@@ -37,6 +38,7 @@ export const TimeRangeSettings = memo<TimeRangeSettingsProps>(function TimeRange
     platform,
     timeRange,
     onTimeRangeChange,
+    className,
 }) {
     const timeRanges = useMemo(
         () =>
@@ -59,7 +61,7 @@ export const TimeRangeSettings = memo<TimeRangeSettingsProps>(function TimeRange
     );
 
     return (
-        <div className="flex min-w-0 flex-1 flex-wrap items-center gap-1">
+        <div className={classNames('flex min-w-0 flex-1 flex-wrap items-center gap-1', className)}>
             {timeRanges.map((range) => (
                 <ClickableButton
                     key={range}

@@ -2,6 +2,7 @@
 
 import type { PredictionPlatform } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
+import type { ReactNode } from 'react';
 import { memo } from 'react';
 
 import { Loading } from '@/components/Loading.js';
@@ -42,6 +43,7 @@ interface Props {
     eventTitle?: string;
     eventId: string;
     currentTab: MarketsAccountTabType;
+    marketsContent?: ReactNode;
 }
 
 export const MarketsAccountDataTabContent = memo<Props>(function MarketsAccountDataTabContent({
@@ -52,10 +54,13 @@ export const MarketsAccountDataTabContent = memo<Props>(function MarketsAccountD
     eventTitle,
     eventId,
     currentTab,
+    marketsContent,
 }) {
     switch (currentTab) {
         case MarketsAccountTabType.Markets:
-            return (
+            return marketsContent ? (
+                marketsContent
+            ) : (
                 <PredictionMarketList
                     markets={markets}
                     platform={platform}

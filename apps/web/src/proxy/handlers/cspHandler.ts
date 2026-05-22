@@ -60,6 +60,7 @@ function buildCSP(): string {
 
         // polymarket
         '*.polymarket.com',
+        'wss://ws-subscriptions-clob.polymarket.com',
 
         'explorer-api.walletconnect.com',
         'pulse.walletconnect.org',
@@ -110,7 +111,7 @@ function buildCSP(): string {
     const workerSrc = ["'self'", ...EXTRA_SOURCES];
 
     // what iframe we can load, fallback to child-src, then default-src
-    const frameSrc = ["'self'", ...EXTRA_SOURCES];
+    const frameSrc = ["'self'", 'player.twitch.tv', 'clips.twitch.tv', ...EXTRA_SOURCES];
 
     const directives = [
         `default-src ${defaultSrc.join(' ')}`,

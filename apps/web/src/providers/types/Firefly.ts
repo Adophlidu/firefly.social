@@ -1245,6 +1245,64 @@ export interface BetsActivity {
     rawData: PolymarketMarketData;
     topicId: string;
     resolvedResult?: number;
+    sportData?: SportActivityData;
+    gameData?: SportActivityGameData;
+}
+
+export interface SportActivityTeam {
+    id?: number;
+    name?: string;
+    abbreviation?: string;
+    logo?: string;
+    color?: string;
+    record?: string;
+}
+
+export interface SportActivityScore {
+    score?: number[];
+    /** Tennis tie-break points for each side, rendered as score superscripts. */
+    memo?: number[];
+}
+
+export interface SportActivityData {
+    active?: boolean;
+    closed?: boolean;
+    ended?: boolean;
+    live?: boolean;
+    isDraw?: boolean;
+    drawTeams?: SportActivityTeam[];
+    marketTeams?: SportActivityTeam[];
+    gameId?: number;
+    startTime?: string;
+    livestreamInfo?: {
+        livestreamUrl?: string;
+        inWhiteList?: boolean;
+        playerUrl?: string;
+    };
+    leagueName?: string;
+    scoreShow?: SportActivityScore[];
+    scoreType?: number;
+    periodShow?: string;
+    winResult?: number;
+}
+
+export interface SportActivityGameData
+    extends Omit<SportActivityData, 'livestreamInfo' | 'periodShow' | 'scoreShow' | 'scoreType'> {
+    livestream_info?: {
+        livestreamUrl?: string;
+        livestream_url?: string;
+        inWhiteList?: boolean;
+        in_whitelist?: boolean;
+        playerUrl?: string;
+        player_url?: string;
+    };
+    livestreamInfo?: SportActivityData['livestreamInfo'];
+    period_show?: string;
+    periodShow?: string;
+    score_show?: SportActivityScore[];
+    scoreShow?: SportActivityScore[];
+    score_type?: number;
+    scoreType?: number;
 }
 
 export interface Project {

@@ -70,6 +70,14 @@ export interface PolymarketMarket {
     bestAsk?: number;
     bestBid?: number;
     eventStartTime?: string;
+    /** Sport fields */
+    gameId?: number;
+    sportsMarketType?: string;
+    line?: number;
+    teamAID?: number;
+    teamBID?: number;
+    teams?: PolymarketTeam[];
+    groupItemRange?: string;
 }
 
 export interface PolymarketSeries {
@@ -102,6 +110,70 @@ export interface PolymarketTag {
     updatedAt: string;
 }
 
+export interface PolymarketScore {
+    score?: number[];
+    /** Tennis tie-break points for each side, rendered as score superscripts. */
+    memo?: number[];
+}
+
+export enum PolymarketScoreType {
+    Unknown = 0,
+    Single = 1,
+    Multiple = 2,
+}
+
+export interface PolymarketLiveStreamInfo {
+    livestream_url?: string;
+    in_whitelist?: boolean;
+    player_url?: string;
+}
+
+export interface PolymarketTeam {
+    id?: number;
+    name?: string;
+    league?: string;
+    logo?: string;
+    abbreviation?: string;
+    color?: string;
+    record?: string;
+    alias?: string;
+}
+
+export interface PolymarketSportGroupedMarket {
+    sportsMarketType?: string;
+    displayName?: string;
+    volumeClob?: number;
+    marketCount?: number;
+    markets?: PolymarketSportGroupedMarketItem[];
+}
+
+export interface PolymarketSportGroupedMarketItem {
+    id?: string;
+    eventId?: string;
+    eventSlug?: string;
+    line?: number;
+    groupItemThreshold?: number;
+    groupItemTitle?: string;
+    outcomes?: string[];
+    outcomePrices?: string[];
+    volumeClob?: number;
+    slug?: string;
+    clobTokenIds?: string[];
+    conditionId?: string;
+    resolvedResult?: number;
+    umaResolutionStatus?: string;
+}
+
+export interface PolymarketSportDetail {
+    slug?: string;
+    eventId?: string;
+    title?: string;
+    teams?: PolymarketTeam[];
+    childEventIds?: string[];
+    eventSlugs?: string[];
+    groupedMarkets?: PolymarketSportGroupedMarket[];
+}
+
 export interface PolymarketEvent {
     id: string;
     slug: string;
@@ -132,6 +204,27 @@ export interface PolymarketEvent {
         priceToBeat?: number;
         finalPrice?: number;
     };
+    /** Sport fields */
+    live?: boolean;
+    ended?: boolean;
+    gameId?: number;
+    score?: string;
+    period?: string;
+    elapsed?: string;
+    gameStatus?: string;
+    finishedTimestamp?: string;
+    spreadsMainLine?: number;
+    totalsMainLine?: number;
+    score_show?: PolymarketScore[];
+    score_type?: PolymarketScoreType;
+    period_show?: string;
+    drawTeams?: PolymarketTeam[];
+    isDraw?: boolean;
+    winResult?: number;
+    leagueName?: string;
+    leagueId?: string;
+    sportId?: string;
+    livestream_info?: PolymarketLiveStreamInfo;
 }
 
 export interface PolymarketPriceHistory {

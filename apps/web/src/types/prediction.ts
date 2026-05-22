@@ -96,6 +96,10 @@ export interface BetsMarketDataForUI {
     active?: boolean;
     groupItemTitle?: string;
     groupItemThreshold?: string;
+    /** Sport fields */
+    sportsMarketType?: string;
+    line?: number;
+    groupTypeFF?: SportMarketGroupType;
 }
 
 export interface BetsEventTagForUI {
@@ -136,6 +140,7 @@ export interface BetsEventDataForUI {
         priceToBeat?: number;
         finalPrice?: number;
     };
+    sportData?: SportEventData;
 }
 
 export interface BetsTopHolderForUI {
@@ -170,4 +175,64 @@ export enum PredictionRecurrence {
     FourHours = '4h',
     Daily = 'daily',
     Hour = 'hourly',
+}
+
+export interface SportTeam {
+    id?: number;
+    name?: string;
+    abbreviation?: string;
+    logo?: string;
+    color?: string;
+    record?: string;
+}
+
+export interface SportScore {
+    score?: number[];
+    /** Tennis tie-break points for each side, rendered as score superscripts. */
+    memo?: number[];
+}
+
+export enum SportScoreType {
+    Unknown = 0,
+    Single = 1,
+    Multiple = 2,
+}
+
+export interface SportLiveStreamInfo {
+    livestreamUrl?: string;
+    inWhiteList?: boolean;
+    playerUrl?: string;
+}
+
+export interface SportEventData {
+    gameId: number;
+    live: boolean;
+    ended: boolean;
+    homeTeam: SportTeam;
+    awayTeam: SportTeam;
+    scores: SportScore[];
+    scoreType: SportScoreType;
+    period?: string;
+    startTime?: string;
+    livestreamInfo?: SportLiveStreamInfo;
+    winResult?: number;
+    isDraw: boolean;
+    leagueName?: string;
+    leagueSlug?: string;
+    spreadsMainLine?: number;
+    totalsMainLine?: number;
+}
+
+export enum SportMarketGroupType {
+    Moneyline = 'moneyline',
+    Spread = 'spread',
+    Total = 'total',
+    Other = 'other',
+}
+
+export interface SportGroupedMarkets {
+    moneyline: BetsMarketDataForUI[];
+    spread: BetsMarketDataForUI[];
+    total: BetsMarketDataForUI[];
+    other: BetsMarketDataForUI[];
 }

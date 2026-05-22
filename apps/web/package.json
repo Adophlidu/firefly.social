@@ -75,6 +75,8 @@
         "bs58": "^6.0.0",
         "canvas-confetti": "^1.9.3",
         "core-js": "3.42.0",
+        "d3-scale": "^4.0.2",
+        "d3-shape": "^3.2.0",
         "date-fns": "^2.30.0",
         "dayjs": "^1.11.13",
         "dayjs-twitter": "^0.5.0",
@@ -129,7 +131,6 @@
         "zustand": "^5.0.13"
     },
     "devDependencies": {
-        "@typescript/native-preview": "7.0.0-dev.20260515.1",
         "@dimensiondev/tolgee": "workspace:^",
         "@lingui/cli": "^5.9.5",
         "@lingui/conf": "^5.9.5",
@@ -151,6 +152,8 @@
         "@testing-library/react": "^16.3.2",
         "@tolgee/cli": "^2.16.1",
         "@types/canvas-confetti": "^1.9.0",
+        "@types/d3-scale": "^4.0.9",
+        "@types/d3-shape": "^3.1.8",
         "@types/lodash-es": "^4.17.12",
         "@types/mdast": "^4.0.4",
         "@types/node": "22.10.10",
@@ -159,6 +162,7 @@
         "@types/react-dom": "19.2.3",
         "@types/twemoji-parser": "^13.1.4",
         "@types/twitter-text": "^3.1.10",
+        "@typescript/native-preview": "7.0.0-dev.20260515.1",
         "autoprefixer": "10.4.27",
         "buffer": "^6.0.3",
         "core-js-compat": "^3.42.0",

@@ -3,7 +3,6 @@ import type { PredictionPlatform } from '@dimensiondev/enums';
 import { Locale } from '@dimensiondev/enums';
 import { runInSafeAsync } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
-import { first } from 'lodash-es';
 
 import { EventSeriesPills } from '@/components/Prediction/EventSeriesPills/index.js';
 // Client component for tracking
@@ -15,6 +14,7 @@ import { PredictionEventOverview } from '@/components/Prediction/PredictionEvent
 import { PredictionEventPageHeader } from '@/components/Prediction/PredictionEventPageHeader.js';
 import { PredictionMarketsAccountTab } from '@/components/Prediction/PredictionMarketsAccountTab/index.js';
 import { PredictionSingleChart } from '@/components/Prediction/PredictionSingleChart/index.js';
+import { SportEventDetailContent } from '@/components/Prediction/Sport/SportEventDetailContent.js';
 import { notFound } from '@/esm/navigation/server.js';
 import { setupLocaleFromParams } from '@/i18n/static.js';
 import { getEventDetail } from '@/providers/firefly/prediction/getEventDetail.js';
@@ -44,28 +44,37 @@ export async function PredictionEventDetailContent({ id, isMutil, platform }: Pr
 
     const event = translatedEvent || detail;
     const markets = event.markets || EMPTY_LIST;
-    const showResolution = markets.length === 1 && !!first(markets)?.statusList?.length;
+    const showResolution = markets.length === 1 && !!markets[0]?.statusList?.length;
     const eventSlug = id || event.id;
     const eventTitle = event.title;
-    const series = first(event.series || []);
+    const series = event.series?.[0];
+    const sportPageTitle = event.sportData
+        ? `${event.sportData.homeTeam.name || event.sportData.homeTeam.abbreviation || 'Home'} vs ${
+              event.sportData.awayTeam.name || event.sportData.awayTeam.abbreviation || 'Away'
+          }`
+        : null;
 
     return (
         <div className="pb-20">
             <PolymarketEventTracker platform={platform} eventSlug={id} detail={event} />
-            <PredictionEventPageHeader pageTitle={<Trans>Event detail</Trans>} />
-            <PredictionContextProvider event={event} translatedEvent={translatedEvent}>
-                <PredictionEventOverview />
-                <PredictionSingleChart />
-                {series?.recurrence ? <EventSeriesPills currentEvent={event} series={series} /> : null}
-                <PredictionMarketsAccountTab eventSlug={id} platform={platform} />
-                <PredictionBaseInfoTabs showResolution={showResolution} eventSlug={eventSlug} />
-                <PredictionBaseInfoTabContent
-                    showResolution={showResolution}
-                    platform={platform}
-                    eventSlug={eventSlug}
-                    eventTitle={eventTitle}
-                />
-            </PredictionContextProvider>
+            <PredictionEventPageHeader pageTitle={sportPageTitle || <Trans>Event detail</Trans>} />
+            {event.sportData ? (
+                <SportEventDetailContent event={event} />
+            ) : (
+                <PredictionContextProvider event={event} translatedEvent={translatedEvent}>
+                    <PredictionEventOverview />
+                    <PredictionSingleChart />
+                    {series?.recurrence ? <EventSeriesPills currentEvent={event} series={series} /> : null}
+                    <PredictionMarketsAccountTab eventSlug={id} platform={platform} />
+                    <PredictionBaseInfoTabs showResolution={showResolution} eventSlug={eventSlug} />
+                    <PredictionBaseInfoTabContent
+                        showResolution={showResolution}
+                        platform={platform}
+                        eventSlug={eventSlug}
+                        eventTitle={eventTitle}
+                    />
+                </PredictionContextProvider>
+            )}
         </div>
     );
 }

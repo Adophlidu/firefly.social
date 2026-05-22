@@ -1,21 +1,17 @@
 import type { ReactNode } from 'react';
 
-import { Advertisement } from '@/components/Advertisement/index.js';
-import { Calendar } from '@/components/Calendar/Calendar.js';
 import { ComposeWatcher } from '@/components/Compose/ComposeWatcher.js';
 import { ComposeButton } from '@/components/ComposeButton/index.js';
+import { DefaultRightSidebarContent } from '@/components/DefaultRightSidebarContent.js';
 import { IfPathname } from '@/components/IfPathname.js';
 import { LinkCloud } from '@/components/LinkCloud.js';
 import { NavigatorBar } from '@/components/NavigatorBar/index.js';
 import { AsideSearchBar, HeaderSearchBar } from '@/components/Search/SearchBar.js';
 import { SearchPredictionFilterSidebar } from '@/components/Search/SearchPredictionFilterSidebar.js';
-import { Section } from '@/components/Semantic/Section.js';
-import { SuggestedChannels } from '@/components/SuggestedChannels/SuggestedChannels.js';
-import { SuggestedFollows } from '@/components/SuggestedFollows/SuggestedFollows.js';
-import { WithinDiscover } from '@/components/WithinDiscover.js';
 
 const parallelSidebarPatterns: Array<`/${string}`> = [
     '/following/trades',
+    '/polymarket/event/:id',
     '/token/:symbol',
     '/token/cex/:coin',
     '/token/dex/:chain/:address',
@@ -48,6 +44,8 @@ export default async function Layout({ children, modal, sidebar, subnav }: Props
                             },
                             '/profile',
                             '/community',
+                            '/polymarket/event',
+                            '/opinion/event',
                             '/token',
                             '/nft',
                             '/auth',
@@ -75,25 +73,7 @@ export default async function Layout({ children, modal, sidebar, subnav }: Props
                             <IfPathname
                                 exact
                                 isOneOf={['/search/prediction']}
-                                otherwise={
-                                    <>
-                                        <Section title="Advertisement" className="mt-[26px]">
-                                            <Advertisement />
-                                        </Section>
-                                        <WithinDiscover
-                                            otherwise={
-                                                <>
-                                                    <SuggestedFollows />
-                                                    <SuggestedChannels />
-                                                </>
-                                            }
-                                        >
-                                            <Section title="Web3 Calendar">
-                                                <Calendar />
-                                            </Section>
-                                        </WithinDiscover>
-                                    </>
-                                }
+                                otherwise={<DefaultRightSidebarContent />}
                             >
                                 <SearchPredictionFilterSidebar />
                             </IfPathname>

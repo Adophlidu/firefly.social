@@ -715,6 +715,9 @@ msgstr "악성 채굴 활동이 발견되지 않았습니다."
 msgid "<0>The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
 msgstr "<0>이미 생성된 코인 수에서 소각(유통에서 제거)된 코인 수를 뺀 값입니다. 주식 시장의 유통 주식 수와 유사합니다.</0><1>총 공급량 = 온체인 공급량 - 소각된 토큰</1>"
 
+msgid "Totals"
+msgstr ""
+
 msgid "Failed to vote."
 msgstr "투표에 실패했습니다."
 
@@ -1508,6 +1511,9 @@ msgstr "무료 수집"
 
 msgid "Max"
 msgstr "최대"
+
+msgid "Moneyline"
+msgstr ""
 
 msgid "Mute all"
 msgstr "모두 숨기기"
@@ -2853,6 +2859,9 @@ msgstr "<0>{0} <1>{1}</1></0>에 발송 예정"
 msgid "Properties"
 msgstr "속성"
 
+msgid "Market"
+msgstr ""
+
 msgid "Executed"
 msgstr "실행됨"
 
@@ -3424,6 +3433,9 @@ msgid "# Attention item"
 msgid_plural "# Attention items"
 msgstr[0] "# 주의 항목"
 
+msgid "No chart data available"
+msgstr ""
+
 msgid "Hide more comments"
 msgstr "댓글 더 접기"
 
@@ -3474,6 +3486,9 @@ msgstr "스티커"
 
 msgid "Estimated cost"
 msgstr "예상 비용"
+
+msgid "{homeLabel} holders"
+msgstr ""
 
 msgid "No trade records"
 msgstr "거래 기록 없음"
@@ -3596,6 +3611,9 @@ msgstr "5분"
 msgid "Display Name should not exceed {maxDisplayNameSize} characters"
 msgstr "표시 이름은 {maxDisplayNameSize}자를 초과할 수 없습니다"
 
+msgid "{awayLabel} holders"
+msgstr ""
+
 msgid "ALL"
 msgstr "전체"
 
@@ -3715,6 +3733,9 @@ msgstr "거래량 · 시가총액"
 #. placeholder {0}: channel.name
 msgid "Failed to unmute /{0}."
 msgstr "/{0} 숨김 해제에 실패했습니다."
+
+msgid "{formattedVol} Vol."
+msgstr ""
 
 msgid "Custom amount is required for this token"
 msgstr "이 토큰에는 사용자 지정 금액이 필요합니다"
@@ -4236,6 +4257,9 @@ msgstr "일치하는 사용자가 없습니다"
 msgid "✨ Turn on browser notifications to never miss a trade update."
 msgstr "✨ 브라우저 알림을 켜고 거래 업데이트를 놓치지 마세요."
 
+msgid "Spreads"
+msgstr ""
+
 msgid "Quality filter"
 msgstr "품질 필터"
 
@@ -4267,6 +4291,9 @@ msgstr "최종 결과"
 
 msgid "Grow your followers and engagement with Lucky Drop on Firefly!"
 msgstr "Firefly 럭키 드롭으로 팔로워와 참여를 늘려 보세요!"
+
+msgid "Watch Stream"
+msgstr ""
 
 msgid "Transaction failed"
 msgstr "거래 실패"
@@ -4498,6 +4525,9 @@ msgstr "스왑"
 
 msgid "Farcaster"
 msgstr "Farcaster"
+
+msgid "Away"
+msgstr ""
 
 msgid "Change Password"
 msgstr "비밀번호 변경"

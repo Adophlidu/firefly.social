@@ -1307,7 +1307,7 @@ Packages with Single Version
  @types/d3-interpolate@3.0.4
  @types/d3-path@3.1.1
  @types/d3-scale@4.0.9
- @types/d3-shape@3.1.7
+ @types/d3-shape@3.1.8
  @types/d3-time@3.0.4
  @types/d3-timer@3.0.2
  @types/debug@4.1.13

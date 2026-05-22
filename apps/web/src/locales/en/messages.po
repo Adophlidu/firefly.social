@@ -719,6 +719,9 @@ msgstr "No malicious mining activities found."
 msgid "<0>The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
 msgstr "<0>The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
 
+msgid "Totals"
+msgstr "Totals"
+
 msgid "Failed to vote."
 msgstr "Failed to vote."
 
@@ -1515,6 +1518,9 @@ msgstr "Free Collect"
 
 msgid "Max"
 msgstr "Max"
+
+msgid "Moneyline"
+msgstr "Moneyline"
 
 msgid "Mute all"
 msgstr "Mute all"
@@ -2868,6 +2874,9 @@ msgstr "Will send on <0>{0} at <1>{1}</1></0>"
 msgid "Properties"
 msgstr "Properties"
 
+msgid "Market"
+msgstr "Market"
+
 msgid "Executed"
 msgstr "Executed"
 
@@ -3443,6 +3452,9 @@ msgid_plural "# Attention items"
 msgstr[0] "# Attention item"
 msgstr[1] "# Attention items"
 
+msgid "No chart data available"
+msgstr "No chart data available"
+
 msgid "Hide more comments"
 msgstr "Hide more comments"
 
@@ -3493,6 +3505,9 @@ msgstr "Stickers"
 
 msgid "Estimated cost"
 msgstr "Estimated cost"
+
+msgid "{homeLabel} holders"
+msgstr "{homeLabel} holders"
 
 msgid "No trade records"
 msgstr "No trade records"
@@ -3615,6 +3630,9 @@ msgstr "5 minutes"
 msgid "Display Name should not exceed {maxDisplayNameSize} characters"
 msgstr "Display Name should not exceed {maxDisplayNameSize} characters"
 
+msgid "{awayLabel} holders"
+msgstr "{awayLabel} holders"
+
 msgid "ALL"
 msgstr "ALL"
 
@@ -3736,6 +3754,9 @@ msgstr "Volume · MC"
 #. placeholder {0}: channel.name
 msgid "Failed to unmute /{0}."
 msgstr "Failed to unmute /{0}."
+
+msgid "{formattedVol} Vol."
+msgstr "{formattedVol} Vol."
 
 msgid "Custom amount is required for this token"
 msgstr "Custom amount is required for this token"
@@ -4258,6 +4279,9 @@ msgstr "No matching users"
 msgid "✨ Turn on browser notifications to never miss a trade update."
 msgstr "✨ Turn on browser notifications to never miss a trade update."
 
+msgid "Spreads"
+msgstr "Spreads"
+
 msgid "Quality filter"
 msgstr "Quality filter"
 
@@ -4289,6 +4313,9 @@ msgstr "Final results"
 
 msgid "Grow your followers and engagement with Lucky Drop on Firefly!"
 msgstr "Grow your followers and engagement with Lucky Drop on Firefly!"
+
+msgid "Watch Stream"
+msgstr "Watch Stream"
 
 msgid "Transaction failed"
 msgstr "Transaction failed"
@@ -4520,6 +4547,9 @@ msgstr "Swap"
 
 msgid "Farcaster"
 msgstr "Farcaster"
+
+msgid "Away"
+msgstr "Away"
 
 msgid "Change Password"
 msgstr "Change Password"

@@ -38,21 +38,16 @@ function OrderBookList({ data, emptyMessage, side, onPriceClick }: OrderBookList
 
     return (
         <ul>
-            {data.map((item, index) => (
-                <li key={`${side}-${index}`} className="h-[22px]">
+            {data.map((item) => (
+                <li key={`${side}-${item.price}`} className="h-[22px]">
                     <ClickableButton
                         className={classNames(
-                            'flex size-full items-center justify-between gap-1 text-left',
+                            'grid size-full grid-cols-[minmax(52px,1fr)_minmax(72px,1fr)_minmax(86px,1.1fr)] items-center gap-1 text-left',
                             isAsk ? 'hover:bg-danger/10' : 'hover:bg-success/10',
                         )}
                         onClick={() => onPriceClick?.(item.price)}
                     >
-                        <div
-                            className={classNames(
-                                'relative h-full flex-[2] shrink-0',
-                                isAsk ? 'text-danger' : 'text-success',
-                            )}
-                        >
+                        <div className={classNames('relative h-full min-w-0', isAsk ? 'text-danger' : 'text-success')}>
                             {(item.price * 100).toFixed(1)}¢
                             <div
                                 className={classNames(
@@ -64,8 +59,10 @@ function OrderBookList({ data, emptyMessage, side, onPriceClick }: OrderBookList
                                 }}
                             />
                         </div>
-                        <span className="flex-1 shrink-0">{toFixedTrimmed(item.size, 2)}</span>
-                        <span className="flex-1 shrink-0 text-right">${toFixedTrimmed(item.price * item.size, 2)}</span>
+                        <span className="min-w-0 truncate">{toFixedTrimmed(item.size, 2)}</span>
+                        <span className="min-w-0 truncate text-right">
+                            ${toFixedTrimmed(item.price * item.size, 2)}
+                        </span>
                     </ClickableButton>
                 </li>
             ))}
@@ -93,14 +90,14 @@ export const OrderBookUI = memo<OrderBookUIProps>(function OrderBookUI({
 
     return (
         <div>
-            <div className="text-second mb-2 flex items-center justify-between gap-1 text-left text-xs">
-                <span className="flex-[2] shrink-0">
+            <div className="text-second mb-2 grid grid-cols-[minmax(52px,1fr)_minmax(72px,1fr)_minmax(86px,1.1fr)] items-center gap-1 text-left text-xs">
+                <span className="min-w-0">
                     <Trans>Price</Trans>
                 </span>
-                <span className="flex-1 shrink-0">
+                <span className="min-w-0">
                     <Trans>Shares</Trans>
                 </span>
-                <span className="flex-1 shrink-0 text-right">
+                <span className="min-w-0 text-right">
                     <Trans>Total</Trans>
                 </span>
             </div>
@@ -111,13 +108,13 @@ export const OrderBookUI = memo<OrderBookUIProps>(function OrderBookUI({
                     emptyMessage={<Trans>No asks</Trans>}
                     onPriceClick={onPriceClick}
                 />
-                <div ref={forkedRef} className="text-third flex h-[14px] items-center">
-                    <span className="flex-1">
+                <div ref={forkedRef} className="text-third grid h-[14px] grid-cols-2 items-center gap-1">
+                    <span className="min-w-0 truncate">
                         <Trans id="bets-last-price" comment="Last: {lastPrice}">
                             Last: {lastPrice !== null ? `${(lastPrice * 100).toFixed(1)}¢` : '-'}
                         </Trans>
                     </span>
-                    <span className="flex-1">
+                    <span className="min-w-0 truncate">
                         <Trans>
                             Spread:{' '}
                             {spreads !== null && !!asks.length && !!bids.length

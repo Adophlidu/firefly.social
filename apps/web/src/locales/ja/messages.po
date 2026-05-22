@@ -715,6 +715,9 @@ msgstr "悪意のあるマイニング活動は検出されませんでした。
 msgid "<0>The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
 msgstr "<0>既に作成されたコインの数量から、バーン（流通から除外）されたコインを差し引いた量。株式市場における発行済み株式に相当します。</0><1>総供給量 = オンチェーン供給量 - バーン済みトークン</1>"
 
+msgid "Totals"
+msgstr ""
+
 msgid "Failed to vote."
 msgstr "投票に失敗しました。"
 
@@ -1508,6 +1511,9 @@ msgstr "無料コレクト"
 
 msgid "Max"
 msgstr "最大"
+
+msgid "Moneyline"
+msgstr ""
 
 msgid "Mute all"
 msgstr "すべてミュート"
@@ -2853,6 +2859,9 @@ msgstr "<0>{0} <1>{1}</1></0> に送信予定"
 msgid "Properties"
 msgstr "プロパティ"
 
+msgid "Market"
+msgstr ""
+
 msgid "Executed"
 msgstr "実行済み"
 
@@ -3424,6 +3433,9 @@ msgid "# Attention item"
 msgid_plural "# Attention items"
 msgstr[0] "# 注意項目"
 
+msgid "No chart data available"
+msgstr ""
+
 msgid "Hide more comments"
 msgstr "コメントを折りたたむ"
 
@@ -3474,6 +3486,9 @@ msgstr "ステッカー"
 
 msgid "Estimated cost"
 msgstr "推定コスト"
+
+msgid "{homeLabel} holders"
+msgstr ""
 
 msgid "No trade records"
 msgstr "取引記録がありません"
@@ -3596,6 +3611,9 @@ msgstr "5 分"
 msgid "Display Name should not exceed {maxDisplayNameSize} characters"
 msgstr "表示名は {maxDisplayNameSize} 文字以内にしてください"
 
+msgid "{awayLabel} holders"
+msgstr ""
+
 msgid "ALL"
 msgstr "すべて"
 
@@ -3715,6 +3733,9 @@ msgstr "取引量 · 時価総額"
 #. placeholder {0}: channel.name
 msgid "Failed to unmute /{0}."
 msgstr "/{0} のミュート解除に失敗しました。"
+
+msgid "{formattedVol} Vol."
+msgstr ""
 
 msgid "Custom amount is required for this token"
 msgstr "このトークンにはカスタム金額が必要です"
@@ -4236,6 +4257,9 @@ msgstr "一致するユーザーがありません"
 msgid "✨ Turn on browser notifications to never miss a trade update."
 msgstr "✨ 取引の更新を見逃さないよう、ブラウザ通知をオンにしてください。"
 
+msgid "Spreads"
+msgstr ""
+
 msgid "Quality filter"
 msgstr "品質フィルター"
 
@@ -4267,6 +4291,9 @@ msgstr "最終結果"
 
 msgid "Grow your followers and engagement with Lucky Drop on Firefly!"
 msgstr "Firefly のラッキードロップでフォロワーとエンゲージメントを増やしましょう！"
+
+msgid "Watch Stream"
+msgstr ""
 
 msgid "Transaction failed"
 msgstr "取引に失敗しました"
@@ -4498,6 +4525,9 @@ msgstr "スワップ"
 
 msgid "Farcaster"
 msgstr "Farcaster"
+
+msgid "Away"
+msgstr ""
 
 msgid "Change Password"
 msgstr "パスワードを変更"

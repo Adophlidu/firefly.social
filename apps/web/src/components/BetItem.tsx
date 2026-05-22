@@ -15,6 +15,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { Link } from '@/components/Link.js';
 import { BUTTON_COLORS } from '@/components/Prediction/PredictionActivityRate.js';
 import { PredictionEventImage } from '@/components/Prediction/PredictionEventImage.js';
+import { SportBetItem } from '@/components/Prediction/Sport/SportBetItem.js';
 import { Timer } from '@/components/RedPacket/Timer.js';
 import { bedStead } from '@/fonts/bedStead/index.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
@@ -279,6 +280,18 @@ export const BetItem = memo(function BetItem({
         const hoursSinceStart = dayjs(now).diff(dayjs(startTime), 'hour', true);
         return hoursSinceStart >= 0 && hoursSinceStart < 24;
     }, [event.startDate]);
+
+    if (event.sportData) {
+        return (
+            <SportBetItem
+                event={event}
+                platform={platform}
+                className={className}
+                openLinkInNewTab={openLinkInNewTab}
+                onLinkClick={onLinkClick}
+            />
+        );
+    }
 
     return (
         <Link

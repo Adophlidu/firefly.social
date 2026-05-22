@@ -2,6 +2,7 @@ import { BetsMarketResolveStatus, PredictionPlatform } from '@dimensiondev/enums
 import { parseJson } from '@dimensiondev/utils';
 import { first, last } from 'lodash-es';
 
+import { resolveSportData } from '@/helpers/prediction/polymarket/resolveSportData.js';
 import { resolveCryptoFromPolymarketEvent } from '@/providers/firefly/prediction/resolveCryptoFromPolymarketEvent.js';
 import { getPredictionRecurrenceFromPolymarketEvent } from '@/providers/prediction/polymarket/resolveCryptoUpDownFromEvent.js';
 import type { PolymarketEvent } from '@/providers/prediction/polymarket/type.js';
@@ -57,6 +58,7 @@ function fixRecurrence(recurrence: PredictionRecurrence, startTime?: string, end
 export function formatPolymarketEvent(detail: PolymarketEvent): BetsEventDataForUI {
     const isSameImage = detail.markets?.every((market) => market.image === detail.image);
 
+    const sportData = resolveSportData(detail);
     const markets: BetsMarketDataForUI[] = filterAndSortPolymarketMarkets(detail).map((market) => {
         const outcomeLabels = parseJson<string[]>(market.outcomes);
         const outcomeIds = parseJson<string[]>(market.clobTokenIds);
@@ -113,6 +115,9 @@ export function formatPolymarketEvent(detail: PolymarketEvent): BetsEventDataFor
             statusList,
             bestAsk: market.bestAsk,
             bestBid: market.bestBid,
+            groupItemThreshold: market.groupItemThreshold,
+            sportsMarketType: market.sportsMarketType,
+            line: market.line,
         };
     });
 
@@ -162,6 +167,7 @@ export function formatPolymarketEvent(detail: PolymarketEvent): BetsEventDataFor
                 originalRecurrence: s.recurrence,
                 recurrence: fixRecurrence(s.recurrence, detail.startTime, detail.endDate),
             })),
+        sportData,
     };
 }
 

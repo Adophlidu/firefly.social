@@ -4,7 +4,6 @@ import type { PredictionPlatform } from '@dimensiondev/enums';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { skipToken, useQuery } from '@tanstack/react-query';
-import { first } from 'lodash-es';
 import { memo, useCallback, useMemo, useRef, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
@@ -39,7 +38,7 @@ export const PredictionMarketOrderBook = memo<PredictionMarketOrderBookProps>(fu
     market,
     platform,
 }) {
-    const [outcomeId, setOutcomeId] = useState(first(market.outcomes)?.id || '');
+    const [outcomeId, setOutcomeId] = useState(market.outcomes[0]?.id || '');
     const [spread, setSpread] = useState<MarketOrderBookSpread>(SPREAD_SETTING_OPTIONS[0]);
     const lastPriceRef = useRef<HTMLDivElement>(null);
 

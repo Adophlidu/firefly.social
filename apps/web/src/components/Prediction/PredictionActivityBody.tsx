@@ -10,6 +10,7 @@ import { PredictionActivityRate } from '@/components/Prediction/PredictionActivi
 import { PredictionActivityResult } from '@/components/Prediction/PredictionActivityResult.js';
 import { PredictionActivityTxType } from '@/components/Prediction/PredictionActivityTxType.js';
 import { PredictionEventImage } from '@/components/Prediction/PredictionEventImage.js';
+import { SportTimelineActivityCard } from '@/components/Prediction/Sport/SportTimelineActivityCard.js';
 import { toFixedTrimmed } from '@/helpers/polymarket.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import type { BetsActivity } from '@/providers/types/Firefly.js';
@@ -47,7 +48,12 @@ export const PredictionActivityBody = memo<PredictionActivityBodyProps>(function
             ? compact([activity.parent_title, activity.title]).join(' - ')
             : activity.title;
 
-    const content = (
+    const content = activity.sportData ? (
+        <>
+            <PredictionActivityTxType type={activity.side} usdcSize={activity.usdcSize} platform={activity.platform} />
+            <SportTimelineActivityCard activity={activity} />
+        </>
+    ) : (
         <>
             <PredictionActivityTxType type={activity.side} usdcSize={activity.usdcSize} platform={activity.platform} />
             <div className="border-line mt-1.5 rounded-2xl border p-4">
