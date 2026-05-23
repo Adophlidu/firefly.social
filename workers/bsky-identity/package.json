@@ -14,14 +14,14 @@
     },
     "dependencies": {
         "@dimensiondev/workers-shared": "workspace:*",
-        "@hono/zod-validator": "^0.7.1",
-        "hono": "^4.8.5",
+        "@hono/zod-validator": "^0.7.6",
+        "hono": "^4.12.22",
         "zod": "^4.0.5"
     },
     "devDependencies": {
         "@cloudflare/workers-types": "^4.20251011.0",
         "@types/node": "^24.0.13",
-        "@typescript/native-preview": "7.0.0-dev.20260515.1",
+        "@typescript/native-preview": "7.0.0-dev.20260522.1",
         "wrangler": "^4.45.4"
     },
     "peerDependencies": {

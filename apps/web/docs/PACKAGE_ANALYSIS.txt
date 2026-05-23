@@ -4,7 +4,7 @@ Package Analysis
 Application: apps/web
 
 Total packages: 2491
-Packages with multiple versions: 478
+Packages with multiple versions: 479
 
 Legend:
   * = Direct dependency (listed in package.json for this app's scope)
@@ -356,6 +356,7 @@ Packages with Multiple Versions
  hasown@2.0.2,2.0.3
  hermes-estree@0.25.1,0.32.0,0.33.3,0.35.0
  hermes-parser@0.25.1,0.32.0,0.33.3,0.35.0
+ hono@4.12.18,4.12.22
  html-escaper@2.0.2,3.0.3
  htmlparser2@10.0.0,10.1.0
  idb-keyval@6.2.1,6.2.2
@@ -422,7 +423,7 @@ Packages with Multiple Versions
  picomatch@2.3.1,4.0.3,4.0.4
  pkg-dir@4.2.0,5.0.0
  pkg-types@1.3.1,2.3.0
-*postcss@8.4.31,8.5.14
+*postcss@8.4.31,8.5.15
  preact@10.24.2,10.27.2
  pretty-format@27.5.1,29.7.0,3.8.0
  promise@7.3.1,8.3.0
@@ -807,7 +808,7 @@ Packages with Single Version
  @grpc/proto-loader@0.7.13
 *@headlessui/react@2.2.10
 *@heroicons/react@2.2.0
- @hono/zod-validator@0.7.1
+ @hono/zod-validator@0.7.6
  @humanfs/core@0.19.1
  @humanfs/node@0.16.7
  @humanwhocodes/module-importer@1.0.1
@@ -1337,7 +1338,7 @@ Packages with Single Version
  @types/pako@2.0.3
  @types/parse-json@4.0.2
  @types/punycode@2.1.4
-*@types/react@19.2.14
+*@types/react@19.2.15
 *@types/react-avatar-editor@13.0.4
 *@types/react-dom@19.2.3
  @types/react-native@0.73.0
@@ -1352,14 +1353,14 @@ Packages with Single Version
  @types/webpack@5.28.5
  @types/yargs@17.0.33
  @types/yargs-parser@21.0.3
-*@typescript/native-preview@7.0.0-dev.20260515.1
- @typescript/native-preview-darwin-arm64@7.0.0-dev.20260515.1
- @typescript/native-preview-darwin-x64@7.0.0-dev.20260515.1
- @typescript/native-preview-linux-arm@7.0.0-dev.20260515.1
- @typescript/native-preview-linux-arm64@7.0.0-dev.20260515.1
- @typescript/native-preview-linux-x64@7.0.0-dev.20260515.1
- @typescript/native-preview-win32-arm64@7.0.0-dev.20260515.1
- @typescript/native-preview-win32-x64@7.0.0-dev.20260515.1
+*@typescript/native-preview@7.0.0-dev.20260522.1
+ @typescript/native-preview-darwin-arm64@7.0.0-dev.20260522.1
+ @typescript/native-preview-darwin-x64@7.0.0-dev.20260522.1
+ @typescript/native-preview-linux-arm@7.0.0-dev.20260522.1
+ @typescript/native-preview-linux-arm64@7.0.0-dev.20260522.1
+ @typescript/native-preview-linux-x64@7.0.0-dev.20260522.1
+ @typescript/native-preview-win32-arm64@7.0.0-dev.20260522.1
+ @typescript/native-preview-win32-x64@7.0.0-dev.20260522.1
  @ungap/structured-clone@1.3.0
  @unrs/resolver-binding-android-arm-eabi@1.11.1
  @unrs/resolver-binding-android-arm64@1.11.1
@@ -1832,7 +1833,6 @@ Packages with Single Version
  hey-listen@1.0.8
 *hls.js@1.6.16
  hmac-drbg@1.0.1
- hono@4.12.18
  hookable@6.1.1
  html-encoding-sniffer@6.0.0
  html-url-attributes@3.0.1

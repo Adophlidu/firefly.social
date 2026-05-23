@@ -68,3 +68,4 @@ docs/agents/
 
 .venv-translate/
 scripts/
+pr-list.md
