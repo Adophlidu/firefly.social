@@ -5,6 +5,7 @@ import { isSameEthereumAddress } from '@dimensiondev/web3/utils';
 import { first, sumBy } from 'lodash-es';
 import { getAddress } from 'viem';
 import { lens } from 'viem/chains';
+import { getAccount } from 'wagmi/actions';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { WalletAddressMismatchError } from '@/constants/error.js';
@@ -68,11 +69,11 @@ class LensPoll implements Provider {
             const currentProfile = getCurrentProfileFromStorage(Source.Lens) as Profile;
             if (!currentProfile?.profileId) throw new AuthenticationError('No profile found, please login first.');
 
-            const walletClient = await getWalletClientRequired(wagmiConfig, {
-                chainId: lens.id,
-            });
             const privyEvm = first(useFireflyWalletStore.getState().wallets.ethereum)?.address ?? null;
-            const currentAddress = walletClient.account.address;
+            const { connector } = getAccount(wagmiConfig);
+            if (!connector) throw new Error('Wallet not connected');
+            const [currentAddress] = await connector.getAccounts();
+            if (!currentAddress) throw new Error('Wallet not connected');
 
             const walletType = await runInSafeAsync(() =>
                 getWalletTypeToVote(currentProfile, currentAddress, privyEvm),
@@ -94,6 +95,10 @@ class LensPoll implements Provider {
             const accountForTx = isPrivy ? privyEvm : currentAddress;
             // Use silent Privy client whenever the signing address is the Firefly wallet
             const useSilentPrivy = !!privyEvm && !!accountForTx && isSameEthereumAddress(accountForTx, privyEvm);
+            const txClient = useSilentPrivy
+                ? await createPrivyWalletClient({ chainId: lens.id })
+                : await getWalletClientRequired(wagmiConfig, { chainId: lens.id });
+
             await Promise.all(
                 result.transactions.map(async (transaction) => {
                     const options = {
@@ -111,11 +116,7 @@ class LensPoll implements Provider {
                     };
 
                     const hash = await sendCustomEip712Transaction(wagmiConfig, lens.id, options, {
-                        client: useSilentPrivy
-                            ? await createPrivyWalletClient({
-                                  chainId: lens.id,
-                              })
-                            : undefined,
+                        client: txClient,
                         rpcUrl: transaction.RPC,
                         skipPrepare: true,
                     });
